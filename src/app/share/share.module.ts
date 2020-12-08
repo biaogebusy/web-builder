@@ -1,15 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  MatButtonModule,
-  MatCardModule,
-  MatIconModule,
-  MatAutocompleteModule,
-  MatInputModule,
-  MatToolbarModule,
-  MatListModule,
-} from '@angular/material';
-
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatInputModule } from '@angular/material/input';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
@@ -17,14 +13,12 @@ import { FlexLayoutModule } from '@angular/flex-layout';
   declarations: [],
   imports: [
     CommonModule,
-    CommonModule,
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
     MatCardModule,
     MatAutocompleteModule,
     MatInputModule,
-    MatListModule,
     FlexLayoutModule,
     MatGridListModule,
   ],
@@ -36,7 +30,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatCardModule,
     MatAutocompleteModule,
     MatInputModule,
-    MatListModule,
     FlexLayoutModule,
     MatGridListModule,
   ],

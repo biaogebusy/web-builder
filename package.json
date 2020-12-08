@@ -16,6 +16,7 @@
     "@angular/common": "~11.0.1",
     "@angular/compiler": "~11.0.1",
     "@angular/core": "~11.0.1",
+    "@angular/flex-layout": "^11.0.0-beta.33",
     "@angular/forms": "~11.0.1",
     "@angular/material": "^11.0.1",
     "@angular/platform-browser": "~11.0.1",
