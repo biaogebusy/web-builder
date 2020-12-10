@@ -1,3 +1,9 @@
-<app-header></app-header>
-<router-outlet></router-outlet>
-<app-footer></app-footer>
+<div class="main" fxFill fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start stretch">
+  <div class="sidebar" fxFlex.xs="100%" fxFlex.gt-xs="40%">
+    <app-header></app-header>
+    <router-outlet></router-outlet>
+  </div>
+  <div class="map-wrapper" fxFlex.xs="100%" fxFlex.gt-xs="60%">
+    <app-map></app-map>
+  </div>
+</div>
