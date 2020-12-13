@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatDividerModule } from '@angular/material/divider';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
@@ -19,6 +20,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatCardModule,
     MatAutocompleteModule,
     MatInputModule,
+    MatDividerModule,
     FlexLayoutModule,
     MatGridListModule,
   ],
@@ -30,6 +32,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatCardModule,
     MatAutocompleteModule,
     MatInputModule,
+    MatDividerModule,
     FlexLayoutModule,
     MatGridListModule,
   ],
