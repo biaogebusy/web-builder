@@ -1,0 +1,12 @@
+{
+  "jobs": [{
+    "id": 1,
+    "title": "戴文信息科技",
+    "position": "高级前端开发",
+    "wage": "8k - 10k",
+    "address": "创客城",
+    "skill": ["Angular", "React"],
+    "end": "20/12/2020",
+    "logo": "/assets/images/huawei.jpg"
+  }]
+}
