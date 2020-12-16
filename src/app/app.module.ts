@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrandingModule } from './branding/branding.module';
 import { AppComponent } from './app.component';
 import { MapComponent } from './map/map.component';
+import { JobModule } from './job/job.module';
 
 @NgModule({
   declarations: [AppComponent, MapComponent],
@@ -16,6 +17,7 @@ import { MapComponent } from './map/map.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     BrandingModule,
+    JobModule
   ],
   providers: [],
   bootstrap: [AppComponent],

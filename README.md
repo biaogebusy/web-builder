@@ -28,4 +28,4 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ### json serve
 `npm install -g json-server`
-`json-server --watch ../src/assets/app/db.json`
+`json-server --watch src/assets/app/db.json`

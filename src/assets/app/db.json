@@ -5,6 +5,46 @@
     "position": "高级前端开发",
     "wage": "8k - 10k",
     "address": "创客城",
+    "boon": "双休 午晚餐补 零食饮料水果免费",
+    "skill": ["Angular", "React"],
+    "end": "20/12/2020",
+    "logo": "/assets/images/huawei.jpg"
+  }, {
+    "id": 1,
+    "title": "与或非科技",
+    "position": "前端开发",
+    "wage": "4k - 8k",
+    "address": "南宁信息港",
+    "boon": "双休 午晚餐补 零食饮料水果免费",
+    "skill": ["Angular", "React"],
+    "end": "20/12/2020",
+    "logo": "/assets/images/huawei.jpg"
+  }, {
+    "id": 1,
+    "title": "轩妈食品",
+    "position": "java高级开发工程师",
+    "wage": "15k - 20k",
+    "address": "国凯大道19号",
+    "boon": "只要够牛，薪酬你来定",
+    "skill": ["Angular", "React"],
+    "end": "20/12/2020",
+    "logo": "/assets/images/huawei.jpg"
+  }, {
+    "id": 1,
+    "title": "撼动软件",
+    "position": "运维开发工程师",
+    "wage": "10k - 20k",
+    "address": "朝阳区四惠高碑店",
+    "boon": "长期稳定，按时发工资",
+    "skill": ["Angular", "React"],
+    "end": "20/12/2020",
+    "logo": "/assets/images/huawei.jpg"
+  }, {
+    "id": 1,
+    "title": "咪付",
+    "position": "AI算法研究工程师",
+    "wage": "15k - 30k",
+    "address": "中关村双创示范基地8号楼",
     "skill": ["Angular", "React"],
     "end": "20/12/2020",
     "logo": "/assets/images/huawei.jpg"
