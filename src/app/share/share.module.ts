@@ -9,6 +9,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDividerModule } from '@angular/material/divider';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [],
@@ -23,6 +25,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatDividerModule,
     FlexLayoutModule,
     MatGridListModule,
+    MatFormFieldModule,
+    MatSelectModule,
   ],
   exports: [
     CommonModule,
@@ -35,6 +39,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatDividerModule,
     FlexLayoutModule,
     MatGridListModule,
+    MatFormFieldModule,
+    MatSelectModule,
   ],
 })
 export class ShareModule {}
