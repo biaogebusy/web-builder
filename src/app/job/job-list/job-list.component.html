@@ -1,1 +1,23 @@
-<p>job-list works!</p>
+<div class="job-list" *ngIf="content" fxLayout="column" fxLayoutGap="1rem">
+  <div class="item" *ngFor="let item of content" fxLayout>
+    <div class="media">
+      <img [src]="item.logo" [alt]="item.company">
+    </div>
+    <div class="media-body" fxLayout="column" fxFlex="100">
+      <h4>{{item.company}}</h4>
+      <div class="info" fxLayout fxLayoutAlign="space-between center">
+        <div>{{item.position}}</div>
+        <div>{{item.wage}}</div>
+      </div>
+      <div class="misc">{{item.boon}}</div>
+      <div class="media-footer" fxLayout fxLayoutAlign="space-between center">
+        <div class="media-footer-left" fxLayout>
+          <div class="badge" *ngFor="let item of item.skill">{{item}}</div>
+        </div>
+        <div class="media-footer-right">
+          {{item.end}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

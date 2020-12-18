@@ -1,9 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
 @import './theme.scss';
 
+html {
+  font-size: 10px;
+}
+
 body {
   background-color: #fafafa;
   height: 100vh;
   width: 100vw;
   display: block;
+  font-size: 1.4rem;
 }

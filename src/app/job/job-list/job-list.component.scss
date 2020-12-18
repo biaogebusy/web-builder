@@ -1,0 +1,19 @@
+@import '/src/variable.scss';
+
+.job-list {
+  .item {
+    border: 1px solid $border-color;
+    padding: 2rem;
+    border-radius: 4px;
+  }
+}
+
+.media {
+  width: 8rem;
+  height: 8rem;
+  margin-right: 1rem;
+
+  img {
+    max-width: 100%;
+  }
+}

@@ -1,7 +1,7 @@
 {
   "jobs": [{
     "id": 1,
-    "title": "戴文信息科技",
+    "company": "戴文信息科技",
     "position": "高级前端开发",
     "wage": "8k - 10k",
     "address": "创客城",
@@ -11,7 +11,7 @@
     "logo": "/assets/images/huawei.jpg"
   }, {
     "id": 1,
-    "title": "与或非科技",
+    "company": "与或非科技",
     "position": "前端开发",
     "wage": "4k - 8k",
     "address": "南宁信息港",
@@ -21,7 +21,7 @@
     "logo": "/assets/images/huawei.jpg"
   }, {
     "id": 1,
-    "title": "轩妈食品",
+    "company": "轩妈食品",
     "position": "java高级开发工程师",
     "wage": "15k - 20k",
     "address": "国凯大道19号",
@@ -31,7 +31,7 @@
     "logo": "/assets/images/huawei.jpg"
   }, {
     "id": 1,
-    "title": "撼动软件",
+    "company": "撼动软件",
     "position": "运维开发工程师",
     "wage": "10k - 20k",
     "address": "朝阳区四惠高碑店",
@@ -41,7 +41,7 @@
     "logo": "/assets/images/huawei.jpg"
   }, {
     "id": 1,
-    "title": "咪付",
+    "company": "咪付",
     "position": "AI算法研究工程师",
     "wage": "15k - 30k",
     "address": "中关村双创示范基地8号楼",
