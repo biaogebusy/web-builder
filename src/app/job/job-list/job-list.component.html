@@ -3,10 +3,10 @@
     <div class="media">
       <img [src]="item.logo" [alt]="item.company">
     </div>
-    <div class="media-body" fxLayout="column" fxFlex="100">
-      <h4>{{item.company}}</h4>
+    <div class="media-body" fxLayout="column" fxFlex="100" fxLayoutGap="1rem">
+      <h4 class="title">{{item.company}}</h4>
       <div class="info" fxLayout fxLayoutAlign="space-between center">
-        <div>{{item.position}}</div>
+        <div class="position">{{item.position}}</div>
         <div>{{item.wage}}</div>
       </div>
       <div class="misc">{{item.boon}}</div>
