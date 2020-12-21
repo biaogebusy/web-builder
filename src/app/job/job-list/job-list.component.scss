@@ -7,16 +7,23 @@
     border: 1px solid $border-color;
     padding: 2rem;
     border-radius: 10px;
+    box-shadow: 0 10px 20px 2px rgb(0 0 0 / 7%);
+    cursor: pointer;
 
     .title {
-      font-size: 2rem;
+      font-size: 1.6rem;
     }
 
     .position {
-      font-size: 2rem;
+      font-size: 1.8rem;
       color: $black;
     }
   }
+}
+
+.result {
+  font-size: 1.6rem;
+  color: $black;
 }
 
 .media {
@@ -26,11 +33,21 @@
 
   img {
     max-width: 100%;
+    box-shadow: 0 4px 10px 1px rgb(0 0 0 / 7%);
   }
+}
+
+.media-footer-right {
+  font-size: small;
 }
 
 .badge {
   margin-right: 1.2rem;
   padding: 1.2rem;
   background-color: #f7f8fa;
+}
+
+.wage {
+  color: $second;
+  font-size: 1.6rem;
 }

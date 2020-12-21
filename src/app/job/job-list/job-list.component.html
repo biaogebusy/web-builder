@@ -1,4 +1,5 @@
-<div class="job-list" *ngIf="content" fxLayout="column" fxLayoutGap="1rem">
+<div class="job-list" *ngIf="content" fxLayout="column" fxLayoutGap="2rem">
+  <div class="result">总计 {{content.length}} 职位</div>
   <div class="item" *ngFor="let item of content" fxLayout>
     <div class="media">
       <img [src]="item.logo" [alt]="item.company">
@@ -7,7 +8,7 @@
       <h4 class="title">{{item.company}}</h4>
       <div class="info" fxLayout fxLayoutAlign="space-between center">
         <div class="position">{{item.position}}</div>
-        <div>{{item.wage}}</div>
+        <div class="wage">{{item.wage}}</div>
       </div>
       <div class="misc">{{item.boon}}</div>
       <div class="media-footer" fxLayout fxLayoutAlign="space-between center">
