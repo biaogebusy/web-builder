@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Service } from '../service/api.service';
+import { map, pick } from 'lodash';
 
 @Component({
   selector: 'app-job',
@@ -8,6 +9,7 @@ import { Service } from '../service/api.service';
 })
 export class JobComponent implements OnInit {
   nodes: any;
+  regions: any;
 
   constructor(private service: Service) {}
 
@@ -17,8 +19,10 @@ export class JobComponent implements OnInit {
 
   getNodes() {
     this.service.getNodes().subscribe((nodes) => {
-      console.log(nodes);
       this.nodes = nodes;
+      this.regions = map(this.nodes, 'region');
+      console.log(nodes);
+      console.log(this.regions);
     });
   }
 }

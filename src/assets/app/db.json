@@ -8,7 +8,8 @@
     "boon": "双休 午晚餐补 零食饮料水果免费",
     "skill": ["Angular", "React"],
     "end": "20/12/2020",
-    "logo": "/assets/images/huawei.jpg"
+    "logo": "/assets/images/huawei.jpg",
+    "region": "西乡塘区"
   }, {
     "id": 1,
     "company": "与或非科技",
@@ -18,7 +19,8 @@
     "boon": "双休 午晚餐补 零食饮料水果免费",
     "skill": ["Angular", "React"],
     "end": "20/12/2020",
-    "logo": "/assets/images/huawei.jpg"
+    "logo": "/assets/images/huawei.jpg",
+    "region": "青秀区"
   }, {
     "id": 1,
     "company": "轩妈食品",
@@ -28,7 +30,8 @@
     "boon": "只要够牛，薪酬你来定",
     "skill": ["Angular", "React"],
     "end": "20/12/2020",
-    "logo": "/assets/images/huawei.jpg"
+    "logo": "/assets/images/huawei.jpg",
+    "region": "青宁区"
   }, {
     "id": 1,
     "company": "撼动软件",
@@ -38,7 +41,8 @@
     "boon": "长期稳定，按时发工资",
     "skill": ["Angular", "React"],
     "end": "20/12/2020",
-    "logo": "/assets/images/huawei.jpg"
+    "logo": "/assets/images/huawei.jpg",
+    "region": "五象新区"
   }, {
     "id": 1,
     "company": "咪付",
@@ -47,6 +51,7 @@
     "address": "中关村双创示范基地8号楼",
     "skill": ["Angular", "React"],
     "end": "20/12/2020",
-    "logo": "/assets/images/huawei.jpg"
+    "logo": "/assets/images/huawei.jpg",
+    "region": "青秀区"
   }]
 }
