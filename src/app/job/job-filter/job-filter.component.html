@@ -1,6 +1,9 @@
-<mat-form-field appearance="fill" *ngIf="content">
-  <mat-label>区域</mat-label>
-  <mat-select>
-    <mat-option *ngFor="let option of content" value="{{option}}">{{option}}</mat-option>
-  </mat-select>
-</mat-form-field>
+<div>
+  <mat-form-field appearance="fill" *ngIf="content">
+    <mat-label>区域</mat-label>
+    <mat-select (selectionChange)="onSelectRegion($event)">
+      <mat-option value="all">全部</mat-option>
+      <mat-option *ngFor="let option of content" value="{{option}}">{{option}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>

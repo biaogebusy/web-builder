@@ -1,2 +1,2 @@
-<app-job-filter [content]="regions"></app-job-filter>
+<app-job-filter [content]="regions" (regionChange)="regionFilter($event)"></app-job-filter>
 <app-job-list [content]="nodes"></app-job-list>

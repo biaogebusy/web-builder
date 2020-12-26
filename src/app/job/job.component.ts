@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Service } from '../service/api.service';
-import { map, pick } from 'lodash';
+import { map, union } from 'lodash';
 
 @Component({
   selector: 'app-job',
@@ -20,9 +20,19 @@ export class JobComponent implements OnInit {
   getNodes() {
     this.service.getNodes().subscribe((nodes) => {
       this.nodes = nodes;
-      this.regions = map(this.nodes, 'region');
+      this.regions = union(map(this.nodes, 'region'));
       console.log(nodes);
       console.log(this.regions);
+    });
+  }
+
+  regionFilter(event: any) {
+    console.log(event);
+    if (event === 'all') {
+      this.getNodes();
+    }
+    this.service.nodeFilterByRegion(event).subscribe((nodes) => {
+      this.nodes = nodes;
     });
   }
 }

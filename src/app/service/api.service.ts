@@ -11,4 +11,8 @@ export class Service {
   getNodes() {
     return this.http.get(`${this.nodeGetPath}`);
   }
+
+  nodeFilterByRegion(region: string) {
+    return this.http.get(`${this.nodeGetPath}?region=${region}`);
+  }
 }
