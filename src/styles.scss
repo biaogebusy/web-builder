@@ -1,6 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
-@import './theme.scss';
+@import './theme/theme.scss';
 @import '~material-design-icons/iconfont/material-icons.css';
+@import './theme/mixins/mixins.scss';
+
+@include reset-styles();
 
 html {
   font-size: 10px;
@@ -8,10 +11,14 @@ html {
 
 body {
   background-color: #fafafa;
-  height: 100vh;
+  height: auto;
   width: 100vw;
+  max-width: 100%;
+  margin: 0;
   display: block;
   font-size: 1.4rem;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 h1,
