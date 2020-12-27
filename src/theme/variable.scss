@@ -55,4 +55,9 @@ $color-theme:( //
   success: (text: #3c763d, border: #b2dba1, bg: #dff0d8),
   light: (text: #fff, border: #fff, bg: #fff),
   dark: (text: #333, border: #333, bg: #333) //
-)
+);
+
+$spacer: 4rem;
+$font-size: 1.6rem;
+$font-size-sm: 1.4rem;
+$line-height: 1.618;
