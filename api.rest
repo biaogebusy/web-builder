@@ -1,0 +1,27 @@
+@base = https://nnitpai-cms.zhaobg.com
+@user = test
+@psw = test
+
+### user login
+# @name login
+POST {{base}}/user/login?_format=json HTTP/1.1
+content-type: application/json
+
+{"name": "{{user}}","pass": "{{psw}}"}
+
+###
+
+@logoutToken = {{login.response.body.logout_token}}
+
+### get user status
+GET {{base}}/user/login_status?_format=json HTTP/1.1
+
+### user logout
+POST {{base}}/user/logout?_format=json&token={{logoutToken}} HTTP/1.1
+
+### get all api
+GET {{base}}/jsonapi
+
+
+
+
