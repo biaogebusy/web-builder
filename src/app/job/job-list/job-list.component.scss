@@ -1,10 +1,11 @@
-@import '/src/variable.scss';
+@import '/src/theme/variable.scss';
+$dark: map-get($map: $color-theme, $key: dark);
+$shadow: map-get($map: $color-theme, $key: shadow);
 
 .job-list {
-  color: $primary;
 
   .item {
-    border: 1px solid $border-color;
+    border: 1px solid;
     padding: 2rem;
     border-radius: 10px;
     box-shadow: 0 10px 20px 2px rgb(0 0 0 / 7%);
@@ -16,14 +17,14 @@
 
     .position {
       font-size: 1.8rem;
-      color: $black;
+      color: map-get($dark, text)
     }
   }
 }
 
 .result {
-  font-size: 1.6rem;
-  color: $black;
+  font-size: 2.2rem;
+  color: map-get($dark, text);
 }
 
 .media {
@@ -44,10 +45,10 @@
 .badge {
   margin-right: 1.2rem;
   padding: 1.2rem;
-  background-color: #f7f8fa;
+  background-color: map-get($map: $shadow, $key: bg);
 }
 
 .wage {
-  color: $second;
+  color: $primary;
   font-size: 1.6rem;
 }

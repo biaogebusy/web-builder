@@ -1,5 +1,10 @@
-<div>
-  <mat-form-field appearance="fill" *ngIf="content">
+<div fxLayoutAlign="end center" fxLayoutGap="1rem" class="search-form-field m-y-sm">
+  <mat-form-field fxFlex="70" class="" appearance="fill">
+    <mat-label>搜索</mat-label>
+    <input type="text" matInput>
+    <mat-icon matSuffix class="text-primary">search</mat-icon>
+  </mat-form-field>
+  <mat-form-field fxFlex="30" appearance="fill" *ngIf="content">
     <mat-label>区域</mat-label>
     <mat-select (selectionChange)="onSelectRegion($event)">
       <mat-option value="all">全部</mat-option>

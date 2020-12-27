@@ -1,11 +1,15 @@
-.logo {
-  color: #6245e6;
-}
-
 .header {
   max-width: 670px;
 
   .header-container {
-    padding: 20px;
+    padding: 30px 0;
+  }
+}
+
+.main-menu {
+  .item {
+    a {
+      font-size: 1.8rem;
+    }
   }
 }

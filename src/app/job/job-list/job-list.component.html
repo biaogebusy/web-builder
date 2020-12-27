@@ -1,10 +1,10 @@
-<div class="job-list" *ngIf="content" fxLayout="column" fxLayoutGap="2rem">
+<div class="job-list text-base" *ngIf="content" fxLayout="column" fxLayoutGap="2rem">
   <div class="result">总计 {{content.length}} 职位</div>
-  <div class="item" *ngFor="let item of content" fxLayout>
+  <div class="item border-shadow" *ngFor="let item of content" fxLayout>
     <div class="media">
       <img [src]="item.logo" [alt]="item.company">
     </div>
-    <div class="media-body" fxLayout="column" fxFlex="100" fxLayoutGap="1rem">
+    <div class="media-body m-left-xs" fxLayout="column" fxFlex="100" fxLayoutGap="1rem">
       <h4 class="title">{{item.company}}</h4>
       <div class="info" fxLayout fxLayoutAlign="space-between center">
         <div class="position">{{item.position}}</div>
