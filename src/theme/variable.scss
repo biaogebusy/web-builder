@@ -1,3 +1,4 @@
+@import '~@angular/material/theming';
 $nnit-color: ( //
   50: #e8eaf6,
   100: #c5cae9,
@@ -44,7 +45,7 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 $primary: mat-color($uiux-app-primary);
 $accent: mat-color($uiux-app-accent);
 $warn: mat-color($uiux-app-warn);
-$text-color: #4d5b67;
+$text-color: #8c9ca7;
 $background-color: #fafafa;
 
 $color-theme:( //
@@ -54,7 +55,8 @@ $color-theme:( //
   warn: (text: $warn, border: $warn, bg: $warn),
   success: (text: #3c763d, border: #b2dba1, bg: #dff0d8),
   light: (text: #fff, border: #fff, bg: #fff),
-  dark: (text: #333, border: #333, bg: #333) //
+  shadow: (text: #333, border: #ccc, bg: #eee),
+  dark: (text: #4d5b67, border: #4d5b67, bg: #4d5b67) //
 );
 
 $spacer: 4rem;

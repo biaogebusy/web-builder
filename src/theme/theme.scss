@@ -1,9 +1,8 @@
-@import '~@angular/material/theming';
 @import './variable.scss';
 @import './mixins/mixins.scss';
 @import './utilities/utilities.scss';
-@include reset-styles();
 
+@include reset-styles();
 @include mat-core();
 
 @include angular-material-theme($uiux-app-theme);

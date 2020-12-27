@@ -26,6 +26,7 @@
   @include branding(map-get($colors, accent), 'accent');
   @include branding(map-get($colors, warn), 'warn');
   @include branding(map-get($colors, success), 'success');
+  @include branding(map-get($colors, shadow), 'shadow');
   @include branding(map-get($colors, light), 'light');
   @include branding(map-get($colors, dark), 'dark');
 }
