@@ -1,0 +1,31 @@
+@mixin branding($colors, $suffix) {
+
+  .text-#{$suffix} {
+    color: map-get($colors, text) !important;
+  }
+
+  .border-#{$suffix} {
+    border-color: map-get($colors, border) !important;
+  }
+
+  .bg-#{$suffix} {
+    background-color: map-get($colors, bg) !important;
+  }
+
+}
+
+@mixin colors($colors) {
+  $primary-colors: map-get($colors, primary);
+
+  a {
+    color: map-get($primary-colors, text)
+  }
+
+  @include branding(map-get($colors, base), 'base');
+  @include branding(map-get($colors, primary), 'primary');
+  @include branding(map-get($colors, accent), 'accent');
+  @include branding(map-get($colors, warn), 'warn');
+  @include branding(map-get($colors, success), 'success');
+  @include branding(map-get($colors, light), 'light');
+  @include branding(map-get($colors, dark), 'dark');
+}

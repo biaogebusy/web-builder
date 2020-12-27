@@ -1,5 +1,58 @@
-$primary: #8c9ca7;
-$second: #6245e6;
-$black: #4d5b67;
-$text-color: #708393;
-$border-color: #f1f3f6;
+$nnit-color: ( //
+  50: #e8eaf6,
+  100: #c5cae9,
+  200: #9fa8da,
+  300: #7986cb,
+  400: #5c6bc0,
+  500: #6245e6,
+  600: #3949ab,
+  700: #303f9f,
+  800: #283593,
+  900: #1a237e,
+  A100: #8c9eff,
+  A200: #536dfe,
+  A400: #3d5afe,
+  A700: #304ffe,
+  contrast: ( //
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $light-primary-text,
+    400: $light-primary-text,
+    500: $light-primary-text,
+    600: $light-primary-text,
+    700: $light-primary-text,
+    800: $light-primary-text,
+    900: $light-primary-text,
+    A100: $dark-primary-text,
+    A200: $light-primary-text,
+    A400: $light-primary-text,
+    A700: $light-primary-text,
+  ));
+
+$uiux-app-primary: mat-palette($nnit-color);
+$uiux-app-accent: mat-palette($mat-blue, A200, A100, A400);
+$uiux-app-warn: mat-palette($mat-red, A200, A100, A400);
+$uiux-app-theme: mat-light-theme($uiux-app-primary, $uiux-app-accent, $uiux-app-warn);
+
+// Define an alternate dark theme.
+$dark-primary: mat-palette($mat-blue-grey);
+$dark-accent: mat-palette($mat-amber, A200, A100, A400);
+$dark-warn: mat-palette($mat-deep-orange);
+$dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
+
+$primary: mat-color($uiux-app-primary);
+$accent: mat-color($uiux-app-accent);
+$warn: mat-color($uiux-app-warn);
+$text-color: #4d5b67;
+$background-color: #fafafa;
+
+$color-theme:( //
+  base: (text: $text-color, border: $text-color, bg: $background-color),
+  primary: (text:$primary, border: $primary, bg: $primary),
+  accent: (text: $accent, border: $accent, bg: $accent),
+  warn: (text: $warn, border: $warn, bg: $warn),
+  success: (text: #3c763d, border: #b2dba1, bg: #dff0d8),
+  light: (text: #fff, border: #fff, bg: #fff),
+  dark: (text: #333, border: #333, bg: #333) //
+)
