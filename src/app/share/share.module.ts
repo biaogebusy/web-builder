@@ -11,6 +11,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import { MatRippleModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [],
@@ -27,6 +28,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatGridListModule,
     MatFormFieldModule,
     MatSelectModule,
+    MatRippleModule,
   ],
   exports: [
     CommonModule,
@@ -41,6 +43,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatGridListModule,
     MatFormFieldModule,
     MatSelectModule,
+    MatRippleModule,
   ],
 })
 export class ShareModule {}

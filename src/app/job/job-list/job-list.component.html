@@ -1,6 +1,7 @@
 <div class="job-list text-base" *ngIf="content" fxLayout="column" fxLayoutGap="2rem">
   <div class="result">总计 {{content.length}} 职位</div>
-  <div class="item border-shadow" *ngFor="let item of content" fxLayout>
+  <div class="item border-shadow" matRipple [matRippleColor]="'rgba(0, 0, 0, 0.04)'" *ngFor="let item of content"
+    fxLayout>
     <div class="media" fxLayoutAlign="center center">
       <img [src]="item.logo" [alt]="item.company">
     </div>
