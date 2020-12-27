@@ -1,7 +1,7 @@
 <div class="job-list text-base" *ngIf="content" fxLayout="column" fxLayoutGap="2rem">
   <div class="result">总计 {{content.length}} 职位</div>
   <div class="item border-shadow" *ngFor="let item of content" fxLayout>
-    <div class="media">
+    <div class="media" fxLayoutAlign="center center">
       <img [src]="item.logo" [alt]="item.company">
     </div>
     <div class="media-body m-left-xs" fxLayout="column" fxFlex="100" fxLayoutGap="1rem">

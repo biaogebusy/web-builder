@@ -28,13 +28,15 @@ $shadow: map-get($map: $color-theme, $key: shadow);
 }
 
 .media {
-  width: 8rem;
-  height: 8rem;
+  width: 10rem;
+  height: 10rem;
   margin-right: 1rem;
+  border-radius: 4px;
 
   img {
     max-width: 100%;
     box-shadow: 0 4px 10px 1px rgb(0 0 0 / 7%);
+    padding: 1rem;
   }
 }
 
@@ -46,6 +48,7 @@ $shadow: map-get($map: $color-theme, $key: shadow);
   margin-right: 1.2rem;
   padding: 1.2rem;
   background-color: map-get($map: $shadow, $key: bg);
+  border-radius: 2px;
 }
 
 .wage {
