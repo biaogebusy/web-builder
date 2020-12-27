@@ -1,6 +1,7 @@
 @import '~@angular/material/theming';
-@import './mixins/mixins.scss';
 @import './variable.scss';
+@import './mixins/mixins.scss';
+@import './utilities/utilities.scss';
 @include reset-styles();
 
 @include mat-core();
