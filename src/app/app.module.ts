@@ -8,7 +8,9 @@ import { BrandingModule } from './branding/branding.module';
 import { AppComponent } from './app.component';
 import { MapComponent } from './map/map.component';
 import { JobModule } from './job/job.module';
-
+import { UserModule } from './user/user.module';
+import { MobxAngularModule } from 'mobx-angular';
+import { MobxModule } from './mobx/mobx.module';
 @NgModule({
   declarations: [AppComponent, MapComponent],
   imports: [
@@ -16,8 +18,11 @@ import { JobModule } from './job/job.module';
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    MobxAngularModule,
+    MobxModule.forRoot(),
     BrandingModule,
-    JobModule
+    JobModule,
+    UserModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
