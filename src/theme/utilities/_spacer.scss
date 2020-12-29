@@ -2,12 +2,12 @@
   padding: $spacer * 0.25;
 }
 
-.p-sm,
-.p {
+.p-sm {
   padding: $spacer * 0.5;
 }
 
-.p-md {
+.p-md,
+.p {
   padding: $spacer * 1;
 }
 
@@ -24,13 +24,13 @@
   padding-right: $spacer * 0.25;
 }
 
-.p-x-sm,
-.p-x {
+.p-x-sm {
   padding-left: $spacer * 0.5;
   padding-right: $spacer * 0.5;
 }
 
-.p-x-md {
+.p-x-md,
+.p-x {
   padding-left: $spacer * 1;
   padding-right: $spacer * 1;
 }
@@ -45,8 +45,7 @@
   padding-right: $spacer * 3;
 }
 
-.p-y-xs,
-.p-y {
+.p-y-xs {
   padding-top: $spacer * 0.25;
   padding-bottom: $spacer * 0.25;
 }
@@ -56,7 +55,8 @@
   padding-bottom: $spacer * 0.5;
 }
 
-.p-y-md {
+.p-y-md,
+.p-y {
   padding-top: $spacer * 1;
   padding-bottom: $spacer * 1;
 }
@@ -75,12 +75,12 @@
   padding-top: $spacer * 0.25;
 }
 
-.p-top-sm,
-.p-top {
+.p-top-sm {
   padding-top: $spacer * 0.5;
 }
 
-.p-top-md {
+.p-top-md,
+.p-top {
   padding-top: $spacer * 1;
 }
 
@@ -96,12 +96,12 @@
   padding-right: $spacer * 0.25;
 }
 
-.p-right-sm,
-.p-right {
+.p-right-sm {
   padding-right: $spacer * 0.5;
 }
 
-.p-right-md {
+.p-right-md,
+.p-right {
   padding-right: $spacer * 1;
 
 }
@@ -114,8 +114,7 @@
   padding-right: $spacer * 3;
 }
 
-.p-bottom-xs,
-.p-bottom {
+.p-bottom-xs {
   padding-bottom: $spacer * 0.25;
 }
 
@@ -123,7 +122,8 @@
   padding-bottom: $spacer * 0.5;
 }
 
-.p-bottom-md {
+.p-bottom-md,
+.p-bottom {
   padding-bottom: $spacer * 1;
 }
 
@@ -139,12 +139,12 @@
   padding-left: $spacer * 0.25;
 }
 
-.p-left-sm,
-.p-left {
+.p-left-sm {
   padding-left: $spacer * 0.5;
 }
 
-.p-left-md {
+.p-left-md,
+.p-left {
   padding-left: $spacer * 1;
 }
 
@@ -160,12 +160,12 @@
   margin: $spacer * 0.25;
 }
 
-.m-sm,
-.m {
+.m-sm {
   margin: $spacer * 5;
 }
 
-.m-md {
+.m-md,
+.m {
   margin: $spacer * 1;
 }
 
@@ -182,13 +182,13 @@
   margin-right: $spacer * 0.25;
 }
 
-.m-x-sm,
-.m-x {
+.m-x-sm {
   margin-left: $spacer * 0.5;
   margin-right: $spacer * 0.5;
 }
 
-.m-x-md {
+.m-x-md,
+.m-x {
   margin-left: $spacer * 1;
   margin-right: $spacer * 1;
 }
@@ -208,13 +208,13 @@
   margin-bottom: $spacer * .25;
 }
 
-.m-y-sm,
-.m-y {
+.m-y-sm {
   margin-top: $spacer * .5;
   margin-bottom: $spacer * .5;
 }
 
-.m-y-md {
+.m-y-md,
+.m-y {
   margin-top: $spacer * 1;
   margin-bottom: $spacer * 1;
 }
@@ -233,12 +233,12 @@
   margin-top: $spacer * .25;
 }
 
-.m-top-sm,
-.m-top {
+.m-top-sm {
   margin-top: $spacer * .5;
 }
 
-.m-top-md {
+.m-top-md,
+.m-top {
   margin-top: $spacer * 1;
 }
 
@@ -254,12 +254,12 @@
   margin-right: $spacer * .25;
 }
 
-.m-right-sm,
-.m-right {
+.m-right-sm {
   margin-right: $spacer * .5;
 }
 
-.m-right-md {
+.m-right-md,
+.m-right {
   margin-right: $spacer * 1;
 }
 
@@ -275,12 +275,12 @@
   margin-bottom: $spacer * .25;
 }
 
-.m-bottom-sm,
-.m-bottom {
+.m-bottom-sm {
   margin-bottom: $spacer * .5;
 }
 
-.m-bottom-md {
+.m-bottom-md,
+.m-bottom {
   margin-bottom: $spacer * 1;
 }
 
@@ -296,12 +296,12 @@
   margin-left: $spacer * .25;
 }
 
-.m-left-sm,
-.m-left {
+.m-left-sm {
   margin-left: $spacer * .5;
 }
 
-.m-left-md {
+.m-left-md,
+.m-left {
   margin-left: $spacer * 1;
 }
 
