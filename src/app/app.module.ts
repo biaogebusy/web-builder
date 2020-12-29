@@ -6,13 +6,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { BrandingModule } from './branding/branding.module';
 import { AppComponent } from './app.component';
-import { MapComponent } from './map/map.component';
 import { JobModule } from './job/job.module';
 import { UserModule } from './user/user.module';
 import { MobxAngularModule } from 'mobx-angular';
 import { MobxModule } from './mobx/mobx.module';
 @NgModule({
-  declarations: [AppComponent, MapComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
