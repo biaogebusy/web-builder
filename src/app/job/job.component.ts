@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Service } from '../service/api.service';
+import { ApiService } from '../service/api.service';
 import { map, union } from 'lodash';
 
 @Component({
@@ -11,14 +11,14 @@ export class JobComponent implements OnInit {
   nodes: any;
   regions: any;
 
-  constructor(private service: Service) {}
+  constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {
     this.getNodes();
   }
 
   getNodes() {
-    this.service.getNodes().subscribe((nodes) => {
+    this.apiService.getNodes().subscribe((nodes) => {
       this.nodes = nodes;
       this.regions = union(map(this.nodes, 'region'));
       console.log(nodes);
@@ -31,7 +31,7 @@ export class JobComponent implements OnInit {
     if (event === 'all') {
       this.getNodes();
     }
-    this.service.nodeFilterByRegion(event).subscribe((nodes) => {
+    this.apiService.nodeFilterByRegion(event).subscribe((nodes) => {
       this.nodes = nodes;
     });
   }

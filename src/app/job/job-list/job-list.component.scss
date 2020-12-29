@@ -1,4 +1,4 @@
-@import '/src/theme/variable.scss';
+@import '/src/theme/variable/variable.scss';
 $dark: map-get($map: $color-theme, $key: dark);
 $shadow: map-get($map: $color-theme, $key: shadow);
 

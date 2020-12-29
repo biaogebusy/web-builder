@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import 'rxjs/add/operator/map';
 import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
 import { map } from 'rxjs/operators';
 @Injectable({
