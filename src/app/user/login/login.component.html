@@ -1,1 +1,30 @@
-<p>login works!</p>
+<div class="login-container" fxFill fxLayoutAlign="center center">
+  <div class="login-wrapper m-y-xl m-x" fxLayout>
+    <div class="login-second" fxFlex.xs="100" fxFlex.gt-xs="60">
+      <img src="/assets/images/login-second.png" alt="">
+    </div>
+    <div class="login-form p-x p-y" fxFlex.xs="100" fxFlex.gt-xs="40" fxLayout="column" fxLayoutAlign="center center">
+      <div class="width-100">
+        <h2 class="mat-h1">登录</h2>
+        <p class="text-base">欢迎登录南宁IT派CMS内容管理系统</p>
+        <br>
+        <form fxLayout="column">
+          <mat-form-field appearance="fill">
+            <mat-label>用户名</mat-label>
+            <mat-icon matSuffix>person</mat-icon>
+            <input matInput>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>密码</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+          </mat-form-field>
+          <button mat-raised-button color="primary">登录</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

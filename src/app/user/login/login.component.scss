@@ -1,0 +1,25 @@
+.login-wrapper {
+  max-width: 1280px;
+  background-color: #fff;
+  border-radius: 20px;
+  box-shadow: 0 2px 1px -1px rgba(0, 0, 0, .2),
+    0 1px 1px 0 rgba(0, 0, 0, .14),
+    0 1px 3px 0 rgba(0, 0, 0, .12);
+}
+
+.login-second {
+  img {
+    max-width: 100%;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+  }
+}
+
+input.example-right-align::-webkit-outer-spin-button,
+input.example-right-align::-webkit-inner-spin-button {
+  display: none;
+}
+
+input.example-right-align {
+  -moz-appearance: textfield;
+}
