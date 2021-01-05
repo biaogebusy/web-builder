@@ -12,6 +12,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRippleModule } from '@angular/material/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [],
@@ -29,6 +31,7 @@ import { MatRippleModule } from '@angular/material/core';
     MatFormFieldModule,
     MatSelectModule,
     MatRippleModule,
+    ReactiveFormsModule
   ],
   exports: [
     CommonModule,
@@ -44,6 +47,8 @@ import { MatRippleModule } from '@angular/material/core';
     MatFormFieldModule,
     MatSelectModule,
     MatRippleModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
 })
 export class ShareModule {}

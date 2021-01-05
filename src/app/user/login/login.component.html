@@ -8,21 +8,21 @@
         <h2 class="mat-h1">登录</h2>
         <p class="text-base">欢迎登录南宁IT派CMS内容管理系统</p>
         <br>
-        <form fxLayout="column">
+        <form fxLayout="column" [formGroup]="userForm" (ngSubmit)="onSubmit()">
           <mat-form-field appearance="fill">
             <mat-label>用户名</mat-label>
             <mat-icon matSuffix>person</mat-icon>
-            <input matInput>
+            <input matInput formControlName="name">
           </mat-form-field>
           <mat-form-field appearance="fill">
             <mat-label>密码</mat-label>
-            <input matInput [type]="hide ? 'password' : 'text'">
+            <input matInput [type]="hide ? 'password' : 'text'" formControlName="pass">
             <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
               [attr.aria-pressed]="hide">
               <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
           </mat-form-field>
-          <button mat-raised-button color="primary">登录</button>
+          <button type="submit" mat-raised-button color="primary">登录</button>
         </form>
       </div>
     </div>
