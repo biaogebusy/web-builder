@@ -6,9 +6,10 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { ShareModule } from '../share/share.module';
+import { MenuComponent } from './header/menu/menu.component';
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent],
+  declarations: [HeaderComponent, FooterComponent, MenuComponent],
   imports: [ShareModule, BrowserAnimationsModule, FlexLayoutModule],
   exports: [FlexLayoutModule, HeaderComponent, FooterComponent],
 })

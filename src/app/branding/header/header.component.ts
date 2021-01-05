@@ -7,7 +7,9 @@ import { ScreenState} from '../../mobx/screen/ScreenState.service';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit, AfterViewInit {
-  @ViewChild('header', {read: ElementRef}) header: ElementRef;
+  sticky = false;
+
+  @ViewChild('menu', {read: ElementRef}) menu: ElementRef;
   constructor(
     private screen: ScreenService,
     private screenState: ScreenState
@@ -18,9 +20,9 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {}
 
   ngAfterViewInit(){
-    console.log(this.header)
+    console.log(this.menu)
     this.screenState.scroll$.subscribe(()=>{
-      console.log(this.screen.isElementInViewport(this.header.nativeElement))
+      this.sticky = !this.screen.isElementInViewport(this.menu.nativeElement);
     })
   }
 }
