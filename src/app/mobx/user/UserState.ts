@@ -12,6 +12,8 @@ const unauthUser = {
 @Injectable()
 export class UserState {
   @observable private user: IUser = unauthUser;
+  @observable public error = '';
+  @observable public loading = false;
 
   get currentUser() {
     return Object.assign({}, this.user);
@@ -24,8 +26,14 @@ export class UserState {
 
   @action
   login(userName: string, passWord: string, item: string) {
-    this.apiService.login(userName, passWord).subscribe((data) => {
+    this.loading = true;
+    this.apiService.login(userName, passWord).subscribe(data => {
       this.updateUser(data, item);
+    },
+    error =>{
+      console.log(error)
+      this.loading = false;
+      this.error = error.error.message;
     });
   }
 
@@ -36,6 +44,7 @@ export class UserState {
       .subscribe((res) => {
         const id = res.id;
         this.apiService.getUser(id, item).subscribe((user) => {
+          this.loading = false;
           this.user = user;
           userDetails = Object.assign(data, user);
           this.storage.set(item, JSON.stringify(userDetails));

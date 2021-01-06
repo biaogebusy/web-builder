@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder,Validators } from '@angular/forms';
+import { UserState } from '../../mobx/user/UserState';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -10,7 +11,8 @@ export class LoginComponent implements OnInit {
   userForm: FormGroup;
 
   constructor(
-   private fb: FormBuilder
+   private fb: FormBuilder,
+   private userState: UserState
   ) {
 
   }
@@ -31,6 +33,8 @@ export class LoginComponent implements OnInit {
     if(this.userForm.invalid){
       return;
     }
+
+    this.userState.login(this.userForm.value.name, this.userForm.value.pass, 'currentUser');
   }
 
 }

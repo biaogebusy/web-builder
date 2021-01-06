@@ -38,7 +38,7 @@ export class ApiService {
   httpOptions(token: any) {
     const httpOptions = {
       headers: new HttpHeaders({
-        Accept: 'application/vnd.api+json',
+        'Accept': 'application/vnd.api+json',
         'Content-Type': 'application/vnd.api+json',
         'X-CSRF-Token': token,
       }),
@@ -48,9 +48,12 @@ export class ApiService {
   }
 
   login(userName: string, passWord: string) {
-    const headers = new HttpHeaders({
-      Accept: 'application/json',
-    });
+    const httpOptions = {
+      headers: new HttpHeaders({
+      'Content-type': 'application/json'
+    }),
+    withCredentials: true,
+    }
 
     return this.http.post<any>(
       `${this.apiUrl}${this.loginPath}?_format=json`,
@@ -58,10 +61,7 @@ export class ApiService {
         name: userName,
         pass: passWord,
       },
-      {
-        headers,
-        withCredentials: true,
-      }
+      httpOptions
     );
   }
 

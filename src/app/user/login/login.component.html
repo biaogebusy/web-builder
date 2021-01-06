@@ -5,6 +5,8 @@
     </div>
     <div class="login-form p-x p-y" fxFlex.xs="100" fxFlex.gt-xs="40" fxLayout="column" fxLayoutAlign="center center">
       <div class="width-100">
+        <div *ngIf="userState.error" class="error bg-warn text-light p-y-xs p-x-xs m-bottom-xs">{{userState.error}}
+        </div>
         <h2 class="mat-h1">登录</h2>
         <p class="text-base">欢迎登录南宁IT派CMS内容管理系统</p>
         <br>
@@ -22,7 +24,12 @@
               <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
           </mat-form-field>
-          <button type="submit" mat-raised-button color="primary">登录</button>
+          <button type="submit" mat-raised-button color="primary">
+            <div fxLayoutAlign="center center">
+              <mat-spinner diameter="20" color="accent" *ngIf="userState.loading"></mat-spinner>
+              <div class="p-x-xs">登录</div>
+            </div>
+          </button>
         </form>
       </div>
     </div>

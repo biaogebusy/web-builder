@@ -20,7 +20,6 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {}
 
   ngAfterViewInit(){
-    console.log(this.menu)
     this.screenState.scroll$.subscribe(()=>{
       this.sticky = !this.screen.isElementInViewport(this.menu.nativeElement);
     })
