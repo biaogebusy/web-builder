@@ -1,6 +1,6 @@
 {
   "editor.fontSize": 14,
-  "window.zoomLevel": 1,
+  "window.zoomLevel": 0.85,
   "editor.tabSize": 2,
   "beautify.tabSize": 2,
   "editor.detectIndentation": false,
