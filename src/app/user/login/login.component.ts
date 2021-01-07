@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder,Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserState } from '../../mobx/user/UserState';
 @Component({
   selector: 'app-login',
@@ -11,8 +11,8 @@ export class LoginComponent implements OnInit {
   userForm: FormGroup;
 
   constructor(
-   private fb: FormBuilder,
-   private userState: UserState
+    private fb: FormBuilder,
+    private userState: UserState
   ) {
 
   }
@@ -20,17 +20,17 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.userForm = this.fb.group({
       name: ['', Validators.required],
-      pass: ['',Validators.required]
-    })
+      pass: ['', Validators.required]
+    });
   }
 
-  get f(){
+  get f() {
     return this.userForm.controls;
   }
 
-  onSubmit(){
-    console.log(this.userForm.value)
-    if(this.userForm.invalid){
+  onSubmit() {
+    console.log(this.userForm.value);
+    if (this.userForm.invalid) {
       return;
     }
 

@@ -10,13 +10,13 @@ export class ApiService {
   apiUrl = 'https://nnitpai-cms.zhaobg.com';
   loginPath = '/user/login';
   userIdGetPath = '/jsonapi';
-  userGetPath = '/jsonapi/user-info';
+  userGetPath = '/jsonapi/user/user';
 
   nodeGetPath = 'http://localhost:3000/jobs';
   constructor(
     private http: HttpClient,
     @Inject(LOCAL_STORAGE) private storage: StorageService
-  ) {}
+  ) { }
 
   getNodes() {
     return this.http.get(`${this.nodeGetPath}`);
@@ -35,10 +35,10 @@ export class ApiService {
     }
   }
 
-  httpOptions(token: any) {
+  httpOptions(token: any): any {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Accept': 'application/vnd.api+json',
+        Accept: 'application/vnd.api+json',
         'Content-Type': 'application/vnd.api+json',
         'X-CSRF-Token': token,
       }),
@@ -47,13 +47,13 @@ export class ApiService {
     return httpOptions;
   }
 
-  login(userName: string, passWord: string) {
+  login(userName: string, passWord: string): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
-      'Content-type': 'application/json'
-    }),
-    withCredentials: true,
-    }
+        'Content-type': 'application/json'
+      }),
+      withCredentials: true,
+    };
 
     return this.http.post<any>(
       `${this.apiUrl}${this.loginPath}?_format=json`,
@@ -65,41 +65,41 @@ export class ApiService {
     );
   }
 
-  getCurrentUserId(uid: string, item: string): Observable<any> {
-    const csrfToken = this.getToken(item, 'csrf_token');
-    return this.http
-      .get<any>(
-        `${this.apiUrl}${this.userGetPath}?filter[drupal_internal__uid]=${uid}`,
-        this.httpOptions(csrfToken)
-      )
-      .pipe(
-        map((res) => {
-          return {
-            id: res.data[0].id,
-          };
-        })
-      );
+  getCurrentUserId(uid: string): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-type': 'application/json'
+      }),
+      withCredentials: true,
+    };
+    return this.http.get<any>(
+      `${this.apiUrl}${this.userGetPath}?filter[drupal_internal__uid]=${uid}`, httpOptions
+    ).pipe(
+      map(res => {
+        return {
+          id: res.data[0].id,
+        };
+      })
+    );
   }
 
   getUser(id: string, item: string): Observable<any> {
     const csrfToken = this.getToken(item, 'csrf_token');
-    return this.http
-      .get<any>(
-        `${this.apiUrl}${this.userGetPath}?filter[id]=${id}`,
-        this.httpOptions(csrfToken)
-      )
-      .pipe(
-        map((user) => {
-          const detail = user.data[0];
-          const info = detail.attributes;
+    return this.http.get<any>(
+      `${this.apiUrl}${this.userGetPath}?filter[id]=${id}`, this.httpOptions(csrfToken)
+    ).pipe(
+      map(res => {
+        console.log(res)
+        const detail = res.data[0];
+        const info = detail.attributes;
 
-          return {
-            id: detail.id,
-            display_name: info.display_name,
-            mail: info.mail,
-            authenticated: true,
-          };
-        })
-      );
+        return {
+          id: detail.id,
+          display_name: info.display_name,
+          mail: info.mail,
+          authenticated: true,
+        };
+      })
+    );
   }
 }
