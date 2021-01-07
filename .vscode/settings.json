@@ -7,12 +7,16 @@
   "files.trimTrailingWhitespace": true,
   "editor.formatOnSave": true,
   "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
+  "workbench.editor.enablePreview": false,
   "editor.minimap.enabled": false,
   "editor.wordWrap": "on",
   "editor.wrappingIndent": "indent",
+  "html.format.enable": true,
   "eslint.options": {
     "configFile": "./.vscode/.eslintrc.json"
   },
+  "workbench.colorTheme": "One Monokai",
+  "workbench.iconTheme": "material-icon-theme",
   "eslint.run": "onSave",
   "editor.accessibilitySupport": "off",
   "git.ignoreMissingGitWarning": true,
@@ -20,5 +24,6 @@
   "git.confirmSync": false,
   "git.autofetch": true,
   "files.eol": "\n",
-  "gitlens.currentLine.enabled": false
+  "gitlens.currentLine.enabled": false,
+  "editor.defaultFormatter": "HookyQR.beautify"
 }
