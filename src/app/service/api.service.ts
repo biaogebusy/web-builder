@@ -35,7 +35,7 @@ export class ApiService {
     }
   }
 
-  httpOptions(token: any): any {
+  httpOptions(token: string): Object {
     const httpOptions = {
       headers: new HttpHeaders({
         Accept: 'application/vnd.api+json',
@@ -76,6 +76,7 @@ export class ApiService {
       `${this.apiUrl}${this.userGetPath}?filter[drupal_internal__uid]=${uid}`, httpOptions
     ).pipe(
       map(res => {
+        console.log(res)
         return {
           id: res.data[0].id,
         };
@@ -90,7 +91,7 @@ export class ApiService {
     ).pipe(
       map(res => {
         console.log(res)
-        const detail = res.data[0];
+        const detail = res['data'][0];
         const info = detail.attributes;
 
         return {
