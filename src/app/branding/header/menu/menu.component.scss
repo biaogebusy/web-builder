@@ -2,6 +2,7 @@
 
 .header {
   box-shadow: 0 1px 3px rgba(18, 18, 18, .1);
+  border-top: 2px solid $primary;
 
   .header-container {}
 }
@@ -9,7 +10,8 @@
 .main-menu {
   .item {
     a {
-      font-size: 1.8rem;
+      font-size: 1.6rem;
+      font-weight: 700;
 
       &:hover,
       &:focus,
