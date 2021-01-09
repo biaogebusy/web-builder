@@ -12,7 +12,7 @@ import { UtilitiesService } from '../../../service/utilities.service';
 export class MenuComponent implements OnInit, OnDestroy {
   constructor(
     public userState: UserState,
-    private utilities: UtilitiesService,
+    public utilities: UtilitiesService,
     private router: Router
   ) { }
 

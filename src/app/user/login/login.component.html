@@ -5,32 +5,41 @@
     </div>
     <div class="login-form p-x p-y" fxFlex.xs="100" fxFlex.gt-xs="40" fxLayout="column" fxLayoutAlign="center center">
       <div class="width-100">
-        <div *ngIf="userState.error" class="error bg-warn text-light p-y-xs p-x-xs m-bottom-xs">{{userState.error}}
-        </div>
-        <h2 class="mat-h1">登录</h2>
-        <p class="text-base">欢迎登录 NNITPAY CMS DEMO</p>
-        <br>
-        <form fxLayout="column" [formGroup]="userForm" (ngSubmit)="login()">
-          <mat-form-field appearance="fill">
-            <mat-label>用户名</mat-label>
-            <mat-icon matSuffix>person</mat-icon>
-            <input matInput formControlName="name">
-          </mat-form-field>
-          <mat-form-field appearance="fill">
-            <mat-label>密码</mat-label>
-            <input matInput [type]="hide ? 'password' : 'text'" formControlName="pass">
-            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-              [attr.aria-pressed]="hide">
-              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        <ng-container *ngIf="!userState.anthenticated">
+          <div *ngIf="userState.error" class="error bg-warn text-light p-y-xs p-x-xs m-bottom-xs">{{userState.error}}
+          </div>
+          <h2 class="mat-h1">登录</h2>
+          <p class="text-base">欢迎登录 NNITPAY CMS DEMO</p>
+          <br>
+          <form fxLayout="column" [formGroup]="userForm" (ngSubmit)="login()">
+            <mat-form-field appearance="fill">
+              <mat-label>用户名</mat-label>
+              <mat-icon matSuffix>person</mat-icon>
+              <input matInput formControlName="name">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label>密码</mat-label>
+              <input matInput [type]="hide ? 'password' : 'text'" formControlName="pass">
+              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+            </mat-form-field>
+            <button type="submit" mat-raised-button color="primary">
+              <div fxLayoutAlign="center center">
+                <mat-spinner diameter="20" color="accent" *ngIf="userState.loading"></mat-spinner>
+                <div class="p-x-xs">登录</div>
+              </div>
             </button>
-          </mat-form-field>
-          <button type="submit" mat-raised-button color="primary">
-            <div fxLayoutAlign="center center">
-              <mat-spinner diameter="20" color="accent" *ngIf="userState.loading"></mat-spinner>
-              <div class="p-x-xs">登录</div>
-            </div>
-          </button>
-        </form>
+          </form>
+        </ng-container>
+        <ng-container *ngIf="userState.anthenticated">
+          <h1 class="mat-h1 text-base">
+            Hi,{{userState.currentUser.display_name}}
+          </h1>
+          <mat-divider></mat-divider>
+          <p class="text-base">欢迎。</p>
+        </ng-container>
       </div>
     </div>
   </div>
