@@ -8,12 +8,11 @@ import { UserState } from './mobx/user/UserState';
 export class AppComponent implements OnInit {
   authenticated: boolean;
   constructor(
-    private userState: UserState
-  ){
+    public userState: UserState
+  ) {
     this.authenticated = false;
   }
 
-  ngOnInit(){
-    this.authenticated = this.userState.anthenticated;
+  ngOnInit() {
   }
 }

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { IUser } from '../../../mobx/user/IUser';
+import { UserState } from '../../../mobx/user/UserState';
 
 @Component({
   selector: 'app-menu',
@@ -6,8 +8,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit {
-
-  constructor() { }
+  constructor(
+    public userState: UserState
+  ) { }
 
   ngOnInit(): void {
   }

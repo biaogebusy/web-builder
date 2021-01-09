@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { action, observable } from 'mobx-angular';
+import { action, observable, computed } from 'mobx-angular';
 import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
 import { IUser } from './IUser';
 import { ApiService } from '../../service/api.service';
@@ -11,24 +11,27 @@ const unauthUser = {
 
 @Injectable()
 export class UserState {
-  @observable private user: IUser = unauthUser;
+  @observable public user: IUser = unauthUser;
   @observable public error = '';
   @observable public loading = false;
 
-  get currentUser(): IUser {
+  @computed get currentUser(): IUser {
     return Object.assign({}, this.user);
   }
 
   constructor(
     private apiService: ApiService,
     @Inject(LOCAL_STORAGE) private storage: StorageService
-  ) { }
+  ) {
+    if (this.storage.get('currentUser')) {
+      this.user = JSON.parse(this.storage.get('currentUser'));
+    }
+  }
 
   @action
   login(userName: string, passWord: string, item: string): any {
     this.loading = true;
     this.apiService.login(userName, passWord).subscribe(data => {
-      console.log(data)
       this.updateUser(data, item);
     },
       error => {
@@ -38,6 +41,7 @@ export class UserState {
       });
   }
 
+  @action
   updateUser(data: any, item: string): any {
     let userDetails = {};
     this.apiService.getCurrentUserId(data.current_user.uid).subscribe(res => {
@@ -53,11 +57,8 @@ export class UserState {
     });
   }
 
-  get anthenticated(): boolean {
-    if (this.storage.get('currentUser')) {
-      return this.apiService.getToken('currentUser', 'authenticated');
-    } else {
-      return false;
-    }
+  @computed
+  get anthenticated() {
+    return this.user.authenticated;
   }
 }

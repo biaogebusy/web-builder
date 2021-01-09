@@ -12,7 +12,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private userState: UserState
+    public userState: UserState
   ) {
 
   }
