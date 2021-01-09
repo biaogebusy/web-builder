@@ -2,9 +2,9 @@ import { Inject, Injectable } from '@angular/core';
 import { action, observable, computed } from 'mobx-angular';
 import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
 import { IUser } from './IUser';
-import { ApiService } from '../../service/api.service';
 import { first } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { UserService } from '../../service/user.service';
 
 const unauthUser = {
   authenticated: false,
@@ -23,7 +23,7 @@ export class UserState {
   }
 
   constructor(
-    private apiService: ApiService,
+    private userService: UserService,
     @Inject(LOCAL_STORAGE) private storage: StorageService
   ) {
     if (this.storage.get('currentUser')) {
@@ -34,7 +34,7 @@ export class UserState {
   @action
   login(userName: string, passWord: string, item: string): any {
     this.loading = true;
-    this.apiService.login(userName, passWord).subscribe(data => {
+    this.userService.login(userName, passWord).subscribe(data => {
       this.updateUser(data, item);
     },
       error => {
@@ -53,9 +53,10 @@ export class UserState {
   @action
   updateUser(data: any, item: string): any {
     let userDetails = {};
-    this.apiService.getCurrentUserId(data.current_user.uid).subscribe(res => {
+    this.userService.getCurrentUserId(data.current_user.uid).subscribe(res => {
       const id = res.id;
-      this.apiService.getUser(id, item).subscribe(user => {
+      this.userService.getUser(id, item).subscribe(user => {
+        console.log(user)
         this.loading = false;
         this.user = user;
         this.user$.next(user);
