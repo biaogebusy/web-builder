@@ -4,6 +4,7 @@ import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
 import { IUser } from './IUser';
 import { ApiService } from '../../service/api.service';
 import { first } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 const unauthUser = {
   authenticated: false,
@@ -14,6 +15,8 @@ export class UserState {
   @observable public user: IUser = unauthUser;
   @observable public error = '';
   @observable public loading = false;
+
+  user$ = new Subject<IUser>();
 
   @computed get currentUser(): IUser {
     return Object.assign({}, this.user);
@@ -35,30 +38,35 @@ export class UserState {
       this.updateUser(data, item);
     },
       error => {
-        console.log(error)
         this.loading = false;
         this.error = error.error.message;
       });
   }
 
   @action
+  logout(): any {
+    this.user$.next(unauthUser);
+    this.user = unauthUser;
+    this.storage.remove('currentUser');
+  }
+
+  @action
   updateUser(data: any, item: string): any {
     let userDetails = {};
     this.apiService.getCurrentUserId(data.current_user.uid).subscribe(res => {
-      console.log(res)
       const id = res.id;
       this.apiService.getUser(id, item).subscribe(user => {
         this.loading = false;
         this.user = user;
+        this.user$.next(user);
         userDetails = Object.assign(data, user);
-        console.log(userDetails)
         this.storage.set(item, JSON.stringify(userDetails));
       });
     });
   }
 
   @computed
-  get anthenticated() {
-    return this.user.authenticated;
+  get anthenticated(): boolean {
+    return !!this.user.authenticated;
   }
 }

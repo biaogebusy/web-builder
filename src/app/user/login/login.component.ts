@@ -1,18 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UserState } from '../../mobx/user/UserState';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   hide = true;
   userForm: FormGroup;
 
   constructor(
     private fb: FormBuilder,
-    public userState: UserState
+    public userState: UserState,
+    private router: Router
   ) {
 
   }
@@ -22,19 +24,32 @@ export class LoginComponent implements OnInit {
       name: ['', Validators.required],
       pass: ['', Validators.required]
     });
+
+    this.userState.user$.subscribe(user => {
+      console.log(user)
+      if (user.authenticated) {
+        setTimeout(() => {
+          this.router.navigate(['/home']);
+        }, 2000);
+      }
+    });
   }
 
   get f() {
     return this.userForm.controls;
   }
 
-  onSubmit() {
+  login() {
     console.log(this.userForm.value);
     if (this.userForm.invalid) {
       return;
     }
 
     this.userState.login(this.userForm.value.name, this.userForm.value.pass, 'currentUser');
+  }
+
+  ngOnDestroy() {
+    this.userState.user$.unsubscribe();
   }
 
 }

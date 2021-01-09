@@ -1,16 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IUser } from '../../../mobx/user/IUser';
 import { UserState } from '../../../mobx/user/UserState';
+import { UtilitiesService } from '../../../service/utilities.service';
 
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss']
 })
-export class MenuComponent implements OnInit {
+export class MenuComponent implements OnInit, OnDestroy {
   constructor(
     public userState: UserState,
+    private utilities: UtilitiesService,
     private router: Router
   ) { }
 
@@ -26,8 +28,8 @@ export class MenuComponent implements OnInit {
     this.userState.logout();
   }
 
-  getIndexTitle(title: string) {
-    return title.substring(0, 1);
+  ngOnDestroy() {
+    this.userState.user$.unsubscribe();
   }
 
 }

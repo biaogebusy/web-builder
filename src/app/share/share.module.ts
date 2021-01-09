@@ -13,9 +13,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRippleModule } from '@angular/material/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [],
@@ -35,7 +35,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     MatRippleModule,
     ReactiveFormsModule,
     MatProgressBarModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatMenuModule
   ],
   exports: [
     CommonModule,
@@ -54,7 +55,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     FormsModule,
     ReactiveFormsModule,
     MatProgressBarModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatMenuModule
   ],
 })
-export class ShareModule {}
+export class ShareModule { }

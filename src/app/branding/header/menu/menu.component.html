@@ -24,7 +24,7 @@
       </div>
       <div class="user">
         <button mat-mini-fab color="primary" mat-button [matMenuTriggerFor]="menu">
-          <h3 class="name">{{getIndexTitle(userState.currentUser?.display_name)}}</h3>
+          <h3 class="name">{{utilities.getIndexTitle(userState.currentUser?.display_name)}}</h3>
         </button>
         <mat-menu #menu="matMenu">
           <button mat-menu-item>
