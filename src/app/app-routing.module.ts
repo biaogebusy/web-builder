@@ -22,7 +22,11 @@ const routes: Routes = [
   },
 
   // otherwise redirect to home
-  { path: '**', redirectTo: '', canActivate: [AuthGuard] }
+  {
+    path: '**',
+    redirectTo: '',
+    canActivate: [AuthGuard]
+  }
 ];
 
 @NgModule({
