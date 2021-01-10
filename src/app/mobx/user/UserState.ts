@@ -5,6 +5,7 @@ import { IUser } from './IUser';
 import { first } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { UserService } from '../../service/user.service';
+import { ApiService } from '../../service/api.service';
 
 const unauthUser = {
   authenticated: false,
@@ -24,10 +25,11 @@ export class UserState {
 
   constructor(
     private userService: UserService,
-    @Inject(LOCAL_STORAGE) private storage: StorageService
+    @Inject(LOCAL_STORAGE) private storage: StorageService,
+    private apiService: ApiService
   ) {
-    if (this.storage.get('currentUser')) {
-      this.user = JSON.parse(this.storage.get('currentUser'));
+    if (this.storage.get(this.apiService.localUserKey)) {
+      this.user = JSON.parse(this.storage.get(this.apiService.localUserKey));
     }
   }
 
@@ -47,7 +49,7 @@ export class UserState {
   logout(): any {
     this.user$.next(unauthUser);
     this.user = unauthUser;
-    this.storage.remove('currentUser');
+    this.storage.remove(this.apiService.localUserKey);
   }
 
   @action

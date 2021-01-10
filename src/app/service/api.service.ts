@@ -10,9 +10,12 @@ export class ApiService {
   apiUrl = 'https://nnitpai-cms.zhaobg.com';
   loginPath = '/user/login';
   userIdGetPath = '/jsonapi';
+  nodeGetPath = '/jsonapi/node';
   userGetPath = '/jsonapi/user/user';
+  jobNodeType = 'recruitment';
+  localUserKey = 'currentUser';
 
-  nodeGetPath = 'http://localhost:3000/jobs';
+  // nodeGetPath = 'http://localhost:3000/jobs';
   constructor(
     private http: HttpClient,
     @Inject(LOCAL_STORAGE) private storage: StorageService
@@ -33,6 +36,14 @@ export class ApiService {
     } else {
       return false;
     }
+  }
+
+  get csrfToken() {
+    return this.getToken(this.localUserKey, 'csrf_token');
+  }
+
+  getApi(api: string): Observable<any> {
+    return this.http.get<any>(api, this.httpOptions(this.csrfToken));
   }
 
   httpOptions(token: string): Object {

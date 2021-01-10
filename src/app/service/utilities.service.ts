@@ -7,7 +7,7 @@ export class UtilitiesService {
 
   constructor() { }
 
-  getIndexTitle(title: string) {
+  getIndexTitle(title: string): string {
     return title.substring(0, 1);
   }
 }

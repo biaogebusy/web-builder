@@ -2,22 +2,22 @@
   <div class="result">总计 {{content.length}} 职位</div>
   <div class="item border-shadow" matRipple [matRippleColor]="'rgba(0, 0, 0, 0.04)'" *ngFor="let item of content"
     fxLayout>
-    <div class="media" fxLayoutAlign="center center">
+    <div class="media" fxLayoutAlign="center center" *ngIf="item?.logo">
       <img [src]="item.logo" [alt]="item.company">
     </div>
     <div class="media-body m-left-xs" fxLayout="column" fxFlex="100" fxLayoutGap="1rem">
-      <h4 class="title">{{item.company}}</h4>
+      <h4 class="title" *ngIf="item?.company">{{item.company}}</h4>
       <div class="info" fxLayout fxLayoutAlign="space-between center">
-        <div class="position">{{item.position}}</div>
-        <div class="wage">{{item.wage}}</div>
+        <div class="position" *ngIf="item?.title">{{item.title}}</div>
+        <div class="wage" *ngIf="item?.salary">{{item.salary}}</div>
       </div>
-      <div class="misc">{{item.boon}}</div>
+      <div class="misc" *ngIf="item?.welfare">{{item.welfare}}</div>
       <div class="media-footer" fxLayout fxLayoutAlign="space-between center">
-        <div class="media-footer-left" fxLayout>
+        <div class="media-footer-left" fxLayout *ngIf="item?.skill">
           <div class="badge" *ngFor="let item of item.skill">{{item}}</div>
         </div>
-        <div class="media-footer-right">
-          {{item.end}}
+        <div class="media-footer-right" *ngIf="item?.deadline">
+          {{item.deadline}}
         </div>
       </div>
     </div>
