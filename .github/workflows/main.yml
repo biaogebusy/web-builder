@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - name: Install Node.js
       uses: actions/setup-node@v1
       with:
@@ -21,9 +21,9 @@ jobs:
     - name: Deploy to Server
       uses: easingthemes/ssh-deploy@v2.1.5
       env:
-          SSH_PRIVATE_KEY: ${{ secrets.HUAWEI_SERVER_ACCESS_TOKEN }}
-          ARGS: '-rltgoDzvO --delete'
-          SOURCE: 'dist/'
-          REMOTE_HOST: ${{ secrets.HUAWEI_HOST }}
-          REMOTE_USER: root
-          TARGET: ${{ secrets.SIT_PATH }}
+        SSH_PRIVATE_KEY: ${{ secrets.HUAWEI_SERVER_ACCESS_TOKEN }}
+        ARGS: '-rltgoDzvO --delete'
+        SOURCE: 'dist/'
+        REMOTE_HOST: ${{ secrets.HUAWEI_HOST }}
+        REMOTE_USER: root
+        TARGET: ${{ secrets.SIT_PATH }}
