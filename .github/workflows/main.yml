@@ -1,0 +1,29 @@
+name: Build app and deploy to huawei
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Install Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: '12.16.2'
+    - name: Install npm dependencies
+      run: npm install
+    - name: Run build task
+      run: npm run build
+    - name: Deploy to Server
+      uses: easingthemes/ssh-deploy@v2.1.5
+      env:
+          SSH_PRIVATE_KEY: ${{ secrets.HUAWEI_SERVER_ACCESS_TOKEN }}
+          ARGS: '-rltgoDzvO --delete'
+          SOURCE: dist
+          REMOTE_HOST: ${{ secrets.ALIYUN_SERVER_HOST }}
+          REMOTE_USER: root
+          TARGET: ${{ secrets.sit_path }}
