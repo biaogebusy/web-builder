@@ -1,7 +1,5 @@
 name: Build app and deploy to huawei
 
-# Controls when the action will run. Triggers the workflow on push or pull request
-# events but only for the master branch
 on:
   push:
     branches: [ master ]
@@ -15,11 +13,11 @@ jobs:
         working-directory: ./
     steps:
     - uses: actions/checkout@v1
-    - uses: actions/setup-node@v1 #this installs node and npm for us
+    - uses: actions/setup-node@v1
       with:
         node-version: '12.x'
 
-    - uses: actions/cache@v1 # this allows for re-using node_modules caching, making builds a bit faster.
+    - uses: actions/cache@v1
       with:
         path: ~/.npm
         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
@@ -33,7 +31,7 @@ jobs:
     - name: NPM build Angular Production
       run: ng build --prod
     - name: Delete Existing Files
-      run : sudo sshpass -p ${{ secrets.SSH_PASS }} -v ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.HUAWEI_HOST }} 'rm -rf ${{ secrets.SIT_PATH }}*'
+      run : sudo sshpass -p ${{ secrets.SSH_PASS }} -v ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.HUAWEI_HOST }} 'rm -rf /sdc/wwwroot/job-sit.zhaobg.com/*'
 
     - name: Compress and Copy New Files to server
       run : |
@@ -41,6 +39,6 @@ jobs:
             tar -czvf ../../job.tar.gz ./
             cd ..
             cd ..
-            sudo sshpass -p ${{ secrets.SSH_PASS }} scp -v -o StrictHostKeyChecking=no -r job.tar.gz ${{ secrets.SSH_USER }}@${{ secrets.HUAWEI_HOST }}:${{ secrets.SIT_PATH }}
+            sudo sshpass -p ${{ secrets.SSH_PASS }} scp -v -o StrictHostKeyChecking=no -r job.tar.gz ${{ secrets.SSH_USER }}@${{ secrets.HUAWEI_HOST }}:/sdc/wwwroot/job-sit.zhaobg.com/
     - name: Uncompress new Files
-      run : sudo sshpass -p ${{ secrets.SSH_PASS }} -v ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.HUAWEI_HOST }} 'cd ${{ secrets.SIT_PATH }} && tar -xzvf job.tar.gz && rm job.tar.gz'
+      run : sudo sshpass -p ${{ secrets.SSH_PASS }} -v ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.HUAWEI_HOST }} 'cd /sdc/wwwroot/job-sit.zhaobg.com/ && tar -xzvf job.tar.gz && rm job.tar.gz'
