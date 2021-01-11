@@ -3,8 +3,8 @@ name: Build app and deploy to huawei
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
 on:
-  push:
-    branches: [ master ]
+  pull_request:
+    branches: [ prod ]
 
 jobs:
   build:
@@ -33,7 +33,7 @@ jobs:
     - name: NPM build Angular Production
       run: ng build --prod
     - name: Delete Existing Files
-      run : sudo sshpass -p ${{ secrets.SSH_PASS }} -v ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.HUAWEI_HOST }} 'rm -rf /sdc/wwwroot/job.zhaobg.com/*'
+      run : sudo sshpass -p ${{ secrets.SSH_PASS }} -v ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.HUAWEI_HOST }} 'rm -rf ${{ secrets.PROD_PATH }}*'
 
     - name: Compress and Copy New Files to server
       run : |
@@ -41,6 +41,6 @@ jobs:
             tar -czvf ../../job.tar.gz ./
             cd ..
             cd ..
-            sudo sshpass -p ${{ secrets.SSH_PASS }} scp -v -o StrictHostKeyChecking=no -r job.tar.gz ${{ secrets.SSH_USER }}@${{ secrets.HUAWEI_HOST }}:/sdc/wwwroot/job.zhaobg.com
+            sudo sshpass -p ${{ secrets.SSH_PASS }} scp -v -o StrictHostKeyChecking=no -r job.tar.gz ${{ secrets.SSH_USER }}@${{ secrets.HUAWEI_HOST }}:${{ secrets.PROD_PATH }}
     - name: Uncompress new Files
-      run : sudo sshpass -p ${{ secrets.SSH_PASS }} -v ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.HUAWEI_HOST }} 'cd /sdc/wwwroot/job.zhaobg.com/ && tar -xzvf job.tar.gz && rm job.tar.gz'
+      run : sudo sshpass -p ${{ secrets.SSH_PASS }} -v ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.HUAWEI_HOST }} 'cd ${{ secrets.PROD_PATH }} && tar -xzvf job.tar.gz && rm job.tar.gz'
