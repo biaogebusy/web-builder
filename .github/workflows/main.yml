@@ -1,31 +1,27 @@
-name: Deploy to GitHub Pages 
-
-on: [push]
-
+name: Build And Deploy To HUAWEI Cloud
+on:
+  push:
+    branches: [ master ]
 jobs:
-   build-and-deploy:
-     runs-on: ubuntu-latest
-
-     steps:
-     - name: Checkout
-       uses: actions/checkout@v2
-
-     - name: Use Node.js 10.x
-       uses: actions/setup-node@v1
-       with:
-         node-version: 10.x
-
-     - name: Prepare and deploy
-       env:
-         GH_TOKEN: ${{ secrets.GH_TOKEN }}
-       run: |
-         npm install
-         npm run lint
-         ###
-         # Configure Angular first!
-         ####
-         # npm test -- --watch=false --progress=false --browsers=ChromeHeadlessCI
-         # npm run webdriver-update-ci
-         # npm run e2e -- --protractor-config=e2e/protractor-ci.conf.js --webdriver-update=false
-         ####
-         npm run ng -- deploy --base-href=/nnitpay-angular/ --name="biaogebusy" --email=349255833@qq.com
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+          ref: master
+          submodules: true
+      - name: Install and Build
+        run: |
+          yarn install
+          yarn build          
+      - name: Deploy to HUAWEI server
+        uses: easingthemes/ssh-deploy@v2.0.7
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.HUAWEI_SERVER_ACCESS_TOKEN }}
+          ARGS: "-avzr --delete"
+          SOURCE: "dist/"
+          REMOTE_HOST: ${{ secrets.ALIYUN_SERVER_HOST }}
+          REMOTE_USER: "root"
+          TARGET: ${{ secrets.sit_path }}
