@@ -19,11 +19,12 @@ jobs:
     - name: Run build task
       run: npm run build
     - name: Deploy to Server
-      uses: easingthemes/ssh-deploy@v2.1.5
-      env:
-        SSH_PRIVATE_KEY: ${{ secrets.HUAWEI_SERVER_ACCESS_TOKEN }}
-        ARGS: '-rltgoDzvO --delete'
-        SOURCE: 'dist/'
-        REMOTE_HOST: ${{ secrets.HUAWEI_HOST }}
-        REMOTE_USER: root
-        TARGET: ${{ secrets.SIT_PATH }}
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HUAWEI_HOST }}
+        username: root
+        key: ${{ secrets.HUAWEI_SERVER_ACCESS_TOKEN }}
+        port: 22
+        script: |
+          cd ${{ secrets.SIT_PATH }}
+          git pull origin master
