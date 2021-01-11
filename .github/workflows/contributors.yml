@@ -2,9 +2,9 @@ name: Add contributors
 on:
   schedule:
     - cron:  '20 20 * * *'
-# push:
-#   branches:
-#     - master
+  push:
+    branches:
+      - master
 
 jobs:
   add-contributors:
