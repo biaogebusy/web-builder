@@ -23,7 +23,7 @@ jobs:
       env:
           SSH_PRIVATE_KEY: ${{ secrets.HUAWEI_SERVER_ACCESS_TOKEN }}
           ARGS: '-rltgoDzvO --delete'
-          SOURCE: dist
+          SOURCE: 'dist/'
           REMOTE_HOST: ${{ secrets.HUAWEI_HOST }}
           REMOTE_USER: root
           TARGET: ${{ secrets.SIT_PATH }}
