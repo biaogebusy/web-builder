@@ -1,6 +1,7 @@
 {
   "name": "job",
   "version": "0.0.0",
+  "homepage": "https://biaogebusy.github.io/job-angular",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

@@ -1,0 +1,41 @@
+name: Build app and deploy to huawei
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+
+    # using Ubuntu
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-node@v1 #this installs node and npm for us
+      with:
+        node-version: '10.x'
+
+    - uses: actions/cache@v1 # this allows for re-using node_modules caching, making builds a bit faster.
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+
+    - run: npm install
+    - run: npm install -g @angular/cli > /dev/null
+    - run: ng build --prod
+
+    - name: copy file via ssh key
+      uses: appleboy/scp-action@master
+      env:
+        HOST: 121.37.227.13
+        USERNAME: root
+        PORT: 22
+        KEY: ${{ secrets.HUAWEI_SERVER_ACCESS_TOKEN }}
+      with:
+        source: "./dist/job/"
+        target: "/sdc/wwwroot/job.zhaobg.com/"
+        strip_components: 3 # this is important
