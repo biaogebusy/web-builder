@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UtilitiesService } from '../../service/utilities.service';
+import { ScreenService } from '../../service/screen.service';
 
 @Component({
   selector: 'app-footer',
@@ -9,7 +10,8 @@ import { UtilitiesService } from '../../service/utilities.service';
 export class FooterComponent implements OnInit {
 
   constructor(
-    public utilities: UtilitiesService
+    public utilities: UtilitiesService,
+    public screen: ScreenService
   ) { }
 
   ngOnInit(): void {
