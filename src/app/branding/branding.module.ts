@@ -1,32 +1,25 @@
-import { NgModule, Optional, SkipSelf } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { DomSanitizer } from '@angular/platform-browser';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { ShareModule } from '../share/share.module';
 import { MenuComponent } from './header/menu/menu.component';
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, MenuComponent],
-  imports: [ShareModule, BrowserAnimationsModule, FlexLayoutModule],
-  exports: [FlexLayoutModule, HeaderComponent, FooterComponent],
+  declarations: [
+    HeaderComponent,
+    FooterComponent,
+    MenuComponent
+  ],
+  imports: [
+    CommonModule,
+    ShareModule
+  ],
+  exports: [
+    HeaderComponent,
+    FooterComponent,
+    MenuComponent
+  ]
 })
 export class BrandingModule {
-  /**
-   * @SkipSelf 让模块去父级寻找依赖，不然会造成死循环
-   * @Optional 可选，如果CoreModule不存在正常执行
-   * @param parent
-   * @param iconRegistry
-   * @param ds
-   */
-  constructor(
-    @Optional() @SkipSelf() parent: BrandingModule,
-    ds: DomSanitizer
-  ) {
-    if (parent) {
-      throw new Error('Core 模块已经存在，不能再加载！');
-    }
-  }
 }

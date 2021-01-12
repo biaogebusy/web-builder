@@ -1,3 +1,12 @@
+@import '../../../theme/variable/variable.scss';
+
 .footer {
   position: relative;
+}
+
+:host ::ng-deep {
+  .mat-list-item-content {
+    color: $text-color;
+  }
+
 }

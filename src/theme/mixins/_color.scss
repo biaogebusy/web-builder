@@ -15,10 +15,10 @@
 }
 
 @mixin colors($colors) {
-  $primary-colors: map-get($colors, primary);
+  $base-colors: map-get($colors, base);
 
   a {
-    color: map-get($primary-colors, text)
+    color: map-get($base-colors, text)
   }
 
   @include branding(map-get($colors, base), 'base');
