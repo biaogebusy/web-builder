@@ -40,10 +40,6 @@ GET {{base}}/jsonapi/user/user
 ### https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/api-overview
 ### https://explore.jsonapi.dev/
 
-### get all node by type
-GET {{base}}/jsonapi/node/company HTTP/1.1
-Accept: application/vnd.api+json
-Content-Type: application/vnd.api+json
 
 ### taxonomy
 GET {{base}}/jsonapi/node/recruitment/5c67b19c-b8c4-495b-8a6f-1bea1a852a49/skill?resourceVersion=id%3A90
@@ -92,7 +88,7 @@ X-CSRF-Token: {{csrfToken}}
 
 {
   "data": {
-    "type": "node--{{{{sample_type}}}}",
+    "type": "node--{{sample_type}}",
     "attributes": {
       "title": "new article by Johnson",
       "body": {

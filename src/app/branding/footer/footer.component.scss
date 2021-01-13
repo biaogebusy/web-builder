@@ -1,7 +1,9 @@
 @import '../../../theme/variable/variable.scss';
+$dark: map-get($map: $color-theme, $key: dark);
 
 .footer {
   position: relative;
+  background-color: map-get($map: $dark, $key: bg);
 }
 
 :host ::ng-deep {

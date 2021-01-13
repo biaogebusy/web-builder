@@ -1,19 +1,27 @@
-<div class="footer container text-center p-y-sm p-x m-top-lg">
-  <div class="footer-main-menu m-bottom" fxLayoutAlign="space-between start">
+<div class="footer container p-y-sm p-x m-top-lg">
+  <div class="footer-main-menu m-bottom" fxLayout.xs="column" fxLayoutAlign="space-between start">
     <mat-list role="list">
-      <div mat-subheader class="text-dark">相关资源</div>
+      <div mat-subheaderclass="text-base">相关资源</div>
       <mat-list-item role="listitem">
+        <mat-icon mat-list-icon>keyboard_arrow_right</mat-icon>
         <a href="https://angular.cn/" target="_blank">Angular 中文站</a>
       </mat-list-item>
       <mat-list-item role="listitem">
+        <mat-icon mat-list-icon>keyboard_arrow_right</mat-icon>
         <a href="https://material.angular.io/" target="_blank">Material Angular</a>
       </mat-list-item>
       <mat-list-item role="listitem">
+        <mat-icon mat-list-icon>keyboard_arrow_right</mat-icon>
         <a href="https://github.com/angular/flex-layout/wiki" target="_blank">Flex Layout</a>
+      </mat-list-item>
+      <mat-list-item role="listitem">
+        <mat-icon mat-list-icon>keyboard_arrow_right</mat-icon>
+        <a href="https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/jsonapi"
+          target="_blank">JSONAPI</a>
       </mat-list-item>
     </mat-list>
     <mat-list role="list">
-      <div mat-subheader class="text-dark">帮助</div>
+      <div mat-subheaderclass="text-base">帮助</div>
       <mat-list-item role="listitem">
         <mat-icon mat-list-icon svgIcon="github"></mat-icon>
         <a href="https://github.com/biaogebusy/nnitpay-angular" target="_blank">
@@ -40,21 +48,24 @@
       </mat-list-item>
     </mat-list>
     <mat-list role="list">
-      <div mat-subheader class="text-dark">社区</div>
-      <mat-list-item role="listitem" [matMenuTriggerFor]="offiaccount">
-        <mat-icon mat-list-icon svgIcon="offiaccount"></mat-icon>Drupal 自习室 <span>公众号</span>
+      <div mat-subheaderclass="text-base">社区</div>
+      <mat-list-item class="text-left" role="listitem" [matMenuTriggerFor]="offiaccount">
+        <mat-icon mat-list-icon svgIcon="offiaccount"></mat-icon>
+        Drupal 自习室
         <mat-menu #offiaccount="matMenu" yPosition="above">
           <img width="112px" src="./assets/images/qrcode.jpg" alt="">
         </mat-menu>
       </mat-list-item>
-      <mat-list-item role="listitem" [matMenuTriggerFor]="theme">
-        <mat-icon mat-list-icon svgIcon="wechat"></mat-icon>Drupal 主题开发群
+      <mat-list-item class="text-left" role="listitem" [matMenuTriggerFor]="theme">
+        <mat-icon mat-list-icon svgIcon="wechat"></mat-icon>
+        Drupal 主题开发
         <mat-menu #theme="matMenu" yPosition="above">
           <img width="112px" src="./assets/images/wechat.jpg" alt="">
         </mat-menu>
       </mat-list-item>
-      <mat-list-item role="listitem" [matMenuTriggerFor]="nnitpay">
-        <mat-icon mat-list-icon svgIcon="wechat"></mat-icon>南宁IT派
+      <mat-list-item class="text-left" role="listitem" [matMenuTriggerFor]="nnitpay">
+        <mat-icon mat-list-icon svgIcon="wechat"></mat-icon>
+        南宁IT派
         <mat-menu #nnitpay="matMenu" yPosition="above">
           <img width="112px" src="./assets/images/wechat.jpg" alt="">
         </mat-menu>

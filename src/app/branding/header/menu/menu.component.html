@@ -1,4 +1,4 @@
-<header class="header bg-light" #header>
+<header *ngIf="!screen.eq('xs')" class="header bg-light" #header>
   <div class="container">
     <div class="header-container p-xs" fxLayout="row" fxLayoutAlign="space-between center">
       <div class="header-left">
@@ -43,3 +43,14 @@
   </div>
   <mat-divider></mat-divider>
 </header>
+
+<mat-toolbar *ngIf="screen.eq('xs')">
+  <button mat-icon-button class="example-icon" aria-label="menu icon">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>NNITPAY CMS API DEMO</span>
+  <span class="spacer"></span>
+  <button mat-icon-button>
+    <mat-icon>search</mat-icon>
+  </button>
+</mat-toolbar>
