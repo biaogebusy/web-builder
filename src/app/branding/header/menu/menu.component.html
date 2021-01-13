@@ -1,41 +1,43 @@
 <header class="header bg-light" #header>
-  <div class="header-container p-xs" fxLayout="row" fxLayoutAlign="space-between center">
-    <div class="header-left">
-      <a class="logo mat-h2 text-primary" href="#">NNITPAY</a>
-    </div>
-    <div class="header-right" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="3.4rem">
-      <div class="mian-menu">
-        <div class="main-menu" fxLayout="row" fxLayoutGap="3.4rem">
-          <div class="item">
-            <a class="text-base bold" href="#">关于我们</a>
-          </div>
-          <div class="item">
-            <a class="text-base bold" href="#">职位</a>
-          </div>
-          <div class="item">
-            <a class="text-base bold" href="#">联系</a>
+  <div class="container">
+    <div class="header-container p-xs" fxLayout="row" fxLayoutAlign="space-between center">
+      <div class="header-left">
+        <a class="logo mat-h2 text-primary" href="#">NNITPAY</a>
+      </div>
+      <div class="header-right" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="3.4rem">
+        <div class="mian-menu">
+          <div class="main-menu" fxLayout="row" fxLayoutGap="3.4rem">
+            <div class="item">
+              <a class="text-base bold" href="#">关于我们</a>
+            </div>
+            <div class="item">
+              <a class="text-base bold" href="#">职位</a>
+            </div>
+            <div class="item">
+              <a class="text-base bold" href="#">联系</a>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="action">
-        <button mat-raised-button color="primary">
-          发布职位
-        </button>
-      </div>
-      <div class="user">
-        <button mat-mini-fab color="primary" mat-button [matMenuTriggerFor]="menu">
-          <h3 class="name">{{utilities.getIndexTitle(userState?.currentUser?.display_name || 'N')}}</h3>
-        </button>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item>
-            <mat-icon>email</mat-icon>
-            {{userState.currentUser?.mail}}
+        <div class="action">
+          <button mat-raised-button color="primary">
+            发布职位
           </button>
-          <button mat-menu-item (click)="logout()">
-            <mat-icon>exit_to_app</mat-icon>
-            退出
+        </div>
+        <div class="user">
+          <button mat-mini-fab color="primary" mat-button [matMenuTriggerFor]="menu">
+            <h3 class="name">{{utilities.getIndexTitle(userState?.currentUser?.display_name || 'N')}}</h3>
           </button>
-        </mat-menu>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item>
+              <mat-icon>email</mat-icon>
+              {{userState.currentUser?.mail}}
+            </button>
+            <button mat-menu-item (click)="logout()">
+              <mat-icon>exit_to_app</mat-icon>
+              退出
+            </button>
+          </mat-menu>
+        </div>
       </div>
     </div>
   </div>

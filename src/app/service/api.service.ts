@@ -46,15 +46,16 @@ export class ApiService {
     return this.http.get<any>(api, this.httpOptions(this.csrfToken));
   }
 
-  httpOptions(token: string): Object {
+  httpOptions(token: string) {
     const httpOptions = {
       headers: new HttpHeaders({
-        Accept: 'application/vnd.api+json',
+        'Accept': 'application/vnd.api+json',
         'Content-Type': 'application/vnd.api+json',
         'X-CSRF-Token': token,
       }),
       withCredentials: true,
     };
+    console.log(httpOptions)
     return httpOptions;
   }
 }

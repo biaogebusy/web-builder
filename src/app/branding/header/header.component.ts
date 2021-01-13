@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { ScreenService } from '../../service/screen.service';
-import { ScreenState} from '../../mobx/screen/ScreenState.service';
+import { ScreenState } from '../../mobx/screen/ScreenState.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -9,7 +9,7 @@ import { ScreenState} from '../../mobx/screen/ScreenState.service';
 export class HeaderComponent implements OnInit, AfterViewInit {
   sticky = false;
 
-  @ViewChild('menu', {read: ElementRef}) menu: ElementRef;
+  @ViewChild('menu', { read: ElementRef }) menu: ElementRef;
   constructor(
     private screen: ScreenService,
     private screenState: ScreenState
@@ -17,11 +17,11 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
-  ngAfterViewInit(){
-    this.screenState.scroll$.subscribe(()=>{
+  ngAfterViewInit() {
+    this.screenState.scroll$.subscribe(() => {
       this.sticky = !this.screen.isElementInViewport(this.menu.nativeElement);
-    })
+    });
   }
 }

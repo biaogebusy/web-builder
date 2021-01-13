@@ -17,6 +17,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatListModule } from '@angular/material/list';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
 
 // icon utils
 import { MatIconRegistry } from '@angular/material/icon';
@@ -62,17 +64,18 @@ import { DomSanitizer } from '@angular/platform-browser';
     MatProgressBarModule,
     MatProgressSpinnerModule,
     MatMenuModule,
-    MatListModule
+    MatListModule,
+    MatTooltipModule
   ],
 })
 export class ShareModule {
-    /**
-     * @SkipSelf 让模块去父级寻找依赖，不然会造成死循环
-     * @Optional 可选，如果CoreModule不存在正常执行
-     * @param parent
-     * @param iconRegistry
-     * @param ds
-     */
+  /**
+   * @SkipSelf 让模块去父级寻找依赖，不然会造成死循环
+   * @Optional 可选，如果CoreModule不存在正常执行
+   * @param parent
+   * @param iconRegistry
+   * @param ds
+   */
   constructor(
     @Optional() @SkipSelf() parent: ShareModule,
     iconRegistry: MatIconRegistry,

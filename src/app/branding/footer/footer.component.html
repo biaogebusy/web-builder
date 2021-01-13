@@ -1,4 +1,4 @@
-<div class="footer container-fluid text-center p-y-sm p-x m-top-lg">
+<div class="footer container text-center p-y-sm p-x m-top-lg">
   <div class="footer-main-menu m-bottom" fxLayoutAlign="space-between start">
     <mat-list role="list">
       <div mat-subheader class="text-dark">相关资源</div>
@@ -15,36 +15,49 @@
     <mat-list role="list">
       <div mat-subheader class="text-dark">帮助</div>
       <mat-list-item role="listitem">
+        <mat-icon mat-list-icon svgIcon="github"></mat-icon>
         <a href="https://github.com/biaogebusy/nnitpay-angular" target="_blank">
-          <mat-icon mat-list-icon svgIcon="github"></mat-icon> Github
+          Github
         </a>
       </mat-list-item>
       <mat-list-item role="listitem">
+        <mat-icon mat-list-icon svgIcon="offiaccount"></mat-icon>
         <a href="https://www.zhihu.com/column/c_1331898788731375616" target="_blank">
-          <mat-icon mat-list-icon svgIcon="offiaccount"></mat-icon> Drupal 自习室
+          Drupal 自习室
         </a>
       </mat-list-item>
       <mat-list-item role="listitem">
+        <mat-icon mat-list-icon svgIcon="zhihu"></mat-icon>
         <a href="https://www.zhihu.com/column/frontend-focus" target="_blank">
-          <mat-icon mat-list-icon svgIcon="zhihu"></mat-icon>前端茶馆
+          前端茶馆
         </a>
       </mat-list-item>
       <mat-list-item role="listitem">
+        <mat-icon mat-list-icon svgIcon="github"></mat-icon>
         <a href="https://github.com/biaogebusy/drupal-modules-cn" target="_blank">
-          <mat-icon mat-list-icon svgIcon="github"></mat-icon> Drupal 中文模块
+          Drupal 中文模块
         </a>
       </mat-list-item>
     </mat-list>
     <mat-list role="list">
       <div mat-subheader class="text-dark">社区</div>
-      <mat-list-item role="listitem">
+      <mat-list-item role="listitem" [matMenuTriggerFor]="offiaccount">
         <mat-icon mat-list-icon svgIcon="offiaccount"></mat-icon>Drupal 自习室 <span>公众号</span>
+        <mat-menu #offiaccount="matMenu" yPosition="above">
+          <img width="112px" src="./assets/images/qrcode.jpg" alt="">
+        </mat-menu>
       </mat-list-item>
-      <mat-list-item role="listitem">
+      <mat-list-item role="listitem" [matMenuTriggerFor]="theme">
         <mat-icon mat-list-icon svgIcon="wechat"></mat-icon>Drupal 主题开发群
+        <mat-menu #theme="matMenu" yPosition="above">
+          <img width="112px" src="./assets/images/wechat.jpg" alt="">
+        </mat-menu>
       </mat-list-item>
-      <mat-list-item role="listitem">
+      <mat-list-item role="listitem" [matMenuTriggerFor]="nnitpay">
         <mat-icon mat-list-icon svgIcon="wechat"></mat-icon>南宁IT派
+        <mat-menu #nnitpay="matMenu" yPosition="above">
+          <img width="112px" src="./assets/images/wechat.jpg" alt="">
+        </mat-menu>
       </mat-list-item>
     </mat-list>
   </div>

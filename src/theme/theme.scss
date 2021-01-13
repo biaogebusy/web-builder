@@ -1,6 +1,7 @@
 @import './variable/variable.scss';
 @import './mixins/mixins.scss';
 @import './utilities/utilities.scss';
+@import './layout.scss';
 
 @include reset-styles();
 @include mat-core();
