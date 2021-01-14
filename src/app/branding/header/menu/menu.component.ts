@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { IUser } from '../../../mobx/user/IUser';
 import { UserState } from '../../../mobx/user/UserState';
 import { UtilitiesService } from '../../../service/utilities.service';
-
+import { ScreenState } from '../../../mobx/screen/ScreenState.service';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
@@ -13,7 +13,8 @@ export class MenuComponent implements OnInit, OnDestroy {
   constructor(
     public userState: UserState,
     public utilities: UtilitiesService,
-    private router: Router
+    private router: Router,
+    public screen: ScreenState
   ) { }
 
   ngOnInit(): void {

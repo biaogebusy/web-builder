@@ -10,6 +10,7 @@ import { JobModule } from './job/job.module';
 import { UserModule } from './user/user.module';
 import { MobxAngularModule } from 'mobx-angular';
 import { MobxModule } from './mobx/mobx.module';
+import { LayoutModule } from '@angular/cdk/layout';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -17,6 +18,7 @@ import { MobxModule } from './mobx/mobx.module';
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    LayoutModule,
     MobxAngularModule,
     MobxModule.forRoot(),
     BrandingModule,

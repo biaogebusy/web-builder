@@ -7,7 +7,8 @@ html {
 }
 
 body {
-  background-color: #fafafa;
+  background-color: $background-color;
+  color: $text-color;
   width: 100vw;
   max-width: 100%;
   display: block;
@@ -28,6 +29,12 @@ h6 {
 
 a {
   text-decoration: none;
+
+  &:hover,
+  &:focus,
+  &.active {
+    color: $primary;
+  }
 }
 
 img {

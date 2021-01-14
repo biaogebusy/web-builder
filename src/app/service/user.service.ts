@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
 import { map } from 'rxjs/operators';
+import { TokenUser } from '../mobx/user/IUser';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,7 @@ export class UserService {
   login(userName: string, passWord: string): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
+        Accept: 'application/vnd.api+json',
         'Content-type': 'application/json'
       }),
       withCredentials: true,
@@ -32,17 +34,13 @@ export class UserService {
     );
   }
 
-  getCurrentUserId(uid: string): Observable<any> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-type': 'application/json'
-      }),
-      withCredentials: true,
-    };
+  getCurrentUserById(user: TokenUser): Observable<any> {
     return this.http.get<any>(
-      `${this.apiService.apiUrl}${this.apiService.userGetPath}?filter[drupal_internal__uid]=${uid}`, httpOptions
+      `${this.apiService.apiUrl}${this.apiService.userGetPath}?filter[drupal_internal__uid]=${user.current_user.uid}`,
+      this.apiService.httpOptions(user.csrf_token)
     ).pipe(
       map(res => {
+        console.log(res)
         return {
           id: res.data[0].id,
         };

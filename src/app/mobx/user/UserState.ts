@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { action, observable, computed } from 'mobx-angular';
 import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
-import { IUser } from './IUser';
+import { IUser, TokenUser } from './IUser';
 import { first } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { UserService } from '../../service/user.service';
@@ -34,10 +34,10 @@ export class UserState {
   }
 
   @action
-  login(userName: string, passWord: string, item: string): any {
+  login(userName: string, passWord: string, localStorageKey: string): any {
     this.loading = true;
     this.userService.login(userName, passWord).subscribe(data => {
-      this.updateUser(data, item);
+      this.updateUser(data, localStorageKey);
     },
       error => {
         this.loading = false;
@@ -53,17 +53,18 @@ export class UserState {
   }
 
   @action
-  updateUser(data: any, item: string): any {
+  updateUser(data: TokenUser, localStorageKey: string): any {
     let userDetails = {};
-    this.userService.getCurrentUserId(data.current_user.uid).subscribe(res => {
+    console.log(data, localStorageKey)
+    this.userService.getCurrentUserById(data).subscribe(res => {
       const id = res.id;
-      this.userService.getUser(id, item).subscribe(user => {
+      this.userService.getUser(id, localStorageKey).subscribe(user => {
         console.log(user)
         this.loading = false;
         this.user = user;
         this.user$.next(user);
         userDetails = Object.assign(data, user);
-        this.storage.set(item, JSON.stringify(userDetails));
+        this.storage.set(localStorageKey, JSON.stringify(userDetails));
       });
     });
   }

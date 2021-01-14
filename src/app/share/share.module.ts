@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -16,7 +16,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatListModule } from '@angular/material/list';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
+
+// icon utils
+import { MatIconRegistry } from '@angular/material/icon';
+import { loadSvgResources } from '../service/icon.util';
+import { DomSanitizer } from '@angular/platform-browser';
 @NgModule({
   declarations: [],
   imports: [
@@ -56,7 +63,28 @@ import { MatMenuModule } from '@angular/material/menu';
     ReactiveFormsModule,
     MatProgressBarModule,
     MatProgressSpinnerModule,
-    MatMenuModule
+    MatMenuModule,
+    MatListModule,
+    MatTooltipModule
   ],
 })
-export class ShareModule { }
+export class ShareModule {
+  /**
+   * @SkipSelf 让模块去父级寻找依赖，不然会造成死循环
+   * @Optional 可选，如果CoreModule不存在正常执行
+   * @param parent
+   * @param iconRegistry
+   * @param ds
+   */
+  constructor(
+    @Optional() @SkipSelf() parent: ShareModule,
+    iconRegistry: MatIconRegistry,
+    ds: DomSanitizer
+  ) {
+    if (parent) {
+      throw new Error('Core 模块已经存在，不能再加载！');
+    }
+    // @ts-ignore
+    loadSvgResources(iconRegistry, ds);
+  }
+}

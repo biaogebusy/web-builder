@@ -10,3 +10,12 @@ export interface IUser {
   csrf_token?: string;
   logout_token?: string;
 }
+
+export interface TokenUser {
+  csrf_token: string;
+  current_user: {
+    uid: string;
+    name: string;
+  };
+  logout_token: string;
+}

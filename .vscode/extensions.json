@@ -1,0 +1,16 @@
+{
+  "recommendations": [
+    "angular.ng-template",
+    "steoates.autoimport",
+    "nucllear.vscode-extension-auto-import",
+    "hookyqr.beautify",
+    "michelemelluso.code-beautifier",
+    "coenraads.bracket-pair-colorizer",
+    "editorconfig.editorconfig",
+    "eamodio.gitlens",
+    "azemoh.one-monokai",
+    "syler.sass-indented",
+    "gruntfuggly.todo-tree",
+    "eg2.tslint"
+  ]
+}
