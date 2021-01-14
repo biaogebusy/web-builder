@@ -18,9 +18,7 @@ export class BrandingState {
     @action
     initBranding(): any {
       this.http.get(`http://localhost:4200/assets/app/core/branding.json`).subscribe(branding => {
-        console.log(branding);
         this.content = branding;
-        console.log(this.content)
       });
     }
 }

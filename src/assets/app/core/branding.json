@@ -4,6 +4,10 @@
       "label": "NNITPAY"
     },
     "copyRight": "©2021 Copyright by NNITPAI",
+    "accordion": {
+      "openIcon": "expand_more",
+      "closeIcon": "expand_less"
+    },
     "mainMenu": [{
         "label": "相关资源",
         "child": [{
@@ -76,6 +80,7 @@
       },
       {
         "label": "社区",
+        "mobile": "disabel",
         "child": [{
           "label": "Drupal 自习室",
           "icon": "offiaccount",
@@ -89,6 +94,77 @@
           "icon": "offiaccount",
           "popup": "<img width=\"112px\" src=\"./assets/images/wechat.jpg\" alt=\"\">"
         }]
+      }
+    ],
+    "mobileMenu": [{
+        "label": "相关资源",
+        "child": [{
+            "label": "Angular 中文站",
+            "icon": "arrow_right",
+            "link": {
+              "href": "https://angular.cn/",
+              "target": "_blank"
+            }
+          }, {
+            "label": "Material Angular",
+            "icon": "arrow_right",
+            "link": {
+              "href": "https://material.angular.io/",
+              "target": "_blank"
+            }
+          },
+          {
+            "label": "Flex Layout",
+            "icon": "arrow_right",
+            "link": {
+              "href": "https://github.com/angular/flex-layout/wiki",
+              "target": "_blank"
+            }
+          },
+          {
+            "label": "JSONAPI",
+            "icon": "arrow_right",
+            "link": {
+              "href": "https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/jsonapi",
+              "target": "_blank"
+            }
+          }
+        ]
+      },
+      {
+        "label": "帮助",
+        "child": [{
+            "label": "Angular 中文站",
+            "icon": "github",
+            "link": {
+              "href": "https://github.com/biaogebusy/nnitpay-angular",
+              "target": "_blank"
+            }
+          }, {
+            "label": "Drupal 自习室",
+            "icon": "offiaccount",
+            "link": {
+              "href": "https://www.zhihu.com/column/c_1331898788731375616",
+              "target": "_blank"
+            }
+          },
+          {
+            "label": "前端茶馆",
+            "icon": "zhihu",
+            "link": {
+              "href": "https://www.zhihu.com/column/frontend-focus",
+              "target": "_blank"
+            }
+          },
+          {
+            "label": "Drupal 中文模块",
+            "icon": "github",
+            "link": {
+              "href": "https://github.com/biaogebusy/drupal-modules-cn",
+              "target": "_blank"
+            }
+          }
+        ]
       }
     ]
   }

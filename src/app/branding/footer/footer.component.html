@@ -17,52 +17,35 @@
 
       </mat-list>
     </div>
-    <div class="example-action-buttons">
-      <button mat-button (click)="accordion.openAll()">Expand All</button>
-      <button mat-button (click)="accordion.closeAll()">Collapse All</button>
+    <div class="mobile" *ngIf="branding.content?.footer?.mobileMenu && screen.eq('xs')">
+      <div class="m-bottom-xs" fxLayoutAlign="end center" fxLayoutGap="1rem"
+        *ngIf="branding.content?.footer?.accordion">
+        <button mat-mini-fab color="base" *ngIf="!panelOpenState">
+          <mat-icon (click)="accordion.openAll()">{{branding.content.footer.accordion.openIcon}}</mat-icon>
+        </button>
+        <button mat-mini-fab color="base" *ngIf="panelOpenState">
+          <mat-icon (click)="accordion.closeAll()">{{branding.content.footer.accordion.closeIcon}}</mat-icon>
+        </button>
+      </div>
+      <mat-accordion class="footer-menu-mobile" multi>
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false"
+          *ngFor="let menu of branding.content.footer.mobileMenu">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{menu.label}}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-list>
+            <mat-list-item *ngFor="let subMenu of menu.child">
+              <a *ngIf="subMenu.link" [href]="subMenu.link.href" target="{{subMenu.link?.target}}">{{subMenu.label}}</a>
+            </mat-list-item>
+          </mat-list>
+        </mat-expansion-panel>
+      </mat-accordion>
     </div>
-    <mat-accordion class="footer-menu-mobile" *ngIf="screen.eq('xs')" multi>
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Personal data
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <p>content</p>
-      </mat-expansion-panel>
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Destination
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-
-        <mat-form-field>
-          <mat-label>Country</mat-label>
-          <input matInput>
-        </mat-form-field>
-      </mat-expansion-panel>
-
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Day of the trip
-          </mat-panel-title>
-          <mat-panel-description>
-            Inform the date you wish to travel
-            <mat-icon>date_range</mat-icon>
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-
-        <mat-form-field>
-          <mat-label>Date</mat-label>
-          <input matInput readonly>
-        </mat-form-field>
-      </mat-expansion-panel>
-    </mat-accordion>
 
     <div class="footer-bottom text-center p-top-sm">
-      <div class="brand" fxLayoutAlign.sm="center center" fxLayoutAlign.gt-sm="space-between center">
+      <div class="brand" fxLayoutAlign="space-between center">
         <h2 class="mat-h2 m-bottom-0">NNITPAY</h2>
         <p>©{{utilities.fullYear}} Copyright by NNITPAI</p>
       </div>

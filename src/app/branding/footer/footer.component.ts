@@ -12,6 +12,7 @@ import { ScreenState } from '../../mobx/screen/ScreenState.service';
 export class FooterComponent implements OnInit {
 
   content: any;
+  panelOpenState = false;
   @ViewChild(MatAccordion) accordion: MatAccordion;
   constructor(
     public utilities: UtilitiesService,
@@ -20,7 +21,6 @@ export class FooterComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.branding.content)
     this.content = this.branding.content;
   }
 
