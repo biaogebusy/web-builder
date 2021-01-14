@@ -11,4 +11,8 @@ $dark: map-get($map: $color-theme, $key: dark);
     color: $text-color;
   }
 
+  .mat-list-item-with-avatar {
+    height: 40px !important;
+  }
+
 }
