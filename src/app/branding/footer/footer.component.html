@@ -1,81 +1,54 @@
-<div class="footer container p-y-sm p-x m-top-lg">
-  <div class="footer-main-menu m-bottom" fxLayout.xs="column" fxLayoutAlign="space-between start">
-    <mat-list role="list">
-      <div mat-subheaderclass="text-base">相关资源</div>
-      <mat-list-item role="listitem">
-        <mat-icon mat-list-icon>keyboard_arrow_right</mat-icon>
-        <a href="https://angular.cn/" target="_blank">Angular 中文站</a>
-      </mat-list-item>
-      <mat-list-item role="listitem">
-        <mat-icon mat-list-icon>keyboard_arrow_right</mat-icon>
-        <a href="https://material.angular.io/" target="_blank">Material Angular</a>
-      </mat-list-item>
-      <mat-list-item role="listitem">
-        <mat-icon mat-list-icon>keyboard_arrow_right</mat-icon>
-        <a href="https://github.com/angular/flex-layout/wiki" target="_blank">Flex Layout</a>
-      </mat-list-item>
-      <mat-list-item role="listitem">
-        <mat-icon mat-list-icon>keyboard_arrow_right</mat-icon>
-        <a href="https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/jsonapi"
-          target="_blank">JSONAPI</a>
-      </mat-list-item>
-    </mat-list>
-    <mat-list role="list">
-      <div mat-subheaderclass="text-base">帮助</div>
-      <mat-list-item role="listitem">
-        <mat-icon mat-list-icon svgIcon="github"></mat-icon>
-        <a href="https://github.com/biaogebusy/nnitpay-angular" target="_blank">
-          Github
-        </a>
-      </mat-list-item>
-      <mat-list-item role="listitem">
-        <mat-icon mat-list-icon svgIcon="offiaccount"></mat-icon>
-        <a href="https://www.zhihu.com/column/c_1331898788731375616" target="_blank">
-          Drupal 自习室
-        </a>
-      </mat-list-item>
-      <mat-list-item role="listitem">
-        <mat-icon mat-list-icon svgIcon="zhihu"></mat-icon>
-        <a href="https://www.zhihu.com/column/frontend-focus" target="_blank">
-          前端茶馆
-        </a>
-      </mat-list-item>
-      <mat-list-item role="listitem">
-        <mat-icon mat-list-icon svgIcon="github"></mat-icon>
-        <a href="https://github.com/biaogebusy/drupal-modules-cn" target="_blank">
-          Drupal 中文模块
-        </a>
-      </mat-list-item>
-    </mat-list>
-    <mat-list role="list">
-      <div mat-subheaderclass="text-base">社区</div>
-      <mat-list-item class="text-left" role="listitem" [matMenuTriggerFor]="offiaccount">
-        <mat-icon mat-list-icon svgIcon="offiaccount"></mat-icon>
-        Drupal 自习室
-        <mat-menu #offiaccount="matMenu" yPosition="above">
-          <img width="112px" src="./assets/images/qrcode.jpg" alt="">
-        </mat-menu>
-      </mat-list-item>
-      <mat-list-item class="text-left" role="listitem" [matMenuTriggerFor]="theme">
-        <mat-icon mat-list-icon svgIcon="wechat"></mat-icon>
-        Drupal 主题开发
-        <mat-menu #theme="matMenu" yPosition="above">
-          <img width="112px" src="./assets/images/wechat.jpg" alt="">
-        </mat-menu>
-      </mat-list-item>
-      <mat-list-item class="text-left" role="listitem" [matMenuTriggerFor]="nnitpay">
-        <mat-icon mat-list-icon svgIcon="wechat"></mat-icon>
-        南宁IT派
-        <mat-menu #nnitpay="matMenu" yPosition="above">
-          <img width="112px" src="./assets/images/wechat.jpg" alt="">
-        </mat-menu>
-      </mat-list-item>
-    </mat-list>
-  </div>
-  <div class="footer-bottom p-y-sm">
-    <div class="brand" fxLayoutAlign="space-between center">
-      <a class="logo mat-h2 m-bottom-0" href="#">NNITPAY</a>
-      <p>©{{utilities.fullYear}} Copyright by NNITPAI</p>
+<div class="footer p-y-sm m-top-lg">
+  <div class="container">
+    <div *ngIf="branding.content?.footer?.mainMenu && !screen.eq('xs')" class="footer-main-menu m-bottom"
+      fxLayout.xs="column" fxLayoutAlign="space-between start">
+      <mat-list *ngFor="let menu of branding.content.footer.mainMenu" role="list">
+        <div mat-subheaderclass="text-base">{{menu.label}}</div>
+
+        <!-- TODO： 分出common item 和 popup  -->
+        <mat-list-item *ngFor="let subMenu of menu.child; index as i" role="listitem" [matMenuTriggerFor]="popup">
+          <mat-icon mat-list-icon svgIcon="{{subMenu.icon}}"></mat-icon>
+          <a *ngIf="subMenu.link" [href]="subMenu.link.href" target="{{subMenu.link?.target}}">{{subMenu.label}}</a>
+          <span *ngIf="!subMenu.link">{{subMenu.label}}</span>
+          <mat-menu #popup="matMenu" yPosition="above">
+            <span [innerHTML]="subMenu.popup"></span>
+          </mat-menu>
+        </mat-list-item>
+
+      </mat-list>
+    </div>
+    <div class="mobile" *ngIf="branding.content?.footer?.mobileMenu && screen.eq('xs')">
+      <div class="m-bottom-xs" fxLayoutAlign="end center" fxLayoutGap="1rem"
+        *ngIf="branding.content?.footer?.accordion">
+        <button mat-mini-fab color="base" *ngIf="!panelOpenState">
+          <mat-icon (click)="accordion.openAll()">{{branding.content.footer.accordion.openIcon}}</mat-icon>
+        </button>
+        <button mat-mini-fab color="base" *ngIf="panelOpenState">
+          <mat-icon (click)="accordion.closeAll()">{{branding.content.footer.accordion.closeIcon}}</mat-icon>
+        </button>
+      </div>
+      <mat-accordion class="footer-menu-mobile" multi>
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false"
+          *ngFor="let menu of branding.content.footer.mobileMenu">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{menu.label}}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-list>
+            <mat-list-item *ngFor="let subMenu of menu.child">
+              <a *ngIf="subMenu.link" [href]="subMenu.link.href" target="{{subMenu.link?.target}}">{{subMenu.label}}</a>
+            </mat-list-item>
+          </mat-list>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+
+    <div class="footer-bottom text-center p-top-sm">
+      <div class="brand" fxLayoutAlign="space-between center">
+        <h2 class="mat-h2 m-bottom-0">NNITPAY</h2>
+        <p>©{{utilities.fullYear}} Copyright by NNITPAI</p>
+      </div>
     </div>
   </div>
 </div>

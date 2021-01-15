@@ -3,11 +3,12 @@ import { Injectable, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
 import { map } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
-  apiUrl = 'https://nnitpai-cms.zhaobg.com';
+  apiUrl: string;
   loginPath = '/user/login';
   userIdGetPath = '/jsonapi';
   nodeGetPath = '/jsonapi/node';
@@ -19,7 +20,9 @@ export class ApiService {
   constructor(
     private http: HttpClient,
     @Inject(LOCAL_STORAGE) private storage: StorageService
-  ) { }
+  ) {
+    this.apiUrl = environment.apiUrl;
+  }
 
   getNodes() {
     return this.http.get(`${this.nodeGetPath}`);
@@ -49,13 +52,12 @@ export class ApiService {
   httpOptions(token: string) {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Accept': 'application/vnd.api+json',
+        Accept: 'application/vnd.api+json',
         'Content-Type': 'application/vnd.api+json',
         'X-CSRF-Token': token,
       }),
       withCredentials: true,
     };
-    console.log(httpOptions)
     return httpOptions;
   }
 }

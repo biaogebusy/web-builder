@@ -11,4 +11,34 @@ $dark: map-get($map: $color-theme, $key: dark);
     color: $text-color;
   }
 
+  .mat-list-item-with-avatar {
+    height: 40px !important;
+  }
+
+
+  .mat-expansion-panel {
+    background-color: transparent;
+    color: $text-color !important;
+  }
+
+  .mat-expansion-panel-header {
+    border-bottom: 1px solid;
+    border-radius: 0;
+  }
+
+  .mat-expansion-panel-header-title {
+    color: $text-color !important;
+  }
+
+  .mat-expansion-panel:not([class*=mat-elevation-z]) {
+    box-shadow: none !important;
+  }
+
+  .mat-expansion-indicator::after {
+    color: map-get($map: $nnit-color, $key: 50);
+  }
+
+  .mat-expansion-panel:not(.mat-expanded):not([aria-disabled=true]) .mat-expansion-panel-header:hover {
+    background-color: transparent !important;
+  }
 }

@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { UtilitiesService } from '../../service/utilities.service';
-import { ScreenService } from '../../service/screen.service';
+import {MatAccordion} from '@angular/material/expansion';
+import { BrandingState } from '../../mobx/BrandingStare';
+import { ScreenState } from '../../mobx/screen/ScreenState.service';
 
 @Component({
   selector: 'app-footer',
@@ -9,12 +11,17 @@ import { ScreenService } from '../../service/screen.service';
 })
 export class FooterComponent implements OnInit {
 
+  content: any;
+  panelOpenState = false;
+  @ViewChild(MatAccordion) accordion: MatAccordion;
   constructor(
     public utilities: UtilitiesService,
-    public screen: ScreenService
+    public screen: ScreenState,
+    public branding: BrandingState
   ) { }
 
   ngOnInit(): void {
+    this.content = this.branding.content;
   }
 
 }
