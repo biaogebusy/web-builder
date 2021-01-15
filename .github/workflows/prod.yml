@@ -28,8 +28,6 @@ jobs:
       run: npm install
     - name: NPM Install Angular
       run: npm install -g @angular/cli > /dev/null
-    - name: NPM build test
-      run: ng test
     - name: NPM build Angular Production
       run: ng build --configuration=production
     - name: Delete Existing Files
