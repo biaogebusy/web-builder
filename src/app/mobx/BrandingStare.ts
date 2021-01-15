@@ -19,7 +19,7 @@ export class BrandingState {
 
     @action
     initBranding(): any {
-      this.http.get(`${this.apiService.apiUrl}/assets/app/core/branding.json`).subscribe(branding => {
+      this.http.get(`/assets/app/core/branding.json`).subscribe(branding => {
         this.content = branding;
       });
     }
