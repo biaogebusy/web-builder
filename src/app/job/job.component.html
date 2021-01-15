@@ -1,9 +1,11 @@
-<div class="job" fxFill fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start stretch">
-  <div class="sidebar p-x-xs" fxFlex.xs="100%" fxFlex.gt-xs="600px">
-    <app-job-filter [content]="regions" (regionChange)="regionFilter($event)"></app-job-filter>
-    <app-job-list [content]="nodes"></app-job-list>
-  </div>
-  <div class="map-wrapper" fxFlex.xs="100%" fxFlex.gt-xs="100%">
-    <app-map></app-map>
+<div class="container">
+  <div class="job" fxFill fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start stretch">
+    <div class="sidebar p-x-xs" fxFlex.xs="100%" fxFlex.gt-xs="600px">
+      <app-job-filter [content]="regions" (regionChange)="regionFilter($event)"></app-job-filter>
+      <app-job-list [content]="nodes"></app-job-list>
+    </div>
+    <div class="map-wrapper" fxFlex.xs="100%" fxFlex.gt-xs="100%">
+      <app-map></app-map>
+    </div>
   </div>
 </div>
