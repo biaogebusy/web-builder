@@ -45,7 +45,7 @@ import { DomSanitizer } from '@angular/platform-browser';
     MatProgressBarModule,
     MatProgressSpinnerModule,
     MatMenuModule,
-    MatExpansionModule
+    MatExpansionModule,
   ],
   exports: [
     CommonModule,
@@ -68,7 +68,7 @@ import { DomSanitizer } from '@angular/platform-browser';
     MatMenuModule,
     MatListModule,
     MatTooltipModule,
-    MatExpansionModule
+    MatExpansionModule,
   ],
 })
 export class ShareModule {

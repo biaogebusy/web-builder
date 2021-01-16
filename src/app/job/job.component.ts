@@ -28,15 +28,21 @@ export class JobComponent implements OnInit {
 
   getJobsNodes() {
     this.nodeService.getNodes(this.apiService.jobNodeType).subscribe(nodes => {
-      nodes.map(node => {
+      console.log(nodes)
+      nodes.forEach(node => {
         let obj: any;
         this.getRelationships(node.relationships).subscribe(res => {
+          const attr = node.attributes;
           obj = {
-            attributes: node.attributes,
+            title: attr.title,
+            locality: attr.dependent_locality,
+            deadline: attr.deadline,
+            number: attr.number,
+            salary: attr.salary,
+            welfare: this.getWelfare(attr.welfare),
             relate: res
           };
           this.nodes.push(obj);
-          console.log(this.nodes)
         });
       });
     });
@@ -57,6 +63,15 @@ export class JobComponent implements OnInit {
     }
     this.apiService.nodeFilterByRegion(event).subscribe((nodes) => {
       this.nodes = [];
+    });
+  }
+
+  getWelfare(lists: string[]): any[]{
+    return lists.map(list => {
+      return {
+        color: 'primary',
+        label: list
+      };
     });
   }
 }

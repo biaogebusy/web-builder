@@ -6,18 +6,20 @@
       <img [src]="item.logo" [alt]="item.company">
     </div>
     <div class="media-body m-left-xs" fxLayout="column" fxFlex="100" fxLayoutGap="1rem">
-      <h4 class="title" *ngIf="item.relate.company">{{item.relate.company.data.attributes.title}}</h4>
-      <div class="info" fxLayout fxLayoutAlign="space-between center">
-        <div class="position">{{item.attributes.title}}</div>
-        <div class="wage">{{item.attributes.salary.from}} - {{item.attributes.salary.to}} k</div>
+      <div class="m-bottom-xs" fxLayoutAlign="start center" fxLayout="row wrap" fxLayoutGap="1rem">
+        <h4 class="title" *ngIf="item.relate.company">{{item.relate.company.data.attributes.title}}</h4>
+        <app-chip-list [classes]="'mini'" [content]="item.welfare"></app-chip-list>
       </div>
-      <div class="misc" *ngIf="item?.welfare">{{item.welfare}}</div>
+      <div class="info" fxLayout fxLayoutAlign="space-between center">
+        <div class="position">{{item.title}}</div>
+        <div class="wage bold">{{item.salary.from}} - {{item.salary.to}} k</div>
+      </div>
       <div class="media-footer" fxLayout fxLayoutAlign="space-between center">
         <div class="media-footer-left" fxLayout *ngIf="item?.relate?.skill">
           <div class="badge" *ngFor="let item of item.relate.skill.data">{{item.attributes.name}}</div>
         </div>
-        <div class="media-footer-right" *ngIf="item.attributes.deadline">
-          {{item.attributes.deadline}}
+        <div class="media-footer-right" *ngIf="item.deadline">
+          {{item.deadline}}
         </div>
       </div>
     </div>
