@@ -35,6 +35,10 @@ a {
   &.active {
     color: $primary;
   }
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 img {

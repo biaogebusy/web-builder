@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../service/api.service';
 import { NodeService } from '../service/node.service';
 import { forkJoin, Observable } from 'rxjs';
-import * as _ from 'lodash';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { IJob, IChipList } from './IJob';
@@ -33,32 +32,23 @@ export class JobComponent implements OnInit {
       .subscribe((nodes) => {
         nodes.forEach((node) => {
           let obj: IJob;
-          this.getRelationships(node.relationships).subscribe((res) => {
-            const attr = node.attributes;
-            obj = {
-              title: attr.title,
-              locality: attr.dependent_locality,
-              deadline: attr.deadline,
-              number: attr.number,
-              salary: attr.salary,
-              welfare: this.getWelfare(attr.welfare),
-              relate: res,
-            };
-            this.nodes.push(obj);
-          });
+          this.nodeService
+            .getRelationships(node.relationships)
+            .subscribe((res) => {
+              const attr = node.attributes;
+              obj = {
+                title: attr.title,
+                locality: attr.dependent_locality,
+                deadline: attr.deadline,
+                number: attr.number,
+                salary: attr.salary,
+                welfare: this.getWelfare(attr.welfare),
+                relate: res,
+              };
+              this.nodes.push(obj);
+            });
         });
       });
-  }
-
-  getRelationships(relationships: any[]): Observable<any> {
-    const obj = _.mapValues(relationships, (item) => {
-      return this.apiService.getApi(item.links.related.href).pipe(
-        map((res) => {
-          return res.data;
-        })
-      );
-    });
-    return forkJoin(obj);
   }
 
   regionFilter(event: any) {

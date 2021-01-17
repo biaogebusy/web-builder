@@ -3,34 +3,39 @@ import { Routes, RouterModule } from '@angular/router';
 import { JobComponent } from './job/job.component';
 import { LoginComponent } from './user/login/login.component';
 import { AuthGuard } from './guards/auth.guard';
+import { ArticleComponent } from './article/article.component';
 
 const routes: Routes = [
   {
     path: 'home',
     component: JobComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
   },
   {
     path: 'login',
     component: LoginComponent,
   },
   {
+    path: 'articles',
+    component: ArticleComponent,
+  },
+  {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full',
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
   },
 
   // otherwise redirect to home
   {
     path: '**',
     redirectTo: '',
-    canActivate: [AuthGuard]
-  }
+    canActivate: [AuthGuard],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
