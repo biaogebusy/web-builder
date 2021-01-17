@@ -1,4 +1,4 @@
-<div class="job-list text-base" *ngIf="content" fxLayout="column" fxLayoutGap="2rem">
+<div class="job-list text-base m-y-sm" *ngIf="content" fxLayout="column" fxLayoutGap="2rem">
   <div class="result">总计 {{content.length}} 职位</div>
   <div class="item border-shadow" matRipple [matRippleColor]="'rgba(0, 0, 0, 0.04)'" *ngFor="let item of content"
     fxLayout>

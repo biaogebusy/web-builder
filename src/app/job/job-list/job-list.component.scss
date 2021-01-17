@@ -44,13 +44,6 @@ $shadow: map-get($map: $color-theme, $key: shadow);
   font-size: small;
 }
 
-.badge {
-  margin-right: 1.2rem;
-  padding: 1.2rem;
-  background-color: map-get($map: $shadow, $key: bg);
-  border-radius: 2px;
-}
-
 .wage {
   color: $primary;
   font-size: 1.6rem;
