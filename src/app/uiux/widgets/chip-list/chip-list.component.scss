@@ -1,0 +1,11 @@
+@import '../../../../theme/variable/variable.scss';
+
+:host ::ng-deep .mini {
+  .mat-chip.mat-standard-chip.mat-chip-selected.mat-primary {
+    background-color: map-get($map: $nnit-color, $key: 50);
+    color: $primary;
+    font-size: 12px;
+    padding: 3px 10px;
+    min-height: 24px;
+  }
+}
