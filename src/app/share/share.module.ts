@@ -18,8 +18,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatListModule } from '@angular/material/list';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import {MatExpansionModule} from '@angular/material/expansion';
-
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatChipsModule } from '@angular/material/chips';
 
 // icon utils
 import { MatIconRegistry } from '@angular/material/icon';
@@ -46,6 +46,7 @@ import { DomSanitizer } from '@angular/platform-browser';
     MatProgressSpinnerModule,
     MatMenuModule,
     MatExpansionModule,
+    MatChipsModule,
   ],
   exports: [
     CommonModule,
@@ -69,6 +70,7 @@ import { DomSanitizer } from '@angular/platform-browser';
     MatListModule,
     MatTooltipModule,
     MatExpansionModule,
+    MatChipsModule,
   ],
 })
 export class ShareModule {

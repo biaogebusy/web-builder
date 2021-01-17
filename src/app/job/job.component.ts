@@ -5,6 +5,7 @@ import { forkJoin, Observable } from 'rxjs';
 import * as _ from 'lodash';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { IJob, IChipList } from './IJob';
 @Component({
   selector: 'app-job',
   templateUrl: './job.component.html',
@@ -27,32 +28,36 @@ export class JobComponent implements OnInit {
   }
 
   getJobsNodes() {
-    this.nodeService.getNodes(this.apiService.jobNodeType).subscribe(nodes => {
-      console.log(nodes)
-      nodes.forEach(node => {
-        let obj: any;
-        this.getRelationships(node.relationships).subscribe(res => {
-          const attr = node.attributes;
-          obj = {
-            title: attr.title,
-            locality: attr.dependent_locality,
-            deadline: attr.deadline,
-            number: attr.number,
-            salary: attr.salary,
-            welfare: this.getWelfare(attr.welfare),
-            relate: res
-          };
-          this.nodes.push(obj);
+    this.nodeService
+      .getNodes(this.apiService.jobNodeType)
+      .subscribe((nodes) => {
+        nodes.forEach((node) => {
+          let obj: IJob;
+          this.getRelationships(node.relationships).subscribe((res) => {
+            const attr = node.attributes;
+            obj = {
+              title: attr.title,
+              locality: attr.dependent_locality,
+              deadline: attr.deadline,
+              number: attr.number,
+              salary: attr.salary,
+              welfare: this.getWelfare(attr.welfare),
+              relate: res,
+            };
+            this.nodes.push(obj);
+          });
         });
       });
-    });
   }
 
   getRelationships(relationships: any[]): Observable<any> {
-    const obj = _.mapValues(relationships, item => {
-      return this.apiService.getApi(item.links.related.href);
+    const obj = _.mapValues(relationships, (item) => {
+      return this.apiService.getApi(item.links.related.href).pipe(
+        map((res) => {
+          return res.data;
+        })
+      );
     });
-    console.log(obj)
     return forkJoin(obj);
   }
 
@@ -66,12 +71,14 @@ export class JobComponent implements OnInit {
     });
   }
 
-  getWelfare(lists: string[]): any[]{
-    return lists.map(list => {
-      return {
-        color: 'primary',
-        label: list
-      };
-    });
+  getWelfare(lists: string[]): IChipList[] {
+    return lists
+      .map((list) => {
+        return {
+          color: 'primary',
+          label: list,
+        };
+      })
+      .slice(0, 4);
   }
 }

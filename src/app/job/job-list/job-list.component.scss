@@ -55,3 +55,11 @@ $shadow: map-get($map: $color-theme, $key: shadow);
   color: $primary;
   font-size: 1.6rem;
 }
+
+.mini {
+  mat-chip {
+    font-size: 12px;
+    padding: 3px 10px;
+    min-height: 24px;
+  }
+}
