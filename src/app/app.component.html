@@ -1,5 +1,12 @@
-<app-header></app-header>
-<div class="main">
-  <router-outlet></router-outlet>
-</div>
-<app-footer></app-footer>
+<mat-drawer-container class="example-container">
+  <mat-drawer #drawer [(opened)]="opened" (opened)="updateDrawer(drawer)" (closed)="updateDrawer(drawer)">
+    <app-menu [isDrawer]="true"></app-menu>
+  </mat-drawer>
+  <mat-drawer-content>
+    <app-header></app-header>
+    <div class="main">
+      <router-outlet></router-outlet>
+    </div>
+    <app-footer></app-footer>
+  </mat-drawer-content>
+</mat-drawer-container>
