@@ -12,6 +12,5 @@ export interface IJob {
     from: number,
     to: number
   };
-  welfare: IChipList[];
   relate: any;
 }

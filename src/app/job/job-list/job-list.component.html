@@ -8,7 +8,10 @@
     <div class="media-body m-left-xs" fxLayout="column" fxFlex="100" fxLayoutGap="1rem">
       <div class="m-bottom-xs" fxLayoutAlign="start center" fxLayout="row wrap" fxLayoutGap="1rem">
         <h4 class="title" *ngIf="item.relate.company">{{item.relate.company.attributes.title}}</h4>
-        <app-chip-list [classes]="'mini'" [content]="item.welfare"></app-chip-list>
+        <mat-chip-list *ngIf="item.relate?.company?.attributes?.welfare" class="mini">
+          <mat-chip color="primary" selected *ngFor="let item of item.relate.company.attributes.welfare">{{item}}
+          </mat-chip>
+        </mat-chip-list>
       </div>
       <div class="info" fxLayout fxLayoutAlign="space-between center">
         <div class="position">{{item.title}}</div>
