@@ -1,4 +1,5 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -47,9 +48,11 @@ import { DomSanitizer } from '@angular/platform-browser';
     MatMenuModule,
     MatExpansionModule,
     MatChipsModule,
+    RouterModule,
   ],
   exports: [
     CommonModule,
+    RouterModule,
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,

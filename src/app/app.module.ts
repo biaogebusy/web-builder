@@ -11,6 +11,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { BrandingModule } from './branding/branding.module';
 import { AppComponent } from './app.component';
 import { JobModule } from './job/job.module';
+import { ArticleModule } from './article/article.module';
 import { UserModule } from './user/user.module';
 @NgModule({
   declarations: [AppComponent],
@@ -25,6 +26,7 @@ import { UserModule } from './user/user.module';
     MobxModule.forRoot(),
     BrandingModule,
     JobModule,
+    ArticleModule,
     UserModule,
   ],
   providers: [],

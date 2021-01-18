@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NodeService } from '../service/node.service';
+import { ApiService } from '../service/api.service';
 
 @Component({
   selector: 'app-article',
@@ -8,11 +9,14 @@ import { NodeService } from '../service/node.service';
 })
 export class ArticleComponent implements OnInit {
   content: any[] = [];
-  constructor(private nodeService: NodeService) {}
+  constructor(
+    private nodeService: NodeService,
+    public apiService: ApiService
+  ) {}
 
   ngOnInit(): void {
     this.nodeService.getNodes('article').subscribe((nodes) => {
-      console.log(nodes);
+      // console.log(nodes);
       nodes.forEach((node) => {
         let obj: any;
         this.nodeService
@@ -23,6 +27,7 @@ export class ArticleComponent implements OnInit {
               title: attr.title,
               body: attr.body.value,
               created: attr.created,
+              link: node.links.self.href,
               relate: res,
             };
             this.content.push(obj);
