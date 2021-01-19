@@ -3,7 +3,7 @@
     <div *ngIf="branding.content?.footer?.mainMenu && !screen.eq('xs')" class="footer-main-menu m-bottom"
       fxLayout.xs="column" fxLayoutAlign="space-between start">
       <mat-list *ngFor="let menu of branding.content.footer.mainMenu" role="list">
-        <div mat-subheaderclass="text-base">{{menu.label}}</div>
+        <div mat-subheader class="text-base">{{menu.label}}</div>
 
         <!-- TODO： 分出common item 和 popup  -->
         <mat-list-item *ngFor="let subMenu of menu.child; index as i" role="listitem" [matMenuTriggerFor]="popup">

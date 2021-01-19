@@ -1,20 +1,20 @@
 <div class="job-list text-base m-y-sm" *ngIf="content" fxLayout="column" fxLayoutGap="2rem">
   <div class="result">总计 {{content.length}} 职位</div>
-  <div class="item border-shadow" matRipple [matRippleColor]="'rgba(0, 0, 0, 0.04)'" *ngFor="let item of content"
+  <div class="item p-y-sm p-x-sm" matRipple [matRippleColor]="'rgba(0, 0, 0, 0.04)'" *ngFor="let item of content"
     fxLayout>
     <div class="media" fxLayoutAlign="center center" *ngIf="item?.logo">
       <img [src]="item.logo" [alt]="item.company">
     </div>
-    <div class="media-body m-left-xs" fxLayout="column" fxFlex="100" fxLayoutGap="1rem">
+    <div class="media-body" fxLayout="column" fxFlex="100" fxLayoutGap="1rem">
       <div class="m-bottom-xs" fxLayoutAlign="start center" fxLayout="row wrap" fxLayoutGap="1rem">
         <h4 class="title" *ngIf="item.relate.company">{{item.relate.company.attributes.title}}</h4>
-        <mat-chip-list *ngIf="item.relate?.company?.attributes?.welfare" class="mini">
+        <mat-chip-list *ngIf="item.relate?.company?.attributes?.welfare" class="mini primary">
           <mat-chip color="primary" selected *ngFor="let item of item.relate.company.attributes.welfare">{{item}}
           </mat-chip>
         </mat-chip-list>
       </div>
       <div class="info" fxLayout fxLayoutAlign="space-between center">
-        <div class="position">{{item.title}}</div>
+        <div class="position m-y-xs">{{item.title}}</div>
         <div class="wage bold">{{item.salary.from}} - {{item.salary.to}} k</div>
       </div>
       <div class="media-footer" fxLayout fxLayoutAlign="space-between center">
