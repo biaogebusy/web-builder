@@ -13,6 +13,7 @@ import { AppComponent } from './app.component';
 import { JobModule } from './job/job.module';
 import { ArticleModule } from './article/article.module';
 import { UserModule } from './user/user.module';
+import { PageRenderModule } from './page-render/page-render.module';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -28,6 +29,7 @@ import { UserModule } from './user/user.module';
     JobModule,
     ArticleModule,
     UserModule,
+    PageRenderModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

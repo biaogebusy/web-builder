@@ -35,7 +35,7 @@ export class JobComponent implements OnInit {
           this.nodeService
             .getRelationships(node.relationships)
             .subscribe((res) => {
-              // console.log(res)
+              // console.log(res);
               const attr = node.attributes;
               obj = {
                 title: attr.title,
@@ -43,7 +43,7 @@ export class JobComponent implements OnInit {
                 deadline: attr.deadline,
                 number: attr.number,
                 salary: attr.salary,
-                relate: res
+                relate: res,
               };
               this.nodes.push(obj);
             });
@@ -63,7 +63,8 @@ export class JobComponent implements OnInit {
 
   getWelfare(lists: string[]): IChipList[] {
     // console.log(lists)
-    return lists.map((list) => {
+    return lists
+      .map((list) => {
         return {
           color: 'primary',
           label: list,

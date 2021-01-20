@@ -46,11 +46,16 @@ img {
   vertical-align: middle;
 }
 
+.loading {
+  background-color: $primary;
+}
+
 .loader,
 .loader:after {
   border-radius: 50%;
   width: 10em;
   height: 10em;
+  z-index: 999;
 }
 
 .loader {

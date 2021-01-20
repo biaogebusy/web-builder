@@ -16,9 +16,7 @@ import { MatDrawer } from '@angular/material/sidenav';
 export class AppComponent implements OnInit, AfterViewInit {
   authenticated: boolean;
   opened: boolean;
-  constructor(public userState: UserState, public screen: ScreenState) {
-    this.authenticated = false;
-  }
+  constructor(public userState: UserState, public screen: ScreenState) {}
 
   ngOnInit(): void {}
 

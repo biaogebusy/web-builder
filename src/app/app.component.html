@@ -1,4 +1,4 @@
-<mat-drawer-container class="main-container">
+<mat-drawer-container [class.authenticated]="userState.anthenticated">
   <mat-drawer #drawer [(opened)]="opened" (opened)="updateDrawer(drawer)" (closed)="updateDrawer(drawer)">
     <app-menu [isDrawer]="true"></app-menu>
   </mat-drawer>
