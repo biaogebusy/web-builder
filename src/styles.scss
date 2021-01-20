@@ -45,3 +45,47 @@ img {
   box-sizing: border-box;
   vertical-align: middle;
 }
+
+.loader,
+.loader:after {
+  border-radius: 50%;
+  width: 10em;
+  height: 10em;
+}
+
+.loader {
+  margin: 60px auto;
+  font-size: 7px;
+  position: relative;
+  text-indent: -9999em;
+  border-top: 1em solid rgba(98, 69, 230, 0.85);
+  border-right: 1em solid rgba(98, 69, 230, 0.85);
+  border-bottom: 1em solid rgba(98, 69, 230, 0.85);
+  border-left: 1em solid rgba(250, 250, 250, 0.85);
+  transform: translateZ(0);
+  animation: load8 1.1s infinite linear;
+}
+
+@-webkit-keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
