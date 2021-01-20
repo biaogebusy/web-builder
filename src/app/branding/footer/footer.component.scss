@@ -16,6 +16,10 @@ $dark: map-get($map: $color-theme, $key: dark);
       color: rgba($text-color, .8)
     }
   }
+
+  .footer-bottom {
+    background-color: darken($color: map-get($dark, bg), $amount: 3%);
+  }
 }
 
 :host ::ng-deep {
