@@ -58,19 +58,19 @@
 </mat-toolbar>
 
 <mat-list *ngIf="screen.eq('xs') && isDrawer">
-  <mat-list-item>
+  <mat-list-item (click)="onToggle()">
     <mat-icon class="text-primary" mat-list-icon>near_me</mat-icon>
-    <div mat-line>工作机会</div>
+    <div mat-line><a [routerLink]="['/home']">工作机会</a></div>
     <div mat-line>本月内推简历 <span class="text-primary">6</span> 份</div>
   </mat-list-item>
   <mat-divider></mat-divider>
-  <mat-list-item>
+  <mat-list-item (click)="onToggle()">
     <mat-icon class="text-primary" mat-list-icon>favorite_border</mat-icon>
-    <div mat-line>文章</div>
+    <div mat-line><a [routerLink]="['/articles']">文章</a></div>
     <div mat-line>本周原创文章 <span class="text-primary">6</span> 篇</div>
   </mat-list-item>
   <mat-divider></mat-divider>
-  <mat-list-item>
+  <mat-list-item (click)="onToggle()">
     <mat-icon class="text-primary" mat-list-icon>person</mat-icon>
     <div mat-line>关于我们</div>
     <div mat-line>内推简历，致力于开源。</div>

@@ -1,3 +1,6 @@
+<div class="m-y" *ngIf="content.length == 0" fxLayoutAlign="center center">
+  <app-spinner [content]="{color:'primary', size:40}"></app-spinner>
+</div>
 <div class="article m-y" *ngIf="content.length > 0">
   <div class="container" fxLayoutGap="2rem" fxLayout.xs="column" fxLayout.gt-xs="row wrap"
     fxLayoutAlign="space-between start">
