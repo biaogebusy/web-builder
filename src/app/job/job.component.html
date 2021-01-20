@@ -1,6 +1,9 @@
 <div class="container">
   <div class="job" fxFill fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start stretch">
     <div class="sidebar p-x-xs" fxFlex.xs="100%" fxFlex.gt-xs="600px">
+      <div class="m-y" *ngIf="nodes.length == 0" fxLayoutAlign="center center">
+        <app-spinner [content]="{color:'primary', size:40}"></app-spinner>
+      </div>
       <app-job-filter [content]="nodes" (regionChange)="regionFilter($event)"></app-job-filter>
       <app-job-list [content]="nodes"></app-job-list>
     </div>
