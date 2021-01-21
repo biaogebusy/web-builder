@@ -25,7 +25,7 @@ GET {{base}}/user/login_status?_format=json HTTP/1.1
 ### user logout
 POST {{base}}/user/logout?_format=json&token={{logoutToken}} HTTP/1.1
 
-### logout v2
+### logout v2 强制退出
 POST {{base}}/user/logout HTTP/1.1
 
 ### get user info

@@ -14,6 +14,9 @@
               <a class="text-base bold" href="#">职位</a>
             </div>
             <div class="item">
+              <a class="text-base bold" [routerLink]="['/articles']">文章</a>
+            </div>
+            <div class="item">
               <a class="text-base bold" href="#">联系</a>
             </div>
           </div>
@@ -43,9 +46,8 @@
   </div>
   <mat-divider></mat-divider>
 </header>
-
-<mat-toolbar *ngIf="screen.eq('xs')">
-  <button mat-icon-button class="example-icon" aria-label="menu icon">
+<mat-toolbar color="primary" *ngIf="screen.eq('xs')">
+  <button mat-icon-button (click)="onToggle()" aria-label="menu icon">
     <mat-icon>menu</mat-icon>
   </button>
   <span>NNITPAY CMS API DEMO</span>
@@ -54,3 +56,23 @@
     <mat-icon>search</mat-icon>
   </button>
 </mat-toolbar>
+
+<mat-list *ngIf="screen.eq('xs') && isDrawer">
+  <mat-list-item (click)="onToggle()">
+    <mat-icon class="text-primary" mat-list-icon>near_me</mat-icon>
+    <div mat-line><a [routerLink]="['/home']">工作机会</a></div>
+    <div mat-line>本月内推简历 <span class="text-primary">6</span> 份</div>
+  </mat-list-item>
+  <mat-divider></mat-divider>
+  <mat-list-item (click)="onToggle()">
+    <mat-icon class="text-primary" mat-list-icon>favorite_border</mat-icon>
+    <div mat-line><a [routerLink]="['/articles']">文章</a></div>
+    <div mat-line>本周原创文章 <span class="text-primary">6</span> 篇</div>
+  </mat-list-item>
+  <mat-divider></mat-divider>
+  <mat-list-item (click)="onToggle()">
+    <mat-icon class="text-primary" mat-list-icon>person</mat-icon>
+    <div mat-line>关于我们</div>
+    <div mat-line>内推简历，致力于开源。</div>
+  </mat-list-item>
+</mat-list>

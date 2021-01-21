@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../service/api.service';
 import { NodeService } from '../service/node.service';
 import { forkJoin, Observable } from 'rxjs';
-import * as _ from 'lodash';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { IJob, IChipList } from './IJob';
 @Component({
   selector: 'app-job',
   templateUrl: './job.component.html',
@@ -13,11 +13,11 @@ import { map } from 'rxjs/operators';
 export class JobComponent implements OnInit {
   nodes: any[];
   regions: any;
+  loading: boolean;
 
   constructor(
     private apiService: ApiService,
     private nodeService: NodeService,
-    private http: HttpClient
   ) {
     this.nodes = [];
   }
@@ -26,31 +26,34 @@ export class JobComponent implements OnInit {
     this.getJobsNodes();
   }
 
-  getJobsNodes() {
-    this.nodeService.getNodes(this.apiService.jobNodeType).subscribe(nodes => {
-      nodes.map(node => {
-        let obj: any;
-        this.getRelationships(node.relationships).subscribe(res => {
-          obj = {
-            attributes: node.attributes,
-            relate: res
-          };
-          this.nodes.push(obj);
-          console.log(this.nodes)
+  getJobsNodes(): void {
+    this.loading = true;
+    this.nodeService
+      .getNodes(this.apiService.jobNodeType)
+      .subscribe((nodes) => {
+        this.loading = false;
+        nodes.forEach((node) => {
+          let obj: IJob;
+          this.nodeService
+            .getRelationships(node.relationships)
+            .subscribe((res) => {
+              // console.log(res);
+              const attr = node.attributes;
+              obj = {
+                title: attr.title,
+                locality: attr.dependent_locality,
+                deadline: attr.deadline,
+                number: attr.number,
+                salary: attr.salary,
+                relate: res,
+              };
+              this.nodes.push(obj);
+            });
         });
       });
-    });
   }
 
-  getRelationships(relationships: any[]): Observable<any> {
-    const obj = _.mapValues(relationships, item => {
-      return this.apiService.getApi(item.links.related.href);
-    });
-    console.log(obj)
-    return forkJoin(obj);
-  }
-
-  regionFilter(event: any) {
+  regionFilter(event: any): void {
     console.log(event);
     if (event === 'all') {
       this.getJobsNodes();
@@ -58,5 +61,17 @@ export class JobComponent implements OnInit {
     this.apiService.nodeFilterByRegion(event).subscribe((nodes) => {
       this.nodes = [];
     });
+  }
+
+  getWelfare(lists: string[]): IChipList[] {
+    // console.log(lists)
+    return lists
+      .map((list) => {
+        return {
+          color: 'primary',
+          label: list,
+        };
+      })
+      .slice(0, 4);
   }
 }

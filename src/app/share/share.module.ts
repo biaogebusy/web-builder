@@ -1,4 +1,5 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -18,8 +19,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatListModule } from '@angular/material/list';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import {MatExpansionModule} from '@angular/material/expansion';
-
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatChipsModule } from '@angular/material/chips';
 
 // icon utils
 import { MatIconRegistry } from '@angular/material/icon';
@@ -45,10 +46,13 @@ import { DomSanitizer } from '@angular/platform-browser';
     MatProgressBarModule,
     MatProgressSpinnerModule,
     MatMenuModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatChipsModule,
+    RouterModule,
   ],
   exports: [
     CommonModule,
+    RouterModule,
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
@@ -68,7 +72,8 @@ import { DomSanitizer } from '@angular/platform-browser';
     MatMenuModule,
     MatListModule,
     MatTooltipModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatChipsModule,
   ],
 })
 export class ShareModule {

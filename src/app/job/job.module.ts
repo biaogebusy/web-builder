@@ -6,6 +6,7 @@ import { JobNodeComponent } from './job-node/job-node.component';
 import { ShareModule } from '../share/share.module';
 import { JobComponent } from './job.component';
 import { MapComponent } from './map/map.component';
+import { UiuxModule } from '../uiux/uiux.module';
 @NgModule({
   declarations: [
     JobFilterComponent,
@@ -14,6 +15,10 @@ import { MapComponent } from './map/map.component';
     JobComponent,
     MapComponent,
   ],
-  imports: [CommonModule, ShareModule],
+  imports: [
+    CommonModule,
+    ShareModule,
+    UiuxModule
+  ],
 })
 export class JobModule {}

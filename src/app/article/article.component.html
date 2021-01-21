@@ -1,0 +1,18 @@
+<div class="m-y" *ngIf="loading" fxLayoutAlign="center center">
+  <app-spinner [content]="{color:'primary', size:40}"></app-spinner>
+</div>
+<div class="article m-y" *ngIf="content.length">
+  <div class="container" fxLayoutGap="2rem" fxLayout.xs="column" fxLayout.gt-xs="row wrap"
+    fxLayoutAlign="space-between start">
+    <mat-card *ngFor="let item of content" fxFlex.xs="100" fxFlex.sm="30" fxFlex.gt-sm="23">
+      <img mat-card-image [src]="item.relate?.field_image?.attributes?.uri?.url" [alt]="item.title">
+      <mat-card-content>
+        <p [innerHTML]="item.body.length > 80 ? (item.body | slice:0:80)+' ...' : item.body"></p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button>LIKE</button>
+        <button mat-button>SHARE</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

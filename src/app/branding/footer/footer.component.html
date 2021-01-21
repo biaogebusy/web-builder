@@ -1,9 +1,9 @@
-<div class="footer p-y-sm m-top-lg">
+<div class="footer m-top-lg text-base dark-theme">
   <div class="container">
-    <div *ngIf="branding.content?.footer?.mainMenu && !screen.eq('xs')" class="footer-main-menu m-bottom"
+    <div *ngIf="branding.content?.footer?.mainMenu && !screen.eq('xs')" class="footer-main-menu m-bottom p-y-sm"
       fxLayout.xs="column" fxLayoutAlign="space-between start">
       <mat-list *ngFor="let menu of branding.content.footer.mainMenu" role="list">
-        <div mat-subheaderclass="text-base">{{menu.label}}</div>
+        <div mat-subheader class="text-base">{{menu.label}}</div>
 
         <!-- TODO： 分出common item 和 popup  -->
         <mat-list-item *ngFor="let subMenu of menu.child; index as i" role="listitem" [matMenuTriggerFor]="popup">
@@ -17,16 +17,7 @@
 
       </mat-list>
     </div>
-    <div class="mobile" *ngIf="branding.content?.footer?.mobileMenu && screen.eq('xs')">
-      <div class="m-bottom-xs" fxLayoutAlign="end center" fxLayoutGap="1rem"
-        *ngIf="branding.content?.footer?.accordion">
-        <button mat-mini-fab color="base" *ngIf="!panelOpenState">
-          <mat-icon (click)="accordion.openAll()">{{branding.content.footer.accordion.openIcon}}</mat-icon>
-        </button>
-        <button mat-mini-fab color="base" *ngIf="panelOpenState">
-          <mat-icon (click)="accordion.closeAll()">{{branding.content.footer.accordion.closeIcon}}</mat-icon>
-        </button>
-      </div>
+    <div class="mobile p-y-sm" *ngIf="branding.content?.footer?.mobileMenu && screen.eq('xs')">
       <mat-accordion class="footer-menu-mobile" multi>
         <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false"
           *ngFor="let menu of branding.content.footer.mobileMenu">
@@ -43,8 +34,9 @@
         </mat-expansion-panel>
       </mat-accordion>
     </div>
-
-    <div class="footer-bottom text-center p-top-sm">
+  </div>
+  <div class="footer-bottom text-center p-y-sm">
+    <div class="container">
       <div class="brand" fxLayoutAlign="space-between center">
         <h2 class="mat-h2 m-bottom-0">NNITPAY</h2>
         <p>©{{utilities.fullYear}} Copyright by NNITPAI</p>

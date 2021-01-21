@@ -5,10 +5,8 @@ $shadow: map-get($map: $color-theme, $key: shadow);
 .job-list {
 
   .item {
-    border: 1px solid;
-    padding: 2rem;
     border-radius: 10px;
-    box-shadow: 0 10px 20px 2px rgb(0 0 0 / 7%);
+    box-shadow: 0 4px 20px 2px rgba(0, 0, 0, 0.07);
     cursor: pointer;
 
     .title {
@@ -18,6 +16,12 @@ $shadow: map-get($map: $color-theme, $key: shadow);
     .position {
       font-size: 1.8rem;
       color: map-get($dark, text)
+    }
+
+    @media #{$xs} {
+      .title {
+        margin-bottom: 1rem;
+      }
     }
   }
 }
@@ -44,14 +48,23 @@ $shadow: map-get($map: $color-theme, $key: shadow);
   font-size: small;
 }
 
-.badge {
-  margin-right: 1.2rem;
-  padding: 1.2rem;
-  background-color: map-get($map: $shadow, $key: bg);
-  border-radius: 2px;
-}
-
 .wage {
   color: $primary;
   font-size: 1.6rem;
+}
+
+.mini {
+  mat-chip {
+    font-size: 12px;
+    padding: 3px 10px;
+    min-height: 24px;
+    color: map-get($map: $dark, $key: text);
+  }
+
+  &.primary {
+    mat-chip {
+      background-color: rgba($primary, 0.1);
+      color: $primary;
+    }
+  }
 }

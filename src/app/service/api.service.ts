@@ -13,7 +13,7 @@ export class ApiService {
   userIdGetPath = '/jsonapi';
   nodeGetPath = '/jsonapi/node';
   userGetPath = '/jsonapi/user/user';
-  jobNodeType = 'recruitment';
+  jobNodeType = 'job';
   localUserKey = 'currentUser';
 
   // nodeGetPath = 'http://localhost:3000/jobs';
