@@ -9,10 +9,9 @@
     <mat-label>区域</mat-label>
     <mat-select (selectionChange)="onSelectRegion($event)">
       <mat-option value="all">全部</mat-option>
-      <ng-container *ngIf=""></ng-container>
       <mat-option *ngFor="let option of content"
-        value="{{option.relate.company.attributes.address.dependent_locality}}">
-        {{option.relate.company.attributes.address.dependent_locality}}
+        value="{{option.relate.company.attributes.address?.dependent_locality}}">
+        {{option.relate.company.attributes.address?.dependent_locality}}
       </mat-option>
     </mat-select>
   </mat-form-field>

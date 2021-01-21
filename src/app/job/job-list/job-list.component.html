@@ -9,19 +9,20 @@
       <div class="m-bottom-xs" fxLayoutAlign="start center" fxLayout="row wrap" fxLayoutGap="1rem">
         <h4 class="title" *ngIf="item.relate.company">{{item.relate.company.attributes.title}}</h4>
         <mat-chip-list *ngIf="item.relate?.company?.attributes?.welfare" class="mini primary">
-          <mat-chip color="primary" selected *ngFor="let item of item.relate.company.attributes.welfare">{{item}}
+          <mat-chip color="primary" selected *ngFor="let item of item.relate.company.attributes.welfare">
+            {{item | slice:0:4}}
           </mat-chip>
         </mat-chip-list>
       </div>
       <div class="info" fxLayout fxLayoutAlign="space-between center">
         <div class="position m-y-xs">{{item.title}}</div>
-        <div class="wage bold">{{item.salary.from}} - {{item.salary.to}} k</div>
+        <div class="wage bold" *ngIf="item.salary">{{item.salary.from}} - {{item.salary.to}} k</div>
       </div>
       <div class="media-footer" fxLayout fxLayoutAlign="space-between center">
         <div class="media-footer-left" fxLayout *ngIf="item.relate.skill">
           <mat-chip-list class="mini">
             <mat-chip color="base" *ngFor="let item of item.relate.skill">
-              {{item.attributes.name}}
+              {{item.attributes.name | slice:0:10}}
             </mat-chip>
           </mat-chip-list>
         </div>
