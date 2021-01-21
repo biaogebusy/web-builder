@@ -35,11 +35,11 @@ export class MenuComponent implements OnInit, OnDestroy {
     });
   }
 
-  logout() {
+  logout(): void {
     this.userState.logout();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.userState.user$.unsubscribe();
   }
 

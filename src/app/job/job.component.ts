@@ -13,11 +13,11 @@ import { IJob, IChipList } from './IJob';
 export class JobComponent implements OnInit {
   nodes: any[];
   regions: any;
+  loading: boolean;
 
   constructor(
     private apiService: ApiService,
     private nodeService: NodeService,
-    private http: HttpClient
   ) {
     this.nodes = [];
   }
@@ -26,10 +26,12 @@ export class JobComponent implements OnInit {
     this.getJobsNodes();
   }
 
-  getJobsNodes() {
+  getJobsNodes(): void {
+    this.loading = true;
     this.nodeService
       .getNodes(this.apiService.jobNodeType)
       .subscribe((nodes) => {
+        this.loading = false;
         nodes.forEach((node) => {
           let obj: IJob;
           this.nodeService
@@ -51,7 +53,7 @@ export class JobComponent implements OnInit {
       });
   }
 
-  regionFilter(event: any) {
+  regionFilter(event: any): void {
     console.log(event);
     if (event === 'all') {
       this.getJobsNodes();

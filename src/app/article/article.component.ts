@@ -9,14 +9,17 @@ import { ApiService } from '../service/api.service';
 })
 export class ArticleComponent implements OnInit {
   content: any[] = [];
+  loading: boolean;
   constructor(
     private nodeService: NodeService,
     public apiService: ApiService
   ) {}
 
   ngOnInit(): void {
+    this.loading = true;
     this.nodeService.getNodes('article').subscribe((nodes) => {
       // console.log(nodes);
+      this.loading = false;
       nodes.forEach((node) => {
         let obj: any;
         this.nodeService
