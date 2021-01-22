@@ -19,9 +19,9 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void { }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.screenState.scroll$.subscribe(() => {
-      this.sticky = !this.screen.isElementInViewport(this.menu.nativeElement);
+      this.sticky = this.screen.isElementOutTopViewport(this.menu.nativeElement);
     });
   }
 }

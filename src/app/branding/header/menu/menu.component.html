@@ -48,7 +48,8 @@
 </header>
 <mat-toolbar color="primary" *ngIf="screen.eq('xs')">
   <button mat-icon-button (click)="onToggle()" aria-label="menu icon">
-    <mat-icon>menu</mat-icon>
+    <mat-icon *ngIf="!isDrawer">menu</mat-icon>
+    <mat-icon *ngIf="isDrawer">close</mat-icon>
   </button>
   <span>NNITPAY CMS API DEMO</span>
   <span class="spacer"></span>

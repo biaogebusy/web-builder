@@ -59,7 +59,7 @@ export class ScreenState {
     return targetPoint === this.viewPort;
   }
 
-  initBrowserEvents() {
+  initBrowserEvents(): void {
     const scroll = fromEvent(window, 'scroll')
       .pipe(debounceTime(200))
       .subscribe(() => {
