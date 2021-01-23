@@ -1,21 +1,21 @@
 @import '~@angular/material/theming';
 @import './breakpoint';
 
-$nnit-color: ( //
+$app-color: ( //
   50: #eee9fc,
-  100: #d4bff9,
-  200: #b794f6,
-  300: #9965f4,
-  400: #7e3ff2,
+  100: #d4c8f7,
+  200: #b7a4f3,
+  300: #987eef,
+  400: #7e61eb,
   500: #6245e6,
-  600: #5300e8,
-  700: #3d00e0,
-  800: #1c00db,
-  900: #0000d6,
-  A100: #d4bff9,
-  A200: #b794f6,
-  A400: #7e3ff2,
-  A700: #3d00e0,
+  600: #5640df,
+  700: #4438d6,
+  800: #3032cf,
+  900: #0025c4,
+  A100: #d4c8f7,
+  A200: #b7a4f3,
+  A400: #7e61eb,
+  A700: #4438d6,
   contrast: ( //
     50: $dark-primary-text,
     100: $dark-primary-text,
@@ -33,8 +33,8 @@ $nnit-color: ( //
     A700: $light-primary-text,
   ));
 
-$uiux-app-primary: mat-palette($nnit-color);
-$uiux-app-accent: mat-palette($mat-blue, A200, A100, A400);
+$uiux-app-primary: mat-palette($app-color);
+$uiux-app-accent: mat-palette($app-color, A200, A100, A400);
 $uiux-app-warn: mat-palette($mat-red, A200, A100, A400);
 $uiux-app-theme: mat-light-theme($uiux-app-primary, $uiux-app-accent, $uiux-app-warn);
 
