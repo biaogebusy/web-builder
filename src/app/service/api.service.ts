@@ -10,9 +10,9 @@ import { environment } from '../../environments/environment';
 export class ApiService {
   apiUrl: string;
   loginPath = '/user/login';
-  userIdGetPath = '/jsonapi';
-  nodeGetPath = '/jsonapi/node';
-  userGetPath = '/jsonapi/user/user';
+  userIdGetPath = '/api/v1';
+  nodeGetPath = '/api/v1/node';
+  userGetPath = '/api/v1/user/user';
   jobNodeType = 'job';
   localUserKey = 'currentUser';
 

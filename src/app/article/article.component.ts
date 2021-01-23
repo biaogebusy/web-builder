@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { NodeService } from '../service/node.service';
 import { ApiService } from '../service/api.service';
-
+import * as _ from 'lodash';
 @Component({
   selector: 'app-article',
   templateUrl: './article.component.html',
   styleUrls: ['./article.component.scss'],
 })
 export class ArticleComponent implements OnInit {
-  content: any[] = [];
+  content: any;
+  relation: any;
   loading: boolean;
   constructor(
     private nodeService: NodeService,
@@ -17,25 +18,19 @@ export class ArticleComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
-    this.nodeService.getNodes('article').subscribe((nodes) => {
+    const params = [
+      'fields[node--article]=title,body,created,link,field_image',
+      'include=field_image',
+      'fields[file--file]=uri',
+      'page[limit]=20',
+    ].join('&');
+    this.nodeService.getNodes('article', params).subscribe((res: any) => {
       // console.log(nodes);
       this.loading = false;
-      nodes.forEach((node) => {
-        let obj: any;
-        this.nodeService
-          .getRelationships(node.relationships)
-          .subscribe((res) => {
-            const attr = node.attributes;
-            obj = {
-              title: attr.title,
-              body: attr.body.value,
-              created: attr.created,
-              link: node.links.self.href,
-              relate: res,
-            };
-            this.content.push(obj);
-          });
-      });
+      this.content = res.data;
+      if (_.isArray(res.included)) {
+        this.relation = _.keyBy(res.included, 'id');
+      }
     });
   }
 }

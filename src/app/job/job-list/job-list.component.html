@@ -2,27 +2,32 @@
   <div class="result">总计 {{content.length}} 职位</div>
   <div class="item p-y-sm p-x-sm" matRipple [matRippleColor]="'rgba(0, 0, 0, 0.04)'" *ngFor="let item of content"
     fxLayout>
-    <div class="media" fxLayoutAlign="center center" *ngIf="item?.logo">
-      <img [src]="item.logo" [alt]="item.company">
+    <div class="media" fxLayoutAlign="center center" *ngIf="item.relationships?.company">
+      <img [src]="relation[relation[item.relationships.company.data.id].relationships.logo.data.id].attributes.uri.url"
+        [alt]="'logo'">
     </div>
     <div class="media-body" fxLayout="column" fxFlex="100" fxLayoutGap="1rem">
       <div class="m-bottom-xs" fxLayoutAlign="start center" fxLayout="row wrap" fxLayoutGap="1rem">
-        <h4 class="title" *ngIf="item.relate.company">{{item.relate.company.attributes.title}}</h4>
-        <mat-chip-list *ngIf="item.relate?.company?.attributes?.welfare" class="mini primary">
-          <mat-chip color="primary" selected *ngFor="let item of item.relate.company.attributes.welfare">
+        <h4 class="title" *ngIf="item.relationships?.company">
+          {{relation[item.relationships.company.data.id].attributes.title}}</h4>
+        <mat-chip-list *ngIf="relation[item.relationships.company.data.id].attributes?.welfare" class="mini primary">
+          <mat-chip color="primary" selected
+            *ngFor="let item of relation[item.relationships.company.data.id].attributes.welfare">
             {{item | slice:0:4}}
           </mat-chip>
         </mat-chip-list>
       </div>
       <div class="info" fxLayout fxLayoutAlign="space-between center">
-        <div class="position m-y-xs">{{item.title}}</div>
-        <div class="wage bold" *ngIf="item.salary">{{item.salary.from}} - {{item.salary.to}} k</div>
+        <div class="position m-y-xs">{{item.attributes.title}}</div>
+        <div class="wage bold" *ngIf="item.attributes.salary">{{item.attributes.salary.from}} -
+          {{item.attributes.salary.to}} k
+        </div>
       </div>
       <div class="media-footer" fxLayout fxLayoutAlign="space-between center">
-        <div class="media-footer-left" fxLayout *ngIf="item.relate.skill">
+        <div class="media-footer-left" fxLayout *ngIf="item.relationships.skill">
           <mat-chip-list class="mini">
-            <mat-chip color="base" *ngFor="let item of item.relate.skill">
-              {{item.attributes.name | slice:0:10}}
+            <mat-chip color="base" *ngFor="let item of item.relationships.skill.data">
+              {{relation[item.id].attributes.name | slice:0:10}}
             </mat-chip>
           </mat-chip-list>
         </div>

@@ -8,7 +8,7 @@
         暂无数据
       </div>
       <app-job-filter [content]="nodes" (regionChange)="regionFilter($event)"></app-job-filter>
-      <app-job-list *ngIf="nodes.length !== 0" [content]="nodes"></app-job-list>
+      <app-job-list *ngIf="nodes.length !== 0" [content]="nodes" [relation]="relation"></app-job-list>
     </div>
     <div class="map-wrapper" fxFlex.xs="100%" fxFlex.gt-xs="100%">
       <app-map></app-map>

@@ -7,9 +7,8 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class JobListComponent implements OnInit {
   @Input() content: any;
-
+  @Input() relation: any;
   constructor() {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 }
