@@ -3,7 +3,8 @@
   <div class="item p-y-sm p-x-sm" matRipple [matRippleColor]="'rgba(0, 0, 0, 0.04)'" *ngFor="let item of content"
     fxLayout>
     <div class="media" fxLayoutAlign="center center" *ngIf="item.relationships?.company">
-      <img [src]="relation[relation[item.relationships.company.data.id].relationships.logo.data.id].attributes.uri.url"
+      <img *ngIf="item.relationships.company.data"
+        [src]="relation[relation[item.relationships.company.data.id].relationships.logo.data.id].attributes.uri.url"
         [alt]="'logo'">
     </div>
     <div class="media-body" fxLayout="column" fxFlex="100" fxLayoutGap="1rem">
