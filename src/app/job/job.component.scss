@@ -1,0 +1,9 @@
+@import '../../theme/variable/variable.scss';
+
+.map-wrapper {
+  @media #{$xs} {
+    height: 60vh;
+    width: 100%;
+    padding: 1rem;
+  }
+}

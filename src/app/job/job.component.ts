@@ -48,6 +48,7 @@ export class JobComponent implements OnInit {
       this.nodes = res.data;
       if (_.isArray(res.included)) {
         this.relation = _.keyBy(res.included, 'id');
+        console.log(this.relation);
       }
     });
   }
