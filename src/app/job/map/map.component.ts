@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import AMapLoader from '@amap/amap-jsapi-loader';
+import * as AMapLoader from '@amap/amap-jsapi-loader';
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
