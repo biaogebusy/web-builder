@@ -7,6 +7,7 @@ import * as AMapLoader from '@amap/amap-jsapi-loader';
 })
 export class MapComponent implements OnInit, OnDestroy {
   constructor() {}
+
   map: any;
   zoom = 13; // PC上，参数zoom可设范围：[3,18]；
   center = [108.32067, 22.817424];
