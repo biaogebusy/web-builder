@@ -23,7 +23,7 @@
             发布职位
           </button>
         </div>
-        <div class="user">
+        <div class="user" *ngIf="userState.anthenticated">
           <button mat-mini-fab color="primary" mat-button [matMenuTriggerFor]="menu">
             <h3 class="name">{{utilities.getIndexTitle(userState?.currentUser?.display_name || 'N')}}</h3>
           </button>

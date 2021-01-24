@@ -38,7 +38,6 @@ export class UserService {
       )
       .pipe(
         map((res) => {
-          console.log(res);
           return {
             id: res.data[0].id,
           };
@@ -55,7 +54,6 @@ export class UserService {
       )
       .pipe(
         map((res) => {
-          console.log(res);
           const detail = res.data[0];
           const info = detail.attributes;
 

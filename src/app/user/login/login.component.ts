@@ -6,7 +6,7 @@ import { ApiService } from '../../service/api.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit, OnDestroy {
   hide = true;
@@ -17,18 +17,15 @@ export class LoginComponent implements OnInit, OnDestroy {
     public userState: UserState,
     private router: Router,
     private apiService: ApiService
-  ) {
-
-  }
+  ) {}
 
   ngOnInit(): void {
     this.userForm = this.fb.group({
       name: ['', Validators.required],
-      pass: ['', Validators.required]
+      pass: ['', Validators.required],
     });
 
-    this.userState.user$.subscribe(user => {
-      console.log(user)
+    this.userState.user$.subscribe((user) => {
       if (user.authenticated) {
         setTimeout(() => {
           this.router.navigate(['/home']);
@@ -41,17 +38,19 @@ export class LoginComponent implements OnInit, OnDestroy {
     return this.userForm.controls;
   }
 
-  login() {
-    console.log(this.userForm.value);
+  login(): void {
     if (this.userForm.invalid) {
       return;
     }
 
-    this.userState.login(this.userForm.value.name, this.userForm.value.pass, this.apiService.localUserKey);
+    this.userState.login(
+      this.userForm.value.name,
+      this.userForm.value.pass,
+      this.apiService.localUserKey
+    );
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.userState.user$.unsubscribe();
   }
-
 }

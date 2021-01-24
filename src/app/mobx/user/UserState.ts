@@ -56,11 +56,9 @@ export class UserState {
   @action
   updateUser(data: TokenUser, localStorageKey: string): any {
     let userDetails = {};
-    console.log(data, localStorageKey);
     this.userService.getCurrentUserById(data).subscribe((res) => {
       const id = res.id;
       this.userService.getUser(id, localStorageKey).subscribe((user) => {
-        console.log(user);
         this.loading = false;
         this.user = user;
         this.user$.next(user);
