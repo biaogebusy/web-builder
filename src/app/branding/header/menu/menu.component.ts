@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 import { IUser } from '../../../mobx/user/IUser';
 import { UserState } from '../../../mobx/user/UserState';
 import { UtilitiesService } from '../../../service/utilities.service';
-import { ScreenState } from '../../../mobx/screen/ScreenState.service';
+import { ScreenState } from '../../../mobx/screen/ScreenState';
 import { Subject } from 'rxjs';
 @Component({
   selector: 'app-menu',

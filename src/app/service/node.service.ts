@@ -18,10 +18,6 @@ export class NodeService {
     );
   }
 
-  getRelationshipsxx(api: string): Observable<any> {
-    return this.http.get<any>(api, this.apiService.csrfToken);
-  }
-
   getRelationships(relationships: any[]): Observable<any> {
     const obj = _.mapValues(relationships, (item) => {
       return this.apiService.getApi(item.links.related.href).pipe(

@@ -2,7 +2,6 @@ import { Inject, Injectable } from '@angular/core';
 import { action, observable, computed } from 'mobx-angular';
 import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
 import { IUser, TokenUser } from './IUser';
-import { first } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { UserService } from '../../service/user.service';
 import { ApiService } from '../../service/api.service';

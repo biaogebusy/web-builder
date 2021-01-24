@@ -6,7 +6,7 @@ import {
   AfterViewInit,
 } from '@angular/core';
 import { UserState } from './mobx/user/UserState';
-import { ScreenState } from './mobx/screen/ScreenState.service';
+import { ScreenState } from './mobx/screen/ScreenState';
 import { MatDrawer } from '@angular/material/sidenav';
 @Component({
   selector: 'app-root',
