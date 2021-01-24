@@ -1,35 +1,35 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { AmapService } from '../../service/amap.service';
+import { AMapState } from '../../mobx/amap/AMapState';
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
 })
 export class MapComponent implements OnInit, OnDestroy {
-  constructor() {}
   @Input() content: any;
   @Input() relation: any;
   @Input() AMap: any;
   map: any;
-  zoom = 13; // PC上，参数zoom可设范围：[3,18]；
-  center = [108.32067, 22.817424];
-  mapStyle = 'amap://styles/1421728e809147de8bfac4fd1abd2fb3';
-  features = ['bg', 'road', 'point']; // ['bg', 'road', 'building', 'point']
+
+  constructor(private amapService: AmapService, private amapState: AMapState) {}
 
   ngOnInit(): void {
-    // https://lbs.amap.com/demo-center/js-api
-    // https://lbs.amap.com/api/jsapi-v2/summary
-    // https://lbs.amap.com/api/javascript-api/guide/layers/official-layers#default
-    // https://lbs.amap.com/console/show/picker
     this.map = new this.AMap.Map('map', {
-      zoom: this.zoom,
-      center: this.center,
-      mapStyle: this.mapStyle,
-      features: this.features,
+      resizeEnable: true,
+      zoom: this.amapService.zoom,
+      center: this.amapService.center,
+      mapStyle: this.amapService.mapStyle,
+      features: this.amapService.features,
     });
+    this.getMarkers();
+  }
 
-    const markers = this.content.map((marker: any) => {
-      return new this.AMap.Marker({
-        content: `
+  getMarkers(): void {
+    this.amapState.position$.subscribe((res) => {
+      const markers = this.content.map((marker: any) => {
+        return new this.AMap.Marker({
+          content: `
             <div class="mark-card p-y-xs p-x-xs">
               <div class="media m-right-xs">
                 <img src="${
@@ -53,11 +53,13 @@ export class MapComponent implements OnInit, OnDestroy {
           ${marker.attributes.salary.to} k</div>
               </div>
             </div>`,
-        position: this.relation[marker.relationships.company.data.id].position,
-        title: marker.attributes.title,
+          position: this.relation[marker.relationships.company.data.id]
+            .position,
+          title: marker.attributes.title,
+        });
       });
+      this.map.add(markers);
     });
-    this.map.add(markers);
   }
 
   ngOnDestroy(): void {

@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../service/api.service';
 import { NodeService } from '../service/node.service';
-import { forkJoin, Observable, Subject } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
-import { IJob, IChipList } from './IJob';
+import { Subject } from 'rxjs';
+import { IChipList } from './IJob';
 import * as _ from 'lodash';
 import * as AMapLoader from '@amap/amap-jsapi-loader';
+import { AmapService } from '../service/amap.service';
+import { AMapState } from '../mobx/amap/AMapState';
 @Component({
   selector: 'app-job',
   templateUrl: './job.component.html',
@@ -21,24 +21,19 @@ export class JobComponent implements OnInit {
   loading: boolean;
   AMap: any;
   geocoder: any;
-  city = '0771';
 
-  $position = new Subject();
   show = false;
   constructor(
     private apiService: ApiService,
-    private nodeService: NodeService
+    private nodeService: NodeService,
+    private amapService: AmapService,
+    public amapState: AMapState
   ) {
     this.nodes = [];
   }
 
   ngOnInit(): void {
     this.getJobsNodes();
-    this.$position.subscribe((state) => {
-      if (state) {
-        this.show = true;
-      }
-    });
   }
 
   getJobsNodes(): void {
@@ -67,24 +62,10 @@ export class JobComponent implements OnInit {
   }
 
   initMap(included: any): void {
-    AMapLoader.load({
-      key: '33877188af64f0213ff4fa259b1c14b8',
-      version: '1.4.15',
-      plugins: ['AMap.Geocoder'], // 需要使用的的插件列表，如比例尺'AMap.Scale'等
-      AMapUI: {
-        // 是否加载 AMapUI，缺省不加载
-        version: '1.1', // AMapUI 缺省 1.1
-        plugins: [], // 需要加载的 AMapUI ui插件
-      },
-      Loca: {
-        // 是否加载 Loca， 缺省不加载
-        version: '2.0', // Loca 版本，缺省 1.3.2
-      },
-    }).then((AMap: any) => {
+    this.amapService.load().subscribe((AMap: any) => {
       this.AMap = AMap;
-
       this.geocoder = new AMap.Geocoder({
-        city: this.city,
+        city: this.amapService.city,
       });
       this.getPosition(included);
     });
@@ -94,6 +75,7 @@ export class JobComponent implements OnInit {
     const companys = included.filter((item: any) => {
       return item.type === 'node--company';
     });
+
     if (companys.length > 0) {
       companys.forEach((item: any, index: number) => {
         const address = item.attributes.address.address_line1;
@@ -102,7 +84,7 @@ export class JobComponent implements OnInit {
             const location = result.geocodes[0].location;
             this.relation[item.id].position = [location.lng, location.lat];
             if (companys.length === index + 1) {
-              this.$position.next(true);
+              this.amapState.position$.next(true);
             }
           }
         });
@@ -128,5 +110,9 @@ export class JobComponent implements OnInit {
         };
       })
       .slice(0, 4);
+  }
+
+  onSelected(item: any) {
+    console.log(item);
   }
 }

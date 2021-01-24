@@ -1,7 +1,7 @@
 <div class="job-list text-base m-y-sm" *ngIf="content" fxLayout="column" fxLayoutGap="2rem">
   <div class="result">总计 <span class="text-primary">{{content.length}}</span> 个职位</div>
   <div class="item p-y-sm p-x-sm" matRipple [matRippleColor]="'rgba(0, 0, 0, 0.04)'" *ngFor="let item of content"
-    fxLayout>
+    fxLayout (click)="onClick(item)">
     <div class="media" fxLayoutAlign="center center" *ngIf="item.relationships?.company">
       <img *ngIf="item.relationships.company.data"
         [src]="relation[relation[item.relationships.company.data.id].relationships.logo.data.id].attributes.uri.url"

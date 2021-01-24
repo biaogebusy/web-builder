@@ -33,5 +33,15 @@ $light: map-get($map: $color-theme, $key: light);
         line-height: 1;
       }
     }
+
+    @media #{$xs} {
+      min-width: 150px;
+
+      .media {
+        img {
+          width: 4rem;
+        }
+      }
+    }
   }
 }
