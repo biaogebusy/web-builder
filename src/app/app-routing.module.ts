@@ -18,12 +18,12 @@ const routes: Routes = [
   {
     path: 'articles',
     component: ArticleComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full',
-    canActivate: [AuthGuard],
   },
 
   // otherwise redirect to home
