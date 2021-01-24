@@ -35,7 +35,8 @@ export class MapComponent implements OnInit, OnDestroy {
             this.relation[marker.relationships.company.data.id].relationships
               .logo.data.id
           ].attributes.uri.url,
-          company: marker.attributes.title,
+          company: this.relation[marker.relationships.company.data.id]
+            .attributes.title,
           title: marker.attributes.title,
           salary: {
             from: marker.attributes.salary.from,
@@ -72,24 +73,6 @@ export class MapComponent implements OnInit, OnDestroy {
 
   onMarkers() {
     this.amapState.markers$.subscribe((marker: any) => {
-      // console.log(marker);
-      // const obj = {
-      //   logo: this.relation[
-      //     this.relation[marker.relationships.company.data.id].relationships.logo
-      //       .data.id
-      //   ].attributes.uri.url,
-      //   company: marker.attributes.title,
-      //   title: 'marker.attributes.title',
-      //   salary: {
-      //     from: marker.attributes.salary.from,
-      //     to: marker.attributes.salary.to,
-      //   },
-      // };
-      // const aMapMarker = new this.AMap.Marker({
-      //   content: this.markerTem(obj),
-      //   position: this.relation[marker.relationships.company.data.id].position,
-      //   title: marker.attributes.title,
-      // });
       this.map.setCenter(
         this.relation[marker.relationships.company.data.id].position
       );
