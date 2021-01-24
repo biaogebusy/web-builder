@@ -29,7 +29,7 @@ jobs:
     - name: NPM Install Angular
       run: npm install -g @angular/cli > /dev/null
     - name: NPM build Angular Production
-      run: ng build --prod
+      run: ng build --prod --aot=true --buildOptimizer=true
     - name: Delete Existing Files
       run : sudo sshpass -p ${{ secrets.SSH_PASS }} -v ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.HUAWEI_HOST }} 'rm -rf /sdc/wwwroot/job-sit.zhaobg.com/*'
 

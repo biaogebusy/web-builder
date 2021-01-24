@@ -14,13 +14,20 @@ $shadow: map-get($map: $color-theme, $key: shadow);
     }
 
     .position {
-      font-size: 1.8rem;
+      font-size: 1.6rem;
       color: map-get($dark, text)
     }
 
     @media #{$xs} {
+      padding: 1rem !important;
+
       .title {
         margin-bottom: 1rem;
+        font-size: 1.4rem;
+      }
+
+      .position {
+        font-size: 1.4rem;
       }
     }
   }
@@ -29,6 +36,10 @@ $shadow: map-get($map: $color-theme, $key: shadow);
 .result {
   font-size: 2.2rem;
   color: map-get($dark, text);
+
+  @media #{$xs} {
+    font-size: 1.6rem;
+  }
 }
 
 .media {

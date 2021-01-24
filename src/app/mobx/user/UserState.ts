@@ -2,7 +2,6 @@ import { Inject, Injectable } from '@angular/core';
 import { action, observable, computed } from 'mobx-angular';
 import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
 import { IUser, TokenUser } from './IUser';
-import { first } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { UserService } from '../../service/user.service';
 import { ApiService } from '../../service/api.service';
@@ -36,13 +35,15 @@ export class UserState {
   @action
   login(userName: string, passWord: string, localStorageKey: string): any {
     this.loading = true;
-    this.userService.login(userName, passWord).subscribe(data => {
-      this.updateUser(data, localStorageKey);
-    },
-      error => {
+    this.userService.login(userName, passWord).subscribe(
+      (data) => {
+        this.updateUser(data, localStorageKey);
+      },
+      (error) => {
         this.loading = false;
         this.error = error.error.message;
-      });
+      }
+    );
   }
 
   @action
@@ -55,11 +56,11 @@ export class UserState {
   @action
   updateUser(data: TokenUser, localStorageKey: string): any {
     let userDetails = {};
-    console.log(data, localStorageKey)
-    this.userService.getCurrentUserById(data).subscribe(res => {
+    console.log(data, localStorageKey);
+    this.userService.getCurrentUserById(data).subscribe((res) => {
       const id = res.id;
-      this.userService.getUser(id, localStorageKey).subscribe(user => {
-        console.log(user)
+      this.userService.getUser(id, localStorageKey).subscribe((user) => {
+        console.log(user);
         this.loading = false;
         this.user = user;
         this.user$.next(user);

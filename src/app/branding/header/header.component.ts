@@ -1,6 +1,12 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  AfterViewInit,
+} from '@angular/core';
 import { ScreenService } from '../../service/screen.service';
-import { ScreenState } from '../../mobx/screen/ScreenState.service';
+import { ScreenState } from '../../mobx/screen/ScreenState';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -13,15 +19,15 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   constructor(
     private screen: ScreenService,
     private screenState: ScreenState
-  ) {
+  ) {}
 
-  }
+  ngOnInit(): void {}
 
-  ngOnInit(): void { }
-
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.screenState.scroll$.subscribe(() => {
-      this.sticky = !this.screen.isElementInViewport(this.menu.nativeElement);
+      this.sticky = this.screen.isElementOutTopViewport(
+        this.menu.nativeElement
+      );
     });
   }
 }

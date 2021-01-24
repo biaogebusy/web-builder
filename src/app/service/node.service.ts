@@ -10,23 +10,12 @@ import * as _ from 'lodash';
 export class NodeService {
   constructor(private apiService: ApiService, private http: HttpClient) {}
 
-  getNodes(type: string): Observable<any[]> {
-    return this.http
-      .get<any>(
-        `
-    ${this.apiService.apiUrl}${this.apiService.nodeGetPath}/${type}`,
-        this.apiService.httpOptions(this.apiService.csrfToken)
-      )
-      .pipe(
-        map((res) => {
-          console.log('node', res.data);
-          return res.data;
-        })
-      );
-  }
-
-  getRelationshipsxx(api: string): Observable<any> {
-    return this.http.get<any>(api, this.apiService.csrfToken);
+  getNodes(type: string, params: string = ''): Observable<any> {
+    return this.http.get<any>(
+      `
+    ${this.apiService.apiUrl}${this.apiService.nodeGetPath}/${type}?${params}`,
+      this.apiService.httpOptions(this.apiService.csrfToken)
+    );
   }
 
   getRelationships(relationships: any[]): Observable<any> {

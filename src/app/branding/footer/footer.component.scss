@@ -51,7 +51,7 @@ $dark: map-get($map: $color-theme, $key: dark);
   }
 
   .mat-expansion-indicator::after {
-    color: map-get($map: $nnit-color, $key: 50);
+    color: map-get($map: $app-color, $key: 50);
   }
 
   .mat-expansion-panel:not(.mat-expanded):not([aria-disabled=true]) .mat-expansion-panel-header:hover {

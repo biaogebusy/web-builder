@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-job-list',
@@ -7,9 +7,13 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class JobListComponent implements OnInit {
   @Input() content: any;
-
+  @Input() relation: any;
+  @Output() selected = new EventEmitter();
   constructor() {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  onClick(item: any) {
+    this.selected.emit(item);
   }
 }

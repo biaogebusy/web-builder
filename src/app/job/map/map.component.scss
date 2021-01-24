@@ -1,0 +1,51 @@
+@import '../../../theme/variable/variable.scss';
+$light: map-get($map: $color-theme, $key: light);
+
+:host ::ng-deep {
+  .amap-container {
+    box-shadow: 0 4px 20px 2px rgba(0, 0, 0, 0.07);
+  }
+
+  .mark-card {
+    background-color: map-get($map: $light, $key: bg);
+    padding: $spacer / 4;
+    box-shadow: 0 4px 20px 2px rgba(0, 0, 0, 0.07);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    white-space: normal;
+    word-break: keep-all;
+    min-width: 200px;
+
+    .media {
+
+      img {
+        width: 6.8rem;
+        height: auto;
+      }
+    }
+
+    .media-body {
+      width: 100%;
+
+      div[class^="mat-h"] {
+        line-height: 1;
+      }
+
+      .title {
+        white-space: nowrap;
+      }
+    }
+
+    @media #{$xs} {
+      min-width: 150px;
+
+      .media {
+        img {
+          width: 4rem;
+        }
+      }
+    }
+  }
+}

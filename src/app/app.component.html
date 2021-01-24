@@ -1,6 +1,6 @@
 <mat-drawer-container [class.authenticated]="userState.anthenticated">
   <mat-drawer #drawer [(opened)]="opened" (opened)="updateDrawer(drawer)" (closed)="updateDrawer(drawer)">
-    <app-menu [isDrawer]="true"></app-menu>
+    <app-menu [isDrawer]="opened"></app-menu>
   </mat-drawer>
   <mat-drawer-content>
     <app-header></app-header>
