@@ -8,6 +8,7 @@ import {
 import { UserState } from './mobx/user/UserState';
 import { ScreenState } from './mobx/screen/ScreenState';
 import { MatDrawer } from '@angular/material/sidenav';
+import { ThemeState } from './mobx/screen/ThemeState';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -16,7 +17,11 @@ import { MatDrawer } from '@angular/material/sidenav';
 export class AppComponent implements OnInit, AfterViewInit {
   authenticated: boolean;
   opened: boolean;
-  constructor(public userState: UserState, public screen: ScreenState) {}
+  constructor(
+    public userState: UserState,
+    public screen: ScreenState,
+    public themeState: ThemeState
+  ) {}
 
   ngOnInit(): void {}
 

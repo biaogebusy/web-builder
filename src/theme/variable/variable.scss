@@ -33,25 +33,49 @@ $app-color: ( //
     A700: $light-primary-text,
   ));
 
+$dark-color: ( //
+  50: #efe5fd,
+  100: #d5bff9,
+  200: #b894f6,
+  300: #9968ed,
+  400: #8147e0,
+  500: #6723d4,
+  600: #5c1ece,
+  700: #4c14c5,
+  800: #3c0dbd,
+  900: #1d00af,
+  A100: #d5bff9,
+  A200: #d5bff9,
+  A400: #8147e0,
+  A700: #4c14c5,
+  contrast: ( //
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $light-primary-text,
+    400: $light-primary-text,
+    500: $light-primary-text,
+    600: $light-primary-text,
+    700: $light-primary-text,
+    800: $light-primary-text,
+    900: $light-primary-text,
+    A100: $dark-primary-text,
+    A200: $light-primary-text,
+    A400: $light-primary-text,
+    A700: $light-primary-text,
+  ));
+
 $uiux-app-primary: mat-palette($app-color);
 $uiux-app-accent: mat-palette($app-color, A200, A100, A400);
 $uiux-app-warn: mat-palette($mat-red, A200, A100, A400);
 $uiux-app-theme: mat-light-theme($uiux-app-primary, $uiux-app-accent, $uiux-app-warn);
 
-// Define an alternate dark theme.
-$dark-primary: mat-palette($mat-blue-grey);
-$dark-accent: mat-palette($mat-amber, A200, A100, A400);
-$dark-warn: mat-palette($mat-deep-orange);
-$dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
-
 $primary: mat-color($uiux-app-primary);
 $accent: mat-color($uiux-app-accent);
 $warn: mat-color($uiux-app-warn);
-$text-color: #8c9ca7;
-$background-color: #fafafa;
 
 $color-theme:( //
-  base: (text: $text-color, border: $text-color, bg: $background-color),
+  base: (text: #8c9ca7, border: #8c9ca7, bg: #fafafa),
   primary: (text:$primary, border: $primary, bg: $primary),
   accent: (text: $accent, border: $accent, bg: $accent),
   warn: (text: $warn, border: $warn, bg: $warn),
@@ -60,7 +84,46 @@ $color-theme:( //
   shadow: (text: #333, border: #ccc, bg: #eee),
   dark: (text: #4d5b67, border: #4d5b67, bg: #4d5b67) //
 );
+$base: map-get($map: $color-theme, $key: base);
+$text-color: map-get($map: $base, $key: text);
+$background-color: map-get($map: $base, $key: bg);
 
+
+// Define an dark theme.
+$dark-primary: mat-palette($dark-color, A200);
+$dark-accent: mat-palette($dark-color, A200, A100, A400);
+$dark-warn: mat-palette($mat-deep-orange);
+$dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
+
+$color-dark-theme:( //
+  base: (text: #ffffff, border: #ffffff, bg: #ffffff),
+  primary: (text:$dark-primary, border: $dark-primary, bg: $dark-primary),
+  accent: (text: $dark-accent, border: $dark-accent, bg: $dark-accent),
+  warn: (text: $dark-warn, border: $dark-warn, bg: $dark-warn),
+  success: (text: #03dac5, border: #03dac5, bg: #03dac5),
+  light: (text: #fff, border: #fff, bg: #fff),
+  shadow: (text: #2f2f2f, border: #ccc, bg: #eee),
+  dark: (text: #292929, border: #292929, bg: #292929) //
+);
+
+$heading-font-family: Helvetica,
+"'Microsoft YaHei'",
+"微软雅黑",
+FreeSans,
+"'Hiragino Sans GB'",
+"'Hiragino Sans GB W3'",
+Arial,
+sans-serif;
+
+$typography: mat-typography-config($display-4: mat-typography-level(112px, $font-family: $heading-font-family),
+  $display-3: mat-typography-level(56px, $font-family: $heading-font-family),
+  $display-2: mat-typography-level(45px, $font-family: $heading-font-family),
+  $display-1: mat-typography-level(34px, $font-family: $heading-font-family),
+  $headline: mat-typography-level(24px, $font-family: $heading-font-family),
+  $title: mat-typography-level(20px, $font-family: $heading-font-family),
+);
+
+@include angular-material-typography($typography);
 $spacer: 4rem;
 $font-size: 1.6rem;
 $font-size-sm: 1.4rem;

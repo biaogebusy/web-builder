@@ -6,9 +6,10 @@
 @include reset-styles();
 @include mat-core();
 
+
 @include angular-material-theme($uiux-app-theme);
 
-.unicorn-dark-theme {
+.dark-theme {
   @include angular-material-theme($dark-theme);
 }
 

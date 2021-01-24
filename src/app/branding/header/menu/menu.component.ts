@@ -12,6 +12,7 @@ import { UserState } from '../../../mobx/user/UserState';
 import { UtilitiesService } from '../../../service/utilities.service';
 import { ScreenState } from '../../../mobx/screen/ScreenState';
 import { Subject } from 'rxjs';
+import { ThemeState } from '../../../mobx/screen/ThemeState';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
@@ -20,11 +21,13 @@ import { Subject } from 'rxjs';
 export class MenuComponent implements OnInit, OnDestroy {
   isOpened = false;
   @Input() isDrawer: boolean;
+
   constructor(
     public userState: UserState,
     public utilities: UtilitiesService,
     private router: Router,
-    public screen: ScreenState
+    public screen: ScreenState,
+    public themeState: ThemeState
   ) {}
 
   ngOnInit(): void {
@@ -46,5 +49,9 @@ export class MenuComponent implements OnInit, OnDestroy {
   onToggle(): void {
     this.isOpened = !this.isOpened;
     this.screen.toggleDrawer(this.isOpened);
+  }
+
+  onSwitchTheme(theme: string): void {
+    this.themeState.switchTheme(theme);
   }
 }

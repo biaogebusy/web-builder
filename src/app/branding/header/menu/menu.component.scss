@@ -1,10 +1,9 @@
+@import '~@angular/material/theming';
 @import '../../../../theme/variable/variable.scss';
 
 .header {
   box-shadow: 0 1px 3px rgba(18, 18, 18, .1);
   border-top: 2px solid $primary;
-
-  .header-container {}
 }
 
 .main-menu {
@@ -30,3 +29,56 @@
 .spacer {
   flex: 1;
 }
+
+.right-icon {
+  float: right;
+  margin-right: 0 !important;
+  margin-left: 16px;
+  margin-top: 12px;
+}
+
+@mixin header-theme($theme) {
+  $config: mat-get-color-config($theme);
+  $primary: map-get($config, primary);
+  @debug $primary;
+
+
+}
+
+@include header-theme($uiux-app-theme);
+
+:host-context(.dark-theme) {
+  @include header-theme($dark-theme);
+}
+
+
+// demo
+// @mixin mat-ripple-color($config-or-theme) {
+//   $config: mat-get-color-config($config-or-theme);
+//   $foreground: map-get($config, foreground);
+//   $foreground-base: map-get($foreground, base);
+
+//   .mat-ripple-element {
+
+//   }
+// }
+// @mixin mat-card-color($config-or-theme) {
+//   $config: mat-get-color-config($config-or-theme);
+//   $background: map-get($config, background);
+//   $foreground: map-get($config, foreground);
+
+//   .mat-card {
+//     @include _mat-theme-overridable-elevation(1, $config);
+//     background: mat-color($background, card);
+//     color: mat-color($foreground, text);
+
+//     // Needs extra specificity to be able to override the elevation selectors.
+//     &.mat-card-flat {
+//       @include _mat-theme-overridable-elevation(0, $config);
+//     }
+//   }
+
+//   .mat-card-subtitle {
+//     color: mat-color($foreground, secondary-text);
+//   }
+// }

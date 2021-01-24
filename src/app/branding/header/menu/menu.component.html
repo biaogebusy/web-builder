@@ -23,6 +23,23 @@
             发布职位
           </button>
         </div>
+        <div class="switch-theme" [matTooltip]="'切换风格'">
+          <button mat-icon-button [mat-menu-trigger-for]="menu">
+            <mat-icon color="primary">format_color_fill</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item class="text-primary" (click)="onSwitchTheme('primary')">
+              <mat-icon>radio_button_unchecked</mat-icon>
+              <span>默认主题</span>
+              <mat-icon class="right-icon text-primary">laptop_mac</mat-icon>
+            </button>
+            <button mat-menu-item (click)="onSwitchTheme('dark')">
+              <mat-icon>radio_button_unchecked</mat-icon>
+              <span>暗黑主题</span>
+              <mat-icon svgIcon="dark_mode" class="right-icon"></mat-icon>
+            </button>
+          </mat-menu>
+        </div>
         <div class="user" *ngIf="userState.anthenticated">
           <button mat-mini-fab color="primary" mat-button [matMenuTriggerFor]="menu">
             <h3 class="name">{{utilities.getIndexTitle(userState?.currentUser?.display_name || 'N')}}</h3>
