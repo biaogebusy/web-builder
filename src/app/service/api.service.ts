@@ -10,6 +10,7 @@ import { environment } from '../../environments/environment';
 export class ApiService {
   apiUrl: string;
   loginPath = '/user/login';
+  logoutPath = '/user/logout';
   userIdGetPath = '/api/v1';
   nodeGetPath = '/api/v1/node';
   userGetPath = '/api/v1/user/user';
@@ -24,11 +25,11 @@ export class ApiService {
     this.apiUrl = environment.apiUrl;
   }
 
-  getNodes() {
+  getNodes(): Observable<any> {
     return this.http.get(`${this.nodeGetPath}`);
   }
 
-  nodeFilterByRegion(region: string) {
+  nodeFilterByRegion(region: string): Observable<any> {
     return this.http.get(`${this.nodeGetPath}?region=${region}`);
   }
 
@@ -41,8 +42,12 @@ export class ApiService {
     }
   }
 
-  get csrfToken() {
+  get csrfToken(): string {
     return this.getToken(this.localUserKey, 'csrf_token');
+  }
+
+  get logoutToken(): string {
+    return this.getToken(this.localUserKey, 'logout_token');
   }
 
   getApi(api: string): Observable<any> {
