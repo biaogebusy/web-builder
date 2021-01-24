@@ -113,6 +113,6 @@ export class JobComponent implements OnInit {
   }
 
   onSelected(item: any) {
-    console.log(item);
+    this.amapState.markers$.next(item);
   }
 }

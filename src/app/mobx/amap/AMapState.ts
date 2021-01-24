@@ -8,5 +8,6 @@ import { AmapService } from '../../service/amap.service';
 })
 export class AMapState {
   position$ = new Subject();
+  markers$ = new Subject();
   constructor(public amapService: AmapService) {}
 }
