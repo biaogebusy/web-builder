@@ -61,8 +61,8 @@ export class MapComponent implements OnInit, OnDestroy {
         <img src="${obj.logo}" />
       </div>
       <div class="media-body">
-        <div class="mat-h3 m-bottom-xs text-base">${obj.company}</div>
-        <div class="mat-h3 m-bottom-xs text-dark">${obj.title}</div>
+        <div class="mat-h4 m-bottom-xs text-base">${obj.company}</div>
+        <div class="mat-h4 m-bottom-xs text-dark title">${obj.title}</div>
         <div class="mat-h3 m-bottom-0 text-primary">
         ${obj.salary.from} - ${obj.salary.to} k
         </div>

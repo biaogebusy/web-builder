@@ -29,8 +29,12 @@ $light: map-get($map: $color-theme, $key: light);
     .media-body {
       width: 100%;
 
-      .mat-h3 {
+      div[class^="mat-h"] {
         line-height: 1;
+      }
+
+      .title {
+        white-space: nowrap;
       }
     }
 
