@@ -12,7 +12,7 @@ import { Observable, from } from 'rxjs';
 })
 export class AmapService {
   city = '0771';
-  zoom = 13; // PC上，参数zoom可设范围：[3,18]；
+  zoom = 18; // PC上，参数zoom可设范围：[3,18]；
   center = [108.32067, 22.817424];
   mapStyle = 'amap://styles/1421728e809147de8bfac4fd1abd2fb3';
   features = ['bg', 'road', 'point']; // ['bg', 'road', 'building', 'point']
