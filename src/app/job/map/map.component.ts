@@ -47,6 +47,7 @@ export class MapComponent implements OnInit, OnDestroy {
           content: this.markerTem(obj),
           position: this.relation[marker.relationships.company.data.id]
             .position,
+          offset: new this.AMap.Pixel(-100, -150),
           title: marker.attributes.title,
         });
       });
@@ -67,11 +68,12 @@ export class MapComponent implements OnInit, OnDestroy {
         ${obj.salary.from} - ${obj.salary.to} k
         </div>
       </div>
+      <div class="arrow"></div>
     </div>
     `;
   }
 
-  onMarkers() {
+  onMarkers(): void {
     this.amapState.markers$.subscribe((marker: any) => {
       this.map.setCenter(
         this.relation[marker.relationships.company.data.id].position
