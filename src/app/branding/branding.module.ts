@@ -4,9 +4,11 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { ShareModule } from '../share/share.module';
 import { MenuComponent } from './header/menu/menu.component';
+import { UserMenuComponent } from './header/menu/user-menu/user-menu.component';
+import { SwitchThemeComponent } from './header/menu/switch-theme/switch-theme.component';
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, MenuComponent],
+  declarations: [HeaderComponent, FooterComponent, MenuComponent, UserMenuComponent, SwitchThemeComponent],
   imports: [CommonModule, ShareModule],
   exports: [HeaderComponent, FooterComponent, MenuComponent],
 })

@@ -23,73 +23,43 @@
             发布职位
           </button>
         </div>
-        <div class="switch-theme" [matTooltip]="'切换风格'">
-          <button mat-icon-button [mat-menu-trigger-for]="menu">
-            <mat-icon color="primary">format_color_fill</mat-icon>
-          </button>
-          <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="onSwitchTheme('light-theme')">
-              <mat-icon *ngIf="themeState.theme !=='light-theme'">radio_button_unchecked</mat-icon>
-              <mat-icon *ngIf="themeState.theme === 'light-theme'"> radio_button_checked </mat-icon>
-              <span>默认主题</span>
-              <mat-icon class="right-icon">laptop_mac</mat-icon>
-            </button>
-            <button mat-menu-item (click)="onSwitchTheme('dark-theme')">
-              <mat-icon *ngIf="themeState.theme !== 'dark-theme'">radio_button_unchecked</mat-icon>
-              <mat-icon *ngIf="themeState.theme === 'dark-theme'"> radio_button_checked </mat-icon>
-              <span>暗黑主题</span>
-              <mat-icon svgIcon="dark_mode" class="right-icon"></mat-icon>
-            </button>
-          </mat-menu>
-        </div>
-        <div class="user" *ngIf="userState.anthenticated">
-          <button mat-mini-fab color="primary" mat-button [matMenuTriggerFor]="menu">
-            <h3 class="name">{{utilities.getIndexTitle(userState?.currentUser?.display_name || 'N')}}</h3>
-          </button>
-          <mat-menu #menu="matMenu">
-            <button mat-menu-item>
-              <mat-icon>email</mat-icon>
-              {{userState.currentUser?.mail}}
-            </button>
-            <button mat-menu-item (click)="logout()">
-              <mat-icon>exit_to_app</mat-icon>
-              退出
-            </button>
-          </mat-menu>
-        </div>
+        <app-switch-theme></app-switch-theme>
+        <app-user-menu></app-user-menu>
       </div>
     </div>
   </div>
   <mat-divider></mat-divider>
 </header>
-<mat-toolbar color="primary" *ngIf="screen.eq('xs')">
-  <button mat-icon-button (click)="onToggle()" aria-label="menu icon">
-    <mat-icon *ngIf="!isDrawer">menu</mat-icon>
-    <mat-icon *ngIf="isDrawer">close</mat-icon>
-  </button>
-  <span>NNITPAY CMS API DEMO</span>
-  <span class="spacer"></span>
-  <button mat-icon-button>
-    <mat-icon>search</mat-icon>
-  </button>
-</mat-toolbar>
+<div class="drawer">
+  <mat-toolbar *ngIf="screen.eq('xs')">
+    <button mat-icon-button (click)="onToggle()" aria-label="menu icon">
+      <mat-icon *ngIf="!isDrawer">menu</mat-icon>
+      <mat-icon *ngIf="isDrawer">close</mat-icon>
+    </button>
+    <span class="spacer"></span>
+    <span>JSONAPI DEMO</span>
+    <span class="spacer"></span>
+    <app-switch-theme></app-switch-theme>
+    <app-user-menu></app-user-menu>
+  </mat-toolbar>
 
-<mat-list *ngIf="screen.eq('xs') && isDrawer">
-  <mat-list-item (click)="onToggle()">
-    <mat-icon class="text-primary" mat-list-icon>near_me</mat-icon>
-    <div mat-line><a [routerLink]="['/home']">工作机会</a></div>
-    <div mat-line>本月内推简历 <span class="text-primary">6</span> 份</div>
-  </mat-list-item>
-  <mat-divider></mat-divider>
-  <mat-list-item (click)="onToggle()">
-    <mat-icon class="text-primary" mat-list-icon>favorite_border</mat-icon>
-    <div mat-line><a [routerLink]="['/articles']">文章</a></div>
-    <div mat-line>本周原创文章 <span class="text-primary">6</span> 篇</div>
-  </mat-list-item>
-  <mat-divider></mat-divider>
-  <mat-list-item (click)="onToggle()">
-    <mat-icon class="text-primary" mat-list-icon>person</mat-icon>
-    <div mat-line>关于我们</div>
-    <div mat-line>内推简历，致力于开源。</div>
-  </mat-list-item>
-</mat-list>
+  <mat-list *ngIf="screen.eq('xs') && isDrawer">
+    <mat-list-item (click)="onToggle()">
+      <mat-icon mat-list-icon>near_me</mat-icon>
+      <div mat-line><a [routerLink]="['/home']">工作机会</a></div>
+      <div mat-line>本月内推简历 <span class="total">6</span> 份</div>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item (click)="onToggle()">
+      <mat-icon mat-list-icon>favorite_border</mat-icon>
+      <div mat-line><a [routerLink]="['/articles']">文章</a></div>
+      <div mat-line>本周原创文章 <span class="total">6</span> 篇</div>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item (click)="onToggle()">
+      <mat-icon mat-list-icon>person</mat-icon>
+      <div mat-line><a [routerLink]="['/home']">关于我们</a></div>
+      <div mat-line>内推简历，致力于开源。</div>
+    </mat-list-item>
+  </mat-list>
+</div>

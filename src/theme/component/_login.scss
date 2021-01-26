@@ -1,0 +1,18 @@
+@import '~@angular/material/theming';
+
+@mixin login-color($config-or-theme) {
+  $config: mat-get-color-config($config-or-theme);
+  $foreground: map-get($config, foreground);
+  $background: map-get($config, background);
+  $primary: map-get($config, primary);
+  $accent: map-get($config, accent);
+  $warn: map-get($config, warn);
+  @debug $background;
+
+  .login-wrapper {
+    background-color: map-get($background, card);
+    box-shadow: 0 2px 1px -1px rgba(0, 0, 0, .2),
+      0 1px 1px 0 rgba(0, 0, 0, .14),
+      0 1px 3px 0 rgba(0, 0, 0, .12);
+  }
+}

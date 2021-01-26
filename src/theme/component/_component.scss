@@ -1,9 +1,11 @@
 @import './header';
 @import './footer';
 @import './job';
+@import './login';
 
 @mixin component-theme($config-or-theme) {
   @include header-color($config-or-theme);
   @include footer-color($config-or-theme);
   @include job-color($config-or-theme);
+  @include login-color($config-or-theme);
 }

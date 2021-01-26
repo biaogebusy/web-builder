@@ -1,0 +1,19 @@
+<div class="switch-theme" [matTooltip]="'切换风格'">
+  <button mat-icon-button [mat-menu-trigger-for]="menu">
+    <mat-icon color="primary">format_color_fill</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="onSwitchTheme('light-theme')">
+      <mat-icon *ngIf="themeState.theme !=='light-theme'">radio_button_unchecked</mat-icon>
+      <mat-icon color="primary" *ngIf="themeState.theme === 'light-theme'"> radio_button_checked </mat-icon>
+      <span>默认主题</span>
+      <mat-icon class="right-icon">laptop_mac</mat-icon>
+    </button>
+    <button mat-menu-item (click)="onSwitchTheme('dark-theme')">
+      <mat-icon *ngIf="themeState.theme !== 'dark-theme'">radio_button_unchecked</mat-icon>
+      <mat-icon color="primary" *ngIf="themeState.theme === 'dark-theme'"> radio_button_checked </mat-icon>
+      <span>暗黑主题</span>
+      <mat-icon svgIcon="dark_mode" class="right-icon"></mat-icon>
+    </button>
+  </mat-menu>
+</div>

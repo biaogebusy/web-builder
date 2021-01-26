@@ -31,4 +31,12 @@
       }
     }
   }
+
+  .drawer {
+
+    .mat-icon,
+    .total {
+      color: mat-color($primary, text);
+    }
+  }
 }

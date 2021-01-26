@@ -1,0 +1,15 @@
+<div class="user" *ngIf="userState.anthenticated">
+  <button mat-mini-fab color="primary" mat-button [matMenuTriggerFor]="menu">
+    <h3 class="name">{{utilities.getIndexTitle(userState?.currentUser?.display_name || 'N')}}</h3>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>
+      <mat-icon>email</mat-icon>
+      {{userState.currentUser?.mail}}
+    </button>
+    <button mat-menu-item (click)="logout()">
+      <mat-icon>exit_to_app</mat-icon>
+      退出
+    </button>
+  </mat-menu>
+</div>
