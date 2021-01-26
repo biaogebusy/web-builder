@@ -20,6 +20,12 @@
     }
   }
 
+  .search-form-field {
+    .mat-icon {
+      color: mat-color($primary);
+    }
+  }
+
   .job-list {
     .item {
       background-color: mat-color($background, card);
@@ -30,8 +36,8 @@
 
       .mini {
         mat-chip {
-          background-color: mat-color($primary, 0.1);
-          color: mat-color($primary, text);
+          background-color: mat-color($primary, 50);
+          color: mat-color($primary);
         }
       }
 
