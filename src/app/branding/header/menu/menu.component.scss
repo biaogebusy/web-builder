@@ -25,38 +25,3 @@
   margin-left: 16px;
   margin-top: 12px;
 }
-
-@mixin header-theme($theme) {
-  $config: mat-get-color-config($theme);
-  $primary: map-get($config, primary);
-  $accent: map-get($config, accent);
-
-  .header {
-    box-shadow: 0 1px 3px rgba(18, 18, 18, .1);
-    border-top: 2px solid mat-color($primary);
-    background-color: mat-color($accent);
-
-    .main-menu {
-      .item {
-        a {
-          color: mat-color($primary);
-
-          &:hover,
-          &:focus,
-          &.active {
-            color: mat-color($primary) !important;
-          }
-        }
-      }
-    }
-  }
-
-}
-
-@include header-theme($uiux-app-theme);
-
-:host-context(.dark-theme) {
-  @include header-theme($dark-theme);
-
-  .header {}
-}

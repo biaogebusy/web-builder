@@ -1,20 +1,20 @@
-<header *ngIf="!screen.eq('xs')" class="header bg-light" #header>
+<header *ngIf="!screen.eq('xs')" class="header" #header>
   <div class="container">
     <div class="header-container p-xs" fxLayout="row" fxLayoutAlign="space-between center">
       <div class="header-left">
-        <a class="logo mat-h2 text-primary" href="#">NNITPAY</a>
+        <a class="logo mat-h2" href="#">NNITPAY</a>
       </div>
       <div class="header-right" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="3.4rem">
         <div class="mian-menu">
           <div class="main-menu" fxLayout="row" fxLayoutGap="3.4rem">
             <div class="item">
-              <a class="text-base bold" href="#">职位</a>
+              <a class="bold" href="#">职位</a>
             </div>
             <div class="item">
-              <a class="text-base bold" [routerLink]="['/articles']">文章</a>
+              <a class="bold" [routerLink]="['/articles']">文章</a>
             </div>
             <div class="item">
-              <a class="text-base bold" href="#">关于我们</a>
+              <a class="bold" href="#">关于我们</a>
             </div>
           </div>
         </div>

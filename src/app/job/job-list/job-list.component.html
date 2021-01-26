@@ -1,5 +1,5 @@
 <div class="job-list text-base m-y-sm" *ngIf="content" fxLayout="column" fxLayoutGap="2rem">
-  <div class="result">总计 <span class="text-primary">{{content.length}}</span> 个职位</div>
+  <div class="result">总计 <span class="result-total">{{content.length}}</span> 个职位</div>
   <div class="item p-y-sm p-x-sm" matRipple [matRippleColor]="'rgba(0, 0, 0, 0.04)'" *ngFor="let item of content"
     fxLayout (click)="onClick(item)">
     <div class="media" fxLayoutAlign="center center" *ngIf="item.relationships?.company">
@@ -11,8 +11,8 @@
       <div class="m-bottom-xs" fxLayoutAlign="start center" fxLayout="row wrap" fxLayoutGap="1rem">
         <h4 class="title" *ngIf="item.relationships?.company">
           {{relation[item.relationships.company.data.id].attributes.title}}</h4>
-        <mat-chip-list *ngIf="relation[item.relationships.company.data.id].attributes?.welfare" class="mini primary">
-          <mat-chip color="primary" selected
+        <mat-chip-list *ngIf="relation[item.relationships.company.data.id].attributes?.welfare" class="mini">
+          <mat-chip color="primary"
             *ngFor="let item of relation[item.relationships.company.data.id].attributes.welfare">
             {{item | slice:0:4}}
           </mat-chip>
@@ -27,7 +27,7 @@
       <div class="media-footer" fxLayout fxLayoutAlign="space-between center">
         <div class="media-footer-left" fxLayout *ngIf="item.relationships.skill">
           <mat-chip-list class="mini">
-            <mat-chip color="base" *ngFor="let item of item.relationships.skill.data">
+            <mat-chip *ngFor="let item of item.relationships.skill.data">
               {{relation[item.id].attributes.name | slice:0:10}}
             </mat-chip>
           </mat-chip-list>

@@ -6,20 +6,15 @@ $dark: map-get($map: $color-theme, $key: dark);
 }
 
 .dark-theme {
-  background-color: map-get($map: $dark, $key: bg);
 
   a {
 
     &:hover,
     &:focus {
       text-decoration: none;
-      color: rgba($text-color, .8)
     }
   }
 
-  .footer-bottom {
-    background-color: darken($color: map-get($dark, bg), $amount: 3%);
-  }
 }
 
 :host ::ng-deep {

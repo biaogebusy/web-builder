@@ -1,16 +1,15 @@
-@import '~@angular/material/theming';
 @import './breakpoint';
 @import '../palette/palette';
 
 // 使用调色盘函数 mat-palette 生成 sass map
-$uiux-app-primary: mat-palette($app-color);
-$uiux-app-accent: mat-palette($app-color, A200, A100, A400);
-$uiux-app-warn: mat-palette($mat-red, A200, A100, A400);
-$uiux-app-theme: mat-light-theme($uiux-app-primary, $uiux-app-accent, $uiux-app-warn);
+$app-primary: mat-palette($app-color);
+$app-accent: mat-palette($app-color, A200, A100, A400);
+$app-warn: mat-palette($mat-red, A200, A100, A400);
+$app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
 
-$primary: mat-color($uiux-app-primary);
-$accent: mat-color($uiux-app-accent);
-$warn: mat-color($uiux-app-warn);
+$primary: mat-color($app-primary);
+$accent: mat-color($app-accent);
+$warn: mat-color($app-warn);
 
 $color-theme:( //
   base: (text: #8c9ca7, border: #8c9ca7, bg: #fafafa),
@@ -26,21 +25,11 @@ $base: map-get($map: $color-theme, $key: base);
 $text-color: map-get($map: $base, $key: text);
 $background-color: map-get($map: $base, $key: bg);
 
-$dark-primary: mat-palette($dark-primary-color, A200);
+$dark-primary: mat-palette($dark-color, A200);
 $dark-accent: mat-palette($dark-color, A200, A100, A400);
 $dark-warn: mat-palette($mat-deep-orange);
 $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 
-$color-dark-theme:( //
-  base: (text: #ffffff, border: #ffffff, bg: #ffffff),
-  primary: (text:$dark-primary, border: $dark-primary, bg: $dark-primary),
-  accent: (text: $dark-accent, border: $dark-accent, bg: $dark-accent),
-  warn: (text: $dark-warn, border: $dark-warn, bg: $dark-warn),
-  success: (text: #03dac5, border: #03dac5, bg: #03dac5),
-  light: (text: #fff, border: #fff, bg: #fff),
-  shadow: (text: #2f2f2f, border: #ccc, bg: #eee),
-  dark: (text: #292929, border: #292929, bg: #292929) //
-);
 
 $heading-font-family: 'Helvetica',
 'Microsoft YaHei',

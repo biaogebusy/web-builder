@@ -14,7 +14,7 @@
 
 }
 
-@mixin colors($colors) {
+@mixin theme-colors($colors) {
   $base-colors: map-get($colors, base);
 
   a {
