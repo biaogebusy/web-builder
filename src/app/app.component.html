@@ -1,5 +1,4 @@
-<mat-drawer-container [class.authenticated]="userState.anthenticated"
-  [class.dark-theme]="themeState.themeMode === 'dark'">
+<mat-drawer-container [class.authenticated]="userState.anthenticated">
   <mat-drawer #drawer [(opened)]="opened" (opened)="updateDrawer(drawer)" (closed)="updateDrawer(drawer)">
     <app-menu [isDrawer]="opened"></app-menu>
   </mat-drawer>

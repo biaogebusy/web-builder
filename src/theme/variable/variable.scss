@@ -1,5 +1,5 @@
 @import './breakpoint';
-@import '../palette/palette';
+@import '../colors/colors';
 
 // 使用调色盘函数 mat-palette 生成 sass map
 $app-primary: mat-palette($app-color);
