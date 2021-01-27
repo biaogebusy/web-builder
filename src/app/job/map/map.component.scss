@@ -17,6 +17,7 @@ $light: map-get($map: $color-theme, $key: light);
     white-space: normal;
     word-break: keep-all;
     min-width: 200px;
+    position: relative;
 
     .media {
 

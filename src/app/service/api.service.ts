@@ -9,15 +9,17 @@ import { environment } from '../../environments/environment';
 })
 export class ApiService {
   apiUrl: string;
+  apiBase = '/api/v1';
+  localConfigUrl = '/assets/app';
+  brandingConfigUrl = '/core/branding';
   loginPath = '/user/login';
   logoutPath = '/user/logout';
-  userIdGetPath = '/api/v1';
-  nodeGetPath = '/api/v1/node';
-  userGetPath = '/api/v1/user/user';
+  userIdGetPath = `${this.apiBase}`;
+  nodeGetPath = `${this.apiBase}/node`;
+  userGetPath = `${this.apiBase}/user/user`;
   jobNodeType = 'job';
   localUserKey = 'currentUser';
 
-  // nodeGetPath = 'http://localhost:3000/jobs';
   constructor(
     private http: HttpClient,
     @Inject(LOCAL_STORAGE) private storage: StorageService
