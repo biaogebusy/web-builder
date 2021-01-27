@@ -4,15 +4,13 @@
   .sidebar {
     height: calc(100vh - 100px);
     overflow: auto;
-    margin: 20px;
-    position: absolute;
-    z-index: 999;
+    z-index: 99;
     border-radius: 10px;
   }
 }
 
 .map-wrapper {
-  height: 100vh;
+  height: calc(100vh - 100px);
 
   @media #{$xs} {
     height: 60vh;
