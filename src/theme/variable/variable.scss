@@ -25,6 +25,17 @@ $base: map-get($map: $color-theme, $key: base);
 $text-color: map-get($map: $base, $key: text);
 $background-color: map-get($map: $base, $key: bg);
 
+// $color-theme:( //
+//   base: (text: #fff, border: #fff, bg: #fff),
+//   primary: (text:$primary, border: $primary, bg: $primary),
+//   accent: (text: $accent, border: $accent, bg: $accent),
+//   warn: (text: $warn, border: $warn, bg: $warn),
+//   success: (text: #3c763d, border: #b2dba1, bg: #dff0d8),
+//   light: (text: #fff, border: #fff, bg: #fff),
+//   shadow: (text: #333, border: #ccc, bg: #eee),
+//   dark: (text: #4d5b67, border: #4d5b67, bg: #4d5b67) //
+// );
+
 $dark-primary: mat-palette($dark-color, A200);
 $dark-accent: mat-palette($dark-color, A200, A100, A400);
 $dark-warn: mat-palette($mat-deep-orange);

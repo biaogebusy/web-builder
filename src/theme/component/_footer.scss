@@ -7,21 +7,22 @@
   $primary: map-get($config, primary);
   $accent: map-get($config, accent);
   $warn: map-get($config, warn);
+  @debug $primary;
 
   .footer {
-    background-color: mat-color($background, card);
+    background-color: mat-color($accent, A100);
 
     a {
-      color: mat-color($foreground);
+      color: mat-color($primary);
 
       &:hover,
       &:focus {
-        color: mat-color($background, hover)
+        color: mat-color($primary)
       }
     }
 
     .footer-bottom {
-      background-color: mat-color($background, background);
+      background-color: mat-color($accent, A700);
     }
   }
 }
