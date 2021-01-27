@@ -31,13 +31,13 @@ export class UserService {
   }
 
   getCurrentUserById(user: TokenUser): Observable<any> {
-    return this.http
-      .get<any>(
-        `${this.apiService.apiUrl}${this.apiService.userGetPath}?filter[drupal_internal__uid]=${user.current_user.uid}`,
+    const apiUrl = `${this.apiService.apiUrl}${this.apiService.userGetPath}`;
+    const params = `filter[drupal_internal__uid]=${user.current_user.uid}`;
+    return this.http.get<any>(
+        `${apiUrl}?${params}`,
         this.apiService.httpOptions(user.csrf_token)
-      )
-      .pipe(
-        map((res) => {
+      ).pipe(
+        map((res: any) => {
           return {
             id: res.data[0].id,
           };

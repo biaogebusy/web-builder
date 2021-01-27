@@ -3,7 +3,7 @@ import { ApiService } from './api.service';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { forkJoin, Observable } from 'rxjs';
-import * as _ from 'lodash';
+import {mapValues} from 'lodash-es';
 @Injectable({
   providedIn: 'root',
 })
@@ -19,7 +19,7 @@ export class NodeService {
   }
 
   getRelationships(relationships: any[]): Observable<any> {
-    const obj = _.mapValues(relationships, (item) => {
+    const obj = mapValues(relationships, (item) => {
       return this.apiService.getApi(item.links.related.href).pipe(
         map((res) => {
           return res.data;

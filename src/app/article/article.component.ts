@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NodeService } from '../service/node.service';
 import { ApiService } from '../service/api.service';
-import * as _ from 'lodash';
+import {isArray, keyBy} from 'lodash-es';
 @Component({
   selector: 'app-article',
   templateUrl: './article.component.html',
@@ -28,8 +28,8 @@ export class ArticleComponent implements OnInit {
       // console.log(nodes);
       this.loading = false;
       this.content = res.data;
-      if (_.isArray(res.included)) {
-        this.relation = _.keyBy(res.included, 'id');
+      if (isArray(res.included)) {
+        this.relation = keyBy(res.included, 'id');
       }
     });
   }

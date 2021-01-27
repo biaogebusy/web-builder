@@ -3,7 +3,7 @@ import { ApiService } from '../service/api.service';
 import { NodeService } from '../service/node.service';
 import { Subject } from 'rxjs';
 import { IChipList } from './IJob';
-import * as _ from 'lodash';
+import {isArray, keyBy } from 'lodash-es';
 import * as AMapLoader from '@amap/amap-jsapi-loader';
 import { AmapService } from '../service/amap.service';
 import { AMapState } from '../mobx/amap/AMapState';
@@ -54,8 +54,8 @@ export class JobComponent implements OnInit {
       this.loading = false;
       this.nodes = res.data;
       this.included = res.included;
-      if (_.isArray(res.included)) {
-        this.relation = _.keyBy(res.included, 'id');
+      if (isArray(res.included)) {
+        this.relation = keyBy(res.included, 'id');
         this.initMap(res.included);
       }
     });
