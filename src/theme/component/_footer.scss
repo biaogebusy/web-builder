@@ -1,13 +1,14 @@
 @import '~@angular/material/theming';
 
-@mixin footer-color($config-or-theme) {
+@mixin footer-color($config-or-theme, $base) {
   $config: mat-get-color-config($config-or-theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
   $primary: map-get($config, primary);
   $accent: map-get($config, accent);
   $warn: map-get($config, warn);
-  @debug $background;
+
+  $text-base: map-get($base, 500);
 
   .footer {
     background-color: mat-color($background, card);
@@ -23,6 +24,27 @@
 
     .footer-bottom {
       background-color: mat-color($background, selected-button);
+    }
+
+    .mat-list-item-content {
+      color: $text-base;
+    }
+
+    .mat-expansion-panel {
+      background-color: transparent;
+      color: $text-base !important;
+    }
+
+    .mat-expansion-panel-header-title {
+      color: $text-base !important;
+    }
+
+    .mat-expansion-panel:not([class*=mat-elevation-z]) {
+      box-shadow: none !important;
+    }
+
+    .mat-expansion-panel:not(.mat-expanded):not([aria-disabled=true]) .mat-expansion-panel-header:hover {
+      background-color: transparent !important;
     }
   }
 }

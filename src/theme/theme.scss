@@ -8,15 +8,12 @@
 @include reset-styles();
 @include mat-core();
 
-
 @include angular-material-theme($app-theme);
-@include component-theme($app-theme);
+@include base-colors($app-theme, $app-base);
+@include component-theme($app-theme, $app-base);
 
 .dark-theme {
   @include angular-material-theme($dark-theme);
-  @include component-theme($dark-theme);
-}
-
-body {
-  @include theme-colors($color-theme);
+  @include base-colors($dark-theme, $dark-base);
+  @include component-theme($dark-theme, $app-base);
 }

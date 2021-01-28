@@ -2,10 +2,12 @@
 @import './footer';
 @import './job';
 @import './login';
+@import './map';
 
-@mixin component-theme($config-or-theme) {
+@mixin component-theme($config-or-theme, $base) {
   @include header-color($config-or-theme);
-  @include footer-color($config-or-theme);
+  @include footer-color($config-or-theme, $base);
   @include job-color($config-or-theme);
   @include login-color($config-or-theme);
+  @include map-color($config-or-theme);
 }

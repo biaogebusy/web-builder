@@ -1,7 +1,5 @@
 @import '/src/theme/variable/variable.scss';
 @import '~@angular/material/theming';
-$dark: map-get($map: $color-theme, $key: dark);
-$shadow: map-get($map: $color-theme, $key: shadow);
 
 .job-list {
 

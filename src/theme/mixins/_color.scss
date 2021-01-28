@@ -14,19 +14,47 @@
 
 }
 
-@mixin theme-colors($colors) {
-  $base-colors: map-get($colors, base);
+@mixin base-colors($config-or-theme, $base) {
+  $config: mat-get-color-config($config-or-theme);
+  $primary: map-get($config, primary);
+  $accent: map-get($config, accent);
+  $warn: map-get($config, warn);
+  $foreground: map-get($config, foreground);
+  $background: map-get($config, background);
+
+  $text-base: map-get($base, 500);
 
   a {
-    color: map-get($base-colors, text)
+    color: mat-color($primary);
+    text-decoration: none;
+
+    &:hover,
+    &:focus,
+    &.active {
+      color: mat-color($background, hover)
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 
-  @include branding(map-get($colors, base), 'base');
-  @include branding(map-get($colors, primary), 'primary');
-  @include branding(map-get($colors, accent), 'accent');
-  @include branding(map-get($colors, warn), 'warn');
-  @include branding(map-get($colors, success), 'success');
-  @include branding(map-get($colors, shadow), 'shadow');
-  @include branding(map-get($colors, light), 'light');
-  @include branding(map-get($colors, dark), 'dark');
+  img {
+    box-sizing: border-box;
+    vertical-align: middle;
+  }
+
+  .mat-drawer-container {
+    color: $text-base;
+  }
+
 }
+
+// @include branding(map-get($colors, base), 'base');
+// @include branding(map-get($colors, primary), 'primary');
+// @include branding(map-get($colors, accent), 'accent');
+// @include branding(map-get($colors, warn), 'warn');
+// @include branding(map-get($colors, success), 'success');
+// @include branding(map-get($colors, shadow), 'shadow');
+// @include branding(map-get($colors, light), 'light');
+// @include branding(map-get($colors, dark), 'dark');

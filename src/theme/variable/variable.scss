@@ -2,43 +2,37 @@
 @import '../colors/colors';
 
 // 使用调色盘函数 mat-palette 生成 sass map
-$app-primary: mat-palette($app-color);
-$app-accent: mat-palette($app-color, A200, A100, A400);
+$app-primary: mat-palette($light-color);
+$app-accent: mat-palette($light-color, A200, A100, A400);
 $app-warn: mat-palette($mat-red, A200, A100, A400);
+$app-base: mat-palette($light-theme-base-color);
 $app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
 
 $primary: mat-color($app-primary);
 $accent: mat-color($app-accent);
 $warn: mat-color($app-warn);
 
-$color-theme:( //
-  base: (text: #8c9ca7, border: #8c9ca7, bg: #fafafa),
-  primary: (text:$primary, border: $primary, bg: $primary),
-  accent: (text: $accent, border: $accent, bg: $accent),
-  warn: (text: $warn, border: $warn, bg: $warn),
-  success: (text: #3c763d, border: #b2dba1, bg: #dff0d8),
-  light: (text: #fff, border: #fff, bg: #fff),
-  shadow: (text: #333, border: #ccc, bg: #eee),
-  dark: (text: #4d5b67, border: #4d5b67, bg: #4d5b67) //
-);
-$base: map-get($map: $color-theme, $key: base);
-$text-color: map-get($map: $base, $key: text);
-$background-color: map-get($map: $base, $key: bg);
+// TODO: secondary color和dark color其实是通用的，应该不区分主题，可以把 $dark-theme-base-color 变成全局，并新建 secondary palette sass map
+
+
+// $light-theme-text-base: mat-color($light-theme-base-color, 700);
+// $color-theme:( //
+//   base: (text: $light-theme-text-base, border: $light-theme-text-base, bg:$light-theme-text-base),
+//   success: (text: #3c763d, border: #b2dba1, bg: #dff0d8),
+// );
+
+// $base: map-get($map: $color-theme, $key: base);
+// $text-color: map-get($map: $base, $key: text);
 
 // $color-theme:( //
 //   base: (text: #fff, border: #fff, bg: #fff),
-//   primary: (text:$primary, border: $primary, bg: $primary),
-//   accent: (text: $accent, border: $accent, bg: $accent),
-//   warn: (text: $warn, border: $warn, bg: $warn),
 //   success: (text: #3c763d, border: #b2dba1, bg: #dff0d8),
-//   light: (text: #fff, border: #fff, bg: #fff),
-//   shadow: (text: #333, border: #ccc, bg: #eee),
-//   dark: (text: #4d5b67, border: #4d5b67, bg: #4d5b67) //
 // );
 
-$dark-primary: mat-palette($dark-color, A200);
-$dark-accent: mat-palette($dark-color, A200, A100, A400);
+$dark-primary: mat-palette($app-primary, 300, 50, 500);
+$dark-accent: mat-palette($light-color, A200, A100, A400);
 $dark-warn: mat-palette($mat-deep-orange);
+$dark-base: mat-palette($dark-theme-base-color);
 $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 
 

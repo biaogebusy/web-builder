@@ -13,7 +13,6 @@
   }
 
   .result {
-    color: mat-color($foreground, secondary-text);
 
     .result-total {
       color: mat-color($primary, text);
@@ -30,8 +29,8 @@
     .item {
       background-color: mat-color($background, card);
 
-      .position {
-        color: mat-color($primary, base, 0.65);
+      .wage {
+        color: mat-color($primary);
       }
 
       .mini {
