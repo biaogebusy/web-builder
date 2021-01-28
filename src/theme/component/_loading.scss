@@ -1,6 +1,6 @@
 @import '~@angular/material/theming';
 
-@mixin loading($config-or-theme) {
+@mixin loading-color($config-or-theme) {
   $config: mat-get-color-config($config-or-theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);

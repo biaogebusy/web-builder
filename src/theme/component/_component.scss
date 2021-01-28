@@ -3,6 +3,7 @@
 @import './job';
 @import './login';
 @import './map';
+@import './loading';
 
 @mixin component-theme($config-or-theme, $base) {
   @include header-color($config-or-theme);
@@ -10,4 +11,5 @@
   @include job-color($config-or-theme);
   @include login-color($config-or-theme);
   @include map-color($config-or-theme);
+  @include loading-color($config-or-theme);
 }
