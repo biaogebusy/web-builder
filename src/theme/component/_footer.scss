@@ -14,7 +14,7 @@
     background-color: mat-color($background, card);
 
     a {
-      color: mat-color($primary);
+      color: $text-base;
 
       &:hover,
       &:focus {
@@ -28,6 +28,13 @@
 
     .mat-list-item-content {
       color: $text-base;
+
+      span {
+        &:hover {
+          cursor: pointer;
+          color: mat-color($primary);
+        }
+      }
     }
 
     .mat-expansion-panel {

@@ -2,6 +2,7 @@ import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
 import { action, observable, computed } from 'mobx-angular';
 import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
+import { Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
@@ -9,6 +10,7 @@ export class ThemeState {
   private readonly DARK_THEME_CLASS = 'dark-theme';
   private readonly MODE = 'themeMode';
   @observable theme = 'light-theme';
+  public switchChange$ = new Subject();
   constructor(
     @Inject(DOCUMENT) private document: Document,
     @Inject(LOCAL_STORAGE) private storage: StorageService,
@@ -30,6 +32,7 @@ export class ThemeState {
     const body = this.document.getElementsByTagName('body')[0];
     body.removeAttribute('class');
     body.classList.add(theme);
+    this.switchChange$.next(theme);
     this.theme = theme;
     this.storage.set(this.MODE, theme);
   }

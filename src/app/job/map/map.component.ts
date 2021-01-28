@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { AmapService } from '../../service/amap.service';
 import { AMapState } from '../../mobx/amap/AMapState';
+import { ThemeState } from '../../mobx/screen/ThemeState';
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -13,18 +14,28 @@ export class MapComponent implements OnInit, OnDestroy {
   markers: any[];
   map: any;
 
-  constructor(private amapService: AmapService, private amapState: AMapState) {}
+  constructor(
+    private amapService: AmapService,
+    private amapState: AMapState,
+    private themeState: ThemeState
+    ) {}
 
   ngOnInit(): void {
+    const themeStyle = this.themeState.theme;
+    const mapStyle: any = this.amapService.mapStyle;
     this.map = new this.AMap.Map('map', {
       resizeEnable: true,
       zoom: this.amapService.zoom,
       center: this.amapService.center,
-      mapStyle: this.amapService.mapStyle,
+      mapStyle: themeStyle === 'light-theme' ? mapStyle.light : mapStyle.dark,
       features: this.amapService.features,
     });
     this.getMarkers();
     this.onMarkers();
+    this.themeState.switchChange$.subscribe(theme => {
+      const newMapStyle = (theme === 'light-theme' ? mapStyle.light : mapStyle.dark);
+      this.map.setMapStyle(newMapStyle);
+    });
   }
 
   getMarkers(): void {
