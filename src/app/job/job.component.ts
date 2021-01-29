@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../service/api.service';
 import { NodeService } from '../service/node.service';
-import { Subject } from 'rxjs';
 import { IChipList } from './IJob';
-import {isArray, keyBy } from 'lodash-es';
-import * as AMapLoader from '@amap/amap-jsapi-loader';
+import { isArray, keyBy } from 'lodash-es';
 import { AmapService } from '../service/amap.service';
 import { AMapState } from '../mobx/amap/AMapState';
 @Component({

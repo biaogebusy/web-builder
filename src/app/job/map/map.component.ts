@@ -18,7 +18,7 @@ export class MapComponent implements OnInit, OnDestroy {
     private amapService: AmapService,
     private amapState: AMapState,
     private themeState: ThemeState
-    ) {}
+  ) {}
 
   ngOnInit(): void {
     const themeStyle = this.themeState.theme;
@@ -32,8 +32,9 @@ export class MapComponent implements OnInit, OnDestroy {
     });
     this.getMarkers();
     this.onMarkers();
-    this.themeState.switchChange$.subscribe(theme => {
-      const newMapStyle = (theme === 'light-theme' ? mapStyle.light : mapStyle.dark);
+    this.themeState.switchChange$.subscribe((theme) => {
+      const newMapStyle =
+        theme === 'light-theme' ? mapStyle.light : mapStyle.dark;
       this.map.setMapStyle(newMapStyle);
     });
   }
@@ -94,5 +95,7 @@ export class MapComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.map.destroy();
+    this.themeState.switchChange$.unsubscribe();
+    this.amapState.position$.unsubscribe();
   }
 }
