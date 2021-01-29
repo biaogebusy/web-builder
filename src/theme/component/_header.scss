@@ -8,11 +8,16 @@
   $accent: map-get($config, accent);
   $warn: map-get($config, warn);
 
+  .app-name {
+    color: mat-color($primary);
+  }
+
   .header {
-    box-shadow: 0 1px 3px rgba(18, 18, 18, .1);
-    // @include mat-elevation(1);
+    position: relative;
     border-top: 2px solid mat-color($primary);
+    margin-bottom: 2px;
     background-color: mat-color($background, background);
+    @include mat-elevation(1, mat-color($background, tooltip), .4);
 
     .logo {
       color: mat-color($primary);
@@ -35,7 +40,6 @@
 
   .drawer {
 
-    .mat-icon,
     .total {
       color: mat-color($primary, text);
     }

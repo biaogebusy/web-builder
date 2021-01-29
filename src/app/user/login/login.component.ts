@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserState } from '../../mobx/user/UserState';
 import { ApiService } from '../../service/api.service';
+import { ScreenState } from '../../mobx/screen/ScreenState';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -16,7 +17,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     public userState: UserState,
     private router: Router,
-    private apiService: ApiService
+    private apiService: ApiService,
+    public screenState: ScreenState
   ) {}
 
   ngOnInit(): void {

@@ -1,13 +1,32 @@
+@import '../../../theme/variable/breakpoint';
+
 .login-container {
-  max-height: 600px;
+  max-height: 500px;
   min-height: calc(100vh - 76px);
 }
 
 .login-wrapper {
   max-width: 800px;
   max-height: 600px;
-  border-radius: 20px;
+  border-radius: 10px;
 
+  .login-form {
+    padding: 2rem;
+  }
+
+  @media #{$xs} {
+    .login-form {
+      width: 80vw;
+    }
+  }
+
+  @media #{$gt-xs} {
+    .login-form {
+      padding: 4rem;
+    }
+
+    border-radius: 20px;
+  }
 }
 
 .login-second {

@@ -4,7 +4,7 @@
       <div class="header-left">
         <a class="logo mat-h2" href="#">NNITPAY</a>
       </div>
-      <div class="header-right" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="3.4rem">
+      <div class="header-right" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="3rem">
         <div class="mian-menu">
           <div class="main-menu" fxLayout="row" fxLayoutGap="3.4rem">
             <div class="item">
@@ -28,7 +28,6 @@
       </div>
     </div>
   </div>
-  <mat-divider></mat-divider>
 </header>
 <div class="drawer">
   <mat-toolbar *ngIf="screen.eq('xs')">
@@ -37,7 +36,7 @@
       <mat-icon *ngIf="isDrawer">close</mat-icon>
     </button>
     <span class="spacer"></span>
-    <span>JSONAPI DEMO</span>
+    <span class="app-name">JSONAPI DEMO</span>
     <span class="spacer"></span>
     <app-switch-theme></app-switch-theme>
     <app-user-menu></app-user-menu>

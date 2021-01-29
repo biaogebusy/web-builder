@@ -1,3 +1,11 @@
+@import '../theme/variable/breakpoint';
+
 .main {
   min-height: calc(100vh - 76px);
+}
+
+::ng-deep .mat-drawer {
+  @media #{$xs} {
+    width: 100vw;
+  }
 }
