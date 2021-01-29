@@ -31,7 +31,7 @@ jobs:
     - name: NPM build Angular Production
       run: ng build --prod --aot=true --buildOptimizer=true
     - name: Delete Existing Files
-      run : sudo sshpass -p ${{ secrets.SSH_PASS }} -v ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.HUAWEI_HOST }} 'rm -rf /sdc/wwwroot/job-sit.zhaobg.com/*'
+      run : sudo sshpass -p ${{ secrets.SSH_PASS }} -v ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.HUAWEI_HOST }} 'rm -rf /sdc/wwwroot/job.zhaobg.com/*'
 
     - name: Compress and Copy New Files to server
       run : |
@@ -39,6 +39,6 @@ jobs:
             tar -czvf ../../job.tar.gz ./
             cd ..
             cd ..
-            sudo sshpass -p ${{ secrets.SSH_PASS }} scp -v -o StrictHostKeyChecking=no -r job.tar.gz ${{ secrets.SSH_USER }}@${{ secrets.HUAWEI_HOST }}:/sdc/wwwroot/job-sit.zhaobg.com/
+            sudo sshpass -p ${{ secrets.SSH_PASS }} scp -v -o StrictHostKeyChecking=no -r job.tar.gz ${{ secrets.SSH_USER }}@${{ secrets.HUAWEI_HOST }}:/sdc/wwwroot/job.zhaobg.com/
     - name: Uncompress new Files
-      run : sudo sshpass -p ${{ secrets.SSH_PASS }} -v ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.HUAWEI_HOST }} 'cd /sdc/wwwroot/job-sit.zhaobg.com/ && tar -xzvf job.tar.gz && rm job.tar.gz'
+      run : sudo sshpass -p ${{ secrets.SSH_PASS }} -v ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.HUAWEI_HOST }} 'cd /sdc/wwwroot/job.zhaobg.com/ && tar -xzvf job.tar.gz && rm job.tar.gz'
