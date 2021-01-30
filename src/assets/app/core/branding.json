@@ -1,4 +1,35 @@
 {
+  "header": {
+    "logo": {
+      "label": "NNITPAY"
+    },
+    "mainMenu": [{
+        "label": "职位",
+        "classes": "bold",
+        "link": {
+          "href": "/"
+        }
+      },
+      {
+        "label": "文章",
+        "link": {
+          "href": "/articles"
+        }
+      },
+      {
+        "label": "关于我们",
+        "link": {
+          "href": "/"
+        }
+      }
+    ],
+    "actions": [{
+      "label": "发布职位",
+      "link": {
+        "href": "/"
+      }
+    }]
+  },
   "footer": {
     "logo": {
       "label": "NNITPAY"

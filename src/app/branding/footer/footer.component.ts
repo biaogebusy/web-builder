@@ -19,7 +19,5 @@ export class FooterComponent implements OnInit {
     public branding: BrandingState
   ) {}
 
-  ngOnInit(): void {
-    this.content = this.branding.content;
-  }
+  ngOnInit(): void {}
 }

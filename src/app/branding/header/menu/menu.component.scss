@@ -1,9 +1,8 @@
-@import '~@angular/material/theming';
 @import '../../../../theme/variable/variable.scss';
 
 .main-menu {
   .item {
-    a {
+    ::ng-deep .link {
       font-size: 1.6rem;
       font-weight: 700;
     }

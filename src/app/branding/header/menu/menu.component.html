@@ -2,25 +2,19 @@
   <div class="container">
     <div class="header-container p-xs" fxLayout="row" fxLayoutAlign="space-between center">
       <div class="header-left">
-        <a class="logo mat-h2" href="#">NNITPAY</a>
+        <a class="logo mat-h2" [routerLink]="['/']" [innerHTML]="branding.content?.header?.logo?.label"></a>
       </div>
       <div class="header-right" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="3rem">
-        <div class="mian-menu">
+        <div class="menu-inner" *ngIf="branding.content?.header?.mainMenu">
           <div class="main-menu" fxLayout="row" fxLayoutGap="3.4rem">
-            <div class="item">
-              <a class="bold" href="#">职位</a>
-            </div>
-            <div class="item">
-              <a class="bold" [routerLink]="['/articles']">文章</a>
-            </div>
-            <div class="item">
-              <a class="bold" href="#">关于我们</a>
+            <div class="item" *ngFor="let menu of branding.content.header.mainMenu">
+              <app-link [content]="menu"></app-link>
             </div>
           </div>
         </div>
-        <div class="action">
-          <button color="primary" mat-raised-button>
-            发布职位
+        <div class="actions" *ngIf="branding.content?.header?.actions">
+          <button color="primary" mat-raised-button *ngFor="let action of branding.content.header.actions">
+            <app-link [content]="action"></app-link>
           </button>
         </div>
         <app-switch-theme></app-switch-theme>
@@ -36,7 +30,7 @@
       <mat-icon *ngIf="isDrawer">close</mat-icon>
     </button>
     <span class="spacer"></span>
-    <span class="app-name">JSONAPI DEMO</span>
+    <span class="app-name">{{branding.content?.header?.logo?.label}}</span>
     <span class="spacer"></span>
     <app-switch-theme></app-switch-theme>
     <app-user-menu></app-user-menu>

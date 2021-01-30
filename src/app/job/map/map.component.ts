@@ -42,23 +42,22 @@ export class MapComponent implements OnInit, OnDestroy {
   getMarkers(): void {
     this.amapState.position$.subscribe((res) => {
       this.markers = this.content.map((marker: any) => {
+        const company = marker.relationships.company;
+        const attr = marker.attributes;
         const obj = {
           logo: this.relation[
-            this.relation[marker.relationships.company.data.id].relationships
-              .logo.data.id
+            this.relation[company.data.id].relationships.logo.data.id
           ].attributes.uri.url,
-          company: this.relation[marker.relationships.company.data.id]
-            .attributes.title,
-          title: marker.attributes.title,
+          company: this.relation[company.data.id].attributes.title,
+          title: attr.title,
           salary: {
-            from: marker.attributes.salary.from,
-            to: marker.attributes.salary.to,
+            from: attr.salary.from,
+            to: attr.salary.to,
           },
         };
         return new this.AMap.Marker({
           content: this.markerTem(obj),
-          position: this.relation[marker.relationships.company.data.id]
-            .position,
+          position: this.relation[company.data.id].position,
           offset: new this.AMap.Pixel(-100, -150),
           title: marker.attributes.title,
         });
