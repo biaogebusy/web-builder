@@ -1,5 +1,19 @@
 @import '../../../theme/variable/variable.scss';
 
+:host ::ng-deep .footer-wave {
+
+  .wave {
+    width: 100%;
+    height: 200px;
+  }
+
+  @media #{$gt-sm} {
+    .wave {
+      height: 300px;
+    }
+  }
+}
+
 .footer {
   position: relative;
 

@@ -6,10 +6,17 @@ import { ShareModule } from '../share/share.module';
 import { MenuComponent } from './header/menu/menu.component';
 import { UserMenuComponent } from './header/menu/user-menu/user-menu.component';
 import { SwitchThemeComponent } from './header/menu/switch-theme/switch-theme.component';
+import { UiuxModule } from '../uiux/uiux.module';
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, MenuComponent, UserMenuComponent, SwitchThemeComponent],
-  imports: [CommonModule, ShareModule],
+  declarations: [
+    HeaderComponent,
+    FooterComponent,
+    MenuComponent,
+    UserMenuComponent,
+    SwitchThemeComponent,
+  ],
+  imports: [CommonModule, ShareModule, UiuxModule],
   exports: [HeaderComponent, FooterComponent, MenuComponent],
 })
 export class BrandingModule {}

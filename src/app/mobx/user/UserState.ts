@@ -5,7 +5,7 @@ import { IUser, TokenUser } from './IUser';
 import { Subject } from 'rxjs';
 import { UserService } from '../../service/user.service';
 import { ApiService } from '../../service/api.service';
-
+import { switchMap } from 'rxjs/operators';
 const unauthUser = {
   authenticated: false,
 };
@@ -56,16 +56,20 @@ export class UserState {
   @action
   updateUser(data: TokenUser, localStorageKey: string): any {
     let userDetails = {};
-    this.userService.getCurrentUserById(data).subscribe((res) => {
-      const id = res.id;
-      this.userService.getUser(id, localStorageKey).subscribe((user) => {
+    this.userService
+      .getCurrentUserById(data)
+      .pipe(
+        switchMap((res) => {
+          return this.userService.getUser(res.id, localStorageKey);
+        })
+      )
+      .subscribe((user) => {
         this.loading = false;
         this.user = user;
         this.user$.next(user);
         userDetails = Object.assign(data, user);
         this.storage.set(localStorageKey, JSON.stringify(userDetails));
       });
-    });
   }
 
   @computed

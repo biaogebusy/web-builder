@@ -110,7 +110,7 @@ export class JobComponent implements OnInit {
       .slice(0, 4);
   }
 
-  onSelected(item: any) {
+  onSelected(item: any): void {
     this.amapState.markers$.next(item);
   }
 }

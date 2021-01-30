@@ -1,0 +1,8 @@
+.bg-fill-width {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 100vw;
+  transform: translateX(-50%);
+}

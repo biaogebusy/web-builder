@@ -10,6 +10,14 @@
 
   $text-base: map-get($base, 500);
 
+  .footer-wave {
+    background: linear-gradient(-74deg, mat-color($primary, 50) 0%, mat-color($primary, 100) 100%);
+
+    .wave {
+      color: mat-color($background, background);
+    }
+  }
+
   .footer {
     background-color: mat-color($background, card);
 
@@ -23,7 +31,8 @@
     }
 
     .footer-bottom {
-      background-color: mat-color($background, selected-button);
+      position: relative;
+      z-index: 10;
     }
 
     .mat-list-item-content {

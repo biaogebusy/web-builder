@@ -3,19 +3,12 @@ import { CommonModule } from '@angular/common';
 import { WidgetsModule } from './widgets/widgets.module';
 import { SkipSelf } from '@angular/core';
 
-const modules = [
-  WidgetsModule
-];
+const modules = [WidgetsModule];
 
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule,
-    ...modules
-  ],
-  exports: [
-    ...modules
-  ]
+  imports: [CommonModule, ...modules],
+  exports: [...modules],
 })
 export class UiuxModule {
   /**
@@ -25,9 +18,7 @@ export class UiuxModule {
    * @param iconRegistry
    * @param ds
    */
-  constructor(
-    @Optional() @SkipSelf() parent: UiuxModule,
-  ) {
+  constructor(@Optional() @SkipSelf() parent: UiuxModule) {
     if (parent) {
       throw new Error('Core 模块已经存在，不能再加载！');
     }
