@@ -13,6 +13,13 @@
   flex: 1;
 }
 
+.header-left {
+  .badge {
+    font-size: 1.2rem;
+    margin-left: 0.4rem;
+  }
+}
+
 :host ::ng-deep .user {
   .mat-button-wrapper {
     padding: 0;
