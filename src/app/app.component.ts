@@ -34,8 +34,4 @@ export class AppComponent implements OnInit, AfterViewInit {
   updateDrawer(drawer: MatDrawer): void {
     this.screen.updateDrwer(drawer);
   }
-
-  OnDestroy(): void {
-    this.screen.drawer$.unsubscribe();
-  }
 }

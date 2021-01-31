@@ -31,8 +31,4 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
       );
     });
   }
-
-  ngOnDestroy(): void {
-    this.screenState.scroll$.unsubscribe();
-  }
 }

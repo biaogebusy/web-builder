@@ -85,7 +85,7 @@ export class JobComponent implements OnInit, OnDestroy {
             const location = result.geocodes[0].location;
             this.relation[item.id].position = [location.lng, location.lat];
             if (companys.length === index + 1) {
-              this.amapState.position$.next(true);
+              // this.amapState.position$.next(true);
             }
           }
         });
@@ -115,9 +115,5 @@ export class JobComponent implements OnInit, OnDestroy {
 
   onSelected(item: any): void {
     this.amapState.markers$.next(item);
-  }
-
-  ngOnDestroy() {
-    this.amapState.position$.unsubscribe();
   }
 }

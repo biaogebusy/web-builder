@@ -54,8 +54,4 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.apiService.localUserKey
     );
   }
-
-  ngOnDestroy() {
-    this.userState.user$.unsubscribe();
-  }
 }

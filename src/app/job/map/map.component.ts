@@ -91,11 +91,4 @@ export class MapComponent implements OnInit, OnDestroy {
       );
     });
   }
-
-  ngOnDestroy(): void {
-    this.map.destroy();
-    this.themeState.switchChange$.unsubscribe();
-    this.amapState.position$.unsubscribe();
-    this.amapState.markers$.unsubscribe();
-  }
 }
