@@ -26,7 +26,7 @@
 <div class="drawer">
   <mat-toolbar *ngIf="screen.eq('xs')">
     <button mat-icon-button (click)="onToggle()" aria-label="menu icon">
-      <mat-icon *ngIf="!isDrawer">menu</mat-icon>
+      <mat-icon color="primary" *ngIf="!isDrawer">menu</mat-icon>
       <mat-icon *ngIf="isDrawer">close</mat-icon>
     </button>
     <span class="spacer"></span>

@@ -43,10 +43,18 @@
       }
     }
 
-    .user {
-      .name {
+  }
+
+  // user dropdown menu
+  .user {
+    .mat-button-wrapper {
+      .mat-icon {
         color: #fff;
       }
+    }
+
+    .name {
+      color: #fff;
     }
   }
 

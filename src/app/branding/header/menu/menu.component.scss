@@ -12,3 +12,15 @@
 .spacer {
   flex: 1;
 }
+
+:host ::ng-deep .user {
+  .mat-button-wrapper {
+    padding: 0;
+
+    .name {
+      font-size: 2rem;
+      line-height: 4rem;
+      padding: 0;
+    }
+  }
+}
