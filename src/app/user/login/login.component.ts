@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserState } from '../../mobx/user/UserState';
@@ -10,7 +10,7 @@ import { TitleService } from '../../service/title.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   hide = true;
   userForm: FormGroup;
 
@@ -53,5 +53,9 @@ export class LoginComponent implements OnInit {
       this.userForm.value.pass,
       this.apiService.localUserKey
     );
+  }
+
+  ngOnDestroy() {
+    this.userState.user$.unsubscribe();
   }
 }
