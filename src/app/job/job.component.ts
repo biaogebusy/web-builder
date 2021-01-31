@@ -5,6 +5,7 @@ import { IChipList } from './IJob';
 import { isArray, keyBy } from 'lodash-es';
 import { AmapService } from '../service/amap.service';
 import { AMapState } from '../mobx/amap/AMapState';
+import { TitleService } from '../service/title.service';
 @Component({
   selector: 'app-job',
   templateUrl: './job.component.html',
@@ -25,13 +26,15 @@ export class JobComponent implements OnInit {
     private apiService: ApiService,
     private nodeService: NodeService,
     private amapService: AmapService,
-    public amapState: AMapState
+    public amapState: AMapState,
+    private titleService: TitleService
   ) {
     this.nodes = [];
   }
 
   ngOnInit(): void {
     this.getJobsNodes();
+    this.titleService.setTitle('内推职位列表');
   }
 
   getJobsNodes(): void {

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NodeService } from '../service/node.service';
 import { ApiService } from '../service/api.service';
-import {isArray, keyBy} from 'lodash-es';
+import { isArray, keyBy } from 'lodash-es';
+import { TitleService } from '../service/title.service';
 @Component({
   selector: 'app-article',
   templateUrl: './article.component.html',
@@ -13,10 +14,12 @@ export class ArticleComponent implements OnInit {
   loading: boolean;
   constructor(
     private nodeService: NodeService,
-    public apiService: ApiService
+    public apiService: ApiService,
+    private titleService: TitleService
   ) {}
 
   ngOnInit(): void {
+    this.titleService.setTitle('文章列表');
     this.loading = true;
     const params = [
       'fields[node--article]=title,body,created,link,field_image',
