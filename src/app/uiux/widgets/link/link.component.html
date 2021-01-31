@@ -1,4 +1,6 @@
 <ng-container *ngIf="content">
-  <a class="link" [ngClass]="content?.classes" [routerLink]="content?.link?.href"
+  <!-- TODO: Position address -->
+  <a class="link" [ngClass]="content?.classes" [href]="content?.link?.href"
     [target]="content?.link?.target">{{content?.label}}</a>
+  <!-- if Absolute address -->
 </ng-container>
