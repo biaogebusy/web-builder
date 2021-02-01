@@ -56,6 +56,7 @@ export class UserState {
       },
       (error) => {
         console.log(error);
+        this.storage.remove(this.apiService.localUserKey);
       }
     );
   }
