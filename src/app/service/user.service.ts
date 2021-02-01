@@ -30,13 +30,32 @@ export class UserService {
     );
   }
 
+  logout(): Observable<any> {
+    const api = this.apiService;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-type': 'application/json',
+      }),
+      withCredentials: true,
+    };
+    const logoutToken = api.getToken(api.localUserKey, 'logout_token');
+    const params = ['_format=json', `token=${logoutToken}`].join('&');
+    return this.http.post(
+      `${api.apiUrl}${api.logoutPath}?${params}`,
+      null,
+      httpOptions
+    );
+  }
+
   getCurrentUserById(user: TokenUser): Observable<any> {
     const apiUrl = `${this.apiService.apiUrl}${this.apiService.userGetPath}`;
     const params = `filter[drupal_internal__uid]=${user.current_user.uid}`;
-    return this.http.get<any>(
+    return this.http
+      .get<any>(
         `${apiUrl}?${params}`,
         this.apiService.httpOptions(user.csrf_token)
-      ).pipe(
+      )
+      .pipe(
         map((res: any) => {
           return {
             id: res.data[0].id,
