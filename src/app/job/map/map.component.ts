@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AmapService } from '../../service/amap.service';
 import { AMapState } from '../../mobx/amap/AMapState';
 import { ThemeState } from '../../mobx/screen/ThemeState';
@@ -7,7 +7,7 @@ import { ThemeState } from '../../mobx/screen/ThemeState';
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
 })
-export class MapComponent implements OnInit, OnDestroy {
+export class MapComponent implements OnInit {
   @Input() content: any;
   @Input() relation: any;
   @Input() AMap: any;

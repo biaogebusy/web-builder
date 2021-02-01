@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../service/api.service';
 import { NodeService } from '../service/node.service';
 import { IChipList } from './IJob';
@@ -11,7 +11,7 @@ import { TitleService } from '../service/title.service';
   templateUrl: './job.component.html',
   styleUrls: ['./job.component.scss'],
 })
-export class JobComponent implements OnInit, OnDestroy {
+export class JobComponent implements OnInit {
   nodes: any[];
   relation: any;
   included: any;
