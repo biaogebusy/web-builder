@@ -6,7 +6,7 @@
     "mainMenu": [{
         "label": "职位",
         "classes": "bold",
-        "href": "/"
+        "href": "/jobs"
       },
       {
         "label": "文章",
@@ -14,12 +14,12 @@
       },
       {
         "label": "关于我们",
-        "href": "/"
+        "href": "/about"
       }
     ],
     "actions": [{
       "label": "发布职位",
-      "href": "/"
+      "href": "/create-job"
     }]
   },
   "footer": {

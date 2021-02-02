@@ -3,7 +3,7 @@
     [href]="content?.href || 'javascript:void(0);'" [target]="content?.target || '_self'"
     [innerHTML]="content?.label"></a>
   <ng-template #relative>
-    <a [routerLink]="[content.href]" [routerLinkActive]="['active']" [queryParams]="content.queryParams"
-      [innerHTML]="content?.label"></a>
+    <a [routerLink]="[content.href]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}"
+      [queryParams]="content.queryParams" [innerHTML]="content?.label"></a>
   </ng-template>
 </ng-container>

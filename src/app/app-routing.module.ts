@@ -7,7 +7,7 @@ import { ArticleComponent } from './article/article.component';
 
 const routes: Routes = [
   {
-    path: 'home',
+    path: 'jobs',
     component: JobComponent,
     canActivate: [AuthGuard],
   },
@@ -22,7 +22,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'jobs',
     pathMatch: 'full',
   },
 
