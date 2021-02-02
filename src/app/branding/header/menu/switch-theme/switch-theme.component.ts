@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AppState } from '../../../../mobx/AppState';
-
 @Component({
   selector: 'app-switch-theme',
   templateUrl: './switch-theme.component.html',

@@ -15,10 +15,6 @@ import { UiuxModule } from '../uiux/uiux.module';
     JobComponent,
     MapComponent,
   ],
-  imports: [
-    CommonModule,
-    ShareModule,
-    UiuxModule
-  ],
+  imports: [CommonModule, ShareModule, UiuxModule],
 })
 export class JobModule {}

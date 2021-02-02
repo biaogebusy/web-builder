@@ -12,7 +12,7 @@ export class ApiService {
   apiBase = '/api/v1';
   localConfigUrl = '/assets/app';
   brandingConfigUrl = '/core/branding';
-  coreConfigUrl = '/core/config';
+  coreConfigUrl = '/core/base';
   loginPath = '/user/login';
   logoutPath = '/user/logout';
   userIdGetPath = `${this.apiBase}`;

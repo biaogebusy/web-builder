@@ -1,0 +1,12 @@
+{
+  "theme": [{
+    "name": "默认主题",
+    "style": "light-theme",
+    "icon": "laptop_mac"
+  }, {
+    "name": "暗黑主题",
+    "style": "dark-theme",
+    "svgIcon": "dark_mode"
+  }],
+  "loginRedirect": "/jobs"
+}

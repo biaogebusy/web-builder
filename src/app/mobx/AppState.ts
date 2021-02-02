@@ -49,21 +49,32 @@ export class AppState {
         .get(
           `${this.apiService.apiUrl}${this.apiService.apiBase}/config?content=${this.apiService.coreConfigUrl}`
         )
-        .subscribe((config) => {
-          this.state.config = config;
-          this.initTheme();
-          this.setUser();
-        });
+        .subscribe(
+          (config) => {
+            this.state.config = config;
+            this.initTheme();
+            this.setUser();
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
     } else {
       this.http
         .get(
           `${this.apiService.localConfigUrl}${this.apiService.coreConfigUrl}.json`
         )
-        .subscribe((config) => {
-          this.state.config = config;
-          this.initTheme();
-          this.setUser();
-        });
+        .subscribe(
+          (config) => {
+            console.log(config);
+            this.state.config = config;
+            this.initTheme();
+            this.setUser();
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
     }
   }
 
