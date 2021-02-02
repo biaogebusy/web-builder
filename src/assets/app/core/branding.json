@@ -6,28 +6,20 @@
     "mainMenu": [{
         "label": "职位",
         "classes": "bold",
-        "link": {
-          "href": "/"
-        }
+        "href": "/"
       },
       {
         "label": "文章",
-        "link": {
-          "href": "/articles"
-        }
+        "href": "/articles"
       },
       {
         "label": "关于我们",
-        "link": {
-          "href": "/"
-        }
+        "href": "/"
       }
     ],
     "actions": [{
       "label": "发布职位",
-      "link": {
-        "href": "/"
-      }
+      "href": "/"
     }]
   },
   "footer": {
@@ -44,33 +36,25 @@
         "child": [{
             "label": "Angular 中文站",
             "icon": "arrow_right",
-            "link": {
-              "href": "https://angular.cn/",
-              "target": "_blank"
-            }
+            "href": "https://angular.cn/",
+            "target": "_blank"
           }, {
             "label": "Material Angular",
             "icon": "arrow_right",
-            "link": {
-              "href": "https://material.angular.io/",
-              "target": "_blank"
-            }
+            "href": "https://material.angular.io/",
+            "target": "_blank"
           },
           {
             "label": "Flex Layout",
             "icon": "arrow_right",
-            "link": {
-              "href": "https://github.com/angular/flex-layout/wiki",
-              "target": "_blank"
-            }
+            "href": "https://github.com/angular/flex-layout/wiki",
+            "target": "_blank"
           },
           {
             "label": "JSONAPI",
             "icon": "arrow_right",
-            "link": {
-              "href": "https://jsonapi.org/format/",
-              "target": "_blank"
-            }
+            "href": "https://jsonapi.org/format/",
+            "target": "_blank"
           }
         ]
       },
@@ -79,33 +63,25 @@
         "child": [{
             "label": "Angular 中文站",
             "icon": "github",
-            "link": {
-              "href": "https://github.com/biaogebusy/nnitpay-angular",
-              "target": "_blank"
-            }
+            "href": "https://github.com/biaogebusy/nnitpay-angular",
+            "target": "_blank"
           }, {
             "label": "Drupal 自习室",
             "icon": "offiaccount",
-            "link": {
-              "href": "https://www.zhihu.com/column/c_1331898788731375616",
-              "target": "_blank"
-            }
+            "href": "https://www.zhihu.com/column/c_1331898788731375616",
+            "target": "_blank"
           },
           {
             "label": "前端茶馆",
             "icon": "zhihu",
-            "link": {
-              "href": "https://www.zhihu.com/column/frontend-focus",
-              "target": "_blank"
-            }
+            "href": "https://www.zhihu.com/column/frontend-focus",
+            "target": "_blank"
           },
           {
             "label": "Drupal 中文模块",
             "icon": "github",
-            "link": {
-              "href": "https://github.com/biaogebusy/drupal-modules-cn",
-              "target": "_blank"
-            }
+            "href": "https://github.com/biaogebusy/drupal-modules-cn",
+            "target": "_blank"
           }
         ]
       },
@@ -132,17 +108,13 @@
         "child": [{
             "label": "Angular 中文站",
             "icon": "arrow_right",
-            "link": {
-              "href": "https://angular.cn/",
-              "target": "_blank"
-            }
+            "href": "https://angular.cn/",
+            "target": "_blank"
           }, {
             "label": "Material Angular",
             "icon": "arrow_right",
-            "link": {
-              "href": "https://material.angular.io/",
-              "target": "_blank"
-            }
+            "href": "https://material.angular.io/",
+            "target": "_blank"
           },
           {
             "label": "Flex Layout",
@@ -155,10 +127,8 @@
           {
             "label": "JSONAPI",
             "icon": "arrow_right",
-            "link": {
-              "href": "https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/jsonapi",
-              "target": "_blank"
-            }
+            "href": "https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/jsonapi",
+            "target": "_blank"
           }
         ]
       },
@@ -174,26 +144,20 @@
           }, {
             "label": "Drupal 自习室",
             "icon": "offiaccount",
-            "link": {
-              "href": "https://www.zhihu.com/column/c_1331898788731375616",
-              "target": "_blank"
-            }
+            "href": "https://www.zhihu.com/column/c_1331898788731375616",
+            "target": "_blank"
           },
           {
             "label": "前端茶馆",
             "icon": "zhihu",
-            "link": {
-              "href": "https://www.zhihu.com/column/frontend-focus",
-              "target": "_blank"
-            }
+            "href": "https://www.zhihu.com/column/frontend-focus",
+            "target": "_blank"
           },
           {
             "label": "Drupal 中文模块",
             "icon": "github",
-            "link": {
-              "href": "https://github.com/biaogebusy/drupal-modules-cn",
-              "target": "_blank"
-            }
+            "href": "https://github.com/biaogebusy/drupal-modules-cn",
+            "target": "_blank"
           }
         ]
       }

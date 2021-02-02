@@ -1,6 +1,9 @@
 <ng-container *ngIf="content">
-  <!-- TODO: Position address -->
-  <a class="link" [ngClass]="content?.classes" [href]="content?.link?.href"
-    [target]="content?.link?.target">{{content?.label}}</a>
-  <!-- if Absolute address -->
+  <a *ngIf="isAbsolute(content.href); else relative" class="link" [ngClass]="content?.classes"
+    [href]="content?.href || 'javascript:void(0);'" [target]="content?.target || '_self'"
+    [innerHTML]="content?.label"></a>
+  <ng-template #relative>
+    <a [routerLink]="[content.href]" [routerLinkActive]="['active']" [queryParams]="content.queryParams"
+      [innerHTML]="content?.label"></a>
+  </ng-template>
 </ng-container>

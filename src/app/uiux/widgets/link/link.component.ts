@@ -10,4 +10,8 @@ export class LinkComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
+  isAbsolute(href: string): boolean{
+    return  href.startsWith('http') || href.startsWith('https');
+  }
 }

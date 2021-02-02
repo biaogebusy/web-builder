@@ -7,6 +7,7 @@ import { MenuComponent } from './header/menu/menu.component';
 import { UserMenuComponent } from './header/menu/user-menu/user-menu.component';
 import { SwitchThemeComponent } from './header/menu/switch-theme/switch-theme.component';
 import { UiuxModule } from '../uiux/uiux.module';
+import { PopupComponent } from './footer/popup/popup.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { UiuxModule } from '../uiux/uiux.module';
     MenuComponent,
     UserMenuComponent,
     SwitchThemeComponent,
+    PopupComponent,
   ],
   imports: [CommonModule, ShareModule, UiuxModule],
   exports: [HeaderComponent, FooterComponent, MenuComponent],
