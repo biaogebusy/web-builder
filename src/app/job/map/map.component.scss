@@ -23,33 +23,38 @@
     }
 
     .arrow {
-      bottom: -11px;
-      left: 50%;
-      border-width: 11px;
-      margin-left: -11px;
-      border-top-color: #999;
-      border-top-color: rgba(0, 0, 0, .25);
-      border-bottom-width: 0;
       position: absolute;
       display: block;
       width: 0;
       height: 0;
       border-color: transparent;
       border-style: solid;
+      border-width: 11px;
+
+      &.top {
+        bottom: -11px;
+        left: 50%;
+        border-width: 11px;
+        margin-left: -11px;
+
+        border-bottom-width: 0;
+
+        &:after {
+          bottom: 1px;
+          margin-left: -10px;
+          content: " ";
+          border-bottom-width: 0;
+        }
+      }
 
       &:after {
-        bottom: 1px;
-        margin-left: -10px;
-        content: " ";
-        border-top-color: #fff;
-        border-bottom-width: 0;
-        border-width: 10px;
         position: absolute;
         display: block;
         width: 0;
         height: 0;
         border-color: transparent;
         border-style: solid;
+        border-width: 10px;
       }
     }
 

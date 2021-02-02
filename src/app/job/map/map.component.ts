@@ -79,7 +79,7 @@ export class MapComponent implements OnInit {
         ${obj.salary.from} - ${obj.salary.to} k
         </div>
       </div>
-      <div class="arrow"></div>
+      <div class="top arrow"></div>
     </div>
     `;
   }
