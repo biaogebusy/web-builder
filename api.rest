@@ -1,4 +1,4 @@
-@base = https://nnitpai-cms.zhaobg.com
+@apiUrl = https://nnitpai-cms.zhaobg.com
 @user = test
 @psw = test
 @user_uuid = 15765815-07f2-4d7d-8142-cb598f82af2e
@@ -6,7 +6,7 @@
 
 ### user login
 # @name login
-POST {{base}}/user/login?_format=json HTTP/1.1
+POST {{apiUrl}}/user/login?_format=json HTTP/1.1
 content-type: application/json
 
 {"name": "{{user}}","pass": "{{psw}}"}
@@ -20,32 +20,32 @@ content-type: application/json
 @csrfToken = {{login.response.body.csrf_token}}
 
 ### get user status
-GET {{base}}/user/login_status?_format=json HTTP/1.1
+GET {{apiUrl}}/user/login_status?_format=json HTTP/1.1
 
 ### user logout
-POST {{base}}/user/logout?_format=json&token={{logoutToken}} HTTP/1.1
+POST {{apiUrl}}/user/logout?_format=json&token={{logoutToken}} HTTP/1.1
 
 ### logout v2 强制退出
-POST {{base}}/user/logout HTTP/1.1
+POST {{apiUrl}}/user/logout HTTP/1.1
 
 ### get user info
-GET {{base}}/api/v1/user/user?filter[drupal_internal__uid]={{login.response.body.current_user.uid}}
+GET {{apiUrl}}/api/v1/user/user?filter[drupal_internal__uid]={{login.response.body.current_user.uid}}
 
 ### get all api
-GET {{base}}/api/v1
+GET {{apiUrl}}/api/v1
 
 ### get all user
-GET {{base}}/api/v1/user/user
+GET {{apiUrl}}/api/v1/user/user
 
 ### https://www.drupal.org/docs/core-modules-and-themes/core-modules/api/v1-module/api-overview
 ### https://explore.api/v1.dev/
 
 
 ### taxonomy
-GET {{base}}/api/v1/node/recruitment/5c67b19c-b8c4-495b-8a6f-1bea1a852a49/skill?resourceVersion=id%3A90
+GET {{apiUrl}}/api/v1/node/recruitment/5c67b19c-b8c4-495b-8a6f-1bea1a852a49/skill?resourceVersion=id%3A90
 
 ### taxonomy skill
-GET {{base}}/api/v1/taxonomy_term/skill
+GET {{apiUrl}}/api/v1/taxonomy_term/skill
 
 ### https://dev.acquia.com/blog/decoupling-drupal-8-with-json-api/15/05/2018/19596
 
@@ -54,25 +54,25 @@ GET {{base}}/api/v1/taxonomy_term/skill
 ### get need set header Accept: application/vnd.api+json
 
 ### get single resource
-GET {{base}}/api/v1/node/{{type}}/97edbdba-16a9-4e48-9285-9a2854968cf7
+GET {{apiUrl}}/api/v1/node/{{type}}/97edbdba-16a9-4e48-9285-9a2854968cf7
 
 ### get collections rsource
-GET {{base}}/api/v1/node/{{type}}
+GET {{apiUrl}}/api/v1/node/{{type}}
 
 ### get collections limit
-GET {{base}}/api/v1/node/{{type}}?page[limit]=10
+GET {{apiUrl}}/api/v1/node/{{type}}?page[limit]=10
 
 ### get collections offset
-GET {{base}}//api/v1/node/{{type}}?page[limit]=25&page[offset]=25
+GET {{apiUrl}}//api/v1/node/{{type}}?page[limit]=25&page[offset]=25
 
 ### sort by title or -title
-GET {{base}}/api/v1/node/{{type}}?sort=title
+GET {{apiUrl}}/api/v1/node/{{type}}?sort=title
 
 ### sort by nid or -nid
-{{base}}/api/v1/node/{{type}}?sort=nid
+{{apiUrl}}/api/v1/node/{{type}}?sort=nid
 
 ### get fields what you want
-GET {{base}}/api/v1/node/{{type}}?fields[node--{{type}}]=title,created,changed,body,deadline,number,salary,work_experience,skill,education,company&include=skill,education,company,company.logo&fields[taxonomy_term--skill]=name&fields[taxonomy_term--education]=name&fields[node--company]=title,address,phone,welfare,logo&fields[file--file]=uri
+GET {{apiUrl}}/api/v1/node/{{type}}?fields[node--{{type}}]=title,created,changed,body,deadline,number,salary,work_experience,skill,education,company&include=skill,education,company,company.logo&fields[taxonomy_term--skill]=name&fields[taxonomy_term--education]=name&fields[node--company]=title,address,phone,welfare,logo&fields[file--file]=uri
 Accept: application/vnd.api+json
 Content-Type: application/vnd.api+json
 X-CSRF-Token: {{csrfToken}}
@@ -87,7 +87,7 @@ X-CSRF-Token: {{csrfToken}}
 @article_node_uuid = bb0617db-af29-4239-b824-4131f29d7530
 
 ### creating node
-POST {{base}}/api/v1/node/{{sample_type}} HTTP/1.1
+POST {{apiUrl}}/api/v1/node/{{sample_type}} HTTP/1.1
 Accept: application/vnd.api+json
 Content-Type: application/vnd.api+json
 X-CSRF-Token: {{csrfToken}}
@@ -114,7 +114,7 @@ X-CSRF-Token: {{csrfToken}}
 }
 
 ### update single node
-PATCH {{base}}/api/v1/node/article/{{article_node_uuid}}
+PATCH {{apiUrl}}/api/v1/node/article/{{article_node_uuid}}
 Accept: application/vnd.api+json
 Content-Type: application/vnd.api+json
 X-CSRF-Token: {{csrfToken}}
@@ -139,7 +139,7 @@ X-CSRF-Token: {{csrfToken}}
 
 
 ### delete single node
-DELETE {{base}}/api/v1/node/article/{{article_node_uuid}}
+DELETE {{apiUrl}}/api/v1/node/article/{{article_node_uuid}}
 Accept: application/vnd.api+json
 Content-Type: application/vnd.api+json
 X-CSRF-Token: {{csrfToken}}
