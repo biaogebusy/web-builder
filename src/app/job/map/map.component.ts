@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AmapService } from '../../service/amap.service';
 import { AMapState } from '../../mobx/amap/AMapState';
-import { ThemeState } from '../../mobx/screen/ThemeState';
+import { AppState } from '../../mobx/AppState';
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -17,11 +17,11 @@ export class MapComponent implements OnInit {
   constructor(
     private amapService: AmapService,
     private amapState: AMapState,
-    private themeState: ThemeState
+    private appState: AppState
   ) {}
 
   ngOnInit(): void {
-    const themeStyle = this.themeState.theme;
+    const themeStyle = this.appState.theme;
     const mapStyle: any = this.amapService.mapStyle;
     this.map = new this.AMap.Map('map', {
       resizeEnable: true,
@@ -32,7 +32,7 @@ export class MapComponent implements OnInit {
     });
     this.getMarkers();
     this.onMarkers();
-    this.themeState.switchChange$.subscribe((theme) => {
+    this.appState.switchChange$.subscribe((theme) => {
       const newMapStyle =
         theme === 'light-theme' ? mapStyle.light : mapStyle.dark;
       this.map.setMapStyle(newMapStyle);

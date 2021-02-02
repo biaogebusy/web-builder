@@ -14,6 +14,7 @@ import { JobModule } from './job/job.module';
 import { ArticleModule } from './article/article.module';
 import { UserModule } from './user/user.module';
 import { PageRenderModule } from './page-render/page-render.module';
+import { AppState } from './mobx/AppState';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -31,7 +32,7 @@ import { PageRenderModule } from './page-render/page-render.module';
     UserModule,
     PageRenderModule,
   ],
-  providers: [Title],
+  providers: [Title, AppState],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

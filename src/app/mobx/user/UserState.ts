@@ -6,13 +6,14 @@ import { Subject } from 'rxjs';
 import { UserService } from '../../service/user.service';
 import { ApiService } from '../../service/api.service';
 import { switchMap } from 'rxjs/operators';
+import { AppState } from '../AppState';
 const unauthUser = {
   authenticated: false,
 };
 
 @Injectable()
 export class UserState {
-  @observable public user: IUser = unauthUser;
+  @observable private user: IUser = unauthUser;
   @observable public error = '';
   @observable public loading = false;
 
@@ -25,7 +26,8 @@ export class UserState {
   constructor(
     private userService: UserService,
     @Inject(LOCAL_STORAGE) private storage: StorageService,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private appState: AppState
   ) {
     if (this.storage.get(this.apiService.localUserKey)) {
       this.user = JSON.parse(this.storage.get(this.apiService.localUserKey));
@@ -53,10 +55,12 @@ export class UserState {
     this.userService.logout().subscribe(
       (res) => {
         this.storage.remove(this.apiService.localUserKey);
+        this.appState.logout();
       },
       (error) => {
         console.log(error);
         this.storage.remove(this.apiService.localUserKey);
+        this.appState.logout();
       }
     );
   }

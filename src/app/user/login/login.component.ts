@@ -5,6 +5,7 @@ import { UserState } from '../../mobx/user/UserState';
 import { ApiService } from '../../service/api.service';
 import { ScreenState } from '../../mobx/screen/ScreenState';
 import { TitleService } from '../../service/title.service';
+import { AppState } from '../../mobx/AppState';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -20,7 +21,8 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private apiService: ApiService,
     public screenState: ScreenState,
-    private titleService: TitleService
+    private titleService: TitleService,
+    private appState: AppState
   ) {}
 
   ngOnInit(): void {
@@ -33,7 +35,7 @@ export class LoginComponent implements OnInit {
     this.userState.user$.subscribe((user) => {
       if (user.authenticated) {
         setTimeout(() => {
-          this.router.navigate(['/home']);
+          this.router.navigate([this.appState.config.loginRedirect]);
         }, 2000);
       }
     });

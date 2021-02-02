@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ThemeState } from 'src/app/mobx/screen/ThemeState';
+import { AppState } from '../../../../mobx/AppState';
 
 @Component({
   selector: 'app-switch-theme',
@@ -7,11 +7,11 @@ import { ThemeState } from 'src/app/mobx/screen/ThemeState';
   styleUrls: ['./switch-theme.component.scss'],
 })
 export class SwitchThemeComponent implements OnInit {
-  constructor(public themeState: ThemeState) {}
+  constructor(public appState: AppState) {}
 
   ngOnInit(): void {}
 
   onSwitchTheme(theme: string): void {
-    this.themeState.switchTheme(theme);
+    this.appState.switchTheme(theme);
   }
 }

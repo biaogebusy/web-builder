@@ -8,7 +8,7 @@ import {
 import { UserState } from './mobx/user/UserState';
 import { ScreenState } from './mobx/screen/ScreenState';
 import { MatDrawer } from '@angular/material/sidenav';
-import { ThemeState } from './mobx/screen/ThemeState';
+import { AppState } from './mobx/AppState';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -20,7 +20,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   constructor(
     public userState: UserState,
     public screen: ScreenState,
-    public themeState: ThemeState
+    public appState: AppState
   ) {}
 
   ngOnInit(): void {}
