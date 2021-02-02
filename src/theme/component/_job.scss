@@ -41,4 +41,12 @@
       }
     }
   }
+
+  .selected {
+
+    &:after,
+    &:before {
+      background: mat-color($primary);
+    }
+  }
 }

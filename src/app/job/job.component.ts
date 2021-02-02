@@ -6,6 +6,8 @@ import { isArray, keyBy } from 'lodash-es';
 import { AmapService } from '../service/amap.service';
 import { AMapState } from '../mobx/amap/AMapState';
 import { TitleService } from '../service/title.service';
+import { RouteService } from '../service/route.service';
+import { Params, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-job',
   templateUrl: './job.component.html',
@@ -20,6 +22,8 @@ export class JobComponent implements OnInit {
   loading: boolean;
   AMap: any;
   geocoder: any;
+  selectedId: string;
+  selected: any;
 
   show = false;
   constructor(
@@ -27,23 +31,32 @@ export class JobComponent implements OnInit {
     private nodeService: NodeService,
     private amapService: AmapService,
     public amapState: AMapState,
-    private titleService: TitleService
+    private titleService: TitleService,
+    private routerService: RouteService,
+    private route: ActivatedRoute
   ) {
     this.nodes = [];
   }
 
   ngOnInit(): void {
-    this.getJobsNodes();
+    this.loading = true;
     this.titleService.setTitle('内推职位列表');
+    this.getJobsNodes();
+    this.route.queryParamMap.subscribe((res) => {
+      this.paramsInit(res);
+    });
   }
 
-  getJobsNodes(): void {
-    this.loading = true;
+  paramsInit(params: Params): void{
+    this.selectedId = params.params.id;
+  }
+
+  getJobsNodes(): void{
     // 以下参数没有顺序关系
     // fields[{{type}}] type 为该实体类型
     // include 为 relationships 相关资源，支持嵌套如company,company.log
     const params = [
-      'fields[node--job]=title,created,changed,body,deadline,number,salary,work_experience,skill,education,company',
+      'fields[node--job]=drupal_internal__nid,title,created,changed,body,deadline,number,salary,work_experience,skill,education,company',
       'include=skill,education,company,company.logo',
       'fields[node--company]=title,address,phone,welfare,logo',
       'fields[taxonomy_term--skill]=name',
@@ -114,6 +127,11 @@ export class JobComponent implements OnInit {
   }
 
   onSelected(item: any): void {
+    this.selected = item;
+    this.selectedId = item.attributes.drupal_internal__nid;
     this.amapState.markers$.next(item);
+    const query: Params = { id: this.selectedId };
+
+    this.routerService.updateQueryParams(query);
   }
 }

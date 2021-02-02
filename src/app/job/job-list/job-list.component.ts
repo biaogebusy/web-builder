@@ -8,12 +8,13 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 export class JobListComponent implements OnInit {
   @Input() content: any;
   @Input() relation: any;
+  @Input() selectedId: string;
   @Output() selected = new EventEmitter();
   constructor() {}
 
   ngOnInit(): void {}
 
-  onClick(item: any) {
+  onClick(item: any): void {
     this.selected.emit(item);
   }
 }
