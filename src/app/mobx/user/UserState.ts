@@ -50,7 +50,15 @@ export class UserState {
   logout(): any {
     this.user$.next(unauthUser);
     this.user = unauthUser;
-    this.storage.remove(this.apiService.localUserKey);
+    this.userService.logout().subscribe(
+      (res) => {
+        this.storage.remove(this.apiService.localUserKey);
+      },
+      (error) => {
+        console.log(error);
+        this.storage.remove(this.apiService.localUserKey);
+      }
+    );
   }
 
   @action

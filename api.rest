@@ -1,4 +1,5 @@
-@apiUrl = https://nnitpai-cms.zhaobg.com
+### https://www.drupal.org/docs/8/core/modules/rest/javascript-and-drupal-8-restful-web-services#s-login
+@apiUrl = https://api.zhaobg.com
 @user = test
 @psw = test
 @user_uuid = 15765815-07f2-4d7d-8142-cb598f82af2e
@@ -24,7 +25,8 @@ GET {{apiUrl}}/user/login_status?_format=json HTTP/1.1
 
 ### user logout
 POST {{apiUrl}}/user/logout?_format=json&token={{logoutToken}} HTTP/1.1
-
+Content-type: application/json
+withCredentials: true
 ### logout v2 强制退出
 POST {{apiUrl}}/user/logout HTTP/1.1
 
@@ -143,7 +145,3 @@ DELETE {{apiUrl}}/api/v1/node/article/{{article_node_uuid}}
 Accept: application/vnd.api+json
 Content-Type: application/vnd.api+json
 X-CSRF-Token: {{csrfToken}}
-
-
-#### sample
-GET https://nnitpai-cms.zhaobg.com/api/v1/file/file
