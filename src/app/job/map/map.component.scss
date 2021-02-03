@@ -1,7 +1,6 @@
-@import '../../../theme/variable/variable.scss';
+@import "../../../theme/variable/variable.scss";
 
 :host ::ng-deep {
-
   .mark-card {
     padding: $spacer / 4;
     display: flex;
@@ -10,14 +9,13 @@
     align-items: flex-start;
     white-space: normal;
     word-break: keep-all;
-    min-width: 200px;
+    min-width: auto;
     position: relative;
     border-radius: 6px;
 
     .media {
-
       img {
-        width: 6.8rem;
+        width: 2rem;
         height: auto;
       }
     }
@@ -80,4 +78,22 @@
       }
     }
   }
+  .amap-overlays {
+    .mark-card {
+      min-width: 200px;
+    }
+    img {
+      display: none !important;
+    }
+    .display-none {
+      display: block !important;
+    }
+  }
+}
+
+.set-fit-view {
+  position: absolute;
+  right: 2rem;
+  bottom: 8rem;
+  z-index: 2;
 }

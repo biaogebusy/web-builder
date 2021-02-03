@@ -14,7 +14,11 @@ export class JobListComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onClick(item: any): void {
-    this.selected.emit(item);
+  onClick(item: any, i: number): void {
+    const obj = {
+      index: i,
+      item: item,
+    };
+    this.selected.emit(obj);
   }
 }

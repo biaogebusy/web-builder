@@ -119,12 +119,11 @@ export class JobComponent implements OnInit {
       .slice(0, 4);
   }
 
-  onSelected(item: any): void {
-    this.selected = item;
-    this.selectedId = item.attributes.drupal_internal__nid;
-    this.amapState.markers$.next(item);
+  onSelected(obj: any): void {
+    this.selected = obj.item;
+    this.selectedId = obj.item.attributes.drupal_internal__nid;
+    this.amapState.markers$.next(obj);
     const query: Params = { id: this.selectedId };
-
     this.routerService.updateQueryParams(query);
   }
 }

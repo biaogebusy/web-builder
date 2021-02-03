@@ -1,7 +1,8 @@
 <div class="job-list m-y-sm" *ngIf="content" fxLayout="column" fxLayoutGap="2rem">
   <div class="result">总计 <span class="result-total">{{content.length}}</span> 个职位</div>
   <div class="item p-y-sm p-x-sm" [class.selected]="item.attributes.drupal_internal__nid == selectedId" matRipple
-    [matRippleColor]="'rgba(0, 0, 0, 0.04)'" *ngFor="let item of content" fxLayout (click)="onClick(item)">
+    [matRippleColor]="'rgba(0, 0, 0, 0.04)'" *ngFor="let item of content; index as i" fxLayout
+    (click)="onClick(item, i)">
     <div class="media" fxLayoutAlign="center center" *ngIf="item.relationships?.company">
       <img *ngIf="item.relationships.company.data"
         [src]="relation[relation[item.relationships.company.data.id].relationships.logo.data.id].attributes.uri.url"
