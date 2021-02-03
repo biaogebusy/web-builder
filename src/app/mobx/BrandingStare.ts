@@ -1,13 +1,28 @@
 import { Inject, Injectable } from '@angular/core';
 import { action, observable, computed } from 'mobx-angular';
 import { HttpClient } from '@angular/common/http';
-import { ApiService } from '../service/api.service';
 import { environment } from '../../environments/environment';
+import { AppState } from './AppState';
 @Injectable()
 export class BrandingState {
-  @observable public content: any;
-  constructor(private http: HttpClient, private apiService: ApiService) {
+  @observable private content: any;
+  private _READDY = true;
+  constructor(
+    private http: HttpClient,
+    private appState: AppState) {
     this.initBranding();
+  }
+
+  @computed get ready(): any {
+    return this._READDY && this.content;
+  }
+
+  @computed get header(): any {
+    return this.content && this.content.header;
+  }
+
+  @computed get footer(): any {
+    return this.content && this.content.footer;
   }
 
   @action
@@ -15,7 +30,7 @@ export class BrandingState {
     if (environment.production) {
       this.http
         .get(
-          `${this.apiService.apiUrl}${this.apiService.apiBase}/config?content=${this.apiService.brandingConfigUrl}`
+          `${environment.apiUrl}${this.appState.apiUrl.apiBase}/config?content=${this.appState.apiUrl.brandingConfigUrl}`
         )
         .subscribe((branding) => {
           this.content = branding;
@@ -23,7 +38,7 @@ export class BrandingState {
     } else {
       this.http
         .get(
-          `${this.apiService.localConfigUrl}${this.apiService.brandingConfigUrl}.json`
+          `${this.appState.apiUrl.localConfigUrl}${this.appState.apiUrl.brandingConfigUrl}.json`
         )
         .subscribe((branding) => {
           this.content = branding;

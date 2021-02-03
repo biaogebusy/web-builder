@@ -108,15 +108,6 @@ export class JobComponent implements OnInit {
     }
   }
 
-  regionFilter(event: any): void {
-    if (event === 'all') {
-      this.getJobsNodes();
-    }
-    this.apiService.nodeFilterByRegion(event).subscribe((nodes) => {
-      this.nodes = [];
-    });
-  }
-
   getWelfare(lists: string[]): IChipList[] {
     return lists
       .map((list) => {

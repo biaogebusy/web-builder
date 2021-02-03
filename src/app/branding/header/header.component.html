@@ -1,2 +1,4 @@
-<app-menu class="sticky" [class.sticking]="sticky"></app-menu>
-<app-menu #menu></app-menu>
+<ng-container *ngIf="branding?.ready">
+  <app-menu class="sticky" [class.sticking]="sticky"></app-menu>
+  <app-menu #menu></app-menu>
+</ng-container>

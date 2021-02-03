@@ -4,12 +4,18 @@ import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
 import { map } from 'rxjs/operators';
 import { TokenUser } from '../mobx/user/IUser';
+import { AppState } from '../mobx/AppState';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  constructor(private http: HttpClient, private apiService: ApiService) {}
+  constructor(
+    private http: HttpClient,
+    private apiService: ApiService,
+    private appState: AppState
+  ) { }
 
   login(userName: string, passWord: string): Observable<any> {
     const httpOptions = {
@@ -21,7 +27,7 @@ export class UserService {
     };
 
     return this.http.post<any>(
-      `${this.apiService.apiUrl}${this.apiService.loginPath}?_format=json`,
+      `${environment.apiUrl}${this.appState.apiUrl.loginPath}?_format=json`,
       {
         name: userName,
         pass: passWord,
@@ -41,14 +47,14 @@ export class UserService {
     const logoutToken = api.getToken(api.localUserKey, 'logout_token');
     const params = ['_format=json', `token=${logoutToken}`].join('&');
     return this.http.post(
-      `${api.apiUrl}${api.logoutPath}?${params}`,
+      `${environment.apiUrl}${this.appState.apiUrl}?${params}`,
       null,
       httpOptions
     );
   }
 
   getCurrentUserById(user: TokenUser): Observable<any> {
-    const apiUrl = `${this.apiService.apiUrl}${this.apiService.userGetPath}`;
+    const apiUrl = `${environment.apiUrl}${this.appState.apiUrl.userGetPath}`;
     const params = `filter[drupal_internal__uid]=${user.current_user.uid}`;
     return this.http
       .get<any>(
@@ -68,7 +74,7 @@ export class UserService {
     const csrfToken = this.apiService.getToken(item, 'csrf_token');
     return this.http
       .get<any>(
-        `${this.apiService.apiUrl}${this.apiService.userGetPath}?filter[id]=${id}`,
+        `${this.apiService.apiUrl}${this.appState.apiUrl.userGetPath}?filter[id]=${id}`,
         this.apiService.httpOptions(csrfToken)
       )
       .pipe(

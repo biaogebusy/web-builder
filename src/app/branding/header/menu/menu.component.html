@@ -2,19 +2,19 @@
   <div class="container">
     <div class="header-container p-xs" fxLayout="row" fxLayoutAlign="space-between center">
       <div class="header-left">
-        <a class="logo mat-h2" [routerLink]="['/']" [innerHTML]="branding.content?.header?.logo?.label"></a><span
+        <a class="logo mat-h2" [routerLink]="['/']" [innerHTML]="branding?.header?.logo?.label"></a><span
           class="version">Demo</span>
       </div>
       <div class="header-right" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="3rem">
-        <div class="menu-inner" *ngIf="branding.content?.header?.mainMenu">
+        <div class="menu-inner" *ngIf="branding.header?.mainMenu">
           <div class="main-menu" fxLayout="row" fxLayoutGap="3.4rem">
-            <div class="item" *ngFor="let menu of branding.content.header.mainMenu">
+            <div class="item" *ngFor="let menu of branding.header.mainMenu">
               <app-link [content]="menu"></app-link>
             </div>
           </div>
         </div>
-        <div class="actions" *ngIf="branding.content?.header?.actions">
-          <button color="primary" mat-raised-button *ngFor="let action of branding.content.header.actions">
+        <div class="actions" *ngIf="branding.header?.actions">
+          <button color="primary" mat-raised-button *ngFor="let action of branding.header.actions">
             <app-link [content]="action"></app-link>
           </button>
         </div>
@@ -31,7 +31,7 @@
       <mat-icon *ngIf="isDrawer">close</mat-icon>
     </button>
     <span class="spacer"></span>
-    <span class="app-name">{{branding.content?.header?.logo?.label}}</span>
+    <span class="app-name">{{branding.header?.logo?.label}}</span>
     <span class="spacer"></span>
     <app-switch-theme></app-switch-theme>
     <app-user-menu></app-user-menu>

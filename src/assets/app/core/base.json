@@ -21,5 +21,16 @@
       "dark": "amap://styles/6f10bf7a87559270efe18df2bbd22dee"
     },
     "features": ["bg", "road", "point"]
+  },
+  "apiUrl": {
+    "apiBase": "/api/v1",
+    "localConfigUrl": "/assets/app",
+    "brandingConfigUrl": "/core/branding",
+    "coreConfigUrl": "/core/base",
+    "loginPath": "/user/login",
+    "logoutPath": "/user/logout",
+    "userIdGetPath": "/api/v1",
+    "nodeGetPath": "/api/v1/node",
+    "userGetPath": "/api/v1//user/user"
   }
 }

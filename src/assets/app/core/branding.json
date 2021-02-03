@@ -121,10 +121,8 @@
           {
             "label": "Flex Layout",
             "icon": "arrow_right",
-            "link": {
-              "href": "https://github.com/angular/flex-layout/wiki",
-              "target": "_blank"
-            }
+            "href": "https://github.com/angular/flex-layout/wiki",
+            "target": "_blank"
           },
           {
             "label": "JSONAPI",
@@ -139,10 +137,8 @@
         "child": [{
             "label": "Angular 中文站",
             "icon": "github",
-            "link": {
-              "href": "https://github.com/biaogebusy/nnitpay-angular",
-              "target": "_blank"
-            }
+            "href": "https://github.com/biaogebusy/nnitpay-angular",
+            "target": "_blank"
           }, {
             "label": "Drupal 自习室",
             "icon": "offiaccount",

@@ -5,16 +5,21 @@ import { HttpClient } from '@angular/common/http';
 import { ApiService } from '../service/api.service';
 import { environment } from '../../environments/environment';
 import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
-import { IAppConfig } from './IAppConfig';
+import { IApiUrl, IAppConfig } from './IAppConfig';
 import { Subject } from 'rxjs';
 import { IUser } from './user/IUser';
+
 const unauthUser = {
   authenticated: false,
 };
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
+
 export class AppState {
   private readonly DARK_THEME_CLASS = 'dark-theme';
   private readonly MODE = 'themeMode';
+  private _READY = true;
   @observable private state: IAppConfig = {
     defTheme: 'light-theme',
     config: null,
@@ -30,16 +35,24 @@ export class AppState {
     this.setConfig();
   }
 
+  @computed get ready(): any {
+    return this._READY && this.state.config;
+  }
+
   @computed get config(): any {
-    return this.state.config;
+    return this.state && this.state.config;
   }
 
   @computed get theme(): any {
-    return this.state.defTheme;
+    return this.state && this.state.defTheme;
   }
 
   @computed get currentUser(): IUser {
-    return this.state.currentUser;
+    return this.state && this.state.currentUser;
+  }
+
+  @computed get apiUrl(): IApiUrl {
+    return this.state.config && this.state.config.apiUrl;
   }
 
   @action
@@ -47,7 +60,7 @@ export class AppState {
     if (environment.production) {
       this.http
         .get(
-          `${this.apiService.apiUrl}${this.apiService.apiBase}/config?content=${this.apiService.coreConfigUrl}`
+          `${environment.apiUrl}/api/v1/config?content=/core/base`
         )
         .subscribe(
           (config) => {
@@ -62,11 +75,10 @@ export class AppState {
     } else {
       this.http
         .get(
-          `${this.apiService.localConfigUrl}${this.apiService.coreConfigUrl}.json`
+          `${environment.apiUrl}/assets/app/core/base.json`
         )
         .subscribe(
           (config) => {
-            console.log(config);
             this.state.config = config;
             this.initTheme();
             this.setUser();

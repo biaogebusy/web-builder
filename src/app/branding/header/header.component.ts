@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { ScreenService } from '../../service/screen.service';
 import { ScreenState } from '../../mobx/screen/ScreenState';
+import { BrandingState } from '../../mobx/BrandingStare';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -18,10 +19,11 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   @ViewChild('menu', { read: ElementRef }) menu: ElementRef;
   constructor(
     private screen: ScreenService,
-    private screenState: ScreenState
-  ) {}
+    private screenState: ScreenState,
+    public branding: BrandingState
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   ngAfterViewInit(): void {
     this.screenState.scroll$.subscribe(() => {
