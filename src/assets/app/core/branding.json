@@ -10,10 +10,12 @@
       },
       {
         "label": "文章",
+        "classes": "bold",
         "href": "/articles"
       },
       {
         "label": "关于我们",
+        "classes": "bold",
         "href": "/about"
       }
     ],

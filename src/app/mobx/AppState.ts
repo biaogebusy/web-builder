@@ -99,10 +99,14 @@ export class AppState {
 
   @action
   setUser(): void {
-    const currentUser = JSON.parse(
-      this.storage.get(this.apiService.localUserKey)
-    );
-    this.state.currentUser = currentUser;
+    if (
+      this.apiService.getToken(this.apiService.localUserKey, 'current_user')
+    ) {
+      const currentUser = JSON.parse(
+        this.storage.get(this.apiService.localUserKey)
+      );
+      this.state.currentUser = currentUser;
+    }
   }
 
   @action

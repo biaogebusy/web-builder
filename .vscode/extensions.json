@@ -11,6 +11,7 @@
     "syler.sass-indented",
     "gruntfuggly.todo-tree",
     "eg2.tslint",
-    "esbenp.prettier-vscode"
+    "esbenp.prettier-vscode",
+    "xabikos.javascriptsnippets"
   ]
 }

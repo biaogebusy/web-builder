@@ -1,11 +1,12 @@
 {
   "editor.fontSize": 14,
-  "window.zoomLevel": 0.85,
+  "window.zoomLevel": 0.8,
   "editor.tabSize": 2,
   "beautify.tabSize": 2,
   "editor.detectIndentation": false,
   "files.trimTrailingWhitespace": true,
   "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
   "workbench.editor.enablePreview": false,
   "editor.minimap.enabled": false,
@@ -24,6 +25,5 @@
   "git.confirmSync": false,
   "git.autofetch": true,
   "files.eol": "\n",
-  "gitlens.currentLine.enabled": false,
-  "editor.defaultFormatter": "HookyQR.beautify"
+  "gitlens.currentLine.enabled": false
 }
