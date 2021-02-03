@@ -21,9 +21,9 @@ export class AppComponent implements OnInit, AfterViewInit {
     public userState: UserState,
     public screen: ScreenState,
     public appState: AppState
-  ) {}
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   ngAfterViewInit(): void {
     this.screen.drawer$.subscribe((res) => {

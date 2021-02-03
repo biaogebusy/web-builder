@@ -7,11 +7,11 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class LinkComponent implements OnInit {
   @Input() content: any;
-  constructor() {}
+  constructor() { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
-  isAbsolute(href: string): boolean{
-    return  href.startsWith('http') || href.startsWith('https');
+  isAbsolute(href: string): boolean {
+    return href.startsWith('http') || href.startsWith('https');
   }
 }

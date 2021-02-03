@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { AmapService } from '../../service/amap.service';
 import { AMapState } from '../../mobx/amap/AMapState';
 import { AppState } from '../../mobx/AppState';
 @Component({
@@ -15,20 +14,20 @@ export class MapComponent implements OnInit {
   map: any;
 
   constructor(
-    private amapService: AmapService,
     private amapState: AMapState,
     private appState: AppState
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     const themeStyle = this.appState.theme;
-    const mapStyle: any = this.amapService.mapStyle;
+    const amapConfig = this.appState.config?.amap;
+    const mapStyle: any = amapConfig.mapStyle;
     this.map = new this.AMap.Map('map', {
       resizeEnable: true,
-      zoom: this.amapService.zoom,
-      center: this.amapService.center,
+      zoom: amapConfig.zoom,
+      center: amapConfig.center,
       mapStyle: themeStyle === 'light-theme' ? mapStyle.light : mapStyle.dark,
-      features: this.amapService.features,
+      features: amapConfig.features,
     });
     this.getMarkers();
     this.onMarkers();

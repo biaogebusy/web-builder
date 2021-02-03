@@ -1,4 +1,4 @@
-@import '~@angular/material/theming';
+@import "~@angular/material/theming";
 
 @mixin job-color($config-or-theme) {
   $config: mat-get-color-config($config-or-theme);
@@ -13,7 +13,6 @@
   }
 
   .result {
-
     .result-total {
       color: mat-color($primary, text);
     }
@@ -43,7 +42,6 @@
   }
 
   .selected {
-
     &:after,
     &:before {
       background: mat-color($primary);

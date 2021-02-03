@@ -8,6 +8,7 @@ import { AMapState } from '../mobx/amap/AMapState';
 import { TitleService } from '../service/title.service';
 import { RouteService } from '../service/route.service';
 import { Params, ActivatedRoute } from '@angular/router';
+import { AppState } from '../mobx/AppState';
 @Component({
   selector: 'app-job',
   templateUrl: './job.component.html',
@@ -31,6 +32,7 @@ export class JobComponent implements OnInit {
     private nodeService: NodeService,
     private amapService: AmapService,
     public amapState: AMapState,
+    private appState: AppState,
     private titleService: TitleService,
     private routerService: RouteService,
     private route: ActivatedRoute
@@ -47,11 +49,11 @@ export class JobComponent implements OnInit {
     });
   }
 
-  paramsInit(params: Params): void{
+  paramsInit(params: Params): void {
     this.selectedId = params.params.id;
   }
 
-  getJobsNodes(): void{
+  getJobsNodes(): void {
     // 以下参数没有顺序关系
     // fields[{{type}}] type 为该实体类型
     // include 为 relationships 相关资源，支持嵌套如company,company.log
@@ -79,7 +81,7 @@ export class JobComponent implements OnInit {
     this.amapService.load().subscribe((AMap: any) => {
       this.AMap = AMap;
       this.geocoder = new AMap.Geocoder({
-        city: this.amapService.city,
+        city: this.appState?.config?.amap?.city,
       });
       this.getPosition(included);
     });
