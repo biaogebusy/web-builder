@@ -1,18 +1,17 @@
-<div *ngIf="content && content.length> 0" fxLayoutAlign="end center" fxLayoutGap="1rem"
-  class="search-form-field m-y-sm">
-  <mat-form-field fxFlex="100" class="" appearance="fill">
+<div fxLayoutAlign="end center" fxLayoutGap="1rem" class="search-form-field m-y-sm">
+  <mat-form-field #search fxFlex="100" class="" appearance="fill">
     <mat-label>搜索</mat-label>
     <input type="text" matInput>
     <mat-icon matSuffix>search</mat-icon>
   </mat-form-field>
-  <!-- <mat-form-field fxFlex="30" appearance="fill">
+  <mat-form-field *ngIf="content && content.length> 0" fxFlex="30" appearance="fill">
     <mat-label>区域</mat-label>
     <mat-select (selectionChange)="onSelectRegion($event)">
       <mat-option value="all">全部</mat-option>
-      <mat-option *ngFor="let option of content"
+      <!-- <mat-option *ngFor="let option of content"
         value="{{option.relate.company.attributes.address?.dependent_locality}}">
         {{option.relate.company.attributes.address?.dependent_locality}}
-      </mat-option>
+      </mat-option> -->
     </mat-select>
-  </mat-form-field> -->
+  </mat-form-field>
 </div>
