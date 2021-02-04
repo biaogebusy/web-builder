@@ -20,4 +20,10 @@
       </div>
     </div>
   </div>
+  <!-- App feature -->
+  <div class="app-feature container m-y p-top" fxLayout="row wrap" fxLayoutAlign="space-between start">
+    <app-card *ngFor="let card of feature" [content]="card" fxFlex.xs="100" fxFlex.sm="48%" fxFlex.gt-sm="250px"
+      class="m-bottom-xs">
+    </app-card>
+  </div>
 </div>

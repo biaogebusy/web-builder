@@ -1,0 +1,23 @@
+@import "~@angular/material/theming";
+
+@mixin mat-card-color($config-or-theme) {
+  $config: mat-get-color-config($config-or-theme);
+  $foreground: map-get($config, foreground);
+  $background: map-get($config, background);
+  $primary: map-get($config, primary);
+  $accent: map-get($config, accent);
+  $warn: map-get($config, warn);
+  @debug $foreground;
+  .mat-card {
+    color: inherit;
+    border: 1px solid mat-color($foreground, divider);
+    background-color: mat-color($background, card);
+    &:hover {
+      cursor: pointer;
+      background-color: mat-color($background, background, 0.85);
+    }
+  }
+  .mat-card-subtitle {
+    color: inherit;
+  }
+}

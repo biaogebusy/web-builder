@@ -1,0 +1,4 @@
+@import "./card";
+@mixin mat-custom-color($config-or-theme) {
+  @include mat-card-color($config-or-theme);
+}

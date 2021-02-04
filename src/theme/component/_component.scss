@@ -1,9 +1,10 @@
-@import './header';
-@import './footer';
-@import './job';
-@import './login';
-@import './map';
-@import './loading';
+@import "./header";
+@import "./footer";
+@import "./job";
+@import "./login";
+@import "./map";
+@import "./loading";
+@import "./mat/mat";
 
 @mixin component-theme($config-or-theme, $base) {
   @include header-color($config-or-theme);
@@ -12,4 +13,5 @@
   @include login-color($config-or-theme);
   @include map-color($config-or-theme);
   @include loading-color($config-or-theme);
+  @include mat-custom-color($config-or-theme);
 }
