@@ -1,4 +1,4 @@
-@import '~@angular/material/theming';
+@import "~@angular/material/theming";
 
 @mixin header-color($config-or-theme) {
   $config: mat-get-color-config($config-or-theme);
@@ -17,7 +17,7 @@
     border-top: 2px solid mat-color($primary);
     margin-bottom: 2px;
     background-color: mat-color($background, background);
-    @include mat-elevation(1, mat-color($background, tooltip), .4);
+    @include mat-elevation(1, mat-color($background, tooltip), 0.4);
 
     .logo {
       color: mat-color($primary);
@@ -33,6 +33,11 @@
           &.active {
             color: mat-color($primary) !important;
           }
+          &.active {
+            &:after {
+              background-color: mat-color($primary);
+            }
+          }
         }
       }
     }
@@ -42,7 +47,6 @@
         color: #fff;
       }
     }
-
   }
 
   // user dropdown menu
@@ -59,7 +63,6 @@
   }
 
   .drawer {
-
     .total {
       color: mat-color($primary, text);
     }
