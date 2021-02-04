@@ -1,13 +1,13 @@
 <header *ngIf="!screen.eq('xs')" class="header" #header>
   <div class="container">
-    <div class="header-container p-xs" fxLayout="row" fxLayoutAlign="space-between center">
+    <div class="header-container" fxLayout="row" fxLayoutAlign="space-between center">
       <div class="header-left">
         <a class="logo mat-h2" [routerLink]="['/']" [innerHTML]="branding?.header?.logo?.label"></a><span
           class="version">Demo</span>
       </div>
       <div class="header-right" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="3rem">
         <div class="menu-inner" *ngIf="branding.header?.mainMenu">
-          <div class="main-menu" fxLayout="row" fxLayoutGap="3.4rem">
+          <div class="main-menu" fxLayout="row">
             <div class="item" *ngFor="let menu of branding.header.mainMenu">
               <app-link [content]="menu"></app-link>
             </div>

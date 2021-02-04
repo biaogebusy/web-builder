@@ -29,7 +29,7 @@ const routes: Routes = [
   // otherwise redirect to home
   {
     path: '**',
-    redirectTo: '',
+    redirectTo: 'jobs',
     canActivate: [AuthGuard],
   },
 ];
@@ -38,4 +38,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
