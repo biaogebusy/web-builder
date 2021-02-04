@@ -1,4 +1,4 @@
-@import '~@angular/material/theming';
+@import "~@angular/material/theming";
 
 @mixin map-color($config-or-theme) {
   $config: mat-get-color-config($config-or-theme);
@@ -18,11 +18,17 @@
 
     .arrow {
       &.top {
-
         &:after {
           border-top-color: mat-color($background, card) !important;
         }
       }
+    }
+  }
+  .mark {
+    background-color: mat-color($foreground, divider);
+
+    &:after {
+      background-color: mat-color($foreground, disabled-button);
     }
   }
 }

@@ -12,6 +12,7 @@
     min-width: auto;
     position: relative;
     border-radius: 6px;
+    min-width: 200px;
 
     .media {
       img {
@@ -78,15 +79,21 @@
       }
     }
   }
-  .amap-overlays {
-    .mark-card {
-      min-width: 200px;
-    }
-    img {
-      display: none !important;
-    }
-    .display-none {
-      display: block !important;
+  .mark {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    position: relative;
+    &:after {
+      content: "";
+      display: block;
+      width: 16px;
+      height: 16px;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
     }
   }
 }

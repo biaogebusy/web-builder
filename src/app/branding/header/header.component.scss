@@ -4,8 +4,7 @@
   top: 0;
   right: 0;
   opacity: 0;
-  transition: transform 300ms 0ms cubic-bezier(0.4, 0, 0.6, 1),
-    opacity 0s 300ms;
+  transition: transform 300ms 0ms cubic-bezier(0.4, 0, 0.6, 1), opacity 0s 300ms;
   z-index: 999;
   transform: translateY(-60px);
 }
@@ -13,9 +12,8 @@
 .sticking {
   position: fixed;
   opacity: 1;
-  z-index: 100;
+  z-index: 999;
   transform: translateY(0);
   transition: transform 300ms 300ms cubic-bezier(0.4, 0, 0.2, 1),
-    opacity 0ms 300ms,
-    background-color 150ms 0ms cubic-bezier(0.4, 0, 0.2, 1);
+    opacity 0ms 300ms, background-color 150ms 0ms cubic-bezier(0.4, 0, 0.2, 1);
 }
