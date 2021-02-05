@@ -25,10 +25,10 @@
     }
   }
   .mark {
-    background-color: mat-color($foreground, divider);
+    background-color: mat-color($foreground, divider, 0.04);
 
     &:after {
-      background-color: mat-color($foreground, disabled-button);
+      background-color: mat-color($foreground, disabled-button, 0.6);
     }
   }
 }
