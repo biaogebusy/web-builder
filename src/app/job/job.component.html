@@ -21,9 +21,14 @@
     </div>
   </div>
   <!-- App feature -->
-  <div class="app-feature container m-y p-top" fxLayout="row wrap" fxLayoutAlign="space-between start">
-    <app-card *ngFor="let card of feature" [content]="card" fxFlex.xs="100" fxFlex.sm="48%" fxFlex.gt-sm="250px"
-      class="m-bottom-xs">
-    </app-card>
+  <div class="app-feature position-relative">
+    <div class="container m-y-lg p-y-lg" fxLayout="row wrap" fxLayoutAlign="space-between start">
+      <app-bg [classes]="['bg-fill-width','wave-wrapper']">
+        <mat-icon class="wave" svgIcon="wave"></mat-icon>
+      </app-bg>
+      <app-card *ngFor="let card of feature" [content]="card" fxFlex.xs="100" fxFlex.sm="48%" fxFlex.gt-sm="250px"
+        class="m-bottom-xs">
+      </app-card>
+    </div>
   </div>
 </div>

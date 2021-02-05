@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { RouteService } from '../../../service/route.service';
 @Component({
   selector: 'app-link',
   templateUrl: './link.component.html',
@@ -6,14 +7,13 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class LinkComponent implements OnInit {
   @Input() content: any;
-  constructor() { }
+  constructor(
+    public routeService: RouteService
+  ) { }
 
   ngOnInit(): void { }
 
   isAbsolute(href: string): boolean {
-    if (!href) {
-      return false;
-    }
-    return href.startsWith('http') || href.startsWith('https');
+    return this.routeService.isAbsolute(href);
   }
 }

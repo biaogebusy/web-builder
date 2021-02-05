@@ -1,11 +1,11 @@
-@import '../../theme/variable/variable.scss';
+@import "../../theme/variable/variable.scss";
 
 @media #{$gt-xs} {
   .sidebar {
     height: 100vh;
     overflow: auto;
     z-index: 99;
-    border-right: 1px solid rgba(0, 0, 0, .12);
+    border-right: 1px solid rgba(0, 0, 0, 0.12);
 
     &::-webkit-scrollbar {
       height: 4px;
@@ -13,7 +13,7 @@
     }
 
     &::-webkit-scrollbar-thumb {
-      background: rgba(0, 0, 0, .26);
+      background: rgba(0, 0, 0, 0.26);
     }
   }
 }
@@ -25,5 +25,18 @@
     height: 60vh;
     width: 100%;
     padding: 1rem;
+  }
+}
+
+:host ::ng-deep .wave-wrapper {
+  .wave {
+    width: 100%;
+    height: 200px;
+  }
+
+  @media #{$gt-sm} {
+    .wave {
+      height: 500px;
+    }
   }
 }

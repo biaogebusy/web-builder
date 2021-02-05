@@ -7,7 +7,7 @@
   $primary: map-get($config, primary);
   $accent: map-get($config, accent);
   $warn: map-get($config, warn);
-  @debug $foreground;
+
   .mat-card {
     color: inherit;
     border: 1px solid mat-color($foreground, divider);

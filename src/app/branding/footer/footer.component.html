@@ -1,8 +1,5 @@
 <div class="footer" *ngIf="branding.ready">
   <div class="container">
-    <app-bg [classes]="['bg-fill-width','footer-wave']">
-      <mat-icon class="wave" svgIcon="wave"></mat-icon>
-    </app-bg>
     <div *ngIf="branding.footer?.mainMenu && !screen.eq('xs')" class="footer-main-menu m-bottom p-y-sm"
       fxLayout.xs="column" fxLayoutAlign="space-between start">
       <mat-list *ngFor="let menu of branding.footer?.mainMenu" role="list">

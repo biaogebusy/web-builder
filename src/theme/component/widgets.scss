@@ -1,0 +1,22 @@
+@import "~@angular/material/theming";
+
+@mixin widgets-color($config-or-theme) {
+  $config: mat-get-color-config($config-or-theme);
+  $foreground: map-get($config, foreground);
+  $background: map-get($config, background);
+  $primary: map-get($config, primary);
+  $accent: map-get($config, accent);
+  $warn: map-get($config, warn);
+
+  .wave-wrapper {
+    background: linear-gradient(
+      -74deg,
+      mat-color($primary, 50) 0%,
+      mat-color($primary, 100) 100%
+    );
+
+    .wave {
+      color: mat-color($background, background);
+    }
+  }
+}

@@ -11,13 +11,18 @@ export class RouteService {
     private activatedRoute: ActivatedRoute
   ) { }
 
-  updateQueryParams(query: Params): void{
-        this.router.navigate(
-        [],
-        {
-          relativeTo: this.activatedRoute,
-          queryParams: query,
-          queryParamsHandling: 'merge',
-        });
+  updateQueryParams(query: Params): void {
+    this.router.navigate(
+      [],
+      {
+        relativeTo: this.activatedRoute,
+        queryParams: query,
+        queryParamsHandling: 'merge',
+      });
+  }
+
+  isAbsolute(href: string): boolean {
+    const r = new RegExp('^(?:[a-z]+:)?//', 'i');
+    return r.test(href);
   }
 }
