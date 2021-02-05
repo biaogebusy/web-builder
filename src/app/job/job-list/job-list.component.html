@@ -1,42 +1,49 @@
-<div class="job-list m-y-sm" *ngIf="content" fxLayout="column" fxLayoutGap="2rem">
-  <div class="result">总计 <span class="result-total">{{content.length}}</span> 个职位</div>
-  <div class="item p-y-sm p-x-sm" [class.selected]="item.attributes.drupal_internal__nid == selectedId" matRipple
-    [matRippleColor]="'rgba(0, 0, 0, 0.04)'" *ngFor="let item of content; index as i" fxLayout
-    (click)="onClick(item, i)">
-    <div class="media" fxLayoutAlign="center center" *ngIf="item.relationships?.company">
-      <img *ngIf="item.relationships.company.data"
-        [src]="relation[relation[item.relationships.company.data.id].relationships.logo.data.id].attributes.uri.url"
-        [alt]="'logo'">
+<div class="job-list m-y-sm" *ngIf="content" fxLayout="column">
+  <div class="job-header position-relative">
+    <div class="result p-y-xs">总计 <span class="result-total">{{content.length}}</span> 个职位
     </div>
-    <div class="media-body" fxLayout="column" fxFlex="100" fxLayoutGap="1rem">
-      <div class="m-bottom-xs" fxLayoutAlign="start center" fxLayout="row wrap" fxLayoutGap="1rem">
-        <h4 class="title" *ngIf="item.relationships?.company">
-          {{relation[item.relationships.company.data.id].attributes.title}}</h4>
-        <mat-chip-list *ngIf="relation[item.relationships.company.data.id].attributes?.welfare" class="mini">
-          <mat-chip color="primary"
-            *ngFor="let item of relation[item.relationships.company.data.id].attributes.welfare">
-            {{item | slice:0:4}}
-          </mat-chip>
-        </mat-chip-list>
+    <div class="scroll" [class.scrolling]="scrolling"></div>
+  </div>
+  <cdk-virtual-scroll-viewport (scrolledIndexChange)="scroll($event)" [itemSize]="5" class="viewport">
+    <div class="item m-y-sm p-y-sm m-x-xs p-x-sm" [class.selected]="item.attributes.drupal_internal__nid == selectedId"
+      matRipple [matRippleColor]="'rgba(0, 0, 0, 0.04)'" *cdkVirtualFor="let item of content; index as i" fxLayout
+      (click)="onClick(item, i)">
+      <div class="media" fxLayoutAlign="center center" *ngIf="item.relationships?.company">
+        <img *ngIf="item.relationships.company.data"
+          [src]="relation[relation[item.relationships.company.data.id].relationships.logo.data.id].attributes.uri.url"
+          [alt]="'logo'">
       </div>
-      <div class="info" fxLayout fxLayoutAlign="space-between center">
-        <div class="position m-y-xs">{{item.attributes.title}}</div>
-        <div class="wage bold" *ngIf="item.attributes.salary">{{item.attributes.salary.from}} -
-          {{item.attributes.salary.to}} k
-        </div>
-      </div>
-      <div class="media-footer" fxLayout fxLayoutAlign="space-between center">
-        <div class="media-footer-left" fxLayout *ngIf="item.relationships.skill">
-          <mat-chip-list class="mini">
-            <mat-chip *ngFor="let item of item.relationships.skill.data">
-              {{relation[item.id].attributes.name | slice:0:10}}
+      <div class="media-body" fxLayout="column" fxFlex="100" fxLayoutGap="1rem">
+        <div class="m-bottom-xs" fxLayoutAlign="start center" fxLayout="row wrap" fxLayoutGap="1rem">
+          <h4 class="title" *ngIf="item.relationships?.company">
+            {{relation[item.relationships.company.data.id].attributes.title}}</h4>
+          <mat-chip-list *ngIf="relation[item.relationships.company.data.id].attributes?.welfare" class="mini">
+            <mat-chip color="primary"
+              *ngFor="let item of relation[item.relationships.company.data.id].attributes.welfare">
+              {{item | slice:0:4}}
             </mat-chip>
           </mat-chip-list>
         </div>
-        <div class="media-footer-right" *ngIf="item.deadline">
-          {{item.deadline}}
+        <div class="info" fxLayout fxLayoutAlign="space-between center">
+          <div class="position m-y-xs">{{item.attributes.title}}</div>
+          <div class="wage bold" *ngIf="item.attributes.salary">{{item.attributes.salary.from}} -
+            {{item.attributes.salary.to}} k
+          </div>
+        </div>
+        <div class="media-footer" fxLayout fxLayoutAlign="space-between center">
+          <div class="media-footer-left" fxLayout *ngIf="item.relationships.skill">
+            <mat-chip-list class="mini">
+              <mat-chip *ngFor="let item of item.relationships.skill.data">
+                {{relation[item.id].attributes.name | slice:0:10}}
+              </mat-chip>
+            </mat-chip-list>
+          </div>
+          <div class="media-footer-right" *ngIf="item.deadline">
+            {{item.deadline}}
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </cdk-virtual-scroll-viewport>
+
 </div>

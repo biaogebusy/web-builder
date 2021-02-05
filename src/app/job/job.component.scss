@@ -2,24 +2,12 @@
 
 @media #{$gt-xs} {
   .sidebar {
-    height: 100vh;
-    overflow: auto;
     z-index: 99;
-    border-right: 1px solid rgba(0, 0, 0, 0.12);
-
-    &::-webkit-scrollbar {
-      height: 4px;
-      width: 4px;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background: rgba(0, 0, 0, 0.26);
-    }
   }
 }
 
 .map-wrapper {
-  height: 100vh;
+  height: calc(100vh - 60px);
 
   @media #{$xs} {
     height: 60vh;
