@@ -5,13 +5,14 @@
     </button>
   </ng-container>
   <ng-container *ngIf="userState.anthenticated">
-    <button mat-mini-fab color="primary" mat-button [matMenuTriggerFor]="menu">
-      <h3 class="name" *ngIf="!userState.picture; else picture">
+    <button *ngIf="!userState.picture; else picture" mat-mini-fab color="primary" mat-button [matMenuTriggerFor]="menu">
+      <h3 class="name">
         {{utilities.getIndexTitle(userState?.currentUser?.display_name || 'N')}}</h3>
-      <ng-template #picture>
-        <img class="user-picture" [src]="userState.picture" alt="userState.currentUser.display_name">
-      </ng-template>
     </button>
+    <ng-template #picture>
+      <img class="user-picture" [matMenuTriggerFor]="menu" [src]="userState.picture"
+        alt="userState.currentUser.display_name">
+    </ng-template>
     <mat-menu #menu="matMenu">
       <button mat-menu-item>
         <mat-icon>email</mat-icon>

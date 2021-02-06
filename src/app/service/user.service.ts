@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { TokenUser } from '../mobx/user/IUser';
 import { AppState } from '../mobx/AppState';
 import { environment } from '../../environments/environment';
+import { environment } from '../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
@@ -47,7 +48,7 @@ export class UserService {
     const logoutToken = api.getToken(api.localUserKey, 'logout_token');
     const params = ['_format=json', `token=${logoutToken}`].join('&');
     return this.http.post(
-      `${environment.apiUrl}${this.appState.apiUrl}?${params}`,
+      `${environment.apiUrl}${this.appState.apiUrl.logoutPath}?${params}`,
       null,
       httpOptions
     );
@@ -75,28 +76,6 @@ export class UserService {
             mail: info.mail,
             authenticated: true,
             picture: relate && relate.attributes.uri.url,
-          };
-        })
-      );
-  }
-
-  getUser(id: string, item: string): Observable<any> {
-    const csrfToken = this.apiService.getToken(item, 'csrf_token');
-    return this.http
-      .get<any>(
-        `${this.apiService.apiUrl}${this.appState.apiUrl.userGetPath}?filter[id]=${id}`,
-        this.apiService.httpOptions(csrfToken)
-      )
-      .pipe(
-        map((res) => {
-          const detail = res.data[0];
-          const info = detail.attributes;
-
-          return {
-            id: detail.id,
-            display_name: info.display_name,
-            mail: info.mail,
-            authenticated: true,
           };
         })
       );
