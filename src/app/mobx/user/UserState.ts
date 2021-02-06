@@ -19,10 +19,6 @@ export class UserState {
 
   user$ = new Subject<IUser>();
 
-  @computed get currentUser(): IUser {
-    return Object.assign({}, this.user);
-  }
-
   constructor(
     private userService: UserService,
     @Inject(LOCAL_STORAGE) private storage: StorageService,
@@ -32,6 +28,20 @@ export class UserState {
     if (this.storage.get(this.apiService.localUserKey)) {
       this.user = JSON.parse(this.storage.get(this.apiService.localUserKey));
     }
+  }
+
+  @computed get currentUser(): IUser {
+    return Object.assign({}, this.user);
+  }
+
+  @computed
+  get anthenticated(): boolean {
+    return !!this.user.authenticated;
+  }
+
+  @computed
+  get picture(): any {
+    return this.user && this.user.picture;
   }
 
   @action
@@ -68,24 +78,12 @@ export class UserState {
   @action
   updateUser(data: TokenUser, localStorageKey: string): any {
     let userDetails = {};
-    this.userService
-      .getCurrentUserById(data)
-      .pipe(
-        switchMap((res) => {
-          return this.userService.getUser(res.id, localStorageKey);
-        })
-      )
-      .subscribe((user) => {
-        this.loading = false;
-        this.user = user;
-        this.user$.next(user);
-        userDetails = Object.assign(data, user);
-        this.storage.set(localStorageKey, JSON.stringify(userDetails));
-      });
-  }
-
-  @computed
-  get anthenticated(): boolean {
-    return !!this.user.authenticated;
+    this.userService.getCurrentUserById(data).subscribe((user) => {
+      this.loading = false;
+      this.user = user;
+      this.user$.next(user);
+      userDetails = Object.assign(data, user);
+      this.storage.set(localStorageKey, JSON.stringify(userDetails));
+    });
   }
 }

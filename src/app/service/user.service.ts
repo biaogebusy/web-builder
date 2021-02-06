@@ -15,7 +15,7 @@ export class UserService {
     private http: HttpClient,
     private apiService: ApiService,
     private appState: AppState
-  ) { }
+  ) {}
 
   login(userName: string, passWord: string): Observable<any> {
     const httpOptions = {
@@ -55,7 +55,10 @@ export class UserService {
 
   getCurrentUserById(user: TokenUser): Observable<any> {
     const apiUrl = `${environment.apiUrl}${this.appState.apiUrl.userGetPath}`;
-    const params = `filter[drupal_internal__uid]=${user.current_user.uid}`;
+    const params = [
+      `filter[drupal_internal__uid]=${user.current_user.uid}`,
+      `include=user_picture`,
+    ].join('&');
     return this.http
       .get<any>(
         `${apiUrl}?${params}`,
@@ -63,8 +66,15 @@ export class UserService {
       )
       .pipe(
         map((res: any) => {
+          const detail = res.data[0];
+          const info = detail.attributes;
+          const relate = res.included && res.included[0];
           return {
-            id: res.data[0].id,
+            id: detail.id,
+            display_name: info.display_name,
+            mail: info.mail,
+            authenticated: true,
+            picture: relate && relate.attributes.uri.url,
           };
         })
       );

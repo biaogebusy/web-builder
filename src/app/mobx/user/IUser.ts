@@ -9,6 +9,7 @@ export interface IUser {
   current_user?: any;
   csrf_token?: string;
   logout_token?: string;
+  picture?: string;
 }
 
 export interface TokenUser {

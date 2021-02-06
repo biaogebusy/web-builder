@@ -6,7 +6,11 @@
   </ng-container>
   <ng-container *ngIf="userState.anthenticated">
     <button mat-mini-fab color="primary" mat-button [matMenuTriggerFor]="menu">
-      <h3 class="name">{{utilities.getIndexTitle(userState?.currentUser?.display_name || 'N')}}</h3>
+      <h3 class="name" *ngIf="!userState.picture; else picture">
+        {{utilities.getIndexTitle(userState?.currentUser?.display_name || 'N')}}</h3>
+      <ng-template #picture>
+        <img class="user-picture" [src]="userState.picture" alt="userState.currentUser.display_name">
+      </ng-template>
     </button>
     <mat-menu #menu="matMenu">
       <button mat-menu-item>

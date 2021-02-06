@@ -31,6 +31,6 @@
     "logoutPath": "/user/logout",
     "userIdGetPath": "/api/v1",
     "nodeGetPath": "/api/v1/node",
-    "userGetPath": "/api/v1//user/user"
+    "userGetPath": "/api/v1/user/user"
   }
 }
