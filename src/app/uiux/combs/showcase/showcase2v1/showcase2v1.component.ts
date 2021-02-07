@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 const cases = [
   {
     title: 'Material UI',
@@ -33,7 +33,7 @@ const cases = [
   styleUrls: ['./showcase2v1.component.scss'],
 })
 export class Showcase2v1Component implements OnInit {
-  content: any = cases;
+  @Input() content: any;
   constructor() {}
 
   ngOnInit(): void {}

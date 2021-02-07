@@ -5,7 +5,7 @@ import { DynamicComponent } from './dynamic/dynamic.component';
 
 const routes: Routes = [
   {
-    path: '**',
+    path: '',
     component: DynamicComponent,
   },
 ];

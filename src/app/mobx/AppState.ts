@@ -5,17 +5,22 @@ import { HttpClient } from '@angular/common/http';
 import { ApiService } from '../service/api.service';
 import { environment } from '../../environments/environment';
 import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
-import { IApiUrl, IAppConfig } from './IAppConfig';
+import { IApiUrl, IAppConfig, IPage } from './IAppConfig';
 import { Subject } from 'rxjs';
 import { IUser } from './user/IUser';
+import { Router } from '@angular/router';
 
 const unauthUser = {
   authenticated: false,
 };
-@Injectable({
-  providedIn: 'root'
-})
 
+const initPage = {
+  head: {},
+  body: [],
+};
+@Injectable({
+  providedIn: 'root',
+})
 export class AppState {
   private readonly DARK_THEME_CLASS = 'dark-theme';
   private readonly MODE = 'themeMode';
@@ -24,15 +29,19 @@ export class AppState {
     defTheme: 'light-theme',
     config: null,
     currentUser: unauthUser,
+    page: initPage,
   };
+
   public switchChange$ = new Subject();
   constructor(
     private http: HttpClient,
+    private router: Router,
     private apiService: ApiService,
     @Inject(DOCUMENT) private document: Document,
     @Inject(LOCAL_STORAGE) private storage: StorageService
   ) {
     this.setConfig();
+    console.log(this.router);
   }
 
   @computed get ready(): any {
@@ -55,18 +64,25 @@ export class AppState {
     return this.state.config && this.state.config.apiUrl;
   }
 
+  @computed get meta(): any {
+    return this.state.page && this.state.page.meta;
+  }
+
+  @computed get content(): any[] {
+    return this.state.page && this.state.page.body;
+  }
+
   @action
   setConfig(): void {
     if (environment.production) {
       this.http
-        .get(
-          `${environment.apiUrl}/api/v1/config?content=/core/base`
-        )
+        .get(`${environment.apiUrl}/api/v1/config?content=/core/base`)
         .subscribe(
           (config) => {
             this.state.config = config;
             this.initTheme();
             this.setUser();
+            this.setPageContent();
           },
           (error) => {
             console.log(error);
@@ -74,14 +90,13 @@ export class AppState {
         );
     } else {
       this.http
-        .get(
-          `${environment.apiUrl}/assets/app/core/base.json`
-        )
+        .get(`${environment.apiUrl}/assets/app/core/base.json`)
         .subscribe(
           (config) => {
             this.state.config = config;
             this.initTheme();
             this.setUser();
+            this.setPageContent();
           },
           (error) => {
             console.log(error);
@@ -124,5 +139,35 @@ export class AppState {
   @action
   logout(): void {
     this.state.currentUser = unauthUser;
+  }
+
+  @action
+  setPageContent(): void {
+    const path = this.router.url;
+    if (environment.production) {
+      this.http.get<any>(`${environment.apiUrl}${path}`).subscribe(
+        (pageValue: IPage) => {
+          console.log(pageValue);
+          this.state.page = pageValue;
+        },
+        (error) => {
+          console.log('404 not found!');
+        }
+      );
+    } else {
+      this.http
+        .get<any>(
+          `${environment.apiUrl}${this.apiUrl.localSampleUrl}${path}.json`
+        )
+        .subscribe(
+          (pageValue: IPage) => {
+            console.log(pageValue);
+            this.state.page = pageValue;
+          },
+          (error) => {
+            console.log('404 not found!');
+          }
+        );
+    }
   }
 }

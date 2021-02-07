@@ -3,11 +3,13 @@ export interface IAppConfig {
   defTheme: string; // light, dark
   config?: any;
   currentUser: IUser;
+  page: IPage;
 }
 
 export interface IApiUrl {
   apiBase: string;
   localConfigUrl: string;
+  localSampleUrl: string;
   brandingConfigUrl: string;
   coreConfigUrl: string;
   loginPath: string;
@@ -15,4 +17,10 @@ export interface IApiUrl {
   userIdGetPath: string;
   nodeGetPath: string;
   userGetPath: string;
+}
+
+export interface IPage {
+  meta?: any;
+  head: any;
+  body: any[];
 }
