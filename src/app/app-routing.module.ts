@@ -29,8 +29,7 @@ const routes: Routes = [
   // otherwise redirect to home
   {
     path: '**',
-    redirectTo: 'jobs',
-    canActivate: [AuthGuard],
+    loadChildren: './page-render/page-routing.module#PageRoutingModule',
   },
 ];
 
@@ -38,4 +37,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

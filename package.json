@@ -31,6 +31,7 @@
     "mobx-angular": "^4.2.0",
     "ngx-webstorage-service": "^4.1.0",
     "rxjs": "~6.6.0",
+    "swiper": "^6.4.11",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
   },
