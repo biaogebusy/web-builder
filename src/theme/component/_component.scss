@@ -4,16 +4,20 @@
 @import "./login";
 @import "./map";
 @import "./loading";
-@import "./mat/mat";
-@import "./widgets.scss";
+@import "./widgets";
+
+// material custom
+@import "./mat/card";
 
 @mixin component-theme($config-or-theme, $base) {
   @include header-color($config-or-theme);
   @include footer-color($config-or-theme, $base);
-  @include mat-custom-color($config-or-theme);
   @include job-color($config-or-theme);
   @include login-color($config-or-theme);
   @include map-color($config-or-theme);
   @include loading-color($config-or-theme);
   @include widgets-color($config-or-theme);
+
+  // material custom ui
+  @include mat-card-color($config-or-theme);
 }

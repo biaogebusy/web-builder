@@ -6,7 +6,6 @@ import { map } from 'rxjs/operators';
 import { TokenUser } from '../mobx/user/IUser';
 import { AppState } from '../mobx/AppState';
 import { environment } from '../../environments/environment';
-import { environment } from '../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',

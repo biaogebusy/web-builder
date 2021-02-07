@@ -12,6 +12,7 @@
     color: inherit;
     border: 1px solid mat-color($foreground, divider);
     background-color: mat-color($background, card);
+
     &:hover {
       cursor: pointer;
       background-color: mat-color($background, background, 0.85);
