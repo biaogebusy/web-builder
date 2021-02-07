@@ -56,4 +56,12 @@
       background-color: transparent !important;
     }
   }
+  #go-to-top {
+    background: mat-color($primary);
+    color: #ffffff;
+    &:hover {
+      background: mat-color($primary, text, 0.7);
+      transition: all 0.2s ease-in;
+    }
+  }
 }
