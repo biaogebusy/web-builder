@@ -24,6 +24,7 @@
 
     .footer-bottom {
       position: relative;
+      background-color: mat-color($background, background);
       z-index: 10;
     }
 
