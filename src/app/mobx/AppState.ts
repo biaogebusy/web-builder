@@ -9,6 +9,7 @@ import { IApiUrl, IAppConfig, IPage } from './IAppConfig';
 import { Subject } from 'rxjs';
 import { IUser } from './user/IUser';
 import { Router } from '@angular/router';
+import { TitleService } from '../service/title.service';
 
 const unauthUser = {
   authenticated: false,
@@ -38,7 +39,8 @@ export class AppState {
     private router: Router,
     private apiService: ApiService,
     @Inject(DOCUMENT) private document: Document,
-    @Inject(LOCAL_STORAGE) private storage: StorageService
+    @Inject(LOCAL_STORAGE) private storage: StorageService,
+    private titleService: TitleService
   ) {
     this.setConfig();
     console.log(this.router);
@@ -66,6 +68,12 @@ export class AppState {
 
   @computed get meta(): any {
     return this.state.page && this.state.page.meta;
+  }
+
+  @computed get title(): any {
+    return (
+      this.state.page && this.state.page.head && this.state.page.head.title
+    );
   }
 
   @computed get content(): any[] {
@@ -139,6 +147,20 @@ export class AppState {
     this.state.currentUser = unauthUser;
   }
 
+  updatePage(pageValue: IPage, title: string): void {
+    console.log(pageValue);
+    this.state.page = pageValue;
+    this.titleService.setTitle(title);
+  }
+
+  setPageNotFound(): void {
+    console.log('404 not found!');
+    this.titleService.setTitle('404 not found!');
+    this.state.page.body[0] = {
+      type: '404',
+    };
+  }
+
   @action
   setPageContent(): void {
     const path = this.router.url;
@@ -150,14 +172,10 @@ export class AppState {
         )
         .subscribe(
           (pageValue: IPage) => {
-            console.log(pageValue);
-            this.state.page = pageValue;
+            this.updatePage(pageValue, pageValue?.head?.title);
           },
           (error) => {
-            console.log('404 not found!');
-            this.state.page.body[0] = {
-              type: '404',
-            };
+            this.setPageNotFound();
           }
         );
     } else {
@@ -167,14 +185,10 @@ export class AppState {
         )
         .subscribe(
           (pageValue: IPage) => {
-            console.log(pageValue);
-            this.state.page = pageValue;
+            this.updatePage(pageValue, pageValue?.head?.title);
           },
           (error) => {
-            console.log('404 not found!');
-            this.state.page.body[0] = {
-              type: '404',
-            };
+            this.setPageNotFound();
           }
         );
     }

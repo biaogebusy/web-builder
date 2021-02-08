@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppState } from '../../mobx/AppState';
+import { TitleService } from '../../service/title.service';
 
 @Component({
   selector: 'app-dynamic',
@@ -8,7 +9,7 @@ import { AppState } from '../../mobx/AppState';
 })
 export class DynamicComponent implements OnInit {
   content: any;
-  constructor(public appState: AppState) { }
+  constructor(public appState: AppState) {}
 
   ngOnInit(): void {
     this.appState.setPageContent();
