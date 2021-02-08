@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { NodeService } from '../service/node.service';
-import { ApiService } from '../service/api.service';
+import { NodeService } from '../../service/node.service';
+import { ApiService } from '../../service/api.service';
 import { isArray, keyBy } from 'lodash-es';
-import { TitleService } from '../service/title.service';
+import { TitleService } from '../../service/title.service';
 @Component({
   selector: 'app-article',
   templateUrl: './article.component.html',

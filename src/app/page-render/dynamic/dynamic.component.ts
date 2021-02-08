@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AppState } from '../../mobx/AppState';
-import { TitleService } from '../../service/title.service';
 
 @Component({
   selector: 'app-dynamic',

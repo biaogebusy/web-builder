@@ -11,8 +11,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { BrandingModule } from './branding/branding.module';
 import { AppComponent } from './app.component';
 import { JobModule } from './job/job.module';
-import { ArticleModule } from './article/article.module';
 import { UserModule } from './user/user.module';
+import { NodeModule } from './node/node.module';
 import { PageRenderModule } from './page-render/page-render.module';
 import { AppState } from './mobx/AppState';
 @NgModule({
@@ -28,7 +28,7 @@ import { AppState } from './mobx/AppState';
     MobxModule.forRoot(),
     BrandingModule,
     JobModule,
-    ArticleModule,
+    NodeModule,
     UserModule,
     PageRenderModule,
   ],

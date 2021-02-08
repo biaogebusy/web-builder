@@ -12,6 +12,10 @@
         "label": "文章",
         "classes": "bold",
         "href": "/articles"
+      }, {
+        "label": "案例",
+        "classes": "bold",
+        "href": "/cases"
       },
       {
         "label": "关于我们",
