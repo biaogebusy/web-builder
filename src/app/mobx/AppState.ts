@@ -82,7 +82,6 @@ export class AppState {
             this.state.config = config;
             this.initTheme();
             this.setUser();
-            this.setPageContent();
           },
           (error) => {
             console.log(error);
@@ -96,7 +95,6 @@ export class AppState {
             this.state.config = config;
             this.initTheme();
             this.setUser();
-            this.setPageContent();
           },
           (error) => {
             console.log(error);
@@ -152,6 +150,9 @@ export class AppState {
         },
         (error) => {
           console.log('404 not found!');
+          this.state.page.body[0] = {
+            type: '404'
+          };
         }
       );
     } else {
@@ -166,6 +167,9 @@ export class AppState {
           },
           (error) => {
             console.log('404 not found!');
+            this.state.page.body[0] = {
+              type: '404'
+            };
           }
         );
     }

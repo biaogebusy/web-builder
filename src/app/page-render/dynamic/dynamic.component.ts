@@ -8,7 +8,9 @@ import { AppState } from '../../mobx/AppState';
 })
 export class DynamicComponent implements OnInit {
   content: any;
-  constructor(public appState: AppState) {}
+  constructor(public appState: AppState) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.appState.setPageContent();
+  }
 }
