@@ -1,7 +1,12 @@
 <mat-card *ngIf="content" class="card">
   <img mat-card-image src="{{content?.img}}" alt="content?.title">
   <mat-card-content>
-    <mat-card-title *ngIf="content?.title">{{content.title}}</mat-card-title>
+    <mat-card-title *ngIf="content?.title;else link">{{content.title}}</mat-card-title>
+    <ng-template #link>
+      <mat-card-title>
+        <app-link [content]="content.link"></app-link>
+      </mat-card-title>
+    </ng-template>
     <p class="card-body">
       {{content.body}}
     </p>

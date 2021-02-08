@@ -24,7 +24,6 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 
-
 // icon utils
 import { MatIconRegistry } from '@angular/material/icon';
 import { loadSvgResources } from '../service/icon.util';
@@ -53,7 +52,7 @@ import { DomSanitizer } from '@angular/platform-browser';
     MatChipsModule,
     RouterModule,
     MatPaginatorModule,
-    ScrollingModule
+    ScrollingModule,
   ],
   exports: [
     CommonModule,
@@ -80,7 +79,7 @@ import { DomSanitizer } from '@angular/platform-browser';
     MatExpansionModule,
     MatChipsModule,
     MatPaginatorModule,
-    ScrollingModule
+    ScrollingModule,
   ],
 })
 export class ShareModule {

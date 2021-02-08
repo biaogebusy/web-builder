@@ -1,0 +1,26 @@
+@import "~@angular/material/theming";
+
+@mixin showcase-color($config-or-theme) {
+  $config: mat-get-color-config($config-or-theme);
+  $foreground: map-get($config, foreground);
+  $background: map-get($config, background);
+  $primary: map-get($config, primary);
+  $accent: map-get($config, accent);
+  $warn: map-get($config, warn);
+
+  .showcase-2v1 {
+    .mat-card {
+      transition: all 0.4s ease;
+      border-bottom-color: mat-color($foreground, divider);
+      a {
+        color: inherit;
+      }
+      &:hover {
+        a {
+          color: mat-color($primary);
+        }
+        border-bottom-color: mat-color($primary);
+      }
+    }
+  }
+}

@@ -1,3 +1,11 @@
-<ng-container *ngIf="content">
-  <app-card *ngFor="let case of content.elements" [content]="case"></app-card>
-</ng-container>
+<div class="container showcase-2v1 m-y" *ngIf="content">
+  <h2 class="text-center" *ngIf="content.title">
+    {{content.title}}
+  </h2>
+  <p class="text-center m-top-sm" *ngIf="content.subTitle">{{content.subTitle}}</p>
+  <div class="m-y" fxLayout="row wrap" fxLayoutAlign="space-between center">
+    <app-card class="m-bottom-sm" fxFlex.xs="100" fxFlex.sm="48" fxFlex.gt-sm="24" *ngFor="let case of content.elements"
+      [content]="case">
+    </app-card>
+  </div>
+</div>

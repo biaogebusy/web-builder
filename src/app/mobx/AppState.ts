@@ -142,19 +142,24 @@ export class AppState {
   @action
   setPageContent(): void {
     const path = this.router.url;
+    // tmp solution
     if (environment.production) {
-      this.http.get<any>(`${environment.apiUrl}${path}`).subscribe(
-        (pageValue: IPage) => {
-          console.log(pageValue);
-          this.state.page = pageValue;
-        },
-        (error) => {
-          console.log('404 not found!');
-          this.state.page.body[0] = {
-            type: '404'
-          };
-        }
-      );
+      this.http
+        .get<any>(
+          `${environment.apiUrl}${this.apiUrl.apiBase}/config?content=${path}`
+        )
+        .subscribe(
+          (pageValue: IPage) => {
+            console.log(pageValue);
+            this.state.page = pageValue;
+          },
+          (error) => {
+            console.log('404 not found!');
+            this.state.page.body[0] = {
+              type: '404',
+            };
+          }
+        );
     } else {
       this.http
         .get<any>(
@@ -168,7 +173,7 @@ export class AppState {
           (error) => {
             console.log('404 not found!');
             this.state.page.body[0] = {
-              type: '404'
+              type: '404',
             };
           }
         );

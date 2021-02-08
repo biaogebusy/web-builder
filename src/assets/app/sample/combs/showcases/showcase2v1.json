@@ -5,26 +5,64 @@
   },
   "body": [{
     "type": "showcase-2v1",
+    "title": "国内 Drupal 网站案例",
+    "subTitle": "分享 Drupal 优秀的数字创新体验",
     "elements": [{
-      "title": "Material UI",
-      "body": "Material UI 有完善的主题颜色系统，有优秀的性能和用户体验。",
-      "img": "/assets/images/badge.scene.png"
+      "body": "2016/03/04",
+      "img": "/assets/images/cases/porto1.jpg",
+      "link": {
+        "href": "/node/1",
+        "label": "FLAT LOGO DESIGN"
+      }
     }, {
-      "title": "Flex Layout",
-      "body": "提供了足够丰富的布局 API，响应式适配各种设备视口尺寸。",
-      "img": "/assets/images/grid-list.scene.png"
+      "body": "2016/02/26",
+      "img": "/assets/images/cases/porto2.jpg",
+      "link": {
+        "href": "/node/1",
+        "label": "FLAT LOGO DESIGN"
+      }
     }, {
-      "title": "Mobx",
-      "body": "Mobx 使应用的状态管理变得简单。",
-      "img": "/assets/images/form-field.scene.png"
+      "body": "2016/02/26",
+      "img": "/assets/images/cases/porto3.jpg",
+      "link": {
+        "href": "/node/1",
+        "label": "FLAT LOGO DESIGN"
+      }
     }, {
-      "title": "布局",
-      "body": "通过拖动的方式管理你的页面布局，灵活的创建各种营销着陆页",
-      "img": "/assets/images/button.scene.png"
+      "body": "2016/02/26",
+      "img": "/assets/images/cases/porto4.jpg",
+      "link": {
+        "href": "/node/1",
+        "label": "FLAT LOGO DESIGN"
+      }
     }, {
-      "title": "菜单",
-      "body": "紧凑的菜单面板，引导用户到达页面",
-      "img": "/assets/images/menu.scene.png"
+      "body": "2016/02/26",
+      "img": "/assets/images/cases/porto5.jpg",
+      "link": {
+        "href": "/node/1",
+        "label": "FLAT LOGO DESIGN"
+      }
+    }, {
+      "body": "2016/02/26",
+      "img": "/assets/images/cases/porto6.jpg",
+      "link": {
+        "href": "/node/1",
+        "label": "FLAT LOGO DESIGN"
+      }
+    }, {
+      "body": "2016/02/26",
+      "img": "/assets/images/cases/porto7.jpg",
+      "link": {
+        "href": "/node/1",
+        "label": "FLAT LOGO DESIGN"
+      }
+    }, {
+      "body": "2016/02/26",
+      "img": "/assets/images/cases/porto8.jpg",
+      "link": {
+        "href": "/node/1",
+        "label": "FLAT LOGO DESIGN"
+      }
     }]
   }]
 }
