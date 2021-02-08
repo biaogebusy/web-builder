@@ -1,13 +1,15 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ArticleModule } from './article/article.module';
+import { ArticleComponent } from './article/article.component';
+import { ShareModule } from '../share/share.module';
+import { UiuxModule } from '../uiux/uiux.module';
 
-const modules = [ArticleModule];
+const components = [ArticleComponent];
 
 @NgModule({
-  declarations: [],
-  imports: [CommonModule, ...modules],
-  exports: [...modules],
+  declarations: [...components],
+  imports: [CommonModule, ShareModule, UiuxModule],
+  exports: [...components],
 })
 export class NodeModule {
   constructor(@Optional() @SkipSelf() parent: NodeModule) {
