@@ -43,8 +43,10 @@ const feature = [
 })
 export class JobComponent implements OnInit {
   nodes: any[];
+  nodeesOrigin: any[];
   relation: any;
   included: any;
+  autoList: any[];
   positon: object = {};
   regions: any;
   loading: boolean;
@@ -95,13 +97,8 @@ export class JobComponent implements OnInit {
     ].join('&');
 
     this.nodeService.getNodes('job', params).subscribe((res) => {
-      this.loading = false;
-      this.nodes = res.data;
-      this.included = res.included;
-      if (isArray(res.included)) {
-        this.relation = keyBy(res.included, 'id');
-        this.initMap(res.included);
-      }
+      this.updateList(res);
+      this.nodeesOrigin = res.data;
     });
   }
 
@@ -153,5 +150,40 @@ export class JobComponent implements OnInit {
     this.amapState.markers$.next(obj);
     const query: Params = { id: this.selectedId };
     this.routerService.updateQueryParams(query);
+  }
+
+  onSearch(key: string): void {
+    this.nodeService.searchByKey(key).subscribe(res => {
+      this.autoList = res;
+    });
+  }
+
+  onClear(): void {
+    this.getJobsNodes();
+  }
+
+  onSearchJob(key: string): void {
+    const params = [
+      `filter[title]=${key}`,
+      'fields[node--job]=drupal_internal__nid,title,created,changed,body,deadline,number,salary,work_experience,skill,education,company',
+      'include=skill,education,company,company.logo',
+      'fields[node--company]=title,address,phone,welfare,logo',
+      'fields[taxonomy_term--skill]=name',
+      'fields[taxonomy_term--education]=name',
+      'fields[file--file]=uri',
+    ].join('&');
+    this.nodeService.getNodes('job', params).subscribe(res => {
+      this.updateList(res);
+    });
+  }
+
+  updateList(res: any): void {
+    this.loading = false;
+    this.nodes = res.data;
+    this.included = res.included;
+    if (isArray(res.included)) {
+      this.relation = keyBy(res.included, 'id');
+      this.initMap(res.included);
+    }
   }
 }

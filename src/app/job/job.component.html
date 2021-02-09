@@ -7,7 +7,8 @@
       <div class="m-y" *ngIf="nodes.length == 0" fxLayoutAlign="center center">
         暂无数据
       </div>
-      <app-job-filter [content]="nodes"></app-job-filter>
+      <app-job-filter [content]="nodes" [autoList]="autoList" (searchChange)="onSearch($event)" (clear)="onClear()"
+        (selectedChange)="onSearchJob($event)"></app-job-filter>
       <app-job-list (selected)="onSelected($event)" *ngIf="nodes.length > 0" [content]="nodes" [relation]="relation"
         [selectedId]="selectedId">
       </app-job-list>

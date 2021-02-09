@@ -1,8 +1,16 @@
 <div fxLayoutAlign="end center" fxLayoutGap="1rem" class="search-form-field m-y-sm">
   <mat-form-field #search fxFlex="100" class="" appearance="fill">
     <mat-label>搜索</mat-label>
-    <input type="text" matInput>
-    <mat-icon matSuffix>search</mat-icon>
+    <input #input type="text" matInput [matAutocomplete]="auto">
+    <button mat-button *ngIf="input.value" matSuffix mat-icon-button aria-label="Clear" (click)="onClear()">
+      <mat-icon>close</mat-icon>
+    </button>
+    <mat-autocomplete (optionSelected)="onSelected($event)" autoActiveFirstOption #auto="matAutocomplete">
+      <mat-option *ngFor="let item of autoList" [value]="item.value">
+        {{item.value}}
+      </mat-option>
+    </mat-autocomplete>
+    <mat-icon matSuffix *ngIf="!input.value">search</mat-icon>
   </mat-form-field>
   <mat-form-field *ngIf="content && content.length> 0" fxFlex="30" appearance="fill">
     <mat-label>区域</mat-label>
