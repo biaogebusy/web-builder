@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../service/api.service';
-import { NodeService } from '../service/node.service';
+import { ApiService } from '../../service/api.service';
+import { NodeService } from '../../service/node.service';
 import { IChipList } from './IJob';
 import { isArray, keyBy } from 'lodash-es';
-import { AmapService } from '../service/amap.service';
-import { AMapState } from '../mobx/amap/AMapState';
-import { TitleService } from '../service/title.service';
-import { RouteService } from '../service/route.service';
+import { AmapService } from '../../service/amap.service';
+import { AMapState } from '../../mobx/amap/AMapState';
+import { TitleService } from '../../service/title.service';
+import { RouteService } from '../../service/route.service';
 import { Params, ActivatedRoute } from '@angular/router';
-import { AppState } from '../mobx/AppState';
+import { AppState } from '../../mobx/AppState';
 const feature = [
   {
     title: 'Material UI',
@@ -153,7 +153,7 @@ export class JobComponent implements OnInit {
   }
 
   onSearch(key: string): void {
-    this.nodeService.searchByKey(key).subscribe(res => {
+    this.nodeService.searchByKey(key).subscribe((res) => {
       this.autoList = res;
     });
   }
@@ -172,7 +172,7 @@ export class JobComponent implements OnInit {
       'fields[taxonomy_term--education]=name',
       'fields[file--file]=uri',
     ].join('&');
-    this.nodeService.getNodes('job', params).subscribe(res => {
+    this.nodeService.getNodes('job', params).subscribe((res) => {
       this.updateList(res);
     });
   }

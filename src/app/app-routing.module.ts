@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { JobComponent } from './job/job.component';
+import { JobComponent } from './node/job/job.component';
 import { LoginComponent } from './user/login/login.component';
 import { AuthGuard } from './guards/auth.guard';
 import { ArticleComponent } from './node/article/article.component';
+import { CaseComponent } from './node/case/case.component';
 
 const routes: Routes = [
   {
@@ -14,6 +15,11 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+  },
+  {
+    path: 'cases',
+    component: CaseComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'articles',
