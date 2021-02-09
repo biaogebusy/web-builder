@@ -3,14 +3,14 @@ import { CommonModule } from '@angular/common';
 import { ArticleComponent } from './article/article.component';
 import { ShareModule } from '../share/share.module';
 import { UiuxModule } from '../uiux/uiux.module';
-import { CaseComponent } from './case/case.component';
 import { JobModule } from './job/job.module';
+import { CaseModule } from './case/case.module';
 
 const components = [ArticleComponent];
 
 @NgModule({
-  declarations: [...components, CaseComponent],
-  imports: [CommonModule, ShareModule, UiuxModule, JobModule],
+  declarations: [...components],
+  imports: [CommonModule, ShareModule, UiuxModule, JobModule, CaseModule],
   exports: [...components],
 })
 export class NodeModule {
