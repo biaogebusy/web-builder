@@ -30,8 +30,11 @@ withCredentials: true
 ### logout v2 强制退出
 POST {{apiUrl}}/user/logout HTTP/1.1
 
-### get user info
+### get user uuid
 GET {{apiUrl}}/api/v1/user/user?filter[drupal_internal__uid]={{login.response.body.current_user.uid}}
+
+### get user
+GET {{apiUrl}}/api/v1/user/user?filter[drupal_internal__uid]={{login.response.body.current_user.uid}}&include=user_picture
 
 ### get all api
 GET {{apiUrl}}/api/v1
@@ -51,13 +54,12 @@ GET {{apiUrl}}/api/v1/taxonomy_term/skill
 
 ### https://dev.acquia.com/blog/decoupling-drupal-8-with-json-api/15/05/2018/19596
 
-@type=article
+@type=case
 
 ### get need set header Accept: application/vnd.api+json
 
 ### get single resource
-GET {{apiUrl}}/api/v1/node/{{type}}/97edbdba-16a9-4e48-9285-9a2854968cf7
-
+GET {{apiUrl}}/api/v1/node/{{type}}/675aea30-2e32-4d5c-a52a-08a79009e43f
 ### get collections rsource
 GET {{apiUrl}}/api/v1/node/{{type}}
 
@@ -73,7 +75,13 @@ GET {{apiUrl}}/api/v1/node/{{type}}?sort=title
 ### sort by nid or -nid
 {{apiUrl}}/api/v1/node/{{type}}?sort=nid
 
-### get fields what you want
+### get case fields what you want
+GET {{apiUrl}}/api/v1/node/{{type}}?fields[node--{{type}}]=title,field_image,field_tags&include=field_image,field_tags&fields[file--file]=uri&fields[taxonomy_term--industry]=name
+Accept: application/vnd.api+json
+Content-Type: application/vnd.api+json
+X-CSRF-Token: {{csrfToken}}
+
+### get job fields what you want
 GET {{apiUrl}}/api/v1/node/{{type}}?fields[node--{{type}}]=title,created,changed,body,deadline,number,salary,work_experience,skill,education,company&include=skill,education,company,company.logo&fields[taxonomy_term--skill]=name&fields[taxonomy_term--education]=name&fields[node--company]=title,address,phone,welfare,logo&fields[file--file]=uri
 Accept: application/vnd.api+json
 Content-Type: application/vnd.api+json
