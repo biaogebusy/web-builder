@@ -16,7 +16,7 @@ const unauthUser = {
 };
 
 const initPage = {
-  head: {},
+  title: '',
   body: [],
 };
 @Injectable({
@@ -71,9 +71,7 @@ export class AppState {
   }
 
   @computed get title(): any {
-    return (
-      this.state.page && this.state.page.head && this.state.page.head.title
-    );
+    return this.state.page && this.state.page.title;
   }
 
   @computed get content(): any[] {
@@ -168,11 +166,11 @@ export class AppState {
     if (environment.production) {
       this.http
         .get<any>(
-          `${environment.apiUrl}${this.apiUrl.apiBase}/config?content=${path}`
+          `${environment.apiUrl}${this.apiUrl.apiBase}/landingPage?content=${path}`
         )
         .subscribe(
           (pageValue: IPage) => {
-            this.updatePage(pageValue, pageValue?.head?.title);
+            this.updatePage(pageValue, pageValue?.title);
           },
           (error) => {
             this.setPageNotFound();
@@ -185,7 +183,7 @@ export class AppState {
         )
         .subscribe(
           (pageValue: IPage) => {
-            this.updatePage(pageValue, pageValue?.head?.title);
+            this.updatePage(pageValue, pageValue?.title);
           },
           (error) => {
             this.setPageNotFound();

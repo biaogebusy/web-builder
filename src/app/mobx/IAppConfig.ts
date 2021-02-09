@@ -21,6 +21,6 @@ export interface IApiUrl {
 
 export interface IPage {
   meta?: any;
-  head: any;
+  title: string;
   body: any[];
 }
