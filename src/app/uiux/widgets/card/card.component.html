@@ -1,5 +1,5 @@
 <mat-card *ngIf="content" class="card">
-  <img mat-card-image src="{{content?.img}}" alt="content?.title">
+  <img mat-card-image src="{{content?.img}}" [alt]="content?.title">
   <mat-card-content>
     <mat-card-title *ngIf="content?.title;else link">{{content.title}}</mat-card-title>
     <ng-template #link>
@@ -12,6 +12,6 @@
     </p>
   </mat-card-content>
   <mat-card-actions *ngIf="content?.actions">
-    <button mat-button *ngFor="let action of content.actions">{{content.label}}</button>
+    <button mat-button *ngFor="let action of content.actions">{{action.label}}</button>
   </mat-card-actions>
 </mat-card>

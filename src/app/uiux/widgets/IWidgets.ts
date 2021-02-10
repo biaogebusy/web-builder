@@ -1,8 +1,10 @@
 export interface ICard {
+  title?: string;
   body: string;
   img: string;
-  link: {
+  link?: {
     href: string;
     label: string;
   };
+  actions?: any;
 }
