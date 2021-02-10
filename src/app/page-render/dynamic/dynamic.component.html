@@ -1,4 +1,4 @@
-<ng-container *ngIf="appState?.content?.length > 0">
+<ng-container *ngIf="appState.content">
   <ng-container *ngFor="let item of appState.content">
     <app-showcase2v1 *ngIf="item.type == 'showcase-2v1'" [content]="item"></app-showcase2v1>
   </ng-container>
