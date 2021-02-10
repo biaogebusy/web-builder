@@ -1,6 +1,6 @@
 <div fxLayoutAlign="end center" fxLayoutGap="1rem" class="search-form-field m-y-sm">
   <mat-form-field #search fxFlex="100" class="" appearance="fill">
-    <mat-label>搜索</mat-label>
+    <mat-label>搜索职位</mat-label>
     <input #input type="text" matInput [matAutocomplete]="auto">
     <button mat-button *ngIf="input.value" matSuffix mat-icon-button aria-label="Clear" (click)="onClear()">
       <mat-icon>close</mat-icon>
