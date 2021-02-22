@@ -1,4 +1,4 @@
-# Job
+# 远方信使 - 一个使用 Drupal 提供 API 的 Angular 前端开发框架。
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.2.
 
