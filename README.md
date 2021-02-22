@@ -38,10 +38,10 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## 欢迎加入 Drupal 自习室，欢迎交流
 
-微信公众号：Drupal 自习室
+##### 微信公众号：Drupal 自习室
 
-![Drupal自习室](https://github.com/biaogebusy/drupal-modules-cn/blob/master/qrcode.jpg|width=100)
+<img src="https://github.com/biaogebusy/drupal-modules-cn/blob/master/qrcode.jpg" width="100px" />
 
-入群
+##### 入群
 
-![Drupal自习室入群](https://github.com/biaogebusy/xinshi-angular/blob/master/src/assets/images/qrcode.png|width=100)
+<img src="https://github.com/biaogebusy/xinshi-angular/blob/master/src/assets/images/qrcode.png" width="100px" />
