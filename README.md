@@ -40,8 +40,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ##### 微信公众号：Drupal 自习室
 
-<img src="https://github.com/biaogebusy/drupal-modules-cn/blob/master/qrcode.jpg" width="100px" />
+![Drupal 自习室](./src/assets/images/qrcode.jpg)
 
 ##### 入群
-
-<img src="https://github.com/biaogebusy/xinshi-angular/blob/master/src/assets/images/qrcode.png" width="100px" />
+![交流群](./src/assets/images/qrcode.png)
