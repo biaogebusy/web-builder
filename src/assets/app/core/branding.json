@@ -1,7 +1,8 @@
 {
   "header": {
     "logo": {
-      "label": "NNITPAY"
+      "label": "信使",
+      "version": "Demo"
     },
     "mainMenu": [{
         "label": "职位",

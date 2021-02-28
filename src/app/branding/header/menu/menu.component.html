@@ -3,7 +3,7 @@
     <div class="header-container" fxLayout="row" fxLayoutAlign="space-between center">
       <div class="header-left">
         <a class="logo mat-h2" [routerLink]="['/']" [innerHTML]="branding?.header?.logo?.label"></a><span
-          class="version">Demo</span>
+          class="version" [innerHTML]="branding?.header?.logo?.version"></span>
       </div>
       <div class="header-right" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="3rem">
         <div class="menu-inner" *ngIf="branding.header?.mainMenu">

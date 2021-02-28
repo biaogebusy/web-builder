@@ -6,6 +6,7 @@ import { ApiService } from '../../service/api.service';
 import { ScreenState } from '../../mobx/screen/ScreenState';
 import { TitleService } from '../../service/title.service';
 import { AppState } from '../../mobx/AppState';
+import { BrandingState } from '../../mobx/BrandingStare';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -22,7 +23,8 @@ export class LoginComponent implements OnInit {
     private apiService: ApiService,
     public screenState: ScreenState,
     private titleService: TitleService,
-    private appState: AppState
+    private appState: AppState,
+    public branding: BrandingState
   ) {}
 
   ngOnInit(): void {

@@ -3,13 +3,14 @@
     <div *ngIf="!screenState.eq('xs')" class="login-second" fxFlex.xs="100" fxFlex.gt-xs="60">
       <img src="/assets/images/login-second.png" alt="">
     </div>
-    <div class="login-form" fxFlex.xs="100" fxFlex.gt-xs="40" fxLayout="column" fxLayoutAlign="center center">
+    <div class="login-form" matTooltip="login => test:test" [matTooltipPosition]="'above'" fxFlex.xs="100"
+      fxFlex.gt-xs="40" fxLayout="column" fxLayoutAlign="center center">
       <div class="width-100">
         <ng-container *ngIf="!userState.anthenticated">
           <div *ngIf="userState.error" class="error p-y-xs p-x-xs m-bottom-xs">{{userState.error}}
           </div>
           <h2 class="mat-h1">登录</h2>
-          <p class="text-base">欢迎登录 NNITPAY CMS DEMO</p>
+          <p class="text-base">欢迎登录{{branding?.header?.logo?.label}} {{branding?.header?.logo?.version}}</p>
           <br>
           <form fxLayout="column" [formGroup]="userForm" (ngSubmit)="login()">
             <mat-form-field appearance="fill">

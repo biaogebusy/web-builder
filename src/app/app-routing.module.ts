@@ -10,7 +10,7 @@ const routes: Routes = [
   {
     path: 'jobs',
     component: JobComponent,
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
   },
   {
     path: 'login',
@@ -19,7 +19,7 @@ const routes: Routes = [
   {
     path: 'cases',
     component: CaseComponent,
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
   },
   {
     path: 'articles',
