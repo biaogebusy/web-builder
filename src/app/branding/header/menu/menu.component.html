@@ -20,6 +20,9 @@
         </div>
         <app-switch-theme></app-switch-theme>
         <app-user-menu></app-user-menu>
+        <a [href]="branding.header?.repos?.href" target="_blank">
+          <mat-icon color="primary" svgIcon="{{branding.header?.repos?.icon}}"></mat-icon>
+        </a>
       </div>
     </div>
   </div>

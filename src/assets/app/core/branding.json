@@ -27,7 +27,11 @@
     "actions": [{
       "label": "发布职位",
       "href": "/create-job"
-    }]
+    }],
+    "repos": {
+      "icon": "github",
+      "href": "https://github.com/biaogebusy/xinshi-angular"
+    }
   },
   "footer": {
     "logo": {
