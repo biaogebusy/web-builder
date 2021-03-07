@@ -1,11 +1,11 @@
 <div class="login-container" fxLayoutAlign="center center">
-  <div class="login-wrapper m-x" fxLayout>
+  <div class="login-wrapper m-x position-relative" fxLayout>
     <div *ngIf="!screenState.eq('xs')" class="login-second" fxFlex.xs="100" fxFlex.gt-xs="60">
       <img src="/assets/images/login-second.png" alt="">
     </div>
-    <div class="login-form" matTooltip="login => test:test" [matTooltipPosition]="'above'" fxFlex.xs="100"
-      fxFlex.gt-xs="40" fxLayout="column" fxLayoutAlign="center center">
-      <div class="width-100">
+    <div class="login-form position-relative" [class.is-login]="userState.anthenticated" matTooltip="login => test:test"
+      [matTooltipPosition]="'above'" fxFlex.xs="100" fxFlex.gt-xs="40" fxLayout="column" fxLayoutAlign="center center">
+      <div class="width-100 form-scroll" *ngIf="!userState.loading">
         <ng-container *ngIf="!userState.anthenticated">
           <div *ngIf="userState.error" class="error p-y-xs p-x-xs m-bottom-xs">{{userState.error}}
           </div>
@@ -28,7 +28,6 @@
             </mat-form-field>
             <button type="submit" mat-raised-button color="primary">
               <div fxLayoutAlign="center center">
-                <mat-spinner diameter="20" color="accent" *ngIf="userState.loading"></mat-spinner>
                 <div class="p-x-xs">登录</div>
               </div>
             </button>
@@ -42,6 +41,9 @@
           <p class="text-base m-top-xs">欢迎。</p>
         </ng-container>
       </div>
+      <mat-spinner diameter="50" color="accent" *ngIf="userState.loading"></mat-spinner>
+      <div class="overlay"></div>
     </div>
+    <div class="mark-bg position-absolute"></div>
   </div>
 </div>

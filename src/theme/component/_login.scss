@@ -1,4 +1,4 @@
-@import '~@angular/material/theming';
+@import "~@angular/material/theming";
 
 @mixin login-color($config-or-theme) {
   $config: mat-get-color-config($config-or-theme);
@@ -15,7 +15,11 @@
 
     .error {
       background-color: mat-color($warn);
-      color: mat-color($warn, '500-contrast');
+      color: mat-color($warn, "500-contrast");
     }
+  }
+  .mark-bg,
+  .overlay {
+    background-color: map-get($background, card);
   }
 }

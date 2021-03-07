@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserState } from '../../mobx/user/UserState';
@@ -7,12 +7,14 @@ import { ScreenState } from '../../mobx/screen/ScreenState';
 import { TitleService } from '../../service/title.service';
 import { AppState } from '../../mobx/AppState';
 import { BrandingState } from '../../mobx/BrandingStare';
+import { GsapService } from '../../service/gsap.service';
+import { gsap } from 'gsap/all';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, AfterViewInit {
   hide = true;
   userForm: FormGroup;
 
@@ -24,7 +26,8 @@ export class LoginComponent implements OnInit {
     public screenState: ScreenState,
     private titleService: TitleService,
     private appState: AppState,
-    public branding: BrandingState
+    public branding: BrandingState,
+    public gsapService: GsapService
   ) {}
 
   ngOnInit(): void {
@@ -43,6 +46,16 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  ngAfterViewInit(): void {
+    const t0 = gsap.timeline();
+    t0.to('.overlay', { duration: 0.5, opacity: 1 })
+      .to('.overlay', {
+        duration: 1,
+        width: '0%',
+      })
+      .to('.form-scroll', { duration: 1.5, top: 0, ease: 'expo.out' });
+  }
+
   get f() {
     return this.userForm.controls;
   }
@@ -57,5 +70,13 @@ export class LoginComponent implements OnInit {
       this.userForm.value.pass,
       this.apiService.localUserKey
     );
+    this.userState.user$.subscribe((user) => {
+      const t1 = gsap.timeline();
+      t1.to('.mark-bg', {
+        duration: 3,
+        width: '100%',
+        ease: 'power3.out',
+      }).to('.login-container', { duration: 2, opacity: 0 });
+    });
   }
 }
