@@ -7,8 +7,7 @@ import { ScreenState } from '../../mobx/screen/ScreenState';
 import { TitleService } from '../../service/title.service';
 import { AppState } from '../../mobx/AppState';
 import { BrandingState } from '../../mobx/BrandingStare';
-import { GsapService } from '../../service/gsap.service';
-import { gsap } from 'gsap/all';
+import { gsap } from 'gsap';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -26,8 +25,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
     public screenState: ScreenState,
     private titleService: TitleService,
     private appState: AppState,
-    public branding: BrandingState,
-    public gsapService: GsapService
+    public branding: BrandingState
   ) {}
 
   ngOnInit(): void {
