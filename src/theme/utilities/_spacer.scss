@@ -1,5 +1,5 @@
 @import "../variable/variable.scss";
-@mixin spacer($pre, $region, $sizes, $pos, $spacer) {
+@mixin spacer($pre, $region, $sizes, $pos, $axis, $spacer) {
   @each $p in $pos {
     .#{$pre}-#{$p}-0 {
       #{$region}-#{$p}: 0 !important;
@@ -25,6 +25,18 @@
         }
       }
     }
+    @each $a, $a1, $a2 in $axis {
+      .#{$pre}-#{$a}-#{$size} {
+        #{$region}-#{$a1}: $spacing !important;
+        #{$region}-#{$a2}: $spacing !important;
+      }
+      @if ($size == md) {
+        .#{$pre}-#{$a} {
+          #{$region}-#{$a1}: $spacing !important;
+          #{$region}-#{$a2}: $spacing !important;
+        }
+      }
+    }
   }
 }
 
@@ -41,6 +53,6 @@ $sizes: (
   //80px
 );
 $pos: left, top, right, bottom;
-
-@include spacer(p, padding, $sizes, $pos, $spacer);
-@include spacer(m, margin, $sizes, $pos, $spacer);
+$axis: x left right, y top bottom;
+@include spacer(p, padding, $sizes, $pos, $axis, $spacer);
+@include spacer(m, margin, $sizes, $pos, $axis, $spacer);
