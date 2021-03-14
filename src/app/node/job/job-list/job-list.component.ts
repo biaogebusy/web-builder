@@ -1,11 +1,18 @@
-import { Component, Input, OnInit, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  Output,
+  EventEmitter,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-job-list',
   templateUrl: './job-list.component.html',
   styleUrls: ['./job-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class JobListComponent implements OnInit {
   @Input() content: any;
@@ -14,15 +21,16 @@ export class JobListComponent implements OnInit {
   @Output() selected = new EventEmitter();
 
   scrolling = false;
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   onClick(item: any, i: number): void {
     const obj = {
       index: i,
       item: item,
     };
+    console.log(obj);
     this.selected.emit(obj);
   }
   scroll(event: number): void {

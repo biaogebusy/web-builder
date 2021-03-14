@@ -1,15 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-job-node',
   templateUrl: './job-node.component.html',
-  styleUrls: ['./job-node.component.scss']
+  styleUrls: ['./job-node.component.scss'],
 })
 export class JobNodeComponent implements OnInit {
+  @Input() content: any;
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

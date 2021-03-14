@@ -28,3 +28,15 @@
     }
   }
 }
+
+.job-details {
+  width: 500px;
+  display: block;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: #fff;
+  z-index: 200;
+  padding: 20px;
+  border-radius: 20px;
+}
