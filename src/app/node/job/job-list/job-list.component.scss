@@ -52,7 +52,7 @@
   margin-right: 1rem;
   border-radius: 4px;
 
-  img {
+  ::ng-deep img {
     max-width: 100%;
     box-shadow: 0 4px 10px 1px rgb(0 0 0 / 7%);
     padding: 1rem;

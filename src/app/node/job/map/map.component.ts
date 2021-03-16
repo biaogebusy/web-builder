@@ -37,12 +37,11 @@ export class MapComponent implements OnInit {
 
   getMarkers(): void {
     this.amapState.position$.subscribe((res) => {
-      this.markers = this.content.map((marker: any) => {
-        const company = marker.relationships.company;
+      this.markers = this.content.map((item: any) => {
         return new this.AMap.Marker({
-          content: this.simpleMarkerTem(this.getRelationObj(marker)),
-          position: this.relation[company.data.id].position,
-          title: marker.attributes.title,
+          content: this.simpleMarkerTem(this.getRelationObj(item)),
+          position: item.company.position,
+          title: item.company.title,
         });
       });
       this.map.add(this.markers);
@@ -50,17 +49,14 @@ export class MapComponent implements OnInit {
   }
 
   getRelationObj(marker: any): any {
-    const company = marker.relationships.company;
-    const attr = marker.attributes;
+    const company = marker.company;
     const obj = {
-      logo: this.relation[
-        this.relation[company.data.id].relationships.logo.data.id
-      ].attributes.uri.url,
-      company: this.relation[company.data.id].attributes.title,
-      title: attr.title,
+      logo: company.logo.src,
+      company: company.title,
+      title: marker.title,
       salary: {
-        from: attr.salary.from,
-        to: attr.salary.to,
+        from: marker.salary.from,
+        to: marker.salary.to,
       },
     };
 

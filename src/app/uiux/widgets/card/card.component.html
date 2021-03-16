@@ -1,5 +1,5 @@
 <mat-card *ngIf="content" class="card">
-  <img mat-card-image src="{{content?.img}}" [alt]="content?.title">
+  <app-img [content]="content.img"></app-img>
   <mat-card-content>
     <mat-card-title *ngIf="content?.title;else link">{{content.title}}</mat-card-title>
     <ng-template #link>

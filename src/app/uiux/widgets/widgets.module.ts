@@ -9,6 +9,7 @@ import { BgComponent } from './bg/bg.component';
 import { LinkComponent } from './link/link.component';
 import { CardComponent } from './card/card.component';
 import { SwiperComponent } from './swiper/swiper.component';
+import { ImgComponent } from './img/img.component';
 
 const components = [
   ChipListComponent,
@@ -17,6 +18,7 @@ const components = [
   LinkComponent,
   CardComponent,
   SwiperComponent,
+  ImgComponent,
 ];
 
 @NgModule({

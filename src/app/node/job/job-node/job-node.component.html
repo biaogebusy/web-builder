@@ -1,3 +1,24 @@
 <ng-container *ngIf="content">
   {{content|json}}
+  <div class="job-header">
+    <app-img [content]="content.company.logo"></app-img>
+    <div class="job-header-right">
+      <h2 class="title">{{content.company.title}}</h2>
+      <mat-chip-list *ngIf="content?.company.welfare" class="mini">
+        <mat-chip color="primary" *ngFor="let item of content.company.welfare">
+          {{item | slice:0:4}}
+        </mat-chip>
+      </mat-chip-list>
+      <div class="position m-y-xs">{{content.title}}</div>
+      <div class="wage bold" *ngIf="content.salary">{{content.salary.from}} -
+        {{content.salary.to}} k
+      </div>
+      <mat-chip-list class="mini">
+        <mat-chip *ngFor="let item of content.skill.data">
+          {{relation[item.id].attributes.name | slice:0:10}}
+        </mat-chip>
+      </mat-chip-list>
+      {{content.deadline}}
+    </div>
+  </div>
 </ng-container>

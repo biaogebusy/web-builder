@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../service/api.service';
 import { NodeService } from '../../service/node.service';
 import { IChipList } from './IJob';
-import { isArray, keyBy } from 'lodash-es';
+import { isArray, keyBy, map } from 'lodash-es';
 import { AmapService } from '../../service/amap.service';
 import { AMapState } from '../../mobx/amap/AMapState';
 import { TitleService } from '../../service/title.service';
@@ -13,27 +13,47 @@ const feature = [
   {
     title: 'Material UI',
     body: 'Material UI 有完善的主题颜色系统，有优秀的性能和用户体验。',
-    img: '/assets/images/badge.scene.png',
+    img: {
+      src: '/assets/images/badge.scene.png',
+      alt: 'Material UI',
+      hostClasses: 'mat-card-image display-block',
+    },
   },
   {
     title: 'Flex Layout',
     body: '提供了足够丰富的布局 API，响应式适配各种设备视口尺寸。',
-    img: '/assets/images/grid-list.scene.png',
+    img: {
+      src: '/assets/images/grid-list.scene.png',
+      alt: 'Flex Layout',
+      hostClasses: 'mat-card-image display-block',
+    },
   },
   {
     title: 'Mobx',
     body: 'Mobx 使应用的状态管理变得简单。',
-    img: '/assets/images/form-field.scene.png',
+    img: {
+      src: '/assets/images/form-field.scene.png',
+      alt: 'Mobx',
+      hostClasses: 'mat-card-image display-block',
+    },
   },
   {
     title: '布局',
     body: '通过拖动的方式管理你的页面布局，灵活的创建各种营销着陆页',
-    img: '/assets/images/button.scene.png',
+    img: {
+      src: '/assets/images/button.scene.png',
+      alt: '布局',
+      hostClasses: 'mat-card-image display-block',
+    },
   },
   {
     title: '菜单',
     body: '紧凑的菜单面板，引导用户到达页面',
-    img: '/assets/images/menu.scene.png',
+    img: {
+      src: '/assets/images/menu.scene.png',
+      alt: '菜单',
+      hostClasses: 'mat-card-image display-block',
+    },
   },
 ];
 @Component({
@@ -146,7 +166,7 @@ export class JobComponent implements OnInit {
 
   onSelected(obj: any): void {
     this.selected = obj.item;
-    this.selectedId = obj.item.attributes.drupal_internal__nid;
+    this.selectedId = obj.nid;
     this.amapState.markers$.next(obj);
     const query: Params = { id: this.selectedId };
     this.routerService.updateQueryParams(query);
@@ -179,11 +199,34 @@ export class JobComponent implements OnInit {
 
   updateList(res: any): void {
     this.loading = false;
-    this.nodes = res.data;
     this.included = res.included;
     if (isArray(res.included)) {
       this.relation = keyBy(res.included, 'id');
       this.initMap(res.included);
     }
+    this.nodes = map(res.data, (item) => {
+      return {
+        nid: item.attributes.drupal_internal__nid,
+        title: item.attributes.title,
+        salary: item.attributes.salary,
+        skill: item.relationships.skill,
+        deadline: item.attributes.deadline,
+        company: {
+          logo: {
+            src: this.relation[
+              this.relation[item.relationships.company.data.id].relationships
+                .logo.data.id
+            ].attributes.uri.url,
+            alt: this.relation[item.relationships.company.data.id].attributes
+              .title,
+          },
+          title: this.relation[item.relationships.company.data.id].attributes
+            .title,
+          welfare: this.relation[item.relationships.company.data.id].attributes
+            ?.welfare,
+          position: this.relation[item.relationships.company.data.id].position,
+        },
+      };
+    });
   }
 }
