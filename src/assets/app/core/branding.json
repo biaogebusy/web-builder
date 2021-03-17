@@ -17,6 +17,23 @@
         "label": "案例",
         "classes": "bold",
         "href": "/cases"
+      }, {
+        "label": "组件",
+        "classes": "bold",
+        "childs": [{
+          "label": "Showcase",
+          "childs": [{
+            "label": "Showcase 2v1",
+            "href": "/sample/showcase/showcase-2-v1"
+          }]
+        }, {
+          "label": "Carousel",
+          "href": "javascript:void(0)",
+          "childs": [{
+            "label": "Carousel 1v1",
+            "href": "/sample/carousel/carousel-1-v1"
+          }]
+        }]
       },
       {
         "label": "关于我们",
@@ -35,9 +52,9 @@
   },
   "footer": {
     "logo": {
-      "label": "NNITPAY"
+      "label": "远方信使"
     },
-    "copyRight": "©2021 Copyright by NNITPAI",
+    "copyRight": "Copyright by XinShi",
     "accordion": {
       "openIcon": "expand_more",
       "closeIcon": "expand_less"

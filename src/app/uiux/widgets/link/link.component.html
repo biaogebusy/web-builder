@@ -3,7 +3,12 @@
     [href]="content?.href || 'javascript:void(0);'" [target]="content?.target || '_self'"
     [innerHTML]="content?.label"></a>
   <ng-template #relative>
-    <a [routerLink]="[content.href]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}"
-      [queryParams]="content.queryParams" [ngClass]="content?.classes" [innerHTML]="content?.label"></a>
+    <a *ngIf="content.href;else void" [routerLink]="[content.href]" [routerLinkActive]="['active']"
+      [routerLinkActiveOptions]="{exact: true}" [queryParams]="content.queryParams" [ngClass]="content?.classes"
+      [innerHTML]="content?.label"></a>
+    <ng-template #void>
+      <a [ngClass]="content?.classes" href="javascript:void(0);" [target]="content?.target || '_self'"
+        [innerHTML]="content?.label"></a>
+    </ng-template>
   </ng-template>
 </ng-container>

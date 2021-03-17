@@ -9,7 +9,7 @@
         <div class="menu-inner" *ngIf="branding.header?.mainMenu">
           <div class="main-menu" fxLayout="row">
             <div class="item" *ngFor="let menu of branding.header.mainMenu">
-              <app-link [content]="menu"></app-link>
+              <app-item-menu [content]="menu"></app-item-menu>
             </div>
           </div>
         </div>
