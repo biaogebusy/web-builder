@@ -205,26 +205,27 @@ export class JobComponent implements OnInit {
       this.initMap(res.included);
     }
     this.nodes = map(res.data, (item) => {
+      const attr = item.attributes;
+      const company = item.relationships.company;
+      const relation = this.relation[company.data.id];
       return {
-        nid: item.attributes.drupal_internal__nid,
-        title: item.attributes.title,
-        salary: item.attributes.salary,
+        nid: attr.drupal_internal__nid,
+        title: attr.title,
+        number: attr.number,
+        salary: attr.salary,
         skill: item.relationships.skill,
-        deadline: item.attributes.deadline,
+        deadline: attr.deadline,
+        work_experience: attr.work_experience,
+        body: attr.body.value,
         company: {
           logo: {
-            src: this.relation[
-              this.relation[item.relationships.company.data.id].relationships
-                .logo.data.id
-            ].attributes.uri.url,
-            alt: this.relation[item.relationships.company.data.id].attributes
-              .title,
+            src: this.relation[relation.relationships.logo.data.id].attributes.uri.url,
+            alt: relation.attributes.title,
           },
-          title: this.relation[item.relationships.company.data.id].attributes
-            .title,
-          welfare: this.relation[item.relationships.company.data.id].attributes
-            ?.welfare,
-          position: this.relation[item.relationships.company.data.id].position,
+          title: relation.attributes.title,
+          welfare: relation.attributes.welfare,
+          address: relation.attributes.address.address_line1,
+          phone: relation.attributes.phone
         },
       };
     });

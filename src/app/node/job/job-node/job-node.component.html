@@ -1,24 +1,42 @@
 <ng-container *ngIf="content">
-  {{content|json}}
-  <div class="job-header">
-    <app-img [content]="content.company.logo"></app-img>
+  <div class="job-header" fxLayout fxLayoutGap="2rem">
+    <app-img fxFlex="100px" [content]="content.company.logo"></app-img>
     <div class="job-header-right">
       <h2 class="title">{{content.company.title}}</h2>
+      <div class="position m-y-xs">{{content.title}} {{content.number}}</div>
+      <div class="wage bold" *ngIf="content.salary">{{content.salary.from}} -
+        {{content.salary.to}} k
+      </div>
+      {{content.company.address}}
+      {{content.deadline}}
+    </div>
+  </div>
+  <div class="divider"></div>
+  <div class="job-details m-y" fxLayout="row wrap">
+    <div class="item m-y-xs" fxFlex="50">
+      <div class="label">诱惑福利</div>
       <mat-chip-list *ngIf="content?.company.welfare" class="mini">
         <mat-chip color="primary" *ngFor="let item of content.company.welfare">
           {{item | slice:0:4}}
         </mat-chip>
       </mat-chip-list>
-      <div class="position m-y-xs">{{content.title}}</div>
-      <div class="wage bold" *ngIf="content.salary">{{content.salary.from}} -
-        {{content.salary.to}} k
-      </div>
+    </div>
+    <div class="item m-y-xs" fxFlex="50">
+      <div class="label">工作经验</div>
+      <div>{{content.work_experience.from}} 到 {{content.work_experience.to}} 年</div>
+    </div>
+    <div class="item m-y-xs" fxFlex="50">
+      <div class="label">技能</div>
       <mat-chip-list class="mini">
         <mat-chip *ngFor="let item of content.skill.data">
           {{relation[item.id].attributes.name | slice:0:10}}
         </mat-chip>
       </mat-chip-list>
-      {{content.deadline}}
+    </div>
+    <div class="item m-y-xs" fxFlex="50">
+      <div class="label">电话</div>
+      <div>{{content.company.phone}}</div>
     </div>
   </div>
+  <div class="job-body" [innerHTML]="content.body"></div>
 </ng-container>
