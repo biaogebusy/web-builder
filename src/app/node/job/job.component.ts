@@ -213,19 +213,24 @@ export class JobComponent implements OnInit {
         title: attr.title,
         number: attr.number,
         salary: attr.salary,
-        skill: item.relationships.skill,
+        skill: map(item.relationships.skill.data, (item) => {
+          return { label: this.relation[item.id].attributes.name };
+        }),
         deadline: attr.deadline,
         work_experience: attr.work_experience,
         body: attr.body.value,
         company: {
           logo: {
-            src: this.relation[relation.relationships.logo.data.id].attributes.uri.url,
+            src: this.relation[relation.relationships.logo.data.id].attributes
+              .uri.url,
             alt: relation.attributes.title,
           },
           title: relation.attributes.title,
-          welfare: relation.attributes.welfare,
+          welfare: map(relation.attributes.welfare, (item) => {
+            return { label: item };
+          }),
           address: relation.attributes.address.address_line1,
-          phone: relation.attributes.phone
+          phone: relation.attributes.phone,
         },
       };
     });

@@ -15,11 +15,7 @@
         <div class="m-bottom-xs" fxLayoutAlign="start center" fxLayout="row wrap" fxLayoutGap="1rem">
           <h4 class="title" *ngIf="item?.company">
             {{item.company.title}}</h4>
-          <mat-chip-list *ngIf="item?.company.welfare" class="mini">
-            <mat-chip color="primary" *ngFor="let item of item.company.welfare">
-              {{item | slice:0:4}}
-            </mat-chip>
-          </mat-chip-list>
+          <app-chip-list [content]="item.company.welfare" [classes]="'mini'"></app-chip-list>
         </div>
         <div class="info" fxLayout fxLayoutAlign="space-between center">
           <div class="position m-y-xs">{{item.title}}</div>
@@ -29,11 +25,7 @@
         </div>
         <div class="media-footer" fxLayout fxLayoutAlign="space-between center">
           <div class="media-footer-left" fxLayout *ngIf="item.skill">
-            <mat-chip-list class="mini">
-              <mat-chip *ngFor="let item of item.skill.data">
-                {{relation[item.id].attributes.name | slice:0:10}}
-              </mat-chip>
-            </mat-chip-list>
+            <app-chip-list [content]="item.skill" [classes]="'mini'"></app-chip-list>
           </div>
           <div class="media-footer-right" *ngIf="item.deadline">
             {{item.deadline}}

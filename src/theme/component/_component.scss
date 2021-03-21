@@ -9,6 +9,7 @@
 
 // material custom
 @import "./mat/card";
+@import "./mat/chip-list";
 
 @mixin component-theme($config-or-theme, $base) {
   @include header-color($config-or-theme);
@@ -22,4 +23,5 @@
 
   // material custom ui
   @include mat-card-color($config-or-theme);
+  @include chip-list-color($config-or-theme);
 }

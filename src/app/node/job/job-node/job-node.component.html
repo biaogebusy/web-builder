@@ -15,11 +15,7 @@
   <div class="job-details m-y" fxLayout="row wrap">
     <div class="item m-y-xs" fxFlex="50">
       <div class="label">诱惑福利</div>
-      <mat-chip-list *ngIf="content?.company.welfare" class="mini">
-        <mat-chip color="primary" *ngFor="let item of content.company.welfare">
-          {{item | slice:0:4}}
-        </mat-chip>
-      </mat-chip-list>
+      <app-chip-list [content]="content?.company.welfare" [classes]="'mini'"></app-chip-list>
     </div>
     <div class="item m-y-xs" fxFlex="50">
       <div class="label">工作经验</div>
@@ -27,11 +23,7 @@
     </div>
     <div class="item m-y-xs" fxFlex="50">
       <div class="label">技能</div>
-      <mat-chip-list class="mini">
-        <mat-chip *ngFor="let item of content.skill.data">
-          {{relation[item.id].attributes.name | slice:0:10}}
-        </mat-chip>
-      </mat-chip-list>
+      <app-chip-list [content]="content.skill" [classes]="'mini'"></app-chip-list>
     </div>
     <div class="item m-y-xs" fxFlex="50">
       <div class="label">电话</div>
