@@ -1,0 +1,8 @@
+<ng-container *ngIf="content">
+  <ng-container *ngIf="content.childs && content.childs.length >0">
+    <!-- <a [matMenuTriggerFor]="menu.childMenu">{{content.label}}</a> -->
+    <app-link [content]="content" [matMenuTriggerFor]="menu.childMenu"></app-link>
+    <app-sub-menu #menu [content]="content.childs"></app-sub-menu>
+  </ng-container>
+  <app-link *ngIf="!content.childs || content.childs.length === 0" [content]="content"></app-link>
+</ng-container>

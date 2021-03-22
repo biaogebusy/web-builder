@@ -1,5 +1,4 @@
 @mixin branding($colors, $suffix) {
-
   .text-#{$suffix} {
     color: map-get($colors, text) !important;
   }
@@ -11,7 +10,6 @@
   .bg-#{$suffix} {
     background-color: map-get($colors, bg) !important;
   }
-
 }
 
 @mixin base-colors($config-or-theme, $base) {
@@ -23,7 +21,7 @@
   $background: map-get($config, background);
 
   $text-base: map-get($base, 500);
-
+  @debug $foreground;
   a {
     color: mat-color($primary);
     text-decoration: none;
@@ -31,11 +29,12 @@
     &:hover,
     &:focus,
     &.active {
-      color: mat-color($background, hover)
+      color: mat-color($primary);
     }
 
     &:hover {
       cursor: pointer;
+      opacity: 0.85;
     }
   }
 
@@ -47,7 +46,6 @@
   .mat-drawer-container {
     color: $text-base;
   }
-
 }
 
 // @include branding(map-get($colors, base), 'base');
