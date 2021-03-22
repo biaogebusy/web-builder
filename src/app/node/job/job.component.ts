@@ -166,7 +166,7 @@ export class JobComponent implements OnInit {
 
   onSelected(obj: any): void {
     this.selected = obj.item;
-    this.selectedId = obj.nid;
+    this.selectedId = obj.item.nid;
     this.amapState.markers$.next(obj);
     const query: Params = { id: this.selectedId };
     this.routerService.updateQueryParams(query);
@@ -220,6 +220,7 @@ export class JobComponent implements OnInit {
         work_experience: attr.work_experience,
         body: attr.body.value,
         company: {
+          id: company.data.id,
           logo: {
             src: this.relation[relation.relationships.logo.data.id].attributes
               .uri.url,

@@ -30,13 +30,18 @@
 }
 
 .job-details {
-  width: 500px;
   display: block;
   position: absolute;
   top: 20px;
   left: 20px;
-  background: #fff;
+  bottom: 20px;
+  right: 20px;
   z-index: 200;
   padding: 20px;
-  border-radius: 20px;
+  border-radius: 10px;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    height: 4px;
+    width: 4px;
+  }
 }

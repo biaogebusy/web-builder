@@ -1,32 +1,35 @@
 <ng-container *ngIf="content">
   <div class="job-header" fxLayout fxLayoutGap="2rem">
-    <app-img fxFlex="100px" [content]="content.company.logo"></app-img>
+    <app-img class="media" fxFlex="0 1 100px" [content]="content.company.logo"></app-img>
     <div class="job-header-right">
       <h2 class="title">{{content.company.title}}</h2>
-      <div class="position m-y-xs">{{content.title}} {{content.number}}</div>
-      <div class="wage bold" *ngIf="content.salary">{{content.salary.from}} -
-        {{content.salary.to}} k
+      <div class="position m-y-xs">{{content.title}} {{content.number}} 名</div>
+      <div class="wage bold m-y-xs" fxLayoutAlign="start center" *ngIf="content.salary">
+        <mat-icon color="primary">attach_money</mat-icon> {{content.salary.from}} - {{content.salary.to}} k
       </div>
-      {{content.company.address}}
-      {{content.deadline}}
+      <div class="m-y-xs" fxLayoutAlign="start center">
+        <mat-icon color="primary">place</mat-icon>{{content.company.address}}
+      </div>
+      <div class="m-y-xs" fxLayoutAlign="start center">
+        <mat-icon color="primary">timelapse</mat-icon>{{content.deadline}}
+      </div>
     </div>
   </div>
-  <div class="divider"></div>
-  <div class="job-details m-y" fxLayout="row wrap">
+  <div class="job-content m-y-sm" fxLayout="row wrap">
     <div class="item m-y-xs" fxFlex="50">
-      <div class="label">诱惑福利</div>
+      <div class="label m-bottom-xs">诱惑福利</div>
       <app-chip-list [content]="content?.company.welfare" [classes]="'mini'"></app-chip-list>
     </div>
     <div class="item m-y-xs" fxFlex="50">
-      <div class="label">工作经验</div>
+      <div class="label bold m-bottom-xs">工作经验</div>
       <div>{{content.work_experience.from}} 到 {{content.work_experience.to}} 年</div>
     </div>
     <div class="item m-y-xs" fxFlex="50">
-      <div class="label">技能</div>
+      <div class="label bold m-bottom-xs">技能</div>
       <app-chip-list [content]="content.skill" [classes]="'mini'"></app-chip-list>
     </div>
     <div class="item m-y-xs" fxFlex="50">
-      <div class="label">电话</div>
+      <div class="label bold m-bottom-xs">电话</div>
       <div>{{content.company.phone}}</div>
     </div>
   </div>

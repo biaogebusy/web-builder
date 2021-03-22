@@ -1,6 +1,18 @@
 @import "/src/theme/variable/variable.scss";
 @import "~@angular/material/theming";
 
+.job-header {
+  .scroll {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    height: 4px;
+    &.scrolling {
+      z-index: 2;
+    }
+  }
+}
 .job-list {
   .viewport {
     height: calc(100vh - 210px);
@@ -54,7 +66,6 @@
 
   ::ng-deep img {
     max-width: 100%;
-    box-shadow: 0 4px 10px 1px rgb(0 0 0 / 7%);
     padding: 1rem;
   }
 }

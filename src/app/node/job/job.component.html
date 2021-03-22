@@ -14,8 +14,9 @@
       </app-job-list>
     </div>
     <div class="map-wrapper position-relative" fxFlex.xs="100%" fxFlex.gt-xs="100%">
-      <app-job-node *ngIf="selected" class="job-details" [content]="selected" [relation]="relation"></app-job-node>
-      <app-map *ngIf="nodes && AMap" [content]="nodes" [relation]="relation" [AMap]="AMap">
+      <app-job-node fxFlex.xs="100" fxFlex.gt-xs="500px" *ngIf="selected" class="job-details" [content]="selected"
+        [relation]="relation"></app-job-node>
+      <app-map fxFlex="100%" *ngIf="nodes && AMap" [content]="nodes" [relation]="relation" [AMap]="AMap">
       </app-map>
       <div class="m-y" *ngIf="loading" fxLayoutAlign="center center">
         <app-spinner class="m-y" [content]="{color:'primary', size:40}"></app-spinner>
@@ -28,9 +29,9 @@
       <app-bg [classes]="['bg-fill-width','wave-wrapper']">
         <mat-icon class="wave" svgIcon="wave"></mat-icon>
       </app-bg>
-      <div fxLayout="row wrap" fxLayoutAlign="space-between start">
-        <app-card *ngFor="let card of feature" [content]="card" fxFlex.xs="100" fxFlex.sm="48%" fxFlex.gt-sm="250px"
-          class="m-bottom-xs">
+      <div fxLayout="row wrap" fxLayoutAlign="space-between start" fxLayoutGap="1rem">
+        <app-card *ngFor="let card of feature" [content]="card" fxFlex.xs="100" fxFlex.sm="0 1 calc(33.3% - 1rem)"
+          fxFlex.gt-sm="0 1 calc(20% - 1rem)" class="m-bottom-xs">
         </app-card>
       </div>
     </div>

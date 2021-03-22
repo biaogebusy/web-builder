@@ -1,9 +1,9 @@
-@import '../../../../theme/variable/variable.scss';
+@import "../../../../theme/variable/variable.scss";
 
-:host ::ng-deep .mini {
+.mini {
   .mat-chip {
     font-size: 12px;
-    padding: 3px 10px;
-    min-height: 24px;
+    padding: 0 6px;
+    min-height: 20px;
   }
 }

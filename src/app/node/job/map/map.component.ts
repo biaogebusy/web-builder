@@ -40,7 +40,7 @@ export class MapComponent implements OnInit {
       this.markers = this.content.map((item: any) => {
         return new this.AMap.Marker({
           content: this.simpleMarkerTem(this.getRelationObj(item)),
-          position: item.company.position,
+          position: this.relation[item.company.id].position,
           title: item.company.title,
         });
       });
@@ -73,10 +73,10 @@ export class MapComponent implements OnInit {
     return `
     <div class="mark-card p-y-xs p-x-xs">
       <div class="media">
-        <img src="${obj.logo}" />
+        <img src="${obj.company.logo.src}" />
       </div>
       <div class="media-body m-left-xs">
-        <div class="mat-h4 m-bottom-xs text-base">${obj.company}</div>
+        <div class="mat-h4 m-bottom-xs text-base">${obj.company.title}</div>
         <div class="mat-h4 m-bottom-xs text-dark title">${obj.title}</div>
         <div class="mat-h3 m-bottom-0 text-primary">
         ${obj.salary.from} - ${obj.salary.to} k
@@ -93,7 +93,7 @@ export class MapComponent implements OnInit {
         .getAllOverlays('marker')
         [marker.index].getPosition();
       const popup = new this.AMap.InfoWindow({
-        content: this.markerTem(this.getRelationObj(marker.item)),
+        content: this.markerTem(marker.item),
         isCustom: true,
         offset: new this.AMap.Pixel(15, -2),
       });
