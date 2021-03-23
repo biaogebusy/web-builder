@@ -9,6 +9,7 @@ import { TitleService } from '../../service/title.service';
 import { RouteService } from '../../service/route.service';
 import { Params, ActivatedRoute } from '@angular/router';
 import { AppState } from '../../mobx/AppState';
+import { gsap } from 'gsap';
 const feature = [
   {
     title: 'Material UI',
@@ -39,7 +40,7 @@ const feature = [
   },
   {
     title: '布局',
-    body: '通过拖动的方式管理你的页面布局，灵活的创建各种营销着陆页',
+    body: '通过拖动的方式管理你的页面布局，灵活的创建各种营销着陆页。',
     img: {
       src: '/assets/images/button.scene.png',
       alt: '布局',
@@ -48,7 +49,7 @@ const feature = [
   },
   {
     title: '菜单',
-    body: '紧凑的菜单面板，引导用户到达页面',
+    body: '紧凑的菜单面板，引导用户到达页面。',
     img: {
       src: '/assets/images/menu.scene.png',
       alt: '菜单',
@@ -168,8 +169,22 @@ export class JobComponent implements OnInit {
     this.selected = obj.item;
     this.selectedId = obj.item.nid;
     this.amapState.markers$.next(obj);
+    this.moveBox('20px');
     const query: Params = { id: this.selectedId };
     this.routerService.updateQueryParams(query);
+  }
+
+  onScroll(event: boolean): void {
+    this.moveBox('-530px');
+  }
+
+  moveBox(x: string): void {
+    const t1 = gsap.timeline();
+    t1.to('.job-details', {
+      duration: 1.5,
+      left: x,
+      ease: 'power3.out',
+    });
   }
 
   onSearch(key: string): void {

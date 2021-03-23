@@ -9,8 +9,8 @@
       </div>
       <app-job-filter [content]="nodes" [autoList]="autoList" (searchChange)="onSearch($event)" (clear)="onClear()"
         (selectedChange)="onSearchJob($event)"></app-job-filter>
-      <app-job-list (selected)="onSelected($event)" *ngIf="nodes.length > 0" [content]="nodes" [relation]="relation"
-        [selectedId]="selectedId">
+      <app-job-list (selected)="onSelected($event)" (scroll)="onScroll($event)" *ngIf="nodes.length > 0"
+        [content]="nodes" [relation]="relation" [selectedId]="selectedId">
       </app-job-list>
     </div>
     <div class="map-wrapper position-relative" fxFlex.xs="100%" fxFlex.gt-xs="100%">

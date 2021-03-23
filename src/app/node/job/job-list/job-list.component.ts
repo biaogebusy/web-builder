@@ -19,6 +19,7 @@ export class JobListComponent implements OnInit {
   @Input() relation: any;
   @Input() selectedId: string;
   @Output() selected = new EventEmitter();
+  @Output() scroll = new EventEmitter();
 
   scrolling = false;
   constructor() {}
@@ -30,10 +31,10 @@ export class JobListComponent implements OnInit {
       index: i,
       item: item,
     };
-    console.log(obj);
     this.selected.emit(obj);
   }
-  scroll(event: number): void {
+  onScroll(event: number): void {
     this.scrolling = !!event;
+    this.scroll.emit(true);
   }
 }

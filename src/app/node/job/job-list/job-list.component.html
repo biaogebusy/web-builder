@@ -4,7 +4,7 @@
     </div>
     <div class="scroll" [class.scrolling]="scrolling"></div>
   </div>
-  <cdk-virtual-scroll-viewport (scrolledIndexChange)="scroll($event)" [itemSize]="5" class="viewport">
+  <cdk-virtual-scroll-viewport (scrolledIndexChange)="onScroll($event)" [itemSize]="5" class="viewport">
     <div class="item m-y-sm p-y-sm m-x-xs p-x-sm" [class.selected]="item.nid == selectedId" matRipple
       [matRippleColor]="'rgba(0, 0, 0, 0.04)'" *cdkVirtualFor="let item of content; index as i" fxLayout
       (click)="onClick(item, i)">

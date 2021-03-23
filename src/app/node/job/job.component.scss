@@ -2,7 +2,7 @@
 
 @media #{$gt-xs} {
   .sidebar {
-    z-index: 99;
+    z-index: 112;
   }
 }
 
@@ -36,7 +36,7 @@
   left: 20px;
   bottom: 20px;
   right: 20px;
-  z-index: 200;
+  z-index: 111;
   padding: 20px;
   border-radius: 10px;
   overflow: auto;
