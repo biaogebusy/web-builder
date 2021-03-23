@@ -3,7 +3,7 @@ export interface ICard {
   body: string;
   img: {
     src: string;
-    alt: string;
+    alt?: string;
     hostClasses?: any;
     classes?: any;
   };

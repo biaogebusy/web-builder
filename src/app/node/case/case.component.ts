@@ -26,7 +26,7 @@ export class CaseComponent implements OnInit {
   getCases(): void {
     this.loading = true;
     const params = [
-      'fields[node--case]=title,created,field_image,field_tags',
+      'fields[node--case]=title,created,field_image,field_tags,drupal_internal__nid,path',
       'include=field_image,field_tags',
       'fields[file--file]=uri',
       'fields[taxonomy_term--industry]=name',
@@ -37,13 +37,19 @@ export class CaseComponent implements OnInit {
       console.log(res);
       this.relations = keyBy(res.included, 'id');
       this.content.elements = map(res.data, (item) => {
+        const attr = item.attributes;
         return {
-          body: item.attributes.created,
-          img: this.relations[item.relationships.field_image.data.id].attributes
-            .uri.url,
+          body: attr.created,
+          img: {
+            src: this.relations[item.relationships.field_image.data.id]
+              .attributes.uri.url,
+            hostClasses: 'display-block mat-card-image',
+          },
           link: {
-            label: item.attributes.title,
-            href: item.links.self.href,
+            label: attr.title,
+            href: attr.path.alias
+              ? attr.path.alias
+              : `/node/${attr.drupal_internal__nid}`,
           },
         };
       });
