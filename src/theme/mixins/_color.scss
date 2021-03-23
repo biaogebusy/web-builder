@@ -21,7 +21,6 @@
   $background: map-get($config, background);
 
   $text-base: map-get($base, 500);
-  @debug $foreground;
   a {
     color: mat-color($primary);
     text-decoration: none;
