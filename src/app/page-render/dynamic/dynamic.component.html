@@ -1,5 +1,8 @@
 <ng-container *ngIf="appState.content">
   <ng-container *ngFor="let item of appState.content">
-    <app-showcase2v1 *ngIf="item.type == 'showcase-2v1'" [content]="item"></app-showcase2v1>
+    <ng-container [ngSwitch]="item.type">
+      <app-showcase2v1 *ngSwitchCase="'showcase-2v1'" [content]="item"></app-showcase2v1>
+      <app-case-node *ngSwitchCase="'case-node'" [content]="item"></app-case-node>
+    </ng-container>
   </ng-container>
 </ng-container>
