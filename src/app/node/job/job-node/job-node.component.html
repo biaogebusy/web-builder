@@ -3,7 +3,7 @@
     <app-img class="media" fxFlex="0 1 70px" [content]="content.company.logo"></app-img>
     <div class="job-header-right">
       <h2 class="title">{{content.company.title}}</h2>
-      <div class="position m-y-xs">{{content.title}} {{content.number}} 名</div>
+      <h3 class="position m-y-xs">{{content.title}} {{content.number}} 名</h3>
       <div class="wage bold m-y-xs" fxLayoutAlign="start center" *ngIf="content.salary">
         <mat-icon color="primary">attach_money</mat-icon> {{content.salary.from}} - {{content.salary.to}} k
       </div>
