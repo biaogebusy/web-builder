@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import SwiperCore from 'swiper/core';
-// https://swiperjs.com/angular
-
+import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
+import { AppState } from '../../../mobx/AppState';
 @Component({
   selector: 'app-swiper',
   templateUrl: './swiper.component.html',
@@ -9,8 +8,10 @@ import SwiperCore from 'swiper/core';
 })
 export class SwiperComponent implements OnInit {
   @Input() content: any;
-  constructor() {}
-
+  constructor(public appState: AppState) {}
+  config: SwiperConfigInterface = {
+    slidesPerView: 'auto',
+  };
   ngOnInit(): void {}
 
   onSwiper(swiper: any) {

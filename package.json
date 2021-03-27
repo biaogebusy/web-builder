@@ -31,9 +31,10 @@
     "material-design-icons": "^3.0.1",
     "mobx": "^6.0.4",
     "mobx-angular": "^4.2.0",
+    "ngx-swiper-wrapper": "^10.0.0",
     "ngx-webstorage-service": "^4.1.0",
     "rxjs": "~6.6.0",
-    "swiper": "^6.4.11",
+    "swiper": "^6.5.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
   },

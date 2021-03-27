@@ -1,4 +1,4 @@
-<ng-container *ngIf="appState.ready">
+<ng-container *ngIf="ready && content">
   <ng-container [ngSwitch]="content.type">
     <app-bg *ngSwitchCase="'bg'" [content]="content"></app-bg>
     <app-img *ngSwitchCase="'img'" [content]="content"></app-img>

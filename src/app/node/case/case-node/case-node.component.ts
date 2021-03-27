@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { AppState } from '../../../mobx/AppState';
 @Component({
   selector: 'app-case-node',
   templateUrl: './case-node.component.html',
@@ -6,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class CaseNodeComponent implements OnInit {
   @Input() content: any;
-  constructor() {}
+  constructor(public appState: AppState) {}
 
   ngOnInit(): void {}
 }

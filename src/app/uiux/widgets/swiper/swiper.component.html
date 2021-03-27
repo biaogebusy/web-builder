@@ -1,7 +1,15 @@
-<ng-container *ngIf="content">
-  <swiper [slidesPerView]="3" [spaceBetween]="50" (swiper)="onSwiper($event)" (slideChange)="onSlideChange()">
-    <ng-template swiperSlide *ngFor="let slide of content.elements">
-      <app-dynamic-widgets *ngIf="slide" [content]="slide"></app-dynamic-widgets>
-    </ng-template>
-  </swiper>
+<ng-container *ngIf="appState.ready && content">
+  <div class="swiper-container" [swiper]="config">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide" *ngFor="let slide of content.elements">
+        <app-dynamic-widgets [content]="slide"></app-dynamic-widgets>
+      </div>
+    </div>
+
+    <div class="swiper-scrollbar"></div>
+    <div class="swiper-pagination"></div>
+
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+  </div>
 </ng-container>
