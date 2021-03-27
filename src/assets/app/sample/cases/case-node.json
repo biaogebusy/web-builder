@@ -13,6 +13,7 @@
         "slidesPerView": 1
       },
       "elements": [{
+        "type": "img",
         "src": "/assets/images/cases/porto1.jpg",
         "alt": "案例"
       }, {

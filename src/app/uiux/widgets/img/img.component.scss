@@ -1,3 +1,36 @@
+@import "../../../../theme/mixins/mixins.scss";
+
 img {
   max-width: 100%;
+}
+::ng-deep .mat-card-image {
+  position: relative;
+  .overlay-details {
+    position: absolute;
+    z-index: 1000;
+    width: 100%;
+    text-align: center;
+    @include middle-center();
+    ::ng-deep a {
+      opacity: 0;
+      @include transform(20deg, 0, 0, 0);
+      display: inline-block;
+      position: relative;
+      z-index: 1;
+      font-size: 13px;
+      padding: 9px 13px;
+      margin-right: 10px;
+      min-width: 9rem;
+      @include transition(all, 0.4s, ease);
+    }
+  }
+  &:hover {
+    .overlay-details {
+      a {
+        @include transform(0deg, 1, 0, 0);
+        opacity: 1;
+        @include transition(all, 0.4s, ease);
+      }
+    }
+  }
 }

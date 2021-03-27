@@ -1,14 +1,18 @@
 <ng-container *ngIf="appState.ready && content">
-  <div class="case-node p-y-sm m-y-sm container" fxLayout.xs="column" fxLayout.gt-xs="row" fxLayoutAlign="center start">
-    <div class="case-carousel" fxFlex.xs="100" fxFlex.gt-xs="50">
+  <div class="case-node p-y-sm m-y-sm container p-x-sm" fxLayout.xs="column" fxLayout.gt-xs="row"
+    fxLayoutAlign="center start">
+    <div class="case-carousel" fxFlex.xs="100" fxFlex.gt-xs="40">
       <app-swiper [content]="content.carousel">
       </app-swiper>
     </div>
-    <div class="case-body m-bottom" fxFlex.xs="100" fxFlex.gt-xs="50">
+    <div class="case-body m-bottom p-x-sm" fxFlex.xs="100" fxFlex.gt-xs="60">
       <h2 class="case-title mat-h2">{{content.title}}</h2>
       <div [innerHTML]="content.body"></div>
       <div class="case-footer m-top">
-        <a mat-raised-button color="primary" href="{{content.site.href}}">{{content.site.label}}</a>
+        <a mat-raised-button target="_blank" color="primary" href="{{content.site.href}}">
+          <mat-icon>open_in_new</mat-icon>
+          {{content.site.label}}
+        </a>
       </div>
     </div>
   </div>

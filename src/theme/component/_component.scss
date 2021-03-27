@@ -6,6 +6,7 @@
 @import "./loading";
 @import "./widgets";
 @import "./showcase";
+@import "./img";
 
 // material custom
 @import "./mat/card";
@@ -20,6 +21,7 @@
   @include loading-color($config-or-theme);
   @include widgets-color($config-or-theme);
   @include showcase-color($config-or-theme);
+  @include img-color($config-or-theme);
 
   // material custom ui
   @include mat-card-color($config-or-theme);

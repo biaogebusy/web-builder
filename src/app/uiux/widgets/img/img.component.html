@@ -1,3 +1,8 @@
 <ng-container *ngIf="content">
   <img class="lazyload" [ngClass]="content.classes" data-src="{{content.src}}" [alt]="content.alt">
+  <div class="overlay-details" *ngIf="content.overlay">
+    <ng-container *ngFor="let link of content.overlay">
+      <app-link [content]="link"></app-link>
+    </ng-container>
+  </div>
 </ng-container>

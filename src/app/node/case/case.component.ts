@@ -29,7 +29,7 @@ export class CaseComponent implements OnInit {
       'fields[node--case]=title,created,medias,field_tags,drupal_internal__nid,path',
       'include=medias,medias.field_media_image,field_tags',
       'fields[file--file]=uri',
-      'fields[taxonomy_term--industry]=name'
+      'fields[taxonomy_term--industry]=name',
     ].join('&');
 
     this.nodeService.getNodes('case', params).subscribe((res) => {
@@ -38,12 +38,25 @@ export class CaseComponent implements OnInit {
       this.content.elements = map(res.data, (item) => {
         const attr = item.attributes;
         const mediaId = item.relationships.medias.data[0].id;
-        const imgId = this.relations[mediaId].relationships.field_media_image.data.id;
+        const imgId = this.relations[mediaId].relationships.field_media_image
+          .data.id;
         return {
           body: attr.created,
           img: {
             src: this.relations[imgId].attributes.uri.url,
             hostClasses: 'display-block mat-card-image',
+            overlay: [
+              {
+                label: '大图',
+                href: this.relations[imgId].attributes.uri.url,
+              },
+              {
+                label: '更多',
+                href: attr.path.alias
+                  ? attr.path.alias
+                  : `/node/${attr.drupal_internal__nid}`,
+              },
+            ],
           },
           link: {
             label: attr.title,
