@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import SwiperCore from 'swiper/core';
 // https://swiperjs.com/angular
 
@@ -8,6 +8,7 @@ import SwiperCore from 'swiper/core';
   styleUrls: ['./swiper.component.scss'],
 })
 export class SwiperComponent implements OnInit {
+  @Input() content: any;
   constructor() {}
 
   ngOnInit(): void {}

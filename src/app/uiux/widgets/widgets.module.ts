@@ -10,6 +10,7 @@ import { LinkComponent } from './link/link.component';
 import { CardComponent } from './card/card.component';
 import { SwiperComponent } from './swiper/swiper.component';
 import { ImgComponent } from './img/img.component';
+import { DynamicWidgetsComponent } from './dynamic-widgets/dynamic-widgets.component';
 
 const components = [
   ChipListComponent,
@@ -19,6 +20,7 @@ const components = [
   CardComponent,
   SwiperComponent,
   ImgComponent,
+  DynamicWidgetsComponent,
 ];
 
 @NgModule({

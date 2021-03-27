@@ -1,5 +1,7 @@
-<swiper [slidesPerView]="3" [spaceBetween]="50" (swiper)="onSwiper($event)" (slideChange)="onSlideChange()">
-  <ng-template swiperSlide>Slide 1</ng-template>
-  <ng-template swiperSlide>Slide 2</ng-template>
-  <ng-template swiperSlide>Slide 3</ng-template>
-</swiper>
+<ng-container *ngIf="content">
+  <swiper [slidesPerView]="3" [spaceBetween]="50" (swiper)="onSwiper($event)" (slideChange)="onSlideChange()">
+    <ng-template swiperSlide *ngFor="let slide of content.elements">
+      <app-dynamic-widgets *ngIf="slide" [content]="slide"></app-dynamic-widgets>
+    </ng-template>
+  </swiper>
+</ng-container>

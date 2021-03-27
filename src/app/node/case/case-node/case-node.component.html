@@ -1,1 +1,15 @@
-<p>case-node works!</p>
+<ng-container *ngIf="content">
+  <div class="case-node p-y-sm m-y-sm container" fxLayout.xs="column" fxLayout.gt-xs="row" fxLayoutAlign="center start">
+    <div class="case-carousel" fxFlex.xs="100" fxFlex.gt-xs="50">
+      <app-swiper [content]="content.carousel">
+      </app-swiper>
+    </div>
+    <div class="case-body m-bottom" fxFlex.xs="100" fxFlex.gt-xs="50">
+      <h2 class="case-title mat-h2">{{content.title}}</h2>
+      <div [innerHTML]="content.body"></div>
+      <div class="case-footer m-top">
+        <a mat-raised-button color="primary" href="{{content.site.href}}">{{content.site.label}}</a>
+      </div>
+    </div>
+  </div>
+</ng-container>

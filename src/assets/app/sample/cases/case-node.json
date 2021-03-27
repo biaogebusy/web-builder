@@ -1,4 +1,5 @@
 {
+  "title": "page title",
   "body": [{
     "type": "case",
     "title": "Drupal 中国",
@@ -7,24 +8,29 @@
       "href": "http://drupalchina.cn",
       "label": "预览"
     },
-    "carousel": [{
-      "src": "/assets/images/cases/porto1.jpg",
-      "alt": "案例"
-    }, {
-      "src": "/assets/images/cases/porto2.jpg",
-      "alt": "案例"
-    }, {
-      "src": "/assets/images/cases/porto3.jpg",
-      "alt": "案例"
-    }, {
-      "src": "/assets/images/cases/porto4.jpg",
-      "alt": "案例"
-    }, {
-      "src": "/assets/images/cases/porto5.jpg",
-      "alt": "案例"
-    }, {
-      "src": "/assets/images/cases/porto6.jpg",
-      "alt": "案例"
-    }]
+    "carousel": {
+      "params": {
+        "slidesPerView": 1
+      },
+      "elements": [{
+        "src": "/assets/images/cases/porto1.jpg",
+        "alt": "案例"
+      }, {
+        "src": "/assets/images/cases/porto2.jpg",
+        "alt": "案例"
+      }, {
+        "src": "/assets/images/cases/porto3.jpg",
+        "alt": "案例"
+      }, {
+        "src": "/assets/images/cases/porto4.jpg",
+        "alt": "案例"
+      }, {
+        "src": "/assets/images/cases/porto5.jpg",
+        "alt": "案例"
+      }, {
+        "src": "/assets/images/cases/porto6.jpg",
+        "alt": "案例"
+      }]
+    }
   }]
 }
