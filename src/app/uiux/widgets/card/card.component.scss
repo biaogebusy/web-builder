@@ -1,3 +1,41 @@
+@import "../../../../theme/mixins/mixins.scss";
 .card-body {
   min-height: 2.4em;
+}
+.card-header {
+  position: relative;
+  margin-top: -16px !important;
+  ::ng-deep .swiper-container {
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
+    width: calc(100% + 32px);
+    margin: 0 -16px 16px -16px;
+  }
+  .overlay-details {
+    position: absolute;
+    z-index: 1000;
+    width: 100%;
+    text-align: center;
+    @include middle-center();
+    ::ng-deep a {
+      opacity: 0;
+      @include transform(20deg, 0, 0, 0);
+      display: inline-block;
+      position: relative;
+      z-index: 1;
+      font-size: 13px;
+      padding: 9px 13px;
+      margin-right: 10px;
+      @include transition(all, 0.4s, ease);
+    }
+  }
+  &:hover {
+    .overlay-details {
+      ::ng-deep a {
+        @include transform(0deg, 1, 0, 0);
+        opacity: 1;
+        @include transition(all, 0.4s, ease);
+      }
+    }
+  }
 }

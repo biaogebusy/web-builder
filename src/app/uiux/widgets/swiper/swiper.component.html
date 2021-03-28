@@ -1,15 +1,16 @@
-<ng-container *ngIf="appState.ready && content">
-  <div class="swiper-container" [swiper]="config">
+<ng-container *ngIf="appState.ready && config">
+  <div class="swiper-container" *ngIf="content.elements.length > 0" [swiper]="config">
     <div class="swiper-wrapper">
       <div class="swiper-slide" *ngFor="let slide of content.elements">
         <app-dynamic-widgets [content]="slide"></app-dynamic-widgets>
       </div>
     </div>
 
-    <div class="swiper-scrollbar"></div>
-    <div class="swiper-pagination"></div>
-
-    <div class="swiper-button-prev"></div>
-    <div class="swiper-button-next"></div>
+    <div *ngIf="config?.scrollbar" class="swiper-scrollbar"></div>
+    <div *ngIf="config?.pagination" class="swiper-pagination"></div>
+    <ng-container *ngIf="config?.navigation">
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
+    </ng-container>
   </div>
 </ng-container>

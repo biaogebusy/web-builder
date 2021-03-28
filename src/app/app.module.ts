@@ -2,7 +2,7 @@ import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-
+import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { MobxAngularModule } from 'mobx-angular';
 import { MobxModule } from './mobx/mobx.module';
@@ -21,6 +21,7 @@ import { AppState } from './mobx/AppState';
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    CommonModule,
     MatSidenavModule,
     LayoutModule,
     MobxAngularModule,

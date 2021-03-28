@@ -1,5 +1,13 @@
 <mat-card *ngIf="content" class="card">
-  <app-img [content]="content.img"></app-img>
+  <div class="card-header">
+    <!-- <app-img [content]="content.img"></app-img> -->
+    <app-swiper [content]="content.carousel"></app-swiper>
+    <div class="overlay-details" *ngIf="content.overlay">
+      <ng-container *ngFor="let link of content.overlay">
+        <app-link [content]="link"></app-link>
+      </ng-container>
+    </div>
+  </div>
   <mat-card-content>
     <mat-card-title *ngIf="content?.title;else link">{{content.title}}</mat-card-title>
     <ng-template #link>

@@ -1,10 +1,10 @@
-<div class="container showcase-2v1 m-y" *ngIf="content">
+<div class="container showcase-2v1 m-y" *ngIf="content" fxLayout="column">
   <h2 class="text-center" *ngIf="content.title">
     {{content.title}}
   </h2>
   <p class="text-center m-top-sm" *ngIf="content.subTitle">{{content.subTitle}}</p>
-  <div class="m-y" fxLayout="row wrap" fxLayoutAlign="center start" fxLayoutGap="1rem">
-    <app-card class="m-bottom-sm" fxFlex.xs="100" fxFlex.sm="0 1 calc(50% - 1rem)" fxFlex.gt-sm="0 1 calc(25% - 1rem)"
+  <div class="m-y" fxLayout="row wrap" fxLayoutAlign="center start" fxLayoutGap="1rem" fxFlex="100%">
+    <app-card class="m-bottom-sm" fxFlex.xs="100" fxFlex.sm="calc(50% - 10px)" fxFlex.gt-sm="0 0 calc(25% - 10px)"
       *ngFor="let case of content.elements" [content]="case">
     </app-card>
   </div>

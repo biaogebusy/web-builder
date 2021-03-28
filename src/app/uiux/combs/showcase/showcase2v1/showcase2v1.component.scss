@@ -6,4 +6,11 @@
     border-right: 0;
     border-bottom-width: 1px;
   }
+  .swiper-pagination {
+    left: auto !important;
+    bottom: auto !important;
+    top: 1rem;
+    right: 1rem;
+    width: auto !important;
+  }
 }

@@ -146,7 +146,6 @@ export class AppState {
   }
 
   updatePage(pageValue: IPage, title: string): void {
-    console.log(pageValue);
     this.state.page = pageValue;
     this.titleService.setTitle(title);
   }

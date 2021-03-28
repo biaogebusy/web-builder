@@ -31,7 +31,8 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/swiper/swiper-bundle.css"
             ],
             "scripts": [
               "node_modules/lazysizes/lazysizes.min.js"
