@@ -1,7 +1,9 @@
 <mat-card *ngIf="content" class="card">
   <div class="card-header">
-    <!-- <app-img [content]="content.img"></app-img> -->
-    <app-swiper [content]="content.carousel"></app-swiper>
+    <app-swiper *ngIf="content.carousel;else img" [content]="content.carousel"></app-swiper>
+    <ng-template #img>
+      <app-img [content]="content.img"></app-img>
+    </ng-template>
     <div class="overlay-details" *ngIf="content.overlay">
       <ng-container *ngFor="let link of content.overlay">
         <app-link [content]="link"></app-link>

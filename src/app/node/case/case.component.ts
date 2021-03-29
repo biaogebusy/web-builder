@@ -43,10 +43,6 @@ export class CaseComponent implements OnInit {
           .field_media_image.data.id;
         return {
           body: attr.created,
-          img: {
-            src: this.relations[imgFirstId].attributes.uri.url,
-            hostClasses: 'display-block',
-          },
           carousel: {
             params: {
               slidesPerView: 1,

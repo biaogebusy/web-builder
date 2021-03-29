@@ -10,7 +10,8 @@ import { RouteService } from '../../service/route.service';
 import { Params, ActivatedRoute } from '@angular/router';
 import { AppState } from '../../mobx/AppState';
 import { gsap } from 'gsap';
-const feature = [
+import { ICard } from '../../uiux/widgets/IWidgets';
+const feature: ICard[] = [
   {
     title: 'Material UI',
     body: 'Material UI 有完善的主题颜色系统，有优秀的性能和用户体验。',
