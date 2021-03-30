@@ -1,6 +1,7 @@
 <mat-card *ngIf="content" class="card">
   <div class="card-header">
-    <app-swiper *ngIf="content.carousel;else img" [content]="content.carousel"></app-swiper>
+    <app-swiper *ngIf="content?.carousel;else img" [content]="content.carousel">
+    </app-swiper>
     <ng-template #img>
       <app-img [content]="content.img"></app-img>
     </ng-template>
@@ -17,6 +18,9 @@
         <app-link [content]="content.link"></app-link>
       </mat-card-title>
     </ng-template>
+    <mat-card-subtitle *ngIf="content?.subTitle">
+      {{content.subTitle}}
+    </mat-card-subtitle>
     <p class="card-body">
       {{content.body}}
     </p>

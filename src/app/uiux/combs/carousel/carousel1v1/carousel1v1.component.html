@@ -1,1 +1,6 @@
-<p>carousel1v1 works!</p>
+<ng-container *ngIf="content">
+  <div class="container p-y">
+    <h2 class="mat-h2 text-center" [innerHTML]="content.title"></h2>
+    <app-swiper [content]="content.sliders"></app-swiper>
+  </div>
+</ng-container>

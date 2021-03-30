@@ -1,5 +1,6 @@
 export interface ICard {
   title?: string;
+  subTitle?: string;
   body: string;
   img?: {
     src: string;

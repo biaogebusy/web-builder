@@ -1,66 +1,91 @@
 {
   "mate": {},
-  "title": "国内 Drupal 网站案例",
+  "title": "carousel 1v1",
   "body": [{
-    "type": "showcase-2v1",
-    "title": "国内 Drupal 网站案例",
-    "subTitle": "分享 Drupal 优秀的数字创新体验",
-    "elements": [{
-      "body": "2016/03/04",
-      "img": "/assets/images/cases/porto1.jpg",
-      "link": {
-        "href": "/node/1",
-        "label": "FLAT LOGO DESIGN"
-      }
-    }, {
-      "body": "2016/02/26",
-      "img": "/assets/images/cases/porto2.jpg",
-      "link": {
-        "href": "/node/1",
-        "label": "FLAT LOGO DESIGN"
-      }
-    }, {
-      "body": "2016/02/26",
-      "img": "/assets/images/cases/porto3.jpg",
-      "link": {
-        "href": "/node/1",
-        "label": "FLAT LOGO DESIGN"
-      }
-    }, {
-      "body": "2016/02/26",
-      "img": "/assets/images/cases/porto4.jpg",
-      "link": {
-        "href": "/node/1",
-        "label": "FLAT LOGO DESIGN"
-      }
-    }, {
-      "body": "2016/02/26",
-      "img": "/assets/images/cases/porto5.jpg",
-      "link": {
-        "href": "/node/1",
-        "label": "FLAT LOGO DESIGN"
-      }
-    }, {
-      "body": "2016/02/26",
-      "img": "/assets/images/cases/porto6.jpg",
-      "link": {
-        "href": "/node/1",
-        "label": "FLAT LOGO DESIGN"
-      }
-    }, {
-      "body": "2016/02/26",
-      "img": "/assets/images/cases/porto7.jpg",
-      "link": {
-        "href": "/node/1",
-        "label": "FLAT LOGO DESIGN"
-      }
-    }, {
-      "body": "2016/02/26",
-      "img": "/assets/images/cases/porto8.jpg",
-      "link": {
-        "href": "/node/1",
-        "label": "FLAT LOGO DESIGN"
-      }
-    }]
+    "type": "carousel1v1",
+    "title": "MEET THE TEAM",
+    "sliders": {
+      "params": {
+        "slidesPerView": 3
+      },
+      "elements": [{
+        "type": "card",
+        "title": "JOHNSON",
+        "subTitle": "Frontend Devel",
+        "body": "Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. ",
+        "img": {
+          "type": "img",
+          "src": "/assets/images/cases/porto1.jpg",
+          "alt": "案例",
+          "hostClasses": "mat-card-image display-block"
+        }
+      }, {
+        "type": "card",
+        "img": {
+          "type": "img",
+          "src": "/assets/images/cases/porto2.jpg",
+          "alt": "案例",
+          "hostClasses": "mat-card-image display-block"
+        },
+        "title": "JOHNSON",
+        "subTitle": "Frontend Devel",
+        "body": "Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. "
+      }, {
+        "type": "card",
+        "img": {
+          "type": "img",
+          "src": "/assets/images/cases/porto3.jpg",
+          "alt": "案例",
+          "hostClasses": "mat-card-image display-block"
+        },
+        "title": "Will",
+        "subTitle": "Frontend Devel",
+        "body": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr. "
+      }, {
+        "type": "card",
+        "img": {
+          "type": "img",
+          "src": "/assets/images/cases/porto4.jpg",
+          "alt": "案例",
+          "hostClasses": "mat-card-image display-block"
+        },
+        "title": "Tamy",
+        "subTitle": "Backend Devel",
+        "body": "Sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum."
+      }, {
+        "type": "card",
+        "img": {
+          "type": "img",
+          "src": "/assets/images/cases/porto5.jpg",
+          "alt": "案例",
+          "hostClasses": "mat-card-image display-block"
+        },
+        "title": "Ada",
+        "subTitle": "Frontend Devel",
+        "body": "Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat."
+      }, {
+        "type": "card",
+        "img": {
+          "type": "img",
+          "src": "/assets/images/cases/porto6.jpg",
+          "alt": "案例",
+          "hostClasses": "mat-card-image display-block"
+        },
+        "title": "MeiMei",
+        "subTitle": "Frontend Devel",
+        "body": "Vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim."
+      }, {
+        "type": "card",
+        "img": {
+          "type": "img",
+          "src": "/assets/images/cases/porto7.jpg",
+          "alt": "案例",
+          "hostClasses": "mat-card-image display-block"
+        },
+        "title": "Nikki",
+        "subTitle": "BA Test",
+        "body": "Consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat."
+      }]
+    }
   }]
 }

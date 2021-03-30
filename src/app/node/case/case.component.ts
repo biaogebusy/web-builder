@@ -50,6 +50,7 @@ export class CaseComponent implements OnInit {
               autoplay: {
                 delay: 5000,
               },
+              breakpoints: null,
             },
             elements: map(medias, (img) => {
               const imgFiledId = this.relations[img.id].relationships
