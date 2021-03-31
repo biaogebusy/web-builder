@@ -1,6 +1,6 @@
 <ng-container *ngIf="content">
   <div class="container p-y">
-    <h2 class="mat-h2 text-center" [innerHTML]="content.title"></h2>
+    <app-title [content]="content.title"></app-title>
     <app-swiper [content]="content.sliders"></app-swiper>
   </div>
 </ng-container>

@@ -1,0 +1,125 @@
+@import "../../../../theme/mixins/amixin";
+.title {
+  &.style01,
+  &.style02,
+  &.style03,
+  &.style04,
+  &.style05,
+  &.style06 {
+    text-transform: uppercase;
+    position: relative;
+    .title-header {
+      font-size: 30px;
+      font-weight: 400;
+      letter-spacing: 1px;
+      margin-bottom: 40px;
+      padding-bottom: 20px;
+      position: relative;
+      line-height: 40px;
+    }
+    .line-style {
+      bottom: 0;
+      height: 1px;
+      position: absolute;
+      width: 33%;
+
+      &:before {
+        content: "";
+        display: block;
+        height: 1px;
+        position: absolute;
+        width: 100px;
+        @include transition(all, 0.4s, ease);
+      }
+      .mat-icon {
+        display: block;
+        font-size: 20px;
+        height: 40px;
+        line-height: 40px;
+        position: absolute;
+        text-align: center;
+        top: -20px;
+        width: 40px;
+      }
+    }
+    &:hover {
+      .line-style {
+        &:before {
+          width: 75%;
+        }
+      }
+    }
+    &.small {
+      .title-header {
+        font-size: 22px;
+      }
+    }
+  }
+  &.style01,
+  &.style02,
+  &.style03 {
+    // Center title
+    text-align: center;
+    .line-style {
+      left: 50%;
+      @include translateX(-50%);
+      &:before {
+        left: 50%;
+        @include translateX(-50%);
+      }
+    }
+    .mat-icon {
+      left: 50%;
+      @include translateX(-50%);
+    }
+  }
+  &.style01 {
+    // Dot between line bottom
+    .line-style {
+      span {
+        display: block;
+        height: 10px;
+        position: absolute;
+        top: -5px;
+        width: 10px;
+        -webkit-border-radius: 100% 100% 100% 100%;
+        -moz-border-radius: 100% 100% 100% 100%;
+        border-radius: 100% 100% 100% 100%;
+        left: 50%;
+        @include translateX(-50%);
+      }
+    }
+  }
+  &.style04 {
+    // Dot left line bottom
+    .line-style {
+      span {
+        display: block;
+
+        height: 10px;
+        position: absolute;
+        top: -5px;
+        width: 10px;
+        -webkit-border-radius: 100% 100% 100% 100%;
+        -moz-border-radius: 100% 100% 100% 100%;
+        border-radius: 100% 100% 100% 100%;
+      }
+    }
+  }
+  &.style03,
+  &.style06 {
+    // light title
+    .title-header {
+      font-weight: 300;
+    }
+  }
+  &.style07 {
+    // Main color title
+    .title-header {
+      font-family: "Oswald", sans-serif;
+      font-weight: 400;
+      font-size: 24px;
+      line-height: 33px;
+    }
+  }
+}

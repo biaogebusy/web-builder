@@ -13,6 +13,7 @@ import { DynamicWidgetsComponent } from './dynamic-widgets/dynamic-widgets.compo
 import { SwiperModule } from 'ngx-swiper-wrapper';
 import { SWIPER_CONFIG } from 'ngx-swiper-wrapper';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
+import { TitleComponent } from './title/title.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -27,6 +28,7 @@ const components = [
   CardComponent,
   SwiperComponent,
   ImgComponent,
+  TitleComponent,
   DynamicWidgetsComponent,
 ];
 

@@ -4,7 +4,8 @@
   "homepage": "https://biaogebusy.github.io/job-angular",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --hmr -o",
+    "start": "ng serve",
+    "start-hmr": "ng serve --hmr -o",
     "build": "ng build --prod --aot=true --buildOptimizer=true",
     "test": "ng test",
     "lint": "ng lint",

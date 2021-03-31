@@ -7,6 +7,7 @@
 @import "./widgets";
 @import "./showcase";
 @import "./img";
+@import "./title";
 
 // material custom
 @import "./mat/card";
@@ -22,6 +23,7 @@
   @include widgets-color($config-or-theme);
   @include showcase-color($config-or-theme);
   @include img-color($config-or-theme);
+  @include title-color($config-or-theme);
 
   // material custom ui
   @include mat-card-color($config-or-theme);
