@@ -5,11 +5,14 @@
 .card-header {
   position: relative;
   margin-top: -16px !important;
-  ::ng-deep .swiper-container {
-    border-top-left-radius: inherit;
-    border-top-right-radius: inherit;
-    width: calc(100% + 32px);
-    margin: 0 -16px 16px -16px;
+
+  ::ng-deep {
+    .swiper-container {
+      border-top-left-radius: inherit;
+      border-top-right-radius: inherit;
+      width: calc(100% + 32px);
+      margin: 0 -16px 16px -16px;
+    }
   }
   .overlay-details {
     position: absolute;
@@ -36,6 +39,13 @@
         opacity: 1;
         @include transition(all, 0.4s, ease);
       }
+    }
+  }
+}
+.mat-card-content {
+  ::ng-deep {
+    .mat-card-title {
+      font-size: 16px;
     }
   }
 }
