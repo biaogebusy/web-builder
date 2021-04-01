@@ -1,6 +1,9 @@
 <ng-container *ngIf="content">
-  <div class="container p-y">
-    <app-title [content]="content.title"></app-title>
-    <app-swiper [content]="content.sliders"></app-swiper>
+  <div class="position-relative" [ngClass]="content.classes">
+    <app-bg [content]="content.bg"></app-bg>
+    <div class="container p-y">
+      <app-title [content]="content.title"></app-title>
+      <app-swiper [content]="content.sliders"></app-swiper>
+    </div>
   </div>
 </ng-container>

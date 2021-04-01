@@ -2,6 +2,7 @@ export interface ICard {
   title?: string;
   subTitle?: string;
   body: string;
+  classes?: any;
   img?: {
     src: string;
     alt?: string;

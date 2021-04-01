@@ -45,6 +45,14 @@
   .mat-drawer-container {
     color: $text-base;
   }
+
+  .bg-white {
+    background-color: mat-color($background, card);
+  }
+
+  .bg-shadow {
+    background-color: mat-color($background, app-bar); // grey, 50
+  }
 }
 
 // @include branding(map-get($colors, base), 'base');

@@ -1,4 +1,4 @@
-<mat-card *ngIf="content" class="card">
+<mat-card *ngIf="content" class="card" [ngClass]="content.classes">
   <div class="card-header">
     <app-swiper *ngIf="content?.carousel;else img" [content]="content.carousel">
     </app-swiper>

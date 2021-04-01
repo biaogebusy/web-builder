@@ -49,3 +49,11 @@
     }
   }
 }
+
+// style
+.card {
+  &.card-no-shadow {
+    box-shadow: none;
+    background-color: transparent;
+  }
+}
