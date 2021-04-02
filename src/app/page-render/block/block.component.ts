@@ -3,10 +3,10 @@ import { AppState } from '../../mobx/AppState';
 
 @Component({
   selector: 'app-dynamic',
-  templateUrl: './dynamic.component.html',
-  styleUrls: ['./dynamic.component.scss'],
+  templateUrl: './block.component.html',
+  styleUrls: ['./block.component.scss'],
 })
-export class DynamicComponent implements OnInit {
+export class BlockComponent implements OnInit {
   content: any;
   constructor(public appState: AppState) {}
 

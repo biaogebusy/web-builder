@@ -1,11 +1,11 @@
 @import "../../../../theme/mixins/amixin";
 .title {
-  &.style01,
-  &.style02,
-  &.style03,
-  &.style04,
-  &.style05,
-  &.style06 {
+  &.style-01,
+  &.style-02,
+  &.style-03,
+  &.style-04,
+  &.style-05,
+  &.style-06 {
     text-transform: uppercase;
     position: relative;
     .title-header {
@@ -55,9 +55,9 @@
       }
     }
   }
-  &.style01,
-  &.style02,
-  &.style03 {
+  &.style-01,
+  &.style-02,
+  &.style-03 {
     // Center title
     text-align: center;
     .line-style {
@@ -73,7 +73,7 @@
       @include translateX(-50%);
     }
   }
-  &.style01 {
+  &.style-01 {
     // Dot between line bottom
     .line-style {
       span {
@@ -90,7 +90,7 @@
       }
     }
   }
-  &.style04 {
+  &.style-04 {
     // Dot left line bottom
     .line-style {
       span {
@@ -106,14 +106,14 @@
       }
     }
   }
-  &.style03,
-  &.style06 {
+  &.style-03,
+  &.style-06 {
     // light title
     .title-header {
       font-weight: 300;
     }
   }
-  &.style07 {
+  &.style-07 {
     // Main color title
     .title-header {
       font-family: "Oswald", sans-serif;

@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { DynamicComponent } from './dynamic/dynamic.component';
+import { BlockComponent } from './block/block.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: DynamicComponent,
+    component: BlockComponent,
   },
 ];
 

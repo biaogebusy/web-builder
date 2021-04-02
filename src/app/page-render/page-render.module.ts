@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ShareModule } from '../share/share.module';
 import { UiuxModule } from '../uiux/uiux.module';
 import { NodeModule } from '../node/node.module';
-import { DynamicComponent } from './dynamic/dynamic.component';
+import { BlockComponent } from './block/block.component';
 import { PageRoutingModule } from './page-routing.module';
 
 const modules = [
@@ -14,7 +14,7 @@ const modules = [
   PageRoutingModule,
 ];
 @NgModule({
-  declarations: [DynamicComponent],
+  declarations: [BlockComponent],
   imports: [...modules],
 })
 export class PageRenderModule {}
