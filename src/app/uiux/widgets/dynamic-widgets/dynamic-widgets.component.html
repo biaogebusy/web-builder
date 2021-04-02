@@ -1,5 +1,6 @@
 <ng-container *ngIf="ready && content">
   <ng-container [ngSwitch]="content.type">
+    <app-bg *ngSwitchCase="'title'" [content]="content"></app-bg>
     <app-bg *ngSwitchCase="'bg'" [content]="content"></app-bg>
     <app-img *ngSwitchCase="'img'" [content]="content"></app-img>
     <app-card *ngSwitchCase="'card'" [content]="content"></app-card>

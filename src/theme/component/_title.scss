@@ -9,12 +9,12 @@
   $warn: map-get($config, warn);
 
   .title {
-    &.style01,
-    &.style02,
-    &.style03,
-    &.style04,
-    &.style05,
-    &.style06 {
+    &.style-v1,
+    &.style-v2,
+    &.style-v3,
+    &.style-v4,
+    &.style-v5,
+    &.style-v6 {
       .line-style {
         background: rgba(0, 0, 0, 0.07);
         &:before {
@@ -26,7 +26,7 @@
         }
       }
     }
-    &.style01 {
+    &.style-v1 {
       .line-style {
         span {
           background: mat-color($background, card);
@@ -34,7 +34,7 @@
         }
       }
     }
-    &.style04 {
+    &.style-v4 {
       .line-style {
         span {
           background: mat-color($background, card);
@@ -42,7 +42,7 @@
         }
       }
     }
-    &.style07 {
+    &.style-v7 {
       .title-header {
         color: mat-color($primary);
       }

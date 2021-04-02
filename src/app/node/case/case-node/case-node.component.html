@@ -6,7 +6,7 @@
       </app-swiper>
     </div>
     <div class="case-body m-bottom p-x-sm" fxFlex.xs="100" fxFlex.gt-xs="50">
-      <h2 class="case-title mat-h2">{{content.title}}</h2>
+      <app-title [content]="content.title"></app-title>
       <div [innerHTML]="content.body"></div>
       <div class="case-footer m-top">
         <a mat-raised-button title="{{content.site.label}}" target="_blank" color="primary"
