@@ -12,8 +12,6 @@
       @include transition(all, 0.3s, ease-out);
       font-size: 30px;
       display: inline-block;
-      line-height: 70px;
-      color: #141414;
     }
   }
   .box-title {
@@ -29,11 +27,7 @@
     line-height: 24px;
     padding-bottom: 40px;
   }
-  &:hover {
-    .box-title {
-      color: #1ccdca;
-    }
-  }
+
   &.small-box {
     .box-icon {
       width: 53px;
@@ -46,11 +40,7 @@
       height: 70px;
     }
   }
-  &.title-color {
-    .box-title {
-      color: #1ccdca;
-    }
-  }
+
   // Box with left icon
   &.box-left {
     margin-bottom: 40px;
@@ -107,11 +97,9 @@
   &.box-square,
   &.box-circle {
     .box-icon {
-      border: solid 1px #1ccdca;
-      i,
+      .mat-icon,
       img {
         @include middle-center();
-        color: #1ccdca;
         z-index: 1;
       }
     }
@@ -132,20 +120,7 @@
       @include border-radius(3px, 3px, 3px, 3px);
     }
   }
-  // Box background icon
-  &.box-background {
-    .box-icon {
-      background-color: #1ccdca;
-      .mat-icon {
-        color: #fff;
-      }
-    }
-    &:hover {
-      .box-title {
-        color: #1ccdca;
-      }
-    }
-  }
+
   &.box-center {
     .box-icon {
       margin: 0 auto;
@@ -190,40 +165,7 @@
       }
     }
   }
-  &.hover-bg-color {
-    &:hover {
-      .box-icon {
-        background-color: #1ccdca;
-        .mat-icon {
-          color: #fff;
-        }
-      }
-    }
-  }
-  &.bg-dark-overlay {
-    .box-icon {
-      background: rgba(0, 0, 0, 0.4);
-    }
-  }
-  &.bg-box-gray {
-    .box-icon {
-      background: #576162; //Corduroy
-      border: 0 none;
-    }
-  }
-  &.thick-border-transparent {
-    .box-icon {
-      border: solid 7px #593652;
-    }
-    &:hover {
-      .box-icon {
-        background-color: #fff;
-      }
-      .mat-icon {
-        color: #1ccdca;
-      }
-    }
-  }
+
   &.style-v1,
   &.style-v2 {
     position: relative;
@@ -236,32 +178,17 @@
       border: 0;
       z-index: 100;
       @include translateX(-50%);
-      background: #fff;
       .mat-icon {
         height: 60px;
         line-height: 60px;
         width: 60px;
-        background: #1ccdca;
-        color: #fff;
-        &.color-green {
-          background: #92c135;
-        }
-        &.color-blue {
-          background: #0072a5;
-        }
-        &.color-red {
-          background: #e85f1b;
-        }
       }
     }
     .box-content-wrapper {
-      border: 1px solid #e7e7e7;
       @include border-radius(3px, 3px, 3px, 3px);
       padding: 55px 15px 45px;
-      background: #fff;
       position: relative;
       &:before {
-        border: 1px solid #e7e7e7;
         content: "";
         display: block;
         height: 80px;
@@ -296,8 +223,6 @@
       }
     }
     .read-more {
-      background: #fff;
-      border: 1px solid #e7e7e7;
       bottom: -17px;
       color: transparent;
       display: block;
@@ -306,10 +231,10 @@
       position: absolute;
       width: 35px;
       left: 50%;
+      box-sizing: border-box;
       @include translateX(-50%);
       @include border-radius(100%, 100%, 100%, 100%);
       span {
-        background: #c4c2c2;
         display: block;
         height: 11px;
         left: 16px;
@@ -317,7 +242,6 @@
         top: 11px;
         width: 1px;
         &:after {
-          background: #c4c2c2;
           content: "";
           display: block;
           height: 1px;
@@ -328,11 +252,9 @@
         }
       }
       &:hover {
-        border: solid 1px #1ccdca;
         cursor: pointer;
         span,
         span::after {
-          background: #1ccdca;
         }
       }
     }
@@ -350,33 +272,14 @@
       .mat-icon {
         position: absolute;
         left: 50%;
+        width: 30px;
+        height: 30px;
         @include middle-center();
         z-index: 1;
       }
     }
   }
   &.style-v1 {
-    &.bg-box-green {
-      .box-icon {
-        .mat-icon {
-          background: #92c135;
-        }
-      }
-    }
-    &.bg-box-blue {
-      .box-icon {
-        .mat-icon {
-          background: #0072a5;
-        }
-      }
-    }
-    &.bg-box-red {
-      .box-icon {
-        .mat-icon {
-          background: #e85f1b;
-        }
-      }
-    }
     .box-icon {
       width: 78px;
       height: 78px;
@@ -401,12 +304,6 @@
       .box-icon {
         @include translateXAndRotate(-50%, 45deg);
       }
-      .box-title {
-        color: #1ccdca;
-        a {
-          color: #1ccdca;
-        }
-      }
       .box-content-wrapper {
         &:before {
           @include translateXAndRotate(-50%, 45deg);
@@ -419,7 +316,7 @@
     .box-icon {
       top: -40px;
       @include border-radius(100%, 100%, 100%, 100%);
-      i,
+      .mat-icon,
       img {
         height: 70px;
         line-height: 70px;
@@ -455,13 +352,12 @@
   &.style-v6 {
     .box-icon {
       @include border-radius(50%, 50%, 50%, 50%);
-      border: solid 1px #1ccdca;
 
       .mat-icon {
-        color: #1ccdca;
+        width: 30px;
+        height: 30px;
       }
       &:before {
-        background: #1ccdca;
         content: "";
         display: block;
         margin: 0 auto;
@@ -483,14 +379,9 @@
     &:hover {
       .box-icon {
         &:before {
-          background-color: #1ccdca;
           @include translateAndScale(-50%, -50%, 1);
           @include transition(all, 0.4, ease);
           opacity: 1;
-          color: #fff;
-        }
-        .mat-icon {
-          color: #fff;
         }
       }
     }
@@ -499,18 +390,15 @@
   &.style-v4,
   &.style-v7 {
     .box-icon {
-      border: solid 1px #1ccdca;
       @include border-radius(100%, 100%, 100%, 100%);
-      i,
+      .mat-icon,
       img {
         @include middle-center();
         z-index: 1;
         height: 74px;
         line-height: 70px;
         width: 74px;
-        color: #fff;
         &:after {
-          background: #1ccdca;
           content: "";
           display: block;
           height: 100%;
@@ -527,9 +415,7 @@
     }
     &:hover {
       .box-icon {
-        background-color: transparent;
         .mat-icon {
-          color: #1ccdca;
           &:after {
             opacity: 0;
             @include translateAndScale(-50%, -50%, 0);
@@ -558,15 +444,10 @@
     .box-icon {
       width: 70px;
       height: 70px;
-      background: #576162; //Corduroy
       border: 0 none;
       @include border-radius(100%, 100%, 100%, 100%);
       .mat-icon {
-        color: #fff;
       }
-    }
-    .box-title {
-      color: #1ccdca;
     }
   }
   &.style-v9,
@@ -575,28 +456,15 @@
       width: 53px;
       height: 53px;
       line-height: 53px;
-      background: rgba(0, 0, 0, 0.4);
       border: 0 none;
       @include border-radius(100%, 100%, 100%, 100%);
       .mat-icon {
-        color: #fff;
         font-size: 18px;
         line-height: 53px;
       }
     }
     .box-content-wrapper {
       margin-left: 75px;
-      .box-content {
-        color: #aaa;
-      }
-    }
-    &:hover {
-      .box-icon {
-        background: #1ccdca;
-      }
-      .box-title {
-        color: #1ccdca;
-      }
     }
   }
   &.style10 {
@@ -612,19 +480,7 @@
   }
   &.style-v5 {
     .box-icon {
-      border: solid 1px #1ccdca;
       @include border-radius(3px, 3px, 3px, 3px);
-      .mat-icon {
-        color: #1ccdca;
-      }
-    }
-    .box-content-wrapper {
-      .box-title {
-        color: #fff;
-      }
-      .box-content {
-        color: #aaa;
-      }
     }
     &.box-left {
       .box-content-wrapper {
@@ -635,24 +491,6 @@
       .box-content-wrapper {
         margin-right: 75px;
       }
-    }
-    &:hover {
-      .box-icon {
-        background: #1ccdca;
-        .mat-icon {
-          color: #fff;
-        }
-      }
-      .box-title {
-        color: #1ccdca;
-      }
-    }
-  }
-
-  // Border color hover
-  &.border-color:hover {
-    .box-icon {
-      border-color: #1ccdca;
     }
   }
 
@@ -671,11 +509,9 @@
         position: relative;
         padding-left: 14px;
         text-transform: uppercase;
-        color: #1ccdca;
         span {
           &:before,
           &:after {
-            background: #1ccdca;
             content: "";
             display: block;
             height: 6px;
