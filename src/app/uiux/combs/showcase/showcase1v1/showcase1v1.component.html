@@ -1,0 +1,84 @@
+<div class="container p-bottom" *ngIf="content">
+  <div class="p-y m-bottom">
+    <app-title *ngIf="content.title" [content]="content.title"></app-title>
+  </div>
+  <div fxLayout.xs="column" fxLayout.gt-xs="row" fxLayoutGap.xs="6rem" fxLayoutGap.gt-xs="3rem">
+    <div *ngFor="let item of content.elements" [ngClass]="content.style" class="inv-builder-box" fxFlex.xs="100"
+      fxFlex.sm="50" fxFlex.md="33.33">
+      <div class="box-icon">
+        <mat-icon>{{item.icon}}</mat-icon>
+      </div>
+      <div class="box-content-wrapper">
+        <h3 class="box-title">
+          <app-link [content]="item.title"></app-link>
+        </h3>
+        <div class="box-content" [innerHTML]="item.content">
+        </div>
+        <div class="read-more"> <a href="{{item.more.href}}"><span>{{item.more.label}}</span></a></div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <div class="style02 inv-builder-box" style="">
+  <div style="" class="box-icon"><i class="ico-tools-2"></i></div>
+  <div class="box-content-wrapper">
+    <h3 class="box-title"><a href="#">SUPER CODING</a></h3>
+    <div class="box-content">There are many variations of demo text passed sages of Lorem Ipsum available the majority.
+    </div>
+    <div class="read-more"> <a href="#"><span>+</span></a></div>
+  </div>
+</div>
+<div class="style03 inv-builder-box" style="">
+  <div style="" class="box-icon"><i class="ico-tools-2"></i></div>
+  <div class="box-content-wrapper">
+    <h3 class="box-title"><a href="#">SUPER CODING</a></h3>
+    <div class="box-content">There are many variations of demo text passed sages of Lorem Ipsum available the majority.
+    </div>
+    <div class="read-more"> <a href="#"><span>+</span></a></div>
+  </div>
+</div>
+<div class="style04 inv-builder-box" style="">
+  <div style="" class="box-icon"><i class="ico-tools-2"></i></div>
+  <div class="box-content-wrapper">
+    <h3 class="box-title"><a href="#">SUPER CODING</a></h3>
+    <div class="box-content">There are many variations of demo text passed sages of Lorem Ipsum available the majority.
+    </div>
+    <div class="read-more"> <a href="#"><span>+</span></a></div>
+  </div>
+</div>
+<div class="style05 inv-builder-box" style="">
+  <div style="" class="box-icon"><i class="ico-tools-2"></i></div>
+  <div class="box-content-wrapper">
+    <h3 class="box-title"><a href="#">SUPER CODING</a></h3>
+    <div class="box-content">There are many variations of demo text passed sages of Lorem Ipsum available the majority.
+    </div>
+    <div class="read-more"> <a href="#"><span>+</span></a></div>
+  </div>
+</div>
+<div class="style03 use-image inv-builder-box" style="">
+  <div style="" class="box-image"><img src="http://enar.zhaobg.com/sites/default/files/browser.png"></div>
+  <div class="box-content-wrapper">
+    <h3 class="box-title"><a href="#">SUPER CODING</a></h3>
+    <div class="box-content">There are many variations of demo text passed sages of Lorem Ipsum available the majority.
+    </div>
+    <div class="read-more"> <a href="#"><span>+</span></a></div>
+  </div>
+</div>
+<div class="style06 inv-builder-box" style="">
+  <div style="" class="box-icon"><i class="ico-tools-2"></i></div>
+  <div class="box-content-wrapper">
+    <h3 class="box-title"><a href="#">SUPER CODING</a></h3>
+    <div class="box-content">There are many variations of demo text passed sages of Lorem Ipsum available the majority.
+    </div>
+    <div class="read-more"> <a href="#"><span>Read More</span></a></div>
+  </div>
+</div>
+<div class="style07 inv-builder-box" style="">
+  <div style="" class="box-icon"><i class="ico-tools-2"></i></div>
+  <div class="box-content-wrapper">
+    <h3 class="box-title"><a href="#">SUPER CODING</a></h3>
+    <div class="box-content">There are many variations of demo text passed sages of Lorem Ipsum available the majority.
+    </div>
+    <div class="read-more"> <a href="#"><span>Read More</span></a></div>
+  </div>
+</div> -->

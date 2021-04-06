@@ -1,0 +1,369 @@
+{
+  "body": [{
+      "type": "showcase-1v1",
+      "title": {
+        "label": "Showcase 1 v1",
+        "style": "style-v1"
+      },
+      "style": "style-v1",
+      "elements": [{
+        "icon": "menu",
+        "title": {
+          "href": "#",
+          "label": "SUPER CODING"
+        },
+        "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority.",
+        "more": {
+          "href": "#",
+          "label": "+"
+        }
+      }, {
+        "icon": "menu",
+        "title": {
+          "href": "#",
+          "label": "BEST USER INTERFACE"
+        },
+        "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority.",
+        "more": {
+          "href": "#",
+          "label": "+"
+        }
+      }, {
+        "icon": "menu",
+        "title": {
+          "href": "#",
+          "label": "UNIQUE DESIGN"
+        },
+        "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority.",
+        "more": {
+          "href": "#",
+          "label": "+"
+        }
+      }, {
+        "icon": "menu",
+        "title": {
+          "href": "#",
+          "label": "EASY TO CUSTOMIZE"
+        },
+        "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority.",
+        "more": {
+          "href": "#",
+          "label": "+"
+        }
+      }]
+    }, {
+      "type": "showcase-1v1",
+      "title": {
+        "label": "Showcase 1 v1",
+        "style": "style-v2"
+      },
+      "style": "style-v2",
+      "elements": [{
+        "icon": "menu",
+        "title": {
+          "href": "#",
+          "label": "SUPER CODING"
+        },
+        "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority.",
+        "more": {
+          "href": "#",
+          "label": "+"
+        }
+      }, {
+        "icon": "menu",
+        "title": {
+          "href": "#",
+          "label": "BEST USER INTERFACE"
+        },
+        "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority.",
+        "more": {
+          "href": "#",
+          "label": "+"
+        }
+      }, {
+        "icon": "menu",
+        "title": {
+          "href": "#",
+          "label": "UNIQUE DESIGN"
+        },
+        "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority.",
+        "more": {
+          "href": "#",
+          "label": "+"
+        }
+      }, {
+        "icon": "menu",
+        "title": {
+          "href": "#",
+          "label": "EASY TO CUSTOMIZE"
+        },
+        "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority.",
+        "more": {
+          "href": "#",
+          "label": "+"
+        }
+      }]
+    }, {
+      "type": "showcase-1v1",
+      "title": {
+        "label": "Showcase 1 v1",
+        "style": "style-v2"
+      },
+      "style": "style-v3",
+      "elements": [{
+        "icon": "menu",
+        "title": {
+          "href": "#",
+          "label": "SUPER CODING"
+        },
+        "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority.",
+        "more": {
+          "href": "#",
+          "label": "+"
+        }
+      }, {
+        "icon": "menu",
+        "title": {
+          "href": "#",
+          "label": "BEST USER INTERFACE"
+        },
+        "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority.",
+        "more": {
+          "href": "#",
+          "label": "+"
+        }
+      }, {
+        "icon": "menu",
+        "title": {
+          "href": "#",
+          "label": "UNIQUE DESIGN"
+        },
+        "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority.",
+        "more": {
+          "href": "#",
+          "label": "+"
+        }
+      }, {
+        "icon": "menu",
+        "title": {
+          "href": "#",
+          "label": "EASY TO CUSTOMIZE"
+        },
+        "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority.",
+        "more": {
+          "href": "#",
+          "label": "+"
+        }
+      }]
+    }, {
+      "type": "showcase-1v1",
+      "title": {
+        "label": "Showcase 1 v1",
+        "style": "style-v2"
+      },
+      "style": "style-v4",
+      "elements": [{
+        "icon": "menu",
+        "title": {
+          "href": "#",
+          "label": "SUPER CODING"
+        },
+        "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority.",
+        "more": {
+          "href": "#",
+          "label": "+"
+        }
+      }, {
+        "icon": "menu",
+        "title": {
+          "href": "#",
+          "label": "BEST USER INTERFACE"
+        },
+        "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority.",
+        "more": {
+          "href": "#",
+          "label": "+"
+        }
+      }, {
+        "icon": "menu",
+        "title": {
+          "href": "#",
+          "label": "UNIQUE DESIGN"
+        },
+        "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority.",
+        "more": {
+          "href": "#",
+          "label": "+"
+        }
+      }, {
+        "icon": "menu",
+        "title": {
+          "href": "#",
+          "label": "EASY TO CUSTOMIZE"
+        },
+        "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority.",
+        "more": {
+          "href": "#",
+          "label": "+"
+        }
+      }]
+    }, {
+      "type": "showcase-1v1",
+      "title": {
+        "label": "Showcase 1 v1",
+        "style": "style-v2"
+      },
+      "style": "style-v5",
+      "elements": [{
+        "icon": "menu",
+        "title": {
+          "href": "#",
+          "label": "SUPER CODING"
+        },
+        "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority.",
+        "more": {
+          "href": "#",
+          "label": "+"
+        }
+      }, {
+        "icon": "menu",
+        "title": {
+          "href": "#",
+          "label": "BEST USER INTERFACE"
+        },
+        "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority.",
+        "more": {
+          "href": "#",
+          "label": "+"
+        }
+      }, {
+        "icon": "menu",
+        "title": {
+          "href": "#",
+          "label": "UNIQUE DESIGN"
+        },
+        "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority.",
+        "more": {
+          "href": "#",
+          "label": "+"
+        }
+      }, {
+        "icon": "menu",
+        "title": {
+          "href": "#",
+          "label": "EASY TO CUSTOMIZE"
+        },
+        "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority.",
+        "more": {
+          "href": "#",
+          "label": "+"
+        }
+      }]
+    }, {
+      "type": "showcase-1v1",
+      "title": {
+        "label": "Showcase 1 v1",
+        "style": "style-v2"
+      },
+      "style": "style-v6",
+      "elements": [{
+        "icon": "menu",
+        "title": {
+          "href": "#",
+          "label": "SUPER CODING"
+        },
+        "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority.",
+        "more": {
+          "href": "#",
+          "label": "+"
+        }
+      }, {
+        "icon": "menu",
+        "title": {
+          "href": "#",
+          "label": "BEST USER INTERFACE"
+        },
+        "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority.",
+        "more": {
+          "href": "#",
+          "label": "+"
+        }
+      }, {
+        "icon": "menu",
+        "title": {
+          "href": "#",
+          "label": "UNIQUE DESIGN"
+        },
+        "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority.",
+        "more": {
+          "href": "#",
+          "label": "+"
+        }
+      }, {
+        "icon": "menu",
+        "title": {
+          "href": "#",
+          "label": "EASY TO CUSTOMIZE"
+        },
+        "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority.",
+        "more": {
+          "href": "#",
+          "label": "+"
+        }
+      }]
+    }, {
+      "type": "showcase-1v1",
+      "title": {
+        "label": "Showcase 1 v1",
+        "style": "style-v2"
+      },
+      "style": "style-v7",
+      "elements": [{
+        "icon": "menu",
+        "title": {
+          "href": "#",
+          "label": "SUPER CODING"
+        },
+        "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority.",
+        "more": {
+          "href": "#",
+          "label": "+"
+        }
+      }, {
+        "icon": "menu",
+        "title": {
+          "href": "#",
+          "label": "BEST USER INTERFACE"
+        },
+        "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority.",
+        "more": {
+          "href": "#",
+          "label": "+"
+        }
+      }, {
+        "icon": "menu",
+        "title": {
+          "href": "#",
+          "label": "UNIQUE DESIGN"
+        },
+        "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority.",
+        "more": {
+          "href": "#",
+          "label": "+"
+        }
+      }, {
+        "icon": "menu",
+        "title": {
+          "href": "#",
+          "label": "EASY TO CUSTOMIZE"
+        },
+        "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority.",
+        "more": {
+          "href": "#",
+          "label": "+"
+        }
+      }]
+    }
+
+  ]
+}
