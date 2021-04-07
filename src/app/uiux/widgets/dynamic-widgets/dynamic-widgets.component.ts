@@ -11,9 +11,7 @@ export class DynamicWidgetsComponent implements OnInit, AfterViewInit {
   public ready = false;
   constructor(public appState: AppState) {}
 
-  ngOnInit(): void {
-    console.log(this.content);
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     this.ready = true;

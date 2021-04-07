@@ -6,7 +6,7 @@
   }, {
     "name": "Enar 主题",
     "style": "enar-theme",
-    "svgIcon": "laptop_mac"
+    "icon": "laptop_mac"
   }, {
     "name": "暗黑主题",
     "style": "dark-theme",

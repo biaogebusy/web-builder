@@ -1,36 +1,33 @@
 {
-  "title": "page title",
+  "title": "Dolor Molior Obruo",
   "body": [{
-    "type": "case",
-    "title": "Drupal 中国",
-    "body": "Drupal 中国是国内最早的关于 Drupal 中文资料的网站，是交流学习的聚集地。",
+    "type": "case-node",
+    "title": {
+      "label": "Dolor Molior Obruo",
+      "style": "style-v4"
+    },
+    "body": "\u003Cp\u003ELorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.\u003C\/p\u003E\r\n\r\n\u003Cp\u003ELorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.\u003C\/p\u003E\r\n",
     "site": {
-      "href": "http://drupalchina.cn",
-      "label": "预览"
+      "href": "http:\/\/www.slivegufrotre.info",
+      "label": "Aptent et tego utrum vindico."
     },
     "carousel": {
       "params": {
-        "slidesPerView": 1
+        "slidesPerView": 1,
+        "navigation": false
       },
       "elements": [{
         "type": "img",
-        "src": "/assets/images/cases/porto1.jpg",
-        "alt": "案例"
+        "src": "https:\/\/api.zhaobg.com\/sites\/default\/files\/2021-03\/porto1.jpg",
+        "alt": "porto1.jpg"
       }, {
-        "src": "/assets/images/cases/porto2.jpg",
-        "alt": "案例"
+        "type": "img",
+        "src": "https:\/\/api.zhaobg.com\/sites\/default\/files\/2021-03\/porto2_0.jpg",
+        "alt": "porto2.jpg"
       }, {
-        "src": "/assets/images/cases/porto3.jpg",
-        "alt": "案例"
-      }, {
-        "src": "/assets/images/cases/porto4.jpg",
-        "alt": "案例"
-      }, {
-        "src": "/assets/images/cases/porto5.jpg",
-        "alt": "案例"
-      }, {
-        "src": "/assets/images/cases/porto6.jpg",
-        "alt": "案例"
+        "type": "img",
+        "src": "https:\/\/api.zhaobg.com\/sites\/default\/files\/2021-03\/porto3_0.jpg",
+        "alt": "porto3.jpg"
       }]
     }
   }]

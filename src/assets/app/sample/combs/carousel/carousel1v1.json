@@ -1,100 +1,107 @@
 {
-  "type": "carousel1v1",
-  "title": {
-    "label": "MEET THE TEAM",
-    "icon": "email"
-  },
-  "sliders": {
-    "params": {
-      "slidesPerView": 3,
-      "spaceBetween": 50,
-      "navigation": false
+  "title": "carousel 1v1",
+  "body": [{
+    "type": "carousel1v1",
+    "title": {
+      "label": "MEET THE TEAM",
+      "icon": "email",
+      "style": "style-v2"
     },
-    "classes": "p-bottom",
-    "elements": [{
-      "type": "card",
-      "title": "JOHNSON",
-      "subTitle": "Frontend Devel",
-      "classes": "card-no-shadow",
-      "body": "Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. ",
-      "img": {
-        "type": "img",
-        "src": "/assets/images/cases/porto1.jpg",
-        "alt": "案例",
-        "hostClasses": "mat-card-image display-block"
-      }
-    }, {
-      "type": "card",
-      "img": {
-        "type": "img",
-        "src": "/assets/images/cases/porto2.jpg",
-        "alt": "案例",
-        "hostClasses": "mat-card-image display-block"
+    "bg": {
+      "classes": "bg-white bg-fill-width"
+    },
+    "sliders": {
+      "params": {
+        "slidesPerView": 3,
+        "spaceBetween": 50,
+        "navigation": false
       },
-      "title": "JOHNSON",
-      "subTitle": "Frontend Devel",
-      "classes": "card-no-shadow",
-      "body": "Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. "
-    }, {
-      "type": "card",
-      "img": {
-        "type": "img",
-        "src": "/assets/images/cases/porto3.jpg",
-        "alt": "案例",
-        "hostClasses": "mat-card-image display-block"
-      },
-      "title": "Will",
-      "subTitle": "Frontend Devel",
-      "classes": "card-no-shadow",
-      "body": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr. "
-    }, {
-      "type": "card",
-      "img": {
-        "type": "img",
-        "src": "/assets/images/cases/porto4.jpg",
-        "alt": "案例",
-        "hostClasses": "mat-card-image display-block"
-      },
-      "title": "Tamy",
-      "subTitle": "Backend Devel",
-      "classes": "card-no-shadow",
-      "body": "Sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum."
-    }, {
-      "type": "card",
-      "img": {
-        "type": "img",
-        "src": "/assets/images/cases/porto5.jpg",
-        "alt": "案例",
-        "hostClasses": "mat-card-image display-block"
-      },
-      "title": "Ada",
-      "subTitle": "Frontend Devel",
-      "classes": "card-no-shadow",
-      "body": "Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat."
-    }, {
-      "type": "card",
-      "img": {
-        "type": "img",
-        "src": "/assets/images/cases/porto6.jpg",
-        "alt": "案例",
-        "hostClasses": "mat-card-image display-block"
-      },
-      "title": "MeiMei",
-      "subTitle": "Frontend Devel",
-      "classes": "card-no-shadow",
-      "body": "Vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim."
-    }, {
-      "type": "card",
-      "img": {
-        "type": "img",
-        "src": "/assets/images/cases/porto7.jpg",
-        "alt": "案例",
-        "hostClasses": "mat-card-image display-block"
-      },
-      "title": "Nikki",
-      "subTitle": "BA Test",
-      "classes": "card-no-shadow",
-      "body": "Consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat."
-    }]
-  }
+      "classes": "p-bottom",
+      "elements": [{
+        "type": "card",
+        "title": "JOHNSON",
+        "subTitle": "Frontend Devel",
+        "classes": "card-no-shadow",
+        "body": "Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. ",
+        "img": {
+          "type": "img",
+          "src": "/assets/images/cases/porto1.jpg",
+          "alt": "案例",
+          "hostClasses": "mat-card-image display-block"
+        }
+      }, {
+        "type": "card",
+        "img": {
+          "type": "img",
+          "src": "/assets/images/cases/porto2.jpg",
+          "alt": "案例",
+          "hostClasses": "mat-card-image display-block"
+        },
+        "title": "JOHNSON",
+        "subTitle": "Frontend Devel",
+        "classes": "card-no-shadow",
+        "body": "Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. "
+      }, {
+        "type": "card",
+        "img": {
+          "type": "img",
+          "src": "/assets/images/cases/porto3.jpg",
+          "alt": "案例",
+          "hostClasses": "mat-card-image display-block"
+        },
+        "title": "Will",
+        "subTitle": "Frontend Devel",
+        "classes": "card-no-shadow",
+        "body": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr. "
+      }, {
+        "type": "card",
+        "img": {
+          "type": "img",
+          "src": "/assets/images/cases/porto4.jpg",
+          "alt": "案例",
+          "hostClasses": "mat-card-image display-block"
+        },
+        "title": "Tamy",
+        "subTitle": "Backend Devel",
+        "classes": "card-no-shadow",
+        "body": "Sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum."
+      }, {
+        "type": "card",
+        "img": {
+          "type": "img",
+          "src": "/assets/images/cases/porto5.jpg",
+          "alt": "案例",
+          "hostClasses": "mat-card-image display-block"
+        },
+        "title": "Ada",
+        "subTitle": "Frontend Devel",
+        "classes": "card-no-shadow",
+        "body": "Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat."
+      }, {
+        "type": "card",
+        "img": {
+          "type": "img",
+          "src": "/assets/images/cases/porto6.jpg",
+          "alt": "案例",
+          "hostClasses": "mat-card-image display-block"
+        },
+        "title": "MeiMei",
+        "subTitle": "Frontend Devel",
+        "classes": "card-no-shadow",
+        "body": "Vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim."
+      }, {
+        "type": "card",
+        "img": {
+          "type": "img",
+          "src": "/assets/images/cases/porto7.jpg",
+          "alt": "案例",
+          "hostClasses": "mat-card-image display-block"
+        },
+        "title": "Nikki",
+        "subTitle": "BA Test",
+        "classes": "card-no-shadow",
+        "body": "Consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat."
+      }]
+    }
+  }]
 }
