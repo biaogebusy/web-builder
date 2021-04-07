@@ -1,9 +1,9 @@
-@import '~@angular/material/theming';
-@import './variable/variable.scss';
-@import './mixins/mixins.scss';
-@import './utilities/utilities.scss';
-@import './layout.scss';
-@import './component/component';
+@import "~@angular/material/theming";
+@import "./variable/variable.scss";
+@import "./mixins/mixins.scss";
+@import "./utilities/utilities.scss";
+@import "./layout.scss";
+@import "./component/component";
 
 @include reset-styles();
 @include mat-core();
@@ -16,4 +16,10 @@
   @include angular-material-theme($dark-theme);
   @include base-colors($dark-theme, $dark-base);
   @include component-theme($dark-theme, $app-base);
+}
+
+.enar-theme {
+  @include angular-material-theme($enar-theme);
+  @include base-colors($enar-theme, $enar-base);
+  @include component-theme($enar-theme, $enar-base);
 }

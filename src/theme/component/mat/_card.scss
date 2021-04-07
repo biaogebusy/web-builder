@@ -1,6 +1,6 @@
 @import "~@angular/material/theming";
 
-@mixin mat-card-color($config-or-theme) {
+@mixin card-color($config-or-theme) {
   $config: mat-get-color-config($config-or-theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
@@ -10,7 +10,6 @@
 
   .mat-card {
     color: inherit;
-    border: 1px solid mat-color($foreground, divider);
     background-color: mat-color($background, card);
 
     &:hover {

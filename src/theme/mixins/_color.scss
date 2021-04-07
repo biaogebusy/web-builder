@@ -20,7 +20,7 @@
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
 
-  $text-base: map-get($base, 500);
+  $text-base: map-get($base, 700);
   a {
     color: mat-color($primary);
     text-decoration: none;

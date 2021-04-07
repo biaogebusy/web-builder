@@ -1,6 +1,6 @@
 @import "~@angular/material/theming";
 
-@mixin showcase-color($config-or-theme) {
+@mixin showcase-color($config-or-theme, $base) {
   $config: mat-get-color-config($config-or-theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
@@ -8,12 +8,16 @@
   $accent: map-get($config, accent);
   $warn: map-get($config, warn);
 
+  $text-base: map-get($base, 700);
   .showcase-1-v1 {
     .inv-builder-box {
       .box-icon {
         .mat-icon {
           color: #141414;
         }
+      }
+      a {
+        color: $text-base;
       }
       &:hover {
         .box-title {
