@@ -1,138 +1,227 @@
 {
   "type": "showcase-2v1",
   "title": "国内 Drupal 优秀网站案例",
+  "subTitle": "欢迎分享 Drupal 优秀的数字创新体验",
   "elements": [{
     "body": "2016/03/04",
-    "img": {
-      "src": "/assets/images/cases/porto1.jpg",
-      "hostClasses": "mat-card-image displa-block",
-      "overlay": [{
-        "href": "/node/1",
-        "label": "大图"
-      }, {
-        "href": "/node/1",
-        "label": "更多"
+    "carousel": {
+      "params": {
+        "slidesPerView": 1,
+        "navigation": false,
+        "autoplay": {
+          "delay": 5000
+        },
+        "breakpoints": null
+      },
+      "elements": [{
+        "type": "img",
+        "src": "/assets/images/cases/porto1.jpg",
+        "hostClasses": "displa-block"
       }]
     },
+    "overlay": [{
+      "href": "/node/1",
+      "label": "大图"
+    }, {
+      "href": "/node/1",
+      "label": "更多"
+    }],
     "link": {
       "href": "/node/1",
       "label": "FLAT LOGO DESIGN"
     }
   }, {
     "body": "2016/02/26",
-    "img": {
-      "src": "/assets/images/cases/porto2.jpg",
-      "hostClasses": "mat-card-image displa-block",
-      "overlay": [{
-        "href": "/node/1",
-        "label": "大图"
-      }, {
-        "href": "/node/1",
-        "label": "更多"
+    "carousel": {
+      "params": {
+        "slidesPerView": 1,
+        "navigation": false,
+        "autoplay": {
+          "delay": 5000
+        },
+        "breakpoints": null
+      },
+      "elements": [{
+        "type": "img",
+        "src": "/assets/images/cases/porto2.jpg",
+        "hostClasses": "displa-block"
       }]
     },
+    "overlay": [{
+      "href": "/node/1",
+      "label": "大图"
+    }, {
+      "href": "/node/1",
+      "label": "更多"
+    }],
     "link": {
       "href": "/node/1",
       "label": "FLAT LOGO DESIGN"
     }
   }, {
     "body": "2016/02/26",
-    "img": {
-      "src": "/assets/images/cases/porto3.jpg",
-      "hostClasses": "mat-card-image displa-block",
-      "overlay": [{
-        "href": "/node/1",
-        "label": "大图"
-      }, {
-        "href": "/node/1",
-        "label": "更多"
+    "carousel": {
+      "params": {
+        "slidesPerView": 1,
+        "navigation": false,
+        "autoplay": {
+          "delay": 5000
+        },
+        "breakpoints": null
+      },
+      "elements": [{
+        "type": "img",
+        "src": "/assets/images/cases/porto3.jpg",
+        "hostClasses": "displa-block"
       }]
     },
+    "overlay": [{
+      "href": "/node/1",
+      "label": "大图"
+    }, {
+      "href": "/node/1",
+      "label": "更多"
+    }],
     "link": {
       "href": "/node/1",
       "label": "FLAT LOGO DESIGN"
     }
   }, {
     "body": "2016/02/26",
-    "img": {
-      "src": "/assets/images/cases/porto4.jpg",
-      "hostClasses": "mat-card-image displa-block",
-      "overlay": [{
-        "href": "/node/1",
-        "label": "大图"
-      }, {
-        "href": "/node/1",
-        "label": "更多"
+    "carousel": {
+      "params": {
+        "slidesPerView": 1,
+        "navigation": false,
+        "autoplay": {
+          "delay": 5000
+        },
+        "breakpoints": null
+      },
+      "elements": [{
+        "type": "img",
+        "src": "/assets/images/cases/porto4.jpg",
+        "hostClasses": "displa-block"
       }]
     },
+    "overlay": [{
+      "href": "/node/1",
+      "label": "大图"
+    }, {
+      "href": "/node/1",
+      "label": "更多"
+    }],
     "link": {
       "href": "/node/1",
       "label": "FLAT LOGO DESIGN"
     }
   }, {
     "body": "2016/02/26",
-    "img": {
-      "src": "/assets/images/cases/porto5.jpg",
-      "hostClasses": "mat-card-image displa-block",
-      "overlay": [{
-        "href": "/node/1",
-        "label": "大图"
-      }, {
-        "href": "/node/1",
-        "label": "更多"
+    "carousel": {
+      "params": {
+        "slidesPerView": 1,
+        "navigation": false,
+        "autoplay": {
+          "delay": 5000
+        },
+        "breakpoints": null
+      },
+      "elements": [{
+        "type": "img",
+        "src": "/assets/images/cases/porto5.jpg",
+        "hostClasses": "displa-block"
       }]
     },
+    "overlay": [{
+      "href": "/node/1",
+      "label": "大图"
+    }, {
+      "href": "/node/1",
+      "label": "更多"
+    }],
     "link": {
       "href": "/node/1",
       "label": "FLAT LOGO DESIGN"
     }
   }, {
     "body": "2016/02/26",
-    "img": {
-      "src": "/assets/images/cases/porto6.jpg",
-      "hostClasses": "mat-card-image displa-block",
-      "overlay": [{
-        "href": "/node/1",
-        "label": "大图"
-      }, {
-        "href": "/node/1",
-        "label": "更多"
+    "carousel": {
+      "params": {
+        "slidesPerView": 1,
+        "navigation": false,
+        "autoplay": {
+          "delay": 5000
+        },
+        "breakpoints": null
+      },
+      "elements": [{
+        "type": "img",
+        "src": "/assets/images/cases/porto6.jpg",
+        "hostClasses": "displa-block"
       }]
     },
+    "overlay": [{
+      "href": "/node/1",
+      "label": "大图"
+    }, {
+      "href": "/node/1",
+      "label": "更多"
+    }],
     "link": {
       "href": "/node/1",
       "label": "FLAT LOGO DESIGN"
     }
   }, {
     "body": "2016/02/26",
-    "img": {
-      "src": "/assets/images/cases/porto7.jpg",
-      "hostClasses": "mat-card-image displa-block",
-      "overlay": [{
-        "href": "/node/1",
-        "label": "大图"
-      }, {
-        "href": "/node/1",
-        "label": "更多"
+    "carousel": {
+      "params": {
+        "slidesPerView": 1,
+        "navigation": false,
+        "autoplay": {
+          "delay": 5000
+        },
+        "breakpoints": null
+      },
+      "elements": [{
+        "type": "img",
+        "src": "/assets/images/cases/porto7.jpg",
+        "hostClasses": "displa-block"
       }]
     },
+    "overlay": [{
+      "href": "/node/1",
+      "label": "大图"
+    }, {
+      "href": "/node/1",
+      "label": "更多"
+    }],
     "link": {
       "href": "/node/1",
       "label": "FLAT LOGO DESIGN"
     }
   }, {
     "body": "2016/02/26",
-    "img": {
-      "src": "/assets/images/cases/porto8.jpg",
-      "hostClasses": "mat-card-image displa-block",
-      "overlay": [{
-        "href": "/node/1",
-        "label": "大图"
-      }, {
-        "href": "/node/1",
-        "label": "更多"
+    "carousel": {
+      "params": {
+        "slidesPerView": 1,
+        "navigation": false,
+        "autoplay": {
+          "delay": 5000
+        },
+        "breakpoints": null
+      },
+      "elements": [{
+        "type": "img",
+        "src": "/assets/images/cases/porto8.jpg",
+        "hostClasses": "displa-block"
       }]
     },
+    "overlay": [{
+      "href": "/node/1",
+      "label": "大图"
+    }, {
+      "href": "/node/1",
+      "label": "更多"
+    }],
     "link": {
       "href": "/node/1",
       "label": "FLAT LOGO DESIGN"
