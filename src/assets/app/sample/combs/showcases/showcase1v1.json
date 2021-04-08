@@ -59,7 +59,7 @@
       "icon": "mail"
     },
     "bg": {
-      "classes": "bg-white bg-fill-width"
+      "classes": "bg-shadow bg-fill-width"
     },
     "style": "style-v2",
     "elements": [{
@@ -167,7 +167,7 @@
     },
     "style": "style-v3",
     "bg": {
-      "classes": "bg-white bg-fill-width"
+      "classes": "bg-shadow bg-fill-width"
     },
     "elements": [{
       "icon": "verified_user",
@@ -269,75 +269,8 @@
   }, {
     "type": "showcase-1v1",
     "title": {
-      "label": "Showcase 1 v1 style v3 image",
-      "style": "style-v2"
-    },
-    "style": "style-v3 use-image",
-    "elements": [{
-      "img": {
-        "src": "/assets/images/showcase/browser.png",
-        "alt": "browser"
-      },
-      "title": {
-        "href": "#",
-        "label": "SUPER CODING"
-      },
-      "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority.",
-      "more": {
-        "href": "#",
-        "label": "+"
-      }
-    }, {
-      "img": {
-        "src": "/assets/images/showcase/clipboard.png",
-        "alt": "browser"
-      },
-      "title": {
-        "href": "#",
-        "label": "BEST USER INTERFACE"
-      },
-      "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority.",
-      "more": {
-        "href": "#",
-        "label": "+"
-      }
-    }, {
-      "img": {
-        "src": "/assets/images/showcase/console.png",
-        "alt": "browser"
-      },
-      "title": {
-        "href": "#",
-        "label": "UNIQUE DESIGN"
-      },
-      "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority.",
-      "more": {
-        "href": "#",
-        "label": "+"
-      }
-    }, {
-      "img": {
-        "src": "/assets/images/showcase/weather.png",
-        "alt": "browser"
-      },
-      "title": {
-        "href": "#",
-        "label": "EASY TO CUSTOMIZE"
-      },
-      "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority.",
-      "more": {
-        "href": "#",
-        "label": "+"
-      }
-    }]
-  }, {
-    "type": "showcase-1v1",
-    "title": {
       "label": "Showcase 1 v1 style v6",
       "style": "style-v6"
-    },
-    "bg": {
-      "classes": "bg-white bg-fill-width"
     },
     "style": "style-v6",
     "elements": [{
@@ -392,6 +325,9 @@
       "style": "style-v7"
     },
     "style": "style-v7",
+    "bg": {
+      "classes": "bg-shadow bg-fill-width"
+    },
     "elements": [{
       "icon": "verified_user",
       "title": {

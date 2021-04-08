@@ -1,24 +1,26 @@
-<div class="showcase-1-v1 container p-y position-relative" *ngIf="content">
+<div class="showcase-1-v1 p-y-lg position-relative" *ngIf="content">
   <app-bg [content]="content.bg" *ngIf="content.bg"></app-bg>
-  <div class="p-bottom-sm">
-    <app-title *ngIf="content.title" [content]="content.title"></app-title>
-  </div>
-  <div fxLayout.xs="column" fxLayout.gt-xs="row" fxLayoutGap.xs="6rem" fxLayoutGap.gt-xs="3rem">
-    <div *ngFor="let item of content.elements" [ngClass]="content.style" class="inv-builder-box" fxFlex.xs="100"
-      fxFlex.sm="50" fxFlex.md="33.33">
-      <div *ngIf="item.icon" class="box-icon">
-        <mat-icon>{{item.icon}}</mat-icon>
-      </div>
-      <div *ngIf="item.img" class="box-image">
-        <app-img [content]="item.img"></app-img>
-      </div>
-      <div class="box-content-wrapper">
-        <h3 class="box-title">
-          <app-link [content]="item.title"></app-link>
-        </h3>
-        <div class="box-content" [innerHTML]="item.content">
+  <div class="container">
+    <div class="p-bottom-sm">
+      <app-title *ngIf="content.title" [content]="content.title"></app-title>
+    </div>
+    <div fxLayout.xs="column" fxLayout.gt-xs="row" fxLayoutGap.xs="6rem" fxLayoutGap.gt-xs="3rem">
+      <div *ngFor="let item of content.elements" [ngClass]="content.style" class="inv-builder-box" fxFlex.xs="100"
+        fxFlex.sm="50" fxFlex.md="33.33">
+        <div *ngIf="item.icon" class="box-icon">
+          <mat-icon>{{item.icon}}</mat-icon>
         </div>
-        <div class="read-more"> <a href="{{item.more.href}}"><span>{{item.more.label}}</span></a></div>
+        <div *ngIf="item.img" class="box-image">
+          <app-img [content]="item.img"></app-img>
+        </div>
+        <div class="box-content-wrapper">
+          <h3 class="box-title">
+            <app-link [content]="item.title"></app-link>
+          </h3>
+          <div class="box-content" [innerHTML]="item.content">
+          </div>
+          <div class="read-more"> <a href="{{item.more.href}}"><span>{{item.more.label}}</span></a></div>
+        </div>
       </div>
     </div>
   </div>

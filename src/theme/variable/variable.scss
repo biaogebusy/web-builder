@@ -1,5 +1,6 @@
 @import "./breakpoint";
 @import "../colors/colors";
+@import "../mixins/color";
 
 // 使用调色盘函数 mat-palette 生成 sass map,
 // primary: 组件最为广泛的主颜色
@@ -26,10 +27,34 @@ $enar-theme: mat-light-theme($enar-primary, $enar-accent, $enar-warn);
 // TODO: secondary color和dark color其实是通用的，应该不区分主题，可以把 $dark-theme-base-color 变成全局，并新建 secondary palette sass map
 
 // $light-theme-text-base: mat-color($light-theme-base-color, 700);
-// $color-theme:( //
-//   base: (text: $light-theme-text-base, border: $light-theme-text-base, bg:$light-theme-text-base),
-//   success: (text: #3c763d, border: #b2dba1, bg: #dff0d8),
-// );
+$color-theme: (
+  //
+  // base: (text: $light-theme-text-base, border: $light-theme-text-base, bg:$light-theme-text-base),
+  success:
+    (
+      text: #3c763d,
+      border: #b2dba1,
+      bg: #dff0d8,
+    ),
+  shadow: (
+    text: mat-color($mat-grey, 700),
+    border: mat-color($mat-grey, 400),
+    bg: mat-color($mat-grey, 50),
+  ),
+  light: (
+    text: #fff,
+    border: #fff,
+    bg: #fff,
+  )
+);
+@include branding(map-get($color-theme, shadow), "shadow");
+@include branding(map-get($color-theme, light), "light");
+
+// @include branding(map-get($colors, base), 'base');
+// @include branding(map-get($colors, primary), 'primary');
+// @include branding(map-get($colors, accent), 'accent');
+// @include branding(map-get($colors, warn), 'warn');
+// @include branding(map-get($colors, dark), 'dark');
 
 // $base: map-get($map: $color-theme, $key: base);
 // $text-color: map-get($map: $base, $key: text);
