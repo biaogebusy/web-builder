@@ -8,7 +8,7 @@ import { TitleService } from '../../service/title.service';
 import { RouteService } from '../../service/route.service';
 import { Params, ActivatedRoute } from '@angular/router';
 import { AppState } from '../../mobx/AppState';
-import Jsona from 'jsona';
+import { Jsona } from 'jsona';
 import { gsap } from 'gsap';
 import { ICard } from '../../uiux/widgets/IWidgets';
 
@@ -214,7 +214,7 @@ export class JobComponent implements OnInit {
         title: item.title,
         number: item.number,
         salary: item.salary,
-        skill: map(item.skill, item => {
+        skill: map(item.skill, (item) => {
           return { label: item.name };
         }),
         deadline: item.deadline,
@@ -224,15 +224,15 @@ export class JobComponent implements OnInit {
           id: item.company.id,
           logo: {
             src: item.company.logo.uri.url,
-            alt: item.company.title
+            alt: item.company.title,
           },
           title: item.company.title,
-          welfare: map(item.company.welfare, item => {
+          welfare: map(item.company.welfare, (item) => {
             return { label: item };
           }),
           address: item.company.address.address_line1,
-          phone: item.company.phone
-        }
+          phone: item.company.phone,
+        },
       };
     });
     this.initMap(this.nodes);

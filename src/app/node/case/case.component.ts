@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import Jsona from 'Jsona';
+import { Jsona } from 'Jsona';
 import { NodeService } from '../../service/node.service';
 import { map } from 'lodash-es';
 import { IShowcase2v1 } from '../../uiux/combs/ICombs';
@@ -37,13 +37,17 @@ export class CaseComponent implements OnInit {
       const jsonFormatter = new Jsona();
       const cases = jsonFormatter.deserialize(res);
       this.content.elements = map(cases, (item: any) => {
-        const link = item.path.alias ? item.path.alias : `/node/${item.drupal_internal__nid}`;
-        const date = `${new Date(item.created).getFullYear()}/${new Date(item.created).getMonth()}/${new Date(item.created).getDate()}`;
+        const link = item.path.alias
+          ? item.path.alias
+          : `/node/${item.drupal_internal__nid}`;
+        const date = `${new Date(item.created).getFullYear()}/${new Date(
+          item.created
+        ).getMonth()}/${new Date(item.created).getDate()}`;
         return {
           subTitle: date,
           avatar: {
             src: '/assets/images/showcase/console.png',
-            alt: item.title
+            alt: item.title,
           },
           body: item.body.value,
           carousel: {
@@ -62,22 +66,23 @@ export class CaseComponent implements OnInit {
                 hostClasses: 'dispaly-block',
               };
             }),
-          }, overlay: [
+          },
+          overlay: [
             {
               label: '大图',
               href: item.medias[0].field_media_image.uri.url,
             },
             {
               label: '更多',
-              href: link
+              href: link,
             },
           ],
-          tags: map(item.field_tags, item => {
+          tags: map(item.field_tags, (item) => {
             return { label: item.name };
           }),
           link: {
             label: item.title,
-            href: link
+            href: link,
           },
         };
       });
