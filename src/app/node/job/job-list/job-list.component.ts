@@ -16,25 +16,24 @@ import { Observable } from 'rxjs';
 })
 export class JobListComponent implements OnInit {
   @Input() content: any;
-  @Input() relation: any;
   @Input() selectedId: string;
   @Output() selected = new EventEmitter();
-  @Output() scroll = new EventEmitter();
+  @Output() scroller = new EventEmitter();
 
   scrolling = false;
-  constructor() {}
+  constructor() { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   onClick(item: any, i: number): void {
     const obj = {
       index: i,
-      item: item,
+      item,
     };
     this.selected.emit(obj);
   }
   onScroll(event: number): void {
     this.scrolling = !!event;
-    this.scroll.emit(true);
+    this.scroller.emit(true);
   }
 }

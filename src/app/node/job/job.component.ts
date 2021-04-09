@@ -9,8 +9,10 @@ import { TitleService } from '../../service/title.service';
 import { RouteService } from '../../service/route.service';
 import { Params, ActivatedRoute } from '@angular/router';
 import { AppState } from '../../mobx/AppState';
+import Jsona from 'jsona';
 import { gsap } from 'gsap';
 import { ICard } from '../../uiux/widgets/IWidgets';
+import { title } from 'process';
 const feature: ICard[] = [
   {
     title: 'Material UI',
@@ -65,11 +67,7 @@ const feature: ICard[] = [
 })
 export class JobComponent implements OnInit {
   nodes: any[];
-  nodeesOrigin: any[];
-  relation: any;
-  included: any;
   autoList: any[];
-  positon: object = {};
   regions: any;
   loading: boolean;
   AMap: any;
@@ -80,7 +78,6 @@ export class JobComponent implements OnInit {
 
   show = false;
   constructor(
-    private apiService: ApiService,
     private nodeService: NodeService,
     private amapService: AmapService,
     public amapState: AMapState,
@@ -119,34 +116,31 @@ export class JobComponent implements OnInit {
     ].join('&');
 
     this.nodeService.getNodes('job', params).subscribe((res) => {
-      this.updateList(res);
-      this.nodeesOrigin = res.data;
+      const jsonFormatter = new Jsona();
+      const lists = jsonFormatter.deserialize(res);
+      this.updateList(lists);
     });
   }
 
-  initMap(included: any): void {
+  initMap(lists: any): void {
     this.amapService.load().subscribe((AMap: any) => {
       this.AMap = AMap;
       this.geocoder = new AMap.Geocoder({
         city: this.appState?.config?.amap?.city,
       });
-      this.getPosition(included);
+      this.getPosition(lists);
     });
   }
 
-  getPosition(included: any): void {
-    const companys = included.filter((item: any) => {
-      return item.type === 'node--company';
-    });
-
-    if (companys.length > 0) {
-      companys.forEach((item: any, index: number) => {
-        const address = item.attributes.address.address_line1;
+  getPosition(lists: any): void {
+    if (lists.length > 0) {
+      lists.forEach((item: any, index: number) => {
+        const address = item.company.address;
         this.geocoder.getLocation(address, (status: any, result: any) => {
           if (status === 'complete' && result.info === 'OK') {
             const location = result.geocodes[0].location;
-            this.relation[item.id].position = [location.lng, location.lat];
-            if (companys.length === index + 1) {
+            item.company.position = [location.lng, location.lat];
+            if (lists.length === index + 1) {
               this.amapState.position$.next(true);
             }
           }
@@ -213,43 +207,35 @@ export class JobComponent implements OnInit {
     });
   }
 
-  updateList(res: any): void {
+  updateList(lists: any): void {
     this.loading = false;
-    this.included = res.included;
-    if (isArray(res.included)) {
-      this.relation = keyBy(res.included, 'id');
-      this.initMap(res.included);
-    }
-    this.nodes = map(res.data, (item) => {
-      const attr = item.attributes;
-      const company = item.relationships.company;
-      const relation = this.relation[company.data.id];
+    this.nodes = map(lists, (item) => {
       return {
-        nid: attr.drupal_internal__nid,
-        title: attr.title,
-        number: attr.number,
-        salary: attr.salary,
-        skill: map(item.relationships.skill.data, (item) => {
-          return { label: this.relation[item.id].attributes.name };
+        nid: item.drupal_internal__nid,
+        title: item.title,
+        number: item.number,
+        salary: item.salary,
+        skill: map(item.skill, item => {
+          return { label: item.name };
         }),
-        deadline: attr.deadline,
-        work_experience: attr.work_experience,
-        body: attr.body.value,
+        deadline: item.deadline,
+        work_experience: item.work_experience,
+        body: item.body.value,
         company: {
-          id: company.data.id,
+          id: item.company.id,
           logo: {
-            src: this.relation[relation.relationships.logo.data.id].attributes
-              .uri.url,
-            alt: relation.attributes.title,
+            src: item.company.logo.uri.url,
+            alt: item.company.title
           },
-          title: relation.attributes.title,
-          welfare: map(relation.attributes.welfare, (item) => {
+          title: item.company.title,
+          welfare: map(item.company.welfare, item => {
             return { label: item };
           }),
-          address: relation.attributes.address.address_line1,
-          phone: relation.attributes.phone,
-        },
+          address: item.company.address.address_line1,
+          phone: item.company.phone
+        }
       };
     });
+    this.initMap(this.nodes);
   }
 }

@@ -9,14 +9,14 @@
       </div>
       <app-job-filter [content]="nodes" [autoList]="autoList" (searchChange)="onSearch($event)" (clear)="onClear()"
         (selectedChange)="onSearchJob($event)"></app-job-filter>
-      <app-job-list (selected)="onSelected($event)" (scroll)="onScroll($event)" *ngIf="nodes.length > 0"
-        [content]="nodes" [relation]="relation" [selectedId]="selectedId">
+      <app-job-list (selected)="onSelected($event)" (scroller)="onScroll($event)" *ngIf="nodes.length > 0"
+        [content]="nodes" [selectedId]="selectedId">
       </app-job-list>
     </div>
     <div class="map-wrapper position-relative" fxFlex.xs="100%" fxFlex.gt-xs="100%">
-      <app-job-node fxFlex.xs="100" fxFlex.gt-xs="500px" *ngIf="selected" class="job-details" [content]="selected"
-        [relation]="relation"></app-job-node>
-      <app-map fxFlex="100%" *ngIf="nodes && AMap" [content]="nodes" [relation]="relation" [AMap]="AMap">
+      <app-job-node fxFlex.xs="100" fxFlex.gt-xs="500px" *ngIf="selected" class="job-details" [content]="selected">
+      </app-job-node>
+      <app-map fxFlex="100%" *ngIf="nodes && AMap" [content]="nodes" [AMap]="AMap">
       </app-map>
       <div class="m-y" *ngIf="loading" fxLayoutAlign="center center">
         <app-spinner class="m-y" [content]="{color:'primary', size:40}"></app-spinner>

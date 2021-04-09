@@ -8,12 +8,11 @@ import { AppState } from '../../../mobx/AppState';
 })
 export class MapComponent implements OnInit {
   @Input() content: any;
-  @Input() relation: any;
   @Input() AMap: any;
   markers: any[];
   map: any;
 
-  constructor(private amapState: AMapState, private appState: AppState) {}
+  constructor(private amapState: AMapState, private appState: AppState) { }
 
   ngOnInit(): void {
     const themeStyle = this.appState.theme;
@@ -40,7 +39,7 @@ export class MapComponent implements OnInit {
       this.markers = this.content.map((item: any) => {
         return new this.AMap.Marker({
           content: this.simpleMarkerTem(this.getRelationObj(item)),
-          position: this.relation[item.company.id].position,
+          position: item.company.position,
           title: item.company.title,
         });
       });
@@ -91,7 +90,7 @@ export class MapComponent implements OnInit {
     this.amapState.markers$.subscribe((marker: any) => {
       const position = this.map
         .getAllOverlays('marker')
-        [marker.index].getPosition();
+      [marker.index].getPosition();
       const popup = new this.AMap.InfoWindow({
         content: this.markerTem(marker.item),
         isCustom: true,
