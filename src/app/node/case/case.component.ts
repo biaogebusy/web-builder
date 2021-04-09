@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Jsona } from 'Jsona';
+import { Jsona } from '@qoorp/jsona';
 import { NodeService } from '../../service/node.service';
 import { map } from 'lodash-es';
 import { IShowcase2v1 } from '../../uiux/combs/ICombs';

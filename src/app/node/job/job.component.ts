@@ -8,7 +8,7 @@ import { TitleService } from '../../service/title.service';
 import { RouteService } from '../../service/route.service';
 import { Params, ActivatedRoute } from '@angular/router';
 import { AppState } from '../../mobx/AppState';
-import { Jsona } from 'jsona';
+import { Jsona } from '@qoorp/jsona';
 import { gsap } from 'gsap';
 import { ICard } from '../../uiux/widgets/IWidgets';
 
