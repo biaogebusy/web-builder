@@ -12,18 +12,24 @@
     </div>
   </div>
   <mat-card-content>
-    <mat-card-title *ngIf="content?.title;else link">{{content.title}}</mat-card-title>
-    <ng-template #link>
-      <mat-card-title>
-        <app-link [content]="content.link"></app-link>
-      </mat-card-title>
-    </ng-template>
-    <mat-card-subtitle *ngIf="content?.subTitle">
-      {{content.subTitle}}
-    </mat-card-subtitle>
-    <p class="card-body">
-      {{content.body}}
-    </p>
+    <div fxLayout>
+      <div *ngIf="content.avatar" mat-card-avatar class="m-right-xs">
+        <app-img [content]="content.avatar"></app-img>
+      </div>
+      <div fxLayout="column">
+        <mat-card-title *ngIf="content?.title;else link">{{content.title}}</mat-card-title>
+        <ng-template #link>
+          <mat-card-title>
+            <app-link [content]="content.link"></app-link>
+          </mat-card-title>
+        </ng-template>
+        <mat-card-subtitle *ngIf="content?.subTitle">
+          {{content.subTitle}}
+        </mat-card-subtitle>
+      </div>
+    </div>
+    <div *ngIf="content.body" class="card-body" [innerHTML]="content.body | slice:0:50">
+    </div>
   </mat-card-content>
   <mat-card-actions *ngIf="content?.actions">
     <button mat-button *ngFor="let action of content.actions">{{action.label}}</button>

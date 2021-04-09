@@ -1,7 +1,8 @@
 export interface ICard {
   title?: string;
   subTitle?: string;
-  body: string;
+  avatar?: any;
+  body?: any;
   classes?: any;
   img?: {
     src: string;

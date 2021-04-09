@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import Jsona from 'Jsona';
 import { NodeService } from '../../service/node.service';
-import { isArray, keyBy, map } from 'lodash-es';
+import { map } from 'lodash-es';
 import { IShowcase2v1 } from '../../uiux/combs/ICombs';
 @Component({
   selector: 'app-case',
@@ -9,7 +10,6 @@ import { IShowcase2v1 } from '../../uiux/combs/ICombs';
 })
 export class CaseComponent implements OnInit {
   content: IShowcase2v1;
-  relations: any;
   loading = false;
   constructor(private nodeService: NodeService) {
     this.content = {
@@ -26,7 +26,7 @@ export class CaseComponent implements OnInit {
   getCases(): void {
     this.loading = true;
     const params = [
-      'fields[node--case]=title,created,medias,field_tags,drupal_internal__nid,path',
+      'fields[node--case]=title,body,created,medias,field_tags,drupal_internal__nid,path',
       'include=medias,medias.field_media_image,field_tags',
       'fields[file--file]=uri',
       'fields[taxonomy_term--industry]=name',
@@ -34,15 +34,18 @@ export class CaseComponent implements OnInit {
 
     this.nodeService.getNodes('case', params).subscribe((res) => {
       this.loading = false;
-      this.relations = keyBy(res.included, 'id');
-      this.content.elements = map(res.data, (item) => {
-        const attr = item.attributes;
-        const medias = item.relationships.medias.data;
-        const mediaFirstId = medias[0].id;
-        const imgFirstId = this.relations[mediaFirstId].relationships
-          .field_media_image.data.id;
+      const jsonFormatter = new Jsona();
+      const cases = jsonFormatter.deserialize(res);
+      this.content.elements = map(cases, (item: any) => {
+        const link = item.path.alias ? item.path.alias : `/node/${item.drupal_internal__nid}`;
+        const date = `${new Date(item.created).getFullYear()}/${new Date(item.created).getMonth()}/${new Date(item.created).getDate()}`;
         return {
-          body: attr.created,
+          subTitle: date,
+          avatar: {
+            src: '/assets/images/showcase/console.png',
+            alt: item.title
+          },
+          body: item.body.value,
           carousel: {
             params: {
               slidesPerView: 1,
@@ -52,33 +55,29 @@ export class CaseComponent implements OnInit {
               },
               breakpoints: null,
             },
-            elements: map(medias, (img) => {
-              const imgFiledId = this.relations[img.id].relationships
-                .field_media_image.data.id;
+            elements: map(item.medias, (img) => {
               return {
                 type: 'img',
-                src: this.relations[imgFiledId].attributes.uri.url,
+                src: img.field_media_image.uri.url,
                 hostClasses: 'dispaly-block',
               };
             }),
-          },
-          overlay: [
+          }, overlay: [
             {
               label: '大图',
-              href: this.relations[imgFirstId].attributes.uri.url,
+              href: item.medias[0].field_media_image.uri.url,
             },
             {
               label: '更多',
-              href: attr.path.alias
-                ? attr.path.alias
-                : `/node/${attr.drupal_internal__nid}`,
+              href: link
             },
           ],
+          tags: map(item.field_tags, item => {
+            return { label: item.name };
+          }),
           link: {
-            label: attr.title,
-            href: attr.path.alias
-              ? attr.path.alias
-              : `/node/${attr.drupal_internal__nid}`,
+            label: item.title,
+            href: link
           },
         };
       });

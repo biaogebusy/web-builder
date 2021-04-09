@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../../service/api.service';
 import { NodeService } from '../../service/node.service';
 import { IChipList } from './IJob';
 import { isArray, keyBy, map } from 'lodash-es';
@@ -12,7 +11,7 @@ import { AppState } from '../../mobx/AppState';
 import Jsona from 'jsona';
 import { gsap } from 'gsap';
 import { ICard } from '../../uiux/widgets/IWidgets';
-import { title } from 'process';
+
 const feature: ICard[] = [
   {
     title: 'Material UI',
