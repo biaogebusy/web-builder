@@ -1,4 +1,4 @@
-<ng-container *ngIf="config">
+<ng-container *ngIf="config && content">
   <div class="swiper-container" *ngIf="content.elements.length > 0" [swiper]="config">
     <div class="swiper-wrapper" [ngClass]="content.classes">
       <div class="swiper-slide" *ngFor="let slide of content.elements">
