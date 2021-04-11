@@ -1,0 +1,32 @@
+{
+  "title": "Showcase 3v1 sample",
+  "body": [{
+    "type": "showcase-3v1",
+    "bg": {
+      "classes": "bg-shadow bg-fill-width"
+    },
+    "bgImg": "/assets/images/showcase/bg2.jpeg",
+    "title": {
+      "label": "WE ARE ARWEN",
+      "style": "style-v1"
+    },
+    "content": "At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. ",
+    "carousel": {
+      "params": {
+        "slidesPerView": 1,
+        "navigation": false,
+        "centeredSlides": true
+      },
+      "classes": "text-center",
+      "elements": [{
+        "type": "img",
+        "src": "/assets/images/showcase/browser1.png",
+        "alt": "porto1.jpg"
+      }, {
+        "type": "img",
+        "src": "/assets/images/showcase/browser1.png",
+        "alt": "porto2.jpg"
+      }]
+    }
+  }]
+}

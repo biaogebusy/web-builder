@@ -1,0 +1,15 @@
+<div class="showcase-3-v1 p-y-lg position-relative" *ngIf="content" style="background-image:url({{content.bgImg}})">
+  <app-bg [content]="content.bg" *ngIf="content.bg">
+  </app-bg>
+  <div class="container">
+    <app-title *ngIf="content.title" [content]="content.title"></app-title>
+    <div *ngIf="content.content" class="showcase-content" [innerHTML]="content.content"></div>
+    <app-swiper *ngIf="content?.carousel.elements.length > 1;else img" [content]="content.carousel">
+    </app-swiper>
+    <ng-template #img>
+      <div class="text-center">
+        <app-img [content]="content.carousel.elements[0]"></app-img>
+      </div>
+    </ng-template>
+  </div>
+</div>
