@@ -20,16 +20,19 @@
       }, {
         "label": "组件",
         "classes": "bold",
-        "childs": [{
+        "child": [{
           "label": "Showcase",
-          "childs": [{
+          "child": [{
+            "label": "Showcase 1v1",
+            "href": "/sample/showcase/showcase-1-v1"
+          }, {
             "label": "Showcase 2v1",
             "href": "/sample/showcase/showcase-2-v1"
           }]
         }, {
           "label": "Carousel",
           "href": "javascript:void(0)",
-          "childs": [{
+          "child": [{
             "label": "Carousel 1v1",
             "href": "/sample/carousel/carousel-1-v1"
           }]

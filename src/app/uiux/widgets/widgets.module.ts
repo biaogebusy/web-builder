@@ -14,6 +14,7 @@ import { SwiperModule } from 'ngx-swiper-wrapper';
 import { SWIPER_CONFIG } from 'ngx-swiper-wrapper';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { TitleComponent } from './title/title.component';
+import { DropdownMenuComponent } from './dropdown-menu/dropdown-menu.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -29,6 +30,7 @@ const components = [
   SwiperComponent,
   ImgComponent,
   TitleComponent,
+  DropdownMenuComponent,
   DynamicWidgetsComponent,
 ];
 

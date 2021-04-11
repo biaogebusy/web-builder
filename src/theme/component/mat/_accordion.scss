@@ -1,0 +1,17 @@
+@import "~@angular/material/theming";
+
+@mixin accordion-color($config-or-theme) {
+  $config: mat-get-color-config($config-or-theme);
+  $foreground: map-get($config, foreground);
+  $background: map-get($config, background);
+  $primary: map-get($config, primary);
+  $accent: map-get($config, accent);
+  $warn: map-get($config, warn);
+
+  .mat-accordion {
+    .mat-expansion-panel-header,
+    .mat-list {
+      border-color: mat-color($foreground, divider) !important;
+    }
+  }
+}

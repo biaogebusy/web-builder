@@ -1,0 +1,31 @@
+:host ::ng-deep {
+  .mat-expansion-panel-header {
+    border-bottom: 1px solid;
+    border-radius: 0;
+  }
+}
+.mat-accordion {
+  .mat-expansion-panel-header {
+    padding: 0 16px;
+    height: 48px;
+  }
+  .mat-expansion-panel {
+    box-shadow: none;
+    .mat-expansion-panel {
+      .mat-expansion-panel-header {
+        border: 0;
+      }
+    }
+  }
+  ::ng-deep {
+    .mat-expansion-panel-body {
+      padding: 0 16px 0;
+    }
+  }
+  .mat-expansion-panel-spacing {
+    margin: 0;
+  }
+  .mat-list {
+    border-bottom: 1px solid;
+  }
+}

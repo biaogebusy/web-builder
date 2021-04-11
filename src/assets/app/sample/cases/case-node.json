@@ -11,6 +11,9 @@
       "href": "http:\/\/www.slivegufrotre.info",
       "label": "Aptent et tego utrum vindico."
     },
+    "tags": [{
+      "label": "培训"
+    }],
     "carousel": {
       "params": {
         "slidesPerView": 1,

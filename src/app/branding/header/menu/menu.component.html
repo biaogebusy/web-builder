@@ -39,24 +39,7 @@
     <app-switch-theme></app-switch-theme>
     <app-user-menu></app-user-menu>
   </mat-toolbar>
-
-  <mat-list *ngIf="screen.eq('xs') && isDrawer">
-    <mat-list-item (click)="onToggle()">
-      <mat-icon mat-list-icon>near_me</mat-icon>
-      <div mat-line><a [routerLink]="['/home']">工作机会</a></div>
-      <div mat-line>本月内推简历 <span class="total">6</span> 份</div>
-    </mat-list-item>
-    <mat-divider></mat-divider>
-    <mat-list-item (click)="onToggle()">
-      <mat-icon mat-list-icon>favorite_border</mat-icon>
-      <div mat-line><a [routerLink]="['/articles']">文章</a></div>
-      <div mat-line>本周原创文章 <span class="total">6</span> 篇</div>
-    </mat-list-item>
-    <mat-divider></mat-divider>
-    <mat-list-item (click)="onToggle()">
-      <mat-icon mat-list-icon>person</mat-icon>
-      <div mat-line><a [routerLink]="['/home']">关于我们</a></div>
-      <div mat-line>内推简历，致力于开源。</div>
-    </mat-list-item>
-  </mat-list>
+  <ng-container *ngIf="screen.eq('xs') && isDrawer">
+    <app-dropdown-menu *ngIf="branding?.header?.mainMenu" [content]="branding.header.mainMenu"></app-dropdown-menu>
+  </ng-container>
 </div>
