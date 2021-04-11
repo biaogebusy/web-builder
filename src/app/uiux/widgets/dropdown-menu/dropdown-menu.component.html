@@ -8,7 +8,7 @@
       </mat-list>
       <mat-expansion-panel *ngIf="item.child" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
         <mat-expansion-panel-header>
-          <mat-panel-title>
+          <mat-panel-title [ngClass]="item.classes">
             {{item.label}}
           </mat-panel-title>
         </mat-expansion-panel-header>

@@ -12,7 +12,7 @@
 // material custom
 @import "./mat/card";
 @import "./mat/chip-list";
-@import "./mat/accordion";
+@import "./mat/dropdown-menu";
 
 @mixin component-theme($config-or-theme, $base) {
   @include header-color($config-or-theme);
@@ -29,5 +29,5 @@
   // material custom ui
   @include card-color($config-or-theme);
   @include chip-list-color($config-or-theme);
-  @include accordion-color($config-or-theme);
+  @include dropdown-menu-color($config-or-theme);
 }

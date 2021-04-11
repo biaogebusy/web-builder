@@ -1,6 +1,6 @@
 @import "~@angular/material/theming";
 
-@mixin accordion-color($config-or-theme) {
+@mixin dropdown-menu-color($config-or-theme) {
   $config: mat-get-color-config($config-or-theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
@@ -12,6 +12,9 @@
     .mat-expansion-panel-header,
     .mat-list {
       border-color: mat-color($foreground, divider) !important;
+    }
+    .mat-expansion-panel-header-title {
+      color: mat-color($primary);
     }
   }
 }
