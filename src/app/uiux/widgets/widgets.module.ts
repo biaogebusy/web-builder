@@ -15,6 +15,7 @@ import { SWIPER_CONFIG } from 'ngx-swiper-wrapper';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { TitleComponent } from './title/title.component';
 import { DropdownMenuComponent } from './dropdown-menu/dropdown-menu.component';
+import { NumberAnimateComponent } from './number-animate/number-animate.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -31,6 +32,7 @@ const components = [
   ImgComponent,
   TitleComponent,
   DropdownMenuComponent,
+  NumberAnimateComponent,
   DynamicWidgetsComponent,
 ];
 

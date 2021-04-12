@@ -1,0 +1,33 @@
+@import "../../../../../theme/mixins/amixin";
+.inv-stats {
+  text-align: center;
+  .stats-icon {
+    font-size: 32px;
+    margin: 0 auto;
+    position: relative;
+    .mat-icon {
+      position: relative;
+      z-index: 1;
+    }
+  }
+  .stats-count {
+    font-size: 32px;
+    font-weight: 700;
+    margin-top: 30px;
+  }
+  .stats-title {
+    font-size: 22px;
+    letter-spacing: 1px;
+    padding-top: 15px;
+    margin-top: 15px;
+    text-transform: capitalize;
+    position: relative;
+  }
+  &.style04 {
+    .stats-icon {
+      .mat-icon {
+        color: #1ccdca;
+      }
+    }
+  }
+}

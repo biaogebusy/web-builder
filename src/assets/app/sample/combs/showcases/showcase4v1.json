@@ -1,0 +1,40 @@
+{
+  "title": "showcase 4v1",
+  "body": [{
+    "type": "showcase-4v1",
+    "title": {
+      "label": "showcase 4v1",
+      "style": "style-v1"
+    },
+    "bg": {
+      "classes": "bg-shadow bg-fill-width"
+    },
+    "elements": [{
+        "icon": "fingerprint",
+        "digit": {
+          "value": 100
+        },
+        "title": "Clients"
+      },
+      {
+        "icon": "verified_user",
+        "digit": {
+          "value": 200
+        },
+        "title": "Awards"
+      }, {
+        "icon": "android",
+        "digit": {
+          "value": 246
+        },
+        "title": "Line of code"
+      }, {
+        "icon": "mail",
+        "digit": {
+          "value": 578
+        },
+        "title": "Project"
+      }
+    ]
+  }]
+}
