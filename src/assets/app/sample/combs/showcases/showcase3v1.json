@@ -5,6 +5,7 @@
     "bg": {
       "classes": "bg-shadow bg-fill-width"
     },
+    "classes": "text-light",
     "bgImg": "/assets/images/showcase/bg2.jpeg",
     "title": {
       "label": "WE ARE ARWEN",
