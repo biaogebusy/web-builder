@@ -384,6 +384,15 @@
     }
   }
 
+  &.style-v3 {
+    &.use-image {
+      ::ng-deep img {
+        width: 10rem;
+        height: 10rem;
+      }
+    }
+  }
+
   &.style-v4,
   &.style-v7 {
     .box-icon {

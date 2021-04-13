@@ -5,8 +5,8 @@
       <app-title *ngIf="content.title" [content]="content.title"></app-title>
     </div>
     <div fxLayout.xs="column" fxLayout.gt-xs="row" fxLayoutGap.xs="6rem" fxLayoutGap.gt-xs="3rem">
-      <div *ngFor="let item of content.elements" [ngClass]="content.style" class="inv-builder-box" fxFlex.xs="100"
-        fxFlex.sm="50" fxFlex.md="33.33">
+      <div *ngFor="let item of content.elements" [ngClass]="content.style" class="inv-builder-box" fxFlex.xs="100%"
+        fxFlex.sm="50%" fxFlex.gt-sm="33.33%">
         <div *ngIf="item.icon" class="box-icon">
           <mat-icon>{{item.icon}}</mat-icon>
         </div>
