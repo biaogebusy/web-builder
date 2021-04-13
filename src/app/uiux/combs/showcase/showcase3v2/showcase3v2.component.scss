@@ -1,0 +1,43 @@
+@import "../../../../../theme/variable/breakpoint";
+.showcase-3-v2 {
+  min-height: 300px;
+}
+.image-container {
+  padding: 0;
+  overflow: hidden;
+  position: relative;
+  img {
+    max-width: none;
+    position: absolute;
+    height: 100%;
+    width: auto;
+    top: 0;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    @media #{$gt-xs} {
+      img {
+        -webkit-transform: translateX(-50%) scale(1.05);
+        transform: translateX(-50%) scale(1.05);
+      }
+    }
+    @media #{$gt-md} {
+      img {
+        -webkit-transform: translateX(-50%) scale(1.2);
+        transform: translateX(-50%) scale(1.2);
+      }
+    }
+    @media #{$gt-lg} {
+      img {
+        -webkit-transform: translateX(-50%) scale(1.05);
+        transform: translateX(-50%) scale(1.05);
+      }
+    }
+  }
+}
+@media #{$gt-xs} {
+  .image-container {
+    position: absolute;
+    height: 100%;
+  }
+}
