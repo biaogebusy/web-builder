@@ -1,9 +1,11 @@
 {
   "body": [{
     "type": "showcase-3v2",
-    "bg": {
-      "classes": "bg-shadow bg-fill-width"
+    "title": {
+      "label": "- ALD R&D Team -",
+      "style": "style-v2"
     },
+    "classes": "bg-shadow",
     "img": {
       "src": "/assets/images/showcase/wave.jpg",
       "alt": ""

@@ -1,15 +1,18 @@
-<section class="showcase-3-v2 position-relative m-y" *ngIf="content">
-  <app-bg [content]="content.bg" *ngIf="content.bg"></app-bg>
-  <div class="container">
-    <div fxLayout>
-      <div fxFlex="50" class="image-container">
-        <app-img [content]="content.img" *ngIf="content.img"></app-img>
-      </div>
-      <div fxFlex="50" fxFlexOffset="50" class="module-content p-md">
-        <h2 class="mat-h2" *ngIf="content?.content?.title">{{content.content.title}}</h2>
-        <p class="m-bottom" *ngIf="content?.content?.body" [innerHTML]="content.content.body"></p>
-        <app-link *ngIf="content?.content?.link" [content]="content.content.link"></app-link>
+<div class="showcase p-y">
+  <app-title [content]="content.title" *ngIf="content.title"></app-title>
+  <section class="showcase-3-v2 position-relative m-y" *ngIf="content">
+    <div class="container">
+      <div fxLayout [ngClass]="content.classes">
+        <div fxFlex="0 0 50%" class="image-container">
+          <app-img [content]="content.img" *ngIf="content.img"></app-img>
+        </div>
+        <div fxFlex="0 0 50%" fxFlexOffset="50" class="module-content p-md">
+          <h2 class="mat-h2" *ngIf="content?.content?.title">{{content.content.title}}</h2>
+          <p class="m-bottom" *ngIf="content?.content?.body" [innerHTML]="content.content.body"></p>
+          <app-link *ngIf="content?.content?.link" [content]="content.content.link"></app-link>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+
+</div>
