@@ -2,14 +2,14 @@
   <app-title [content]="content.title" *ngIf="content.title"></app-title>
   <section class="showcase-3-v2 position-relative m-y" *ngIf="content">
     <div class="container">
-      <div fxLayout [ngClass]="content.classes">
-        <div fxFlex="0 0 50%" class="image-container">
-          <app-img [content]="content.img" *ngIf="content.img"></app-img>
+      <div class="item clearfix m-y" [ngClass]="content.classes" *ngFor="let item of content.elements">
+        <div class="image-container">
+          <app-img [content]="item.img" *ngIf="item.img"></app-img>
         </div>
-        <div fxFlex="0 0 50%" fxFlexOffset="50" class="module-content p-md">
-          <h2 class="mat-h2" *ngIf="content?.content?.title">{{content.content.title}}</h2>
-          <p class="m-bottom" *ngIf="content?.content?.body" [innerHTML]="content.content.body"></p>
-          <app-link *ngIf="content?.content?.link" [content]="content.content.link"></app-link>
+        <div class="module-content p-md">
+          <h2 class="mat-h2" *ngIf="item.content.title">{{item.content.title}}</h2>
+          <p class="m-bottom" *ngIf="item.content.body" [innerHTML]="item.content.body"></p>
+          <app-link *ngIf="item.content.link" [content]="item.content.link"></app-link>
         </div>
       </div>
     </div>

@@ -5,3 +5,22 @@
 .display-block {
   display: block !important;
 }
+
+.clearfix {
+  &:before,
+  &:after {
+    content: " ";
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+pull-left {
+  float: left;
+}
+
+pull-right {
+  float: right;
+}
