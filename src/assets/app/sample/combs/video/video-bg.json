@@ -3,9 +3,15 @@
   "body": [{
     "type": "video-bg",
     "params": {
-      "youtube": {
-        "id": "xxx"
-      }
+      "autoplay": true,
+      "controls": false,
+      "loop": true,
+      "muted": true,
+      "aspectRatio": "16:9",
+      "sources": [{
+        "src": "/assets/video/kingzone.mp4",
+        "type": "video/mp4"
+      }]
     },
     "widget": {
       "type": "showcase-4v1",

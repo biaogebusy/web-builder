@@ -1,1 +1,10 @@
-@import "~video.js/dist/video-js.css";
+.video-bg {
+  overflow: hidden;
+}
+.video-js {
+  position: absolute;
+  left: 0;
+  top: -50%;
+  width: 100%;
+  height: 100%;
+}
