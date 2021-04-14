@@ -8,10 +8,6 @@
   $accent: map-get($config, accent);
   $warn: map-get($config, warn);
 
-  .sidebar {
-    background-color: mat-color($background, background);
-  }
-
   .result {
     .result-total {
       color: mat-color($primary, text);

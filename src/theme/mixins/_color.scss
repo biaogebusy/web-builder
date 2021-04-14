@@ -44,6 +44,6 @@
 
   .mat-drawer-container {
     color: $text-base;
-    background-color: #fff;
+    background-color: mat-color($background, background);
   }
 }
