@@ -1,0 +1,45 @@
+{
+  "title": "Video bg",
+  "body": [{
+    "type": "video-bg",
+    "params": {
+      "youtube": {
+        "id": "xxx"
+      }
+    },
+    "widget": {
+      "type": "showcase-4v1",
+      "title": {
+        "label": "showcase 4v1",
+        "style": "style-v1"
+      },
+      "elements": [{
+          "icon": "fingerprint",
+          "digit": {
+            "value": 100
+          },
+          "title": "Clients"
+        },
+        {
+          "icon": "verified_user",
+          "digit": {
+            "value": 200
+          },
+          "title": "Awards"
+        }, {
+          "icon": "android",
+          "digit": {
+            "value": 246
+          },
+          "title": "Line of code"
+        }, {
+          "icon": "mail",
+          "digit": {
+            "value": 578
+          },
+          "title": "Project"
+        }
+      ]
+    }
+  }]
+}

@@ -1,1 +1,4 @@
-<p>video-bg works!</p>
+<div class="video-bg position-relative" *ngIf="content">
+  <video #target class="video-js" controls muted playsinline preload="none"></video>
+  <app-dynamic-combs [content]="content.widget"></app-dynamic-combs>
+</div>
