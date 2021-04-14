@@ -2,5 +2,8 @@
   <div class="container">
     <app-title [content]="content.title" *ngIf="content.title"></app-title>
     <div class="content" [innerHTML]="content.content"></div>
+    <div fxLayoutAlign="center center" fxLayoutGap="1rem">
+      <app-btn-animate [content]="btn" *ngFor="let btn of content.actions"></app-btn-animate>
+    </div>
   </div>
 </div>

@@ -1,5 +1,9 @@
+@import "../../../../../theme/variable/breakpoint";
 .content {
   margin: 15px auto 50px;
   text-align: center;
-  width: 50%;
+  width: 100%;
+  @media #{$gt-xs} {
+    width: 50%;
+  }
 }

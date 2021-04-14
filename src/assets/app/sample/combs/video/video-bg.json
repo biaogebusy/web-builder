@@ -7,9 +7,9 @@
       "controls": false,
       "loop": true,
       "muted": true,
-      "aspectRatio": "16:9",
+      "fluid": true,
       "sources": [{
-        "src": "/assets/video/wood.mp4",
+        "src": "/assets/video/afterglow.mp4",
         "type": "video/mp4"
       }]
     },
@@ -20,7 +20,18 @@
         "style": "style-v1"
       },
       "classes": "text-light",
-      "content": "At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat."
+      "content": "At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.",
+      "actions": [{
+        "label": "Read more",
+        "href": "#",
+        "style": "style-v1",
+        "icon": "verified_user"
+      }, {
+        "label": "Buy Now",
+        "href": "#",
+        "style": "style-v1",
+        "icon": "fingerprint"
+      }]
     }
   }]
 }

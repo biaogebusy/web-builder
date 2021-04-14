@@ -1,3 +1,4 @@
+@import "../../../../../theme/variable/breakpoint";
 .video-bg {
   overflow: hidden;
 }
@@ -5,9 +6,12 @@
   position: absolute;
   z-index: -1;
   left: 0;
-  top: -50%;
+  top: 0;
   width: 100%;
   height: 100%;
+  @media #{$gt-xs} {
+    top: -50%;
+  }
 }
 .layer {
   z-index: 1;
