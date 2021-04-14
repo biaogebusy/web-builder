@@ -1,0 +1,6 @@
+<div class="showcase-1-v3 position-relative" [ngClass]="content.classes" *ngIf="content">
+  <div class="container">
+    <app-title [content]="content.title" *ngIf="content.title"></app-title>
+    <div class="content" [innerHTML]="content.content"></div>
+  </div>
+</div>

@@ -1,6 +1,7 @@
 <ng-container *ngIf="content">
   <ng-container [ngSwitch]="content.type">
     <app-showcase1v1 *ngSwitchCase="'showcase-1v1'" [content]="content"></app-showcase1v1>
+    <app-showcase1v3 *ngSwitchCase="'showcase-1v3'" [content]="content"></app-showcase1v3>
     <app-showcase2v1 *ngSwitchCase="'showcase-2v1'" [content]="content"></app-showcase2v1>
     <app-showcase3v1 *ngSwitchCase="'showcase-3v1'" [content]="content"></app-showcase3v1>
     <app-showcase3v2 *ngSwitchCase="'showcase-3v2'" [content]="content"></app-showcase3v2>

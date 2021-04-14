@@ -14,38 +14,13 @@
       }]
     },
     "widget": {
-      "type": "showcase-4v1",
+      "type": "showcase-1v3",
       "title": {
-        "label": "showcase 4v1",
+        "label": "VIDEO BACKGROUND",
         "style": "style-v1"
       },
-      "elements": [{
-          "icon": "fingerprint",
-          "digit": {
-            "value": 100
-          },
-          "title": "Clients"
-        },
-        {
-          "icon": "verified_user",
-          "digit": {
-            "value": 200
-          },
-          "title": "Awards"
-        }, {
-          "icon": "android",
-          "digit": {
-            "value": 246
-          },
-          "title": "Line of code"
-        }, {
-          "icon": "mail",
-          "digit": {
-            "value": 578
-          },
-          "title": "Project"
-        }
-      ]
+      "classes": "text-light",
+      "content": "At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat."
     }
   }]
 }
