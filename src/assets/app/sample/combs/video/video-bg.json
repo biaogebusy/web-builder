@@ -9,7 +9,7 @@
       "muted": true,
       "aspectRatio": "16:9",
       "sources": [{
-        "src": "/assets/video/kingzone.mp4",
+        "src": "/assets/video/wood.mp4",
         "type": "video/mp4"
       }]
     },
