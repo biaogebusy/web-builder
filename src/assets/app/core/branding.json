@@ -24,17 +24,29 @@
           "label": "Showcase",
           "child": [{
             "label": "Showcase 1v1",
-            "href": "/sample/showcase/showcase-1-v1"
+            "href": "/sample/combs/showcases/showcase1v1"
+          }, {
+            "label": "Showcase 1v2",
+            "href": "/sample/combs/showcases/showcase1v2"
           }, {
             "label": "Showcase 2v1",
-            "href": "/sample/showcase/showcase-2-v1"
+            "href": "/sample/combs/showcases/showcase2v1"
+          }, {
+            "label": "Showcase 3v1",
+            "href": "/sample/combs/showcases/showcase3v1"
+          }, {
+            "label": "Showcase 3v2",
+            "href": "/sample/combs/showcases/showcase3v2"
+          }, {
+            "label": "Showcase 4v1",
+            "href": "/sample/combs/showcases/showcase4v1"
           }]
         }, {
           "label": "Carousel",
           "href": "javascript:void(0)",
           "child": [{
             "label": "Carousel 1v1",
-            "href": "/sample/carousel/carousel-1-v1"
+            "href": "/sample/combs/carousels/carousel1v1"
           }]
         }]
       },
