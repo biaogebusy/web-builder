@@ -1,12 +1,11 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ShareModule } from '../share/share.module';
-import { UiuxModule } from '../uiux/uiux.module';
 import { JobModule } from './job/job.module';
 import { CaseModule } from './case/case.module';
 import { ArticleModule } from './article/article.module';
+import { NodeRoutingModule } from './node-routing.module';
 
-const modules = [JobModule, CaseModule, ArticleModule];
+const modules = [JobModule, CaseModule, ArticleModule, NodeRoutingModule];
 @NgModule({
   declarations: [],
   imports: [CommonModule, modules],

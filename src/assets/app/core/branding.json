@@ -7,16 +7,16 @@
     "mainMenu": [{
         "label": "职位",
         "classes": "bold",
-        "href": "/jobs"
+        "href": "/lists/jobs"
       },
       {
         "label": "文章",
         "classes": "bold",
-        "href": "/articles"
+        "href": "/lists/articles"
       }, {
         "label": "案例",
         "classes": "bold",
-        "href": "/cases"
+        "href": "/lists/cases"
       }, {
         "label": "组件",
         "classes": "bold",

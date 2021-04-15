@@ -1,41 +1,28 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { JobComponent } from './node/job/job.component';
 import { LoginComponent } from './user/login/login.component';
-import { AuthGuard } from './guards/auth.guard';
-import { ArticleComponent } from './node/article/article.component';
-import { CaseComponent } from './node/case/case.component';
 
 const routes: Routes = [
-  {
-    path: 'jobs',
-    component: JobComponent,
-    // canActivate: [AuthGuard],
-  },
   {
     path: 'login',
     component: LoginComponent,
   },
   {
-    path: 'cases',
-    component: CaseComponent,
-    // canActivate: [AuthGuard],
-  },
-  {
-    path: 'articles',
-    component: ArticleComponent,
-    canActivate: [AuthGuard],
-  },
-  {
     path: '',
-    redirectTo: 'jobs',
+    redirectTo: 'lists/jobs',
     pathMatch: 'full',
   },
-
-  // otherwise redirect to home
+  {
+    path: 'lists',
+    loadChildren: () =>
+      import('./node/node-routing.module').then((m) => m.NodeRoutingModule),
+  },
   {
     path: '**',
-    loadChildren: () => import('./page-render/page-routing.module').then(m => m.PageRoutingModule),
+    loadChildren: () =>
+      import('./page-render/page-routing.module').then(
+        (m) => m.PageRoutingModule
+      ),
   },
 ];
 
