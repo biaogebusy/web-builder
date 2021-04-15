@@ -1,8 +1,9 @@
-# 远方信使 - 一个使用 Drupal 提供 API 的 Angular 前端开发框架。
+# 远方信使 - 一个使用 Drupal 提供 API 的 Angular 前端开发学习框架。
 
 [Angular DEMO](https://xinshi.zhaobg.com/)
 
-[Drupal API 库](https://github.com/biaogebusy/xinshi-cms)
+[Drupal Headless](https://github.com/biaogebusy/xinshi-cms)
+部分功能使用了[戴文科技](http://www.davyin.com/)开源的贡献模块，[查看更多开源模块和主题](https://github.com/davyin-co)
 
 ## UI 框架
 
@@ -43,4 +44,5 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ![Drupal 自习室](./src/assets/images/qrcode.jpg)
 
 ##### 入群
+
 ![交流群](./src/assets/images/qrcode.png)
