@@ -35,7 +35,7 @@
     "mobx-angular": "^4.2.0",
     "ngx-swiper-wrapper": "^10.0.0",
     "ngx-webstorage-service": "^4.1.0",
-    "rxjs": "~6.6.0",
+    "rxjs": "~6.6.7",
     "shufflejs": "^5.3.0",
     "svelte": "^3.37.0",
     "swiper": "^6.5.0",
