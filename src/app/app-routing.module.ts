@@ -35,7 +35,7 @@ const routes: Routes = [
   // otherwise redirect to home
   {
     path: '**',
-    loadChildren: './page-render/page-routing.module#PageRoutingModule',
+    loadChildren: () => import('./page-render/page-routing.module').then(m => m.PageRoutingModule),
   },
 ];
 
