@@ -1,0 +1,25 @@
+@import "~@angular/material/theming";
+
+@mixin btn-animate-color($config-or-theme) {
+  $config: mat-get-color-config($config-or-theme);
+  $foreground: map-get($config, foreground);
+  $background: map-get($config, background);
+  $primary: map-get($config, primary);
+  $accent: map-get($config, accent);
+  $warn: map-get($config, warn);
+  @debug $background;
+  .btn-animate {
+    color: mat-color($background, card);
+    background-color: mat-color($primary);
+    &.color2 {
+      background: mat-color($primary);
+    }
+    &.style-v1,
+    &.style-v2 {
+      color: mat-color($background, card);
+      &.text-color {
+        color: mat-color($primary);
+      }
+    }
+  }
+}

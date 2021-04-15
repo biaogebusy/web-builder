@@ -8,6 +8,7 @@
 @import "./showcase";
 @import "./img";
 @import "./title";
+@import "./btn-animate";
 
 // material custom
 @import "./mat/card";
@@ -25,6 +26,7 @@
   @include showcase-color($config-or-theme, $base);
   @include img-color($config-or-theme);
   @include title-color($config-or-theme);
+  @include btn-animate-color($config-or-theme);
 
   // material custom ui
   @include card-color($config-or-theme);

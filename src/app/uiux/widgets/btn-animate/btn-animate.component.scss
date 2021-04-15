@@ -1,8 +1,6 @@
 @import "../../../../theme/mixins/amixin";
-.inv-button {
+.btn-animate {
   border: 0 none;
-  color: #fff;
-  background: #1ccdca;
   padding: 10px 15px;
   &.btn-large {
     padding: 15px 22px;
@@ -10,24 +8,7 @@
   &.btn-small {
     padding: 7px 10px;
   }
-  &.color2 {
-    background: #3badaf;
-  }
-  &.color3 {
-    background: #d10707;
-  }
-  &.color4 {
-    background: #5f52b7;
-  }
-  &.color5 {
-    background: #b853a3;
-  }
-  &.color6 {
-    background: #92c135;
-  }
-  &.color7 {
-    background: #576162;
-  }
+
   &.btn-white {
     background: #fff;
     border: 1px solid #e4e4e4;
@@ -48,10 +29,7 @@
     font-size: 13px;
     vertical-align: top;
     overflow: hidden;
-    color: #fff;
-    &.text-color {
-      color: #1ccdca;
-    }
+
     & > span {
       display: block;
       overflow: hidden;
@@ -151,16 +129,16 @@
   }
 }
 
-.inv-button.style-v1:not(.btn-white) .mat-icon.in_left,
-.inv-button.style-v1:not(.btn-white) .mat-icon.in_right,
-.inv-button.style-v2:not(.btn-white) .mat-icon.in_left,
-.inv-button.style-v2:not(.btn-white) .mat-icon.in_right {
+.btn-animate.style-v1:not(.btn-white) .mat-icon.in_left,
+.btn-animate.style-v1:not(.btn-white) .mat-icon.in_right,
+.btn-animate.style-v2:not(.btn-white) .mat-icon.in_left,
+.btn-animate.style-v2:not(.btn-white) .mat-icon.in_right {
   background: rgba(0, 0, 0, 0.1);
 }
-.inv-button.style-v1.btn-white .mat-icon.in_left,
-.inv-button.style-v1.btn-white .mat-icon.in_right,
-.inv-button.style-v2.btn-white .mat-icon.in_left,
-.inv-button.style-v2.btn-white .mat-icon.in_right {
+.btn-animate.style-v1.btn-white .mat-icon.in_left,
+.btn-animate.style-v1.btn-white .mat-icon.in_right,
+.btn-animate.style-v2.btn-white .mat-icon.in_left,
+.btn-animate.style-v2.btn-white .mat-icon.in_right {
   background: unset;
 }
 .btn {
