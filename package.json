@@ -51,6 +51,7 @@
     "@angular/compiler-cli": "~11.0.1",
     "@types/gsap": "^1.20.2",
     "@types/jasmine": "~3.6.0",
+    "@types/lodash-es": "^4.17.4",
     "@types/node": "^12.11.1",
     "codelyzer": "^6.0.0",
     "jasmine-core": "~3.6.0",
