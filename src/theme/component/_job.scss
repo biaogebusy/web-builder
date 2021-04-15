@@ -7,7 +7,9 @@
   $primary: map-get($config, primary);
   $accent: map-get($config, accent);
   $warn: map-get($config, warn);
-
+  .sidebar {
+    background-color: mat-color($background, card);
+  }
   .result {
     .result-total {
       color: mat-color($primary, text);
