@@ -12,9 +12,19 @@
     },
     "sliders": {
       "params": {
-        "slidesPerView": 3,
-        "spaceBetween": 50,
-        "navigation": false
+        "slidesPerView": 1.2,
+        "spaceBetween": 20,
+        "navigation": false,
+        "breakpoints": {
+          "600": {
+            "slidesPerView": 3,
+            "spaceBetween": 20
+          },
+          "960": {
+            "slidesPerView": 3,
+            "spaceBetween": 50
+          }
+        }
       },
       "classes": "p-bottom",
       "elements": [{
