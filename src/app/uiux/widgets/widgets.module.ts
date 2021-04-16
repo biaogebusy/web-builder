@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { ShareModule } from '../../share/share.module';
 import { MatChipsModule } from '@angular/material/chips';
 import { ChipListComponent } from './chip-list/chip-list.component';
@@ -40,7 +39,7 @@ const components = [
 
 @NgModule({
   declarations: [...components],
-  imports: [CommonModule, MatChipsModule, ShareModule, SwiperModule],
+  imports: [MatChipsModule, ShareModule, SwiperModule],
   exports: [...components],
   providers: [
     {

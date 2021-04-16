@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { JobFilterComponent } from './job-filter/job-filter.component';
 import { JobListComponent } from './job-list/job-list.component';
 import { JobNodeComponent } from './job-node/job-node.component';
@@ -15,6 +14,6 @@ import { UiuxModule } from '../../uiux/uiux.module';
     JobComponent,
     MapComponent,
   ],
-  imports: [CommonModule, ShareModule, UiuxModule],
+  imports: [ShareModule, UiuxModule],
 })
 export class JobModule {}

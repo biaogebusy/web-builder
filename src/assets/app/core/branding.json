@@ -48,6 +48,20 @@
             "label": "Carousel 1v1",
             "href": "/sample/combs/carousels/carousel1v1"
           }]
+        }, {
+          "label": "Node",
+          "href": "javascript:void(0)",
+          "child": [{
+            "label": "case",
+            "href": "/sample/node/case"
+          }]
+        }, {
+          "label": "Other",
+          "href": "javascript:void(0)",
+          "child": [{
+            "label": "Video bg",
+            "href": "/sample/combs/video/videobg"
+          }]
         }]
       },
       {

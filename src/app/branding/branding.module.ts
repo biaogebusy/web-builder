@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { ShareModule } from '../share/share.module';
@@ -22,7 +21,7 @@ import { SubMenuComponent } from './header/menu/item-menu/sub-menu/sub-menu.comp
     ItemMenuComponent,
     SubMenuComponent,
   ],
-  imports: [CommonModule, ShareModule, UiuxModule],
+  imports: [ShareModule, UiuxModule],
   exports: [HeaderComponent, FooterComponent, MenuComponent],
 })
 export class BrandingModule {}
