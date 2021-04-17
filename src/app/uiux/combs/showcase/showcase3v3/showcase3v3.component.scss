@@ -1,0 +1,84 @@
+@import "../../../../../theme/mixins/amixin";
+.blog-item {
+  ul,
+  li {
+    margin: 0;
+    padding: 0;
+  }
+  ul.post-meta-info {
+    color: #8a8d8d;
+    font-size: 13px;
+    margin-bottom: 13px;
+    li {
+      margin-bottom: 7px;
+    }
+    .meta-categories,
+    .meta-author {
+      > div {
+        display: inline-block;
+      }
+    }
+    .mat-icon {
+      margin-right: 5px;
+    }
+  }
+
+  .blog-shortdesc {
+    color: #555;
+    font-size: 13px;
+  }
+
+  &.blog-grid {
+    // Blog grid style
+    .blog-grid-con {
+      background: #fff;
+      border-color: #e9e9e9;
+      border-style: solid;
+      border-width: 0 1px 1px;
+      padding: 25px 22px 17px;
+    }
+
+    .blog-grid-top {
+      border-color: #e9e9e9;
+      border-style: solid;
+      border-width: 1px 1px 0px 1px;
+      background: #fff;
+      color: #324545;
+      padding: 20px 22px 19px;
+    }
+    &.blog-grid-style-2 {
+      // Grid style 2
+      .blog-shortdesc {
+        border-top: 1px solid rgba(0, 0, 0, 0.07);
+        margin-top: 13px;
+        padding-top: 15px;
+      }
+    }
+  }
+  &.teaser,
+  &.blog-post {
+    // Standard, list and post style
+    .blog-grid-con {
+      padding: 25px 0px;
+    }
+    img {
+      width: 100%;
+      height: auto;
+    }
+    .title1 {
+      color: #576162;
+      text-transform: uppercase;
+      margin: 0 0 15px 0;
+    }
+    .post-meta-info {
+      border-bottom: 1px dotted rgba(0, 0, 0, 0.1);
+      margin-bottom: 17px;
+      padding-bottom: 11px;
+    }
+  }
+  &.teaser {
+    border-bottom: 1px dotted #e9e9e9;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+  }
+}

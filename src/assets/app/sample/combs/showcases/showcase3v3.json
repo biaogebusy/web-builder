@@ -1,0 +1,82 @@
+{
+  "title": "Blog list as showcase 3v3",
+  "body": [{
+    "type": "showcase-3v3",
+    "title": {
+      "label": "Blog title for sample",
+      "href": "#"
+    },
+    "feature": {
+      "link": {
+        "href": "#",
+        "icon": "link"
+      },
+      "img": {
+        "large": "/assets/images/cases/porto1.jpg",
+        "normal": "/assets/images/cases/porto2.jpg"
+      }
+    },
+    "date": "12/09/2016",
+    "commentCount": "2",
+    "category": "Design",
+    "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit Mauris non laoreet dui, Morbi lacus massa, euismod ut turpis molestie, tristique sodales est. Integer sit amet mi id sapien tempor molestie in nec massa Fusce non ante sed lorem rutrum feugiat, Vestibulum pellentesque, purus ut dignissim consectetur, nulla erat ultrices purus, ut consequat sem elit non sem. Morbi lacus massa, euismod ut turpis molestie, tristique sodales est",
+    "details": {
+      "label": "Read more",
+      "href": "#",
+      "style": "style-v1",
+      "icon": "verified_user"
+    }
+  }, {
+    "type": "showcase-3v3",
+    "title": {
+      "label": "DRAG AND DROP LAYOUT",
+      "href": "#"
+    },
+    "feature": {
+      "link": {
+        "href": "#",
+        "icon": "link"
+      },
+      "img": {
+        "large": "/assets/images/cases/porto2.jpg",
+        "normal": "/assets/images/cases/porto3.jpg"
+      }
+    },
+    "date": "12/09/2016",
+    "commentCount": "2",
+    "category": "Design",
+    "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit Mauris non laoreet dui, Morbi lacus massa, euismod ut turpis molestie, tristique sodales est. Integer sit amet mi id sapien tempor molestie in nec massa Fusce non ante sed lorem rutrum feugiat, Vestibulum pellentesque, purus ut dignissim consectetur, nulla erat ultrices purus, ut consequat sem elit non sem. Morbi lacus massa, euismod ut turpis molestie, tristique sodales est",
+    "details": {
+      "label": "Read more",
+      "href": "#",
+      "style": "style-v1",
+      "icon": "verified_user"
+    }
+  }, {
+    "type": "showcase-3v3",
+    "title": {
+      "label": "Blog title for sample",
+      "href": "#"
+    },
+    "feature": {
+      "link": {
+        "href": "#",
+        "icon": "link"
+      },
+      "img": {
+        "large": "/assets/images/cases/porto3.jpg",
+        "normal": "/assets/images/cases/porto4.jpg"
+      }
+    },
+    "date": "12/09/2016",
+    "commentCount": "2",
+    "category": "Design",
+    "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit Mauris non laoreet dui, Morbi lacus massa, euismod ut turpis molestie, tristique sodales est. Integer sit amet mi id sapien tempor molestie in nec massa Fusce non ante sed lorem rutrum feugiat, Vestibulum pellentesque, purus ut dignissim consectetur, nulla erat ultrices purus, ut consequat sem elit non sem. Morbi lacus massa, euismod ut turpis molestie, tristique sodales est",
+    "details": {
+      "label": "Read more",
+      "href": "#",
+      "style": "style-v1",
+      "icon": "verified_user"
+    }
+  }]
+}
