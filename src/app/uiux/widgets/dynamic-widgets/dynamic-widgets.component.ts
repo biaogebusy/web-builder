@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, AfterViewInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AppState } from '../../../mobx/AppState';
 
 @Component({
@@ -6,14 +6,9 @@ import { AppState } from '../../../mobx/AppState';
   templateUrl: './dynamic-widgets.component.html',
   styleUrls: ['./dynamic-widgets.component.scss'],
 })
-export class DynamicWidgetsComponent implements OnInit, AfterViewInit {
+export class DynamicWidgetsComponent implements OnInit {
   @Input() content: any;
-  public ready = false;
   constructor(public appState: AppState) {}
 
   ngOnInit(): void {}
-
-  ngAfterViewInit(): void {
-    this.ready = true;
-  }
 }
