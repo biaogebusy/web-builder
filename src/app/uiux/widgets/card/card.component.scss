@@ -16,7 +16,7 @@
   }
   .overlay-details {
     position: absolute;
-    z-index: 1000;
+    z-index: 99;
     width: 100%;
     text-align: center;
     @include middle-center();

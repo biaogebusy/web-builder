@@ -6,11 +6,8 @@
   $primary: map-get($config, primary);
   $accent: map-get($config, accent);
   $warn: map-get($config, warn);
-
   .mini {
     mat-chip {
-      background-color: mat-color($primary, 50) !important;
-      color: mat-color($primary) !important;
     }
   }
 }

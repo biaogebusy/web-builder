@@ -1,5 +1,5 @@
 @import "../../../../theme/mixins/amixin";
-.feature_inner {
+.feature-inner {
   position: relative;
   &:before {
     background: #fff;
@@ -24,7 +24,7 @@
     opacity: 0;
     @include transition(all, 0.4s, ease);
   }
-  .feature_inner_corners {
+  .feature-inner-corners {
     &:before {
       background: #fff;
       content: "";
@@ -49,9 +49,12 @@
       @include transition(all, 0.4s, ease);
     }
   }
-  .feature_inner_btns {
+  .feature-inner-btns {
     position: absolute;
     z-index: 1;
+    .mat-icon {
+      line-height: 40px;
+    }
     @include middle-center();
     > a {
       background: #fff;
@@ -65,13 +68,13 @@
       @include scale(0);
       @include transition(all, 0.4s, ease);
       @include border-radius(3px, 3px, 3px, 3px);
-      &.icon_link {
+      &.icon-link {
         background: rgba(0, 0, 0, 0.8);
         color: #fff;
       }
     }
   }
-  .feature_inner_ling {
+  .feature-inner-ling {
     position: relative;
     display: block;
     overflow: hidden;
@@ -105,14 +108,14 @@
       opacity: 1;
       @include transition(all, 0.4s, ease);
     }
-    .feature_inner_corners {
+    .feature-inner-corners {
       &:before,
       &:after {
         opacity: 1;
         @include transition(all, 0.4s, ease);
       }
     }
-    .feature_inner_btns {
+    .feature-inner-btns {
       > a {
         @include scale(1);
         @include transition(all, 0.4s, ease);
@@ -123,7 +126,7 @@
         }
       }
     }
-    .feature_inner_ling:after {
+    .feature-inner-ling:after {
       opacity: 0.8;
       @include transition(all, 0.4s, ease);
     }

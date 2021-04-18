@@ -1,6 +1,5 @@
 @import "./breakpoint";
 @import "../colors/colors";
-@import "../mixins/color";
 
 // 使用调色盘函数 mat-palette 生成 sass map,
 // primary: 组件最为广泛的主颜色
@@ -8,11 +7,13 @@
 // warn: 警告色
 // foreground: 文字颜色和图标
 // background: 组件背景色
+// contrast 对比色，文本基础色 mat-contrast
+// color: mat-color($primary, default-contrast);
+// background: mat-color($primary);
 
 $app-primary: mat-palette($light-color);
 $app-accent: mat-palette($light-color, A200, A100, A400);
 $app-warn: mat-palette($mat-red, A200, A100, A400);
-$app-base: mat-palette($light-theme-base-color);
 $app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
 
 $primary: mat-color($app-primary);
@@ -22,7 +23,6 @@ $warn: mat-color($app-warn);
 $enar-primary: mat-palette($enar-color, 300);
 $enar-accent: mat-palette($enar-color, A200, A100, A400);
 $enar-warn: mat-palette($mat-red, A200, A100, A400);
-$enar-base: mat-palette($mat-grey);
 $enar-theme: mat-light-theme($enar-primary, $enar-accent, $enar-warn);
 // TODO: secondary color和dark color其实是通用的，应该不区分主题，可以把 $dark-theme-base-color 变成全局，并新建 secondary palette sass map
 
@@ -47,8 +47,6 @@ $color-theme: (
     bg: #fff,
   )
 );
-@include branding(map-get($color-theme, shadow), "shadow");
-@include branding(map-get($color-theme, light), "light");
 
 // @include branding(map-get($colors, base), 'base');
 // @include branding(map-get($colors, primary), 'primary');
@@ -67,7 +65,6 @@ $color-theme: (
 $dark-primary: mat-palette($app-primary, 300, 50, 500);
 $dark-accent: mat-palette($light-color, A200, A100, A400);
 $dark-warn: mat-palette($mat-deep-orange);
-$dark-base: mat-palette($dark-theme-base-color);
 $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 
 $heading-font-family: "Helvetica", "Microsoft YaHei", "微软雅黑", "FreeSans",

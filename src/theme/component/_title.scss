@@ -16,12 +16,12 @@
     &.style-v5,
     &.style-v6 {
       .line-style {
-        background: rgba(0, 0, 0, 0.07);
+        background: mat-color($foreground, divider);
         &:before {
           background: mat-color($primary);
         }
         .mat-icon {
-          background: mat-color($background, card);
+          background: mat-color($primary, default-contrast);
           color: mat-color($primary);
         }
       }

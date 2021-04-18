@@ -1,6 +1,6 @@
 @import "~@angular/material/theming";
 
-@mixin footer-color($config-or-theme, $base) {
+@mixin footer-color($config-or-theme) {
   $config: mat-get-color-config($config-or-theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
@@ -8,8 +8,7 @@
   $accent: map-get($config, accent);
   $warn: map-get($config, warn);
 
-  $text-base: map-get($base, 500);
-
+  $text-base: mat-color($foreground, text, 0.75);
   .footer {
     background-color: mat-color($background, card);
 
@@ -24,6 +23,7 @@
 
     .footer-bottom {
       position: relative;
+      color: mat-color($foreground, text, 0.6);
       background-color: mat-color($background, background);
       z-index: 10;
     }
@@ -59,7 +59,7 @@
   }
   #go-to-top {
     background: mat-color($primary);
-    color: #ffffff;
+    color: mat-color($primary, default-contrast);
     &:hover {
       background: mat-color($primary, text, 0.7);
       transition: all 0.2s ease-in;

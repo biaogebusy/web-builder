@@ -9,14 +9,14 @@
   $warn: map-get($config, warn);
 
   .btn-animate {
-    color: mat-color($background, card);
+    color: mat-color($primary, default-contrast);
     background-color: mat-color($primary);
     &.color2 {
       background: mat-color($primary);
     }
     &.style-v1,
     &.style-v2 {
-      color: mat-color($background, card);
+      color: mat-color($primary, default-contrast);
       &.text-color {
         color: mat-color($primary);
       }

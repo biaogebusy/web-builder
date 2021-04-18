@@ -12,7 +12,7 @@
   }
 }
 
-@mixin base-colors($config-or-theme, $base) {
+@mixin base-colors($config-or-theme) {
   $config: mat-get-color-config($config-or-theme);
   $primary: map-get($config, primary);
   $accent: map-get($config, accent);
@@ -20,7 +20,6 @@
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
 
-  $text-base: map-get($base, 700);
   a {
     color: mat-color($primary);
     text-decoration: none;
@@ -41,9 +40,16 @@
     box-sizing: border-box;
     vertical-align: middle;
   }
-
   .mat-drawer-container {
-    color: $text-base;
+    color: mat-color($foreground, text, 0.75);
     background-color: mat-color($background, background);
+  }
+}
+
+@mixin custom-overide() {
+  .dark-theme {
+    .bg-shadow {
+      background-color: rgba(66, 66, 66, 0.85) !important;
+    }
   }
 }

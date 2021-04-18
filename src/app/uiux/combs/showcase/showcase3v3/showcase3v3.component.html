@@ -8,16 +8,16 @@
         <h2 class="title1">
           <app-link [content]="content.title"></app-link>
         </h2>
-        <ul class="list-inline post-meta-info" fxLayout fxLayoutAlign="center start">
-          <li class="meta-date" *ngIf="content.date" fxLayoutAlign="center center">
-            <mat-icon>clock</mat-icon>
+        <ul class="post-meta-info" fxLayout fxLayoutAlign="start start">
+          <li *ngIf="content.date" fxLayoutAlign="center center">
+            <mat-icon>schedule</mat-icon>
             <div>{{content.date}}</div>
           </li>
-          <li class="meta-comments" *ngIf="content.commentCount" fxLayoutAlign="center center">
+          <li *ngIf="content.commentCount" fxLayoutAlign="center center">
             <mat-icon>comment</mat-icon>
             <div>{{content.commentCount}} 评论</div>
           </li>
-          <li class="meta-categories" *ngIf="content.category" fxLayoutAlign="center center">
+          <li *ngIf="content.category" fxLayoutAlign="center center">
             <mat-icon>folder</mat-icon>
             <div>{{content.category}}</div>
           </li>

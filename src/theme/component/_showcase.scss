@@ -1,6 +1,6 @@
 @import "~@angular/material/theming";
 
-@mixin showcase-color($config-or-theme, $base) {
+@mixin showcase-color($config-or-theme) {
   $config: mat-get-color-config($config-or-theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
@@ -8,12 +8,12 @@
   $accent: map-get($config, accent);
   $warn: map-get($config, warn);
 
-  $text-base: map-get($base, 700);
+  $text-base: mat-color($foreground, text);
   .showcase-1-v1 {
     .inv-builder-box {
       .box-icon {
         .mat-icon {
-          color: #141414;
+          color: $text-base;
         }
       }
       a {
@@ -73,40 +73,19 @@
           border: 0 none;
         }
       }
-      &.thick-border-transparent {
-        .box-icon {
-          border: solid 7px #593652;
-        }
-        &:hover {
-          .box-icon {
-            background-color: mat-color($background, card);
-          }
-          .mat-icon {
-            color: mat-color($primary);
-          }
-        }
-      }
       &.style-v1,
       &.style-v2 {
         .box-icon {
-          background: mat-color($background, card);
+          background: mat-color($background, background);
           .mat-icon {
             background: mat-color($primary);
-            color: mat-color($background, card);
-            &.color-green {
-              background: #92c135;
-            }
-            &.color-blue {
-              background: #0072a5;
-            }
-            &.color-red {
-              background: #e85f1b;
-            }
+            color: mat-color($primary, default-contrast);
           }
         }
         .box-content-wrapper {
           border: 1px solid mat-color($foreground, divider);
-          background: mat-color($background, card);
+          background: mat-color($background, background);
+          color: mat-color($foreground, text);
           &:before {
             border: 1px solid mat-color($foreground, divider);
           }
@@ -139,28 +118,6 @@
         }
       }
       &.style-v1 {
-        &.bg-box-green {
-          .box-icon {
-            .mat-icon {
-              background: #92c135;
-            }
-          }
-        }
-        &.bg-box-blue {
-          .box-icon {
-            .mat-icon {
-              background: #0072a5;
-            }
-          }
-        }
-        &.bg-box-red {
-          .box-icon {
-            .mat-icon {
-              background: #e85f1b;
-            }
-          }
-        }
-
         &:hover {
           .box-title {
             color: mat-color($primary);
@@ -304,6 +261,26 @@
           color: mat-color($primary);
         }
         border-bottom-color: mat-color($primary);
+      }
+    }
+  }
+
+  .showcase-3-v3 {
+    .blog-item {
+      ul.post-meta-info {
+        color: #8a8d8d;
+      }
+      .blog-shortdesc {
+        color: #555;
+      }
+      &.teaser {
+        border-bottom: 1px dotted #e9e9e9;
+        .title1 {
+          color: #576162;
+        }
+        .post-meta-info {
+          border-bottom: 1px dotted rgba(0, 0, 0, 0.1);
+        }
       }
     }
   }

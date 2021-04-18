@@ -1,12 +1,16 @@
-<div class="feature_inner" *ngIf="content">
-  <div class="feature_inner_corners">
-    <div class="feature_inner_btns">
-      <a href="#" class="expand_image"><i class="ico-maximize"></i></a>
-      <a href="{{content.link.href}}" class="icon_link"><i class="ico-link3"></i></a>
+<div class="feature-inner" *ngIf="content">
+  <div class="feature-inner-corners">
+    <div class="feature-inner-btns">
+      <a href="#" class="expand-image">
+        <mat-icon>fullscreen</mat-icon>
+      </a>
+      <a href="{{content.link.href}}" class="icon-link">
+        <mat-icon>open_in_new</mat-icon>
+      </a>
     </div>
     <div class="mf-popup">
       <div class="mf-no-gallery">
-        <a class="feature_inner_ling" href="{{content.img.large}}">
+        <a class="feature-inner-ling" href="{{content.img.large}}">
           <img src="{{content.img.normal}}" alt="">
         </a>
       </div>

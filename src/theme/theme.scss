@@ -8,18 +8,21 @@
 @include reset-styles();
 @include mat-core();
 
+@include branding(map-get($color-theme, shadow), "shadow");
+@include branding(map-get($color-theme, light), "light");
+@include custom-overide();
 @include angular-material-theme($app-theme);
-@include base-colors($app-theme, $app-base);
-@include component-theme($app-theme, $app-base);
+@include base-colors($app-theme);
+@include component-theme($app-theme);
 
 .dark-theme {
   @include angular-material-theme($dark-theme);
-  @include base-colors($dark-theme, $dark-base);
-  @include component-theme($dark-theme, $app-base);
+  @include base-colors($dark-theme);
+  @include component-theme($dark-theme);
 }
 
 .enar-theme {
   @include angular-material-theme($enar-theme);
-  @include base-colors($enar-theme, $enar-base);
-  @include component-theme($enar-theme, $enar-base);
+  @include base-colors($enar-theme);
+  @include component-theme($enar-theme);
 }

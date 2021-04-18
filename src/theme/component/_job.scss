@@ -7,8 +7,9 @@
   $primary: map-get($config, primary);
   $accent: map-get($config, accent);
   $warn: map-get($config, warn);
+
   .sidebar {
-    background-color: mat-color($background, card);
+    background-color: mat-color($background, background);
   }
   .result {
     .result-total {
@@ -36,8 +37,8 @@
       }
     }
     .item {
-      box-shadow: 0 4px 20px 2px rgba(0, 0, 0, 0.07);
-      background-color: mat-color($background, card);
+      @include mat-elevation(4, #000, 0.35);
+      background-color: mat-color($background, card, 0.85);
 
       .wage {
         color: mat-color($primary);
@@ -58,7 +59,7 @@
   }
   .job-details {
     background-color: mat-color($background, card);
-    box-shadow: 0 4px 20px 2px rgba(0, 0, 0, 0.07);
+    @include mat-elevation(4, #000, 0.35);
     &::-webkit-scrollbar-thumb {
       background: rgba(0, 0, 0, 0.26);
     }

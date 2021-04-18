@@ -11,7 +11,7 @@
   .login-wrapper {
     background-color: map-get($background, card);
 
-    @include mat-elevation(1);
+    @include mat-elevation(4, #000, 0.35);
 
     .error {
       background-color: mat-color($warn);

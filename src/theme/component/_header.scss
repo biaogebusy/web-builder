@@ -53,18 +53,12 @@
   .user {
     .mat-button-wrapper {
       .mat-icon {
-        color: #fff;
+        color: mat-color($primary, default-contrast);
       }
     }
 
     .name {
-      color: #fff;
-    }
-  }
-
-  .drawer {
-    .total {
-      color: mat-color($primary, text);
+      color: mat-color($primary, default-contrast);
     }
   }
 }
