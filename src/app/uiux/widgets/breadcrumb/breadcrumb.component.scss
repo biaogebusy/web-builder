@@ -1,0 +1,28 @@
+.breadcrumb {
+  ul,
+  li {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+  ul {
+    li {
+      ::ng-deep a {
+        color: #fff;
+        margin: 0 2px;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+      &:before {
+        font-family: "idealtheme";
+        content: ">";
+      }
+      &:first-child {
+        &:before {
+          content: "";
+        }
+      }
+    }
+  }
+}

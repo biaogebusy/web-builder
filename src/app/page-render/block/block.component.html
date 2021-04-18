@@ -1,6 +1,7 @@
 <ng-container *ngIf="appState.content">
   <ng-container *ngFor="let item of appState.content">
     <ng-container [ngSwitch]="item.type">
+      <app-banner-simple *ngSwitchCase="'banner-simple'" [content]="item"></app-banner-simple>
       <app-showcase1v1 *ngSwitchCase="'showcase-1v1'" [content]="item"></app-showcase1v1>
       <app-showcase2v1 *ngSwitchCase="'showcase-2v1'" [content]="item"></app-showcase2v1>
       <app-showcase3v1 *ngSwitchCase="'showcase-3v1'" [content]="item"></app-showcase3v1>

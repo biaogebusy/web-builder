@@ -1,0 +1,23 @@
+{
+  "title": "banner simple",
+  "body": [{
+    "type": "banner-simple",
+    "style": "normal",
+    "bannerBg": {
+      "classes": "bg-fill-width",
+      "img": {
+        "hostClasses": "bg-center",
+        "src": "/assets/images/banner-01.jpeg",
+        "alt": "page title"
+      }
+    },
+    "title": "Contact Us",
+    "breadcrumb": [{
+      "label": "Home",
+      "href": "#"
+    }, {
+      "label": "Contact Us",
+      "href": "/about"
+    }]
+  }]
+}

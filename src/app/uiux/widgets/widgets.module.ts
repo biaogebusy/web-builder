@@ -17,6 +17,7 @@ import { DropdownMenuComponent } from './dropdown-menu/dropdown-menu.component';
 import { NumberAnimateComponent } from './number-animate/number-animate.component';
 import { BtnAnimateComponent } from './btn-animate/btn-animate.component';
 import { FeatureBoxComponent } from './feature-box/feature-box.component';
+import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -36,6 +37,7 @@ const components = [
   NumberAnimateComponent,
   BtnAnimateComponent,
   FeatureBoxComponent,
+  BreadcrumbComponent,
   DynamicWidgetsComponent,
 ];
 

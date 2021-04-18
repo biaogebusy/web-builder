@@ -4,6 +4,7 @@ import { ShowcaseModule } from './showcase/showcase.module';
 import { CarouselModule } from './carousel/carousel.module';
 import { VideoModule } from './video/video.module';
 import { MasonryModule } from './masonry/masonry.module';
+import { BannerModule } from './banner/banner.module';
 import { DynamicCombsModule } from './dynamic-combs/dynamic-combs.module';
 
 const modules = [
@@ -11,6 +12,7 @@ const modules = [
   CarouselModule,
   VideoModule,
   MasonryModule,
+  BannerModule,
   DynamicCombsModule,
 ];
 
