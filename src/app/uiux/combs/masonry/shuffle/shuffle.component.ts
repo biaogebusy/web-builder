@@ -20,7 +20,6 @@ export class ShuffleComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    console.log(this.el);
     const sizer = this.el.nativeElement.querySelectorAll('.sizer')[0];
     const shuffleEl = this.el.nativeElement.querySelectorAll(
       '.shuffle-inner'
@@ -35,13 +34,6 @@ export class ShuffleComponent implements OnInit, AfterViewInit {
     });
   }
   onFilter(category: string): void {
-    console.log(category);
     this.shuffle.filter(category);
-    // this.shuffle.filter((elements: any) => {
-    //   map(elements, (element: any) => {
-    //     console.log(element);
-    //     return element.getAttribute('data-groups') === category;
-    //   });
-    // });
   }
 }

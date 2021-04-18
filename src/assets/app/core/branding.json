@@ -52,6 +52,13 @@
             "href": "/sample/combs/carousels/carousel1v1"
           }]
         }, {
+          "label": "Masonry",
+          "href": "javascript:void(0)",
+          "child": [{
+            "label": "Shuffle",
+            "href": "/sample/combs/masonry/shuffle"
+          }]
+        }, {
           "label": "Node",
           "href": "javascript:void(0)",
           "child": [{
@@ -64,6 +71,9 @@
           "child": [{
             "label": "Video bg",
             "href": "/sample/combs/video/videobg"
+          }, {
+            "label": "Banner",
+            "href": "/sample/combs/banner/banner-simple"
           }]
         }]
       },
