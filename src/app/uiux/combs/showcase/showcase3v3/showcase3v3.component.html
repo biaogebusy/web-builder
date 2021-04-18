@@ -1,11 +1,11 @@
 <div class="showcase-3-v3 m-y-sm">
   <div class="container" *ngIf="content">
-    <div class="blog-item teaser" fxLayout.xs="column" fxLayout.gt-xs="row" fxFlex="100" fxLayoutGap.xs="0"
+    <div class="blog-item teaser" fxLayout.lt-md="column" fxLayout.gt-sm="row" fxFlex="100" fxLayoutGap.lt-md="0"
       fxLayoutGap.gt-xs="3rem">
-      <app-feature-box fxFlex.xs="100" fxFlex.gt-xs="40" [content]="content.feature" *ngIf="content.feature">
+      <app-feature-box fxFlex.lt-md="100" fxFlex.gt-sm="40" [content]="content.feature" *ngIf="content.feature">
       </app-feature-box>
-      <div fxFlex.xs="100" fxFlex.gt-xs="60" class="blog-grid-con">
-        <h2 class="title1">
+      <div fxFlex.lt-md="100" fxFlex.gt-sm="60" class="blog-grid-con">
+        <h2 class="title">
           <app-link [content]="content.title"></app-link>
         </h2>
         <ul class="post-meta-info" fxLayout fxLayoutAlign="start start">

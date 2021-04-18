@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
-@import './theme/theme.scss';
-@import '~material-design-icons/iconfont/material-icons.css';
+@import "./theme/theme.scss";
+@import "~material-design-icons/iconfont/material-icons.css";
 
 html {
   font-size: 10px;
@@ -11,6 +11,7 @@ body {
   max-width: 100%;
   display: block;
   font-size: 1.4rem;
+  line-height: 1.618;
   overflow-x: hidden;
   overflow-y: auto;
 }
