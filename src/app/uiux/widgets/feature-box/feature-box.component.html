@@ -1,11 +1,11 @@
 <div class="feature-inner" *ngIf="content">
   <div class="feature-inner-corners">
     <div class="feature-inner-btns">
-      <a href="#" class="expand-image">
-        <mat-icon>fullscreen</mat-icon>
+      <a href="#" class="expand-image" *ngIf="content.fullIcon">
+        <mat-icon>{{content.fullIcon}}</mat-icon>
       </a>
-      <a href="{{content.link.href}}" class="icon-link">
-        <mat-icon>open_in_new</mat-icon>
+      <a href="{{content.link}}" class="icon-link" *ngIf="content.openIcon">
+        <mat-icon>{{content.openIcon}}</mat-icon>
       </a>
     </div>
     <div class="mf-popup">
