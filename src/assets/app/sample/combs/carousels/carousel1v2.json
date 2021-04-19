@@ -1,0 +1,313 @@
+{
+  "title": "carousel 1v2",
+  "body": [{
+    "type": "carousel1v2",
+    "title": {
+      "label": "Gallery",
+      "style": "style-v6 line-full-width"
+    },
+    "bg": {
+      "classes": "bg-white bg-fill-width"
+    },
+    "sliders": {
+      "params": {
+        "slidesPerView": 1.2,
+        "spaceBetween": 10,
+        "navigation": false,
+        "pagination": false,
+        "breakpoints": {
+          "600": {
+            "slidesPerView": 3,
+            "spaceBetween": 20
+          },
+          "960": {
+            "slidesPerView": 4,
+            "spaceBetween": 20
+          }
+        }
+      },
+      "classes": "p-bottom",
+      "elements": [{
+        "type": "card",
+        "category": "design",
+        "subTitle": "2016/03/04",
+        "avatar": {
+          "src": "/assets/images/showcase/weather.png",
+          "alt": ""
+        },
+        "carousel": {
+          "params": {
+            "slidesPerView": 1,
+            "navigation": false,
+            "pagination": false,
+            "autoplay": {
+              "delay": 5000
+            },
+            "breakpoints": null
+          },
+          "elements": [{
+            "type": "img",
+            "src": "/assets/images/cases/porto1.jpg",
+            "hostClasses": "displa-block"
+          }]
+        },
+        "overlay": [{
+          "href": "/node/1",
+          "label": "大图"
+        }, {
+          "href": "/node/1",
+          "label": "更多"
+        }],
+        "link": {
+          "href": "/node/1",
+          "label": "FLAT LOGO DESIGN"
+        }
+      }, {
+        "type": "card",
+        "category": "design",
+        "subTitle": "2016/02/26",
+        "avatar": {
+          "src": "/assets/images/showcase/browser.png",
+          "alt": ""
+        },
+        "carousel": {
+          "params": {
+            "slidesPerView": 1,
+            "navigation": false,
+            "pagination": false,
+            "autoplay": {
+              "delay": 5000
+            },
+            "breakpoints": null
+          },
+          "elements": [{
+            "type": "img",
+            "src": "/assets/images/cases/porto2.jpg",
+            "hostClasses": "displa-block"
+          }]
+        },
+        "overlay": [{
+          "href": "/node/1",
+          "label": "大图"
+        }, {
+          "href": "/node/1",
+          "label": "更多"
+        }],
+        "link": {
+          "href": "/node/1",
+          "label": "FLAT LOGO DESIGN"
+        }
+      }, {
+        "type": "card",
+        "category": "drupal,design",
+        "subTitle": "2016/02/26",
+        "avatar": {
+          "src": "/assets/images/showcase/clipboard.png",
+          "alt": ""
+        },
+        "carousel": {
+          "params": {
+            "slidesPerView": 1,
+            "navigation": false,
+            "pagination": false,
+            "autoplay": {
+              "delay": 5000
+            },
+            "breakpoints": null
+          },
+          "elements": [{
+            "type": "img",
+            "src": "/assets/images/cases/porto3.jpg",
+            "hostClasses": "displa-block"
+          }]
+        },
+        "overlay": [{
+          "href": "/node/1",
+          "label": "大图"
+        }, {
+          "href": "/node/1",
+          "label": "更多"
+        }],
+        "link": {
+          "href": "/node/1",
+          "label": "FLAT LOGO DESIGN"
+        }
+      }, {
+        "type": "card",
+        "category": "priting,drupal",
+        "subTitle": "2016/02/26",
+        "avatar": {
+          "src": "/assets/images/showcase/console.png",
+          "alt": ""
+        },
+        "carousel": {
+          "params": {
+            "slidesPerView": 1,
+            "navigation": false,
+            "pagination": false,
+            "autoplay": {
+              "delay": 5000
+            },
+            "breakpoints": null
+          },
+          "elements": [{
+            "type": "img",
+            "src": "/assets/images/cases/porto4.jpg",
+            "hostClasses": "displa-block"
+          }]
+        },
+        "overlay": [{
+          "href": "/node/1",
+          "label": "大图"
+        }, {
+          "href": "/node/1",
+          "label": "更多"
+        }],
+        "link": {
+          "href": "/node/1",
+          "label": "FLAT LOGO DESIGN"
+        }
+      }, {
+        "type": "card",
+        "category": "design,drupal",
+        "subTitle": "2016/02/26",
+        "avatar": {
+          "src": "/assets/images/showcase/weather.png",
+          "alt": ""
+        },
+        "carousel": {
+          "params": {
+            "slidesPerView": 1,
+            "navigation": false,
+            "pagination": false,
+            "autoplay": {
+              "delay": 5000
+            },
+            "breakpoints": null
+          },
+          "elements": [{
+            "type": "img",
+            "src": "/assets/images/cases/porto5.jpg",
+            "hostClasses": "displa-block"
+          }]
+        },
+        "overlay": [{
+          "href": "/node/1",
+          "label": "大图"
+        }, {
+          "href": "/node/1",
+          "label": "更多"
+        }],
+        "link": {
+          "href": "/node/1",
+          "label": "FLAT LOGO DESIGN"
+        }
+      }, {
+        "type": "card",
+        "category": "drupal",
+        "subTitle": "2016/02/26",
+        "avatar": {
+          "src": "/assets/images/showcase/weather.png",
+          "alt": ""
+        },
+        "carousel": {
+          "params": {
+            "slidesPerView": 1,
+            "navigation": false,
+            "pagination": false,
+            "autoplay": {
+              "delay": 5000
+            },
+            "breakpoints": null
+          },
+          "elements": [{
+            "type": "img",
+            "src": "/assets/images/cases/porto6.jpg",
+            "hostClasses": "displa-block"
+          }]
+        },
+        "overlay": [{
+          "href": "/node/1",
+          "label": "大图"
+        }, {
+          "href": "/node/1",
+          "label": "更多"
+        }],
+        "link": {
+          "href": "/node/1",
+          "label": "FLAT LOGO DESIGN"
+        }
+      }, {
+        "type": "card",
+        "category": "design,priting",
+        "subTitle": "2016/02/26",
+        "avatar": {
+          "src": "/assets/images/showcase/weather.png",
+          "alt": ""
+        },
+        "carousel": {
+          "params": {
+            "slidesPerView": 1,
+            "navigation": false,
+            "pagination": false,
+            "autoplay": {
+              "delay": 5000
+            },
+            "breakpoints": null
+          },
+          "elements": [{
+            "type": "img",
+            "src": "/assets/images/cases/porto7.jpg",
+            "hostClasses": "displa-block"
+          }]
+        },
+        "overlay": [{
+          "href": "/node/1",
+          "label": "大图"
+        }, {
+          "href": "/node/1",
+          "label": "更多"
+        }],
+        "link": {
+          "href": "/node/1",
+          "label": "FLAT LOGO DESIGN"
+        }
+      }, {
+        "type": "card",
+        "category": "drupal,priting",
+        "subTitle": "2016/02/26",
+        "avatar": {
+          "src": "/assets/images/showcase/weather.png",
+          "alt": ""
+        },
+        "carousel": {
+          "params": {
+            "slidesPerView": 1,
+            "navigation": false,
+            "pagination": false,
+            "autoplay": {
+              "delay": 5000
+            },
+            "breakpoints": null
+          },
+          "elements": [{
+            "type": "img",
+            "src": "/assets/images/cases/porto8.jpg",
+            "hostClasses": "displa-block"
+          }]
+        },
+        "overlay": [{
+          "href": "/node/1",
+          "label": "大图"
+        }, {
+          "href": "/node/1",
+          "label": "更多"
+        }],
+        "link": {
+          "href": "/node/1",
+          "label": "FLAT LOGO DESIGN"
+        }
+      }]
+    }
+  }]
+}

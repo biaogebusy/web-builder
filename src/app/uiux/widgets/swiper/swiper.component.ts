@@ -1,12 +1,21 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  ViewChild,
+  AfterViewInit,
+} from '@angular/core';
 import {
   SwiperConfigInterface,
   SwiperCoverflowEffectInterface,
   SwiperNavigationInterface,
   SwiperPaginationInterface,
+  SwiperDirective,
 } from 'ngx-swiper-wrapper';
 import { AppState } from '../../../mobx/AppState';
+import { Subject } from 'rxjs';
 
+// https://www.npmjs.com/package/ngx-swiper-wrapper
 const navigationConfig: SwiperNavigationInterface = {
   nextEl: '.swiper-button-next',
   prevEl: '.swiper-button-prev',
@@ -15,6 +24,8 @@ const navigationConfig: SwiperNavigationInterface = {
 const paginationgConfig: SwiperPaginationInterface = {
   el: '.swiper-pagination',
   type: 'bullets',
+  clickable: true,
+  hideOnClick: false,
 };
 
 @Component({
@@ -22,12 +33,18 @@ const paginationgConfig: SwiperPaginationInterface = {
   templateUrl: './swiper.component.html',
   styleUrls: ['./swiper.component.scss'],
 })
-export class SwiperComponent implements OnInit {
+export class SwiperComponent implements OnInit, AfterViewInit {
   @Input() content: any;
+  @Input() index: number;
+  @Input() navigationSub: Subject<any>;
+  @ViewChild(SwiperDirective) public swiperWrapper: SwiperDirective;
   constructor(public appState: AppState) {}
   defaultConfig: SwiperConfigInterface = {
     slidesPerView: 'auto',
     speed: 1000,
+    scrollbar: false,
+    keyboard: true,
+    mousewheel: false,
     navigation: navigationConfig,
     pagination: paginationgConfig,
     // Responsive breakpoints
@@ -57,11 +74,19 @@ export class SwiperComponent implements OnInit {
   ngOnInit(): void {
     this.config = Object.assign(this.defaultConfig, this.content.params);
   }
-
-  onSwiper(swiper: any) {
+  ngAfterViewInit(): void {
+    this.navigationSub.subscribe((action) => {
+      if (action > 0) {
+        this.swiperWrapper.nextSlide();
+      } else {
+        this.swiperWrapper.prevSlide();
+      }
+    });
+  }
+  onSwiper(swiper: any): void {
     console.log(swiper);
   }
-  onSlideChange() {
+  onSlideChange(): void {
     console.log('slide change');
   }
 }

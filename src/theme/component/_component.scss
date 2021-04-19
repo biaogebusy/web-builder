@@ -9,6 +9,7 @@
 @import "./img";
 @import "./title";
 @import "./btn-animate";
+@import "./carousel";
 
 // material custom
 @import "./mat/card";
@@ -27,6 +28,7 @@
   @include img-color($config-or-theme);
   @include title-color($config-or-theme);
   @include btn-animate-color($config-or-theme);
+  @include carousel-color($config-or-theme);
 
   // material custom ui
   @include card-color($config-or-theme);

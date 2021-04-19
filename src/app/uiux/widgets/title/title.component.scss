@@ -122,4 +122,16 @@
       line-height: 33px;
     }
   }
+  &.line-full-width {
+    .line-style {
+      width: 100% !important;
+    }
+    &:hover {
+      .line-style {
+        &:before {
+          width: 30%;
+        }
+      }
+    }
+  }
 }

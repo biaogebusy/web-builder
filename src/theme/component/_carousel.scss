@@ -1,0 +1,15 @@
+@import "~@angular/material/theming";
+
+@mixin carousel-color($config-or-theme) {
+  $config: mat-get-color-config($config-or-theme);
+  $foreground: map-get($config, foreground);
+  $background: map-get($config, background);
+  $primary: map-get($config, primary);
+  $accent: map-get($config, accent);
+  $warn: map-get($config, warn);
+  .carousel-1-v2 {
+    .actions {
+      color: mat-color($primary);
+    }
+  }
+}

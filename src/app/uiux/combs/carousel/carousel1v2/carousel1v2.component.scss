@@ -1,0 +1,12 @@
+.actions {
+  position: absolute;
+  right: 0;
+  top: 20px;
+  left: auto;
+  .mat-icon {
+    cursor: pointer;
+    &:hover {
+      opacity: 0.85;
+    }
+  }
+}
