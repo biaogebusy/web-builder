@@ -1,7 +1,10 @@
 <div class="showcase p-y">
-  <app-title [content]="content.title" *ngIf="content.title"></app-title>
   <section class="showcase-3-v2 position-relative m-y" *ngIf="content">
     <div class="container">
+      <app-title [content]="content.title" *ngIf="content.title"></app-title>
+      <div class="sub-title text-center" fxLayoutAlign="center center">
+        <p [innerHTML]="content.subTitle" *ngIf="content.subTitle" fxFlex.lt-md="100" fxFlex.gt-sm="50"></p>
+      </div>
       <div class="item clearfix m-y" [ngClass]="content.classes" *ngFor="let item of content.elements">
         <div class="image-container">
           <app-img [content]="item.img" *ngIf="item.img"></app-img>
