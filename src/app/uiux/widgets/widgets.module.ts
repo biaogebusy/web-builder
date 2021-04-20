@@ -18,6 +18,7 @@ import { NumberAnimateComponent } from './number-animate/number-animate.componen
 import { BtnAnimateComponent } from './btn-animate/btn-animate.component';
 import { FeatureBoxComponent } from './feature-box/feature-box.component';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
+import { MapComponent } from './map/map.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -38,6 +39,7 @@ const components = [
   BtnAnimateComponent,
   FeatureBoxComponent,
   BreadcrumbComponent,
+  MapComponent,
   DynamicWidgetsComponent,
 ];
 

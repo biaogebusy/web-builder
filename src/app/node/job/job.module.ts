@@ -4,7 +4,6 @@ import { JobListComponent } from './job-list/job-list.component';
 import { JobNodeComponent } from './job-node/job-node.component';
 import { ShareModule } from '../../share/share.module';
 import { JobComponent } from './job.component';
-import { MapComponent } from './map/map.component';
 import { UiuxModule } from '../../uiux/uiux.module';
 @NgModule({
   declarations: [
@@ -12,7 +11,6 @@ import { UiuxModule } from '../../uiux/uiux.module';
     JobListComponent,
     JobNodeComponent,
     JobComponent,
-    MapComponent,
   ],
   imports: [ShareModule, UiuxModule],
 })

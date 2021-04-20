@@ -12,7 +12,7 @@ export class MapComponent implements OnInit {
   markers: any[];
   map: any;
 
-  constructor(private amapState: AMapState, private appState: AppState) { }
+  constructor(private amapState: AMapState, private appState: AppState) {}
 
   ngOnInit(): void {
     const themeStyle = this.appState.theme;
@@ -29,7 +29,7 @@ export class MapComponent implements OnInit {
     this.onMarkers();
     this.appState.switchChange$.subscribe((theme) => {
       const newMapStyle =
-        theme === 'light-theme' ? mapStyle.light : mapStyle.dark;
+        theme === 'dark-theme' ? mapStyle.dark : mapStyle.light;
       this.map.setMapStyle(newMapStyle);
     });
   }
@@ -90,7 +90,7 @@ export class MapComponent implements OnInit {
     this.amapState.markers$.subscribe((marker: any) => {
       const position = this.map
         .getAllOverlays('marker')
-      [marker.index].getPosition();
+        [marker.index].getPosition();
       const popup = new this.AMap.InfoWindow({
         content: this.markerTem(marker.item),
         isCustom: true,
