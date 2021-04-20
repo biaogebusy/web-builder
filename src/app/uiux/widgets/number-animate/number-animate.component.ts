@@ -1,5 +1,7 @@
 import { ElementRef, SimpleChanges, ViewChild } from '@angular/core';
 import { Component, Input, OnInit } from '@angular/core';
+import { ScreenService } from 'src/app/service/screen.service';
+import { ScreenState } from '../../../mobx/screen/ScreenState';
 
 @Component({
   selector: 'app-number-animate',
@@ -10,10 +12,16 @@ export class NumberAnimateComponent implements OnInit {
   @Input() content: any;
   duration: number;
   steps: number;
+  first = true;
+
   @ViewChild('animatedDigit') animatedDigit: ElementRef;
-  constructor() {}
+  constructor(
+    private screenState: ScreenState,
+    private screen: ScreenService
+  ) {}
 
   ngOnInit(): void {}
+
   animateCount(): void {
     if (!this.content.duration) {
       this.duration = 1000;
@@ -52,7 +60,15 @@ export class NumberAnimateComponent implements OnInit {
 
   ngAfterViewInit(): void {
     if (this.content.value) {
-      this.animateCount();
+      this.screenState.scroll$.subscribe(() => {
+        const inView = this.screen.isElementInViewport(
+          this.animatedDigit.nativeElement
+        );
+        if (inView && this.first) {
+          this.animateCount();
+          this.first = false;
+        }
+      });
     }
   }
 }
