@@ -50,6 +50,9 @@
           "child": [{
             "label": "Carousel 1v1",
             "href": "/sample/combs/carousels/carousel1v1"
+          }, {
+            "label": "Carousel 1v2",
+            "href": "/sample/combs/carousels/carousel1v2"
           }]
         }, {
           "label": "Masonry",

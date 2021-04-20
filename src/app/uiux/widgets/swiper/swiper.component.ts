@@ -4,6 +4,7 @@ import {
   OnInit,
   ViewChild,
   AfterViewInit,
+  OnDestroy,
 } from '@angular/core';
 import {
   SwiperConfigInterface,
@@ -33,7 +34,7 @@ const paginationgConfig: SwiperPaginationInterface = {
   templateUrl: './swiper.component.html',
   styleUrls: ['./swiper.component.scss'],
 })
-export class SwiperComponent implements OnInit, AfterViewInit {
+export class SwiperComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() content: any;
   @Input() index: number;
   @Input() navigationSub: Subject<any>;
@@ -75,18 +76,25 @@ export class SwiperComponent implements OnInit, AfterViewInit {
     this.config = Object.assign(this.defaultConfig, this.content.params);
   }
   ngAfterViewInit(): void {
-    this.navigationSub.subscribe((action) => {
-      if (action > 0) {
-        this.swiperWrapper.nextSlide();
-      } else {
-        this.swiperWrapper.prevSlide();
-      }
-    });
+    if (this.navigationSub) {
+      this.navigationSub.subscribe((action) => {
+        if (action > 0) {
+          this.swiperWrapper.nextSlide();
+        } else {
+          this.swiperWrapper.prevSlide();
+        }
+      });
+    }
   }
   onSwiper(swiper: any): void {
     console.log(swiper);
   }
   onSlideChange(): void {
     console.log('slide change');
+  }
+  ngOnDestroy(): void {
+    if (this.navigationSub) {
+      this.navigationSub.unsubscribe();
+    }
   }
 }
