@@ -5,6 +5,7 @@ import { CarouselModule } from './carousel/carousel.module';
 import { VideoModule } from './video/video.module';
 import { MasonryModule } from './masonry/masonry.module';
 import { BannerModule } from './banner/banner.module';
+import { MapModule } from './map/map.module';
 import { DynamicCombsModule } from './dynamic-combs/dynamic-combs.module';
 
 const modules = [
@@ -13,6 +14,7 @@ const modules = [
   VideoModule,
   MasonryModule,
   BannerModule,
+  MapModule,
   DynamicCombsModule,
 ];
 

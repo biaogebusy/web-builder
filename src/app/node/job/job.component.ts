@@ -131,6 +131,7 @@ export class JobComponent implements OnInit {
     });
   }
 
+  // https://lbs.amap.com/demo/javascript-api/example/geocoder/geocoding
   getPosition(lists: any): void {
     if (lists.length > 0) {
       lists.forEach((item: any, index: number) => {

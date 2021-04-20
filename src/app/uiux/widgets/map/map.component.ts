@@ -21,7 +21,7 @@ export class MapComponent implements OnInit {
     this.map = new this.AMap.Map('map', {
       resizeEnable: true,
       zoom: amapConfig.zoom,
-      center: amapConfig.center,
+      center: this.content?.params?.center || amapConfig.center,
       mapStyle: themeStyle === 'light-theme' ? mapStyle.light : mapStyle.dark,
       features: amapConfig.features,
     });

@@ -1,0 +1,18 @@
+{
+  "title": "Location",
+  "body": [{
+    "type": "location",
+    "title": {
+      "label": "My Location",
+      "style": "style-v1"
+    },
+    "style": {
+      "height": "500px"
+    },
+    "params": {
+      "center": [113.918286, 22.576327],
+      "city": "深圳市",
+      "address": "宝安区新安街道留仙一路高新奇科技园二期2号楼1001室"
+    }
+  }]
+}
