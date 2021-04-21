@@ -5,9 +5,16 @@
       "version": "Demo"
     },
     "mainMenu": [{
-        "label": "职位",
+        "label": "地图",
         "classes": "bold",
-        "href": "/lists/jobs"
+        "child": [{
+          "label": "职位",
+          "classes": "bold",
+          "href": "/lists/jobs"
+        }, {
+          "label": "location",
+          "href": "/sample/combs/map/location"
+        }]
       },
       {
         "label": "文章",
