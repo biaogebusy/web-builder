@@ -15,18 +15,27 @@ export class MapComponent implements OnInit {
   constructor(private amapState: AMapState, private appState: AppState) {}
 
   ngOnInit(): void {
+    this.initMap();
+    this.getMarkers();
+    this.onMarkers();
+  }
+
+  initMap(): void {
     const themeStyle = this.appState.theme;
     const amapConfig = this.appState.config?.amap;
     const mapStyle: any = amapConfig.mapStyle;
-    this.map = new this.AMap.Map('map', {
+    const options = this.content?.params;
+    const defaultOptions = {
       resizeEnable: true,
       zoom: amapConfig.zoom,
       center: this.content?.params?.center || amapConfig.center,
       mapStyle: themeStyle === 'light-theme' ? mapStyle.light : mapStyle.dark,
       features: amapConfig.features,
-    });
-    this.getMarkers();
-    this.onMarkers();
+    };
+    this.map = new this.AMap.Map(
+      'map',
+      Object.assign({}, defaultOptions, options)
+    );
     this.appState.switchChange$.subscribe((theme) => {
       const newMapStyle =
         theme === 'dark-theme' ? mapStyle.dark : mapStyle.light;
