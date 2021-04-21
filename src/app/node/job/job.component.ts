@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { NodeService } from '../../service/node.service';
 import { IChipList } from './IJob';
 import { isArray, keyBy, map } from 'lodash-es';
-import { AmapService } from '../../service/amap.service';
 import { AMapState } from '../../mobx/amap/AMapState';
 import { TitleService } from '../../service/title.service';
 import { RouteService } from '../../service/route.service';
@@ -78,7 +77,6 @@ export class JobComponent implements OnInit {
   show = false;
   constructor(
     private nodeService: NodeService,
-    private amapService: AmapService,
     public amapState: AMapState,
     private appState: AppState,
     private titleService: TitleService,
@@ -115,38 +113,8 @@ export class JobComponent implements OnInit {
     ].join('&');
 
     this.nodeService.getNodes('job', params).subscribe((res) => {
-      const jsonFormatter = new Jsona();
-      const lists = jsonFormatter.deserialize(res);
-      this.updateList(lists);
+      this.updateList(res);
     });
-  }
-
-  initMap(lists: any): void {
-    this.amapService.load().subscribe((AMap: any) => {
-      this.AMap = AMap;
-      this.geocoder = new AMap.Geocoder({
-        city: this.appState?.config?.amap?.city,
-      });
-      this.getPosition(lists);
-    });
-  }
-
-  // https://lbs.amap.com/demo/javascript-api/example/geocoder/geocoding
-  getPosition(lists: any): void {
-    if (lists.length > 0) {
-      lists.forEach((item: any, index: number) => {
-        const address = item.company.address;
-        this.geocoder.getLocation(address, (status: any, result: any) => {
-          if (status === 'complete' && result.info === 'OK') {
-            const location = result.geocodes[0].location;
-            item.company.position = [location.lng, location.lat];
-            if (lists.length === index + 1) {
-              this.amapState.position$.next(true);
-            }
-          }
-        });
-      });
-    }
   }
 
   getWelfare(lists: string[]): IChipList[] {
@@ -207,9 +175,14 @@ export class JobComponent implements OnInit {
     });
   }
 
+  jsonFormatter(res: any): any {
+    const jsonFormatter = new Jsona();
+    return jsonFormatter.deserialize(res);
+  }
+
   updateList(lists: any): void {
     this.loading = false;
-    this.nodes = map(lists, (item) => {
+    this.nodes = map(this.jsonFormatter(lists), (item) => {
       return {
         nid: item.drupal_internal__nid,
         title: item.title,
@@ -236,6 +209,5 @@ export class JobComponent implements OnInit {
         },
       };
     });
-    this.initMap(this.nodes);
   }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AMapState } from '../../../mobx/amap/AMapState';
 import { AppState } from '../../../mobx/AppState';
+import { AmapService } from '../../../service/amap.service';
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -8,19 +9,53 @@ import { AppState } from '../../../mobx/AppState';
 })
 export class MapComponent implements OnInit {
   @Input() content: any;
-  @Input() AMap: any;
+  AMap: any;
   markers: any[];
+  geocoder: any;
   map: any;
 
-  constructor(private amapState: AMapState, private appState: AppState) {}
+  constructor(
+    private amapState: AMapState,
+    private amapService: AmapService,
+    private appState: AppState
+  ) {}
 
   ngOnInit(): void {
-    this.initMap();
+    this.initMap(this.content);
     this.getMarkers();
     this.onMarkers();
   }
 
-  initMap(): void {
+  initMap(lists: any): void {
+    this.amapService.load().subscribe((AMap: any) => {
+      this.AMap = AMap;
+      this.geocoder = new AMap.Geocoder({
+        city: this.appState?.config?.amap?.city,
+      });
+      this.getPosition(lists);
+      this.renderMap();
+    });
+  }
+
+  // https://lbs.amap.com/demo/javascript-api/example/geocoder/geocoding
+  getPosition(lists: any): void {
+    if (lists.length > 0) {
+      lists.forEach((item: any, index: number) => {
+        const address = item.company.address;
+        this.geocoder.getLocation(address, (status: any, result: any) => {
+          if (status === 'complete' && result.info === 'OK') {
+            const location = result.geocodes[0].location;
+            item.company.position = [location.lng, location.lat];
+            if (lists.length === index + 1) {
+              this.amapState.position$.next(true);
+            }
+          }
+        });
+      });
+    }
+  }
+
+  renderMap(): void {
     const themeStyle = this.appState.theme;
     const amapConfig = this.appState.config?.amap;
     const mapStyle: any = amapConfig.mapStyle;
