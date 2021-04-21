@@ -8,21 +8,8 @@ import { AmapService } from '../../../../service/amap.service';
 })
 export class LocationComponent implements OnInit {
   @Input() content: any;
-  AMap: any;
-  geocoder: any;
 
   constructor(private amapService: AmapService) {}
 
-  ngOnInit(): void {
-    this.initMap();
-  }
-
-  initMap(): void {
-    this.amapService.load().subscribe((AMap: any) => {
-      this.AMap = AMap;
-      this.geocoder = new AMap.Geocoder({
-        city: this.content.city,
-      });
-    });
-  }
+  ngOnInit(): void {}
 }

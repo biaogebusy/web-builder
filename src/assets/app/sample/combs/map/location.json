@@ -10,11 +10,15 @@
       "height": "500px"
     },
     "city": "深圳市",
-    "address": "宝安区新安街道留仙一路高新奇科技园二期2号楼1001室",
     "params": {
-      "center": [113.918286, 22.576327],
       "zoomEnable": false,
       "draggable": false
-    }
+    },
+    "elements": [{
+      "company": {
+        "setCenter": true,
+        "address": "宝安区新安街道留仙一路高新奇科技园二期2号楼1001室"
+      }
+    }]
   }]
 }

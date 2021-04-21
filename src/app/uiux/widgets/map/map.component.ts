@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { AMapState } from '../../../mobx/amap/AMapState';
 import { AppState } from '../../../mobx/AppState';
 import { AmapService } from '../../../service/amap.service';
+import { isArray } from 'lodash-es';
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -13,6 +14,7 @@ export class MapComponent implements OnInit {
   markers: any[];
   geocoder: any;
   map: any;
+  center: any;
 
   constructor(
     private amapState: AMapState,
@@ -22,19 +24,28 @@ export class MapComponent implements OnInit {
 
   ngOnInit(): void {
     this.initMap(this.content);
-    this.getMarkers();
-    this.onMarkers();
   }
 
-  initMap(lists: any): void {
-    this.amapService.load().subscribe((AMap: any) => {
-      this.AMap = AMap;
-      this.geocoder = new AMap.Geocoder({
-        city: this.appState?.config?.amap?.city,
-      });
-      this.getPosition(lists);
-      this.renderMap();
-    });
+  initMap(content: any): void {
+    this.amapService.load().subscribe(
+      (AMap: any) => {
+        this.AMap = AMap;
+        this.geocoder = new AMap.Geocoder({
+          city: this.content?.city || this.appState?.config?.amap?.city,
+        });
+        let lists = [];
+        if (isArray(content)) {
+          lists = content;
+        } else {
+          lists = content.elements;
+        }
+        this.getPosition(lists);
+        this.getMarkers(lists);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   // https://lbs.amap.com/demo/javascript-api/example/geocoder/geocoding
@@ -46,6 +57,9 @@ export class MapComponent implements OnInit {
           if (status === 'complete' && result.info === 'OK') {
             const location = result.geocodes[0].location;
             item.company.position = [location.lng, location.lat];
+            if (item.company.setCenter) {
+              this.center = [location.lng, location.lat];
+            }
             if (lists.length === index + 1) {
               this.amapState.position$.next(true);
             }
@@ -63,7 +77,7 @@ export class MapComponent implements OnInit {
     const defaultOptions = {
       resizeEnable: true,
       zoom: amapConfig.zoom,
-      center: this.content?.params?.center || amapConfig.center,
+      center: this.center || amapConfig.center,
       mapStyle: themeStyle === 'light-theme' ? mapStyle.light : mapStyle.dark,
       features: amapConfig.features,
     };
@@ -78,17 +92,23 @@ export class MapComponent implements OnInit {
     });
   }
 
-  getMarkers(): void {
+  getMarkers(lists: any[]): void {
     this.amapState.position$.subscribe((res) => {
-      this.markers = this.content.map((item: any) => {
-        return new this.AMap.Marker({
-          content: this.simpleMarkerTem(this.getRelationObj(item)),
-          position: item.company.position,
-          title: item.company.title,
-        });
-      });
-      this.map.add(this.markers);
+      this.renderMap();
+      this.onMarkers();
+      this.setMarkers(lists);
     });
+  }
+
+  setMarkers(lists: any[]): void {
+    this.markers = lists.map((item: any) => {
+      return new this.AMap.Marker({
+        content: this.simpleMarkerTem(),
+        position: item.company.position,
+        title: item.company.title,
+      });
+    });
+    this.map.add(this.markers);
   }
 
   getRelationObj(marker: any): any {
@@ -106,7 +126,7 @@ export class MapComponent implements OnInit {
     return obj;
   }
 
-  simpleMarkerTem(obj: any): any {
+  simpleMarkerTem(): any {
     return `
       <div class="mark"></div>
     `;

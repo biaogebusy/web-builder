@@ -1,5 +1,5 @@
 <div class="m-y" *ngIf="content">
   <app-title [content]="content.title"></app-title>
-  <app-map class="display-block" [ngStyle]="content.style" [AMap]="AMap" *ngIf="AMap && content" [content]="content">
+  <app-map class="display-block" [ngStyle]="content.style" *ngIf="content" [content]="content">
   </app-map>
 </div>
