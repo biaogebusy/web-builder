@@ -5,7 +5,6 @@
       "label": "Showcase 1 v2 style v3 image",
       "style": "style-v2"
     },
-    "style": "style-v3 use-image",
     "bg": {
       "classes": "bg-shadow bg-fill-width"
     },
@@ -14,6 +13,7 @@
         "src": "/assets/images/showcase/browser.png",
         "alt": "browser"
       },
+      "style": "style-v3 use-image",
       "title": {
         "href": "#",
         "label": "SUPER CODING"
@@ -28,6 +28,7 @@
         "src": "/assets/images/showcase/clipboard.png",
         "alt": "browser"
       },
+      "style": "style-v3 use-image",
       "title": {
         "href": "#",
         "label": "BEST USER INTERFACE"
@@ -42,6 +43,7 @@
         "src": "/assets/images/showcase/console.png",
         "alt": "browser"
       },
+      "style": "style-v3 use-image",
       "title": {
         "href": "#",
         "label": "UNIQUE DESIGN"
@@ -56,6 +58,7 @@
         "src": "/assets/images/showcase/weather.png",
         "alt": "browser"
       },
+      "style": "style-v3 use-image",
       "title": {
         "href": "#",
         "label": "EASY TO CUSTOMIZE"
