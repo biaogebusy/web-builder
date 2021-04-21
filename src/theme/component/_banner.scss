@@ -1,0 +1,30 @@
+@import "~@angular/material/theming";
+
+@mixin banner-color($config-or-theme) {
+  $config: mat-get-color-config($config-or-theme);
+  $foreground: map-get($config, foreground);
+  $background: map-get($config, background);
+  $primary: map-get($config, primary);
+  $accent: map-get($config, accent);
+  $warn: map-get($config, warn);
+
+  .banner-simple {
+    &.no-bg {
+      background-color: mat-color($background, background);
+      color: mat-color($foreground, text, 0.75);
+      padding: 60px;
+      a {
+        color: mat-color($foreground, text, 0.75);
+      }
+      &.page-title {
+        color: mat-color($foreground, text);
+      }
+    }
+    &.normal {
+      color: mat-color($background, card);
+      &.page-title {
+        color: mat-color($primary, text);
+      }
+    }
+  }
+}

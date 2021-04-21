@@ -1,9 +1,9 @@
 @import "../../../../../theme/variable/breakpoint";
 .banner-simple {
   padding: 60px 0;
+  overflow: hidden;
   &.normal {
     position: relative;
-    color: #fff;
     overflow: hidden;
     width: 100%;
 
@@ -15,11 +15,12 @@
       font-family: "Oswald", "Open Sans", sans-serif;
       font-size: 35px;
       font-weight: 500;
-      color: #fff;
       margin: 0;
     }
   }
   @media #{$gt-sm} {
-    padding: 120px 0;
+    &.normal {
+      padding: 120px 0;
+    }
   }
 }

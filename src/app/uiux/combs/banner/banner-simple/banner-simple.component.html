@@ -1,5 +1,5 @@
 <div class="banner-simple position-relative" [ngClass]="content.style" *ngIf="content">
-  <app-bg [content]="content.bannerBg">
+  <app-bg *ngIf="content.bannerBg" [content]="content.bannerBg">
     <app-img [content]="content.bannerBg.img"></app-img>
   </app-bg>
   <div class="container">

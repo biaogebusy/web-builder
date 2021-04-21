@@ -42,7 +42,7 @@
   }
   .mat-drawer-container {
     color: mat-color($foreground, text, 0.75);
-    background-color: mat-color($background, background);
+    background-color: mat-color($background, card);
   }
 }
 

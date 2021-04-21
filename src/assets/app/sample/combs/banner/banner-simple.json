@@ -2,6 +2,17 @@
   "title": "banner simple",
   "body": [{
     "type": "banner-simple",
+    "style": "no-bg",
+    "title": "Contact Us",
+    "breadcrumb": [{
+      "label": "Home",
+      "href": "#"
+    }, {
+      "label": "Contact Us",
+      "href": "/about"
+    }]
+  }, {
+    "type": "banner-simple",
     "style": "normal",
     "bannerBg": {
       "classes": "bg-fill-width",

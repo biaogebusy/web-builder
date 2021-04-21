@@ -19,4 +19,14 @@
       color: mat-color($background, background);
     }
   }
+
+  .breadcrumb {
+    ul {
+      li {
+        a {
+          color: #fff;
+        }
+      }
+    }
+  }
 }

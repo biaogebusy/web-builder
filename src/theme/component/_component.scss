@@ -10,6 +10,7 @@
 @import "./title";
 @import "./btn-animate";
 @import "./carousel";
+@import "./banner";
 
 // material custom
 @import "./mat/card";
@@ -29,6 +30,7 @@
   @include title-color($config-or-theme);
   @include btn-animate-color($config-or-theme);
   @include carousel-color($config-or-theme);
+  @include banner-color($config-or-theme);
 
   // material custom ui
   @include card-color($config-or-theme);
