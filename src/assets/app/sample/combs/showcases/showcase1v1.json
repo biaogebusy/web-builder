@@ -5,9 +5,9 @@
       "label": "Showcase 1 v1 style v1",
       "style": "style-v1"
     },
-    "style": "style-v1",
     "elements": [{
       "icon": "verified_user",
+      "style": "style-v1",
       "title": {
         "href": "#",
         "label": "SUPER CODING"
@@ -19,6 +19,7 @@
       }
     }, {
       "icon": "fingerprint",
+      "style": "style-v1",
       "title": {
         "href": "#",
         "label": "BEST USER INTERFACE"
@@ -30,6 +31,7 @@
       }
     }, {
       "icon": "favorite",
+      "style": "style-v1",
       "title": {
         "href": "#",
         "label": "UNIQUE DESIGN"
@@ -41,6 +43,7 @@
       }
     }, {
       "icon": "android",
+      "style": "style-v1",
       "title": {
         "href": "#",
         "label": "EASY TO CUSTOMIZE"
@@ -61,9 +64,9 @@
     "bg": {
       "classes": "bg-shadow bg-fill-width"
     },
-    "style": "style-v2",
     "elements": [{
       "icon": "verified_user",
+      "style": "style-v2",
       "title": {
         "href": "#",
         "label": "SUPER CODING"
@@ -75,6 +78,7 @@
       }
     }, {
       "icon": "fingerprint",
+      "style": "style-v2",
       "title": {
         "href": "#",
         "label": "BEST USER INTERFACE"
@@ -86,6 +90,7 @@
       }
     }, {
       "icon": "favorite",
+      "style": "style-v2",
       "title": {
         "href": "#",
         "label": "UNIQUE DESIGN"
@@ -97,6 +102,7 @@
       }
     }, {
       "icon": "android",
+      "style": "style-v2",
       "title": {
         "href": "#",
         "label": "EASY TO CUSTOMIZE"
@@ -116,6 +122,7 @@
     "style": "style-v3",
     "elements": [{
       "icon": "verified_user",
+      "style": "style-v3",
       "title": {
         "href": "#",
         "label": "SUPER CODING"
@@ -127,6 +134,7 @@
       }
     }, {
       "icon": "fingerprint",
+      "style": "style-v3",
       "title": {
         "href": "#",
         "label": "BEST USER INTERFACE"
@@ -138,6 +146,7 @@
       }
     }, {
       "icon": "favorite",
+      "style": "style-v3",
       "title": {
         "href": "#",
         "label": "UNIQUE DESIGN"
@@ -149,6 +158,7 @@
       }
     }, {
       "icon": "android",
+      "style": "style-v3",
       "title": {
         "href": "#",
         "label": "EASY TO CUSTOMIZE"
@@ -165,11 +175,11 @@
       "label": "Showcase 1 v1 style v4",
       "style": "style-v4"
     },
-    "style": "style-v3",
     "bg": {
       "classes": "bg-shadow bg-fill-width"
     },
     "elements": [{
+      "style": "style-v4",
       "icon": "verified_user",
       "title": {
         "href": "#",
@@ -182,6 +192,7 @@
       }
     }, {
       "icon": "fingerprint",
+      "style": "style-v4",
       "title": {
         "href": "#",
         "label": "BEST USER INTERFACE"
@@ -193,6 +204,7 @@
       }
     }, {
       "icon": "favorite",
+      "style": "style-v4",
       "title": {
         "href": "#",
         "label": "UNIQUE DESIGN"
@@ -204,6 +216,7 @@
       }
     }, {
       "icon": "android",
+      "style": "style-v4",
       "title": {
         "href": "#",
         "label": "EASY TO CUSTOMIZE"
@@ -220,9 +233,9 @@
       "label": "Showcase 1 v1 style v5",
       "style": "style-v5"
     },
-    "style": "style-v5",
     "elements": [{
       "icon": "verified_user",
+      "style": "style-v5",
       "title": {
         "href": "#",
         "label": "SUPER CODING"
@@ -234,6 +247,7 @@
       }
     }, {
       "icon": "fingerprint",
+      "style": "style-v5",
       "title": {
         "href": "#",
         "label": "BEST USER INTERFACE"
@@ -245,6 +259,7 @@
       }
     }, {
       "icon": "favorite",
+      "style": "style-v5",
       "title": {
         "href": "#",
         "label": "UNIQUE DESIGN"
@@ -256,6 +271,7 @@
       }
     }, {
       "icon": "android",
+      "style": "style-v5",
       "title": {
         "href": "#",
         "label": "EASY TO CUSTOMIZE"
@@ -272,9 +288,9 @@
       "label": "Showcase 1 v1 style v6",
       "style": "style-v6"
     },
-    "style": "style-v6",
     "elements": [{
       "icon": "verified_user",
+      "style": "style-v6",
       "title": {
         "href": "#",
         "label": "SUPER CODING"
@@ -286,6 +302,7 @@
       }
     }, {
       "icon": "fingerprint",
+      "style": "style-v6",
       "title": {
         "href": "#",
         "label": "BEST USER INTERFACE"
@@ -297,6 +314,7 @@
       }
     }, {
       "icon": "favorite",
+      "style": "style-v6",
       "title": {
         "href": "#",
         "label": "UNIQUE DESIGN"
@@ -308,6 +326,7 @@
       }
     }, {
       "icon": "android",
+      "style": "style-v6",
       "title": {
         "href": "#",
         "label": "EASY TO CUSTOMIZE"
@@ -324,12 +343,13 @@
       "label": "Showcase 1 v1 style v7",
       "style": "style-v7"
     },
-    "style": "style-v7",
+
     "bg": {
       "classes": "bg-shadow bg-fill-width"
     },
     "elements": [{
       "icon": "verified_user",
+      "style": "style-v7",
       "title": {
         "href": "#",
         "label": "SUPER CODING"
@@ -341,6 +361,7 @@
       }
     }, {
       "icon": "fingerprint",
+      "style": "style-v7",
       "title": {
         "href": "#",
         "label": "BEST USER INTERFACE"
@@ -352,6 +373,7 @@
       }
     }, {
       "icon": "favorite",
+      "style": "style-v7",
       "title": {
         "href": "#",
         "label": "UNIQUE DESIGN"
@@ -363,6 +385,7 @@
       }
     }, {
       "icon": "android",
+      "style": "style-v7",
       "title": {
         "href": "#",
         "label": "EASY TO CUSTOMIZE"

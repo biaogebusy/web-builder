@@ -1,0 +1,18 @@
+<div *ngIf="content" [ngClass]="content.style" class="inv-builder-box">
+  <div *ngIf="content.icon" class="box-icon">
+    <mat-icon>{{content.icon}}</mat-icon>
+  </div>
+  <div *ngIf="content.img" class="box-image">
+    <app-img [content]="content.img"></app-img>
+  </div>
+  <div class="box-content-wrapper">
+    <h3 class="box-title">
+      <app-link [content]="content.title"></app-link>
+    </h3>
+    <div class="box-content" [innerHTML]="content.content">
+    </div>
+    <div class="read-more" *ngIf="content.more">
+      <a href="{{content.more.href}}"><span>{{content.more.label}}</span></a>
+    </div>
+  </div>
+</div>

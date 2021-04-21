@@ -1,0 +1,18 @@
+{
+  "title": "Showcase 3v4",
+  "body": [{
+    "type": "showcase-3v4",
+    "title": {
+      "label": "OUR FEATRUES",
+      "style": "style-v7"
+    },
+    "img": {
+      "src": "/assets/images/showcase/looking.jpeg",
+      "alt": "OUR FEATURES"
+    },
+    "elements": [{
+      "icon": "verified_user",
+      "title": "FREMIUM MODULES INCLUDED"
+    }]
+  }]
+}

@@ -5,23 +5,8 @@
       <app-title *ngIf="content.title" [content]="content.title"></app-title>
     </div>
     <div fxLayout.xs="column" fxLayout.gt-xs="row" fxLayoutGap.xs="6rem" fxLayoutGap.gt-xs="3rem">
-      <div *ngFor="let item of content.elements" [ngClass]="content.style" class="inv-builder-box" fxFlex.xs="100%"
-        fxFlex.sm="50%" fxFlex.gt-sm="33.33%">
-        <div *ngIf="item.icon" class="box-icon">
-          <mat-icon>{{item.icon}}</mat-icon>
-        </div>
-        <div *ngIf="item.img" class="box-image">
-          <app-img [content]="item.img"></app-img>
-        </div>
-        <div class="box-content-wrapper">
-          <h3 class="box-title">
-            <app-link [content]="item.title"></app-link>
-          </h3>
-          <div class="box-content" [innerHTML]="item.content">
-          </div>
-          <div class="read-more"> <a href="{{item.more.href}}"><span>{{item.more.label}}</span></a></div>
-        </div>
-      </div>
+      <app-box [content]="item" *ngFor="let item of content.elements" fxFlex.xs="100%" fxFlex.sm="50%"
+        fxFlex.gt-sm="33.33%"></app-box>
     </div>
   </div>
 </div>

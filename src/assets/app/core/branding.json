@@ -9,7 +9,6 @@
         "classes": "bold",
         "child": [{
           "label": "职位",
-          "classes": "bold",
           "href": "/lists/jobs"
         }, {
           "label": "location",
