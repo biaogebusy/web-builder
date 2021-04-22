@@ -1,4 +1,5 @@
 @import "../../../../../theme/mixins/amixin";
+@import "../../../../../theme/variable/breakpoint";
 .blog-item {
   ul,
   li {
@@ -21,8 +22,8 @@
   }
 
   &.teaser {
-    padding-bottom: 20px;
-    margin-bottom: 30px;
+    padding-top: 40px;
+    padding-bottom: 40px;
     img {
       width: 100%;
       height: auto;
@@ -34,6 +35,13 @@
     .post-meta-info {
       margin-bottom: 17px;
       padding-bottom: 11px;
+    }
+  }
+  @media #{$lt-md} {
+    &.teaser {
+      .title {
+        margin-top: 15px;
+      }
     }
   }
 }

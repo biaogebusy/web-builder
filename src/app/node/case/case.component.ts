@@ -59,7 +59,7 @@ export class CaseComponent implements OnInit {
               return {
                 type: 'img',
                 src: img.field_media_image.uri.url,
-                hostClasses: 'dispaly-block',
+                hostClasses: 'mat-card-image dispaly-block',
               };
             }),
           },

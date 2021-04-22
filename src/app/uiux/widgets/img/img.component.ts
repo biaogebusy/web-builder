@@ -11,6 +11,8 @@ export class ImgComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    this.hostClasses = this.content.hostClasses;
+    if (this.content.hostClasses) {
+      this.hostClasses = this.content.hostClasses;
+    }
   }
 }

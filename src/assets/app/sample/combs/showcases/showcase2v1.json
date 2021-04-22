@@ -21,7 +21,7 @@
         "elements": [{
           "type": "img",
           "src": "/assets/images/cases/porto1.jpg",
-          "hostClasses": "displa-block"
+          "hostClasses": "mat-card-image display-block"
         }]
       },
       "overlay": [{
@@ -53,7 +53,7 @@
         "elements": [{
           "type": "img",
           "src": "/assets/images/cases/porto2.jpg",
-          "hostClasses": "displa-block"
+          "hostClasses": "mat-card-image display-block"
         }]
       },
       "overlay": [{
@@ -85,7 +85,7 @@
         "elements": [{
           "type": "img",
           "src": "/assets/images/cases/porto3.jpg",
-          "hostClasses": "displa-block"
+          "hostClasses": "mat-card-image display-block"
         }]
       },
       "overlay": [{
@@ -117,7 +117,7 @@
         "elements": [{
           "type": "img",
           "src": "/assets/images/cases/porto4.jpg",
-          "hostClasses": "displa-block"
+          "hostClasses": "mat-card-image display-block"
         }]
       },
       "overlay": [{
@@ -149,7 +149,7 @@
         "elements": [{
           "type": "img",
           "src": "/assets/images/cases/porto5.jpg",
-          "hostClasses": "displa-block"
+          "hostClasses": "mat-card-image display-block"
         }]
       },
       "overlay": [{
@@ -181,7 +181,7 @@
         "elements": [{
           "type": "img",
           "src": "/assets/images/cases/porto6.jpg",
-          "hostClasses": "displa-block"
+          "hostClasses": "mat-card-image display-block"
         }]
       },
       "overlay": [{
@@ -213,7 +213,7 @@
         "elements": [{
           "type": "img",
           "src": "/assets/images/cases/porto7.jpg",
-          "hostClasses": "displa-block"
+          "hostClasses": "mat-card-image display-block"
         }]
       },
       "overlay": [{
@@ -245,7 +245,7 @@
         "elements": [{
           "type": "img",
           "src": "/assets/images/cases/porto8.jpg",
-          "hostClasses": "displa-block"
+          "hostClasses": "mat-card-image display-block"
         }]
       },
       "overlay": [{

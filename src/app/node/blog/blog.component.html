@@ -1,11 +1,1 @@
-<div class="blog">
-  <div class="container">
-    <div *ngIf="loading" class="m-y" fxLayoutAlign="center center">
-      <app-spinner [content]="{color:'primary', size:40}"></app-spinner>
-    </div>
-    <ng-container *ngIf="!loading">
-      <app-showcase3v3 [content]="item" *ngFor="let item of content">
-      </app-showcase3v3>
-    </ng-container>
-  </div>
-</div>
+<app-list [content]="content" [loading]="loading"></app-list>

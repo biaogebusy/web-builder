@@ -1,10 +1,15 @@
 <mat-card *ngIf="content" class="card" [ngClass]="content.classes">
   <div class="card-header">
-    <app-swiper *ngIf="content?.carousel;else img" [content]="content.carousel">
-    </app-swiper>
-    <ng-template #img>
+    <ng-container *ngIf="content.carousel">
+      <app-swiper *ngIf="content?.carousel?.elements.length >1;else img" [content]="content.carousel">
+      </app-swiper>
+      <ng-template #img>
+        <app-img [content]="content.carousel.elements[0]"></app-img>
+      </ng-template>
+    </ng-container>
+    <ng-container *ngIf="!content.carousel && content.img">
       <app-img [content]="content.img"></app-img>
-    </ng-template>
+    </ng-container>
     <div class="overlay-details" *ngIf="content.overlay">
       <ng-container *ngFor="let link of content.overlay">
         <app-link [content]="link"></app-link>

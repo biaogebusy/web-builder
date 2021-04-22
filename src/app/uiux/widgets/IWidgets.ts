@@ -10,10 +10,7 @@ export interface ICard {
     hostClasses?: any;
     classes?: any;
   };
-  carousel?: {
-    parmas?: any;
-    elements: any[];
-  };
+  carousel?: any;
   overlay?: any[];
   link?: {
     href: string;

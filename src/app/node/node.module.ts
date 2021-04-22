@@ -12,6 +12,7 @@ import { ShareModule } from '../share/share.module';
 import { CombsModule } from '../uiux/combs/combs.module';
 import { WidgetsModule } from '../uiux/widgets/widgets.module';
 import { NewsComponent } from './news/news.component';
+import { ListComponent } from './list/list.component';
 
 const components = [
   BlogComponent,
@@ -23,6 +24,7 @@ const components = [
   JobFilterComponent,
   JobListComponent,
   JobNodeComponent,
+  ListComponent,
 ];
 @NgModule({
   declarations: [...components],

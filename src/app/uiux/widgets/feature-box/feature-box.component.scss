@@ -136,3 +136,17 @@ img {
   width: 100%;
   height: auto;
 }
+.media {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  display: flex;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  &:before {
+    margin-top: 56.25%;
+    content: "";
+    display: block;
+  }
+}
