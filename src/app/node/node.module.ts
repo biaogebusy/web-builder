@@ -1,15 +1,30 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { JobModule } from './job/job.module';
-import { CaseModule } from './case/case.module';
-import { ArticleModule } from './article/article.module';
 import { NodeRoutingModule } from './node-routing.module';
+import { CaseComponent } from './case/case.component';
+import { BlogComponent } from './blog/blog.component';
+import { CaseNodeComponent } from './case/case-node/case-node.component';
+import { ArticleComponent } from './article/article.component';
+import { JobComponent } from './job/job.component';
+import { JobFilterComponent } from './job/job-filter/job-filter.component';
+import { JobListComponent } from './job/job-list/job-list.component';
+import { JobNodeComponent } from './job/job-node/job-node.component';
+import { ShareModule } from '../share/share.module';
+import { UiuxModule } from '../uiux/uiux.module';
 
-const modules = [JobModule, CaseModule, ArticleModule, NodeRoutingModule];
+const components = [
+  BlogComponent,
+  CaseComponent,
+  CaseNodeComponent,
+  ArticleComponent,
+  JobComponent,
+  JobFilterComponent,
+  JobListComponent,
+  JobNodeComponent,
+];
 @NgModule({
-  declarations: [],
-  imports: [CommonModule, modules],
-  exports: [...modules],
+  declarations: [...components],
+  imports: [ShareModule, UiuxModule, NodeRoutingModule],
+  exports: [...components],
 })
 export class NodeModule {
   constructor(@Optional() @SkipSelf() parent: NodeModule) {

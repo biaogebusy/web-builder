@@ -7,7 +7,6 @@ import { TitleService } from '../../service/title.service';
 import { RouteService } from '../../service/route.service';
 import { Params, ActivatedRoute } from '@angular/router';
 import { AppState } from '../../mobx/AppState';
-import { Jsona } from '@qoorp/jsona';
 import { gsap } from 'gsap';
 import { ICard } from '../../uiux/widgets/IWidgets';
 
@@ -170,11 +169,6 @@ export class JobComponent implements OnInit {
     this.nodeService.getNodes('job', params).subscribe((res) => {
       this.updateList(res.data);
     });
-  }
-
-  jsonFormatter(res: any): any {
-    const jsonFormatter = new Jsona();
-    return jsonFormatter.deserialize(res);
   }
 
   updateList(lists: any): void {

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from '../guards/auth.guard';
 import { ArticleComponent } from './article/article.component';
+import { BlogComponent } from './blog/blog.component';
 import { CaseComponent } from './case/case.component';
 import { JobComponent } from './job/job.component';
 
@@ -19,6 +20,11 @@ const routes: Routes = [
   {
     path: 'cases',
     component: CaseComponent,
+    // canActivate: [AuthGuard],
+  },
+  {
+    path: 'blog',
+    component: BlogComponent,
     // canActivate: [AuthGuard],
   },
 ];
