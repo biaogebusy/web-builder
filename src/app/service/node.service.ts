@@ -13,7 +13,8 @@ export class NodeService {
   constructor(
     private apiService: ApiService,
     private http: HttpClient,
-    private appState: AppState) { }
+    private appState: AppState
+  ) {}
 
   getNodes(type: string, params: string = ''): Observable<any> {
     return this.http.get<any>(
@@ -35,10 +36,15 @@ export class NodeService {
   }
 
   searchByKey(key: string): Observable<any> {
-    const params = [
-      `keys=${key}`
-    ].join('&');
-    return this.http.get<any>(`${environment.apiUrl}${this.appState.apiUrl.apiBase}/job?${params}`);
+    const params = [`keys=${key}`].join('&');
+    return this.http.get<any>(
+      `${environment.apiUrl}${this.appState.apiUrl.apiBase}/job?${params}`
+    );
   }
 
+  getNodePath(node: any): string {
+    return node.path.alias
+      ? node.path.alias
+      : `/node/${node.drupal_internal__nid}`;
+  }
 }

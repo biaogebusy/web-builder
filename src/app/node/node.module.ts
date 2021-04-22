@@ -10,6 +10,8 @@ import { JobListComponent } from './job/job-list/job-list.component';
 import { JobNodeComponent } from './job/job-node/job-node.component';
 import { ShareModule } from '../share/share.module';
 import { UiuxModule } from '../uiux/uiux.module';
+import { CombsModule } from '../uiux/combs/combs.module';
+import { WidgetsModule } from '../uiux/widgets/widgets.module';
 
 const components = [
   BlogComponent,
@@ -23,8 +25,8 @@ const components = [
 ];
 @NgModule({
   declarations: [...components],
-  imports: [ShareModule, UiuxModule, NodeRoutingModule],
-  exports: [...components],
+  imports: [ShareModule, CombsModule, WidgetsModule, NodeRoutingModule],
+  exports: [CaseNodeComponent],
 })
 export class NodeModule {
   constructor(@Optional() @SkipSelf() parent: NodeModule) {

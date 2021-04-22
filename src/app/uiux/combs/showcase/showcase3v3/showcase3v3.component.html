@@ -1,5 +1,5 @@
-<div class="showcase-3-v3 m-y-sm">
-  <div class="container" *ngIf="content">
+<div class="showcase-3-v3 m-y-sm" *ngIf="content">
+  <div class="container">
     <div class="blog-item teaser" fxLayout.lt-md="column" fxLayout.gt-sm="row" fxFlex="100" fxLayoutGap.lt-md="0"
       fxLayoutGap.gt-xs="3rem">
       <app-feature-box fxFlex.lt-md="100" fxFlex.gt-sm="40" [content]="content.feature" *ngIf="content.feature">
@@ -11,7 +11,7 @@
         <ul class="post-meta-info" fxLayout fxLayoutAlign="start start">
           <li *ngIf="content.date" fxLayoutAlign="center center">
             <mat-icon>schedule</mat-icon>
-            <div>{{content.date}}</div>
+            <div>{{content.date | slice:0:10}}</div>
           </li>
           <li *ngIf="content.commentCount" fxLayoutAlign="center center">
             <mat-icon>comment</mat-icon>
@@ -19,10 +19,10 @@
           </li>
           <li *ngIf="content.category" fxLayoutAlign="center center">
             <mat-icon>folder</mat-icon>
-            <div>{{content.category}}</div>
+            <div>{{content.category | slice:0:10}}</div>
           </li>
         </ul>
-        <div class="blog-shortdesc" [innerHTML]="content.body">
+        <div class="blog-shortdesc" [innerHTML]="content.body | slice:0:550">
         </div>
         <div class="m-y-sm" *ngIf="content.details">
           <app-btn-animate [content]="content.details"></app-btn-animate>

@@ -35,9 +35,7 @@ export class CaseComponent implements OnInit {
     this.nodeService.getNodes('case', params).subscribe((res) => {
       this.loading = false;
       this.content.elements = map(res.data, (item: any) => {
-        const link = item.path.alias
-          ? item.path.alias
-          : `/node/${item.drupal_internal__nid}`;
+        const link = this.nodeService.getNodePath(item);
         const date = `${new Date(item.created).getFullYear()}/${new Date(
           item.created
         ).getMonth()}/${new Date(item.created).getDate()}`;

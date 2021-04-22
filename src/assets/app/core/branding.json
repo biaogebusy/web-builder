@@ -20,6 +20,10 @@
         "classes": "bold",
         "href": "/lists/articles"
       }, {
+        "label": "博客",
+        "classes": "bold",
+        "href": "/lists/blog"
+      }, {
         "label": "案例",
         "classes": "bold",
         "href": "/lists/cases"
