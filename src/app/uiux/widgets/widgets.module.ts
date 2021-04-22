@@ -17,6 +17,7 @@ import { DropdownMenuComponent } from './dropdown-menu/dropdown-menu.component';
 import { NumberAnimateComponent } from './number-animate/number-animate.component';
 import { BtnAnimateComponent } from './btn-animate/btn-animate.component';
 import { FeatureBoxComponent } from './feature-box/feature-box.component';
+import { BoxComponent } from './box/box.component';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { MapComponent } from './map/map.component';
 
@@ -38,6 +39,7 @@ const components = [
   NumberAnimateComponent,
   BtnAnimateComponent,
   FeatureBoxComponent,
+  BoxComponent,
   BreadcrumbComponent,
   MapComponent,
   DynamicWidgetsComponent,

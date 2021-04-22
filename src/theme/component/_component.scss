@@ -6,6 +6,7 @@
 @import "./loading";
 @import "./widgets";
 @import "./showcase";
+@import "./box";
 @import "./img";
 @import "./title";
 @import "./btn-animate";
@@ -25,6 +26,7 @@
   @include map-color($config-or-theme);
   @include loading-color($config-or-theme);
   @include widgets-color($config-or-theme);
+  @include box-color($config-or-theme);
   @include showcase-color($config-or-theme);
   @include img-color($config-or-theme);
   @include title-color($config-or-theme);

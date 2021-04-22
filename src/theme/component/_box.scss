@@ -1,0 +1,250 @@
+@import "~@angular/material/theming";
+
+@mixin box-color($config-or-theme) {
+  $config: mat-get-color-config($config-or-theme);
+  $foreground: map-get($config, foreground);
+  $background: map-get($config, background);
+  $primary: map-get($config, primary);
+  $accent: map-get($config, accent);
+  $warn: map-get($config, warn);
+
+  $text-base: mat-color($foreground, text);
+  .inv-builder-box {
+    .box-icon {
+      .mat-icon {
+        color: $text-base;
+      }
+    }
+    a {
+      color: $text-base;
+    }
+    &:hover {
+      .box-title {
+        color: mat-color($primary);
+      }
+    }
+    &.title-color {
+      .box-title {
+        color: mat-color($primary);
+      }
+    }
+    &.box-square,
+    &.box-circle {
+      .box-icon {
+        border: solid 1px mat-color($primary);
+        .mat-icon {
+          color: mat-color($primary);
+        }
+      }
+    }
+    // Box background icon
+    &.box-background {
+      .box-icon {
+        background-color: mat-color($primary);
+        .mat-icon {
+          color: mat-color($background, card);
+        }
+      }
+      &:hover {
+        .box-title {
+          color: mat-color($primary);
+        }
+      }
+    }
+    &.hover-bg-color {
+      &:hover {
+        .box-icon {
+          background-color: mat-color($primary);
+          .mat-icon {
+            color: mat-color($background, card);
+          }
+        }
+      }
+    }
+    &.bg-dark-overlay {
+      .box-icon {
+        background: rgba(0, 0, 0, 0.4);
+      }
+    }
+    &.bg-box-gray {
+      .box-icon {
+        background: #576162; //Corduroy
+        border: 0 none;
+      }
+    }
+    &.style-v1,
+    &.style-v2 {
+      .box-icon {
+        background: mat-color($background, background);
+        .mat-icon {
+          background: mat-color($primary);
+          color: mat-color($primary, default-contrast);
+        }
+      }
+      .box-content-wrapper {
+        border: 1px solid mat-color($foreground, divider);
+        background: mat-color($background, background);
+        color: mat-color($foreground, text);
+        &:before {
+          border: 1px solid mat-color($foreground, divider);
+        }
+      }
+    }
+    &.circle-readmore,
+    &.style-v1,
+    &.style-v2,
+    &.style-v3,
+    &.style-v4,
+    &.style-v5 {
+      .read-more {
+        background: mat-color($background, card);
+        border: 1px solid mat-color($foreground, divider);
+
+        span {
+          background: #c4c2c2;
+
+          &:after {
+            background: #c4c2c2;
+          }
+        }
+        &:hover {
+          border: solid 1px mat-color($primary);
+          span,
+          span::after {
+            background: mat-color($primary);
+          }
+        }
+      }
+    }
+    &.style-v1 {
+      &:hover {
+        .box-title {
+          color: mat-color($primary);
+          a {
+            color: mat-color($primary);
+          }
+        }
+      }
+    }
+    &.style-v3,
+    &.style-v6 {
+      .box-icon {
+        border: solid 1px mat-color($primary);
+
+        .mat-icon {
+          color: mat-color($primary);
+        }
+        &:before {
+          background: mat-color($primary);
+        }
+      }
+      &:hover {
+        .box-icon {
+          &:before {
+            background-color: mat-color($primary);
+            color: mat-color($background, card);
+          }
+          .mat-icon {
+            color: mat-color($background, card);
+          }
+        }
+      }
+    }
+    &.style-v4,
+    &.style-v7 {
+      .box-icon {
+        border: solid 1px mat-color($primary);
+        .mat-icon,
+        img {
+          color: mat-color($background, card);
+          &:after {
+            background: mat-color($primary);
+          }
+        }
+      }
+      &:hover {
+        .box-icon {
+          background-color: transparent;
+          .mat-icon {
+            color: mat-color($primary);
+          }
+        }
+      }
+    }
+    &.style-v8 {
+      .box-icon {
+        background: #576162; //Corduroy
+        .mat-icon {
+          color: mat-color($background, card);
+        }
+      }
+      .box-title {
+        color: mat-color($primary);
+      }
+    }
+    &.style-v9,
+    &.style10 {
+      .box-icon {
+        background: rgba(0, 0, 0, 0.4);
+        .mat-icon {
+          color: mat-color($background, card);
+        }
+      }
+      &:hover {
+        .box-icon {
+          background: mat-color($primary);
+        }
+        .box-title {
+          color: mat-color($primary);
+        }
+      }
+    }
+    &.style-v5 {
+      .box-icon {
+        border: solid 1px mat-color($primary);
+        .mat-icon {
+          color: mat-color($primary);
+        }
+      }
+      .box-content-wrapper {
+        .box-title {
+          color: mat-color($background, card);
+        }
+      }
+
+      &:hover {
+        .box-icon {
+          background: mat-color($primary);
+          .mat-icon {
+            color: mat-color($background, card);
+          }
+        }
+        .box-title {
+          color: mat-color($primary);
+        }
+      }
+    }
+    // Border color hover
+    &.border-color:hover {
+      .box-icon {
+        border-color: mat-color($primary);
+      }
+    }
+    &.style-v6,
+    &.style-v7,
+    &.box-left,
+    &.box-right {
+      .read-more {
+        a {
+          color: mat-color($primary);
+          span {
+            &:before,
+            &:after {
+              background: mat-color($primary);
+            }
+          }
+        }
+      }
+    }
+  }
+}

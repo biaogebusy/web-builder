@@ -9,7 +9,6 @@
         "classes": "bold",
         "child": [{
           "label": "职位",
-          "classes": "bold",
           "href": "/lists/jobs"
         }, {
           "label": "location",
@@ -47,6 +46,9 @@
           }, {
             "label": "Showcase 3v3 / blog list",
             "href": "/sample/combs/showcases/showcase3v3"
+          }, {
+            "label": "Showcase 3v4",
+            "href": "/sample/combs/showcases/showcase3v4"
           }, {
             "label": "Showcase 4v1",
             "href": "/sample/combs/showcases/showcase4v1"
