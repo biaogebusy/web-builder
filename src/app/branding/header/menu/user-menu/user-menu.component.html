@@ -11,12 +11,12 @@
     </button>
     <ng-template #picture>
       <img class="user-picture" [matMenuTriggerFor]="menu" [src]="userState.picture"
-        alt="userState.currentUser.display_name">
+        alt="{{userState.currentUser.display_name}}">
     </ng-template>
     <mat-menu #menu="matMenu">
       <button mat-menu-item>
-        <mat-icon>email</mat-icon>
-        {{userState.currentUser?.mail}}
+        <mat-icon>account_circle</mat-icon>
+        {{userState.currentUser?.display_name}}
       </button>
       <button mat-menu-item (click)="logout()">
         <mat-icon>exit_to_app</mat-icon>
