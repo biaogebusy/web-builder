@@ -145,8 +145,32 @@ img {
   background-size: cover;
   background-position: center;
   &:before {
-    margin-top: 56.25%;
     content: "";
     display: block;
+  }
+  &.media-2-1 {
+    &:before {
+      margin-top: 50%;
+    }
+  }
+  &.media-16-9 {
+    &:before {
+      margin-top: 56.25%;
+    }
+  }
+  &.media-4-3 {
+    &:before {
+      margin-top: 75%;
+    }
+  }
+  &.media-1-1 {
+    &:before {
+      margin-top: 100%;
+    }
+  }
+  &.media-1-2 {
+    &:before {
+      margin-top: 200%;
+    }
   }
 }

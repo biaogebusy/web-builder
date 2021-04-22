@@ -11,7 +11,8 @@
     <div class="mf-popup">
       <div class="mf-no-gallery">
         <a class="feature-inner-ling" href="{{content.img.large}}">
-          <div class="media" style="background-image: url({{content.img.normal}});"></div>
+          <div class="media" [ngClass]="content.ratios || 'media-4-3'"
+            style="background-image: url({{content.img.normal}});"></div>
         </a>
       </div>
     </div>

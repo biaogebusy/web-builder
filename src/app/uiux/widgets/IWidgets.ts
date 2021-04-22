@@ -11,6 +11,7 @@ export interface ICard {
     classes?: any;
   };
   carousel?: any;
+  feature?: any;
   overlay?: any[];
   link?: {
     href: string;

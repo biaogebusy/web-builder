@@ -57,22 +57,18 @@ export class CaseComponent implements OnInit {
             },
             elements: map(item.medias, (img) => {
               return {
-                type: 'img',
-                src: img.field_media_image.uri.url,
-                hostClasses: 'mat-card-image dispaly-block',
+                type: 'feature-box',
+                fullIcon: 'fullscreen',
+                openIcon: 'open_in_new',
+                link: '#',
+                ratios: 'media-4-3',
+                img: {
+                  large: img.field_media_image.uri.url,
+                  normal: img.field_media_image.uri.url,
+                },
               };
             }),
           },
-          overlay: [
-            {
-              label: '大图',
-              href: item.medias[0].field_media_image.uri.url,
-            },
-            {
-              label: '更多',
-              href: link,
-            },
-          ],
           tags: map(item.field_tags, (item) => {
             return { label: item.name };
           }),
