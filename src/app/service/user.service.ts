@@ -69,7 +69,6 @@ export class UserService {
           const detail = res.data[0];
           const info = detail.attributes;
           const relate = res.included && res.included[0];
-          debugger;
           return {
             id: detail.id,
             display_name: info.display_name,

@@ -16,9 +16,9 @@
         }]
       },
       {
-        "label": "文章",
+        "label": "新闻",
         "classes": "bold",
-        "href": "/lists/articles"
+        "href": "/lists/news"
       }, {
         "label": "博客",
         "classes": "bold",

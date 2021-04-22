@@ -5,7 +5,6 @@ import { IUser, TokenUser } from './IUser';
 import { Subject } from 'rxjs';
 import { UserService } from '../../service/user.service';
 import { ApiService } from '../../service/api.service';
-import { switchMap } from 'rxjs/operators';
 import { AppState } from '../AppState';
 const unauthUser = {
   authenticated: false,

@@ -9,12 +9,13 @@ import { JobFilterComponent } from './job/job-filter/job-filter.component';
 import { JobListComponent } from './job/job-list/job-list.component';
 import { JobNodeComponent } from './job/job-node/job-node.component';
 import { ShareModule } from '../share/share.module';
-import { UiuxModule } from '../uiux/uiux.module';
 import { CombsModule } from '../uiux/combs/combs.module';
 import { WidgetsModule } from '../uiux/widgets/widgets.module';
+import { NewsComponent } from './news/news.component';
 
 const components = [
   BlogComponent,
+  NewsComponent,
   CaseComponent,
   CaseNodeComponent,
   ArticleComponent,

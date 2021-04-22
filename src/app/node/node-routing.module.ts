@@ -5,6 +5,7 @@ import { ArticleComponent } from './article/article.component';
 import { BlogComponent } from './blog/blog.component';
 import { CaseComponent } from './case/case.component';
 import { JobComponent } from './job/job.component';
+import { NewsComponent } from './news/news.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,11 @@ const routes: Routes = [
   {
     path: 'blog',
     component: BlogComponent,
+    // canActivate: [AuthGuard],
+  },
+  {
+    path: 'news',
+    component: NewsComponent,
     // canActivate: [AuthGuard],
   },
 ];
