@@ -24,7 +24,6 @@
     "@angular/platform-browser": "~11.0.1",
     "@angular/platform-browser-dynamic": "~11.0.1",
     "@angular/router": "~11.0.1",
-    "@qoorp/jsona": "*",
     "@types/lodash-es": "^4.17.4",
     "@types/video.js": "^7.3.15",
     "gsap": "^3.6.0",

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Jsona } from '@qoorp/jsona';
 import { NodeService } from '../../service/node.service';
 import { map } from 'lodash-es';
 import { IShowcase2v1 } from '../../uiux/combs/ICombs';
@@ -30,13 +29,12 @@ export class CaseComponent implements OnInit {
       'include=medias,medias.field_media_image,field_tags',
       'fields[file--file]=uri',
       'fields[taxonomy_term--industry]=name',
+      'jsonapi_include=1',
     ].join('&');
 
     this.nodeService.getNodes('case', params).subscribe((res) => {
       this.loading = false;
-      const jsonFormatter = new Jsona();
-      const cases = jsonFormatter.deserialize(res);
-      this.content.elements = map(cases, (item: any) => {
+      this.content.elements = map(res.data, (item: any) => {
         const link = item.path.alias
           ? item.path.alias
           : `/node/${item.drupal_internal__nid}`;

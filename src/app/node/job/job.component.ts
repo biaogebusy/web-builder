@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NodeService } from '../../service/node.service';
 import { IChipList } from './IJob';
-import { isArray, keyBy, map } from 'lodash-es';
+import { map } from 'lodash-es';
 import { AMapState } from '../../mobx/amap/AMapState';
 import { TitleService } from '../../service/title.service';
 import { RouteService } from '../../service/route.service';
@@ -99,21 +99,26 @@ export class JobComponent implements OnInit {
     this.selectedId = params.params.id;
   }
 
-  getJobsNodes(): void {
-    // 以下参数没有顺序关系
-    // fields[{{type}}] type 为该实体类型
-    // include 为 relationships 相关资源，支持嵌套如company,company.log
-    const params = [
+  get jobParams(): any {
+    return [
       'fields[node--job]=drupal_internal__nid,title,created,changed,body,deadline,number,salary,work_experience,skill,education,company',
       'include=skill,education,company,company.logo',
       'fields[node--company]=title,address,phone,welfare,logo',
       'fields[taxonomy_term--skill]=name',
       'fields[taxonomy_term--education]=name',
       'fields[file--file]=uri',
-    ].join('&');
+      'jsonapi_include=1',
+    ];
+  }
+
+  getJobsNodes(): void {
+    // 以下参数没有顺序关系
+    // fields[{{type}}] type 为该实体类型
+    // include 为 relationships 相关资源，支持嵌套如company,company.log
+    const params = this.jobParams.join('&');
 
     this.nodeService.getNodes('job', params).subscribe((res) => {
-      this.updateList(res);
+      this.updateList(res.data);
     });
   }
 
@@ -161,17 +166,9 @@ export class JobComponent implements OnInit {
   }
 
   onSearchJob(key: string): void {
-    const params = [
-      `filter[title]=${key}`,
-      'fields[node--job]=drupal_internal__nid,title,created,changed,body,deadline,number,salary,work_experience,skill,education,company',
-      'include=skill,education,company,company.logo',
-      'fields[node--company]=title,address,phone,welfare,logo',
-      'fields[taxonomy_term--skill]=name',
-      'fields[taxonomy_term--education]=name',
-      'fields[file--file]=uri',
-    ].join('&');
+    const params = this.jobParams.push(`filter[title]=${key}`).join('&');
     this.nodeService.getNodes('job', params).subscribe((res) => {
-      this.updateList(res);
+      this.updateList(res.data);
     });
   }
 
@@ -182,9 +179,9 @@ export class JobComponent implements OnInit {
 
   updateList(lists: any): void {
     this.loading = false;
-    this.nodes = map(this.jsonFormatter(lists), (item) => {
+    this.nodes = map(lists, (item) => {
       return {
-        nid: item.drupal_internal__nid,
+        nid: item.id,
         title: item.title,
         number: item.number,
         salary: item.salary,
