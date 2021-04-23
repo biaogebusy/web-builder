@@ -66,6 +66,9 @@
           }, {
             "label": "Carousel 1v2",
             "href": "/sample/combs/carousels/carousel1v2"
+          }, {
+            "label": "Carousel 2v1",
+            "href": "/sample/combs/carousels/carousel2v1"
           }]
         }, {
           "label": "Masonry",
