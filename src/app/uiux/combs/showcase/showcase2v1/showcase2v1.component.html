@@ -3,9 +3,9 @@
     {{content.title}}
   </h2>
   <p class="text-center m-top-sm" *ngIf="content.subTitle">{{content.subTitle}}</p>
-  <div class="m-y" fxLayout="row wrap" fxLayoutAlign="space-between start" fxFlex="100%">
-    <app-card class="m-bottom-sm" fxFlex.xs="100" fxFlex.sm="calc(50% - 10px)" fxFlex.gt-sm="0 0 calc(25% - 20px)"
-      *ngFor="let case of content.elements" [content]="case">
+  <div class="m-y" fxLayout="row wrap" fxLayoutAlign="center start" fxFlex="100%">
+    <app-card class="m-x-sm m-bottom-sm" fxFlex.xs="100" fxFlex.sm="calc(50% - 30px)"
+      fxFlex.gt-sm="0 0 calc(25% - 40px)" *ngFor="let case of content.elements" [content]="case">
     </app-card>
   </div>
 </div>
