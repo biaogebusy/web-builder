@@ -20,6 +20,7 @@ import { FeatureBoxComponent } from './feature-box/feature-box.component';
 import { BoxComponent } from './box/box.component';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { MapComponent } from './map/map.component';
+import { TestimonialComponent } from './testimonial/testimonial.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -42,6 +43,7 @@ const components = [
   BoxComponent,
   BreadcrumbComponent,
   MapComponent,
+  TestimonialComponent,
   DynamicWidgetsComponent,
 ];
 

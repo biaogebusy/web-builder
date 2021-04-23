@@ -1,2 +1,14 @@
 // import all css on anuglar.json
 // https://swiperjs.com/angular
+.swiper-button-next,
+.swiper-button-prev {
+  &:after {
+    font-family: inherit;
+  }
+}
+.swiper-button-next:after {
+  content: "navigate_next";
+}
+.swiper-button-prev:after {
+  content: "navigate_before";
+}

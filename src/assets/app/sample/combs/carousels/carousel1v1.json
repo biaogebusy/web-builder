@@ -1,7 +1,7 @@
 {
   "title": "carousel 1v1",
   "body": [{
-    "type": "carousel1v1",
+    "type": "carousel-1v1",
     "title": {
       "label": "MEET THE TEAM",
       "icon": "email",
@@ -33,19 +33,27 @@
         "subTitle": "Frontend Devel",
         "classes": "card-no-shadow",
         "body": "Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. ",
-        "img": {
-          "type": "img",
-          "src": "/assets/images/cases/porto1.jpg",
-          "alt": "案例",
-          "hostClasses": "mat-card-image display-block"
+        "feature": {
+          "fullIcon": "fullscreen",
+          "openIcon": "open_in_new",
+          "link": "#",
+          "ratios": "media-4-3",
+          "img": {
+            "large": "/assets/images/cases/porto1.jpg",
+            "normal": "/assets/images/cases/porto1.jpg"
+          }
         }
       }, {
         "type": "card",
-        "img": {
-          "type": "img",
-          "src": "/assets/images/cases/porto2.jpg",
-          "alt": "案例",
-          "hostClasses": "mat-card-image display-block"
+        "feature": {
+          "fullIcon": "fullscreen",
+          "openIcon": "open_in_new",
+          "link": "#",
+          "ratios": "media-4-3",
+          "img": {
+            "large": "/assets/images/cases/porto7.jpg",
+            "normal": "/assets/images/cases/porto7.jpg"
+          }
         },
         "title": "JOHNSON",
         "subTitle": "Frontend Devel",
@@ -53,11 +61,15 @@
         "body": "Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. "
       }, {
         "type": "card",
-        "img": {
-          "type": "img",
-          "src": "/assets/images/cases/porto3.jpg",
-          "alt": "案例",
-          "hostClasses": "mat-card-image display-block"
+        "feature": {
+          "fullIcon": "fullscreen",
+          "openIcon": "open_in_new",
+          "link": "#",
+          "ratios": "media-4-3",
+          "img": {
+            "large": "/assets/images/cases/porto2.jpg",
+            "normal": "/assets/images/cases/porto2.jpg"
+          }
         },
         "title": "Will",
         "subTitle": "Frontend Devel",
@@ -65,11 +77,15 @@
         "body": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr. "
       }, {
         "type": "card",
-        "img": {
-          "type": "img",
-          "src": "/assets/images/cases/porto4.jpg",
-          "alt": "案例",
-          "hostClasses": "mat-card-image display-block"
+        "feature": {
+          "fullIcon": "fullscreen",
+          "openIcon": "open_in_new",
+          "link": "#",
+          "ratios": "media-4-3",
+          "img": {
+            "large": "/assets/images/cases/porto3.jpg",
+            "normal": "/assets/images/cases/porto3.jpg"
+          }
         },
         "title": "Tamy",
         "subTitle": "Backend Devel",
@@ -77,11 +93,15 @@
         "body": "Sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum."
       }, {
         "type": "card",
-        "img": {
-          "type": "img",
-          "src": "/assets/images/cases/porto5.jpg",
-          "alt": "案例",
-          "hostClasses": "mat-card-image display-block"
+        "feature": {
+          "fullIcon": "fullscreen",
+          "openIcon": "open_in_new",
+          "link": "#",
+          "ratios": "media-4-3",
+          "img": {
+            "large": "/assets/images/cases/porto4.jpg",
+            "normal": "/assets/images/cases/porto4.jpg"
+          }
         },
         "title": "Ada",
         "subTitle": "Frontend Devel",
@@ -89,11 +109,15 @@
         "body": "Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat."
       }, {
         "type": "card",
-        "img": {
-          "type": "img",
-          "src": "/assets/images/cases/porto6.jpg",
-          "alt": "案例",
-          "hostClasses": "mat-card-image display-block"
+        "feature": {
+          "fullIcon": "fullscreen",
+          "openIcon": "open_in_new",
+          "link": "#",
+          "ratios": "media-4-3",
+          "img": {
+            "large": "/assets/images/cases/porto5.jpg",
+            "normal": "/assets/images/cases/porto5.jpg"
+          }
         },
         "title": "MeiMei",
         "subTitle": "Frontend Devel",
@@ -101,11 +125,15 @@
         "body": "Vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim."
       }, {
         "type": "card",
-        "img": {
-          "type": "img",
-          "src": "/assets/images/cases/porto7.jpg",
-          "alt": "案例",
-          "hostClasses": "mat-card-image display-block"
+        "feature": {
+          "fullIcon": "fullscreen",
+          "openIcon": "open_in_new",
+          "link": "#",
+          "ratios": "media-4-3",
+          "img": {
+            "large": "/assets/images/cases/porto6.jpg",
+            "normal": "/assets/images/cases/porto6.jpg"
+          }
         },
         "title": "Nikki",
         "subTitle": "BA Test",

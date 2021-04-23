@@ -12,4 +12,10 @@
       color: mat-color($primary);
     }
   }
+  .swiper-container {
+    .swiper-button-next,
+    .swiper-button-prev {
+      color: mat-color($primary);
+    }
+  }
 }

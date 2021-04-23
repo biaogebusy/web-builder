@@ -29,4 +29,24 @@
       }
     }
   }
+  .testimonial {
+    &.style-v2 {
+      .bx-wrapper {
+        img {
+          border-color: mat-color($foreground, divider) !important;
+        }
+      }
+      .testimonial-detail {
+        .info {
+          color: mat-color($foreground, secondary-text);
+        }
+        .sub-title {
+          color: mat-color($primary);
+        }
+        .desc {
+          color: mat-color($foreground, secondary-text);
+        }
+      }
+    }
+  }
 }

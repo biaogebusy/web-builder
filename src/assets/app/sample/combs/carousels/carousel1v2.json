@@ -1,7 +1,7 @@
 {
   "title": "carousel 1v2",
   "body": [{
-    "type": "carousel1v2",
+    "type": "carousel-1v2",
     "title": {
       "label": "Gallery",
       "style": "style-v6 line-full-width"

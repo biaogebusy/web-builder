@@ -47,5 +47,11 @@
         color: mat-color($primary);
       }
     }
+    &.banner-title {
+      .title-header {
+        background-color: mat-color($primary);
+        color: mat-color($primary, default-contrast);
+      }
+    }
   }
 }

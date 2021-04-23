@@ -15,7 +15,7 @@
     "type": "location",
     "title": {
       "label": "My Location",
-      "style": "style-v1"
+      "style": "banner-title"
     },
     "style": {
       "height": "500px"

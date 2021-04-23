@@ -1,0 +1,23 @@
+@import "../../../../../theme/variable/breakpoint";
+:host ::ng-deep {
+  .swiper-container {
+    .swiper-button-prev {
+      left: 5%;
+    }
+    .swiper-button-next {
+      right: 5%;
+    }
+    .swiper-button-next,
+    .swiper-button-prev {
+      top: 100px;
+    }
+    @media #{$gt-sm} {
+      .swiper-button-prev {
+        left: 30%;
+      }
+      .swiper-button-next {
+        right: 30%;
+      }
+    }
+  }
+}
