@@ -7,9 +7,51 @@
   $primary: map-get($config, primary);
   $accent: map-get($config, accent);
   $warn: map-get($config, warn);
+
+  $light: map-get($background, card);
   .carousel-1-v2 {
     .actions {
       color: mat-color($primary);
+    }
+  }
+  .carousel-2-v1 {
+    &.section-light {
+      color: $light;
+      .line-style {
+        &:before {
+          background: $light;
+        }
+        .mat-icon {
+          background: mat-color($primary);
+          color: $light;
+        }
+      }
+      .swiper-container {
+        .swiper-button-next,
+        .swiper-button-prev {
+          color: $light;
+        }
+      }
+      .testimonial {
+        &.style-v2 {
+          .bx-wrapper {
+            img {
+              border-color: $light !important;
+            }
+          }
+          .testimonial-detail {
+            .info {
+              color: $light;
+            }
+            .sub-title {
+              color: $light;
+            }
+            .desc {
+              color: $light;
+            }
+          }
+        }
+      }
     }
   }
   .swiper-container {

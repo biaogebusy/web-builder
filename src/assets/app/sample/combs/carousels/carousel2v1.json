@@ -8,7 +8,11 @@
       "icon": "person"
     },
     "bg": {
-      "classes": "bg-white bg-fill-width"
+      "classes": "bg-fill-width overlay",
+      "img": {
+        "src": "/assets/images/bg5.jpeg",
+        "hostClasses": "bg-center"
+      }
     },
     "sliders": {
       "params": {
