@@ -4,6 +4,30 @@
       "label": "信使",
       "version": "Demo"
     },
+    "top": {
+      "banner": {
+        "left": [{
+          "icon": "call",
+          "label": "CALL US:(123)456-7890"
+        }, {
+          "icon": "comment",
+          "label": "SUPPORT: markting@example.com"
+        }],
+        "right": [{
+          "label": "twitter",
+          "svg": "twitter",
+          "href": "#"
+        }, {
+          "label": "zhihu",
+          "svg": "zhihu",
+          "href": "#"
+        }, {
+          "label": "wechat",
+          "svg": "wechat",
+          "href": "#"
+        }]
+      }
+    },
     "mainMenu": [{
         "label": "地图",
         "classes": "bold",

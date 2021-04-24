@@ -1,0 +1,123 @@
+@import "../../../../theme/mixins/amixin";
+.header-top {
+  padding: 12px 0;
+  background-color: #f9f9f9;
+}
+.hotline {
+  .item {
+    font-size: 13px;
+    .mat-icon {
+      margin-right: 5px;
+    }
+  }
+}
+.inv-icon {
+  &.style-v1 {
+    color: #808c8c;
+    display: inline-block;
+    font-size: 14px;
+    height: 32px;
+    line-height: 34px;
+    margin-top: 4px;
+    outline: medium none;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    width: 32px;
+    z-index: 1;
+    @include transition(all, 0.4s, ease);
+    span.soc_name {
+      opacity: 0;
+      background: #070809;
+      display: block;
+      font-size: 12px;
+      height: 32px;
+      left: 14px;
+      line-height: 31px;
+      position: absolute;
+      top: 0;
+      z-index: 0;
+      font-style: italic;
+      @include transition(all, 0.4s, ease);
+      background: #1ccdca;
+      color: #ffffff;
+      @include border-radius(5px, 5px, 5px, 5px);
+      &:before,
+      &:after {
+        background: #070809;
+        content: "";
+        display: block;
+        height: 32px;
+        position: absolute;
+        top: 0;
+        width: 32px;
+        z-index: -1;
+        @include transition(all, 0.4s, ease);
+        background: #1ccdca;
+        color: #ffffff;
+        @include border-radius(3px, 3px, 3px, 3px);
+      }
+      &:before {
+        left: -14px;
+      }
+      &:after {
+        right: -12px;
+        @include transition(all, 0.4s, ease);
+      }
+    }
+    span.soc_icon_bg {
+      background: rgba(0, 0, 0, 0.15);
+      @include border-radius(3px, 3px, 3px, 3px);
+      display: block;
+      content: "";
+      width: 32px;
+      height: 32px;
+      line-height: 32px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      opacity: 0;
+      @include border-radius(3px, 3px, 3px, 3px);
+      @include transition(all, 0.4s, ease);
+    }
+    .mat-icon {
+      position: relative;
+      z-index: 1;
+      width: 16px;
+      height: 16px;
+      color: #808c8c;
+    }
+    &:hover {
+      color: #fff;
+      z-index: 10;
+      .mat-icon {
+        color: #fff;
+      }
+      span.soc_name {
+        width: auto;
+        padding-left: 28px;
+        opacity: 1;
+        @include transition(all, 0.4s, ease);
+      }
+      span.soc_icon_bg {
+        top: 0px;
+        left: 0px;
+        opacity: 1;
+      }
+    }
+    // &:last-child {
+    //   > span.soc_name {
+    //     right: 11px;
+    //     left: auto;
+    //     &:before {
+    //       display: none;
+    //     }
+    //   }
+    //   &:hover > span.soc_name {
+    //     padding-left: 12px;
+    //     padding-right: 28px;
+    //   }
+    // }
+  }
+}
