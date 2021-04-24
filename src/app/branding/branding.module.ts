@@ -9,6 +9,7 @@ import { UiuxModule } from '../uiux/uiux.module';
 import { PopupComponent } from './footer/popup/popup.component';
 import { ItemMenuComponent } from './header/menu/item-menu/item-menu.component';
 import { SubMenuComponent } from './header/menu/item-menu/sub-menu/sub-menu.component';
+import { HeaderTopComponent } from './header/header-top/header-top.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { SubMenuComponent } from './header/menu/item-menu/sub-menu/sub-menu.comp
     PopupComponent,
     ItemMenuComponent,
     SubMenuComponent,
+    HeaderTopComponent,
   ],
   imports: [ShareModule, UiuxModule],
   exports: [HeaderComponent, FooterComponent, MenuComponent],

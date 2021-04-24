@@ -1,45 +1,47 @@
-<header *ngIf="!(screen.eq('xs') || screen.eq('sm'))" class="header" #header>
-  <div class="container">
-    <div class="header-container" fxLayout="row" fxLayoutAlign="space-between center">
-      <div class="header-left">
-        <a class="logo mat-h2" [routerLink]="['/']" [innerHTML]="branding?.header?.logo?.label"></a><span
-          class="version" [innerHTML]="branding?.header?.logo?.version"></span>
-      </div>
-      <div class="header-right" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="3rem">
-        <div class="menu-inner" *ngIf="branding.header?.mainMenu">
-          <div class="main-menu" fxLayout="row">
-            <div class="item" *ngFor="let menu of branding.header.mainMenu">
-              <app-item-menu [content]="menu"></app-item-menu>
+<ng-container *ngIf="content">
+  <header *ngIf="!(screen.eq('xs') || screen.eq('sm'))" class="header" #header>
+    <div class="container">
+      <div class="header-container" fxLayout="row" fxLayoutAlign="space-between center">
+        <div class="header-left">
+          <a class="logo mat-h2" [routerLink]="['/']" [innerHTML]="content.logo?.label"></a><span class="version"
+            [innerHTML]="content.logo?.version"></span>
+        </div>
+        <div class="header-right" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="3rem">
+          <div class="menu-inner" *ngIf="content.mainMenu">
+            <div class="main-menu" fxLayout="row">
+              <div class="item" *ngFor="let menu of content.mainMenu">
+                <app-item-menu [content]="menu"></app-item-menu>
+              </div>
             </div>
           </div>
+          <div class="actions" *ngIf="content.actions">
+            <button color="primary" mat-raised-button *ngFor="let action of content.actions">
+              <app-link [content]="action"></app-link>
+            </button>
+          </div>
+          <app-switch-theme></app-switch-theme>
+          <app-user-menu></app-user-menu>
+          <a [href]="content.repos?.href" target="_blank">
+            <mat-icon color="primary" svgIcon="{{content.repos?.icon}}"></mat-icon>
+          </a>
         </div>
-        <div class="actions" *ngIf="branding.header?.actions">
-          <button color="primary" mat-raised-button *ngFor="let action of branding.header.actions">
-            <app-link [content]="action"></app-link>
-          </button>
-        </div>
-        <app-switch-theme></app-switch-theme>
-        <app-user-menu></app-user-menu>
-        <a [href]="branding.header?.repos?.href" target="_blank">
-          <mat-icon color="primary" svgIcon="{{branding.header?.repos?.icon}}"></mat-icon>
-        </a>
       </div>
     </div>
+  </header>
+  <div class="drawer">
+    <mat-toolbar *ngIf="screen.eq('xs') || screen.eq('sm')">
+      <button mat-icon-button (click)="onToggle()" aria-label="menu icon">
+        <mat-icon color="primary" *ngIf="!isDrawer">menu</mat-icon>
+        <mat-icon *ngIf="isDrawer">close</mat-icon>
+      </button>
+      <span class="spacer"></span>
+      <span class="app-name">{{content.logo?.label}}</span>
+      <span class="spacer"></span>
+      <app-switch-theme></app-switch-theme>
+      <app-user-menu></app-user-menu>
+    </mat-toolbar>
+    <ng-container *ngIf="(screen.eq('xs') || screen.eq('sm')) && isDrawer">
+      <app-dropdown-menu *ngIf="content.mainMenu" [content]="content.mainMenu"></app-dropdown-menu>
+    </ng-container>
   </div>
-</header>
-<div class="drawer">
-  <mat-toolbar *ngIf="screen.eq('xs') || screen.eq('sm')">
-    <button mat-icon-button (click)="onToggle()" aria-label="menu icon">
-      <mat-icon color="primary" *ngIf="!isDrawer">menu</mat-icon>
-      <mat-icon *ngIf="isDrawer">close</mat-icon>
-    </button>
-    <span class="spacer"></span>
-    <span class="app-name">{{branding.header?.logo?.label}}</span>
-    <span class="spacer"></span>
-    <app-switch-theme></app-switch-theme>
-    <app-user-menu></app-user-menu>
-  </mat-toolbar>
-  <ng-container *ngIf="(screen.eq('xs') || screen.eq('sm')) && isDrawer">
-    <app-dropdown-menu *ngIf="branding?.header?.mainMenu" [content]="branding.header.mainMenu"></app-dropdown-menu>
-  </ng-container>
-</div>
+</ng-container>

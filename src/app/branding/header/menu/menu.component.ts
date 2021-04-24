@@ -9,9 +9,9 @@ import { BrandingState } from '../../../mobx/BrandingStare';
 export class MenuComponent implements OnInit {
   isOpened = false;
   @Input() isDrawer: boolean;
-  content: any;
+  @Input() content: any;
 
-  constructor(public screen: ScreenState, public branding: BrandingState) {}
+  constructor(public screen: ScreenState) {}
 
   ngOnInit(): void {}
 
