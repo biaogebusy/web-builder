@@ -1,0 +1,34 @@
+.menu-list {
+  .block-title {
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    word-spacing: 1px;
+  }
+  .list {
+    padding: 0;
+    li {
+      list-style: none;
+      padding: 7px 0;
+      &:last-child {
+        border-bottom: none;
+      }
+      .num-posts {
+        color: #aaa;
+        float: right;
+        font-size: 11px;
+      }
+      ::ng-deep a {
+        color: #777;
+        display: inline-block;
+        margin-right: 10px;
+        font-size: 13px;
+        &:hover {
+          color: #aaa;
+        }
+      }
+    }
+  }
+}

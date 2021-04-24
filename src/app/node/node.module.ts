@@ -13,6 +13,8 @@ import { CombsModule } from '../uiux/combs/combs.module';
 import { WidgetsModule } from '../uiux/widgets/widgets.module';
 import { NewsComponent } from './news/news.component';
 import { ListComponent } from './list/list.component';
+import { MediaListComponent } from './article/media-list/media-list.component';
+import { MenuListComponent } from './article/menu-list/menu-list.component';
 
 const components = [
   BlogComponent,
@@ -20,6 +22,8 @@ const components = [
   CaseComponent,
   CaseNodeComponent,
   ArticleComponent,
+  MediaListComponent,
+  MenuListComponent,
   JobComponent,
   JobFilterComponent,
   JobListComponent,
@@ -29,7 +33,7 @@ const components = [
 @NgModule({
   declarations: [...components],
   imports: [ShareModule, CombsModule, WidgetsModule, NodeRoutingModule],
-  exports: [CaseNodeComponent],
+  exports: [CaseNodeComponent, ArticleComponent],
 })
 export class NodeModule {
   constructor(@Optional() @SkipSelf() parent: NodeModule) {

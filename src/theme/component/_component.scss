@@ -12,6 +12,7 @@
 @import "./btn-animate";
 @import "./carousel";
 @import "./banner";
+@import "./article";
 
 // material custom
 @import "./mat/card";
@@ -33,6 +34,7 @@
   @include btn-animate-color($config-or-theme);
   @include carousel-color($config-or-theme);
   @include banner-color($config-or-theme);
+  @include article-color($config-or-theme);
 
   // material custom ui
   @include card-color($config-or-theme);

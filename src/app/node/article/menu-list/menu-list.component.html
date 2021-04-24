@@ -1,0 +1,11 @@
+<div class="menu-list" *ngIf="content">
+  <h2 class="block-title">{{content.title}}</h2>
+  <div class="list">
+    <li *ngFor="let item of content.elements">
+      <app-link [content]="item.link"></app-link>
+      <div class="num-posts">
+        {{item.label}}
+      </div>
+    </li>
+  </div>
+</div>

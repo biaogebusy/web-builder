@@ -1,0 +1,82 @@
+{
+  "title": "DRAG AND DROP LAYOUT",
+  "body": [{
+    "type": "article",
+    "title": "DRAG AND DROP LAYOUT",
+    "meta": [{
+      "icon": "schedule",
+      "label": "12/09/2021"
+    }, {
+      "icon": "folder",
+      "label": "category"
+    }],
+    "body": "<img src='../assets/images/showcase/blog1-large.jpeg' /><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit Mauris non laoreet dui, Morbi lacus massa, euismod ut turpis molestie, tristique sodales est. Integer sit amet mi id sapien tempor molestie in nec massa Fusce non ante sed lorem rutrum feugiat, Vestibulum pellentesque, purus ut dignissim consectetur, nulla erat ultrices purus, ut consequat sem elit non sem. Morbi lacus massa, euismod ut turpis molestie, tristique sodales est</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit Mauris non laoreet dui, Morbi lacus massa, euismod ut turpis molestie, tristique sodales est. Integer sit amet mi id sapien tempor molestie in nec massa Fusce non ante sed lorem rutrum feugiat, Vestibulum pellentesque, purus ut dignissim consectetur, nulla erat ultrices purus, ut consequat sem elit non sem. Morbi lacus massa, euismod ut turpis molestie, tristique sodales est</p>",
+    "sidebar": [{
+      "type": "media-list",
+      "title": "POPULAR POSTS",
+      "elements": [{
+        "link": {
+          "label": "Drag and Drop Layout",
+          "href": "#"
+        },
+        "img": {
+          "src": "../assets/images/showcase/blog1-large.jpeg",
+          "alt": ""
+        },
+        "changed": "2021/02/07"
+      }, {
+        "link": {
+          "label": "Drag and Drop Layout",
+          "href": "#"
+        },
+        "img": {
+          "src": "../assets/images/showcase/blog2-large.jpeg",
+          "alt": ""
+        },
+        "changed": "2021/02/07"
+      }, {
+        "link": {
+          "label": "Drag and Drop Layout",
+          "href": "#"
+        },
+        "img": {
+          "src": "../assets/images/showcase/blog3-large.jpeg",
+          "alt": ""
+        },
+        "changed": "2021/02/07"
+      }, {
+        "link": {
+          "label": "Drag and Drop Layout",
+          "href": "#"
+        },
+        "img": {
+          "src": "../assets/images/showcase/blog4-large.jpeg",
+          "alt": ""
+        },
+        "changed": "2021/02/07"
+      }]
+    }, {
+      "type": "menu-list",
+      "title": "CATEGORIES",
+      "elements": [{
+        "link": {
+          "href": "#",
+          "label": "Desige"
+        },
+        "label": "3"
+      }, {
+        "link": {
+          "href": "#",
+          "label": "Drupal"
+        },
+        "label": "3"
+      }, {
+        "link": {
+          "href": "#",
+          "label": "Video"
+        },
+        "label": "2"
+      }]
+    }]
+  }]
+}

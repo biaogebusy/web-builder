@@ -1,7 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { NodeService } from '../../service/node.service';
-import { ApiService } from '../../service/api.service';
-import { isArray, keyBy } from 'lodash-es';
+import { Component, Input, OnInit } from '@angular/core';
 import { TitleService } from '../../service/title.service';
 @Component({
   selector: 'app-article',
@@ -9,31 +6,12 @@ import { TitleService } from '../../service/title.service';
   styleUrls: ['./article.component.scss'],
 })
 export class ArticleComponent implements OnInit {
-  content: any;
-  relation: any;
-  loading: boolean;
-  constructor(
-    private nodeService: NodeService,
-    public apiService: ApiService,
-    private titleService: TitleService
-  ) {}
+  @Input() content: any;
+  constructor(private titelService: TitleService) {}
 
   ngOnInit(): void {
-    this.titleService.setTitle('文章列表');
-    this.loading = true;
-    const params = [
-      'fields[node--article]=title,body,created,link,field_image',
-      'include=field_image',
-      'fields[file--file]=uri',
-      'page[limit]=20',
-    ].join('&');
-    this.nodeService.getNodes('article', params).subscribe((res: any) => {
-      // console.log(nodes);
-      this.loading = false;
-      this.content = res.data;
-      if (isArray(res.included)) {
-        this.relation = keyBy(res.included, 'id');
-      }
-    });
+    if (this.content.title) {
+      this.titelService.setTitle(this.content.title);
+    }
   }
 }
