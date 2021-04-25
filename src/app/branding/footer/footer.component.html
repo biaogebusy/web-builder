@@ -1,7 +1,7 @@
 <div class="footer" *ngIf="branding.ready">
-  <ng-container *ngIf="branding.footer?.params?.mode === 'light' ">
-    <app-light [content]="branding.footer"></app-light>
-  </ng-container>
+  <app-light *ngIf="branding.footer?.params?.mode === 'light' " [content]="branding.footer"></app-light>
+  <app-inverse *ngIf="branding.footer?.params?.mode === 'inverse' " [content]="branding.footer">
+  </app-inverse>
   <div id="go-to-top" #goTop (click)="gotoTop()">
     <mat-icon>expand_less</mat-icon>
   </div>

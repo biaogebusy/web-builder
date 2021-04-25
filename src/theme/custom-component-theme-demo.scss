@@ -17,6 +17,7 @@
     background-color: map-get($background, card);
     border-color: mat-color($foreground, divider);
     color: mat-color($foreground, text);
+    // base color: mat-color($foreground, base, 0.25)
     header {
       color: mat-color($foreground, secondary-text);
     }

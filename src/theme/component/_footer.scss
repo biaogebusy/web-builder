@@ -7,54 +7,70 @@
   $primary: map-get($config, primary);
   $accent: map-get($config, accent);
   $warn: map-get($config, warn);
-
+  @debug $background;
   $text-base: mat-color($foreground, text, 0.75);
   .footer {
-    background-color: mat-color($background, card);
+    .footer-light {
+      background-color: mat-color($background, card);
 
-    a {
-      color: $text-base;
+      a {
+        color: $text-base;
 
-      &:hover,
-      &:focus {
-        color: mat-color($primary);
-      }
-    }
-
-    .footer-bottom {
-      position: relative;
-      color: mat-color($foreground, text, 0.6);
-      background-color: mat-color($background, background);
-      z-index: 10;
-    }
-
-    .mat-list-item-content {
-      color: $text-base;
-
-      span {
-        &:hover {
-          cursor: pointer;
+        &:hover,
+        &:focus {
           color: mat-color($primary);
         }
       }
-    }
 
-    .mat-expansion-panel {
-      background-color: transparent;
-      color: $text-base !important;
-    }
+      .footer-bottom {
+        position: relative;
+        color: mat-color($foreground, text, 0.6);
+        background-color: mat-color($background, background);
+        z-index: 10;
+      }
 
-    .mat-expansion-panel-header-title {
-      color: $text-base !important;
-    }
+      .mat-list-item-content {
+        color: $text-base;
 
-    .mat-expansion-panel:not([class*="mat-elevation-z"]) {
-      box-shadow: none !important;
-    }
+        span {
+          &:hover {
+            cursor: pointer;
+            color: mat-color($primary);
+          }
+        }
+      }
 
-    .mat-expansion-panel:not(.mat-expanded):not([aria-disabled="true"])
-      .mat-expansion-panel-header:hover {
-      background-color: transparent !important;
+      .mat-expansion-panel {
+        background-color: transparent;
+        color: $text-base !important;
+      }
+
+      .mat-expansion-panel-header-title {
+        color: $text-base !important;
+      }
+
+      .mat-expansion-panel:not([class*="mat-elevation-z"]) {
+        box-shadow: none !important;
+      }
+
+      .mat-expansion-panel:not(.mat-expanded):not([aria-disabled="true"])
+        .mat-expansion-panel-header:hover {
+        background-color: transparent !important;
+      }
+    }
+    .footer-inverse {
+      background: #191e21;
+      color: #989898;
+      .footer-bottom {
+        background-color: mat-color($foreground, base, 0.25);
+        a {
+          color: #989898;
+          &:hover,
+          &:focus {
+            color: mat-color($primary);
+          }
+        }
+      }
     }
   }
   #go-to-top {

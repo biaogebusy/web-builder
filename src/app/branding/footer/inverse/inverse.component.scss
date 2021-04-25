@@ -1,0 +1,24 @@
+.right {
+  text-align: right;
+  .item {
+    padding: 0 8px;
+
+    ::ng-deep a {
+      font-size: 12px;
+      &:after {
+        content: "/";
+        padding-left: 20px;
+      }
+    }
+    &:first-child {
+      padding-left: 0px;
+    }
+    &:last-child {
+      padding-right: 0px;
+      ::ng-deep a:after {
+        content: "";
+        padding-left: 0px;
+      }
+    }
+  }
+}
