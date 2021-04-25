@@ -10,6 +10,7 @@ import { PopupComponent } from './footer/popup/popup.component';
 import { ItemMenuComponent } from './header/menu/item-menu/item-menu.component';
 import { SubMenuComponent } from './header/menu/item-menu/sub-menu/sub-menu.component';
 import { HeaderTopComponent } from './header/header-top/header-top.component';
+import { WidgetsModule } from '../uiux/widgets/widgets.module';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,7 @@ import { HeaderTopComponent } from './header/header-top/header-top.component';
     SubMenuComponent,
     HeaderTopComponent,
   ],
-  imports: [ShareModule, UiuxModule],
+  imports: [ShareModule, WidgetsModule],
   exports: [HeaderComponent, FooterComponent, MenuComponent],
 })
 export class BrandingModule {}

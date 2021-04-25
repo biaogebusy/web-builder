@@ -8,15 +8,15 @@
       "banner": {
         "left": [{
           "icon": "call",
-          "label": "CALL US:(123)456-7890"
+          "label": "TELL:(123)456-7890"
         }, {
           "icon": "comment",
-          "label": "SUPPORT: demo@zhaobg.com"
+          "label": "EMAIL: demo@zhaobg.com"
         }],
         "right": [{
-          "label": "Youtube",
-          "svg": "youtube",
-          "href": "#"
+          "label": "zhihu",
+          "svg": "zhihu",
+          "href": "https://www.zhihu.com/people/biaogebusy"
         }, {
           "label": "微博",
           "svg": "weibo",
@@ -25,6 +25,10 @@
           "label": "wechat",
           "svg": "wechat",
           "href": "#"
+        }, {
+          "label": "Github",
+          "svg": "github",
+          "href": "https://github.com/biaogebusy/xinshi-angular"
         }]
       }
     },
@@ -129,11 +133,7 @@
     "actions": [{
       "label": "发布职位",
       "href": "/create-job"
-    }],
-    "repos": {
-      "icon": "github",
-      "href": "https://github.com/biaogebusy/xinshi-angular"
-    }
+    }]
   },
   "footer": {
     "logo": {

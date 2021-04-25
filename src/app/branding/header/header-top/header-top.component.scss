@@ -1,7 +1,6 @@
 @import "../../../../theme/mixins/amixin";
 .header-top {
   padding: 3px 0;
-  background-color: #f9f9f9;
 }
 .hotline {
   .item {
@@ -13,7 +12,6 @@
 }
 .inv-icon {
   &.style-v1 {
-    color: #808c8c;
     display: inline-block;
     font-size: 14px;
     height: 32px;
@@ -25,9 +23,8 @@
     width: 32px;
     z-index: 1;
     @include transition(all, 0.4s, ease);
-    span.soc_name {
+    span.soc-name {
       opacity: 0;
-      background: #070809;
       display: block;
       font-size: 12px;
       height: 32px;
@@ -36,14 +33,12 @@
       position: absolute;
       top: 0;
       z-index: 0;
+      white-space: nowrap;
       font-style: italic;
       @include transition(all, 0.4s, ease);
-      background: #1ccdca;
-      color: #ffffff;
       @include border-radius(5px, 5px, 5px, 5px);
       &:before,
       &:after {
-        background: #070809;
         content: "";
         display: block;
         height: 32px;
@@ -52,8 +47,6 @@
         width: 32px;
         z-index: -1;
         @include transition(all, 0.4s, ease);
-        background: #1ccdca;
-        color: #ffffff;
         @include border-radius(3px, 3px, 3px, 3px);
       }
       &:before {
@@ -64,8 +57,7 @@
         @include transition(all, 0.4s, ease);
       }
     }
-    span.soc_icon_bg {
-      background: rgba(0, 0, 0, 0.15);
+    span.soc-icon-bg {
       @include border-radius(3px, 3px, 3px, 3px);
       display: block;
       content: "";
@@ -85,25 +77,34 @@
       z-index: 1;
       width: 14px;
       height: 14px;
-      color: #808c8c;
     }
     &:hover {
-      color: #fff;
       z-index: 10;
-      .mat-icon {
-        color: #fff;
-      }
-      span.soc_name {
+
+      span.soc-name {
         width: auto;
         padding-left: 28px;
         opacity: 1;
         white-space: nowrap;
         @include transition(all, 0.4s, ease);
       }
-      span.soc_icon_bg {
+      span.soc-icon-bg {
         top: 0px;
         left: 0px;
         opacity: 1;
+      }
+    }
+    &:last-child {
+      > span.soc-name {
+        right: 11px;
+        left: auto;
+        &:before {
+          display: none;
+        }
+      }
+      &:hover > span.soc-name {
+        padding-left: 12px;
+        padding-right: 28px;
       }
     }
   }

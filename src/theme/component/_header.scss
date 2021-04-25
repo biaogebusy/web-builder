@@ -11,12 +11,43 @@
   .app-name {
     color: mat-color($primary);
   }
-
+  @debug $foreground;
+  .header-top {
+    background-color: mat-color($background, status-bar, 0.4);
+    @include mat-elevation(1, mat-color($background, tooltip), 0.4);
+    color: mat-color($foreground, "secondary-text");
+    .inv-icon {
+      &.style-v1 {
+        color: mat-color($foreground, "secondary-text");
+        .soc-name {
+          background: mat-color($primary);
+          color: mat-color($primary, default-contrast);
+          &:after,
+          &:before {
+            background: mat-color($primary);
+            color: mat-color($primary, default-contrast);
+          }
+        }
+        .soc-icon-bg {
+          background: rgba(0, 0, 0, 0.15);
+        }
+        .mat-icon {
+          color: mat-color($foreground, "secondary-text");
+        }
+        &:hover {
+          color: mat-color($primary, default-contrast);
+          .mat-icon {
+            color: mat-color($primary, default-contrast);
+          }
+        }
+      }
+    }
+  }
   .header {
     position: relative;
-    border-top: 2px solid mat-color($primary);
+    border-top: 1px solid mat-color($foreground, divider);
     margin-bottom: 2px;
-    background-color: mat-color($background, background);
+    background-color: mat-color($background, card);
     @include mat-elevation(1, mat-color($background, tooltip), 0.4);
 
     .logo {
