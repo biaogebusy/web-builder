@@ -11,15 +11,15 @@
           "label": "CALL US:(123)456-7890"
         }, {
           "icon": "comment",
-          "label": "SUPPORT: markting@example.com"
+          "label": "SUPPORT: demo@zhaobg.com"
         }],
         "right": [{
-          "label": "twitter",
-          "svg": "twitter",
+          "label": "Youtube",
+          "svg": "youtube",
           "href": "#"
         }, {
-          "label": "zhihu",
-          "svg": "zhihu",
+          "label": "微博",
+          "svg": "weibo",
           "href": "#"
         }, {
           "label": "wechat",
