@@ -10,6 +10,7 @@ import { ItemMenuComponent } from './header/menu/item-menu/item-menu.component';
 import { SubMenuComponent } from './header/menu/item-menu/sub-menu/sub-menu.component';
 import { HeaderTopComponent } from './header/header-top/header-top.component';
 import { WidgetsModule } from '../uiux/widgets/widgets.module';
+import { LightComponent } from './footer/light/light.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { WidgetsModule } from '../uiux/widgets/widgets.module';
     ItemMenuComponent,
     SubMenuComponent,
     HeaderTopComponent,
+    LightComponent,
   ],
   imports: [ShareModule, WidgetsModule],
   exports: [HeaderComponent, FooterComponent, MenuComponent],

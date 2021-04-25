@@ -1,0 +1,35 @@
+  <div class="container">
+    <div *ngIf="content.mainMenu && !screen.eq('xs')" class="footer-main-menu m-bottom p-y-sm" fxLayout.xs="column"
+      fxLayoutAlign="space-between start">
+      <mat-list *ngFor="let menu of content.mainMenu" role="list">
+        <div mat-subheader class="text-base">{{menu.label}}</div>
+
+        <ng-container *ngFor="let subMenu of menu.child; index as i">
+          <mat-list-item *ngIf="!subMenu.popup; else popup" role="listitem">
+            <mat-icon mat-list-icon svgIcon="{{subMenu.icon}}"></mat-icon>
+            <app-link *ngIf="subMenu.href" [content]="subMenu"></app-link>
+          </mat-list-item>
+          <ng-template #popup>
+            <mat-list-item role="listitem" [matMenuTriggerFor]="popup">
+              <mat-icon mat-list-icon svgIcon="{{subMenu.icon}}"></mat-icon>
+              <span>{{subMenu.label}}</span>
+              <mat-menu #popup="matMenu" yPosition="above">
+                <span [innerHTML]="subMenu.popup"></span>
+              </mat-menu>
+            </mat-list-item>
+          </ng-template>
+        </ng-container>
+      </mat-list>
+    </div>
+    <div class="mobile p-y-sm" *ngIf="content?.mobileMenu && screen.eq('xs')">
+      <app-dropdown-menu [content]="content.mobileMenu"></app-dropdown-menu>
+    </div>
+  </div>
+  <div class="footer-bottom text-center p-y-sm">
+    <div class="container">
+      <div class="brand" fxLayoutAlign="space-between center">
+        <h2 class="mat-h2 m-bottom-0">{{content.logo.label}}</h2>
+        <p>©{{utilities.fullYear}} {{content.copyRight}}</p>
+      </div>
+    </div>
+  </div>
