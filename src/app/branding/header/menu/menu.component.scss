@@ -1,5 +1,12 @@
 @import "../../../../theme/variable/variable.scss";
 
+.logo {
+  ::ng-deep {
+    img {
+      height: 45px;
+    }
+  }
+}
 .main-menu {
   .item {
     ::ng-deep a {

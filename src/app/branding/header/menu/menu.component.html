@@ -3,8 +3,13 @@
     <div class="container">
       <div class="header-container" fxLayout="row" fxLayoutAlign="space-between center">
         <div class="header-left">
-          <a class="logo mat-h2" [routerLink]="['/']" [innerHTML]="content.logo?.label"></a><span class="version"
-            [innerHTML]="content.logo?.version"></span>
+          <div class="logo" *ngIf="content.logo?.img; else name">
+            <app-img [content]="content.logo.img"></app-img>
+          </div>
+          <ng-template #name>
+            <a class="site-name mat-h2" [routerLink]="['/']" [innerHTML]="content.logo?.label"></a><span class="version"
+              [innerHTML]="content.logo?.version"></span>
+          </ng-template>
         </div>
         <div class="header-right" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="3rem">
           <div class="menu-inner" *ngIf="content.mainMenu">

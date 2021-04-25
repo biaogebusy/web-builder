@@ -2,7 +2,12 @@
   "header": {
     "logo": {
       "label": "信使",
-      "version": "Demo"
+      "version": "Demo",
+      "img": {
+        "src": "/assets/images/logo.png",
+        "alt": "信使 Demo",
+        "href": "/"
+      }
     },
     "top": {
       "banner": {
