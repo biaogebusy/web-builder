@@ -11,7 +11,7 @@
   .app-name {
     color: mat-color($primary);
   }
-  @debug $foreground;
+
   .header-top {
     background-color: mat-color($background, status-bar, 0.4);
     @include mat-elevation(1, mat-color($background, tooltip), 0.4);
@@ -53,11 +53,11 @@
     .logo {
       color: mat-color($primary);
     }
-
+    @debug $foreground;
     .main-menu {
       .item {
         a {
-          color: mat-color($primary);
+          color: mat-color($foreground, text, 0.75);
 
           &:hover,
           &:focus,

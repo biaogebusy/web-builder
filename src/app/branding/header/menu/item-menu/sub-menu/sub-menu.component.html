@@ -1,17 +1,17 @@
 <mat-menu #childMenu="matMenu" [overlapTrigger]="false">
-  <span *ngFor="let child of content">
-    <span *ngIf="child.child && child.child.length > 0">
+  <div *ngFor="let child of content">
+    <div *ngIf="child.child && child.child.length > 0">
       <button mat-menu-item [matMenuTriggerFor]="menu.childMenu">
         <mat-icon *ngIf="child.icon">{{child.icon}}</mat-icon>
         <app-link [content]="child"></app-link>
       </button>
       <app-sub-menu #menu [content]="child.child"></app-sub-menu>
-    </span>
-    <span *ngIf="!child.child || child.child.length === 0">
+    </div>
+    <div *ngIf="!child.child || child.child.length === 0">
       <button mat-menu-item>
         <mat-icon *ngIf="child.icon">{{child.icon}}</mat-icon>
         <app-link [content]="child"></app-link>
       </button>
-    </span>
-  </span>
+    </div>
+  </div>
 </mat-menu>

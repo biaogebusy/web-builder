@@ -11,9 +11,10 @@
   .item {
     ::ng-deep a {
       position: relative;
-      font-size: 1.6rem;
+      font-size: 1.5rem;
       font-weight: 700;
-      padding: 2rem;
+      padding: 2.7rem 2rem;
+      line-height: 1;
       display: block;
       &.active {
         &:after {

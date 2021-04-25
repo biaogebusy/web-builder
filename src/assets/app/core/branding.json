@@ -1,5 +1,9 @@
 {
   "header": {
+    "params": {
+      "themeSwitch": true,
+      "userInfo": true
+    },
     "logo": {
       "label": "信使",
       "version": "Demo",

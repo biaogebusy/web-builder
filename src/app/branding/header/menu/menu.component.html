@@ -24,8 +24,8 @@
               <app-link [content]="action"></app-link>
             </button>
           </div>
-          <app-switch-theme></app-switch-theme>
-          <app-user-menu></app-user-menu>
+          <app-switch-theme *ngIf="content?.params?.themeSwitch"></app-switch-theme>
+          <app-user-menu *ngIf="content?.params?.userInfo"></app-user-menu>
         </div>
       </div>
     </div>
