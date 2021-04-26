@@ -49,4 +49,13 @@
       }
     }
   }
+  .line-year {
+    color: mat-color($foreground, text, 0.75);
+    border-top: solid 1.5px mat-color($foreground, divider);
+    &:before {
+      background: mat-color($primary);
+      border: 1px solid mat-color($primary);
+      box-shadow: 0 0px 1px 5px mat-color($primary, 0.3);
+    }
+  }
 }

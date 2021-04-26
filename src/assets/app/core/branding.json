@@ -124,7 +124,7 @@
             "label": "Case",
             "href": "/sample/node/case"
           }, {
-            "label": "Blog, News",
+            "label": "Blog / News",
             "href": "/sample/node/article"
           }]
         }, {
@@ -136,6 +136,9 @@
           }, {
             "label": "Banner",
             "href": "/sample/combs/banner/banner-simple"
+          }, {
+            "label": "Line Year",
+            "href": "/sample/combs/carousels/lineyear"
           }]
         }]
       },

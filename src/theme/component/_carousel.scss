@@ -55,6 +55,9 @@
     }
   }
   .swiper-container {
+    .swiper-pagination-bullet-active {
+      background-color: mat-color($primary);
+    }
     .swiper-button-next,
     .swiper-button-prev {
       color: mat-color($primary);

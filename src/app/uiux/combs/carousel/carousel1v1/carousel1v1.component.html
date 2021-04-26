@@ -1,6 +1,8 @@
 <ng-container *ngIf="content">
   <div class="carousel-1-v1 position-relative" [ngClass]="content.style">
-    <app-bg *ngIf="content.bg" [content]="content.bg"></app-bg>
+    <app-bg *ngIf="content.bg" [content]="content.bg">
+      <app-img *ngIf="content.bg?.img" [content]="content.bg.img"></app-img>
+    </app-bg>
     <div class="container p-y">
       <app-title [content]="content.title"></app-title>
       <app-swiper [content]="content.sliders"></app-swiper>
