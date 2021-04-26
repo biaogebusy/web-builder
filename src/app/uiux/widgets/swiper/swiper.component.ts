@@ -48,8 +48,6 @@ export class SwiperComponent implements OnInit, AfterViewInit, OnDestroy {
     mousewheel: false,
     navigation: navigationConfig,
     pagination: paginationgConfig,
-    slideNextClass: 'mat-icon material-icons swiper-custom-next',
-    slidePrevClass: 'mat-icon material-icons swiper-custom-prev',
     // Responsive breakpoints
     // breakpoints: {
     //   // when window width is >= 320px

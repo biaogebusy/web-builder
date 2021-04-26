@@ -45,10 +45,10 @@
         "label": "地图",
         "classes": "bold",
         "child": [{
-          "label": "职位",
+          "label": "内推",
           "href": "/lists/jobs"
         }, {
-          "label": "location",
+          "label": "位置",
           "href": "/sample/combs/map/location"
         }]
       },
@@ -75,6 +75,9 @@
           }, {
             "label": "Showcase 1v2",
             "href": "/sample/combs/showcases/showcase1v2"
+          }, {
+            "label": "Showcase 1v3",
+            "href": "/sample/combs、showcase/showcase1v3"
           }, {
             "label": "Showcase 2v1",
             "href": "/sample/combs/showcases/showcase2v1"
@@ -118,8 +121,11 @@
           "label": "Node",
           "href": "javascript:void(0)",
           "child": [{
-            "label": "case",
+            "label": "Case",
             "href": "/sample/node/case"
+          }, {
+            "label": "Blog, News",
+            "href": "/sample/node/article"
           }]
         }, {
           "label": "Other",
