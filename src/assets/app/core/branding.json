@@ -45,10 +45,10 @@
         "label": "地图",
         "classes": "bold",
         "child": [{
-          "label": "内推",
+          "label": "内推职位",
           "href": "/lists/jobs"
         }, {
-          "label": "位置",
+          "label": "地理位置",
           "href": "/sample/combs/map/location"
         }]
       },
