@@ -91,4 +91,21 @@
       color: mat-color($primary, default-contrast);
     }
   }
+
+  // sub menu
+  .mat-menu-panel {
+    .mat-menu-item {
+      min-width: 180px;
+    }
+    &.sub-menu {
+      a {
+        color: mat-color($foreground, text, 0.75);
+        &:hover,
+        &:focus,
+        &.active {
+          color: mat-color($primary) !important;
+        }
+      }
+    }
+  }
 }
