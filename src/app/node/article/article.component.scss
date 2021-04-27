@@ -1,4 +1,4 @@
-::ng-deep img {
+:host(.article-body) :ng-deep img {
   display: inline-block;
   margin-bottom: 1rem;
   max-width: 100%;

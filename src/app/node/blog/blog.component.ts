@@ -42,6 +42,7 @@ export class BlogComponent implements OnInit {
             fullIcon: 'fullscreen',
             openIcon: 'open_in_new',
             link: item.media.field_media_image.uri.url,
+            ratios: 'media-16-9',
             img: {
               large: item.media.field_media_image.uri.url,
               normal: item.media.thumbnail.uri.url,
