@@ -6,6 +6,7 @@
       "label": "Blog title for sample",
       "href": "#"
     },
+    "spacer": "none",
     "feature": {
       "fullIcon": "fullscreen",
       "openIcon": "open_in_new",
@@ -27,6 +28,7 @@
     }
   }, {
     "type": "showcase-3v3",
+    "spacer": "none",
     "title": {
       "label": "DRAG AND DROP LAYOUT",
       "href": "#"
@@ -52,6 +54,7 @@
     }
   }, {
     "type": "showcase-3v3",
+    "spacer": "none",
     "title": {
       "label": "Blog title for sample",
       "href": "#"
@@ -77,6 +80,7 @@
     }
   }, {
     "type": "showcase-3v3",
+    "spacer": "none",
     "title": {
       "label": "Blog title for sample",
       "href": "#"
@@ -102,6 +106,7 @@
     }
   }, {
     "type": "showcase-3v3",
+    "spacer": "none",
     "title": {
       "label": "Blog title for sample",
       "href": "#"

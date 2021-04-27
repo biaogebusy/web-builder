@@ -1,4 +1,5 @@
-<div class="shuffle-container p-y" *ngIf="content">
+<div class="shuffle-container" *ngIf="content">
+  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <div class="container">
     <app-title *ngIf="content.title" [content]="content.title"></app-title>
     <div class="filter" *ngIf="content.filter">
@@ -15,4 +16,5 @@
       <div class="sizer"></div>
     </div>
   </div>
+  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
 </div>

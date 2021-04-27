@@ -1,7 +1,9 @@
 <div class="video-bg position-relative" *ngIf="content">
+  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <div class="layer"></div>
   <video #target class="video-js" controls muted playsinline preload="none"></video>
   <div class="inner position-relative">
     <app-dynamic-combs [content]="content.widget"></app-dynamic-combs>
   </div>
+  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
 </div>

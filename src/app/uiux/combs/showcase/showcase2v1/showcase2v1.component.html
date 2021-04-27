@@ -1,4 +1,5 @@
-<div class="container showcase-2v1 m-y" *ngIf="content" fxLayout="column">
+<div class="container showcase-2v1" *ngIf="content" fxLayout="column">
+  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <h2 class="text-center" *ngIf="content.title">
     {{content.title}}
   </h2>
@@ -8,4 +9,5 @@
       fxFlex.gt-sm="0 0 calc(25% - 40px)" *ngFor="let case of content.elements" [content]="case">
     </app-card>
   </div>
+  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
 </div>

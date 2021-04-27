@@ -1,4 +1,5 @@
 <div class="showcase-3-v3" *ngIf="content">
+  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <div class="container">
     <div class="blog-item teaser" fxLayout.lt-md="column" fxLayout.gt-sm="row" fxFlex="100" fxLayoutGap.lt-md="0"
       fxLayoutGap.gt-xs="3rem">
@@ -30,5 +31,5 @@
       </div>
     </div>
   </div>
-
+  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
 </div>

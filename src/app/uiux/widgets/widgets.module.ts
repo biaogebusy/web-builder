@@ -23,6 +23,7 @@ import { MapComponent } from './map/map.component';
 import { TestimonialComponent } from './testimonial/testimonial.component';
 import { LineYearComponent } from './line-year/line-year.component';
 import { TextComponent } from './text/text.component';
+import { SpacerComponent } from './spacer/spacer.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -30,24 +31,25 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
 };
 
 const components = [
-  ChipListComponent,
-  SpinnerComponent,
   BgComponent,
+  ImgComponent,
+  MapComponent,
+  BoxComponent,
+  TextComponent,
   LinkComponent,
   CardComponent,
-  SwiperComponent,
-  ImgComponent,
   TitleComponent,
-  DropdownMenuComponent,
-  NumberAnimateComponent,
+  SwiperComponent,
+  SpacerComponent,
+  SpinnerComponent,
+  ChipListComponent,
+  LineYearComponent,
   BtnAnimateComponent,
   FeatureBoxComponent,
-  BoxComponent,
   BreadcrumbComponent,
-  MapComponent,
   TestimonialComponent,
-  LineYearComponent,
-  TextComponent,
+  DropdownMenuComponent,
+  NumberAnimateComponent,
   DynamicWidgetsComponent,
 ];
 

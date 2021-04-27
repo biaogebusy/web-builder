@@ -1,4 +1,5 @@
-<div class="showcase-1-v3 position-relative p-y" [ngClass]="content.classes" *ngIf="content">
+<div class="showcase-1-v3 position-relative" [ngClass]="content.classes" *ngIf="content">
+  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <app-bg *ngIf="content.bg" [content]="content.bg">
     <app-img [content]="content.bg.img"></app-img>
   </app-bg>
@@ -9,4 +10,5 @@
       <app-btn-animate [content]="btn" *ngFor="let btn of content.actions"></app-btn-animate>
     </div>
   </div>
+  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
 </div>
