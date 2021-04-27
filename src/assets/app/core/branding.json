@@ -77,7 +77,7 @@
             "href": "/sample/combs/showcases/showcase1v2"
           }, {
             "label": "Showcase 1v3",
-            "href": "/sample/combs、showcase/showcase1v3"
+            "href": "/sample/combs/showcases/showcase1v3"
           }, {
             "label": "Showcase 2v1",
             "href": "/sample/combs/showcases/showcase2v1"
@@ -131,6 +131,9 @@
           "label": "Other",
           "href": "javascript:void(0)",
           "child": [{
+            "label": "通用文本组件",
+            "href": "/sample/widgets/text"
+          }, {
             "label": "Video bg",
             "href": "/sample/combs/video/videobg"
           }, {

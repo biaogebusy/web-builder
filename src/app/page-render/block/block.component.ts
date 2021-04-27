@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AppState } from '../../mobx/AppState';
 
 @Component({
-  selector: 'app-dynamic',
+  selector: 'app-block',
   templateUrl: './block.component.html',
   styleUrls: ['./block.component.scss'],
 })

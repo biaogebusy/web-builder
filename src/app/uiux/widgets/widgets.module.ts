@@ -22,6 +22,7 @@ import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { MapComponent } from './map/map.component';
 import { TestimonialComponent } from './testimonial/testimonial.component';
 import { LineYearComponent } from './line-year/line-year.component';
+import { TextComponent } from './text/text.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -46,6 +47,7 @@ const components = [
   MapComponent,
   TestimonialComponent,
   LineYearComponent,
+  TextComponent,
   DynamicWidgetsComponent,
 ];
 

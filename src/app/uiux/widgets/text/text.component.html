@@ -1,0 +1,9 @@
+<div class="base-text position-relative" *ngIf="content" [ngClass]="content.classes" [ngStyle]="content.style">
+  <app-title [content]="content.title" *ngIf="content.title"></app-title>
+  <app-bg [content]="content.bg" *ngIf="content.bg">
+    <app-img *ngIf="content.bg?.img" [content]="content.bg.img"></app-img>
+  </app-bg>
+  <div class="container">
+    <div [innerHTML]="content.body"></div>
+  </div>
+</div>

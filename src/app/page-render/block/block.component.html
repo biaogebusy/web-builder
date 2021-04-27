@@ -1,6 +1,12 @@
 <ng-container *ngIf="appState.content">
   <ng-container *ngFor="let item of appState.content">
     <ng-container [ngSwitch]="item.type">
+      <app-text *ngSwitchCase="'text'" [content]="item"></app-text>
+      <app-shuffle *ngSwitchCase="'shuffle'" [content]="item"></app-shuffle>
+      <app-article *ngSwitchCase="'article'" [content]="item"></app-article>
+      <app-video-bg *ngSwitchCase="'video-bg'" [content]="item"></app-video-bg>
+      <app-location *ngSwitchCase="'location'" [content]="item"></app-location>
+      <app-case-node *ngSwitchCase="'case-node'" [content]="item"></app-case-node>
       <app-banner-simple *ngSwitchCase="'banner-simple'" [content]="item"></app-banner-simple>
       <app-showcase1v1 *ngSwitchCase="'showcase-1v1'" [content]="item"></app-showcase1v1>
       <app-showcase1v3 *ngSwitchCase="'showcase-1v3'" [content]="item"></app-showcase1v3>
@@ -10,14 +16,9 @@
       <app-showcase3v3 *ngSwitchCase="'showcase-3v3'" [content]="item"></app-showcase3v3>
       <app-showcase3v4 *ngSwitchCase="'showcase-3v4'" [content]="item"></app-showcase3v4>
       <app-showcase4v1 *ngSwitchCase="'showcase-4v1'" [content]="item"></app-showcase4v1>
-      <app-case-node *ngSwitchCase="'case-node'" [content]="item"></app-case-node>
-      <app-article *ngSwitchCase="'article'" [content]="item"></app-article>
       <app-carousel1v1 *ngSwitchCase="'carousel-1v1'" [content]="item"></app-carousel1v1>
       <app-carousel1v2 *ngSwitchCase="'carousel-1v2'" [content]="item"></app-carousel1v2>
       <app-carousel2v1 *ngSwitchCase="'carousel-2v1'" [content]="item"></app-carousel2v1>
-      <app-shuffle *ngSwitchCase="'shuffle'" [content]="item"></app-shuffle>
-      <app-video-bg *ngSwitchCase="'video-bg'" [content]="item"></app-video-bg>
-      <app-location *ngSwitchCase="'location'" [content]="item"></app-location>
     </ng-container>
   </ng-container>
 </ng-container>
