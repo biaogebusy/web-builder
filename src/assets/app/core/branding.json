@@ -19,7 +19,7 @@
           "icon": "call",
           "label": "TELL:(123)456-7890"
         }, {
-          "icon": "comment",
+          "icon": "email",
           "label": "EMAIL: demo@zhaobg.com"
         }],
         "right": [{
@@ -142,6 +142,9 @@
           }, {
             "label": "Line Year",
             "href": "/sample/combs/carousels/lineyear"
+          }, {
+            "label": "Why Choose Us",
+            "href": "/sample/combs/other/whychooseus"
           }]
         }]
       },

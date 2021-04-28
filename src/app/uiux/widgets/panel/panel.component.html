@@ -1,1 +1,17 @@
-<p>panel works!</p>
+<div class="panel" *ngIf="content">
+  <app-title *ngIf="content.title" [content]="content.title"></app-title>
+  <mat-accordion multi>
+    <mat-expansion-panel [expanded]="item?.params?.expanded" *ngFor="let item of content.elements">
+      <mat-expansion-panel-header>
+        <mat-panel-title *ngIf="item.title">
+          {{item.title}}
+        </mat-panel-title>
+        <mat-panel-description *ngIf="item.description">
+          {{item.description}}
+          <mat-icon *ngIf="item.icon">{{item.icon}}</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <app-dynamic-widgets *ngFor="let item of item.elements" [content]="item"></app-dynamic-widgets>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

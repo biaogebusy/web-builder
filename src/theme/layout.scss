@@ -1,4 +1,4 @@
-@import './variable/breakpoint';
+@import "./variable/breakpoint";
 
 .container {
   box-sizing: border-box;
@@ -13,5 +13,8 @@
   @media #{$gt-md} {
     margin: 0 auto;
     max-width: 1440px;
+  }
+  .container {
+    padding: 0;
   }
 }

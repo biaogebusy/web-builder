@@ -1,1 +1,10 @@
-<p>tab works!</p>
+<div class="tab" *ngIf="content">
+  <app-title *ngIf="content.title" [content]="content.title"></app-title>
+  <mat-tab-group mat-align-tabs="start" [ngClass]="content.classes">
+    <mat-tab *ngFor="let item of content.elements" label="{{item.label}}">
+      <div class="p-y-sm p-x-sm">
+        <app-dynamic-widgets *ngFor="let item of item.elements" [content]="item"></app-dynamic-widgets>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>
