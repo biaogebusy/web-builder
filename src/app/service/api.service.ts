@@ -13,7 +13,7 @@ export class ApiService {
 
   constructor(
     private http: HttpClient,
-    @Inject(LOCAL_STORAGE) private storage: StorageService,
+    @Inject(LOCAL_STORAGE) private storage: StorageService
   ) {
     this.apiUrl = environment.apiUrl;
   }
@@ -39,7 +39,7 @@ export class ApiService {
     return this.http.get<any>(api, this.httpOptions(this.csrfToken));
   }
 
-  httpOptions(token: string) {
+  httpOptions(token: string): any {
     const httpOptions = {
       headers: new HttpHeaders({
         Accept: 'application/vnd.api+json',
