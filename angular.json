@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "job": {
+    "xinshi": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/job",
+            "outputPath": "dist/xinshi",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -72,19 +72,19 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "job:build",
+            "browserTarget": "xinshi:build",
             "proxyConfig": "config/proxy.config.js"
           },
           "configurations": {
             "production": {
-              "browserTarget": "job:build:production"
+              "browserTarget": "xinshi:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "job:build"
+            "browserTarget": "xinshi:build"
           }
         },
         "test": {
@@ -121,18 +121,18 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "job:serve"
+            "devServerTarget": "xinshi:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "job:serve:production"
+              "devServerTarget": "xinshi:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "job",
+  "defaultProject": "xinshi",
   "cli": {
     "analytics": "8ba1dbea-2b5b-4c34-a1c7-e926be2d5a75"
   }
