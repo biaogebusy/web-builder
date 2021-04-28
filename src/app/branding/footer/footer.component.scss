@@ -11,12 +11,6 @@
   }
 }
 
-:host ::ng-deep {
-  .mat-list-item-with-avatar {
-    height: 40px !important;
-  }
-}
-
 #go-to-top {
   z-index: 99999;
   text-align: center;
