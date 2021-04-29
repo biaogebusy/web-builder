@@ -1,18 +1,19 @@
 <ng-container *ngIf="content">
   <ng-container [ngSwitch]="content.type">
-    <app-bg *ngSwitchCase="'title'" [content]="content"></app-bg>
-    <app-text *ngSwitchCase="'text'" [content]="content"></app-text>
     <app-bg *ngSwitchCase="'bg'" [content]="content"></app-bg>
     <app-img *ngSwitchCase="'img'" [content]="content"></app-img>
-    <app-card *ngSwitchCase="'card'" [content]="content"></app-card>
+    <app-tab *ngSwitchCase="'tab'" [content]="content"></app-tab>
     <app-box *ngSwitchCase="'box'" [content]="content"></app-box>
-    <app-feature-box *ngSwitchCase="'feature-box'" [content]="content"></app-feature-box>
-    <app-testimonial *ngSwitchCase="'testimonial'" [content]="content"></app-testimonial>
-    <app-chip-list *ngSwitchCase="'chip-list'" [content]="content"></app-chip-list>
+    <app-text *ngSwitchCase="'text'" [content]="content"></app-text>
+    <app-card *ngSwitchCase="'card'" [content]="content"></app-card>
     <app-link *ngSwitchCase="'link'" [content]="content"></app-link>
+    <app-panel *ngSwitchCase="'panel'" [content]="content"></app-panel>
+    <app-swiper *ngSwitchCase="'swiper'" [content]="content"></app-swiper>
     <app-spinner *ngSwitchCase="'spinner'" [content]="content"></app-spinner>
     <app-line-year *ngSwitchCase="'line-year'" [content]="content"></app-line-year>
-    <app-swiper *ngSwitchCase="'swiper'" [content]="content"></app-swiper>
+    <app-chip-list *ngSwitchCase="'chip-list'" [content]="content"></app-chip-list>
+    <app-feature-box *ngSwitchCase="'feature-box'" [content]="content"></app-feature-box>
+    <app-testimonial *ngSwitchCase="'testimonial'" [content]="content"></app-testimonial>
     <div *ngSwitchDefault>...</div>
   </ng-container>
 </ng-container>

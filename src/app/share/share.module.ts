@@ -24,6 +24,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { MatTabsModule } from '@angular/material/tabs';
 
 // icon utils
 import { MatIconRegistry } from '@angular/material/icon';
@@ -55,6 +56,7 @@ import { DomSanitizer } from '@angular/platform-browser';
     RouterModule,
     MatPaginatorModule,
     ScrollingModule,
+    MatTabsModule,
   ],
   exports: [
     CommonModule,
@@ -83,6 +85,7 @@ import { DomSanitizer } from '@angular/platform-browser';
     MatChipsModule,
     MatPaginatorModule,
     ScrollingModule,
+    MatTabsModule,
   ],
 })
 export class ShareModule {
@@ -99,7 +102,7 @@ export class ShareModule {
     ds: DomSanitizer
   ) {
     if (parent) {
-      throw new Error('Core 模块已经存在，不能再加载！');
+      throw new Error('Share 模块已经存在，不能再加载！');
     }
     // @ts-ignore
     loadSvgResources(iconRegistry, ds);
