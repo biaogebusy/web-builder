@@ -3,12 +3,13 @@
     <div class="container">
       <div class="header-container" fxLayout="row" fxLayoutAlign="space-between center">
         <div class="header-left">
-          <div class="logo" *ngIf="content.logo?.img; else name">
+          <div class="logo" *ngIf="content.logo?.img; else name" fxLayout fxLayoutAlign="start end">
             <app-img [content]="content.logo.img"></app-img>
+            <span class="version">v{{appState.version}}</span>
           </div>
           <ng-template #name>
-            <a class="site-name mat-h2" [routerLink]="['/']" [innerHTML]="content.logo?.label"></a><span class="version"
-              [innerHTML]="content.logo?.version"></span>
+            <a class="site-name mat-h2" [routerLink]="['/']" [innerHTML]="content.logo?.label"></a><span
+              class="version">v{{appState.version}}</span>
           </ng-template>
         </div>
         <div class="header-right" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="3rem">
