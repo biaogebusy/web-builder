@@ -2,7 +2,7 @@ name: Build app and deploy to huawei ECS sit
 
 on:
   push:
-    branches: [ master ]
+    branches: [ kingzone ]
 
 jobs:
   build:
