@@ -6,7 +6,6 @@
     },
     "logo": {
       "label": "信使",
-      "version": "Demo",
       "img": {
         "src": "/assets/images/logo.png",
         "alt": "信使 Demo",

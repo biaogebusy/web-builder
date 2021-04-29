@@ -5,7 +5,6 @@ import { ApiService } from './api.service';
 import { map } from 'rxjs/operators';
 import { TokenUser } from '../mobx/user/IUser';
 import { AppState } from '../mobx/AppState';
-import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -27,7 +26,7 @@ export class UserService {
     };
 
     return this.http.post<any>(
-      `${environment.apiUrl}${this.appState.apiUrl.loginPath}?_format=json`,
+      `${this.apiService.apiUrl}${this.appState.apiUrlConfig.loginPath}?_format=json`,
       {
         name: userName,
         pass: passWord,
@@ -47,14 +46,14 @@ export class UserService {
     const logoutToken = api.getToken(api.localUserKey, 'logout_token');
     const params = ['_format=json', `token=${logoutToken}`].join('&');
     return this.http.post(
-      `${environment.apiUrl}${this.appState.apiUrl.logoutPath}?${params}`,
+      `${this.apiService.apiUrl}${this.appState.apiUrlConfig.logoutPath}?${params}`,
       null,
       httpOptions
     );
   }
 
   getCurrentUserById(user: TokenUser): Observable<any> {
-    const apiUrl = `${environment.apiUrl}${this.appState.apiUrl.userGetPath}`;
+    const apiUrl = `${this.apiService.apiUrl}${this.appState.apiUrlConfig.userGetPath}`;
     const params = [
       `filter[drupal_internal__uid]=${user.current_user.uid}`,
       `include=user_picture`,

@@ -5,7 +5,6 @@ import { map } from 'rxjs/operators';
 import { forkJoin, Observable } from 'rxjs';
 import { mapValues } from 'lodash-es';
 import { AppState } from '../mobx/AppState';
-import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
 })
@@ -18,8 +17,7 @@ export class NodeService {
 
   getNodes(type: string, params: string = ''): Observable<any> {
     return this.http.get<any>(
-      `
-    ${this.apiService.apiUrl}${this.appState.apiUrl.nodeGetPath}/${type}?${params}`,
+      `${this.apiService.apiUrl}${this.appState.apiUrlConfig.nodeGetPath}/${type}?${params}`,
       this.apiService.httpOptions(this.apiService.csrfToken)
     );
   }
@@ -37,9 +35,7 @@ export class NodeService {
 
   searchByKey(key: string): Observable<any> {
     const params = [`keys=${key}`].join('&');
-    return this.http.get<any>(
-      `${environment.apiUrl}${this.appState.apiUrl.apiBase}/job?${params}`
-    );
+    return this.http.get<any>(`${this.apiService.apiUrl}/api/v1/job?${params}`);
   }
 
   getNodePath(node: any): string {

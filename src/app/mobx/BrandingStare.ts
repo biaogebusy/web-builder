@@ -7,9 +7,7 @@ import { AppState } from './AppState';
 export class BrandingState {
   @observable private content: any;
   private _READDY = true;
-  constructor(
-    private http: HttpClient,
-    private appState: AppState) {
+  constructor(private http: HttpClient, private appState: AppState) {
     this.initBranding();
   }
 
@@ -30,7 +28,7 @@ export class BrandingState {
     if (environment.production) {
       this.http
         .get(
-          `${environment.apiUrl}${this.appState.apiUrl.apiBase}/config?content=${this.appState.apiUrl.brandingConfigUrl}`
+          `${environment.apiUrl}/api/v1/config?content=${this.appState.apiUrlConfig.brandingConfigUrl}`
         )
         .subscribe((branding) => {
           this.content = branding;
@@ -38,7 +36,7 @@ export class BrandingState {
     } else {
       this.http
         .get(
-          `${this.appState.apiUrl.localConfigUrl}${this.appState.apiUrl.brandingConfigUrl}.json`
+          `${this.appState.apiUrlConfig.localConfigUrl}${this.appState.apiUrlConfig.brandingConfigUrl}.json`
         )
         .subscribe((branding) => {
           this.content = branding;

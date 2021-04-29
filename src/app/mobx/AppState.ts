@@ -10,7 +10,7 @@ import { Subject } from 'rxjs';
 import { IUser } from './user/IUser';
 import { Router } from '@angular/router';
 import { TitleService } from '../service/title.service';
-
+import { version } from '../../../package.json';
 const unauthUser = {
   authenticated: false,
 };
@@ -62,7 +62,7 @@ export class AppState {
     return this.state && this.state.currentUser;
   }
 
-  @computed get apiUrl(): IApiUrl {
+  @computed get apiUrlConfig(): IApiUrl {
     return this.state.config && this.state.config.apiUrl;
   }
 
@@ -76,6 +76,10 @@ export class AppState {
 
   @computed get content(): any[] {
     return this.state.page && this.state.page.body;
+  }
+
+  get version(): string {
+    return version;
   }
 
   @action
@@ -164,9 +168,7 @@ export class AppState {
     // tmp solution
     if (environment.production) {
       this.http
-        .get<any>(
-          `${environment.apiUrl}${this.apiUrl.apiBase}/landingPage?content=${path}`
-        )
+        .get<any>(`${environment.apiUrl}/api/v1/landingPage?content=${path}`)
         .subscribe(
           (pageValue: IPage) => {
             this.updatePage(pageValue, pageValue?.title);
@@ -178,7 +180,7 @@ export class AppState {
     } else {
       this.http
         .get<any>(
-          `${environment.apiUrl}${this.apiUrl.localSampleUrl}${path}.json`
+          `${environment.apiUrl}${this.apiUrlConfig.localSampleUrl}${path}.json`
         )
         .subscribe(
           (pageValue: IPage) => {
