@@ -35,9 +35,7 @@ export class BrandingState {
         });
     } else {
       this.http
-        .get(
-          `${this.appState.apiUrlConfig.localConfigUrl}${this.appState.apiUrlConfig.brandingConfigUrl}.json`
-        )
+        .get(`${environment.apiUrl}/assets/app/core/branding.json`)
         .subscribe((branding) => {
           this.content = branding;
         });

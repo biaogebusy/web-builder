@@ -9,6 +9,7 @@ import { UserState } from './mobx/user/UserState';
 import { ScreenState } from './mobx/screen/ScreenState';
 import { MatDrawer } from '@angular/material/sidenav';
 import { AppState } from './mobx/AppState';
+import { BrandingState } from './mobx/BrandingStare';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -20,10 +21,11 @@ export class AppComponent implements OnInit, AfterViewInit {
   constructor(
     public userState: UserState,
     public screen: ScreenState,
-    public appState: AppState
-  ) { }
+    public appState: AppState,
+    public branding: BrandingState
+  ) {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     this.screen.drawer$.subscribe((res) => {

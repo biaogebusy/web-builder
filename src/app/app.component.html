@@ -1,6 +1,6 @@
-<mat-drawer-container [class.authenticated]="userState.anthenticated" *ngIf="appState.ready">
+<mat-drawer-container [class.authenticated]="userState.anthenticated" *ngIf="appState.ready && branding.ready">
   <mat-drawer #drawer [(opened)]="opened" (opened)="updateDrawer(drawer)" (closed)="updateDrawer(drawer)">
-    <app-menu [isDrawer]="opened"></app-menu>
+    <app-menu [isDrawer]="opened" [content]="branding.header"></app-menu>
   </mat-drawer>
   <mat-drawer-content>
     <app-header></app-header>
