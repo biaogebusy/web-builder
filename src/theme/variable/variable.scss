@@ -24,6 +24,11 @@ $enar-primary: mat-palette($enar-color, 300);
 $enar-accent: mat-palette($enar-color, A200, A100, A400);
 $enar-warn: mat-palette($mat-red, A200, A100, A400);
 $enar-theme: mat-light-theme($enar-primary, $enar-accent, $enar-warn);
+
+$king-primary: mat-palette($king-color);
+$king-accent: mat-palette($king-color, A200, A100, A400);
+$king-warn: mat-palette($mat-red, A200, A100, A400);
+$king-theme: mat-light-theme($king-primary, $king-accent, $king-warn);
 // TODO: secondary color和dark color其实是通用的，应该不区分主题，可以把 $dark-theme-base-color 变成全局，并新建 secondary palette sass map
 
 // $light-theme-text-base: mat-color($light-theme-base-color, 700);

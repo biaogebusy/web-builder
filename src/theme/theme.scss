@@ -26,3 +26,9 @@
   @include base-colors($enar-theme);
   @include component-theme($enar-theme);
 }
+
+.king-theme {
+  @include angular-material-theme($king-theme);
+  @include base-colors($king-theme);
+  @include component-theme($king-theme);
+}
