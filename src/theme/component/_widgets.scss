@@ -29,6 +29,7 @@
       }
     }
   }
+
   .testimonial {
     &.style-v2 {
       .bx-wrapper {
@@ -49,6 +50,7 @@
       }
     }
   }
+
   .line-year {
     color: mat-color($foreground, text, 0.75);
     border-top: solid 1.5px mat-color($foreground, divider);
@@ -56,6 +58,43 @@
       background: mat-color($primary);
       border: 1px solid mat-color($primary);
       box-shadow: 0 0px 1px 5px mat-color($primary, 0.3);
+    }
+  }
+
+  .feature-inner {
+    &:before {
+      background: mat-color($background, background);
+    }
+    &:after {
+      background: mat-color($background, background);
+    }
+    .feature-inner-corners {
+      &:before {
+        background: mat-color($background, background);
+      }
+      &:after {
+        background: mat-color($background, background);
+      }
+    }
+    .feature-inner-btns {
+      > a {
+        background: mat-color($background, background);
+        color: mat-color($primary);
+        &.icon-link {
+          background: rgba(0, 0, 0, 0.8);
+          color: mat-color($primary, default-contrast);
+        }
+      }
+    }
+    .feature-inner-ling {
+      &:before {
+        box-shadow: 0px -5px 3px rgba(0, 0, 0, 0.1) inset;
+        -moz-box-shadow: 0px -5px 3px rgba(0, 0, 0, 0.1) inset;
+        -webkit-box-shadow: 0px -5px 3px rgba(0, 0, 0, 0.1) inset;
+      }
+      &:after {
+        background: mat-color($primary);
+      }
     }
   }
 }

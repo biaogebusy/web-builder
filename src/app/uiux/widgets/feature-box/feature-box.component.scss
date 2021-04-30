@@ -2,7 +2,6 @@
 .feature-inner {
   position: relative;
   &:before {
-    background: #fff;
     content: "";
     height: 16px;
     left: 10px;
@@ -14,7 +13,6 @@
     @include transition(all, 0.4s, ease);
   }
   &:after {
-    background: #fff;
     content: "";
     height: 1px;
     left: 10px;
@@ -26,7 +24,6 @@
   }
   .feature-inner-corners {
     &:before {
-      background: #fff;
       content: "";
       height: 16px;
       right: 10px;
@@ -38,7 +35,6 @@
       @include transition(all, 0.4s, ease);
     }
     &:after {
-      background: #fff;
       content: "";
       height: 1px;
       right: 10px;
@@ -57,21 +53,15 @@
     }
     @include middle-center();
     > a {
-      background: #fff;
       display: inline-block;
       height: 40px;
       width: 40px;
       line-height: 40px;
       text-align: center;
       font-size: 16px;
-      color: #1ccdca;
       @include scale(0);
       @include transition(all, 0.4s, ease);
       @include border-radius(3px, 3px, 3px, 3px);
-      &.icon-link {
-        background: rgba(0, 0, 0, 0.8);
-        color: #fff;
-      }
     }
   }
   .feature-inner-ling {
@@ -79,9 +69,6 @@
     display: block;
     overflow: hidden;
     &:before {
-      box-shadow: 0px -5px 3px rgba(0, 0, 0, 0.1) inset;
-      -moz-box-shadow: 0px -5px 3px rgba(0, 0, 0, 0.1) inset;
-      -webkit-box-shadow: 0px -5px 3px rgba(0, 0, 0, 0.1) inset;
       content: "";
       height: 100%;
       left: -15%;
@@ -91,7 +78,6 @@
       @include transition(all, 0.4s, ease);
     }
     &:after {
-      background: #1ccdca;
       width: 100%;
       height: 100%;
       position: absolute;
