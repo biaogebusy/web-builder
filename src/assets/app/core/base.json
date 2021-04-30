@@ -32,10 +32,6 @@
   },
   "apiUrl": {
     "apiBase": "/api/v1",
-    "localConfigUrl": "/assets/app",
-    "localSampleUrl": "/assets/app",
-    "brandingConfigUrl": "/core/branding",
-    "coreConfigUrl": "/core/base",
     "loginPath": "/user/login",
     "logoutPath": "/user/logout",
     "userIdGetPath": "/api/v1",

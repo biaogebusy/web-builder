@@ -27,9 +27,7 @@ export class BrandingState {
   initBranding(): any {
     if (environment.production) {
       this.http
-        .get(
-          `${environment.apiUrl}/api/v1/config?content=${this.appState.apiUrlConfig.brandingConfigUrl}`
-        )
+        .get(`${environment.apiUrl}/api/v1/config?content=/core/branding`)
         .subscribe((branding) => {
           this.content = branding;
         });

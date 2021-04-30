@@ -179,9 +179,7 @@ export class AppState {
         );
     } else {
       this.http
-        .get<any>(
-          `${environment.apiUrl}${this.apiUrlConfig.localSampleUrl}${path}.json`
-        )
+        .get<any>(`${environment.apiUrl}/assets/app/${path}.json`)
         .subscribe(
           (pageValue: IPage) => {
             this.updatePage(pageValue, pageValue?.title);

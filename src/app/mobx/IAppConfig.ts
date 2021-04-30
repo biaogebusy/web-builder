@@ -8,10 +8,6 @@ export interface IAppConfig {
 
 export interface IApiUrl {
   apiBase: string;
-  localConfigUrl: string;
-  localSampleUrl: string;
-  brandingConfigUrl: string;
-  coreConfigUrl: string;
   loginPath: string;
   logoutPath: string;
   userIdGetPath: string;
