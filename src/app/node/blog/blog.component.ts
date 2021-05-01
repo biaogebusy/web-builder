@@ -38,6 +38,7 @@ export class BlogComponent implements OnInit {
             label: item.title,
             href: link,
           },
+          spacer: 'none',
           feature: {
             fullIcon: 'fullscreen',
             openIcon: 'open_in_new',
