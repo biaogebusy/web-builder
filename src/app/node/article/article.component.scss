@@ -1,5 +1,7 @@
-.article-body ::ng-deep img {
-  display: inline-block;
-  margin-bottom: 1rem;
-  max-width: 100%;
+.article-body ::ng-deep {
+  img {
+    display: inline-block;
+    margin-bottom: 1rem;
+    max-width: 100%;
+  }
 }

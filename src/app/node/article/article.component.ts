@@ -1,11 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, AfterViewInit } from '@angular/core';
 import { TitleService } from '../../service/title.service';
+import hljs from 'highlight.js';
+import javascript from 'highlight.js/lib/languages/javascript';
 @Component({
   selector: 'app-article',
   templateUrl: './article.component.html',
   styleUrls: ['./article.component.scss'],
 })
-export class ArticleComponent implements OnInit {
+export class ArticleComponent implements OnInit, AfterViewInit {
   @Input() content: any;
   constructor(private titelService: TitleService) {}
 
@@ -13,5 +15,12 @@ export class ArticleComponent implements OnInit {
     if (this.content.title) {
       this.titelService.setTitle(this.content.title);
     }
+  }
+
+  ngAfterViewInit(): void {
+    document.querySelectorAll('code').forEach((block) => {
+      // then highlight each
+      hljs.highlightBlock(block);
+    });
   }
 }

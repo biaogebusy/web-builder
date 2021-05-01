@@ -47,5 +47,12 @@
         }
       }
     }
+    .article-body {
+      pre {
+        code {
+          background-color: mat-color($background);
+        }
+      }
+    }
   }
 }
