@@ -13,6 +13,37 @@
       .list {
         li {
           border-bottom: 1px dotted mat-color($foreground, divider);
+          .num-posts {
+            color: mat-color($foreground, text, 0.4);
+          }
+          a {
+            color: mat-color($foreground, text, 0.4);
+            &:hover {
+              color: mat-color($primary);
+            }
+          }
+        }
+      }
+    }
+    .recent-posts {
+      .list {
+        li {
+          .post-img {
+            &:before {
+              background-color: mat-color($primary);
+            }
+            .mat-icon {
+              color: mat-color($primary, default-contrast);
+            }
+          }
+          .blog-title {
+            a {
+              color: mat-color($foreground, text, 0.4);
+              &:hover {
+                color: mat-color($primary);
+              }
+            }
+          }
         }
       }
     }

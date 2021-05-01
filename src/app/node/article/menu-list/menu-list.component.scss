@@ -16,18 +16,13 @@
         border-bottom: none;
       }
       .num-posts {
-        color: #aaa;
         float: right;
         font-size: 11px;
       }
       ::ng-deep a {
-        color: #777;
         display: inline-block;
         margin-right: 10px;
         font-size: 13px;
-        &:hover {
-          color: #aaa;
-        }
       }
     }
   }

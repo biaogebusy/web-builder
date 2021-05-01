@@ -30,13 +30,11 @@
           position: absolute;
           top: 0;
           left: 0;
-          background-color: #1ccdca;
           opacity: 0;
           @include transition(all, 200ms, ease-in-out);
           @include border-radius(3px, 3px, 3px, 3px);
         }
         .mat-icon {
-          color: #fff;
           font-size: 20px;
           opacity: 0;
           @include middle-center();
@@ -54,7 +52,6 @@
         }
       }
       .blog-title ::ng-deep a {
-        color: #ddd;
         display: block;
         font-size: 13px;
         margin-bottom: 7px;
