@@ -2,10 +2,10 @@
   <h2 class="block-title">{{content.title}}</h2>
   <div class="list">
     <li *ngFor="let item of content.elements">
-      <span class="post-img">
+      <a [href]="item.link.href" class="post-img">
         <app-img [content]="item.img"></app-img>
         <mat-icon>open_in_new</mat-icon>
-      </span>
+      </a>
       <div class="blog-title">
         <app-link [content]="item.link"></app-link>
       </div>
