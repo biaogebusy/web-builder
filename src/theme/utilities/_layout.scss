@@ -1,3 +1,5 @@
+@import "../mixins/amixin";
+
 .display-none {
   display: none !important;
 }
@@ -23,4 +25,12 @@ pull-left {
 
 pull-right {
   float: right;
+}
+
+.y-center {
+  @include middle();
+}
+
+.xy-center {
+  @include middle-center;
 }

@@ -18,7 +18,7 @@ export class MenuComponent implements OnInit {
     private router: Router
   ) {
     this.router.events.subscribe((event: Event) => {
-      if (event instanceof NavigationStart) {
+      if (this.isDrawer && event instanceof NavigationStart) {
         this.screen.toggleDrawer(true);
       }
     });

@@ -7,6 +7,7 @@ import { BannerModule } from './banner/banner.module';
 import { MasonryModule } from './masonry/masonry.module';
 import { ShowcaseModule } from './showcase/showcase.module';
 import { CarouselModule } from './carousel/carousel.module';
+import { HeroModule } from './hero/hero.module';
 import { DynamicCombsModule } from './dynamic-combs/dynamic-combs.module';
 
 const modules = [
@@ -17,6 +18,7 @@ const modules = [
   BannerModule,
   MapModule,
   OtherModule,
+  HeroModule,
   DynamicCombsModule,
 ];
 
