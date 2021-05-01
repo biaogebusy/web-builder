@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ScreenState } from '../../../mobx/screen/ScreenState';
-import { BrandingState } from '../../../mobx/BrandingStare';
 import { AppState } from '../../../mobx/AppState';
+import { Event, NavigationStart, Router } from '@angular/router';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
@@ -12,7 +12,17 @@ export class MenuComponent implements OnInit {
   @Input() isDrawer: boolean;
   @Input() content: any;
 
-  constructor(public screen: ScreenState, public appState: AppState) {}
+  constructor(
+    public screen: ScreenState,
+    public appState: AppState,
+    private router: Router
+  ) {
+    this.router.events.subscribe((event: Event) => {
+      if (event instanceof NavigationStart) {
+        this.screen.toggleDrawer(true);
+      }
+    });
+  }
 
   ngOnInit(): void {}
 
