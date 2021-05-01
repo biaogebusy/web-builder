@@ -28,7 +28,7 @@
       <app-bg [content]="{classes:['bg-fill-width','wave-wrapper']}">
         <mat-icon class="wave" svgIcon="wave"></mat-icon>
       </app-bg>
-      <div fxLayout="row wrap" fxLayoutAlign="space-between start" fxLayoutGap="1rem">
+      <div fxLayout="row wrap" fxLayoutAlign="space-between start">
         <app-card *ngFor="let card of feature" [content]="card" fxFlex.xs="100" fxFlex.sm="0 1 calc(33.3% - 1rem)"
           fxFlex.gt-sm="0 1 calc(20% - 1rem)" class="m-bottom-xs">
         </app-card>

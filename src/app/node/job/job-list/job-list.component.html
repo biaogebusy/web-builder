@@ -17,13 +17,13 @@
             {{item.company.title}}</h4>
           <app-chip-list [content]="item.company.welfare" [classes]="'mini primary'"></app-chip-list>
         </div>
-        <div class="info" fxLayout fxLayoutAlign="space-between center">
+        <div class="info" fxLayout="row wrap" fxLayoutAlign="space-between center">
           <div class="position m-y-xs">{{item.title}}</div>
           <div class="wage bold" *ngIf="item.salary">{{item.salary.from}} -
             {{item.salary.to}} k
           </div>
         </div>
-        <div class="media-footer" fxLayout fxLayoutAlign="space-between center">
+        <div class="media-footer" fxLayout="row wrap" fxLayoutAlign="space-between center">
           <div class="media-footer-left" fxLayout *ngIf="item.skill">
             <app-chip-list [content]="item.skill" [classes]="'mini'"></app-chip-list>
           </div>
