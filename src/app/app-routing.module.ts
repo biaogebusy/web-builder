@@ -14,11 +14,15 @@ const routes: Routes = [
   },
   {
     path: 'lists',
-    loadChildren: './node/node-routing.module#NodeRoutingModule',
+    loadChildren: () =>
+      import('./node/node-routing.module').then((m) => m.NodeRoutingModule),
   },
   {
     path: '**',
-    loadChildren: './page-render/page-routing.module#PageRoutingModule',
+    loadChildren: () =>
+      import('./page-render/page-routing.module').then(
+        (m) => m.PageRoutingModule
+      ),
   },
 ];
 
