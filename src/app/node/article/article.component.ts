@@ -1,6 +1,8 @@
 import { Component, Input, OnInit, AfterViewInit } from '@angular/core';
 import { TitleService } from '../../service/title.service';
 import hljs from 'highlight.js';
+import javascript from 'highlight.js/lib/languages/javascript';
+import json from 'highlight.js/lib/languages/json';
 @Component({
   selector: 'app-article',
   templateUrl: './article.component.html',
