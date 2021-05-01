@@ -62,6 +62,10 @@
       @include scale(0);
       @include transition(all, 0.4s, ease);
       @include border-radius(3px, 3px, 3px, 3px);
+      margin-right: 10px;
+      &:last-child {
+        margin-right: 0;
+      }
     }
   }
   .feature-inner-ling {

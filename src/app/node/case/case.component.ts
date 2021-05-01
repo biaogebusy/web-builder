@@ -33,7 +33,6 @@ export class CaseComponent implements OnInit {
     ].join('&');
 
     this.nodeService.getNodes('case', params).subscribe((res) => {
-      this.loading = false;
       this.content.elements = map(res.data, (item: any) => {
         const link = this.nodeService.getNodePath(item);
         const date = `${new Date(item.created).getFullYear()}/${new Date(
@@ -78,6 +77,7 @@ export class CaseComponent implements OnInit {
           },
         };
       });
+      this.loading = false;
     });
   }
 }
