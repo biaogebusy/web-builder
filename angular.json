@@ -37,10 +37,13 @@
               "highlight.js/styles/github.css"
             ],
             "scripts": [
-              "node_modules/lazysizes/lazysizes.min.js"
+              "node_modules/lazysizes/lazysizes.min.js",
+              "highlight.js/lib/languages/javascript.js",
+              "highlight.js/lib/languages/json.js"
             ],
             "allowedCommonJsDependencies": [
-              "hammerjs"
+              "hammerjs",
+              "highlight.js"
             ]
           },
           "configurations": {
