@@ -4,10 +4,6 @@ import { LoginComponent } from './user/login/login.component';
 
 const routes: Routes = [
   {
-    path: 'login',
-    component: LoginComponent,
-  },
-  {
     path: '',
     redirectTo: 'lists/jobs',
     pathMatch: 'full',
@@ -16,6 +12,11 @@ const routes: Routes = [
     path: 'lists',
     loadChildren: () =>
       import('./node/node-routing.module').then((m) => m.NodeRoutingModule),
+  },
+  {
+    path: 'user',
+    loadChildren: () =>
+      import('./user/user-routing.module').then((m) => m.UserRoutingModule),
   },
   {
     path: '**',

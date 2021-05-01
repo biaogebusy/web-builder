@@ -48,10 +48,10 @@ export class LoginComponent implements OnInit, AfterViewInit {
     const t0 = gsap.timeline();
     t0.to('.overlay', { duration: 0.5, opacity: 1 })
       .to('.overlay', {
-        duration: 1,
+        duration: 0.5,
         width: '0%',
       })
-      .to('.form-scroll', { duration: 1.5, top: 0, ease: 'expo.out' });
+      .to('.form-scroll', { duration: 0.5, top: 0, ease: 'expo.out' });
   }
 
   get f() {
