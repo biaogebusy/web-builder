@@ -17,8 +17,28 @@
     right: 0;
     bottom: 0;
     background-color: #000;
-    opacity: 0.6;
+    opacity: 0.4;
     z-index: 1;
     content: "";
+  }
+  &.overlay-2 {
+    &:before {
+      opacity: 0.2;
+    }
+  }
+  &.overlay-4 {
+    &:before {
+      opacity: 0.4;
+    }
+  }
+  &.overlay-6 {
+    &:before {
+      opacity: 0.6;
+    }
+  }
+  &.overlay-8 {
+    &:before {
+      opacity: 0.8;
+    }
   }
 }
