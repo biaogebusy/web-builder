@@ -43,8 +43,8 @@
       <app-switch-theme></app-switch-theme>
       <app-user-menu></app-user-menu>
     </mat-toolbar>
-    <ng-container *ngIf="(screen.eq('xs') || screen.eq('sm')) && isDrawer">
+    <div [hidden]="!((screen.eq('xs') || screen.eq('sm')) && isDrawer)">
       <app-dropdown-menu *ngIf="content.mainMenu" [content]="content.mainMenu"></app-dropdown-menu>
-    </ng-container>
+    </div>
   </div>
 </ng-container>
