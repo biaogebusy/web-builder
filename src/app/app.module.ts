@@ -9,7 +9,6 @@ import { MobxModule } from './mobx/mobx.module';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { BrandingModule } from './branding/branding.module';
 import { AppComponent } from './app.component';
-import { UserModule } from './user/user.module';
 import { PageRenderModule } from './page-render/page-render.module';
 import { AppState } from './mobx/AppState';
 @NgModule({
@@ -24,7 +23,6 @@ import { AppState } from './mobx/AppState';
     MobxAngularModule,
     MobxModule.forRoot(),
     BrandingModule,
-    UserModule,
     PageRenderModule,
   ],
   providers: [Title, AppState],

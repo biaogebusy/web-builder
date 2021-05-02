@@ -13,6 +13,7 @@
 @import "./carousel";
 @import "./banner";
 @import "./article";
+@import "./form";
 
 // material custom
 @import "./mat/card";
@@ -35,6 +36,7 @@
   @include carousel-color($config-or-theme);
   @include banner-color($config-or-theme);
   @include article-color($config-or-theme);
+  @include form-color($config-or-theme);
 
   // material custom ui
   @include card-color($config-or-theme);

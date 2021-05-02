@@ -16,13 +16,13 @@
             <mat-form-field appearance="fill">
               <mat-label>用户名</mat-label>
               <mat-icon matSuffix>person</mat-icon>
-              <input matInput formControlName="name">
+              <input matInput formControlName="name" autocomplete="username">
             </mat-form-field>
             <mat-form-field appearance="fill">
               <mat-label>密码</mat-label>
               <input matInput [type]="hide ? 'password' : 'text'" formControlName="pass">
               <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-                [attr.aria-pressed]="hide">
+                [attr.aria-pressed]="hide" autocomplete="current-password">
                 <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
               </button>
             </mat-form-field>

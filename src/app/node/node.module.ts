@@ -35,10 +35,4 @@ const components = [
   imports: [ShareModule, CombsModule, WidgetsModule, NodeRoutingModule],
   exports: [CaseNodeComponent, ArticleComponent],
 })
-export class NodeModule {
-  constructor(@Optional() @SkipSelf() parent: NodeModule) {
-    if (parent) {
-      throw new Error('NodeModule 模块已经存在，不能再加载！');
-    }
-  }
-}
+export class NodeModule {}

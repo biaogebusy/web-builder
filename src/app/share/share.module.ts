@@ -1,4 +1,4 @@
-import { NgModule, Optional, SkipSelf } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
@@ -96,14 +96,7 @@ export class ShareModule {
    * @param iconRegistry
    * @param ds
    */
-  constructor(
-    @Optional() @SkipSelf() parent: ShareModule,
-    iconRegistry: MatIconRegistry,
-    ds: DomSanitizer
-  ) {
-    if (parent) {
-      throw new Error('Share 模块已经存在，不能再加载！');
-    }
+  constructor(iconRegistry: MatIconRegistry, ds: DomSanitizer) {
     // @ts-ignore
     loadSvgResources(iconRegistry, ds);
   }
