@@ -6,7 +6,7 @@
     "ng": "ng",
     "start": "ng serve",
     "start-hmr": "ng serve --hmr -o",
-    "build": "ng build --prod --aot=true --buildOptimizer=true",
+    "build": "ng build --prod --aot=true --source-map --buildOptimizer=true",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
