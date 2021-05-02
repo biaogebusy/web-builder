@@ -1,9 +1,10 @@
 <ng-container *ngIf="content">
-  <img class="lazyload" *ngIf="!content.href;else withLink" [ngClass]="content?.classes" data-src="{{content.src}}"
-    [alt]="content.alt">
+  <img class="lazyload" *ngIf="!content.href;else withLink" [ngStyle]="content.style" [ngClass]="content?.classes"
+    data-src="{{content.src}}" [alt]="content.alt">
   <ng-template #withLink>
     <a href="{{content.href}}" target="{{content.target}}">
-      <img class="lazyload" [ngClass]="content?.classes" data-src="{{content.src}}" [alt]="content.alt">
+      <img class="lazyload" [ngClass]="content?.classes" data-src="{{content.src}}" [ngStyle]="content.style"
+        [alt]="content.alt">
     </a>
   </ng-template>
 </ng-container>

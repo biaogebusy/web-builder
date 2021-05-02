@@ -215,6 +215,10 @@ export class JobComponent implements OnInit {
           logo: {
             src: item.company.logo.uri.url,
             alt: item.company.title,
+            style: {
+              height: '80px',
+              width: '80px',
+            },
           },
           title: item.company.title,
           welfare: map(item.company.welfare, (item) => {
