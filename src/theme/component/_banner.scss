@@ -9,6 +9,10 @@
   $warn: map-get($config, warn);
 
   .banner-simple {
+    @include mat-elevation(1, mat-color($accent), 0.25);
+    .page-title {
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.12);
+    }
     &.no-bg {
       background-color: mat-color($background, "app-bar", 0.8);
       color: mat-color($foreground, text, 0.75);
@@ -20,9 +24,14 @@
       }
     }
     &.normal {
-      color: mat-color($background, card);
-      &.page-title {
-        color: mat-color($primary, text);
+      color: mat-color($foreground, text, 0.5);
+      .page-title {
+        color: mat-color($accent, default-contrast);
+      }
+      .overlay {
+        &:before {
+          background-color: mat-color($accent, 200);
+        }
       }
     }
   }

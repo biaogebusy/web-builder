@@ -27,6 +27,12 @@
 // 背景和文字的应用，背景用主色，文字用主色对应的对比色
 // color: mat-color($primary, default-contrast);
 // background: mat-color($primary);
+// .mat-badge-accent {
+//     .mat-badge-content {
+//       background: mat-color($accent);
+//       color: mat-color($accent, default-contrast);
+//     }
+//   }
 
 // 第二步 创建另一个 mixin，接收 “文字排版配置对象”，输出文字样式。
 @mixin example-typography($config-or-theme) {

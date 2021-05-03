@@ -97,4 +97,9 @@
       }
     }
   }
+  .overlay {
+    &:before {
+      background-color: mat-color($background, hover);
+    }
+  }
 }

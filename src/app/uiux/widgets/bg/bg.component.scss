@@ -16,27 +16,26 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #000;
     opacity: 0.4;
     z-index: 1;
     content: "";
   }
-  &.overlay-2 {
+  &.overlay-20 {
     &:before {
       opacity: 0.2;
     }
   }
-  &.overlay-4 {
+  &.overlay-40 {
     &:before {
       opacity: 0.4;
     }
   }
-  &.overlay-6 {
+  &.overlay-60 {
     &:before {
       opacity: 0.6;
     }
   }
-  &.overlay-8 {
+  &.overlay-80 {
     &:before {
       opacity: 0.8;
     }

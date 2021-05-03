@@ -39,7 +39,7 @@
     },
     "classes": "y-center",
     "bg": {
-      "classes": "bg-shadow bg-fill-width overlay overlay-2",
+      "classes": "bg-shadow bg-fill-width overlay overlay-20",
       "img": {
         "hostClasses": "bg-center",
         "src": "/assets/images/hero/329.jpg"
