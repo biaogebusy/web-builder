@@ -1,7 +1,7 @@
 <div class="article m-y" *ngIf="content">
   <div class="container">
     <div class="article-inner" fxLayout.lt-md="column" fxLayout.gt-sm="row">
-      <div class="article-node p-x-sm" fxFlex.lt-md="100" fxFlex.gt-sm="75">
+      <div class="article-node" fxFlex.lt-md="100" fxFlex.gt-sm="75">
         <h2 class="title">
           {{content.title}}
         </h2>
@@ -16,7 +16,7 @@
         <mat-divider></mat-divider>
         <div class="article-body m-y" [innerHTML]="content.body"></div>
       </div>
-      <div class="sidebar p-x-sm" *ngIf="content.sidebar" fxFlex.lt-md="100" fxFlex.gt-sm="25">
+      <div class="sidebar" [ngClass.gt-sm]="'m-left-sm'" *ngIf="content.sidebar" fxFlex.lt-md="100" fxFlex.gt-sm="25">
         <ng-container *ngFor="let item of content.sidebar">
           <ng-container [ngSwitch]="item.type">
             <app-media-list *ngSwitchCase="'media-list'" [content]="item"></app-media-list>
