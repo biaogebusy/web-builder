@@ -15,20 +15,22 @@ import { NewsComponent } from './news/news.component';
 import { ListComponent } from './list/list.component';
 import { MediaListComponent } from './article/media-list/media-list.component';
 import { MenuListComponent } from './article/menu-list/menu-list.component';
+import { ArticleBannerComponent } from './article/article-banner/article-banner.component';
 
 const components = [
+  JobComponent,
   BlogComponent,
   NewsComponent,
   CaseComponent,
-  CaseNodeComponent,
-  ArticleComponent,
-  MediaListComponent,
-  MenuListComponent,
-  JobComponent,
-  JobFilterComponent,
-  JobListComponent,
-  JobNodeComponent,
   ListComponent,
+  JobNodeComponent,
+  JobListComponent,
+  ArticleComponent,
+  MenuListComponent,
+  CaseNodeComponent,
+  MediaListComponent,
+  JobFilterComponent,
+  ArticleBannerComponent,
 ];
 @NgModule({
   declarations: [...components],
