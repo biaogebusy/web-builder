@@ -51,7 +51,7 @@ export class BlogComponent implements OnInit {
           },
           date: item.changed,
           category: item.category.name,
-          body: item.body.value,
+          body: item.body.summary,
           details: {
             label: 'Read More',
             href: link,
