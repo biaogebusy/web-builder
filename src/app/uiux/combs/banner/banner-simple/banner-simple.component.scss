@@ -2,6 +2,10 @@
 .banner-simple {
   padding: 60px 0;
   overflow: hidden;
+  z-index: 1;
+  app-bg {
+    z-index: 0;
+  }
   &.normal {
     position: relative;
     overflow: hidden;
