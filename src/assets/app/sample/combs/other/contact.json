@@ -1,0 +1,89 @@
+{
+  "title": "Contact us",
+  "body": [{
+    "type": "showcase-1v3",
+    "title": {
+      "label": "Contact Us",
+      "style": "style-v1"
+    },
+    "elements": [{
+      "type": "text",
+      "spacer": "none",
+      "classes": "text-center",
+      "body": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum obcaecati dignissimos quae quo ad iste ipsum officiis deleniti asperiores sit."
+    }, {
+      "type": "contact-us",
+      "params": {
+        "api": "/api/vi/contact"
+      },
+      "bg": {
+        "classes": "bg-fill-width wave-wrapper"
+      },
+      "action": {
+        "label": "Submit"
+      },
+      "contact": [{
+        "title": {
+          "label": "Address"
+        },
+        "icon": "location_on",
+        "style": "style-v7 small-box",
+        "content": "NO.28 Street Name - City. Country"
+      }, {
+        "title": {
+          "label": "Phone number"
+        },
+        "style": "style-v7 small-box",
+        "icon": "phone",
+        "content": "+086 0771xxxx"
+      }, {
+        "title": {
+          "label": "Email Adress"
+        },
+        "style": "style-v7 small-box",
+        "icon": "mail",
+        "content": "info@kingzonetech.com"
+      }, {
+        "title": {
+          "label": "Wechat"
+        },
+        "style": "style-v7 small-box",
+        "icon": "chat_bubble",
+        "content": "kingzonetech"
+      }],
+      "forms": [{
+          "type": "input",
+          "label": "Name",
+          "key": "name",
+          "params": {
+            "required": true
+          }
+        },
+        {
+          "type": "input",
+          "label": "Email",
+          "key": "email",
+          "params": {
+            "required": true
+          }
+        }, {
+          "type": "input",
+          "label": "Subject",
+          "key": "subject",
+          "params": {
+            "required": true
+          }
+        }, {
+          "type": "textarea",
+          "label": "Message",
+          "params": {
+            "required": true,
+            "matAutosizeMinRows": 10
+          },
+          "key": "message",
+          "placeholder": "Message"
+        }
+      ]
+    }]
+  }]
+}

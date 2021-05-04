@@ -2,11 +2,3 @@
 .showcase-1-v3 {
   overflow: hidden;
 }
-.content {
-  margin: 15px auto 50px;
-  text-align: center;
-  width: 100%;
-  @media #{$gt-xs} {
-    width: 50%;
-  }
-}

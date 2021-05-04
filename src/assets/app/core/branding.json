@@ -161,13 +161,16 @@
           }, {
             "label": "Why Choose Us",
             "href": "/sample/combs/other/whychooseus"
+          }, {
+            "label": "Contact us",
+            "href": "/sample/combs/other/contact"
           }]
         }]
       },
       {
         "label": "关于我们",
         "classes": "bold",
-        "href": "/about"
+        "href": "/sample/combs/other/contact"
       }
     ],
     "actions": [{

@@ -1,0 +1,38 @@
+<div class="contact-us positive-relative" *ngIf="content">
+  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
+  <app-bg [content]="content.bg">
+    <mat-icon class="wave" svgIcon="wave"></mat-icon>
+  </app-bg>
+  <div class="container">
+    <form fxLayout="row wrap" (ngSubmit)="onSubmit()" fxLayoutAlign="center center" [formGroup]="form">
+      <div class="inner" fxFlex="0 1 100" fxLayoutAlign="center start" fxLayout.lt-md="column" fxLayout.gt-sm="row">
+        <div fxFlex.lt-md="100" fxFlex.gt-sm="40" fxLayout="column">
+          <app-box *ngFor="let item of content.contact" [content]="item"></app-box>
+        </div>
+        <div fxFlex.lt-md="100" fxFlex.gt-sm="40" fxLayout="column">
+          <mat-form-field appearance="fill" *ngFor="let item of content.forms">
+            <mat-label>{{item.label}}</mat-label>
+            <mat-icon matSuffix>{{item.icon}}</mat-icon>
+            <ng-container [ngSwitch]="item.type">
+              <input *ngSwitchCase="'input'" placeholder="{{item.placeholder}}" matInput formControlName="{{item.key}}"
+                value="{{item.value}}" [id]="item.key">
+              <textarea *ngSwitchCase="'textarea'" [mat-autosize]="true"
+                [matAutosizeMinRows]="item.params?.matAutosizeMinRows" placeholder="{{item.placeholder}}" matInput
+                formControlName="{{item.key}}" value="{{item.value}}" [id]="item.key"></textarea>
+            </ng-container>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <button *ngIf="content.action" class="m-top" type="submit" mat-raised-button color="primary" fxFlex="0 1 auto">
+        <div fxLayoutAlign="center center">
+          <div class="p-x-xs">{{content.action.label}}</div>
+        </div>
+      </button>
+      <div fxFlex="100" fxLayoutAlign="center center">
+        <app-spinner [content]="{color:'primary', size:40}" *ngIf="submited"></app-spinner>
+      </div>
+    </form>
+  </div>
+  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
+</div>

@@ -21,6 +21,7 @@ import { SpacerComponent } from './spacer/spacer.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { ChipListComponent } from './chip-list/chip-list.component';
 import { LineYearComponent } from './line-year/line-year.component';
+import { ContactUsComponent } from './contact-us/contact-us.component';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { BtnAnimateComponent } from './btn-animate/btn-animate.component';
 import { FeatureBoxComponent } from './feature-box/feature-box.component';
@@ -28,6 +29,8 @@ import { TestimonialComponent } from './testimonial/testimonial.component';
 import { DropdownMenuComponent } from './dropdown-menu/dropdown-menu.component';
 import { NumberAnimateComponent } from './number-animate/number-animate.component';
 import { DynamicWidgetsComponent } from './dynamic-widgets/dynamic-widgets.component';
+import { InputComponent } from './input/input.component';
+import { TextareaComponent } from './textarea/textarea.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -45,11 +48,14 @@ const components = [
   CardComponent,
   TitleComponent,
   PanelComponent,
+  InputComponent,
   SwiperComponent,
   SpacerComponent,
   SpinnerComponent,
   ChipListComponent,
+  TextareaComponent,
   LineYearComponent,
+  ContactUsComponent,
   BtnAnimateComponent,
   FeatureBoxComponent,
   BreadcrumbComponent,

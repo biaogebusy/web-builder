@@ -1,0 +1,5 @@
+<mat-form-field *ngIf="content" appearance="fill">
+  <mat-label>{{content.label}}</mat-label>
+  <textarea [mat-autosize]="true" [matAutosizeMinRows]="content.params?.matAutosizeMinRows" matInput
+    formControlName="{{content.name}}" placeholder="{{content.placeholder}}"></textarea>
+</mat-form-field>
