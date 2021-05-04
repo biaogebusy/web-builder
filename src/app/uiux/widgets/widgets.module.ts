@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-
+import { LightboxModule } from 'ngx-lightbox';
 import { SwiperModule } from 'ngx-swiper-wrapper';
 import { SWIPER_CONFIG } from 'ngx-swiper-wrapper';
 import { ShareModule } from '../../share/share.module';
@@ -61,7 +61,7 @@ const components = [
 
 @NgModule({
   declarations: [...components],
-  imports: [MatChipsModule, ShareModule, SwiperModule],
+  imports: [MatChipsModule, ShareModule, SwiperModule, LightboxModule],
   exports: [...components],
   providers: [
     {

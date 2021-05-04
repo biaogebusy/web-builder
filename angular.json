@@ -34,7 +34,8 @@
               "src/styles.scss",
               "node_modules/swiper/swiper-bundle.css",
               "node_modules/video.js/dist/video-js.css",
-              "highlight.js/styles/github.css"
+              "highlight.js/styles/github.css",
+              "./node_modules/ngx-lightbox/lightbox.css"
             ],
             "scripts": [
               "node_modules/lazysizes/lazysizes.min.js"

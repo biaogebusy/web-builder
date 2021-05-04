@@ -1,7 +1,7 @@
 <div class="feature-inner" *ngIf="content">
   <div class="feature-inner-corners">
     <div class="feature-inner-btns">
-      <a href="#" class="expand-image" *ngIf="content.fullIcon">
+      <a href="javascript:void(0)" (click)="open(content.img)" class="expand-image" *ngIf="content.fullIcon">
         <mat-icon>{{content.fullIcon}}</mat-icon>
       </a>
       <a href="{{content.link}}" class="icon-link" *ngIf="content.openIcon">
@@ -10,10 +10,10 @@
     </div>
     <div class="mf-popup">
       <div class="mf-no-gallery">
-        <a class="feature-inner-ling" href="{{content.img.large}}">
+        <div class="feature-inner-ling">
           <div class="media" [ngClass]="content.ratios || 'media-4-3'"
             style="background-image: url({{content.img.normal}});"></div>
-        </a>
+        </div>
       </div>
     </div>
   </div>
