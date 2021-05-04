@@ -3,6 +3,11 @@
   "body": [{
     "type": "article",
     "title": "DRAG AND DROP LAYOUT",
+    "banner": {
+      "img": {
+        "src": "../assets/images/16-9/nature-08.jpg"
+      }
+    },
     "meta": [{
       "icon": "schedule",
       "label": "12/09/2021"

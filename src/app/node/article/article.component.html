@@ -1,7 +1,7 @@
-<div class="article m-y" *ngIf="content">
+<div class="article m-bottom" *ngIf="content">
   <app-article-banner [content]="content.banner" *ngIf="content.banner"></app-article-banner>
   <div class="container">
-    <div class="article-inner" fxLayout.lt-md="column" fxLayout.gt-sm="row">
+    <div class="article-inner m-top-sm" fxLayout.lt-md="column" fxLayout.gt-sm="row">
       <div class="article-node" fxFlex.lt-md="100" fxFlex.gt-sm="75">
         <h2 class="title">
           {{content.title}}
