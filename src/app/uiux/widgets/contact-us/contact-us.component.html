@@ -5,7 +5,7 @@
   </app-bg>
   <div class="container">
     <form fxLayout="row wrap" (ngSubmit)="onSubmit()" fxLayoutAlign="center center" [formGroup]="form">
-      <div class="inner" fxFlex="0 1 100" fxLayoutAlign="center start" fxLayout.lt-md="column" fxLayout.gt-sm="row">
+      <div class="inner" fxFlex="0 1 100" fxLayoutAlign="center start" fxLayout="row wrap">
         <div fxFlex.lt-md="100" fxFlex.gt-sm="40" fxLayout="column">
           <app-box *ngFor="let item of content.contact" [content]="item"></app-box>
         </div>
