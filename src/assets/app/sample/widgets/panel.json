@@ -1,0 +1,38 @@
+{
+  "title": "Panel",
+  "body": [{
+    "type": "panel",
+    "title": {
+      "label": "More Features",
+      "style": "style-v4"
+    },
+    "elements": [{
+      "title": "CUSTOMER SERVICE",
+      "icon": "person",
+      "params": {
+        "expanded": true
+      },
+      "elements": [{
+        "type": "text",
+        "spacer": "none",
+        "body": "<p></p>\n\n<p>Sed suscipit, neque quis faucibus porta, diam arcu porta mauris, id venenatis mauris risus sit amet dolor. Suspendisse pulvinar, eros a euismod aliquet, lacus elit eros a euismod aliquet.</p>\n\n<p>Sed suscipit, neque quis faucibus porta, diam arcu porta mauris, id venenatis mauris risus sit amet dolor. Suspendisse pulvinar, eros a euismod aliquet, lacus elit eros a euismod aliquet.</p>\n\n<p>Sed suscipit, neque quis faucibus porta, diam arcu porta mauris, id venenatis mauris risus sit amet dolor. Suspendisse pulvinar, eros a euismod aliquet, lacus elit eros a euismod aliquet.</p>\n\n<p></p>"
+      }]
+    }, {
+      "title": "INTEGRITY AND HONESTY",
+      "icon": "faviores",
+      "elements": [{
+        "type": "text",
+        "spacer": "none",
+        "body": "<p></p>\n\n<p>Sed suscipit, neque quis faucibus porta, diam arcu porta mauris, id venenatis mauris risus sit amet dolor. Suspendisse pulvinar, eros a euismod aliquet, lacus elit eros a euismod aliquet.</p>\n\n<p>Sed suscipit, neque quis faucibus porta, diam arcu porta mauris, id venenatis mauris risus sit amet dolor. Suspendisse pulvinar, eros a euismod aliquet, lacus elit eros a euismod aliquet.</p>\n\n<p>Sed suscipit, neque quis faucibus porta, diam arcu porta mauris, id venenatis mauris risus sit amet dolor. Suspendisse pulvinar, eros a euismod aliquet, lacus elit eros a euismod aliquet.</p>\n\n<p></p>"
+      }]
+    }, {
+      "title": "THE BEST SALES ON THE COUNTRY",
+      "icon": "faviores",
+      "elements": [{
+        "type": "text",
+        "spacer": "none",
+        "body": "<p></p>\n\n<p>Sed suscipit, neque quis faucibus porta, diam arcu porta mauris, id venenatis mauris risus sit amet dolor. Suspendisse pulvinar, eros a euismod aliquet, lacus elit eros a euismod aliquet.</p>\n\n<p>Sed suscipit, neque quis faucibus porta, diam arcu porta mauris, id venenatis mauris risus sit amet dolor. Suspendisse pulvinar, eros a euismod aliquet, lacus elit eros a euismod aliquet.</p>\n\n<p>Sed suscipit, neque quis faucibus porta, diam arcu porta mauris, id venenatis mauris risus sit amet dolor. Suspendisse pulvinar, eros a euismod aliquet, lacus elit eros a euismod aliquet.</p>\n\n<p></p>"
+      }]
+    }]
+  }]
+}

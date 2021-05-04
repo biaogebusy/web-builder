@@ -134,12 +134,22 @@
             "href": "/sample/node/article"
           }]
         }, {
-          "label": "Other",
+          "label": "Widgets",
           "href": "javascript:void(0)",
           "child": [{
             "label": "通用文本组件",
             "href": "/sample/widgets/text"
           }, {
+            "label": "Tab",
+            "href": "/sample/widgets/tab"
+          }, {
+            "label": "Panel",
+            "href": "/sample/widgets/panel"
+          }]
+        }, {
+          "label": "Other",
+          "href": "javascript:void(0)",
+          "child": [{
             "label": "Video bg",
             "href": "/sample/combs/video/videobg"
           }, {
