@@ -12,26 +12,30 @@
     "elements": [{
         "icon": "fingerprint",
         "digit": {
-          "value": 100
+          "value": 100,
+          "label": "+"
         },
         "title": "Clients"
       },
       {
         "icon": "verified_user",
         "digit": {
-          "value": 200
+          "value": 200,
+          "label": "+"
         },
         "title": "Awards"
       }, {
         "icon": "android",
         "digit": {
-          "value": 246
+          "value": 246,
+          "label": "million"
         },
         "title": "Line of code"
       }, {
         "icon": "mail",
         "digit": {
-          "value": 578
+          "value": 578,
+          "label": "㎡"
         },
         "title": "Project"
       }
