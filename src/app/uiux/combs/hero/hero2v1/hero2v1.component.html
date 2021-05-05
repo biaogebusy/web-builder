@@ -1,13 +1,3 @@
 <div *ngIf="content" class="hero-2-v1 position-relative" [ngStyle.gt-sm]="content.params" [ngClass]="content.theme">
-  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
-  <app-bg [content]="content.bg" *ngIf="content.bg">
-    <app-img [content]="content.bg.img" *ngIf="content.bg?.img"></app-img>
-  </app-bg>
-  <div class="container">
-    <div [ngClass.gt-sm]="content.classes" [ngStyle.gt-sm]="content.style">
-      <app-title [content]="content.title"></app-title>
-      <div class="body" [innerHTML]="content.body"></div>
-    </div>
-  </div>
-  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
+  <app-text [content]="content.text"></app-text>
 </div>
