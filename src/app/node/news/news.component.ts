@@ -43,7 +43,7 @@ export class NewsComponent implements OnInit {
           feature: {
             fullIcon: 'fullscreen',
             openIcon: 'open_in_new',
-            link: item.media.field_media_image.uri.url,
+            link,
             ratios: 'media-16-9',
             img: {
               large: item.media.field_media_image.uri.url,
