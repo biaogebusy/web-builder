@@ -18,6 +18,9 @@
     a {
       color: $text-base;
     }
+    .box-content {
+      color: mat-color($foreground, text, 0.45);
+    }
     &:hover {
       .box-title {
         color: mat-color($primary);
@@ -233,7 +236,8 @@
     &.style-v6,
     &.style-v7,
     &.box-left,
-    &.box-right {
+    &.box-right,
+    &.style-v9 {
       .read-more {
         a {
           color: mat-color($primary);
@@ -243,6 +247,34 @@
               background: mat-color($primary);
             }
           }
+        }
+      }
+    }
+
+    &.style-v9 {
+      background-color: mat-color($background, card);
+      box-shadow: 0 0 3px mat-color($foreground, divider, 0.1);
+      &:hover {
+        box-shadow: 0 10px 25px mat-color($foreground, divider, 0.1);
+        .box-icon {
+          .mat-icon {
+            color: mat-color($primary, default-contrast);
+          }
+        }
+      }
+      .box-icon {
+        background: mat-color($primary, 0.1);
+        color: mat-color($primary);
+        .mat-icon {
+          color: mat-color($primary);
+        }
+      }
+      .box-content {
+        color: mat-color($foreground, text, 0.45);
+      }
+      .read-more {
+        ::ng-deep a {
+          color: rgb(118, 109, 244);
         }
       }
     }

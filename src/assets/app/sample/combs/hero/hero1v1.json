@@ -2,10 +2,13 @@
   "title": "Hero 1v1",
   "body": [{
     "type": "hero-1v1",
+    "spacer": "none",
+    "classes": "text-light text-center",
     "sliders": {
       "params": {
         "slidesPerView": 1,
-        "spaceBetween": 0
+        "spaceBetween": 0,
+        "pagination": false
       },
       "elements": [{
         "type": "text",
@@ -13,7 +16,7 @@
           "label": "light text, and xy center, <br>enable overlay",
           "style": "style-v1"
         },
-        "classes": "xy-center text-light",
+        "classes": "xy-center",
         "bg": {
           "classes": "bg-shadow  overlay overlay-80",
           "img": {
@@ -21,7 +24,11 @@
             "src": "/assets/images/16-9/business-14.jpeg"
           }
         },
-        "body": "The Vabeen’PLUM is designed with a 12ml ultra-large capacity tank to provide more vaping enjoyment than similar products. Every drop of e-liquid maximizes its value. Approx. 3500puffs per pod, which can last a week, free you from frequently filling.The translucent tank allows you to clearly observe the capacity of e - liquid. <br> <br>*individual user experience may vary, depending on usage"
+        "body": "Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.",
+        "action": {
+          "href": "#",
+          "label": "Get Started"
+        }
       }, {
         "type": "text",
         "title": {
@@ -36,8 +43,68 @@
             "src": "/assets/images/16-9/business-15.jpeg"
           }
         },
-        "body": "The Vabeen’PLUM is designed with a 12ml ultra-large capacity tank to provide more vaping enjoyment than similar products. Every drop of e-liquid maximizes its value. Approx. 3500puffs per pod, which can last a week, free you from frequently filling.The translucent tank allows you to clearly observe the capacity of e - liquid. <br> <br>*individual user experience may vary, depending on usage"
+        "body": "Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. ",
+        "action": {
+          "href": "#",
+          "label": "Get Started"
+        }
       }]
     }
+  }, {
+    "type": "showcase-1v1",
+    "classes": "features-absolute",
+    "spacer": "lg",
+    "bg": {
+      "classes": "bg-shadow bg-fill-width"
+    },
+    "elements": [{
+      "icon": "verified_user",
+      "style": "style-v9",
+      "title": {
+        "href": "#",
+        "label": "Best Financial Advice"
+      },
+      "content": "The most well-known which is said to have originated",
+      "more": {
+        "href": "#",
+        "label": "Read More"
+      }
+    }, {
+      "icon": "fingerprint",
+      "style": "style-v9",
+      "title": {
+        "href": "#",
+        "label": "Authorised Finance Brand"
+      },
+      "content": "The most well-known which is said to have originated",
+      "more": {
+        "href": "#",
+        "label": "Read More"
+      }
+    }, {
+      "icon": "favorite",
+      "style": "style-v9",
+      "title": {
+        "href": "#",
+        "label": "Compehensive Advices"
+      },
+      "content": "The most well-known which is said to have originated",
+      "more": {
+        "href": "#",
+        "label": "Read More"
+      }
+    }, {
+      "icon": "android",
+      "style": "style-v9",
+      "title": {
+        "href": "#",
+        "label": "Best Tax Advantages"
+      },
+      "content": "The most well-known which is said to have originated",
+      "more": {
+        "href": "#",
+        "label": "Read More"
+      }
+    }]
   }]
 }

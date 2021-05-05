@@ -79,7 +79,7 @@
   transform: rotate($rotate);
 }
 @mixin middle() {
-  position: absolute;
+  position: absolute !important;
   top: 50%;
   -webkit-transform: translateY(-50%);
   -moz-transform: translateY(-50%);
@@ -88,7 +88,7 @@
   transform: translateY(-50%);
 }
 @mixin middle-center() {
-  position: absolute;
+  position: absolute !important;
   left: 50%;
   top: 50%;
   -webkit-transform: translateX(-50%) translateY(-50%);

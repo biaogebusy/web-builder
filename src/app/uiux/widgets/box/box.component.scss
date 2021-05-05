@@ -49,58 +49,6 @@
     }
   }
 
-  // Box with left icon
-  &.box-left {
-    margin-bottom: 40px;
-    .box-icon {
-      float: left;
-      margin: 0px 25px 25px 0px;
-      .mat-icon {
-        line-height: 30px;
-      }
-    }
-    .box-content-wrapper {
-      margin-left: 115px;
-      text-align: left;
-    }
-    .box-title {
-      margin-bottom: 15px !important;
-      &:after {
-        left: 0;
-        margin-left: 115px;
-      }
-    }
-    &.medium-box {
-      .box-content-wrapper {
-        margin-left: 90px;
-        text-align: left;
-      }
-    }
-  }
-  // Box right icon
-  &.box-right {
-    margin-bottom: 40px;
-    .box-icon {
-      float: right;
-      margin: 0px 0px 15px 15px;
-      .mat-icon {
-        line-height: 30px;
-      }
-    }
-    .box-content-wrapper {
-      margin-right: 115px;
-      text-align: right;
-    }
-    .box-title {
-      margin-bottom: 15px !important;
-      &:after {
-        left: auto;
-        right: 0;
-        margin-left: 0;
-        margin-right: 115px;
-      }
-    }
-  }
   // Box square & circle
   &.box-square,
   &.box-circle {
@@ -440,8 +388,7 @@
   }
   &.style-v6,
   &.style-v7,
-  &.style-v8,
-  &.style-v9 {
+  &.style-v8 {
     .box-icon {
       float: left;
       margin: 0px 25px 25px 0px;
@@ -464,7 +411,7 @@
       }
     }
   }
-  &.style-v9,
+
   &.style10 {
     .box-icon {
       width: 53px;
@@ -510,8 +457,7 @@
 
   &.style-v6,
   &.style-v7,
-  &.box-left,
-  &.box-right {
+  &.style-v9 {
     .box-content {
       padding-bottom: 0;
     }
@@ -531,16 +477,40 @@
             height: 6px;
             left: 0;
             position: absolute;
-            top: 3px;
+            top: 5px;
             @include transform-rotate(45deg);
             width: 2px;
           }
           &:after {
             @include transform-rotate(-45deg);
-            top: 6px;
+            top: 8px;
           }
         }
       }
+    }
+  }
+
+  // feature absolute
+  &.style-v9 {
+    border-radius: 10px;
+    text-align: center;
+    padding: 1.5rem;
+    transition: all 0.5s ease;
+
+    .box-icon {
+      height: 80px;
+      line-height: 80px;
+      margin: 0 auto;
+      border-radius: 6px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .mat-icon {
+        font-size: 24px;
+      }
+    }
+    .box-content-wrapper {
+      margin-top: 2rem;
     }
   }
 }

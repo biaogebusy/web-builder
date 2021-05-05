@@ -1,19 +1,28 @@
+@import "../../../../../theme/variable/breakpoint";
 .hero-1-v1 {
+  height: calc(100vh - 50px);
   overflow: hidden;
-  height: 100vh;
   ::ng-deep {
-    .position-relative {
-      position: static;
-    }
-    .base-text {
-      overflow: visible;
-    }
     .swiper-container {
       position: absolute;
       left: 0;
       top: 0;
       width: 100%;
       height: 100%;
+    }
+    .position-relative {
+      position: static;
+    }
+    .base-text {
+      padding: 0 2rem;
+    }
+  }
+  @media #{$gt-sm} {
+    height: calc(100vh - 110px);
+    ::ng-deep {
+      .base-text {
+        overflow: visible;
+      }
     }
   }
 }

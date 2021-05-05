@@ -1,5 +1,111 @@
 {
   "body": [{
+    "type": "hero-1v1",
+    "spacer": "none",
+    "classes": "text-light text-center",
+    "sliders": {
+      "params": {
+        "slidesPerView": 1,
+        "spaceBetween": 0,
+        "pagination": false
+      },
+      "elements": [{
+        "type": "text",
+        "title": {
+          "label": "light text, and xy center, <br>enable overlay",
+          "style": "style-v1"
+        },
+        "classes": "xy-center",
+        "bg": {
+          "classes": "bg-shadow  overlay overlay-80",
+          "img": {
+            "hostClasses": "bg-center",
+            "src": "/assets/images/16-9/business-14.jpeg"
+          }
+        },
+        "body": "Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.",
+        "action": {
+          "href": "#",
+          "label": "Get Started"
+        }
+      }, {
+        "type": "text",
+        "title": {
+          "label": "light text, and xy center, <br>enable overlay",
+          "style": "style-v1"
+        },
+        "classes": "xy-center text-light",
+        "bg": {
+          "classes": "bg-shadow  overlay overlay-80",
+          "img": {
+            "hostClasses": "bg-center",
+            "src": "/assets/images/16-9/business-15.jpeg"
+          }
+        },
+        "body": "Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. ",
+        "action": {
+          "href": "#",
+          "label": "Get Started"
+        }
+      }]
+    }
+  }, {
+    "type": "showcase-1v1",
+    "classes": "features-absolute",
+    "spacer": "lg",
+    "bg": {
+      "classes": "bg-shadow bg-fill-width"
+    },
+    "elements": [{
+      "icon": "verified_user",
+      "style": "style-v9",
+      "title": {
+        "href": "#",
+        "label": "Best Financial Advice"
+      },
+      "content": "The most well-known which is said to have originated",
+      "more": {
+        "href": "#",
+        "label": "Read More"
+      }
+    }, {
+      "icon": "fingerprint",
+      "style": "style-v9",
+      "title": {
+        "href": "#",
+        "label": "Authorised Finance Brand"
+      },
+      "content": "The most well-known which is said to have originated",
+      "more": {
+        "href": "#",
+        "label": "Read More"
+      }
+    }, {
+      "icon": "favorite",
+      "style": "style-v9",
+      "title": {
+        "href": "#",
+        "label": "Compehensive Advices"
+      },
+      "content": "The most well-known which is said to have originated",
+      "more": {
+        "href": "#",
+        "label": "Read More"
+      }
+    }, {
+      "icon": "android",
+      "style": "style-v9",
+      "title": {
+        "href": "#",
+        "label": "Best Tax Advantages"
+      },
+      "content": "The most well-known which is said to have originated",
+      "more": {
+        "href": "#",
+        "label": "Read More"
+      }
+    }]
+  }, {
     "type": "showcase-1v1",
     "title": {
       "label": "Showcase 1 v1 style v1",
