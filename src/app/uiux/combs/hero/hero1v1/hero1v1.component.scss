@@ -1,6 +1,19 @@
 .hero-1-v1 {
   overflow: hidden;
-  ::ng-deep .base-text {
-    overflow: visible;
+  height: 100vh;
+  ::ng-deep {
+    .position-relative {
+      position: static;
+    }
+    .base-text {
+      overflow: visible;
+    }
+    .swiper-container {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+    }
   }
 }
