@@ -10,78 +10,86 @@ import { AppState } from '../../mobx/AppState';
 import { gsap } from 'gsap';
 import { ICard } from '../../uiux/widgets/IWidgets';
 
-const feature: ICard[] = [
-  {
-    title: 'Material UI',
-    body: 'Material UI 有完善的主题颜色系统，有优秀的性能和用户体验。',
-    feature: {
-      fullIcon: 'fullscreen',
-      openIcon: 'open_in_new',
-      link: '#',
-      ratios: 'media-4-3',
-      img: {
-        large: '/assets/images/badge.scene.png',
-        normal: '/assets/images/badge.scene.png',
+const feature = {
+  title: {
+    label: 'Feature',
+    style: 'style-v1',
+  },
+  spacer: 'lg',
+  elements: [
+    {
+      title: 'Material UI',
+      body: 'Material UI 有完善的主题颜色系统，有优秀的性能和用户体验',
+      feature: {
+        fullIcon: 'fullscreen',
+        openIcon: 'open_in_new',
+        link: '#',
+        ratios: 'media-4-3',
+        img: {
+          large: '/assets/images/badge.scene.png',
+          normal: '/assets/images/badge.scene.png',
+        },
       },
     },
-  },
-  {
-    title: 'Flex Layout',
-    body: '提供了足够丰富的布局 API，响应式适配各种设备视口尺寸。',
-    feature: {
-      fullIcon: 'fullscreen',
-      openIcon: 'open_in_new',
-      link: '#',
-      ratios: 'media-4-3',
-      img: {
-        large: '/assets/images/grid-list.scene.png',
-        normal: '/assets/images/grid-list.scene.png',
+    {
+      title: 'Flex Layout',
+      body: '提供了足够丰富的布局 API，响应式适配各种设备视口尺寸',
+      feature: {
+        fullIcon: 'fullscreen',
+        openIcon: 'open_in_new',
+        link: '#',
+        ratios: 'media-4-3',
+        img: {
+          large: '/assets/images/grid-list.scene.png',
+          normal: '/assets/images/grid-list.scene.png',
+        },
       },
     },
-  },
-  {
-    title: 'Mobx',
-    body: 'Mobx 使应用的状态管理变得简单。',
-    feature: {
-      fullIcon: 'fullscreen',
-      openIcon: 'open_in_new',
-      link: '#',
-      ratios: 'media-4-3',
-      img: {
-        large: '/assets/images/form-field.scene.png',
-        normal: '/assets/images/form-field.scene.png',
+    {
+      title: '支持多种颜色主题',
+      body: '可切换内建的自定义主题，可自定义符合品牌的颜色主题',
+      feature: {
+        fullIcon: 'fullscreen',
+        openIcon: 'open_in_new',
+        link: '#',
+        ratios: 'media-4-3',
+        img: {
+          large: '/assets/images/form-field.scene.png',
+          normal: '/assets/images/form-field.scene.png',
+        },
       },
     },
-  },
-  {
-    title: '布局',
-    body: '通过拖动的方式管理你的页面布局，灵活的创建各种营销着陆页。',
-    feature: {
-      fullIcon: 'fullscreen',
-      openIcon: 'open_in_new',
-      link: '#',
-      ratios: 'media-4-3',
-      img: {
-        large: '/assets/images/button.scene.png',
-        normal: '/assets/images/button.scene.png',
+    {
+      title: '布局',
+      body: '通过拖动的方式管理你的页面布局，灵活的创建各种营销着陆页',
+      feature: {
+        fullIcon: 'fullscreen',
+        openIcon: 'open_in_new',
+        link: '#',
+        ratios: 'media-4-3',
+        img: {
+          large: '/assets/images/button.scene.png',
+          normal: '/assets/images/button.scene.png',
+        },
       },
     },
-  },
-  {
-    title: '菜单',
-    body: '紧凑的菜单面板，引导用户到达页面。',
-    feature: {
-      fullIcon: 'fullscreen',
-      openIcon: 'open_in_new',
-      link: '#',
-      ratios: 'media-4-3',
-      img: {
-        large: '/assets/images/menu.scene.png',
-        normal: '/assets/images/menu.scene.png',
+    {
+      title: 'AOT + Lazy Loading',
+      body: '使用AOT编译和懒加载使你的应用反应更快速',
+      feature: {
+        fullIcon: 'fullscreen',
+        openIcon: 'open_in_new',
+        link: '#',
+        ratios: 'media-4-3',
+        img: {
+          large: '/assets/images/menu.scene.png',
+          normal: '/assets/images/menu.scene.png',
+        },
       },
     },
-  },
-];
+  ],
+};
+
 @Component({
   selector: 'app-job',
   templateUrl: './job.component.html',
