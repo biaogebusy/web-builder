@@ -1,6 +1,6 @@
 <div class="position-relative" *ngIf="content">
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
-  <app-title [content]="content.title"></app-title>
+  <app-title [content]="content.title" *ngIf="content.title"></app-title>
   <app-map class="display-block" [ngStyle]="content.style" *ngIf="content" [content]="content">
   </app-map>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
