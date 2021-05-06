@@ -322,7 +322,7 @@
       }
     ],
     "footerNewsletter": {
-      "label": "Newsletter",
+      "label": "资讯",
       "summary": "欢迎使用邮箱订阅最新的公告和产品。",
       "forms": [{
         "type": "input",

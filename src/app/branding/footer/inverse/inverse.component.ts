@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormService } from '../../../service/form.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 @Component({
   selector: 'app-inverse',
   templateUrl: './inverse.component.html',
@@ -12,7 +14,7 @@ export class InverseComponent implements OnInit {
   success = false;
   submited = false;
 
-  constructor(public formService: FormService) {}
+  constructor(public formService: FormService, private snackbar: MatSnackBar) {}
 
   ngOnInit(): void {
     this.form = this.formService.toFormGroup(
@@ -29,6 +31,10 @@ export class InverseComponent implements OnInit {
     this.success = true;
     setTimeout(() => {
       this.submited = false;
-    }, 20000);
+      this.snackbar.open('Welcome Subject!', '', {
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+      });
+    }, 2000);
   }
 }

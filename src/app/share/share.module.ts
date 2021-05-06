@@ -25,6 +25,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 // icon utils
 import { MatIconRegistry } from '@angular/material/icon';
@@ -57,6 +58,7 @@ import { DomSanitizer } from '@angular/platform-browser';
     MatPaginatorModule,
     ScrollingModule,
     MatTabsModule,
+    MatSnackBarModule,
   ],
   exports: [
     CommonModule,
@@ -86,6 +88,7 @@ import { DomSanitizer } from '@angular/platform-browser';
     MatPaginatorModule,
     ScrollingModule,
     MatTabsModule,
+    MatSnackBarModule,
   ],
 })
 export class ShareModule {

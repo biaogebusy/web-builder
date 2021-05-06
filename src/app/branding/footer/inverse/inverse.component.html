@@ -1,8 +1,8 @@
-<div class="footer-inverse m-top" *ngIf="content">
+<div class="footer-inverse" *ngIf="content">
   <div class="container">
-    <div class="p-y">
-      <div fxFlex="100" *ngIf="content?.footerBrand" fxLayout.lt-md="column" fxLayout.gt-sm="row">
-        <div class="brand" fxFlex="100" fxLayout="column">
+    <div class="p-y-lg">
+      <div *ngIf="content?.footerBrand" fxLayout.lt-md="column" fxLayout.gt-sm="row">
+        <div fxFlex.lt-md="100" fxFlex.gt-sm="0 0 25" class="brand" fxLayout="column">
           <app-img [content]="content.footerBrand.logo.img" *ngIf="content.footerBrand.logo"></app-img>
           <p class="m-y-sm" [innerHTML]="content.footerBrand?.summary" *ngIf="content.footerBrand?.summary"></p>
           <div class="social" fxLayout="row" *ngIf="content?.footerBrand?.social">
@@ -12,41 +12,37 @@
             </a>
           </div>
         </div>
-        <div fxFlex="100" *ngIf="content.mainMenu">
+        <div fxFlex.lt-md="100" fxFlex.gt-sm="0 0 50" *ngIf="content.mainMenu">
           <app-menu-item [content]="content?.mainMenu" [mobileMenu]="content.mobileMenu"></app-menu-item>
         </div>
-        <div fxFlex="100" *ngIf="content.footerNewsletter">
-          <mat-list role="list">
-            <div matSubheader>{{content.footerNewsletter.label}}</div>
-            <mat-list-item role="listitem">
-              <div mat-line>
-                <p class="m-y-sm" [innerHTML]="content.footerNewsletter.summary"></p>
-                <form (ngSubmit)="onSubmit()" [formGroup]="form" fxLayout="column">
-                  <mat-form-field appearance="fill" *ngFor="let item of content.footerNewsletter.forms">
-                    <mat-label>{{item.label}}</mat-label>
-                    <mat-icon matSuffix>{{item.icon}}</mat-icon>
-                    <ng-container [ngSwitch]="item.type">
-                      <input *ngSwitchCase="'input'" placeholder="{{item.placeholder}}" matInput
-                        formControlName="{{item.key}}" value="{{item.value}}" [id]="item.key">
-                      <textarea *ngSwitchCase="'textarea'" [mat-autosize]="true"
-                        [matAutosizeMinRows]="item.params?.matAutosizeMinRows" placeholder="{{item.placeholder}}"
-                        matInput formControlName="{{item.key}}" value="{{item.value}}" [id]="item.key"></textarea>
-                    </ng-container>
-                  </mat-form-field>
-                  <button *ngIf="content.footerNewsletter.action" class="m-top-xs" type="submit" mat-raised-button
-                    color="primary" fxFlex="0 1 auto">
-                    <app-spinner [content]="{color:'accent', size:20}" *ngIf="submited"></app-spinner>
-                    <div fxLayoutAlign="center center">
-                      <div class="p-x-xs">{{content.footerNewsletter.action.label}}</div>
-                    </div>
-                  </button>
-                  <div fxFlex="100" fxLayoutAlign="center center">
-                    <app-spinner [content]="{color:'primary', size:40}" *ngIf="submited"></app-spinner>
-                  </div>
-                </form>
+        <div fxFlex.lt-md="100" fxFlex.gt-sm="0 0 25" *ngIf="content.footerNewsletter">
+          <form (ngSubmit)="onSubmit()" [formGroup]="form" fxLayout="row wrap">
+            <div fxFlex="100" class="item-header">
+              {{content.footerNewsletter.label}}
+            </div>
+            <p fxFlex="100" class="m-y-xs" [innerHTML]="content.footerNewsletter.summary"></p>
+            <mat-form-field fxFlex="100" appearance="fill" *ngFor="let item of content.footerNewsletter.forms">
+              <mat-label>{{item.label}}</mat-label>
+              <ng-container [ngSwitch]="item.type">
+                <input *ngSwitchCase="'input'" placeholder="{{item.placeholder}}" matInput
+                  formControlName="{{item.key}}" value="{{item.value}}" [id]="item.key">
+                <textarea *ngSwitchCase="'textarea'" [mat-autosize]="true"
+                  [matAutosizeMinRows]="item.params?.matAutosizeMinRows" placeholder="{{item.placeholder}}" matInput
+                  formControlName="{{item.key}}" value="{{item.value}}" [id]="item.key"></textarea>
+              </ng-container>
+            </mat-form-field>
+            <div fxFlex.lt-md="100" fxFlex.gt-sm="50" fxLayout="row wrap">
+              <button fxFlex="100" *ngIf="content.footerNewsletter.action" class="m-top-xs" type="submit"
+                mat-raised-button color="primary">
+                <div fxLayoutAlign="center center">
+                  <div class="p-x-xs">{{content.footerNewsletter.action.label}}</div>
+                </div>
+              </button>
+              <div fxFlex="auto" fxLayoutAlign="center center">
+                <app-spinner [content]="{color:'primary', size:36}" *ngIf="submited"></app-spinner>
               </div>
-            </mat-list-item>
-          </mat-list>
+            </div>
+          </form>
         </div>
       </div>
     </div>
@@ -55,7 +51,8 @@
     <div class="container">
       <div class="inner" fxLayout.lt-md="column" fxLayout.gt-sm="row" fxLayoutAlign.lt-md="center center"
         fxLayoutAlign.gt-sm="space-between center">
-        <div class="left" *ngIf="content?.footerBottom?.left" [innerHTML]="content.footerBottom.left"></div>
+        <div class="left" [ngClass.lt-md]="'text-center'" *ngIf="content?.footerBottom?.left"
+          [innerHTML]="content.footerBottom.left"></div>
         <div class="right" *ngIf="content?.footerBottom?.right">
           <div fxLayout="row">
             <app-link class="item" *ngFor="let item of content.footerBottom.right" [content]="item"></app-link>
