@@ -12,6 +12,7 @@ import { HeaderTopComponent } from './header/header-top/header-top.component';
 import { WidgetsModule } from '../uiux/widgets/widgets.module';
 import { LightComponent } from './footer/light/light.component';
 import { InverseComponent } from './footer/inverse/inverse.component';
+import { MenuItemComponent } from './footer/menu-item/menu-item.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { InverseComponent } from './footer/inverse/inverse.component';
     PopupComponent,
     ItemMenuComponent,
     SubMenuComponent,
+    MenuItemComponent,
     HeaderTopComponent,
     LightComponent,
     InverseComponent,

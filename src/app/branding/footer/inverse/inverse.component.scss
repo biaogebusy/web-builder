@@ -1,3 +1,23 @@
+.brand {
+  ::ng-deep {
+    .logo {
+      height: 40px;
+    }
+  }
+}
+.social {
+  .item {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    margin-right: 0.4rem;
+    transition: all 0.4s ease;
+  }
+  .mat-icon {
+    font-size: 16px;
+    width: 16px;
+  }
+}
 .right {
   text-align: right;
   .item {

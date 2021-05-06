@@ -7,8 +7,9 @@
   $primary: map-get($config, primary);
   $accent: map-get($config, accent);
   $warn: map-get($config, warn);
-
+  @debug $background;
   $text-base: mat-color($foreground, text, 0.75);
+
   .footer {
     .footer-light {
       background-color: mat-color($background, card);
@@ -59,12 +60,29 @@
       }
     }
     .footer-inverse {
-      background: #191e21;
-      color: #989898;
+      background: mat-color($background, background);
+      color: $text-base;
+      a {
+        color: $text-base;
+      }
+      .social {
+        .item {
+          border: 1px solid $text-base;
+          color: $text-base;
+          border-color: $text-base;
+          &:hover {
+            border-color: mat-color($primary, 200);
+            background-color: mat-color($primary, 200);
+            .mat-icon {
+              color: mat-color($primary, default-contrast);
+            }
+          }
+        }
+      }
       .footer-bottom {
         background-color: mat-color($foreground, base, 0.25);
         a {
-          color: #989898;
+          color: $text-base;
           &:hover,
           &:focus {
             color: mat-color($primary);
