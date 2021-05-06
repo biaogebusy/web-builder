@@ -14,7 +14,15 @@
       border-color: mat-color($foreground, divider) !important;
     }
     .mat-expansion-panel-header-title {
-      color: mat-color($primary);
+      color: mat-color($foreground, text, 0.75);
+    }
+    .mat-list {
+      a {
+        color: mat-color($foreground, text, 0.75);
+        &.active {
+          color: mat-color($primary);
+        }
+      }
     }
   }
 }
