@@ -1,4 +1,5 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import { ScreenState } from '../../../mobx/screen/ScreenState';
 
 @Component({
   selector: 'app-img',
@@ -8,7 +9,7 @@ import { Component, HostBinding, Input, OnInit } from '@angular/core';
 export class ImgComponent implements OnInit {
   @Input() content: any;
   @HostBinding('class') hostClasses: any;
-  constructor() {}
+  constructor(public screen: ScreenState) {}
 
   ngOnInit(): void {
     if (this.content.hostClasses) {
