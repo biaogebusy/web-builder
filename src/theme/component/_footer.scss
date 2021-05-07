@@ -7,7 +7,7 @@
   $primary: map-get($config, primary);
   $accent: map-get($config, accent);
   $warn: map-get($config, warn);
-  @debug $background;
+
   $text-base: mat-color($foreground, text, 0.75);
 
   $inverse-bg: #333;
