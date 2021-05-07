@@ -1,6 +1,6 @@
 import { IUser } from './user/IUser';
 export interface IAppConfig {
-  defTheme: string; // light, dark
+  defTheme: string;
   config?: any;
   currentUser: IUser;
   page: IPage;

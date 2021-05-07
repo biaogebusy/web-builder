@@ -23,7 +23,6 @@ const initPage = {
   providedIn: 'root',
 })
 export class AppState {
-  private readonly DARK_THEME_CLASS = 'dark-theme';
   private readonly MODE = 'themeMode';
   private _READY = true;
   @observable private state: IAppConfig = {
@@ -117,9 +116,16 @@ export class AppState {
   initTheme(): void {
     if (this.storage.get(this.MODE)) {
       this.state.defTheme = this.storage.get(this.MODE);
-      const body = this.document.getElementsByTagName('body')[0];
-      body.classList.add(this.state.defTheme);
+      this.setBodyClasses(this.state.defTheme);
+    } else {
+      this.state.defTheme = this.state.config.defaultTheme || 'light-theme';
+      this.setBodyClasses(this.state.defTheme);
     }
+  }
+
+  setBodyClasses(theme: string): void {
+    const body = this.document.getElementsByTagName('body')[0];
+    body.classList.add(theme);
   }
 
   @action

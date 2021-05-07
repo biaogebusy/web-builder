@@ -1,3 +1,6 @@
+.footer-inverse {
+  z-index: 2;
+}
 .brand {
   ::ng-deep {
     .logo {
@@ -49,4 +52,25 @@
       }
     }
   }
+}
+
+.shape-inner {
+  z-index: 1;
+}
+.shape {
+  position: absolute;
+  pointer-events: none;
+  right: 0;
+  bottom: -2px;
+  left: 0;
+  overflow: hidden;
+}
+
+.shape > svg {
+  -webkit-transform: scale(2);
+  transform: scale(2);
+  width: 100%;
+  height: auto;
+  -webkit-transform-origin: top center;
+  transform-origin: top center;
 }

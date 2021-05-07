@@ -1,4 +1,5 @@
 {
+  "defaultTheme": "light-theme",
   "theme": [{
     "name": "默认主题",
     "style": "light-theme",
