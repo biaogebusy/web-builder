@@ -183,7 +183,8 @@
   },
   "footer": {
     "params": {
-      "mode": "inverse"
+      "mode": "inverse",
+      "shape": true
     },
     "footerBrand": {
       "logo": {
