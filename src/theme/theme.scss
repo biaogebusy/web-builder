@@ -4,6 +4,7 @@
 @import "./utilities/utilities.scss";
 @import "./layout.scss";
 @import "./component/component";
+@import "./drupal";
 
 @include reset-styles();
 @include mat-core();
