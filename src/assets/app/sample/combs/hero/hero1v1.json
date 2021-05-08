@@ -13,7 +13,7 @@
       "elements": [{
         "type": "text",
         "title": {
-          "label": "light text, and xy center, <br>enable overlay",
+          "label": "Light text, and xy center",
           "style": "style-v1",
           "classes": "mat-display-3"
         },
@@ -33,8 +33,9 @@
       }, {
         "type": "text",
         "title": {
-          "label": "light text, and xy center, <br>enable overlay",
-          "style": "style-v1"
+          "label": "Enable overlay",
+          "style": "style-v1",
+          "classes": "mat-display-3"
         },
         "classes": "xy-center text-light",
         "bg": {

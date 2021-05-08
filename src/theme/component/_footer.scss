@@ -88,6 +88,10 @@
           background-color: transparent;
           color: $inverse-text;
         }
+        .mat-expansion-panel:not(.mat-expanded):not([aria-disabled="true"])
+          .mat-expansion-panel-header:hover {
+          background-color: transparent;
+        }
         .mat-expansion-panel-header-description,
         .mat-expansion-indicator::after {
           color: inherit;
