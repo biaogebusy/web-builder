@@ -12,7 +12,9 @@
       <div class="module-content p-md">
         <h2 class="mat-h2" *ngIf="item.content.title">{{item.content.title}}</h2>
         <p class="m-bottom" *ngIf="item.content.body" [innerHTML]="item.content.body"></p>
-        <app-link *ngIf="item.content.link" [content]="item.content.link"></app-link>
+        <div class="m-y-sm" *ngIf="item.content.details">
+          <app-btn-animate [content]="item.content.details"></app-btn-animate>
+        </div>
       </div>
     </div>
   </div>

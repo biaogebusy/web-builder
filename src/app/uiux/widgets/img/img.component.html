@@ -1,21 +1,21 @@
 <ng-container *ngIf="content">
   <ng-container *ngIf="!(screen.eq('xs') || screen.eq('sm'))">
     <img class="lazyload" *ngIf="!content.href;else withLink" [ngStyle]="content.style" [ngClass]="content?.classes"
-      data-src="{{content.src}}" [alt]="content.alt">
+      data-src="{{content.src}}" [alt]="content.alt||''">
     <ng-template #withLink>
       <a href="{{content.href}}" target="{{content.target}}">
         <img class="lazyload" [ngClass]="content?.classes" data-src="{{content.src}}" [ngStyle]="content.style"
-          [alt]="content.alt">
+          [alt]="content.alt||''">
       </a>
     </ng-template>
   </ng-container>
   <ng-container *ngIf="(screen.eq('xs') || screen.eq('sm')) && content.mobile">
     <img class="lazyload" *ngIf="!content.href;else withLink" [ngStyle]="content.style" [ngClass]="content?.classes"
-      data-src="{{content.mobile}}" [alt]="content.alt">
+      data-src="{{content.mobile}}" [alt]="content.alt||''">
     <ng-template #withLink>
       <a href="{{content.href}}" target="{{content.target}}">
         <img class="lazyload" [ngClass]="content?.classes" data-src="{{content.mobile}}" [ngStyle]="content.style"
-          [alt]="content.alt">
+          [alt]="content.alt||''">
       </a>
     </ng-template>
   </ng-container>

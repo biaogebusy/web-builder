@@ -26,3 +26,132 @@
   margin-right: auto;
   margin-left: auto;
 }
+
+// element
+
+hr {
+  height: 1px;
+  margin: 1rem 0;
+  padding: 0;
+  border: none;
+  background: rgba(142, 146, 156, 0.5);
+}
+
+summary {
+  font-weight: bold;
+}
+
+h1,
+.heading-a {
+  margin: 1rem 0 0.75rem;
+  font-size: 2.027rem;
+  font-weight: bold;
+  line-height: 1.3;
+}
+
+h2,
+.heading-b {
+  margin: 1rem 0 0.75rem;
+  font-size: 1.802rem;
+  font-weight: bold;
+  line-height: 1.3;
+}
+
+h3,
+.heading-c {
+  margin: 1rem 0 0.75rem;
+  font-size: 1.602rem;
+  font-weight: bold;
+  line-height: 1.3;
+}
+
+h4,
+.heading-d {
+  margin: 1rem 0 0.75rem;
+  font-size: 1.424rem;
+  font-weight: bold;
+  line-height: 1.3;
+}
+
+h5,
+.heading-e {
+  margin: 1rem 0 0.75rem;
+  font-size: 1.266rem;
+  font-weight: bold;
+  line-height: 1.3;
+}
+
+h6,
+.heading-f {
+  margin: 1rem 0 0.75rem;
+  font-size: 1.125rem;
+  font-weight: bold;
+  line-height: 1.3;
+}
+
+dl {
+  margin: 0 0 20px;
+}
+
+dl dd,
+dl dl {
+  margin-bottom: 10px;
+  margin-left: 20px; /* LTR */
+}
+
+address {
+  font-style: italic;
+}
+
+u,
+ins {
+  text-decoration: none;
+}
+
+s,
+strike,
+del {
+  text-decoration: line-through;
+}
+
+big {
+  font-size: larger;
+}
+
+small {
+  font-size: smaller;
+}
+
+sub {
+  vertical-align: sub;
+  font-size: smaller;
+  line-height: normal;
+}
+
+sup {
+  vertical-align: super;
+  font-size: smaller;
+  line-height: normal;
+}
+
+abbr,
+acronym {
+  border-bottom: dotted 1px;
+}
+
+ul {
+  margin: 0.25em 0 0.25em 1.5em; /* LTR */
+  padding-left: 0;
+  list-style-type: disc;
+  list-style-image: none;
+}
+
+ol {
+  margin: 0.25em 0 0.25em 2em; /* LTR */
+  padding: 0;
+  list-style-type: decimal;
+}
+
+abbr[title] {
+  text-decoration: none;
+}

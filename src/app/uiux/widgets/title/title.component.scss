@@ -6,16 +6,10 @@
   &.style-v4,
   &.style-v5,
   &.style-v6 {
-    text-transform: uppercase;
     position: relative;
     .title-header {
-      font-size: 30px;
-      font-weight: 400;
-      letter-spacing: 1px;
-      margin-bottom: 40px;
       padding-bottom: 20px;
       position: relative;
-      line-height: 40px;
     }
     .line-style {
       bottom: 0;
@@ -106,22 +100,7 @@
       }
     }
   }
-  &.style-v3,
-  &.style-v6 {
-    // light title
-    .title-header {
-      font-weight: 300;
-    }
-  }
-  &.style-v7 {
-    // Main color title
-    .title-header {
-      font-family: "Oswald", sans-serif;
-      font-weight: 400;
-      font-size: 24px;
-      line-height: 33px;
-    }
-  }
+
   &.line-full-width {
     .line-style {
       width: 100% !important;

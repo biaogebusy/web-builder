@@ -4,8 +4,7 @@
     "type": "carousel-2v1",
     "title": {
       "label": "WHAT THEY SAY ABOUT ME",
-      "style": "style-v2",
-      "icon": "person"
+      "style": "style-v1"
     },
     "bg": {
       "classes": "bg-fill-width overlay",
@@ -69,8 +68,7 @@
     "type": "carousel-2v1",
     "title": {
       "label": "HAPPY CLIENT",
-      "style": "style-v1",
-      "icon": "person"
+      "style": "style-v1"
     },
     "sliders": {
       "params": {

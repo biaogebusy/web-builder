@@ -3,9 +3,7 @@
   <app-bg [content]="content.bg" *ngIf="content.bg"></app-bg>
   <div class="container">
     <div [ngClass]="content.classes">
-      <div class="p-bottom-sm">
-        <app-title *ngIf="content.title" [content]="content.title"></app-title>
-      </div>
+      <app-title *ngIf="content.title" [content]="content.title"></app-title>
       <div fxLayout.lt-md="column" fxLayout.gt-sm="row" fxLayoutGap.lt-md="6rem" fxLayoutGap.gt-sm="3rem">
         <app-box [content]="item" *ngFor="let item of content.elements" fxFlex.xs="100%" fxFlex.sm="50%"
           fxFlex.gt-sm="33.33%"></app-box>

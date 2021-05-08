@@ -16,11 +16,18 @@
       max-width: 415px;
     }
   }
-  .item:nth-child(2n) {
-    .image-container {
-      float: right;
-      margin-right: 0;
-      margin-left: 4rem;
+  .item {
+    &:nth-child(2n + 1) {
+      .module-content {
+        margin-left: 415px;
+      }
+    }
+    &:nth-child(2n) {
+      .image-container {
+        float: right;
+        margin-right: 0;
+        margin-left: 4rem;
+      }
     }
   }
 }
