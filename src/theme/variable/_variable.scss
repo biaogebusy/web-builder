@@ -72,19 +72,22 @@ $dark-accent: mat-palette($light-color, A200, A100, A400);
 $dark-warn: mat-palette($mat-deep-orange);
 $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 
-$heading-font-family: "Helvetica", "Microsoft YaHei", "微软雅黑", "FreeSans",
+$font-family: "Helvetica", "Microsoft YaHei", "微软雅黑", "FreeSans",
   "Hiragino Sans GB", "Hiragino Sans GB W3", "Arial", "sans-serif";
 
-$typography: mat-typography-config(
-  $display-4: mat-typography-level(112px, $font-family: $heading-font-family),
-  $display-3: mat-typography-level(56px, $font-family: $heading-font-family),
-  $display-2: mat-typography-level(45px, $font-family: $heading-font-family),
-  $display-1: mat-typography-level(34px, $font-family: $heading-font-family),
-  $headline: mat-typography-level(24px, $font-family: $heading-font-family),
-  $title: mat-typography-level(20px, $font-family: $heading-font-family),
+// custom typography
+// https://material.angular.io/guide/typography
+$custom-typography: mat-typography-config(
+  $font-family: $font-family,
+  $display-4: mat-typography-level(80px, $font-family: $font-family),
+  $display-3: mat-typography-level(72px, $font-family: $font-family),
+  $display-2: mat-typography-level(64px, $font-family: $font-family),
+  $display-1: mat-typography-level(56px, $font-family: $font-family),
+  $headline: mat-typography-level(24px, $font-family: $font-family),
+  $title: mat-typography-level(20px, $font-family: $font-family),
+  $body-1: mat-typography-level(14px, 20px, 400),
 );
 
-@include angular-material-typography($typography);
 $spacer: 4rem;
 $font-size: 1.6rem;
 $font-size-sm: 1.4rem;

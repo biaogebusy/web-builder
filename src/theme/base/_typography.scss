@@ -1,0 +1,20 @@
+@import "../variable/breakpoint";
+
+@media #{$lt-md} {
+  .mat-display-1 {
+    font-size: 36px !important;
+    line-height: 1.2 !important;
+  }
+  .mat-display-2 {
+    font-size: 42px !important;
+    line-height: 1.2 !important;
+  }
+  .mat-display-3 {
+    font-size: 50px !important;
+    line-height: 1.2 !important;
+  }
+  .mat-display-4 {
+    font-size: 56px !important;
+    line-height: 1.2 !important;
+  }
+}

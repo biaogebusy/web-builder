@@ -1,18 +1,19 @@
 @import "~@angular/material/theming";
-@import "./variable/variable.scss";
-@import "./mixins/mixins.scss";
-@import "./utilities/utilities.scss";
-@import "./layout.scss";
+@import "./variable/variable";
+@import "./mixins/base-color";
+@import "./base/base";
 @import "./component/component";
 @import "./drupal";
 
 @include reset-styles();
-@include mat-core();
+// override typography
+@include mat-core($custom-typography);
+@include angular-material-theme($app-theme);
 
 @include branding(map-get($color-theme, shadow), "shadow");
 @include branding(map-get($color-theme, light), "light");
+
 @include custom-overide();
-@include angular-material-theme($app-theme);
 @include base-colors($app-theme);
 @include component-theme($app-theme);
 

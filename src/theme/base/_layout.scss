@@ -1,4 +1,36 @@
 @import "../mixins/amixin";
+@import "../variable/breakpoint";
+
+.container {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0 2rem;
+
+  @media #{$md} {
+    margin: 0 auto;
+    padding: 0 4rem;
+  }
+
+  @media #{$gt-md} {
+    margin: 0 auto;
+    max-width: 1440px;
+  }
+  .container {
+    padding: 0;
+  }
+}
+
+.width-100 {
+  width: 100%;
+}
+
+.position-relative {
+  position: relative;
+}
+
+.position-absolute {
+  position: absolute;
+}
 
 .display-none {
   display: none !important;

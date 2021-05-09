@@ -1,4 +1,4 @@
-@import "../variable/variable.scss";
+@import "../variable/variable";
 @mixin spacer($pre, $region, $sizes, $pos, $axis, $spacer) {
   @each $p in $pos {
     .#{$pre}-#{$p}-0 {
