@@ -42,7 +42,6 @@ export class AppState {
     private titleService: TitleService
   ) {
     this.setConfig();
-    console.log(this.router);
   }
 
   @computed get ready(): any {
