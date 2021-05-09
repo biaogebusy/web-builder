@@ -15,7 +15,8 @@
     "type": "location",
     "title": {
       "label": "My Location",
-      "style": "banner-title"
+      "style": "banner-title",
+      "classes": "m-bottom-0"
     },
     "style": {
       "height": "500px"

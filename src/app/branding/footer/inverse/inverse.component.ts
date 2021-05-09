@@ -41,15 +41,12 @@ export class InverseComponent implements OnInit {
         'X-CSRF-Token': this.apiService.csrfToken,
       }),
     };
+    const data = this.formService.getwebFormData(
+      this.content.footerNewsletter.params,
+      this.form
+    );
     this.http
-      .post(
-        `${this.apiService.apiUrl}/webform_rest/submit`,
-        {
-          webform_id: this.content.footerNewsletter.action.webform_id,
-          email: this.form.value.email,
-        },
-        httpOptons
-      )
+      .post(`${this.apiService.apiUrl}/webform_rest/submit`, data, httpOptons)
       .subscribe(
         (res) => {
           this.submited = false;
@@ -62,7 +59,8 @@ export class InverseComponent implements OnInit {
         },
         (error) => {
           console.log(error);
-          this.snackbar.open(`Error: ${error.error.error.message}`, '', {
+          this.submited = false;
+          this.snackbar.open(`Error: ${error.message}`, '', {
             horizontalPosition: 'center',
             verticalPosition: 'top',
             duration: 3000,

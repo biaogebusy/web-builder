@@ -16,4 +16,11 @@ export class FormService {
     });
     return new FormGroup(group);
   }
+
+  getwebFormData(params: any, form: any): any {
+    const id = {
+      webform_id: params.webform_id,
+    };
+    return Object.assign({}, id, form.value);
+  }
 }

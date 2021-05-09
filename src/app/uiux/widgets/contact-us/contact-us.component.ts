@@ -37,18 +37,13 @@ export class ContactUsComponent implements OnInit {
         'X-CSRF-Token': this.apiService.csrfToken,
       }),
     };
+    console.log(this.form.value);
+    const data = this.formService.getwebFormData(
+      this.content.params,
+      this.form
+    );
     this.http
-      .post(
-        `${this.apiService.apiUrl}/webform_rest/submit`,
-        {
-          webform_id: this.content.params.webform_id,
-          name: this.form.value.name,
-          email: this.form.value.email,
-          subject: this.form.value.subject,
-          message: this.form.value.message,
-        },
-        httpOptons
-      )
+      .post(`${this.apiService.apiUrl}/webform_rest/submit`, data, httpOptons)
       .subscribe(
         (res) => {
           this.submited = false;
@@ -61,7 +56,8 @@ export class ContactUsComponent implements OnInit {
         },
         (error) => {
           console.log(error);
-          this.snackbar.open(`Error: ${error.error.error.message}`, '', {
+          this.submited = false;
+          this.snackbar.open(`Error: ${error.message}`, '', {
             horizontalPosition: 'center',
             verticalPosition: 'top',
             duration: 3000,
