@@ -1,10 +1,15 @@
+@import "../../../../../theme/variable/breakpoint";
 .showcase-3-v1 {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-}
-.showcase-content {
-  margin: 15px auto 50px;
-  text-align: center;
-  width: 50%;
+  .showcase-content {
+    text-align: center;
+  }
+  @media #{$lt-md} {
+    .showcase-content {
+      margin: 15px auto 50px;
+      width: 50%;
+    }
+  }
 }
