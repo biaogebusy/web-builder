@@ -12,6 +12,7 @@
         "style": "style-v1",
         "classes": "mat-display-4"
       },
+      "spacer": "xl",
       "classes": "xy-center",
       "style-": {
         "width": "50%",
@@ -19,11 +20,11 @@
         "top": "5%"
       },
       "bg": {
-        "classes": "bg-shadow bg-fill-width overlay",
+        "classes": "bg-shadow overlay overlay-20",
         "img": {
           "hostClasses": "bg-center",
           "src": "/assets/images/hero/1-6.jpg",
-          "mobile": "/assets/images/1-1/natural-01.jpg"
+          "mobile": "/assets/images/mobile/mobile-03.jpg"
         }
       },
       "body": "The Vabeen’PLUM is designed with a 12ml ultra-large capacity tank to provide more vaping enjoyment than similar products. Every drop of e-liquid maximizes its value. Approx. 3500puffs per pod, which can last a week, free you from frequently filling.The translucent tank allows you to clearly observe the capacity of e - liquid.&nbsp;"
@@ -40,16 +41,17 @@
         "style": "style-v4",
         "classes": "mat-display-3"
       },
+      "spacer": "xl",
       "style": {
         "width": "50%"
       },
       "classes": "y-center",
       "bg": {
-        "classes": "bg-shadow bg-fill-width overlay overlay-20",
+        "classes": "bg-shadow overlay overlay-80",
         "img": {
           "hostClasses": "bg-center",
           "src": "/assets/images/hero/329.jpg",
-          "mobile": "/assets/images/1-1/natural-01.jpg"
+          "mobile": "/assets/images/mobile/mobile-04.jpg"
         }
       },
       "body": "The Vabeen’PLUM is designed with a 12ml ultra-large capacity tank to provide more vaping enjoyment than similar products. Every drop of e-liquid maximizes its value. Approx. 3500puffs per pod, which can last a week, free you from frequently filling.The translucent tank allows you to clearly observe the capacity of e - liquid. <br> <br>*individual user experience may vary, depending on usage"
@@ -66,24 +68,25 @@
         "style": "style-v4",
         "classes": "mat-display-3"
       },
+      "spacer": "xl",
       "style": {
         "width": "50%",
         "left": "50%"
       },
       "classes": "y-center",
       "bg": {
-        "classes": "bg-shadow bg-fill-width",
+        "classes": "bg-shadow overlay overlay-20",
         "img": {
           "hostClasses": "bg-center",
           "src": "/assets/images/hero/light-bg.jpeg",
-          "mobile": "/assets/images/1-1/natural-01.jpg"
+          "mobile": "/assets/images/mobile/follower-04.jpg"
         }
       },
       "body": "The Vabeen’PLUM is designed with a 12ml ultra-large capacity tank to provide more vaping enjoyment than similar products. Every drop of e-liquid maximizes its value. Approx. 3500puffs per pod, which can last a week, free you from frequently filling.The translucent tank allows you to clearly observe the capacity of e - liquid. <br> <br>*individual user experience may vary, depending on usage"
     }
   }, {
     "type": "hero-2v1",
-    "theme": "",
+    "theme": "text-light",
     "params": {
       "height": "750px"
     },
@@ -93,6 +96,7 @@
         "style": "style-v4",
         "classes": "mat-display-3"
       },
+      "spacer": "xl",
       "style": {
         "width": "50%",
         "left": "40%",
@@ -100,11 +104,11 @@
       },
       "classes": "position-absolute",
       "bg": {
-        "classes": "bg-shadow bg-fill-width",
+        "classes": "bg-shadow overlay overlay-80",
         "img": {
           "hostClasses": "bg-center",
           "src": "/assets/images/hero/light-bg.jpeg",
-          "mobile": "/assets/images/1-1/natural-01.jpg"
+          "mobile": "/assets/images/mobile/mobile-02.jpg"
         }
       },
       "body": "The Vabeen’PLUM is designed with a 12ml ultra-large capacity tank to provide more vaping enjoyment than similar products. Every drop of e-liquid maximizes its value. Approx. 3500puffs per pod, which can last a week, free you from frequently filling.The translucent tank allows you to clearly observe the capacity of e - liquid. <br> <br>*individual user experience may vary, depending on usage"

@@ -12,6 +12,7 @@
       },
       "elements": [{
         "type": "text",
+        "spacer": "xl",
         "title": {
           "label": "Light text, and xy center",
           "style": "style-v1",
@@ -22,10 +23,11 @@
           "classes": "bg-shadow  overlay overlay-80",
           "img": {
             "hostClasses": "bg-center",
-            "src": "/assets/images/16-9/business-14.jpeg"
+            "src": "/assets/images/16-9/business-14.jpeg",
+            "mobile": "/assets/images/mobile/mobile-03.jpg"
           }
         },
-        "body": "Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.",
+        "body": "At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.",
         "action": {
           "href": "#",
           "label": "Get Started"
@@ -37,15 +39,17 @@
           "style": "style-v1",
           "classes": "mat-display-3"
         },
+        "spacer": "xl",
         "classes": "xy-center text-light",
         "bg": {
           "classes": "bg-shadow  overlay overlay-80",
           "img": {
             "hostClasses": "bg-center",
-            "src": "/assets/images/16-9/business-15.jpeg"
+            "src": "/assets/images/16-9/business-15.jpeg",
+            "mobile": "/assets/images/mobile/mobile-04.jpg"
           }
         },
-        "body": "Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. ",
+        "body": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.",
         "action": {
           "href": "#",
           "label": "Get Started"
@@ -108,5 +112,148 @@
         "label": "Read More"
       }
     }]
+  }, {
+    "type": "carousel-1v1",
+    "spacer": "lg",
+    "title": {
+      "label": "Meet the team",
+      "icon": "email",
+      "style": "style-v2",
+      "classes": "mat-display-1"
+    },
+    "bg": {
+      "classes": "bg-white bg-fill-width"
+    },
+    "sliders": {
+      "params": {
+        "slidesPerView": 1.2,
+        "spaceBetween": 20,
+        "navigation": false,
+        "breakpoints": {
+          "600": {
+            "slidesPerView": 3,
+            "spaceBetween": 20
+          },
+          "960": {
+            "slidesPerView": 3,
+            "spaceBetween": 50
+          }
+        }
+      },
+      "classes": "p-bottom",
+      "elements": [{
+        "type": "card",
+        "title": "JOHNSON",
+        "subTitle": "Frontend Devel",
+        "classes": "card-no-shadow",
+        "body": "Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. ",
+        "feature": {
+          "fullIcon": "fullscreen",
+          "openIcon": "open_in_new",
+          "link": "#",
+          "ratios": "media-4-3",
+          "img": {
+            "large": "/assets/images/cases/porto1.jpg",
+            "normal": "/assets/images/cases/porto1.jpg"
+          }
+        }
+      }, {
+        "type": "card",
+        "feature": {
+          "fullIcon": "fullscreen",
+          "openIcon": "open_in_new",
+          "link": "#",
+          "ratios": "media-4-3",
+          "img": {
+            "large": "/assets/images/cases/porto7.jpg",
+            "normal": "/assets/images/cases/porto7.jpg"
+          }
+        },
+        "title": "JOHNSON",
+        "subTitle": "Frontend Devel",
+        "classes": "card-no-shadow",
+        "body": "Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. "
+      }, {
+        "type": "card",
+        "feature": {
+          "fullIcon": "fullscreen",
+          "openIcon": "open_in_new",
+          "link": "#",
+          "ratios": "media-4-3",
+          "img": {
+            "large": "/assets/images/cases/porto2.jpg",
+            "normal": "/assets/images/cases/porto2.jpg"
+          }
+        },
+        "title": "Will",
+        "subTitle": "Frontend Devel",
+        "classes": "card-no-shadow",
+        "body": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr. "
+      }, {
+        "type": "card",
+        "feature": {
+          "fullIcon": "fullscreen",
+          "openIcon": "open_in_new",
+          "link": "#",
+          "ratios": "media-4-3",
+          "img": {
+            "large": "/assets/images/cases/porto3.jpg",
+            "normal": "/assets/images/cases/porto3.jpg"
+          }
+        },
+        "title": "Tamy",
+        "subTitle": "Backend Devel",
+        "classes": "card-no-shadow",
+        "body": "Sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum."
+      }, {
+        "type": "card",
+        "feature": {
+          "fullIcon": "fullscreen",
+          "openIcon": "open_in_new",
+          "link": "#",
+          "ratios": "media-4-3",
+          "img": {
+            "large": "/assets/images/cases/porto4.jpg",
+            "normal": "/assets/images/cases/porto4.jpg"
+          }
+        },
+        "title": "Ada",
+        "subTitle": "Frontend Devel",
+        "classes": "card-no-shadow",
+        "body": "Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat."
+      }, {
+        "type": "card",
+        "feature": {
+          "fullIcon": "fullscreen",
+          "openIcon": "open_in_new",
+          "link": "#",
+          "ratios": "media-4-3",
+          "img": {
+            "large": "/assets/images/cases/porto5.jpg",
+            "normal": "/assets/images/cases/porto5.jpg"
+          }
+        },
+        "title": "MeiMei",
+        "subTitle": "Frontend Devel",
+        "classes": "card-no-shadow",
+        "body": "Vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim."
+      }, {
+        "type": "card",
+        "feature": {
+          "fullIcon": "fullscreen",
+          "openIcon": "open_in_new",
+          "link": "#",
+          "ratios": "media-4-3",
+          "img": {
+            "large": "/assets/images/cases/porto6.jpg",
+            "normal": "/assets/images/cases/porto6.jpg"
+          }
+        },
+        "title": "Nikki",
+        "subTitle": "BA Test",
+        "classes": "card-no-shadow",
+        "body": "Consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat."
+      }]
+    }
   }]
 }
