@@ -338,7 +338,7 @@
       }],
       "action": {
         "label": "订阅",
-        "api": "/api/v1/subject"
+        "webform_id": "subscribe"
       }
     },
     "footerBottom": {

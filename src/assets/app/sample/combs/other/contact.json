@@ -85,7 +85,7 @@
     }, {
       "type": "contact-us",
       "params": {
-        "api": "/api/vi/contact"
+        "webform_id": "contact"
       },
       "bg": {
         "classes": "bg-fill-width wave-wrapper"

@@ -2,6 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormService } from '../../../service/form.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ApiService } from '../../../service/api.service';
 
 @Component({
   selector: 'app-inverse',
@@ -14,7 +16,12 @@ export class InverseComponent implements OnInit {
   success = false;
   submited = false;
 
-  constructor(public formService: FormService, private snackbar: MatSnackBar) {}
+  constructor(
+    public formService: FormService,
+    private snackbar: MatSnackBar,
+    private http: HttpClient,
+    private apiService: ApiService
+  ) {}
 
   ngOnInit(): void {
     this.form = this.formService.toFormGroup(
@@ -28,13 +35,39 @@ export class InverseComponent implements OnInit {
     }
     this.submited = true;
     console.log(this.form.value);
-    this.success = true;
-    setTimeout(() => {
-      this.submited = false;
-      this.snackbar.open('Welcome Subject!', '', {
-        horizontalPosition: 'center',
-        verticalPosition: 'top',
-      });
-    }, 2000);
+    const httpOptons = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': this.apiService.csrfToken,
+      }),
+    };
+    this.http
+      .post(
+        `${this.apiService.apiUrl}/webform_rest/submit`,
+        {
+          webform_id: this.content.footerNewsletter.action.webform_id,
+          email: this.form.value.email,
+        },
+        httpOptons
+      )
+      .subscribe(
+        (res) => {
+          this.submited = false;
+          this.success = true;
+          this.snackbar.open(`Subscibe successs!`, '', {
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+            duration: 3000,
+          });
+        },
+        (error) => {
+          console.log(error);
+          this.snackbar.open(`Error: ${error.error.error.message}`, '', {
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+            duration: 3000,
+          });
+        }
+      );
   }
 }
