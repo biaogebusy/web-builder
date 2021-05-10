@@ -13,8 +13,8 @@
       </div>
       <div class="media-body" fxLayout="column" fxFlex="100" fxLayoutGap="1rem">
         <div class="m-bottom-xs" fxLayoutAlign="start center" fxLayout="row wrap" fxLayoutGap="1rem">
-          <h4 class="title" *ngIf="item?.company">
-            {{item.company.title}}</h4>
+          <div class="title" *ngIf="item?.company">
+            {{item.company.title}}</div>
           <app-chip-list [content]="item.company.welfare" [classes]="'mini primary'"></app-chip-list>
         </div>
         <div class="info" fxLayout="row wrap" fxLayoutAlign="space-between center">
@@ -34,5 +34,4 @@
       </div>
     </div>
   </cdk-virtual-scroll-viewport>
-
 </div>

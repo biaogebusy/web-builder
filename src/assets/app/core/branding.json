@@ -51,11 +51,6 @@
           "label": "地理位置",
           "href": "/sample/combs/map/location"
         }]
-      },
-      {
-        "label": "新闻",
-        "classes": "bold",
-        "href": "/lists/news"
       }, {
         "label": "博客",
         "classes": "bold",
@@ -80,44 +75,44 @@
           "label": "Showcase",
           "child": [{
             "label": "Showcase 1v1",
-            "href": "/sample/combs/showcases/showcase1v1"
+            "href": "/sample/combs/showcase/showcase1v1"
           }, {
             "label": "Showcase 1v2",
-            "href": "/sample/combs/showcases/showcase1v2"
+            "href": "/sample/combs/showcase/showcase1v2"
           }, {
             "label": "Showcase 1v3",
-            "href": "/sample/combs/showcases/showcase1v3"
+            "href": "/sample/combs/showcase/showcase1v3"
           }, {
             "label": "Showcase 2v1",
-            "href": "/sample/combs/showcases/showcase2v1"
+            "href": "/sample/combs/showcase/showcase2v1"
           }, {
             "label": "Showcase 3v1",
-            "href": "/sample/combs/showcases/showcase3v1"
+            "href": "/sample/combs/showcase/showcase3v1"
           }, {
             "label": "Showcase 3v2",
-            "href": "/sample/combs/showcases/showcase3v2"
+            "href": "/sample/combs/showcase/showcase3v2"
           }, {
             "label": "Showcase 3v3 / blog list",
-            "href": "/sample/combs/showcases/showcase3v3"
+            "href": "/sample/combs/showcase/showcase3v3"
           }, {
             "label": "Showcase 3v4",
-            "href": "/sample/combs/showcases/showcase3v4"
+            "href": "/sample/combs/showcase/showcase3v4"
           }, {
             "label": "Showcase 4v1",
-            "href": "/sample/combs/showcases/showcase4v1"
+            "href": "/sample/combs/showcase/showcase4v1"
           }]
         }, {
           "label": "Carousel",
           "href": "javascript:void(0)",
           "child": [{
             "label": "Carousel 1v1",
-            "href": "/sample/combs/carousels/carousel1v1"
+            "href": "/sample/combs/carousel/carousel1v1"
           }, {
             "label": "Carousel 1v2",
-            "href": "/sample/combs/carousels/carousel1v2"
+            "href": "/sample/combs/carousel/carousel1v2"
           }, {
             "label": "Carousel 2v1",
-            "href": "/sample/combs/carousels/carousel2v1"
+            "href": "/sample/combs/carousel/carousel2v1"
           }]
         }, {
           "label": "Masonry",
@@ -160,7 +155,7 @@
             "href": "/sample/combs/banner/banner-simple"
           }, {
             "label": "Line Year",
-            "href": "/sample/combs/carousels/lineyear"
+            "href": "/sample/combs/carousel/lineyear"
           }, {
             "label": "Why Choose Us",
             "href": "/sample/combs/other/whychooseus"
