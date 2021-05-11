@@ -24,7 +24,6 @@ export class ShuffleComponent implements OnInit, AfterViewInit {
     const shuffleEl = this.el.nativeElement.querySelectorAll(
       '.shuffle-inner'
     )[0];
-    console.log(shuffleEl);
     this.shuffle = new Shuffle(shuffleEl, {
       itemSelector: '.item',
       sizer,
