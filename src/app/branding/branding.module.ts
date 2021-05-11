@@ -13,6 +13,7 @@ import { WidgetsModule } from '../uiux/widgets/widgets.module';
 import { LightComponent } from './footer/light/light.component';
 import { InverseComponent } from './footer/inverse/inverse.component';
 import { MenuItemComponent } from './footer/menu-item/menu-item.component';
+import { SearchBoxComponent } from './header/menu/search-box/search-box.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { MenuItemComponent } from './footer/menu-item/menu-item.component';
     HeaderTopComponent,
     LightComponent,
     InverseComponent,
+    SearchBoxComponent,
   ],
   imports: [ShareModule, WidgetsModule],
   exports: [HeaderComponent, FooterComponent, MenuComponent],
