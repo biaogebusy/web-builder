@@ -1,40 +1,6 @@
 {
   "title": "Why choose us",
   "body": [{
-    "type": "panel",
-    "title": {
-      "label": "More Features",
-      "style": "style-v4"
-    },
-    "elements": [{
-      "title": "CUSTOMER SERVICE",
-      "icon": "person",
-      "params": {
-        "expanded": true
-      },
-      "elements": [{
-        "type": "text",
-        "spacer": "none",
-        "body": "<p></p>\n\n<p>Sed suscipit, neque quis faucibus porta, diam arcu porta mauris, id venenatis mauris risus sit amet dolor. Suspendisse pulvinar, eros a euismod aliquet, lacus elit eros a euismod aliquet.</p>\n\n<p>Sed suscipit, neque quis faucibus porta, diam arcu porta mauris, id venenatis mauris risus sit amet dolor. Suspendisse pulvinar, eros a euismod aliquet, lacus elit eros a euismod aliquet.</p>\n\n<p>Sed suscipit, neque quis faucibus porta, diam arcu porta mauris, id venenatis mauris risus sit amet dolor. Suspendisse pulvinar, eros a euismod aliquet, lacus elit eros a euismod aliquet.</p>\n\n<p></p>"
-      }]
-    }, {
-      "title": "INTEGRITY AND HONESTY",
-      "icon": "faviores",
-      "elements": [{
-        "type": "text",
-        "spacer": "none",
-        "body": "<p></p>\n\n<p>Sed suscipit, neque quis faucibus porta, diam arcu porta mauris, id venenatis mauris risus sit amet dolor. Suspendisse pulvinar, eros a euismod aliquet, lacus elit eros a euismod aliquet.</p>\n\n<p>Sed suscipit, neque quis faucibus porta, diam arcu porta mauris, id venenatis mauris risus sit amet dolor. Suspendisse pulvinar, eros a euismod aliquet, lacus elit eros a euismod aliquet.</p>\n\n<p>Sed suscipit, neque quis faucibus porta, diam arcu porta mauris, id venenatis mauris risus sit amet dolor. Suspendisse pulvinar, eros a euismod aliquet, lacus elit eros a euismod aliquet.</p>\n\n<p></p>"
-      }]
-    }, {
-      "title": "THE BEST SALES ON THE COUNTRY",
-      "icon": "faviores",
-      "elements": [{
-        "type": "text",
-        "spacer": "none",
-        "body": "<p></p>\n\n<p>Sed suscipit, neque quis faucibus porta, diam arcu porta mauris, id venenatis mauris risus sit amet dolor. Suspendisse pulvinar, eros a euismod aliquet, lacus elit eros a euismod aliquet.</p>\n\n<p>Sed suscipit, neque quis faucibus porta, diam arcu porta mauris, id venenatis mauris risus sit amet dolor. Suspendisse pulvinar, eros a euismod aliquet, lacus elit eros a euismod aliquet.</p>\n\n<p>Sed suscipit, neque quis faucibus porta, diam arcu porta mauris, id venenatis mauris risus sit amet dolor. Suspendisse pulvinar, eros a euismod aliquet, lacus elit eros a euismod aliquet.</p>\n\n<p></p>"
-      }]
-    }]
-  }, {
     "type": "whychooseus",
     "bg": {
       "classes": "bg-shadow bg-fill-width"
@@ -43,7 +9,8 @@
       "type": "tab",
       "title": {
         "label": "Why choose us",
-        "style": "style-v4"
+        "style": "style-v4",
+        "classes": "mat-display-0"
       },
       "spacer": "none",
       "classes": "bg-light",
@@ -73,7 +40,8 @@
       "type": "panel",
       "title": {
         "label": "More Features",
-        "style": "style-v4"
+        "style": "style-v4",
+        "classes": "mat-display-0"
       },
       "spacer": "none",
       "elements": [{
@@ -103,35 +71,6 @@
           "spacer": "none",
           "body": "<p></p>\n\n<p>Sed suscipit, neque quis faucibus porta, diam arcu porta mauris, id venenatis mauris risus sit amet dolor. Suspendisse pulvinar, eros a euismod aliquet, lacus elit eros a euismod aliquet.</p>\n\n<p>Sed suscipit, neque quis faucibus porta, diam arcu porta mauris, id venenatis mauris risus sit amet dolor. Suspendisse pulvinar, eros a euismod aliquet, lacus elit eros a euismod aliquet.</p>\n\n<p>Sed suscipit, neque quis faucibus porta, diam arcu porta mauris, id venenatis mauris risus sit amet dolor. Suspendisse pulvinar, eros a euismod aliquet, lacus elit eros a euismod aliquet.</p>\n\n<p></p>"
         }]
-      }]
-    }]
-  }, {
-    "type": "tab",
-    "title": {
-      "label": "Why choose us",
-      "style": "style-v4"
-    },
-    "classes": "bg-light",
-    "elements": [{
-      "label": "Quality",
-      "elements": [{
-        "type": "text",
-        "spacer": "none",
-        "body": "<p>Lorem Ipsum is simply dummy text of the printing and typeseting industry Lorem in text Ipsum has been the industry standar dummyy text ever since the when an iunesi known.</p><ul class=\"list3 clearfix\">\n\t<li>Multiple Layout</li>\n\t<li>Awesome Shortcodes</li>\n\t<li>Browser Compatibility</li>\n\t<li>Easy to Edit Animations</li>\n\t<li>Parallax Effect</li>\n\t<li>Responsive Design</li>\n\t<li>Many Home Page Versions</li>\n\t<li>Many Blog Pages</li>\n</ul>"
-      }]
-    }, {
-      "label": "Design",
-      "elements": [{
-        "type": "text",
-        "spacer": "none",
-        "body": "<p>Lorem Ipsum is simply dummy text of the printing and typeseting industry Lorem in text Ipsum has been the industry standar dummyy text ever since the when an iunesi known.</p><ul class=\"list3 clearfix\">\n\t<li>Multiple Layout</li>\n\t<li>Awesome Shortcodes</li>\n\t<li>Browser Compatibility</li>\n\t<li>Easy to Edit Animations</li>\n\t<li>Parallax Effect</li>\n\t<li>Responsive Design</li>\n\t<li>Many Home Page Versions</li>\n\t<li>Many Blog Pages</li>\n</ul>"
-      }]
-    }, {
-      "label": "Programing",
-      "elements": [{
-        "type": "text",
-        "spacer": "none",
-        "body": "<p>Lorem Ipsum is simply dummy text of the printing and typeseting industry Lorem in text Ipsum has been the industry standar dummyy text ever since the when an iunesi known.</p><ul class=\"list3 clearfix\">\n\t<li>Multiple Layout</li>\n\t<li>Awesome Shortcodes</li>\n\t<li>Browser Compatibility</li>\n\t<li>Easy to Edit Animations</li>\n\t<li>Parallax Effect</li>\n\t<li>Responsive Design</li>\n\t<li>Many Home Page Versions</li>\n\t<li>Many Blog Pages</li>\n</ul>"
       }]
     }]
   }]
