@@ -9,7 +9,7 @@
     "bg": {
       "classes": "bg-fill-width overlay",
       "img": {
-        "src": "/assets/images/bg5.jpeg",
+        "src": "/assets/images/16-9/business-12.jpg",
         "hostClasses": "bg-center"
       }
     },

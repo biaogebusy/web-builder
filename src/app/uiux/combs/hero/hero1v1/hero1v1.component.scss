@@ -19,6 +19,7 @@
   }
   @media #{$gt-sm} {
     height: calc(100vh - 110px);
+    min-height: 700px;
     ::ng-deep {
       .base-text {
         overflow: visible;

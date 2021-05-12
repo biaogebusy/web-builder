@@ -1,6 +1,10 @@
 @import "../../../../theme/mixins/amixin";
 .card-body {
-  min-height: 2.4em;
+  min-height: 4rem;
+  @include line-clamp(2);
+}
+.mat-card-title {
+  @include line-clamp(1);
 }
 .card-header {
   position: relative;

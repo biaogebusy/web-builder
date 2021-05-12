@@ -39,7 +39,7 @@
       "title": {
         "label": "Light text, Y center, enabel overlay",
         "style": "style-v4",
-        "classes": "mat-display-3"
+        "classes": "mat-display-1"
       },
       "spacer": "xl",
       "style": {
@@ -66,7 +66,7 @@
       "title": {
         "label": "Base text, Y center, X custom, enabel overlay",
         "style": "style-v4",
-        "classes": "mat-display-3"
+        "classes": "mat-display-1"
       },
       "spacer": "xl",
       "style": {
@@ -94,7 +94,7 @@
       "title": {
         "label": "Base text, XY custom, enabel overlay",
         "style": "style-v4",
-        "classes": "mat-display-3"
+        "classes": "mat-h2"
       },
       "spacer": "xl",
       "style": {
