@@ -1,8 +1,14 @@
 <div class="search-box">
   <form action="">
     <div class="js-form-type-search">
-      <input type="text" type="search" size="15" maxlength="128" class="form-search">
       <mat-icon>search</mat-icon>
+      <input type="text" matInput [formControl]="searchControl" type="search" size="15" maxlength="128"
+        class="form-search" [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let option of options" [value]="option">
+          {{option}}
+        </mat-option>
+      </mat-autocomplete>
     </div>
   </form>
 </div>
