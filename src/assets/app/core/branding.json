@@ -171,6 +171,9 @@
         "href": "/sample/combs/other/contact"
       }
     ],
+    "search": {
+      "enabel": true
+    },
     "actions": [{
       "label": "发布职位",
       "href": "/create-job"

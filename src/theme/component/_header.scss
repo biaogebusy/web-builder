@@ -107,4 +107,17 @@
       }
     }
   }
+
+  .search-box {
+    form {
+      border: 1px solid mat-color($foreground, divider);
+    }
+    input[type="search"] {
+      background: mat-color($background, card);
+      color: mat-color($foreground, text);
+    }
+    .mat-icon {
+      color: mat-color($primary);
+    }
+  }
 }

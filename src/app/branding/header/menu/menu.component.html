@@ -12,7 +12,8 @@
             <span *ngIf="content.logo.version" class="version">v{{appState.version}}</span>
           </ng-template>
         </div>
-        <div class="header-right" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="3rem">
+        <div class="header-right" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap.lt-lg="1rem"
+          fxLayoutGap.gt-md="3rem">
           <div class="menu-inner" *ngIf="content.mainMenu">
             <div class="main-menu" fxLayout="row">
               <div class="item" *ngFor="let menu of content.mainMenu">
@@ -20,6 +21,7 @@
               </div>
             </div>
           </div>
+          <app-search-box [content]="content.search" *ngIf="content?.search?.enabel"></app-search-box>
           <div class="actions" *ngIf="content.actions">
             <button color="primary" mat-raised-button *ngFor="let action of content.actions">
               <app-link [content]="action"></app-link>

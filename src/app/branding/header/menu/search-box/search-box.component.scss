@@ -1,0 +1,45 @@
+@import "../../../../../theme/mixins/amixin";
+@import "../../../../../theme/variable/breakpoint";
+.search-box {
+  width: 150px;
+  form {
+    height: 38px;
+    position: relative;
+    width: 100%;
+    @include border-radius(200px, 200px, 200px, 200px);
+    overflow: hidden;
+    > .js-form-type-search {
+      height: 36px;
+      margin: 0;
+    }
+  }
+  input[type="search"] {
+    border: medium none;
+    height: 100%;
+    width: 100%;
+    padding: 1px 20px 0 40px;
+    font-size: 12px;
+    height: 100%;
+    @include border-radius(200px, 200px, 200px, 200px);
+  }
+  input[type="search"]:active,
+  input[type="search"]:focus {
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    outline: none;
+  }
+  .mat-icon {
+    padding: 0;
+    position: absolute;
+    left: 11px;
+    top: 10px;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    font-size: 20px;
+  }
+  @media #{$gt-md} {
+    width: 180px;
+  }
+}
