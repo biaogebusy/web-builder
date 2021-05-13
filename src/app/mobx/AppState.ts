@@ -175,7 +175,14 @@ export class AppState {
         .get<any>(`${environment.apiUrl}/api/v1/landingPage?content=${path}`)
         .subscribe(
           (pageValue: IPage) => {
-            this.updatePage(pageValue, pageValue?.title);
+            console.log(pageValue);
+            if (!Array.isArray(pageValue)) {
+              this.updatePage(pageValue, pageValue?.title);
+            } else {
+              this.setPageNotFound(
+                `${environment.apiUrl}/api/v1/landingPage?content=404`
+              );
+            }
           },
           (error) => {
             this.setPageNotFound(
