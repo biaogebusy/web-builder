@@ -78,3 +78,15 @@ pull-right {
 .features-absolute {
   margin: -200px 0 0px;
 }
+
+.one-line {
+  @include line-clamp(1);
+}
+
+.two-line {
+  @include line-clamp(2);
+}
+
+.three-line {
+  @include line-clamp(3);
+}
