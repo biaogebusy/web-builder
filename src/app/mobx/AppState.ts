@@ -8,7 +8,7 @@ import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
 import { IApiUrl, IAppConfig, IPage } from './IAppConfig';
 import { Subject } from 'rxjs';
 import { IUser } from './user/IUser';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { TitleService } from '../service/title.service';
 import { version } from '../../../package.json';
 const unauthUser = {
@@ -36,6 +36,7 @@ export class AppState {
   constructor(
     private http: HttpClient,
     private router: Router,
+    private activateRoute: ActivatedRoute,
     private apiService: ApiService,
     @Inject(DOCUMENT) private document: Document,
     @Inject(LOCAL_STORAGE) private storage: StorageService,
@@ -169,8 +170,7 @@ export class AppState {
 
   @action
   setPageContent(): void {
-    const path = this.router.url;
-    // tmp solution
+    const path = this.document.location.pathname;
     if (environment.production) {
       this.http
         .get<any>(`${environment.apiUrl}/api/v1/landingPage?content=${path}`)
@@ -184,7 +184,7 @@ export class AppState {
         );
     } else {
       this.http
-        .get<any>(`${environment.apiUrl}/assets/app/${path}.json`)
+        .get<any>(`${environment.apiUrl}/assets/app${path}.json`)
         .subscribe(
           (pageValue: IPage) => {
             this.updatePage(pageValue, pageValue?.title);

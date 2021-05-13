@@ -66,7 +66,8 @@
           "label": "Hero",
           "child": [{
             "label": "Hero 1v1",
-            "href": "/sample/combs/hero/hero1v1"
+            "href": "sample/combs/hero/hero1v1",
+            "fragment": "about"
           }, {
             "label": "Hero 2v1",
             "href": "/sample/combs/hero/hero2v1"

@@ -42,6 +42,19 @@ export class ScreenService {
     );
   }
 
+  scrollToAnchor(location: string, wait = 0): void {
+    const element = document.querySelector('#' + location);
+    if (element) {
+      setTimeout(() => {
+        element.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+          inline: 'nearest',
+        });
+      }, wait);
+    }
+  }
+
   gotoTop(): void {
     window.scroll({
       top: 0,
