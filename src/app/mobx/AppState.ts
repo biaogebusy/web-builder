@@ -160,12 +160,11 @@ export class AppState {
     this.titleService.setTitle(title);
   }
 
-  setPageNotFound(): void {
-    console.log('404 not found!');
+  setPageNotFound(notFound: string): void {
     this.titleService.setTitle('404 not found!');
-    this.state.page.body[0] = {
-      type: '404',
-    };
+    this.http.get<any>(notFound).subscribe((pageValue: IPage) => {
+      this.updatePage(pageValue, pageValue?.title);
+    });
   }
 
   @action
@@ -179,7 +178,9 @@ export class AppState {
             this.updatePage(pageValue, pageValue?.title);
           },
           (error) => {
-            this.setPageNotFound();
+            this.setPageNotFound(
+              `${environment.apiUrl}/api/v1/landingPage?content=404`
+            );
           }
         );
     } else {
@@ -190,7 +191,7 @@ export class AppState {
             this.updatePage(pageValue, pageValue?.title);
           },
           (error) => {
-            this.setPageNotFound();
+            this.setPageNotFound(`${environment.apiUrl}/assets/app/404.json`);
           }
         );
     }

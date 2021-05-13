@@ -1,0 +1,30 @@
+{
+  "title": "404 not found!",
+  "body": [{
+    "type": "404",
+    "img": {
+      "src": "/assets/images/404.svg",
+      "alt": "404 not found!"
+    },
+    "text": {
+      "spacer": "none",
+      "title": {
+        "label": "OH!NO <br>Page Not Found",
+        "style": "style-v1",
+        "classes": "mat-display-1"
+      },
+      "body": "Xinshi is base on angular,use material theme and drupal jsonapi."
+    },
+    "actions": [{
+      "label": "Go Back",
+      "href": "/",
+      "style": "style-v1",
+      "icon": "open_in_new"
+    }, {
+      "label": "Go To Home",
+      "href": "/",
+      "style": "style-v1",
+      "icon": "open_in_new"
+    }]
+  }]
+}

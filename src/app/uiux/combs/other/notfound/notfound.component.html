@@ -1,0 +1,11 @@
+<div class="not-found text-center p-y container" *ngIf="content">
+  <div fxLayout="row wrap" fxLayoutAlign="center center">
+    <app-img fxFlex="80" [content]="content.img" *ngIf="content.img"></app-img>
+    <app-title fxFlex="100" [content]="content.title" *ngIf="content.title"></app-title>
+    <app-text fxFlex="100" [content]="content.text" *ngIf="content.text"></app-text>
+    <div fxFlex="100" class="actions m-y-sm" *ngIf="content.actions" fxLayout="row" fxLayoutAlign="center center"
+      fxLayoutGap="1rem">
+      <app-btn-animate [content]="item" *ngFor="let item of content.actions"></app-btn-animate>
+    </div>
+  </div>
+</div>
