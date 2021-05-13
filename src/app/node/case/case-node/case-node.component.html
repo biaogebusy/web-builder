@@ -7,7 +7,7 @@
     </div>
     <div class="case-body m-bottom p-x-sm" fxFlex.xs="100" fxFlex.gt-xs="50">
       <app-title [content]="content.title"></app-title>
-      <div [innerHTML]="content.body" class="m-bottom-xs"></div>
+      <div [innerHTML]="content.body | safeHtml" class="m-bottom-xs"></div>
       <app-chip-list [classes]="'mini'" *ngIf="content.tags" [content]="content.tags"></app-chip-list>
       <div class="case-footer m-top">
         <a mat-raised-button title="{{content.site.label}}" target="_blank" color="primary"

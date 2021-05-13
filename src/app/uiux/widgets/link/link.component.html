@@ -1,14 +1,14 @@
 <ng-container *ngIf="content">
   <a *ngIf="isAbsolute(content.href); else relative" [ngClass]="content?.classes"
-    [href]="content?.href || 'javascript:void(0);'" [target]="content?.target || '_self'" [innerHTML]="content?.label"
-    title="{{content.label}}"></a>
+    [href]="content?.href || 'javascript:void(0);'" [target]="content?.target || '_self'"
+    [innerHTML]="content?.label | safeHtml" title="{{content.label}}"></a>
   <ng-template #relative>
     <a *ngIf="content.href;else void" [routerLink]="[content.href]" [routerLinkActive]="['active']"
       [routerLinkActiveOptions]="{exact: true}" [queryParams]="content.queryParams" [ngClass]="content?.classes"
-      [innerHTML]="content?.label" title="{{content.label}}"></a>
+      [innerHTML]="content?.label | safeHtml" title="{{content.label}}"></a>
     <ng-template #void>
       <a [ngClass]="content?.classes" href="javascript:void(0);" [target]="content?.target || '_self'"
-        [innerHTML]="content?.label" title="{{content.label}}"></a>
+        [innerHTML]="content?.label | safeHtml" title="{{content.label}}"></a>
     </ng-template>
   </ng-template>
 </ng-container>

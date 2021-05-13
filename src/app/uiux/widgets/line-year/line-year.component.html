@@ -3,6 +3,6 @@
     {{content.title}}
   </h3>
   <div class="content y-p-sm">
-    <p [innerHTML]="content.body"></p>
+    <p [innerHTML]="content.body | safeHtml"></p>
   </div>
 </ng-container>

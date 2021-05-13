@@ -3,7 +3,7 @@
   <div class="container">
     <app-title [content]="content.title" *ngIf="content.title"></app-title>
     <div class="sub-title text-center" fxLayoutAlign="center center">
-      <p [innerHTML]="content.subTitle" *ngIf="content.subTitle" fxFlex.lt-md="100" fxFlex.gt-sm="50"></p>
+      <p [innerHTML]="content.subTitle | safeHtml" *ngIf="content.subTitle" fxFlex.lt-md="100" fxFlex.gt-sm="50"></p>
     </div>
     <div class="item clearfix m-y" [ngClass]="content.classes" *ngFor="let item of content.elements">
       <div class="image-container">
@@ -11,7 +11,7 @@
       </div>
       <div class="module-content" [ngClass.lt-md]="'p-xs'" [ngClass.gt-sm]="'p-md'">
         <h2 class="mat-h2" *ngIf="item.content.title">{{item.content.title}}</h2>
-        <p class="m-bottom" *ngIf="item.content.body" [innerHTML]="item.content.body"></p>
+        <p class="m-bottom" *ngIf="item.content.body" [innerHTML]="item.content.body | safeHtml"></p>
         <div class="m-y-sm" *ngIf="item.content.details">
           <app-btn-animate [content]="item.content.details"></app-btn-animate>
         </div>

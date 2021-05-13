@@ -5,7 +5,7 @@
   </app-bg>
   <div class="container">
     <app-title *ngIf="content.title" [content]="content.title"></app-title>
-    <div *ngIf="content.content" class="showcase-content" [innerHTML]="content.content"></div>
+    <div *ngIf="content.content" class="showcase-content" [innerHTML]="content.content | safeHtml"></div>
     <app-swiper *ngIf="content?.carousel.elements.length > 1;else img" [content]="content.carousel">
     </app-swiper>
     <ng-template #img>

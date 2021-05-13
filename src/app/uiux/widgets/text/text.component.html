@@ -6,7 +6,7 @@
   <div class="container">
     <div class="inner" [ngClass.gt-xs]="content.classes" [ngStyle.gt-xs]="content.style">
       <app-title [content]="content.title" *ngIf="content.title"></app-title>
-      <div [innerHTML]="content.body"></div>
+      <div [innerHTML]="content.body | safeHtml"></div>
       <div class="m-top" *ngIf="content.action">
         <a mat-raised-button color="primary" href="{{content.action.href}}"
           target="{{content.action.target}}">{{content.action.label}}</a>

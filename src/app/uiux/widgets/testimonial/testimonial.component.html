@@ -8,7 +8,7 @@
         *ngIf="content.subTitle">{{content.subTitle}}</span>
     </div>
     <div class="desc">
-      <p *ngIf="content.body" [innerHTML]="content.body"></p>
+      <p *ngIf="content.body" [innerHTML]="content.body | safeHtml"></p>
     </div>
   </div>
 </div>

@@ -33,5 +33,5 @@
       <div>{{content.company.phone}}</div>
     </div>
   </div>
-  <div class="job-body" [innerHTML]="content.body"></div>
+  <div class="job-body" [innerHTML]="content.body | safeHtml"></div>
 </ng-container>

@@ -15,7 +15,7 @@
           </div>
         </div>
         <mat-divider></mat-divider>
-        <div class="article-body m-y" [innerHTML]="content.body"></div>
+        <div class="article-body m-y" [innerHTML]="content.body | safeHtml"></div>
       </div>
       <div class="sidebar" [ngClass.gt-sm]="'m-left-sm'" *ngIf="content.sidebar" fxFlex.lt-md="100" fxFlex.gt-sm="25">
         <ng-container *ngFor="let item of content.sidebar">

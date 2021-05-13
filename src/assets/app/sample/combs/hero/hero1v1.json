@@ -27,7 +27,7 @@
             "mobile": "/assets/images/mobile/mobile-03.jpg"
           }
         },
-        "body": "At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.",
+        "body": "<p style=\"font-size:18px\">At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.</p>",
         "action": {
           "href": "#",
           "label": "Get Started"
