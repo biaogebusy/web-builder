@@ -1,6 +1,6 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { action, observable, computed } from 'mobx-angular';
-import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
+import { LocalStorageService } from 'ngx-webstorage';
 import { IUser, TokenUser } from './IUser';
 import { Subject } from 'rxjs';
 import { UserService } from '../../service/user.service';
@@ -20,12 +20,14 @@ export class UserState {
 
   constructor(
     private userService: UserService,
-    @Inject(LOCAL_STORAGE) private storage: StorageService,
+    private storage: LocalStorageService,
     private apiService: ApiService,
     private appState: AppState
   ) {
-    if (this.storage.get(this.apiService.localUserKey)) {
-      this.user = JSON.parse(this.storage.get(this.apiService.localUserKey));
+    if (this.storage.retrieve(this.apiService.localUserKey)) {
+      this.user = JSON.parse(
+        this.storage.retrieve(this.apiService.localUserKey)
+      );
     }
   }
 
@@ -63,12 +65,12 @@ export class UserState {
     this.user = unauthUser;
     this.userService.logout().subscribe(
       (res) => {
-        this.storage.remove(this.apiService.localUserKey);
+        this.storage.clear(this.apiService.localUserKey);
         this.appState.logout();
       },
       (error) => {
         console.log(error);
-        this.storage.remove(this.apiService.localUserKey);
+        this.storage.clear(this.apiService.localUserKey);
         this.appState.logout();
       }
     );
@@ -82,7 +84,7 @@ export class UserState {
       this.user = user;
       this.user$.next(user);
       userDetails = Object.assign(data, user);
-      this.storage.set(localStorageKey, JSON.stringify(userDetails));
+      this.storage.store(localStorageKey, JSON.stringify(userDetails));
     });
   }
 }
