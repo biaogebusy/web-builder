@@ -4,7 +4,8 @@
     "type": "showcase-1v3",
     "title": {
       "label": "Showcase 1v3",
-      "style": "style-v1"
+      "style": "style-v1",
+      "classes": "mat-display-1"
     },
     "classes": "text-light",
     "bg": {
@@ -31,7 +32,7 @@
       "style": "style-v1",
       "icon": "verified_user"
     }, {
-      "label": "Buy Now",
+      "label": "Learn more",
       "href": "#",
       "style": "style-v1",
       "icon": "fingerprint"

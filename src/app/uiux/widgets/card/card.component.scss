@@ -19,6 +19,12 @@
       margin: 0 -16px 16px -16px;
     }
     .swiper-container {
+      .feature-inner {
+        width: 100%;
+        margin: 0;
+      }
+    }
+    .swiper-container {
       .mat-card-image {
         margin: 0 0 16px 0px;
       }

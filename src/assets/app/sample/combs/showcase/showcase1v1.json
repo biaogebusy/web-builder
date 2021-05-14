@@ -396,6 +396,9 @@
       "label": "Showcase 1 v1 style v6",
       "style": "style-v6"
     },
+    "bg": {
+      "classes": "bg-shadow bg-fill-width"
+    },
     "elements": [{
       "icon": "verified_user",
       "style": "style-v6",
@@ -450,10 +453,6 @@
     "title": {
       "label": "Showcase 1 v1 style v7",
       "style": "style-v7"
-    },
-
-    "bg": {
-      "classes": "bg-shadow bg-fill-width"
     },
     "elements": [{
       "icon": "verified_user",

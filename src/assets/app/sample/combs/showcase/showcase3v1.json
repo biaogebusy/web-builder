@@ -11,7 +11,7 @@
       "label": "WE ARE ARWEN",
       "style": "style-v1"
     },
-    "content": "At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. ",
+    "content": "<p>At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, Lorem ipsum dolor sit amet. </p><p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.</p>",
     "carousel": {
       "params": {
         "slidesPerView": 1,
@@ -21,11 +21,15 @@
       "classes": "text-center",
       "elements": [{
         "type": "img",
-        "src": "/assets/images/showcase/browser1.png",
+        "src": "/assets/images/16-9/business-06.jpg",
         "alt": "porto1.jpg"
       }, {
         "type": "img",
-        "src": "/assets/images/showcase/browser1.png",
+        "src": "/assets/images/16-9/business-04.jpg",
+        "alt": "porto2.jpg"
+      }, {
+        "type": "img",
+        "src": "/assets/images/16-9/business-12.jpg",
         "alt": "porto2.jpg"
       }]
     }

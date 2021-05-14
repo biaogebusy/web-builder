@@ -1,4 +1,4 @@
-@import '~@angular/material/theming';
+@import "~@angular/material/theming";
 
 @mixin loading-color($config-or-theme) {
   $config: mat-get-color-config($config-or-theme);
@@ -21,7 +21,8 @@
   }
 
   .loader {
-    margin: 60px auto;
+    top: calc(50vh - 50px);
+    margin: 0 auto;
     font-size: 7px;
     position: relative;
     text-indent: -9999em;
