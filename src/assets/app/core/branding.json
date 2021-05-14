@@ -7,11 +7,7 @@
     "logo": {
       "label": "信使",
       "version": true,
-      "img": {
-        "src": "/assets/images/logo.png",
-        "alt": "信使 Demo",
-        "href": "/"
-      }
+      "href": "/"
     },
     "top": {
       "banner": {
@@ -25,7 +21,7 @@
         "right": [{
           "label": "zhihu",
           "svg": "zhihu",
-          "href": "https://www.zhihu.com/people/nnitpai"
+          "href": "https://www.zhihu.com/column/c_1331898788731375616"
         }, {
           "label": "微博",
           "svg": "weibo",
@@ -44,15 +40,10 @@
     "mainMenu": [{
         "label": "地图",
         "classes": "bold",
-        "child": [{
-          "label": "内推职位",
-          "href": "/lists/jobs"
-        }, {
-          "label": "地理位置",
-          "href": "/sample/combs/map/location"
-        }]
-      }, {
-        "label": "博客",
+        "href": "/lists/jobs"
+      },
+      {
+        "label": "自习室",
         "classes": "bold",
         "href": "/lists/blog"
       }, {
@@ -60,14 +51,13 @@
         "classes": "bold",
         "href": "/lists/cases"
       }, {
-        "label": "组件",
+        "label": "组件库",
         "classes": "bold",
         "child": [{
           "label": "Hero",
           "child": [{
             "label": "Hero 1v1",
-            "href": "sample/combs/hero/hero1v1",
-            "fragment": "about"
+            "href": "/sample/combs/hero/hero1v1"
           }, {
             "label": "Hero 2v1",
             "href": "/sample/combs/hero/hero2v1"
@@ -163,6 +153,9 @@
           }, {
             "label": "Contact us",
             "href": "/sample/combs/other/contact"
+          }, {
+            "label": "Location",
+            "href": "/sample/combs/map/location"
           }]
         }]
       },
@@ -194,11 +187,11 @@
           "classes": "logo"
         }
       },
-      "summary": "信使是一个围绕 Drupal jsonapi 为核心的 Angular 前端框架，体验 Drupal 带来的数字创新。",
+      "summary": "信使是一个基于戴文 Dyniva 开源模块，围绕 Drupal jsonapi 为核心的 Angular 前端框架，享受 Drupal 带来的 Headless 数字创新体验。",
       "social": [{
         "label": "zhihu",
         "svg": "zhihu",
-        "href": "https://www.zhihu.com/people/nnitpai"
+        "href": "https://www.zhihu.com/column/c_1331898788731375616"
       }, {
         "label": "微博",
         "svg": "weibo",
@@ -269,9 +262,9 @@
     "mobileMenu": [{
         "label": "相关资源",
         "child": [{
-            "label": "Angular 中文站",
+            "label": "Davyin 开源",
             "icon": "arrow_right",
-            "href": "https://angular.cn/",
+            "href": "https://github.com/davyin-co",
             "target": "_blank"
           }, {
             "label": "Material Angular",
@@ -298,7 +291,7 @@
         "child": [{
             "label": "Angular 中文站",
             "icon": "github",
-            "href": "https://github.com/biaogebusy/nnitpay-angular",
+            "href": "https://angular.cn/",
             "target": "_blank"
           }, {
             "label": "Drupal 自习室",
