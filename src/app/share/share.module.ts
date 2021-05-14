@@ -27,7 +27,8 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
-// icon utils
+// utils
+import { NgPipesModule } from 'ngx-pipes';
 import { MatIconRegistry } from '@angular/material/icon';
 import { loadSvgResources } from '../service/icon.util';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -59,6 +60,7 @@ import { DomSanitizer } from '@angular/platform-browser';
     ScrollingModule,
     MatTabsModule,
     MatSnackBarModule,
+    NgPipesModule,
   ],
   exports: [
     CommonModule,
@@ -89,6 +91,7 @@ import { DomSanitizer } from '@angular/platform-browser';
     ScrollingModule,
     MatTabsModule,
     MatSnackBarModule,
+    NgPipesModule,
   ],
 })
 export class ShareModule {

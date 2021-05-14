@@ -332,7 +332,8 @@
         "label": "Your email:",
         "key": "email",
         "params": {
-          "required": true
+          "required": true,
+          "email": true
         },
         "placeholder": "Your email:",
         "hint": "请输入邮箱",
