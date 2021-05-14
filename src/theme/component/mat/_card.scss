@@ -17,6 +17,14 @@
       background-color: mat-color($background, background, 0.85);
     }
   }
+  .mat-card-title {
+    a {
+      color: mat-color($foreground, text, 0.75);
+      &:hover {
+        color: mat-color($primary);
+      }
+    }
+  }
   .mat-card-subtitle {
     color: inherit;
   }

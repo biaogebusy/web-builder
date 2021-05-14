@@ -111,7 +111,10 @@
       "classes": "p-bottom",
       "elements": [{
         "type": "card",
-        "title": "JOHNSON",
+        "link": {
+          "label": "JOHNSON",
+          "href": "/"
+        },
         "subTitle": "Frontend Devel",
         "classes": "card-no-shadow",
         "body": "Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. ",
@@ -137,7 +140,10 @@
             "normal": "/assets/images/cases/porto7.jpg"
           }
         },
-        "title": "JOHNSON",
+        "link": {
+          "label": "JOHNSONss",
+          "href": "/"
+        },
         "subTitle": "Frontend Devel",
         "classes": "card-no-shadow",
         "body": "Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. "
@@ -153,7 +159,10 @@
             "normal": "/assets/images/cases/porto2.jpg"
           }
         },
-        "title": "Will",
+        "link": {
+          "label": "Will",
+          "href": "/"
+        },
         "subTitle": "Frontend Devel",
         "classes": "card-no-shadow",
         "body": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr. "
@@ -169,7 +178,10 @@
             "normal": "/assets/images/cases/porto3.jpg"
           }
         },
-        "title": "Tamy",
+        "link": {
+          "label": "Tamy",
+          "href": "/"
+        },
         "subTitle": "Backend Devel",
         "classes": "card-no-shadow",
         "body": "Sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum."
@@ -185,7 +197,10 @@
             "normal": "/assets/images/cases/porto4.jpg"
           }
         },
-        "title": "Ada",
+        "link": {
+          "label": "Kelly",
+          "href": "/"
+        },
         "subTitle": "Frontend Devel",
         "classes": "card-no-shadow",
         "body": "Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat."
@@ -201,7 +216,10 @@
             "normal": "/assets/images/cases/porto5.jpg"
           }
         },
-        "title": "MeiMei",
+        "link": {
+          "label": "Wilian",
+          "href": "/"
+        },
         "subTitle": "Frontend Devel",
         "classes": "card-no-shadow",
         "body": "Vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim."
@@ -217,7 +235,10 @@
             "normal": "/assets/images/cases/porto6.jpg"
           }
         },
-        "title": "Nikki",
+        "link": {
+          "label": "Snobi",
+          "href": "/"
+        },
         "subTitle": "BA Test",
         "classes": "card-no-shadow",
         "body": "Consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat."

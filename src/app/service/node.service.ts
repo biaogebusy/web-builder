@@ -15,9 +15,18 @@ export class NodeService {
     private appState: AppState
   ) {}
 
+  get apiUrl(): string {
+    return this.apiService.apiUrl;
+  }
+
+  search(keys: string): Observable<any> {
+    const params = [`keys=${keys}`].join('&');
+    return this.http.get<any>(`${this.apiUrl}/api/v1/content?${params}`);
+  }
+
   getNodes(type: string, params: string = ''): Observable<any> {
     return this.http.get<any>(
-      `${this.apiService.apiUrl}${this.appState.apiUrlConfig.nodeGetPath}/${type}?${params}`,
+      `${this.apiUrl}${this.appState.apiUrlConfig.nodeGetPath}/${type}?${params}`,
       this.apiService.httpOptions(this.apiService.csrfToken)
     );
   }
@@ -35,7 +44,7 @@ export class NodeService {
 
   searchByKey(key: string): Observable<any> {
     const params = [`keys=${key}`].join('&');
-    return this.http.get<any>(`${this.apiService.apiUrl}/api/v1/job?${params}`);
+    return this.http.get<any>(`${this.apiUrl}/api/v1/job?${params}`);
   }
 
   getNodePath(node: any): string {
