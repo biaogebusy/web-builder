@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { MobxAngularModule } from 'mobx-angular';
 import { MobxModule } from './mobx/mobx.module';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { NgxWebstorageModule } from 'ngx-webstorage';
 import { BrandingModule } from './branding/branding.module';
 import { AppComponent } from './app.component';
 import { AppState } from './mobx/AppState';
@@ -20,6 +21,7 @@ import { AppState } from './mobx/AppState';
     CommonModule,
     MatSidenavModule,
     MobxAngularModule,
+    NgxWebstorageModule.forRoot(),
     MobxModule.forRoot(),
     BrandingModule,
   ],

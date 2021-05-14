@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable, Inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
+import { LocalStorageService } from 'ngx-webstorage';
 import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root',
@@ -11,16 +11,13 @@ export class ApiService {
   jobNodeType = 'job';
   localUserKey = 'currentUser';
 
-  constructor(
-    private http: HttpClient,
-    @Inject(LOCAL_STORAGE) private storage: StorageService
-  ) {
+  constructor(private http: HttpClient, private storage: LocalStorageService) {
     this.apiUrl = environment.apiUrl;
   }
 
   getToken(item: string, key: string): any {
-    if (this.storage.get(item)) {
-      const token = JSON.parse(this.storage.get(item));
+    if (this.storage.retrieve(item)) {
+      const token = JSON.parse(this.storage.retrieve(item));
       return token[key];
     } else {
       return false;
