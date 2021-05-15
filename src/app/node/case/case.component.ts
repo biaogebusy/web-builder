@@ -12,8 +12,15 @@ export class CaseComponent implements OnInit {
   loading = false;
   constructor(private nodeService: NodeService) {
     this.content = {
-      title: 'Drupal 国内案例',
-      subTitle: '欢迎分享 Drupal 优秀的数字创新体验',
+      text: {
+        spacer: 'none',
+        title: {
+          label: '国内 Drupal 优秀网站案例',
+          style: 'style-v1',
+          classes: 'mat-display-0',
+        },
+        body: '<p class="text-center">欢迎分享 Drupal 优秀的数字创新体验</p>',
+      },
       elements: [],
     };
   }

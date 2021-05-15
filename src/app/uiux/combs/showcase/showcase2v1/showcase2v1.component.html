@@ -1,9 +1,6 @@
 <div class="container showcase-2v1" *ngIf="content" fxLayout="column">
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
-  <h2 class="text-center" *ngIf="content.title">
-    {{content.title}}
-  </h2>
-  <p class="text-center m-top-sm" *ngIf="content.subTitle">{{content.subTitle}}</p>
+  <app-text [content]="content.text" *ngIf="content.text"></app-text>
   <div class="m-y" fxLayout="row wrap" fxLayoutAlign="center start" fxFlex="100%">
     <app-card class="m-x-sm m-bottom-sm" fxFlex.xs="100" fxFlex.sm="calc(50% - 30px)"
       fxFlex.gt-sm="0 0 calc(25% - 40px)" *ngFor="let case of content.elements" [content]="case">
