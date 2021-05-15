@@ -13,6 +13,7 @@ export interface IApiUrl {
   userIdGetPath: string;
   nodeGetPath: string;
   userGetPath: string;
+  taxonomyGetPath: string;
 }
 
 export interface IPage {

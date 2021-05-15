@@ -98,7 +98,9 @@ const feature = {
 export class JobComponent implements OnInit {
   nodes: any[];
   autoList: any[];
-  regions: any;
+  skills: string[];
+  selectedSkill: string;
+  selectedTitle: string;
   loading: boolean;
   AMap: any;
   geocoder: any;
@@ -122,6 +124,7 @@ export class JobComponent implements OnInit {
     this.loading = true;
     this.titleService.setTitle('内推职位列表');
     this.getJobsNodes();
+    this.getSkill();
     this.route.queryParamMap.subscribe((res) => {
       this.paramsInit(res);
     });
@@ -131,7 +134,7 @@ export class JobComponent implements OnInit {
     this.selectedId = params.params.id;
   }
 
-  get jobParams(): any {
+  jobParams(params = ''): any {
     return [
       'fields[node--job]=drupal_internal__nid,title,created,changed,body,deadline,number,salary,work_experience,skill,education,company',
       'include=skill,education,company,company.logo',
@@ -139,16 +142,16 @@ export class JobComponent implements OnInit {
       'fields[taxonomy_term--skill]=name',
       'fields[taxonomy_term--education]=name',
       'fields[file--file]=uri',
+      `${params}`,
       'jsonapi_include=1',
-    ];
+    ].join('&');
   }
 
   getJobsNodes(): void {
     // 以下参数没有顺序关系
     // fields[{{type}}] type 为该实体类型
     // include 为 relationships 相关资源，支持嵌套如company,company.log
-    const params = this.jobParams.join('&');
-
+    const params = this.jobParams();
     this.nodeService.getNodes('job', params).subscribe((res) => {
       this.updateList(res.data);
     });
@@ -163,6 +166,17 @@ export class JobComponent implements OnInit {
         };
       })
       .slice(0, 4);
+  }
+
+  getSkill(): void {
+    const params = ['jsonapi_included=1'].join('&');
+    this.nodeService.getTaxonomy('skill', params).subscribe((res) => {
+      this.skills = res.data.map((item: any) => {
+        return {
+          name: item.attributes.name,
+        };
+      });
+    });
   }
 
   onSelected(obj: any): void {
@@ -193,13 +207,34 @@ export class JobComponent implements OnInit {
     });
   }
 
-  onClear(): void {
-    this.getJobsNodes();
+  get getFilterParams(): any {
+    const options = [];
+    if (this.selectedTitle) {
+      options.push(`filter[title]=${this.selectedTitle}`);
+    }
+    if (this.selectedSkill && this.selectedSkill !== 'all') {
+      options.push(`filter[skill.name]=${this.selectedSkill}`);
+    }
+    return this.jobParams(options.join('&'));
   }
 
-  onSearchJob(key: string): void {
-    const params = this.jobParams.push(`filter[title]=${key}`).join('&');
-    this.nodeService.getNodes('job', params).subscribe((res) => {
+  onClear(): void {
+    this.selectedTitle = '';
+    this.nodeService.getNodes('job', this.getFilterParams).subscribe((res) => {
+      this.updateList(res.data);
+    });
+  }
+
+  onSkillChange(skill: string): void {
+    this.selectedSkill = skill;
+    this.nodeService.getNodes('job', this.getFilterParams).subscribe((res) => {
+      this.updateList(res.data);
+    });
+  }
+
+  onSearchJob(title: string): void {
+    this.selectedTitle = title;
+    this.nodeService.getNodes('job', this.getFilterParams).subscribe((res) => {
       this.updateList(res.data);
     });
   }

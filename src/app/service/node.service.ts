@@ -31,6 +31,13 @@ export class NodeService {
     );
   }
 
+  getTaxonomy(type: string, params: string = ''): Observable<any> {
+    return this.http.get<any>(
+      `${this.apiUrl}${this.appState.apiUrlConfig.taxonomyGetPath}/${type}?${params}`,
+      this.apiService.httpOptions(this.apiService.csrfToken)
+    );
+  }
+
   getRelationships(relationships: any[]): Observable<any> {
     const obj = mapValues(relationships, (item) => {
       return this.apiService.getApi(item.links.related.href).pipe(
