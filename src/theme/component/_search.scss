@@ -1,0 +1,24 @@
+@import "~@angular/material/theming";
+
+@mixin search-color($config-or-theme) {
+  $config: mat-get-color-config($config-or-theme);
+  $foreground: map-get($config, foreground);
+  $background: map-get($config, background);
+  $primary: map-get($config, primary);
+  $accent: map-get($config, accent);
+  $warn: map-get($config, warn);
+
+  $light: map-get($background, card);
+
+  .search-list {
+    .item {
+      border-bottom: 1px solid mat-color($foreground, divider, 0.1);
+      color: mat-color($foreground, text, 0.45);
+      .title {
+        a {
+          color: mat-color($foreground, text, 0.75);
+        }
+      }
+    }
+  }
+}

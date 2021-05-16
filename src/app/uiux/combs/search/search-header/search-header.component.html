@@ -1,0 +1,14 @@
+<div class="search-header" *ngIf="content">
+  <app-hero2v1 [content]="content"></app-hero2v1>
+  <div class="container position-relative">
+    <app-spacer [size]="'sm'"></app-spacer>
+    <div class="features-absolute position-absolute width-100">
+      <form>
+        <div class="js-form-type-search">
+          <input matInput placeholder="{{content.input.placeholder}}" [formControl]="searchControl" type="search"
+            size="15" maxlength="128" class="form-search">
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

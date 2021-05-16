@@ -4,6 +4,7 @@ import { MapModule } from './map/map.module';
 import { OtherModule } from './other/other.module';
 import { VideoModule } from './video/video.module';
 import { BannerModule } from './banner/banner.module';
+import { SearchModule } from './search/search.module';
 import { MasonryModule } from './masonry/masonry.module';
 import { ShowcaseModule } from './showcase/showcase.module';
 import { CarouselModule } from './carousel/carousel.module';
@@ -19,6 +20,7 @@ const modules = [
   MapModule,
   OtherModule,
   HeroModule,
+  SearchModule,
   DynamicCombsModule,
 ];
 

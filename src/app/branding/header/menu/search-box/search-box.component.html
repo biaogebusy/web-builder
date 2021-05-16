@@ -1,9 +1,11 @@
 <div class="search-box">
-  <form action="">
+  <form>
     <div class="js-form-type-search">
-      <mat-icon>search</mat-icon>
-      <input type="text" matInput [formControl]="searchControl" type="search" size="15" maxlength="128"
-        class="form-search" [matAutocomplete]="auto">
+      <a href="{{content.link}}" target="_blank" title="Search">
+        <mat-icon>search</mat-icon>
+      </a>
+      <input matInput [formControl]="searchControl" type="search" size="15" maxlength="128" class="form-search"
+        [matAutocomplete]="auto">
       <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelected($event)">
         <mat-option *ngFor="let option of options" [value]="option.href">
           <app-link [content]="option"></app-link>

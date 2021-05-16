@@ -166,7 +166,8 @@
       }
     ],
     "search": {
-      "enabel": true
+      "enabel": true,
+      "link": "/search"
     },
     "actions": [{
       "label": "发布职位",
