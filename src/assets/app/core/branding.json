@@ -13,10 +13,10 @@
       "banner": {
         "left": [{
           "icon": "call",
-          "label": "TELL:(123)456-7890"
+          "label": "(123)456-7890"
         }, {
           "icon": "email",
-          "label": "EMAIL: demo@zhaobg.com"
+          "label": "demo@zhaobg.com"
         }],
         "right": [{
           "label": "zhihu",
@@ -38,7 +38,7 @@
       }
     },
     "mainMenu": [{
-        "label": "地图",
+        "label": "内推",
         "classes": "bold",
         "href": "/lists/jobs"
       },

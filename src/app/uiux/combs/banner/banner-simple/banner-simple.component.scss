@@ -6,22 +6,27 @@
   app-bg {
     z-index: 0;
   }
+  .page-title {
+    margin-bottom: 0;
+    letter-spacing: 1px;
+    font-size: 20px;
+    font-weight: 500;
+    margin: 0;
+  }
   &.normal {
     position: relative;
     overflow: hidden;
     width: 100%;
-
-    .page-title {
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      font-size: 35px;
-      font-weight: 500;
-      margin: 0;
-    }
   }
   @media #{$gt-sm} {
+    .page-title {
+      font-size: 35px;
+    }
     &.normal {
       padding: 120px 0;
+    }
+    &.large {
+      padding: 200px;
     }
   }
 }
