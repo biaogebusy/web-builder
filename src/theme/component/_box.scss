@@ -19,7 +19,7 @@
       color: $text-base;
     }
     .box-content {
-      color: mat-color($foreground, text, 0.45);
+      color: mat-color($foreground, text, 0.7);
     }
     &:hover {
       .box-title {
@@ -260,9 +260,6 @@
         .mat-icon {
           color: mat-color($primary);
         }
-      }
-      .box-content {
-        color: mat-color($foreground, text, 0.45);
       }
       .read-more {
         a {

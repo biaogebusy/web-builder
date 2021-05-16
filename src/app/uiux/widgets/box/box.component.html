@@ -6,10 +6,10 @@
     <app-img [content]="content.img"></app-img>
   </div>
   <div class="box-content-wrapper">
-    <h3 class="box-title">
+    <h3 class="box-title one-line">
       <app-link [content]="content.title"></app-link>
     </h3>
-    <div class="box-content" [innerHTML]="content.content | safeHtml">
+    <div class="box-content three-line" [innerHTML]="content.content | safeHtml">
     </div>
     <div class="read-more" *ngIf="content.more">
       <a href="{{content.more.href}}"><span>{{content.more.label}}</span></a>

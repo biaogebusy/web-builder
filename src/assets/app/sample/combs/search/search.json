@@ -2,7 +2,6 @@
   "title": "Search",
   "body": [{
     "type": "search",
-    "api": "/api/v1/content",
     "header": {
       "type": "hero-2v1",
       "theme": "text-light",
