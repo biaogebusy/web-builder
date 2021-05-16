@@ -21,6 +21,15 @@
     .mat-expansion-panel-body {
       padding: 0 16px 0;
     }
+    .mat-list-item-content {
+      app-link {
+        flex: 1;
+        padding: 10px 0;
+        a {
+          display: block;
+        }
+      }
+    }
   }
   .mat-expansion-panel-spacing {
     margin: 0;

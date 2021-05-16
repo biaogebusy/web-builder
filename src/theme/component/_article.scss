@@ -47,6 +47,9 @@
         }
       }
     }
+    .article-meta {
+      color: mat-color($foreground, text, 0.4);
+    }
     .article-body {
       pre {
         code {

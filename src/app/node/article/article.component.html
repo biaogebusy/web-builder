@@ -9,13 +9,13 @@
         <div class="article-meta m-y-sm">
           <div fxLayout fxLayoutAlign="start start" *ngIf="content.meta" fxLayoutGap="1rem">
             <li *ngFor="let item of content.meta" fxLayoutAlign="center center">
-              <mat-icon>{{item.icon}}</mat-icon>
+              <mat-icon inline="true">{{item.icon}}</mat-icon>
               <div>{{item.label}}</div>
             </li>
           </div>
         </div>
         <mat-divider></mat-divider>
-        <div class="article-body m-y" [innerHTML]="content.body | safeHtml"></div>
+        <div class="article-body m-y-sm" [innerHTML]="content.body | safeHtml"></div>
       </div>
       <div class="sidebar" [ngClass.gt-sm]="'m-left-sm'" *ngIf="content.sidebar" fxFlex.lt-md="100" fxFlex.gt-sm="25">
         <ng-container *ngFor="let item of content.sidebar">
