@@ -16,7 +16,7 @@
         "title": {
           "label": "Light text, and xy center",
           "style": "style-v1",
-          "classes": "mat-display-3"
+          "classes": "mat-display-3 bold"
         },
         "classes": "xy-center",
         "bg": {
@@ -37,7 +37,7 @@
         "title": {
           "label": "Enable overlay",
           "style": "style-v1",
-          "classes": "mat-display-3"
+          "classes": "mat-display-3 bold"
         },
         "spacer": "xl",
         "classes": "xy-center text-light",

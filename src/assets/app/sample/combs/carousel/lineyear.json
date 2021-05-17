@@ -2,6 +2,10 @@
   "title": "carousel 1v1",
   "body": [{
     "type": "carousel-1v1",
+    "title": {
+      "label": "KingzoneTech History",
+      "style": "style-v1"
+    },
     "bg": {
       "classes": "bg-white bg-fill-width",
       "img": {
