@@ -185,8 +185,7 @@
         color: mat-color($primary);
       }
     }
-    &.style-v9,
-    &.style10 {
+    &.style-v9 {
       .box-icon {
         background: rgba(0, 0, 0, 0.4);
         .mat-icon {
@@ -250,7 +249,18 @@
         }
       }
     }
-
+    &.style-v8 {
+      border: 1px solid mat-color($foreground, divider);
+      background-color: mat-color($background, card);
+      .box-title {
+        a {
+          color: mat-color($primary);
+        }
+      }
+      .box-content {
+        color: mat-color($foreground, text);
+      }
+    }
     &.style-v9 {
       background-color: mat-color($background, card);
       box-shadow: 0 0 3px mat-color($foreground, divider, 0.1);

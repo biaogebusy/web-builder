@@ -1,0 +1,117 @@
+{
+  "title": "carousel 1v3",
+  "body": [{
+    "type": "carousel-1v3",
+    "spacer": "lg",
+    "text": {
+      "spacer": "none",
+      "title": {
+        "label": "Work with some amazing partners",
+        "icon": "",
+        "style": "style-v1",
+        "classes": "mat-display-1"
+      },
+      "body": "<p class=\"text-center\">Start working with <a href=\"#\">Landrick</a> that can provide everything you need to generate awareness,<br> drive traffic, connect.</p><br>"
+    },
+    "style": "text-light",
+    "bg": {
+      "classes": "bg-shadow  overlay overlay-80",
+      "img": {
+        "hostClasses": "bg-center",
+        "src": "/assets/images/16-9/business-14.jpeg",
+        "mobile": "/assets/images/mobile/mobile-03.jpg"
+      }
+    },
+    "sliders": {
+      "params": {
+        "slidesPerView": 1.2,
+        "spaceBetween": 20,
+        "navigation": false,
+        "breakpoints": {
+          "600": {
+            "slidesPerView": 3,
+            "spaceBetween": 20
+          },
+          "960": {
+            "slidesPerView": 3,
+            "spaceBetween": 30
+          }
+        }
+      },
+      "classes": "p-bottom",
+      "elements": [{
+        "type": "box",
+        "img": {
+          "src": "/assets/images/amazon.svg",
+          "alt": "browser"
+        },
+        "style": "style-v8",
+        "title": {
+          "href": "#",
+          "label": "SUPER CODING"
+        },
+        "content": "One disadvantage of Lorum Ipsum is that in Latin certain letters appear more frequently than others."
+      }, {
+        "type": "box",
+        "img": {
+          "src": "/assets/images/google.svg",
+          "alt": "browser"
+        },
+        "style": "style-v8",
+        "title": {
+          "href": "#",
+          "label": "SUPER CODING"
+        },
+        "content": "One disadvantage of Lorum Ipsum is that in Latin certain letters appear more frequently than others."
+      }, {
+        "type": "box",
+        "img": {
+          "src": "/assets/images/shopify.svg",
+          "alt": "browser"
+        },
+        "style": "style-v8",
+        "title": {
+          "href": "#",
+          "label": "SUPER CODING"
+        },
+        "content": "One disadvantage of Lorum Ipsum is that in Latin certain letters appear more frequently than others."
+      }, {
+        "type": "box",
+        "img": {
+          "src": "/assets/images/paypal.svg",
+          "alt": "browser"
+        },
+        "style": "style-v8",
+        "title": {
+          "href": "#",
+          "label": "SUPER CODING"
+        },
+        "content": "One disadvantage of Lorum Ipsum is that in Latin certain letters appear more frequently than others."
+      }, {
+        "type": "box",
+        "img": {
+          "src": "/assets/images/amazon.svg",
+          "alt": "browser"
+        },
+        "style": "style-v8",
+        "title": {
+          "href": "#",
+          "label": "SUPER CODING"
+        },
+        "content": "One disadvantage of Lorum Ipsum is that in Latin certain letters appear more frequently than others."
+      }, {
+        "type": "box",
+        "img": {
+          "src": "/assets/images/google.svg",
+          "alt": "browser"
+        },
+        "style": "style-v8",
+        "title": {
+          "href": "#",
+          "label": "SUPER CODING"
+        },
+        "content": "One disadvantage of Lorum Ipsum is that in Latin certain letters appear more frequently than others."
+      }]
+    }
+  }]
+}

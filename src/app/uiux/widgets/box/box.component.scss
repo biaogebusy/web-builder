@@ -387,8 +387,7 @@
     }
   }
   &.style-v6,
-  &.style-v7,
-  &.style-v8 {
+  &.style-v7 {
     .box-icon {
       float: left;
       margin: 0px 25px 25px 0px;
@@ -401,44 +400,7 @@
       }
     }
   }
-  &.style-v8 {
-    .box-icon {
-      width: 70px;
-      height: 70px;
-      border: 0 none;
-      @include border-radius(100%, 100%, 100%, 100%);
-      .mat-icon {
-      }
-    }
-  }
 
-  &.style10 {
-    .box-icon {
-      width: 53px;
-      height: 53px;
-      line-height: 53px;
-      border: 0 none;
-      @include border-radius(100%, 100%, 100%, 100%);
-      .mat-icon {
-        font-size: 18px;
-        line-height: 53px;
-      }
-    }
-    .box-content-wrapper {
-      margin-left: 75px;
-    }
-  }
-  &.style10 {
-    .box-icon {
-      float: right;
-      margin: 0px 0px 15px 15px;
-    }
-    .box-content-wrapper {
-      text-align: right;
-      margin-left: 0;
-      margin-right: 75px;
-    }
-  }
   &.style-v5 {
     .box-icon {
       @include border-radius(3px, 3px, 3px, 3px);
@@ -487,6 +449,23 @@
           }
         }
       }
+    }
+  }
+
+  &.style-v8 {
+    text-align: center;
+    padding: 1.5rem;
+    border-radius: 6px;
+    .box-image {
+      ::ng-deep img {
+        max-width: 80%;
+      }
+    }
+    .box-title {
+      margin-top: 2rem;
+    }
+    .box-content {
+      padding-bottom: 0;
     }
   }
 

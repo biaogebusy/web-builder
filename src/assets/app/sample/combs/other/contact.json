@@ -88,7 +88,8 @@
         "webform_id": "contact"
       },
       "bg": {
-        "classes": "bg-fill-width wave-wrapper"
+        "classes": "bg-fill-width wave-wrapper",
+        "icon": "wave"
       },
       "action": {
         "label": "Submit"

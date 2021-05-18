@@ -1,5 +1,6 @@
 @import "../../../../theme/mixins/amixin";
 .title {
+  text-align: center;
   &.style-v1,
   &.style-v2,
   &.style-v3,
@@ -85,6 +86,14 @@
       }
     }
   }
+
+  &.style-v4,
+  &.style-v5,
+  &.style-v6,
+  &.style-v7 {
+    text-align: left;
+  }
+
   &.style-v4 {
     // Dot left line bottom
     .line-style {
