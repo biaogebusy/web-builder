@@ -52,7 +52,6 @@
   }
 
   .line-year {
-    color: mat-color($foreground, text, 0.75);
     border-top: solid 1.5px mat-color($foreground, divider);
     &:before {
       background: mat-color($primary);

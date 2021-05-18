@@ -6,6 +6,7 @@
       "label": "KingzoneTech History",
       "style": "style-v1"
     },
+    "style": "text-dark",
     "bg": {
       "classes": "bg-white bg-fill-width",
       "img": {
