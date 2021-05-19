@@ -467,6 +467,13 @@
     .box-content {
       padding-bottom: 0;
     }
+    .box-content-wrapper {
+      display: flex;
+      flex-direction: column;
+      .box-title {
+        order: 1;
+      }
+    }
   }
 
   // feature absolute

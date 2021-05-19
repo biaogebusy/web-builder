@@ -25,6 +25,7 @@ export class SearchComponent implements OnInit {
             link: {
               label: item.title,
               href: item.url,
+              target: '_blank',
             },
             created: item.created,
             body: item.body,
