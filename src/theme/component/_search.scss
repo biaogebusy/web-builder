@@ -11,7 +11,7 @@
   $light: map-get($background, card);
 
   .search-list {
-    .item {
+    .list {
       border-bottom: 1px solid mat-color($foreground, divider, 0.1);
       color: mat-color($foreground, text, 0.45);
       .title {

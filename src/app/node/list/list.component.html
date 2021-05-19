@@ -3,7 +3,8 @@
     <app-spinner [content]="{color:'primary', size:40}"></app-spinner>
   </div>
   <ng-container *ngIf="!loading">
-    <app-showcase3v3 [content]="item" *ngFor="let item of content">
+    <app-showcase3v3 [content]="item" *ngFor="let item of content | paginate: { itemsPerPage: 20, currentPage: p }">
     </app-showcase3v3>
+    <app-pagination (pageChange)="p = $event"></app-pagination>
   </ng-container>
 </div>

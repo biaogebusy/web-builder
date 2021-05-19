@@ -32,6 +32,7 @@ import { TestimonialComponent } from './testimonial/testimonial.component';
 import { DropdownMenuComponent } from './dropdown-menu/dropdown-menu.component';
 import { NumberAnimateComponent } from './number-animate/number-animate.component';
 import { DynamicWidgetsComponent } from './dynamic-widgets/dynamic-widgets.component';
+import { PaginationComponent } from './pagination/pagination.component';
 import { SafeHtmlPipe } from '../../pipe/safe-html.pipe';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
@@ -65,6 +66,7 @@ const components = [
   DropdownMenuComponent,
   NumberAnimateComponent,
   DynamicWidgetsComponent,
+  PaginationComponent,
   SafeHtmlPipe,
 ];
 

@@ -1,0 +1,26 @@
+<pagination-template class="pagination m-y" #p="paginationApi" (pageChange)="pageChange.emit($event)"
+  (pageBoundsCorrection)="pageBoundsCorrection.emit($event)" fxLayout fxLayoutAlign="center center">
+
+  <div class="pagination-previous item" [class.disabled]="p.isFirstPage()" matTooltip="Prev Page"
+    [matTooltipPosition]="'above'">
+    <a (click)="p.previous()">
+      <mat-icon inline="true">navigate_before</mat-icon>
+    </a>
+  </div>
+  <div class="item" *ngFor="let page of p.pages" [class.current]="p.getCurrent() === page.value">
+    <a (click)="p.setCurrent(page.value)" *ngIf="p.getCurrent() !== page.value">
+      <span>{{ page.label }}</span>
+    </a>
+    <div class="active" *ngIf="p.getCurrent() === page.value">
+      <span>{{ page.label }}</span>
+    </div>
+  </div>
+
+  <div class="item pagination-next" [class.disabled]="p.isLastPage()" matTooltip="Next Page"
+    [matTooltipPosition]="'above'">
+    <a (click)="p.next()">
+      <mat-icon inline="true">navigate_next</mat-icon>
+    </a>
+  </div>
+
+</pagination-template>

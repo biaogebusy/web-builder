@@ -176,7 +176,6 @@ export class AppState {
         .get<any>(`${environment.apiUrl}/api/v1/landingPage?content=${path}`)
         .subscribe(
           (pageValue: IPage) => {
-            console.log(pageValue);
             if (!Array.isArray(pageValue)) {
               this.updatePage(pageValue, pageValue?.title);
             } else {

@@ -32,6 +32,8 @@ import { NgPipesModule } from 'ngx-pipes';
 import { MatIconRegistry } from '@angular/material/icon';
 import { loadSvgResources } from '../service/icon.util';
 import { DomSanitizer } from '@angular/platform-browser';
+import { NgxPaginationModule } from 'ngx-pagination';
+
 @NgModule({
   declarations: [],
   imports: [
@@ -61,6 +63,7 @@ import { DomSanitizer } from '@angular/platform-browser';
     MatTabsModule,
     MatSnackBarModule,
     NgPipesModule,
+    NgxPaginationModule,
   ],
   exports: [
     CommonModule,
@@ -92,6 +95,7 @@ import { DomSanitizer } from '@angular/platform-browser';
     MatTabsModule,
     MatSnackBarModule,
     NgPipesModule,
+    NgxPaginationModule,
   ],
 })
 export class ShareModule {

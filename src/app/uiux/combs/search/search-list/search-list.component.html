@@ -1,6 +1,6 @@
-<div class="search-list m-y-sm">
+<div class="search-list m-y-sm" *ngIf="content">
   <div class="container">
-    <div class="item m-y" *ngFor="let item of content">
+    <div class="list m-y" *ngFor="let item of content | paginate: { itemsPerPage: 20, currentPage: p }">
       <h1 class="title">
         <app-link [content]="item.link"></app-link>
       </h1>
@@ -10,5 +10,6 @@
         <div>{{item.created}}</div>
       </div>
     </div>
+    <app-pagination (pageChange)="p = $event"></app-pagination>
   </div>
 </div>

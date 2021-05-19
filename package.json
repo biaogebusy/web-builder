@@ -36,6 +36,7 @@
     "mobx": "^6.0.4",
     "mobx-angular": "^4.2.0",
     "ngx-lightbox": "^2.3.0",
+    "ngx-pagination": "^5.1.0",
     "ngx-pipes": "^2.7.5",
     "ngx-swiper-wrapper": "^10.0.0",
     "ngx-webstorage": "^7.0.1",
