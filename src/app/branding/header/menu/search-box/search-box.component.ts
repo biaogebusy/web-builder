@@ -27,7 +27,7 @@ export class SearchBoxComponent implements OnInit, OnDestroy {
 
     this.subscribe = $input.subscribe((res) => {
       this.nodeService.search(res).subscribe((data) => {
-        this.options = data.map((item: any) => {
+        this.options = data.rows.map((item: any) => {
           return {
             label: item.title,
             href: item.nid,

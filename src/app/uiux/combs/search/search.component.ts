@@ -20,15 +20,15 @@ export class SearchComponent implements OnInit {
     this.nodeService.search(key).subscribe(
       (data) => {
         console.log(data);
-        this.nodes = data.map((item: any) => {
+        this.nodes = data.rows.map((item: any) => {
           return {
             link: {
               label: item.title,
-              href: item.nid,
+              href: item.url,
             },
-            changed: item.changed,
+            created: item.created,
             body: item.body,
-            user: item.uid,
+            user: item.user,
           };
         });
         this.loading = false;

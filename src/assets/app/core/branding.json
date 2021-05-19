@@ -139,6 +139,13 @@
             "href": "/sample/widgets/panel"
           }]
         }, {
+          "label": "Search",
+          "href": "javascript:void(0)",
+          "child": [{
+            "label": "Search index",
+            "href": "/sample/combs/search/search"
+          }]
+        }, {
           "label": "Other",
           "href": "javascript:void(0)",
           "child": [{
