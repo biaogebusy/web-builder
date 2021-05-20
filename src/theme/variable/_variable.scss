@@ -85,7 +85,7 @@ $custom-typography: mat-typography-config(
   $display-1: mat-typography-level(34px, $font-family: $font-family),
   $headline: mat-typography-level(24px, $font-family: $font-family),
   $title: mat-typography-level(20px, $font-family: $font-family),
-  $body-1: mat-typography-level(16px, 26px, 400),
+  $body-1: mat-typography-level(16px, 1.618, 400),
 );
 
 $spacer: 4rem;

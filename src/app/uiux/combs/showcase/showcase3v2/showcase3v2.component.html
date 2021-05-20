@@ -7,10 +7,10 @@
     </div>
     <div class="item clearfix m-y-xl" fxLayout.lt-sm="column" fxLayout.gt-md="row" fxLayoutAlign="center center"
       [ngClass]="content.classes" *ngFor="let item of content.elements">
-      <div class="image-container p-sm" fxFlex.lt-sm="100" fxFlex.gt-md="40" fxLayoutAlign="center center">
+      <div class="image-container p-sm" fxFlex.lt-sm="100" fxFlex.gt-md="50" fxLayoutAlign="center center">
         <app-img [content]="item.img" *ngIf="item.img"></app-img>
       </div>
-      <div class="module-content" fxFlex.lt-sm="100" fxFlex.gt-md="60" [ngClass.lt-md]="'p-sm'"
+      <div class="module-content" fxFlex.lt-sm="100" fxFlex.gt-md="50" [ngClass.lt-md]="'p-sm'"
         [ngClass.gt-sm]="'p-md'">
         <h1 class="mat-h1" *ngIf="item.content.title">{{item.content.title}}</h1>
         <p class="m-bottom" *ngIf="item.content.body" [innerHTML]="item.content.body | safeHtml"></p>

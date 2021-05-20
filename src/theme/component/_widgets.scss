@@ -96,6 +96,7 @@
       }
     }
   }
+
   .overlay {
     &:before {
       background-color: rgba(60, 72, 88, 0.7);
@@ -128,6 +129,15 @@
         a {
           color: mat-color($foreground, text, 0.5);
         }
+      }
+    }
+  }
+
+  .list-done {
+    li {
+      &:before {
+        color: mat-color($primary);
+        background-color: mat-color($primary, 0.25);
       }
     }
   }

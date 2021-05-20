@@ -90,3 +90,26 @@ pull-right {
 .three-line {
   @include line-clamp(3);
 }
+
+.list-done {
+  margin-left: 0;
+  li {
+    &::marker {
+      display: none;
+      font-size: 0;
+      width: 0;
+      height: 0;
+    }
+    &:before {
+      content: "";
+      display: inline-block;
+      vertical-align: middle;
+      width: 16px;
+      height: 16px;
+      margin-right: 8px;
+      background: url(/assets/images/icons/done.svg) center no-repeat;
+      border-radius: 50%;
+      background-size: 12px;
+    }
+  }
+}
