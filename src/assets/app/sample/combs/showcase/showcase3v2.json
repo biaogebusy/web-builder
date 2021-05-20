@@ -5,11 +5,11 @@
       "label": "- ALD R&D Team -",
       "style": "style-v2"
     },
-    "subTitle": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. ",
+    "subTitle": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren. ",
     "classes": "bg-shadow",
     "elements": [{
       "img": {
-        "src": "/assets/images/showcase/work.jpeg",
+        "src": "/assets/images/illustration/24.png",
         "alt": ""
       },
       "content": {
@@ -24,11 +24,11 @@
       }
     }, {
       "img": {
-        "src": "/assets/images/showcase/wave.jpg",
+        "src": "/assets/images/illustration/25.png",
         "alt": ""
       },
       "content": {
-        "title": "Cooperation with Domestic Famous Universities and Scientific Research Institutions",
+        "title": "Cooperation with Domestic Famous Universities",
         "body": "ALD established postdoctoral workstations in 2012, and then successively established cooperative relations with well-known universities and research institutions in China.",
         "details": {
           "label": "Read more",
@@ -39,12 +39,12 @@
       }
     }, {
       "img": {
-        "src": "/assets/images/showcase/wave.jpg",
+        "src": "/assets/images/illustration/26.png",
         "alt": ""
       },
       "content": {
         "title": "More than 200 technical patents at home and abroad ",
-        "body": "ALD has made extensive achievements in the core technology field of electronic atomization and forged strong technology brands-SILMO™ and MICROFEEL™. It is the first manufacturing enterprise to realize the batch automatic production of ceramic substrate thick film printing heater. Its research covers many fields such as polymer materials, nanomaterials, superconducting materials, advanced ceramics, fluid analysis, thermal field analysis, aerosol analysis, intelligent temperature control, intelligent identification, intelligent sensing, quick charging and ergonomics. The research results have been widely used in the research and development, design, manufacturing and testing of products. So far, ALD has owned more than 200 core patents at home and abroad.",
+        "body": "ALD has made extensive achievements in the core technology field of electronic atomization and forged strong technology brands-SILMO™ and MICROFEEL™. It is the first manufacturing enterprise to realize the batch automatic production of ceramic substrate thick film printing heater. Its research covers many fields such as polymer materials.",
         "details": {
           "label": "Read more",
           "href": "#",
@@ -54,12 +54,12 @@
       }
     }, {
       "img": {
-        "src": "/assets/images/showcase/wave.jpg",
+        "src": "/assets/images/illustration/08.png",
         "alt": ""
       },
       "content": {
-        "title": "Annual R&D Investment Accounts for More Than 10% of the Total Revenue",
-        "body": "ALD attaches great importance to the R&D and innovation of technology, and the R&D investment accounts for more than 10% of the total revenue every year. Since the establishment, the R&D team has been actively innovating and exporting high-quality results. On the other hand, after years of hard study in the electronic atomization technology industry, the R&D team has accumulated unique experience and technology. Continuous optimization and upgrading of electronic atomization technology occupy a pivotal position in the field of electronic atomization technology. ",
+        "title": "Annual R&D Investment Accounts for More Than",
+        "body": "ALD attaches great importance to the R&D and innovation of technology, and the R&D investment accounts for more than 10% of the total revenue every year. Since the establishment, the R&D team has been actively innovating and exporting high-quality results. On the other hand, after years of hard study in the electronic atomization technology industry.",
         "details": {
           "label": "Read more",
           "href": "#",
@@ -69,12 +69,12 @@
       }
     }, {
       "img": {
-        "src": "/assets/images/showcase/wave.jpg",
+        "src": "/assets/images/illustration/10.png",
         "alt": ""
       },
       "content": {
         "title": "Introduce IPD management system",
-        "body": "Pioneering in atomization area, ALD keeps enlarging its R&D team. In order to manage product planning, development and life cycle management more scientifically, ALD introduced IPD management system. Taking market demand as the driving force of product development, ALD converts customer requirements into product and service attributes. Focusing on the quality, cost, serviceability and manufacturability of the products in the development process, ALD meets the all-round and multi-level needs of customers. In the future, ALD will always adhere to the spirit of pioneering and innovation to make contribution to the progress of electronic atomization technology in China and even the world. ",
+        "body": "Pioneering in atomization area, ALD keeps enlarging its R&D team. In order to manage product planning, development and life cycle management more scientifically, ALD introduced IPD management system. Taking market demand as the driving force of product development, ALD converts customer requirements into product and service attributes.  ",
         "details": {
           "label": "Read more",
           "href": "#",

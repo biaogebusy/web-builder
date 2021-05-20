@@ -1,32 +1,19 @@
 @import "../../../../../theme/variable/breakpoint";
-.showcase-3-v2 {
-  min-height: 300px;
-}
 .image-container {
   ::ng-deep img {
-    width: 100%;
+    max-width: 100%;
   }
 }
 @media #{$gt-xs} {
   .image-container {
-    float: left;
-    margin-right: 4rem;
     overflow: hidden;
-    ::ng-deep img {
-      max-width: 415px;
-    }
   }
   .item {
     &:nth-child(2n + 1) {
-      .module-content {
-        margin-left: 415px;
-      }
     }
     &:nth-child(2n) {
-      .image-container {
-        float: right;
-        margin-right: 0;
-        margin-left: 4rem;
+      .module-content {
+        order: -1;
       }
     }
   }

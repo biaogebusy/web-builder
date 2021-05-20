@@ -7,9 +7,9 @@
       "style": "style-v1"
     },
     "bg": {
-      "classes": "bg-fill-width overlay",
+      "classes": "bg-fill-width overlay overlay-80",
       "img": {
-        "src": "/assets/images/16-9/business-12.jpg",
+        "src": "/assets/images/bg-03.jpeg",
         "hostClasses": "bg-center"
       }
     },

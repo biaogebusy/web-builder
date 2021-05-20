@@ -21,15 +21,15 @@
       "classes": "text-center",
       "elements": [{
         "type": "img",
-        "src": "/assets/images/16-9/business-06.jpg",
+        "src": "/assets/images/1-1/business-01.png",
         "alt": "porto1.jpg"
       }, {
         "type": "img",
-        "src": "/assets/images/16-9/business-04.jpg",
+        "src": "/assets/images/1-1/business-02.png",
         "alt": "porto2.jpg"
       }, {
         "type": "img",
-        "src": "/assets/images/16-9/business-12.jpg",
+        "src": "/assets/images/1-1/business-04.png",
         "alt": "porto2.jpg"
       }]
     }
