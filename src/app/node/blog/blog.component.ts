@@ -52,7 +52,7 @@ export class BlogComponent implements OnInit {
           },
           date: item.changed,
           category: item.category.name,
-          body: item.body.summary,
+          body: item.body.summary || item.body.value,
           details: {
             label: 'Read More',
             href: link,
