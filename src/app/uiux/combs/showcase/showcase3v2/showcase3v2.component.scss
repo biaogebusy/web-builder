@@ -1,4 +1,7 @@
 @import "../../../../../theme/variable/breakpoint";
+.showcase-3-v2 {
+  overflow: hidden;
+}
 .image-container {
   ::ng-deep img {
     max-width: 100%;

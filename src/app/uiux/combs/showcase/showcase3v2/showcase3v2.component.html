@@ -1,6 +1,9 @@
 <div class="showcase-3-v2 position-relative" *ngIf="content">
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
-  <div class="container">
+  <app-bg [content]="content.bg" *ngIf="content.bg">
+    <app-img [content]="content.bg.img" *ngIf="content.bg.img"></app-img>
+  </app-bg>
+  <div class="container position-relative">
     <app-title [content]="content.title" *ngIf="content.title"></app-title>
     <div class="sub-title text-center" fxLayoutAlign="center center">
       <p [innerHTML]="content.subTitle | safeHtml" *ngIf="content.subTitle" fxFlex.lt-md="100" fxFlex.gt-sm="50"></p>

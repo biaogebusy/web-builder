@@ -29,7 +29,7 @@
           "fullIcon": "fullscreen",
           "openIcon": "open_in_new",
           "link": "#",
-          "ratios": "media-4-3",
+          "ratios": "media-140",
           "img": {
             "large": "/assets/images/cases/porto1.jpg",
             "normal": "/assets/images/cases/porto1.jpg",
@@ -40,7 +40,7 @@
           "fullIcon": "fullscreen",
           "openIcon": "open_in_new",
           "link": "#",
-          "ratios": "media-4-3",
+          "ratios": "media-140",
           "img": {
             "large": "/assets/images/cases/porto2.jpg",
             "normal": "/assets/images/cases/porto2.jpg"
@@ -71,7 +71,7 @@
           "fullIcon": "fullscreen",
           "openIcon": "open_in_new",
           "link": "#",
-          "ratios": "media-4-3",
+          "ratios": "media-140",
           "img": {
             "large": "/assets/images/cases/porto9.jpg",
             "normal": "/assets/images/cases/porto9.jpg"
@@ -102,7 +102,7 @@
           "fullIcon": "fullscreen",
           "openIcon": "open_in_new",
           "link": "#",
-          "ratios": "media-4-3",
+          "ratios": "media-140",
           "img": {
             "large": "/assets/images/cases/porto3.jpg",
             "normal": "/assets/images/cases/porto3.jpg"
@@ -133,7 +133,7 @@
           "fullIcon": "fullscreen",
           "openIcon": "open_in_new",
           "link": "#",
-          "ratios": "media-4-3",
+          "ratios": "media-140",
           "img": {
             "large": "/assets/images/cases/porto4.jpg",
             "normal": "/assets/images/cases/porto4.jpg"
@@ -164,7 +164,7 @@
           "fullIcon": "fullscreen",
           "openIcon": "open_in_new",
           "link": "#",
-          "ratios": "media-4-3",
+          "ratios": "media-140",
           "img": {
             "large": "/assets/images/cases/porto5.jpg",
             "normal": "/assets/images/cases/porto5.jpg"
@@ -195,7 +195,7 @@
           "fullIcon": "fullscreen",
           "openIcon": "open_in_new",
           "link": "#",
-          "ratios": "media-4-3",
+          "ratios": "media-140",
           "img": {
             "large": "/assets/images/cases/porto6.jpg",
             "normal": "/assets/images/cases/porto6.jpg"
@@ -226,7 +226,7 @@
           "fullIcon": "fullscreen",
           "openIcon": "open_in_new",
           "link": "#",
-          "ratios": "media-4-3",
+          "ratios": "media-140",
           "img": {
             "large": "/assets/images/cases/porto7.jpg",
             "normal": "/assets/images/cases/porto7.jpg"
@@ -257,7 +257,7 @@
           "fullIcon": "fullscreen",
           "openIcon": "open_in_new",
           "link": "#",
-          "ratios": "media-4-3",
+          "ratios": "media-140",
           "img": {
             "large": "/assets/images/cases/porto8.jpg",
             "normal": "/assets/images/cases/porto8.jpg"
