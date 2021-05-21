@@ -1,5 +1,9 @@
 <ng-container *ngIf="branding?.ready">
-  <app-header-top *ngIf="branding.header?.top" [content]="branding.header.top"></app-header-top>
-  <app-menu class="sticky" [class.sticking]="sticky" [content]="branding.header"></app-menu>
-  <app-menu #menu [content]="branding.header"></app-menu>
+  <header #header class="transparent-mode">
+    <div class="static">
+      <app-header-top *ngIf="branding.header?.top" [content]="branding.header.top"></app-header-top>
+      <app-menu #menu [content]="branding.header"></app-menu>
+    </div>
+    <app-menu class="sticky" [class.sticking]="sticky" [content]="branding.header"></app-menu>
+  </header>
 </ng-container>

@@ -43,6 +43,9 @@
       }
     }
   }
+  .static {
+    background-color: mat-color($background, card);
+  }
   .header {
     position: relative;
     border-top: 1px solid mat-color($foreground, divider);
