@@ -3,7 +3,8 @@
     "type": "showcase-3v2",
     "title": {
       "label": "- ALD R&D Team -",
-      "style": "style-v2"
+      "style": "style-v1",
+      "classes": "mat-display-1 bold"
     },
     "subTitle": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren. ",
     "classes": "",
@@ -21,7 +22,11 @@
         "alt": ""
       },
       "content": {
-        "title": "The independent R&D elite team",
+        "title": {
+          "label": "The independent R&D elite team",
+          "style": "style-v4",
+          "classes": "mat-display-1 bold"
+        },
         "body": "Since its establishment, ALD has been focusing on the innovation of electronic atomization technology and product research and development. <ul class=\"list-done\"><li>Now it has formed an independent R&D</li><li>elite team of more than 200 people</li><li>accounting for more than 80%</li></ul>",
         "details": {
           "label": "Read more",
@@ -36,7 +41,11 @@
         "alt": ""
       },
       "content": {
-        "title": "Cooperation with Domestic Famous Universities",
+        "title": {
+          "label": "Cooperation with Domestic Famous Universities",
+          "style": "style-v4",
+          "classes": "mat-display-1 bold"
+        },
         "body": "ALD established postdoctoral workstations in 2012, and then successively established cooperative relations with well-known universities and research institutions in China.",
         "details": {
           "label": "Read more",
@@ -51,7 +60,11 @@
         "alt": ""
       },
       "content": {
-        "title": "More than 200 technical patents at home and abroad ",
+        "title": {
+          "label": "More than 200 technical patents at home and abroad",
+          "style": "style-v4",
+          "classes": "mat-display-1 bold"
+        },
         "body": "ALD has made extensive achievements in the core technology field of electronic atomization and forged strong technology brands-SILMO™ and MICROFEEL™. It is the first manufacturing enterprise to realize the batch automatic production of ceramic substrate thick film printing heater. Its research covers many fields such as polymer materials.",
         "details": {
           "label": "Read more",
@@ -66,7 +79,11 @@
         "alt": ""
       },
       "content": {
-        "title": "Annual R&D Investment Accounts for More Than",
+        "title": {
+          "label": "Annual R&D Investment Accounts for More Than",
+          "style": "style-v4",
+          "classes": "mat-display-1 bold"
+        },
         "body": "ALD attaches great importance to the R&D and innovation of technology, and the R&D investment accounts for more than 10% of the total revenue every year. Since the establishment, the R&D team has been actively innovating and exporting high-quality results. On the other hand, after years of hard study in the electronic atomization technology industry.",
         "details": {
           "label": "Read more",
@@ -81,7 +98,11 @@
         "alt": ""
       },
       "content": {
-        "title": "Introduce IPD management system",
+        "title": {
+          "label": "Introduce IPD management system",
+          "style": "style-v4",
+          "classes": "mat-display-1 bold"
+        },
         "body": "Pioneering in atomization area, ALD keeps enlarging its R&D team. In order to manage product planning, development and life cycle management more scientifically, ALD introduced IPD management system. Taking market demand as the driving force of product development, ALD converts customer requirements into product and service attributes.  ",
         "details": {
           "label": "Read more",
