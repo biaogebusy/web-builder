@@ -67,7 +67,7 @@ export class CaseComponent implements OnInit {
                 fullIcon: 'fullscreen',
                 openIcon: 'open_in_new',
                 link,
-                ratios: 'media-4-3',
+                ratios: 'media-140',
                 img: {
                   large: img.field_media_image.uri.url,
                   normal: img.field_media_image.uri.url,
