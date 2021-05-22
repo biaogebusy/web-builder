@@ -159,15 +159,15 @@ export class AppState {
     this.state.currentUser = unauthUser;
   }
 
-  updatePage(pageValue: IPage, title: string): void {
+  updatePage(pageValue: IPage): void {
     this.state.page = pageValue;
-    this.tagsService.setTitle(title);
+    this.tagsService.updateTages(pageValue);
   }
 
   setPageNotFound(notFound: string): void {
     this.tagsService.setTitle('404 not found!');
     this.http.get<any>(notFound).subscribe((pageValue: IPage) => {
-      this.updatePage(pageValue, pageValue?.title);
+      this.updatePage(pageValue);
     });
   }
 
@@ -180,7 +180,7 @@ export class AppState {
         .subscribe(
           (pageValue: IPage) => {
             if (!Array.isArray(pageValue)) {
-              this.updatePage(pageValue, pageValue?.title);
+              this.updatePage(pageValue);
             } else {
               this.setPageNotFound(
                 `${environment.apiUrl}/api/v1/landingPage?content=404`
@@ -198,7 +198,7 @@ export class AppState {
         .get<any>(`${environment.apiUrl}/assets/app${path}.json`)
         .subscribe(
           (pageValue: IPage) => {
-            this.updatePage(pageValue, pageValue?.title);
+            this.updatePage(pageValue);
           },
           (error) => {
             this.setPageNotFound(`${environment.apiUrl}/assets/app/404.json`);
