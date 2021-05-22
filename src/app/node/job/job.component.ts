@@ -3,12 +3,12 @@ import { NodeService } from '../../service/node.service';
 import { IChipList } from './IJob';
 import { map } from 'lodash-es';
 import { AMapState } from '../../mobx/amap/AMapState';
-import { TitleService } from '../../service/title.service';
 import { RouteService } from '../../service/route.service';
 import { Params, ActivatedRoute } from '@angular/router';
 import { AppState } from '../../mobx/AppState';
 import { gsap } from 'gsap';
 import { ICard } from '../../uiux/widgets/IWidgets';
+import { TagsService } from 'src/app/service/tags.service';
 
 const feature = {
   title: {
@@ -113,7 +113,7 @@ export class JobComponent implements OnInit {
     private nodeService: NodeService,
     public amapState: AMapState,
     private appState: AppState,
-    private titleService: TitleService,
+    private tagsService: TagsService,
     private routerService: RouteService,
     private route: ActivatedRoute
   ) {
@@ -122,7 +122,7 @@ export class JobComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
-    this.titleService.setTitle('内推职位列表');
+    this.tagsService.setTitle('内推职位列表');
     this.getJobsNodes();
     this.getSkill();
     this.route.queryParamMap.subscribe((res) => {

@@ -1,8 +1,8 @@
 import { Component, Input, OnInit, AfterViewInit } from '@angular/core';
-import { TitleService } from '../../service/title.service';
 import hljs from 'highlight.js';
 import javascript from 'highlight.js/lib/languages/javascript';
 import json from 'highlight.js/lib/languages/json';
+import { TagsService } from 'src/app/service/tags.service';
 @Component({
   selector: 'app-article',
   templateUrl: './article.component.html',
@@ -10,11 +10,11 @@ import json from 'highlight.js/lib/languages/json';
 })
 export class ArticleComponent implements OnInit, AfterViewInit {
   @Input() content: any;
-  constructor(private titelService: TitleService) {}
+  constructor(private tagsService: TagsService) {}
 
   ngOnInit(): void {
     if (this.content.title) {
-      this.titelService.setTitle(this.content.title);
+      this.tagsService.setTitle(this.content.title);
     }
   }
 

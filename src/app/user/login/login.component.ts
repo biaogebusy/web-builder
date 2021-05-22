@@ -4,10 +4,10 @@ import { Router } from '@angular/router';
 import { UserState } from '../../mobx/user/UserState';
 import { ApiService } from '../../service/api.service';
 import { ScreenState } from '../../mobx/screen/ScreenState';
-import { TitleService } from '../../service/title.service';
 import { AppState } from '../../mobx/AppState';
 import { BrandingState } from '../../mobx/BrandingStare';
 import { gsap } from 'gsap';
+import { TagsService } from 'src/app/service/tags.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -23,13 +23,13 @@ export class LoginComponent implements OnInit, AfterViewInit {
     private router: Router,
     private apiService: ApiService,
     public screenState: ScreenState,
-    private titleService: TitleService,
+    private tagsService: TagsService,
     private appState: AppState,
     public branding: BrandingState
   ) {}
 
   ngOnInit(): void {
-    this.titleService.setTitle('欢迎登录！');
+    this.tagsService.setTitle('欢迎登录！');
     this.userForm = this.fb.group({
       name: ['', Validators.required],
       pass: ['', Validators.required],

@@ -1,4 +1,14 @@
 {
+  "title": "Showcase 3v2",
+  "meta": [{
+      "name": "description",
+      "content": "showcase 3v2 is usefully widget"
+    },
+    {
+      "name": "keywords",
+      "content": "test"
+    }
+  ],
   "body": [{
     "type": "showcase-3v2",
     "title": {

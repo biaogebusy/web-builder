@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { map } from 'lodash-es';
 import { NodeService } from 'src/app/service/node.service';
-import { TitleService } from 'src/app/service/title.service';
+import { TagsService } from 'src/app/service/tags.service';
 
 @Component({
   selector: 'app-news',
@@ -12,12 +12,12 @@ export class NewsComponent implements OnInit {
   loading = true;
   content: any;
   constructor(
-    private titleService: TitleService,
+    private tagsService: TagsService,
     private nodeService: NodeService
   ) {}
 
   ngOnInit(): void {
-    this.titleService.setTitle('News List');
+    this.tagsService.setTitle('News List');
     this.getNews();
   }
   getNews(): void {

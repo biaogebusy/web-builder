@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { TitleService } from '../../service/title.service';
 import { NodeService } from '../../service/node.service';
 import { map } from 'lodash-es';
+import { TagsService } from 'src/app/service/tags.service';
 
 @Component({
   selector: 'app-blog',
@@ -12,12 +12,12 @@ export class BlogComponent implements OnInit {
   content: any;
   loading = true;
   constructor(
-    private titleService: TitleService,
+    private tagsService: TagsService,
     private nodeService: NodeService
   ) {}
 
   ngOnInit(): void {
-    this.titleService.setTitle('博客文章列表 Blog list');
+    this.tagsService.setTitle('博客文章列表 Blog list');
     this.getBlogs();
   }
   getBlogs(): void {
