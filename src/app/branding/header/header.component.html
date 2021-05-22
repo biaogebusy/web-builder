@@ -1,9 +1,17 @@
 <ng-container *ngIf="branding?.ready">
-  <header #header class="transparent-mode">
+  <header *ngIf="!appState.pageConfig?.headerMode?.transparent;else transparent">
     <div class="static">
       <app-header-top *ngIf="branding.header?.top" [content]="branding.header.top"></app-header-top>
       <app-menu #menu [content]="branding.header"></app-menu>
     </div>
     <app-menu class="sticky" [class.sticking]="sticky" [content]="branding.header"></app-menu>
   </header>
+  <ng-template #transparent>
+    <header #header class="transparent-mode" [ngClass]="appState.pageConfig.headerMode.style">
+      <div class="static">
+        <app-header-top *ngIf="branding.header?.top" [content]="branding.header.top"></app-header-top>
+        <app-menu #menu [content]="branding.header"></app-menu>
+      </div>
+    </header>
+  </ng-template>
 </ng-container>

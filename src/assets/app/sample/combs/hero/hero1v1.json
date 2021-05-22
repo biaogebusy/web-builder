@@ -1,5 +1,11 @@
 {
   "title": "Hero 1v1",
+  "config": {
+    "headerMode": {
+      "transparent": true,
+      "style": "light"
+    }
+  },
   "body": [{
     "type": "hero-1v1",
     "spacer": "none",

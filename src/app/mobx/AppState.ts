@@ -40,7 +40,6 @@ export class AppState {
     private apiService: ApiService,
     @Inject(DOCUMENT) private document: Document,
     private storage: LocalStorageService,
-
     private titleService: TitleService
   ) {
     this.setConfig();
@@ -68,6 +67,10 @@ export class AppState {
 
   @computed get meta(): any {
     return this.state.page && this.state.page.meta;
+  }
+
+  @computed get pageConfig(): any {
+    return this.state.page && this.state.page.config;
   }
 
   @computed get title(): any {

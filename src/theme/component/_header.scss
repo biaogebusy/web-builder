@@ -76,7 +76,7 @@
 
     .actions {
       a {
-        color: #fff;
+        color: mat-color($primary, default-contrast);
       }
     }
   }
@@ -91,6 +91,31 @@
 
     .name {
       color: mat-color($primary, default-contrast);
+    }
+  }
+
+  .transparent-mode {
+    background-color: transparent;
+    .static,
+    .header-top,
+    .header {
+      background-color: transparent;
+      box-shadow: none;
+    }
+    &.header-sticky {
+      background: mat-color($background, card);
+      @include mat-elevation(2, mat-color($background, tooltip), 0.25);
+    }
+    &.light {
+      .header,
+      .header-top,
+      .header a,
+      .search-box .mat-icon,
+      .header-top .inv-icon.style-v1,
+      .header-top .inv-icon.style-v1 .mat-icon {
+        color: mat-color($primary, default-contrast);
+        transition: color 0.2s ease-in;
+      }
     }
   }
 
@@ -116,7 +141,6 @@
       border: 1px solid mat-color($foreground, divider);
     }
     input[type="search"] {
-      background: mat-color($background, card);
       color: mat-color($foreground, text);
     }
     .mat-icon {

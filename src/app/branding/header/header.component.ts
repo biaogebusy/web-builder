@@ -8,6 +8,7 @@ import {
 import { ScreenService } from '../../service/screen.service';
 import { ScreenState } from '../../mobx/screen/ScreenState';
 import { BrandingState } from '../../mobx/BrandingStare';
+import { AppState } from '../../mobx/AppState';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -21,7 +22,8 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   constructor(
     private screen: ScreenService,
     private screenState: ScreenState,
-    public branding: BrandingState
+    public branding: BrandingState,
+    public appState: AppState
   ) {}
 
   ngOnInit(): void {}
@@ -31,18 +33,23 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       this.sticky = this.screen.isElementOutTopViewport(
         this.menu.nativeElement
       );
-      // this.windowScroll();
+      if (this.appState?.pageConfig?.headerMode?.transparent) {
+        this.windowScroll();
+      }
     });
   }
 
   windowScroll(): void {
+    const style = this.appState.pageConfig.headerMode.style;
     if (
       document.body.scrollTop > 50 ||
       document.documentElement.scrollTop > 50
     ) {
       this.header.nativeElement.classList.add('header-sticky');
+      this.header.nativeElement.classList.remove(style);
     } else {
       this.header.nativeElement.classList.remove('header-sticky');
+      this.header.nativeElement.classList.add(style);
     }
   }
 }

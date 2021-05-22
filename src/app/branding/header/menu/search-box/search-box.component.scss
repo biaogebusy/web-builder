@@ -8,6 +8,7 @@
     width: 100%;
     @include border-radius(200px, 200px, 200px, 200px);
     overflow: hidden;
+    box-sizing: border-box;
     > .js-form-type-search {
       height: 36px;
       margin: 0;
