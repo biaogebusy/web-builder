@@ -17,6 +17,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          projectBaseDir: src
+          args: >
+            -Dsonar.organization=biaogebusy
+            -Dsonar.projectKey=biaogebusy_xinshi-angular
   build:
     # using Ubuntu
     runs-on: ubuntu-latest
