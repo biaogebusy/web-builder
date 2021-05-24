@@ -9,7 +9,7 @@
     },
     "classes": "text-light",
     "bg": {
-      "classes": "bg-fill-width overlay",
+      "classes": "bg-fill-width overlay overlay-20",
       "img": {
         "hostClasses": "bg-center",
         "src": "/assets/images/banner-01.jpeg",
