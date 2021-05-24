@@ -72,6 +72,7 @@
       }]
     }]
   }, {
+    "id": "form",
     "type": "showcase-1v3",
     "title": {
       "label": "Contact Us",

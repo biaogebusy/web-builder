@@ -1,4 +1,4 @@
-<div class="contact-us positive-relative" *ngIf="content">
+<div [id]="content.id" class="contact-us positive-relative" *ngIf="content">
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <app-bg [content]="content.bg" *ngIf="content.bg">
     <mat-icon class="wave" svgIcon="{{content.bg.icon}}" *ngIf="content.bg.icon"></mat-icon>

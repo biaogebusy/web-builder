@@ -1,4 +1,4 @@
-<div class="showcase-4-v1 position-relative" *ngIf="content">
+<div [id]="content.id||''" class="showcase-4-v1 position-relative" *ngIf="content">
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <app-title [content]="content.title" *ngIf="content.title"></app-title>
   <app-bg *ngIf="content.bg" [content]="content.bg"></app-bg>

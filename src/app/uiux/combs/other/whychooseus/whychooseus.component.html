@@ -1,4 +1,4 @@
-<div class="why-choose-us" *ngIf="content">
+<div [id]="content.id||''" class="why-choose-us" *ngIf="content">
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <div class="container">
     <app-title [content]="content.title" *ngIf="content.title"></app-title>

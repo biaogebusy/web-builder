@@ -1,3 +1,4 @@
-<div *ngIf="content" class="hero-2-v1 position-relative" [ngStyle.gt-xs]="content.params" [ngClass]="content.theme">
+<div [id]="content.id||''" *ngIf="content" class="hero-2-v1 position-relative" [ngStyle.gt-xs]="content.params"
+  [ngClass]="content.theme">
   <app-text [content]="content.text"></app-text>
 </div>

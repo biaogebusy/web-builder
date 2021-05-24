@@ -172,7 +172,8 @@
       {
         "label": "关于我们",
         "classes": "bold",
-        "href": "/sample/combs/other/contact"
+        "href": "/sample/combs/other/contact",
+        "fragment": "form"
       }
     ],
     "search": {

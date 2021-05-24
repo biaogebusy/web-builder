@@ -1,4 +1,4 @@
-<div class="panel" *ngIf="content">
+<div [id]="content.id||''" class="panel" *ngIf="content">
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <div class="container">
     <app-title *ngIf="content.title" [content]="content.title"></app-title>

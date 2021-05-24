@@ -1,4 +1,4 @@
-<div class="container showcase-2v1" *ngIf="content" fxLayout="column">
+<div [id]="content.id||''" class="container showcase-2v1" *ngIf="content" fxLayout="column">
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <app-text [content]="content.text" *ngIf="content.text"></app-text>
   <div class="m-y" fxLayout="row wrap" fxLayoutAlign="center start" fxFlex="100%">
