@@ -1,6 +1,10 @@
 @import "../../../../../theme/variable/breakpoint";
 .video-bg {
   overflow: hidden;
+  min-height: 280px;
+  @media #{$gt-md} {
+    min-height: 400px;
+  }
 }
 .video-js {
   position: absolute;
