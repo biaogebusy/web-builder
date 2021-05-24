@@ -1,23 +1,6 @@
-.item {
-  font-size: 14px;
-  padding: 8px 10px;
-  line-height: 20px;
-  width: 20px;
-  height: 20px;
-  text-align: center;
-  .mat-icon {
-    font-size: 20px;
-  }
-}
-.pagination {
-  .item {
-    &.pagination-previous.disabled,
-    &.pagination-next.disabled {
-      pointer-events: none;
-      a {
-        opacity: 0.25;
-        cursor: default;
-      }
-    }
-  }
+.disabled {
+  pointer-events: none;
+  cursor: default;
+  opacity: 0.6;
+  color: #666;
 }
