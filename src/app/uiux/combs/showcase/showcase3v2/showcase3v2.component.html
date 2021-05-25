@@ -1,4 +1,5 @@
-<div [id]="content.id||''" class="showcase-3-v2 position-relative" *ngIf="content">
+<div class="showcase-3-v2 position-relative" *ngIf="content">
+  <a class="anchor" [id]="content.id||''"></a>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <app-bg [content]="content.bg" *ngIf="content.bg">
     <app-img [content]="content.bg.img" *ngIf="content.bg.img"></app-img>

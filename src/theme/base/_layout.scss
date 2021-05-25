@@ -51,11 +51,11 @@
   }
 }
 
-pull-left {
+.pull-left {
   float: left;
 }
 
-pull-right {
+.pull-right {
   float: right;
 }
 
@@ -112,4 +112,11 @@ pull-right {
       background-size: 12px;
     }
   }
+}
+
+a.anchor {
+  display: block;
+  position: relative;
+  top: -70px;
+  visibility: hidden;
 }

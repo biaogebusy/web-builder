@@ -1,4 +1,5 @@
-<div [id]="content.id||''" class="video-bg position-relative" *ngIf="content">
+<div class="video-bg position-relative" *ngIf="content">
+  <a class="anchor" [id]="content.id||''"></a>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <div class="layer"></div>
   <video #target class="video-js" controls muted playsinline preload="none"></video>
