@@ -206,14 +206,13 @@
   }
 }
 
-@mixin line-clamp($numLines: 1, $lineHeight: 1.412) {
+@mixin line-clamp($numLines: 1) {
   overflow: hidden;
   text-overflow: -o-ellipsis-lastline;
   text-overflow: ellipsis;
-  display: block;
+  display: block !important;
   /* autoprefixer: off */
-  display: -webkit-box;
+  display: -webkit-box !important;
   -webkit-line-clamp: $numLines;
   -webkit-box-orient: vertical;
-  max-height: $numLines * $lineHeight + unquote("em");
 }
