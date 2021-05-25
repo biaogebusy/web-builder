@@ -1,4 +1,5 @@
 @import "../../../../theme/mixins/amixin";
+@import "../../../../theme/variable/breakpoint";
 .inv-builder-box {
   position: relative;
   .box-icon {
@@ -18,7 +19,6 @@
     font-size: 17px;
     font-weight: 500;
     margin: 0 0 12px;
-    text-transform: uppercase;
   }
   .box-content {
     display: block;
@@ -86,7 +86,6 @@
       position: relative;
       text-align: center;
       margin-top: 10px;
-      text-transform: uppercase;
     }
     .box-content {
       text-align: center;
@@ -389,14 +388,25 @@
   &.style-v6,
   &.style-v7 {
     .box-icon {
-      float: left;
-      margin: 0px 25px 25px 0px;
+      margin-bottom: 25px;
+      margin-left: auto;
+      margin-right: auto;
     }
     .box-content-wrapper {
+      text-align: center;
       &:after {
         content: "";
         display: table;
         clear: both;
+      }
+    }
+    @media #{$gt-md} {
+      .box-icon {
+        float: left;
+        margin: 0px 25px 25px 0px;
+      }
+      .box-content-wrapper {
+        text-align: left;
       }
     }
   }
@@ -430,7 +440,6 @@
         margin-top: 14px;
         position: relative;
         padding-left: 14px;
-        text-transform: uppercase;
         span {
           &:before,
           &:after {

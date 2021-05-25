@@ -9,7 +9,7 @@
     <div class="sub-title text-center" fxLayoutAlign="center center">
       <p [innerHTML]="content.subTitle | safeHtml" *ngIf="content.subTitle" fxFlex.lt-md="100" fxFlex.gt-sm="50"></p>
     </div>
-    <div class="item clearfix" fxLayout.lt-sm="column" fxLayout.gt-md="row" fxLayoutAlign="center center"
+    <div class="item m-y-sm" fxLayout.lt-sm="column" fxLayout.gt-md="row" fxLayoutAlign="center center"
       [ngClass]="content.classes" *ngFor="let item of content.elements">
       <div class="image-container p-sm" fxFlex.lt-sm="100" fxFlex.gt-md="50" fxLayoutAlign="center center">
         <app-img [content]="item.img" *ngIf="item.img"></app-img>
