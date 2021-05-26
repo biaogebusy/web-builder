@@ -28,11 +28,6 @@
       .page-title {
         color: mat-color($accent, default-contrast);
       }
-      .overlay {
-        &:before {
-          background-color: mat-color($accent, 200);
-        }
-      }
     }
   }
 }
