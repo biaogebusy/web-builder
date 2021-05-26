@@ -401,9 +401,11 @@
       }
     }
     @media #{$gt-md} {
+      display: flex;
+      align-items: flex-start;
       .box-icon {
-        float: left;
         margin: 0px 25px 25px 0px;
+        flex: 0 0 auto;
       }
       .box-content-wrapper {
         text-align: left;

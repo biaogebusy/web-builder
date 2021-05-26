@@ -55,7 +55,6 @@ export class ContactUsComponent implements OnInit {
           });
         },
         (error) => {
-          console.log(error);
           this.submited = false;
           this.snackbar.open(`Error: ${error.message}`, '', {
             horizontalPosition: 'center',
