@@ -45,4 +45,9 @@ export class SearchBoxComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscribe.unsubscribe();
   }
+
+  search(key: string): void {
+    console.log(key);
+    this.router.navigate(['search'], { queryParams: { keys: key } });
+  }
 }
