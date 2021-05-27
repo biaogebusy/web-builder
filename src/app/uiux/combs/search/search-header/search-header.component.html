@@ -3,10 +3,10 @@
   <div class="container position-relative">
     <app-spacer [size]="'sm'"></app-spacer>
     <div class="features-absolute position-absolute width-100">
-      <form>
+      <form (ngSubmit)="onSubmit(input.value)">
         <div class="js-form-type-search">
-          <input matInput placeholder="{{content.input.placeholder}}" [formControl]="searchControl" type="search"
-            size="15" maxlength="128" class="form-search">
+          <input #input matInput placeholder="{{content.input.placeholder}}" type="search" size="15" maxlength="128"
+            [value]="key" class="form-search">
         </div>
       </form>
     </div>
