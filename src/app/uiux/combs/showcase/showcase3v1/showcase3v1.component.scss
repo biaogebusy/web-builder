@@ -6,10 +6,10 @@
   .showcase-content {
     text-align: center;
   }
-  @media #{$lt-md} {
+  @media #{$gt-md} {
     .showcase-content {
       margin: 15px auto 50px;
-      width: 50%;
+      max-width: 800px;
     }
   }
 }
