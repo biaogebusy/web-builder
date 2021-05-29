@@ -6,7 +6,7 @@
     <div [ngClass]="content.classes">
       <app-title *ngIf="content.title" [content]="content.title"></app-title>
       <div fxLayout.lt-md="column" fxLayout.gt-sm="row" fxLayoutGap.lt-md="6rem" fxLayoutGap.gt-sm="3rem"
-        fxLayoutAlign="center start">
+        fxLayoutAlign.gt-sm="center start" fxLayoutAlign.lt-md="center center">
         <app-box [content]="item" *ngFor="let item of content.elements" fxFlex.xs="100%" fxFlex.sm="50%"
           fxFlex.gt-sm="33.33%"></app-box>
       </div>
