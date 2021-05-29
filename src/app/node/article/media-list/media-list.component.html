@@ -1,7 +1,7 @@
 <div class="recent-posts" *ngIf="content">
   <h2 class="block-title">{{content.title}}</h2>
   <div class="list">
-    <li *ngFor="let item of content.elements">
+    <div class="item" *ngFor="let item of content.elements">
       <a [href]="item.link.href" class="post-img">
         <app-img [content]="item.img"></app-img>
         <mat-icon>open_in_new</mat-icon>
@@ -11,6 +11,6 @@
         <div class="blog-date" [innerHTML]="item.changed">
         </div>
       </div>
-    </li>
+    </div>
   </div>
 </div>

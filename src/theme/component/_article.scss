@@ -11,7 +11,7 @@
   .article {
     .menu-list {
       .list {
-        li {
+        .item {
           border-bottom: 1px dotted mat-color($foreground, divider);
           .num-posts {
             color: mat-color($foreground, text, 0.4);
@@ -27,7 +27,7 @@
     }
     .recent-posts {
       .list {
-        li {
+        .item {
           .post-img {
             &:before {
               background-color: mat-color($primary);

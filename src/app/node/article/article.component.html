@@ -8,10 +8,10 @@
         </h2>
         <div class="article-meta m-y-sm">
           <div fxLayout fxLayoutAlign="start start" *ngIf="content.meta" fxLayoutGap="1rem">
-            <li *ngFor="let item of content.meta" fxLayoutAlign="center center">
+            <div *ngFor="let item of content.meta" fxLayoutAlign="center center">
               <mat-icon inline="true">{{item.icon}}</mat-icon>
               <div>{{item.label}}</div>
-            </li>
+            </div>
           </div>
         </div>
         <mat-divider></mat-divider>
