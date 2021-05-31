@@ -1,23 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { map } from 'lodash-es';
 import { NodeService } from 'src/app/service/node.service';
-import { TagsService } from 'src/app/service/tags.service';
 
 @Component({
-  selector: 'app-news',
-  templateUrl: './news.component.html',
-  styleUrls: ['./news.component.scss'],
+  selector: 'app-news-list',
+  templateUrl: './news-list.component.html',
+  styleUrls: ['./news-list.component.scss'],
 })
-export class NewsComponent implements OnInit {
+export class NewsListComponent implements OnInit {
+  @Input() content: any;
   loading = true;
-  content: any;
-  constructor(
-    private tagsService: TagsService,
-    private nodeService: NodeService
-  ) {}
+  list: any;
+  constructor(private nodeService: NodeService) {}
 
   ngOnInit(): void {
-    this.tagsService.setTitle('News List');
     this.getNews();
   }
   getNews(): void {
@@ -32,7 +28,7 @@ export class NewsComponent implements OnInit {
       'jsonapi_include=1',
     ].join('&');
     this.nodeService.getNodes('news', params).subscribe((res) => {
-      this.content = map(res.data, (item) => {
+      this.list = map(res.data, (item) => {
         const link = this.nodeService.getNodePath(item);
         return {
           title: {

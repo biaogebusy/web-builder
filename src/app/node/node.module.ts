@@ -10,17 +10,17 @@ import { JobNodeComponent } from './job/job-node/job-node.component';
 import { ShareModule } from '../share/share.module';
 import { CombsModule } from '../uiux/combs/combs.module';
 import { WidgetsModule } from '../uiux/widgets/widgets.module';
-import { NewsComponent } from './news/news.component';
 import { ListComponent } from './list/list.component';
 import { MediaListComponent } from './article/media-list/media-list.component';
 import { MenuListComponent } from './article/menu-list/menu-list.component';
 import { ArticleBannerComponent } from './article/article-banner/article-banner.component';
 import { ArticleComponent } from './article/article.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { NewsListComponent } from './news-list/news-list.component';
 
 const components = [
   JobComponent,
-  NewsComponent,
+  NewsListComponent,
   CaseComponent,
   ListComponent,
   BlogListComponent,
@@ -37,6 +37,11 @@ const components = [
 @NgModule({
   declarations: [...components],
   imports: [ShareModule, CombsModule, WidgetsModule, NodeRoutingModule],
-  exports: [CaseNodeComponent, ArticleComponent, BlogListComponent],
+  exports: [
+    CaseNodeComponent,
+    ArticleComponent,
+    BlogListComponent,
+    NewsListComponent,
+  ],
 })
 export class NodeModule {}

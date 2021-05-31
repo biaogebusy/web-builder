@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from '../guards/auth.guard';
 import { CaseComponent } from './case/case.component';
 import { JobComponent } from './job/job.component';
-import { NewsComponent } from './news/news.component';
 
 const routes: Routes = [
   {
@@ -14,11 +13,6 @@ const routes: Routes = [
   {
     path: 'cases',
     component: CaseComponent,
-    // canActivate: [AuthGuard],
-  },
-  {
-    path: 'news',
-    component: NewsComponent,
     // canActivate: [AuthGuard],
   },
 ];
