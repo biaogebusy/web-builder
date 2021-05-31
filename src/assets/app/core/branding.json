@@ -124,6 +124,15 @@
           }, {
             "label": "Blog / News",
             "href": "/sample/node/article"
+          }, {
+            "label": "Blog list",
+            "href": "/sample/list/blog"
+          }, {
+            "label": "News list",
+            "href": "/sample/list/news"
+          }, {
+            "label": "Article list",
+            "href": "/sample/list/articles"
           }]
         }, {
           "label": "Widgets",
