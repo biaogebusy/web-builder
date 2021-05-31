@@ -1,0 +1,8 @@
+<div *ngIf="content" class="sidebar">
+  <ng-container *ngFor="let item of content">
+    <ng-container [ngSwitch]="item.type">
+      <app-media-list *ngSwitchCase="'media-list'" [content]="item"></app-media-list>
+      <app-menu-list *ngSwitchCase="'menu-list'" [content]="item"></app-menu-list>
+    </ng-container>
+  </ng-container>
+</div>

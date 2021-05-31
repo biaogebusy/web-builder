@@ -1,0 +1,88 @@
+{
+  "title": "Blog List",
+  "body": [{
+    "type": "banner-simple",
+    "style": "normal",
+    "bannerBg": {
+      "classes": "bg-fill-width overlay",
+      "img": {
+        "hostClasses": "bg-center",
+        "src": "/assets/images/banner-01.jpeg",
+        "alt": "page title"
+      }
+    },
+    "title": "Blog List"
+  }, {
+    "type": "blog-list",
+    "pager": {
+      "itemsPerPage": 20
+    },
+    "sidebar": [{
+      "type": "media-list",
+      "title": "POPULAR POSTS",
+      "elements": [{
+        "link": {
+          "label": "Drag and Drop Layout",
+          "href": "#"
+        },
+        "img": {
+          "src": "../assets/images/showcase/blog1-large.jpeg",
+          "alt": ""
+        },
+        "changed": "2021/02/07"
+      }, {
+        "link": {
+          "label": "Drag and Drop Layout",
+          "href": "#"
+        },
+        "img": {
+          "src": "../assets/images/showcase/blog2-large.jpeg",
+          "alt": ""
+        },
+        "changed": "2021/02/07"
+      }, {
+        "link": {
+          "label": "Drag and Drop Layout",
+          "href": "#"
+        },
+        "img": {
+          "src": "../assets/images/showcase/blog3-large.jpeg",
+          "alt": ""
+        },
+        "changed": "2021/02/07"
+      }, {
+        "link": {
+          "label": "Drag and Drop Layout",
+          "href": "#"
+        },
+        "img": {
+          "src": "../assets/images/showcase/blog4-large.jpeg",
+          "alt": ""
+        },
+        "changed": "2021/02/07"
+      }]
+    }, {
+      "type": "menu-list",
+      "title": "CATEGORIES",
+      "elements": [{
+        "link": {
+          "href": "#",
+          "label": "Desige"
+        },
+        "label": "3"
+      }, {
+        "link": {
+          "href": "#",
+          "label": "Drupal"
+        },
+        "label": "3"
+      }, {
+        "link": {
+          "href": "#",
+          "label": "Video"
+        },
+        "label": "2"
+      }]
+    }]
+  }]
+}

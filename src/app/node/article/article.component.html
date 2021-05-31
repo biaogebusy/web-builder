@@ -17,14 +17,8 @@
         <mat-divider></mat-divider>
         <div class="article-body m-y-sm" [innerHTML]="content.body | safeHtml"></div>
       </div>
-      <div class="sidebar" [ngClass.gt-sm]="'m-left-sm'" *ngIf="content.sidebar" fxFlex.lt-md="100" fxFlex.gt-sm="25">
-        <ng-container *ngFor="let item of content.sidebar">
-          <ng-container [ngSwitch]="item.type">
-            <app-media-list *ngSwitchCase="'media-list'" [content]="item"></app-media-list>
-            <app-menu-list *ngSwitchCase="'menu-list'" [content]="item"></app-menu-list>
-          </ng-container>
-        </ng-container>
-      </div>
+      <app-sidebar [ngClass.gt-sm]="'m-left-sm'" *ngIf="content.sidebar" fxFlex.lt-md="100" fxFlex.gt-sm="25"
+        [content]="content.sidebar"></app-sidebar>
     </div>
   </div>
 </div>

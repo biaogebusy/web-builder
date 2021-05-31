@@ -7,6 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ListComponent implements OnInit {
   @Input() content: any;
+  @Input() pager: any;
   @Input() loading: boolean;
   p = 1;
 
