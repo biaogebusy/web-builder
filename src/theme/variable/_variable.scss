@@ -79,12 +79,12 @@ $font-family: "Helvetica", "Microsoft YaHei", "微软雅黑", "FreeSans",
 // https://material.angular.io/guide/typography
 $custom-typography: mat-typography-config(
   $font-family: $font-family,
-  $display-4: mat-typography-level(67px, $font-family: $font-family),
-  $display-3: mat-typography-level(56px, $font-family: $font-family),
-  $display-2: mat-typography-level(45px, $font-family: $font-family),
-  $display-1: mat-typography-level(34px, $font-family: $font-family),
-  $headline: mat-typography-level(24px, $font-family: $font-family),
-  $title: mat-typography-level(20px, $font-family: $font-family),
+  $display-4: mat-typography-level(67px, 67px, 300, $font-family: $font-family),
+  $display-3: mat-typography-level(56px, 56px, 400, $font-family: $font-family),
+  $display-2: mat-typography-level(45px, 48px, 400, $font-family: $font-family),
+  $display-1: mat-typography-level(34px, 40px, 400, $font-family: $font-family),
+  $headline: mat-typography-level(24px, 32px, 400, $font-family: $font-family),
+  $title: mat-typography-level(20px, 1.618, 500, $font-family: $font-family),
   $body-1: mat-typography-level(16px, 1.618, 400),
 );
 

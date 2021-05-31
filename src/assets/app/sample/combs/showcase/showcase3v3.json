@@ -1,6 +1,9 @@
 {
   "title": "Blog list as showcase 3v3",
   "body": [{
+    "type": "text",
+    "spacer": "md"
+  }, {
     "type": "showcase-3v3",
     "title": {
       "label": "Blog title for sample",
