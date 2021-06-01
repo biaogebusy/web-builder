@@ -17,6 +17,7 @@ import { ArticleBannerComponent } from './article/article-banner/article-banner.
 import { ArticleComponent } from './article/article.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { NewsListComponent } from './news-list/news-list.component';
+import { ArticleListComponent } from './article-list/article-list.component';
 
 const components = [
   JobComponent,
@@ -25,6 +26,7 @@ const components = [
   ListComponent,
   BlogListComponent,
   ArticleComponent,
+  ArticleListComponent,
   SidebarComponent,
   JobNodeComponent,
   JobListComponent,
@@ -42,6 +44,7 @@ const components = [
     ArticleComponent,
     BlogListComponent,
     NewsListComponent,
+    ArticleListComponent,
   ],
 })
 export class NodeModule {}
