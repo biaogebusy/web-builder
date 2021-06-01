@@ -24,7 +24,7 @@
             <div>{{content.category | slice:0:10}}</div>
           </li>
         </ul>
-        <div class="blog-shortdesc" [innerHTML]="content.body | stripTags| slice:0:220">
+        <div class="blog-shortdesc" [innerHTML]="content.body |stripTags|trim|shorten:150:'...'">
         </div>
         <div class="m-top-sm" *ngIf="content.details">
           <app-btn-animate [content]="content.details"></app-btn-animate>
