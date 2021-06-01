@@ -19,9 +19,9 @@ export class ArticleListComponent implements OnInit {
   getNews(): void {
     this.loading = true;
     const params = [
-      'fields[node--article]=title,changed,body,drupal_internal__nid,path,article_category,case_cause,content_category,media',
-      'include=article_category,case_cause,content_category,media,media.field_media_image',
-      'fields[taxonomy_term--article_category]=name',
+      'fields[node--article]=title,changed,body,drupal_internal__nid,path,category,case_cause,content_category,media',
+      'include=category,case_cause,content_category,media,media.field_media_image',
+      'fields[taxonomy_term--category]=name',
       'fields[taxonomy_term--case_cause]=name',
       'fields[taxonomy_term--content_category]=name',
       'fields[file--file]=uri',
