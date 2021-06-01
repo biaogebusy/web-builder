@@ -1,0 +1,81 @@
+{
+  "title": "Showcase 3v6",
+  "body": [{
+    "type": "showcase-3v6",
+    "id": "",
+    "title": {
+      "type": "text",
+      "spacer": "sm",
+      "title": {
+        "label": "Template Key Features",
+        "style": "style-v1"
+      },
+      "body": "<p class=\"text-center\">Start working with xinshi that can provide everything you need to generate awareness, drive traffic, connect.</p>"
+    },
+    "bg": {
+      "classes": "bg-light bg-fill-width"
+    },
+    "elements": [{
+      "icon": "verified_user",
+      "title": {
+        "href": "#",
+        "label": "Fully Responsive"
+      }
+    }, {
+      "icon": "fingerprint",
+      "title": {
+        "href": "#",
+        "label": "Browser Compatibility"
+      }
+    }, {
+      "icon": "favorite",
+      "title": {
+        "href": "#",
+        "label": "Retina Ready"
+      }
+    }, {
+      "icon": "android",
+      "style": "style-v8",
+      "title": {
+        "href": "#",
+        "label": "Based On Material"
+      }
+    }, {
+      "icon": "favorite",
+      "title": {
+        "href": "#",
+        "label": "Feather Icons"
+      }
+    }, {
+      "icon": "android",
+      "title": {
+        "href": "#",
+        "label": "Built With SASS"
+      }
+    }, {
+      "icon": "android",
+      "title": {
+        "href": "#",
+        "label": "W3c Valid Code"
+      }
+    }, {
+      "icon": "android",
+      "title": {
+        "href": "#",
+        "label": "Flaticon Icons"
+      }
+    }, {
+      "icon": "android",
+      "title": {
+        "href": "#",
+        "label": "Easy to customize"
+      }
+    }],
+    "action": {
+      "label": "Read more",
+      "href": "#",
+      "style": "style-v1",
+      "icon": "open_in_new"
+    }
+  }]
+}
