@@ -174,17 +174,6 @@
         }
       }
     }
-    &.style-v8 {
-      .box-icon {
-        background: #576162; //Corduroy
-        .mat-icon {
-          color: mat-color($background, card);
-        }
-      }
-      .box-title {
-        color: mat-color($primary);
-      }
-    }
     &.style-v9 {
       .box-icon {
         background: rgba(0, 0, 0, 0.4);
@@ -250,15 +239,18 @@
       }
     }
     &.style-v8 {
-      border: 1px solid mat-color($foreground, divider);
-      background-color: mat-color($background, card);
-      .box-title {
-        a {
+      .box-icon {
+        background-color: mat-color($primary, 0.1);
+        .mat-icon {
           color: mat-color($primary);
         }
       }
+      .box-title {
+        a {
+        }
+      }
       .box-content {
-        color: mat-color($foreground, text);
+        color: mat-color($foreground, text, 0.5);
       }
     }
     &.style-v9 {
