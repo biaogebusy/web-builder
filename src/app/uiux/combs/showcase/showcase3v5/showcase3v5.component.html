@@ -6,7 +6,7 @@
     <app-text [content]="content.title"></app-text>
     <div class="showcase-inner" fxLayout.lt-md="column" fxLayout.gt-sm="row" fxLayoutAlign="center center">
       <div fxLayout="row wrap" fxFlex.lt-md="100" fxFlex.gt-sm="66.66">
-        <app-box fxFlex.lt-md="100" fxFlex.gt-md="0 0 calc(50% - 1rem)" class="p-x-xs" [content]="item"
+        <app-box fxFlex.lt-md="100" fxFlex.gt-sm="0 0 calc(50% - 2rem)" class="p-x-xs" [content]="item"
           *ngFor="let item of content.elements">
         </app-box>
       </div>
