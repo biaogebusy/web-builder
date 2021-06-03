@@ -143,6 +143,7 @@ export class JobComponent implements OnInit {
       'fields[taxonomy_term--education]=name',
       'fields[file--file]=uri',
       `${params}`,
+      'sort=-deadline',
       'jsonapi_include=1',
     ].join('&');
   }
