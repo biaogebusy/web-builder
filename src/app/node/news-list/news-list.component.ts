@@ -19,11 +19,7 @@ export class NewsListComponent implements OnInit {
   getNews(): void {
     this.loading = true;
     const params = [
-      'fields[node--news]=title,changed,body,media,field_tags,drupal_internal__nid,path,category',
       'include=category,field_tags,media,media.field_media_image',
-      'fields[taxonomy_term--blog_category]=name',
-      'fields[taxonomy_term--tags]=name',
-      'fields[file--file]=uri',
       'sort=-changed',
       'jsonapi_include=1',
     ].join('&');
