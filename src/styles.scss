@@ -17,6 +17,12 @@ body {
   overflow-y: auto;
 }
 
+// fix sidebar position sticky
+.mat-drawer-content,
+.mat-drawer-container {
+  overflow: visible !important;
+}
+
 blockquote {
   margin: 1.4em 0;
   padding-left: 1em;
