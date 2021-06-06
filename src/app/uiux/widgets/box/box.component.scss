@@ -463,7 +463,8 @@
     }
   }
 
-  &.style-v8 {
+  &.style-v8,
+  &.style-v10 {
     display: flex;
     padding-bottom: 20px;
     .box-icon {
@@ -482,14 +483,16 @@
         }
       }
     }
-    .box-title {
-    }
     .box-content {
       padding-bottom: 0;
     }
-    .box-content-wrapper {
-      .box-title {
-      }
+  }
+
+  &.style-v10 {
+    text-align: right;
+    .box-icon {
+      margin-left: 1rem;
+      order: 2;
     }
   }
 

@@ -1,17 +1,20 @@
-<div class="showcase-3-v5 position-relative" *ngIf="content">
+<div class="showcase-3-v7 position-relative" *ngIf="content">
   <a class="anchor" [id]="content.id||''"></a>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <app-bg [content]="content.bg" *ngIf="content.bg"></app-bg>
   <div class="container" *ngIf="content">
     <app-text [content]="content.title"></app-text>
     <div class="showcase-inner" fxLayout.lt-md="column" fxLayout.gt-sm="row" fxLayoutAlign="center center">
-      <div fxLayout="row wrap" fxFlex.lt-md="100" fxFlex.gt-sm="66.66">
-        <app-box fxFlex.lt-md="100" fxFlex.gt-sm="0 0 calc(50% - 2rem)" class="p-x-xs" [content]="item"
-          *ngFor="let item of content.elements">
+      <div fxLayout="row wrap" fxFlex.lt-md="100" fxFlex.gt-sm="33.33">
+        <app-box fxFlex.="0 0 calc(100% - 2rem)" class="p-x-xs" [content]="item" *ngFor="let item of content.left">
         </app-box>
       </div>
       <div fxLayout="column" fxLayoutAlign="center center" fxFlex.lt-md="100" fxFlex.gt-sm="33.33">
         <app-img class="p-x-sm" [content]="content.img"></app-img>
+      </div>
+      <div fxLayout="row wrap" fxFlex.lt-md="100" fxFlex.gt-sm="33.33">
+        <app-box fxFlex.="0 0 calc(100% - 2rem)" class="p-x-xs" [content]="item" *ngFor="let item of content.right">
+        </app-box>
       </div>
     </div>
   </div>

@@ -238,7 +238,8 @@
         }
       }
     }
-    &.style-v8 {
+    &.style-v8,
+    &.style-v10 {
       .box-icon {
         background-color: mat-color($primary, 0.1);
         .mat-icon {
