@@ -142,6 +142,9 @@
           }, {
             "label": "Article list",
             "href": "/sample/list/articles"
+          }, {
+            "label": "Taxonomy list",
+            "href": "/sample/list/taxonomy-list"
           }]
         }, {
           "label": "Widgets",

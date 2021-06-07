@@ -5,6 +5,8 @@
       <app-tab *ngSwitchCase="'tab'" [content]="item"></app-tab>
       <app-panel *ngSwitchCase="'panel'" [content]="item"></app-panel>
       <app-search *ngSwitchCase="'search'" [content]="item"></app-search>
+      <app-taxonomy-list *ngSwitchCase="'taxonomy-list'" [content]="item">
+      </app-taxonomy-list>
       <app-blog-list *ngSwitchCase="'blog-list'" [content]="item"></app-blog-list>
       <app-article-list *ngSwitchCase="'article-list'" [content]="item"></app-article-list>
       <app-news-list *ngSwitchCase="'news-list'" [content]="item">

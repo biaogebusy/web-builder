@@ -17,6 +17,7 @@ import { ArticleComponent } from './article/article.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { NewsListComponent } from './news-list/news-list.component';
 import { ArticleListComponent } from './article-list/article-list.component';
+import { TaxonomyListComponent } from './taxonomy-list/taxonomy-list.component';
 
 const components = [
   JobComponent,
@@ -33,6 +34,7 @@ const components = [
   MediaListComponent,
   JobFilterComponent,
   ArticleBannerComponent,
+  TaxonomyListComponent,
 ];
 @NgModule({
   declarations: [...components],
@@ -43,6 +45,7 @@ const components = [
     BlogListComponent,
     NewsListComponent,
     ArticleListComponent,
+    TaxonomyListComponent,
   ],
 })
 export class NodeModule {}
