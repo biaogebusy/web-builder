@@ -10,6 +10,7 @@ import { ShowcaseModule } from './showcase/showcase.module';
 import { CarouselModule } from './carousel/carousel.module';
 import { HeroModule } from './hero/hero.module';
 import { DynamicCombsModule } from './dynamic-combs/dynamic-combs.module';
+import { ListModule } from './list/list.module';
 
 const modules = [
   ShowcaseModule,
@@ -22,6 +23,7 @@ const modules = [
   HeroModule,
   SearchModule,
   DynamicCombsModule,
+  ListModule,
 ];
 
 @NgModule({

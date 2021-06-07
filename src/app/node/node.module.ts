@@ -10,7 +10,6 @@ import { JobNodeComponent } from './job/job-node/job-node.component';
 import { ShareModule } from '../share/share.module';
 import { CombsModule } from '../uiux/combs/combs.module';
 import { WidgetsModule } from '../uiux/widgets/widgets.module';
-import { ListComponent } from './list/list.component';
 import { MediaListComponent } from './article/media-list/media-list.component';
 import { MenuListComponent } from './article/menu-list/menu-list.component';
 import { ArticleBannerComponent } from './article/article-banner/article-banner.component';
@@ -23,7 +22,6 @@ const components = [
   JobComponent,
   NewsListComponent,
   CaseComponent,
-  ListComponent,
   BlogListComponent,
   ArticleComponent,
   ArticleListComponent,
