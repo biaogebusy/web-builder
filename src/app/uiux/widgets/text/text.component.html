@@ -4,7 +4,7 @@
     <app-img *ngIf="content.bg?.img" [content]="content.bg.img"></app-img>
   </app-bg>
   <div class="container">
-    <div class="inner" [ngClass.gt-xs]="content.classes" [ngStyle.gt-xs]="content.style">
+    <div class="inner" [ngClass.gt-sm]="content.classes" [ngStyle.gt-sm]="content.style">
       <app-title [content]="content.title" *ngIf="content.title"></app-title>
       <div [innerHTML]="content.body | safeHtml" *ngIf="content.body"></div>
       <div class="m-top" *ngIf="content.action">
