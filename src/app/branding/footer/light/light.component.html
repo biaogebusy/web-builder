@@ -6,7 +6,7 @@
     <div class="container">
       <div class="brand" fxLayoutAlign="space-between center">
         <h2 class="mat-h2 m-bottom-0">{{content.logo.label}}</h2>
-        <p>©{{utilities.fullYear}} {{content.copyRight}}</p>
+        <p>©{{utilities.fullYear}} <span [innerHTML]="content.copyRight"></span></p>
       </div>
     </div>
   </div>

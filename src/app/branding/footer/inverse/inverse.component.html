@@ -59,7 +59,7 @@
        <div class="inner" fxLayout.lt-md="column" fxLayout.gt-sm="row" fxLayoutAlign.lt-md="center center"
          fxLayoutAlign.gt-sm="space-between center">
          <div class="left" [ngClass.lt-md]="'text-center'" *ngIf="content?.footerBottom?.left"
-           [innerHTML]="content.footerBottom.left"></div>
+           [innerHTML]="content.footerBottom.left | safeHtml"></div>
          <div class="right" *ngIf="content?.footerBottom?.right">
            <div fxLayout="row">
              <app-link class="item" *ngFor="let item of content.footerBottom.right" [content]="item"></app-link>
