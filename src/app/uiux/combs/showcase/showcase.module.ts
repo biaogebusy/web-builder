@@ -12,11 +12,13 @@ import { Showcase1v3Component } from './showcase1v3/showcase1v3.component';
 import { Showcase3v5Component } from './showcase3v5/showcase3v5.component';
 import { Showcase3v6Component } from './showcase3v6/showcase3v6.component';
 import { Showcase3v7Component } from './showcase3v7/showcase3v7.component';
+import { Showcase2v2Component } from './showcase2v2/showcase2v2.component';
 
 const components = [
   Showcase1v1Component,
   Showcase1v3Component,
   Showcase2v1Component,
+  Showcase2v2Component,
   Showcase3v1Component,
   Showcase3v2Component,
   Showcase3v3Component,

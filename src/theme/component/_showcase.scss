@@ -26,6 +26,14 @@
     }
   }
 
+  .showcase-2v2 {
+    .mat-card-content {
+      .mat-card-title {
+        border-bottom: 1px solid mat-color($foreground, divider, 0.1);
+      }
+    }
+  }
+
   .showcase-3-v3 {
     .blog-item {
       ul.post-meta-info {

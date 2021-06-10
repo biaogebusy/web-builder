@@ -16,19 +16,19 @@
       <div *ngIf="content.avatar" mat-card-avatar class="m-right-xs">
         <app-img [content]="content.avatar"></app-img>
       </div>
-      <div fxLayout="column">
-        <mat-card-title *ngIf="content?.title;else link">{{content.title}}</mat-card-title>
+      <div fxLayout="row wrap" fxFlex="100">
+        <mat-card-title fxFlex="100" *ngIf="content?.title;else link">{{content.title}}</mat-card-title>
         <ng-template #link>
-          <mat-card-title>
+          <mat-card-title fxFlex="100">
             <app-link [content]="content.link"></app-link>
           </mat-card-title>
         </ng-template>
-        <mat-card-subtitle *ngIf="content?.subTitle">
+        <mat-card-subtitle fxFlex="100" *ngIf="content?.subTitle">
           {{content.subTitle}}
         </mat-card-subtitle>
       </div>
     </div>
-    <div *ngIf="content.body" class="card-body" [innerHTML]="content.body | slice:0:180 | safeHtml">
+    <div *ngIf="content.body" class="card-body" [innerHTML]="content.body | safeHtml">
     </div>
   </mat-card-content>
   <mat-card-actions *ngIf="content?.actions">

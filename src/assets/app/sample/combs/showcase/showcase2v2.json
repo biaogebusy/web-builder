@@ -1,0 +1,199 @@
+{
+  "body": [{
+    "type": "showcase-2v2",
+    "text": {
+      "title": {
+        "label": "Xinshi Product List",
+        "style": "style-v1",
+        "classes": "mat-display-0 bold"
+      },
+      "body": "<p class=\"text-center\">Wlecome share your story!</p>"
+    },
+    "row": "4",
+    "elements": [{
+      "carousel": {
+        "params": {
+          "slidesPerView": 1,
+          "navigation": false,
+          "autoplay": {
+            "delay": 5000
+          },
+          "breakpoints": null
+        },
+        "elements": [{
+          "type": "feature-box",
+          "fullIcon": "fullscreen",
+          "openIcon": "open_in_new",
+          "link": "#",
+          "ratios": "media-140",
+          "img": {
+            "large": "/assets/images/4-3/16-DY002Bsuolue.jpeg",
+            "normal": "/assets/images/4-3/16-DY002Bsuolue.jpeg",
+            "title": "title"
+          }
+        }, {
+          "type": "feature-box",
+          "fullIcon": "fullscreen",
+          "openIcon": "open_in_new",
+          "link": "#",
+          "ratios": "media-140",
+          "img": {
+            "large": "/assets/images/4-3/09-DY021suolue.jpeg",
+            "normal": "/assets/images/4-3/09-DY021suolue.jpeg"
+          }
+        }]
+      },
+      "link": {
+        "href": "/node/1",
+        "label": "FLAT LOGO DESIGN"
+      },
+      "body": "<ul><li>Stylish Desige</li><li>4 Airflow Options</li><li>Type-C Charging</li></ul>"
+    }, {
+      "carousel": {
+        "params": {
+          "slidesPerView": 1,
+          "navigation": false,
+          "autoplay": {
+            "delay": 5000
+          },
+          "breakpoints": null
+        },
+        "elements": [{
+          "type": "feature-box",
+          "fullIcon": "fullscreen",
+          "openIcon": "open_in_new",
+          "link": "#",
+          "ratios": "media-140",
+          "img": {
+            "large": "/assets/images/4-3/15-DY002suolue.jpeg",
+            "normal": "/assets/images/4-3/15-DY002suolue.jpeg"
+          }
+        }]
+      },
+      "link": {
+        "href": "/node/1",
+        "label": "FLAT LOGO DESIGN"
+      },
+      "body": "<ul class=\"list-done\"><li>Stylish Desige</li><li>4 Airflow Options</li><li>Type-C Charging</li></ul>"
+    }, {
+      "carousel": {
+        "params": {
+          "slidesPerView": 1,
+          "navigation": false,
+          "autoplay": {
+            "delay": 5000
+          },
+          "breakpoints": null
+        },
+        "elements": [{
+          "type": "feature-box",
+          "fullIcon": "fullscreen",
+          "openIcon": "open_in_new",
+          "link": "#",
+          "ratios": "media-140",
+          "img": {
+            "large": "/assets/images/4-3/09-DY021suolue.jpeg",
+            "normal": "/assets/images/4-3/09-DY021suolue.jpeg"
+          }
+        }]
+      },
+      "link": {
+        "href": "/node/1",
+        "label": "FLAT LOGO DESIGN"
+      },
+      "body": "<ul class=\"list-done\"><li>Stylish Desige</li><li>4 Airflow Options</li><li>Type-C Charging</li></ul>"
+    }, {
+      "carousel": {
+        "params": {
+          "slidesPerView": 1,
+          "navigation": false,
+          "autoplay": {
+            "delay": 5000
+          },
+          "breakpoints": null
+        },
+        "elements": [{
+          "type": "feature-box",
+          "fullIcon": "fullscreen",
+          "openIcon": "open_in_new",
+          "link": "#",
+          "ratios": "media-140",
+          "img": {
+            "large": "/assets/images/4-3/09-DY021suolue.jpeg",
+            "normal": "/assets/images/4-3/09-DY021suolue.jpeg"
+          }
+        }]
+      },
+      "link": {
+        "href": "/node/1",
+        "label": "FLAT LOGO DESIGN"
+      },
+      "body": "<ul class=\"list-done\"><li>Stylish Desige</li><li>4 Airflow Options</li><li>Type-C Charging</li></ul>"
+    }, {
+      "carousel": {
+        "params": {
+          "slidesPerView": 1,
+          "navigation": false,
+          "autoplay": {
+            "delay": 5000
+          },
+          "breakpoints": null
+        },
+        "elements": [{
+          "type": "feature-box",
+          "fullIcon": "fullscreen",
+          "openIcon": "open_in_new",
+          "link": "#",
+          "ratios": "media-140",
+          "img": {
+            "large": "/assets/images/4-3/16-DY002Bsuolue.jpeg",
+            "normal": "/assets/images/4-3/16-DY002Bsuolue.jpeg",
+            "title": "title"
+          }
+        }, {
+          "type": "feature-box",
+          "fullIcon": "fullscreen",
+          "openIcon": "open_in_new",
+          "link": "#",
+          "ratios": "media-140",
+          "img": {
+            "large": "/assets/images/4-3/09-DY021suolue.jpeg",
+            "normal": "/assets/images/4-3/09-DY021suolue.jpeg"
+          }
+        }]
+      },
+      "link": {
+        "href": "/node/1",
+        "label": "FLAT LOGO DESIGN"
+      },
+      "body": "<ul><li>Stylish Desige</li><li>4 Airflow Options</li><li>Type-C Charging</li></ul>"
+    }, {
+      "carousel": {
+        "params": {
+          "slidesPerView": 1,
+          "navigation": false,
+          "autoplay": {
+            "delay": 5000
+          },
+          "breakpoints": null
+        },
+        "elements": [{
+          "type": "feature-box",
+          "fullIcon": "fullscreen",
+          "openIcon": "open_in_new",
+          "link": "#",
+          "ratios": "media-140",
+          "img": {
+            "large": "/assets/images/4-3/15-DY002suolue.jpeg",
+            "normal": "/assets/images/4-3/15-DY002suolue.jpeg"
+          }
+        }]
+      },
+      "link": {
+        "href": "/node/1",
+        "label": "FLAT LOGO DESIGN"
+      },
+      "body": "<ul class=\"list-done\"><li>Stylish Desige</li><li>4 Airflow Options</li><li>Type-C Charging</li></ul>"
+    }]
+  }]
+}
