@@ -21,7 +21,7 @@
           </li>
           <li *ngIf="content.category" fxLayoutAlign="center center">
             <mat-icon>folder</mat-icon>
-            <div>{{content.category | slice:0:10}}</div>
+            <div>{{content.category | slice:0:20}}</div>
           </li>
         </ul>
         <div class="blog-shortdesc" [innerHTML]="content.body |stripTags|trim|shorten:150:'...'">
