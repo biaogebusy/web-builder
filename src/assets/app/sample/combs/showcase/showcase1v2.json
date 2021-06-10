@@ -5,6 +5,10 @@
       "label": "Showcase 1 v2",
       "style": "style-v2"
     },
+    "subTitle": {
+      "spacer": "none",
+      "body": "<p class=\"text-center\">At vero eos et accusam et justo duo dolores et ea rebum. <br>Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p><br>"
+    },
     "bg": {
       "classes": "bg-shadow bg-fill-width"
     },
