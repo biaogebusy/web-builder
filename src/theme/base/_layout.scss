@@ -93,7 +93,9 @@
 
 .list-done {
   margin-left: 0;
+  list-style: none;
   li {
+    list-style: none;
     &::marker {
       display: none;
       font-size: 0;
