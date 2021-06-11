@@ -6,7 +6,7 @@
     position: static;
   }
   @media #{$lt-md} {
-    min-height: 75vh;
+    min-height: 660px;
     ::ng-deep {
       .base-text {
         .inner {
@@ -20,7 +20,6 @@
     }
   }
   @media #{$lt-sm} {
-    min-height: 90vh;
     ::ng-deep {
       .base-text {
         .inner {
