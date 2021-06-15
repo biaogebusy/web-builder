@@ -7,6 +7,7 @@
   }
   @media #{$lt-md} {
     min-height: 660px;
+    height: 100vh;
     ::ng-deep {
       .base-text {
         .inner {
