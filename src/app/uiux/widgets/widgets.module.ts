@@ -34,6 +34,7 @@ import { NumberAnimateComponent } from './number-animate/number-animate.componen
 import { DynamicWidgetsComponent } from './dynamic-widgets/dynamic-widgets.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { SafeHtmlPipe } from '../../pipe/safe-html.pipe';
+import { IconComponent } from './icon/icon.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -49,6 +50,7 @@ const components = [
   LinkComponent,
   TabComponent,
   CardComponent,
+  IconComponent,
   TitleComponent,
   PanelComponent,
   InputComponent,

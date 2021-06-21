@@ -9,7 +9,7 @@
     @include transform(0deg, 1, 0, 0);
     @include transition(all, 0.3s, ease-out);
     @include border-radius(4px, 4px, 4px, 4px);
-    .mat-icon {
+    ::ng-deep .mat-icon {
       @include transition(all, 0.3s, ease-out);
       font-size: 30px;
       display: inline-block;
@@ -33,7 +33,7 @@
     }
     &.style-v7 {
       .box-icon {
-        .mat-icon {
+        ::ng-deep .mat-icon {
           font-size: 20px;
           height: 36px;
           width: 36px;
@@ -53,7 +53,7 @@
   &.box-square,
   &.box-circle {
     .box-icon {
-      .mat-icon,
+      ::ng-deep .mat-icon,
       img {
         @include middle-center();
         z-index: 1;
@@ -133,7 +133,7 @@
       border: 0;
       z-index: 100;
       @include translateX(-50%);
-      .mat-icon {
+      ::ng-deep .mat-icon {
         height: 60px;
         line-height: 60px;
         width: 60px;
@@ -170,7 +170,7 @@
     .box-icon {
       margin: 0 auto;
       margin-bottom: 35px;
-      .mat-icon {
+      ::ng-deep .mat-icon {
         position: absolute;
         left: 50%;
         @include middle-center();
@@ -221,7 +221,7 @@
     .box-icon {
       margin: 0 auto;
       margin-bottom: 35px;
-      .mat-icon {
+      ::ng-deep .mat-icon {
         position: absolute;
         left: 50%;
         width: 30px;
@@ -235,7 +235,7 @@
     .box-icon {
       width: 78px;
       height: 78px;
-      .mat-icon {
+      ::ng-deep .mat-icon {
         @include border-radius(3px, 3px, 3px, 3px);
         @include middle-center();
       }
@@ -268,7 +268,7 @@
     .box-icon {
       top: -40px;
       @include border-radius(100%, 100%, 100%, 100%);
-      .mat-icon,
+      ::ng-deep .mat-icon,
       img {
         height: 70px;
         line-height: 70px;
@@ -292,7 +292,7 @@
     }
     &:hover {
       .box-icon {
-        .mat-icon {
+        ::ng-deep .mat-icon {
           width: 88px;
           height: 88px;
         }
@@ -305,7 +305,7 @@
     .box-icon {
       @include border-radius(50%, 50%, 50%, 50%);
 
-      .mat-icon {
+      ::ng-deep .mat-icon {
         width: 30px;
         height: 30px;
       }
@@ -352,7 +352,7 @@
   &.style-v7 {
     .box-icon {
       @include border-radius(100%, 100%, 100%, 100%);
-      .mat-icon,
+      ::ng-deep .mat-icon,
       img {
         @include middle-center();
         z-index: 1;
@@ -376,7 +376,7 @@
     }
     &:hover {
       .box-icon {
-        .mat-icon {
+        ::ng-deep .mat-icon {
           &:after {
             opacity: 0;
             @include translateAndScale(-50%, -50%, 0);
@@ -478,7 +478,7 @@
       margin-right: 1rem;
       margin-bottom: 1rem;
       ::ng-deep {
-        .mat-icon {
+        ::ng-deep .mat-icon {
           font-size: 20px;
         }
       }
@@ -502,16 +502,14 @@
     text-align: center;
     padding: 1.5rem;
     transition: all 0.5s ease;
-
     .box-icon {
       height: 80px;
-      line-height: 80px;
       margin: 0 auto;
       border-radius: 6px;
       display: flex;
       justify-content: center;
       align-items: center;
-      .mat-icon {
+      ::ng-deep .mat-icon {
         font-size: 24px;
       }
     }

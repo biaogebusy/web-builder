@@ -1,0 +1,5 @@
+<ng-container *ngIf="content">
+  <mat-icon color="{{content.color}}" *ngIf="!content.svg">{{content.name}}</mat-icon>
+  <mat-icon class="custom" color="{{content.color}}" *ngIf="content.svg" [inline]="content.inline"
+    [svgIcon]="content.svg"></mat-icon>
+</ng-container>

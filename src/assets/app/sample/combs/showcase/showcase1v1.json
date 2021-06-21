@@ -59,7 +59,10 @@
       "classes": "bg-shadow bg-fill-width"
     },
     "elements": [{
-      "icon": "verified_user",
+      "icon": {
+        "svg": "zhihu",
+        "inline": true
+      },
       "style": "style-v9",
       "title": {
         "href": "#",
@@ -71,7 +74,9 @@
         "label": "Read More"
       }
     }, {
-      "icon": "fingerprint",
+      "icon": {
+        "name": "fingerprint"
+      },
       "style": "style-v9",
       "title": {
         "href": "#",
@@ -83,7 +88,9 @@
         "label": "Read More"
       }
     }, {
-      "icon": "favorite",
+      "icon": {
+        "name": "favorite"
+      },
       "style": "style-v9",
       "title": {
         "href": "#",
@@ -95,7 +102,9 @@
         "label": "Read More"
       }
     }, {
-      "icon": "android",
+      "icon": {
+        "name": "android"
+      },
       "style": "style-v9",
       "title": {
         "href": "#",
@@ -114,7 +123,9 @@
       "style": "style-v1"
     },
     "elements": [{
-      "icon": "verified_user",
+      "icon": {
+        "name": "verified_user"
+      },
       "style": "style-v1",
       "title": {
         "href": "#",
@@ -126,7 +137,9 @@
         "label": "+"
       }
     }, {
-      "icon": "fingerprint",
+      "icon": {
+        "name": "fingerprint"
+      },
       "style": "style-v1",
       "title": {
         "href": "#",
@@ -138,7 +151,9 @@
         "label": "+"
       }
     }, {
-      "icon": "favorite",
+      "icon": {
+        "name": "favorite"
+      },
       "style": "style-v1",
       "title": {
         "href": "#",
@@ -150,7 +165,9 @@
         "label": "+"
       }
     }, {
-      "icon": "android",
+      "icon": {
+        "name": "android"
+      },
       "style": "style-v1",
       "title": {
         "href": "#",
@@ -173,7 +190,9 @@
       "classes": "bg-shadow bg-fill-width"
     },
     "elements": [{
-      "icon": "verified_user",
+      "icon": {
+        "name": "verified_user"
+      },
       "style": "style-v2",
       "title": {
         "href": "#",
@@ -185,7 +204,9 @@
         "label": "+"
       }
     }, {
-      "icon": "fingerprint",
+      "icon": {
+        "name": "fingerprint"
+      },
       "style": "style-v2",
       "title": {
         "href": "#",
@@ -197,7 +218,9 @@
         "label": "+"
       }
     }, {
-      "icon": "favorite",
+      "icon": {
+        "name": "favorite"
+      },
       "style": "style-v2",
       "title": {
         "href": "#",
@@ -209,7 +232,9 @@
         "label": "+"
       }
     }, {
-      "icon": "android",
+      "icon": {
+        "name": "android"
+      },
       "style": "style-v2",
       "title": {
         "href": "#",
@@ -229,7 +254,9 @@
     },
     "style": "style-v3",
     "elements": [{
-      "icon": "verified_user",
+      "icon": {
+        "name": "verified_user"
+      },
       "style": "style-v3",
       "title": {
         "href": "#",
@@ -241,7 +268,9 @@
         "label": "+"
       }
     }, {
-      "icon": "fingerprint",
+      "icon": {
+        "name": "fingerprint"
+      },
       "style": "style-v3",
       "title": {
         "href": "#",
@@ -253,7 +282,9 @@
         "label": "+"
       }
     }, {
-      "icon": "favorite",
+      "icon": {
+        "name": "favorite"
+      },
       "style": "style-v3",
       "title": {
         "href": "#",
@@ -265,7 +296,9 @@
         "label": "+"
       }
     }, {
-      "icon": "android",
+      "icon": {
+        "name": "android"
+      },
       "style": "style-v3",
       "title": {
         "href": "#",
@@ -288,7 +321,9 @@
     },
     "elements": [{
       "style": "style-v4",
-      "icon": "verified_user",
+      "icon": {
+        "name": "verified_user"
+      },
       "title": {
         "href": "#",
         "label": "SUPER CODING"
@@ -299,7 +334,9 @@
         "label": "+"
       }
     }, {
-      "icon": "fingerprint",
+      "icon": {
+        "name": "fingerprint"
+      },
       "style": "style-v4",
       "title": {
         "href": "#",
@@ -311,7 +348,9 @@
         "label": "+"
       }
     }, {
-      "icon": "favorite",
+      "icon": {
+        "name": "favorite"
+      },
       "style": "style-v4",
       "title": {
         "href": "#",
@@ -323,7 +362,9 @@
         "label": "+"
       }
     }, {
-      "icon": "android",
+      "icon": {
+        "name": "android"
+      },
       "style": "style-v4",
       "title": {
         "href": "#",
@@ -342,7 +383,9 @@
       "style": "style-v5"
     },
     "elements": [{
-      "icon": "verified_user",
+      "icon": {
+        "name": "verified_user"
+      },
       "style": "style-v5",
       "title": {
         "href": "#",
@@ -354,7 +397,9 @@
         "label": "+"
       }
     }, {
-      "icon": "fingerprint",
+      "icon": {
+        "name": "fingerprint"
+      },
       "style": "style-v5",
       "title": {
         "href": "#",
@@ -366,7 +411,9 @@
         "label": "+"
       }
     }, {
-      "icon": "favorite",
+      "icon": {
+        "name": "favorite"
+      },
       "style": "style-v5",
       "title": {
         "href": "#",
@@ -378,7 +425,9 @@
         "label": "+"
       }
     }, {
-      "icon": "android",
+      "icon": {
+        "name": "android"
+      },
       "style": "style-v5",
       "title": {
         "href": "#",
@@ -400,7 +449,9 @@
       "classes": "bg-shadow bg-fill-width"
     },
     "elements": [{
-      "icon": "verified_user",
+      "icon": {
+        "name": "verified_user"
+      },
       "style": "style-v6",
       "title": {
         "href": "#",
@@ -412,7 +463,9 @@
         "label": "Read More"
       }
     }, {
-      "icon": "fingerprint",
+      "icon": {
+        "name": "fingerprint"
+      },
       "style": "style-v6",
       "title": {
         "href": "#",
@@ -424,7 +477,9 @@
         "label": "Read More"
       }
     }, {
-      "icon": "favorite",
+      "icon": {
+        "name": "favorite"
+      },
       "style": "style-v6",
       "title": {
         "href": "#",
@@ -436,7 +491,9 @@
         "label": "Read More"
       }
     }, {
-      "icon": "android",
+      "icon": {
+        "name": "android"
+      },
       "style": "style-v6",
       "title": {
         "href": "#",
@@ -455,7 +512,9 @@
       "style": "style-v7"
     },
     "elements": [{
-      "icon": "verified_user",
+      "icon": {
+        "name": "verified_user"
+      },
       "style": "style-v7",
       "title": {
         "href": "#",
@@ -467,7 +526,9 @@
         "label": "Read More"
       }
     }, {
-      "icon": "fingerprint",
+      "icon": {
+        "name": "fingerprint"
+      },
       "style": "style-v7",
       "title": {
         "href": "#",
@@ -479,7 +540,9 @@
         "label": "Read More"
       }
     }, {
-      "icon": "favorite",
+      "icon": {
+        "name": "favorite"
+      },
       "style": "style-v7",
       "title": {
         "href": "#",
@@ -491,7 +554,9 @@
         "label": "Read More"
       }
     }, {
-      "icon": "android",
+      "icon": {
+        "name": "android"
+      },
       "style": "style-v7",
       "title": {
         "href": "#",

@@ -1,6 +1,7 @@
 <div *ngIf="content" [ngClass]="content.style" class="inv-builder-box m-bottom-sm">
   <div *ngIf="content.icon" class="box-icon">
-    <mat-icon>{{content.icon}}</mat-icon>
+    <!-- <mat-icon>{{content.icon}}</mat-icon> -->
+    <app-icon [content]="content.icon"></app-icon>
   </div>
   <div *ngIf="content.img" class="box-image">
     <app-img [content]="content.img"></app-img>
