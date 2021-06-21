@@ -8,9 +8,10 @@
       </mat-list>
       <mat-expansion-panel *ngIf="item.child" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
         <mat-expansion-panel-header>
-          <mat-panel-title [ngClass]="item.classes">
+          <mat-panel-title *ngIf="!item.href" [ngClass]="item.classes">
             {{item.label}}
           </mat-panel-title>
+          <app-link *ngIf="item.href" [ngClass]="item.classes" [content]="item"></app-link>
         </mat-expansion-panel-header>
         <app-dropdown-menu [content]="item.child"></app-dropdown-menu>
       </mat-expansion-panel>

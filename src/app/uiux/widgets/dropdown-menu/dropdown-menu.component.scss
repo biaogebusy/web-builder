@@ -14,6 +14,11 @@
     .mat-expansion-panel {
       .mat-expansion-panel-header {
         border: 0;
+        ::ng-deep {
+          a {
+            color: inherit;
+          }
+        }
       }
     }
   }
