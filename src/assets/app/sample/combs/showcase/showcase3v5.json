@@ -20,7 +20,9 @@
       "alt": "OUR FEATURES"
     },
     "elements": [{
-      "icon": "verified_user",
+      "icon": {
+        "name": "verified_user"
+      },
       "style": "style-v8",
       "title": {
         "href": "#",
@@ -28,7 +30,9 @@
       },
       "content": "Composed in a pseudo-Latin language which more or less pseudo-Latin language corresponds."
     }, {
-      "icon": "fingerprint",
+      "icon": {
+        "name": "verified_user"
+      },
       "style": "style-v8",
       "title": {
         "href": "#",
@@ -36,7 +40,9 @@
       },
       "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority."
     }, {
-      "icon": "favorite",
+      "icon": {
+        "name": "favorite"
+      },
       "style": "style-v8",
       "title": {
         "href": "#",
@@ -44,7 +50,9 @@
       },
       "content": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat."
     }, {
-      "icon": "android",
+      "icon": {
+        "name": "android"
+      },
       "style": "style-v8",
       "title": {
         "href": "#",
@@ -52,7 +60,9 @@
       },
       "content": "At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. "
     }, {
-      "icon": "favorite",
+      "icon": {
+        "name": "favorite"
+      },
       "style": "style-v8",
       "title": {
         "href": "#",
@@ -60,7 +70,9 @@
       },
       "content": "Consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. "
     }, {
-      "icon": "android",
+      "icon": {
+        "name": "android"
+      },
       "style": "style-v8",
       "title": {
         "href": "#",

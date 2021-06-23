@@ -14,7 +14,9 @@
       "alt": "OUR FEATURES"
     },
     "elements": [{
-      "icon": "verified_user",
+      "icon": {
+        "name": "verified_user"
+      },
       "style": "style-v7",
       "title": {
         "label": "FREMIUM MODULES INCLUDED",
@@ -22,7 +24,9 @@
       },
       "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority."
     }, {
-      "icon": "fingerprint",
+      "icon": {
+        "name": "fingerprint"
+      },
       "style": "style-v7",
       "title": {
         "label": "FREMIUM MODULES INCLUDED",
@@ -30,7 +34,9 @@
       },
       "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority."
     }, {
-      "icon": "favorite",
+      "icon": {
+        "name": "favorite"
+      },
       "style": "style-v7",
       "title": {
         "label": "FREMIUM MODULES INCLUDED",
@@ -38,7 +44,9 @@
       },
       "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority."
     }, {
-      "icon": "android",
+      "icon": {
+        "name": "android"
+      },
       "style": "style-v7",
       "title": {
         "label": "FREMIUM MODULES INCLUDED",
@@ -56,11 +64,13 @@
       "classes": "bg-shadow bg-fill-width"
     },
     "img": {
-      "src": "/assets/images/1-1/business-01.png",
+      "src": "/assets/images/1-1/business-02.png",
       "alt": "OUR FEATURES"
     },
     "elements": [{
-      "icon": "verified_user",
+      "icon": {
+        "name": "verified_user"
+      },
       "style": "style-v7",
       "title": {
         "label": "FREMIUM MODULES INCLUDED",
@@ -68,7 +78,9 @@
       },
       "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority."
     }, {
-      "icon": "fingerprint",
+      "icon": {
+        "name": "fingerprint"
+      },
       "style": "style-v7",
       "title": {
         "label": "FREMIUM MODULES INCLUDED",
@@ -76,7 +88,9 @@
       },
       "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority."
     }, {
-      "icon": "favorite",
+      "icon": {
+        "name": "favorite"
+      },
       "style": "style-v7",
       "title": {
         "label": "FREMIUM MODULES INCLUDED",
@@ -84,7 +98,9 @@
       },
       "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority."
     }, {
-      "icon": "android",
+      "icon": {
+        "name": "android"
+      },
       "style": "style-v7",
       "title": {
         "label": "FREMIUM MODULES INCLUDED",
