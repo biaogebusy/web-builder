@@ -35,6 +35,7 @@
     "material-design-icons": "^3.0.1",
     "mobx": "^6.0.4",
     "mobx-angular": "^4.2.0",
+    "ngx-google-analytics": "^11.2.1",
     "ngx-lightbox": "^2.3.0",
     "ngx-pagination": "^5.1.0",
     "ngx-pipes": "^2.7.5",

@@ -1,4 +1,5 @@
 export const environment = {
   apiUrl: 'https://api.zhaobg.com',
-  production: true
+  ga: 'G-S18EVN8MF9',
+  production: true,
 };

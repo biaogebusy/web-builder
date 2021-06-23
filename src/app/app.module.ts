@@ -11,6 +11,8 @@ import { NgxWebstorageModule } from 'ngx-webstorage';
 import { BrandingModule } from './branding/branding.module';
 import { AppComponent } from './app.component';
 import { AppState } from './mobx/AppState';
+import { NgxGoogleAnalyticsModule } from 'ngx-google-analytics';
+import { environment } from 'src/environments/environment';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -21,6 +23,7 @@ import { AppState } from './mobx/AppState';
     CommonModule,
     MatSidenavModule,
     MobxAngularModule,
+    NgxGoogleAnalyticsModule.forRoot(environment.ga),
     NgxWebstorageModule.forRoot(),
     MobxModule.forRoot(),
     BrandingModule,

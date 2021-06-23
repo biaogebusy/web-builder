@@ -5,6 +5,7 @@
 export const environment = {
   apiUrl: 'http://localhost:4200',
   // apiUrl: 'https://api.zhaobg.com',
+  ga: 'G-S18EVN8MF9',
   production: false,
 };
 
