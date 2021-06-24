@@ -99,7 +99,9 @@
         "title": {
           "label": "Address"
         },
-        "icon": "location_on",
+        "icon": {
+          "name": "location_on"
+        },
         "style": "style-v7 small-box",
         "content": "NO.28 Street Name - City. Country"
       }, {
@@ -107,21 +109,27 @@
           "label": "Phone number"
         },
         "style": "style-v7 small-box",
-        "icon": "phone",
+        "icon": {
+          "name": "phone"
+        },
         "content": "+086 0771xxxx"
       }, {
         "title": {
           "label": "Email Adress"
         },
         "style": "style-v7 small-box",
-        "icon": "mail",
+        "icon": {
+          "name": "mail"
+        },
         "content": "info@kingzonetech.com"
       }, {
         "title": {
           "label": "Wechat"
         },
         "style": "style-v7 small-box",
-        "icon": "chat_bubble",
+        "icon": {
+          "name": "chat_bubble"
+        },
         "content": "kingzonetech"
       }],
       "forms": [{
