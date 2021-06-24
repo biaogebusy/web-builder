@@ -13,6 +13,7 @@
       @include transition(all, 0.3s, ease-out);
       font-size: 30px;
       display: inline-block;
+      vertical-align: middle;
     }
   }
   .box-title {
