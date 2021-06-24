@@ -4,9 +4,18 @@
   min-height: calc(100vh - 76px);
 }
 
-::ng-deep .mat-drawer {
-  @media #{$xs} {
-    position: fixed !important;
-    width: 80vw;
+::ng-deep {
+  .mat-drawer {
+    @media #{$xs} {
+      position: fixed !important;
+      width: 80vw;
+    }
+  }
+  .cdk-overlay-container {
+    .cdk-overlay-pane {
+      .mat-menu-content {
+        max-height: 580px;
+      }
+    }
   }
 }
