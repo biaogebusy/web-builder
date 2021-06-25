@@ -119,6 +119,9 @@
           }, {
             "label": "Carousel 2v1",
             "href": "/sample/combs/carousel/carousel2v1"
+          }, {
+            "label": "Carousel 2v2",
+            "href": "/sample/combs/carousel/carousel2v2"
           }]
         }, {
           "label": "Masonry",

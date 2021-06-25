@@ -54,6 +54,17 @@
       }
     }
   }
+  .carousel-2-v2 {
+    &.bg-primary {
+      background-color: mat-color($primary);
+      .swiper-container {
+        .swiper-button-prev,
+        .swiper-button-next {
+          color: mat-color($primary, default-contrast);
+        }
+      }
+    }
+  }
   .swiper-container {
     .swiper-pagination-bullet-active {
       background-color: mat-color($primary);

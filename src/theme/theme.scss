@@ -12,6 +12,7 @@
 
 @include branding(map-get($color-theme, shadow), "shadow");
 @include branding(map-get($color-theme, light), "light");
+@include branding(map-get($color-theme, success), "success");
 
 @include custom-overide();
 @include base-colors($app-theme);

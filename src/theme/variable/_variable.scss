@@ -33,14 +33,11 @@ $king-theme: mat-light-theme($king-primary, $king-accent, $king-warn);
 
 // $light-theme-text-base: mat-color($light-theme-base-color, 700);
 $color-theme: (
-  //
-  // base: (text: $light-theme-text-base, border: $light-theme-text-base, bg:$light-theme-text-base),
-  success:
-    (
-      text: #3c763d,
-      border: #b2dba1,
-      bg: #dff0d8,
-    ),
+  success: (
+    text: #3c763d,
+    border: #b2dba1,
+    bg: #dff0d8,
+  ),
   shadow: (
     text: mat-color($mat-grey, 700),
     border: mat-color($mat-grey, 400),
@@ -50,22 +47,8 @@ $color-theme: (
     text: #fff,
     border: #fff,
     bg: #fff,
-  )
+  ),
 );
-
-// @include branding(map-get($colors, base), 'base');
-// @include branding(map-get($colors, primary), 'primary');
-// @include branding(map-get($colors, accent), 'accent');
-// @include branding(map-get($colors, warn), 'warn');
-// @include branding(map-get($colors, dark), 'dark');
-
-// $base: map-get($map: $color-theme, $key: base);
-// $text-color: map-get($map: $base, $key: text);
-
-// $color-theme:( //
-//   base: (text: #fff, border: #fff, bg: #fff),
-//   success: (text: #3c763d, border: #b2dba1, bg: #dff0d8),
-// );
 
 $dark-primary: mat-palette($app-primary, 300, 50, 500);
 $dark-accent: mat-palette($light-color, A200, A100, A400);
