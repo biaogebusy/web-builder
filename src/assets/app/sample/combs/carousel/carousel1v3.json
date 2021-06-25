@@ -13,14 +13,9 @@
       },
       "body": "<p class=\"text-center\">Start working with <a href=\"#\">xinshi</a> that can provide everything you need to generate awareness,<br> drive traffic, connect.</p><br>"
     },
-    "style": "text-light",
+    "style": "",
     "bg": {
-      "classes": "bg-shadow  overlay overlay-80",
-      "img": {
-        "hostClasses": "bg-center",
-        "src": "/assets/images/16-9/business-14.jpeg",
-        "mobile": "/assets/images/mobile/mobile-03.jpg"
-      }
+      "classes": "bg-shadow"
     },
     "sliders": {
       "params": {
