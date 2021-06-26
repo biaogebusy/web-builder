@@ -104,32 +104,10 @@
   }
 
   .pagination {
-    .item {
-      a {
-        color: mat-color($foreground, text, 0.5);
-        &:hover {
-          color: mat-color($primary);
-        }
-      }
-      &.current {
-        .active {
-          background-color: mat-color($primary);
-          color: mat-color($primary, default-contrast);
-          border-radius: 50%;
-        }
-      }
-      &.pagination-previous:not(disabled),
-      &.pagination-next:not(disabled) {
-        a {
-          color: mat-color($primary);
-        }
-      }
-      &.pagination-previous.disabled,
-      &.pagination-next.disabled {
-        a {
-          color: mat-color($foreground, text, 0.5);
-        }
-      }
+    button.current {
+      background-color: mat-color($primary) !important;
+      color: mat-color($primary, default-contrast) !important;
+      border-radius: 4px;
     }
   }
 
