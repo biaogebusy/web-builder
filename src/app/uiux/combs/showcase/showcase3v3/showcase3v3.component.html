@@ -13,7 +13,7 @@
         <ul class="post-meta-info" fxLayout fxLayoutAlign="start start">
           <li *ngIf="content.date" fxLayoutAlign="center center">
             <mat-icon>schedule</mat-icon>
-            <div>{{content.date | date:"medium"}}</div>
+            <div>{{content.date | date:"YYYY-MM-dd"}}</div>
           </li>
           <li *ngIf="content.commentCount" fxLayoutAlign="center center">
             <mat-icon>comment</mat-icon>
