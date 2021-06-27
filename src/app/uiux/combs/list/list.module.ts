@@ -3,8 +3,9 @@ import { ShareModule } from 'src/app/share/share.module';
 import { WidgetsModule } from '../../widgets/widgets.module';
 import { ShowcaseModule } from '../showcase/showcase.module';
 import { ListComponent } from './list/list.component';
+import { DynamicMediaListComponent } from './dynamic-media-list/dynamic-media-list.component';
 
-const components = [ListComponent];
+const components = [ListComponent, DynamicMediaListComponent];
 
 @NgModule({
   declarations: [...components],
