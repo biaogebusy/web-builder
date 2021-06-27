@@ -46,7 +46,7 @@ export class BlogListComponent implements OnInit {
           category: item.category.name,
           body: item.body.summary || item.body.value,
           details: {
-            label: 'Read More',
+            label: '查看更多',
             href: link,
             style: 'style-v1',
             icon: 'open_in_new',
