@@ -140,14 +140,8 @@
             "label": "Blog / News",
             "href": "/sample/node/article"
           }, {
-            "label": "Blog list",
-            "href": "/sample/list/blog"
-          }, {
-            "label": "News list",
-            "href": "/sample/list/news"
-          }, {
-            "label": "Article list",
-            "href": "/sample/list/articles"
+            "label": "Dynamic Media List",
+            "href": "/sample/list/dynamic-media-list"
           }, {
             "label": "Taxonomy list",
             "href": "/sample/list/taxonomy-list"
