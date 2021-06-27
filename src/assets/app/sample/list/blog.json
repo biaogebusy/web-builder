@@ -13,7 +13,14 @@
     },
     "title": "Blog List"
   }, {
-    "type": "blog-list",
+    "type": "dynamic-media-list",
+    "params": {
+      "type": "blog",
+      "include": "category,field_tags,media,media.field_media_image",
+      "sort": "-changed"
+    },
+    "ratios": "media-16-9",
+    "readMoreLabel": "查看更多",
     "pager": {
       "itemsPerPage": 20
     },
