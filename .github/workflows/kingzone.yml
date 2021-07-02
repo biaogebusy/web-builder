@@ -43,4 +43,9 @@ jobs:
             cd ..
             sudo sshpass -p ${{ secrets.SSH_PASS }} scp -v -o StrictHostKeyChecking=no -r xinshi.tar.gz ${{ secrets.SSH_USER }}@${{ secrets.HUAWEI_HOST }}:/sdc/www/kingzone.zhaobg.com/
     - name: Uncompress new Files
-      run : sudo sshpass -p ${{ secrets.SSH_PASS }} -v ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.HUAWEI_HOST }} 'cd /sdc/www/kingzone.zhaobg.com/ && tar -xzvf xinshi.tar.gz && rm xinshi.tar.gz'
+      run : |
+            sudo sshpass -p ${{ secrets.SSH_PASS }} -v ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.HUAWEI_HOST }} 'cd /sdc/www/kingzone.zhaobg.com/ && tar -xzvf xinshi.tar.gz && rm xinshi.tar.gz'
+            rm ./robots.txt
+            touch ./robots.txt
+            echo User-agent: "*" > ./robots.txt
+            echo Disallow: / >> ./robots.txt
