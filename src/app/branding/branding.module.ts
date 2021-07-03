@@ -14,6 +14,8 @@ import { LightComponent } from './footer/light/light.component';
 import { InverseComponent } from './footer/inverse/inverse.component';
 import { MenuItemComponent } from './footer/menu-item/menu-item.component';
 import { SearchBoxComponent } from './header/menu/search-box/search-box.component';
+import { HeaderBannerComponent } from './header/header-banner/header-banner.component';
+import { HeroModule } from '../uiux/combs/hero/hero.module';
 
 @NgModule({
   declarations: [
@@ -30,8 +32,9 @@ import { SearchBoxComponent } from './header/menu/search-box/search-box.componen
     LightComponent,
     InverseComponent,
     SearchBoxComponent,
+    HeaderBannerComponent,
   ],
-  imports: [ShareModule, WidgetsModule],
+  imports: [ShareModule, WidgetsModule, HeroModule],
   exports: [HeaderComponent, FooterComponent, MenuComponent],
 })
 export class BrandingModule {}

@@ -63,7 +63,7 @@
           &:hover,
           &:focus,
           &.active {
-            color: mat-color($primary) !important;
+            color: mat-color($primary);
           }
           &.active {
             &:after {
@@ -145,6 +145,49 @@
     }
     .mat-icon {
       color: mat-color($primary);
+    }
+  }
+  .header-inverse {
+    .header {
+      background-color: mat-color($primary);
+      .site-name {
+        color: mat-color($primary, default-contrast);
+      }
+      .main-menu {
+        .item {
+          a {
+            color: mat-color($primary, default-contrast);
+
+            &:hover,
+            &:focus {
+              color: mat-color($primary, default-contrast);
+            }
+            &.active {
+              color: mat-color($primary);
+              background-color: mat-color($primary, default-contrast);
+              &:after {
+                display: none;
+              }
+            }
+          }
+        }
+      }
+      .search-box {
+        form {
+          border: 1px solid mat-color($primary, default-contrast);
+        }
+        input[type="search"] {
+          color: mat-color($primary, default-contrast);
+        }
+        .mat-icon {
+          color: mat-color($primary, default-contrast);
+        }
+      }
+      .switch-theme {
+        .mat-icon {
+          color: mat-color($primary, default-contrast);
+        }
+      }
     }
   }
 }
