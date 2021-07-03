@@ -13,6 +13,10 @@
     "style": "king-theme",
     "icon": "laptop_mac"
   }, {
+    "name": "高粱红",
+    "style": "gaoliang-theme",
+    "icon": "laptop_mac"
+  }, {
     "name": "暗黑主题",
     "style": "dark-theme",
     "svgIcon": "dark_mode"

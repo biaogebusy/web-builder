@@ -35,3 +35,9 @@
   @include base-colors($king-theme);
   @include component-theme($king-theme);
 }
+
+.gaoliang-theme {
+  @include angular-material-theme($gaoliang-theme);
+  @include base-colors($gaoliang-theme);
+  @include component-theme($gaoliang-theme);
+}
