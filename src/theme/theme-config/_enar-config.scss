@@ -33,3 +33,8 @@ $enar-color: (
     A700: $light-primary-text
   )
 );
+
+$enar-primary: mat-palette($enar-color, 300);
+$enar-accent: mat-palette($enar-color, A200, A100, A400);
+$enar-warn: mat-palette($mat-red, A200, A100, A400);
+$enar-theme: mat-light-theme($enar-primary, $enar-accent, $enar-warn);

@@ -84,13 +84,6 @@
     padding: 0px 6px;
     min-height: 20px;
   }
-
-  &.primary {
-    mat-chip {
-      background-color: rgba($primary, 0.1);
-      color: $primary;
-    }
-  }
 }
 
 .selected {

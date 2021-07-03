@@ -1,37 +1,6 @@
 @import "./breakpoint";
-@import "../colors/colors";
+@import "../theme-config/theme-config";
 
-// 使用调色盘函数 mat-palette 生成 sass map,
-// primary: 组件最为广泛的主颜色
-// accent: 第二颜色，浮动按钮、交互的颜色
-// warn: 警告色
-// foreground: 文字颜色和图标
-// background: 组件背景色
-// contrast 对比色，文本基础色 mat-contrast
-// color: mat-color($primary, default-contrast);
-// background: mat-color($primary);
-
-$app-primary: mat-palette($light-color);
-$app-accent: mat-palette($light-color, A200, A100, A400);
-$app-warn: mat-palette($mat-red, A200, A100, A400);
-$app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
-
-$primary: mat-color($app-primary);
-$accent: mat-color($app-accent);
-$warn: mat-color($app-warn);
-
-$enar-primary: mat-palette($enar-color, 300);
-$enar-accent: mat-palette($enar-color, A200, A100, A400);
-$enar-warn: mat-palette($mat-red, A200, A100, A400);
-$enar-theme: mat-light-theme($enar-primary, $enar-accent, $enar-warn);
-
-$king-primary: mat-palette($king-color);
-$king-accent: mat-palette($king-color, A200, A100, A400);
-$king-warn: mat-palette($mat-red, A200, A100, A400);
-$king-theme: mat-light-theme($king-primary, $king-accent, $king-warn);
-// TODO: secondary color和dark color其实是通用的，应该不区分主题，可以把 $dark-theme-base-color 变成全局，并新建 secondary palette sass map
-
-// $light-theme-text-base: mat-color($light-theme-base-color, 700);
 $color-theme: (
   success: (
     text: #3c763d,
@@ -49,11 +18,6 @@ $color-theme: (
     bg: #fff,
   ),
 );
-
-$dark-primary: mat-palette($app-primary, 300, 50, 500);
-$dark-accent: mat-palette($light-color, A200, A100, A400);
-$dark-warn: mat-palette($mat-deep-orange);
-$dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 
 $font-family: "Helvetica", "Microsoft YaHei", "微软雅黑", "FreeSans",
   "Hiragino Sans GB", "Hiragino Sans GB W3", "Arial", "sans-serif";

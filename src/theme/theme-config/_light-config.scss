@@ -1,20 +1,20 @@
 @import "~@angular/material/theming";
-$king-color: (
+$light-color: (
   //
-  50: #faf1df,
-  100: #f3dbb0,
-  200: #ebc47d,
-  300: #e4ac4a,
-  400: #df9c25,
-  500: #db8c03,
-  600: #d88100,
-  700: #d27300,
-  800: #cb6500,
-  900: #c14e00,
-  A100: #b3f0ce,
-  A200: #7ae5ae,
-  A400: #00d171,
-  A700: #00a342,
+  50: #efe8fe,
+  100: #d5c7fd,
+  200: #b9a2fd,
+  300: #9a7afd,
+  400: #7f5afc,
+  500: #613bfa,
+  600: #5336f3,
+  700: #3c2eea,
+  800: #1c28e5,
+  900: #0019dd,
+  A100: #d5c7fd,
+  A200: #613bfa,
+  A400: #5336f3,
+  A700: #0019dd,
   contrast: (
     //
     50: $dark-primary-text,
@@ -33,3 +33,8 @@ $king-color: (
     A700: $light-primary-text
   )
 );
+
+$app-primary: mat-palette($light-color);
+$app-accent: mat-palette($light-color, A200, A100, A400);
+$app-warn: mat-palette($mat-red, A200, A100, A400);
+$app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);

@@ -1,0 +1,6 @@
+@import "./light-config";
+
+$dark-primary: mat-palette($app-primary, 300, 50, 500);
+$dark-accent: mat-palette($light-color, A200, A100, A400);
+$dark-warn: mat-palette($mat-deep-orange);
+$dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);

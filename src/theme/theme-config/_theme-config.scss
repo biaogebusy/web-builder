@@ -1,0 +1,18 @@
+@import "./light-config";
+@import "./enar-config";
+@import "./king-config";
+@import "./dark-config";
+
+// 使用调色盘函数 mat-palette 生成 sass map,
+// primary: 组件最为广泛的主颜色
+// accent: 第二颜色，浮动按钮、交互的颜色
+// warn: 警告色
+// foreground: 文字颜色和图标
+// background: 组件背景色
+// contrast 对比色，文本基础色 mat-contrast
+// color: mat-color($primary, default-contrast);
+// background: mat-color($primary);
+
+// TODO: secondary color和dark color其实是通用的，应该不区分主题，可以把 $dark-theme-base-color 变成全局，并新建 secondary palette sass map
+
+// $light-theme-text-base: mat-color($light-theme-base-color, 700);
