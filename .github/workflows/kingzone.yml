@@ -2,7 +2,7 @@ name: Build app and deploy to huawei ECS sit
 
 on:
   push:
-    branches: [ kingzone ]
+    branches: [kingzone]
 
 jobs:
   build:
@@ -12,40 +12,35 @@ jobs:
       run:
         working-directory: ./
     steps:
-    - uses: actions/checkout@v1
-    - uses: actions/setup-node@v1
-      with:
-        node-version: '12.x'
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
 
-    - uses: actions/cache@v1
-      with:
-        path: ~/.npm
-        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-node-
+      - uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
 
-    - name: install sshpass
-      run: sudo apt-get install sshpass
-    - name: NPM Install
-      run: npm install
-    - name: NPM Install Angular
-      run: npm install -g @angular/cli > /dev/null
-    - name: NPM build Angular Production
-      run: ng build --prod --aot=true --buildOptimizer=true
-    - name: Delete Existing Files
-      run : sudo sshpass -p ${{ secrets.SSH_PASS }} -v ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.HUAWEI_HOST }} 'rm -rf /sdc/www/kingzone.zhaobg.com/*'
+      - name: install sshpass
+        run: sudo apt-get install sshpass
+      - name: NPM Install
+        run: npm install
+      - name: NPM Install Angular
+        run: npm install -g @angular/cli > /dev/null
+      - name: NPM build Angular Production
+        run: ng build --prod --aot=true --buildOptimizer=true
+      - name: Delete Existing Files
+        run: sudo sshpass -p ${{ secrets.SSH_PASS }} -v ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.HUAWEI_HOST }} 'rm -rf /sdc/www/kingzone.zhaobg.com/*'
 
-    - name: Compress and Copy New Files to server
-      run : |
-            cd dist/xinshi/
-            tar -czvf ../../xinshi.tar.gz ./
-            cd ..
-            cd ..
-            sudo sshpass -p ${{ secrets.SSH_PASS }} scp -v -o StrictHostKeyChecking=no -r xinshi.tar.gz ${{ secrets.SSH_USER }}@${{ secrets.HUAWEI_HOST }}:/sdc/www/kingzone.zhaobg.com/
-    - name: Uncompress new Files
-      run : |
-            sudo sshpass -p ${{ secrets.SSH_PASS }} -v ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.HUAWEI_HOST }} 'cd /sdc/www/kingzone.zhaobg.com/ && tar -xzvf xinshi.tar.gz && rm xinshi.tar.gz'
-            rm ./robots.txt
-            touch ./robots.txt
-            echo User-agent: "*" > ./robots.txt
-            echo Disallow: / >> ./robots.txt
+      - name: Compress and Copy New Files to server
+        run: |
+          cd dist/xinshi/
+          tar -czvf ../../xinshi.tar.gz ./
+          cd ..
+          cd ..
+          sudo sshpass -p ${{ secrets.SSH_PASS }} scp -v -o StrictHostKeyChecking=no -r xinshi.tar.gz ${{ secrets.SSH_USER }}@${{ secrets.HUAWEI_HOST }}:/sdc/www/kingzone.zhaobg.com/
+      - name: Uncompress new Files
+        run: sudo sshpass -p ${{ secrets.SSH_PASS }} -v ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.HUAWEI_HOST }} 'cd /sdc/www/kingzone.zhaobg.com/ && tar -xzvf xinshi.tar.gz && rm xinshi.tar.gz && rm ./robots.txt && touch ./robots.txt && echo 'User-agent:' '*' > ./robots.txt && echo 'Disallow:' / >> ./robots.txt'
