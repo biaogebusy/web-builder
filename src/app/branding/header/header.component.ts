@@ -20,17 +20,18 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   @ViewChild('header', { read: ElementRef }) header: ElementRef;
   @ViewChild('menu', { read: ElementRef }) menu: ElementRef;
   constructor(
-    private screen: ScreenService,
-    private screenState: ScreenState,
+    public screenService: ScreenService,
+    public screenState: ScreenState,
     public branding: BrandingState,
-    public appState: AppState
+    public appState: AppState,
+    public screen: ScreenState
   ) {}
 
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     this.screenState.scroll$.subscribe(() => {
-      this.sticky = this.screen.isElementOutTopViewport(
+      this.sticky = this.screenService.isElementOutTopViewport(
         this.menu.nativeElement
       );
       if (this.appState?.pageConfig?.headerMode?.transparent) {
