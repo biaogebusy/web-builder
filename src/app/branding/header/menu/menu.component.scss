@@ -1,5 +1,16 @@
 @import "../../../../theme/variable/variable";
 
+.header {
+  position: relative;
+  margin-bottom: 2px;
+}
+
+:host-context(.header-inverse) {
+  .header {
+    margin-bottom: 0;
+  }
+}
+
 .logo {
   ::ng-deep {
     img {
@@ -7,6 +18,7 @@
     }
   }
 }
+
 .main-menu {
   .item {
     ::ng-deep a {
