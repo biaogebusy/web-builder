@@ -11,6 +11,7 @@ import { CarouselModule } from './carousel/carousel.module';
 import { HeroModule } from './hero/hero.module';
 import { DynamicCombsModule } from './dynamic-combs/dynamic-combs.module';
 import { ListModule } from './list/list.module';
+import { ProfileModule } from './profile/profile.module';
 
 const modules = [
   ShowcaseModule,
@@ -24,6 +25,7 @@ const modules = [
   SearchModule,
   DynamicCombsModule,
   ListModule,
+  ProfileModule,
 ];
 
 @NgModule({
