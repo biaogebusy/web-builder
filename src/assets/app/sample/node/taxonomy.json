@@ -1,0 +1,79 @@
+{
+  "title": "taxonomy item",
+  "body": [{
+      "type": "banner-simple",
+      "style": "no-bg",
+      "title": "Taxonomy Name",
+      "breadcrumb": [{
+        "label": "Home",
+        "href": "#"
+      }, {
+        "label": "Contact Us",
+        "href": "/about"
+      }]
+    },
+    {
+      "type": "showcase-3v6",
+      "bg": {
+        "classes": "bg-light bg-fill-width"
+      },
+      "spacer": "xl",
+      "elements": [{
+        "icon": "verified_user",
+        "title": {
+          "href": "#",
+          "label": "Fully Responsive"
+        }
+      }, {
+        "icon": "fingerprint",
+        "title": {
+          "href": "#",
+          "label": "Browser Compatibility"
+        }
+      }, {
+        "icon": "favorite",
+        "title": {
+          "href": "#",
+          "label": "Retina Ready"
+        }
+      }, {
+        "icon": "android",
+        "style": "style-v8",
+        "title": {
+          "href": "#",
+          "label": "Based On Material"
+        }
+      }, {
+        "icon": "favorite",
+        "title": {
+          "href": "#",
+          "label": "Feather Icons"
+        }
+      }, {
+        "icon": "android",
+        "title": {
+          "href": "#",
+          "label": "Built With SASS"
+        }
+      }, {
+        "icon": "android",
+        "title": {
+          "href": "#",
+          "label": "W3c Valid Code"
+        }
+      }, {
+        "icon": "android",
+        "title": {
+          "href": "#",
+          "label": "Flaticon Icons"
+        }
+      }, {
+        "icon": "android",
+        "title": {
+          "href": "#",
+          "label": "Easy to customize"
+        }
+      }]
+    }
+  ]
+}
