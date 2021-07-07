@@ -490,10 +490,12 @@
   }
 
   &.style-v10 {
-    text-align: right;
-    .box-icon {
-      margin-left: 1rem;
-      order: 2;
+    @media #{$gt-sm} {
+      text-align: right;
+      .box-icon {
+        margin-left: 1rem;
+        order: 2;
+      }
     }
   }
 

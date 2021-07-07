@@ -1,0 +1,35 @@
+.progress-box .title {
+  font-size: 15px;
+}
+
+.progress-box .progress {
+  height: 8px;
+  overflow: visible;
+}
+
+.progress-box .progress .progress-bar {
+  border-radius: 6px;
+  -webkit-animation: animate-positive 3s;
+  animation: animate-positive 3s;
+  overflow: visible !important;
+  background-color: #2f55d4 !important;
+}
+
+.progress-box .progress .progress-value {
+  position: absolute;
+  top: -25px;
+  right: -15px;
+  font-size: 13px;
+}
+
+@-webkit-keyframes animate-positive {
+  0% {
+    width: 0;
+  }
+}
+
+@keyframes animate-positive {
+  0% {
+    width: 0;
+  }
+}

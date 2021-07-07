@@ -29,13 +29,15 @@ import { ChipListComponent } from './chip-list/chip-list.component';
 import { LineYearComponent } from './line-year/line-year.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
+import { PaginationComponent } from './pagination/pagination.component';
 import { BtnAnimateComponent } from './btn-animate/btn-animate.component';
 import { FeatureBoxComponent } from './feature-box/feature-box.component';
 import { TestimonialComponent } from './testimonial/testimonial.component';
+import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 import { DropdownMenuComponent } from './dropdown-menu/dropdown-menu.component';
 import { NumberAnimateComponent } from './number-animate/number-animate.component';
 import { DynamicWidgetsComponent } from './dynamic-widgets/dynamic-widgets.component';
-import { PaginationComponent } from './pagination/pagination.component';
+
 import { SafeHtmlPipe } from '../../pipe/safe-html.pipe';
 import { IconComponent } from './icon/icon.component';
 
@@ -75,6 +77,7 @@ const components = [
   MediaListComponent,
   MenuListComponent,
   PaginationComponent,
+  ProgressBarComponent,
   SafeHtmlPipe,
 ];
 

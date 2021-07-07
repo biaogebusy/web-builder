@@ -1,7 +1,56 @@
+<div class="profile-banner position-relative">
+  <app-bg *ngIf="content.bannerBg" [content]="content.bannerBg">
+    <app-img [content]="content.bannerBg.img"></app-img>
+  </app-bg>
+</div>
 <div class="profile-1v1 position-relative">
-  <div class="profile-banner">
-    <app-bg *ngIf="content.bannerBg" [content]="content.bannerBg">
-      <app-img [content]="content.bannerBg.img"></app-img>
-    </app-bg>
+  <div class="container">
+    <div class="profile" fxLayout.lt-md="column" fxLayout.gt-sm="row">
+      <div class="left" fxFlex.lt-md="100" fxFlex.gt-sm="33.33">
+        <div class="box p-y p-x text-center">
+          <app-img [content]="content.avatar"></app-img>
+          <h2>{{content.name}}</h2>
+          <div class="subTitle">{{content.subTitle}}</div>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="left-item" *ngIf="content?.details">
+          <div class="item-header">{{content.details.label}}</div>
+          <div class="list">
+            <div *ngFor="let item of content.details.elements">
+              <app-icon [content]="item.icon"></app-icon>
+              <div class="label">{{item.label}}</div>
+              <div>{{item.content}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="right" fxFlex.lt-md="100" fxFlex.gt-sm="66.66">
+        <div class="content">
+          <div class="item" *ngFor="let item of content.content">
+            <div class="label">{{item.label}}</div>
+          </div>
+          <ng-container *ngIf="content?.body">
+            <div class="mat-display-2">{{content.body.label}}</div>
+            <div class="profile-body" [innerHTML]="content?.body.value|safeHtml"></div>
+          </ng-container>
+        </div>
+        <div class="progress" *ngIf="content?.progress">
+          <h6 class="title">{{content.progress?.label}}</h6>
+          <div class="progress-box" *ngFor="let item of content.progress.elements">
+            <div class="progress">
+              <div class="progress-bar position-relative" style="width: 84%;">
+                <div class="progress-value d-block text-muted h6">{{item.value}}%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="experience" *ngIf="content?.experience">
+          <div class="mat-display-2">{{content.experience?.label}}</div>
+          <div class="experience-box" *ngFor="let item of content.experience.elements">
+
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

@@ -1,0 +1,92 @@
+{
+  "title": "profile 1v1",
+  "body": [{
+    "type": "profile-1v1",
+    "bannerBg": {
+      "classes": "bg-fill-width overlay",
+      "img": {
+        "hostClasses": "bg-center",
+        "src": "/assets/images/banner-01.jpeg",
+        "alt": "page title"
+      }
+    },
+    "avatar": {
+      "src": "/assets/images/avatar/01.jpeg",
+      "alt": "Johnson"
+    },
+    "name": "Johnson",
+    "subTitle": "前端开发",
+    "details": {
+      "label": "个人资料",
+      "elements": [{
+        "icon": {
+          "color": "warn",
+          "svg": "email",
+          "inline": true
+        },
+        "label": "Email",
+        "content": "349255833@qq.com"
+      }, {
+        "icon": {
+          "color": "warn",
+          "svg": "map",
+          "inline": true
+        },
+        "label": "城市",
+        "content": "南宁市高新区"
+      }]
+    },
+    "conetent": [{
+        "label": "简介",
+        "type": "text",
+        "body": "<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. </p>At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
+      },
+      {
+        "label": "技能",
+        "type": "progress-bar"
+      }
+    ],
+    "body": {
+      "label": "简介",
+      "value": "<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. </p>At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
+    },
+    "progress": {
+      "label": "Skills",
+      "elements": [{
+          "label": "HTML/CSS",
+          "value": "95"
+        },
+        {
+          "label": "Angular/JavaScript",
+          "value": "79"
+        },
+        {
+          "label": "Drupal",
+          "value": "60"
+        }
+      ]
+    },
+    "experience": {
+      "label": "Experience",
+      "elements": [{
+        "logo": {
+          "src": "/assets/images/logo_default.png",
+          "alt": "logo"
+        },
+        "date": "2021-07",
+        "title": "前端开发工程师",
+        "company": "Davyin",
+        "work": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. "
+      }, {
+        "logo": {
+          "src": "/assets/images/logo_default.png",
+          "alt": "logo"
+        },
+        "date": "2016-03",
+        "title": "前端开发工程师",
+        "company": "AnMo",
+        "work": "At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
+      }]
+    }
+  }]
+}
