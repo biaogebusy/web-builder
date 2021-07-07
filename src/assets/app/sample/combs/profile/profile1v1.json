@@ -21,7 +21,7 @@
       "elements": [{
         "icon": {
           "color": "warn",
-          "svg": "email",
+          "svg": "arrow_right",
           "inline": true
         },
         "label": "Email",
@@ -29,43 +29,34 @@
       }, {
         "icon": {
           "color": "warn",
-          "svg": "map",
+          "svg": "arrow_right",
           "inline": true
         },
         "label": "城市",
         "content": "南宁市高新区"
       }]
     },
-    "conetent": [{
+    "content": [{
         "label": "简介",
         "type": "text",
+        "spacer": "none",
         "body": "<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. </p>At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
       },
       {
         "label": "技能",
-        "type": "progress-bar"
-      }
-    ],
-    "body": {
-      "label": "简介",
-      "value": "<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. </p>At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
-    },
-    "progress": {
-      "label": "Skills",
-      "elements": [{
+        "type": "progress-group",
+        "elements": [{
           "label": "HTML/CSS",
           "value": "95"
-        },
-        {
+        }, {
           "label": "Angular/JavaScript",
           "value": "79"
-        },
-        {
+        }, {
           "label": "Drupal",
           "value": "60"
-        }
-      ]
-    },
+        }]
+      }
+    ],
     "experience": {
       "label": "Experience",
       "elements": [{

@@ -1,0 +1,12 @@
+.mat-progress-bar {
+  height: 8px;
+  border-radius: 6px;
+  .mat-progress-bar-fill {
+    &:after {
+      border-radius: 6px;
+    }
+  }
+  .mat-progress-bar-buffer {
+    border-radius: 6px;
+  }
+}

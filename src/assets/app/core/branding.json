@@ -140,6 +140,9 @@
             "label": "Blog / News",
             "href": "/sample/node/article"
           }, {
+            "label": "Profile",
+            "href": "/sample/combs/profile/profile1v1"
+          }, {
             "label": "Dynamic Media List",
             "href": "/sample/list/dynamic-media-list"
           }, {

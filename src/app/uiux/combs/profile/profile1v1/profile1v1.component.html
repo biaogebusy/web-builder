@@ -27,27 +27,8 @@
       <div class="right" fxFlex.lt-md="100" fxFlex.gt-sm="66.66">
         <div class="content">
           <div class="item" *ngFor="let item of content.content">
-            <div class="label">{{item.label}}</div>
-          </div>
-          <ng-container *ngIf="content?.body">
-            <div class="mat-display-2">{{content.body.label}}</div>
-            <div class="profile-body" [innerHTML]="content?.body.value|safeHtml"></div>
-          </ng-container>
-        </div>
-        <div class="progress" *ngIf="content?.progress">
-          <h6 class="title">{{content.progress?.label}}</h6>
-          <div class="progress-box" *ngFor="let item of content.progress.elements">
-            <div class="progress">
-              <div class="progress-bar position-relative" style="width: 84%;">
-                <div class="progress-value d-block text-muted h6">{{item.value}}%</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="experience" *ngIf="content?.experience">
-          <div class="mat-display-2">{{content.experience?.label}}</div>
-          <div class="experience-box" *ngFor="let item of content.experience.elements">
-
+            <div class="label m-y-sm bold">{{item.label}}</div>
+            <app-dynamic-widgets [content]="item"></app-dynamic-widgets>
           </div>
         </div>
       </div>

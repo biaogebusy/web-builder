@@ -40,6 +40,7 @@ import { DynamicWidgetsComponent } from './dynamic-widgets/dynamic-widgets.compo
 
 import { SafeHtmlPipe } from '../../pipe/safe-html.pipe';
 import { IconComponent } from './icon/icon.component';
+import { ProgressGroupComponent } from './progress-group/progress-group.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -78,6 +79,7 @@ const components = [
   MenuListComponent,
   PaginationComponent,
   ProgressBarComponent,
+  ProgressGroupComponent,
   SafeHtmlPipe,
 ];
 
