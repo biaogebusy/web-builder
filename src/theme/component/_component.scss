@@ -15,6 +15,7 @@
 @import "./article";
 @import "./form";
 @import "./search";
+@import "./media";
 
 // material custom
 @import "./mat/card";
@@ -39,6 +40,7 @@
   @include article-color($config-or-theme);
   @include form-color($config-or-theme);
   @include search-color($config-or-theme);
+  @include media-color($config-or-theme);
 
   // material custom ui
   @include card-color($config-or-theme);

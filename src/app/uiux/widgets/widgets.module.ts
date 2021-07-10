@@ -22,7 +22,6 @@ import { SwiperComponent } from './swiper/swiper.component';
 import { SpacerComponent } from './spacer/spacer.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { MenuListComponent } from './menu-list/menu-list.component';
-import { MediaListComponent } from './media-list/media-list.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { TextareaComponent } from './textarea/textarea.component';
 import { ChipListComponent } from './chip-list/chip-list.component';
@@ -41,6 +40,9 @@ import { DynamicWidgetsComponent } from './dynamic-widgets/dynamic-widgets.compo
 import { SafeHtmlPipe } from '../../pipe/safe-html.pipe';
 import { IconComponent } from './icon/icon.component';
 import { ProgressGroupComponent } from './progress-group/progress-group.component';
+import { MediaListComponent } from './media/media-list/media-list.component';
+import { MediaObjectComponent } from './media/media-object/media-object.component';
+import { MediaObjectGroupComponent } from './media/media-object-group/media-object-group.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -76,6 +78,7 @@ const components = [
   DynamicWidgetsComponent,
   SidebarComponent,
   MediaListComponent,
+  MediaObjectComponent,
   MenuListComponent,
   PaginationComponent,
   ProgressBarComponent,
@@ -84,7 +87,7 @@ const components = [
 ];
 
 @NgModule({
-  declarations: [...components],
+  declarations: [...components, MediaObjectGroupComponent],
   imports: [
     MatChipsModule,
     ShareModule,

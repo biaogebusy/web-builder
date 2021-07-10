@@ -1,0 +1,17 @@
+@import "~@angular/material/theming";
+
+@mixin media-color($config-or-theme) {
+  $config: mat-get-color-config($config-or-theme);
+  $foreground: map-get($config, foreground);
+  $background: map-get($config, background);
+  $primary: map-get($config, primary);
+  $accent: map-get($config, accent);
+  $warn: map-get($config, warn);
+
+  .media {
+    .meta,
+    .media-body > div:not(.title) {
+      color: mat-color($foreground, text, 0.5);
+    }
+  }
+}

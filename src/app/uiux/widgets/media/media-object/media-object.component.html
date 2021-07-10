@@ -1,0 +1,11 @@
+<div class="media m-bottom" fxLayout fxLayoutAlign="start start" *ngIf="content">
+  <div class="media-left m-right-xs text-center">
+    <app-img [content]="content.img" *ngIf="content.img"></app-img>
+    <div class="meta" [innerHTML]="content.meta" *ngIf="content.meta"></div>
+  </div>
+  <div fxFlex="1 1 0%" class="media-body">
+    <div class="title bold mat-h3 m-bottom-xs" *ngIf="content.title">{{content.title}}</div>
+    <div class="sub-title" *ngIf="content.subTitle">{{content.subTitle}}</div>
+    <div [innerHTML]="content.content|safeHtml"></div>
+  </div>
+</div>
