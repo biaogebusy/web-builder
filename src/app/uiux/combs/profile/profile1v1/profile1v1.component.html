@@ -3,31 +3,31 @@
     <app-img [content]="content.bannerBg.img"></app-img>
   </app-bg>
 </div>
-<div class="profile-1v1 position-relative">
+<div class="profile-1v1 position-relative p-y">
   <div class="container">
-    <div class="profile" fxLayout.lt-md="column" fxLayout.gt-sm="row">
-      <div class="left" fxFlex.lt-md="100" fxFlex.gt-sm="33.33">
+    <div class="profile" fxLayoutAlign="space-between start" fxLayout="row wrap">
+      <div class="left" fxFlex.lt-md="0 0 100" fxFlex.gt-sm="0 0 30">
         <div class="box p-y p-x text-center">
           <app-img [content]="content.avatar"></app-img>
-          <h2>{{content.name}}</h2>
+          <h2 class="mat-h2 m-bottom-0 m-top-xs">{{content.name}}</h2>
           <div class="subTitle">{{content.subTitle}}</div>
         </div>
         <mat-divider></mat-divider>
-        <div class="left-item" *ngIf="content?.details">
-          <div class="item-header">{{content.details.label}}</div>
+        <div class="left-item p-y-sm p-x-sm" *ngIf="content?.details">
+          <div class="item-header bold m-bottom-sm">{{content.details.label}}</div>
           <div class="list">
-            <div *ngFor="let item of content.details.elements">
+            <div fxLayoutAlign="start center" *ngFor="let item of content.details.elements">
               <app-icon [content]="item.icon"></app-icon>
-              <div class="label">{{item.label}}</div>
+              <div class="label m-right-xs bold">{{item.label}}:</div>
               <div>{{item.content}}</div>
             </div>
           </div>
         </div>
       </div>
-      <div class="right" fxFlex.lt-md="100" fxFlex.gt-sm="66.66">
+      <div class="right" fxFlex.lt-md="0 0 100" fxFlex.gt-sm="0 0 calc(100% - 30% - 4rem)">
         <div class="content">
-          <div class="item" *ngFor="let item of content.content">
-            <div class="label m-y-sm bold">{{item.label}}</div>
+          <div class="item m-bottom" *ngFor="let item of content.content">
+            <div class="mat-h2 label m-y-sm bold">{{item.label}}</div>
             <app-dynamic-widgets [content]="item"></app-dynamic-widgets>
           </div>
         </div>
