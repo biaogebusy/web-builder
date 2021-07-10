@@ -401,7 +401,7 @@
         clear: both;
       }
     }
-    @media #{$gt-md} {
+    @media #{$gt-sm} {
       display: flex;
       align-items: flex-start;
       .box-icon {
