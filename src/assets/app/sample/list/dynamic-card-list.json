@@ -7,7 +7,8 @@
       "include": "category,field_tags,media,media.field_media_image",
       "sort": "-changed"
     },
-    "ratios": "media-4-3",
+    "row": "3",
+    "ratios": "media-1-1",
     "pager": {
       "itemsPerPage": 20
     }

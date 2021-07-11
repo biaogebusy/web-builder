@@ -1,1 +1,8 @@
-<p>dynamic-card-list works!</p>
+<div class="dynamic-card-list m-y" *ngIf="content">
+  <div class="container" fxLayout.lt-md="column" fxLayout.gt-sm="row wrap" fxLayoutAlign="start start">
+    <app-card class="m-x-sm m-bottom-sm" fxFlex.gt-sm="{{row}}" fxFlex.lt-md="100%" [content]="card"
+      *ngFor="let card of list | paginate: { itemsPerPage: content?.pager?.itemsPerPage || 20, currentPage: p }">
+    </app-card>
+  </div>
+  <app-pagination (pageChange)="p = $event"></app-pagination>
+</div>
