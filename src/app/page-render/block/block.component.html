@@ -6,8 +6,6 @@
       <app-panel *ngSwitchCase="'panel'" [content]="item"></app-panel>
       <app-search *ngSwitchCase="'search'" [content]="item"></app-search>
       <app-taxonomy-list *ngSwitchCase="'taxonomy-list'" [content]="item"></app-taxonomy-list>
-      <app-dynamic-media-list *ngSwitchCase="'dynamic-media-list'" [content]="item">
-      </app-dynamic-media-list>
       <app-shuffle *ngSwitchCase="'shuffle'" [content]="item"></app-shuffle>
       <app-notfound *ngSwitchCase="'404'" [content]="item"></app-notfound>
       <app-article *ngSwitchCase="'article'" [content]="item"></app-article>
@@ -16,8 +14,7 @@
       <app-video-bg *ngSwitchCase="'video-bg'" [content]="item"></app-video-bg>
       <app-location *ngSwitchCase="'location'" [content]="item"></app-location>
       <app-case-node *ngSwitchCase="'case-node'" [content]="item"></app-case-node>
-      <app-profile1v1 *ngSwitchCase="'profile-1v1'" [content]="item">
-      </app-profile1v1>
+      <app-profile1v1 *ngSwitchCase="'profile-1v1'" [content]="item"></app-profile1v1>
       <app-whychooseus *ngSwitchCase="'whychooseus'" [content]="item"></app-whychooseus>
       <app-showcase1v1 *ngSwitchCase="'showcase-1v1'" [content]="item"></app-showcase1v1>
       <app-showcase1v3 *ngSwitchCase="'showcase-1v3'" [content]="item"></app-showcase1v3>
@@ -37,6 +34,8 @@
       <app-carousel2v1 *ngSwitchCase="'carousel-2v1'" [content]="item"></app-carousel2v1>
       <app-carousel2v2 *ngSwitchCase="'carousel-2v2'" [content]="item"></app-carousel2v2>
       <app-banner-simple *ngSwitchCase="'banner-simple'" [content]="item"></app-banner-simple>
+      <app-dynamic-card-list *ngSwitchCase="'dynamic-card-list'" [content]="item"></app-dynamic-card-list>
+      <app-dynamic-media-list *ngSwitchCase="'dynamic-media-list'" [content]="item"></app-dynamic-media-list>
     </ng-container>
   </ng-container>
 </ng-container>

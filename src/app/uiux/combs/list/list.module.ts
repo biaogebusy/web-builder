@@ -5,11 +5,13 @@ import { ShowcaseModule } from '../showcase/showcase.module';
 import { ListComponent } from './list/list.component';
 import { TaxonomyListComponent } from './taxonomy-list/taxonomy-list.component';
 import { DynamicMediaListComponent } from './dynamic-media-list/dynamic-media-list.component';
+import { DynamicCardListComponent } from './dynamic-card-list/dynamic-card-list.component';
 
 const components = [
   ListComponent,
   TaxonomyListComponent,
   DynamicMediaListComponent,
+  DynamicCardListComponent,
 ];
 
 @NgModule({

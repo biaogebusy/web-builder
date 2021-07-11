@@ -1,0 +1,15 @@
+{
+  "title": "Dynamic Card List",
+  "body": [{
+    "type": "dynamic-card-list",
+    "params": {
+      "type": "lawyer",
+      "include": "category,field_tags,media,media.field_media_image",
+      "sort": "-changed"
+    },
+    "ratios": "media-4-3",
+    "pager": {
+      "itemsPerPage": 20
+    }
+  }]
+}

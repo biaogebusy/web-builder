@@ -106,7 +106,7 @@
           "content": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. "
         }, {
           "img": {
-            "src": "/assets/images/logo_default.png",
+            "src": "/assets/images/logo/logo_default.png",
             "classes": "m-bottom-xs m-x-xs",
             "style": {
               "width": "45px",
