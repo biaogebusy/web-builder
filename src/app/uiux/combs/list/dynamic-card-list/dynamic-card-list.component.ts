@@ -1,17 +1,20 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NodeService } from 'src/app/service/node.service';
+import { BaseComponent } from 'src/app/uiux/base/base.widget';
 
 @Component({
   selector: 'app-dynamic-card-list',
   templateUrl: './dynamic-card-list.component.html',
   styleUrls: ['./dynamic-card-list.component.scss'],
 })
-export class DynamicCardListComponent implements OnInit {
+export class DynamicCardListComponent extends BaseComponent implements OnInit {
   @Input() content: any;
   list: any;
   loading = true;
   p = 1;
-  constructor(private nodeService: NodeService) {}
+  constructor(private nodeService: NodeService) {
+    super();
+  }
 
   ngOnInit(): void {
     this.getContent();
@@ -19,24 +22,24 @@ export class DynamicCardListComponent implements OnInit {
 
   getContent(): void {
     this.loading = true;
-    // TODO: the subTitle can be custom by json
     const params = [
-      `include=${this.getParams('include')}`,
-      `sort=${this.getParams('sort')}`,
+      `include=${this.getParams(this.content, 'include')}`,
+      `sort=${this.getParams(this.content, 'sort')}`,
       'jsonapi_include=1',
     ].join('&');
     this.nodeService
-      .getNodes(`${this.getParams('type')}`, params)
+      .getNodes(`${this.getParams(this.content, 'type')}`, params)
       .subscribe((res) => {
         console.log(res);
         this.list = res.data.map((item: any) => {
           const link = this.nodeService.getNodePath(item);
+          const body = item[this.getValue(this.content, 'fields', 'body')];
           return {
             link: {
-              label: item.title,
+              label: item[this.getValue(this.content, 'fields', 'title')],
               href: link,
             },
-            subTitle: item.subTitle,
+            subTitle: item[this.getValue(this.content, 'fields', 'subTitle')],
             classes: 'card-no-shadow',
             feature: {
               fullIcon: 'fullscreen',
@@ -48,19 +51,11 @@ export class DynamicCardListComponent implements OnInit {
                 normal: item.media.thumbnail.uri.url,
               },
             },
-            body: item.body.summary || item.body.value,
+            body: body ? body : item.body.summary || item.body.value,
           };
         });
         console.log(this.list);
         this.loading = false;
       });
-  }
-
-  getParams(key: string): string {
-    return this.content.params && this.content.params[key];
-  }
-
-  get row(): string {
-    return `0 0 calc(100% / ${this.content.row || 3} - 4rem)`;
   }
 }
