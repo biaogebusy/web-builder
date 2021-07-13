@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { result } from 'lodash-es';
 import { NodeService } from 'src/app/service/node.service';
 import { BaseComponent } from 'src/app/uiux/base/base.widget';
 
@@ -33,13 +34,24 @@ export class DynamicCardListComponent extends BaseComponent implements OnInit {
         console.log(res);
         this.list = res.data.map((item: any) => {
           const link = this.nodeService.getNodePath(item);
-          const body = item[this.getValue(this.content, 'fields', 'body')];
+          const subTitle = result(
+            item,
+            this.getValue(this.content, 'fields', 'subTitle')
+          );
+          const title = result(
+            item,
+            this.getValue(this.content, 'fields', 'title')
+          );
+          const body = result(
+            item,
+            this.getValue(this.content, 'fields', 'body')
+          );
           return {
             link: {
-              label: item[this.getValue(this.content, 'fields', 'title')],
+              label: title,
               href: link,
             },
-            subTitle: item[this.getValue(this.content, 'fields', 'subTitle')],
+            subTitle,
             classes: 'card-no-shadow',
             feature: {
               fullIcon: 'fullscreen',
