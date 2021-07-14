@@ -66,4 +66,23 @@
       }
     }
   }
+
+  .showcase-3-v8 {
+    .middle {
+      .media {
+        background-color: mat-color($primary, 400);
+        color: mat-color($primary, default-contrast);
+        .sub-title {
+          color: mat-color($primary, default-contrast);
+        }
+        a {
+          color: mat-color($primary, default-contrast);
+          &:hover {
+            color: mat-color($primary, default-contrast);
+            opacity: 0.85;
+          }
+        }
+      }
+    }
+  }
 }
