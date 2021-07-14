@@ -5,16 +5,16 @@
   <div class="container" *ngIf="content">
     <app-text [content]="content.title"></app-text>
     <div class="showcase-inner" fxLayout.lt-md="column" fxLayout.gt-sm="row" fxLayoutAlign="center center">
-      <div fxLayout="row wrap" fxFlex.lt-md="0 0 100" fxFlex.gt-sm="0 0 33.33">
-        <app-box fxLayoutAlign.gt-sm="end center" fxFlex="0 0 calc(100% - 2rem)" class="p-x-xs" [content]="item"
+      <div class="left" fxLayout="row wrap" fxFlex.lt-md="0 0 100" fxFlex.gt-sm="0 0 33.33">
+        <app-box fxLayoutAlign.gt-sm="end center" fxFlex="0 0 calc(100% - 2rem)" class="box p-x-xs" [content]="item"
           *ngFor="let item of content.left">
         </app-box>
       </div>
       <div fxLayout="column" fxLayoutAlign="center center" fxFlex.lt-md="100" fxFlex.gt-sm="33.33">
         <app-img class="p-x-sm" [content]="content.img"></app-img>
       </div>
-      <div fxLayout="row wrap" fxFlex.lt-md="0 0 100" fxFlex.gt-sm="0 0 33.33">
-        <app-box fxFlex="0 0 calc(100% - 2rem)" class="p-x-xs" [content]="item" *ngFor="let item of content.right">
+      <div class="right" fxLayout="row wrap" fxFlex.lt-md="0 0 100" fxFlex.gt-sm="0 0 33.33">
+        <app-box fxFlex="0 0 calc(100% - 2rem)" class="box p-x-xs" [content]="item" *ngFor="let item of content.right">
         </app-box>
       </div>
     </div>

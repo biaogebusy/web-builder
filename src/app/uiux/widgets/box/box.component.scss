@@ -19,7 +19,8 @@
   .box-title {
     font-size: 17px;
     font-weight: 500;
-    margin: 0 0 12px;
+    line-height: 1;
+    margin: 0 0 10px;
   }
   .box-content {
     display: block;
@@ -439,7 +440,7 @@
     .read-more {
       a {
         display: inline-block;
-        font-size: 12px;
+        font-size: 14px;
         margin-top: 14px;
         position: relative;
         padding-left: 14px;
@@ -451,13 +452,13 @@
             height: 6px;
             left: 0;
             position: absolute;
-            top: 5px;
+            top: 7px;
             @include transform-rotate(45deg);
             width: 2px;
           }
           &:after {
             @include transform-rotate(-45deg);
-            top: 8px;
+            top: 10px;
           }
         }
       }
@@ -480,7 +481,7 @@
       margin-bottom: 1rem;
       ::ng-deep {
         ::ng-deep .mat-icon {
-          font-size: 20px;
+          font-size: 24px;
         }
       }
     }

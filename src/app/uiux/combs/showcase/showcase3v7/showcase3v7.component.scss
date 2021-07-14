@@ -1,0 +1,16 @@
+:host-context(.gaoliang-theme) ::ng-deep {
+  .showcase-3-v7 {
+    .showcase-inner {
+      .left {
+        .box:nth-child(2) {
+          padding-right: 5rem !important;
+        }
+      }
+      .right {
+        .box:nth-child(2) {
+          padding-left: 5rem !important;
+        }
+      }
+    }
+  }
+}

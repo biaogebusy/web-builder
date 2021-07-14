@@ -17,9 +17,12 @@
     }
     a {
       color: $text-base;
+      &:hover {
+        color: mat-color($primary);
+      }
     }
     .box-content {
-      color: mat-color($foreground, text, 0.7);
+      color: mat-color($foreground, text, 0.5);
     }
     &:hover {
       .box-title {

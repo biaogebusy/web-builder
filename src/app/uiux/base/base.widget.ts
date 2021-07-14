@@ -10,9 +10,7 @@ export abstract class BaseComponent {
   }
 
   getValue(content: any, path: string, key: string): string {
-    // TODOL: support  sub path
-    const value = content[path] && content[path][key];
-    return value;
+    return content[path] && content[path][key];
   }
 
   row(content: any): string {
