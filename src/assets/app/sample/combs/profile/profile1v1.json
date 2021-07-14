@@ -93,7 +93,6 @@
         "elements": [{
           "img": {
             "src": "/assets/images/logo/codepen.svg",
-            "classes": "m-bottom-xs m-x-xs",
             "style": {
               "width": "45px",
               "height": "45px"
@@ -107,7 +106,6 @@
         }, {
           "img": {
             "src": "/assets/images/logo/logo_default.png",
-            "classes": "m-bottom-xs m-x-xs",
             "style": {
               "width": "45px",
               "height": "45px"

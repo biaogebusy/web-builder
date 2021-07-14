@@ -1,7 +1,7 @@
 .key-feature {
   transition: all 0.3s ease;
   border-radius: 6px;
-  .icon {
+  ::ng-deep .mat-icon {
     height: 45px;
     width: 45px;
     line-height: 45px;

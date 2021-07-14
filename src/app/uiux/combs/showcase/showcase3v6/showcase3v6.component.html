@@ -5,16 +5,9 @@
   <div class="container" *ngIf="content">
     <app-text [content]="content.title"></app-text>
     <div class="showcase-inner" fxLayout="row wrap" fxLayoutAlign="center center">
-      <div fxLayout="row" class="m-x-xs m-y-xs " fxFlex.lt-md="100" fxFlex.gt-sm="0 0 calc(33.33% - 3rem)"
+      <div fxLayout="row wrap" class="m-x-xs m-y-xs " fxFlex.lt-md="100" [fxFlex.gt-sm]="row(content)"
         *ngFor="let item of content.elements">
-        <div fxFlex="100" fxLayout="row" fxLayoutAlign="start center" class="media key-feature p-x-xs p-y-xs">
-          <div class="icon m-right-xs" fxFlex="0 0 45px" fxLayoutAlign="center center">
-            <mat-icon>{{item.icon}}</mat-icon>
-          </div>
-          <div _ngcontent-val-c78="" class="media-body">
-            <app-link [content]="item.title"></app-link>
-          </div>
-        </div>
+        <app-media-object fxFlex="100" class="key-feature p-x-xs p-y-xs" [content]="item"></app-media-object>
       </div>
     </div>
     <div class="actions" *ngIf="content.action" fxLayoutAlign="center center">

@@ -7,69 +7,184 @@
       "type": "text",
       "spacer": "sm",
       "title": {
-        "label": "Template Key Features",
+        "label": "为所有开发者、所有应用场景而设计",
         "style": "style-v1"
       },
-      "body": "<p class=\"text-center\">Start working with xinshi that can provide everything you need to generate awareness, drive traffic, connect.</p>"
+      "body": "<p class=\"text-center\">让前端开发更快速、简单。所有开发者都能快速上手、所有设备都可以适配、所有项目都适用。</p>"
     },
     "bg": {
       "classes": "bg-light bg-fill-width"
     },
     "elements": [{
-      "icon": "verified_user",
-      "title": {
-        "href": "#",
-        "label": "Fully Responsive"
-      }
+      "img": {
+        "src": "/assets/images/logo/codepen.svg",
+        "style": {
+          "width": "45px",
+          "height": "45px"
+        },
+        "alt": "logo"
+      },
+      "title": "响应式设计"
     }, {
-      "icon": "fingerprint",
-      "title": {
-        "href": "#",
-        "label": "Browser Compatibility"
-      }
+      "img": {
+        "src": "/assets/images/logo/codepen.svg",
+        "style": {
+          "width": "45px",
+          "height": "45px"
+        },
+        "alt": "logo"
+      },
+      "title": "基于 Material"
     }, {
-      "icon": "favorite",
-      "title": {
-        "href": "#",
-        "label": "Retina Ready"
-      }
+      "img": {
+        "src": "/assets/images/logo/codepen.svg",
+
+        "style": {
+          "width": "45px",
+          "height": "45px"
+        },
+        "alt": "logo"
+      },
+      "title": "Icon 库"
     }, {
-      "icon": "android",
-      "style": "style-v8",
-      "title": {
-        "href": "#",
-        "label": "Based On Material"
-      }
+      "img": {
+        "src": "/assets/images/logo/codepen.svg",
+
+        "style": {
+          "width": "45px",
+          "height": "45px"
+        },
+        "alt": "logo"
+      },
+      "title": "使用 Sass 构建"
     }, {
-      "icon": "favorite",
-      "title": {
-        "href": "#",
-        "label": "Feather Icons"
-      }
+      "img": {
+        "src": "/assets/images/logo/codepen.svg",
+
+        "style": {
+          "width": "45px",
+          "height": "45px"
+        },
+        "alt": "logo"
+      },
+      "title": "W3C 验证"
     }, {
-      "icon": "android",
+      "img": {
+        "src": "/assets/images/logo/codepen.svg",
+
+        "style": {
+          "width": "45px",
+          "height": "45px"
+        },
+        "alt": "logo"
+      },
+      "title": "易于扩展"
+    }]
+  }, {
+    "type": "showcase-3v6",
+    "id": "",
+    "title": {
+      "type": "text",
+      "spacer": "sm",
       "title": {
-        "href": "#",
-        "label": "Built With SASS"
-      }
+        "label": "职位招聘",
+        "style": "style-v1"
+      },
+      "body": "<p class=\"text-center\">免费推送相关职位信息，关注公众号随时随地了解职位情况。</p>"
+    },
+    "bg": {
+      "classes": "bg-shadow bg-fill-width"
+    },
+    "elements": [{
+      "img": {
+        "src": "/assets/images/logo/codepen.svg",
+        "style": {
+          "width": "45px",
+          "height": "45px"
+        },
+        "alt": "logo"
+      },
+      "link": {
+        "label": "前端开发工程师",
+        "classes": "bold",
+        "href": "#"
+      },
+      "subTitle": "字节跳动，北京"
     }, {
-      "icon": "android",
-      "title": {
-        "href": "#",
-        "label": "W3c Valid Code"
-      }
+      "img": {
+        "src": "/assets/images/logo/codepen.svg",
+        "style": {
+          "width": "45px",
+          "height": "45px"
+        },
+        "alt": "logo"
+      },
+      "link": {
+        "label": "前端架构师",
+        "classes": "bold",
+        "href": "#"
+      },
+      "subTitle": "美团，广州"
     }, {
-      "icon": "android",
-      "title": {
-        "href": "#",
-        "label": "Flaticon Icons"
-      }
+      "img": {
+        "src": "/assets/images/logo/codepen.svg",
+        "style": {
+          "width": "45px",
+          "height": "45px"
+        },
+        "alt": "logo"
+      },
+      "link": {
+        "label": "后端开发",
+        "classes": "bold",
+        "href": "#"
+      },
+      "subTitle": "微软，北京"
     }, {
-      "icon": "android",
-      "title": {
-        "href": "#",
-        "label": "Easy to customize"
-      }
+      "img": {
+        "src": "/assets/images/logo/codepen.svg",
+        "style": {
+          "width": "45px",
+          "height": "45px"
+        },
+        "alt": "logo"
+      },
+      "link": {
+        "label": "UI 设计师",
+        "classes": "bold",
+        "href": "#"
+      },
+      "subTitle": "腾讯，深圳"
+    }, {
+      "img": {
+        "src": "/assets/images/logo/codepen.svg",
+        "style": {
+          "width": "45px",
+          "height": "45px"
+        },
+        "alt": "logo"
+      },
+      "link": {
+        "label": "IOS 开发",
+        "classes": "bold",
+        "href": "#"
+      },
+      "subTitle": "华为，深圳"
+    }, {
+      "img": {
+        "src": "/assets/images/logo/codepen.svg",
+        "style": {
+          "width": "45px",
+          "height": "45px"
+        },
+        "alt": "logo"
+      },
+      "link": {
+        "label": "游戏开发",
+        "classes": "bold",
+        "href": "#"
+      },
+      "subTitle": "腾讯，成都"
     }],
     "action": {
       "label": "Read more",

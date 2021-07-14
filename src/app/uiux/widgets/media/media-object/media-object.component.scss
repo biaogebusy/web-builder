@@ -1,3 +1,9 @@
 .sub-title {
   font-size: small;
 }
+
+.media-body {
+  > div:only-child {
+    margin-bottom: 0 !important;
+  }
+}
