@@ -15,6 +15,7 @@
     "bg": {
       "classes": "bg-light bg-fill-width"
     },
+    "row": "4",
     "elements": [{
       "img": {
         "src": "/assets/images/logo/codepen.svg",
@@ -95,6 +96,7 @@
     "bg": {
       "classes": "bg-shadow bg-fill-width"
     },
+    "row": "3",
     "elements": [{
       "img": {
         "src": "/assets/images/logo/codepen.svg",
