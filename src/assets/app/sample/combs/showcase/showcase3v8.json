@@ -1,0 +1,61 @@
+{
+  "title": "Showcase 3v8",
+  "body": [{
+    "type": "showcase-3v8",
+    "id": "",
+    "title": {
+      "type": "text",
+      "spacer": "sm",
+      "title": {
+        "label": "App Features",
+        "style": "style-v1"
+      },
+      "body": "<p class=\"text-center\">Start working with xinshi that can provide everything you need to generate awareness, drive traffic, connect.</p>"
+    },
+    "bg": {
+      "classes": "bg-shadow bg-fill-width"
+    },
+    "top": [{
+      "img": {
+        "src": "/assets/images/logo/codepen.svg",
+        "style": {
+          "width": "45px",
+          "height": "45px"
+        },
+        "alt": "logo"
+      },
+      "title": "响应式设计"
+    }, {
+      "img": {
+        "src": "/assets/images/logo/codepen.svg",
+        "style": {
+          "width": "45px",
+          "height": "45px"
+        },
+        "alt": "logo"
+      },
+      "title": "基于 Material"
+    }],
+    "bottom": [{
+      "img": {
+        "src": "/assets/images/logo/codepen.svg",
+        "style": {
+          "width": "45px",
+          "height": "45px"
+        },
+        "alt": "logo"
+      },
+      "title": "响应式设计"
+    }, {
+      "img": {
+        "src": "/assets/images/logo/codepen.svg",
+        "style": {
+          "width": "45px",
+          "height": "45px"
+        },
+        "alt": "logo"
+      },
+      "title": "基于 Material"
+    }]
+  }]
+}

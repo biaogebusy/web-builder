@@ -5,13 +5,12 @@
   <div class="container" *ngIf="content">
     <app-text [content]="content.title"></app-text>
     <div class="showcase-inner" fxLayout="row wrap" fxLayoutAlign="center center">
-      <div fxLayout="row wrap" class="m-x-xs m-y-xs " fxFlex.lt-md="100" [fxFlex.gt-sm]="row(content)"
-        *ngFor="let item of content.elements">
-        <app-media-object fxFlex="100" class="key-feature p-x-xs p-y-xs" [content]="item"></app-media-object>
+      <div fxLayout="row wrap" fxFlex.lt-md="100" [fxFlex.gt-sm]="row(content)" *ngFor="let item of content.elements">
+        <app-media-object fxFlex="100" class="p-x-xs p-y-xs" [content]="item"></app-media-object>
       </div>
     </div>
     <div class="actions" *ngIf="content.action" fxLayoutAlign="center center">
-      <div class="m-top-sm">
+      <div class="m-y">
         <app-btn-animate [content]="content.action"></app-btn-animate>
       </div>
     </div>

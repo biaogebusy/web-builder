@@ -1,4 +1,4 @@
-<div class="media" fxLayout [fxLayoutAlign]="align" *ngIf="content">
+<div class="media" [class.box-animate]="content.css3" fxLayout [fxLayoutAlign]="align" *ngIf="content">
   <div class="media-left m-right-xs text-center">
     <app-img class="m-x-xs" [content]="content.img" *ngIf="content.img"></app-img>
     <div class="meta m-top-xs" [innerHTML]="content.meta" *ngIf="content.meta"></div>

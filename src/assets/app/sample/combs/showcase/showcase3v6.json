@@ -25,6 +25,7 @@
         },
         "alt": "logo"
       },
+      "css3": true,
       "title": "响应式设计"
     }, {
       "img": {
@@ -35,6 +36,7 @@
         },
         "alt": "logo"
       },
+      "css3": true,
       "title": "基于 Material"
     }, {
       "img": {
@@ -46,6 +48,7 @@
         },
         "alt": "logo"
       },
+      "css3": true,
       "title": "Icon 库"
     }, {
       "img": {
@@ -57,6 +60,7 @@
         },
         "alt": "logo"
       },
+      "css3": true,
       "title": "使用 Sass 构建"
     }, {
       "img": {
@@ -68,6 +72,7 @@
         },
         "alt": "logo"
       },
+      "css3": true,
       "title": "W3C 验证"
     }, {
       "img": {
@@ -79,6 +84,7 @@
         },
         "alt": "logo"
       },
+      "css3": true,
       "title": "易于扩展"
     }]
   }, {
@@ -106,6 +112,7 @@
         },
         "alt": "logo"
       },
+      "css3": true,
       "link": {
         "label": "前端开发工程师",
         "classes": "bold",
@@ -121,6 +128,7 @@
         },
         "alt": "logo"
       },
+      "css3": true,
       "link": {
         "label": "前端架构师",
         "classes": "bold",
@@ -136,6 +144,7 @@
         },
         "alt": "logo"
       },
+      "css3": true,
       "link": {
         "label": "后端开发",
         "classes": "bold",
@@ -151,6 +160,7 @@
         },
         "alt": "logo"
       },
+      "css3": true,
       "link": {
         "label": "UI 设计师",
         "classes": "bold",
@@ -166,6 +176,7 @@
         },
         "alt": "logo"
       },
+      "css3": true,
       "link": {
         "label": "IOS 开发",
         "classes": "bold",
@@ -181,6 +192,7 @@
         },
         "alt": "logo"
       },
+      "css3": true,
       "link": {
         "label": "游戏开发",
         "classes": "bold",

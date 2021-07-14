@@ -13,5 +13,27 @@
     .media-body > div:not(.title) {
       color: mat-color($foreground, text, 0.5);
     }
+    &.box-animate {
+      box-shadow: 0 0 3px rgb(60 72 88 / 15%);
+      .icon {
+        background: linear-gradient(
+          45deg,
+          transparent,
+          mat-color($primary, 0.2)
+        );
+        .mat-icon {
+          color: mat-color($primary);
+        }
+      }
+      a {
+        color: mat-color($foreground, text, 0.75);
+        &:hover {
+          color: mat-color($primary);
+        }
+      }
+      &:hover {
+        box-shadow: 0 5px 13px mat-color($foreground, divider);
+      }
+    }
   }
 }
