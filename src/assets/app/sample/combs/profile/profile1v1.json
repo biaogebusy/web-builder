@@ -15,7 +15,7 @@
       "alt": "Johnson"
     },
     "name": "Johnson",
-    "subTitle": "上海市尚法律师事务所",
+    "subTitle": "Drupal 前端开发",
     "details": {
       "label": "个人资料",
       "elements": [{
@@ -24,32 +24,24 @@
           "svg": "arrow_right",
           "inline": true
         },
-        "label": "律师证号",
-        "content": "1310120201025xxxx"
+        "label": "职位",
+        "content": "前端开发"
       }, {
         "icon": {
           "color": "warn",
           "svg": "arrow_right",
           "inline": true
         },
-        "label": "著作",
-        "content": "《论金融创新》"
+        "label": "微信",
+        "content": "biaogebusy"
       }, {
         "icon": {
           "color": "warn",
           "svg": "arrow_right",
           "inline": true
         },
-        "label": "电话",
-        "content": "021-4897464"
-      }, {
-        "icon": {
-          "color": "warn",
-          "svg": "arrow_right",
-          "inline": true
-        },
-        "label": "手机",
-        "content": "18878718888"
+        "label": "公众号",
+        "content": "Drupal 自习室"
       }, {
         "icon": {
           "color": "warn",
@@ -57,7 +49,7 @@
           "inline": true
         },
         "label": "邮箱",
-        "content": "biaogebusyx@163.com"
+        "content": "biaogebusy@example.com"
       }, {
         "icon": {
           "color": "warn",
@@ -65,7 +57,7 @@
           "inline": true
         },
         "label": "地址",
-        "content": "浦东新区"
+        "content": "南宁"
       }]
     },
     "content": [{
