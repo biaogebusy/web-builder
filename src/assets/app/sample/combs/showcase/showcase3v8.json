@@ -7,10 +7,10 @@
       "type": "text",
       "spacer": "sm",
       "title": {
-        "label": "App Features",
+        "label": "热门职位招聘",
         "style": "style-v1"
       },
-      "body": "<p class=\"text-center\">Start working with xinshi that can provide everything you need to generate awareness, drive traffic, connect.</p>"
+      "body": "<p class=\"text-center\">甄选热门大厂内推职位，机不可失。"
     },
     "bg": {
       "classes": "bg-fill-width",
