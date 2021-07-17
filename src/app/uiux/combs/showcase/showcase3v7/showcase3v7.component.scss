@@ -1,3 +1,4 @@
+@import "../../../../../theme/variable/breakpoint";
 :host-context(.gaoliang-theme) ::ng-deep {
   .showcase-3-v7 {
     .showcase-inner {
@@ -12,5 +13,24 @@
         }
       }
     }
+  }
+}
+@media #{$gt-sm} {
+  .left,
+  .right {
+    .box {
+      &:last-child {
+        ::ng-deep .inv-builder-box {
+          margin-bottom: 0 !important;
+          padding-bottom: 0 !important;
+        }
+      }
+    }
+  }
+}
+@media #{$lt-md} {
+  .middle {
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
   }
 }
