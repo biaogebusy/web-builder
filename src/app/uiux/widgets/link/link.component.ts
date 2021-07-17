@@ -7,11 +7,9 @@ import { RouteService } from '../../../service/route.service';
 })
 export class LinkComponent implements OnInit {
   @Input() content: any;
-  constructor(
-    public routeService: RouteService
-  ) { }
+  constructor(public routeService: RouteService) {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   isAbsolute(href: string): boolean {
     return this.routeService.isAbsolute(href);

@@ -3,9 +3,10 @@
     [href]="content?.href || 'javascript:void(0);'" [target]="content?.target || '_self'"
     [innerHTML]="content?.label | safeHtml" title="{{content.label}}"></a>
   <ng-template #relative>
-    <a *ngIf="content.href;else void" [routerLink]="[content.href]" [routerLinkActive]="['active']"
-      [routerLinkActiveOptions]="{exact: true}" [queryParams]="content.queryParams" [fragment]="content.fragment"
-      [ngClass]="content?.classes" [innerHTML]="content?.label | safeHtml" title="{{content.label}}"></a>
+    <a *ngIf="content.href;else void" gaEvent="click_link" gaCategory="ga_directive_test" [routerLink]="[content.href]"
+      [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}" [queryParams]="content.queryParams"
+      [fragment]="content.fragment" [ngClass]="content?.classes" [innerHTML]="content?.label | safeHtml"
+      title="{{content.label}}"></a>
     <ng-template #void>
       <a [ngClass]="content?.classes" href="javascript:void(0);" [target]="content?.target || '_self'"
         [innerHTML]="content?.label | safeHtml" title="{{content.label}}"></a>
