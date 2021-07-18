@@ -248,8 +248,8 @@ export class JobComponent implements OnInit {
         title: item.title,
         number: item.number,
         salary: item.salary,
-        skill: map(item.skill, (item) => {
-          return { label: item.name };
+        skill: map(item.skill, (skill) => {
+          return { label: skill.name };
         }),
         deadline: item.deadline,
         work_experience: item.work_experience,
@@ -265,8 +265,8 @@ export class JobComponent implements OnInit {
             },
           },
           title: item.company.title,
-          welfare: map(item.company.welfare, (item) => {
-            return { label: item };
+          welfare: map(item.company.welfare, (welfare) => {
+            return { label: welfare };
           }),
           address: item.company.address.address_line1,
           phone: item.company.phone,

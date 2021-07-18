@@ -174,9 +174,12 @@ export class AppState {
   @action
   setPageContent(): void {
     const path = this.document.location.pathname;
+    const search = this.document.location.search;
     if (environment.production) {
       this.http
-        .get<any>(`${environment.apiUrl}/api/v1/landingPage?content=${path}`)
+        .get<any>(
+          `${environment.apiUrl}/api/v1/landingPage?content=${path}${search}`
+        )
         .subscribe(
           (pageValue: IPage) => {
             if (!Array.isArray(pageValue)) {

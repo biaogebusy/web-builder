@@ -10,15 +10,12 @@ import { MobxAngularModule } from 'mobx-angular';
 import { UserState } from './user/UserState';
 import { BrandingState } from './BrandingStare';
 
-const states = [
-  UserState,
-  BrandingState
-];
+const states = [UserState, BrandingState];
 
 @NgModule({
   declarations: [],
   imports: [CommonModule, MobxAngularModule],
-exports: [MobxAngularModule],
+  exports: [MobxAngularModule],
 })
 export class MobxModule {
   constructor(@Optional() @SkipSelf() parentModule: MobxModule) {
