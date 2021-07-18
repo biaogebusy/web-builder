@@ -30,7 +30,7 @@ export class SearchHeaderComponent implements OnInit, AfterViewInit {
 
   subscribe: Subscription;
   subscription: Subscription;
-  key: string;
+  key = '';
   constructor(
     private router: ActivatedRoute,
     private routerService: RouteService
@@ -38,8 +38,11 @@ export class SearchHeaderComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.router.queryParams.subscribe((query: any) => {
-      this.key = query.keys;
-      this.searchChange.emit(this.key);
+      console.log(query);
+      if (query.keys) {
+        this.key = query.keys;
+        this.searchChange.emit(this.key);
+      }
     });
   }
 
