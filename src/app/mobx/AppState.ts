@@ -171,14 +171,27 @@ export class AppState {
     });
   }
 
-  @action
-  setPageContent(): void {
+  get apiPath(): string {
     const path = this.document.location.pathname;
     const search = this.document.location.search;
+    const allowKey = ['version', 'origin'];
+    if (
+      allowKey.some((key) => {
+        return search.indexOf(key) > 0;
+      })
+    ) {
+      return `${path}${search}`;
+    } else {
+      return path;
+    }
+  }
+
+  @action
+  setPageContent(): void {
     if (environment.production) {
       this.http
         .get<any>(
-          `${environment.apiUrl}/api/v1/landingPage?content=${path}${search}`
+          `${environment.apiUrl}/api/v1/landingPage?content=${this.apiPath}`
         )
         .subscribe(
           (pageValue: IPage) => {
@@ -198,7 +211,7 @@ export class AppState {
         );
     } else {
       this.http
-        .get<any>(`${environment.apiUrl}/assets/app${path}.json`)
+        .get<any>(`${environment.apiUrl}/assets/app${this.apiPath}.json`)
         .subscribe(
           (pageValue: IPage) => {
             this.updatePage(pageValue);
