@@ -55,8 +55,8 @@ export class SearchHeaderComponent implements OnInit, AfterViewInit {
     );
 
     this.subscription = input$.subscribe((key) => {
+      this.searchChange.emit(key);
       if (key) {
-        this.searchChange.emit(key);
         const query: Params = { keys: key };
         this.routerService.updateQueryParams(query);
       }
