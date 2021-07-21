@@ -17,6 +17,7 @@ import {
 } from 'rxjs/operators';
 import { ActivatedRoute, Params } from '@angular/router';
 import { RouteService } from 'src/app/service/route.service';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-search-header',
@@ -27,6 +28,15 @@ export class SearchHeaderComponent implements OnInit, AfterViewInit {
   @Input() content: any;
   @Output() searchChange = new EventEmitter();
   @ViewChild('input') input: ElementRef;
+  toppings = new FormControl();
+  toppingList: string[] = [
+    'Extra cheese',
+    'Mushroom',
+    'Onion',
+    'Pepperoni',
+    'Sausage',
+    'Tomato',
+  ];
 
   subscribe: Subscription;
   subscription: Subscription;
