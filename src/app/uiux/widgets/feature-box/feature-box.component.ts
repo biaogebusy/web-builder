@@ -20,9 +20,9 @@ export class FeatureBoxComponent implements OnInit {
   open(img: any): void {
     this.lightbox.open([
       {
-        src: img.large,
-        caption: img.title || 'Lightbox',
-        thumb: img.normal,
+        src: img.src,
+        caption: img.alt || 'Lightbox',
+        thumb: img.src,
       },
     ]);
   }

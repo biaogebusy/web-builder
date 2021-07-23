@@ -56,7 +56,9 @@
       "alt": "OUR FEATURES"
     },
     "elements": [{
-      "icon": "verified_user",
+      "icon": {
+        "name": "verified_user"
+      },
       "style": "style-v7",
       "title": {
         "label": "FREMIUM MODULES INCLUDED",
@@ -64,7 +66,9 @@
       },
       "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority."
     }, {
-      "icon": "fingerprint",
+      "icon": {
+        "name": "verified_user"
+      },
       "style": "style-v7",
       "title": {
         "label": "FREMIUM MODULES INCLUDED",
@@ -72,7 +76,9 @@
       },
       "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority."
     }, {
-      "icon": "favorite",
+      "icon": {
+        "name": "favorite"
+      },
       "style": "style-v7",
       "title": {
         "label": "FREMIUM MODULES INCLUDED",
@@ -80,7 +86,9 @@
       },
       "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority."
     }, {
-      "icon": "android",
+      "icon": {
+        "name": "android"
+      },
       "style": "style-v7",
       "title": {
         "label": "FREMIUM MODULES INCLUDED",

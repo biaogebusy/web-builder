@@ -76,8 +76,8 @@ export class CaseComponent implements OnInit {
               };
             }),
           },
-          tags: map(item.field_tags, (item) => {
-            return { label: item.name };
+          tags: map(item.field_tags, (tag) => {
+            return { label: tag.name };
           }),
           link: {
             label: item.title,

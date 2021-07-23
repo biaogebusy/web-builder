@@ -26,8 +26,8 @@
         "link": "#",
         "ratios": "media-4-3",
         "img": {
-          "large": "/assets/images/1-1/business-01.png",
-          "normal": "/assets/images/1-1/business-01.png",
+          "classes": "object-fit",
+          "src": "/assets/images/1-1/business-01.png",
           "title": "title"
         }
       }, {
@@ -37,8 +37,8 @@
         "link": "#",
         "ratios": "media-4-3",
         "img": {
-          "large": "/assets/images/16-9/business-01.jpg",
-          "normal": "/assets/images/16-9/business-01.jpg",
+          "classes": "object-fit",
+          "src": "/assets/images/1-1/business-02.png",
           "title": "title"
         }
       }, {
@@ -48,8 +48,8 @@
         "link": "#",
         "ratios": "media-4-3",
         "img": {
-          "large": "/assets/images/cases/porto1.jpg",
-          "normal": "/assets/images/cases/porto1.jpg",
+          "classes": "object-fit",
+          "src": "/assets/images/1-1/business-03.png",
           "title": "title"
         }
       }, {
@@ -59,20 +59,23 @@
         "link": "#",
         "ratios": "media-4-3",
         "img": {
-          "large": "/assets/images/16-9/business-02.jpg",
-          "normal": "/assets/images/16-9/business-02.jpg",
+          "classes": "object-fit",
+          "src": "/assets/images/1-1/business-04.png",
           "title": "title"
         }
       }]
     }
   }, {
     "type": "carousel-1v1",
+    "spacer": "lg",
     "title": {
-      "label": "Relate article",
-      "style": "style-v1"
+      "label": "Meet the team",
+      "icon": "email",
+      "style": "style-v2",
+      "classes": "mat-display-1"
     },
     "bg": {
-      "classes": "bg-shadow bg-fill-width"
+      "classes": "bg-white bg-fill-width"
     },
     "sliders": {
       "params": {
@@ -103,8 +106,9 @@
           "link": "#",
           "ratios": "media-4-3",
           "img": {
-            "large": "/assets/images/cases/porto1.jpg",
-            "normal": "/assets/images/cases/porto1.jpg"
+            "classes": "object-fit",
+            "src": "/assets/images/cases/porto1.jpg",
+            "alt": "alt"
           }
         }
       }, {
@@ -115,8 +119,9 @@
           "link": "#",
           "ratios": "media-4-3",
           "img": {
-            "large": "/assets/images/cases/porto7.jpg",
-            "normal": "/assets/images/cases/porto7.jpg"
+            "classes": "object-fit",
+            "src": "/assets/images/cases/porto7.jpg",
+            "alt": "alt"
           }
         },
         "title": "JOHNSON",
@@ -131,8 +136,9 @@
           "link": "#",
           "ratios": "media-4-3",
           "img": {
-            "large": "/assets/images/cases/porto2.jpg",
-            "normal": "/assets/images/cases/porto2.jpg"
+            "classes": "object-fit",
+            "src": "/assets/images/cases/porto2.jpg",
+            "alt": "alt"
           }
         },
         "title": "Will",
@@ -147,8 +153,9 @@
           "link": "#",
           "ratios": "media-4-3",
           "img": {
-            "large": "/assets/images/cases/porto3.jpg",
-            "normal": "/assets/images/cases/porto3.jpg"
+            "classes": "object-fit",
+            "src": "/assets/images/cases/porto3.jpg",
+            "alt": "alt"
           }
         },
         "title": "Tamy",
@@ -163,8 +170,9 @@
           "link": "#",
           "ratios": "media-4-3",
           "img": {
-            "large": "/assets/images/cases/porto4.jpg",
-            "normal": "/assets/images/cases/porto4.jpg"
+            "classes": "object-fit",
+            "src": "/assets/images/cases/porto4.jpg",
+            "alt": "alt"
           }
         },
         "title": "Ada",
@@ -179,8 +187,9 @@
           "link": "#",
           "ratios": "media-4-3",
           "img": {
-            "large": "/assets/images/cases/porto5.jpg",
-            "normal": "/assets/images/cases/porto5.jpg"
+            "classes": "object-fit",
+            "src": "/assets/images/cases/porto5.jpg",
+            "alt": "alt"
           }
         },
         "title": "MeiMei",
@@ -195,8 +204,9 @@
           "link": "#",
           "ratios": "media-4-3",
           "img": {
-            "large": "/assets/images/cases/porto6.jpg",
-            "normal": "/assets/images/cases/porto6.jpg"
+            "classes": "object-fit",
+            "src": "/assets/images/cases/porto6.jpg",
+            "alt": "alt"
           }
         },
         "title": "Nikki",
