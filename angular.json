@@ -37,9 +37,7 @@
               "highlight.js/styles/github.css",
               "node_modules/ngx-lightbox/lightbox.css"
             ],
-            "scripts": [
-              "node_modules/lazysizes/lazysizes.min.js"
-            ],
+            "scripts": [],
             "allowedCommonJsDependencies": [
               "hammerjs",
               "highlight.js",
