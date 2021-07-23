@@ -69,8 +69,9 @@ export class CaseComponent implements OnInit {
                 link,
                 ratios: 'media-140',
                 img: {
-                  large: img.field_media_image.uri.url,
-                  normal: img.field_media_image.uri.url,
+                  classes: 'object-fit',
+                  src: img.field_media_image.uri.url,
+                  alt: item.title,
                 },
               };
             }),
