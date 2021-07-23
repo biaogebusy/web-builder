@@ -13,10 +13,12 @@
     "feature": {
       "fullIcon": "fullscreen",
       "openIcon": "open_in_new",
+      "ratios": "media-16-9",
       "link": "#",
       "img": {
-        "large": "/assets/images/showcase/blog1-large.jpeg",
-        "normal": "/assets/images/showcase/blog1-large.jpeg"
+        "classes": "object-fit",
+        "src": "/assets/images/showcase/blog1-large.jpeg",
+        "alt": "lazyload"
       }
     },
     "date": "12/09/2016",
@@ -39,10 +41,12 @@
     "feature": {
       "fullIcon": "fullscreen",
       "openIcon": "open_in_new",
+      "ratios": "media-16-9",
       "link": "#",
       "img": {
-        "large": "/assets/images/showcase/blog2-large.jpeg",
-        "normal": "/assets/images/showcase/blog2-large.jpeg"
+        "classes": "object-fit",
+        "src": "/assets/images/showcase/blog2-large.jpeg",
+        "alt": "lazyload"
       }
     },
     "date": "12/09/2016",
@@ -65,10 +69,12 @@
     "feature": {
       "fullIcon": "fullscreen",
       "openIcon": "open_in_new",
+      "ratios": "media-16-9",
       "link": "#",
       "img": {
-        "large": "/assets/images/showcase/blog3-large.jpeg",
-        "normal": "/assets/images/showcase/blog3-large.jpeg"
+        "classes": "object-fit",
+        "src": "/assets/images/showcase/blog3-large.jpeg",
+        "alt": "lazyload"
       }
     },
     "date": "12/09/2016",
@@ -91,10 +97,12 @@
     "feature": {
       "fullIcon": "fullscreen",
       "openIcon": "open_in_new",
+      "ratios": "media-16-9",
       "link": "#",
       "img": {
-        "large": "/assets/images/showcase/blog5-large.jpeg",
-        "normal": "/assets/images/showcase/blog5-large.jpeg"
+        "classes": "object-fit",
+        "src": "/assets/images/showcase/blog5-large.jpeg",
+        "alt": "lazyload"
       }
     },
     "date": "12/09/2016",
@@ -117,10 +125,12 @@
     "feature": {
       "fullIcon": "fullscreen",
       "openIcon": "open_in_new",
+      "ratios": "media-16-9",
       "link": "#",
       "img": {
-        "large": "/assets/images/showcase/blog6-large.jpeg",
-        "normal": "/assets/images/showcase/blog6-large.jpeg"
+        "classes": "object-fit",
+        "src": "/assets/images/showcase/blog6-large.jpeg",
+        "alt": "lazyload"
       }
     },
     "date": "12/09/2016",
