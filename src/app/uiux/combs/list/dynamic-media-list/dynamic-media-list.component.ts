@@ -42,8 +42,9 @@ export class DynamicMediaListComponent implements OnInit {
               link,
               ratios: this.content.ratios || 'media-16-9',
               img: {
-                large: item.media.field_media_image.uri.url,
-                normal: item.media.thumbnail.uri.url,
+                classes: 'object-fit',
+                src: item.media.thumbnail.uri.url,
+                alt: item.title,
               },
             },
             date: item.changed,

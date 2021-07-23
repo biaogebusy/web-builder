@@ -59,8 +59,9 @@ export class DynamicCardListComponent extends BaseComponent implements OnInit {
               link,
               ratios: this.content.ratios || 'media-4-3',
               img: {
-                large: item.media.field_media_image.uri.url,
-                normal: item.media.thumbnail.uri.url,
+                classes: 'object-fit',
+                src: item.media.thumbnail.uri.url,
+                alt: title,
               },
             },
             body: body ? body : item.body.summary || item.body.value,
