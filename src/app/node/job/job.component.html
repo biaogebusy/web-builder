@@ -23,20 +23,5 @@
       </div>
     </div>
   </div>
-  <!-- App feature -->
-  <div class="app-feature position-relative">
-    <app-spacer [size]="feature.spacer || 'md'"></app-spacer>
-    <app-title [content]="feature.title"></app-title>
-    <div class="container">
-      <app-bg [content]="{classes:['bg-fill-width','wave-wrapper']}">
-        <mat-icon class="wave" svgIcon="wave"></mat-icon>
-      </app-bg>
-      <div fxLayout="row wrap" fxLayoutAlign="space-between start">
-        <app-card *ngFor="let card of feature.elements" [content]="card" fxFlex.xs="100"
-          fxFlex.sm="0 1 calc(33.3% - 1rem)" fxFlex.gt-sm="0 1 calc(20% - 1rem)" class="m-bottom-xs">
-        </app-card>
-      </div>
-    </div>
-    <app-spacer [size]="feature.spacer || 'md'"></app-spacer>
-  </div>
+  <app-showcase3v6 [content]="feature"></app-showcase3v6>
 </div>

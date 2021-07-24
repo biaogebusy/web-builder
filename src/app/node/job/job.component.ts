@@ -11,83 +11,131 @@ import { ICard } from '../../uiux/widgets/IWidgets';
 import { TagsService } from 'src/app/service/tags.service';
 
 const feature = {
+  type: 'showcase-3v6',
+  id: '',
   title: {
-    label: 'Feature',
-    style: 'style-v1',
+    type: 'text',
+    spacer: 'sm',
+    title: {
+      label: '职位招聘',
+      style: 'style-v1',
+    },
+    body: '<p class="text-center">免费推送相关职位信息，关注公众号随时随地了解职位情况。</p>',
   },
-  spacer: 'lg',
+  bg: {
+    classes: 'bg-light bg-fill-width',
+  },
+  row: '3',
   elements: [
     {
-      title: 'Material UI',
-      body: 'Material UI 有完善的主题颜色系统，有优秀的性能和用户体验',
-      feature: {
-        fullIcon: 'fullscreen',
-        openIcon: 'open_in_new',
-        link: '#',
-        ratios: 'media-4-3',
-        img: {
-          large: '/assets/images/badge.scene.png',
-          normal: '/assets/images/badge.scene.png',
+      img: {
+        src: '/assets/images/logo/codepen.svg',
+        style: {
+          width: '45px',
+          height: '45px',
         },
+        alt: 'logo',
       },
+      css3: true,
+      link: {
+        label: '前端开发工程师',
+        classes: 'bold',
+        href: '#',
+      },
+      subTitle: '字节跳动，北京',
     },
     {
-      title: 'Flex Layout',
-      body: '提供了足够丰富的布局 API，响应式适配各种设备视口尺寸',
-      feature: {
-        fullIcon: 'fullscreen',
-        openIcon: 'open_in_new',
-        link: '#',
-        ratios: 'media-4-3',
-        img: {
-          large: '/assets/images/grid-list.scene.png',
-          normal: '/assets/images/grid-list.scene.png',
+      img: {
+        src: '/assets/images/logo/codepen.svg',
+        style: {
+          width: '45px',
+          height: '45px',
         },
+        alt: 'logo',
       },
+      css3: true,
+      link: {
+        label: '前端架构师',
+        classes: 'bold',
+        href: '#',
+      },
+      subTitle: '美团，广州',
     },
     {
-      title: '支持多种颜色主题',
-      body: '可切换内建的自定义主题，可自定义符合品牌的颜色主题',
-      feature: {
-        fullIcon: 'fullscreen',
-        openIcon: 'open_in_new',
-        link: '#',
-        ratios: 'media-4-3',
-        img: {
-          large: '/assets/images/form-field.scene.png',
-          normal: '/assets/images/form-field.scene.png',
+      img: {
+        src: '/assets/images/logo/codepen.svg',
+        style: {
+          width: '45px',
+          height: '45px',
         },
+        alt: 'logo',
       },
+      css3: true,
+      link: {
+        label: '后端开发',
+        classes: 'bold',
+        href: '#',
+      },
+      subTitle: '微软，北京',
     },
     {
-      title: '布局',
-      body: '通过拖动的方式管理你的页面布局，灵活的创建各种营销着陆页',
-      feature: {
-        fullIcon: 'fullscreen',
-        openIcon: 'open_in_new',
-        link: '#',
-        ratios: 'media-4-3',
-        img: {
-          large: '/assets/images/button.scene.png',
-          normal: '/assets/images/button.scene.png',
+      img: {
+        src: '/assets/images/logo/codepen.svg',
+        style: {
+          width: '45px',
+          height: '45px',
         },
+        alt: 'logo',
       },
+      css3: true,
+      link: {
+        label: 'UI 设计师',
+        classes: 'bold',
+        href: '#',
+      },
+      subTitle: '腾讯，深圳',
     },
     {
-      title: 'AOT + Lazy Loading',
-      body: '使用AOT编译和懒加载使你的应用反应更快速',
-      feature: {
-        fullIcon: 'fullscreen',
-        openIcon: 'open_in_new',
-        link: '#',
-        ratios: 'media-4-3',
-        img: {
-          large: '/assets/images/menu.scene.png',
-          normal: '/assets/images/menu.scene.png',
+      img: {
+        src: '/assets/images/logo/codepen.svg',
+        style: {
+          width: '45px',
+          height: '45px',
         },
+        alt: 'logo',
       },
+      css3: true,
+      link: {
+        label: 'IOS 开发',
+        classes: 'bold',
+        href: '#',
+      },
+      subTitle: '华为，深圳',
+    },
+    {
+      img: {
+        src: '/assets/images/logo/codepen.svg',
+        style: {
+          width: '45px',
+          height: '45px',
+        },
+        alt: 'logo',
+      },
+      css3: true,
+      link: {
+        label: '游戏开发',
+        classes: 'bold',
+        href: '#',
+      },
+      subTitle: '腾讯，成都',
     },
   ],
+  action: {
+    label: '查看更多',
+    href: '#',
+    style: 'style-v1',
+    icon: 'open_in_new',
+  },
 };
 
 @Component({
