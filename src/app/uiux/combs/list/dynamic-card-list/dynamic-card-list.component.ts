@@ -52,7 +52,7 @@ export class DynamicCardListComponent extends BaseComponent implements OnInit {
               href: link,
             },
             subTitle,
-            classes: 'card-no-shadow',
+            classes: this.content.shadow ? '' : 'card-no-shadow',
             feature: {
               fullIcon: 'fullscreen',
               openIcon: 'open_in_new',

@@ -28,4 +28,9 @@
   .mat-card-subtitle {
     color: inherit;
   }
+
+  .mat-card-subtitle,
+  .card-body {
+    color: mat-color($foreground, text, 0.5);
+  }
 }

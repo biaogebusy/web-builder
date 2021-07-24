@@ -12,6 +12,7 @@
       "subTitle": "law_firm.title"
     },
     "row": "3",
+    "shadow": true,
     "ratios": "media-1-1",
     "pager": {
       "itemsPerPage": 20

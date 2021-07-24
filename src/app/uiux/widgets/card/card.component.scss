@@ -58,6 +58,12 @@
     }
   }
 }
+
+.mat-card-subtitle,
+.card-body {
+  font-size: 14px;
+}
+
 .mat-card-content {
   ::ng-deep {
     .mat-card-title {
