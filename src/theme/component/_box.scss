@@ -8,7 +8,7 @@
   $accent: map-get($config, accent);
   $warn: map-get($config, warn);
 
-  $text-base: mat-color($foreground, text);
+  $text-base: mat-color($foreground, text, 0.75);
   .inv-builder-box {
     .box-icon {
       .mat-icon {
