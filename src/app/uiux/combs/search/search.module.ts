@@ -5,9 +5,10 @@ import { SearchComponent } from './search.component';
 import { HeroModule } from '../hero/hero.module';
 import { SearchHeaderComponent } from './search-header/search-header.component';
 import { SearchListComponent } from './search-list/search-list.component';
+import { SearchSidebarComponent } from './search-sidebar/search-sidebar.component';
 
 @NgModule({
-  declarations: [SearchComponent, SearchHeaderComponent, SearchListComponent],
+  declarations: [SearchComponent, SearchHeaderComponent, SearchListComponent, SearchSidebarComponent],
   imports: [ShareModule, WidgetsModule, HeroModule],
   exports: [SearchComponent],
 })

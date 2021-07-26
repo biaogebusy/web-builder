@@ -8,7 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
-// import { MatGridListModule } from '@angular/material/grid-list';
+import { MatTreeModule } from '@angular/material/tree';
 import { MatDividerModule } from '@angular/material/divider';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -26,6 +26,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 // utils
 import { NgPipesModule } from 'ngx-pipes';
@@ -47,7 +48,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     MatInputModule,
     MatDividerModule,
     FlexLayoutModule,
-    // MatGridListModule,
+    MatTreeModule,
+    MatCheckboxModule,
     MatFormFieldModule,
     MatSelectModule,
     MatRippleModule,
@@ -77,7 +79,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     MatInputModule,
     MatDividerModule,
     FlexLayoutModule,
-    // MatGridListModule,
+    MatTreeModule,
+    MatCheckboxModule,
     MatFormFieldModule,
     MatSelectModule,
     MatRippleModule,

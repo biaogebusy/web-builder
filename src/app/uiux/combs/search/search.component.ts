@@ -12,7 +12,19 @@ export class SearchComponent implements OnInit {
   loading = false;
   constructor(private nodeService: NodeService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.content.sidebar = {
+      filter: {
+        label: '过滤',
+        elements: [
+          {
+            label: '四分法',
+            elements: [],
+          },
+        ],
+      },
+    };
+  }
 
   onSearch(key: string): void {
     this.loading = true;
