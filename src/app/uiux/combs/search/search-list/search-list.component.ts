@@ -7,6 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class SearchListComponent implements OnInit {
   @Input() content: any;
+  @Input() loading: boolean;
   p = 1;
   constructor() {}
 
