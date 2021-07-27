@@ -1,7 +1,7 @@
 <div class="taxonomy-list m-y">
   <div class="container">
     <div class="m-top-sm" fxLayout.lt-md="column" fxLayout.gt-sm="row">
-      <div class="list" fxFlex.lt-md="100" fxFlex.gt-sm="75">
+      <div class="list" fxFlex.lt-md="100" fxFlex.gt-sm="{{content.sidebar?'75':'100'}}">
         <app-list [content]="content.elements" [pager]="content.pager"></app-list>
       </div>
       <app-sidebar [ngClass.gt-sm]="'m-left-sm'" *ngIf="content.sidebar" fxFlex.lt-md="100" fxFlex.gt-sm="25"
