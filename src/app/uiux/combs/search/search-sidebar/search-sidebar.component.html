@@ -1,4 +1,15 @@
 <div class="search-sidebar">
-  <ngx-treeview [items]="[items]" (selectedChange)="onSelectedChange($event)" (filterChange)="onFilterChange($event)">
-  </ngx-treeview>
+  <mat-accordion *ngFor="let item of treeView">
+    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{item.title}}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <ngx-treeview [config]="config" [items]="item.tree" (selectedChange)="onSelectedChange($event)"
+        (filterChange)="onFilterChange($event)">
+      </ngx-treeview>
+    </mat-expansion-panel>
+  </mat-accordion>
+
 </div>
