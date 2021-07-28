@@ -1,4 +1,4 @@
-<div class="search-sidebar">
+<div class="search-sidebar" *ngIf="content">
   <mat-accordion *ngFor="let item of treeView">
     <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
       <mat-expansion-panel-header>
@@ -11,5 +11,16 @@
       </ngx-treeview>
     </mat-expansion-panel>
   </mat-accordion>
-
+  <ng-container *ngFor="let item of content">
+    <ng-container [ngSwitch]="item.type">
+      <ng-container *ngSwitchCase="'select'">
+        <mat-form-field appearance="fill">
+          <mat-label>{{item.label}}</mat-label>
+          <mat-select disableRipple>
+            <mat-option value="{{option.value}}" *ngFor="let option of item.options">{{option.label}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </ng-container>
+    </ng-container>
+  </ng-container>
 </div>

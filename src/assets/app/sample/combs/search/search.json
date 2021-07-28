@@ -34,6 +34,127 @@
       "input": {
         "placeholder": "请输入你的关键词"
       }
-    }
+    },
+    "sidebar": [{
+      "type": "treeView",
+      "label": "四分法",
+      "value": "four-point",
+      "elements": {
+        "text": "四分法",
+        "value": "all",
+        "children": [{
+            "text": "金融科技",
+            "value": 173,
+            "children": [{
+              "text": "金融基础设施",
+              "value": 186
+            }]
+          },
+          {
+            "text": "金融体系",
+            "value": 174,
+            "children": [{
+                "text": "基础设施金融",
+                "value": 197
+              },
+              {
+                "text": "金融公司管理与重整",
+                "value": 203,
+                "children": [{
+                  "text": "公司管理",
+                  "value": 429
+                }]
+              }
+            ]
+          }
+        ]
+      }
+    }, {
+      "type": "treeView",
+      "label": "六分法",
+      "value": "four-point",
+      "elements": {
+        "text": "四分法",
+        "value": "all",
+        "children": [{
+            "text": "金融科技",
+            "value": 173,
+            "children": [{
+              "text": "金融基础设施",
+              "value": 186
+            }]
+          },
+          {
+            "text": "金融体系",
+            "value": 174,
+            "children": [{
+                "text": "基础设施金融",
+                "value": 197
+              },
+              {
+                "text": "金融公司管理与重整",
+                "value": 203,
+                "children": [{
+                  "text": "公司管理",
+                  "value": 429
+                }]
+              }
+            ]
+          }
+        ]
+      }
+    }, {
+      "type": "select",
+      "value": "content-category",
+      "label": "内容分类",
+      "options": [{
+        "label": "司法解释",
+        "value": "75"
+      }, {
+        "label": "政策",
+        "value": "78"
+      }, {
+        "label": "法律",
+        "value": "73"
+      }, {
+        "label": "法规",
+        "value": "74"
+      }, {
+        "label": "规章",
+        "value": "76"
+      }, {
+        "label": "规范性",
+        "value": "77"
+      }, {
+        "label": "司法解释",
+        "value": "422"
+      }]
+    }, {
+      "type": "select",
+      "value": "article-category",
+      "label": "文章分类",
+      "options": [{
+        "label": "司法解释",
+        "value": "75"
+      }, {
+        "label": "政策",
+        "value": "78"
+      }, {
+        "label": "法律",
+        "value": "73"
+      }, {
+        "label": "法规",
+        "value": "74"
+      }, {
+        "label": "规章",
+        "value": "76"
+      }, {
+        "label": "规范性",
+        "value": "77"
+      }, {
+        "label": "司法解释",
+        "value": "422"
+      }]
+    }]
   }]
 }
