@@ -2,11 +2,12 @@
   <a class="anchor" [id]="content.id||''"></a>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <div class="container">
-    <div class="blog-item teaser" fxLayout.lt-md="column" fxLayout.gt-sm="row" fxFlex="100" fxLayoutGap.lt-md="0"
+    <div class="showcase-inner teaser" fxLayout.lt-md="column" fxLayout.gt-sm="row" fxFlex="100" fxLayoutGap.lt-md="0"
       fxLayoutGap.gt-xs="3rem">
-      <app-feature-box fxFlex.lt-md="100" fxFlex.gt-sm="40" [content]="content.feature" *ngIf="content.feature">
+      <app-feature-box fxFlex.lt-md="100" fxFlex.gt-sm="40" [content]="content.feature"
+        *ngIf="content.showImage && content.feature">
       </app-feature-box>
-      <div fxFlex.lt-md="100" fxFlex.gt-sm="60" class="blog-grid-con">
+      <div fxFlex.lt-md="100" fxFlex.gt-sm="{{content.showImage && content.feature?'60':'100'}}">
         <h2 class="title">
           <app-link [content]="content.title"></app-link>
         </h2>
@@ -24,7 +25,7 @@
             <div>{{content.category | slice:0:20}}</div>
           </li>
         </ul>
-        <div class="blog-shortdesc" [innerHTML]="content.body |stripTags|trim|shorten:150:'...'">
+        <div class="shortdesc" [innerHTML]="content.body |stripTags|trim|shorten:150:'...'">
         </div>
         <div class="m-top-sm" *ngIf="content.details">
           <app-btn-animate [content]="content.details"></app-btn-animate>

@@ -35,11 +35,11 @@
   }
 
   .showcase-3-v3 {
-    .blog-item {
+    .showcase-inner {
       ul.post-meta-info {
         color: mat-color($foreground, text, 0.5);
       }
-      .blog-shortdesc {
+      .shortdesc {
         color: mat-color($foreground, text);
       }
       &.teaser {
