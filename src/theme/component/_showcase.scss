@@ -67,7 +67,18 @@
     }
   }
 
+  .showcase-3-v7 {
+    .box-title {
+      a {
+        color: mat-color($primary);
+      }
+    }
+  }
+
   .showcase-3-v8 {
+    .media {
+      background-color: mat-color($background, card);
+    }
     .middle {
       .media {
         background-color: mat-color($primary, 400);
