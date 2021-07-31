@@ -13,6 +13,7 @@ import { AppComponent } from './app.component';
 import { AppState } from './mobx/AppState';
 import { NgxGoogleAnalyticsModule } from 'ngx-google-analytics';
 import { environment } from 'src/environments/environment';
+import { httpInterceptorProviders } from './interceptors';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -28,7 +29,7 @@ import { environment } from 'src/environments/environment';
     MobxModule.forRoot(),
     BrandingModule,
   ],
-  providers: [Title, AppState],
+  providers: [Title, AppState, httpInterceptorProviders],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
