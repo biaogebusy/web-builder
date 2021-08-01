@@ -8,6 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ScreenService } from './service/screen.service';
 import { LoadingService } from './service/loading.service';
 import { delay } from 'rxjs/operators';
+import { GoogleAnalyticsService } from './service/ga.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -24,13 +25,22 @@ export class AppComponent implements OnInit, AfterViewInit {
     public branding: BrandingState,
     private router: ActivatedRoute,
     private screenService: ScreenService,
-    private loadingservice: LoadingService
+    private loadingservice: LoadingService,
+    private googleAnalyticsService: GoogleAnalyticsService
   ) {}
 
   ngOnInit(): void {
     if (this.appState.config?.loading) {
       this.listenToLoading();
     }
+
+    this.appState.configLoadDone$.subscribe((res) => {
+      if (res) {
+        if (this.appState.config?.googleAnalytics) {
+          this.googleAnalyticsService.loadGoogleAnalytics();
+        }
+      }
+    });
   }
 
   ngAfterViewInit(): void {

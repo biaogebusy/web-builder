@@ -32,6 +32,7 @@ export class AppState {
   };
 
   public switchChange$ = new Subject();
+  public configLoadDone$ = new Subject();
   constructor(
     private http: HttpClient,
     private apiService: ApiService,
@@ -90,6 +91,7 @@ export class AppState {
         .subscribe(
           (config) => {
             this.state.config = config;
+            this.configLoadDone$.next(true);
             this.initTheme();
             this.setUser();
           },
@@ -103,6 +105,7 @@ export class AppState {
         .subscribe(
           (config) => {
             this.state.config = config;
+            this.configLoadDone$.next(true);
             this.initTheme();
             this.setUser();
           },

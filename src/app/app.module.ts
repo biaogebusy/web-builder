@@ -11,9 +11,8 @@ import { NgxWebstorageModule } from 'ngx-webstorage';
 import { BrandingModule } from './branding/branding.module';
 import { AppComponent } from './app.component';
 import { AppState } from './mobx/AppState';
-import { NgxGoogleAnalyticsModule } from 'ngx-google-analytics';
-import { environment } from 'src/environments/environment';
 import { httpInterceptorProviders } from './interceptors';
+import { Angulartics2Module } from 'angulartics2';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -24,8 +23,8 @@ import { httpInterceptorProviders } from './interceptors';
     CommonModule,
     MatSidenavModule,
     MobxAngularModule,
-    NgxGoogleAnalyticsModule.forRoot(environment.ga),
     NgxWebstorageModule.forRoot(),
+    Angulartics2Module.forRoot(),
     MobxModule.forRoot(),
     BrandingModule,
   ],
