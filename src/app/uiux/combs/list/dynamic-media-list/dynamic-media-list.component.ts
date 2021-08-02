@@ -36,6 +36,7 @@ export class DynamicMediaListComponent implements OnInit {
               href: link,
             },
             spacer: 'none',
+            showImage: this.content.showImage || true,
             feature: {
               fullIcon: 'fullscreen',
               openIcon: 'open_in_new',

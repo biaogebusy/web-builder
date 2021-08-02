@@ -18,6 +18,9 @@
       color: mat-color($foreground, text, 0.75);
       a {
         color: mat-color($foreground, text, 0.75);
+        &:hover {
+          color: mat-color($primary);
+        }
       }
       &.page-title {
         color: mat-color($foreground, text);

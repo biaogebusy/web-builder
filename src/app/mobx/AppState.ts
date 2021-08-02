@@ -8,7 +8,6 @@ import { LocalStorageService } from 'ngx-webstorage';
 import { IApiUrl, IAppConfig, IPage } from './IAppConfig';
 import { Subject } from 'rxjs';
 import { IUser } from './user/IUser';
-import { Router, ActivatedRoute } from '@angular/router';
 import { TagsService } from '../service/tags.service';
 import { version } from '../../../package.json';
 const unauthUser = {
@@ -33,10 +32,9 @@ export class AppState {
   };
 
   public switchChange$ = new Subject();
+  public configLoadDone$ = new Subject();
   constructor(
     private http: HttpClient,
-    private router: Router,
-    private activateRoute: ActivatedRoute,
     private apiService: ApiService,
     @Inject(DOCUMENT) private document: Document,
     private storage: LocalStorageService,
@@ -93,6 +91,7 @@ export class AppState {
         .subscribe(
           (config) => {
             this.state.config = config;
+            this.configLoadDone$.next(true);
             this.initTheme();
             this.setUser();
           },
@@ -106,6 +105,7 @@ export class AppState {
         .subscribe(
           (config) => {
             this.state.config = config;
+            this.configLoadDone$.next(true);
             this.initTheme();
             this.setUser();
           },

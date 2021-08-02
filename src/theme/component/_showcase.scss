@@ -35,11 +35,11 @@
   }
 
   .showcase-3-v3 {
-    .blog-item {
+    .showcase-inner {
       ul.post-meta-info {
         color: mat-color($foreground, text, 0.5);
       }
-      .blog-shortdesc {
+      .shortdesc {
         color: mat-color($foreground, text);
       }
       &.teaser {
@@ -67,7 +67,18 @@
     }
   }
 
+  .showcase-3-v7 {
+    .box-title {
+      a {
+        color: mat-color($primary);
+      }
+    }
+  }
+
   .showcase-3-v8 {
+    .media {
+      background-color: mat-color($background, card);
+    }
     .middle {
       .media {
         background-color: mat-color($primary, 400);

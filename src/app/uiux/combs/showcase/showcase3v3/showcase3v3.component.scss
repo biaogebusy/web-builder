@@ -1,6 +1,6 @@
 @import "../../../../../theme/mixins/amixin";
 @import "../../../../../theme/variable/breakpoint";
-.blog-item {
+.showcase-inner {
   ul,
   li {
     margin: 0;
@@ -18,7 +18,7 @@
     }
   }
 
-  .blog-shortdesc {
+  .shortdesc {
     overflow: hidden;
   }
 

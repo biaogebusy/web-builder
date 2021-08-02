@@ -9,9 +9,6 @@
     li {
       ::ng-deep a {
         margin: 0 2px;
-        &:hover {
-          text-decoration: underline;
-        }
       }
       &:before {
         content: ">";
