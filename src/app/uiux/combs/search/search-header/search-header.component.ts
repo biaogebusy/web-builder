@@ -26,35 +26,15 @@ import { FormControl } from '@angular/forms';
 })
 export class SearchHeaderComponent implements OnInit, AfterViewInit {
   @Input() content: any;
+  @Input() key: string;
   @Output() searchChange = new EventEmitter();
   @ViewChild('input') input: ElementRef;
-  toppings = new FormControl();
-  toppingList: string[] = [
-    'Extra cheese',
-    'Mushroom',
-    'Onion',
-    'Pepperoni',
-    'Sausage',
-    'Tomato',
-  ];
 
   subscribe: Subscription;
   subscription: Subscription;
-  key = '';
-  constructor(
-    private router: ActivatedRoute,
-    private routerService: RouteService
-  ) {}
+  constructor(private routerService: RouteService) {}
 
-  ngOnInit(): void {
-    this.router.queryParams.subscribe((query: any) => {
-      console.log(query);
-      if (query.keys) {
-        this.key = query.keys;
-        this.searchChange.emit(this.key);
-      }
-    });
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     const input$ = fromEvent<any>(this.input.nativeElement, 'input').pipe(
@@ -65,8 +45,8 @@ export class SearchHeaderComponent implements OnInit, AfterViewInit {
     );
 
     this.subscription = input$.subscribe((key) => {
-      this.searchChange.emit(key);
       if (key) {
+        this.searchChange.emit(key);
         const query: Params = { keys: key };
         this.routerService.updateQueryParams(query);
       }
