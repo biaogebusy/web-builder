@@ -15,9 +15,6 @@ import {
   map,
   startWith,
 } from 'rxjs/operators';
-import { ActivatedRoute, Params } from '@angular/router';
-import { RouteService } from 'src/app/service/route.service';
-import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-search-header',
@@ -32,26 +29,9 @@ export class SearchHeaderComponent implements OnInit, AfterViewInit {
 
   subscribe: Subscription;
   subscription: Subscription;
-  constructor(private routerService: RouteService) {}
+  constructor() {}
 
   ngOnInit(): void {}
-
-  ngAfterViewInit(): void {
-    const input$ = fromEvent<any>(this.input.nativeElement, 'input').pipe(
-      map((event) => event.target.value),
-      startWith(''),
-      debounceTime(500),
-      distinctUntilChanged()
-    );
-
-    this.subscription = input$.subscribe((key) => {
-      if (key) {
-        this.searchChange.emit(key);
-        const query: Params = { keys: key };
-        this.routerService.updateQueryParams(query);
-      }
-    });
-  }
 
   onSubmit(key: string): void {
     this.searchChange.emit(key);

@@ -3,7 +3,8 @@
 </div>
 <div class="search-list m-y-sm" *ngIf="content">
   <div class="container">
-    <div class="list m-y" *ngFor="let item of content | paginate: { itemsPerPage: 20, currentPage: p }">
+    <div class="list m-y" *ngFor="let item of content | paginate: { itemsPerPage: pager.items_per_page, currentPage:
+      pager.current_page + 1, totalItems: pager.total_items}">
       <h1 class="title">
         <app-link [content]="item.link"></app-link>
       </h1>
@@ -13,7 +14,7 @@
         <div>{{item.created}}</div>
       </div>
     </div>
-    <app-pagination *ngIf="content?.length > 0;else empty" (pageChange)="p = $event"></app-pagination>
+    <app-pagination *ngIf="content?.length > 0;else empty" (pageChange)="onPageChange($event)"></app-pagination>
     <ng-template #empty>
       <div class="text-center p-y-xl">
         <p>没有数据。</p>

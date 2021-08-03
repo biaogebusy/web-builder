@@ -1,5 +1,6 @@
 @import "../../../../../theme/variable/breakpoint";
 .search-header {
+  overflow: hidden;
   form {
     z-index: 10;
   }
@@ -11,7 +12,7 @@
     border: none;
     outline: none !important;
     padding-right: 30px;
-    padding-left: 30px;
+    padding-left: 50px;
     background-color: rgba(255, 255, 255, 0.8);
     box-shadow: 0 5px 13px rgb(60 72 88 / 20%) !important;
     border-radius: 50rem !important;
@@ -31,4 +32,15 @@
 .filter {
   position: relative;
   z-index: 2;
+}
+
+.search-input {
+  position: relative;
+  .search-icon {
+    position: absolute;
+    left: 20px;
+    top: 16px;
+    line-height: 1;
+    cursor: pointer;
+  }
 }
