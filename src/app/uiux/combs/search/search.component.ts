@@ -31,18 +31,17 @@ export class SearchComponent implements OnInit {
   }
 
   onSearch(key: string): void {
-    this.loading = true;
     this.key = key;
     this.nodeSearch(this.key, 0);
   }
 
   onPageChange(page: any): void {
-    this.loading = true;
     this.page = page;
     this.nodeSearch(this.key, this.page);
   }
 
   nodeSearch(key: string, page: number): void {
+    this.loading = true;
     this.nodeService.search(key, page).subscribe(
       (data) => {
         const query: Params = {
