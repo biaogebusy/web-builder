@@ -39,6 +39,7 @@
     "ngx-pagination": "^5.1.0",
     "ngx-pipes": "^2.7.5",
     "ngx-swiper-wrapper": "^10.0.0",
+    "ngx-treeview": "^10.0.2",
     "ngx-webstorage": "^7.0.1",
     "rxjs": "~6.6.0",
     "shufflejs": "^5.3.0",

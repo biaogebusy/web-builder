@@ -10,6 +10,9 @@
 
   $light: map-get($background, card);
 
+  .search-sidebar {
+    @include mat-elevation(4, mat-color($foreground, text), 0.35);
+  }
   .search-list {
     .list {
       border-bottom: 1px solid mat-color($foreground, divider, 0.1);

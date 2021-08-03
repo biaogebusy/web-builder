@@ -1,6 +1,10 @@
-<app-search-header [content]="content.header" (searchChange)="onSearch($event)">
+<app-search-header [content]="content.header" [key]="key" (searchChange)="onSearch($event)">
 </app-search-header>
-<div class="m-y" *ngIf="loading" fxLayoutAlign="center center">
-  <app-spinner class="m-y" [content]="{color:'primary', size:40}"></app-spinner>
+<div class="container">
+  <div class="search-body">
+    <app-search-sidebar *ngIf="content.sidebar" [content]="content.sidebar" fxFlex="0 0 25%"></app-search-sidebar>
+    <app-search-list fxFlex="0 0 {{content.sidebar ? '75%':'100%'}}" [content]="nodes" [loading]="loading"
+      [pager]="pager" (pageChange)="onPageChange($event)">
+    </app-search-list>
+  </div>
 </div>
-<app-search-list [content]="nodes"></app-search-list>

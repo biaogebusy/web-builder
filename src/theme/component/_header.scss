@@ -176,6 +176,7 @@
         }
         input[type="search"] {
           color: mat-color($primary, default-contrast);
+          caret-color: mat-color($primary, default-contrast);
         }
         .mat-icon {
           color: mat-color($primary, default-contrast);
