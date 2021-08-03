@@ -12,6 +12,9 @@
 
   .search-sidebar {
     @include mat-elevation(4, mat-color($foreground, text), 0.35);
+    .mat-expansion-panel:not([class*="mat-elevation-z"]) {
+      border-bottom: 1px solid mat-color($foreground, divider);
+    }
   }
   .search-list {
     .list {

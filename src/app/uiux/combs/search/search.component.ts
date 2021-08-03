@@ -40,6 +40,10 @@ export class SearchComponent implements OnInit {
     this.nodeSearch(this.key, this.page);
   }
 
+  onSelectChange(event: any): void {
+    console.log(event);
+  }
+
   nodeSearch(key: string, page: number): void {
     this.loading = true;
     this.nodeService.search(key, page).subscribe(

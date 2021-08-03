@@ -23,11 +23,12 @@
   .item {
     ::ng-deep a {
       position: relative;
+      display: block;
+      white-space: nowrap;
       font-size: 1.5rem;
       font-weight: 700;
       padding: 2.7rem 2rem;
       line-height: 1;
-      display: block;
       &.active {
         &:after {
           position: absolute;

@@ -1,26 +1,37 @@
 <div class="search-sidebar" *ngIf="content">
-  <mat-accordion *ngFor="let item of treeView">
+  <mat-accordion>
+    <ng-container *ngFor="let item of treeView">
+      <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <strong>{{item.title}}</strong>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <ngx-treeview [config]="config" [items]="item.tree" (selectedChange)="onSelectedChange($event)"
+          (filterChange)="onFilterChange($event)">
+        </ngx-treeview>
+      </mat-expansion-panel>
+    </ng-container>
+
     <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          {{item.title}}
+          <strong>分类</strong>
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <ngx-treeview [config]="config" [items]="item.tree" (selectedChange)="onSelectedChange($event)"
-        (filterChange)="onFilterChange($event)">
-      </ngx-treeview>
-    </mat-expansion-panel>
-  </mat-accordion>
-  <ng-container *ngFor="let item of content">
-    <ng-container [ngSwitch]="item.type">
-      <ng-container *ngSwitchCase="'select'">
-        <mat-form-field appearance="fill">
-          <mat-label>{{item.label}}</mat-label>
-          <mat-select disableRipple>
-            <mat-option value="{{option.value}}" *ngFor="let option of item.options">{{option.label}}</mat-option>
-          </mat-select>
-        </mat-form-field>
+      <ng-container *ngFor="let item of content">
+        <ng-container [ngSwitch]="item.type">
+          <ng-container *ngSwitchCase="'select'">
+            <mat-form-field appearance="legacy" class="width-100">
+              <mat-label>{{item.label}}</mat-label>
+              <mat-select disableRipple (selectionChange)="onSelectChange(item.value, $event)">
+                <mat-option value="{{option.value}}" *ngFor="let option of item.options">{{option.label}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </ng-container>
+        </ng-container>
       </ng-container>
-    </ng-container>
-  </ng-container>
+    </mat-expansion-panel>
+
+  </mat-accordion>
 </div>

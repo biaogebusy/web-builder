@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TreeviewItem } from 'ngx-treeview';
 @Component({
   selector: 'app-search-sidebar',
@@ -7,6 +7,8 @@ import { TreeviewItem } from 'ngx-treeview';
 })
 export class SearchSidebarComponent implements OnInit {
   @Input() content: any;
+  @Output() selectChange = new EventEmitter();
+
   treeView: any[];
   panelOpenState = false;
   config = {
@@ -39,5 +41,11 @@ export class SearchSidebarComponent implements OnInit {
 
   onFilterChange(event: any): void {
     console.log(event);
+  }
+
+  onSelectChange(key: string, event: any): void {
+    console.log(key, event);
+
+    this.selectChange.emit({ key, value: event.value });
   }
 }
