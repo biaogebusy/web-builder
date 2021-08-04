@@ -11,10 +11,11 @@
       </mat-button-toggle-group>
     </div>
     <div class="shuffle-inner">
-      <div class="item" *ngFor="let item of content.elements" [attr.data-groups]="item.category">
+      <div class="item" fxFlex.xs="100" fxFlex.sm="calc(50% - 30px)" fxFlex.gt-sm="0 0 calc({{100/4}}% - 40px)"
+        *ngFor="let item of content.elements" [attr.data-groups]="item.category">
         <app-dynamic-widgets [content]="item"></app-dynamic-widgets>
       </div>
-      <div class="sizer"></div>
+      <div class="sizer" fxFlex.xs="100" fxFlex.sm="calc(50% - 30px)" fxFlex.gt-sm="0 0 calc({{100/4}}% - 40px)"></div>
     </div>
   </div>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>

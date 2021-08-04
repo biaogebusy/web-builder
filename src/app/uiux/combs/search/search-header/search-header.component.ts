@@ -1,12 +1,4 @@
-import {
-  Component,
-  Input,
-  OnInit,
-  EventEmitter,
-  Output,
-  ViewChild,
-  ElementRef,
-} from '@angular/core';
+import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-search-header',
@@ -17,12 +9,10 @@ export class SearchHeaderComponent implements OnInit {
   @Input() content: any;
   @Input() key: string;
   @Output() searchChange = new EventEmitter();
-  @ViewChild('input') input: ElementRef;
 
   subscribe: Subscription;
   subscription: Subscription;
   constructor() {}
-
   ngOnInit(): void {}
 
   onSubmit(key: string): void {
