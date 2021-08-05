@@ -72,6 +72,8 @@
     position: relative;
     display: block;
     overflow: hidden;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
     &:before {
       content: "";
       height: 100%;
