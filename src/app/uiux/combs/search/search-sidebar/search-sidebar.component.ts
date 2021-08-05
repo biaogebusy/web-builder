@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TreeviewItem } from 'ngx-treeview';
+import { FormService } from 'src/app/service/form.service';
+import { FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-search-sidebar',
   templateUrl: './search-sidebar.component.html',
@@ -11,6 +13,7 @@ export class SearchSidebarComponent implements OnInit {
 
   treeView: any[];
   panelOpenState = false;
+  form: FormGroup;
   config = {
     hasAllCheckBox: false,
     hasFilter: false,
@@ -19,7 +22,7 @@ export class SearchSidebarComponent implements OnInit {
     maxHeight: 500,
     hasDivider: false,
   };
-  constructor() {}
+  constructor(private formService: FormService) {}
 
   ngOnInit(): void {
     if (this.content) {
@@ -32,7 +35,12 @@ export class SearchSidebarComponent implements OnInit {
           });
         }
       });
+      this.initForm(this.content);
     }
+  }
+
+  initForm(items: any[]): void {
+    this.form = this.formService.toFormGroup(items);
   }
 
   onSelectedChange(event: any): void {
@@ -43,9 +51,7 @@ export class SearchSidebarComponent implements OnInit {
     console.log(event);
   }
 
-  onSelectChange(key: string, event: any): void {
-    console.log(key, event);
-
-    this.selectChange.emit({ key, value: event.value });
+  onSelectChange(): void {
+    this.selectChange.emit(this.form);
   }
 }

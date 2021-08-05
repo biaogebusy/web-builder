@@ -10,9 +10,15 @@ export class FormService {
   toFormGroup(items: any): any {
     const group: any = {};
     items.forEach((item: any) => {
-      group[item.key] = item.params?.required
-        ? new FormControl(item.value || '', Validators.required)
-        : new FormControl(item.value || '');
+      switch (item.type) {
+        case 'select':
+          group[item.key] = item.params?.required
+            ? new FormControl(item.value || '', Validators.required)
+            : new FormControl(item.value || '');
+          break;
+        default:
+          group[item.key] = new FormControl('');
+      }
     });
     return new FormGroup(group);
   }
