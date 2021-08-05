@@ -1,3 +1,4 @@
+import { HttpParams } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { NodeService } from 'src/app/service/node.service';
@@ -40,8 +41,17 @@ export class SearchComponent implements OnInit {
     this.nodeSearch(this.key, this.page);
   }
 
-  onSelectChange(event: any): void {
-    console.log(event);
+  onSelectChange(form: any): void {
+    console.log(form);
+    const params: string[] = [];
+    Object.keys(form.value).forEach((item) => {
+      if (form.value[item]) {
+        params.push(`${item}=${form.value[item].join(',')}`);
+      }
+    });
+    this.nodeService.searchNode(params.join('&')).subscribe((data) => {
+      console.log(data);
+    });
   }
 
   nodeSearch(key: string, page: number): void {

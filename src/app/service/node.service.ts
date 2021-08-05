@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { forkJoin, Observable } from 'rxjs';
 import { mapValues } from 'lodash-es';
@@ -21,6 +21,10 @@ export class NodeService {
 
   search(keys: string, page: number): Observable<any> {
     const params = [`keys=${keys}`, `page=${page}`].join('&');
+    return this.http.get<any>(`${this.apiUrl}/api/v1/content?${params}`);
+  }
+
+  searchNode(params: string): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/api/v1/content?${params}`);
   }
 
