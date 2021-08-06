@@ -8,7 +8,7 @@
       <h1 class="title">
         <app-link [content]="item.link"></app-link>
       </h1>
-      <div [innerHTML]="item.body | stripTags"></div>
+      <div [innerHTML]="item.body | shorten: 150: '...' | stripTags"></div>
       <div class="bottom m-y-sm" fxLayoutAlign="space-between center">
         <div>{{item.user}}</div>
         <div>{{item.created}}</div>
