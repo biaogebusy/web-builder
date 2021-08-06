@@ -30,14 +30,13 @@ export class AppComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.appState.config?.loading) {
-      this.listenToLoading();
-    }
-
     this.appState.configLoadDone$.subscribe((res) => {
       if (res) {
         if (this.appState.config?.googleAnalytics) {
           this.googleAnalyticsService.loadGoogleAnalytics();
+        }
+        if (this.appState.config?.loading) {
+          this.listenToLoading();
         }
       }
     });
