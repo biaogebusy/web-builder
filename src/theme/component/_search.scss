@@ -23,6 +23,9 @@
       .title {
         a {
           color: mat-color($foreground, text, 0.75);
+          &:hover {
+            color: mat-color($primary);
+          }
         }
       }
     }

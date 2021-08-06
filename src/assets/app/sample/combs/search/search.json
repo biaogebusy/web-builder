@@ -10,7 +10,7 @@
       },
       "text": {
         "title": {
-          "label": "XinShi Search",
+          "label": "律鑫云搜索",
           "style": "style-v1",
           "classes": "mat-display-1"
         },
@@ -36,9 +36,96 @@
       }
     },
     "sidebar": [{
+      "type": "select",
+      "key": "type",
+      "mutiple": false,
+      "label": "内容来源",
+      "options": [{
+        "label": "无",
+        "value": null
+      }, {
+        "label": "文章",
+        "value": "article"
+      }, {
+        "label": "律所",
+        "value": "law_firm"
+      }, {
+        "label": "律师",
+        "value": "lawyer"
+      }, {
+        "label": "法规库",
+        "value": "law"
+      }, {
+        "label": "活动",
+        "value": "event"
+      }, {
+        "label": "问答",
+        "value": "question"
+      }]
+    }, {
+      "type": "select",
+      "key": "content_category",
+      "label": "内容分类",
+      "mutiple": true,
+      "options": [{
+        "label": "无",
+        "value": null
+      }, {
+        "label": "司法解释",
+        "value": "75"
+      }, {
+        "label": "政策",
+        "value": "78"
+      }, {
+        "label": "法律",
+        "value": "73"
+      }, {
+        "label": "法规",
+        "value": "74"
+      }, {
+        "label": "规章",
+        "value": "76"
+      }, {
+        "label": "规范性",
+        "value": "77"
+      }, {
+        "label": "司法解释",
+        "value": "422"
+      }]
+    }, {
+      "type": "select",
+      "key": "article_category",
+      "label": "文章分类",
+      "mutiple": true,
+      "options": [{
+        "label": "无",
+        "value": null
+      }, {
+        "label": "法律顾问",
+        "value": "149"
+      }, {
+        "label": "金融仲裁",
+        "value": "148"
+      }, {
+        "label": "金融刑事",
+        "value": "145"
+      }, {
+        "label": "金融行政",
+        "value": "146"
+      }, {
+        "label": "金融证券",
+        "value": "417"
+      }, {
+        "label": "金融诉讼",
+        "value": "147"
+      }, {
+        "label": "金融非诉讼",
+        "value": "150"
+      }]
+    }, {
       "type": "treeView",
       "label": "四分法",
-      "value": "four-point",
+      "key": "four-point",
       "elements": {
         "text": "四分法",
         "value": "all",
@@ -72,7 +159,7 @@
     }, {
       "type": "treeView",
       "label": "六分法",
-      "value": "four-point",
+      "key": "four-point",
       "elements": {
         "text": "四分法",
         "value": "all",
@@ -103,58 +190,6 @@
           }
         ]
       }
-    }, {
-      "type": "select",
-      "value": "content-category",
-      "label": "内容分类",
-      "options": [{
-        "label": "司法解释",
-        "value": "75"
-      }, {
-        "label": "政策",
-        "value": "78"
-      }, {
-        "label": "法律",
-        "value": "73"
-      }, {
-        "label": "法规",
-        "value": "74"
-      }, {
-        "label": "规章",
-        "value": "76"
-      }, {
-        "label": "规范性",
-        "value": "77"
-      }, {
-        "label": "司法解释",
-        "value": "422"
-      }]
-    }, {
-      "type": "select",
-      "value": "article-category",
-      "label": "文章分类",
-      "options": [{
-        "label": "司法解释",
-        "value": "75"
-      }, {
-        "label": "政策",
-        "value": "78"
-      }, {
-        "label": "法律",
-        "value": "73"
-      }, {
-        "label": "法规",
-        "value": "74"
-      }, {
-        "label": "规章",
-        "value": "76"
-      }, {
-        "label": "规范性",
-        "value": "77"
-      }, {
-        "label": "司法解释",
-        "value": "422"
-      }]
     }]
   }]
 }

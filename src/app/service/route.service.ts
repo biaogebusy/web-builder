@@ -1,24 +1,26 @@
 import { Injectable } from '@angular/core';
+import { Location } from '@angular/common';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RouteService {
-
   constructor(
     private router: Router,
-    private activatedRoute: ActivatedRoute
-  ) { }
+    private activatedRoute: ActivatedRoute,
+    private location: Location
+  ) {}
 
   updateQueryParams(query: Params): void {
-    this.router.navigate(
-      [],
-      {
+    const url = this.router
+      .createUrlTree([], {
         relativeTo: this.activatedRoute,
         queryParams: query,
-        queryParamsHandling: 'merge',
-      });
+      })
+      .toString();
+
+    this.location.go(url);
   }
 
   isAbsolute(href: string): boolean {

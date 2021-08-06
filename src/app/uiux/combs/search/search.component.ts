@@ -1,6 +1,7 @@
 import { HttpParams } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import { isArray } from 'lodash-es';
 import { NodeService } from 'src/app/service/node.service';
 import { RouteService } from 'src/app/service/route.service';
 
@@ -14,6 +15,7 @@ export class SearchComponent implements OnInit {
   key = '';
   page = 0;
   pager: any;
+  formParams: Params = {};
   nodes: [];
   loading = false;
   constructor(
@@ -42,15 +44,25 @@ export class SearchComponent implements OnInit {
   }
 
   onSelectChange(form: any): void {
+    this.loading = true;
     console.log(form);
     const params: string[] = [];
     Object.keys(form.value).forEach((item) => {
-      if (form.value[item]) {
-        params.push(`${item}=${form.value[item].join(',')}`);
+      const value = form.value[item];
+      if (value) {
+        if (isArray(value)) {
+          params.push(`${item}=${value.join('+')}`);
+          this.formParams[item] = value.join('+');
+        } else {
+          params.push(`${item}=${value}`);
+          this.formParams[item] = value;
+        }
+      } else {
+        delete this.formParams[item];
       }
     });
     this.nodeService.searchNode(params.join('&')).subscribe((data) => {
-      console.log(data);
+      this.updateList(data, this.formParams);
     });
   }
 
@@ -62,25 +74,29 @@ export class SearchComponent implements OnInit {
           keys: key,
           page,
         };
-        this.routerService.updateQueryParams(query);
-        this.pager = data.pager;
-        this.nodes = data.rows.map((item: any) => {
-          return {
-            link: {
-              label: item.title,
-              href: item.url,
-              target: '_blank',
-            },
-            created: item.created,
-            body: item.body,
-            user: item.user,
-          };
-        });
-        this.loading = false;
+        this.updateList(data, query);
       },
       (error) => {
         this.loading = false;
       }
     );
+  }
+
+  updateList(data: any, query: Params): void {
+    this.routerService.updateQueryParams(query);
+    this.pager = data.pager;
+    this.nodes = data.rows.map((item: any) => {
+      return {
+        link: {
+          label: item.title,
+          href: item.url,
+          target: '_blank',
+        },
+        created: item.created,
+        body: item.body,
+        user: item.user,
+      };
+    });
+    this.loading = false;
   }
 }

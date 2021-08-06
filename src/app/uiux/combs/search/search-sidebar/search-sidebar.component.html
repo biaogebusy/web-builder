@@ -1,11 +1,29 @@
 <div class="search-sidebar" *ngIf="content">
-  <pre>
-  {{form.value|json}}
-  </pre>
   <form [formGroup]="form">
     <mat-accordion>
+      <mat-expansion-panel expanded=true (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <strong>过滤条件</strong>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <ng-container *ngFor="let item of content">
+          <ng-container [ngSwitch]="item.type">
+            <ng-container *ngSwitchCase="'select'">
+              <mat-form-field appearance="legacy" class="width-100">
+                <mat-label>{{item.label}}</mat-label>
+                <mat-select [formControlName]="item.key" multiple={{item.multiple||false}} disableRipple
+                  (selectionChange)="onSelectChange()">
+                  <mat-option value="{{option.value}}" *ngFor="let option of item.options">{{option.label}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+      </mat-expansion-panel>
       <ng-container *ngFor="let item of treeView">
-        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <mat-expansion-panel *ngIf="false" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
           <mat-expansion-panel-header>
             <mat-panel-title>
               <strong>{{item.title}}</strong>
@@ -16,26 +34,6 @@
           </ngx-treeview>
         </mat-expansion-panel>
       </ng-container>
-
-      <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            <strong>分类</strong>
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <ng-container *ngFor="let item of content">
-          <ng-container [ngSwitch]="item.type">
-            <ng-container *ngSwitchCase="'select'">
-              <mat-form-field appearance="legacy" class="width-100">
-                <mat-label>{{item.label}}</mat-label>
-                <mat-select [formControlName]="item.key" multiple disableRipple (selectionChange)="onSelectChange()">
-                  <mat-option value="{{option.value}}" *ngFor="let option of item.options">{{option.label}}</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </ng-container>
-          </ng-container>
-        </ng-container>
-      </mat-expansion-panel>
 
     </mat-accordion>
   </form>

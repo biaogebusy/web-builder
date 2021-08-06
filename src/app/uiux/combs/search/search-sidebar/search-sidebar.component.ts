@@ -12,7 +12,7 @@ export class SearchSidebarComponent implements OnInit {
   @Output() selectChange = new EventEmitter();
 
   treeView: any[];
-  panelOpenState = false;
+  panelOpenState = true;
   form: FormGroup;
   config = {
     hasAllCheckBox: false,
