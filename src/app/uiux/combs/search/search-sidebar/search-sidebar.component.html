@@ -1,4 +1,12 @@
 <div class="search-sidebar" *ngIf="content">
+  <div class="sidebar-header" fxLayoutAlign="end center">
+    <div class="item m-y-xs">
+      <button mat-button (click)="clear()">
+        <mat-icon>clear</mat-icon>清空
+      </button>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
   <form [formGroup]="form">
     <mat-accordion>
       <mat-expansion-panel expanded=true (opened)="panelOpenState = true" (closed)="panelOpenState = false">
