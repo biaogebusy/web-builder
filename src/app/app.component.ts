@@ -36,7 +36,9 @@ export class AppComponent implements OnInit, AfterViewInit {
           this.googleAnalyticsService.loadGoogleAnalytics();
         }
         if (this.appState.config?.loading) {
-          this.listenToLoading();
+          if (!this.appState?.meta?.config?.loading) {
+            this.listenToLoading();
+          }
         }
       }
     });
