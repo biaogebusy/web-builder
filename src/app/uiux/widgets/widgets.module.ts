@@ -44,6 +44,7 @@ import { MediaListComponent } from './media/media-list/media-list.component';
 import { MediaObjectComponent } from './media/media-object/media-object.component';
 import { MediaObjectGroupComponent } from './media/media-object-group/media-object-group.component';
 import { DialogComponent } from './dialog/dialog.component';
+import { DynamicFormControlComponent } from './dynamic-form-control/dynamic-form-control.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -86,10 +87,12 @@ const components = [
   ProgressGroupComponent,
   SafeHtmlPipe,
   DialogComponent,
+  MediaObjectGroupComponent,
+  DynamicFormControlComponent,
 ];
 
 @NgModule({
-  declarations: [...components, MediaObjectGroupComponent],
+  declarations: [...components],
   imports: [
     MatChipsModule,
     ShareModule,

@@ -29,8 +29,8 @@ const modules = [
 ];
 
 @NgModule({
-  declarations: [],
   imports: [CommonModule, ...modules],
   exports: [...modules],
+  declarations: [],
 })
 export class CombsModule {}

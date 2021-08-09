@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { UtilitiesService } from 'src/app/service/utilities.service';
 import { ScreenState } from '../../../../mobx/screen/ScreenState';
 import { DialogComponent } from 'src/app/uiux/widgets/dialog/dialog.component';
+import { TextComponent } from 'src/app/uiux/widgets/text/text.component';
 
 @Component({
   selector: 'app-user-menu',
@@ -25,7 +26,12 @@ export class UserMenuComponent implements OnInit {
   }
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(DialogComponent);
+    const dialogRef = this.dialog.open(DialogComponent, {
+      data: {
+        title: '发布问题',
+        component: TextComponent,
+      },
+    });
     dialogRef.afterClosed().subscribe(() => console.log('dialog after'));
   }
 }
