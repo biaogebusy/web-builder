@@ -43,6 +43,7 @@ import { ProgressGroupComponent } from './progress-group/progress-group.componen
 import { MediaListComponent } from './media/media-list/media-list.component';
 import { MediaObjectComponent } from './media/media-object/media-object.component';
 import { MediaObjectGroupComponent } from './media/media-object-group/media-object-group.component';
+import { DialogComponent } from './dialog/dialog.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -84,6 +85,7 @@ const components = [
   ProgressBarComponent,
   ProgressGroupComponent,
   SafeHtmlPipe,
+  DialogComponent,
 ];
 
 @NgModule({

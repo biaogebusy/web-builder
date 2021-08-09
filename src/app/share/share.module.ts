@@ -27,6 +27,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialogModule } from '@angular/material/dialog';
 
 // utils
 import { NgPipesModule } from 'ngx-pipes';
@@ -63,6 +64,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     MatPaginatorModule,
     ScrollingModule,
     MatTabsModule,
+    MatDialogModule,
     MatSnackBarModule,
     NgPipesModule,
     NgxPaginationModule,
@@ -96,6 +98,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     MatPaginatorModule,
     ScrollingModule,
     MatTabsModule,
+    MatDialogModule,
     MatSnackBarModule,
     NgPipesModule,
     NgxPaginationModule,

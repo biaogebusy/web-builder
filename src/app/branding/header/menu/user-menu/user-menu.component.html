@@ -18,6 +18,10 @@
         <mat-icon>account_circle</mat-icon>
         {{userState.currentUser?.display_name}}
       </button>
+      <button mat-menu-item (click)="openDialog()">
+        <mat-icon>account_circle</mat-icon>
+        发布问题
+      </button>
       <button mat-menu-item (click)="logout()">
         <mat-icon>exit_to_app</mat-icon>
         退出
