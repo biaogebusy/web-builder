@@ -25,9 +25,10 @@ export class SearchBoxComponent implements OnInit, OnDestroy {
       distinctUntilChanged()
     );
 
-    this.subscribe = $input.subscribe((res) => {
-      if (res) {
-        this.nodeService.search(res, 0).subscribe((data) => {
+    this.subscribe = $input.subscribe((key) => {
+      if (key) {
+        const params = [`keys=${key}`, `page=0`, 'loading=0'].join('&');
+        this.nodeService.search(params).subscribe((data) => {
           this.options = data.rows.map((item: any) => {
             return {
               label: item.title,

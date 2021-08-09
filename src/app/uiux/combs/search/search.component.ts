@@ -61,6 +61,7 @@ export class SearchComponent implements OnInit {
         delete this.formParams[item];
       }
     });
+    params.push('loading=0');
     this.nodeService.searchNode(params.join('&')).subscribe((data) => {
       this.updateList(data, this.formParams);
     });
@@ -68,7 +69,8 @@ export class SearchComponent implements OnInit {
 
   nodeSearch(key: string, page: number): void {
     this.loading = true;
-    this.nodeService.search(key, page).subscribe(
+    const params = [`keys=${key}`, `page=${page}`, `loading=0`].join('&');
+    this.nodeService.search(params).subscribe(
       (data) => {
         const query: Params = {
           keys: key,

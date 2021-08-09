@@ -19,8 +19,7 @@ export class NodeService {
     return this.apiService.apiUrl;
   }
 
-  search(keys: string, page: number): Observable<any> {
-    const params = [`keys=${keys}`, `page=${page}`].join('&');
+  search(params: string): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/api/v1/content?${params}`);
   }
 
