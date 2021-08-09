@@ -23,6 +23,10 @@ export class BrandingState {
     return this.content && this.content.footer;
   }
 
+  @computed get isInverse(): boolean {
+    return this.header && this.header.params?.inverse;
+  }
+
   @action
   initBranding(): any {
     if (environment.production) {
