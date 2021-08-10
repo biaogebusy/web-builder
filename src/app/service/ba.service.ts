@@ -16,7 +16,7 @@ export class BaService {
   ) {}
 
   loadBaiduAnalytics(): void {
-    window._hmt = window._htm || [];
+    window._hmt = window._hmt || [];
 
     const script = document.createElement('script');
     script.src = `https://hm.baidu.com/hm.js?${this.appState.config.baiduAnalytics.id}`;
