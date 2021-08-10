@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { forkJoin, Observable } from 'rxjs';
 import { mapValues } from 'lodash-es';
 import { AppState } from '../mobx/AppState';
+import { IUser } from '../mobx/user/IUser';
 @Injectable({
   providedIn: 'root',
 })
@@ -19,6 +20,10 @@ export class NodeService {
     return this.apiService.apiUrl;
   }
 
+  get apiUrlConfig(): any {
+    return this.appState.apiUrlConfig;
+  }
+
   search(params: string): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/api/v1/content?${params}`);
   }
@@ -29,14 +34,14 @@ export class NodeService {
 
   getNodes(type: string, params: string = ''): Observable<any> {
     return this.http.get<any>(
-      `${this.apiUrl}${this.appState.apiUrlConfig.nodeGetPath}/${type}?${params}`,
+      `${this.apiUrl}${this.apiUrlConfig.nodeGetPath}/${type}?${params}`,
       this.apiService.httpOptions(this.apiService.csrfToken)
     );
   }
 
   getTaxonomy(type: string, params: string = ''): Observable<any> {
     return this.http.get<any>(
-      `${this.apiUrl}${this.appState.apiUrlConfig.taxonomyGetPath}/${type}?${params}`,
+      `${this.apiUrl}${this.apiUrlConfig.taxonomyGetPath}/${type}?${params}`,
       this.apiService.httpOptions(this.apiService.csrfToken)
     );
   }
@@ -61,5 +66,33 @@ export class NodeService {
     return node.path.alias
       ? node.path.alias
       : `/node/${node.drupal_internal__nid}`;
+  }
+
+  addNode(type: string, attr: any, user: IUser): Observable<any> {
+    const data = {
+      data: {
+        type: `node--${type}`,
+        attributes: {
+          title: attr.title,
+          body: {
+            value: attr.body,
+            format: 'plain_text',
+          },
+        },
+        relationships: {
+          uid: {
+            data: {
+              type: 'user--user',
+              id: user.id,
+            },
+          },
+        },
+      },
+    };
+    return this.http.post<any>(
+      `${this.apiUrl}${this.apiUrlConfig.nodeGetPath}/${type}`,
+      data,
+      this.apiService.httpOptions(this.apiService.csrfToken)
+    );
   }
 }
