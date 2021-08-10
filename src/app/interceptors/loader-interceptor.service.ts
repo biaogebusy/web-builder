@@ -15,7 +15,12 @@ export class HttpRequestInterceptor implements HttpInterceptor {
   constructor(private loadingService: LoadingService) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<any> {
-    this.loadingService.setLoading(true, request.url);
+    // api with loading disable globel loading
+    const isDisableLoading = request.urlWithParams.includes('loading');
+    this.loadingService.setLoading(
+      isDisableLoading ? false : true,
+      request.url
+    );
     return next
       .handle(request)
       .pipe(

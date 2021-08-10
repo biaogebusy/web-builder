@@ -41,7 +41,9 @@ export class AppComponent implements OnInit, AfterViewInit {
           this.baService.loadBaiduAnalytics();
         }
         if (this.appState.config?.loading) {
-          this.listenToLoading();
+          if (!this.appState?.meta?.config?.loading) {
+            this.listenToLoading();
+          }
         }
       }
     });
