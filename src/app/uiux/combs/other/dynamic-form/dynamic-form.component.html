@@ -4,9 +4,11 @@
     <div *ngFor="let control of content" class="form-row">
       <app-dynamic-form-control [control]="control" [form]="form"></app-dynamic-form-control>
     </div>
-
+    <pre>
+    {{form.value|json}}
+    </pre>
     <div class="form-row">
-      <button type="submit" [disabled]="!form.valid">Save</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">保存</button>
     </div>
   </form>
 

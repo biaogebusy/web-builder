@@ -43,19 +43,19 @@ export class SearchComponent implements OnInit {
     this.nodeSearch(this.key, this.page);
   }
 
-  onSelectChange(form: any): void {
+  onSelectChange(value: any): void {
     this.loading = true;
-    console.log(form);
+    console.log(value);
     const params: string[] = [];
-    Object.keys(form.value).forEach((item) => {
-      const value = form.value[item];
-      if (value) {
-        if (isArray(value)) {
-          params.push(`${item}=${value.join('+')}`);
-          this.formParams[item] = value.join('+');
+    Object.keys(value).forEach((item) => {
+      const val = value[item];
+      if (val) {
+        if (isArray(val)) {
+          params.push(`${item}=${val.join('+')}`);
+          this.formParams[item] = val.join('+');
         } else {
-          params.push(`${item}=${value}`);
-          this.formParams[item] = value;
+          params.push(`${item}=${val}`);
+          this.formParams[item] = val;
         }
       } else {
         delete this.formParams[item];

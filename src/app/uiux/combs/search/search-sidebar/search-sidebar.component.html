@@ -16,18 +16,7 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
         <ng-container *ngFor="let item of content">
-          <ng-container [ngSwitch]="item.type">
-            <ng-container *ngSwitchCase="'select'">
-              <mat-form-field appearance="legacy" class="width-100">
-                <mat-label>{{item.label}}</mat-label>
-                <mat-select [formControlName]="item.key" multiple={{item.multiple||false}} disableRipple
-                  (selectionChange)="onSelectChange()">
-                  <mat-option value="{{option.value}}" *ngFor="let option of item.options">{{option.label}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </ng-container>
-          </ng-container>
+          <app-dynamic-form-control [control]="item" [form]="form"></app-dynamic-form-control>
         </ng-container>
       </mat-expansion-panel>
       <ng-container *ngFor="let item of treeView">

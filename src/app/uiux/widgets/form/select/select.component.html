@@ -1,0 +1,7 @@
+<mat-form-field appearance="legacy" class="width-100" [formGroup]="form">
+  <mat-label>{{content.label}}</mat-label>
+  <mat-select [formControlName]="content.key" multiple={{content.multiple||false}} disableRipple>
+    <mat-option value="{{option.value}}" *ngFor="let option of content.options">{{option.label}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>

@@ -1,0 +1,6 @@
+<mat-form-field class="width-100" [formGroup]="form" appearance="fill" *ngIf="content">
+  <mat-label>{{content.label}}</mat-label>
+  <mat-icon matSuffix>{{content.icon}}</mat-icon>
+  <input matInput formControlName="{{content.key}}" placeholder="{{content.placeholder}}" value="{{content.value}}"
+    [id]="content.key">
+</mat-form-field>

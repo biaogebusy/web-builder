@@ -41,6 +41,10 @@ export class SearchSidebarComponent implements OnInit {
 
   initForm(items: any[]): void {
     this.form = this.formService.toFormGroup(items);
+    this.form.valueChanges.subscribe((value) => {
+      console.log(value);
+      this.selectChange.emit(value);
+    });
   }
 
   onSelectedChange(event: any): void {
@@ -54,9 +58,5 @@ export class SearchSidebarComponent implements OnInit {
 
   onFilterChange(event: any): void {
     console.log(event);
-  }
-
-  onSelectChange(): void {
-    this.selectChange.emit(this.form);
   }
 }

@@ -10,17 +10,8 @@
           <app-box *ngFor="let item of content.contact" [content]="item"></app-box>
         </div>
         <div fxFlex.lt-md="100" fxFlex.gt-sm="40" fxLayout="column">
-          <mat-form-field appearance="fill" *ngFor="let item of content.forms">
-            <mat-label>{{item.label}}</mat-label>
-            <mat-icon matSuffix>{{item.icon}}</mat-icon>
-            <ng-container [ngSwitch]="item.type">
-              <input *ngSwitchCase="'input'" placeholder="{{item.placeholder}}" matInput formControlName="{{item.key}}"
-                value="{{item.value}}" [id]="item.key">
-              <textarea *ngSwitchCase="'textarea'" [mat-autosize]="true"
-                [matAutosizeMinRows]="item.params?.matAutosizeMinRows" placeholder="{{item.placeholder}}" matInput
-                formControlName="{{item.key}}" value="{{item.value}}" [id]="item.key"></textarea>
-            </ng-container>
-          </mat-form-field>
+          <app-dynamic-form-control *ngFor="let item of content.forms" [control]="item" [form]="form">
+          </app-dynamic-form-control>
         </div>
       </div>
 

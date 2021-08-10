@@ -6,6 +6,7 @@ import { ShareModule } from '../../share/share.module';
 import { MatChipsModule } from '@angular/material/chips';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { CountToModule } from 'angular-count-to';
+import { DynamicModule } from 'ng-dynamic-component';
 
 import { BgComponent } from './bg/bg.component';
 import { ImgComponent } from './img/img.component';
@@ -16,14 +17,14 @@ import { LinkComponent } from './link/link.component';
 import { CardComponent } from './card/card.component';
 import { TextComponent } from './text/text.component';
 import { TitleComponent } from './title/title.component';
-import { InputComponent } from './input/input.component';
+import { InputComponent } from './form/input/input.component';
 import { PanelComponent } from './panel/panel.component';
 import { SwiperComponent } from './swiper/swiper.component';
 import { SpacerComponent } from './spacer/spacer.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { MenuListComponent } from './menu-list/menu-list.component';
 import { SpinnerComponent } from './spinner/spinner.component';
-import { TextareaComponent } from './textarea/textarea.component';
+import { TextareaComponent } from './form/textarea/textarea.component';
 import { ChipListComponent } from './chip-list/chip-list.component';
 import { LineYearComponent } from './line-year/line-year.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
@@ -45,6 +46,7 @@ import { MediaObjectComponent } from './media/media-object/media-object.componen
 import { MediaObjectGroupComponent } from './media/media-object-group/media-object-group.component';
 import { DialogComponent } from './dialog/dialog.component';
 import { DynamicFormControlComponent } from './dynamic-form-control/dynamic-form-control.component';
+import { SelectComponent } from './form/select/select.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -64,6 +66,7 @@ const components = [
   TitleComponent,
   PanelComponent,
   InputComponent,
+  SelectComponent,
   SwiperComponent,
   SpacerComponent,
   SpinnerComponent,
@@ -99,6 +102,7 @@ const components = [
     SwiperModule,
     LightboxModule,
     CountToModule,
+    DynamicModule,
   ],
   exports: [...components],
   providers: [
