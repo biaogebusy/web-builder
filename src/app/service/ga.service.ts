@@ -34,11 +34,4 @@ export class GoogleAnalyticsService {
     gtag('config', this.appState.config.googleAnalytics.id);
     this.angulartics.startTracking();
   }
-
-  startTracking(): void {
-    // activate router navigation tracking
-    if (this.appState.config.googleAnalytics) {
-      this.angulartics.startTracking();
-    }
-  }
 }
