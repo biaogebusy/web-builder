@@ -46,11 +46,11 @@ export class UserState {
   }
 
   @action
-  login(userName: string, passWord: string, localStorageKey: string): any {
+  login(userName: string, passWord: string): any {
     this.loading = true;
     this.userService.login(userName, passWord).subscribe(
       (data) => {
-        this.updateUser(data, localStorageKey);
+        this.updateUser(data);
       },
       (error) => {
         this.loading = false;
@@ -77,14 +77,17 @@ export class UserState {
   }
 
   @action
-  updateUser(data: TokenUser, localStorageKey: string): any {
+  updateUser(data: TokenUser): any {
     let userDetails = {};
     this.userService.getCurrentUserById(data).subscribe((user) => {
       this.loading = false;
       this.user = user;
       this.user$.next(user);
       userDetails = Object.assign(data, user);
-      this.storage.store(localStorageKey, JSON.stringify(userDetails));
+      this.storage.store(
+        this.apiService.localUserKey,
+        JSON.stringify(userDetails)
+      );
     });
   }
 }

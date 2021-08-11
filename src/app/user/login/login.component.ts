@@ -63,11 +63,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
       return;
     }
 
-    this.userState.login(
-      this.userForm.value.name,
-      this.userForm.value.pass,
-      this.apiService.localUserKey
-    );
+    this.userState.login(this.userForm.value.name, this.userForm.value.pass);
     this.userState.user$.subscribe((user) => {
       const t1 = gsap.timeline();
       t1.to('.mark-bg', {

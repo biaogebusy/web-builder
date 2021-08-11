@@ -59,10 +59,7 @@ export class UserService {
       `include=user_picture`,
     ].join('&');
     return this.http
-      .get<any>(
-        `${apiUrl}?${params}`,
-        this.apiService.httpOptions(user.csrf_token)
-      )
+      .get<any>(`${apiUrl}?${params}`, this.apiService.httpOptions)
       .pipe(
         map((res: any) => {
           const detail = res.data[0];

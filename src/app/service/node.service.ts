@@ -35,14 +35,14 @@ export class NodeService {
   getNodes(type: string, params: string = ''): Observable<any> {
     return this.http.get<any>(
       `${this.apiUrl}${this.apiUrlConfig.nodeGetPath}/${type}?${params}`,
-      this.apiService.httpOptions(this.apiService.csrfToken)
+      this.apiService.httpOptions
     );
   }
 
   getTaxonomy(type: string, params: string = ''): Observable<any> {
     return this.http.get<any>(
       `${this.apiUrl}${this.apiUrlConfig.taxonomyGetPath}/${type}?${params}`,
-      this.apiService.httpOptions(this.apiService.csrfToken)
+      this.apiService.httpOptions
     );
   }
 
@@ -92,7 +92,7 @@ export class NodeService {
     return this.http.post<any>(
       `${this.apiUrl}${this.apiUrlConfig.nodeGetPath}/${type}`,
       data,
-      this.apiService.httpOptions(this.apiService.csrfToken)
+      this.apiService.httpOptions
     );
   }
 }

@@ -33,15 +33,15 @@ export class ApiService {
   }
 
   getApi(api: string): Observable<any> {
-    return this.http.get<any>(api, this.httpOptions(this.csrfToken));
+    return this.http.get<any>(api, this.httpOptions);
   }
 
-  httpOptions(token: string): any {
+  get httpOptions(): any {
     const httpOptions = {
       headers: new HttpHeaders({
         Accept: 'application/vnd.api+json',
         'Content-Type': 'application/vnd.api+json',
-        'X-CSRF-Token': token,
+        'X-CSRF-Token': this.csrfToken,
       }),
       withCredentials: true,
     };
