@@ -17,7 +17,9 @@ export class FormService {
             : new FormControl(item.value || '');
           break;
         default:
-          group[item.key] = new FormControl('');
+          group[item.key] = item.params?.required
+            ? new FormControl(item.value || '', Validators.required)
+            : new FormControl(item.value || '');
       }
     });
     return new FormGroup(group);

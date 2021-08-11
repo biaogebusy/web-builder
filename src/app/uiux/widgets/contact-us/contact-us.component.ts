@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormService } from '../../../service/form.service';
 import { FormGroup } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ApiService } from '../../../service/api.service';
+import { UtilitiesService } from 'src/app/service/utilities.service';
 @Component({
   selector: 'app-contact-us',
   templateUrl: './contact-us.component.html',
@@ -16,9 +16,9 @@ export class ContactUsComponent implements OnInit {
   submited = false;
   constructor(
     public formService: FormService,
-    private snackbar: MatSnackBar,
     private http: HttpClient,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private utilitiesService: UtilitiesService
   ) {}
 
   ngOnInit(): void {
@@ -48,19 +48,11 @@ export class ContactUsComponent implements OnInit {
         (res) => {
           this.submited = false;
           this.success = true;
-          this.snackbar.open(`Sumbit successs!`, '', {
-            horizontalPosition: 'center',
-            verticalPosition: 'top',
-            duration: 3000,
-          });
+          this.utilitiesService.openSnackbar('成功提交！');
         },
         (error) => {
           this.submited = false;
-          this.snackbar.open(`Error: ${error.message}`, '', {
-            horizontalPosition: 'center',
-            verticalPosition: 'top',
-            duration: 3000,
-          });
+          this.utilitiesService.openSnackbar(`Error: ${error.message}`);
         }
       );
   }

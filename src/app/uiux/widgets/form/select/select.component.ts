@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { IControl } from '../../../../interface/IForm';
 
 @Component({
   selector: 'app-select',
@@ -7,7 +8,7 @@ import { FormGroup } from '@angular/forms';
   styleUrls: ['./select.component.scss'],
 })
 export class SelectComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: IControl;
   @Input() form: FormGroup;
   constructor() {}
 

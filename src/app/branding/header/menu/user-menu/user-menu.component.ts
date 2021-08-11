@@ -5,6 +5,7 @@ import { UtilitiesService } from 'src/app/service/utilities.service';
 import { ScreenState } from '../../../../mobx/screen/ScreenState';
 import { DialogComponent } from 'src/app/uiux/widgets/dialog/dialog.component';
 import { DynamicFormComponent } from 'src/app/uiux/combs/other/dynamic-form/dynamic-form.component';
+import { DialogService } from 'src/app/service/dialog.service';
 
 @Component({
   selector: 'app-user-menu',
@@ -12,11 +13,13 @@ import { DynamicFormComponent } from 'src/app/uiux/combs/other/dynamic-form/dyna
   styleUrls: ['./user-menu.component.scss'],
 })
 export class UserMenuComponent implements OnInit {
+  dialogRef: any;
   constructor(
     public userState: UserState,
     public utilities: UtilitiesService,
     public screen: ScreenState,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private dialogService: DialogService
   ) {}
 
   ngOnInit(): void {}
@@ -26,19 +29,21 @@ export class UserMenuComponent implements OnInit {
   }
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(DialogComponent, {
-      width: '800px',
+    this.dialogRef = this.dialog.open(DialogComponent, {
+      width: '600px',
       data: {
-        title: '发布问题',
         component: DynamicFormComponent,
         form: {
           content: [
             {
               type: 'input',
-              controlType: 'textbox',
               key: 'title',
               label: '标题',
               placeholder: '请输入问题',
+              params: {
+                required: true,
+              },
+              errorMes: '问题必填',
             },
             {
               type: 'textarea',
@@ -47,9 +52,24 @@ export class UserMenuComponent implements OnInit {
               placeholder: '请输入问题描述（可选）',
             },
           ],
+          actions: [
+            {
+              label: '发布问题',
+              color: 'primary',
+              params: {
+                type: 'question',
+                snackMes: '您的问题已经发布！',
+              },
+            },
+          ],
         },
       },
     });
-    dialogRef.afterClosed().subscribe(() => console.log('dialog after'));
+    this.dialogRef.afterClosed().subscribe(() => console.log('dialog after'));
+    this.dialogService.dialogState$.subscribe((state) => {
+      if (!state) {
+        this.dialogRef.close();
+      }
+    });
   }
 }

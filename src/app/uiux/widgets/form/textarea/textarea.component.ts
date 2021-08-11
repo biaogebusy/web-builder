@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { IControl } from 'src/app/interface/IForm';
 
 @Component({
   selector: 'app-textarea',
@@ -7,7 +8,7 @@ import { FormGroup } from '@angular/forms';
   styleUrls: ['./textarea.component.scss'],
 })
 export class TextareaComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: IControl;
   @Input() form: FormGroup;
   constructor() {}
 

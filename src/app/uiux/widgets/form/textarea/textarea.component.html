@@ -2,4 +2,5 @@
   <mat-label>{{content.label}}</mat-label>
   <textarea [mat-autosize]="true" [matAutosizeMinRows]="content.params?.matAutosizeMinRows" matInput
     formControlName="{{content.key}}" placeholder="{{content.placeholder}}"></textarea>
+  <mat-error *ngIf="isValid">{{content.errorMes}}</mat-error>
 </mat-form-field>

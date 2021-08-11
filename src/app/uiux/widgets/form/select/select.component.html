@@ -4,4 +4,5 @@
     <mat-option value="{{option.value}}" *ngFor="let option of content.options">{{option.label}}
     </mat-option>
   </mat-select>
+  <mat-error *ngIf="isValid">{{content.errorMes}}</mat-error>
 </mat-form-field>

@@ -3,4 +3,5 @@
   <mat-icon matSuffix>{{content.icon}}</mat-icon>
   <input matInput formControlName="{{content.key}}" placeholder="{{content.placeholder}}" value="{{content.value}}"
     [id]="content.key">
+  <mat-error *ngIf="!isValid">{{content.errorMes}}</mat-error>
 </mat-form-field>

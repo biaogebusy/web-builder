@@ -5,5 +5,4 @@
     <app-textarea *ngSwitchCase="'textarea'" [content]="control" [form]="form"></app-textarea>
     <app-select *ngSwitchCase="'select'" [content]="control" [form]="form"></app-select>
   </div>
-  <div class="errorMessage" *ngIf="!isValid">{{control.label}} is required</div>
 </div>

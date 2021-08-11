@@ -1,12 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { IControl } from 'src/app/interface/IForm';
 @Component({
   selector: 'app-input',
   templateUrl: './input.component.html',
   styleUrls: ['./input.component.scss'],
 })
 export class InputComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: IControl;
   @Input() form: FormGroup;
   constructor() {}
 
