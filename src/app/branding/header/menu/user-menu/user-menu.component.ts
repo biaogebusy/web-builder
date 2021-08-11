@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { UserState } from 'src/app/mobx/user/UserState';
 import { MatDialog } from '@angular/material/dialog';
 import { UtilitiesService } from 'src/app/service/utilities.service';
@@ -13,6 +13,7 @@ import { DialogService } from 'src/app/service/dialog.service';
   styleUrls: ['./user-menu.component.scss'],
 })
 export class UserMenuComponent implements OnInit {
+  @Input() content: any;
   dialogRef: any;
   constructor(
     public userState: UserState,
@@ -28,40 +29,14 @@ export class UserMenuComponent implements OnInit {
     this.userState.logout();
   }
 
-  openDialog(): void {
+  openDialog(dialog: any): void {
     this.dialogRef = this.dialog.open(DialogComponent, {
       width: '600px',
       data: {
         component: DynamicFormComponent,
         form: {
-          content: [
-            {
-              type: 'input',
-              key: 'title',
-              label: '标题',
-              placeholder: '请输入问题',
-              params: {
-                required: true,
-              },
-              errorMes: '问题必填',
-            },
-            {
-              type: 'textarea',
-              key: 'body',
-              label: '问题描述',
-              placeholder: '请输入问题描述（可选）',
-            },
-          ],
-          actions: [
-            {
-              label: '发布问题',
-              color: 'primary',
-              params: {
-                type: 'question',
-                snackMes: '您的问题已经发布！',
-              },
-            },
-          ],
+          content: dialog.content,
+          actions: dialog.actions,
         },
       },
     });
