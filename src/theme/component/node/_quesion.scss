@@ -1,18 +1,15 @@
 @import "~@angular/material/theming";
-@mixin chip-list-color($config-or-theme) {
+
+@mixin question-color($config-or-theme) {
   $config: mat-get-color-config($config-or-theme);
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
   $primary: map-get($config, primary);
   $accent: map-get($config, accent);
   $warn: map-get($config, warn);
-  .mini {
-    mat-chip {
-    }
-  }
-  .mat-chip {
-    a {
-      color: mat-color($primary, default-contrast);
-    }
+
+  .question {
+    background-color: mat-color($background, card);
+    @include mat-elevation(3, mat-color($foreground, divider), 0.3);
   }
 }

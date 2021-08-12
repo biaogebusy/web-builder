@@ -1,0 +1,19 @@
+<article class="question position-relative p-y-sm" *ngIf="content">
+  <div class="container">
+    <div class="top m-bottom-sm">
+      <app-chip-list [classes]="'mini'" [content]="content.topic"></app-chip-list>
+    </div>
+    <h2 class="title">{{content.title}}</h2>
+    <div class="question-details" [innerHTML]="content.body"></div>
+    <div class="actions m-y-sm">
+      <button mat-raised-button color="primary">
+        <mat-icon>editor</mat-icon> 回答
+      </button>
+    </div>
+  </div>
+</article>
+<article class="comment position-relative p-y-sm">
+  <div class="container">
+    <app-comment [content]="content"></app-comment>
+  </div>
+</article>

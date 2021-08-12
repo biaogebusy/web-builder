@@ -1,6 +1,5 @@
 @import "./header";
 @import "./footer";
-@import "./job";
 @import "./login";
 @import "./map";
 @import "./loading";
@@ -12,11 +11,13 @@
 @import "./btn-animate";
 @import "./carousel";
 @import "./banner";
-@import "./article";
+@import "./node/job";
+@import "./node/article";
+@import "./node/quesion";
+@import "./node/profile";
 @import "./form";
 @import "./search";
 @import "./media";
-@import "./profile";
 
 // material custom
 @import "./mat/card";
@@ -39,6 +40,7 @@
   @include carousel-color($config-or-theme);
   @include banner-color($config-or-theme);
   @include article-color($config-or-theme);
+  @include question-color($config-or-theme);
   @include form-color($config-or-theme);
   @include search-color($config-or-theme);
   @include media-color($config-or-theme);

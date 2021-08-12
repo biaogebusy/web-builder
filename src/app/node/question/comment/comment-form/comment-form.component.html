@@ -1,0 +1,8 @@
+<div class="comment-form">
+  <form [formGroup]="form">
+    <div *ngFor="let control of content" class="form-row">
+      <app-dynamic-form-control [control]="control" [form]="form"></app-dynamic-form-control>
+    </div>
+  </form>
+  {{form.value|json}}
+</div>

@@ -11,6 +11,10 @@ import { CombsModule } from '../uiux/combs/combs.module';
 import { WidgetsModule } from '../uiux/widgets/widgets.module';
 import { ArticleBannerComponent } from './article/article-banner/article-banner.component';
 import { ArticleComponent } from './article/article.component';
+import { QuestionComponent } from './question/question.component';
+import { CommentComponent } from './question/comment/comment.component';
+import { CommentFormComponent } from './question/comment/comment-form/comment-form.component';
+import { CommentListComponent } from './question/comment/comment-list/comment-list.component';
 
 const components = [
   JobComponent,
@@ -21,10 +25,14 @@ const components = [
   CaseNodeComponent,
   JobFilterComponent,
   ArticleBannerComponent,
+  QuestionComponent,
+  CommentComponent,
+  CommentFormComponent,
+  CommentListComponent,
 ];
 @NgModule({
   declarations: [...components],
   imports: [ShareModule, CombsModule, WidgetsModule, NodeRoutingModule],
-  exports: [CaseNodeComponent, ArticleComponent],
+  exports: [CaseNodeComponent, ArticleComponent, QuestionComponent],
 })
 export class NodeModule {}
