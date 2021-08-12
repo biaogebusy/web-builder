@@ -15,13 +15,11 @@
     </ng-template>
     <mat-menu #menu="matMenu">
       <button mat-menu-item>
-        <mat-icon>account_circle</mat-icon>
-        {{userState.currentUser?.display_name}}
+        <mat-icon>account_circle</mat-icon>{{userState.currentUser?.display_name}}
       </button>
       <ng-container *ngFor="let item of content">
         <button *ngIf="item.dialog;else link" mat-menu-item (click)="openDialog(item.dialog)">
-          <app-icon [content]="item.icon"></app-icon>
-          {{item.label}}
+          <app-icon [content]="item.icon"></app-icon>{{item.label}}
         </button>
         <ng-template #link>
           <button mat-menu-item>
@@ -31,8 +29,7 @@
         </ng-template>
       </ng-container>
       <button mat-menu-item (click)="logout()">
-        <mat-icon>exit_to_app</mat-icon>
-        退出
+        <mat-icon>exit_to_app</mat-icon>退出
       </button>
     </mat-menu>
   </ng-container>
