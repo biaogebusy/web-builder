@@ -23,6 +23,10 @@ export class QuestionComponent implements OnInit {
     return this.content?.params?.relationships?.entity_id?.data?.id || '';
   }
 
+  get entityType(): string {
+    return this.content?.params?.attributes?.field_name || '';
+  }
+
   getComments(): void {
     const params = [
       `filter[entity_id.id]=${this.entityId}`,
@@ -33,7 +37,7 @@ export class QuestionComponent implements OnInit {
       `jsonapi_include=1`,
     ].join('&');
     this.nodeService
-      .getNodes('comment', params, 'comment')
+      .getNodes(this.entityType, params, 'comment')
       .subscribe((data) => {
         console.log(data);
       });
