@@ -1,2 +1,2 @@
-<app-comment-form [content]="content"></app-comment-form>
+<app-comment-form *ngIf="showEditor" [content]="content"></app-comment-form>
 <app-comment-list></app-comment-list>

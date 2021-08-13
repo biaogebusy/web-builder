@@ -1,7 +1,7 @@
 ### https://www.drupal.org/docs/8/core/modules/rest/javascript-and-drupal-8-restful-web-services#s-login
-@apiUrl = https://api.zhaobg.com
-@user = test
-@psw = test
+@apiUrl = https://lxyadmin.zhaobg.com
+@user = xxx
+@psw = xxx
 @user_uuid = 15765815-07f2-4d7d-8142-cb598f82af2e
 @node_uuid = 97edbdba-16a9-4e48-9285-9a2854968cf7
 
@@ -153,3 +153,12 @@ DELETE {{apiUrl}}/api/v1/node/article/{{article_node_uuid}}
 Accept: application/vnd.api+json
 Content-Type: application/vnd.api+json
 X-CSRF-Token: {{csrfToken}}
+
+@node_id = 18dac740-1d11-43c0-a431-d2b9e402fe6b
+### get comments
+GET {{apiUrl}}/api/v1/comment/answer?filter[entity_id.id]={{node_id}}&include=uid,uid.user_picture&fields[user--user]=name,user_picture&fields[file--file]=uri,url&sort=-created&jsonapi_include=1
+
+
+
+### get user
+GET {{apiUrl}}/api/v1/file/file

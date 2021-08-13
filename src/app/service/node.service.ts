@@ -32,18 +32,30 @@ export class NodeService {
     return this.http.get<any>(`${this.apiUrl}/api/v1/content?${params}`);
   }
 
-  getNodes(type: string, params: string = ''): Observable<any> {
-    return this.http.get<any>(
-      `${this.apiUrl}${this.apiUrlConfig.nodeGetPath}/${type}?${params}`,
-      this.apiService.httpOptions
-    );
-  }
-
-  getTaxonomy(type: string, params: string = ''): Observable<any> {
-    return this.http.get<any>(
-      `${this.apiUrl}${this.apiUrlConfig.taxonomyGetPath}/${type}?${params}`,
-      this.apiService.httpOptions
-    );
+  getNodes(
+    type: string,
+    params: string = '',
+    path: string = ''
+  ): Observable<any> {
+    switch (path) {
+      case 'comment':
+        return this.http.get<any>(
+          `${this.apiUrl}${this.apiUrlConfig.commentGetPath}/${type}?${params}`,
+          this.apiService.httpOptions
+        );
+        break;
+      case 'taxonomy':
+        return this.http.get<any>(
+          `${this.apiUrl}${this.apiUrlConfig.taxonomyGetPath}/${type}?${params}`,
+          this.apiService.httpOptions
+        );
+        break;
+      default:
+        return this.http.get<any>(
+          `${this.apiUrl}${this.apiUrlConfig.nodeGetPath}/${type}?${params}`,
+          this.apiService.httpOptions
+        );
+    }
   }
 
   getRelationships(relationships: any[]): Observable<any> {
@@ -98,7 +110,7 @@ export class NodeService {
 
   addComment(type: string, data: any): Observable<any> {
     return this.http.post<any>(
-      `${this.apiUrl}${this.apiUrlConfig.commentGetPath}/${type}?loading`,
+      `${this.apiUrl}${this.apiUrlConfig.commentGetPath}/${type}`,
       data,
       this.apiService.httpOptions
     );
