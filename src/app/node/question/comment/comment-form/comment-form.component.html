@@ -1,8 +1,12 @@
-<div class="comment-form">
-  <form [formGroup]="form">
-    <div *ngFor="let control of content" class="form-row">
-      <app-dynamic-form-control [control]="control" [form]="form"></app-dynamic-form-control>
-    </div>
-  </form>
-  {{form.value|json}}
+<div class="comment-form" *ngIf="content">
+  <ckeditor [editor]="Editor" [config]="content?.ckeditor?.config" [(ngModel)]="htmlData"></ckeditor>
+  <div class="actions m-y-sm">
+    <button (click)="onSubmit(content?.ckeditor,content?.params, htmlData)" mat-raised-button color="primary"
+      [disabled]="!htmlData">
+      <div fxLayoutAlign="center center">
+        <mat-spinner diameter="20" color="accent" *ngIf="loading"></mat-spinner>
+        <span class="p-x-xs">{{content?.ckeditor?.action?.label || '提交'}}</span>
+      </div>
+    </button>
+  </div>
 </div>

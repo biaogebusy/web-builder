@@ -219,7 +219,7 @@ export class JobComponent implements OnInit {
 
   getSkill(): void {
     const params = ['jsonapi_included=1'].join('&');
-    this.nodeService.getTaxonomy('skill', params).subscribe((res) => {
+    this.nodeService.getNodes('skill', params, 'taxonomy').subscribe((res) => {
       this.skills = res.data.map((item: any) => {
         return {
           name: item.attributes.name,

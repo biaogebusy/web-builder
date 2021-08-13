@@ -8,6 +8,7 @@ import { IControl } from '../../../interface/IForm';
 })
 export class CommentComponent implements OnInit {
   @Input() content: any;
+  @Input() showEditor: boolean;
   constructor() {}
 
   ngOnInit(): void {}

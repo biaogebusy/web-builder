@@ -15,6 +15,7 @@ import { QuestionComponent } from './question/question.component';
 import { CommentComponent } from './question/comment/comment.component';
 import { CommentFormComponent } from './question/comment/comment-form/comment-form.component';
 import { CommentListComponent } from './question/comment/comment-list/comment-list.component';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 const components = [
   JobComponent,
@@ -32,7 +33,13 @@ const components = [
 ];
 @NgModule({
   declarations: [...components],
-  imports: [ShareModule, CombsModule, WidgetsModule, NodeRoutingModule],
+  imports: [
+    ShareModule,
+    CombsModule,
+    WidgetsModule,
+    NodeRoutingModule,
+    CKEditorModule,
+  ],
   exports: [CaseNodeComponent, ArticleComponent, QuestionComponent],
 })
 export class NodeModule {}

@@ -41,11 +41,13 @@
     "logoutPath": "/user/logout",
     "userIdGetPath": "/api/v1",
     "nodeGetPath": "/api/v1/node",
+    "commentGetPath": "/api/v1/comment",
     "taxonomyGetPath": "/api/v1/taxonomy_term",
     "userGetPath": "/api/v1/user/user",
     "github": {
       "repos": "https://github.com/biaogebusy/xinshi-angular",
       "api": "https://api.github.com/repos/biaogebusy/xinshi-angular"
     }
-  }
+  },
+  "loading": true
 }
