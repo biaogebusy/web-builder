@@ -24,17 +24,12 @@ export class CommentFormComponent implements OnInit {
 
   onSubmit(ckeditor: any, params: any, value: any): void {
     this.loading = true;
-    const data = {
-      attributes: {
-        content: {
-          value,
-          format: 'plain_text',
-        },
-      },
+    params.attributes.content = {
+      value,
+      format: 'plain_text',
     };
-    const entity = Object.assign({}, params, data);
-    console.log(entity);
-    this.nodeService.addComment(ckeditor.type, entity).subscribe(
+    console.log(params);
+    this.nodeService.addComment(ckeditor.type, params).subscribe(
       (res) => {
         console.log('success!', res);
         this.loading = false;
