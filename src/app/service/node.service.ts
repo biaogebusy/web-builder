@@ -111,7 +111,9 @@ export class NodeService {
   addComment(type: string, data: any): Observable<any> {
     return this.http.post<any>(
       `${this.apiUrl}${this.apiUrlConfig.commentGetPath}/${type}`,
-      data,
+      {
+        data,
+      },
       this.apiService.httpOptions
     );
   }
