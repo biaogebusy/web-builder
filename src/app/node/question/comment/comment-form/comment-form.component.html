@@ -1,6 +1,6 @@
 <div class="comment-form" *ngIf="content">
   <ckeditor [editor]="Editor" [config]="content?.ckeditor?.config" [(ngModel)]="htmlData"></ckeditor>
-  <div class="actions m-y-sm">
+  <div class="actions p-y-sm p-x-sm">
     <button (click)="onSubmit(content?.ckeditor,content?.params, htmlData)" mat-raised-button color="primary"
       [disabled]="!htmlData">
       <div fxLayoutAlign="center center">

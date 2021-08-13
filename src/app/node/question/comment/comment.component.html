@@ -1,2 +1,2 @@
-<app-comment-form *ngIf="showEditor" [content]="content"></app-comment-form>
-<app-comment-list></app-comment-list>
+<app-comment-form *ngIf="showEditor" [content]="content" (submitComment)="onSubmitComment($event)"></app-comment-form>
+<app-comment-list [content]="comments"></app-comment-list>

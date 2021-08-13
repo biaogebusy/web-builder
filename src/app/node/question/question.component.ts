@@ -8,6 +8,7 @@ import { NodeService } from 'src/app/service/node.service';
 })
 export class QuestionComponent implements OnInit {
   @Input() content: any;
+  comments: any;
   showEditor = false;
   constructor(private nodeService: NodeService) {}
 
@@ -27,6 +28,14 @@ export class QuestionComponent implements OnInit {
     return this.content?.params?.attributes?.field_name || '';
   }
 
+  onSubmit(state: boolean): void {
+    console.log(state);
+    // if success
+    if (state) {
+      this.getComments();
+    }
+  }
+
   getComments(): void {
     const params = [
       `filter[entity_id.id]=${this.entityId}`,
@@ -38,8 +47,26 @@ export class QuestionComponent implements OnInit {
     ].join('&');
     this.nodeService
       .getNodes(this.entityType, params, 'comment')
-      .subscribe((data) => {
-        console.log(data);
+      .subscribe((res) => {
+        console.log(res);
+        this.comments = res.data.map((comment: any) => {
+          return {
+            author: {
+              img: {
+                src: comment.uid.user_picture.uri.url,
+                style: {
+                  width: '45px',
+                  height: '45px',
+                  borderRadius: '3px',
+                },
+                alt: comment.uid.name,
+              },
+              title: comment.uid.name,
+              subTitle: '用户暂无签名',
+            },
+            content: comment.content.processed,
+          };
+        });
       });
   }
 }

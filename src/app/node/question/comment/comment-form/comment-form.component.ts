@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 import { NodeService } from 'src/app/service/node.service';
 import { UtilitiesService } from '../../../../service/utilities.service';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
@@ -12,6 +12,7 @@ export class CommentFormComponent implements OnInit {
   loading = false;
   public Editor = ClassicEditor;
   public htmlData = '';
+  @Output() submitComment = new EventEmitter();
   constructor(
     private nodeService: NodeService,
     private utilitiesService: UtilitiesService
@@ -38,6 +39,7 @@ export class CommentFormComponent implements OnInit {
         console.log('success!', res);
         this.loading = false;
         this.utilitiesService.openSnackbar(ckeditor.succes.label);
+        this.submitComment.emit(true);
       },
       (error) => {
         this.loading = false;

@@ -14,6 +14,7 @@
 </article>
 <article class="comment position-relative p-y-sm">
   <div class="container">
-    <app-comment [content]="content" [showEditor]="showEditor"></app-comment>
+    <app-comment (submitEditor)="onSubmit($event)" [content]="content" [comments]="comments" [showEditor]="showEditor">
+    </app-comment>
   </div>
 </article>
