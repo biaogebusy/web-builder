@@ -1,8 +1,8 @@
 ### https://www.drupal.org/docs/8/core/modules/rest/javascript-and-drupal-8-restful-web-services#s-login
-@apiUrl = https://api.zhaobg.com
+@apiUrl = https://lxyadmin.zhaobg.com
 @user = test
 @psw = test
-@user_uuid = 15765815-07f2-4d7d-8142-cb598f82af2e
+@user_uuid = d5fb03cb-abca-43ba-baa5-a162a576e67a
 @node_uuid = 97edbdba-16a9-4e48-9285-9a2854968cf7
 
 ### user login
@@ -93,7 +93,7 @@ X-CSRF-Token: {{csrfToken}}
 ### 'X-CSRF-Token'
 ### 需要注意字段必须包含所有的必填项
 
-@sample_type = article
+@sample_type = question
 @article_node_uuid = bb0617db-af29-4239-b824-4131f29d7530
 
 ### creating node
@@ -153,3 +153,38 @@ DELETE {{apiUrl}}/api/v1/node/article/{{article_node_uuid}}
 Accept: application/vnd.api+json
 Content-Type: application/vnd.api+json
 X-CSRF-Token: {{csrfToken}}
+
+
+### post question comment
+POST {{apiUrl}}/api/v1/comment/answer
+Accept: application/vnd.api+json
+Content-Type: application/vnd.api+json
+X-CSRF-Token: {{csrfToken}}
+
+{
+  "data":{
+    "type":"comment--answer",
+    "attributes":{
+      "entity_type":"node",
+      "field_name":"answer",
+      "content":{
+        "value":"New comment by johnson!",
+        "format":"plain_text"
+      }
+    },
+    "relationships":{
+      "comment_type":{
+        "data":{
+          "type":"comment_type--comment_type",
+          "id":"a395ac8e-3c9a-43d5-8ec8-cea74116d5f3"
+        }
+      },
+      "entity_id":{
+        "data":{
+          "type":"node--question",
+          "id":"18dac740-1d11-43c0-a431-d2b9e402fe6b"
+        }
+      }
+    }
+  }
+}
