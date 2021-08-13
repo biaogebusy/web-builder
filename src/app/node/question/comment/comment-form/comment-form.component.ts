@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import * as Editor from '../../../../../assets/plugins/ckeditor5/build/ckeditor';
 import { NodeService } from 'src/app/service/node.service';
 import { UtilitiesService } from '../../../../service/utilities.service';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 @Component({
   selector: 'app-comment-form',
   templateUrl: './comment-form.component.html',
@@ -10,7 +10,7 @@ import { UtilitiesService } from '../../../../service/utilities.service';
 export class CommentFormComponent implements OnInit {
   @Input() content: any;
   loading = false;
-  public Editor = Editor;
+  public Editor = ClassicEditor;
   public htmlData = '';
   constructor(
     private nodeService: NodeService,
