@@ -143,6 +143,9 @@
             "label": "Blog / News",
             "href": "/sample/node/article"
           }, {
+            "label": "问答",
+            "href": "/sample/node/question"
+          }, {
             "label": "Profile 1v1",
             "href": "/sample/combs/profile/profile1v1"
           }, {

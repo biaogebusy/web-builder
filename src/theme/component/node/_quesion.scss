@@ -12,4 +12,7 @@
     background-color: mat-color($background, card);
     @include mat-elevation(3, mat-color($foreground, divider), 0.3);
   }
+  .comment {
+    background-color: mat-color($background, background);
+  }
 }

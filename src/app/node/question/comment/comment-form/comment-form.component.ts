@@ -1,19 +1,48 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { IControl } from '../../../../interface/IForm';
-import { FormService } from '../../../../service/form.service';
-
+import * as Editor from '../../../../../assets/plugins/ckeditor5/build/ckeditor';
+import { NodeService } from 'src/app/service/node.service';
+import { UtilitiesService } from '../../../../service/utilities.service';
 @Component({
   selector: 'app-comment-form',
   templateUrl: './comment-form.component.html',
   styleUrls: ['./comment-form.component.scss'],
 })
 export class CommentFormComponent implements OnInit {
-  @Input() content: IControl[];
-  form: FormGroup;
-  constructor(private formService: FormService) {}
+  @Input() content: any;
+  loading = false;
+  public Editor = Editor;
+  public htmlData = '';
+  constructor(
+    private nodeService: NodeService,
+    private utilitiesService: UtilitiesService
+  ) {}
 
   ngOnInit(): void {
-    this.form = this.formService.toFormGroup(this.content);
+    console.log(this.content.params);
+  }
+
+  onSubmit(ckeditor: any, params: any, value: any): void {
+    this.loading = true;
+    const data = {
+      attributes: {
+        content: {
+          value,
+          format: 'plain_text',
+        },
+      },
+    };
+    const entity = Object.assign({}, params, data);
+    console.log(entity);
+    this.nodeService.addComment(ckeditor.type, entity).subscribe(
+      (res) => {
+        console.log('success!', res);
+        this.loading = false;
+        this.utilitiesService.openSnackbar(ckeditor.succes.label);
+      },
+      (error) => {
+        this.loading = false;
+        console.log(error);
+      }
+    );
   }
 }

@@ -95,4 +95,12 @@ export class NodeService {
       this.apiService.httpOptions
     );
   }
+
+  addComment(type: string, data: any): Observable<any> {
+    return this.http.post<any>(
+      `${this.apiUrl}${this.apiUrlConfig.commentGetPath}/${type}?loading`,
+      data,
+      this.apiService.httpOptions
+    );
+  }
 }

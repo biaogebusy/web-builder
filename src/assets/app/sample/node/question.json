@@ -33,13 +33,33 @@
         }
       }
     },
-    "form": [{
-      "label": "回答",
-      "key": "content",
-      "type": "textarea",
-      "params": {
-        "required": true
+    "ckeditor": {
+      "config": {
+        "toolbar": [
+          "undo",
+          "redo",
+          "|",
+          "heading",
+          "bold",
+          "italic",
+          "link",
+          "bulletedList",
+          "numberedList",
+          "|",
+          "outdent",
+          "indent",
+          "|",
+          "imageUpload",
+          "blockQuote"
+        ]
+      },
+      "type": "answer",
+      "action": {
+        "label": "发布回答"
+      },
+      "succes": {
+        "label": "您的答案已提交！"
       }
-    }]
+    }
   }]
 }
