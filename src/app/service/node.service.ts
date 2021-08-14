@@ -108,12 +108,14 @@ export class NodeService {
     );
   }
 
-  addComment(type: string, data: any): Observable<any> {
+  addComment(type: string, entityData: any): Observable<any> {
+    const entity = {
+      data: entityData,
+    };
+    console.log(JSON.stringify(entity));
     return this.http.post<any>(
       `${this.apiUrl}${this.apiUrlConfig.commentGetPath}/${type}`,
-      {
-        data,
-      },
+      JSON.stringify(entity),
       this.apiService.httpOptions
     );
   }

@@ -1,11 +1,19 @@
 <div class="comment-list m-y-sm p-y-sm p-x-sm position-relative" *ngIf="content">
-  <div class="comment-count p-y-xs">
-    {{content.length}} 个回答
-  </div>
-  <mat-divider class="m-bottom-xs"></mat-divider>
-  <div class="item" *ngFor="let item of content; last as isLast">
-    <app-media-object [content]="item.author"></app-media-object>
-    <div class="comment-body p-y-xs" [innerHTML]="item.content |safeHtml"></div>
-    <mat-divider *ngIf="!isLast" class="m-y-sm"></mat-divider>
-  </div>
+  <ng-container *ngIf="content.length;else empty">
+    <div class="comment-count p-y-xs">
+      {{content.length}} 个回答
+    </div>
+    <mat-divider class="m-bottom-xs"></mat-divider>
+    <div class="item" *ngFor="let item of content; last as isLast">
+      <app-media-object [content]="item.author"></app-media-object>
+      <div class="comment-body p-y-xs" [innerHTML]="item.content |safeHtml"></div>
+      <mat-divider *ngIf="!isLast" class="m-y-sm"></mat-divider>
+    </div>
+  </ng-container>
+  <ng-template #empty>
+    <div class="empty p-y" fxLayout="column" fxLayoutAlign="center center">
+      <app-icon [content]="{'name':'create','inline':true}"></app-icon>
+      <p>暂时没有人回答，欢迎作答</p>
+    </div>
+  </ng-template>
 </div>

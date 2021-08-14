@@ -26,7 +26,7 @@ export class CommentFormComponent implements OnInit {
     this.loading = true;
     params.attributes.content = {
       value,
-      format: 'plain_text',
+      format: 'full_html',
     };
     console.log(params);
     this.nodeService.addComment(ckeditor.type, params).subscribe(
