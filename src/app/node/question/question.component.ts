@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { UserState } from 'src/app/mobx/user/UserState';
 import { NodeService } from 'src/app/service/node.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-question',
@@ -10,9 +12,17 @@ export class QuestionComponent implements OnInit {
   @Input() content: any;
   comments: any;
   showEditor = false;
-  constructor(private nodeService: NodeService) {}
+  isAsked = false;
+  myCommentId = '';
+  myCommentContent = '';
+  constructor(
+    private nodeService: NodeService,
+    private userState: UserState,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
+    this.checkIsAsked();
     this.getComments();
   }
 
@@ -34,6 +44,37 @@ export class QuestionComponent implements OnInit {
     if (state) {
       this.getComments();
     }
+  }
+
+  onUpdateMyQuestion(event: boolean): void {
+    if (event) {
+      this.showEditor = true;
+    }
+  }
+
+  checkIsAsked(): void {
+    const params = [
+      `filter[uid.id]=${this.userState.currentUser.id}`,
+      `filter[entity_id.id]=${this.entityId}`,
+      `sort=-created`,
+      `page[limit]=1`,
+    ].join('&');
+
+    this.nodeService
+      .getNodes(this.entityType, params, 'comment')
+      .subscribe((res) => {
+        console.log(res);
+        if (res.data.length) {
+          this.isAsked = true;
+          this.myCommentId = `question-${res.data[0].id.split('-')[0]}`;
+          this.myCommentContent = res.data[0].attributes.content.processed;
+        }
+      });
+  }
+
+  checkQuestion(): void {
+    console.log('check question!');
+    this.router.navigate([], { fragment: this.myCommentId });
   }
 
   getComments(): void {
@@ -64,6 +105,7 @@ export class QuestionComponent implements OnInit {
               title: comment.uid.name,
               subTitle: '用户暂无签名',
             },
+            id: `question-${comment.id.split('-')[0]}`,
             content: comment.content.processed,
           };
         });

@@ -2,7 +2,7 @@
   <header *ngIf="!(screen.eq('xs') || screen.eq('sm'))" class="header" #header>
     <div class="container">
       <div class="header-container" fxLayout="row" fxLayoutAlign="space-between center">
-        <div class="header-left" fxFlex="0 0 auto">
+        <div class="header-left">
           <div class="logo" *ngIf="content.logo?.img; else name" fxLayout fxLayoutAlign="start end">
             <app-img [content]="content.logo.img"></app-img>
             <span *ngIf="content.logo.version" class="version">v{{appState.version}}</span>

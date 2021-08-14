@@ -11,7 +11,7 @@ export class CommentFormComponent implements OnInit {
   @Input() content: any;
   loading = false;
   public Editor = ClassicEditor;
-  public htmlData = '';
+  @Input() myCommentContent: any;
   @Output() submitComment = new EventEmitter();
   constructor(
     private nodeService: NodeService,

@@ -10,12 +10,19 @@ export class CommentComponent implements OnInit {
   @Input() content: any;
   @Input() comments: any;
   @Input() showEditor: boolean;
+  @Input() myCommentId: string;
+  @Input() myCommentContent: any;
   @Output() submitEditor = new EventEmitter();
+  @Output() updateMyQuestion = new EventEmitter();
   constructor() {}
 
   ngOnInit(): void {}
 
   onSubmitComment(state: boolean): void {
     this.submitEditor.emit(state);
+  }
+
+  onUpdateMyQuestion(event: any): void {
+    this.updateMyQuestion.emit(event);
   }
 }
