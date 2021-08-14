@@ -2,6 +2,7 @@ import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 import { NodeService } from 'src/app/service/node.service';
 import { UtilitiesService } from '../../../../service/utilities.service';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { UserState } from 'src/app/mobx/user/UserState';
 @Component({
   selector: 'app-comment-form',
   templateUrl: './comment-form.component.html',
@@ -16,7 +17,8 @@ export class CommentFormComponent implements OnInit {
   @Output() submitComment = new EventEmitter();
   constructor(
     private nodeService: NodeService,
-    private utilitiesService: UtilitiesService
+    private utilitiesService: UtilitiesService,
+    private userState: UserState
   ) {}
 
   ngOnInit(): void {
@@ -47,6 +49,7 @@ export class CommentFormComponent implements OnInit {
     } else {
       const entity = {
         type: 'comment--answer',
+        id: this.myCommentId,
         attributes: {
           entity_type: 'node',
           field_name: 'answer',
@@ -60,6 +63,12 @@ export class CommentFormComponent implements OnInit {
             data: {
               type: 'comment_type--comment_type',
               id: 'a395ac8e-3c9a-43d5-8ec8-cea74116d5f3',
+            },
+          },
+          uid: {
+            data: {
+              type: 'user--user',
+              id: this.userState.currentUser.id,
             },
           },
         },
