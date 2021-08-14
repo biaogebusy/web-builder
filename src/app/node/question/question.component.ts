@@ -66,7 +66,7 @@ export class QuestionComponent implements OnInit {
         console.log(res);
         if (res.data.length) {
           this.isAsked = true;
-          this.myCommentId = `question-${res.data[0].id.split('-')[0]}`;
+          this.myCommentId = res.data[0].id;
           this.myCommentContent = res.data[0].attributes.content.processed;
         }
       });
@@ -105,7 +105,7 @@ export class QuestionComponent implements OnInit {
               title: comment.uid.name,
               subTitle: '用户暂无签名',
             },
-            id: `question-${comment.id.split('-')[0]}`,
+            id: comment.id,
             content: comment.content.processed,
           };
         });

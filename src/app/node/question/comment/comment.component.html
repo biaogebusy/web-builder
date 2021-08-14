@@ -1,4 +1,4 @@
 <app-comment-form *ngIf="showEditor" [content]="content" (submitComment)="onSubmitComment($event)"
-  [myCommentContent]="myCommentContent"></app-comment-form>
+  [myCommentContent]="myCommentContent" [myCommentId]="myCommentId"></app-comment-form>
 <app-comment-list (updateMyQuestion)="onUpdateMyQuestion($event)" [content]="comments" [myCommentId]="myCommentId">
 </app-comment-list>

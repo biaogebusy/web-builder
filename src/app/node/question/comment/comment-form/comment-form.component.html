@@ -1,7 +1,7 @@
 <div class="comment-form" *ngIf="content">
   <ckeditor [editor]="Editor" [config]="content?.ckeditor?.config" [(ngModel)]="myCommentContent"></ckeditor>
   <div class="actions p-y-sm p-x-sm">
-    <button (click)="onSubmit(content?.ckeditor,content?.params, myCommentContent)" mat-raised-button color="primary"
+    <button (click)="onSubmit(content?.ckeditor, myCommentContent)" mat-raised-button color="primary"
       [disabled]="!myCommentContent">
       <div fxLayoutAlign="center center">
         <mat-spinner diameter="20" color="accent" *ngIf="loading"></mat-spinner>

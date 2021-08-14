@@ -12,6 +12,7 @@ export class CommentFormComponent implements OnInit {
   loading = false;
   public Editor = ClassicEditor;
   @Input() myCommentContent: any;
+  @Input() myCommentId: string;
   @Output() submitComment = new EventEmitter();
   constructor(
     private nodeService: NodeService,
@@ -22,25 +23,67 @@ export class CommentFormComponent implements OnInit {
     console.log(this.content.params);
   }
 
-  onSubmit(ckeditor: any, params: any, value: any): void {
+  onSubmit(ckeditor: any, value: any): void {
     this.loading = true;
-    const action = this.myCommentContent ? 'patch' : 'post';
-    params.attributes.content = {
-      value,
-      format: 'full_html',
-    };
-    console.log(params);
-    this.nodeService.commentApi(ckeditor.type, params, action).subscribe(
-      (res) => {
-        console.log('success!', res);
-        this.loading = false;
-        this.utilitiesService.openSnackbar(ckeditor.succes.label);
-        this.submitComment.emit(true);
-      },
-      (error) => {
-        this.loading = false;
-        console.log(error);
-      }
-    );
+    if (!this.myCommentContent) {
+      const params = this.content.params;
+      params.attributes.content = {
+        value,
+        format: 'full_html',
+      };
+      console.log(params);
+      this.nodeService.addComment(ckeditor.type, params).subscribe(
+        (res) => {
+          console.log('success!', res);
+          this.loading = false;
+          this.utilitiesService.openSnackbar(ckeditor.succes.label);
+          this.submitComment.emit(true);
+        },
+        (error) => {
+          this.loading = false;
+          console.log(error);
+        }
+      );
+    } else {
+      const entity = {
+        type: 'comment--answer',
+        attributes: {
+          entity_type: 'node',
+          field_name: 'answer',
+          content: {
+            value,
+            format: 'full_html',
+          },
+        },
+        relationships: {
+          comment_type: {
+            data: {
+              type: 'comment_type--comment_type',
+              id: 'a395ac8e-3c9a-43d5-8ec8-cea74116d5f3',
+            },
+          },
+          entity_id: {
+            data: {
+              type: 'node--question',
+              id: '18dac740-1d11-43c0-a431-d2b9e402fe6b',
+            },
+          },
+        },
+      };
+      this.nodeService
+        .updateComment(ckeditor.type, entity, this.myCommentId)
+        .subscribe(
+          (res) => {
+            console.log('success!', res);
+            this.loading = false;
+            this.utilitiesService.openSnackbar(ckeditor.succes.label);
+            this.submitComment.emit(true);
+          },
+          (error) => {
+            this.loading = false;
+            console.log(error);
+          }
+        );
+    }
   }
 }

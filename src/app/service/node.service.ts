@@ -120,32 +120,14 @@ export class NodeService {
     );
   }
 
-  commentApi(type: string, entityData: any, action: string): Observable<any> {
+  updateComment(type: string, entityData: any, uuid: string): Observable<any> {
     const entity = {
       data: entityData,
     };
-    console.log(JSON.stringify(entity));
-    switch (action) {
-      case 'post':
-        return this.http.post<any>(
-          `${this.apiUrl}${this.apiUrlConfig.commentGetPath}/${type}`,
-          JSON.stringify(entity),
-          this.apiService.httpOptions
-        );
-        break;
-      case 'patch':
-        return this.http.patch<any>(
-          `${this.apiUrl}${this.apiUrlConfig.commentGetPath}/${type}`,
-          JSON.stringify(entity),
-          this.apiService.httpOptions
-        );
-        break;
-      default:
-        return this.http.post<any>(
-          `${this.apiUrl}${this.apiUrlConfig.commentGetPath}/${type}`,
-          JSON.stringify(entity),
-          this.apiService.httpOptions
-        );
-    }
+    return this.http.patch<any>(
+      `${this.apiUrl}${this.apiUrlConfig.commentGetPath}/${type}/${uuid}`,
+      JSON.stringify(entity),
+      this.apiService.httpOptions
+    );
   }
 }
