@@ -59,12 +59,6 @@ export class CommentFormComponent implements OnInit {
           },
         },
         relationships: {
-          comment_type: {
-            data: {
-              type: 'comment_type--comment_type',
-              id: 'a395ac8e-3c9a-43d5-8ec8-cea74116d5f3',
-            },
-          },
           uid: {
             data: {
               type: 'user--user',
