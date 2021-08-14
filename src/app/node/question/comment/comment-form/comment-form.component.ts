@@ -62,12 +62,6 @@ export class CommentFormComponent implements OnInit {
               id: 'a395ac8e-3c9a-43d5-8ec8-cea74116d5f3',
             },
           },
-          entity_id: {
-            data: {
-              type: 'node--question',
-              id: '18dac740-1d11-43c0-a431-d2b9e402fe6b',
-            },
-          },
         },
       };
       this.nodeService
