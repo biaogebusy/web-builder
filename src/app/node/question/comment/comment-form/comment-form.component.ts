@@ -24,12 +24,13 @@ export class CommentFormComponent implements OnInit {
 
   onSubmit(ckeditor: any, params: any, value: any): void {
     this.loading = true;
+    const action = this.myCommentContent ? 'patch' : 'post';
     params.attributes.content = {
       value,
       format: 'full_html',
     };
     console.log(params);
-    this.nodeService.addComment(ckeditor.type, params).subscribe(
+    this.nodeService.commentApi(ckeditor.type, params, action).subscribe(
       (res) => {
         console.log('success!', res);
         this.loading = false;
