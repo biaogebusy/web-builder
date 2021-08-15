@@ -46,12 +46,6 @@ export class QuestionComponent implements OnInit {
     }
   }
 
-  onUpdateMyQuestion(event: boolean): void {
-    if (event) {
-      this.showEditor = true;
-    }
-  }
-
   checkIsAsked(): void {
     const params = [
       `filter[uid.id]=${this.userState.currentUser.id}`,

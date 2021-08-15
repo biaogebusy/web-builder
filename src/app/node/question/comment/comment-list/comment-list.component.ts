@@ -7,13 +7,21 @@ import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 })
 export class CommentListComponent implements OnInit {
   @Input() content: any;
+  @Input() comments: any;
   @Input() myCommentId: string;
-  @Output() updateMyQuestion = new EventEmitter();
+  showInlineEditor = false;
+
   constructor() {}
 
   ngOnInit(): void {}
 
   onUpdateMyQuestion(): void {
-    this.updateMyQuestion.emit(true);
+    this.showInlineEditor = true;
+  }
+
+  onSubmitComment(state: boolean): void {
+    if (state) {
+      this.showInlineEditor = false;
+    }
   }
 }

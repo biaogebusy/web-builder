@@ -21,8 +21,4 @@ export class CommentComponent implements OnInit {
   onSubmitComment(state: boolean): void {
     this.submitEditor.emit(state);
   }
-
-  onUpdateMyQuestion(event: any): void {
-    this.updateMyQuestion.emit(event);
-  }
 }

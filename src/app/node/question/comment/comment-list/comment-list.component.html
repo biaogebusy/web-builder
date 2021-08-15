@@ -1,17 +1,21 @@
-<div class="comment-list m-y-sm p-y-sm p-x-sm position-relative" *ngIf="content">
-  <ng-container *ngIf="content.length;else empty">
+<div class="comment-list m-y-sm p-y-sm p-x-sm position-relative" *ngIf="comments">
+  <ng-container *ngIf="comments.length;else empty">
     <div class="comment-count p-y-xs">
-      {{content.length}} 个回答
+      {{comments.length}} 个回答
     </div>
     <mat-divider class="m-bottom-xs"></mat-divider>
-    <div class="item" *ngFor="let item of content; last as isLast">
-      <a class="anchor" [id]="item.id"></a>
-      <app-media-object [content]="item.author"></app-media-object>
-      <div class="comment-body p-y-xs" [innerHTML]="item.content |safeHtml"></div>
-      <button *ngIf="item.id === myCommentId" mat-stroked-button color="primary" (click)="onUpdateMyQuestion()">
-        <mat-icon>editor</mat-icon> 修改
-      </button>
-      <mat-divider *ngIf="!isLast" class="m-y-sm"></mat-divider>
+    <div class="item" *ngFor="let item of comments; last as isLast">
+      <div class="comment-box" *ngIf="!showInlineEditor">
+        <a class="anchor" [id]="item.id"></a>
+        <app-media-object [content]="item.author"></app-media-object>
+        <div class="comment-body p-y-xs" [innerHTML]="item.content |safeHtml"></div>
+        <button *ngIf="item.id === myCommentId" mat-stroked-button color="primary" (click)="onUpdateMyQuestion()">
+          <mat-icon>editor</mat-icon> 修改
+        </button>
+        <mat-divider *ngIf="!isLast" class="m-y-sm"></mat-divider>
+      </div>
+      <app-comment-form *ngIf="showInlineEditor" [content]="content" (submitComment)="onSubmitComment($event)"
+        [myCommentContent]="item.content" [myCommentId]="myCommentId"></app-comment-form>
     </div>
   </ng-container>
   <ng-template #empty>
