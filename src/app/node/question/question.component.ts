@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { UserState } from 'src/app/mobx/user/UserState';
 import { NodeService } from 'src/app/service/node.service';
-import { Router } from '@angular/router';
 import { ScreenService } from 'src/app/service/screen.service';
 
 @Component({
@@ -19,7 +18,6 @@ export class QuestionComponent implements OnInit {
   constructor(
     private nodeService: NodeService,
     private userState: UserState,
-    private router: Router,
     private screenService: ScreenService
   ) {}
 
@@ -44,6 +42,7 @@ export class QuestionComponent implements OnInit {
     console.log(state);
     // if success
     if (state) {
+      this.checkIsAsked();
       this.getComments();
     }
   }
@@ -62,6 +61,7 @@ export class QuestionComponent implements OnInit {
         console.log(res);
         if (res.data.length) {
           this.isAsked = true;
+          this.showEditor = false;
           this.myCommentId = res.data[0].id;
           this.myCommentContent = res.data[0].attributes.content.processed;
         }
