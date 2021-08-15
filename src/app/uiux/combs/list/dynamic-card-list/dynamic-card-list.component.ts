@@ -10,6 +10,7 @@ import { BaseComponent } from 'src/app/uiux/base/base.widget';
 })
 export class DynamicCardListComponent extends BaseComponent implements OnInit {
   @Input() content: any;
+  links: any;
   list: any;
   loading = true;
   p = 1;
@@ -27,48 +28,54 @@ export class DynamicCardListComponent extends BaseComponent implements OnInit {
       `include=${this.getParams(this.content, 'include')}`,
       `sort=${this.getParams(this.content, 'sort')}`,
       'jsonapi_include=1',
+      `page[limit]=${this.getParams(this.content, 'limit') || 20}`,
     ].join('&');
     this.nodeService
       .getNodes(`${this.getParams(this.content, 'type')}`, params)
       .subscribe((res) => {
-        console.log(res);
-        this.list = res.data.map((item: any) => {
-          const link = this.nodeService.getNodePath(item);
-          const subTitle = result(
-            item,
-            this.getValue(this.content, 'fields', 'subTitle')
-          );
-          const title = result(
-            item,
-            this.getValue(this.content, 'fields', 'title')
-          );
-          const body = result(
-            item,
-            this.getValue(this.content, 'fields', 'body')
-          );
-          return {
-            link: {
-              label: title,
-              href: link,
-            },
-            subTitle,
-            classes: this.content.shadow ? '' : 'card-no-shadow',
-            feature: {
-              fullIcon: 'fullscreen',
-              openIcon: 'open_in_new',
-              link,
-              ratios: this.content.ratios || 'media-4-3',
-              img: {
-                classes: 'object-fit',
-                src: item.media.thumbnail.uri.url,
-                alt: title,
-              },
-            },
-            body: body ? body : item.body.summary || item.body.value,
-          };
-        });
-        console.log(this.list);
-        this.loading = false;
+        this.updateContent(res);
       });
+  }
+  onPageChange(link: string): void {
+    this.nodeService.getNodeByLink(link).subscribe((res) => {
+      this.updateContent(res);
+    });
+  }
+
+  updateContent(res: any): void {
+    this.list = res.data.map((item: any) => {
+      const link = this.nodeService.getNodePath(item);
+      const subTitle = result(
+        item,
+        this.getValue(this.content, 'fields', 'subTitle')
+      );
+      const title = result(
+        item,
+        this.getValue(this.content, 'fields', 'title')
+      );
+      const body = result(item, this.getValue(this.content, 'fields', 'body'));
+      return {
+        link: {
+          label: title,
+          href: link,
+        },
+        subTitle,
+        classes: this.content.shadow ? '' : 'card-no-shadow',
+        feature: {
+          fullIcon: 'fullscreen',
+          openIcon: 'open_in_new',
+          link,
+          ratios: this.content.ratios || 'media-4-3',
+          img: {
+            classes: 'object-fit',
+            src: item.media.thumbnail.uri.url,
+            alt: title,
+          },
+        },
+        body: body ? body : item.body.summary || item.body.value,
+      };
+    });
+    this.links = res.links;
+    this.loading = false;
   }
 }

@@ -17,7 +17,8 @@
     "params": {
       "type": "blog",
       "include": "category,field_tags,media,media.field_media_image",
-      "sort": "-changed"
+      "sort": "-changed",
+      "limit": "20"
     },
     "showImage": true,
     "ratios": "media-16-9",

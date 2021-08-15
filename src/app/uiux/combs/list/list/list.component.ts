@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
+import { ScreenService } from 'src/app/service/screen.service';
 
 @Component({
   selector: 'app-list',
@@ -7,11 +8,18 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ListComponent implements OnInit {
   @Input() content: any;
+  @Input() links: any;
   @Input() pager: any;
   @Input() loading: boolean;
+  @Output() pageChange: EventEmitter<string> = new EventEmitter();
   p = 1;
 
-  constructor() {}
+  constructor(private screenService: ScreenService) {}
 
   ngOnInit(): void {}
+
+  onPageChange(link: string): void {
+    this.pageChange.emit(link);
+    this.screenService.gotoTop();
+  }
 }

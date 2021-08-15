@@ -32,6 +32,10 @@ export class NodeService {
     return this.http.get<any>(`${this.apiUrl}/api/v1/content?${params}`);
   }
 
+  getNodeByLink(link: string): Observable<any> {
+    return this.http.get<any>(`${link}`);
+  }
+
   getNodes(
     type: string,
     params: string = '',

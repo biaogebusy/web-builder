@@ -5,7 +5,8 @@
     "params": {
       "type": "lawyer",
       "include": "media,media.field_media_image,law_firm",
-      "sort": "-changed"
+      "sort": "-changed",
+      "limit": "20"
     },
     "fields": {
       "title": "title",

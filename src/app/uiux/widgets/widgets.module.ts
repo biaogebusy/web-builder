@@ -47,6 +47,7 @@ import { MediaObjectGroupComponent } from './media/media-object-group/media-obje
 import { DialogComponent } from './dialog/dialog.component';
 import { DynamicFormControlComponent } from './dynamic-form-control/dynamic-form-control.component';
 import { SelectComponent } from './form/select/select.component';
+import { PaginationSimpleComponent } from './pagination/pagination-simple/pagination-simple.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -86,6 +87,7 @@ const components = [
   MediaObjectComponent,
   MenuListComponent,
   PaginationComponent,
+  PaginationSimpleComponent,
   ProgressBarComponent,
   ProgressGroupComponent,
   SafeHtmlPipe,
