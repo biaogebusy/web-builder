@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { UserState } from 'src/app/mobx/user/UserState';
 import { NodeService } from 'src/app/service/node.service';
 import { Router } from '@angular/router';
+import { ScreenService } from 'src/app/service/screen.service';
 
 @Component({
   selector: 'app-question',
@@ -18,7 +19,8 @@ export class QuestionComponent implements OnInit {
   constructor(
     private nodeService: NodeService,
     private userState: UserState,
-    private router: Router
+    private router: Router,
+    private screenService: ScreenService
   ) {}
 
   ngOnInit(): void {
@@ -66,9 +68,9 @@ export class QuestionComponent implements OnInit {
       });
   }
 
-  checkQuestion(): void {
+  checkQuestion(id: string): void {
     console.log('check question!');
-    this.router.navigate([], { fragment: this.myCommentId });
+    this.screenService.scrollToAnchor(`q-${id}`);
   }
 
   getComments(): void {

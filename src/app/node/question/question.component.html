@@ -9,7 +9,7 @@
       <button *ngIf="!isAsked" mat-raised-button color="primary" (click)="onShowEditor()">
         <mat-icon>editor</mat-icon> 回答
       </button>
-      <button *ngIf="isAsked" mat-raised-button color="warn" (click)="checkQuestion()">
+      <button *ngIf="isAsked" mat-raised-button color="warn" (click)="checkQuestion(myCommentId)">
         <mat-icon>list</mat-icon> 查看回答
       </button>
     </div>
