@@ -9,6 +9,7 @@ import { ScreenService } from './service/screen.service';
 import { LoadingService } from './service/loading.service';
 import { delay } from 'rxjs/operators';
 import { GoogleAnalyticsService } from './service/ga.service';
+import { UserService } from './service/user.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -26,7 +27,8 @@ export class AppComponent implements OnInit, AfterViewInit {
     private router: ActivatedRoute,
     private screenService: ScreenService,
     private loadingservice: LoadingService,
-    private googleAnalyticsService: GoogleAnalyticsService
+    private googleAnalyticsService: GoogleAnalyticsService,
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {
@@ -41,6 +43,9 @@ export class AppComponent implements OnInit, AfterViewInit {
           }
         }
       }
+    });
+    this.userService.getLoginState().subscribe((state) => {
+      console.log('login state:', state);
     });
   }
 

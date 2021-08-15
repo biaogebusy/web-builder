@@ -11,6 +11,7 @@ import { UserState } from 'src/app/mobx/user/UserState';
 export class CommentFormComponent implements OnInit {
   @Input() content: any;
   loading = false;
+  htmlData = '';
   public Editor = ClassicEditor;
   @Input() myCommentContent: any;
   @Input() myCommentId: string;
@@ -22,7 +23,10 @@ export class CommentFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.content.params);
+    console.log(this.myCommentContent);
+    if (this.myCommentContent) {
+      this.htmlData = this.myCommentContent;
+    }
   }
 
   onSubmit(ckeditor: any, value: any): void {
@@ -51,8 +55,6 @@ export class CommentFormComponent implements OnInit {
         type: 'comment--answer',
         id: this.myCommentId,
         attributes: {
-          entity_type: 'node',
-          field_name: 'answer',
           content: {
             value,
             format: 'full_html',

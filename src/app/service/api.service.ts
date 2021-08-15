@@ -11,7 +11,7 @@ export class ApiService {
   jobNodeType = 'job';
   localUserKey = 'currentUser';
 
-  constructor(private http: HttpClient, private storage: LocalStorageService) {
+  constructor(public http: HttpClient, public storage: LocalStorageService) {
     this.apiUrl = environment.apiUrl;
   }
 

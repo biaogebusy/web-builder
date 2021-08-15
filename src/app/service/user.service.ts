@@ -5,16 +5,20 @@ import { ApiService } from './api.service';
 import { map } from 'rxjs/operators';
 import { TokenUser } from '../mobx/user/IUser';
 import { AppState } from '../mobx/AppState';
+import { LocalStorageService } from 'ngx-webstorage';
 
 @Injectable({
   providedIn: 'root',
 })
-export class UserService {
+export class UserService extends ApiService {
   constructor(
-    private http: HttpClient,
+    public http: HttpClient,
+    public storage: LocalStorageService,
     private apiService: ApiService,
     private appState: AppState
-  ) {}
+  ) {
+    super(http, storage);
+  }
 
   login(userName: string, passWord: string): Observable<any> {
     const httpOptions = {
@@ -53,7 +57,7 @@ export class UserService {
   }
 
   getCurrentUserById(user: TokenUser): Observable<any> {
-    const apiUrl = `${this.apiService.apiUrl}${this.appState.apiUrlConfig.userGetPath}`;
+    const apiUrl = `${this.apiUrl}${this.appState.apiUrlConfig.userGetPath}`;
     const params = [
       `filter[drupal_internal__uid]=${user.current_user.uid}`,
       `include=user_picture`,
@@ -74,5 +78,9 @@ export class UserService {
           };
         })
       );
+  }
+
+  getLoginState(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/user/login_status?_format=json`);
   }
 }
