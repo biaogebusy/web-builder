@@ -9,6 +9,7 @@ export class CommentListComponent implements OnInit {
   @Input() content: any;
   @Input() comments: any;
   @Input() myCommentId: string;
+  @Output() submitComment = new EventEmitter();
   showInlineEditor = false;
 
   constructor() {}
@@ -22,6 +23,7 @@ export class CommentListComponent implements OnInit {
   onSubmitComment(state: boolean): void {
     if (state) {
       this.showInlineEditor = false;
+      this.submitComment.emit(state);
     }
   }
 }
