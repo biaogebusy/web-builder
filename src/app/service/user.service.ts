@@ -80,6 +80,7 @@ export class UserService extends ApiService {
       );
   }
 
+  // TODO: drupal 302
   getLoginState(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/user/login_status?_format=json`);
   }

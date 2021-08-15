@@ -2,7 +2,7 @@
 @apiUrl = https://lxyadmin.zhaobg.com
 @user = test
 @psw = test
-@user_uuid = d5fb03cb-abca-43ba-baa5-a162a576e67a
+@user_uuid = 15765815-07f2-4d7d-8142-cb598f82af2e
 @node_uuid = 97edbdba-16a9-4e48-9285-9a2854968cf7
 
 ### user login
@@ -87,6 +87,12 @@ Accept: application/vnd.api+json
 Content-Type: application/vnd.api+json
 X-CSRF-Token: {{csrfToken}}
 
+### get question comment by user
+GET {{apiUrl}}/api/v1/comment/answer?filter[uid.id]=d5fb03cb-abca-43ba-baa5-a162a576e67a&filter[entity_id.id]=18dac740-1d11-43c0-a431-d2b9e402fe6b&sort=-created&page[limit]=1
+Accept: application/vnd.api+json
+Content-Type: application/vnd.api+json
+X-CSRF-Token: {{csrfToken}}
+
 ### all post, patch, delete need set header
 ### Accept: application/vnd.api+json
 ### Content-Type: application/vnd.api+json
@@ -163,7 +169,7 @@ X-CSRF-Token: {{csrfToken}}
 
 {
   "data":{
-    "type":"comment--answer",
+    "type": "comment--answer",
     "attributes":{
       "entity_type":"node",
       "field_name":"answer",
@@ -183,6 +189,33 @@ X-CSRF-Token: {{csrfToken}}
         "data":{
           "type":"node--question",
           "id":"18dac740-1d11-43c0-a431-d2b9e402fe6b"
+        }
+      }
+    }
+  }
+}
+
+### update comment
+PATCH {{apiUrl}}/api/v1/comment/answer/92e32979-ebbd-494c-aabe-6a1f9a6b505d
+Accept: application/vnd.api+json
+Content-Type: application/vnd.api+json
+X-CSRF-Token: {{csrfToken}}
+
+{
+  "data": {
+    "type": "comment--answer",
+    "id": "92e32979-ebbd-494c-aabe-6a1f9a6b505d",
+    "attributes": {
+      "content": {
+        "value": "Updated body text",
+        "format": "full_html",
+      }
+    },
+    "relationships": {
+      "uid": {
+        "data": {
+          "type": "user--user",
+          "id": "d5fb03cb-abca-43ba-baa5-a162a576e67a"
         }
       }
     }
