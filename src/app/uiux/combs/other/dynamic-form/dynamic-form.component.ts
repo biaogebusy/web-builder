@@ -6,6 +6,7 @@ import { DialogService } from 'src/app/service/dialog.service';
 import { FormService } from 'src/app/service/form.service';
 import { NodeService } from 'src/app/service/node.service';
 import { UtilitiesService } from 'src/app/service/utilities.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -22,7 +23,8 @@ export class DynamicFormComponent implements OnInit {
     private nodeService: NodeService,
     private userState: UserState,
     private dialogService: DialogService,
-    private utilitiesService: UtilitiesService
+    private utilitiesService: UtilitiesService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -35,12 +37,13 @@ export class DynamicFormComponent implements OnInit {
     this.nodeService
       .addNode(params.type, this.form.value, this.userState.currentUser)
       .subscribe(
-        (data) => {
-          console.log(data);
+        (res) => {
+          const link = this.nodeService.getNodePath(res.data.attributes);
           this.loading = false;
           this.utilitiesService.openSnackbar(params.snackMes || '成功发布！');
           setTimeout(() => {
             this.dialogService.closeDialog();
+            this.router.navigate([link]);
           }, 2000);
         },
         (error) => {

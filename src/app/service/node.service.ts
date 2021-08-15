@@ -74,10 +74,10 @@ export class NodeService {
     return this.http.get<any>(`${this.apiUrl}/api/v1/job?${params}`);
   }
 
-  getNodePath(node: any): string {
-    return node.path.alias
-      ? node.path.alias
-      : `/node/${node.drupal_internal__nid}`;
+  getNodePath(attr: any): string {
+    return attr.path.alias
+      ? attr.path.alias
+      : `/node/${attr.drupal_internal__nid}`;
   }
 
   addNode(type: string, attr: any, user: IUser): Observable<any> {
