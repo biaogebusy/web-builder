@@ -15,6 +15,7 @@
 @import "./node/article";
 @import "./node/quesion";
 @import "./node/profile";
+@import "./dynamic-list";
 @import "./form";
 @import "./search";
 @import "./media";
@@ -45,6 +46,7 @@
   @include search-color($config-or-theme);
   @include media-color($config-or-theme);
   @include profile-color($config-or-theme);
+  @include dynamic-list-color($config-or-theme);
 
   // material custom ui
   @include card-color($config-or-theme);

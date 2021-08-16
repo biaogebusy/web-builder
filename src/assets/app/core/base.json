@@ -22,6 +22,7 @@
     "svgIcon": "dark_mode"
   }],
   "loginRedirect": "/",
+  "defaultLogo": "/assets/images/logo.png",
   "amap": {
     "key": "33877188af64f0213ff4fa259b1c14b8",
     "version": "1.4.15",

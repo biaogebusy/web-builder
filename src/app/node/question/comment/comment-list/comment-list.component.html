@@ -5,7 +5,7 @@
     </div>
     <mat-divider class="m-bottom-xs"></mat-divider>
     <div class="item" *ngFor="let item of comments; last as isLast">
-      <div class="comment-box" *ngIf="!showInlineEditor">
+      <div class="comment-box" *ngIf="!onShow(item.id)">
         <a class="anchor" [id]="'q-'+item.id"></a>
         <app-media-object [content]="item.author"></app-media-object>
         <div class="comment-body p-y-xs" [innerHTML]="item.content |safeHtml"></div>
@@ -23,8 +23,9 @@
         </div>
         <mat-divider *ngIf="!isLast" class="m-y-sm"></mat-divider>
       </div>
-      <app-comment-form *ngIf="showInlineEditor" [content]="content" (submitComment)="onSubmitComment($event)"
-        [myCommentContent]="item.content" [myCommentId]="myCommentId"></app-comment-form>
+      <app-comment-form *ngIf="onShow(item.id)" [content]="content" (submitComment)="onSubmitComment($event)"
+        (cancel)="onCancel()" [myCommentContent]="item.content" [myCommentId]="myCommentId">
+      </app-comment-form>
     </div>
   </ng-container>
   <ng-template #empty>

@@ -16,6 +16,7 @@ export class CommentFormComponent implements OnInit {
   @Input() myCommentContent: any;
   @Input() myCommentId: string;
   @Output() submitComment = new EventEmitter();
+  @Output() cancel = new EventEmitter();
   constructor(
     private nodeService: NodeService,
     private utilitiesService: UtilitiesService,
@@ -27,6 +28,10 @@ export class CommentFormComponent implements OnInit {
     if (this.myCommentContent) {
       this.htmlData = this.myCommentContent;
     }
+  }
+
+  onCancel(): void {
+    this.cancel.emit();
   }
 
   onSubmit(ckeditor: any, value: any): void {

@@ -55,6 +55,10 @@ export class AppState {
     return this.state && this.state.defTheme;
   }
 
+  @computed get defaultLogo(): string {
+    return this.config && this.config.defaultLogo;
+  }
+
   @computed get currentUser(): IUser {
     return this.state && this.state.currentUser;
   }

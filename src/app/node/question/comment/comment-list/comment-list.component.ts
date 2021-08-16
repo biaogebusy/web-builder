@@ -26,6 +26,14 @@ export class CommentListComponent implements OnInit {
     this.showInlineEditor = true;
   }
 
+  onShow(id: string): boolean {
+    return this.showInlineEditor && id === this.myCommentId;
+  }
+
+  onCancel(): void {
+    this.showInlineEditor = false;
+  }
+
   onSubmitComment(state: boolean): void {
     if (state) {
       this.showInlineEditor = false;

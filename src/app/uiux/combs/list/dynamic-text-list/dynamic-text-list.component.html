@@ -1,0 +1,27 @@
+<div class="dynamic-text-list m-y" *ngIf="content">
+  <div class="container">
+    <div *ngIf="loading" class="m-y" fxLayoutAlign="center center">
+      <app-spinner [content]="{color:'primary', size:40}"></app-spinner>
+    </div>
+    <div class="item" *ngFor="let item of lists; last as isLast">
+      <div class="meta m-bottom-xs" fxLayoutAlign="start center" fxLayoutGap="1rem">
+        <app-img [content]="item.picture"></app-img>
+        <div class="name text-lighter">{{item.name}}</div>
+        <div class="time text-lighter">{{item.time | date:'y-M-d'}}</div>
+      </div>
+      <h2 class="title mat-h2">
+        <app-link [content]="item.link"></app-link>
+      </h2>
+      <div class="action">
+        <a [routerLink]="item.link.href" mat-raised-button color="primary">
+          <mat-icon>{{content?.action.icon}}</mat-icon>
+          {{content?.action?.label}}
+        </a>
+        <button class="m-left-xs text-lighter" mat-button>
+          {{item.count}} 个人回答
+        </button>
+      </div>
+      <mat-divider *ngIf="!isLast" class="m-y"></mat-divider>
+    </div>
+  </div>
+</div>

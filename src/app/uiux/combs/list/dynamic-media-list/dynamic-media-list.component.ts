@@ -1,18 +1,21 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NodeService } from 'src/app/service/node.service';
+import { BaseComponent } from 'src/app/uiux/base/base.widget';
 
 @Component({
   selector: 'app-dynamic-media-list',
   templateUrl: './dynamic-media-list.component.html',
   styleUrls: ['./dynamic-media-list.component.scss'],
 })
-export class DynamicMediaListComponent implements OnInit {
+export class DynamicMediaListComponent extends BaseComponent implements OnInit {
   @Input() content: any;
   list: any;
   links: any;
   loading = true;
 
-  constructor(private nodeService: NodeService) {}
+  constructor(private nodeService: NodeService) {
+    super();
+  }
 
   ngOnInit(): void {
     this.getContent();
@@ -20,13 +23,13 @@ export class DynamicMediaListComponent implements OnInit {
 
   getContent(): void {
     const params = [
-      `include=${this.getParams('include')}`,
-      `sort=${this.getParams('sort')}`,
+      `include=${this.getParams(this.content, 'include')}`,
+      `sort=${this.getParams(this.content, 'sort')}`,
       'jsonapi_include=1',
-      `page[limit]=${this.getParams('limit') || 20}`,
+      `page[limit]=${this.getParams(this.content, 'limit') || 20}`,
     ].join('&');
     this.nodeService
-      .getNodes(`${this.getParams('type')}`, params)
+      .getNodes(`${this.getParams(this.content, 'type')}`, params)
       .subscribe((res) => {
         this.updateList(res);
       });
@@ -66,10 +69,6 @@ export class DynamicMediaListComponent implements OnInit {
     });
     this.links = res.links;
     this.loading = false;
-  }
-
-  getParams(key: string): string {
-    return this.content.params && this.content.params[key];
   }
 
   loadContent(link: string): void {
