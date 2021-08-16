@@ -1,4 +1,5 @@
 import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
+import { NodeService } from 'src/app/service/node.service';
 
 @Component({
   selector: 'app-comment-list',
@@ -12,7 +13,7 @@ export class CommentListComponent implements OnInit {
   @Output() submitComment = new EventEmitter();
   showInlineEditor = false;
 
-  constructor() {}
+  constructor(private nodeService: NodeService) {}
 
   ngOnInit(): void {}
 
@@ -25,5 +26,12 @@ export class CommentListComponent implements OnInit {
       this.showInlineEditor = false;
       this.submitComment.emit(state);
     }
+  }
+
+  onDeleteMyQuestion(id: string): void {
+    this.nodeService.deleteNode('comment', id).subscribe((res) => {
+      console.log(res);
+      this.submitComment.emit(true);
+    });
   }
 }

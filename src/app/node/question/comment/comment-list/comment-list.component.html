@@ -9,9 +9,15 @@
         <a class="anchor" [id]="'q-'+item.id"></a>
         <app-media-object [content]="item.author"></app-media-object>
         <div class="comment-body p-y-xs" [innerHTML]="item.content |safeHtml"></div>
-        <button *ngIf="item.id === myCommentId" mat-stroked-button color="primary" (click)="onUpdateMyQuestion()">
-          <mat-icon>editor</mat-icon> 修改
-        </button>
+        <div class="time">更新于 {{item.time | date:'y-M-d'}}</div>
+        <div class="actions">
+          <button *ngIf="item.id === myCommentId" mat-button color="primary" (click)="onUpdateMyQuestion()">
+            <mat-icon>editor</mat-icon> 修改
+          </button>
+          <button *ngIf="item.id === myCommentId" mat-button color="primary" (click)="onDeleteMyQuestion(item.id)">
+            <mat-icon>delete</mat-icon> 删除
+          </button>
+        </div>
         <mat-divider *ngIf="!isLast" class="m-y-sm"></mat-divider>
       </div>
       <app-comment-form *ngIf="showInlineEditor" [content]="content" (submitComment)="onSubmitComment($event)"

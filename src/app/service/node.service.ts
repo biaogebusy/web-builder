@@ -62,15 +62,20 @@ export class NodeService {
     }
   }
 
-  getRelationships(relationships: any[]): Observable<any> {
-    const obj = mapValues(relationships, (item) => {
-      return this.apiService.getApi(item.links.related.href).pipe(
-        map((res) => {
-          return res.data;
-        })
-      );
-    });
-    return forkJoin(obj);
+  deleteNode(type: string, uuid: string): Observable<any> {
+    switch (type) {
+      case 'comment':
+        return this.http.delete<any>(
+          `${this.apiUrl}${this.apiUrlConfig.commentGetPath}/${type}/${uuid}`,
+          this.apiService.httpOptions
+        );
+        break;
+      default:
+        return this.http.delete<any>(
+          `${this.apiUrl}${this.apiUrlConfig.nodeGetPath}/${type}/${uuid}`,
+          this.apiService.httpOptions
+        );
+    }
   }
 
   searchByKey(key: string): Observable<any> {

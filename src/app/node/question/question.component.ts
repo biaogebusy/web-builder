@@ -101,6 +101,7 @@ export class QuestionComponent implements OnInit {
               title: comment.uid.name,
               subTitle: '用户暂无签名',
             },
+            time: comment.changed,
             id: comment.id,
             content: comment.content.processed,
           };
