@@ -25,4 +25,15 @@
       }
     }
   }
+
+  .user-dropdown {
+    .mat-menu-item {
+      a {
+        color: mat-color($foreground, text, 0.75);
+        &.active {
+          color: mat-color($primary);
+        }
+      }
+    }
+  }
 }

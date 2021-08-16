@@ -13,7 +13,7 @@
       <img class="user-picture" [matMenuTriggerFor]="menu" [src]="userState.picture"
         alt="{{userState.currentUser.display_name}}">
     </ng-template>
-    <mat-menu #menu="matMenu">
+    <mat-menu #menu="matMenu" class="user-dropdown">
       <button mat-menu-item>
         <mat-icon>account_circle</mat-icon>{{userState.currentUser?.display_name}}
       </button>
