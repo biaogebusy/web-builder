@@ -15,10 +15,10 @@ export class UtilitiesService {
     return new Date().getFullYear();
   }
 
-  openSnackbar(message: string, config?: MatSnackBarConfig): void {
+  openSnackbar(message: string, action = '', config?: MatSnackBarConfig): void {
     this.snackbar.open(
       message,
-      '',
+      action,
       config
         ? config
         : {

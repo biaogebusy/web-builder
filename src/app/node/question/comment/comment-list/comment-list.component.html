@@ -10,12 +10,15 @@
         <app-media-object [content]="item.author"></app-media-object>
         <div class="comment-body p-y-xs" [innerHTML]="item.content |safeHtml"></div>
         <div class="time">更新于 {{item.time | date:'y-M-d'}}</div>
-        <div class="actions">
+        <div class="actions" fxLayoutAlign="start center">
           <button *ngIf="item.id === myCommentId" mat-button color="primary" (click)="onUpdateMyQuestion()">
             <mat-icon>editor</mat-icon> 修改
           </button>
           <button *ngIf="item.id === myCommentId" mat-button color="primary" (click)="onDeleteMyQuestion(item.id)">
-            <mat-icon>delete</mat-icon> 删除
+            <div fxLayoutAlign="center center">
+              <mat-spinner diameter="20" *ngIf="loading"></mat-spinner>
+              <mat-icon *ngIf="!loading">delete</mat-icon> 删除
+            </div>
           </button>
         </div>
         <mat-divider *ngIf="!isLast" class="m-y-sm"></mat-divider>

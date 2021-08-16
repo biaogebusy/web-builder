@@ -1,5 +1,6 @@
 import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { NodeService } from 'src/app/service/node.service';
+import { UtilitiesService } from '../../../../service/utilities.service';
 
 @Component({
   selector: 'app-comment-list',
@@ -11,9 +12,13 @@ export class CommentListComponent implements OnInit {
   @Input() comments: any;
   @Input() myCommentId: string;
   @Output() submitComment = new EventEmitter();
+  loading: boolean;
   showInlineEditor = false;
 
-  constructor(private nodeService: NodeService) {}
+  constructor(
+    private nodeService: NodeService,
+    private utilitiesService: UtilitiesService
+  ) {}
 
   ngOnInit(): void {}
 
@@ -29,9 +34,18 @@ export class CommentListComponent implements OnInit {
   }
 
   onDeleteMyQuestion(id: string): void {
-    this.nodeService.deleteNode('comment', id).subscribe((res) => {
-      console.log(res);
-      this.submitComment.emit(true);
-    });
+    this.loading = true;
+    this.nodeService.deleteNode('comment', id).subscribe(
+      (res) => {
+        console.log(res);
+        this.loading = false;
+        this.utilitiesService.openSnackbar('您的回答已删除！', '√');
+        this.submitComment.emit(true);
+      },
+      (error) => {
+        this.loading = false;
+        console.log(error);
+      }
+    );
   }
 }

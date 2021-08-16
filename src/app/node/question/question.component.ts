@@ -26,16 +26,16 @@ export class QuestionComponent implements OnInit {
     this.getComments();
   }
 
-  onShowEditor(): void {
-    this.showEditor = true;
-  }
-
   get entityId(): string {
     return this.content?.params?.relationships?.entity_id?.data?.id || '';
   }
 
   get entityType(): string {
     return this.content?.params?.attributes?.field_name || '';
+  }
+
+  onShowEditor(): void {
+    this.showEditor = true;
   }
 
   onSubmit(state: boolean): void {
@@ -64,6 +64,10 @@ export class QuestionComponent implements OnInit {
           this.showEditor = false;
           this.myCommentId = res.data[0].id;
           this.myCommentContent = res.data[0].attributes.content.processed;
+        } else {
+          this.isAsked = false;
+          this.myCommentId = '';
+          this.myCommentContent = '';
         }
       });
   }
