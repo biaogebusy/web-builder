@@ -43,28 +43,38 @@ export class SearchComponent implements OnInit {
     this.nodeSearch(this.key, this.page);
   }
 
-  onSelectChange(value: any): void {
+  onSelectChange(controls: any): void {
     this.loading = true;
-    console.log(value);
+    console.log(controls);
     const params: string[] = [];
-    Object.keys(value).forEach((item) => {
-      const val = value[item];
+    Object.keys(controls).forEach((key) => {
+      const val = controls[key];
       if (val) {
         if (isArray(val)) {
-          params.push(`${item}=${val.join('+')}`);
-          this.formParams[item] = val.join('+');
+          if (val.length > 0) {
+            params.push(`${key}=${val.join('+')}`);
+            this.formParams[key] = val.join('+');
+          } else {
+            delete this.formParams[key];
+          }
         } else {
-          params.push(`${item}=${val}`);
-          this.formParams[item] = val;
+          params.push(`${key}=${val}`);
+          this.formParams[key] = val;
         }
       } else {
-        delete this.formParams[item];
+        delete this.formParams[key];
       }
     });
     params.push('loading=0');
-    this.nodeService.searchNode(params.join('&')).subscribe((data) => {
-      this.updateList(data, this.formParams);
-    });
+    this.nodeService.searchNode(params.join('&')).subscribe(
+      (data) => {
+        this.updateList(data, this.formParams);
+      },
+      (error) => {
+        console.log(error);
+        this.loading = false;
+      }
+    );
   }
 
   nodeSearch(key: string, page: number): void {

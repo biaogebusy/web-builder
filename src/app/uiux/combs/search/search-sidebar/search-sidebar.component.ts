@@ -53,7 +53,7 @@ export class SearchSidebarComponent implements OnInit {
 
   clear(): void {
     this.form.reset();
-    this.selectChange.emit(this.form);
+    this.selectChange.emit(this.form.value);
   }
 
   onFilterChange(event: any): void {
