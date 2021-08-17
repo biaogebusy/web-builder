@@ -19,6 +19,7 @@
     height: 100%;
     width: 100%;
     padding: 1px 20px 0 40px;
+    font-size: 14px;
     @include border-radius(200px, 200px, 200px, 200px);
   }
   input[type="search"]:active,
