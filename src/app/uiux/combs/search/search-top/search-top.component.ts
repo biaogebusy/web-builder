@@ -1,17 +1,16 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormService } from 'src/app/service/form.service';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { FormService } from 'src/app/service/form.service';
+
 @Component({
-  selector: 'app-search-sidebar',
-  templateUrl: './search-sidebar.component.html',
-  styleUrls: ['./search-sidebar.component.scss'],
+  selector: 'app-search-top',
+  templateUrl: './search-top.component.html',
+  styleUrls: ['./search-top.component.scss'],
 })
-export class SearchSidebarComponent implements OnInit {
+export class SearchTopComponent implements OnInit {
   @Input() content: any;
   @Output() selectChange = new EventEmitter();
 
-  treeView: any[];
-  panelOpenState = true;
   form: FormGroup;
   constructor(private formService: FormService) {}
 
@@ -25,10 +24,5 @@ export class SearchSidebarComponent implements OnInit {
       console.log(value);
       this.selectChange.emit(value);
     });
-  }
-
-  clear(): void {
-    this.form.reset();
-    this.selectChange.emit(this.form.value);
   }
 }
