@@ -5,11 +5,11 @@ export abstract class BaseComponent {
   abstract content: any;
   constructor() {}
 
-  getParams(content: any, key: string): string {
+  getParams(content: any, key: string): any {
     return content.params && content.params[key];
   }
 
-  getValue(content: any, path: string, key: string): string {
+  getValue(content: any, path: string, key: string): any {
     return content[path] && content[path][key];
   }
 

@@ -1,4 +1,5 @@
-import { Component, Input, OnInit, AfterViewInit } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, Input, OnInit, AfterViewInit, Inject } from '@angular/core';
 import hljs from 'highlight.js';
 import javascript from 'highlight.js/lib/languages/javascript';
 import json from 'highlight.js/lib/languages/json';
@@ -10,7 +11,10 @@ import { TagsService } from 'src/app/service/tags.service';
 })
 export class ArticleComponent implements OnInit, AfterViewInit {
   @Input() content: any;
-  constructor(private tagsService: TagsService) {}
+  constructor(
+    private tagsService: TagsService,
+    @Inject(DOCUMENT) private document: Document
+  ) {}
 
   ngOnInit(): void {
     if (this.content.title) {
@@ -19,7 +23,7 @@ export class ArticleComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    document.querySelectorAll('code').forEach((block) => {
+    this.document.querySelectorAll('code').forEach((block) => {
       // then highlight each
       hljs.highlightBlock(block);
     });

@@ -23,7 +23,6 @@ export class ContactUsComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.formService.toFormGroup(this.content.forms);
-    console.log(this.form);
   }
 
   onSubmit(): void {
@@ -37,7 +36,6 @@ export class ContactUsComponent implements OnInit {
         'X-CSRF-Token': this.apiService.csrfToken,
       }),
     };
-    console.log(this.form.value);
     const data = this.formService.getwebFormData(
       this.content.params,
       this.form

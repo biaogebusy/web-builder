@@ -17,7 +17,7 @@
           <div class="menu-inner" *ngIf="content.mainMenu">
             <div class="main-menu" fxLayout="row">
               <div class="item" *ngFor="let menu of content.mainMenu">
-                <app-item-menu [content]="menu"></app-item-menu>
+                <app-item-menu [params]="content.params" [content]="menu"></app-item-menu>
               </div>
             </div>
           </div>

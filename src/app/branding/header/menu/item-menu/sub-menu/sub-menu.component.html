@@ -1,3 +1,4 @@
+<app-link class="top" [content]="content" [matMenuTriggerFor]="childMenu"></app-link>
 <mat-menu class="sub-menu" #childMenu="matMenu" [overlapTrigger]="false">
   <div *ngFor="let child of content">
     <div *ngIf="child.child && child.child.length > 0">

@@ -1,7 +1,9 @@
-<ng-container *ngIf="content">
-  <ng-container *ngIf="content.child && content.child.length >0">
-    <app-link [content]="content" [matMenuTriggerFor]="menu.childMenu"></app-link>
+<div class="item-menu" #itemMenu *ngIf="content">
+  <ng-container *ngIf="(!isMegaMenu) && content.child && content.child.length >0">
     <app-sub-menu #menu [content]="content.child"></app-sub-menu>
   </ng-container>
-  <app-link *ngIf="!content.child || content.child.length === 0" [content]="content"></app-link>
-</ng-container>
+  <ng-container *ngIf="isMegaMenu && content.child && content.child.length >0">
+    <app-mega-menu [content]="content"></app-mega-menu>
+  </ng-container>
+  <app-link class="top" *ngIf="!content.child || content.child.length === 0" [content]="content"></app-link>
+</div>

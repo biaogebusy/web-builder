@@ -20,32 +20,6 @@
   }
 }
 
-.main-menu {
-  .item {
-    ::ng-deep a {
-      position: relative;
-      display: block;
-      white-space: nowrap;
-      font-size: 1.5rem;
-      font-weight: 700;
-      padding: 2.7rem 1.5rem;
-      line-height: 1;
-      &.active {
-        &:after {
-          position: absolute;
-          content: "";
-          height: 2px;
-          bottom: -2px;
-          width: 100%;
-          left: 0;
-          display: block;
-          z-index: 2;
-        }
-      }
-    }
-  }
-}
-
 .spacer {
   flex: 1;
 }

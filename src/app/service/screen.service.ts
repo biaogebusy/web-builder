@@ -1,17 +1,11 @@
-import { Injectable, ElementRef } from '@angular/core';
-import {
-  BreakpointObserver,
-  Breakpoints,
-  BreakpointState,
-} from '@angular/cdk/layout';
-import { action, observable, computed } from 'mobx-angular';
-import { Element } from '@angular/compiler';
+import { Injectable, Inject } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ScreenService {
-  constructor() {}
+  constructor(@Inject(DOCUMENT) private document: Document) {}
 
   isElementInViewport(el: any): boolean {
     const rect = el.getBoundingClientRect();
@@ -20,10 +14,11 @@ export class ScreenService {
       rect.left >= 0 &&
       rect.bottom <=
         (window.innerHeight ||
-          document.documentElement.clientHeight) /* or $(window).height() */ &&
+          this.document.documentElement
+            .clientHeight) /* or $(window).height() */ &&
       rect.right <=
         (window.innerWidth ||
-          document.documentElement.clientWidth) /* or $(window).width() */
+          this.document.documentElement.clientWidth) /* or $(window).width() */
     );
   }
 
@@ -38,12 +33,13 @@ export class ScreenService {
   isElementOutBottomViewport(el: any): boolean {
     const rect = el.getBoundingClientRect();
     return (
-      rect.top > (window.innerHeight || document.documentElement.clientHeight)
+      rect.top >
+      (window.innerHeight || this.document.documentElement.clientHeight)
     );
   }
 
   scrollToAnchor(location: string, wait = 0): void {
-    const element = document.querySelector('#' + location);
+    const element = this.document.querySelector('#' + location);
     if (element) {
       setTimeout(() => {
         element.scrollIntoView({

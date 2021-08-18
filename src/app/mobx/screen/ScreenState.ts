@@ -15,6 +15,8 @@ import { MatDrawer } from '@angular/material/sidenav';
 export class ScreenState {
   public scroll$ = new Subject();
   public drawer$ = new Subject();
+  public stickyMenu$ = new Subject();
+
   @observable viewPort = 'xs';
   @observable isDrawer = false;
   @observable state = {

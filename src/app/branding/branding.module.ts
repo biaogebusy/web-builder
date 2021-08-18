@@ -16,6 +16,7 @@ import { MenuItemComponent } from './footer/menu-item/menu-item.component';
 import { SearchBoxComponent } from './header/menu/search-box/search-box.component';
 import { HeaderBannerComponent } from './header/header-banner/header-banner.component';
 import { HeroModule } from '../uiux/combs/hero/hero.module';
+import { MegaMenuComponent } from './header/menu/item-menu/mega-menu/mega-menu.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { HeroModule } from '../uiux/combs/hero/hero.module';
     InverseComponent,
     SearchBoxComponent,
     HeaderBannerComponent,
+    MegaMenuComponent,
   ],
   imports: [ShareModule, WidgetsModule, HeroModule],
   exports: [HeaderComponent, FooterComponent, MenuComponent],

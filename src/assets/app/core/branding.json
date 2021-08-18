@@ -2,7 +2,8 @@
   "header": {
     "params": {
       "themeSwitch": true,
-      "userInfo": true
+      "userInfo": true,
+      "isMegaMenu": true
     },
     "logo": {
       "label": "信使",
@@ -127,13 +128,6 @@
             "href": "/sample/combs/carousel/carousel2v2"
           }]
         }, {
-          "label": "Masonry",
-          "href": "javascript:void(0)",
-          "child": [{
-            "label": "Shuffle",
-            "href": "/sample/combs/masonry/shuffle"
-          }]
-        }, {
           "label": "Node",
           "href": "javascript:void(0)",
           "child": [{
@@ -157,6 +151,9 @@
           }, {
             "label": "Taxonomy list",
             "href": "/sample/list/taxonomy-list"
+          }, {
+            "label": "Search index",
+            "href": "/sample/combs/search/search"
           }]
         }, {
           "label": "Widgets",
@@ -172,16 +169,12 @@
             "href": "/sample/widgets/panel"
           }]
         }, {
-          "label": "Search",
-          "href": "javascript:void(0)",
-          "child": [{
-            "label": "Search index",
-            "href": "/sample/combs/search/search"
-          }]
-        }, {
           "label": "Other",
           "href": "javascript:void(0)",
           "child": [{
+            "label": "Shuffle",
+            "href": "/sample/combs/masonry/shuffle"
+          }, {
             "label": "Video bg",
             "href": "/sample/combs/video/videobg"
           }, {
