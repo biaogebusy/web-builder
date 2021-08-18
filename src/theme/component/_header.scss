@@ -157,18 +157,20 @@
       }
       .main-menu {
         .item {
-          a {
-            color: mat-color($primary, default-contrast);
-
-            &:hover,
-            &:focus {
+          .top {
+            a {
               color: mat-color($primary, default-contrast);
-            }
-            &.active {
-              color: mat-color($primary);
-              background-color: mat-color($primary, default-contrast);
-              &:after {
-                display: none;
+
+              &:hover,
+              &:focus {
+                color: mat-color($primary, default-contrast);
+              }
+              &.active {
+                color: mat-color($primary);
+                background-color: mat-color($primary, default-contrast);
+                &:after {
+                  display: none;
+                }
               }
             }
           }
