@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { TreeviewItem } from 'ngx-treeview';
 import { FormService } from 'src/app/service/form.service';
 import { FormGroup } from '@angular/forms';
 @Component({
@@ -25,18 +24,7 @@ export class SearchSidebarComponent implements OnInit {
   constructor(private formService: FormService) {}
 
   ngOnInit(): void {
-    if (this.content) {
-      this.treeView = [];
-      this.content.map((item: any) => {
-        if (item.type === 'treeView') {
-          this.treeView.push({
-            title: item.label,
-            tree: [new TreeviewItem(item.elements)],
-          });
-        }
-      });
-      this.initForm(this.content);
-    }
+    this.initForm(this.content);
   }
 
   initForm(items: any[]): void {
@@ -47,16 +35,8 @@ export class SearchSidebarComponent implements OnInit {
     });
   }
 
-  onSelectedChange(event: any): void {
-    console.log(event);
-  }
-
   clear(): void {
     this.form.reset();
     this.selectChange.emit(this.form.value);
-  }
-
-  onFilterChange(event: any): void {
-    console.log(event);
   }
 }

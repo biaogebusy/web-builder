@@ -6,7 +6,6 @@ import { HeroModule } from '../hero/hero.module';
 import { SearchHeaderComponent } from './search-header/search-header.component';
 import { SearchListComponent } from './search-list/search-list.component';
 import { SearchSidebarComponent } from './search-sidebar/search-sidebar.component';
-import { TreeviewModule } from 'ngx-treeview';
 
 @NgModule({
   declarations: [
@@ -15,7 +14,7 @@ import { TreeviewModule } from 'ngx-treeview';
     SearchListComponent,
     SearchSidebarComponent,
   ],
-  imports: [ShareModule, WidgetsModule, HeroModule, TreeviewModule.forRoot()],
+  imports: [ShareModule, WidgetsModule, HeroModule],
   exports: [SearchComponent],
 })
 export class SearchModule {}

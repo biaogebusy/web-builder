@@ -45,7 +45,6 @@ export class SearchComponent implements OnInit {
 
   onSelectChange(controls: any): void {
     this.loading = true;
-    console.log(controls);
     const params: string[] = [];
     Object.keys(controls).forEach((key) => {
       const val = controls[key];

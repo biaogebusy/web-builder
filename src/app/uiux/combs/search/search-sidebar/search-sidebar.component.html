@@ -19,19 +19,6 @@
           <app-dynamic-form-control [control]="item" [form]="form"></app-dynamic-form-control>
         </ng-container>
       </mat-expansion-panel>
-      <ng-container *ngFor="let item of treeView">
-        <mat-expansion-panel *ngIf="false" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <strong>{{item.title}}</strong>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <ngx-treeview [config]="config" [items]="item.tree" (selectedChange)="onSelectedChange($event)"
-            (filterChange)="onFilterChange($event)">
-          </ngx-treeview>
-        </mat-expansion-panel>
-      </ng-container>
-
     </mat-accordion>
   </form>
 </div>
