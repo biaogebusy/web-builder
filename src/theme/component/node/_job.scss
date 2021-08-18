@@ -35,7 +35,7 @@
     .viewport {
       border-right: 1px solid rgb(97 97 97 / 8%);
       &::-webkit-scrollbar-thumb {
-        background: rgba(0, 0, 0, 0.26);
+        background: mat-color($foreground, divider, 0.2);
       }
     }
     .item {
@@ -63,7 +63,7 @@
     background-color: mat-color($background, card);
     @include mat-elevation(4, #000, 0.35);
     &::-webkit-scrollbar-thumb {
-      background: rgba(0, 0, 0, 0.26);
+      background: mat-color($foreground, divider, 0.2);
     }
     .media {
       img {

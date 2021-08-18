@@ -5,6 +5,12 @@
   background-color: #fff;
   display: none;
   z-index: -1;
+  max-height: 85vh;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    height: 4px;
+    width: 4px;
+  }
   &.active {
     display: block;
   }
