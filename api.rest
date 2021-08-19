@@ -1,5 +1,5 @@
 ### https://www.drupal.org/docs/8/core/modules/rest/javascript-and-drupal-8-restful-web-services#s-login
-@apiUrl = https://lxyadmin.zhaobg.com
+@apiUrl = https://api.zhaobg.com
 @user = test
 @psw = test
 @user_uuid = 15765815-07f2-4d7d-8142-cb598f82af2e
@@ -86,6 +86,9 @@ GET {{apiUrl}}/api/v1/node/{{type}}?fields[node--{{type}}]=title,created,changed
 Accept: application/vnd.api+json
 Content-Type: application/vnd.api+json
 X-CSRF-Token: {{csrfToken}}
+
+### get question with comment relation user
+GET {{apiUrl}}/api/v1/node/question?fields[node--question]=title,changed,path,drupal_internal__nid,answer,uid&include=uid,uid.user_picture&fields[user--user]=name,user_picture&fields[file--file]=uri&jsonapi_include=1
 
 ### get question comment by user
 GET {{apiUrl}}/api/v1/comment/answer?filter[uid.id]=d5fb03cb-abca-43ba-baa5-a162a576e67a&filter[entity_id.id]=18dac740-1d11-43c0-a431-d2b9e402fe6b&sort=-created&page[limit]=1
@@ -221,3 +224,12 @@ X-CSRF-Token: {{csrfToken}}
     }
   }
 }
+
+### get user
+GET {{apiUrl}}/api/v1/file/file
+
+### test
+GET {{apiUrl}}/api/v1/comment/comment?filter[entity_id.id]=18dac740-1d11-43c0-a431-d2b9e402fe6b&include=uid,uid.user_picture&fields[user--user]=name,user_picture&fields[file--file]=uri,url&sort=-created&jsonapi_include=1
+
+### get lxy
+GET https://lxyapi.zhaobg.com/api/v1/content?six-point=217
