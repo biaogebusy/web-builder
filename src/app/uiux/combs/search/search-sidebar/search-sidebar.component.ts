@@ -8,6 +8,7 @@ import { FormGroup } from '@angular/forms';
 })
 export class SearchSidebarComponent implements OnInit {
   @Input() content: any;
+  @Input() key: any;
   @Output() selectChange = new EventEmitter();
 
   treeView: any[];
@@ -29,6 +30,6 @@ export class SearchSidebarComponent implements OnInit {
 
   clear(): void {
     this.form.reset();
-    this.selectChange.emit(this.form.value);
+    this.selectChange.emit();
   }
 }

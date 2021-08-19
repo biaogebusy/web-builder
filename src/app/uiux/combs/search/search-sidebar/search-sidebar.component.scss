@@ -1,11 +1,8 @@
-:host ::ng-deep {
-  .treeview-item {
-    .form-inline {
-      display: flex;
-    }
-  }
+.search-sidebar {
+  position: sticky;
+  position: -webkit-sticky;
+  top: 80px;
 }
-
 .mat-expansion-panel-spacing {
   margin: 0;
 }

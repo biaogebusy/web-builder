@@ -16,7 +16,9 @@ export class SearchComponent implements OnInit {
   page = 0;
   pager: any;
   formParams: Params = {};
+  formValues: any;
   nodes: [];
+  status: any;
   loading = false;
   constructor(
     private nodeService: NodeService,
@@ -29,43 +31,31 @@ export class SearchComponent implements OnInit {
       console.log(query);
       this.key = query.keys || '';
       this.page = query.page || 0;
-      this.nodeSearch(this.key, this.page);
+      this.nodeSearch();
     });
   }
 
   onSearch(key: string): void {
     this.key = key;
-    this.nodeSearch(this.key, 0);
+    this.nodeSearch();
   }
 
   onPageChange(page: any): void {
     this.page = page;
-    this.nodeSearch(this.key, this.page);
+    this.nodeSearch();
   }
 
   onSelectChange(controls: any): void {
     this.loading = true;
-    const params: string[] = [];
-    Object.keys(controls).forEach((key) => {
-      const val = controls[key];
-      if (val) {
-        if (isArray(val)) {
-          if (val.length > 0) {
-            params.push(`${key}=${val.join('+')}`);
-            this.formParams[key] = val.join('+');
-          } else {
-            delete this.formParams[key];
-          }
-        } else {
-          params.push(`${key}=${val}`);
-          this.formParams[key] = val;
-        }
-      } else {
-        delete this.formParams[key];
-      }
-    });
-    params.push('loading=0');
-    this.nodeService.searchNode(params.join('&')).subscribe(
+    this.formValues = controls;
+    if (!controls) {
+      // clear
+      this.key = '';
+      this.page = 0;
+    }
+    const params = this.getApiParams(this.formValues);
+    this.formParams = this.getFormParams(this.formValues);
+    this.nodeService.searchNode(params).subscribe(
       (data) => {
         this.updateList(data, this.formParams);
       },
@@ -76,15 +66,13 @@ export class SearchComponent implements OnInit {
     );
   }
 
-  nodeSearch(key: string, page: number): void {
+  nodeSearch(): void {
     this.loading = true;
-    const params = [`keys=${key}`, `page=${page}`, `loading=0`].join('&');
+    // const params = [`keys=${key}`, `page=${page}`, `loading=0`].join('&');
+    const params = this.getApiParams(this.formValues);
     this.nodeService.search(params).subscribe(
       (data) => {
-        const query: Params = {
-          keys: key,
-          page,
-        };
+        const query: Params = this.getFormParams(this.formValues);
         this.updateList(data, query);
       },
       (error) => {
@@ -109,5 +97,65 @@ export class SearchComponent implements OnInit {
       };
     });
     this.loading = false;
+    this.updateStatus();
+  }
+
+  updateStatus(): void {
+    this.status = {
+      key: this.key,
+      results: {
+        count: this.nodes.length,
+      },
+    };
+  }
+
+  getApiParams(controls: any): any {
+    const params: string[] = [];
+    if (controls) {
+      Object.keys(controls).forEach((key) => {
+        const val = controls[key];
+        if (val) {
+          if (isArray(val) && val.length > 0) {
+            params.push(`${key}=${val.join('+')}`);
+          } else {
+            params.push(`${key}=${val}`);
+          }
+        }
+      });
+    }
+    if (this.key) {
+      params.push(`keys=${this.key}`);
+    }
+    params.push(`page=${this.page}`);
+    return params.join('&');
+  }
+
+  getFormParams(controls: any): Params {
+    const formParams: any = {};
+    if (controls) {
+      Object.keys(controls).forEach((key) => {
+        const val = controls[key];
+        if (val) {
+          if (isArray(val)) {
+            if (val.length > 0) {
+              formParams[key] = val.join('+');
+            } else {
+              delete formParams[key];
+            }
+          } else {
+            formParams[key] = val;
+          }
+        } else {
+          delete formParams[key];
+        }
+      });
+    }
+    if (this.key) {
+      formParams.keys = this.key;
+    }
+    if (this.page) {
+      formParams.page = this.page;
+    }
+    return formParams;
   }
 }

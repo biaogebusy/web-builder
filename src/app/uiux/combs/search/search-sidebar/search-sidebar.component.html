@@ -1,6 +1,11 @@
 <div class="search-sidebar m-y" *ngIf="content">
-  <div class="sidebar-header" fxLayoutAlign="end center">
-    <div class="item m-y-xs m-x-xs">
+  <div class="sidebar-header">
+    <div class="key m-y-xs m-x-xs" *ngIf="key" fxFlex="0 1 100">
+      <mat-chip-list aria-label="Fish selection">
+        <mat-chip color="primary" selected>{{key}}</mat-chip>
+      </mat-chip-list>
+    </div>
+    <div class="item m-y-xs m-x-xs" fxFlex="0 1 100" fxLayoutAlign="end center">
       <button mat-button (click)="clear()">
         <mat-icon>clear</mat-icon>清空
       </button>

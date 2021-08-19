@@ -7,6 +7,7 @@ import { SearchHeaderComponent } from './search-header/search-header.component';
 import { SearchListComponent } from './search-list/search-list.component';
 import { SearchSidebarComponent } from './search-sidebar/search-sidebar.component';
 import { SearchTopComponent } from './search-top/search-top.component';
+import { SearchStatusComponent } from './search-status/search-status.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { SearchTopComponent } from './search-top/search-top.component';
     SearchListComponent,
     SearchSidebarComponent,
     SearchTopComponent,
+    SearchStatusComponent,
   ],
   imports: [ShareModule, WidgetsModule, HeroModule],
   exports: [SearchComponent],
