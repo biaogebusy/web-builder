@@ -1,4 +1,3 @@
-import { HttpParams } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { isArray } from 'lodash-es';
@@ -12,11 +11,11 @@ import { RouteService } from 'src/app/service/route.service';
 })
 export class SearchComponent implements OnInit {
   @Input() content: any;
-  key = '';
+  keys = '';
   page = 0;
   pager: any;
   formParams: Params = {};
-  formValues: any;
+  formValues: {};
   nodes: [];
   status: any;
   loading = false;
@@ -28,33 +27,34 @@ export class SearchComponent implements OnInit {
 
   ngOnInit(): void {
     this.router.queryParams.subscribe((query: any) => {
-      console.log(query);
-      this.key = query.keys || '';
+      this.keys = query.keys || '';
       this.page = query.page || 0;
-      this.nodeSearch();
+      this.nodeSearch({ keys: this.keys, page: this.page });
     });
   }
 
-  onSearch(key: string): void {
-    this.key = key;
-    this.nodeSearch();
+  getParamsState(options: any): any {
+    return Object.assign({}, this.formValues, options);
+  }
+
+  onSearch(keys: string): void {
+    this.keys = keys;
+    this.nodeSearch({ keys: this.keys });
   }
 
   onPageChange(page: any): void {
     this.page = page;
-    this.nodeSearch();
+    this.nodeSearch({ page: this.page });
   }
 
-  onSelectChange(controls: any): void {
+  onSelectChange(state: any): void {
     this.loading = true;
-    this.formValues = controls;
-    if (!controls) {
-      // clear
-      this.key = '';
-      this.page = 0;
-    }
-    const params = this.getApiParams(this.formValues);
-    this.formParams = this.getFormParams(this.formValues);
+    this.keys = state.keys;
+    this.page = state.page;
+    this.formValues = state;
+    const allState = this.getParamsState(state);
+    const params = this.getApiParams(allState);
+    this.formParams = this.getFormParams(allState);
     this.nodeService.searchNode(params).subscribe(
       (data) => {
         this.updateList(data, this.formParams);
@@ -66,13 +66,13 @@ export class SearchComponent implements OnInit {
     );
   }
 
-  nodeSearch(): void {
+  nodeSearch(options: any): void {
     this.loading = true;
-    // const params = [`keys=${key}`, `page=${page}`, `loading=0`].join('&');
-    const params = this.getApiParams(this.formValues);
+    const state = this.getParamsState(options);
+    const params = this.getApiParams(state);
     this.nodeService.search(params).subscribe(
       (data) => {
-        const query: Params = this.getFormParams(this.formValues);
+        const query: Params = this.getFormParams(state);
         this.updateList(data, query);
       },
       (error) => {
@@ -94,6 +94,7 @@ export class SearchComponent implements OnInit {
         created: item.created,
         body: item.body,
         user: item.user,
+        type: item.type || '',
       };
     });
     this.loading = false;
@@ -102,39 +103,39 @@ export class SearchComponent implements OnInit {
 
   updateStatus(): void {
     this.status = {
-      key: this.key,
+      key: this.keys,
       results: {
         count: this.nodes.length,
       },
     };
   }
 
-  getApiParams(controls: any): any {
+  getApiParams(state: any): any {
     const params: string[] = [];
-    if (controls) {
-      Object.keys(controls).forEach((key) => {
-        const val = controls[key];
+    if (state) {
+      Object.keys(state).forEach((key) => {
+        const val = state[key];
         if (val) {
-          if (isArray(val) && val.length > 0) {
-            params.push(`${key}=${val.join('+')}`);
+          if (isArray(val)) {
+            if (val.length > 0) {
+              params.push(`${key}=${val.join('+')}`);
+            } else {
+              return;
+            }
           } else {
             params.push(`${key}=${val}`);
           }
         }
       });
     }
-    if (this.key) {
-      params.push(`keys=${this.key}`);
-    }
-    params.push(`page=${this.page}`);
     return params.join('&');
   }
 
-  getFormParams(controls: any): Params {
+  getFormParams(state: any): Params {
     const formParams: any = {};
-    if (controls) {
-      Object.keys(controls).forEach((key) => {
-        const val = controls[key];
+    if (state) {
+      Object.keys(state).forEach((key) => {
+        const val = state[key];
         if (val) {
           if (isArray(val)) {
             if (val.length > 0) {
@@ -149,12 +150,6 @@ export class SearchComponent implements OnInit {
           delete formParams[key];
         }
       });
-    }
-    if (this.key) {
-      formParams.keys = this.key;
-    }
-    if (this.page) {
-      formParams.page = this.page;
     }
     return formParams;
   }

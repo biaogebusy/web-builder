@@ -1,7 +1,10 @@
-<mat-form-field class="width-100" [formGroup]="form" appearance="fill" *ngIf="content">
+<mat-form-field class="width-100" [formGroup]="form" [appearance]="content.appearance || 'fill'" *ngIf="content">
   <mat-label>{{content.label}}</mat-label>
   <mat-icon matSuffix>{{content.icon}}</mat-icon>
-  <input matInput formControlName="{{content.key}}" placeholder="{{content.placeholder}}" value="{{content.value}}"
-    [id]="content.key">
+  <input #input matInput type="{{content.controlType}}" formControlName="{{content.key}}"
+    placeholder="{{content.placeholder}}" value="{{content.value}}" [id]="content.key">
+  <button *ngIf="input.value" matSuffix mat-icon-button aria-label="Clear" (click)="input.value=''">
+    <mat-icon>close</mat-icon>
+  </button>
   <mat-error *ngIf="!isValid">{{content.errorMes}}</mat-error>
 </mat-form-field>

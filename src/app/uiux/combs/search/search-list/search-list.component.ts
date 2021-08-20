@@ -1,5 +1,4 @@
 import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
-import { Event } from '@angular/router';
 
 @Component({
   selector: 'app-search-list',
