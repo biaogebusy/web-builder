@@ -8,7 +8,7 @@ import { FormGroup } from '@angular/forms';
 })
 export class SearchSidebarComponent implements OnInit {
   @Input() content: any;
-  @Input() key: any;
+  @Input() keys: any;
   @Output() selectChange = new EventEmitter();
 
   treeView: any[];
@@ -23,13 +23,13 @@ export class SearchSidebarComponent implements OnInit {
   initForm(items: any[]): void {
     this.form = this.formService.toFormGroup(items);
     this.form.valueChanges.subscribe((value) => {
-      console.log(value);
-      this.selectChange.emit(value);
+      const params = Object.assign(value, { keys: this.keys, page: 0 });
+      this.selectChange.emit(params);
     });
   }
 
   clear(): void {
+    this.keys = '';
     this.form.reset();
-    this.selectChange.emit();
   }
 }

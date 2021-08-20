@@ -1,16 +1,20 @@
 <div class="m-y" *ngIf="loading" fxLayoutAlign="center center">
   <app-spinner class="m-y" [content]="{color:'primary', size:40}"></app-spinner>
 </div>
-<div class="search-list m-y-sm" *ngIf="content">
+<div class="search-list m-y" *ngIf="content">
   <div class="container">
+    <div class="results m-bottom-sm">
+      找到 {{pager.total_items}} 个结果
+    </div>
+    <mat-divider></mat-divider>
     <div class="list m-y" *ngFor="let item of content | paginate: { itemsPerPage: pager.items_per_page, currentPage:
       pager.current_page + 1, totalItems: pager.total_items}">
-      <h1 class="title">
+      <h2 class="title">
         <app-link [content]="item.link"></app-link>
-      </h1>
+      </h2>
       <div [innerHTML]="item.body | shorten: 150: '...' | stripTags"></div>
       <div class="bottom m-y-sm" fxLayoutAlign="space-between center">
-        <div>{{item.user}}</div>
+        <div>{{item.user | ucfirst}} {{item?.type | wrap:'| '}}</div>
         <div>{{item.created}}</div>
       </div>
     </div>

@@ -1,11 +1,11 @@
-<app-search-header [content]="content.header" [key]="key" (searchChange)="onSearch($event)">
+<app-search-header [content]="content.header" [keys]="keys" (searchChange)="onSearch($event)">
 </app-search-header>
 <div class="container">
   <div class="search-body" fxLayout="row wrap">
     <!-- <app-search-status fxFlex="0 0 100" [content]="status"></app-search-status> -->
     <!-- <app-search-top fxFlex="0 0 100" [content]="content.sidebar" (selectChange)="onSelectChange($event)">
     </app-search-top> -->
-    <app-search-sidebar *ngIf="content.sidebar" [content]="content.sidebar" [key]="key" fxFlex.lt-sm="0 0 100"
+    <app-search-sidebar *ngIf="content.sidebar" [content]="content.sidebar" [keys]="keys" fxFlex.lt-sm="0 0 100"
       fxFlex.gt-md="0 0 25%" (selectChange)="onSelectChange($event)">
     </app-search-sidebar>
     <app-search-list fxFlex.lt-sm="0 0 100" fxFlex.gt-md="0 0 {{content.sidebar ? '75%':'100%'}}" [content]="nodes"
