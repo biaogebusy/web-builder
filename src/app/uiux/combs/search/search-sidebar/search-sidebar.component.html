@@ -20,14 +20,6 @@
             <strong>过滤条件</strong>
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <mat-form-field appearance="legacy" class="width-100">
-          <mat-label>输入关键词</mat-label>
-          <input #input matInput placeholder="" type="search" maxlength="128" [value]="key" class="form-search">
-          <button *ngIf="input.value" matSuffix mat-icon-button aria-label="Clear" (click)="input.value=''">
-            <mat-icon>close</mat-icon>
-          </button>
-          <mat-icon matPrefix>search</mat-icon>
-        </mat-form-field>
         <ng-container *ngFor="let item of content">
           <app-dynamic-form-control [control]="item" [form]="form"></app-dynamic-form-control>
         </ng-container>

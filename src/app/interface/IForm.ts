@@ -1,3 +1,5 @@
+import { MatFormFieldAppearance } from '@angular/material/form-field';
+
 export interface IControl {
   type: string;
   key: string;
@@ -11,6 +13,7 @@ export interface IControl {
   controlType?: string;
   options?: { key: string; value: string; label?: string }[];
   errorMes?: string;
+  appearance?: MatFormFieldAppearance;
 }
 
 export interface IAction {
