@@ -2,6 +2,9 @@
   position: sticky;
   position: -webkit-sticky;
   top: 80px;
+  ::ng-deep .mat-form-field-infix {
+    width: 100%;
+  }
 }
 
 .mat-expansion-panel-spacing {
