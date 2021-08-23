@@ -105,7 +105,7 @@ X-CSRF-Token: {{csrfToken}}
 @sample_type = question
 @article_node_uuid = bb0617db-af29-4239-b824-4131f29d7530
 
-### creating node
+### creating node // no need with relationship
 POST {{apiUrl}}/api/v1/node/{{sample_type}} HTTP/1.1
 Accept: application/vnd.api+json
 Content-Type: application/vnd.api+json
@@ -115,18 +115,10 @@ X-CSRF-Token: {{csrfToken}}
   "data": {
     "type": "node--{{sample_type}}",
     "attributes": {
-      "title": "new article by Johnson",
+      "title": "new article by Johnson xxx",
       "body": {
         "value": "Hello world! Lorem ipsum dolor sit amet consectetur adipiscing elit",
         "format": "plain_text"
-      }
-    },
-    "relationships": {
-      "uid": {
-        "data": {
-          "type": "user--user",
-          "id": "{{user_uuid}}"
-        }
       }
     }
   }
