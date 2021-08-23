@@ -100,19 +100,11 @@ export class NodeService {
             format: 'plain_text',
           },
         },
-        relationships: {
-          uid: {
-            data: {
-              type: 'user--user',
-              id: user.id,
-            },
-          },
-        },
       },
     };
     return this.http.post<any>(
       `${this.apiUrl}${this.apiUrlConfig.nodeGetPath}/${type}`,
-      data,
+      JSON.stringify(data),
       this.apiService.httpOptions
     );
   }
