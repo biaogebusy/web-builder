@@ -7,13 +7,18 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
+import { AppState } from '../mobx/AppState';
 import { UserState } from '../mobx/user/UserState';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  constructor(private router: Router, private userState: UserState) {}
+  constructor(
+    private router: Router,
+    private userState: UserState,
+    private appState: AppState
+  ) {}
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -22,11 +27,16 @@ export class AuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    if (this.userState.anthenticated) {
-      return true;
+    console.log(this.appState.config);
+    if (this.appState.guard && this.appState.guard.authGuard) {
+      if (this.userState.anthenticated) {
+        return true;
+      }
+      this.router.navigate(['user/login'], {
+        queryParams: { returnUrl: state.url },
+      });
+      return false;
     }
-
-    this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
-    return false;
+    return true;
   }
 }

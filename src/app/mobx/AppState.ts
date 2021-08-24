@@ -83,6 +83,10 @@ export class AppState {
     return this.state.page && this.state.page.body;
   }
 
+  @computed get guard(): any {
+    return this.state.config && this.state.config.guard;
+  }
+
   get version(): string {
     return version;
   }
