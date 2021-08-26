@@ -1,5 +1,5 @@
 ### https://www.drupal.org/docs/8/core/modules/rest/javascript-and-drupal-8-restful-web-services#s-login
-@apiUrl = https://api.zhaobg.com
+@apiUrl = https://lxyadmin.zhaobg.com
 @user = test
 @psw = test
 @user_uuid = 15765815-07f2-4d7d-8142-cb598f82af2e
@@ -50,11 +50,11 @@ GET {{apiUrl}}/api/v1/user/user
 GET {{apiUrl}}/api/v1/node/recruitment/5c67b19c-b8c4-495b-8a6f-1bea1a852a49/skill?resourceVersion=id%3A90
 
 ### taxonomy skill
-GET {{apiUrl}}/api/v1/taxonomy_term/skill
+GET {{apiUrl}}/api/v1/taxonomy_term/search_category
 
 ### https://dev.acquia.com/blog/decoupling-drupal-8-with-json-api/15/05/2018/19596
 
-@type=case
+@type=article
 
 ### get need set header Accept: application/vnd.api+json
 
@@ -86,6 +86,9 @@ GET {{apiUrl}}/api/v1/node/{{type}}?fields[node--{{type}}]=title,created,changed
 Accept: application/vnd.api+json
 Content-Type: application/vnd.api+json
 X-CSRF-Token: {{csrfToken}}
+
+### get node by term
+GET {{apiUrl}}/api/v1/node/article?fields[node--article]=title,changed,drupal_internal__nid,path&include=search_category&jsonapi_include=1
 
 ### get question with comment relation user
 GET {{apiUrl}}/api/v1/node/question?fields[node--question]=title,changed,path,drupal_internal__nid,answer,uid&include=uid,uid.user_picture&fields[user--user]=name,user_picture&fields[file--file]=uri&jsonapi_include=1
