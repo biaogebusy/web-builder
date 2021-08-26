@@ -1,0 +1,28 @@
+{
+  "title": "taxonomy thin list",
+  "body": [{
+    "type": "taxonomy-thin-list",
+    "params": {
+      "type": "article",
+      "taxonomy": "search_category",
+      "page": "20"
+    },
+    "elements": [{
+      "type": "menu-list",
+      "title": "检索分类",
+      "elements": [{
+        "link": {
+          "href": "",
+          "label": "案由检索"
+        },
+        "label": "8"
+      }, {
+        "link": {
+          "href": "",
+          "label": "合规审查"
+        },
+        "label": "5"
+      }]
+    }]
+  }]
+}
