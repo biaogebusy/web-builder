@@ -8,31 +8,25 @@
   "body": [{
     "type": "search",
     "header": {
-      "type": "hero-2v1",
-      "theme": "text-light",
-      "params": {
-        "height": "600px"
+      "bg": {
+        "classes": "bg-shadow overlay overlay-80",
+        "img": {
+          "hostClasses": "bg-center",
+          "src": "/assets/images/hero/1-6.jpg",
+          "mobile": "/assets/images/mobile/mobile-03.jpg"
+        }
       },
       "text": {
         "title": {
           "label": "律鑫云搜索",
           "style": "style-v1",
-          "classes": "mat-display-1"
+          "classes": "mat-display-1  text-light"
         },
         "spacer": "xl",
-        "classes": "xy-center",
         "style-": {
           "width": "50%",
           "left": "0%",
           "top": "5%"
-        },
-        "bg": {
-          "classes": "bg-shadow overlay overlay-80",
-          "img": {
-            "hostClasses": "bg-center",
-            "src": "/assets/images/hero/1-6.jpg",
-            "mobile": "/assets/images/mobile/mobile-03.jpg"
-          }
         },
         "body": "<p class=\"text-center\">这里有你想要的答案。</p>"
       },

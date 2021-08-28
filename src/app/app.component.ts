@@ -34,6 +34,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.appState.configLoadDone$.subscribe((res) => {
       if (res) {
+        // TODO: loop object to load service
         if (this.appState.config?.googleAnalytics) {
           this.googleAnalyticsService.loadGoogleAnalytics();
         }

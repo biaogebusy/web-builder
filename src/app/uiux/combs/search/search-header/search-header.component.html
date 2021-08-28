@@ -1,8 +1,11 @@
-<div class="search-header" *ngIf="content">
-  <app-hero2v1 [content]="content"></app-hero2v1>
+<div class="search-header position-relative bg-shadow p-y-xl" *ngIf="content">
+  <app-bg [content]="content.bg">
+    <app-img [content]="content.bg.img"></app-img>
+  </app-bg>
   <div class="container position-relative">
+    <app-text [content]="content.text"></app-text>
     <app-spacer [size]="'sm'"></app-spacer>
-    <div class="features-absolute position-absolute width-100">
+    <div class="width-100">
       <form (ngSubmit)="onSubmit(input.value)">
         <div class="search-input">
           <input #input matInput placeholder="{{content.input.placeholder}}" type="search" size="15" maxlength="128"
