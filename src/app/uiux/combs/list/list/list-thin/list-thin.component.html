@@ -13,10 +13,7 @@
           </div>
         </div>
         <div class="actions">
-          <button mat-button color="primary">
-            <mat-icon inline="true">star</mat-icon>
-            <span>收藏</span>
-          </button>
+          <app-dynamic-widgets [content]="action" *ngFor="let action of item.actions"></app-dynamic-widgets>
           <button mat-button>
             <mat-icon inline="true">share</mat-icon>
             <span>分享</span>

@@ -55,7 +55,26 @@
         {
           "label": "2021-08-28"
         }
-      ]
+      ],
+      "actions": [{
+        "type": "flag",
+        "label": "收藏",
+        "icon": {
+          "name": "star",
+          "inline": true
+        },
+        "params": {
+          "type": "flagging--favorite",
+          "entity_type": "node",
+          "entity_id": "1312",
+          "relationships": {
+            "flagged_entity": {
+              "type": "node--article",
+              "id": "cb31d69f-a95e-4c91-97d1-1169f82a10a5"
+            }
+          }
+        }
+      }]
     }, {
       "type": "list-thin",
       "link": {
@@ -68,7 +87,26 @@
         {
           "label": "2021-08-28"
         }
-      ]
+      ],
+      "actions": [{
+        "type": "flag",
+        "label": "收藏",
+        "icon": {
+          "name": "star",
+          "inline": true
+        },
+        "params": {
+          "type": "flagging--favorite",
+          "entity_type": "node",
+          "entity_id": "1312",
+          "relationships": {
+            "flagged_entity": {
+              "type": "node--article",
+              "id": "cb31d69f-a95e-4c91-97d1-1169f82a10a5"
+            }
+          }
+        }
+      }]
     }, {
       "type": "list-thin",
       "link": {
@@ -81,7 +119,26 @@
         {
           "label": "2021-08-28"
         }
-      ]
+      ],
+      "actions": [{
+        "type": "flag",
+        "label": "收藏",
+        "icon": {
+          "name": "star",
+          "inline": true
+        },
+        "params": {
+          "type": "flagging--favorite",
+          "entity_type": "node",
+          "entity_id": "1312",
+          "relationships": {
+            "flagged_entity": {
+              "type": "node--article",
+              "id": "cb31d69f-a95e-4c91-97d1-1169f82a10a5"
+            }
+          }
+        }
+      }]
     }]
   }]
 }

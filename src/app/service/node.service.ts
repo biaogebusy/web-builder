@@ -131,4 +131,12 @@ export class NodeService {
       this.apiService.httpOptions
     );
   }
+
+  flagging(path: string, data: any): Observable<any> {
+    return this.http.post<any>(
+      `${this.apiUrl}/api/v1${path}`,
+      data,
+      this.apiService.httpOptions
+    );
+  }
 }

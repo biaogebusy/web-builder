@@ -1,10 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { AppState } from '../mobx/AppState';
-import { keyBy } from 'lodash-es';
-
-declare var gtag: any;
-declare var window: any;
 
 @Injectable({
   providedIn: 'root',

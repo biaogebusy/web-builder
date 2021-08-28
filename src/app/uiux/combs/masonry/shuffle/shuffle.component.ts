@@ -5,7 +5,6 @@ import {
   ElementRef,
   AfterViewInit,
 } from '@angular/core';
-import { isArray, keyBy, map } from 'lodash-es';
 import Shuffle from 'shufflejs';
 @Component({
   selector: 'app-shuffle',
@@ -21,9 +20,8 @@ export class ShuffleComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     const sizer = this.el.nativeElement.querySelectorAll('.sizer')[0];
-    const shuffleEl = this.el.nativeElement.querySelectorAll(
-      '.shuffle-inner'
-    )[0];
+    const shuffleEl =
+      this.el.nativeElement.querySelectorAll('.shuffle-inner')[0];
     this.shuffle = new Shuffle(shuffleEl, {
       itemSelector: '.item',
       sizer,

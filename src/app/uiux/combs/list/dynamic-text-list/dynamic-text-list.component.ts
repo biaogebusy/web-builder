@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { uniqueId } from 'lodash-es';
 import { NodeService } from 'src/app/service/node.service';
 import { BaseComponent } from 'src/app/uiux/base/base.widget';
 import { AppState } from '../../../../mobx/AppState';
