@@ -7,22 +7,81 @@
       "taxonomy": "search_category",
       "page": "20"
     },
-    "elements": [{
+    "sidebar": [{
       "type": "menu-list",
-      "title": "检索分类",
+      "title": "内容分类",
       "elements": [{
         "link": {
           "href": "",
-          "label": "案由检索"
+          "label": "Angular"
         },
         "label": "8"
       }, {
         "link": {
           "href": "",
-          "label": "合规审查"
+          "label": "Drupal"
         },
         "label": "5"
       }]
+    }, {
+      "type": "menu-list",
+      "title": "文章分类",
+      "elements": [{
+        "link": {
+          "href": "",
+          "label": "新闻"
+        },
+        "label": "8"
+      }, {
+        "link": {
+          "href": "",
+          "label": "技术"
+        },
+        "label": "5"
+      }]
+    }],
+    "pager": {
+      "itemsPerPage": "20"
+    },
+    "elements": [{
+      "type": "list-thin",
+      "link": {
+        "label": "商标法",
+        "href": "/"
+      },
+      "meta": [{
+          "label": "editor"
+        },
+        {
+          "label": "2021-08-28"
+        }
+      ]
+    }, {
+      "type": "list-thin",
+      "link": {
+        "label": "商标法",
+        "href": "/"
+      },
+      "meta": [{
+          "label": "editor"
+        },
+        {
+          "label": "2021-08-28"
+        }
+      ]
+    }, {
+      "type": "list-thin",
+      "link": {
+        "label": "商标法",
+        "href": "/"
+      },
+      "meta": [{
+          "label": "editor"
+        },
+        {
+          "label": "2021-08-28"
+        }
+      ]
     }]
   }]
 }

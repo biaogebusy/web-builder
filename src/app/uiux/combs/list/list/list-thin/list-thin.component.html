@@ -1,0 +1,29 @@
+<div class="list-thin" *ngIf="content">
+  <div *ngIf="loading" class="m-y" fxLayoutAlign="center center">
+    <app-spinner [content]="{color:'primary', size:40}"></app-spinner>
+  </div>
+  <ng-container *ngIf="pager">
+    <div fxLayout="column" class="item m-bottom-sm p-y-xs p-x-xs"
+      *ngFor="let item of content | paginate: { itemsPerPage: pager.itemsPerPage || 20, currentPage: p }">
+      <app-link [content]="item.link"></app-link>
+      <div class="item-bottom" fxLayout="row" fxLayoutAlign="start center">
+        <div class="meta m-right-sm" fxLayoutGap="1rem" fxLayout>
+          <div *ngFor="let item of item.meta">
+            {{item.label | ucfirst}}
+          </div>
+        </div>
+        <div class="actions">
+          <button mat-button color="primary">
+            <mat-icon inline="true">star</mat-icon>
+            <span>收藏</span>
+          </button>
+          <button mat-button>
+            <mat-icon inline="true">share</mat-icon>
+            <span>分享</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <app-pagination (pageChange)="p = $event"></app-pagination>
+  </ng-container>
+</div>

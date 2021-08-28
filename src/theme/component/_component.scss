@@ -7,6 +7,7 @@
 @import "./showcase";
 @import "./box";
 @import "./img";
+@import "./list";
 @import "./title";
 @import "./btn-animate";
 @import "./carousel";
@@ -36,6 +37,7 @@
   @include box-color($config-or-theme);
   @include showcase-color($config-or-theme);
   @include img-color($config-or-theme);
+  @include list-color($config-or-theme);
   @include title-color($config-or-theme);
   @include btn-animate-color($config-or-theme);
   @include carousel-color($config-or-theme);

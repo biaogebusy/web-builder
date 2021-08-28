@@ -1,1 +1,13 @@
-<p>taxonomy-thin-list works!</p>
+<div class="taxonomy-thin-list" *ngIf="content">
+  <div class="container">
+    <div class="m-top-md" fxLayout.lt-md="column" fxLayout.gt-sm="row" fxLayoutAlign="center start">
+      <div class="thin-sidebar p-x-xs p-y-xs" [ngClass.gt-sm]="'m-right-sm'" *ngIf="content.sidebar" fxFlex.lt-md="100"
+        fxFlex.gt-sm="25">
+        <app-dynamic-widgets [content]="item" *ngFor="let item of content.sidebar"></app-dynamic-widgets>
+      </div>
+      <div class="list" fxFlex.lt-md="100" fxFlex.gt-sm="75">
+        <app-list-thin [content]="content.elements" [pager]="content.pager"></app-list-thin>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+@import "~@angular/material/theming";
+
+@mixin list-color($config-or-theme) {
+  $config: mat-get-color-config($config-or-theme);
+  $foreground: map-get($config, foreground);
+  $background: map-get($config, background);
+  $primary: map-get($config, primary);
+  $accent: map-get($config, accent);
+  $warn: map-get($config, warn);
+
+  .taxonomy-thin-list {
+    .thin-sidebar {
+      background-color: mat-color($background, card);
+      @include mat-elevation(3, mat-color($foreground, text), 0.5);
+    }
+    .list-thin {
+      .item {
+        background-color: mat-color($background, card);
+        @include mat-elevation(3, mat-color($foreground, text), 0.5);
+        .item-bottom {
+          opacity: 0.7;
+        }
+      }
+    }
+  }
+}

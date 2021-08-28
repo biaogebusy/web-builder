@@ -1,5 +1,6 @@
 <div class="menu-list" *ngIf="content">
   <h2 class="block-title">{{content.title}}</h2>
+  <mat-divider></mat-divider>
   <div class="list">
     <div class="item" *ngFor="let item of content.elements">
       <app-link [content]="item.link"></app-link>

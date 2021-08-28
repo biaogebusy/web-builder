@@ -8,6 +8,7 @@ import { DynamicMediaListComponent } from './dynamic-media-list/dynamic-media-li
 import { DynamicCardListComponent } from './dynamic-card-list/dynamic-card-list.component';
 import { DynamicTextListComponent } from './dynamic-text-list/dynamic-text-list.component';
 import { TaxonomyThinListComponent } from './taxonomy-thin-list/taxonomy-thin-list.component';
+import { ListThinComponent } from './list/list-thin/list-thin.component';
 
 const components = [
   ListComponent,
@@ -16,6 +17,7 @@ const components = [
   DynamicCardListComponent,
   DynamicTextListComponent,
   TaxonomyThinListComponent,
+  ListThinComponent,
 ];
 
 @NgModule({
