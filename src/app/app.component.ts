@@ -9,6 +9,7 @@ import { ScreenService } from './service/screen.service';
 import { LoadingService } from './service/loading.service';
 import { delay } from 'rxjs/operators';
 import { GoogleAnalyticsService } from './service/ga.service';
+import { QiDianService } from './service/qidian.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -26,7 +27,8 @@ export class AppComponent implements OnInit, AfterViewInit {
     private router: ActivatedRoute,
     private screenService: ScreenService,
     private loadingservice: LoadingService,
-    private googleAnalyticsService: GoogleAnalyticsService
+    private googleAnalyticsService: GoogleAnalyticsService,
+    private qiDianService: QiDianService
   ) {}
 
   ngOnInit(): void {
@@ -34,6 +36,9 @@ export class AppComponent implements OnInit, AfterViewInit {
       if (res) {
         if (this.appState.config?.googleAnalytics) {
           this.googleAnalyticsService.loadGoogleAnalytics();
+        }
+        if (this.appState.config.qidian) {
+          this.qiDianService.loadQiDian();
         }
         if (this.appState.config?.loading) {
           if (!this.appState?.meta?.config?.loading) {
