@@ -29,6 +29,9 @@
         }
         a {
           color: mat-color($foreground, text, 0.4);
+          &.active {
+            color: mat-color($primary);
+          }
           &:hover {
             color: mat-color($primary);
           }

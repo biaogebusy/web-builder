@@ -11,14 +11,14 @@
   .taxonomy-thin-list {
     .thin-sidebar {
       background-color: mat-color($background, card);
-      @include mat-elevation(3, mat-color($foreground, text), 0.5);
+      @include mat-elevation(4, mat-color($foreground, text), 0.1);
     }
     .list-thin {
       .item {
         background-color: mat-color($background, card);
-        @include mat-elevation(3, mat-color($foreground, text), 0.5);
+        @include mat-elevation(4, mat-color($foreground, text), 0.1);
         .item-bottom {
-          opacity: 0.7;
+          opacity: 0.5;
         }
       }
     }
