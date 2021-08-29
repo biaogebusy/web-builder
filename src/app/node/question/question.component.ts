@@ -54,9 +54,9 @@ export class QuestionComponent implements OnInit {
       `sort=-created`,
       `page[limit]=1`,
     ].join('&');
-
+    const path = this.nodeService.apiUrlConfig.commentGetPath;
     this.nodeService
-      .getNodes(this.entityType, params, 'comment')
+      .getNodes(path, this.entityType, params)
       .subscribe((res) => {
         console.log(res);
         if (res.data.length) {
@@ -86,8 +86,9 @@ export class QuestionComponent implements OnInit {
       `sort=-created`,
       `jsonapi_include=1`,
     ].join('&');
+    const path = this.nodeService.apiUrlConfig.commentGetPath;
     this.nodeService
-      .getNodes(this.entityType, params, 'comment')
+      .getNodes(path, this.entityType, params)
       .subscribe((res) => {
         console.log(res);
         this.comments = res.data.map((comment: any) => {

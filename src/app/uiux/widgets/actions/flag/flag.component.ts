@@ -11,55 +11,75 @@ import { UserState } from '../../../../mobx/user/UserState';
 export class FlagComponent extends BaseComponent implements OnInit {
   @Input() content: any;
 
-  style = 'default';
+  flagging = false;
   constructor(private nodeService: NodeService, private userState: UserState) {
     super();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getFlagging();
+  }
 
-  onFlag(params: any): void {
-    const data = {
-      data: {
-        type: this.getParams(this.content, 'type'),
-        attributes: {
-          entity_type: this.getParams(this.content, 'entity_type'),
-          entity_id: this.getParams(this.content, 'entity_id'),
-          global: false,
-        },
-        relationships: {
-          flagged_entity: {
-            data: {
-              type: this.getDeepValue(
-                this.content,
-                'params.relationships.flagged_entity.type'
-              ),
-              id: this.getDeepValue(
-                this.content,
-                'params.relationships.flagged_entity.id'
-              ),
+  get nodeId(): string {
+    return this.getDeepValue(
+      this.content,
+      'params.relationships.flagged_entity.id'
+    );
+  }
+
+  get path(): string {
+    return `/api/v1${this.getPath(this.getParams(this.content, 'type'))}`;
+  }
+
+  getFlagging(): void {
+    this.nodeService.getNodes(this.path, this.nodeId).subscribe((res) => {
+      if (res.data.length) {
+        this.flagging = true;
+      }
+    });
+  }
+
+  onFlag(): void {
+    if (!this.flagging) {
+      const data = {
+        data: {
+          type: this.getParams(this.content, 'type'),
+          attributes: {
+            entity_type: this.getParams(this.content, 'entity_type'),
+            entity_id: this.getParams(this.content, 'entity_id'),
+            global: false,
+          },
+          relationships: {
+            flagged_entity: {
+              data: {
+                type: this.getDeepValue(
+                  this.content,
+                  'params.relationships.flagged_entity.type'
+                ),
+                id: this.nodeId,
+              },
+            },
+            uid: {
+              data: {
+                type: 'user--user',
+                id: this.userState.currentUser.id,
+              },
             },
           },
-          uid: {
-            data: {
-              type: 'user--user',
-              id: this.userState.currentUser.id,
-            },
-          },
         },
-      },
-    };
-    console.log(data);
-
-    this.nodeService
-      .flagging(
-        this.getPath(this.getParams(this.content, 'type')),
-        JSON.stringify(data)
-      )
-      .subscribe((res) => {
-        console.log(res);
-        this.style = 'primary';
+      };
+      console.log(data);
+      this.nodeService
+        .flagging(this.path, JSON.stringify(data))
+        .subscribe((res) => {
+          console.log(res);
+          this.flagging = true;
+        });
+    } else {
+      this.nodeService.deleteEntity(this.path, this.nodeId).subscribe((res) => {
+        this.flagging = false;
       });
+    }
   }
 
   getPath(type: string): string {

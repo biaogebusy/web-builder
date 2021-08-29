@@ -23,8 +23,10 @@ export class DynamicTextListComponent extends BaseComponent implements OnInit {
 
   getLists(): void {
     this.loading = true;
+    const path = this.nodeService.apiUrlConfig.nodeGetPath;
     this.nodeService
       .getNodes(
+        path,
         `${this.getParams(this.content, 'type')}`,
         `${this.getParams(this.content, 'options')}`
       )

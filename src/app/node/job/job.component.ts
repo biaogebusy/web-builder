@@ -201,7 +201,8 @@ export class JobComponent implements OnInit {
     // fields[{{type}}] type 为该实体类型
     // include 为 relationships 相关资源，支持嵌套如company,company.log
     const params = this.jobParams();
-    this.nodeService.getNodes('job', params).subscribe((res) => {
+    const path = this.nodeService.apiUrlConfig.nodeGetPath;
+    this.nodeService.getNodes(path, 'job', params).subscribe((res) => {
       this.updateList(res.data);
     });
   }
@@ -217,15 +218,22 @@ export class JobComponent implements OnInit {
       .slice(0, 4);
   }
 
+  get nodePath(): string {
+    return this.nodeService.apiUrlConfig.taxonomyGetPath;
+  }
+
   getSkill(): void {
     const params = ['jsonapi_included=1'].join('&');
-    this.nodeService.getNodes('skill', params, 'taxonomy').subscribe((res) => {
-      this.skills = res.data.map((item: any) => {
-        return {
-          name: item.attributes.name,
-        };
+
+    this.nodeService
+      .getNodes(this.nodePath, 'skill', params)
+      .subscribe((res) => {
+        this.skills = res.data.map((item: any) => {
+          return {
+            name: item.attributes.name,
+          };
+        });
       });
-    });
   }
 
   onSelected(obj: any): void {
@@ -269,9 +277,11 @@ export class JobComponent implements OnInit {
 
   onClear(): void {
     this.selectedTitle = '';
-    this.nodeService.getNodes('job', this.getFilterParams).subscribe((res) => {
-      this.updateList(res.data);
-    });
+    this.nodeService
+      .getNodes(this.nodePath, 'job', this.getFilterParams)
+      .subscribe((res) => {
+        this.updateList(res.data);
+      });
   }
 
   onSkillChange(skill: string): void {
@@ -283,9 +293,11 @@ export class JobComponent implements OnInit {
 
   onSearchJob(title: string): void {
     this.selectedTitle = title;
-    this.nodeService.getNodes('job', this.getFilterParams).subscribe((res) => {
-      this.updateList(res.data);
-    });
+    this.nodeService
+      .getNodes(this.nodePath, 'job', this.getFilterParams)
+      .subscribe((res) => {
+        this.updateList(res.data);
+      });
   }
 
   updateList(lists: any): void {

@@ -11,9 +11,11 @@ export interface IApiUrl {
   loginPath: string;
   logoutPath: string;
   userIdGetPath: string;
-  nodeGetPath: string;
   userGetPath: string;
+  nodeGetPath: string;
   taxonomyGetPath: string;
+  commentGetPath: string;
+  flaggingGetPath?: string;
 }
 
 export interface IPage {

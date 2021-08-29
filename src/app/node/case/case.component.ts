@@ -39,7 +39,9 @@ export class CaseComponent implements OnInit {
       'jsonapi_include=1',
     ].join('&');
 
-    this.nodeService.getNodes('case', params).subscribe((res) => {
+    const path = this.nodeService.apiUrlConfig.nodeGetPath;
+
+    this.nodeService.getNodes(path, 'case', params).subscribe((res) => {
       this.content.elements = map(res.data, (item: any) => {
         const link = this.nodeService.getNodePath(item);
         const date = `${new Date(item.created).getFullYear()}/${new Date(

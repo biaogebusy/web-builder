@@ -1,26 +1,24 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
+import { LocalStorageService } from 'ngx-webstorage';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { map } from 'rxjs/operators';
-import { forkJoin, Observable } from 'rxjs';
-import { mapValues } from 'lodash-es';
 import { AppState } from '../mobx/AppState';
 import { IUser } from '../mobx/user/IUser';
+import { Observable } from 'rxjs';
+import { IApiUrl } from '../mobx/IAppConfig';
 @Injectable({
   providedIn: 'root',
 })
-export class NodeService {
+export class NodeService extends ApiService {
   constructor(
-    private apiService: ApiService,
-    private http: HttpClient,
+    public http: HttpClient,
+    public storage: LocalStorageService,
     private appState: AppState
-  ) {}
-
-  get apiUrl(): string {
-    return this.apiService.apiUrl;
+  ) {
+    super(http, storage);
   }
 
-  get apiUrlConfig(): any {
+  get apiUrlConfig(): IApiUrl {
     return this.appState.apiUrlConfig;
   }
 
@@ -36,46 +34,18 @@ export class NodeService {
     return this.http.get<any>(`${link}`);
   }
 
-  getNodes(
-    type: string,
-    params: string = '',
-    path: string = ''
-  ): Observable<any> {
-    switch (path) {
-      case 'comment':
-        return this.http.get<any>(
-          `${this.apiUrl}${this.apiUrlConfig.commentGetPath}/${type}?${params}`,
-          this.apiService.httpOptions
-        );
-        break;
-      case 'taxonomy':
-        return this.http.get<any>(
-          `${this.apiUrl}${this.apiUrlConfig.taxonomyGetPath}/${type}?${params}`,
-          this.apiService.httpOptions
-        );
-        break;
-      default:
-        return this.http.get<any>(
-          `${this.apiUrl}${this.apiUrlConfig.nodeGetPath}/${type}?${params}`,
-          this.apiService.httpOptions
-        );
-    }
+  getNodes(path: string, type: string, params: string = ''): Observable<any> {
+    return this.http.get<any>(
+      `${this.apiUrl}${path}/${type}?${params}`,
+      this.httpOptions
+    );
   }
 
-  deleteNode(type: string, uuid: string): Observable<any> {
-    switch (type) {
-      case 'comment':
-        return this.http.delete<any>(
-          `${this.apiUrl}${this.apiUrlConfig.commentGetPath}/${type}/${uuid}`,
-          this.apiService.httpOptions
-        );
-        break;
-      default:
-        return this.http.delete<any>(
-          `${this.apiUrl}${this.apiUrlConfig.nodeGetPath}/${type}/${uuid}`,
-          this.apiService.httpOptions
-        );
-    }
+  deleteEntity(path: string, id: string): Observable<any> {
+    return this.http.delete<any>(
+      `${this.apiUrl}${path}/${id}`,
+      this.httpOptions
+    );
   }
 
   searchByKey(key: string): Observable<any> {
@@ -105,7 +75,7 @@ export class NodeService {
     return this.http.post<any>(
       `${this.apiUrl}${this.apiUrlConfig.nodeGetPath}/${type}`,
       JSON.stringify(data),
-      this.apiService.httpOptions
+      this.httpOptions
     );
   }
 
@@ -117,7 +87,7 @@ export class NodeService {
     return this.http.post<any>(
       `${this.apiUrl}${this.apiUrlConfig.commentGetPath}/${type}`,
       JSON.stringify(entity),
-      this.apiService.httpOptions
+      this.httpOptions
     );
   }
 
@@ -128,15 +98,11 @@ export class NodeService {
     return this.http.patch<any>(
       `${this.apiUrl}${this.apiUrlConfig.commentGetPath}/${type}/${uuid}`,
       JSON.stringify(entity),
-      this.apiService.httpOptions
+      this.httpOptions
     );
   }
 
   flagging(path: string, data: any): Observable<any> {
-    return this.http.post<any>(
-      `${this.apiUrl}/api/v1${path}`,
-      data,
-      this.apiService.httpOptions
-    );
+    return this.http.post<any>(`${this.apiUrl}${path}`, data, this.httpOptions);
   }
 }

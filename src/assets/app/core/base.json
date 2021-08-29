@@ -44,6 +44,7 @@
     "nodeGetPath": "/api/v1/node",
     "commentGetPath": "/api/v1/comment",
     "taxonomyGetPath": "/api/v1/taxonomy_term",
+    "flaggingGetPath": "/api/v1/flagging",
     "userGetPath": "/api/v1/user/user",
     "github": {
       "repos": "https://github.com/biaogebusy/xinshi-angular",

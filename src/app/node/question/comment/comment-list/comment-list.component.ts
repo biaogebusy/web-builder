@@ -1,4 +1,5 @@
 import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
+import { AppState } from 'src/app/mobx/AppState';
 import { NodeService } from 'src/app/service/node.service';
 import { UtilitiesService } from '../../../../service/utilities.service';
 
@@ -17,6 +18,7 @@ export class CommentListComponent implements OnInit {
 
   constructor(
     private nodeService: NodeService,
+    private appState: AppState,
     private utilitiesService: UtilitiesService
   ) {}
 
@@ -43,17 +45,19 @@ export class CommentListComponent implements OnInit {
 
   onDeleteMyQuestion(id: string): void {
     this.loading = true;
-    this.nodeService.deleteNode('comment', id).subscribe(
-      (res) => {
-        console.log(res);
-        this.loading = false;
-        this.utilitiesService.openSnackbar('您的回答已删除！', '√');
-        this.submitComment.emit(true);
-      },
-      (error) => {
-        this.loading = false;
-        console.log(error);
-      }
-    );
+    this.nodeService
+      .deleteEntity(`${this.appState.apiUrlConfig.commentGetPath}/comment`, id)
+      .subscribe(
+        (res) => {
+          console.log(res);
+          this.loading = false;
+          this.utilitiesService.openSnackbar('您的回答已删除！', '√');
+          this.submitComment.emit(true);
+        },
+        (error) => {
+          this.loading = false;
+          console.log(error);
+        }
+      );
   }
 }

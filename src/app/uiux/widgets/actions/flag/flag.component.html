@@ -1,4 +1,4 @@
-<button (click)="onFlag(content.params)" mat-button color="{{style}}">
+<button (click)="onFlag()" mat-button color="{{flagging?'primary':'default'}}">
   <app-icon [content]="content.icon"></app-icon>
   <span>{{content.label}}</span>
 </button>

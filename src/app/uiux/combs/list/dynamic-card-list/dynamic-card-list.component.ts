@@ -30,8 +30,9 @@ export class DynamicCardListComponent extends BaseComponent implements OnInit {
       'jsonapi_include=1',
       `page[limit]=${this.getParams(this.content, 'limit') || 20}`,
     ].join('&');
+    const path = this.nodeService.apiUrlConfig.nodeGetPath;
     this.nodeService
-      .getNodes(`${this.getParams(this.content, 'type')}`, params)
+      .getNodes(path, `${this.getParams(this.content, 'type')}`, params)
       .subscribe((res) => {
         this.updateContent(res);
       });
