@@ -228,3 +228,38 @@ GET {{apiUrl}}/api/v1/comment/comment?filter[entity_id.id]=18dac740-1d11-43c0-a4
 
 ### get lxy
 GET https://lxyapi.zhaobg.com/api/v1/content?six-point=217
+
+
+### get flagging
+GET {{apiUrl}}/api/v1/flagging/subscribe_node
+
+### POST flagging
+POST {{apiUrl}}/api/v1/flagging/favorite
+Accept: application/vnd.api+json
+Content-Type: application/vnd.api+json
+X-CSRF-Token: {{csrfToken}}
+
+{
+  "data": {
+    "type": "flagging--favorite",
+    "attributes": {
+      "entity_type": "node",
+      "entity_id": "1302",
+      "global": false
+    },
+    "relationships": {
+      "flagged_entity": {
+        "data": {
+          "type": "node--question",
+          "id": "8aae1766-38d7-4690-af3a-77b099e56e85"
+        }
+      },
+      "uid": {
+        "data": {
+          "type": "user--user",
+          "id": "15765815-07f2-4d7d-8142-cb598f82af2e"
+        }
+      }
+    }
+  }
+}

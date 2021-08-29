@@ -50,11 +50,19 @@ export class FlagComponent extends BaseComponent implements OnInit {
       },
     };
     console.log(data);
+
     this.nodeService
-      .flagging('/flagging/favorite', JSON.stringify(data))
+      .flagging(
+        this.getPath(this.getParams(this.content, 'type')),
+        JSON.stringify(data)
+      )
       .subscribe((res) => {
         console.log(res);
         this.style = 'primary';
       });
+  }
+
+  getPath(type: string): string {
+    return `/${type.replace('--', '/')}`;
   }
 }
