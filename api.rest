@@ -231,7 +231,10 @@ GET https://lxyapi.zhaobg.com/api/v1/content?six-point=217
 
 
 ### get flagging
-GET {{apiUrl}}/api/v1/flagging/subscribe_node
+GET {{apiUrl}}/api/v1/flagging/favorite/c85a3af6-6d2d-4c88-81bc-42c5e53b490e
+
+### filter flagging
+GET {{apiUrl}}/api/v1/flagging/favorite?filter[uid.id]={{user_uuid}}&filter[entity_id]=825
 
 ### POST flagging
 POST {{apiUrl}}/api/v1/flagging/favorite
@@ -263,3 +266,9 @@ X-CSRF-Token: {{csrfToken}}
     }
   }
 }
+
+### delete flagging
+DELETE {{apiUrl}}/api/v1/flagging/favorite/ba70cd3c-7bd7-48c2-9aa5-07b175d8f4d7
+Accept: application/vnd.api+json
+Content-Type: application/vnd.api+json
+X-CSRF-Token: {{csrfToken}}

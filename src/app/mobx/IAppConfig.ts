@@ -15,7 +15,7 @@ export interface IApiUrl {
   nodeGetPath: string;
   taxonomyGetPath: string;
   commentGetPath: string;
-  flaggingGetPath?: string;
+  flaggingGetPath: string;
 }
 
 export interface IPage {
