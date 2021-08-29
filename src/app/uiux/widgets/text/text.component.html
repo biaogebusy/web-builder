@@ -8,8 +8,10 @@
       <app-title [content]="content.title" *ngIf="content.title"></app-title>
       <div [innerHTML]="content.body | safeHtml" *ngIf="content.body"></div>
       <div class="m-top" *ngIf="content.action">
-        <a mat-raised-button color="primary" href="{{content.action.href}}"
-          target="{{content.action.target}}">{{content.action.label}}</a>
+        <a mat-raised-button color="primary" href="{{content.action.href}}" target="{{content.action.target}}">
+          <app-icon [content]="content.action.icon" *ngIf="content.action?.icon"></app-icon>
+          {{content.action.label}}
+        </a>
       </div>
     </div>
   </div>

@@ -18,6 +18,7 @@
 @import "./node/profile";
 @import "./dynamic-list";
 @import "./form";
+@import "./hero";
 @import "./search";
 @import "./media";
 
@@ -45,6 +46,7 @@
   @include article-color($config-or-theme);
   @include question-color($config-or-theme);
   @include form-color($config-or-theme);
+  @include hero-color($config-or-theme);
   @include search-color($config-or-theme);
   @include media-color($config-or-theme);
   @include profile-color($config-or-theme);

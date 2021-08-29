@@ -1,0 +1,20 @@
+@import "~@angular/material/theming";
+
+@mixin hero-color($config-or-theme) {
+  $config: mat-get-color-config($config-or-theme);
+  $foreground: map-get($config, foreground);
+  $background: map-get($config, background);
+  $primary: map-get($config, primary);
+  $accent: map-get($config, accent);
+  $warn: map-get($config, warn);
+
+  .hero-2-v2 {
+    .box {
+      background-color: mat-color($background, card);
+      @include mat-elevation(4, mat-color($foreground, text), 0.2);
+      .content {
+        color: mat-color($foreground, text, 0.5);
+      }
+    }
+  }
+}
