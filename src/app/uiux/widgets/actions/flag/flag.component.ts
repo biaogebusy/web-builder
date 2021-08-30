@@ -96,7 +96,7 @@ export class FlagComponent extends BaseComponent implements OnInit {
         )
         .pipe(
           switchMap((res) => {
-            return this.nodeService.deleteFlagging(res.data);
+            return this.nodeService.deleteFlagging(this.path, res.data);
           })
         )
         .subscribe((res) => {

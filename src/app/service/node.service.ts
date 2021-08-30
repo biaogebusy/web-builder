@@ -107,11 +107,11 @@ export class NodeService extends ApiService {
     return this.http.post<any>(`${this.apiUrl}${path}`, data, this.httpOptions);
   }
 
-  deleteFlagging(items: any[]): Observable<any> {
+  deleteFlagging(path: string, items: any[]): Observable<any> {
     const obj: any = {};
     items.forEach((item) => {
       obj[item.id] = this.http.delete<any>(
-        `${this.apiUrl}${this.apiUrlConfig.flaggingGetPath}/${item.id}`,
+        `${this.apiUrl}${path}/${item.id}`,
         this.httpOptions
       );
     });
