@@ -6,6 +6,7 @@ import { AppState } from '../mobx/AppState';
 import { IUser } from '../mobx/user/IUser';
 import { Observable } from 'rxjs';
 import { IApiUrl } from '../mobx/IAppConfig';
+import { forkJoin } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
@@ -104,5 +105,17 @@ export class NodeService extends ApiService {
 
   flagging(path: string, data: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}${path}`, data, this.httpOptions);
+  }
+
+  deleteFlagging(items: any[]): Observable<any> {
+    const obj: any = {};
+    items.forEach((item) => {
+      obj[item.id] = this.http.delete<any>(
+        `${this.apiUrl}${this.apiUrlConfig.flaggingGetPath}/${item.id}`,
+        this.httpOptions
+      );
+    });
+    console.log(obj);
+    return forkJoin(obj);
   }
 }

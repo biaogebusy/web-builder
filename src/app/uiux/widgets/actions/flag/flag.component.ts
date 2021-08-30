@@ -3,6 +3,7 @@ import { AppState } from 'src/app/mobx/AppState';
 import { NodeService } from 'src/app/service/node.service';
 import { BaseComponent } from 'src/app/uiux/base/base.widget';
 import { UserState } from '../../../../mobx/user/UserState';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-flag',
@@ -25,7 +26,7 @@ export class FlagComponent extends BaseComponent implements OnInit {
     this.getFlagging();
   }
 
-  getFlagging(): void {
+  get flaggingParams(): any {
     const params = [
       `filter[uid.id]=${this.userState.currentUser.id}`,
       `filter[entity_id]=${this.getDeepValue(
@@ -33,8 +34,16 @@ export class FlagComponent extends BaseComponent implements OnInit {
         'params.entity_id'
       )}`,
     ].join('&');
+    return params;
+  }
+
+  getFlagging(): void {
     this.nodeService
-      .getNodes(this.appState.apiUrlConfig.flaggingGetPath, this.type, params)
+      .getNodes(
+        this.appState.apiUrlConfig.flaggingGetPath,
+        this.type,
+        this.flaggingParams
+      )
       .subscribe((res) => {
         if (res.data.length) {
           this.flagging = true;
@@ -79,9 +88,21 @@ export class FlagComponent extends BaseComponent implements OnInit {
           this.flagging = true;
         });
     } else {
-      this.nodeService.deleteEntity(this.path, this.nodeId).subscribe((res) => {
-        this.flagging = false;
-      });
+      this.nodeService
+        .getNodes(
+          this.appState.apiUrlConfig.flaggingGetPath,
+          this.type,
+          this.flaggingParams
+        )
+        .pipe(
+          switchMap((res) => {
+            return this.nodeService.deleteFlagging(res.data);
+          })
+        )
+        .subscribe((res) => {
+          console.log(res);
+          this.flagging = false;
+        });
     }
   }
 
