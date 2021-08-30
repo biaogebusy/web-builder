@@ -1,4 +1,4 @@
-name: Build app and deploy to ECS
+name: Build app and deploy to xinshi
 
 on:
   push:
@@ -35,5 +35,5 @@ jobs:
           ARGS: "-avzr --delete"
           SOURCE: "dist/xinshi"
           REMOTE_HOST: ${{ secrets.HOST }}
-          REMOTE_USER: "root"
-          TARGET: "/sdc/www/xinshi.zhaobg.com"
+          REMOTE_USER: ${{ secrets.SSH_USER }}
+          TARGET: ${{ secrets.XINSHI_PATH }}
