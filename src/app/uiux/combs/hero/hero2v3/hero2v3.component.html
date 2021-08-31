@@ -1,5 +1,6 @@
 <div class="hero-2-v3 position-relative p-y-md">
   <a class="anchor" [id]="content.id||''"></a>
+  <app-spacer *ngIf="appState.pageConfig?.headerMode?.transparent && (!screen.eq('xs'))" [size]="'xl'"></app-spacer>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <app-bg [content]="content.bg" *ngIf="content.bg">
     <app-img [content]="content.bg.img" *ngIf="content.bg.img"></app-img>

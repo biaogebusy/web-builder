@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ScreenState } from 'src/app/mobx/screen/ScreenState';
+import { AppState } from '../../../../mobx/AppState';
 
 @Component({
   selector: 'app-hero2v3',
@@ -7,7 +9,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class Hero2v3Component implements OnInit {
   @Input() content: any;
-  constructor() {}
+  constructor(public appState: AppState, public screen: ScreenState) {}
 
   ngOnInit(): void {}
 }
