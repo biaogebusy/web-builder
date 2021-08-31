@@ -12,7 +12,6 @@ export class SearchSidebarComponent implements OnInit {
   @Input() keys: any;
   @Output() selectChange = new EventEmitter();
 
-  treeView: any[];
   panelOpenState = true;
   form: FormGroup;
   constructor(private formService: FormService) {}

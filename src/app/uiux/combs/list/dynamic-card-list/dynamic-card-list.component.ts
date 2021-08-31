@@ -13,7 +13,7 @@ export class DynamicCardListComponent extends BaseComponent implements OnInit {
   links: any;
   list: any;
   loading = true;
-  p = 1;
+
   constructor(private nodeService: NodeService) {
     super();
   }
@@ -78,5 +78,9 @@ export class DynamicCardListComponent extends BaseComponent implements OnInit {
     });
     this.links = res.links;
     this.loading = false;
+  }
+
+  onSelectChange(event: any): void {
+    console.log(event);
   }
 }

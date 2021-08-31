@@ -9,6 +9,7 @@ import { DynamicCardListComponent } from './dynamic-card-list/dynamic-card-list.
 import { DynamicTextListComponent } from './dynamic-text-list/dynamic-text-list.component';
 import { TaxonomyThinListComponent } from './taxonomy-thin-list/taxonomy-thin-list.component';
 import { ListThinComponent } from './list/list-thin/list-thin.component';
+import { SearchModule } from '../search/search.module';
 
 const components = [
   ListComponent,
@@ -22,7 +23,7 @@ const components = [
 
 @NgModule({
   declarations: [...components],
-  imports: [ShareModule, WidgetsModule, ShowcaseModule],
+  imports: [ShareModule, WidgetsModule, ShowcaseModule, SearchModule],
   exports: [...components],
 })
 export class ListModule {}
