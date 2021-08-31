@@ -53,7 +53,6 @@ export class FlagComponent extends BaseComponent implements OnInit {
 
   onFlag(): void {
     if (!this.flagging) {
-      // TODO: flagging before delete old flagging
       const data = {
         data: {
           type: this.getParams(this.content, 'type'),
@@ -100,7 +99,6 @@ export class FlagComponent extends BaseComponent implements OnInit {
           })
         )
         .subscribe((res) => {
-          console.log(res);
           this.flagging = false;
         });
     }

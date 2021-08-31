@@ -12,6 +12,9 @@
     .thin-sidebar {
       background-color: mat-color($background, card);
       @include mat-elevation(4, mat-color($foreground, text), 0.1);
+      &::-webkit-scrollbar-thumb {
+        background: mat-color($foreground, divider, 0.2);
+      }
     }
     .list-thin {
       .item {

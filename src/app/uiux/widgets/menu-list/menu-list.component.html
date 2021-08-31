@@ -2,7 +2,7 @@
   <h2 class="block-title">{{content.title}}</h2>
   <mat-divider></mat-divider>
   <div class="list">
-    <div class="item" *ngFor="let item of content.elements">
+    <div class="item" *ngFor="let item of content.elements" fxLayoutAlign="space-between center">
       <app-link [content]="item.link"></app-link>
       <div class="num-posts">
         {{item.label}}
