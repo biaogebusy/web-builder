@@ -1,0 +1,31 @@
+<div class="hero-2-v3 position-relative p-y-md">
+  <a class="anchor" [id]="content.id||''"></a>
+  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
+  <app-bg [content]="content.bg" *ngIf="content.bg">
+    <app-img [content]="content.bg.img" *ngIf="content.bg.img"></app-img>
+  </app-bg>
+  <div class="container position-relative">
+    <div class="hero-body text-center" fxLayout="row wrap" fxLayoutAlign="center center">
+      <app-text [content]="content.text"></app-text>
+      <div fxFlex="100" class="box m-top-md" fxLayout="row wrap" fxLayoutAlign="center center">
+        <div class="item" fxFlex.lt-md="50" fxFlex.gt-sm="33.33" fxFlex.gt-md="16.66"
+          *ngFor="let item of content.elements">
+          <div class="card m-y-xs m-x-xs" fxLayout="column" fxLayoutAlign="center center">
+            <div class="card-inner p-y-sm p-x-sm">
+              <div class="card-media" fxLayoutAlign="center center">
+                <app-img [content]="item.img"></app-img>
+              </div>
+              <div class="card-content m-top-sm">
+                <h4 class="mat-h3 bold m-bottom-0 text-center">
+                  <app-link [content]="item.link"></app-link>
+                </h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
+  <app-shape *ngIf="content.shape"></app-shape>
+</div>

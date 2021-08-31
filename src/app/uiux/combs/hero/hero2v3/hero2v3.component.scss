@@ -1,0 +1,21 @@
+.hero-2-v3 {
+  overflow: hidden;
+  ::ng-deep .base-text {
+    max-width: 800px;
+  }
+  .card {
+    border-radius: 6px;
+    .card-media {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      ::ng-deep img {
+        width: 45px;
+        height: 45px;
+      }
+    }
+  }
+}
+.container {
+  z-index: 2;
+}

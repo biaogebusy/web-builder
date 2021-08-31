@@ -49,6 +49,7 @@ import { DynamicFormControlComponent } from './dynamic-form-control/dynamic-form
 import { SelectComponent } from './form/select/select.component';
 import { PaginationSimpleComponent } from './pagination/pagination-simple/pagination-simple.component';
 import { FlagComponent } from './actions/flag/flag.component';
+import { ShapeComponent } from './shape/shape.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -94,6 +95,7 @@ const components = [
   SafeHtmlPipe,
   DialogComponent,
   FlagComponent,
+  ShapeComponent,
   MediaObjectGroupComponent,
   DynamicFormControlComponent,
 ];
