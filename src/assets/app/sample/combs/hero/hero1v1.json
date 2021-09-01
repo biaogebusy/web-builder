@@ -34,10 +34,10 @@
           }
         },
         "body": "<p style=\"font-size:18px\">At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.</p>",
-        "action": {
+        "actions": [{
           "href": "#",
           "label": "Get Started"
-        }
+        }]
       }, {
         "type": "text",
         "title": {
@@ -56,10 +56,10 @@
           }
         },
         "body": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.",
-        "action": {
+        "actions": [{
           "href": "#",
           "label": "Get Started"
-        }
+        }]
       }]
     }
   }, {
