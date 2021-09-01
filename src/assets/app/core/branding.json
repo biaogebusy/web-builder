@@ -65,6 +65,9 @@
           }, {
             "label": "Hero 2v2",
             "href": "/sample/combs/hero/hero2v2"
+          }, {
+            "label": "Hero 2v3",
+            "href": "/sample/combs/hero/hero2v3"
           }]
         }, {
           "label": "Showcase",
@@ -170,6 +173,13 @@
           }, {
             "label": "Panel",
             "href": "/sample/widgets/panel"
+          }]
+        }, {
+          "label": "Action",
+          "href": "javascript:void(0)",
+          "child": [{
+            "label": "Action 1v1",
+            "href": "/sample/combs/action/action1v1"
           }]
         }, {
           "label": "Other",

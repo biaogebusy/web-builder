@@ -1,0 +1,12 @@
+<div class="action-1-v1 position-relative overflow-hidden">
+  <a class="anchor" [id]="content.id||''"></a>
+  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
+  <app-bg-img [content]="content.bg"></app-bg-img>
+  <div class="container">
+    <div class="inner text-center" fxLayout="column" fxLayoutAlign="center center">
+      <app-text [content]="content.text"></app-text>
+    </div>
+  </div>
+  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
+  <app-shape *ngIf="content.shape"></app-shape>
+</div>

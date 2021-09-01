@@ -50,6 +50,8 @@ import { SelectComponent } from './form/select/select.component';
 import { PaginationSimpleComponent } from './pagination/pagination-simple/pagination-simple.component';
 import { FlagComponent } from './actions/flag/flag.component';
 import { ShapeComponent } from './shape/shape.component';
+import { BgImgComponent } from './bg-img/bg-img.component';
+import { SearchActionComponent } from './actions/search-action/search-action.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -96,6 +98,8 @@ const components = [
   DialogComponent,
   FlagComponent,
   ShapeComponent,
+  BgImgComponent,
+  SearchActionComponent,
   MediaObjectGroupComponent,
   DynamicFormControlComponent,
 ];

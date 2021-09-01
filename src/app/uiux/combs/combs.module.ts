@@ -12,6 +12,7 @@ import { HeroModule } from './hero/hero.module';
 import { DynamicCombsModule } from './dynamic-combs/dynamic-combs.module';
 import { ListModule } from './list/list.module';
 import { ProfileModule } from './profile/profile.module';
+import { ActionModule } from './action/action.module';
 
 const modules = [
   ShowcaseModule,
@@ -26,6 +27,7 @@ const modules = [
   DynamicCombsModule,
   ListModule,
   ProfileModule,
+  ActionModule,
 ];
 
 @NgModule({

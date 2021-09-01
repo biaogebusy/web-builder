@@ -119,4 +119,11 @@
       }
     }
   }
+
+  .search-action {
+    input {
+      @include mat-elevation(4, mat-color($foreground, text), 0.2);
+      border: 1px solid mat-color($foreground, divider, 0.1);
+    }
+  }
 }

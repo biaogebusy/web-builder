@@ -1,0 +1,29 @@
+{
+  "title": "Action 1v1",
+  "body": [{
+    "type": "action-1v1",
+    "id": "xxx",
+    "spacer": "xl",
+    "bg": {
+      "classes": "bg-shadow"
+    },
+    "text": {
+      "title": {
+        "label": "如何才能帮助到您？",
+        "style": "none",
+        "classes": "mat-display-1"
+      },
+      "spacer": "none",
+      "body": "<p>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>",
+      "actions": [{
+        "type": "search-action",
+        "placeholder": "请输入关键词搜索",
+        "button": {
+          "label": "搜索",
+          "color": "primary"
+        }
+      }]
+    },
+    "shape": true
+  }]
+}

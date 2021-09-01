@@ -1,0 +1,21 @@
+input {
+  padding: 14px 20px;
+  width: 100%;
+  color: #3c4858 !important;
+  border: none;
+  outline: none !important;
+  padding-right: 160px;
+  padding-left: 30px;
+  border-radius: 50px;
+  background-color: rgba(255, 255, 255, 0.8);
+  box-sizing: border-box;
+  line-height: 26px;
+}
+
+button {
+  position: absolute;
+  right: 6px;
+  top: 6px;
+  border-radius: 30px;
+  padding: 3px 20px;
+}

@@ -1,0 +1,6 @@
+<div class="search-action m-y-sm" *ngIf="content">
+  <form class="position-relative" (ngSubmit)="onSubmit(input.value)">
+    <input #input type="text" required placeholder="{{content?.placeholder}}">
+    <button mat-raised-button type="submit" color="{{content.button?.color}}">{{content.button?.label}}</button>
+  </form>
+</div>
