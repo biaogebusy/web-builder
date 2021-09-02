@@ -10,4 +10,11 @@ export class BgImgComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
+  get img(): any {
+    const def = {
+      classes: 'object-fit',
+    };
+    return Object.assign({}, def, this.content.img);
+  }
 }

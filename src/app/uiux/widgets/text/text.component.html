@@ -1,8 +1,6 @@
 <div [id]="content.id || ''" class="base-text position-relative" *ngIf="content">
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
-  <app-bg [content]="content.bg" *ngIf="content.bg">
-    <app-img *ngIf="content.bg?.img" [content]="content.bg.img"></app-img>
-  </app-bg>
+  <app-bg-img [content]="content.bg" *ngIf="content.bg"></app-bg-img>
   <div class="container">
     <div class="inner" [ngClass.gt-sm]="content.classes" [ngStyle.gt-sm]="content.style">
       <app-title [content]="content.title" *ngIf="content.title"></app-title>
