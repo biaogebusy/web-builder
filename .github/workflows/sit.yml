@@ -12,6 +12,9 @@ jobs:
       run:
         working-directory: ./
     steps:
+      - run: expo publish
+        env:
+          NODE_OPTIONS: --max_old_space_size=4096
       - name: Checkout
         uses: actions/checkout@v2
       - uses: srt32/git-actions@v0.0.3
@@ -28,8 +31,6 @@ jobs:
         run: npm install -g @angular/cli > /dev/null
       - name: NPM build Angular Production
         run: ng build --prod --aot=true --buildOptimizer=true
-        env:
-          NODE_OPTIONS: '--max_old_space_size=4096'
       - name: Deploy to server
         uses: easingthemes/ssh-deploy@v2.0.7
         env:
