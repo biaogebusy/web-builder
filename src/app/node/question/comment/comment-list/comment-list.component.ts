@@ -49,7 +49,6 @@ export class CommentListComponent implements OnInit {
       .deleteEntity(`${this.appState.apiUrlConfig.commentGetPath}/comment`, id)
       .subscribe(
         (res) => {
-          console.log(res);
           this.loading = false;
           this.utilitiesService.openSnackbar('您的回答已删除！', '√');
           this.submitComment.emit(true);

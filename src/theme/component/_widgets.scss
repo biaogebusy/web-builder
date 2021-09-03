@@ -124,6 +124,11 @@
     input {
       @include mat-elevation(4, mat-color($foreground, text), 0.2);
       border: 1px solid mat-color($foreground, divider, 0.1);
+      &:hover,
+      &:focus {
+        @include mat-elevation(4, mat-color($primary), 0.5);
+        border: 1px solid mat-color($primary, 0.1);
+      }
     }
   }
 }

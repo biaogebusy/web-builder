@@ -39,7 +39,6 @@ export class QuestionComponent implements OnInit {
   }
 
   onSubmit(state: boolean): void {
-    console.log(state);
     // if success
     if (state) {
       this.checkIsAsked();
@@ -58,7 +57,6 @@ export class QuestionComponent implements OnInit {
     this.nodeService
       .getNodes(path, this.entityType, params)
       .subscribe((res) => {
-        console.log(res);
         if (res.data.length) {
           this.isAsked = true;
           this.showEditor = false;
@@ -73,7 +71,6 @@ export class QuestionComponent implements OnInit {
   }
 
   checkQuestion(id: string): void {
-    console.log('check question!');
     this.screenService.scrollToAnchor(`q-${id}`);
   }
 
@@ -90,7 +87,6 @@ export class QuestionComponent implements OnInit {
     this.nodeService
       .getNodes(path, this.entityType, params)
       .subscribe((res) => {
-        console.log(res);
         this.comments = res.data.map((comment: any) => {
           return {
             author: {
