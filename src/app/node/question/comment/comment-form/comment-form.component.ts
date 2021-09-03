@@ -24,7 +24,6 @@ export class CommentFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.myCommentContent);
     if (this.myCommentContent) {
       this.htmlData = this.myCommentContent;
     }
@@ -42,10 +41,8 @@ export class CommentFormComponent implements OnInit {
         value,
         format: 'full_html',
       };
-      console.log(params);
       this.nodeService.addComment(ckeditor.type, params).subscribe(
         (res) => {
-          console.log('success!', res);
           this.loading = false;
           this.utilitiesService.openSnackbar(ckeditor.succes.label);
           this.submitComment.emit(true);
@@ -78,7 +75,6 @@ export class CommentFormComponent implements OnInit {
         .updateComment(ckeditor.type, entity, this.myCommentId)
         .subscribe(
           (res) => {
-            console.log('success!', res);
             this.loading = false;
             this.utilitiesService.openSnackbar(ckeditor.succes.label);
             this.submitComment.emit(true);

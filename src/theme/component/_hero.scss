@@ -27,9 +27,6 @@
       .card-media {
         @include mat-elevation(5, mat-color($foreground, text), 0.3);
       }
-      a {
-        color: mat-color($foreground, text);
-      }
     }
   }
 }
