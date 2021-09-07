@@ -17,6 +17,7 @@ import { SearchBoxComponent } from './header/menu/search-box/search-box.componen
 import { HeaderBannerComponent } from './header/header-banner/header-banner.component';
 import { HeroModule } from '../uiux/combs/hero/hero.module';
 import { MegaMenuComponent } from './header/menu/item-menu/mega-menu/mega-menu.component';
+import { SpaceBetweenComponent } from './footer/space-between/space-between.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { MegaMenuComponent } from './header/menu/item-menu/mega-menu/mega-menu.c
     SearchBoxComponent,
     HeaderBannerComponent,
     MegaMenuComponent,
+    SpaceBetweenComponent,
   ],
   imports: [ShareModule, WidgetsModule, HeroModule],
   exports: [HeaderComponent, FooterComponent, MenuComponent],

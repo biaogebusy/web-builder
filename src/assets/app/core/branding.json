@@ -265,7 +265,7 @@
       "href": "/create-job"
     }]
   },
-  "footer": {
+  "footerBak": {
     "params": {
       "mode": "inverse",
       "shape": true
@@ -445,7 +445,7 @@
       }]
     }
   },
-  "footerBak": {
+  "footerBak1": {
     "params": {
       "mode": "light"
     },
@@ -584,5 +584,55 @@
         ]
       }
     ]
+  },
+  "footer": {
+    "params": {
+      "mode": "space-betwenn",
+      "shape": true
+    },
+    "footerBrand": {
+      "logo": {
+        "img": {
+          "src": "/assets/images/logo.png",
+          "alt": "信使 Demo",
+          "href": "/",
+          "classes": "logo"
+        }
+      },
+      "summary": "律鑫云、律师团！有平台、有未来！",
+      "social": [{
+        "label": "zhihu",
+        "svg": "zhihu",
+        "href": "https://www.zhihu.com/column/c_1331898788731375616"
+      }, {
+        "label": "微博",
+        "svg": "weibo",
+        "href": "#"
+      }, {
+        "label": "nnitpay",
+        "svg": "wechat",
+        "href": "#"
+      }, {
+        "label": "Github",
+        "svg": "github",
+        "href": "https://github.com/biaogebusy/xinshi-angular"
+      }]
+    },
+    "footerBottom": {
+      "left": "Copyright ©2021 Powered By Xinshi <a href='https://beian.miit.gov.cn/'>桂ICP备2020009081号-1</a>",
+      "right": [{
+        "label": "首页",
+        "href": "/"
+      }, {
+        "label": "关于我们",
+        "href": "/about"
+      }, {
+        "label": "帮助中心",
+        "href": "#"
+      }, {
+        "label": "联系我们",
+        "href": "#"
+      }]
+    }
   }
 }

@@ -1,0 +1,64 @@
+ <div class="shape-inner position-relative p-y-lg m-top-lg" *ngIf="content?.params?.shape">
+   <div class="shape">
+     <svg viewBox="0 0 2880 250" fill="none" xmlns="http://www.w3.org/2000/svg">
+       <path d="M720 125L2160 0H2880V250H0V125H720Z" fill="currentColor"></path>
+     </svg>
+   </div>
+ </div>
+ <div class="footer-inverse position-relative" *ngIf="content">
+   <div class="container">
+     <div class="p-y-lg">
+       <div *ngIf="content?.footerBrand" fxLayout.lt-md="column" fxLayout.gt-sm="row">
+         <div fxFlex.lt-md="100" fxFlex.gt-sm="0 0 25" class="brand" fxLayout="column">
+           <app-img [content]="content.footerBrand.logo.img" *ngIf="content.footerBrand.logo"></app-img>
+           <p class="m-y-sm" [innerHTML]="content.footerBrand?.summary" *ngIf="content.footerBrand?.summary"></p>
+           <div class="social" fxLayout="row" *ngIf="content?.footerBrand?.social">
+             <a class="item" fxLayoutAlign="center center" *ngFor="let item of content.footerBrand.social"
+               href="{{item.href}}" target="_blank" title="{{item.label}}">
+               <mat-icon [inline]="true" [svgIcon]="item.svg"></mat-icon>
+             </a>
+           </div>
+         </div>
+         <div fxFlex.lt-md="100" fxFlex.gt-sm="0 0 50" *ngIf="content.mainMenu">
+           <app-menu-item [content]="content?.mainMenu" [mobileMenu]="content.mobileMenu"></app-menu-item>
+         </div>
+         <div fxFlex.lt-md="100" fxFlex.gt-sm="0 0 25" *ngIf="content.footerNewsletter">
+           <form (ngSubmit)="onSubmit()" [formGroup]="form" fxLayout="row wrap">
+             <div fxFlex="100" class="item-header">
+               {{content.footerNewsletter.label}}
+             </div>
+             <p fxFlex="100" class="m-y-xs" [innerHTML]="content.footerNewsletter.summary"></p>
+             <app-dynamic-form-control *ngFor="let item of content.footerNewsletter.forms" [control]="item"
+               [form]="form">
+             </app-dynamic-form-control>
+             <div fxFlex.lt-md="100" fxFlex.gt-sm="50" fxLayout="row wrap">
+               <button fxFlex="100" *ngIf="content.footerNewsletter.action" class="m-top-xs" type="submit"
+                 mat-raised-button color="primary">
+                 <div fxLayoutAlign="center center">
+                   <div class="p-x-xs">{{content.footerNewsletter.action.label}}</div>
+                 </div>
+               </button>
+               <div fxFlex="auto" fxLayoutAlign="center center">
+                 <app-spinner [content]="{color:'primary', size:36}" *ngIf="submited"></app-spinner>
+               </div>
+             </div>
+           </form>
+         </div>
+       </div>
+     </div>
+   </div>
+   <div class="footer-bottom p-y-sm">
+     <div class="container">
+       <div class="inner" fxLayout.lt-md="column" fxLayout.gt-sm="row" fxLayoutAlign.lt-md="center center"
+         fxLayoutAlign.gt-sm="space-between center">
+         <div class="left" [ngClass.lt-md]="'text-center'" *ngIf="content?.footerBottom?.left"
+           [innerHTML]="content.footerBottom.left | safeHtml"></div>
+         <div class="right" *ngIf="content?.footerBottom?.right">
+           <div fxLayout="row">
+             <app-link class="item" *ngFor="let item of content.footerBottom.right" [content]="item"></app-link>
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>
+ </div>
