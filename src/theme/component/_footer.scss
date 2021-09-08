@@ -137,6 +137,11 @@
           }
         }
       }
+      &.space-between-footer {
+        .mat-divider {
+          border-color: rgba($inverse-text, 0.5);
+        }
+      }
     }
   }
   #go-to-top {

@@ -5,44 +5,27 @@
      </svg>
    </div>
  </div>
- <div class="footer-inverse position-relative" *ngIf="content">
+ <div class="footer-inverse space-between-footer position-relative" *ngIf="content">
    <div class="container">
-     <div class="p-y-lg">
+     <div class="p-y-md" fxLayout="row wrap" fxLayoutAlign.lt-md="center center">
        <div *ngIf="content?.footerBrand" fxLayout.lt-md="column" fxLayout.gt-sm="row">
-         <div fxFlex.lt-md="100" fxFlex.gt-sm="0 0 25" class="brand" fxLayout="column">
+         <div fxFlex.lt-md="100" fxFlex.gt-sm="0 0 100" class="brand" fxLayout="column">
            <app-img [content]="content.footerBrand.logo.img" *ngIf="content.footerBrand.logo"></app-img>
-           <p class="m-y-sm" [innerHTML]="content.footerBrand?.summary" *ngIf="content.footerBrand?.summary"></p>
-           <div class="social" fxLayout="row" *ngIf="content?.footerBrand?.social">
+           <p class="m-top-xs m-bottom-0" [innerHTML]="content.footerBrand?.summary"
+             *ngIf="content.footerBrand?.summary"></p>
+           <div class="social m-y-sm" fxLayout="row" *ngIf="content?.footerBrand?.social">
              <a class="item" fxLayoutAlign="center center" *ngFor="let item of content.footerBrand.social"
                href="{{item.href}}" target="_blank" title="{{item.label}}">
                <mat-icon [inline]="true" [svgIcon]="item.svg"></mat-icon>
              </a>
            </div>
          </div>
-         <div fxFlex.lt-md="100" fxFlex.gt-sm="0 0 50" *ngIf="content.mainMenu">
-           <app-menu-item [content]="content?.mainMenu" [mobileMenu]="content.mobileMenu"></app-menu-item>
-         </div>
-         <div fxFlex.lt-md="100" fxFlex.gt-sm="0 0 25" *ngIf="content.footerNewsletter">
-           <form (ngSubmit)="onSubmit()" [formGroup]="form" fxLayout="row wrap">
-             <div fxFlex="100" class="item-header">
-               {{content.footerNewsletter.label}}
-             </div>
-             <p fxFlex="100" class="m-y-xs" [innerHTML]="content.footerNewsletter.summary"></p>
-             <app-dynamic-form-control *ngFor="let item of content.footerNewsletter.forms" [control]="item"
-               [form]="form">
-             </app-dynamic-form-control>
-             <div fxFlex.lt-md="100" fxFlex.gt-sm="50" fxLayout="row wrap">
-               <button fxFlex="100" *ngIf="content.footerNewsletter.action" class="m-top-xs" type="submit"
-                 mat-raised-button color="primary">
-                 <div fxLayoutAlign="center center">
-                   <div class="p-x-xs">{{content.footerNewsletter.action.label}}</div>
-                 </div>
-               </button>
-               <div fxFlex="auto" fxLayoutAlign="center center">
-                 <app-spinner [content]="{color:'primary', size:36}" *ngIf="submited"></app-spinner>
-               </div>
-             </div>
-           </form>
+       </div>
+       <div fxFlex.lt-md="100" fxFlex.gt-sm="0 0 100">
+         <!-- <mat-divider class="m-y-sm"></mat-divider> -->
+         <div fxLayout.lt-md="column" fxLayout.gt-sm="row" fxLayoutAlign="space-between center">
+           <app-text [content]="content?.content?.left"></app-text>
+           <app-text [content]="content?.content?.right"></app-text>
          </div>
        </div>
      </div>
