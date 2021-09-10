@@ -9,7 +9,7 @@
       <form (ngSubmit)="onSubmit(input.value)">
         <div class="search-input">
           <input #input matInput placeholder="{{content.input.placeholder}}" type="search" size="15" maxlength="128"
-            [value]="keys" class="form-search">
+            [value]="keys || ''" class="form-search">
           <app-icon class="search-icon" (click)="onSubmit(input.value)" [content]="{name:'search'}"></app-icon>
         </div>
       </form>

@@ -1,21 +1,61 @@
-input {
-  padding: 14px 20px;
+@import "../../../../../theme/variable/breakpoint";
+form {
   width: 100%;
-  color: #3c4858 !important;
-  border: none;
-  outline: none !important;
-  padding-right: 160px;
-  padding-left: 30px;
-  border-radius: 50px;
-  background-color: rgba(255, 255, 255, 0.8);
   box-sizing: border-box;
-  line-height: 26px;
-}
 
-button {
-  position: absolute;
-  right: 6px;
-  top: 6px;
-  border-radius: 30px;
-  padding: 3px 20px;
+  button {
+    right: 6px;
+    top: 10px;
+    border-radius: 30px;
+    padding: 3px 30px;
+  }
+
+  @media #{$lt-md} {
+    .form-group {
+      ::ng-deep {
+        .mat-form-field-infix {
+          width: calc(100vw - 4rem);
+        }
+      }
+    }
+    button {
+      position: relative;
+    }
+  }
+
+  @media #{$gt-sm} {
+    border-radius: 50px;
+    padding: 10px 160px 10px 30px;
+    .form-group {
+      ::ng-deep {
+        .mat-form-field-infix {
+          width: 100px;
+          padding-bottom: 0;
+        }
+        .mat-form-field-wrapper {
+          padding-bottom: 0;
+        }
+        .mat-form-field-underline {
+          display: none;
+        }
+      }
+      > .control {
+        &:last-child {
+          flex: 100%;
+        }
+      }
+    }
+    button {
+      position: absolute;
+    }
+    input {
+      width: 100%;
+      padding-left: 20px;
+      color: #3c4858 !important;
+      border: none;
+      outline: none !important;
+      box-sizing: border-box;
+      line-height: 26px;
+    }
+  }
 }

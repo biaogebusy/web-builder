@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Query } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { isArray } from 'lodash-es';
+import { isArray, omitBy, isEmpty } from 'lodash-es';
 import { NodeService } from 'src/app/service/node.service';
 import { RouteService } from 'src/app/service/route.service';
 
@@ -11,11 +11,12 @@ import { RouteService } from 'src/app/service/route.service';
 })
 export class SearchComponent implements OnInit {
   @Input() content: any;
-  keys = '';
-  page = 0;
+  keys: string;
+  page: number;
   pager: any;
   formParams: Params = {};
   formValues: {};
+  filterForm: any[];
   nodes: [];
   status: any;
   loading = false;
@@ -29,7 +30,31 @@ export class SearchComponent implements OnInit {
     this.router.queryParams.subscribe((query: any) => {
       this.keys = query.keys || '';
       this.page = query.page || 0;
-      this.nodeSearch({ keys: this.keys, page: this.page });
+      const queryOpt = omitBy(
+        Object.assign(
+          {
+            keys: this.keys,
+            page: this.page,
+          },
+          query
+        ),
+        isEmpty
+      );
+      if (this.content.sidebar) {
+        this.setFilterForm(queryOpt, this.content.sidebar);
+      }
+      this.nodeSearch(queryOpt);
+    });
+  }
+
+  setFilterForm(query: any, controls: any[]): void {
+    this.filterForm = controls.map((control) => {
+      if (control.key in query) {
+        control.value = query[control.key];
+        return control;
+      } else {
+        return control;
+      }
     });
   }
 
