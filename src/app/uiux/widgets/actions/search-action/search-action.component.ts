@@ -1,5 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, Params } from '@angular/router';
+import { FormGroup } from '@angular/forms';
+import { FormService } from 'src/app/service/form.service';
+import { isEmpty, omitBy } from 'lodash';
 
 @Component({
   selector: 'app-search-action',
@@ -8,11 +11,21 @@ import { Router } from '@angular/router';
 })
 export class SearchActionComponent implements OnInit {
   @Input() content: any;
-  constructor(private router: Router) {}
+  form: FormGroup;
+  constructor(private router: Router, private formService: FormService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.initForm(this.content.form);
+  }
 
-  onSubmit(key: string): void {
-    this.router.navigate(['/search'], { queryParams: { keys: key } });
+  initForm(form: any[]): void {
+    this.form = this.formService.toFormGroup(form);
+  }
+
+  onSubmit(value: Params): void {
+    const query = omitBy(value, isEmpty);
+    if (!isEmpty(query)) {
+      this.router.navigate(['/search'], { queryParams: query });
+    }
   }
 }

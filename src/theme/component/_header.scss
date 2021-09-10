@@ -184,11 +184,9 @@
           border: 1px solid mat-color($primary, default-contrast);
         }
         input[type="search"] {
-          color: mat-color($primary, default-contrast);
+          color: mat-color($foreground, text);
+          background-color: mat-color($background, card);
           caret-color: mat-color($primary, default-contrast);
-        }
-        .mat-icon {
-          color: mat-color($primary, default-contrast);
         }
       }
       .switch-theme {

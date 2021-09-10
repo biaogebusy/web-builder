@@ -9,7 +9,7 @@ import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 })
 export class SearchSidebarComponent implements OnInit {
   @Input() content: any;
-  @Input() keys: any;
+  @Input() keys: string;
   @Output() selectChange = new EventEmitter();
 
   treeView: any[];
@@ -22,23 +22,16 @@ export class SearchSidebarComponent implements OnInit {
   }
 
   initForm(items: any[]): void {
-    const formItems = items.map((item) => {
-      if (item.key === 'keys') {
-        item.value = this.keys;
-      }
-      return item;
-    });
-    this.form = this.formService.toFormGroup(formItems);
+    this.form = this.formService.toFormGroup(items);
     this.form.valueChanges
       .pipe(debounceTime(1000), distinctUntilChanged())
       .subscribe((value) => {
-        const params = Object.assign({ keys: this.keys, page: 0 }, value);
+        const params = Object.assign({ page: 0 }, value);
         this.selectChange.emit(params);
       });
   }
 
   clear(): void {
-    this.keys = '';
     this.form.reset();
   }
 }
