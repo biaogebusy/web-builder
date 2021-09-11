@@ -17,9 +17,9 @@
     "strictPropertyInitialization": false,
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "target": "es2015",
+    "target": "es5",
     "module": "es2020",
-    "lib": ["es2018", "dom"]
+    "lib": ["es2018", "dom", "esnext"]
   },
   "angularCompilerOptions": {
     "strictInjectionParameters": true,
