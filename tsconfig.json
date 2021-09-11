@@ -18,8 +18,8 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "target": "es5",
-    "module": "es2020",
-    "lib": ["es2018", "dom", "esnext"]
+    "module": "es2017",
+    "lib": ["es2017", "dom"]
   },
   "angularCompilerOptions": {
     "strictInjectionParameters": true,
