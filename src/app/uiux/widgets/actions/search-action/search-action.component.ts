@@ -1,18 +1,29 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  ElementRef,
+  AfterViewInit,
+} from '@angular/core';
 import { Router, Params } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 import { FormService } from 'src/app/service/form.service';
 import { isEmpty, omitBy } from 'lodash';
+import { fromEvent } from '_rxjs@6.6.7@rxjs';
 
 @Component({
   selector: 'app-search-action',
   templateUrl: './search-action.component.html',
   styleUrls: ['./search-action.component.scss'],
 })
-export class SearchActionComponent implements OnInit {
+export class SearchActionComponent implements OnInit, AfterViewInit {
   @Input() content: any;
   form: FormGroup;
-  constructor(private router: Router, private formService: FormService) {}
+  constructor(
+    private router: Router,
+    private formService: FormService,
+    private ele: ElementRef
+  ) {}
 
   ngOnInit(): void {
     this.initForm(this.content.form);
@@ -22,8 +33,21 @@ export class SearchActionComponent implements OnInit {
     this.form = this.formService.toFormGroup(form);
   }
 
-  onSubmit(value: Params): void {
-    const query = omitBy(value, isEmpty);
+  ngAfterViewInit(): void {
+    const input = this.ele.nativeElement.querySelectorAll('[id=keys]')[0];
+    const input$ = fromEvent(input, 'keyup').subscribe((event: any) => {
+      if (event.keyCode === 13) {
+        this.search();
+      }
+    });
+  }
+
+  onSubmit(): void {
+    this.search();
+  }
+
+  search(): void {
+    const query = omitBy(this.form.value, isEmpty);
     if (!isEmpty(query)) {
       this.router.navigate(['/search'], { queryParams: query });
     }

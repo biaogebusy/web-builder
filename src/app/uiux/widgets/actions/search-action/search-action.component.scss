@@ -5,7 +5,7 @@ form {
 
   button {
     right: 6px;
-    top: 10px;
+    top: 16px;
     border-radius: 30px;
     padding: 3px 30px;
   }
@@ -25,15 +25,11 @@ form {
 
   @media #{$gt-sm} {
     border-radius: 50px;
-    padding: 10px 160px 10px 30px;
+    padding: 10px 160px 0 30px;
     .form-group {
       ::ng-deep {
         .mat-form-field-infix {
           width: 100px;
-          padding-bottom: 0;
-        }
-        .mat-form-field-wrapper {
-          padding-bottom: 0;
         }
         .mat-form-field-underline {
           display: none;
