@@ -9,7 +9,7 @@ import { Router, Params } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 import { FormService } from 'src/app/service/form.service';
 import { isEmpty, omitBy } from 'lodash';
-import { fromEvent } from '_rxjs@6.6.7@rxjs';
+import { fromEvent } from 'rxjs';
 
 @Component({
   selector: 'app-search-action',
