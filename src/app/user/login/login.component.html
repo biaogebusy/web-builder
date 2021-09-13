@@ -1,8 +1,12 @@
 <div class="login-container" fxLayoutAlign="center center">
   <div class="login-wrapper m-x position-relative" fxLayout>
-    <div *ngIf="!screenState.eq('xs')" class="login-second" fxFlex.xs="100" fxFlex.gt-xs="60">
-      <img src="/assets/images/login-second.png" alt="">
+    <div *ngIf="!screenState.eq('xs')" class="login-second position-relative" fxFlex.xs="100" fxFlex.gt-xs="60"
+      fxLayoutAlign="center center">
+      <app-dynamic-widgets *ngIf="appState.loginLeft;else default" [content]="appState.loginLeft"></app-dynamic-widgets>
     </div>
+    <ng-template #default>
+      <img src="/assets/images/login-second.png" alt="">
+    </ng-template>
     <div class="login-form position-relative" [class.is-login]="userState.anthenticated" fxFlex.xs="100"
       fxFlex.gt-xs="40" fxLayout="column" fxLayoutAlign="center center">
       <div class="width-100 form-scroll" *ngIf="!userState.loading">

@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
     private apiService: ApiService,
     public screenState: ScreenState,
     private tagsService: TagsService,
-    private appState: AppState,
+    public appState: AppState,
     public branding: BrandingState
   ) {}
 
@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
     this.userState.user$.subscribe((user) => {
       if (user.authenticated) {
         setTimeout(() => {
-          this.router.navigate([this.appState.config.loginRedirect]);
+          this.router.navigate([this.appState.config.login.loginRedirect]);
         }, 2000);
       }
     });

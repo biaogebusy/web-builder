@@ -21,7 +21,14 @@
     "style": "dark-theme",
     "svgIcon": "dark_mode"
   }],
-  "loginRedirect": "/",
+  "login": {
+    "loginRedirect": "/",
+    "left": {
+      "type": "img",
+      "src": "/assets/images/login-second.png",
+      "alt": "登录"
+    }
+  },
   "defaultLogo": "/assets/images/logo.png",
   "amap": {
     "key": "33877188af64f0213ff4fa259b1c14b8",
