@@ -28,7 +28,7 @@
         </mat-card-subtitle>
       </div>
     </div>
-    <div *ngIf="content.body" class="card-body" [innerHTML]="content.body | safeHtml">
+    <div *ngIf="content.body" class="card-body" [innerHTML]="content.body | stripTags">
     </div>
   </mat-card-content>
   <mat-card-actions *ngIf="content?.actions">
