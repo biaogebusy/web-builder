@@ -34,10 +34,14 @@
               "src/styles.scss",
               "node_modules/swiper/swiper-bundle.css",
               "node_modules/video.js/dist/video-js.css",
-              "highlight.js/styles/github.css",
-              "node_modules/ngx-lightbox/lightbox.css"
+              "node_modules/highlight.js/styles/github.css",
+              "node_modules/ngx-lightbox/lightbox.css",
+              "node_modules/social-share.js/dist/css/share.min.css"
             ],
-            "scripts": [],
+            "scripts": [
+              "node_modules/social-share.js/src/js/qrcode.js",
+              "node_modules/social-share.js/src/js/social-share.js"
+            ],
             "allowedCommonJsDependencies": [
               "hammerjs",
               "highlight.js",
