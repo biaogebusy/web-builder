@@ -1,0 +1,8 @@
+<button mat-button [matMenuTriggerFor]="menu" #menuTriggercv (menuOpened)="open()">
+  <mat-icon inline="true">share</mat-icon>
+  <span>分享</span>
+</button>
+<mat-menu #menu="matMenu" class="social-menu">
+  <div class="share-components" data-disabled="qzone,tencent,douban,linkedin,diandian,google,twitter,facebook">
+  </div>
+</mat-menu>

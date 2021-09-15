@@ -52,6 +52,7 @@ import { FlagComponent } from './actions/flag/flag.component';
 import { ShapeComponent } from './shape/shape.component';
 import { BgImgComponent } from './bg-img/bg-img.component';
 import { SearchActionComponent } from './actions/search-action/search-action.component';
+import { ShareComponent } from './actions/share/share.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -97,6 +98,7 @@ const components = [
   SafeHtmlPipe,
   DialogComponent,
   FlagComponent,
+  ShareComponent,
   ShapeComponent,
   BgImgComponent,
   SearchActionComponent,
