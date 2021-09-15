@@ -158,6 +158,9 @@
             "label": "Taxonomy list",
             "href": "/sample/list/taxonomy-list"
           }, {
+            "label": "Taxonomy thin list",
+            "href": "/sample/list/taxonomy-thin-list"
+          }, {
             "label": "Search index",
             "href": "/sample/combs/search/search"
           }]

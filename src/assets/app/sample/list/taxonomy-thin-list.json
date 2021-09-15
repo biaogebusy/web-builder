@@ -74,6 +74,15 @@
             }
           }
         }
+      }, {
+        "type": "share",
+        "button": {
+          "icon": "share",
+          "label": "分享"
+        },
+        "params": {
+          "url": "/"
+        }
       }]
     }, {
       "type": "list-thin",
@@ -106,6 +115,15 @@
             }
           }
         }
+      }, {
+        "type": "share",
+        "button": {
+          "icon": "share",
+          "label": "分享"
+        },
+        "params": {
+          "url": "/"
+        }
       }]
     }, {
       "type": "list-thin",
@@ -137,6 +155,15 @@
               "id": "cb31d69f-a95e-4c91-97d1-1169f82a10a5"
             }
           }
+        }
+      }, {
+        "type": "share",
+        "button": {
+          "icon": "share",
+          "label": "分享"
+        },
+        "params": {
+          "url": "/"
         }
       }]
     }]
