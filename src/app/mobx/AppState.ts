@@ -95,6 +95,10 @@ export class AppState {
     return version;
   }
 
+  get origin(): string {
+    return this.document.location.origin;
+  }
+
   @action
   setConfig(): void {
     if (environment.production) {

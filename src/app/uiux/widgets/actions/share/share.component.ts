@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { AppState } from 'src/app/mobx/AppState';
 declare var window: any;
 
 @Component({
@@ -8,9 +9,11 @@ declare var window: any;
 })
 export class ShareComponent implements OnInit {
   @Input() content: any;
-
-  constructor() {}
-  ngOnInit(): void {}
+  url: string;
+  constructor(private appState: AppState) {}
+  ngOnInit(): void {
+    this.url = `${this.appState.origin}${this.content.params.url}`;
+  }
 
   open(): void {
     window.socialShare('.share-components');
