@@ -17,9 +17,9 @@
             <mat-tab label="手机登录">
               <form class="p-y-sm" fxLayout="column" [formGroup]="phoneForm" (ngSubmit)="loginByPhone()">
                 <mat-form-field appearance="fill">
-                  <mat-label></mat-label>
+                  <mat-label>请输入手机号码</mat-label>
                   <mat-icon matSuffix>phone_iphone</mat-icon>
-                  <input type="tel" matInput formControlName="phone" autocomplete="username">
+                  <input type="tel" matInput formControlName="phone">
                 </mat-form-field>
                 <mat-form-field appearance="fill">
                   <mat-label>验证码</mat-label>
