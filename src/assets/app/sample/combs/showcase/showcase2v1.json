@@ -26,6 +26,7 @@
         },
         "elements": [{
           "type": "feature-box",
+          "hoverIcon": true,
           "fullIcon": "fullscreen",
           "openIcon": "open_in_new",
           "link": "#",
@@ -37,6 +38,7 @@
           }
         }, {
           "type": "feature-box",
+          "hoverIcon": false,
           "fullIcon": "fullscreen",
           "openIcon": "open_in_new",
           "link": "#",
@@ -69,6 +71,7 @@
         },
         "elements": [{
           "type": "feature-box",
+          "hoverIcon": false,
           "fullIcon": "fullscreen",
           "openIcon": "open_in_new",
           "link": "#",
@@ -101,6 +104,7 @@
         },
         "elements": [{
           "type": "feature-box",
+          "hoverIcon": false,
           "fullIcon": "fullscreen",
           "openIcon": "open_in_new",
           "link": "#",
@@ -133,6 +137,7 @@
         },
         "elements": [{
           "type": "feature-box",
+          "hoverIcon": false,
           "fullIcon": "fullscreen",
           "openIcon": "open_in_new",
           "link": "#",
@@ -165,6 +170,7 @@
         },
         "elements": [{
           "type": "feature-box",
+          "hoverIcon": false,
           "fullIcon": "fullscreen",
           "openIcon": "open_in_new",
           "link": "#",
@@ -197,6 +203,7 @@
         },
         "elements": [{
           "type": "feature-box",
+          "hoverIcon": false,
           "fullIcon": "fullscreen",
           "openIcon": "open_in_new",
           "link": "#",
@@ -229,6 +236,7 @@
         },
         "elements": [{
           "type": "feature-box",
+          "hoverIcon": false,
           "fullIcon": "fullscreen",
           "openIcon": "open_in_new",
           "link": "#",
@@ -261,6 +269,7 @@
         },
         "elements": [{
           "type": "feature-box",
+          "hoverIcon": false,
           "fullIcon": "fullscreen",
           "openIcon": "open_in_new",
           "link": "#",

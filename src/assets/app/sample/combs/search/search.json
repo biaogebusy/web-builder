@@ -35,6 +35,12 @@
       }
     },
     "sidebar": [{
+      "appearance": "legacy",
+      "controlType": "search",
+      "key": "keys",
+      "label": "关键词",
+      "type": "input"
+    }, {
       "type": "select",
       "key": "type",
       "mutiple": false,
@@ -124,7 +130,7 @@
     }, {
       "type": "treeView",
       "label": "四分法",
-      "key": "four-point",
+      "key": "four_point",
       "elements": {
         "text": "四分法",
         "value": "all",
@@ -158,7 +164,7 @@
     }, {
       "type": "treeView",
       "label": "六分法",
-      "key": "four-point",
+      "key": "six_point",
       "elements": {
         "text": "四分法",
         "value": "all",

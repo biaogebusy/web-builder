@@ -21,19 +21,20 @@ jobs:
       - name: use Node.js 10
         uses: actions/setup-node@v1
         with:
-          node-version: 12.14
+          node-version: '14.x'
       - name: NPM Install
         run: npm install
       - name: NPM Install Angular
         run: npm install -g @angular/cli > /dev/null
       - name: NPM build Angular Production
         run: ng build --prod --aot=true --buildOptimizer=true
-      - name: Deploy to server
-        uses: easingthemes/ssh-deploy@v2.0.7
+      - name: Deploy to Server
+        uses: AEnterprise/rsync-deploy@v1.0
         env:
-          SSH_PRIVATE_KEY: ${{ secrets.KEY }}
-          ARGS: "-avzr --delete"
-          SOURCE: "dist/xinshi"
-          REMOTE_HOST: ${{ secrets.HOST }}
-          REMOTE_USER: ${{ secrets.SSH_USER }}
-          TARGET: ${{ secrets.XINSHI_PATH }}
+          DEPLOY_KEY: ${{ secrets.KEY }}
+          ARGS: -avz --delete
+          SERVER_PORT: "22"
+          FOLDER: "dist/xinshi"
+          SERVER_IP: ${{ secrets.HOST }}
+          USERNAME: ${{ secrets.SSH_USER }}
+          SERVER_DESTINATION: ${{ secrets.XINSHI_PATH }}

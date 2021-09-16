@@ -2,6 +2,7 @@
   <ng-container [ngSwitch]="content.type">
     <app-bg *ngSwitchCase="'bg'" [content]="content"></app-bg>
     <app-img *ngSwitchCase="'img'" [content]="content"></app-img>
+    <app-bg-img *ngSwitchCase="'bg-img'" [content]="content"></app-bg-img>
     <app-tab *ngSwitchCase="'tab'" [content]="content"></app-tab>
     <app-box *ngSwitchCase="'box'" [content]="content"></app-box>
     <app-text *ngSwitchCase="'text'" [content]="content"></app-text>
@@ -10,6 +11,7 @@
     <app-panel *ngSwitchCase="'panel'" [content]="content"></app-panel>
     <app-input *ngSwitchCase="'input'" [content]="content"></app-input>
     <app-flag *ngSwitchCase="'flag'" [content]="content"></app-flag>
+    <app-share *ngSwitchCase="'share'" [content]="content"></app-share>
     <app-swiper *ngSwitchCase="'swiper'" [content]="content"></app-swiper>
     <app-spinner *ngSwitchCase="'spinner'" [content]="content"></app-spinner>
     <app-textarea *ngSwitchCase="'textarea'" [content]="content"></app-textarea>

@@ -1,17 +1,20 @@
 <div [id]="content.id || ''" class="base-text position-relative" *ngIf="content">
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
-  <app-bg [content]="content.bg" *ngIf="content.bg">
-    <app-img *ngIf="content.bg?.img" [content]="content.bg.img"></app-img>
-  </app-bg>
+  <app-bg-img [content]="content.bg" *ngIf="content.bg"></app-bg-img>
   <div class="container">
     <div class="inner" [ngClass.gt-sm]="content.classes" [ngStyle.gt-sm]="content.style">
       <app-title [content]="content.title" *ngIf="content.title"></app-title>
       <div [innerHTML]="content.body | safeHtml" *ngIf="content.body"></div>
-      <div class="m-top" *ngIf="content.action">
-        <a mat-raised-button color="primary" href="{{content.action.href}}" target="{{content.action.target}}">
-          <app-icon [content]="content.action.icon" *ngIf="content.action?.icon"></app-icon>
-          {{content.action.label}}
-        </a>
+      <div class="m-top" *ngIf="content.actions">
+        <ng-container *ngFor="let action of content.actions">
+          <ng-container [ngSwitch]="action.type">
+            <app-search-action *ngSwitchCase="'search-action'" [content]="action"></app-search-action>
+            <a mat-raised-button *ngSwitchDefault color="primary" href="{{action.href}}" target="{{action.target}}">
+              <app-icon [content]="action.icon" *ngIf="action?.icon"></app-icon>
+              {{action.label}}
+            </a>
+          </ng-container>
+        </ng-container>
       </div>
     </div>
   </div>

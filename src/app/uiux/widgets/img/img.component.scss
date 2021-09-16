@@ -4,6 +4,7 @@ img {
   max-width: 100%;
 }
 
+// will deprecated, user .object-fit
 :host(.bg-center) {
   @media #{$lt-md} {
     img {

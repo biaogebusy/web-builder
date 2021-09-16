@@ -87,8 +87,16 @@ export class AppState {
     return this.state.config && this.state.config.guard;
   }
 
+  @computed get loginLeft(): any {
+    return this.state.config && this.state.config?.login?.left;
+  }
+
   get version(): string {
     return version;
+  }
+
+  get origin(): string {
+    return this.document.location.origin;
   }
 
   @action

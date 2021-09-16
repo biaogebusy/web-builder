@@ -25,10 +25,10 @@
           }
         },
         "body": "Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.",
-        "action": {
+        "actions": [{
           "href": "#",
           "label": "Get Started"
-        }
+        }]
       }, {
         "type": "text",
         "title": {
@@ -45,10 +45,10 @@
           }
         },
         "body": "Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. ",
-        "action": {
+        "actions": [{
           "href": "#",
           "label": "Get Started"
-        }
+        }]
       }]
     }
   }, {

@@ -1,6 +1,6 @@
 <div class="feature-inner" *ngIf="content">
   <div class="feature-inner-corners">
-    <div class="feature-inner-btns">
+    <div class="feature-inner-btns" *ngIf="content.hoverIcon;else noIcon">
       <a href="javascript:void(0)" (click)="open(content.img)" class="expand-image" *ngIf="content.fullIcon">
         <mat-icon>{{content.fullIcon}}</mat-icon>
       </a>
@@ -8,6 +8,9 @@
         <mat-icon>{{content.openIcon}}</mat-icon>
       </a>
     </div>
+    <ng-template #noIcon>
+      <a href="{{content.link}}" class="feature-inner-btns width-100 height-100"></a>
+    </ng-template>
     <div class="mf-popup">
       <div class="mf-no-gallery">
         <div class="feature-inner-ling">
