@@ -27,6 +27,17 @@
       "type": "img",
       "src": "/assets/images/login-second.png",
       "alt": "登录"
+    },
+    "phoneLogin": {
+      "enable": true,
+      "tabLabel": "手机登录",
+      "leftTime": 59,
+      "submitLabel": "注册/登录"
+    },
+    "pswLogin": {
+      "enable": true,
+      "tabLabel": "密码登录",
+      "submitLabel": "登录"
     }
   },
   "defaultLogo": "/assets/images/logo.png",

@@ -14,7 +14,8 @@
           <div *ngIf="userState.error||error" class="error p-y-xs p-x-xs m-bottom-xs">{{userState.error}}{{error}}
           </div>
           <mat-tab-group animationDuration="0ms" [disablePagination]="true">
-            <mat-tab label="手机登录">
+            <mat-tab label="{{appState.config.login.phoneLogin.tabLabel || '手机登录'}}"
+              *ngIf="appState.config.login?.phoneLogin?.enable">
               <form class="p-y-sm" fxLayout="column" [formGroup]="phoneForm" (ngSubmit)="loginByPhone()">
                 <mat-form-field appearance="fill">
                   <mat-label>请输入手机号码</mat-label>
@@ -36,12 +37,13 @@
                 </mat-form-field>
                 <button type="submit" mat-raised-button color="primary">
                   <div fxLayoutAlign="center center">
-                    <div class="p-x-xs">注册/登录</div>
+                    <div class="p-x-xs">{{appState.config.login.phoneLogin.submitLabel}}</div>
                   </div>
                 </button>
               </form>
             </mat-tab>
-            <mat-tab label="密码登录">
+            <mat-tab label="{{appState.config.login.pswLogin.tabLabel || '密码登录'}}"
+              *ngIf="appState.config.login?.pswLogin?.enable">
               <form class="p-y-sm" fxLayout="column" [formGroup]="userForm" (ngSubmit)="login()">
                 <mat-form-field appearance="fill">
                   <mat-label>用户名</mat-label>
@@ -58,7 +60,7 @@
                 </mat-form-field>
                 <button type="submit" mat-raised-button color="primary">
                   <div fxLayoutAlign="center center">
-                    <div class="p-x-xs">登录</div>
+                    <div class="p-x-xs">{{appState.config.login.pswLogin.submitLabel}}</div>
                   </div>
                 </button>
               </form>
