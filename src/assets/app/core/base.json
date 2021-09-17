@@ -32,7 +32,8 @@
       "enable": true,
       "tabLabel": "手机登录",
       "leftTime": 59,
-      "submitLabel": "注册/登录"
+      "submitLabel": "注册/登录",
+      "error": "请输入正确的手机号码"
     },
     "pswLogin": {
       "enable": true,

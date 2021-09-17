@@ -20,13 +20,15 @@
                 <mat-form-field appearance="fill">
                   <mat-label>请输入手机号码</mat-label>
                   <mat-icon matSuffix>phone_iphone</mat-icon>
-                  <input type="tel" matInput formControlName="phone">
+                  <input type="text" matInput formControlName="phone">
+                  <mat-error *ngIf="formPhone.phone.errors?.pattern">
+                    {{appState.config.login.phoneLogin.error || '请输入正确的手机号码'}}</mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="fill">
                   <mat-label>验证码</mat-label>
                   <input matInput type="text" formControlName="code">
-                  <button (click)="getCode($event)" class="code" matSuffix color="primary" mat-raised-button
-                    aria-label="code">
+                  <button disabled="{{formPhone.phone.errors? true: false}}" (click)="getCode($event)" class="code"
+                    matSuffix color="primary" mat-raised-button aria-label="code">
                     <small>
                       发送验证码
                       <ng-container *ngIf="config?.leftTime">

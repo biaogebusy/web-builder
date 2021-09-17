@@ -42,7 +42,15 @@ export class LoginComponent implements OnInit, AfterViewInit {
     });
 
     this.phoneForm = this.fb.group({
-      phone: ['', Validators.required],
+      phone: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern('1(3|4|5|7|8)\\d{9}'),
+          Validators.minLength(11),
+          Validators.maxLength(11),
+        ],
+      ],
       code: ['', Validators.required],
     });
 
@@ -65,8 +73,12 @@ export class LoginComponent implements OnInit, AfterViewInit {
       .to('.form-scroll', { duration: 0.5, top: 0, ease: 'expo.out' });
   }
 
-  get f() {
+  get f(): any {
     return this.userForm.controls;
+  }
+
+  get formPhone(): any {
+    return this.phoneForm.controls;
   }
 
   login(): void {
