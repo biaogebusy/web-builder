@@ -3,6 +3,10 @@
 .login-container {
   max-height: 500px;
   min-height: calc(100vh - 76px);
+
+  ::ng-deep .mat-tab-label {
+    min-width: auto !important;
+  }
 }
 
 .login-wrapper {
@@ -15,7 +19,7 @@
     z-index: 2;
     overflow: hidden;
     .form-scroll {
-      top: 500px;
+      // top: 500px;
       position: relative;
     }
     &.is-login {
@@ -84,4 +88,11 @@ input.example-right-align {
   bottom: 0;
   height: 100%;
   opacity: 0;
+}
+
+.code {
+  padding: 0px 10px;
+  position: absolute;
+  top: -33px;
+  right: 0;
 }

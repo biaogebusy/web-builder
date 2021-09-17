@@ -6,6 +6,7 @@ import { Subject } from 'rxjs';
 import { UserService } from '../../service/user.service';
 import { ApiService } from '../../service/api.service';
 import { AppState } from '../AppState';
+import { UtilitiesService } from 'src/app/service/utilities.service';
 const unauthUser = {
   authenticated: false,
 };
@@ -22,7 +23,8 @@ export class UserState {
     private userService: UserService,
     private storage: LocalStorageService,
     private apiService: ApiService,
-    private appState: AppState
+    private appState: AppState,
+    private utilities: UtilitiesService
   ) {
     if (this.storage.retrieve(this.apiService.localUserKey)) {
       this.user = JSON.parse(
@@ -54,7 +56,25 @@ export class UserState {
       },
       (error) => {
         this.loading = false;
-        this.error = error.error.message;
+        this.error = error.message;
+      }
+    );
+  }
+
+  @action
+  loginByPhone(phone: number, code: string): any {
+    this.loading = true;
+    this.userService.loginByPhone(phone, code).subscribe(
+      (data) => {
+        if (data.status) {
+          this.updateUser(data);
+        } else {
+          this.utilities.openSnackbar(data.message);
+          this.loading = false;
+        }
+      },
+      (error) => {
+        console.log(error);
       }
     );
   }

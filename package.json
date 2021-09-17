@@ -39,6 +39,7 @@
     "mobx": "6.2.0",
     "mobx-angular": "^4.2.0",
     "ng-dynamic-component": "^8.0.1",
+    "ngx-countdown": "^12.0.1",
     "ngx-lightbox": "^2.3.0",
     "ngx-pagination": "^5.1.0",
     "ngx-pipes": "^2.7.5",

@@ -56,6 +56,39 @@ export class UserService extends ApiService {
     );
   }
 
+  getCode(phone: string): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-type': 'application/json',
+        Accept: 'application/json',
+      }),
+    };
+
+    return this.http.post(
+      `${this.apiService.apiUrl}/api/v1/otp/generate?format=json`,
+      {
+        mobile_number: phone,
+      }
+    );
+  }
+
+  loginByPhone(phone: number, code: string): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-type': 'application/json',
+        Accept: 'application/json',
+      }),
+    };
+
+    return this.http.post(
+      `${this.apiService.apiUrl}/api/v1/otp/login?format=json`,
+      {
+        mobile_number: phone,
+        code,
+      }
+    );
+  }
+
   getCurrentUserById(user: TokenUser): Observable<any> {
     const apiUrl = `${this.apiUrl}${this.appState.apiUrlConfig.userGetPath}`;
     const params = [

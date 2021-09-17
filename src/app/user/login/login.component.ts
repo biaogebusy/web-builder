@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserState } from '../../mobx/user/UserState';
@@ -8,6 +8,7 @@ import { AppState } from '../../mobx/AppState';
 import { BrandingState } from '../../mobx/BrandingStare';
 import { gsap } from 'gsap';
 import { TagsService } from 'src/app/service/tags.service';
+import { UserService } from 'src/app/service/user.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -15,17 +16,22 @@ import { TagsService } from 'src/app/service/tags.service';
 })
 export class LoginComponent implements OnInit, AfterViewInit {
   hide = true;
+  error: string;
   userForm: FormGroup;
+  phoneForm: FormGroup;
+  @ViewChild('cd', { static: false }) private countdown: any;
+
+  config: any;
 
   constructor(
     private fb: FormBuilder,
     public userState: UserState,
     private router: Router,
-    private apiService: ApiService,
     public screenState: ScreenState,
     private tagsService: TagsService,
     public appState: AppState,
-    public branding: BrandingState
+    public branding: BrandingState,
+    public userService: UserService
   ) {}
 
   ngOnInit(): void {
@@ -33,6 +39,19 @@ export class LoginComponent implements OnInit, AfterViewInit {
     this.userForm = this.fb.group({
       name: ['', Validators.required],
       pass: ['', Validators.required],
+    });
+
+    this.phoneForm = this.fb.group({
+      phone: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern('1(3|4|5|7|8)\\d{9}'),
+          Validators.minLength(11),
+          Validators.maxLength(11),
+        ],
+      ],
+      code: ['', Validators.required],
     });
 
     this.userState.user$.subscribe((user) => {
@@ -54,8 +73,12 @@ export class LoginComponent implements OnInit, AfterViewInit {
       .to('.form-scroll', { duration: 0.5, top: 0, ease: 'expo.out' });
   }
 
-  get f() {
+  get f(): any {
     return this.userForm.controls;
+  }
+
+  get formPhone(): any {
+    return this.phoneForm.controls;
   }
 
   login(): void {
@@ -64,13 +87,26 @@ export class LoginComponent implements OnInit, AfterViewInit {
     }
 
     this.userState.login(this.userForm.value.name, this.userForm.value.pass);
-    this.userState.user$.subscribe((user) => {
-      const t1 = gsap.timeline();
-      t1.to('.mark-bg', {
-        duration: 3,
-        width: '100%',
-        ease: 'power3.out',
-      }).to('.login-container', { duration: 2, opacity: 0 });
+  }
+
+  loginByPhone(): void {
+    this.userState.loginByPhone(
+      this.phoneForm.value.phone,
+      this.phoneForm.value.code
+    );
+  }
+
+  getCode(event: any): any {
+    event.preventDefault();
+    if (!this.phoneForm.value.phone) {
+      this.error = '请输入手机号码';
+      return false;
+    }
+    this.userService.getCode(this.phoneForm.value.phone).subscribe((code) => {
+      this.config = {
+        leftTime: 60,
+        format: 'ss',
+      };
     });
   }
 }
