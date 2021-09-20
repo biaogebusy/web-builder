@@ -4,6 +4,7 @@ import { NodeService } from 'src/app/service/node.service';
 import { BaseComponent } from 'src/app/uiux/base/base.widget';
 import { UserState } from '../../../../mobx/user/UserState';
 import { switchMap } from 'rxjs/operators';
+import { RouteService } from 'src/app/service/route.service';
 
 @Component({
   selector: 'app-flag',
@@ -15,11 +16,12 @@ export class FlagComponent extends BaseComponent implements OnInit {
 
   flagging = false;
   constructor(
-    private nodeService: NodeService,
+    public nodeService: NodeService,
+    public routerService: RouteService,
     private userState: UserState,
     private appState: AppState
   ) {
-    super();
+    super(nodeService, routerService);
   }
 
   ngOnInit(): void {

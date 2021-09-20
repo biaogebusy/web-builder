@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { result } from 'lodash-es';
 import { NodeService } from 'src/app/service/node.service';
+import { RouteService } from 'src/app/service/route.service';
 import { BaseComponent } from 'src/app/uiux/base/base.widget';
 
 @Component({
@@ -14,21 +15,25 @@ export class DynamicCardListComponent extends BaseComponent implements OnInit {
   list: any;
   loading = true;
 
-  constructor(private nodeService: NodeService) {
-    super();
+  constructor(
+    public nodeService: NodeService,
+    public routerService: RouteService
+  ) {
+    super(nodeService, routerService);
   }
 
   ngOnInit(): void {
     this.getContent();
   }
 
-  getContent(): void {
+  getContent(key = ''): void {
     this.loading = true;
     const params = [
       `include=${this.getParams(this.content, 'include')}`,
       `sort=${this.getParams(this.content, 'sort')}`,
       'jsonapi_include=1',
       `page[limit]=${this.getParams(this.content, 'limit') || 20}`,
+      `filter[title][operator]=CONTAINS&filter[title][value]=${key}`,
     ].join('&');
     const path = this.nodeService.apiUrlConfig.nodeGetPath;
     this.nodeService

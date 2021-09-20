@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { NodeService } from 'src/app/service/node.service';
+import { RouteService } from 'src/app/service/route.service';
 import { BaseComponent } from 'src/app/uiux/base/base.widget';
 
 @Component({
@@ -11,8 +13,11 @@ export class ItemMenuComponent extends BaseComponent implements OnInit {
   @Input() params: any;
   isMegaMenu: boolean;
 
-  constructor() {
-    super();
+  constructor(
+    public nodeService: NodeService,
+    public routerService: RouteService
+  ) {
+    super(nodeService, routerService);
   }
 
   ngOnInit(): void {

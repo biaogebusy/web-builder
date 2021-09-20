@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NodeService } from 'src/app/service/node.service';
+import { RouteService } from 'src/app/service/route.service';
 import { BaseComponent } from 'src/app/uiux/base/base.widget';
 import { AppState } from '../../../../mobx/AppState';
 
@@ -13,8 +14,12 @@ export class DynamicTextListComponent extends BaseComponent implements OnInit {
   lists: any[];
   links: any;
   loading: boolean;
-  constructor(private nodeService: NodeService, private appState: AppState) {
-    super();
+  constructor(
+    public nodeService: NodeService,
+    public routerService: RouteService,
+    private appState: AppState
+  ) {
+    super(nodeService, routerService);
   }
 
   ngOnInit(): void {

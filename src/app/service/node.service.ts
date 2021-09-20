@@ -23,12 +23,8 @@ export class NodeService extends ApiService {
     return this.appState.apiUrlConfig;
   }
 
-  search(params: string): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/api/v1/content?${params}`);
-  }
-
-  searchNode(params: string): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/api/v1/content?${params}`);
+  search(type: string, params: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/api/v1/${type}?${params}`);
   }
 
   getNodeByLink(link: string): Observable<any> {
