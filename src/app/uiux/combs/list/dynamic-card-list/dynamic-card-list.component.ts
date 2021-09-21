@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { result } from 'lodash-es';
+import { ActivatedRoute } from '@angular/router';
+import { isEmpty, omitBy, result } from 'lodash-es';
 import { NodeService } from 'src/app/service/node.service';
 import { RouteService } from 'src/app/service/route.service';
 import { BaseComponent } from 'src/app/uiux/base/base.widget';
@@ -11,61 +12,83 @@ import { BaseComponent } from 'src/app/uiux/base/base.widget';
 })
 export class DynamicCardListComponent extends BaseComponent implements OnInit {
   @Input() content: any;
-  links: any;
-  list: any;
-  loading = true;
+  keys: string;
+  page: number;
+  pager: any;
+  formValues: {};
+  filterForm: any[];
+  nodes: any[];
+  status: any;
+  loading = false;
 
   constructor(
     public nodeService: NodeService,
+    private router: ActivatedRoute,
     public routerService: RouteService
   ) {
     super(nodeService, routerService);
   }
 
   ngOnInit(): void {
-    this.getContent();
-  }
-
-  getContent(key = ''): void {
-    this.loading = true;
-    const params = [
-      `include=${this.getParams(this.content, 'include')}`,
-      `sort=${this.getParams(this.content, 'sort')}`,
-      'jsonapi_include=1',
-      `page[limit]=${this.getParams(this.content, 'limit') || 20}`,
-      `filter[title][operator]=CONTAINS&filter[title][value]=${key}`,
-    ].join('&');
-    const path = this.nodeService.apiUrlConfig.nodeGetPath;
-    this.nodeService
-      .getNodes(path, `${this.getParams(this.content, 'type')}`, params)
-      .subscribe((res) => {
-        this.updateContent(res);
-      });
-  }
-  onPageChange(link: string): void {
-    this.nodeService.getNodeByLink(link).subscribe((res) => {
-      this.updateContent(res);
+    this.router.queryParams.subscribe((query: any) => {
+      this.keys = query.keys || '';
+      this.page = query.page || 0;
+      const queryOpt = omitBy(
+        Object.assign(
+          {
+            keys: this.keys,
+            page: this.page,
+          },
+          query
+        ),
+        isEmpty
+      );
+      if (this.content.sidebar) {
+        this.filterForm = this.setFilterForm(queryOpt, this.content.sidebar);
+      }
+      this.nodeSearch(queryOpt);
     });
   }
 
-  updateContent(res: any): void {
-    this.list = res.data.map((item: any) => {
-      const link = this.nodeService.getNodePath(item);
-      const subTitle = result(
-        item,
-        this.getValue(this.content, 'fields', 'subTitle')
-      );
-      const title = result(
-        item,
-        this.getValue(this.content, 'fields', 'title')
-      );
-      const body = result(item, this.getValue(this.content, 'fields', 'body'));
+  nodeSearch(options: any): void {
+    this.loading = true;
+    this.nodeSearchByParams('lawyer', this.formValues, options).subscribe(
+      (data) => {
+        this.updateList(data, this.formValues, options);
+        this.loading = false;
+      },
+      (error) => {
+        this.loading = false;
+      }
+    );
+  }
+
+  onSelectChange(options: any): void {
+    this.keys = options.keys;
+    this.page = options.page;
+    this.formValues = options;
+    this.nodeSearch(options);
+  }
+
+  onPageChange(page: any): void {
+    this.page = page;
+    this.nodeSearch({ page: this.page });
+  }
+
+  updateList(data: any, formValues: any, options: any): void {
+    console.log(data);
+
+    this.pager = data.pager;
+    this.nodes = data.rows.map((item: any) => {
+      const link = item.url;
+      const title = item.title;
+      const body = item.body;
       return {
         link: {
           label: title,
           href: link,
         },
-        subTitle,
+        subTitle: item.law_firm,
         classes: this.content.shadow ? '' : 'card-no-shadow',
         feature: {
           fullIcon: 'fullscreen',
@@ -74,18 +97,13 @@ export class DynamicCardListComponent extends BaseComponent implements OnInit {
           ratios: this.content.ratios || 'media-4-3',
           img: {
             classes: 'object-fit',
-            src: item.media.thumbnail.uri.url,
+            src: item.image,
             alt: title,
           },
         },
-        body: body ? body : item.body.summary || item.body.value,
+        body,
       };
     });
-    this.links = res.links;
-    this.loading = false;
-  }
-
-  onSelectChange(event: any): void {
-    console.log(event);
+    this.updateUrl(formValues, options);
   }
 }
