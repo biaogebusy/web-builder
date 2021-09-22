@@ -52,7 +52,11 @@ export class DynamicCardListComponent extends BaseComponent implements OnInit {
 
   nodeSearch(options: any): void {
     this.loading = true;
-    this.nodeSearchByParams('lawyer', this.formValues, options).subscribe(
+    this.nodeSearchByParams(
+      this.getParams(this.content, 'type'),
+      this.formValues,
+      options
+    ).subscribe(
       (data) => {
         this.updateList(data, this.formValues, options);
         this.loading = false;
@@ -81,14 +85,21 @@ export class DynamicCardListComponent extends BaseComponent implements OnInit {
     this.pager = data.pager;
     this.nodes = data.rows.map((item: any) => {
       const link = item.url;
-      const title = item.title;
-      const body = item.body;
+      const title = result(
+        item,
+        this.getValue(this.content, 'fields', 'title')
+      );
+      const subTitle = result(
+        item,
+        this.getValue(this.content, 'fields', 'subTitle')
+      );
+      const body = result(item, this.getValue(this.content, 'fields', 'body'));
       return {
         link: {
           label: title,
           href: link,
         },
-        subTitle: item.law_firm,
+        subTitle,
         classes: this.content.shadow ? '' : 'card-no-shadow',
         feature: {
           fullIcon: 'fullscreen',

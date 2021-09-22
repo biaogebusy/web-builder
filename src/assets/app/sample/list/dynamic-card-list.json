@@ -3,21 +3,16 @@
   "body": [{
     "type": "dynamic-card-list",
     "params": {
-      "type": "lawyer",
-      "include": "media,media.field_media_image,law_firm",
-      "sort": "-changed",
-      "limit": "20"
+      "type": "lawyer"
     },
     "fields": {
       "title": "title",
-      "subTitle": "law_firm.title"
+      "subTitle": "law_firm",
+      "body": "body"
     },
     "row": "4",
     "shadow": true,
     "ratios": "media-1-1",
-    "pager": {
-      "itemsPerPage": 20
-    },
     "sidebar": [{
       "appearance": "legacy",
       "controlType": "search",
