@@ -75,7 +75,7 @@ export class DynamicCardListComponent extends BaseComponent implements OnInit {
   }
 
   onPageChange(page: any): void {
-    this.page = page;
+    this.page = page - 1;
     this.nodeSearch({ page: this.page });
   }
 
