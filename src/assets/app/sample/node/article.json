@@ -9,6 +9,9 @@
       }
     },
     "meta": [{
+      "icon": "person",
+      "label": "editor"
+    }, {
       "icon": "schedule",
       "label": "12/09/2021"
     }, {
