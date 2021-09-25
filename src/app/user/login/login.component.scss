@@ -38,6 +38,8 @@
   @media #{$gt-xs} {
     .login-form {
       padding: 6rem 4rem;
+      min-width: 400px;
+      min-height: 400px;
     }
 
     border-radius: 20px;
@@ -46,6 +48,8 @@
 }
 
 .login-second {
+  min-width: 300px;
+
   img {
     max-width: 100%;
     max-height: 100%;
