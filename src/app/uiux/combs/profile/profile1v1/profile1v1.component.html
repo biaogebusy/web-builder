@@ -16,7 +16,7 @@
         <div class="left-item p-y-sm p-x-sm" *ngIf="content?.details">
           <div class="item-header bold m-bottom-sm">{{content.details.label}}</div>
           <div class="list">
-            <div fxLayoutAlign="start center" *ngFor="let item of content.details.elements">
+            <div fxLayoutAlign="start start" *ngFor="let item of content.details.elements">
               <app-icon [content]="item.icon"></app-icon>
               <div class="label m-right-xs bold">{{item.label}}:</div>
               <div>{{item.content}}</div>
