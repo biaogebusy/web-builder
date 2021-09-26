@@ -23,7 +23,8 @@
     },
     "elements": [{
       "img": {
-        "src": "/assets/images/svg/health.svg"
+        "src": "/assets/images/svg/health.svg",
+        "href": "/"
       },
       "link": {
         "href": "/",
@@ -31,7 +32,8 @@
       }
     }, {
       "img": {
-        "src": "/assets/images/svg/term-life.svg"
+        "src": "/assets/images/svg/term-life.svg",
+        "href": "/"
       },
       "link": {
         "href": "/",
@@ -39,7 +41,8 @@
       }
     }, {
       "img": {
-        "src": "/assets/images/svg/family-health.svg"
+        "src": "/assets/images/svg/family-health.svg",
+        "href": "/"
       },
       "link": {
         "href": "/",
@@ -47,7 +50,8 @@
       }
     }, {
       "img": {
-        "src": "/assets/images/svg/investment.svg"
+        "src": "/assets/images/svg/investment.svg",
+        "href": "/"
       },
       "link": {
         "href": "/",
@@ -55,7 +59,8 @@
       }
     }, {
       "img": {
-        "src": "/assets/images/svg/car.svg"
+        "src": "/assets/images/svg/car.svg",
+        "href": "/"
       },
       "link": {
         "href": "/",
@@ -63,7 +68,8 @@
       }
     }, {
       "img": {
-        "src": "/assets/images/svg/bike.svg"
+        "src": "/assets/images/svg/bike.svg",
+        "href": "/"
       },
       "link": {
         "href": "/",
