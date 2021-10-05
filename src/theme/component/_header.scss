@@ -147,6 +147,8 @@
     }
     input[type="search"] {
       color: mat-color($foreground, text);
+      caret-color: mat-color($foreground, text, 0.5);
+      background-color: mat-color($background, card);
     }
     .mat-icon {
       color: mat-color($primary);
@@ -182,11 +184,6 @@
       .search-box {
         form {
           border: 1px solid mat-color($primary, default-contrast);
-        }
-        input[type="search"] {
-          color: mat-color($foreground, text);
-          background-color: mat-color($background, card);
-          caret-color: mat-color($primary, default-contrast);
         }
       }
       .switch-theme {
