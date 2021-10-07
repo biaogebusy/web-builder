@@ -7,6 +7,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { CountToModule } from 'angular-count-to';
 import { DynamicModule } from 'ng-dynamic-component';
+import { TreeModule } from '@circlon/angular-tree-component';
 
 import { BgComponent } from './bg/bg.component';
 import { ImgComponent } from './img/img.component';
@@ -53,6 +54,7 @@ import { ShapeComponent } from './shape/shape.component';
 import { BgImgComponent } from './bg-img/bg-img.component';
 import { SearchActionComponent } from './actions/search-action/search-action.component';
 import { ShareComponent } from './actions/share/share.component';
+import { TreeComponent } from './tree/tree.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -101,6 +103,7 @@ const components = [
   ShareComponent,
   ShapeComponent,
   BgImgComponent,
+  TreeComponent,
   SearchActionComponent,
   MediaObjectGroupComponent,
   DynamicFormControlComponent,
@@ -112,6 +115,7 @@ const components = [
     MatChipsModule,
     ShareModule,
     SwiperModule,
+    TreeModule,
     LightboxModule,
     CountToModule,
     DynamicModule,

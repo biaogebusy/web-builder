@@ -1,0 +1,85 @@
+div.tree {
+  padding-left: 16px;
+  padding-right: 16px;
+  overflow: hidden;
+  position: relative;
+  &:before {
+    content: "";
+    position: absolute;
+    border-left: 1px dotted #23527c;
+    height: 100%;
+    top: -14px;
+    left: 20px;
+  }
+  ::ng-deep {
+    div.tree-children {
+      position: relative;
+      padding-left: 0;
+      margin-left: 16px;
+      &:before {
+        content: "";
+        position: absolute;
+        border-left: 1px dotted #23527c;
+        height: 100%;
+        top: -14px;
+        left: 5px;
+      }
+    }
+    tree-node {
+      > div .node-wrapper {
+        margin-left: 24px;
+        > .node-content-wrapper {
+          margin-left: 4px;
+        }
+      }
+      > div.tree-node-leaf .node-wrapper {
+        margin-left: 0;
+      }
+      > div:before {
+        content: "";
+        position: absolute;
+        border-bottom: 1px dotted #23527c;
+        width: 7px;
+        margin-top: 12px;
+        left: 7px;
+      }
+      > div .toggle-children-wrapper {
+        width: 13px;
+        height: 13px;
+        border: 1px solid #23527c;
+        position: absolute;
+        left: 15px;
+        margin-top: 5px;
+        margin-left: 0;
+        display: inline-block;
+        background-color: #fff;
+        z-index: 1;
+        box-sizing: border-box;
+        &:before {
+          content: "";
+          display: inline-block;
+          width: 7px;
+          border-top: 1px solid #23527c;
+          position: absolute;
+          top: 5px;
+          left: 2px;
+        }
+        &.toggle-children-wrapper-collapsed:after {
+          content: "";
+          display: inline-block;
+          height: 7px;
+          border-left: 1px solid #23527c;
+          position: absolute;
+          top: 2px;
+          left: 5px;
+        }
+        .toggle-children {
+          display: none;
+        }
+      }
+      > div .node-content-wrapper {
+        margin-left: 4px;
+      }
+    }
+  }
+}
