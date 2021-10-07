@@ -1,0 +1,13 @@
+<div class="tree-list">
+  <div class="container">
+    <div fxLayoutAlign="space-bewteen start">
+      <div class="left">
+        <app-tree></app-tree>
+      </div>
+      <div class="right">
+        <app-search-list fxFlex.lt-sm="0 0 100" fxFlex.gt-md="0 0 {{content.sidebar ? '75%':'100%'}}" [content]="nodes"
+          [loading]="loading" (pageChange)="onPageChange($event)"></app-search-list>
+      </div>
+    </div>
+  </div>
+</div>

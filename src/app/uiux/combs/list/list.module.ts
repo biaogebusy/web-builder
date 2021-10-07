@@ -10,6 +10,7 @@ import { DynamicTextListComponent } from './dynamic-text-list/dynamic-text-list.
 import { TaxonomyThinListComponent } from './taxonomy-thin-list/taxonomy-thin-list.component';
 import { ListThinComponent } from './list/list-thin/list-thin.component';
 import { SearchModule } from '../search/search.module';
+import { TreeListComponent } from './tree-list/tree-list.component';
 
 const components = [
   ListComponent,
@@ -19,6 +20,7 @@ const components = [
   DynamicTextListComponent,
   TaxonomyThinListComponent,
   ListThinComponent,
+  TreeListComponent,
 ];
 
 @NgModule({

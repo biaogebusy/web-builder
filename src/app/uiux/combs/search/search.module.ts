@@ -19,6 +19,6 @@ import { SearchStatusComponent } from './search-status/search-status.component';
     SearchStatusComponent,
   ],
   imports: [ShareModule, WidgetsModule, HeroModule],
-  exports: [SearchComponent, SearchSidebarComponent],
+  exports: [SearchComponent, SearchSidebarComponent, SearchListComponent],
 })
 export class SearchModule {}
