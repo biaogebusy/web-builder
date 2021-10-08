@@ -44,7 +44,7 @@ export class TreeComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onActivate(event) {
+  onActivate(event: any): void {
     console.log(event);
   }
 }

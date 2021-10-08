@@ -81,7 +81,7 @@ export class TreeListComponent extends BaseComponent implements OnInit {
     // this.updateStatus();
   }
 
-  onPageChange(event): void {
+  onPageChange(event: any): void {
     console.log(event);
   }
 }
