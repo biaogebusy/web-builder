@@ -6,8 +6,7 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class TreeComponent implements OnInit {
   @Input() content: any;
-  @Output() activate = new EventEmitter();
-  @Output() deactivate = new EventEmitter();
+  @Output() treeChange = new EventEmitter();
 
   // https://angular2-tree.readme.io/docs/getting-started
   default = {
@@ -23,10 +22,9 @@ export class TreeComponent implements OnInit {
   }
 
   onActivate(event: any): void {
-    this.activate.emit(event);
-  }
-
-  onDeactivate(event: any): void {
-    this.deactivate.emit(event);
+    const obj: any = {};
+    obj[`${this.content.key}`] = event.node.id;
+    obj.page = 0;
+    this.treeChange.emit(obj);
   }
 }

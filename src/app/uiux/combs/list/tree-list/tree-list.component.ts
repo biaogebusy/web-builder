@@ -19,6 +19,7 @@ export class TreeListComponent extends BaseComponent implements OnInit {
   pager: any;
   hundredPoint: string;
   searchCategory: string;
+  formState: any = {};
   constructor(
     public nodeService: NodeService,
     private router: ActivatedRoute,
@@ -46,11 +47,8 @@ export class TreeListComponent extends BaseComponent implements OnInit {
 
   nodeSearch(): void {
     this.loading = true;
-    const api = {
-      hundred_point: this.hundredPoint,
-      search_category: this.searchCategory,
-    };
-    const params = this.getApiParams(api);
+    const params = this.getApiParams(this.formState);
+    console.log(params);
     this.nodeService.search('content', params).subscribe(
       (data) => {
         this.updateList(data);
@@ -81,22 +79,23 @@ export class TreeListComponent extends BaseComponent implements OnInit {
     // this.updateStatus();
   }
 
-  onPageChange(event: any): void {
-    console.log(event);
+  onPageChange(page: any): void {
+    console.log(page);
+    this.formState = Object.assign(this.formState, { page });
+    this.nodeSearch();
   }
 
   onSelectChange(event: any): void {
-    this.searchCategory = event.option.value;
+    console.log(event);
+    const option: any = {};
+    option[event.key] = event.value;
+    option.page = 0;
+    this.formState = Object.assign(this.formState, option);
     this.nodeSearch();
   }
 
-  onTreeActivate(event: any): void {
-    this.hundredPoint = event.node.id;
-    this.nodeSearch();
-  }
-
-  onDeactivate(event: any): void {
-    this.hundredPoint = '';
+  onTreeChange(option: any): void {
+    this.formState = Object.assign(this.formState, option);
     this.nodeSearch();
   }
 }
