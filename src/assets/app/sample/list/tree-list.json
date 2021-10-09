@@ -6,6 +6,9 @@
       "label": "金融 100T",
       "key": "hundred_point",
       "nodes": [{
+          "label": "全部",
+          "value": ""
+        }, {
           "value": 861,
           "label": "民商诉讼",
           "elements": [{

@@ -52,6 +52,7 @@ export class TreeListComponent extends BaseComponent implements OnInit {
     this.nodeService.search('content', params).subscribe(
       (data) => {
         this.updateList(data);
+        this.updateUrl(this.formState);
         this.loading = false;
       },
       (error) => {
@@ -75,8 +76,6 @@ export class TreeListComponent extends BaseComponent implements OnInit {
         type: item.type || '',
       };
     });
-    // this.updateUrl(formValues, options);
-    // this.updateStatus();
   }
 
   onPageChange(page: any): void {

@@ -90,7 +90,7 @@ export abstract class BaseComponent {
     return Object.assign({}, formValues, options);
   }
 
-  updateUrl(formValues: any, options: any): any {
+  updateUrl(formValues: any, options: any = {}): any {
     const state = this.getParamsState(formValues, options);
     const query: Params = this.getFormParams(state);
     this.routerService.updateQueryParams(query);
