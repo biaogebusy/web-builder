@@ -1,0 +1,12 @@
+.filter {
+  border: 1px solid #ddd;
+}
+.tree-list {
+  mat-selection-list {
+    padding: 8px;
+  }
+  mat-list-option {
+    display: inline-block;
+    width: auto;
+  }
+}

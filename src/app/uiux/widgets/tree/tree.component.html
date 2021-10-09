@@ -1,3 +1,8 @@
+<div class="tree-inner p-y-sm m-y-sm">
+  <label class="mat-h3 p-x-sm">{{content.label}}</label>
   <div class="tree">
-    <tree-root [nodes]="nodes" [options]="options" (activate)="onActivate($event)"></tree-root>
+    <tree-root [nodes]="content.nodes" [options]="options" (activate)="onActivate($event)"
+      (deactivate)="onDeactivate($event)">
+    </tree-root>
   </div>
+</div>

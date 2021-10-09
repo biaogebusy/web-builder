@@ -135,4 +135,12 @@
       }
     }
   }
+
+  .tree-inner {
+    border: 1px solid mat-color($foreground, divider);
+    .node-content-wrapper-active,
+    .node-content-wrapper:hover {
+      background-color: mat-color($primary, 100);
+    }
+  }
 }

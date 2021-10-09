@@ -15,11 +15,10 @@ export class TreeListComponent extends BaseComponent implements OnInit {
   @Input() content: any;
   nodes = [];
   loading = false;
-  keys: string;
   page: number;
   pager: any;
-  formValues: {};
-  filterForm: any[];
+  hundredPoint: string;
+  searchCategory: string;
   constructor(
     public nodeService: NodeService,
     private router: ActivatedRoute,
@@ -30,30 +29,31 @@ export class TreeListComponent extends BaseComponent implements OnInit {
 
   ngOnInit(): void {
     this.router.queryParams.subscribe((query: any) => {
-      this.keys = query.keys || '';
       this.page = query.page || 0;
+
       const queryOpt = omitBy(
         Object.assign(
           {
-            keys: this.keys,
             page: this.page,
           },
           query
         ),
         isEmpty
       );
-      if (this.content.sidebar) {
-        this.filterForm = this.setFilterForm(queryOpt, this.content.sidebar);
-      }
-      this.nodeSearch(queryOpt);
+      this.nodeSearch();
     });
   }
 
-  nodeSearch(options: any): void {
+  nodeSearch(): void {
     this.loading = true;
-    this.nodeSearchByParams('content', this.formValues, options).subscribe(
+    const api = {
+      hundred_point: this.hundredPoint,
+      search_category: this.searchCategory,
+    };
+    const params = this.getApiParams(api);
+    this.nodeService.search('content', params).subscribe(
       (data) => {
-        this.updateList(data, this.formValues, options);
+        this.updateList(data);
         this.loading = false;
       },
       (error) => {
@@ -62,7 +62,7 @@ export class TreeListComponent extends BaseComponent implements OnInit {
     );
   }
 
-  updateList(data: any, formValues: any, options: any): void {
+  updateList(data: any): void {
     this.pager = data.pager;
     this.nodes = data.rows.map((item: any) => {
       return {
@@ -77,11 +77,26 @@ export class TreeListComponent extends BaseComponent implements OnInit {
         type: item.type || '',
       };
     });
-    this.updateUrl(formValues, options);
+    // this.updateUrl(formValues, options);
     // this.updateStatus();
   }
 
   onPageChange(event: any): void {
     console.log(event);
+  }
+
+  onSelectChange(event: any): void {
+    this.searchCategory = event.option.value;
+    this.nodeSearch();
+  }
+
+  onTreeActivate(event: any): void {
+    this.hundredPoint = event.node.id;
+    this.nodeSearch();
+  }
+
+  onDeactivate(event: any): void {
+    this.hundredPoint = '';
+    this.nodeSearch();
   }
 }
