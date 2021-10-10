@@ -1,3 +1,5 @@
+@import "../../../../../theme/variable/_breakpoint.scss";
+
 .filter {
   border: 1px solid #ddd;
 }
@@ -8,5 +10,12 @@
   mat-list-option {
     display: inline-block;
     width: auto;
+    &:first-child {
+      width: 100% !important;
+    }
+    @media #{$gt-sm} {
+      text-align: center;
+      width: 20%;
+    }
   }
 }
