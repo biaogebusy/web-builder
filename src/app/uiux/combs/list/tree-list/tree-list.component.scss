@@ -18,4 +18,9 @@
       width: 20%;
     }
   }
+  ::ng-deep {
+    .search-list {
+      max-width: none;
+    }
+  }
 }
