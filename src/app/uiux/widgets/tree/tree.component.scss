@@ -5,6 +5,7 @@ div.tree {
   position: relative;
   font-size: 14px;
   width: 100%;
+  box-sizing: border-box;
   &:before {
     content: "";
     position: absolute;
