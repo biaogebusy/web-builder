@@ -1,4 +1,4 @@
-<div class="tree-inner p-y-sm m-y-sm">
+<div class="tree-inner p-y-sm m-y-sm" *ngIf="content">
   <label class="mat-h3 p-x-sm">{{content.label}}</label>
   <div class="actions">
     <button mat-button (click)="tree.treeModel.expandAll()">

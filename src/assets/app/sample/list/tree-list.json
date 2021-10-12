@@ -5,6 +5,7 @@
     "tree": [{
       "label": "金融 100T",
       "key": "hundred_point",
+      "expandAll": true,
       "nodes": [{
           "label": "全部",
           "value": ""

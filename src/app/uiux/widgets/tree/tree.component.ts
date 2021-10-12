@@ -1,12 +1,21 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  Output,
+  EventEmitter,
+  ViewChild,
+  AfterViewInit,
+} from '@angular/core';
 @Component({
   selector: 'app-tree',
   templateUrl: './tree.component.html',
   styleUrls: ['./tree.component.scss'],
 })
-export class TreeComponent implements OnInit {
+export class TreeComponent implements OnInit, AfterViewInit {
   @Input() content: any;
   @Output() treeChange = new EventEmitter();
+  @ViewChild('tree') tree: any;
 
   // https://angular2-tree.readme.io/docs/getting-started
   default = {
@@ -19,6 +28,10 @@ export class TreeComponent implements OnInit {
 
   ngOnInit(): void {
     this.options = Object.assign(this.default, this.content.options);
+  }
+
+  ngAfterViewInit(): void {
+    this.tree.treeModel.expandAll();
   }
 
   onActivate(event: any): void {
