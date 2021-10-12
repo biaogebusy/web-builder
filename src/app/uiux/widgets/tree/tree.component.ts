@@ -31,7 +31,9 @@ export class TreeComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.tree.treeModel.expandAll();
+    if (this.content.expandAll) {
+      this.tree.treeModel.expandAll();
+    }
   }
 
   onActivate(event: any): void {
