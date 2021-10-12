@@ -27,8 +27,4 @@
   padding: 20px;
   border-radius: 10px;
   overflow: auto;
-  &::-webkit-scrollbar {
-    height: 4px;
-    width: 4px;
-  }
 }

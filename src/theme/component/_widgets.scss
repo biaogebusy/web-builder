@@ -1,5 +1,6 @@
 @import "~@angular/material/theming";
 @import "../../theme/variable/breakpoint";
+@import "../../theme/mixins/amixin";
 
 @mixin widgets-color($config-or-theme) {
   $config: mat-get-color-config($config-or-theme);
@@ -142,5 +143,8 @@
     .node-content-wrapper:hover {
       background-color: mat-color($primary, 100);
     }
+  }
+  .tree {
+    @include scrollbar(mat-color($foreground, divider, 0.2));
   }
 }

@@ -17,11 +17,6 @@
   .viewport {
     height: calc(100vh - 210px);
     overflow: auto;
-
-    &::-webkit-scrollbar {
-      height: 4px;
-      width: 4px;
-    }
   }
   .item {
     border-radius: 10px;

@@ -1,4 +1,5 @@
 @import "~@angular/material/theming";
+@import "../../theme/mixins/amixin";
 
 @mixin header-color($config-or-theme) {
   $config: mat-get-color-config($config-or-theme);
@@ -73,9 +74,7 @@
       .mega-menu {
         background-color: mat-color($background, card);
         @include mat-elevation(3, mat-color($foreground, divider, 0.7));
-        &::-webkit-scrollbar-thumb {
-          background: mat-color($foreground, divider, 0.2);
-        }
+        @include scrollbar(mat-color($foreground, divider, 0.2));
       }
     }
 

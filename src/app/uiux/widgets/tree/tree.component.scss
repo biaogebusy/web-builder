@@ -1,11 +1,12 @@
 div.tree {
   padding-left: 16px;
   padding-right: 16px;
-  overflow: hidden;
   position: relative;
   font-size: 14px;
   width: 100%;
   box-sizing: border-box;
+  max-height: 500px;
+  overflow: auto;
   &:before {
     content: "";
     position: absolute;

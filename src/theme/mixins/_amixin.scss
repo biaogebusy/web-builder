@@ -216,3 +216,13 @@
   -webkit-line-clamp: $numLines;
   -webkit-box-orient: vertical;
 }
+
+@mixin scrollbar($color) {
+  &::-webkit-scrollbar-thumb {
+    background: $color;
+  }
+  &::-webkit-scrollbar {
+    height: 4px;
+    width: 4px;
+  }
+}

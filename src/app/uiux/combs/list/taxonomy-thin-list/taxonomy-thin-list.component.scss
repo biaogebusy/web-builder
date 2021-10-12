@@ -1,8 +1,4 @@
 .thin-sidebar {
   max-height: 80vh;
   overflow: auto;
-  &::-webkit-scrollbar {
-    height: 4px;
-    width: 4px;
-  }
 }
