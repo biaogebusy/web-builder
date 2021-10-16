@@ -2,7 +2,7 @@
   <div *ngIf="loading" class="m-y" fxLayoutAlign="center center">
     <app-spinner [content]="{color:'primary', size:40}"></app-spinner>
   </div>
-  <ng-container *ngIf="pager">
+  <ng-container *ngIf="content?.length;else empty">
     <div fxLayout="column" class="item m-bottom-sm p-y-xs p-x-xs"
       *ngFor="let item of content | paginate: { itemsPerPage: pager.itemsPerPage || 20, currentPage: p }">
       <app-link [content]="item.link"></app-link>
@@ -19,4 +19,9 @@
     </div>
     <app-pagination (pageChange)="p = $event"></app-pagination>
   </ng-container>
+  <ng-template #empty>
+    <div fxLayoutAlign="center center" class="p-y m-y">
+      没有数据
+    </div>
+  </ng-template>
 </div>

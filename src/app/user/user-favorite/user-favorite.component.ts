@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NodeService } from 'src/app/service/node.service';
 import { UserService } from 'src/app/service/user.service';
 import { switchMap } from 'rxjs/operators';
+import { formatDate } from '@angular/common';
 @Component({
   selector: 'app-user-favorite',
   templateUrl: './user-favorite.component.html',
@@ -11,6 +12,7 @@ import { switchMap } from 'rxjs/operators';
 export class UserFavoriteComponent implements OnInit {
   content: any;
   id: string;
+  loading: boolean;
   pager = {
     itemsPerPage: 20,
   };
@@ -26,158 +28,81 @@ export class UserFavoriteComponent implements OnInit {
   }
 
   getContent(id: string): void {
+    this.loading = true;
     const path = this.nodeService.apiUrlConfig.flaggingGetPath;
 
     this.userService
       .getUserById(id)
       .pipe(
         switchMap((res: any) => {
-          const params = [`filter[uid.id]=${res.data[0].id}`].join('&');
+          const params = [
+            `filter[uid.id]=${res.data[0].id}`,
+            `include=flagged_entity`,
+            `sort=-created`,
+            `jsonapi_include=1`,
+          ].join('&');
           return this.nodeService.getNodes(path, 'favorite', params);
         })
       )
-      .subscribe((user) => {
-        console.log(user);
-        this.content = [
-          {
-            type: 'list-thin',
-            link: {
-              label: '商标法',
-              href: '/',
-            },
-            meta: [
-              {
-                label: 'editor',
+      .subscribe(
+        (res) => {
+          console.log(res);
+          this.content = res.data.map((item: any) => {
+            const node = item.flagged_entity;
+            return {
+              type: 'list-thin',
+              link: {
+                label: node.title,
+                href: this.nodeService.getNodePath(node),
               },
-              {
-                label: '2021-08-28',
-              },
-            ],
-            actions: [
-              {
-                type: 'flag',
-                label: '收藏',
-                icon: {
-                  name: 'star',
-                  inline: true,
+              meta: [
+                {
+                  label: node.uid.dispaly_name || node.uid.name,
                 },
-                params: {
-                  type: 'flagging--favorite',
-                  entity_type: 'node',
-                  entity_id: '1312',
-                  relationships: {
-                    flagged_entity: {
-                      type: 'node--article',
-                      id: 'cb31d69f-a95e-4c91-97d1-1169f82a10a5',
+                {
+                  label: formatDate(node.changed, 'yyyy-MM-dd', 'en-US'),
+                },
+              ],
+              actions: [
+                {
+                  type: 'flag',
+                  label: '收藏',
+                  icon: {
+                    name: 'star',
+                    inline: true,
+                  },
+                  params: {
+                    type: item.type,
+                    entity_type: item.entity_type,
+                    entity_id: item.entity_id,
+                    relationships: {
+                      flagged_entity: {
+                        type: node.type,
+                        id: node.id,
+                      },
                     },
                   },
                 },
-              },
-              {
-                type: 'share',
-                button: {
-                  icon: 'share',
-                  label: '分享',
-                },
-                params: {
-                  url: '/',
-                },
-              },
-            ],
-          },
-          {
-            type: 'list-thin',
-            link: {
-              label: '商标法',
-              href: '/',
-            },
-            meta: [
-              {
-                label: 'editor',
-              },
-              {
-                label: '2021-08-28',
-              },
-            ],
-            actions: [
-              {
-                type: 'flag',
-                label: '收藏',
-                icon: {
-                  name: 'star',
-                  inline: true,
-                },
-                params: {
-                  type: 'flagging--favorite',
-                  entity_type: 'node',
-                  entity_id: '1312',
-                  relationships: {
-                    flagged_entity: {
-                      type: 'node--article',
-                      id: 'cb31d69f-a95e-4c91-97d1-1169f82a10a5',
-                    },
+                {
+                  type: 'share',
+                  button: {
+                    icon: 'share',
+                    label: '分享',
+                  },
+                  params: {
+                    url: `${
+                      this.nodeService.apiUrl
+                    }${this.nodeService.getNodePath(node)}`,
                   },
                 },
-              },
-              {
-                type: 'share',
-                button: {
-                  icon: 'share',
-                  label: '分享',
-                },
-                params: {
-                  url: '/',
-                },
-              },
-            ],
-          },
-          {
-            type: 'list-thin',
-            link: {
-              label: '商标法',
-              href: '/',
-            },
-            meta: [
-              {
-                label: 'editor',
-              },
-              {
-                label: '2021-08-28',
-              },
-            ],
-            actions: [
-              {
-                type: 'flag',
-                label: '收藏',
-                icon: {
-                  name: 'star',
-                  inline: true,
-                },
-                params: {
-                  type: 'flagging--favorite',
-                  entity_type: 'node',
-                  entity_id: '1312',
-                  relationships: {
-                    flagged_entity: {
-                      type: 'node--article',
-                      id: 'cb31d69f-a95e-4c91-97d1-1169f82a10a5',
-                    },
-                  },
-                },
-              },
-              {
-                type: 'share',
-                button: {
-                  icon: 'share',
-                  label: '分享',
-                },
-                params: {
-                  url: '/',
-                },
-              },
-            ],
-          },
-        ];
-      });
+              ],
+            };
+          });
+          this.loading = false;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
   }
 }
