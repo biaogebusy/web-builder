@@ -9,7 +9,7 @@
     <div class="hero-body text-center" fxLayout="row wrap" fxLayoutAlign="center center">
       <app-text [content]="content.text"></app-text>
       <div fxFlex="100" class="box m-top-md" fxLayout="row wrap" fxLayoutAlign="center center">
-        <div class="item" fxFlex.lt-md="50" fxFlex.gt-sm="33.33" fxFlex.gt-md="16.66"
+        <div class="item" fxFlex.lt-md="50" fxFlex.gt-sm="33.33" fxFlex.gt-md="{{row(content, '0rem')}}"
           *ngFor="let item of content.elements">
           <div class="card m-y-xs m-x-xs" fxLayout="column" fxLayoutAlign="center center">
             <div class="card-inner p-y-sm p-x-sm">
