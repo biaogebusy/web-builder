@@ -1,0 +1,6 @@
+<div class="user-home" *ngIf="content">
+  <div class="item m-bottom" *ngFor="let item of content">
+    <div class="mat-h2 label m-y-sm bold">{{item.label}}</div>
+    <app-dynamic-widgets [content]="item"></app-dynamic-widgets>
+  </div>
+</div>

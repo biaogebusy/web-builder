@@ -89,6 +89,19 @@ export class UserService extends ApiService {
     );
   }
 
+  getUserById(id: string): Observable<any> {
+    const apiUrl = `${this.apiUrl}${this.appState.apiUrlConfig.userGetPath}`;
+    const params = [
+      `filter[drupal_internal__uid]=${id}`,
+      `include=user_picture`,
+      `jsonapi_include=1`,
+    ].join('&');
+    return this.http.get<any>(
+      `${apiUrl}?${params}`,
+      this.apiService.httpOptions
+    );
+  }
+
   getCurrentUserById(user: TokenUser): Observable<any> {
     const apiUrl = `${this.apiUrl}${this.appState.apiUrlConfig.userGetPath}`;
     const params = [

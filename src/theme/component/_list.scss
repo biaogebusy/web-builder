@@ -15,13 +15,13 @@
       @include mat-elevation(4, mat-color($foreground, text), 0.1);
       @include scrollbar(mat-color($foreground, divider, 0.2));
     }
-    .list-thin {
-      .item {
-        background-color: mat-color($background, card);
-        @include mat-elevation(4, mat-color($foreground, text), 0.1);
-        .item-bottom {
-          opacity: 0.85;
-        }
+  }
+  .list-thin {
+    .item {
+      background-color: mat-color($background, card);
+      @include mat-elevation(4, mat-color($foreground, text), 0.1);
+      .item-bottom {
+        opacity: 0.85;
       }
     }
   }

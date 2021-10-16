@@ -21,6 +21,7 @@
 @import "./hero";
 @import "./search";
 @import "./media";
+@import "./user";
 
 // material custom
 @import "./mat/card";
@@ -51,6 +52,7 @@
   @include media-color($config-or-theme);
   @include profile-color($config-or-theme);
   @include dynamic-list-color($config-or-theme);
+  @include user-color($config-or-theme);
 
   // material custom ui
   @include card-color($config-or-theme);

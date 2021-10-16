@@ -98,15 +98,13 @@ export class UserState {
 
   @action
   updateUser(data: TokenUser): any {
-    let userDetails = {};
     this.userService.getCurrentUserById(data).subscribe((user) => {
       this.loading = false;
-      this.user = user;
       this.user$.next(user);
-      userDetails = Object.assign(data, user);
+      this.user = Object.assign(data, user);
       this.storage.store(
         this.apiService.localUserKey,
-        JSON.stringify(userDetails)
+        JSON.stringify(this.user)
       );
     });
   }

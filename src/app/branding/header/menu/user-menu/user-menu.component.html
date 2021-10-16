@@ -1,6 +1,6 @@
 <div class="user">
   <ng-container *ngIf="!userState.anthenticated && !screen.eq('xs')">
-    <button color="primary" [routerLink]="['/user']" mat-mini-fab mat-button>
+    <button color="primary" [routerLink]="['/user/login']" mat-mini-fab mat-button>
       <mat-icon>person</mat-icon>
     </button>
   </ng-container>
@@ -14,9 +14,9 @@
         alt="{{userState.currentUser.display_name}}">
     </ng-template>
     <mat-menu #menu="matMenu" class="user-dropdown">
-      <button mat-menu-item>
+      <a mat-menu-item [routerLink]="userPage">
         <mat-icon>account_circle</mat-icon>{{userState.currentUser?.display_name}}
-      </button>
+      </a>
       <ng-container *ngFor="let item of content">
         <button *ngIf="item.dialog;else link" mat-menu-item (click)="openDialog(item.dialog)">
           <app-icon [content]="item.icon"></app-icon>{{item.label}}
