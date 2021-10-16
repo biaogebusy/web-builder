@@ -27,9 +27,9 @@ export class UserComponent implements OnInit {
       this.getUser(this.id);
     });
     this.userState.user$.subscribe((user) => {
-      if (user.authenticated) {
+      if (!user.authenticated) {
         setTimeout(() => {
-          this.route.navigate([this.appState.config.login.loginRedirect]);
+          this.route.navigate(['user/login']);
         }, 2000);
       }
     });
