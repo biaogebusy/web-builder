@@ -93,7 +93,7 @@ export class UserService extends ApiService {
     const apiUrl = `${this.apiUrl}${this.appState.apiUrlConfig.userGetPath}`;
     const params = [
       `filter[drupal_internal__uid]=${id}`,
-      `include=user_picture`,
+      `include=user_picture,roles`,
       `jsonapi_include=1`,
     ].join('&');
     return this.http.get<any>(

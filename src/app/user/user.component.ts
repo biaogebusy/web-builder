@@ -1,6 +1,8 @@
 import { Component, OnInit, Query } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../service/user.service';
+import { UserState } from 'src/app/mobx/user/UserState';
+import { AppState } from 'src/app/mobx/AppState';
 
 @Component({
   selector: 'app-user',
@@ -12,7 +14,10 @@ export class UserComponent implements OnInit {
   id: any;
   constructor(
     private router: ActivatedRoute,
-    private userService: UserService
+    private userService: UserService,
+    private userState: UserState,
+    private route: Router,
+    private appState: AppState
   ) {}
 
   ngOnInit(): void {
@@ -21,73 +26,60 @@ export class UserComponent implements OnInit {
       console.log(this.id);
       this.getUser(this.id);
     });
+    this.userState.user$.subscribe((user) => {
+      if (user.authenticated) {
+        setTimeout(() => {
+          this.route.navigate([this.appState.config.login.loginRedirect]);
+        }, 2000);
+      }
+    });
   }
 
   getUser(id: string): any {
-    const user: any = {};
-    const people = {
-      bannerBg: this.getBanner(),
-      details: {
-        label: '个人资料',
-        elements: [
-          {
-            icon: {
-              color: 'warn',
-              svg: 'arrow_right',
-              inline: true,
-            },
-            label: '职位',
-            content: '前端开发',
-          },
-          {
-            icon: {
-              color: 'warn',
-              svg: 'arrow_right',
-              inline: true,
-            },
-            label: '微信',
-            content: 'biaogebusy',
-          },
-          {
-            icon: {
-              color: 'warn',
-              svg: 'arrow_right',
-              inline: true,
-            },
-            label: '公众号',
-            content: 'Drupal 自习室',
-          },
-          {
-            icon: {
-              color: 'warn',
-              svg: 'arrow_right',
-              inline: true,
-            },
-            label: '邮箱',
-            content: 'biaogebusy@example.com',
-          },
-          {
-            icon: {
-              color: 'warn',
-              svg: 'arrow_right',
-              inline: true,
-            },
-            label: '地址',
-            content: '南宁',
-          },
-        ],
-      },
-    };
+    const people = {};
 
     this.userService.getUserById(id).subscribe((res) => {
       const info = res.data[0];
       const profile = {
+        bannerBg: this.getBanner(),
         avatar: {
           src: info.user_picture.uri.url || '',
           alt: info.name,
         },
         name: info.name,
         subTitle: info.display_name,
+        details: {
+          label: '个人资料',
+          elements: [
+            {
+              icon: {
+                color: 'warn',
+                svg: 'arrow_right',
+                inline: true,
+              },
+              label: '邮箱',
+              content: info.mail || '没有填写',
+            },
+            {
+              icon: {
+                color: 'warn',
+                svg: 'arrow_right',
+                inline: true,
+              },
+              label: '手机',
+              content: info.phone_number || '没有填写',
+            },
+            {
+              icon: {
+                color: 'warn',
+                svg: 'arrow_right',
+                inline: true,
+              },
+              label: '角色',
+              content: this.getRoles(info.roles),
+            },
+          ],
+        },
       };
       this.user = Object.assign(people, profile);
     });
@@ -102,5 +94,18 @@ export class UserComponent implements OnInit {
         alt: 'page title',
       },
     };
+  }
+
+  getRoles(rules: []): string[] {
+    if (!rules) {
+      return ['注册用户'];
+    }
+    return rules.map((rule: any) => {
+      return rule.label;
+    });
+  }
+
+  logout(): void {
+    this.userState.logout();
   }
 }

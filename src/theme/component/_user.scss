@@ -15,7 +15,9 @@
         a {
           border: 1px solid mat-color($foreground, divider);
           color: mat-color($foreground, text);
-          &.active {
+          transition: all 0.5s ease;
+          &.active,
+          &:hover {
             background-color: mat-color($primary);
             color: mat-color($primary, default-contrast);
           }
