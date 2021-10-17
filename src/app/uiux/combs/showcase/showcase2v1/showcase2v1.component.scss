@@ -5,6 +5,11 @@
     border-left: 0;
     border-right: 0;
     border-bottom-width: 1px;
+    .mat-card-content {
+      .mat-card-title {
+        font-size: 18px;
+      }
+    }
   }
   .swiper-pagination {
     left: auto !important;
