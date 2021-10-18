@@ -1,12 +1,20 @@
 <div class="menu-list" *ngIf="content">
   <h2 class="block-title">{{content.title}}</h2>
   <mat-divider></mat-divider>
-  <div class="list">
-    <div class="item" *ngFor="let item of content.elements" fxLayoutAlign="space-between center">
+  <div class="list" *ngIf="list">
+    <div class="item" *ngFor="let item of list" fxLayoutAlign="space-between center">
       <app-link [content]="item.link"></app-link>
       <div class="num-posts">
         {{item.label}}
       </div>
+    </div>
+    <div class="action p-y-sm" fxLayoutAlign="center center" (click)="onExpand()">
+      <button mat-icon-button *ngIf="expand">
+        <mat-icon>expand_less</mat-icon>
+      </button>
+      <button mat-icon-button *ngIf="!expand">
+        <mat-icon>expand_more</mat-icon>
+      </button>
     </div>
   </div>
 </div>

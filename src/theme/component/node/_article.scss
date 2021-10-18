@@ -38,6 +38,9 @@
         }
       }
     }
+    .action {
+      color: mat-color($primary);
+    }
   }
   .recent-posts {
     .list {

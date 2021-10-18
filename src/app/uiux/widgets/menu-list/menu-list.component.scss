@@ -26,4 +26,15 @@
       }
     }
   }
+  .action {
+    cursor: pointer;
+    .mat-icon {
+      transition: all 0.4s ease;
+    }
+    &:hover {
+      .mat-icon {
+        transform: rotate(180deg);
+      }
+    }
+  }
 }
