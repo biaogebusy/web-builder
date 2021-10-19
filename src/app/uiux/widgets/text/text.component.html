@@ -9,7 +9,8 @@
         <ng-container *ngFor="let action of content.actions">
           <ng-container [ngSwitch]="action.type">
             <app-search-action *ngSwitchCase="'search-action'" [content]="action"></app-search-action>
-            <a mat-raised-button *ngSwitchDefault color="primary" href="{{action.href}}" target="{{action.target}}">
+            <a mat-raised-button [ngClass]="action.classes" *ngSwitchDefault color="primary" href="{{action.href}}"
+              target="{{action.target}}">
               <app-icon [content]="action.icon" *ngIf="action?.icon"></app-icon>
               {{action.label}}
             </a>
