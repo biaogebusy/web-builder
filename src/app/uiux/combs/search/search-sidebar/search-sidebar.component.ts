@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormService } from 'src/app/service/form.service';
 import { FormGroup } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { isEmpty, values } from 'lodash';
 @Component({
   selector: 'app-search-sidebar',
   templateUrl: './search-sidebar.component.html',
@@ -9,7 +10,7 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 })
 export class SearchSidebarComponent implements OnInit {
   @Input() content: any;
-  @Input() keys: string;
+  @Input() searchEntry: any;
   @Output() selectChange = new EventEmitter();
 
   panelOpenState = true;
@@ -18,6 +19,14 @@ export class SearchSidebarComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm(this.content);
+  }
+
+  get isEmpty(): boolean {
+    return isEmpty(this.searchEntry);
+  }
+
+  get values(): string[] {
+    return values(this.searchEntry);
   }
 
   initForm(items: any[]): void {

@@ -34,7 +34,8 @@ export class SearchActionComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    const input = this.ele.nativeElement.querySelectorAll('[id=keys]')[0];
+    const input =
+      this.ele.nativeElement.querySelectorAll('input[type=text]')[0];
     const input$ = fromEvent(input, 'keyup').subscribe((event: any) => {
       if (event.keyCode === 13) {
         this.search();

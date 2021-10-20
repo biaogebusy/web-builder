@@ -12,7 +12,7 @@ import { BaseComponent } from '../../base/base.widget';
 })
 export class SearchComponent extends BaseComponent implements OnInit {
   @Input() content: any;
-  keys: string;
+  searchEntry: any;
   page: number;
   pager: any;
   formValues: {};
@@ -30,12 +30,10 @@ export class SearchComponent extends BaseComponent implements OnInit {
 
   ngOnInit(): void {
     this.router.queryParams.subscribe((query: any) => {
-      this.keys = query.keys || '';
       this.page = query.page || 0;
       const queryOpt = omitBy(
         Object.assign(
           {
-            keys: this.keys,
             page: this.page,
           },
           query
@@ -49,9 +47,8 @@ export class SearchComponent extends BaseComponent implements OnInit {
     });
   }
 
-  onSearch(keys: string): void {
-    this.keys = keys;
-    this.nodeSearch({ keys: this.keys });
+  onSearch(option: any): void {
+    this.nodeSearch(option);
   }
 
   onPageChange(page: any): void {
@@ -60,7 +57,7 @@ export class SearchComponent extends BaseComponent implements OnInit {
   }
 
   onSelectChange(options: any): void {
-    this.keys = options.keys;
+    // this.keys = options.keys;
     this.page = options.page;
     this.formValues = options;
     this.nodeSearch(options);
@@ -100,7 +97,7 @@ export class SearchComponent extends BaseComponent implements OnInit {
 
   updateStatus(): void {
     this.status = {
-      key: this.keys,
+      // key: this.keys,
       results: {
         count: this.nodes.length,
       },
