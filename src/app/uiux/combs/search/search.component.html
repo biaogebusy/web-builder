@@ -2,9 +2,6 @@
 </app-search-header>
 <div class="container">
   <div class="search-body" fxLayout="row wrap">
-    <!-- <app-search-status fxFlex="0 0 100" [content]="status"></app-search-status> -->
-    <!-- <app-search-top fxFlex="0 0 100" [content]="content.sidebar" (selectChange)="onSelectChange($event)">
-    </app-search-top> -->
     <app-search-sidebar *ngIf="filterForm" [searchEntry]="searchEntry" [content]="filterForm" fxFlex.lt-sm="0 0 100"
       fxFlex.gt-md="0 0 25%" (selectChange)="onSelectChange($event)">
     </app-search-sidebar>

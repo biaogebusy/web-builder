@@ -31,7 +31,7 @@ export class SearchComponent extends BaseComponent implements OnInit {
   ngOnInit(): void {
     this.router.queryParams.subscribe((query: any) => {
       this.page = query.page || 0;
-      const queryOpt = omitBy(
+      const querys = omitBy(
         Object.assign(
           {
             page: this.page,
@@ -41,9 +41,9 @@ export class SearchComponent extends BaseComponent implements OnInit {
         isEmpty
       );
       if (this.content.sidebar) {
-        this.filterForm = this.setFilterForm(queryOpt, this.content.sidebar);
+        this.filterForm = this.setFilterForm(querys, this.content.sidebar);
       }
-      this.nodeSearch(queryOpt);
+      this.nodeSearch(querys);
     });
   }
 
@@ -57,7 +57,6 @@ export class SearchComponent extends BaseComponent implements OnInit {
   }
 
   onSelectChange(options: any): void {
-    // this.keys = options.keys;
     this.page = options.page;
     this.formValues = options;
     this.nodeSearch(options);
@@ -65,6 +64,7 @@ export class SearchComponent extends BaseComponent implements OnInit {
 
   nodeSearch(options: any): void {
     this.loading = true;
+    this.searchEntry = omitBy(options, isEmpty);
     this.nodeSearchByParams('content', this.formValues, options).subscribe(
       (data) => {
         this.updateList(data, this.formValues, options);
@@ -92,15 +92,5 @@ export class SearchComponent extends BaseComponent implements OnInit {
       };
     });
     this.updateUrl(formValues, options);
-    this.updateStatus();
-  }
-
-  updateStatus(): void {
-    this.status = {
-      // key: this.keys,
-      results: {
-        count: this.nodes.length,
-      },
-    };
   }
 }

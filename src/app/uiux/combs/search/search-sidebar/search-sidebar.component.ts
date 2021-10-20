@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormService } from 'src/app/service/form.service';
 import { FormGroup } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { isEmpty, values } from 'lodash';
+import { isEmpty, pick, values } from 'lodash';
 @Component({
   selector: 'app-search-sidebar',
   templateUrl: './search-sidebar.component.html',
@@ -26,7 +26,7 @@ export class SearchSidebarComponent implements OnInit {
   }
 
   get values(): string[] {
-    return values(this.searchEntry);
+    return values(pick(this.searchEntry, ['keys', 'title']));
   }
 
   initForm(items: any[]): void {
@@ -40,6 +40,7 @@ export class SearchSidebarComponent implements OnInit {
   }
 
   clear(): void {
+    this.searchEntry = {};
     this.form.reset();
   }
 }

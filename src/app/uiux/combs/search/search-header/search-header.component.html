@@ -6,9 +6,9 @@
     <app-text [content]="content.text"></app-text>
     <app-spacer [size]="'sm'"></app-spacer>
     <div class="width-100">
-      <form (ngSubmit)="onSubmit()">
-        <div class="search-input">
-          <input formControlName="{{formControl.key}}" #input matInput placeholder="{{content.input.placeholder}}"
+      <form (ngSubmit)="onSubmit()" [formGroup]="form">
+        <div class="search-input" *ngIf="formControl">
+          <input formControlName="{{formControl.key}}" matInput placeholder="{{content.input.placeholder}}"
             type="search" size="15" maxlength="128" [value]="formControl.value || ''" class="form-search">
           <app-icon class="search-icon" (click)="onSubmit()" [content]="{name:'search'}"></app-icon>
         </div>
