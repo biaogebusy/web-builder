@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormService } from 'src/app/service/form.service';
-import { isEmpty, values } from 'lodash';
+import { findKey, isEmpty, values } from 'lodash';
 @Component({
   selector: 'app-search-header',
   templateUrl: './search-header.component.html',
@@ -22,24 +22,18 @@ export class SearchHeaderComponent implements OnInit {
   }
 
   initForm(options: any): void {
-    if (isEmpty(options)) {
+    if (isEmpty(options) || !('keys' in options || 'title' in options)) {
       this.formControl = {
         key: 'title',
         value: '',
         type: 'input',
       };
     } else {
-      Object.keys(options).map((key, index) => {
+      Object.keys(options).forEach((key, index) => {
         if (key === 'keys' || key === 'title') {
           this.formControl = {
             key,
             value: options[key],
-            type: 'input',
-          };
-        } else {
-          this.formControl = {
-            key: 'title',
-            value: '',
             type: 'input',
           };
         }
