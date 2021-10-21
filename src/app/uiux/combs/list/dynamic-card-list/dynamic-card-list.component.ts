@@ -1,9 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { FormGroup } from '@angular/forms';
 import { isEmpty, omitBy, result } from 'lodash-es';
 import { NodeService } from 'src/app/service/node.service';
 import { RouteService } from 'src/app/service/route.service';
 import { BaseComponent } from 'src/app/uiux/base/base.widget';
+import { FormService } from 'src/app/service/form.service';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dynamic-card-list',
@@ -15,6 +18,7 @@ export class DynamicCardListComponent extends BaseComponent implements OnInit {
   keys: string;
   page: number;
   pager: any;
+  form: FormGroup;
   formValues: {};
   filterForm: any[];
   nodes: any[];
@@ -24,19 +28,18 @@ export class DynamicCardListComponent extends BaseComponent implements OnInit {
   constructor(
     public nodeService: NodeService,
     private router: ActivatedRoute,
-    public routerService: RouteService
+    public routerService: RouteService,
+    private formService: FormService
   ) {
     super(nodeService, routerService);
   }
 
   ngOnInit(): void {
     this.router.queryParams.subscribe((query: any) => {
-      this.keys = query.keys || '';
       this.page = query.page || 0;
       const queryOpt = omitBy(
         Object.assign(
           {
-            keys: this.keys,
             page: this.page,
           },
           query
@@ -48,9 +51,20 @@ export class DynamicCardListComponent extends BaseComponent implements OnInit {
           queryOpt,
           this.content.sidebar
         );
+        this.initForm(this.filterForm);
       }
       this.nodeSearch(queryOpt);
     });
+  }
+
+  initForm(items: any[]): void {
+    this.form = this.formService.toFormGroup(items);
+    this.form.valueChanges
+      .pipe(debounceTime(1000), distinctUntilChanged())
+      .subscribe((value) => {
+        const params = Object.assign({ page: 0 }, value);
+        this.onSelectChange(params);
+      });
   }
 
   nodeSearch(options: any): void {
@@ -71,7 +85,6 @@ export class DynamicCardListComponent extends BaseComponent implements OnInit {
   }
 
   onSelectChange(options: any): void {
-    this.keys = options.keys;
     this.page = options.page;
     this.formValues = options;
     this.nodeSearch(options);
