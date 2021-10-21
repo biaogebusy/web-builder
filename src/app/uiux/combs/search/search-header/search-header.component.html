@@ -6,11 +6,18 @@
     <app-text [content]="content.text"></app-text>
     <app-spacer [size]="'sm'"></app-spacer>
     <div class="width-100">
-      <form (ngSubmit)="onSubmit()" [formGroup]="form">
-        <div class="search-input" *ngIf="formControl">
-          <input formControlName="{{formControl.key}}" matInput placeholder="{{content.input.placeholder}}"
-            type="search" size="15" maxlength="128" [value]="formControl.value || ''" class="form-search">
-          <app-icon class="search-icon" (click)="onSubmit()" [content]="{name:'search'}"></app-icon>
+      <form [formGroup]="form">
+        <div class="search-input">
+          <ng-container *ngFor="let item of filterForm">
+            <ng-container [ngSwitch]="item.key">
+              <input *ngSwitchCase="'keys'" formControlName="{{item.key}}" matInput
+                placeholder="{{content.input.placeholder}}" type="search" size="15" maxlength="128"
+                [value]="item.value || ''" class="form-search">
+              <input *ngSwitchCase="'title'" formControlName="{{item.key}}" matInput
+                placeholder="{{content.input.placeholder}}" type="search" size="15" maxlength="128"
+                [value]="item.value || ''" class="form-search">
+            </ng-container>
+          </ng-container>
         </div>
       </form>
     </div>

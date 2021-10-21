@@ -30,7 +30,7 @@ export abstract class BaseComponent {
     return `0 0 calc(100% / ${content.row || 3} - ${padding})`;
   }
 
-  setFilterForm(query: any, controls: any[]): any {
+  initFormValueWithUrlQuery(query: any, controls: any[]): any {
     return controls.map((control) => {
       if (control.key in query) {
         control.value = query[control.key];

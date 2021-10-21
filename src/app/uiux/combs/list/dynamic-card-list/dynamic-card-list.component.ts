@@ -44,7 +44,10 @@ export class DynamicCardListComponent extends BaseComponent implements OnInit {
         isEmpty
       );
       if (this.content.sidebar) {
-        this.filterForm = this.setFilterForm(queryOpt, this.content.sidebar);
+        this.filterForm = this.initFormValueWithUrlQuery(
+          queryOpt,
+          this.content.sidebar
+        );
       }
       this.nodeSearch(queryOpt);
     });

@@ -1,8 +1,11 @@
 <div class="search-sidebar m-y" *ngIf="content">
   <div class="sidebar-header">
-    <div class="key m-y-xs m-x-xs" *ngIf="!isEmpty" fxFlex="0 1 100">
-      <mat-chip-list aria-label="Fish selection">
-        <mat-chip color="primary" selected *ngFor="let value of values">{{value}}</mat-chip>
+    <div class="key m-y-xs m-x-xs" fxFlex="0 1 100">
+      <mat-chip-list>
+        <mat-chip *ngIf="form.controls['title']?.value" color="primary" selected>{{form.controls['title'].value}}
+        </mat-chip>
+        <mat-chip *ngIf="form.controls['keys']?.value" color="primary" selected>{{form.controls['keys'].value}}
+        </mat-chip>
       </mat-chip-list>
     </div>
     <div class="item m-y-xs m-x-xs" fxFlex="0 1 100" fxLayoutAlign="end center">
