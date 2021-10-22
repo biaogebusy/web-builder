@@ -8,7 +8,8 @@
         {{item.label}}
       </div>
     </div>
-    <div class="action p-y-sm" fxLayoutAlign="center center" (click)="onExpand()">
+    <div *ngIf="initList && (initList.length > row)" class="action p-y-sm" fxLayoutAlign="center center"
+      (click)="onExpand()">
       <button mat-icon-button *ngIf="expand">
         <mat-icon>expand_less</mat-icon>
       </button>
