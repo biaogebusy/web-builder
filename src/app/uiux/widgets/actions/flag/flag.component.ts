@@ -85,7 +85,6 @@ export class FlagComponent extends BaseComponent implements OnInit {
       this.nodeService
         .flagging(this.path, JSON.stringify(data))
         .subscribe((res) => {
-          console.log(res);
           this.flagging = true;
         });
     } else {

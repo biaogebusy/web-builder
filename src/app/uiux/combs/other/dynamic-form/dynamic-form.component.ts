@@ -32,7 +32,6 @@ export class DynamicFormComponent implements OnInit {
   }
 
   onClick(params: IActionParams): void {
-    console.log(this.form.value);
     this.loading = true;
     this.nodeService
       .addNode(params.type, this.form.value, this.userState.currentUser)
@@ -46,9 +45,9 @@ export class DynamicFormComponent implements OnInit {
             this.router.navigate([link]);
           }, 2000);
         },
-        (error) => {
+        () => {
           this.loading = false;
-          console.log(error);
+          console.log('Please check user state.');
         }
       );
   }

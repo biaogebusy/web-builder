@@ -36,9 +36,7 @@ export class VideoBgComponent implements OnInit, AfterViewInit, OnDestroy {
     this.options = this.content.params;
     // instantiate Video.js
     const video = this.elementRef.nativeElement.querySelectorAll('video')[0];
-    this.player = videojs(video, this.options, () => {
-      console.log('onPlayerReady');
-    });
+    this.player = videojs(video, this.options, () => {});
   }
 
   ngOnDestroy(): void {

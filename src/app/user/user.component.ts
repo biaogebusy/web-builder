@@ -23,7 +23,6 @@ export class UserComponent implements OnInit {
   ngOnInit(): void {
     this.router.paramMap.subscribe((query) => {
       this.id = query.get('id');
-      console.log(this.id);
       this.getUser(this.id);
     });
     this.userState.user$.subscribe((user) => {

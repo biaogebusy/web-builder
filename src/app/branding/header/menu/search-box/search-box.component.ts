@@ -44,7 +44,6 @@ export class SearchBoxComponent
     this.form.valueChanges
       .pipe(debounceTime(1000), distinctUntilChanged())
       .subscribe((value) => {
-        console.log(value);
         const params = omitBy(
           Object.assign(
             {

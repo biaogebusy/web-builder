@@ -36,7 +36,6 @@ export class InverseComponent implements OnInit {
       return;
     }
     this.submited = true;
-    console.log(this.form.value);
     const httpOptons = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -56,7 +55,6 @@ export class InverseComponent implements OnInit {
           this.utilitiesService.openSnackbar('成功订阅！');
         },
         (error) => {
-          console.log(error);
           this.submited = false;
           this.utilitiesService.openSnackbar(`Error: ${error.message}`);
         }

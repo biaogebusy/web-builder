@@ -53,9 +53,9 @@ export class CommentListComponent implements OnInit {
           this.utilitiesService.openSnackbar('您的回答已删除！', '√');
           this.submitComment.emit(true);
         },
-        (error) => {
+        () => {
           this.loading = false;
-          console.log(error);
+          this.utilitiesService.openSnackbar('Please check user state.', '√');
         }
       );
   }

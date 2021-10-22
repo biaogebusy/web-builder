@@ -21,7 +21,6 @@ export class SearchTopComponent implements OnInit {
   initForm(items: any[]): void {
     this.form = this.formService.toFormGroup(items);
     this.form.valueChanges.subscribe((value) => {
-      console.log(value);
       this.selectChange.emit(value);
     });
   }
