@@ -17,10 +17,6 @@ import { AppState } from '../../../mobx/AppState';
 import { Subject } from 'rxjs';
 
 // https://www.npmjs.com/package/ngx-swiper-wrapper
-const navigationConfig: SwiperNavigationInterface = {
-  nextEl: '.swiper-button-next',
-  prevEl: '.swiper-button-prev',
-};
 
 const paginationgConfig: SwiperPaginationInterface = {
   el: '.swiper-pagination',
@@ -46,7 +42,7 @@ export class SwiperComponent implements OnInit, AfterViewInit, OnDestroy {
     scrollbar: false,
     keyboard: true,
     mousewheel: false,
-    navigation: navigationConfig,
+    navigation: true,
     pagination: paginationgConfig,
     autoplay: true,
     // Responsive breakpoints

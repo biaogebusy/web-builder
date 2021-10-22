@@ -71,7 +71,10 @@
     }
     .swiper-button-next,
     .swiper-button-prev {
-      color: mat-color($primary);
+      color: mat-color($primary, default-contrast);
+      background-color: mat-color($primary, 0.5);
+      border-radius: 50%;
+      padding: 6px;
     }
   }
 }
