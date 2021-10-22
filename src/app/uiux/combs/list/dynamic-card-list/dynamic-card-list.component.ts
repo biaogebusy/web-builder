@@ -19,7 +19,6 @@ export class DynamicCardListComponent extends BaseComponent implements OnInit {
   page: number;
   pager: any;
   form: FormGroup;
-  formValues: {};
   filterForm: any[];
   nodes: any[];
   status: any;
@@ -71,11 +70,11 @@ export class DynamicCardListComponent extends BaseComponent implements OnInit {
     this.loading = true;
     this.nodeSearchByParams(
       this.getParams(this.content, 'type'),
-      this.formValues,
+      this.form.value,
       options
     ).subscribe(
       (data) => {
-        this.updateList(data, this.formValues, options);
+        this.updateList(data, this.form.value, options);
         this.loading = false;
       },
       (error) => {
@@ -86,7 +85,6 @@ export class DynamicCardListComponent extends BaseComponent implements OnInit {
 
   onSelectChange(options: any): void {
     this.page = options.page;
-    this.formValues = options;
     this.nodeSearch(options);
   }
 

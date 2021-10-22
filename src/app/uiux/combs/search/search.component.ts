@@ -19,7 +19,6 @@ export class SearchComponent extends BaseComponent implements OnInit {
   page: number;
   pager: any;
   form: FormGroup;
-  formValues: {};
   filterForm: any[];
   nodes: [];
   loading = false;
@@ -72,16 +71,15 @@ export class SearchComponent extends BaseComponent implements OnInit {
 
   onSelectChange(options: any): void {
     this.page = options.page;
-    this.formValues = options;
     this.nodeSearch(options);
   }
 
   nodeSearch(options: any): void {
     this.loading = true;
     this.searchEntry = omitBy(options, isEmpty);
-    this.nodeSearchByParams('content', this.formValues, options).subscribe(
+    this.nodeSearchByParams('content', this.form.value, options).subscribe(
       (data) => {
-        this.updateList(data, this.formValues, options);
+        this.updateList(data, this.form.value, options);
         this.loading = false;
       },
       (error) => {
