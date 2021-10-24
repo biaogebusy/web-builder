@@ -90,6 +90,7 @@ export class SearchComponent extends BaseComponent implements OnInit {
 
   updateList(data: any, formValues: any, options: any): void {
     this.pager = data.pager;
+    console.log(data);
     this.nodes = data.rows.map((item: any) => {
       return {
         link: {
@@ -101,6 +102,37 @@ export class SearchComponent extends BaseComponent implements OnInit {
         body: item.body,
         user: item.user,
         type: item.type || '',
+        actions: [
+          {
+            type: 'flag',
+            label: '收藏',
+            icon: {
+              name: 'star',
+              inline: true,
+            },
+            params: {
+              type: 'flagging--favorite',
+              entity_type: 'node',
+              entity_id: '1312',
+              relationships: {
+                flagged_entity: {
+                  type: 'node--article',
+                  id: 'cb31d69f-a95e-4c91-97d1-1169f82a10a5',
+                },
+              },
+            },
+          },
+          {
+            type: 'share',
+            button: {
+              icon: 'share',
+              label: '分享',
+            },
+            params: {
+              url: item.url,
+            },
+          },
+        ],
       };
     });
     this.updateUrl(formValues, options);
