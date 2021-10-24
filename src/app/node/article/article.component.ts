@@ -11,6 +11,7 @@ import javascript from 'highlight.js/lib/languages/javascript';
 import json from 'highlight.js/lib/languages/json';
 import { TagsService } from 'src/app/service/tags.service';
 import { AppState } from 'src/app/mobx/AppState';
+import { ScreenState } from 'src/app/mobx/screen/ScreenState';
 @Component({
   selector: 'app-article',
   templateUrl: './article.component.html',
@@ -25,7 +26,8 @@ export class ArticleComponent implements OnInit, AfterViewInit {
     private tagsService: TagsService,
     @Inject(DOCUMENT) private document: Document,
     fb: FormBuilder,
-    public appState: AppState
+    public appState: AppState,
+    public screen: ScreenState
   ) {
     this.options = fb.group({
       fontSize: this.fontSizeControl,

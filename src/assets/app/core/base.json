@@ -70,5 +70,12 @@
       "api": "https://api.github.com/repos/biaogebusy/xinshi-angular"
     }
   },
-  "loading": true
+  "loading": true,
+  "article": {
+    "changeFontSize": {
+      "enabel": true,
+      "tooltip": "通过键盘上下键可快速更改大小",
+      "label": "字体大小"
+    }
+  }
 }
