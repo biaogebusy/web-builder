@@ -48,7 +48,6 @@ export class TreeListComponent extends BaseComponent implements OnInit {
   nodeSearch(): void {
     this.loading = true;
     const params = this.getApiParams(this.formState);
-    console.log(params);
     this.nodeService.search('content', params).subscribe(
       (data) => {
         this.updateList(data);
@@ -79,13 +78,11 @@ export class TreeListComponent extends BaseComponent implements OnInit {
   }
 
   onPageChange(page: any): void {
-    console.log(page);
     this.formState = Object.assign(this.formState, { page });
     this.nodeSearch();
   }
 
   onSelectChange(event: any): void {
-    console.log(event);
     const option: any = {};
     option[event.key] = event.value;
     option.page = 0;

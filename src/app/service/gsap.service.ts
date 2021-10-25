@@ -8,7 +8,7 @@ export class GsapService {
     console.log(gsap);
   }
 
-  change(element: any) {
+  change(element: any): void {
     gsap.to(element, { width: 0, duration: 1 });
   }
 }

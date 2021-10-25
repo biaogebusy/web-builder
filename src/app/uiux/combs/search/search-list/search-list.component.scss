@@ -3,3 +3,11 @@
   max-width: 800px;
   min-height: 100vh;
 }
+
+.title {
+  ::ng-deep {
+    em {
+      font-style: normal;
+    }
+  }
+}

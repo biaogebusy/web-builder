@@ -6,16 +6,26 @@
         <h2 class="title">
           {{content.title}}
         </h2>
-        <div class="article-meta m-y-sm">
+        <div class="article-meta" fxLayoutAlign="space-between center">
           <div fxLayout fxLayoutAlign="start start" *ngIf="content.meta" fxLayoutGap="1rem">
             <div *ngFor="let item of content.meta" fxLayoutAlign="center center">
               <mat-icon>{{item.icon}}</mat-icon>
               <div>{{item.label}}</div>
             </div>
           </div>
+          <form *ngIf="fontSizeConfig && fontSizeConfig.enabel && !screen.eq('xs')" class="fontSize"
+            [formGroup]="options" fxLayoutAlign="end center">
+            <mat-form-field appearance="legacy" matTooltip="{{fontSizeConfig.tooltip}}" matTooltipPosition="above">
+              <mat-label>{{fontSizeConfig.label}}</mat-label>
+              <input matInput type="number" placeholder="Ex. 12" [formControl]="fontSizeControl" min="10" max="20">
+              <span matSuffix>px</span>
+              <mat-error *ngIf="fontSizeControl.invalid">最小: 10px</mat-error>
+            </mat-form-field>
+          </form>
         </div>
         <mat-divider></mat-divider>
-        <div class="article-body m-y-sm" [innerHTML]="content.body | safeHtml"></div>
+        <div class="article-body m-y-sm" [innerHTML]="content.body | safeHtml" [style.fontSize.px]="getFontSize()">
+        </div>
       </div>
       <app-sidebar [ngClass.gt-sm]="'m-left-sm'" *ngIf="content.sidebar" fxFlex.lt-md="100" fxFlex.gt-sm="25"
         [content]="content.sidebar"></app-sidebar>

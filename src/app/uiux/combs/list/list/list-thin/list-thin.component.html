@@ -12,7 +12,7 @@
             {{item.label | ucfirst}}
           </div>
         </div>
-        <div class="actions">
+        <div class="actions" *ngIf="item?.actions?.length">
           <app-dynamic-widgets [content]="action" *ngFor="let action of item.actions"></app-dynamic-widgets>
         </div>
       </div>

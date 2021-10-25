@@ -29,6 +29,9 @@
           &:hover {
             color: mat-color($primary);
           }
+          em {
+            color: mat-color($primary);
+          }
         }
       }
     }

@@ -47,9 +47,9 @@ export class CommentFormComponent implements OnInit {
           this.utilitiesService.openSnackbar(ckeditor.succes.label);
           this.submitComment.emit(true);
         },
-        (error) => {
+        () => {
           this.loading = false;
-          console.log(error);
+          this.utilitiesService.openSnackbar('Please check user state.');
         }
       );
     } else {

@@ -80,7 +80,6 @@ export class NodeService extends ApiService {
     const entity = {
       data: entityData,
     };
-    console.log(JSON.stringify(entity));
     return this.http.post<any>(
       `${this.apiUrl}${this.apiUrlConfig.commentGetPath}/${type}`,
       JSON.stringify(entity),
@@ -111,7 +110,6 @@ export class NodeService extends ApiService {
         this.httpOptions
       );
     });
-    console.log(obj);
     return forkJoin(obj);
   }
 }

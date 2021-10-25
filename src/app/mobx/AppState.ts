@@ -111,8 +111,8 @@ export class AppState {
             this.initTheme();
             this.setUser();
           },
-          (error) => {
-            console.log(error);
+          () => {
+            console.log('base json not found!');
           }
         );
     } else {
@@ -125,8 +125,8 @@ export class AppState {
             this.initTheme();
             this.setUser();
           },
-          (error) => {
-            console.log(error);
+          () => {
+            console.log('base json not found!');
           }
         );
     }

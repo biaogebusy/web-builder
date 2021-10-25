@@ -46,7 +46,6 @@ export class UserFavoriteComponent implements OnInit {
       )
       .subscribe(
         (res) => {
-          console.log(res);
           this.content = res.data.map((item: any) => {
             const node = item.flagged_entity;
             return {
