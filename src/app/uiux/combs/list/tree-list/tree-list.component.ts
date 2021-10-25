@@ -73,6 +73,7 @@ export class TreeListComponent extends BaseComponent implements OnInit {
         body: item.body,
         user: item.user,
         type: item.type || '',
+        actions: item.actions || [],
       };
     });
   }
