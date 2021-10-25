@@ -1,13 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Subject, Observable, fromEvent } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
-import {
-  BreakpointObserver,
-  Breakpoints,
-  BreakpointState,
-} from '@angular/cdk/layout';
-import { action, observable, computed } from 'mobx-angular';
+import { Subject, fromEvent } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { action, observable } from 'mobx-angular';
 import { MatDrawer } from '@angular/material/sidenav';
+import { MediaObserver, MediaChange } from '@angular/flex-layout';
 
 @Injectable({
   providedIn: 'root',
@@ -17,48 +14,41 @@ export class ScreenState {
   public drawer$ = new Subject();
   public stickyMenu$ = new Subject();
 
-  @observable viewPort = 'xs';
+  @observable viewPort: string[];
   @observable isDrawer = false;
-  @observable state = {
-    viewPort: this.viewPort,
-  };
 
-  constructor(public breakpointObserver: BreakpointObserver) {
+  constructor(
+    public breakpointObserver: BreakpointObserver,
+    public mediaObserver: MediaObserver
+  ) {
     this.initScreen();
     this.initBrowserEvents();
   }
 
   @action
   initScreen(): any {
-    this.breakpointObserver
-      .observe([
-        Breakpoints.XSmall,
-        Breakpoints.Small,
-        Breakpoints.Medium,
-        Breakpoints.Large,
-        Breakpoints.XLarge,
-      ])
-      .subscribe((state: BreakpointState) => {
-        if (state.breakpoints[Breakpoints.XSmall]) {
-          this.viewPort = 'xs';
-        }
-        if (state.breakpoints[Breakpoints.Small]) {
-          this.viewPort = 'sm';
-        }
-        if (state.breakpoints[Breakpoints.Medium]) {
-          this.viewPort = 'md';
-        }
-        if (state.breakpoints[Breakpoints.Large]) {
-          this.viewPort = 'lg';
-        }
-        if (state.breakpoints[Breakpoints.XLarge]) {
-          this.viewPort = 'xl';
-        }
+    this.mediaObserver
+      .asObservable()
+      .pipe(
+        distinctUntilChanged(
+          (x: MediaChange[], y: MediaChange[]) =>
+            this.getAlias(x) === this.getAlias(y)
+        )
+      )
+      .subscribe((change) => {
+        this.viewPort = change.map((item) => {
+          return item.mqAlias;
+        });
+        console.log(this.viewPort);
       });
   }
 
+  getAlias(change: MediaChange[]): any {
+    return change[0].mqAlias;
+  }
+
   eq(targetPoint: string): boolean {
-    return targetPoint === this.viewPort;
+    return this.viewPort.includes(targetPoint);
   }
 
   initBrowserEvents(): void {
