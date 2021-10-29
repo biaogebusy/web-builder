@@ -55,6 +55,7 @@ import { BgImgComponent } from './bg-img/bg-img.component';
 import { SearchActionComponent } from './actions/search-action/search-action.component';
 import { ShareComponent } from './actions/share/share.component';
 import { TreeComponent } from './tree/tree.component';
+import { Card1v1Component } from './card/card1v1/card1v1.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -70,6 +71,7 @@ const components = [
   LinkComponent,
   TabComponent,
   CardComponent,
+  Card1v1Component,
   IconComponent,
   TitleComponent,
   PanelComponent,

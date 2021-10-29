@@ -155,6 +155,9 @@
             "label": "Dynamic Card List",
             "href": "/sample/list/dynamic-card-list"
           }, {
+            "label": "Dynamic Card List 1v1",
+            "href": "/sample/list/dynamic-card-list-1v1"
+          }, {
             "label": "Taxonomy list",
             "href": "/sample/list/taxonomy-list"
           }, {

@@ -11,12 +11,14 @@ import { TaxonomyThinListComponent } from './taxonomy-thin-list/taxonomy-thin-li
 import { ListThinComponent } from './list/list-thin/list-thin.component';
 import { SearchModule } from '../search/search.module';
 import { TreeListComponent } from './tree-list/tree-list.component';
+import { DynamicCardList1v1Component } from './dynamic-card-list1v1/dynamic-card-list1v1.component';
 
 const components = [
   ListComponent,
   TaxonomyListComponent,
   DynamicMediaListComponent,
   DynamicCardListComponent,
+  DynamicCardList1v1Component,
   DynamicTextListComponent,
   TaxonomyThinListComponent,
   ListThinComponent,

@@ -1,0 +1,24 @@
+{
+  "title": "Dynamic card list 1v1",
+  "body": [{
+    "type": "dynamic-card-list-1v1",
+    "header": {
+      "spacer": "sm",
+      "title": {
+        "label": "最新活动",
+        "style": "style-v1"
+      },
+      "body": "<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. </p>"
+    },
+    "params": {
+      "type": "event"
+    },
+    "fields": {
+      "title": "title",
+      "user": "user",
+      "date": "publish"
+    },
+    "row": "3",
+    "ratios": "media-4-3"
+  }]
+}
