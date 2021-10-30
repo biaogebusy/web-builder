@@ -5,6 +5,6 @@
     <mat-menu #menu="matMenu">
       <button *ngFor="let item of content.elements" mat-menu-item>
         <app-icon [content]="item.icon"></app-icon>
-        <app-link [content]="item"></app-link>
+        <a target="_blank" href="{{item.href}}">{{item.label}}</a>
       </button>
     </mat-menu>
