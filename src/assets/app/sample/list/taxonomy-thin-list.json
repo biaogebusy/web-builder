@@ -83,6 +83,30 @@
         "params": {
           "url": "/"
         }
+      }, {
+        "type": "download",
+        "label": "下载",
+        "icon": {
+          "name": "file_download",
+          "inline": true
+        },
+        "elements": [{
+            "type": "link",
+            "label": "Doc",
+            "icon": {
+              "name": "description"
+            },
+            "href": "#"
+          },
+          {
+            "type": "link",
+            "label": "Pdf",
+            "icon": {
+              "name": "picture_as_pdf"
+            },
+            "href": "#"
+          }
+        ]
       }]
     }, {
       "type": "list-thin",
@@ -124,6 +148,30 @@
         "params": {
           "url": "/"
         }
+      }, {
+        "type": "download",
+        "label": "下载",
+        "icon": {
+          "name": "file_download",
+          "inline": true
+        },
+        "elements": [{
+            "type": "link",
+            "label": "Doc",
+            "icon": {
+              "name": "description"
+            },
+            "href": "#"
+          },
+          {
+            "type": "link",
+            "label": "Pdf",
+            "icon": {
+              "name": "picture_as_pdf"
+            },
+            "href": "#"
+          }
+        ]
       }]
     }, {
       "type": "list-thin",
@@ -165,6 +213,30 @@
         "params": {
           "url": "/"
         }
+      }, {
+        "type": "download",
+        "label": "下载",
+        "icon": {
+          "name": "file_download",
+          "inline": true
+        },
+        "elements": [{
+            "type": "link",
+            "label": "Doc",
+            "icon": {
+              "name": "description"
+            },
+            "href": "#"
+          },
+          {
+            "type": "link",
+            "label": "Pdf",
+            "icon": {
+              "name": "picture_as_pdf"
+            },
+            "href": "#"
+          }
+        ]
       }]
     }]
   }]

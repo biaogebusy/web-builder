@@ -1,0 +1,10 @@
+    <button mat-button [mat-menu-trigger-for]="menu">
+      <app-icon [content]="content.icon"></app-icon>
+      <span>{{content.label}}</span>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button *ngFor="let item of content.elements" mat-menu-item>
+        <app-icon [content]="item.icon"></app-icon>
+        <app-link [content]="item"></app-link>
+      </button>
+    </mat-menu>

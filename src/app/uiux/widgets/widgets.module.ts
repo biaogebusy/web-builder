@@ -56,6 +56,7 @@ import { SearchActionComponent } from './actions/search-action/search-action.com
 import { ShareComponent } from './actions/share/share.component';
 import { TreeComponent } from './tree/tree.component';
 import { Card1v1Component } from './card/card1v1/card1v1.component';
+import { DownloadComponent } from './actions/download/download.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -106,6 +107,7 @@ const components = [
   ShapeComponent,
   BgImgComponent,
   TreeComponent,
+  DownloadComponent,
   SearchActionComponent,
   MediaObjectGroupComponent,
   DynamicFormControlComponent,
