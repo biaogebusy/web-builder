@@ -39,7 +39,6 @@ export class ScreenState {
         this.viewPort = change.map((item) => {
           return item.mqAlias;
         });
-        console.log(this.viewPort);
       });
   }
 

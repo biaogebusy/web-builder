@@ -1,1 +1,21 @@
-<p>dynamic-card-list1v1 works!</p>
+<div class="dynamic-card-list-1-v1 m-y" *ngIf="content">
+  <div class="container">
+    <div class="inner" fxLayout="row wrap" fxFlex="100%">
+      <div *ngIf="nodes" class="card-list m-y" fxLayout.lt-md="column" fxLayout.gt-sm="row wrap"
+        fxLayoutAlign="start start" fxFlex.lt-md="0 0 100" fxFlex.gt-sm="0 0 {{content.sidebar ? '75%':'100%'}}">
+        <app-card1v1 class="m-x-xs m-bottom-sm" fxFlex.gt-sm="{{row(content, '2rem')}}" fxFlex.lt-md="100%"
+          [content]="card" *ngFor="let card of nodes | paginate: { itemsPerPage: pager.items_per_page, currentPage:
+          pager.current_page + 1, totalItems: pager.total_items}">
+        </app-card1v1>
+        <div class="list-bottom width-100">
+          <app-pagination *ngIf="nodes?.length;else empty" (pageChange)="onPageChange($event)"></app-pagination>
+          <ng-template #empty>
+            <div class="text-center p-y-xl">
+              <p>没有数据。</p>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
