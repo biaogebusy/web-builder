@@ -1,23 +1,24 @@
-<div class="card blog rounded border-0 shadow">
-  <div class="position-relative">
-    <img src="assets/images/event/b01.jpg" class="card-img-top rounded-top" alt="...">
-    <div class="overlay rounded-top bg-dark"></div>
+<div class="card-1-v1">
+  <div class="media position-relative">
+    <app-bg-img [content]="content.bg"></app-bg-img>
+    <div class="overlay"></div>
   </div>
-  <div class="card-body content">
-    <h5><a href="javascript:void(0)" class="card-title title text-dark">Design your apps in your own way</a>
-    </h5>
-    <div class="post-meta d-flex justify-content-between mt-3">
-      <ul class="list-unstyled mb-0">
-        <li class="list-inline-item mr-2 mb-0"><a href="javascript:void(0)" class="text-muted like"><i
-              class="mdi mdi-heart-outline mr-1"></i>33</a></li>
-        <li class="list-inline-item"><a href="javascript:void(0)" class="text-muted comments"><i
-              class="mdi mdi-comment-outline mr-1"></i>08</a></li>
-      </ul>
-      <a href="page-blog-detail" class="text-muted readmore">Read More <i class="mdi mdi-chevron-right"></i></a>
+  <div class="card-body p-y-sm p-x-sm">
+    <div class="title mat-h2">
+      <app-link [content]="content.link"></app-link>
+    </div>
+    <div class="post-meta" fxLayoutAlign="space-between center">
+      <a href="{{content.link.href}}" class="text-muted readmore">{{content.moreLabel}}
+        <mat-icon inline="true">navigate_next</mat-icon>
+      </a>
     </div>
   </div>
-  <div class="author">
-    <small class="text-light user d-block"><i class="mdi mdi-account"></i> Calvin Carlo</small>
-    <small class="text-light date"><i class="mdi mdi-calendar-check"></i> 13th August, 2019</small>
+  <div class="author" fxLayout="column">
+    <small class="user">
+      <mat-icon inline="true">person</mat-icon> {{content.user}}
+    </small>
+    <small class="date">
+      <mat-icon inline="true">event</mat-icon> {{content.time}}
+    </small>
   </div>
 </div>

@@ -11,12 +11,12 @@
       "body": "<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. </p>"
     },
     "params": {
-      "type": "event"
+      "type": "content"
     },
     "fields": {
       "title": "title",
       "user": "user",
-      "date": "publish"
+      "time": "time"
     },
     "row": "3",
     "ratios": "media-4-3"

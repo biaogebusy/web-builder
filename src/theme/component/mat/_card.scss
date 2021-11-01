@@ -33,4 +33,21 @@
   .card-body {
     color: mat-color($foreground, text, 0.5);
   }
+
+  .card-1-v1 {
+    @include mat-elevation(4, mat-color($foreground, text), 0.3);
+    background-color: mat-color($background, card);
+    a {
+      color: mat-color($foreground, text, 0.75);
+      &:hover {
+        color: mat-color($primary);
+      }
+    }
+    .overlay {
+      background-color: mat-color($background, background);
+    }
+    .author {
+      color: mat-color($background, card);
+    }
+  }
 }

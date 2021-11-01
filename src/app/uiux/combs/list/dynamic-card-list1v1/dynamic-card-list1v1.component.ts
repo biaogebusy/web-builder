@@ -50,26 +50,52 @@ export class DynamicCardList1v1Component
 
   updateList(data: any): void {
     this.pager = data.pager;
-    this.nodes = data.rows.map((item: any) => {
+    const rows: any = [
+      {
+        url: '#',
+        title: 'How apps is changing the IT world',
+        user: 'Biagebusy',
+        time: '2021-10-30',
+        img: 'assets/images/cases/porto1.jpg',
+      },
+      {
+        url: '#',
+        title: 'Design your apps in your own way',
+        user: 'Biagebusy',
+        time: '2021-10-30',
+        img: 'assets/images/cases/porto1.jpg',
+      },
+      {
+        url: '#',
+        title: 'Smartest Applications for Business',
+        user: 'Biagebusy',
+        time: '2021-10-30',
+        img: 'assets/images/cases/porto1.jpg',
+      },
+    ];
+    this.nodes = rows.map((item: any) => {
       const link = item.url;
       const title = result(
         item,
         this.getValue(this.content, 'fields', 'title')
       );
       const user = result(item, this.getValue(this.content, 'fields', 'user'));
-      const date = result(item, this.getValue(this.content, 'fields', 'date'));
+      const time = result(item, this.getValue(this.content, 'fields', 'time'));
       return {
         link: {
           label: title,
           href: link,
         },
         user,
-        date,
-        img: {
-          classes: 'object-fit',
-          src: item.img,
-          alt: title,
+        time,
+        bg: {
+          img: {
+            classes: 'object-fit',
+            src: item.img,
+            alt: title,
+          },
         },
+        moreLabel: '查看更多',
       };
     });
   }
