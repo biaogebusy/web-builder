@@ -9,9 +9,11 @@ declare var window: any;
 })
 export class ShareComponent implements OnInit {
   @Input() content: any;
+  config: any;
   url: string;
-  constructor(private appState: AppState) {}
+  constructor(public appState: AppState) {}
   ngOnInit(): void {
+    this.config = this.appState.actions?.share;
     this.url = `${this.appState.origin}${this.content.params.url}`;
   }
 

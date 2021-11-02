@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { AppState } from 'src/app/mobx/AppState';
 
 @Component({
   selector: 'app-download',
@@ -7,7 +8,10 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class DownloadComponent implements OnInit {
   @Input() content: any;
-  constructor() {}
+  config: any;
+  constructor(public appState: AppState) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.config = this.appState?.actions?.download;
+  }
 }

@@ -77,5 +77,29 @@
       "tooltip": "通过键盘上下键可快速更改大小",
       "label": "字体大小"
     }
+  },
+  "actions": {
+    "flag": {
+      "icon": {
+        "name": "star",
+        "inline": true
+      },
+      "enabel": true
+    },
+    "share": {
+      "button": {
+        "icon": "share",
+        "label": "分享"
+      },
+      "enabel": true
+    },
+    "download": {
+      "label": "下载",
+      "icon": {
+        "name": "file_download",
+        "inline": true
+      },
+      "enabel": true
+    }
   }
 }

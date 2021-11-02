@@ -13,18 +13,19 @@ import { RouteService } from 'src/app/service/route.service';
 })
 export class FlagComponent extends BaseComponent implements OnInit {
   @Input() content: any;
-
+  config: any;
   flagging = false;
   constructor(
     public nodeService: NodeService,
     public routerService: RouteService,
     private userState: UserState,
-    private appState: AppState
+    public appState: AppState
   ) {
     super(nodeService, routerService);
   }
 
   ngOnInit(): void {
+    this.config = this.appState?.actions?.flag;
     this.getFlagging();
   }
 

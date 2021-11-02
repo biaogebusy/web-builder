@@ -1,10 +1,12 @@
-    <button mat-button [mat-menu-trigger-for]="menu">
-      <app-icon [content]="content.icon"></app-icon>
-      <span>{{content.label}}</span>
+<ng-container *ngIf="content && config?.enabel">
+  <button mat-button [mat-menu-trigger-for]="menu">
+    <app-icon [content]="config.icon"></app-icon>
+    <span>{{config.label}}</span>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button *ngFor="let item of content.elements" mat-menu-item>
+      <app-icon [content]="item.icon"></app-icon>
+      <a target="_blank" href="{{item.href}}">{{item.label}}</a>
     </button>
-    <mat-menu #menu="matMenu">
-      <button *ngFor="let item of content.elements" mat-menu-item>
-        <app-icon [content]="item.icon"></app-icon>
-        <a target="_blank" href="{{item.href}}">{{item.label}}</a>
-      </button>
-    </mat-menu>
+  </mat-menu>
+</ng-container>

@@ -1,4 +1,4 @@
-<button (click)="onFlag()" mat-button color="{{flagging?'primary':'default'}}">
-  <app-icon [content]="content.icon"></app-icon>
+<button *ngIf="config?.enabel" (click)="onFlag()" mat-button color="{{flagging?'primary':'default'}}">
+  <app-icon [content]="config.icon"></app-icon>
   <span>{{content.label}}</span>
 </button>

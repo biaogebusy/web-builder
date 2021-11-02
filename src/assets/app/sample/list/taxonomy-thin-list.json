@@ -124,10 +124,6 @@
       "actions": [{
         "type": "flag",
         "label": "收藏",
-        "icon": {
-          "name": "star",
-          "inline": true
-        },
         "params": {
           "type": "flagging--favorite",
           "entity_type": "node",
@@ -141,20 +137,11 @@
         }
       }, {
         "type": "share",
-        "button": {
-          "icon": "share",
-          "label": "分享"
-        },
         "params": {
           "url": "/"
         }
       }, {
         "type": "download",
-        "label": "下载",
-        "icon": {
-          "name": "file_download",
-          "inline": true
-        },
         "elements": [{
             "type": "link",
             "label": "Doc",

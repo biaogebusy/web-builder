@@ -1,7 +1,7 @@
-<ng-container *ngIf="content">
+<ng-container *ngIf="content && config?.enabel">
   <button mat-button [matMenuTriggerFor]="menu" #menuTriggercv (menuOpened)="open()">
-    <mat-icon inline="true">{{content.button.icon}}</mat-icon>
-    <span>{{content.button.label}}</span>
+    <mat-icon inline="true">{{config.button.icon}}</mat-icon>
+    <span>{{config.button.label}}</span>
   </button>
   <mat-menu #menu="matMenu" class="social-menu">
     <div class="share-components" [attr.data-url]="url"
