@@ -26,6 +26,9 @@
         <mat-divider></mat-divider>
         <div class="article-body m-y-sm" [innerHTML]="content.body | safeHtml" [style.fontSize.px]="getFontSize()">
         </div>
+        <div class="article-bottom" *ngIf="content.bottom">
+          <app-dynamic-widgets [content]="action" *ngFor="let action of content.bottom"></app-dynamic-widgets>
+        </div>
         <div class="ations" *ngIf="content.actions">
           <app-dynamic-widgets [content]="action" *ngFor="let action of content.actions"></app-dynamic-widgets>
         </div>

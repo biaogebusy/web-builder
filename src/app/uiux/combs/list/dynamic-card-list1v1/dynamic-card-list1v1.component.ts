@@ -52,12 +52,10 @@ export class DynamicCardList1v1Component
     console.log(data);
     this.pager = data.pager;
     this.nodes = data.rows.map((item: any) => {
-      const link = item.url;
-      const time = result(item, this.getValue(this.content, 'fields', 'time'));
       return {
         link: {
           label: item.title,
-          href: item.link,
+          href: item.url,
         },
         user: item.user,
         time: item.date,

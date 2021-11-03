@@ -44,7 +44,7 @@
       }
     }
     .overlay {
-      background-color: mat-color($background, background);
+      background-color: mat-color($foreground, base);
     }
     .author {
       color: mat-color($background, card);
