@@ -1,5 +1,5 @@
 <ng-container *ngIf="content">
-  <header *ngIf="!(screen.eq('xs') || screen.eq('sm'))" class="header" #header>
+  <header *ngIf="screen.eq('gt-sm')" class="header" #header>
     <div class="container">
       <div class="header-container" fxLayout="row" fxLayoutAlign="{{content.logo?'space-between center':'end center'}}">
         <div class="header-left" *ngIf="content.logo">
@@ -34,7 +34,7 @@
     </div>
   </header>
   <div class="drawer">
-    <mat-toolbar *ngIf="screen.eq('xs') || screen.eq('sm')">
+    <mat-toolbar *ngIf="screen.eq('lt-md')">
       <button mat-icon-button (click)="onToggle()" aria-label="menu icon">
         <mat-icon color="primary" *ngIf="!isDrawer">menu</mat-icon>
         <mat-icon *ngIf="isDrawer">close</mat-icon>
@@ -43,9 +43,9 @@
       <span class="app-name">{{content.logo?.label}}</span>
       <span class="spacer"></span>
       <app-switch-theme></app-switch-theme>
-      <app-user-menu></app-user-menu>
+      <app-user-menu class="m-left-xs"></app-user-menu>
     </mat-toolbar>
-    <div [hidden]="!((screen.eq('xs') || screen.eq('sm')) && isDrawer)">
+    <div [hidden]="!(screen.eq('lt-md') && isDrawer)">
       <app-dropdown-menu *ngIf="content.mainMenu" [content]="content.mainMenu"></app-dropdown-menu>
     </div>
   </div>

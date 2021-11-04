@@ -1,5 +1,5 @@
 <div class="user">
-  <ng-container *ngIf="!userState.anthenticated && !screen.eq('xs')">
+  <ng-container *ngIf="!userState.anthenticated">
     <button color="primary" [routerLink]="['/user/login']" mat-mini-fab mat-button>
       <mat-icon>person</mat-icon>
     </button>
