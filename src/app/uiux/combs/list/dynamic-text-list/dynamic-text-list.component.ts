@@ -1,6 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { NodeService } from 'src/app/service/node.service';
 import { RouteService } from 'src/app/service/route.service';
+import { ScreenService } from 'src/app/service/screen.service';
 import { BaseComponent } from 'src/app/uiux/base/base.widget';
 import { AppState } from '../../../../mobx/AppState';
 
@@ -11,13 +13,17 @@ import { AppState } from '../../../../mobx/AppState';
 })
 export class DynamicTextListComponent extends BaseComponent implements OnInit {
   @Input() content: any;
+  @Output() pageChange: EventEmitter<string> = new EventEmitter();
+
   lists: any[];
   links: any;
   loading: boolean;
+
   constructor(
     public nodeService: NodeService,
     public routerService: RouteService,
-    private appState: AppState
+    private appState: AppState,
+    private screenService: ScreenService
   ) {
     super(nodeService, routerService);
   }
@@ -33,11 +39,21 @@ export class DynamicTextListComponent extends BaseComponent implements OnInit {
       .getNodes(
         path,
         `${this.getParams(this.content, 'type')}`,
-        `${this.getParams(this.content, 'options')}`
+        `${this.getParams(this.content, 'options')}&sort=${this.getParams(
+          this.content,
+          'sort'
+        )}&page[limit]=20`
       )
       .subscribe((res) => {
         this.updateList(res);
       });
+  }
+
+  onPageChange(link: string): void {
+    this.screenService.gotoTop();
+    this.nodeService.getNodeByLink(link).subscribe((res) => {
+      this.updateList(res);
+    });
   }
 
   updateList(res: any): void {
@@ -56,6 +72,7 @@ export class DynamicTextListComponent extends BaseComponent implements OnInit {
         count: item.answer.comment_count,
       };
     });
+    this.links = res.links;
     this.loading = false;
   }
 }
