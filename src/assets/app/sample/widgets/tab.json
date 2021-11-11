@@ -1,87 +1,462 @@
 {
-  "title": "Tabs",
-  "body": [{
-    "type": "tab",
-    "title": {
-      "label": "Why choose us",
-      "style": "style-v4"
+  "header": {
+    "params": {
+      "themeSwitch": true,
+      "userInfo": true,
+      "inverse": true,
+      "isMegaMenu": false
     },
-    "classes": "bg-light",
-    "elements": [{
-      "label": "Quality",
-      "elements": [{
-        "type": "text",
+    "banner": {
+      "theme": "text-light",
+      "params": {
+        "height": "165px"
+      },
+      "text": {
+        "title": {
+          "label": "<img src=\"/sites/default/files/2021-09/header.png\" />",
+          "classes": "mat-display-3 m-bottom-xs"
+        },
+        "spacer": "xl",
+        "classes": "xy-center",
+        "style-": {
+          "width": "50%",
+          "left": "0%",
+          "top": "5%"
+        },
+        "bg": {
+          "classes": "bg-shadow overlay overlay-20",
+          "img": {
+            "hostClasses": "bg-center",
+            "src": "/sites/default/files/2021-07/banner-01.jpg"
+          }
+        },
+        "body": "<div class=\"text-center\"></div>"
+      }
+    },
+    "logo": false,
+    "mainMenu": [{
+        "label": "首页",
+        "classes": "bold",
+        "href": "/"
+      }, {
+        "label": "十大要点检索",
+        "classes": "bold",
+        "child": [{
+          "label": "案由分类",
+          "href": "/taxonomy/term/170"
+        }, {
+          "label": "请求权规范",
+          "href": "/taxonomy/term/167"
+        }, {
+          "label": "司法判列",
+          "href": "/taxonomy/term/161"
+        }, {
+          "label": "合同范本",
+          "href": "/taxonomy/term/162"
+        }, {
+          "label": "合规审查",
+          "href": "/taxonomy/term/165"
+        }, {
+          "label": "律师实务",
+          "href": "/taxonomy/term/163"
+        }, {
+          "label": "焦点研析",
+          "href": "/taxonomy/term/166"
+        }, {
+          "label": "金融数据",
+          "href": "/taxonomy/term/169"
+        }, {
+          "label": "智能生成",
+          "href": "/taxonomy/term/164"
+        }, {
+          "label": "金融律师",
+          "href": "/taxonomy/term/168"
+        }]
+      },
+      {
+        "label": "金融律师",
+        "classes": "bold",
+        "child": [{
+          "label": "律师团队",
+          "href": "/lawyers"
+        }, {
+          "label": "专业律师",
+          "href": "/taxonomy/term/466"
+        }]
+      },
+      {
+        "label": "金融智库",
+        "classes": "bold",
+        "child": [{
+          "label": "金融专家",
+          "href": "#"
+        }, {
+          "label": "法律专家",
+          "href": "#"
+        }, {
+          "label": "科技专家",
+          "href": "#"
+        }, {
+          "label": "律鑫云图谱",
+          "href": "#"
+        }]
+      },
+      {
+        "label": "集成服务",
+        "classes": "bold",
+        "child": [{
+            "label": "会计师事务所",
+            "href": "#"
+          },
+          {
+            "label": "资产评估事务所",
+            "href": "#"
+          },
+          {
+            "label": "税务事务所",
+            "href": "/"
+          },
+          {
+            "label": "知识产权代理",
+            "href": "/"
+          },
+          {
+            "label": "翻译",
+            "href": "/"
+          },
+          {
+            "label": "信用评估",
+            "href": "/"
+          },
+          {
+            "label": "审计事务所",
+            "href": "/"
+          },
+          {
+            "label": "司法鉴定",
+            "href": "/"
+          },
+          {
+            "label": "公证",
+            "href": "/"
+          }
+        ]
+      },
+      {
+        "label": "学术论坛",
+        "classes": "bold",
+        "child": [{
+          "label": "著书",
+          "href": "#"
+        }, {
+          "label": "讲座",
+          "href": "#"
+        }, {
+          "label": "辩论赛",
+          "href": "#"
+        }, {
+          "label": "培训",
+          "href": "#"
+        }, {
+          "label": "论坛",
+          "href": "#"
+        }, {
+          "label": "会议",
+          "href": "#"
+        }, {
+          "label": "业务学习",
+          "href": "#"
+        }, {
+          "label": "经验交流",
+          "href": "#"
+        }]
+      },
+      {
+        "label": "招贤纳士",
+        "classes": "bold",
+        "child": [{
+          "label": "金融",
+          "href": "#"
+        }, {
+          "label": "法律",
+          "href": "#"
+        }, {
+          "label": "科技",
+          "href": "#"
+        }]
+      },
+      {
+        "label": "联系我们",
+        "classes": "bold",
+        "child": [{
+          "label": "关于我们",
+          "href": "/about"
+        }, {
+          "label": "服务方式",
+          "child": [{
+            "label": "招投标",
+            "href": "#"
+          }, {
+            "label": "议标",
+            "href": "#"
+          }, {
+            "label": "律师收费办法",
+            "href": "#"
+          }]
+        }, {
+          "label": "联合投标方案",
+          "href": "#"
+        }]
+      }
+    ],
+    "search": {
+      "enabel": true,
+      "placeholder": "请输入关键词",
+      "tooltip": "回车进入综合搜索页面",
+      "link": "/search"
+    },
+    "userMenu": [{
+        "label": "发布问题",
+        "icon": {
+          "name": "edit"
+        },
+        "dialog": {
+          "content": [{
+              "type": "input",
+              "key": "title",
+              "label": "标题",
+              "placeholder": "请输入问题",
+              "params": {
+                "required": true
+              },
+              "errorMes": "问题必填"
+            },
+            {
+              "type": "textarea",
+              "key": "body",
+              "label": "问题描述",
+              "placeholder": "请输入问题描述（可选）"
+            }
+          ],
+          "actions": [{
+            "label": "发布问题",
+            "color": "primary",
+            "params": {
+              "type": "question",
+              "snackMes": "您的问题已经发布"
+            }
+          }]
+        }
+      },
+      {
+        "label": "问题列表",
+        "href": "/questions",
+        "icon": {
+          "name": "list"
+        }
+      }
+    ]
+  },
+  "footerBak": {
+    "params": {
+      "mode": "inverse",
+      "shape": false
+    },
+    "footerBrand": {
+      "logo": {
+        "img": {
+          "src": "/sites/default/files/2021-07/logo.png",
+          "alt": "律鑫云",
+          "href": "/",
+          "classes": "logo"
+        }
+      },
+      "summary": "律鑫云、律师团！有平台、有未来！"
+    },
+    "mainMenu": [{
+        "label": "关于我们",
+        "classes": "bold",
+        "child": [{
+            "label": "常用网站",
+            "href": "/links",
+            "icon": "arrow_right"
+          },
+          {
+            "label": "招聘信息",
+            "href": "/",
+            "icon": "arrow_right"
+          },
+          {
+            "label": "公益计划",
+            "href": "#",
+            "icon": "arrow_right"
+          },
+          {
+            "label": "联系我们",
+            "href": "/contact",
+            "icon": "arrow_right"
+          }
+        ]
+      },
+      {
+        "label": "联系我们",
+        "classes": "bold",
+        "child": [{
+            "label": "翻译",
+            "href": "/contant-us",
+            "fragment": "translate",
+            "icon": "arrow_right"
+          },
+          {
+            "label": "咨询",
+            "href": "/",
+            "icon": "arrow_right"
+          },
+          {
+            "label": "会计师事务所",
+            "href": "/",
+            "icon": "arrow_right"
+          },
+          {
+            "label": "资产评估事务所",
+            "href": "/",
+            "icon": "arrow_right"
+          }
+        ]
+      }
+    ],
+    "mobileMenu": [{
+        "label": "关于我们",
+        "classes": "bold",
+        "child": [{
+            "label": "核心价值观",
+            "href": "#",
+            "icon": "arrow_right"
+          },
+          {
+            "label": "招聘信息",
+            "href": "/jobs",
+            "icon": "arrow_right"
+          },
+          {
+            "label": "公益计划",
+            "href": "#",
+            "icon": "arrow_right"
+          },
+          {
+            "label": "联系我们",
+            "href": "/contact",
+            "icon": "arrow_right"
+          }
+        ]
+      },
+      {
+        "label": "联系我们",
+        "classes": "bold",
+        "child": [{
+            "label": "翻译",
+            "href": "#",
+            "icon": "arrow_right"
+          },
+          {
+            "label": "咨询",
+            "href": "/",
+            "icon": "arrow_right"
+          },
+          {
+            "label": "会计师事务所",
+            "href": "/",
+            "icon": "arrow_right"
+          },
+          {
+            "label": "资产评估事务所",
+            "href": "/",
+            "icon": "arrow_right"
+          }
+        ]
+      }
+    ],
+    "footerNewsletter": {
+      "params": {
+        "webform_id": "subscribe"
+      },
+      "label": "资讯",
+      "summary": "欢迎使用邮箱订阅最新的新闻。",
+      "forms": [{
+        "type": "input",
+        "label": "Your email:",
+        "key": "email",
+        "params": {
+          "required": true
+        },
+        "placeholder": "您的邮箱地址",
+        "hint": "请输入邮箱",
+        "error": "邮箱地址无效"
+      }],
+      "action": {
+        "label": "订阅"
+      }
+    },
+    "footerBottom": {
+      "left": "Copyright ©2021 律鑫云(上海)智能科技有限公司 <a target=\"_blank\" href=\"https://beian.miit.gov.cn/\">沪ICP备2021023964号-2</a>",
+      "right": [{
+          "label": "首页",
+          "href": "/"
+        },
+        {
+          "label": "关于我们",
+          "href": "/about"
+        },
+        {
+          "label": "帮助中心",
+          "href": "#"
+        },
+        {
+          "label": "联系我们",
+          "href": "#"
+        }
+      ]
+    }
+  },
+  "footer": {
+    "params": {
+      "mode": "space-betwenn",
+      "shape": false
+    },
+    "footerBrand": {
+      "logo": {
+        "img": {
+          "src": "/sites/default/files/2021-07/logo.png",
+          "alt": "律鑫云",
+          "href": "/",
+          "classes": "logo"
+        }
+      },
+      "summary": "律鑫云、律师团！有平台、有未来！",
+      "text": {
         "spacer": "none",
-        "body": "<p>Lorem Ipsum is simply dummy text of the printing and typeseting industry Lorem in text Ipsum has been the industry standar dummyy text ever since the when an iunesi known.</p><ul class=\"list3 clearfix\">\n\t<li>Multiple Layout</li>\n\t<li>Awesome Shortcodes</li>\n\t<li>Browser Compatibility</li>\n\t<li>Easy to Edit Animations</li>\n\t<li>Parallax Effect</li>\n\t<li>Responsive Design</li>\n\t<li>Many Home Page Versions</li>\n\t<li>Many Blog Pages</li>\n</ul>"
-      }]
-    }, {
-      "label": "Design",
-      "elements": [{
-        "type": "text",
-        "spacer": "none",
-        "body": "<p>Lorem Ipsum is simply dummy text of the printing and typeseting industry Lorem in text Ipsum has been the industry standar dummyy text ever since the when an iunesi known.</p><ul class=\"list3 clearfix\">\n\t<li>Multiple Layout</li>\n\t<li>Awesome Shortcodes</li>\n\t<li>Browser Compatibility</li>\n\t<li>Easy to Edit Animations</li>\n\t<li>Parallax Effect</li>\n\t<li>Responsive Design</li>\n\t<li>Many Home Page Versions</li>\n\t<li>Many Blog Pages</li>\n</ul>"
-      }]
-    }, {
-      "label": "Programing",
-      "elements": [{
-        "type": "text",
-        "spacer": "none",
-        "body": "<p>Lorem Ipsum is simply dummy text of the printing and typeseting industry Lorem in text Ipsum has been the industry standar dummyy text ever since the when an iunesi known.</p><ul class=\"list3 clearfix\">\n\t<li>Multiple Layout</li>\n\t<li>Awesome Shortcodes</li>\n\t<li>Browser Compatibility</li>\n\t<li>Easy to Edit Animations</li>\n\t<li>Parallax Effect</li>\n\t<li>Responsive Design</li>\n\t<li>Many Home Page Versions</li>\n\t<li>Many Blog Pages</li>\n</ul>"
-      }]
-    }]
-  }, {
-    "type": "showcase-3v4",
-    "title": {
-      "label": "OUR FEATRUES",
-      "style": "style-v1"
+        "body": "<p class=\"m-bottom-0\"><strong>地址：</strong>上海陆家嘴世纪大道88号金茂大厦11层</p><p><strong>建言：</strong> 13681900168</p>"
+      }
     },
-    "bg": {
-      "classes": "bg-shadow bg-fill-width"
-    },
-    "img": {
-      "src": "/assets/images/1-1/business-01.png",
-      "alt": "OUR FEATURES"
-    },
-    "elements": [{
-      "icon": {
-        "name": "verified_user"
-      },
-      "style": "style-v7",
-      "title": {
-        "label": "FREMIUM MODULES INCLUDED",
-        "href": "#"
-      },
-      "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority."
-    }, {
-      "icon": {
-        "name": "verified_user"
-      },
-      "style": "style-v7",
-      "title": {
-        "label": "FREMIUM MODULES INCLUDED",
-        "href": "#"
-      },
-      "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority."
-    }, {
-      "icon": {
-        "name": "favorite"
-      },
-      "style": "style-v7",
-      "title": {
-        "label": "FREMIUM MODULES INCLUDED",
-        "href": "#"
-      },
-      "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority."
-    }, {
-      "icon": {
-        "name": "android"
-      },
-      "style": "style-v7",
-      "title": {
-        "label": "FREMIUM MODULES INCLUDED",
-        "href": "#"
-      },
-      "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority."
-    }]
-  }]
+    "footerBottom": {
+      "left": "Copyright ©2021 律鑫云(上海)智能科技有限公司 <a target=\"_blank\" href=\"https://beian.miit.gov.cn/\">沪ICP备2021023964号-2</a>",
+      "right": [{
+          "label": "首页",
+          "href": "/"
+        },
+        {
+          "label": "关于我们",
+          "href": "/about"
+        },
+        {
+          "label": "帮助中心",
+          "href": "#"
+        },
+        {
+          "label": "联系我们",
+          "href": "#"
+        }
+      ]
+    }
+  }
 }

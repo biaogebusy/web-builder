@@ -13,21 +13,23 @@ import { DynamicCombsModule } from './dynamic-combs/dynamic-combs.module';
 import { ListModule } from './list/list.module';
 import { ProfileModule } from './profile/profile.module';
 import { ActionModule } from './action/action.module';
+import { TabModule } from './tab/tab.module';
 
 const modules = [
-  ShowcaseModule,
-  CarouselModule,
-  VideoModule,
-  MasonryModule,
+  ActionModule,
   BannerModule,
+  CarouselModule,
+  DynamicCombsModule,
+  HeroModule,
+  ListModule,
+  MasonryModule,
   MapModule,
   OtherModule,
-  HeroModule,
-  SearchModule,
-  DynamicCombsModule,
-  ListModule,
   ProfileModule,
-  ActionModule,
+  ShowcaseModule,
+  SearchModule,
+  VideoModule,
+  TabModule,
 ];
 
 @NgModule({
