@@ -68,7 +68,7 @@ export abstract class BaseComponent {
     if (state) {
       Object.keys(state).forEach((key) => {
         const val = state[key];
-        if (val) {
+        if (val !== '') {
           if (isArray(val)) {
             if (val.length > 0) {
               formParams[key] = val.join('+');

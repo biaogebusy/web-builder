@@ -57,6 +57,7 @@ import { ShareComponent } from './actions/share/share.component';
 import { TreeComponent } from './tree/tree.component';
 import { Card1v1Component } from './card/card1v1/card1v1.component';
 import { DownloadComponent } from './actions/download/download.component';
+import { MediaMetaComponent } from './media/media-meta/media-meta.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -94,6 +95,7 @@ const components = [
   DynamicWidgetsComponent,
   SidebarComponent,
   MediaListComponent,
+  MediaMetaComponent,
   MediaObjectComponent,
   MenuListComponent,
   PaginationComponent,

@@ -144,7 +144,16 @@
       background-color: mat-color($primary, 100);
     }
   }
+
   .tree {
     @include scrollbar(mat-color($foreground, divider, 0.2));
+  }
+
+  .media-meta {
+    border-bottom: 1px solid mat-color($foreground, divider);
+    .top,
+    .middle {
+      color: mat-color($foreground, text, 0.3);
+    }
   }
 }

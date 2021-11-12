@@ -1,8 +1,21 @@
-<div class="tab-1v1" *ngIf="content">
+<div class="tab-1v1 p-top" *ngIf="content">
   <app-text *ngIf="content.text" [content]="content.text"></app-text>
-  <mat-tab-group mat-align-tabs="center">
-    <mat-tab label="First">Content 1</mat-tab>
-    <mat-tab label="Second">Content 2</mat-tab>
-    <mat-tab label="Third">Content 3</mat-tab>
-  </mat-tab-group>
+  <div class="container" *ngIf="content.tab && pager">
+    <mat-tab-group [selectedIndex]="selectedIndex" (selectedIndexChange)="onSelectChange($event)"
+      mat-align-tabs="center" animationDuration="0ms">
+      <mat-tab label="{{tab.label}}" *ngFor="let tab of tabs">
+        <ng-template matTabContent>
+          <app-media-meta [content]="item" *ngFor="let item of currentList | paginate: { itemsPerPage: pager.items_per_page, currentPage:
+      pager.current_page + 1, totalItems: pager.total_items}">
+          </app-media-meta>
+        </ng-template>
+      </mat-tab>
+    </mat-tab-group>
+    <app-pagination *ngIf="currentList?.length > 0;else empty" (pageChange)="onPageChange($event)"></app-pagination>
+    <ng-template #empty>
+      <div class="text-center p-y-xl">
+        <p>没有数据。</p>
+      </div>
+    </ng-template>
+  </div>
 </div>
