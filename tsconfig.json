@@ -25,5 +25,8 @@
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true
+  },
+  "paths": {
+    "@angular/*": ["./node_modules/@angular/*"]
   }
 }
