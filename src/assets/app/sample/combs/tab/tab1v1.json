@@ -2,6 +2,9 @@
   "title": "Tab 1v1",
   "body": [{
     "type": "tab-1v1",
+    "params": {
+      "type": "content"
+    },
     "text": {
       "spacer": "sm",
       "title": {

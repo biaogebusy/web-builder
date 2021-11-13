@@ -17,7 +17,7 @@ export class Tab1v1Component extends BaseComponent implements OnInit {
   tabs: any[];
   page: number;
   pager: any;
-  currentList: any[];
+  currentList: any[] = [];
   constructor(
     public nodeService: NodeService,
     public routerService: RouteService,
@@ -52,7 +52,8 @@ export class Tab1v1Component extends BaseComponent implements OnInit {
       const apiQuery = Object.assign({}, tabQuery, {
         page: query.page,
       });
-      this.nodeSearchByParams('content', {}, apiQuery).subscribe((res) => {
+      const type = this.getParams(this.content, 'type');
+      this.nodeSearchByParams(type, {}, apiQuery).subscribe((res) => {
         this.pager = res.pager;
         this.currentList = res.rows.map((item: any) => {
           return {
