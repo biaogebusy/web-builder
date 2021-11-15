@@ -43,8 +43,8 @@ export class Tab1v1Component extends BaseComponent implements OnInit {
   }
 
   initTab(query: Params): void {
-    if ('tab' in query) {
-      this.selectedIndex = Number(query.tab);
+    if (query.has('tab')) {
+      this.selectedIndex = Number(query.get('tab'));
     }
     this.tabs = this.content.tab.elements;
     if (this.selectedIndex < this.tabs.length) {
