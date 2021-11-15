@@ -28,23 +28,25 @@ export class Tab1v1Component extends BaseComponent implements OnInit {
 
   ngOnInit(): void {
     this.router.queryParamMap.subscribe((query: Params) => {
-      this.page = query.page || 0;
+      this.page = query.get('page') || 0;
       const querys = omitBy(
         Object.assign(
           {
             page: this.page,
           },
-          query
+          {
+            tab: query.get('tab') || 0,
+          }
         ),
         isEmpty
       );
-      this.initTab(query);
+      this.initTab(querys);
     });
   }
 
   initTab(query: Params): void {
-    if (query.has('tab')) {
-      this.selectedIndex = Number(query.get('tab'));
+    if (query.tab) {
+      this.selectedIndex = Number(query.tab);
     }
     this.tabs = this.content.tab.elements;
     if (this.selectedIndex < this.tabs.length) {
