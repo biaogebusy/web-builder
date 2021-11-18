@@ -1,6 +1,7 @@
 <div class="dynamic-card-list-1-v1 m-y" *ngIf="content">
   <div class="container">
     <div class="inner" fxLayout="row wrap" fxFlex="100%">
+      <app-text [content]="content.header" *ngIf="content.header" fxFlex="100"></app-text>
       <div *ngIf="nodes" class="card-list m-y" fxLayout="row wrap" fxLayoutAlign="start start" fxFlex.lt-md="0 0 100"
         fxFlex.gt-sm="0 0 {{content.sidebar ? '75%':'100%'}}">
         <app-card1v1 class="m-bottom-sm m-x-xs" fxFlex.gt-sm="{{row(content, '2rem')}}" fxFlex.lt-md="0 0 100%"

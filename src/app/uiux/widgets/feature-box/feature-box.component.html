@@ -11,13 +11,9 @@
     <ng-template #noIcon>
       <a href="{{content.link}}" class="feature-inner-btns width-100 height-100"></a>
     </ng-template>
-    <div class="mf-popup">
-      <div class="mf-no-gallery">
-        <div class="feature-inner-ling">
-          <div class="media" [ngClass]="content.ratios || 'media-4-3'">
-            <app-img *ngIf="content.img" [content]="content.img"></app-img>
-          </div>
-        </div>
+    <div class="feature-inner-ling">
+      <div class="media" [ngClass]="content.ratios || 'media-4-3'">
+        <app-img *ngIf="content.img" [content]="content.img"></app-img>
       </div>
     </div>
   </div>

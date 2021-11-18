@@ -59,11 +59,15 @@ export class DynamicCardList1v1Component
         },
         user: item.user,
         time: item.date,
-        bg: {
+        feature: {
+          fullIcon: 'fullscreen',
+          openIcon: 'open_in_new',
+          link: item.url,
+          ratios: this.content.ratios || 'media-4-3',
           img: {
             classes: 'object-fit',
             src: item.image,
-            alt: item.title,
+            title: item.title,
           },
         },
         moreLabel: '查看更多',
