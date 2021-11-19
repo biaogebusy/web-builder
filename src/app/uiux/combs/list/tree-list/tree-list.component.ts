@@ -95,4 +95,8 @@ export class TreeListComponent extends BaseComponent implements OnInit {
     this.formState = Object.assign(this.formState, option);
     this.nodeSearch();
   }
+
+  trackByFn(index: number, item: any): number {
+    return index;
+  }
 }

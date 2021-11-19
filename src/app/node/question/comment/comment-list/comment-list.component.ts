@@ -59,4 +59,8 @@ export class CommentListComponent implements OnInit {
         }
       );
   }
+
+  trackByFn(index: number, item: any): number {
+    return index;
+  }
 }

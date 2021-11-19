@@ -3,7 +3,7 @@
     <div *ngIf="loading" class="m-y" fxLayoutAlign="center center">
       <app-spinner [content]="{color:'primary', size:40}"></app-spinner>
     </div>
-    <div class="item" *ngFor="let item of lists; last as isLast">
+    <div class="item" *ngFor="let item of lists; last as isLast; trackBy: trackByFn">
       <div class="meta m-bottom-xs" fxLayoutAlign="start center" fxLayoutGap="1rem">
         <app-img [content]="item.picture"></app-img>
         <div class="name text-lighter">{{item.name}}</div>

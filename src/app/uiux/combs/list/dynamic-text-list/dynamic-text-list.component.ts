@@ -75,4 +75,8 @@ export class DynamicTextListComponent extends BaseComponent implements OnInit {
     this.links = res.links;
     this.loading = false;
   }
+
+  trackByFn(index: number, item: any): number {
+    return index;
+  }
 }

@@ -18,4 +18,8 @@ export class SearchListComponent implements OnInit {
   onPageChange(page: number): void {
     this.pageChange.emit(page - 1);
   }
+
+  trackByFn(index: number, item: any): number {
+    return index;
+  }
 }

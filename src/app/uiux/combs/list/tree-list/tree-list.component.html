@@ -2,8 +2,8 @@
   <div class="container">
     <div fxLayoutAlign="space-bewteen start" fxFlex="100" fxLayout="row wrap">
       <div fxLayout="row wrap" class="left" fxFlex.lt-md="0 0 100" fxFlex.gt-sm="0 0 25%">
-        <app-tree *ngFor="let tree of content.tree" (treeChange)="onTreeChange($event)" fxFlex="0 1 100"
-          [content]="tree">
+        <app-tree *ngFor="let tree of content.tree; trackBy: trackByFn" (treeChange)="onTreeChange($event)"
+          fxFlex="0 1 100" [content]="tree">
         </app-tree>
       </div>
       <div fxLayout="row wrap" class="main p-left m-y-sm" fxFlex.lt-md="0 0 100"

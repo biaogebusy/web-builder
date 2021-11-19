@@ -79,4 +79,8 @@ export class DynamicCardList1v1Component
     this.page = page - 1;
     this.nodeSearch({ page: this.page });
   }
+
+  trackByFn(index: number, item: any): number {
+    return index;
+  }
 }

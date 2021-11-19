@@ -4,7 +4,7 @@
       {{comments.length}} 个回答
     </div>
     <mat-divider class="m-bottom-xs"></mat-divider>
-    <div class="item" *ngFor="let item of comments; last as isLast">
+    <div class="item" *ngFor="let item of comments; last as isLast; trackBy: trackByFn">
       <div class="comment-box" *ngIf="!onShow(item.id)">
         <a class="anchor" [id]="'q-'+item.id"></a>
         <app-media-object [content]="item.author"></app-media-object>

@@ -20,4 +20,8 @@ export class ListThinComponent implements OnInit {
     this.pageChange.emit(link);
     this.screenService.gotoTop();
   }
+
+  trackByFn(index: number, item: any): number {
+    return index;
+  }
 }

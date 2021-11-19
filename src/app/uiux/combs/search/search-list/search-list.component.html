@@ -8,7 +8,7 @@
     </div>
     <mat-divider></mat-divider>
     <div class="list m-y" *ngFor="let item of content | paginate: { itemsPerPage: pager.items_per_page, currentPage:
-      pager.current_page + 1, totalItems: pager.total_items}">
+      pager.current_page + 1, totalItems: pager.total_items}; trackBy: trackByFn">
       <h2 class="title">
         <app-link [content]="item.link"></app-link>
       </h2>

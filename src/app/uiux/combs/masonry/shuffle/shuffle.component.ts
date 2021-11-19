@@ -33,4 +33,8 @@ export class ShuffleComponent implements OnInit, AfterViewInit {
   onFilter(category: string): void {
     this.shuffle.filter(category);
   }
+
+  trackByFn(index: number, item: any): number {
+    return index;
+  }
 }

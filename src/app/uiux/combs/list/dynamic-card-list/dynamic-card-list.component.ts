@@ -129,4 +129,8 @@ export class DynamicCardListComponent extends BaseComponent implements OnInit {
     });
     this.updateUrl(formValues, options);
   }
+
+  trackByFn(index: number, item: any): number {
+    return index;
+  }
 }
