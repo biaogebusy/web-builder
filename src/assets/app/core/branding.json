@@ -14,27 +14,10 @@
       "banner": {
         "left": [{
           "icon": "call",
-          "label": "(123)456-7890"
+          "label": "咨询与合作：13681900168"
         }, {
-          "icon": "email",
-          "label": "demo@zhaobg.com"
-        }],
-        "right": [{
-          "label": "zhihu",
-          "svg": "zhihu",
-          "href": "https://www.zhihu.com/column/c_1331898788731375616"
-        }, {
-          "label": "微博",
-          "svg": "weibo",
-          "href": "#"
-        }, {
-          "label": "nnitpay",
-          "svg": "wechat",
-          "href": "#"
-        }, {
-          "label": "Github",
-          "svg": "github",
-          "href": "https://github.com/biaogebusy/xinshi-angular"
+          "icon": "people",
+          "label": "联系人：李洪华"
         }]
       }
     },
@@ -644,6 +627,25 @@
         "label": "联系我们",
         "href": "#"
       }]
-    }
+    },
+    "fixBar": [{
+        "type": "link",
+        "icon": {
+          "svg": "offiaccount"
+        },
+        "label": "在线客服"
+      },
+      {
+        "type": "popup",
+        "icon": {
+          "svg": "wechat"
+        },
+        "label": "咨询合作",
+        "content": {
+          "spacer": "none",
+          "body": "<p><strong>咨询与合作：</strong>xxx</p><p><strong>联系人：</strong>xxx</p><img height=\"120\" src=\"/sites/default/files/inline-images/weixin.jpg\" />"
+        }
+      }
+    ]
   }
 }

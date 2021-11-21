@@ -18,6 +18,8 @@ import { HeaderBannerComponent } from './header/header-banner/header-banner.comp
 import { HeroModule } from '../uiux/combs/hero/hero.module';
 import { MegaMenuComponent } from './header/menu/item-menu/mega-menu/mega-menu.component';
 import { SpaceBetweenComponent } from './footer/space-between/space-between.component';
+import { FixBarComponent } from './footer/fix-bar/fix-bar.component';
+import { FixBarPopupComponent } from './footer/fix-bar/fix-bar-popup/fix-bar-popup.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,8 @@ import { SpaceBetweenComponent } from './footer/space-between/space-between.comp
     HeaderBannerComponent,
     MegaMenuComponent,
     SpaceBetweenComponent,
+    FixBarComponent,
+    FixBarPopupComponent,
   ],
   imports: [ShareModule, WidgetsModule, HeroModule],
   exports: [HeaderComponent, FooterComponent, MenuComponent],

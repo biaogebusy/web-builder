@@ -143,6 +143,26 @@
         }
       }
     }
+
+    .fix-bar {
+      background-color: mat-color($primary);
+      .item,
+      .item a {
+        color: mat-color($primary, default-contrast);
+      }
+      .item {
+        border-bottom: 1px solid mat-color($foreground, divider);
+        &:last-child {
+          border-bottom: 0;
+        }
+        .fix-bar-popup {
+          color: mat-color($foreground, text, 0.75);
+          .fix-bar-popup-content {
+            background-color: mat-color($background, card);
+          }
+        }
+      }
+    }
   }
   #go-to-top {
     background: mat-color($primary);
