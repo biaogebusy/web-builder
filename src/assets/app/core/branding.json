@@ -630,9 +630,11 @@
     },
     "fixBar": [{
         "type": "link",
+        "href": "#",
         "icon": {
           "svg": "offiaccount"
         },
+        "id": "qdService",
         "label": "在线客服"
       },
       {
