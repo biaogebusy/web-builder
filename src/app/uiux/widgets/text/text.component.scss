@@ -11,3 +11,9 @@
   position: relative;
   z-index: 2;
 }
+
+.actions {
+  > * {
+    margin-right: 2rem;
+  }
+}

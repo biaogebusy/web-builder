@@ -5,7 +5,7 @@
     <div class="inner" [ngClass.gt-sm]="content.classes" [ngStyle.gt-sm]="content.style">
       <app-title [content]="content.title" *ngIf="content.title"></app-title>
       <div [innerHTML]="content.body | safeHtml" *ngIf="content.body"></div>
-      <div class="m-top" *ngIf="content.actions">
+      <div class="actions m-top" *ngIf="content.actions">
         <ng-container *ngFor="let action of content.actions">
           <ng-container [ngSwitch]="action.type">
             <app-search-action *ngSwitchCase="'search-action'" [content]="action"></app-search-action>
