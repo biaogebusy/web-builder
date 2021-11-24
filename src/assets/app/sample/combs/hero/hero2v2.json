@@ -5,7 +5,7 @@
     "spacer": "lg",
     "id": "xxx",
     "bg": {
-      "classes": "bg-center",
+      "classes": "bg-center overlay",
       "img": {
         "hostClasses": "bg-center",
         "src": "/assets/images/16-9/business-16.jpeg"

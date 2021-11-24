@@ -22,7 +22,6 @@
       "bg": {
         "classes": "bg-shadow overlay overlay-20",
         "img": {
-          "hostClasses": "bg-center",
           "src": "/assets/images/hero/1-6.jpg",
           "mobile": "/assets/images/mobile/mobile-03.jpg"
         }
@@ -49,7 +48,6 @@
       "bg": {
         "classes": "bg-shadow overlay overlay-80",
         "img": {
-          "hostClasses": "bg-center",
           "src": "/assets/images/hero/329.jpg",
           "mobile": "/assets/images/mobile/mobile-04.jpg"
         }
@@ -77,7 +75,6 @@
       "bg": {
         "classes": "bg-shadow overlay overlay-20",
         "img": {
-          "hostClasses": "bg-center",
           "src": "/assets/images/hero/light-bg.jpeg",
           "mobile": "/assets/images/mobile/follower-04.jpg"
         }
@@ -106,7 +103,6 @@
       "bg": {
         "classes": "bg-shadow overlay overlay-80",
         "img": {
-          "hostClasses": "bg-center",
           "src": "/assets/images/hero/light-bg.jpeg",
           "mobile": "/assets/images/mobile/mobile-02.jpg"
         }
