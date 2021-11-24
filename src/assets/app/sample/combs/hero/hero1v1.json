@@ -26,9 +26,8 @@
         },
         "classes": "xy-center",
         "bg": {
-          "classes": "bg-shadow  overlay overlay-80",
+          "classes": "bg-center overlay overlay-80",
           "img": {
-            "hostClasses": "bg-center",
             "src": "/assets/images/16-9/business-14.jpeg",
             "mobile": "/assets/images/mobile/mobile-03.jpg"
           }
@@ -50,7 +49,6 @@
         "bg": {
           "classes": "bg-shadow  overlay overlay-80",
           "img": {
-            "hostClasses": "bg-center",
             "src": "/assets/images/16-9/business-15.jpeg",
             "mobile": "/assets/images/mobile/mobile-04.jpg"
           }
