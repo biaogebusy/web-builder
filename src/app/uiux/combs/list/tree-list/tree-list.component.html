@@ -7,7 +7,7 @@
         </app-tree>
       </div>
       <div fxLayout="row wrap" class="main p-left m-y-sm" fxFlex.lt-md="0 0 100"
-        fxFlex.gt-sm="0 0 {{content.filter ? '75%':'100%'}}">
+        fxFlex.gt-sm="0 0 {{content.tree ? '75%':'100%'}}">
         <div class="filter" fxFlex="0 1 100" *ngFor="let filter of content.filter">
           <mat-selection-list (selectionChange)="onSelectChange({key:filter.key, value: $event.option.value})"
             [multiple]="false">
