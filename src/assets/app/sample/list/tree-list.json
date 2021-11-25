@@ -6,6 +6,7 @@
       "label": "金融 100T",
       "key": "hundred_point",
       "expandAll": true,
+      "value": 245,
       "nodes": [{
           "label": "全部",
           "value": ""
@@ -44,43 +45,6 @@
           ]
         }
       ]
-    }],
-    "filter": [{
-      "key": "search_category",
-      "options": [{
-        "label": "全部",
-        "value": ""
-      }, {
-        "label": "\u6848\u7531\u5206\u7c7b",
-        "value": "170"
-      }, {
-        "label": "\u5408\u540c\u8303\u672c",
-        "value": "162"
-      }, {
-        "label": "\u6cd5\u5f8b\u4f9d\u636e",
-        "value": "167"
-      }, {
-        "label": "\u53f8\u6cd5\u5224\u4f8b",
-        "value": "161"
-      }, {
-        "label": "\u5408\u89c4\u5ba1\u67e5",
-        "value": "165"
-      }, {
-        "label": "\u5f8b\u5e08\u5b9e\u52a1",
-        "value": "163"
-      }, {
-        "label": "\u7126\u70b9\u7814\u6790",
-        "value": "166"
-      }, {
-        "label": "\u91d1\u878d\u6570\u636e",
-        "value": "169"
-      }, {
-        "label": "\u667a\u80fd\u751f\u6210",
-        "value": "164"
-      }, {
-        "label": "\u91d1\u878d\u5f8b\u5e08",
-        "value": "168"
-      }]
     }]
   }]
 }

@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { omitBy } from 'lodash';
-import { isEmpty } from 'lodash-es';
+import { isEmpty, omitBy } from 'lodash-es';
 import { NodeService } from 'src/app/service/node.service';
 import { RouteService } from 'src/app/service/route.service';
 import { BaseComponent } from 'src/app/uiux/base/base.widget';
@@ -28,25 +27,29 @@ export class TreeListComponent extends BaseComponent implements OnInit {
 
   ngOnInit(): void {
     this.router.queryParams.subscribe((query: any) => {
+      const initQuery: any = {};
+      this.content.tree.forEach((item: any) => {
+        initQuery[item.key] = item.value;
+      });
       this.page = query.page || 0;
-
+      // TODO: assign query
       const queryOpt = omitBy(
         Object.assign(
           {
             page: this.page,
           },
-          query
+          query,
+          initQuery
         ),
         isEmpty
       );
-      this.nodeSearch();
+      this.nodeSearch(initQuery);
     });
   }
 
-  nodeSearch(): void {
+  nodeSearch(params: any): void {
     this.loading = true;
-    const params = this.getApiParams(this.formState);
-    this.nodeService.search('content', params).subscribe(
+    this.nodeService.search('content', this.getApiParams(params)).subscribe(
       (data) => {
         this.updateList(data);
         this.updateUrl(this.formState);
@@ -78,7 +81,7 @@ export class TreeListComponent extends BaseComponent implements OnInit {
 
   onPageChange(page: any): void {
     this.formState = Object.assign(this.formState, { page });
-    this.nodeSearch();
+    this.nodeSearch(this.formState);
   }
 
   onSelectChange(event: any): void {
@@ -86,12 +89,12 @@ export class TreeListComponent extends BaseComponent implements OnInit {
     option[event.key] = event.value;
     option.page = 0;
     this.formState = Object.assign(this.formState, option);
-    this.nodeSearch();
+    this.nodeSearch(this.formState);
   }
 
   onTreeChange(option: any): void {
     this.formState = Object.assign(this.formState, option);
-    this.nodeSearch();
+    this.nodeSearch(this.formState);
   }
 
   trackByFn(index: number, item: any): number {

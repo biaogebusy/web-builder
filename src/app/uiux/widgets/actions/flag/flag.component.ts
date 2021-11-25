@@ -26,7 +26,9 @@ export class FlagComponent extends BaseComponent implements OnInit {
 
   ngOnInit(): void {
     this.config = this.appState?.actions?.flag;
-    this.getFlagging();
+    if (this.config.enabel && this.userState.anthenticated) {
+      this.getFlagging();
+    }
   }
 
   get flaggingParams(): any {
