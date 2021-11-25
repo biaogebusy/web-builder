@@ -17,8 +17,6 @@ export class TreeListComponent extends BaseComponent implements OnInit {
   loading = false;
   page: number;
   pager: any;
-  hundredPoint: string;
-  searchCategory: string;
   formState: any = {};
   constructor(
     public nodeService: NodeService,
