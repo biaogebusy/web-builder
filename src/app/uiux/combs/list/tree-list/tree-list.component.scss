@@ -23,4 +23,10 @@
       max-width: none;
     }
   }
+
+  .left {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 80px;
+  }
 }
