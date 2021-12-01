@@ -5,7 +5,8 @@
   <div class="container" *ngIf="content">
     <app-text [content]="content.title"></app-text>
     <div class="showcase-inner" fxLayout="row wrap" fxLayoutAlign="center center">
-      <div fxLayout="row wrap" fxFlex.lt-md="100" [fxFlex.gt-sm]="row(content)" *ngFor="let item of content.elements">
+      <div fxLayout="row wrap" fxFlex.lt-md="100" [fxFlex.gt-sm]="row(content, '0px')"
+        *ngFor="let item of content.elements">
         <app-media-object fxFlex="100" class="p-x-xs p-y-xs" [content]="item"></app-media-object>
       </div>
     </div>
