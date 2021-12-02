@@ -145,13 +145,17 @@
     }
 
     .fix-bar {
-      background-color: mat-color($primary);
+      background-color: mat-color($primary, 0.92);
       .item,
       .item a {
         color: mat-color($primary, default-contrast);
       }
       .item {
         border-bottom: 1px solid mat-color($foreground, divider);
+        &:hover,
+        &:focus {
+          background-color: mat-color($primary);
+        }
         &:last-child {
           border-bottom: 0;
         }
