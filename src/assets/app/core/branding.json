@@ -13,12 +13,35 @@
     "top": {
       "banner": {
         "left": [{
-          "icon": "call",
-          "label": "咨询与合作：13681900168"
-        }, {
-          "icon": "people",
-          "label": "联系人：李洪华"
-        }]
+            "icon": "call",
+            "label": "(123)456-7890"
+          },
+          {
+            "icon": "email",
+            "label": "demo@zhaobg.com"
+          }
+        ],
+        "right": [{
+            "label": "zhihu",
+            "svg": "zhihu",
+            "href": "https://www.zhihu.com/column/c_1331898788731375616"
+          },
+          {
+            "label": "微博",
+            "svg": "weibo",
+            "href": "#"
+          },
+          {
+            "label": "nnitpay",
+            "svg": "wechat",
+            "href": "#"
+          },
+          {
+            "label": "Github",
+            "svg": "github",
+            "href": "https://github.com/biaogebusy/xinshi-angular"
+          }
+        ]
       }
     },
     "mainMenu": [{
@@ -581,7 +604,7 @@
   },
   "footer": {
     "params": {
-      "mode": "space-betwenn",
+      "mode": "inverse",
       "shape": true
     },
     "footerBrand": {
@@ -593,61 +616,223 @@
           "classes": "logo"
         }
       },
-      "summary": "律鑫云、律师团！有平台、有未来！",
+      "summary": "信使是一个基于戴文开源模块，围绕 Drupal jsonapi 为核心的 Angular 前端框架，分享 Drupal 优秀的数字创新体验。",
       "social": [{
-        "label": "zhihu",
-        "svg": "zhihu",
-        "href": "https://www.zhihu.com/column/c_1331898788731375616"
-      }, {
-        "label": "微博",
-        "svg": "weibo",
-        "href": "#"
-      }, {
-        "label": "nnitpay",
-        "svg": "wechat",
-        "href": "#"
-      }, {
-        "label": "Github",
-        "svg": "github",
-        "href": "https://github.com/biaogebusy/xinshi-angular"
-      }]
-    },
-    "footerBottom": {
-      "left": "Copyright ©2021 Powered By Xinshi <a href='https://beian.miit.gov.cn/'>桂ICP备2020009081号-1</a>",
-      "right": [{
-        "label": "首页",
-        "href": "/"
-      }, {
-        "label": "关于我们",
-        "href": "/about"
-      }, {
-        "label": "帮助中心",
-        "href": "#"
-      }, {
-        "label": "联系我们",
-        "href": "#"
-      }]
-    },
-    "fixBar": [{
-        "type": "link",
-        "href": "#",
-        "icon": {
-          "svg": "offiaccount"
+          "label": "zhihu",
+          "svg": "zhihu",
+          "href": "https://www.zhihu.com/column/c_1331898788731375616"
         },
-        "id": "qdService",
-        "label": "在线客服"
+        {
+          "label": "微博",
+          "svg": "weibo",
+          "href": "#"
+        },
+        {
+          "label": "nnitpay",
+          "svg": "wechat",
+          "href": "#"
+        },
+        {
+          "label": "Github",
+          "svg": "github",
+          "href": "https://github.com/biaogebusy/xinshi-angular"
+        }
+      ]
+    },
+    "mainMenu": [{
+        "label": "相关资源",
+        "child": [{
+            "label": "Davyin 开源",
+            "icon": "arrow_right",
+            "href": "https://github.com/davyin-co",
+            "target": "_blank"
+          },
+          {
+            "label": "Material Angular",
+            "icon": "arrow_right",
+            "href": "https://material.angular.io/",
+            "target": "_blank"
+          },
+          {
+            "label": "Flex Layout",
+            "icon": "arrow_right",
+            "href": "https://github.com/angular/flex-layout/wiki",
+            "target": "_blank"
+          },
+          {
+            "label": "JSONAPI",
+            "icon": "arrow_right",
+            "href": "https://jsonapi.org/format/",
+            "target": "_blank"
+          }
+        ]
       },
       {
-        "type": "popup",
-        "icon": {
-          "svg": "wechat"
-        },
-        "label": "咨询合作",
-        "content": {
-          "spacer": "none",
-          "body": "<p><strong>咨询与合作：</strong>xxx</p><p><strong>联系人：</strong>xxx</p><img height=\"120\" src=\"/sites/default/files/inline-images/weixin.jpg\" />"
-        }
+        "label": "帮助",
+        "child": [{
+            "label": "Angular 中文站",
+            "icon": "github",
+            "href": "https://angular.cn/",
+            "target": "_blank"
+          },
+          {
+            "label": "Drupal 自习室",
+            "icon": "offiaccount",
+            "href": "https://www.zhihu.com/column/c_1331898788731375616",
+            "target": "_blank"
+          },
+          {
+            "label": "前端茶馆",
+            "icon": "zhihu",
+            "href": "https://www.zhihu.com/column/frontend-focus",
+            "target": "_blank"
+          },
+          {
+            "label": "Drupal 中文模块",
+            "icon": "github",
+            "href": "https://github.com/biaogebusy/drupal-modules-cn",
+            "target": "_blank"
+          }
+        ]
+      },
+      {
+        "label": "友情链接",
+        "child": [{
+            "label": "Drupal 中国",
+            "icon": "arrow_right",
+            "href": "http://drupalchina.cn",
+            "target": "_blank"
+          },
+          {
+            "label": "水滴间",
+            "icon": "arrow_right",
+            "href": "http://www.indrupal.com",
+            "target": "_blank"
+          },
+          {
+            "label": "南宁IT派",
+            "icon": "arrow_right",
+            "href": "https://www.nnitpai.com",
+            "target": "_blank"
+          }
+        ]
       }
-    ]
+    ],
+    "mobileMenu": [{
+        "label": "相关资源",
+        "child": [{
+            "label": "Davyin 开源",
+            "icon": "arrow_right",
+            "href": "https://github.com/davyin-co",
+            "target": "_blank"
+          },
+          {
+            "label": "Material Angular",
+            "icon": "arrow_right",
+            "href": "https://material.angular.io/",
+            "target": "_blank"
+          },
+          {
+            "label": "Flex Layout",
+            "icon": "arrow_right",
+            "href": "https://github.com/angular/flex-layout/wiki",
+            "target": "_blank"
+          },
+          {
+            "label": "JSONAPI",
+            "icon": "arrow_right",
+            "href": "https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/jsonapi",
+            "target": "_blank"
+          }
+        ]
+      },
+      {
+        "label": "帮助",
+        "child": [{
+            "label": "Angular 中文站",
+            "icon": "github",
+            "href": "https://angular.cn/",
+            "target": "_blank"
+          },
+          {
+            "label": "Drupal 自习室",
+            "icon": "offiaccount",
+            "href": "https://www.zhihu.com/column/c_1331898788731375616",
+            "target": "_blank"
+          },
+          {
+            "label": "前端茶馆",
+            "icon": "zhihu",
+            "href": "https://www.zhihu.com/column/frontend-focus",
+            "target": "_blank"
+          },
+          {
+            "label": "Drupal 中文模块",
+            "icon": "github",
+            "href": "https://github.com/biaogebusy/drupal-modules-cn",
+            "target": "_blank"
+          }
+        ]
+      },
+      {
+        "label": "友情链接",
+        "child": [{
+            "label": "Drupal 中国",
+            "icon": "arrow_right",
+            "href": "http://drupalchina.cn",
+            "target": "_blank"
+          },
+          {
+            "label": "水滴间",
+            "icon": "arrow_right",
+            "href": "http://www.indrupal.com",
+            "target": "_blank"
+          },
+          {
+            "label": "南宁IT派",
+            "icon": "arrow_right",
+            "href": "https://www.nnitpai.com",
+            "target": "_blank"
+          }
+        ]
+      }
+    ],
+    "footerNewsletter": {
+      "params": {
+        "webform_id": "subscribe"
+      },
+      "label": "资讯",
+      "summary": "欢迎使用邮箱订阅最新的公告和产品。",
+      "forms": [{
+        "type": "input",
+        "label": "Your email:",
+        "key": "email",
+        "params": {
+          "required": true
+        },
+        "placeholder": "Your email:",
+        "hint": "请输入邮箱",
+        "error": "邮箱地址无效"
+      }],
+      "action": {
+        "label": "订阅"
+      }
+    },
+    "footerBottom": {
+      "left": "Copyright ©2021 Powered By Xinshi <a href=\"https://beian.miit.gov.cn\">桂ICP备2020009081号-1</a>",
+      "right": [{
+          "label": "首页",
+          "href": "/"
+        },
+        {
+          "label": "关于我们",
+          "href": "/about"
+        },
+        {
+          "label": "帮助中心",
+          "href": "#"
+        }
+      ]
+    }
   }
 }
