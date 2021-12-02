@@ -65,4 +65,16 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       this.header.nativeElement.classList.add(style);
     }
   }
+
+  showBanner(): boolean {
+    const banner = this.branding.header.banner;
+    if (!banner) {
+      return false;
+    }
+    if (banner.breakpoint === 'all') {
+      return true;
+    } else {
+      return this.screen.eq(banner.breakpoint || 'gt-sm');
+    }
+  }
 }
