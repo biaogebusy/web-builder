@@ -58,6 +58,7 @@
     "bg": {
       "classes": "bg-shadow bg-fill-width"
     },
+    "row": 4,
     "elements": [{
       "icon": {
         "svg": "zhihu",
@@ -122,6 +123,7 @@
       "label": "Showcase 1 v1 style v1",
       "style": "style-v1"
     },
+    "row": 4,
     "elements": [{
       "icon": {
         "name": "verified_user"
@@ -186,6 +188,7 @@
       "style": "style-v2",
       "icon": "mail"
     },
+    "row": 4,
     "bg": {
       "classes": "bg-shadow bg-fill-width"
     },
@@ -252,6 +255,7 @@
       "label": "Showcase 1 v1 style v3",
       "style": "style-v3"
     },
+    "row": 4,
     "style": "style-v3",
     "elements": [{
       "icon": {
@@ -316,6 +320,7 @@
       "label": "Showcase 1 v1 style v4",
       "style": "style-v4"
     },
+    "row": 4,
     "bg": {
       "classes": "bg-shadow bg-fill-width"
     },
@@ -382,6 +387,7 @@
       "label": "Showcase 1 v1 style v5",
       "style": "style-v5"
     },
+    "row": 4,
     "elements": [{
       "icon": {
         "name": "verified_user"
@@ -445,6 +451,7 @@
       "label": "Showcase 1 v1 style v6",
       "style": "style-v6"
     },
+    "row": 4,
     "bg": {
       "classes": "bg-shadow bg-fill-width"
     },
@@ -511,6 +518,7 @@
       "label": "Showcase 1 v1 style v7",
       "style": "style-v7"
     },
+    "row": 4,
     "elements": [{
       "icon": {
         "name": "verified_user"
