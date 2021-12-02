@@ -20,6 +20,7 @@ import { MegaMenuComponent } from './header/menu/item-menu/mega-menu/mega-menu.c
 import { SpaceBetweenComponent } from './footer/space-between/space-between.component';
 import { FixBarComponent } from './footer/fix-bar/fix-bar.component';
 import { FixBarPopupComponent } from './footer/fix-bar/fix-bar-popup/fix-bar-popup.component';
+import { DynamicCombsModule } from '../uiux/combs/dynamic-combs/dynamic-combs.module';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,7 @@ import { FixBarPopupComponent } from './footer/fix-bar/fix-bar-popup/fix-bar-pop
     FixBarComponent,
     FixBarPopupComponent,
   ],
-  imports: [ShareModule, WidgetsModule, HeroModule],
+  imports: [ShareModule, WidgetsModule, HeroModule, DynamicCombsModule],
   exports: [HeaderComponent, FooterComponent, MenuComponent],
 })
 export class BrandingModule {}
