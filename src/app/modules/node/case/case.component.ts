@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { NodeService } from '../../service/node.service';
+import { NodeService } from '../../../service/node.service';
 import { map } from 'lodash-es';
-import { IShowcase2v1 } from '../../uiux/combs/ICombs';
+import { IShowcase2v1 } from '../../../uiux/combs/ICombs';
 @Component({
   selector: 'app-case',
   templateUrl: './case.component.html',

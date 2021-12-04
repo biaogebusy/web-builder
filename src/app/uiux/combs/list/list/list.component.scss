@@ -1,4 +1,4 @@
-@import "../../../../../theme/variable/breakpoint";
+@import "/src/theme/variable/breakpoint";
 .list {
   @media #{$lt-md} {
     ::ng-deep {

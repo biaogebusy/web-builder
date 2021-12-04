@@ -11,11 +11,13 @@ const routes: Routes = [
   },
   {
     path: 'lists',
-    loadChildren: () => import('./node/node.module').then((m) => m.NodeModule),
+    loadChildren: () =>
+      import('./modules/node/node.module').then((m) => m.NodeModule),
   },
   {
     path: 'user',
-    loadChildren: () => import('./user/user.module').then((m) => m.UserModule),
+    loadChildren: () =>
+      import('./modules/user/user.module').then((m) => m.UserModule),
   },
   {
     path: '**',

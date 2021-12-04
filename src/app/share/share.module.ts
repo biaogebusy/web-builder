@@ -108,9 +108,6 @@ export class ShareModule {
   /**
    * @SkipSelf 让模块去父级寻找依赖，不然会造成死循环
    * @Optional 可选，如果CoreModule不存在正常执行
-   * @param parent
-   * @param iconRegistry
-   * @param ds
    */
   constructor(iconRegistry: MatIconRegistry, ds: DomSanitizer) {
     // @ts-ignore
