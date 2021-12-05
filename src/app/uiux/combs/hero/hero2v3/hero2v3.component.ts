@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ScreenState } from 'src/app/mobx/screen/ScreenState';
 import { NodeService } from 'src/app/core/service/node.service';
-import { BaseComponent } from 'src/app/uiux/base/base.widget';
+import { BaseComponent } from '@uiux/base/base.widget';
 import { AppState } from '../../../../mobx/AppState';
 import { RouteService } from 'src/app/core/service/route.service';
 

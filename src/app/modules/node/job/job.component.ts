@@ -7,7 +7,7 @@ import { RouteService } from '../../../core/service/route.service';
 import { Params, ActivatedRoute } from '@angular/router';
 import { AppState } from '../../../mobx/AppState';
 import { gsap } from 'gsap';
-import { ICard } from '../../../uiux/widgets/IWidgets';
+import { ICard } from '@uiux/widgets/IWidgets';
 import { TagsService } from 'src/app/core/service/tags.service';
 
 const feature = {

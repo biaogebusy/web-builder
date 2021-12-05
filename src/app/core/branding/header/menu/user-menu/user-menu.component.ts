@@ -3,8 +3,8 @@ import { UserState } from 'src/app/mobx/user/UserState';
 import { MatDialog } from '@angular/material/dialog';
 import { UtilitiesService } from 'src/app/core/service/utilities.service';
 import { ScreenState } from '../../../../../mobx/screen/ScreenState';
-import { DialogComponent } from 'src/app/uiux/widgets/dialog/dialog.component';
-import { DynamicFormComponent } from 'src/app/uiux/combs/other/dynamic-form/dynamic-form.component';
+import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
+import { DynamicFormComponent } from '@uiux/combs/other/dynamic-form/dynamic-form.component';
 import { DialogService } from 'src/app/core/service/dialog.service';
 
 @Component({

@@ -4,7 +4,7 @@ import { FormGroup } from '@angular/forms';
 import { isEmpty, omitBy, result } from 'lodash-es';
 import { NodeService } from 'src/app/core/service/node.service';
 import { RouteService } from 'src/app/core/service/route.service';
-import { BaseComponent } from 'src/app/uiux/base/base.widget';
+import { BaseComponent } from '@uiux/base/base.widget';
 import { FormService } from 'src/app/core/service/form.service';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 

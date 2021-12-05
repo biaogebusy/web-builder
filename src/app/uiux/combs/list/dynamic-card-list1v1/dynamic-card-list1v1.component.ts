@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { result } from 'lodash';
 import { NodeService } from 'src/app/core/service/node.service';
 import { RouteService } from 'src/app/core/service/route.service';
-import { BaseComponent } from 'src/app/uiux/base/base.widget';
+import { BaseComponent } from '@uiux/base/base.widget';
 
 @Component({
   selector: 'app-dynamic-card-list1v1',

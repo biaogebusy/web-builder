@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { FormService } from 'src/app/core/service/form.service';
 import { isEmpty, omitBy } from 'lodash';
-import { BaseComponent } from 'src/app/uiux/base/base.widget';
+import { BaseComponent } from '@uiux/base/base.widget';
 import { RouteService } from 'src/app/core/service/route.service';
 
 @Component({
