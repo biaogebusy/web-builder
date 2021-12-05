@@ -4,8 +4,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
-import { MobxAngularModule } from 'mobx-angular';
-import { MobxModule } from './core/mobx/mobx.module';
+import { MobxModule } from '@core/mobx/mobx.module';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { BrandingModule } from '@core/branding/branding.module';
@@ -22,7 +21,6 @@ import { Angulartics2Module } from 'angulartics2';
     BrowserAnimationsModule,
     CommonModule,
     MatSidenavModule,
-    MobxAngularModule,
     NgxWebstorageModule.forRoot(),
     Angulartics2Module.forRoot(),
     MobxModule.forRoot(),
