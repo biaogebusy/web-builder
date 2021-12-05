@@ -19,14 +19,16 @@
     "esModuleInterop": true,
     "target": "es2015",
     "module": "es2020",
-    "lib": ["es2018", "dom"]
+    "lib": ["es2018", "dom"],
+    "paths": {
+      "@angular/*": ["./node_modules/@angular/*"],
+      "@uiux/": ["./src/app/uiux"],
+      "@uiux/*": ["./src/app/uiux/*"]
+    }
   },
   "angularCompilerOptions": {
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true
-  },
-  "paths": {
-    "@angular/*": ["./node_modules/@angular/*"]
   }
 }
