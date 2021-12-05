@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, ElementRef } from '@angular/core';
 import { fromEvent, Observable, of } from 'rxjs';
 import { mergeMap, delay, takeUntil } from 'rxjs/operators';
-import { ScreenState } from 'src/app/mobx/screen/ScreenState';
+import { ScreenState } from '@core/mobx/screen/ScreenState';
 
 @Component({
   selector: 'app-mega-menu',

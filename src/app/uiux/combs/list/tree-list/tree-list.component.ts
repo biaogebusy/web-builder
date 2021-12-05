@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { isEmpty, omitBy } from 'lodash-es';
-import { NodeService } from 'src/app/core/service/node.service';
-import { RouteService } from 'src/app/core/service/route.service';
+import { NodeService } from '@core/service/node.service';
+import { RouteService } from '@core/service/route.service';
 import { BaseComponent } from '@uiux/base/base.widget';
 
 @Component({

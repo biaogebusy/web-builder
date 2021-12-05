@@ -6,7 +6,7 @@ import { Subject } from 'rxjs';
 import { UserService } from '@core/service/user.service';
 import { ApiService } from '@core/service/api.service';
 import { AppState } from '../AppState';
-import { UtilitiesService } from 'src/app/core/service/utilities.service';
+import { UtilitiesService } from '@core/service/utilities.service';
 const unauthUser = {
   authenticated: false,
 };

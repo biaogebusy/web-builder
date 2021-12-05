@@ -8,9 +8,9 @@ import {
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { MatAccordion } from '@angular/material/expansion';
-import { BrandingState } from '../../../mobx/BrandingStare';
-import { ScreenState } from '../../../mobx/screen/ScreenState';
-import { ScreenService } from 'src/app/core/service/screen.service';
+import { BrandingState } from '../../mobx/BrandingStare';
+import { ScreenState } from '../../mobx/screen/ScreenState';
+import { ScreenService } from '@core/service/screen.service';
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html',

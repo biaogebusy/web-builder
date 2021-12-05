@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { AppState } from '../../mobx/AppState';
+import { AppState } from '../mobx/AppState';
 
 @Injectable({
   providedIn: 'root',

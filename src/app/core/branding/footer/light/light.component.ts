@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { UtilitiesService } from 'src/app/core/service/utilities.service';
-import { ScreenState } from '../../../../mobx/screen/ScreenState';
+import { UtilitiesService } from '@core/service/utilities.service';
+import { ScreenState } from '../../../mobx/screen/ScreenState';
 
 @Component({
   selector: 'app-light',

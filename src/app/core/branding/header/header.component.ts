@@ -7,9 +7,9 @@ import {
   Inject,
 } from '@angular/core';
 import { ScreenService } from '../../service/screen.service';
-import { ScreenState } from '../../../mobx/screen/ScreenState';
-import { BrandingState } from '../../../mobx/BrandingStare';
-import { AppState } from '../../../mobx/AppState';
+import { ScreenState } from '../../mobx/screen/ScreenState';
+import { BrandingState } from '../../mobx/BrandingStare';
+import { AppState } from '../../mobx/AppState';
 import { DOCUMENT } from '@angular/common';
 @Component({
   selector: 'app-header',

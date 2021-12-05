@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 import { LocalStorageService } from 'ngx-webstorage';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { AppState } from '../../mobx/AppState';
-import { IUser } from '../../mobx/user/IUser';
+import { AppState } from '../mobx/AppState';
+import { IUser } from '../mobx/user/IUser';
 import { Observable } from 'rxjs';
-import { IApiUrl } from '../../mobx/IAppConfig';
+import { IApiUrl } from '../mobx/IAppConfig';
 import { forkJoin } from 'rxjs';
 @Injectable({
   providedIn: 'root',

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AppState } from '../../../../mobx/AppState';
+import { AppState } from '@core/mobx/AppState';
 @Component({
   selector: 'app-case-node',
   templateUrl: './case-node.component.html',

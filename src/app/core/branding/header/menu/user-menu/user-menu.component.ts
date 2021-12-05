@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { UserState } from 'src/app/mobx/user/UserState';
+import { UserState } from '@core/mobx/user/UserState';
 import { MatDialog } from '@angular/material/dialog';
-import { UtilitiesService } from 'src/app/core/service/utilities.service';
-import { ScreenState } from '../../../../../mobx/screen/ScreenState';
+import { UtilitiesService } from '@core/service/utilities.service';
+import { ScreenState } from '../../../../mobx/screen/ScreenState';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { DynamicFormComponent } from '@uiux/combs/other/dynamic-form/dynamic-form.component';
-import { DialogService } from 'src/app/core/service/dialog.service';
+import { DialogService } from '@core/service/dialog.service';
 
 @Component({
   selector: 'app-user-menu',

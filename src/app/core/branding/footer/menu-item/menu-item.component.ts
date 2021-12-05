@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ScreenState } from '../../../../mobx/screen/ScreenState';
+import { ScreenState } from '../../../mobx/screen/ScreenState';
 
 @Component({
   selector: 'app-menu-item',

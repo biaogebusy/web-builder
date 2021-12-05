@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
 import { map } from 'rxjs/operators';
-import { TokenUser } from '../../mobx/user/IUser';
-import { AppState } from '../../mobx/AppState';
+import { TokenUser } from '../mobx/user/IUser';
+import { AppState } from '../mobx/AppState';
 import { LocalStorageService } from 'ngx-webstorage';
 
 @Injectable({

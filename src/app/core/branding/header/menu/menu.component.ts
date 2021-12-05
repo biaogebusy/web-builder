@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ScreenState } from '../../../../mobx/screen/ScreenState';
-import { AppState } from '../../../../mobx/AppState';
+import { ScreenState } from '../../../mobx/screen/ScreenState';
+import { AppState } from '../../../mobx/AppState';
 import { Event, NavigationStart, Router } from '@angular/router';
 @Component({
   selector: 'app-menu',

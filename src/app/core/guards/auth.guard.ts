@@ -7,8 +7,8 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AppState } from '../../mobx/AppState';
-import { UserState } from '../../mobx/user/UserState';
+import { AppState } from '../mobx/AppState';
+import { UserState } from '../mobx/user/UserState';
 
 @Injectable({
   providedIn: 'root',

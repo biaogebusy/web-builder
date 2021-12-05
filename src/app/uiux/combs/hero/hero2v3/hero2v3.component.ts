@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ScreenState } from 'src/app/mobx/screen/ScreenState';
-import { NodeService } from 'src/app/core/service/node.service';
+import { ScreenState } from '@core/mobx/screen/ScreenState';
+import { NodeService } from '@core/service/node.service';
 import { BaseComponent } from '@uiux/base/base.widget';
-import { AppState } from '../../../../mobx/AppState';
-import { RouteService } from 'src/app/core/service/route.service';
+import { AppState } from '@core/mobx/AppState';
+import { RouteService } from '@core/service/route.service';
 
 @Component({
   selector: 'app-hero2v3',

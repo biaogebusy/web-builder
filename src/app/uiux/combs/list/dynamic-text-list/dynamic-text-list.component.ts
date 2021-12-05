@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { NodeService } from 'src/app/core/service/node.service';
-import { RouteService } from 'src/app/core/service/route.service';
-import { ScreenService } from 'src/app/core/service/screen.service';
+import { NodeService } from '@core/service/node.service';
+import { RouteService } from '@core/service/route.service';
+import { ScreenService } from '@core/service/screen.service';
 import { BaseComponent } from '@uiux/base/base.widget';
-import { AppState } from '../../../../mobx/AppState';
+import { AppState } from '@core/mobx/AppState';
 
 @Component({
   selector: 'app-dynamic-text-list',

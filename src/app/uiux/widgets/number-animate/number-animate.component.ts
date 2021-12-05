@@ -1,7 +1,7 @@
 import { ElementRef, ViewChild } from '@angular/core';
 import { Component, Input, OnInit } from '@angular/core';
-import { ScreenService } from 'src/app/core/service/screen.service';
-import { ScreenState } from '../../../mobx/screen/ScreenState';
+import { ScreenService } from '@core/service/screen.service';
+import { ScreenState } from '@core/mobx/screen/ScreenState';
 
 @Component({
   selector: 'app-number-animate',

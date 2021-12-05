@@ -4,7 +4,7 @@ import { FormService } from '../../../service/form.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ApiService } from '../../../service/api.service';
-import { UtilitiesService } from 'src/app/core/service/utilities.service';
+import { UtilitiesService } from '@core/service/utilities.service';
 
 @Component({
   selector: 'app-inverse',

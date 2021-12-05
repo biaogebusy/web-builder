@@ -1,13 +1,13 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { NodeService } from 'src/app/core/service/node.service';
+import { NodeService } from '@core/service/node.service';
 import { debounceTime, distinctUntilChanged, startWith } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
-import { FormService } from 'src/app/core/service/form.service';
+import { FormService } from '@core/service/form.service';
 import { isEmpty, omitBy } from 'lodash';
 import { BaseComponent } from '@uiux/base/base.widget';
-import { RouteService } from 'src/app/core/service/route.service';
+import { RouteService } from '@core/service/route.service';
 
 @Component({
   selector: 'app-search-box',

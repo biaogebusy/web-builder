@@ -1,9 +1,9 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { UserState } from './mobx/user/UserState';
-import { ScreenState } from './mobx/screen/ScreenState';
+import { UserState } from './core/mobx/user/UserState';
+import { ScreenState } from './core/mobx/screen/ScreenState';
 import { MatDrawer } from '@angular/material/sidenav';
-import { AppState } from './mobx/AppState';
-import { BrandingState } from './mobx/BrandingStare';
+import { AppState } from './core/mobx/AppState';
+import { BrandingState } from './core/mobx/BrandingStare';
 import { ActivatedRoute } from '@angular/router';
 import { ScreenService } from '@core/service/screen.service';
 import { LoadingService } from '@core/service/loading.service';

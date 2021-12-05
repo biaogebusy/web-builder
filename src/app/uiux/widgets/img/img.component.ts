@@ -1,5 +1,5 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
-import { ScreenState } from '../../../mobx/screen/ScreenState';
+import { ScreenState } from '@core/mobx/screen/ScreenState';
 
 @Component({
   selector: 'app-img',

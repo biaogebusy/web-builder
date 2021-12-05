@@ -9,9 +9,9 @@ import {
 import hljs from 'highlight.js';
 import javascript from 'highlight.js/lib/languages/javascript';
 import json from 'highlight.js/lib/languages/json';
-import { TagsService } from 'src/app/core/service/tags.service';
-import { AppState } from 'src/app/mobx/AppState';
-import { ScreenState } from 'src/app/mobx/screen/ScreenState';
+import { TagsService } from '@core/service/tags.service';
+import { AppState } from '@core/mobx/AppState';
+import { ScreenState } from '@core/mobx/screen/ScreenState';
 @Component({
   selector: 'app-article',
   templateUrl: './article.component.html',

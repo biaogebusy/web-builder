@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
-import { IPage } from '../../mobx/IAppConfig';
+import { IPage } from '../mobx/IAppConfig';
 
 @Injectable({
   providedIn: 'root',

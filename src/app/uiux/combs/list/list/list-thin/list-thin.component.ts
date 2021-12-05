@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { ScreenService } from 'src/app/core/service/screen.service';
+import { ScreenService } from '@core/service/screen.service';
 @Component({
   selector: 'app-list-thin',
   templateUrl: './list-thin.component.html',

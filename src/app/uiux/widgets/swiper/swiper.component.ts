@@ -13,7 +13,7 @@ import {
   SwiperPaginationInterface,
   SwiperDirective,
 } from 'ngx-swiper-wrapper';
-import { AppState } from '../../../mobx/AppState';
+import { AppState } from '@core/mobx/AppState';
 import { Subject } from 'rxjs';
 
 // https://www.npmjs.com/package/ngx-swiper-wrapper

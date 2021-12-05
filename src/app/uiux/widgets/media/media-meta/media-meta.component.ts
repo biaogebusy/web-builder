@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ScreenState } from 'src/app/mobx/screen/ScreenState';
+import { ScreenState } from '@core/mobx/screen/ScreenState';
 
 @Component({
   selector: 'app-media-meta',

@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { UserState } from 'src/app/mobx/user/UserState';
-import { NodeService } from 'src/app/core/service/node.service';
-import { ScreenService } from 'src/app/core/service/screen.service';
+import { UserState } from '@core/mobx/user/UserState';
+import { NodeService } from '@core/service/node.service';
+import { ScreenService } from '@core/service/screen.service';
 
 @Component({
   selector: 'app-question',

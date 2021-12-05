@@ -1,14 +1,14 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UserState } from '../../../mobx/user/UserState';
+import { UserState } from '@core/mobx/user/UserState';
 import { ApiService } from '@core/service/api.service';
-import { ScreenState } from '../../../mobx/screen/ScreenState';
-import { AppState } from '../../../mobx/AppState';
-import { BrandingState } from '../../../mobx/BrandingStare';
+import { ScreenState } from '@core/mobx/screen/ScreenState';
+import { AppState } from '@core/mobx/AppState';
+import { BrandingState } from '@core/mobx/BrandingStare';
 import { gsap } from 'gsap';
-import { TagsService } from 'src/app/core/service/tags.service';
-import { UserService } from 'src/app/core/service/user.service';
+import { TagsService } from '@core/service/tags.service';
+import { UserService } from '@core/service/user.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',

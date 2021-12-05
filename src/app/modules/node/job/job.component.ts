@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { NodeService } from '@core/service/node.service';
 import { IChipList } from './IJob';
 import { map } from 'lodash-es';
-import { AMapState } from '../../../mobx/amap/AMapState';
+import { AMapState } from '@core/mobx/amap/AMapState';
 import { RouteService } from '@core/service/route.service';
 import { Params, ActivatedRoute } from '@angular/router';
-import { AppState } from '../../../mobx/AppState';
+import { AppState } from '@core/mobx/AppState';
 import { gsap } from 'gsap';
 import { ICard } from '@uiux/widgets/IWidgets';
-import { TagsService } from 'src/app/core/service/tags.service';
+import { TagsService } from '@core/service/tags.service';
 
 const feature = {
   type: 'showcase-3v6',

@@ -5,12 +5,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { MobxAngularModule } from 'mobx-angular';
-import { MobxModule } from './mobx/mobx.module';
+import { MobxModule } from './core/mobx/mobx.module';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { BrandingModule } from '@core/branding/branding.module';
 import { AppComponent } from './app.component';
-import { AppState } from './mobx/AppState';
+import { AppState } from './core/mobx/AppState';
 import { httpInterceptorProviders } from '@core/interceptors';
 import { Angulartics2Module } from 'angulartics2';
 @NgModule({

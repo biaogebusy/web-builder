@@ -1,8 +1,8 @@
 import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
-import { NodeService } from 'src/app/core/service/node.service';
+import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { UserState } from 'src/app/mobx/user/UserState';
+import { UserState } from '@core/mobx/user/UserState';
 @Component({
   selector: 'app-comment-form',
   templateUrl: './comment-form.component.html',

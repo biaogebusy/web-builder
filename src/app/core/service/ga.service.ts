@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { Angulartics2GoogleGlobalSiteTag } from 'angulartics2/gst';
-import { AppState } from '../../mobx/AppState';
+import { AppState } from '../mobx/AppState';
 
 declare var gtag: any;
 declare var window: any;
