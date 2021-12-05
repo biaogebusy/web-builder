@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AppState } from '../../mobx/AppState';
+import { AppState } from '../../../mobx/AppState';
 
 @Component({
   selector: 'app-block',

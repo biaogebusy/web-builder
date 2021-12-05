@@ -22,7 +22,7 @@ const routes: Routes = [
   {
     path: '**',
     loadChildren: () =>
-      import('./page-render/page-render.module').then(
+      import('./modules/page-render/page-render.module').then(
         (m) => m.PageRenderModule
       ),
     canActivate: [AuthGuard],
