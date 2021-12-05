@@ -1,0 +1,28 @@
+@import "/src/theme/variable/variable";
+
+.footer {
+  position: relative;
+
+  a {
+    &:hover,
+    &:focus {
+      text-decoration: none;
+    }
+  }
+}
+
+#go-to-top {
+  z-index: 99999;
+  text-align: center;
+  width: 43px;
+  height: 43px;
+  padding: 8px 4px;
+  position: fixed;
+  bottom: -10rem;
+  right: 2rem;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 3px;
+  transition: all 0.4s ease-in;
+  box-sizing: border-box;
+}

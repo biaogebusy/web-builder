@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NodeService } from 'src/app/service/node.service';
-import { UserService } from 'src/app/service/user.service';
+import { NodeService } from 'src/app/core/service/node.service';
+import { UserService } from 'src/app/core/service/user.service';
 import { switchMap } from 'rxjs/operators';
 import { formatDate } from '@angular/common';
 @Component({

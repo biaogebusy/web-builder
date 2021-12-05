@@ -1,0 +1,48 @@
+ <div class="shape-inner position-relative p-y-lg m-top-lg" *ngIf="content?.params?.shape">
+   <div class="shape">
+     <svg viewBox="0 0 2880 250" fill="none" xmlns="http://www.w3.org/2000/svg">
+       <path d="M720 125L2160 0H2880V250H0V125H720Z" fill="currentColor"></path>
+     </svg>
+   </div>
+ </div>
+ <div class="footer-inverse space-between-footer position-relative" *ngIf="content">
+   <div class="container">
+     <div class="p-y-md" fxLayout="row wrap" fxLayoutAlign.lt-md="center center">
+       <div *ngIf="content?.footerBrand" fxLayout.lt-md="column" fxLayout.gt-sm="row">
+         <div fxFlex.lt-md="100" fxFlex.gt-sm="0 0 100" class="brand" fxLayout="column">
+           <app-img [content]="content.footerBrand.logo.img" *ngIf="content.footerBrand.logo"></app-img>
+           <p class="m-top-xs m-bottom-0" [innerHTML]="content.footerBrand?.summary"
+             *ngIf="content.footerBrand?.summary"></p>
+           <div class="social m-y-sm" fxLayout="row" *ngIf="content?.footerBrand?.social">
+             <a class="item" fxLayoutAlign="center center" *ngFor="let item of content.footerBrand.social"
+               href="{{item.href}}" target="_blank" title="{{item.label}}">
+               <mat-icon [inline]="true" [svgIcon]="item.svg"></mat-icon>
+             </a>
+           </div>
+         </div>
+       </div>
+       <div fxFlex.lt-md="100" fxFlex.gt-sm="0 0 100">
+         <!-- <mat-divider class="m-y-sm"></mat-divider> -->
+         <div fxLayout.lt-md="column" fxLayout.gt-sm="row" fxLayoutAlign="space-between center">
+           <app-text [content]="content?.content?.left"></app-text>
+           <app-text [content]="content?.content?.middle"></app-text>
+           <app-text [content]="content?.content?.right"></app-text>
+         </div>
+       </div>
+     </div>
+   </div>
+   <div class="footer-bottom p-y-sm">
+     <div class="container">
+       <div class="inner" fxLayout.lt-md="column" fxLayout.gt-sm="row" fxLayoutAlign.lt-md="center center"
+         fxLayoutAlign.gt-sm="space-between center">
+         <div class="left" [ngClass.lt-md]="'text-center'" *ngIf="content?.footerBottom?.left"
+           [innerHTML]="content.footerBottom.left | safeHtml"></div>
+         <div class="right" *ngIf="content?.footerBottom?.right">
+           <div fxLayout="row">
+             <app-link class="item" *ngFor="let item of content.footerBottom.right" [content]="item"></app-link>
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>
+ </div>

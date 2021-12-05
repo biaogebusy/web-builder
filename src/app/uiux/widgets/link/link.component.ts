@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { RouteService } from '../../../service/route.service';
+import { RouteService } from '../../../core/service/route.service';
 @Component({
   selector: 'app-link',
   templateUrl: './link.component.html',

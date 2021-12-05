@@ -5,11 +5,11 @@ import { MatDrawer } from '@angular/material/sidenav';
 import { AppState } from './mobx/AppState';
 import { BrandingState } from './mobx/BrandingStare';
 import { ActivatedRoute } from '@angular/router';
-import { ScreenService } from './service/screen.service';
-import { LoadingService } from './service/loading.service';
+import { ScreenService } from './core/service/screen.service';
+import { LoadingService } from './core/service/loading.service';
 import { delay } from 'rxjs/operators';
-import { GoogleAnalyticsService } from './service/ga.service';
-import { QiDianService } from './service/qidian.service';
+import { GoogleAnalyticsService } from './core/service/ga.service';
+import { QiDianService } from './core/service/qidian.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

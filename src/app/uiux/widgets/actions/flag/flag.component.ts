@@ -1,10 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AppState } from 'src/app/mobx/AppState';
-import { NodeService } from 'src/app/service/node.service';
+import { NodeService } from 'src/app/core/service/node.service';
 import { BaseComponent } from 'src/app/uiux/base/base.widget';
 import { UserState } from '../../../../mobx/user/UserState';
 import { switchMap } from 'rxjs/operators';
-import { RouteService } from 'src/app/service/route.service';
+import { RouteService } from 'src/app/core/service/route.service';
 
 @Component({
   selector: 'app-flag',

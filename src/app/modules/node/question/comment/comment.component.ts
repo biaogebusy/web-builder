@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { IControl } from '../../../../interface/IForm';
+import { IControl } from '../../../../core/interface/IForm';
 
 @Component({
   selector: 'app-comment',

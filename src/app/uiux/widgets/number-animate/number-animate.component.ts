@@ -1,6 +1,6 @@
 import { ElementRef, ViewChild } from '@angular/core';
 import { Component, Input, OnInit } from '@angular/core';
-import { ScreenService } from 'src/app/service/screen.service';
+import { ScreenService } from 'src/app/core/service/screen.service';
 import { ScreenState } from '../../../mobx/screen/ScreenState';
 
 @Component({

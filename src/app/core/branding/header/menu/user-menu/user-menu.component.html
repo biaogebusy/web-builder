@@ -1,0 +1,36 @@
+<div class="user">
+  <ng-container *ngIf="!userState.anthenticated">
+    <button color="primary" [routerLink]="['/user/login']" mat-mini-fab mat-button>
+      <mat-icon>person</mat-icon>
+    </button>
+  </ng-container>
+  <ng-container *ngIf="userState.anthenticated">
+    <button *ngIf="!userState.picture; else picture" mat-mini-fab color="primary" mat-button [matMenuTriggerFor]="menu">
+      <h3 class="name">
+        {{utilities.getIndexTitle(userState?.currentUser?.display_name || 'N')}}</h3>
+    </button>
+    <ng-template #picture>
+      <img class="user-picture" [matMenuTriggerFor]="menu" [src]="userState.picture"
+        alt="{{userState.currentUser.display_name}}">
+    </ng-template>
+    <mat-menu #menu="matMenu" class="user-dropdown">
+      <a mat-menu-item [routerLink]="userPage">
+        <mat-icon>account_circle</mat-icon>{{userState.currentUser?.display_name}}
+      </a>
+      <ng-container *ngFor="let item of content">
+        <button *ngIf="item.dialog;else link" mat-menu-item (click)="openDialog(item.dialog)">
+          <app-icon [content]="item.icon"></app-icon>{{item.label}}
+        </button>
+        <ng-template #link>
+          <button mat-menu-item>
+            <app-icon [content]="item.icon"></app-icon>
+            <app-link [content]="item"></app-link>
+          </button>
+        </ng-template>
+      </ng-container>
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon>退出
+      </button>
+    </mat-menu>
+  </ng-container>
+</div>

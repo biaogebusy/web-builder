@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
 import { isArray, result } from 'lodash-es';
 import { Observable } from 'rxjs';
-import { NodeService } from 'src/app/service/node.service';
-import { RouteService } from 'src/app/service/route.service';
+import { NodeService } from 'src/app/core/service/node.service';
+import { RouteService } from 'src/app/core/service/route.service';
 
 @Injectable()
 export abstract class BaseComponent {

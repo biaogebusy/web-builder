@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { NodeService } from 'src/app/service/node.service';
-import { RouteService } from 'src/app/service/route.service';
-import { ScreenService } from 'src/app/service/screen.service';
+import { NodeService } from 'src/app/core/service/node.service';
+import { RouteService } from 'src/app/core/service/route.service';
+import { ScreenService } from 'src/app/core/service/screen.service';
 import { BaseComponent } from 'src/app/uiux/base/base.widget';
 import { AppState } from '../../../../mobx/AppState';
 

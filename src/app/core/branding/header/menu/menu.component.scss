@@ -1,0 +1,55 @@
+@import "/src/theme/variable/variable";
+
+.header {
+  position: relative;
+  margin-bottom: 2px;
+}
+
+:host-context(.header-inverse) {
+  .header {
+    margin-bottom: 0;
+  }
+}
+
+.logo {
+  ::ng-deep {
+    img {
+      min-height: 30px;
+      max-height: 40px;
+    }
+  }
+}
+
+.spacer {
+  flex: 1;
+}
+
+.header-left {
+  .version {
+    font-size: 1.2rem;
+    margin-left: 0.4rem;
+  }
+}
+
+:host ::ng-deep .user {
+  .mat-button-wrapper {
+    padding: 0;
+
+    .name {
+      font-size: 2rem;
+      line-height: 4rem;
+      padding: 0;
+    }
+  }
+}
+
+@media #{$lt-lg} {
+  .main-menu {
+    .item {
+      ::ng-deep a {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+      }
+    }
+  }
+}

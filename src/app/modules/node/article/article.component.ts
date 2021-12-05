@@ -9,7 +9,7 @@ import {
 import hljs from 'highlight.js';
 import javascript from 'highlight.js/lib/languages/javascript';
 import json from 'highlight.js/lib/languages/json';
-import { TagsService } from 'src/app/service/tags.service';
+import { TagsService } from 'src/app/core/service/tags.service';
 import { AppState } from 'src/app/mobx/AppState';
 import { ScreenState } from 'src/app/mobx/screen/ScreenState';
 @Component({

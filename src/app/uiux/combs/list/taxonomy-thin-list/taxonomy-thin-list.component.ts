@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { NodeService } from 'src/app/service/node.service';
-import { RouteService } from 'src/app/service/route.service';
+import { NodeService } from 'src/app/core/service/node.service';
+import { RouteService } from 'src/app/core/service/route.service';
 import { BaseComponent } from 'src/app/uiux/base/base.widget';
 
 @Component({

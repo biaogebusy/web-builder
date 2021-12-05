@@ -11,7 +11,7 @@ import { NgxWebstorageModule } from 'ngx-webstorage';
 import { BrandingModule } from './core/branding/branding.module';
 import { AppComponent } from './app.component';
 import { AppState } from './mobx/AppState';
-import { httpInterceptorProviders } from './interceptors';
+import { httpInterceptorProviders } from './core/interceptors';
 import { Angulartics2Module } from 'angulartics2';
 @NgModule({
   declarations: [AppComponent],

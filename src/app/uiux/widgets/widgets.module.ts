@@ -39,7 +39,7 @@ import { DropdownMenuComponent } from './dropdown-menu/dropdown-menu.component';
 import { NumberAnimateComponent } from './number-animate/number-animate.component';
 import { DynamicWidgetsComponent } from './dynamic-widgets/dynamic-widgets.component';
 
-import { SafeHtmlPipe } from '../../pipe/safe-html.pipe';
+import { SafeHtmlPipe } from '../../core/pipe/safe-html.pipe';
 import { IconComponent } from './icon/icon.component';
 import { ProgressGroupComponent } from './progress-group/progress-group.component';
 import { MediaListComponent } from './media/media-list/media-list.component';

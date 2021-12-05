@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { IAction, IActionParams, IControl } from 'src/app/interface/IForm';
+import { IAction, IActionParams, IControl } from 'src/app/core/interface/IForm';
 import { UserState } from 'src/app/mobx/user/UserState';
-import { DialogService } from 'src/app/service/dialog.service';
-import { FormService } from 'src/app/service/form.service';
-import { NodeService } from 'src/app/service/node.service';
-import { UtilitiesService } from 'src/app/service/utilities.service';
+import { DialogService } from 'src/app/core/service/dialog.service';
+import { FormService } from 'src/app/core/service/form.service';
+import { NodeService } from 'src/app/core/service/node.service';
+import { UtilitiesService } from 'src/app/core/service/utilities.service';
 import { Router } from '@angular/router';
 
 @Component({

@@ -1,0 +1,26 @@
+.fix-bar {
+  position: fixed;
+  bottom: 120px;
+  right: 20px;
+  z-index: 999;
+  border-radius: 2px;
+  box-shadow: 0 6px 15px 0 rgb(6 12 19 / 14%);
+  .label {
+    font-size: 12px;
+  }
+  .item {
+    position: relative;
+    padding: 8px;
+    line-height: 1.2;
+    width: 68px;
+    height: 68px;
+    &:hover {
+      ::ng-deep .fix-bar-popup {
+        display: block;
+      }
+    }
+  }
+  .item-popup {
+    cursor: pointer;
+  }
+}

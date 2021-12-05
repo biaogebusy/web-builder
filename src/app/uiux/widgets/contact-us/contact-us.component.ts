@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormService } from '../../../service/form.service';
+import { FormService } from '../../../core/service/form.service';
 import { FormGroup } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { ApiService } from '../../../service/api.service';
-import { UtilitiesService } from 'src/app/service/utilities.service';
+import { ApiService } from '../../../core/service/api.service';
+import { UtilitiesService } from 'src/app/core/service/utilities.service';
 @Component({
   selector: 'app-contact-us',
   templateUrl: './contact-us.component.html',

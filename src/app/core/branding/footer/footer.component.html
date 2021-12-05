@@ -1,0 +1,11 @@
+<div class="footer" *ngIf="branding.ready">
+  <app-light *ngIf="branding.footer?.params?.mode === 'light' " [content]="branding.footer"></app-light>
+  <app-inverse *ngIf="branding.footer?.params?.mode === 'inverse' " [content]="branding.footer">
+  </app-inverse>
+  <app-space-between *ngIf="branding.footer?.params?.mode === 'space-betwenn' " [content]="branding.footer">
+  </app-space-between>
+  <app-fix-bar [content]="branding.footer.fixBar" *ngIf="branding.footer?.fixBar"></app-fix-bar>
+  <div id="go-to-top" #goTop (click)="gotoTop()">
+    <mat-icon>expand_less</mat-icon>
+  </div>
+</div>

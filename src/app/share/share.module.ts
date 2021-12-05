@@ -32,7 +32,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 // utils
 import { NgPipesModule } from 'ngx-pipes';
 import { MatIconRegistry } from '@angular/material/icon';
-import { loadSvgResources } from '../service/icon.util';
+import { loadSvgResources } from '../core/service/icon.util';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NgxPaginationModule } from 'ngx-pagination';
 

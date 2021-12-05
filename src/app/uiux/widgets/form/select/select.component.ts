@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { IControl } from '../../../../interface/IForm';
+import { IControl } from '../../../../core/interface/IForm';
 
 @Component({
   selector: 'app-select',

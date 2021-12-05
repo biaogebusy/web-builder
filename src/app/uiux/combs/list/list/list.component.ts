@@ -1,5 +1,5 @@
 import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
-import { ScreenService } from 'src/app/service/screen.service';
+import { ScreenService } from 'src/app/core/service/screen.service';
 
 @Component({
   selector: 'app-list',

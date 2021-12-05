@@ -1,0 +1,52 @@
+<ng-container *ngIf="content">
+  <header *ngIf="screen.eq('gt-sm')" class="header" #header>
+    <div class="container">
+      <div class="header-container" fxLayout="row" fxLayoutAlign="{{content.logo?'space-between center':'end center'}}">
+        <div class="header-left" *ngIf="content.logo">
+          <div class="logo" *ngIf="content.logo?.img; else name" fxLayout fxLayoutAlign="start end">
+            <app-img [content]="content.logo.img"></app-img>
+            <span *ngIf="content.logo.version" class="version">v{{appState.version}}</span>
+          </div>
+          <ng-template #name>
+            <a class="site-name mat-h2" [routerLink]="content.logo.href" [innerHTML]="content.logo?.label"></a>
+            <span *ngIf="content.logo.version" class="version">v{{appState.version}}</span>
+          </ng-template>
+        </div>
+        <div class="header-right" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap.lt-lg="1rem"
+          fxLayoutGap.gt-md="3rem">
+          <div class="menu-inner" *ngIf="content.mainMenu">
+            <div class="main-menu" fxLayout="row">
+              <div class="item" *ngFor="let menu of content.mainMenu">
+                <app-item-menu [params]="content.params" [content]="menu"></app-item-menu>
+              </div>
+            </div>
+          </div>
+          <app-search-box [content]="content.search" *ngIf="content?.search?.enabel"></app-search-box>
+          <div class="actions" *ngIf="content.actions">
+            <button color="primary" mat-raised-button *ngFor="let action of content.actions">
+              <app-link [content]="action"></app-link>
+            </button>
+          </div>
+          <app-switch-theme *ngIf="content?.params?.themeSwitch"></app-switch-theme>
+          <app-user-menu [content]="content.userMenu" *ngIf="content?.params?.userInfo"></app-user-menu>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="drawer">
+    <mat-toolbar *ngIf="screen.eq('lt-md')">
+      <button mat-icon-button (click)="onToggle()" aria-label="menu icon">
+        <mat-icon color="primary" *ngIf="!isDrawer">menu</mat-icon>
+        <mat-icon *ngIf="isDrawer">close</mat-icon>
+      </button>
+      <span class="spacer"></span>
+      <span class="app-name">{{content.logo?.label}}</span>
+      <span class="spacer"></span>
+      <app-switch-theme></app-switch-theme>
+      <app-user-menu class="m-left-xs"></app-user-menu>
+    </mat-toolbar>
+    <div [hidden]="!(screen.eq('lt-md') && isDrawer)">
+      <app-dropdown-menu *ngIf="content.mainMenu" [content]="content.mainMenu"></app-dropdown-menu>
+    </div>
+  </div>
+</ng-container>

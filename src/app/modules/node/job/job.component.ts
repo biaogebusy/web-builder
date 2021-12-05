@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { NodeService } from '../../../service/node.service';
+import { NodeService } from '../../../core/service/node.service';
 import { IChipList } from './IJob';
 import { map } from 'lodash-es';
 import { AMapState } from '../../../mobx/amap/AMapState';
-import { RouteService } from '../../../service/route.service';
+import { RouteService } from '../../../core/service/route.service';
 import { Params, ActivatedRoute } from '@angular/router';
 import { AppState } from '../../../mobx/AppState';
 import { gsap } from 'gsap';
 import { ICard } from '../../../uiux/widgets/IWidgets';
-import { TagsService } from 'src/app/service/tags.service';
+import { TagsService } from 'src/app/core/service/tags.service';
 
 const feature = {
   type: 'showcase-3v6',

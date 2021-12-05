@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { FormService } from 'src/app/service/form.service';
+import { FormService } from 'src/app/core/service/form.service';
 
 @Component({
   selector: 'app-search-top',
