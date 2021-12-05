@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AMapState } from '../../../mobx/amap/AMapState';
 import { AppState } from '../../../mobx/AppState';
-import { AmapService } from '../../../core/service/amap.service';
+import { AmapService } from '@core/service/amap.service';
 import { isArray } from 'lodash-es';
 @Component({
   selector: 'app-map',

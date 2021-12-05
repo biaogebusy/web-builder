@@ -1,7 +1,7 @@
 import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { AppState } from 'src/app/mobx/AppState';
 import { NodeService } from 'src/app/core/service/node.service';
-import { UtilitiesService } from '../../../../../core/service/utilities.service';
+import { UtilitiesService } from '@core/service/utilities.service';
 
 @Component({
   selector: 'app-comment-list',

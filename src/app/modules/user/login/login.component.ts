@@ -2,7 +2,7 @@ import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserState } from '../../../mobx/user/UserState';
-import { ApiService } from '../../../core/service/api.service';
+import { ApiService } from '@core/service/api.service';
 import { ScreenState } from '../../../mobx/screen/ScreenState';
 import { AppState } from '../../../mobx/AppState';
 import { BrandingState } from '../../../mobx/BrandingStare';

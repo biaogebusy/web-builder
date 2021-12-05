@@ -1,6 +1,6 @@
 import { Component, OnInit, Query } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserService } from '../../core/service/user.service';
+import { UserService } from '@core/service/user.service';
 import { UserState } from 'src/app/mobx/user/UserState';
 import { AppState } from 'src/app/mobx/AppState';
 

@@ -2,13 +2,13 @@ import { Inject, Injectable } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { action, observable, computed } from 'mobx-angular';
 import { HttpClient } from '@angular/common/http';
-import { ApiService } from '../core/service/api.service';
+import { ApiService } from '@core/service/api.service';
 import { environment } from '../../environments/environment';
 import { LocalStorageService } from 'ngx-webstorage';
 import { IApiUrl, IAppConfig, IPage } from './IAppConfig';
 import { Subject } from 'rxjs';
 import { IUser } from './user/IUser';
-import { TagsService } from '../core/service/tags.service';
+import { TagsService } from '@core/service/tags.service';
 import { version } from '../../../package.json';
 const unauthUser = {
   authenticated: false,

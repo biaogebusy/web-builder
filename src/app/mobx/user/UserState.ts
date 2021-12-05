@@ -3,8 +3,8 @@ import { action, observable, computed } from 'mobx-angular';
 import { LocalStorageService } from 'ngx-webstorage';
 import { IUser, TokenUser } from './IUser';
 import { Subject } from 'rxjs';
-import { UserService } from '../../core/service/user.service';
-import { ApiService } from '../../core/service/api.service';
+import { UserService } from '@core/service/user.service';
+import { ApiService } from '@core/service/api.service';
 import { AppState } from '../AppState';
 import { UtilitiesService } from 'src/app/core/service/utilities.service';
 const unauthUser = {
