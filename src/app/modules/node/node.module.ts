@@ -6,7 +6,7 @@ import { JobComponent } from './job/job.component';
 import { JobFilterComponent } from './job/job-filter/job-filter.component';
 import { JobListComponent } from './job/job-list/job-list.component';
 import { JobNodeComponent } from './job/job-node/job-node.component';
-import { ShareModule } from '../../share/share.module';
+import { ShareModule } from '@share/share.module';
 import { CombsModule } from '@uiux/combs/combs.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { ArticleBannerComponent } from './article/article-banner/article-banner.component';

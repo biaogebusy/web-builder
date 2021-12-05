@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { ShareModule } from 'src/app/share/share.module';
+import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '../../widgets/widgets.module';
 import { SearchComponent } from './search.component';
 import { HeroModule } from '../hero/hero.module';

@@ -23,7 +23,9 @@
     "paths": {
       "@angular/*": ["./node_modules/@angular/*"],
       "@uiux/": ["./src/app/uiux"],
-      "@uiux/*": ["./src/app/uiux/*"]
+      "@uiux/*": ["./src/app/uiux/*"],
+      "@share": ["./src/app/share"],
+      "@share/*": ["./src/app/share/*"]
     }
   },
   "angularCompilerOptions": {

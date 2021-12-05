@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Showcase2v1Component } from './showcase2v1/showcase2v1.component';
 import { WidgetsModule } from '../../widgets/widgets.module';
-import { ShareModule } from '../../../share/share.module';
+import { ShareModule } from '@share/share.module';
 import { Showcase1v1Component } from './showcase1v1/showcase1v1.component';
 import { Showcase3v1Component } from './showcase3v1/showcase3v1.component';
 import { Showcase3v2Component } from './showcase3v2/showcase3v2.component';
