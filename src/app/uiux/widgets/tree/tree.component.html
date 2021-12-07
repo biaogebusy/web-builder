@@ -8,7 +8,7 @@
       折叠
     </button>
   </div>
-  <div class="tree">
+  <div class="tree" *ngIf="content.nodes.length">
     <tree-root #tree [nodes]="content.nodes" [options]="options" (activate)="onActivate($event)">
     </tree-root>
   </div>
