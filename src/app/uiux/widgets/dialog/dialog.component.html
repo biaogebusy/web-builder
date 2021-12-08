@@ -4,7 +4,7 @@
   </button>
   <h2 mat-dialog-title>{{data.title}}</h2>
   <mat-dialog-content>
-    <ng-container [ndcDynamicInputs]="data.form" [ngComponentOutlet]="data.component">
+    <ng-container [ndcDynamicInputs]="data.inputData" [ngComponentOutlet]="data.renderInputComponent">
     </ng-container>
   </mat-dialog-content>
 </div>
