@@ -33,8 +33,8 @@ export class UserMenuComponent implements OnInit {
     this.dialogRef = this.dialog.open(DialogComponent, {
       width: '600px',
       data: {
-        component: DynamicFormComponent,
-        form: {
+        renderInputComponent: DynamicFormComponent,
+        inputData: {
           content: dialog.content,
           actions: dialog.actions,
         },
