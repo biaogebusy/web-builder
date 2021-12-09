@@ -28,6 +28,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatTableModule } from '@angular/material/table';
 
 // utils
 import { NgPipesModule } from 'ngx-pipes';
@@ -68,6 +69,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     MatSnackBarModule,
     NgPipesModule,
     NgxPaginationModule,
+    MatTableModule,
   ],
   exports: [
     CommonModule,
@@ -102,6 +104,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     MatSnackBarModule,
     NgPipesModule,
     NgxPaginationModule,
+    MatTableModule,
   ],
 })
 export class ShareModule {
