@@ -128,6 +128,31 @@
   }
 }
 
+.list-clear {
+  margin-left: 0;
+  list-style: none;
+  li {
+    list-style: none;
+    &::marker {
+      display: none;
+      font-size: 0;
+      width: 0;
+      height: 0;
+    }
+    &:before {
+      content: "";
+      display: inline-block;
+      vertical-align: middle;
+      width: 16px;
+      height: 16px;
+      margin-right: 8px;
+      background: url(/assets/images/icons/clear.svg) center no-repeat;
+      border-radius: 50%;
+      background-size: 12px;
+    }
+  }
+}
+
 a.anchor {
   display: block;
   position: relative;

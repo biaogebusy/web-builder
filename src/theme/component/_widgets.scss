@@ -122,6 +122,15 @@
     }
   }
 
+  .list-clear {
+    li {
+      &:before {
+        color: mat-color($warn, text);
+        background-color: mat-color($warn, 0.25);
+      }
+    }
+  }
+
   .search-action {
     @media #{$gt-sm} {
       form {
