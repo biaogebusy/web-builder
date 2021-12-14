@@ -1,0 +1,70 @@
+{
+  "title": "DRAG AND DROP LAYOUT",
+  "body": [{
+    "type": "article",
+    "title": "DRAG AND DROP LAYOUT",
+    "meta": [{
+      "label": "发布日期",
+      "value": "2021-12-14"
+    }, {
+      "label": "类别",
+      "value": "分享"
+    }, {
+      "label": "关键字",
+      "value": "纠纷"
+    }],
+    "body": "<img src=\"/assets/images/showcase/blog1-large.jpeg\" /><p><strong style=\"color:#000\">Lorem ipsum dolor sit amet</strong>, consectetur adipiscing elit Mauris non laoreet dui, Morbi lacus massa, euismod ut turpis molestie, tristique sodales est. Integer sit amet mi id sapien tempor molestie in nec massa Fusce non ante sed lorem rutrum feugiat, Vestibulum pellentesque, purus ut dignissim consectetur, nulla erat ultrices purus, ut consequat sem elit non sem. Morbi lacus massa, euismod ut turpis molestie, tristique sodales est</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit Mauris non laoreet dui, Morbi lacus massa, euismod ut turpis molestie, tristique sodales est. Integer sit amet mi id sapien tempor molestie in nec massa Fusce non ante sed lorem rutrum feugiat, Vestibulum pellentesque, purus ut dignissim consectetur, nulla erat ultrices purus, ut consequat sem elit non sem. Morbi lacus massa, euismod ut turpis molestie, tristique sodales est</p>",
+    "actions": [{
+      "type": "flag",
+      "label": "收藏",
+      "icon": {
+        "name": "star",
+        "inline": true
+      },
+      "params": {
+        "type": "flagging--favorite",
+        "entity_type": "node",
+        "entity_id": "1312",
+        "relationships": {
+          "flagged_entity": {
+            "type": "node--article",
+            "id": "cb31d69f-a95e-4c91-97d1-1169f82a10a5"
+          }
+        }
+      }
+    }, {
+      "type": "share",
+      "button": {
+        "icon": "share",
+        "label": "分享"
+      },
+      "params": {
+        "url": "/"
+      }
+    }, {
+      "type": "download",
+      "label": "下载",
+      "icon": {
+        "name": "file_download",
+        "inline": true
+      },
+      "elements": [{
+          "type": "link",
+          "label": "Doc",
+          "icon": {
+            "name": "description"
+          },
+          "href": "#"
+        },
+        {
+          "type": "link",
+          "label": "Pdf",
+          "icon": {
+            "name": "picture_as_pdf"
+          },
+          "href": "#"
+        }
+      ]
+    }]
+  }]
+}
