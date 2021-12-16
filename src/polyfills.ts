@@ -57,6 +57,7 @@
  */
 import 'zone.js/dist/zone'; // Included with Angular CLI.
 import 'core-js/es/object';
+import 'core-js/es/symbol';
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */
