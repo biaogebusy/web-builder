@@ -1,5 +1,5 @@
 <div class="comment-form" *ngIf="content">
-  <quill-editor [modules]="content.editor" *ngIf="screenService.isPlatformBrowser()" [(ngModel)]="htmlData"
+  <quill-editor [modules]="content.editor.config" *ngIf="screenService.isPlatformBrowser()" [(ngModel)]="htmlData"
     [styles]="{height:'250px'}">
   </quill-editor>
   <div class="actions p-y-sm p-x-sm">
