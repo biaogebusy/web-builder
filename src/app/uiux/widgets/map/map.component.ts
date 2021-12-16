@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { AMapState } from '@core/mobx/amap/AMapState';
 import { AppState } from '@core/mobx/AppState';
 import { AmapService } from '@core/service/amap.service';
+import { ScreenService } from '@core/service/screen.service';
 import { isArray } from 'lodash-es';
 @Component({
   selector: 'app-map',
@@ -19,7 +20,8 @@ export class MapComponent implements OnInit {
   constructor(
     private amapState: AMapState,
     private amapService: AmapService,
-    private appState: AppState
+    private appState: AppState,
+    private screenService: ScreenService
   ) {}
 
   ngOnInit(): void {

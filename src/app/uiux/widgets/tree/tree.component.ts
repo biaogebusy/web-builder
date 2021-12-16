@@ -7,6 +7,7 @@ import {
   ViewChild,
   AfterViewInit,
 } from '@angular/core';
+import { ScreenService } from '@core/service/screen.service';
 @Component({
   selector: 'app-tree',
   templateUrl: './tree.component.html',
@@ -24,15 +25,19 @@ export class TreeComponent implements OnInit, AfterViewInit {
     childrenField: 'elements',
   };
   options: any;
-  constructor() {}
+  constructor(private screenService: ScreenService) {}
 
   ngOnInit(): void {
-    this.options = Object.assign(this.default, this.content.options);
+    if (this.screenService.isPlatformBrowser()) {
+      this.options = Object.assign(this.default, this.content.options);
+    }
   }
 
   ngAfterViewInit(): void {
-    if (this.content.expandAll) {
-      this.tree.treeModel.expandAll();
+    if (this.screenService.isPlatformBrowser()) {
+      if (this.content.expandAll) {
+        this.tree.treeModel.expandAll();
+      }
     }
   }
 

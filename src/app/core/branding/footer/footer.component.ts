@@ -36,13 +36,15 @@ export class FooterComponent implements OnInit, AfterViewInit {
   }
 
   onScroll(): void {
-    this.screen.scroll$.subscribe(() => {
-      if (this.document.body.getBoundingClientRect().top < -100) {
-        this.goTop.nativeElement.style.bottom = '4rem';
-      } else {
-        this.goTop.nativeElement.style.bottom = '-10rem';
-      }
-    });
+    if (this.screenService.isPlatformBrowser()) {
+      this.screen.scroll$.subscribe(() => {
+        if (this.document.body.getBoundingClientRect().top < -100) {
+          this.goTop.nativeElement.style.bottom = '4rem';
+        } else {
+          this.goTop.nativeElement.style.bottom = '-10rem';
+        }
+      });
+    }
   }
 
   ngAfterViewInit(): void {

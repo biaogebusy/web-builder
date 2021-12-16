@@ -33,9 +33,9 @@ import { MatTableModule } from '@angular/material/table';
 // utils
 import { NgPipesModule } from 'ngx-pipes';
 import { MatIconRegistry } from '@angular/material/icon';
-import { loadSvgResources } from '@core/service/icon.util';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { IconService } from '@core/service/icon.service';
 
 @NgModule({
   declarations: [],
@@ -106,14 +106,14 @@ import { NgxPaginationModule } from 'ngx-pagination';
     NgxPaginationModule,
     MatTableModule,
   ],
+  providers: [IconService],
 })
 export class ShareModule {
   /**
    * @SkipSelf 让模块去父级寻找依赖，不然会造成死循环
    * @Optional 可选，如果CoreModule不存在正常执行
    */
-  constructor(iconRegistry: MatIconRegistry, ds: DomSanitizer) {
-    // @ts-ignore
-    loadSvgResources(iconRegistry, ds);
+  constructor(private iconService: IconService) {
+    this.iconService.loadSvgResources();
   }
 }

@@ -8,6 +8,7 @@ import {
   ViewEncapsulation,
   AfterViewInit,
 } from '@angular/core';
+import { ScreenService } from '@core/service/screen.service';
 import videojs from 'video.js';
 @Component({
   selector: 'app-video-bg',
@@ -30,13 +31,19 @@ export class VideoBgComponent implements OnInit, AfterViewInit, OnDestroy {
     }[];
   };
   player: videojs.Player;
-  constructor(private elementRef: ElementRef) {}
+  constructor(
+    private elementRef: ElementRef,
+    private screenService: ScreenService
+  ) {}
   ngOnInit(): void {}
+
   ngAfterViewInit(): void {
-    this.options = this.content.params;
-    // instantiate Video.js
-    const video = this.elementRef.nativeElement.querySelectorAll('video')[0];
-    this.player = videojs(video, this.options, () => {});
+    if (this.screenService.isPlatformBrowser()) {
+      this.options = this.content.params;
+      // instantiate Video.js
+      const video = this.elementRef.nativeElement.querySelectorAll('video')[0];
+      this.player = videojs(video, this.options, () => {});
+    }
   }
 
   ngOnDestroy(): void {

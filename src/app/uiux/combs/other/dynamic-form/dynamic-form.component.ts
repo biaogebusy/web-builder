@@ -7,6 +7,7 @@ import { FormService } from '@core/service/form.service';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { Router } from '@angular/router';
+import { ScreenService } from '@core/service/screen.service';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -24,11 +25,14 @@ export class DynamicFormComponent implements OnInit {
     private userState: UserState,
     private dialogService: DialogService,
     private utilitiesService: UtilitiesService,
-    private router: Router
+    private router: Router,
+    private screenService: ScreenService
   ) {}
 
   ngOnInit(): void {
-    this.form = this.formService.toFormGroup(this.content);
+    if (this.screenService.isPlatformBrowser()) {
+      this.form = this.formService.toFormGroup(this.content);
+    }
   }
 
   onClick(params: IActionParams): void {

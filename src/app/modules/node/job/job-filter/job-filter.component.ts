@@ -17,6 +17,7 @@ import {
   distinctUntilChanged,
   startWith,
 } from 'rxjs/operators';
+import { ScreenService } from '@core/service/screen.service';
 
 @Component({
   selector: 'app-job-filter',
@@ -39,7 +40,7 @@ export class JobFilterComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('input', { read: ElementRef }) input: ElementRef;
   subscription: Subscription;
 
-  constructor() {}
+  constructor(private screenService: ScreenService) {}
 
   ngOnInit(): void {}
 
@@ -53,16 +54,18 @@ export class JobFilterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    const $input = fromEvent<any>(this.search.nativeElement, 'input').pipe(
-      map((event) => event.target.value),
-      startWith(''),
-      debounceTime(200),
-      distinctUntilChanged()
-    );
+    if (this.screenService.isPlatformBrowser()) {
+      const $input = fromEvent<any>(this.search.nativeElement, 'input').pipe(
+        map((event) => event.target.value),
+        startWith(''),
+        debounceTime(200),
+        distinctUntilChanged()
+      );
 
-    this.subscription = $input.subscribe((key) => {
-      this.searchChange.emit(key);
-    });
+      this.subscription = $input.subscribe((key) => {
+        this.searchChange.emit(key);
+      });
+    }
   }
 
   onSelectSkill(event: any): void {
@@ -70,6 +73,8 @@ export class JobFilterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    if (this.screenService.isPlatformBrowser()) {
+      this.subscription.unsubscribe();
+    }
   }
 }

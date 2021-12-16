@@ -15,6 +15,7 @@ import {
 } from 'ngx-swiper-wrapper';
 import { AppState } from '@core/mobx/AppState';
 import { Subject } from 'rxjs';
+import { ScreenService } from '@core/service/screen.service';
 
 // https://www.npmjs.com/package/ngx-swiper-wrapper
 
@@ -35,7 +36,11 @@ export class SwiperComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() index: number;
   @Input() navigationSub: Subject<any>;
   @ViewChild(SwiperDirective) public swiperWrapper: SwiperDirective;
-  constructor(public appState: AppState) {}
+  constructor(
+    public appState: AppState,
+    private screenService: ScreenService
+  ) {}
+
   defaultConfig: SwiperConfigInterface = {
     slidesPerView: 'auto',
     speed: 1000,
@@ -73,14 +78,16 @@ export class SwiperComponent implements OnInit, AfterViewInit, OnDestroy {
     this.config = Object.assign(this.defaultConfig, this.content.params);
   }
   ngAfterViewInit(): void {
-    if (this.navigationSub) {
-      this.navigationSub.subscribe((action) => {
-        if (action > 0) {
-          this.swiperWrapper.nextSlide();
-        } else {
-          this.swiperWrapper.prevSlide();
-        }
-      });
+    if (this.screenService.isPlatformBrowser()) {
+      if (this.navigationSub) {
+        this.navigationSub.subscribe((action) => {
+          if (action > 0) {
+            this.swiperWrapper.nextSlide();
+          } else {
+            this.swiperWrapper.prevSlide();
+          }
+        });
+      }
     }
   }
   onSwiper(swiper: any): void {

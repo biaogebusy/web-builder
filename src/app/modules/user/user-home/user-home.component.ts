@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ScreenService } from '@core/service/screen.service';
 
 @Component({
   selector: 'app-user-home',
@@ -7,10 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserHomeComponent implements OnInit {
   content: any[] = [];
-  constructor() {}
+  constructor(private screenService: ScreenService) {}
 
   ngOnInit(): void {
-    this.getContent();
+    if (this.screenService.isPlatformBrowser()) {
+      this.getContent();
+    }
   }
 
   getContent(): void {

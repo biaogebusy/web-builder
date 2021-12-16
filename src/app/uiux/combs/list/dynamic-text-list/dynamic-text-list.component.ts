@@ -29,7 +29,9 @@ export class DynamicTextListComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getLists();
+    if (this.screenService.isPlatformBrowser()) {
+      this.getLists();
+    }
   }
 
   getLists(): void {

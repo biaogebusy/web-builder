@@ -10,6 +10,7 @@ import { FormGroup } from '@angular/forms';
 import { FormService } from '@core/service/form.service';
 import { isEmpty, omitBy } from 'lodash';
 import { fromEvent } from 'rxjs';
+import { ScreenService } from '@core/service/screen.service';
 
 @Component({
   selector: 'app-search-action',
@@ -22,7 +23,8 @@ export class SearchActionComponent implements OnInit, AfterViewInit {
   constructor(
     private router: Router,
     private formService: FormService,
-    private ele: ElementRef
+    private ele: ElementRef,
+    private screenService: ScreenService
   ) {}
 
   ngOnInit(): void {
@@ -34,13 +36,15 @@ export class SearchActionComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    const input =
-      this.ele.nativeElement.querySelectorAll('input[type=text]')[0];
-    const input$ = fromEvent(input, 'keyup').subscribe((event: any) => {
-      if (event.keyCode === 13) {
-        this.search();
-      }
-    });
+    if (this.screenService.isPlatformBrowser()) {
+      const input =
+        this.ele.nativeElement.querySelectorAll('input[type=text]')[0];
+      const input$ = fromEvent(input, 'keyup').subscribe((event: any) => {
+        if (event.keyCode === 13) {
+          this.search();
+        }
+      });
+    }
   }
 
   onSubmit(): void {

@@ -15,7 +15,7 @@ import { QuestionComponent } from './question/question.component';
 import { CommentComponent } from './question/comment/comment.component';
 import { CommentFormComponent } from './question/comment/comment-form/comment-form.component';
 import { CommentListComponent } from './question/comment/comment-list/comment-list.component';
-import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { QuillModule } from 'ngx-quill';
 
 const components = [
   JobComponent,
@@ -38,7 +38,7 @@ const components = [
     CombsModule,
     WidgetsModule,
     NodeRoutingModule,
-    CKEditorModule,
+    QuillModule.forRoot(),
   ],
   exports: [CaseNodeComponent, ArticleComponent, QuestionComponent],
 })

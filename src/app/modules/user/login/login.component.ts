@@ -9,6 +9,7 @@ import { BrandingState } from '@core/mobx/BrandingStare';
 import { gsap } from 'gsap';
 import { TagsService } from '@core/service/tags.service';
 import { UserService } from '@core/service/user.service';
+import { ScreenService } from '@core/service/screen.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -31,7 +32,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
     private tagsService: TagsService,
     public appState: AppState,
     public branding: BrandingState,
-    public userService: UserService
+    public userService: UserService,
+    private screenService: ScreenService
   ) {}
 
   ngOnInit(): void {
@@ -53,24 +55,27 @@ export class LoginComponent implements OnInit, AfterViewInit {
       ],
       code: ['', Validators.required],
     });
-
-    this.userState.user$.subscribe((user) => {
-      if (user.authenticated) {
-        setTimeout(() => {
-          this.router.navigate([this.appState.config.login.loginRedirect]);
-        }, 2000);
-      }
-    });
+    if (this.screenService.isPlatformBrowser()) {
+      this.userState.user$.subscribe((user) => {
+        if (user.authenticated) {
+          setTimeout(() => {
+            this.router.navigate([this.appState.config.login.loginRedirect]);
+          }, 2000);
+        }
+      });
+    }
   }
 
   ngAfterViewInit(): void {
-    const t0 = gsap.timeline();
-    t0.to('.overlay', { duration: 0.5, opacity: 1 })
-      .to('.overlay', {
-        duration: 0.5,
-        width: '0%',
-      })
-      .to('.form-scroll', { duration: 0.5, top: 0, ease: 'expo.out' });
+    if (this.screenService.isPlatformBrowser()) {
+      const t0 = gsap.timeline();
+      t0.to('.overlay', { duration: 0.5, opacity: 1 })
+        .to('.overlay', {
+          duration: 0.5,
+          width: '0%',
+        })
+        .to('.form-scroll', { duration: 0.5, top: 0, ease: 'expo.out' });
+    }
   }
 
   get f(): any {

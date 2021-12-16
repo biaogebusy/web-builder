@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NodeService } from '@core/service/node.service';
 import { RouteService } from '@core/service/route.service';
+import { ScreenService } from '@core/service/screen.service';
 import { BaseComponent } from '@uiux/base/base.widget';
 
 @Component({
@@ -16,13 +17,16 @@ export class DynamicMediaListComponent extends BaseComponent implements OnInit {
 
   constructor(
     public nodeService: NodeService,
-    public routerService: RouteService
+    public routerService: RouteService,
+    private screenService: ScreenService
   ) {
     super(nodeService, routerService);
   }
 
   ngOnInit(): void {
-    this.getContent();
+    if (this.screenService.isPlatformBrowser()) {
+      this.getContent();
+    }
   }
 
   getContent(): void {

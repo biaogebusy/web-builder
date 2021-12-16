@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NodeService } from '@core/service/node.service';
 import { map } from 'lodash-es';
 import { IShowcase2v1 } from '@uiux/combs/ICombs';
+import { ScreenService } from '@core/service/screen.service';
 @Component({
   selector: 'app-case',
   templateUrl: './case.component.html',
@@ -10,7 +11,10 @@ import { IShowcase2v1 } from '@uiux/combs/ICombs';
 export class CaseComponent implements OnInit {
   content: IShowcase2v1;
   loading = false;
-  constructor(private nodeService: NodeService) {
+  constructor(
+    private nodeService: NodeService,
+    private screenService: ScreenService
+  ) {
     this.content = {
       text: {
         spacer: 'none',
@@ -26,7 +30,9 @@ export class CaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getCases();
+    if (this.screenService.isPlatformBrowser()) {
+      this.getCases();
+    }
   }
 
   getCases(): void {

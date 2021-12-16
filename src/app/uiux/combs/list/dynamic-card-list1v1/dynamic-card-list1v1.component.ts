@@ -3,6 +3,7 @@ import { result } from 'lodash';
 import { NodeService } from '@core/service/node.service';
 import { RouteService } from '@core/service/route.service';
 import { BaseComponent } from '@uiux/base/base.widget';
+import { ScreenService } from '@core/service/screen.service';
 
 @Component({
   selector: 'app-dynamic-card-list1v1',
@@ -21,13 +22,16 @@ export class DynamicCardList1v1Component
   nodes: any[];
   constructor(
     public nodeService: NodeService,
-    public routerService: RouteService
+    public routerService: RouteService,
+    private screenService: ScreenService
   ) {
     super(nodeService, routerService);
   }
 
   ngOnInit(): void {
-    this.nodeSearch({});
+    if (this.screenService.isPlatformBrowser()) {
+      this.nodeSearch({});
+    }
   }
 
   nodeSearch(options: any): void {

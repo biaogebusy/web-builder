@@ -5,11 +5,9 @@
     <app-title *ngIf="content.title" [content]="content.title"></app-title>
     <div class="filter" *ngIf="content.filter">
       <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-        <ng-container *ngFor="let item of content.filter">
-          <mat-button-toggle *ngIf="item.value" (click)="onFilter(item.value)" value="{{item.value}}">
-            {{item.label}}
-          </mat-button-toggle>
-        </ng-container>
+        <mat-button-toggle (click)="onFilter(item.value)" *ngFor="let item of content.filter" value="{{item.value}}">
+          {{item.label}}
+        </mat-button-toggle>
       </mat-button-toggle-group>
     </div>
     <div class="shuffle-inner">

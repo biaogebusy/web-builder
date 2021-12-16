@@ -1,8 +1,8 @@
 import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { UserState } from '@core/mobx/user/UserState';
+import { ScreenService } from '@core/service/screen.service';
 @Component({
   selector: 'app-comment-form',
   templateUrl: './comment-form.component.html',
@@ -12,7 +12,7 @@ export class CommentFormComponent implements OnInit {
   @Input() content: any;
   loading = false;
   htmlData = '';
-  public Editor = ClassicEditor;
+  public Editor: any;
   @Input() myCommentContent: any;
   @Input() myCommentId: string;
   @Output() submitComment = new EventEmitter();
@@ -20,12 +20,15 @@ export class CommentFormComponent implements OnInit {
   constructor(
     private nodeService: NodeService,
     private utilitiesService: UtilitiesService,
-    private userState: UserState
+    private userState: UserState,
+    public screenService: ScreenService
   ) {}
 
   ngOnInit(): void {
-    if (this.myCommentContent) {
-      this.htmlData = this.myCommentContent;
+    if (this.screenService.isPlatformBrowser()) {
+      if (this.myCommentContent) {
+        this.htmlData = this.myCommentContent;
+      }
     }
   }
 
@@ -33,7 +36,8 @@ export class CommentFormComponent implements OnInit {
     this.cancel.emit();
   }
 
-  onSubmit(ckeditor: any, value: any): void {
+  onSubmit(editor: any, value: any): void {
+    console.log(value);
     this.loading = true;
     if (!this.myCommentContent) {
       const params = this.content.params;
@@ -41,10 +45,10 @@ export class CommentFormComponent implements OnInit {
         value,
         format: 'full_html',
       };
-      this.nodeService.addComment(ckeditor.type, params).subscribe(
+      this.nodeService.addComment(editor.type, params).subscribe(
         (res) => {
           this.loading = false;
-          this.utilitiesService.openSnackbar(ckeditor.succes.label);
+          this.utilitiesService.openSnackbar(editor.succes.label);
           this.submitComment.emit(true);
         },
         () => {
@@ -72,11 +76,11 @@ export class CommentFormComponent implements OnInit {
         },
       };
       this.nodeService
-        .updateComment(ckeditor.type, entity, this.myCommentId)
+        .updateComment(editor.type, entity, this.myCommentId)
         .subscribe(
           (res) => {
             this.loading = false;
-            this.utilitiesService.openSnackbar(ckeditor.succes.label);
+            this.utilitiesService.openSnackbar(editor.succes.label);
             this.submitComment.emit(true);
           },
           (error) => {

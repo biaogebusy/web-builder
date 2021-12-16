@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AppState } from '@core/mobx/AppState';
+import { ScreenService } from '@core/service/screen.service';
 
 @Component({
   selector: 'app-download',
@@ -9,9 +10,14 @@ import { AppState } from '@core/mobx/AppState';
 export class DownloadComponent implements OnInit {
   @Input() content: any;
   config: any;
-  constructor(public appState: AppState) {}
+  constructor(
+    public appState: AppState,
+    private screenService: ScreenService
+  ) {}
 
   ngOnInit(): void {
-    this.config = this.appState?.actions?.download;
+    if (this.screenService.isPlatformBrowser()) {
+      this.config = this.appState?.actions?.download;
+    }
   }
 }

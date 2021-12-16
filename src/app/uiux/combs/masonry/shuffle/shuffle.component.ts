@@ -5,6 +5,7 @@ import {
   ElementRef,
   AfterViewInit,
 } from '@angular/core';
+import { ScreenService } from '@core/service/screen.service';
 import Shuffle from 'shufflejs';
 @Component({
   selector: 'app-shuffle',
@@ -14,21 +15,23 @@ import Shuffle from 'shufflejs';
 export class ShuffleComponent implements OnInit, AfterViewInit {
   @Input() content: any;
   shuffle: any;
-  constructor(private el: ElementRef) {}
+  constructor(private el: ElementRef, private screenService: ScreenService) {}
 
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    const sizer = this.el.nativeElement.querySelectorAll('.sizer')[0];
-    const shuffleEl =
-      this.el.nativeElement.querySelectorAll('.shuffle-inner')[0];
-    this.shuffle = new Shuffle(shuffleEl, {
-      itemSelector: '.item',
-      sizer,
-      speed: 500,
-      easing: 'ease-out',
-      delimiter: ',',
-    });
+    if (this.screenService.isPlatformBrowser()) {
+      const sizer = this.el.nativeElement.querySelectorAll('.sizer')[0];
+      const shuffleEl =
+        this.el.nativeElement.querySelectorAll('.shuffle-inner')[0];
+      this.shuffle = new Shuffle(shuffleEl, {
+        itemSelector: '.item',
+        sizer,
+        speed: 500,
+        easing: 'ease-out',
+        delimiter: ',',
+      });
+    }
   }
   onFilter(category: string): void {
     this.shuffle.filter(category);

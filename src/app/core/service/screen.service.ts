@@ -1,11 +1,22 @@
-import { Injectable, Inject } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { DOCUMENT, isPlatformBrowser, isPlatformServer } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ScreenService {
-  constructor(@Inject(DOCUMENT) private document: Document) {}
+  constructor(
+    @Inject(DOCUMENT) private document: Document,
+    @Inject(PLATFORM_ID) public platformId: object
+  ) {}
+
+  isPlatformServer(): boolean {
+    return isPlatformServer(this.platformId);
+  }
+
+  isPlatformBrowser(): boolean {
+    return isPlatformBrowser(this.platformId);
+  }
 
   isElementInViewport(el: any): boolean {
     const rect = el.getBoundingClientRect();

@@ -2,6 +2,7 @@ import { Component, Input, OnInit, ElementRef } from '@angular/core';
 import { fromEvent, Observable, of } from 'rxjs';
 import { mergeMap, delay, takeUntil } from 'rxjs/operators';
 import { ScreenState } from '@core/mobx/screen/ScreenState';
+import { ScreenService } from '@core/service/screen.service';
 
 @Component({
   selector: 'app-mega-menu',
@@ -11,10 +12,16 @@ import { ScreenState } from '@core/mobx/screen/ScreenState';
 export class MegaMenuComponent implements OnInit {
   @Input() content: any;
   active: boolean;
-  constructor(private eleRef: ElementRef, private screenState: ScreenState) {}
+  constructor(
+    private eleRef: ElementRef,
+    private screenState: ScreenState,
+    private screenService: ScreenService
+  ) {}
 
   ngOnInit(): void {
-    this.initActionEvent();
+    if (this.screenService.isPlatformBrowser()) {
+      this.initActionEvent();
+    }
   }
 
   initActionEvent(): void {

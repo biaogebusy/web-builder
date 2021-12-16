@@ -7,6 +7,7 @@ import { RouteService } from '@core/service/route.service';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { FormService } from '@core/service/form.service';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { ScreenService } from '@core/service/screen.service';
 
 @Component({
   selector: 'app-dynamic-card-list',
@@ -28,32 +29,35 @@ export class DynamicCardListComponent extends BaseComponent implements OnInit {
     public nodeService: NodeService,
     private router: ActivatedRoute,
     public routerService: RouteService,
-    private formService: FormService
+    private formService: FormService,
+    private screenService: ScreenService
   ) {
     super(nodeService, routerService);
   }
 
   ngOnInit(): void {
-    this.router.queryParams.subscribe((query: any) => {
-      this.page = query.page || 0;
-      const queryOpt = omitBy(
-        Object.assign(
-          {
-            page: this.page,
-          },
-          query
-        ),
-        isEmpty
-      );
-      if (this.content.sidebar) {
-        this.filterForm = this.initFormValueWithUrlQuery(
-          queryOpt,
-          this.content.sidebar
+    if (this.screenService.isPlatformBrowser()) {
+      this.router.queryParams.subscribe((query: any) => {
+        this.page = query.page || 0;
+        const queryOpt = omitBy(
+          Object.assign(
+            {
+              page: this.page,
+            },
+            query
+          ),
+          isEmpty
         );
-        this.initForm(this.filterForm);
-      }
-      this.nodeSearch(queryOpt);
-    });
+        if (this.content.sidebar) {
+          this.filterForm = this.initFormValueWithUrlQuery(
+            queryOpt,
+            this.content.sidebar
+          );
+          this.initForm(this.filterForm);
+        }
+        this.nodeSearch(queryOpt);
+      });
+    }
   }
 
   initForm(items: any[]): void {

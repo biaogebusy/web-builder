@@ -7,8 +7,8 @@ import { RouteService } from '@core/service/route.service';
 import { Params, ActivatedRoute } from '@angular/router';
 import { AppState } from '@core/mobx/AppState';
 import { gsap } from 'gsap';
-import { ICard } from '@uiux/widgets/IWidgets';
 import { TagsService } from '@core/service/tags.service';
+import { ScreenService } from '@core/service/screen.service';
 
 const feature = {
   type: 'showcase-3v6',
@@ -163,19 +163,22 @@ export class JobComponent implements OnInit {
     private appState: AppState,
     private tagsService: TagsService,
     private routerService: RouteService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private screenService: ScreenService
   ) {
     this.nodes = [];
   }
 
   ngOnInit(): void {
-    this.loading = true;
-    this.tagsService.setTitle('内推职位列表');
-    this.getJobsNodes();
-    this.getSkill();
-    this.route.queryParamMap.subscribe((res) => {
-      this.paramsInit(res);
-    });
+    if (this.screenService.isPlatformBrowser()) {
+      this.loading = true;
+      this.tagsService.setTitle('内推职位列表');
+      this.getJobsNodes();
+      this.getSkill();
+      this.route.queryParamMap.subscribe((res) => {
+        this.paramsInit(res);
+      });
+    }
   }
 
   paramsInit(params: Params): void {

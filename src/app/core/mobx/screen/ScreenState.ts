@@ -5,6 +5,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { action, observable } from 'mobx-angular';
 import { MatDrawer } from '@angular/material/sidenav';
 import { MediaObserver, MediaChange } from '@angular/flex-layout';
+import { ScreenService } from '@core/service/screen.service';
 
 @Injectable({
   providedIn: 'root',
@@ -19,10 +20,13 @@ export class ScreenState {
 
   constructor(
     public breakpointObserver: BreakpointObserver,
-    public mediaObserver: MediaObserver
+    public mediaObserver: MediaObserver,
+    private screenService: ScreenService
   ) {
-    this.initScreen();
-    this.initBrowserEvents();
+    if (this.screenService.isPlatformBrowser()) {
+      this.initScreen();
+      this.initBrowserEvents();
+    }
   }
 
   @action
@@ -47,7 +51,12 @@ export class ScreenState {
   }
 
   eq(targetPoint: string): boolean {
-    return this.viewPort.includes(targetPoint);
+    if (this.screenService.isPlatformBrowser()) {
+      return this.viewPort.includes(targetPoint);
+    } else {
+      // TODO: need confirm
+      return 'xs' === targetPoint;
+    }
   }
 
   initBrowserEvents(): void {

@@ -15,7 +15,7 @@ import { Angulartics2Module } from 'angulartics2';
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'xinshi' }),
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,

@@ -22,8 +22,10 @@ export class QuestionComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.checkIsAsked();
-    this.getComments();
+    if (this.screenService.isPlatformBrowser()) {
+      this.checkIsAsked();
+      this.getComments();
+    }
   }
 
   get entityId(): string {

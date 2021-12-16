@@ -33,15 +33,17 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    this.screenState.scroll$.subscribe(() => {
-      this.sticky = this.screenService.isElementOutTopViewport(
-        this.menu.nativeElement
-      );
-      this.listenSticky(this.sticky);
-      if (this.appState?.pageConfig?.headerMode?.transparent) {
-        this.windowScroll();
-      }
-    });
+    if (this.screenService.isPlatformBrowser()) {
+      this.screenState.scroll$.subscribe(() => {
+        this.sticky = this.screenService.isElementOutTopViewport(
+          this.menu.nativeElement
+        );
+        this.listenSticky(this.sticky);
+        if (this.appState?.pageConfig?.headerMode?.transparent) {
+          this.windowScroll();
+        }
+      });
+    }
   }
 
   listenSticky(state: boolean): void {

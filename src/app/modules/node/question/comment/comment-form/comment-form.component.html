@@ -1,10 +1,12 @@
 <div class="comment-form" *ngIf="content">
-  <ckeditor [editor]="Editor" [config]="content?.ckeditor?.config" [(ngModel)]="htmlData"></ckeditor>
+  <quill-editor [modules]="content.editor" *ngIf="screenService.isPlatformBrowser()" [(ngModel)]="htmlData"
+    [styles]="{height:'250px'}">
+  </quill-editor>
   <div class="actions p-y-sm p-x-sm">
-    <button (click)="onSubmit(content?.ckeditor, htmlData)" mat-raised-button color="primary" [disabled]="!htmlData">
+    <button (click)="onSubmit(content?.editor, htmlData)" mat-raised-button color="primary" [disabled]="!htmlData">
       <div fxLayoutAlign="center center">
         <mat-spinner diameter="20" color="accent" *ngIf="loading"></mat-spinner>
-        <span class="p-x-xs">{{content?.ckeditor?.action?.label || '提交'}}</span>
+        <span class="p-x-xs">{{content?.editor?.action?.label || '提交'}}</span>
       </div>
     </button>
     <button class="m-left-xs" (click)="onCancel()" mat-button>

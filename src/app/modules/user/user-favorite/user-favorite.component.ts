@@ -4,6 +4,7 @@ import { NodeService } from '@core/service/node.service';
 import { UserService } from '@core/service/user.service';
 import { switchMap } from 'rxjs/operators';
 import { formatDate } from '@angular/common';
+import { ScreenService } from '@core/service/screen.service';
 @Component({
   selector: 'app-user-favorite',
   templateUrl: './user-favorite.component.html',
@@ -19,12 +20,15 @@ export class UserFavoriteComponent implements OnInit {
   constructor(
     private router: ActivatedRoute,
     private userService: UserService,
-    private nodeService: NodeService
+    private nodeService: NodeService,
+    private screenService: ScreenService
   ) {}
 
   ngOnInit(): void {
-    this.id = this.router.parent && this.router.parent.snapshot.params.id;
-    this.getContent(this.id);
+    if (this.screenService.isPlatformBrowser()) {
+      this.id = this.router.parent && this.router.parent.snapshot.params.id;
+      this.getContent(this.id);
+    }
   }
 
   getContent(id: string): void {

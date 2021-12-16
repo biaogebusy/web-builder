@@ -4,6 +4,7 @@ import { isEmpty, omitBy } from 'lodash-es';
 import { NodeService } from '@core/service/node.service';
 import { RouteService } from '@core/service/route.service';
 import { BaseComponent } from '@uiux/base/base.widget';
+import { ScreenService } from '@core/service/screen.service';
 
 @Component({
   selector: 'app-tree-list',
@@ -20,31 +21,34 @@ export class TreeListComponent extends BaseComponent implements OnInit {
   constructor(
     public nodeService: NodeService,
     private router: ActivatedRoute,
-    public routerService: RouteService
+    public routerService: RouteService,
+    private screenService: ScreenService
   ) {
     super(nodeService, routerService);
   }
 
   ngOnInit(): void {
-    this.router.queryParams.subscribe((query: any) => {
-      const initQuery: any = {};
-      this.content.tree.forEach((item: any) => {
-        initQuery[item.key] = item.value;
+    if (this.screenService.isPlatformBrowser()) {
+      this.router.queryParams.subscribe((query: any) => {
+        const initQuery: any = {};
+        this.content.tree.forEach((item: any) => {
+          initQuery[item.key] = item.value;
+        });
+        this.page = query.page || 0;
+        // TODO: assign query
+        const queryOpt = omitBy(
+          Object.assign(
+            {
+              page: this.page,
+            },
+            query,
+            initQuery
+          ),
+          isEmpty
+        );
+        this.nodeSearch(initQuery);
       });
-      this.page = query.page || 0;
-      // TODO: assign query
-      const queryOpt = omitBy(
-        Object.assign(
-          {
-            page: this.page,
-          },
-          query,
-          initQuery
-        ),
-        isEmpty
-      );
-      this.nodeSearch(initQuery);
-    });
+    }
   }
 
   nodeSearch(params: any): void {

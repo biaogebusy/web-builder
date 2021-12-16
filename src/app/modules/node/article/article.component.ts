@@ -12,6 +12,7 @@ import json from 'highlight.js/lib/languages/json';
 import { TagsService } from '@core/service/tags.service';
 import { AppState } from '@core/mobx/AppState';
 import { ScreenState } from '@core/mobx/screen/ScreenState';
+import { ScreenService } from '@core/service/screen.service';
 @Component({
   selector: 'app-article',
   templateUrl: './article.component.html',
@@ -27,7 +28,8 @@ export class ArticleComponent implements OnInit, AfterViewInit {
     @Inject(DOCUMENT) private document: Document,
     fb: FormBuilder,
     public appState: AppState,
-    public screen: ScreenState
+    public screen: ScreenState,
+    private screenService: ScreenService
   ) {
     this.options = fb.group({
       fontSize: this.fontSizeControl,
@@ -35,16 +37,20 @@ export class ArticleComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    if (this.content.title) {
-      this.tagsService.setTitle(this.content.title);
+    if (this.screenService.isPlatformBrowser()) {
+      if (this.content.title) {
+        this.tagsService.setTitle(this.content.title);
+      }
     }
   }
 
   ngAfterViewInit(): void {
-    this.document.querySelectorAll('code').forEach((block) => {
-      // then highlight each
-      hljs.highlightBlock(block);
-    });
+    if (this.screenService.isPlatformBrowser()) {
+      this.document.querySelectorAll('code').forEach((block) => {
+        // then highlight each
+        hljs.highlightBlock(block);
+      });
+    }
   }
 
   getFontSize(): number {

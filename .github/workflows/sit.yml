@@ -27,14 +27,14 @@ jobs:
       - name: NPM Install Angular
         run: npm install -g @angular/cli > /dev/null
       - name: NPM build Angular Production
-        run: ng build --prod --aot=true --buildOptimizer=true
+        run: ng build --prod --aot=true --source-map --buildOptimizer=true && ng run xinshi:server:production
       - name: Deploy to Server
         uses: AEnterprise/rsync-deploy@v1.0
         env:
           DEPLOY_KEY: ${{ secrets.KEY }}
           ARGS: -avz --delete
           SERVER_PORT: "22"
-          FOLDER: "dist/xinshi"
+          FOLDER: "dist"
           SERVER_IP: ${{ secrets.HOST }}
           USERNAME: ${{ secrets.SSH_USER }}
           SERVER_DESTINATION: ${{ secrets.XINSHI_PATH }}

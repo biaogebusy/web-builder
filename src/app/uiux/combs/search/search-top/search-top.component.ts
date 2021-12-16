@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormService } from '@core/service/form.service';
+import { ScreenService } from '@core/service/screen.service';
 
 @Component({
   selector: 'app-search-top',
@@ -12,10 +13,15 @@ export class SearchTopComponent implements OnInit {
   @Output() selectChange = new EventEmitter();
 
   form: FormGroup;
-  constructor(private formService: FormService) {}
+  constructor(
+    private formService: FormService,
+    private screenService: ScreenService
+  ) {}
 
   ngOnInit(): void {
-    this.initForm(this.content);
+    if (this.screenService.isPlatformBrowser()) {
+      this.initForm(this.content);
+    }
   }
 
   initForm(items: any[]): void {

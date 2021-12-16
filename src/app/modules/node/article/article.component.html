@@ -2,21 +2,15 @@
   <app-article-banner [content]="content.banner" *ngIf="content.banner"></app-article-banner>
   <div class="container">
     <div class="article-inner m-top-sm" fxLayout.lt-md="column" fxLayout.gt-sm="row">
-      <div class="article-node" fxFlex.lt-md="100" fxFlex.gt-sm="{{content.sidebar?'75':'100'}}">
+      <div class="article-node" fxFlex.lt-md="100" fxFlex.gt-sm="75">
         <h2 class="title">
           {{content.title}}
         </h2>
-        <div class="article-meta p-bottom-xs" fxLayoutAlign="space-between center">
-          <div fxLayout="row wrap" fxLayoutAlign="start start" *ngIf="content.meta" fxLayoutGap="1rem">
+        <div class="article-meta" fxLayoutAlign="space-between center">
+          <div fxLayout fxLayoutAlign="start start" *ngIf="content.meta" fxLayoutGap="1rem">
             <div *ngFor="let item of content.meta" fxLayoutAlign="center center">
-              <ng-container *ngIf="item.icon;else value">
-                <mat-icon>{{item.icon}}</mat-icon>
-                <div>{{item.label}}</div>
-              </ng-container>
-              <ng-template #value>
-                <div class="bold">{{item.label}}: &nbsp;</div>
-                <div>{{item.value}}</div>
-              </ng-template>
+              <mat-icon>{{item.icon}}</mat-icon>
+              <div>{{item.label}}</div>
             </div>
           </div>
           <form *ngIf="fontSizeConfig && fontSizeConfig.enabel && !screen.eq('xs')" class="fontSize"

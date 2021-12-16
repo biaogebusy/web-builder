@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ScreenService } from '@core/service/screen.service';
 
 @Component({
   selector: 'app-menu-list',
@@ -11,10 +12,12 @@ export class MenuListComponent implements OnInit {
   initList: any[];
   expand = false;
   row = 12;
-  constructor() {}
+  constructor(private screenService: ScreenService) {}
 
   ngOnInit(): void {
-    this.initContent(this.expand);
+    if (this.screenService.isPlatformBrowser()) {
+      this.initContent(this.expand);
+    }
   }
 
   initContent(expand: boolean): void {

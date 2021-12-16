@@ -5,6 +5,7 @@ import { BaseComponent } from '@uiux/base/base.widget';
 import { UserState } from '@core/mobx/user/UserState';
 import { switchMap } from 'rxjs/operators';
 import { RouteService } from '@core/service/route.service';
+import { ScreenService } from '@core/service/screen.service';
 
 @Component({
   selector: 'app-flag',
@@ -19,15 +20,18 @@ export class FlagComponent extends BaseComponent implements OnInit {
     public nodeService: NodeService,
     public routerService: RouteService,
     private userState: UserState,
-    public appState: AppState
+    public appState: AppState,
+    private screenService: ScreenService
   ) {
     super(nodeService, routerService);
   }
 
   ngOnInit(): void {
-    this.config = this.appState?.actions?.flag;
-    if (this.config.enabel && this.userState.anthenticated) {
-      this.getFlagging();
+    if (this.screenService.isPlatformBrowser()) {
+      this.config = this.appState?.actions?.flag;
+      if (this.config.enabel && this.userState.anthenticated) {
+        this.getFlagging();
+      }
     }
   }
 

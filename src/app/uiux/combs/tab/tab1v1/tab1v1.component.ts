@@ -4,6 +4,7 @@ import { BaseComponent } from '@uiux/base/base.widget';
 import { NodeService } from '@core/service/node.service';
 import { RouteService } from '@core/service/route.service';
 import { isEmpty, omitBy } from 'lodash';
+import { ScreenService } from '@core/service/screen.service';
 
 @Component({
   selector: 'app-tab1v1',
@@ -21,27 +22,30 @@ export class Tab1v1Component extends BaseComponent implements OnInit {
   constructor(
     public nodeService: NodeService,
     public routerService: RouteService,
-    private router: ActivatedRoute
+    private router: ActivatedRoute,
+    private screenService: ScreenService
   ) {
     super(nodeService, routerService);
   }
 
   ngOnInit(): void {
-    this.router.queryParamMap.subscribe((query: Params) => {
-      this.page = query.get('page') || 0;
-      const querys = omitBy(
-        Object.assign(
-          {
-            page: this.page,
-          },
-          {
-            tab: query.get('tab') || 0,
-          }
-        ),
-        isEmpty
-      );
-      this.initTab(querys);
-    });
+    if (this.screenService.isPlatformBrowser()) {
+      this.router.queryParamMap.subscribe((query: Params) => {
+        this.page = query.get('page') || 0;
+        const querys = omitBy(
+          Object.assign(
+            {
+              page: this.page,
+            },
+            {
+              tab: query.get('tab') || 0,
+            }
+          ),
+          isEmpty
+        );
+        this.initTab(querys);
+      });
+    }
   }
 
   initTab(query: Params): void {

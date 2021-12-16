@@ -1,4 +1,4 @@
-# 远方信使 Xinshi
+# 远方信使 Xinshi 支持 SSR
 
 远方信使是一个使用 Drupal 提供 API 的 Angular 前端开发学习框架，拥有丰富的前端组件，通过 Drupal Pannel 可快速构建 Landing 营销着陆页。
 

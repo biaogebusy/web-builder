@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '@core/service/user.service';
 import { UserState } from '@core/mobx/user/UserState';
 import { AppState } from '@core/mobx/AppState';
+import { ScreenService } from '@core/service/screen.service';
 
 @Component({
   selector: 'app-user',
@@ -17,21 +18,24 @@ export class UserComponent implements OnInit {
     private userService: UserService,
     private userState: UserState,
     private route: Router,
-    private appState: AppState
+    private appState: AppState,
+    private screenService: ScreenService
   ) {}
 
   ngOnInit(): void {
-    this.router.paramMap.subscribe((query) => {
-      this.id = query.get('id');
-      this.getUser(this.id);
-    });
-    this.userState.user$.subscribe((user) => {
-      if (!user.authenticated) {
-        setTimeout(() => {
-          this.route.navigate(['user/login']);
-        }, 2000);
-      }
-    });
+    if (this.screenService.isPlatformBrowser()) {
+      this.router.paramMap.subscribe((query) => {
+        this.id = query.get('id');
+        this.getUser(this.id);
+      });
+      this.userState.user$.subscribe((user) => {
+        if (!user.authenticated) {
+          setTimeout(() => {
+            this.route.navigate(['user/login']);
+          }, 2000);
+        }
+      });
+    }
   }
 
   getUser(id: string): any {
