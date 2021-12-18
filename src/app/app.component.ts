@@ -32,40 +32,46 @@ export class AppComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
-    this.appState.configLoadDone$.subscribe((res) => {
-      if (res) {
-        // TODO: loop object to load service
-        if (this.appState.config?.googleAnalytics) {
-          this.googleAnalyticsService.loadGoogleAnalytics();
-        }
-        if (this.appState.config.qidian) {
-          this.qiDianService.loadQiDian();
-        }
-        if (this.appState.config?.loading) {
-          if (!this.appState?.meta?.config?.loading) {
-            this.listenToLoading();
+    if (this.screenService.isPlatformBrowser()) {
+      this.appState.configLoadDone$.subscribe((res) => {
+        if (res) {
+          // TODO: loop object to load service
+          if (this.appState.config?.googleAnalytics) {
+            this.googleAnalyticsService.loadGoogleAnalytics();
+          }
+          if (this.appState.config.qidian) {
+            this.qiDianService.loadQiDian();
+          }
+          if (this.appState.config?.loading) {
+            if (!this.appState?.meta?.config?.loading) {
+              this.listenToLoading();
+            }
           }
         }
-      }
-    });
+      });
+    }
   }
 
   ngAfterViewInit(): void {
-    this.screen.drawer$.subscribe((res) => {
-      this.opened = !this.opened;
-    });
+    if (this.screenService.isPlatformBrowser()) {
+      this.screen.drawer$.subscribe((res) => {
+        this.opened = !this.opened;
+      });
 
-    this.router.fragment.subscribe((fragment) => {
-      if (fragment) {
-        setTimeout(() => {
-          this.screenService.scrollToAnchor(fragment);
-        }, 1000);
-      }
-    });
+      this.router.fragment.subscribe((fragment) => {
+        if (fragment) {
+          setTimeout(() => {
+            this.screenService.scrollToAnchor(fragment);
+          }, 1000);
+        }
+      });
+    }
   }
 
   updateDrawer(drawer: MatDrawer): void {
-    this.screen.updateDrwer(drawer);
+    if (this.screenService.isPlatformBrowser()) {
+      this.screen.updateDrwer(drawer);
+    }
   }
 
   listenToLoading(): void {

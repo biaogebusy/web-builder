@@ -10,6 +10,7 @@ import { Subject } from 'rxjs';
 import { IUser } from './user/IUser';
 import { TagsService } from '@core/service/tags.service';
 import { version } from '../../../../package.json';
+import { isArray } from 'lodash-es';
 const unauthUser = {
   authenticated: false,
 };
@@ -215,7 +216,7 @@ export class AppState {
         )
         .subscribe(
           (pageValue: IPage) => {
-            if (!Array.isArray(pageValue)) {
+            if (!isArray(pageValue)) {
               this.updatePage(pageValue);
             } else {
               this.setPageNotFound(
