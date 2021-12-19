@@ -1,5 +1,5 @@
 <div class="search-header position-relative bg-shadow p-y-xl" *ngIf="content">
-  <app-bg [content]="content.bg">
+  <app-bg [content]="content.bg" *ngIf="content.bg">
     <app-img [content]="content.bg.img"></app-img>
   </app-bg>
   <div class="container position-relative">
