@@ -83,7 +83,8 @@ export class SearchComponent extends BaseComponent implements OnInit {
   nodeSearch(options: any): void {
     this.loading = true;
     this.searchEntry = omitBy(options, isEmpty);
-    this.nodeSearchByParams('content', this.form.value, options).subscribe(
+    const type = this.getParams(this.content, 'type') || 'content';
+    this.nodeSearchByParams(type, this.form.value, options).subscribe(
       (data) => {
         this.updateList(data, this.form.value, options);
         this.loading = false;
