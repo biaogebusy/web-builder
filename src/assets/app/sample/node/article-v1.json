@@ -3,6 +3,11 @@
   "body": [{
     "type": "article",
     "title": "DRAG AND DROP LAYOUT",
+    "params": {
+      "require_rule": [
+        "authenticated"
+      ]
+    },
     "meta": [{
       "label": "发布日期",
       "value": "2021-12-14"
