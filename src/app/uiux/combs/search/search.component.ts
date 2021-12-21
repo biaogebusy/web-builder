@@ -97,7 +97,6 @@ export class SearchComponent extends BaseComponent implements OnInit {
 
   updateList(data: any, formValues: any, options: any): void {
     this.pager = data.pager;
-    console.log(data);
     this.nodes = data.rows.map((item: any) => {
       return {
         link: {

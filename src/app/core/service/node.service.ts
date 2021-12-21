@@ -1,16 +1,19 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 import { LocalStorageService } from 'ngx-webstorage';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { AppState } from '../mobx/AppState';
 import { IUser } from '../mobx/user/IUser';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { IApiUrl } from '../mobx/IAppConfig';
 import { forkJoin } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root',
 })
 export class NodeService extends ApiService {
+  public responseCache = new Map();
+
   constructor(
     public http: HttpClient,
     public storage: LocalStorageService,
@@ -24,7 +27,20 @@ export class NodeService extends ApiService {
   }
 
   search(type: string, params: string): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/api/v1/${type}?${params}`);
+    const key = `${type}-${params}`;
+    const searchFormCache = this.responseCache.get(key);
+    if (searchFormCache) {
+      return of(searchFormCache);
+    }
+    const response = this.http
+      .get<any>(`${this.apiUrl}/api/v1/${type}?${params}`)
+      .pipe(
+        switchMap((res) => {
+          this.responseCache.set(key, res);
+          return of(res);
+        })
+      );
+    return response;
   }
 
   getNodeByLink(link: string): Observable<any> {

@@ -6,11 +6,12 @@ import { ApiService } from '@core/service/api.service';
 import { environment } from '../../../environments/environment';
 import { LocalStorageService } from 'ngx-webstorage';
 import { IApiUrl, IAppConfig, IPage } from './IAppConfig';
-import { Subject } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 import { IUser } from './user/IUser';
 import { TagsService } from '@core/service/tags.service';
 import { version } from '../../../../package.json';
 import { isArray } from 'lodash-es';
+import { switchMap } from 'rxjs/operators';
 const unauthUser = {
   authenticated: false,
 };
@@ -34,6 +35,7 @@ export class AppState {
 
   public switchChange$ = new Subject();
   public configLoadDone$ = new Subject();
+  public responseCache = new Map();
   constructor(
     private http: HttpClient,
     private apiService: ApiService,
@@ -210,26 +212,40 @@ export class AppState {
   @action
   setPageContent(): void {
     if (environment.production) {
-      this.http
-        .get<any>(
-          `${environment.apiUrl}/api/v1/landingPage?content=${this.apiPath}`
-        )
-        .subscribe(
-          (pageValue: IPage) => {
-            if (!isArray(pageValue)) {
-              this.updatePage(pageValue);
-            } else {
-              this.setPageNotFound(
-                `${environment.apiUrl}/api/v1/landingPage?content=404`
-              );
-            }
-          },
-          (error) => {
+      const key = this.apiPath;
+      let getLandPage$: Observable<any>;
+      const landPageFormCache = this.responseCache.get(key);
+      if (landPageFormCache) {
+        getLandPage$ = of(landPageFormCache);
+      } else {
+        getLandPage$ = this.http
+          .get<any>(
+            `${environment.apiUrl}/api/v1/landingPage?content=${this.apiPath}`
+          )
+          .pipe(
+            switchMap((res) => {
+              this.responseCache.set(key, res);
+              return of(res);
+            })
+          );
+      }
+
+      getLandPage$.subscribe(
+        (pageValue: IPage) => {
+          if (!isArray(pageValue)) {
+            this.updatePage(pageValue);
+          } else {
             this.setPageNotFound(
               `${environment.apiUrl}/api/v1/landingPage?content=404`
             );
           }
-        );
+        },
+        (error) => {
+          this.setPageNotFound(
+            `${environment.apiUrl}/api/v1/landingPage?content=404`
+          );
+        }
+      );
     } else {
       this.http
         .get<any>(`${environment.apiUrl}/assets/app${this.apiPath}.json`)
