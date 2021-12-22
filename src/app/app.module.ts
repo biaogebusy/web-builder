@@ -1,4 +1,5 @@
 import { BrowserModule, Title } from '@angular/platform-browser';
+import { TransferHttpCacheModule } from '@nguniversal/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
@@ -16,6 +17,7 @@ import { Angulartics2Module } from 'angulartics2';
   declarations: [AppComponent],
   imports: [
     BrowserModule.withServerTransition({ appId: 'xinshi' }),
+    TransferHttpCacheModule,
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
