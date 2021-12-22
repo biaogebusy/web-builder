@@ -183,6 +183,9 @@ export class AppState {
   }
 
   updatePage(pageValue: IPage): void {
+    if (isArray(pageValue)) {
+      return;
+    }
     this.state.page = pageValue;
     this.tagsService.updateTages(pageValue);
   }
@@ -232,15 +235,18 @@ export class AppState {
 
       getLandPage$.subscribe(
         (pageValue: IPage) => {
-          if (!isArray(pageValue)) {
-            this.updatePage(pageValue);
-          } else {
-            this.setPageNotFound(
-              `${environment.apiUrl}/api/v1/landingPage?content=404`
-            );
-          }
+          console.log('pageValue', pageValue);
+          this.updatePage(pageValue);
+          // if (!isArray(pageValue)) {
+          // } else {
+          //   console.log('no pageValue', '404');
+          //   this.setPageNotFound(
+          //     `${environment.apiUrl}/api/v1/landingPage?content=404`
+          //   );
+          // }
         },
         (error) => {
+          console.log('error', '404');
           this.setPageNotFound(
             `${environment.apiUrl}/api/v1/landingPage?content=404`
           );
