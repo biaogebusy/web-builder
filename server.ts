@@ -1,6 +1,7 @@
 import 'zone.js/dist/zone-node';
 import { ngExpressEngine } from '@nguniversal/express-engine';
 import express from 'express';
+const compressionModule = require('compression');
 import { join } from 'path';
 
 const dominoModule = require('domino');
@@ -35,6 +36,7 @@ const distFolder = join(process.cwd(), 'dist/browser');
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
   const server = express();
+  server.use(compressionModule());
   const indexHtml = existsSync(join(distFolder, 'index.original.html'))
     ? 'index.original.html'
     : 'index';
