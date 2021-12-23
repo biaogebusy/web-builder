@@ -235,11 +235,9 @@ export class AppState {
 
       getLandPage$.subscribe(
         (pageValue: IPage) => {
-          console.log('pageValue', pageValue);
           this.updatePage(pageValue);
         },
         (error) => {
-          console.log('error', '404');
           this.setPageNotFound(
             `${environment.apiUrl}/api/v1/landingPage?content=404`
           );

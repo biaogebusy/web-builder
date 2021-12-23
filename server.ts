@@ -3,11 +3,12 @@ import { ngExpressEngine } from '@nguniversal/express-engine';
 import express from 'express';
 const compressionModule = require('compression');
 import { join } from 'path';
+import { environment } from 'src/environments/environment';
 
 const dominoModule = require('domino');
 const fsModule = require('fs');
 const indexTemplate = fsModule
-  .readFileSync('dist/browser/index.html')
+  .readFileSync(`dist/${environment.site}/browser/index.html`)
   .toString();
 const win = dominoModule.createWindow(indexTemplate);
 
@@ -31,7 +32,7 @@ import { AppServerModule } from './src/main.server';
 import { APP_BASE_HREF } from '@angular/common';
 import { existsSync } from 'fs';
 
-const distFolder = join(process.cwd(), 'dist/browser');
+const distFolder = join(process.cwd(), `dist/${environment.site}/browser`);
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
@@ -88,7 +89,9 @@ function run(): void {
   // Start up the Node server
   const server = app();
   server.listen(port, () => {
-    console.log(`Node Express server listening on http://localhost:${port}`);
+    console.log(
+      `Node Express server ${environment.site} listening on http://localhost:${port}`
+    );
   });
 }
 
