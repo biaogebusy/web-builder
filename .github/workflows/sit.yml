@@ -21,13 +21,13 @@ jobs:
       - name: use Node.js 10
         uses: actions/setup-node@v1
         with:
-          node-version: '14.x'
+          node-version: "14.x"
       - name: NPM Install
         run: npm install
       - name: NPM Install Angular
         run: npm install -g @angular/cli > /dev/null
-      - name: NPM build Angular Production
-        run: ng build --prod && ng run xinshi:server:production
+      - name: NPM build all App Production
+        run: npm run build:ssrAll
       - name: Deploy to Server
         uses: AEnterprise/rsync-deploy@v1.0
         env:
@@ -37,4 +37,4 @@ jobs:
           FOLDER: "dist"
           SERVER_IP: ${{ secrets.HOST }}
           USERNAME: ${{ secrets.SSH_USER }}
-          SERVER_DESTINATION: ${{ secrets.XINSHI_PATH }}
+          SERVER_DESTINATION: ${{ secrets.APP_PATH }}
