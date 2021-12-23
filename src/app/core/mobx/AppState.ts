@@ -237,13 +237,6 @@ export class AppState {
         (pageValue: IPage) => {
           console.log('pageValue', pageValue);
           this.updatePage(pageValue);
-          // if (!isArray(pageValue)) {
-          // } else {
-          //   console.log('no pageValue', '404');
-          //   this.setPageNotFound(
-          //     `${environment.apiUrl}/api/v1/landingPage?content=404`
-          //   );
-          // }
         },
         (error) => {
           console.log('error', '404');

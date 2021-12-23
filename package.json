@@ -6,13 +6,13 @@
     "ng": "ng",
     "start": "ng serve",
     "start-hmr": "ng serve --hmr -o",
-    "build": "ng build --prod --aot=true --source-map --buildOptimizer=true",
+    "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "dev:ssr": "ng run xinshi:serve-ssr",
     "serve:ssr": "node dist/server/main.js",
-    "build:ssr": "ng build --prod --aot=true --source-map --buildOptimizer=true && ng run xinshi:server:production",
+    "build:ssr": "ng build --prod && ng run xinshi:server:production",
     "prerender": "ng run xinshi:prerender"
   },
   "dependencies": {
@@ -90,5 +90,10 @@
     "tslint": "~6.1.0",
     "typescript": "~4.0.2",
     "webpack": "^4.46.0"
-  }
+  },
+  "browserslist": [
+    "last 2 versions",
+    "not ie <= 10",
+    "not ie_mob <= 10"
+  ]
 }
