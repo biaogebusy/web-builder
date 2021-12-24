@@ -48,7 +48,15 @@
               "video.js",
               "lodash",
               "ngx-lightbox",
-              "crypto-js"
+              "crypto-js",
+              "@babel",
+              "@babel/runtime/helpers/inherits",
+              "@babel/runtime/helpers/construct",
+              "@babel/runtime/helpers/inheritsLoose",
+              "@videojs",
+              "@videojs/xhr",
+              "global/document",
+              "videojs-vtt.js"
             ]
           },
           "configurations": {
