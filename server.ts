@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 const dominoModule = require('domino');
 const fsModule = require('fs');
 const indexTemplate = fsModule
-  .readFileSync(`dist/${environment.site}/browser/index.html`)
+  .readFileSync(`${environment.site}/browser/index.html`)
   .toString();
 const win = dominoModule.createWindow(indexTemplate);
 
@@ -32,7 +32,7 @@ import { AppServerModule } from './src/main.server';
 import { APP_BASE_HREF } from '@angular/common';
 import { existsSync } from 'fs';
 
-const distFolder = join(process.cwd(), `dist/${environment.site}/browser`);
+const distFolder = join(process.cwd(), `${environment.site}/browser`);
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
