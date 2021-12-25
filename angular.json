@@ -29,7 +29,14 @@
             "assets": [{
               "glob": "**/*",
               "input": "src/assets/",
-              "ignore": ["**/*.json", "**/*.mp4", "**/*.jpg", "**/*.jpeg", "**/*.png", "**/*.gif"],
+              "ignore": [
+                "app/sample/**/*.json",
+                "**/*.mp4",
+                "**/*.jpg",
+                "**/*.jpeg",
+                "**/*.png",
+                "**/*.gif"
+              ],
               "output": "/assets/"
             }, {
               "glob": "favicon.ico",
