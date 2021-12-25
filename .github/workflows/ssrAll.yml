@@ -17,11 +17,11 @@ jobs:
       - uses: srt32/git-actions@v0.0.3
         with:
           args: git submodule update --init --recursive
-        # 使用 node:10
-      - name: use Node.js 10
-        uses: actions/setup-node@v1
+      - name: use Node.js
+        uses: actions/setup-node@v2
         with:
-          node-version: "14.x"
+          node-version: "14"
+          cache: "npm"
       - name: NPM Install
         run: npm install
       - name: NPM Install Angular
