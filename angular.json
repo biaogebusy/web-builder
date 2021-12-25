@@ -26,10 +26,16 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "aot": true,
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
+            "assets": [{
+              "glob": "**/*",
+              "input": "src/assets/",
+              "ignore": ["**/*.json", "**/*.mp4", "**/*.jpg", "**/*.png", "**/*.gif"],
+              "output": "/assets/"
+            }, {
+              "glob": "favicon.ico",
+              "input": "src/",
+              "output": "/"
+            }],
             "styles": [
               "src/styles.scss",
               "node_modules/swiper/swiper-bundle.css",
