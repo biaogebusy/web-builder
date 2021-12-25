@@ -1,5 +1,86 @@
 @import "~@angular/material/theming";
 
+@mixin inverse($primary, $bg, $text, $contrast, $form) {
+  background: $bg;
+  color: $text;
+  .shape {
+    color: $bg;
+  }
+  a {
+    color: $text;
+    &:hover {
+      color: $contrast;
+    }
+  }
+  .mat-subheader {
+    color: $contrast;
+  }
+  .mat-list-item {
+    color: $text;
+  }
+  .mat-accordion {
+    .mat-list a {
+      color: $text;
+    }
+    .mat-expansion-panel {
+      background-color: transparent;
+      color: $text;
+    }
+    .mat-expansion-panel:not(.mat-expanded):not([aria-disabled="true"])
+      .mat-expansion-panel-header:hover {
+      background-color: transparent;
+    }
+    .mat-expansion-panel-header-description,
+    .mat-expansion-indicator::after {
+      color: inherit;
+    }
+    .mat-expansion-panel-header-title {
+      color: $text;
+    }
+  }
+  .item-header {
+    color: $contrast;
+  }
+  .mat-form-field-appearance-fill {
+    .mat-form-field-flex {
+      background-color: $form;
+      &:hover {
+        background-color: hsla(0, 0%, 100%, 0.16);
+        border-color: hsla(0, 0%, 100%, 0.16);
+      }
+    }
+  }
+  .social {
+    .item {
+      border: 1px solid $text;
+      color: $text;
+      border-color: $text;
+      &:hover {
+        border-color: $contrast;
+        background-color: $contrast;
+        .mat-icon {
+          color: mat-color($primary);
+        }
+      }
+    }
+  }
+  .footer-bottom {
+    background-color: rgba(0, 0, 0, 0.25);
+    a {
+      color: $text;
+      &:hover,
+      &:focus {
+        color: $contrast;
+      }
+    }
+  }
+  &.space-between-footer {
+    .mat-divider {
+      border-color: rgba($text, 0.5);
+    }
+  }
+}
+
 @mixin footer-color($config-or-theme) {
   $config: mat-get-color-config($config-or-theme);
   $foreground: map-get($config, foreground);
@@ -13,6 +94,12 @@
   $inverse-bg: #333;
   $inverse-text: #9e9e9e;
   $inverse-text-contrast: #fff;
+  $inverse-form: #4c4c4c;
+
+  $inverse-bg-light: mat-color($background, background);
+  $inverse-text-light: mat-color($foreground, text, 0.75);
+  $inverse-text-contrast-light: mat-color($foreground, text, 0.6);
+  $inverse-form-light: mat-color($foreground, text, 0.1);
   .footer {
     .footer-light {
       background-color: mat-color($background, card);
@@ -62,86 +149,24 @@
         background-color: transparent !important;
       }
     }
-    .shape {
-      color: $inverse-bg;
-    }
     .footer-inverse {
-      background: $inverse-bg;
-      color: $inverse-text;
-      a {
-        color: $inverse-text;
-        &:hover {
-          color: $inverse-text-contrast;
-        }
-      }
-      .mat-subheader {
-        color: $inverse-text-contrast;
-      }
-      .mat-list-item {
-        color: $inverse-text;
-      }
-      .mat-accordion {
-        .mat-list a {
-          color: $inverse-text;
-        }
-        .mat-expansion-panel {
-          background-color: transparent;
-          color: $inverse-text;
-        }
-        .mat-expansion-panel:not(.mat-expanded):not([aria-disabled="true"])
-          .mat-expansion-panel-header:hover {
-          background-color: transparent;
-        }
-        .mat-expansion-panel-header-description,
-        .mat-expansion-indicator::after {
-          color: inherit;
-        }
-        .mat-expansion-panel-header-title {
-          color: $inverse-text;
-        }
-      }
-      .item-header {
-        color: $inverse-text-contrast;
-      }
-      .mat-form-field-appearance-fill {
-        .mat-form-field-flex {
-          background-color: #4c4c4c;
-          border: 2px solid #4c4c4c;
-          &:hover {
-            background-color: hsla(0, 0%, 100%, 0.16);
-            border-color: hsla(0, 0%, 100%, 0.16);
-          }
-        }
-      }
-      .social {
-        .item {
-          border: 1px solid $inverse-text;
-          color: $inverse-text;
-          border-color: $inverse-text;
-          &:hover {
-            border-color: $inverse-text-contrast;
-            background-color: $inverse-text-contrast;
-            .mat-icon {
-              color: mat-color($primary);
-            }
-          }
-        }
-      }
-      .footer-bottom {
-        background-color: rgba(0, 0, 0, 0.25);
-        a {
-          color: $inverse-text;
-          &:hover,
-          &:focus {
-            color: $inverse-text-contrast;
-          }
-        }
-      }
-      &.space-between-footer {
-        .mat-divider {
-          border-color: rgba($inverse-text, 0.5);
-        }
-      }
+      @include inverse(
+        $primary,
+        $inverse-bg,
+        $inverse-text,
+        $inverse-text-contrast,
+        $inverse-form
+      );
+    }
+
+    .footer-inverse-light {
+      @include inverse(
+        $primary,
+        $inverse-bg-light,
+        $inverse-text-light,
+        $inverse-text-contrast-light,
+        $inverse-form-light
+      );
     }
 
     .fix-bar {

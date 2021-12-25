@@ -10,6 +10,7 @@
   -ms-transition: $prop $time $ease;
   transition: $prop $time $ease;
 }
+
 @mixin delay($delay: 0) {
   -webkit-transition-delay: $delay;
   -moz-transition-delay: $delay;
@@ -68,6 +69,7 @@
   -ms-transform: rotateY($rotate);
   transform: rotateY($rotate);
 }
+
 @mixin transform-rotate($rotate: 90deg, $time: 0.5s, $ease: linear) {
   -webkit-transition: -webkit-transform $time $ease;
   -moz-transition: -moz-transform $time $ease;
@@ -78,6 +80,7 @@
   -ms-transform: rotate($rotate);
   transform: rotate($rotate);
 }
+
 @mixin middle() {
   position: absolute !important;
   top: 50%;
@@ -87,6 +90,7 @@
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
 }
+
 @mixin middle-center() {
   position: absolute !important;
   left: 50%;
@@ -111,6 +115,7 @@
   -o-transform: translateX($x);
   transform: translateX($x);
 }
+
 @mixin translateXY($x: 0px, $y: 0px) {
   -webkit-transform: translateX($x) translateY($y);
   -moz-transform: translateX($x) translateY($y);
@@ -118,6 +123,7 @@
   -ms-transform: translateX($x) translateY($y);
   transform: translateX($x) translateY($y);
 }
+
 @mixin translateAndScale($x: 0px, $y: 0px, $scale: 0) {
   -webkit-transform: translateX($x) translateY($y) scale($scale);
   -moz-transform: translateX($x) translateY($y) scale($scale);
@@ -125,6 +131,7 @@
   -ms-transform: translateX($x) translateY($y) scale($scale);
   transform: translateX($x) translateY($y) scale($scale);
 }
+
 @mixin translateXAndRotate($x: 0px, $rotate: 0) {
   -webkit-transform: translateX($x) rotate($rotate);
   -moz-transform: translateX($x) rotate($rotate);
@@ -132,6 +139,7 @@
   -ms-transform: translateX($x) rotate($rotate);
   transform: translateX($x) rotate($rotate);
 }
+
 @mixin scale($scale: 0) {
   -o-transform: scale($scale);
   -ms-transform: scale($scale);
@@ -139,9 +147,11 @@
   -webkit-transform: scale($scale);
   transform: scale($scale);
 }
+
 @mixin color-overlay($color: $base_color, $opacity: 0.8) {
   background-color: rgba(red($color), green($color), blue($color), $opacity);
 }
+
 @mixin gradient($startColor: #eee, $endColor: white) {
   background-color: $startColor;
   background-image: -webkit-gradient(
@@ -191,6 +201,7 @@
     rgba(0, 0, 0, $alpha)
   );
 }
+
 // @include responsive-ratio(16, 9)
 @mixin responsive-ratio($x, $y, $pseudo: false) {
   $padding: unquote(($y / $x) * 100 + "%");
