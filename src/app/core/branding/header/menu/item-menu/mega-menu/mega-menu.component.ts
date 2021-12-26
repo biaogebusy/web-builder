@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ElementRef } from '@angular/core';
+import { Component, Input, OnInit, ElementRef, OnDestroy } from '@angular/core';
 import { fromEvent, Observable, of } from 'rxjs';
 import { mergeMap, delay, takeUntil } from 'rxjs/operators';
 import { ScreenState } from '@core/mobx/screen/ScreenState';
@@ -9,7 +9,7 @@ import { ScreenService } from '@core/service/screen.service';
   templateUrl: './mega-menu.component.html',
   styleUrls: ['./mega-menu.component.scss'],
 })
-export class MegaMenuComponent implements OnInit {
+export class MegaMenuComponent implements OnInit, OnDestroy {
   @Input() content: any;
   active: boolean;
   constructor(
@@ -55,5 +55,9 @@ export class MegaMenuComponent implements OnInit {
       }
       this.active = false;
     });
+  }
+
+  ngOnDestroy(): void {
+    this.screenState.stickyMenu$.unsubscribe();
   }
 }

@@ -5,6 +5,7 @@ import {
   ElementRef,
   AfterViewInit,
   Inject,
+  OnDestroy,
 } from '@angular/core';
 import { ScreenService } from '../../service/screen.service';
 import { ScreenState } from '../../mobx/screen/ScreenState';
@@ -16,7 +17,7 @@ import { DOCUMENT } from '@angular/common';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit, AfterViewInit {
+export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   sticky = false;
 
   @ViewChild('header', { read: ElementRef }) header: ElementRef;
@@ -78,5 +79,9 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     } else {
       return this.screen.eq(banner.breakpoint || 'gt-sm');
     }
+  }
+
+  ngOnDestroy(): void {
+    this.screen.scroll$.unsubscribe();
   }
 }

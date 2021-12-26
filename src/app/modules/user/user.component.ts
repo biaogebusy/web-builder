@@ -1,4 +1,4 @@
-import { Component, OnInit, Query } from '@angular/core';
+import { Component, OnInit, Query, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '@core/service/user.service';
 import { UserState } from '@core/mobx/user/UserState';
@@ -10,7 +10,7 @@ import { ScreenService } from '@core/service/screen.service';
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss'],
 })
-export class UserComponent implements OnInit {
+export class UserComponent implements OnInit, OnDestroy {
   user: any;
   id: any;
   constructor(
@@ -110,5 +110,9 @@ export class UserComponent implements OnInit {
 
   logout(): void {
     this.userState.logout();
+  }
+
+  ngOnDestroy(): void {
+    this.userState.user$.unsubscribe();
   }
 }

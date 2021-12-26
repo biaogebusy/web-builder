@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { UserState } from '@core/mobx/user/UserState';
 import { MatDialog } from '@angular/material/dialog';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -12,7 +12,7 @@ import { DialogService } from '@core/service/dialog.service';
   templateUrl: './user-menu.component.html',
   styleUrls: ['./user-menu.component.scss'],
 })
-export class UserMenuComponent implements OnInit {
+export class UserMenuComponent implements OnInit, OnDestroy {
   @Input() content: any;
   dialogRef: any;
   constructor(
@@ -54,5 +54,9 @@ export class UserMenuComponent implements OnInit {
 
   get userPage(): any[] {
     return [`/user/${this.userId}`];
+  }
+
+  ngOnDestroy(): void {
+    this.dialogService.dialogState$.unsubscribe();
   }
 }

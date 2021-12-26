@@ -6,7 +6,6 @@ import { AMapState } from '@core/mobx/amap/AMapState';
 import { RouteService } from '@core/service/route.service';
 import { Params, ActivatedRoute } from '@angular/router';
 import { AppState } from '@core/mobx/AppState';
-import { gsap } from 'gsap';
 import { TagsService } from '@core/service/tags.service';
 import { ScreenService } from '@core/service/screen.service';
 
@@ -243,22 +242,16 @@ export class JobComponent implements OnInit {
     this.selected = obj.item;
     this.selectedId = obj.item.nid;
     this.amapState.markers$.next(obj);
-    this.moveBox('20px');
     const query: Params = { id: this.selectedId };
     this.routerService.updateQueryParams(query);
   }
 
   onScroll(event: boolean): void {
-    this.moveBox('-530px');
+    this.moveBox(false);
   }
 
-  moveBox(x: string): void {
-    const t1 = gsap.timeline();
-    t1.to('.job-details', {
-      duration: 1.5,
-      left: x,
-      ease: 'power3.out',
-    });
+  moveBox(show: boolean): void {
+    this.selected = show;
   }
 
   onSearch(key: string): void {

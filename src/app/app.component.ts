@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { UserState } from './core/mobx/user/UserState';
 import { ScreenState } from './core/mobx/screen/ScreenState';
 import { MatDrawer } from '@angular/material/sidenav';
@@ -15,7 +15,7 @@ import { QiDianService } from '@core/service/qidian.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit, AfterViewInit {
+export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   authenticated: boolean;
   opened: boolean;
   loading = false;
@@ -78,5 +78,10 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.loadingservice.loadingSub.pipe(delay(0)).subscribe((loading) => {
       this.loading = loading;
     });
+  }
+
+  ngOnDestroy(): void {
+    this.appState.configLoadDone$.subscribe();
+    this.screen.drawer$.unsubscribe();
   }
 }

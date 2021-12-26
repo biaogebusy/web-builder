@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { AMapState } from '@core/mobx/amap/AMapState';
 import { AppState } from '@core/mobx/AppState';
 import { AmapService } from '@core/service/amap.service';
@@ -9,7 +9,7 @@ import { isArray } from 'lodash-es';
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
 })
-export class MapComponent implements OnInit {
+export class MapComponent implements OnInit, OnDestroy {
   @Input() content: any;
   AMap: any;
   markers: any[];
@@ -169,5 +169,11 @@ export class MapComponent implements OnInit {
 
   setFitView(): void {
     this.map.setFitView();
+  }
+
+  ngOnDestroy(): void {
+    this.appState.switchChange$.unsubscribe();
+    this.amapState.position$.unsubscribe();
+    this.amapState.markers$.unsubscribe();
   }
 }

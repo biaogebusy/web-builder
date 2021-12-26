@@ -1,4 +1,10 @@
-import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  ViewChild,
+  OnDestroy,
+} from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserState } from '@core/mobx/user/UserState';
@@ -6,7 +12,6 @@ import { ApiService } from '@core/service/api.service';
 import { ScreenState } from '@core/mobx/screen/ScreenState';
 import { AppState } from '@core/mobx/AppState';
 import { BrandingState } from '@core/mobx/BrandingStare';
-import { gsap } from 'gsap';
 import { TagsService } from '@core/service/tags.service';
 import { UserService } from '@core/service/user.service';
 import { ScreenService } from '@core/service/screen.service';
@@ -15,7 +20,7 @@ import { ScreenService } from '@core/service/screen.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit, AfterViewInit {
+export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
   hide = true;
   error: string;
   userForm: FormGroup;
@@ -66,17 +71,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
     }
   }
 
-  ngAfterViewInit(): void {
-    if (this.screenService.isPlatformBrowser()) {
-      const t0 = gsap.timeline();
-      t0.to('.overlay', { duration: 0.5, opacity: 1 })
-        .to('.overlay', {
-          duration: 0.5,
-          width: '0%',
-        })
-        .to('.form-scroll', { duration: 0.5, top: 0, ease: 'expo.out' });
-    }
-  }
+  ngAfterViewInit(): void {}
 
   get f(): any {
     return this.userForm.controls;
@@ -113,5 +108,9 @@ export class LoginComponent implements OnInit, AfterViewInit {
         format: 'ss',
       };
     });
+  }
+
+  ngOnDestroy(): void {
+    this.userState.user$.unsubscribe();
   }
 }
