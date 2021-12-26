@@ -30,7 +30,6 @@
               "glob": "**/*",
               "input": "src/assets/",
               "ignore": [
-                "app/sample/**/*.json",
                 "**/*.mp4",
                 "**/*.jpg",
                 "**/*.jpeg",

@@ -5,6 +5,7 @@ import {
   ViewChild,
   ElementRef,
   AfterViewInit,
+  OnDestroy,
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { MatAccordion } from '@angular/material/expansion';
@@ -16,7 +17,7 @@ import { ScreenService } from '@core/service/screen.service';
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.scss'],
 })
-export class FooterComponent implements OnInit, AfterViewInit {
+export class FooterComponent implements OnInit, AfterViewInit, OnDestroy {
   content: any;
   panelOpenState = false;
 
@@ -49,5 +50,9 @@ export class FooterComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.onScroll();
+  }
+
+  ngOnDestroy(): void {
+    this.screen.scroll$.unsubscribe();
   }
 }
