@@ -37,7 +37,6 @@ export class CommentFormComponent implements OnInit {
   }
 
   onSubmit(editor: any, value: any): void {
-    console.log(value);
     this.loading = true;
     if (!this.myCommentContent) {
       const params = this.content.params;
