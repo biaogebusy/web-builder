@@ -1,11 +1,15 @@
-import { Injectable } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Inject, Injectable } from '@angular/core';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UtilitiesService {
-  constructor(private snackbar: MatSnackBar) {}
+  constructor(
+    private snackbar: MatSnackBar,
+    @Inject(DOCUMENT) private document: Document
+  ) {}
 
   getIndexTitle(title: string): string {
     return title.substring(0, 1);
@@ -27,5 +31,18 @@ export class UtilitiesService {
             duration: 3000,
           }
     );
+  }
+
+  loadScript(src: string, id?: any, defer?: boolean): any {
+    const script = this.document.createElement('script');
+    script.src = src;
+    script.async = true;
+    if (defer) {
+      script.defer = true;
+    }
+    if (id) {
+      script.id = id;
+    }
+    this.document.body.appendChild(script);
   }
 }

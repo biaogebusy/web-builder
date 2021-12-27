@@ -2,6 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { Angulartics2GoogleGlobalSiteTag } from 'angulartics2/gst';
 import { AppState } from '../mobx/AppState';
+import { UtilitiesService } from '@core/service/utilities.service';
 
 declare var gtag: any;
 declare var window: any;
@@ -13,15 +14,14 @@ export class GoogleAnalyticsService {
   constructor(
     private angulartics: Angulartics2GoogleGlobalSiteTag,
     @Inject(DOCUMENT) private document: Document,
-    private appState: AppState
+    private appState: AppState,
+    private utility: UtilitiesService
   ) {}
 
   loadGoogleAnalytics(): void {
     // injecting GA main script asynchronously
-    const script = this.document.createElement('script');
-    script.src = `https://www.googletagmanager.com/gtag/js?id=${this.appState.config.googleAnalytics.id}`;
-    script.async = true;
-    this.document.body.appendChild(script);
+    const src = `https://www.googletagmanager.com/gtag/js?id=${this.appState.config.googleAnalytics.id}`;
+    this.utility.loadScript(src, null, false);
 
     // preparing GA API to be usable even before the async script is loaded
     window.dataLayer = window.dataLayer || [];

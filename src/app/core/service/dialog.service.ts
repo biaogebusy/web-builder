@@ -3,7 +3,6 @@ import { Subject } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { TextComponent } from '../../uiux/widgets/text/text.component';
-import { AppState } from '@core/mobx/AppState';
 import { DOCUMENT } from '@angular/common';
 
 @Injectable({
@@ -14,7 +13,6 @@ export class DialogService {
   dialogRef: any;
   constructor(
     private dialog: MatDialog,
-    private appState: AppState,
     @Inject(DOCUMENT) private doc: Document
   ) {}
 

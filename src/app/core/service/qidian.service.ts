@@ -1,23 +1,17 @@
-import { Inject, Injectable } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { Injectable } from '@angular/core';
 import { AppState } from '../mobx/AppState';
+import { UtilitiesService } from '@core/service/utilities.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class QiDianService {
-  constructor(
-    @Inject(DOCUMENT) private document: Document,
-    private appState: AppState
-  ) {}
+  constructor(private appState: AppState, private utility: UtilitiesService) {}
 
   loadQiDian(): void {
     const qiDianConfig = this.appState.config.qidian;
-    const script = this.document.createElement('script');
-    script.src = `https://wp.qiye.qq.com/qidian/${qiDianConfig.id}/${qiDianConfig.key}`;
-    script.async = true;
-    script.defer = true;
-    script.id = `qd${qiDianConfig.id}${qiDianConfig.key}`;
-    this.document.body.appendChild(script);
+    const src = `https://wp.qiye.qq.com/qidian/${qiDianConfig.id}/${qiDianConfig.key}`;
+    const id = `qd${qiDianConfig.id}${qiDianConfig.key}`;
+    this.utility.loadScript(src, id);
   }
 }
