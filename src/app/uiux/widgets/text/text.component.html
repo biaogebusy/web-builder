@@ -5,11 +5,11 @@
     <div class="inner" [ngClass.gt-sm]="content.classes" [ngStyle.gt-sm]="content.style">
       <app-title [content]="content.title" *ngIf="content.title"></app-title>
       <div [innerHTML]="content.body | safeHtml" *ngIf="content.body"></div>
-      <div class="actions m-top" *ngIf="content.actions">
+      <div class="actions m-top" *ngIf="content.actions" fxLayoutAlign="{{content.actionsAlign || 'start center'}}">
         <ng-container *ngFor="let action of content.actions">
           <ng-container [ngSwitch]="action.type">
             <app-search-action *ngSwitchCase="'search-action'" [content]="action"></app-search-action>
-            <button mat-button mat-dialog-close color="{{action.color||'primary'}}"
+            <button mat-raised-button mat-dialog-close color="{{action.color||'primary'}}"
               *ngSwitchCase="'closeDialog'">{{action.label}}</button>
             <a mat-raised-button [ngClass]="action.classes" *ngSwitchDefault color="{{action.color||'primary'}}"
               href="{{action.href}}" target="{{action.target}}">
