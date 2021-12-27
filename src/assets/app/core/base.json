@@ -103,24 +103,33 @@
     }
   },
   "dialog": {
-    "forceDialog": {
-      "title": "WARNING",
-      "path": "home",
-      "width": "500px",
-      "okLabel": "21+",
-      "content": "VABEEN products contain nicotine. Nicotine is an addictive chemical. Anyone above the age of 21 can browse this website. Please confirm your age first to continue or leave.",
-      "actions": [{
-          "type": "closeDialog",
-          "label": "21+",
-          "color": "primary"
+    "forceDialogBak": {
+      "params": {
+        "width": "500px",
+        "path": "home",
+        "first": true
+      },
+      "text": {
+        "title": {
+          "label": "WARNING",
+          "style": "style-v1"
         },
-        {
-          "type": "link",
-          "label": "UNDER 21",
-          "href": "http://www.google.com",
-          "color": "warn"
-        }
-      ]
+        "spacer": "none",
+        "body": "Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. ",
+        "actions": [{
+            "type": "closeDialog",
+            "label": "21+",
+            "color": "primary"
+          },
+          {
+            "type": "link",
+            "label": "UNDER 21",
+            "href": "http://www.google.com",
+            "color": "warn"
+          }
+        ],
+        "actionsAlign": "center center"
+      }
     }
   }
 }
