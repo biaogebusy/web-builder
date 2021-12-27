@@ -1,10 +1,10 @@
 import 'zone.js/dist/zone-node';
 import { ngExpressEngine } from '@nguniversal/express-engine';
 import express from 'express';
-const compressionModule = require('compression');
 import { join } from 'path';
 import { environment } from 'src/environments/environment';
 
+const compressionModule = require('compression');
 const dominoModule = require('domino');
 const fsModule = require('fs');
 const indexTemplate = fsModule
