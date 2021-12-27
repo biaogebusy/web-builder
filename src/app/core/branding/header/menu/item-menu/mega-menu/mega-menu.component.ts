@@ -57,7 +57,5 @@ export class MegaMenuComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {
-    this.screenState.stickyMenu$.unsubscribe();
-  }
+  ngOnDestroy(): void {}
 }

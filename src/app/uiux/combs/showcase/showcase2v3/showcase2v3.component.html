@@ -1,0 +1,21 @@
+<div class="showcase-2v3 position-relative" *ngIf="content">
+  <a class="anchor" [id]="content.id||''"></a>
+  <app-bg-img [content]="content.bg"></app-bg-img>
+  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
+  <app-text [content]="content.text" *ngIf="content.text"></app-text>
+  <div class="container">
+    <div class="inner" fxLayout="row wrap" fxFlex="100" fxLayoutAlign="space-between start">
+      <div class="item p-x-xs m-bottom-sm" fxFlex.xs="100" fxFlex.gt-xs="0 0 calc(100% / {{content.row}} - 2rem)"
+        *ngFor="let item of content.elements" fxLayoutAlign="space-between center">
+        <div fxLayout="column">
+          <h2 class="bold" [innerHTML]="item.title"></h2>
+          <p [innerHTML]="item.subTitle"></p>
+          <a mat-raised-button color="{{item.link.color}}" href="{{item.link.href}}"
+            target="_blank">{{item.link.label}}</a>
+        </div>
+        <app-img [content]="item.img"></app-img>
+      </div>
+    </div>
+  </div>
+  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
+</div>

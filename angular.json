@@ -29,13 +29,6 @@
             "assets": [{
               "glob": "**/*",
               "input": "src/assets/",
-              "ignore": [
-                "**/*.mp4",
-                "**/*.jpg",
-                "**/*.jpeg",
-                "**/*.png",
-                "**/*.gif"
-              ],
               "output": "/assets/"
             }, {
               "glob": "favicon.ico",
