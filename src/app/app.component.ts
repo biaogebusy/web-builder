@@ -10,6 +10,7 @@ import { LoadingService } from '@core/service/loading.service';
 import { delay } from 'rxjs/operators';
 import { GoogleAnalyticsService } from '@core/service/ga.service';
 import { QiDianService } from '@core/service/qidian.service';
+import { DialogService } from '@core/service/dialog.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -27,6 +28,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     private router: ActivatedRoute,
     private screenService: ScreenService,
     private loadingservice: LoadingService,
+    private dialogService: DialogService,
     private googleAnalyticsService: GoogleAnalyticsService,
     private qiDianService: QiDianService
   ) {}
@@ -46,6 +48,11 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
             if (!this.appState?.meta?.config?.loading) {
               this.listenToLoading();
             }
+          }
+          if (this.appState.config?.dialog?.forceDialog) {
+            this.dialogService.forceDialog(
+              this.appState.config.dialog.forceDialog
+            );
           }
         }
       });
