@@ -1,0 +1,118 @@
+{
+  "body": [{
+    "type": "packery",
+    "config": {
+      "gutter": 0,
+      "imagesLoaded": true,
+      "percentPosition": true
+    },
+    "spacer": "md",
+    "text": {
+      "title": {
+        "label": "Our Products",
+        "style": "style-v1",
+        "classes": "display-v2"
+      }
+    },
+    "bg": {
+      "classes": "bg-fill-width",
+      "img": {
+        "hostClasses": "",
+        "src": "/assets/images/illustration/home-shape.png",
+        "mobile": "/assets/images/illustration/home-shape.png"
+      }
+    },
+    "elements": [{
+      "type": "feature-box",
+      "width": "20",
+      "fullIcon": "fullscreen",
+      "openIcon": "open_in_new",
+      "link": "#",
+      "ratios": "media-4-3",
+      "hoverIcon": true,
+      "img": {
+        "classes": "object-fit",
+        "src": "/assets/images/cases/porto1.jpg",
+        "alt": "alt"
+      }
+    }, {
+      "type": "feature-box",
+      "width": "20",
+      "fullIcon": "fullscreen",
+      "openIcon": "open_in_new",
+      "link": "#",
+      "ratios": "media-4-3",
+      "hoverIcon": true,
+      "img": {
+        "classes": "object-fit",
+        "src": "/assets/images/cases/porto2.jpg",
+        "alt": "alt"
+      }
+    }, {
+      "type": "feature-box",
+      "width": "40",
+      "fullIcon": "fullscreen",
+      "openIcon": "open_in_new",
+      "link": "#",
+      "ratios": "media-4-3",
+      "hoverIcon": true,
+      "img": {
+        "classes": "object-fit",
+        "src": "/assets/images/cases/porto3.jpg",
+        "alt": "alt"
+      }
+    }, {
+      "type": "feature-box",
+      "width": "20",
+      "fullIcon": "fullscreen",
+      "openIcon": "open_in_new",
+      "link": "#",
+      "ratios": "media-4-3",
+      "hoverIcon": true,
+      "img": {
+        "classes": "object-fit",
+        "src": "/assets/images/cases/porto4.jpg",
+        "alt": "alt"
+      }
+    }, {
+      "type": "feature-box",
+      "width": "20",
+      "fullIcon": "fullscreen",
+      "openIcon": "open_in_new",
+      "link": "#",
+      "ratios": "media-4-3",
+      "hoverIcon": true,
+      "img": {
+        "classes": "object-fit",
+        "src": "/assets/images/cases/porto5.jpg",
+        "alt": "alt"
+      }
+    }, {
+      "type": "feature-box",
+      "width": "20",
+      "fullIcon": "fullscreen",
+      "openIcon": "open_in_new",
+      "link": "#",
+      "ratios": "media-4-3",
+      "hoverIcon": true,
+      "img": {
+        "classes": "object-fit",
+        "src": "/assets/images/cases/porto6.jpg",
+        "alt": "alt"
+      }
+    }, {
+      "type": "feature-box",
+      "width": "20",
+      "fullIcon": "fullscreen",
+      "openIcon": "open_in_new",
+      "link": "#",
+      "ratios": "media-4-3",
+      "hoverIcon": true,
+      "img": {
+        "classes": "object-fit",
+        "src": "/assets/images/cases/porto7.jpg",
+        "alt": "alt"
+      }
+    }]
+  }]
+}

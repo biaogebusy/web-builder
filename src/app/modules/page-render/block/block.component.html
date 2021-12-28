@@ -1,20 +1,21 @@
 <ng-container *ngIf="appState.content">
   <ng-container *ngFor="let item of appState.content">
     <ng-container [ngSwitch]="item.type">
-      <app-text *ngSwitchCase="'text'" [content]="item"></app-text>
       <app-tab *ngSwitchCase="'tab'" [content]="item"></app-tab>
+      <app-text *ngSwitchCase="'text'" [content]="item"></app-text>
       <app-panel *ngSwitchCase="'panel'" [content]="item"></app-panel>
       <app-search *ngSwitchCase="'search'" [content]="item"></app-search>
-      <app-shuffle *ngSwitchCase="'shuffle'" [content]="item"></app-shuffle>
       <app-notfound *ngSwitchCase="'404'" [content]="item"></app-notfound>
-      <app-article *ngSwitchCase="'article'" [content]="item"></app-article>
-      <app-question *ngSwitchCase="'question'" [content]="item"></app-question>
       <app-tab1v1 *ngSwitchCase="'tab-1v1'" [content]="item"></app-tab1v1>
+      <app-article *ngSwitchCase="'article'" [content]="item"></app-article>
+      <app-shuffle *ngSwitchCase="'shuffle'" [content]="item"></app-shuffle>
+      <app-packery *ngSwitchCase="'packery'" [content]="item"></app-packery>
       <app-hero1v1 *ngSwitchCase="'hero-1v1'" [content]="item"></app-hero1v1>
       <app-hero2v1 *ngSwitchCase="'hero-2v1'" [content]="item"></app-hero2v1>
       <app-hero2v2 *ngSwitchCase="'hero-2v2'" [content]="item"></app-hero2v2>
       <app-hero2v3 *ngSwitchCase="'hero-2v3'" [content]="item"></app-hero2v3>
       <app-video-bg *ngSwitchCase="'video-bg'" [content]="item"></app-video-bg>
+      <app-question *ngSwitchCase="'question'" [content]="item"></app-question>
       <app-location *ngSwitchCase="'location'" [content]="item"></app-location>
       <app-tree-list *ngSwitchCase="'tree-list'" [content]="item"></app-tree-list>
       <app-case-node *ngSwitchCase="'case-node'" [content]="item"></app-case-node>
@@ -42,12 +43,12 @@
       <app-carousel2v2 *ngSwitchCase="'carousel-2v2'" [content]="item"></app-carousel2v2>
       <app-dynamic-form *ngSwitchCase="'dynamic-form'" [content]="item"></app-dynamic-form>
       <app-taxonomy-list *ngSwitchCase="'taxonomy-list'" [content]="item"></app-taxonomy-list>
-      <app-taxonomy-thin-list *ngSwitchCase="'taxonomy-thin-list'" [content]="item"></app-taxonomy-thin-list>
-      <app-dynamic-card-list1v1 *ngSwitchCase="'dynamic-card-list-1v1'" [content]="item"></app-dynamic-card-list1v1>
       <app-banner-simple *ngSwitchCase="'banner-simple'" [content]="item"></app-banner-simple>
       <app-dynamic-card-list *ngSwitchCase="'dynamic-card-list'" [content]="item"></app-dynamic-card-list>
-      <app-dynamic-media-list *ngSwitchCase="'dynamic-media-list'" [content]="item"></app-dynamic-media-list>
       <app-dynamic-text-list *ngSwitchCase="'dynamic-text-list'" [content]="item"></app-dynamic-text-list>
+      <app-taxonomy-thin-list *ngSwitchCase="'taxonomy-thin-list'" [content]="item"></app-taxonomy-thin-list>
+      <app-dynamic-media-list *ngSwitchCase="'dynamic-media-list'" [content]="item"></app-dynamic-media-list>
+      <app-dynamic-card-list1v1 *ngSwitchCase="'dynamic-card-list-1v1'" [content]="item"></app-dynamic-card-list1v1>
     </ng-container>
   </ng-container>
 </ng-container>
