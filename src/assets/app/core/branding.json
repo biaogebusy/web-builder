@@ -203,6 +203,9 @@
             "label": "Shuffle",
             "href": "/sample/combs/masonry/shuffle"
           }, {
+            "label": "Packery",
+            "href": "/sample/combs/masonry/packery"
+          }, {
             "label": "Video bg",
             "href": "/sample/combs/video/videobg"
           }, {
@@ -462,7 +465,7 @@
       }]
     }
   },
-  "footerBak1": {
+  "footerLight": {
     "params": {
       "mode": "light"
     },
