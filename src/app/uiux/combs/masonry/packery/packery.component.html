@@ -4,15 +4,20 @@
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <app-text [content]="content.text" *ngIf="content.text"></app-text>
   <div class="container">
-    <ngx-packery *ngIf="config" [options]="config" fxFlex="100">
-      <ngx-packery-item fxFlex="{{item.width||20}}" *ngFor="let item of content.elements">
-        <img src="{{item.img.src}}" alt="">
-        <!-- <div class="item">
-          <app-feature-box [content]="item"></app-feature-box>
-        </div> -->
+    <ngx-packery #packery [options]="config">
+      <ngx-packery-item fxFlex.lt-md="0 0 50" fxFlex.gt-sm="0 0 {{item.width || 20}}"
+        *ngFor="let item of content.elements">
+        <app-feature-box [content]="item"></app-feature-box>
+      </ngx-packery-item>
+      <ngx-packery-item fxFlex="0 0 100">
+        <!-- fix bug -->
+        <img>
       </ngx-packery-item>
     </ngx-packery>
   </div>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
 
 </div>
+<!-- <div class="item">
+  <app-feature-box [content]="item"></app-feature-box>
+</div> -->

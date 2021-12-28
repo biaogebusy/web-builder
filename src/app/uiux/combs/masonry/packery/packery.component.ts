@@ -1,4 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  ViewChild,
+  AfterViewInit,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { NgxPackeryOptions } from 'ngx-packery';
 
 @Component({
@@ -6,18 +13,23 @@ import { NgxPackeryOptions } from 'ngx-packery';
   templateUrl: './packery.component.html',
   styleUrls: ['./packery.component.scss'],
 })
-export class PackeryComponent implements OnInit {
+export class PackeryComponent implements OnInit, AfterViewInit {
   @Input() content: any;
-
+  @ViewChild('packery') packery: any;
   config: NgxPackeryOptions;
   default: NgxPackeryOptions = {
-    gutter: 0,
+    gutter: 10,
     imagesLoaded: true,
     percentPosition: true,
+    initLayout: false,
   };
   constructor() {}
 
   ngOnInit(): void {
     this.config = Object.assign({}, this.default, this.content.config);
+  }
+
+  ngAfterViewInit(): void {
+    this.packery.pckryService.reloadItems();
   }
 }
