@@ -1,11 +1,11 @@
-<div class="footer-{{content?.params?.style === 'light'?'inverse-light':'inverse'}} position-relative" *ngIf="content">
-  <div class="shape-inner position-relative p-y-lg m-top-lg" *ngIf="content?.params?.shape">
-    <div class="shape">
-      <svg viewBox="0 0 2880 250" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M720 125L2160 0H2880V250H0V125H720Z" fill="currentColor"></path>
-      </svg>
-    </div>
+<div class="shape-inner position-relative p-y-lg m-top-lg" *ngIf="content?.params?.shape">
+  <div class="shape shape-{{content?.params?.style === 'light'?'inverse-light':'inverse'}}">
+    <svg viewBox="0 0 2880 250" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M720 125L2160 0H2880V250H0V125H720Z" fill="currentColor"></path>
+    </svg>
   </div>
+</div>
+<div class="footer-{{content?.params?.style === 'light'?'inverse-light':'inverse'}} position-relative" *ngIf="content">
   <div class="container">
     <div class="p-y-lg">
       <div *ngIf="content?.footerBrand" fxLayout.lt-md="column" fxLayout.gt-sm="row">

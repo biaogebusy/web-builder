@@ -3,9 +3,7 @@
 @mixin inverse($primary, $bg, $text, $contrast, $form) {
   background: $bg;
   color: $text;
-  .shape {
-    color: $bg;
-  }
+
   a {
     color: $text;
     &:hover {
@@ -149,6 +147,15 @@
         background-color: transparent !important;
       }
     }
+
+    .shape-inverse {
+      color: $inverse-bg;
+    }
+
+    .shape-inverse-light {
+      color: $inverse-bg-light;
+    }
+
     .footer-inverse {
       @include inverse(
         $primary,
