@@ -33,6 +33,7 @@
           }
         },
         "body": "<p style=\"font-size:18px\">At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.</p>",
+        "actionsAlign": "center center",
         "actions": [{
           "href": "#",
           "label": "Get Started"
@@ -54,9 +55,13 @@
           }
         },
         "body": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.",
+        "actionsAlign": "center center",
         "actions": [{
           "href": "#",
           "label": "Get Started"
+        }, {
+          "type": "closeDialog",
+          "label": "Ok"
         }]
       }]
     }
@@ -67,6 +72,7 @@
     "bg": {
       "classes": "bg-shadow bg-fill-width"
     },
+    "row": 4,
     "elements": [{
       "icon": "verified_user",
       "style": "style-v9",
