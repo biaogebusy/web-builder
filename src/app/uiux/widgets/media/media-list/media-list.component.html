@@ -1,8 +1,8 @@
 <div class="recent-posts" *ngIf="content">
   <h2 class="block-title">{{content.title}}</h2>
   <div class="list">
-    <div class="item" *ngFor="let item of content.elements">
-      <a [href]="item.link.href" class="post-img">
+    <div class="item {{item.img?.src ? '':'no-img'}}" *ngFor="let item of content.elements">
+      <a *ngIf="item.img?.src" [href]="item.link.href" class="post-img">
         <app-img [content]="item.img"></app-img>
         <mat-icon>open_in_new</mat-icon>
       </a>

@@ -66,6 +66,12 @@
         font-style: italic;
         margin-left: 108px;
       }
+      &.no-img {
+        .blog-title ::ng-deep a,
+        .blog-date {
+          margin-left: 0;
+        }
+      }
     }
   }
 }
