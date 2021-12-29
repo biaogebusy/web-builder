@@ -8,7 +8,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { MatTreeModule } from '@angular/material/tree';
 import { MatDividerModule } from '@angular/material/divider';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -22,7 +21,6 @@ import { MatListModule } from '@angular/material/list';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatChipsModule } from '@angular/material/chips';
-import { MatPaginatorModule } from '@angular/material/paginator';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -32,8 +30,6 @@ import { MatTableModule } from '@angular/material/table';
 
 // utils
 import { NgPipesModule } from 'ngx-pipes';
-import { MatIconRegistry } from '@angular/material/icon';
-import { DomSanitizer } from '@angular/platform-browser';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { IconService } from '@core/service/icon.service';
 
@@ -50,7 +46,6 @@ import { IconService } from '@core/service/icon.service';
     MatInputModule,
     MatDividerModule,
     FlexLayoutModule,
-    MatTreeModule,
     MatCheckboxModule,
     MatFormFieldModule,
     MatSelectModule,
@@ -62,7 +57,6 @@ import { IconService } from '@core/service/icon.service';
     MatExpansionModule,
     MatChipsModule,
     RouterModule,
-    MatPaginatorModule,
     ScrollingModule,
     MatTabsModule,
     MatDialogModule,
@@ -83,7 +77,6 @@ import { IconService } from '@core/service/icon.service';
     MatInputModule,
     MatDividerModule,
     FlexLayoutModule,
-    MatTreeModule,
     MatCheckboxModule,
     MatFormFieldModule,
     MatSelectModule,
@@ -97,7 +90,6 @@ import { IconService } from '@core/service/icon.service';
     MatTooltipModule,
     MatExpansionModule,
     MatChipsModule,
-    MatPaginatorModule,
     ScrollingModule,
     MatTabsModule,
     MatDialogModule,
