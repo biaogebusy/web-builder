@@ -20,13 +20,21 @@
         "top": "5%"
       },
       "bg": {
-        "classes": "bg-shadow overlay overlay-20",
+        "classes": "bg-shadow overlay overlay-80",
         "img": {
           "src": "/assets/images/hero/1-6.jpg",
           "mobile": "/assets/images/mobile/mobile-03.jpg"
         }
       },
-      "body": "The Vabeen’PLUM is designed with a 12ml ultra-large capacity tank to provide more vaping enjoyment than similar products. Every drop of e-liquid maximizes its value. Approx. 3500puffs per pod, which can last a week, free you from frequently filling.The translucent tank allows you to clearly observe the capacity of e - liquid.&nbsp;"
+      "body": "The Vabeen’PLUM is designed with a 12ml ultra-large capacity tank to provide more vaping enjoyment than similar products. Every drop of e-liquid maximizes its value. Approx. 3500puffs per pod, which can last a week, free you from frequently filling.The translucent tank allows you to clearly observe the capacity of e - liquid.&nbsp;",
+      "actionsAlign": "center center",
+      "actions": [{
+        "href": "#",
+        "label": "Get Started"
+      }, {
+        "type": "closeDialog",
+        "label": "Ok"
+      }]
     }
   }, {
     "type": "hero-2v1",
@@ -52,7 +60,15 @@
           "mobile": "/assets/images/mobile/mobile-04.jpg"
         }
       },
-      "body": "The Vabeen’PLUM is designed with a 12ml ultra-large capacity tank to provide more vaping enjoyment than similar products. Every drop of e-liquid maximizes its value. Approx. 3500puffs per pod, which can last a week, free you from frequently filling.The translucent tank allows you to clearly observe the capacity of e - liquid. <br> <br>*individual user experience may vary, depending on usage"
+      "body": "The Vabeen’PLUM is designed with a 12ml ultra-large capacity tank to provide more vaping enjoyment than similar products. Every drop of e-liquid maximizes its value. Approx. 3500puffs per pod, which can last a week, free you from frequently filling.The translucent tank allows you to clearly observe the capacity of e - liquid. <br> <br>*individual user experience may vary, depending on usage",
+      "actionsAlign": "start center",
+      "actions": [{
+        "href": "#",
+        "label": "Get Started"
+      }, {
+        "type": "closeDialog",
+        "label": "Ok"
+      }]
     }
   }, {
     "type": "hero-2v1",
@@ -79,7 +95,15 @@
           "mobile": "/assets/images/mobile/follower-04.jpg"
         }
       },
-      "body": "The Vabeen’PLUM is designed with a 12ml ultra-large capacity tank to provide more vaping enjoyment than similar products. Every drop of e-liquid maximizes its value. Approx. 3500puffs per pod, which can last a week, free you from frequently filling.The translucent tank allows you to clearly observe the capacity of e - liquid. <br> <br>*individual user experience may vary, depending on usage"
+      "body": "The Vabeen’PLUM is designed with a 12ml ultra-large capacity tank to provide more vaping enjoyment than similar products. Every drop of e-liquid maximizes its value. Approx. 3500puffs per pod, which can last a week, free you from frequently filling.The translucent tank allows you to clearly observe the capacity of e - liquid. <br> <br>*individual user experience may vary, depending on usage",
+      "actionsAlign": "start center",
+      "actions": [{
+        "href": "#",
+        "label": "Get Started"
+      }, {
+        "type": "closeDialog",
+        "label": "Ok"
+      }]
     }
   }, {
     "type": "hero-2v1",
@@ -107,7 +131,15 @@
           "mobile": "/assets/images/mobile/mobile-02.jpg"
         }
       },
-      "body": "The Vabeen’PLUM is designed with a 12ml ultra-large capacity tank to provide more vaping enjoyment than similar products. Every drop of e-liquid maximizes its value. Approx. 3500puffs per pod, which can last a week, free you from frequently filling.The translucent tank allows you to clearly observe the capacity of e - liquid. <br> <br>*individual user experience may vary, depending on usage"
+      "body": "The Vabeen’PLUM is designed with a 12ml ultra-large capacity tank to provide more vaping enjoyment than similar products. Every drop of e-liquid maximizes its value. Approx. 3500puffs per pod, which can last a week, free you from frequently filling.The translucent tank allows you to clearly observe the capacity of e - liquid. <br> <br>*individual user experience may vary, depending on usage",
+      "actionsAlign": "start center",
+      "actions": [{
+        "href": "#",
+        "label": "Get Started"
+      }, {
+        "type": "closeDialog",
+        "label": "Ok"
+      }]
     }
   }]
 }

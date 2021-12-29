@@ -141,6 +141,9 @@
           }, {
             "label": "Carousel 2v2",
             "href": "/sample/combs/carousel/carousel2v2"
+          }, {
+            "label": "Line Year",
+            "href": "/sample/combs/carousel/lineyear"
           }]
         }, {
           "label": "Node",
@@ -214,9 +217,6 @@
           }, {
             "label": "Banner",
             "href": "/sample/combs/banner/banner-simple"
-          }, {
-            "label": "Line Year",
-            "href": "/sample/combs/carousel/lineyear"
           }, {
             "label": "Why Choose Us",
             "href": "/sample/combs/other/whychooseus"

@@ -159,7 +159,7 @@
           "label": "Message",
           "params": {
             "required": true,
-            "matAutosizeMinRows": 10
+            "matAutosizeMinRows": 5
           },
           "key": "message",
           "placeholder": "Message"

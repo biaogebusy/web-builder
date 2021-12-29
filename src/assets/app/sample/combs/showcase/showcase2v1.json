@@ -30,7 +30,7 @@
           "fullIcon": "fullscreen",
           "openIcon": "open_in_new",
           "link": "#",
-          "ratios": "media-140",
+          "ratios": "media-4-3",
           "img": {
             "classes": "object-fit",
             "src": "/assets/images/cases/porto1.jpg",
@@ -42,7 +42,7 @@
           "fullIcon": "fullscreen",
           "openIcon": "open_in_new",
           "link": "#",
-          "ratios": "media-140",
+          "ratios": "media-4-3",
           "img": {
             "classes": "object-fit",
             "src": "/assets/images/cases/porto2.jpg",
@@ -75,7 +75,7 @@
           "fullIcon": "fullscreen",
           "openIcon": "open_in_new",
           "link": "#",
-          "ratios": "media-140",
+          "ratios": "media-4-3",
           "img": {
             "classes": "object-fit",
             "src": "/assets/images/cases/porto9.jpg",
@@ -108,7 +108,7 @@
           "fullIcon": "fullscreen",
           "openIcon": "open_in_new",
           "link": "#",
-          "ratios": "media-140",
+          "ratios": "media-4-3",
           "img": {
             "classes": "object-fit",
             "src": "/assets/images/cases/porto3.jpg",
@@ -141,7 +141,7 @@
           "fullIcon": "fullscreen",
           "openIcon": "open_in_new",
           "link": "#",
-          "ratios": "media-140",
+          "ratios": "media-4-3",
           "img": {
             "classes": "object-fit",
             "src": "/assets/images/cases/porto4.jpg",
@@ -174,7 +174,7 @@
           "fullIcon": "fullscreen",
           "openIcon": "open_in_new",
           "link": "#",
-          "ratios": "media-140",
+          "ratios": "media-4-3",
           "img": {
             "classes": "object-fit",
             "src": "/assets/images/cases/porto5.jpg",
@@ -207,7 +207,7 @@
           "fullIcon": "fullscreen",
           "openIcon": "open_in_new",
           "link": "#",
-          "ratios": "media-140",
+          "ratios": "media-4-3",
           "img": {
             "classes": "object-fit",
             "src": "/assets/images/cases/porto6.jpg",
@@ -240,7 +240,7 @@
           "fullIcon": "fullscreen",
           "openIcon": "open_in_new",
           "link": "#",
-          "ratios": "media-140",
+          "ratios": "media-4-3",
           "img": {
             "classes": "object-fit",
             "src": "/assets/images/cases/porto7.jpg",
@@ -273,7 +273,7 @@
           "fullIcon": "fullscreen",
           "openIcon": "open_in_new",
           "link": "#",
-          "ratios": "media-140",
+          "ratios": "media-4-3",
           "img": {
             "classes": "object-fit",
             "src": "/assets/images/cases/porto8.jpg",

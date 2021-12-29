@@ -74,7 +74,9 @@
     },
     "row": 4,
     "elements": [{
-      "icon": "verified_user",
+      "icon": {
+        "name": "verified_user"
+      },
       "style": "style-v9",
       "title": {
         "href": "#",
@@ -86,19 +88,23 @@
         "label": "Read More"
       }
     }, {
-      "icon": "fingerprint",
+      "icon": {
+        "name": "fingerprint"
+      },
       "style": "style-v9",
       "title": {
         "href": "#",
         "label": "Authorised Finance Brand"
       },
-      "content": "Provide customers with e-cigarette solutions beyond imagination",
+      "content": "Provide customers with e-cigarette solutions beyond",
       "more": {
         "href": "#",
         "label": "Read More"
       }
     }, {
-      "icon": "favorite",
+      "icon": {
+        "name": "favorite"
+      },
       "style": "style-v9",
       "title": {
         "href": "#",
@@ -110,13 +116,15 @@
         "label": "Read More"
       }
     }, {
-      "icon": "android",
+      "icon": {
+        "name": "android"
+      },
       "style": "style-v9",
       "title": {
         "href": "#",
         "label": "Best Tax Advantages"
       },
-      "content": "Innovation and creativity never halt<p id=\"about\">fragment</p>",
+      "content": "Innovation and creativity never halt",
       "more": {
         "href": "#",
         "label": "Read More"

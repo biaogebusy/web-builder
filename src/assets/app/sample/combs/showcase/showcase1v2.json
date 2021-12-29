@@ -12,6 +12,7 @@
     "bg": {
       "classes": "bg-shadow bg-fill-width"
     },
+    "row": "4",
     "elements": [{
       "img": {
         "src": "/assets/images/showcase/browser.png",
