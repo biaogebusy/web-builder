@@ -169,9 +169,9 @@ export class JobComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.tagsService.setTitle('内推职位列表');
     if (this.screenService.isPlatformBrowser()) {
       this.loading = true;
-      this.tagsService.setTitle('内推职位列表');
       this.getJobsNodes();
       this.getSkill();
       this.route.queryParamMap.subscribe((res) => {

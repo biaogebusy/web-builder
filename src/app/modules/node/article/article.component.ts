@@ -37,10 +37,8 @@ export class ArticleComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    if (this.screenService.isPlatformBrowser()) {
-      if (this.content.title) {
-        this.tagsService.setTitle(this.content.title);
-      }
+    if (this.content.title) {
+      this.tagsService.setTitle(this.content.title);
     }
   }
 

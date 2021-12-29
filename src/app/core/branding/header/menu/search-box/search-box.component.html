@@ -4,7 +4,7 @@
       <a href="{{content.link}}" target="_blank" title="Search">
         <mat-icon>search</mat-icon>
       </a>
-      <input matInput formControlName="{{content.key}}" type="search" size="15" maxlength="128" [id]="content.key"
+      <input matInput formControlName="{{content.key}}" type="search" size="15" maxlength="128"
         value="{{content.value}}" class="form-search" [matAutocomplete]="auto" placeholder="{{content?.placeholder}}">
       <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelected($event)">
         <mat-option *ngFor="let option of options" [value]="option.href">

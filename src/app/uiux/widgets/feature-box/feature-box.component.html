@@ -9,7 +9,7 @@
       </a>
     </div>
     <ng-template #noIcon>
-      <a href="{{content.link}}" class="feature-inner-btns width-100 height-100"></a>
+      <a *ngIf="content.link" href="{{content.link}}" class="feature-inner-btns width-100 height-100"></a>
     </ng-template>
     <div class="feature-inner-ling">
       <div class="media" [ngClass]="content.ratios || 'media-4-3'">

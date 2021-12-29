@@ -1,10 +1,11 @@
 <ng-container *ngIf="appState?.config?.theme">
   <div class="switch-theme" [matTooltip]="'切换风格'" matTooltipPosition="above">
-    <button mat-icon-button [mat-menu-trigger-for]="menu">
+    <button aria-label="switch theme" mat-icon-button [mat-menu-trigger-for]="menu">
       <mat-icon color="primary">format_color_fill</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-      <button *ngFor="let theme of appState.config.theme" mat-menu-item (click)="onSwitchTheme(theme.style)">
+      <button aria-label="switch theme item" *ngFor="let theme of appState.config.theme" mat-menu-item
+        (click)="onSwitchTheme(theme.style)">
         <mat-icon *ngIf="appState.theme !== theme.style">radio_button_unchecked</mat-icon>
         <mat-icon color="primary" *ngIf="appState.theme === theme.style"> radio_button_checked </mat-icon>
         <span>{{theme.name}}</span>
