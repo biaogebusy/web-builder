@@ -69,6 +69,7 @@ export function app(): express.Express {
   // Set headers for all requests
   server.get('*', (req, res, next) => {
     res.setHeader('X-Frame-Options', 'DENY');
+    res.setHeader('Cache-Control', 'max-age=1800');
     next();
   });
 
