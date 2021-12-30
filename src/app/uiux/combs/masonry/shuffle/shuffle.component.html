@@ -1,5 +1,5 @@
 <div class="shuffle-container" *ngIf="content">
-  <a class="anchor" [id]="content.id||''"></a>
+  <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <div class="container">
     <app-title *ngIf="content.title" [content]="content.title"></app-title>

@@ -1,5 +1,5 @@
 <div class="carousel-2-v2 position-relative" *ngIf="content" [ngClass]="content.classes">
-  <a class="anchor" [id]="content.id||''"></a>
+  <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
   <app-bg *ngIf="content.bg" [content]="content.bg">
     <app-img [content]="content.bg.img"></app-img>
   </app-bg>

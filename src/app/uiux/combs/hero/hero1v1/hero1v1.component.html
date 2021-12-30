@@ -1,5 +1,5 @@
 <div class="hero-1-v1 position-relative" *ngIf="content" [ngClass]="content.classes">
-  <a class="anchor" [id]="content.id||''"></a>
+  <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <div class="container">
     <app-swiper [content]="content.sliders"></app-swiper>

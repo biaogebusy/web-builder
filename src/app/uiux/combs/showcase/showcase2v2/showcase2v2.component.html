@@ -1,5 +1,5 @@
 <div class="container showcase-2v2 position-relative" *ngIf="content" fxLayout="column">
-  <a class="anchor" [id]="content.id||''"></a>
+  <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <app-text [content]="content.text" *ngIf="content.text"></app-text>
   <div class="m-y" fxLayout="row wrap" fxLayoutAlign="center start" fxFlex="100%">

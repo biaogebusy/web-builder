@@ -1,5 +1,5 @@
 <div class="carousel-2-v1 position-relative" [class.section-light]="content.bg" *ngIf="content">
-  <a class="anchor" [id]="content.id||''"></a>
+  <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <app-bg *ngIf="content.bg" [content]="content.bg">
     <app-img [content]="content.bg.img"></app-img>
