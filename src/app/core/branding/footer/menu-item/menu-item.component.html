@@ -4,7 +4,7 @@
     <ng-container *ngFor="let subMenu of menu.child; index as i">
       <mat-list-item *ngIf="!subMenu.popup; else popup" role="listitem">
         <mat-icon mat-list-icon svgIcon="{{subMenu.icon}}"></mat-icon>
-        <app-link *ngIf="subMenu.href" [content]="subMenu"></app-link>
+        <app-link [content]="subMenu"></app-link>
       </mat-list-item>
       <ng-template #popup>
         <mat-list-item role="listitem" [matMenuTriggerFor]="popup">
