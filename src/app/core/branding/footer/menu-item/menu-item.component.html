@@ -1,6 +1,6 @@
 <div *ngIf="content && !screen.eq('xs')" class="footer-main-menu" fxLayoutAlign="space-between start">
   <mat-list fxFlex="auto" *ngFor="let menu of content" role="list">
-    <div mat-subheader>{{menu.label}}</div>
+    <div mat-subheader class="bold">{{menu.label}}</div>
     <ng-container *ngFor="let subMenu of menu.child; index as i">
       <mat-list-item *ngIf="!subMenu.popup; else popup" role="listitem">
         <mat-icon mat-list-icon svgIcon="{{subMenu.icon}}"></mat-icon>

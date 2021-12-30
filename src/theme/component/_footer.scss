@@ -55,7 +55,7 @@
       border-color: $text;
       &:hover {
         border-color: $contrast;
-        background-color: $contrast;
+        background-color: #eee;
         .mat-icon {
           color: mat-color($primary);
         }
@@ -94,8 +94,8 @@
   $inverse-text-contrast: #fff;
   $inverse-form: #4c4c4c;
 
-  $inverse-bg-light: mat-color($background, background);
-  $inverse-text-light: mat-color($foreground, text, 0.75);
+  $inverse-bg-light: mat-color($background, status-bar, 0.6);
+  $inverse-text-light: $text-base;
   $inverse-text-contrast-light: mat-color($foreground, text, 0.6);
   $inverse-form-light: mat-color($foreground, text, 0.1);
   .footer {
