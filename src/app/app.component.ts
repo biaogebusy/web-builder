@@ -67,9 +67,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 
       this.router.fragment.subscribe((fragment) => {
         if (fragment) {
-          setTimeout(() => {
-            this.screenService.scrollToAnchor(fragment);
-          }, 1000);
+          this.screenService.scrollToAnchor(fragment);
         }
       });
     }

@@ -37,7 +37,7 @@ const distFolder = join(process.cwd(), `${environment.site}/browser`);
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
   const server = express();
-  server.use(compressionModule());
+  server.use(compressionModule({ level: 6 }));
   const indexHtml = existsSync(join(distFolder, 'index.original.html'))
     ? 'index.original.html'
     : 'index';
