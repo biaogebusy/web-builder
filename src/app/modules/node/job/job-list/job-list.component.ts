@@ -5,6 +5,7 @@ import {
   Output,
   EventEmitter,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -21,9 +22,9 @@ export class JobListComponent implements OnInit {
   @Output() scroller = new EventEmitter();
 
   scrolling = false;
-  constructor() { }
+  constructor(private cd: ChangeDetectorRef) {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   onClick(item: any, i: number): void {
     const obj = {
@@ -35,5 +36,6 @@ export class JobListComponent implements OnInit {
   onScroll(event: number): void {
     this.scrolling = !!event;
     this.scroller.emit(true);
+    this.cd.markForCheck();
   }
 }

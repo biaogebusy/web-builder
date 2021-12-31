@@ -5,11 +5,10 @@ import {
   ViewChild,
   AfterViewInit,
   OnDestroy,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import {
   SwiperConfigInterface,
-  SwiperCoverflowEffectInterface,
-  SwiperNavigationInterface,
   SwiperPaginationInterface,
   SwiperDirective,
 } from 'ngx-swiper-wrapper';
@@ -30,6 +29,7 @@ const paginationgConfig: SwiperPaginationInterface = {
   selector: 'app-swiper',
   templateUrl: './swiper.component.html',
   styleUrls: ['./swiper.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SwiperComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() content: any;

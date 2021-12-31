@@ -1,4 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { isEmpty, omitBy } from 'lodash-es';
 import { NodeService } from '@core/service/node.service';
@@ -10,6 +16,7 @@ import { ScreenService } from '@core/service/screen.service';
   selector: 'app-tree-list',
   templateUrl: './tree-list.component.html',
   styleUrls: ['./tree-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TreeListComponent extends BaseComponent implements OnInit {
   @Input() content: any;
@@ -22,7 +29,8 @@ export class TreeListComponent extends BaseComponent implements OnInit {
     public nodeService: NodeService,
     private router: ActivatedRoute,
     public routerService: RouteService,
-    private screenService: ScreenService
+    private screenService: ScreenService,
+    private cd: ChangeDetectorRef
   ) {
     super(nodeService, routerService);
   }
@@ -81,6 +89,7 @@ export class TreeListComponent extends BaseComponent implements OnInit {
         actions: item.actions || [],
       };
     });
+    this.cd.markForCheck();
   }
 
   onPageChange(page: any): void {

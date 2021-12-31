@@ -1,5 +1,12 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, Input, OnInit, AfterViewInit, Inject } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  AfterViewInit,
+  Inject,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -7,8 +14,6 @@ import {
   Validators,
 } from '@angular/forms';
 import hljs from 'highlight.js';
-import javascript from 'highlight.js/lib/languages/javascript';
-import json from 'highlight.js/lib/languages/json';
 import { TagsService } from '@core/service/tags.service';
 import { AppState } from '@core/mobx/AppState';
 import { ScreenState } from '@core/mobx/screen/ScreenState';
@@ -17,6 +22,7 @@ import { ScreenService } from '@core/service/screen.service';
   selector: 'app-article',
   templateUrl: './article.component.html',
   styleUrls: ['./article.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ArticleComponent implements OnInit, AfterViewInit {
   @Input() content: any;

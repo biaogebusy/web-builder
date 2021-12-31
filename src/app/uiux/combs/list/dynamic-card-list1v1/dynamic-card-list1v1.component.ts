@@ -1,4 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { result } from 'lodash';
 import { NodeService } from '@core/service/node.service';
 import { RouteService } from '@core/service/route.service';
@@ -9,6 +15,7 @@ import { ScreenService } from '@core/service/screen.service';
   selector: 'app-dynamic-card-list1v1',
   templateUrl: './dynamic-card-list1v1.component.html',
   styleUrls: ['./dynamic-card-list1v1.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DynamicCardList1v1Component
   extends BaseComponent
@@ -23,7 +30,8 @@ export class DynamicCardList1v1Component
   constructor(
     public nodeService: NodeService,
     public routerService: RouteService,
-    private screenService: ScreenService
+    private screenService: ScreenService,
+    private cd: ChangeDetectorRef
   ) {
     super(nodeService, routerService);
   }
@@ -44,10 +52,12 @@ export class DynamicCardList1v1Component
       (data) => {
         this.updateList(data);
         this.loading = false;
+        this.cd.markForCheck();
       },
       (error) => {
         console.log(error);
         this.loading = false;
+        this.cd.markForCheck();
       }
     );
   }
@@ -77,6 +87,7 @@ export class DynamicCardList1v1Component
         moreLabel: '查看更多',
       };
     });
+    this.cd.markForCheck();
   }
 
   onPageChange(page: number): void {

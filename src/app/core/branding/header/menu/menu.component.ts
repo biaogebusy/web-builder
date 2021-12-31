@@ -1,4 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { ScreenState } from '../../../mobx/screen/ScreenState';
 import { AppState } from '../../../mobx/AppState';
 import { Event, NavigationStart, Router } from '@angular/router';
@@ -6,6 +12,7 @@ import { Event, NavigationStart, Router } from '@angular/router';
   selector: 'app-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MenuComponent implements OnInit {
   isOpened = false;
@@ -15,7 +22,8 @@ export class MenuComponent implements OnInit {
   constructor(
     public screen: ScreenState,
     public appState: AppState,
-    private router: Router
+    private router: Router,
+    private cd: ChangeDetectorRef
   ) {
     this.router.events.subscribe((event: Event) => {
       if (this.isDrawer && event instanceof NavigationStart) {
@@ -29,5 +37,6 @@ export class MenuComponent implements OnInit {
   onToggle(): void {
     this.isOpened = !this.isOpened;
     this.screen.toggleDrawer(this.isOpened);
+    this.cd.markForCheck();
   }
 }

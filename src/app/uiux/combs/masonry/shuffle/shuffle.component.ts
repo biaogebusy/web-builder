@@ -4,6 +4,7 @@ import {
   OnInit,
   ElementRef,
   AfterViewInit,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { ScreenService } from '@core/service/screen.service';
 import Shuffle from 'shufflejs';
@@ -11,6 +12,7 @@ import Shuffle from 'shufflejs';
   selector: 'app-shuffle',
   templateUrl: './shuffle.component.html',
   styleUrls: ['./shuffle.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ShuffleComponent implements OnInit, AfterViewInit {
   @Input() content: any;

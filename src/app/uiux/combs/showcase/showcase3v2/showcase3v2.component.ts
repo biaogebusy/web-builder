@@ -1,15 +1,19 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 
 @Component({
   selector: 'app-showcase3v2',
   templateUrl: './showcase3v2.component.html',
-  styleUrls: ['./showcase3v2.component.scss']
+  styleUrls: ['./showcase3v2.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Showcase3v2Component implements OnInit {
   @Input() content: any;
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

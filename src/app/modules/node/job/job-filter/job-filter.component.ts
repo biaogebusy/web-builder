@@ -8,21 +8,24 @@ import {
   ElementRef,
   AfterViewInit,
   OnDestroy,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
 } from '@angular/core';
-import { fromEvent, Subscription } from 'rxjs';
-import { FormControl } from '@angular/forms';
 import {
   map,
   debounceTime,
   distinctUntilChanged,
   startWith,
 } from 'rxjs/operators';
+import { FormControl } from '@angular/forms';
+import { fromEvent, Subscription } from 'rxjs';
 import { ScreenService } from '@core/service/screen.service';
 
 @Component({
   selector: 'app-job-filter',
   templateUrl: './job-filter.component.html',
   styleUrls: ['./job-filter.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class JobFilterComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() content: any;
@@ -40,7 +43,10 @@ export class JobFilterComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('input', { read: ElementRef }) input: ElementRef;
   subscription: Subscription;
 
-  constructor(private screenService: ScreenService) {}
+  constructor(
+    private screenService: ScreenService,
+    private cd: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {}
 
@@ -51,6 +57,7 @@ export class JobFilterComponent implements OnInit, AfterViewInit, OnDestroy {
   onClear(): void {
     this.input.nativeElement.value = '';
     this.clear.emit();
+    this.cd.markForCheck();
   }
 
   ngAfterViewInit(): void {

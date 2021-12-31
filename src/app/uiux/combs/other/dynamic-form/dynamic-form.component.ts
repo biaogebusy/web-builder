@@ -1,4 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { IAction, IActionParams, IControl } from '@core/interface/IForm';
 import { UserState } from '@core/mobx/user/UserState';
@@ -13,6 +19,7 @@ import { ScreenService } from '@core/service/screen.service';
   selector: 'app-dynamic-form',
   templateUrl: './dynamic-form.component.html',
   styleUrls: ['./dynamic-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DynamicFormComponent implements OnInit {
   @Input() content: IControl[];
@@ -26,7 +33,8 @@ export class DynamicFormComponent implements OnInit {
     private dialogService: DialogService,
     private utilitiesService: UtilitiesService,
     private router: Router,
-    private screenService: ScreenService
+    private screenService: ScreenService,
+    private cd: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -48,10 +56,12 @@ export class DynamicFormComponent implements OnInit {
             this.dialogService.closeDialog();
             this.router.navigate([link]);
           }, 2000);
+          this.cd.markForCheck();
         },
         () => {
           this.loading = false;
           console.log('Please check user state.');
+          this.cd.markForCheck();
         }
       );
   }

@@ -1,4 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { NodeService } from '@core/service/node.service';
 import { RouteService } from '@core/service/route.service';
 import { ScreenService } from '@core/service/screen.service';
@@ -8,6 +14,7 @@ import { BaseComponent } from '@uiux/base/base.widget';
   selector: 'app-dynamic-media-list',
   templateUrl: './dynamic-media-list.component.html',
   styleUrls: ['./dynamic-media-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DynamicMediaListComponent extends BaseComponent implements OnInit {
   @Input() content: any;
@@ -18,7 +25,8 @@ export class DynamicMediaListComponent extends BaseComponent implements OnInit {
   constructor(
     public nodeService: NodeService,
     public routerService: RouteService,
-    private screenService: ScreenService
+    private screenService: ScreenService,
+    private cd: ChangeDetectorRef
   ) {
     super(nodeService, routerService);
   }
@@ -78,6 +86,7 @@ export class DynamicMediaListComponent extends BaseComponent implements OnInit {
     });
     this.links = res.links;
     this.loading = false;
+    this.cd.markForCheck();
   }
 
   loadContent(link: string): void {

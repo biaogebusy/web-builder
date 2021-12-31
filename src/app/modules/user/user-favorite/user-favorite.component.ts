@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NodeService } from '@core/service/node.service';
 import { UserService } from '@core/service/user.service';
@@ -9,6 +14,7 @@ import { ScreenService } from '@core/service/screen.service';
   selector: 'app-user-favorite',
   templateUrl: './user-favorite.component.html',
   styleUrls: ['./user-favorite.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserFavoriteComponent implements OnInit {
   content: any;
@@ -21,7 +27,8 @@ export class UserFavoriteComponent implements OnInit {
     private router: ActivatedRoute,
     private userService: UserService,
     private nodeService: NodeService,
-    private screenService: ScreenService
+    private screenService: ScreenService,
+    private cd: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -102,6 +109,7 @@ export class UserFavoriteComponent implements OnInit {
             };
           });
           this.loading = false;
+          this.cd.markForCheck();
         },
         (error) => {
           console.log(error);

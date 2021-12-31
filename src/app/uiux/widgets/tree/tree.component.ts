@@ -6,12 +6,14 @@ import {
   EventEmitter,
   ViewChild,
   AfterViewInit,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { ScreenService } from '@core/service/screen.service';
 @Component({
   selector: 'app-tree',
   templateUrl: './tree.component.html',
   styleUrls: ['./tree.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TreeComponent implements OnInit, AfterViewInit {
   @Input() content: any;

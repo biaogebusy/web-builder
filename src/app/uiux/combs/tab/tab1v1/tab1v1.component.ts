@@ -1,4 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { NodeService } from '@core/service/node.service';
@@ -10,6 +16,7 @@ import { ScreenService } from '@core/service/screen.service';
   selector: 'app-tab1v1',
   templateUrl: './tab1v1.component.html',
   styleUrls: ['./tab1v1.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Tab1v1Component extends BaseComponent implements OnInit {
   @Input() content: any;
@@ -23,7 +30,8 @@ export class Tab1v1Component extends BaseComponent implements OnInit {
     public nodeService: NodeService,
     public routerService: RouteService,
     private router: ActivatedRoute,
-    private screenService: ScreenService
+    private screenService: ScreenService,
+    private cd: ChangeDetectorRef
   ) {
     super(nodeService, routerService);
   }
@@ -75,6 +83,7 @@ export class Tab1v1Component extends BaseComponent implements OnInit {
         });
       });
     }
+    this.cd.markForCheck();
   }
 
   onSelectChange(index: number): void {
@@ -95,5 +104,6 @@ export class Tab1v1Component extends BaseComponent implements OnInit {
   updateList(values: any): void {
     this.initTab(values);
     this.updateUrl(values);
+    this.cd.markForCheck();
   }
 }

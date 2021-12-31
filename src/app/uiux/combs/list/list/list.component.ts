@@ -1,10 +1,18 @@
-import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  OnInit,
+  EventEmitter,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { ScreenService } from '@core/service/screen.service';
 
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ListComponent implements OnInit {
   @Input() content: any;

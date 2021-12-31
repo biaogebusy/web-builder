@@ -1,4 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { NodeService } from '@core/service/node.service';
 import { RouteService } from '@core/service/route.service';
@@ -10,6 +18,7 @@ import { AppState } from '@core/mobx/AppState';
   selector: 'app-dynamic-text-list',
   templateUrl: './dynamic-text-list.component.html',
   styleUrls: ['./dynamic-text-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DynamicTextListComponent extends BaseComponent implements OnInit {
   @Input() content: any;
@@ -23,7 +32,8 @@ export class DynamicTextListComponent extends BaseComponent implements OnInit {
     public nodeService: NodeService,
     public routerService: RouteService,
     private appState: AppState,
-    private screenService: ScreenService
+    private screenService: ScreenService,
+    private cd: ChangeDetectorRef
   ) {
     super(nodeService, routerService);
   }
@@ -76,6 +86,7 @@ export class DynamicTextListComponent extends BaseComponent implements OnInit {
     });
     this.links = res.links;
     this.loading = false;
+    this.cd.markForCheck();
   }
 
   trackByFn(index: number, item: any): number {

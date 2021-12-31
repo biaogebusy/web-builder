@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+} from '@angular/core';
 import { NodeService } from '@core/service/node.service';
 import { map } from 'lodash-es';
 import { IShowcase2v1 } from '@uiux/combs/ICombs';
@@ -7,13 +12,16 @@ import { ScreenService } from '@core/service/screen.service';
   selector: 'app-case',
   templateUrl: './case.component.html',
   styleUrls: ['./case.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CaseComponent implements OnInit {
   content: IShowcase2v1;
   loading = false;
+
   constructor(
     private nodeService: NodeService,
-    private screenService: ScreenService
+    private screenService: ScreenService,
+    private cd: ChangeDetectorRef
   ) {
     this.content = {
       text: {
@@ -27,6 +35,7 @@ export class CaseComponent implements OnInit {
       },
       elements: [],
     };
+    this.cd.markForCheck();
   }
 
   ngOnInit(): void {
@@ -94,6 +103,7 @@ export class CaseComponent implements OnInit {
         };
       });
       this.loading = false;
+      this.cd.markForCheck();
     });
   }
 }

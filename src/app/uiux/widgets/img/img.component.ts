@@ -1,4 +1,10 @@
-import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  HostBinding,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { ScreenState } from '@core/mobx/screen/ScreenState';
 import { ScreenService } from '@core/service/screen.service';
 
@@ -6,6 +12,7 @@ import { ScreenService } from '@core/service/screen.service';
   selector: 'app-img',
   templateUrl: './img.component.html',
   styleUrls: ['./img.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ImgComponent implements OnInit {
   @Input() content: any;

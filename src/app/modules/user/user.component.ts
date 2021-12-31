@@ -1,14 +1,21 @@
-import { Component, OnInit, Query, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Query,
+  OnDestroy,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '@core/service/user.service';
 import { UserState } from '@core/mobx/user/UserState';
-import { AppState } from '@core/mobx/AppState';
 import { ScreenService } from '@core/service/screen.service';
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserComponent implements OnInit, OnDestroy {
   user: any;
@@ -18,8 +25,8 @@ export class UserComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private userState: UserState,
     private route: Router,
-    private appState: AppState,
-    private screenService: ScreenService
+    private screenService: ScreenService,
+    private cd: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -85,6 +92,7 @@ export class UserComponent implements OnInit, OnDestroy {
         },
       };
       this.user = Object.assign(people, profile);
+      this.cd.markForCheck();
     });
   }
 
@@ -112,7 +120,5 @@ export class UserComponent implements OnInit, OnDestroy {
     this.userState.logout();
   }
 
-  ngOnDestroy(): void {
-    this.userState.user$.unsubscribe();
-  }
+  ngOnDestroy(): void {}
 }

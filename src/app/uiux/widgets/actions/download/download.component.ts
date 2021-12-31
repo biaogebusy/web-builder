@@ -1,4 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { AppState } from '@core/mobx/AppState';
 import { ScreenService } from '@core/service/screen.service';
 
@@ -6,6 +11,7 @@ import { ScreenService } from '@core/service/screen.service';
   selector: 'app-download',
   templateUrl: './download.component.html',
   styleUrls: ['./download.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DownloadComponent implements OnInit {
   @Input() content: any;

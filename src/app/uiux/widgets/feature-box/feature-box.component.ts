@@ -1,9 +1,15 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { Lightbox, LightboxConfig } from 'ngx-lightbox';
 @Component({
   selector: 'app-feature-box',
   templateUrl: './feature-box.component.html',
   styleUrls: ['./feature-box.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FeatureBoxComponent implements OnInit {
   @Input() content: any;

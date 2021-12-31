@@ -1,4 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { omitBy, isEmpty } from 'lodash-es';
 import { NodeService } from '@core/service/node.service';
@@ -13,6 +19,7 @@ import { ScreenService } from '@core/service/screen.service';
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchComponent extends BaseComponent implements OnInit {
   @Input() content: any;
@@ -28,7 +35,8 @@ export class SearchComponent extends BaseComponent implements OnInit {
     private router: ActivatedRoute,
     public routerService: RouteService,
     private formService: FormService,
-    private screenService: ScreenService
+    private screenService: ScreenService,
+    private cd: ChangeDetectorRef
   ) {
     super(nodeService, routerService);
   }
@@ -91,6 +99,7 @@ export class SearchComponent extends BaseComponent implements OnInit {
       },
       (error) => {
         this.loading = false;
+        this.cd.markForCheck();
       }
     );
   }
@@ -112,5 +121,6 @@ export class SearchComponent extends BaseComponent implements OnInit {
       };
     });
     this.updateUrl(formValues, options);
+    this.cd.markForCheck();
   }
 }

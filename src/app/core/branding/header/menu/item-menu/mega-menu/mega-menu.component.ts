@@ -1,5 +1,13 @@
-import { Component, Input, OnInit, ElementRef, OnDestroy } from '@angular/core';
-import { fromEvent, Observable, of } from 'rxjs';
+import {
+  Component,
+  Input,
+  OnInit,
+  ElementRef,
+  OnDestroy,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+} from '@angular/core';
+import { fromEvent, of } from 'rxjs';
 import { mergeMap, delay, takeUntil } from 'rxjs/operators';
 import { ScreenState } from '@core/mobx/screen/ScreenState';
 import { ScreenService } from '@core/service/screen.service';
@@ -8,6 +16,7 @@ import { ScreenService } from '@core/service/screen.service';
   selector: 'app-mega-menu',
   templateUrl: './mega-menu.component.html',
   styleUrls: ['./mega-menu.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MegaMenuComponent implements OnInit, OnDestroy {
   @Input() content: any;
@@ -15,7 +24,8 @@ export class MegaMenuComponent implements OnInit, OnDestroy {
   constructor(
     private eleRef: ElementRef,
     private screenState: ScreenState,
-    private screenService: ScreenService
+    private screenService: ScreenService,
+    private cd: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -37,6 +47,7 @@ export class MegaMenuComponent implements OnInit, OnDestroy {
       )
       .subscribe((event) => {
         this.active = true;
+        this.cd.markForCheck();
       });
 
     leave
@@ -47,6 +58,7 @@ export class MegaMenuComponent implements OnInit, OnDestroy {
       )
       .subscribe((event) => {
         this.active = false;
+        this.cd.markForCheck();
       });
 
     this.screenState.stickyMenu$.subscribe((sticky) => {
@@ -54,6 +66,7 @@ export class MegaMenuComponent implements OnInit, OnDestroy {
         return;
       }
       this.active = false;
+      this.cd.markForCheck();
     });
   }
 

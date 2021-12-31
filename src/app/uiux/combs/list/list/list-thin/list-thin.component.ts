@@ -1,9 +1,17 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { ScreenService } from '@core/service/screen.service';
 @Component({
   selector: 'app-list-thin',
   templateUrl: './list-thin.component.html',
   styleUrls: ['./list-thin.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ListThinComponent implements OnInit {
   @Input() content: any;

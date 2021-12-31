@@ -1,15 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-shape',
   templateUrl: './shape.component.html',
-  styleUrls: ['./shape.component.scss']
+  styleUrls: ['./shape.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ShapeComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

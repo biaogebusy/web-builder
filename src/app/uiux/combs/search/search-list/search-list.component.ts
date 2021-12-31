@@ -1,9 +1,17 @@
-import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  EventEmitter,
+  Output,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 
 @Component({
   selector: 'app-search-list',
   templateUrl: './search-list.component.html',
   styleUrls: ['./search-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchListComponent implements OnInit {
   @Input() content: any;

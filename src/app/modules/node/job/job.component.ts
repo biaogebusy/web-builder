@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+} from '@angular/core';
 import { NodeService } from '@core/service/node.service';
 import { IChipList } from './IJob';
 import { map } from 'lodash-es';
@@ -141,6 +146,7 @@ const feature = {
   selector: 'app-job',
   templateUrl: './job.component.html',
   styleUrls: ['./job.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class JobComponent implements OnInit {
   nodes: any[];
@@ -163,7 +169,8 @@ export class JobComponent implements OnInit {
     private tagsService: TagsService,
     private routerService: RouteService,
     private route: ActivatedRoute,
-    private screenService: ScreenService
+    private screenService: ScreenService,
+    private cd: ChangeDetectorRef
   ) {
     this.nodes = [];
   }
@@ -177,11 +184,13 @@ export class JobComponent implements OnInit {
       this.route.queryParamMap.subscribe((res) => {
         this.paramsInit(res);
       });
+      this.cd.markForCheck();
     }
   }
 
   paramsInit(params: Params): void {
     this.selectedId = params.params.id;
+    this.cd.markForCheck();
   }
 
   jobParams(params = ''): any {
@@ -235,6 +244,7 @@ export class JobComponent implements OnInit {
             name: item.attributes.name,
           };
         });
+        this.cd.markForCheck();
       });
   }
 
@@ -244,6 +254,7 @@ export class JobComponent implements OnInit {
     this.amapState.markers$.next(obj);
     const query: Params = { id: this.selectedId };
     this.routerService.updateQueryParams(query);
+    this.cd.markForCheck();
   }
 
   onScroll(event: boolean): void {
@@ -252,11 +263,13 @@ export class JobComponent implements OnInit {
 
   moveBox(show: boolean): void {
     this.selected = show;
+    this.cd.markForCheck();
   }
 
   onSearch(key: string): void {
     this.nodeService.searchByKey(key).subscribe((res) => {
       this.autoList = res;
+      this.cd.markForCheck();
     });
   }
 
@@ -278,6 +291,7 @@ export class JobComponent implements OnInit {
       .subscribe((res) => {
         this.updateList(res.data);
       });
+    this.cd.markForCheck();
   }
 
   onSkillChange(skill: string): void {
@@ -285,6 +299,7 @@ export class JobComponent implements OnInit {
     this.nodeService.getNodes('job', this.getFilterParams).subscribe((res) => {
       this.updateList(res.data);
     });
+    this.cd.markForCheck();
   }
 
   onSearchJob(title: string): void {
@@ -294,6 +309,7 @@ export class JobComponent implements OnInit {
       .subscribe((res) => {
         this.updateList(res.data);
       });
+    this.cd.markForCheck();
   }
 
   updateList(lists: any): void {
@@ -329,5 +345,6 @@ export class JobComponent implements OnInit {
         },
       };
     });
+    this.cd.markForCheck();
   }
 }

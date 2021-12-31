@@ -6,6 +6,7 @@ import {
   ElementRef,
   AfterViewInit,
   OnDestroy,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { MatAccordion } from '@angular/material/expansion';
@@ -16,6 +17,7 @@ import { ScreenService } from '@core/service/screen.service';
   selector: 'app-footer',
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FooterComponent implements OnInit, AfterViewInit, OnDestroy {
   content: any;

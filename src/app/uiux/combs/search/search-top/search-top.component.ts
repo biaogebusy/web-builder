@@ -1,4 +1,12 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormService } from '@core/service/form.service';
 import { ScreenService } from '@core/service/screen.service';
@@ -7,6 +15,7 @@ import { ScreenService } from '@core/service/screen.service';
   selector: 'app-search-top',
   templateUrl: './search-top.component.html',
   styleUrls: ['./search-top.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchTopComponent implements OnInit {
   @Input() content: any;
@@ -15,7 +24,8 @@ export class SearchTopComponent implements OnInit {
   form: FormGroup;
   constructor(
     private formService: FormService,
-    private screenService: ScreenService
+    private screenService: ScreenService,
+    private cd: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -29,5 +39,6 @@ export class SearchTopComponent implements OnInit {
     this.form.valueChanges.subscribe((value) => {
       this.selectChange.emit(value);
     });
+    this.cd.markForCheck();
   }
 }

@@ -7,6 +7,7 @@ import {
   ViewChild,
   ViewEncapsulation,
   AfterViewInit,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { ScreenService } from '@core/service/screen.service';
 import videojs from 'video.js';
@@ -15,6 +16,7 @@ import videojs from 'video.js';
   templateUrl: './video-bg.component.html',
   styleUrls: ['./video-bg.component.scss'],
   encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VideoBgComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() content: any;

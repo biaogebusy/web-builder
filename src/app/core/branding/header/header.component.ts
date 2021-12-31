@@ -6,6 +6,8 @@ import {
   AfterViewInit,
   Inject,
   OnDestroy,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { ScreenService } from '../../service/screen.service';
 import { ScreenState } from '../../mobx/screen/ScreenState';
@@ -16,6 +18,7 @@ import { DOCUMENT } from '@angular/common';
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   sticky = false;
@@ -28,6 +31,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
     public branding: BrandingState,
     public appState: AppState,
     public screen: ScreenState,
+    private cd: ChangeDetectorRef,
     @Inject(DOCUMENT) private doc: Document
   ) {}
 
@@ -43,6 +47,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
         if (this.appState?.pageConfig?.headerMode?.transparent) {
           this.windowScroll();
         }
+        this.cd.markForCheck();
       });
     }
   }

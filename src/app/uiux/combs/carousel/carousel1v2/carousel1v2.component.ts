@@ -1,10 +1,16 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-carousel1v2',
   templateUrl: './carousel1v2.component.html',
   styleUrls: ['./carousel1v2.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Carousel1v2Component implements OnInit {
   @Input() content: any;

@@ -1,7 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormService } from '../../../service/form.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ApiService } from '../../../service/api.service';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -10,6 +15,7 @@ import { UtilitiesService } from '@core/service/utilities.service';
   selector: 'app-inverse',
   templateUrl: './inverse.component.html',
   styleUrls: ['./inverse.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InverseComponent implements OnInit {
   @Input() content: any;
@@ -19,10 +25,10 @@ export class InverseComponent implements OnInit {
 
   constructor(
     public formService: FormService,
-    private snackbar: MatSnackBar,
     private http: HttpClient,
     private apiService: ApiService,
-    private utilitiesService: UtilitiesService
+    private utilitiesService: UtilitiesService,
+    private cd: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -53,6 +59,7 @@ export class InverseComponent implements OnInit {
           this.submited = false;
           this.success = true;
           this.utilitiesService.openSnackbar('成功订阅！');
+          this.cd.markForCheck();
         },
         (error) => {
           this.submited = false;

@@ -1,4 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { AppState } from '@core/mobx/AppState';
 import { NodeService } from '@core/service/node.service';
 import { BaseComponent } from '@uiux/base/base.widget';
@@ -11,6 +17,7 @@ import { ScreenService } from '@core/service/screen.service';
   selector: 'app-flag',
   templateUrl: './flag.component.html',
   styleUrls: ['./flag.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FlagComponent extends BaseComponent implements OnInit {
   @Input() content: any;
@@ -21,7 +28,8 @@ export class FlagComponent extends BaseComponent implements OnInit {
     public routerService: RouteService,
     private userState: UserState,
     public appState: AppState,
-    private screenService: ScreenService
+    private screenService: ScreenService,
+    private cd: ChangeDetectorRef
   ) {
     super(nodeService, routerService);
   }
@@ -56,6 +64,7 @@ export class FlagComponent extends BaseComponent implements OnInit {
       .subscribe((res) => {
         if (res.data.length) {
           this.flagging = true;
+          this.cd.markForCheck();
         }
       });
   }
@@ -93,6 +102,7 @@ export class FlagComponent extends BaseComponent implements OnInit {
         .flagging(this.path, JSON.stringify(data))
         .subscribe((res) => {
           this.flagging = true;
+          this.cd.markForCheck();
         });
     } else {
       this.nodeService
@@ -108,6 +118,7 @@ export class FlagComponent extends BaseComponent implements OnInit {
         )
         .subscribe((res) => {
           this.flagging = false;
+          this.cd.markForCheck();
         });
     }
   }

@@ -4,8 +4,9 @@ import {
   Input,
   ElementRef,
   AfterViewInit,
+  ChangeDetectionStrategy,
 } from '@angular/core';
-import { Router, Params } from '@angular/router';
+import { Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 import { FormService } from '@core/service/form.service';
 import { isEmpty, omitBy } from 'lodash';
@@ -16,6 +17,7 @@ import { ScreenService } from '@core/service/screen.service';
   selector: 'app-search-action',
   templateUrl: './search-action.component.html',
   styleUrls: ['./search-action.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchActionComponent implements OnInit, AfterViewInit {
   @Input() content: any;

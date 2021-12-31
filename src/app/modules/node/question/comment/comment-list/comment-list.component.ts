@@ -1,4 +1,12 @@
-import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  OnInit,
+  EventEmitter,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { AppState } from '@core/mobx/AppState';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -7,6 +15,7 @@ import { UtilitiesService } from '@core/service/utilities.service';
   selector: 'app-comment-list',
   templateUrl: './comment-list.component.html',
   styleUrls: ['./comment-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CommentListComponent implements OnInit {
   @Input() content: any;
@@ -19,13 +28,15 @@ export class CommentListComponent implements OnInit {
   constructor(
     private nodeService: NodeService,
     private appState: AppState,
-    private utilitiesService: UtilitiesService
+    private utilitiesService: UtilitiesService,
+    private cd: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {}
 
   onUpdateMyQuestion(): void {
     this.showInlineEditor = true;
+    this.cd.markForCheck();
   }
 
   onShow(id: string): boolean {
@@ -34,12 +45,14 @@ export class CommentListComponent implements OnInit {
 
   onCancel(): void {
     this.showInlineEditor = false;
+    this.cd.markForCheck();
   }
 
   onSubmitComment(state: boolean): void {
     if (state) {
       this.showInlineEditor = false;
       this.submitComment.emit(state);
+      this.cd.markForCheck();
     }
   }
 
@@ -58,6 +71,7 @@ export class CommentListComponent implements OnInit {
           this.utilitiesService.openSnackbar('Please check user state.', '√');
         }
       );
+    this.cd.markForCheck();
   }
 
   trackByFn(index: number, item: any): number {

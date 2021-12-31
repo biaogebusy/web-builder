@@ -1,4 +1,12 @@
-import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  EventEmitter,
+  Output,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { UserState } from '@core/mobx/user/UserState';
@@ -7,6 +15,7 @@ import { ScreenService } from '@core/service/screen.service';
   selector: 'app-comment-form',
   templateUrl: './comment-form.component.html',
   styleUrls: ['./comment-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CommentFormComponent implements OnInit {
   @Input() content: any;
@@ -21,13 +30,15 @@ export class CommentFormComponent implements OnInit {
     private nodeService: NodeService,
     private utilitiesService: UtilitiesService,
     private userState: UserState,
-    public screenService: ScreenService
+    public screenService: ScreenService,
+    private cd: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       if (this.myCommentContent) {
         this.htmlData = this.myCommentContent;
+        this.cd.markForCheck();
       }
     }
   }
@@ -88,5 +99,6 @@ export class CommentFormComponent implements OnInit {
           }
         );
     }
+    this.cd.markForCheck();
   }
 }

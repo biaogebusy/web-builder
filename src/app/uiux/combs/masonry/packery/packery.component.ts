@@ -12,6 +12,7 @@ import { NgxPackeryOptions } from 'ngx-packery';
   selector: 'app-packery',
   templateUrl: './packery.component.html',
   styleUrls: ['./packery.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PackeryComponent implements OnInit, AfterViewInit {
   @Input() content: any;

@@ -1,12 +1,17 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormService } from '@core/service/form.service';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { isEmpty, pick, values } from 'lodash';
 @Component({
   selector: 'app-search-sidebar',
   templateUrl: './search-sidebar.component.html',
   styleUrls: ['./search-sidebar.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchSidebarComponent implements OnInit {
   @Input() content: any;
@@ -14,7 +19,7 @@ export class SearchSidebarComponent implements OnInit {
   @Input() searchEntry: any;
 
   panelOpenState = true;
-  constructor(private formService: FormService) {}
+  constructor(private cd: ChangeDetectorRef) {}
 
   ngOnInit(): void {}
 
@@ -29,5 +34,6 @@ export class SearchSidebarComponent implements OnInit {
   clear(): void {
     this.searchEntry = {};
     this.form.reset();
+    this.cd.markForCheck();
   }
 }

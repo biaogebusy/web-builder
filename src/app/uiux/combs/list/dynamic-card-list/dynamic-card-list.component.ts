@@ -1,4 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 import { isEmpty, omitBy, result } from 'lodash-es';
@@ -13,6 +19,7 @@ import { ScreenService } from '@core/service/screen.service';
   selector: 'app-dynamic-card-list',
   templateUrl: './dynamic-card-list.component.html',
   styleUrls: ['./dynamic-card-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DynamicCardListComponent extends BaseComponent implements OnInit {
   @Input() content: any;
@@ -30,7 +37,8 @@ export class DynamicCardListComponent extends BaseComponent implements OnInit {
     private router: ActivatedRoute,
     public routerService: RouteService,
     private formService: FormService,
-    private screenService: ScreenService
+    private screenService: ScreenService,
+    private cd: ChangeDetectorRef
   ) {
     super(nodeService, routerService);
   }
@@ -80,9 +88,11 @@ export class DynamicCardListComponent extends BaseComponent implements OnInit {
       (data) => {
         this.updateList(data, this.form.value, options);
         this.loading = false;
+        this.cd.markForCheck();
       },
       (error) => {
         this.loading = false;
+        this.cd.markForCheck();
       }
     );
   }
@@ -132,6 +142,7 @@ export class DynamicCardListComponent extends BaseComponent implements OnInit {
       };
     });
     this.updateUrl(formValues, options);
+    this.cd.markForCheck();
   }
 
   trackByFn(index: number, item: any): number {

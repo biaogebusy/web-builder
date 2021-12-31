@@ -1,4 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { FormService } from '@core/service/form.service';
 import { FormGroup } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -8,6 +14,7 @@ import { UtilitiesService } from '@core/service/utilities.service';
   selector: 'app-contact-us',
   templateUrl: './contact-us.component.html',
   styleUrls: ['./contact-us.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ContactUsComponent implements OnInit {
   @Input() content: any;
@@ -18,7 +25,8 @@ export class ContactUsComponent implements OnInit {
     public formService: FormService,
     private http: HttpClient,
     private apiService: ApiService,
-    private utilitiesService: UtilitiesService
+    private utilitiesService: UtilitiesService,
+    private cd: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -47,10 +55,12 @@ export class ContactUsComponent implements OnInit {
           this.submited = false;
           this.success = true;
           this.utilitiesService.openSnackbar('成功提交！');
+          this.cd.markForCheck();
         },
         (error) => {
           this.submited = false;
           this.utilitiesService.openSnackbar(`Error: ${error.message}`);
+          this.cd.markForCheck();
         }
       );
   }

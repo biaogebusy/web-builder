@@ -1,9 +1,17 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  Output,
+  EventEmitter,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 
 @Component({
   selector: 'app-comment',
   templateUrl: './comment.component.html',
   styleUrls: ['./comment.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CommentComponent implements OnInit {
   @Input() content: any;

@@ -1,13 +1,19 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  OnDestroy,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { AMapState } from '@core/mobx/amap/AMapState';
 import { AppState } from '@core/mobx/AppState';
 import { AmapService } from '@core/service/amap.service';
-import { ScreenService } from '@core/service/screen.service';
 import { isArray } from 'lodash-es';
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MapComponent implements OnInit, OnDestroy {
   @Input() content: any;
@@ -20,8 +26,7 @@ export class MapComponent implements OnInit, OnDestroy {
   constructor(
     private amapState: AMapState,
     private amapService: AmapService,
-    private appState: AppState,
-    private screenService: ScreenService
+    private appState: AppState
   ) {}
 
   ngOnInit(): void {

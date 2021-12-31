@@ -1,9 +1,17 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 
 @Component({
   selector: 'app-pagination-simple',
   templateUrl: './pagination-simple.component.html',
   styleUrls: ['./pagination-simple.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PaginationSimpleComponent implements OnInit {
   @Input() links: any;

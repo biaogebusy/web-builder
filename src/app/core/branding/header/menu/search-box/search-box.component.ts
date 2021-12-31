@@ -1,4 +1,11 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  OnDestroy,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { NodeService } from '@core/service/node.service';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
@@ -12,6 +19,7 @@ import { RouteService } from '@core/service/route.service';
   selector: 'app-search-box',
   templateUrl: './search-box.component.html',
   styleUrls: ['./search-box.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchBoxComponent
   extends BaseComponent
@@ -25,7 +33,8 @@ export class SearchBoxComponent
     public nodeService: NodeService,
     private router: Router,
     private formService: FormService,
-    public routerService: RouteService
+    public routerService: RouteService,
+    private cd: ChangeDetectorRef
   ) {
     super(nodeService, routerService);
   }
@@ -63,6 +72,7 @@ export class SearchBoxComponent
                 href: item.url,
               };
             });
+            this.cd.markForCheck();
           });
       });
   }
@@ -70,6 +80,7 @@ export class SearchBoxComponent
   onSelected(data: any): void {
     this.form.reset();
     this.router.navigate([`${data.option.value}`]);
+    this.cd.markForCheck();
   }
 
   ngOnDestroy(): void {}
@@ -77,5 +88,6 @@ export class SearchBoxComponent
   search(value: any): void {
     this.form.reset();
     this.router.navigate(['search'], { queryParams: value });
+    this.cd.markForCheck();
   }
 }

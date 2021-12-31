@@ -1,4 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { UserState } from '@core/mobx/user/UserState';
 import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
@@ -7,6 +13,7 @@ import { ScreenService } from '@core/service/screen.service';
   selector: 'app-question',
   templateUrl: './question.component.html',
   styleUrls: ['./question.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class QuestionComponent implements OnInit {
   @Input() content: any;
@@ -18,7 +25,8 @@ export class QuestionComponent implements OnInit {
   constructor(
     private nodeService: NodeService,
     private userState: UserState,
-    private screenService: ScreenService
+    private screenService: ScreenService,
+    private cd: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -38,6 +46,7 @@ export class QuestionComponent implements OnInit {
 
   onShowEditor(): void {
     this.showEditor = true;
+    this.cd.markForCheck();
   }
 
   onSubmit(state: boolean): void {
@@ -69,6 +78,7 @@ export class QuestionComponent implements OnInit {
           this.myCommentId = '';
           this.myCommentContent = '';
         }
+        this.cd.markForCheck();
       });
   }
 
@@ -109,6 +119,7 @@ export class QuestionComponent implements OnInit {
             content: comment.content.processed,
           };
         });
+        this.cd.markForCheck();
       });
   }
 }
