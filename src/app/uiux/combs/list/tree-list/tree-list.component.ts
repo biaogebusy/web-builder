@@ -3,6 +3,7 @@ import {
   ChangeDetectorRef,
   Component,
   Input,
+  OnDestroy,
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -11,6 +12,7 @@ import { NodeService } from '@core/service/node.service';
 import { RouteService } from '@core/service/route.service';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { ScreenService } from '@core/service/screen.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-tree-list',
@@ -18,13 +20,18 @@ import { ScreenService } from '@core/service/screen.service';
   styleUrls: ['./tree-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TreeListComponent extends BaseComponent implements OnInit {
+export class TreeListComponent
+  extends BaseComponent
+  implements OnInit, OnDestroy
+{
   @Input() content: any;
   nodes = [];
   loading = false;
   page: number;
   pager: any;
   formState: any = {};
+
+  subscription = new Subscription();
   constructor(
     public nodeService: NodeService,
     private router: ActivatedRoute,
@@ -37,40 +44,48 @@ export class TreeListComponent extends BaseComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.router.queryParams.subscribe((query: any) => {
-        const initQuery: any = {};
-        this.content.tree.forEach((item: any) => {
-          initQuery[item.key] = item.value;
-        });
-        this.page = query.page || 0;
-        // TODO: assign query
-        const queryOpt = omitBy(
-          Object.assign(
-            {
-              page: this.page,
-            },
-            query,
-            initQuery
-          ),
-          isEmpty
-        );
-        this.nodeSearch(initQuery);
-      });
+      const sub$: Subscription = this.router.queryParams.subscribe(
+        (query: any) => {
+          const initQuery: any = {};
+          this.content.tree.forEach((item: any) => {
+            initQuery[item.key] = item.value;
+          });
+          this.page = query.page || 0;
+          // TODO: assign query
+          const queryOpt = omitBy(
+            Object.assign(
+              {
+                page: this.page,
+              },
+              query,
+              initQuery
+            ),
+            isEmpty
+          );
+          this.nodeSearch(initQuery);
+        }
+      );
+      this.subscription.add(sub$);
     }
   }
 
   nodeSearch(params: any): void {
     this.loading = true;
-    this.nodeService.search('content', this.getApiParams(params)).subscribe(
-      (data) => {
-        this.updateList(data);
-        this.updateUrl(this.formState);
-        this.loading = false;
-      },
-      (error) => {
-        this.loading = false;
-      }
-    );
+    const node$: Subscription = this.nodeService
+      .search('content', this.getApiParams(params))
+      .subscribe(
+        (data) => {
+          this.updateList(data);
+          this.updateUrl(this.formState);
+          this.loading = false;
+          this.cd.detectChanges();
+        },
+        (error) => {
+          this.loading = false;
+          this.cd.detectChanges();
+        }
+      );
+    this.subscription.add(node$);
   }
 
   updateList(data: any): void {
@@ -112,5 +127,9 @@ export class TreeListComponent extends BaseComponent implements OnInit {
 
   trackByFn(index: number, item: any): number {
     return index;
+  }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
   }
 }

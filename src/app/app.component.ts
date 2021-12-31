@@ -85,8 +85,5 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {
-    this.appState.configLoadDone$.subscribe();
-    this.screen.drawer$.unsubscribe();
-  }
+  ngOnDestroy(): void {}
 }

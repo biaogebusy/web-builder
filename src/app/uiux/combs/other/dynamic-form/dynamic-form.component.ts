@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
   ChangeDetectorRef,
+  OnDestroy,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { IAction, IActionParams, IControl } from '@core/interface/IForm';
@@ -14,6 +15,7 @@ import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { Router } from '@angular/router';
 import { ScreenService } from '@core/service/screen.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -21,11 +23,13 @@ import { ScreenService } from '@core/service/screen.service';
   styleUrls: ['./dynamic-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DynamicFormComponent implements OnInit {
+export class DynamicFormComponent implements OnInit, OnDestroy {
   @Input() content: IControl[];
   @Input() actions: IAction[];
   loading = false;
   form: FormGroup;
+
+  subscription = new Subscription();
   constructor(
     private formService: FormService,
     private nodeService: NodeService,
@@ -45,7 +49,7 @@ export class DynamicFormComponent implements OnInit {
 
   onClick(params: IActionParams): void {
     this.loading = true;
-    this.nodeService
+    const sub$ = this.nodeService
       .addNode(params.type, this.form.value, this.userState.currentUser)
       .subscribe(
         (res) => {
@@ -64,5 +68,10 @@ export class DynamicFormComponent implements OnInit {
           this.cd.detectChanges();
         }
       );
+    this.subscription.add(sub$);
+  }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
   }
 }

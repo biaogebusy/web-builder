@@ -55,6 +55,6 @@ export class FooterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.screen.scroll$.unsubscribe();
+    this.screen.scroll$?.unsubscribe();
   }
 }

@@ -6,13 +6,14 @@ import {
   OnInit,
   Output,
   ChangeDetectorRef,
+  OnDestroy,
 } from '@angular/core';
-import { Router } from '@angular/router';
 import { NodeService } from '@core/service/node.service';
 import { RouteService } from '@core/service/route.service';
 import { ScreenService } from '@core/service/screen.service';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { AppState } from '@core/mobx/AppState';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-dynamic-text-list',
@@ -20,7 +21,10 @@ import { AppState } from '@core/mobx/AppState';
   styleUrls: ['./dynamic-text-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DynamicTextListComponent extends BaseComponent implements OnInit {
+export class DynamicTextListComponent
+  extends BaseComponent
+  implements OnInit, OnDestroy
+{
   @Input() content: any;
   @Output() pageChange: EventEmitter<string> = new EventEmitter();
 
@@ -28,6 +32,7 @@ export class DynamicTextListComponent extends BaseComponent implements OnInit {
   links: any;
   loading: boolean;
 
+  subscription = new Subscription();
   constructor(
     public nodeService: NodeService,
     public routerService: RouteService,
@@ -47,7 +52,7 @@ export class DynamicTextListComponent extends BaseComponent implements OnInit {
   getLists(): void {
     this.loading = true;
     const path = this.nodeService.apiUrlConfig.nodeGetPath;
-    this.nodeService
+    const sub$ = this.nodeService
       .getNodes(
         path,
         `${this.getParams(this.content, 'type')}`,
@@ -59,13 +64,15 @@ export class DynamicTextListComponent extends BaseComponent implements OnInit {
       .subscribe((res) => {
         this.updateList(res);
       });
+    this.subscription.add(sub$);
   }
 
   onPageChange(link: string): void {
     this.screenService.gotoTop();
-    this.nodeService.getNodeByLink(link).subscribe((res) => {
+    const sub$ = this.nodeService.getNodeByLink(link).subscribe((res) => {
       this.updateList(res);
     });
+    this.subscription.add(sub$);
   }
 
   updateList(res: any): void {
@@ -91,5 +98,9 @@ export class DynamicTextListComponent extends BaseComponent implements OnInit {
 
   trackByFn(index: number, item: any): number {
     return index;
+  }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
   }
 }

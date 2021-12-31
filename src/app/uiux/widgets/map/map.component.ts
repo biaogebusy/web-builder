@@ -177,8 +177,8 @@ export class MapComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.appState.switchChange$.unsubscribe();
-    this.amapState.position$.unsubscribe();
-    this.amapState.markers$.unsubscribe();
+    this.appState.switchChange$?.unsubscribe();
+    this.amapState.position$?.unsubscribe();
+    this.amapState.markers$?.unsubscribe();
   }
 }

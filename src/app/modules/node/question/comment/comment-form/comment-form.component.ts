@@ -6,26 +6,31 @@ import {
   Output,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
+  OnDestroy,
 } from '@angular/core';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { UserState } from '@core/mobx/user/UserState';
 import { ScreenService } from '@core/service/screen.service';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-comment-form',
   templateUrl: './comment-form.component.html',
   styleUrls: ['./comment-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CommentFormComponent implements OnInit {
+export class CommentFormComponent implements OnInit, OnDestroy {
   @Input() content: any;
-  loading = false;
-  htmlData = '';
-  public Editor: any;
   @Input() myCommentContent: any;
   @Input() myCommentId: string;
   @Output() submitComment = new EventEmitter();
   @Output() cancel = new EventEmitter();
+
+  loading = false;
+  htmlData = '';
+  subscription = new Subscription();
+  public Editor: any;
+
   constructor(
     private nodeService: NodeService,
     private utilitiesService: UtilitiesService,
@@ -55,17 +60,20 @@ export class CommentFormComponent implements OnInit {
         value,
         format: 'full_html',
       };
-      this.nodeService.addComment(editor.type, params).subscribe(
-        (res) => {
-          this.loading = false;
-          this.utilitiesService.openSnackbar(editor.succes.label);
-          this.submitComment.emit(true);
-        },
-        () => {
-          this.loading = false;
-          this.utilitiesService.openSnackbar('Please check user state.');
-        }
-      );
+      const addSub$ = this.nodeService
+        .addComment(editor.type, params)
+        .subscribe(
+          (res) => {
+            this.loading = false;
+            this.utilitiesService.openSnackbar(editor.succes.label);
+            this.submitComment.emit(true);
+          },
+          () => {
+            this.loading = false;
+            this.utilitiesService.openSnackbar('Please check user state.');
+          }
+        );
+      this.subscription.add(addSub$);
     } else {
       const entity = {
         type: 'comment--answer',
@@ -85,7 +93,7 @@ export class CommentFormComponent implements OnInit {
           },
         },
       };
-      this.nodeService
+      const updateSub$ = this.nodeService
         .updateComment(editor.type, entity, this.myCommentId)
         .subscribe(
           (res) => {
@@ -98,7 +106,12 @@ export class CommentFormComponent implements OnInit {
             console.log(error);
           }
         );
+      this.subscription.add(updateSub$);
     }
     this.cd.detectChanges();
+  }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
   }
 }

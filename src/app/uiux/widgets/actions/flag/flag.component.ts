@@ -4,6 +4,7 @@ import {
   Input,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
+  OnDestroy,
 } from '@angular/core';
 import { AppState } from '@core/mobx/AppState';
 import { NodeService } from '@core/service/node.service';
@@ -12,6 +13,7 @@ import { UserState } from '@core/mobx/user/UserState';
 import { switchMap } from 'rxjs/operators';
 import { RouteService } from '@core/service/route.service';
 import { ScreenService } from '@core/service/screen.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-flag',
@@ -19,10 +21,12 @@ import { ScreenService } from '@core/service/screen.service';
   styleUrls: ['./flag.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FlagComponent extends BaseComponent implements OnInit {
+export class FlagComponent extends BaseComponent implements OnInit, OnDestroy {
   @Input() content: any;
   config: any;
   flagging = false;
+
+  subscription = new Subscription();
   constructor(
     public nodeService: NodeService,
     public routerService: RouteService,
@@ -55,7 +59,7 @@ export class FlagComponent extends BaseComponent implements OnInit {
   }
 
   getFlagging(): void {
-    this.nodeService
+    const sub$ = this.nodeService
       .getNodes(
         this.appState.apiUrlConfig.flaggingGetPath,
         this.type,
@@ -67,6 +71,7 @@ export class FlagComponent extends BaseComponent implements OnInit {
           this.cd.detectChanges();
         }
       });
+    this.subscription.add(sub$);
   }
 
   onFlag(): void {
@@ -98,14 +103,15 @@ export class FlagComponent extends BaseComponent implements OnInit {
           },
         },
       };
-      this.nodeService
+      const getSub$ = this.nodeService
         .flagging(this.path, JSON.stringify(data))
         .subscribe((res) => {
           this.flagging = true;
           this.cd.detectChanges();
         });
+      this.subscription.add(getSub$);
     } else {
-      this.nodeService
+      const setSub$ = this.nodeService
         .getNodes(
           this.appState.apiUrlConfig.flaggingGetPath,
           this.type,
@@ -120,6 +126,7 @@ export class FlagComponent extends BaseComponent implements OnInit {
           this.flagging = false;
           this.cd.detectChanges();
         });
+      this.subscription.add(setSub$);
     }
   }
 
@@ -140,5 +147,9 @@ export class FlagComponent extends BaseComponent implements OnInit {
 
   get type(): string {
     return this.getParams(this.content, 'type').split('--')[1];
+  }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
   }
 }

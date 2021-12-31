@@ -4,11 +4,13 @@ import {
   Input,
   OnInit,
   ChangeDetectorRef,
+  OnDestroy,
 } from '@angular/core';
 import { NodeService } from '@core/service/node.service';
 import { RouteService } from '@core/service/route.service';
 import { ScreenService } from '@core/service/screen.service';
 import { BaseComponent } from '@uiux/base/base.widget';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-dynamic-media-list',
@@ -16,12 +18,16 @@ import { BaseComponent } from '@uiux/base/base.widget';
   styleUrls: ['./dynamic-media-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DynamicMediaListComponent extends BaseComponent implements OnInit {
+export class DynamicMediaListComponent
+  extends BaseComponent
+  implements OnInit, OnDestroy
+{
   @Input() content: any;
   list: any;
   links: any;
   loading = true;
 
+  subscription = new Subscription();
   constructor(
     public nodeService: NodeService,
     public routerService: RouteService,
@@ -45,11 +51,13 @@ export class DynamicMediaListComponent extends BaseComponent implements OnInit {
       `page[limit]=${this.getParams(this.content, 'limit') || 20}`,
     ].join('&');
     const path = this.nodeService.apiUrlConfig.nodeGetPath;
-    this.nodeService
+    const sub$ = this.nodeService
       .getNodes(path, `${this.getParams(this.content, 'type')}`, params)
       .subscribe((res) => {
         this.updateList(res);
       });
+
+    this.subscription.add(sub$);
   }
 
   updateList(res: any): void {
@@ -91,8 +99,14 @@ export class DynamicMediaListComponent extends BaseComponent implements OnInit {
 
   loadContent(link: string): void {
     this.loading = true;
-    this.nodeService.getNodeByLink(link).subscribe((res) => {
+    const sub$ = this.nodeService.getNodeByLink(link).subscribe((res) => {
       this.updateList(res);
     });
+
+    this.subscription.add(sub$);
+  }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
   }
 }

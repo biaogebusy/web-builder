@@ -6,10 +6,12 @@ import {
   EventEmitter,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
+  OnDestroy,
 } from '@angular/core';
 import { AppState } from '@core/mobx/AppState';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-comment-list',
@@ -17,7 +19,7 @@ import { UtilitiesService } from '@core/service/utilities.service';
   styleUrls: ['./comment-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CommentListComponent implements OnInit {
+export class CommentListComponent implements OnInit, OnDestroy {
   @Input() content: any;
   @Input() comments: any;
   @Input() myCommentId: string;
@@ -25,6 +27,7 @@ export class CommentListComponent implements OnInit {
   loading: boolean;
   showInlineEditor = false;
 
+  subscription = new Subscription();
   constructor(
     private nodeService: NodeService,
     private appState: AppState,
@@ -58,7 +61,7 @@ export class CommentListComponent implements OnInit {
 
   onDeleteMyQuestion(id: string): void {
     this.loading = true;
-    this.nodeService
+    const sub$ = this.nodeService
       .deleteEntity(`${this.appState.apiUrlConfig.commentGetPath}/comment`, id)
       .subscribe(
         (res) => {
@@ -71,10 +74,15 @@ export class CommentListComponent implements OnInit {
           this.utilitiesService.openSnackbar('Please check user state.', '√');
         }
       );
+    this.subscription.add(sub$);
     this.cd.detectChanges();
   }
 
   trackByFn(index: number, item: any): number {
     return index;
+  }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
   }
 }

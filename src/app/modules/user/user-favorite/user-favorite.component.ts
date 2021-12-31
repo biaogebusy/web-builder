@@ -3,6 +3,7 @@ import {
   Component,
   OnInit,
   ChangeDetectorRef,
+  OnDestroy,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NodeService } from '@core/service/node.service';
@@ -10,19 +11,22 @@ import { UserService } from '@core/service/user.service';
 import { switchMap } from 'rxjs/operators';
 import { formatDate } from '@angular/common';
 import { ScreenService } from '@core/service/screen.service';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-user-favorite',
   templateUrl: './user-favorite.component.html',
   styleUrls: ['./user-favorite.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserFavoriteComponent implements OnInit {
+export class UserFavoriteComponent implements OnInit, OnDestroy {
   content: any;
   id: string;
   loading: boolean;
   pager = {
     itemsPerPage: 20,
   };
+
+  subscription = new Subscription();
   constructor(
     private router: ActivatedRoute,
     private userService: UserService,
@@ -42,7 +46,7 @@ export class UserFavoriteComponent implements OnInit {
     this.loading = true;
     const path = this.nodeService.apiUrlConfig.flaggingGetPath;
 
-    this.userService
+    const sub$ = this.userService
       .getUserById(id)
       .pipe(
         switchMap((res: any) => {
@@ -115,5 +119,11 @@ export class UserFavoriteComponent implements OnInit {
           console.log(error);
         }
       );
+
+    this.subscription.add(sub$);
+  }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
   }
 }

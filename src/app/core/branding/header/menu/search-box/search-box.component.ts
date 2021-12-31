@@ -14,6 +14,7 @@ import { FormService } from '@core/service/form.service';
 import { isEmpty, omitBy } from 'lodash';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { RouteService } from '@core/service/route.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-search-box',
@@ -29,6 +30,10 @@ export class SearchBoxComponent
 
   form: FormGroup;
   options: any[] = [];
+
+  valueChange$ = new Subscription();
+  nodeChange$ = new Subscription();
+
   constructor(
     public nodeService: NodeService,
     private router: Router,
@@ -83,7 +88,10 @@ export class SearchBoxComponent
     this.cd.detectChanges();
   }
 
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void {
+    this.valueChange$?.unsubscribe();
+    this.nodeChange$?.unsubscribe();
+  }
 
   search(value: any): void {
     this.form.reset();

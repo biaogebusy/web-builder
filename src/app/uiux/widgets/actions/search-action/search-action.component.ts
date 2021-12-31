@@ -5,12 +5,13 @@ import {
   ElementRef,
   AfterViewInit,
   ChangeDetectionStrategy,
+  OnDestroy,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 import { FormService } from '@core/service/form.service';
 import { isEmpty, omitBy } from 'lodash';
-import { fromEvent } from 'rxjs';
+import { fromEvent, Subscription } from 'rxjs';
 import { ScreenService } from '@core/service/screen.service';
 
 @Component({
@@ -19,9 +20,11 @@ import { ScreenService } from '@core/service/screen.service';
   styleUrls: ['./search-action.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SearchActionComponent implements OnInit, AfterViewInit {
+export class SearchActionComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() content: any;
   form: FormGroup;
+
+  subscription = new Subscription();
   constructor(
     private router: Router,
     private formService: FormService,
@@ -46,6 +49,7 @@ export class SearchActionComponent implements OnInit, AfterViewInit {
           this.search();
         }
       });
+      this.subscription.add(input$);
     }
   }
 
@@ -58,5 +62,9 @@ export class SearchActionComponent implements OnInit, AfterViewInit {
     if (!isEmpty(query)) {
       this.router.navigate(['/search'], { queryParams: query });
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
   }
 }

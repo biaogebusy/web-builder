@@ -96,6 +96,7 @@ export class SearchComponent extends BaseComponent implements OnInit {
       (data) => {
         this.updateList(data, this.form.value, options);
         this.loading = false;
+        this.cd.detectChanges();
       },
       (error) => {
         this.loading = false;

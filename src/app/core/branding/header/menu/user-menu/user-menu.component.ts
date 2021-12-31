@@ -57,6 +57,6 @@ export class UserMenuComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.dialogService.dialogState$.unsubscribe();
+    this.dialogService.dialogState$?.unsubscribe();
   }
 }

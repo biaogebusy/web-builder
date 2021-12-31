@@ -3,11 +3,13 @@ import {
   ChangeDetectorRef,
   Component,
   Input,
+  OnDestroy,
   OnInit,
 } from '@angular/core';
 import { UserState } from '@core/mobx/user/UserState';
 import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-question',
@@ -15,13 +17,15 @@ import { ScreenService } from '@core/service/screen.service';
   styleUrls: ['./question.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class QuestionComponent implements OnInit {
+export class QuestionComponent implements OnInit, OnDestroy {
   @Input() content: any;
   comments: any;
   showEditor = false;
   isAsked = false;
   myCommentId = '';
   myCommentContent = '';
+
+  subscription = new Subscription();
   constructor(
     private nodeService: NodeService,
     private userState: UserState,
@@ -65,7 +69,7 @@ export class QuestionComponent implements OnInit {
       `page[limit]=1`,
     ].join('&');
     const path = this.nodeService.apiUrlConfig.commentGetPath;
-    this.nodeService
+    const node$ = this.nodeService
       .getNodes(path, this.entityType, params)
       .subscribe((res) => {
         if (res.data.length) {
@@ -80,6 +84,8 @@ export class QuestionComponent implements OnInit {
         }
         this.cd.detectChanges();
       });
+
+    this.subscription.add(node$);
   }
 
   checkQuestion(id: string): void {
@@ -96,7 +102,7 @@ export class QuestionComponent implements OnInit {
       `jsonapi_include=1`,
     ].join('&');
     const path = this.nodeService.apiUrlConfig.commentGetPath;
-    this.nodeService
+    const comment$ = this.nodeService
       .getNodes(path, this.entityType, params)
       .subscribe((res) => {
         this.comments = res.data.map((comment: any) => {
@@ -121,5 +127,11 @@ export class QuestionComponent implements OnInit {
         });
         this.cd.detectChanges();
       });
+
+    this.subscription.add(comment$);
+  }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
   }
 }
