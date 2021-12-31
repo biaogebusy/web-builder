@@ -55,12 +55,12 @@ export class ContactUsComponent implements OnInit {
           this.submited = false;
           this.success = true;
           this.utilitiesService.openSnackbar('成功提交！');
-          this.cd.markForCheck();
+          this.cd.detectChanges();
         },
         (error) => {
           this.submited = false;
           this.utilitiesService.openSnackbar(`Error: ${error.message}`);
-          this.cd.markForCheck();
+          this.cd.detectChanges();
         }
       );
   }

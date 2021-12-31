@@ -36,7 +36,7 @@ export class CommentListComponent implements OnInit {
 
   onUpdateMyQuestion(): void {
     this.showInlineEditor = true;
-    this.cd.markForCheck();
+    this.cd.detectChanges();
   }
 
   onShow(id: string): boolean {
@@ -45,14 +45,14 @@ export class CommentListComponent implements OnInit {
 
   onCancel(): void {
     this.showInlineEditor = false;
-    this.cd.markForCheck();
+    this.cd.detectChanges();
   }
 
   onSubmitComment(state: boolean): void {
     if (state) {
       this.showInlineEditor = false;
       this.submitComment.emit(state);
-      this.cd.markForCheck();
+      this.cd.detectChanges();
     }
   }
 
@@ -71,7 +71,7 @@ export class CommentListComponent implements OnInit {
           this.utilitiesService.openSnackbar('Please check user state.', '√');
         }
       );
-    this.cd.markForCheck();
+    this.cd.detectChanges();
   }
 
   trackByFn(index: number, item: any): number {

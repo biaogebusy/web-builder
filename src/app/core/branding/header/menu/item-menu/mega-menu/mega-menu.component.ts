@@ -47,7 +47,7 @@ export class MegaMenuComponent implements OnInit, OnDestroy {
       )
       .subscribe((event) => {
         this.active = true;
-        this.cd.markForCheck();
+        this.cd.detectChanges();
       });
 
     leave
@@ -58,7 +58,7 @@ export class MegaMenuComponent implements OnInit, OnDestroy {
       )
       .subscribe((event) => {
         this.active = false;
-        this.cd.markForCheck();
+        this.cd.detectChanges();
       });
 
     this.screenState.stickyMenu$.subscribe((sticky) => {
@@ -66,7 +66,7 @@ export class MegaMenuComponent implements OnInit, OnDestroy {
         return;
       }
       this.active = false;
-      this.cd.markForCheck();
+      this.cd.detectChanges();
     });
   }
 

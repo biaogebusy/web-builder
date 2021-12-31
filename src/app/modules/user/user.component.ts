@@ -92,7 +92,7 @@ export class UserComponent implements OnInit, OnDestroy {
         },
       };
       this.user = Object.assign(people, profile);
-      this.cd.markForCheck();
+      this.cd.detectChanges();
     });
   }
 

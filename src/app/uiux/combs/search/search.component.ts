@@ -99,7 +99,7 @@ export class SearchComponent extends BaseComponent implements OnInit {
       },
       (error) => {
         this.loading = false;
-        this.cd.markForCheck();
+        this.cd.detectChanges();
       }
     );
   }
@@ -121,6 +121,6 @@ export class SearchComponent extends BaseComponent implements OnInit {
       };
     });
     this.updateUrl(formValues, options);
-    this.cd.markForCheck();
+    this.cd.detectChanges();
   }
 }

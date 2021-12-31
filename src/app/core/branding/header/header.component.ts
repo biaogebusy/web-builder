@@ -47,7 +47,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
         if (this.appState?.pageConfig?.headerMode?.transparent) {
           this.windowScroll();
         }
-        this.cd.markForCheck();
+        this.cd.detectChanges();
       });
     }
   }

@@ -46,7 +46,7 @@ export class QuestionComponent implements OnInit {
 
   onShowEditor(): void {
     this.showEditor = true;
-    this.cd.markForCheck();
+    this.cd.detectChanges();
   }
 
   onSubmit(state: boolean): void {
@@ -78,7 +78,7 @@ export class QuestionComponent implements OnInit {
           this.myCommentId = '';
           this.myCommentContent = '';
         }
-        this.cd.markForCheck();
+        this.cd.detectChanges();
       });
   }
 
@@ -119,7 +119,7 @@ export class QuestionComponent implements OnInit {
             content: comment.content.processed,
           };
         });
-        this.cd.markForCheck();
+        this.cd.detectChanges();
       });
   }
 }

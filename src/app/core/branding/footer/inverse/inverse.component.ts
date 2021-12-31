@@ -59,7 +59,7 @@ export class InverseComponent implements OnInit {
           this.submited = false;
           this.success = true;
           this.utilitiesService.openSnackbar('成功订阅！');
-          this.cd.markForCheck();
+          this.cd.detectChanges();
         },
         (error) => {
           this.submited = false;

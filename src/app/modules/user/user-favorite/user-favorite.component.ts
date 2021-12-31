@@ -109,7 +109,7 @@ export class UserFavoriteComponent implements OnInit {
             };
           });
           this.loading = false;
-          this.cd.markForCheck();
+          this.cd.detectChanges();
         },
         (error) => {
           console.log(error);

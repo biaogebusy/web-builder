@@ -86,7 +86,7 @@ export class DynamicMediaListComponent extends BaseComponent implements OnInit {
     });
     this.links = res.links;
     this.loading = false;
-    this.cd.markForCheck();
+    this.cd.detectChanges();
   }
 
   loadContent(link: string): void {

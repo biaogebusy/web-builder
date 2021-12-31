@@ -38,7 +38,7 @@ export class CommentFormComponent implements OnInit {
     if (this.screenService.isPlatformBrowser()) {
       if (this.myCommentContent) {
         this.htmlData = this.myCommentContent;
-        this.cd.markForCheck();
+        this.cd.detectChanges();
       }
     }
   }
@@ -99,6 +99,6 @@ export class CommentFormComponent implements OnInit {
           }
         );
     }
-    this.cd.markForCheck();
+    this.cd.detectChanges();
   }
 }

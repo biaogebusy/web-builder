@@ -64,7 +64,7 @@ export class FlagComponent extends BaseComponent implements OnInit {
       .subscribe((res) => {
         if (res.data.length) {
           this.flagging = true;
-          this.cd.markForCheck();
+          this.cd.detectChanges();
         }
       });
   }
@@ -102,7 +102,7 @@ export class FlagComponent extends BaseComponent implements OnInit {
         .flagging(this.path, JSON.stringify(data))
         .subscribe((res) => {
           this.flagging = true;
-          this.cd.markForCheck();
+          this.cd.detectChanges();
         });
     } else {
       this.nodeService
@@ -118,7 +118,7 @@ export class FlagComponent extends BaseComponent implements OnInit {
         )
         .subscribe((res) => {
           this.flagging = false;
-          this.cd.markForCheck();
+          this.cd.detectChanges();
         });
     }
   }

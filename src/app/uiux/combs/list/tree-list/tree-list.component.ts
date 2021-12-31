@@ -89,7 +89,7 @@ export class TreeListComponent extends BaseComponent implements OnInit {
         actions: item.actions || [],
       };
     });
-    this.cd.markForCheck();
+    this.cd.detectChanges();
   }
 
   onPageChange(page: any): void {

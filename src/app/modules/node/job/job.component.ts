@@ -184,13 +184,13 @@ export class JobComponent implements OnInit {
       this.route.queryParamMap.subscribe((res) => {
         this.paramsInit(res);
       });
-      this.cd.markForCheck();
+      this.cd.detectChanges();
     }
   }
 
   paramsInit(params: Params): void {
     this.selectedId = params.params.id;
-    this.cd.markForCheck();
+    this.cd.detectChanges();
   }
 
   jobParams(params = ''): any {
@@ -244,7 +244,7 @@ export class JobComponent implements OnInit {
             name: item.attributes.name,
           };
         });
-        this.cd.markForCheck();
+        this.cd.detectChanges();
       });
   }
 
@@ -254,7 +254,7 @@ export class JobComponent implements OnInit {
     this.amapState.markers$.next(obj);
     const query: Params = { id: this.selectedId };
     this.routerService.updateQueryParams(query);
-    this.cd.markForCheck();
+    this.cd.detectChanges();
   }
 
   onScroll(event: boolean): void {
@@ -263,13 +263,13 @@ export class JobComponent implements OnInit {
 
   moveBox(show: boolean): void {
     this.selected = show;
-    this.cd.markForCheck();
+    this.cd.detectChanges();
   }
 
   onSearch(key: string): void {
     this.nodeService.searchByKey(key).subscribe((res) => {
       this.autoList = res;
-      this.cd.markForCheck();
+      this.cd.detectChanges();
     });
   }
 
@@ -291,7 +291,7 @@ export class JobComponent implements OnInit {
       .subscribe((res) => {
         this.updateList(res.data);
       });
-    this.cd.markForCheck();
+    this.cd.detectChanges();
   }
 
   onSkillChange(skill: string): void {
@@ -299,7 +299,7 @@ export class JobComponent implements OnInit {
     this.nodeService.getNodes('job', this.getFilterParams).subscribe((res) => {
       this.updateList(res.data);
     });
-    this.cd.markForCheck();
+    this.cd.detectChanges();
   }
 
   onSearchJob(title: string): void {
@@ -309,7 +309,7 @@ export class JobComponent implements OnInit {
       .subscribe((res) => {
         this.updateList(res.data);
       });
-    this.cd.markForCheck();
+    this.cd.detectChanges();
   }
 
   updateList(lists: any): void {
@@ -345,6 +345,6 @@ export class JobComponent implements OnInit {
         },
       };
     });
-    this.cd.markForCheck();
+    this.cd.detectChanges();
   }
 }

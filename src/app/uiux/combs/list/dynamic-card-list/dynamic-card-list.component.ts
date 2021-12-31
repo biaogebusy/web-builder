@@ -88,11 +88,11 @@ export class DynamicCardListComponent extends BaseComponent implements OnInit {
       (data) => {
         this.updateList(data, this.form.value, options);
         this.loading = false;
-        this.cd.markForCheck();
+        this.cd.detectChanges();
       },
       (error) => {
         this.loading = false;
-        this.cd.markForCheck();
+        this.cd.detectChanges();
       }
     );
   }
@@ -142,7 +142,7 @@ export class DynamicCardListComponent extends BaseComponent implements OnInit {
       };
     });
     this.updateUrl(formValues, options);
-    this.cd.markForCheck();
+    this.cd.detectChanges();
   }
 
   trackByFn(index: number, item: any): number {

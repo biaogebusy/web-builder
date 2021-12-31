@@ -39,6 +39,6 @@ export class SearchTopComponent implements OnInit {
     this.form.valueChanges.subscribe((value) => {
       this.selectChange.emit(value);
     });
-    this.cd.markForCheck();
+    this.cd.detectChanges();
   }
 }

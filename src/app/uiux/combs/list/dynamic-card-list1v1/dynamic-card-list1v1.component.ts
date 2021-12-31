@@ -52,12 +52,12 @@ export class DynamicCardList1v1Component
       (data) => {
         this.updateList(data);
         this.loading = false;
-        this.cd.markForCheck();
+        this.cd.detectChanges();
       },
       (error) => {
         console.log(error);
         this.loading = false;
-        this.cd.markForCheck();
+        this.cd.detectChanges();
       }
     );
   }
@@ -87,7 +87,7 @@ export class DynamicCardList1v1Component
         moreLabel: '查看更多',
       };
     });
-    this.cd.markForCheck();
+    this.cd.detectChanges();
   }
 
   onPageChange(page: number): void {

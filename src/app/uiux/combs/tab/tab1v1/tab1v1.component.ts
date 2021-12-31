@@ -83,7 +83,7 @@ export class Tab1v1Component extends BaseComponent implements OnInit {
         });
       });
     }
-    this.cd.markForCheck();
+    this.cd.detectChanges();
   }
 
   onSelectChange(index: number): void {
@@ -104,6 +104,6 @@ export class Tab1v1Component extends BaseComponent implements OnInit {
   updateList(values: any): void {
     this.initTab(values);
     this.updateUrl(values);
-    this.cd.markForCheck();
+    this.cd.detectChanges();
   }
 }

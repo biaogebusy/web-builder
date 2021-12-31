@@ -72,7 +72,7 @@ export class SearchBoxComponent
                 href: item.url,
               };
             });
-            this.cd.markForCheck();
+            this.cd.detectChanges();
           });
       });
   }
@@ -80,7 +80,7 @@ export class SearchBoxComponent
   onSelected(data: any): void {
     this.form.reset();
     this.router.navigate([`${data.option.value}`]);
-    this.cd.markForCheck();
+    this.cd.detectChanges();
   }
 
   ngOnDestroy(): void {}
@@ -88,6 +88,6 @@ export class SearchBoxComponent
   search(value: any): void {
     this.form.reset();
     this.router.navigate(['search'], { queryParams: value });
-    this.cd.markForCheck();
+    this.cd.detectChanges();
   }
 }

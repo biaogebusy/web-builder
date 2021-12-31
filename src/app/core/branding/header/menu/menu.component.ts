@@ -37,6 +37,6 @@ export class MenuComponent implements OnInit {
   onToggle(): void {
     this.isOpened = !this.isOpened;
     this.screen.toggleDrawer(this.isOpened);
-    this.cd.markForCheck();
+    this.cd.detectChanges();
   }
 }

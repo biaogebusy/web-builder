@@ -36,6 +36,6 @@ export class JobListComponent implements OnInit {
   onScroll(event: number): void {
     this.scrolling = !!event;
     this.scroller.emit(true);
-    this.cd.markForCheck();
+    this.cd.detectChanges();
   }
 }

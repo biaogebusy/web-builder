@@ -35,7 +35,7 @@ export class CaseComponent implements OnInit {
       },
       elements: [],
     };
-    this.cd.markForCheck();
+    this.cd.detectChanges();
   }
 
   ngOnInit(): void {
@@ -103,7 +103,7 @@ export class CaseComponent implements OnInit {
         };
       });
       this.loading = false;
-      this.cd.markForCheck();
+      this.cd.detectChanges();
     });
   }
 }

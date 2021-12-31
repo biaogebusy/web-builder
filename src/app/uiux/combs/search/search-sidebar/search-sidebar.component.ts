@@ -34,6 +34,6 @@ export class SearchSidebarComponent implements OnInit {
   clear(): void {
     this.searchEntry = {};
     this.form.reset();
-    this.cd.markForCheck();
+    this.cd.detectChanges();
   }
 }

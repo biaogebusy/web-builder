@@ -57,7 +57,7 @@ export class JobFilterComponent implements OnInit, AfterViewInit, OnDestroy {
   onClear(): void {
     this.input.nativeElement.value = '';
     this.clear.emit();
-    this.cd.markForCheck();
+    this.cd.detectChanges();
   }
 
   ngAfterViewInit(): void {

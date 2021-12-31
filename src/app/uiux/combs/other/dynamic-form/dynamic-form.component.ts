@@ -56,12 +56,12 @@ export class DynamicFormComponent implements OnInit {
             this.dialogService.closeDialog();
             this.router.navigate([link]);
           }, 2000);
-          this.cd.markForCheck();
+          this.cd.detectChanges();
         },
         () => {
           this.loading = false;
           console.log('Please check user state.');
-          this.cd.markForCheck();
+          this.cd.detectChanges();
         }
       );
   }
