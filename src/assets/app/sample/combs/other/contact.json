@@ -95,6 +95,7 @@
       "action": {
         "label": "Submit"
       },
+      "formOrder": "1",
       "contact": [{
         "title": {
           "label": "Address"
