@@ -13,11 +13,15 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import hljs from 'highlight.js';
+import hljs from 'highlight.js/lib/core';
+import javascript from 'highlight.js/lib/languages/javascript';
+import php from 'highlight.js/lib/languages/php';
+import scss from 'highlight.js/lib/languages/scss';
 import { TagsService } from '@core/service/tags.service';
 import { AppState } from '@core/mobx/AppState';
 import { ScreenState } from '@core/mobx/screen/ScreenState';
 import { ScreenService } from '@core/service/screen.service';
+
 @Component({
   selector: 'app-article',
   templateUrl: './article.component.html',
@@ -37,6 +41,10 @@ export class ArticleComponent implements OnInit, AfterViewInit {
     public screen: ScreenState,
     private screenService: ScreenService
   ) {
+    hljs.registerLanguage('javascript', javascript);
+    hljs.registerLanguage('php', php);
+    hljs.registerLanguage('scss', scss);
+
     this.options = fb.group({
       fontSize: this.fontSizeControl,
     });
