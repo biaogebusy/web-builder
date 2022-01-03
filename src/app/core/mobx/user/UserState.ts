@@ -47,6 +47,10 @@ export class UserState {
     return this.user && this.user.picture;
   }
 
+  get defaultAvatar(): string {
+    return '/assets/images/avatar/default.svg';
+  }
+
   @action
   login(userName: string, passWord: string): any {
     this.loading = true;

@@ -53,7 +53,7 @@ export class UserComponent implements OnInit, OnDestroy {
       const profile = {
         bannerBg: this.getBanner(),
         avatar: {
-          src: info.user_picture.uri.url || '',
+          src: info.user_picture?.uri?.url || this.userState.defaultAvatar,
           alt: info.name,
         },
         name: info.name,
