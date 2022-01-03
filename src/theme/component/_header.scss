@@ -9,6 +9,9 @@
   $accent: map-get($config, accent);
   $warn: map-get($config, warn);
 
+  $primary-contrast: mat-color($primary, default-contrast);
+  $second: mat-color($foreground, "secondary-text");
+  $bg-card-color: mat-color($background, card);
   .app-name {
     color: mat-color($primary);
   }
@@ -16,40 +19,40 @@
   .header-top {
     background-color: mat-color($background, status-bar, 0.4);
     @include mat-elevation(1, mat-color($background, tooltip), 0.4);
-    color: mat-color($foreground, "secondary-text");
+    color: $second;
     .inv-icon {
       &.style-v1 {
-        color: mat-color($foreground, "secondary-text");
+        color: $second;
         .soc-name {
           background: mat-color($primary);
-          color: mat-color($primary, default-contrast);
+          color: $primary-contrast;
           &:after,
           &:before {
             background: mat-color($primary);
-            color: mat-color($primary, default-contrast);
+            color: $primary-contrast;
           }
         }
         .soc-icon-bg {
           background: rgba(0, 0, 0, 0.15);
         }
         .mat-icon {
-          color: mat-color($foreground, "secondary-text");
+          color: $second;
         }
         &:hover {
-          color: mat-color($primary, default-contrast);
+          color: $primary-contrast;
           .mat-icon {
-            color: mat-color($primary, default-contrast);
+            color: $primary-contrast;
           }
         }
       }
     }
   }
   .static {
-    background-color: mat-color($background, card);
+    background-color: $bg-card-color;
   }
   .header {
     border-top: 1px solid mat-color($foreground, divider);
-    background-color: mat-color($background, card);
+    background-color: $bg-card-color;
     @include mat-elevation(2, mat-color($background, tooltip), 0.25);
     .logo {
       color: mat-color($primary);
@@ -72,7 +75,7 @@
         }
       }
       .mega-menu {
-        background-color: mat-color($background, card);
+        background-color: $bg-card-color;
         @include mat-elevation(3, mat-color($foreground, divider, 0.7));
         @include scrollbar(mat-color($foreground, divider, 0.2));
       }
@@ -80,7 +83,7 @@
 
     .actions {
       a {
-        color: mat-color($primary, default-contrast);
+        color: $primary-contrast;
       }
     }
   }
@@ -89,12 +92,12 @@
   .user {
     .mat-button-wrapper {
       .mat-icon {
-        color: mat-color($primary, default-contrast);
+        color: $primary-contrast;
       }
     }
 
     .name {
-      color: mat-color($primary, default-contrast);
+      color: $primary-contrast;
     }
   }
 
@@ -107,7 +110,7 @@
       box-shadow: none;
     }
     &.header-sticky {
-      background: mat-color($background, card);
+      background: $bg-card-color;
       @include mat-elevation(2, mat-color($background, tooltip), 0.25);
     }
     &.light {
@@ -117,7 +120,7 @@
       .search-box .mat-icon,
       .header-top .inv-icon.style-v1,
       .header-top .inv-icon.style-v1 .mat-icon {
-        color: mat-color($primary, default-contrast);
+        color: $primary-contrast;
         transition: color 0.2s ease-in;
       }
     }
@@ -147,7 +150,7 @@
     input[type="search"] {
       color: mat-color($foreground, text);
       caret-color: mat-color($foreground, text, 0.5);
-      background-color: mat-color($background, card);
+      background-color: $bg-card-color;
     }
     .mat-icon {
       color: mat-color($primary);
@@ -157,21 +160,21 @@
     .header {
       background-color: mat-color($primary);
       .site-name {
-        color: mat-color($primary, default-contrast);
+        color: $primary-contrast;
       }
       .main-menu {
         .item {
           .top {
             a {
-              color: mat-color($primary, default-contrast);
+              color: $primary-contrast;
 
               &:hover,
               &:focus {
-                color: mat-color($primary, default-contrast);
+                color: $primary-contrast;
               }
               &.active {
                 color: mat-color($primary);
-                background-color: mat-color($primary, default-contrast);
+                background-color: $primary-contrast;
                 &:after {
                   display: none;
                 }
@@ -182,12 +185,12 @@
       }
       .search-box {
         form {
-          border: 1px solid mat-color($primary, default-contrast);
+          border: 1px solid $primary-contrast;
         }
       }
       .switch-theme {
         .mat-icon {
-          color: mat-color($primary, default-contrast);
+          color: $primary-contrast;
         }
       }
     }

@@ -10,6 +10,8 @@
   $accent: map-get($config, accent);
   $warn: map-get($config, warn);
 
+  $bg-color: mat-color($background, background);
+  $divider-color: mat-color($foreground, divider);
   .wave-wrapper {
     background: linear-gradient(
       -74deg,
@@ -18,7 +20,7 @@
     );
 
     .wave {
-      color: mat-color($background, background);
+      color: $bg-color;
     }
   }
 
@@ -36,7 +38,7 @@
     &.style-v2 {
       .bx-wrapper {
         img {
-          border-color: mat-color($foreground, divider) !important;
+          border-color: $divider-color !important;
         }
       }
       .testimonial-detail {
@@ -54,7 +56,7 @@
   }
 
   .line-year {
-    border-top: solid 1.5px mat-color($foreground, divider);
+    border-top: solid 1.5px $divider-color;
     &:before {
       background: mat-color($primary);
       border: 1px solid mat-color($primary);
@@ -64,22 +66,22 @@
 
   .feature-inner {
     &:before {
-      background: mat-color($background, background);
+      background: $bg-color;
     }
     &:after {
-      background: mat-color($background, background);
+      background: $bg-color;
     }
     .feature-inner-corners {
       &:before {
-        background: mat-color($background, background);
+        background: $bg-color;
       }
       &:after {
-        background: mat-color($background, background);
+        background: $bg-color;
       }
     }
     .feature-inner-btns {
       > a {
-        background: mat-color($background, background);
+        background: $bg-color;
         color: mat-color($primary);
         &.icon-link {
           background: rgba(0, 0, 0, 0.8);
@@ -147,7 +149,7 @@
   }
 
   .tree-inner {
-    border: 1px solid mat-color($foreground, divider);
+    border: 1px solid $divider-color;
     .node-content-wrapper-active,
     .node-content-wrapper:hover {
       background-color: mat-color($primary, 100);
@@ -159,7 +161,7 @@
   }
 
   .media-meta {
-    border-bottom: 1px solid mat-color($foreground, divider);
+    border-bottom: 1px solid $divider-color;
     .top,
     .middle {
       color: mat-color($foreground, text, 0.3);

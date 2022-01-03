@@ -9,6 +9,8 @@
   $warn: map-get($config, warn);
 
   $text-base: mat-color($foreground, text, 0.75);
+  $text-primary: mat-color($primary);
+  $bg-card-color: mat-color($background, card);
   .inv-builder-box {
     .box-icon {
       .mat-icon {
@@ -18,7 +20,7 @@
     a {
       color: $text-base;
       &:hover {
-        color: mat-color($primary);
+        color: $text-primary;
       }
     }
     .box-content {
@@ -26,43 +28,43 @@
     }
     &:hover {
       .box-title {
-        color: mat-color($primary);
+        color: $text-primary;
       }
     }
     &.title-color {
       .box-title {
-        color: mat-color($primary);
+        color: $text-primary;
       }
     }
     &.box-square,
     &.box-circle {
       .box-icon {
-        border: solid 1px mat-color($primary);
+        border: solid 1px $text-primary;
         .mat-icon {
-          color: mat-color($primary);
+          color: $text-primary;
         }
       }
     }
     // Box background icon
     &.box-background {
       .box-icon {
-        background-color: mat-color($primary);
+        background-color: $text-primary;
         .mat-icon {
-          color: mat-color($background, card);
+          color: $bg-card-color;
         }
       }
       &:hover {
         .box-title {
-          color: mat-color($primary);
+          color: $text-primary;
         }
       }
     }
     &.hover-bg-color {
       &:hover {
         .box-icon {
-          background-color: mat-color($primary);
+          background-color: $text-primary;
           .mat-icon {
-            color: mat-color($background, card);
+            color: $bg-card-color;
           }
         }
       }
@@ -83,7 +85,7 @@
       .box-icon {
         background: mat-color($background, background);
         .mat-icon {
-          background: mat-color($primary);
+          background: $text-primary;
           color: mat-color($primary, default-contrast);
         }
       }
@@ -103,7 +105,7 @@
     &.style-v4,
     &.style-v5 {
       .read-more {
-        background: mat-color($background, card);
+        background: $bg-card-color;
         border: 1px solid mat-color($foreground, divider);
 
         span {
@@ -114,10 +116,10 @@
           }
         }
         &:hover {
-          border: solid 1px mat-color($primary);
+          border: solid 1px $text-primary;
           span,
           span::after {
-            background: mat-color($primary);
+            background: $text-primary;
           }
         }
       }
@@ -125,9 +127,9 @@
     &.style-v1 {
       &:hover {
         .box-title {
-          color: mat-color($primary);
+          color: $text-primary;
           a {
-            color: mat-color($primary);
+            color: $text-primary;
           }
         }
       }
@@ -135,23 +137,23 @@
     &.style-v3,
     &.style-v6 {
       .box-icon {
-        border: solid 1px mat-color($primary);
+        border: solid 1px $text-primary;
 
         .mat-icon {
-          color: mat-color($primary);
+          color: $text-primary;
         }
         &:before {
-          background: mat-color($primary);
+          background: $text-primary;
         }
       }
       &:hover {
         .box-icon {
           &:before {
-            background-color: mat-color($primary);
-            color: mat-color($background, card);
+            background-color: $text-primary;
+            color: $bg-card-color;
           }
           .mat-icon {
-            color: mat-color($background, card);
+            color: $bg-card-color;
           }
         }
       }
@@ -159,12 +161,12 @@
     &.style-v4,
     &.style-v7 {
       .box-icon {
-        border: solid 1px mat-color($primary);
+        border: solid 1px $text-primary;
         .mat-icon,
         img {
-          color: mat-color($background, card);
+          color: $bg-card-color;
           &:after {
-            background: mat-color($primary);
+            background: $text-primary;
           }
         }
       }
@@ -172,7 +174,7 @@
         .box-icon {
           background-color: transparent;
           .mat-icon {
-            color: mat-color($primary);
+            color: $text-primary;
           }
         }
       }
@@ -181,47 +183,47 @@
       .box-icon {
         background: rgba(0, 0, 0, 0.4);
         .mat-icon {
-          color: mat-color($background, card);
+          color: $bg-card-color;
         }
       }
       &:hover {
         .box-icon {
-          background: mat-color($primary);
+          background: $text-primary;
         }
         .box-title {
-          color: mat-color($primary);
+          color: $text-primary;
         }
       }
     }
     &.style-v5 {
       .box-icon {
-        border: solid 1px mat-color($primary);
+        border: solid 1px $text-primary;
         .mat-icon {
-          color: mat-color($primary);
+          color: $text-primary;
         }
       }
       .box-content-wrapper {
         .box-title {
-          color: mat-color($background, card);
+          color: $bg-card-color;
         }
       }
 
       &:hover {
         .box-icon {
-          background: mat-color($primary);
+          background: $text-primary;
           .mat-icon {
-            color: mat-color($background, card);
+            color: $bg-card-color;
           }
         }
         .box-title {
-          color: mat-color($primary);
+          color: $text-primary;
         }
       }
     }
     // Border color hover
     &.border-color:hover {
       .box-icon {
-        border-color: mat-color($primary);
+        border-color: $text-primary;
       }
     }
     &.style-v6,
@@ -231,11 +233,11 @@
     &.style-v9 {
       .read-more {
         a {
-          color: mat-color($primary);
+          color: $text-primary;
           span {
             &:before,
             &:after {
-              background: mat-color($primary);
+              background: $text-primary;
             }
           }
         }
@@ -246,7 +248,7 @@
       .box-icon {
         background-color: mat-color($primary, 0.1);
         .mat-icon {
-          color: mat-color($primary);
+          color: $text-primary;
         }
       }
       .box-title {
@@ -258,18 +260,18 @@
       }
     }
     &.style-v9 {
-      background-color: mat-color($background, card);
+      background-color: $bg-card-color;
       box-shadow: 0 0 3px mat-color($foreground, divider, 0.1);
       .box-icon {
         background: mat-color($primary, 0.1);
-        color: mat-color($primary);
+        color: $text-primary;
         .mat-icon {
-          color: mat-color($primary);
+          color: $text-primary;
         }
       }
       .read-more {
         a {
-          color: mat-color($primary);
+          color: $text-primary;
         }
       }
       &:hover {

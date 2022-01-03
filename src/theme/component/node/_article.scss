@@ -8,9 +8,10 @@
   $accent: map-get($config, accent);
   $warn: map-get($config, warn);
 
+  $text-color: mat-color($foreground, text, 0.75);
   .article {
     .article-meta {
-      color: mat-color($foreground, text, 0.4);
+      color: $text-color;
     }
     .article-body {
       pre {
@@ -25,7 +26,7 @@
       .item {
         border-bottom: 1px dotted mat-color($foreground, divider);
         .num-posts {
-          color: mat-color($foreground, text, 0.4);
+          color: $text-color;
         }
         a {
           color: mat-color($foreground, text, 0.6);
@@ -55,7 +56,7 @@
         }
         .blog-title {
           a {
-            color: mat-color($foreground, text, 0.4);
+            color: $text-color;
             &:hover {
               color: mat-color($primary);
             }
