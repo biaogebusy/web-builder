@@ -6,6 +6,8 @@ import { ScreenState } from '../../../../mobx/screen/ScreenState';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { DynamicFormComponent } from '@uiux/combs/other/dynamic-form/dynamic-form.component';
 import { DialogService } from '@core/service/dialog.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-user-menu',
@@ -15,6 +17,8 @@ import { DialogService } from '@core/service/dialog.service';
 export class UserMenuComponent implements OnInit, OnDestroy {
   @Input() content: any;
   dialogRef: any;
+
+  destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     public userState: UserState,
     public utilities: UtilitiesService,
@@ -40,12 +44,17 @@ export class UserMenuComponent implements OnInit, OnDestroy {
         },
       },
     });
-    this.dialogRef.afterClosed().subscribe(() => console.log('dialog after'));
-    this.dialogService.dialogState$.subscribe((state) => {
-      if (!state) {
-        this.dialogRef.close();
-      }
-    });
+    this.dialogRef
+      .afterClosed()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => console.log('dialog after'));
+    this.dialogService.dialogState$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((state) => {
+        if (!state) {
+          this.dialogRef.close();
+        }
+      });
   }
 
   get userId(): any {
@@ -57,6 +66,7 @@ export class UserMenuComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.dialogService.dialogState$?.unsubscribe();
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

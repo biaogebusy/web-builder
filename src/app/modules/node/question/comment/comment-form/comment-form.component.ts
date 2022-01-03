@@ -12,7 +12,8 @@ import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { UserState } from '@core/mobx/user/UserState';
 import { ScreenService } from '@core/service/screen.service';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 @Component({
   selector: 'app-comment-form',
   templateUrl: './comment-form.component.html',
@@ -28,7 +29,7 @@ export class CommentFormComponent implements OnInit, OnDestroy {
 
   loading = false;
   htmlData = '';
-  subscription = new Subscription();
+  destroy$: Subject<boolean> = new Subject<boolean>();
   public Editor: any;
 
   constructor(
@@ -60,8 +61,9 @@ export class CommentFormComponent implements OnInit, OnDestroy {
         value,
         format: 'full_html',
       };
-      const addSub$ = this.nodeService
+      this.nodeService
         .addComment(editor.type, params)
+        .pipe(takeUntil(this.destroy$))
         .subscribe(
           (res) => {
             this.loading = false;
@@ -73,7 +75,6 @@ export class CommentFormComponent implements OnInit, OnDestroy {
             this.utilitiesService.openSnackbar('Please check user state.');
           }
         );
-      this.subscription.add(addSub$);
     } else {
       const entity = {
         type: 'comment--answer',
@@ -93,8 +94,9 @@ export class CommentFormComponent implements OnInit, OnDestroy {
           },
         },
       };
-      const updateSub$ = this.nodeService
+      this.nodeService
         .updateComment(editor.type, entity, this.myCommentId)
+        .pipe(takeUntil(this.destroy$))
         .subscribe(
           (res) => {
             this.loading = false;
@@ -106,12 +108,12 @@ export class CommentFormComponent implements OnInit, OnDestroy {
             console.log(error);
           }
         );
-      this.subscription.add(updateSub$);
     }
     this.cd.detectChanges();
   }
 
   ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

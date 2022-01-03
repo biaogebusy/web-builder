@@ -11,8 +11,9 @@ import { Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 import { FormService } from '@core/service/form.service';
 import { isEmpty, omitBy } from 'lodash';
-import { fromEvent, Subscription } from 'rxjs';
+import { fromEvent, Subject } from 'rxjs';
 import { ScreenService } from '@core/service/screen.service';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-search-action',
@@ -24,7 +25,7 @@ export class SearchActionComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() content: any;
   form: FormGroup;
 
-  subscription = new Subscription();
+  destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     private router: Router,
     private formService: FormService,
@@ -44,12 +45,13 @@ export class SearchActionComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.screenService.isPlatformBrowser()) {
       const input =
         this.ele.nativeElement.querySelectorAll('input[type=text]')[0];
-      const input$ = fromEvent(input, 'keyup').subscribe((event: any) => {
-        if (event.keyCode === 13) {
-          this.search();
-        }
-      });
-      this.subscription.add(input$);
+      fromEvent(input, 'keyup')
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((event: any) => {
+          if (event.keyCode === 13) {
+            this.search();
+          }
+        });
     }
   }
 
@@ -65,6 +67,7 @@ export class SearchActionComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

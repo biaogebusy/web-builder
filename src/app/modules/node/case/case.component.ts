@@ -9,7 +9,8 @@ import { NodeService } from '@core/service/node.service';
 import { map } from 'lodash-es';
 import { IShowcase2v1 } from '@uiux/combs/ICombs';
 import { ScreenService } from '@core/service/screen.service';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 const text = {
   spacer: 'none',
@@ -30,7 +31,7 @@ export class CaseComponent implements OnInit, OnDestroy {
   content: IShowcase2v1;
   loading = false;
 
-  subscription = new Subscription();
+  destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     private nodeService: NodeService,
     private screenService: ScreenService,
@@ -54,15 +55,17 @@ export class CaseComponent implements OnInit, OnDestroy {
     ].join('&');
 
     const path = this.nodeService.apiUrlConfig.nodeGetPath;
-    this.nodeService.getNodes(path, 'case', params).subscribe((res) => {
-      this.content = {
-        text,
-        elements: this.getList(res.data),
-      };
-      this.loading = false;
-      this.cd.detectChanges();
-    });
-    this.subscription.add();
+    this.nodeService
+      .getNodes(path, 'case', params)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((res) => {
+        this.content = {
+          text,
+          elements: this.getList(res.data),
+        };
+        this.loading = false;
+        this.cd.detectChanges();
+      });
   }
 
   getList(lists: any): any {
@@ -114,6 +117,7 @@ export class CaseComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

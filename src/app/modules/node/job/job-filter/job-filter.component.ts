@@ -16,9 +16,10 @@ import {
   debounceTime,
   distinctUntilChanged,
   startWith,
+  takeUntil,
 } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
-import { fromEvent, Subscription } from 'rxjs';
+import { fromEvent, Subject, Subscription } from 'rxjs';
 import { ScreenService } from '@core/service/screen.service';
 
 @Component({
@@ -36,12 +37,12 @@ export class JobFilterComponent implements OnInit, AfterViewInit, OnDestroy {
   @Output() searchChange = new EventEmitter();
   @Output() clear = new EventEmitter();
 
-  selectedValue = '';
-  titleControl = new FormControl();
-
   @ViewChild('search', { read: ElementRef }) search: ElementRef;
   @ViewChild('input', { read: ElementRef }) input: ElementRef;
-  subscription: Subscription;
+
+  selectedValue = '';
+  titleControl = new FormControl();
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     private screenService: ScreenService,
@@ -69,7 +70,7 @@ export class JobFilterComponent implements OnInit, AfterViewInit, OnDestroy {
         distinctUntilChanged()
       );
 
-      this.subscription = $input.subscribe((key) => {
+      $input.pipe(takeUntil(this.destroy$)).subscribe((key) => {
         this.searchChange.emit(key);
       });
     }
@@ -80,8 +81,7 @@ export class JobFilterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.screenService.isPlatformBrowser()) {
-      this.subscription?.unsubscribe();
-    }
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

@@ -8,13 +8,13 @@ import {
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { NodeService } from '@core/service/node.service';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { FormService } from '@core/service/form.service';
 import { isEmpty, omitBy } from 'lodash';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { RouteService } from '@core/service/route.service';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-search-box',
@@ -31,9 +31,7 @@ export class SearchBoxComponent
   form: FormGroup;
   options: any[] = [];
 
-  valueChange$ = new Subscription();
-  nodeChange$ = new Subscription();
-
+  destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     public nodeService: NodeService,
     private router: Router,
@@ -55,7 +53,11 @@ export class SearchBoxComponent
 
   onFormChange(): void {
     this.form.valueChanges
-      .pipe(debounceTime(1000), distinctUntilChanged())
+      .pipe(
+        takeUntil(this.destroy$),
+        debounceTime(1000),
+        distinctUntilChanged()
+      )
       .subscribe((value) => {
         const params = omitBy(
           Object.assign(
@@ -70,6 +72,7 @@ export class SearchBoxComponent
 
         this.nodeService
           .search('content', this.getApiParams(params))
+          .pipe(takeUntil(this.destroy$))
           .subscribe((data) => {
             this.options = data.rows.map((item: any) => {
               return {
@@ -89,8 +92,8 @@ export class SearchBoxComponent
   }
 
   ngOnDestroy(): void {
-    this.valueChange$?.unsubscribe();
-    this.nodeChange$?.unsubscribe();
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 
   search(value: any): void {

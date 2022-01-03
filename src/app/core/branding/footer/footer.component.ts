@@ -13,6 +13,8 @@ import { MatAccordion } from '@angular/material/expansion';
 import { BrandingState } from '../../mobx/BrandingStare';
 import { ScreenState } from '../../mobx/screen/ScreenState';
 import { ScreenService } from '@core/service/screen.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html',
@@ -25,6 +27,8 @@ export class FooterComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild(MatAccordion) accordion: MatAccordion;
   @ViewChild('goTop') goTop: ElementRef;
+
+  destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     public screen: ScreenState,
     private screenService: ScreenService,
@@ -40,7 +44,7 @@ export class FooterComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onScroll(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.screen.scroll$.subscribe(() => {
+      this.screen.scroll$.pipe(takeUntil(this.destroy$)).subscribe(() => {
         if (this.document.body.getBoundingClientRect().top < -100) {
           this.goTop.nativeElement.style.bottom = '4rem';
         } else {
@@ -55,6 +59,7 @@ export class FooterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.screen.scroll$?.unsubscribe();
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }
