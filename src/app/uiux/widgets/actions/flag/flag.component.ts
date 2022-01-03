@@ -41,7 +41,7 @@ export class FlagComponent extends BaseComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       this.config = this.appState?.actions?.flag;
-      if (this.config.enabel && this.userState.anthenticated) {
+      if (this.config?.enabel && this.userState.anthenticated) {
         this.getFlagging();
       }
     }
