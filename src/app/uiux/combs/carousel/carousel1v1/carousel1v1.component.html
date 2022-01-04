@@ -4,7 +4,7 @@
   <app-bg *ngIf="content.bg" [content]="content.bg">
     <app-img *ngIf="content.bg?.img" [content]="content.bg.img"></app-img>
   </app-bg>
-  <div class="container ">
+  <div class="{{content?.disableContainer?'':'container'}}">
     <app-title [content]="content.title"></app-title>
     <app-swiper [content]="content.sliders"></app-swiper>
   </div>

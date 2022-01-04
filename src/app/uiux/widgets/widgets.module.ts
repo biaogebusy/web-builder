@@ -58,6 +58,7 @@ import { TreeComponent } from './tree/tree.component';
 import { Card1v1Component } from './card/card1v1/card1v1.component';
 import { DownloadComponent } from './actions/download/download.component';
 import { MediaMetaComponent } from './media/media-meta/media-meta.component';
+import { TextHeroComponent } from './text-hero/text-hero.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -70,6 +71,7 @@ const components = [
   MapComponent,
   BoxComponent,
   TextComponent,
+  TextHeroComponent,
   LinkComponent,
   TabComponent,
   CardComponent,
