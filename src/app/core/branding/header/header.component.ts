@@ -14,6 +14,8 @@ import { ScreenState } from '../../mobx/screen/ScreenState';
 import { BrandingState } from '../../mobx/BrandingStare';
 import { AppState } from '../../mobx/AppState';
 import { DOCUMENT } from '@angular/common';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -25,6 +27,8 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('header', { read: ElementRef }) header: ElementRef;
   @ViewChild('menu', { read: ElementRef }) menu: ElementRef;
+
+  destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     public screenService: ScreenService,
     public screenState: ScreenState,
@@ -39,7 +43,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.screenState.scroll$.subscribe(() => {
+      this.screenState.scroll$.pipe(takeUntil(this.destroy$)).subscribe(() => {
         this.sticky = this.screenService.isElementOutTopViewport(
           this.menu.nativeElement
         );
@@ -87,6 +91,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.screen.scroll$?.unsubscribe();
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

@@ -1,4 +1,5 @@
-<div [id]="content.id" class="contact-us positive-relative" *ngIf="content">
+<div class="contact-us positive-relative" *ngIf="content">
+  <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <app-bg [content]="content.bg" *ngIf="content.bg">
     <mat-icon class="wave" svgIcon="{{content.bg.icon}}" *ngIf="content.bg.icon"></mat-icon>
@@ -9,7 +10,7 @@
         <div fxFlex.lt-md="100" fxFlex.gt-sm="40" fxLayout="column">
           <app-box *ngFor="let item of content.contact" [content]="item"></app-box>
         </div>
-        <div fxFlex.lt-md="100" fxFlex.gt-sm="40" fxLayout="column">
+        <div fxFlexOrder="{{content.formOrder || 10}}" fxFlex.lt-md="100" fxFlex.gt-sm="40" fxLayout="column">
           <app-dynamic-form-control *ngFor="let item of content.forms" [control]="item" [form]="form">
           </app-dynamic-form-control>
         </div>

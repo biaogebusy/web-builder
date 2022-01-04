@@ -9,7 +9,8 @@ import {
 import { UserState } from '@core/mobx/user/UserState';
 import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
-import { Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-question',
@@ -25,7 +26,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
   myCommentId = '';
   myCommentContent = '';
 
-  subscription = new Subscription();
+  destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     private nodeService: NodeService,
     private userState: UserState,
@@ -69,8 +70,9 @@ export class QuestionComponent implements OnInit, OnDestroy {
       `page[limit]=1`,
     ].join('&');
     const path = this.nodeService.apiUrlConfig.commentGetPath;
-    const node$ = this.nodeService
+    this.nodeService
       .getNodes(path, this.entityType, params)
+      .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {
         if (res.data.length) {
           this.isAsked = true;
@@ -84,8 +86,6 @@ export class QuestionComponent implements OnInit, OnDestroy {
         }
         this.cd.detectChanges();
       });
-
-    this.subscription.add(node$);
   }
 
   checkQuestion(id: string): void {
@@ -102,8 +102,9 @@ export class QuestionComponent implements OnInit, OnDestroy {
       `jsonapi_include=1`,
     ].join('&');
     const path = this.nodeService.apiUrlConfig.commentGetPath;
-    const comment$ = this.nodeService
+    this.nodeService
       .getNodes(path, this.entityType, params)
+      .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {
         this.comments = res.data.map((comment: any) => {
           return {
@@ -127,11 +128,10 @@ export class QuestionComponent implements OnInit, OnDestroy {
         });
         this.cd.detectChanges();
       });
-
-    this.subscription.add(comment$);
   }
 
   ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

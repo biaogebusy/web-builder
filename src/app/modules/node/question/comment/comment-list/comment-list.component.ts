@@ -11,7 +11,8 @@ import {
 import { AppState } from '@core/mobx/AppState';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
-import { Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-comment-list',
@@ -27,7 +28,7 @@ export class CommentListComponent implements OnInit, OnDestroy {
   loading: boolean;
   showInlineEditor = false;
 
-  subscription = new Subscription();
+  destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     private nodeService: NodeService,
     private appState: AppState,
@@ -61,8 +62,9 @@ export class CommentListComponent implements OnInit, OnDestroy {
 
   onDeleteMyQuestion(id: string): void {
     this.loading = true;
-    const sub$ = this.nodeService
+    this.nodeService
       .deleteEntity(`${this.appState.apiUrlConfig.commentGetPath}/comment`, id)
+      .pipe(takeUntil(this.destroy$))
       .subscribe(
         (res) => {
           this.loading = false;
@@ -74,7 +76,6 @@ export class CommentListComponent implements OnInit, OnDestroy {
           this.utilitiesService.openSnackbar('Please check user state.', '√');
         }
       );
-    this.subscription.add(sub$);
     this.cd.detectChanges();
   }
 
@@ -83,6 +84,7 @@ export class CommentListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

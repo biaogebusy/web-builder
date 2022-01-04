@@ -10,10 +10,10 @@ import { AppState } from '@core/mobx/AppState';
 import { NodeService } from '@core/service/node.service';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { UserState } from '@core/mobx/user/UserState';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, takeUntil } from 'rxjs/operators';
 import { RouteService } from '@core/service/route.service';
 import { ScreenService } from '@core/service/screen.service';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-flag',
@@ -26,7 +26,7 @@ export class FlagComponent extends BaseComponent implements OnInit, OnDestroy {
   config: any;
   flagging = false;
 
-  subscription = new Subscription();
+  destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     public nodeService: NodeService,
     public routerService: RouteService,
@@ -41,7 +41,7 @@ export class FlagComponent extends BaseComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       this.config = this.appState?.actions?.flag;
-      if (this.config.enabel && this.userState.anthenticated) {
+      if (this.config?.enabel && this.userState.anthenticated) {
         this.getFlagging();
       }
     }
@@ -59,19 +59,19 @@ export class FlagComponent extends BaseComponent implements OnInit, OnDestroy {
   }
 
   getFlagging(): void {
-    const sub$ = this.nodeService
+    this.nodeService
       .getNodes(
         this.appState.apiUrlConfig.flaggingGetPath,
         this.type,
         this.flaggingParams
       )
+      .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {
         if (res.data.length) {
           this.flagging = true;
           this.cd.detectChanges();
         }
       });
-    this.subscription.add(sub$);
   }
 
   onFlag(): void {
@@ -103,21 +103,22 @@ export class FlagComponent extends BaseComponent implements OnInit, OnDestroy {
           },
         },
       };
-      const getSub$ = this.nodeService
+      this.nodeService
         .flagging(this.path, JSON.stringify(data))
+        .pipe(takeUntil(this.destroy$))
         .subscribe((res) => {
           this.flagging = true;
           this.cd.detectChanges();
         });
-      this.subscription.add(getSub$);
     } else {
-      const setSub$ = this.nodeService
+      this.nodeService
         .getNodes(
           this.appState.apiUrlConfig.flaggingGetPath,
           this.type,
           this.flaggingParams
         )
         .pipe(
+          takeUntil(this.destroy$),
           switchMap((res) => {
             return this.nodeService.deleteFlagging(this.path, res.data);
           })
@@ -126,7 +127,6 @@ export class FlagComponent extends BaseComponent implements OnInit, OnDestroy {
           this.flagging = false;
           this.cd.detectChanges();
         });
-      this.subscription.add(setSub$);
     }
   }
 
@@ -150,6 +150,7 @@ export class FlagComponent extends BaseComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

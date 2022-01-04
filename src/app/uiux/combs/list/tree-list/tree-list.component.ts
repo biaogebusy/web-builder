@@ -12,7 +12,8 @@ import { NodeService } from '@core/service/node.service';
 import { RouteService } from '@core/service/route.service';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { ScreenService } from '@core/service/screen.service';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-tree-list',
@@ -31,7 +32,7 @@ export class TreeListComponent
   pager: any;
   formState: any = {};
 
-  subscription = new Subscription();
+  destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     public nodeService: NodeService,
     private router: ActivatedRoute,
@@ -44,8 +45,9 @@ export class TreeListComponent
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      const sub$: Subscription = this.router.queryParams.subscribe(
-        (query: any) => {
+      this.router.queryParams
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((query: any) => {
           const initQuery: any = {};
           this.content.tree.forEach((item: any) => {
             initQuery[item.key] = item.value;
@@ -63,16 +65,15 @@ export class TreeListComponent
             isEmpty
           );
           this.nodeSearch(initQuery);
-        }
-      );
-      this.subscription.add(sub$);
+        });
     }
   }
 
   nodeSearch(params: any): void {
     this.loading = true;
-    const node$: Subscription = this.nodeService
+    this.nodeService
       .search('content', this.getApiParams(params))
+      .pipe(takeUntil(this.destroy$))
       .subscribe(
         (data) => {
           this.updateList(data);
@@ -85,7 +86,6 @@ export class TreeListComponent
           this.cd.detectChanges();
         }
       );
-    this.subscription.add(node$);
   }
 
   updateList(data: any): void {
@@ -130,6 +130,7 @@ export class TreeListComponent
   }
 
   ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

@@ -8,17 +8,18 @@
   $accent: map-get($config, accent);
   $warn: map-get($config, warn);
 
+  $text-color: mat-color($foreground, text, 0.75);
   .mat-accordion {
     .mat-expansion-panel-header,
     .mat-list {
       border-color: mat-color($foreground, divider) !important;
     }
     .mat-expansion-panel-header-title {
-      color: mat-color($foreground, text, 0.75);
+      color: $text-color;
     }
     .mat-list {
       a {
-        color: mat-color($foreground, text, 0.75);
+        color: $text-color;
         &.active {
           color: mat-color($primary);
         }
@@ -29,7 +30,7 @@
   .user-dropdown {
     .mat-menu-item {
       a {
-        color: mat-color($foreground, text, 0.75);
+        color: $text-color;
         &.active {
           color: mat-color($primary);
         }

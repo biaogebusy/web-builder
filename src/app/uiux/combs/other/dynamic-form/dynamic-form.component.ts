@@ -15,7 +15,8 @@ import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { Router } from '@angular/router';
 import { ScreenService } from '@core/service/screen.service';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -29,7 +30,7 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
   loading = false;
   form: FormGroup;
 
-  subscription = new Subscription();
+  destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     private formService: FormService,
     private nodeService: NodeService,
@@ -49,8 +50,9 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
 
   onClick(params: IActionParams): void {
     this.loading = true;
-    const sub$ = this.nodeService
+    this.nodeService
       .addNode(params.type, this.form.value, this.userState.currentUser)
+      .pipe(takeUntil(this.destroy$))
       .subscribe(
         (res) => {
           const link = this.nodeService.getNodePath(res.data.attributes);
@@ -68,10 +70,10 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
           this.cd.detectChanges();
         }
       );
-    this.subscription.add(sub$);
   }
 
   ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

@@ -8,10 +8,10 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { NodeService } from '@core/service/node.service';
 import { UserService } from '@core/service/user.service';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, takeUntil } from 'rxjs/operators';
 import { formatDate } from '@angular/common';
 import { ScreenService } from '@core/service/screen.service';
-import { Subscription } from 'rxjs';
+import { Subscription, Subject } from 'rxjs';
 @Component({
   selector: 'app-user-favorite',
   templateUrl: './user-favorite.component.html',
@@ -26,7 +26,7 @@ export class UserFavoriteComponent implements OnInit, OnDestroy {
     itemsPerPage: 20,
   };
 
-  subscription = new Subscription();
+  destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     private router: ActivatedRoute,
     private userService: UserService,
@@ -46,9 +46,10 @@ export class UserFavoriteComponent implements OnInit, OnDestroy {
     this.loading = true;
     const path = this.nodeService.apiUrlConfig.flaggingGetPath;
 
-    const sub$ = this.userService
+    this.userService
       .getUserById(id)
       .pipe(
+        takeUntil(this.destroy$),
         switchMap((res: any) => {
           const params = [
             `filter[uid.id]=${res.data[0].id}`,
@@ -119,11 +120,10 @@ export class UserFavoriteComponent implements OnInit, OnDestroy {
           console.log(error);
         }
       );
-
-    this.subscription.add(sub$);
   }
 
   ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

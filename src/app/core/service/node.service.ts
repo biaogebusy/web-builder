@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { ApiService } from './api.service';
 import { LocalStorageService } from 'ngx-webstorage';
-import { HttpClient } from '@angular/common/http';
-import { AppState } from '../mobx/AppState';
 import { IUser } from '../mobx/user/IUser';
+import { AppState } from '../mobx/AppState';
+import { forkJoin } from 'rxjs';
 import { Observable, of } from 'rxjs';
 import { IApiUrl } from '../mobx/IAppConfig';
-import { forkJoin } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root',

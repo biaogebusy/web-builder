@@ -10,7 +10,8 @@ import { NodeService } from '@core/service/node.service';
 import { RouteService } from '@core/service/route.service';
 import { ScreenService } from '@core/service/screen.service';
 import { BaseComponent } from '@uiux/base/base.widget';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dynamic-media-list',
@@ -27,7 +28,7 @@ export class DynamicMediaListComponent
   links: any;
   loading = true;
 
-  subscription = new Subscription();
+  destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     public nodeService: NodeService,
     public routerService: RouteService,
@@ -51,13 +52,12 @@ export class DynamicMediaListComponent
       `page[limit]=${this.getParams(this.content, 'limit') || 20}`,
     ].join('&');
     const path = this.nodeService.apiUrlConfig.nodeGetPath;
-    const sub$ = this.nodeService
+    this.nodeService
       .getNodes(path, `${this.getParams(this.content, 'type')}`, params)
+      .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {
         this.updateList(res);
       });
-
-    this.subscription.add(sub$);
   }
 
   updateList(res: any): void {
@@ -99,14 +99,16 @@ export class DynamicMediaListComponent
 
   loadContent(link: string): void {
     this.loading = true;
-    const sub$ = this.nodeService.getNodeByLink(link).subscribe((res) => {
-      this.updateList(res);
-    });
-
-    this.subscription.add(sub$);
+    this.nodeService
+      .getNodeByLink(link)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((res) => {
+        this.updateList(res);
+      });
   }
 
   ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

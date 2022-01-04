@@ -13,7 +13,8 @@ import { RouteService } from '@core/service/route.service';
 import { ScreenService } from '@core/service/screen.service';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { AppState } from '@core/mobx/AppState';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dynamic-text-list',
@@ -32,7 +33,7 @@ export class DynamicTextListComponent
   links: any;
   loading: boolean;
 
-  subscription = new Subscription();
+  destory$: Subject<boolean> = new Subject<boolean>();
   constructor(
     public nodeService: NodeService,
     public routerService: RouteService,
@@ -52,7 +53,7 @@ export class DynamicTextListComponent
   getLists(): void {
     this.loading = true;
     const path = this.nodeService.apiUrlConfig.nodeGetPath;
-    const sub$ = this.nodeService
+    this.nodeService
       .getNodes(
         path,
         `${this.getParams(this.content, 'type')}`,
@@ -61,18 +62,20 @@ export class DynamicTextListComponent
           'sort'
         )}&page[limit]=20`
       )
+      .pipe(takeUntil(this.destory$))
       .subscribe((res) => {
         this.updateList(res);
       });
-    this.subscription.add(sub$);
   }
 
   onPageChange(link: string): void {
     this.screenService.gotoTop();
-    const sub$ = this.nodeService.getNodeByLink(link).subscribe((res) => {
-      this.updateList(res);
-    });
-    this.subscription.add(sub$);
+    this.nodeService
+      .getNodeByLink(link)
+      .pipe(takeUntil(this.destory$))
+      .subscribe((res) => {
+        this.updateList(res);
+      });
   }
 
   updateList(res: any): void {
@@ -101,6 +104,7 @@ export class DynamicTextListComponent
   }
 
   ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
+    this.destory$.next(true);
+    this.destory$.unsubscribe();
   }
 }

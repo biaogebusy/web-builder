@@ -34,6 +34,10 @@
         "placeholder": "请输入你的关键词"
       }
     },
+    "label": {
+      "clear": "清空",
+      "filter": "过滤条件"
+    },
     "sidebar": [{
       "appearance": "legacy",
       "controlType": "search",

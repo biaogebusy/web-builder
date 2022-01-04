@@ -8,9 +8,11 @@
   $accent: map-get($config, accent);
   $warn: map-get($config, warn);
 
+  $text-color: mat-color($foreground, text, 0.75);
+  $bg-color: mat-color($background, card);
   .mat-card {
     color: inherit;
-    background-color: mat-color($background, card);
+    background-color: $bg-color;
 
     &:hover {
       cursor: pointer;
@@ -19,7 +21,7 @@
   }
   .mat-card-title {
     a {
-      color: mat-color($foreground, text, 0.75);
+      color: $text-color;
       &:hover {
         color: mat-color($primary);
       }
@@ -36,9 +38,9 @@
 
   .card-1-v1 {
     @include mat-elevation(4, mat-color($foreground, text), 0.3);
-    background-color: mat-color($background, card);
+    background-color: $bg-color;
     a {
-      color: mat-color($foreground, text, 0.75);
+      color: $text-color;
       &:hover {
         color: mat-color($primary);
       }
@@ -47,7 +49,7 @@
       background-color: mat-color($foreground, base);
     }
     .author {
-      color: mat-color($background, card);
+      color: $bg-color;
     }
   }
 }
