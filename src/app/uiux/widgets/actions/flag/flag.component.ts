@@ -118,10 +118,10 @@ export class FlagComponent extends BaseComponent implements OnInit, OnDestroy {
           this.flaggingParams
         )
         .pipe(
-          takeUntil(this.destroy$),
           switchMap((res) => {
             return this.nodeService.deleteFlagging(this.path, res.data);
-          })
+          }),
+          takeUntil(this.destroy$)
         )
         .subscribe((res) => {
           this.flagging = false;
@@ -151,6 +151,6 @@ export class FlagComponent extends BaseComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.destroy$.next(true);
-    this.destroy$.unsubscribe();
+    this.destroy$.complete();
   }
 }

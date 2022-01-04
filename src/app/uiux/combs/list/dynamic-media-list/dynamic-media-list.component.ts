@@ -109,6 +109,6 @@ export class DynamicMediaListComponent
 
   ngOnDestroy(): void {
     this.destroy$.next(true);
-    this.destroy$.unsubscribe();
+    this.destroy$.complete();
   }
 }

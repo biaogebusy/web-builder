@@ -49,7 +49,6 @@ export class UserFavoriteComponent implements OnInit, OnDestroy {
     this.userService
       .getUserById(id)
       .pipe(
-        takeUntil(this.destroy$),
         switchMap((res: any) => {
           const params = [
             `filter[uid.id]=${res.data[0].id}`,
@@ -58,7 +57,8 @@ export class UserFavoriteComponent implements OnInit, OnDestroy {
             `jsonapi_include=1`,
           ].join('&');
           return this.nodeService.getNodes(path, 'favorite', params);
-        })
+        }),
+        takeUntil(this.destroy$)
       )
       .subscribe(
         (res) => {
@@ -124,6 +124,6 @@ export class UserFavoriteComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.destroy$.next(true);
-    this.destroy$.unsubscribe();
+    this.destroy$.complete();
   }
 }
