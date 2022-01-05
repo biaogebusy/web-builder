@@ -12,6 +12,7 @@
     "gruntfuggly.todo-tree",
     "eg2.tslint",
     "esbenp.prettier-vscode",
-    "xabikos.javascriptsnippets"
+    "xabikos.javascriptsnippets",
+    "shanoor.vscode-nginx"
   ]
 }
