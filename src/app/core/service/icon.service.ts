@@ -15,11 +15,14 @@ export class IconService {
   ) {}
 
   loadSvgResources(): void {
-    const svgPath = '/assets/icons/icons.svg';
-    const domain = this.screenService.isPlatformServer()
-      ? `http://localhost:${environment.port}/`
-      : '';
-    const url = this.ds.bypassSecurityTrustResourceUrl(domain + svgPath);
-    this.ir.addSvgIconSet(url);
+    if (this.screenService.isPlatformServer()) {
+      this.ir.addSvgIconSetLiteral(
+        this.ds.bypassSecurityTrustHtml('<svg></svg>')
+      );
+    } else {
+      const svgPath = '/assets/icons/icons.svg';
+      const url = this.ds.bypassSecurityTrustResourceUrl(svgPath);
+      this.ir.addSvgIconSet(url);
+    }
   }
 }

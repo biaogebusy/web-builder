@@ -9,9 +9,6 @@
       "style": "style-v2",
       "classes": "mat-display-1"
     },
-    "bg": {
-      "classes": "bg-white bg-fill-width"
-    },
     "disableContainer": true,
     "sliders": {
       "params": {
