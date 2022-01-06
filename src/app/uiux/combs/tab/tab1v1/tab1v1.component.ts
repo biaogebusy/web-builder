@@ -3,6 +3,7 @@ import {
   ChangeDetectorRef,
   Component,
   Input,
+  OnDestroy,
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
@@ -11,6 +12,8 @@ import { NodeService } from '@core/service/node.service';
 import { RouteService } from '@core/service/route.service';
 import { isEmpty, omitBy } from 'lodash';
 import { ScreenService } from '@core/service/screen.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-tab1v1',
@@ -18,7 +21,10 @@ import { ScreenService } from '@core/service/screen.service';
   styleUrls: ['./tab1v1.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Tab1v1Component extends BaseComponent implements OnInit {
+export class Tab1v1Component
+  extends BaseComponent
+  implements OnInit, OnDestroy
+{
   @Input() content: any;
 
   selectedIndex = 0;
@@ -26,6 +32,8 @@ export class Tab1v1Component extends BaseComponent implements OnInit {
   page: number;
   pager: any;
   currentList: any[] = [];
+  destroy$: Subject<boolean> = new Subject<boolean>();
+
   constructor(
     public nodeService: NodeService,
     public routerService: RouteService,
@@ -65,24 +73,26 @@ export class Tab1v1Component extends BaseComponent implements OnInit {
         page: query.page,
       });
       const type = this.getParams(this.content, 'type');
-      this.nodeSearchByParams(type, {}, apiQuery).subscribe((res) => {
-        this.pager = res.pager;
-        this.currentList = res.rows.map((item: any) => {
-          return {
-            link: {
-              href: item.url,
-              label: item.title,
-            },
-            more: {
-              href: item.url,
-              label: '更多',
-            },
-            date: item.created,
-            body: item.body,
-          };
+      this.nodeSearchByParams(type, {}, apiQuery)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((res) => {
+          this.pager = res.pager;
+          this.currentList = res.rows.map((item: any) => {
+            return {
+              link: {
+                href: item.url,
+                label: item.title,
+              },
+              more: {
+                href: item.url,
+                label: '更多',
+              },
+              date: item.created,
+              body: item.body,
+            };
+          });
+          this.cd.detectChanges();
         });
-        this.cd.detectChanges();
-      });
     }
     this.cd.detectChanges();
   }
@@ -106,5 +116,10 @@ export class Tab1v1Component extends BaseComponent implements OnInit {
     this.initTab(values);
     this.updateUrl(values);
     this.cd.detectChanges();
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.complete();
   }
 }

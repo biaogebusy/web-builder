@@ -12,7 +12,7 @@ import { NodeService } from '@core/service/node.service';
 import { RouteService } from '@core/service/route.service';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { ScreenService } from '@core/service/screen.service';
-import { Subject, Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
@@ -45,27 +45,25 @@ export class TreeListComponent
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.router.queryParams
-        .pipe(takeUntil(this.destroy$))
-        .subscribe((query: any) => {
-          const initQuery: any = {};
-          this.content.tree.forEach((item: any) => {
-            initQuery[item.key] = item.value;
-          });
-          this.page = query.page || 0;
-          // TODO: assign query
-          const queryOpt = omitBy(
-            Object.assign(
-              {
-                page: this.page,
-              },
-              query,
-              initQuery
-            ),
-            isEmpty
-          );
-          this.nodeSearch(initQuery);
+      this.router.queryParams.subscribe((query: any) => {
+        const initQuery: any = {};
+        this.content.tree.forEach((item: any) => {
+          initQuery[item.key] = item.value;
         });
+        this.page = query.page || 0;
+        // TODO: assign query
+        const queryOpt = omitBy(
+          Object.assign(
+            {
+              page: this.page,
+            },
+            query,
+            initQuery
+          ),
+          isEmpty
+        );
+        this.nodeSearch(initQuery);
+      });
     }
   }
 

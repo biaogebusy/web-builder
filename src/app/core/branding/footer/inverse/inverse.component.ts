@@ -1,10 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormService } from '../../../service/form.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -15,7 +9,6 @@ import { UtilitiesService } from '@core/service/utilities.service';
   selector: 'app-inverse',
   templateUrl: './inverse.component.html',
   styleUrls: ['./inverse.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InverseComponent implements OnInit {
   @Input() content: any;

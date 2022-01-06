@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
   ChangeDetectorRef,
+  OnDestroy,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { omitBy, isEmpty } from 'lodash-es';
@@ -12,8 +13,9 @@ import { RouteService } from '@core/service/route.service';
 import { BaseComponent } from '../../base/base.widget';
 import { FormGroup } from '@angular/forms';
 import { FormService } from '@core/service/form.service';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { ScreenService } from '@core/service/screen.service';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-search',
@@ -21,7 +23,10 @@ import { ScreenService } from '@core/service/screen.service';
   styleUrls: ['./search.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SearchComponent extends BaseComponent implements OnInit {
+export class SearchComponent
+  extends BaseComponent
+  implements OnInit, OnDestroy
+{
   @Input() content: any;
   searchEntry: any;
   page: number;
@@ -30,6 +35,8 @@ export class SearchComponent extends BaseComponent implements OnInit {
   filterForm: any[];
   nodes: [];
   loading = false;
+  destroy$: Subject<boolean> = new Subject<boolean>();
+
   constructor(
     public nodeService: NodeService,
     private router: ActivatedRoute,
@@ -71,7 +78,11 @@ export class SearchComponent extends BaseComponent implements OnInit {
   initForm(items: any[]): void {
     this.form = this.formService.toFormGroup(items);
     this.form.valueChanges
-      .pipe(debounceTime(1000), distinctUntilChanged())
+      .pipe(
+        debounceTime(1000),
+        distinctUntilChanged(),
+        takeUntil(this.destroy$)
+      )
       .subscribe((value) => {
         const params = Object.assign({ page: 0 }, value);
         this.onSelectChange(params);
@@ -92,17 +103,19 @@ export class SearchComponent extends BaseComponent implements OnInit {
     this.loading = true;
     this.searchEntry = omitBy(options, isEmpty);
     const type = this.getParams(this.content, 'type') || 'content';
-    this.nodeSearchByParams(type, this.form.value, options).subscribe(
-      (data) => {
-        this.updateList(data, this.form.value, options);
-        this.loading = false;
-        this.cd.detectChanges();
-      },
-      (error) => {
-        this.loading = false;
-        this.cd.detectChanges();
-      }
-    );
+    this.nodeSearchByParams(type, this.form.value, options)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(
+        (data) => {
+          this.updateList(data, this.form.value, options);
+          this.loading = false;
+          this.cd.detectChanges();
+        },
+        (error) => {
+          this.loading = false;
+          this.cd.detectChanges();
+        }
+      );
   }
 
   updateList(data: any, formValues: any, options: any): void {
@@ -123,5 +136,10 @@ export class SearchComponent extends BaseComponent implements OnInit {
     });
     this.updateUrl(formValues, options);
     this.cd.detectChanges();
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.complete();
   }
 }
