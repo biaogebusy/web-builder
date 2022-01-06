@@ -77,7 +77,7 @@ export class DynamicMediaListComponent
           ratios: this.content.ratios || 'media-16-9',
           img: {
             classes: 'object-fit',
-            src: item.media.thumbnail.uri.url,
+            src: item.media?.thumbnail?.uri?.url,
             alt: item.title,
           },
         },

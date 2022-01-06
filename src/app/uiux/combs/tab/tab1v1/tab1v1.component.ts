@@ -81,6 +81,7 @@ export class Tab1v1Component extends BaseComponent implements OnInit {
             body: item.body,
           };
         });
+        this.cd.detectChanges();
       });
     }
     this.cd.detectChanges();
