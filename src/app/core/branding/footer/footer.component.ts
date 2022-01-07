@@ -17,6 +17,7 @@ import { ScreenService } from '@core/service/screen.service';
   selector: 'app-footer',
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FooterComponent implements OnInit, AfterViewInit, OnDestroy {
   content: any;

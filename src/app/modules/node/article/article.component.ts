@@ -6,6 +6,7 @@ import {
   AfterViewInit,
   Inject,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
 } from '@angular/core';
 import {
   FormBuilder,
@@ -32,22 +33,26 @@ export class ArticleComponent implements OnInit, AfterViewInit {
   @Input() content: any;
   options: FormGroup;
   fontSizeControl = new FormControl(16, Validators.min(10));
+  showNotXs: boolean;
 
   constructor(
     private tagsService: TagsService,
-    @Inject(DOCUMENT) private document: Document,
-    fb: FormBuilder,
+    private fb: FormBuilder,
     public appState: AppState,
     public screen: ScreenState,
-    private screenService: ScreenService
+    private screenService: ScreenService,
+    private cd: ChangeDetectorRef,
+    @Inject(DOCUMENT) private document: Document
   ) {
-    hljs.registerLanguage('javascript', javascript);
-    hljs.registerLanguage('php', php);
-    hljs.registerLanguage('scss', scss);
+    if (this.screenService.isPlatformBrowser()) {
+      hljs.registerLanguage('javascript', javascript);
+      hljs.registerLanguage('php', php);
+      hljs.registerLanguage('scss', scss);
 
-    this.options = fb.group({
-      fontSize: this.fontSizeControl,
-    });
+      this.options = fb.group({
+        fontSize: this.fontSizeControl,
+      });
+    }
   }
 
   ngOnInit(): void {
@@ -61,6 +66,10 @@ export class ArticleComponent implements OnInit, AfterViewInit {
       this.document.querySelectorAll('code').forEach((block) => {
         // then highlight each
         hljs.highlightBlock(block);
+      });
+      this.screen.mqAlias$().subscribe((mq) => {
+        this.showNotXs = mq.includes('gt-xs');
+        this.cd.detectChanges();
       });
     }
   }

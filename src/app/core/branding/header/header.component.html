@@ -1,7 +1,7 @@
 <ng-container *ngIf="branding?.ready">
   <header *ngIf="!appState.pageConfig?.headerMode?.transparent;else transparent">
     <div class="static" [class.header-inverse]="branding.isInverse">
-      <app-header-banner *ngIf="showBanner()" [content]="branding.header.banner">
+      <app-header-banner *ngIf="showBanner" [content]="branding.header.banner">
       </app-header-banner>
       <app-header-top *ngIf="branding.header?.top" [content]="branding.header.top"></app-header-top>
       <app-menu #menu [content]="branding.header"></app-menu>

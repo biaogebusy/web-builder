@@ -19,8 +19,8 @@
               </ng-template>
             </div>
           </div>
-          <form *ngIf="fontSizeConfig && fontSizeConfig.enabel && !screen.eq('xs')" class="fontSize"
-            [formGroup]="options" fxLayoutAlign="end center">
+          <form *ngIf="fontSizeConfig && fontSizeConfig.enabel && showNotXs" class="fontSize" [formGroup]="options"
+            fxLayoutAlign="end center">
             <mat-form-field appearance="legacy" matTooltip="{{fontSizeConfig.tooltip}}" matTooltipPosition="above">
               <mat-label>{{fontSizeConfig.label}}</mat-label>
               <input matInput type="number" placeholder="Ex. 12" [formControl]="fontSizeControl" min="10" max="20">

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Subject, fromEvent } from 'rxjs';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { Subject, Observable, fromEvent } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { action, observable } from 'mobx-angular';
 import { MatDrawer } from '@angular/material/sidenav';
@@ -31,19 +31,23 @@ export class ScreenState {
 
   @action
   initScreen(): any {
-    this.mediaObserver
-      .asObservable()
-      .pipe(
-        distinctUntilChanged(
-          (x: MediaChange[], y: MediaChange[]) =>
-            this.getAlias(x) === this.getAlias(y)
-        )
-      )
-      .subscribe((change) => {
-        this.viewPort = change.map((item) => {
+    this.mqAlias$().subscribe((mq) => {
+      this.viewPort = mq;
+    });
+  }
+
+  mqAlias$(): Observable<string[]> {
+    return this.mediaObserver.asObservable().pipe(
+      distinctUntilChanged(
+        (x: MediaChange[], y: MediaChange[]) =>
+          this.getAlias(x) === this.getAlias(y)
+      ),
+      map((change: any) => {
+        return change.map((item: any) => {
           return item.mqAlias;
         });
-      });
+      })
+    );
   }
 
   getAlias(change: MediaChange[]): any {

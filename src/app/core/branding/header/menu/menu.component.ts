@@ -1,21 +1,30 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ScreenState } from '../../../mobx/screen/ScreenState';
-import { AppState } from '../../../mobx/AppState';
+import {
+  Component,
+  OnInit,
+  Input,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { Event, NavigationStart, Router } from '@angular/router';
+import { AppState } from '@core/mobx/AppState';
+import { ScreenState } from '@core/mobx/screen/ScreenState';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MenuComponent implements OnInit {
-  isOpened = false;
   @Input() isDrawer: boolean;
   @Input() content: any;
+  isOpened = false;
+  show: boolean;
 
   constructor(
     public screen: ScreenState,
     public appState: AppState,
-    private router: Router
+    private router: Router,
+    private cd: ChangeDetectorRef
   ) {
     this.router.events.subscribe((event: Event) => {
       if (this.isDrawer && event instanceof NavigationStart) {
@@ -24,10 +33,17 @@ export class MenuComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.screen.mqAlias$().subscribe((res: string[]) => {
+      console.log(res);
+      this.show = res.includes('gt-sm');
+      this.cd.detectChanges();
+    });
+  }
 
   onToggle(): void {
     this.isOpened = !this.isOpened;
     this.screen.toggleDrawer(this.isOpened);
+    this.cd.detectChanges();
   }
 }

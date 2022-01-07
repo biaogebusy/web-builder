@@ -1,4 +1,4 @@
-<div *ngIf="content && !screen.eq('xs')" class="footer-main-menu" fxLayoutAlign="space-between start">
+<div *ngIf="content && !showXs" class="footer-main-menu" fxLayoutAlign="space-between start">
   <mat-list fxFlex="auto" *ngFor="let menu of content" role="list">
     <div mat-subheader class="bold">{{menu.label}}</div>
     <ng-container *ngFor="let subMenu of menu.child; index as i">
@@ -18,6 +18,6 @@
     </ng-container>
   </mat-list>
 </div>
-<div class="mobile p-y-sm" *ngIf="mobileMenu && screen.eq('xs')">
+<div class="mobile p-y-sm" *ngIf="mobileMenu && showXs">
   <app-dropdown-menu [content]="mobileMenu"></app-dropdown-menu>
 </div>

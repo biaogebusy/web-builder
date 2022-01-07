@@ -1,5 +1,5 @@
 <div class="media-meta p-y" *ngIf="content" fxLayout="row wrap">
-  <div class="meta" *ngIf="screen.eq('gt-sm')" fxLayout="column" fxLayoutGap="1rem" fxLayoutAlign="center center"
+  <div class="meta" *ngIf="showGtsm" fxLayout="column" fxLayoutGap="1rem" fxLayoutAlign="center center"
     fxFlex.lt-md="100" fxFlex.gt-sm="0 0 10">
     <div class="top">{{content.date| date:'d'}}</div>
     <div class="middle">
@@ -14,7 +14,7 @@
       <h2>
         <app-link [content]="content.link"></app-link>
       </h2>
-      <div class="time" *ngIf="screen.eq('lt-md')">{{content.date}}</div>
+      <div class="time" *ngIf="showLtmd">{{content.date}}</div>
       <div class="content" [innerHTML]="content.body|stripTags|trim|shorten:150:'...'"></div>
     </div>
   </div>
