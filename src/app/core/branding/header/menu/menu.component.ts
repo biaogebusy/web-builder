@@ -35,7 +35,6 @@ export class MenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.screen.mqAlias$().subscribe((res: string[]) => {
-      console.log(res);
       this.show = res.includes('gt-sm');
       this.cd.detectChanges();
     });

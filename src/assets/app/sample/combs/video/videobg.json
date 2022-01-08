@@ -2,16 +2,9 @@
   "title": "Video bg",
   "body": [{
     "type": "video-bg",
-    "params": {
-      "autoplay": true,
-      "controls": false,
-      "loop": true,
-      "muted": true,
-      "fluid": true,
-      "sources": [{
-        "src": "/assets/video/afterglow.mp4",
-        "type": "video/mp4"
-      }]
+    "source": {
+      "src": "/assets/video/afterglow.mp4",
+      "type": "video/mp4"
     },
     "widget": {
       "type": "showcase-1v3",
