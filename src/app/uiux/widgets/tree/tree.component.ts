@@ -8,6 +8,7 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
 } from '@angular/core';
+import { ITree } from '@core/interface/widgets/ITree';
 import { ScreenService } from '@core/service/screen.service';
 @Component({
   selector: 'app-tree',
@@ -16,7 +17,7 @@ import { ScreenService } from '@core/service/screen.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TreeComponent implements OnInit, AfterViewInit {
-  @Input() content: any;
+  @Input() content: ITree;
   @Output() treeChange = new EventEmitter();
   @ViewChild('tree') tree: any;
 

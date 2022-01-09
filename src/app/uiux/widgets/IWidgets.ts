@@ -1,3 +1,5 @@
+import { ILink } from '@core/interface/widgets/ILink';
+
 export interface ICard {
   title?: string;
   subTitle?: string;
@@ -13,9 +15,6 @@ export interface ICard {
   carousel?: any;
   feature?: any;
   overlay?: any[];
-  link?: {
-    href: string;
-    label: string;
-  };
+  link: ILink;
   actions?: any;
 }

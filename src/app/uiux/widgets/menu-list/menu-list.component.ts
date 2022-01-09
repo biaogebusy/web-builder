@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { IMenuList } from '@core/interface/widgets/IMenuList';
 import { ScreenService } from '@core/service/screen.service';
 
 @Component({
@@ -13,7 +14,7 @@ import { ScreenService } from '@core/service/screen.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MenuListComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: IMenuList;
   list: any[];
   initList: any[];
   expand = false;

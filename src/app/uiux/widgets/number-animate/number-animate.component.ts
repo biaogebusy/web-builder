@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, ElementRef, ViewChild } from '@angular/core';
 import { Component, Input, OnInit } from '@angular/core';
+import { INumberAnimate } from '@core/interface/widgets/INumberAnimate';
 
 @Component({
   selector: 'app-number-animate',
@@ -8,7 +9,7 @@ import { Component, Input, OnInit } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NumberAnimateComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: INumberAnimate;
   duration: number;
   steps: number;
   first = true;

@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { IFeatureBox } from '@core/interface/widgets/IFeatureBox';
 import { Lightbox, LightboxConfig } from 'ngx-lightbox';
 @Component({
   selector: 'app-feature-box',
@@ -12,7 +13,7 @@ import { Lightbox, LightboxConfig } from 'ngx-lightbox';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FeatureBoxComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: IFeatureBox;
   constructor(
     private lightbox: Lightbox,
     private lightboxConfig: LightboxConfig

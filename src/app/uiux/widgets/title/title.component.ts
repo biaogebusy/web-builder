@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { ITitle } from '@core/interface/widgets/ITitle';
 
 @Component({
   selector: 'app-title',
@@ -12,7 +13,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TitleComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: ITitle;
   constructor() {}
 
   ngOnInit(): void {}

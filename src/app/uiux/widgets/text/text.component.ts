@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { IText } from '@core/interface/widgets/IText';
 
 @Component({
   selector: 'app-text',
@@ -12,7 +13,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TextComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: IText;
   constructor() {}
 
   ngOnInit(): void {}

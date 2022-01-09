@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { ILink } from '@core/interface/widgets/ILink';
 
 @Component({
   selector: 'app-breadcrumb',
@@ -12,7 +13,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BreadcrumbComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: ILink[];
   constructor() {}
 
   ngOnInit(): void {}

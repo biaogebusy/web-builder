@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { IBg } from '@core/interface/widgets/IBg';
 
 @Component({
   selector: 'app-bg',
@@ -12,8 +13,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BgComponent implements OnInit {
-  @Input() content: any;
-  @Input() classes: any;
+  @Input() content: IBg;
   constructor() {}
 
   ngOnInit(): void {}

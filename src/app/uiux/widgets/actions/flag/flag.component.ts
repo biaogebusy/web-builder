@@ -13,7 +13,8 @@ import { UserState } from '@core/mobx/user/UserState';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { RouteService } from '@core/service/route.service';
 import { ScreenService } from '@core/service/screen.service';
-import { Subject, Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
+import { IFlag } from '@core/interface/widgets/IFlag';
 
 @Component({
   selector: 'app-flag',
@@ -22,7 +23,7 @@ import { Subject, Subscription } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FlagComponent extends BaseComponent implements OnInit, OnDestroy {
-  @Input() content: any;
+  @Input() content: IFlag;
   config: any;
   flagging = false;
 

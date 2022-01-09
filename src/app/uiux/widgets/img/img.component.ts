@@ -5,6 +5,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { IImg } from '@core/interface/widgets/IImg';
 import { ScreenState } from '@core/mobx/screen/ScreenState';
 import { ScreenService } from '@core/service/screen.service';
 
@@ -15,7 +16,7 @@ import { ScreenService } from '@core/service/screen.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ImgComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: IImg;
   @HostBinding('class') hostClasses: any;
 
   constructor(

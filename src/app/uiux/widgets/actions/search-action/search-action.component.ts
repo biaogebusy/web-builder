@@ -14,6 +14,7 @@ import { isEmpty, omitBy } from 'lodash';
 import { fromEvent, Subject } from 'rxjs';
 import { ScreenService } from '@core/service/screen.service';
 import { takeUntil } from 'rxjs/operators';
+import { ISearchAction } from '@core/interface/widgets/IActions';
 
 @Component({
   selector: 'app-search-action',
@@ -22,7 +23,7 @@ import { takeUntil } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchActionComponent implements OnInit, AfterViewInit, OnDestroy {
-  @Input() content: any;
+  @Input() content: ISearchAction;
   form: FormGroup;
 
   destroy$: Subject<boolean> = new Subject<boolean>();

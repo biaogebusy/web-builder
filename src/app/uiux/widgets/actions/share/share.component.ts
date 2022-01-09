@@ -4,6 +4,7 @@ import {
   Input,
   ChangeDetectionStrategy,
 } from '@angular/core';
+import { IShare } from '@core/interface/widgets/IActions';
 import { AppState } from '@core/mobx/AppState';
 import { ScreenService } from '@core/service/screen.service';
 declare var window: any;
@@ -15,7 +16,7 @@ declare var window: any;
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ShareComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: IShare;
   config: any;
   url: string;
 

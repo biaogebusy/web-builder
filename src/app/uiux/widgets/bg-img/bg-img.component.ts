@@ -4,6 +4,7 @@ import {
   Input,
   ChangeDetectionStrategy,
 } from '@angular/core';
+import { IBgImg } from '@core/interface/widgets/IBgImg';
 
 @Component({
   selector: 'app-bg-img',
@@ -12,7 +13,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BgImgComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: IBgImg;
   constructor() {}
 
   ngOnInit(): void {}

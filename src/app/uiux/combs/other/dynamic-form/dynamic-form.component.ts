@@ -7,7 +7,7 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { IAction, IActionParams, IControl } from '@core/interface/IForm';
+import { IAction, IActionParams } from '@core/interface/IForm';
 import { UserState } from '@core/mobx/user/UserState';
 import { DialogService } from '@core/service/dialog.service';
 import { FormService } from '@core/service/form.service';
@@ -15,8 +15,9 @@ import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { Router } from '@angular/router';
 import { ScreenService } from '@core/service/screen.service';
-import { Subject, Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { IControl } from '@core/interface/widgets/IControl';
 
 @Component({
   selector: 'app-dynamic-form',

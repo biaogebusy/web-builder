@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { ILink } from '@core/interface/widgets/ILink';
 import { RouteService } from '@core/service/route.service';
 @Component({
   selector: 'app-link',
@@ -12,7 +13,7 @@ import { RouteService } from '@core/service/route.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LinkComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: ILink;
   constructor(public routeService: RouteService) {}
 
   ngOnInit(): void {}

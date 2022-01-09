@@ -5,6 +5,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { IControl } from '@core/interface/widgets/IControl';
 
 @Component({
   selector: 'app-dynamic-form-control',
@@ -13,7 +14,7 @@ import { FormGroup } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DynamicFormControlComponent implements OnInit {
-  @Input() control: any;
+  @Input() control: IControl;
   @Input() form: FormGroup;
   constructor() {}
 

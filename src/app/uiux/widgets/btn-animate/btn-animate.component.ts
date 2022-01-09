@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { IBtnAnimate } from '@core/interface/widgets/IBtnAnimate';
 
 @Component({
   selector: 'app-btn-animate',
@@ -12,7 +13,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BtnAnimateComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: IBtnAnimate;
   constructor() {}
 
   ngOnInit(): void {}

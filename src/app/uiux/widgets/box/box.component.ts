@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { IBox } from '@core/interface/widgets/IBox';
 
 @Component({
   selector: 'app-box',
@@ -12,7 +13,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BoxComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: IBox;
   constructor() {}
 
   ngOnInit(): void {}

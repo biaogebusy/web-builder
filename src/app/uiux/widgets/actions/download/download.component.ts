@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { IDownload } from '@core/interface/widgets/IDownload';
 import { AppState } from '@core/mobx/AppState';
 import { ScreenService } from '@core/service/screen.service';
 
@@ -14,7 +15,7 @@ import { ScreenService } from '@core/service/screen.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DownloadComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: IDownload;
   config: any;
   constructor(
     public appState: AppState,

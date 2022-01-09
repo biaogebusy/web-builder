@@ -6,6 +6,7 @@ import {
   EventEmitter,
   ChangeDetectionStrategy,
 } from '@angular/core';
+import { IPaginationSimple } from '@core/interface/widgets/IPaginationSimple';
 
 @Component({
   selector: 'app-pagination-simple',
@@ -14,7 +15,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PaginationSimpleComponent implements OnInit {
-  @Input() links: any;
+  @Input() links: IPaginationSimple;
   @Output() pageChange: EventEmitter<string> = new EventEmitter();
   constructor() {}
 

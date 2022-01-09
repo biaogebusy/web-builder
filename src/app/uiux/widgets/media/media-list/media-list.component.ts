@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { IMediaList } from '@core/interface/widgets/IMediaList';
 
 @Component({
   selector: 'app-media-list',
@@ -12,7 +13,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MediaListComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: IMediaList;
   constructor() {}
 
   ngOnInit(): void {}

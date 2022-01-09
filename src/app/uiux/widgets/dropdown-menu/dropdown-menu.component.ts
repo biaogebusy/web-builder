@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { IDropdownMenu } from '@core/interface/widgets/IDropdownMenu';
 
 @Component({
   selector: 'app-dropdown-menu',
@@ -12,7 +13,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DropdownMenuComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: IDropdownMenu[];
   panelOpenState = false;
   constructor() {}
 

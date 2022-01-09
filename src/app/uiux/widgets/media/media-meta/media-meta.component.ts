@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { ScreenState } from '@core/mobx/screen/ScreenState';
 import { ScreenService } from '@core/service/screen.service';
+import { IMediaMeta } from '../../../../core/interface/widgets/IMediaMeta';
 
 @Component({
   selector: 'app-media-meta',
@@ -15,7 +16,7 @@ import { ScreenService } from '@core/service/screen.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MediaMetaComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: IMediaMeta;
   showGtsm: boolean;
   showLtmd: boolean;
   constructor(

@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { IMediaObject } from '@core/interface/widgets/IMediaObject';
 
 @Component({
   selector: 'app-media-object',
@@ -12,7 +13,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MediaObjectComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: IMediaObject;
   constructor() {}
 
   ngOnInit(): void {}

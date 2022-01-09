@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { ILineYear } from '@core/interface/widgets/ILineYear';
 
 @Component({
   selector: 'app-line-year',
@@ -12,7 +13,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LineYearComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: ILineYear;
   constructor() {}
 
   ngOnInit(): void {}

@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { IIcon } from '@core/interface/widgets/IIcon';
 
 @Component({
   selector: 'app-icon',
@@ -12,7 +13,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IconComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: IIcon;
   constructor() {}
 
   ngOnInit(): void {}
