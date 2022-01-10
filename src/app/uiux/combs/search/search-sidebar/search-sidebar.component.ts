@@ -7,6 +7,11 @@ import {
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { isEmpty, pick, values } from 'lodash';
+
+export interface ILabel {
+  clear: string;
+  filter: string;
+}
 @Component({
   selector: 'app-search-sidebar',
   templateUrl: './search-sidebar.component.html',
@@ -15,6 +20,7 @@ import { isEmpty, pick, values } from 'lodash';
 })
 export class SearchSidebarComponent implements OnInit {
   @Input() content: any;
+  @Input() label: ILabel;
   @Input() form: FormGroup;
   @Input() searchEntry: any;
 
