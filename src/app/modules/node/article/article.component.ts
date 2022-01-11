@@ -21,19 +21,25 @@ import { ScreenService } from '@core/service/screen.service';
 import { FormService } from '@core/service/form.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { UserState } from '@core/mobx/user/UserState';
+import { StripTagsPipe, ShortenPipe } from 'ngx-pipes';
 
 @Component({
   selector: 'app-article',
   templateUrl: './article.component.html',
   styleUrls: ['./article.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [StripTagsPipe, ShortenPipe],
 })
 export class ArticleComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() content: any;
+  currentUserRule: string[];
+  isRequestRule: boolean;
   detroy$: Subject<boolean> = new Subject<boolean>();
   form: FormGroup;
   fontSize: number;
   showNotXs: boolean;
+  htmlBody: any;
 
   constructor(
     public appState: AppState,
@@ -42,6 +48,9 @@ export class ArticleComponent implements OnInit, AfterViewInit, OnDestroy {
     private tagsService: TagsService,
     public screen: ScreenState,
     private screenService: ScreenService,
+    private userState: UserState,
+    private stripTagePipe: StripTagsPipe,
+    private shortenPipe: ShortenPipe,
     @Inject(DOCUMENT) private document: Document
   ) {
     if (this.screenService.isPlatformBrowser()) {
@@ -65,6 +74,35 @@ export class ArticleComponent implements OnInit, AfterViewInit, OnDestroy {
           });
       }
     }
+    if (this.content.params?.require_rule) {
+      this.checkUserAuth(this.content.params.require_rule);
+    } else {
+      this.htmlBody = this.content.body;
+    }
+  }
+
+  checkUserAuth(reqRules: string[]): void {
+    if (!this.userState.anthenticated) {
+      this.isRequestRule = false;
+    } else {
+      this.currentUserRule = this.userState.roles;
+      if (this.currentUserRule.includes('administrator')) {
+        this.isRequestRule = true;
+      } else {
+        this.isRequestRule =
+          this.currentUserRule.filter((role) => reqRules.includes(role))
+            .length > 0;
+      }
+    }
+    if (this.isRequestRule) {
+      this.htmlBody = this.content.body;
+      return;
+    }
+    this.htmlBody = this.shortenPipe.transform(
+      this.stripTagePipe.transform(this.content.body),
+      500,
+      '...'
+    );
   }
 
   ngAfterViewInit(): void {

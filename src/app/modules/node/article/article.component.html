@@ -12,7 +12,7 @@
           </app-font-change>
         </div>
         <mat-divider></mat-divider>
-        <div class="article-body m-y-sm" [innerHTML]="content.body | safeHtml" [style.fontSize.px]="fontSize">
+        <div class="article-body m-y-sm" [innerHTML]="htmlBody | safeHtml" [style.fontSize.px]="fontSize">
         </div>
         <div class="article-bottom" *ngIf="content.bottom">
           <app-dynamic-widgets [content]="action" *ngFor="let action of content.bottom"></app-dynamic-widgets>

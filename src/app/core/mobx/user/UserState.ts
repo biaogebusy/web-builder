@@ -47,6 +47,11 @@ export class UserState {
     return this.user && this.user.picture;
   }
 
+  @computed
+  get roles(): string[] {
+    return this.currentUser && this.currentUser.current_user.roles;
+  }
+
   get defaultAvatar(): string {
     return '/assets/images/avatar/default.svg';
   }
