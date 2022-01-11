@@ -18,7 +18,7 @@ export class MenuComponent implements OnInit {
   @Input() isDrawer: boolean;
   @Input() content: any;
   isOpened = false;
-  show: boolean;
+  show = true;
 
   constructor(
     public screen: ScreenState,

@@ -1,4 +1,9 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { AppState } from '@core/mobx/AppState';
 import { FormGroup } from '@angular/forms';
 
@@ -6,6 +11,7 @@ import { FormGroup } from '@angular/forms';
   selector: 'app-font-change',
   templateUrl: './font-change.component.html',
   styleUrls: ['./font-change.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FontChangeComponent implements OnInit {
   constructor(public appState: AppState) {}
