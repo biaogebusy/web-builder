@@ -1,4 +1,5 @@
 import { MatFormFieldAppearance } from '@angular/material/form-field';
+import { TooltipPosition } from '@angular/material/tooltip';
 
 export interface IControl {
   type: string;
@@ -14,4 +15,8 @@ export interface IControl {
   options?: { key: string; value: string; label?: string }[];
   errorMes?: string;
   appearance?: MatFormFieldAppearance;
+  tooltip?: string;
+  suffix?: string;
+  matTooltipPosition?: TooltipPosition;
+  clear?: boolean;
 }

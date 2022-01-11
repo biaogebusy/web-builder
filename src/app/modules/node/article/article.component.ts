@@ -8,12 +8,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
 } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import hljs from 'highlight.js/lib/core';
 import javascript from 'highlight.js/lib/languages/javascript';
 import php from 'highlight.js/lib/languages/php';
@@ -22,6 +17,7 @@ import { TagsService } from '@core/service/tags.service';
 import { AppState } from '@core/mobx/AppState';
 import { ScreenState } from '@core/mobx/screen/ScreenState';
 import { ScreenService } from '@core/service/screen.service';
+import { FormService } from '@core/service/form.service';
 
 @Component({
   selector: 'app-article',
@@ -31,8 +27,7 @@ import { ScreenService } from '@core/service/screen.service';
 })
 export class ArticleComponent implements OnInit, AfterViewInit {
   @Input() content: any;
-  options: FormGroup;
-  fontSizeControl = new FormControl(16, Validators.min(10));
+  form: FormGroup;
   showNotXs: boolean;
 
   constructor(
@@ -42,6 +37,7 @@ export class ArticleComponent implements OnInit, AfterViewInit {
     public screen: ScreenState,
     private screenService: ScreenService,
     private cd: ChangeDetectorRef,
+    private formService: FormService,
     @Inject(DOCUMENT) private document: Document
   ) {
     if (this.screenService.isPlatformBrowser()) {
@@ -49,9 +45,7 @@ export class ArticleComponent implements OnInit, AfterViewInit {
       hljs.registerLanguage('php', php);
       hljs.registerLanguage('scss', scss);
 
-      this.options = fb.group({
-        fontSize: this.fontSizeControl,
-      });
+      this.form = this.formService.toFormGroup(this.fontSizeConfig.form);
     }
   }
 
@@ -75,7 +69,7 @@ export class ArticleComponent implements OnInit, AfterViewInit {
   }
 
   getFontSize(): number {
-    return Math.max(10, this.fontSizeControl.value);
+    return Math.max(10, this.form.value.font);
   }
 
   get articleConfig(): any {

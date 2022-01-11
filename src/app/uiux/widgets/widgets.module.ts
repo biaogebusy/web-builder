@@ -59,6 +59,7 @@ import { Card1v1Component } from './card/card1v1/card1v1.component';
 import { DownloadComponent } from './actions/download/download.component';
 import { MediaMetaComponent } from './media/media-meta/media-meta.component';
 import { TextHeroComponent } from './text-hero/text-hero.component';
+import { FontChangeComponent } from './font-change/font-change.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -112,6 +113,7 @@ const components = [
   BgImgComponent,
   TreeComponent,
   DownloadComponent,
+  FontChangeComponent,
   SearchActionComponent,
   MediaObjectGroupComponent,
   DynamicFormControlComponent,

@@ -3,7 +3,8 @@
   <mat-icon matSuffix>{{content.icon}}</mat-icon>
   <input #input matInput type="{{content.controlType}}" formControlName="{{content.key}}"
     placeholder="{{content.placeholder}}" value="{{content.value}}" [id]="content.key">
-  <button *ngIf="input.value" matSuffix mat-icon-button aria-label="Clear" (click)="input.value=''">
+  <span matSuffix *ngIf="content.suffix">{{content.suffix}}</span>
+  <button *ngIf="input.value && content.clear" matSuffix mat-icon-button aria-label="Clear" (click)="input.value=''">
     <mat-icon>close</mat-icon>
   </button>
   <mat-error *ngIf="!isValid">{{content.errorMes}}</mat-error>
