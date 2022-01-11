@@ -16,6 +16,7 @@ import { CommentComponent } from './question/comment/comment.component';
 import { CommentFormComponent } from './question/comment/comment-form/comment-form.component';
 import { CommentListComponent } from './question/comment/comment-list/comment-list.component';
 import { QuillModule } from 'ngx-quill';
+import { ArticleMetaComponent } from './article/article-meta/article-meta.component';
 
 const components = [
   JobComponent,
@@ -26,6 +27,7 @@ const components = [
   CaseNodeComponent,
   JobFilterComponent,
   ArticleBannerComponent,
+  ArticleMetaComponent,
   QuestionComponent,
   CommentComponent,
   CommentFormComponent,

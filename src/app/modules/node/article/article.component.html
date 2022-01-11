@@ -7,18 +7,7 @@
           {{content.title}}
         </h2>
         <div class="article-meta m-y-xs" fxLayoutAlign="space-between center">
-          <div fxLayout="row wrap" fxLayoutAlign="start start" *ngIf="content.meta" fxLayoutGap="1rem">
-            <div *ngFor="let item of content.meta" fxLayoutAlign="center center">
-              <ng-container *ngIf="item.icon;else value">
-                <mat-icon>{{item.icon}}</mat-icon>
-                <div>{{item.label}}</div>
-              </ng-container>
-              <ng-template #value>
-                <div class="label">{{item.label}}:&nbsp;</div>
-                <div>{{item.value}}</div>
-              </ng-template>
-            </div>
-          </div>
+          <app-article-meta [content]="content.meta" *ngIf="content.meta"></app-article-meta>
           <app-font-change *ngIf="showNotXs && fontSizeConfig" [content]="fontSizeConfig" [form]="form">
           </app-font-change>
         </div>
