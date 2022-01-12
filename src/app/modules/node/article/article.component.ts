@@ -23,6 +23,9 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { UserState } from '@core/mobx/user/UserState';
 import { StripTagsPipe, ShortenPipe } from 'ngx-pipes';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { LoginComponent } from '../../user/login/login.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-article',
@@ -40,6 +43,7 @@ export class ArticleComponent implements OnInit, AfterViewInit, OnDestroy {
   fontSize: number;
   showNotXs: boolean;
   htmlBody: any;
+  dialogRef: MatDialogRef<any>;
 
   constructor(
     public appState: AppState,
@@ -51,6 +55,8 @@ export class ArticleComponent implements OnInit, AfterViewInit, OnDestroy {
     private userState: UserState,
     private stripTagePipe: StripTagsPipe,
     private shortenPipe: ShortenPipe,
+    private dialog: MatDialog,
+    private router: Router,
     @Inject(DOCUMENT) private document: Document
   ) {
     if (this.screenService.isPlatformBrowser()) {
@@ -99,8 +105,8 @@ export class ArticleComponent implements OnInit, AfterViewInit, OnDestroy {
       return;
     }
     this.htmlBody = this.shortenPipe.transform(
-      this.stripTagePipe.transform(this.content.body),
-      500,
+      this.stripTagePipe.transform(this.content.body, 'p'),
+      1000,
       '...'
     );
   }
@@ -118,8 +124,26 @@ export class ArticleComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+  openLogin(): void {
+    const returnUrl = window.location.pathname;
+    this.router.navigate([], {
+      queryParams: { returnUrl },
+    });
+    this.dialogRef = this.dialog.open(LoginComponent);
+    this.dialogRef
+      .afterClosed()
+      .pipe(takeUntil(this.detroy$))
+      .subscribe(() => {
+        this.cd.detectChanges();
+      });
+  }
+
   get articleConfig(): any {
     return this.appState.config && this.appState.config.article;
+  }
+
+  get loginConfig(): any {
+    return this.articleConfig && this.articleConfig.login;
   }
 
   get fontSizeConfig(): any {

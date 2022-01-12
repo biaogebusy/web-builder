@@ -20,6 +20,13 @@
         }
       }
     }
+    .shadow {
+      background: linear-gradient(
+        0deg,
+        mat-color($background, card),
+        transparent
+      );
+    }
   }
   .menu-list {
     .list {

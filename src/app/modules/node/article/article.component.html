@@ -12,12 +12,18 @@
           </app-font-change>
         </div>
         <mat-divider></mat-divider>
-        <div class="article-body m-y-sm" [innerHTML]="htmlBody | safeHtml" [style.fontSize.px]="fontSize">
+        <div class="position-relative">
+          <div class="article-body m-y-sm" [innerHTML]="htmlBody | safeHtml" [style.fontSize.px]="fontSize">
+          </div>
+          <div class="shadow"></div>
         </div>
-        <div class="article-bottom" *ngIf="content.bottom">
+        <div class="auth p-y-sm p-x-sm width-100 text-center" *ngIf="!isRequestRule" fxLayoutAlign="center center">
+          <div (click)="openLogin()" [innerHTML]="loginConfig?.label"></div>
+        </div>
+        <div class="article-bottom m-y" *ngIf="content.bottom">
           <app-dynamic-widgets [content]="action" *ngFor="let action of content.bottom"></app-dynamic-widgets>
         </div>
-        <div class="ations" *ngIf="content.actions">
+        <div class="ations m-y" *ngIf="content.actions">
           <app-dynamic-widgets [content]="action" *ngFor="let action of content.actions"></app-dynamic-widgets>
         </div>
       </div>

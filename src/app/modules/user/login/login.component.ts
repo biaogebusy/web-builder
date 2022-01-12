@@ -6,7 +6,7 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { UserState } from '@core/mobx/user/UserState';
 import { ApiService } from '@core/service/api.service';
 import { ScreenState } from '@core/mobx/screen/ScreenState';
@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
     private fb: FormBuilder,
     public userState: UserState,
     private router: Router,
+    private route: ActivatedRoute,
     public screenState: ScreenState,
     private tagsService: TagsService,
     public appState: AppState,
@@ -64,7 +65,10 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
       this.userState.user$.subscribe((user) => {
         if (user.authenticated) {
           setTimeout(() => {
-            this.router.navigate([this.appState.config.login.loginRedirect]);
+            this.router.navigate([
+              this.route.snapshot.queryParams.returnUrl ||
+                this.appState.config.login.loginRedirect,
+            ]);
           }, 2000);
         }
       });
