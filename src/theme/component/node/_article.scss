@@ -27,6 +27,11 @@
         transparent
       );
     }
+    .auth {
+      &:hover {
+        color: mat-color($primary);
+      }
+    }
   }
   .menu-list {
     .list {

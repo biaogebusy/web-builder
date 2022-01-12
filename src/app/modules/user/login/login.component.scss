@@ -9,6 +9,14 @@
   }
 }
 
+:host-context(.mat-dialog-container) {
+  .login-container {
+    max-height: none;
+    min-height: auto;
+    padding: 4rem 0;
+  }
+}
+
 .login-wrapper {
   max-width: 800px;
   max-height: 600px;

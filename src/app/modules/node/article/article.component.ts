@@ -37,13 +37,14 @@ import { Router } from '@angular/router';
 export class ArticleComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() content: any;
   currentUserRule: string[];
-  isRequestRule: boolean;
+  commentForm: FormGroup;
   detroy$: Subject<boolean> = new Subject<boolean>();
-  form: FormGroup;
-  fontSize: number;
-  showNotXs: boolean;
-  htmlBody: any;
   dialogRef: MatDialogRef<any>;
+  fontSize: number;
+  fontForm: FormGroup;
+  htmlBody: any;
+  isRequestRule: boolean;
+  showNotXs: boolean;
 
   constructor(
     public appState: AppState,
@@ -72,12 +73,20 @@ export class ArticleComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     if (this.screenService.isPlatformBrowser()) {
       if (this.fontSizeConfig) {
-        this.form = this.formService.toFormGroup(this.fontSizeConfig.form);
-        this.form.valueChanges
+        this.fontForm = this.formService.toFormGroup(this.fontSizeConfig.form);
+        this.fontForm.valueChanges
           .pipe(takeUntil(this.detroy$))
           .subscribe((size) => {
             this.fontSize = Math.max(10, size.font);
           });
+      }
+      if (this.content.comment) {
+        this.commentForm = this.formService.toFormGroup(
+          this.content.comment.form
+        );
+        this.commentForm.valueChanges.subscribe((comment) => {
+          console.log(comment);
+        });
       }
     }
     if (this.content.params?.require_rule) {

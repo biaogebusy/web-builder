@@ -19,4 +19,5 @@ export interface IControl {
   suffix?: string;
   matTooltipPosition?: TooltipPosition;
   clear?: boolean;
+  rows?: number;
 }

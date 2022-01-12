@@ -72,10 +72,21 @@
   },
   "loading": true,
   "article": {
-    "changeFontSize": {
+    "fontSize": {
       "enabel": true,
-      "tooltip": "通过键盘上下键可快速更改大小",
-      "label": "字体大小"
+      "form": [{
+        "label": "字体大小",
+        "key": "font",
+        "value": 16,
+        "type": "input",
+        "placeholder": "Ex. 12",
+        "controlType": "number",
+        "appearance": "legacy",
+        "errorMes": "最小: 10px",
+        "tooltip": "通过键盘上下键可快速更改大小",
+        "matTooltipPosition": "above",
+        "suffix": "px"
+      }]
     }
   },
   "actions": {

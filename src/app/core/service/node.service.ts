@@ -8,6 +8,7 @@ import { forkJoin } from 'rxjs';
 import { Observable, of } from 'rxjs';
 import { IApiUrl } from '../mobx/IAppConfig';
 import { switchMap } from 'rxjs/operators';
+import { ICommentRequest } from '@core/interface/node/IComment';
 @Injectable({
   providedIn: 'root',
 })
@@ -112,6 +113,33 @@ export class NodeService extends ApiService {
       JSON.stringify(entity),
       this.httpOptions
     );
+  }
+
+  getCommentRequestDate(meta: ICommentRequest): any {
+    return {
+      data: {
+        type: `comment--${meta.type}`,
+        attributes: {
+          entity_type: 'node',
+          field_name: meta.type,
+          comment_body: meta.comment_body,
+        },
+        relationships: {
+          comment_type: {
+            data: {
+              type: 'comment_type--comment_type',
+              id: meta.commentTypeUuid,
+            },
+          },
+          entity_id: {
+            data: {
+              type: `node--${meta.entityType}`,
+              id: meta.nodeUuid,
+            },
+          },
+        },
+      },
+    };
   }
 
   flagging(path: string, data: any): Observable<any> {
