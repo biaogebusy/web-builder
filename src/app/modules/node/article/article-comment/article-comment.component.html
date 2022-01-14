@@ -1,4 +1,13 @@
 <div class="comment-form">
   <app-dynamic-form-control *ngFor="let control of content.form" [form]="form" [control]="control">
   </app-dynamic-form-control>
+  <div class="action" fxLayoutAlign="end center">
+    <button *ngFor="let action of content.actions" mat-raised-button color="{{action.color}}" type="{{action.type}}"
+      [disabled]="!form.valid" (click)="onSubmit()">
+      <div fxLayoutAlign="center center">
+        <mat-spinner diameter="20" color="accent" *ngIf="loading"></mat-spinner>
+        <span class="p-x-xs">{{action.label}}</span>
+      </div>
+    </button>
+  </div>
 </div>
