@@ -32,6 +32,21 @@
         color: mat-color($primary);
       }
     }
+    .comment-list {
+      background-color: mat-color($background, card);
+      @include mat-elevation(3, mat-color($foreground, divider), 0.6);
+      .empty {
+        .mat-icon {
+          font-size: 60px;
+          color: mat-color($primary, 200);
+        }
+      }
+      .comment-box {
+        .time {
+          color: mat-color($foreground, text, 0.4);
+        }
+      }
+    }
   }
   .menu-list {
     .list {

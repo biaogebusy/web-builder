@@ -26,6 +26,7 @@ import { StripTagsPipe, ShortenPipe } from 'ngx-pipes';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { LoginComponent } from '../../user/login/login.component';
 import { Router } from '@angular/router';
+import { NodeService } from '@core/service/node.service';
 
 @Component({
   selector: 'app-article',
@@ -38,7 +39,8 @@ export class ArticleComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() content: any;
   currentUserRule: string[];
   commentForm: FormGroup;
-  detroy$: Subject<boolean> = new Subject<boolean>();
+  comments: any[];
+  destroy$: Subject<boolean> = new Subject<boolean>();
   dialogRef: MatDialogRef<any>;
   fontSize: number;
   fontForm: FormGroup;
@@ -49,15 +51,16 @@ export class ArticleComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     public appState: AppState,
     private cd: ChangeDetectorRef,
+    private dialog: MatDialog,
     private formService: FormService,
-    private tagsService: TagsService,
+    private router: Router,
+    private nodeService: NodeService,
     public screen: ScreenState,
     private screenService: ScreenService,
-    private userState: UserState,
     private stripTagePipe: StripTagsPipe,
     private shortenPipe: ShortenPipe,
-    private dialog: MatDialog,
-    private router: Router,
+    private tagsService: TagsService,
+    public userState: UserState,
     @Inject(DOCUMENT) private document: Document
   ) {
     if (this.screenService.isPlatformBrowser()) {
@@ -75,7 +78,7 @@ export class ArticleComponent implements OnInit, AfterViewInit, OnDestroy {
       if (this.fontSizeConfig) {
         this.fontForm = this.formService.toFormGroup(this.fontSizeConfig.form);
         this.fontForm.valueChanges
-          .pipe(takeUntil(this.detroy$))
+          .pipe(takeUntil(this.destroy$))
           .subscribe((size) => {
             this.fontSize = Math.max(10, size.font);
           });
@@ -94,6 +97,57 @@ export class ArticleComponent implements OnInit, AfterViewInit, OnDestroy {
     } else {
       this.htmlBody = this.content.body;
     }
+    if (this.appState.article?.comment?.enabel) {
+      this.getComments();
+    }
+  }
+
+  getComments(): void {
+    const meta = this.content.comment.meta;
+    const nodeUuid = meta.nodeUuid;
+    const type = meta.type;
+    const params = [
+      `filter[entity_id.id]=${nodeUuid}`,
+      `include=uid,uid.user_picture`,
+      `fields[user--user]=name,user_picture`,
+      `fields[file--file]=uri,url`,
+      `sort=-created`,
+      `jsonapi_include=1`,
+    ].join('&');
+    const path = this.nodeService.apiUrlConfig.commentGetPath;
+    this.nodeService
+      .getNodes(path, type, params)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((res) => {
+        this.comments = res.data.map((comment: any) => {
+          console.log(comment);
+          return {
+            author: {
+              img: {
+                src:
+                  comment.uid.user_picture?.uri?.url ||
+                  this.userState.defaultAvatar,
+                style: {
+                  width: '45px',
+                  height: '45px',
+                  borderRadius: '3px',
+                },
+                alt: comment.uid.name,
+              },
+              title: comment.uid.name,
+              subTitle: '用户暂无签名',
+            },
+            time: comment.changed,
+            id: comment.id,
+            content: comment.comment_body.processed,
+          };
+        });
+        this.cd.detectChanges();
+      });
+  }
+
+  onSubmit(): void {
+    this.getComments();
   }
 
   checkUserAuth(reqRules: string[]): void {
@@ -141,7 +195,7 @@ export class ArticleComponent implements OnInit, AfterViewInit, OnDestroy {
     this.dialogRef = this.dialog.open(LoginComponent);
     this.dialogRef
       .afterClosed()
-      .pipe(takeUntil(this.detroy$))
+      .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
         this.cd.detectChanges();
       });
@@ -160,7 +214,7 @@ export class ArticleComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.detroy$.next(true);
-    this.detroy$.complete();
+    this.destroy$.next(true);
+    this.destroy$.complete();
   }
 }

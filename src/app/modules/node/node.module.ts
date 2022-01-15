@@ -18,6 +18,7 @@ import { CommentListComponent } from './question/comment/comment-list/comment-li
 import { QuillModule } from 'ngx-quill';
 import { ArticleMetaComponent } from './article/article-meta/article-meta.component';
 import { ArticleCommentComponent } from './article/article-comment/article-comment.component';
+import { ArticleCommentListComponent } from './article/article-comment-list/article-comment-list.component';
 
 const components = [
   JobComponent,
@@ -34,6 +35,7 @@ const components = [
   CommentFormComponent,
   CommentListComponent,
   ArticleCommentComponent,
+  ArticleCommentListComponent,
 ];
 @NgModule({
   declarations: [...components],

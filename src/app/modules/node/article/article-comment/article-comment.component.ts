@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  EventEmitter,
   Input,
   OnDestroy,
   OnInit,
@@ -22,6 +23,8 @@ export class ArticleCommentComponent implements OnInit, OnDestroy {
   @Input() form: FormGroup;
   loading: boolean;
   destroy$: Subject<boolean> = new Subject<boolean>();
+  submit = new EventEmitter();
+
   constructor(
     private nodeService: NodeService,
     private utility: UtilitiesService
@@ -44,6 +47,7 @@ export class ArticleCommentComponent implements OnInit, OnDestroy {
           console.log(res);
           this.utility.openSnackbar(this.content.success);
           this.form.reset();
+          this.submit.emit('submit');
         },
         (error) => {
           this.utility.openSnackbar(this.content.fail);

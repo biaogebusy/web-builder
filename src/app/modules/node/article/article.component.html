@@ -20,8 +20,11 @@
         <div class="auth p-y-sm p-x-sm width-100 text-center" *ngIf="!isRequestRule" fxLayoutAlign="center center">
           <div (click)="openLogin()" [innerHTML]="loginConfig?.label"></div>
         </div>
-        <app-article-comment [form]="commentForm" [content]="content.comment" *ngIf="content.comment">
+        <app-article-comment [form]="commentForm" [content]="content.comment" (submit)="onSubmit()"
+          *ngIf="userState.anthenticated && appState?.article?.comment?.enabel && content.comment">
         </app-article-comment>
+        <app-article-comment-list [content]="comments" [currentUserId]="userState.currentUser.id">
+        </app-article-comment-list>
         <div class="article-bottom m-y" *ngIf="content.bottom">
           <app-dynamic-widgets [content]="action" *ngFor="let action of content.bottom"></app-dynamic-widgets>
         </div>
