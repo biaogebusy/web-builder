@@ -95,7 +95,7 @@ export class AppState {
   }
 
   @computed get article(): any {
-    return this.state.config && this.state.config?.article;
+    return this.state.config && this.state.config.article;
   }
 
   get actions(): any {

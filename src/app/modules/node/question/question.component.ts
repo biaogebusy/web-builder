@@ -67,6 +67,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
       `filter[uid.id]=${this.userState.currentUser.id}`,
       `filter[entity_id.id]=${this.entityId}`,
       `sort=-created`,
+      'filter[status]=1',
       `page[limit]=1`,
     ].join('&');
     const path = this.nodeService.apiUrlConfig.commentGetPath;
@@ -99,6 +100,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
       `fields[user--user]=name,user_picture`,
       `fields[file--file]=uri,url`,
       `sort=-created`,
+      'filter[status]=1',
       `jsonapi_include=1`,
     ].join('&');
     const path = this.nodeService.apiUrlConfig.commentGetPath;

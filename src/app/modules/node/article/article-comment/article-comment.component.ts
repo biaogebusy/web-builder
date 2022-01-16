@@ -35,10 +35,17 @@ export class ArticleCommentComponent implements OnInit, OnDestroy {
   onSubmit(): void {
     console.log(this.form.value);
     const data = this.nodeService.getCommentRequestDate(this.content.meta);
-    data.attributes.comment_body = {
-      value: this.form.value.comment_body,
-      format: 'plain_text',
+
+    data.attributes = {
+      status: false,
+      entity_type: 'node',
+      field_name: this.content.meta.type,
+      comment_body: {
+        value: this.form.value.comment_body,
+        format: 'plain_text',
+      },
     };
+
     this.nodeService
       .addComment(this.content.meta.type, data)
       .pipe(takeUntil(this.destroy$))

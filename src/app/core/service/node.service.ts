@@ -118,11 +118,7 @@ export class NodeService extends ApiService {
   getCommentRequestDate(meta: ICommentParams): ICommentRequest {
     return {
       type: `comment--${meta.type}`,
-      attributes: {
-        entity_type: 'node',
-        field_name: meta.type,
-        comment_body: meta.comment_body,
-      },
+      attributes: null,
       relationships: {
         comment_type: {
           data: {

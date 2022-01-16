@@ -11,14 +11,7 @@ export interface ICommentParams {
 
 export interface ICommentRequest {
   type: string;
-  attributes: {
-    entity_type: string;
-    field_name: string;
-    comment_body: {
-      value: any;
-      format: string;
-    };
-  };
+  attributes: any;
   relationships: {
     comment_type: {
       data: {

@@ -112,6 +112,7 @@ export class ArticleComponent implements OnInit, AfterViewInit, OnDestroy {
       `fields[user--user]=name,user_picture`,
       `fields[file--file]=uri,url`,
       `sort=-created`,
+      'filter[status]=1',
       `jsonapi_include=1`,
     ].join('&');
     const path = this.nodeService.apiUrlConfig.commentGetPath;
