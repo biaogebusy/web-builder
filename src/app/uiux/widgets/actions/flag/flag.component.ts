@@ -15,6 +15,7 @@ import { RouteService } from '@core/service/route.service';
 import { ScreenService } from '@core/service/screen.service';
 import { Subject } from 'rxjs';
 import { IFlag } from '@core/interface/widgets/IFlag';
+import { UtilitiesService } from '../../../../core/service/utilities.service';
 
 @Component({
   selector: 'app-flag',
@@ -29,12 +30,13 @@ export class FlagComponent extends BaseComponent implements OnInit, OnDestroy {
 
   destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
-    public nodeService: NodeService,
-    public routerService: RouteService,
-    private userState: UserState,
     public appState: AppState,
+    private cd: ChangeDetectorRef,
+    public routerService: RouteService,
     private screenService: ScreenService,
-    private cd: ChangeDetectorRef
+    private userState: UserState,
+    public nodeService: NodeService,
+    private utiltiy: UtilitiesService
   ) {
     super(nodeService, routerService);
   }
@@ -76,6 +78,10 @@ export class FlagComponent extends BaseComponent implements OnInit, OnDestroy {
   }
 
   onFlag(): void {
+    if (!this.userState.anthenticated) {
+      this.utiltiy.openSnackbar('请登录，再收藏！', 'x');
+      return;
+    }
     if (!this.flagging) {
       const data = {
         data: {
@@ -109,6 +115,7 @@ export class FlagComponent extends BaseComponent implements OnInit, OnDestroy {
         .pipe(takeUntil(this.destroy$))
         .subscribe((res) => {
           this.flagging = true;
+          this.utiltiy.openSnackbar('已添加收藏！', 'x');
           this.cd.detectChanges();
         });
     } else {
@@ -124,8 +131,9 @@ export class FlagComponent extends BaseComponent implements OnInit, OnDestroy {
           }),
           takeUntil(this.destroy$)
         )
-        .subscribe((res) => {
+        .subscribe(() => {
           this.flagging = false;
+          this.utiltiy.openSnackbar('已取消收藏！', 'x');
           this.cd.detectChanges();
         });
     }

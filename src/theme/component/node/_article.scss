@@ -28,6 +28,8 @@
       );
     }
     .auth {
+      border: 1px dashed mat-color($warn);
+      border-radius: 4px;
       &:hover {
         color: mat-color($primary);
       }

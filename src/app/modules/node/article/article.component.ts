@@ -45,7 +45,7 @@ export class ArticleComponent implements OnInit, AfterViewInit, OnDestroy {
   fontSize: number;
   fontForm: FormGroup;
   htmlBody: any;
-  isRequestRule: boolean;
+  isAuth: boolean;
   showNotXs: boolean;
 
   constructor(
@@ -153,18 +153,18 @@ export class ArticleComponent implements OnInit, AfterViewInit, OnDestroy {
 
   checkUserAuth(reqRules: string[]): void {
     if (!this.userState.anthenticated) {
-      this.isRequestRule = false;
+      this.isAuth = false;
     } else {
       this.currentUserRule = this.userState.roles;
       if (this.currentUserRule.includes('administrator')) {
-        this.isRequestRule = true;
+        this.isAuth = true;
       } else {
-        this.isRequestRule =
+        this.isAuth =
           this.currentUserRule.filter((role) => reqRules.includes(role))
             .length > 0;
       }
     }
-    if (this.isRequestRule) {
+    if (this.isAuth) {
       this.htmlBody = this.content.body;
       return;
     }
