@@ -111,7 +111,7 @@ export class FlagComponent extends BaseComponent implements OnInit, OnDestroy {
         },
       };
       this.nodeService
-        .flagging(this.path, JSON.stringify(data))
+        .flagging(this.path, JSON.stringify(data), this.userState.csrfToken)
         .pipe(takeUntil(this.destroy$))
         .subscribe((res) => {
           this.flagging = true;
@@ -127,7 +127,11 @@ export class FlagComponent extends BaseComponent implements OnInit, OnDestroy {
         )
         .pipe(
           switchMap((res) => {
-            return this.nodeService.deleteFlagging(this.path, res.data);
+            return this.nodeService.deleteFlagging(
+              this.path,
+              res.data,
+              this.userState.csrfToken
+            );
           }),
           takeUntil(this.destroy$)
         )

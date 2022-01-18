@@ -142,5 +142,8 @@
         "actionsAlign": "center center"
       }
     }
+  },
+  "user": {
+    "banner": "/assets/images/16-9/business-14.jpeg"
   }
 }

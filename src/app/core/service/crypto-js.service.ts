@@ -5,6 +5,7 @@ import * as CryptoJS from 'crypto-js';
   providedIn: 'root',
 })
 export class CryptoJSService {
+  secretKey = 'xinshi';
   constructor() {}
 
   // Generate 32-bit random string
@@ -19,30 +20,13 @@ export class CryptoJSService {
     return pwd;
   }
 
-  // aes encode
-  AES_CBC_encrypt(message: any, key: any): string {
-    const keyHex = CryptoJS.enc.Hex.parse(key); //
-    const ivHex = CryptoJS.enc.Utf8.parse('0000000000000000');
-    const messageHex = CryptoJS.enc.Utf8.parse(message);
-    const encrypted = CryptoJS.AES.encrypt(messageHex, keyHex, {
-      iv: ivHex,
-      mode: CryptoJS.mode.CBC,
-      padding: CryptoJS.pad.Pkcs7,
-    });
-    return encrypted.toString();
+  encrypt(value: string): string {
+    return CryptoJS.AES.encrypt(value, this.secretKey.trim()).toString();
   }
 
-  // aes decode
-  decrypt(word: any, keyStr: string): string {
-    const keyHex = CryptoJS.enc.Hex.parse(keyStr); //
-    const ivHex = CryptoJS.enc.Utf8.parse('0000000000000000');
-    const base64 = CryptoJS.enc.Base64.parse(word);
-    const src = CryptoJS.enc.Base64.stringify(base64);
-    const decrypt = CryptoJS.AES.decrypt(src, keyHex, {
-      iv: ivHex,
-      mode: CryptoJS.mode.CBC,
-      padding: CryptoJS.pad.Pkcs7,
-    });
-    return decrypt.toString(CryptoJS.enc.Utf8);
+  decrypt(textToDecrypt: string): string {
+    return CryptoJS.AES.decrypt(textToDecrypt, this.secretKey.trim()).toString(
+      CryptoJS.enc.Utf8
+    );
   }
 }

@@ -11,6 +11,7 @@ import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { UserState } from '@core/mobx/user/UserState';
 
 @Component({
   selector: 'app-article-comment',
@@ -27,7 +28,8 @@ export class ArticleCommentComponent implements OnInit, OnDestroy {
 
   constructor(
     private nodeService: NodeService,
-    private utility: UtilitiesService
+    private utility: UtilitiesService,
+    private userState: UserState
   ) {}
 
   ngOnInit(): void {}
@@ -47,7 +49,7 @@ export class ArticleCommentComponent implements OnInit, OnDestroy {
     };
 
     this.nodeService
-      .addComment(this.content.meta.type, data)
+      .addComment(this.content.meta.type, data, this.userState.csrfToken)
       .pipe(takeUntil(this.destroy$))
       .subscribe(
         (res) => {

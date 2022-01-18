@@ -7,9 +7,10 @@ import {
 } from '@angular/core';
 import { FormService } from '@core/service/form.service';
 import { FormGroup } from '@angular/forms';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { ApiService } from '@core/service/api.service';
 import { UtilitiesService } from '@core/service/utilities.service';
+import { UserState } from '@core/mobx/user/UserState';
 // TODO: need move to combs
 @Component({
   selector: 'app-contact-us',
@@ -23,11 +24,11 @@ export class ContactUsComponent implements OnInit {
   success = false;
   submited = false;
   constructor(
+    private apiService: ApiService,
+    private cd: ChangeDetectorRef,
     public formService: FormService,
     private http: HttpClient,
-    private apiService: ApiService,
-    private utilitiesService: UtilitiesService,
-    private cd: ChangeDetectorRef
+    private utilitiesService: UtilitiesService
   ) {}
 
   ngOnInit(): void {
@@ -39,18 +40,16 @@ export class ContactUsComponent implements OnInit {
       return;
     }
     this.submited = true;
-    const httpOptons = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'X-CSRF-Token': this.apiService.csrfToken,
-      }),
-    };
     const data = this.formService.getwebFormData(
       this.content.params,
       this.form
     );
     this.http
-      .post(`${this.apiService.apiUrl}/webform_rest/submit`, data, httpOptons)
+      .post(
+        `${this.apiService.apiUrl}/webform_rest/submit`,
+        data,
+        this.apiService.httpOptionsOfCommon
+      )
       .subscribe(
         (res) => {
           this.submited = false;

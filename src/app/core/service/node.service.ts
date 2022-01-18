@@ -20,7 +20,7 @@ export class NodeService extends ApiService {
     public storage: LocalStorageService,
     private appState: AppState
   ) {
-    super(http, storage);
+    super();
   }
 
   get apiUrlConfig(): IApiUrl {
@@ -51,14 +51,14 @@ export class NodeService extends ApiService {
   getNodes(path: string, type: string, params: string = ''): Observable<any> {
     return this.http.get<any>(
       `${this.apiUrl}${path}/${type}?${params}`,
-      this.httpOptions
+      this.httpOptionsOfCommon
     );
   }
 
-  deleteEntity(path: string, id: string): Observable<any> {
+  deleteEntity(path: string, id: string, token: string): Observable<any> {
     return this.http.delete<any>(
       `${this.apiUrl}${path}/${id}`,
-      this.httpOptions
+      this.optionsWithCookieAndToken(token)
     );
   }
 
@@ -73,7 +73,7 @@ export class NodeService extends ApiService {
       : `/node/${attr.drupal_internal__nid}`;
   }
 
-  addNode(type: string, attr: any, user: IUser): Observable<any> {
+  addNode(type: string, attr: any, token: string): Observable<any> {
     const data = {
       data: {
         type: `node--${type}`,
@@ -89,29 +89,34 @@ export class NodeService extends ApiService {
     return this.http.post<any>(
       `${this.apiUrl}${this.apiUrlConfig.nodeGetPath}/${type}`,
       JSON.stringify(data),
-      this.httpOptions
+      this.optionsWithCookieAndToken(token)
     );
   }
 
-  addComment(type: string, entityData: any): Observable<any> {
+  addComment(type: string, entityData: any, token: string): Observable<any> {
     const entity = {
       data: entityData,
     };
     return this.http.post<any>(
       `${this.apiUrl}${this.apiUrlConfig.commentGetPath}/${type}`,
       JSON.stringify(entity),
-      this.httpOptions
+      this.optionsWithCookieAndToken(token)
     );
   }
 
-  updateComment(type: string, entityData: any, uuid: string): Observable<any> {
+  updateComment(
+    type: string,
+    entityData: any,
+    uuid: string,
+    token: string
+  ): Observable<any> {
     const entity = {
       data: entityData,
     };
     return this.http.patch<any>(
       `${this.apiUrl}${this.apiUrlConfig.commentGetPath}/${type}/${uuid}`,
       JSON.stringify(entity),
-      this.httpOptions
+      this.optionsWithCookieAndToken(token)
     );
   }
 
@@ -136,16 +141,20 @@ export class NodeService extends ApiService {
     };
   }
 
-  flagging(path: string, data: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}${path}`, data, this.httpOptions);
+  flagging(path: string, data: any, token: string): Observable<any> {
+    return this.http.post<any>(
+      `${this.apiUrl}${path}`,
+      data,
+      this.optionsWithCookieAndToken(token)
+    );
   }
 
-  deleteFlagging(path: string, items: any[]): Observable<any> {
+  deleteFlagging(path: string, items: any[], token: string): Observable<any> {
     const obj: any = {};
     items.forEach((item) => {
       obj[item.id] = this.http.delete<any>(
         `${this.apiUrl}${path}/${item.id}`,
-        this.httpOptions
+        this.optionsWithCookieAndToken(token)
       );
     });
     return forkJoin(obj);

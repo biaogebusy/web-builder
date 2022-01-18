@@ -1,7 +1,6 @@
 import {
   Component,
   OnInit,
-  Query,
   OnDestroy,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -10,6 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '@core/service/user.service';
 import { UserState } from '@core/mobx/user/UserState';
 import { ScreenService } from '@core/service/screen.service';
+import { AppState } from '@core/mobx/AppState';
 
 @Component({
   selector: 'app-user',
@@ -21,12 +21,13 @@ export class UserComponent implements OnInit, OnDestroy {
   user: any;
   id: any;
   constructor(
+    private appState: AppState,
+    private cd: ChangeDetectorRef,
     private router: ActivatedRoute,
-    private userService: UserService,
-    private userState: UserState,
     private route: Router,
     private screenService: ScreenService,
-    private cd: ChangeDetectorRef
+    private userService: UserService,
+    private userState: UserState
   ) {}
 
   ngOnInit(): void {
@@ -48,52 +49,57 @@ export class UserComponent implements OnInit, OnDestroy {
   getUser(id: string): any {
     const people = {};
 
-    this.userService.getUserById(id).subscribe((res) => {
-      const info = res.data[0];
-      const profile = {
-        bannerBg: this.getBanner(),
-        avatar: {
-          src: info.user_picture?.uri?.url || this.userState.defaultAvatar,
-          alt: info.name,
-        },
-        name: info.name,
-        subTitle: info.display_name,
-        details: {
-          label: '个人资料',
-          elements: [
-            {
-              icon: {
-                color: 'warn',
-                svg: 'arrow_right',
-                inline: true,
+    this.userService
+      .getUserById(id, this.userState.csrfToken)
+      .subscribe((res) => {
+        const info = res.data[0];
+        if (!info) {
+          return;
+        }
+        const profile = {
+          bannerBg: this.getBanner(),
+          avatar: {
+            src: info?.user_picture?.uri?.url || this.userState.defaultAvatar,
+            alt: info.name,
+          },
+          name: info.name,
+          subTitle: info.display_name,
+          details: {
+            label: '个人资料',
+            elements: [
+              {
+                icon: {
+                  color: 'warn',
+                  svg: 'arrow_right',
+                  inline: true,
+                },
+                label: '邮箱',
+                content: info.mail || '没有填写',
               },
-              label: '邮箱',
-              content: info.mail || '没有填写',
-            },
-            {
-              icon: {
-                color: 'warn',
-                svg: 'arrow_right',
-                inline: true,
+              {
+                icon: {
+                  color: 'warn',
+                  svg: 'arrow_right',
+                  inline: true,
+                },
+                label: '手机',
+                content: info.phone_number || '没有填写',
               },
-              label: '手机',
-              content: info.phone_number || '没有填写',
-            },
-            {
-              icon: {
-                color: 'warn',
-                svg: 'arrow_right',
-                inline: true,
+              {
+                icon: {
+                  color: 'warn',
+                  svg: 'arrow_right',
+                  inline: true,
+                },
+                label: '角色',
+                content: this.getRoles(info.roles),
               },
-              label: '角色',
-              content: this.getRoles(info.roles),
-            },
-          ],
-        },
-      };
-      this.user = Object.assign(people, profile);
-      this.cd.detectChanges();
-    });
+            ],
+          },
+        };
+        this.user = Object.assign(people, profile);
+        this.cd.detectChanges();
+      });
   }
 
   getBanner(): any {
@@ -101,7 +107,9 @@ export class UserComponent implements OnInit, OnDestroy {
       classes: 'bg-fill-width overlay overlay-80',
       img: {
         hostClasses: 'bg-center',
-        src: '/assets/images/16-9/business-14.jpeg',
+        src:
+          this.appState.config?.user?.banner ||
+          '/assets/images/16-9/business-14.jpeg',
         alt: 'page title',
       },
     };

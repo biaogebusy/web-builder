@@ -33,14 +33,14 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
 
   destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
+    private cd: ChangeDetectorRef,
+    private dialogService: DialogService,
     private formService: FormService,
     private nodeService: NodeService,
     private userState: UserState,
-    private dialogService: DialogService,
     private utilitiesService: UtilitiesService,
     private router: Router,
-    private screenService: ScreenService,
-    private cd: ChangeDetectorRef
+    private screenService: ScreenService
   ) {}
 
   ngOnInit(): void {
@@ -52,7 +52,7 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
   onClick(params: IActionParams): void {
     this.loading = true;
     this.nodeService
-      .addNode(params.type, this.form.value, this.userState.currentUser)
+      .addNode(params.type, this.form.value, this.userState.csrfToken)
       .pipe(takeUntil(this.destroy$))
       .subscribe(
         (res) => {

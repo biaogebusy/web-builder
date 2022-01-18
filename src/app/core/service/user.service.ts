@@ -14,10 +14,9 @@ export class UserService extends ApiService {
   constructor(
     public http: HttpClient,
     public storage: LocalStorageService,
-    private apiService: ApiService,
     private appState: AppState
   ) {
-    super(http, storage);
+    super();
   }
 
   login(userName: string, passWord: string): Observable<any> {
@@ -30,7 +29,7 @@ export class UserService extends ApiService {
     };
 
     return this.http.post<any>(
-      `${this.apiService.apiUrl}${this.appState.apiUrlConfig.loginPath}?_format=json`,
+      `${this.apiUrl}${this.appState.apiUrlConfig.loginPath}?_format=json`,
       {
         name: userName,
         pass: passWord,
@@ -39,18 +38,16 @@ export class UserService extends ApiService {
     );
   }
 
-  logout(): Observable<any> {
-    const api = this.apiService;
+  logout(logoutToken: string): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-type': 'application/json',
       }),
       withCredentials: true,
     };
-    const logoutToken = api.getToken(api.localUserKey, 'logout_token');
     const params = ['_format=json', `token=${logoutToken}`].join('&');
     return this.http.post(
-      `${this.apiService.apiUrl}${this.appState.apiUrlConfig.logoutPath}?${params}`,
+      `${this.apiUrl}${this.appState.apiUrlConfig.logoutPath}?${params}`,
       null,
       httpOptions
     );
@@ -64,12 +61,9 @@ export class UserService extends ApiService {
       }),
     };
 
-    return this.http.post(
-      `${this.apiService.apiUrl}/api/v1/otp/generate?format=json`,
-      {
-        mobile_number: phone,
-      }
-    );
+    return this.http.post(`${this.apiUrl}/api/v1/otp/generate?format=json`, {
+      mobile_number: phone,
+    });
   }
 
   loginByPhone(phone: number, code: string): Observable<any> {
@@ -80,16 +74,13 @@ export class UserService extends ApiService {
       }),
     };
 
-    return this.http.post(
-      `${this.apiService.apiUrl}/api/v1/otp/login?format=json`,
-      {
-        mobile_number: phone,
-        code,
-      }
-    );
+    return this.http.post(`${this.apiUrl}/api/v1/otp/login?format=json`, {
+      mobile_number: phone,
+      code,
+    });
   }
 
-  getUserById(id: string): Observable<any> {
+  getUserById(id: string, crsfToken: string): Observable<any> {
     const apiUrl = `${this.apiUrl}${this.appState.apiUrlConfig.userGetPath}`;
     const params = [
       `filter[drupal_internal__uid]=${id}`,
@@ -98,18 +89,21 @@ export class UserService extends ApiService {
     ].join('&');
     return this.http.get<any>(
       `${apiUrl}?${params}`,
-      this.apiService.httpOptions
+      this.optionsWithCookieAndToken(crsfToken)
     );
   }
 
-  getCurrentUserById(user: TokenUser): Observable<any> {
+  getCurrentUserById(user: TokenUser, crsfToken: string): Observable<any> {
     const apiUrl = `${this.apiUrl}${this.appState.apiUrlConfig.userGetPath}`;
     const params = [
       `filter[drupal_internal__uid]=${user.current_user.uid}`,
       `include=user_picture`,
     ].join('&');
     return this.http
-      .get<any>(`${apiUrl}?${params}`, this.apiService.httpOptions)
+      .get<any>(
+        `${apiUrl}?${params}`,
+        this.optionsWithCookieAndToken(crsfToken)
+      )
       .pipe(
         map((res: any) => {
           const detail = res.data[0];

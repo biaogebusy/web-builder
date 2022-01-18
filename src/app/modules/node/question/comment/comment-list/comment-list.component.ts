@@ -13,6 +13,7 @@ import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { UserState } from '@core/mobx/user/UserState';
 
 @Component({
   selector: 'app-comment-list',
@@ -30,8 +31,9 @@ export class CommentListComponent implements OnInit, OnDestroy {
 
   destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
-    private nodeService: NodeService,
     private appState: AppState,
+    private userState: UserState,
+    private nodeService: NodeService,
     private utilitiesService: UtilitiesService,
     private cd: ChangeDetectorRef
   ) {}
@@ -63,7 +65,11 @@ export class CommentListComponent implements OnInit, OnDestroy {
   onDeleteMyQuestion(id: string): void {
     this.loading = true;
     this.nodeService
-      .deleteEntity(`${this.appState.apiUrlConfig.commentGetPath}/comment`, id)
+      .deleteEntity(
+        `${this.appState.apiUrlConfig.commentGetPath}/comment`,
+        id,
+        this.userState.csrfToken
+      )
       .pipe(takeUntil(this.destroy$))
       .subscribe(
         (res) => {

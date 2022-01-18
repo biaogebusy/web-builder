@@ -12,7 +12,7 @@ import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { UserState } from '@core/mobx/user/UserState';
 import { ScreenService } from '@core/service/screen.service';
-import { Subject, Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 @Component({
   selector: 'app-comment-form',
@@ -33,11 +33,11 @@ export class CommentFormComponent implements OnInit, OnDestroy {
   public Editor: any;
 
   constructor(
+    private cd: ChangeDetectorRef,
     private nodeService: NodeService,
-    private utilitiesService: UtilitiesService,
-    private userState: UserState,
     public screenService: ScreenService,
-    private cd: ChangeDetectorRef
+    private utilitiesService: UtilitiesService,
+    private userState: UserState
   ) {}
 
   ngOnInit(): void {
@@ -62,7 +62,7 @@ export class CommentFormComponent implements OnInit, OnDestroy {
         format: 'full_html',
       };
       this.nodeService
-        .addComment(editor.type, params)
+        .addComment(editor.type, params, this.userState.csrfToken)
         .pipe(takeUntil(this.destroy$))
         .subscribe(
           (res) => {
@@ -95,7 +95,12 @@ export class CommentFormComponent implements OnInit, OnDestroy {
         },
       };
       this.nodeService
-        .updateComment(editor.type, entity, this.myCommentId)
+        .updateComment(
+          editor.type,
+          entity,
+          this.myCommentId,
+          this.userState.csrfToken
+        )
         .pipe(takeUntil(this.destroy$))
         .subscribe(
           (res) => {

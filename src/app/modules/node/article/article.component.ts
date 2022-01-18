@@ -121,7 +121,6 @@ export class ArticleComponent implements OnInit, AfterViewInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {
         this.comments = res.data.map((comment: any) => {
-          console.log(comment);
           return {
             author: {
               img: {

@@ -165,7 +165,6 @@ export class JobComponent implements OnInit {
   constructor(
     private nodeService: NodeService,
     public amapState: AMapState,
-    private appState: AppState,
     private tagsService: TagsService,
     private routerService: RouteService,
     private route: ActivatedRoute,

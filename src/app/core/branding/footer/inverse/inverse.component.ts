@@ -1,9 +1,10 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormService } from '../../../service/form.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { ApiService } from '../../../service/api.service';
 import { UtilitiesService } from '@core/service/utilities.service';
+import { UserState } from '@core/mobx/user/UserState';
 
 @Component({
   selector: 'app-inverse',
@@ -17,11 +18,12 @@ export class InverseComponent implements OnInit {
   submited = false;
 
   constructor(
+    private apiService: ApiService,
+    private cd: ChangeDetectorRef,
     public formService: FormService,
     private http: HttpClient,
-    private apiService: ApiService,
     private utilitiesService: UtilitiesService,
-    private cd: ChangeDetectorRef
+    private userState: UserState
   ) {}
 
   ngOnInit(): void {
@@ -35,18 +37,16 @@ export class InverseComponent implements OnInit {
       return;
     }
     this.submited = true;
-    const httpOptons = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'X-CSRF-Token': this.apiService.csrfToken,
-      }),
-    };
     const data = this.formService.getwebFormData(
       this.content.footerNewsletter.params,
       this.form
     );
     this.http
-      .post(`${this.apiService.apiUrl}/webform_rest/submit`, data, httpOptons)
+      .post(
+        `${this.apiService.apiUrl}/webform_rest/submit`,
+        data,
+        this.apiService.optionsWithCookieAndToken(this.userState.csrfToken)
+      )
       .subscribe(
         (res) => {
           this.submited = false;

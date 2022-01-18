@@ -7,14 +7,10 @@ import { environment } from '../../../environments/environment';
 import { LocalStorageService } from 'ngx-webstorage';
 import { IApiUrl, IAppConfig, IPage } from './IAppConfig';
 import { Observable, of, Subject } from 'rxjs';
-import { IUser } from './user/IUser';
 import { TagsService } from '@core/service/tags.service';
 import { version } from '../../../../package.json';
 import { isArray } from 'lodash-es';
 import { switchMap } from 'rxjs/operators';
-const unauthUser = {
-  authenticated: false,
-};
 
 const initPage = {
   title: '',
@@ -29,7 +25,6 @@ export class AppState {
   @observable private state: IAppConfig = {
     defTheme: 'light-theme',
     config: null,
-    currentUser: unauthUser,
     page: initPage,
   };
 
@@ -37,9 +32,8 @@ export class AppState {
   public configLoadDone$ = new Subject();
   public responseCache = new Map();
   constructor(
-    private http: HttpClient,
-    private apiService: ApiService,
     @Inject(DOCUMENT) private document: Document,
+    private http: HttpClient,
     private storage: LocalStorageService,
     private tagsService: TagsService
   ) {
@@ -60,10 +54,6 @@ export class AppState {
 
   @computed get defaultLogo(): string {
     return this.config && this.config.defaultLogo;
-  }
-
-  @computed get currentUser(): IUser {
-    return this.state && this.state.currentUser;
   }
 
   @computed get apiUrlConfig(): IApiUrl {
@@ -120,7 +110,6 @@ export class AppState {
             this.state.config = config;
             this.configLoadDone$.next(true);
             this.initTheme();
-            this.setUser();
           },
           () => {
             console.log('base json not found!');
@@ -134,7 +123,6 @@ export class AppState {
             this.state.config = config;
             this.configLoadDone$.next(true);
             this.initTheme();
-            this.setUser();
           },
           () => {
             console.log('base json not found!');
@@ -167,23 +155,6 @@ export class AppState {
     this.switchChange$.next(theme);
     this.state.defTheme = theme;
     this.storage.store(this.MODE, theme);
-  }
-
-  @action
-  setUser(): void {
-    if (
-      this.apiService.getToken(this.apiService.localUserKey, 'current_user')
-    ) {
-      const currentUser = JSON.parse(
-        this.storage.retrieve(this.apiService.localUserKey)
-      );
-      this.state.currentUser = currentUser;
-    }
-  }
-
-  @action
-  logout(): void {
-    this.state.currentUser = unauthUser;
   }
 
   updatePage(pageValue: IPage): void {

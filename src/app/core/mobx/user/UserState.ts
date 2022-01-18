@@ -4,11 +4,18 @@ import { LocalStorageService } from 'ngx-webstorage';
 import { IUser, TokenUser } from './IUser';
 import { Subject } from 'rxjs';
 import { UserService } from '@core/service/user.service';
-import { ApiService } from '@core/service/api.service';
 import { AppState } from '../AppState';
 import { UtilitiesService } from '@core/service/utilities.service';
+import { CryptoJSService } from '@core/service/crypto-js.service';
 const unauthUser = {
   authenticated: false,
+  csrf_token: '',
+  current_user: {
+    uid: '',
+    name: '',
+    roles: [],
+  },
+  logout_token: '',
 };
 
 @Injectable()
@@ -20,15 +27,17 @@ export class UserState {
   user$ = new Subject<IUser>();
 
   constructor(
-    private userService: UserService,
-    private storage: LocalStorageService,
-    private apiService: ApiService,
     private appState: AppState,
-    private utilities: UtilitiesService
+    private cryptoJS: CryptoJSService,
+    private userService: UserService,
+    private utilities: UtilitiesService,
+    private storage: LocalStorageService
   ) {
-    if (this.storage.retrieve(this.apiService.localUserKey)) {
+    if (this.storage.retrieve(this.userService.localUserKey)) {
       this.user = JSON.parse(
-        this.storage.retrieve(this.apiService.localUserKey)
+        this.cryptoJS.decrypt(
+          this.storage.retrieve(this.userService.localUserKey)
+        )
       );
     }
   }
@@ -54,6 +63,14 @@ export class UserState {
 
   get defaultAvatar(): string {
     return '/assets/images/avatar/default.svg';
+  }
+
+  get logoutToken(): string {
+    return this.currentUser && this.currentUser.logout_token;
+  }
+
+  get csrfToken(): string {
+    return this.currentUser && this.currentUser.csrf_token;
   }
 
   @action
@@ -92,29 +109,29 @@ export class UserState {
   logout(): any {
     this.user$.next(unauthUser);
     this.user = unauthUser;
-    this.userService.logout().subscribe(
-      (res) => {
-        this.storage.clear(this.apiService.localUserKey);
-        this.appState.logout();
+    this.userService.logout(this.logoutToken).subscribe(
+      () => {
+        this.storage.clear(this.userService.localUserKey);
       },
       (error) => {
         console.log(error);
-        this.storage.clear(this.apiService.localUserKey);
-        this.appState.logout();
+        this.storage.clear(this.userService.localUserKey);
       }
     );
   }
 
   @action
   updateUser(data: TokenUser): any {
-    this.userService.getCurrentUserById(data).subscribe((user) => {
-      this.loading = false;
-      this.user$.next(user);
-      this.user = Object.assign(data, user);
-      this.storage.store(
-        this.apiService.localUserKey,
-        JSON.stringify(this.user)
-      );
-    });
+    this.userService
+      .getCurrentUserById(data, this.csrfToken)
+      .subscribe((user) => {
+        this.loading = false;
+        this.user$.next(user);
+        this.user = Object.assign(data, user);
+        this.storage.store(
+          this.userService.localUserKey,
+          this.cryptoJS.encrypt(JSON.stringify(this.user))
+        );
+      });
   }
 }

@@ -1,4 +1,4 @@
-export interface IUser {
+export interface IUser extends TokenUser {
   id?: string;
   display_name?: string;
   user_fullname?: string;
@@ -6,9 +6,6 @@ export interface IUser {
   name?: string;
   status?: boolean;
   authenticated?: boolean;
-  current_user?: any;
-  csrf_token?: string;
-  logout_token?: string;
   picture?: string;
 }
 
@@ -17,6 +14,7 @@ export interface TokenUser {
   current_user: {
     uid: string;
     name: string;
+    roles: string[];
   };
   logout_token: string;
 }

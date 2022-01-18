@@ -11,7 +11,8 @@ import { UserService } from '@core/service/user.service';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { formatDate } from '@angular/common';
 import { ScreenService } from '@core/service/screen.service';
-import { Subscription, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
+import { UserState } from '@core/mobx/user/UserState';
 @Component({
   selector: 'app-user-favorite',
   templateUrl: './user-favorite.component.html',
@@ -28,11 +29,12 @@ export class UserFavoriteComponent implements OnInit, OnDestroy {
 
   destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
+    private cd: ChangeDetectorRef,
     private router: ActivatedRoute,
+    private userState: UserState,
     private userService: UserService,
     private nodeService: NodeService,
-    private screenService: ScreenService,
-    private cd: ChangeDetectorRef
+    private screenService: ScreenService
   ) {}
 
   ngOnInit(): void {
@@ -47,7 +49,7 @@ export class UserFavoriteComponent implements OnInit, OnDestroy {
     const path = this.nodeService.apiUrlConfig.flaggingGetPath;
 
     this.userService
-      .getUserById(id)
+      .getUserById(id, this.userState.csrfToken)
       .pipe(
         switchMap((res: any) => {
           const params = [
