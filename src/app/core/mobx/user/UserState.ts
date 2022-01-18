@@ -63,10 +63,12 @@ export class UserState {
     return '/assets/images/avatar/default.svg';
   }
 
+  @computed
   get logoutToken(): string {
     return this.currentUser && this.currentUser.logout_token;
   }
 
+  @computed
   get csrfToken(): string {
     return this.currentUser && this.currentUser.csrf_token;
   }
