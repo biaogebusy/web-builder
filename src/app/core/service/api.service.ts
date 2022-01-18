@@ -5,8 +5,7 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root',
 })
 export class ApiService {
-  jobNodeType = 'job';
-  localUserKey = 'currentUser';
+  localUserKey = environment.site;
 
   constructor() {}
 
