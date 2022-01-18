@@ -4,7 +4,6 @@ import { LocalStorageService } from 'ngx-webstorage';
 import { IUser, TokenUser } from './IUser';
 import { Subject } from 'rxjs';
 import { UserService } from '@core/service/user.service';
-import { AppState } from '../AppState';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { CryptoJSService } from '@core/service/crypto-js.service';
 const unauthUser = {
@@ -27,7 +26,6 @@ export class UserState {
   user$ = new Subject<IUser>();
 
   constructor(
-    private appState: AppState,
     private cryptoJS: CryptoJSService,
     private userService: UserService,
     private utilities: UtilitiesService,
@@ -107,15 +105,14 @@ export class UserState {
 
   @action
   logout(): any {
-    this.user$.next(unauthUser);
-    this.user = unauthUser;
     this.userService.logout(this.logoutToken).subscribe(
       () => {
+        this.user$.next(unauthUser);
+        this.user = unauthUser;
         this.storage.clear(this.userService.localUserKey);
       },
       (error) => {
         console.log(error);
-        this.storage.clear(this.userService.localUserKey);
       }
     );
   }
