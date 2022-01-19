@@ -2,7 +2,6 @@ import { Inject, Injectable } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { action, observable, computed } from 'mobx-angular';
 import { HttpClient } from '@angular/common/http';
-import { ApiService } from '@core/service/api.service';
 import { environment } from '../../../environments/environment';
 import { LocalStorageService } from 'ngx-webstorage';
 import { IApiUrl, IAppConfig, IPage } from './IAppConfig';
@@ -100,6 +99,51 @@ export class AppState {
     return this.document.location.origin;
   }
 
+  setBodyClasses(theme: string): void {
+    const body = this.document.getElementsByTagName('body')[0];
+    body.classList.add(theme);
+  }
+
+  updatePage(pageValue: IPage): void {
+    if (isArray(pageValue)) {
+      return;
+    }
+    this.state.page = pageValue;
+    this.tagsService.updateTages(pageValue);
+  }
+
+  setPageNotFound(notFound: string): void {
+    this.tagsService.setTitle('404 not found!');
+    this.http.get<any>(notFound).subscribe((pageValue: IPage) => {
+      this.updatePage(pageValue);
+    });
+  }
+
+  get apiPath(): string {
+    const path = this.document.location.pathname;
+    const search = this.document.location.search;
+    const allowKey = ['version', 'origin'];
+    if (
+      allowKey.some((key) => {
+        return search.indexOf(key) > 0;
+      })
+    ) {
+      return `${path}${search}`;
+    } else {
+      return path;
+    }
+  }
+
+  @action
+  switchTheme(theme: string): void {
+    const body = this.document.getElementsByTagName('body')[0];
+    body.removeAttribute('class');
+    body.classList.add(theme);
+    this.switchChange$.next(theme);
+    this.state.defTheme = theme;
+    this.storage.store(this.MODE, theme);
+  }
+
   @action
   setConfig(): void {
     if (environment.production) {
@@ -142,55 +186,13 @@ export class AppState {
     }
   }
 
-  setBodyClasses(theme: string): void {
-    const body = this.document.getElementsByTagName('body')[0];
-    body.classList.add(theme);
-  }
-
-  @action
-  switchTheme(theme: string): void {
-    const body = this.document.getElementsByTagName('body')[0];
-    body.removeAttribute('class');
-    body.classList.add(theme);
-    this.switchChange$.next(theme);
-    this.state.defTheme = theme;
-    this.storage.store(this.MODE, theme);
-  }
-
-  updatePage(pageValue: IPage): void {
-    if (isArray(pageValue)) {
-      return;
-    }
-    this.state.page = pageValue;
-    this.tagsService.updateTages(pageValue);
-  }
-
-  setPageNotFound(notFound: string): void {
-    this.tagsService.setTitle('404 not found!');
-    this.http.get<any>(notFound).subscribe((pageValue: IPage) => {
-      this.updatePage(pageValue);
-    });
-  }
-
-  get apiPath(): string {
-    const path = this.document.location.pathname;
-    const search = this.document.location.search;
-    const allowKey = ['version', 'origin'];
-    if (
-      allowKey.some((key) => {
-        return search.indexOf(key) > 0;
-      })
-    ) {
-      return `${path}${search}`;
-    } else {
-      return path;
-    }
-  }
-
   @action
   setPageContent(): void {
     if (environment.production) {
-      const key = this.apiPath;
+      const key = JSON.stringify({
+        url: environment.apiUrl,
+        path: this.apiPath,
+      });
       let getLandPage$: Observable<any>;
       const landPageFormCache = this.responseCache.get(key);
       if (landPageFormCache) {

@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ApiService } from './api.service';
 import { LocalStorageService } from 'ngx-webstorage';
-import { IUser } from '../mobx/user/IUser';
 import { AppState } from '../mobx/AppState';
 import { forkJoin } from 'rxjs';
 import { Observable, of } from 'rxjs';
@@ -28,7 +27,7 @@ export class NodeService extends ApiService {
   }
 
   search(type: string, params: string): Observable<any> {
-    const key = `${type}-${params}`;
+    const key = JSON.stringify({ api: this.apiUrl, type, params });
     const searchFormCache = this.responseCache.get(key);
     if (searchFormCache) {
       return of(searchFormCache);
@@ -49,10 +48,23 @@ export class NodeService extends ApiService {
   }
 
   getNodes(path: string, type: string, params: string = ''): Observable<any> {
-    return this.http.get<any>(
-      `${this.apiUrl}${path}/${type}?${params}`,
-      this.httpOptionsOfCommon
-    );
+    const cacheKey = JSON.stringify({ api: this.apiUrl, path, type });
+    const nodeCache = this.responseCache.get(cacheKey);
+    if (nodeCache) {
+      return of(nodeCache);
+    } else {
+      return this.http
+        .get<any>(
+          `${this.apiUrl}${path}/${type}?${params}`,
+          this.httpOptionsOfCommon
+        )
+        .pipe(
+          switchMap((res) => {
+            this.responseCache.set(cacheKey, res);
+            return of(res);
+          })
+        );
+    }
   }
 
   deleteEntity(path: string, id: string, token: string): Observable<any> {
