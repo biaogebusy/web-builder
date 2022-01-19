@@ -45,7 +45,7 @@ export class ArticleComponent implements OnInit, AfterViewInit, OnDestroy {
   fontSize: number;
   fontForm: FormGroup;
   htmlBody: any;
-  isAuth: boolean;
+  isAuth = false;
   showNotXs: boolean;
 
   constructor(
@@ -92,13 +92,26 @@ export class ArticleComponent implements OnInit, AfterViewInit, OnDestroy {
         });
       }
     }
-    if (this.content.params?.require_rule) {
-      this.checkUserAuth(this.content.params.require_rule);
-    } else {
-      this.htmlBody = this.content.body;
-    }
+    this.setContent();
     if (this.appState.article?.comment?.enabel) {
       this.getComments();
+    }
+  }
+
+  setContent(): void {
+    if (this.content.params?.require_rule) {
+      this.isAuth = this.checkUserAuth(this.content.params.require_rule);
+      if (this.isAuth) {
+        this.htmlBody = this.content.body;
+        return;
+      }
+      this.htmlBody = this.shortenPipe.transform(
+        this.stripTagePipe.transform(this.content.body, 'p'),
+        1000,
+        '...'
+      );
+    } else {
+      this.htmlBody = this.content.body;
     }
   }
 
@@ -150,28 +163,20 @@ export class ArticleComponent implements OnInit, AfterViewInit, OnDestroy {
     this.getComments();
   }
 
-  checkUserAuth(reqRules: string[]): void {
+  checkUserAuth(reqRules: string[]): boolean {
     if (!this.userState.anthenticated) {
-      this.isAuth = false;
+      return false;
     } else {
       this.currentUserRule = this.userState.roles;
       if (this.currentUserRule.includes('administrator')) {
-        this.isAuth = true;
+        return true;
       } else {
-        this.isAuth =
+        return (
           this.currentUserRule.filter((role) => reqRules.includes(role))
-            .length > 0;
+            .length > 0
+        );
       }
     }
-    if (this.isAuth) {
-      this.htmlBody = this.content.body;
-      return;
-    }
-    this.htmlBody = this.shortenPipe.transform(
-      this.stripTagePipe.transform(this.content.body, 'p'),
-      1000,
-      '...'
-    );
   }
 
   ngAfterViewInit(): void {
