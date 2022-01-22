@@ -9,12 +9,12 @@
     <div class="sub-title text-center" fxLayoutAlign="center center">
       <p [innerHTML]="content.subTitle | safeHtml" *ngIf="content.subTitle" fxFlex.lt-md="100" fxFlex.gt-sm="50"></p>
     </div>
-    <div class="item m-y-sm" fxLayout.lt-sm="column" fxLayout.gt-md="row" fxLayoutAlign="center center"
-      [ngClass]="content.classes" *ngFor="let item of content.elements">
-      <div class="image-container p-sm" fxFlex.lt-sm="100" fxFlex.gt-md="50" fxLayoutAlign="center center">
+    <div class="item m-y-sm" fxLayout="row wrap" fxLayoutAlign="center center" [ngClass]="content.classes"
+      *ngFor="let item of content.elements">
+      <div class="image-container p-sm" fxFlex.lt-sm="100" fxFlex.gt-md="0 0 50" fxLayoutAlign="center center">
         <app-img [content]="item.img" *ngIf="item.img"></app-img>
       </div>
-      <div class="module-content" fxFlex.lt-sm="100" fxFlex.gt-md="50" [ngClass.lt-md]="'p-sm'"
+      <div class="module-content" fxFlex.lt-sm="100" fxFlex.gt-md="0 0 50" [ngClass.lt-md]="'p-sm'"
         [ngClass.gt-sm]="'p-md'">
         <app-title [content]="item.content.title" *ngIf="item.content.title"></app-title>
         <p class="m-bottom" *ngIf="item.content.body" [innerHTML]="item.content.body | safeHtml"></p>
