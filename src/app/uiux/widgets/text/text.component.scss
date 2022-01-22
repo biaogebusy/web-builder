@@ -17,3 +17,11 @@
     margin-right: 2rem;
   }
 }
+
+.text-body {
+  ::ng-deep {
+    img {
+      max-width: 100%;
+    }
+  }
+}
