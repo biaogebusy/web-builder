@@ -1,0 +1,210 @@
+{
+  "title": "音乐",
+  "body": [{
+    "type": "showcase-3v2",
+    "title": {
+      "@label": "分类标题",
+      "label": "音乐",
+      "style": "style-v1",
+      "classes": "mat-display-1 bold"
+    },
+    "subTitle": "音乐分类描述信息",
+    "bg": {
+      "classes": "bg-fill-width",
+      "img": {
+        "hostClasses": "",
+        "@src": "先固定写死",
+        "src": "/assets/images/illustration/home-shape.png"
+      }
+    },
+    "elements": [{
+      "@img": "分类图片",
+      "img": {
+        "src": "/assets/images/illustration/24.png",
+        "alt": ""
+      },
+      "content": {
+        "title": {
+          "label": "专题文章",
+          "style": "style-v4",
+          "classes": "bold"
+        },
+        "@lists": "分类对应的文章列表",
+        "lists": {
+          "params": {
+            "icon": true
+          },
+          "elements": [{
+            "type": "link",
+            "label": "使用 DevTools 对 Angular 前端应用性能分析",
+            "href": "#"
+          }, {
+            "type": "link",
+            "label": "使用 takeUntil 操作符管理 Angular 组件的订阅",
+            "href": "#"
+          }, {
+            "type": "link",
+            "label": "你应该了解的 Angular 最佳实践",
+            "href": "#"
+          }, {
+            "type": "link",
+            "label": "Jsona 一款转换 jsonapi 数据的工具库，也算是解放 Drupal jsonapi 反序列化的利器",
+            "href": "#"
+          }, {
+            "type": "link",
+            "label": "Angular 有哪几种不同类型的绑定",
+            "href": "#"
+          }]
+        },
+        "actions": [{
+          "type": "btn-animate",
+          "label": "更多",
+          "href": "#",
+          "style": "style-v1",
+          "icon": "open_in_new"
+        }]
+      }
+    }, {
+      "@img": "分类图片",
+      "img": {
+        "src": "/assets/images/illustration/24.png",
+        "alt": ""
+      },
+      "content": {
+        "title": {
+          "label": "案例研究",
+          "style": "style-v4",
+          "classes": "bold"
+        },
+        "@lists": "分类对应的文章列表",
+        "lists": {
+          "params": {
+            "icon": true
+          },
+          "elements": [{
+            "type": "link",
+            "label": "使用 DevTools 对 Angular 前端应用性能分析",
+            "href": "#"
+          }, {
+            "type": "link",
+            "label": "使用 takeUntil 操作符管理 Angular 组件的订阅",
+            "href": "#"
+          }, {
+            "type": "link",
+            "label": "你应该了解的 Angular 最佳实践",
+            "href": "#"
+          }, {
+            "type": "link",
+            "label": "Jsona 一款转换 jsonapi 数据的工具库，也算是解放 Drupal jsonapi 反序列化的利器",
+            "href": "#"
+          }, {
+            "type": "link",
+            "label": "Angular 有哪几种不同类型的绑定",
+            "href": "#"
+          }]
+        },
+        "actions": [{
+          "type": "btn-animate",
+          "label": "更多",
+          "href": "#",
+          "style": "style-v1",
+          "icon": "open_in_new"
+        }]
+      }
+    }, {
+      "@img": "分类图片",
+      "img": {
+        "src": "/assets/images/illustration/24.png",
+        "alt": ""
+      },
+      "content": {
+        "title": {
+          "label": "行业资讯",
+          "style": "style-v4",
+          "classes": "bold"
+        },
+        "@lists": "分类对应的文章列表",
+        "lists": {
+          "params": {
+            "icon": true
+          },
+          "elements": [{
+            "type": "link",
+            "label": "使用 DevTools 对 Angular 前端应用性能分析",
+            "href": "#"
+          }, {
+            "type": "link",
+            "label": "使用 takeUntil 操作符管理 Angular 组件的订阅",
+            "href": "#"
+          }, {
+            "type": "link",
+            "label": "你应该了解的 Angular 最佳实践",
+            "href": "#"
+          }, {
+            "type": "link",
+            "label": "Jsona 一款转换 jsonapi 数据的工具库，也算是解放 Drupal jsonapi 反序列化的利器",
+            "href": "#"
+          }, {
+            "type": "link",
+            "label": "Angular 有哪几种不同类型的绑定",
+            "href": "#"
+          }]
+        },
+        "actions": [{
+          "type": "btn-animate",
+          "label": "更多",
+          "href": "#",
+          "style": "style-v1",
+          "icon": "open_in_new"
+        }]
+      }
+    }, {
+      "@img": "分类图片",
+      "img": {
+        "src": "/assets/images/illustration/24.png",
+        "alt": ""
+      },
+      "content": {
+        "title": {
+          "label": "合同模板",
+          "style": "style-v4",
+          "classes": "bold"
+        },
+        "@lists": "分类对应的文章列表",
+        "lists": {
+          "params": {
+            "icon": true
+          },
+          "elements": [{
+            "type": "link",
+            "label": "使用 DevTools 对 Angular 前端应用性能分析",
+            "href": "#"
+          }, {
+            "type": "link",
+            "label": "使用 takeUntil 操作符管理 Angular 组件的订阅",
+            "href": "#"
+          }, {
+            "type": "link",
+            "label": "你应该了解的 Angular 最佳实践",
+            "href": "#"
+          }, {
+            "type": "link",
+            "label": "Jsona 一款转换 jsonapi 数据的工具库，也算是解放 Drupal jsonapi 反序列化的利器",
+            "href": "#"
+          }, {
+            "type": "link",
+            "label": "Angular 有哪几种不同类型的绑定",
+            "href": "#"
+          }]
+        },
+        "actions": [{
+          "type": "btn-animate",
+          "label": "更多",
+          "href": "#",
+          "style": "style-v1",
+          "icon": "open_in_new"
+        }]
+      }
+    }]
+  }]
+}
