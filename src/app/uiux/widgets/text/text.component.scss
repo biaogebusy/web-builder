@@ -1,3 +1,4 @@
+@import "../../../../theme/mixins/amixin";
 :host {
   display: block;
   width: 100%;
@@ -22,6 +23,14 @@
   ::ng-deep {
     img {
       max-width: 100%;
+    }
+  }
+}
+
+.lists {
+  ::ng-deep {
+    a {
+      @include line-clamp(1);
     }
   }
 }
