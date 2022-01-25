@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { TokenUser } from '../mobx/user/IUser';
 import { AppState } from '../mobx/AppState';
 import { LocalStorageService } from 'ngx-webstorage';
+import { CryptoJSService } from './crypto-js.service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,9 +15,10 @@ export class UserService extends ApiService {
   constructor(
     public http: HttpClient,
     public storage: LocalStorageService,
-    private appState: AppState
+    private appState: AppState,
+    public cryptoJS: CryptoJSService
   ) {
-    super();
+    super(cryptoJS);
   }
 
   login(userName: string, passWord: string): Observable<any> {

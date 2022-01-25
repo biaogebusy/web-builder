@@ -1,13 +1,16 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
+import { CryptoJSService } from './crypto-js.service';
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
-  localUserKey = environment.site;
+  localUserKey = this.cryptoJS.encrypt(
+    `${environment.site}${environment.port}`
+  );
 
-  constructor() {}
+  constructor(public cryptoJS: CryptoJSService) {}
 
   get apiUrl(): string {
     return environment.apiUrl;

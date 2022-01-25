@@ -8,6 +8,7 @@ import { Observable, of } from 'rxjs';
 import { IApiUrl } from '../mobx/IAppConfig';
 import { switchMap } from 'rxjs/operators';
 import { ICommentParams, ICommentRequest } from '@core/interface/node/IComment';
+import { CryptoJSService } from './crypto-js.service';
 @Injectable({
   providedIn: 'root',
 })
@@ -17,9 +18,10 @@ export class NodeService extends ApiService {
   constructor(
     public http: HttpClient,
     public storage: LocalStorageService,
-    private appState: AppState
+    private appState: AppState,
+    public cryptoJS: CryptoJSService
   ) {
-    super();
+    super(cryptoJS);
   }
 
   get apiUrlConfig(): IApiUrl {
