@@ -38,12 +38,13 @@
           "classes": "mat-display-1 bold"
         },
         "body": "Since its establishment, ALD has been focusing on the innovation of electronic atomization technology and product research and development. <ul class=\"list-done\"><li>Now it has formed an independent R&D</li><li>elite team of more than 200 people</li><li>accounting for more than 80%</li></ul>",
-        "details": {
+        "actions": [{
+          "type": "btn-animate",
           "label": "Read more",
           "href": "#",
           "style": "style-v1",
           "icon": "open_in_new"
-        }
+        }]
       }
     }, {
       "img": {
@@ -57,12 +58,13 @@
           "classes": "mat-display-1 bold"
         },
         "body": "ALD established postdoctoral workstations in 2012, and then successively established cooperative relations with well-known universities and research institutions in China.",
-        "details": {
+        "actions": [{
+          "type": "btn-animate",
           "label": "Read more",
           "href": "#",
           "style": "style-v1",
           "icon": "open_in_new"
-        }
+        }]
       }
     }, {
       "img": {
@@ -76,12 +78,13 @@
           "classes": "mat-display-1 bold"
         },
         "body": "ALD has made extensive achievements in the core technology field of electronic atomization and forged strong technology brands-SILMO™ and MICROFEEL™. It is the first manufacturing enterprise to realize the batch automatic production of ceramic substrate thick film printing heater. Its research covers many fields such as polymer materials.",
-        "details": {
+        "actions": [{
+          "type": "btn-animate",
           "label": "Read more",
           "href": "#",
           "style": "style-v1",
           "icon": "open_in_new"
-        }
+        }]
       }
     }, {
       "img": {
@@ -95,12 +98,13 @@
           "classes": "mat-display-1 bold"
         },
         "body": "ALD attaches great importance to the R&D and innovation of technology, and the R&D investment accounts for more than 10% of the total revenue every year. Since the establishment, the R&D team has been actively innovating and exporting high-quality results. On the other hand, after years of hard study in the electronic atomization technology industry.",
-        "details": {
+        "actions": [{
+          "type": "btn-animate",
           "label": "Read more",
           "href": "#",
           "style": "style-v1",
           "icon": "open_in_new"
-        }
+        }]
       }
     }, {
       "img": {
@@ -114,12 +118,21 @@
           "classes": "mat-display-1 bold"
         },
         "body": "Pioneering in atomization area, ALD keeps enlarging its R&D team. In order to manage product planning, development and life cycle management more scientifically, ALD introduced IPD management system. Taking market demand as the driving force of product development, ALD converts customer requirements into product and service attributes.  ",
-        "details": {
-          "label": "Read more",
-          "href": "#",
-          "style": "style-v1",
-          "icon": "open_in_new"
-        }
+        "actions": [{
+            "href": "#",
+            "label": "Get Started"
+          }, {
+            "type": "closeDialog",
+            "label": "Ok"
+          },
+          {
+            "type": "btn-animate",
+            "label": "Read more",
+            "href": "#",
+            "style": "style-v1",
+            "icon": "open_in_new"
+          }
+        ]
       }
     }]
   }, {

@@ -16,11 +16,7 @@
       </div>
       <div class="module-content" fxFlex.lt-sm="100" fxFlex.gt-md="0 0 50" [ngClass.lt-md]="'p-sm'"
         [ngClass.gt-sm]="'p-md'">
-        <app-title [content]="item.content.title" *ngIf="item.content.title"></app-title>
-        <p class="m-bottom" *ngIf="item.content.body" [innerHTML]="item.content.body | safeHtml"></p>
-        <div class="m-y-sm" *ngIf="item.content.details">
-          <app-btn-animate [content]="item.content.details"></app-btn-animate>
-        </div>
+        <app-text [content]="item.content"></app-text>
       </div>
     </div>
   </div>

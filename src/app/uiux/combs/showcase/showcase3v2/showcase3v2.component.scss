@@ -12,8 +12,6 @@
     overflow: hidden;
   }
   .item {
-    &:nth-child(2n + 1) {
-    }
     &:nth-child(2n) {
       .module-content {
         order: -1;
