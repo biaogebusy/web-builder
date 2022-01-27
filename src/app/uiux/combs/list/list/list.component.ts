@@ -30,4 +30,8 @@ export class ListComponent implements OnInit {
     this.pageChange.emit(link);
     this.screenService.gotoTop();
   }
+
+  trackByFn(index: number, item: any): number {
+    return index;
+  }
 }

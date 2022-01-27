@@ -5,14 +5,18 @@
     <mat-icon class="wave" svgIcon="{{content.bg.icon}}" *ngIf="content.bg.icon"></mat-icon>
   </app-bg>
   <div class="container">
-    <form fxLayout="row wrap" (ngSubmit)="onSubmit()" fxLayoutAlign="center center" [formGroup]="form">
-      <div class="inner" fxFlex="0 1 100" fxLayoutAlign="space-between start" fxLayout="row wrap">
+    <form fxLayout="row wrap" fxFlex="100" (ngSubmit)="onSubmit()" fxLayoutAlign="center center" [formGroup]="form">
+      <div class="inner" fxFlex="0 0 100" fxLayoutAlign="center center" fxLayout="row wrap">
         <div fxFlex.lt-md="100" fxFlex.gt-sm="40" fxLayout="column">
-          <app-box *ngFor="let item of content.contact" [content]="item"></app-box>
+          <div class="p-x-sm">
+            <app-box *ngFor="let item of content.contact" [content]="item"></app-box>
+          </div>
         </div>
         <div fxFlexOrder="{{content.formOrder || 10}}" fxFlex.lt-md="100" fxFlex.gt-sm="40" fxLayout="column">
-          <app-dynamic-form-control *ngFor="let item of content.forms" [control]="item" [form]="form">
-          </app-dynamic-form-control>
+          <div class="p-x-sm">
+            <app-dynamic-form-control *ngFor="let item of content.forms" [control]="item" [form]="form">
+            </app-dynamic-form-control>
+          </div>
         </div>
       </div>
 
