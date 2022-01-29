@@ -6,7 +6,7 @@
         fxFlex.gt-sm="25">
         <app-dynamic-widgets [content]="item" *ngFor="let item of content.sidebar"></app-dynamic-widgets>
       </div>
-      <div class="list" fxFlex.lt-md="100" fxFlex.gt-sm="75">
+      <div class="list" fxFlex.lt-md="100" fxFlex.gt-sm="{{content.sidebar?'75':'100'}}">
         <app-list-thin [content]="content.elements" [pager]="content.pager"></app-list-thin>
       </div>
     </div>
