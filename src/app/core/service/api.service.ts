@@ -6,9 +6,7 @@ import { CryptoJSService } from './crypto-js.service';
   providedIn: 'root',
 })
 export class ApiService {
-  localUserKey = this.cryptoJS.encrypt(
-    `${environment.site}${environment.port}`
-  );
+  localUserKey = `${environment.site}${environment.port}`;
 
   constructor(public cryptoJS: CryptoJSService) {}
 
