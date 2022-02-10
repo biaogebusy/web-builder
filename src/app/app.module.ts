@@ -1,4 +1,8 @@
-import { BrowserModule, Title } from '@angular/platform-browser';
+import {
+  BrowserModule,
+  BrowserTransferStateModule,
+  Title,
+} from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
@@ -19,6 +23,7 @@ import { Angulartics2Module } from 'angulartics2';
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    BrowserTransferStateModule,
     CommonModule,
     MatSidenavModule,
     NgxWebstorageModule.forRoot(),

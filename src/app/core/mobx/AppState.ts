@@ -155,7 +155,8 @@ export class AppState {
             this.configLoadDone$.next(true);
             this.initTheme();
           },
-          () => {
+          (error) => {
+            console.log(error);
             console.log('base json not found!');
           }
         );
