@@ -35,10 +35,8 @@ export class QuestionComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    if (this.screenService.isPlatformBrowser()) {
-      this.checkIsAsked();
-      this.getComments();
-    }
+    this.checkIsAsked();
+    this.getComments();
   }
 
   get entityId(): string {
