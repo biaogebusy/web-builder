@@ -10,7 +10,7 @@ import { NodeService } from '@core/service/node.service';
 import { RouteService } from '@core/service/route.service';
 import { ScreenService } from '@core/service/screen.service';
 import { BaseComponent } from '@uiux/base/base.widget';
-import { Subject, Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({

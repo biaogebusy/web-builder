@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { ApiService } from '@core/service/api.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FormService {
-  constructor() {}
+  constructor(private http: HttpClient, private apiService: ApiService) {}
 
   toFormGroup(items: any): any {
     const group: any = {};
@@ -30,5 +33,13 @@ export class FormService {
       webform_id: params.webform_id,
     };
     return Object.assign({}, id, form.value);
+  }
+
+  submitWebForm(data: any): Observable<any> {
+    return this.http.post(
+      `${this.apiService.apiUrl}/webform_rest/submit`,
+      data,
+      this.apiService.httpOptionsOfCommon
+    );
   }
 }

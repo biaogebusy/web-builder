@@ -1,10 +1,7 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormService } from '../../../service/form.service';
-import { HttpClient } from '@angular/common/http';
-import { ApiService } from '../../../service/api.service';
 import { UtilitiesService } from '@core/service/utilities.service';
-import { UserState } from '@core/mobx/user/UserState';
 
 @Component({
   selector: 'app-inverse',
@@ -18,12 +15,9 @@ export class InverseComponent implements OnInit {
   submited = false;
 
   constructor(
-    private apiService: ApiService,
     private cd: ChangeDetectorRef,
     public formService: FormService,
-    private http: HttpClient,
-    private utilitiesService: UtilitiesService,
-    private userState: UserState
+    private utilitiesService: UtilitiesService
   ) {}
 
   ngOnInit(): void {
@@ -41,23 +35,17 @@ export class InverseComponent implements OnInit {
       this.content.footerNewsletter.params,
       this.form
     );
-    this.http
-      .post(
-        `${this.apiService.apiUrl}/webform_rest/submit`,
-        data,
-        this.apiService.optionsWithCookieAndToken(this.userState.csrfToken)
-      )
-      .subscribe(
-        (res) => {
-          this.submited = false;
-          this.success = true;
-          this.utilitiesService.openSnackbar('成功订阅！');
-          this.cd.detectChanges();
-        },
-        (error) => {
-          this.submited = false;
-          this.utilitiesService.openSnackbar(`Error: ${error.message}`);
-        }
-      );
+    this.formService.submitWebForm(data).subscribe(
+      (res) => {
+        this.submited = false;
+        this.success = true;
+        this.utilitiesService.openSnackbar('成功订阅！');
+        this.cd.detectChanges();
+      },
+      (error) => {
+        this.submited = false;
+        this.utilitiesService.openSnackbar(`Error: ${error.message}`);
+      }
+    );
   }
 }
