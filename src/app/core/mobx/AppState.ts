@@ -122,7 +122,7 @@ export class AppState {
   get apiPath(): string {
     const path = this.document.location.pathname;
     const search = this.document.location.search;
-    const allowKey = ['version', 'origin'];
+    const allowKey = ['version', 'origin', 'category'];
     if (
       allowKey.some((key) => {
         return search.indexOf(key) > 0;
