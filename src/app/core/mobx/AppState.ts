@@ -128,7 +128,8 @@ export class AppState {
         return search.indexOf(key) > 0;
       })
     ) {
-      return `${path}${search}`;
+      const params = search.split('?')[1];
+      return `${path}&${params}`;
     } else {
       return path;
     }
