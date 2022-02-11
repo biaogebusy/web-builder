@@ -190,8 +190,10 @@ export class AppState {
   @action
   setPageContent(): void {
     if (environment.production) {
+      const landingPath = '/api/v1/landingPage?content=';
       const key = JSON.stringify({
         url: environment.apiUrl,
+        landing: landingPath,
         path: this.apiPath,
       });
       let getLandPage$: Observable<any>;
@@ -200,9 +202,7 @@ export class AppState {
         getLandPage$ = of(landPageFormCache);
       } else {
         getLandPage$ = this.http
-          .get<any>(
-            `${environment.apiUrl}/api/v1/landingPage?content=${this.apiPath}`
-          )
+          .get<any>(`${environment.apiUrl}${landingPath}${this.apiPath}`)
           .pipe(
             switchMap((res) => {
               this.responseCache.set(key, res);
@@ -216,9 +216,7 @@ export class AppState {
           this.updatePage(pageValue);
         },
         (error) => {
-          this.setPageNotFound(
-            `${environment.apiUrl}/api/v1/landingPage?content=404`
-          );
+          this.setPageNotFound(`${environment.apiUrl}${landingPath}404`);
         }
       );
     } else {

@@ -50,7 +50,7 @@ export class NodeService extends ApiService {
   }
 
   getNodes(path: string, type: string, params: string = ''): Observable<any> {
-    const cacheKey = JSON.stringify({ api: this.apiUrl, path, type });
+    const cacheKey = JSON.stringify({ api: this.apiUrl, path, type, params });
     const nodeCache = this.responseCache.get(cacheKey);
     if (nodeCache) {
       return of(nodeCache);
