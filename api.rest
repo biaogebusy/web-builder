@@ -1,5 +1,5 @@
 ### https://www.drupal.org/docs/8/core/modules/rest/javascript-and-drupal-8-restful-web-services#s-login
-@apiUrl = https://lxyadmin.zhaobg.com
+@apiUrl = https://api.zhaobg.com
 @user = test
 @psw = test
 @user_uuid = 15765815-07f2-4d7d-8142-cb598f82af2e
@@ -59,7 +59,7 @@ GET {{apiUrl}}/api/v1/taxonomy_term/search_category
 ### get need set header Accept: application/vnd.api+json
 
 ### get single resource
-GET {{apiUrl}}/api/v1/node/{{type}}/675aea30-2e32-4d5c-a52a-08a79009e43f
+GET {{apiUrl}}/api/v1/node/{{type}}/b59a2767-89b8-418d-91fe-6f0e6a5638ec
 ### get collections rsource
 GET {{apiUrl}}/api/v1/node/{{type}}
 
@@ -236,6 +236,12 @@ GET {{apiUrl}}/api/v1/flagging/favorite/c85a3af6-6d2d-4c88-81bc-42c5e53b490e
 ### filter flagging
 GET {{apiUrl}}/api/v1/flagging/favorite?filter[uid.id]={{user_uuid}}&filter[entity_id]=825
 
+### flag payment
+GET {{apiUrl}}/api/v1/flagging/payment
+
+### check node paymented
+GET {{apiUrl}}/api/v1/flagging/payment?filter[uid.id]=505d9929-18cc-496d-8750-2aa1d2a72c65&filter[entity_id]=35
+
 ### POST flagging
 POST {{apiUrl}}/api/v1/flagging/favorite
 Accept: application/vnd.api+json
@@ -272,3 +278,6 @@ DELETE {{apiUrl}}/api/v1/flagging/favorite/ba70cd3c-7bd7-48c2-9aa5-07b175d8f4d7
 Accept: application/vnd.api+json
 Content-Type: application/vnd.api+json
 X-CSRF-Token: {{csrfToken}}
+
+### get taxonomy
+GET {{apiUrl}}/taxonomy/term/30?category=28

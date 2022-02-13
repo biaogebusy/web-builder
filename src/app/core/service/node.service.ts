@@ -155,6 +155,13 @@ export class NodeService extends ApiService {
     };
   }
 
+  getFlaging(path: string, params: string): Observable<any> {
+    return this.http.get<any>(
+      `${this.apiUrl}${path}?${params}`,
+      this.httpOptionsOfCommon
+    );
+  }
+
   flagging(path: string, data: any, token: string): Observable<any> {
     return this.http.post<any>(
       `${this.apiUrl}${path}`,

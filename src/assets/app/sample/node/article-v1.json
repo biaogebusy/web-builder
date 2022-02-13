@@ -1,9 +1,17 @@
 {
   "title": "DRAG AND DROP LAYOUT",
+  "config": {
+    "node": {
+      "entityId": "35"
+    }
+  },
   "body": [{
     "type": "article",
     "title": "DRAG AND DROP LAYOUT",
     "params": {
+      "pay": {
+        "money": 10
+      },
       "require_rule": [
         "authenticated"
       ]

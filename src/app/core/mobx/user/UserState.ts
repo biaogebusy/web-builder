@@ -7,6 +7,7 @@ import { UserService } from '@core/service/user.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { CryptoJSService } from '@core/service/crypto-js.service';
 const unauthUser = {
+  id: '',
   authenticated: false,
   csrf_token: '',
   current_user: {

@@ -1,5 +1,5 @@
 export interface IUser extends TokenUser {
-  id?: string;
+  id: string;
   display_name?: string;
   user_fullname?: string;
   mail?: string;
