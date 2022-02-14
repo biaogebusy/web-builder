@@ -7,10 +7,6 @@
 
 - [信使首页](https://www.zhaobg.com)
 
-## 基于戴文贡献模块 Base Davyin modules
-
-[戴文科技](http://www.davyin.com/)开源的贡献模块，[查看更多开源模块和主题](https://github.com/davyin-co)
-
 ## 开发 Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
