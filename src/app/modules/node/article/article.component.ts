@@ -46,6 +46,8 @@ export class ArticleComponent implements OnInit, AfterViewInit, OnDestroy {
   fontForm: FormGroup;
   htmlBody: any;
   isAuth = false;
+  isReqRule = false;
+  isPayed = false;
   showNotXs: boolean;
 
   constructor(
@@ -75,22 +77,8 @@ export class ArticleComponent implements OnInit, AfterViewInit, OnDestroy {
       this.tagsService.setTitle(this.content.title);
     }
     if (this.screenService.isPlatformBrowser()) {
-      if (this.fontSizeConfig) {
-        this.fontForm = this.formService.toFormGroup(this.fontSizeConfig.form);
-        this.fontForm.valueChanges
-          .pipe(takeUntil(this.destroy$))
-          .subscribe((size) => {
-            this.fontSize = Math.max(10, size.font);
-          });
-      }
-      if (this.content.comment) {
-        this.commentForm = this.formService.toFormGroup(
-          this.content.comment.form
-        );
-        this.commentForm.valueChanges.subscribe((comment) => {
-          console.log(comment);
-        });
-      }
+      this.onFontSize();
+      this.onComment();
     }
     this.setContent();
     if (this.appState.article?.comment?.enabel) {
@@ -100,38 +88,49 @@ export class ArticleComponent implements OnInit, AfterViewInit, OnDestroy {
 
   setContent(): void {
     if (this.content.params?.require_rule) {
-      this.checkUserAuth(this.content.params.require_rule).subscribe((auth) => {
-        this.isAuth = auth;
-        if (this.isAuth) {
-          this.htmlBody = this.content.body;
-          return;
-        }
-        this.htmlBody = this.shortenPipe.transform(
-          this.stripTagePipe.transform(this.content.body, 'p'),
-          1000,
-          '...'
-        );
-      });
+      this.isReqRule = this.checkReqRule(this.content.params.require_rule);
+      if (this.isReqRule) {
+        this.htmlBody = this.content.body;
+        return;
+      } else {
+        this.checkCurrentUserPayed(
+          this.userState.currentUser.id,
+          this.appState.pageConfig.node.entityId
+        ).subscribe((payed) => {
+          if (payed) {
+            this.isPayed = true;
+            this.htmlBody = this.content.body;
+          } else {
+            this.htmlBody = this.shortenPipe.transform(
+              this.stripTagePipe.transform(this.content.body, 'p'),
+              1000,
+              '...'
+            );
+          }
+        });
+      }
+      this.htmlBody = this.shortenPipe.transform(
+        this.stripTagePipe.transform(this.content.body, 'p'),
+        1000,
+        '...'
+      );
     } else {
       this.htmlBody = this.content.body;
     }
   }
 
-  checkUserAuth(reqRules: string[]): Observable<boolean> {
+  checkReqRule(reqRules: string[]): boolean {
     if (!this.userState.anthenticated) {
-      return this.checkCurrentUserPayed(
-        this.userState.currentUser.id,
-        this.appState.pageConfig?.node?.entityId
-      );
+      return false;
     } else {
       this.currentUserRule = this.userState.roles;
       if (this.currentUserRule.includes('administrator')) {
-        return of(true);
+        return true;
       } else {
-        return of(
+        const isRule =
           this.currentUserRule.filter((role) => reqRules.includes(role))
-            .length > 0
-        );
+            .length > 0;
+        return isRule;
       }
     }
   }
@@ -147,12 +146,34 @@ export class ArticleComponent implements OnInit, AfterViewInit, OnDestroy {
         map((res) => {
           console.log(res);
           if (res.data.length > 0) {
-            console.log('用户没有购买！');
             return true;
           }
+          console.log('用户没有购买！');
           return false;
         })
       );
+  }
+
+  onFontSize(): void {
+    if (this.fontSizeConfig) {
+      this.fontForm = this.formService.toFormGroup(this.fontSizeConfig.form);
+      this.fontForm.valueChanges
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((size) => {
+          this.fontSize = Math.max(10, size.font);
+        });
+    }
+  }
+
+  onComment(): void {
+    if (this.content.comment) {
+      this.commentForm = this.formService.toFormGroup(
+        this.content.comment.form
+      );
+      this.commentForm.valueChanges.subscribe((comment) => {
+        console.log(comment);
+      });
+    }
   }
 
   getComments(): void {
