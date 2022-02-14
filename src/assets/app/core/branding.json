@@ -332,12 +332,6 @@
     "mainMenu": [{
         "label": "相关资源",
         "child": [{
-            "label": "Davyin 开源",
-            "icon": "arrow_right",
-            "href": "https://github.com/davyin-co",
-            "target": "_blank"
-          },
-          {
             "label": "Material Angular",
             "icon": "arrow_right",
             "href": "https://material.angular.io/",
@@ -411,12 +405,6 @@
     "mobileMenu": [{
         "label": "相关资源",
         "child": [{
-            "label": "Davyin 开源",
-            "icon": "arrow_right",
-            "href": "https://github.com/davyin-co",
-            "target": "_blank"
-          },
-          {
             "label": "Material Angular",
             "icon": "arrow_right",
             "href": "https://material.angular.io/",
@@ -614,11 +602,6 @@
     "mobileMenu": [{
         "label": "相关资源",
         "child": [{
-            "label": "Davyin 开源",
-            "icon": "arrow_right",
-            "href": "https://github.com/davyin-co",
-            "target": "_blank"
-          }, {
             "label": "Material Angular",
             "icon": "arrow_right",
             "href": "https://material.angular.io/",
