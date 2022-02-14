@@ -147,6 +147,7 @@ export class ArticleComponent implements OnInit, AfterViewInit, OnDestroy {
         map((res) => {
           console.log(res);
           if (res.data.length > 0) {
+            console.log('用户没有购买！');
             return true;
           }
           return false;

@@ -57,7 +57,7 @@ export class UserState {
 
   @computed
   get roles(): string[] {
-    return this.currentUser && this.currentUser.current_user.roles;
+    return (this.currentUser && this.currentUser.current_user.roles) || [''];
   }
 
   get defaultAvatar(): string {
