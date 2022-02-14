@@ -306,7 +306,7 @@
           "classes": "logo"
         }
       },
-      "summary": "信使是一个基于戴文开源模块，围绕 Drupal jsonapi 为核心的 Angular 前端框架，分享 Drupal 优秀的数字创新体验。",
+      "summary": "信使围绕 Drupal jsonapi 为核心的 Angular 前端框架，分享 Drupal 优秀的数字创新体验。",
       "social": [{
           "label": "zhihu",
           "svg": "zhihu",
@@ -539,7 +539,7 @@
           "classes": "logo"
         }
       },
-      "summary": "信使是一个基于戴文 Dyniva 开源模块，围绕 Drupal jsonapi 为核心的 Angular 前端框架，分享 Drupal 优秀的数字创新体验。",
+      "summary": "信使围绕 Drupal jsonapi 为核心的 Angular 前端框架，分享 Drupal 优秀的数字创新体验。",
       "social": [{
         "label": "zhihu",
         "svg": "zhihu",
