@@ -33,7 +33,7 @@ export class DynamicCardList1v1Component
     private screenService: ScreenService,
     private cd: ChangeDetectorRef
   ) {
-    super(nodeService, routerService);
+    super();
   }
 
   ngOnInit(): void {
@@ -44,22 +44,22 @@ export class DynamicCardList1v1Component
 
   nodeSearch(options: any): void {
     this.loading = true;
-    this.nodeSearchByParams(
-      this.getParams(this.content, 'type'),
-      {},
-      options
-    ).subscribe(
-      (data) => {
-        this.updateList(data);
-        this.loading = false;
-        this.cd.detectChanges();
-      },
-      (error) => {
-        console.log(error);
-        this.loading = false;
-        this.cd.detectChanges();
-      }
-    );
+    const state = this.getParamsState({}, options);
+    const params = this.getApiParams(state);
+    this.nodeService
+      .search(this.getParams(this.content, 'type'), params)
+      .subscribe(
+        (data) => {
+          this.updateList(data);
+          this.loading = false;
+          this.cd.detectChanges();
+        },
+        (error) => {
+          console.log(error);
+          this.loading = false;
+          this.cd.detectChanges();
+        }
+      );
   }
 
   updateList(data: any): void {

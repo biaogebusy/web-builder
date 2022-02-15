@@ -7,7 +7,6 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { NodeService } from '@core/service/node.service';
-import { RouteService } from '@core/service/route.service';
 import { ScreenService } from '@core/service/screen.service';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { Subject } from 'rxjs';
@@ -31,11 +30,10 @@ export class DynamicMediaListComponent
   destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     public nodeService: NodeService,
-    public routerService: RouteService,
     private screenService: ScreenService,
     private cd: ChangeDetectorRef
   ) {
-    super(nodeService, routerService);
+    super();
   }
 
   ngOnInit(): void {

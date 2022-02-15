@@ -40,7 +40,7 @@ export class DynamicCardListComponent extends BaseComponent implements OnInit {
     private screenService: ScreenService,
     private cd: ChangeDetectorRef
   ) {
-    super(nodeService, routerService);
+    super();
   }
 
   ngOnInit(): void {
@@ -80,21 +80,21 @@ export class DynamicCardListComponent extends BaseComponent implements OnInit {
 
   nodeSearch(options: any): void {
     this.loading = true;
-    this.nodeSearchByParams(
-      this.getParams(this.content, 'type'),
-      this.form.value,
-      options
-    ).subscribe(
-      (data) => {
-        this.updateList(data, this.form.value, options);
-        this.loading = false;
-        this.cd.detectChanges();
-      },
-      (error) => {
-        this.loading = false;
-        this.cd.detectChanges();
-      }
-    );
+    const state = this.getParamsState(this.form.value, options);
+    const params = this.getApiParams(state);
+    this.nodeService
+      .search(this.getParams(this.content, 'type'), params)
+      .subscribe(
+        (data) => {
+          this.updateList(data, this.form.value, options);
+          this.loading = false;
+          this.cd.detectChanges();
+        },
+        (error) => {
+          this.loading = false;
+          this.cd.detectChanges();
+        }
+      );
   }
 
   onSelectChange(options: any): void {
@@ -141,7 +141,7 @@ export class DynamicCardListComponent extends BaseComponent implements OnInit {
         body,
       };
     });
-    this.updateUrl(formValues, options);
+    this.routerService.updateQueryParams(this.getUrlQuery(formValues, options));
     this.cd.detectChanges();
   }
 

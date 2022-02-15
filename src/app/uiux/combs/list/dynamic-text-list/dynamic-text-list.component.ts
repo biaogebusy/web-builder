@@ -9,11 +9,10 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { NodeService } from '@core/service/node.service';
-import { RouteService } from '@core/service/route.service';
 import { ScreenService } from '@core/service/screen.service';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { AppState } from '@core/mobx/AppState';
-import { Subject, Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
@@ -36,12 +35,11 @@ export class DynamicTextListComponent
   destory$: Subject<boolean> = new Subject<boolean>();
   constructor(
     public nodeService: NodeService,
-    public routerService: RouteService,
     private appState: AppState,
     private screenService: ScreenService,
     private cd: ChangeDetectorRef
   ) {
-    super(nodeService, routerService);
+    super();
   }
 
   ngOnInit(): void {

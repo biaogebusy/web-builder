@@ -1,18 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
 import { isArray, result } from 'lodash-es';
-import { Observable } from 'rxjs';
 import { NodeService } from '@core/service/node.service';
-import { RouteService } from '@core/service/route.service';
-
 @Injectable()
 export abstract class BaseComponent {
   abstract content: any;
 
-  constructor(
-    public nodeService: NodeService,
-    public routerService: RouteService
-  ) {}
+  constructor() {}
 
   getParams(obj: any, key: string): any {
     return obj.params && obj.params[key];
@@ -90,19 +84,9 @@ export abstract class BaseComponent {
     return Object.assign({}, formValues, options);
   }
 
-  updateUrl(formValues: any, options: any = {}): any {
+  getUrlQuery(formValues: any, options: any = {}): any {
     const state = this.getParamsState(formValues, options);
     const query: Params = this.getFormParams(state);
-    this.routerService.updateQueryParams(query);
-  }
-
-  nodeSearchByParams(
-    type: string,
-    formValues: any,
-    options: any
-  ): Observable<any> {
-    const state = this.getParamsState(formValues, options);
-    const params = this.getApiParams(state);
-    return this.nodeService.search(type, params);
+    return query;
   }
 }

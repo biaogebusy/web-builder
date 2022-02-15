@@ -41,7 +41,7 @@ export class Tab1v1Component
     private screenService: ScreenService,
     private cd: ChangeDetectorRef
   ) {
-    super(nodeService, routerService);
+    super();
   }
 
   ngOnInit(): void {
@@ -73,7 +73,10 @@ export class Tab1v1Component
         page: query.page,
       });
       const type = this.getParams(this.content, 'type');
-      this.nodeSearchByParams(type, {}, apiQuery)
+      const state = this.getParamsState({}, apiQuery);
+      const params = this.getApiParams(state);
+      this.nodeService
+        .search(type, params)
         .pipe(takeUntil(this.destroy$))
         .subscribe((res) => {
           this.pager = res.pager;
@@ -114,7 +117,7 @@ export class Tab1v1Component
 
   updateList(values: any): void {
     this.initTab(values);
-    this.updateUrl(values);
+    this.routerService.updateQueryParams(this.getUrlQuery(values));
     this.cd.detectChanges();
   }
 

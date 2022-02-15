@@ -40,7 +40,7 @@ export class TreeListComponent
     private screenService: ScreenService,
     private cd: ChangeDetectorRef
   ) {
-    super(nodeService, routerService);
+    super();
   }
 
   ngOnInit(): void {
@@ -75,7 +75,9 @@ export class TreeListComponent
       .subscribe(
         (data) => {
           this.updateList(data);
-          this.updateUrl(this.formState);
+          this.routerService.updateQueryParams(
+            this.getUrlQuery(this.formState)
+          );
           this.loading = false;
           this.cd.detectChanges();
         },

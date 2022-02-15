@@ -45,7 +45,7 @@ export class SearchComponent
     private screenService: ScreenService,
     private cd: ChangeDetectorRef
   ) {
-    super(nodeService, routerService);
+    super();
   }
 
   ngOnInit(): void {
@@ -103,7 +103,10 @@ export class SearchComponent
     this.loading = true;
     this.searchEntry = omitBy(options, isEmpty);
     const type = this.getParams(this.content, 'type') || 'content';
-    this.nodeSearchByParams(type, this.form.value, options)
+    const state = this.getParamsState(this.form.value, options);
+    const params = this.getApiParams(state);
+    this.nodeService
+      .search(type, params)
       .pipe(takeUntil(this.destroy$))
       .subscribe(
         (data) => {
@@ -134,7 +137,7 @@ export class SearchComponent
         actions: item.actions || [],
       };
     });
-    this.updateUrl(formValues, options);
+    this.routerService.updateQueryParams(this.getUrlQuery(formValues, options));
     this.cd.detectChanges();
   }
 

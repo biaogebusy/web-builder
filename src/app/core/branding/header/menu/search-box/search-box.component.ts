@@ -13,7 +13,6 @@ import { Router } from '@angular/router';
 import { FormService } from '@core/service/form.service';
 import { isEmpty, omitBy } from 'lodash';
 import { BaseComponent } from '@uiux/base/base.widget';
-import { RouteService } from '@core/service/route.service';
 
 @Component({
   selector: 'app-search-box',
@@ -34,10 +33,9 @@ export class SearchBoxComponent
     public nodeService: NodeService,
     private router: Router,
     private formService: FormService,
-    public routerService: RouteService,
     private cd: ChangeDetectorRef
   ) {
-    super(nodeService, routerService);
+    super();
   }
 
   ngOnInit(): void {

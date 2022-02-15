@@ -11,7 +11,6 @@ import { NodeService } from '@core/service/node.service';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { UserState } from '@core/mobx/user/UserState';
 import { switchMap, takeUntil } from 'rxjs/operators';
-import { RouteService } from '@core/service/route.service';
 import { ScreenService } from '@core/service/screen.service';
 import { Subject } from 'rxjs';
 import { IFlag } from '@core/interface/widgets/IFlag';
@@ -32,13 +31,12 @@ export class FlagComponent extends BaseComponent implements OnInit, OnDestroy {
   constructor(
     public appState: AppState,
     private cd: ChangeDetectorRef,
-    public routerService: RouteService,
     private screenService: ScreenService,
     private userState: UserState,
     public nodeService: NodeService,
     private utiltiy: UtilitiesService
   ) {
-    super(nodeService, routerService);
+    super();
   }
 
   ngOnInit(): void {

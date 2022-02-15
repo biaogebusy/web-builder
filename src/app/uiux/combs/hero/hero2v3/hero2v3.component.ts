@@ -1,9 +1,7 @@
 import { Component, Input, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ScreenState } from '@core/mobx/screen/ScreenState';
-import { NodeService } from '@core/service/node.service';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { AppState } from '@core/mobx/AppState';
-import { RouteService } from '@core/service/route.service';
 import { ScreenService } from '@core/service/screen.service';
 
 @Component({
@@ -17,12 +15,10 @@ export class Hero2v3Component extends BaseComponent implements OnInit {
   constructor(
     public appState: AppState,
     public screen: ScreenState,
-    public nodeService: NodeService,
-    public routerService: RouteService,
     private screenService: ScreenService,
     private cd: ChangeDetectorRef
   ) {
-    super(nodeService, routerService);
+    super();
   }
 
   ngOnInit(): void {
