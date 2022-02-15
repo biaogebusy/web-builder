@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
 import { isArray, result } from 'lodash-es';
-import { NodeService } from '@core/service/node.service';
 @Injectable()
 export abstract class BaseComponent {
   abstract content: any;

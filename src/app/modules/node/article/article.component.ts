@@ -27,6 +27,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { LoginComponent } from '../../user/login/login.component';
 import { Router } from '@angular/router';
 import { NodeService } from '@core/service/node.service';
+import { BaseComponent } from '@uiux/base/base.widget';
 
 @Component({
   selector: 'app-article',
@@ -35,7 +36,10 @@ import { NodeService } from '@core/service/node.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [StripTagsPipe, ShortenPipe],
 })
-export class ArticleComponent implements OnInit, AfterViewInit, OnDestroy {
+export class ArticleComponent
+  extends BaseComponent
+  implements OnInit, AfterViewInit, OnDestroy
+{
   @Input() content: any;
   currentUserRule: string[];
   commentForm: FormGroup;
@@ -47,6 +51,9 @@ export class ArticleComponent implements OnInit, AfterViewInit, OnDestroy {
   htmlBody: any;
   isAuth = false;
   isReqRule = false;
+  isReqPaly: boolean;
+  isPublic: boolean;
+  reqMoney: number;
   isPayed = false;
   showNotXs: boolean;
 
@@ -65,6 +72,7 @@ export class ArticleComponent implements OnInit, AfterViewInit, OnDestroy {
     public userState: UserState,
     @Inject(DOCUMENT) private document: Document
   ) {
+    super();
     if (this.screenService.isPlatformBrowser()) {
       hljs.registerLanguage('javascript', javascript);
       hljs.registerLanguage('php', php);
@@ -81,8 +89,36 @@ export class ArticleComponent implements OnInit, AfterViewInit, OnDestroy {
       this.onComment();
     }
     this.setContent();
+    this.checkAccess();
     if (this.appState.article?.comment?.enabel) {
       this.getComments();
+    }
+  }
+
+  checkAccess(): void {
+    const reqPay = this.getParams(this.content, 'pay');
+    const reqRule = this.getParams(this.content, 'require_rule');
+    if (reqRule || reqPay) {
+      this.isPublic = false;
+    } else {
+      this.isPublic = true;
+    }
+    if (reqRule) {
+      this.isReqRule = this.checkReqRule(reqRule);
+    }
+    if (reqPay) {
+      this.isReqPaly = true;
+      this.reqMoney = this.getDeepValue(this.content, 'params.pay.money');
+      this.checkCurrentUserPayed(
+        this.userState.currentUser.id,
+        this.appState.pageConfig.node.entityId
+      ).subscribe((payed) => {
+        if (payed) {
+          this.isPayed = true;
+        } else {
+          this.isPayed = false;
+        }
+      });
     }
   }
 
