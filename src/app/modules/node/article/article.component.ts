@@ -28,6 +28,7 @@ import { LoginComponent } from '../../user/login/login.component';
 import { Router } from '@angular/router';
 import { NodeService } from '@core/service/node.service';
 import { BaseComponent } from '@uiux/base/base.widget';
+import { isEmpty } from 'lodash-es';
 
 @Component({
   selector: 'app-article',
@@ -52,7 +53,8 @@ export class ArticleComponent
   isAuth = false;
   isReqRule = false;
   isReqPaly: boolean;
-  isPublic: boolean;
+  isPublic = false;
+  canAccess: boolean;
   reqMoney: number;
   isPayed = false;
   showNotXs: boolean;
@@ -88,7 +90,6 @@ export class ArticleComponent
       this.onFontSize();
       this.onComment();
     }
-    this.setContent();
     this.checkAccess();
     if (this.appState.article?.comment?.enabel) {
       this.getComments();
@@ -98,61 +99,38 @@ export class ArticleComponent
   checkAccess(): void {
     const reqPay = this.getParams(this.content, 'pay');
     const reqRule = this.getParams(this.content, 'require_rule');
-    if (reqRule || reqPay) {
+    this.reqMoney = this.getDeepValue(this.content, 'params.pay.money');
+    if (!isEmpty(reqRule) || reqPay) {
       this.isPublic = false;
     } else {
       this.isPublic = true;
     }
     if (reqRule) {
       this.isReqRule = this.checkReqRule(reqRule);
+      if (this.isReqRule) {
+        this.canAccess = true;
+        return;
+      }
+      this.canAccess = false;
     }
     if (reqPay) {
       this.isReqPaly = true;
-      this.reqMoney = this.getDeepValue(this.content, 'params.pay.money');
-      this.checkCurrentUserPayed(
-        this.userState.currentUser.id,
-        this.appState.pageConfig.node.entityId
-      ).subscribe((payed) => {
-        if (payed) {
-          this.isPayed = true;
-        } else {
-          this.isPayed = false;
-        }
-      });
-    }
-  }
-
-  setContent(): void {
-    if (this.content.params?.require_rule) {
-      this.isReqRule = this.checkReqRule(this.content.params.require_rule);
-      if (this.isReqRule) {
-        this.htmlBody = this.content.body;
-        return;
-      } else {
+      if (this.userState.anthenticated && !this.isReqRule) {
         this.checkCurrentUserPayed(
           this.userState.currentUser.id,
           this.appState.pageConfig.node.entityId
         ).subscribe((payed) => {
           if (payed) {
             this.isPayed = true;
-            this.htmlBody = this.content.body;
+            this.canAccess = true;
           } else {
-            this.htmlBody = this.shortenPipe.transform(
-              this.stripTagePipe.transform(this.content.body, 'p'),
-              1000,
-              '...'
-            );
+            this.isPayed = false;
+            this.canAccess = false;
           }
         });
       }
-      this.htmlBody = this.shortenPipe.transform(
-        this.stripTagePipe.transform(this.content.body, 'p'),
-        1000,
-        '...'
-      );
-    } else {
-      this.htmlBody = this.content.body;
     }
+    console.log(this.isPublic);
   }
 
   checkReqRule(reqRules: string[]): boolean {

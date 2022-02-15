@@ -13,9 +13,14 @@
         </div>
         <mat-divider></mat-divider>
         <div class="position-relative">
-          <div class="article-body m-y-sm" [innerHTML]="htmlBody | safeHtml" [style.fontSize.px]="fontSize">
+          <div *ngIf="isPublic || canAccess" class="article-body m-y-sm" [innerHTML]="content.body | safeHtml"
+            [style.fontSize.px]="fontSize">
           </div>
-          <div class="shadow" *ngIf="!(isReqRule || isPayed)"></div>
+          <div *ngIf="!(isPublic || canAccess)" class="article-body m-y-sm">
+            <div [innerHTML]="content.body |stripTags:'p'|trim|shorten:1000:'...'" [style.fontSize.px]="fontSize">
+            </div>
+            <div class="shadow"></div>
+          </div>
         </div>
         <div class="article-bottom m-y" *ngIf="content.bottom">
           <app-dynamic-widgets [content]="action" *ngFor="let action of content.bottom"></app-dynamic-widgets>
@@ -23,9 +28,15 @@
         <div class="ations m-y" *ngIf="content.actions">
           <app-dynamic-widgets [content]="action" *ngFor="let action of content.actions"></app-dynamic-widgets>
         </div>
-        <div class="auth p-y-sm p-x-sm width-100 text-center" *ngIf="!userState.anthenticated"
+        <div class="auth p-y-sm p-x-sm width-100 text-center" *ngIf="!isPublic && !userState.anthenticated"
           fxLayoutAlign="center center">
           <div (click)="openLogin()" [innerHTML]="loginConfig?.label"></div>
+        </div>
+        <div class="pay p-y-sm p-x-sm width-100 text-center" *ngIf="userState.anthenticated && !canAccess"
+          fxLayoutAlign="center center">
+          <div (click)="openLogin()">
+            查看全文需要会员或者购买，
+          </div>
         </div>
         <app-article-comment [form]="commentForm" [content]="content.comment" (submit)="onSubmit()"
           *ngIf="userState.anthenticated && appState?.article?.comment?.enabel && content.comment">
