@@ -28,14 +28,15 @@
         <div class="ations m-y" *ngIf="content.actions">
           <app-dynamic-widgets [content]="action" *ngFor="let action of content.actions"></app-dynamic-widgets>
         </div>
-        <div class="auth p-y-sm p-x-sm width-100 text-center" *ngIf="!isPublic && !userState.anthenticated"
+        <div class="auth line p-y-sm p-x-sm width-100 text-center" *ngIf="!isPublic && !userState.anthenticated"
           fxLayoutAlign="center center">
-          <div (click)="openLogin()" [innerHTML]="loginConfig?.label"></div>
+          <a href="javascript:void(0)" (click)="openLogin()" [innerHTML]="loginConfig?.label"></a>
         </div>
-        <div class="pay p-y-sm p-x-sm width-100 text-center" *ngIf="userState.anthenticated && !canAccess"
+        <div class="pay line p-y-sm p-x-sm width-100 text-center m-bottom" *ngIf="userState.anthenticated && !isPublic"
           fxLayoutAlign="center center">
-          <div (click)="openLogin()">
-            查看全文需要会员或者购买，
+          <div>
+            成为<a (click)="upgrade()" href="javascript:void(0)">【会员】</a>或者<a (click)="pay()"
+              href="javascript:void">【支付{{reqMoney}}元】</a>查看全文
           </div>
         </div>
         <app-article-comment [form]="commentForm" [content]="content.comment" (submit)="onSubmit()"

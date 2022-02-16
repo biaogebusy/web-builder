@@ -56,7 +56,6 @@
     "features": ["bg", "road", "point"]
   },
   "apiUrl": {
-    "apiBase": "/api/v1",
     "loginPath": "/user/login",
     "logoutPath": "/user/logout",
     "userIdGetPath": "/api/v1",
@@ -145,5 +144,28 @@
   },
   "user": {
     "banner": "/assets/images/16-9/business-14.jpeg"
+  },
+  "commerce": {
+    "vip": "/pay/trade/create/1",
+    "payNode": "/pay/trade/node",
+    "dialog": {
+      "spacer": "node",
+      "title": {
+        "label": "支付过程有什么问题吗？",
+        "style": "style-v1"
+      },
+      "body": "<p class=\"text-center\">感谢您付费购买。</p>",
+      "actionsAlign": "center center",
+      "actions": [{
+          "type": "closeDialog",
+          "label": "已成功支付！"
+        },
+        {
+          "href": "/contact",
+          "color": "warn",
+          "label": "支付遇到问题，请联系我们"
+        }
+      ]
+    }
   }
 }

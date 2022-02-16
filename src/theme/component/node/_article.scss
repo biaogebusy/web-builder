@@ -27,11 +27,13 @@
         transparent
       );
     }
-    .auth {
+    .line {
       border: 1px dashed mat-color($warn);
       border-radius: 4px;
       &:hover {
-        color: mat-color($primary);
+        a {
+          color: mat-color($primary);
+        }
       }
     }
     .comment-list {

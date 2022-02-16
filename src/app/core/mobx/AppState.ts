@@ -4,7 +4,7 @@ import { action, observable, computed } from 'mobx-angular';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { LocalStorageService } from 'ngx-webstorage';
-import { IApiUrl, IAppConfig, IPage } from './IAppConfig';
+import { IApiUrl, IAppConfig, ICommerce, IPage } from './IAppConfig';
 import { Observable, of, Subject } from 'rxjs';
 import { TagsService } from '@core/service/tags.service';
 import { version } from '../../../../package.json';
@@ -85,6 +85,10 @@ export class AppState {
 
   @computed get article(): any {
     return this.state.config && this.state.config.article;
+  }
+
+  @computed get commerce(): ICommerce {
+    return this.state.config && this.state.config.commerce;
   }
 
   get actions(): any {

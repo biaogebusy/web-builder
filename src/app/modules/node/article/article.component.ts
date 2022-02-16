@@ -19,23 +19,25 @@ import { AppState } from '@core/mobx/AppState';
 import { ScreenState } from '@core/mobx/screen/ScreenState';
 import { ScreenService } from '@core/service/screen.service';
 import { FormService } from '@core/service/form.service';
-import { Subject, Observable, of } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
 import { UserState } from '@core/mobx/user/UserState';
-import { StripTagsPipe, ShortenPipe } from 'ngx-pipes';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { LoginComponent } from '../../user/login/login.component';
 import { Router } from '@angular/router';
 import { NodeService } from '@core/service/node.service';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { isEmpty } from 'lodash-es';
+import { environment } from 'src/environments/environment';
+import { DialogComponent } from '../../../uiux/widgets/dialog/dialog.component';
+import { TextComponent } from '@uiux/widgets/text/text.component';
+import { UserService } from '@core/service/user.service';
 
 @Component({
   selector: 'app-article',
   templateUrl: './article.component.html',
   styleUrls: ['./article.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [StripTagsPipe, ShortenPipe],
 })
 export class ArticleComponent
   extends BaseComponent
@@ -68,10 +70,9 @@ export class ArticleComponent
     private nodeService: NodeService,
     public screen: ScreenState,
     private screenService: ScreenService,
-    private stripTagePipe: StripTagsPipe,
-    private shortenPipe: ShortenPipe,
     private tagsService: TagsService,
     public userState: UserState,
+    private userService: UserService,
     @Inject(DOCUMENT) private document: Document
   ) {
     super();
@@ -130,7 +131,6 @@ export class ArticleComponent
         });
       }
     }
-    console.log(this.isPublic);
   }
 
   checkReqRule(reqRules: string[]): boolean {
@@ -158,7 +158,6 @@ export class ArticleComponent
       .getFlaging(this.nodeService.apiUrlConfig?.paymentPath, params)
       .pipe(
         map((res) => {
-          console.log(res);
           if (res.data.length > 0) {
             return true;
           }
@@ -262,6 +261,44 @@ export class ArticleComponent
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
         this.cd.detectChanges();
+      });
+  }
+
+  upgrade(): void {
+    this.openPayMentDialog();
+    window.open(`${environment.apiUrl}${this.appState.commerce.vip}`, '_blank');
+  }
+
+  pay(): void {
+    this.openPayMentDialog();
+    window.open(
+      `${environment.apiUrl}${this.appState.commerce.payNode}/${this.appState.pageConfig?.node?.entityId}`
+    );
+  }
+
+  openPayMentDialog(): void {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: '500px',
+      data: {
+        renderInputComponent: TextComponent,
+        inputData: {
+          content: this.appState.commerce.dialog,
+        },
+      },
+    });
+    dialogRef
+      .afterClosed()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        const params = [
+          `filter[drupal_internal__uid]=${this.userState.currentUser.current_user.uid}`,
+          `include=roles`,
+          `jsonapi_include=1`,
+        ].join('&');
+        this.userService.getUser(params).subscribe((attr) => {
+          console.log(attr);
+          this.cd.detectChanges();
+        });
       });
   }
 

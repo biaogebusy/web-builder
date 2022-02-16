@@ -21,6 +21,10 @@ export class UserService extends ApiService {
     super(cryptoJS);
   }
 
+  get userApiPath(): string {
+    return `${this.apiUrl}${this.appState.apiUrlConfig.userGetPath}`;
+  }
+
   login(userName: string, passWord: string): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
@@ -83,27 +87,29 @@ export class UserService extends ApiService {
   }
 
   getUserById(id: string, crsfToken: string): Observable<any> {
-    const apiUrl = `${this.apiUrl}${this.appState.apiUrlConfig.userGetPath}`;
     const params = [
       `filter[drupal_internal__uid]=${id}`,
       `include=user_picture,roles`,
       `jsonapi_include=1`,
     ].join('&');
     return this.http.get<any>(
-      `${apiUrl}?${params}`,
+      `${this.userApiPath}?${params}`,
       this.optionsWithCookieAndToken(crsfToken)
     );
   }
 
+  getUser(params: string): Observable<any> {
+    return this.http.get<any>(`${this.userApiPath}?${params}`);
+  }
+
   getCurrentUserById(user: TokenUser, crsfToken: string): Observable<any> {
-    const apiUrl = `${this.apiUrl}${this.appState.apiUrlConfig.userGetPath}`;
     const params = [
       `filter[drupal_internal__uid]=${user.current_user.uid}`,
       `include=user_picture`,
     ].join('&');
     return this.http
       .get<any>(
-        `${apiUrl}?${params}`,
+        `${this.userApiPath}?${params}`,
         this.optionsWithCookieAndToken(crsfToken)
       )
       .pipe(

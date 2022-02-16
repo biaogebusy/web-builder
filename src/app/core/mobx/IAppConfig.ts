@@ -1,4 +1,5 @@
 import { IUser } from './user/IUser';
+import { IText } from '../interface/widgets/IText';
 export interface IAppConfig {
   defTheme: string;
   config?: any;
@@ -6,7 +7,6 @@ export interface IAppConfig {
 }
 
 export interface IApiUrl {
-  apiBase: string;
   loginPath: string;
   logoutPath: string;
   userIdGetPath: string;
@@ -23,4 +23,10 @@ export interface IPage {
   config?: any;
   title: string;
   body: any[];
+}
+
+export interface ICommerce {
+  vip: string;
+  payNode: string;
+  dialog: IText;
 }
