@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { UserState } from './core/mobx/user/UserState';
 import { ScreenState } from './core/mobx/screen/ScreenState';
 import { MatDrawer } from '@angular/material/sidenav';
@@ -16,7 +16,7 @@ import { DialogService } from '@core/service/dialog.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
+export class AppComponent implements OnInit, AfterViewInit {
   authenticated: boolean;
   opened: boolean;
   loading = false;
@@ -34,28 +34,22 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    if (this.screenService.isPlatformBrowser()) {
-      this.appState.configLoadDone$.subscribe((res) => {
-        if (res) {
-          // TODO: loop object to load service
-          if (this.appState.config?.googleAnalytics) {
-            this.googleAnalyticsService.loadGoogleAnalytics();
-          }
-          if (this.appState.config.qidian) {
-            this.qiDianService.loadQiDian();
-          }
-          if (this.appState.config?.loading) {
-            if (!this.appState?.meta?.config?.loading) {
-              this.listenToLoading();
-            }
-          }
-          if (this.appState.config?.dialog?.forceDialog) {
-            this.dialogService.forceDialog(
-              this.appState.config.dialog.forceDialog
-            );
-          }
-        }
-      });
+    const config = this.appState.config;
+    if (config?.googleAnalytics) {
+      const id = config.googleAnalytics.id;
+      this.googleAnalyticsService.loadGoogleAnalytics(id);
+    }
+    if (config?.qidian) {
+      const qdConfig = config.qidian;
+      this.qiDianService.loadQiDian(qdConfig);
+    }
+    if (config?.loading) {
+      if (!this.appState?.meta?.config?.loading) {
+        this.listenToLoading();
+      }
+    }
+    if (config?.dialog?.forceDialog) {
+      this.dialogService.forceDialog(this.appState.config.dialog.forceDialog);
     }
   }
 
@@ -84,6 +78,4 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
       this.loading = loading;
     });
   }
-
-  ngOnDestroy(): void {}
 }

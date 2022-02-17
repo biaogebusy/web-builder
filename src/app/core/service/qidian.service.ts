@@ -8,10 +8,9 @@ import { UtilitiesService } from '@core/service/utilities.service';
 export class QiDianService {
   constructor(private appState: AppState, private utility: UtilitiesService) {}
 
-  loadQiDian(): void {
-    const qiDianConfig = this.appState.config.qidian;
-    const src = `https://wp.qiye.qq.com/qidian/${qiDianConfig.id}/${qiDianConfig.key}`;
-    const id = `qd${qiDianConfig.id}${qiDianConfig.key}`;
+  loadQiDian(config: any): void {
+    const src = `https://wp.qiye.qq.com/qidian/${config.id}/${config.key}`;
+    const id = `qd${config.id}${config.key}`;
     this.utility.loadScript(src, id);
   }
 }
