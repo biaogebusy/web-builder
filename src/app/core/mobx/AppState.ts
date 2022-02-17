@@ -10,6 +10,7 @@ import { TagsService } from '@core/service/tags.service';
 import { version } from '../../../../package.json';
 import { isArray } from 'lodash-es';
 import { switchMap } from 'rxjs/operators';
+import { ApiService } from '@core/service/api.service';
 
 const initPage = {
   title: '',
@@ -28,13 +29,13 @@ export class AppState {
   };
 
   public switchChange$ = new Subject();
-  public configLoadDone$ = new Subject();
   public responseCache = new Map();
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private http: HttpClient,
     private storage: LocalStorageService,
-    private tagsService: TagsService
+    private tagsService: TagsService,
+    public apiService: ApiService
   ) {
     this.setConfig();
   }
@@ -157,7 +158,7 @@ export class AppState {
         .subscribe(
           (config) => {
             this.state.config = config;
-            this.configLoadDone$.next(true);
+            this.apiService.configLoadDone$.next(true);
             this.initTheme();
           },
           (error) => {
@@ -171,7 +172,7 @@ export class AppState {
         .subscribe(
           (config) => {
             this.state.config = config;
-            this.configLoadDone$.next(true);
+            this.apiService.configLoadDone$.next(true);
             this.initTheme();
           },
           () => {

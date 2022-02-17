@@ -1,5 +1,6 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { CryptoJSService } from './crypto-js.service';
 @Injectable({
@@ -7,6 +8,7 @@ import { CryptoJSService } from './crypto-js.service';
 })
 export class ApiService {
   localUserKey = `${environment.site}${environment.port}`;
+  public configLoadDone$ = new Subject();
 
   constructor(public cryptoJS: CryptoJSService) {}
 
