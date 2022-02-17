@@ -53,7 +53,6 @@ export class ArticleCommentComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe(
         (res) => {
-          console.log(res);
           this.utility.openSnackbar(this.content.success);
           this.form.reset();
           this.submit.emit('submit');

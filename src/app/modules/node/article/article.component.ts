@@ -269,11 +269,13 @@ export class ArticleComponent
     window.open(`${environment.apiUrl}${this.appState.commerce.vip}`, '_blank');
   }
 
+  get payUrl(): string {
+    return `${environment.apiUrl}${this.appState.commerce.payNode}/${this.appState.pageConfig?.node?.entityId}`;
+  }
+
   pay(): void {
     this.openPayMentDialog();
-    window.open(
-      `${environment.apiUrl}${this.appState.commerce.payNode}/${this.appState.pageConfig?.node?.entityId}`
-    );
+    window.open(this.payUrl);
   }
 
   openPayMentDialog(): void {

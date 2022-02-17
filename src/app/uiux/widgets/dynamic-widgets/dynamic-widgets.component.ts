@@ -13,6 +13,7 @@ import {
 })
 export class DynamicWidgetsComponent implements OnInit {
   @Input() content: any;
+  @Input() data: any;
   constructor() {}
 
   ngOnInit(): void {}
