@@ -1,0 +1,44 @@
+@import "~@angular/material/theming";
+$sanziqi-color: (
+  //
+  50: #fdecef,
+  100: #fccfd6,
+  200: #eb9da1,
+  300: #e0777d,
+  400: #eb595e,
+  500: #f04947,
+  600: #e24145,
+  700: #cf383f,
+  800: #c23238,
+  900: #b4272c,
+  A100: #dbfbf8,
+  A200: #59ebe6,
+  A400: #00d8d8,
+  A700: #00a8a9,
+  contrast: (
+    //
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $light-primary-text,
+    400: $light-primary-text,
+    500: $light-primary-text,
+    600: $light-primary-text,
+    700: $light-primary-text,
+    800: $light-primary-text,
+    900: $light-primary-text,
+    A100: $dark-primary-text,
+    A200: $light-primary-text,
+    A400: $light-primary-text,
+    A700: $light-primary-text
+  )
+);
+
+$sanziqi-primary: mat-palette($sanziqi-color);
+$sanziqi-accent: mat-palette($sanziqi-color, A200, A100, A400);
+$sanziqi-warn: mat-palette($mat-red, A200, A100, A400);
+$sanziqi-theme: mat-light-theme(
+  $sanziqi-primary,
+  $sanziqi-accent,
+  $sanziqi-warn
+);

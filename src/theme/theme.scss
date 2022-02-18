@@ -35,3 +35,9 @@
   @include base-colors($king-theme);
   @include component-theme($king-theme);
 }
+
+.sanziqi-theme {
+  @include angular-material-theme($sanziqi-theme);
+  @include base-colors($sanziqi-theme);
+  @include component-theme($sanziqi-theme);
+}
