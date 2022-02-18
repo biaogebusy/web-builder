@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
 import { map } from 'rxjs/operators';
-import { TokenUser, CurrentUser } from '../mobx/user/IUser';
+import { TokenUser, CurrentUser, IUser } from '../mobx/user/IUser';
 import { AppState } from '../mobx/AppState';
 import { LocalStorageService } from 'ngx-webstorage';
 import { CryptoJSService } from './crypto-js.service';
@@ -133,6 +133,13 @@ export class UserService extends ApiService {
           };
         })
       );
+  }
+
+  storeLocalUser(user: IUser): void {
+    this.storage.store(
+      this.localUserKey,
+      this.cryptoJS.encrypt(JSON.stringify(user))
+    );
   }
 
   getLoginState(): Observable<any> {

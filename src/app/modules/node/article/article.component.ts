@@ -19,8 +19,8 @@ import { AppState } from '@core/mobx/AppState';
 import { ScreenState } from '@core/mobx/screen/ScreenState';
 import { ScreenService } from '@core/service/screen.service';
 import { FormService } from '@core/service/form.service';
-import { Subject, Observable } from 'rxjs';
-import { map, takeUntil } from 'rxjs/operators';
+import { Subject, Observable, of } from 'rxjs';
+import { map, takeUntil, catchError } from 'rxjs/operators';
 import { UserState } from '@core/mobx/user/UserState';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { LoginComponent } from '../../user/login/login.component';
@@ -116,7 +116,7 @@ export class ArticleComponent
     }
     if (reqPay) {
       this.isReqPaly = true;
-      if (this.userState.anthenticated && !this.isReqRule) {
+      if (this.userState.authenticated && !this.isReqRule) {
         this.checkCurrentUserPayed(
           this.userState.currentUser.id,
           this.appState.pageConfig.node.entityId
@@ -134,7 +134,7 @@ export class ArticleComponent
   }
 
   checkReqRule(reqRules: string[]): boolean {
-    if (!this.userState.anthenticated) {
+    if (!this.userState.authenticated) {
       return false;
     } else {
       this.currentUserRule = this.userState.roles;
@@ -281,8 +281,10 @@ export class ArticleComponent
   openPayMentDialog(): void {
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '500px',
+      disableClose: true,
       data: {
         renderInputComponent: TextComponent,
+        disableCloseButton: true,
         inputData: {
           content: this.appState.commerce.dialog,
         },
@@ -294,10 +296,29 @@ export class ArticleComponent
       .subscribe(() => {
         this.userService
           .getCurrentUserProfile(this.userState.csrfToken)
-          .subscribe((attr) => {
-            console.log(attr);
-            this.cd.detectChanges();
-          });
+          // .pipe(
+          //   catchError((err) => {
+          //     return of({
+          //       uid: '83',
+          //       name: 'test',
+          //       roles: ['authenticated', 'vip'],
+          //     });
+          //   })
+          // )
+          .subscribe(
+            (profile) => {
+              const user = {
+                current_user: profile,
+              };
+              this.userState.refreshLocalUser(
+                Object.assign(this.userState.currentUser, user)
+              );
+              this.cd.detectChanges();
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
       });
   }
 

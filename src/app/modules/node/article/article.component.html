@@ -17,10 +17,10 @@
             [style.fontSize.px]="fontSize">
           </div>
           <ng-template #notPublic>
-            <ng-container *ngIf="!userState.anthenticated;else notAuth">
+            <ng-container *ngIf="!userState.authenticated;else notAuth">
               <div [innerHTML]="content.body |stripTags:'p'|trim|shorten:1000:'...'" [style.fontSize.px]="fontSize">
               </div>
-              <div class="auth line p-y-sm p-x-sm width-100 text-center" *ngIf="!isPublic && !userState.anthenticated"
+              <div class="auth line p-y-sm p-x-sm width-100 text-center" *ngIf="!isPublic && !userState.authenticated"
                 fxLayoutAlign="center center">
                 <a href="javascript:void(0)" (click)="openLogin()" [innerHTML]="loginConfig?.label"></a>
               </div>
@@ -61,9 +61,9 @@
             [content]="action" *ngFor="let action of content.actions"></app-dynamic-widgets>
         </div>
         <app-article-comment [form]="commentForm" [content]="content.comment" (submit)="onSubmit()"
-          *ngIf="userState.anthenticated && appState?.article?.comment?.enabel && content.comment">
+          *ngIf="userState.authenticated && appState?.article?.comment?.enabel && content.comment">
         </app-article-comment>
-        <app-article-comment-list *ngIf="userState.anthenticated" [content]="comments"
+        <app-article-comment-list *ngIf="userState.authenticated" [content]="comments"
           [currentUserId]="userState.currentUser.id">
         </app-article-comment-list>
       </div>

@@ -42,7 +42,7 @@ export class FlagComponent extends BaseComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       this.config = this.appState?.actions?.flag;
-      if (this.config?.enabel && this.userState.anthenticated) {
+      if (this.config?.enabel && this.userState.authenticated) {
         this.getFlagging();
       }
     }
@@ -76,7 +76,7 @@ export class FlagComponent extends BaseComponent implements OnInit, OnDestroy {
   }
 
   onFlag(): void {
-    if (!this.userState.anthenticated) {
+    if (!this.userState.authenticated) {
       this.utiltiy.openSnackbar('请登录，再收藏！', 'x');
       return;
     }

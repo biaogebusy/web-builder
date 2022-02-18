@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { action, observable, computed } from 'mobx-angular';
 import { LocalStorageService } from 'ngx-webstorage';
 import { IUser, TokenUser } from './IUser';
-import { Subject } from 'rxjs';
+import { of, Subject } from 'rxjs';
 import { UserService } from '@core/service/user.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { CryptoJSService } from '@core/service/crypto-js.service';
+import { catchError } from 'rxjs/operators';
 const unauthUser = {
   id: '',
   authenticated: false,
@@ -46,7 +47,7 @@ export class UserState {
   }
 
   @computed
-  get anthenticated(): boolean {
+  get authenticated(): boolean {
     return !!this.user.authenticated;
   }
 
@@ -108,16 +109,23 @@ export class UserState {
 
   @action
   logout(): any {
-    this.userService.logout(this.logoutToken).subscribe(
-      () => {
+    this.userService
+      .logout(this.logoutToken)
+      .pipe(
+        catchError((error) => {
+          console.log(error);
+          if (error.status === 403) {
+            return of(true);
+          }
+          console.log('退出异常！');
+          return of(false);
+        })
+      )
+      .subscribe(() => {
         this.user$.next(unauthUser);
         this.user = unauthUser;
         this.storage.clear(this.userService.localUserKey);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+      });
   }
 
   @action
@@ -128,10 +136,14 @@ export class UserState {
         this.loading = false;
         this.user$.next(user);
         this.user = Object.assign(data, user);
-        this.storage.store(
-          this.userService.localUserKey,
-          this.cryptoJS.encrypt(JSON.stringify(this.user))
-        );
+        this.userService.storeLocalUser(this.user);
       });
+  }
+
+  @action
+  refreshLocalUser(user: IUser): void {
+    this.user$.next(user);
+    this.user = user;
+    this.userService.storeLocalUser(user);
   }
 }

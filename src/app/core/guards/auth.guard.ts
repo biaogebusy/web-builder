@@ -28,7 +28,7 @@ export class AuthGuard implements CanActivate {
     | boolean
     | UrlTree {
     if (this.appState.guard && this.appState.guard.authGuard) {
-      if (this.userState.anthenticated) {
+      if (this.userState.authenticated) {
         return true;
       }
       this.router.navigate(['user/login'], {

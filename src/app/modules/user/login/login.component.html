@@ -7,10 +7,10 @@
     <ng-template #default>
       <img src="/assets/images/login-second.png" alt="">
     </ng-template>
-    <div class="login-form position-relative" [class.is-login]="userState.anthenticated" fxFlex.xs="100"
+    <div class="login-form position-relative" [class.is-login]="userState.authenticated" fxFlex.xs="100"
       fxFlex.gt-xs="50" fxLayout="column" fxLayoutAlign="center center">
       <div class="width-100 form-scroll" *ngIf="!userState.loading">
-        <ng-container *ngIf="!userState.anthenticated">
+        <ng-container *ngIf="!userState.authenticated">
           <div *ngIf="userState.error||error" class="error p-y-xs p-x-xs m-bottom-xs">{{userState.error}}{{error}}
           </div>
           <mat-tab-group animationDuration="0ms" [disablePagination]="true">
@@ -69,7 +69,7 @@
             </mat-tab>
           </mat-tab-group>
         </ng-container>
-        <ng-container *ngIf="userState.anthenticated">
+        <ng-container *ngIf="userState.authenticated">
           <h1 class="mat-h1 text-base">
             Hi, {{userState.currentUser.display_name}}
           </h1>
