@@ -13,15 +13,16 @@ content-type: application/json
 {"name": "{{user}}","pass": "{{psw}}"}
 
 ###
-
 @logoutToken = {{login.response.body.logout_token}}
 
 ###
-
 @csrfToken = {{login.response.body.csrf_token}}
 
 ### get user status
 GET {{apiUrl}}/user/login_status?_format=json HTTP/1.1
+
+### get user profile
+GET {{apiUrl}}/api/v1/accountProfile
 
 ### user logout
 POST {{apiUrl}}/user/logout?_format=json&token={{logoutToken}} HTTP/1.1
@@ -29,6 +30,9 @@ Content-type: application/json
 withCredentials: true
 ### logout v2 强制退出
 POST {{apiUrl}}/user/logout HTTP/1.1
+
+### get all roles
+GET {{apiUrl}}/api/v1/user_role/user_role
 
 ### get user uuid
 GET {{apiUrl}}/api/v1/user/user?filter[drupal_internal__uid]={{login.response.body.current_user.uid}}
