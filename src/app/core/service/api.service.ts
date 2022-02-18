@@ -1,5 +1,6 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { camelCase } from 'lodash-es';
 import { Subject } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { CryptoJSService } from './crypto-js.service';
@@ -7,7 +8,7 @@ import { CryptoJSService } from './crypto-js.service';
   providedIn: 'root',
 })
 export class ApiService {
-  localUserKey = `${environment.site}${environment.port}`;
+  localUserKey = camelCase(environment.apiUrl.split('//')[1]);
   public configLoadDone$ = new Subject();
 
   constructor(public cryptoJS: CryptoJSService) {}

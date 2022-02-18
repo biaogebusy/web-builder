@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
 import { map } from 'rxjs/operators';
-import { TokenUser } from '../mobx/user/IUser';
+import { TokenUser, CurrentUser } from '../mobx/user/IUser';
 import { AppState } from '../mobx/AppState';
 import { LocalStorageService } from 'ngx-webstorage';
 import { CryptoJSService } from './crypto-js.service';
@@ -100,6 +100,10 @@ export class UserService extends ApiService {
 
   getUser(params: string): Observable<any> {
     return this.http.get<any>(`${this.userApiPath}?${params}`);
+  }
+
+  getCurrentUserProfile(): Observable<CurrentUser> {
+    return this.http.get<any>(`${this.apiUrl}/api/v1/accountProfile`);
   }
 
   getCurrentUserById(user: TokenUser, crsfToken: string): Observable<any> {

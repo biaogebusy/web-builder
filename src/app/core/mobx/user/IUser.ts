@@ -11,10 +11,12 @@ export interface IUser extends TokenUser {
 
 export interface TokenUser {
   csrf_token: string;
-  current_user: {
-    uid: string;
-    name: string;
-    roles: string[];
-  };
+  current_user: CurrentUser;
   logout_token: string;
+}
+
+export interface CurrentUser {
+  uid: string;
+  name: string;
+  roles: string[];
 }
