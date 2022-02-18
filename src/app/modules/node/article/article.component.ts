@@ -119,7 +119,8 @@ export class ArticleComponent
       if (this.userState.authenticated && !this.isReqRule) {
         this.checkCurrentUserPayed(
           this.userState.currentUser.id,
-          this.appState.pageConfig.node.entityId
+          this.appState.pageConfig.node.entityId,
+          this.userState.csrfToken
         ).subscribe((payed) => {
           if (payed) {
             this.isPayed = true;
@@ -149,13 +150,17 @@ export class ArticleComponent
     }
   }
 
-  checkCurrentUserPayed(uid: string, entityId: string): Observable<boolean> {
+  checkCurrentUserPayed(
+    uid: string,
+    entityId: string,
+    token: string
+  ): Observable<boolean> {
     const params = [
       `filter[uid.id]=${uid}`,
       `filter[entity_id]=${entityId}`,
     ].join('&');
     return this.nodeService
-      .getFlaging(this.nodeService.apiUrlConfig?.paymentPath, params)
+      .getFlaging(this.nodeService.apiUrlConfig?.paymentPath, params, token)
       .pipe(
         map((res) => {
           if (res.data.length > 0) {
