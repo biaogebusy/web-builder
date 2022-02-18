@@ -155,10 +155,10 @@ export class NodeService extends ApiService {
     };
   }
 
-  getFlaging(path: string, params: string): Observable<any> {
+  getFlaging(path: string, params: string, token: string): Observable<any> {
     return this.http.get<any>(
       `${this.apiUrl}${path}?${params}`,
-      this.httpOptionsOfCommon
+      this.optionsWithCookieAndToken(token)
     );
   }
 
