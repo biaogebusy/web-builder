@@ -292,15 +292,12 @@ export class ArticleComponent
       .afterClosed()
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
-        const params = [
-          `filter[drupal_internal__uid]=${this.userState.currentUser.current_user.uid}`,
-          `include=roles`,
-          `jsonapi_include=1`,
-        ].join('&');
-        this.userService.getUser(params).subscribe((attr) => {
-          console.log(attr);
-          this.cd.detectChanges();
-        });
+        this.userService
+          .getCurrentUserProfile(this.userState.csrfToken)
+          .subscribe((attr) => {
+            console.log(attr);
+            this.cd.detectChanges();
+          });
       });
   }
 

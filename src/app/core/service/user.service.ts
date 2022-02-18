@@ -102,8 +102,11 @@ export class UserService extends ApiService {
     return this.http.get<any>(`${this.userApiPath}?${params}`);
   }
 
-  getCurrentUserProfile(): Observable<CurrentUser> {
-    return this.http.get<any>(`${this.apiUrl}/api/v1/accountProfile`);
+  getCurrentUserProfile(crsfToken: string): Observable<any> {
+    return this.http.get<any>(
+      `${this.apiUrl}/api/v1/accountProfile`,
+      this.optionsWithCookieAndToken(crsfToken)
+    );
   }
 
   getCurrentUserById(user: TokenUser, crsfToken: string): Observable<any> {
