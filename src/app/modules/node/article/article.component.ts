@@ -132,6 +132,7 @@ export class ArticleComponent
         });
       }
     }
+    this.cd.detectChanges();
   }
 
   checkReqRule(reqRules: string[]): boolean {
@@ -188,9 +189,6 @@ export class ArticleComponent
       this.commentForm = this.formService.toFormGroup(
         this.content.comment.form
       );
-      this.commentForm.valueChanges.subscribe((comment) => {
-        console.log(comment);
-      });
     }
   }
 
@@ -265,7 +263,7 @@ export class ArticleComponent
       .afterClosed()
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
-        this.cd.detectChanges();
+        this.checkAccess();
       });
   }
 
@@ -318,7 +316,7 @@ export class ArticleComponent
               this.userState.refreshLocalUser(
                 Object.assign(this.userState.currentUser, user)
               );
-              this.cd.detectChanges();
+              this.checkAccess();
             },
             (error) => {
               console.log(error);
