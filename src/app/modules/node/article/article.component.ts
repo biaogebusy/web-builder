@@ -20,7 +20,7 @@ import { ScreenState } from '@core/mobx/screen/ScreenState';
 import { ScreenService } from '@core/service/screen.service';
 import { FormService } from '@core/service/form.service';
 import { Subject, Observable, of } from 'rxjs';
-import { map, takeUntil, catchError } from 'rxjs/operators';
+import { map, takeUntil, catchError, delay } from 'rxjs/operators';
 import { UserState } from '@core/mobx/user/UserState';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { LoginComponent } from '../../user/login/login.component';
@@ -125,9 +125,11 @@ export class ArticleComponent
           if (payed) {
             this.isPayed = true;
             this.canAccess = true;
+            this.cd.detectChanges();
           } else {
             this.isPayed = false;
             this.canAccess = false;
+            this.cd.detectChanges();
           }
         });
       }
