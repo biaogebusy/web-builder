@@ -103,8 +103,10 @@ export class ArticleComponent
     this.reqMoney = this.getDeepValue(this.content, 'params.pay.money');
     if (!isEmpty(reqRule) || reqPay) {
       this.isPublic = false;
+      this.canAccess = false;
     } else {
       this.isPublic = true;
+      this.canAccess = true;
     }
     if (reqRule) {
       this.isReqRule = this.checkReqRule(reqRule);

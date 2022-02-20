@@ -4,41 +4,25 @@
     <span>{{config.label}}</span>
   </button>
   <mat-menu #menu="matMenu">
-    <ng-container *ngIf="data.isPublic;else notPublic">
+    <ng-container *ngIf="data?.canAccess;else canotAccess">
       <button *ngFor="let item of content.elements" mat-menu-item>
         <app-icon [content]="item.icon"></app-icon>
         <a target="_blank" href="{{item.href}}">{{item.label}}</a>
       </button>
     </ng-container>
-    <ng-template #notPublic>
-      <ng-container *ngIf="!data.user.authenticated;else notAuth">
+    <ng-template #canotAccess>
+      <ng-container *ngIf="!data?.user.authenticated">
         <button mat-menu-item>
           <app-icon [content]="{'name':'person'}"></app-icon>
           <a href="javascript:vovid(0)" (click)="openLogin()">登录</a>
         </button>
       </ng-container>
-      <ng-template #notAuth>
-        <ng-container *ngIf="data.isReqRule;else checkPay">
-          <button *ngFor="let item of content.elements" mat-menu-item>
-            <app-icon [content]="item.icon"></app-icon>
-            <a target="_blank" href="{{item.href}}">{{item.label}}</a>
-          </button>
-        </ng-container>
-        <ng-template #checkPay>
-          <ng-container *ngIf="data.isPayed;else noPay">
-            <button *ngFor="let item of content.elements" mat-menu-item>
-              <app-icon [content]="item.icon"></app-icon>
-              <a target="_blank" href="{{item.href}}">{{item.label}}</a>
-            </button>
-          </ng-container>
-          <ng-template #noPay>
-            <button mat-menu-item>
-              <app-icon [content]="{'name':'shopping_cart'}"></app-icon>
-              <a href="{{data.payUrl}}" target="_blank">支付购买下载</a>
-            </button>
-          </ng-template>
-        </ng-template>
-      </ng-template>
+      <ng-container *ngIf="!data.isPayed">
+        <button mat-menu-item>
+          <app-icon [content]="{'name':'shopping_cart'}"></app-icon>
+          <a href="{{data?.payUrl}}" target="_blank">支付购买下载</a>
+        </button>
+      </ng-container>
     </ng-template>
   </mat-menu>
 </ng-container>

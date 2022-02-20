@@ -13,46 +13,26 @@
         </div>
         <mat-divider></mat-divider>
         <div class="position-relative">
-          <div *ngIf="isPublic;else notPublic" class="article-body m-y-sm" [innerHTML]="content.body | safeHtml"
+          <div *ngIf="canAccess;else canotAccess" class="article-body m-y-sm" [innerHTML]="content.body | safeHtml"
             [style.fontSize.px]="fontSize">
           </div>
-          <ng-template #notPublic>
-            <ng-container *ngIf="!userState.authenticated;else notAuth">
-              <div class="article-body m-y-sm position-relative">
-                <div [innerHTML]="content.body |stripTags:'p'|trim|shorten:1000:'...'" [style.fontSize.px]="fontSize">
-                </div>
-                <div class="shadow"></div>
+          <ng-template #canotAccess>
+            <div class="article-body m-y-sm position-relative">
+              <div [innerHTML]="content.body |stripTags:'p'|trim|shorten:1000:'...'" [style.fontSize.px]="fontSize">
               </div>
-              <div class="auth line p-y-sm p-x-sm width-100 text-center" *ngIf="!isPublic && !userState.authenticated"
-                fxLayoutAlign="center center">
-                <a href="javascript:void(0)" (click)="openLogin()" [innerHTML]="loginConfig?.label"></a>
+              <div class="shadow"></div>
+            </div>
+            <div *ngIf="!userState.authenticated" class="auth line p-y-sm p-x-sm width-100 text-center"
+              fxLayoutAlign="center center">
+              <a href="javascript:void(0)" (click)="openLogin()" [innerHTML]="loginConfig?.label"></a>
+            </div>
+            <div *ngIf="!isPayed" class="pay line p-y-sm p-x-sm width-100 text-center m-bottom"
+              fxLayoutAlign="center center">
+              <div>
+                成为<a (click)="upgrade()" href="javascript:void(0)">【会员】</a>或者<a (click)="pay()"
+                  href="javascript:void">【支付{{reqMoney}}元】</a>查看全文
               </div>
-            </ng-container>
-            <ng-template #notAuth>
-              <div *ngIf="isReqRule;else checkPay" class="article-body m-y-sm " [innerHTML]="content.body | safeHtml"
-                [style.fontSize.px]="fontSize">
-              </div>
-              <ng-template #checkPay>
-                <div *ngIf="isPayed;else noPay" class="article-body m-y-sm" [innerHTML]="content.body | safeHtml"
-                  [style.fontSize.px]="fontSize">
-                </div>
-                <ng-template #noPay>
-                  <div class="article-body m-y-sm position-relative">
-                    <div [innerHTML]="content.body |stripTags:'p'|trim|shorten:1000:'...'"
-                      [style.fontSize.px]="fontSize">
-                    </div>
-                    <div class="shadow"></div>
-                  </div>
-                  <div class="pay line p-y-sm p-x-sm width-100 text-center m-bottom" fxLayoutAlign="center center">
-                    <div>
-                      成为<a (click)="upgrade()" href="javascript:void(0)">【会员】</a>或者<a (click)="pay()"
-                        href="javascript:void">【支付{{reqMoney}}元】</a>查看全文
-                    </div>
-                  </div>
-                </ng-template>
-              </ng-template>
-            </ng-template>
-
+            </div>
           </ng-template>
         </div>
         <div class="article-bottom m-y" *ngIf="content.bottom">
@@ -60,7 +40,7 @@
         </div>
         <div class="ations m-y" *ngIf="content.actions">
           <app-dynamic-widgets
-            [data]="{'isPublic':isPublic, 'isReqRule':isReqRule, 'isPayed':isPayed,user: userState.currentUser, payUrl: payUrl}"
+            [data]="{'canAccess':canAccess, 'isPayed':isPayed, user: userState.currentUser, payUrl: payUrl}"
             [content]="action" *ngFor="let action of content.actions"></app-dynamic-widgets>
         </div>
         <app-article-comment [form]="commentForm" [content]="content.comment" (submit)="onSubmit()"
