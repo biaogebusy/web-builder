@@ -12,7 +12,7 @@
           </app-font-change>
         </div>
         <mat-divider></mat-divider>
-        <div class="position-relative">
+        <div class="article-body position-relative">
           <div *ngIf="canAccess;else canotAccess" class="article-body m-y-sm" [innerHTML]="content.body | safeHtml"
             [style.fontSize.px]="fontSize">
           </div>
@@ -39,9 +39,8 @@
           <app-dynamic-widgets [content]="action" *ngFor="let action of content.bottom"></app-dynamic-widgets>
         </div>
         <div class="ations m-y" *ngIf="content.actions">
-          <app-dynamic-widgets
-            [data]="{'canAccess':canAccess, 'isPayed':isPayed, user: userState.currentUser, payUrl: payUrl}"
-            [content]="action" *ngFor="let action of content.actions"></app-dynamic-widgets>
+          <app-dynamic-widgets [data]="content?.params" [content]="action" *ngFor="let action of content.actions">
+          </app-dynamic-widgets>
         </div>
         <app-article-comment [form]="commentForm" [content]="content.comment" (submit)="onSubmit()"
           *ngIf="userState.authenticated && appState?.article?.comment?.enabel && content.comment">

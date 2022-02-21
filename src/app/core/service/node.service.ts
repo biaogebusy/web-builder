@@ -6,9 +6,12 @@ import { AppState } from '../mobx/AppState';
 import { forkJoin } from 'rxjs';
 import { Observable, of } from 'rxjs';
 import { IApiUrl } from '../mobx/IAppConfig';
-import { switchMap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { ICommentParams, ICommentRequest } from '@core/interface/node/IComment';
 import { CryptoJSService } from './crypto-js.service';
+import { isEmpty } from 'lodash-es';
+import { UserState } from '@core/mobx/user/UserState';
+import { IArticleAccess } from '@core/interface/node/IArticle';
 @Injectable({
   providedIn: 'root',
 })
@@ -16,10 +19,11 @@ export class NodeService extends ApiService {
   public responseCache = new Map();
 
   constructor(
-    public http: HttpClient,
-    public storage: LocalStorageService,
     private appState: AppState,
-    public cryptoJS: CryptoJSService
+    public cryptoJS: CryptoJSService,
+    public http: HttpClient,
+    private userState: UserState,
+    public storage: LocalStorageService
   ) {
     super(cryptoJS);
   }
@@ -179,5 +183,114 @@ export class NodeService extends ApiService {
       );
     });
     return forkJoin(obj);
+  }
+
+  checkReqRule(reqRules: string[]): boolean {
+    if (!this.userState.authenticated) {
+      return false;
+    } else {
+      const currentUserRule = this.userState.roles;
+      if (currentUserRule.includes('administrator')) {
+        return true;
+      } else {
+        const isRule =
+          currentUserRule.filter((role) => reqRules.includes(role)).length > 0;
+        return isRule;
+      }
+    }
+  }
+
+  checkCurrentUserPayed(
+    uid: string,
+    entityId: string,
+    token: string
+  ): Observable<boolean> {
+    const params = [
+      `filter[uid.id]=${uid}`,
+      `filter[entity_id]=${entityId}`,
+    ].join('&');
+    return this.getFlaging(this.apiUrlConfig?.paymentPath, params, token).pipe(
+      map((res) => {
+        if (res.data.length > 0) {
+          return true;
+        }
+        console.log('用户没有购买！');
+        return false;
+      })
+    );
+  }
+
+  getPayUrl(entityId: string): string {
+    return `${this.apiUrl}${this.appState.commerce.payNode}/${entityId}`;
+  }
+
+  checkNodeAccess(params: any): Observable<IArticleAccess> {
+    const reqPay = params?.pay;
+    const reqRule = params?.require_rule;
+    const reqMoney = reqPay?.money;
+    const entityId =
+      this.appState.pageConfig?.node?.entityId || params?.entityId;
+    if (!isEmpty(reqRule) || reqPay) {
+      // 非公开浏览
+      const isReqRule = this.checkReqRule(reqRule);
+      // 是否可授权访问角色
+      if (isReqRule) {
+        return of({
+          canAccess: true,
+          isReqRule: true,
+          isPayed: false,
+          reqMoney,
+          payUrl: this.getPayUrl(entityId),
+        });
+      } else {
+        // 是否已购买
+        if (reqPay && this.userState.authenticated) {
+          return this.checkCurrentUserPayed(
+            this.userState.currentUser.id,
+            this.appState.pageConfig.node.entityId,
+            this.userState.csrfToken
+          ).pipe(
+            map((payed) => {
+              if (payed) {
+                // 已购买
+                return {
+                  canAccess: true,
+                  isReqRule: false,
+                  isPayed: true,
+                  reqMoney,
+                  payUrl: this.getPayUrl(entityId),
+                };
+              } else {
+                // 未购买
+                return {
+                  canAccess: false,
+                  isReqRule: false,
+                  isPayed: false,
+                  reqMoney,
+                  payUrl: this.getPayUrl(entityId),
+                };
+              }
+            })
+          );
+        } else {
+          return of({
+            canAccess: false,
+            isReqRule: false,
+            isPayed: false,
+            reqMoney,
+            payUrl: this.getPayUrl(entityId),
+          });
+        }
+      }
+    } else {
+      // 公开浏览
+      return of({
+        canAccess: true,
+        isReqRule: false,
+        isPayed: false,
+        reqMoney,
+        payUrl: this.getPayUrl(entityId),
+      });
+    }
   }
 }

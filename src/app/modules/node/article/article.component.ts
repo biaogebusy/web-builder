@@ -19,15 +19,14 @@ import { AppState } from '@core/mobx/AppState';
 import { ScreenState } from '@core/mobx/screen/ScreenState';
 import { ScreenService } from '@core/service/screen.service';
 import { FormService } from '@core/service/form.service';
-import { Subject, Observable, of } from 'rxjs';
-import { map, takeUntil, catchError, delay } from 'rxjs/operators';
+import { Subject, of } from 'rxjs';
+import { takeUntil, catchError } from 'rxjs/operators';
 import { UserState } from '@core/mobx/user/UserState';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { LoginComponent } from '../../user/login/login.component';
 import { Router } from '@angular/router';
 import { NodeService } from '@core/service/node.service';
 import { BaseComponent } from '@uiux/base/base.widget';
-import { isEmpty } from 'lodash-es';
 import { environment } from 'src/environments/environment';
 import { DialogComponent } from '../../../uiux/widgets/dialog/dialog.component';
 import { TextComponent } from '@uiux/widgets/text/text.component';
@@ -52,12 +51,10 @@ export class ArticleComponent
   fontSize: number;
   fontForm: FormGroup;
   htmlBody: any;
-  isAuth = false;
   isReqRule = false;
-  isReqPaly: boolean;
-  isPublic = false;
   canAccess: boolean;
   reqMoney: number;
+  payUrl: string;
   isPayed = false;
   showNotXs: boolean;
 
@@ -98,83 +95,17 @@ export class ArticleComponent
   }
 
   checkAccess(): void {
-    const reqPay = this.getParams(this.content, 'pay');
-    const reqRule = this.getParams(this.content, 'require_rule');
-    this.reqMoney = this.getDeepValue(this.content, 'params.pay.money');
-    if (!isEmpty(reqRule) || reqPay) {
-      this.isPublic = false;
-      this.canAccess = false;
-    } else {
-      this.isPublic = true;
-      this.canAccess = true;
-    }
-    if (reqRule) {
-      this.isReqRule = this.checkReqRule(reqRule);
-      if (this.isReqRule) {
-        this.canAccess = true;
-        return;
-      }
-      this.canAccess = false;
-    }
-    if (reqPay) {
-      this.isReqPaly = true;
-      if (this.userState.authenticated && !this.isReqRule) {
-        this.checkCurrentUserPayed(
-          this.userState.currentUser.id,
-          this.appState.pageConfig.node.entityId,
-          this.userState.csrfToken
-        ).subscribe((payed) => {
-          if (payed) {
-            this.isPayed = true;
-            this.canAccess = true;
-            this.cd.detectChanges();
-          } else {
-            this.isPayed = false;
-            this.canAccess = false;
-            this.cd.detectChanges();
-          }
-        });
-      }
-    }
-    this.cd.detectChanges();
-  }
-
-  checkReqRule(reqRules: string[]): boolean {
-    if (!this.userState.authenticated) {
-      return false;
-    } else {
-      this.currentUserRule = this.userState.roles;
-      if (this.currentUserRule.includes('administrator')) {
-        return true;
-      } else {
-        const isRule =
-          this.currentUserRule.filter((role) => reqRules.includes(role))
-            .length > 0;
-        return isRule;
-      }
-    }
-  }
-
-  checkCurrentUserPayed(
-    uid: string,
-    entityId: string,
-    token: string
-  ): Observable<boolean> {
-    const params = [
-      `filter[uid.id]=${uid}`,
-      `filter[entity_id]=${entityId}`,
-    ].join('&');
-    return this.nodeService
-      .getFlaging(this.nodeService.apiUrlConfig?.paymentPath, params, token)
-      .pipe(
-        map((res) => {
-          if (res.data.length > 0) {
-            return true;
-          }
-          console.log('用户没有购买！');
-          return false;
-        })
-      );
+    this.nodeService
+      .checkNodeAccess(this.content.params)
+      .subscribe((access) => {
+        console.log(access);
+        this.canAccess = access.canAccess;
+        this.isReqRule = access.isReqRule;
+        this.isPayed = access.isPayed;
+        this.payUrl = access.payUrl;
+        this.reqMoney = access.reqMoney;
+        this.cd.detectChanges();
+      });
   }
 
   onFontSize(): void {
@@ -274,10 +205,6 @@ export class ArticleComponent
   upgrade(): void {
     this.openPayMentDialog();
     window.open(`${environment.apiUrl}${this.appState.commerce.vip}`, '_blank');
-  }
-
-  get payUrl(): string {
-    return `${environment.apiUrl}${this.appState.commerce.payNode}/${this.appState.pageConfig?.node?.entityId}`;
   }
 
   pay(): void {

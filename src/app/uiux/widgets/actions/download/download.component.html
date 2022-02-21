@@ -4,23 +4,23 @@
     <span>{{config.label}}</span>
   </button>
   <mat-menu #menu="matMenu">
-    <ng-container *ngIf="data?.canAccess;else canotAccess">
+    <ng-container *ngIf="canAccess;else canotAccess">
       <button *ngFor="let item of content.elements" mat-menu-item>
         <app-icon [content]="item.icon"></app-icon>
         <a target="_blank" href="{{item.href}}">{{item.label}}</a>
       </button>
     </ng-container>
     <ng-template #canotAccess>
-      <ng-container *ngIf="!data?.user.authenticated">
+      <ng-container *ngIf="!userState.authenticated">
         <button mat-menu-item>
           <app-icon [content]="{'name':'person'}"></app-icon>
           <a href="javascript:vovid(0)" (click)="openLogin()">登录</a>
         </button>
       </ng-container>
-      <ng-container *ngIf="!data.isPayed">
+      <ng-container *ngIf="!isPayed">
         <button mat-menu-item>
           <app-icon [content]="{'name':'shopping_cart'}"></app-icon>
-          <a href="{{data?.payUrl}}" target="_blank">支付购买下载</a>
+          <a href="{{payUrl}}" target="_blank">支付购买下载</a>
         </button>
       </ng-container>
     </ng-template>
