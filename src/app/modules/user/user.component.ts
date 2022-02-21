@@ -10,6 +10,7 @@ import { UserService } from '@core/service/user.service';
 import { UserState } from '@core/mobx/user/UserState';
 import { ScreenService } from '@core/service/screen.service';
 import { AppState } from '@core/mobx/AppState';
+import { isEmpty } from 'lodash-es';
 
 @Component({
   selector: 'app-user',
@@ -115,11 +116,11 @@ export class UserComponent implements OnInit, OnDestroy {
     };
   }
 
-  getRoles(rules: []): string[] {
-    if (!rules) {
+  getRoles(roles: any): string[] {
+    if (!roles || isEmpty(roles.data)) {
       return ['注册用户'];
     }
-    return rules.map((rule: any) => {
+    return roles.map((rule: any) => {
       return rule.label;
     });
   }
