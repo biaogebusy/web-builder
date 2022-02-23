@@ -1,4 +1,10 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  OnDestroy,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { UserState } from '@core/mobx/user/UserState';
 import { MatDialog } from '@angular/material/dialog';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -24,10 +30,15 @@ export class UserMenuComponent implements OnInit, OnDestroy {
     public utilities: UtilitiesService,
     public screen: ScreenState,
     public dialog: MatDialog,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private cd: ChangeDetectorRef
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.userState.user$.subscribe((user) => {
+      this.cd.detectChanges();
+    });
+  }
 
   logout(): void {
     this.userState.logout();

@@ -29,7 +29,7 @@ export class UserService extends ApiService {
     const httpOptions = {
       headers: new HttpHeaders({
         Accept: 'application/vnd.api+json',
-        'Content-type': 'application/json',
+        'Content-type': 'application/vnd.api+json',
       }),
       withCredentials: true,
     };
@@ -47,7 +47,7 @@ export class UserService extends ApiService {
   logout(logoutToken: string): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-type': 'application/json',
+        Accept: 'application/vnd.api+json',
       }),
       withCredentials: true,
     };
