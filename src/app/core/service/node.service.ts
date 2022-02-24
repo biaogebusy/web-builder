@@ -221,7 +221,7 @@ export class NodeService extends ApiService {
   }
 
   getPayUrl(entityId: string): string {
-    return `${this.apiUrl}${this.appState.commerce.payNode}/${entityId}`;
+    return `${this.apiUrl}${this.appState?.commerce?.payNode}/${entityId}`;
   }
 
   checkNodeAccess(params: any): Observable<IArticleAccess> {
@@ -240,7 +240,7 @@ export class NodeService extends ApiService {
           isReqRule: true,
           isPayed: false,
           reqMoney,
-          payUrl: this.getPayUrl(entityId),
+          payUrl: '',
         });
       } else {
         // 是否已购买
@@ -289,7 +289,7 @@ export class NodeService extends ApiService {
         isReqRule: false,
         isPayed: false,
         reqMoney,
-        payUrl: this.getPayUrl(entityId),
+        payUrl: '',
       });
     }
   }
