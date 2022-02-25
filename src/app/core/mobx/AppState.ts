@@ -5,10 +5,10 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { LocalStorageService } from 'ngx-webstorage';
 import { IApiUrl, IAppConfig, ICommerce, IPage } from './IAppConfig';
-import { Observable, of, Subject } from 'rxjs';
+import { of, Subject } from 'rxjs';
 import { TagsService } from '@core/service/tags.service';
 import { version } from '../../../../package.json';
-import { isArray } from 'lodash-es';
+import { isArray, isEmpty } from 'lodash-es';
 import { switchMap } from 'rxjs/operators';
 import { ApiService } from '@core/service/api.service';
 
@@ -36,9 +36,7 @@ export class AppState {
     private storage: LocalStorageService,
     private tagsService: TagsService,
     public apiService: ApiService
-  ) {
-    this.setConfig();
-  }
+  ) {}
 
   @computed get ready(): any {
     return this._READY && this.state.config;
@@ -125,8 +123,9 @@ export class AppState {
   }
 
   get apiPath(): string {
-    const path = this.document.location.pathname;
-    const search = this.document.location.search;
+    const location = this.document.location;
+    const path = location.pathname;
+    const search = location.search;
     const allowKey = ['version', 'origin', 'category'];
     if (
       allowKey.some((key) => {
@@ -157,6 +156,7 @@ export class AppState {
         .get(`${environment.apiUrl}/api/v1/config?content=/core/base`)
         .subscribe(
           (config) => {
+            console.log('core loaded!');
             this.state.config = config;
             this.apiService.configLoadDone$.next(true);
             this.initTheme();
@@ -197,34 +197,25 @@ export class AppState {
   setPageContent(): void {
     if (environment.production) {
       const landingPath = '/api/v1/landingPage?content=';
-      const key = JSON.stringify({
-        url: environment.apiUrl,
-        landing: landingPath,
-        path: this.apiPath,
-      });
-      let getLandPage$: Observable<any>;
-      const landPageFormCache = this.responseCache.get(key);
-      if (landPageFormCache) {
-        getLandPage$ = of(landPageFormCache);
-      } else {
-        getLandPage$ = this.http
-          .get<any>(`${environment.apiUrl}${landingPath}${this.apiPath}`)
-          .pipe(
-            switchMap((res) => {
-              this.responseCache.set(key, res);
+      console.log(`appState request start!`);
+      this.http
+        .get<any>(`${environment.apiUrl}${landingPath}${this.apiPath}`)
+        .pipe(
+          switchMap((res) => {
+            if (!isEmpty(res)) {
               return of(res);
-            })
-          );
-      }
-
-      getLandPage$.subscribe(
-        (pageValue: IPage) => {
-          this.updatePage(pageValue);
-        },
-        (error) => {
-          this.setPageNotFound(`${environment.apiUrl}${landingPath}404`);
-        }
-      );
+            }
+            return this.http.get<any>(`${environment.apiUrl}${landingPath}404`);
+          })
+        )
+        .subscribe(
+          (pageValue: IPage) => {
+            this.updatePage(pageValue);
+          },
+          (error) => {
+            this.setPageNotFound(`${environment.apiUrl}${landingPath}404`);
+          }
+        );
     } else {
       this.http
         .get<any>(`${environment.apiUrl}/assets/app${this.apiPath}.json`)

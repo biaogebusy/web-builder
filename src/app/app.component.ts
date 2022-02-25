@@ -23,11 +23,12 @@ export class AppComponent implements OnInit, AfterViewInit {
     public branding: BrandingState,
     private router: ActivatedRoute,
     private screenService: ScreenService,
-    private configSerice: ConfigService
+    private configService: ConfigService
   ) {}
 
   ngOnInit(): void {
-    this.configSerice.init();
+    this.appState.setConfig();
+    this.configService.init();
   }
 
   ngAfterViewInit(): void {
