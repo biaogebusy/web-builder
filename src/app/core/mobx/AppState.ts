@@ -203,8 +203,10 @@ export class AppState {
         .pipe(
           switchMap((res) => {
             if (!isEmpty(res)) {
+              console.log('Has data!');
               return of(res);
             }
+            console.log('No data!');
             return this.http.get<any>(`${environment.apiUrl}${landingPath}404`);
           })
         )
