@@ -8,8 +8,7 @@ import { IApiUrl, IAppConfig, ICommerce, IPage } from './IAppConfig';
 import { of, Subject } from 'rxjs';
 import { TagsService } from '@core/service/tags.service';
 import { version } from '../../../../package.json';
-import { isArray, isEmpty } from 'lodash-es';
-import { switchMap } from 'rxjs/operators';
+import { isArray } from 'lodash-es';
 import { ApiService } from '@core/service/api.service';
 
 const initPage = {
@@ -200,16 +199,6 @@ export class AppState {
       console.log(`appState request start!`);
       this.http
         .get<any>(`${environment.apiUrl}${landingPath}${this.apiPath}`)
-        .pipe(
-          switchMap((res) => {
-            if (!isEmpty(res)) {
-              console.log('Has data!');
-              return of(res);
-            }
-            console.log('No data!');
-            return this.http.get<any>(`${environment.apiUrl}${landingPath}404`);
-          })
-        )
         .subscribe(
           (pageValue: IPage) => {
             this.updatePage(pageValue);
