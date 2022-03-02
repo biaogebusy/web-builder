@@ -155,7 +155,6 @@ export class AppState {
         .get(`${environment.apiUrl}/api/v1/config?content=/core/base`)
         .subscribe(
           (config) => {
-            console.log('core loaded!');
             this.state.config = config;
             this.apiService.configLoadDone$.next(true);
             this.initTheme();
@@ -196,7 +195,6 @@ export class AppState {
   setPageContent(): void {
     if (environment.production) {
       const landingPath = '/api/v1/landingPage?content=';
-      console.log(`appState request start!`);
       this.http
         .get<any>(`${environment.apiUrl}${landingPath}${this.apiPath}`)
         .subscribe(
