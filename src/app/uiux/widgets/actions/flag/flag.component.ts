@@ -64,7 +64,8 @@ export class FlagComponent extends BaseComponent implements OnInit, OnDestroy {
       .getNodes(
         this.appState.apiUrlConfig.flaggingGetPath,
         this.type,
-        this.flaggingParams
+        this.flaggingParams,
+        this.userState.csrfToken
       )
       .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {

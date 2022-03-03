@@ -53,7 +53,12 @@ export class NodeService extends ApiService {
     return this.http.get<any>(`${link}`);
   }
 
-  getNodes(path: string, type: string, params: string = ''): Observable<any> {
+  getNodes(
+    path: string,
+    type: string,
+    params: string = '',
+    token: string = ''
+  ): Observable<any> {
     const cacheKey = JSON.stringify({ api: this.apiUrl, path, type, params });
     const nodeCache = this.responseCache.get(cacheKey);
     if (nodeCache) {
@@ -62,7 +67,9 @@ export class NodeService extends ApiService {
       return this.http
         .get<any>(
           `${this.apiUrl}${path}/${type}?${params}`,
-          this.httpOptionsOfCommon
+          token
+            ? this.optionsWithCookieAndToken(token)
+            : this.httpOptionsOfCommon
         )
         .pipe(
           switchMap((res) => {
