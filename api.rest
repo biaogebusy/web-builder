@@ -1,7 +1,7 @@
 ### https://www.drupal.org/docs/8/core/modules/rest/javascript-and-drupal-8-restful-web-services#s-login
-@apiUrl = https://api.zhaobg.com
-@user = test
-@psw = test
+@apiUrl = https://api.lvxinyun.com
+@user = root
+@psw = Abcd#1234@nn
 @user_uuid = 15765815-07f2-4d7d-8142-cb598f82af2e
 @node_uuid = 97edbdba-16a9-4e48-9285-9a2854968cf7
 
@@ -61,6 +61,9 @@ GET {{apiUrl}}/api/v1/taxonomy_term/search_category
 @type=article
 
 ### get need set header Accept: application/vnd.api+json
+
+### get node list
+GET {{apiUrl}}/api/v1/node/news?include=category,field_tags,media,media.field_media_image&sort=-changed&jsonapi_include=1&page[limit]=1
 
 ### get single resource
 GET {{apiUrl}}/api/v1/node/{{type}}/b59a2767-89b8-418d-91fe-6f0e6a5638ec
@@ -285,3 +288,82 @@ X-CSRF-Token: {{csrfToken}}
 
 ### get taxonomy
 GET {{apiUrl}}/taxonomy/term/30?category=28
+
+### wechat
+POST {{apiUrl}}/api/v1/miniprogram/login?_format=json
+Content-Type: application/x-www-form-urlencoded
+
+### 咨询变量
+@consultType = consult
+@consultID = dfc8256d-7526-480a-b354-06d584204537
+
+### 案源广场 - 全部
+GET {{apiUrl}}/api/v1/node/consult?fields[node--consult]=title,uid,changed,consult_answer,field_tags&include=uid,uid.user_picture,field_tags&fields[taxonomy_term--consult_type]=name&fields[user--user]=name,user_picture&fields[file--file]=uri,url&jsonapi_include=1
+
+### 某个咨询的全部回复
+GET {{apiUrl}}/api/v1/comment/consult_answer?filter[entity_id.id]={{consultID}}&include=uid,uid.user_picture&fields[user--user]=name,user_picture&fields[file--file]=uri,url&sort=-created&filter[status]=1&jsonapi_include=1
+
+### 回复某个咨询
+POST {{apiUrl}}/api/v1/comment/consult_answer
+Accept: application/vnd.api+json
+Content-Type: application/vnd.api+json
+X-CSRF-Token: {{csrfToken}}
+
+{
+  "data":{
+    "type": "comment--consult_answer",
+    "attributes":{
+      "entity_type":"node",
+      "field_name":"consult_answer",
+      "content":{
+        "value":"{{回复咨询的内容}}",
+        "format":"plain_text"
+      }
+    },
+    "relationships":{
+      "comment_type":{
+        "data":{
+          "type":"comment_type--comment_type",
+          "id": "662120d4-c423-4b1e-a221-5b4bb906fcf9"
+        }
+      },
+      "entity_id":{
+        "data":{
+          "type":"node--consult",
+          "@id":"当前node的id",
+          "id":"dfc8256d-7526-480a-b354-06d584204537"
+        }
+      }
+    }
+  }
+}
+
+### 全部咨询
+GET {{apiUrl}}/api/v1/node/consult
+
+### 发布咨询
+POST {{apiUrl}}/api/v1/node/consult
+Accept: application/vnd.api+json
+Content-Type: application/vnd.api+json
+X-CSRF-Token: {{csrfToken}}
+
+{
+  "data": {
+    "type": "node--consult",
+    "attributes": {
+      "title": "new consult by Johnson",
+      "body": {
+        "value": "Hello world! Lorem ipsum dolor sit amet consectetur adipiscing elit",
+        "format": "plain_text"
+      }
+    },
+    "relationships":{
+      "field_tags":{
+        "data":{
+              "type": "taxonomy_term--consult_type",
+              "id": "9af0acac-db7a-42ef-b4a6-cc19313d89a9"
+            }
+      }
+    }
+  }
+}
