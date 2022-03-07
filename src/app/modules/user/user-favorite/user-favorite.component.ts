@@ -58,7 +58,12 @@ export class UserFavoriteComponent implements OnInit, OnDestroy {
             `sort=-created`,
             `jsonapi_include=1`,
           ].join('&');
-          return this.nodeService.getNodes(path, 'favorite', params);
+          return this.nodeService.getNodes(
+            path,
+            'favorite',
+            params,
+            this.userState.csrfToken
+          );
         }),
         takeUntil(this.destroy$)
       )
