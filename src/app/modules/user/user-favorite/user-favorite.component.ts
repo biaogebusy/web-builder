@@ -58,6 +58,7 @@ export class UserFavoriteComponent implements OnInit, OnDestroy {
             `sort=-created`,
             `jsonapi_include=1`,
           ].join('&');
+          console.log(res);
           return this.nodeService.getNodes(
             path,
             'favorite',
@@ -69,6 +70,7 @@ export class UserFavoriteComponent implements OnInit, OnDestroy {
       )
       .subscribe(
         (res) => {
+          console.log('favories:', res);
           this.content = res.data.map((item: any) => {
             const node = item.flagged_entity;
             return {
