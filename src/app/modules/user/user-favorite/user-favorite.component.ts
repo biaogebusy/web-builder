@@ -76,15 +76,15 @@ export class UserFavoriteComponent implements OnInit, OnDestroy {
             return {
               type: 'list-thin',
               link: {
-                label: node.title,
+                label: node?.title,
                 href: this.nodeService.getNodePath(node),
               },
               meta: [
                 {
-                  label: node.uid.dispaly_name || node.uid.name,
+                  label: node?.uid?.dispaly_name || node?.uid?.name,
                 },
                 {
-                  label: formatDate(node.changed, 'yyyy-MM-dd', 'en-US'),
+                  label: formatDate(node?.changed, 'yyyy-MM-dd', 'en-US'),
                 },
               ],
               actions: [
