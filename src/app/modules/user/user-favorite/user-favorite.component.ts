@@ -71,20 +71,23 @@ export class UserFavoriteComponent implements OnInit, OnDestroy {
       .subscribe(
         (res) => {
           console.log('favories:', res);
-          this.content = res.data.map((item: any) => {
+          const lists = res.data.filter((item: any) => {
+            return item.flagged_entity?.status ? true : false;
+          });
+          this.content = lists.map((item: any) => {
             const node = item.flagged_entity;
             return {
               type: 'list-thin',
               link: {
-                label: node?.title,
+                label: node.title,
                 href: this.nodeService.getNodePath(node),
               },
               meta: [
                 {
-                  label: node?.uid?.dispaly_name || node?.uid?.name,
+                  label: node.uid.dispaly_name || node.uid.name,
                 },
                 {
-                  label: formatDate(node?.changed, 'yyyy-MM-dd', 'en-US'),
+                  label: formatDate(node.changed, 'yyyy-MM-dd', 'en-US'),
                 },
               ],
               actions: [
