@@ -93,7 +93,7 @@ export class NodeService extends ApiService {
   }
 
   getNodePath(attr: any): string {
-    return attr.path.alias
+    return attr?.path?.alias
       ? attr.path.alias
       : `/node/${attr.drupal_internal__nid}`;
   }
