@@ -19,12 +19,14 @@
       ]
     }, {
       "type": "input",
-      "title": "咨询标题",
+      "label": "咨询标题",
+      "key": "title",
       "placeholder": "请输入咨询标题",
       "value": ""
     }, {
       "type": "textarea",
-      "title": "咨询内容",
+      "label": "咨询内容",
+      "key": "body",
       "placeholder": "请输入咨询标题",
       "value": ""
     }],
