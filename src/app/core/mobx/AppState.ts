@@ -125,7 +125,7 @@ export class AppState {
     const location = this.document.location;
     const path = location.pathname;
     const search = location.search;
-    const allowKey = ['version', 'origin', 'category'];
+    const allowKey = ['version', 'origin', 'category', 'preview'];
     if (
       allowKey.some((key) => {
         return search.indexOf(key) > 0;

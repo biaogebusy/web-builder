@@ -22,7 +22,8 @@ export class ServerStateInterceptor implements HttpInterceptor {
       tap((event) => {
         if (
           event instanceof HttpResponse &&
-          (event.status === 200 || event.status === 202)
+          (event.status === 200 || event.status === 202) &&
+          !req.url.includes('preview')
         ) {
           this.transferState.set(makeStateKey(req.url), event.body);
         }
