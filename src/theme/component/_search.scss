@@ -11,6 +11,7 @@
   $light: map-get($background, card);
 
   .search-sidebar {
+    background-color: mat-color($background, card);
     @include mat-elevation(5, mat-color($foreground, text), 0.35);
     .mat-expansion-panel:not([class*="mat-elevation-z"]) {
       border-bottom: 1px solid mat-color($foreground, divider);
@@ -21,6 +22,7 @@
       color: mat-color($foreground, text, 0.4);
     }
     .list {
+      background-color: mat-color($background, card);
       border-bottom: 1px solid mat-color($foreground, divider, 0.1);
       color: mat-color($foreground, text, 0.45);
       .title {

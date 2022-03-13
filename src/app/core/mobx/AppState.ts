@@ -101,6 +101,13 @@ export class AppState {
     return this.document.location.origin;
   }
 
+  get defaultThumb(): string {
+    return (
+      (this.state.config && this.state.config?.defaultThumb) ||
+      '/assets/images/default.png'
+    );
+  }
+
   setBodyClasses(theme: string): void {
     const body = this.document.getElementsByTagName('body')[0];
     body.classList.add(theme);

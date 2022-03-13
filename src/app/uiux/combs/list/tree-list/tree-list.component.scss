@@ -27,6 +27,7 @@
   .sticky {
     position: sticky;
     position: -webkit-sticky;
-    top: 80px;
+    top: 70px;
+    z-index: 10;
   }
 }

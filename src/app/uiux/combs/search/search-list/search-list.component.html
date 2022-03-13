@@ -7,20 +7,26 @@
       找到 {{pager?.total_items}} 个结果
     </div>
     <mat-divider></mat-divider>
-    <div class="list m-y" *ngFor="let item of content | paginate: { itemsPerPage: pager.items_per_page, currentPage:
+    <div class="list p-y-sm p-x-sm m-y-sm" fxLayout.xs="column" fxLayout.gt-xs="row" *ngFor="let item of content | paginate: { itemsPerPage: pager.items_per_page, currentPage:
       pager.current_page + 1, totalItems: pager.total_items}; trackBy: trackByFn">
-      <h2 class="title">
-        <app-link [content]="item.link"></app-link>
-      </h2>
-      <div [innerHTML]="item.body | shorten: 150: '...' | stripTags"></div>
-      <div class="bottom m-y-sm" fxLayoutAlign="space-between center">
-        <div fxLayoutGap="1rem" fxLayout fxLayoutAlign="start center">
-          <div>{{item.user | ucfirst}} {{item?.type | wrap:'| '}}</div>
-          <div class="actions">
-            <app-dynamic-widgets [content]="action" *ngFor="let action of item.actions"></app-dynamic-widgets>
+      <div *ngIf="item?.img?.src" class="object-left position-relative m-right-sm" fxFlex.xs="100"
+        fxFlex.gt-xs="0 0 30">
+        <app-img [content]="item.img"></app-img>
+      </div>
+      <div class="content">
+        <h2 class="title">
+          <app-link [content]="item.link"></app-link>
+        </h2>
+        <div [innerHTML]="item.body | shorten: 150: '...' | stripTags"></div>
+        <div class="bottom m-y-sm" fxLayoutAlign="space-between center">
+          <div fxLayoutGap="1rem" fxLayout fxLayoutAlign="start center">
+            <div>{{item.user | ucfirst}} {{item?.type | wrap:'| '}}</div>
+            <div class="actions">
+              <app-dynamic-widgets [content]="action" *ngFor="let action of item.actions"></app-dynamic-widgets>
+            </div>
           </div>
+          <div>{{item.created}}</div>
         </div>
-        <div>{{item.created}}</div>
       </div>
     </div>
     <app-pagination *ngIf="content?.length > 0;else empty" (pageChange)="onPageChange($event)"></app-pagination>

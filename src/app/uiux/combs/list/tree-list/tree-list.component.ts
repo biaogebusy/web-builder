@@ -14,6 +14,7 @@ import { BaseComponent } from '@uiux/base/base.widget';
 import { ScreenService } from '@core/service/screen.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { AppState } from '@core/mobx/AppState';
 
 @Component({
   selector: 'app-tree-list',
@@ -38,7 +39,8 @@ export class TreeListComponent
     private router: ActivatedRoute,
     public routerService: RouteService,
     private screenService: ScreenService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private appState: AppState
   ) {
     super();
   }
@@ -102,6 +104,13 @@ export class TreeListComponent
         user: item.user,
         type: item.type || '',
         actions: item.actions || [],
+        img: {
+          src: item?.img || this.appState.defaultThumb,
+          alt: item?.title,
+          href: item?.url,
+          target: '_blank',
+          classes: 'object-fit',
+        },
       };
     });
     this.cd.detectChanges();
