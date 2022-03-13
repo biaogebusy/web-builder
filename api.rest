@@ -298,10 +298,19 @@ Content-Type: application/x-www-form-urlencoded
 @consultID = dfc8256d-7526-480a-b354-06d584204537
 
 ### 案源广场 - 全部
-GET {{apiUrl}}/api/v1/node/consult?fields[node--consult]=title,uid,changed,consult_answer,field_tags&include=uid,uid.user_picture,field_tags&fields[taxonomy_term--consult_type]=name&fields[user--user]=name,user_picture&fields[file--file]=uri,url&jsonapi_include=1
+GET {{apiUrl}}/api/v1/node/consult?fields[node--consult]=title,uid,changed,consult_answer,field_tags,moderation_state&include=uid,uid.user_picture,field_tags&fields[taxonomy_term--consult_type]=name&fields[user--user]=name,user_picture&fields[file--file]=uri,url&jsonapi_include=1&page[limit]=10
 
 ### 某个咨询的全部回复
-GET {{apiUrl}}/api/v1/comment/consult_answer?filter[entity_id.id]={{consultID}}&include=uid,uid.user_picture&fields[user--user]=name,user_picture&fields[file--file]=uri,url&sort=-created&filter[status]=1&jsonapi_include=1
+GET {{apiUrl}}/api/v1/comment/consult_answer?filter[entity_id.id]=dfc8256d-7526-480a-b354-06d584204537&include=uid,uid.user_picture&fields[user--user]=name,user_picture&fields[file--file]=uri,url&sort=-created&filter[status]=1&jsonapi_include=1
+
+### 获取待发布咨询
+GET {{apiUrl}}/api/v1/node/consult?fields[node--consult]=title,uid,changed,consult_answer,field_tags&include=uid,uid.user_picture,field_tags&fields[taxonomy_term--consult_type]=name&fields[user--user]=name,user_picture&fields[file--file]=uri,url&filter[assist_moderation_state]=draft&jsonapi_include=1
+
+### 获取咨询已回复的node
+GET {{apiUrl}}/api/v1/node/consult?fields[node--consult]=title,uid,changed,consult_answer,field_tags&include=uid,uid.user_picture,field_tags&fields[taxonomy_term--consult_type]=name&fields[user--user]=name,user_picture&fields[file--file]=uri,url&jsonapi_include=1
+
+### 查看某个用户的发布的咨询的回复数
+GET {{apiUrl}}/api/v1/node/consult
 
 ### 回复某个咨询
 POST {{apiUrl}}/api/v1/comment/consult_answer
@@ -351,7 +360,8 @@ X-CSRF-Token: {{csrfToken}}
   "data": {
     "type": "node--consult",
     "attributes": {
-      "title": "new consult by Johnson",
+      "title": "new consult by Johnson status false",
+      "status":false,
       "body": {
         "value": "Hello world! Lorem ipsum dolor sit amet consectetur adipiscing elit",
         "format": "plain_text"

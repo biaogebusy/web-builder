@@ -202,8 +202,13 @@
     }, {
       "type": "checkbox",
       "label": "文章<span>50</span>",
-      "key": "type",
-      "value": "article"
+      "key": "article",
+      "value": true
+    }, {
+      "type": "checkbox",
+      "label": "博客<span>20</span>",
+      "key": "blog",
+      "value": true
     }]
   }]
 }
