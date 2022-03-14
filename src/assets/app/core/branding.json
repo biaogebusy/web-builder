@@ -52,7 +52,11 @@
       {
         "label": "自习室",
         "classes": "bold",
-        "href": "/lists/blog"
+        "href": "/lists/blog",
+        "queryParams": {
+          "demo": "466"
+        },
+        "fragment": "title"
       }, {
         "label": "案例",
         "classes": "bold",
