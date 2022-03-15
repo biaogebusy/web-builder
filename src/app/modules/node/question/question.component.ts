@@ -6,11 +6,14 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { UserState } from '@core/mobx/user/UserState';
 import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { LoginComponent } from '../../user/login/login.component';
 
 @Component({
   selector: 'app-question',
@@ -25,13 +28,16 @@ export class QuestionComponent implements OnInit, OnDestroy {
   isAsked = false;
   myCommentId = '';
   myCommentContent = '';
+  dialogRef: MatDialogRef<any>;
 
   destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     private nodeService: NodeService,
-    private userState: UserState,
+    public userState: UserState,
     private screenService: ScreenService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private router: Router,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -80,6 +86,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
           this.myCommentContent = res.data[0].attributes.content.processed;
         } else {
           this.isAsked = false;
+          this.showEditor = false;
           this.myCommentId = '';
           this.myCommentContent = '';
         }
@@ -126,6 +133,20 @@ export class QuestionComponent implements OnInit, OnDestroy {
             content: comment.content.processed,
           };
         });
+        this.cd.detectChanges();
+      });
+  }
+
+  openLogin(): void {
+    const returnUrl = window.location.pathname;
+    this.router.navigate([], {
+      queryParams: { returnUrl },
+    });
+    this.dialogRef = this.dialog.open(LoginComponent);
+    this.dialogRef
+      .afterClosed()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
         this.cd.detectChanges();
       });
   }

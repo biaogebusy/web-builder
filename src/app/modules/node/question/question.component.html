@@ -6,7 +6,10 @@
     <h2 class="title">{{content.title}}</h2>
     <div class="question-details" [innerHTML]="content.body"></div>
     <div class="actions m-y-sm">
-      <button *ngIf="!isAsked" mat-raised-button color="primary" (click)="onShowEditor()">
+      <button *ngIf="!userState.authenticated" mat-raised-button color="primary" (click)="openLogin()">
+        <mat-icon>person</mat-icon> 登录作答
+      </button>
+      <button *ngIf="!isAsked && userState.authenticated" mat-raised-button color="primary" (click)="onShowEditor()">
         <mat-icon>editor</mat-icon> 回答
       </button>
       <button *ngIf="isAsked" mat-raised-button color="warn" (click)="checkQuestion(myCommentId)">
