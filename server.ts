@@ -51,7 +51,9 @@ export function app(): express.Express {
   );
   server.use(bodyParser.json());
   server.use(bodyParser.urlencoded({ extended: false }));
-  server.use(helmet({ contentSecurityPolicy: false }));
+  server.use(
+    helmet({ contentSecurityPolicy: false, crossOriginEmbedderPolicy: false })
+  );
   const indexHtml = existsSync(join(distFolder, 'index.original.html'))
     ? 'index.original.html'
     : 'index';
