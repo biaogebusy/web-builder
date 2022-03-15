@@ -2,6 +2,9 @@ import 'zone.js/dist/zone-node';
 import { ngExpressEngine } from '@nguniversal/express-engine';
 import express from 'express';
 import { join } from 'path';
+import bodyParser from 'body-parser';
+import rateLimit from 'express-rate-limit';
+import helmet from 'helmet';
 import { environment } from 'src/environments/environment';
 
 const compressionModule = require('compression');
@@ -37,7 +40,18 @@ const distFolder = join(process.cwd(), `${environment.site}/browser`);
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
   const server = express();
+  server.use(helmet());
   server.use(compressionModule({ level: 6 }));
+  server.use(
+    rateLimit({
+      windowMs: 15 * 60 * 1000, // 15 minutes
+      max: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+      standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+      legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+    })
+  );
+  server.use(bodyParser.json());
+  server.use(bodyParser.urlencoded({ extended: false }));
   const indexHtml = existsSync(join(distFolder, 'index.original.html'))
     ? 'index.original.html'
     : 'index';
