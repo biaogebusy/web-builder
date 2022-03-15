@@ -50,7 +50,6 @@ export class DownloadComponent implements OnInit, OnDestroy {
 
   checkAccess(data: any): void {
     this.nodeService.checkNodeAccess(data).subscribe((access) => {
-      console.log(access);
       this.canAccess = access.canAccess;
       this.isReqRule = access.isReqRule;
       this.isPayed = access.isPayed;

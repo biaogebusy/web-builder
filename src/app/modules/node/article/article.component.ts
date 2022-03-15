@@ -98,7 +98,6 @@ export class ArticleComponent
     this.nodeService
       .checkNodeAccess(this.content.params)
       .subscribe((access) => {
-        console.log(access);
         this.canAccess = access.canAccess;
         this.isReqRule = access.isReqRule;
         this.isPayed = access.isPayed;
