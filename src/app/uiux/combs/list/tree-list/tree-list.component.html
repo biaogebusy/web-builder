@@ -3,8 +3,9 @@
     <div fxLayoutAlign="space-bewteen start" fxFlex="100" fxLayout="row wrap">
       <div fxLayout="row wrap" class="left {{content.tree.length <2?'sticky':''}}" fxFlex.lt-md="0 0 100"
         fxFlex.gt-sm="0 0 25%">
-        <app-tree class="m-y" *ngFor="let tree of content.tree; trackBy: trackByFn" (treeChange)="onTreeChange($event)"
-          fxFlex="0 1 100" [content]="tree">
+        <app-tree class="m-y" [defaultActive]="defaultValue[tree.key]"
+          *ngFor="let tree of content.tree; trackBy: trackByFn" (treeChange)="onTreeChange($event)" fxFlex="0 1 100"
+          [content]="tree">
         </app-tree>
       </div>
       <div fxLayout="row wrap" class="main" fxFlex.lt-md="0 0 100" fxFlex.gt-sm="0 0 {{content.tree ? '75%':'100%'}}">

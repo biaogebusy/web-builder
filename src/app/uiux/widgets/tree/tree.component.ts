@@ -18,6 +18,7 @@ import { ScreenService } from '@core/service/screen.service';
 })
 export class TreeComponent implements OnInit, AfterViewInit {
   @Input() content: ITree;
+  @Input() defaultActive: number;
   @Output() treeChange = new EventEmitter();
   @ViewChild('tree') tree: any;
 
@@ -40,6 +41,11 @@ export class TreeComponent implements OnInit, AfterViewInit {
     if (this.screenService.isPlatformBrowser()) {
       if (this.content.expandAll) {
         this.tree.treeModel.expandAll();
+      }
+      if (this.defaultActive) {
+        this.tree.treeModel
+          .getNodeById(this.defaultActive)
+          .setActiveAndVisible();
       }
     }
   }

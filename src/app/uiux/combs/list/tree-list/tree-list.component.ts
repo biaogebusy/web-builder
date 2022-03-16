@@ -13,8 +13,10 @@ import { RouteService } from '@core/service/route.service';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { ScreenService } from '@core/service/screen.service';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { AppState } from '@core/mobx/AppState';
+import { FormGroup } from '@angular/forms';
+import { FormService } from '@core/service/form.service';
 
 @Component({
   selector: 'app-tree-list',
@@ -32,6 +34,8 @@ export class TreeListComponent
   page: number;
   pager: any;
   formState: any = {};
+  form: FormGroup;
+  defaultValue: any;
 
   destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
@@ -40,33 +44,47 @@ export class TreeListComponent
     public routerService: RouteService,
     private screenService: ScreenService,
     private cd: ChangeDetectorRef,
-    private appState: AppState
+    private appState: AppState,
+    private formService: FormService
   ) {
     super();
   }
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.router.queryParams.subscribe((query: any) => {
-        const initQuery: any = {};
-        this.content.tree.forEach((item: any) => {
-          initQuery[item.key] = item.value;
+      this.router.queryParams
+        .pipe(distinctUntilChanged())
+        .subscribe((query: any) => {
+          this.initForm(
+            this.initFormValueWithUrlQuery(query, this.content.tree)
+          );
+          this.defaultValue = query;
+          this.page = query.page || 0;
+          const queryOpt = omitBy(
+            Object.assign(
+              {
+                page: this.page,
+              },
+              query
+            ),
+            isEmpty
+          );
+          this.nodeSearch(queryOpt);
         });
-        this.page = query.page || 0;
-        // TODO: assign query
-        const queryOpt = omitBy(
-          Object.assign(
-            {
-              page: this.page,
-            },
-            query,
-            initQuery
-          ),
-          isEmpty
-        );
-        this.nodeSearch(initQuery);
-      });
     }
+  }
+
+  initForm(items: any[]): void {
+    this.form = this.formService.toFormGroup(items);
+    this.form.valueChanges
+      .pipe(
+        debounceTime(1000),
+        distinctUntilChanged(),
+        takeUntil(this.destroy$)
+      )
+      .subscribe((value) => {
+        this.nodeSearch(value);
+      });
   }
 
   nodeSearch(params: any): void {
@@ -78,7 +96,7 @@ export class TreeListComponent
         (data) => {
           this.updateList(data);
           this.routerService.updateQueryParams(
-            this.getUrlQuery(this.formState)
+            this.getUrlQuery(this.form.value)
           );
           this.loading = false;
           this.cd.detectChanges();
@@ -88,6 +106,7 @@ export class TreeListComponent
           this.cd.detectChanges();
         }
       );
+    this.cd.detectChanges();
   }
 
   updateList(data: any): void {
@@ -130,8 +149,7 @@ export class TreeListComponent
   }
 
   onTreeChange(option: any): void {
-    this.formState = Object.assign(this.formState, option);
-    this.nodeSearch(this.formState);
+    this.form.patchValue(option);
   }
 
   trackByFn(index: number, item: any): number {

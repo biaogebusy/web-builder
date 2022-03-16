@@ -10,7 +10,7 @@ import { ApiService } from '@core/service/api.service';
 export class FormService {
   constructor(private http: HttpClient, private apiService: ApiService) {}
 
-  toFormGroup(items: any): any {
+  toFormGroup(items: any[]): any {
     const group: any = {};
     items.forEach((item: any) => {
       switch (item.type) {
