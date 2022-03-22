@@ -20,7 +20,10 @@
         <div [innerHTML]="item.body | shorten: 150: '...' | stripTags"></div>
         <div class="bottom m-y-sm" fxLayoutAlign="space-between center">
           <div fxLayoutGap="1rem" fxLayout fxLayoutAlign="start center">
-            <div>{{item.user | ucfirst}} {{item?.type | wrap:'| '}}</div>
+            <div>{{item.user | ucfirst}}</div>
+            <div>{{item?.type}}</div>
+            <div [innerHTML]="item?.category"></div>
+            <div [innerHTML]="item?.tags"></div>
             <div class="actions">
               <app-dynamic-widgets [content]="action" *ngFor="let action of item.actions"></app-dynamic-widgets>
             </div>

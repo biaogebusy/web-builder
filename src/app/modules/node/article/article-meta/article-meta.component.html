@@ -6,7 +6,7 @@
     </ng-container>
     <ng-template #value>
       <div class="label">{{item.label}}:&nbsp;</div>
-      <div>{{item.value}}</div>
+      <div [innerHTML]="item.value"></div>
     </ng-template>
   </div>
 </div>

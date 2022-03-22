@@ -122,6 +122,8 @@ export class TreeListComponent
         body: item.body,
         user: item.user,
         type: item.type || '',
+        category: item?.category,
+        tags: item?.field_tags,
         actions: item.actions || [],
         img: {
           src: item?.img || this.appState.defaultThumb,
