@@ -61,6 +61,7 @@ import { MediaMetaComponent } from './media/media-meta/media-meta.component';
 import { TextHeroComponent } from './text-hero/text-hero.component';
 import { FontChangeComponent } from './font-change/font-change.component';
 import { CheckboxComponent } from './form/checkbox/checkbox.component';
+import { ContentBoxComponent } from './content-box/content-box.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -87,6 +88,7 @@ const components = [
   SpacerComponent,
   SpinnerComponent,
   CheckboxComponent,
+  ContentBoxComponent,
   ChipListComponent,
   TextareaComponent,
   LineYearComponent,

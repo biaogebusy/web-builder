@@ -1,0 +1,113 @@
+{
+  "body": [{
+    "type": "packery",
+    "config": {
+      "gutter": 0,
+      "imagesLoaded": true,
+      "percentPosition": true
+    },
+    "spacer": "md",
+    "text": {
+      "title": {
+        "label": "Feature Content",
+        "style": "style-v4",
+        "classes": "mat-display-1 text-light"
+      },
+      "body": "<p class=\"text-light\">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.</p>"
+    },
+    "bg": {
+      "classes": "bg-fill-width bg-shadow overlay overlay-80",
+      "img": {
+        "hostClasses": "",
+        "src": "/assets/images/illustration/home-shape.png",
+        "mobile": "/assets/images/illustration/home-shape.png"
+      }
+    },
+    "fullWidth": false,
+    "elements": [{
+      "type": "content-box",
+      "width": "33.33",
+      "link": "#",
+      "ratios": "media-4-3",
+      "subTitle": "News",
+      "title": "Corporate America, Confronting Racism and Sexual Misconduct, Turns to Big Law to Investigate Its Culture",
+      "img": {
+        "classes": "object-fit",
+        "src": "/assets/images/cases/porto1.jpg",
+        "alt": "alt"
+      }
+    }, {
+      "type": "content-box",
+      "width": "33.33",
+      "link": "#",
+      "ratios": "media-4-3",
+      "subTitle": "Insights",
+      "title": "Ukraine Crisis: Resources for Responding to the Impact of the Escalating Conflict",
+      "img": {
+        "classes": "object-fit",
+        "src": "/assets/images/cases/porto2.jpg",
+        "alt": "alt"
+      }
+    }, {
+      "type": "content-box",
+      "width": "33.33",
+      "link": "#",
+      "ratios": "media-4-3",
+      "subTitle": "News",
+      "title": "Corporate America, Confronting Racism and Sexual Misconduct, Turns to Big Law to Investigate Its Culture",
+      "img": {
+        "classes": "object-fit",
+        "src": "/assets/images/cases/porto3.jpg",
+        "alt": "alt"
+      }
+    }, {
+      "type": "content-box",
+      "width": "33.33",
+      "link": "#",
+      "ratios": "media-4-3",
+      "subTitle": "News",
+      "title": "Carol Browner Receives Environmental Law Institute’s Environmental Achievement Award",
+      "img": {
+        "classes": "object-fit",
+        "src": "/assets/images/cases/porto4.jpg",
+        "alt": "alt"
+      }
+    }, {
+      "type": "content-box",
+      "width": "33.33",
+      "link": "#",
+      "ratios": "media-4-3",
+      "subTitle": "News",
+      "title": "Covington Blogs",
+      "img": {
+        "classes": "object-fit",
+        "src": "/assets/images/cases/porto5.jpg",
+        "alt": "alt"
+      }
+    }, {
+      "type": "content-box",
+      "width": "33.33",
+      "link": "#",
+      "ratios": "media-4-3",
+      "subTitle": "News",
+      "title": "Covington Ranks First in The American Lawyer’s 2021 Pro Bono Scorecard",
+      "img": {
+        "classes": "object-fit",
+        "src": "/assets/images/cases/porto6.jpg",
+        "alt": "alt"
+      }
+    }, {
+      "type": "content-box",
+      "width": "100",
+      "link": "#",
+      "ratios": "media-2-1",
+      "subTitle": "News",
+      "title": "Corporate America, Confronting Racism and Sexual Misconduct, Turns to Big Law to Investigate Its Culture",
+      "img": {
+        "classes": "object-fit",
+        "src": "/assets/images/cases/porto7.jpg",
+        "alt": "alt"
+      }
+    }]
+  }]
+}

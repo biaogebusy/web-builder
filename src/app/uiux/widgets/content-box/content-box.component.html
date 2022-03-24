@@ -1,0 +1,13 @@
+<div class="content-box position-relative">
+  <div class="media" [ngClass]="content.ratios || 'media-4-3'">
+    <app-img *ngIf="content.img" [content]="content.img"></app-img>
+  </div>
+  <div class="inner p-x-sm p-y-sm">
+    <div class="sub-title text-light" *ngIf="content.subTitle">{{content.subTitle}}</div>
+    <h2 class="title two-line">
+      <a class="text-light" href="{{content.link}}" [title]="content?.title">
+        {{content.title}}
+      </a>
+    </h2>
+  </div>
+</div>

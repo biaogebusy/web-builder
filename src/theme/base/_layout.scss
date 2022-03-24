@@ -174,3 +174,47 @@ a.anchor {
 .overflow-hidden {
   overflow: hidden;
 }
+
+.media {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  display: flex;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  &:before {
+    content: "";
+    display: block;
+  }
+  &.media-2-1 {
+    &:before {
+      margin-top: 50%;
+    }
+  }
+  &.media-16-9 {
+    &:before {
+      margin-top: 56.25%;
+    }
+  }
+  &.media-4-3 {
+    &:before {
+      margin-top: 75%;
+    }
+  }
+  &.media-1-1 {
+    &:before {
+      margin-top: 100%;
+    }
+  }
+  &.media-1-2 {
+    &:before {
+      margin-top: 200%;
+    }
+  }
+  &.media-140 {
+    &:before {
+      margin-top: 140%;
+    }
+  }
+}

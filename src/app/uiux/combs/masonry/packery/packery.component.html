@@ -3,11 +3,11 @@
   <app-bg-img [content]="content.bg"></app-bg-img>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <app-text [content]="content.text" *ngIf="content.text"></app-text>
-  <div class="container">
+  <div class="{{content.fullWidth?'':'container'}}">
     <ngx-packery #packery [options]="config">
-      <ngx-packery-item fxFlex.lt-md="0 0 50" fxFlex.gt-sm="0 0 {{item.width || 20}}"
+      <ngx-packery-item fxFlex.lt-md="0 0 100" fxFlex.gt-sm="0 0 {{item.width || 20}}"
         *ngFor="let item of content.elements">
-        <app-feature-box [content]="item"></app-feature-box>
+        <app-dynamic-widgets [content]="item"></app-dynamic-widgets>
       </ngx-packery-item>
       <ngx-packery-item fxFlex="0 0 100">
         <!-- fix bug -->
