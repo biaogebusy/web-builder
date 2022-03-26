@@ -3,11 +3,11 @@
     <app-img *ngIf="content.img" [content]="content.img"></app-img>
   </div>
   <div class="inner p-x-sm p-y-sm">
-    <div class="sub-title text-light" *ngIf="content.subTitle">{{content.subTitle}}</div>
+    <div class="sub-title" *ngIf="content.subTitle">
+      <app-link [content]="content.subTitle"></app-link>
+    </div>
     <h2 class="title two-line">
-      <a class="text-light" href="{{content.link}}" [title]="content?.title">
-        {{content.title}}
-      </a>
+      <app-link [content]="content.title"></app-link>
     </h2>
   </div>
 </div>

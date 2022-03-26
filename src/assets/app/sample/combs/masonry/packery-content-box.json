@@ -7,14 +7,6 @@
       "percentPosition": true
     },
     "spacer": "md",
-    "text": {
-      "title": {
-        "label": "Feature Content",
-        "style": "style-v4",
-        "classes": "mat-display-1 text-light"
-      },
-      "body": "<p class=\"text-light\">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.</p>"
-    },
     "bg": {
       "classes": "bg-fill-width bg-shadow overlay overlay-80",
       "img": {
@@ -23,14 +15,19 @@
         "mobile": "/assets/images/illustration/home-shape.png"
       }
     },
-    "fullWidth": false,
+    "fullWidth": true,
     "elements": [{
       "type": "content-box",
       "width": "33.33",
-      "link": "#",
       "ratios": "media-4-3",
-      "subTitle": "News",
-      "title": "Corporate America, Confronting Racism and Sexual Misconduct, Turns to Big Law to Investigate Its Culture",
+      "subTitle": {
+        "label": "音乐",
+        "href": "/search?law_category=25"
+      },
+      "title": {
+        "label": "最高人民法院关于深化执行改革健全解决执行难长效机制的意见——人民法院执行工作纲要（2019—2023）法发〔2019〕16号",
+        "href": "/article/58"
+      },
       "img": {
         "classes": "object-fit",
         "src": "/assets/images/cases/porto1.jpg",
@@ -39,10 +36,15 @@
     }, {
       "type": "content-box",
       "width": "33.33",
-      "link": "#",
       "ratios": "media-4-3",
-      "subTitle": "Insights",
-      "title": "Ukraine Crisis: Resources for Responding to the Impact of the Escalating Conflict",
+      "subTitle": {
+        "label": "影视",
+        "href": "/search?law_category=27"
+      },
+      "title": {
+        "label": "最高人民法院关于审理生态环境损害赔偿案件的若干规定（试行）",
+        "href": "/article/59"
+      },
       "img": {
         "classes": "object-fit",
         "src": "/assets/images/cases/porto2.jpg",
@@ -51,10 +53,15 @@
     }, {
       "type": "content-box",
       "width": "33.33",
-      "link": "#",
       "ratios": "media-4-3",
-      "subTitle": "News",
-      "title": "Corporate America, Confronting Racism and Sexual Misconduct, Turns to Big Law to Investigate Its Culture",
+      "subTitle": {
+        "label": "商务代言",
+        "href": "/search?law_category=13"
+      },
+      "title": {
+        "label": "当代言人成为“失德艺人”，品牌方如何做好广告代言合规——娱乐行业合规③丨星瀚文娱",
+        "href": "/article/40"
+      },
       "img": {
         "classes": "object-fit",
         "src": "/assets/images/cases/porto3.jpg",
@@ -62,11 +69,16 @@
       }
     }, {
       "type": "content-box",
-      "width": "33.33",
-      "link": "#",
+      "width": "25",
       "ratios": "media-4-3",
-      "subTitle": "News",
-      "title": "Carol Browner Receives Environmental Law Institute’s Environmental Achievement Award",
+      "subTitle": {
+        "label": "直播",
+        "href": "/search?law_category=28"
+      },
+      "title": {
+        "label": "致高原创 | 主播解约诉讼案件评析【测试：支付可查看】",
+        "href": "/article/46"
+      },
       "img": {
         "classes": "object-fit",
         "src": "/assets/images/cases/porto4.jpg",
@@ -74,23 +86,16 @@
       }
     }, {
       "type": "content-box",
-      "width": "33.33",
-      "link": "#",
+      "width": "25",
       "ratios": "media-4-3",
-      "subTitle": "News",
-      "title": "Covington Blogs",
-      "img": {
-        "classes": "object-fit",
-        "src": "/assets/images/cases/porto5.jpg",
-        "alt": "alt"
-      }
-    }, {
-      "type": "content-box",
-      "width": "33.33",
-      "link": "#",
-      "ratios": "media-4-3",
-      "subTitle": "News",
-      "title": "Covington Ranks First in The American Lawyer’s 2021 Pro Bono Scorecard",
+      "subTitle": {
+        "label": "综艺",
+        "href": "/search?law_category=35"
+      },
+      "title": {
+        "label": "从影视公司角度解析已有作品改编权的法律问题",
+        "href": "/article/62"
+      },
       "img": {
         "classes": "object-fit",
         "src": "/assets/images/cases/porto6.jpg",
@@ -98,14 +103,36 @@
       }
     }, {
       "type": "content-box",
-      "width": "100",
-      "link": "#",
-      "ratios": "media-2-1",
-      "subTitle": "News",
-      "title": "Corporate America, Confronting Racism and Sexual Misconduct, Turns to Big Law to Investigate Its Culture",
+      "width": "25",
+      "ratios": "media-4-3",
+      "subTitle": {
+        "label": "经济合同",
+        "href": "/search?law_category=36"
+      },
+      "title": {
+        "label": "电影代理发行合同（买断模式）",
+        "href": "/article/61"
+      },
       "img": {
         "classes": "object-fit",
         "src": "/assets/images/cases/porto7.jpg",
+        "alt": "alt"
+      }
+    }, {
+      "type": "content-box",
+      "width": "25",
+      "ratios": "media-4-3",
+      "subTitle": {
+        "label": "维权与公关",
+        "href": "/search?law_category=37"
+      },
+      "title": {
+        "label": "刚刚央行降息！楼市再次被排除在外，会不会转向加息？",
+        "href": "/article/20"
+      },
+      "img": {
+        "classes": "object-fit",
+        "src": "/assets/images/cases/porto5.jpg",
         "alt": "alt"
       }
     }]

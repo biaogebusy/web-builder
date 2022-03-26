@@ -8,6 +8,12 @@
     .title {
       line-height: 1.5;
     }
+    ::ng-deep {
+      a {
+        color: #fff;
+        opacity: 0.85;
+      }
+    }
   }
   .media {
     transition: transform 0.25s ease-in-out;
