@@ -30,11 +30,17 @@
       "ratios": "media-4-3",
       "subTitle": {
         "label": "音乐",
-        "href": "/search?law_category=25"
+        "href": "/search",
+        "queryParams": {
+          "law_category": 25
+        }
       },
       "title": {
-        "label": "最高人民法院关于深化执行改革健全解决执行难长效机制的意见——人民法院执行工作纲要（2019—2023）法发〔2019〕16号",
-        "href": "/article/58"
+        "label": "音乐版权发行代理顾问服务",
+        "href": "/search",
+        "queryParams": {
+          "law_category": 25
+        }
       },
       "img": {
         "classes": "object-fit",
@@ -47,11 +53,17 @@
       "ratios": "media-4-3",
       "subTitle": {
         "label": "影视",
-        "href": "/search?law_category=27"
+        "href": "/search",
+        "queryParams": {
+          "law_category": 27
+        }
       },
       "title": {
-        "label": "最高人民法院关于审理生态环境损害赔偿案件的若干规定（试行）",
-        "href": "/article/59"
+        "label": "影视项目投融资法律顾问，影视电视拍摄全程法律顾问",
+        "href": "/search",
+        "queryParams": {
+          "law_category": 27
+        }
       },
       "img": {
         "classes": "object-fit",
@@ -64,11 +76,17 @@
       "ratios": "media-4-3",
       "subTitle": {
         "label": "商务代言",
-        "href": "/search?law_category=13"
+        "href": "/search",
+        "queryParams": {
+          "law_category": 13
+        }
       },
       "title": {
-        "label": "当代言人成为“失德艺人”，品牌方如何做好广告代言合规——娱乐行业合规③丨星瀚文娱",
-        "href": "/article/40"
+        "label": "电视影视作品联合拍摄、外资引进专项法律顾问",
+        "href": "/search",
+        "queryParams": {
+          "law_category": 13
+        }
       },
       "img": {
         "classes": "object-fit",
@@ -81,11 +99,17 @@
       "ratios": "media-4-3",
       "subTitle": {
         "label": "直播",
-        "href": "/search?law_category=28"
+        "href": "/search",
+        "queryParams": {
+          "law_category": 28
+        }
       },
       "title": {
-        "label": "致高原创 | 主播解约诉讼案件评析【测试：支付可查看】",
-        "href": "/article/46"
+        "label": "直播平台、电视台等媒体法律风险防控",
+        "href": "/search",
+        "queryParams": {
+          "law_category": 28
+        }
       },
       "img": {
         "classes": "object-fit",
@@ -98,11 +122,17 @@
       "ratios": "media-4-3",
       "subTitle": {
         "label": "综艺",
-        "href": "/search?law_category=35"
+        "href": "/search",
+        "queryParams": {
+          "law_category": 35
+        }
       },
       "title": {
-        "label": "从影视公司角度解析已有作品改编权的法律问题",
-        "href": "/article/62"
+        "label": "综艺作品内容法律风险审查与规避",
+        "href": "/search",
+        "queryParams": {
+          "law_category": 35
+        }
       },
       "img": {
         "classes": "object-fit",
@@ -115,11 +145,17 @@
       "ratios": "media-4-3",
       "subTitle": {
         "label": "经济合同",
-        "href": "/search?law_category=36"
+        "href": "/search",
+        "queryParams": {
+          "law_category": 36
+        }
       },
       "title": {
-        "label": "电影代理发行合同（买断模式）",
-        "href": "/article/61"
+        "label": "项目投融资法律顾问",
+        "href": "/search",
+        "queryParams": {
+          "law_category": 25
+        }
       },
       "img": {
         "classes": "object-fit",
@@ -132,11 +168,17 @@
       "ratios": "media-4-3",
       "subTitle": {
         "label": "维权与公关",
-        "href": "/search?law_category=37"
+        "href": "/search",
+        "queryParams": {
+          "law_category": 37
+        }
       },
       "title": {
-        "label": "刚刚央行降息！楼市再次被排除在外，会不会转向加息？",
-        "href": "/article/20"
+        "label": "明星艺人/演员/模特/网红经纪法律服务",
+        "href": "/search",
+        "queryParams": {
+          "law_category": 37
+        }
       },
       "img": {
         "classes": "object-fit",
