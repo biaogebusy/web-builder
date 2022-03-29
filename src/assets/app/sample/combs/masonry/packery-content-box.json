@@ -7,8 +7,16 @@
       "percentPosition": true
     },
     "spacer": "md",
+    "text": {
+      "title": {
+        "label": "Our Products",
+        "style": "style-v1",
+        "classes": "mat-display-1"
+      },
+      "body": "<p class=\"text-center\">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.</p>"
+    },
     "bg": {
-      "classes": "bg-fill-width bg-shadow overlay overlay-80",
+      "classes": "bg-fill-width bg-shadow",
       "img": {
         "hostClasses": "",
         "src": "/assets/images/illustration/home-shape.png",
