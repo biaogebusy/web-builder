@@ -1,6 +1,6 @@
 <ng-container *ngIf="content">
   <div #swiper class="swiper-container" *ngIf="content.elements.length > 0" [swiper]="config" [(index)]="index">
-    <div class="swiper-wrapper" [ngClass]="content.classes">
+    <div class="swiper-wrapper">
       <div class="swiper-slide" *ngFor="let slide of content.elements">
         <app-dynamic-widgets [content]="slide"></app-dynamic-widgets>
       </div>
