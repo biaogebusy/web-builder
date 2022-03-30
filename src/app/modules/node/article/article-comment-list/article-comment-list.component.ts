@@ -1,8 +1,10 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  EventEmitter,
   Input,
   OnInit,
+  Output,
 } from '@angular/core';
 
 @Component({
@@ -14,14 +16,14 @@ import {
 export class ArticleCommentListComponent implements OnInit {
   @Input() content: any[];
   @Input() currentUserId: any;
-
+  @Output() deleted = new EventEmitter();
   loading: boolean;
   constructor() {}
 
   ngOnInit(): void {}
 
   onDeleteMyQuestion(id: string): void {
-    console.log(id);
+    this.deleted.emit(id);
   }
 
   trackByFn(index: number, item: any): number {

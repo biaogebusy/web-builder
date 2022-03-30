@@ -14,7 +14,8 @@
           <!-- <button *ngIf="item.id === myCommentId" mat-button color="primary" (click)="onUpdateMyQuestion()">
             <mat-icon>editor</mat-icon> 修改
           </button> -->
-          <button *ngIf="item.id === currentUserId" mat-button color="primary" (click)="onDeleteMyQuestion(item.id)">
+          <button *ngIf="item.author.id === currentUserId" mat-button color="primary"
+            (click)="onDeleteMyQuestion(item.id)">
             <div fxLayoutAlign="center center">
               <mat-spinner diameter="20" *ngIf="loading"></mat-spinner>
               <mat-icon *ngIf="!loading">delete</mat-icon> 删除
