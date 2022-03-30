@@ -9,6 +9,7 @@ import { CountdownModule } from 'ngx-countdown';
 import { UserComponent } from './user.component';
 import { UserHomeComponent } from './user-home/user-home.component';
 import { UserFavoriteComponent } from './user-favorite/user-favorite.component';
+import { UserPayComponent } from './user-pay/user-pay.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { UserFavoriteComponent } from './user-favorite/user-favorite.component';
     UserComponent,
     UserHomeComponent,
     UserFavoriteComponent,
+    UserPayComponent,
   ],
   imports: [
     ShareModule,

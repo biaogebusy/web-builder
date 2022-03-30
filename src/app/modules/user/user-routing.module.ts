@@ -4,6 +4,7 @@ import { LoginComponent } from './login/login.component';
 import { UserComponent } from './user.component';
 import { UserHomeComponent } from './user-home/user-home.component';
 import { UserFavoriteComponent } from './user-favorite/user-favorite.component';
+import { UserPayComponent } from './user-pay/user-pay.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,10 @@ const routes: Routes = [
       {
         path: 'favorite',
         component: UserFavoriteComponent,
+      },
+      {
+        path: 'pay',
+        component: UserPayComponent,
       },
     ],
   },
