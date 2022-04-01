@@ -178,7 +178,6 @@ export class ArticleComponent
   }
 
   onDeleted(id: string): void {
-    console.log(id);
     const path = `${this.appState.apiUrlConfig.commentGetPath}/comment`;
     this.nodeService
       .deleteEntity(path, id, this.userState.csrfToken)
@@ -186,6 +185,7 @@ export class ArticleComponent
       .subscribe((res) => {
         this.uti.openSnackbar('您的回答已删除！', '√');
         this.getComments();
+        this.cd.detectChanges();
       });
   }
 
