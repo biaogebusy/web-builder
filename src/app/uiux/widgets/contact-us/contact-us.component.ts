@@ -7,8 +7,6 @@ import {
 } from '@angular/core';
 import { FormService } from '@core/service/form.service';
 import { FormGroup } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-import { ApiService } from '@core/service/api.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 
 // TODO: need move to combs

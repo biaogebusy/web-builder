@@ -1,0 +1,6 @@
+<section [formGroup]="form" fxLayoutAlign="start center">
+  <mat-checkbox class="m-right-xs" formControlName="{{content.key}}" [(ngModel)]="content.value">
+  </mat-checkbox>
+  <a (click)="openTermService(content?.params?.title)" href="javascript:void(0)" class="line-height-1" fxLayout="row"
+    fxLayoutAlign="space-between center" [innerHTML]="content.label"></a>
+</section>

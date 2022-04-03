@@ -13,7 +13,7 @@
           </div>
         </div>
         <div fxFlexOrder="{{content.formOrder || 10}}" fxFlex.lt-md="100" fxFlex.gt-sm="40" fxLayout="column">
-          <div class="p-x-sm">
+          <div class="p-x-sm" fxLayoutAlign="start center" fxLayout="row wrap" fxFlex="100">
             <app-dynamic-form-control *ngFor="let item of content.forms" [control]="item" [form]="form">
             </app-dynamic-form-control>
           </div>

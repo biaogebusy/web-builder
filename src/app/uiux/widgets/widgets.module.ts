@@ -62,6 +62,7 @@ import { TextHeroComponent } from './text-hero/text-hero.component';
 import { FontChangeComponent } from './font-change/font-change.component';
 import { CheckboxComponent } from './form/checkbox/checkbox.component';
 import { ContentBoxComponent } from './content-box/content-box.component';
+import { TermsServiceComponent } from './form/terms-service/terms-service.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -118,6 +119,7 @@ const components = [
   TreeComponent,
   DownloadComponent,
   FontChangeComponent,
+  TermsServiceComponent,
   SearchActionComponent,
   MediaObjectGroupComponent,
   DynamicFormControlComponent,
