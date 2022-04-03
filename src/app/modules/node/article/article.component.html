@@ -53,7 +53,7 @@
         <app-article-comment [form]="commentForm" [content]="content.comment" (submit)="onSubmit()"
           *ngIf="userState.authenticated && appState?.article?.comment?.enabel && content.comment">
         </app-article-comment>
-        <app-article-comment-list *ngIf="userState.authenticated" [content]="comments"
+        <app-article-comment-list *ngIf="userState.authenticated" [content]="comments" (deleted)="onDeleted($event)"
           [currentUserId]="userState.currentUser.id">
         </app-article-comment-list>
       </div>

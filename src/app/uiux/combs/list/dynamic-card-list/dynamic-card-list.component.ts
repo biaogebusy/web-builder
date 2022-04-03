@@ -80,7 +80,7 @@ export class DynamicCardListComponent extends BaseComponent implements OnInit {
 
   nodeSearch(options: any): void {
     this.loading = true;
-    const state = this.getParamsState(this.form.value, options);
+    const state = this.getParamsState(this.form?.value, options);
     const params = this.getApiParams(state);
     this.nodeService
       .search(this.getParams(this.content, 'type'), params)

@@ -31,6 +31,7 @@ import { environment } from 'src/environments/environment';
 import { DialogComponent } from '../../../uiux/widgets/dialog/dialog.component';
 import { TextComponent } from '@uiux/widgets/text/text.component';
 import { UserService } from '@core/service/user.service';
+import { UtilitiesService } from '@core/service/utilities.service';
 
 @Component({
   selector: 'app-article',
@@ -70,6 +71,7 @@ export class ArticleComponent
     private tagsService: TagsService,
     public userState: UserState,
     private userService: UserService,
+    private uti: UtilitiesService,
     @Inject(DOCUMENT) private document: Document
   ) {
     super();
@@ -160,6 +162,7 @@ export class ArticleComponent
               },
               title: comment.uid.name,
               subTitle: '用户暂无签名',
+              id: comment.uid.id,
             },
             time: comment.changed,
             id: comment.id,
@@ -172,6 +175,18 @@ export class ArticleComponent
 
   onSubmit(): void {
     this.getComments();
+  }
+
+  onDeleted(id: string): void {
+    const path = `${this.appState.apiUrlConfig.commentGetPath}/comment`;
+    this.nodeService
+      .deleteEntity(path, id, this.userState.csrfToken)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((res) => {
+        this.uti.openSnackbar('您的回答已删除！', '√');
+        this.getComments();
+        this.cd.detectChanges();
+      });
   }
 
   ngAfterViewInit(): void {
