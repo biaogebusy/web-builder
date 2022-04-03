@@ -128,7 +128,7 @@ export class ArticleComponent
     }
   }
 
-  getComments(): void {
+  getComments(timeStamp = 1): void {
     const meta = this.content.comment.meta;
     const nodeUuid = meta.nodeUuid;
     const type = meta.type;
@@ -140,6 +140,7 @@ export class ArticleComponent
       `sort=-created`,
       'filter[status]=1',
       `jsonapi_include=1`,
+      `timeStamp=${timeStamp}`,
     ].join('&');
     const path = this.nodeService.apiUrlConfig.commentGetPath;
     this.nodeService
@@ -184,8 +185,7 @@ export class ArticleComponent
       .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {
         this.uti.openSnackbar('您的回答已删除！', '√');
-        this.getComments();
-        this.cd.detectChanges();
+        this.getComments(+new Date());
       });
   }
 

@@ -18,30 +18,24 @@ export class TermsServiceComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  openTermService(title: string): void {
-    console.log(title);
-    if (title) {
-      const params = [`filter[title]=${title}`].join('&');
-      this.nodeService.search('node/page', params).subscribe((page) => {
-        console.log(page);
-        this.dialogRef = this.dialog.open(DialogComponent, {
-          width: '600px',
-          data: {
-            renderInputComponent: TextComponent,
-            inputData: {
-              content: {
-                title: {
-                  label: title,
-                  style: 'style-v4',
-                },
-                spacer: 'none',
-                body:
-                  page.data[0]?.attributes?.body?.processed ||
-                  `内容还未发布，请管理员到后台发布标题为：【${title}】的内容！`,
+  openTermService(params: any): void {
+    console.log(params);
+    if (params) {
+      this.dialogRef = this.dialog.open(DialogComponent, {
+        width: '600px',
+        data: {
+          renderInputComponent: TextComponent,
+          inputData: {
+            content: {
+              title: {
+                label: params?.terms_title,
+                style: 'style-v4',
               },
+              spacer: 'none',
+              body: params?.terms_content || `内容还未发布！`,
             },
           },
-        });
+        },
       });
     }
   }

@@ -62,7 +62,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
     // if success
     if (state) {
       this.checkIsAsked();
-      this.getComments();
+      this.getComments(+new Date());
     }
   }
 
@@ -98,7 +98,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
     this.screenService.scrollToAnchor(`q-${id}`);
   }
 
-  getComments(): void {
+  getComments(timeStamp = 1): void {
     const params = [
       `filter[entity_id.id]=${this.entityId}`,
       `include=uid,uid.user_picture`,
@@ -107,6 +107,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
       `sort=-created`,
       'filter[status]=1',
       `jsonapi_include=1`,
+      `timeStamp=${timeStamp}`,
     ].join('&');
     const path = this.nodeService.apiUrlConfig.commentGetPath;
     this.nodeService
