@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { NodeService } from '@core/service/node.service';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { TextComponent } from '@uiux/widgets/text/text.component';
 
@@ -14,7 +13,7 @@ export class TermsServiceComponent implements OnInit {
   @Input() content: any;
   @Input() form: FormGroup;
   dialogRef: any;
-  constructor(private nodeService: NodeService, public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog) {}
 
   ngOnInit(): void {}
 
