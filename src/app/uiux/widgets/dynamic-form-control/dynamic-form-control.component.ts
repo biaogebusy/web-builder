@@ -11,7 +11,6 @@ import { IControl } from '@core/interface/widgets/IControl';
   selector: 'app-dynamic-form-control',
   templateUrl: './dynamic-form-control.component.html',
   styleUrls: ['./dynamic-form-control.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DynamicFormControlComponent implements OnInit {
   @Input() control: IControl;

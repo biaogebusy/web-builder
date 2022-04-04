@@ -6,7 +6,7 @@ import {
   ChangeDetectorRef,
 } from '@angular/core';
 import { FormService } from '@core/service/form.service';
-import { FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { UtilitiesService } from '@core/service/utilities.service';
 
 // TODO: need move to combs
@@ -33,6 +33,7 @@ export class ContactUsComponent implements OnInit {
 
   onSubmit(): void {
     if (this.form.invalid) {
+      this.form.markAllAsTouched();
       return;
     }
     this.submited = true;
