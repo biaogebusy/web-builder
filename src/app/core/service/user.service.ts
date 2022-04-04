@@ -25,12 +25,11 @@ export class UserService extends ApiService {
     return `${this.apiUrl}${this.appState.apiUrlConfig.userGetPath}`;
   }
 
-  login(userName: string, passWord: string, token: string): Observable<any> {
+  login(userName: string, passWord: string): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
         Accept: 'application/vnd.api+json',
         'Content-type': 'application/vnd.api+json',
-        'X-CSRF-Token': token,
       }),
       withCredentials: true,
     };

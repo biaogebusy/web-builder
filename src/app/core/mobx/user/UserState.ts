@@ -78,22 +78,15 @@ export class UserState {
   @action
   login(userName: string, passWord: string): any {
     this.loading = true;
-    this.userService.http
-      .get(`${this.userService.apiUrl}/session/token`, {
-        responseType: 'text',
-      })
-      .subscribe((token: string) => {
-        console.log(token);
-        this.userService.login(userName, passWord, token).subscribe(
-          (data) => {
-            this.updateUser(data);
-          },
-          (error) => {
-            this.loading = false;
-            this.error = error.message;
-          }
-        );
-      });
+    this.userService.login(userName, passWord).subscribe(
+      (data) => {
+        this.updateUser(data);
+      },
+      (error) => {
+        this.loading = false;
+        this.error = error.message;
+      }
+    );
   }
 
   @action
