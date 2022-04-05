@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 import { AuthGuard } from '@core/guards/auth.guard';
+import { ManageGuard } from '@core/guards/manage.guard';
 
 const routes: Routes = [
   {
@@ -18,6 +19,12 @@ const routes: Routes = [
     path: 'user',
     loadChildren: () =>
       import('./modules/user/user.module').then((m) => m.UserModule),
+  },
+  {
+    path: 'manage',
+    canActivate: [ManageGuard],
+    loadChildren: () =>
+      import('./modules/manage/manage.module').then((m) => m.ManageModule),
   },
   {
     path: '**',
