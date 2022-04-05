@@ -70,12 +70,8 @@ export class UserMenuComponent implements OnInit, OnDestroy {
       });
   }
 
-  get userId(): any {
-    return this.userState.currentUser.current_user.uid;
-  }
-
   get userPage(): any[] {
-    return [`/user/${this.userId}`];
+    return [`/user`];
   }
 
   ngOnDestroy(): void {

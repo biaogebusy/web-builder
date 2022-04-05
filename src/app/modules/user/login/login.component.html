@@ -54,9 +54,10 @@
                 </mat-form-field>
                 <mat-form-field appearance="fill">
                   <mat-label>密码</mat-label>
-                  <input matInput [type]="hide ? 'password' : 'text'" formControlName="pass">
+                  <input matInput [type]="hide ? 'password' : 'text'" formControlName="pass"
+                    autocomplete="current-password">
                   <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-                    [attr.aria-pressed]="hide" autocomplete="current-password">
+                    [attr.aria-pressed]="hide">
                     <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                   </button>
                 </mat-form-field>

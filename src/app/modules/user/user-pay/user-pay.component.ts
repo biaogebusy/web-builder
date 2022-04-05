@@ -1,6 +1,5 @@
 import { formatDate } from '@angular/common';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { UserState } from '@core/mobx/user/UserState';
 import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
@@ -23,7 +22,6 @@ export class UserPayComponent implements OnInit {
   destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     private screenService: ScreenService,
-    private router: ActivatedRoute,
     private nodeService: NodeService,
     private userState: UserState,
     private cd: ChangeDetectorRef
@@ -31,12 +29,11 @@ export class UserPayComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.id = this.router.parent && this.router.parent.snapshot.params.id;
-      this.getContent(this.id);
+      this.getContent();
     }
   }
 
-  getContent(id: string): void {
+  getContent(): void {
     this.loading = true;
     const path = this.nodeService.apiUrlConfig.flaggingGetPath;
 

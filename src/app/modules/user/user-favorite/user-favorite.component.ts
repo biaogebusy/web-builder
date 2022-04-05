@@ -5,7 +5,6 @@ import {
   ChangeDetectorRef,
   OnDestroy,
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { NodeService } from '@core/service/node.service';
 import { takeUntil } from 'rxjs/operators';
 import { formatDate } from '@angular/common';
@@ -29,7 +28,6 @@ export class UserFavoriteComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     private cd: ChangeDetectorRef,
-    private router: ActivatedRoute,
     private userState: UserState,
     private nodeService: NodeService,
     private screenService: ScreenService
@@ -37,12 +35,11 @@ export class UserFavoriteComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.id = this.router.parent && this.router.parent.snapshot.params.id;
-      this.getContent(this.id);
+      this.getContent();
     }
   }
 
-  getContent(id: string): void {
+  getContent(): void {
     this.loading = true;
     const path = this.nodeService.apiUrlConfig.flaggingGetPath;
     const params = [

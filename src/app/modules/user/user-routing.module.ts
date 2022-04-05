@@ -8,21 +8,9 @@ import { UserPayComponent } from './user-pay/user-pay.component';
 
 const routes: Routes = [
   {
-    path: '/',
-    component: LoginComponent,
-  },
-  {
-    path: 'login',
-    component: LoginComponent,
-  },
-  {
-    path: ':id',
+    path: '',
     component: UserComponent,
     children: [
-      {
-        path: '',
-        component: UserHomeComponent,
-      },
       {
         path: 'favorite',
         component: UserFavoriteComponent,
@@ -32,6 +20,10 @@ const routes: Routes = [
         component: UserPayComponent,
       },
     ],
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
   },
 ];
 

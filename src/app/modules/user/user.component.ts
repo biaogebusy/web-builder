@@ -5,7 +5,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
 } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { UserService } from '@core/service/user.service';
 import { UserState } from '@core/mobx/user/UserState';
 import { ScreenService } from '@core/service/screen.service';
@@ -24,7 +24,6 @@ export class UserComponent implements OnInit, OnDestroy {
   constructor(
     private appState: AppState,
     private cd: ChangeDetectorRef,
-    private router: ActivatedRoute,
     private route: Router,
     private screenService: ScreenService,
     private userService: UserService,
@@ -33,10 +32,7 @@ export class UserComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.router.paramMap.subscribe((query) => {
-        this.id = query.get('id');
-        this.getUser(this.id);
-      });
+      this.getUser();
       this.userState.user$.subscribe((user) => {
         if (!user.authenticated) {
           setTimeout(() => {
@@ -47,11 +43,13 @@ export class UserComponent implements OnInit, OnDestroy {
     }
   }
 
-  getUser(id: string): any {
+  getUser(): any {
     const people = {};
-
     this.userService
-      .getUserById(id, this.userState.csrfToken)
+      .getUserById(
+        this.userState.currentUser.current_user.uid,
+        this.userState.csrfToken
+      )
       .subscribe((res) => {
         const info = res.data[0];
         if (!info) {
