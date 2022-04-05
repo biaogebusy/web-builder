@@ -25,9 +25,12 @@
   }
 
   .sticky {
-    position: sticky;
-    position: -webkit-sticky;
-    top: 70px;
-    z-index: 10;
+    position: relative;
+    @media #{$gt-sm} {
+      position: sticky;
+      position: -webkit-sticky;
+      top: 70px;
+      z-index: 10;
+    }
   }
 }
