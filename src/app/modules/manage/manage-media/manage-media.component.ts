@@ -6,7 +6,6 @@ import {
   ChangeDetectorRef,
 } from '@angular/core';
 import { ManageService } from '@core/service/manage.service';
-import { NgxMasonryOptions } from 'ngx-masonry';
 
 @Component({
   selector: 'app-manage-media',
@@ -16,10 +15,6 @@ import { NgxMasonryOptions } from 'ngx-masonry';
 })
 export class ManageMediaComponent implements OnInit {
   content: any;
-  public myOptions: NgxMasonryOptions = {
-    horizontalOrder: true,
-    resize: true,
-  };
   constructor(
     private manageService: ManageService,
     private cd: ChangeDetectorRef
