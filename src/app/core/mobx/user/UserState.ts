@@ -19,7 +19,9 @@ const unauthUser = {
   logout_token: '',
 };
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class UserState {
   @observable private user: IUser = unauthUser;
   @observable public error = '';
@@ -48,7 +50,7 @@ export class UserState {
 
   @computed
   get authenticated(): boolean {
-    return !!this.user.authenticated;
+    return this.user.authenticated;
   }
 
   @computed

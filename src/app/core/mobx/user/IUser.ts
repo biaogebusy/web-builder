@@ -5,7 +5,7 @@ export interface IUser extends TokenUser {
   mail?: string;
   name?: string;
   status?: boolean;
-  authenticated?: boolean;
+  authenticated: boolean;
   picture?: string;
 }
 

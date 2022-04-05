@@ -4,6 +4,7 @@ import {
   OnInit,
   OnDestroy,
   ChangeDetectorRef,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { UserState } from '@core/mobx/user/UserState';
 import { MatDialog } from '@angular/material/dialog';
@@ -19,6 +20,7 @@ import { takeUntil } from 'rxjs/operators';
   selector: 'app-user-menu',
   templateUrl: './user-menu.component.html',
   styleUrls: ['./user-menu.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserMenuComponent implements OnInit, OnDestroy {
   @Input() content: any;
@@ -36,7 +38,7 @@ export class UserMenuComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.userState.user$.subscribe((user) => {
-      this.cd.detectChanges();
+      this.cd.markForCheck();
     });
   }
 
