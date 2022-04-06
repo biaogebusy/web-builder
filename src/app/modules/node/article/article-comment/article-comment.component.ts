@@ -39,7 +39,6 @@ export class ArticleCommentComponent implements OnInit, OnDestroy {
     const data = this.nodeService.getCommentRequestDate(this.content.meta);
 
     data.attributes = {
-      status: false,
       entity_type: 'node',
       field_name: this.content.meta.type,
       comment_body: {

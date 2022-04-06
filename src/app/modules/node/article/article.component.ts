@@ -94,6 +94,10 @@ export class ArticleComponent
     if (this.appState.article?.comment?.enabel) {
       this.getComments();
     }
+
+    this.userState.user$.subscribe(() => {
+      this.cd.markForCheck();
+    });
   }
 
   checkAccess(): void {

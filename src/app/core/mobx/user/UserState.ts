@@ -115,7 +115,6 @@ export class UserState {
       .logout(this.logoutToken)
       .pipe(
         catchError((error) => {
-          console.log(error);
           if (error.status === 403) {
             return of(true);
           }
