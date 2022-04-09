@@ -7,6 +7,7 @@ import { BrandingState } from './core/mobx/BrandingStare';
 import { ActivatedRoute } from '@angular/router';
 import { ScreenService } from '@core/service/screen.service';
 import { ConfigService } from '@core/service/config.service';
+import { NavigationService } from '@core/service/navigation.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -23,8 +24,11 @@ export class AppComponent implements OnInit, AfterViewInit {
     public branding: BrandingState,
     private router: ActivatedRoute,
     private screenService: ScreenService,
-    private configService: ConfigService
-  ) {}
+    private configService: ConfigService,
+    public navigation: NavigationService
+  ) {
+    this.navigation.startSaveHistory();
+  }
 
   ngOnInit(): void {
     this.appState.setConfig();

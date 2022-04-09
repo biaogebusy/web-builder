@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  Input,
   OnDestroy,
   OnInit,
 } from '@angular/core';
@@ -28,7 +29,8 @@ const text = {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CaseComponent implements OnInit, OnDestroy {
-  content: IShowcase2v1;
+  @Input() content: any;
+  lists: any;
   loading = false;
 
   destroy$: Subject<boolean> = new Subject<boolean>();
@@ -59,7 +61,7 @@ export class CaseComponent implements OnInit, OnDestroy {
       .getNodes(path, 'case', params)
       .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {
-        this.content = {
+        this.lists = {
           text,
           elements: this.getList(res.data),
         };

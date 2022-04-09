@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  Input,
   OnInit,
 } from '@angular/core';
 import { NodeService } from '@core/service/node.service';
@@ -149,6 +150,7 @@ const feature = {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class JobComponent implements OnInit {
+  @Input() content: any;
   nodes: any[];
   autoList: any[];
   skills: string[];

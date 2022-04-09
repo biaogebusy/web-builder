@@ -13,7 +13,7 @@ import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { LoginComponent } from '../../user/login/login.component';
+import { LoginComponent } from '../../../../modules/user/login/login.component';
 
 @Component({
   selector: 'app-question',

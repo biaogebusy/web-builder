@@ -14,6 +14,7 @@ import { ListModule } from './list/list.module';
 import { ProfileModule } from './profile/profile.module';
 import { ActionModule } from './action/action.module';
 import { TabModule } from './tab/tab.module';
+import { NodeModule } from './node/node.module';
 
 const modules = [
   ActionModule,
@@ -30,6 +31,7 @@ const modules = [
   SearchModule,
   VideoModule,
   TabModule,
+  NodeModule,
 ];
 
 @NgModule({
