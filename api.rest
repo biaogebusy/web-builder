@@ -1,9 +1,12 @@
 ### https://www.drupal.org/docs/8/core/modules/rest/javascript-and-drupal-8-restful-web-services#s-login
-@apiUrl = https://api.lvxinyun.com
-@user = root
-@psw = Abcd#1234@nn
+@apiUrl = https://api.zhaobg.com
+@user = test
+@psw = 1QAZxsw2
 @user_uuid = 15765815-07f2-4d7d-8142-cb598f82af2e
 @node_uuid = 97edbdba-16a9-4e48-9285-9a2854968cf7
+
+### get session
+GET {{apiUrl}}/session/token
 
 ### user login
 # @name login
@@ -28,6 +31,7 @@ GET {{apiUrl}}/api/v1/accountProfile
 POST {{apiUrl}}/user/logout?_format=json&token={{logoutToken}} HTTP/1.1
 Content-type: application/json
 withCredentials: true
+
 ### logout v2 强制退出
 POST {{apiUrl}}/user/logout HTTP/1.1
 
@@ -67,6 +71,10 @@ GET {{apiUrl}}/api/v1/node/news?include=category,field_tags,media,media.field_me
 
 ### get single resource
 GET {{apiUrl}}/api/v1/node/{{type}}/b59a2767-89b8-418d-91fe-6f0e6a5638ec
+
+### filter single resource by title
+GET {{apiUrl}}/api/v1/node/page?filter[title]=隐私政策
+
 ### get collections rsource
 GET {{apiUrl}}/api/v1/node/{{type}}
 
@@ -165,6 +173,8 @@ Accept: application/vnd.api+json
 Content-Type: application/vnd.api+json
 X-CSRF-Token: {{csrfToken}}
 
+### get files
+GET {{apiUrl}}/api/v1/file/file
 
 ### post question comment
 POST {{apiUrl}}/api/v1/comment/answer

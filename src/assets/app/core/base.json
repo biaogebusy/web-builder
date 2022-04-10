@@ -9,6 +9,10 @@
     "style": "pink-theme",
     "icon": "laptop_mac"
   }, {
+    "name": "AMIGO 主题",
+    "style": "amigo-theme",
+    "icon": "laptop_mac"
+  }, {
     "name": "Enar 主题",
     "style": "enar-theme",
     "icon": "laptop_mac"
@@ -175,5 +179,8 @@
   },
   "googleAnalyticsBak": {
     "id": "G-N7PGP9ND57"
+  },
+  "guard": {
+    "authGuard": false
   }
 }
