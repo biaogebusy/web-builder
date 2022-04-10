@@ -5,6 +5,10 @@
     "style": "light-theme",
     "icon": "laptop_mac"
   }, {
+    "name": "Pink 主题",
+    "style": "pink-theme",
+    "icon": "laptop_mac"
+  }, {
     "name": "Enar 主题",
     "style": "enar-theme",
     "icon": "laptop_mac"

@@ -24,6 +24,12 @@
   @include component-theme($dark-theme);
 }
 
+.pink-theme {
+  @include angular-material-theme($pink-theme);
+  @include base-colors($pink-theme);
+  @include component-theme($pink-theme);
+}
+
 .enar-theme {
   @include angular-material-theme($enar-theme);
   @include base-colors($enar-theme);

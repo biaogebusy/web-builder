@@ -1,0 +1,40 @@
+@import "~@angular/material/theming";
+$pink-color: (
+  //
+  50: #f9efee,
+  100: #fedbd0,
+  200: #ffc2ae,
+  300: #ffa988,
+  400: #ff9369,
+  500: #ff814f,
+  600: #ff7a4a,
+  700: #ff7244,
+  800: #f46b40,
+  900: #db5e37,
+  A100: #fedbd0,
+  A200: #ffc2ae,
+  A400: #ff9369,
+  A700: #ff7244,
+  contrast: (
+    //
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $light-primary-text,
+    400: $light-primary-text,
+    500: $light-primary-text,
+    600: $light-primary-text,
+    700: $light-primary-text,
+    800: $light-primary-text,
+    900: $light-primary-text,
+    A100: $dark-primary-text,
+    A200: $light-primary-text,
+    A400: $light-primary-text,
+    A700: $light-primary-text
+  )
+);
+
+$pink-primary: mat-palette($pink-color, 300);
+$pink-accent: mat-palette($pink-color, A200, A100, A400);
+$pink-warn: mat-palette($mat-red, A200, A100, A400);
+$pink-theme: mat-light-theme($pink-primary, $pink-accent, $pink-warn);
