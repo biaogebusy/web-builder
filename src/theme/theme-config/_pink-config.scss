@@ -34,7 +34,7 @@ $pink-color: (
   )
 );
 
-$pink-primary: mat-palette($pink-color, 300);
+$pink-primary: mat-palette($pink-color, 500);
 $pink-accent: mat-palette($pink-color, A200, A100, A400);
 $pink-warn: mat-palette($mat-red, A200, A100, A400);
 $pink-theme: mat-light-theme($pink-primary, $pink-accent, $pink-warn);

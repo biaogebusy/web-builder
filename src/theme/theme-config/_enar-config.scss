@@ -34,7 +34,7 @@ $enar-color: (
   )
 );
 
-$enar-primary: mat-palette($enar-color, 300);
+$enar-primary: mat-palette($enar-color, 500);
 $enar-accent: mat-palette($enar-color, A200, A100, A400);
 $enar-warn: mat-palette($mat-red, A200, A100, A400);
 $enar-theme: mat-light-theme($enar-primary, $enar-accent, $enar-warn);

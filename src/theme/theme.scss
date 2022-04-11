@@ -30,6 +30,12 @@
   @include component-theme($pink-theme);
 }
 
+.blue-theme {
+  @include angular-material-theme($blue-theme);
+  @include base-colors($blue-theme);
+  @include component-theme($blue-theme);
+}
+
 .enar-theme {
   @include angular-material-theme($enar-theme);
   @include base-colors($enar-theme);
