@@ -5,4 +5,5 @@ export const environment: IEnvironment = {
   production: true,
   site: 'nnit',
   port: 4201,
+  cache: false,
 };
