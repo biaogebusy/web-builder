@@ -210,6 +210,16 @@
             "href": "/sample/combs/action/action1v1"
           }]
         }, {
+          "label": "Map",
+          "href": "javascript:void(0)",
+          "child": [{
+            "label": "Location",
+            "href": "/sample/combs/map/location"
+          }, {
+            "label": "Map list v1",
+            "href": "/sample/combs/map/map-list-v1"
+          }]
+        }, {
           "label": "Other",
           "href": "javascript:void(0)",
           "child": [{
@@ -233,9 +243,6 @@
           }, {
             "label": "Contact us",
             "href": "/sample/combs/other/contact"
-          }, {
-            "label": "Location",
-            "href": "/sample/combs/map/location"
           }]
         }]
       },

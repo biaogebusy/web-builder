@@ -1,0 +1,42 @@
+<div class="container-fluid">
+  <div class="map-list-v1 position-relation" fxFill fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start stretch">
+    <div class="sidebar position-relative p-x-xs" fxFlex.xs="100%" fxFlex.gt-xs="500px">
+      <div class="m-y" *ngIf="loading" fxLayoutAlign="center center">
+        <app-spinner class="m-y" [content]="{color:'primary', size:40}"></app-spinner>
+      </div>
+      <div class="m-y" *ngIf="content?.elements?.length == 0" fxLayoutAlign="center center">
+        暂无相关数据
+      </div>
+      <div class="map-list-head">
+        <h2 [innerHTML]="content?.title"></h2>
+        <div class="meta" *ngIf="content?.meta">
+          <div class="item" *ngFor="let item of content.meta">
+            <span>{{item.label}}:</span>
+            <span>{{item.value}}</span>
+          </div>
+        </div>
+      </div>
+      <!-- <app-job-list (selected)="onSelected($event)" (scroller)="onScroll($event)" *ngIf="nodes.length > 0"
+        [content]="nodes" [selectedId]="selectedId">
+      </app-job-list> -->
+      <div class="map-lists">
+        <div class="list" *ngFor="let item of content?.elements">
+          <h3>{{item.title}}</h3>
+          <div class="adress">{{item.adress}}</div>
+          <div class="meta">
+            <div class="li" *ngFor="let meta of item.meta">
+              <span>{{meta.label}}</span>
+              <span>{{meta.value}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="map-wrapper position-relative" fxFlex.xs="100%" fxFlex.gt-xs="100%">
+      <app-map fxFlex="100%" *ngIf="content?.elements?.length > 0" [content]="content?.elements"></app-map>
+      <div class="m-y" *ngIf="loading" fxLayoutAlign="center center">
+        <app-spinner class="m-y" [content]="{color:'primary', size:40}"></app-spinner>
+      </div>
+    </div>
+  </div>
+</div>
