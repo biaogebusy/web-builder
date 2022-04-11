@@ -1,0 +1,39 @@
+$blue-color: (
+  //
+  50: #e3f2fe,
+  100: #bcdefd,
+  200: #92cbfc,
+  300: #68b6fa,
+  400: #48a6fa,
+  500: #2e97f8,
+  600: #2c89ea,
+  700: #2976d7,
+  800: #2565c4,
+  900: #1f47a5,
+  A100: #bcdefd,
+  A200: #92cbfc,
+  A400: #48a6fa,
+  A700: #2976d7,
+  contrast: (
+    //
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $light-primary-text,
+    400: $light-primary-text,
+    500: $light-primary-text,
+    600: $light-primary-text,
+    700: $light-primary-text,
+    800: $light-primary-text,
+    900: $light-primary-text,
+    A100: $dark-primary-text,
+    A200: $light-primary-text,
+    A400: $light-primary-text,
+    A700: $light-primary-text
+  )
+);
+
+$blue-primary: mat-palette($blue-color, 700);
+$blue-accent: mat-palette($blue-color, A200, A100, A400);
+$blue-warn: mat-palette($mat-red, A200, A100, A400);
+$blue-theme: mat-light-theme($blue-primary, $blue-accent, $blue-warn);

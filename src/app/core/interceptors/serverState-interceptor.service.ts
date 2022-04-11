@@ -9,6 +9,7 @@ import { Injectable } from '@angular/core';
 import { makeStateKey, TransferState } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class ServerStateInterceptor implements HttpInterceptor {
@@ -22,6 +23,7 @@ export class ServerStateInterceptor implements HttpInterceptor {
       tap((event) => {
         if (
           event instanceof HttpResponse &&
+          environment.cache &&
           (event.status === 200 || event.status === 202) &&
           !req.url.includes('preview')
         ) {
