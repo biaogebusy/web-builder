@@ -108,6 +108,15 @@
           "href": "xxx.docx"
         }]
       }]
+    }, {
+      "type": "table",
+      "label": "发票管理",
+      "elements": [{
+        "name": "受理费",
+        "money": "12323",
+        "billingTime": "2022-03-03",
+        "deliveryTime": "2022-03-04"
+      }]
     }]
   }]
 }
