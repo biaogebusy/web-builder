@@ -1,0 +1,113 @@
+{
+  "title": "xxx 案件",
+  "body": [{
+    "type": "law-case",
+    "date": [{
+      "label": "更新",
+      "value": "张三 周五 09:50 2022/03/31"
+    }, {
+      "label": "提交",
+      "value": "李四 周六 08:10 2022/03/27"
+    }],
+    "content": [{
+      "type": "files",
+      "label": "案件文件",
+      "icon": {
+        "name": "case"
+      },
+      "elements": [{
+        "label": "律师文件",
+        "elements": [{
+          "type": "link",
+          "label": "第二次起诉签字-易思远-刘冰清.docx",
+          "href": "xxx.docx"
+        }, {
+          "type": "link",
+          "label": "第二次起诉签字-易思远-刘冰清.docx",
+          "href": "xxx.docx"
+        }, {
+          "type": "link",
+          "label": "第二次起诉签字-易思远-刘冰清.docx",
+          "href": "xxx.docx"
+        }, {
+          "type": "link",
+          "label": "第二次起诉签字-易思远-刘冰清.docx",
+          "href": "xxx.docx"
+        }, {
+          "type": "link",
+          "label": "第二次起诉签字-易思远-刘冰清.docx",
+          "href": "xxx.docx"
+        }]
+      }, {
+        "label": "法院文件",
+        "elements": [{
+          "type": "link",
+          "label": "易思远-刘冰清-判决书-浦东法院-202201 _0.pdf",
+          "href": "xxx.pdf"
+        }, {
+          "type": "link",
+          "label": "第二次起诉签字-易思远-刘冰清.docx",
+          "href": "xxx.docx"
+        }, {
+          "type": "link",
+          "label": "第二次起诉签字-易思远-刘冰清.docx",
+          "href": "xxx.docx"
+        }, {
+          "type": "link",
+          "label": "第二次起诉签字-易思远-刘冰清.docx",
+          "href": "xxx.docx"
+        }, {
+          "type": "link",
+          "label": "第二次起诉签字-易思远-刘冰清.docx",
+          "href": "xxx.docx"
+        }]
+      }, {
+        "label": "客户文件",
+        "elements": [{
+          "type": "link",
+          "label": "易思远-刘冰清-判决书-浦东法院-202201 _0.pdf",
+          "href": "xxx.pdf"
+        }, {
+          "type": "link",
+          "label": "第二次起诉签字-易思远-刘冰清.docx",
+          "href": "xxx.docx"
+        }, {
+          "type": "link",
+          "label": "第二次起诉签字-易思远-刘冰清.docx",
+          "href": "xxx.docx"
+        }, {
+          "type": "link",
+          "label": "第二次起诉签字-易思远-刘冰清.docx",
+          "href": "xxx.docx"
+        }, {
+          "type": "link",
+          "label": "第二次起诉签字-易思远-刘冰清.docx",
+          "href": "xxx.docx"
+        }]
+      }, {
+        "label": "其他文件",
+        "elements": [{
+          "type": "link",
+          "label": "易思远-刘冰清-判决书-浦东法院-202201 _0.pdf",
+          "href": "xxx.pdf"
+        }, {
+          "type": "link",
+          "label": "第二次起诉签字-易思远-刘冰清.docx",
+          "href": "xxx.docx"
+        }, {
+          "type": "link",
+          "label": "第二次起诉签字-易思远-刘冰清.docx",
+          "href": "xxx.docx"
+        }, {
+          "type": "link",
+          "label": "第二次起诉签字-易思远-刘冰清.docx",
+          "href": "xxx.docx"
+        }, {
+          "type": "link",
+          "label": "第二次起诉签字-易思远-刘冰清.docx",
+          "href": "xxx.docx"
+        }]
+      }]
+    }]
+  }]
+}
