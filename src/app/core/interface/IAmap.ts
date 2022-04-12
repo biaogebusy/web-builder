@@ -6,7 +6,13 @@ export interface IAmap {
   zoom: number;
   center: number[];
   mapStyle: {
-    [key: string]: string
+    [key: string]: string;
   };
   features: string[];
+}
+
+export interface IMark {
+  index: number;
+  marker: string;
+  item?: any;
 }

@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid map-list-common">
   <div class="map-list-v1 position-relation" fxFill fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start stretch">
     <div class="sidebar position-relative p-x-xs" fxFlex.xs="100%" fxFlex.gt-xs="500px">
       <div class="m-y" *ngIf="loading" fxLayoutAlign="center center">
@@ -7,11 +7,11 @@
       <div class="m-y" *ngIf="content?.elements?.length == 0" fxLayoutAlign="center center">
         暂无相关数据
       </div>
-      <div class="map-list-head">
+      <div class="map-list-head p-x-sm p-y-sm">
         <h2 [innerHTML]="content?.title"></h2>
         <div class="meta" *ngIf="content?.meta">
           <div class="item" *ngFor="let item of content.meta">
-            <span>{{item.label}}:</span>
+            <span>{{item.label}}: </span>
             <span>{{item.value}}</span>
           </div>
         </div>
@@ -20,20 +20,24 @@
         [content]="nodes" [selectedId]="selectedId">
       </app-job-list> -->
       <div class="map-lists">
-        <div class="list" *ngFor="let item of content?.elements">
-          <h3>{{item.title}}</h3>
-          <div class="adress">{{item.adress}}</div>
-          <div class="meta">
-            <div class="li" *ngFor="let meta of item.meta">
-              <span>{{meta.label}}</span>
-              <span>{{meta.value}}</span>
+        <cdk-virtual-scroll-viewport [itemSize]="5" class="viewport">
+          <div class="list item m-y-sm p-y-sm m-x-xs p-x-sm" [class.selected]="i == selectedId" matRipple
+            [matRippleColor]="'rgba(0, 0, 0, 0.04)'" *cdkVirtualFor="let item of content.map.elements; index as i"
+            fxLayout="column" (click)="onClick(item, i)">
+            <h3 class="m-bottom-xs bold">{{item.title}}</h3>
+            <div class="address">{{item.address}}</div>
+            <div class="meta">
+              <div class="li" *ngFor="let meta of item.meta">
+                <span>{{meta.label}}: </span>
+                <span>{{meta.value}}</span>
+              </div>
             </div>
           </div>
-        </div>
+        </cdk-virtual-scroll-viewport>
       </div>
     </div>
     <div class="map-wrapper position-relative" fxFlex.xs="100%" fxFlex.gt-xs="100%">
-      <app-map fxFlex="100%" *ngIf="content?.elements?.length > 0" [content]="content?.elements"></app-map>
+      <app-map fxFlex="100%" *ngIf="content?.map" [content]="content.map"></app-map>
       <div class="m-y" *ngIf="loading" fxLayoutAlign="center center">
         <app-spinner class="m-y" [content]="{color:'primary', size:40}"></app-spinner>
       </div>

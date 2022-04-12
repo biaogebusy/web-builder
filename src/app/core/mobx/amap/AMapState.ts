@@ -1,4 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
+import { IMark } from '@core/interface/IAmap';
 import { Subject } from 'rxjs';
 
 @Injectable({
@@ -6,6 +7,6 @@ import { Subject } from 'rxjs';
 })
 export class AMapState {
   position$ = new Subject();
-  markers$ = new Subject();
+  markers$: Subject<IMark> = new Subject();
   constructor() {}
 }

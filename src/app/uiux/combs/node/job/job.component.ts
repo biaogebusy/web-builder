@@ -327,6 +327,10 @@ export class JobComponent implements OnInit {
         deadline: item.deadline,
         work_experience: item.work_experience,
         body: item.body.value,
+        params: {
+          address: item.company.address.address_line1,
+          title: item.company.title,
+        },
         company: {
           id: item.company.id,
           logo: {

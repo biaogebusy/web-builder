@@ -16,5 +16,11 @@ export class LocationComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.content.elements = this.content.elements.map((item: any) => {
+      return {
+        params: item.company,
+      };
+    });
+  }
 }

@@ -5,6 +5,7 @@ import {
   OnDestroy,
   ChangeDetectionStrategy,
 } from '@angular/core';
+import { IMark } from '@core/interface/IAmap';
 import { AMapState } from '@core/mobx/amap/AMapState';
 import { AppState } from '@core/mobx/AppState';
 import { AmapService } from '@core/service/amap.service';
@@ -59,12 +60,12 @@ export class MapComponent implements OnInit, OnDestroy {
   getPosition(lists: any): void {
     if (lists.length > 0) {
       lists.forEach((item: any, index: number) => {
-        const address = item.company.address;
+        const address = item.params.address;
         this.geocoder.getLocation(address, (status: any, result: any) => {
           if (status === 'complete' && result.info === 'OK') {
             const location = result.geocodes[0].location;
-            item.company.position = [location.lng, location.lat];
-            if (item.company.setCenter) {
+            item.params.position = [location.lng, location.lat];
+            if (item.params.setCenter) {
               this.center = [location.lng, location.lat];
             }
             if (lists.length === index + 1) {
@@ -111,26 +112,11 @@ export class MapComponent implements OnInit, OnDestroy {
     this.markers = lists.map((item: any) => {
       return new this.AMap.Marker({
         content: this.simpleMarkerTem(),
-        position: item.company.position,
-        title: item.company.title,
+        position: item.params.position,
+        title: item.params.title,
       });
     });
     this.map.add(this.markers);
-  }
-
-  getRelationObj(marker: any): any {
-    const company = marker.company;
-    const obj = {
-      logo: company.logo.src,
-      company: company.title,
-      title: marker.title,
-      salary: {
-        from: marker.salary.from,
-        to: marker.salary.to,
-      },
-    };
-
-    return obj;
   }
 
   simpleMarkerTem(): any {
@@ -139,31 +125,13 @@ export class MapComponent implements OnInit, OnDestroy {
     `;
   }
 
-  markerTem(obj: any): any {
-    return `
-    <div class="mark-card p-y-xs p-x-xs">
-      <div class="media">
-        <img src="${obj.company.logo.src}" />
-      </div>
-      <div class="media-body m-left-xs">
-        <div class="mat-h4 m-bottom-xs text-base">${obj.company.title}</div>
-        <div class="mat-h4 m-bottom-xs text-dark title">${obj.title}</div>
-        <div class="mat-h3 m-bottom-0 text-primary">
-        ${obj.salary.from} - ${obj.salary.to} k
-        </div>
-      </div>
-      <div class="top arrow"></div>
-    </div>
-    `;
-  }
-
   onMarkers(): void {
-    this.amapState.markers$.subscribe((marker: any) => {
+    this.amapState.markers$.subscribe((marker: IMark) => {
       const position = this.map
         .getAllOverlays('marker')
         [marker.index].getPosition();
       const popup = new this.AMap.InfoWindow({
-        content: this.markerTem(marker.item),
+        content: marker.marker,
         isCustom: true,
         offset: new this.AMap.Pixel(15, -2),
       });
