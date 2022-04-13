@@ -1,0 +1,27 @@
+@import "~@angular/material/theming";
+
+@mixin law-case-color($config-or-theme) {
+  $config: mat-get-color-config($config-or-theme);
+  $foreground: map-get($config, foreground);
+  $background: map-get($config, background);
+  $primary: map-get($config, primary);
+  $accent: map-get($config, accent);
+  $warn: map-get($config, warn);
+
+  $text-color: mat-color($foreground, text, 0.75);
+  .law-case {
+    background-color: mat-color($background, background);
+    .content {
+      background-color: mat-color($background, card);
+      @include mat-elevation(4, #000, 0.35);
+      .law-case-files {
+        .box {
+          .inner {
+            @include mat-elevation(2, #000, 0.1);
+            background-color: mat-color($background, background);
+          }
+        }
+      }
+    }
+  }
+}

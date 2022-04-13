@@ -1,0 +1,23 @@
+<div class="law-case position-relative p-y" *ngIf="content">
+  <div class="container">
+    <div class="title">
+      <h2 class="mat-display-1 m-bottom-xs">{{content.title}}</h2>
+      <div class="date">
+        <div *ngFor="let date of content.date">
+          <span>{{date.label}} | </span>
+          <span>{{date.value}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="content p-y p-x m-y-sm">
+      <ng-container *ngFor="let item of content.block">
+        <ng-container [ngSwitch]="item.type">
+          <app-law-case-files *ngSwitchCase="'files'" [content]="item"></app-law-case-files>
+          <app-law-case-table *ngSwitchCase="'table'" [content]="item">
+          </app-law-case-table>
+          <app-text *ngSwitchDefault [content]="item"></app-text>
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+</div>

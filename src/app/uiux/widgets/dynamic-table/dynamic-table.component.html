@@ -1,0 +1,16 @@
+  <table mat-table [dataSource]="content.elements" class="width-100">
+    <ng-container [matColumnDef]="item.key" *ngFor="let item of content.header">
+      <th mat-header-cell *cdkHeaderCellDef>
+        {{item.label}}
+      </th>
+      <td mat-cell *cdkCellDef="let element">
+        {{element[item.key]}}
+        <app-dynamic-widgets [content]="element[item.key]"></app-dynamic-widgets>
+        <!-- <ng-container [ngSwitch]="element[item.key].type">
+
+        </ng-container> -->
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>

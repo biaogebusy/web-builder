@@ -2,6 +2,7 @@
   "title": "xxx 案件",
   "body": [{
     "type": "law-case",
+    "title": "二审案件",
     "date": [{
       "label": "更新",
       "value": "张三 周五 09:50 2022/03/31"
@@ -9,9 +10,12 @@
       "label": "提交",
       "value": "李四 周六 08:10 2022/03/27"
     }],
-    "content": [{
+    "block": [{
       "type": "files",
-      "label": "案件文件",
+      "title": {
+        "label": "案件文件",
+        "style": "style-v4"
+      },
       "icon": {
         "name": "case"
       },
@@ -110,13 +114,197 @@
       }]
     }, {
       "type": "table",
-      "label": "发票管理",
+      "title": {
+        "label": "发票管理",
+        "style": "style-v4"
+      },
+      "header": [{
+        "label": "发票名称",
+        "key": "name"
+      }, {
+        "label": "开票金额",
+        "key": "money"
+      }, {
+        "label": "交票时间",
+        "key": "billingTime"
+      }, {
+        "label": "发票时间",
+        "key": "deliveryTime"
+      }, {
+        "label": "发票图片",
+        "key": "images"
+      }, {
+        "label": "付款凭证",
+        "key": "voucher"
+      }, {
+        "label": "发票快递",
+        "key": "express"
+      }, {
+        "label": "备注",
+        "key": "remarks"
+      }],
       "elements": [{
         "name": "受理费",
-        "money": "12323",
+        "money": "3679",
         "billingTime": "2022-03-03",
-        "deliveryTime": "2022-03-04"
+        "deliveryTime": "2022-03-04",
+        "images": {
+          "type": "lightbox",
+          "label": ["受理费第一次", "受理费-补交", "受理费第二次"],
+          "elements": [{
+            "src": "/assets/images/cases/porto1.jpg",
+            "caption": "受理费第一次",
+            "thumb": "/assets/images/cases/porto1.jpg"
+          }, {
+            "src": "/assets/images/cases/porto2.jpg",
+            "caption": "受理费-补交",
+            "thumb": "/assets/images/cases/porto2.jpg"
+          }, {
+            "src": "/assets/images/cases/porto3.jpg",
+            "caption": "受理费第一次",
+            "thumb": "/assets/images/cases/porto3.jpg"
+          }]
+        },
+        "voucher": {
+          "label": ["发票凭证"],
+          "type": "lightbox",
+          "elements": [{
+            "src": "/assets/images/cases/porto4.jpg",
+            "caption": "发票凭证",
+            "thumb": "/assets/images/cases/porto4.jpg"
+          }]
+        },
+        "express": {
+          "type": "lightbox",
+          "label": ["户籍信息"],
+          "elements": [{
+            "src": "/assets/images/cases/porto5.jpg",
+            "caption": "户籍信息",
+            "thumb": "/assets/images/cases/porto5.jpg"
+          }]
+        },
+        "remarks": "已收到"
+      }, {
+        "name": "鉴定费",
+        "money": "4879",
+        "billingTime": "2022-03-03",
+        "deliveryTime": "2022-03-04",
+        "images": {
+          "type": "lightbox",
+          "label": ["受理费第一次", "受理费-补交", "受理费第二次"],
+          "elements": [{
+            "src": "/assets/images/cases/porto1.jpg",
+            "caption": "受理费第一次",
+            "thumb": "/assets/images/cases/porto1.jpg"
+          }, {
+            "src": "/assets/images/cases/porto2.jpg",
+            "caption": "受理费-补交",
+            "thumb": "/assets/images/cases/porto2.jpg"
+          }, {
+            "src": "/assets/images/cases/porto3.jpg",
+            "caption": "受理费第一次",
+            "thumb": "/assets/images/cases/porto3.jpg"
+          }]
+        },
+        "voucher": {
+          "label": ["发票凭证"],
+          "type": "lightbox",
+          "elements": [{
+            "src": "/assets/images/cases/porto4.jpg",
+            "caption": "发票凭证",
+            "thumb": "/assets/images/cases/porto4.jpg"
+          }]
+        },
+        "express": {
+          "type": "lightbox",
+          "label": ["户籍信息"],
+          "elements": [{
+            "src": "/assets/images/cases/porto5.jpg",
+            "caption": "户籍信息",
+            "thumb": "/assets/images/cases/porto5.jpg"
+          }]
+        },
+        "remarks": "已收到"
+      }, {
+        "name": "保全费",
+        "money": "123423",
+        "billingTime": "2022-03-03",
+        "deliveryTime": "2022-03-04",
+        "images": {
+          "type": "lightbox",
+          "label": ["受理费第一次", "受理费-补交", "受理费第二次"],
+          "elements": [{
+            "src": "/assets/images/cases/porto1.jpg",
+            "caption": "受理费第一次",
+            "thumb": "/assets/images/cases/porto1.jpg"
+          }, {
+            "src": "/assets/images/cases/porto2.jpg",
+            "caption": "受理费-补交",
+            "thumb": "/assets/images/cases/porto2.jpg"
+          }, {
+            "src": "/assets/images/cases/porto3.jpg",
+            "caption": "受理费第一次",
+            "thumb": "/assets/images/cases/porto3.jpg"
+          }]
+        },
+        "voucher": {
+          "label": ["发票凭证"],
+          "type": "lightbox",
+          "elements": [{
+            "src": "/assets/images/cases/porto4.jpg",
+            "caption": "发票凭证",
+            "thumb": "/assets/images/cases/porto4.jpg"
+          }]
+        },
+        "express": {
+          "type": "lightbox",
+          "label": ["户籍信息"],
+          "elements": [{
+            "src": "/assets/images/cases/porto5.jpg",
+            "caption": "户籍信息",
+            "thumb": "/assets/images/cases/porto5.jpg"
+          }]
+        },
+        "remarks": "未收到"
       }]
-    }]
+    }, {
+      "type": "text",
+      "title": {
+        "label": "案件说明",
+        "style": "style-v4"
+      },
+      "body": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
+    }],
+    "comment": {
+      "title": {
+        "label": "添加工作跟踪",
+        "style": "style-v4"
+      },
+      "meta": {
+        "type": "comment",
+        "commentTypeUuid": "xxxx",
+        "entityType": "article",
+        "nodeUuid": "xxx"
+      },
+      "form": [{
+        "type": "textarea",
+        "label": "评论",
+        "key": "comment_body",
+        "placeholder": "请输入您的评论",
+        "appearance": "outline",
+        "rows": "5",
+        "params": {
+          "required": true
+        },
+        "errorMes": "请输入评论。"
+      }],
+      "actions": [{
+        "label": "提交",
+        "type": "submit",
+        "color": "primary"
+      }],
+      "success": "发布成功！",
+      "fail": "提交失败！"
+    }
   }]
 }

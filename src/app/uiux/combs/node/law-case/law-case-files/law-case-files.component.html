@@ -1,0 +1,15 @@
+<div class="law-case-files">
+  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
+  <app-title [content]="content.title"></app-title>
+  <div class="wrapper" fxLayout="row wrap">
+    <div class="box" fxFlex.lt-sm="100" fxFlex.gt-xs="50" *ngFor="let box of content.elements">
+      <div class="inner m-y-xs m-x-xs p-x-xs p-y-xs">
+        <div class="label mat-h3">{{box.label}}</div>
+        <div class="li" *ngFor="let file of box.elements">
+          <app-link [content]="file"></app-link>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
+</div>

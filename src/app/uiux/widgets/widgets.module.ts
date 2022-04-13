@@ -8,6 +8,7 @@ import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { CountToModule } from 'angular-count-to';
 import { DynamicModule } from 'ng-dynamic-component';
 import { TreeModule } from '@circlon/angular-tree-component';
+import { CdkTableModule } from '@angular/cdk/table';
 
 import { BgComponent } from './bg/bg.component';
 import { ImgComponent } from './img/img.component';
@@ -63,6 +64,7 @@ import { FontChangeComponent } from './font-change/font-change.component';
 import { CheckboxComponent } from './form/checkbox/checkbox.component';
 import { ContentBoxComponent } from './content-box/content-box.component';
 import { TermsServiceComponent } from './form/terms-service/terms-service.component';
+import { DynamicTableComponent } from './dynamic-table/dynamic-table.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -120,6 +122,7 @@ const components = [
   DownloadComponent,
   FontChangeComponent,
   TermsServiceComponent,
+  DynamicTableComponent,
   SearchActionComponent,
   MediaObjectGroupComponent,
   DynamicFormControlComponent,
@@ -135,6 +138,7 @@ const components = [
     LightboxModule,
     CountToModule,
     DynamicModule,
+    CdkTableModule,
   ],
   exports: [...components],
   providers: [

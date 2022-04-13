@@ -159,6 +159,9 @@
             "label": "Case",
             "href": "/sample/node/case"
           }, {
+            "label": "Law Case",
+            "href": "/sample/node/law-case"
+          }, {
             "label": "Blog / News",
             "href": "/sample/node/article"
           }, {

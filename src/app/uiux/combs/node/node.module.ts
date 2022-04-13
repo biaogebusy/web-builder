@@ -18,6 +18,9 @@ import { CommentListComponent } from './question/comment/comment-list/comment-li
 import { ArticleMetaComponent } from './article/article-meta/article-meta.component';
 import { ArticleCommentComponent } from './article/article-comment/article-comment.component';
 import { ArticleCommentListComponent } from './article/article-comment-list/article-comment-list.component';
+import { LawCaseComponent } from './law-case/law-case.component';
+import { LawCaseFilesComponent } from './law-case/law-case-files/law-case-files.component';
+import { LawCaseTableComponent } from './law-case/law-case-table/law-case-table.component';
 
 const components = [
   JobComponent,
@@ -30,6 +33,9 @@ const components = [
   ArticleBannerComponent,
   ArticleMetaComponent,
   QuestionComponent,
+  LawCaseComponent,
+  LawCaseFilesComponent,
+  LawCaseTableComponent,
   CommentComponent,
   CommentFormComponent,
   CommentListComponent,
@@ -45,6 +51,7 @@ const components = [
     ArticleComponent,
     QuestionComponent,
     JobComponent,
+    LawCaseComponent,
   ],
 })
 export class NodeModule {}

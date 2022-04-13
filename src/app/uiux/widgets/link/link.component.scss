@@ -1,0 +1,36 @@
+.excel,
+.pdf,
+.txt,
+.word,
+.pictrue {
+  &:before {
+    display: inline-block;
+    margin-right: 6px;
+  }
+}
+
+.pdf {
+  &:before {
+    content: url("/assets/icons/file-pdf.svg");
+  }
+}
+.excel {
+  &:before {
+    content: url("/assets/icons/file-excel.svg");
+  }
+}
+.txt {
+  &:before {
+    content: url("/assets/icons/file-txt.svg");
+  }
+}
+.word {
+  &:before {
+    content: url("/assets/icons/file-word.svg");
+  }
+}
+.pictrue {
+  &:before {
+    content: url("/assets/icons/file-image.svg");
+  }
+}
