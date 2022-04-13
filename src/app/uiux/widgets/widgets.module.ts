@@ -65,6 +65,7 @@ import { CheckboxComponent } from './form/checkbox/checkbox.component';
 import { ContentBoxComponent } from './content-box/content-box.component';
 import { TermsServiceComponent } from './form/terms-service/terms-service.component';
 import { DynamicTableComponent } from './dynamic-table/dynamic-table.component';
+import { InlineLightboxComponent } from './lightbox/inline-lightbox/inline-lightbox.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -124,6 +125,7 @@ const components = [
   TermsServiceComponent,
   DynamicTableComponent,
   SearchActionComponent,
+  InlineLightboxComponent,
   MediaObjectGroupComponent,
   DynamicFormControlComponent,
 ];

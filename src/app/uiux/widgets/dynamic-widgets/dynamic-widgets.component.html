@@ -29,6 +29,8 @@
     <app-progress-bar *ngSwitchCase="'progress-bar'" [content]="content"></app-progress-bar>
     <app-media-object *ngSwitchCase="'media-object'" [content]="content"></app-media-object>
     <app-progress-group *ngSwitchCase="'progress-group'" [content]="content"></app-progress-group>
+    <app-inline-lightbox *ngSwitchCase="'inline-lightbox'" [content]="content"></app-inline-lightbox>
     <app-media-object-group *ngSwitchCase="'media-object-group'" [content]="content"></app-media-object-group>
+    <app-text *ngSwitchDefault [content]="{'body':content}"></app-text>
   </ng-container>
 </ng-container>

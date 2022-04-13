@@ -4,11 +4,8 @@
         {{item.label}}
       </th>
       <td mat-cell *cdkCellDef="let element">
-        {{element[item.key]}}
-        <app-dynamic-widgets [content]="element[item.key]"></app-dynamic-widgets>
-        <!-- <ng-container [ngSwitch]="element[item.key].type">
-
-        </ng-container> -->
+        <div *ngIf="element[item.key] | isString" [innerHTML]="element[item.key]"></div>
+        <app-dynamic-widgets *ngIf="element[item.key] | isObject" [content]="element[item.key]"></app-dynamic-widgets>
       </td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

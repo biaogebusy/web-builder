@@ -149,7 +149,7 @@
         "billingTime": "2022-03-03",
         "deliveryTime": "2022-03-04",
         "images": {
-          "type": "lightbox",
+          "type": "inline-lightbox",
           "label": ["受理费第一次", "受理费-补交", "受理费第二次"],
           "elements": [{
             "src": "/assets/images/cases/porto1.jpg",
@@ -161,13 +161,13 @@
             "thumb": "/assets/images/cases/porto2.jpg"
           }, {
             "src": "/assets/images/cases/porto3.jpg",
-            "caption": "受理费第一次",
+            "caption": "受理费第二次",
             "thumb": "/assets/images/cases/porto3.jpg"
           }]
         },
         "voucher": {
           "label": ["发票凭证"],
-          "type": "lightbox",
+          "type": "inline-lightbox",
           "elements": [{
             "src": "/assets/images/cases/porto4.jpg",
             "caption": "发票凭证",
@@ -175,7 +175,7 @@
           }]
         },
         "express": {
-          "type": "lightbox",
+          "type": "inline-lightbox",
           "label": ["户籍信息"],
           "elements": [{
             "src": "/assets/images/cases/porto5.jpg",
@@ -190,7 +190,7 @@
         "billingTime": "2022-03-03",
         "deliveryTime": "2022-03-04",
         "images": {
-          "type": "lightbox",
+          "type": "inline-lightbox",
           "label": ["受理费第一次", "受理费-补交", "受理费第二次"],
           "elements": [{
             "src": "/assets/images/cases/porto1.jpg",
@@ -202,13 +202,13 @@
             "thumb": "/assets/images/cases/porto2.jpg"
           }, {
             "src": "/assets/images/cases/porto3.jpg",
-            "caption": "受理费第一次",
+            "caption": "受理费第二次",
             "thumb": "/assets/images/cases/porto3.jpg"
           }]
         },
         "voucher": {
           "label": ["发票凭证"],
-          "type": "lightbox",
+          "type": "inline-lightbox",
           "elements": [{
             "src": "/assets/images/cases/porto4.jpg",
             "caption": "发票凭证",
@@ -216,7 +216,7 @@
           }]
         },
         "express": {
-          "type": "lightbox",
+          "type": "inline-lightbox",
           "label": ["户籍信息"],
           "elements": [{
             "src": "/assets/images/cases/porto5.jpg",
@@ -231,7 +231,7 @@
         "billingTime": "2022-03-03",
         "deliveryTime": "2022-03-04",
         "images": {
-          "type": "lightbox",
+          "type": "inline-lightbox",
           "label": ["受理费第一次", "受理费-补交", "受理费第二次"],
           "elements": [{
             "src": "/assets/images/cases/porto1.jpg",
@@ -243,13 +243,13 @@
             "thumb": "/assets/images/cases/porto2.jpg"
           }, {
             "src": "/assets/images/cases/porto3.jpg",
-            "caption": "受理费第一次",
+            "caption": "受理费第二次",
             "thumb": "/assets/images/cases/porto3.jpg"
           }]
         },
         "voucher": {
           "label": ["发票凭证"],
-          "type": "lightbox",
+          "type": "inline-lightbox",
           "elements": [{
             "src": "/assets/images/cases/porto4.jpg",
             "caption": "发票凭证",
@@ -257,7 +257,7 @@
           }]
         },
         "express": {
-          "type": "lightbox",
+          "type": "inline-lightbox",
           "label": ["户籍信息"],
           "elements": [{
             "src": "/assets/images/cases/porto5.jpg",

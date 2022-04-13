@@ -8,11 +8,14 @@
         暂无相关数据
       </div>
       <div class="map-list-head p-x-sm p-y-sm">
-        <h2 [innerHTML]="content?.title"></h2>
+        <!-- <h2 [innerHTML]="content?.title"></h2> -->
+        <app-title [content]="content.title"></app-title>
         <div class="meta" *ngIf="content?.meta">
           <div class="item" *ngFor="let item of content.meta">
             <span>{{item.label}}: </span>
-            <span>{{item.value}}</span>
+            <span>{{item.value}}
+              <mat-icon color="primary" inline *ngIf="item.label === '地址'">place</mat-icon>
+            </span>
           </div>
         </div>
       </div>

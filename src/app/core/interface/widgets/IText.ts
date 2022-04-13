@@ -6,7 +6,7 @@ export interface IText {
   id?: string;
   spacer?: string;
   bg?: IBgImg;
-  classes: string;
+  classes?: string;
   style?: any;
   title?: ITitle;
   body?: HTMLElement;

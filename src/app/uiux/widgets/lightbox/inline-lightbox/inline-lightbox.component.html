@@ -1,0 +1,4 @@
+<div class="inline-lightbox" *ngIf="content">
+  <a class="p-x-xs" href="javascript:void(0)" (click)="onClick(i)"
+    *ngFor="let item of content.label;index as i">{{item}}</a>
+</div>

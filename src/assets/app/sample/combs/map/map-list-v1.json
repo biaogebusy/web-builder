@@ -2,7 +2,10 @@
   "title": "良庆区人民法院",
   "body": [{
     "type": "map-list-v1",
-    "title": "良庆区人民法院",
+    "title": {
+      "label": "良庆区人民法院",
+      "style": "style-v4"
+    },
     "meta": [{
       "label": "地址",
       "value": "良庆区玉洞街道玉洞大道8-1号"
