@@ -1,11 +1,23 @@
 <div class="law-case position-relative p-y" *ngIf="content">
   <div class="container">
-    <div class="title">
-      <h2 class="mat-display-1 m-bottom-xs">{{content.title}}</h2>
-      <div class="date">
-        <div *ngFor="let date of content.date">
-          <span>{{date.label}} | </span>
-          <span>{{date.value}}</span>
+    <div class="case-header" fxLayout="row warp" fxLayoutAlign="space-between center">
+      <div class="title">
+        <h2 class="mat-display-1 m-bottom-xs">{{content.title}}</h2>
+        <div class="date">
+          <div *ngFor="let date of content.date">
+            <span>{{date.label}} | </span>
+            <span>{{date.value}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="actions p-y-sm">
+        <div class="inner" fxLayout="row" fxLayoutGap="1rem">
+          <button mat-fab color="primary" aria-label="Example icon button with a delete icon">
+            <mat-icon>editor</mat-icon>
+          </button>
+          <button mat-fab color="primary" aria-label="Example icon button with a delete icon">
+            <mat-icon>favorite</mat-icon>
+          </button>
         </div>
       </div>
     </div>
