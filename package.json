@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "start:ssl": "--ssl --ssl-key config/localhost.key  --ssl-cert config/localhost.crt",
+    "start:ssl": "ng serve --ssl",
     "start-hmr": "ng serve --hmr -o",
     "build": "ng build --prod",
     "build:xinshi": "ng build --configuration=xinshi --output-path dist/xinshi/browser && ng run xinshi:server:xinshi --output-path dist/xinshi/server",

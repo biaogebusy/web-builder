@@ -1,6 +1,6 @@
 const PROXY_CONFIG = [
   {
-    context: ["/api", "/sites"],
+    context: ["/sites"],
     target: "https://api.zhaobg.com",
     secure: false,
     logLevel: "debug",
