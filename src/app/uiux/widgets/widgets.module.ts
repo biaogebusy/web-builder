@@ -66,6 +66,7 @@ import { ContentBoxComponent } from './content-box/content-box.component';
 import { TermsServiceComponent } from './form/terms-service/terms-service.component';
 import { DynamicTableComponent } from './dynamic-table/dynamic-table.component';
 import { InlineLightboxComponent } from './lightbox/inline-lightbox/inline-lightbox.component';
+import { BtnComponent } from './btn/btn.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -80,6 +81,7 @@ const components = [
   TextComponent,
   TextHeroComponent,
   LinkComponent,
+  BtnComponent,
   TabComponent,
   CardComponent,
   Card1v1Component,
