@@ -1,0 +1,357 @@
+{
+  "title": "sample widgets",
+  "body": [{
+    "type": "text",
+    "spacer": "sm",
+    "title": {
+      "label": "UI Widgets 示例",
+      "style": "style-v1"
+    },
+    "body": "这里展示了整个框架所使用到的基础 widgets，框架的组件 UI 都是基于 widgets 去构建开发，这样可以尽可能的保证 UI 的统一。"
+  }, {
+    "type": "download",
+    "label": "下载",
+    "icon": {
+      "name": "file_download",
+      "inline": true
+    },
+    "elements": [{
+        "type": "link",
+        "label": "Doc",
+        "icon": {
+          "name": "description"
+        },
+        "href": "#"
+      },
+      {
+        "type": "link",
+        "label": "Pdf",
+        "icon": {
+          "name": "picture_as_pdf"
+        },
+        "href": "#"
+      }
+    ]
+  }, {
+    "type": "flag",
+    "label": "收藏",
+    "icon": {
+      "name": "star",
+      "inline": true
+    },
+    "params": {
+      "type": "flagging--favorite",
+      "entity_type": "node",
+      "entity_id": "1312",
+      "relationships": {
+        "flagged_entity": {
+          "type": "node--article",
+          "id": "cb31d69f-a95e-4c91-97d1-1169f82a10a5"
+        }
+      }
+    }
+  }, {
+    "type": "share",
+    "button": {
+      "icon": "share",
+      "label": "分享"
+    },
+    "params": {
+      "url": "/"
+    }
+  }, {
+    "type": "search-action",
+    "button": {
+      "label": "\u641c\u7d22",
+      "color": "primary"
+    },
+    "form": [{
+      "type": "input",
+      "key": "title",
+      "placeholder": "\u8bf7\u8f93\u5165\u5173\u952e\u8bcd",
+      "controlType": "text",
+      "label": "\u5173\u952e\u8bcd",
+      "appearance": "legacy"
+    }]
+  }, {
+    "type": "box",
+    "icon": {
+      "svg": "zhihu",
+      "inline": true
+    },
+    "style": "style-v9",
+    "title": {
+      "href": "#",
+      "label": "Best Financial Advice"
+    },
+    "content": "The most well-known which is said to have originated",
+    "more": {
+      "href": "#",
+      "label": "Read More"
+    }
+  }, {
+    "type": "btn-animate",
+    "label": "Read more",
+    "href": "#",
+    "style": "style-v1",
+    "icon": "open_in_new"
+  }, {
+    "type": "card",
+    "title": "JOHNSON",
+    "subTitle": "Frontend Devel",
+    "classes": "card-no-shadow",
+    "body": "Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. ",
+    "feature": {
+      "fullIcon": "fullscreen",
+      "openIcon": "open_in_new",
+      "link": "#",
+      "ratios": "media-4-3",
+      "img": {
+        "classes": "object-fit",
+        "src": "/assets/images/cases/porto1.jpg",
+        "alt": "alt"
+      }
+    }
+  }, {
+    "type": "card-1v1",
+    "feature": {
+      "type": "feature-box",
+      "fullIcon": "fullscreen",
+      "openIcon": "open_in_new",
+      "link": "#",
+      "ratios": "media-4-3",
+      "img": {
+        "classes": "object-fit",
+        "src": "/assets/images/cases/porto1.jpg",
+        "alt": "alt"
+      }
+    },
+    "link": {
+      "label": "Card 1v1",
+      "href": "#"
+    },
+    "user": "Johnson",
+    "time": "2022/02/03",
+    "moreLabel": "更多"
+  }, {
+    "type": "chip-list",
+    "elements": [{
+      "label": "angular"
+    }, {
+      "label": "react"
+    }]
+  }, {
+    "type": "content-box",
+    "width": "33.33",
+    "ratios": "media-4-3",
+    "subTitle": {
+      "label": "音乐",
+      "href": "/search",
+      "queryParams": {
+        "law_category": 25
+      }
+    },
+    "title": {
+      "label": "音乐版权发行代理顾问服务",
+      "href": "/search",
+      "queryParams": {
+        "law_category": 25
+      }
+    },
+    "img": {
+      "classes": "object-fit",
+      "src": "/assets/images/cases/porto1.jpg",
+      "alt": "alt"
+    }
+  }, {
+    "type": "dynamic-table",
+    "title": {
+      "label": "发票管理",
+      "style": "style-v4"
+    },
+    "header": [{
+      "label": "发票名称",
+      "key": "name"
+    }, {
+      "label": "开票金额",
+      "key": "money"
+    }, {
+      "label": "交票时间",
+      "key": "billingTime"
+    }, {
+      "label": "发票时间",
+      "key": "deliveryTime"
+    }, {
+      "label": "发票图片",
+      "key": "images"
+    }, {
+      "label": "付款凭证",
+      "key": "voucher"
+    }, {
+      "label": "发票快递",
+      "key": "express"
+    }, {
+      "label": "备注",
+      "key": "remarks"
+    }],
+    "elements": [{
+      "name": "受理费",
+      "money": "3679",
+      "billingTime": "2022-03-03",
+      "deliveryTime": "2022-03-04",
+      "images": {
+        "type": "inline-lightbox",
+        "label": ["受理费第一次", "受理费-补交", "受理费第二次"],
+        "elements": [{
+          "src": "/assets/images/cases/porto1.jpg",
+          "caption": "受理费第一次",
+          "thumb": "/assets/images/cases/porto1.jpg"
+        }, {
+          "src": "/assets/images/cases/porto2.jpg",
+          "caption": "受理费-补交",
+          "thumb": "/assets/images/cases/porto2.jpg"
+        }, {
+          "src": "/assets/images/cases/porto3.jpg",
+          "caption": "受理费第二次",
+          "thumb": "/assets/images/cases/porto3.jpg"
+        }]
+      },
+      "voucher": {
+        "label": ["发票凭证"],
+        "type": "inline-lightbox",
+        "elements": [{
+          "src": "/assets/images/cases/porto4.jpg",
+          "caption": "发票凭证",
+          "thumb": "/assets/images/cases/porto4.jpg"
+        }]
+      },
+      "express": {
+        "type": "inline-lightbox",
+        "label": ["户籍信息"],
+        "elements": [{
+          "src": "/assets/images/cases/porto5.jpg",
+          "caption": "户籍信息",
+          "thumb": "/assets/images/cases/porto5.jpg"
+        }]
+      },
+      "remarks": "已收到"
+    }, {
+      "name": "鉴定费",
+      "money": "4879",
+      "billingTime": "2022-03-03",
+      "deliveryTime": "2022-03-04",
+      "images": {
+        "type": "inline-lightbox",
+        "label": ["受理费第一次", "受理费-补交", "受理费第二次"],
+        "elements": [{
+          "src": "/assets/images/cases/porto1.jpg",
+          "caption": "受理费第一次",
+          "thumb": "/assets/images/cases/porto1.jpg"
+        }, {
+          "src": "/assets/images/cases/porto2.jpg",
+          "caption": "受理费-补交",
+          "thumb": "/assets/images/cases/porto2.jpg"
+        }, {
+          "src": "/assets/images/cases/porto3.jpg",
+          "caption": "受理费第二次",
+          "thumb": "/assets/images/cases/porto3.jpg"
+        }]
+      },
+      "voucher": {
+        "label": ["发票凭证"],
+        "type": "inline-lightbox",
+        "elements": [{
+          "src": "/assets/images/cases/porto4.jpg",
+          "caption": "发票凭证",
+          "thumb": "/assets/images/cases/porto4.jpg"
+        }]
+      },
+      "express": {
+        "type": "inline-lightbox",
+        "label": ["户籍信息"],
+        "elements": [{
+          "src": "/assets/images/cases/porto5.jpg",
+          "caption": "户籍信息",
+          "thumb": "/assets/images/cases/porto5.jpg"
+        }]
+      },
+      "remarks": "已收到"
+    }, {
+      "name": "保全费",
+      "money": "123423",
+      "billingTime": "2022-03-03",
+      "deliveryTime": "2022-03-04",
+      "images": {
+        "type": "inline-lightbox",
+        "label": ["受理费第一次", "受理费-补交", "受理费第二次"],
+        "elements": [{
+          "src": "/assets/images/cases/porto1.jpg",
+          "caption": "受理费第一次",
+          "thumb": "/assets/images/cases/porto1.jpg"
+        }, {
+          "src": "/assets/images/cases/porto2.jpg",
+          "caption": "受理费-补交",
+          "thumb": "/assets/images/cases/porto2.jpg"
+        }, {
+          "src": "/assets/images/cases/porto3.jpg",
+          "caption": "受理费第二次",
+          "thumb": "/assets/images/cases/porto3.jpg"
+        }]
+      },
+      "voucher": {
+        "label": ["发票凭证"],
+        "type": "inline-lightbox",
+        "elements": [{
+          "src": "/assets/images/cases/porto4.jpg",
+          "caption": "发票凭证",
+          "thumb": "/assets/images/cases/porto4.jpg"
+        }]
+      },
+      "express": {
+        "type": "inline-lightbox",
+        "label": ["户籍信息"],
+        "elements": [{
+          "src": "/assets/images/cases/porto5.jpg",
+          "caption": "户籍信息",
+          "thumb": "/assets/images/cases/porto5.jpg"
+        }]
+      },
+      "remarks": "未收到"
+    }]
+  }, {
+    "type": "feature-box",
+    "fullIcon": "fullscreen",
+    "openIcon": "open_in_new",
+    "ratios": "media-16-9",
+    "link": "#",
+    "img": {
+      "classes": "object-fit",
+      "src": "/assets/images/showcase/blog1-large.jpeg",
+      "alt": "lazyload"
+    }
+  }, {
+    "type": "icon",
+    "name": "place"
+  }, {
+    "type": "icon",
+    "svg": "zhihu",
+    "inline": true,
+    "color": "primary"
+  }, {
+    "type": "inline-lightbox",
+    "label": ["受理费第一次", "受理费-补交", "受理费第二次"],
+    "elements": [{
+      "src": "/assets/images/cases/porto1.jpg",
+      "caption": "受理费第一次",
+      "thumb": "/assets/images/cases/porto1.jpg"
+    }, {
+      "src": "/assets/images/cases/porto2.jpg",
+      "caption": "受理费-补交",
+      "thumb": "/assets/images/cases/porto2.jpg"
+    }, {
+      "src": "/assets/images/cases/porto3.jpg",
+      "caption": "受理费第二次",
+      "thumb": "/assets/images/cases/porto3.jpg"
+    }]
+  }]
+}

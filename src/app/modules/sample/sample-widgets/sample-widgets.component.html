@@ -1,0 +1,9 @@
+<div class="samples">
+  <div class="container">
+    <div class="inner" fxLayout="column">
+      <div class="item" *ngFor="let widget of samples">
+        <app-dynamic-widgets [content]="widget"></app-dynamic-widgets>
+      </div>
+    </div>
+  </div>
+</div>

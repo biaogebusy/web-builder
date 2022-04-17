@@ -1,5 +1,10 @@
 {
   "title": "xxx 案件",
+  "config": {
+    "node": {
+      "entityId": "35"
+    }
+  },
   "body": [{
     "type": "law-case",
     "title": "二审案件",

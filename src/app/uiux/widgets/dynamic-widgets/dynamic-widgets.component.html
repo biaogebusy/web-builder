@@ -2,19 +2,20 @@
   <ng-container [ngSwitch]="content.type">
     <app-bg *ngSwitchCase="'bg'" [content]="content"></app-bg>
     <app-img *ngSwitchCase="'img'" [content]="content"></app-img>
-    <app-bg-img *ngSwitchCase="'bg-img'" [content]="content"></app-bg-img>
     <app-tab *ngSwitchCase="'tab'" [content]="content"></app-tab>
     <app-box *ngSwitchCase="'box'" [content]="content"></app-box>
     <app-text *ngSwitchCase="'text'" [content]="content"></app-text>
     <app-card *ngSwitchCase="'card'" [content]="content"></app-card>
     <app-link *ngSwitchCase="'link'" [content]="content"></app-link>
+    <app-icon *ngSwitchCase="'icon'" [content]="content"></app-icon>
     <app-panel *ngSwitchCase="'panel'" [content]="content"></app-panel>
     <app-input *ngSwitchCase="'input'" [content]="content"></app-input>
     <app-flag *ngSwitchCase="'flag'" [content]="content"></app-flag>
     <app-share *ngSwitchCase="'share'" [content]="content"></app-share>
     <app-swiper *ngSwitchCase="'swiper'" [content]="content"></app-swiper>
+    <app-bg-img *ngSwitchCase="'bg-img'" [content]="content"></app-bg-img>
     <app-spinner *ngSwitchCase="'spinner'" [content]="content"></app-spinner>
-    <app-download *ngSwitchCase="'download'" [content]="content" [data]="data"></app-download>
+    <app-card1v1 *ngSwitchCase="'card-1v1'" [content]="content"></app-card1v1>
     <app-textarea *ngSwitchCase="'textarea'" [content]="content"></app-textarea>
     <app-text-hero *ngSwitchCase="'text-hero'" [content]="content"></app-text-hero>
     <app-menu-list *ngSwitchCase="'menu-list'" [content]="content"></app-menu-list>
@@ -22,12 +23,17 @@
     <app-chip-list *ngSwitchCase="'chip-list'" [content]="content"></app-chip-list>
     <app-contact-us *ngSwitchCase="'contact-us'" [content]="content"></app-contact-us>
     <app-media-list *ngSwitchCase="'media-list'" [content]="content"></app-media-list>
+    <app-btn-animate *ngSwitchCase="'btn-animate'" [content]="content"></app-btn-animate>
     <app-feature-box *ngSwitchCase="'feature-box'" [content]="content"></app-feature-box>
     <app-content-box *ngSwitchCase="'content-box'" [content]="content"></app-content-box>
     <app-font-change *ngSwitchCase="'font-change'" [content]="content"></app-font-change>
     <app-testimonial *ngSwitchCase="'testimonial'" [content]="content"></app-testimonial>
     <app-progress-bar *ngSwitchCase="'progress-bar'" [content]="content"></app-progress-bar>
     <app-media-object *ngSwitchCase="'media-object'" [content]="content"></app-media-object>
+    <app-download *ngSwitchCase="'download'" [content]="content" [data]="data"></app-download>
+    <app-dynamic-table *ngSwitchCase="'dynamic-table'" [content]="content"></app-dynamic-table>
+    <app-dropdown-menu *ngSwitchCase="'dropdown-menu'" [content]="content"></app-dropdown-menu>
+    <app-search-action *ngSwitchCase="'search-action'" [content]="content"></app-search-action>
     <app-progress-group *ngSwitchCase="'progress-group'" [content]="content"></app-progress-group>
     <app-inline-lightbox *ngSwitchCase="'inline-lightbox'" [content]="content"></app-inline-lightbox>
     <app-media-object-group *ngSwitchCase="'media-object-group'" [content]="content"></app-media-object-group>

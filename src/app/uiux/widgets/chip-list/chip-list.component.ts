@@ -13,7 +13,7 @@ import { IChipList } from '@core/interface/widgets/IChipList';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChipListComponent implements OnInit {
-  @Input() content: IChipList[];
+  @Input() content: any;
   @Input() classes: any;
 
   constructor() {}

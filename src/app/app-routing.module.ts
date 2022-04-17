@@ -22,6 +22,11 @@ const routes: Routes = [
       import('./modules/manage/manage.module').then((m) => m.ManageModule),
   },
   {
+    path: 'sample',
+    loadChildren: () =>
+      import('./modules/sample/sample.module').then((m) => m.SampleModule),
+  },
+  {
     path: '**',
     loadChildren: () =>
       import('./modules/page-render/page-render.module').then(
