@@ -8,12 +8,12 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'app-article-comment-list',
-  templateUrl: './article-comment-list.component.html',
-  styleUrls: ['./article-comment-list.component.scss'],
+  selector: 'app-comment-list',
+  templateUrl: './comment-list.component.html',
+  styleUrls: ['./comment-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ArticleCommentListComponent implements OnInit {
+export class CommentListComponent implements OnInit {
   @Input() content: any[];
   @Input() currentUserId: any;
   @Output() deleted = new EventEmitter();

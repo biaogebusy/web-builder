@@ -14,12 +14,12 @@ import { takeUntil } from 'rxjs/operators';
 import { UserState } from '@core/mobx/user/UserState';
 
 @Component({
-  selector: 'app-article-comment',
-  templateUrl: './article-comment.component.html',
-  styleUrls: ['./article-comment.component.scss'],
+  selector: 'app-comment',
+  templateUrl: './comment.component.html',
+  styleUrls: ['./comment.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ArticleCommentComponent implements OnInit, OnDestroy {
+export class CommentComponent implements OnInit, OnDestroy {
   @Input() content: any;
   @Input() form: FormGroup;
   loading: boolean;

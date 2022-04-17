@@ -50,12 +50,13 @@
           <app-dynamic-widgets [data]="content?.params" [content]="action" *ngFor="let action of content.actions">
           </app-dynamic-widgets>
         </div>
-        <app-article-comment [form]="commentForm" [content]="content.comment" (submit)="onSubmit()"
+        <!-- <app-article-comment [form]="commentForm" [content]="content.comment" (submit)="onSubmit()"
           *ngIf="userState.authenticated && appState?.article?.comment?.enabel && content.comment">
         </app-article-comment>
         <app-article-comment-list *ngIf="userState.authenticated" [content]="comments" (deleted)="onDeleted($event)"
           [currentUserId]="userState.currentUser.id">
-        </app-article-comment-list>
+        </app-article-comment-list> -->
+        <app-comment></app-comment>
       </div>
       <app-sidebar [ngClass.gt-sm]="'m-left-sm'" *ngIf="content.sidebar" fxFlex.lt-md="100" fxFlex.gt-sm="25"
         [content]="content.sidebar"></app-sidebar>
