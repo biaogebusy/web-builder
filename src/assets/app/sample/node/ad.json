@@ -1,0 +1,93 @@
+{
+  "title": "某某广告 | 小海报",
+  "config": {
+    "node": {
+      "entityId": "1312"
+    }
+  },
+  "body": [{
+    "type": "ad-details",
+    "store": {
+      "logo": "/assets/xx.png",
+      "name": "协盛超市"
+    },
+    "date": {
+      "start": "2021/10/29",
+      "end": "2021/11/09"
+    },
+    "body": "富文本",
+    "view": "3239",
+    "params": {
+      "comment": {
+        "type": "comment--comment",
+        "attributes": {
+          "entity_type": "node",
+          "field_name": "comment"
+        },
+        "relationships": {
+          "comment_type": {
+            "data": {
+              "type": "comment_type--comment_type",
+              "id": "a395ac8e-3c9a-43d5-8ec8-cea74116d5f3"
+            }
+          },
+          "entity_id": {
+            "data": {
+              "type": "node--article",
+              "id": "b59a2767-89b8-418d-91fe-6f0e6a5638ec"
+            }
+          }
+        }
+      },
+      "redpacket": {}
+    },
+    "actions": [{
+      "label": "分享",
+      "icon": {
+        "name": "star",
+        "inline": true
+      },
+      "params": {}
+    }, {
+      "type": "flag",
+      "label": "收藏",
+      "icon": {
+        "name": "star",
+        "inline": true
+      },
+      "params": {
+        "type": "flagging--favorite",
+        "entity_type": "node",
+        "entity_id": "1312",
+        "relationships": {
+          "flagged_entity": {
+            "type": "node--ad",
+            "id": "cb31d69f-a95e-4c91-97d1-1169f82a10a5"
+          }
+        }
+      }
+    }, {
+      "label": "导航到店",
+      "icon": {
+        "name": "place",
+        "inline": true
+      },
+      "params": {
+        "lat": "21.959474,108.622915"
+      }
+    }, {
+      "type": "form",
+      "placeholder": "请输入评论内容",
+      "label": "您的评论",
+      "actions": [{
+          "type": "submit",
+          "label": "提交"
+        },
+        {
+          "type": "cancel",
+          "label": "取消"
+        }
+      ]
+    }]
+  }]
+}
