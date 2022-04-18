@@ -20,8 +20,12 @@
 </article>
 <article class="comment position-relative p-y-sm">
   <div class="container">
-    <app-question-comment (submitEditor)="onSubmit($event)" [content]="content" [comments]="comments"
-      [myCommentId]="myCommentId" [myCommentContent]="myCommentContent" [showEditor]="showEditor">
-    </app-question-comment>
+    <!-- input params and editor config -->
+    <app-comment-form *ngIf="true && !myCommentContent" [content]="content" (submitComment)="onSubmit($event)"
+      [commentContent]="myCommentContent" [commentId]="myCommentId">
+    </app-comment-form>
+    <app-comment-list [comments]="comments" [content]="content" [myCommentId]="myCommentId"
+      (submitComment)="onSubmit($event)">
+    </app-comment-list>
   </div>
 </article>

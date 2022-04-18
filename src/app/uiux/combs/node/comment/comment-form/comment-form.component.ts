@@ -22,8 +22,8 @@ import { catchError, takeUntil } from 'rxjs/operators';
 })
 export class CommentFormComponent implements OnInit, OnDestroy {
   @Input() content: any;
-  @Input() myCommentContent: any;
-  @Input() myCommentId: string;
+  @Input() commentContent: any;
+  @Input() commentId: string;
   @Output() submitComment = new EventEmitter();
   @Output() cancel = new EventEmitter();
 
@@ -42,8 +42,8 @@ export class CommentFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      if (this.myCommentContent) {
-        this.htmlData = this.myCommentContent;
+      if (this.commentContent) {
+        this.htmlData = this.commentContent;
         this.cd.detectChanges();
       }
     }
@@ -55,7 +55,7 @@ export class CommentFormComponent implements OnInit, OnDestroy {
 
   onSubmit(editor: any, value: any): void {
     this.loading = true;
-    if (!this.myCommentContent) {
+    if (!this.commentContent) {
       const params = this.content.params;
       params.attributes.content = {
         value,
@@ -78,7 +78,7 @@ export class CommentFormComponent implements OnInit, OnDestroy {
     } else {
       const entity = {
         type: 'comment--answer',
-        id: this.myCommentId,
+        id: this.commentId,
         attributes: {
           content: {
             value,
@@ -98,7 +98,7 @@ export class CommentFormComponent implements OnInit, OnDestroy {
         .updateComment(
           editor.type,
           entity,
-          this.myCommentId,
+          this.commentId,
           this.userState.csrfToken
         )
         .pipe(takeUntil(this.destroy$))
