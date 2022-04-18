@@ -1,17 +1,10 @@
 {
-  "title": "华为是一家怎样的公司？",
+  "title": "drupal8比drupal7多了什么？",
   "body": [{
     "type": "question",
-    "title": "华为是一家怎样的公司？",
-    "body": "不是从业者，经常听到一个字——卷！",
-    "topic": [{
-      "label": "华为",
-      "href": "/",
-      "classes": "mini"
-    }, {
-      "label": "劳动法",
-      "href": "/"
-    }],
+    "title": "drupal8比drupal7多了什么？",
+    "body": "Drupal8比Drupal7多了些什么内容和特性？drupal7的解压文件是13.1M，而drupal8的解压文件多达68M。",
+    "topic": [],
     "params": {
       "type": "comment--answer",
       "attributes": {
@@ -28,29 +21,50 @@
         "entity_id": {
           "data": {
             "type": "node--question",
-            "id": "18dac740-1d11-43c0-a431-d2b9e402fe6b"
+            "id": "b59a2767-89b8-418d-91fe-6f0e6a5638ec"
           }
         }
       }
     },
-    "ckeditor": {
+    "editor": {
       "config": {
         "toolbar": [
-          "undo",
-          "redo",
-          "|",
-          "heading",
-          "bold",
-          "italic",
-          "link",
-          "bulletedList",
-          "numberedList",
-          "|",
-          "outdent",
-          "indent",
-          "|",
-          "imageUpload",
-          "blockQuote"
+          ["bold", "italic", "underline", "strike"],
+          ["blockquote", "code-block"],
+          [{
+            "header": [1, 2, 3, 4, 5, 6, false]
+          }],
+          [{
+            "list": "ordered"
+          }, {
+            "list": "bullet"
+          }],
+          [{
+            "script": "sub"
+          }, {
+            "script": "super"
+          }],
+          [{
+            "indent": "-1"
+          }, {
+            "indent": "+1"
+          }],
+          [{
+            "size": ["small", false, "large", "huge"]
+          }],
+          [{
+            "color": []
+          }, {
+            "background": []
+          }],
+          [{
+            "font": []
+          }],
+          [{
+            "align": []
+          }],
+          ["clean"],
+          ["link"]
         ]
       },
       "type": "answer",
@@ -58,7 +72,7 @@
         "label": "发布回答"
       },
       "succes": {
-        "label": "您的答案已提交！"
+        "label": "成功发布！"
       }
     }
   }]
