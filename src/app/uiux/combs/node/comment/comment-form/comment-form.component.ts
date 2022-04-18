@@ -53,21 +53,27 @@ export class CommentFormComponent implements OnInit, OnDestroy {
     this.cancel.emit();
   }
 
-  onSubmit(editor: any, value: any): void {
+  onSubmit(value: any): void {
     this.loading = true;
+    const params = this.content.params.comment;
     if (!this.commentContent) {
-      const params = this.content.params;
       params.attributes.content = {
         value,
         format: 'full_html',
       };
       this.nodeService
-        .addComment(editor.type, params, this.userState.csrfToken)
+        .addComment(
+          params.attributes.field_name,
+          params,
+          this.userState.csrfToken
+        )
         .pipe(takeUntil(this.destroy$))
         .subscribe(
           (res) => {
             this.loading = false;
-            this.utilitiesService.openSnackbar(editor.succes.label);
+            this.utilitiesService.openSnackbar(
+              this.content.editor.succes.label
+            );
             this.submitComment.emit(true);
           },
           () => {
@@ -77,7 +83,7 @@ export class CommentFormComponent implements OnInit, OnDestroy {
         );
     } else {
       const entity = {
-        type: 'comment--answer',
+        type: params.type,
         id: this.commentId,
         attributes: {
           content: {
@@ -96,7 +102,7 @@ export class CommentFormComponent implements OnInit, OnDestroy {
       };
       this.nodeService
         .updateComment(
-          editor.type,
+          params.type,
           entity,
           this.commentId,
           this.userState.csrfToken
@@ -105,7 +111,7 @@ export class CommentFormComponent implements OnInit, OnDestroy {
         .subscribe(
           (res) => {
             this.loading = false;
-            this.utilitiesService.openSnackbar(editor.succes.label);
+            this.utilitiesService.openSnackbar(this.content.succes.label);
             this.submitComment.emit(true);
           },
           (error) => {

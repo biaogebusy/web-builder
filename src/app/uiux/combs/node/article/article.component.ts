@@ -178,8 +178,10 @@ export class ArticleComponent
       });
   }
 
-  onSubmit(): void {
-    this.getComments();
+  onSubmit(state: boolean): void {
+    if (state) {
+      this.getComments(+new Date());
+    }
   }
 
   onDeleted(id: string): void {

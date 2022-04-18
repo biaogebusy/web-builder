@@ -9,12 +9,33 @@
     "type": "article",
     "title": "DRAG AND DROP LAYOUT",
     "params": {
-      "pay": {
+      "payBak": {
         "money": 10
       },
-      "require_rule": [
+      "require_ruleBak": [
         "authenticated"
-      ]
+      ],
+      "comment": {
+        "type": "comment--comment",
+        "attributes": {
+          "entity_type": "node",
+          "field_name": "comment"
+        },
+        "relationships": {
+          "comment_type": {
+            "data": {
+              "type": "comment_type--comment_type",
+              "id": "a395ac8e-3c9a-43d5-8ec8-cea74116d5f3"
+            }
+          },
+          "entity_id": {
+            "data": {
+              "type": "node--article",
+              "id": "b59a2767-89b8-418d-91fe-6f0e6a5638ec"
+            }
+          }
+        }
+      }
     },
     "meta": [{
       "label": "发布日期",
@@ -27,32 +48,44 @@
       "value": "纠纷"
     }],
     "body": "<img src=\"/assets/images/showcase/blog1-large.jpeg\" /><p><strong style=\"color:#000\">Lorem ipsum dolor sit amet</strong>, consectetur adipiscing elit Mauris non laoreet dui, Morbi lacus massa, euismod ut turpis molestie, tristique sodales est. Integer sit amet mi id sapien tempor molestie in nec massa Fusce non ante sed lorem rutrum feugiat, Vestibulum pellentesque, purus ut dignissim consectetur, nulla erat ultrices purus, ut consequat sem elit non sem. Morbi lacus massa, euismod ut turpis molestie, tristique sodales est</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit Mauris non laoreet dui, Morbi lacus massa, euismod ut turpis molestie, tristique sodales est. Integer sit amet mi id sapien tempor molestie in nec massa Fusce non ante sed lorem rutrum feugiat, Vestibulum pellentesque, purus ut dignissim consectetur, nulla erat ultrices purus, ut consequat sem elit non sem. Morbi lacus massa, euismod ut turpis molestie, tristique sodales est</p>",
-    "comment": {
-      "meta": {
-        "type": "comment",
-        "commentTypeUuid": "xxxx",
-        "entityType": "article",
-        "nodeUuid": "xxx"
+    "editor": {
+      "config": {
+        "toolbar": [
+          ["bold", "italic", "underline", "strike"],
+          [{
+            "header": [1, 2, 3, 4, 5, 6, false]
+          }],
+          [{
+            "list": "ordered"
+          }, {
+            "list": "bullet"
+          }],
+          [{
+            "indent": "-1"
+          }, {
+            "indent": "+1"
+          }],
+          [{
+            "color": []
+          }, {
+            "background": []
+          }],
+          [{
+            "align": []
+          }],
+          ["clean"],
+          ["link"],
+          ["blockquote", "code-block"]
+        ]
       },
-      "form": [{
-        "type": "textarea",
-        "label": "评论",
-        "key": "comment_body",
-        "placeholder": "请输入您的评论",
-        "appearance": "outline",
-        "rows": "5",
-        "params": {
-          "required": true
-        },
-        "errorMes": "请输入评论。"
-      }],
       "actions": [{
         "label": "提交",
         "type": "submit",
         "color": "primary"
       }],
-      "success": "发布成功！",
-      "fail": "提交失败！"
+      "succes": {
+        "label": "成功发布！"
+      }
     },
     "actions": [{
       "type": "flag",

@@ -26,5 +26,11 @@
         </ng-container>
       </ng-container>
     </div>
+    <div class="comment-wrapper">
+      <app-comment-form *ngIf="content?.params?.comment" [content]="content" (submitComment)="onSubmit($event)">
+      </app-comment-form>
+      <app-comment-list [comments]="comments" [content]="content" (submitComment)="onSubmit($event)">
+      </app-comment-list>
+    </div>
   </div>
 </div>

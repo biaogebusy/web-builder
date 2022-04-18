@@ -27,7 +27,6 @@ export class QuestionComponent implements OnInit, OnDestroy {
   showEditor = false;
   isAsked = false;
   myCommentId = '';
-  myCommentContent = '';
   dialogRef: MatDialogRef<any>;
 
   destroy$: Subject<boolean> = new Subject<boolean>();
@@ -46,11 +45,13 @@ export class QuestionComponent implements OnInit, OnDestroy {
   }
 
   get entityId(): string {
-    return this.content?.params?.relationships?.entity_id?.data?.id || '';
+    return (
+      this.content?.params?.comment?.relationships?.entity_id?.data?.id || ''
+    );
   }
 
   get entityType(): string {
-    return this.content?.params?.attributes?.field_name || '';
+    return this.content?.params?.comment?.attributes?.field_name || '';
   }
 
   onShowEditor(): void {
@@ -83,12 +84,10 @@ export class QuestionComponent implements OnInit, OnDestroy {
           this.isAsked = true;
           this.showEditor = false;
           this.myCommentId = res.data[0].id;
-          this.myCommentContent = res.data[0].attributes.content.processed;
         } else {
           this.isAsked = false;
           this.showEditor = false;
           this.myCommentId = '';
-          this.myCommentContent = '';
         }
         this.cd.detectChanges();
       });

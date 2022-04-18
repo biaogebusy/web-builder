@@ -11,10 +11,12 @@
         <div class="comment-body p-y-xs" [innerHTML]="item.content |safeHtml"></div>
         <div class="time">更新于 {{item.time | date:'y-M-d'}}</div>
         <div class="actions" fxLayoutAlign="start center">
-          <button *ngIf="item.id === myCommentId" mat-button color="primary" (click)="onUpdateMyQuestion()">
+          <button *ngIf="item.author.id === userState.currentUser.id" mat-button color="primary"
+            (click)="onUpdateMyQuestion()">
             <mat-icon>editor</mat-icon> 修改
           </button>
-          <button *ngIf="item.id === myCommentId" mat-button color="primary" (click)="onDeleteMyQuestion(item.id)">
+          <button *ngIf="item.author.id === userState.currentUser.id" mat-button color="primary"
+            (click)="onDeleteMyQuestion(item.id)">
             <div fxLayoutAlign="center center">
               <mat-spinner diameter="20" *ngIf="loading"></mat-spinner>
               <mat-icon *ngIf="!loading">delete</mat-icon> 删除
@@ -23,8 +25,8 @@
         </div>
         <mat-divider *ngIf="!isLast" class="m-y-sm"></mat-divider>
       </div>
-      <app-comment-form *ngIf="onShow(item.id)" [content]="content" (submitComment)="onSubmitComment($event)"
-        (cancel)="onCancel()" [commentContent]="item.content" [commentId]="myCommentId">
+      <app-comment-form *ngIf="onShow(item.author.id)" [content]="content" (submitComment)="onSubmitComment($event)"
+        (cancel)="onCancel()" [commentContent]="item.content" [commentId]="item.id">
       </app-comment-form>
     </div>
   </ng-container>

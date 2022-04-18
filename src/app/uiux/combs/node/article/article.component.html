@@ -56,7 +56,14 @@
         <app-article-comment-list *ngIf="userState.authenticated" [content]="comments" (deleted)="onDeleted($event)"
           [currentUserId]="userState.currentUser.id">
         </app-article-comment-list> -->
-        <app-comment></app-comment>
+        <!-- input params and editor config -->
+        <app-comment-form
+          *ngIf="userState.authenticated && appState?.article?.comment?.enabel && content?.params?.comment"
+          [content]="content" (submitComment)="onSubmit($event)">
+        </app-comment-form>
+        <app-comment-list *ngIf="userState.authenticated" [comments]="comments" [content]="content"
+          (submitComment)="onSubmit($event)">
+        </app-comment-list>
       </div>
       <app-sidebar [ngClass.gt-sm]="'m-left-sm'" *ngIf="content.sidebar" fxFlex.lt-md="100" fxFlex.gt-sm="25"
         [content]="content.sidebar"></app-sidebar>

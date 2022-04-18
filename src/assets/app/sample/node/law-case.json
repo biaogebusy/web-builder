@@ -308,36 +308,71 @@
       },
       "body": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
     }],
-    "comment": {
+    "params": {
+      "comment": {
+        "type": "comment--comment",
+        "attributes": {
+          "entity_type": "node",
+          "field_name": "comment"
+        },
+        "relationships": {
+          "comment_type": {
+            "data": {
+              "type": "comment_type--comment_type",
+              "id": "a395ac8e-3c9a-43d5-8ec8-cea74116d5f3"
+            }
+          },
+          "entity_id": {
+            "data": {
+              "type": "node--article",
+              "id": "b59a2767-89b8-418d-91fe-6f0e6a5638ec"
+            }
+          }
+        }
+      }
+    },
+    "editor": {
       "title": {
         "label": "添加工作跟踪",
         "style": "style-v4"
       },
-      "meta": {
-        "type": "comment",
-        "commentTypeUuid": "xxxx",
-        "entityType": "article",
-        "nodeUuid": "xxx"
+      "config": {
+        "toolbar": [
+          ["bold", "italic", "underline", "strike"],
+          [{
+            "header": [1, 2, 3, 4, 5, 6, false]
+          }],
+          [{
+            "list": "ordered"
+          }, {
+            "list": "bullet"
+          }],
+          [{
+            "indent": "-1"
+          }, {
+            "indent": "+1"
+          }],
+          [{
+            "color": []
+          }, {
+            "background": []
+          }],
+          [{
+            "align": []
+          }],
+          ["clean"],
+          ["link"],
+          ["blockquote", "code-block"]
+        ]
       },
-      "form": [{
-        "type": "textarea",
-        "label": "评论",
-        "key": "comment_body",
-        "placeholder": "请输入您的评论",
-        "appearance": "outline",
-        "rows": "5",
-        "params": {
-          "required": true
-        },
-        "errorMes": "请输入评论。"
-      }],
       "actions": [{
         "label": "提交",
         "type": "submit",
         "color": "primary"
       }],
-      "success": "发布成功！",
-      "fail": "提交失败！"
+      "succes": {
+        "label": "成功发布！"
+      }
     }
   }]
 }

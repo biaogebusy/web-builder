@@ -24,7 +24,6 @@ import { UserState } from '@core/mobx/user/UserState';
 export class CommentListComponent implements OnInit, OnDestroy {
   @Input() content: any;
   @Input() comments: any;
-  @Input() myCommentId: string;
   @Output() submitComment = new EventEmitter();
   loading: boolean;
   showInlineEditor = false;
@@ -32,7 +31,7 @@ export class CommentListComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     private appState: AppState,
-    private userState: UserState,
+    public userState: UserState,
     private nodeService: NodeService,
     private utilitiesService: UtilitiesService,
     private cd: ChangeDetectorRef
@@ -46,7 +45,7 @@ export class CommentListComponent implements OnInit, OnDestroy {
   }
 
   onShow(id: string): boolean {
-    return this.showInlineEditor && id === this.myCommentId;
+    return this.showInlineEditor && id === this.userState.currentUser.id;
   }
 
   onCancel(): void {
@@ -66,7 +65,7 @@ export class CommentListComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.nodeService
       .deleteEntity(
-        `${this.appState.apiUrlConfig.commentGetPath}/comment`,
+        `${this.appState.apiUrlConfig.commentGetPath}/${this.comments.params.comment.attributes.field_name}`,
         id,
         this.userState.csrfToken
       )
