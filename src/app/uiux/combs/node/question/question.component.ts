@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { IQuestion } from '@core/interface/node/INode';
 import { UserState } from '@core/mobx/user/UserState';
 import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
@@ -26,7 +27,7 @@ export class QuestionComponent
   extends NodeComponent
   implements OnInit, OnDestroy
 {
-  @Input() content: any;
+  @Input() content: IQuestion;
   comments: any;
   showEditor = false;
   isAsked = false;

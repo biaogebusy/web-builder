@@ -5,6 +5,7 @@ import {
   ChangeDetectorRef,
   ChangeDetectionStrategy,
 } from '@angular/core';
+import { ICase } from '@core/interface/node/INode';
 import { AppState } from '@core/mobx/AppState';
 import { UserState } from '@core/mobx/user/UserState';
 import { NodeService } from '@core/service/node.service';
@@ -19,7 +20,7 @@ import { takeUntil } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LawCaseComponent extends NodeComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: ICase;
   comments: any[];
   destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(

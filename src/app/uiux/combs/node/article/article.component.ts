@@ -32,6 +32,7 @@ import { TextComponent } from '@uiux/widgets/text/text.component';
 import { UserService } from '@core/service/user.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { NodeComponent } from '@uiux/base/node.widget';
+import { IBaseNode } from '@core/interface/node/INode';
 
 @Component({
   selector: 'app-article',
@@ -43,7 +44,7 @@ export class ArticleComponent
   extends NodeComponent
   implements OnInit, AfterViewInit, OnDestroy
 {
-  @Input() content: any;
+  @Input() content: IBaseNode;
   currentUserRule: string[];
   commentForm: FormGroup;
   comments: any[];
@@ -88,7 +89,6 @@ export class ArticleComponent
     }
     if (this.screenService.isPlatformBrowser()) {
       this.onFontSize();
-      this.onComment();
     }
     this.checkAccess();
     if (this.appState.article?.comment?.enabel) {
@@ -121,14 +121,6 @@ export class ArticleComponent
         .subscribe((size) => {
           this.fontSize = Math.max(10, size.font);
         });
-    }
-  }
-
-  onComment(): void {
-    if (this.content.comment) {
-      this.commentForm = this.formService.toFormGroup(
-        this.content.comment.form
-      );
     }
   }
 

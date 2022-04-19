@@ -58,7 +58,6 @@
           ["blockquote", "code-block"]
         ]
       },
-      "type": "answer",
       "action": {
         "label": "发布回答"
       },
