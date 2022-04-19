@@ -18,10 +18,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3.0.1
 
-      - uses: srt32/git-actions@v0.0.3
-        with:
-          args: git submodule update --init --recursive
-
       - name: use Node.js
         uses: actions/setup-node@v2
         with:
