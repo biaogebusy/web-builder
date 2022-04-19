@@ -165,16 +165,16 @@ export class ArticleComponent
                 },
                 alt: comment.uid.name,
               },
+              id: comment.uid.id,
               title: comment.uid.name,
               subTitle: '用户暂无签名',
-              id: comment.uid.id,
             },
             time: comment.changed,
             id: comment.id,
             content: comment.comment_body.processed,
           };
         });
-        this.cd.detectChanges();
+        this.cd.markForCheck();
       });
   }
 
