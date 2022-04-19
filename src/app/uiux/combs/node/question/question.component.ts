@@ -125,6 +125,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
                 },
                 alt: comment.uid.name,
               },
+              id: comment.uid.id,
               title: comment.uid.name,
               subTitle: '用户暂无签名',
             },
@@ -133,7 +134,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
             content: comment.content.processed,
           };
         });
-        this.cd.detectChanges();
+        this.cd.markForCheck();
       });
   }
 

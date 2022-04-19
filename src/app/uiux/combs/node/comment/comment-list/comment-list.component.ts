@@ -65,7 +65,7 @@ export class CommentListComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.nodeService
       .deleteEntity(
-        `${this.appState.apiUrlConfig.commentGetPath}/${this.comments.params.comment.attributes.field_name}`,
+        `${this.appState.apiUrlConfig.commentGetPath}/${this.content.params.comment.attributes.field_name}`,
         id,
         this.userState.csrfToken
       )
