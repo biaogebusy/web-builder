@@ -4,6 +4,10 @@ export interface IBaseNode {
   banner?: any;
   meta?: any[];
   params?: {
+    pay?: {
+      money: number;
+    };
+    require_rule?: string[];
     comment?: ICommentPrams;
   };
   editor?: {
