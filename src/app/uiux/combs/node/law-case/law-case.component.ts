@@ -8,6 +8,7 @@ import {
 import { AppState } from '@core/mobx/AppState';
 import { UserState } from '@core/mobx/user/UserState';
 import { NodeService } from '@core/service/node.service';
+import { NodeComponent } from '@uiux/base/node.widget';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -17,7 +18,7 @@ import { takeUntil } from 'rxjs/operators';
   styleUrls: ['./law-case.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LawCaseComponent implements OnInit {
+export class LawCaseComponent extends NodeComponent implements OnInit {
   @Input() content: any;
   comments: any[];
   destroy$: Subject<boolean> = new Subject<boolean>();
@@ -26,7 +27,9 @@ export class LawCaseComponent implements OnInit {
     public userState: UserState,
     private nodeService: NodeService,
     private cd: ChangeDetectorRef
-  ) {}
+  ) {
+    super(userState);
+  }
 
   ngOnInit(): void {}
 
@@ -54,24 +57,7 @@ export class LawCaseComponent implements OnInit {
       .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {
         this.comments = res.data.map((comment: any) => {
-          return {
-            author: {
-              img: {
-                src: comment.uid.user_picture.uri.url,
-                style: {
-                  width: '45px',
-                  height: '45px',
-                  borderRadius: '3px',
-                },
-                alt: comment.uid.name,
-              },
-              title: comment.uid.name,
-              subTitle: '用户暂无签名',
-            },
-            time: comment.changed,
-            id: comment.id,
-            content: comment.content.processed,
-          };
+          return this.handleComment(comment);
         });
         this.cd.detectChanges();
       });

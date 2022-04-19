@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { UserState } from '@core/mobx/user/UserState';
 import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
+import { NodeComponent } from '@uiux/base/node.widget';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { LoginComponent } from '../../../../modules/user/login/login.component';
@@ -21,7 +22,10 @@ import { LoginComponent } from '../../../../modules/user/login/login.component';
   styleUrls: ['./question.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class QuestionComponent implements OnInit, OnDestroy {
+export class QuestionComponent
+  extends NodeComponent
+  implements OnInit, OnDestroy
+{
   @Input() content: any;
   comments: any;
   showEditor = false;
@@ -37,7 +41,9 @@ export class QuestionComponent implements OnInit, OnDestroy {
     private cd: ChangeDetectorRef,
     private router: Router,
     private dialog: MatDialog
-  ) {}
+  ) {
+    super(userState);
+  }
 
   ngOnInit(): void {
     this.checkIsAsked();
@@ -114,25 +120,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {
         this.comments = res.data.map((comment: any) => {
-          return {
-            author: {
-              img: {
-                src: comment.uid.user_picture.uri.url,
-                style: {
-                  width: '45px',
-                  height: '45px',
-                  borderRadius: '3px',
-                },
-                alt: comment.uid.name,
-              },
-              id: comment.uid.id,
-              title: comment.uid.name,
-              subTitle: '用户暂无签名',
-            },
-            time: comment.changed,
-            id: comment.id,
-            content: comment.content.processed,
-          };
+          return this.handleComment(comment);
         });
         this.cd.markForCheck();
       });

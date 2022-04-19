@@ -26,12 +26,12 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { LoginComponent } from '../../../../modules/user/login/login.component';
 import { Router } from '@angular/router';
 import { NodeService } from '@core/service/node.service';
-import { BaseComponent } from '@uiux/base/base.widget';
 import { environment } from 'src/environments/environment';
 import { DialogComponent } from '../../../widgets/dialog/dialog.component';
 import { TextComponent } from '@uiux/widgets/text/text.component';
 import { UserService } from '@core/service/user.service';
 import { UtilitiesService } from '@core/service/utilities.service';
+import { NodeComponent } from '@uiux/base/node.widget';
 
 @Component({
   selector: 'app-article',
@@ -40,7 +40,7 @@ import { UtilitiesService } from '@core/service/utilities.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ArticleComponent
-  extends BaseComponent
+  extends NodeComponent
   implements OnInit, AfterViewInit, OnDestroy
 {
   @Input() content: any;
@@ -74,7 +74,7 @@ export class ArticleComponent
     private uti: UtilitiesService,
     @Inject(DOCUMENT) private document: Document
   ) {
-    super();
+    super(userState);
     if (this.screenService.isPlatformBrowser()) {
       hljs.registerLanguage('javascript', javascript);
       hljs.registerLanguage('php', php);
@@ -152,27 +152,7 @@ export class ArticleComponent
       .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {
         this.comments = res.data.map((comment: any) => {
-          return {
-            author: {
-              img: {
-                src:
-                  comment.uid.user_picture?.uri?.url ||
-                  this.userState.defaultAvatar,
-                style: {
-                  width: '45px',
-                  height: '45px',
-                  borderRadius: '3px',
-                },
-                alt: comment.uid.name,
-              },
-              id: comment.uid.id,
-              title: comment.uid.name,
-              subTitle: '用户暂无签名',
-            },
-            time: comment.changed,
-            id: comment.id,
-            content: comment.comment_body.processed,
-          };
+          return this.handleComment(comment);
         });
         this.cd.markForCheck();
       });

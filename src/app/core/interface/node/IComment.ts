@@ -27,3 +27,15 @@ export interface ICommentRequest {
     };
   };
 }
+
+export interface ICommentContent {
+  author: {
+    img: any;
+    id: string;
+    title: string;
+    subTitle: string;
+  };
+  time: string;
+  id: string;
+  content: string;
+}
