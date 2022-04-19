@@ -12,12 +12,11 @@ jobs:
       run:
         working-directory: ./
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      - name: work around permission issue
+        run: git config --global --add safe.directory *
 
-      - uses: srt32/git-actions@v0.0.3
-        with:
-          args: git submodule update --init --recursive
+      - name: Checkout
+        uses: actions/checkout@v3.0.1
 
       - name: use Node.js
         uses: actions/setup-node@v2

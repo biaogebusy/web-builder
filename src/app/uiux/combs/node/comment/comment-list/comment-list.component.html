@@ -5,7 +5,7 @@
     </div>
     <mat-divider class="m-bottom-xs"></mat-divider>
     <div class="item" *ngFor="let item of comments; last as isLast; trackBy: trackByFn">
-      <div class="comment-box" *ngIf="!onShow(item.id)">
+      <div class="comment-box" *ngIf="!onShow(item.author.id)">
         <a class="anchor" [id]="'q-'+item.id"></a>
         <app-media-object [content]="item.author"></app-media-object>
         <div class="comment-body p-y-xs" [innerHTML]="item.content |safeHtml"></div>

@@ -26,12 +26,13 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { LoginComponent } from '../../../../modules/user/login/login.component';
 import { Router } from '@angular/router';
 import { NodeService } from '@core/service/node.service';
-import { BaseComponent } from '@uiux/base/base.widget';
 import { environment } from 'src/environments/environment';
 import { DialogComponent } from '../../../widgets/dialog/dialog.component';
 import { TextComponent } from '@uiux/widgets/text/text.component';
 import { UserService } from '@core/service/user.service';
 import { UtilitiesService } from '@core/service/utilities.service';
+import { NodeComponent } from '@uiux/base/node.widget';
+import { IBaseNode } from '@core/interface/node/INode';
 
 @Component({
   selector: 'app-article',
@@ -40,10 +41,10 @@ import { UtilitiesService } from '@core/service/utilities.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ArticleComponent
-  extends BaseComponent
+  extends NodeComponent
   implements OnInit, AfterViewInit, OnDestroy
 {
-  @Input() content: any;
+  @Input() content: IBaseNode;
   currentUserRule: string[];
   commentForm: FormGroup;
   comments: any[];
@@ -65,7 +66,7 @@ export class ArticleComponent
     private dialog: MatDialog,
     private formService: FormService,
     private router: Router,
-    private nodeService: NodeService,
+    public nodeService: NodeService,
     public screen: ScreenState,
     private screenService: ScreenService,
     private tagsService: TagsService,
@@ -74,7 +75,7 @@ export class ArticleComponent
     private uti: UtilitiesService,
     @Inject(DOCUMENT) private document: Document
   ) {
-    super();
+    super(userState, nodeService);
     if (this.screenService.isPlatformBrowser()) {
       hljs.registerLanguage('javascript', javascript);
       hljs.registerLanguage('php', php);
@@ -88,7 +89,6 @@ export class ArticleComponent
     }
     if (this.screenService.isPlatformBrowser()) {
       this.onFontSize();
-      this.onComment();
     }
     this.checkAccess();
     if (this.appState.article?.comment?.enabel) {
@@ -124,57 +124,16 @@ export class ArticleComponent
     }
   }
 
-  onComment(): void {
-    if (this.content.comment) {
-      this.commentForm = this.formService.toFormGroup(
-        this.content.comment.form
-      );
-    }
-  }
-
   getComments(timeStamp = 1): void {
-    const meta = this.content.comment.meta;
-    const nodeUuid = meta.nodeUuid;
-    const type = meta.type;
-    const params = [
-      `filter[entity_id.id]=${nodeUuid}`,
-      `include=uid,uid.user_picture`,
-      `fields[user--user]=name,user_picture`,
-      `fields[file--file]=uri,url`,
-      `sort=-created`,
-      'filter[status]=1',
-      `jsonapi_include=1`,
-      `timeStamp=${timeStamp}`,
-    ].join('&');
-    const path = this.nodeService.apiUrlConfig.commentGetPath;
+    const { path, type, params } = this.getNodeParams(this.content, timeStamp);
     this.nodeService
       .getNodes(path, type, params)
       .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {
         this.comments = res.data.map((comment: any) => {
-          return {
-            author: {
-              img: {
-                src:
-                  comment.uid.user_picture?.uri?.url ||
-                  this.userState.defaultAvatar,
-                style: {
-                  width: '45px',
-                  height: '45px',
-                  borderRadius: '3px',
-                },
-                alt: comment.uid.name,
-              },
-              title: comment.uid.name,
-              subTitle: '用户暂无签名',
-              id: comment.uid.id,
-            },
-            time: comment.changed,
-            id: comment.id,
-            content: comment.comment_body.processed,
-          };
+          return this.handleComment(comment);
         });
-        this.cd.detectChanges();
+        this.cd.markForCheck();
       });
   }
 
