@@ -12,11 +12,11 @@ jobs:
       run:
         working-directory: ./
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - name: work around permission issue
+        run: git config --global --add safe.directory *
 
-      - run: |
-           sudo chown -R root:root $GITHUB_WORKSPACE
+      - name: Checkout
+        uses: actions/checkout@v2
 
       - uses: srt32/git-actions@v0.0.3
         with:
