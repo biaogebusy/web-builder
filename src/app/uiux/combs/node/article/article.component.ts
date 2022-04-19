@@ -65,7 +65,7 @@ export class ArticleComponent
     private dialog: MatDialog,
     private formService: FormService,
     private router: Router,
-    private nodeService: NodeService,
+    public nodeService: NodeService,
     public screen: ScreenState,
     private screenService: ScreenService,
     private tagsService: TagsService,
@@ -74,7 +74,7 @@ export class ArticleComponent
     private uti: UtilitiesService,
     @Inject(DOCUMENT) private document: Document
   ) {
-    super(userState);
+    super(userState, nodeService);
     if (this.screenService.isPlatformBrowser()) {
       hljs.registerLanguage('javascript', javascript);
       hljs.registerLanguage('php', php);
@@ -133,20 +133,7 @@ export class ArticleComponent
   }
 
   getComments(timeStamp = 1): void {
-    const meta = this.content.comment.meta;
-    const nodeUuid = meta.nodeUuid;
-    const type = meta.type;
-    const params = [
-      `filter[entity_id.id]=${nodeUuid}`,
-      `include=uid,uid.user_picture`,
-      `fields[user--user]=name,user_picture`,
-      `fields[file--file]=uri,url`,
-      `sort=-created`,
-      'filter[status]=1',
-      `jsonapi_include=1`,
-      `timeStamp=${timeStamp}`,
-    ].join('&');
-    const path = this.nodeService.apiUrlConfig.commentGetPath;
+    const { path, type, params } = this.getNodeParams(this.content, timeStamp);
     this.nodeService
       .getNodes(path, type, params)
       .pipe(takeUntil(this.destroy$))

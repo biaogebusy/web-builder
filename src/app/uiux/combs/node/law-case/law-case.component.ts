@@ -25,51 +25,30 @@ export class LawCaseComponent extends NodeComponent implements OnInit {
   constructor(
     public appState: AppState,
     public userState: UserState,
-    private nodeService: NodeService,
+    public nodeService: NodeService,
     private cd: ChangeDetectorRef
   ) {
-    super(userState);
+    super(userState, nodeService);
   }
 
   ngOnInit(): void {}
 
   onSubmit(state: boolean): void {
-    // this.getComments();
     if (state) {
       this.getComments(+new Date());
     }
   }
 
   getComments(timeStamp = 1): void {
-    const params = [
-      `filter[entity_id.id]=${this.entityId}`,
-      `include=uid,uid.user_picture`,
-      `fields[user--user]=name,user_picture`,
-      `fields[file--file]=uri,url`,
-      `sort=-created`,
-      'filter[status]=1',
-      `jsonapi_include=1`,
-      `timeStamp=${timeStamp}`,
-    ].join('&');
-    const path = this.nodeService.apiUrlConfig.commentGetPath;
+    const { path, type, params } = this.getNodeParams(this.content, timeStamp);
     this.nodeService
-      .getNodes(path, this.entityType, params)
+      .getNodes(path, type, params)
       .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {
         this.comments = res.data.map((comment: any) => {
           return this.handleComment(comment);
         });
-        this.cd.detectChanges();
+        this.cd.markForCheck();
       });
-  }
-
-  get entityId(): string {
-    return (
-      this.content?.params?.comment?.relationships?.entity_id?.data?.id || ''
-    );
-  }
-
-  get entityType(): string {
-    return this.content?.params?.comment?.attributes?.field_name || '';
   }
 }

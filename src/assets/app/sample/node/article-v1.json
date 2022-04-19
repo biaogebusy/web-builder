@@ -25,13 +25,13 @@
           "comment_type": {
             "data": {
               "type": "comment_type--comment_type",
-              "id": "a395ac8e-3c9a-43d5-8ec8-cea74116d5f3"
+              "id": "19c33b19-bfdc-4a26-9c64-af6171b123cb"
             }
           },
           "entity_id": {
             "data": {
               "type": "node--article",
-              "id": "b59a2767-89b8-418d-91fe-6f0e6a5638ec"
+              "id": "{{entity_uuid}}"
             }
           }
         }

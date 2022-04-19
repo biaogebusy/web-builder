@@ -35,29 +35,19 @@ export class QuestionComponent
 
   destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
-    private nodeService: NodeService,
+    public nodeService: NodeService,
     public userState: UserState,
     private screenService: ScreenService,
     private cd: ChangeDetectorRef,
     private router: Router,
     private dialog: MatDialog
   ) {
-    super(userState);
+    super(userState, nodeService);
   }
 
   ngOnInit(): void {
     this.checkIsAsked();
     this.getComments();
-  }
-
-  get entityId(): string {
-    return (
-      this.content?.params?.comment?.relationships?.entity_id?.data?.id || ''
-    );
-  }
-
-  get entityType(): string {
-    return this.content?.params?.comment?.attributes?.field_name || '';
   }
 
   onShowEditor(): void {
@@ -74,16 +64,19 @@ export class QuestionComponent
   }
 
   checkIsAsked(): void {
+    // TODO: 使用node查询是否有评论即可
+    const entityId = this.getCommentRelEntityId(this.content);
+    const entityType = this.getCommentType(this.content);
     const params = [
       `filter[uid.id]=${this.userState.currentUser.id}`,
-      `filter[entity_id.id]=${this.entityId}`,
+      `filter[entity_id.id]=${entityId}`,
       `sort=-created`,
       'filter[status]=1',
       `page[limit]=1`,
     ].join('&');
     const path = this.nodeService.apiUrlConfig.commentGetPath;
     this.nodeService
-      .getNodes(path, this.entityType, params)
+      .getNodes(path, entityType, params)
       .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {
         if (res.data.length) {
@@ -104,19 +97,9 @@ export class QuestionComponent
   }
 
   getComments(timeStamp = 1): void {
-    const params = [
-      `filter[entity_id.id]=${this.entityId}`,
-      `include=uid,uid.user_picture`,
-      `fields[user--user]=name,user_picture`,
-      `fields[file--file]=uri,url`,
-      `sort=-created`,
-      'filter[status]=1',
-      `jsonapi_include=1`,
-      `timeStamp=${timeStamp}`,
-    ].join('&');
-    const path = this.nodeService.apiUrlConfig.commentGetPath;
+    const { path, type, params } = this.getNodeParams(this.content, timeStamp);
     this.nodeService
-      .getNodes(path, this.entityType, params)
+      .getNodes(path, type, params)
       .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {
         this.comments = res.data.map((comment: any) => {
