@@ -3,12 +3,12 @@ export interface IBaseNode {
   body: string;
   banner?: any;
   meta?: any[];
-  params?: {
+  params: {
     pay?: {
       money: number;
     };
     require_rule?: string[];
-    comment?: ICommentPrams;
+    comment: ICommentParams;
   };
   editor?: {
     config: any;
@@ -20,26 +20,49 @@ export interface IBaseNode {
   sidebar?: any[];
 }
 
-export interface ICommentPrams {
+export interface ICommentParams {
   type: string;
+  id?: string;
   attributes: {
-    entity_type: string;
-    field_name: string;
+    entity_type?: string;
+    field_name?: string;
+    content: {
+      value: any;
+      format: 'full_html' | 'plain_text';
+    };
   };
   relationships: {
-    comment_type: {
+    comment_type?: {
       data: {
         type: string;
         id: string;
       };
     };
-    entity_id: {
+    entity_id?: {
+      data: {
+        type: string;
+        id: string;
+      };
+    };
+    uid?: {
       data: {
         type: string;
         id: string;
       };
     };
   };
+}
+
+export interface ICommentContent {
+  author: {
+    img: any;
+    id: string;
+    title: string;
+    subTitle: string;
+  };
+  time: string;
+  id: string;
+  content: string;
 }
 
 export interface IQuestion extends IBaseNode {

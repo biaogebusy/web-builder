@@ -7,7 +7,6 @@ import { forkJoin } from 'rxjs';
 import { Observable, of } from 'rxjs';
 import { IApiUrl } from '../mobx/IAppConfig';
 import { map, switchMap } from 'rxjs/operators';
-import { ICommentParams, ICommentRequest } from '@core/interface/node/IComment';
 import { CryptoJSService } from './crypto-js.service';
 import { isEmpty } from 'lodash-es';
 import { UserState } from '@core/mobx/user/UserState';
@@ -143,27 +142,6 @@ export class NodeService extends ApiService {
       JSON.stringify(entity),
       this.optionsWithCookieAndToken(token)
     );
-  }
-
-  getCommentRequestDate(meta: ICommentParams): ICommentRequest {
-    return {
-      type: `comment--${meta.type}`,
-      attributes: null,
-      relationships: {
-        comment_type: {
-          data: {
-            type: 'comment_type--comment_type',
-            id: meta.commentTypeUuid,
-          },
-        },
-        entity_id: {
-          data: {
-            type: `node--${meta.entityType}`,
-            id: meta.nodeUuid,
-          },
-        },
-      },
-    };
   }
 
   getFlaging(path: string, params: string, token: string): Observable<any> {

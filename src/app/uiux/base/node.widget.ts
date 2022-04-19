@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ICommentContent } from '@core/interface/node/IComment';
+import { ICommentContent } from '@core/interface/node/INode';
 import { UserState } from '@core/mobx/user/UserState';
 import { NodeService } from '@core/service/node.service';
 @Injectable()

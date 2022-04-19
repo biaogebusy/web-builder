@@ -14,6 +14,7 @@ import { UserState } from '@core/mobx/user/UserState';
 import { ScreenService } from '@core/service/screen.service';
 import { of, Subject } from 'rxjs';
 import { catchError, takeUntil } from 'rxjs/operators';
+import { IBaseNode, ICommentParams } from '@core/interface/node/INode';
 @Component({
   selector: 'app-comment-form',
   templateUrl: './comment-form.component.html',
@@ -21,7 +22,7 @@ import { catchError, takeUntil } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CommentFormComponent implements OnInit, OnDestroy {
-  @Input() content: any;
+  @Input() content: IBaseNode;
   @Input() commentContent: any;
   @Input() commentId: string;
   @Output() submitComment = new EventEmitter();
@@ -55,15 +56,15 @@ export class CommentFormComponent implements OnInit, OnDestroy {
 
   onSubmit(value: any): void {
     this.loading = true;
-    const params = this.content.params.comment;
-    if (!this.commentContent) {
+    const params: ICommentParams = this.content.params.comment;
+    if (!this.commentContent && params) {
       params.attributes.content = {
         value,
         format: 'full_html',
       };
       this.nodeService
         .addComment(
-          params.attributes.field_name,
+          params.attributes?.field_name || '',
           params,
           this.userState.csrfToken
         )
@@ -72,17 +73,17 @@ export class CommentFormComponent implements OnInit, OnDestroy {
           (res) => {
             this.loading = false;
             this.utilitiesService.openSnackbar(
-              this.content.editor.succes.label
+              this.content?.editor?.succes.label || '成功提交！'
             );
             this.submitComment.emit(true);
           },
           () => {
             this.loading = false;
-            this.utilitiesService.openSnackbar('Please check user state.');
+            this.utilitiesService.openSnackbar('请重新登录！');
           }
         );
     } else {
-      const entity = {
+      const entity: ICommentParams = {
         type: params.type,
         id: this.commentId,
         attributes: {
@@ -111,7 +112,9 @@ export class CommentFormComponent implements OnInit, OnDestroy {
         .subscribe(
           (res) => {
             this.loading = false;
-            this.utilitiesService.openSnackbar(this.content.succes.label);
+            this.utilitiesService.openSnackbar(
+              this.content?.editor?.succes?.label || '更新成功！'
+            );
             this.submitComment.emit(true);
           },
           (error) => {
