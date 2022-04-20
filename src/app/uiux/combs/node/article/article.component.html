@@ -50,8 +50,9 @@
           <app-dynamic-widgets [data]="content?.params" [content]="action" *ngFor="let action of content.actions">
           </app-dynamic-widgets>
         </div>
-        <app-comment-form *ngIf="appState?.article?.comment?.enabel && content?.params?.comment" [content]="content"
-          (submitComment)="onSubmit($event)">
+        <app-comment-form
+          *ngIf="userState.authenticated && appState?.article?.comment?.enabel && content?.params?.comment"
+          [content]="content" (submitComment)="onSubmit($event)">
         </app-comment-form>
         <app-comment-list *ngIf="userState.authenticated" [comments]="comments" [content]="content"
           (submitComment)="onSubmit($event)">
