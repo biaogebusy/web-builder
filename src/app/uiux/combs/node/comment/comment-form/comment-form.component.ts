@@ -30,6 +30,7 @@ export class CommentFormComponent implements OnInit, OnDestroy {
 
   loading = false;
   htmlData = '';
+  placeholder = '请输入...';
   destroy$: Subject<boolean> = new Subject<boolean>();
   public Editor: any;
 

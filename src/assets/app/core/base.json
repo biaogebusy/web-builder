@@ -95,6 +95,9 @@
         "matTooltipPosition": "above",
         "suffix": "px"
       }]
+    },
+    "comment": {
+      "enabel": true
     }
   },
   "actions": {

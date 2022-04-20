@@ -12,6 +12,7 @@ export interface IBaseNode {
   };
   editor?: {
     config: any;
+    placeholder: string;
     action: any;
     succes: any;
   };

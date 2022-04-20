@@ -162,8 +162,11 @@
             "label": "Law Case",
             "href": "/sample/node/law-case"
           }, {
-            "label": "Blog / News",
+            "label": "article",
             "href": "/sample/node/article"
+          }, {
+            "label": "article v1 with comment",
+            "href": "/sample/node/article-v1"
           }, {
             "label": "问答",
             "href": "/sample/node/question"
