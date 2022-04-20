@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-dynamic-widgets',
@@ -14,6 +15,7 @@ import {
 export class DynamicWidgetsComponent implements OnInit {
   @Input() content: any;
   @Input() data: any;
+  @Input() form: FormGroup;
   constructor() {}
 
   ngOnInit(): void {}

@@ -19,6 +19,7 @@
     <div class="content p-y p-x m-y-sm">
       <ng-container *ngFor="let item of content.block">
         <ng-container [ngSwitch]="item.type">
+          <app-law-case-showcase *ngSwitchCase="'showcase'" [content]="item" [form]="form"></app-law-case-showcase>
           <app-law-case-files *ngSwitchCase="'files'" [content]="item"></app-law-case-files>
           <app-law-case-table *ngSwitchCase="'table'" [content]="item">
           </app-law-case-table>

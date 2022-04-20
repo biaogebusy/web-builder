@@ -18,6 +18,7 @@ import { ArticleMetaComponent } from './article/article-meta/article-meta.compon
 import { LawCaseComponent } from './law-case/law-case.component';
 import { LawCaseFilesComponent } from './law-case/law-case-files/law-case-files.component';
 import { LawCaseTableComponent } from './law-case/law-case-table/law-case-table.component';
+import { LawCaseShowcaseComponent } from './law-case/law-case-showcase/law-case-showcase.component';
 
 const components = [
   JobComponent,
@@ -35,6 +36,7 @@ const components = [
   LawCaseTableComponent,
   CommentFormComponent,
   CommentListComponent,
+  LawCaseShowcaseComponent,
 ];
 @NgModule({
   declarations: [...components],

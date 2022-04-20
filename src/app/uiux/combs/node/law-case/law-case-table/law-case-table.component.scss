@@ -1,0 +1,9 @@
+:host ::ng-deep {
+  .sub {
+    font-size: small;
+    opacity: 0.5;
+  }
+  .mat-cell {
+    line-height: 1;
+  }
+}

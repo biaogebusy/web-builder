@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-dynamic-table',
@@ -7,6 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class DynamicTableComponent implements OnInit {
   @Input() content: any;
+  @Input() form: FormGroup;
   displayedColumns: string[];
 
   constructor() {}

@@ -72,4 +72,5 @@ export interface IQuestion extends IBaseNode {
 export interface ICase extends IBaseNode {
   date: any[];
   block: any[];
+  form: any[];
 }
