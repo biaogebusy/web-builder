@@ -1,73 +1,52 @@
 {
-  "title": "carousel 1v5(mini)",
+  "title": "carousel 1v5",
   "body": [{
-    "type": "dynamic-card-list-1v2",
+    "type": "carousel-1v5",
+    "spacer": "lg",
     "title": {
-      "label": "活动列表"
+      "label": "标题",
+      "icon": "email",
+      "style": "style-v2",
+      "classes": "mat-display-1"
     },
-    "elements": [{
-      "label": "国庆献礼",
-      "subTitle": "小海报特刊",
-      "href": "/node/34",
-      "img": {
-        "src": "/assests/xxx.jpg",
-        "alt": "xxx"
+    "bg": {
+      "classes": "bg-white bg-fill-width"
+    },
+    "sliders": {
+      "params": {
+        "slidesPerView": 1.2,
+        "spaceBetween": 20,
+        "navigation": false,
+        "breakpoints": {
+          "600": {
+            "slidesPerView": 3,
+            "spaceBetween": 20
+          },
+          "960": {
+            "slidesPerView": 3,
+            "spaceBetween": 50
+          }
+        }
       },
-      "view": "5000",
-      "date": {
-        "start": "2022/03/23",
-        "end": "2023/03/31"
-      },
-      "store": {
-        "logo": "/assets/xxx.jpg",
-        "alt": ""
-      },
-      "statue": {
-        "label": "已读",
-        "color": "default"
-      }
-    }, {
-      "label": "国庆献礼",
-      "subTitle": "小海报特刊",
-      "href": "/node/34",
-      "img": {
-        "src": "/assests/xxx.jpg",
-        "alt": "xxx"
-      },
-      "view": "5000",
-      "date": {
-        "start": "2022/03/23",
-        "end": "2023/03/31"
-      },
-      "store": {
-        "logo": "/assets/xxx.jpg",
-        "alt": ""
-      },
-      "statue": {
-        "label": "已读",
-        "color": "default"
-      }
-    }, {
-      "label": "国庆献礼",
-      "subTitle": "小海报特刊",
-      "href": "/node/34",
-      "img": {
-        "src": "/assests/xxx.jpg",
-        "alt": "xxx"
-      },
-      "view": "5000",
-      "date": {
-        "start": "2022/03/23",
-        "end": "2023/03/31"
-      },
-      "store": {
-        "logo": "/assets/xxx.jpg",
-        "alt": ""
-      },
-      "statue": {
-        "label": "已读",
-        "color": "default"
-      }
-    }]
+      "elements": [{
+        "img": {
+          "src": "/assests/xxx.jpg",
+          "alt": "xxx"
+        },
+        "link": {
+          "label": "实体店运维困境怎样突破？",
+          "href": "#"
+        }
+      }, {
+        "img": {
+          "src": "/assests/xxx.jpg",
+          "alt": "xxx"
+        },
+        "link": {
+          "label": "实体店运维困境怎样突破？",
+          "href": "#"
+        }
+      }]
+    }
   }]
 }
