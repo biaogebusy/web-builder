@@ -67,6 +67,7 @@ import { TermsServiceComponent } from './form/terms-service/terms-service.compon
 import { DynamicTableComponent } from './dynamic-table/dynamic-table.component';
 import { InlineLightboxComponent } from './lightbox/inline-lightbox/inline-lightbox.component';
 import { BtnComponent } from './btn/btn.component';
+import { ContentTextCenterComponent } from './content-text-center/content-text-center.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -129,6 +130,7 @@ const components = [
   SearchActionComponent,
   InlineLightboxComponent,
   MediaObjectGroupComponent,
+  ContentTextCenterComponent,
   DynamicFormControlComponent,
 ];
 

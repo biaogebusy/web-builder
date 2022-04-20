@@ -9,10 +9,9 @@
     <app-card *ngSwitchCase="'card'" [content]="content"></app-card>
     <app-link *ngSwitchCase="'link'" [content]="content"></app-link>
     <app-icon *ngSwitchCase="'icon'" [content]="content"></app-icon>
+    <app-flag *ngSwitchCase="'flag'" [content]="content"></app-flag>
     <app-panel *ngSwitchCase="'panel'" [content]="content"></app-panel>
     <app-input *ngSwitchCase="'input'" [content]="content"></app-input>
-    <app-select *ngSwitchCase="'select'" [content]="content" [form]="form"></app-select>
-    <app-flag *ngSwitchCase="'flag'" [content]="content"></app-flag>
     <app-share *ngSwitchCase="'share'" [content]="content"></app-share>
     <app-swiper *ngSwitchCase="'swiper'" [content]="content"></app-swiper>
     <app-bg-img *ngSwitchCase="'bg-img'" [content]="content"></app-bg-img>
@@ -25,6 +24,7 @@
     <app-chip-list *ngSwitchCase="'chip-list'" [content]="content"></app-chip-list>
     <app-contact-us *ngSwitchCase="'contact-us'" [content]="content"></app-contact-us>
     <app-media-list *ngSwitchCase="'media-list'" [content]="content"></app-media-list>
+    <app-select *ngSwitchCase="'select'" [content]="content" [form]="form"></app-select>
     <app-btn-animate *ngSwitchCase="'btn-animate'" [content]="content"></app-btn-animate>
     <app-feature-box *ngSwitchCase="'feature-box'" [content]="content"></app-feature-box>
     <app-content-box *ngSwitchCase="'content-box'" [content]="content"></app-content-box>
@@ -39,6 +39,7 @@
     <app-progress-group *ngSwitchCase="'progress-group'" [content]="content"></app-progress-group>
     <app-inline-lightbox *ngSwitchCase="'inline-lightbox'" [content]="content"></app-inline-lightbox>
     <app-media-object-group *ngSwitchCase="'media-object-group'" [content]="content"></app-media-object-group>
+    <app-content-text-center *ngSwitchCase="'content-text-center'" [content]="content"></app-content-text-center>
     <app-text *ngSwitchDefault [content]="{'body':content}"></app-text>
   </ng-container>
 </ng-container>
