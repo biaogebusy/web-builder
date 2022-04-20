@@ -1,14 +1,14 @@
 <ng-container *ngIf="appState.content">
   <ng-container *ngFor="let item of appState.content">
     <ng-container [ngSwitch]="item.type">
+      <app-job *ngSwitchCase="'job'" [content]="item"></app-job>
       <app-tab *ngSwitchCase="'tab'" [content]="item"></app-tab>
+      <app-case *ngSwitchCase="'case'" [content]="item"></app-case>
       <app-text *ngSwitchCase="'text'" [content]="item"></app-text>
       <app-panel *ngSwitchCase="'panel'" [content]="item"></app-panel>
       <app-search *ngSwitchCase="'search'" [content]="item"></app-search>
       <app-notfound *ngSwitchCase="'404'" [content]="item"></app-notfound>
       <app-tab1v1 *ngSwitchCase="'tab-1v1'" [content]="item"></app-tab1v1>
-      <app-job *ngSwitchCase="'job'" [content]="item"></app-job>
-      <app-case *ngSwitchCase="'case'" [content]="item"></app-case>
       <app-law-case *ngSwitchCase="'law-case'" [content]="item"></app-law-case>
       <app-article *ngSwitchCase="'article'" [content]="item"></app-article>
       <app-shuffle *ngSwitchCase="'shuffle'" [content]="item"></app-shuffle>
@@ -31,6 +31,7 @@
       <app-showcase2v1 *ngSwitchCase="'showcase-2v1'" [content]="item"></app-showcase2v1>
       <app-showcase2v2 *ngSwitchCase="'showcase-2v2'" [content]="item"></app-showcase2v2>
       <app-showcase2v3 *ngSwitchCase="'showcase-2v3'" [content]="item"></app-showcase2v3>
+      <app-showcase2v4 *ngSwitchCase="'showcase-2v4'" [content]="item"></app-showcase2v4>
       <app-showcase3v1 *ngSwitchCase="'showcase-3v1'" [content]="item"></app-showcase3v1>
       <app-showcase3v2 *ngSwitchCase="'showcase-3v2'" [content]="item"></app-showcase3v2>
       <app-showcase3v3 *ngSwitchCase="'showcase-3v3'" [content]="item"></app-showcase3v3>
