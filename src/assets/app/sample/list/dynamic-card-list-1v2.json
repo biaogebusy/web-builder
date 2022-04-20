@@ -1,0 +1,73 @@
+{
+  "title": "dynamic card list 1v2(mini)",
+  "body": [{
+    "type": "dynamic-card-list-1v2",
+    "title": {
+      "label": "活动列表"
+    },
+    "elements": [{
+      "label": "国庆献礼",
+      "subTitle": "小海报特刊",
+      "href": "/node/34",
+      "img": {
+        "src": "/assests/xxx.jpg",
+        "alt": "xxx"
+      },
+      "view": "5000",
+      "date": {
+        "start": "2022/03/23",
+        "end": "2023/03/31"
+      },
+      "store": {
+        "logo": "/assets/xxx.jpg",
+        "alt": ""
+      },
+      "statue": {
+        "label": "已读",
+        "color": "default"
+      }
+    }, {
+      "label": "国庆献礼",
+      "subTitle": "小海报特刊",
+      "href": "/node/34",
+      "img": {
+        "src": "/assests/xxx.jpg",
+        "alt": "xxx"
+      },
+      "view": "5000",
+      "date": {
+        "start": "2022/03/23",
+        "end": "2023/03/31"
+      },
+      "store": {
+        "logo": "/assets/xxx.jpg",
+        "alt": ""
+      },
+      "statue": {
+        "label": "已读",
+        "color": "default"
+      }
+    }, {
+      "label": "国庆献礼",
+      "subTitle": "小海报特刊",
+      "href": "/node/34",
+      "img": {
+        "src": "/assests/xxx.jpg",
+        "alt": "xxx"
+      },
+      "view": "5000",
+      "date": {
+        "start": "2022/03/23",
+        "end": "2023/03/31"
+      },
+      "store": {
+        "logo": "/assets/xxx.jpg",
+        "alt": ""
+      },
+      "statue": {
+        "label": "已读",
+        "color": "default"
+      }
+    }]
+  }]
+}
