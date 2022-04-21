@@ -23,8 +23,6 @@
       .law-case-files {
         .box {
           .inner {
-            @include mat-elevation(2, #000, 0.1);
-            background-color: mat-color($background, background);
             a {
               color: mat-color($foreground, text, 0.6);
               &:hover {
