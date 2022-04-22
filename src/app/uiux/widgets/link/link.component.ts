@@ -6,6 +6,7 @@ import {
 } from '@angular/core';
 import { ILink } from '@core/interface/widgets/ILink';
 import { RouteService } from '@core/service/route.service';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-link',
   templateUrl: './link.component.html',
@@ -15,10 +16,12 @@ import { RouteService } from '@core/service/route.service';
 export class LinkComponent implements OnInit {
   @Input() content: ILink;
   classes: any;
+  href: string;
   constructor(public routeService: RouteService) {}
 
   ngOnInit(): void {
     this.getClasses();
+    this.handlePrivate();
   }
 
   isAbsolute(href: string): boolean {
@@ -31,6 +34,13 @@ export class LinkComponent implements OnInit {
     obj[this.content.classes] = this.content.classes || false;
     obj[type] = type || false;
     this.classes = obj;
+  }
+
+  handlePrivate(): void {
+    if (!this.content.href.startsWith('/system/')) {
+      this.href = this.content.href;
+    }
+    this.href = `${environment.apiUrl}${this.content.href}`;
   }
 
   getFileType(url: string): string {

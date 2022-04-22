@@ -2,7 +2,7 @@
 .pdf,
 .txt,
 .word,
-.pictrue {
+.picture {
   &:before {
     display: inline-block;
     margin-right: 6px;
@@ -29,7 +29,7 @@
     content: url("/assets/icons/file-word.svg");
   }
 }
-.pictrue {
+.picture {
   &:before {
     content: url("/assets/icons/file-image.svg");
   }
