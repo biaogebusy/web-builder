@@ -37,11 +37,14 @@ export class LinkComponent implements OnInit {
   }
 
   handlePrivate(): void {
-    if (!this.content.href.startsWith('/system/')) {
+    const href = this.content.href;
+    if (href && !href.startsWith('/system/')) {
       this.href = this.content.href;
       return;
     }
-    this.href = `${environment.apiUrl}${this.content.href}`;
+
+    // drupal private file url
+    this.href = `${environment.apiUrl}${href}`;
   }
 
   getFileType(url: string): string {
