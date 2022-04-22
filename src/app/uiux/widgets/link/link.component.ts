@@ -39,6 +39,7 @@ export class LinkComponent implements OnInit {
   handlePrivate(): void {
     if (!this.content.href.startsWith('/system/')) {
       this.href = this.content.href;
+      return;
     }
     this.href = `${environment.apiUrl}${this.content.href}`;
   }
