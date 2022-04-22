@@ -1,0 +1,56 @@
+{
+  "title": "showcase 2v6",
+  "body": [{
+    "type": "showcase-2v6",
+    "text": {
+      "title": {
+        "label": "Our Products",
+        "style": "style-v1",
+        "classes": "mat-display-1"
+      },
+      "body": "<p class=\"text-center\">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.</p>"
+    },
+    "spacer": "md",
+    "row": "2",
+    "fullWidth": true,
+    "elements": [{
+      "type": "card-1v2",
+      "link": {
+        "href": "#",
+        "label": "Sustainability Toolkit: What GCs Need to Know"
+      },
+      "subTitle": "TOOLKIT",
+      "img": {
+        "classes": "object-fit",
+        "src": "/assets/images/showcase/card-1v2-1.jpg",
+        "alt": "alt"
+      },
+      "bg": {
+        "classes": "object-fit",
+        "img": {
+          "hostClasses": "",
+          "src": "src/assets/images/showcase/pattern-01.png"
+        }
+      }
+    }, {
+      "type": "card-1v2",
+      "link": {
+        "href": "#",
+        "label": "Global Problem Solving from Covington"
+      },
+      "subTitle": "CASE STUDIES",
+      "img": {
+        "classes": "object-fit",
+        "src": "/assets/images/showcase/card-1v2-2.jpg",
+        "alt": "alt"
+      },
+      "bg": {
+        "classes": "object-fit",
+        "img": {
+          "hostClasses": "",
+          "src": "src/assets/images/showcase/pattern-02.png"
+        }
+      }
+    }]
+  }]
+}

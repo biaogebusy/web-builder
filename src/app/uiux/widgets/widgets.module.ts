@@ -68,6 +68,7 @@ import { DynamicTableComponent } from './dynamic-table/dynamic-table.component';
 import { InlineLightboxComponent } from './lightbox/inline-lightbox/inline-lightbox.component';
 import { BtnComponent } from './btn/btn.component';
 import { ContentTextCenterComponent } from './content-text-center/content-text-center.component';
+import { Card1v2Component } from './card/card1v2/card1v2.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -86,6 +87,7 @@ const components = [
   TabComponent,
   CardComponent,
   Card1v1Component,
+  Card1v2Component,
   IconComponent,
   TitleComponent,
   PanelComponent,
