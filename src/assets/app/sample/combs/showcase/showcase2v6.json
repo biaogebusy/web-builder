@@ -21,7 +21,7 @@
       },
       "subTitle": "TOOLKIT",
       "img": {
-        "classes": "object-fit",
+        "href": "#",
         "src": "/assets/images/showcase/card-1v2-1.jpg",
         "alt": "alt"
       },
@@ -29,7 +29,7 @@
         "classes": "object-fit",
         "img": {
           "hostClasses": "",
-          "src": "src/assets/images/showcase/pattern-01.png"
+          "src": "/assets/images/showcase/pattern-01.png"
         }
       }
     }, {
@@ -40,7 +40,7 @@
       },
       "subTitle": "CASE STUDIES",
       "img": {
-        "classes": "object-fit",
+        "href": "#",
         "src": "/assets/images/showcase/card-1v2-2.jpg",
         "alt": "alt"
       },
@@ -48,7 +48,7 @@
         "classes": "object-fit",
         "img": {
           "hostClasses": "",
-          "src": "src/assets/images/showcase/pattern-02.png"
+          "src": "/assets/images/showcase/pattern-02.png"
         }
       }
     }]

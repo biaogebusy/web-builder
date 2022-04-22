@@ -11,7 +11,8 @@
       <div *ngIf="content?.footerBrand" fxLayout.lt-md="column" fxLayout.gt-sm="row">
         <div fxFlex.lt-md="100" fxFlex.gt-sm="0 0 25" class="brand" fxLayout="column">
           <app-img [content]="content.footerBrand.logo.img" *ngIf="content.footerBrand.logo"></app-img>
-          <p class="m-y-sm" [innerHTML]="content.footerBrand?.summary" *ngIf="content.footerBrand?.summary"></p>
+          <p class="m-y-sm" [innerHTML]="content.footerBrand?.summary|safeHtml" *ngIf="content.footerBrand?.summary">
+          </p>
           <div class="social" fxLayout="row" *ngIf="content?.footerBrand?.social">
             <a class="item" fxLayoutAlign="center center" *ngFor="let item of content.footerBrand.social"
               href="{{item.href}}" target="_blank" title="{{item.label}}">
@@ -27,7 +28,7 @@
             <div fxFlex="100" class="item-header">
               {{content.footerNewsletter.label}}
             </div>
-            <p fxFlex="100" class="m-y-xs" [innerHTML]="content.footerNewsletter.summary"></p>
+            <p fxFlex="100" class="m-y-xs" [innerHTML]="content.footerNewsletter.summary|safeHtml"></p>
             <app-dynamic-form-control *ngFor="let item of content.footerNewsletter.forms" [control]="item"
               [form]="form">
             </app-dynamic-form-control>

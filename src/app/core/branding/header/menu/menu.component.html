@@ -8,7 +8,7 @@
             <span *ngIf="content.logo.version" class="version">v{{appState.version}}</span>
           </div>
           <ng-template #name>
-            <a class="site-name mat-h2" [routerLink]="content.logo.href" [innerHTML]="content.logo?.label"></a>
+            <a class="site-name mat-h2" [routerLink]="content.logo.href" [innerHTML]="content.logo?.label|safeHtml"></a>
             <span *ngIf="content.logo.version" class="version">v{{appState.version}}</span>
           </ng-template>
         </div>

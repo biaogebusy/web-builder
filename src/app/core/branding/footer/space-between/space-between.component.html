@@ -11,7 +11,7 @@
        <div *ngIf="content?.footerBrand" fxLayout.lt-md="column" fxLayout.gt-sm="row">
          <div fxFlex.lt-md="100" fxFlex.gt-sm="0 0 100" class="brand" fxLayout="column">
            <app-img [content]="content.footerBrand.logo.img" *ngIf="content.footerBrand.logo"></app-img>
-           <p class="m-top-xs m-bottom-0" [innerHTML]="content.footerBrand?.summary"
+           <p class="m-top-xs m-bottom-0" [innerHTML]="content.footerBrand?.summary|safeHtml"
              *ngIf="content.footerBrand?.summary"></p>
            <div class="social m-y-sm" fxLayout="row" *ngIf="content?.footerBrand?.social">
              <a class="item" fxLayoutAlign="center center" *ngFor="let item of content.footerBrand.social"

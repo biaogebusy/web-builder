@@ -4,7 +4,7 @@
       <app-chip-list [classes]="'mini'" [content]="content.topic"></app-chip-list>
     </div>
     <h2 class="title">{{content.title}}</h2>
-    <div class="question-details" [innerHTML]="content.body"></div>
+    <div class="question-details" [innerHTML]="content.body|safeHtml"></div>
     <div class="actions m-y-sm">
       <button *ngIf="!userState.authenticated" mat-raised-button color="primary" (click)="openLogin()">
         <mat-icon>person</mat-icon> 登录作答

@@ -24,7 +24,7 @@
             </div>
             <div *ngIf="!userState.authenticated" class="auth line p-y-sm p-x-sm width-100 text-center"
               fxLayoutAlign="center center">
-              <a href="javascript:void(0)" (click)="openLogin()" [innerHTML]="loginConfig?.label"></a>
+              <a href="javascript:void(0)" (click)="openLogin()" [innerHTML]="loginConfig?.label|safeHtml"></a>
             </div>
             <div *ngIf="userState.authenticated" class="pay line p-y-sm p-x-sm width-100 text-center m-bottom"
               fxLayoutAlign="center center">

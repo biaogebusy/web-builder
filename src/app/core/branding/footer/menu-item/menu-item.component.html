@@ -11,7 +11,7 @@
           <mat-icon mat-list-icon svgIcon="{{subMenu.icon}}"></mat-icon>
           <span>{{subMenu.label}}</span>
           <mat-menu #popup="matMenu" yPosition="above">
-            <span [innerHTML]="subMenu.popup"></span>
+            <span [innerHTML]="subMenu.popup|safeHtml"></span>
           </mat-menu>
         </mat-list-item>
       </ng-template>

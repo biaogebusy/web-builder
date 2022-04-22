@@ -9,7 +9,7 @@
         *ngFor="let item of content.elements" fxLayoutAlign="space-between center">
         <div fxLayout="column">
           <h2 class="bold" [innerHTML]="item.title"></h2>
-          <p [innerHTML]="item.subTitle"></p>
+          <p [innerHTML]="item.subTitle|safeHtml"></p>
           <a mat-raised-button color="{{item.link.color}}" href="{{item.link.href}}"
             target="_blank">{{item.link.label}}</a>
         </div>

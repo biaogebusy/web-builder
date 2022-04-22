@@ -52,4 +52,11 @@
       color: $bg-color;
     }
   }
+
+  .card-1-v2 {
+    color: mat-color($primary, default-contrast);
+    a {
+      color: mat-color($primary, default-contrast);
+    }
+  }
 }

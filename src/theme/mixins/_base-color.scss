@@ -29,11 +29,6 @@
     &.active {
       color: mat-color($primary);
     }
-
-    &:hover {
-      cursor: pointer;
-      opacity: 0.85;
-    }
   }
 
   blockquote {
