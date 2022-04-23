@@ -9,6 +9,11 @@
   $warn: map-get($config, warn);
 
   $bg-card-color: mat-color($background, card);
+  .hero-1-v2 {
+    .title {
+      color: mat-color($primary, default-contrast);
+    }
+  }
   .hero-2-v2 {
     .box {
       background-color: $bg-card-color;
