@@ -1,5 +1,6 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   Input,
   OnInit,
@@ -17,7 +18,10 @@ export class LinkComponent implements OnInit {
   @Input() content: ILink;
   classes: any;
   href: string;
-  constructor(public routeService: RouteService) {}
+  constructor(
+    public routeService: RouteService,
+    private cd: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.getClasses();
@@ -37,7 +41,7 @@ export class LinkComponent implements OnInit {
   }
 
   handlePrivate(): void {
-    const href = this.content.href;
+    const href = this.content.href || 'javascript:void(0);';
     if (href && !href.startsWith('/system/')) {
       this.href = this.content.href;
       return;
@@ -45,6 +49,7 @@ export class LinkComponent implements OnInit {
 
     // drupal private file url
     this.href = `${environment.apiUrl}${href}`;
+    this.cd.detectChanges();
   }
 
   getFileType(url: string): string {
