@@ -46,6 +46,16 @@
         }
       }
     }
+    .right {
+      .link {
+        a {
+          color: $second;
+          &:hover {
+            color: mat-color($primary);
+          }
+        }
+      }
+    }
   }
   .static {
     background-color: $bg-card-color;
@@ -119,9 +129,23 @@
       .header a,
       .search-box .mat-icon,
       .header-top .inv-icon.style-v1,
-      .header-top .inv-icon.style-v1 .mat-icon {
-        color: $primary-contrast;
+      .header-top .inv-icon.style-v1 .mat-icon,
+      .header-top .right a {
+        color: $primary-contrast !important;
         transition: color 0.2s ease-in;
+      }
+      .header {
+        .main-menu {
+          .item {
+            a {
+              &.active {
+                &:after {
+                  background-color: $primary-contrast !important;
+                }
+              }
+            }
+          }
+        }
       }
     }
   }

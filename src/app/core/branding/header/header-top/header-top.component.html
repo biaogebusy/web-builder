@@ -3,7 +3,7 @@
     <div class="container">
       <div fxLayoutAlign="space-between center">
         <div class="left">
-          <div class="hotline" fxLayout fxLayoutGap="1rem">
+          <div class="hotline" fxLayout fxLayoutGap="2rem">
             <div class="item" fxLayout *ngFor="let item of content.banner?.left">
               <mat-icon [inline]="true">{{item.icon}}</mat-icon>
               <div>{{item.label}}</div>
@@ -11,11 +11,17 @@
           </div>
         </div>
         <div class="right">
-          <a *ngFor="let item of content.banner?.right" class="inv-icon style-v1" href="{{item.href}}" target="_blank">
-            <span class="soc-name">{{item.label}}</span>
-            <span class="soc-icon-bg"></span>
-            <mat-icon [inline]="true" [svgIcon]="item.svg"></mat-icon>
-          </a>
+          <ng-container *ngFor="let item of content.banner?.right">
+            <a class="inv-icon style-v1" *ngIf="item?.svg;else link" href="{{item.href}}" target="_blank">
+              <span class="soc-name">{{item.label}}</span>
+              <span class="soc-icon-bg"></span>
+              <mat-icon [inline]="true" [svgIcon]="item.svg"></mat-icon>
+            </a>
+            <ng-template #link>
+              <app-link class="link" [content]="item"></app-link>
+            </ng-template>
+          </ng-container>
+
         </div>
       </div>
     </div>

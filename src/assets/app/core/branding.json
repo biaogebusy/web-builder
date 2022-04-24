@@ -18,28 +18,23 @@
           },
           {
             "icon": "email",
-            "label": "demo@zhaobg.com"
+            "label": "service@mlaw.com"
           }
         ],
         "right": [{
-            "label": "zhihu",
-            "svg": "zhihu",
-            "href": "https://www.zhihu.com/column/c_1331898788731375616"
-          },
-          {
-            "label": "微博",
-            "svg": "weibo",
-            "href": "#"
+            "label": "关于",
+            "href": "/about"
+          }, {
+            "label": "公益",
+            "href": "/"
+          }, {
+            "label": "活动",
+            "href": "/events"
           },
           {
             "label": "nnitpay",
             "svg": "wechat",
             "href": "#"
-          },
-          {
-            "label": "Github",
-            "svg": "github",
-            "href": "https://github.com/biaogebusy/xinshi-angular"
           }
         ]
       }

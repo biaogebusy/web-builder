@@ -5,19 +5,19 @@
   box-sizing: border-box;
   width: 100%;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 1.5rem;
 
-  @media #{$md} {
-    padding: 0 4rem;
-  }
+  // @media #{$md} {
+  //   padding: 0 4rem;
+  // }
 
-  @media #{$gt-md} {
-    padding: 0 4rem;
-    max-width: 1200px;
-  }
+  // @media #{$gt-md} {
+  //   padding: 0 4rem;
+  //   max-width: 1200px;
+  // }
 
+  max-width: 1470px;
   @media #{$gt-lg} {
-    max-width: 1440px;
   }
   .container {
     padding: 0;
