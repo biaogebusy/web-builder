@@ -1,12 +1,14 @@
 @import "../../../../../theme/mixins/amixin";
 @import "../../../../../theme/variable/breakpoint";
+
 .card-content {
   position: relative;
   z-index: 10;
   .media {
     box-shadow: 0 3px 4px 0 rgb(0 0 0 / 50%);
     overflow: hidden;
-    top: -54px;
+    top: -20px;
+
     ::ng-deep {
       img {
         transform: scale(1);
@@ -24,8 +26,8 @@
     }
   }
   .title {
-    font-size: 36px;
-    line-height: 45px;
+    font-size: 20px;
+    line-height: 1.5;
     ::ng-deep a {
       @include line-clamp(2);
       &:hover {
@@ -33,13 +35,19 @@
       }
     }
   }
-  @media #{$lt-md} {
-    .media {
-      top: -20px;
-    }
-    .title {
-      font-size: 20px;
-      line-height: 1.5;
+}
+
+@media #{$gt-sm} {
+  .card-1-v2 {
+    height: calc(100% - 54px);
+    .card-content {
+      .media {
+        top: -54px;
+      }
+      .title {
+        font-size: 36px;
+        line-height: 45px;
+      }
     }
   }
 }
