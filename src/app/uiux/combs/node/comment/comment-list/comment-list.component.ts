@@ -24,7 +24,7 @@ import { UserState } from '@core/mobx/user/UserState';
 export class CommentListComponent implements OnInit, OnDestroy {
   @Input() content: any;
   @Input() comments: any;
-  @Output() submitComment = new EventEmitter();
+  @Output() commentChange = new EventEmitter();
   loading: boolean;
   showInlineEditor = false;
 
@@ -56,7 +56,7 @@ export class CommentListComponent implements OnInit, OnDestroy {
   onSubmitComment(state: boolean): void {
     if (state) {
       this.showInlineEditor = false;
-      this.submitComment.emit(state);
+      this.commentChange.emit(state);
       this.cd.detectChanges();
     }
   }
@@ -74,7 +74,7 @@ export class CommentListComponent implements OnInit, OnDestroy {
         (res) => {
           this.loading = false;
           this.utilitiesService.openSnackbar('您的回答已删除！', '√');
-          this.submitComment.emit(true);
+          this.commentChange.emit(true);
         },
         () => {
           this.loading = false;

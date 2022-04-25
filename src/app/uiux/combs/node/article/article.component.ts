@@ -137,7 +137,7 @@ export class ArticleComponent
       });
   }
 
-  onSubmit(state: boolean): void {
+  onChange(state: boolean): void {
     if (state) {
       this.getComments(+new Date());
     }

@@ -56,7 +56,7 @@ export class QuestionComponent
     this.cd.detectChanges();
   }
 
-  onSubmit(state: boolean): void {
+  onChange(state: boolean): void {
     // if success
     if (state) {
       this.checkIsAsked();

@@ -52,10 +52,10 @@
         </div>
         <app-comment-form
           *ngIf="userState.authenticated && appState?.article?.comment?.enabel && content?.params?.comment"
-          [content]="content" (submitComment)="onSubmit($event)">
+          [content]="content" (commentChange)="onChange($event)">
         </app-comment-form>
         <app-comment-list *ngIf="userState.authenticated" [comments]="comments" [content]="content"
-          (submitComment)="onSubmit($event)">
+          (commentChange)="onChange($event)">
         </app-comment-list>
       </div>
       <app-sidebar [ngClass.gt-sm]="'m-left-sm'" *ngIf="content.sidebar" fxFlex.lt-md="100" fxFlex.gt-sm="25"

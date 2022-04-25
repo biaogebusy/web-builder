@@ -40,6 +40,7 @@ export class LawCaseComponent extends NodeComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm(this.content.form);
+    this.getComments();
   }
 
   initForm(form: any[]): void {
@@ -56,7 +57,7 @@ export class LawCaseComponent extends NodeComponent implements OnInit {
       });
   }
 
-  onSubmit(state: boolean): void {
+  onChange(state: boolean): void {
     if (state) {
       this.getComments(+new Date());
     }

@@ -25,7 +25,7 @@ export class CommentFormComponent implements OnInit, OnDestroy {
   @Input() content: IBaseNode;
   @Input() commentContent: any;
   @Input() commentId: string;
-  @Output() submitComment = new EventEmitter();
+  @Output() commentChange = new EventEmitter();
   @Output() cancel = new EventEmitter();
 
   loading = false;
@@ -81,7 +81,7 @@ export class CommentFormComponent implements OnInit, OnDestroy {
             this.utilitiesService.openSnackbar(
               this.content?.editor?.succes.label || '成功提交！'
             );
-            this.submitComment.emit(true);
+            this.commentChange.emit(true);
           },
           () => {
             this.loading = false;
@@ -125,7 +125,7 @@ export class CommentFormComponent implements OnInit, OnDestroy {
             this.utilitiesService.openSnackbar(
               this.content?.editor?.succes?.label || '更新成功！'
             );
-            this.submitComment.emit(true);
+            this.commentChange.emit(true);
           },
           (error) => {
             this.loading = false;

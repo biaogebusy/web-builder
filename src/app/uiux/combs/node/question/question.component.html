@@ -21,9 +21,9 @@
 <article class="comment position-relative p-y-sm">
   <div class="container">
     <!-- input params and editor config -->
-    <app-comment-form *ngIf="showEditor" [content]="content" (submitComment)="onSubmit($event)">
+    <app-comment-form *ngIf="showEditor" [content]="content" (commentChange)="onChange($event)">
     </app-comment-form>
-    <app-comment-list [comments]="comments" [content]="content" (submitComment)="onSubmit($event)">
+    <app-comment-list [comments]="comments" [content]="content" (commentChange)="onChange($event)">
     </app-comment-list>
   </div>
 </article>

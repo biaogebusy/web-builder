@@ -25,7 +25,7 @@
         </div>
         <mat-divider *ngIf="!isLast" class="m-y-sm"></mat-divider>
       </div>
-      <app-comment-form *ngIf="onShow(item.author.id)" [content]="content" (submitComment)="onSubmitComment($event)"
+      <app-comment-form *ngIf="onShow(item.author.id)" [content]="content" (commentChange)="onSubmitComment($event)"
         (cancel)="onCancel()" [commentContent]="item.content" [commentId]="item.id">
       </app-comment-form>
     </div>
