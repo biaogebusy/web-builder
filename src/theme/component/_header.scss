@@ -127,12 +127,14 @@
       .header,
       .header-top,
       .header a,
-      .search-box .mat-icon,
       .header-top .inv-icon.style-v1,
       .header-top .inv-icon.style-v1 .mat-icon,
       .header-top .right a {
         color: $primary-contrast !important;
         transition: color 0.2s ease-in;
+      }
+      .search-box .mat-icon {
+        color: mat-color($primary);
       }
       .header {
         .main-menu {
