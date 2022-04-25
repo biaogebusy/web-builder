@@ -2,7 +2,7 @@
   <div class="container">
     <div class="case-header" fxLayout="row warp" fxLayoutAlign="space-between center">
       <div class="title">
-        <h2 class="mat-display-1 m-bottom-xs">{{content.title}}</h2>
+        <h2 class="m-bottom-xs" ngClass.gt-sm="mat-display-1">{{content.title}}</h2>
         <div class="date">
           <div *ngFor="let date of content.date">
             <span>{{date.label}} | </span>
@@ -17,7 +17,7 @@
       </div>
     </div>
     <div class="content m-y-sm">
-      <div class="block p-y p-x" *ngFor="let item of content.block">
+      <div class="block" ngClass.gt-sm="p-y p-x" *ngFor="let item of content.block">
         <ng-container [ngSwitch]="item.type">
           <app-law-case-showcase *ngSwitchCase="'showcase'" [content]="item" [form]="form"></app-law-case-showcase>
           <app-law-case-files *ngSwitchCase="'files'" [content]="item"></app-law-case-files>

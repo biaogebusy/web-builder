@@ -27,6 +27,10 @@ export interface ICommentParams {
   attributes: {
     entity_type?: string;
     field_name?: string;
+    comment_body: {
+      value: any;
+      format: 'full_html' | 'plain_text';
+    };
     content: {
       value: any;
       format: 'full_html' | 'plain_text';

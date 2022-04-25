@@ -59,7 +59,12 @@ export class CommentFormComponent implements OnInit, OnDestroy {
     this.loading = true;
     const params: ICommentParams = this.content.params.comment;
     if (!this.commentContent && params) {
+      // 默认支持两种 body 字段，两种都会提交，对应没有的字段后台会弃掉，如果不支持这两种的可以在 jsonapi 覆写字段来匹配， /admin/config/services/jsonapi/add/resource_types
       params.attributes.content = {
+        value,
+        format: 'full_html',
+      };
+      params.attributes.comment_body = {
         value,
         format: 'full_html',
       };
@@ -88,6 +93,10 @@ export class CommentFormComponent implements OnInit, OnDestroy {
         type: params.type,
         id: this.commentId,
         attributes: {
+          comment_body: {
+            value,
+            format: 'full_html',
+          },
           content: {
             value,
             format: 'full_html',
