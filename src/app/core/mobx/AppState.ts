@@ -10,6 +10,7 @@ import { TagsService } from '@core/service/tags.service';
 import { version } from '../../../../package.json';
 import { isArray } from 'lodash-es';
 import { ApiService } from '@core/service/api.service';
+import { ScreenState } from '@core/mobx/screen/ScreenState';
 
 const initPage = {
   title: '',
@@ -34,7 +35,8 @@ export class AppState {
     private http: HttpClient,
     private storage: LocalStorageService,
     private tagsService: TagsService,
-    public apiService: ApiService
+    public apiService: ApiService,
+    private screenState: ScreenState
   ) {}
 
   @computed get ready(): any {
@@ -119,6 +121,7 @@ export class AppState {
     }
     this.state.page = pageValue;
     this.tagsService.updateTages(pageValue);
+    this.screenState.scroll$.next();
   }
 
   setPageNotFound(notFound: string): void {
