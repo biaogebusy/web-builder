@@ -69,11 +69,18 @@ import { InlineLightboxComponent } from './lightbox/inline-lightbox/inline-light
 import { BtnComponent } from './btn/btn.component';
 import { ContentTextCenterComponent } from './content-text-center/content-text-center.component';
 import { Card1v2Component } from './card/card1v2/card1v2.component';
-
+import { CalendarComponent } from './calendar/calendar.component';
+import { FullCalendarModule } from '@fullcalendar/angular'; // must go before plugins
+import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
   slidesPerView: 'auto',
 };
+
+FullCalendarModule.registerPlugins([
+  // register FullCalendar plugins
+  dayGridPlugin,
+]);
 
 const components = [
   BgComponent,
@@ -125,6 +132,7 @@ const components = [
   ShapeComponent,
   BgImgComponent,
   TreeComponent,
+  CalendarComponent,
   DownloadComponent,
   FontChangeComponent,
   TermsServiceComponent,
@@ -147,6 +155,7 @@ const components = [
     CountToModule,
     DynamicModule,
     CdkTableModule,
+    FullCalendarModule,
   ],
   exports: [...components],
   providers: [

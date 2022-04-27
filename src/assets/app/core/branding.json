@@ -214,6 +214,9 @@
           }, {
             "label": "Panel",
             "href": "/sample/widgets/panel"
+          }, {
+            "label": "Widgets",
+            "href": "/sample/widgets"
           }]
         }, {
           "label": "Action",

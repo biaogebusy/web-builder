@@ -353,5 +353,7 @@
       "caption": "受理费第二次",
       "thumb": "/assets/images/cases/porto3.jpg"
     }]
+  }, {
+    "type": "calendar"
   }]
 }
