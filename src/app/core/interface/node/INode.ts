@@ -11,6 +11,7 @@ export interface IBaseNode {
     comment: ICommentParams;
   };
   editor?: {
+    title: any;
     config: any;
     placeholder: string;
     action: any;

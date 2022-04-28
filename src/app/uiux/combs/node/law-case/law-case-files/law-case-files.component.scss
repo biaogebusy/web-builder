@@ -1,3 +1,7 @@
 .box {
   border-radius: 10px;
+  .inner {
+    height: 100%;
+    box-sizing: border-box;
+  }
 }

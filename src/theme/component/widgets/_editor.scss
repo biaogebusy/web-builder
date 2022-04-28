@@ -1,0 +1,20 @@
+@import "~@angular/material/theming";
+
+@mixin editor-color($config-or-theme) {
+  $config: mat-get-color-config($config-or-theme);
+  $foreground: map-get($config, foreground);
+  $background: map-get($config, background);
+  $primary: map-get($config, primary);
+  $accent: map-get($config, accent);
+  $warn: map-get($config, warn);
+
+  .editor {
+    background-color: mat-color($background, background);
+    quill-editor {
+      .ql-toolbar,
+      .ql-container {
+        border-color: mat-color($foreground, divider);
+      }
+    }
+  }
+}

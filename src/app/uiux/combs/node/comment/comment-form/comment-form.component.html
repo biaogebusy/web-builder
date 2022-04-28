@@ -1,8 +1,11 @@
 <!-- accept params and editor config -->
 <div class="comment-form m-bottom" *ngIf="content">
-  <quill-editor [modules]="content.editor?.config" [placeholder]="content.editor?.placeholder || placeholder"
-    *ngIf="screenService.isPlatformBrowser()" [(ngModel)]="htmlData" [styles]="{height:'250px'}">
-  </quill-editor>
+  <app-title [content]="content.editor?.title"></app-title>
+  <div class="editor">
+    <quill-editor [modules]="content.editor?.config" [placeholder]="content.editor?.placeholder || placeholder"
+      *ngIf="screenService.isPlatformBrowser()" [(ngModel)]="htmlData" [styles]="{height:'250px'}">
+    </quill-editor>
+  </div>
   <div class="actions p-y-sm p-x-sm">
     <button (click)="onSubmit(htmlData)" mat-raised-button color="primary" [disabled]="!htmlData">
       <div fxLayoutAlign="center center">

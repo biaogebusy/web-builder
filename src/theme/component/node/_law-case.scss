@@ -10,21 +10,31 @@
 
   $text-color: mat-color($foreground, text, 0.75);
   .law-case {
-    background-color: mat-color($background, background);
+    background-color: mat-color($primary, 0.06);
+    .law-case-showcase {
+      tbody {
+        tr {
+          td:nth-child(2n + 1) {
+            background-color: mat-color($background, background);
+          }
+        }
+      }
+    }
     .content {
       background-color: mat-color($background, card);
       @include mat-elevation(4, #000, 0.35);
       .block {
-        &:nth-child(2n) {
+        .mat-header-row {
           background-color: mat-color($background, background);
-          @include mat-elevation(4, #000, 0.2);
         }
       }
       .law-case-files {
         .box {
           .inner {
+            background-color: mat-color($background, "app-bar");
+            @include mat-elevation(3, mat-color($background, "app-bar"), 0.5);
             a {
-              color: mat-color($foreground, text, 0.6);
+              color: mat-color($foreground, text, 0.75);
               &:hover {
                 color: mat-color($primary);
               }
@@ -32,6 +42,9 @@
           }
         }
       }
+    }
+    .comment-wrapper {
+      background-color: mat-color($background, card);
     }
   }
 }

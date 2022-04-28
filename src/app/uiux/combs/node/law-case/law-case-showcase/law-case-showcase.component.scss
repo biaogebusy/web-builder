@@ -3,5 +3,21 @@
     thead {
       display: none;
     }
+    tbody {
+      tr {
+        td:nth-child(2n + 1) {
+          padding-left: 0;
+          text-align: center;
+          font-weight: 500;
+        }
+        td:nth-child(2n) {
+          padding-left: 2rem;
+          padding-right: 2rem;
+        }
+      }
+      .mat-form-field-underline {
+        display: none;
+      }
+    }
   }
 }

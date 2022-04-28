@@ -17,7 +17,7 @@
       </div>
     </div>
     <div class="content m-y-sm">
-      <div class="block" ngClass.gt-sm="p-y p-x" *ngFor="let item of content.block">
+      <div class="block" ngClass.gt-sm="p-y p-x" ngClass.lt-md="p-y-xs p-x-xs" *ngFor="let item of content.block">
         <ng-container [ngSwitch]="item.type">
           <app-law-case-showcase *ngSwitchCase="'showcase'" [content]="item" [form]="form"></app-law-case-showcase>
           <app-law-case-files *ngSwitchCase="'files'" [content]="item"></app-law-case-files>
@@ -27,7 +27,7 @@
         </ng-container>
       </div>
     </div>
-    <div class="comment-wrapper">
+    <div class="comment-wrapper" ngClass.gt-sm="m-y-sm p-y p-x" ngClass.lt-md="m-y-xs p-y-xs p-x-xs">
       <app-comment-form *ngIf="content?.params?.comment" [content]="content" (commentChange)="onChange($event)">
       </app-comment-form>
       <app-comment-list [comments]="comments" [content]="content" (commentChange)="onChange($event)">
