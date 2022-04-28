@@ -45,16 +45,16 @@
     }],
     "form": [{
       "type": "select",
-      "key": "caseType",
-      "value": "10"
+      "key": "transaction_level",
+      "value": "general"
     }, {
       "type": "select",
-      "key": "orderType",
-      "value": "12"
+      "key": "case_procedure",
+      "value": "aff056e8-4638-4901-b866-8cc6ea7a05c9"
     }, {
       "type": "select",
-      "key": "levelType",
-      "value": "16"
+      "key": "lawyer",
+      "value": "029f3488-92ed-4fb5-8fa2-62df690bd9d5"
     }],
     "block": [{
       "type": "showcase",
@@ -113,21 +113,11 @@
             "contentOfCourt": "0512-6587459"
           }, {
             "customer": "案件类型",
-            "contentOfCustomer": {
-              "type": "select",
-              "key": "caseType",
-              "options": [{
-                "label": "诉讼仲裁",
-                "value": "10"
-              }, {
-                "label": "民事",
-                "value": "11"
-              }]
-            },
+            "contentOfCustomer": "诉讼",
             "court": "案件阶段",
             "contentOfCourt": {
               "type": "select",
-              "key": "levelType",
+              "key": "case_procedure",
               "options": [{
                 "label": "一审上诉完成",
                 "value": "10"
@@ -146,16 +136,16 @@
             "customer": "优先等级",
             "contentOfCustomer": {
               "type": "select",
-              "key": "orderType",
+              "key": "transaction_level",
               "options": [{
-                "label": "一般事务",
-                "value": "10"
+                "label": "普通事务",
+                "value": "general"
               }, {
-                "label": "重要事务",
-                "value": "11"
+                "label": "重大事务",
+                "value": "important"
               }, {
                 "label": "紧急事务",
-                "value": "12"
+                "value": "exigence"
               }]
             },
             "court": "开庭日期",
@@ -167,7 +157,8 @@
       "type": "files",
       "title": {
         "label": "案件文件",
-        "style": "style-v4"
+        "style": "style-v2",
+        "icon": "mail"
       },
       "icon": {
         "name": "case"
@@ -269,7 +260,8 @@
       "type": "table",
       "title": {
         "label": "发票管理",
-        "style": "style-v4"
+        "style": "style-v2",
+        "icon": "mail"
       },
       "header": [{
         "label": "发票名称",
@@ -424,7 +416,8 @@
       "type": "table",
       "title": {
         "label": "诉讼金额",
-        "style": "style-v4"
+        "style": "style-v2",
+        "icon": "mail"
       },
       "header": [{
         "label": "诉讼标的",
@@ -492,7 +485,8 @@
       "type": "table",
       "title": {
         "label": "案件执行",
-        "style": "style-v4"
+        "style": "style-v2",
+        "icon": "mail"
       },
       "header": [{
         "label": "还款次数",
@@ -567,7 +561,8 @@
       "type": "text",
       "title": {
         "label": "案件说明",
-        "style": "style-v4"
+        "style": "style-v2",
+        "icon": "mail"
       },
       "body": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
     }],
@@ -597,7 +592,8 @@
     "editor": {
       "title": {
         "label": "添加工作跟踪",
-        "style": "style-v4"
+        "style": "style-v2",
+        "icon": "mail"
       },
       "config": {
         "toolbar": [
