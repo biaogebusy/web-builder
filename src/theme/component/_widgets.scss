@@ -168,4 +168,13 @@
       color: mat-color($foreground, text, 0.3);
     }
   }
+  .editor {
+    background-color: mat-color($background, background);
+    quill-editor {
+      .ql-toolbar,
+      .ql-container {
+        border-color: mat-color($foreground, divider);
+      }
+    }
+  }
 }

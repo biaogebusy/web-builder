@@ -1,5 +1,0 @@
-@import "./editor";
-
-@mixin widgets-color($config-or-theme) {
-  @include editor-color($config-or-theme);
-}

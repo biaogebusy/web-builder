@@ -24,7 +24,6 @@
 @import "./search";
 @import "./media";
 @import "./user";
-@import "./widgets/widgets";
 
 // material custom
 @import "./mat/card";
@@ -58,7 +57,6 @@
   @include profile-color($config-or-theme);
   @include dynamic-list-color($config-or-theme);
   @include user-color($config-or-theme);
-  @include widgets-color($config-or-theme);
 
   // material custom ui
   @include card-color($config-or-theme);
