@@ -259,6 +259,9 @@
           }, {
             "label": "Contact us",
             "href": "/sample/combs/other/contact"
+          }, {
+            "label": "Full calendar",
+            "href": "/sample/combs/calendar/full-calendar"
           }]
         }]
       },

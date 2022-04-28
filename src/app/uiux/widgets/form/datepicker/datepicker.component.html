@@ -1,0 +1,21 @@
+<mat-form-field class="width-100" appearance]="content.appearance || 'fill'" *ngIf="content" [formGroup]="form">
+  <mat-label *ngIf="content.label">{{content.label}}</mat-label>
+  <ng-container *ngIf="content?.params?.range;else noRange">
+    <mat-date-range-input [rangePicker]="picker">
+      <input matStartDate formControlName="start" [placeholder]="content?.params?.placeholder?.start">
+      <input matEndDate formControlName="end" [placeholder]="content?.params?.placeholder?.end">
+    </mat-date-range-input>
+    <mat-hint *ngIf="content.hint"></mat-hint>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker [dateClass]="content?.classes" [opened]="content?.params?.inline" #picker>
+    </mat-date-range-picker>
+  </ng-container>
+  <ng-template #noRange>
+    <input matInput formControlName="{{content.key}}" [matDatepicker]="picker">
+    <mat-hint *ngIf="content.hint"></mat-hint>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker [dateClass]="content?.classes" #picker></mat-datepicker>
+  </ng-template>
+
+  <mat-error *ngIf="!isValid">{{content.errorMes}}</mat-error>
+</mat-form-field>

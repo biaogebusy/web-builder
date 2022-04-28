@@ -9,6 +9,8 @@ import { CountToModule } from 'angular-count-to';
 import { DynamicModule } from 'ng-dynamic-component';
 import { TreeModule } from '@circlon/angular-tree-component';
 import { CdkTableModule } from '@angular/cdk/table';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 import { BgComponent } from './bg/bg.component';
 import { ImgComponent } from './img/img.component';
@@ -69,9 +71,10 @@ import { InlineLightboxComponent } from './lightbox/inline-lightbox/inline-light
 import { BtnComponent } from './btn/btn.component';
 import { ContentTextCenterComponent } from './content-text-center/content-text-center.component';
 import { Card1v2Component } from './card/card1v2/card1v2.component';
-import { CalendarComponent } from './calendar/calendar.component';
+import { CalendarComponent } from './date/calendar/calendar.component';
 import { FullCalendarModule } from '@fullcalendar/angular'; // must go before plugins
-import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
+import dayGridPlugin from '@fullcalendar/daygrid';
+import { DatepickerComponent } from './form/datepicker/datepicker.component'; // a plugin!
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
   slidesPerView: 'auto',
@@ -134,6 +137,7 @@ const components = [
   TreeComponent,
   CalendarComponent,
   DownloadComponent,
+  DatepickerComponent,
   FontChangeComponent,
   TermsServiceComponent,
   DynamicTableComponent,
@@ -156,9 +160,12 @@ const components = [
     DynamicModule,
     CdkTableModule,
     FullCalendarModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
   exports: [...components],
   providers: [
+    MatDatepickerModule,
     {
       provide: SWIPER_CONFIG,
       useValue: DEFAULT_SWIPER_CONFIG,

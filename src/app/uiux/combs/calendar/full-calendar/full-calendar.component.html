@@ -1,0 +1,14 @@
+<div class="full-calendar position-relative m-y" *ngIf="content">
+  <div class="container">
+    <div class="inner" fxLayout="row wrap">
+      <div class="sidebar p-x-sm p-y-sm" fxFlex.gt-sm="25" fxFlex.lt-md="100">
+        <app-dynamic-widgets [content]="item" [form]="form" *ngFor="let item of content.sidebar"></app-dynamic-widgets>
+      </div>
+      <div class="main p-x-sm p-y-sm" fxFlex.gt-sm="75" fxFlex.lt-md="100">
+        <div class="calendar width-100">
+          <app-calendar></app-calendar>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

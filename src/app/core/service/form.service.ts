@@ -14,6 +14,9 @@ export class FormService {
     const group: any = {};
     items.forEach((item: any) => {
       switch (item.type) {
+        case 'datepicker':
+          group = this.handleDatePicker(group);
+          break;
         case 'select':
           group[item.key] = item.params?.required
             ? new FormControl(item.value || '', Validators.required)
@@ -26,6 +29,10 @@ export class FormService {
       }
     });
     return new FormGroup(group);
+  }
+
+  handleDatePicker(group: any): any {
+    return {};
   }
 
   getwebFormData(params: any, form: any): any {

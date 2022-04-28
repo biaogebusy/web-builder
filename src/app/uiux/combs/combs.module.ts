@@ -15,6 +15,7 @@ import { ProfileModule } from './profile/profile.module';
 import { ActionModule } from './action/action.module';
 import { TabModule } from './tab/tab.module';
 import { NodeModule } from './node/node.module';
+import { CalendarModule } from './calendar/calendar.module';
 
 const modules = [
   ActionModule,
@@ -32,6 +33,7 @@ const modules = [
   VideoModule,
   TabModule,
   NodeModule,
+  CalendarModule,
 ];
 
 @NgModule({

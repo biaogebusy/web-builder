@@ -19,6 +19,7 @@
 @import "./node/quesion";
 @import "./node/profile";
 @import "./dynamic-list";
+@import "./calendar";
 @import "./form";
 @import "./hero";
 @import "./search";
@@ -57,6 +58,7 @@
   @include profile-color($config-or-theme);
   @include dynamic-list-color($config-or-theme);
   @include user-color($config-or-theme);
+  @include calendar-color($config-or-theme);
 
   // material custom ui
   @include card-color($config-or-theme);

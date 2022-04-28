@@ -1,0 +1,41 @@
+{
+  "title": "full calendar",
+  "body": [{
+    "type": "full-calendar",
+    "sidebar": [{
+      "type": "datepicker",
+      "label": "日历",
+      "hint": "MM/DD/YYYY – MM/DD/YYYY",
+      "key": "date",
+      "params": {
+        "inline": true,
+        "range": true,
+        "placeholder": {
+          "start": "开始",
+          "end": "结束"
+        }
+      }
+    }, {
+      "type": "text",
+      "title": {
+        "label": "筛选",
+        "style": "style-v4"
+      }
+    }, {
+      "type": "checkbox",
+      "key": "metting",
+      "label": "会议",
+      "value": false
+    }, {
+      "type": "checkbox",
+      "key": "case",
+      "label": "案件",
+      "value": false
+    }, {
+      "type": "checkbox",
+      "key": "project",
+      "label": "项目",
+      "value": false
+    }]
+  }]
+}
