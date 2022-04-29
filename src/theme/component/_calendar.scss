@@ -10,8 +10,40 @@
 
   $text-primary: mat-color($primary);
   .full-calendar {
+    background-color: mat-color($primary, 0.1);
     .main {
       background-color: mat-color($background, card);
+    }
+  }
+
+  // widget
+  .calendar {
+    .fc-theme-standard td,
+    .fc-scrollgrid th {
+      border-color: mat-color($foreground, divider);
+    }
+    .fc {
+      .fc-button-primary {
+        background-color: mat-color($primary);
+        border-color: mat-color($primary);
+        &:disabled {
+          background-color: mat-color($primary, 0.2);
+          border-color: mat-color($primary, 0.2);
+          color: mat-color($primary, 0.5);
+        }
+        &:hover,
+        &:active {
+          background-color: mat-color($primary);
+          border-color: mat-color($primary);
+          color: mat-color($primary, default-contrast);
+          opacity: 0.85;
+        }
+      }
+      .fc-daygrid-day {
+        &.fc-day-today {
+          background-color: mat-color($primary, 0.1);
+        }
+      }
     }
   }
 }

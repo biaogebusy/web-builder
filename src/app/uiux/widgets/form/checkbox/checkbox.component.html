@@ -1,5 +1,5 @@
 <section [formGroup]="form">
-  <mat-checkbox class="width-100" formControlName="{{content.key}}" [(ngModel)]="content.value">
+  <mat-checkbox class="width-100 checkbox m-bottom-xs" formControlName="{{content.key}}" [(ngModel)]="content.value">
     <div class="width-100" fxLayout="row" fxLayoutAlign="space-between center" [innerHTML]="content.label|safeHtml">
     </div>
   </mat-checkbox>

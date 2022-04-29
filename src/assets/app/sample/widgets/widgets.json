@@ -355,5 +355,41 @@
     }]
   }, {
     "type": "calendar"
+  }, {
+    "type": "datepicker",
+    "label": "时间选择器 - 范围",
+    "hint": "MM/DD/YYYY – MM/DD/YYYY",
+    "range": true,
+    "start": "",
+    "end": "",
+    "opened": true,
+    "placeholder": {
+      "start": "开始时间",
+      "end": "结束时间"
+    },
+    "params": {
+      "required": true
+    }
+  }, {
+    "type": "datepicker",
+    "label": "时间选择器 - 单值",
+    "hint": "MM/DD/YYYY – MM/DD/YYYY",
+    "key": "date",
+    "value": "",
+    "placeholder": "请选择日期",
+    "params": {
+      "required": true
+    }
+  }, {
+    "type": "datepicker",
+    "label": "时间选择器 - Inline",
+    "hint": "MM/DD/YYYY – MM/DD/YYYY",
+    "key": "dateInline",
+    "value": "",
+    "inline": true,
+    "placeholder": "请选择日期",
+    "params": {
+      "required": true
+    }
   }]
 }

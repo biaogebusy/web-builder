@@ -9,11 +9,21 @@ import { FormGroup } from '@angular/forms';
 export class DatepickerComponent implements OnInit {
   @Input() content: any;
   @Input() form: FormGroup;
+  selected: Date | null;
   constructor() {}
 
   ngOnInit(): void {}
 
   get isValid(): boolean {
-    return this.form.controls[this.content.key].valid;
+    if (!this.content.range && this.content?.key) {
+      return this.form.controls[this.content.key].valid;
+    } else {
+      return false;
+    }
+  }
+
+  onSelectedChange(value: Date): void {
+    console.log(value);
+    this.form.controls[this.content.key].setValue(value);
   }
 }

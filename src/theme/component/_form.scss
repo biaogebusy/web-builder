@@ -9,4 +9,11 @@
   $warn: map-get($config, warn);
 
   $text-base: mat-color($foreground, text, 0.75);
+
+  .checkbox {
+    .badge {
+      background-color: mat-color($primary, 0.1);
+      color: mat-color($primary);
+    }
+  }
 }

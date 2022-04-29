@@ -1,5 +1,14 @@
 :host ::ng-deep {
   .mat-checkbox-layout {
     display: flex;
+    .mat-checkbox-label {
+      width: 100%;
+      .badge {
+        padding: 6px 12px;
+        border-radius: 12px;
+        line-height: 1;
+        font-size: small;
+      }
+    }
   }
 }

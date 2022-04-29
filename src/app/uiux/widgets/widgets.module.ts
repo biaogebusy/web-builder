@@ -10,7 +10,7 @@ import { DynamicModule } from 'ng-dynamic-component';
 import { TreeModule } from '@circlon/angular-tree-component';
 import { CdkTableModule } from '@angular/cdk/table';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 
 import { BgComponent } from './bg/bg.component';
 import { ImgComponent } from './img/img.component';
@@ -74,6 +74,8 @@ import { Card1v2Component } from './card/card1v2/card1v2.component';
 import { CalendarComponent } from './date/calendar/calendar.component';
 import { FullCalendarModule } from '@fullcalendar/angular'; // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import listPlugin from '@fullcalendar/list';
 import { DatepickerComponent } from './form/datepicker/datepicker.component'; // a plugin!
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -83,6 +85,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
 FullCalendarModule.registerPlugins([
   // register FullCalendar plugins
   dayGridPlugin,
+  timeGridPlugin,
+  listPlugin,
 ]);
 
 const components = [
@@ -170,6 +174,7 @@ const components = [
       provide: SWIPER_CONFIG,
       useValue: DEFAULT_SWIPER_CONFIG,
     },
+    { provide: MAT_DATE_LOCALE, useValue: 'zh-cn' },
   ],
 })
 export class WidgetsModule {}

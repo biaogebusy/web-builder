@@ -38,6 +38,8 @@
     "@circlon/angular-tree-component": "^11.0.4",
     "@fullcalendar/angular": "^5.11.0",
     "@fullcalendar/daygrid": "^5.11.0",
+    "@fullcalendar/list": "^5.11.0",
+    "@fullcalendar/timegrid": "^5.11.0",
     "@nguniversal/express-engine": "^11.2.1",
     "angular-count-to": "^0.0.3",
     "angulartics2": "^10.0.0",

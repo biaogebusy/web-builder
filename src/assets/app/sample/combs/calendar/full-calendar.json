@@ -6,35 +6,35 @@
       "type": "datepicker",
       "label": "日历",
       "hint": "MM/DD/YYYY – MM/DD/YYYY",
-      "key": "date",
+      "key": "dateInline",
+      "value": "",
+      "inline": true,
+      "placeholder": "请选择日期",
       "params": {
-        "inline": true,
-        "range": true,
-        "placeholder": {
-          "start": "开始",
-          "end": "结束"
-        }
+        "required": true
       }
     }, {
       "type": "text",
       "title": {
         "label": "筛选",
-        "style": "style-v4"
-      }
+        "style": "style-v4",
+        "classes": "m-bottom-xs"
+      },
+      "spacer": "sm"
     }, {
       "type": "checkbox",
       "key": "metting",
-      "label": "会议",
+      "label": "会议<span class=\"badge\">10</span>",
       "value": false
     }, {
       "type": "checkbox",
       "key": "case",
-      "label": "案件",
+      "label": "案件<span class=\"badge\">9</span>",
       "value": false
     }, {
       "type": "checkbox",
       "key": "project",
-      "label": "项目",
+      "label": "项目<span class=\"badge\">287</span>",
       "value": false
     }]
   }]

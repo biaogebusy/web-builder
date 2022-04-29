@@ -15,7 +15,19 @@ export class FormService {
     items.forEach((item: any) => {
       switch (item.type) {
         case 'datepicker':
-          group = this.handleDatePicker(group);
+          if (item.range) {
+            group.start = item.params?.required
+              ? new FormControl(item.start || '', Validators.required)
+              : new FormControl(item.start || '');
+            group.end = item.params?.required
+              ? new FormControl(item.end || '', Validators.required)
+              : new FormControl(item.end || '');
+          }
+          if (!item.range && item.key) {
+            group[item.key] = item.params?.required
+              ? new FormControl(item.value || '', Validators.required)
+              : new FormControl(item.value || '');
+          }
           break;
         case 'select':
           group[item.key] = item.params?.required
@@ -23,9 +35,11 @@ export class FormService {
             : new FormControl(item.value || '');
           break;
         default:
-          group[item.key] = item.params?.required
-            ? new FormControl(item.value || '', Validators.required)
-            : new FormControl(item.value || '');
+          if (item.key) {
+            group[item.key] = item.params?.required
+              ? new FormControl(item.value || '', Validators.required)
+              : new FormControl(item.value || '');
+          }
       }
     });
     return new FormGroup(group);

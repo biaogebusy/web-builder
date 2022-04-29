@@ -9,7 +9,13 @@ import { CalendarOptions } from '@fullcalendar/angular';
 export class CalendarComponent implements OnInit {
   @Input() content: any;
   calendarOptions: CalendarOptions = {
-    initialView: 'dayGridMonth',
+    initialView: 'timeGridWeek',
+    locale: 'zh-cn',
+    headerToolbar: {
+      start: 'prev today next',
+      center: 'title',
+      end: 'dayGridMonth timeGridWeek listWeek',
+    },
   };
   constructor() {}
 
