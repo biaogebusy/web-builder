@@ -36,6 +36,13 @@
       "key": "project",
       "label": "项目<span class=\"badge\">287</span>",
       "value": false
-    }]
+    }],
+    "calendar": {
+      "options": {
+        "eventBackgroundColor": "#efecfe",
+        "eventTextColor": "#613bfa",
+        "eventBorderColor": "#efecfe"
+      }
+    }
   }]
 }

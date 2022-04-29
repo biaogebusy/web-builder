@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-dynamic-table',
@@ -9,6 +10,7 @@ import { FormGroup } from '@angular/forms';
 export class DynamicTableComponent implements OnInit {
   @Input() content: any;
   @Input() form: FormGroup;
+  public dataSource: MatTableDataSource<any>;
   displayedColumns: string[];
 
   constructor() {}
@@ -16,6 +18,7 @@ export class DynamicTableComponent implements OnInit {
   ngOnInit(): void {
     if (this.content.elements) {
       this.displayedColumns = this.content.header.map((item: any) => item.key);
+      this.dataSource = new MatTableDataSource(this.content.elements);
     }
   }
 }

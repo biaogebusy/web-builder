@@ -1,5 +1,5 @@
 <div class="dynamic-table width-100">
-  <table mat-table [dataSource]="content.elements" class="width-100">
+  <table mat-table [dataSource]="dataSource" class="width-100">
     <ng-container [matColumnDef]="item.key" *ngFor="let item of content.header">
       <th mat-header-cell *cdkHeaderCellDef>
         {{item.label}}
