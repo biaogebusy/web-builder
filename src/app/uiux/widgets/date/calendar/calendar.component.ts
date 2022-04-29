@@ -14,7 +14,7 @@ import { CalendarOptions } from '@fullcalendar/angular';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CalendarComponent implements OnInit {
-  @Input() options: any;
+  @Input() content: any;
   @Input() events: any;
   calendarOptions: CalendarOptions;
   default: CalendarOptions = {
@@ -33,7 +33,7 @@ export class CalendarComponent implements OnInit {
   constructor(private cd: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    this.calendarOptions = Object.assign(this.default, this.options, {
+    this.calendarOptions = Object.assign(this.default, this.content, {
       events: this.events,
     });
     console.log(this.calendarOptions);
