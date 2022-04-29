@@ -174,7 +174,7 @@ const components = [
       provide: SWIPER_CONFIG,
       useValue: DEFAULT_SWIPER_CONFIG,
     },
-    { provide: MAT_DATE_LOCALE, useValue: 'zh-cn' },
+    // { provide: MAT_DATE_LOCALE, useValue: 'zh-cn' },
   ],
 })
 export class WidgetsModule {}

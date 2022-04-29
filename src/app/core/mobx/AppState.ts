@@ -28,6 +28,7 @@ export class AppState {
     page: initPage,
   };
 
+  public calendarChange$ = new Subject();
   public switchChange$ = new Subject();
   public responseCache = new Map();
   constructor(

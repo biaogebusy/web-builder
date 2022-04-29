@@ -13,6 +13,7 @@ import { NodeService } from '@core/service/node.service';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { AppState } from '@core/mobx/AppState';
 
 @Component({
   selector: 'app-full-calendar',
@@ -31,6 +32,7 @@ export class FullCalendarComponent
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
+    public appState: AppState,
     private screenService: ScreenService,
     private formService: FormService,
     private nodeService: NodeService,
@@ -76,6 +78,7 @@ export class FullCalendarComponent
             url: item.url,
           };
         });
+        this.appState.calendarChange$.next(this.events);
         this.cd.markForCheck();
       });
   }
