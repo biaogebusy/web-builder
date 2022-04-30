@@ -13,6 +13,7 @@ import { NodeService } from '@core/service/node.service';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { StripTagsPipe } from 'ngx-pipes';
 import { AppState } from '@core/mobx/AppState';
 
 @Component({
@@ -20,6 +21,7 @@ import { AppState } from '@core/mobx/AppState';
   templateUrl: './full-calendar.component.html',
   styleUrls: ['./full-calendar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [StripTagsPipe],
 })
 export class FullCalendarComponent
   extends BaseComponent
@@ -33,10 +35,11 @@ export class FullCalendarComponent
 
   constructor(
     public appState: AppState,
-    private screenService: ScreenService,
+    private cd: ChangeDetectorRef,
     private formService: FormService,
+    private screenService: ScreenService,
     private nodeService: NodeService,
-    private cd: ChangeDetectorRef
+    private stripTags: StripTagsPipe
   ) {
     super();
   }
@@ -73,7 +76,7 @@ export class FullCalendarComponent
         console.log(data);
         this.events = data.rows.map((item: any) => {
           return {
-            title: item.title,
+            title: this.stripTags.transform(item.title),
             start: item.created,
             url: item.url,
           };

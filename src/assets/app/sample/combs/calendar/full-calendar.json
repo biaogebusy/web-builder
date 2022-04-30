@@ -10,6 +10,12 @@
           "classes": "m-bottom-xs"
         },
         "spacer": "sm"
+      }, {
+        "appearance": "legacy",
+        "controlType": "search",
+        "key": "keys",
+        "label": "关键词",
+        "type": "input"
       },
       {
         "type": "select",

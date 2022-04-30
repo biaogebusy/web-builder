@@ -18,6 +18,9 @@
 
   // widget
   .calendar {
+    .fc-theme-standard .fc-scrollgrid {
+      border-color: mat-color($foreground, divider);
+    }
     .fc-theme-standard td,
     .fc-scrollgrid th {
       border-color: mat-color($foreground, divider);
