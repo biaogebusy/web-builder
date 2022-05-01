@@ -33,7 +33,7 @@
   <ng-template #empty>
     <div class="empty p-y" fxLayout="column" fxLayoutAlign="center center">
       <app-icon [content]="{'name':'create','inline':true}"></app-icon>
-      <p>暂时没有人回答，欢迎作答</p>
+      <p [innerHTML]="content.editor?.empty?.label || '暂时没有人回答，欢迎作答!'"></p>
     </div>
   </ng-template>
 </div>
