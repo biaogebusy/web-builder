@@ -12,6 +12,9 @@
   .law-case {
     background-color: mat-color($primary, 0.06);
     .law-case-showcase {
+      table {
+        border-top: 1px solid mat-color($foreground, divider);
+      }
       tbody {
         tr {
           td:nth-child(2n + 1) {

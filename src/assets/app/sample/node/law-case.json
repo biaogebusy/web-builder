@@ -37,7 +37,7 @@
         "entity_id": "1312",
         "relationships": {
           "flagged_entity": {
-            "type": "node--article",
+            "type": "node--case",
             "id": "cb31d69f-a95e-4c91-97d1-1169f82a10a5"
           }
         }

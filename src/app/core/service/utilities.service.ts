@@ -45,4 +45,28 @@ export class UtilitiesService {
     }
     this.document.body.appendChild(script);
   }
+
+  getFileType(url: string): string {
+    const pdfReg = /^.+(\.pdf)$/;
+    const txtReg = /^.+(\.txt)$/;
+    const wordReg = /^.+(\.doc|\.docx)$/;
+    const excelReg = /^.+(\.xls|\.xlsx)$/;
+    const jpgReg = /^.+(\.png|\.jpg|\.jpeg|\.bmp)$/;
+    if (pdfReg.test(url)) {
+      return 'pdf';
+    }
+    if (txtReg.test(url)) {
+      return 'txt';
+    }
+    if (wordReg.test(url)) {
+      return 'word';
+    }
+    if (excelReg.test(url)) {
+      return 'excel';
+    }
+    if (jpgReg.test(url)) {
+      return 'picture';
+    }
+    return '';
+  }
 }

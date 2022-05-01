@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Lightbox, LightboxConfig } from 'ngx-lightbox';
+import { UtilitiesService } from '@core/service/utilities.service';
+import { element } from 'protractor';
 
 @Component({
   selector: 'app-inline-lightbox',
@@ -10,12 +12,18 @@ export class InlineLightboxComponent implements OnInit {
   @Input() content: any;
   constructor(
     private lightbox: Lightbox,
-    private lightboxConfig: LightboxConfig
+    private lightboxConfig: LightboxConfig,
+    private util: UtilitiesService
   ) {}
 
   ngOnInit(): void {}
 
   onClick(i: number): void {
-    this.lightbox.open(this.content.elements, i);
+    const src = this.content.elements[i].src;
+    if (this.util.getFileType(src) === 'picture') {
+      this.lightbox.open(this.content.elements, i);
+    } else {
+      window.open(src, '_blank');
+    }
   }
 }

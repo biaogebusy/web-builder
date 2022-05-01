@@ -8,6 +8,7 @@ import {
 import { ILink } from '@core/interface/widgets/ILink';
 import { RouteService } from '@core/service/route.service';
 import { environment } from 'src/environments/environment';
+import { UtilitiesService } from '@core/service/utilities.service';
 @Component({
   selector: 'app-link',
   templateUrl: './link.component.html',
@@ -20,7 +21,8 @@ export class LinkComponent implements OnInit {
   href: string;
   constructor(
     public routeService: RouteService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private util: UtilitiesService
   ) {}
 
   ngOnInit(): void {
@@ -33,7 +35,7 @@ export class LinkComponent implements OnInit {
   }
 
   getClasses(): void {
-    const type = this.getFileType(this.content.href);
+    const type = this.util.getFileType(this.content.href);
     const obj: any = {};
     obj[this.content.classes] = this.content.classes || false;
     obj[type] = type || false;
@@ -50,29 +52,5 @@ export class LinkComponent implements OnInit {
     // drupal private file url
     this.href = `${environment.apiUrl}${href}`;
     this.cd.detectChanges();
-  }
-
-  getFileType(url: string): string {
-    const pdfReg = /^.+(\.pdf)$/;
-    const txtReg = /^.+(\.txt)$/;
-    const wordReg = /^.+(\.doc|\.docx)$/;
-    const excelReg = /^.+(\.xls|\.xlsx)$/;
-    const jpgReg = /^.+(\.png|\.jpg|\.jpeg|\.bmp)$/;
-    if (pdfReg.test(url)) {
-      return 'pdf';
-    }
-    if (txtReg.test(url)) {
-      return 'txt';
-    }
-    if (wordReg.test(url)) {
-      return 'word';
-    }
-    if (excelReg.test(url)) {
-      return 'excel';
-    }
-    if (jpgReg.test(url)) {
-      return 'picture';
-    }
-    return '';
   }
 }
