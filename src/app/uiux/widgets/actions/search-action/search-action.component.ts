@@ -46,13 +46,15 @@ export class SearchActionComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.screenService.isPlatformBrowser()) {
       const input =
         this.ele.nativeElement.querySelectorAll('input[type=text]')[0];
-      fromEvent(input, 'keyup')
-        .pipe(takeUntil(this.destroy$))
-        .subscribe((event: any) => {
-          if (event.keyCode === 13) {
-            this.search();
-          }
-        });
+      if (input) {
+        fromEvent(input, 'keyup')
+          .pipe(takeUntil(this.destroy$))
+          .subscribe((event: any) => {
+            if (event.keyCode === 13) {
+              this.search();
+            }
+          });
+      }
     }
   }
 

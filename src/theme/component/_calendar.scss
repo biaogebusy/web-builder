@@ -69,6 +69,13 @@
           background-color: mat-color($primary, 0.1);
         }
       }
+      .fc-h-event .fc-event-main {
+        color: mat-color($primary, default-contrast);
+      }
+      .fc-h-event {
+        background-color: mat-color($primary);
+        border-color: mat-color($primary);
+      }
     }
   }
 }

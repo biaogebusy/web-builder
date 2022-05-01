@@ -15,6 +15,7 @@ import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { StripTagsPipe } from 'ngx-pipes';
 import { AppState } from '@core/mobx/AppState';
+import { EventApi } from '@fullcalendar/angular';
 
 @Component({
   selector: 'app-full-calendar',
@@ -29,7 +30,7 @@ export class FullCalendarComponent
 {
   @Input() content: any;
   selected: Date | null;
-  events: any[];
+  events: EventApi[];
   form: FormGroup;
   destroy$: Subject<boolean> = new Subject<boolean>();
 
@@ -69,21 +70,20 @@ export class FullCalendarComponent
     const type = 'content';
     const state = this.getParamsState(this.form.value, options);
     const params = this.getApiParams(state);
-    this.nodeService
-      .search(type, params)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((data) => {
-        console.log(data);
-        this.events = data.rows.map((item: any) => {
-          return {
-            title: this.stripTags.transform(item.title),
-            start: item.created,
-            url: item.url,
-          };
-        });
-        this.appState.calendarChange$.next(this.events);
-        this.cd.markForCheck();
+    this.nodeService.search(type, params).subscribe((data) => {
+      this.events = data.rows.map((item: any) => {
+        // events attr see EventApi
+        return {
+          title: this.stripTags.transform(item.title),
+          start: item.created,
+          url: item.url,
+          end: item.end || null,
+          className: '', // custom event style bg, border
+        };
       });
+      this.appState.calendarChange$.next(this.events);
+      this.cd.markForCheck();
+    });
   }
 
   ngOnDestroy(): void {

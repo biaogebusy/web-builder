@@ -1,0 +1,9 @@
+.calendar {
+  ::ng-deep {
+    .fc {
+      .fc-h-event {
+        padding: 0 6px;
+      }
+    }
+  }
+}

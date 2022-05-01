@@ -37,6 +37,25 @@
         ]
       },
       {
+        "type": "select",
+        "key": "type",
+        "mutiple": false,
+        "label": "最新更新",
+        "options": [{
+          "label": "案件",
+          "value": "case"
+        }, {
+          "label": "会议管理",
+          "value": "meeting"
+        }, {
+          "label": "项目管理",
+          "value": "project"
+        }, {
+          "label": "资料文库",
+          "value": "doc_lib"
+        }]
+      },
+      {
         "type": "datepicker",
         "label": "日历",
         "hint": "MM/DD/YYYY – MM/DD/YYYY",
@@ -50,11 +69,7 @@
       }
     ],
     "calendar": {
-      "options": {
-        "eventBackgroundColor": "#efecfe",
-        "eventTextColor": "#613bfa",
-        "eventBorderColor": "#efecfe"
-      }
+      "options": {}
     }
   }]
 }
