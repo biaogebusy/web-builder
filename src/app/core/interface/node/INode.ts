@@ -80,3 +80,9 @@ export interface ICase extends IBaseNode {
   block: any[];
   form: any[];
 }
+
+export interface ICasePrams {
+  transaction_level: 'general' | 'important' | 'exigence';
+  case_procedure: string;
+  lawyer: string;
+}

@@ -2,7 +2,8 @@
   "title": "xxx 案件",
   "config": {
     "node": {
-      "entityId": "35"
+      "entityId": "35",
+      "uuid": "cb31d69f-a95e-4c91-97d1-1169f82a10a5"
     }
   },
   "body": [{

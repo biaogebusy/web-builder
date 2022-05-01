@@ -144,6 +144,14 @@ export class NodeService extends ApiService {
     );
   }
 
+  updateLawCase(data: any, uuid: string, token: string): Observable<any> {
+    return this.http.patch<any>(
+      `${this.apiUrl}/api/v1/node/case/${uuid}`,
+      JSON.stringify(data),
+      this.optionsWithCookieAndToken(token)
+    );
+  }
+
   getFlaging(path: string, params: string, token: string): Observable<any> {
     return this.http.get<any>(
       `${this.apiUrl}${path}?${params}`,

@@ -6,7 +6,7 @@ import {
   ChangeDetectionStrategy,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { ICase } from '@core/interface/node/INode';
+import { ICase, ICasePrams } from '@core/interface/node/INode';
 import { AppState } from '@core/mobx/AppState';
 import { UserState } from '@core/mobx/user/UserState';
 import { FormService } from '@core/service/form.service';
@@ -53,6 +53,14 @@ export class LawCaseComponent extends NodeComponent implements OnInit {
       )
       .subscribe((value) => {
         console.log(value);
+        const params = this.getCaseParams(value);
+        console.log(params);
+        const uuid = this.appState.pageConfig.node.uuid;
+        this.nodeService
+          .updateLawCase(params, uuid, this.userState.csrfToken)
+          .subscribe((res) => {
+            console.log(res);
+          });
         this.uti.openSnackbar('已更新！', '✓');
       });
   }
@@ -74,5 +82,42 @@ export class LawCaseComponent extends NodeComponent implements OnInit {
         });
         this.cd.markForCheck();
       });
+  }
+
+  getCaseParams(value: ICasePrams): any {
+    return {
+      data: {
+        type: 'node--case',
+        id: 'deef4a32-fcb3-48aa-8e4e-0a6bd0302f05',
+        attributes: {
+          transaction_level: value.transaction_level,
+        },
+        relationships: {
+          case_procedure: {
+            data: {
+              type: 'taxonomy_term--case_procedure',
+              id: value.case_procedure,
+            },
+          },
+          // lawyer: {
+          //   data: this.getLawyerParams(value.lawyer),
+          // },
+        },
+      },
+    };
+  }
+
+  getLawyerParams(value: string): any {
+    if (value) {
+      const multi = value.split(',');
+      return multi.map((item) => {
+        return {
+          type: 'user-user',
+          id: item,
+        };
+      });
+    } else {
+      return [];
+    }
   }
 }
