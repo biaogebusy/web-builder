@@ -20,4 +20,5 @@ export interface IControl {
   matTooltipPosition?: TooltipPosition;
   clear?: boolean;
   rows?: number;
+  mode?: string;
 }

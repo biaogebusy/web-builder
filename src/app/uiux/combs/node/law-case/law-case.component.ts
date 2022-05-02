@@ -8,13 +8,19 @@ import {
 import { FormGroup } from '@angular/forms';
 import { ICase, ICasePrams } from '@core/interface/node/INode';
 import { AppState } from '@core/mobx/AppState';
+import { FormState } from '@core/mobx/formState';
 import { UserState } from '@core/mobx/user/UserState';
 import { FormService } from '@core/service/form.service';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { NodeComponent } from '@uiux/base/node.widget';
 import { Subject } from 'rxjs';
-import { takeUntil, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import {
+  takeUntil,
+  debounceTime,
+  distinctUntilChanged,
+  map,
+} from 'rxjs/operators';
 
 @Component({
   selector: 'app-law-case',
@@ -26,6 +32,9 @@ export class LawCaseComponent extends NodeComponent implements OnInit {
   @Input() content: ICase;
   comments: any[];
   form: FormGroup;
+  apiParams: string;
+  disabled = true;
+  first = true;
   destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     public appState: AppState,
@@ -33,13 +42,15 @@ export class LawCaseComponent extends NodeComponent implements OnInit {
     public nodeService: NodeService,
     private cd: ChangeDetectorRef,
     private formService: FormService,
-    private uti: UtilitiesService
+    private uti: UtilitiesService,
+    private formState: FormState
   ) {
     super(userState, nodeService);
   }
 
   ngOnInit(): void {
     this.initForm(this.content.form);
+    this.getlawyers();
     this.getComments();
   }
 
@@ -53,16 +64,48 @@ export class LawCaseComponent extends NodeComponent implements OnInit {
       )
       .subscribe((value) => {
         console.log(value);
-        const params = this.getCaseParams(value);
-        console.log(params);
-        const uuid = this.appState.pageConfig.node.uuid;
-        this.nodeService
-          .updateLawCase(params, uuid, this.userState.csrfToken)
-          .subscribe((res) => {
-            console.log(res);
-          });
+        if (this.first) {
+          this.disabled = true;
+          this.first = false;
+          return;
+        }
+        this.disabled = false;
+        const apiParams = this.getCaseParams(value);
+        this.apiParams = this.handleLawyer(apiParams);
+        this.cd.detectChanges();
+      });
+  }
+
+  handleLawyer(apiParams: any): any {
+    if (!apiParams.data.relationships.lawyer.data.length) {
+      delete apiParams.data.relationships.lawyer;
+      return apiParams;
+    }
+    return apiParams;
+  }
+
+  updateNode(): void {
+    const uuid = this.appState.pageConfig.node.uuid;
+    // const uuid = 'cb31d69f-a95e-4c91-97d1-1169f82a10a5';
+    this.nodeService
+      .updateLawCase(this.apiParams, uuid, this.userState.csrfToken)
+      .subscribe((res) => {
+        console.log(res);
         this.uti.openSnackbar('已更新！', '✓');
       });
+  }
+
+  getlawyers(): void {
+    this.nodeService.getNodes('/api/v1/node', 'handler').subscribe((res) => {
+      console.log(res);
+      const autoList = res.data.map((item: any) => {
+        return {
+          label: item.attributes.title,
+          value: item.id,
+        };
+      });
+      this.formState.autoList$.next(autoList);
+    });
   }
 
   onChange(state: boolean): void {
@@ -99,18 +142,18 @@ export class LawCaseComponent extends NodeComponent implements OnInit {
               id: value.case_procedure,
             },
           },
-          // lawyer: {
-          //   data: this.getLawyerParams(value.lawyer),
-          // },
+          lawyer: {
+            data: this.getLawyerParams(value.lawyer),
+          },
         },
       },
     };
   }
 
-  getLawyerParams(value: string): any {
-    if (value) {
-      const multi = value.split(',');
-      return multi.map((item) => {
+  getLawyerParams(lawyer: any): any {
+    if (lawyer.value) {
+      const multi = lawyer.value.split(',');
+      return multi.map((item: string) => {
         return {
           type: 'user-user',
           id: item,

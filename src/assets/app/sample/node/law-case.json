@@ -2,7 +2,6 @@
   "title": "xxx 案件",
   "config": {
     "node": {
-      "entityId": "35",
       "uuid": "cb31d69f-a95e-4c91-97d1-1169f82a10a5"
     }
   },
@@ -130,7 +129,13 @@
           },
           {
             "customer": "经办律师",
-            "contentOfCustomer": "李四",
+            "contentOfCustomer": {
+              "type": "input",
+              "key": "lawyer",
+              "mode": "autocomplete",
+              "label": "经办律师",
+              "value": "杜长明"
+            },
             "court": "案件编号",
             "contentOfCourt": "（2022）苏05民终3823"
           }, {
