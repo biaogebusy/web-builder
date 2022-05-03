@@ -11,6 +11,7 @@ import { version } from '../../../../package.json';
 import { isArray } from 'lodash-es';
 import { ApiService } from '@core/service/api.service';
 import { ScreenState } from '@core/mobx/screen/ScreenState';
+import { CryptoJSService } from '@core/service/crypto-js.service';
 
 const initPage = {
   title: '',
@@ -37,7 +38,8 @@ export class AppState {
     private storage: LocalStorageService,
     private tagsService: TagsService,
     public apiService: ApiService,
-    private screenState: ScreenState
+    private screenState: ScreenState,
+    private cryptoJS: CryptoJSService
   ) {}
 
   @computed get ready(): any {
@@ -74,10 +76,6 @@ export class AppState {
 
   @computed get content(): any[] {
     return this.state.page && this.state.page.body;
-  }
-
-  @computed get guard(): any {
-    return this.state.config && this.state.config.guard;
   }
 
   @computed get loginLeft(): any {
@@ -159,6 +157,13 @@ export class AppState {
     this.storage.store(this.MODE, theme);
   }
 
+  storeLocalBaseConfig(config: any): void {
+    this.storage.store(
+      this.apiService.baseConfigKey,
+      this.cryptoJS.encrypt(JSON.stringify(config))
+    );
+  }
+
   @action
   public loadConfig(): any {
     if (environment.production) {
@@ -168,6 +173,7 @@ export class AppState {
         .then(
           (config) => {
             this.state.config = config;
+            this.storeLocalBaseConfig(config);
             this.apiService.configLoadDone$.next(true);
             this.initTheme();
           },
@@ -183,40 +189,8 @@ export class AppState {
         .then(
           (config) => {
             this.state.config = config;
+            this.storeLocalBaseConfig(config);
             this.apiService.configLoadDone$.next(true);
-            this.initTheme();
-          },
-          () => {
-            console.log('base json not found!');
-          }
-        );
-    }
-  }
-
-  // will remove
-  @action
-  setConfig(): void {
-    if (environment.production) {
-      this.http
-        .get(`${environment.apiUrl}/api/v1/config?content=/core/base`)
-        .subscribe(
-          (config) => {
-            this.apiService.configLoadDone$.next(true);
-            this.state.config = config;
-            this.initTheme();
-          },
-          (error) => {
-            console.log(error);
-            console.log('base json not found!');
-          }
-        );
-    } else {
-      this.http
-        .get(`${environment.apiUrl}/assets/app/core/base.json`)
-        .subscribe(
-          (config) => {
-            this.apiService.configLoadDone$.next(true);
-            this.state.config = config;
             this.initTheme();
           },
           () => {

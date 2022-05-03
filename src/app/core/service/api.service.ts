@@ -9,6 +9,7 @@ import { CryptoJSService } from './crypto-js.service';
 })
 export class ApiService {
   localUserKey = camelCase(environment.apiUrl.split('//')[1]);
+  baseConfigKey = 'config';
   public configLoadDone$ = new Subject();
 
   constructor(public cryptoJS: CryptoJSService) {}
