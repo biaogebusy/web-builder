@@ -160,14 +160,49 @@ export class AppState {
   }
 
   @action
+  public loadConfig(): any {
+    if (environment.production) {
+      return this.http
+        .get(`${environment.apiUrl}/api/v1/config?content=/core/base`)
+        .toPromise()
+        .then(
+          (config) => {
+            this.state.config = config;
+            this.apiService.configLoadDone$.next(true);
+            this.initTheme();
+          },
+          (error) => {
+            console.log(error);
+            console.log('base json not found!');
+          }
+        );
+    } else {
+      return this.http
+        .get(`${environment.apiUrl}/assets/app/core/base.json`)
+        .toPromise()
+        .then(
+          (config) => {
+            this.state.config = config;
+            this.apiService.configLoadDone$.next(true);
+            this.initTheme();
+          },
+          () => {
+            console.log('base json not found!');
+          }
+        );
+    }
+  }
+
+  // will remove
+  @action
   setConfig(): void {
     if (environment.production) {
       this.http
         .get(`${environment.apiUrl}/api/v1/config?content=/core/base`)
         .subscribe(
           (config) => {
-            this.state.config = config;
             this.apiService.configLoadDone$.next(true);
+            this.state.config = config;
             this.initTheme();
           },
           (error) => {
@@ -180,8 +215,8 @@ export class AppState {
         .get(`${environment.apiUrl}/assets/app/core/base.json`)
         .subscribe(
           (config) => {
-            this.state.config = config;
             this.apiService.configLoadDone$.next(true);
+            this.state.config = config;
             this.initTheme();
           },
           () => {

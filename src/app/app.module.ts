@@ -4,7 +4,7 @@ import {
   Title,
 } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
@@ -16,6 +16,10 @@ import { AppComponent } from './app.component';
 import { AppState } from './core/mobx/AppState';
 import { httpInterceptorProviders } from '@core/interceptors';
 import { Angulartics2Module } from 'angulartics2';
+
+export function initConfig(appState: AppState) {
+  return () => appState.loadConfig();
+}
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -31,7 +35,17 @@ import { Angulartics2Module } from 'angulartics2';
     MobxModule.forRoot(),
     BrandingModule,
   ],
-  providers: [Title, AppState, httpInterceptorProviders],
+  providers: [
+    Title,
+    AppState,
+    httpInterceptorProviders,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initConfig,
+      deps: [AppState],
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

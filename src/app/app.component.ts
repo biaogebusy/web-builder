@@ -31,7 +31,6 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.appState.setConfig();
     this.configService.init();
   }
 
