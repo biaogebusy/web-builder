@@ -8,7 +8,7 @@ import {
 import { FormGroup } from '@angular/forms';
 import { ICase, ICasePrams } from '@core/interface/node/INode';
 import { AppState } from '@core/mobx/AppState';
-import { FormState } from '@core/mobx/formState';
+import { FormState } from '@core/mobx/FormState';
 import { UserState } from '@core/mobx/user/UserState';
 import { FormService } from '@core/service/form.service';
 import { NodeService } from '@core/service/node.service';
