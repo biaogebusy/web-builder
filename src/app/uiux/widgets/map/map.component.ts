@@ -86,7 +86,7 @@ export class MapComponent implements OnInit, OnDestroy {
       resizeEnable: true,
       zoom: amapConfig.zoom,
       center: this.center || amapConfig.center,
-      mapStyle: themeStyle === 'light-theme' ? mapStyle.light : mapStyle.dark,
+      mapStyle: themeStyle === 'dark-theme' ? mapStyle.dark : mapStyle.light,
       features: amapConfig.features,
     };
     this.map = new this.AMap.Map(
