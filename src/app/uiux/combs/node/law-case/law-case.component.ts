@@ -15,15 +15,7 @@ import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { NodeComponent } from '@uiux/base/node.widget';
 import { Subject } from 'rxjs';
-import {
-  takeUntil,
-  debounceTime,
-  distinctUntilChanged,
-  map,
-  catchError,
-} from 'rxjs/operators';
-import data from './data.json';
-import { of } from 'rxjs';
+import { takeUntil, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 @Component({
   selector: 'app-law-case',
   templateUrl: './law-case.component.html',

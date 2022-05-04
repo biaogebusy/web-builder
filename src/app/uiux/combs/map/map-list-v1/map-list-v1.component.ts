@@ -29,7 +29,7 @@ export class MapListV1Component implements OnInit {
       <div class="mark-card p-y-xs p-x-xs">
       <div class="media-body">
         <div class="mat-h4 m-bottom-xs text-base">${item.title}</div>
-        <div class="mat-h4 m-bottom-xs text-dark title">${item.address}</div>
+        <div class="mat-h4 m-bottom-xs text-dark title">${item.params.address}</div>
         <div class="mat-h3 m-bottom-0 text-primary">
         </div>
       </div>

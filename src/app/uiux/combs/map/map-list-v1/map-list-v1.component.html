@@ -8,7 +8,6 @@
         暂无相关数据
       </div>
       <div class="map-list-head p-x-sm p-y-sm">
-        <!-- <h2 [innerHTML]="content?.title"></h2> -->
         <app-title [content]="content.title"></app-title>
         <div class="meta" *ngIf="content?.meta">
           <div class="item" *ngFor="let item of content.meta">
@@ -19,9 +18,6 @@
           </div>
         </div>
       </div>
-      <!-- <app-job-list (selected)="onSelected($event)" (scroller)="onScroll($event)" *ngIf="nodes.length > 0"
-        [content]="nodes" [selectedId]="selectedId">
-      </app-job-list> -->
       <div class="map-lists">
         <cdk-virtual-scroll-viewport [itemSize]="5" class="viewport">
           <div class="list item m-y-sm p-y-sm m-x-xs p-x-sm" [class.selected]="i == selectedId" matRipple

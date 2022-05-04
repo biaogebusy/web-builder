@@ -39,7 +39,8 @@ export class MapComponent implements OnInit, OnDestroy {
       (AMap: any) => {
         this.AMap = AMap;
         this.geocoder = new AMap.Geocoder({
-          city: this.content?.city || this.appState?.config?.amap?.city,
+          city:
+            this.content?.city || this.appState?.config?.amap?.city || '全国',
         });
         let lists = [];
         if (isArray(content)) {
