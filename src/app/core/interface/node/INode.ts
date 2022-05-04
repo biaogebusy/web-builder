@@ -32,10 +32,6 @@ export interface ICommentParams {
       value: any;
       format: 'full_html' | 'plain_text';
     };
-    content: {
-      value: any;
-      format: 'full_html' | 'plain_text';
-    };
   };
   relationships: {
     comment_type?: {
