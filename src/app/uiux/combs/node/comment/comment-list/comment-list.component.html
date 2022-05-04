@@ -1,7 +1,7 @@
 <div class="comment-list m-y-sm p-y-sm p-x-sm position-relative" *ngIf="comments">
   <ng-container *ngIf="comments.length;else empty">
     <div class="comment-count p-y-xs">
-      {{comments.length}} 个回复
+      <span class="bold">{{comments.length}}</span> 个回复
     </div>
     <mat-divider class="m-bottom-xs"></mat-divider>
     <div class="item" *ngFor="let item of comments;let i as index; last as isLast; trackBy: trackByFn">
@@ -24,7 +24,7 @@
         </div>
         <mat-divider *ngIf="!isLast" class="m-y-sm"></mat-divider>
       </div>
-      <div class="inline-editor p-y-sm p-x-sm" *ngIf="onShow(item.author.id, i)">
+      <div class="inline-editor p-y-sm p-x-sm m-bottom" *ngIf="onShow(item.author.id, i)">
         <app-comment-form [content]="content" (commentChange)="onSubmitComment($event)" (cancel)="onCancel()"
           [commentContent]="item.content" [commentId]="item.id">
         </app-comment-form>

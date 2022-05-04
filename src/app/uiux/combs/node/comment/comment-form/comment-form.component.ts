@@ -114,7 +114,7 @@ export class CommentFormComponent implements OnInit, OnDestroy {
       };
       this.nodeService
         .updateComment(
-          params.type,
+          params.attributes?.field_name || '',
           entity,
           this.commentId,
           this.userState.csrfToken
