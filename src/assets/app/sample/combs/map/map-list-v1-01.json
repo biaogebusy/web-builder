@@ -1,0 +1,43 @@
+{
+  "title": "上海药检院",
+  "body": [{
+    "type": "map-list-v1",
+    "title": {
+      "label": "上海药检院",
+      "style": "style-v4"
+    },
+    "meta": [{
+      "label": "地址",
+      "value": "上海市浦东新区张衡路1500号"
+    }, {
+      "label": "电话",
+      "value": "123456788"
+    }],
+    "map": {
+      "citi": "上海市",
+      "elements": [{
+        "title": "化妆品所",
+        "address": "上海市浦东新区张衡路1500号",
+        "params": {
+          "address": "上海市浦东新区张衡路1500号",
+          "title": "化妆品所"
+        },
+        "meta": [{
+          "label": "经办人员",
+          "value": "王欣美"
+        }]
+      }, {
+        "title": "生物部",
+        "address": "上海市浦东新区张衡路1500号",
+        "params": {
+          "address": "上海市浦东新区张衡路1500号",
+          "title": "生物部"
+        },
+        "meta": [{
+          "label": "经办人员",
+          "value": "陈妙芬"
+        }]
+      }]
+    }
+  }]
+}

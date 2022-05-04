@@ -117,7 +117,7 @@ export class LawCaseComponent extends NodeComponent implements OnInit {
   getComments(timeStamp = 1): void {
     const { path, type, params } = this.getNodeParams(this.content, timeStamp);
     this.nodeService
-      .getNodes(path, type, params)
+      .getNodes(path, type, params, this.userState.currentUser.csrf_token)
       .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {
         this.comments = res.data.map((comment: any) => {
