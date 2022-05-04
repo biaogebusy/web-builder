@@ -38,7 +38,7 @@
       },
       {
         "type": "select",
-        "key": "type",
+        "key": "changed",
         "mutiple": false,
         "label": "最新更新",
         "options": [{

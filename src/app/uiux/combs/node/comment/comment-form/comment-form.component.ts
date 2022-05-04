@@ -81,6 +81,7 @@ export class CommentFormComponent implements OnInit, OnDestroy {
             this.utilitiesService.openSnackbar(
               this.content?.editor?.succes.label || '成功提交！'
             );
+            this.htmlData = '';
             this.commentChange.emit(true);
           },
           () => {

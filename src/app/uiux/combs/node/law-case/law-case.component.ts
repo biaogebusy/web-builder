@@ -20,8 +20,10 @@ import {
   debounceTime,
   distinctUntilChanged,
   map,
+  catchError,
 } from 'rxjs/operators';
-
+import data from './data.json';
+import { of } from 'rxjs';
 @Component({
   selector: 'app-law-case',
   templateUrl: './law-case.component.html',
@@ -50,7 +52,7 @@ export class LawCaseComponent extends NodeComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm(this.content.form);
-    this.getlawyers();
+    // this.getlawyers();
     this.getComments();
   }
 
@@ -64,11 +66,11 @@ export class LawCaseComponent extends NodeComponent implements OnInit {
       )
       .subscribe((value) => {
         console.log(value);
-        if (this.first) {
-          this.disabled = true;
-          this.first = false;
-          return;
-        }
+        // if (this.first) {
+        //   this.disabled = true;
+        //   this.first = false;
+        //   return;
+        // }
         this.disabled = false;
         const apiParams = this.getCaseParams(value);
         this.apiParams = this.handleLawyer(apiParams);
@@ -118,8 +120,17 @@ export class LawCaseComponent extends NodeComponent implements OnInit {
     const { path, type, params } = this.getNodeParams(this.content, timeStamp);
     this.nodeService
       .getNodes(path, type, params, this.userState.currentUser.csrf_token)
-      .pipe(takeUntil(this.destroy$))
+      .pipe(
+        takeUntil(this.destroy$)
+        // map((res) => {
+        //   return data;
+        // }),
+        // catchError(() => {
+        //   return of(data);
+        // })
+      )
       .subscribe((res) => {
+        console.log(res);
         this.comments = res.data.map((comment: any) => {
           return this.handleComment(comment);
         });
@@ -143,7 +154,7 @@ export class LawCaseComponent extends NodeComponent implements OnInit {
             },
           },
           lawyer: {
-            data: this.getLawyerParams(value.lawyer),
+            data: value.lawyer ? this.getLawyerParams(value.lawyer) : [],
           },
         },
       },

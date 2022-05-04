@@ -27,6 +27,7 @@ export class CommentListComponent implements OnInit, OnDestroy {
   @Output() commentChange = new EventEmitter();
   loading: boolean;
   showInlineEditor = false;
+  currentIndex: number;
 
   destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
@@ -39,13 +40,18 @@ export class CommentListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {}
 
-  onUpdateMyQuestion(): void {
+  onUpdateMyQuestion(i: number): void {
     this.showInlineEditor = true;
+    this.currentIndex = i;
     this.cd.detectChanges();
   }
 
-  onShow(id: string): boolean {
-    return this.showInlineEditor && id === this.userState.currentUser.id;
+  onShow(id: string, i: number): boolean {
+    return (
+      this.showInlineEditor &&
+      id === this.userState.currentUser.id &&
+      i === this.currentIndex
+    );
   }
 
   onCancel(): void {

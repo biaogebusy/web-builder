@@ -6,7 +6,7 @@
   <div fxFlex="1 1 0%" class="media-body">
     <div class="title line-height-1 bold mat-h3 m-bottom-xs" *ngIf="content.title">{{content.title}}</div>
     <app-link *ngIf="content.link" [content]="content.link"></app-link>
-    <div class="sub-title" *ngIf="content.subTitle">{{content.subTitle}}</div>
+    <div class="sub-title" *ngIf="content.subTitle">{{content.subTitle | date: 'y-M-d h:mm a'}}</div>
     <div *ngIf="content.content" [innerHTML]="content.content|safeHtml"></div>
   </div>
 </div>

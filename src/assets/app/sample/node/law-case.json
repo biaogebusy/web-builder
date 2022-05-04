@@ -133,7 +133,6 @@
               "type": "input",
               "key": "lawyer",
               "mode": "autocomplete",
-              "label": "经办律师",
               "value": "杜长明"
             },
             "court": "案件编号",

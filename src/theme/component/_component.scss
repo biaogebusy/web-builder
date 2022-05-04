@@ -25,6 +25,7 @@
 @import "./search";
 @import "./media";
 @import "./user";
+@import "./node/comment";
 
 // material custom
 @import "./mat/card";
@@ -59,6 +60,7 @@
   @include dynamic-list-color($config-or-theme);
   @include user-color($config-or-theme);
   @include calendar-color($config-or-theme);
+  @include comment-color($config-or-theme);
 
   // material custom ui
   @include card-color($config-or-theme);

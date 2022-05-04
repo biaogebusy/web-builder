@@ -1,18 +1,17 @@
 <div class="comment-list m-y-sm p-y-sm p-x-sm position-relative" *ngIf="comments">
   <ng-container *ngIf="comments.length;else empty">
     <div class="comment-count p-y-xs">
-      {{comments.length}} 个回答
+      {{comments.length}} 个回复
     </div>
     <mat-divider class="m-bottom-xs"></mat-divider>
-    <div class="item" *ngFor="let item of comments; last as isLast; trackBy: trackByFn">
-      <div class="comment-box" *ngIf="!onShow(item.author.id)">
+    <div class="item" *ngFor="let item of comments;let i as index; last as isLast; trackBy: trackByFn">
+      <div class="comment-box" *ngIf="!onShow(item.author.id, i)">
         <a class="anchor" [id]="'q-'+item.id"></a>
         <app-media-object [content]="item.author"></app-media-object>
         <div class="comment-body p-y-xs" [innerHTML]="item.content |safeHtml"></div>
-        <div class="time">更新于 {{item.time | date:'y-M-d'}}</div>
         <div class="actions" fxLayoutAlign="start center">
           <button *ngIf="item.author.id === userState.currentUser.id" mat-button color="primary"
-            (click)="onUpdateMyQuestion()">
+            (click)="onUpdateMyQuestion(i)">
             <mat-icon>editor</mat-icon> 修改
           </button>
           <button *ngIf="item.author.id === userState.currentUser.id" mat-button color="primary"
@@ -25,15 +24,17 @@
         </div>
         <mat-divider *ngIf="!isLast" class="m-y-sm"></mat-divider>
       </div>
-      <app-comment-form *ngIf="onShow(item.author.id)" [content]="content" (commentChange)="onSubmitComment($event)"
-        (cancel)="onCancel()" [commentContent]="item.content" [commentId]="item.id">
-      </app-comment-form>
+      <div class="inline-editor p-y-sm p-x-sm" *ngIf="onShow(item.author.id, i)">
+        <app-comment-form [content]="content" (commentChange)="onSubmitComment($event)" (cancel)="onCancel()"
+          [commentContent]="item.content" [commentId]="item.id">
+        </app-comment-form>
+      </div>
     </div>
   </ng-container>
   <ng-template #empty>
     <div class="empty p-y" fxLayout="column" fxLayoutAlign="center center">
       <app-icon [content]="{'name':'create','inline':true}"></app-icon>
-      <p [innerHTML]="content.editor?.empty?.label || '暂时没有人回答，欢迎作答!'"></p>
+      <p [innerHTML]="content.editor?.empty?.label || '暂时没有人回复!'"></p>
     </div>
   </ng-template>
 </div>

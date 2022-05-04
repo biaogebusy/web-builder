@@ -49,7 +49,7 @@ export abstract class NodeComponent {
         },
         id: comment.uid.id,
         title: comment.uid.name,
-        subTitle: '用户暂无签名',
+        subTitle: comment.changed || comment.created,
       },
       time: comment.changed,
       id: comment.id,
