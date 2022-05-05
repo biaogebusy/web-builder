@@ -24,7 +24,7 @@ jobs:
           node-version: "14"
 
       - name: NPM Install
-        run: npm install
+        run: npm ci over npm
 
       - name: Cache dependencies
         uses: actions/cache@v2
