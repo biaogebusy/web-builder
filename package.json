@@ -52,7 +52,6 @@
     "mobx": "6.2.0",
     "mobx-angular": "4.3.0",
     "ng-dynamic-component": "^8.0.1",
-    "ngx-cookie-service": "12.0.3",
     "ngx-countdown": "^12.0.1",
     "ngx-lightbox": "^2.3.0",
     "ngx-packery": "^0.2.1",
