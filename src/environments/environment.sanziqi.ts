@@ -5,5 +5,6 @@ export const environment: IEnvironment = {
   production: true,
   site: 'sanziqi',
   port: 4207,
-  cache: false,
+  cache: true,
+  ssr: true,
 };

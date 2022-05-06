@@ -4,4 +4,5 @@ export interface IEnvironment {
   site: string;
   port: number;
   cache: boolean;
+  ssr: boolean;
 }
