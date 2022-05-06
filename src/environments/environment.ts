@@ -10,6 +10,7 @@ export const environment: IEnvironment = {
   site: 'xinshi',
   port: 4000,
   cache: false,
+  ssr: false,
 };
 
 /*

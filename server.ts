@@ -82,6 +82,26 @@ export function app(): express.Express {
     })
   );
 
+  server.get('/sites/*', (req, res, next) => {
+    res.redirect(301, `${environment.apiUrl}${req.originalUrl}`);
+    return;
+  });
+
+  server.get('/system/*', (req, res, next) => {
+    res.redirect(301, `${environment.apiUrl}${req.originalUrl}`);
+    return;
+  });
+
+  server.get('/print/view/pdf/print/*', (req, res, next) => {
+    res.redirect(301, `${environment.apiUrl}${req.originalUrl}`);
+    return;
+  });
+
+  server.get('/print/view/word_docx/print/*', (req, res, next) => {
+    res.redirect(301, `${environment.apiUrl}${req.originalUrl}`);
+    return;
+  });
+
   // Set headers for all requests
   server.get('*', (req, res, next) => {
     res.setHeader('X-Frame-Options', 'DENY');
