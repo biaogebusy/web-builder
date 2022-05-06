@@ -7,7 +7,7 @@ import { UserService } from '@core/service/user.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { CryptoJSService } from '@core/service/crypto-js.service';
 import { catchError } from 'rxjs/operators';
-import { CookieService } from 'ngx-cookie-service';
+
 const unauthUser = {
   id: '',
   authenticated: false,
@@ -34,8 +34,7 @@ export class UserState {
     private cryptoJS: CryptoJSService,
     private userService: UserService,
     private utilities: UtilitiesService,
-    private storage: LocalStorageService,
-    private cookieService: CookieService
+    private storage: LocalStorageService
   ) {
     if (this.storage.retrieve(this.userService.localUserKey)) {
       this.user = JSON.parse(
@@ -82,7 +81,6 @@ export class UserState {
   @action
   login(userName: string, passWord: string): any {
     this.loading = true;
-    this.cookieService.deleteAll();
     this.userService.login(userName, passWord).subscribe(
       (data) => {
         this.updateUser(data);
