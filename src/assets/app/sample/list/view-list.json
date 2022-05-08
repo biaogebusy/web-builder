@@ -1,0 +1,59 @@
+{
+  "title": "View list",
+  "body": [{
+    "type": "view-list",
+    "text": {
+      "spacer": "sm",
+      "title": {
+        "label": "会议管理",
+        "style": "style-v1"
+      }
+    },
+    "params": {
+      "apiType": "tab/meeting"
+    },
+    "header": [{
+        "label": "会议标题",
+        "key": "title"
+      }, {
+        "label": "会议时间",
+        "key": "business_date"
+      },
+      {
+        "label": "客户名称",
+        "key": "customer"
+      }, {
+        "label": "经办人员",
+        "key": "handler"
+      },
+      {
+        "label": "会议时间",
+        "key": "date_tiem_range"
+      },
+      {
+        "label": "会议地址",
+        "key": "meeting_address_address_line1"
+      },
+      {
+        "label": "参会人员",
+        "key": "participant"
+      },
+      {
+        "label": "会议内容",
+        "key": "meeting_minutes"
+      },
+      {
+        "label": "文件清单",
+        "key": "case_files"
+      },
+      {
+        "label": "工作工时",
+        "key": "man_hour"
+      },
+      {
+        "label": "律师",
+        "key": "uid"
+      }
+    ]
+  }]
+}

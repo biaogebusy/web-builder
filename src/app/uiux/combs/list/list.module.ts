@@ -12,6 +12,7 @@ import { ListThinComponent } from './list/list-thin/list-thin.component';
 import { SearchModule } from '../search/search.module';
 import { TreeListComponent } from './tree-list/tree-list.component';
 import { DynamicCardList1v1Component } from './dynamic-card-list1v1/dynamic-card-list1v1.component';
+import { ViewListComponent } from './view-list/view-list.component';
 
 const components = [
   ListComponent,
@@ -23,6 +24,7 @@ const components = [
   TaxonomyThinListComponent,
   ListThinComponent,
   TreeListComponent,
+  ViewListComponent,
 ];
 
 @NgModule({

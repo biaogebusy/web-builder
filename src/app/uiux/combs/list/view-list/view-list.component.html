@@ -1,0 +1,10 @@
+<div class="view-list" *ngIf="content">
+  <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
+  <app-bg-img [content]="content.bg"></app-bg-img>
+  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
+  <div class="container">
+    <app-text [content]="content.text" *ngIf="content.text"></app-text>
+    <app-dynamic-table [content]="table" *ngIf="table"></app-dynamic-table>
+  </div>
+  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
+</div>
