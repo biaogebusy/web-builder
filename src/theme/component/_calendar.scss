@@ -77,5 +77,13 @@
         border-color: mat-color($primary);
       }
     }
+    .bg-meeting {
+      background-color: mat-color($warn, 0.2);
+      border-left: 3px solid mat-color($warn);
+      color: mat-color($warn);
+      .fc-event-main {
+        color: mat-color($warn);
+      }
+    }
   }
 }

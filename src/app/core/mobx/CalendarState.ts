@@ -16,6 +16,7 @@ export class CalendarState {
     selectMirror: true,
     dayMaxEvents: true,
     firstDay: 1,
+    allDayText: '全天',
     // select: this.handleDateSelect.bind(this),
     // eventClick: this.handleEventClick.bind(this),
     // eventsSet: this.handleEvents.bind(this),

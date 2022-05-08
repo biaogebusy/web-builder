@@ -14,13 +14,17 @@ import { BaseComponent } from '@uiux/base/base.widget';
 import {
   debounceTime,
   distinctUntilChanged,
-  take,
+  map,
   takeUntil,
 } from 'rxjs/operators';
-import { Subject } from 'rxjs';
-import { StripTagsPipe } from 'ngx-pipes';
+import { EMPTY, Subject } from 'rxjs';
 import { AppState } from '@core/mobx/AppState';
-import { CalendarOptions, DatesSetArg, EventApi } from '@fullcalendar/angular';
+import {
+  CalendarOptions,
+  DatesSetArg,
+  EventApi,
+  ViewApi,
+} from '@fullcalendar/angular';
 import { CalendarState } from '@core/mobx/CalendarState';
 import { formatDate } from '@angular/common';
 
@@ -41,6 +45,7 @@ export class FullCalendarComponent
   form: FormGroup;
   loading: boolean;
   visiable = false;
+  viewApi: ViewApi;
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
@@ -88,19 +93,28 @@ export class FullCalendarComponent
     );
     this.form.valueChanges
       .pipe(
+        map((data) => {
+          if (Object.keys(data).includes('datepicker') && data.datepicker) {
+            this.viewApi.calendar.changeView('timeGridDay', data.datepicker);
+            this.form.controls.datepicker.setValue('');
+            return EMPTY;
+          }
+          return data;
+        }),
         debounceTime(1000),
         distinctUntilChanged(),
         takeUntil(this.destroy$)
       )
       .subscribe((value) => {
         console.log(value);
-        this.getEvents(value);
+        if (value) {
+          this.getEvents(value);
+        }
       });
   }
 
   getEvents(options?: any): void {
     const type = 'amigo-full-calendar';
-    // const type = 'content';
     const state = this.getParamsState(this.form.value, options);
     const params = this.getApiParams(state);
     this.loading = true;
@@ -115,12 +129,10 @@ export class FullCalendarComponent
           url: item.url,
           end: item.end || null,
           user: item.user,
-          className: '', // custom event style bg, border
+          className: `bg-${item.event}`, // custom event style bg, border
         };
       });
       this.visiable = true;
-      console.log(this.options);
-      // this.appState.calendarChange$.next(this.events);
       this.loading = false;
       this.cd.markForCheck();
       this.cd.detectChanges();
@@ -129,20 +141,12 @@ export class FullCalendarComponent
 
   handleDates(dates: DatesSetArg): void {
     console.log(dates);
-    // const view = this.calendarComponent.getApi().view;
+    this.viewApi = dates.view;
     switch (dates.view.type) {
       case 'dayGridMonth':
-        const mouthEndDate = this.calendarState.getPreviousDay(
-          dates.view.currentEnd
-        );
-        console.log(mouthEndDate);
         this.form.patchValue({
           'date-type': 'month',
-          date: `${formatDate(
-            dates.view.currentStart,
-            'y-MM-dd',
-            'en-US'
-          )}~${formatDate(mouthEndDate, 'y-MM-dd', 'en-US')}`,
+          date: `${formatDate(dates.view.currentStart, 'y-MM-dd', 'en-US')}`,
         });
         break;
 
@@ -151,11 +155,7 @@ export class FullCalendarComponent
         console.log(endDate);
         this.form.patchValue({
           'date-type': 'week',
-          date: `${formatDate(dates.startStr, 'y-MM-dd', 'en-US')}~${formatDate(
-            endDate,
-            'y-MM-dd',
-            'en-US'
-          )}`,
+          date: `${formatDate(dates.startStr, 'y-MM-dd', 'en-US')}`,
         });
         break;
 
@@ -166,25 +166,11 @@ export class FullCalendarComponent
         });
         break;
 
-      default:
-        this.getEvents({ 'date-type': 'month' });
-    }
-  }
-
-  onViewChange(view: any): void {
-    console.log(view);
-    switch (view.type) {
-      case 'dayGridMonth':
-        this.getEvents({ 'date-type': 'month' });
-        this.form.controls.day.setValue('');
-        break;
-
-      case 'timeGridWeek':
-        this.getEvents({ 'date-type': 'week' });
-        break;
-
-      case 'timeGridDay':
-        this.getEvents({ 'date-type': 'day' });
+      case 'listWeek':
+        this.form.patchValue({
+          'date-type': 'week',
+          date: `${formatDate(dates.startStr, 'y-MM-dd', 'en-US')}`,
+        });
         break;
 
       default:
