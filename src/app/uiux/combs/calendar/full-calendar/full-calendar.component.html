@@ -6,7 +6,8 @@
       </div>
       <div class="main p-x-sm p-y-sm" fxFlex.gt-sm="75" fxFlex.lt-md="100">
         <div class="calendar width-100">
-          <app-calendar [content]="content.calendar.options">
+          <app-calendar *ngIf="visiable" [content]="content.calendar.options" [loading]="loading"
+            (viewChange)="onViewChange($event)" [options]="options">
           </app-calendar>
         </div>
       </div>

@@ -8,7 +8,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { MobxAngularModule } from 'mobx-angular';
 import { UserState } from './user/UserState';
-import { BrandingState } from './BrandingStare';
+import { BrandingState } from './BrandingState';
 
 const states = [UserState, BrandingState];
 

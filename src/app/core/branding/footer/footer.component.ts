@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { MatAccordion } from '@angular/material/expansion';
-import { BrandingState } from '../../mobx/BrandingStare';
+import { BrandingState } from '../../mobx/BrandingState';
 import { ScreenState } from '../../mobx/screen/ScreenState';
 import { ScreenService } from '@core/service/screen.service';
 @Component({

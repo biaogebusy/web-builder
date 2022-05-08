@@ -3,7 +3,7 @@ import { UserState } from './core/mobx/user/UserState';
 import { ScreenState } from './core/mobx/screen/ScreenState';
 import { MatDrawer } from '@angular/material/sidenav';
 import { AppState } from './core/mobx/AppState';
-import { BrandingState } from './core/mobx/BrandingStare';
+import { BrandingState } from './core/mobx/BrandingState';
 import { ActivatedRoute } from '@angular/router';
 import { ScreenService } from '@core/service/screen.service';
 import { ConfigService } from '@core/service/config.service';

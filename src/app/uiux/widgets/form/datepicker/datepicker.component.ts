@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-datepicker',
@@ -24,6 +25,8 @@ export class DatepickerComponent implements OnInit {
 
   onSelectedChange(value: Date): void {
     console.log(value);
-    this.form.controls[this.content.key].setValue(value);
+    this.form.controls[this.content.key].setValue(
+      formatDate(value, 'y-MM-dd', 'en-US')
+    );
   }
 }

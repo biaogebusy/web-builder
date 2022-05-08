@@ -10,7 +10,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { UserState } from '@core/mobx/user/UserState';
 import { ScreenState } from '@core/mobx/screen/ScreenState';
 import { AppState } from '@core/mobx/AppState';
-import { BrandingState } from '@core/mobx/BrandingStare';
 import { TagsService } from '@core/service/tags.service';
 import { UserService } from '@core/service/user.service';
 import { ScreenService } from '@core/service/screen.service';
@@ -36,7 +35,6 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
     public screenState: ScreenState,
     private tagsService: TagsService,
     public appState: AppState,
-    public branding: BrandingState,
     public userService: UserService,
     private screenService: ScreenService
   ) {}

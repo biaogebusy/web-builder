@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { ScreenService } from '../../service/screen.service';
 import { ScreenState } from '../../mobx/screen/ScreenState';
-import { BrandingState } from '../../mobx/BrandingStare';
+import { BrandingState } from '../../mobx/BrandingState';
 import { AppState } from '../../mobx/AppState';
 import { DOCUMENT } from '@angular/common';
 @Component({
