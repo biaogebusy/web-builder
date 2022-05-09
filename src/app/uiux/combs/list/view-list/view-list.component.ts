@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { UserState } from '@core/mobx/user/UserState';
 import { NodeService } from '@core/service/node.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { NodeService } from '@core/service/node.service';
 export class ViewListComponent implements OnInit {
   @Input() content: any;
   table: any;
-  constructor(private nodeService: NodeService) {}
+  constructor(private nodeService: NodeService, private userState: UserState) {}
 
   ngOnInit(): void {
     this.getViews();
@@ -17,7 +18,7 @@ export class ViewListComponent implements OnInit {
 
   getViews(): void {
     this.nodeService
-      .search(this.content.params.apiType, '')
+      .search(this.content.params.apiType, '', this.userState.csrfToken)
       .subscribe((res) => {
         console.log(res);
         console.log(this.content);
