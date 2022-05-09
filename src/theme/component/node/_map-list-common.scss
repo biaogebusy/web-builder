@@ -13,6 +13,9 @@
     .sidebar {
       background-color: mat-color($background, background);
     }
+    .sidebar-right {
+      background-color: mat-color($background, background);
+    }
     .map-lists {
       .viewport {
         border-right: 1px solid rgb(97 97 97 / 8%);

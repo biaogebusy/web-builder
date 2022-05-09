@@ -5,6 +5,9 @@
     z-index: 112;
   }
 }
+.map-list-common {
+  position: relative;
+}
 .map-lists {
   .viewport {
     height: calc(100vh - 210px);
@@ -60,4 +63,13 @@
     width: 100%;
     padding: 1rem;
   }
+}
+
+.sidebar-right {
+  position: absolute;
+  z-index: 10;
+  width: 400px;
+  right: 0;
+  top: 0;
+  height: 100%;
 }
