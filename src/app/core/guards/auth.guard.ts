@@ -6,11 +6,13 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { UserState } from '../mobx/user/UserState';
 import { CryptoJSService } from '@core/service/crypto-js.service';
 import { LocalStorageService } from 'ngx-webstorage';
 import { ApiService } from '@core/service/api.service';
+import { UserService } from '@core/service/user.service';
+import { catchError, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +21,7 @@ export class AuthGuard implements CanActivate {
   constructor(
     private router: Router,
     private userState: UserState,
+    private userService: UserService,
     private cryptoJS: CryptoJSService,
     private storage: LocalStorageService,
     private apiService: ApiService
@@ -31,6 +34,7 @@ export class AuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
+    // return true;
     const baseConfig =
       this.storage.retrieve(this.apiService.baseConfigKey) || '';
     if (!baseConfig) {
@@ -38,13 +42,24 @@ export class AuthGuard implements CanActivate {
     }
     const config = JSON.parse(this.cryptoJS.decrypt(baseConfig));
     if (config?.guard && config?.guard?.authGuard) {
-      if (this.userState.authenticated) {
-        return true;
-      }
-      this.router.navigate(['user/login'], {
-        queryParams: { returnUrl: state.url },
-      });
-      return false;
+      return this.userService.getLoginState().pipe(
+        map((status) => {
+          console.log('userState:', status);
+          if (status) {
+            return true;
+          } else {
+            this.userState.logout();
+            this.router.navigate(['user/login'], {
+              queryParams: { returnUrl: state.url },
+            });
+            return false;
+          }
+        }),
+        catchError(() => {
+          this.router.navigate(['user/login']);
+          return of(false);
+        })
+      );
     }
     return true;
   }

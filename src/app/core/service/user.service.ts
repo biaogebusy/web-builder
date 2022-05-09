@@ -3,11 +3,10 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
 import { map } from 'rxjs/operators';
-import { TokenUser, CurrentUser, IUser } from '../mobx/user/IUser';
+import { TokenUser, IUser } from '../mobx/user/IUser';
 import { AppState } from '../mobx/AppState';
 import { LocalStorageService } from 'ngx-webstorage';
 import { CryptoJSService } from './crypto-js.service';
-
 @Injectable({
   providedIn: 'root',
 })
@@ -142,15 +141,21 @@ export class UserService extends ApiService {
     );
   }
 
-  getLoginState(): Observable<any> {
+  getLoginState(): Observable<boolean> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-type': 'application/json',
       }),
     };
-    return this.http.get<any>(
-      `${this.apiUrl}/user/login_status?_format=json`,
-      httpOptions
-    );
+    return this.http
+      .get<any>(`${this.apiUrl}/user/login_status?_format=json`, httpOptions)
+      .pipe(
+        map((state) => {
+          if (state) {
+            return true;
+          }
+          return false;
+        })
+      );
   }
 }
