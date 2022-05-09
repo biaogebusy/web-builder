@@ -77,6 +77,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import { DatepickerComponent } from './form/datepicker/datepicker.component'; // a plugin!
+import { ViewListComponent } from './view-list/view-list.component';
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
   slidesPerView: 'auto',
@@ -141,6 +142,7 @@ const components = [
   TreeComponent,
   CalendarComponent,
   DownloadComponent,
+  ViewListComponent,
   DatepickerComponent,
   FontChangeComponent,
   TermsServiceComponent,

@@ -146,6 +146,7 @@ export class UserService extends ApiService {
       headers: new HttpHeaders({
         'Content-type': 'application/json',
       }),
+      withCredentials: true,
     };
     return this.http
       .get<any>(`${this.apiUrl}/user/login_status?_format=json`, httpOptions)

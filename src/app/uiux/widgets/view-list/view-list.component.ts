@@ -1,4 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { UserState } from '@core/mobx/user/UserState';
 import { NodeService } from '@core/service/node.service';
 
@@ -6,11 +12,16 @@ import { NodeService } from '@core/service/node.service';
   selector: 'app-view-list',
   templateUrl: './view-list.component.html',
   styleUrls: ['./view-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class ViewListComponent implements OnInit {
   @Input() content: any;
   table: any;
-  constructor(private nodeService: NodeService, private userState: UserState) {}
+  constructor(
+    private nodeService: NodeService,
+    private userState: UserState,
+    private cd: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.getViews();
@@ -26,6 +37,7 @@ export class ViewListComponent implements OnInit {
           header: this.content.header,
           elements: res.rows,
         };
+        this.cd.detectChanges();
       });
   }
 }

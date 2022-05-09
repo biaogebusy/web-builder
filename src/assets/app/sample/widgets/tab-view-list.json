@@ -1,0 +1,132 @@
+{
+  "title": "Tabs",
+  "body": [{
+    "type": "tab",
+    "title": {
+      "label": "案件管理",
+      "style": "style-v4"
+    },
+    "classes": "bg-light",
+    "elements": [{
+      "label": "案件双方",
+      "elements": [{
+        "type": "view-list",
+        "params": {
+          "apiType": "tab/meeting"
+        },
+        "spacer": "none",
+        "header": [{
+            "label": "会议标题",
+            "key": "title"
+          }, {
+            "label": "会议时间",
+            "key": "business_date"
+          },
+          {
+            "label": "客户名称",
+            "key": "customer"
+          }, {
+            "label": "经办人员",
+            "key": "handler"
+          },
+          {
+            "label": "会议时间",
+            "key": "date_tiem_range"
+          },
+          {
+            "label": "会议地址",
+            "key": "meeting_address_address_line1"
+          },
+          {
+            "label": "参会人员",
+            "key": "participant"
+          },
+          {
+            "label": "会议内容",
+            "key": "meeting_minutes"
+          },
+          {
+            "label": "文件清单",
+            "key": "case_files"
+          },
+          {
+            "label": "工作工时",
+            "key": "man_hour"
+          },
+          {
+            "label": "律师",
+            "key": "uid"
+          }
+        ]
+      }]
+    }, {
+      "label": "案件信息",
+      "elements": [{
+        "type": "text",
+        "spacer": "none",
+        "body": "<p>Lorem Ipsum is simply dummy text of the printing and typeseting industry Lorem in text Ipsum has been the industry standar dummyy text ever since the when an iunesi known.</p><ul class=\"list3 clearfix\">\n\t<li>Multiple Layout</li>\n\t<li>Awesome Shortcodes</li>\n\t<li>Browser Compatibility</li>\n\t<li>Easy to Edit Animations</li>\n\t<li>Parallax Effect</li>\n\t<li>Responsive Design</li>\n\t<li>Many Home Page Versions</li>\n\t<li>Many Blog Pages</li>\n</ul>"
+      }]
+    }, {
+      "label": "Programing",
+      "elements": [{
+        "type": "text",
+        "spacer": "none",
+        "body": "<p>Lorem Ipsum is simply dummy text of the printing and typeseting industry Lorem in text Ipsum has been the industry standar dummyy text ever since the when an iunesi known.</p><ul class=\"list3 clearfix\">\n\t<li>Multiple Layout</li>\n\t<li>Awesome Shortcodes</li>\n\t<li>Browser Compatibility</li>\n\t<li>Easy to Edit Animations</li>\n\t<li>Parallax Effect</li>\n\t<li>Responsive Design</li>\n\t<li>Many Home Page Versions</li>\n\t<li>Many Blog Pages</li>\n</ul>"
+      }]
+    }]
+  }, {
+    "type": "showcase-3v4",
+    "title": {
+      "label": "OUR FEATRUES",
+      "style": "style-v1"
+    },
+    "bg": {
+      "classes": "bg-shadow bg-fill-width"
+    },
+    "img": {
+      "src": "/assets/images/1-1/business-01.png",
+      "alt": "OUR FEATURES"
+    },
+    "elements": [{
+      "icon": {
+        "name": "verified_user"
+      },
+      "style": "style-v7",
+      "title": {
+        "label": "FREMIUM MODULES INCLUDED",
+        "href": "#"
+      },
+      "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority."
+    }, {
+      "icon": {
+        "name": "verified_user"
+      },
+      "style": "style-v7",
+      "title": {
+        "label": "FREMIUM MODULES INCLUDED",
+        "href": "#"
+      },
+      "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority."
+    }, {
+      "icon": {
+        "name": "favorite"
+      },
+      "style": "style-v7",
+      "title": {
+        "label": "FREMIUM MODULES INCLUDED",
+        "href": "#"
+      },
+      "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority."
+    }, {
+      "icon": {
+        "name": "android"
+      },
+      "style": "style-v7",
+      "title": {
+        "label": "FREMIUM MODULES INCLUDED",
+        "href": "#"
+      },
+      "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority."
+    }]
+  }]
+}
