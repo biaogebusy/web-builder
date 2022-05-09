@@ -17,6 +17,8 @@ import { NodeService } from '@core/service/node.service';
 export class ViewListComponent implements OnInit {
   @Input() content: any;
   table: any;
+  loading: boolean;
+
   constructor(
     private nodeService: NodeService,
     private userState: UserState,
@@ -28,15 +30,15 @@ export class ViewListComponent implements OnInit {
   }
 
   getViews(): void {
+    this.loading = true;
     this.nodeService
       .search(this.content.params.apiType, '', this.userState.csrfToken)
       .subscribe((res) => {
-        console.log(res);
-        console.log(this.content);
         this.table = {
           header: this.content.header,
           elements: res.rows,
         };
+        this.loading = false;
         this.cd.detectChanges();
       });
   }
