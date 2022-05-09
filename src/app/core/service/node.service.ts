@@ -31,14 +31,17 @@ export class NodeService extends ApiService {
     return this.appState.apiUrlConfig;
   }
 
-  search(type: string, params: string): Observable<any> {
+  search(type: string, params: string, token?: string): Observable<any> {
     const key = JSON.stringify({ api: this.apiUrl, type, params });
     const searchFormCache = this.responseCache.get(key);
     if (searchFormCache) {
       return of(searchFormCache);
     }
     const response = this.http
-      .get<any>(`${this.apiUrl}/api/v1/${type}?${params}`)
+      .get<any>(
+        `${this.apiUrl}/api/v1/${type}?${params}`,
+        token ? this.optionsWithCookieAndToken(token) : this.httpOptionsOfCommon
+      )
       .pipe(
         switchMap((res) => {
           this.responseCache.set(key, res);
