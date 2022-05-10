@@ -46,7 +46,8 @@ export class UtilitiesService {
     this.document.body.appendChild(script);
   }
 
-  getFileType(url: string): string {
+  getFileType(href: string): string {
+    const url = href.toLowerCase();
     const pdfReg = /^.+(\.pdf)$/;
     const txtReg = /^.+(\.txt)$/;
     const wordReg = /^.+(\.doc|\.docx)$/;
