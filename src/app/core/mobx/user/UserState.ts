@@ -131,6 +131,13 @@ export class UserState {
   }
 
   @action
+  logouLocalUser(): void {
+    this.user$.next(unauthUser);
+    this.user = unauthUser;
+    this.storage.clear(this.userService.localUserKey);
+  }
+
+  @action
   updateUser(data: TokenUser): any {
     this.userService.getCurrentUserById(data).subscribe((user) => {
       this.loading = false;
