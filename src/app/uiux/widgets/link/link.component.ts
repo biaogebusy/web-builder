@@ -35,10 +35,12 @@ export class LinkComponent implements OnInit {
   }
 
   getClasses(): void {
-    const type = this.util.getFileType(this.content.href);
     const obj: any = {};
     obj[this.content.classes] = this.content.classes || false;
-    obj[type] = type || false;
+    if (this.content.href) {
+      const type = this.util.getFileType(this.content.href);
+      obj[type] = type || false;
+    }
     this.classes = obj;
   }
 
