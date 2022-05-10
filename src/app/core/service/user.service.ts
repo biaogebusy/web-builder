@@ -108,7 +108,7 @@ export class UserService extends ApiService {
     );
   }
 
-  getCurrentUserById(user: TokenUser, crsfToken: string): Observable<any> {
+  getCurrentUserById(user: TokenUser): Observable<any> {
     const params = [
       `filter[drupal_internal__uid]=${user.current_user.uid}`,
       `include=user_picture`,
@@ -116,7 +116,7 @@ export class UserService extends ApiService {
     return this.http
       .get<any>(
         `${this.userApiPath}?${params}`,
-        this.optionsWithCookieAndToken(crsfToken)
+        this.optionsWithCookieAndToken(user.csrf_token)
       )
       .pipe(
         map((res: any) => {

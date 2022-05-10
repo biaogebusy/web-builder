@@ -132,14 +132,12 @@ export class UserState {
 
   @action
   updateUser(data: TokenUser): any {
-    this.userService
-      .getCurrentUserById(data, this.csrfToken)
-      .subscribe((user) => {
-        this.loading = false;
-        this.user$.next(user);
-        this.user = Object.assign(data, user);
-        this.userService.storeLocalUser(this.user);
-      });
+    this.userService.getCurrentUserById(data).subscribe((user) => {
+      this.loading = false;
+      this.user$.next(user);
+      this.user = Object.assign(data, user);
+      this.userService.storeLocalUser(this.user);
+    });
   }
 
   @action
