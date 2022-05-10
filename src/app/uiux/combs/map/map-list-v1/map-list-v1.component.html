@@ -41,8 +41,10 @@
         <app-spinner class="m-y" [content]="{color:'primary', size:40}"></app-spinner>
       </div>
     </div>
-    <div class="sidebar-right position-absolute p-x-sm p-y-sm" *ngIf="content.sidebarRight">
+    <div class="sidebar-right  p-x-sm p-y-sm" *ngIf="content.sidebarRight" fxFlex.gt-sm="400px" fxFlex.gt-md="600px"
+      ngClass.gt-sm="position-absolute">
       <app-dynamic-widgets [content]="item" *ngFor="let item of content.sidebarRight"></app-dynamic-widgets>
     </div>
   </div>
 </div>
+<app-spacer></app-spacer>

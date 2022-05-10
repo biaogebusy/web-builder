@@ -10,10 +10,13 @@
   $warn: map-get($config, warn);
 
   .map-list-common {
+    background-color: mat-color($background, background);
+    @include mat-elevation(4, #000, 0.35);
     .sidebar {
       background-color: mat-color($background, background);
     }
     .sidebar-right {
+      @include mat-elevation(4, #000, 0.35);
       background-color: mat-color($background, background);
     }
     .map-lists {
