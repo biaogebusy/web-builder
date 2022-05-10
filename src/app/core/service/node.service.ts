@@ -39,7 +39,7 @@ export class NodeService extends ApiService {
     }
     let apiParams = '';
     if (type.startsWith('/api/v1/')) {
-      apiParams = `${type}?${params}`;
+      apiParams = `${this.apiUrl}${type}?${params}`;
     } else {
       apiParams = `${this.apiUrl}/api/v1/${type}?${params}`;
     }
