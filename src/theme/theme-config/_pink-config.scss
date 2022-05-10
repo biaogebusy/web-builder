@@ -11,10 +11,10 @@ $pink-color: (
   700: #ff7244,
   800: #f46b40,
   900: #db5e37,
-  A100: #fedbd0,
-  A200: #ffc2ae,
-  A400: #ff9369,
-  A700: #ff7244,
+  A100: #b3ebfe,
+  A200: #7fdeff,
+  A400: #00c5ff,
+  A700: #0098e0,
   contrast: (
     //
     50: $dark-primary-text,
@@ -35,6 +35,6 @@ $pink-color: (
 );
 
 $pink-primary: mat-palette($pink-color, 500);
-$pink-accent: mat-palette($pink-color, A200, A100, A400);
-$pink-warn: mat-palette($mat-red, A200, A100, A400);
+$pink-accent: mat-palette($pink-color, A400);
+$pink-warn: mat-palette($mat-red, A400);
 $pink-theme: mat-light-theme($pink-primary, $pink-accent, $pink-warn);

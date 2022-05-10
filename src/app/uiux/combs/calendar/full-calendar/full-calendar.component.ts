@@ -127,11 +127,12 @@ export class FullCalendarComponent
         return {
           title: item.label,
           event: item.event,
+          type: item.type,
           start: item.date,
           url: item.url,
           end: item.end || null,
           user: item.user,
-          className: this.theme[item.event] || `bg-${item.event}`, // custom event style bg, border
+          className: this.theme[item.type] || `bg-${item.event}`, // custom event style bg, border
         };
       });
       this.visiable = true;

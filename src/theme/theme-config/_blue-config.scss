@@ -10,10 +10,10 @@ $blue-color: (
   700: #2976d7,
   800: #2565c4,
   900: #1f47a5,
-  A100: #bcdefd,
-  A200: #92cbfc,
-  A400: #48a6fa,
-  A700: #2976d7,
+  A100: #aceaec,
+  A200: #73dde2,
+  A400: #00c4d0,
+  A700: #00959e,
   contrast: (
     //
     50: $dark-primary-text,
@@ -34,6 +34,6 @@ $blue-color: (
 );
 
 $blue-primary: mat-palette($blue-color, 700);
-$blue-accent: mat-palette($blue-color, A200, A100, A400);
+$blue-accent: mat-palette($blue-color, A700);
 $blue-warn: mat-palette($mat-red, A200, A100, A400);
 $blue-theme: mat-light-theme($blue-primary, $blue-accent, $blue-warn);
