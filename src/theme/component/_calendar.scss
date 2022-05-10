@@ -1,5 +1,15 @@
 @import "~@angular/material/theming";
-
+@mixin bg-calendar($color) {
+  background-color: mat-color($color, 0.2);
+  border-left: 3px solid mat-color($color);
+  border-top-color: mat-color($color, 0.2);
+  border-right-color: mat-color($color, 0.2);
+  border-bottom-color: mat-color($color, 0.2);
+  color: mat-color($color);
+  .fc-event-main {
+    color: mat-color($color);
+  }
+}
 @mixin calendar-color($config-or-theme) {
   $config: mat-get-color-config($config-or-theme);
   $foreground: map-get($config, foreground);
@@ -72,17 +82,19 @@
       .fc-h-event .fc-event-main {
         color: mat-color($primary, default-contrast);
       }
+      // default color
       .fc-h-event {
         background-color: mat-color($primary);
         border-color: mat-color($primary);
       }
-    }
-    .bg-meeting {
-      background-color: mat-color($warn, 0.2);
-      border-left: 3px solid mat-color($warn);
-      color: mat-color($warn);
-      .fc-event-main {
-        color: mat-color($warn);
+      .bg-warn {
+        @include bg-calendar($warn);
+      }
+      .bg-primary {
+        @include bg-calendar($primary);
+      }
+      .bg-accent {
+        @include bg-calendar($accent);
       }
     }
   }

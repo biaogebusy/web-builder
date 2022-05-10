@@ -42,6 +42,7 @@ export class FullCalendarComponent
   selected: Date | null;
   events: EventApi[];
   options: CalendarOptions;
+  theme: any;
   form: FormGroup;
   loading: boolean;
   visiable = false;
@@ -75,6 +76,7 @@ export class FullCalendarComponent
         datesSet: this.handleDates.bind(this),
       }
     );
+    this.theme = this.content?.calendar?.theme || {};
     this.cd.detectChanges();
   }
 
@@ -114,12 +116,12 @@ export class FullCalendarComponent
   }
 
   getEvents(options?: any): void {
-    const type = 'amigo-full-calendar';
     const state = this.getParamsState(this.form.value, options);
     const params = this.getApiParams(state);
+    const api = this.content?.calendar?.options?.api;
     this.loading = true;
     this.cd.detectChanges();
-    this.nodeService.search(type, params).subscribe((data) => {
+    this.nodeService.search(api, params).subscribe((data) => {
       this.options.events = data.map((item: any) => {
         // events attr see EventApi
         return {
@@ -129,7 +131,7 @@ export class FullCalendarComponent
           url: item.url,
           end: item.end || null,
           user: item.user,
-          className: `bg-${item.event}`, // custom event style bg, border
+          className: this.theme[item.event] || `bg-${item.event}`, // custom event style bg, border
         };
       });
       this.visiable = true;

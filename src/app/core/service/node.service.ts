@@ -37,9 +37,15 @@ export class NodeService extends ApiService {
     if (searchFormCache) {
       return of(searchFormCache);
     }
+    let apiParams = '';
+    if (type.startsWith('/api/v1/')) {
+      apiParams = `${type}?${params}`;
+    } else {
+      apiParams = `${this.apiUrl}/api/v1/${type}?${params}`;
+    }
     const response = this.http
       .get<any>(
-        `${this.apiUrl}/api/v1/${type}?${params}`,
+        apiParams,
         token ? this.optionsWithCookieAndToken(token) : this.httpOptionsOfCommon
       )
       .pipe(

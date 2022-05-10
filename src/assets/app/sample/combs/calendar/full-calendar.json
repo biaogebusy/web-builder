@@ -70,7 +70,14 @@
       }
     ],
     "calendar": {
-      "options": {}
+      "options": {
+        "api": "/api/v1/amigo-full-calendar"
+      },
+      "theme": {
+        "meeting": "bg-warn",
+        "case": "bg-primary",
+        "project": "bg-accent"
+      }
     }
   }]
 }
