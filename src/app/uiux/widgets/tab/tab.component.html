@@ -1,7 +1,7 @@
 <div class="tab" *ngIf="content">
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
-  <div class="container">
+  <div class="{{content.fullWidth?'container-fluid':'container'}}">
     <app-title *ngIf="content.title" [content]="content.title"></app-title>
     <mat-tab-group mat-align-tabs="start" [ngClass]="content.classes">
       <mat-tab *ngFor="let item of content.elements" label="{{item.label}}">

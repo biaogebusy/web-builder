@@ -9,6 +9,7 @@
         "style": "style-v1"
       }
     },
+    "fullWidth": true,
     "params": {
       "apiType": "tab/meeting"
     },
