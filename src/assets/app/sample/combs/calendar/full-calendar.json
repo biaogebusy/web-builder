@@ -76,7 +76,8 @@
       "theme": {
         "meeting": "bg-warn",
         "case": "bg-primary",
-        "project": "bg-accent"
+        "project": "bg-accent",
+        "event": "bg-red"
       }
     }
   }]

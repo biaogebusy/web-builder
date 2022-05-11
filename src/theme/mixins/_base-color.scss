@@ -21,13 +21,13 @@
   $background: map-get($config, background);
 
   a {
-    color: mat-color($primary);
+    color: mat-color($accent);
     text-decoration: none;
 
     &:hover,
     &:focus,
     &.active {
-      color: mat-color($primary);
+      color: mat-color($accent);
     }
   }
 

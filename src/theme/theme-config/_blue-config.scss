@@ -1,3 +1,4 @@
+@import "~@angular/material/theming";
 $blue-color: (
   //
   50: #e3f2fe,
@@ -33,7 +34,8 @@ $blue-color: (
   )
 );
 
-$blue-primary: mat-palette($blue-color, 700);
-$blue-accent: mat-palette($blue-color, A700);
+// user material mat blue
+$blue-primary: mat-palette($mat-blue, 700);
+$blue-accent: mat-palette($mat-blue, A700);
 $blue-warn: mat-palette($mat-red, A200, A100, A400);
 $blue-theme: mat-light-theme($blue-primary, $blue-accent, $blue-warn);

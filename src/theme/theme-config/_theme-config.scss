@@ -16,6 +16,4 @@
 // color: mat-color($primary, default-contrast);
 // background: mat-color($primary);
 
-// TODO: secondary color和dark color其实是通用的，应该不区分主题，可以把 $dark-theme-base-color 变成全局，并新建 secondary palette sass map
-
 // $light-theme-text-base: mat-color($light-theme-base-color, 700);

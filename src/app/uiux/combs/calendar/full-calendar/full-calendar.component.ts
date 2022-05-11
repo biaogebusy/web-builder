@@ -132,7 +132,10 @@ export class FullCalendarComponent
           url: item.url,
           end: item.end || null,
           user: item.user,
-          className: this.theme[item.type] || `bg-${item.event}`, // custom event style bg, border
+          className: `${this.theme[item.type]} ${this.theme[item.event]} type-${
+            item.type
+          } event-${item.event}`,
+          // custom event style bg, border
         };
       });
       this.visiable = true;

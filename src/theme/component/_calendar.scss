@@ -1,13 +1,13 @@
 @import "~@angular/material/theming";
 @mixin bg-calendar($color) {
-  background-color: mat-color($color, 0.2);
-  border-left: 3px solid mat-color($color);
-  border-top-color: mat-color($color, 0.2);
-  border-right-color: mat-color($color, 0.2);
-  border-bottom-color: mat-color($color, 0.2);
-  color: mat-color($color);
+  background-color: rgba($color, 0.2);
+  border-left: 3px solid $color;
+  border-top-color: rgba($color, 0.2);
+  border-right-color: rgba($color, 0.2);
+  border-bottom-color: rgba($color, 0.2);
+  color: $color;
   .fc-event-main {
-    color: mat-color($color);
+    color: $color;
   }
 }
 @mixin calendar-color($config-or-theme) {
@@ -87,14 +87,52 @@
         background-color: mat-color($primary);
         border-color: mat-color($primary);
       }
-      .bg-warn {
-        @include bg-calendar($warn);
-      }
       .bg-primary {
-        @include bg-calendar($primary);
+        @include bg-calendar(mat-color($primary));
       }
       .bg-accent {
-        @include bg-calendar($accent);
+        @include bg-calendar(mat-color($accent));
+      }
+      .bg-warn {
+        @include bg-calendar(mat-color($warn));
+      }
+
+      // theme color from material theme config
+      .bg-red {
+        @include bg-calendar(#d32f2f);
+      }
+      .bg-pink {
+        @include bg-calendar(#c2185b);
+      }
+      .bg-orange {
+        @include bg-calendar(#e65100);
+      }
+      .bg-yellow {
+        @include bg-calendar(#f57f17);
+      }
+      .bg-purple {
+        @include bg-calendar(#512da8);
+      }
+      .bg-indigo {
+        @include bg-calendar(#303f9f);
+      }
+      .bg-blue {
+        @include bg-calendar(#1976d2);
+      }
+      .bg-cyan {
+        @include bg-calendar(#006064);
+      }
+      .bg-teal {
+        @include bg-calendar(#004d40);
+      }
+      .bg-green {
+        @include bg-calendar(#1b5e20);
+      }
+      .bg-brown {
+        @include bg-calendar(#5d4037);
+      }
+      .bg-grey {
+        @include bg-calendar(#9e9e9e);
       }
     }
   }
