@@ -78,6 +78,8 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import { DatepickerComponent } from './form/datepicker/datepicker.component'; // a plugin!
 import { ViewListComponent } from './view-list/view-list.component';
+import { DataSourcePipe } from '@core/pipe/dataSource.pipe';
+
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
   slidesPerView: 'auto',
@@ -134,6 +136,7 @@ const components = [
   ProgressBarComponent,
   ProgressGroupComponent,
   SafeHtmlPipe,
+  DataSourcePipe,
   DialogComponent,
   FlagComponent,
   ShareComponent,

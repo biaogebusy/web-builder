@@ -32,7 +32,11 @@ import { MatTableModule } from '@angular/material/table';
 import { NgPipesModule } from 'ngx-pipes';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { IconService } from '@core/service/icon.service';
-import { MatPaginatorModule } from '@angular/material/paginator';
+import {
+  MatPaginatorIntl,
+  MatPaginatorModule,
+} from '@angular/material/paginator';
+import { MatPaginatorIntlCro } from '@core/service/paginator.service';
 
 @NgModule({
   declarations: [],
@@ -100,7 +104,13 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatTableModule,
     MatPaginatorModule,
   ],
-  providers: [IconService],
+  providers: [
+    IconService,
+    {
+      provide: MatPaginatorIntl,
+      useClass: MatPaginatorIntlCro,
+    },
+  ],
 })
 export class ShareModule {
   /**

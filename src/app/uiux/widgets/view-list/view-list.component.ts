@@ -40,7 +40,6 @@ export class ViewListComponent extends BaseComponent implements OnInit {
     this.nodeService
       .search(this.content.params.apiType, params, this.userState.csrfToken)
       .subscribe((res) => {
-        console.log(res);
         this.table = {
           header: this.content.header,
           elements: res.rows,
@@ -48,13 +47,10 @@ export class ViewListComponent extends BaseComponent implements OnInit {
         this.pager = res.pager;
         this.loading = false;
         this.cd.detectChanges();
-        this.cd.markForCheck();
       });
   }
 
   onPageChange(page: PageEvent): void {
-    // this.page = page - 1;
-    // this.nodeSearch({ page: this.page });
     this.getViews({
       page: page.pageIndex,
     });
