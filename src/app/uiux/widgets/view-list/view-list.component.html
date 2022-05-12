@@ -8,6 +8,9 @@
   <div class="container">
     <app-text [content]="content.text" *ngIf="content.text"></app-text>
     <app-dynamic-table [content]="table" *ngIf="table"></app-dynamic-table>
+    <mat-paginator *ngIf="pager" (page)="onPageChange($event)" [length]="pager.total_items"
+      [pageSize]="pager.items_per_page">
+    </mat-paginator>
   </div>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
 </div>

@@ -32,6 +32,7 @@ import { MatTableModule } from '@angular/material/table';
 import { NgPipesModule } from 'ngx-pipes';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { IconService } from '@core/service/icon.service';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [],
@@ -97,6 +98,7 @@ import { IconService } from '@core/service/icon.service';
     NgPipesModule,
     NgxPaginationModule,
     MatTableModule,
+    MatPaginatorModule,
   ],
   providers: [IconService],
 })
