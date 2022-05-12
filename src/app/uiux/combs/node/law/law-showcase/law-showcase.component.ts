@@ -3,11 +3,11 @@ import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-law-case-showcase',
-  templateUrl: './law-case-showcase.component.html',
-  styleUrls: ['./law-case-showcase.component.scss'],
+  selector: 'law-showcase',
+  templateUrl: './law-showcase.component.html',
+  styleUrls: ['./law-showcase.component.scss'],
 })
-export class LawCaseShowcaseComponent implements OnInit {
+export class LawShowcaseComponent implements OnInit {
   @Input() content: any;
   @Input() form: FormGroup;
   constructor() {}

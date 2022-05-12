@@ -11,7 +11,7 @@
   $text-color: mat-color($foreground, text, 0.75);
   .law-case {
     background-color: mat-color($primary, 0.06);
-    .law-case-showcase {
+    .law-showcase {
       table {
         border-top: 1px solid mat-color($foreground, divider);
       }
@@ -31,7 +31,7 @@
           background-color: mat-color($background, background);
         }
       }
-      .law-case-files {
+      .law-files {
         .box {
           .inner {
             background-color: mat-color($background, "app-bar");

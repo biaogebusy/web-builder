@@ -15,10 +15,10 @@ import { QuestionComponent } from './question/question.component';
 import { CommentFormComponent } from './comment/comment-form/comment-form.component';
 import { CommentListComponent } from './comment/comment-list/comment-list.component';
 import { ArticleMetaComponent } from './article/article-meta/article-meta.component';
-import { LawCaseComponent } from './law-case/law-case.component';
-import { LawCaseFilesComponent } from './law-case/law-case-files/law-case-files.component';
-import { LawCaseTableComponent } from './law-case/law-case-table/law-case-table.component';
-import { LawCaseShowcaseComponent } from './law-case/law-case-showcase/law-case-showcase.component';
+import { LawCaseComponent } from './law/law-case/law-case.component';
+import { LawFilesComponent } from './law/law-files/law-files.component';
+import { LawTableComponent } from './law/law-table/law-table.component';
+import { LawShowcaseComponent } from './law/law-showcase/law-showcase.component';
 
 const components = [
   JobComponent,
@@ -32,11 +32,11 @@ const components = [
   ArticleMetaComponent,
   QuestionComponent,
   LawCaseComponent,
-  LawCaseFilesComponent,
-  LawCaseTableComponent,
+  LawFilesComponent,
+  LawTableComponent,
   CommentFormComponent,
   CommentListComponent,
-  LawCaseShowcaseComponent,
+  LawShowcaseComponent,
 ];
 @NgModule({
   declarations: [...components],

@@ -20,11 +20,11 @@
     <div class="content m-y-sm">
       <div class="block" ngClass.gt-sm="p-y p-x" ngClass.lt-md="p-y-xs p-x-xs" *ngFor="let item of content.block">
         <ng-container [ngSwitch]="item.type">
-          <app-law-case-showcase *ngSwitchCase="'showcase'" [content]="item" [form]="form">
-          </app-law-case-showcase>
-          <app-law-case-files *ngSwitchCase="'files'" [content]="item"></app-law-case-files>
-          <app-law-case-table *ngSwitchCase="'table'" [content]="item">
-          </app-law-case-table>
+          <law-showcase *ngSwitchCase="'showcase'" [content]="item" [form]="form">
+          </law-showcase>
+          <app-law-files *ngSwitchCase="'files'" [content]="item"></app-law-files>
+          <app-law-table *ngSwitchCase="'table'" [content]="item">
+          </app-law-table>
           <app-text *ngSwitchDefault [content]="item"></app-text>
         </ng-container>
       </div>

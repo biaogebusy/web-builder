@@ -1,20 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LawCaseShowcaseComponent } from './law-case-showcase.component';
+import { LawShowcaseComponent } from './law-showcase.component';
 
 describe('LawCaseShowcaseComponent', () => {
-  let component: LawCaseShowcaseComponent;
-  let fixture: ComponentFixture<LawCaseShowcaseComponent>;
+  let component: LawShowcaseComponent;
+  let fixture: ComponentFixture<LawShowcaseComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LawCaseShowcaseComponent ]
-    })
-    .compileComponents();
+      declarations: [LawShowcaseComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LawCaseShowcaseComponent);
+    fixture = TestBed.createComponent(LawShowcaseComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
