@@ -1,0 +1,10 @@
+<div class="law-card m-bottom">
+  <app-title [content]="content.title"></app-title>
+  <div class="wrapper">
+    <div class="m-y" fxLayout="row wrap" fxLayoutAlign="center start" fxFlex="100%">
+      <app-card class="m-x-sm m-bottom-sm" fxFlex.xs="100" fxFlex.sm="calc(50% - 30px)"
+        fxFlex.gt-sm="0 0 calc(33% - 40px)" *ngFor="let card of content.elements" [content]="card">
+      </app-card>
+    </div>
+  </div>
+</div>

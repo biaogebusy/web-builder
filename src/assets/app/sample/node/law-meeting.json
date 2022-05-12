@@ -1,0 +1,262 @@
+{
+  "title": "两中心住房保障工作联席会议",
+  "config": {
+    "node": {
+      "uuid": "cb31d69f-a95e-4c91-97d1-1169f82a10a5"
+    }
+  },
+  "body": [{
+    "type": "law-case",
+    "title": "两中心住房保障工作联席会议",
+    "date": [{
+      "label": "更新",
+      "value": "张三 周五 09:50 2022/03/31"
+    }, {
+      "label": "提交",
+      "value": "李四 周六 08:10 2022/03/27"
+    }],
+    "actions": [{
+      "type": "btn",
+      "label": "编辑",
+      "icon": {
+        "name": "editor",
+        "inline": true
+      },
+      "href": "https://admin.zhaobg.com/manage/content/50/edit",
+      "target": "_blank"
+    }, {
+      "type": "flag",
+      "label": "收藏",
+      "icon": {
+        "name": "star",
+        "inline": true
+      },
+      "params": {
+        "type": "flagging--favorite",
+        "entity_type": "node",
+        "entity_id": "1312",
+        "relationships": {
+          "flagged_entity": {
+            "type": "node--case",
+            "id": "cb31d69f-a95e-4c91-97d1-1169f82a10a5"
+          }
+        }
+      }
+    }],
+    "block": [{
+      "type": "showcase",
+      "elements": [{
+        "header": [{
+            "label": "标签1",
+            "key": "label1"
+          },
+          {
+            "label": "内容1",
+            "key": "content1"
+          }, {
+            "label": "标签2",
+            "key": "label2"
+          }, {
+            "label": "内容2",
+            "key": "content2"
+          }
+        ],
+        "elements": [{
+            "label1": "客户名称",
+            "content1": {
+              "type": "link",
+              "label": "国家药审分中心",
+              "href": "/node/3"
+            },
+            "label2": "主办律师",
+            "content2": {
+              "type": "link",
+              "label": "杜长明",
+              "href": "/node/3"
+            }
+          },
+          {
+            "label1": "经办人",
+            "content1": {
+              "type": "link",
+              "label": "张三",
+              "href": "/node/4"
+            },
+            "label2": "业务时间",
+            "content2": "2022-04-15"
+          }
+        ]
+      }]
+    }, {
+      "type": "card",
+      "title": {
+        "label": "会议详情",
+        "style": "style-v4"
+      },
+      "elements": [{
+        "header": {
+          "title": "第一次会议",
+          "subTitle": "2016/03/04",
+          "avatar": {
+            "src": "/assets/images/showcase/weather.png",
+            "alt": ""
+          }
+        },
+        "subTitle": "2016/03/04",
+        "avatar": {
+          "src": "/assets/images/showcase/weather.png",
+          "alt": ""
+        },
+        "feature": {
+          "type": "feature-box",
+          "hoverIcon": true,
+          "fullIcon": "fullscreen",
+          "ratios": "media-4-3",
+          "img": {
+            "classes": "object-fit",
+            "src": "/assets/images/cases/porto1.jpg",
+            "alt": "lazyload"
+          }
+        },
+        "link": {
+          "href": "/node/1",
+          "label": "FLAT LOGO DESIGN"
+        }
+      }, {
+        "header": {
+          "title": "第二次会议",
+          "subTitle": "2016/03/04",
+          "avatar": {
+            "src": "/assets/images/showcase/weather.png",
+            "alt": ""
+          }
+        },
+        "subTitle": "2016/02/26",
+        "avatar": {
+          "src": "/assets/images/showcase/browser.png",
+          "alt": ""
+        },
+        "feature": {
+          "type": "feature-box",
+          "hoverIcon": true,
+          "fullIcon": "fullscreen",
+          "ratios": "media-4-3",
+          "img": {
+            "classes": "object-fit",
+            "src": "/assets/images/cases/porto2.jpg",
+            "alt": "lazyload"
+          }
+        },
+        "link": {
+          "href": "/node/1",
+          "label": "FLAT LOGO DESIGN"
+        }
+      }, {
+        "header": {
+          "title": "第三次会议",
+          "subTitle": "2016/03/04",
+          "avatar": {
+            "src": "/assets/images/showcase/weather.png",
+            "alt": ""
+          }
+        },
+        "subTitle": "2016/02/26",
+        "avatar": {
+          "src": "/assets/images/showcase/clipboard.png",
+          "alt": ""
+        },
+        "feature": {
+          "type": "feature-box",
+          "hoverIcon": true,
+          "fullIcon": "fullscreen",
+          "ratios": "media-4-3",
+          "img": {
+            "classes": "object-fit",
+            "src": "/assets/images/cases/porto3.jpg",
+            "alt": "lazyload"
+          }
+        },
+        "link": {
+          "href": "/node/1",
+          "label": "FLAT LOGO DESIGN"
+        }
+      }]
+    }, {
+      "type": "text",
+      "title": {
+        "label": "信息备注",
+        "style": "style-v4"
+      },
+      "body": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
+    }],
+    "params": {
+      "comment": {
+        "type": "comment--comment",
+        "attributes": {
+          "entity_type": "node",
+          "field_name": "comment"
+        },
+        "relationships": {
+          "comment_type": {
+            "data": {
+              "type": "comment_type--comment_type",
+              "id": "a395ac8e-3c9a-43d5-8ec8-cea74116d5f3"
+            }
+          },
+          "entity_id": {
+            "data": {
+              "type": "node--article",
+              "id": "b59a2767-89b8-418d-91fe-6f0e6a5638ec"
+            }
+          }
+        }
+      }
+    },
+    "editor": {
+      "title": {
+        "label": "添加工作跟踪",
+        "style": "style-v4"
+      },
+      "config": {
+        "toolbar": [
+          ["bold", "italic", "underline", "strike"],
+          [{
+            "header": [1, 2, 3, 4, 5, 6, false]
+          }],
+          [{
+            "list": "ordered"
+          }, {
+            "list": "bullet"
+          }],
+          [{
+            "indent": "-1"
+          }, {
+            "indent": "+1"
+          }],
+          [{
+            "color": []
+          }, {
+            "background": []
+          }],
+          [{
+            "align": []
+          }],
+          ["clean"],
+          ["link"],
+          ["blockquote", "code-block"]
+        ]
+      },
+      "actions": [{
+        "label": "提交",
+        "type": "submit",
+        "color": "primary"
+      }],
+      "succes": {
+        "label": "成功发布！"
+      },
+      "empty": {
+        "label": "暂时还没有工作日志。"
+      }
+    }
+  }]
+}

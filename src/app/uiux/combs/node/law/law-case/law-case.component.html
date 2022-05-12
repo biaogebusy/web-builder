@@ -25,6 +25,7 @@
           <app-law-files *ngSwitchCase="'files'" [content]="item"></app-law-files>
           <app-law-table *ngSwitchCase="'table'" [content]="item">
           </app-law-table>
+          <app-law-card *ngSwitchCase="'card'" [content]="item"></app-law-card>
           <app-text *ngSwitchDefault [content]="item"></app-text>
         </ng-container>
       </div>

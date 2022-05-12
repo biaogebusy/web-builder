@@ -169,6 +169,9 @@
             "label": "Law Case",
             "href": "/sample/node/law-case"
           }, {
+            "label": "Law Meeting",
+            "href": "/sample/node/law-meeting"
+          }, {
             "label": "article",
             "href": "/sample/node/article"
           }, {
