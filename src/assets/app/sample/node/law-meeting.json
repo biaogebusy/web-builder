@@ -131,13 +131,35 @@
             "value": "<a href=\"/node/1\">药审分中心制度修改</a>"
           }, {
             "label": "会议文件",
-            "value": "<a href=\"#\">文件名.jpeg</a>"
+            "value": {
+              "label": ["文件名1"],
+              "elements": [{
+                "src": "/assets/images/cases/porto1.jpg",
+                "caption": "文件名1",
+                "thumb": "/assets/images/cases/porto1.jpg"
+              }]
+            },
+            "params": {
+              "lightbox": true
+            }
           }, {
             "label": "会议内容",
-            "value": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. "
+            "value": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. ",
+            "params": {
+              "shorten": 100,
+              "dialog": {
+                "label": "更多"
+              }
+            }
           }, {
             "label": "信息备注",
-            "value": "sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. "
+            "value": "sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. ",
+            "params": {
+              "shorten": 100,
+              "dialog": {
+                "label": "更多"
+              }
+            }
           }]
         },
         "progressBar": {
@@ -183,13 +205,35 @@
             "value": "<a href=\"/node/1\">药审分中心制度修改</a>"
           }, {
             "label": "会议文件",
-            "value": "<a href=\"#\">文件名.jpeg</a>"
+            "value": {
+              "label": ["文件名2"],
+              "elements": [{
+                "src": "/assets/images/cases/porto1.jpg",
+                "caption": "文件名2",
+                "thumb": "/assets/images/cases/porto1.jpg"
+              }]
+            },
+            "params": {
+              "lightbox": true
+            }
           }, {
             "label": "会议内容",
-            "value": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore"
+            "value": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore",
+            "params": {
+              "shorten": 100,
+              "dialog": {
+                "label": "更多"
+              }
+            }
           }, {
             "label": "信息备注",
-            "value": "sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. "
+            "value": "sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. ",
+            "params": {
+              "shorten": 100,
+              "dialog": {
+                "label": "更多"
+              }
+            }
           }]
         },
         "progressBar": {
@@ -234,13 +278,35 @@
             "value": "<a href=\"/node/1\">药审分中心制度修改</a>"
           }, {
             "label": "会议文件",
-            "value": "<a href=\"#\">文件名.jpeg</a>"
+            "value": {
+              "label": ["文件名3"],
+              "elements": [{
+                "src": "/assets/images/cases/porto1.jpg",
+                "caption": "文件名3",
+                "thumb": "/assets/images/cases/porto1.jpg"
+              }]
+            },
+            "params": {
+              "lightbox": true
+            }
           }, {
             "label": "会议内容",
-            "value": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. "
+            "value": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. ",
+            "params": {
+              "shorten": 100,
+              "dialog": {
+                "label": "更多"
+              }
+            }
           }, {
             "label": "信息备注",
-            "value": "sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat "
+            "value": "sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat ",
+            "params": {
+              "shorten": 100,
+              "dialog": {
+                "label": "更多"
+              }
+            }
           }]
         },
         "progressBar": {

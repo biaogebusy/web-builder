@@ -39,3 +39,14 @@ export interface IMeta {
   label: string;
   value: string;
 }
+
+export interface IInlineLightbox {
+  label: string[];
+  elements: ILightboxElement[];
+}
+
+export interface ILightboxElement {
+  src: string;
+  caption: string;
+  thumb: string;
+}

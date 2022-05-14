@@ -1,0 +1,18 @@
+<div class="case-header" fxLayout="row warp" fxLayoutAlign="space-between center">
+  <div class="title">
+    <h2 class="m-bottom-xs" ngClass.gt-sm="mat-display-1">{{content.title}}</h2>
+    <div class="date">
+      <div *ngFor="let date of content.date">
+        <span>{{date.label}} | </span>
+        <span>{{date.value}}</span>
+      </div>
+    </div>
+  </div>
+  <div class="actions p-y-sm" *ngIf="content.actions">
+    <div class="inner" fxLayout="row" fxLayoutGap="1rem">
+      <button mat-raised-button *ngIf="content.form" [disabled]="disabled" color="primary"
+        (click)="updateNode()">更新</button>
+      <app-dynamic-widgets [content]="action" *ngFor="let action of content.actions"></app-dynamic-widgets>
+    </div>
+  </div>
+</div>

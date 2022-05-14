@@ -59,12 +59,6 @@ export class LawCaseComponent extends NodeComponent implements OnInit {
         takeUntil(this.destroy$)
       )
       .subscribe((value) => {
-        console.log(value);
-        // if (this.first) {
-        //   this.disabled = true;
-        //   this.first = false;
-        //   return;
-        // }
         this.disabled = false;
         const apiParams = this.getCaseParams(value);
         this.apiParams = this.handleLawyer(apiParams);
@@ -124,7 +118,6 @@ export class LawCaseComponent extends NodeComponent implements OnInit {
         // })
       )
       .subscribe((res) => {
-        console.log(res);
         this.comments = res.data.map((comment: any) => {
           return this.handleComment(comment);
         });

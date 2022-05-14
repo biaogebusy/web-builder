@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Lightbox, LightboxConfig } from 'ngx-lightbox';
+import { Lightbox } from 'ngx-lightbox';
 import { UtilitiesService } from '@core/service/utilities.service';
-import { element } from 'protractor';
+import { IInlineLightbox } from '@uiux/widgets/IWidgets';
 
 @Component({
   selector: 'app-inline-lightbox',
@@ -9,12 +9,8 @@ import { element } from 'protractor';
   styleUrls: ['./inline-lightbox.component.scss'],
 })
 export class InlineLightboxComponent implements OnInit {
-  @Input() content: any;
-  constructor(
-    private lightbox: Lightbox,
-    private lightboxConfig: LightboxConfig,
-    private util: UtilitiesService
-  ) {}
+  @Input() content: IInlineLightbox;
+  constructor(private lightbox: Lightbox, private util: UtilitiesService) {}
 
   ngOnInit(): void {}
 

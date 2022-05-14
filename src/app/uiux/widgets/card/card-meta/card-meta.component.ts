@@ -1,4 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { TextComponent } from '../../text/text.component';
+import { DialogComponent } from '../../dialog/dialog.component';
 
 @Component({
   selector: 'app-card-meta',
@@ -7,7 +10,27 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class CardMetaComponent implements OnInit {
   @Input() content: any;
-  constructor() {}
+  constructor(private dialog: MatDialog) {}
 
   ngOnInit(): void {}
+
+  onDialog(content: any): void {
+    this.dialog.open(DialogComponent, {
+      width: '600px',
+      data: {
+        renderInputComponent: TextComponent,
+        inputData: {
+          content: {
+            type: 'text',
+            spacer: 'none',
+            title: {
+              label: content.label,
+              style: 'style-v4',
+            },
+            body: content.value,
+          },
+        },
+      },
+    });
+  }
 }
