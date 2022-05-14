@@ -18,6 +18,12 @@
       cursor: pointer;
       background-color: mat-color($background, background, 0.85);
     }
+    .meta {
+      .badge {
+        background-color: mat-color($primary);
+        color: mat-color($primary, default-contrast);
+      }
+    }
   }
   .mat-card-title {
     a {

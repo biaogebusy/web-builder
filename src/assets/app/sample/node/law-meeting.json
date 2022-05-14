@@ -95,17 +95,24 @@
       },
       "elements": [{
         "header": {
-          "title": "第一次会议",
-          "subTitle": "2016/03/04",
-          "avatar": {
-            "src": "/assets/images/showcase/weather.png",
-            "alt": ""
-          }
-        },
-        "subTitle": "2016/03/04",
-        "avatar": {
-          "src": "/assets/images/showcase/weather.png",
-          "alt": ""
+          "meta": [{
+              "label": "",
+              "value": "<span class=\"badge\">第一次会议</span>"
+            }, {
+              "label": "会议期间",
+              "value": "周一，04/11/2022 11:30<br>周一，04/11/2022 16:30"
+            },
+            {
+              "label": "会议地址",
+              "value": "中国上海市浦东新区 线上会议"
+            }, {
+              "label": "参会人员",
+              "value": "<a href=\"/node/1\">庞博</a>,<a href=\"/node/2\">杜长明</a>"
+            }, {
+              "label": "工作工时",
+              "value": 1
+            }
+          ]
         },
         "feature": {
           "type": "feature-box",
@@ -118,23 +125,46 @@
             "alt": "lazyload"
           }
         },
-        "link": {
-          "href": "/node/1",
-          "label": "FLAT LOGO DESIGN"
+        "footer": {
+          "meta": [{
+            "label": "相关项目",
+            "value": "<a href=\"/node/1\">药审分中心制度修改</a>"
+          }, {
+            "label": "会议文件",
+            "value": "<a href=\"#\">文件名.jpeg</a>"
+          }, {
+            "label": "会议内容",
+            "value": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. "
+          }, {
+            "label": "信息备注",
+            "value": "sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. "
+          }]
+        },
+        "progressBar": {
+          "mode": "determinate",
+          "value": 33,
+          "value-": "当前次数除以总次数"
         }
       }, {
         "header": {
-          "title": "第二次会议",
-          "subTitle": "2016/03/04",
-          "avatar": {
-            "src": "/assets/images/showcase/weather.png",
-            "alt": ""
-          }
-        },
-        "subTitle": "2016/02/26",
-        "avatar": {
-          "src": "/assets/images/showcase/browser.png",
-          "alt": ""
+          "meta": [{
+              "label": "",
+              "value": "<span class=\"badge\">第二次会议</span>"
+            }, {
+              "label": "会议期间",
+              "value": "周一，04/11/2022 11:30<br>周一，04/11/2022 16:30"
+            },
+            {
+              "label": "会议地址",
+              "value": "中国上海市浦东新区 线上会议"
+            }, {
+              "label": "参会人员",
+              "value": "<a href=\"/node/1\">庞博</a>,<a href=\"/node/2\">杜长明</a>"
+            }, {
+              "label": "工作工时",
+              "value": 1
+            }
+          ]
         },
         "feature": {
           "type": "feature-box",
@@ -147,23 +177,45 @@
             "alt": "lazyload"
           }
         },
-        "link": {
-          "href": "/node/1",
-          "label": "FLAT LOGO DESIGN"
+        "footer": {
+          "meta": [{
+            "label": "相关项目",
+            "value": "<a href=\"/node/1\">药审分中心制度修改</a>"
+          }, {
+            "label": "会议文件",
+            "value": "<a href=\"#\">文件名.jpeg</a>"
+          }, {
+            "label": "会议内容",
+            "value": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore"
+          }, {
+            "label": "信息备注",
+            "value": "sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. "
+          }]
+        },
+        "progressBar": {
+          "mode": "determinate",
+          "value": 66
         }
       }, {
         "header": {
-          "title": "第三次会议",
-          "subTitle": "2016/03/04",
-          "avatar": {
-            "src": "/assets/images/showcase/weather.png",
-            "alt": ""
-          }
-        },
-        "subTitle": "2016/02/26",
-        "avatar": {
-          "src": "/assets/images/showcase/clipboard.png",
-          "alt": ""
+          "meta": [{
+              "label": "",
+              "value": "<span class=\"badge\">第三次会议</span>"
+            }, {
+              "label": "会议期间",
+              "value": "周一，04/11/2022 11:30<br>周一，04/11/2022 16:30"
+            },
+            {
+              "label": "会议地址",
+              "value": "中国上海市浦东新区 线上会议"
+            }, {
+              "label": "参会人员",
+              "value": "<a href=\"/node/1\">庞博</a>"
+            }, {
+              "label": "工作工时",
+              "value": 1
+            }
+          ]
         },
         "feature": {
           "type": "feature-box",
@@ -176,9 +228,24 @@
             "alt": "lazyload"
           }
         },
-        "link": {
-          "href": "/node/1",
-          "label": "FLAT LOGO DESIGN"
+        "footer": {
+          "meta": [{
+            "label": "相关项目",
+            "value": "<a href=\"/node/1\">药审分中心制度修改</a>"
+          }, {
+            "label": "会议文件",
+            "value": "<a href=\"#\">文件名.jpeg</a>"
+          }, {
+            "label": "会议内容",
+            "value": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. "
+          }, {
+            "label": "信息备注",
+            "value": "sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat "
+          }]
+        },
+        "progressBar": {
+          "mode": "determinate",
+          "value": 100
         }
       }]
     }, {
@@ -187,6 +254,7 @@
         "label": "信息备注",
         "style": "style-v4"
       },
+      "spacer": "none",
       "body": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
     }],
     "params": {

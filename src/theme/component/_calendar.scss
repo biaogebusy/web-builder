@@ -98,9 +98,6 @@
       }
 
       // theme color from material theme config
-      .bg-red {
-        @include bg-calendar(#d32f2f);
-      }
       .bg-pink {
         @include bg-calendar(#c2185b);
       }
@@ -109,6 +106,9 @@
       }
       .bg-yellow {
         @include bg-calendar(#f57f17);
+      }
+      .bg-red {
+        @include bg-calendar(#d32f2f);
       }
       .bg-purple {
         @include bg-calendar(#512da8);
@@ -127,6 +127,9 @@
       }
       .bg-green {
         @include bg-calendar(#1b5e20);
+      }
+      .bg-light-green {
+        @include bg-calendar(#4caf50);
       }
       .bg-brown {
         @include bg-calendar(#5d4037);

@@ -79,6 +79,7 @@ import listPlugin from '@fullcalendar/list';
 import { DatepickerComponent } from './form/datepicker/datepicker.component'; // a plugin!
 import { ViewListComponent } from './view-list/view-list.component';
 import { DataSourcePipe } from '@core/pipe/dataSource.pipe';
+import { CardMetaComponent } from './card/card-meta/card-meta.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -145,6 +146,7 @@ const components = [
   TreeComponent,
   CalendarComponent,
   DownloadComponent,
+  CardMetaComponent,
   ViewListComponent,
   DatepickerComponent,
   FontChangeComponent,

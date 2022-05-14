@@ -43,7 +43,9 @@ export class LawCaseComponent extends NodeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.initForm(this.content.form);
+    if (this.content?.form?.length) {
+      this.initForm(this.content.form);
+    }
     // this.getlawyers();
     this.getComments();
   }

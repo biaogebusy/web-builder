@@ -1,0 +1,6 @@
+<div class="meta" *ngIf="content">
+  <div class="item" *ngFor="let meta of content" fxLayout fxLayoutAlign="start start">
+    <span fxFlex="0 0 auto" class="bold m-right-xs" *ngIf="meta.label">{{meta.label}}: </span>
+    <span [innerHTML]="meta.value"></span>
+  </div>
+</div>
