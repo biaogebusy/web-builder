@@ -184,6 +184,9 @@
             "label": "Profile 1v1",
             "href": "/sample/combs/profile/profile1v1"
           }, {
+            "label": "Profile 1v1 judge",
+            "href": "/sample/combs/profile/profile1v1-judge"
+          }, {
             "label": "Dynamic Media List",
             "href": "/sample/list/dynamic-media-list"
           }, {

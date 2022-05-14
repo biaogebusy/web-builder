@@ -35,5 +35,9 @@
         box-shadow: 0 5px 13px mat-color($foreground, divider);
       }
     }
+    app-icon {
+      background-color: mat-color($background, status-bar);
+      color: mat-color($foreground, text, 0.7);
+    }
   }
 }
