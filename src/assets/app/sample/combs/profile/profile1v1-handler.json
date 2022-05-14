@@ -1,0 +1,130 @@
+{
+  "title": "Profile 1v1",
+  "body": [{
+    "type": "profile-1v1",
+    "bannerBg": {
+      "classes": "bg-fill-width overlay overlay-80",
+      "img": {
+        "hostClasses": "bg-center",
+        "src": "/assets/images/16-9/business-14.jpeg",
+        "alt": "page title"
+      }
+    },
+    "avatar": {
+      "src": "/assets/images/avatar/01.jpeg",
+      "alt": "Johnson"
+    },
+    "name": "张三",
+    "subTitle": "经办人员",
+    "details": {
+      "label": "个人资料",
+      "elements": [{
+        "icon": {
+          "color": "warn",
+          "svg": "arrow_right",
+          "inline": true
+        },
+        "label": "职务名称",
+        "content": "科员"
+      }, {
+        "icon": {
+          "color": "warn",
+          "svg": "arrow_right",
+          "inline": true
+        },
+        "label": "客户部门",
+        "content": "人事处"
+      }, {
+        "icon": {
+          "color": "warn",
+          "svg": "arrow_right",
+          "inline": true
+        },
+        "label": "经办电话",
+        "content": "0107896541"
+      }, {
+        "icon": {
+          "color": "warn",
+          "svg": "arrow_right",
+          "inline": true
+        },
+        "label": "经办电邮",
+        "content": "service@qq.com"
+      }]
+    },
+    "content": [{
+        "label": "备注信息",
+        "type": "text",
+        "spacer": "none",
+        "body": "<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. </p>At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
+      }, {
+        "label": "经办证照",
+        "type": "feature-box",
+        "hoverIcon": true,
+        "fullIcon": "fullscreen",
+        "ratios": "media-16-9",
+        "img": {
+          "classes": "object-fit",
+          "src": "/assets/images/cases/porto2.jpg",
+          "alt": "alt"
+        }
+      },
+      {
+        "label": "关联案件",
+        "type": "media-object-group",
+        "elements": [{
+          "icon": {
+            "name": "gavel"
+          },
+          "meta": "2022/08/01",
+          "link": {
+            "label": "苏州耀能诉苏州世缘一案（10月前电费）",
+            "href": "#"
+          },
+          "subTitle": "法官 / 张三",
+          "content": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. "
+        }, {
+          "icon": {
+            "name": "gavel"
+          },
+          "meta": "2021/08/16",
+          "link": {
+            "label": "苏州耀能诉震纶用电纠纷案（10月后的电费案件）",
+            "href": "#"
+          },
+          "content": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. "
+        }, {
+          "icon": {
+            "name": "gavel"
+          },
+          "meta": "2021/08/16",
+          "link": {
+            "label": "苏州耀能诉震纶用电纠纷案（10月后的电费案件）",
+            "href": "#"
+          },
+          "content": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. "
+        }, {
+          "icon": {
+            "name": "gavel"
+          },
+          "meta": "2021/08/16",
+          "link": {
+            "label": "苏州耀能诉震纶用电纠纷案（10月后的电费案件）",
+            "href": "#"
+          },
+          "content": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. "
+        }, {
+          "icon": {
+            "name": "gavel"
+          },
+          "meta": "2021/08/16",
+          "link": {
+            "label": "苏州耀能诉震纶用电纠纷案（10月后的电费案件）",
+            "href": "#"
+          },
+          "content": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. "
+        }]
+      }
+    ]
+  }]
+}

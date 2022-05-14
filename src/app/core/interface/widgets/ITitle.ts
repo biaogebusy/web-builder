@@ -1,6 +1,6 @@
 export interface ITitle {
   style: string;
-  classes: string;
+  classes?: string;
   label: string;
   icon?: string;
 }

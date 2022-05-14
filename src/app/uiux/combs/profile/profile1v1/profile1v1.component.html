@@ -14,7 +14,10 @@
         </div>
         <mat-divider></mat-divider>
         <div class="left-item p-y-sm p-x-sm" *ngIf="content?.details">
-          <div class="item-header bold m-bottom-sm">{{content.details.label}}</div>
+          <app-title [content]="{
+            'label':content.details.label,
+            'style':'style-v4'
+          }"></app-title>
           <div class="list">
             <div fxLayoutAlign="start start" *ngFor="let item of content.details.elements">
               <app-icon [content]="item.icon"></app-icon>
@@ -27,7 +30,10 @@
       <div class="right" fxFlex.lt-md="0 0 100" fxFlex.gt-sm="0 0 calc(100% - 30% - 4rem)">
         <div class="content">
           <div class="item m-bottom" *ngFor="let item of content.content">
-            <div class="mat-h2 label m-y-sm bold">{{item.label}}</div>
+            <app-title [content]="{
+            'label':item.label,
+            'style':'style-v4'
+          }"></app-title>
             <app-dynamic-widgets [content]="item"></app-dynamic-widgets>
           </div>
         </div>
