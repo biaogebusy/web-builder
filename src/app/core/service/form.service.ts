@@ -30,9 +30,16 @@ export class FormService {
           }
           break;
         case 'select':
-          group[item.key] = item.params?.required
-            ? new FormControl(item.value || '', Validators.required)
-            : new FormControl(item.value || '');
+          if (item.multiple) {
+            const value = item?.value?.split('+') || '';
+            group[item.key] = item.params?.required
+              ? new FormControl(value, Validators.required)
+              : new FormControl(value);
+          } else {
+            group[item.key] = item.params?.required
+              ? new FormControl(item.value || '', Validators.required)
+              : new FormControl(item.value || '');
+          }
           break;
         default:
           if (item.key) {

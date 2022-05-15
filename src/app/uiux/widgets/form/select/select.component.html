@@ -1,8 +1,11 @@
-<mat-form-field appearance="legacy" class="width-100" [formGroup]="form">
+<mat-form-field [appearance]="content.appearance || 'legacy'" class="width-100" [formGroup]="form" *ngIf="form">
   <mat-label>{{content.label}}</mat-label>
-  <mat-select [formControlName]="content.key" multiple={{content.multiple||false}} disableRipple>
-    <mat-option>无</mat-option>
+  <mat-select *ngIf="!content.multiple" [formControlName]="content.key" disableRipple>
     <mat-option value="{{option.value}}" *ngFor="let option of content.options">{{option.label}}
+    </mat-option>
+  </mat-select>
+  <mat-select *ngIf="content.multiple" [formControlName]="content.key" multiple disableRipple>
+    <mat-option *ngFor="let option of content.options" [value]="option.value">{{option.label}}
     </mat-option>
   </mat-select>
   <mat-error *ngIf="isValid">{{content.errorMes}}</mat-error>
