@@ -1,11 +1,8 @@
 import {
   Component,
-  ElementRef,
   Input,
   OnDestroy,
   OnInit,
-  ViewChild,
-  ViewEncapsulation,
   AfterViewInit,
   ChangeDetectionStrategy,
 } from '@angular/core';

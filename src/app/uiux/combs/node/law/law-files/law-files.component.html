@@ -6,7 +6,7 @@
       <div class="inner p-x-sm p-y-sm">
         <div class="label mat-h3 bold">{{box.label}}</div>
         <div class="li one-line" *ngFor="let file of box.elements">
-          <app-link [content]="file"></app-link>
+          <app-dynamic-widgets [content]="file"></app-dynamic-widgets>
         </div>
       </div>
     </div>
