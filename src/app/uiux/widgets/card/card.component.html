@@ -1,4 +1,4 @@
-<mat-card *ngIf="content" class="card" [ngClass]="content.classes">
+<mat-card *ngIf="content" class="card {{content?.header?.meta ? 'has-header':''}}" [ngClass]="content.classes">
   <mat-card-content *ngIf="content.header?.meta">
     <app-card-meta [content]="content.header.meta"></app-card-meta>
   </mat-card-content>
