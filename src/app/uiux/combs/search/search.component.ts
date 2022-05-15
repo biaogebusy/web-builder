@@ -131,7 +131,7 @@ export class SearchComponent
           target: '_blank',
         },
         created: item.created,
-        body: item.body,
+        body: item.body.toString(),
         user: item.user,
         type: item.type || '',
         actions: item.actions || [],

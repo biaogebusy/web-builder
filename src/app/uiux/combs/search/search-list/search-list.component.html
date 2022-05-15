@@ -13,11 +13,11 @@
         fxFlex.gt-xs="0 0 30">
         <app-img [content]="item.img"></app-img>
       </div>
-      <div class="content">
+      <div class="content width-100">
         <h2 class="title">
           <app-link [content]="item.link"></app-link>
         </h2>
-        <div [innerHTML]="item.body | shorten: 150: '...' | stripTags"></div>
+        <div *ngIf="item.body" [innerHTML]="item.body | shorten: 150: '...' | stripTags"></div>
         <div class="bottom m-y-sm" fxLayoutAlign="space-between center">
           <div fxLayoutGap="1rem" fxLayout fxLayoutAlign="start center">
             <div>{{item.user | ucfirst}}</div>

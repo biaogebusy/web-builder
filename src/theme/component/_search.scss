@@ -31,8 +31,9 @@
           &:hover {
             color: mat-color($primary);
           }
-          em {
-            color: mat-color($primary);
+          em,
+          strong {
+            color: mat-color($warn);
           }
         }
       }
