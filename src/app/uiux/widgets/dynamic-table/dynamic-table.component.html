@@ -2,14 +2,14 @@
   <table mat-table [dataSource]="content.elements | dataSource" class="width-100">
     <ng-container [matColumnDef]="item.key" *ngFor="let item of content.header">
       <th mat-header-cell *cdkHeaderCellDef>
-        {{item.label}}
+        <span class="p-x-xs">{{item.label}}</span>
       </th>
       <td mat-cell *cdkCellDef="let element">
         <ng-container *ngIf="element[item.key] | isObject;else text">
           <app-dynamic-widgets [content]="element[item.key]" [form]="form"></app-dynamic-widgets>
         </ng-container>
         <ng-template #text>
-          <div class="p-y-xs text-cell" [innerHTML]="element[item.key]"></div>
+          <div class="p-y-xs p-x-xs text-cell" [innerHTML]="element[item.key]"></div>
         </ng-template>
       </td>
     </ng-container>
