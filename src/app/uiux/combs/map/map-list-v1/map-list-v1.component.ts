@@ -14,13 +14,11 @@ export class MapListV1Component implements OnInit {
   constructor(private amapState: AMapState) {}
 
   ngOnInit(): void {}
-  onClick(item: any, i: number): void {
+  onClick(event: IMark): void {
     const obj: IMark = {
-      index: i,
-      marker: this.markerTem(item),
+      index: event.index,
+      marker: this.markerTem(event.item),
     };
-    // this.selected.emit(obj);
-    this.selectedId = i;
     this.amapState.markers$.next(obj);
   }
 

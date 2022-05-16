@@ -132,11 +132,15 @@
           }, {
             "label": "会议文件",
             "value": {
-              "label": ["文件名1"],
+              "label": ["文件名1", "文件名2"],
               "elements": [{
                 "src": "/assets/images/cases/porto1.jpg",
                 "caption": "文件名1",
                 "thumb": "/assets/images/cases/porto1.jpg"
+              }, {
+                "src": "/assets/images/cases/porto2.jpg",
+                "caption": "文件名2",
+                "thumb": "/assets/images/cases/porto2.jpg"
               }]
             },
             "params": {

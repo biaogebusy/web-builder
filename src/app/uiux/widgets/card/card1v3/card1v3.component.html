@@ -1,0 +1,17 @@
+<div class="card-1-v3">
+  <cdk-virtual-scroll-viewport [itemSize]="5" class="viewport" *ngIf="content">
+    <div class="list item m-y-sm p-y-sm m-x-xs p-x-sm" [class.selected]="i == selectedId" matRipple
+      [matRippleColor]="'rgba(0, 0, 0, 0.04)'" *cdkVirtualFor="let item of content.elements; index as i"
+      fxLayout="column" (click)="onClick(item, i)">
+      <h3 class="m-bottom-xs bold">{{item.title}}</h3>
+      <div class="address">{{item.address}}</div>
+      <div class="meta">
+        <div class="li" *ngFor="let meta of item.meta">
+          <span>{{meta.label}}: </span>
+          <span>{{meta.value}}</span>
+        </div>
+      </div>
+    </div>
+  </cdk-virtual-scroll-viewport>
+
+</div>

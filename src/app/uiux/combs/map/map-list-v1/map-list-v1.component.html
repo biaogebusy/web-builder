@@ -19,20 +19,7 @@
         </div>
       </div>
       <div class="map-lists">
-        <cdk-virtual-scroll-viewport [itemSize]="5" class="viewport">
-          <div class="list item m-y-sm p-y-sm m-x-xs p-x-sm" [class.selected]="i == selectedId" matRipple
-            [matRippleColor]="'rgba(0, 0, 0, 0.04)'" *cdkVirtualFor="let item of content.map.elements; index as i"
-            fxLayout="column" (click)="onClick(item, i)">
-            <h3 class="m-bottom-xs bold">{{item.title}}</h3>
-            <div class="address">{{item.address}}</div>
-            <div class="meta">
-              <div class="li" *ngFor="let meta of item.meta">
-                <span>{{meta.label}}: </span>
-                <span>{{meta.value}}</span>
-              </div>
-            </div>
-          </div>
-        </cdk-virtual-scroll-viewport>
+        <app-card1v3 [content]="content.map" (selected)="onClick($event)"></app-card1v3>
       </div>
     </div>
     <div class="map-wrapper position-relative" fxFlex.xs="100%" fxFlex.gt-xs="100%">

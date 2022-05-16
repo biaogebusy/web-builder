@@ -10,7 +10,7 @@ import { DynamicModule } from 'ng-dynamic-component';
 import { TreeModule } from '@circlon/angular-tree-component';
 import { CdkTableModule } from '@angular/cdk/table';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatNativeDateModule } from '@angular/material/core';
 
 import { BgComponent } from './bg/bg.component';
 import { ImgComponent } from './img/img.component';
@@ -80,6 +80,7 @@ import { DatepickerComponent } from './form/datepicker/datepicker.component'; //
 import { ViewListComponent } from './view-list/view-list.component';
 import { DataSourcePipe } from '@core/pipe/dataSource.pipe';
 import { CardMetaComponent } from './card/card-meta/card-meta.component';
+import { Card1v3Component } from './card/card1v3/card1v3.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -104,8 +105,6 @@ const components = [
   BtnComponent,
   TabComponent,
   CardComponent,
-  Card1v1Component,
-  Card1v2Component,
   IconComponent,
   TitleComponent,
   PanelComponent,
@@ -114,6 +113,9 @@ const components = [
   SwiperComponent,
   SpacerComponent,
   SpinnerComponent,
+  Card1v1Component,
+  Card1v2Component,
+  Card1v3Component,
   CheckboxComponent,
   ContentBoxComponent,
   ChipListComponent,
