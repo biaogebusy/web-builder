@@ -23,7 +23,6 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
   error: string;
   userForm: FormGroup;
   phoneForm: FormGroup;
-  @ViewChild('cd', { static: false }) private countdown: any;
 
   config: any;
 
