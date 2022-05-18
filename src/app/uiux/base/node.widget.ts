@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ICommentContent } from '@core/interface/node/INode';
 import { UserState } from '@core/mobx/user/UserState';
 import { NodeService } from '@core/service/node.service';
+import { formatDate } from '@angular/common';
 @Injectable()
 export abstract class NodeComponent {
   abstract content: any;
@@ -49,7 +50,11 @@ export abstract class NodeComponent {
         },
         id: comment.uid.id,
         title: comment.uid.name,
-        subTitle: comment.changed || comment.created,
+        subTitle: formatDate(
+          comment.changed || comment.created,
+          'yyyy-MM-dd h:mm:ss',
+          'en-US'
+        ),
       },
       time: comment.changed,
       id: comment.id,
