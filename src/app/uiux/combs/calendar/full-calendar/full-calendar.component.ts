@@ -121,7 +121,7 @@ export class FullCalendarComponent
     if (api || params || this.options?.events) {
       this.loading = true;
       this.nodeService.search(api, params).subscribe((data) => {
-        if (this.options)
+        if (this.options) {
           this.options.events = data.map((item: any) => {
             // events attr see EventApi
             const type = item.type;
@@ -134,15 +134,14 @@ export class FullCalendarComponent
               url: item.url,
               end: item.end || null,
               user: item.user,
-              className: `${this.theme?.type || ''} ${
-                this.theme?.event || ''
-              } type-${type} event-${event}`,
+              className: `${this.theme[type]} ${this.theme[event]} type-${type} event-${event}`,
               // custom event style bg, border
             };
           });
-        this.visiable = true;
-        this.loading = false;
-        this.cd.detectChanges();
+          this.visiable = true;
+          this.loading = false;
+          this.cd.detectChanges();
+        }
       });
     }
   }
