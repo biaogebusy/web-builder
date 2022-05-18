@@ -108,7 +108,6 @@ export class FullCalendarComponent
         takeUntil(this.destroy$)
       )
       .subscribe((value) => {
-        console.log(value);
         if (value) {
           this.getEvents(value);
         }
@@ -119,34 +118,36 @@ export class FullCalendarComponent
     const state = this.getParamsState(this.form.value, options);
     const params = this.getApiParams(state);
     const api = this.content?.calendar?.options?.api;
-    this.loading = true;
-    this.cd.detectChanges();
-    this.nodeService.search(api, params).subscribe((data) => {
-      this.options.events = data.map((item: any) => {
-        // events attr see EventApi
-        return {
-          title: item.label,
-          event: item.event,
-          type: item.type,
-          start: item.date,
-          url: item.url,
-          end: item.end || null,
-          user: item.user,
-          className: `${this.theme[item.type]} ${this.theme[item.event]} type-${
-            item.type
-          } event-${item.event}`,
-          // custom event style bg, border
-        };
+    if (api || params || this.options?.events) {
+      this.loading = true;
+      this.nodeService.search(api, params).subscribe((data) => {
+        if (this.options)
+          this.options.events = data.map((item: any) => {
+            // events attr see EventApi
+            const type = item.type;
+            const event = item.event;
+            return {
+              title: item.label,
+              event,
+              type,
+              start: item.date,
+              url: item.url,
+              end: item.end || null,
+              user: item.user,
+              className: `${this.theme?.type || ''} ${
+                this.theme?.event || ''
+              } type-${type} event-${event}`,
+              // custom event style bg, border
+            };
+          });
+        this.visiable = true;
+        this.loading = false;
+        this.cd.detectChanges();
       });
-      this.visiable = true;
-      this.loading = false;
-      this.cd.markForCheck();
-      this.cd.detectChanges();
-    });
+    }
   }
 
   handleDates(dates: DatesSetArg): void {
-    console.log(dates);
     this.viewApi = dates.view;
     switch (dates.view.type) {
       case 'dayGridMonth':

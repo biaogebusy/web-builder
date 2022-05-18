@@ -183,4 +183,14 @@
       }
     }
   }
+
+  .dynamic-table {
+    tbody {
+      > tr {
+        &:hover {
+          background-color: mat-color($primary, 0.1);
+        }
+      }
+    }
+  }
 }
