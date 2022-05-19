@@ -33,9 +33,9 @@
       }
       .law-files {
         .box {
+          background-color: mat-color($background, "app-bar");
+          @include mat-elevation(3, mat-color($background, "app-bar"), 0.5);
           .inner {
-            background-color: mat-color($background, "app-bar");
-            @include mat-elevation(3, mat-color($background, "app-bar"), 0.5);
             a {
               color: mat-color($foreground, text, 0.75);
               &:hover {

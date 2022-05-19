@@ -26,6 +26,9 @@ export class LinkComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    if (!this.content) {
+      return;
+    }
     this.getClasses();
     this.handlePrivate();
   }
@@ -36,7 +39,9 @@ export class LinkComponent implements OnInit {
 
   getClasses(): void {
     const obj: any = {};
-    obj[this.content.classes] = this.content.classes || false;
+    if (this.content.classes) {
+      obj[this.content.classes] = true;
+    }
     if (this.content.href) {
       const type = this.util.getFileType(this.content.href);
       obj[type] = type || false;

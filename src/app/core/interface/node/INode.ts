@@ -60,7 +60,7 @@ export interface ICommentContent {
     img: any;
     id: string;
     title: string;
-    subTitle: string;
+    subTitle: string | null;
   };
   time: string;
   id: string;

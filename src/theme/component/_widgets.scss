@@ -90,6 +90,9 @@
       }
     }
     .feature-inner-ling {
+      .media {
+        background-color: mat-color($background, background);
+      }
       &:before {
         box-shadow: 0px -5px 3px rgba(0, 0, 0, 0.1) inset;
         -moz-box-shadow: 0px -5px 3px rgba(0, 0, 0, 0.1) inset;
@@ -177,6 +180,16 @@
       }
       .ql-container {
         background-color: mat-color($background, card);
+      }
+    }
+  }
+
+  .dynamic-table {
+    tbody {
+      > tr {
+        &:hover {
+          background-color: mat-color($primary, 0.1);
+        }
       }
     }
   }
