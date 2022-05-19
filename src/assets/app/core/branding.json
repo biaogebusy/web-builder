@@ -193,6 +193,9 @@
             "label": "Profile 1v1 customer",
             "href": "/sample/combs/profile/profile1v1-customer"
           }, {
+            "label": "Profile 1v1 court",
+            "href": "/sample/combs/profile/profile1v1-court"
+          }, {
             "label": "Dynamic Media List",
             "href": "/sample/list/dynamic-media-list"
           }, {

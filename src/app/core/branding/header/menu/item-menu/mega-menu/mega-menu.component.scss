@@ -23,6 +23,9 @@
   ::ng-deep {
     a {
       font-size: 15px;
+      word-break: keep-all;
+      white-space: nowrap;
+      overflow: hidden;
     }
   }
   &:last-child {

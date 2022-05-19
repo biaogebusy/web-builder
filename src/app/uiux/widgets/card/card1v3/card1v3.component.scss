@@ -2,7 +2,8 @@
 @import "/src/theme//mixins/amixin";
 .card-1-v3 {
   .viewport {
-    height: calc(100vh - 210px);
+    // default height, can custom parent
+    height: 500px;
     overflow: auto;
   }
   .item {
