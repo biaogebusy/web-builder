@@ -19,6 +19,9 @@ export class MediaObjectComponent implements OnInit {
   ngOnInit(): void {}
 
   get align(): string {
+    if (this.content.align) {
+      return this.content.align;
+    }
     return this.content.content ? 'start start' : 'center center';
   }
 }

@@ -10,4 +10,5 @@ export interface IMediaObject {
   subTitle?: string;
   link?: ILink;
   content?: HTMLElement;
+  align: string;
 }

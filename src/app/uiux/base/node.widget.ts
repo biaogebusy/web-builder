@@ -48,6 +48,7 @@ export abstract class NodeComponent {
           },
           alt: comment.uid.name,
         },
+        align: 'center start',
         id: comment.uid.id,
         title: comment.uid.name,
         subTitle: formatDate(

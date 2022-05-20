@@ -10,9 +10,8 @@
         <ng-container *ngIf="!onShow(item.author.id, i)">
           <div class="comment-body m-top-xs" ngClass.gt-sm="m-left p-left-xs" [innerHTML]="item.content |safeHtml">
           </div>
-          <app-comment-actions *ngIf="item.author.id === userState.currentUser.id" class="display-block m-top-sm"
-            ngClass.gt-sm="m-left p-left-xs" [config]="content?.comment" [item]="item" [i]="i" [loading]="loading"
-            (update)="onUpdate($event)" (delete)="onDelete($event)">
+          <app-comment-actions *ngIf="item.author.id === userState.currentUser.id" [config]="content?.comment"
+            [item]="item" [i]="i" [loading]="loading" (update)="onUpdate($event)" (delete)="onDelete($event)">
           </app-comment-actions>
         </ng-container>
       </div>

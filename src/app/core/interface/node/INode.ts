@@ -62,6 +62,7 @@ export interface ICommentContent {
     id: string;
     title: string;
     subTitle: string | null;
+    align: string;
   };
   time: string;
   id: string;

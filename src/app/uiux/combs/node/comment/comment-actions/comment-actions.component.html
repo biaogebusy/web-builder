@@ -1,33 +1,37 @@
-<div class="actions" fxLayoutAlign="start center">
+<div class="actions">
   <ng-container *ngIf="!config?.actions;else configActions">
-    <button mat-button color="primary" (click)="onUpdateMyQuestion(i)">
-      <mat-icon>editor</mat-icon> 修改
-    </button>
-    <button mat-button color="primary" (click)="onDeleteMyQuestion(item.id)">
-      <div fxLayoutAlign="center center">
-        <mat-spinner diameter="20" *ngIf="loading"></mat-spinner>
-        <mat-icon *ngIf="!loading">delete</mat-icon> 删除
-      </div>
-    </button>
+    <div class="m-top-sm" ngClass.gt-sm="m-left p-left-xs" fxLayoutAlign="start center">
+      <button mat-button color="primary" (click)="onUpdateMyQuestion(i)">
+        <mat-icon>editor</mat-icon> 修改
+      </button>
+      <button mat-button color="primary" (click)="onDeleteMyQuestion(item.id)">
+        <div fxLayoutAlign="center center">
+          <mat-spinner diameter="20" *ngIf="loading"></mat-spinner>
+          <mat-icon *ngIf="!loading">delete</mat-icon> 删除
+        </div>
+      </button>
+    </div>
   </ng-container>
 
   <ng-template #configActions>
     <ng-container *ngFor="let action of config.actions">
-      <ng-container [ngSwitch]="action">
-        <ng-container *ngSwitchCase="'update'">
-          <button mat-button color="primary" (click)="onUpdateMyQuestion(i)">
-            <mat-icon>editor</mat-icon> 修改
-          </button>
+      <div class="display-block m-top-sm" ngClass.gt-sm="m-left p-left-xs" fxLayoutAlign="start center">
+        <ng-container [ngSwitch]="action">
+          <ng-container *ngSwitchCase="'update'">
+            <button mat-button color="primary" (click)="onUpdateMyQuestion(i)">
+              <mat-icon>editor</mat-icon> 修改
+            </button>
+          </ng-container>
+          <ng-container *ngSwitchCase="'delete'">
+            <button mat-button color="primary" (click)="onDeleteMyQuestion(item.id)">
+              <div fxLayoutAlign="center center">
+                <mat-spinner diameter="20" *ngIf="loading"></mat-spinner>
+                <mat-icon *ngIf="!loading">delete</mat-icon> 删除
+              </div>
+            </button>
+          </ng-container>
         </ng-container>
-        <ng-container *ngSwitchCase="'delete'">
-          <button mat-button color="primary" (click)="onDeleteMyQuestion(item.id)">
-            <div fxLayoutAlign="center center">
-              <mat-spinner diameter="20" *ngIf="loading"></mat-spinner>
-              <mat-icon *ngIf="!loading">delete</mat-icon> 删除
-            </div>
-          </button>
-        </ng-container>
-      </ng-container>
+      </div>
     </ng-container>
   </ng-template>
 </div>
