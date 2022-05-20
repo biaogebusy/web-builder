@@ -1,0 +1,37 @@
+<div class="actions" fxLayoutAlign="start center">
+  <ng-container *ngIf="!config?.actions;else configActions">
+    <button *ngIf="item.author.id === userState.currentUser.id" mat-button color="primary"
+      (click)="onUpdateMyQuestion(i)">
+      <mat-icon>editor</mat-icon> 修改
+    </button>
+    <button *ngIf="item.author.id === userState.currentUser.id" mat-button color="primary"
+      (click)="onDeleteMyQuestion(item.id)">
+      <div fxLayoutAlign="center center">
+        <mat-spinner diameter="20" *ngIf="loading"></mat-spinner>
+        <mat-icon *ngIf="!loading">delete</mat-icon> 删除
+      </div>
+    </button>
+  </ng-container>
+
+  <ng-template #configActions>
+    <ng-container *ngFor="let action of config.actions">
+      <ng-container [ngSwitch]="action">
+        <ng-container *ngSwitchCase="'update'">
+          <button *ngIf="item.author.id === userState.currentUser.id" mat-button color="primary"
+            (click)="onUpdateMyQuestion(i)">
+            <mat-icon>editor</mat-icon> 修改
+          </button>
+        </ng-container>
+        <ng-container *ngSwitchCase="'delete'">
+          <button *ngIf="item.author.id === userState.currentUser.id" mat-button color="primary"
+            (click)="onDeleteMyQuestion(item.id)">
+            <div fxLayoutAlign="center center">
+              <mat-spinner diameter="20" *ngIf="loading"></mat-spinner>
+              <mat-icon *ngIf="!loading">delete</mat-icon> 删除
+            </div>
+          </button>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+  </ng-template>
+</div>

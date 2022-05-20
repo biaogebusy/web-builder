@@ -17,6 +17,7 @@ export interface IBaseNode {
     action: any;
     succes: any;
   };
+  comment?: ICommentConfig;
   actions: any[];
   bottom: any[];
   sidebar?: any[];
@@ -65,6 +66,10 @@ export interface ICommentContent {
   time: string;
   id: string;
   content: string;
+}
+
+export interface ICommentConfig {
+  actions: string[];
 }
 
 export interface IQuestion extends IBaseNode {

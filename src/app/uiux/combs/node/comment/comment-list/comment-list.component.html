@@ -4,24 +4,13 @@
       <span class="bold">{{comments.length}}</span> 个回复
     </div>
     <mat-divider class="m-bottom-xs"></mat-divider>
-    <div class="item" *ngFor="let item of comments;let i as index; last as isLast; trackBy: trackByFn">
+    <div class="item" *ngFor="let item of comments;index as i;last as isLast; trackBy: trackByFn">
       <div class="comment-box" *ngIf="!onShow(item.author.id, i)">
         <a class="anchor" [id]="'q-'+item.id"></a>
         <app-media-object [content]="item.author"></app-media-object>
         <div class="comment-body p-y-xs" [innerHTML]="item.content |safeHtml"></div>
-        <div class="actions" fxLayoutAlign="start center">
-          <button *ngIf="item.author.id === userState.currentUser.id" mat-button color="primary"
-            (click)="onUpdateMyQuestion(i)">
-            <mat-icon>editor</mat-icon> 修改
-          </button>
-          <button *ngIf="item.author.id === userState.currentUser.id" mat-button color="primary"
-            (click)="onDeleteMyQuestion(item.id)">
-            <div fxLayoutAlign="center center">
-              <mat-spinner diameter="20" *ngIf="loading"></mat-spinner>
-              <mat-icon *ngIf="!loading">delete</mat-icon> 删除
-            </div>
-          </button>
-        </div>
+        <app-comment-actions [config]="content?.comment" [item]="item" [i]="i" [loading]="loading">
+        </app-comment-actions>
         <mat-divider *ngIf="!isLast" class="m-y-sm"></mat-divider>
       </div>
       <div class="inline-editor p-y-sm p-x-sm m-bottom" *ngIf="onShow(item.author.id, i)">

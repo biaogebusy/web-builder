@@ -635,6 +635,9 @@
       "empty": {
         "label": "暂时还没有工作日志。"
       }
+    },
+    "comment": {
+      "actions": ["update", "delete"]
     }
   }]
 }
