@@ -5,6 +5,9 @@ import {
   ChangeDetectionStrategy,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '../dialog/dialog.component';
+import { TextComponent } from '../text/text.component';
 
 @Component({
   selector: 'app-dynamic-table',
@@ -18,11 +21,31 @@ export class DynamicTableComponent implements OnInit {
 
   displayedColumns: string[];
 
-  constructor() {}
+  constructor(private dialog: MatDialog) {}
 
   ngOnInit(): void {
     if (this.content.elements) {
       this.displayedColumns = this.content.header.map((item: any) => item.key);
     }
+  }
+
+  onDialog(label: string, content: any): void {
+    this.dialog.open(DialogComponent, {
+      width: '600px',
+      data: {
+        renderInputComponent: TextComponent,
+        inputData: {
+          content: {
+            type: 'text',
+            spacer: 'none',
+            title: {
+              label,
+              style: 'style-v4',
+            },
+            body: content,
+          },
+        },
+      },
+    });
   }
 }

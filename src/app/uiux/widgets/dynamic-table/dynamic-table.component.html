@@ -9,7 +9,15 @@
           <app-dynamic-widgets [content]="element[item.key]" [form]="form"></app-dynamic-widgets>
         </ng-container>
         <ng-template #text>
-          <div class="p-y-xs p-x-xs text-cell" [innerHTML]="element[item.key]"></div>
+          <ng-container *ngIf="item.dialog && element[item.key];else normal">
+            <span class="p-y-xs p-x-xs text-cell"
+              [innerHTML]="element[item.key] | shorten:item.dialog.shorten||10:'...'"></span>
+            <a href="javascript:void(0)" [innerHTML]="item.dialog.label"
+              (click)="onDialog(item.label, element[item.key])"></a>
+          </ng-container>
+          <ng-template #normal>
+            <span class="p-y-xs p-x-xs text-cell" [innerHTML]="element[item.key]"></span>
+          </ng-template>
         </ng-template>
       </td>
     </ng-container>
