@@ -42,9 +42,9 @@ export abstract class NodeComponent {
           src:
             comment.uid?.user_picture?.uri?.url || this.userState.defaultAvatar,
           style: {
-            width: '45px',
-            height: '45px',
-            borderRadius: '3px',
+            width: '40px',
+            height: '40px',
+            borderRadius: '50%',
           },
           alt: comment.uid.name,
         },

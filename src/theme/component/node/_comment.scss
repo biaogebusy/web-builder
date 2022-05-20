@@ -10,6 +10,15 @@
 
   $text-color: mat-color($foreground, text, 0.75);
   .comment-list {
+    .comment-count {
+      border-bottom: 1px solid mat-color($foreground, divider);
+    }
+    .item {
+      border-bottom: 1px solid mat-color($foreground, divider);
+      &:last-child {
+        border-bottom: 0;
+      }
+    }
     .inline-editor {
       background-color: mat-color($background, background);
     }

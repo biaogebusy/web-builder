@@ -1,17 +1,20 @@
-<div class="comment-list m-y-sm p-y-sm p-x-sm position-relative" *ngIf="comments">
+<div class="comment-list m-y-sm p-top-sm p-x-sm position-relative" *ngIf="comments">
   <ng-container *ngIf="comments.length;else empty">
     <div class="comment-count p-y-xs">
       <span class="bold">{{comments.length}}</span> 个回复
     </div>
-    <mat-divider class="m-bottom-xs"></mat-divider>
-    <div class="item" *ngFor="let item of comments;index as i;last as isLast; trackBy: trackByFn">
-      <div class="comment-box" *ngIf="!onShow(item.author.id, i)">
+    <div class="item p-y" *ngFor="let item of comments;index as i;last as isLast; trackBy: trackByFn">
+      <div class="comment-box">
         <a class="anchor" [id]="'q-'+item.id"></a>
         <app-media-object [content]="item.author"></app-media-object>
-        <div class="comment-body p-y-xs" [innerHTML]="item.content |safeHtml"></div>
-        <app-comment-actions [config]="content?.comment" [item]="item" [i]="i" [loading]="loading">
-        </app-comment-actions>
-        <mat-divider *ngIf="!isLast" class="m-y-sm"></mat-divider>
+        <ng-container *ngIf="!onShow(item.author.id, i)">
+          <div class="comment-body m-top-xs" ngClass.gt-sm="m-left p-left-xs" [innerHTML]="item.content |safeHtml">
+          </div>
+          <app-comment-actions *ngIf="item.author.id === userState.currentUser.id" class="display-block m-top-sm"
+            ngClass.gt-sm="m-left p-left-xs" [config]="content?.comment" [item]="item" [i]="i" [loading]="loading"
+            (update)="onUpdate($event)" (delete)="onDelete($event)">
+          </app-comment-actions>
+        </ng-container>
       </div>
       <div class="inline-editor p-y-sm p-x-sm m-bottom" *ngIf="onShow(item.author.id, i)">
         <app-comment-form [content]="content" (commentChange)="onSubmitComment($event)" (cancel)="onCancel()"

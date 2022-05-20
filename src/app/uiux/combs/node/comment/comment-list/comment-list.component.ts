@@ -40,7 +40,7 @@ export class CommentListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {}
 
-  onUpdateMyQuestion(i: number): void {
+  onUpdate(i: number): void {
     this.showInlineEditor = true;
     this.currentIndex = i;
     this.cd.detectChanges();
@@ -67,7 +67,7 @@ export class CommentListComponent implements OnInit, OnDestroy {
     }
   }
 
-  onDeleteMyQuestion(id: string): void {
+  onDelete(id: string): void {
     this.loading = true;
     this.nodeService
       .deleteEntity(
