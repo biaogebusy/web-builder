@@ -15,6 +15,7 @@ import { ScreenService } from '@core/service/screen.service';
 import { of, Subject } from 'rxjs';
 import { catchError, takeUntil } from 'rxjs/operators';
 import { IBaseNode, ICommentParams } from '@core/interface/node/INode';
+import { merge } from 'lodash-es';
 @Component({
   selector: 'app-comment-form',
   templateUrl: './comment-form.component.html',
@@ -80,7 +81,8 @@ export class CommentFormComponent implements OnInit, OnDestroy {
           },
         },
       };
-      this.nodeService.replyComment(type, entity, token).subscribe((res) => {
+      const data = merge(params, entity);
+      this.nodeService.replyComment(type, data, token).subscribe((res) => {
         this.htmlData = '';
         this.done('回复成功！');
       });
