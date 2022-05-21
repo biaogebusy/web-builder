@@ -1,0 +1,163 @@
+@apiUrl = https://amigo-api.zhaobg.com
+@user = root
+@psw = Amigo@Abcd1234
+
+### get session
+GET {{apiUrl}}/session/token
+
+### user login
+# @name login
+POST {{apiUrl}}/user/login?_format=json HTTP/1.1
+content-type: application/json
+
+{"name": "{{user}}","pass": "{{psw}}"}
+
+###
+@logoutToken = {{login.response.body.logout_token}}
+
+###
+@csrfToken = {{login.response.body.csrf_token}}
+
+### get user status
+GET {{apiUrl}}/user/login_status?_format=json HTTP/1.1
+
+### get user profile
+GET {{apiUrl}}/api/v1/accountProfile
+
+### user logout
+POST {{apiUrl}}/user/logout?_format=json&token={{logoutToken}} HTTP/1.1
+Content-type: application/json
+withCredentials: true
+
+### logout v2 强制退出
+POST {{apiUrl}}/user/logout HTTP/1.1
+
+### test
+GET {{apiUrl}}/api/v1/comment/comment?filter[entity_id.id]=18dac740-1d11-43c0-a431-d2b9e402fe6b&include=uid,uid.user_picture&fields[user--user]=name,user_picture&fields[file--file]=uri,url&sort=-created&jsonapi_include=1
+
+
+
+### get question with comment relation user
+GET {{apiUrl}}/api/v1/node/question?fields[node--question]=title,changed,path,drupal_internal__nid,answer,uid&include=uid,uid.user_picture&fields[user--user]=name,user_picture&fields[file--file]=uri&jsonapi_include=1
+
+### get question comment by user
+GET {{apiUrl}}/api/v1/comment/answer?filter[uid.id]=d5fb03cb-abca-43ba-baa5-a162a576e67a&filter[entity_id.id]=18dac740-1d11-43c0-a431-d2b9e402fe6b&sort=-created&page[limit]=1
+Accept: application/vnd.api+json
+Content-Type: application/vnd.api+json
+X-CSRF-Token: {{csrfToken}}
+
+### get comment
+GET https://amigo-api.zhaobg.com/api/v1/comment/comment?filter[entity_id.id]=da49e221-beca-433d-8eb6-1e59177c7ac9&include=uid,uid.user_picture&fields[user--user]=name,user_picture&fields[file--file]=uri,url&sort=-created&filter[status]=1&jsonapi_include=1&timeStamp=1651589932351
+Accept: application/vnd.api+json
+Content-Type: application/vnd.api+json
+X-CSRF-Token: {{csrfToken}}
+
+
+
+
+### post question comment
+POST {{apiUrl}}/api/v1/comment/comment
+Accept: application/vnd.api+json
+Content-Type: application/vnd.api+json
+X-CSRF-Token: {{csrfToken}}
+
+{
+  "data":{
+    "type": "comment--comment",
+    "attributes":{
+     "entity_type": "node",
+      "field_name": "comment",
+      "comment_body":{
+        "value":"New comment by johnson!",
+        "format":"plain_text"
+      }
+    },
+    "relationships": {
+       "comment_type":{
+        "data":{
+          "type":"comment_type--comment_type",
+         "id": "19c33b19-bfdc-4a26-9c64-af6171b123cb"
+        }
+      },
+      "entity_id":{
+        "data":{
+          "type": "node--case",
+          "id": "702d126f-b9d2-4a57-b157-6ccf416fcd62"
+        }
+      }
+    }
+  }
+}
+
+###
+GET {{apiUrl}}/api/v1/comment/comment
+Accept: application/vnd.api+json
+Content-Type: application/vnd.api+json
+X-CSRF-Token: {{csrfToken}}
+
+### replay a comment
+POST {{apiUrl}}/api/v1/comment/comment
+Accept: application/vnd.api+json
+Content-Type: application/vnd.api+json
+X-CSRF-Token: {{csrfToken}}
+
+{
+  "data": {
+    "type": "comment--comment",
+    "attributes": {
+      "entity_type": "node",
+      "field_name": "comment",
+      "comment_body": {
+        "value": "<p>回复测试001</p >\r\n",
+        "format": "full_html"
+      }
+    },
+    "relationships": {
+      "comment_type": {
+        "data": {
+          "type": "comment_type--comment_type",
+          "id": "19c33b19-bfdc-4a26-9c64-af6171b123cb"
+        }
+      },
+      "pid": {
+        "data": {
+          "type": "comment--comment",
+          "id": "12f18dad-179f-4f7d-9322-1c2db0cc4bca"
+        }
+      },
+      "entity_id": {
+        "data": {
+          "type": "node--case",
+          "id": "deef4a32-fcb3-48aa-8e4e-0a6bd0302f05"
+        }
+      }
+    }
+  }
+}
+
+### update comment
+PATCH {{apiUrl}}/api/v1/comment/answer/92e32979-ebbd-494c-aabe-6a1f9a6b505d
+Accept: application/vnd.api+json
+Content-Type: application/vnd.api+json
+X-CSRF-Token: {{csrfToken}}
+
+{
+  "data": {
+    "type": "comment--answer",
+    "id": "92e32979-ebbd-494c-aabe-6a1f9a6b505d",
+    "attributes": {
+      "content": {
+        "value": "Updated body text",
+        "format": "full_html",
+      }
+    },
+    "relationships": {
+      "uid": {
+        "data": {
+          "type": "user--user",
+          "id": "d5fb03cb-abca-43ba-baa5-a162a576e67a"
+        }
+      }
+    }
+  }
+}

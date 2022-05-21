@@ -1,0 +1,130 @@
+@apiUrl = https://amigo-api.zhaobg.com
+@user = root
+@psw = Amigo@Abcd1234
+
+### get session
+GET {{apiUrl}}/session/token
+
+### user login
+# @name login
+POST {{apiUrl}}/user/login?_format=json HTTP/1.1
+content-type: application/json
+
+{"name": "{{user}}","pass": "{{psw}}"}
+
+###
+@logoutToken = {{login.response.body.logout_token}}
+
+###
+@csrfToken = {{login.response.body.csrf_token}}
+
+### get user status
+GET {{apiUrl}}/user/login_status?_format=json HTTP/1.1
+
+### get user profile
+GET {{apiUrl}}/api/v1/accountProfile
+
+### user logout
+POST {{apiUrl}}/user/logout?_format=json&token={{logoutToken}} HTTP/1.1
+Content-type: application/json
+withCredentials: true
+
+### logout v2 强制退出
+POST {{apiUrl}}/user/logout HTTP/1.1
+
+### get lxy
+GET https://lxyapi.zhaobg.com/api/v1/content?six-point=217
+
+
+### get taxonomy
+GET {{apiUrl}}/taxonomy/term/30?category=28
+
+
+
+### 咨询变量
+@consultType = consult
+@consultID = dfc8256d-7526-480a-b354-06d584204537
+
+### 案源广场 - 全部
+GET {{apiUrl}}/api/v1/node/consult?fields[node--consult]=title,uid,changed,consult_answer,field_tags,moderation_state&include=uid,uid.user_picture,field_tags&fields[taxonomy_term--consult_type]=name&fields[user--user]=name,user_picture&fields[file--file]=uri,url&jsonapi_include=1&page[limit]=10
+
+### 某个咨询的全部回复
+GET {{apiUrl}}/api/v1/comment/consult_answer?filter[entity_id.id]=dfc8256d-7526-480a-b354-06d584204537&include=uid,uid.user_picture&fields[user--user]=name,user_picture&fields[file--file]=uri,url&sort=-created&filter[status]=1&jsonapi_include=1
+
+### 获取待发布咨询
+GET {{apiUrl}}/api/v1/node/consult?fields[node--consult]=title,uid,changed,consult_answer,field_tags&include=uid,uid.user_picture,field_tags&fields[taxonomy_term--consult_type]=name&fields[user--user]=name,user_picture&fields[file--file]=uri,url&filter[assist_moderation_state]=draft&jsonapi_include=1
+
+### 获取咨询已回复的node
+GET {{apiUrl}}/api/v1/node/consult?fields[node--consult]=title,uid,changed,consult_answer,field_tags&include=uid,uid.user_picture,field_tags&fields[taxonomy_term--consult_type]=name&fields[user--user]=name,user_picture&fields[file--file]=uri,url&jsonapi_include=1
+
+### 查看某个用户的发布的咨询的回复数
+GET {{apiUrl}}/api/v1/node/consult
+
+### 回复某个咨询
+POST {{apiUrl}}/api/v1/comment/consult_answer
+Accept: application/vnd.api+json
+Content-Type: application/vnd.api+json
+X-CSRF-Token: {{csrfToken}}
+
+{
+  "data":{
+    "type": "comment--consult_answer",
+    "attributes":{
+      "entity_type":"node",
+      "field_name":"consult_answer",
+      "content":{
+        "value":"{{回复咨询的内容}}",
+        "format":"plain_text"
+      }
+    },
+    "relationships":{
+      "comment_type":{
+        "data":{
+          "type":"comment_type--comment_type",
+          "id": "662120d4-c423-4b1e-a221-5b4bb906fcf9"
+        }
+      },
+      "entity_id":{
+        "data":{
+          "type":"node--consult",
+          "@id":"当前node的id",
+          "id":"dfc8256d-7526-480a-b354-06d584204537"
+        }
+      }
+    }
+  }
+}
+
+### 全部咨询
+GET {{apiUrl}}/api/v1/node/consult
+
+### 发布咨询
+POST {{apiUrl}}/api/v1/node/question
+Accept: application/vnd.api+json
+Content-Type: application/vnd.api+json
+X-CSRF-Token: {{csrfToken}}
+
+{
+  "data": {
+    "type": "node--consult",
+    "attributes": {
+      "title": "new consult by Johnson status false",
+      "status":false,
+      "body": {
+        "value": "Hello world! Lorem ipsum dolor sit amet consectetur adipiscing elit",
+        "format": "plain_text"
+      }
+    },
+    "relationships":{
+      "field_tags":{
+        "data":{
+              "type": "taxonomy_term--consult_type",
+              "id": "9af0acac-db7a-42ef-b4a6-cc19313d89a9"
+            }
+      }
+    }
+  }
+}
+
+### update case taxonomy
+GET {{apiUrl}}/api/v1/schedule/personal_schedule
