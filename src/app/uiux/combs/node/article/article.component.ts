@@ -125,7 +125,10 @@ export class ArticleComponent
   }
 
   getComments(timeStamp = 1): void {
-    const { path, type, params } = this.getNodeParams(this.content, timeStamp);
+    const { path, type, params } = this.getCommentsParams(
+      this.content,
+      timeStamp
+    );
     this.nodeService
       .getNodes(path, type, params)
       .pipe(takeUntil(this.destroy$))

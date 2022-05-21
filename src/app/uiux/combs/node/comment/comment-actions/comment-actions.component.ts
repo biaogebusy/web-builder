@@ -13,15 +13,21 @@ export class CommentActionsComponent implements OnInit {
   @Input() i: number;
   @Input() loading: boolean;
   @Output() update = new EventEmitter();
+  @Output() reply = new EventEmitter();
   @Output() delete = new EventEmitter();
   constructor(public userState: UserState) {}
 
   ngOnInit(): void {}
 
-  onUpdateMyQuestion(index: number): void {
-    this.update.emit(index);
+  onUpdate(index: number): void {
+    this.update.emit({ item: this.item, index });
   }
-  onDeleteMyQuestion(id: string): void {
+
+  onReply(index: number): void {
+    this.reply.emit({ item: this.item, index });
+  }
+
+  onDelete(id: string): void {
     this.delete.emit(id);
   }
 }

@@ -15,7 +15,13 @@ import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { NodeComponent } from '@uiux/base/node.widget';
 import { Subject } from 'rxjs';
-import { takeUntil, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import {
+  takeUntil,
+  debounceTime,
+  distinctUntilChanged,
+  map,
+} from 'rxjs/operators';
+// import data from './data.json';
 @Component({
   selector: 'app-law-case',
   templateUrl: './law-case.component.html',
@@ -105,19 +111,22 @@ export class LawCaseComponent extends NodeComponent implements OnInit {
   }
 
   getComments(timeStamp = 1): void {
-    const { path, type, params } = this.getNodeParams(this.content, timeStamp);
+    const { path, type, params } = this.getCommentsParams(
+      this.content,
+      timeStamp
+    );
     this.nodeService
       .getNodes(path, type, params, this.userState.currentUser.csrf_token)
       .pipe(
         takeUntil(this.destroy$)
         // map((res) => {
         //   return data;
-        // }),
+        // })
         // catchError(() => {
         //   return of(data);
         // })
       )
-      .subscribe((res) => {
+      .subscribe((res: any) => {
         this.comments = res.data.map((comment: any) => {
           return this.handleComment(comment);
         });

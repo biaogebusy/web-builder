@@ -25,6 +25,7 @@ export class CommentFormComponent implements OnInit, OnDestroy {
   @Input() content: IBaseNode;
   @Input() commentContent: any;
   @Input() commentId: string;
+  @Input() type: string;
   @Output() commentChange = new EventEmitter();
   @Output() cancel = new EventEmitter();
 
@@ -57,7 +58,34 @@ export class CommentFormComponent implements OnInit, OnDestroy {
 
   onSubmit(value: any): void {
     this.loading = true;
+    const token = this.userState.csrfToken;
     const params: ICommentParams = this.content.params.comment;
+    const type = params.attributes?.field_name || '';
+    if (this.type === 'reply') {
+      console.log(value);
+      const entity = {
+        type: params.type,
+        attributes: {
+          comment_body: {
+            value,
+            format: 'full_html',
+          },
+        },
+        relationships: {
+          pid: {
+            data: {
+              type: params.type,
+              id: this.commentId,
+            },
+          },
+        },
+      };
+      this.nodeService.replyComment(type, entity, token).subscribe((res) => {
+        this.htmlData = '';
+        this.done('回复成功！');
+      });
+      return;
+    }
     if (!this.commentContent && params) {
       // 默认comment_boyd，不一致的在后台覆写字段 /admin/config/services/jsonapi/add/resource_types
       params.attributes.comment_body = {
@@ -65,20 +93,12 @@ export class CommentFormComponent implements OnInit, OnDestroy {
         format: 'full_html',
       };
       this.nodeService
-        .addComment(
-          params.attributes?.field_name || '',
-          params,
-          this.userState.csrfToken
-        )
+        .addComment(type, params, this.userState.csrfToken)
         .pipe(takeUntil(this.destroy$))
         .subscribe(
           (res) => {
-            this.loading = false;
-            this.utilitiesService.openSnackbar(
-              this.content?.editor?.succes.label || '成功提交！'
-            );
             this.htmlData = '';
-            this.commentChange.emit(true);
+            this.done('提交成功！');
           },
           () => {
             this.loading = false;
@@ -105,20 +125,11 @@ export class CommentFormComponent implements OnInit, OnDestroy {
         },
       };
       this.nodeService
-        .updateComment(
-          params.attributes?.field_name || '',
-          entity,
-          this.commentId,
-          this.userState.csrfToken
-        )
+        .updateComment(type, entity, this.commentId, token)
         .pipe(takeUntil(this.destroy$))
         .subscribe(
           (res) => {
-            this.loading = false;
-            this.utilitiesService.openSnackbar(
-              this.content?.editor?.succes?.label || '更新成功！'
-            );
-            this.commentChange.emit(true);
+            this.done('更新成功！');
           },
           (error) => {
             this.loading = false;
@@ -126,6 +137,15 @@ export class CommentFormComponent implements OnInit, OnDestroy {
           }
         );
     }
+    this.cd.detectChanges();
+  }
+
+  done(snack: string): void {
+    this.loading = false;
+    this.utilitiesService.openSnackbar(
+      this.content?.editor?.succes?.label || snack
+    );
+    this.commentChange.emit(true);
     this.cd.detectChanges();
   }
 

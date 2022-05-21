@@ -153,6 +153,17 @@ export class NodeService extends ApiService {
     );
   }
 
+  replyComment(type: string, entityData: any, token: string): Observable<any> {
+    const entity = {
+      data: entityData,
+    };
+    return this.http.post<any>(
+      `${this.apiUrl}${this.apiUrlConfig.commentGetPath}/${type}`,
+      JSON.stringify(entity),
+      this.optionsWithCookieAndToken(token)
+    );
+  }
+
   updateLawCase(data: any, uuid: string, token: string): Observable<any> {
     return this.http.patch<any>(
       `${this.apiUrl}/api/v1/node/case/${uuid}`,

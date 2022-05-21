@@ -26,8 +26,10 @@ export class CommentListComponent implements OnInit, OnDestroy {
   @Input() comments: any;
   @Output() commentChange = new EventEmitter();
   loading: boolean;
-  showInlineEditor = false;
   currentIndex: number;
+  currentData: string;
+  showComment = true;
+  type: 'reply' | 'update' | 'add';
 
   destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
@@ -40,31 +42,41 @@ export class CommentListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {}
 
-  onUpdate(i: number): void {
-    this.showInlineEditor = true;
-    this.currentIndex = i;
+  onUpdate(data: any): void {
+    this.currentIndex = data.index;
+    this.showComment = false;
+    this.currentData = data.item.content;
     this.cd.detectChanges();
   }
 
-  onShow(id: string, i: number): boolean {
-    return (
-      this.showInlineEditor &&
-      id === this.userState.currentUser.id &&
-      i === this.currentIndex
-    );
+  onShow(i: number): boolean {
+    if (i !== this.currentIndex) {
+      return true;
+    }
+    return i === this.currentIndex && this.showComment;
   }
 
   onCancel(): void {
-    this.showInlineEditor = false;
+    this.showComment = true;
+    this.currentIndex = NaN;
     this.cd.detectChanges();
   }
 
   onSubmitComment(state: boolean): void {
     if (state) {
-      this.showInlineEditor = false;
+      this.showComment = true;
       this.commentChange.emit(state);
       this.cd.detectChanges();
     }
+  }
+
+  onReply(data: any): void {
+    console.log(data);
+    this.currentIndex = data.index;
+    this.showComment = true;
+    this.currentData = '';
+    this.type = 'reply';
+    this.cd.detectChanges();
   }
 
   onDelete(id: string): void {

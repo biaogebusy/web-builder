@@ -17,14 +17,14 @@ export abstract class NodeComponent {
     return content?.params?.comment?.relationships?.entity_id?.data?.id || '';
   }
 
-  getNodeParams(content: any, timeStamp: number): any {
+  getCommentsParams(content: any, timeStamp: number): any {
     const type = this.getCommentType(content);
     return {
       path: this.nodeService.apiUrlConfig.commentGetPath,
       type,
       params: [
         `filter[entity_id.id]=${this.getCommentRelEntityId(content)}`,
-        `include=uid,uid.user_picture`,
+        `include=uid,uid.user_picture,pid`,
         `fields[user--user]=name,user_picture`,
         `fields[file--file]=uri,url`,
         `sort=-created`,
