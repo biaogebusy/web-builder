@@ -22,6 +22,7 @@ import { LawShowcaseComponent } from './law/law-showcase/law-showcase.component'
 import { LawCardComponent } from './law/law-card/law-card.component';
 import { LawHeaderComponent } from './law/law-header/law-header.component';
 import { CommentActionsComponent } from './comment/comment-actions/comment-actions.component';
+import { CommentItemComponent } from './comment/comment-list/comment-item/comment-item.component';
 
 const components = [
   JobComponent,
@@ -39,6 +40,7 @@ const components = [
   LawTableComponent,
   CommentFormComponent,
   CommentListComponent,
+  CommentItemComponent,
   LawShowcaseComponent,
   LawCardComponent,
   LawHeaderComponent,

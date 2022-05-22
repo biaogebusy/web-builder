@@ -45,7 +45,7 @@ export class LawCaseComponent extends NodeComponent implements OnInit {
     private uti: UtilitiesService,
     private formState: FormState
   ) {
-    super(userState, nodeService);
+    super();
   }
 
   ngOnInit(): void {
@@ -111,25 +111,11 @@ export class LawCaseComponent extends NodeComponent implements OnInit {
   }
 
   getComments(timeStamp = 1): void {
-    const { path, type, params } = this.getCommentsParams(
-      this.content,
-      timeStamp
-    );
     this.nodeService
-      .getNodes(path, type, params, this.userState.currentUser.csrf_token)
-      .pipe(
-        takeUntil(this.destroy$)
-        // map((res) => {
-        //   return data;
-        // })
-        // catchError(() => {
-        //   return of(data);
-        // })
-      )
-      .subscribe((res: any) => {
-        this.comments = res.data.map((comment: any) => {
-          return this.handleComment(comment);
-        });
+      .getCommentsWitchChild(this.content, timeStamp)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((res) => {
+        this.comments = res;
         this.cd.markForCheck();
       });
   }

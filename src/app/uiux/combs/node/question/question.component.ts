@@ -15,7 +15,7 @@ import { ScreenService } from '@core/service/screen.service';
 import { NodeComponent } from '@uiux/base/node.widget';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { LoginComponent } from '../../../../modules/user/login/login.component';
+import { LoginComponent } from 'src/app/modules/user/login/login.component';
 
 @Component({
   selector: 'app-question',
@@ -43,7 +43,7 @@ export class QuestionComponent
     private router: Router,
     private dialog: MatDialog
   ) {
-    super(userState, nodeService);
+    super();
   }
 
   ngOnInit(): void {
@@ -66,8 +66,8 @@ export class QuestionComponent
 
   checkIsAsked(): void {
     // TODO: 使用node查询是否有评论即可
-    const entityId = this.getCommentRelEntityId(this.content);
-    const entityType = this.getCommentType(this.content);
+    const entityId = this.nodeService.getCommentRelEntityId(this.content);
+    const entityType = this.nodeService.getCommentType(this.content);
     const params = [
       `filter[uid.id]=${this.userState.currentUser.id}`,
       `filter[entity_id.id]=${entityId}`,
@@ -98,17 +98,11 @@ export class QuestionComponent
   }
 
   getComments(timeStamp = 1): void {
-    const { path, type, params } = this.getCommentsParams(
-      this.content,
-      timeStamp
-    );
     this.nodeService
-      .getNodes(path, type, params)
+      .getCommentsWitchChild(this.content, timeStamp)
       .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {
-        this.comments = res.data.map((comment: any) => {
-          return this.handleComment(comment);
-        });
+        this.comments = res;
         this.cd.markForCheck();
       });
   }

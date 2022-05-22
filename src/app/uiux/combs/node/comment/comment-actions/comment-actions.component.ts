@@ -11,6 +11,7 @@ export class CommentActionsComponent implements OnInit {
   @Input() config: ICommentConfig;
   @Input() item: any;
   @Input() i: number;
+  @Input() currentId: string;
   @Input() loading: boolean;
   @Output() update = new EventEmitter();
   @Output() reply = new EventEmitter();
@@ -19,15 +20,22 @@ export class CommentActionsComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onUpdate(index: number): void {
-    this.update.emit({ item: this.item, index });
+  onUpdate(): void {
+    this.update.emit({ item: this.item });
   }
 
-  onReply(index: number): void {
-    this.reply.emit({ item: this.item, index });
+  onReply(): void {
+    this.reply.emit({ item: this.item });
   }
 
   onDelete(id: string): void {
     this.delete.emit(id);
+  }
+
+  isMy(): boolean {
+    return (
+      this.item.author.id === this.userState.currentUser.id &&
+      !(this.item.id === this.currentId)
+    );
   }
 }

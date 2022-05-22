@@ -1,3 +1,4 @@
+import { IImg } from '@core/interface/widgets/IImg';
 export interface IBaseNode {
   title: string;
   body: string;
@@ -58,7 +59,7 @@ export interface ICommentParams {
 
 export interface ICommentContent {
   author: {
-    img: any;
+    img: IImg;
     id: string;
     title: string;
     subTitle: string | null;
@@ -67,6 +68,8 @@ export interface ICommentContent {
   time: string;
   id: string;
   content: string;
+  child: ICommentContent[] | [];
+  level: number;
 }
 
 export interface ICommentConfig {

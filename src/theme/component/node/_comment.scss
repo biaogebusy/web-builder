@@ -14,9 +14,12 @@
       border-bottom: 1px solid mat-color($foreground, divider);
     }
     .item {
-      border-bottom: 1px solid mat-color($foreground, divider);
+      border-bottom: 1px solid mat-color($foreground, divider, 0.08);
       &:last-child {
         border-bottom: 0;
+      }
+      .item-child {
+        background-color: mat-color($background, app-bar);
       }
     }
     .inline-editor {

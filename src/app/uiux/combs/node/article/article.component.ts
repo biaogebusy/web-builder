@@ -75,7 +75,7 @@ export class ArticleComponent
     private uti: UtilitiesService,
     @Inject(DOCUMENT) private document: Document
   ) {
-    super(userState, nodeService);
+    super();
     if (this.screenService.isPlatformBrowser()) {
       hljs.registerLanguage('javascript', javascript);
       hljs.registerLanguage('php', php);
@@ -125,17 +125,11 @@ export class ArticleComponent
   }
 
   getComments(timeStamp = 1): void {
-    const { path, type, params } = this.getCommentsParams(
-      this.content,
-      timeStamp
-    );
     this.nodeService
-      .getNodes(path, type, params)
+      .getCommentsWitchChild(this.content, timeStamp)
       .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {
-        this.comments = res.data.map((comment: any) => {
-          return this.handleComment(comment);
-        });
+        this.comments = res;
         this.cd.markForCheck();
       });
   }
