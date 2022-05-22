@@ -1,6 +1,6 @@
-@apiUrl = https://amigo-api.zhaobg.com
-@user = root
-@psw = Amigo@Abcd1234
+@apiUrl = https://api.nnitpai.com
+@user = 小南
+@psw = 4j4FzhZesg6gAgP
 
 ### get session
 GET {{apiUrl}}/session/token
@@ -47,12 +47,16 @@ Content-Type: application/vnd.api+json
 X-CSRF-Token: {{csrfToken}}
 
 ### get comment
-GET https://amigo-api.zhaobg.com/api/v1/comment/comment?filter[entity_id.id]=da49e221-beca-433d-8eb6-1e59177c7ac9&include=uid,uid.user_picture&fields[user--user]=name,user_picture&fields[file--file]=uri,url&sort=-created&filter[status]=1&jsonapi_include=1&timeStamp=1651589932351
+GET {{apiUrl}}/api/v1/comment/comment?filter[entity_id.id]=deef4a32-fcb3-48aa-8e4e-0a6bd0302f05&include=uid,uid.user_picture,pid&fields[user--user]=name,user_picture&fields[file--file]=uri,url&sort=-created&filter[status]=1&jsonapi_include=1&timeStamp=1&[limit]=10
 Accept: application/vnd.api+json
 Content-Type: application/vnd.api+json
 X-CSRF-Token: {{csrfToken}}
 
-
+### get comment of child
+GET {{apiUrl}}/api/v1/comment/answer?filter[pid.id]=b3765d39-6397-4e96-96c0-00e73972bbab&include=uid,uid.user_picture,pid&fields[user--user]=name,user_picture&fields[file--file]=uri,url&sort=-created&filter[status]=1&jsonapi_include=1&timeStamp=1653187123634
+Accept: application/vnd.api+json
+Content-Type: application/vnd.api+json
+X-CSRF-Token: {{csrfToken}}
 
 
 ### post question comment
@@ -161,3 +165,4 @@ X-CSRF-Token: {{csrfToken}}
     }
   }
 }
+
