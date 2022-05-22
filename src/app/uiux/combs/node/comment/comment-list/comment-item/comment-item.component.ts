@@ -1,11 +1,9 @@
 import {
   ChangeDetectorRef,
   Component,
-  EventEmitter,
   Input,
   OnDestroy,
   OnInit,
-  Output,
 } from '@angular/core';
 import { ICommentContent } from '@core/interface/node/INode';
 import { AppState } from '@core/mobx/AppState';
@@ -15,6 +13,7 @@ import { UtilitiesService } from '@core/service/utilities.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ScreenService } from '@core/service/screen.service';
+import { ContentState } from '@core/mobx/ContentState';
 
 @Component({
   selector: 'app-comment-item',
@@ -24,7 +23,7 @@ import { ScreenService } from '@core/service/screen.service';
 export class CommentItemComponent implements OnInit, OnDestroy {
   @Input() content: any;
   @Input() comments: ICommentContent[];
-  @Output() commentChange = new EventEmitter();
+
   destroy$: Subject<boolean> = new Subject<boolean>();
   currentId: string;
   showComment = true;
@@ -38,10 +37,23 @@ export class CommentItemComponent implements OnInit, OnDestroy {
     private cd: ChangeDetectorRef,
     private nodeService: NodeService,
     private utilitiesService: UtilitiesService,
-    private screenService: ScreenService
+    private screenService: ScreenService,
+    public contentState: ContentState
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.screenService.isPlatformBrowser()) {
+      this.contentState.commentChange$.subscribe((state) => {
+        if (state) {
+          this.showComment = true;
+          this.showActions = true;
+          this.currentId = '';
+          this.screenService.scrollToAnchor(`q-${this.currentId}`);
+          this.cd.detectChanges();
+        }
+      });
+    }
+  }
 
   onUpdate(data: any): void {
     this.currentId = data.item.id;
@@ -76,16 +88,6 @@ export class CommentItemComponent implements OnInit, OnDestroy {
     this.cd.detectChanges();
   }
 
-  onSubmitComment(state: boolean): void {
-    if (state) {
-      this.showComment = true;
-      this.showActions = true;
-      this.screenService.scrollToAnchor(`q-${this.currentId}`);
-      this.commentChange.emit(state);
-      this.cd.detectChanges();
-    }
-  }
-
   onDelete(id: string): void {
     this.loading = true;
     this.nodeService
@@ -99,7 +101,6 @@ export class CommentItemComponent implements OnInit, OnDestroy {
         (res) => {
           this.loading = false;
           this.utilitiesService.openSnackbar('您的回答已删除！', '√');
-          this.commentChange.emit(true);
         },
         () => {
           this.loading = false;

@@ -1,9 +1,7 @@
 import {
   Component,
   Input,
-  Output,
   OnInit,
-  EventEmitter,
   ChangeDetectionStrategy,
 } from '@angular/core';
 import { UserState } from '@core/mobx/user/UserState';
@@ -18,7 +16,6 @@ import { ICommentContent } from '@core/interface/node/INode';
 export class CommentListComponent implements OnInit {
   @Input() content: any;
   @Input() comments: ICommentContent[];
-  @Output() commentChange = new EventEmitter();
 
   constructor(public userState: UserState) {}
 

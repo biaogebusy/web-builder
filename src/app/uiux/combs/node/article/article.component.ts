@@ -33,6 +33,7 @@ import { UserService } from '@core/service/user.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { NodeComponent } from '@uiux/base/node.widget';
 import { IBaseNode } from '@core/interface/node/INode';
+import { ContentState } from '@core/mobx/ContentState';
 
 @Component({
   selector: 'app-article',
@@ -73,6 +74,7 @@ export class ArticleComponent
     public userState: UserState,
     private userService: UserService,
     private uti: UtilitiesService,
+    public contentState: ContentState,
     @Inject(DOCUMENT) private document: Document
   ) {
     super();
@@ -93,6 +95,16 @@ export class ArticleComponent
     this.checkAccess();
     if (this.appState.article?.comment?.enabel) {
       this.getComments();
+      if (this.screenService.isPlatformBrowser()) {
+        this.contentState.commentChange$
+          .pipe(takeUntil(this.destroy$))
+          .subscribe((state) => {
+            debugger;
+            if (state) {
+              this.getComments(+new Date());
+            }
+          });
+      }
     }
 
     this.userState.user$.subscribe(() => {
@@ -131,23 +143,6 @@ export class ArticleComponent
       .subscribe((res) => {
         this.comments = res;
         this.cd.markForCheck();
-      });
-  }
-
-  onChange(state: boolean): void {
-    if (state) {
-      this.getComments(+new Date());
-    }
-  }
-
-  onDeleted(id: string): void {
-    const path = `${this.appState.apiUrlConfig.commentGetPath}/comment`;
-    this.nodeService
-      .deleteEntity(path, id, this.userState.csrfToken)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((res) => {
-        this.uti.openSnackbar('您的回答已删除！', '√');
-        this.getComments(+new Date());
       });
   }
 

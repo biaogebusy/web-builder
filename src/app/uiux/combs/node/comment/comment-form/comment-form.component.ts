@@ -16,6 +16,8 @@ import { of, Subject } from 'rxjs';
 import { catchError, takeUntil } from 'rxjs/operators';
 import { IBaseNode, ICommentParams } from '@core/interface/node/INode';
 import { merge } from 'lodash-es';
+import { ContentState } from '@core/mobx/ContentState';
+
 @Component({
   selector: 'app-comment-form',
   templateUrl: './comment-form.component.html',
@@ -27,7 +29,6 @@ export class CommentFormComponent implements OnInit, OnDestroy {
   @Input() commentContent: any;
   @Input() commentId: string;
   @Input() type: string;
-  @Output() commentChange = new EventEmitter();
   @Output() cancel = new EventEmitter();
 
   loading = false;
@@ -41,7 +42,8 @@ export class CommentFormComponent implements OnInit, OnDestroy {
     private nodeService: NodeService,
     public screenService: ScreenService,
     private utilitiesService: UtilitiesService,
-    private userState: UserState
+    private userState: UserState,
+    public contentState: ContentState
   ) {}
 
   ngOnInit(): void {
@@ -82,10 +84,19 @@ export class CommentFormComponent implements OnInit, OnDestroy {
         },
       };
       const data = merge(params, entity);
-      this.nodeService.replyComment(type, data, token).subscribe((res) => {
-        this.htmlData = '';
-        this.done('回复成功！');
-      });
+      this.nodeService
+        .replyComment(type, data, token)
+        .pipe(
+          // catchError(() => {
+          //   return of({});
+          // }),
+          takeUntil(this.destroy$)
+        )
+        .subscribe((res) => {
+          this.htmlData = '';
+          this.done('回复成功！');
+          this.cd.detectChanges();
+        });
       return;
     }
     if (!this.commentContent && params) {
@@ -101,6 +112,7 @@ export class CommentFormComponent implements OnInit, OnDestroy {
           (res) => {
             this.htmlData = '';
             this.done('提交成功！');
+            this.cd.detectChanges();
           },
           () => {
             this.loading = false;
@@ -128,14 +140,21 @@ export class CommentFormComponent implements OnInit, OnDestroy {
       };
       this.nodeService
         .updateComment(type, entity, this.commentId, token)
-        .pipe(takeUntil(this.destroy$))
+        .pipe(
+          // catchError(() => {
+          //   return of({});
+          // }),
+          takeUntil(this.destroy$)
+        )
         .subscribe(
           (res) => {
             this.done('更新成功！');
+            this.cd.detectChanges();
           },
           (error) => {
             this.loading = false;
             console.log(error);
+            this.done('更新失败！');
           }
         );
     }
@@ -145,9 +164,9 @@ export class CommentFormComponent implements OnInit, OnDestroy {
   done(snack: string): void {
     this.loading = false;
     this.utilitiesService.openSnackbar(
-      this.content?.editor?.succes?.label || snack
+      snack || this.content?.editor?.succes?.label
     );
-    this.commentChange.emit(true);
+    this.contentState.commentChange$.next(true);
     this.cd.detectChanges();
   }
 

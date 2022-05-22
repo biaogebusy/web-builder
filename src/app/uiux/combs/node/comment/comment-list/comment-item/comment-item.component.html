@@ -11,8 +11,8 @@
     </ng-container>
   </div>
   <div class="inline-editor p-y-sm p-x-sm m-bottom" *ngIf="item.id === currentId">
-    <app-comment-form [content]="content" (commentChange)="onSubmitComment($event)" (cancel)="onCancel()"
-      [commentContent]="currentData" [commentId]="item.id" [type]="type">
+    <app-comment-form [content]="content" (cancel)="onCancel()" [commentContent]="currentData" [commentId]="item.id"
+      [type]="type">
     </app-comment-form>
   </div>
   <div class="item-child m-x m-y-xs" *ngIf="item?.child && item?.child?.length">

@@ -1,10 +1,11 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { observable } from 'mobx-angular';
-import { HttpClient } from '@angular/common/http';
-import { AppState } from './AppState';
-@Injectable()
-export class BrandingState {
+import { Subject } from 'rxjs';
+@Injectable({
+  providedIn: 'root',
+})
+export class ContentState {
   @observable private content: any;
-  private _READDY = true;
-  constructor(private http: HttpClient, private appState: AppState) {}
+  public commentChange$ = new Subject();
+  constructor() {}
 }

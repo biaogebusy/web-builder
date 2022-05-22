@@ -21,7 +21,10 @@ import {
   distinctUntilChanged,
   map,
 } from 'rxjs/operators';
+import { ScreenService } from '@core/service/screen.service';
+import { ContentState } from '@core/mobx/ContentState';
 // import data from './data.json';
+
 @Component({
   selector: 'app-law-case',
   templateUrl: './law-case.component.html',
@@ -43,7 +46,9 @@ export class LawCaseComponent extends NodeComponent implements OnInit {
     private cd: ChangeDetectorRef,
     private formService: FormService,
     private uti: UtilitiesService,
-    private formState: FormState
+    private formState: FormState,
+    private screenService: ScreenService,
+    public contentState: ContentState
   ) {
     super();
   }
@@ -54,6 +59,15 @@ export class LawCaseComponent extends NodeComponent implements OnInit {
     }
     // this.getlawyers();
     this.getComments();
+    if (this.screenService.isPlatformBrowser()) {
+      this.contentState.commentChange$
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((state) => {
+          if (state) {
+            this.getComments(+new Date());
+          }
+        });
+    }
   }
 
   initForm(form: any[]): void {
@@ -104,19 +118,13 @@ export class LawCaseComponent extends NodeComponent implements OnInit {
     });
   }
 
-  onChange(state: boolean): void {
-    if (state) {
-      this.getComments(+new Date());
-    }
-  }
-
   getComments(timeStamp = 1): void {
     this.nodeService
       .getCommentsWitchChild(this.content, timeStamp)
       .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {
         this.comments = res;
-        this.cd.markForCheck();
+        this.cd.detectChanges();
       });
   }
 

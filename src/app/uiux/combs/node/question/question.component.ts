@@ -16,6 +16,7 @@ import { NodeComponent } from '@uiux/base/node.widget';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { LoginComponent } from 'src/app/modules/user/login/login.component';
+import { ContentState } from '@core/mobx/ContentState';
 
 @Component({
   selector: 'app-question',
@@ -41,7 +42,8 @@ export class QuestionComponent
     private screenService: ScreenService,
     private cd: ChangeDetectorRef,
     private router: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    public contentState: ContentState
   ) {
     super();
   }
@@ -49,6 +51,16 @@ export class QuestionComponent
   ngOnInit(): void {
     this.checkIsAsked();
     this.getComments();
+    if (this.screenService.isPlatformBrowser()) {
+      this.contentState.commentChange$
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((state) => {
+          if (state) {
+            this.checkIsAsked();
+            this.getComments(+new Date());
+          }
+        });
+    }
   }
 
   onShowEditor(): void {
@@ -103,7 +115,7 @@ export class QuestionComponent
       .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {
         this.comments = res;
-        this.cd.markForCheck();
+        this.cd.detectChanges();
       });
   }
 

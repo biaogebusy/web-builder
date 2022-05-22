@@ -15,9 +15,9 @@
       </div>
     </div>
     <div class="comment-wrapper" ngClass.gt-sm="m-y-sm p-y p-x" ngClass.lt-md="m-y-xs p-y-xs p-x-xs">
-      <app-comment-form *ngIf="content?.params?.comment" [content]="content" (commentChange)="onChange($event)">
+      <app-comment-form *ngIf="content?.params?.comment" [content]="content">
       </app-comment-form>
-      <app-comment-list [comments]="comments" [content]="content" (commentChange)="onChange($event)">
+      <app-comment-list [comments]="comments" [content]="content">
       </app-comment-list>
     </div>
   </div>
