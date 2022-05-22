@@ -22,5 +22,12 @@
     .inline-editor {
       background-color: mat-color($background, background);
     }
+    .actions {
+      .mat-primary {
+        .mat-spinner circle {
+          stroke: mat-color($primary, default-contrast);
+        }
+      }
+    }
   }
 }

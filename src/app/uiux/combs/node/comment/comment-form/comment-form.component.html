@@ -9,7 +9,7 @@
   <div class="actions p-y-sm p-x-sm">
     <button (click)="onSubmit(htmlData)" mat-raised-button color="primary" [disabled]="!htmlData">
       <div fxLayoutAlign="center center">
-        <mat-spinner diameter="20" color="accent" *ngIf="loading"></mat-spinner>
+        <mat-spinner diameter="14" *ngIf="loading"></mat-spinner>
         <span class="p-x-xs">{{content?.editor?.action?.label || '提交'}}</span>
       </div>
     </button>
