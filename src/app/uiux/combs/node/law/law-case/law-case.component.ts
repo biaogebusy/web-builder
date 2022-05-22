@@ -120,7 +120,11 @@ export class LawCaseComponent extends NodeComponent implements OnInit {
 
   getComments(timeStamp = 1): void {
     this.nodeService
-      .getCommentsWitchChild(this.content, timeStamp)
+      .getCommentsWitchChild(
+        this.content,
+        this.userState.currentUser.csrf_token,
+        timeStamp
+      )
       .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {
         this.comments = res;

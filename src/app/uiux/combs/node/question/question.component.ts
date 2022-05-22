@@ -111,7 +111,7 @@ export class QuestionComponent
 
   getComments(timeStamp = 1): void {
     this.nodeService
-      .getCommentsWitchChild(this.content, timeStamp)
+      .getCommentsWitchChild(this.content, this.userState.csrfToken, timeStamp)
       .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {
         this.comments = res;

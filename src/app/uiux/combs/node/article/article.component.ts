@@ -99,7 +99,6 @@ export class ArticleComponent
         this.contentState.commentChange$
           .pipe(takeUntil(this.destroy$))
           .subscribe((state) => {
-            debugger;
             if (state) {
               this.getComments(+new Date());
             }
@@ -138,7 +137,7 @@ export class ArticleComponent
 
   getComments(timeStamp = 1): void {
     this.nodeService
-      .getCommentsWitchChild(this.content, timeStamp)
+      .getCommentsWitchChild(this.content, this.userState.csrfToken, timeStamp)
       .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {
         this.comments = res;

@@ -235,11 +235,15 @@ export class NodeService extends ApiService {
     };
   }
 
-  getCommentsWitchChild(content: any, timeStamp = 1): Observable<any> {
+  getCommentsWitchChild(
+    content: any,
+    token = '',
+    timeStamp = 1
+  ): Observable<any> {
     const path = this.apiUrlConfig.commentGetPath;
     const type = this.getCommentType(content);
     const { params } = this.getCommentsParams(content, timeStamp);
-    return this.getNodes(path, type, params).pipe(
+    return this.getNodes(path, type, params, token).pipe(
       switchMap((data: any) => {
         const lists = data.data
           .filter((list: any) => {
