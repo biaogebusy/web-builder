@@ -16,7 +16,7 @@
       [type]="type">
     </app-comment-form>
   </div>
-  <div class="item-child m-x m-y-xs" *ngIf="item?.child && item?.child?.length">
+  <div class="item-child m-y-xs" *ngIf="item?.child && item?.child?.length">
     <app-comment-item [comments]="item.child" [content]="content"></app-comment-item>
   </div>
 </div>

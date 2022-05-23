@@ -608,7 +608,8 @@
       }
     },
     "comment": {
-      "actions": ["update", "delete"]
+      "actions": ["update", "delete"],
+      "title": true
     }
   }]
 }

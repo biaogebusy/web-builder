@@ -76,6 +76,7 @@ export interface ICommentContent {
 
 export interface ICommentConfig {
   actions: string[];
+  title: boolean;
 }
 
 export interface IQuestion extends IBaseNode {

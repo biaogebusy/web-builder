@@ -22,7 +22,8 @@
 }
 
 @media #{$gt-sm} {
-  .comment-body {
+  .comment-body,
+  .item-child {
     margin-left: 50px;
   }
 }

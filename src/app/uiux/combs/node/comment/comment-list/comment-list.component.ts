@@ -4,7 +4,6 @@ import {
   OnInit,
   ChangeDetectionStrategy,
 } from '@angular/core';
-import { UserState } from '@core/mobx/user/UserState';
 import { ICommentContent } from '@core/interface/node/INode';
 
 @Component({
@@ -17,7 +16,7 @@ export class CommentListComponent implements OnInit {
   @Input() content: any;
   @Input() comments: ICommentContent[];
 
-  constructor(public userState: UserState) {}
+  constructor() {}
 
   ngOnInit(): void {}
 }
