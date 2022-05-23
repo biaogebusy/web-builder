@@ -29,35 +29,6 @@
       }
     },
     "editor": {
-      "config": {
-        "toolbar": [
-          ["bold", "italic", "underline", "strike"],
-          [{
-            "header": [1, 2, 3, 4, 5, 6, false]
-          }],
-          [{
-            "list": "ordered"
-          }, {
-            "list": "bullet"
-          }],
-          [{
-            "indent": "-1"
-          }, {
-            "indent": "+1"
-          }],
-          [{
-            "color": []
-          }, {
-            "background": []
-          }],
-          [{
-            "align": []
-          }],
-          ["clean"],
-          ["link"],
-          ["blockquote", "code-block"]
-        ]
-      },
       "action": {
         "label": "发布回答"
       },

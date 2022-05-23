@@ -93,6 +93,10 @@ export class AppState {
     return this.state.config && this.state.config?.actions;
   }
 
+  @computed get editorConfig(): any {
+    return this.state.config && this.state.config?.editor;
+  }
+
   get version(): string {
     return version;
   }

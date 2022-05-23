@@ -212,8 +212,8 @@ export class NodeService extends ApiService {
           src:
             comment.uid?.user_picture?.uri?.url || this.userState.defaultAvatar,
           style: {
-            width: '40px',
-            height: '40px',
+            width: '50px',
+            height: '50px',
             borderRadius: '50%',
           },
           alt: comment.uid.name,
@@ -263,7 +263,8 @@ export class NodeService extends ApiService {
           obj[item.id] = this.getNodes(
             path,
             type,
-            this.getCommentsPidParams(item.id, timeStamp)
+            this.getCommentsPidParams(item.id, timeStamp),
+            token
           ).pipe(
             map((childs: any) => {
               if (!childs.data) {

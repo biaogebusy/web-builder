@@ -5,4 +5,8 @@
   .mat-header-cell {
     font-size: 16px;
   }
+  ::ng-deep .sub {
+    font-size: small;
+    opacity: 0.6;
+  }
 }

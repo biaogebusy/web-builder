@@ -2,8 +2,9 @@
 <div class="comment-form m-bottom" *ngIf="content">
   <app-title [content]="content.editor?.title"></app-title>
   <div class="editor">
-    <quill-editor [modules]="content.editor?.config" [placeholder]="content.editor?.placeholder || placeholder"
-      *ngIf="screenService.isPlatformBrowser()" [(ngModel)]="htmlData" [styles]="{height:'250px'}">
+    <quill-editor [modules]="this.content.editor?.modules || appState.editorConfig.modules"
+      [placeholder]=" content.editor?.placeholder || placeholder" *ngIf="screenService.isPlatformBrowser()"
+      [(ngModel)]="htmlData" [styles]="{height:content.editor?.height || '250px'}">
     </quill-editor>
   </div>
   <div class="actions p-y-sm p-x-sm">

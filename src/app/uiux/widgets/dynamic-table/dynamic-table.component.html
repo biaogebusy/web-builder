@@ -6,7 +6,7 @@
       </th>
       <td mat-cell *cdkCellDef="let element">
         <ng-container *ngIf="element[item.key] | isObject;else text">
-          <app-dynamic-widgets [content]="element[item.key]" [form]="form"></app-dynamic-widgets>
+          <app-dynamic-widgets class="p-y-xs p-x-xs" [content]="element[item.key]" [form]="form"></app-dynamic-widgets>
         </ng-container>
         <ng-template #text>
           <ng-container *ngIf="item.dialog && element[item.key];else normal">

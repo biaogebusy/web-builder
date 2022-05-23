@@ -1,4 +1,5 @@
 import { IImg } from '@core/interface/widgets/IImg';
+import { QuillModule } from 'ngx-quill';
 export interface IBaseNode {
   title: string;
   body: string;
@@ -13,7 +14,8 @@ export interface IBaseNode {
   };
   editor?: {
     title: any;
-    config: any;
+    height: string;
+    modules: QuillModule;
     placeholder: string;
     action: any;
     succes: any;

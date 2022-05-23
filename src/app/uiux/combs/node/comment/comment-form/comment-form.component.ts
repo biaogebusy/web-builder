@@ -17,6 +17,9 @@ import { catchError, takeUntil } from 'rxjs/operators';
 import { IBaseNode, ICommentParams } from '@core/interface/node/INode';
 import { merge } from 'lodash-es';
 import { ContentState } from '@core/mobx/ContentState';
+import { QuillModule } from 'ngx-quill';
+import { AppState } from '@core/mobx/AppState';
+import { ApiService } from '@core/service/api.service';
 
 @Component({
   selector: 'app-comment-form',
@@ -35,23 +38,32 @@ export class CommentFormComponent implements OnInit, OnDestroy {
   htmlData = '';
   placeholder = '请输入...';
   destroy$: Subject<boolean> = new Subject<boolean>();
-  public Editor: any;
+  modules: QuillModule;
 
   constructor(
+    public appState: AppState,
     private cd: ChangeDetectorRef,
     private nodeService: NodeService,
     public screenService: ScreenService,
     private utilitiesService: UtilitiesService,
     private userState: UserState,
-    public contentState: ContentState
+    public contentState: ContentState,
+    private apiService: ApiService
   ) {}
 
   ngOnInit(): void {
+    this.apiService.configLoadDone$.subscribe((state) => {
+      debugger;
+      this.modules = Object.assign(
+        this.appState?.editorConfig?.modules || {},
+        this.content.editor?.modules
+      );
+    });
     if (this.screenService.isPlatformBrowser()) {
       if (this.commentContent) {
         this.htmlData = this.commentContent;
-        this.cd.detectChanges();
       }
+      this.cd.detectChanges();
     }
   }
 
