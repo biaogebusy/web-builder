@@ -30,7 +30,7 @@ export class CommentItemComponent implements OnInit, OnDestroy {
   showActions = true;
   currentData: string;
   loading: boolean;
-  type: 'reply' | 'update' | 'add';
+  type: 'reply' | 'update' | 'add' | 'quote';
   constructor(
     private appState: AppState,
     public userState: UserState,

@@ -7,6 +7,9 @@
       <button *ngIf="!item.child" mat-button color="primary" (click)="onReply()">
         <mat-icon inline="true">reply</mat-icon> 回复
       </button>
+      <button *ngIf="!item.child" mat-button color="primary" (click)="onQuote()">
+        <mat-icon inline="true">repeat</mat-icon> 引用
+      </button>
       <button *ngIf="isMy()" mat-button color="primary" (click)="onDelete(item.id)">
         <div fxLayoutAlign="center center">
           <mat-spinner diameter="20" *ngIf="loading"></mat-spinner>
@@ -28,6 +31,11 @@
           <ng-container *ngSwitchCase="'reply'">
             <button *ngIf="item.level === 1" mat-button color="primary" (click)="onReply()">
               <mat-icon inline="true">reply</mat-icon> 回复
+            </button>
+          </ng-container>
+          <ng-container *ngSwitchCase="'quote'">
+            <button *ngIf="item.level === 1" mat-button color="primary" (click)="onQuote()">
+              <mat-icon inline="true">repeat</mat-icon> 引用
             </button>
           </ng-container>
           <ng-container *ngSwitchCase="'delete'">

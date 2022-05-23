@@ -32,6 +32,10 @@ export class CommentActionsComponent implements OnInit {
     this.delete.emit(id);
   }
 
+  onQuote(): void {
+    console.log(this.item);
+  }
+
   isMy(): boolean {
     return (
       this.item.author.id === this.userState.currentUser.id &&
