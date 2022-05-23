@@ -212,8 +212,8 @@ export class NodeService extends ApiService {
           src:
             comment.uid?.user_picture?.uri?.url || this.userState.defaultAvatar,
           style: {
-            width: '50px',
-            height: '50px',
+            width: '40px',
+            height: '40px',
             borderRadius: '50%',
           },
           alt: comment.uid.name,

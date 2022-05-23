@@ -1,3 +1,28 @@
+@import "../../../../../../../theme/variable/breakpoint";
+
 .item-child {
   border-radius: 4px;
+}
+
+.time {
+  font-size: small;
+  margin: 1rem 0;
+}
+
+.comment-body {
+  > ::ng-deep *:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.actions {
+  button + button {
+    margin-left: 1rem;
+  }
+}
+
+@media #{$gt-sm} {
+  .comment-body {
+    margin-left: 50px;
+  }
 }
