@@ -115,6 +115,7 @@ export class CommentFormComponent implements OnInit, OnDestroy {
         });
       return;
     }
+    // add new comment
     if (!this.commentContent && params) {
       // 默认comment_boyd，不一致的在后台覆写字段 /admin/config/services/jsonapi/add/resource_types
       params.attributes.comment_body = {
@@ -136,6 +137,7 @@ export class CommentFormComponent implements OnInit, OnDestroy {
           }
         );
     } else {
+      // update comment content
       const entity: ICommentParams = {
         type: params.type,
         id: this.commentId,
