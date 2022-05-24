@@ -76,6 +76,10 @@ export class CommentItemComponent implements OnInit, OnDestroy {
     this.cd.detectChanges();
   }
 
+  onQuote(type: any): void {
+    this.type = type;
+  }
+
   onShow(item: any): boolean {
     if (item.id !== this.currentId) {
       return true;

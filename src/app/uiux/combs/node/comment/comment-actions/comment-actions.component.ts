@@ -16,6 +16,7 @@ export class CommentActionsComponent implements OnInit {
   @Input() loading: boolean;
   @Output() update = new EventEmitter();
   @Output() reply = new EventEmitter();
+  @Output() quote = new EventEmitter();
   @Output() delete = new EventEmitter();
   constructor(public userState: UserState, public contentState: ContentState) {}
 
@@ -36,6 +37,7 @@ export class CommentActionsComponent implements OnInit {
   onQuote(): void {
     console.log(this.item);
     this.contentState.commentQuote$.next(this.item);
+    this.quote.emit('add');
   }
 
   isMy(): boolean {

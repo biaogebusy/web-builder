@@ -115,6 +115,8 @@ export class CommentFormComponent implements OnInit, OnDestroy {
         });
       return;
     }
+    if (this.type === 'add') {
+    }
     // add new comment
     if (!this.commentContent && params) {
       // 默认comment_boyd，不一致的在后台覆写字段 /admin/config/services/jsonapi/add/resource_types

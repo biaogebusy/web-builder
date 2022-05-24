@@ -7,7 +7,7 @@
       </div>
       <app-comment-actions *ngIf="showActions && item.level === 1" [config]="content?.comment" [item]="item" [i]="i"
         [currentId]="currentId" [loading]="loading" (update)="onUpdate($event)" (delete)="onDelete($event)"
-        (reply)="onReply($event)">
+        (reply)="onReply($event)" (quote)="onQuote($event)">
       </app-comment-actions>
     </ng-container>
   </div>
