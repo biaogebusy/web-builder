@@ -51,7 +51,7 @@
           </app-dynamic-widgets>
         </div>
         <app-comment-form
-          *ngIf="userState.authenticated && appState?.article?.comment?.enabel && content?.params?.comment"
+          *ngIf="userState.authenticated && coreConfig.article?.comment?.enable && content?.params?.comment"
           [content]="content">
         </app-comment-form>
         <app-comment-list *ngIf="userState.authenticated" [comments]="comments" [content]="content">

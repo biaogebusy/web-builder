@@ -2,7 +2,8 @@
   <div class="login-wrapper m-x position-relative" fxLayout>
     <div *ngIf="!screenState.eq('xs')" class="login-second position-relative" fxFlex.xs="100" fxFlex.gt-xs="50"
       fxLayoutAlign="center center">
-      <app-dynamic-widgets *ngIf="appState.loginLeft;else default" [content]="appState.loginLeft"></app-dynamic-widgets>
+      <app-dynamic-widgets *ngIf="coreConfig.login.left;else default" [content]="coreConfig.login.left">
+      </app-dynamic-widgets>
     </div>
     <ng-template #default>
       <img src="/assets/images/login-second.png" alt="">
@@ -14,15 +15,15 @@
           <div *ngIf="userState.error||error" class="error p-y-xs p-x-xs m-bottom-xs">{{userState.error}}{{error}}
           </div>
           <mat-tab-group animationDuration="0ms" [disablePagination]="true">
-            <mat-tab label="{{appState.config.login.phoneLogin.tabLabel || '手机登录'}}"
-              *ngIf="appState.config.login?.phoneLogin?.enable">
+            <mat-tab label="{{coreConfig.login.phoneLogin.tabLabel || '手机登录'}}"
+              *ngIf="coreConfig.login?.phoneLogin?.enable">
               <form class="p-y-sm" fxLayout="column" [formGroup]="phoneForm" (ngSubmit)="loginByPhone()">
                 <mat-form-field appearance="fill">
                   <mat-label>请输入手机号码</mat-label>
                   <mat-icon matSuffix>phone_iphone</mat-icon>
                   <input type="text" matInput formControlName="phone">
                   <mat-error *ngIf="formPhone.phone.errors?.pattern">
-                    {{appState.config.login.phoneLogin.error || '请输入正确的手机号码'}}</mat-error>
+                    {{coreConfig.login.phoneLogin.error || '请输入正确的手机号码'}}</mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="fill">
                   <mat-label>验证码</mat-label>
@@ -39,13 +40,13 @@
                 </mat-form-field>
                 <button type="submit" mat-raised-button color="primary">
                   <div fxLayoutAlign="center center">
-                    <div class="p-x-xs">{{appState.config.login.phoneLogin.submitLabel}}</div>
+                    <div class="p-x-xs">{{coreConfig.login.phoneLogin.submitLabel}}</div>
                   </div>
                 </button>
               </form>
             </mat-tab>
-            <mat-tab label="{{appState.config.login.pswLogin.tabLabel || '密码登录'}}"
-              *ngIf="appState.config.login?.pswLogin?.enable">
+            <mat-tab label="{{coreConfig.login.pswLogin.tabLabel || '密码登录'}}"
+              *ngIf="coreConfig.login?.pswLogin?.enable">
               <form class="p-y-sm" fxLayout="column" [formGroup]="userForm" (ngSubmit)="login()">
                 <mat-form-field appearance="fill">
                   <mat-label>用户名</mat-label>
@@ -63,7 +64,7 @@
                 </mat-form-field>
                 <button type="submit" mat-raised-button color="primary">
                   <div fxLayoutAlign="center center">
-                    <div class="p-x-xs">{{appState.config.login.pswLogin.submitLabel}}</div>
+                    <div class="p-x-xs">{{coreConfig.login.pswLogin.submitLabel}}</div>
                   </div>
                 </button>
               </form>

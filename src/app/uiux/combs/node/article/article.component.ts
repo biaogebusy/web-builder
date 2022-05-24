@@ -15,7 +15,6 @@ import javascript from 'highlight.js/lib/languages/javascript';
 import php from 'highlight.js/lib/languages/php';
 import scss from 'highlight.js/lib/languages/scss';
 import { TagsService } from '@core/service/tags.service';
-import { AppState } from '@core/mobx/AppState';
 import { ScreenState } from '@core/mobx/screen/ScreenState';
 import { ScreenService } from '@core/service/screen.service';
 import { FormService } from '@core/service/form.service';
@@ -30,10 +29,11 @@ import { environment } from 'src/environments/environment';
 import { DialogComponent } from '../../../widgets/dialog/dialog.component';
 import { TextComponent } from '@uiux/widgets/text/text.component';
 import { UserService } from '@core/service/user.service';
-import { UtilitiesService } from '@core/service/utilities.service';
 import { NodeComponent } from '@uiux/base/node.widget';
 import { IBaseNode } from '@core/interface/node/INode';
 import { ContentState } from '@core/mobx/ContentState';
+import { CORE_CONFIG } from '@core/token/core.config';
+import { ICoreConfig } from '../../../../core/mobx/IAppConfig';
 
 @Component({
   selector: 'app-article',
@@ -62,7 +62,6 @@ export class ArticleComponent
   showNotXs: boolean;
 
   constructor(
-    public appState: AppState,
     private cd: ChangeDetectorRef,
     private dialog: MatDialog,
     private formService: FormService,
@@ -73,9 +72,9 @@ export class ArticleComponent
     private tagsService: TagsService,
     public userState: UserState,
     private userService: UserService,
-    private uti: UtilitiesService,
     public contentState: ContentState,
-    @Inject(DOCUMENT) private document: Document
+    @Inject(DOCUMENT) private document: Document,
+    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig
   ) {
     super();
     if (this.screenService.isPlatformBrowser()) {
@@ -93,7 +92,7 @@ export class ArticleComponent
       this.onFontSize();
     }
     this.checkAccess();
-    if (this.appState.article?.comment?.enabel) {
+    if (this.coreConfig.article?.comment?.enable) {
       this.getComments();
       if (this.screenService.isPlatformBrowser()) {
         this.contentState.commentChange$
@@ -174,7 +173,10 @@ export class ArticleComponent
 
   upgrade(): void {
     this.openPayMentDialog();
-    window.open(`${environment.apiUrl}${this.appState.commerce.vip}`, '_blank');
+    window.open(
+      `${environment.apiUrl}${this.coreConfig.commerce.vip}`,
+      '_blank'
+    );
   }
 
   pay(): void {
@@ -190,7 +192,7 @@ export class ArticleComponent
         renderInputComponent: TextComponent,
         disableCloseButton: true,
         inputData: {
-          content: this.appState.commerce.dialog,
+          content: this.coreConfig.commerce.dialog,
         },
       },
     });
@@ -227,7 +229,7 @@ export class ArticleComponent
   }
 
   get articleConfig(): any {
-    return this.appState.config && this.appState.config.article;
+    return this.coreConfig.article;
   }
 
   get loginConfig(): any {

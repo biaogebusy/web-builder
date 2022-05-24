@@ -21,7 +21,7 @@
               </div>
             </div>
           </div>
-          <app-search-box [content]="content.search" *ngIf="content?.search?.enabel"></app-search-box>
+          <app-search-box [content]="content.search" *ngIf="content?.search?.enable"></app-search-box>
           <div class="actions" *ngIf="content.actions">
             <button color="primary" mat-raised-button *ngFor="let action of content.actions">
               <app-link [content]="action"></app-link>

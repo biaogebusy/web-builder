@@ -11,7 +11,6 @@ import { map } from 'lodash-es';
 import { AMapState } from '@core/mobx/amap/AMapState';
 import { RouteService } from '@core/service/route.service';
 import { Params, ActivatedRoute } from '@angular/router';
-import { AppState } from '@core/mobx/AppState';
 import { TagsService } from '@core/service/tags.service';
 import { ScreenService } from '@core/service/screen.service';
 

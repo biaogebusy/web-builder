@@ -4,13 +4,15 @@ import {
   OnDestroy,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
+  Inject,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '@core/service/user.service';
 import { UserState } from '@core/mobx/user/UserState';
 import { ScreenService } from '@core/service/screen.service';
-import { AppState } from '@core/mobx/AppState';
 import { isEmpty } from 'lodash-es';
+import { CORE_CONFIG } from '@core/token/core.config';
+import { ICoreConfig } from '@core/mobx/IAppConfig';
 
 @Component({
   selector: 'app-user',
@@ -22,12 +24,12 @@ export class UserComponent implements OnInit, OnDestroy {
   user: any;
   id: any;
   constructor(
-    private appState: AppState,
     private cd: ChangeDetectorRef,
     private route: Router,
     private screenService: ScreenService,
     private userService: UserService,
-    private userState: UserState
+    private userState: UserState,
+    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
   ) {}
 
   ngOnInit(): void {
@@ -107,7 +109,7 @@ export class UserComponent implements OnInit, OnDestroy {
       img: {
         hostClasses: 'bg-center',
         src:
-          this.appState.config?.user?.banner ||
+          this.coreConfig?.user?.banner ||
           '/assets/images/16-9/business-14.jpeg',
         alt: 'page title',
       },

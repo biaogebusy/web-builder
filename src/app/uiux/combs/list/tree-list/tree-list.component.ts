@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  Inject,
   Input,
   OnDestroy,
   OnInit,
@@ -17,6 +18,8 @@ import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { AppState } from '@core/mobx/AppState';
 import { FormGroup } from '@angular/forms';
 import { FormService } from '@core/service/form.service';
+import { CORE_CONFIG } from '@core/token/core.config';
+import { ICoreConfig } from '@core/mobx/IAppConfig';
 
 @Component({
   selector: 'app-tree-list',
@@ -45,7 +48,8 @@ export class TreeListComponent
     private screenService: ScreenService,
     private cd: ChangeDetectorRef,
     private appState: AppState,
-    private formService: FormService
+    private formService: FormService,
+    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
   ) {
     super();
   }
@@ -126,7 +130,7 @@ export class TreeListComponent
         tags: item?.field_tags,
         actions: item.actions || [],
         img: {
-          src: item?.img || this.appState.defaultThumb,
+          src: item?.img || this.coreConfig.defaultThumb,
           alt: item?.title,
           href: item?.url,
           target: '_blank',

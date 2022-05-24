@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ApiService } from './api.service';
 import { LocalStorageService } from 'ngx-webstorage';
@@ -13,6 +13,8 @@ import { UserState } from '@core/mobx/user/UserState';
 import { IArticleAccess } from '@core/interface/node/IArticle';
 import { ICommentContent } from '@core/interface/node/INode';
 import { formatDate } from '@angular/common';
+import { CORE_CONFIG } from '@core/token/core.config';
+import { ICoreConfig } from '@core/mobx/IAppConfig';
 @Injectable({
   providedIn: 'root',
 })
@@ -24,13 +26,14 @@ export class NodeService extends ApiService {
     public cryptoJS: CryptoJSService,
     public http: HttpClient,
     private userState: UserState,
-    public storage: LocalStorageService
+    public storage: LocalStorageService,
+    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
   ) {
     super(cryptoJS);
   }
 
   get apiUrlConfig(): IApiUrl {
-    return this.appState.apiUrlConfig;
+    return this.coreConfig.apiUrl;
   }
 
   search(type: string, params: string, token?: string): Observable<any> {
@@ -358,7 +361,7 @@ export class NodeService extends ApiService {
   }
 
   getPayUrl(entityId: string): string {
-    return `${this.apiUrl}${this.appState?.commerce?.payNode}/${entityId}`;
+    return `${this.apiUrl}${this.coreConfig?.commerce?.payNode}/${entityId}`;
   }
 
   checkNodeAccess(params: any): Observable<IArticleAccess> {

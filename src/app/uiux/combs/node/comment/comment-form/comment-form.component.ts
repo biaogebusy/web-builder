@@ -7,6 +7,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   OnDestroy,
+  Inject,
 } from '@angular/core';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -18,8 +19,8 @@ import { IBaseNode, ICommentParams } from '@core/interface/node/INode';
 import { merge } from 'lodash-es';
 import { ContentState } from '@core/mobx/ContentState';
 import { QuillModule } from 'ngx-quill';
-import { AppState } from '@core/mobx/AppState';
-import { ApiService } from '@core/service/api.service';
+import { CORE_CONFIG } from '@core/token/core.config';
+import { ICoreConfig } from '@core/mobx/IAppConfig';
 
 @Component({
   selector: 'app-comment-form',
@@ -41,25 +42,21 @@ export class CommentFormComponent implements OnInit, OnDestroy {
   modules: QuillModule;
 
   constructor(
-    public appState: AppState,
     private cd: ChangeDetectorRef,
     private nodeService: NodeService,
     public screenService: ScreenService,
     private utilitiesService: UtilitiesService,
     private userState: UserState,
     public contentState: ContentState,
-    private apiService: ApiService
+    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
   ) {}
 
   ngOnInit(): void {
-    this.apiService.configLoadDone$.subscribe((state) => {
-      debugger;
+    if (this.screenService.isPlatformBrowser()) {
       this.modules = Object.assign(
-        this.appState?.editorConfig?.modules || {},
+        this.coreConfig?.editor?.modules || {},
         this.content.editor?.modules
       );
-    });
-    if (this.screenService.isPlatformBrowser()) {
       if (this.commentContent) {
         this.htmlData = this.commentContent;
       }

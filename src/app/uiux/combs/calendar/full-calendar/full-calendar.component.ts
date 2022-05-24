@@ -18,7 +18,6 @@ import {
   takeUntil,
 } from 'rxjs/operators';
 import { EMPTY, Subject } from 'rxjs';
-import { AppState } from '@core/mobx/AppState';
 import {
   CalendarOptions,
   DatesSetArg,
@@ -50,7 +49,6 @@ export class FullCalendarComponent
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
-    public appState: AppState,
     private cd: ChangeDetectorRef,
     private formService: FormService,
     private screenService: ScreenService,

@@ -2,13 +2,15 @@ import {
   ChangeDetectionStrategy,
   Component,
   HostBinding,
+  Inject,
   Input,
   OnInit,
 } from '@angular/core';
 import { IImg } from '@core/interface/widgets/IImg';
-import { AppState } from '@core/mobx/AppState';
+import { ICoreConfig } from '@core/mobx/IAppConfig';
 import { ScreenState } from '@core/mobx/screen/ScreenState';
 import { ScreenService } from '@core/service/screen.service';
+import { CORE_CONFIG } from '@core/token/core.config';
 
 @Component({
   selector: 'app-img',
@@ -21,9 +23,9 @@ export class ImgComponent implements OnInit {
   @HostBinding('class') hostClasses: any;
 
   constructor(
-    public appState: AppState,
     public screen: ScreenState,
-    private screenService: ScreenService
+    private screenService: ScreenService,
+    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig
   ) {}
 
   ngOnInit(): void {

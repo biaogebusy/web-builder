@@ -7,13 +7,15 @@ import {
   Output,
   ChangeDetectorRef,
   OnDestroy,
+  Inject,
 } from '@angular/core';
 import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
 import { BaseComponent } from '@uiux/base/base.widget';
-import { AppState } from '@core/mobx/AppState';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { CORE_CONFIG } from '@core/token/core.config';
+import { ICoreConfig } from '@core/mobx/IAppConfig';
 
 @Component({
   selector: 'app-dynamic-text-list',
@@ -35,9 +37,9 @@ export class DynamicTextListComponent
   destory$: Subject<boolean> = new Subject<boolean>();
   constructor(
     public nodeService: NodeService,
-    private appState: AppState,
     private screenService: ScreenService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
   ) {
     super();
   }
@@ -80,7 +82,7 @@ export class DynamicTextListComponent
     this.lists = res.data.map((item: any) => {
       return {
         picture: {
-          src: item.uid?.user_picture?.uri.url || this.appState.defaultLogo,
+          src: item.uid?.user_picture?.uri.url || this.coreConfig.defaultLogo,
           alt: item.uid.name,
         },
         name: item.uid.name,

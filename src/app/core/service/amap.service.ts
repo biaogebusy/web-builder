@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import * as AMapLoader from '@amap/amap-jsapi-loader';
 import { Observable, from } from 'rxjs';
-import { AppState } from '../mobx/AppState';
 import { IAmap } from '../interface/IAmap';
+import { CORE_CONFIG } from '@core/token/core.config';
+import { ICoreConfig } from '@core/mobx/IAppConfig';
 
 // https://lbs.amap.com/demo-center/js-api
 // https://lbs.amap.com/api/jsapi-v2/summary
@@ -13,10 +14,10 @@ import { IAmap } from '../interface/IAmap';
   providedIn: 'root',
 })
 export class AmapService {
-  constructor(private appState: AppState) {}
+  constructor(@Inject(CORE_CONFIG) private coreConfig: ICoreConfig) {}
 
   load(): Observable<any> {
-    const amapConfig: IAmap = this.appState?.config?.amap;
+    const amapConfig: IAmap = this.coreConfig?.amap;
     return from(
       AMapLoader.load({
         key: amapConfig.key,

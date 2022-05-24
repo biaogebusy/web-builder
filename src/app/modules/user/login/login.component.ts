@@ -4,6 +4,7 @@ import {
   AfterViewInit,
   ViewChild,
   OnDestroy,
+  Inject,
 } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -13,6 +14,8 @@ import { AppState } from '@core/mobx/AppState';
 import { TagsService } from '@core/service/tags.service';
 import { UserService } from '@core/service/user.service';
 import { ScreenService } from '@core/service/screen.service';
+import { CORE_CONFIG } from '@core/token/core.config';
+import { ICoreConfig } from '@core/mobx/IAppConfig';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -35,7 +38,8 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
     private tagsService: TagsService,
     public appState: AppState,
     public userService: UserService,
-    private screenService: ScreenService
+    private screenService: ScreenService,
+    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig
   ) {}
 
   ngOnInit(): void {
@@ -63,7 +67,7 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
           setTimeout(() => {
             this.router.navigate([
               this.route.snapshot.queryParams.returnUrl ||
-                this.appState.config.login.loginRedirect,
+                this.coreConfig.login.loginRedirect,
             ]);
           }, 2000);
         }

@@ -1,13 +1,14 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Inject } from '@angular/core';
 import { UserState } from './core/mobx/user/UserState';
 import { ScreenState } from './core/mobx/screen/ScreenState';
 import { MatDrawer } from '@angular/material/sidenav';
-import { AppState } from './core/mobx/AppState';
 import { BrandingState } from './core/mobx/BrandingState';
 import { ActivatedRoute } from '@angular/router';
 import { ScreenService } from '@core/service/screen.service';
 import { ConfigService } from '@core/service/config.service';
 import { NavigationService } from '@core/service/navigation.service';
+import { CORE_CONFIG } from '@core/token/core.config';
+import { ICoreConfig } from '@core/mobx/IAppConfig';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -20,12 +21,12 @@ export class AppComponent implements OnInit, AfterViewInit {
   constructor(
     public userState: UserState,
     public screen: ScreenState,
-    public appState: AppState,
     public branding: BrandingState,
     private router: ActivatedRoute,
     private screenService: ScreenService,
     private configService: ConfigService,
-    public navigation: NavigationService
+    public navigation: NavigationService,
+    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig
   ) {
     this.navigation.startSaveHistory();
   }

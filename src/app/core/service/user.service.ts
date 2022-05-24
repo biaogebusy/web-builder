@@ -1,12 +1,13 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
 import { map } from 'rxjs/operators';
 import { TokenUser, IUser } from '../mobx/user/IUser';
-import { AppState } from '../mobx/AppState';
 import { LocalStorageService } from 'ngx-webstorage';
 import { CryptoJSService } from './crypto-js.service';
+import { CORE_CONFIG } from '@core/token/core.config';
+import { ICoreConfig } from '@core/mobx/IAppConfig';
 @Injectable({
   providedIn: 'root',
 })
@@ -14,14 +15,14 @@ export class UserService extends ApiService {
   constructor(
     public http: HttpClient,
     public storage: LocalStorageService,
-    private appState: AppState,
-    public cryptoJS: CryptoJSService
+    public cryptoJS: CryptoJSService,
+    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
   ) {
     super(cryptoJS);
   }
 
   get userApiPath(): string {
-    return `${this.apiUrl}${this.appState.apiUrlConfig.userGetPath}`;
+    return `${this.apiUrl}${this.coreConfig.apiUrl.userGetPath}`;
   }
 
   login(userName: string, passWord: string): Observable<any> {
@@ -34,7 +35,7 @@ export class UserService extends ApiService {
     };
 
     return this.http.post<any>(
-      `${this.apiUrl}${this.appState.apiUrlConfig.loginPath}?_format=json`,
+      `${this.apiUrl}${this.coreConfig.apiUrl.loginPath}?_format=json`,
       {
         name: userName,
         pass: passWord,
@@ -52,7 +53,7 @@ export class UserService extends ApiService {
     };
     const params = ['_format=json', `token=${logoutToken}`].join('&');
     return this.http.post(
-      `${this.apiUrl}${this.appState.apiUrlConfig.logoutPath}?${params}`,
+      `${this.apiUrl}${this.coreConfig.apiUrl.logoutPath}?${params}`,
       null,
       httpOptions
     );

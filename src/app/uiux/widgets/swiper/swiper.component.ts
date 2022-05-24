@@ -12,7 +12,6 @@ import {
   SwiperPaginationInterface,
   SwiperDirective,
 } from 'ngx-swiper-wrapper';
-import { AppState } from '@core/mobx/AppState';
 import { Subject } from 'rxjs';
 import { ScreenService } from '@core/service/screen.service';
 
@@ -36,10 +35,7 @@ export class SwiperComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() index: number;
   @Input() navigationSub: Subject<any>;
   @ViewChild(SwiperDirective) public swiperWrapper: SwiperDirective;
-  constructor(
-    public appState: AppState,
-    private screenService: ScreenService
-  ) {}
+  constructor(private screenService: ScreenService) {}
 
   defaultConfig: SwiperConfigInterface = {
     slidesPerView: 'auto',

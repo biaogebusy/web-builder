@@ -4,7 +4,6 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { AppState } from '@core/mobx/AppState';
 import { FormGroup } from '@angular/forms';
 
 @Component({
@@ -14,7 +13,7 @@ import { FormGroup } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FontChangeComponent implements OnInit {
-  constructor(public appState: AppState) {}
+  constructor() {}
   @Input() content: any;
   @Input() form: FormGroup;
 

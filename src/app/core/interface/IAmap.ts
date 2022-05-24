@@ -2,7 +2,7 @@ export interface IAmap {
   key: string;
   version: string;
   plugins: string[];
-  citi: string;
+  city: string;
   zoom: number;
   center: number[];
   mapStyle: {

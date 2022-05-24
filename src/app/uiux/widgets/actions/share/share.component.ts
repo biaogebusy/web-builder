@@ -3,10 +3,13 @@ import {
   OnInit,
   Input,
   ChangeDetectionStrategy,
+  Inject,
 } from '@angular/core';
 import { IShare } from '@core/interface/widgets/IActions';
-import { AppState } from '@core/mobx/AppState';
+import { ICoreConfig } from '@core/mobx/IAppConfig';
 import { ScreenService } from '@core/service/screen.service';
+import { CORE_CONFIG } from '@core/token/core.config';
+import { DOCUMENT } from '@angular/common';
 declare var window: any;
 
 @Component({
@@ -21,14 +24,15 @@ export class ShareComponent implements OnInit {
   url: string;
 
   constructor(
-    public appState: AppState,
-    private screenService: ScreenService
+    private screenService: ScreenService,
+    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
+    @Inject(DOCUMENT) private doc: Document
   ) {}
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.config = this.appState.actions?.share;
-      this.url = `${this.appState.origin}${this.content.params.url}`;
+      this.config = this.coreConfig.actions?.share;
+      this.url = `${this.doc.location.origin}${this.content.params.url}`;
     }
   }
 

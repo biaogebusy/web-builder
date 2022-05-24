@@ -2,12 +2,12 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  Inject,
   Input,
   OnDestroy,
   OnInit,
 } from '@angular/core';
 import { IDownload } from '@core/interface/widgets/IDownload';
-import { AppState } from '@core/mobx/AppState';
 import { ScreenService } from '@core/service/screen.service';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginComponent } from 'src/app/modules/user/login/login.component';
@@ -15,6 +15,8 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { NodeService } from '@core/service/node.service';
 import { UserState } from '@core/mobx/user/UserState';
+import { CORE_CONFIG } from '@core/token/core.config';
+import { ICoreConfig } from '@core/mobx/IAppConfig';
 
 @Component({
   selector: 'app-download',
@@ -33,17 +35,17 @@ export class DownloadComponent implements OnInit, OnDestroy {
   payUrl: string;
   reqMoney: number;
   constructor(
-    public appState: AppState,
     private screenService: ScreenService,
     private dialog: MatDialog,
     private nodeService: NodeService,
     public userState: UserState,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
   ) {}
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.config = this.appState?.actions?.download;
+      this.config = this.coreConfig?.actions?.download;
       this.checkAccess(this.data);
     }
   }

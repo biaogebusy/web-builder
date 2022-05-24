@@ -5,8 +5,8 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   OnDestroy,
+  Inject,
 } from '@angular/core';
-import { AppState } from '@core/mobx/AppState';
 import { NodeService } from '@core/service/node.service';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { UserState } from '@core/mobx/user/UserState';
@@ -15,6 +15,8 @@ import { ScreenService } from '@core/service/screen.service';
 import { Subject } from 'rxjs';
 import { IFlag } from '@core/interface/widgets/IFlag';
 import { UtilitiesService } from '../../../../core/service/utilities.service';
+import { CORE_CONFIG } from '@core/token/core.config';
+import { ICoreConfig } from '@core/mobx/IAppConfig';
 
 @Component({
   selector: 'app-flag',
@@ -29,20 +31,20 @@ export class FlagComponent extends BaseComponent implements OnInit, OnDestroy {
 
   destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
-    public appState: AppState,
     private cd: ChangeDetectorRef,
     private screenService: ScreenService,
     private userState: UserState,
     public nodeService: NodeService,
-    private utiltiy: UtilitiesService
+    private utiltiy: UtilitiesService,
+    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
   ) {
     super();
   }
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.config = this.appState?.actions?.flag;
-      if (this.config?.enabel && this.userState.authenticated) {
+      this.config = this.coreConfig?.actions?.flag;
+      if (this.config?.enable && this.userState.authenticated) {
         this.getFlagging();
       }
     }
@@ -62,7 +64,7 @@ export class FlagComponent extends BaseComponent implements OnInit, OnDestroy {
   getFlagging(): void {
     this.nodeService
       .getNodes(
-        this.appState.apiUrlConfig.flaggingGetPath,
+        this.coreConfig.apiUrl.flaggingGetPath,
         this.type,
         this.flaggingParams,
         this.userState.csrfToken
@@ -120,7 +122,7 @@ export class FlagComponent extends BaseComponent implements OnInit, OnDestroy {
     } else {
       this.nodeService
         .getNodes(
-          this.appState.apiUrlConfig.flaggingGetPath,
+          this.coreConfig.apiUrl.flaggingGetPath,
           this.type,
           this.flaggingParams
         )

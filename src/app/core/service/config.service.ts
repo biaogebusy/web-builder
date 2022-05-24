@@ -1,12 +1,13 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { AppState } from '@core/mobx/AppState';
-import { ApiService } from '@core/service/api.service';
 import { DialogService } from './dialog.service';
 import { GoogleAnalyticsService } from './ga.service';
 import { LoadingService } from './loading.service';
 import { QiDianService } from './qidian.service';
 import { delay } from 'rxjs/operators';
 import { ScreenService } from './screen.service';
+import { CORE_CONFIG } from '@core/token/core.config';
+import { ICoreConfig } from '@core/mobx/IAppConfig';
 
 @Injectable({
   providedIn: 'root',
@@ -14,37 +15,34 @@ import { ScreenService } from './screen.service';
 export class ConfigService {
   constructor(
     private appState: AppState,
-    private apiService: ApiService,
     private googleAnalyticsService: GoogleAnalyticsService,
     private qiDianService: QiDianService,
     private dialogService: DialogService,
     private loadingservice: LoadingService,
-    private screenService: ScreenService
+    private screenService: ScreenService,
+    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
   ) {}
 
   init(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.apiService.configLoadDone$.subscribe((res) => {
-        if (res) {
-          const config = this.appState.config;
-          if (config?.googleAnalytics) {
-            const id = config.googleAnalytics.id;
-            this.googleAnalyticsService.loadGoogleAnalytics(id);
-          }
-          if (config?.qidian) {
-            const qdConfig = config.qidian;
-            this.qiDianService.loadQiDian(qdConfig);
-          }
-          if (config?.loading) {
-            if (!this.appState?.meta?.config?.loading) {
-              this.listenToLoading();
-            }
-          }
-          if (config?.dialog?.forceDialog) {
-            this.dialogService.forceDialog(config.dialog.forceDialog);
+      if (this.coreConfig) {
+        if (this.coreConfig?.googleAnalytics) {
+          const id = this.coreConfig.googleAnalytics.id;
+          this.googleAnalyticsService.loadGoogleAnalytics(id);
+        }
+        if (this.coreConfig?.qidian) {
+          const qdConfig = this.coreConfig.qidian;
+          this.qiDianService.loadQiDian(qdConfig);
+        }
+        if (this.coreConfig?.loading) {
+          if (!this.appState?.meta?.config?.loading) {
+            this.listenToLoading();
           }
         }
-      });
+        if (this.coreConfig?.dialog?.forceDialog) {
+          this.dialogService.forceDialog(this.coreConfig.dialog.forceDialog);
+        }
+      }
     }
   }
 

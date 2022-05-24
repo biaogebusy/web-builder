@@ -291,7 +291,7 @@
       }
     ],
     "search": {
-      "enabel": true,
+      "enable": true,
       "placeholder": "请输入关键词",
       "tooltip": "回车进入综合搜索页面",
       "link": "/search",

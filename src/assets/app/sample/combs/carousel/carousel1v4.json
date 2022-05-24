@@ -62,7 +62,7 @@
         },
         "text": {
           "title": {
-            "label": "Light text, Y center, enabel overlay",
+            "label": "Light text, Y center, enable overlay",
             "style": "style-v4",
             "classes": "mat-display-1"
           },
@@ -96,7 +96,7 @@
         },
         "text": {
           "title": {
-            "label": "Base text, Y center, X custom, enabel overlay",
+            "label": "Base text, Y center, X custom, enable overlay",
             "style": "style-v4",
             "classes": "mat-display-1"
           },
@@ -131,7 +131,7 @@
         },
         "text": {
           "title": {
-            "label": "Base text, XY custom, enabel overlay",
+            "label": "Base text, XY custom, enable overlay",
             "style": "style-v4",
             "classes": "mat-h2"
           },

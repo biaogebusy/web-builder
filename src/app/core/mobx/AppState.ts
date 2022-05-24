@@ -4,7 +4,13 @@ import { action, observable, computed } from 'mobx-angular';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { LocalStorageService } from 'ngx-webstorage';
-import { IApiUrl, IAppConfig, ICommerce, IPage } from './IAppConfig';
+import {
+  IApiUrl,
+  IAppConfig,
+  ICommerce,
+  ICoreConfig,
+  IPage,
+} from './IAppConfig';
 import { of, Subject } from 'rxjs';
 import { TagsService } from '@core/service/tags.service';
 import { version } from '../../../../package.json';
@@ -12,6 +18,7 @@ import { isArray } from 'lodash-es';
 import { ApiService } from '@core/service/api.service';
 import { ScreenState } from '@core/mobx/screen/ScreenState';
 import { CryptoJSService } from '@core/service/crypto-js.service';
+import { tap } from 'rxjs/operators';
 
 const initPage = {
   title: '',
@@ -41,24 +48,12 @@ export class AppState {
     private cryptoJS: CryptoJSService
   ) {}
 
-  @computed get ready(): any {
-    return this._READY && this.state.config;
-  }
-
   @computed get config(): any {
     return this.state && this.state.config;
   }
 
   @computed get theme(): any {
     return this.state && this.state.defTheme;
-  }
-
-  @computed get defaultLogo(): string {
-    return this.config && this.config.defaultLogo;
-  }
-
-  @computed get apiUrlConfig(): IApiUrl {
-    return this.state.config && this.state.config.apiUrl;
   }
 
   @computed get meta(): any {
@@ -77,32 +72,8 @@ export class AppState {
     return this.state.page && this.state.page.body;
   }
 
-  @computed get loginLeft(): any {
-    return this.state.config && this.state.config?.login?.left;
-  }
-
-  @computed get article(): any {
-    return this.state.config && this.state.config.article;
-  }
-
-  @computed get commerce(): ICommerce {
-    return this.state.config && this.state.config.commerce;
-  }
-
-  get actions(): any {
-    return this.state.config && this.state.config?.actions;
-  }
-
-  @computed get editorConfig(): any {
-    return this.state.config && this.state.config?.editor;
-  }
-
   get version(): string {
     return version;
-  }
-
-  get origin(): string {
-    return this.document.location.origin;
   }
 
   get defaultThumb(): string {
@@ -168,15 +139,22 @@ export class AppState {
   }
 
   @action
-  public loadConfig(): any {
+  public loadConfig(coreConfig: object): any {
     if (environment.production) {
       return this.http
         .get(`${environment.apiUrl}/api/v1/config?content=/core/base`)
+        .pipe(
+          tap((config: any) => {
+            Object.assign(coreConfig, config);
+            console.log(Object.assign(coreConfig, config));
+          })
+        )
         .toPromise()
         .then(
-          (config) => {
+          (config: ICoreConfig) => {
             this.state.config = config;
             this.storeLocalBaseConfig(config);
+            // debugger;
             this.apiService.configLoadDone$.next(true);
             this.initTheme();
           },
@@ -188,9 +166,15 @@ export class AppState {
     } else {
       return this.http
         .get(`${environment.apiUrl}/assets/app/core/base.json`)
+        .pipe(
+          tap((config: any) => {
+            Object.assign(coreConfig, config);
+            console.log(Object.assign(coreConfig, config));
+          })
+        )
         .toPromise()
         .then(
-          (config) => {
+          (config: ICoreConfig) => {
             this.state.config = config;
             this.storeLocalBaseConfig(config);
             this.apiService.configLoadDone$.next(true);
@@ -209,7 +193,7 @@ export class AppState {
       this.state.defTheme = this.storage.retrieve(this.MODE);
       this.setBodyClasses(this.state.defTheme);
     } else {
-      this.state.defTheme = this.state.config.defaultTheme || 'light-theme';
+      this.state.defTheme = this.config.defaultTheme || 'light-theme';
       this.setBodyClasses(this.state.defTheme);
     }
   }

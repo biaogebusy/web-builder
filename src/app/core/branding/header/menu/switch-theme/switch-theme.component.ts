@@ -1,5 +1,12 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { AppState } from '../../../../mobx/AppState';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
+import { AppState } from '@core/mobx/AppState';
+import { ICoreConfig } from '@core/mobx/IAppConfig';
+import { CORE_CONFIG } from '@core/token/core.config';
 @Component({
   selector: 'app-switch-theme',
   templateUrl: './switch-theme.component.html',
@@ -7,7 +14,10 @@ import { AppState } from '../../../../mobx/AppState';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SwitchThemeComponent implements OnInit {
-  constructor(public appState: AppState) {}
+  constructor(
+    public appState: AppState,
+    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig
+  ) {}
 
   ngOnInit(): void {}
 
