@@ -1,0 +1,44 @@
+name: Build app and deploy to ECS
+
+on:
+  push:
+    branches: [xhb]
+
+jobs:
+  build:
+    # using Ubuntu
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./
+    steps:
+      - name: work around permission issue
+        run: git config --global --add safe.directory *
+
+      - name: Checkout
+        uses: actions/checkout@v3.0.1
+
+      - name: use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14"
+
+      - name: NPM Install
+        run: npm ci over npm
+
+      - name: NPM Install Angular
+        run: npm install -g @angular/cli > /dev/null
+
+      - name: NPM build all App Production
+        run: npm run build:ssr
+
+      - name: Deploy to Server
+        uses: AEnterprise/rsync-deploy@v1.0
+        env:
+          DEPLOY_KEY: ${{ secrets.KEY }}
+          ARGS: -avz --delete
+          SERVER_PORT: "22"
+          FOLDER: "dist"
+          SERVER_IP: ${{ secrets.HOST }}
+          USERNAME: ${{ secrets.SSH_USER }}
+          SERVER_DESTINATION: "/sdc/www/sit/xhb"
