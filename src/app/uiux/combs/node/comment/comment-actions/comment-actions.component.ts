@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { ICommentConfig } from '@core/interface/node/INode';
+import { ContentState } from '@core/mobx/ContentState';
 import { UserState } from '@core/mobx/user/UserState';
 
 @Component({
@@ -16,7 +17,7 @@ export class CommentActionsComponent implements OnInit {
   @Output() update = new EventEmitter();
   @Output() reply = new EventEmitter();
   @Output() delete = new EventEmitter();
-  constructor(public userState: UserState) {}
+  constructor(public userState: UserState, public contentState: ContentState) {}
 
   ngOnInit(): void {}
 
@@ -34,6 +35,7 @@ export class CommentActionsComponent implements OnInit {
 
   onQuote(): void {
     console.log(this.item);
+    this.contentState.commentQuote$.next(this.item);
   }
 
   isMy(): boolean {

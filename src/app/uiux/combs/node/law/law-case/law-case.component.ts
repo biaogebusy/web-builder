@@ -15,14 +15,14 @@ import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { NodeComponent } from '@uiux/base/node.widget';
 import { Subject } from 'rxjs';
+import { ScreenService } from '@core/service/screen.service';
+import { ContentState } from '@core/mobx/ContentState';
 import {
   takeUntil,
   debounceTime,
   distinctUntilChanged,
   map,
 } from 'rxjs/operators';
-import { ScreenService } from '@core/service/screen.service';
-import { ContentState } from '@core/mobx/ContentState';
 // import data from './data.json';
 
 @Component({
@@ -34,6 +34,7 @@ import { ContentState } from '@core/mobx/ContentState';
 export class LawCaseComponent extends NodeComponent implements OnInit {
   @Input() content: ICase;
   comments: any[];
+  initCommentContent: string;
   form: FormGroup;
   apiParams: string;
   disabled = true;

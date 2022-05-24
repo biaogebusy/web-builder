@@ -36,7 +36,6 @@ export class CommentFormComponent implements OnInit, OnDestroy {
   @Output() cancel = new EventEmitter();
 
   loading = false;
-  htmlData = '';
   placeholder = '请输入...';
   destroy$: Subject<boolean> = new Subject<boolean>();
   modules: QuillModule;
@@ -57,9 +56,17 @@ export class CommentFormComponent implements OnInit, OnDestroy {
         this.coreConfig?.editor?.modules || {},
         this.content.editor?.modules
       );
-      if (this.commentContent) {
-        this.htmlData = this.commentContent;
-      }
+      this.contentState.commentQuote$.subscribe((quote: any) => {
+        this.screenService.scrollToAnchor('comment');
+        this.commentContent = `
+          <br>
+          <em style="color: rgb(136, 136, 136);font-style: italic;">
+          ====================<br>${quote.author.title}<br>${quote.author.subTitle}<br>
+          ${quote.content}
+          </em>
+          `;
+        this.cd.detectChanges();
+      });
       this.cd.detectChanges();
     }
   }
@@ -102,7 +109,7 @@ export class CommentFormComponent implements OnInit, OnDestroy {
           takeUntil(this.destroy$)
         )
         .subscribe((res) => {
-          this.htmlData = '';
+          this.commentContent = '';
           this.done('回复成功！');
           this.cd.detectChanges();
         });
@@ -119,7 +126,7 @@ export class CommentFormComponent implements OnInit, OnDestroy {
         .pipe(takeUntil(this.destroy$))
         .subscribe(
           (res) => {
-            this.htmlData = '';
+            this.commentContent = '';
             this.done('提交成功！');
             this.cd.detectChanges();
           },
