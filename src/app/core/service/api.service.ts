@@ -3,16 +3,14 @@ import { Injectable } from '@angular/core';
 import { camelCase, result } from 'lodash-es';
 import { Subject } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { CryptoJSService } from './crypto-js.service';
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
   localUserKey = camelCase(environment.apiUrl.split('//')[1]);
-  baseConfigKey = 'config';
   public configLoadDone$ = new Subject();
 
-  constructor(public cryptoJS: CryptoJSService) {}
+  constructor() {}
 
   get apiUrl(): string {
     return environment.apiUrl;

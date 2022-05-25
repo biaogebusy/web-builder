@@ -7,7 +7,6 @@ import { forkJoin } from 'rxjs';
 import { Observable, of } from 'rxjs';
 import { IApiUrl } from '../mobx/IAppConfig';
 import { map, switchMap } from 'rxjs/operators';
-import { CryptoJSService } from './crypto-js.service';
 import { isEmpty } from 'lodash-es';
 import { UserState } from '@core/mobx/user/UserState';
 import { IArticleAccess } from '@core/interface/node/IArticle';
@@ -23,13 +22,12 @@ export class NodeService extends ApiService {
 
   constructor(
     private appState: AppState,
-    public cryptoJS: CryptoJSService,
     public http: HttpClient,
     private userState: UserState,
     public storage: LocalStorageService,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
   ) {
-    super(cryptoJS);
+    super();
   }
 
   get apiUrlConfig(): IApiUrl {

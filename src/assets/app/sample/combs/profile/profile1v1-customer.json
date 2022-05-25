@@ -36,6 +36,34 @@
         "content": "上海市浦东新区张衡路1500号"
       }]
     },
+    "actions": [{
+      "type": "btn",
+      "label": "编辑",
+      "icon": {
+        "name": "editor",
+        "inline": true
+      },
+      "href": "https://admin.zhaobg.com/manage/content/50/edit",
+      "target": "_blank"
+    }, {
+      "type": "flag",
+      "label": "收藏",
+      "icon": {
+        "name": "star",
+        "inline": true
+      },
+      "params": {
+        "type": "flagging--favorite",
+        "entity_type": "node",
+        "entity_id": "1312",
+        "relationships": {
+          "flagged_entity": {
+            "type": "node--case",
+            "id": "cb31d69f-a95e-4c91-97d1-1169f82a10a5"
+          }
+        }
+      }
+    }],
     "content": [{
         "label": "备注信息",
         "type": "text",
