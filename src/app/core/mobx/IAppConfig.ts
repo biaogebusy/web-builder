@@ -10,6 +10,7 @@ export interface ICoreConfig {
   theme: ITheme[];
   login: ILogin;
   defaultLogo: string;
+  defaultAvatar: string;
   defaultThumb: string;
   amap: IAmap;
   apiUrl: IApiUrl;

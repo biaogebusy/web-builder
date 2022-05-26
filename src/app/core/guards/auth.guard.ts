@@ -33,7 +33,7 @@ export class AuthGuard implements CanActivate {
     | UrlTree {
     // return true;
 
-    if (this.coreConfig?.guard && this.coreConfig?.guard?.authGuard) {
+    if (this.coreConfig?.guard?.authGuard) {
       return this.userService.getLoginState().pipe(
         map((status) => {
           console.log('userState:', status);
