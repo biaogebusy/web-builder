@@ -11,8 +11,16 @@
           <app-img [content]="avatar"></app-img>
           <h2 class="mat-h2 m-bottom-0 m-top-xs">{{content.name}}</h2>
           <div class="subTitle">{{content.subTitle}}</div>
-          <div class="actions m-top-xs" *ngIf="content.actions">
-            <app-dynamic-widgets [content]="action" *ngFor="let action of content.actions"></app-dynamic-widgets>
+          <div class="actions" *ngIf="content.actions">
+            <button mat-icon-button aria-label="menu" [matMenuTriggerFor]="menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" class="actions-menu">
+              <button mat-menu-item *ngFor="let action of content.actions">
+                <app-dynamic-widgets [content]="action">
+                </app-dynamic-widgets>
+              </button>
+            </mat-menu>
           </div>
         </div>
         <mat-divider></mat-divider>

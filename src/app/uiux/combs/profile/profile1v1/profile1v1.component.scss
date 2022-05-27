@@ -1,6 +1,22 @@
 @import "/src/theme/mixins/amixin";
 @import "/src/theme/variable/breakpoint";
 
+.actions {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 4px;
+}
+
+::ng-deep .actions-menu {
+  .mat-button {
+    width: 100%;
+    .mat-button-focus-overlay {
+      background-color: transparent !important;
+    }
+  }
+}
+
 .box {
   ::ng-deep {
     img {
