@@ -5,12 +5,24 @@
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
   <app-bg-img [content]="content.bg"></app-bg-img>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
-  <div class="container">
+  <div class="container" fxLayout="row wrap">
     <app-text [content]="content.text" *ngIf="content.text"></app-text>
-    <app-dynamic-table [content]="table" *ngIf="table"></app-dynamic-table>
-    <mat-paginator *ngIf="pager" (page)="onPageChange($event)" [length]="pager.total_items"
-      [pageSize]="pager.items_per_page">
-    </mat-paginator>
+    <div class="filter" [class.is-row-mode]="!content.isSidebarMode"
+      [fxFlex.gt-sm]="content.isSidebarMode?'0 0 20':'0 0 100'" fxFlex.lt-md="100">
+      <app-search-sidebar *ngIf="form" [content]="content.form" [form]="form" [label]="content.label"
+        [searchEntry]="searchEntry">
+      </app-search-sidebar>
+    </div>
+    <div class="view" ngClass.gt-sm="p-x" fxFlex.gt-sm="{{content.isSidebarMode?'0 0 80':'0 0 100'}}"
+      fxFlex.lt-md="100">
+      <app-dynamic-table [content]="table" *ngIf="table"></app-dynamic-table>
+      <div class="p-y p-x" *ngIf="noAuth">
+        您没有权限访问该页面！
+      </div>
+      <mat-paginator *ngIf="pager" (page)="onPageChange($event)" [length]="pager.total_items"
+        [pageSize]="pager.items_per_page">
+      </mat-paginator>
+    </div>
   </div>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
 </div>

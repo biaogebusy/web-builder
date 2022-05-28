@@ -9,7 +9,6 @@
         "style": "style-v1"
       }
     },
-    "fullWidth": true,
     "params": {
       "apiType": "tab/meeting"
     },
@@ -54,6 +53,32 @@
       {
         "label": "律师",
         "key": "uid"
+      }
+    ],
+    "isSidebarMode": false,
+    "label": {
+      "clear": "清空",
+      "filter": "过滤条件"
+    },
+    "form": [{
+        "type": "input",
+        "key": "customer",
+        "label": "客户名称"
+      },
+      {
+        "type": "input",
+        "key": "handler",
+        "label": "经办人员"
+      },
+      {
+        "type": "input",
+        "key": "court",
+        "label": "法院名称"
+      },
+      {
+        "type": "input",
+        "key": "judge",
+        "label": "法官名称"
       }
     ]
   }]

@@ -1,4 +1,8 @@
 import { NgModule } from '@angular/core';
+import { FullCalendarModule } from '@fullcalendar/angular'; // must go before plugins
+import listPlugin from '@fullcalendar/list';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
 import { LightboxModule } from 'ngx-lightbox';
 import { SwiperModule } from 'ngx-swiper-wrapper';
 import { SWIPER_CONFIG } from 'ngx-swiper-wrapper';
@@ -55,10 +59,13 @@ import { PaginationSimpleComponent } from './pagination/pagination-simple/pagina
 import { FlagComponent } from './actions/flag/flag.component';
 import { ShapeComponent } from './shape/shape.component';
 import { BgImgComponent } from './bg-img/bg-img.component';
-import { SearchActionComponent } from './actions/search-action/search-action.component';
 import { ShareComponent } from './actions/share/share.component';
 import { TreeComponent } from './tree/tree.component';
 import { Card1v1Component } from './card/card1v1/card1v1.component';
+import { BtnComponent } from './btn/btn.component';
+import { Card1v2Component } from './card/card1v2/card1v2.component';
+import { Card1v3Component } from './card/card1v3/card1v3.component';
+import { CardMetaComponent } from './card/card-meta/card-meta.component';
 import { DownloadComponent } from './actions/download/download.component';
 import { MediaMetaComponent } from './media/media-meta/media-meta.component';
 import { TextHeroComponent } from './text-hero/text-hero.component';
@@ -68,19 +75,13 @@ import { ContentBoxComponent } from './content-box/content-box.component';
 import { TermsServiceComponent } from './form/terms-service/terms-service.component';
 import { DynamicTableComponent } from './dynamic-table/dynamic-table.component';
 import { InlineLightboxComponent } from './lightbox/inline-lightbox/inline-lightbox.component';
-import { BtnComponent } from './btn/btn.component';
 import { ContentTextCenterComponent } from './content-text-center/content-text-center.component';
-import { Card1v2Component } from './card/card1v2/card1v2.component';
 import { CalendarComponent } from './date/calendar/calendar.component';
-import { FullCalendarModule } from '@fullcalendar/angular'; // must go before plugins
-import dayGridPlugin from '@fullcalendar/daygrid';
-import timeGridPlugin from '@fullcalendar/timegrid';
-import listPlugin from '@fullcalendar/list';
 import { DatepickerComponent } from './form/datepicker/datepicker.component'; // a plugin!
 import { ViewListComponent } from './view-list/view-list.component';
 import { DataSourcePipe } from '@core/pipe/dataSource.pipe';
-import { CardMetaComponent } from './card/card-meta/card-meta.component';
-import { Card1v3Component } from './card/card1v3/card1v3.component';
+import { SearchActionComponent } from './actions/search-action/search-action.component';
+import { SearchSidebarComponent } from './sidebar/search-sidebar/search-sidebar.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -155,6 +156,7 @@ const components = [
   TermsServiceComponent,
   DynamicTableComponent,
   SearchActionComponent,
+  SearchSidebarComponent,
   InlineLightboxComponent,
   MediaObjectGroupComponent,
   ContentTextCenterComponent,

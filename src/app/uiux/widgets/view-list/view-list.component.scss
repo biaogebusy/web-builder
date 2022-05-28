@@ -5,3 +5,18 @@
     min-height: 600px;
   }
 }
+
+.filter {
+  &.is-row-mode {
+    ::ng-deep {
+      .mat-expansion-panel-body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        > * {
+          margin-right: 2rem;
+        }
+      }
+    }
+  }
+}
