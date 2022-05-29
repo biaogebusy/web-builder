@@ -2,7 +2,7 @@
   <table mat-table [dataSource]="content.elements | dataSource" class="width-100" aria-describedby="dynamic table">
     <ng-container [matColumnDef]="item.key" *ngFor="let item of content.header">
       <th mat-header-cell *cdkHeaderCellDef>
-        <span class="p-x-xs">{{item.label}}</span>
+        <span class="p-x-xs" [innerHTML]="item.label"></span>
       </th>
       <td mat-cell *cdkCellDef="let element">
         <ng-container *ngIf="element[item.key] | isArray;else object">
