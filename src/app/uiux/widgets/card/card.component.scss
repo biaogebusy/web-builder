@@ -90,12 +90,21 @@
     font-size: small;
     .item {
       margin-bottom: 2px;
+      .inline-lightbox {
+        a {
+          display: block;
+          @include line-clamp();
+          padding-left: 0 !important;
+          padding-right: 0 !important;
+        }
+      }
     }
     .badge {
       padding: 4px 10px;
       border-radius: 15px;
       margin-bottom: 8px;
       display: inline-block;
+      @include line-clamp();
     }
   }
   .footer {
