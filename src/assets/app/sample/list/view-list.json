@@ -1,85 +1,80 @@
 {
-  "title": "View list",
-  "body": [{
-    "type": "view-list",
-    "text": {
-      "spacer": "sm",
-      "title": {
-        "label": "会议管理",
-        "style": "style-v1"
+  "type": "view-list",
+  "text": {
+    "spacer": "sm",
+    "title": {
+      "label": "门店列表",
+      "style": "style-v1"
+    }
+  },
+  "fullWidth": true,
+  "params": {
+    "apiType": "tab/shop"
+  },
+  "header": [{
+      "label": "门店标题",
+      "key": "title"
+    },
+    {
+      "label": "门店简介",
+      "key": "subtitle",
+      "style": {
+        "backgroundColor": "#e4ffff"
       }
     },
-    "params": {
-      "apiType": "tab/meeting"
+    {
+      "label": "门店 Logo",
+      "key": "logo"
     },
-    "header": [{
-        "label": "会议标题",
-        "key": "title"
-      }, {
-        "label": "会议时间",
-        "key": "business_date"
-      },
-      {
-        "label": "客户名称",
-        "key": "customer"
-      }, {
-        "label": "经办人员",
-        "key": "handler"
-      },
-      {
-        "label": "会议时间",
-        "key": "date_tiem_range"
-      },
-      {
-        "label": "会议地址",
-        "key": "meeting_address_address_line1"
-      },
-      {
-        "label": "参会人员",
-        "key": "participant"
-      },
-      {
-        "label": "会议内容",
-        "key": "meeting_minutes"
-      },
-      {
-        "label": "文件清单",
-        "key": "case_files"
-      },
-      {
-        "label": "工作工时",
-        "key": "man_hour"
-      },
-      {
-        "label": "律师",
-        "key": "uid"
-      }
-    ],
-    "isSidebarMode": false,
-    "label": {
-      "clear": "清空",
-      "filter": "过滤条件"
+    {
+      "label": "门店头照",
+      "key": "media"
     },
-    "form": [{
-        "type": "input",
-        "key": "customer",
-        "label": "客户名称"
-      },
-      {
-        "type": "input",
-        "key": "handler",
-        "label": "经办人员"
-      },
-      {
-        "type": "input",
-        "key": "court",
-        "label": "法院名称"
-      },
-      {
-        "type": "input",
-        "key": "judge",
-        "label": "法官名称"
-      }
-    ]
-  }]
+    {
+      "label": "公司地址",
+      "key": "address"
+    },
+    {
+      "label": "营业执照",
+      "key": "business"
+    },
+    {
+      "label": "信用号",
+      "key": "credit"
+    },
+    {
+      "label": "企业法人",
+      "key": "legal_person"
+    },
+    {
+      "label": "法人联系方式",
+      "key": "phone"
+    },
+    {
+      "label": "紧急联系人",
+      "key": "emergency"
+    },
+    {
+      "label": "紧急联系方式",
+      "key": "contact"
+    }, {
+      "label": "企业邮箱",
+      "key": "email"
+    }, {
+      "label": "审核人",
+      "key": "reviewer"
+    }, {
+      "label": "审核时间",
+      "key": "review_time"
+    }, {
+      "label": "经营地址",
+      "key": "shop_address"
+    }, {
+      "label": "纬度",
+      "key": "latitude"
+    }, {
+      "label": "经度",
+      "key": "longitude"
+    }
+  ]
 }

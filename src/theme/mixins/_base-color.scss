@@ -20,6 +20,8 @@
   $foreground: map-get($config, foreground);
   $background: map-get($config, background);
 
+  $contrast: mat-color($primary, default-contrast);
+
   a {
     color: mat-color($accent);
     text-decoration: none;
@@ -36,13 +38,90 @@
     border-left: 3px solid mat-color($foreground, divider);
   }
 
-  img {
-    box-sizing: border-box;
-    vertical-align: middle;
-  }
   .mat-drawer-container {
     color: mat-color($foreground, text, 0.75);
     background-color: mat-color($background, card);
+  }
+
+  .bg-primary {
+    background-color: mat-color($primary);
+    color: $contrast;
+  }
+
+  .bg-accent {
+    background-color: mat-color($accent);
+    color: $contrast;
+  }
+
+  .bg-warn {
+    background-color: mat-color($warn);
+    color: $contrast;
+  }
+
+  // theme color from material theme config
+  .bg-pink {
+    background-color: #c2185b;
+    color: $contrast;
+  }
+
+  .bg-orange {
+    background-color: #e65100;
+    color: $contrast;
+  }
+
+  .bg-yellow {
+    background-color: #f57f17;
+    color: $contrast;
+  }
+
+  .bg-red {
+    background-color: #d32f2f;
+    color: $contrast;
+  }
+
+  .bg-purple {
+    background-color: #512da8;
+    color: $contrast;
+  }
+
+  .bg-indigo {
+    background-color: #303f9f;
+    color: $contrast;
+  }
+
+  .bg-blue {
+    background-color: #1976d2;
+    color: $contrast;
+  }
+
+  .bg-cyan {
+    background-color: #006064;
+    color: $contrast;
+  }
+
+  .bg-teal {
+    background-color: #004d40;
+    color: $contrast;
+  }
+
+  .bg-green {
+    background-color: #1b5e20;
+    color: $contrast;
+  }
+
+  .bg-light-green {
+    background-color: #4caf50;
+    color: $contrast;
+  }
+
+  .bg-brown {
+    background-color: #5d4037;
+    color: $contrast;
+  }
+
+  .bg-grey {
+    background-color: #9e9e9e;
+    color: $contrast;
   }
 }
 

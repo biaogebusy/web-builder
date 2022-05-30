@@ -63,6 +63,11 @@
   display: block !important;
 }
 
+img {
+  box-sizing: border-box;
+  vertical-align: middle;
+}
+
 .clearfix {
   &:before,
   &:after {
