@@ -123,6 +123,16 @@
     background-color: #9e9e9e;
     color: $contrast;
   }
+
+  table:not(.mat-table) {
+    background-color: mat-color($background, card);
+    margin: 10px 0;
+    @include mat-elevation(5, mat-color($foreground, divider));
+    th,
+    td {
+      border-bottom: 1px solid mat-color($foreground, divider);
+    }
+  }
 }
 
 @mixin custom-overide() {

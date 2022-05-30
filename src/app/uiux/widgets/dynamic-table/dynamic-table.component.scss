@@ -5,8 +5,17 @@
   .mat-header-cell {
     font-size: 16px;
   }
-  ::ng-deep .sub {
-    font-size: small;
-    opacity: 0.6;
+  ::ng-deep {
+    .sub {
+      font-size: small;
+      opacity: 0.6;
+    }
+    .text-cell {
+      > * {
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
   }
 }

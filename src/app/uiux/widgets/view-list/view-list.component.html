@@ -13,8 +13,8 @@
         [searchEntry]="searchEntry">
       </app-search-sidebar>
     </div>
-    <div class="view" ngClass.gt-sm="p-x" fxFlex.gt-sm="{{content.isSidebarMode?'0 0 80':'0 0 100'}}"
-      fxFlex.lt-md="100">
+    <div class="view" ngClass.gt-sm="{{content.isSidebarMode?'p-x':''}}"
+      fxFlex.gt-sm="{{content.isSidebarMode?'0 0 80':'0 0 100'}}" fxFlex.lt-md="100">
       <app-dynamic-table [content]="table" *ngIf="table"></app-dynamic-table>
       <div class="p-y p-x" *ngIf="noAuth">
         您没有权限访问该页面！

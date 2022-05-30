@@ -18,12 +18,12 @@
         <ng-template #text>
           <ng-container *ngIf="item.dialog && element[item.key];else normal">
             <span class="p-y-xs p-x-xs text-cell"
-              [innerHTML]="element[item.key] | shorten:item.dialog.shorten||10:'...'"></span>
+              [innerHTML]="element[item.key] | stripTags | shorten:item.dialog.shorten||10:'...'"></span>
             <a href="javascript:void(0)" [innerHTML]="item.dialog.label"
               (click)="onDialog(item.label, element[item.key])"></a>
           </ng-container>
           <ng-template #normal>
-            <span class="p-y-xs p-x-xs text-cell" [innerHTML]="element[item.key]"></span>
+            <span *ngIf="element[item.key]" class="p-y-xs p-x-xs text-cell" [innerHTML]="element[item.key]"></span>
           </ng-template>
         </ng-template>
       </td>
