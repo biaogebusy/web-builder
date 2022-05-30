@@ -4,6 +4,15 @@
   ::ng-deep .dynamic-table {
     min-height: 600px;
   }
+  .loading-inner {
+    position: absolute;
+    left: 50%;
+    top: 25%;
+  }
+}
+
+.view {
+  position: relative;
 }
 
 .filter {

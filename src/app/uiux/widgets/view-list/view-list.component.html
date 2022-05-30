@@ -1,7 +1,4 @@
 <div class="view-list" *ngIf="content">
-  <div class="loading-inner m-y" fxFlexFill fxLayoutAlign="center center" *ngIf="loading">
-    <mat-spinner diameter="50" color="accent"></mat-spinner>
-  </div>
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
   <app-bg-img [content]="content.bg"></app-bg-img>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
@@ -15,6 +12,9 @@
     </div>
     <div class="view" ngClass.gt-sm="{{content.isSidebarMode?'p-x':''}}"
       fxFlex.gt-sm="{{content.isSidebarMode?'0 0 80':'0 0 100'}}" fxFlex.lt-md="100">
+      <div class="loading-inner" fxLayoutAlign="center center" *ngIf="loading">
+        <mat-spinner diameter="50" color="accent"></mat-spinner>
+      </div>
       <app-dynamic-table [content]="table" *ngIf="table"></app-dynamic-table>
       <div class="p-y p-x" *ngIf="noAuth">
         您没有权限访问该页面！
