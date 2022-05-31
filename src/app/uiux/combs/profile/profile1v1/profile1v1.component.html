@@ -49,11 +49,13 @@
       <div class="right" fxFlex.lt-md="0 0 100" fxFlex.gt-sm="0 0 calc(100% - 30% - 4rem)">
         <div class="content">
           <div class="item m-bottom" *ngFor="let item of content.content">
-            <app-title [content]="{
-              'label':item.label,
-              'style':'style-v4'
-            }"></app-title>
-            <app-dynamic-widgets [content]="item"></app-dynamic-widgets>
+            <ng-container *ngIf="!(item.empty && item.empty === true)">
+              <app-title [content]="{
+                'label':item.label,
+                'style':'style-v4'
+              }"></app-title>
+              <app-dynamic-widgets [content]="item"></app-dynamic-widgets>
+            </ng-container>
           </div>
         </div>
       </div>
