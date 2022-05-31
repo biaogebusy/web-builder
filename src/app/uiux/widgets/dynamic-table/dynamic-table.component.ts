@@ -7,6 +7,7 @@ import {
 import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
+import { IDynamicTable } from '../IWidgets';
 import { TextComponent } from '../text/text.component';
 
 @Component({
@@ -16,7 +17,7 @@ import { TextComponent } from '../text/text.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DynamicTableComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: IDynamicTable;
   @Input() form: FormGroup;
 
   displayedColumns: string[];

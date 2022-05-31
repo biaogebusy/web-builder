@@ -1,10 +1,10 @@
 <div class="dynamic-table width-100">
   <table mat-table [dataSource]="content.elements | dataSource" class="width-100" aria-describedby="dynamic table">
     <ng-container [matColumnDef]="item.key" *ngFor="let item of content.header">
-      <th mat-header-cell *cdkHeaderCellDef class="{{item.classes}}" [ngStyle]="item.style">
+      <th mat-header-cell *cdkHeaderCellDef class="{{item.classes}}" [ngStyle]="item.style || {}">
         <span class="p-x-xs" [innerHTML]="item.label"></span>
       </th>
-      <td mat-cell *cdkCellDef="let element" class="{{item.classes}}" [ngStyle]="item.style">
+      <td mat-cell *cdkCellDef="let element" class="{{item.classes}}" [ngStyle]="item.style || {}">
         <ng-container *ngIf="element[item.key] | isArray;else object">
           <app-dynamic-widgets *ngFor="let item of element[item.key]" class="p-y-xs p-x-xs" [content]="item"
             [form]="form"></app-dynamic-widgets>

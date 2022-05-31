@@ -50,3 +50,17 @@ export interface ILightboxElement {
   caption: string;
   thumb: string;
 }
+
+export interface IDynamicTable {
+  header: {
+    label: string;
+    key: string;
+    classes?: string;
+    style?: object;
+    dialog?: {
+      shorten: number;
+      label: string;
+    };
+  }[];
+  elements: any[];
+}
