@@ -6,6 +6,9 @@
   right: 0;
   top: 0;
   padding: 4px;
+  button {
+    opacity: 0.75;
+  }
 }
 
 ::ng-deep .actions-menu {
@@ -38,10 +41,10 @@
 .left {
   @media #{$gt-sm} {
     position: relative;
-    top: -300px;
+    top: -245px;
     border-radius: 4px;
     .box {
-      height: 260px;
+      height: 205px;
       box-sizing: border-box;
     }
   }

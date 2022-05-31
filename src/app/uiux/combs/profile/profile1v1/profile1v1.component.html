@@ -3,10 +3,10 @@
     <app-img [content]="content.bannerBg.img"></app-img>
   </app-bg>
 </div>
-<div class="profile-1v1 position-relative p-y">
+<div class="profile-1v1 position-relative m-y">
   <div class="container">
     <div class="profile" fxLayoutAlign="space-between start" fxLayout="row wrap">
-      <div class="left" fxFlex.lt-md="0 0 100" fxFlex.gt-sm="0 0 30">
+      <div class="left m-bottom" fxFlex.lt-md="0 0 100" fxFlex.gt-sm="0 0 30">
         <div class="box p-y-sm p-x text-center">
           <app-img [content]="avatar"></app-img>
           <h2 class="mat-h2 m-bottom-0 m-top-xs">{{content.name}}</h2>
@@ -50,9 +50,9 @@
         <div class="content">
           <div class="item m-bottom" *ngFor="let item of content.content">
             <app-title [content]="{
-            'label':item.label,
-            'style':'style-v4'
-          }"></app-title>
+              'label':item.label,
+              'style':'style-v4'
+            }"></app-title>
             <app-dynamic-widgets [content]="item"></app-dynamic-widgets>
           </div>
         </div>

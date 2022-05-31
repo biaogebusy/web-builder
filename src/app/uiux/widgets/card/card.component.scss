@@ -109,5 +109,10 @@
   }
   .footer {
     padding: 0 16px 16px;
+    ::ng-deep .meta {
+      .item {
+        margin-bottom: 10px;
+      }
+    }
   }
 }
