@@ -1,10 +1,14 @@
+<!-- https://stackblitz.com/github/bithost-gmbh/ngx-mat-select-search-example?file=src%2Fapp%2Fexamples%2F02-multiple-selection-example%2Fmultiple-selection-example.component.ts -->
 <mat-form-field [appearance]="content.appearance || 'legacy'" class="width-100" [formGroup]="form" *ngIf="form">
   <mat-label>{{content.label}}</mat-label>
   <mat-select *ngIf="!content.multiple" [formControlName]="content.key" disableRipple>
     <mat-option value="{{option.value}}" *ngFor="let option of options">{{option.label}}
     </mat-option>
   </mat-select>
-  <mat-select *ngIf="content.multiple" [formControlName]="content.key" multiple disableRipple>
+  <mat-select *ngIf="content.multiple" [formControlName]="content.key" multiple disableRipple #multiSelect>
+    <mat-option>
+      <ngx-mat-select-search [formControlName]="content.key"></ngx-mat-select-search>
+    </mat-option>
     <mat-option *ngFor="let option of options" [value]="option.value">{{option.label}}
     </mat-option>
   </mat-select>

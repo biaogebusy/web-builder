@@ -12,6 +12,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { MatRippleModule } from '@angular/material/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -69,6 +70,7 @@ import { MatPaginatorIntlCro } from '@core/service/paginator.service';
     NgPipesModule,
     NgxPaginationModule,
     MatTableModule,
+    NgxMatSelectSearchModule,
   ],
   exports: [
     CommonModule,
@@ -103,6 +105,7 @@ import { MatPaginatorIntlCro } from '@core/service/paginator.service';
     NgxPaginationModule,
     MatTableModule,
     MatPaginatorModule,
+    NgxMatSelectSearchModule,
   ],
   providers: [
     IconService,
