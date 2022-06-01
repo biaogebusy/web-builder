@@ -4,14 +4,20 @@
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <div class="container" fxLayout="row wrap">
     <app-text [content]="content.text" *ngIf="content.text"></app-text>
-    <div class="filter" [class.is-row-mode]="!content.isSidebarMode"
-      [fxFlex.gt-sm]="content.isSidebarMode?'0 0 20':'0 0 100'" fxFlex.lt-md="100">
-      <app-search-sidebar *ngIf="form" [content]="content.form" [form]="form" [label]="content.label"
-        [searchEntry]="searchEntry">
-      </app-search-sidebar>
+    <div class="filter" *ngIf="content.form" fxFlex.gt-sm="0 0 100" fxFlex.lt-md="100" fxLayout.gt-sm="row"
+      fxLayout.lt-md="column" fxLayoutAlign="space-between center">
+      <div class="filter-item" fxLayout.gt-sm="row" fxLayout.lt-md="column" fxLayoutGap.gt-sm="1rem">
+        <app-dynamic-form-control fxFlex="auto" *ngFor="let item of content.form" [control]="item" [form]="form">
+        </app-dynamic-form-control>
+      </div>
+      <div class="actions">
+        <button mat-button (click)="clear()">
+          <mat-icon>clear</mat-icon>清空
+        </button>
+      </div>
     </div>
-    <div class="view" ngClass.gt-sm="{{content.isSidebarMode?'p-x':''}}"
-      fxFlex.gt-sm="{{content.isSidebarMode?'0 0 80':'0 0 100'}}" fxFlex.lt-md="100">
+    <mat-divider></mat-divider>
+    <div class="view" fxFlex.gt-sm="0 0 100" fxFlex.lt-md="100">
       <div class="loading-inner" fxLayoutAlign="center center" *ngIf="loading">
         <mat-spinner diameter="50" color="accent"></mat-spinner>
       </div>

@@ -192,9 +192,13 @@
         @include mat-elevation(4, mat-color($foreground, divider), 0.5);
       }
     }
+    .view {
+      @include mat-elevation(6, mat-color($foreground, divider), 0.25);
+    }
   }
 
   .dynamic-table {
+    background-color: mat-color($background, card);
     tbody {
       > tr {
         &:hover {

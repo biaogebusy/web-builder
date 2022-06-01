@@ -12,7 +12,7 @@ export interface IControl {
   placeholder?: string;
   order?: number;
   controlType?: string;
-  options?: { key: string; value: string; label?: string }[];
+  options?: { value: string; label: string }[];
   errorMes?: string;
   appearance?: MatFormFieldAppearance;
   tooltip?: string;
@@ -21,4 +21,5 @@ export interface IControl {
   clear?: boolean;
   rows?: number;
   mode?: string;
+  api?: string;
 }

@@ -69,6 +69,7 @@ export class ViewListComponent extends BaseComponent implements OnInit {
     this.loading = true;
     const userParam = { uid: this.userState.currentUser.current_user.uid };
     const params = this.getApiParams(Object.assign(options, userParam));
+    this.cd.detectChanges();
     this.nodeService
       .search(this.content.params.apiType, params, this.userState.csrfToken)
       .pipe(
@@ -94,6 +95,10 @@ export class ViewListComponent extends BaseComponent implements OnInit {
         this.loading = false;
         this.cd.detectChanges();
       });
+  }
+
+  clear(): void {
+    this.form.reset();
   }
 
   onPageChange(page: PageEvent): void {
