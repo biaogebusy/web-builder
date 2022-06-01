@@ -67,8 +67,7 @@ export class ViewListComponent extends BaseComponent implements OnInit {
 
   getViews(options = {}): void {
     this.loading = true;
-    const userParam = { uid: this.userState.currentUser.current_user.uid };
-    const params = this.getApiParams(Object.assign(options, userParam));
+    const params = this.getApiParams(options);
     this.cd.detectChanges();
     this.nodeService
       .search(this.content.params.apiType, params, this.userState.csrfToken)
