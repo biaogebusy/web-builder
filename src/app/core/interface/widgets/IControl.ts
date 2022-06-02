@@ -22,4 +22,6 @@ export interface IControl {
   rows?: number;
   mode?: string;
   api?: string;
+  search?: boolean;
+  noFound?: string;
 }

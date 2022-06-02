@@ -1,15 +1,39 @@
-<!-- https://stackblitz.com/github/bithost-gmbh/ngx-mat-select-search-example?file=src%2Fapp%2Fexamples%2F02-multiple-selection-example%2Fmultiple-selection-example.component.ts -->
 <mat-form-field [appearance]="content.appearance || 'legacy'" class="width-100" [formGroup]="form" *ngIf="form">
   <mat-label>{{content.label}}</mat-label>
-  <mat-select *ngIf="!content.multiple" [formControlName]="content.key" disableRipple>
+
+  <!-- 单选不开启搜索 -->
+  <mat-select panelClass="custom-select" *ngIf="!content.multiple && !content.search" [formControlName]="content.key"
+    disableRipple #select>
     <mat-option value="{{option.value}}" *ngFor="let option of options">{{option.label}}
     </mat-option>
   </mat-select>
-  <mat-select *ngIf="content.multiple" [formControlName]="content.key" multiple disableRipple #multiSelect>
+
+  <!-- 单选开启搜索 -->
+  <mat-select panelClass="custom-select" *ngIf="!content.multiple && content.search" [formControlName]="content.key"
+    disableRipple #select>
     <mat-option>
-      <ngx-mat-select-search [formControlName]="content.key"></ngx-mat-select-search>
+      <ngx-mat-select-search [placeholderLabel]="content.placeholder || '搜索'"
+        [noEntriesFoundLabel]="content.noFound || '没有找到'" [formControl]="searchCtrl"></ngx-mat-select-search>
     </mat-option>
-    <mat-option *ngFor="let option of options" [value]="option.value">{{option.label}}
+    <mat-option *ngFor="let option of filteredOptions | async" [value]="option.value">{{option.label}}
+    </mat-option>
+  </mat-select>
+
+  <!-- 多选不开启搜索 -->
+  <mat-select panelClass="custom-select" *ngIf="content.multiple && !content.search" [formControlName]="content.key"
+    multiple disableRipple #select>
+    <mat-option value="{{option.value}}" *ngFor="let option of options">{{option.label}}
+    </mat-option>
+  </mat-select>
+
+  <!-- 多选开启搜索 -->
+  <mat-select panelClass="custom-select" *ngIf="content.multiple && content.search" [formControlName]="content.key"
+    multiple disableRipple #select>
+    <mat-option>
+      <ngx-mat-select-search [placeholderLabel]="content.placeholder || '搜索'"
+        [noEntriesFoundLabel]="content.noFound || '没有找到'" [formControl]="searchCtrl"></ngx-mat-select-search>
+    </mat-option>
+    <mat-option *ngFor="let option of filteredOptions | async" [value]="option.value">{{option.label}}
     </mat-option>
   </mat-select>
   <mat-error *ngIf="isValid">{{content.errorMes}}</mat-error>
