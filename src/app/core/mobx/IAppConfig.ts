@@ -23,6 +23,9 @@ export interface ICoreConfig {
   commerce: Commerce;
   googleAnalytics: GoogleAnalytics;
   guard: Guard;
+  access: {
+    check: true;
+  };
   qidian: {
     id: string;
     key: string;

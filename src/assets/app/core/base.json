@@ -218,5 +218,8 @@
   },
   "guard": {
     "authGuard": false
+  },
+  "access": {
+    "check": true
   }
 }

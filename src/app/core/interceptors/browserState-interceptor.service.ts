@@ -5,9 +5,11 @@ import {
   HttpRequest,
   HttpResponse,
 } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { makeStateKey, TransferState } from '@angular/platform-browser';
+import { ICoreConfig } from '@core/mobx/IAppConfig';
 import { ApiService } from '@core/service/api.service';
+import { CORE_CONFIG } from '@core/token/core.config';
 import { Observable, of } from 'rxjs';
 
 @Injectable({
@@ -16,7 +18,8 @@ import { Observable, of } from 'rxjs';
 export class BrowserStateInterceptor implements HttpInterceptor {
   constructor(
     private transferState: TransferState,
-    private apiService: ApiService
+    private apiService: ApiService,
+    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig
   ) {}
 
   intercept(
@@ -34,6 +37,12 @@ export class BrowserStateInterceptor implements HttpInterceptor {
         this.apiService.configLoadDone$.next(true);
         return of(response);
       }
+    }
+
+    if (this.coreConfig?.access?.check) {
+      req = req.clone({
+        withCredentials: true,
+      });
     }
 
     return next.handle(req);
