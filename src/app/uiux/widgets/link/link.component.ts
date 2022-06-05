@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -16,7 +15,7 @@ import { UtilitiesService } from '@core/service/utilities.service';
   styleUrls: ['./link.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LinkComponent implements OnInit, AfterViewInit {
+export class LinkComponent implements OnInit {
   @Input() content: ILink;
   classes: any;
   href: string;
@@ -31,15 +30,10 @@ export class LinkComponent implements OnInit, AfterViewInit {
       return;
     }
     this.getClasses();
-    this.handlePrivate();
   }
 
   isAbsolute(href: string): boolean {
     return this.routeService.isAbsolute(href);
-  }
-
-  ngAfterViewInit(): void {
-    this.handlePrivate();
   }
 
   getClasses(): void {
@@ -54,16 +48,14 @@ export class LinkComponent implements OnInit, AfterViewInit {
     this.classes = obj;
   }
 
-  handlePrivate(): void {
-    const href = this.content.href || 'javascript:void(0);';
-    if (href && !href.startsWith('/system/')) {
-      this.href = this.content.href;
-      this.cd.detectChanges();
-      return;
+  handleHref(href: string): string {
+    const link = href || 'javascript:void(0);';
+    if (link && !link.startsWith('/system/')) {
+      console.log(href);
+      return href;
     }
 
     // drupal private file url
-    this.href = `${environment.apiUrl}${href}`;
-    this.cd.detectChanges();
+    return `${environment.apiUrl}${href}`;
   }
 }
