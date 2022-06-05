@@ -1,3 +1,4 @@
+import { formatDate } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -59,7 +60,12 @@ export class ViewListComponent extends BaseComponent implements OnInit {
           takeUntil(this.destroy$)
         )
         .subscribe((res) => {
-          console.log(res);
+          if (res.start) {
+            res.start = formatDate(res.start, 'yyyy-MM-dd', 'en-US');
+          }
+          if (res.end) {
+            res.end = formatDate(res.end, 'yyyy-MM-dd', 'en-US');
+          }
           this.getViews(res);
         });
     }
