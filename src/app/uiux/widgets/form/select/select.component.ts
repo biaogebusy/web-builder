@@ -55,7 +55,7 @@ export class SelectComponent implements OnInit, AfterViewInit {
   getOptionsFromApi(): void {
     this.nodeService.search(this.content.api || '', '').subscribe((res) => {
       this.options = res.rows;
-      // load the initial bank list
+      // load the initial options
       this.filteredOptions.next(this.options.slice());
     });
   }

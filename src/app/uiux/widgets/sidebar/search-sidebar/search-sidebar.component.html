@@ -24,7 +24,8 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
         <ng-container *ngFor="let item of content">
-          <app-dynamic-form-control [control]="item" [form]="form"></app-dynamic-form-control>
+          <app-dynamic-widgets [content]="item" [form]="form">
+          </app-dynamic-widgets>
         </ng-container>
       </mat-expansion-panel>
     </mat-accordion>
