@@ -1,6 +1,5 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   Input,
   OnInit,
@@ -21,7 +20,6 @@ export class LinkComponent implements OnInit {
   href: string;
   constructor(
     public routeService: RouteService,
-    private cd: ChangeDetectorRef,
     private util: UtilitiesService
   ) {}
 
@@ -51,7 +49,6 @@ export class LinkComponent implements OnInit {
   handleHref(href: string): string {
     const link = href || 'javascript:void(0);';
     if (link && !link.startsWith('/system/')) {
-      console.log(href);
       return href;
     }
 
