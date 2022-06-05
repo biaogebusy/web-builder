@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -15,7 +16,7 @@ import { UtilitiesService } from '@core/service/utilities.service';
   styleUrls: ['./link.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LinkComponent implements OnInit {
+export class LinkComponent implements OnInit, AfterViewInit {
   @Input() content: ILink;
   classes: any;
   href: string;
@@ -37,6 +38,10 @@ export class LinkComponent implements OnInit {
     return this.routeService.isAbsolute(href);
   }
 
+  ngAfterViewInit(): void {
+    this.handlePrivate();
+  }
+
   getClasses(): void {
     const obj: any = {};
     if (this.content.classes) {
@@ -53,6 +58,7 @@ export class LinkComponent implements OnInit {
     const href = this.content.href || 'javascript:void(0);';
     if (href && !href.startsWith('/system/')) {
       this.href = this.content.href;
+      this.cd.detectChanges();
       return;
     }
 
