@@ -29,7 +29,6 @@ export class AppState {
   };
 
   public switchChange$ = new Subject();
-  public responseCache = new Map();
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private http: HttpClient,

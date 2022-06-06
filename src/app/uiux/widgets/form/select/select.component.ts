@@ -81,7 +81,6 @@ export class SelectComponent implements OnInit, AfterViewInit {
     }
     // get the search keyword
     let search = this.searchCtrl.value;
-    console.log(search);
     if (!search) {
       this.filteredOptions.next(this.options.slice());
       return;
