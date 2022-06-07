@@ -10,6 +10,9 @@
       font-size: small;
       opacity: 0.6;
     }
+    .cell {
+      padding: 0 4px;
+    }
     .text-cell {
       > * {
         &:last-child {
