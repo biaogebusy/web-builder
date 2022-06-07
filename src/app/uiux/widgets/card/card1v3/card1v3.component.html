@@ -6,12 +6,12 @@
       <h3 class="m-bottom-xs bold">{{item.title}}</h3>
       <div class="address">{{item.address}}</div>
       <div class="meta">
-        <div class="li" *ngFor="let meta of item.meta">
+        <div class="li" *ngFor="let meta of item.meta" fxLayoutAlign="start start">
+          <app-icon *ngIf="meta.icon" [content]="meta.icon"></app-icon>
           <span>{{meta.label}}: </span>
           <span>{{meta.value}}</span>
         </div>
       </div>
     </div>
   </cdk-virtual-scroll-viewport>
-
 </div>
