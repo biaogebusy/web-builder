@@ -74,6 +74,10 @@
     "taxonomyGetPath": "/api/v1/taxonomy_term",
     "flaggingGetPath": "/api/v1/flagging",
     "userGetPath": "/api/v1/user/user",
+    "search": {
+      "customer_staff": "/api/v1/customer-content",
+      "handler": "/api/v1/handler-content"
+    },
     "github": {
       "repos": "https://github.com/biaogebusy/xinshi-angular",
       "api": "https://api.github.com/repos/biaogebusy/xinshi-angular"

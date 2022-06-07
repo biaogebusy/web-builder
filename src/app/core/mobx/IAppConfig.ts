@@ -74,6 +74,8 @@ export interface IApiUrl {
   taxonomyGetPath: string;
   flaggingGetPath: string;
   userGetPath: string;
+  yushan: string;
+  search: any;
   github: Github;
 }
 
