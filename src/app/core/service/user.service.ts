@@ -18,7 +18,7 @@ export class UserService extends ApiService {
     public cryptoJS: CryptoJSService,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
   ) {
-    super(cryptoJS);
+    super();
   }
 
   get userApiPath(): string {

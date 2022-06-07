@@ -1,3 +1,17 @@
 .meta {
   overflow: hidden;
+  ::ng-deep a {
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.custom-btn {
+  width: auto;
+  height: 20px;
+  line-height: 16px;
+  ::ng-deep .mat-button-wrapper {
+    line-height: 16px;
+  }
 }

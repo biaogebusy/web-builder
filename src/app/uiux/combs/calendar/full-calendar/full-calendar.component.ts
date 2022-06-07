@@ -39,7 +39,6 @@ export class FullCalendarComponent
 {
   @Input() content: any;
   selected: Date | null;
-  events: EventApi[];
   options: CalendarOptions;
   theme: any;
   form: FormGroup;
@@ -62,7 +61,6 @@ export class FullCalendarComponent
     if (this.screenService.isPlatformBrowser()) {
       this.initForm();
       this.getEvents();
-      this.initCalendar();
     }
   }
 
@@ -116,6 +114,7 @@ export class FullCalendarComponent
     const state = this.getParamsState(this.form.value, options);
     const params = this.getApiParams(state);
     const api = this.content?.calendar?.options?.api;
+    this.initCalendar();
     if (api || params || this.options?.events) {
       this.loading = true;
       this.nodeService.search(api, params).subscribe((data) => {

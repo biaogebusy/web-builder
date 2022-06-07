@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
-import { isArray, result } from 'lodash-es';
+import { isArray, remove, result } from 'lodash-es';
 @Injectable()
 export abstract class BaseComponent {
   abstract content: any;
@@ -42,8 +42,9 @@ export abstract class BaseComponent {
         const val = state[key];
         if (val) {
           if (isArray(val)) {
-            if (val.length > 0) {
-              params.push(`${key}=${val.join('+')}`);
+            const final = remove(val, (item) => item !== undefined);
+            if (final.length > 0) {
+              params.push(`${key}=${final.join('+')}`);
             } else {
               return;
             }
@@ -87,5 +88,21 @@ export abstract class BaseComponent {
     const state = this.getParamsState(formValues, options);
     const query: Params = this.getFormParams(state);
     return query;
+  }
+
+  handlerPager(pager: any): any {
+    if (pager.current_page === null && pager.total_pages === 0) {
+      return {
+        itemsPerPage: pager.total_items,
+        currentPage: 0,
+        totalItems: pager.total_items,
+      };
+    } else {
+      return {
+        itemsPerPage: pager.items_per_page,
+        currentPage: (pager.current_page || 0) + 1,
+        totalItems: pager.total_items,
+      };
+    }
   }
 }

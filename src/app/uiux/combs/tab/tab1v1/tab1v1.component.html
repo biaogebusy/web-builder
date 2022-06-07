@@ -5,8 +5,7 @@
       mat-align-tabs="center" animationDuration="0ms">
       <mat-tab label="{{tab.label}}" *ngFor="let tab of tabs">
         <ng-template matTabContent>
-          <app-media-meta [content]="item" *ngFor="let item of currentList | paginate: { itemsPerPage: pager.items_per_page, currentPage:
-      pager.current_page + 1, totalItems: pager.total_items}">
+          <app-media-meta [content]="item" *ngFor="let item of currentList | paginate: pager">
           </app-media-meta>
         </ng-template>
       </mat-tab>

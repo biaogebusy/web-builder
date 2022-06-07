@@ -1,4 +1,4 @@
-:host ::ng-deep {
+.law-showcase::ng-deep {
   table {
     thead {
       display: none;
@@ -11,6 +11,7 @@
           font-weight: 500;
         }
         td:nth-child(2n) {
+          width: 50%;
           padding-left: 2rem;
           padding-right: 2rem;
         }

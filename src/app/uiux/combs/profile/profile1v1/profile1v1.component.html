@@ -3,14 +3,25 @@
     <app-img [content]="content.bannerBg.img"></app-img>
   </app-bg>
 </div>
-<div class="profile-1v1 position-relative p-y">
+<div class="profile-1v1 position-relative m-y">
   <div class="container">
     <div class="profile" fxLayoutAlign="space-between start" fxLayout="row wrap">
-      <div class="left" fxFlex.lt-md="0 0 100" fxFlex.gt-sm="0 0 30">
-        <div class="box p-y p-x text-center">
-          <app-img [content]="content.avatar"></app-img>
+      <div class="left m-bottom" fxFlex.lt-md="0 0 100" fxFlex.gt-sm="0 0 30">
+        <div class="box p-y-sm p-x text-center">
+          <app-img [content]="avatar"></app-img>
           <h2 class="mat-h2 m-bottom-0 m-top-xs">{{content.name}}</h2>
           <div class="subTitle">{{content.subTitle}}</div>
+          <div class="actions" *ngIf="content.actions">
+            <button mat-icon-button aria-label="menu" [matMenuTriggerFor]="menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" class="actions-menu">
+              <button mat-menu-item *ngFor="let action of content.actions">
+                <app-dynamic-widgets [content]="action">
+                </app-dynamic-widgets>
+              </button>
+            </mat-menu>
+          </div>
         </div>
         <mat-divider></mat-divider>
         <div class="left-item p-y-sm p-x-sm" *ngIf="content?.details">
@@ -38,11 +49,13 @@
       <div class="right" fxFlex.lt-md="0 0 100" fxFlex.gt-sm="0 0 calc(100% - 30% - 4rem)">
         <div class="content">
           <div class="item m-bottom" *ngFor="let item of content.content">
-            <app-title [content]="{
-            'label':item.label,
-            'style':'style-v4'
-          }"></app-title>
-            <app-dynamic-widgets [content]="item"></app-dynamic-widgets>
+            <ng-container *ngIf="!(item.empty && item.empty === true)">
+              <app-title [content]="{
+                'label':item.label,
+                'style':'style-v4'
+              }"></app-title>
+              <app-dynamic-widgets [content]="item"></app-dynamic-widgets>
+            </ng-container>
           </div>
         </div>
       </div>

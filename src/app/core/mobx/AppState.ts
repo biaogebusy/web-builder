@@ -4,20 +4,13 @@ import { action, observable, computed } from 'mobx-angular';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { LocalStorageService } from 'ngx-webstorage';
-import {
-  IApiUrl,
-  IAppConfig,
-  ICommerce,
-  ICoreConfig,
-  IPage,
-} from './IAppConfig';
+import { IAppConfig, ICoreConfig, IPage } from './IAppConfig';
 import { of, Subject } from 'rxjs';
 import { TagsService } from '@core/service/tags.service';
 import { version } from '../../../../package.json';
 import { isArray } from 'lodash-es';
 import { ApiService } from '@core/service/api.service';
 import { ScreenState } from '@core/mobx/screen/ScreenState';
-import { CryptoJSService } from '@core/service/crypto-js.service';
 import { tap } from 'rxjs/operators';
 
 const initPage = {
@@ -29,7 +22,6 @@ const initPage = {
 })
 export class AppState {
   private readonly MODE = 'themeMode';
-  private _READY = true;
   @observable private state: IAppConfig = {
     defTheme: 'light-theme',
     config: null,
@@ -37,15 +29,13 @@ export class AppState {
   };
 
   public switchChange$ = new Subject();
-  public responseCache = new Map();
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private http: HttpClient,
     private storage: LocalStorageService,
     private tagsService: TagsService,
     public apiService: ApiService,
-    private screenState: ScreenState,
-    private cryptoJS: CryptoJSService
+    private screenState: ScreenState
   ) {}
 
   @computed get config(): any {
@@ -131,13 +121,6 @@ export class AppState {
     this.storage.store(this.MODE, theme);
   }
 
-  storeLocalBaseConfig(config: any): void {
-    this.storage.store(
-      this.apiService.baseConfigKey,
-      this.cryptoJS.encrypt(JSON.stringify(config))
-    );
-  }
-
   @action
   public loadConfig(coreConfig: object): any {
     if (environment.production) {
@@ -146,15 +129,12 @@ export class AppState {
         .pipe(
           tap((config: any) => {
             Object.assign(coreConfig, config);
-            console.log(Object.assign(coreConfig, config));
           })
         )
         .toPromise()
         .then(
           (config: ICoreConfig) => {
             this.state.config = config;
-            this.storeLocalBaseConfig(config);
-            // debugger;
             this.apiService.configLoadDone$.next(true);
             this.initTheme();
           },
@@ -169,14 +149,12 @@ export class AppState {
         .pipe(
           tap((config: any) => {
             Object.assign(coreConfig, config);
-            console.log(Object.assign(coreConfig, config));
           })
         )
         .toPromise()
         .then(
           (config: ICoreConfig) => {
             this.state.config = config;
-            this.storeLocalBaseConfig(config);
             this.apiService.configLoadDone$.next(true);
             this.initTheme();
           },

@@ -7,5 +7,6 @@ import { Subject } from 'rxjs';
 export class ContentState {
   @observable private content: any;
   public commentChange$ = new Subject();
+  public commentQuote$ = new Subject();
   constructor() {}
 }

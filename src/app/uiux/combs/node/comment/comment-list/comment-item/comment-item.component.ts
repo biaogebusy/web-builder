@@ -32,7 +32,7 @@ export class CommentItemComponent implements OnInit, OnDestroy {
   showActions = true;
   currentData: string;
   loading: boolean;
-  type: 'reply' | 'update' | 'add' | 'quote';
+  type: 'reply' | 'update' | 'add';
   constructor(
     public userState: UserState,
     private cd: ChangeDetectorRef,
@@ -63,6 +63,7 @@ export class CommentItemComponent implements OnInit, OnDestroy {
     this.showActions = false;
     this.screenService.scrollToAnchor(`q-${data.item.id}`);
     this.currentData = data.item.content;
+    this.type = 'update';
     this.cd.detectChanges();
   }
 

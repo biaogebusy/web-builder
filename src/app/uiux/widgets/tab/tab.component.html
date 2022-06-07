@@ -6,6 +6,7 @@
     <mat-tab-group mat-align-tabs="start" [ngClass]="content.classes">
       <mat-tab *ngFor="let item of content.elements" label="{{item.label}}">
         <div class="p-y-sm p-x-sm">
+          <app-bg-img [content]="content.bg"></app-bg-img>
           <app-dynamic-widgets *ngFor="let item of item.elements" [content]="item"></app-dynamic-widgets>
         </div>
       </mat-tab>

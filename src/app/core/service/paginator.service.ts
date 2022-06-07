@@ -9,7 +9,7 @@ export class MatPaginatorIntlCro extends MatPaginatorIntl {
 
   getRangeLabel = (page: number, pageSize: number, length: number) => {
     if (length === 0 || pageSize === 0) {
-      return '0 od ' + length;
+      return '0 条 ' + length;
     }
     length = Math.max(length, 0);
     const startIndex = page * pageSize;
@@ -18,6 +18,6 @@ export class MatPaginatorIntlCro extends MatPaginatorIntl {
       startIndex < length
         ? Math.min(startIndex + pageSize, length)
         : startIndex + pageSize;
-    return startIndex + 1 + ' - ' + endIndex + ' 总共 ' + length;
+    return startIndex + 1 + ' - ' + endIndex + ' 总共 ' + length + '条';
   };
 }

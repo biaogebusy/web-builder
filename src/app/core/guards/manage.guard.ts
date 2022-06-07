@@ -30,6 +30,7 @@ export class ManageGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
+    // TODO: change to user state
     if (this.userState.authenticated) {
       return this.userService
         .getCurrentUserProfile(this.userState.csrfToken)

@@ -63,8 +63,7 @@ export class DynamicCardList1v1Component
   }
 
   updateList(data: any): void {
-    console.log(data);
-    this.pager = data.pager;
+    this.pager = this.handlerPager(data.pager);
     this.nodes = data.rows.map((item: any) => {
       return {
         link: {

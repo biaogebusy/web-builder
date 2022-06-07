@@ -1,0 +1,260 @@
+{
+  "title": "人才公寓",
+  "config": {
+    "node": {
+      "uuid": "cb31d69f-a95e-4c91-97d1-1169f82a10a5"
+    }
+  },
+  "body": [{
+    "type": "law-case",
+    "title": "人才公寓",
+    "date": [{
+      "label": "更新",
+      "value": "张三 周五 09:50 2022/03/31"
+    }, {
+      "label": "提交",
+      "value": "李四 周六 08:10 2022/03/27"
+    }],
+    "actions": [{
+      "type": "btn",
+      "label": "编辑",
+      "icon": {
+        "name": "editor",
+        "inline": true
+      },
+      "href": "https://admin.zhaobg.com/manage/content/50/edit",
+      "target": "_blank"
+    }, {
+      "type": "flag",
+      "label": "收藏",
+      "icon": {
+        "name": "star",
+        "inline": true
+      },
+      "params": {
+        "type": "flagging--favorite",
+        "entity_type": "node",
+        "entity_id": "1312",
+        "relationships": {
+          "flagged_entity": {
+            "type": "node--case",
+            "id": "cb31d69f-a95e-4c91-97d1-1169f82a10a5"
+          }
+        }
+      }
+    }],
+    "block": [{
+      "type": "showcase",
+      "elements": [{
+        "header": [{
+            "label": "标签1",
+            "key": "label1"
+          },
+          {
+            "label": "内容1",
+            "key": "content1"
+          }, {
+            "label": "标签2",
+            "key": "label2"
+          }, {
+            "label": "内容2",
+            "key": "content2"
+          }
+        ],
+        "elements": [{
+            "label1": "客户名称",
+            "content1": {
+              "type": "link",
+              "label": "国家药审分中心",
+              "href": "/node/3"
+            },
+            "label2": "业务类型",
+            "content2": "合同审核"
+          },
+          {
+            "label1": "经办人员",
+            "content1": {
+              "type": "link",
+              "label": "张三",
+              "href": "/node/4"
+            },
+            "label2": "主办律师",
+            "content2": {
+              "type": "link",
+              "label": "李四",
+              "href": "/node/4"
+            }
+          }, {
+            "label1": "业务对方",
+            "content1": {
+              "type": "link",
+              "label": "王五",
+              "href": "/node/4"
+            },
+            "label2": "业务时间",
+            "content2": "2022-04-15"
+          }
+        ]
+      }]
+    }, {
+      "type": "card",
+      "title": {
+        "label": "项目详情",
+        "style": "style-v4"
+      },
+      "elements": [{
+        "header": {
+          "meta": [{
+            "label": "",
+            "value": "<span class=\"badge\">{分标标题}</span>"
+          }, {
+            "label": "项目时间",
+            "value": "周一，04/11/2022 11:30"
+          }, {
+            "label": "工作工时",
+            "value": 1
+          }]
+        },
+        "footer": {
+          "meta": [{
+            "label": "相关项目",
+            "value": "<a href=\"/node/1\">药审分中心制度修改</a>"
+          }, {
+            "label": "项目文件",
+            "value": {
+              "label": ["文件名1", "文件名2"],
+              "elements": [{
+                "src": "/assets/images/cases/porto1.docx",
+                "caption": "文件名1",
+                "thumb": "/assets/images/cases/porto1.jpg"
+              }, {
+                "src": "/assets/images/cases/porto2.jpg",
+                "caption": "文件名2",
+                "thumb": "/assets/images/cases/porto2.jpg"
+              }]
+            },
+            "params": {
+              "lightbox": true
+            }
+          }, {
+            "label": "关联内容"
+          }, {
+            "label": "项目备注",
+            "value": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. ",
+            "params": {
+              "shorten": 100,
+              "dialog": {
+                "label": "更多"
+              }
+            }
+          }]
+        },
+        "progressBar": {
+          "mode": "determinate",
+          "value": 33,
+          "value-": "当前次数除以总次数"
+        }
+      }, {
+        "header": {
+          "meta": [{
+            "label": "",
+            "value": "<span class=\"badge\">{分标标题}</span>"
+          }, {
+            "label": "项目时间",
+            "value": "周一，04/11/2022 11:30"
+          }, {
+            "label": "工作工时",
+            "value": 1
+          }]
+        },
+        "footer": {
+          "meta": [{
+            "label": "相关项目",
+            "value": "<a href=\"/node/1\">药审分中心制度修改</a>"
+          }, {
+            "label": "项目文件",
+            "value": {
+              "label": ["文件名1", "文件名2"],
+              "elements": [{
+                "src": "/assets/images/cases/porto1.docx",
+                "caption": "文件名1",
+                "thumb": "/assets/images/cases/porto1.jpg"
+              }, {
+                "src": "/assets/images/cases/porto2.jpg",
+                "caption": "文件名2",
+                "thumb": "/assets/images/cases/porto2.jpg"
+              }]
+            },
+            "params": {
+              "lightbox": true
+            }
+          }, {
+            "label": "关联内容"
+          }, {
+            "label": "项目备注",
+            "value": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. ",
+            "params": {
+              "shorten": 100,
+              "dialog": {
+                "label": "更多"
+              }
+            }
+          }]
+        },
+        "progressBar": {
+          "mode": "determinate",
+          "value": 33,
+          "value-": "当前次数除以总次数"
+        }
+      }]
+    }, {
+      "type": "text",
+      "title": {
+        "label": "信息备注",
+        "style": "style-v4"
+      },
+      "spacer": "none",
+      "body": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
+    }],
+    "params": {
+      "comment": {
+        "type": "comment--comment",
+        "attributes": {
+          "entity_type": "node",
+          "field_name": "comment"
+        },
+        "relationships": {
+          "comment_type": {
+            "data": {
+              "type": "comment_type--comment_type",
+              "id": "a395ac8e-3c9a-43d5-8ec8-cea74116d5f3"
+            }
+          },
+          "entity_id": {
+            "data": {
+              "type": "node--article",
+              "id": "b59a2767-89b8-418d-91fe-6f0e6a5638ec"
+            }
+          }
+        }
+      }
+    },
+    "editor": {
+      "title": {
+        "label": "添加工作跟踪",
+        "style": "style-v4"
+      },
+      "actions": [{
+        "label": "提交",
+        "type": "submit",
+        "color": "primary"
+      }],
+      "succes": {
+        "label": "成功发布！"
+      },
+      "empty": {
+        "label": "暂时还没有工作日志。"
+      }
+    }
+  }]
+}

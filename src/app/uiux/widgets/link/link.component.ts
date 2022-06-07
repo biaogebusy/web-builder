@@ -1,6 +1,5 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   Input,
   OnInit,
@@ -21,7 +20,6 @@ export class LinkComponent implements OnInit {
   href: string;
   constructor(
     public routeService: RouteService,
-    private cd: ChangeDetectorRef,
     private util: UtilitiesService
   ) {}
 
@@ -30,7 +28,6 @@ export class LinkComponent implements OnInit {
       return;
     }
     this.getClasses();
-    this.handlePrivate();
   }
 
   isAbsolute(href: string): boolean {
@@ -49,15 +46,13 @@ export class LinkComponent implements OnInit {
     this.classes = obj;
   }
 
-  handlePrivate(): void {
-    const href = this.content.href || 'javascript:void(0);';
-    if (href && !href.startsWith('/system/')) {
-      this.href = this.content.href;
-      return;
+  handleHref(href: string): string {
+    const link = href || 'javascript:void(0);';
+    if (link && !link.startsWith('/system/')) {
+      return href;
     }
 
     // drupal private file url
-    this.href = `${environment.apiUrl}${href}`;
-    this.cd.detectChanges();
+    return `${environment.apiUrl}${href}`;
   }
 }

@@ -11,33 +11,38 @@ a {
 .word,
 .picture {
   &:before {
+    content: "";
     display: inline-block;
     margin-right: 6px;
+    vertical-align: text-top;
+    width: 16px;
+    background-size: contain;
+    height: 16px;
   }
 }
 
 .pdf {
   &:before {
-    content: url("/assets/icons/file-pdf.svg");
+    background-image: url("/assets/icons/file-pdf.svg");
   }
 }
 .excel {
   &:before {
-    content: url("/assets/icons/file-excel.svg");
+    background-image: url("/assets/icons/file-excel.svg");
   }
 }
 .txt {
   &:before {
-    content: url("/assets/icons/file-txt.svg");
+    background-image: url("/assets/icons/file-txt.svg");
   }
 }
 .word {
   &:before {
-    content: url("/assets/icons/file-word.svg");
+    background-image: url("/assets/icons/file-word.svg");
   }
 }
 .picture {
   &:before {
-    content: url("/assets/icons/file-image.svg");
+    background-image: url("/assets/icons/file-image.svg");
   }
 }

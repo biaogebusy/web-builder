@@ -7,7 +7,7 @@
   },
   "body": [{
     "type": "law-case",
-    "title": "二审案件",
+    "title": "“细胞治疗产品隔离系统制备工艺无菌保障相关评价标准研究” 课题合作协议0414-修2-0415-2(1)(1)",
     "date": [{
       "label": "更新",
       "value": "张三 周五 09:50 2022/03/31"
@@ -89,7 +89,7 @@
             }
           },
           {
-            "customer": "经办人",
+            "customer": "经办人员",
             "contentOfCustomer": {
               "type": "link",
               "label": "张三",
@@ -104,11 +104,15 @@
           },
           {
             "customer": "业务对方",
-            "contentOfCustomer": {
+            "contentOfCustomer": [{
               "type": "link",
               "label": "南宁一建",
               "href": "/node/6"
-            },
+            }, {
+              "type": "link",
+              "label": "南宁一建",
+              "href": "/node/6"
+            }],
             "court": "法官电话",
             "contentOfCourt": "0512-6587459"
           }, {

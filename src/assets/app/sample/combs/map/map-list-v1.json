@@ -23,9 +23,19 @@
           "title": "第一法庭"
         },
         "meta": [{
+          "icon": {
+            "color": "warn",
+            "svg": "arrow_right",
+            "inline": true
+          },
           "label": "经办人员",
           "value": "李四"
         }, {
+          "icon": {
+            "color": "warn",
+            "svg": "arrow_right",
+            "inline": true
+          },
           "label": "联系电话",
           "value": "18878793xx"
         }]
@@ -37,9 +47,19 @@
           "title": "第二法庭"
         },
         "meta": [{
+          "icon": {
+            "color": "warn",
+            "svg": "arrow_right",
+            "inline": true
+          },
           "label": "经办人员",
           "value": "张三"
         }, {
+          "icon": {
+            "color": "warn",
+            "svg": "arrow_right",
+            "inline": true
+          },
           "label": "联系电话",
           "value": "0771-78734454"
         }]
@@ -51,9 +71,19 @@
           "title": "第三法庭"
         },
         "meta": [{
+          "icon": {
+            "color": "warn",
+            "svg": "arrow_right",
+            "inline": true
+          },
           "label": "经办人员",
           "value": "王五"
         }, {
+          "icon": {
+            "color": "warn",
+            "svg": "arrow_right",
+            "inline": true
+          },
           "label": "联系电话",
           "value": "0771-6543976"
         }]

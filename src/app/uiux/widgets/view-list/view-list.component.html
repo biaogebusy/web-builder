@@ -1,16 +1,34 @@
 <div class="view-list" *ngIf="content">
-  <div class="loading-inner m-y" fxFlexFill fxLayoutAlign="center center" *ngIf="loading">
-    <mat-spinner diameter="50" color="accent"></mat-spinner>
-  </div>
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
   <app-bg-img [content]="content.bg"></app-bg-img>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
-  <div class="container">
+  <div class="container" fxLayout="row wrap">
     <app-text [content]="content.text" *ngIf="content.text"></app-text>
-    <app-dynamic-table [content]="table" *ngIf="table"></app-dynamic-table>
-    <mat-paginator *ngIf="pager" (page)="onPageChange($event)" [length]="pager.total_items"
-      [pageSize]="pager.items_per_page">
-    </mat-paginator>
+    <div class="filter" *ngIf="content.form" fxFlex.gt-sm="0 0 100" fxFlex.lt-md="100" fxLayout.gt-sm="row"
+      fxLayout.lt-md="column" fxLayoutAlign="space-between center">
+      <div class="filter-item" fxLayout.gt-sm="row wrap" fxLayout.lt-md="column" fxLayoutGap.gt-sm="1rem">
+        <app-dynamic-widgets fxFlex="220px" *ngFor="let item of content.form" [content]="item" [form]="form">
+        </app-dynamic-widgets>
+      </div>
+      <div class="actions">
+        <button mat-button (click)="clear()">
+          <mat-icon>clear</mat-icon>清空
+        </button>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="view" fxFlex.gt-sm="0 0 100" fxFlex.lt-md="100">
+      <div class="loading-inner" fxLayoutAlign="center center" *ngIf="loading">
+        <mat-spinner diameter="50" color="accent"></mat-spinner>
+      </div>
+      <app-dynamic-table [content]="table" *ngIf="table"></app-dynamic-table>
+      <div class="p-y p-x" *ngIf="noAuth">
+        您没有权限访问该页面！
+      </div>
+      <mat-paginator *ngIf="pager" (page)="onPageChange($event)" [length]="pager.total_items"
+        [pageSize]="pager.items_per_page">
+      </mat-paginator>
+    </div>
   </div>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
 </div>

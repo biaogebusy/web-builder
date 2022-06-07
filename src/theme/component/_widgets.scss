@@ -171,6 +171,7 @@
       color: mat-color($foreground, text, 0.3);
     }
   }
+
   .editor {
     background-color: mat-color($background, background);
     quill-editor {
@@ -184,7 +185,20 @@
     }
   }
 
+  .view-list {
+    .sidebar {
+      > .inner {
+        background-color: mat-color($background, card);
+        @include mat-elevation(4, mat-color($foreground, divider), 0.5);
+      }
+    }
+    .view {
+      @include mat-elevation(6, mat-color($foreground, divider), 0.25);
+    }
+  }
+
   .dynamic-table {
+    background-color: mat-color($background, card);
     tbody {
       > tr {
         &:hover {

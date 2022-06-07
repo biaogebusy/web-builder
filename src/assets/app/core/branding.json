@@ -172,6 +172,9 @@
             "label": "Law Meeting",
             "href": "/sample/node/law-meeting"
           }, {
+            "label": "Law Project",
+            "href": "/sample/node/law-project"
+          }, {
             "label": "article",
             "href": "/sample/node/article"
           }, {

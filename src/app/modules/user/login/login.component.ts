@@ -65,10 +65,9 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
       this.userState.user$.subscribe((user) => {
         if (user.authenticated) {
           setTimeout(() => {
-            this.router.navigate([
+            window.location.href =
               this.route.snapshot.queryParams.returnUrl ||
-                this.coreConfig.login.loginRedirect,
-            ]);
+              this.coreConfig.login.loginRedirect;
           }, 2000);
         }
       });

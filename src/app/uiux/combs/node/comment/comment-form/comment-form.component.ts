@@ -36,7 +36,6 @@ export class CommentFormComponent implements OnInit, OnDestroy {
   @Output() cancel = new EventEmitter();
 
   loading = false;
-  htmlData = '';
   placeholder = '请输入...';
   destroy$: Subject<boolean> = new Subject<boolean>();
   modules: QuillModule;
@@ -57,9 +56,17 @@ export class CommentFormComponent implements OnInit, OnDestroy {
         this.coreConfig?.editor?.modules || {},
         this.content.editor?.modules
       );
-      if (this.commentContent) {
-        this.htmlData = this.commentContent;
-      }
+      this.contentState.commentQuote$.subscribe((quote: any) => {
+        this.screenService.scrollToAnchor('comment');
+        this.commentContent = `
+          <br>
+          <em style="color: rgb(136, 136, 136);font-style: italic;">
+          ====================<br>${quote.author.title}<br>${quote.author.subTitle}<br>
+          ${quote.content}
+          </em>
+          `;
+        this.cd.detectChanges();
+      });
       this.cd.detectChanges();
     }
   }
@@ -73,101 +80,130 @@ export class CommentFormComponent implements OnInit, OnDestroy {
     const token = this.userState.csrfToken;
     const params: ICommentParams = this.content.params.comment;
     const type = params.attributes?.field_name || '';
-    if (this.type === 'reply') {
-      console.log(value);
-      const entity = {
-        type: params.type,
-        attributes: {
-          comment_body: {
-            value,
-            format: 'full_html',
-          },
-        },
-        relationships: {
-          pid: {
-            data: {
-              type: params.type,
-              id: this.commentId,
-            },
-          },
-        },
-      };
-      const data = merge(params, entity);
-      this.nodeService
-        .replyComment(type, data, token)
-        .pipe(
-          // catchError(() => {
-          //   return of({});
-          // }),
-          takeUntil(this.destroy$)
-        )
-        .subscribe((res) => {
-          this.htmlData = '';
-          this.done('回复成功！');
-          this.cd.detectChanges();
-        });
-      return;
-    }
-    if (!this.commentContent && params) {
-      // 默认comment_boyd，不一致的在后台覆写字段 /admin/config/services/jsonapi/add/resource_types
-      params.attributes.comment_body = {
-        value,
-        format: 'full_html',
-      };
-      this.nodeService
-        .addComment(type, params, this.userState.csrfToken)
-        .pipe(takeUntil(this.destroy$))
-        .subscribe(
-          (res) => {
-            this.htmlData = '';
-            this.done('提交成功！');
-            this.cd.detectChanges();
-          },
-          () => {
-            this.loading = false;
-            this.utilitiesService.openSnackbar('请重新登录！');
-          }
-        );
-    } else {
-      const entity: ICommentParams = {
-        type: params.type,
-        id: this.commentId,
-        attributes: {
-          comment_body: {
-            value,
-            format: 'full_html',
-          },
-        },
-        relationships: {
-          uid: {
-            data: {
-              type: 'user--user',
-              id: this.userState.currentUser.id,
-            },
-          },
-        },
-      };
-      this.nodeService
-        .updateComment(type, entity, this.commentId, token)
-        .pipe(
-          // catchError(() => {
-          //   return of({});
-          // }),
-          takeUntil(this.destroy$)
-        )
-        .subscribe(
-          (res) => {
-            this.done('更新成功！');
-            this.cd.detectChanges();
-          },
-          (error) => {
-            this.loading = false;
-            console.log(error);
-            this.done('更新失败！');
-          }
-        );
+    // reply, update 在组件内判断处理，默认新增，包括外部组件
+    switch (this.type) {
+      case 'reply':
+        this.reply(value, params, type, token);
+        break;
+      case 'update':
+        this.update(value, params, type, token);
+        break;
+      default:
+        this.add(value, params, type, token);
     }
     this.cd.detectChanges();
+  }
+
+  add(
+    value: string,
+    params: ICommentParams,
+    type: string,
+    token: string
+  ): void {
+    // 默认comment_boyd，不一致的在后台覆写字段 /admin/config/services/jsonapi/add/resource_types
+    params.attributes.comment_body = {
+      value,
+      format: 'full_html',
+    };
+    this.nodeService
+      .addComment(type, params, token)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(
+        (res) => {
+          this.commentContent = '';
+          this.done('提交成功！');
+          this.cd.detectChanges();
+        },
+        () => {
+          this.loading = false;
+          this.utilitiesService.openSnackbar('请重新登录！');
+        }
+      );
+  }
+
+  reply(
+    value: string,
+    params: ICommentParams,
+    type: string,
+    token: string
+  ): void {
+    console.log(value);
+    const entity = {
+      type: params.type,
+      attributes: {
+        comment_body: {
+          value,
+          format: 'full_html',
+        },
+      },
+      relationships: {
+        pid: {
+          data: {
+            type: params.type,
+            id: this.commentId,
+          },
+        },
+      },
+    };
+    const data = merge(params, entity);
+    this.nodeService
+      .replyComment(type, data, token)
+      .pipe(
+        // catchError(() => {
+        //   return of({});
+        // }),
+        takeUntil(this.destroy$)
+      )
+      .subscribe((res) => {
+        this.commentContent = '';
+        this.done('回复成功！');
+        this.cd.detectChanges();
+      });
+  }
+
+  update(
+    value: string,
+    params: ICommentParams,
+    type: string,
+    token: string
+  ): void {
+    const entity: ICommentParams = {
+      type: params.type,
+      id: this.commentId,
+      attributes: {
+        comment_body: {
+          value,
+          format: 'full_html',
+        },
+      },
+      relationships: {
+        uid: {
+          data: {
+            type: 'user--user',
+            id: this.userState.currentUser.id,
+          },
+        },
+      },
+    };
+    this.nodeService
+      .updateComment(type, entity, this.commentId, token)
+      .pipe(
+        // catchError(() => {
+        //   return of({});
+        // }),
+        takeUntil(this.destroy$)
+      )
+      .subscribe(
+        (res) => {
+          this.done('更新成功！');
+          this.cd.detectChanges();
+        },
+        (error) => {
+          this.loading = false;
+          console.log(error);
+          this.done('更新失败！');
+        }
+      );
   }
 
   done(snack: string): void {

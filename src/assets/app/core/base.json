@@ -50,6 +50,7 @@
     }
   },
   "defaultLogo": "/assets/images/logo.png",
+  "defaultAvatar": "/assets/image/avatar.png",
   "defaultThumb": "/assets/images/default.png",
   "amap": {
     "key": "33877188af64f0213ff4fa259b1c14b8",
@@ -73,6 +74,10 @@
     "taxonomyGetPath": "/api/v1/taxonomy_term",
     "flaggingGetPath": "/api/v1/flagging",
     "userGetPath": "/api/v1/user/user",
+    "search": {
+      "customer_staff": "/api/v1/customer-content",
+      "handler": "/api/v1/handler-content"
+    },
     "github": {
       "repos": "https://github.com/biaogebusy/xinshi-angular",
       "api": "https://api.github.com/repos/biaogebusy/xinshi-angular"
@@ -217,5 +222,8 @@
   },
   "guard": {
     "authGuard": false
+  },
+  "access": {
+    "check": true
   }
 }

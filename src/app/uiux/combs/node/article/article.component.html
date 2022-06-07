@@ -52,7 +52,7 @@
         </div>
         <app-comment-form
           *ngIf="userState.authenticated && coreConfig.article?.comment?.enable && content?.params?.comment"
-          [content]="content">
+          [content]="content" [type]="'add'">
         </app-comment-form>
         <app-comment-list *ngIf="userState.authenticated" [comments]="comments" [content]="content">
         </app-comment-list>

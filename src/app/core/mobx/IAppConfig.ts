@@ -10,6 +10,7 @@ export interface ICoreConfig {
   theme: ITheme[];
   login: ILogin;
   defaultLogo: string;
+  defaultAvatar: string;
   defaultThumb: string;
   amap: IAmap;
   apiUrl: IApiUrl;
@@ -22,6 +23,9 @@ export interface ICoreConfig {
   commerce: Commerce;
   googleAnalytics: GoogleAnalytics;
   guard: Guard;
+  access: {
+    check: true;
+  };
   qidian: {
     id: string;
     key: string;
@@ -70,6 +74,8 @@ export interface IApiUrl {
   taxonomyGetPath: string;
   flaggingGetPath: string;
   userGetPath: string;
+  yushan: string;
+  search: any;
   github: Github;
 }
 

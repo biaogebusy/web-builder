@@ -7,7 +7,6 @@ import { forkJoin } from 'rxjs';
 import { Observable, of } from 'rxjs';
 import { IApiUrl } from '../mobx/IAppConfig';
 import { map, switchMap } from 'rxjs/operators';
-import { CryptoJSService } from './crypto-js.service';
 import { isEmpty } from 'lodash-es';
 import { UserState } from '@core/mobx/user/UserState';
 import { IArticleAccess } from '@core/interface/node/IArticle';
@@ -15,6 +14,7 @@ import { ICommentContent } from '@core/interface/node/INode';
 import { formatDate } from '@angular/common';
 import { CORE_CONFIG } from '@core/token/core.config';
 import { ICoreConfig } from '@core/mobx/IAppConfig';
+import { environment } from '../../../environments/environment';
 @Injectable({
   providedIn: 'root',
 })
@@ -23,13 +23,12 @@ export class NodeService extends ApiService {
 
   constructor(
     private appState: AppState,
-    public cryptoJS: CryptoJSService,
     public http: HttpClient,
     private userState: UserState,
     public storage: LocalStorageService,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
   ) {
-    super(cryptoJS);
+    super();
   }
 
   get apiUrlConfig(): IApiUrl {
@@ -39,7 +38,7 @@ export class NodeService extends ApiService {
   search(type: string, params: string, token?: string): Observable<any> {
     const key = JSON.stringify({ api: this.apiUrl, type, params });
     const searchFormCache = this.responseCache.get(key);
-    if (searchFormCache) {
+    if (searchFormCache && environment.cache) {
       return of(searchFormCache);
     }
     let apiParams = '';
@@ -48,6 +47,18 @@ export class NodeService extends ApiService {
     } else {
       apiParams = `${this.apiUrl}/api/v1/${type}?${params}`;
     }
+    // search for role
+    const searchForRole = this.coreConfig?.apiUrl?.search;
+    if (searchForRole && apiParams.indexOf('/api/v1/content')) {
+      Object.keys(searchForRole).some((role) => {
+        if (this.userState.roles.includes(role)) {
+          apiParams = apiParams.replace('/api/v1/content', searchForRole[role]);
+          return true;
+        }
+        return false;
+      });
+    }
+
     const response = this.http
       .get<any>(
         apiParams,
@@ -74,7 +85,7 @@ export class NodeService extends ApiService {
   ): Observable<any> {
     const cacheKey = JSON.stringify({ api: this.apiUrl, path, type, params });
     const nodeCache = this.responseCache.get(cacheKey);
-    if (nodeCache) {
+    if (nodeCache && environment.cache) {
       return of(nodeCache);
     } else {
       return this.http

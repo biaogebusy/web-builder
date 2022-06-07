@@ -1,22 +1,29 @@
 <div class="dynamic-table width-100">
   <table mat-table [dataSource]="content.elements | dataSource" class="width-100" aria-describedby="dynamic table">
     <ng-container [matColumnDef]="item.key" *ngFor="let item of content.header">
-      <th mat-header-cell *cdkHeaderCellDef>
-        <span class="p-x-xs">{{item.label}}</span>
+      <th mat-header-cell *cdkHeaderCellDef class="{{item.classes}}" [ngStyle]="item.style || {}">
+        <span class="p-x-xs" [innerHTML]="item.label"></span>
       </th>
-      <td mat-cell *cdkCellDef="let element">
-        <ng-container *ngIf="element[item.key] | isObject;else text">
-          <app-dynamic-widgets class="p-y-xs p-x-xs" [content]="element[item.key]" [form]="form"></app-dynamic-widgets>
+      <td mat-cell *cdkCellDef="let element" class="{{item.classes}}" [ngStyle]="item.style || {}">
+        <ng-container *ngIf="element[item.key] | isArray;else object">
+          <app-dynamic-widgets *ngFor="let item of element[item.key]" class="cell" [content]="item" [form]="form">
+          </app-dynamic-widgets>
         </ng-container>
+        <ng-template #object>
+          <ng-container *ngIf="element[item.key] | isObject;else text">
+            <app-dynamic-widgets class="cell" [content]="element[item.key]" [form]="form">
+            </app-dynamic-widgets>
+          </ng-container>
+        </ng-template>
         <ng-template #text>
           <ng-container *ngIf="item.dialog && element[item.key];else normal">
-            <span class="p-y-xs p-x-xs text-cell"
-              [innerHTML]="element[item.key] | shorten:item.dialog.shorten||10:'...'"></span>
+            <span class="cell text-cell"
+              [innerHTML]="element[item.key] | stripTags | shorten:item.dialog.shorten||10:'...'"></span>
             <a href="javascript:void(0)" [innerHTML]="item.dialog.label"
               (click)="onDialog(item.label, element[item.key])"></a>
           </ng-container>
           <ng-template #normal>
-            <span class="p-y-xs p-x-xs text-cell" [innerHTML]="element[item.key]"></span>
+            <span *ngIf="element[item.key]" class="cell text-cell" [innerHTML]="element[item.key]"></span>
           </ng-template>
         </ng-template>
       </td>
