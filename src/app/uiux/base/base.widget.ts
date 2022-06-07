@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
-import { isArray, result } from 'lodash-es';
+import { isArray, remove, result } from 'lodash-es';
 @Injectable()
 export abstract class BaseComponent {
   abstract content: any;
@@ -42,8 +42,9 @@ export abstract class BaseComponent {
         const val = state[key];
         if (val) {
           if (isArray(val)) {
-            if (val.length > 0) {
-              params.push(`${key}=${val.join('+')}`);
+            const final = remove(val, (item) => item !== undefined);
+            if (final.length > 0) {
+              params.push(`${key}=${final.join('+')}`);
             } else {
               return;
             }

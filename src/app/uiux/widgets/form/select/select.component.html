@@ -4,6 +4,7 @@
   <!-- 单选不开启搜索 -->
   <mat-select disableOptionCentering="true" panelClass="custom-select" *ngIf="!content.multiple && !content.search"
     [formControlName]="content.key" disableRipple #select>
+    <mat-option *ngIf="content?.none">{{content.none?.label || '无'}}</mat-option>
     <mat-option value="{{option.value}}" *ngFor="let option of options">{{option.label}}
     </mat-option>
   </mat-select>
@@ -15,6 +16,7 @@
       <ngx-mat-select-search [placeholderLabel]="content.placeholder || '搜索'"
         [noEntriesFoundLabel]="content.noFound || '没有找到'" [formControl]="searchCtrl"></ngx-mat-select-search>
     </mat-option>
+    <mat-option *ngIf="content?.none">{{content.none?.label || '无'}}</mat-option>
     <mat-option *ngFor="let option of filteredOptions | async" [value]="option.value">{{option.label}}
     </mat-option>
   </mat-select>
@@ -22,6 +24,7 @@
   <!-- 多选不开启搜索 -->
   <mat-select disableOptionCentering="true" panelClass="custom-select" *ngIf="content.multiple && !content.search"
     [formControlName]="content.key" multiple disableRipple #select>
+    <mat-option *ngIf="content?.none">{{content.none?.label || '无'}}</mat-option>
     <mat-option value="{{option.value}}" *ngFor="let option of options">{{option.label}}
     </mat-option>
   </mat-select>
@@ -33,6 +36,7 @@
       <ngx-mat-select-search [placeholderLabel]="content.placeholder || '搜索'"
         [noEntriesFoundLabel]="content.noFound || '没有找到'" [formControl]="searchCtrl"></ngx-mat-select-search>
     </mat-option>
+    <mat-option *ngIf="content?.none">{{content.none?.label || '无'}}</mat-option>
     <mat-option *ngFor="let option of filteredOptions | async" [value]="option.value">{{option.label}}
     </mat-option>
   </mat-select>

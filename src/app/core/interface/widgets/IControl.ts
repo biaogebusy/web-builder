@@ -24,4 +24,7 @@ export interface IControl {
   api?: string;
   search?: boolean;
   noFound?: string;
+  none?: {
+    label: string;
+  };
 }
