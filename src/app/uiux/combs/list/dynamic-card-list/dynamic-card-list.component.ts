@@ -108,7 +108,7 @@ export class DynamicCardListComponent extends BaseComponent implements OnInit {
   }
 
   updateList(data: any, formValues: any, options: any): void {
-    this.pager = data.pager;
+    this.pager = this.handlerPager(data.pager);
     this.nodes = data.rows.map((item: any) => {
       const link = item.url;
       const title = result(

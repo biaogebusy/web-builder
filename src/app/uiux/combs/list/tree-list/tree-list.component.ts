@@ -114,7 +114,8 @@ export class TreeListComponent
   }
 
   updateList(data: any): void {
-    this.pager = data.pager;
+    const pager = data.pager;
+    this.pager = this.handlerPager(pager);
     this.nodes = data.rows.map((item: any) => {
       return {
         link: {

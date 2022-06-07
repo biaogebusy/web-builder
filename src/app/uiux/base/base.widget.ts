@@ -88,4 +88,20 @@ export abstract class BaseComponent {
     const query: Params = this.getFormParams(state);
     return query;
   }
+
+  handlerPager(pager: any): any {
+    if (pager.current_page === null && pager.total_pages === 0) {
+      return {
+        itemsPerPage: pager.total_items,
+        currentPage: 0,
+        totalItems: pager.total_items,
+      };
+    } else {
+      return {
+        itemsPerPage: pager.items_per_page,
+        currentPage: (pager.current_page || 0) + 1,
+        totalItems: pager.total_items,
+      };
+    }
+  }
 }

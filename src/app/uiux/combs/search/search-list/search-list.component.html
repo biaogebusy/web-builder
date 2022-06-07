@@ -4,11 +4,11 @@
 <div class="search-list" [ngClass.gt-sm]="'p-x-sm m-y'" *ngIf="content && pager">
   <div class="container">
     <div class="results m-bottom-sm">
-      找到 {{pager?.total_items}} 个结果
+      找到 {{pager?.totalItems}} 个结果
     </div>
     <mat-divider></mat-divider>
-    <div class="list p-y-sm p-x-sm m-y-sm" fxLayout.xs="column" fxLayout.gt-xs="row" *ngFor="let item of content | paginate: { itemsPerPage: pager.items_per_page, currentPage:
-      pager.current_page + 1, totalItems: pager.total_items}; trackBy: trackByFn">
+    <div class="list p-y-sm p-x-sm m-y-sm" fxLayout.xs="column" fxLayout.gt-xs="row"
+      *ngFor="let item of content | paginate: pager; trackBy: trackByFn">
       <div *ngIf="item?.img?.src" class="object-left position-relative m-right-sm" fxFlex.xs="100"
         fxFlex.gt-xs="0 0 30">
         <app-img [content]="item.img"></app-img>

@@ -79,7 +79,7 @@ export class Tab1v1Component
         .search(type, params)
         .pipe(takeUntil(this.destroy$))
         .subscribe((res) => {
-          this.pager = res.pager;
+          this.pager = this.handlerPager(res.pager);
           this.currentList = res.rows.map((item: any) => {
             return {
               link: {
