@@ -19,7 +19,6 @@
       <div class="comment-wrapper" ngClass.gt-sm="m-y-sm p-y p-x" ngClass.lt-md="m-y-xs p-y-xs p-x-xs">
         <app-comment-form *ngIf="content?.params?.comment" [content]="content" [type]="'add'">
         </app-comment-form>
-        <ngx-skeleton-loader *ngIf="commentsLoading" count="10" appearance="line"></ngx-skeleton-loader>
         <app-comment-list [comments]="comments" [content]="content">
         </app-comment-list>
       </div>

@@ -41,7 +41,6 @@ export class LawCaseComponent
   initCommentContent: string;
   form: FormGroup;
   first = true;
-  commentsLoading: boolean;
   destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     public appState: AppState,
@@ -124,7 +123,6 @@ export class LawCaseComponent
   }
 
   getComments(timeStamp = 1): void {
-    this.commentsLoading = true;
     this.cd.detectChanges();
     this.nodeService
       .getCommentsWitchChild(
@@ -133,17 +131,10 @@ export class LawCaseComponent
         timeStamp
       )
       .pipe(takeUntil(this.destroy$))
-      .subscribe(
-        (res) => {
-          this.comments = res;
-          this.commentsLoading = false;
-          this.cd.detectChanges();
-        },
-        (error) => {
-          this.commentsLoading = false;
-          this.cd.detectChanges();
-        }
-      );
+      .subscribe((res) => {
+        this.comments = res;
+        this.cd.detectChanges();
+      });
   }
 
   getCaseParams(value: ICasePrams): any {
