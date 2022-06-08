@@ -245,7 +245,7 @@ export class NodeService extends ApiService {
         title: comment.uid.name,
         subTitle: formatDate(
           comment.changed || comment.created,
-          'yyyy-MM-dd h:mm:ss',
+          'yyyy-MM-dd HH:mm:ss',
           'en-US'
         ),
       },
