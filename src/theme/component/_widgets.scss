@@ -199,10 +199,16 @@
 
   .dynamic-table {
     background-color: mat-color($background, card);
+
     tbody {
       > tr {
         &:hover {
           background-color: mat-color($primary, 0.1);
+        }
+      }
+      td {
+        .marker {
+          color: mat-color($warn);
         }
       }
     }
