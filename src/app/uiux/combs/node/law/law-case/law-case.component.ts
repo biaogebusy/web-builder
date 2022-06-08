@@ -41,7 +41,6 @@ export class LawCaseComponent
   initCommentContent: string;
   form: FormGroup;
   first = true;
-  contentLoading = true;
   commentsLoading: boolean;
   destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
@@ -58,7 +57,9 @@ export class LawCaseComponent
     super();
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  ngAfterViewInit(): void {
     if (this.content?.form?.length) {
       this.initForm(this.content.form);
     }
@@ -75,10 +76,6 @@ export class LawCaseComponent
     }
   }
 
-  ngAfterViewInit(): void {
-    this.contentLoading = false;
-  }
-
   initForm(form: any[]): void {
     this.form = this.formService.toFormGroup(form);
     this.form.valueChanges
@@ -89,7 +86,6 @@ export class LawCaseComponent
         takeUntil(this.destroy$)
       )
       .subscribe((value) => {
-        console.log(value);
         if (!this.first) {
           const apiParams = this.getCaseParams(value);
           this.updateNode(apiParams);
@@ -111,14 +107,12 @@ export class LawCaseComponent
     this.nodeService
       .updateLawCase(apiParams, uuid, this.userState.csrfToken)
       .subscribe((res) => {
-        console.log(res);
         this.uti.openSnackbar('已更新！', '✓');
       });
   }
 
   getlawyers(): void {
     this.nodeService.getNodes('/api/v1/node', 'handler').subscribe((res) => {
-      console.log(res);
       const autoList = res.data.map((item: any) => {
         return {
           label: item.attributes.title,
@@ -131,6 +125,7 @@ export class LawCaseComponent
 
   getComments(timeStamp = 1): void {
     this.commentsLoading = true;
+    this.cd.detectChanges();
     this.nodeService
       .getCommentsWitchChild(
         this.content,
