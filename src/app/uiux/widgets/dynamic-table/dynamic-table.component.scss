@@ -7,7 +7,7 @@
   }
   .mat-cell {
     line-height: 1.2;
-    li {
+    ::ng-deep li {
       list-style-type: none;
     }
   }
