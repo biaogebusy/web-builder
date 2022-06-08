@@ -43,7 +43,7 @@ export class SelectComponent implements OnInit, AfterViewInit {
 
     // listen for search field value changes
     this.searchCtrl.valueChanges.subscribe(() => {
-      this.filterBanksMulti();
+      this.filterMulti();
     });
   }
 
@@ -75,7 +75,7 @@ export class SelectComponent implements OnInit, AfterViewInit {
     });
   }
 
-  protected filterBanksMulti(): void {
+  protected filterMulti(): void {
     if (!this.options) {
       return;
     }

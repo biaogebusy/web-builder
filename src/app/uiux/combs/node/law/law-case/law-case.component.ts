@@ -22,6 +22,7 @@ import {
   debounceTime,
   distinctUntilChanged,
   map,
+  startWith,
 } from 'rxjs/operators';
 // import data from './data.json';
 
@@ -36,8 +37,6 @@ export class LawCaseComponent extends NodeComponent implements OnInit {
   comments: any[];
   initCommentContent: string;
   form: FormGroup;
-  apiParams: string;
-  disabled = true;
   first = true;
   destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
@@ -75,15 +74,18 @@ export class LawCaseComponent extends NodeComponent implements OnInit {
     this.form = this.formService.toFormGroup(form);
     this.form.valueChanges
       .pipe(
+        startWith({}),
         debounceTime(1000),
         distinctUntilChanged(),
         takeUntil(this.destroy$)
       )
       .subscribe((value) => {
-        this.disabled = false;
-        const apiParams = this.getCaseParams(value);
-        this.apiParams = this.handleLawyer(apiParams);
-        this.cd.detectChanges();
+        console.log(value);
+        if (!this.first) {
+          const apiParams = this.getCaseParams(value);
+          this.updateNode(apiParams);
+        }
+        this.first = false;
       });
   }
 
@@ -95,11 +97,10 @@ export class LawCaseComponent extends NodeComponent implements OnInit {
     return apiParams;
   }
 
-  updateNode(): void {
+  updateNode(apiParams: any): void {
     const uuid = this.appState.pageConfig.node.uuid;
-    // const uuid = 'cb31d69f-a95e-4c91-97d1-1169f82a10a5';
     this.nodeService
-      .updateLawCase(this.apiParams, uuid, this.userState.csrfToken)
+      .updateLawCase(apiParams, uuid, this.userState.csrfToken)
       .subscribe((res) => {
         console.log(res);
         this.uti.openSnackbar('已更新！', '✓');
@@ -137,7 +138,7 @@ export class LawCaseComponent extends NodeComponent implements OnInit {
     return {
       data: {
         type: 'node--case',
-        id: 'deef4a32-fcb3-48aa-8e4e-0a6bd0302f05',
+        id: this.appState.pageConfig?.node?.uuid,
         attributes: {
           transaction_level: value.transaction_level,
         },
@@ -147,9 +148,6 @@ export class LawCaseComponent extends NodeComponent implements OnInit {
               type: 'taxonomy_term--case_procedure',
               id: value.case_procedure,
             },
-          },
-          lawyer: {
-            data: value.lawyer ? this.getLawyerParams(value.lawyer) : [],
           },
         },
       },
