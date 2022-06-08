@@ -6,7 +6,10 @@
     font-size: 16px;
   }
   .mat-cell {
-    line-height: 1;
+    line-height: 1.2;
+    li {
+      list-style-type: none;
+    }
   }
   ::ng-deep {
     .sub {
