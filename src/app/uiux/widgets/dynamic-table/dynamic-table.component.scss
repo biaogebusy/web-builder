@@ -5,6 +5,9 @@
   .mat-header-cell {
     font-size: 16px;
   }
+  .mat-cell {
+    line-height: 1;
+  }
   ::ng-deep {
     .sub {
       font-size: small;
