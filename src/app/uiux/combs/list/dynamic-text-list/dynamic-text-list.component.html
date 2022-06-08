@@ -1,8 +1,6 @@
 <div class="dynamic-text-list m-y" *ngIf="content">
   <div class="container">
-    <div *ngIf="loading" class="m-y" fxLayoutAlign="center center">
-      <app-spinner [content]="{color:'primary', size:40}"></app-spinner>
-    </div>
+    <ngx-skeleton-loader *ngIf="loading" count="20" appearance="line"></ngx-skeleton-loader>
     <div class="item" *ngFor="let item of lists; last as isLast; trackBy: trackByFn">
       <div class="meta m-bottom-xs" fxLayoutAlign="start center" fxLayoutGap="1rem">
         <app-img [content]="item.picture"></app-img>

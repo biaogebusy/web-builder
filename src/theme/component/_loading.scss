@@ -12,15 +12,15 @@
     background-color: mat-color($primary);
   }
 
-  .loader,
-  .loader:after {
+  .app-loader,
+  .app-loader:after {
     border-radius: 50%;
     width: 10em;
     height: 10em;
     z-index: 999;
   }
 
-  .loader {
+  .app-loader {
     top: calc(50vh - 50px);
     margin: 0 auto;
     font-size: 7px;

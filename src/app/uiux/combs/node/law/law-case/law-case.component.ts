@@ -4,6 +4,7 @@ import {
   OnInit,
   ChangeDetectorRef,
   ChangeDetectionStrategy,
+  AfterViewInit,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ICase, ICasePrams } from '@core/interface/node/INode';
@@ -21,7 +22,6 @@ import {
   takeUntil,
   debounceTime,
   distinctUntilChanged,
-  map,
   startWith,
 } from 'rxjs/operators';
 // import data from './data.json';
@@ -32,12 +32,17 @@ import {
   styleUrls: ['./law-case.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LawCaseComponent extends NodeComponent implements OnInit {
+export class LawCaseComponent
+  extends NodeComponent
+  implements OnInit, AfterViewInit
+{
   @Input() content: ICase;
   comments: any[];
   initCommentContent: string;
   form: FormGroup;
   first = true;
+  contentLoading = true;
+  commentsLoading: boolean;
   destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     public appState: AppState,
@@ -68,6 +73,10 @@ export class LawCaseComponent extends NodeComponent implements OnInit {
           }
         });
     }
+  }
+
+  ngAfterViewInit(): void {
+    this.contentLoading = false;
   }
 
   initForm(form: any[]): void {
@@ -121,6 +130,7 @@ export class LawCaseComponent extends NodeComponent implements OnInit {
   }
 
   getComments(timeStamp = 1): void {
+    this.commentsLoading = true;
     this.nodeService
       .getCommentsWitchChild(
         this.content,
@@ -128,10 +138,17 @@ export class LawCaseComponent extends NodeComponent implements OnInit {
         timeStamp
       )
       .pipe(takeUntil(this.destroy$))
-      .subscribe((res) => {
-        this.comments = res;
-        this.cd.detectChanges();
-      });
+      .subscribe(
+        (res) => {
+          this.comments = res;
+          this.commentsLoading = false;
+          this.cd.detectChanges();
+        },
+        (error) => {
+          this.commentsLoading = false;
+          this.cd.detectChanges();
+        }
+      );
   }
 
   getCaseParams(value: ICasePrams): any {
