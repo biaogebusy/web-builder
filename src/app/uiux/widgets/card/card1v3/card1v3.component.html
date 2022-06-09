@@ -4,11 +4,11 @@
       [matRippleColor]="'rgba(0, 0, 0, 0.04)'" *cdkVirtualFor="let item of content.elements; index as i"
       fxLayout="column" (click)="onClick(item, i)">
       <h3 class="m-bottom-xs bold">{{item.title}}</h3>
-      <div class="address">{{item.address}}</div>
+      <div class="address" *ngIf="item.address">{{item.address}}</div>
       <div class="meta">
         <div class="li" *ngFor="let meta of item.meta" fxLayoutAlign="start start">
           <app-icon *ngIf="meta.icon" [content]="meta.icon"></app-icon>
-          <span>{{meta.label}}: </span>
+          <span class="bold m-right-xs">{{meta.label}}:</span>
           <span>{{meta.value}}</span>
         </div>
       </div>

@@ -43,12 +43,22 @@
       "type": "card-1v3",
       "elements": [{
         "title": "第一法庭",
-        "address": "良庆区玉洞街道玉洞大道8-1号",
         "params": {
           "address": "良庆区玉洞街道玉洞大道8-1号",
           "title": "第一法庭"
         },
+        "dialog": {
+          "content": "备注信息"
+        },
         "meta": [{
+          "icon": {
+            "color": "warn",
+            "svg": "arrow_right",
+            "inline": true
+          },
+          "label": "联系电话",
+          "value": "18878793xx"
+        }, {
           "icon": {
             "color": "warn",
             "svg": "arrow_right",
@@ -62,17 +72,27 @@
             "svg": "arrow_right",
             "inline": true
           },
-          "label": "联系电话",
-          "value": "18878793xx"
+          "label": "地址",
+          "value": "良庆区玉洞街道玉洞大道8-1号"
         }]
       }, {
         "title": "第二法庭",
-        "address": "良庆区玉洞街道玉洞大道86号",
         "params": {
           "address": "良庆区玉洞街道玉洞大道86号",
           "title": "第二法庭"
         },
+        "dialog": {
+          "content": "备注信息"
+        },
         "meta": [{
+          "icon": {
+            "color": "warn",
+            "svg": "arrow_right",
+            "inline": true
+          },
+          "label": "联系电话",
+          "value": "0771-78734454"
+        }, {
           "icon": {
             "color": "warn",
             "svg": "arrow_right",
@@ -86,17 +106,27 @@
             "svg": "arrow_right",
             "inline": true
           },
-          "label": "联系电话",
-          "value": "0771-78734454"
+          "label": "地址",
+          "value": "良庆区玉洞街道玉洞大道8-1号"
         }]
       }, {
         "title": "第三法庭",
-        "address": "良庆区玉洞街道玉洞大道80号",
         "params": {
           "address": "良庆区玉洞街道玉洞大道80号",
           "title": "第三法庭"
         },
+        "dialog": {
+          "content": "备注信息"
+        },
         "meta": [{
+          "icon": {
+            "color": "warn",
+            "svg": "arrow_right",
+            "inline": true
+          },
+          "label": "联系电话",
+          "value": "0771-6543976"
+        }, {
           "icon": {
             "color": "warn",
             "svg": "arrow_right",
@@ -110,8 +140,8 @@
             "svg": "arrow_right",
             "inline": true
           },
-          "label": "联系电话",
-          "value": "0771-6543976"
+          "label": "地址",
+          "value": "良庆区玉洞街道玉洞大道8-1号"
         }]
       }]
     }],
