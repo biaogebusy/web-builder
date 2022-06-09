@@ -20,6 +20,7 @@ export class FeatureBoxComponent implements OnInit {
   ) {
     this.lightboxConfig.disableScrolling = true;
     this.lightboxConfig.centerVertically = true;
+    this.lightboxConfig.showRotate = true;
   }
 
   ngOnInit(): void {}

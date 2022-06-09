@@ -47,9 +47,110 @@
           "address": "良庆区玉洞街道玉洞大道8-1号",
           "title": "第一法庭"
         },
-        "dialog": {
-          "content": "备注信息"
-        },
+        "dialog": [{
+          "type": "text",
+          "spacer": "xs",
+          "title": {
+            "label": "备注信息",
+            "style": "style-v4"
+          },
+          "body": "<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. </p>At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren."
+        }, {
+          "type": "text",
+          "spacer": "xs",
+          "title": {
+            "label": "证照信息",
+            "style": "style-v4"
+          }
+        }, {
+          "type": "swiper",
+          "params": {
+            "slidesPerView": 1.2,
+            "spaceBetween": 10,
+            "navigation": false,
+            "pagination": false,
+            "breakpoints": {
+              "600": {
+                "slidesPerView": 3,
+                "spaceBetween": 20
+              }
+            }
+          },
+          "classes": "p-bottom",
+          "elements": [{
+            "type": "card",
+            "carousel": {
+              "params": {
+                "slidesPerView": 1,
+                "navigation": false,
+                "pagination": false,
+                "autoplay": {
+                  "delay": 5000
+                },
+                "breakpoints": null
+              },
+              "elements": [{
+                "type": "feature-box",
+                "hoverIcon": true,
+                "fullIcon": "fullscreen",
+                "ratios": "media-4-3",
+                "img": {
+                  "classes": "object-fit",
+                  "src": "/assets/images/cases/porto1.jpg",
+                  "alt": "alt"
+                }
+              }]
+            }
+          }, {
+            "type": "card",
+            "carousel": {
+              "params": {
+                "slidesPerView": 1,
+                "navigation": false,
+                "pagination": false,
+                "autoplay": {
+                  "delay": 5000
+                },
+                "breakpoints": null
+              },
+              "elements": [{
+                "type": "feature-box",
+                "hoverIcon": true,
+                "fullIcon": "fullscreen",
+                "ratios": "media-4-3",
+                "img": {
+                  "classes": "object-fit",
+                  "src": "/assets/images/cases/porto2.jpg",
+                  "alt": "alt"
+                }
+              }]
+            }
+          }, {
+            "type": "card",
+            "carousel": {
+              "params": {
+                "slidesPerView": 1,
+                "navigation": false,
+                "pagination": false,
+                "autoplay": {
+                  "delay": 5000
+                },
+                "breakpoints": null
+              },
+              "elements": [{
+                "type": "feature-box",
+                "hoverIcon": true,
+                "fullIcon": "fullscreen",
+                "ratios": "media-4-3",
+                "img": {
+                  "classes": "object-fit",
+                  "src": "/assets/images/cases/porto3.jpg",
+                  "alt": "alt"
+                }
+              }]
+            }
+          }]
+        }],
         "meta": [{
           "icon": {
             "color": "warn",
@@ -81,9 +182,110 @@
           "address": "良庆区玉洞街道玉洞大道86号",
           "title": "第二法庭"
         },
-        "dialog": {
-          "content": "备注信息"
-        },
+        "dialog": [{
+          "type": "text",
+          "spacer": "xs",
+          "title": {
+            "label": "备注信息",
+            "style": "style-v4"
+          },
+          "body": "<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. </p>At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren."
+        }, {
+          "type": "text",
+          "spacer": "xs",
+          "title": {
+            "label": "证照信息",
+            "style": "style-v4"
+          }
+        }, {
+          "type": "swiper",
+          "params": {
+            "slidesPerView": 1.2,
+            "spaceBetween": 10,
+            "navigation": false,
+            "pagination": false,
+            "breakpoints": {
+              "600": {
+                "slidesPerView": 3,
+                "spaceBetween": 20
+              }
+            }
+          },
+          "classes": "p-bottom",
+          "elements": [{
+            "type": "card",
+            "carousel": {
+              "params": {
+                "slidesPerView": 1,
+                "navigation": false,
+                "pagination": false,
+                "autoplay": {
+                  "delay": 5000
+                },
+                "breakpoints": null
+              },
+              "elements": [{
+                "type": "feature-box",
+                "hoverIcon": true,
+                "fullIcon": "fullscreen",
+                "ratios": "media-4-3",
+                "img": {
+                  "classes": "object-fit",
+                  "src": "/assets/images/cases/porto1.jpg",
+                  "alt": "alt"
+                }
+              }]
+            }
+          }, {
+            "type": "card",
+            "carousel": {
+              "params": {
+                "slidesPerView": 1,
+                "navigation": false,
+                "pagination": false,
+                "autoplay": {
+                  "delay": 5000
+                },
+                "breakpoints": null
+              },
+              "elements": [{
+                "type": "feature-box",
+                "hoverIcon": true,
+                "fullIcon": "fullscreen",
+                "ratios": "media-4-3",
+                "img": {
+                  "classes": "object-fit",
+                  "src": "/assets/images/cases/porto2.jpg",
+                  "alt": "alt"
+                }
+              }]
+            }
+          }, {
+            "type": "card",
+            "carousel": {
+              "params": {
+                "slidesPerView": 1,
+                "navigation": false,
+                "pagination": false,
+                "autoplay": {
+                  "delay": 5000
+                },
+                "breakpoints": null
+              },
+              "elements": [{
+                "type": "feature-box",
+                "hoverIcon": true,
+                "fullIcon": "fullscreen",
+                "ratios": "media-4-3",
+                "img": {
+                  "classes": "object-fit",
+                  "src": "/assets/images/cases/porto3.jpg",
+                  "alt": "alt"
+                }
+              }]
+            }
+          }]
+        }],
         "meta": [{
           "icon": {
             "color": "warn",
@@ -115,9 +317,110 @@
           "address": "良庆区玉洞街道玉洞大道80号",
           "title": "第三法庭"
         },
-        "dialog": {
-          "content": "备注信息"
-        },
+        "dialog": [{
+          "type": "text",
+          "spacer": "xs",
+          "title": {
+            "label": "备注信息",
+            "style": "style-v4"
+          },
+          "body": "<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. </p>At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren."
+        }, {
+          "type": "text",
+          "spacer": "xs",
+          "title": {
+            "label": "证照信息",
+            "style": "style-v4"
+          }
+        }, {
+          "type": "swiper",
+          "params": {
+            "slidesPerView": 1.2,
+            "spaceBetween": 10,
+            "navigation": false,
+            "pagination": false,
+            "breakpoints": {
+              "600": {
+                "slidesPerView": 3,
+                "spaceBetween": 20
+              }
+            }
+          },
+          "classes": "p-bottom",
+          "elements": [{
+            "type": "card",
+            "carousel": {
+              "params": {
+                "slidesPerView": 1,
+                "navigation": false,
+                "pagination": false,
+                "autoplay": {
+                  "delay": 5000
+                },
+                "breakpoints": null
+              },
+              "elements": [{
+                "type": "feature-box",
+                "hoverIcon": true,
+                "fullIcon": "fullscreen",
+                "ratios": "media-4-3",
+                "img": {
+                  "classes": "object-fit",
+                  "src": "/assets/images/cases/porto1.jpg",
+                  "alt": "alt"
+                }
+              }]
+            }
+          }, {
+            "type": "card",
+            "carousel": {
+              "params": {
+                "slidesPerView": 1,
+                "navigation": false,
+                "pagination": false,
+                "autoplay": {
+                  "delay": 5000
+                },
+                "breakpoints": null
+              },
+              "elements": [{
+                "type": "feature-box",
+                "hoverIcon": true,
+                "fullIcon": "fullscreen",
+                "ratios": "media-4-3",
+                "img": {
+                  "classes": "object-fit",
+                  "src": "/assets/images/cases/porto2.jpg",
+                  "alt": "alt"
+                }
+              }]
+            }
+          }, {
+            "type": "card",
+            "carousel": {
+              "params": {
+                "slidesPerView": 1,
+                "navigation": false,
+                "pagination": false,
+                "autoplay": {
+                  "delay": 5000
+                },
+                "breakpoints": null
+              },
+              "elements": [{
+                "type": "feature-box",
+                "hoverIcon": true,
+                "fullIcon": "fullscreen",
+                "ratios": "media-4-3",
+                "img": {
+                  "classes": "object-fit",
+                  "src": "/assets/images/cases/porto3.jpg",
+                  "alt": "alt"
+                }
+              }]
+            }
+          }]
+        }],
         "meta": [{
           "icon": {
             "color": "warn",

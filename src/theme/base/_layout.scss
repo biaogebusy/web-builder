@@ -35,6 +35,18 @@
   }
 }
 
+@media #{$gt-sm} {
+  .cdk-global-scrollblock {
+    body > {
+      .lightbox {
+        top: 100% !important;
+        transform: translateY(-110%) !important;
+        position: fixed;
+      }
+    }
+  }
+}
+
 .width-100 {
   width: 100%;
 }

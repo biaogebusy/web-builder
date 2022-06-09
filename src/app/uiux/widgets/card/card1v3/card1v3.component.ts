@@ -2,7 +2,7 @@ import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 import { IMark } from '@core/interface/IAmap';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
-import { TextComponent } from '@uiux/widgets/text/text.component';
+import { LoopWidgetsComponent } from '@uiux/widgets/loop-widgets/loop-widgets.component';
 
 @Component({
   selector: 'app-card1v3',
@@ -20,27 +20,19 @@ export class Card1v3Component implements OnInit {
   onClick(item: any, i: number): void {
     this.selectedId = i;
     if (item.dialog) {
-      this.openDialog(item);
+      this.openDialog(item.dialog);
       return;
     }
     this.selected.emit({ item, index: i } as IMark);
   }
 
-  openDialog(item: any): void {
+  openDialog(content: any): void {
     this.dialog.open(DialogComponent, {
-      width: '600px',
+      width: '800px',
       data: {
-        renderInputComponent: TextComponent,
+        renderInputComponent: LoopWidgetsComponent,
         inputData: {
-          content: {
-            type: 'text',
-            spacer: 'none',
-            title: {
-              label: item.title,
-              style: 'style-v4',
-            },
-            body: item.dialog.content,
-          },
+          content,
         },
       },
     });

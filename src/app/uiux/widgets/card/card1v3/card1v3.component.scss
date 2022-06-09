@@ -13,6 +13,9 @@
     .title {
       font-size: 1.6rem;
     }
+    .right {
+      word-break: break-all;
+    }
 
     @media #{$xs} {
       padding: 1rem !important;
