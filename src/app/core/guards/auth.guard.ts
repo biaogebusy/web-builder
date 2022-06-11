@@ -41,14 +41,14 @@ export class AuthGuard implements CanActivate {
             return true;
           } else {
             this.userState.logouLocalUser();
-            this.router.navigate(['user/login'], {
+            this.router.navigate(['my/login'], {
               queryParams: { returnUrl: state.url },
             });
             return false;
           }
         }),
         catchError(() => {
-          this.router.navigate(['user/login']);
+          this.router.navigate(['my/login']);
           return of(false);
         })
       );
