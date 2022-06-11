@@ -12,6 +12,7 @@ import { UserService } from '@core/service/user.service';
 import { catchError, map } from 'rxjs/operators';
 import { CORE_CONFIG } from '@core/token/core.config';
 import { ICoreConfig } from '@core/mobx/IAppConfig';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -38,12 +39,17 @@ export class AuthGuard implements CanActivate {
         map((status) => {
           console.log('userState:', status);
           if (status) {
+            this.userState.updateUserBySession();
             return true;
           } else {
             this.userState.logouLocalUser();
-            this.router.navigate(['my/login'], {
-              queryParams: { returnUrl: state.url },
-            });
+            if (environment?.drupalProxy) {
+              window.location.href = 'user/login';
+            } else {
+              this.router.navigate(['my/login'], {
+                queryParams: { returnUrl: state.url },
+              });
+            }
             return false;
           }
         }),

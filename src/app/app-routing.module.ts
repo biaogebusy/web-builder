@@ -15,7 +15,7 @@ const routes: Routes = [
       import('./modules/user/user.module').then((m) => m.UserModule),
   },
   {
-    path: 'manage',
+    path: 'super',
     canActivate: [ManageGuard],
     loadChildren: () =>
       import('./modules/manage/manage.module').then((m) => m.ManageModule),

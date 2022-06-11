@@ -5,4 +5,5 @@ export interface IEnvironment {
   port: number;
   cache: boolean;
   ssr: boolean;
+  drupalProxy?: boolean;
 }

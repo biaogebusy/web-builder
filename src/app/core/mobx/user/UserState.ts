@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { action, observable, computed } from 'mobx-angular';
 import { LocalStorageService } from 'ngx-webstorage';
 import { IUser, TokenUser } from './IUser';
-import { of, Subject } from 'rxjs';
+import { of, Subject, forkJoin } from 'rxjs';
 import { UserService } from '@core/service/user.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { CryptoJSService } from '@core/service/crypto-js.service';
-import { catchError } from 'rxjs/operators';
+import { catchError, switchMap } from 'rxjs/operators';
+import { HttpHeaders } from '@angular/common/http';
 
 const unauthUser = {
   id: '',
@@ -42,6 +43,7 @@ export class UserState {
           this.storage.retrieve(this.userService.localUserKey)
         )
       );
+      console.log(this.user);
     }
   }
 
@@ -139,12 +141,51 @@ export class UserState {
 
   @action
   updateUser(data: TokenUser): any {
-    this.userService.getCurrentUserById(data).subscribe((user) => {
-      this.loading = false;
-      this.user$.next(user);
-      this.user = Object.assign(data, user);
-      this.userService.storeLocalUser(this.user);
-    });
+    this.userService
+      .getCurrentUserById(data.current_user.uid, data.csrf_token)
+      .subscribe((user) => {
+        this.loading = false;
+        this.user$.next(user);
+        this.user = Object.assign(data, user);
+        this.userService.storeLocalUser(this.user);
+      });
+  }
+
+  @action
+  updateUserBySession(): void {
+    const options = {
+      headers: new HttpHeaders({
+        Accept: 'application/vnd.api+json',
+        'Content-Type': 'application/vnd.api+json',
+      }),
+      withCredentials: true,
+    };
+    const sesstion = this.userService.http.get('/session/token', options);
+    const profile = this.userService.http.get(
+      '/api/v1/accountProfile',
+      options
+    );
+    let tokenUser = {};
+    forkJoin({
+      csrf_token: sesstion,
+      current_user: profile,
+    })
+      .pipe(
+        switchMap((data: any) => {
+          tokenUser = data;
+          return this.userService.getCurrentUserById(
+            data.current_user.uid,
+            data.csrf_token
+          );
+        })
+      )
+      .subscribe((user) => {
+        this.loading = false;
+        this.user$.next(user);
+        this.user = Object.assign(tokenUser, user);
+        this.userService.storeLocalUser(this.user);
+        debugger;
+      });
   }
 
   @action
