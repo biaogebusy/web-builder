@@ -36,11 +36,12 @@ export class AuthGuard implements CanActivate {
     if (this.coreConfig?.guard?.authGuard) {
       return this.userService.getLoginState().pipe(
         map((status) => {
-          debugger;
           console.log('userState:', status);
           if (status) {
             if (environment?.drupalProxy) {
-              this.userState.updateUserBySession();
+              if (!this.userState.csrfToken) {
+                this.userState.updateUserBySession();
+              }
             }
             return true;
           } else {

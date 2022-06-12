@@ -8,6 +8,7 @@ import { UtilitiesService } from '@core/service/utilities.service';
 import { CryptoJSService } from '@core/service/crypto-js.service';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 const unauthUser = {
   id: '',
@@ -114,6 +115,10 @@ export class UserState {
 
   @action
   logout(): any {
+    if (environment.drupalProxy) {
+      window.location.href = '/user/logout';
+      return;
+    }
     this.userService
       .logout(this.logoutToken)
       .pipe(
@@ -160,16 +165,9 @@ export class UserState {
       }),
       withCredentials: true,
     };
-    const sesstion = this.userService.http
-      .get('/session/token', {
-        withCredentials: true,
-      })
-      .pipe(
-        map((token) => {
-          console.log(token);
-          return token.toString();
-        })
-      );
+    const sesstion = this.userService.http.get('/session/token', {
+      responseType: 'text',
+    });
     const profile = this.userService.http.get(
       '/api/v1/accountProfile',
       options
@@ -198,7 +196,6 @@ export class UserState {
         this.user$.next(user);
         this.user = Object.assign(tokenUser, user);
         this.userService.storeLocalUser(this.user);
-        debugger;
       });
   }
 
