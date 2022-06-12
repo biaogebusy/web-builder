@@ -71,7 +71,7 @@ export class UserMenuComponent implements OnInit, OnDestroy {
   }
 
   get userPage(): any[] {
-    return [`/user`];
+    return [`/my`];
   }
 
   ngOnDestroy(): void {

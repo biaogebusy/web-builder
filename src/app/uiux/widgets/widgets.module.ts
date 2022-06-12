@@ -82,6 +82,7 @@ import { ViewListComponent } from './view-list/view-list.component';
 import { DataSourcePipe } from '@core/pipe/dataSource.pipe';
 import { SearchActionComponent } from './actions/search-action/search-action.component';
 import { SearchSidebarComponent } from './sidebar/search-sidebar/search-sidebar.component';
+import { LoopWidgetsComponent } from './loop-widgets/loop-widgets.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -153,6 +154,7 @@ const components = [
   ViewListComponent,
   DatepickerComponent,
   FontChangeComponent,
+  LoopWidgetsComponent,
   TermsServiceComponent,
   DynamicTableComponent,
   SearchActionComponent,

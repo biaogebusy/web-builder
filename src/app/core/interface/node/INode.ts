@@ -92,5 +92,4 @@ export interface ICase extends IBaseNode {
 export interface ICasePrams {
   transaction_level: 'general' | 'important' | 'exigence';
   case_procedure: string;
-  lawyer: string;
 }

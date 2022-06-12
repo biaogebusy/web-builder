@@ -38,6 +38,7 @@ import {
   MatPaginatorModule,
 } from '@angular/material/paginator';
 import { MatPaginatorIntlCro } from '@core/service/paginator.service';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 @NgModule({
   declarations: [],
@@ -71,6 +72,7 @@ import { MatPaginatorIntlCro } from '@core/service/paginator.service';
     NgxPaginationModule,
     MatTableModule,
     NgxMatSelectSearchModule,
+    NgxSkeletonLoaderModule,
   ],
   exports: [
     CommonModule,
@@ -106,6 +108,7 @@ import { MatPaginatorIntlCro } from '@core/service/paginator.service';
     MatTableModule,
     MatPaginatorModule,
     NgxMatSelectSearchModule,
+    NgxSkeletonLoaderModule,
   ],
   providers: [
     IconService,

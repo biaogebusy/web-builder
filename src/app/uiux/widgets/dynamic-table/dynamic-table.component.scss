@@ -5,6 +5,14 @@
   .mat-header-cell {
     font-size: 16px;
   }
+  .mat-cell {
+    line-height: 1.2;
+    ::ng-deep {
+      li {
+        list-style-type: none;
+      }
+    }
+  }
   ::ng-deep {
     .sub {
       font-size: small;

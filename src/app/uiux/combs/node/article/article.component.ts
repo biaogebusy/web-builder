@@ -92,18 +92,6 @@ export class ArticleComponent
       this.onFontSize();
     }
     this.checkAccess();
-    if (this.coreConfig.article?.comment?.enable) {
-      this.getComments();
-      if (this.screenService.isPlatformBrowser()) {
-        this.contentState.commentChange$
-          .pipe(takeUntil(this.destroy$))
-          .subscribe((state) => {
-            if (state) {
-              this.getComments(+new Date());
-            }
-          });
-      }
-    }
 
     this.userState.user$.subscribe(() => {
       this.cd.markForCheck();
@@ -134,16 +122,6 @@ export class ArticleComponent
     }
   }
 
-  getComments(timeStamp = 1): void {
-    this.nodeService
-      .getCommentsWitchChild(this.content, this.userState.csrfToken, timeStamp)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((res) => {
-        this.comments = res;
-        this.cd.markForCheck();
-      });
-  }
-
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       this.document.querySelectorAll('code').forEach((block) => {
@@ -155,6 +133,28 @@ export class ArticleComponent
         this.cd.detectChanges();
       });
     }
+    if (this.coreConfig.article?.comment?.enable) {
+      this.getComments();
+      if (this.screenService.isPlatformBrowser()) {
+        this.contentState.commentChange$
+          .pipe(takeUntil(this.destroy$))
+          .subscribe((state) => {
+            if (state) {
+              this.getComments(+new Date());
+            }
+          });
+      }
+    }
+  }
+
+  getComments(timeStamp = 1): void {
+    this.nodeService
+      .getCommentsWitchChild(this.content, this.userState.csrfToken, timeStamp)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((res) => {
+        this.comments = res;
+        this.cd.markForCheck();
+      });
   }
 
   openLogin(): void {

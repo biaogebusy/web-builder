@@ -7,13 +7,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class LawHeaderComponent implements OnInit {
   @Input() content: any;
-  @Input() disabled: boolean;
-  @Output() updateChange = new EventEmitter();
   constructor() {}
 
   ngOnInit(): void {}
-
-  updateNode(): void {
-    this.updateChange.emit();
-  }
 }

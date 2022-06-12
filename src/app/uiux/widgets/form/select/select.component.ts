@@ -10,7 +10,7 @@ import { MatSelect } from '@angular/material/select';
 import { IControl } from '@core/interface/widgets/IControl';
 import { NodeService } from '@core/service/node.service';
 import { ReplaySubject } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { shareReplay, take } from 'rxjs/operators';
 
 // tslint:disable-next-line:max-line-length
 // https://stackblitz.com/github/bithost-gmbh/ngx-mat-select-search-example?file=src%2Fapp%2Fexamples%2F02-multiple-selection-example%2Fmultiple-selection-example.component.ts
@@ -43,7 +43,7 @@ export class SelectComponent implements OnInit, AfterViewInit {
 
     // listen for search field value changes
     this.searchCtrl.valueChanges.subscribe(() => {
-      this.filterBanksMulti();
+      this.filterMulti();
     });
   }
 
@@ -53,11 +53,14 @@ export class SelectComponent implements OnInit, AfterViewInit {
   }
 
   getOptionsFromApi(): void {
-    this.nodeService.search(this.content.api || '', '').subscribe((res) => {
-      this.options = res.rows;
-      // load the initial options
-      this.filteredOptions.next(this.options.slice());
-    });
+    this.nodeService
+      .search(this.content.api || '', '')
+      .pipe(shareReplay())
+      .subscribe((res) => {
+        this.options = res.rows;
+        // load the initial options
+        this.filteredOptions.next(this.options.slice());
+      });
   }
 
   /**
@@ -75,7 +78,7 @@ export class SelectComponent implements OnInit, AfterViewInit {
     });
   }
 
-  protected filterBanksMulti(): void {
+  protected filterMulti(): void {
     if (!this.options) {
       return;
     }

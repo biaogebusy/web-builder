@@ -1,0 +1,5 @@
+<ng-container *ngIf="content">
+  <ng-container *ngFor="let item of content">
+    <app-dynamic-widgets [content]="item"></app-dynamic-widgets>
+  </ng-container>
+</ng-container>

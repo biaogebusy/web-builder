@@ -168,6 +168,14 @@ export class NodeService extends ApiService {
       this.optionsWithCookieAndToken(token)
     );
   }
+  // TODO: refact updateComment and this to patch
+  updateLawCase(data: any, uuid: string, token: string): Observable<any> {
+    return this.http.patch<any>(
+      `${this.apiUrl}/api/v1/node/case/${uuid}`,
+      JSON.stringify(data),
+      this.optionsWithCookieAndToken(token)
+    );
+  }
 
   replyComment(type: string, entityData: any, token: string): Observable<any> {
     const entity = {
@@ -237,7 +245,7 @@ export class NodeService extends ApiService {
         title: comment.uid.name,
         subTitle: formatDate(
           comment.changed || comment.created,
-          'yyyy-MM-dd h:mm:ss',
+          'yyyy-MM-dd HH:mm:ss',
           'en-US'
         ),
       },
@@ -299,14 +307,6 @@ export class NodeService extends ApiService {
           })
         );
       })
-    );
-  }
-
-  updateLawCase(data: any, uuid: string, token: string): Observable<any> {
-    return this.http.patch<any>(
-      `${this.apiUrl}/api/v1/node/case/${uuid}`,
-      JSON.stringify(data),
-      this.optionsWithCookieAndToken(token)
     );
   }
 

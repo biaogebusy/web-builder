@@ -59,6 +59,7 @@
     "ngx-pagination": "^5.1.0",
     "ngx-pipes": "^2.7.5",
     "ngx-quill": "^13.0.0",
+    "ngx-skeleton-loader": "4.0.0",
     "ngx-swiper-wrapper": "^10.0.0",
     "ngx-webstorage": "^7.0.1",
     "quill": "^1.3.7",

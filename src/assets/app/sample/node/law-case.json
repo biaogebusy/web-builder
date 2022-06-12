@@ -51,10 +51,6 @@
       "type": "select",
       "key": "case_procedure",
       "value": "aff056e8-4638-4901-b866-8cc6ea7a05c9"
-    }, {
-      "type": "select",
-      "key": "lawyer",
-      "value": "029f3488-92ed-4fb5-8fa2-62df690bd9d5"
     }],
     "block": [{
       "type": "showcase",
@@ -133,12 +129,7 @@
           },
           {
             "customer": "经办律师",
-            "contentOfCustomer": {
-              "type": "input",
-              "key": "lawyer",
-              "mode": "autocomplete",
-              "value": "杜长明"
-            },
+            "contentOfCustomer": "杜长明",
             "court": "案件编号",
             "contentOfCourt": "（2022）苏05民终3823"
           }, {

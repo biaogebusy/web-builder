@@ -6,7 +6,6 @@ import {
 } from '@angular/core';
 import { ILink } from '@core/interface/widgets/ILink';
 import { RouteService } from '@core/service/route.service';
-import { environment } from 'src/environments/environment';
 import { UtilitiesService } from '@core/service/utilities.service';
 @Component({
   selector: 'app-link',
@@ -44,15 +43,5 @@ export class LinkComponent implements OnInit {
       obj[type] = type || false;
     }
     this.classes = obj;
-  }
-
-  handleHref(href: string): string {
-    const link = href || 'javascript:void(0);';
-    if (link && !link.startsWith('/system/')) {
-      return href;
-    }
-
-    // drupal private file url
-    return `${environment.apiUrl}${href}`;
   }
 }

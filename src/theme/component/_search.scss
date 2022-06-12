@@ -25,7 +25,14 @@
       background-color: mat-color($background, card);
       border-bottom: 1px solid mat-color($foreground, divider, 0.1);
       color: mat-color($foreground, text, 0.45);
-      .title {
+      .title,
+      .content {
+        em,
+        strong {
+          color: mat-color($warn);
+          font-weight: normal;
+          font-style: normal;
+        }
         a {
           color: mat-color($foreground, text, 0.75);
           &:hover {
@@ -34,6 +41,8 @@
           em,
           strong {
             color: mat-color($warn);
+            font-weight: normal;
+            font-style: normal;
           }
         }
       }

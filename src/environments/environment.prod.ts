@@ -7,4 +7,5 @@ export const environment: IEnvironment = {
   port: 4209,
   cache: false,
   ssr: false,
+  drupalProxy: true,
 };

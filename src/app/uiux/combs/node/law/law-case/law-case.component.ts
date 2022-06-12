@@ -4,6 +4,7 @@ import {
   OnInit,
   ChangeDetectorRef,
   ChangeDetectionStrategy,
+  AfterViewInit,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ICase, ICasePrams } from '@core/interface/node/INode';
@@ -21,7 +22,7 @@ import {
   takeUntil,
   debounceTime,
   distinctUntilChanged,
-  map,
+  startWith,
 } from 'rxjs/operators';
 // import data from './data.json';
 
@@ -31,13 +32,14 @@ import {
   styleUrls: ['./law-case.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LawCaseComponent extends NodeComponent implements OnInit {
+export class LawCaseComponent
+  extends NodeComponent
+  implements OnInit, AfterViewInit
+{
   @Input() content: ICase;
   comments: any[];
   initCommentContent: string;
   form: FormGroup;
-  apiParams: string;
-  disabled = true;
   first = true;
   destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
@@ -54,7 +56,9 @@ export class LawCaseComponent extends NodeComponent implements OnInit {
     super();
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  ngAfterViewInit(): void {
     if (this.content?.form?.length) {
       this.initForm(this.content.form);
     }
@@ -75,15 +79,17 @@ export class LawCaseComponent extends NodeComponent implements OnInit {
     this.form = this.formService.toFormGroup(form);
     this.form.valueChanges
       .pipe(
+        startWith({}),
         debounceTime(1000),
         distinctUntilChanged(),
         takeUntil(this.destroy$)
       )
       .subscribe((value) => {
-        this.disabled = false;
-        const apiParams = this.getCaseParams(value);
-        this.apiParams = this.handleLawyer(apiParams);
-        this.cd.detectChanges();
+        if (!this.first) {
+          const apiParams = this.getCaseParams(value);
+          this.updateNode(apiParams);
+        }
+        this.first = false;
       });
   }
 
@@ -95,20 +101,17 @@ export class LawCaseComponent extends NodeComponent implements OnInit {
     return apiParams;
   }
 
-  updateNode(): void {
+  updateNode(apiParams: any): void {
     const uuid = this.appState.pageConfig.node.uuid;
-    // const uuid = 'cb31d69f-a95e-4c91-97d1-1169f82a10a5';
     this.nodeService
-      .updateLawCase(this.apiParams, uuid, this.userState.csrfToken)
+      .updateLawCase(apiParams, uuid, this.userState.csrfToken)
       .subscribe((res) => {
-        console.log(res);
         this.uti.openSnackbar('已更新！', '✓');
       });
   }
 
   getlawyers(): void {
     this.nodeService.getNodes('/api/v1/node', 'handler').subscribe((res) => {
-      console.log(res);
       const autoList = res.data.map((item: any) => {
         return {
           label: item.attributes.title,
@@ -120,6 +123,7 @@ export class LawCaseComponent extends NodeComponent implements OnInit {
   }
 
   getComments(timeStamp = 1): void {
+    this.cd.detectChanges();
     this.nodeService
       .getCommentsWitchChild(
         this.content,
@@ -137,7 +141,7 @@ export class LawCaseComponent extends NodeComponent implements OnInit {
     return {
       data: {
         type: 'node--case',
-        id: 'deef4a32-fcb3-48aa-8e4e-0a6bd0302f05',
+        id: this.appState.pageConfig?.node?.uuid,
         attributes: {
           transaction_level: value.transaction_level,
         },
@@ -147,9 +151,6 @@ export class LawCaseComponent extends NodeComponent implements OnInit {
               type: 'taxonomy_term--case_procedure',
               id: value.case_procedure,
             },
-          },
-          lawyer: {
-            data: value.lawyer ? this.getLawyerParams(value.lawyer) : [],
           },
         },
       },
