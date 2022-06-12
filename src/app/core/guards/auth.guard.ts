@@ -33,18 +33,21 @@ export class AuthGuard implements CanActivate {
     | boolean
     | UrlTree {
     // return true;
-
     if (this.coreConfig?.guard?.authGuard) {
       return this.userService.getLoginState().pipe(
         map((status) => {
+          debugger;
           console.log('userState:', status);
           if (status) {
-            this.userState.updateUserBySession();
+            if (environment?.drupalProxy) {
+              this.userState.updateUserBySession();
+            }
             return true;
           } else {
             this.userState.logouLocalUser();
             if (environment?.drupalProxy) {
               window.location.href = 'user/login';
+              return false;
             } else {
               this.router.navigate(['my/login'], {
                 queryParams: { returnUrl: state.url },

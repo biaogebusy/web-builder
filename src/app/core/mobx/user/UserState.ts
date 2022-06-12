@@ -160,7 +160,12 @@ export class UserState {
       }),
       withCredentials: true,
     };
-    const sesstion = this.userService.http.get('/session/token', options);
+    const sesstion = this.userService.http.get('/session/token', {
+      headers: new HttpHeaders({
+        Accept: 'text/plain',
+      }),
+      withCredentials: true,
+    });
     const profile = this.userService.http.get(
       '/api/v1/accountProfile',
       options
