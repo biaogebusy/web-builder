@@ -6,7 +6,7 @@ import { of, Subject, forkJoin } from 'rxjs';
 import { UserService } from '@core/service/user.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { CryptoJSService } from '@core/service/crypto-js.service';
-import { catchError, switchMap } from 'rxjs/operators';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
 
 const unauthUser = {
@@ -160,12 +160,16 @@ export class UserState {
       }),
       withCredentials: true,
     };
-    const sesstion = this.userService.http.get('/session/token', {
-      headers: new HttpHeaders({
-        Accept: 'text/plain',
-      }),
-      withCredentials: true,
-    });
+    const sesstion = this.userService.http
+      .get('/session/token', {
+        withCredentials: true,
+      })
+      .pipe(
+        map((token) => {
+          console.log(token);
+          return token.toString();
+        })
+      );
     const profile = this.userService.http.get(
       '/api/v1/accountProfile',
       options
@@ -177,11 +181,16 @@ export class UserState {
     })
       .pipe(
         switchMap((data: any) => {
+          console.log(data);
           tokenUser = data;
           return this.userService.getCurrentUserById(
             data.current_user.uid,
             data.csrf_token
           );
+        }),
+        catchError((error: any) => {
+          console.log(error);
+          return of(null);
         })
       )
       .subscribe((user) => {
