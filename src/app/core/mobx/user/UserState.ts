@@ -116,6 +116,7 @@ export class UserState {
   @action
   logout(): any {
     if (environment.drupalProxy) {
+      this.logoutUser();
       window.location.href = '/user/logout';
       return;
     }
@@ -131,10 +132,14 @@ export class UserState {
         })
       )
       .subscribe(() => {
-        this.user$.next(unauthUser);
-        this.user = unauthUser;
-        this.storage.clear(this.userService.localUserKey);
+        this.logoutUser();
       });
+  }
+
+  logoutUser(): void {
+    this.user$.next(unauthUser);
+    this.user = unauthUser;
+    this.storage.clear(this.userService.localUserKey);
   }
 
   @action
