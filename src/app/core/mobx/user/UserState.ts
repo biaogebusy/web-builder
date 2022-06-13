@@ -143,6 +143,14 @@ export class UserState {
   }
 
   @action
+  loginUser(data: any, user: any): void {
+    this.loading = false;
+    this.user$.next(user);
+    this.user = Object.assign(data, user);
+    this.userService.storeLocalUser(this.user);
+  }
+
+  @action
   logouLocalUser(): void {
     this.user$.next(unauthUser);
     this.user = unauthUser;
@@ -154,10 +162,7 @@ export class UserState {
     this.userService
       .getCurrentUserById(data.current_user.uid, data.csrf_token)
       .subscribe((user) => {
-        this.loading = false;
-        this.user$.next(user);
-        this.user = Object.assign(data, user);
-        this.userService.storeLocalUser(this.user);
+        this.loginUser(data, user);
       });
   }
 
@@ -197,10 +202,8 @@ export class UserState {
         })
       )
       .subscribe((user) => {
-        this.loading = false;
-        this.user$.next(user);
-        this.user = Object.assign(tokenUser, user);
-        this.userService.storeLocalUser(this.user);
+        console.log('get session user done!');
+        this.loginUser(tokenUser, user);
       });
   }
 
