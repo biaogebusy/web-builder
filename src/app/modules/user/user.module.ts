@@ -21,11 +21,11 @@ import { UserPayComponent } from './user-pay/user-pay.component';
   ],
   imports: [
     ShareModule,
-    UserRoutingModule,
     WidgetsModule,
     CountdownModule,
     ProfileModule,
     ListModule,
+    UserRoutingModule,
   ],
 })
 export class UserModule {}

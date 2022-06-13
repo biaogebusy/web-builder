@@ -33,7 +33,7 @@ export class AuthGuard implements CanActivate {
     | boolean
     | UrlTree {
     // return true;
-    if (this.coreConfig?.guard?.authGuard) {
+    if (state.url.startsWith('/my') || this.coreConfig?.guard?.authGuard) {
       return this.userService.getLoginState().pipe(
         map((status) => {
           console.log('userState:', status);
@@ -53,8 +53,8 @@ export class AuthGuard implements CanActivate {
               this.router.navigate(['my/login'], {
                 queryParams: { returnUrl: state.url },
               });
+              return false;
             }
-            return false;
           }
         }),
         catchError(() => {
