@@ -10,6 +10,7 @@ import { UserComponent } from './user.component';
 import { UserHomeComponent } from './user-home/user-home.component';
 import { UserFavoriteComponent } from './user-favorite/user-favorite.component';
 import { UserPayComponent } from './user-pay/user-pay.component';
+import { DynamicCombsModule } from '@uiux/combs/dynamic-combs/dynamic-combs.module';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { UserPayComponent } from './user-pay/user-pay.component';
   imports: [
     ShareModule,
     WidgetsModule,
+    DynamicCombsModule,
     CountdownModule,
     ProfileModule,
     ListModule,
