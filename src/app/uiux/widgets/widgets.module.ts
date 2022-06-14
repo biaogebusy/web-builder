@@ -83,6 +83,8 @@ import { DataSourcePipe } from '@core/pipe/dataSource.pipe';
 import { SearchActionComponent } from './actions/search-action/search-action.component';
 import { SearchSidebarComponent } from './sidebar/search-sidebar/search-sidebar.component';
 import { LoopWidgetsComponent } from './loop-widgets/loop-widgets.component';
+import { IframeComponent } from './iframe/iframe.component';
+import { SafePipe } from '@core/pipe/safe-url.pipe';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -141,6 +143,7 @@ const components = [
   ProgressBarComponent,
   ProgressGroupComponent,
   SafeHtmlPipe,
+  SafePipe,
   DataSourcePipe,
   DialogComponent,
   FlagComponent,
@@ -148,6 +151,7 @@ const components = [
   ShapeComponent,
   BgImgComponent,
   TreeComponent,
+  IframeComponent,
   CalendarComponent,
   DownloadComponent,
   CardMetaComponent,
