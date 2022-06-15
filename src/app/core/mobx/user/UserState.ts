@@ -72,7 +72,7 @@ export class UserState {
 
   @computed
   get authenticated(): boolean {
-    return this.user.authenticated;
+    return !!this.user.current_user.uid;
   }
 
   @computed
