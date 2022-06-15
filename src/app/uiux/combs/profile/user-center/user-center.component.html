@@ -1,0 +1,53 @@
+<div class="user user-center" *ngIf="content">
+  <div class="profile-1v1 position-relative p-y">
+    <div class="container">
+      <div class="profile" fxLayoutAlign="space-between start" fxLayout="row wrap">
+        <div class="left" fxFlex.lt-md="0 0 100" fxFlex.gt-sm="0 0 30">
+          <div class="box p-y p-x text-center" *ngIf="user">
+            <app-img [content]="user.avatar"></app-img>
+            <h2 class="mat-h2 m-bottom-0 m-top-xs">{{user.name}}</h2>
+            <div class="subTitle">{{user.subTitle}}</div>
+          </div>
+          <mat-divider></mat-divider>
+          <div class="left-item p-y-sm p-x-sm" *ngIf="user?.details">
+            <div class="item-header bold m-bottom-sm">{{user.details.label}}</div>
+            <div class="list">
+              <div fxLayoutAlign="start start" *ngFor="let item of user.details.elements">
+                <app-icon [content]="item.icon"></app-icon>
+                <div class="label m-right-xs bold">{{item.label}}:</div>
+                <div>{{item.content}}</div>
+              </div>
+            </div>
+          </div>
+          <div class="user-menu p-x-sm m-bottom" fxLayout="row wrap" fxLayoutAlign="space-between">
+            <div class="item" fxFlex.lt-md="100" fxFlex.gt-sm="48">
+              <a class="p-y-sm p-x-sm" fxLayout="column" fxLayoutAlign="center center" [routerLink]="['favorite']"
+                [routerLinkActive]="['active']">
+                <mat-icon class="p-bottom-xs">favorite</mat-icon>
+                <span>收藏</span>
+              </a>
+            </div>
+            <div class="item" fxFlex.lt-md="100" fxFlex.gt-sm="48">
+              <a class="p-y-sm p-x-sm" fxLayout="column" fxLayoutAlign="center center" [routerLink]="['pay']"
+                [routerLinkActive]="['active']">
+                <mat-icon class="p-bottom-xs">shopping_cart</mat-icon>
+                <span>购买</span>
+              </a>
+            </div>
+            <div class="item" fxFlex.lt-md="100" fxFlex.gt-sm="48">
+              <a class="p-y-sm p-x-sm" fxLayout="column" fxLayoutAlign="center center" (click)="logout()">
+                <mat-icon class="p-bottom-xs">exit_to_app</mat-icon>
+                <span>退出</span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="right" fxFlex.lt-md="0 0 100" fxFlex.gt-sm="0 0 calc(100% - 30% - 4rem)">
+          <div class="content">
+            <app-dynamic-combs *ngFor="let item of content.content" [content]="item"></app-dynamic-combs>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
