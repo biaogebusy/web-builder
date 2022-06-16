@@ -18,7 +18,7 @@
         <span [innerHTML]="content.label"></span>
       </button>
       <ng-template #link>
-        <a [class]="content.classes" mat-stroked-button [href]="content.href" [target]="content.target"
+        <a [class]="content.classes" mat-stroked-button [href]="content.href" [target]="content?.target || ''"
           [innerHTML]="content.label">
           <app-icon *ngIf="content.icon" [content]="content.icon"></app-icon>
           <span [innerHTML]="content.label"></span>
@@ -29,7 +29,7 @@
       <button [class]="content.classes" mat-flat-button *ngIf="!content.href;else link"
         [color]="content.color">{{content.label}}</button>
       <ng-template #link>
-        <a [class]="content.classes" mat-flat-button [href]="content.href" [target]="content.target"
+        <a [class]="content.classes" mat-flat-button [href]="content.href" [target]="content?.target || ''"
           [innerHTML]="content.label"></a>
       </ng-template>
     </ng-container>
@@ -54,7 +54,7 @@
         <span [innerHTML]="content.label"></span>
       </button>
       <ng-template #link>
-        <a [class]="content.classes" mat-button [href]="content.href" [target]="content.target">
+        <a [class]="content.classes" mat-button [href]="content.href" [target]="content?.target || ''">
           <app-icon *ngIf="content.icon" [content]="content.icon"></app-icon>
           <span [innerHTML]="content.label"></span>
         </a>

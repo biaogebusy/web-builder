@@ -1,47 +1,52 @@
-<div class="user user-center" *ngIf="content">
-  <div class="profile-1v1 position-relative p-y">
+<div class="user-center position-relative" *ngIf="content">
+  <div class="inner">
     <div class="container">
-      <div class="profile" fxLayoutAlign="space-between start" fxLayout="row wrap">
-        <div class="left" fxFlex.lt-md="0 0 100" fxFlex.gt-sm="0 0 30">
-          <div class="box p-y p-x text-center" *ngIf="user">
-            <app-img [content]="user.avatar"></app-img>
-            <h2 class="mat-h2 m-bottom-0 m-top-xs">{{user.name}}</h2>
+      <div class="profile p-y-sm p-x-sm" fxLayoutAlign.gt-sm="space-between center" fxLayout="row wrap" *ngIf="user">
+        <div class="avatar" fxFlex.lt-md="0 0 100" fxFlex.gt-sm="0 1 16" fxLayoutAlign="center center">
+          <app-img [content]="user.avatar"></app-img>
+        </div>
+        <div class="details" fxFlex.lt-md="0 0 100" fxFlex.gt-sm="0 1 84" fxLayout="row wrap"
+          fxLayoutAlign.gt-sm="space-between end" fxLayoutAlign.lt-md="center center">
+          <div class="left" fxFlex="auto" fxFlex.lt-md="100" fxLayoutAlign.lt-md="center center"
+            fxLayout.lt-md="column">
+            <h1 class="mat-h1 m-bottom-0">{{user.name}}</h1>
             <div class="subTitle">{{user.subTitle}}</div>
-          </div>
-          <mat-divider></mat-divider>
-          <div class="left-item p-y-sm p-x-sm" *ngIf="user?.details">
-            <div class="item-header bold m-bottom-sm">{{user.details.label}}</div>
-            <div class="list">
-              <div fxLayoutAlign="start start" *ngFor="let item of user.details.elements">
-                <app-icon [content]="item.icon"></app-icon>
-                <div class="label m-right-xs bold">{{item.label}}:</div>
-                <div>{{item.content}}</div>
+            <div class="meta m-top-sm">
+              <div class="item" *ngIf="user?.details">
+                <div class="list" fxLayout="row wrap" fxLayoutAlign.lt-md="center center">
+                  <div fxLayoutAlign="start start" [class.gt-sm]="'m-right-sm'" fxFlex.lt-md="100"
+                    fxFlex.gt-sm="0 1 auto" *ngFor="let item of user.details.elements">
+                    <div class="label m-right-xs bold">{{item.label}}:</div>
+                    <div>{{item.content}}</div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-          <div class="user-menu p-x-sm m-bottom" *ngIf="userConfig$ | async as userConfig" fxLayout="row wrap"
-            fxLayoutAlign="space-between">
-            <div *ngFor="let menu of userConfig.menu" class="item" fxFlex.lt-md="100" fxFlex.gt-sm="48">
-              <a class="p-y-sm p-x-sm" fxLayout="column" fxLayoutAlign="center center" [routerLink]="[menu.href]"
-                [routerLinkActive]="['active']">
-                <app-icon [content]="menu.icon"></app-icon>
-                <span [innerHTML]="menu.label"></span>
-              </a>
+          <div class="right">
+            <div class="user-menu" *ngIf="userConfig$ | async as userConfig" fxLayout="row">
+              <div *ngFor="let menu of userConfig.menu" class="item" fxFlex.lt-md="100" fxFlex.gt-sm="48">
+                <app-btn [content]="menu"></app-btn>
+              </div>
+              <div class="item" fxFlex.lt-md="100" fxFlex.gt-sm="48">
+                <!-- <a fxLayout="column" fxLayoutAlign="center center" (click)="logout()">
+                  <mat-icon class="p-bottom-xs">exit_to_app</mat-icon>
+                  <span>退出</span>
+                </a> -->
+                <a mat-button (click)="logout()">
+                  <mat-icon inline="true">exit_to_app</mat-icon>
+                  <span>退出</span>
+                </a>
+              </div>
             </div>
-            <div class="item" fxFlex.lt-md="100" fxFlex.gt-sm="48">
-              <a class="p-y-sm p-x-sm" fxLayout="column" fxLayoutAlign="center center" (click)="logout()">
-                <mat-icon class="p-bottom-xs">exit_to_app</mat-icon>
-                <span>退出</span>
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="right" fxFlex.lt-md="0 0 100" fxFlex.gt-sm="0 0 calc(100% - 30% - 4rem)">
-          <div class="content">
-            <app-dynamic-combs *ngFor="let item of content.content" [content]="item"></app-dynamic-combs>
           </div>
         </div>
       </div>
+    </div>
+  </div>
+  <div class="right">
+    <div class="content">
+      <app-dynamic-combs *ngFor="let item of content.content" [content]="item"></app-dynamic-combs>
     </div>
   </div>
 </div>

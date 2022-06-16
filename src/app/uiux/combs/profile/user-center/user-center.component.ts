@@ -71,7 +71,6 @@ export class UserCenterComponent implements OnInit, OnDestroy {
           name: info.name,
           subTitle: info.display_name,
           details: {
-            label: '个人资料',
             elements: [
               {
                 icon: {
