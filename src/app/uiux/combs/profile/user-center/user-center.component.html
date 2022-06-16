@@ -19,19 +19,13 @@
               </div>
             </div>
           </div>
-          <div class="user-menu p-x-sm m-bottom" fxLayout="row wrap" fxLayoutAlign="space-between">
-            <div class="item" fxFlex.lt-md="100" fxFlex.gt-sm="48">
-              <a class="p-y-sm p-x-sm" fxLayout="column" fxLayoutAlign="center center" [routerLink]="['favorite']"
+          <div class="user-menu p-x-sm m-bottom" *ngIf="userConfig$ | async as userConfig" fxLayout="row wrap"
+            fxLayoutAlign="space-between">
+            <div *ngFor="let menu of userConfig.menu" class="item" fxFlex.lt-md="100" fxFlex.gt-sm="48">
+              <a class="p-y-sm p-x-sm" fxLayout="column" fxLayoutAlign="center center" [routerLink]="[menu.href]"
                 [routerLinkActive]="['active']">
-                <mat-icon class="p-bottom-xs">favorite</mat-icon>
-                <span>收藏</span>
-              </a>
-            </div>
-            <div class="item" fxFlex.lt-md="100" fxFlex.gt-sm="48">
-              <a class="p-y-sm p-x-sm" fxLayout="column" fxLayoutAlign="center center" [routerLink]="['pay']"
-                [routerLinkActive]="['active']">
-                <mat-icon class="p-bottom-xs">shopping_cart</mat-icon>
-                <span>购买</span>
+                <app-icon [content]="menu.icon"></app-icon>
+                <span [innerHTML]="menu.label"></span>
               </a>
             </div>
             <div class="item" fxFlex.lt-md="100" fxFlex.gt-sm="48">

@@ -8,6 +8,7 @@ import { LocalStorageService } from 'ngx-webstorage';
 import { CryptoJSService } from './crypto-js.service';
 import { CORE_CONFIG } from '@core/token/core.config';
 import { ICoreConfig } from '@core/mobx/IAppConfig';
+import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
 })
@@ -84,6 +85,16 @@ export class UserService extends ApiService {
       mobile_number: phone,
       code,
     });
+  }
+
+  getUserConfig(): Observable<any> {
+    if (environment.production) {
+      return this.http.get(
+        `${environment.apiUrl}/api/v1/config?content=/core/user`
+      );
+    } else {
+      return this.http.get(`${environment.apiUrl}/assets/app/core/user.json`);
+    }
   }
 
   getUserById(id: string, crsfToken: string): Observable<any> {

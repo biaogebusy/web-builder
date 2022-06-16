@@ -11,74 +11,9 @@
         "alt": "page title"
       }
     },
-    "title": "Contact Us",
-    "breadcrumb": [{
-      "label": "Home",
-      "href": "#"
-    }, {
-      "label": "Contact Us",
-      "href": "/about"
-    }]
+    "title": "Contact Us"
   }, {
     "type": "user-center",
-    "bannerBg": {
-      "classes": "bg-fill-width overlay overlay-80",
-      "img": {
-        "hostClasses": "bg-center",
-        "src": "/assets/images/16-9/business-14.jpeg",
-        "alt": "page title"
-      }
-    },
-    "avatar": {
-      "src": "/assets/images/avatar/01.jpeg",
-      "alt": "Johnson"
-    },
-    "name": "Johnson",
-    "subTitle": "Drupal 前端开发",
-    "details": {
-      "label": "个人资料",
-      "elements": [{
-        "icon": {
-          "color": "warn",
-          "svg": "arrow_right",
-          "inline": true
-        },
-        "label": "职位",
-        "content": "前端开发"
-      }, {
-        "icon": {
-          "color": "warn",
-          "svg": "arrow_right",
-          "inline": true
-        },
-        "label": "微信",
-        "content": "biaogebusy"
-      }, {
-        "icon": {
-          "color": "warn",
-          "svg": "arrow_right",
-          "inline": true
-        },
-        "label": "公众号",
-        "content": "Drupal 自习室"
-      }, {
-        "icon": {
-          "color": "warn",
-          "svg": "arrow_right",
-          "inline": true
-        },
-        "label": "邮箱",
-        "content": "biaogebusy@example.com"
-      }, {
-        "icon": {
-          "color": "warn",
-          "svg": "arrow_right",
-          "inline": true
-        },
-        "label": "地址",
-        "content": "南宁"
-      }]
-    },
     "actions": [{
       "type": "btn",
       "label": "编辑",
@@ -108,80 +43,186 @@
       }
     }],
     "content": [{
-      "type": "showcase-1v1",
+      "type": "showcase-3v6",
+      "id": "",
       "title": {
-        "label": "Showcase 1 v2",
-        "style": "style-v2"
-      },
-      "subTitle": {
-        "spacer": "none",
-        "body": "<p class=\"text-center\">At vero eos et accusam et justo duo dolores et ea rebum. <br>Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p><br>"
+        "type": "text",
+        "spacer": "sm",
+        "title": {
+          "label": "我的工作台",
+          "style": "style-v4"
+        }
       },
       "bg": {
-        "classes": "bg-shadow bg-fill-width"
+        "classes": "bg-fill-width"
       },
-      "row": "4",
+      "row": "3",
       "elements": [{
         "img": {
-          "src": "/assets/images/showcase/browser.png",
-          "alt": "browser"
+          "src": "/assets/images/logo/codepen.svg",
+          "style": {
+            "width": "45px",
+            "height": "45px"
+          },
+          "alt": "logo"
         },
-        "style": "style-v3 use-image",
-        "title": {
-          "href": "#",
-          "label": "SUPER CODING"
+        "css3": true,
+        "link": {
+          "label": "项目管理",
+          "classes": "bold",
+          "dialog": {
+            "params": {
+              "width": "800px",
+              "disableClose": true
+            },
+            "data": [{
+              "type": "iframe",
+              "url": "/sample/widgets/text",
+              "height": "800"
+            }]
+          }
         },
-        "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority.",
-        "more": {
-          "href": "#",
-          "label": "+"
-        }
+        "subTitle": "快速发布项目"
       }, {
         "img": {
-          "src": "/assets/images/showcase/clipboard.png",
-          "alt": "browser"
+          "src": "/assets/images/logo/codepen.svg",
+          "style": {
+            "width": "45px",
+            "height": "45px"
+          },
+          "alt": "logo"
         },
-        "style": "style-v3 use-image",
-        "title": {
-          "href": "#",
-          "label": "BEST USER INTERFACE"
+        "css3": true,
+        "link": {
+          "label": "会议管理",
+          "classes": "bold",
+          "href": "#"
         },
-        "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority.",
-        "more": {
-          "href": "#",
-          "label": "+"
-        }
+        "subTitle": "快速发布会议内容"
       }, {
         "img": {
-          "src": "/assets/images/showcase/console.png",
-          "alt": "browser"
+          "src": "/assets/images/logo/codepen.svg",
+          "style": {
+            "width": "45px",
+            "height": "45px"
+          },
+          "alt": "logo"
         },
-        "style": "style-v3 use-image",
-        "title": {
-          "href": "#",
-          "label": "UNIQUE DESIGN"
+        "css3": true,
+        "link": {
+          "label": "项目列表",
+          "classes": "bold",
+          "href": "#"
         },
-        "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority.",
-        "more": {
-          "href": "#",
-          "label": "+"
-        }
-      }, {
-        "img": {
-          "src": "/assets/images/showcase/weather.png",
-          "alt": "browser"
-        },
-        "style": "style-v3 use-image",
-        "title": {
-          "href": "#",
-          "label": "EASY TO CUSTOMIZE"
-        },
-        "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority.",
-        "more": {
-          "href": "#",
-          "label": "+"
-        }
+        "subTitle": "查看项目 View 列表"
       }]
+    }, {
+      "type": "view-list",
+      "spacer": "none",
+      "params": {
+        "apiType": "tab/case/parties-info"
+      },
+      "header": [{
+          "label": "优先等级",
+          "key": "transaction_level"
+        },
+        {
+          "label": "案件标题",
+          "key": "title"
+        },
+        {
+          "label": "业务时间",
+          "key": "business_date"
+        },
+        {
+          "label": "客户名称",
+          "key": "customer"
+        },
+        {
+          "label": "经办人员",
+          "key": "handler"
+        },
+        {
+          "label": "业务对方",
+          "key": "other_party"
+        },
+        {
+          "label": " 法院名称",
+          "key": "court"
+        },
+        {
+          "label": "案件阶段",
+          "key": "case_procedure"
+        },
+        {
+          "label": "律师",
+          "key": "uid"
+        }
+      ],
+      "form": [{
+          "type": "input",
+          "key": "title",
+          "appearance": "standard",
+          "label": "标题"
+        },
+        {
+          "type": "select",
+          "key": "customer",
+          "multiple": true,
+          "search": true,
+          "appearance": "standard",
+          "label": "客户名称",
+          "api": "/api/v1/filter/customer",
+          "none": {
+            "label": "无"
+          }
+        },
+        {
+          "type": "select",
+          "key": "handler",
+          "multiple": true,
+          "search": true,
+          "appearance": "standard",
+          "label": "经办人员",
+          "api": "/api/v1/filter/handler"
+        },
+        {
+          "type": "select",
+          "key": "other_party",
+          "multiple": true,
+          "search": true,
+          "appearance": "standard",
+          "label": "业务对方",
+          "api": "/api/v1/filter/other_party"
+        },
+        {
+          "type": "select",
+          "key": "court",
+          "multiple": true,
+          "search": true,
+          "appearance": "standard",
+          "label": "法院",
+          "api": "/api/v1/filter/court"
+        },
+        {
+          "type": "select",
+          "key": "judge",
+          "multiple": true,
+          "search": true,
+          "appearance": "standard",
+          "label": "法官",
+          "api": "/api/v1/filter/judge"
+        },
+        {
+          "type": "select",
+          "key": "case_procedure",
+          "multiple": true,
+          "search": true,
+          "appearance": "standard",
+          "label": "案件阶段",
+          "api": "/api/v1/filter/taxonomy_term/case_procedure"
+        }
+      ]
     }]
   }]
 }

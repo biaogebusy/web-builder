@@ -13,6 +13,8 @@ import { ScreenService } from '@core/service/screen.service';
 import { UserService } from '@core/service/user.service';
 import { CORE_CONFIG } from '@core/token/core.config';
 import { isEmpty } from 'lodash-es';
+import { Observable } from 'rxjs';
+import { IUserConfig } from '../../../../core/interface/IUserConfig';
 
 @Component({
   selector: 'app-user-center',
@@ -23,17 +25,19 @@ export class UserCenterComponent implements OnInit, OnDestroy {
   @Input() content: any;
   user: any;
   id: any;
+  userConfig$: Observable<IUserConfig>;
   constructor(
     private cd: ChangeDetectorRef,
     private route: Router,
     private screenService: ScreenService,
-    private userService: UserService,
+    public userService: UserService,
     private userState: UserState,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
   ) {}
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
+      this.userConfig$ = this.userService.getUserConfig();
       this.getUser();
       this.userState.user$.subscribe((user) => {
         if (!user.authenticated) {
@@ -60,7 +64,6 @@ export class UserCenterComponent implements OnInit, OnDestroy {
           return;
         }
         const profile = {
-          bannerBg: this.getBanner(),
           avatar: {
             src: info?.user_picture?.uri?.url || this.userState.defaultAvatar,
             alt: info.name,
@@ -103,19 +106,6 @@ export class UserCenterComponent implements OnInit, OnDestroy {
         this.user = Object.assign(people, profile);
         this.cd.detectChanges();
       });
-  }
-
-  getBanner(): any {
-    return {
-      classes: 'bg-fill-width overlay overlay-80',
-      img: {
-        hostClasses: 'bg-center',
-        src:
-          this.coreConfig?.user?.banner ||
-          '/assets/images/16-9/business-14.jpeg',
-        alt: 'page title',
-      },
-    };
   }
 
   getRoles(roles: any): string[] {
