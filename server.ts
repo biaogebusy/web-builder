@@ -104,7 +104,8 @@ export function app(): express.Express {
 
   // Set headers for all requests
   server.get('*', (req, res, next) => {
-    res.setHeader('X-Frame-Options', 'DENY');
+    // 允许同源的url iframe
+    res.setHeader('X-Frame-Options', 'SAMEORIGIN');
     // 表示客户端可以缓存资源，每次使用缓存资源前都必须重新验证其有效性。这意味着每次都会发起 HTTP 请求，但当缓存内容仍有效时可以跳过 HTTP 响应体的下载。
     res.setHeader('Cache-Control', 'no-cache');
     next();

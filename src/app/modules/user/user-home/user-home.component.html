@@ -1,4 +1,3 @@
-{{appState.content|json}}
 <div class="user-home" *ngIf="appState.content">
   <div class="item m-bottom" *ngFor="let item of appState.content">
     <app-dynamic-combs [content]="item"></app-dynamic-combs>

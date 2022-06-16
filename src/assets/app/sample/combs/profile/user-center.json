@@ -117,110 +117,145 @@
         "subTitle": "查看项目 View 列表"
       }]
     }, {
-      "type": "view-list",
-      "spacer": "none",
-      "params": {
-        "apiType": "tab/case/parties-info"
-      },
-      "header": [{
-          "label": "优先等级",
-          "key": "transaction_level"
-        },
-        {
-          "label": "案件标题",
-          "key": "title"
-        },
-        {
-          "label": "业务时间",
-          "key": "business_date"
-        },
-        {
-          "label": "客户名称",
-          "key": "customer"
-        },
-        {
-          "label": "经办人员",
-          "key": "handler"
-        },
-        {
-          "label": "业务对方",
-          "key": "other_party"
-        },
-        {
-          "label": " 法院名称",
-          "key": "court"
-        },
-        {
-          "label": "案件阶段",
-          "key": "case_procedure"
-        },
-        {
-          "label": "律师",
-          "key": "uid"
+      "type": "tab",
+      "classes": "bg-light",
+      "bg": {
+        "classes": "bg-fill-width",
+        "style": {
+          "backgroundColor": "#fff4f5"
         }
-      ],
-      "form": [{
-          "type": "input",
-          "key": "title",
-          "appearance": "standard",
-          "label": "标题"
+      },
+      "fullWidth": true,
+      "elements": [{
+          "label": "客户工作台",
+          "elements": [{
+            "type": "view-list",
+            "spacer": "none",
+            "params": {
+              "apiType": "tab/order_process"
+            },
+            "header": [{
+                "label": "优先等级",
+                "key": "transaction_level"
+              },
+              {
+                "label": "业务类型",
+                "key": "business_type"
+              },
+              {
+                "label": "任务标题",
+                "key": "title"
+              },
+              {
+                "label": "经办人员",
+                "key": "handler"
+              },
+              {
+                "label": "文件类型",
+                "key": "order_files_type"
+              },
+              {
+                "label": "订单内容",
+                "key": "order_files"
+              },
+              {
+                "label": "事项描述",
+                "key": "body"
+              },
+              {
+                "label": "订单时间",
+                "key": "created"
+              },
+              {
+                "label": "更新状态",
+                "key": "timestamp",
+                "style": {
+                  "color": "#cc9933"
+                }
+              },
+              {
+                "label": "完工比例",
+                "key": "completion_level"
+              },
+              {
+                "label": "订单状态",
+                "key": "order_status"
+              },
+              {
+                "label": "案件阶段",
+                "key": "case_procedure"
+              }
+            ]
+          }]
         },
         {
-          "type": "select",
-          "key": "customer",
-          "multiple": true,
-          "search": true,
-          "appearance": "standard",
-          "label": "客户名称",
-          "api": "/api/v1/filter/customer",
-          "none": {
-            "label": "无"
-          }
-        },
-        {
-          "type": "select",
-          "key": "handler",
-          "multiple": true,
-          "search": true,
-          "appearance": "standard",
-          "label": "经办人员",
-          "api": "/api/v1/filter/handler"
-        },
-        {
-          "type": "select",
-          "key": "other_party",
-          "multiple": true,
-          "search": true,
-          "appearance": "standard",
-          "label": "业务对方",
-          "api": "/api/v1/filter/other_party"
-        },
-        {
-          "type": "select",
-          "key": "court",
-          "multiple": true,
-          "search": true,
-          "appearance": "standard",
-          "label": "法院",
-          "api": "/api/v1/filter/court"
-        },
-        {
-          "type": "select",
-          "key": "judge",
-          "multiple": true,
-          "search": true,
-          "appearance": "standard",
-          "label": "法官",
-          "api": "/api/v1/filter/judge"
-        },
-        {
-          "type": "select",
-          "key": "case_procedure",
-          "multiple": true,
-          "search": true,
-          "appearance": "standard",
-          "label": "案件阶段",
-          "api": "/api/v1/filter/taxonomy_term/case_procedure"
+          "label": "律师工作台",
+          "elements": [{
+            "type": "view-list",
+            "spacer": "none",
+            "params": {
+              "apiType": "tab/order_process_lawyer"
+            },
+            "header": [{
+                "label": "优先等级",
+                "key": "transaction_level"
+              },
+              {
+                "label": "业务类型",
+                "key": "business_type"
+              },
+              {
+                "label": "任务标题",
+                "key": "title"
+              }, {
+                "label": "客户名称",
+                "key": "customer"
+              },
+              {
+                "label": "经办人员",
+                "key": "handler"
+              },
+              {
+                "label": "文件类型",
+                "key": "order_files_type"
+              },
+              {
+                "label": "订单内容",
+                "key": "order_files"
+              },
+              {
+                "label": "事项描述",
+                "key": "body"
+              },
+              {
+                "label": "订单时间",
+                "key": "created"
+              },
+              {
+                "label": "更新状态",
+                "key": "timestamp",
+                "style": {
+                  "color": "#cc9933"
+                }
+              },
+              {
+                "label": "完工比例",
+                "key": "completion_level"
+              },
+              {
+                "label": "订单状态",
+                "key": "order_status"
+              },
+              {
+                "label": "案件阶段",
+                "key": "case_procedure"
+              },
+              {
+                "label": "主板律师",
+                "key": "lawyer"
+              }
+            ]
+          }]
         }
       ]
     }]
