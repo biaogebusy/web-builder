@@ -5,17 +5,17 @@
       <app-case *ngSwitchCase="'case'" [content]="item"></app-case>
       <app-search *ngSwitchCase="'search'" [content]="item"></app-search>
       <app-notfound *ngSwitchCase="'404'" [content]="item"></app-notfound>
-      <app-law-case *ngSwitchCase="'law-case'" [content]="item"></app-law-case>
       <app-article *ngSwitchCase="'article'" [content]="item"></app-article>
-      <app-question *ngSwitchCase="'question'" [content]="content"></app-question>
+      <app-video-bg *ngSwitchCase="'video-bg'" [content]="item"></app-video-bg>
+      <app-law-case *ngSwitchCase="'law-case'" [content]="item"></app-law-case>
+      <app-question *ngSwitchCase="'question'" [content]="item"></app-question>
       <app-case-node *ngSwitchCase="'case-node'" [content]="item"></app-case-node>
       <app-profile1v1 *ngSwitchCase="'profile-1v1'" [content]="item"></app-profile1v1>
+      <app-map-list-v1 *ngSwitchCase="'map-list-v1'" [content]="item"></app-map-list-v1>
       <app-user-center *ngSwitchCase="'user-center'" [content]="item"></app-user-center>
       <app-whychooseus *ngSwitchCase="'whychooseus'" [content]="item"></app-whychooseus>
-      <app-full-calendar *ngSwitchCase="'full-calendar'" [content]="item"></app-full-calendar>
-      <app-map-list-v1 *ngSwitchCase="'map-list-v1'" [content]="item"></app-map-list-v1>
-      <app-video-bg *ngSwitchCase="'video-bg'" [content]="content"></app-video-bg>
       <app-user-center *ngSwitchCase="'user-center'" [content]="content"></app-user-center>
+      <app-full-calendar *ngSwitchCase="'full-calendar'" [content]="item"></app-full-calendar>
       <app-dynamic-combs *ngSwitchDefault [content]="item"></app-dynamic-combs>
     </ng-container>
   </ng-container>
