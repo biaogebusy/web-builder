@@ -1,10 +1,8 @@
 <div class="law-card">
   <app-title [content]="content.title"></app-title>
-  <div class="wrapper">
-    <div fxLayout="row wrap" fxLayoutAlign="start start" fxFlex="100%">
-      <app-card class="card-item m-x-sm m-bottom-sm" fxFlex.xs="0 0 calc(100% - 4rem)" fxFlex.sm="0 0 calc(50% - 4rem)"
-        fxFlex.gt-sm="0 0 calc(33% - 4rem)" *ngFor="let card of content.elements" [content]="card">
-      </app-card>
-    </div>
+  <div class="wrapper" fxLayout="row wrap">
+    <app-card class="card-item m-x-sm m-bottom-sm" fxFlex.xs="0 0 calc(100% - 4rem)" fxFlex.sm="0 0 calc(50% - 4rem)"
+      fxFlex.gt-sm="0 0 calc(50% - 4rem)" *ngFor="let card of content.elements" [content]="card">
+    </app-card>
   </div>
 </div>
