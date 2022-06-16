@@ -184,6 +184,9 @@
             "label": "问答",
             "href": "/sample/node/question"
           }, {
+            "label": "User center",
+            "href": "/sample/combs/profile/user-center"
+          }, {
             "label": "Profile 1v1",
             "href": "/sample/combs/profile/profile1v1"
           }, {

@@ -1,0 +1,187 @@
+{
+  "title": "user center",
+  "body": [{
+    "type": "banner-simple",
+    "style": "normal",
+    "bannerBg": {
+      "classes": "bg-fill-width overlay",
+      "img": {
+        "hostClasses": "bg-center",
+        "src": "/assets/images/banner-01.jpeg",
+        "alt": "page title"
+      }
+    },
+    "title": "Contact Us",
+    "breadcrumb": [{
+      "label": "Home",
+      "href": "#"
+    }, {
+      "label": "Contact Us",
+      "href": "/about"
+    }]
+  }, {
+    "type": "user-center",
+    "bannerBg": {
+      "classes": "bg-fill-width overlay overlay-80",
+      "img": {
+        "hostClasses": "bg-center",
+        "src": "/assets/images/16-9/business-14.jpeg",
+        "alt": "page title"
+      }
+    },
+    "avatar": {
+      "src": "/assets/images/avatar/01.jpeg",
+      "alt": "Johnson"
+    },
+    "name": "Johnson",
+    "subTitle": "Drupal 前端开发",
+    "details": {
+      "label": "个人资料",
+      "elements": [{
+        "icon": {
+          "color": "warn",
+          "svg": "arrow_right",
+          "inline": true
+        },
+        "label": "职位",
+        "content": "前端开发"
+      }, {
+        "icon": {
+          "color": "warn",
+          "svg": "arrow_right",
+          "inline": true
+        },
+        "label": "微信",
+        "content": "biaogebusy"
+      }, {
+        "icon": {
+          "color": "warn",
+          "svg": "arrow_right",
+          "inline": true
+        },
+        "label": "公众号",
+        "content": "Drupal 自习室"
+      }, {
+        "icon": {
+          "color": "warn",
+          "svg": "arrow_right",
+          "inline": true
+        },
+        "label": "邮箱",
+        "content": "biaogebusy@example.com"
+      }, {
+        "icon": {
+          "color": "warn",
+          "svg": "arrow_right",
+          "inline": true
+        },
+        "label": "地址",
+        "content": "南宁"
+      }]
+    },
+    "actions": [{
+      "type": "btn",
+      "label": "编辑",
+      "icon": {
+        "name": "editor",
+        "inline": true
+      },
+      "href": "https://admin.zhaobg.com/manage/content/50/edit",
+      "target": "_blank"
+    }, {
+      "type": "flag",
+      "label": "收藏",
+      "icon": {
+        "name": "star",
+        "inline": true
+      },
+      "params": {
+        "type": "flagging--favorite",
+        "entity_type": "node",
+        "entity_id": "1312",
+        "relationships": {
+          "flagged_entity": {
+            "type": "node--case",
+            "id": "cb31d69f-a95e-4c91-97d1-1169f82a10a5"
+          }
+        }
+      }
+    }],
+    "content": [{
+      "type": "showcase-1v1",
+      "title": {
+        "label": "Showcase 1 v2",
+        "style": "style-v2"
+      },
+      "subTitle": {
+        "spacer": "none",
+        "body": "<p class=\"text-center\">At vero eos et accusam et justo duo dolores et ea rebum. <br>Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p><br>"
+      },
+      "bg": {
+        "classes": "bg-shadow bg-fill-width"
+      },
+      "row": "4",
+      "elements": [{
+        "img": {
+          "src": "/assets/images/showcase/browser.png",
+          "alt": "browser"
+        },
+        "style": "style-v3 use-image",
+        "title": {
+          "href": "#",
+          "label": "SUPER CODING"
+        },
+        "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority.",
+        "more": {
+          "href": "#",
+          "label": "+"
+        }
+      }, {
+        "img": {
+          "src": "/assets/images/showcase/clipboard.png",
+          "alt": "browser"
+        },
+        "style": "style-v3 use-image",
+        "title": {
+          "href": "#",
+          "label": "BEST USER INTERFACE"
+        },
+        "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority.",
+        "more": {
+          "href": "#",
+          "label": "+"
+        }
+      }, {
+        "img": {
+          "src": "/assets/images/showcase/console.png",
+          "alt": "browser"
+        },
+        "style": "style-v3 use-image",
+        "title": {
+          "href": "#",
+          "label": "UNIQUE DESIGN"
+        },
+        "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority.",
+        "more": {
+          "href": "#",
+          "label": "+"
+        }
+      }, {
+        "img": {
+          "src": "/assets/images/showcase/weather.png",
+          "alt": "browser"
+        },
+        "style": "style-v3 use-image",
+        "title": {
+          "href": "#",
+          "label": "EASY TO CUSTOMIZE"
+        },
+        "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority.",
+        "more": {
+          "href": "#",
+          "label": "+"
+        }
+      }]
+    }]
+  }]
+}
