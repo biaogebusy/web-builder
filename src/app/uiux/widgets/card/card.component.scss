@@ -107,11 +107,18 @@
       @include line-clamp();
     }
   }
+  ::ng-deep .mat-card-footer {
+    .mat-progress-bar .mat-progress-bar-fill::after {
+      border-radius: 0 0 4px 4px;
+    }
+  }
   .footer {
     padding: 0 16px 16px;
-    ::ng-deep .meta {
-      .item {
-        margin-bottom: 10px;
+    ::ng-deep {
+      .meta {
+        .item {
+          margin-bottom: 10px;
+        }
       }
     }
   }
