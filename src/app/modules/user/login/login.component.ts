@@ -2,7 +2,6 @@ import {
   Component,
   OnInit,
   AfterViewInit,
-  ViewChild,
   OnDestroy,
   Inject,
 } from '@angular/core';
@@ -32,7 +31,6 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     public userState: UserState,
-    private router: Router,
     private route: ActivatedRoute,
     public screenState: ScreenState,
     private tagsService: TagsService,

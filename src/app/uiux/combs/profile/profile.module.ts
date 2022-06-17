@@ -4,12 +4,20 @@ import { WidgetsModule } from '../../widgets/widgets.module';
 import { Profile1v1Component } from './profile1v1/profile1v1.component';
 import { UserCenterComponent } from './user-center/user-center.component';
 import { DynamicCombsModule } from '@uiux/combs/dynamic-combs/dynamic-combs.module';
+import { ListModule } from '../list/list.module';
+import { UserFavoriteComponent } from './user-center/user-favorite/user-favorite.component';
+import { UserPayComponent } from './user-center/user-pay/user-pay.component';
 
-const components = [Profile1v1Component, UserCenterComponent];
+const components = [
+  Profile1v1Component,
+  UserCenterComponent,
+  UserFavoriteComponent,
+  UserPayComponent,
+];
 
 @NgModule({
   declarations: [components],
-  imports: [ShareModule, WidgetsModule, DynamicCombsModule],
+  imports: [ShareModule, WidgetsModule, ListModule, DynamicCombsModule],
   exports: [components],
 })
 export class ProfileModule {}

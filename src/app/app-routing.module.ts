@@ -10,7 +10,7 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'my',
+    path: 'me',
     canActivate: [AuthGuard],
     loadChildren: () =>
       import('./modules/user/user.module').then((m) => m.UserModule),

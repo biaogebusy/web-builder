@@ -1,258 +1,244 @@
 {
-  "title": "user center",
+  "title": "工作台",
   "body": [{
-    "type": "banner-simple",
-    "style": "normal",
-    "bannerBg": {
-      "classes": "bg-fill-width overlay",
-      "img": {
-        "hostClasses": "bg-center",
-        "src": "/assets/images/banner-01.jpeg",
-        "alt": "page title"
-      }
-    },
-    "title": "Contact Us"
-  }, {
-    "type": "user-center",
-    "actions": [{
-      "type": "btn",
-      "label": "编辑",
-      "icon": {
-        "name": "editor",
-        "inline": true
+      "type": "user-center",
+      "params": {
+        "showDetails": false
       },
-      "href": "https://admin.zhaobg.com/manage/content/50/edit",
-      "target": "_blank"
-    }, {
-      "type": "flag",
-      "label": "收藏",
-      "icon": {
-        "name": "star",
-        "inline": true
+      "left": [],
+      "right": [{
+        "type": "showcase-3v6",
+        "id": "",
+        "title": {
+          "type": "text",
+          "spacer": "sm",
+          "title": {
+            "label": "我的工作台",
+            "style": "style-v4"
+          }
+        },
+        "bg": {
+          "classes": "bg-fill-width"
+        },
+        "row": "3",
+        "elements": [{
+            "img": {
+              "src": "/sites/amigo.zhaobg.com/files/styles/crop/public/2022-05/project.png",
+              "style": {
+                "width": "45px",
+                "height": "45px"
+              },
+              "alt": "logo"
+            },
+            "css3": true,
+            "link": {
+              "label": "项目管理",
+              "classes": "bold",
+              "dialog": {
+                "params": {
+                  "width": "1000px",
+                  "disableClose": true
+                },
+                "data": [{
+                  "type": "iframe",
+                  "url": "/manage/node/project/front/add?disable_sidebar=1",
+                  "height": "1000"
+                }]
+              }
+            },
+            "subTitle": "快速发布项目"
+          },
+          {
+            "img": {
+              "src": "/sites/amigo.zhaobg.com/files/styles/crop/public/2022-05/meeting_0.png",
+              "style": {
+                "width": "45px",
+                "height": "45px"
+              },
+              "alt": "logo"
+            },
+            "css3": true,
+            "link": {
+              "label": "会议管理",
+              "classes": "bold",
+              "dialog": {
+                "params": {
+                  "width": "1000px",
+                  "disableClose": true
+                },
+                "data": [{
+                  "type": "iframe",
+                  "url": "/manage/node/meeting/front/add?disable_sidebar=1",
+                  "height": "1000"
+                }]
+              }
+            },
+            "subTitle": "快速发布会议内容"
+          },
+          {
+            "img": {
+              "src": "/sites/amigo.zhaobg.com/files/styles/crop/public/2022-05/case.png",
+              "style": {
+                "width": "45px",
+                "height": "45px"
+              },
+              "alt": "logo"
+            },
+            "css3": true,
+            "link": {
+              "label": "项目列表",
+              "classes": "bold",
+              "href": "#"
+            },
+            "subTitle": "查看项目 View 列表"
+          }
+        ]
+      }]
+    },
+    {
+      "type": "view-list",
+      "spacer": "md",
+      "text": {
+        "title": {
+          "label": "客户工作台",
+          "style": "style-v4"
+        }
       },
       "params": {
-        "type": "flagging--favorite",
-        "entity_type": "node",
-        "entity_id": "1312",
-        "relationships": {
-          "flagged_entity": {
-            "type": "node--case",
-            "id": "cb31d69f-a95e-4c91-97d1-1169f82a10a5"
+        "apiType": "tab/order_process",
+        "reqRoles": [
+          "customer_staff"
+        ]
+      },
+      "header": [{
+          "label": "优先等级",
+          "key": "transaction_level"
+        },
+        {
+          "label": "业务类型",
+          "key": "business_type"
+        },
+        {
+          "label": "任务标题",
+          "key": "title"
+        },
+        {
+          "label": "经办人员",
+          "key": "handler"
+        },
+        {
+          "label": "文件类型",
+          "key": "order_files_type"
+        },
+        {
+          "label": "订单内容",
+          "key": "order_files"
+        },
+        {
+          "label": "事项描述",
+          "key": "body"
+        },
+        {
+          "label": "订单时间",
+          "key": "created"
+        },
+        {
+          "label": "更新状态",
+          "key": "timestamp",
+          "style": {
+            "color": "#cc9933"
           }
-        }
-      }
-    }],
-    "content": []
-  }, {
-    "type": "showcase-3v6",
-    "id": "",
-    "title": {
-      "type": "text",
-      "spacer": "sm",
-      "title": {
-        "label": "我的工作台",
-        "style": "style-v4"
-      }
-    },
-    "bg": {
-      "classes": "bg-fill-width"
-    },
-    "row": "3",
-    "elements": [{
-      "img": {
-        "src": "/assets/images/logo/codepen.svg",
-        "style": {
-          "width": "45px",
-          "height": "45px"
         },
-        "alt": "logo"
-      },
-      "css3": true,
-      "link": {
-        "label": "项目管理",
-        "classes": "bold",
-        "dialog": {
-          "params": {
-            "width": "800px",
-            "disableClose": true
-          },
-          "data": [{
-            "type": "iframe",
-            "url": "/sample/widgets/text",
-            "height": "800"
-          }]
-        }
-      },
-      "subTitle": "快速发布项目"
-    }, {
-      "img": {
-        "src": "/assets/images/logo/codepen.svg",
-        "style": {
-          "width": "45px",
-          "height": "45px"
+        {
+          "label": "完工比例",
+          "key": "completion_level"
         },
-        "alt": "logo"
-      },
-      "css3": true,
-      "link": {
-        "label": "会议管理",
-        "classes": "bold",
-        "href": "#"
-      },
-      "subTitle": "快速发布会议内容"
-    }, {
-      "img": {
-        "src": "/assets/images/logo/codepen.svg",
-        "style": {
-          "width": "45px",
-          "height": "45px"
+        {
+          "label": "订单状态",
+          "key": "order_status"
         },
-        "alt": "logo"
-      },
-      "css3": true,
-      "link": {
-        "label": "项目列表",
-        "classes": "bold",
-        "href": "#"
-      },
-      "subTitle": "查看项目 View 列表"
-    }]
-  }, {
-    "type": "view-list",
-    "spacer": "none",
-    "text": {
-      "title": {
-        "label": "工作台",
-        "style": "style-v4"
-      }
+        {
+          "label": "案件阶段",
+          "key": "case_procedure"
+        }
+      ]
     },
-    "params": {
-      "apiType": "tab/order_process",
-      "reqRoles": ["authenticated"]
-    },
-    "header": [{
-        "label": "优先等级",
-        "key": "transaction_level"
-      },
-      {
-        "label": "业务类型",
-        "key": "business_type"
-      },
-      {
-        "label": "任务标题",
-        "key": "title"
-      },
-      {
-        "label": "经办人员",
-        "key": "handler"
-      },
-      {
-        "label": "文件类型",
-        "key": "order_files_type"
-      },
-      {
-        "label": "订单内容",
-        "key": "order_files"
-      },
-      {
-        "label": "事项描述",
-        "key": "body"
-      },
-      {
-        "label": "订单时间",
-        "key": "created"
-      },
-      {
-        "label": "更新状态",
-        "key": "timestamp",
-        "style": {
-          "color": "#cc9933"
+    {
+      "type": "view-list",
+      "spacer": "md",
+      "text": {
+        "title": {
+          "label": "律师工作台",
+          "style": "style-v4"
         }
       },
-      {
-        "label": "完工比例",
-        "key": "completion_level"
+      "params": {
+        "apiType": "tab/order_process_lawyer",
+        "reqRoles": [
+          "lawyer",
+          "assistant_lawyer"
+        ]
       },
-      {
-        "label": "订单状态",
-        "key": "order_status"
-      },
-      {
-        "label": "案件阶段",
-        "key": "case_procedure"
-      }
-    ]
-  }, {
-    "type": "view-list",
-    "spacer": "none",
-    "text": {
-      "title": {
-        "label": "工作台",
-        "style": "style-v4"
-      }
-    },
-    "params": {
-      "apiType": "tab/order_process_lawyer",
-      "reqRoles": ["authenticated", "administrator"]
-    },
-    "header": [{
-        "label": "优先等级",
-        "key": "transaction_level"
-      },
-      {
-        "label": "业务类型",
-        "key": "business_type"
-      },
-      {
-        "label": "任务标题",
-        "key": "title"
-      }, {
-        "label": "客户名称",
-        "key": "customer"
-      },
-      {
-        "label": "经办人员",
-        "key": "handler"
-      },
-      {
-        "label": "文件类型",
-        "key": "order_files_type"
-      },
-      {
-        "label": "订单内容",
-        "key": "order_files"
-      },
-      {
-        "label": "事项描述",
-        "key": "body"
-      },
-      {
-        "label": "订单时间",
-        "key": "created"
-      },
-      {
-        "label": "更新状态",
-        "key": "timestamp",
-        "style": {
-          "color": "#cc9933"
+      "header": [{
+          "label": "优先等级",
+          "key": "transaction_level"
+        },
+        {
+          "label": "业务类型",
+          "key": "business_type"
+        },
+        {
+          "label": "任务标题",
+          "key": "title"
+        },
+        {
+          "label": "客户名称",
+          "key": "customer"
+        },
+        {
+          "label": "经办人员",
+          "key": "handler"
+        },
+        {
+          "label": "文件类型",
+          "key": "order_files_type"
+        },
+        {
+          "label": "订单内容",
+          "key": "order_files"
+        },
+        {
+          "label": "事项描述",
+          "key": "body"
+        },
+        {
+          "label": "订单时间",
+          "key": "created"
+        },
+        {
+          "label": "更新状态",
+          "key": "timestamp",
+          "style": {
+            "color": "#cc9933"
+          }
+        },
+        {
+          "label": "完工比例",
+          "key": "completion_level"
+        },
+        {
+          "label": "订单状态",
+          "key": "order_status"
+        },
+        {
+          "label": "案件阶段",
+          "key": "case_procedure"
+        },
+        {
+          "label": "主板律师",
+          "key": "lawyer"
         }
-      },
-      {
-        "label": "完工比例",
-        "key": "completion_level"
-      },
-      {
-        "label": "订单状态",
-        "key": "order_status"
-      },
-      {
-        "label": "案件阶段",
-        "key": "case_procedure"
-      },
-      {
-        "label": "主板律师",
-        "key": "lawyer"
-      }
-    ]
-  }]
+      ]
+    }
+  ]
 }

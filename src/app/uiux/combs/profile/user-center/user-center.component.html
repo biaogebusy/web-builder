@@ -38,9 +38,13 @@
       </div>
     </div>
   </div>
-  <div class="right">
-    <div class="content">
-      <app-dynamic-combs *ngFor="let item of content.content" [content]="item"></app-dynamic-combs>
+  <div class="main">
+    <div class="left" *ngIf="content?.left?.length" fxFlex.lt-md="0 0 100" fxFlex.gt-sm="0 0 30">
+      <app-dynamic-widgets *ngFor="let item of content.left"></app-dynamic-widgets>
+    </div>
+    <div class="right" *ngIf="content?.right?.length" fxFlex.lt-md="0 0 100"
+      fxFlex.gt-sm="0 0 {{content?.left?.length ? 'calc(100% - 30% - 4rem)' : '100'}}">
+      <app-dynamic-combs *ngFor="let item of content.right" [content]="item"></app-dynamic-combs>
     </div>
   </div>
 </div>

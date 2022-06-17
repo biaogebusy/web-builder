@@ -7,6 +7,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { IUserCenter } from '@core/interface/IUserCenter';
 import { ICoreConfig } from '@core/mobx/IAppConfig';
 import { UserState } from '@core/mobx/user/UserState';
 import { ScreenService } from '@core/service/screen.service';
@@ -22,7 +23,7 @@ import { IUserConfig } from '../../../../core/interface/IUserConfig';
   styleUrls: ['./user-center.component.scss'],
 })
 export class UserCenterComponent implements OnInit, OnDestroy {
-  @Input() content: any;
+  @Input() content: IUserCenter;
   user: any;
   id: any;
   userConfig$: Observable<IUserConfig>;
