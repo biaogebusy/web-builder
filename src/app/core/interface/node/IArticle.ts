@@ -1,6 +1,6 @@
 export interface IArticleAccess {
   canAccess: boolean;
-  isReqRule: boolean;
+  isReqRoles: boolean;
   isPayed: boolean;
   reqMoney: number;
   payUrl: string;

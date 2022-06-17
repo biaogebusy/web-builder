@@ -34,6 +34,7 @@ export class ViewListComponent extends BaseComponent implements OnInit {
   loading: boolean;
   pager: any;
   noAuth: boolean;
+  canShow: boolean;
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
@@ -48,6 +49,21 @@ export class ViewListComponent extends BaseComponent implements OnInit {
   ngOnInit(): void {
     this.initForm();
     this.getViews();
+    this.checkShow();
+  }
+
+  checkShow(): void {
+    const roles = this.getParams(this.content, 'reqRoles');
+    if (!roles) {
+      this.canShow = true;
+    } else {
+      if (this.userState.isMatchCurrentRole(roles)) {
+        this.canShow = true;
+      } else {
+        this.canShow = false;
+      }
+    }
+    this.cd.detectChanges();
   }
 
   initForm(): void {

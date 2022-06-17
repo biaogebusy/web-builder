@@ -9,6 +9,7 @@ import { CryptoJSService } from '@core/service/crypto-js.service';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { intersection } from 'lodash-es';
 
 const unauthUser = {
   id: '',
@@ -58,7 +59,7 @@ export class UserState {
           this.storage.retrieve(this.userService.localUserKey)
         )
       );
-      console.log(this.user);
+      // console.log(this.user);
     }
   }
 
@@ -230,5 +231,9 @@ export class UserState {
     this.user$.next(user);
     this.user = user;
     this.userService.storeLocalUser(user);
+  }
+
+  isMatchCurrentRole(roles: string[]): boolean {
+    return intersection(this.roles, roles).length > 0;
   }
 }

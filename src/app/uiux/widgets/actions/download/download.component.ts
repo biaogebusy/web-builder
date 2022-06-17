@@ -31,7 +31,7 @@ export class DownloadComponent implements OnInit, OnDestroy {
   config: any;
   canAccess: boolean;
   isPayed: boolean;
-  isReqRule: boolean;
+  isReqRoles: boolean;
   payUrl: string;
   reqMoney: number;
   constructor(
@@ -53,7 +53,7 @@ export class DownloadComponent implements OnInit, OnDestroy {
   checkAccess(data: any): void {
     this.nodeService.checkNodeAccess(data).subscribe((access) => {
       this.canAccess = access.canAccess;
-      this.isReqRule = access.isReqRule;
+      this.isReqRoles = access.isReqRoles;
       this.isPayed = access.isPayed;
       this.payUrl = access.payUrl;
       this.reqMoney = access.reqMoney;

@@ -383,12 +383,12 @@ export class NodeService extends ApiService {
       this.appState.pageConfig?.node?.entityId || params?.entityId;
     if (!isEmpty(reqRule) || reqPay) {
       // 非公开浏览
-      const isReqRule = this.checkReqRule(reqRule);
+      const isReqRoles = this.checkReqRule(reqRule);
       // 是否可授权访问角色
-      if (isReqRule) {
+      if (isReqRoles) {
         return of({
           canAccess: true,
-          isReqRule: true,
+          isReqRoles: true,
           isPayed: false,
           reqMoney,
           payUrl: '',
@@ -406,7 +406,7 @@ export class NodeService extends ApiService {
                 // 已购买
                 return {
                   canAccess: true,
-                  isReqRule: false,
+                  isReqRoles: false,
                   isPayed: true,
                   reqMoney,
                   payUrl: this.getPayUrl(entityId),
@@ -415,7 +415,7 @@ export class NodeService extends ApiService {
                 // 未购买
                 return {
                   canAccess: false,
-                  isReqRule: false,
+                  isReqRoles: false,
                   isPayed: false,
                   reqMoney,
                   payUrl: this.getPayUrl(entityId),
@@ -426,7 +426,7 @@ export class NodeService extends ApiService {
         } else {
           return of({
             canAccess: false,
-            isReqRule: false,
+            isReqRoles: false,
             isPayed: false,
             reqMoney,
             payUrl: this.getPayUrl(entityId),
@@ -437,7 +437,7 @@ export class NodeService extends ApiService {
       // 公开浏览
       return of({
         canAccess: true,
-        isReqRule: false,
+        isReqRoles: false,
         isPayed: false,
         reqMoney,
         payUrl: '',
