@@ -11,14 +11,12 @@
             fxLayout.lt-md="column">
             <h1 class="mat-h1 m-bottom-0">{{user.name}}</h1>
             <div class="subTitle">{{user.subTitle}}</div>
-            <div class="meta m-top-sm">
-              <div class="item" *ngIf="user?.details">
-                <div class="list" fxLayout="row wrap" fxLayoutAlign.lt-md="center center">
-                  <div fxLayoutAlign="start start" [class.gt-sm]="'m-right-sm'" fxFlex.lt-md="100"
-                    fxFlex.gt-sm="0 1 auto" *ngFor="let item of user.details.elements">
-                    <div class="label m-right-xs bold">{{item.label}}:</div>
-                    <div>{{item.content}}</div>
-                  </div>
+            <div class="meta m-top-sm" *ngIf="content?.params?.showDetails && user?.details">
+              <div class="list" fxLayout="row wrap" fxLayoutAlign.lt-md="center center">
+                <div fxLayoutAlign="start start" [class.gt-sm]="'m-right-sm'" fxFlex.lt-md="100" fxFlex.gt-sm="0 1 auto"
+                  *ngFor="let item of user.details.elements">
+                  <div class="label m-right-xs bold">{{item.label}}:</div>
+                  <div>{{item.content}}</div>
                 </div>
               </div>
             </div>
@@ -29,10 +27,6 @@
                 <app-btn [content]="menu"></app-btn>
               </div>
               <div class="item" fxFlex.lt-md="100" fxFlex.gt-sm="48">
-                <!-- <a fxLayout="column" fxLayoutAlign="center center" (click)="logout()">
-                  <mat-icon class="p-bottom-xs">exit_to_app</mat-icon>
-                  <span>退出</span>
-                </a> -->
                 <a mat-button (click)="logout()">
                   <mat-icon inline="true">exit_to_app</mat-icon>
                   <span>退出</span>
