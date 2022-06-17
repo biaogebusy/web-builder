@@ -1,5 +1,5 @@
 import { formatDate } from '@angular/common';
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, Input } from '@angular/core';
 import { UserState } from '@core/mobx/user/UserState';
 import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
@@ -12,7 +12,8 @@ import { takeUntil } from 'rxjs/operators';
   styleUrls: ['./user-pay.component.scss'],
 })
 export class UserPayComponent implements OnInit {
-  content: any;
+  @Input() content: any;
+  lists: any;
   loading: boolean;
   id: string;
   pager = {
@@ -51,7 +52,7 @@ export class UserPayComponent implements OnInit {
           const lists = res.data.filter((item: any) => {
             return item.flagged_entity?.status ? true : false;
           });
-          this.content = lists.map((item: any) => {
+          this.lists = lists.map((item: any) => {
             const node = item.flagged_entity;
             return {
               type: 'list-thin',

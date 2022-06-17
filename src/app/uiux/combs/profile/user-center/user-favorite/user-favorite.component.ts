@@ -4,6 +4,7 @@ import {
   OnInit,
   ChangeDetectorRef,
   OnDestroy,
+  Input,
 } from '@angular/core';
 import { NodeService } from '@core/service/node.service';
 import { takeUntil } from 'rxjs/operators';
@@ -18,7 +19,8 @@ import { UserState } from '@core/mobx/user/UserState';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserFavoriteComponent implements OnInit, OnDestroy {
-  content: any;
+  @Input() content: any;
+  lists: any;
   id: string;
   loading: boolean;
   pager = {
@@ -56,7 +58,7 @@ export class UserFavoriteComponent implements OnInit, OnDestroy {
           const lists = res.data.filter((item: any) => {
             return item.flagged_entity?.status ? true : false;
           });
-          this.content = lists.map((item: any) => {
+          this.lists = lists.map((item: any) => {
             const node = item.flagged_entity;
             return {
               type: 'list-thin',

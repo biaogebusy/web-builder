@@ -1,1 +1,12 @@
-<app-list-thin *ngIf="content" [pager]="pager" [content]="content" [loading]="loading"></app-list-thin>
+<div class="user-favorite position-relative" *ngIf="content">
+  <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
+  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
+  <app-bg *ngIf="content.bg" [content]="content.bg">
+    <app-img *ngIf="content.bg?.img" [content]="content.bg.img"></app-img>
+  </app-bg>
+  <div class="container">
+    <app-text [content]="content.text" *ngIf="content.text"></app-text>
+    <app-list-thin *ngIf="lists" [pager]="pager" [content]="lists" [loading]="loading"></app-list-thin>
+  </div>
+  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
+</div>
