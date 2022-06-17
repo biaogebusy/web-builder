@@ -2,10 +2,10 @@ import { moduleMetadata, Story, Meta } from '@storybook/angular';
 import { within, userEvent } from '@storybook/testing-library';
 import { CommonModule } from '@angular/common';
 
-import Button from './button.component';
 import Header from './header.component';
 import Page from './page.component';
-
+import { BtnComponent } from '@uiux/widgets/btn/btn.component';
+import { TextComponent } from '@uiux/widgets/text/text.component';
 export default {
   title: '信使 UI',
   component: Page,
@@ -15,7 +15,7 @@ export default {
   },
   decorators: [
     moduleMetadata({
-      declarations: [Button, Header],
+      declarations: [TextComponent, BtnComponent, Header],
       imports: [CommonModule],
     }),
   ],
