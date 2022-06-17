@@ -13,14 +13,13 @@
   .mat-card {
     color: inherit;
     background-color: $bg-color;
-
     &:hover {
       cursor: pointer;
       background-color: mat-color($background, background, 0.85);
     }
     .meta {
       .badge {
-        background-color: mat-color($primary);
+        background-color: mat-color($primary, 500);
         color: mat-color($primary, default-contrast);
       }
     }
@@ -86,6 +85,12 @@
       &:before {
         background: mat-color($primary);
       }
+    }
+  }
+
+  .law-card {
+    .mat-card {
+      @include mat-elevation(4, mat-color($foreground, divider, 0.75));
     }
   }
 }
