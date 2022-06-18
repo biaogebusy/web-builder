@@ -62,5 +62,6 @@ export interface IDynamicTable {
       label: string;
     };
   }[];
+  classes?: string | string[] | Set<string> | { [klass: string]: any };
   elements: any[];
 }

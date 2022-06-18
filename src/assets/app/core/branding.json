@@ -233,6 +233,9 @@
             "label": "Tab",
             "href": "/sample/widgets/tab"
           }, {
+            "label": "View List",
+            "href": "/sample/list/view-list"
+          }, {
             "label": "Tab View List",
             "href": "/sample/widgets/tab-view-list"
           }, {

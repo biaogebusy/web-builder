@@ -1,7 +1,18 @@
 .dynamic-table {
   overflow-x: auto;
-  word-break: normal;
-  white-space: nowrap;
+
+  &.nowrap {
+    word-break: normal;
+    white-space: nowrap;
+  }
+  &.wrap {
+    white-space: normal;
+  }
+  &.fixed {
+    table {
+      table-layout: fixed;
+    }
+  }
   .mat-header-cell {
     font-size: 16px;
   }

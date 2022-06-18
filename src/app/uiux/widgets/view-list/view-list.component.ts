@@ -51,20 +51,6 @@ export class ViewListComponent extends BaseComponent implements OnInit {
     this.getViews();
   }
 
-  // checkShow(): void {
-  //   const roles = this.getParams(this.content, 'reqRoles');
-  //   if (!roles) {
-  //     this.canShow = true;
-  //   } else {
-  //     if (this.userState.isMatchCurrentRole(roles)) {
-  //       this.canShow = true;
-  //     } else {
-  //       this.canShow = false;
-  //     }
-  //   }
-  //   this.cd.detectChanges();
-  // }
-
   initForm(): void {
     if (this.content.form) {
       this.form = this.formService.toFormGroup(this.content.form);
@@ -110,6 +96,7 @@ export class ViewListComponent extends BaseComponent implements OnInit {
         this.table = {
           header: this.content.header,
           elements: res.rows,
+          classes: this.content?.tableClasses || '',
         };
         this.pager = res.pager;
         this.loading = false;

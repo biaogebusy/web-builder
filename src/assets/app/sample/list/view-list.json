@@ -1,108 +1,114 @@
 {
-  "type": "view-list",
-  "spacer": "none",
-  "params": {
-    "apiType": "tab/case/parties-info"
-  },
-  "header": [{
-      "label": "优先等级",
-      "key": "transaction_level"
-    },
-    {
-      "label": "案件标题",
-      "key": "title"
-    },
-    {
-      "label": "业务时间",
-      "key": "business_date"
-    },
-    {
-      "label": "客户名称",
-      "key": "customer"
-    },
-    {
-      "label": "经办人员",
-      "key": "handler"
-    },
-    {
-      "label": "业务对方",
-      "key": "other_party"
-    },
-    {
-      "label": " 法院名称",
-      "key": "court"
-    },
-    {
-      "label": "案件阶段",
-      "key": "case_procedure"
-    },
-    {
-      "label": "律师",
-      "key": "uid"
+  "title": "View list",
+  "body": [{
+      "type": "view-list",
+      "spacer": "none",
+      "params": {
+        "apiType": "tab/case/parties-info"
+      },
+      "tableClasses": "nowrap",
+      "header": [{
+          "label": "优先等级",
+          "key": "transaction_level"
+        },
+        {
+          "label": "案件标题",
+          "key": "title"
+        },
+        {
+          "label": "业务时间",
+          "key": "business_date"
+        },
+        {
+          "label": "客户名称",
+          "key": "customer"
+        },
+        {
+          "label": "经办人员",
+          "key": "handler"
+        },
+        {
+          "label": "业务对方",
+          "key": "other_party"
+        },
+        {
+          "label": " 法院名称",
+          "key": "court"
+        },
+        {
+          "label": "案件阶段",
+          "key": "case_procedure"
+        },
+        {
+          "label": "律师",
+          "key": "uid"
+        }
+      ],
+      "form": [{
+          "type": "input",
+          "key": "title",
+          "appearance": "standard",
+          "label": "标题"
+        },
+        {
+          "type": "select",
+          "key": "customer",
+          "multiple": true,
+          "search": true,
+          "appearance": "standard",
+          "label": "客户名称",
+          "api": "/api/v1/filter/customer",
+          "none": {
+            "label": "无"
+          }
+        },
+        {
+          "type": "select",
+          "key": "handler",
+          "multiple": true,
+          "search": true,
+          "appearance": "standard",
+          "label": "经办人员",
+          "api": "/api/v1/filter/handler"
+        },
+        {
+          "type": "select",
+          "key": "other_party",
+          "multiple": true,
+          "search": true,
+          "appearance": "standard",
+          "label": "业务对方",
+          "api": "/api/v1/filter/other_party"
+        },
+        {
+          "type": "select",
+          "key": "court",
+          "multiple": true,
+          "search": true,
+          "appearance": "standard",
+          "label": "法院",
+          "api": "/api/v1/filter/court"
+        },
+        {
+          "type": "select",
+          "key": "judge",
+          "multiple": true,
+          "search": true,
+          "appearance": "standard",
+          "label": "法官",
+          "api": "/api/v1/filter/judge"
+        },
+        {
+          "type": "select",
+          "key": "case_procedure",
+          "multiple": true,
+          "search": true,
+          "appearance": "standard",
+          "label": "案件阶段",
+          "api": "/api/v1/filter/taxonomy_term/case_procedure"
+        }
+      ]
     }
-  ],
-  "form": [{
-      "type": "input",
-      "key": "title",
-      "appearance": "standard",
-      "label": "标题"
-    },
-    {
-      "type": "select",
-      "key": "customer",
-      "multiple": true,
-      "search": true,
-      "appearance": "standard",
-      "label": "客户名称",
-      "api": "/api/v1/filter/customer",
-      "none": {
-        "label": "无"
-      }
-    },
-    {
-      "type": "select",
-      "key": "handler",
-      "multiple": true,
-      "search": true,
-      "appearance": "standard",
-      "label": "经办人员",
-      "api": "/api/v1/filter/handler"
-    },
-    {
-      "type": "select",
-      "key": "other_party",
-      "multiple": true,
-      "search": true,
-      "appearance": "standard",
-      "label": "业务对方",
-      "api": "/api/v1/filter/other_party"
-    },
-    {
-      "type": "select",
-      "key": "court",
-      "multiple": true,
-      "search": true,
-      "appearance": "standard",
-      "label": "法院",
-      "api": "/api/v1/filter/court"
-    },
-    {
-      "type": "select",
-      "key": "judge",
-      "multiple": true,
-      "search": true,
-      "appearance": "standard",
-      "label": "法官",
-      "api": "/api/v1/filter/judge"
-    },
-    {
-      "type": "select",
-      "key": "case_procedure",
-      "multiple": true,
-      "search": true,
-      "appearance": "standard",
-      "label": "案件阶段",
-      "api": "/api/v1/filter/taxonomy_term/case_procedure"
-    }
+
   ]
 }
