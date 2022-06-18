@@ -33,12 +33,12 @@ export class FlagComponent extends BaseComponent implements OnInit, OnDestroy {
   constructor(
     private cd: ChangeDetectorRef,
     private screenService: ScreenService,
-    private userState: UserState,
+    public userState: UserState,
     public nodeService: NodeService,
     private utiltiy: UtilitiesService,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
   ) {
-    super();
+    super(userState);
   }
 
   ngOnInit(): void {

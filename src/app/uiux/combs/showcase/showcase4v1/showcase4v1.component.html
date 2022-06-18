@@ -1,19 +1,21 @@
-<div class="showcase-4-v1 position-relative" *ngIf="content">
+<div class="showcase-4-v1 position-relative" *ngIf="content && checkShow(content)">
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
-  <app-title [content]="content.title" *ngIf="content.title"></app-title>
   <app-bg *ngIf="content.bg" [content]="content.bg"></app-bg>
-  <div class="container" fxLayout.xs="column" fxLayout.gt-xs="row">
-    <div fxFlex *ngFor="let item of content.elements">
-      <div class="style04 inv-stats">
-        <div class="stats-icon">
-          <mat-icon>{{item.icon}}</mat-icon>
+  <div class="container">
+    <app-title [content]="content.title" *ngIf="content.title"></app-title>
+    <div class="inner" fxLayout.xs="column" fxLayout.gt-xs="row">
+      <div fxFlex *ngFor="let item of content.elements">
+        <div class="style04 inv-stats">
+          <div class="stats-icon">
+            <mat-icon>{{item.icon}}</mat-icon>
+          </div>
+          <div class="stats-count">
+            <app-number-animate [content]="item.digit"></app-number-animate>
+          </div>
+          <div class="stats-title">{{item.title}}</div>
+          <div class="stats-desc">{{item.desc}}</div>
         </div>
-        <div class="stats-count">
-          <app-number-animate [content]="item.digit"></app-number-animate>
-        </div>
-        <div class="stats-title">{{item.title}}</div>
-        <div class="stats-desc">{{item.desc}}</div>
       </div>
     </div>
   </div>

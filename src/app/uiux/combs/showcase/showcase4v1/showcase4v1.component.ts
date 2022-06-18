@@ -4,6 +4,8 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { UserState } from '@core/mobx/user/UserState';
+import { BaseComponent } from '@uiux/base/base.widget';
 
 @Component({
   selector: 'app-showcase4v1',
@@ -11,10 +13,12 @@ import {
   styleUrls: ['./showcase4v1.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Showcase4v1Component implements OnInit {
+export class Showcase4v1Component extends BaseComponent implements OnInit {
   @Input() content: any;
 
-  constructor() {}
+  constructor(public userState: UserState) {
+    super(userState);
+  }
 
   ngOnInit(): void {}
 }

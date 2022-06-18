@@ -26,6 +26,7 @@ import {
 } from '@fullcalendar/angular';
 import { CalendarState } from '@core/mobx/CalendarState';
 import { formatDate } from '@angular/common';
+import { UserState } from '@core/mobx/user/UserState';
 
 @Component({
   selector: 'app-full-calendar',
@@ -52,9 +53,10 @@ export class FullCalendarComponent
     private formService: FormService,
     private screenService: ScreenService,
     private nodeService: NodeService,
-    private calendarState: CalendarState
+    private calendarState: CalendarState,
+    public userState: UserState
   ) {
-    super();
+    super(userState);
   }
 
   ngOnInit(): void {

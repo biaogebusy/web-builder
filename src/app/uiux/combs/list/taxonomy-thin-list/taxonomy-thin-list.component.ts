@@ -4,6 +4,7 @@ import {
   Input,
   ChangeDetectionStrategy,
 } from '@angular/core';
+import { UserState } from '@core/mobx/user/UserState';
 import { BaseComponent } from '@uiux/base/base.widget';
 
 @Component({
@@ -14,8 +15,8 @@ import { BaseComponent } from '@uiux/base/base.widget';
 })
 export class TaxonomyThinListComponent extends BaseComponent implements OnInit {
   @Input() content: any;
-  constructor() {
-    super();
+  constructor(public userState: UserState) {
+    super(userState);
   }
 
   ngOnInit(): void {}

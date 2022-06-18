@@ -32,7 +32,7 @@ export class AuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    // return true;
+    return true;
     if (state.url.startsWith('/my') || this.coreConfig?.guard?.authGuard) {
       return this.userService.getLoginState().pipe(
         map((status) => {

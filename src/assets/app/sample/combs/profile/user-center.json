@@ -7,6 +7,37 @@
       },
       "left": [],
       "right": [{
+        "type": "showcase-4v1",
+        "spacer": "md",
+        "title": {
+          "label": "我的订单提醒",
+          "style": "style-v4"
+        },
+        "bg": {
+          "classes": "bg-fill-width bg-shadow"
+        },
+        "elements": [{
+            "icon": "fingerprint",
+            "digit": {
+              "value": 100
+            },
+            "title": "已完工"
+          },
+          {
+            "icon": "verified_user",
+            "digit": {
+              "value": 200
+            },
+            "title": "进行中"
+          }, {
+            "icon": "android",
+            "digit": {
+              "value": 246
+            },
+            "title": "已取消"
+          }
+        ]
+      }, {
         "type": "showcase-3v6",
         "id": "",
         "title": {
@@ -19,6 +50,9 @@
         },
         "bg": {
           "classes": "bg-fill-width"
+        },
+        "params": {
+          "reqRoles": []
         },
         "row": "3",
         "elements": [{

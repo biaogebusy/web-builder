@@ -39,32 +39,31 @@ export class ViewListComponent extends BaseComponent implements OnInit {
 
   constructor(
     private nodeService: NodeService,
-    private userState: UserState,
+    public userState: UserState,
     private cd: ChangeDetectorRef,
     private formService: FormService
   ) {
-    super();
+    super(userState);
   }
 
   ngOnInit(): void {
     this.initForm();
     this.getViews();
-    this.checkShow();
   }
 
-  checkShow(): void {
-    const roles = this.getParams(this.content, 'reqRoles');
-    if (!roles) {
-      this.canShow = true;
-    } else {
-      if (this.userState.isMatchCurrentRole(roles)) {
-        this.canShow = true;
-      } else {
-        this.canShow = false;
-      }
-    }
-    this.cd.detectChanges();
-  }
+  // checkShow(): void {
+  //   const roles = this.getParams(this.content, 'reqRoles');
+  //   if (!roles) {
+  //     this.canShow = true;
+  //   } else {
+  //     if (this.userState.isMatchCurrentRole(roles)) {
+  //       this.canShow = true;
+  //     } else {
+  //       this.canShow = false;
+  //     }
+  //   }
+  //   this.cd.detectChanges();
+  // }
 
   initForm(): void {
     if (this.content.form) {
