@@ -11,5 +11,11 @@ export interface ILink {
   dialog?: {
     params: MatDialogConfig;
     data: any[];
+    afterClosed?: {
+      sucess: {
+        label: string;
+      };
+      emit: boolean;
+    };
   };
 }

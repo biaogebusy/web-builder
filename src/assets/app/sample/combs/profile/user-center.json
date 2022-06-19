@@ -103,6 +103,12 @@
                   "width": "1000px",
                   "disableClose": true
                 },
+                "afterClosed": {
+                  "success": {
+                    "label": "请检查是否发布成功！"
+                  },
+                  "emit": true
+                },
                 "data": [{
                   "type": "iframe",
                   "url": "/manage/node/meeting/front/add?disable_sidebar=1",

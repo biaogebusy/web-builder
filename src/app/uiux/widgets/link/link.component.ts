@@ -7,9 +7,10 @@ import {
 import { ILink } from '@core/interface/widgets/ILink';
 import { RouteService } from '@core/service/route.service';
 import { UtilitiesService } from '@core/service/utilities.service';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
 import { LoopWidgetsComponent } from '@uiux/widgets/loop-widgets/loop-widgets.component';
+import { DialogService } from '@core/service/dialog.service';
 
 @Component({
   selector: 'app-link',
@@ -21,10 +22,12 @@ export class LinkComponent implements OnInit {
   @Input() content: ILink;
   classes: any;
   href: string;
+  dialogRef: MatDialogRef<any>;
   constructor(
     public routeService: RouteService,
     private util: UtilitiesService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private dialogService: DialogService
   ) {}
 
   ngOnInit(): void {
@@ -52,7 +55,7 @@ export class LinkComponent implements OnInit {
       width: dialog.width || '800px',
     };
     const config = Object.assign(this.content.dialog?.params || {}, options);
-    this.dialog.open(DialogComponent, {
+    this.dialogRef = this.dialog.open(DialogComponent, {
       ...config,
       data: {
         renderInputComponent: LoopWidgetsComponent,
@@ -61,6 +64,17 @@ export class LinkComponent implements OnInit {
         },
       },
     });
+    if (dialog?.afterClosed) {
+      this.dialogRef.afterClosed().subscribe(() => {
+        const after = dialog.afterClosed;
+        if (after?.success) {
+          this.util.openSnackbar(after?.success?.label, 'Ok');
+        }
+        if (after?.emit) {
+          this.dialogService.closeDialog();
+        }
+      });
+    }
   }
 
   getClasses(): void {

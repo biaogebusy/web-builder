@@ -9,6 +9,7 @@ import {
 import { FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import { UserState } from '@core/mobx/user/UserState';
+import { DialogService } from '@core/service/dialog.service';
 import { FormService } from '@core/service/form.service';
 import { NodeService } from '@core/service/node.service';
 import { BaseComponent } from '@uiux/base/base.widget';
@@ -41,7 +42,8 @@ export class ViewListComponent extends BaseComponent implements OnInit {
     private nodeService: NodeService,
     public userState: UserState,
     private cd: ChangeDetectorRef,
-    private formService: FormService
+    private formService: FormService,
+    private dialogService: DialogService
   ) {
     super(userState);
   }
@@ -49,6 +51,7 @@ export class ViewListComponent extends BaseComponent implements OnInit {
   ngOnInit(): void {
     this.initForm();
     this.getViews();
+    this.afterClosedDialog();
   }
 
   initForm(): void {
@@ -106,6 +109,16 @@ export class ViewListComponent extends BaseComponent implements OnInit {
 
   clear(): void {
     this.form.reset();
+  }
+
+  afterClosedDialog(): void {
+    if (this.dialogService.dialogState$) {
+      this.dialogService.dialogState$.subscribe((state) => {
+        if (!state) {
+          this.getViews();
+        }
+      });
+    }
   }
 
   onPageChange(page: PageEvent): void {

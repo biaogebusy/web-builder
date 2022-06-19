@@ -113,9 +113,25 @@
       },
       "css3": true,
       "link": {
-        "label": "前端开发工程师",
+        "label": "前端开发工程师 @dialog",
         "classes": "bold",
-        "href": "#"
+        "dialog": {
+          "params": {
+            "width": "1000px",
+            "disableClose": true
+          },
+          "afterClosed": {
+            "success": {
+              "label": "请检查是否发布成功！"
+            },
+            "emit": true
+          },
+          "data": [{
+            "type": "iframe",
+            "url": "/manage/node/meeting/front/add?disable_sidebar=1",
+            "height": "1000"
+          }]
+        }
       },
       "subTitle": "字节跳动，北京"
     }, {

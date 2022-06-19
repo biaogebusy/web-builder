@@ -1,18 +1,15 @@
 import {
   ChangeDetectorRef,
   Component,
-  Inject,
   Input,
   OnDestroy,
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { IUserCenter } from '@core/interface/IUserCenter';
-import { ICoreConfig } from '@core/mobx/IAppConfig';
 import { UserState } from '@core/mobx/user/UserState';
 import { ScreenService } from '@core/service/screen.service';
 import { UserService } from '@core/service/user.service';
-import { CORE_CONFIG } from '@core/token/core.config';
 import { isEmpty } from 'lodash-es';
 import { Observable } from 'rxjs';
 import { IUserConfig } from '../../../../core/interface/IUserConfig';
@@ -32,8 +29,7 @@ export class UserCenterComponent implements OnInit, OnDestroy {
     private route: Router,
     private screenService: ScreenService,
     public userService: UserService,
-    private userState: UserState,
-    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
+    private userState: UserState
   ) {}
 
   ngOnInit(): void {
