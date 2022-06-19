@@ -83,6 +83,8 @@ export class Showcase4v1Component extends BaseComponent implements OnInit {
             icon: item.icon,
             digit: {
               value: item.value,
+              from: item.from || 0,
+              duration: item.duration || 4,
             },
             title: item.title,
           };
