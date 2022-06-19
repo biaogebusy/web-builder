@@ -6,6 +6,14 @@ const PROXY_CONFIG = [
     logLevel: "debug",
     changeOrigin: true,
   },
+  {
+    "/api": {
+      target: "https://amigo.zhaobg.com",
+      secure: true,
+      logLevel: "debug",
+      changeOrigin: true,
+    },
+  },
 ];
 
 module.exports = PROXY_CONFIG;

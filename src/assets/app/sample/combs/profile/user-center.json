@@ -16,6 +16,9 @@
         "bg": {
           "classes": "bg-fill-width bg-shadow"
         },
+        "params": {
+          "api": "/api/v1/tab/order_process_statistics"
+        },
         "elements": [{
             "icon": "fingerprint",
             "digit": {

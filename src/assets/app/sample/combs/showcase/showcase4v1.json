@@ -7,6 +7,9 @@
       "label": "SHOWCASE 4v1",
       "style": "style-v1"
     },
+    "params": {
+      "api": "api/v1/tab/order_process_statistics"
+    },
     "elements": [{
         "icon": "fingerprint",
         "digit": {
