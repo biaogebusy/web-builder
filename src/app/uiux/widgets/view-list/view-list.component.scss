@@ -9,6 +9,16 @@
     left: 50%;
     top: 25%;
   }
+  ::ng-deep .dynamic-tabel {
+    .mat-header-cell {
+      font-size: 14px;
+    }
+    .mat-cell {
+      padding: 10px 12px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+  }
 }
 
 .view {
