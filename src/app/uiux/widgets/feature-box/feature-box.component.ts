@@ -31,6 +31,7 @@ export class FeatureBoxComponent implements OnInit {
         src: img.src,
         caption: img.alt || 'Lightbox',
         thumb: img.src,
+        downloadUrl: img.src,
       },
     ]);
   }

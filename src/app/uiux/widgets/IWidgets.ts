@@ -49,6 +49,7 @@ export interface ILightboxElement {
   src: string;
   caption: string;
   thumb: string;
+  downloadUrl: string;
 }
 
 export interface IDynamicTable {
