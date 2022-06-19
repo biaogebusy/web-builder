@@ -10,9 +10,6 @@ import { INumberAnimate } from '@core/interface/widgets/INumberAnimate';
 })
 export class NumberAnimateComponent implements OnInit {
   @Input() content: INumberAnimate;
-  duration: number;
-  steps: number;
-  first = true;
 
   @ViewChild('animatedDigit') animatedDigit: ElementRef;
   constructor() {}

@@ -7,7 +7,7 @@
       "label": "SHOWCASE 4v1",
       "style": "style-v1"
     },
-    "params": {
+    "paramsBak": {
       "api": "api/v1/tab/order_process_statistics"
     },
     "elements": [{
