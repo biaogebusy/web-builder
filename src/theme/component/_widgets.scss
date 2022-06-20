@@ -199,7 +199,9 @@
 
   .dynamic-table {
     background-color: mat-color($background, card);
-
+    .mat-header-cell {
+      color: mat-color($foreground, text);
+    }
     tbody {
       > tr {
         &:hover {
