@@ -36,6 +36,11 @@
       padding: 0 4px;
       display: inline-block;
     }
+    a {
+      &:hover {
+        text-decoration: underline;
+      }
+    }
     .text-cell {
       > * {
         &:last-child {
