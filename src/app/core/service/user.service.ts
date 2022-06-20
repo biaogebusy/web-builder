@@ -123,7 +123,8 @@ export class UserService extends ApiService {
   getCurrentUserById(uid: string, token: string): Observable<any> {
     const params = [
       `filter[drupal_internal__uid]=${uid}`,
-      `include=user_picture`,
+      `include=user_picture,roles`,
+      `jsonapi_include=1`,
     ].join('&');
     return this.http
       .get<any>(
@@ -137,10 +138,11 @@ export class UserService extends ApiService {
           const relate = res.included && res.included[0];
           return {
             id: detail.id,
-            display_name: info.display_name,
-            mail: info.mail,
+            display_name: info?.display_name || '',
+            mail: info?.mail || '',
             authenticated: true,
             picture: relate ? relate.attributes.uri.url : null,
+            access: detail.access,
           };
         })
       );

@@ -1,5 +1,5 @@
 <div class="user-center position-relative" *ngIf="content">
-  <div class="inner">
+  <div class="inner" *ngIf="content?.params?.showProfile">
     <div class="container">
       <div class="profile p-y-sm p-x-sm" fxLayoutAlign.gt-sm="space-between center" fxLayout="row wrap" *ngIf="user">
         <div class="avatar" fxFlex.lt-md="0 0 100" fxFlex.gt-sm="0 1 16" fxLayoutAlign="center center">
@@ -40,7 +40,7 @@
   </div>
   <div class="main">
     <div class="left" *ngIf="content?.left?.length" fxFlex.lt-md="0 0 100" fxFlex.gt-sm="0 0 30">
-      <app-dynamic-widgets *ngFor="let item of content.left"></app-dynamic-widgets>
+      <app-dynamic-widgets *ngFor="let item of content.left" [content]="item"></app-dynamic-widgets>
     </div>
     <div class="right" *ngIf="content?.right?.length" fxFlex.lt-md="0 0 100"
       fxFlex.gt-sm="0 0 {{content?.left?.length ? 'calc(100% - 30% - 4rem)' : '100'}}">

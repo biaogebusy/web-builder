@@ -50,7 +50,7 @@ export class AuthGuard implements CanActivate {
               window.location.href = 'user/login';
               return false;
             } else {
-              this.router.navigate(['my/login'], {
+              this.router.navigate(['me/login'], {
                 queryParams: { returnUrl: state.url },
               });
               return false;
@@ -58,7 +58,7 @@ export class AuthGuard implements CanActivate {
           }
         }),
         catchError(() => {
-          this.router.navigate(['my/login']);
+          this.router.navigate(['me/login']);
           return of(false);
         })
       );

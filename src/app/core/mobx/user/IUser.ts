@@ -7,6 +7,7 @@ export interface IUser extends TokenUser {
   status?: boolean;
   authenticated: boolean;
   picture?: string;
+  access: string;
 }
 
 export interface TokenUser {

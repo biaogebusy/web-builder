@@ -21,6 +21,7 @@ const unauthUser = {
     roles: [],
   },
   logout_token: '',
+  access: '',
 };
 
 // const unauthUser = {
@@ -35,6 +36,7 @@ const unauthUser = {
 //   mail: 'no-reply@xinshi.com',
 //   authenticated: true,
 //   picture: '/sites/amigo.zhaobg.com/files/pictures/2022-04/logo_t.png',
+//   access: '2022-06-20T13:00:29+00:00',
 // };
 
 @Injectable({
@@ -53,6 +55,8 @@ export class UserState {
     private utilities: UtilitiesService,
     private storage: LocalStorageService
   ) {
+    // this.user = unauthUser;
+    // return;
     if (this.storage.retrieve(this.userService.localUserKey)) {
       this.user = JSON.parse(
         this.cryptoJS.decrypt(

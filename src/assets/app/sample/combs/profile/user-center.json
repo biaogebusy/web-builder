@@ -3,291 +3,443 @@
   "body": [{
       "type": "user-center",
       "params": {
+        "showProfile": false,
         "showDetails": false
       },
-      "left": [],
-      "right": [{
-        "type": "showcase-4v1",
-        "spacer": "md",
-        "title": {
-          "label": "我的订单提醒",
-          "style": "style-v4"
-        },
-        "bg": {
-          "classes": "bg-fill-width bg-shadow"
-        },
+      "left": [{
+        "type": "user-card",
         "params": {
           "api": "/api/v1/tab/order_process_statistics"
-        },
-        "elements": [{
-            "icon": "fingerprint",
-            "digit": {
-              "value": 100
-            },
-            "title": "已完工"
-          },
-          {
-            "icon": "verified_user",
-            "digit": {
-              "value": 200
-            },
-            "title": "进行中"
-          }, {
-            "icon": "android",
-            "digit": {
-              "value": 246
-            },
-            "title": "已取消"
-          }
-        ]
-      }, {
-        "type": "showcase-3v6",
-        "id": "",
-        "title": {
-          "type": "text",
-          "spacer": "sm",
+        }
+      }],
+      "right": [{
+          "type": "showcase-4v1xx",
+          "spacer": "md",
           "title": {
-            "label": "我的工作台",
+            "label": "我的订单提醒",
             "style": "style-v4"
+          },
+          "bg": {
+            "classes": "bg-fill-width bg-shadow"
+          },
+          "params": {
+            "api": "/api/v1/tab/order_process_statistics"
           }
         },
-        "bg": {
-          "classes": "bg-fill-width"
-        },
-        "params": {
-          "reqRoles": []
-        },
-        "row": "3",
+        {
+          "type": "showcase-3v6",
+          "id": "",
+          "title": {
+            "type": "text",
+            "spacer": "sm",
+            "title": {
+              "label": "我的工作台",
+              "style": "style-v4"
+            }
+          },
+          "bg": {
+            "classes": "bg-fill-width"
+          },
+          "params": {
+            "reqRoles": [
+              "customer_staff"
+            ]
+          },
+          "row": "3",
+          "elements": [{
+              "img": {
+                "src": "/sites/amigo.zhaobg.com/files/styles/crop/public/2022-05/project.png",
+                "style": {
+                  "width": "45px",
+                  "height": "45px"
+                },
+                "alt": "logo"
+              },
+              "css3": true,
+              "link": {
+                "label": "填写订单",
+                "classes": "bold",
+                "dialog": {
+                  "params": {
+                    "width": "1200px",
+                    "disableClose": true
+                  },
+                  "afterClosed": {
+                    "success": {
+                      "label": "请检查是否发布成功！"
+                    },
+                    "emit": true
+                  },
+                  "data": [{
+                    "type": "iframe",
+                    "url": "/manage/node/project/front/add?disable_sidebar=1",
+                    "height": "1000"
+                  }]
+                }
+              },
+              "subTitle": "发布工作需求给律师"
+            },
+            {
+              "img": {
+                "src": "/sites/amigo.zhaobg.com/files/styles/crop/public/2022-05/meeting_0.png",
+                "style": {
+                  "width": "45px",
+                  "height": "45px"
+                },
+                "alt": "logo"
+              },
+              "css3": true,
+              "link": {
+                "label": "会议管理",
+                "classes": "bold",
+                "dialog": {
+                  "params": {
+                    "width": "1200px",
+                    "disableClose": true
+                  },
+                  "afterClosed": {
+                    "success": {
+                      "label": "请检查是否发布成功！"
+                    },
+                    "emit": true
+                  },
+                  "data": [{
+                    "type": "iframe",
+                    "url": "/manage/node/meeting/front/add?disable_sidebar=1",
+                    "height": "1200"
+                  }]
+                }
+              },
+              "subTitle": "快速发布会议内容"
+            },
+            {
+              "img": {
+                "src": "/sites/amigo.zhaobg.com/files/styles/crop/public/2022-05/case.png",
+                "style": {
+                  "width": "45px",
+                  "height": "45px"
+                },
+                "alt": "logo"
+              },
+              "css3": true,
+              "link": {
+                "label": "项目列表",
+                "classes": "bold",
+                "href": "#"
+              },
+              "subTitle": "查看项目 View 列表"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "tab",
+      "spacer": "none",
+      "classes": "bg-light",
+      "fullWidth": true,
+      "elements": [{
+        "spacer": "none",
         "elements": [{
-            "img": {
-              "src": "/sites/amigo.zhaobg.com/files/styles/crop/public/2022-05/project.png",
-              "style": {
-                "width": "45px",
-                "height": "45px"
-              },
-              "alt": "logo"
-            },
-            "css3": true,
-            "link": {
-              "label": "项目管理",
-              "classes": "bold",
-              "dialog": {
-                "params": {
-                  "width": "1000px",
-                  "disableClose": true
-                },
-                "afterClosed": {
-                  "success": {
-                    "label": "请检查是否发布成功！"
-                  },
-                  "emit": true
-                },
-                "data": [{
-                  "type": "iframe",
-                  "url": "/manage/node/project/front/add?disable_sidebar=1",
-                  "height": "1000"
-                }]
+            "type": "view-list",
+            "spacer": "none",
+            "text": {
+              "title": {
+                "label": "我的工作台",
+                "style": "style-v4"
               }
             },
-            "subTitle": "快速发布项目"
+            "tableClasses": "fixed",
+            "params": {
+              "apiType": "tab/order_process",
+              "reqRoles": [
+                "customer_staff"
+              ]
+            },
+            "header": [{
+                "label": "优先级",
+                "key": "transaction_level"
+              },
+              {
+                "label": "业务类型",
+                "key": "business_type"
+              },
+              {
+                "label": "订单标题",
+                "key": "title",
+                "style": {
+                  "width": "15%"
+                }
+              },
+              {
+                "label": "经办人员",
+                "key": "handler"
+              },
+              {
+                "label": "文件类型",
+                "key": "order_files_type"
+              },
+              {
+                "label": "订单文件",
+                "key": "order_files",
+                "style": {
+                  "width": "15%"
+                }
+              },
+              {
+                "label": "订单备注",
+                "key": "body",
+                "style": {
+                  "width": "15%"
+                }
+              },
+              {
+                "label": "律师更新",
+                "key": "created",
+                "style": {
+                  "color": "#ff3399"
+                }
+              },
+              {
+                "label": "更新",
+                "key": "timestamp",
+                "style": {
+                  "color": "#cc9933"
+                }
+              },
+              {
+                "label": "完工比",
+                "key": "completion_level"
+              },
+              {
+                "label": "订单状态",
+                "key": "order_status"
+              }
+            ]
           },
           {
-            "img": {
-              "src": "/sites/amigo.zhaobg.com/files/styles/crop/public/2022-05/meeting_0.png",
-              "style": {
-                "width": "45px",
-                "height": "45px"
-              },
-              "alt": "logo"
-            },
-            "css3": true,
-            "link": {
-              "label": "会议管理",
-              "classes": "bold",
-              "dialog": {
-                "params": {
-                  "width": "1000px",
-                  "disableClose": true
-                },
-                "afterClosed": {
-                  "success": {
-                    "label": "请检查是否发布成功！"
-                  },
-                  "emit": true
-                },
-                "data": [{
-                  "type": "iframe",
-                  "url": "/manage/node/meeting/front/add?disable_sidebar=1",
-                  "height": "1000"
-                }]
+            "type": "view-list",
+            "spacer": "none",
+            "text": {
+              "title": {
+                "label": "我的工作台",
+                "style": "style-v4"
               }
             },
-            "subTitle": "快速发布会议内容"
+            "tableClasses": "fixed",
+            "params": {
+              "apiType": "tab/order_process_lawyer",
+              "reqRoles": [
+                "lawyer",
+                "assistant_lawyer"
+              ]
+            },
+            "header": [{
+                "label": "优先级",
+                "key": "transaction_level"
+              },
+              {
+                "label": "业务类型",
+                "key": "business_type"
+              },
+              {
+                "label": "任务标题",
+                "key": "title",
+                "style": {
+                  "width": "10%"
+                }
+              },
+              {
+                "label": "客户名称",
+                "key": "customer"
+              },
+              {
+                "label": "经办人员",
+                "key": "handler"
+              },
+              {
+                "label": "文件类型",
+                "key": "order_files_type"
+              },
+              {
+                "label": "订单文件",
+                "key": "order_files",
+                "style": {
+                  "width": "10%"
+                }
+              },
+              {
+                "label": "事项描述",
+                "key": "body",
+                "style": {
+                  "width": "15%"
+                }
+              },
+              {
+                "label": "订单时间",
+                "key": "created",
+                "style": {
+                  "color": "#ff3399"
+                }
+              },
+              {
+                "label": "更新",
+                "key": "timestamp"
+              },
+              {
+                "label": "完工比",
+                "key": "completion_level"
+              },
+              {
+                "label": "订单状态",
+                "key": "order_status"
+              },
+              {
+                "label": "律师",
+                "key": "lawyer"
+              }
+            ]
           },
           {
-            "img": {
-              "src": "/sites/amigo.zhaobg.com/files/styles/crop/public/2022-05/case.png",
-              "style": {
-                "width": "45px",
-                "height": "45px"
+            "type": "view-list",
+            "spacer": "none",
+            "text": {
+              "title": {
+                "label": "案件管理",
+                "style": "style-v4"
+              }
+            },
+            "tableClasses": "fixed",
+            "params": {
+              "apiType": "tab/case_order_process",
+              "reqRoles": [
+                "customer_staff"
+              ]
+            },
+            "header": [{
+                "label": "优先级",
+                "key": "transaction_level"
               },
-              "alt": "logo"
+              {
+                "label": "案件标题",
+                "key": "title",
+                "style": {
+                  "width": "20%"
+                }
+              },
+              {
+                "label": "经办人员",
+                "key": "handler"
+              },
+              {
+                "label": "案件文件",
+                "key": "case_files",
+                "style": {
+                  "width": "20%"
+                }
+              },
+              {
+                "label": "开庭日期",
+                "key": "event_date"
+              },
+              {
+                "label": "案件阶段",
+                "key": "case_procedure"
+              },
+              {
+                "label": "法院名称",
+                "key": "court"
+              },
+              {
+                "label": "更新",
+                "key": "timestamp",
+                "style": {
+                  "color": "#cc9933"
+                }
+              },
+              {
+                "label": "已更改",
+                "key": "changed"
+              },
+              {
+                "label": "律师",
+                "key": "uid"
+              }
+            ]
+          },
+          {
+            "type": "view-list",
+            "spacer": "none",
+            "text": {
+              "title": {
+                "label": "案件管理",
+                "style": "style-v4"
+              }
             },
-            "css3": true,
-            "link": {
-              "label": "项目列表",
-              "classes": "bold",
-              "href": "#"
+            "tableClasses": "fixed",
+            "params": {
+              "apiType": "tab/case_order_process_lawyer",
+              "reqRoles": [
+                "lawyer"
+              ]
             },
-            "subTitle": "查看项目 View 列表"
+            "header": [{
+                "label": "优先级",
+                "key": "transaction_level"
+              },
+              {
+                "label": "案件标题",
+                "key": "title",
+                "style": {
+                  "width": "20%"
+                }
+              },
+              {
+                "label": "客户名称",
+                "key": "customer"
+              },
+              {
+                "label": "经办人员",
+                "key": "handler"
+              },
+              {
+                "label": "案件文件",
+                "key": "case_files",
+                "style": {
+                  "width": "20%"
+                }
+              },
+              {
+                "label": "开庭日期",
+                "key": "event_date"
+              },
+              {
+                "label": "案件阶段",
+                "key": "case_procedure"
+              },
+              {
+                "label": "法院名称",
+                "key": "court"
+              },
+              {
+                "label": "更新",
+                "key": "timestamp",
+                "style": {
+                  "color": "#cc9933"
+                }
+              },
+              {
+                "label": "已更改",
+                "key": "changed"
+              },
+              {
+                "label": "律师",
+                "key": "uid"
+              }
+            ]
           }
         ]
       }]
-    },
-    {
-      "type": "view-list",
-      "spacer": "md",
-      "text": {
-        "title": {
-          "label": "客户工作台",
-          "style": "style-v4"
-        }
-      },
-      "params": {
-        "apiType": "tab/order_process",
-        "reqRoles": [
-          "customer_staff"
-        ]
-      },
-      "header": [{
-          "label": "优先等级",
-          "key": "transaction_level"
-        },
-        {
-          "label": "业务类型",
-          "key": "business_type"
-        },
-        {
-          "label": "任务标题",
-          "key": "title"
-        },
-        {
-          "label": "经办人员",
-          "key": "handler"
-        },
-        {
-          "label": "文件类型",
-          "key": "order_files_type"
-        },
-        {
-          "label": "订单内容",
-          "key": "order_files"
-        },
-        {
-          "label": "事项描述",
-          "key": "body"
-        },
-        {
-          "label": "订单时间",
-          "key": "created"
-        },
-        {
-          "label": "更新状态",
-          "key": "timestamp",
-          "style": {
-            "color": "#cc9933"
-          }
-        },
-        {
-          "label": "完工比例",
-          "key": "completion_level"
-        },
-        {
-          "label": "订单状态",
-          "key": "order_status"
-        },
-        {
-          "label": "案件阶段",
-          "key": "case_procedure"
-        }
-      ]
-    },
-    {
-      "type": "view-list",
-      "spacer": "md",
-      "text": {
-        "title": {
-          "label": "律师工作台",
-          "style": "style-v4"
-        }
-      },
-      "params": {
-        "apiType": "tab/order_process_lawyer",
-        "reqRoles": [
-          "lawyer",
-          "assistant_lawyer"
-        ]
-      },
-      "header": [{
-          "label": "优先等级",
-          "key": "transaction_level"
-        },
-        {
-          "label": "业务类型",
-          "key": "business_type"
-        },
-        {
-          "label": "任务标题",
-          "key": "title"
-        },
-        {
-          "label": "客户名称",
-          "key": "customer"
-        },
-        {
-          "label": "经办人员",
-          "key": "handler"
-        },
-        {
-          "label": "文件类型",
-          "key": "order_files_type"
-        },
-        {
-          "label": "订单内容",
-          "key": "order_files"
-        },
-        {
-          "label": "事项描述",
-          "key": "body"
-        },
-        {
-          "label": "订单时间",
-          "key": "created"
-        },
-        {
-          "label": "更新状态",
-          "key": "timestamp",
-          "style": {
-            "color": "#cc9933"
-          }
-        },
-        {
-          "label": "完工比例",
-          "key": "completion_level"
-        },
-        {
-          "label": "订单状态",
-          "key": "order_status"
-        },
-        {
-          "label": "案件阶段",
-          "key": "case_procedure"
-        },
-        {
-          "label": "主板律师",
-          "key": "lawyer"
-        }
-      ]
     }
   ]
 }

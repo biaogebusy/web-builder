@@ -13,6 +13,7 @@ import { UserService } from '@core/service/user.service';
 import { isEmpty } from 'lodash-es';
 import { Observable } from 'rxjs';
 import { IUserConfig } from '../../../../core/interface/IUserConfig';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-user-center',
@@ -49,6 +50,9 @@ export class UserCenterComponent implements OnInit, OnDestroy {
   }
 
   getUser(): any {
+    if (!environment.production) {
+      return;
+    }
     const people = {};
     this.userService
       .getUserById(

@@ -85,6 +85,8 @@ import { SearchSidebarComponent } from './sidebar/search-sidebar/search-sidebar.
 import { LoopWidgetsComponent } from './loop-widgets/loop-widgets.component';
 import { IframeComponent } from './iframe/iframe.component';
 import { SafePipe } from '@core/pipe/safe-url.pipe';
+import { UserCardComponent } from './card/user-card/user-card.component';
+import { UserCardCountComponent } from './card/user-card/user-card-count/user-card-count.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -120,6 +122,7 @@ const components = [
   Card1v1Component,
   Card1v2Component,
   Card1v3Component,
+  UserCardComponent,
   CheckboxComponent,
   ContentBoxComponent,
   ChipListComponent,
@@ -131,6 +134,7 @@ const components = [
   BreadcrumbComponent,
   TestimonialComponent,
   DropdownMenuComponent,
+  UserCardCountComponent,
   NumberAnimateComponent,
   DynamicWidgetsComponent,
   SidebarComponent,
