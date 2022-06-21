@@ -11,10 +11,11 @@
   &.fixed {
     table {
       table-layout: fixed;
+      word-break: break-word;
     }
   }
   .mat-header-cell {
-    font-size: 16px;
+    font-size: 15px;
   }
   .mat-cell {
     ::ng-deep {

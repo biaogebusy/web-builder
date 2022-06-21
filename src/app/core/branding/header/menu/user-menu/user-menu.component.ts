@@ -15,6 +15,7 @@ import { DynamicFormComponent } from '@uiux/combs/other/dynamic-form/dynamic-for
 import { DialogService } from '@core/service/dialog.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-user-menu',
@@ -71,6 +72,9 @@ export class UserMenuComponent implements OnInit, OnDestroy {
   }
 
   get userPage(): any[] {
+    if (environment?.drupalProxy) {
+      return ['/my'];
+    }
     return [`/me`];
   }
 

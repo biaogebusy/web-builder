@@ -5,6 +5,7 @@ import {
   Input,
   OnInit,
   ChangeDetectorRef,
+  AfterViewInit,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
@@ -27,7 +28,10 @@ import {
   styleUrls: ['./view-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ViewListComponent extends BaseComponent implements OnInit {
+export class ViewListComponent
+  extends BaseComponent
+  implements OnInit, AfterViewInit
+{
   @Input() content: any;
   form: FormGroup;
   searchEntry: any;
@@ -35,7 +39,7 @@ export class ViewListComponent extends BaseComponent implements OnInit {
   loading: boolean;
   pager: any;
   noAuth: boolean;
-  canShow: boolean;
+  canShow = false;
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
@@ -52,6 +56,13 @@ export class ViewListComponent extends BaseComponent implements OnInit {
     this.initForm();
     this.getViews();
     this.afterClosedDialog();
+  }
+
+  ngAfterViewInit(): void {
+    if (!this.content?.emptyHidden) {
+      this.canShow = true;
+      this.cd.detectChanges();
+    }
   }
 
   initForm(): void {
@@ -93,6 +104,11 @@ export class ViewListComponent extends BaseComponent implements OnInit {
         if (!res) {
           this.noAuth = true;
           this.loading = false;
+          this.cd.detectChanges();
+          return;
+        }
+        if (this.content?.emptyHidden && !res.row.length) {
+          this.canShow = false;
           this.cd.detectChanges();
           return;
         }
