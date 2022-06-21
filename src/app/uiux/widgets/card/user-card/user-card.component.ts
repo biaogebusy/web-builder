@@ -39,6 +39,7 @@ export class UserCardComponent extends BaseComponent implements OnInit {
         style: {
           height: '50px',
           width: '50px',
+          borderRadius: '50%',
         },
       },
       title: user.current_user.name,

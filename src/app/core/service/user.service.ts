@@ -139,7 +139,10 @@ export class UserService extends ApiService {
             display_name: detail?.display_name || '',
             mail: detail?.mail || '',
             authenticated: true,
-            picture: detail?.user_picture?.uri?.url || '',
+            picture:
+              detail?.user_picture?.uri?.url ||
+              this.coreConfig?.defaultAvatar ||
+              '',
             login: detail.login,
           };
         })
