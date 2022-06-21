@@ -329,9 +329,9 @@
       },
       "tableClasses": "fixed",
       "fullWidth": true,
-      "emptyHidden": true,
       "params": {
         "apiType": "tab/order_process",
+        "emptyHidden": true,
         "reqRoles": [
           "customer_staff"
         ]
@@ -406,10 +406,10 @@
         }
       },
       "fullWidth": true,
-      "emptyHidden": true,
       "tableClasses": "fixed",
       "params": {
         "apiType": "tab/order_process_lawyer",
+        "emptyHidden": true,
         "reqRoles": [
           "lawyer",
           "assistant_lawyer"
@@ -490,10 +490,10 @@
         }
       },
       "fullWidth": true,
-      "emptyHidden": true,
       "tableClasses": "fixed",
       "params": {
         "apiType": "tab/case_order_process",
+        "emptyHidden": true,
         "reqRoles": [
           "customer_staff"
         ]
@@ -558,10 +558,10 @@
         }
       },
       "fullWidth": true,
-      "emptyHidden": true,
       "tableClasses": "fixed",
       "params": {
         "apiType": "tab/case_order_process_lawyer",
+        "emptyHidden": true,
         "reqRoles": [
           "lawyer"
         ]

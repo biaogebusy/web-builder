@@ -14,6 +14,7 @@ import { DialogService } from '@core/service/dialog.service';
 import { FormService } from '@core/service/form.service';
 import { NodeService } from '@core/service/node.service';
 import { BaseComponent } from '@uiux/base/base.widget';
+import { isEmpty } from 'lodash-es';
 import { of, Subject } from 'rxjs';
 import {
   debounceTime,
@@ -59,7 +60,8 @@ export class ViewListComponent
   }
 
   ngAfterViewInit(): void {
-    if (!this.content?.emptyHidden) {
+    const emptyHidden = this.getParams(this.content, 'emptyHidden');
+    if (this.checkShow(this.content) && !emptyHidden) {
       this.canShow = true;
       this.cd.detectChanges();
     }
@@ -87,8 +89,15 @@ export class ViewListComponent
   }
 
   getViews(options = {}): void {
-    this.loading = true;
+    const isRole = this.checkShow(this.content);
+    if (!isRole) {
+      this.canShow = false;
+      this.cd.detectChanges();
+      return;
+    }
     const params = this.getApiParams(options);
+    const emptyHidden = this.getParams(this.content, 'emptyHidden');
+    this.loading = true;
     this.cd.detectChanges();
     this.nodeService
       .search(this.content.params.apiType, params, this.userState.csrfToken)
@@ -107,10 +116,15 @@ export class ViewListComponent
           this.cd.detectChanges();
           return;
         }
-        if (this.content?.emptyHidden && !res.row.length) {
+        if (emptyHidden && isEmpty(res.rows)) {
           this.canShow = false;
           this.cd.detectChanges();
           return;
+        }
+
+        if (emptyHidden && !isEmpty(res.rows)) {
+          this.canShow = true;
+          this.cd.detectChanges();
         }
         this.table = {
           header: this.content.header,
