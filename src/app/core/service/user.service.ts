@@ -134,15 +134,13 @@ export class UserService extends ApiService {
       .pipe(
         map((res: any) => {
           const detail = res.data[0];
-          const info = detail.attributes;
-          const relate = res.included && res.included[0];
           return {
             id: detail.id,
-            display_name: info?.display_name || '',
-            mail: info?.mail || '',
+            display_name: detail?.display_name || '',
+            mail: detail?.mail || '',
             authenticated: true,
-            picture: relate ? relate.attributes.uri.url : null,
-            access: detail.access,
+            picture: detail?.user_picture?.uri?.url || '',
+            login: detail.login,
           };
         })
       );

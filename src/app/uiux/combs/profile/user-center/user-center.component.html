@@ -38,7 +38,7 @@
       </div>
     </div>
   </div>
-  <div class="{{content?.main?.fullWidth?'container-fluid':'container'}} position-relative">
+  <div class="{{content?.main?.fullWidth?'container-fluid':'container'}}">
     <app-spacer [size]="content?.main?.spacer || 'md'"></app-spacer>
     <app-bg *ngIf="content?.main?.bg" [content]="content.main.bg">
       <app-img *ngIf="content?.main?.bg?.img" [content]="content.main.bg.img"></app-img>
