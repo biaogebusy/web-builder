@@ -45,13 +45,18 @@
     </app-bg>
     <div class="main" fxLayoutAlign="space-between start" fxLayout="row wrap">
       <div class="left" *ngIf="content?.left?.length" fxFlex.lt-md="0 0 100" fxFlex.gt-sm="0 0 30">
-        <app-dynamic-widgets class="box" *ngFor="let item of content.left" [content]="item">
-        </app-dynamic-widgets>
+        <ng-container *ngFor="let item of content.left">
+          <app-dynamic-widgets *ngIf="checkShow(item)" class="box" [content]="item">
+          </app-dynamic-widgets>
+        </ng-container>
       </div>
       <div class="right" *ngIf="content?.right?.length" fxFlex.lt-md="0 0 100"
         fxFlex.gt-sm="0 0 {{content?.left?.length ? 'calc(100% - 30% - 2rem)' : '100'}}">
-        <app-dynamic-combs class="box" *ngFor="let item of content.right" [content]="item">
-        </app-dynamic-combs>
+        <ng-container *ngFor="let item of content.right">
+          <app-dynamic-combs *ngIf="checkShow(item)" class="box" [content]="item">
+          </app-dynamic-combs>
+        </ng-container>
+
       </div>
     </div>
     <app-spacer [size]="content?.main?.spacer || 'md'"></app-spacer>

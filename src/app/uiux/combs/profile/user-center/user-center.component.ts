@@ -14,13 +14,17 @@ import { isEmpty } from 'lodash-es';
 import { Observable } from 'rxjs';
 import { IUserConfig } from '../../../../core/interface/IUserConfig';
 import { environment } from 'src/environments/environment';
+import { BaseComponent } from '@uiux/base/base.widget';
 
 @Component({
   selector: 'app-user-center',
   templateUrl: './user-center.component.html',
   styleUrls: ['./user-center.component.scss'],
 })
-export class UserCenterComponent implements OnInit, OnDestroy {
+export class UserCenterComponent
+  extends BaseComponent
+  implements OnInit, OnDestroy
+{
   @Input() content: IUserCenter;
   user: any;
   id: any;
@@ -30,8 +34,10 @@ export class UserCenterComponent implements OnInit, OnDestroy {
     private route: Router,
     private screenService: ScreenService,
     public userService: UserService,
-    private userState: UserState
-  ) {}
+    public userState: UserState
+  ) {
+    super(userState);
+  }
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {

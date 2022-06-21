@@ -58,8 +58,13 @@ export class AuthGuard implements CanActivate {
           }
         }),
         catchError(() => {
-          this.router.navigate(['me/login']);
-          return of(false);
+          if (environment?.drupalProxy) {
+            window.location.href = 'user/login';
+            return of(false);
+          } else {
+            this.router.navigate(['me/login']);
+            return of(false);
+          }
         })
       );
     }

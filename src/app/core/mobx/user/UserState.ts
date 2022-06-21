@@ -63,7 +63,7 @@ export class UserState {
           this.storage.retrieve(this.userService.localUserKey)
         )
       );
-      // console.log(this.user);
+      console.log(this.user);
     }
   }
 
