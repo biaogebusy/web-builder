@@ -3,4 +3,5 @@ export interface INumberAnimate {
   label: string;
   from?: number;
   duration?: number;
+  style?: object | null;
 }

@@ -48,7 +48,6 @@ export class UserCardComponent extends BaseComponent implements OnInit {
   }
 
   getCount(): void {
-    debugger;
     const api = this.getParams(this.content, 'api');
     if (!api) {
       this.count = this.content.count;
@@ -63,32 +62,52 @@ export class UserCardComponent extends BaseComponent implements OnInit {
     this.nodeService
       .search(api, '')
       .pipe(
-        map((data) => {
-          if (!data.rows.length) {
-            return {
-              rows: [
-                {
-                  title: '\u65b0\u6307\u6d3e',
-                  value: 15,
-                  icon: 'replay\n',
-                },
-                {
-                  title: '\u5df2\u5b8c\u5de5',
-                  value: 12,
-                  icon: 'done\n',
-                },
-              ],
-              pager: {
-                current_page: null,
-                total_items: 2,
-                total_pages: 0,
-                items_per_page: 0,
-              },
-            };
-          } else {
-            return data;
-          }
-        }),
+        // map((data) => {
+        //   if (!data.rows.length) {
+        //     return {
+        //       rows: [
+        //         {
+        //           title: '已完工',
+        //           value: 15,
+        //           color: '#f57f17',
+        //         },
+        //         {
+        //           title: '已更新',
+        //           value: 12,
+        //           color: '#4caf50',
+        //         },
+        //         {
+        //           title: '进行中',
+        //           value: 15,
+        //           color: '',
+        //         },
+        //         {
+        //           title: '新订单',
+        //           value: 12,
+        //           color: '#1976d2',
+        //         },
+        //         {
+        //           title: '已暂停',
+        //           value: 15,
+        //           color: '',
+        //         },
+        //         {
+        //           title: '已取消',
+        //           value: 12,
+        //           color: '',
+        //         },
+        //       ],
+        //       pager: {
+        //         current_page: null,
+        //         total_items: 2,
+        //         total_pages: 0,
+        //         items_per_page: 0,
+        //       },
+        //     };
+        //   } else {
+        //     return data;
+        //   }
+        // }),
         catchError(() => {
           return of({
             rows: [],
@@ -96,13 +115,15 @@ export class UserCardComponent extends BaseComponent implements OnInit {
         })
       )
       .subscribe((res) => {
-        debugger;
         this.count = res.rows.map((item: any) => {
           return {
             digit: {
               value: item.value,
               from: item.from || 0,
               duration: item.duration || 4,
+              style: {
+                color: item.color,
+              },
             },
             title: item.title,
           };

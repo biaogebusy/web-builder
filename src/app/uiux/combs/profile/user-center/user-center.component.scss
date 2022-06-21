@@ -33,3 +33,17 @@
 .label {
   white-space: nowrap;
 }
+
+.main {
+  .box {
+    display: block;
+    padding: 2rem;
+    margin-bottom: 2rem;
+  }
+  .left,
+  .right {
+    .box:first-child {
+      min-height: 282px;
+    }
+  }
+}

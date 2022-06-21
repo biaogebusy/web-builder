@@ -6,8 +6,15 @@
         "showProfile": false,
         "showDetails": false
       },
+      "main": {
+        "spacer": "sm",
+        "bg": {
+          "classes": "bg-fill-width bg-shadow"
+        }
+      },
       "left": [{
         "type": "user-card",
+        "spacer": "sm",
         "params": {
           "api": "/api/v1/tab/order_process_statistics"
         }

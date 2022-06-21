@@ -3,6 +3,7 @@ export interface IUserCenter {
     showProfile: boolean;
     showDetails: boolean;
   };
+  main?: any;
   left: any[];
   right: any[];
 }
