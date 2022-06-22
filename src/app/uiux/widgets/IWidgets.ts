@@ -14,22 +14,22 @@ export interface ICard {
     hostClasses?: any;
     classes?: any;
   };
-  header: {
-    avatar: IImg;
-    title: string;
-    subTitle: string;
-    icon: IIcon;
+  header?: {
+    avatar?: IImg;
+    title?: string;
+    subTitle?: string;
+    icon?: IIcon;
     meta: IMeta[];
   };
-  footer: {
+  footer?: {
     meta: IMeta[];
   };
   carousel?: any;
   feature?: any;
   overlay?: any[];
-  link: ILink;
+  link?: ILink;
   actions?: any;
-  progressBar: {
+  progressBar?: {
     mode: 'determinate' | 'indeterminate' | 'buffer' | 'query';
     value: number;
   };
@@ -37,7 +37,14 @@ export interface ICard {
 
 export interface IMeta {
   label: string;
-  value: string;
+  value: any;
+  params?: {
+    lightbox?: boolean;
+    shorten?: number;
+    dialog?: {
+      label: string;
+    };
+  };
 }
 
 export interface IInlineLightbox {

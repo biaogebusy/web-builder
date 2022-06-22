@@ -4,8 +4,7 @@ import { CommonModule } from '@angular/common';
 
 import Header from './header.component';
 import Page from './page.component';
-import { BtnComponent } from '@uiux/widgets/btn/btn.component';
-import { TextComponent } from '@uiux/widgets/text/text.component';
+
 export default {
   title: '信使 UI',
   component: Page,
@@ -15,7 +14,7 @@ export default {
   },
   decorators: [
     moduleMetadata({
-      declarations: [TextComponent, BtnComponent, Header],
+      declarations: [Header],
       imports: [CommonModule],
     }),
   ],

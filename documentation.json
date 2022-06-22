@@ -2478,30 +2478,7 @@
         },
         {
             "name": "IDialog",
-            "id": "interface-IDialog-c82f202a5a68c4f13467fc5c27f54faab6b210ed140ec058c8e5821fb72690d098a086d2b6a071c0a089a378b7c31ba3f7a26e2c785d3b0180786fd33b1debca",
-            "file": "src/app/core/mobx/IAppConfig.ts",
-            "deprecated": false,
-            "deprecationMessage": "",
-            "type": "interface",
-            "sourceCode": "import { IText } from '../interface/widgets/IText';\nimport { IAmap } from '../interface/IAmap';\nexport interface IAppConfig {\n  defTheme: string;\n  config?: ICoreConfig | null;\n  page: IPage;\n}\nexport interface ICoreConfig {\n  defaultTheme: string;\n  theme: ITheme[];\n  login: ILogin;\n  defaultLogo: string;\n  defaultAvatar: string;\n  defaultThumb: string;\n  amap: IAmap;\n  apiUrl: IApiUrl;\n  loading: boolean;\n  article: IArticle;\n  editor: IEditor;\n  actions: IActions;\n  dialog: IDialog;\n  user: User;\n  commerce: Commerce;\n  googleAnalytics: GoogleAnalytics;\n  guard: Guard;\n  access: {\n    check: true;\n  };\n  qidian: {\n    id: string;\n    key: string;\n  };\n}\nexport interface ITheme {\n  name: string;\n  style: string;\n  icon?: string;\n  svgIcon?: string;\n}\n\nexport interface PhoneLogin {\n  enable: boolean;\n  tabLabel: string;\n  leftTime: number;\n  submitLabel: string;\n  error: string;\n}\n\nexport interface PswLogin {\n  enable: boolean;\n  tabLabel: string;\n  submitLabel: string;\n}\n\nexport interface ILogin {\n  loginRedirect: string;\n  left: any;\n  phoneLogin: PhoneLogin;\n  pswLogin: PswLogin;\n}\n\nexport interface Github {\n  repos: string;\n  api: string;\n}\n\nexport interface IApiUrl {\n  loginPath: string;\n  logoutPath: string;\n  userIdGetPath: string;\n  nodeGetPath: string;\n  commentGetPath: string;\n  paymentPath: string;\n  taxonomyGetPath: string;\n  flaggingGetPath: string;\n  userGetPath: string;\n  yushan: string;\n  search: any;\n  github: Github;\n}\n\nexport interface Form {\n  label: string;\n  key: string;\n  value: number;\n  type: string;\n  placeholder: string;\n  controlType: string;\n  appearance: string;\n  errorMes: string;\n  tooltip: string;\n  matTooltipPosition: string;\n  suffix: string;\n}\n\nexport interface FontSize {\n  enable: boolean;\n  form: Form[];\n}\n\nexport interface Comment {\n  enable: boolean;\n}\n\nexport interface IArticle {\n  fontSize: FontSize;\n  comment: Comment;\n}\n\nexport interface Modules {\n  toolbar: any[][];\n}\n\nexport interface IEditor {\n  modules: Modules;\n}\n\nexport interface Icon {\n  name: string;\n  inline: boolean;\n}\n\nexport interface Flag {\n  icon: Icon;\n  enable: boolean;\n}\n\nexport interface Button {\n  icon: string;\n  label: string;\n}\n\nexport interface Share {\n  button: Button;\n  enable: boolean;\n}\n\nexport interface Icon2 {\n  name: string;\n  inline: boolean;\n}\n\nexport interface Download {\n  label: string;\n  icon: Icon2;\n  enable: boolean;\n}\n\nexport interface IActions {\n  flag: Flag;\n  share: Share;\n  download: Download;\n}\n\nexport interface Params {\n  width: string;\n  path: string;\n  first: boolean;\n}\n\nexport interface Title {\n  label: string;\n  style: string;\n}\n\nexport interface Action {\n  type: string;\n  label: string;\n  color: string;\n  href: string;\n}\n\nexport interface Text {\n  title: Title;\n  spacer: string;\n  body: string;\n  actions: Action[];\n  actionsAlign: string;\n}\n\nexport interface ForceDialog {\n  params: Params;\n  text: Text;\n}\n\nexport interface IDialog {\n  forceDialog: ForceDialog;\n}\n\nexport interface User {\n  banner: string;\n}\nexport interface Action2 {\n  type: string;\n  label: string;\n  href: string;\n  color: string;\n}\n\nexport interface Commerce {\n  vip: string;\n  payNode: string;\n  dialog: {\n    spacer: string;\n    title: {\n      label: string;\n      style: string;\n    };\n    body: string;\n    actionsAlign: string;\n    actions: Action2[];\n  };\n}\n\nexport interface GoogleAnalytics {\n  id: string;\n}\n\nexport interface Guard {\n  authGuard: boolean;\n}\n\nexport interface IPage {\n  meta?: any[];\n  config?: any;\n  title: string;\n  body: any[];\n}\n\nexport interface ICommerce {\n  vip: string;\n  payNode: string;\n  dialog: IText;\n}\n",
-            "properties": [
-                {
-                    "name": "forceDialog",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "ForceDialog",
-                    "optional": false,
-                    "description": "",
-                    "line": 187
-                }
-            ],
-            "indexSignatures": [],
-            "kind": 165,
-            "methods": []
-        },
-        {
-            "name": "IDialog",
-            "id": "interface-IDialog-c48e64e3331863f12256015a22430b16a9ca459d96b2c192f6c007edab8ce418344f2649761d21d5a66ef4e2fbfdaf6b3d8a9a68822b85419e05eeae6ef102d6-1",
+            "id": "interface-IDialog-c48e64e3331863f12256015a22430b16a9ca459d96b2c192f6c007edab8ce418344f2649761d21d5a66ef4e2fbfdaf6b3d8a9a68822b85419e05eeae6ef102d6",
             "file": "src/app/core/interface/IDialog.ts",
             "deprecated": false,
             "deprecationMessage": "",
@@ -2543,6 +2520,29 @@
                     "optional": true,
                     "description": "",
                     "line": 3
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 165,
+            "methods": []
+        },
+        {
+            "name": "IDialog",
+            "id": "interface-IDialog-c82f202a5a68c4f13467fc5c27f54faab6b210ed140ec058c8e5821fb72690d098a086d2b6a071c0a089a378b7c31ba3f7a26e2c785d3b0180786fd33b1debca-1",
+            "file": "src/app/core/mobx/IAppConfig.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "interface",
+            "sourceCode": "import { IText } from '../interface/widgets/IText';\nimport { IAmap } from '../interface/IAmap';\nexport interface IAppConfig {\n  defTheme: string;\n  config?: ICoreConfig | null;\n  page: IPage;\n}\nexport interface ICoreConfig {\n  defaultTheme: string;\n  theme: ITheme[];\n  login: ILogin;\n  defaultLogo: string;\n  defaultAvatar: string;\n  defaultThumb: string;\n  amap: IAmap;\n  apiUrl: IApiUrl;\n  loading: boolean;\n  article: IArticle;\n  editor: IEditor;\n  actions: IActions;\n  dialog: IDialog;\n  user: User;\n  commerce: Commerce;\n  googleAnalytics: GoogleAnalytics;\n  guard: Guard;\n  access: {\n    check: true;\n  };\n  qidian: {\n    id: string;\n    key: string;\n  };\n}\nexport interface ITheme {\n  name: string;\n  style: string;\n  icon?: string;\n  svgIcon?: string;\n}\n\nexport interface PhoneLogin {\n  enable: boolean;\n  tabLabel: string;\n  leftTime: number;\n  submitLabel: string;\n  error: string;\n}\n\nexport interface PswLogin {\n  enable: boolean;\n  tabLabel: string;\n  submitLabel: string;\n}\n\nexport interface ILogin {\n  loginRedirect: string;\n  left: any;\n  phoneLogin: PhoneLogin;\n  pswLogin: PswLogin;\n}\n\nexport interface Github {\n  repos: string;\n  api: string;\n}\n\nexport interface IApiUrl {\n  loginPath: string;\n  logoutPath: string;\n  userIdGetPath: string;\n  nodeGetPath: string;\n  commentGetPath: string;\n  paymentPath: string;\n  taxonomyGetPath: string;\n  flaggingGetPath: string;\n  userGetPath: string;\n  yushan: string;\n  search: any;\n  github: Github;\n}\n\nexport interface Form {\n  label: string;\n  key: string;\n  value: number;\n  type: string;\n  placeholder: string;\n  controlType: string;\n  appearance: string;\n  errorMes: string;\n  tooltip: string;\n  matTooltipPosition: string;\n  suffix: string;\n}\n\nexport interface FontSize {\n  enable: boolean;\n  form: Form[];\n}\n\nexport interface Comment {\n  enable: boolean;\n}\n\nexport interface IArticle {\n  fontSize: FontSize;\n  comment: Comment;\n}\n\nexport interface Modules {\n  toolbar: any[][];\n}\n\nexport interface IEditor {\n  modules: Modules;\n}\n\nexport interface Icon {\n  name: string;\n  inline: boolean;\n}\n\nexport interface Flag {\n  icon: Icon;\n  enable: boolean;\n}\n\nexport interface Button {\n  icon: string;\n  label: string;\n}\n\nexport interface Share {\n  button: Button;\n  enable: boolean;\n}\n\nexport interface Icon2 {\n  name: string;\n  inline: boolean;\n}\n\nexport interface Download {\n  label: string;\n  icon: Icon2;\n  enable: boolean;\n}\n\nexport interface IActions {\n  flag: Flag;\n  share: Share;\n  download: Download;\n}\n\nexport interface Params {\n  width: string;\n  path: string;\n  first: boolean;\n}\n\nexport interface Title {\n  label: string;\n  style: string;\n}\n\nexport interface Action {\n  type: string;\n  label: string;\n  color: string;\n  href: string;\n}\n\nexport interface Text {\n  title: Title;\n  spacer: string;\n  body: string;\n  actions: Action[];\n  actionsAlign: string;\n}\n\nexport interface ForceDialog {\n  params: Params;\n  text: Text;\n}\n\nexport interface IDialog {\n  forceDialog: ForceDialog;\n}\n\nexport interface User {\n  banner: string;\n}\nexport interface Action2 {\n  type: string;\n  label: string;\n  href: string;\n  color: string;\n}\n\nexport interface Commerce {\n  vip: string;\n  payNode: string;\n  dialog: {\n    spacer: string;\n    title: {\n      label: string;\n      style: string;\n    };\n    body: string;\n    actionsAlign: string;\n    actions: Action2[];\n  };\n}\n\nexport interface GoogleAnalytics {\n  id: string;\n}\n\nexport interface Guard {\n  authGuard: boolean;\n}\n\nexport interface IPage {\n  meta?: any[];\n  config?: any;\n  title: string;\n  body: any[];\n}\n\nexport interface ICommerce {\n  vip: string;\n  payNode: string;\n  dialog: IText;\n}\n",
+            "properties": [
+                {
+                    "name": "forceDialog",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "ForceDialog",
+                    "optional": false,
+                    "description": "",
+                    "line": 187
                 }
             ],
             "indexSignatures": [],
@@ -11575,7 +11575,7 @@
     "guards": [
         {
             "name": "AuthGuard",
-            "id": "injectable-AuthGuard-bbe359b5c5a510bd155dc6e6f1d1a3b8c3bbf26df63208d07757bf757cd080d759903bab5942ed1021440cad3d55e2f7c3cd3d19860d6ef211418df9bb4f4901",
+            "id": "injectable-AuthGuard-13ed08d0ccb327438a9a40ac8a94b94b60908720ed31dfa39359bd257fff5ada0440c4b82a4836b38f1c89ed1fef4deaaa8004aef52fa78784a63ac29377543e",
             "file": "src/app/core/guards/auth.guard.ts",
             "properties": [],
             "methods": [
@@ -11627,7 +11627,7 @@
             "deprecationMessage": "",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { Inject, Injectable } from '@angular/core';\nimport {\n  CanActivate,\n  Router,\n  ActivatedRouteSnapshot,\n  RouterStateSnapshot,\n  UrlTree,\n} from '@angular/router';\nimport { Observable, of } from 'rxjs';\nimport { UserState } from '../mobx/user/UserState';\nimport { UserService } from '@core/service/user.service';\nimport { catchError, map } from 'rxjs/operators';\nimport { CORE_CONFIG } from '@core/token/core.config';\nimport { ICoreConfig } from '@core/mobx/IAppConfig';\nimport { environment } from 'src/environments/environment';\n\n@Injectable({\n  providedIn: 'root',\n})\nexport class AuthGuard implements CanActivate {\n  constructor(\n    private router: Router,\n    private userState: UserState,\n    private userService: UserService,\n    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig\n  ) {}\n  canActivate(\n    route: ActivatedRouteSnapshot,\n    state: RouterStateSnapshot\n  ):\n    | Observable<boolean | UrlTree>\n    | Promise<boolean | UrlTree>\n    | boolean\n    | UrlTree {\n    // return true;\n    if (state.url.startsWith('/my') || this.coreConfig?.guard?.authGuard) {\n      return this.userService.getLoginState().pipe(\n        map((status) => {\n          console.log('userState:', status);\n          if (status) {\n            if (environment?.drupalProxy) {\n              if (!this.userState.csrfToken) {\n                this.userState.updateUserBySession();\n              }\n            }\n            return true;\n          } else {\n            this.userState.logouLocalUser();\n            if (environment?.drupalProxy) {\n              window.location.href = 'user/login';\n              return false;\n            } else {\n              this.router.navigate(['me/login'], {\n                queryParams: { returnUrl: state.url },\n              });\n              return false;\n            }\n          }\n        }),\n        catchError(() => {\n          if (environment?.drupalProxy) {\n            window.location.href = 'user/login';\n            return of(false);\n          } else {\n            this.router.navigate(['me/login']);\n            return of(false);\n          }\n        })\n      );\n    }\n    return true;\n  }\n}\n",
+            "sourceCode": "import { Inject, Injectable } from '@angular/core';\nimport {\n  CanActivate,\n  Router,\n  ActivatedRouteSnapshot,\n  RouterStateSnapshot,\n  UrlTree,\n} from '@angular/router';\nimport { Observable, of } from 'rxjs';\nimport { UserState } from '../mobx/user/UserState';\nimport { UserService } from '@core/service/user.service';\nimport { catchError, map } from 'rxjs/operators';\nimport { CORE_CONFIG } from '@core/token/core.config';\nimport { ICoreConfig } from '@core/mobx/IAppConfig';\nimport { environment } from 'src/environments/environment';\n\n@Injectable({\n  providedIn: 'root',\n})\nexport class AuthGuard implements CanActivate {\n  constructor(\n    private router: Router,\n    private userState: UserState,\n    private userService: UserService,\n    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig\n  ) {}\n  canActivate(\n    route: ActivatedRouteSnapshot,\n    state: RouterStateSnapshot\n  ):\n    | Observable<boolean | UrlTree>\n    | Promise<boolean | UrlTree>\n    | boolean\n    | UrlTree {\n    return true;\n    if (state.url.startsWith('/my') || this.coreConfig?.guard?.authGuard) {\n      return this.userService.getLoginState().pipe(\n        map((status) => {\n          console.log('userState:', status);\n          if (status) {\n            if (environment?.drupalProxy) {\n              if (!this.userState.csrfToken) {\n                this.userState.updateUserBySession();\n              }\n            }\n            return true;\n          } else {\n            this.userState.logouLocalUser();\n            if (environment?.drupalProxy) {\n              window.location.href = 'user/login';\n              return false;\n            } else {\n              this.router.navigate(['me/login'], {\n                queryParams: { returnUrl: state.url },\n              });\n              return false;\n            }\n          }\n        }),\n        catchError(() => {\n          if (environment?.drupalProxy) {\n            window.location.href = 'user/login';\n            return of(false);\n          } else {\n            this.router.navigate(['me/login']);\n            return of(false);\n          }\n        })\n      );\n    }\n    return true;\n  }\n}\n",
             "constructorObj": {
                 "name": "constructor",
                 "description": "",
@@ -44096,7 +44096,7 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<ng-container *ngIf=\"content\">\n  <div class=\"title\" [ngClass]=\"content.style\">\n    <h2 class=\"title-header\" [ngClass]=\"content.classes || 'mat-h2'\" [innerHTML]=\"content.label|safeHtml\"\n      [class.m-bottom-sm]=\"content.style === 'none'\"></h2>\n    <div class=\"line-style\" [class.m-top-sm]=\"content.icon\">\n      <mat-icon *ngIf=\"content.icon && content.style\">{{content.icon}}</mat-icon>\n      <span></span>\n    </div>\n  </div>\n</ng-container>\n"
+            "templateData": "<ng-container>\n  <div class=\"title\" [ngClass]=\"content.style\">\n    <h2 class=\"title-header\" [ngClass]=\"content.classes || 'mat-h2'\" [innerHTML]=\"content.label|safeHtml\"\n      [class.m-bottom-sm]=\"content.style === 'none'\"></h2>\n    <div class=\"line-style\" [class.m-top-sm]=\"content.icon\">\n      <mat-icon *ngIf=\"content.icon && content.style\">{{content.icon}}</mat-icon>\n      <span></span>\n    </div>\n  </div>\n</ng-container>\n"
         },
         {
             "name": "TreeComponent",
@@ -50722,10 +50722,70 @@
                 "type": "NodeRequire"
             },
             {
-                "name": "Base",
+                "name": "Accent",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/stories/Icon.stories.ts",
+                "file": "src/stories/widgets/Icon.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "BgColor",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/widgets/Bg.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "Box",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/widgets/Box.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "Breadcrumb",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/widgets/Breadcrumb.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "BtnLink",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/widgets/Button.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "BtnRaised",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/widgets/Button.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "BtnStroked",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/widgets/Button.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -50785,21 +50845,21 @@
                 "name": "components",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/uiux/combs/carousel/carousel.module.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "[]",
-                "defaultValue": "[\n  Carousel1v1Component,\n  Carousel1v2Component,\n  Carousel1v3Component,\n  Carousel2v1Component,\n  Carousel2v2Component,\n]"
-            },
-            {
-                "name": "components",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "src/app/uiux/combs/hero/hero.module.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "[]",
                 "defaultValue": "[\n  Hero1v1Component,\n  Hero1v2Component,\n  Hero2v1Component,\n  Hero2v2Component,\n  Hero2v3Component,\n]"
+            },
+            {
+                "name": "components",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/uiux/combs/carousel/carousel.module.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "[]",
+                "defaultValue": "[\n  Carousel1v1Component,\n  Carousel1v2Component,\n  Carousel1v3Component,\n  Carousel2v1Component,\n  Carousel2v2Component,\n]"
             },
             {
                 "name": "components",
@@ -50830,16 +50890,6 @@
                 "deprecationMessage": "",
                 "type": "[]",
                 "defaultValue": "[ShuffleComponent, PackeryComponent]"
-            },
-            {
-                "name": "components",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/app/uiux/combs/node/node.module.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "[]",
-                "defaultValue": "[\n  JobComponent,\n  CaseComponent,\n  ArticleComponent,\n  JobNodeComponent,\n  JobListComponent,\n  CaseNodeComponent,\n  JobFilterComponent,\n  ArticleBannerComponent,\n  ArticleMetaComponent,\n  QuestionComponent,\n  LawCaseComponent,\n  LawFilesComponent,\n  LawTableComponent,\n  CommentFormComponent,\n  CommentListComponent,\n  CommentItemComponent,\n  LawShowcaseComponent,\n  LawCardComponent,\n  LawHeaderComponent,\n  CommentActionsComponent,\n]"
             },
             {
                 "name": "components",
@@ -50892,6 +50942,16 @@
                 "defaultValue": "[VideoBgComponent]"
             },
             {
+                "name": "components",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/uiux/combs/node/node.module.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "[]",
+                "defaultValue": "[\n  JobComponent,\n  CaseComponent,\n  ArticleComponent,\n  JobNodeComponent,\n  JobListComponent,\n  CaseNodeComponent,\n  JobFilterComponent,\n  ArticleBannerComponent,\n  ArticleMetaComponent,\n  QuestionComponent,\n  LawCaseComponent,\n  LawFilesComponent,\n  LawTableComponent,\n  CommentFormComponent,\n  CommentListComponent,\n  CommentItemComponent,\n  LawShowcaseComponent,\n  LawCardComponent,\n  LawHeaderComponent,\n  CommentActionsComponent,\n]"
+            },
+            {
                 "name": "compressionModule",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -50920,6 +50980,26 @@
                 "deprecationMessage": "",
                 "type": "",
                 "defaultValue": "new InjectionToken<object>('core config')"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/widgets/Btn-animate.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/widgets/card/Card.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
             },
             {
                 "name": "DEFAULT_SWIPER_CONFIG",
@@ -50965,16 +51045,6 @@
                 "name": "environment",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/environments/environment.sanziqi.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "IEnvironment",
-                "defaultValue": "{\n  apiUrl: 'https://sanziqi-api.zhaobg.com',\n  production: true,\n  site: 'sanziqi',\n  port: 4207,\n  cache: true,\n  ssr: true,\n}"
-            },
-            {
-                "name": "environment",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "src/environments/environment.prod.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -50985,11 +51055,21 @@
                 "name": "environment",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "src/environments/environment.sanziqi.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "IEnvironment",
+                "defaultValue": "{\n  apiUrl: 'https://sanziqi-api.zhaobg.com',\n  production: true,\n  site: 'sanziqi',\n  port: 4207,\n  cache: true,\n  ssr: true,\n}"
+            },
+            {
+                "name": "environment",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "src/environments/environment.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "IEnvironment",
-                "defaultValue": "{\n  apiUrl: 'http://localhost:4200',\n  // apiUrl: 'https://api.zhaobg.com',\n  production: false,\n  site: 'xinshi',\n  port: 4000,\n  cache: false,\n  ssr: false,\n}"
+                "defaultValue": "{\n  apiUrl: 'http://localhost:4200',\n  // apiUrl: 'https://amigo.zhaobg.com',\n  production: false,\n  site: 'xinshi',\n  port: 4000,\n  cache: false,\n  ssr: false,\n}"
             },
             {
                 "name": "environment",
@@ -51064,27 +51144,7 @@
                 "name": "LoggedIn",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/stories/Header.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "Template.bind({})"
-            },
-            {
-                "name": "LoggedIn",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "src/stories/Page.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "Template.bind({})"
-            },
-            {
-                "name": "LoggedOut",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/stories/Header.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -51164,7 +51224,7 @@
                 "name": "Primary",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/stories/Button.stories.ts",
+                "file": "src/stories/widgets/Icon.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -51193,41 +51253,91 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/stories/Button.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story<BtnComponent>",
-                "defaultValue": "(args: BtnComponent) => ({\n  props: args,\n})"
-            },
-            {
-                "name": "Template",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/stories/Header.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story<Header>",
-                "defaultValue": "(args: Header) => ({\n  props: args,\n})"
-            },
-            {
-                "name": "Template",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/stories/Icon.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story<IconComponent>",
-                "defaultValue": "() => ({\n  component: IconComponent,\n  props: {\n    content: {\n      color: select('Color', ['primary', 'accent', 'warn'], 'primary'),\n      name: text('Name', 'format_color_fill'),\n    },\n  },\n  template: `<app-icon [content]=\"content\"></app-icon>`,\n})"
-            },
-            {
-                "name": "Template",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "src/stories/Page.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story<Page>",
                 "defaultValue": "(args: Page) => ({\n  props: args,\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/widgets/Bg.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story<BgComponent>",
+                "defaultValue": "(args) => ({\n  component: BgComponent,\n  props: {\n    ...args,\n  },\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/widgets/Box.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story<BoxComponent>",
+                "defaultValue": "(args) => ({\n  component: BoxComponent,\n  props: {\n    ...args,\n  },\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/widgets/Breadcrumb.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story<BreadcrumbComponent>",
+                "defaultValue": "(args) => ({\n  component: BreadcrumbComponent,\n  props: {\n    ...args,\n  },\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/widgets/Btn-animate.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story<BtnAnimateComponent>",
+                "defaultValue": "(args) => ({\n  component: BtnAnimateComponent,\n  props: {\n    ...args,\n  },\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/widgets/Button.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story<BtnComponent>",
+                "defaultValue": "(args) => ({\n  component: BtnComponent,\n  props: {\n    ...args,\n  },\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/widgets/Icon.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story<IconComponent>",
+                "defaultValue": "(args) => ({\n  component: IconComponent,\n  props: {\n    ...args,\n  },\n  template: `<app-icon [content]=\"content\"></app-icon>`,\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/widgets/Title.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story<TitleComponent>",
+                "defaultValue": "(args) => ({\n  component: TitleComponent,\n  props: {\n    ...args,\n  },\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/widgets/card/Card.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story<CardComponent>",
+                "defaultValue": "(args) => ({\n  component: CardComponent,\n  props: {\n    ...args,\n  },\n})"
             },
             {
                 "name": "text",
@@ -51240,6 +51350,76 @@
                 "defaultValue": "{\n  spacer: 'none',\n  title: {\n    label: '国内 Drupal 优秀网站案例',\n    style: 'style-v1',\n    classes: 'mat-display-0',\n  },\n  body: '<p class=\"text-center\">欢迎分享 Drupal 优秀的数字创新体验</p>',\n}"
             },
             {
+                "name": "TitleV1",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/widgets/Title.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "TitleV2",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/widgets/Title.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "TitleV3",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/widgets/Title.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "TitleV4",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/widgets/Title.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "TitleV5",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/widgets/Title.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "TitleV6",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/widgets/Title.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "TitleV7",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/widgets/Title.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
                 "name": "unauthUser",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -51248,6 +51428,16 @@
                 "deprecationMessage": "",
                 "type": "object",
                 "defaultValue": "{\n  id: '',\n  authenticated: false,\n  csrf_token: '',\n  current_user: {\n    uid: '',\n    name: '',\n    roles: [],\n  },\n  logout_token: '',\n  login: '',\n}"
+            },
+            {
+                "name": "Warn",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/widgets/Icon.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
             },
             {
                 "name": "win",
@@ -51437,12 +51627,22 @@
                     "defaultValue": "dominoModule.createWindow(indexTemplate)"
                 }
             ],
-            "src/stories/Icon.stories.ts": [
+            "src/stories/widgets/Icon.stories.ts": [
                 {
-                    "name": "Base",
+                    "name": "Accent",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/stories/Icon.stories.ts",
+                    "file": "src/stories/widgets/Icon.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Primary",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/widgets/Icon.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
@@ -51452,11 +51652,129 @@
                     "name": "Template",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/stories/Icon.stories.ts",
+                    "file": "src/stories/widgets/Icon.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story<IconComponent>",
-                    "defaultValue": "() => ({\n  component: IconComponent,\n  props: {\n    content: {\n      color: select('Color', ['primary', 'accent', 'warn'], 'primary'),\n      name: text('Name', 'format_color_fill'),\n    },\n  },\n  template: `<app-icon [content]=\"content\"></app-icon>`,\n})"
+                    "defaultValue": "(args) => ({\n  component: IconComponent,\n  props: {\n    ...args,\n  },\n  template: `<app-icon [content]=\"content\"></app-icon>`,\n})"
+                },
+                {
+                    "name": "Warn",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/widgets/Icon.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                }
+            ],
+            "src/stories/widgets/Bg.stories.ts": [
+                {
+                    "name": "BgColor",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/widgets/Bg.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/widgets/Bg.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story<BgComponent>",
+                    "defaultValue": "(args) => ({\n  component: BgComponent,\n  props: {\n    ...args,\n  },\n})"
+                }
+            ],
+            "src/stories/widgets/Box.stories.ts": [
+                {
+                    "name": "Box",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/widgets/Box.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/widgets/Box.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story<BoxComponent>",
+                    "defaultValue": "(args) => ({\n  component: BoxComponent,\n  props: {\n    ...args,\n  },\n})"
+                }
+            ],
+            "src/stories/widgets/Breadcrumb.stories.ts": [
+                {
+                    "name": "Breadcrumb",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/widgets/Breadcrumb.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/widgets/Breadcrumb.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story<BreadcrumbComponent>",
+                    "defaultValue": "(args) => ({\n  component: BreadcrumbComponent,\n  props: {\n    ...args,\n  },\n})"
+                }
+            ],
+            "src/stories/widgets/Button.stories.ts": [
+                {
+                    "name": "BtnLink",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/widgets/Button.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "BtnRaised",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/widgets/Button.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "BtnStroked",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/widgets/Button.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/widgets/Button.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story<BtnComponent>",
+                    "defaultValue": "(args) => ({\n  component: BtnComponent,\n  props: {\n    ...args,\n  },\n})"
                 }
             ],
             "src/app/modules/manage/manage.module.ts": [
@@ -51529,18 +51847,6 @@
                     "defaultValue": "[FullCalendarComponent]"
                 }
             ],
-            "src/app/uiux/combs/carousel/carousel.module.ts": [
-                {
-                    "name": "components",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/uiux/combs/carousel/carousel.module.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "[]",
-                    "defaultValue": "[\n  Carousel1v1Component,\n  Carousel1v2Component,\n  Carousel1v3Component,\n  Carousel2v1Component,\n  Carousel2v2Component,\n]"
-                }
-            ],
             "src/app/uiux/combs/hero/hero.module.ts": [
                 {
                     "name": "components",
@@ -51551,6 +51857,18 @@
                     "deprecationMessage": "",
                     "type": "[]",
                     "defaultValue": "[\n  Hero1v1Component,\n  Hero1v2Component,\n  Hero2v1Component,\n  Hero2v2Component,\n  Hero2v3Component,\n]"
+                }
+            ],
+            "src/app/uiux/combs/carousel/carousel.module.ts": [
+                {
+                    "name": "components",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/uiux/combs/carousel/carousel.module.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "[]",
+                    "defaultValue": "[\n  Carousel1v1Component,\n  Carousel1v2Component,\n  Carousel1v3Component,\n  Carousel2v1Component,\n  Carousel2v2Component,\n]"
                 }
             ],
             "src/app/uiux/combs/list/list.module.ts": [
@@ -51587,18 +51905,6 @@
                     "deprecationMessage": "",
                     "type": "[]",
                     "defaultValue": "[ShuffleComponent, PackeryComponent]"
-                }
-            ],
-            "src/app/uiux/combs/node/node.module.ts": [
-                {
-                    "name": "components",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/uiux/combs/node/node.module.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "[]",
-                    "defaultValue": "[\n  JobComponent,\n  CaseComponent,\n  ArticleComponent,\n  JobNodeComponent,\n  JobListComponent,\n  CaseNodeComponent,\n  JobFilterComponent,\n  ArticleBannerComponent,\n  ArticleMetaComponent,\n  QuestionComponent,\n  LawCaseComponent,\n  LawFilesComponent,\n  LawTableComponent,\n  CommentFormComponent,\n  CommentListComponent,\n  CommentItemComponent,\n  LawShowcaseComponent,\n  LawCardComponent,\n  LawHeaderComponent,\n  CommentActionsComponent,\n]"
                 }
             ],
             "src/app/uiux/combs/other/other.module.ts": [
@@ -51661,6 +51967,18 @@
                     "defaultValue": "[VideoBgComponent]"
                 }
             ],
+            "src/app/uiux/combs/node/node.module.ts": [
+                {
+                    "name": "components",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/uiux/combs/node/node.module.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "[]",
+                    "defaultValue": "[\n  JobComponent,\n  CaseComponent,\n  ArticleComponent,\n  JobNodeComponent,\n  JobListComponent,\n  CaseNodeComponent,\n  JobFilterComponent,\n  ArticleBannerComponent,\n  ArticleMetaComponent,\n  QuestionComponent,\n  LawCaseComponent,\n  LawFilesComponent,\n  LawTableComponent,\n  CommentFormComponent,\n  CommentListComponent,\n  CommentItemComponent,\n  LawShowcaseComponent,\n  LawCardComponent,\n  LawHeaderComponent,\n  CommentActionsComponent,\n]"
+                }
+            ],
             "src/test.ts": [
                 {
                     "name": "context",
@@ -51694,6 +52012,50 @@
                     "defaultValue": "new InjectionToken<object>('core config')"
                 }
             ],
+            "src/stories/widgets/Btn-animate.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/widgets/Btn-animate.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/widgets/Btn-animate.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story<BtnAnimateComponent>",
+                    "defaultValue": "(args) => ({\n  component: BtnAnimateComponent,\n  props: {\n    ...args,\n  },\n})"
+                }
+            ],
+            "src/stories/widgets/card/Card.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/widgets/card/Card.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/widgets/card/Card.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story<CardComponent>",
+                    "defaultValue": "(args) => ({\n  component: CardComponent,\n  props: {\n    ...args,\n  },\n})"
+                }
+            ],
             "src/environments/environment.nnit.ts": [
                 {
                     "name": "environment",
@@ -51704,18 +52066,6 @@
                     "deprecationMessage": "",
                     "type": "IEnvironment",
                     "defaultValue": "{\n  apiUrl: 'https://api.nnitpai.com',\n  production: true,\n  site: 'nnit',\n  port: 4201,\n  cache: true,\n  ssr: true,\n}"
-                }
-            ],
-            "src/environments/environment.sanziqi.ts": [
-                {
-                    "name": "environment",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/environments/environment.sanziqi.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "IEnvironment",
-                    "defaultValue": "{\n  apiUrl: 'https://sanziqi-api.zhaobg.com',\n  production: true,\n  site: 'sanziqi',\n  port: 4207,\n  cache: true,\n  ssr: true,\n}"
                 }
             ],
             "src/environments/environment.prod.ts": [
@@ -51730,6 +52080,18 @@
                     "defaultValue": "{\n  apiUrl: 'https://api.zhaobg.com',\n  production: true,\n  site: 'dist',\n  port: 4200,\n  cache: false,\n  ssr: true,\n  drupalProxy: false,\n}"
                 }
             ],
+            "src/environments/environment.sanziqi.ts": [
+                {
+                    "name": "environment",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/environments/environment.sanziqi.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "IEnvironment",
+                    "defaultValue": "{\n  apiUrl: 'https://sanziqi-api.zhaobg.com',\n  production: true,\n  site: 'sanziqi',\n  port: 4207,\n  cache: true,\n  ssr: true,\n}"
+                }
+            ],
             "src/environments/environment.ts": [
                 {
                     "name": "environment",
@@ -51739,7 +52101,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "IEnvironment",
-                    "defaultValue": "{\n  apiUrl: 'http://localhost:4200',\n  // apiUrl: 'https://api.zhaobg.com',\n  production: false,\n  site: 'xinshi',\n  port: 4000,\n  cache: false,\n  ssr: false,\n}"
+                    "defaultValue": "{\n  apiUrl: 'http://localhost:4200',\n  // apiUrl: 'https://amigo.zhaobg.com',\n  production: false,\n  site: 'xinshi',\n  port: 4000,\n  cache: false,\n  ssr: false,\n}"
                 }
             ],
             "src/environments/environment.xinshi.ts": [
@@ -51808,38 +52170,6 @@
                     "deprecationMessage": "",
                     "type": "object",
                     "defaultValue": "{\n  title: '',\n  body: [],\n}"
-                }
-            ],
-            "src/stories/Header.stories.ts": [
-                {
-                    "name": "LoggedIn",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/stories/Header.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "Template.bind({})"
-                },
-                {
-                    "name": "LoggedOut",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/stories/Header.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "Template.bind({})"
-                },
-                {
-                    "name": "Template",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/stories/Header.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story<Header>",
-                    "defaultValue": "(args: Header) => ({\n  props: args,\n})"
                 }
             ],
             "src/stories/Page.stories.ts": [
@@ -51922,28 +52252,6 @@
                     "defaultValue": "{\n  el: '.swiper-pagination',\n  type: 'bullets',\n  clickable: true,\n  hideOnClick: false,\n}"
                 }
             ],
-            "src/stories/Button.stories.ts": [
-                {
-                    "name": "Primary",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/stories/Button.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "Template.bind({})"
-                },
-                {
-                    "name": "Template",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/stories/Button.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story<BtnComponent>",
-                    "defaultValue": "(args: BtnComponent) => ({\n  props: args,\n})"
-                }
-            ],
             "src/app/core/mobx/mobx.module.ts": [
                 {
                     "name": "states",
@@ -51954,6 +52262,88 @@
                     "deprecationMessage": "",
                     "type": "[]",
                     "defaultValue": "[UserState, BrandingState]"
+                }
+            ],
+            "src/stories/widgets/Title.stories.ts": [
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/widgets/Title.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story<TitleComponent>",
+                    "defaultValue": "(args) => ({\n  component: TitleComponent,\n  props: {\n    ...args,\n  },\n})"
+                },
+                {
+                    "name": "TitleV1",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/widgets/Title.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "TitleV2",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/widgets/Title.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "TitleV3",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/widgets/Title.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "TitleV4",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/widgets/Title.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "TitleV5",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/widgets/Title.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "TitleV6",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/widgets/Title.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "TitleV7",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/widgets/Title.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
                 }
             ],
             "src/app/uiux/combs/node/case/case.component.ts": [
@@ -55295,76 +55685,6 @@
                 "status": "low"
             },
             {
-                "filePath": "src/stories/Button.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "Primary",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "src/stories/Button.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "Template",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "src/stories/Header.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "LoggedIn",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "src/stories/Header.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "LoggedOut",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "src/stories/Header.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "Template",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "src/stories/Icon.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "Base",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "src/stories/Icon.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "Template",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
                 "filePath": "src/stories/Page.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
@@ -55428,6 +55748,266 @@
                 "name": "PageComponent",
                 "coveragePercent": 0,
                 "coverageCount": "0/5",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/widgets/Bg.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "BgColor",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/widgets/Bg.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/widgets/Box.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Box",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/widgets/Box.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/widgets/Breadcrumb.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Breadcrumb",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/widgets/Breadcrumb.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/widgets/Btn-animate.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Default",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/widgets/Btn-animate.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/widgets/Button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "BtnLink",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/widgets/Button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "BtnRaised",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/widgets/Button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "BtnStroked",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/widgets/Button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/widgets/Icon.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Accent",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/widgets/Icon.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Primary",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/widgets/Icon.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/widgets/Icon.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Warn",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/widgets/Title.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/widgets/Title.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "TitleV1",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/widgets/Title.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "TitleV2",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/widgets/Title.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "TitleV3",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/widgets/Title.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "TitleV4",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/widgets/Title.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "TitleV5",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/widgets/Title.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "TitleV6",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/widgets/Title.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "TitleV7",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/widgets/card/Card.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Default",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/widgets/card/Card.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
                 "status": "low"
             },
             {

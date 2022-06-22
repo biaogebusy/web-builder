@@ -4,7 +4,7 @@ import { storiesOf, moduleMetadata } from '@storybook/angular';
 import { TextComponent } from '@uiux/widgets/text/text.component';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 
-storiesOf('Text', module)
+storiesOf('Widgets/Text', module)
   .addDecorator(
     moduleMetadata({
       declarations: [],

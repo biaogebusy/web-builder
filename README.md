@@ -19,6 +19,10 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 ![Drupal 自习室](./src/assets/images/qrcode.jpg)
 
+## story angular guide
+
+[get started](https://storybook.js.org/tutorials/intro-to-storybook/angular/en/get-started/)
+
 ## 扫码入群，或加微信：biaogebusy
 
 ![交流群](./src/assets/images/qrcode.png)
