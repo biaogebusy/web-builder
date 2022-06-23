@@ -37,8 +37,8 @@ export class UserCardComponent extends BaseComponent implements OnInit {
         src: this.userState.picture,
         alt: user.current_user.name,
         style: {
-          height: '50px',
-          width: '50px',
+          height: '37px',
+          width: '37px',
           borderRadius: '50%',
         },
       },
