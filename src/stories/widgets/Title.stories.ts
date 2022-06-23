@@ -3,15 +3,18 @@ import { ShareModule } from '@share/share.module';
 import { moduleMetadata, Meta, Story } from '@storybook/angular';
 import { TitleComponent } from '@uiux/widgets/title/title.component';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { IconComponent } from '@uiux/widgets/icon/icon.component';
+import { MatIconModule } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
 
 export default {
   title: 'Widgets/Title',
   component: TitleComponent,
   decorators: [
     moduleMetadata({
-      declarations: [],
-      imports: [WidgetsModule, ShareModule],
-      providers: [SafeHtmlPipe],
+      declarations: [IconComponent, SafeHtmlPipe],
+      imports: [MatIconModule, ShareModule],
+      providers: [],
     }),
   ],
 } as Meta;

@@ -4,10 +4,11 @@
   </mat-card-content>
   <mat-card-header class="m-bottom-xs" *ngIf="content?.header">
     <div mat-card-avatar *ngIf="content.header?.avatar">
-      <app-img [content]="content.header.avatar"></app-img>
+      <app-img [content]="content.header?.avatar || {src:''}"></app-img>
     </div>
-    <mat-card-title *ngIf="content.header?.title" [innerHTML]="content.header.title"></mat-card-title>
-    <mat-card-subtitle *ngIf="content.header?.subTitle" [innerHTML]="content.header.subTitle"></mat-card-subtitle>
+    <mat-card-title *ngIf="content.header?.title" [innerHTML]="content.header?.title || ''"></mat-card-title>
+    <mat-card-subtitle *ngIf="content.header?.subTitle" [innerHTML]="content.header?.subTitle || ''">
+    </mat-card-subtitle>
   </mat-card-header>
   <div class="card-header">
     <ng-container *ngIf="content.carousel">

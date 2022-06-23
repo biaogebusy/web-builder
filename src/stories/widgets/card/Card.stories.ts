@@ -5,33 +5,26 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { CardMetaComponent } from '@uiux/widgets/card/card-meta/card-meta.component';
 import { CardComponent } from '@uiux/widgets/card/card.component';
-import { FeatureBoxComponent } from '@uiux/widgets/feature-box/feature-box.component';
-import { ImgComponent } from '@uiux/widgets/img/img.component';
-import { LinkComponent } from '@uiux/widgets/link/link.component';
-import { SwiperComponent } from '@uiux/widgets/swiper/swiper.component';
-import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { CORE_CONFIG } from '@core/token/core.config';
 export default {
   title: 'Widgets/Card',
   component: CardComponent,
   decorators: [
     moduleMetadata({
-      declarations: [
-        ImgComponent,
-        SwiperComponent,
-        CardMetaComponent,
-        LinkComponent,
-        FeatureBoxComponent,
-        SafeHtmlPipe,
+      declarations: [],
+      imports: [ShareModule, WidgetsModule],
+      providers: [
+        {
+          provide: CORE_CONFIG,
+          useValue: {},
+        },
       ],
-      imports: [ShareModule],
-      providers: [],
     }),
-    // componentWrapperDecorator(
-    //   (story) =>
-    //     `<div class="position-relative p-x p-y" style="z-index:1">${story}</div>`
-    // ),
+    componentWrapperDecorator(
+      (story) => `<div fxFlex="300px" class="position-relative">${story}</div>`
+    ),
   ],
 } as Meta;
 
