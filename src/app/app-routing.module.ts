@@ -8,10 +8,10 @@ const routes: Routes = [
     path: '',
     redirectTo: 'home',
     pathMatch: 'full',
+    canActivate: [AuthGuard],
   },
   {
     path: 'me',
-    canActivate: [AuthGuard],
     loadChildren: () =>
       import('./modules/user/user.module').then((m) => m.UserModule),
   },

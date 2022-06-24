@@ -47,10 +47,10 @@ export class AuthGuard implements CanActivate {
           } else {
             this.userState.logouLocalUser();
             if (environment?.drupalProxy) {
-              window.location.href = 'user/login';
+              window.location.href = '/user/login';
               return false;
             } else {
-              this.router.navigate(['me/login'], {
+              this.router.navigate(['/me/login'], {
                 queryParams: { returnUrl: state.url },
               });
               return false;
@@ -59,10 +59,10 @@ export class AuthGuard implements CanActivate {
         }),
         catchError(() => {
           if (environment?.drupalProxy) {
-            window.location.href = 'user/login';
+            window.location.href = '/user/login';
             return of(false);
           } else {
-            this.router.navigate(['me/login']);
+            this.router.navigate(['/me/login']);
             return of(false);
           }
         })
