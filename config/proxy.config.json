@@ -1,0 +1,17 @@
+{
+  "/sites": {
+    "target": "https://api.zhaobg.com",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/user": {
+    "target": "https://amigo.zhaobg.com",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/api": {
+    "target": "https://amigo.zhaobg.com",
+    "secure": false,
+    "changeOrigin": true
+  }
+}
