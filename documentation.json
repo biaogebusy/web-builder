@@ -1526,12 +1526,12 @@
         },
         {
             "name": "ICard",
-            "id": "interface-ICard-8f83f07ea8ab5edc568b860eb9da00828084cb6c0c21cdf64774006958679dde279108809e936be072739069afc08e98548be4e782f30b444598e87d2fe655a6",
+            "id": "interface-ICard-3a9f46296ab7c47c0dac254e53fe2e1685dd51bc4dcb62625eb63ca2a721b02595c06bc346ba688d9a7b089ba4dd032597536cce4121ad245d95d2fa5b22459a",
             "file": "src/app/uiux/widgets/IWidgets.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "import { IImg } from '@core/interface/widgets/IImg';\nimport { ILink } from '@core/interface/widgets/ILink';\nimport { IIcon } from '../../core/interface/widgets/IIcon';\n\nexport interface ICard {\n  title?: string;\n  subTitle?: string;\n  avatar?: IImg;\n  body?: any;\n  classes?: any;\n  img?: {\n    src: string;\n    alt?: string;\n    hostClasses?: any;\n    classes?: any;\n  };\n  header: {\n    avatar: IImg;\n    title: string;\n    subTitle: string;\n    icon: IIcon;\n    meta: IMeta[];\n  };\n  footer: {\n    meta: IMeta[];\n  };\n  carousel?: any;\n  feature?: any;\n  overlay?: any[];\n  link: ILink;\n  actions?: any;\n  progressBar: {\n    mode: 'determinate' | 'indeterminate' | 'buffer' | 'query';\n    value: number;\n  };\n}\n\nexport interface IMeta {\n  label: string;\n  value: string;\n}\n\nexport interface IInlineLightbox {\n  label: string[];\n  elements: ILightboxElement[];\n}\n\nexport interface ILightboxElement {\n  src: string;\n  caption: string;\n  thumb: string;\n  downloadUrl: string;\n}\n\nexport interface IDynamicTable {\n  header: {\n    label: string;\n    key: string;\n    classes?: string;\n    style?: object;\n    dialog?: {\n      shorten: number;\n      label: string;\n    };\n  }[];\n  classes?: string | string[] | Set<string> | { [klass: string]: any };\n  elements: any[];\n}\n",
+            "sourceCode": "import { IImg } from '@core/interface/widgets/IImg';\nimport { ILink } from '@core/interface/widgets/ILink';\nimport { IIcon } from '../../core/interface/widgets/IIcon';\n\nexport interface ICard {\n  title?: string;\n  subTitle?: string;\n  avatar?: IImg;\n  body?: any;\n  classes?: any;\n  img?: {\n    src: string;\n    alt?: string;\n    hostClasses?: any;\n    classes?: any;\n  };\n  header?: {\n    avatar?: IImg;\n    title?: string;\n    subTitle?: string;\n    icon?: IIcon;\n    meta: IMeta[];\n  };\n  footer?: {\n    meta: IMeta[];\n  };\n  carousel?: any;\n  feature?: any;\n  overlay?: any[];\n  link?: ILink;\n  actions?: any;\n  progressBar?: {\n    mode: 'determinate' | 'indeterminate' | 'buffer' | 'query';\n    value: number;\n  };\n}\n\nexport interface IMeta {\n  label: string;\n  value: any;\n  params?: {\n    lightbox?: boolean;\n    shorten?: number;\n    dialog?: {\n      label: string;\n    };\n  };\n}\n\nexport interface IInlineLightbox {\n  label: string[];\n  elements: ILightboxElement[];\n}\n\nexport interface ILightboxElement {\n  src: string;\n  caption: string;\n  thumb: string;\n  downloadUrl: string;\n}\n\nexport interface IDynamicTable {\n  header: {\n    label: string;\n    key: string;\n    classes?: string;\n    style?: object;\n    dialog?: {\n      shorten: number;\n      label: string;\n    };\n  }[];\n  classes?: string | string[] | Set<string> | { [klass: string]: any };\n  elements: any[];\n}\n",
             "properties": [
                 {
                     "name": "actions",
@@ -1592,7 +1592,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "literal type",
-                    "optional": false,
+                    "optional": true,
                     "description": "",
                     "line": 24
                 },
@@ -1601,7 +1601,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "literal type",
-                    "optional": false,
+                    "optional": true,
                     "description": "",
                     "line": 17
                 },
@@ -1619,7 +1619,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "ILink",
-                    "optional": false,
+                    "optional": true,
                     "description": "",
                     "line": 30
                 },
@@ -1637,7 +1637,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "literal type",
-                    "optional": false,
+                    "optional": true,
                     "description": "",
                     "line": 32
                 },
@@ -2678,12 +2678,12 @@
         },
         {
             "name": "IDynamicTable",
-            "id": "interface-IDynamicTable-8f83f07ea8ab5edc568b860eb9da00828084cb6c0c21cdf64774006958679dde279108809e936be072739069afc08e98548be4e782f30b444598e87d2fe655a6",
+            "id": "interface-IDynamicTable-3a9f46296ab7c47c0dac254e53fe2e1685dd51bc4dcb62625eb63ca2a721b02595c06bc346ba688d9a7b089ba4dd032597536cce4121ad245d95d2fa5b22459a",
             "file": "src/app/uiux/widgets/IWidgets.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "import { IImg } from '@core/interface/widgets/IImg';\nimport { ILink } from '@core/interface/widgets/ILink';\nimport { IIcon } from '../../core/interface/widgets/IIcon';\n\nexport interface ICard {\n  title?: string;\n  subTitle?: string;\n  avatar?: IImg;\n  body?: any;\n  classes?: any;\n  img?: {\n    src: string;\n    alt?: string;\n    hostClasses?: any;\n    classes?: any;\n  };\n  header: {\n    avatar: IImg;\n    title: string;\n    subTitle: string;\n    icon: IIcon;\n    meta: IMeta[];\n  };\n  footer: {\n    meta: IMeta[];\n  };\n  carousel?: any;\n  feature?: any;\n  overlay?: any[];\n  link: ILink;\n  actions?: any;\n  progressBar: {\n    mode: 'determinate' | 'indeterminate' | 'buffer' | 'query';\n    value: number;\n  };\n}\n\nexport interface IMeta {\n  label: string;\n  value: string;\n}\n\nexport interface IInlineLightbox {\n  label: string[];\n  elements: ILightboxElement[];\n}\n\nexport interface ILightboxElement {\n  src: string;\n  caption: string;\n  thumb: string;\n  downloadUrl: string;\n}\n\nexport interface IDynamicTable {\n  header: {\n    label: string;\n    key: string;\n    classes?: string;\n    style?: object;\n    dialog?: {\n      shorten: number;\n      label: string;\n    };\n  }[];\n  classes?: string | string[] | Set<string> | { [klass: string]: any };\n  elements: any[];\n}\n",
+            "sourceCode": "import { IImg } from '@core/interface/widgets/IImg';\nimport { ILink } from '@core/interface/widgets/ILink';\nimport { IIcon } from '../../core/interface/widgets/IIcon';\n\nexport interface ICard {\n  title?: string;\n  subTitle?: string;\n  avatar?: IImg;\n  body?: any;\n  classes?: any;\n  img?: {\n    src: string;\n    alt?: string;\n    hostClasses?: any;\n    classes?: any;\n  };\n  header?: {\n    avatar?: IImg;\n    title?: string;\n    subTitle?: string;\n    icon?: IIcon;\n    meta: IMeta[];\n  };\n  footer?: {\n    meta: IMeta[];\n  };\n  carousel?: any;\n  feature?: any;\n  overlay?: any[];\n  link?: ILink;\n  actions?: any;\n  progressBar?: {\n    mode: 'determinate' | 'indeterminate' | 'buffer' | 'query';\n    value: number;\n  };\n}\n\nexport interface IMeta {\n  label: string;\n  value: any;\n  params?: {\n    lightbox?: boolean;\n    shorten?: number;\n    dialog?: {\n      label: string;\n    };\n  };\n}\n\nexport interface IInlineLightbox {\n  label: string[];\n  elements: ILightboxElement[];\n}\n\nexport interface ILightboxElement {\n  src: string;\n  caption: string;\n  thumb: string;\n  downloadUrl: string;\n}\n\nexport interface IDynamicTable {\n  header: {\n    label: string;\n    key: string;\n    classes?: string;\n    style?: object;\n    dialog?: {\n      shorten: number;\n      label: string;\n    };\n  }[];\n  classes?: string | string[] | Set<string> | { [klass: string]: any };\n  elements: any[];\n}\n",
             "properties": [
                 {
                     "name": "classes",
@@ -2692,7 +2692,7 @@
                     "type": "string | string[] | Set<string> | literal type",
                     "optional": true,
                     "description": "",
-                    "line": 66
+                    "line": 73
                 },
                 {
                     "name": "elements",
@@ -2701,7 +2701,7 @@
                     "type": "any[]",
                     "optional": false,
                     "description": "",
-                    "line": 67
+                    "line": 74
                 },
                 {
                     "name": "header",
@@ -2710,7 +2710,7 @@
                     "type": "literal type[]",
                     "optional": false,
                     "description": "",
-                    "line": 56
+                    "line": 63
                 }
             ],
             "indexSignatures": [],
@@ -3114,12 +3114,12 @@
         },
         {
             "name": "IInlineLightbox",
-            "id": "interface-IInlineLightbox-8f83f07ea8ab5edc568b860eb9da00828084cb6c0c21cdf64774006958679dde279108809e936be072739069afc08e98548be4e782f30b444598e87d2fe655a6",
+            "id": "interface-IInlineLightbox-3a9f46296ab7c47c0dac254e53fe2e1685dd51bc4dcb62625eb63ca2a721b02595c06bc346ba688d9a7b089ba4dd032597536cce4121ad245d95d2fa5b22459a",
             "file": "src/app/uiux/widgets/IWidgets.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "import { IImg } from '@core/interface/widgets/IImg';\nimport { ILink } from '@core/interface/widgets/ILink';\nimport { IIcon } from '../../core/interface/widgets/IIcon';\n\nexport interface ICard {\n  title?: string;\n  subTitle?: string;\n  avatar?: IImg;\n  body?: any;\n  classes?: any;\n  img?: {\n    src: string;\n    alt?: string;\n    hostClasses?: any;\n    classes?: any;\n  };\n  header: {\n    avatar: IImg;\n    title: string;\n    subTitle: string;\n    icon: IIcon;\n    meta: IMeta[];\n  };\n  footer: {\n    meta: IMeta[];\n  };\n  carousel?: any;\n  feature?: any;\n  overlay?: any[];\n  link: ILink;\n  actions?: any;\n  progressBar: {\n    mode: 'determinate' | 'indeterminate' | 'buffer' | 'query';\n    value: number;\n  };\n}\n\nexport interface IMeta {\n  label: string;\n  value: string;\n}\n\nexport interface IInlineLightbox {\n  label: string[];\n  elements: ILightboxElement[];\n}\n\nexport interface ILightboxElement {\n  src: string;\n  caption: string;\n  thumb: string;\n  downloadUrl: string;\n}\n\nexport interface IDynamicTable {\n  header: {\n    label: string;\n    key: string;\n    classes?: string;\n    style?: object;\n    dialog?: {\n      shorten: number;\n      label: string;\n    };\n  }[];\n  classes?: string | string[] | Set<string> | { [klass: string]: any };\n  elements: any[];\n}\n",
+            "sourceCode": "import { IImg } from '@core/interface/widgets/IImg';\nimport { ILink } from '@core/interface/widgets/ILink';\nimport { IIcon } from '../../core/interface/widgets/IIcon';\n\nexport interface ICard {\n  title?: string;\n  subTitle?: string;\n  avatar?: IImg;\n  body?: any;\n  classes?: any;\n  img?: {\n    src: string;\n    alt?: string;\n    hostClasses?: any;\n    classes?: any;\n  };\n  header?: {\n    avatar?: IImg;\n    title?: string;\n    subTitle?: string;\n    icon?: IIcon;\n    meta: IMeta[];\n  };\n  footer?: {\n    meta: IMeta[];\n  };\n  carousel?: any;\n  feature?: any;\n  overlay?: any[];\n  link?: ILink;\n  actions?: any;\n  progressBar?: {\n    mode: 'determinate' | 'indeterminate' | 'buffer' | 'query';\n    value: number;\n  };\n}\n\nexport interface IMeta {\n  label: string;\n  value: any;\n  params?: {\n    lightbox?: boolean;\n    shorten?: number;\n    dialog?: {\n      label: string;\n    };\n  };\n}\n\nexport interface IInlineLightbox {\n  label: string[];\n  elements: ILightboxElement[];\n}\n\nexport interface ILightboxElement {\n  src: string;\n  caption: string;\n  thumb: string;\n  downloadUrl: string;\n}\n\nexport interface IDynamicTable {\n  header: {\n    label: string;\n    key: string;\n    classes?: string;\n    style?: object;\n    dialog?: {\n      shorten: number;\n      label: string;\n    };\n  }[];\n  classes?: string | string[] | Set<string> | { [klass: string]: any };\n  elements: any[];\n}\n",
             "properties": [
                 {
                     "name": "elements",
@@ -3128,7 +3128,7 @@
                     "type": "ILightboxElement[]",
                     "optional": false,
                     "description": "",
-                    "line": 45
+                    "line": 52
                 },
                 {
                     "name": "label",
@@ -3137,7 +3137,7 @@
                     "type": "string[]",
                     "optional": false,
                     "description": "",
-                    "line": 44
+                    "line": 51
                 }
             ],
             "indexSignatures": [],
@@ -3246,12 +3246,12 @@
         },
         {
             "name": "ILightboxElement",
-            "id": "interface-ILightboxElement-8f83f07ea8ab5edc568b860eb9da00828084cb6c0c21cdf64774006958679dde279108809e936be072739069afc08e98548be4e782f30b444598e87d2fe655a6",
+            "id": "interface-ILightboxElement-3a9f46296ab7c47c0dac254e53fe2e1685dd51bc4dcb62625eb63ca2a721b02595c06bc346ba688d9a7b089ba4dd032597536cce4121ad245d95d2fa5b22459a",
             "file": "src/app/uiux/widgets/IWidgets.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "import { IImg } from '@core/interface/widgets/IImg';\nimport { ILink } from '@core/interface/widgets/ILink';\nimport { IIcon } from '../../core/interface/widgets/IIcon';\n\nexport interface ICard {\n  title?: string;\n  subTitle?: string;\n  avatar?: IImg;\n  body?: any;\n  classes?: any;\n  img?: {\n    src: string;\n    alt?: string;\n    hostClasses?: any;\n    classes?: any;\n  };\n  header: {\n    avatar: IImg;\n    title: string;\n    subTitle: string;\n    icon: IIcon;\n    meta: IMeta[];\n  };\n  footer: {\n    meta: IMeta[];\n  };\n  carousel?: any;\n  feature?: any;\n  overlay?: any[];\n  link: ILink;\n  actions?: any;\n  progressBar: {\n    mode: 'determinate' | 'indeterminate' | 'buffer' | 'query';\n    value: number;\n  };\n}\n\nexport interface IMeta {\n  label: string;\n  value: string;\n}\n\nexport interface IInlineLightbox {\n  label: string[];\n  elements: ILightboxElement[];\n}\n\nexport interface ILightboxElement {\n  src: string;\n  caption: string;\n  thumb: string;\n  downloadUrl: string;\n}\n\nexport interface IDynamicTable {\n  header: {\n    label: string;\n    key: string;\n    classes?: string;\n    style?: object;\n    dialog?: {\n      shorten: number;\n      label: string;\n    };\n  }[];\n  classes?: string | string[] | Set<string> | { [klass: string]: any };\n  elements: any[];\n}\n",
+            "sourceCode": "import { IImg } from '@core/interface/widgets/IImg';\nimport { ILink } from '@core/interface/widgets/ILink';\nimport { IIcon } from '../../core/interface/widgets/IIcon';\n\nexport interface ICard {\n  title?: string;\n  subTitle?: string;\n  avatar?: IImg;\n  body?: any;\n  classes?: any;\n  img?: {\n    src: string;\n    alt?: string;\n    hostClasses?: any;\n    classes?: any;\n  };\n  header?: {\n    avatar?: IImg;\n    title?: string;\n    subTitle?: string;\n    icon?: IIcon;\n    meta: IMeta[];\n  };\n  footer?: {\n    meta: IMeta[];\n  };\n  carousel?: any;\n  feature?: any;\n  overlay?: any[];\n  link?: ILink;\n  actions?: any;\n  progressBar?: {\n    mode: 'determinate' | 'indeterminate' | 'buffer' | 'query';\n    value: number;\n  };\n}\n\nexport interface IMeta {\n  label: string;\n  value: any;\n  params?: {\n    lightbox?: boolean;\n    shorten?: number;\n    dialog?: {\n      label: string;\n    };\n  };\n}\n\nexport interface IInlineLightbox {\n  label: string[];\n  elements: ILightboxElement[];\n}\n\nexport interface ILightboxElement {\n  src: string;\n  caption: string;\n  thumb: string;\n  downloadUrl: string;\n}\n\nexport interface IDynamicTable {\n  header: {\n    label: string;\n    key: string;\n    classes?: string;\n    style?: object;\n    dialog?: {\n      shorten: number;\n      label: string;\n    };\n  }[];\n  classes?: string | string[] | Set<string> | { [klass: string]: any };\n  elements: any[];\n}\n",
             "properties": [
                 {
                     "name": "caption",
@@ -3260,7 +3260,7 @@
                     "type": "string",
                     "optional": false,
                     "description": "",
-                    "line": 50
+                    "line": 57
                 },
                 {
                     "name": "downloadUrl",
@@ -3269,7 +3269,7 @@
                     "type": "string",
                     "optional": false,
                     "description": "",
-                    "line": 52
+                    "line": 59
                 },
                 {
                     "name": "src",
@@ -3278,7 +3278,7 @@
                     "type": "string",
                     "optional": false,
                     "description": "",
-                    "line": 49
+                    "line": 56
                 },
                 {
                     "name": "thumb",
@@ -3287,7 +3287,7 @@
                     "type": "string",
                     "optional": false,
                     "description": "",
-                    "line": 51
+                    "line": 58
                 }
             ],
             "indexSignatures": [],
@@ -3705,12 +3705,12 @@
         },
         {
             "name": "IMeta",
-            "id": "interface-IMeta-8f83f07ea8ab5edc568b860eb9da00828084cb6c0c21cdf64774006958679dde279108809e936be072739069afc08e98548be4e782f30b444598e87d2fe655a6",
+            "id": "interface-IMeta-3a9f46296ab7c47c0dac254e53fe2e1685dd51bc4dcb62625eb63ca2a721b02595c06bc346ba688d9a7b089ba4dd032597536cce4121ad245d95d2fa5b22459a",
             "file": "src/app/uiux/widgets/IWidgets.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "import { IImg } from '@core/interface/widgets/IImg';\nimport { ILink } from '@core/interface/widgets/ILink';\nimport { IIcon } from '../../core/interface/widgets/IIcon';\n\nexport interface ICard {\n  title?: string;\n  subTitle?: string;\n  avatar?: IImg;\n  body?: any;\n  classes?: any;\n  img?: {\n    src: string;\n    alt?: string;\n    hostClasses?: any;\n    classes?: any;\n  };\n  header: {\n    avatar: IImg;\n    title: string;\n    subTitle: string;\n    icon: IIcon;\n    meta: IMeta[];\n  };\n  footer: {\n    meta: IMeta[];\n  };\n  carousel?: any;\n  feature?: any;\n  overlay?: any[];\n  link: ILink;\n  actions?: any;\n  progressBar: {\n    mode: 'determinate' | 'indeterminate' | 'buffer' | 'query';\n    value: number;\n  };\n}\n\nexport interface IMeta {\n  label: string;\n  value: string;\n}\n\nexport interface IInlineLightbox {\n  label: string[];\n  elements: ILightboxElement[];\n}\n\nexport interface ILightboxElement {\n  src: string;\n  caption: string;\n  thumb: string;\n  downloadUrl: string;\n}\n\nexport interface IDynamicTable {\n  header: {\n    label: string;\n    key: string;\n    classes?: string;\n    style?: object;\n    dialog?: {\n      shorten: number;\n      label: string;\n    };\n  }[];\n  classes?: string | string[] | Set<string> | { [klass: string]: any };\n  elements: any[];\n}\n",
+            "sourceCode": "import { IImg } from '@core/interface/widgets/IImg';\nimport { ILink } from '@core/interface/widgets/ILink';\nimport { IIcon } from '../../core/interface/widgets/IIcon';\n\nexport interface ICard {\n  title?: string;\n  subTitle?: string;\n  avatar?: IImg;\n  body?: any;\n  classes?: any;\n  img?: {\n    src: string;\n    alt?: string;\n    hostClasses?: any;\n    classes?: any;\n  };\n  header?: {\n    avatar?: IImg;\n    title?: string;\n    subTitle?: string;\n    icon?: IIcon;\n    meta: IMeta[];\n  };\n  footer?: {\n    meta: IMeta[];\n  };\n  carousel?: any;\n  feature?: any;\n  overlay?: any[];\n  link?: ILink;\n  actions?: any;\n  progressBar?: {\n    mode: 'determinate' | 'indeterminate' | 'buffer' | 'query';\n    value: number;\n  };\n}\n\nexport interface IMeta {\n  label: string;\n  value: any;\n  params?: {\n    lightbox?: boolean;\n    shorten?: number;\n    dialog?: {\n      label: string;\n    };\n  };\n}\n\nexport interface IInlineLightbox {\n  label: string[];\n  elements: ILightboxElement[];\n}\n\nexport interface ILightboxElement {\n  src: string;\n  caption: string;\n  thumb: string;\n  downloadUrl: string;\n}\n\nexport interface IDynamicTable {\n  header: {\n    label: string;\n    key: string;\n    classes?: string;\n    style?: object;\n    dialog?: {\n      shorten: number;\n      label: string;\n    };\n  }[];\n  classes?: string | string[] | Set<string> | { [klass: string]: any };\n  elements: any[];\n}\n",
             "properties": [
                 {
                     "name": "label",
@@ -3722,10 +3722,19 @@
                     "line": 39
                 },
                 {
+                    "name": "params",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "literal type",
+                    "optional": true,
+                    "description": "",
+                    "line": 41
+                },
+                {
                     "name": "value",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "type": "string",
+                    "type": "any",
                     "optional": false,
                     "description": "",
                     "line": 40
@@ -11575,7 +11584,7 @@
     "guards": [
         {
             "name": "AuthGuard",
-            "id": "injectable-AuthGuard-13ed08d0ccb327438a9a40ac8a94b94b60908720ed31dfa39359bd257fff5ada0440c4b82a4836b38f1c89ed1fef4deaaa8004aef52fa78784a63ac29377543e",
+            "id": "injectable-AuthGuard-3829b741411a4f10ae01d3a9d18c0b4b43f03325ae244f8ff1d3449ae003e68074978fad3f56a7e6d27afd39386c55c3744cdf5882540d6f8d4cbc2df96e0747",
             "file": "src/app/core/guards/auth.guard.ts",
             "properties": [],
             "methods": [
@@ -11627,7 +11636,7 @@
             "deprecationMessage": "",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { Inject, Injectable } from '@angular/core';\nimport {\n  CanActivate,\n  Router,\n  ActivatedRouteSnapshot,\n  RouterStateSnapshot,\n  UrlTree,\n} from '@angular/router';\nimport { Observable, of } from 'rxjs';\nimport { UserState } from '../mobx/user/UserState';\nimport { UserService } from '@core/service/user.service';\nimport { catchError, map } from 'rxjs/operators';\nimport { CORE_CONFIG } from '@core/token/core.config';\nimport { ICoreConfig } from '@core/mobx/IAppConfig';\nimport { environment } from 'src/environments/environment';\n\n@Injectable({\n  providedIn: 'root',\n})\nexport class AuthGuard implements CanActivate {\n  constructor(\n    private router: Router,\n    private userState: UserState,\n    private userService: UserService,\n    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig\n  ) {}\n  canActivate(\n    route: ActivatedRouteSnapshot,\n    state: RouterStateSnapshot\n  ):\n    | Observable<boolean | UrlTree>\n    | Promise<boolean | UrlTree>\n    | boolean\n    | UrlTree {\n    return true;\n    if (state.url.startsWith('/my') || this.coreConfig?.guard?.authGuard) {\n      return this.userService.getLoginState().pipe(\n        map((status) => {\n          console.log('userState:', status);\n          if (status) {\n            if (environment?.drupalProxy) {\n              if (!this.userState.csrfToken) {\n                this.userState.updateUserBySession();\n              }\n            }\n            return true;\n          } else {\n            this.userState.logouLocalUser();\n            if (environment?.drupalProxy) {\n              window.location.href = 'user/login';\n              return false;\n            } else {\n              this.router.navigate(['me/login'], {\n                queryParams: { returnUrl: state.url },\n              });\n              return false;\n            }\n          }\n        }),\n        catchError(() => {\n          if (environment?.drupalProxy) {\n            window.location.href = 'user/login';\n            return of(false);\n          } else {\n            this.router.navigate(['me/login']);\n            return of(false);\n          }\n        })\n      );\n    }\n    return true;\n  }\n}\n",
+            "sourceCode": "import { Inject, Injectable } from '@angular/core';\nimport {\n  CanActivate,\n  Router,\n  ActivatedRouteSnapshot,\n  RouterStateSnapshot,\n  UrlTree,\n} from '@angular/router';\nimport { Observable, of } from 'rxjs';\nimport { UserState } from '../mobx/user/UserState';\nimport { UserService } from '@core/service/user.service';\nimport { catchError, map } from 'rxjs/operators';\nimport { CORE_CONFIG } from '@core/token/core.config';\nimport { ICoreConfig } from '@core/mobx/IAppConfig';\nimport { environment } from 'src/environments/environment';\n\n@Injectable({\n  providedIn: 'root',\n})\nexport class AuthGuard implements CanActivate {\n  constructor(\n    private router: Router,\n    private userState: UserState,\n    private userService: UserService,\n    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig\n  ) {}\n  canActivate(\n    route: ActivatedRouteSnapshot,\n    state: RouterStateSnapshot\n  ):\n    | Observable<boolean | UrlTree>\n    | Promise<boolean | UrlTree>\n    | boolean\n    | UrlTree {\n    // return true;\n    if (state.url.startsWith('/my') || this.coreConfig?.guard?.authGuard) {\n      return this.userService.getLoginState().pipe(\n        map((status) => {\n          console.log('userState:', status);\n          if (status) {\n            if (environment?.drupalProxy) {\n              if (!this.userState.csrfToken) {\n                this.userState.updateUserBySession();\n              }\n            }\n            return true;\n          } else {\n            this.userState.logouLocalUser();\n            if (environment?.drupalProxy) {\n              window.location.href = '/user/login';\n              return false;\n            } else {\n              this.router.navigate(['/me/login'], {\n                queryParams: { returnUrl: state.url },\n              });\n              return false;\n            }\n          }\n        }),\n        catchError(() => {\n          if (environment?.drupalProxy) {\n            window.location.href = '/user/login';\n            return of(false);\n          } else {\n            this.router.navigate(['/me/login']);\n            return of(false);\n          }\n        })\n      );\n    }\n    return true;\n  }\n}\n",
             "constructorObj": {
                 "name": "constructor",
                 "description": "",
@@ -11703,7 +11712,7 @@
         },
         {
             "name": "ManageGuard",
-            "id": "injectable-ManageGuard-5471ddf4b6c756fbe169926b37e91b58c9062935ffd31727eaf92053160821f2b6a8cb54266e0259982d1d6bd009636a92e3eaeade9d475b538b357d3ce1aed2",
+            "id": "injectable-ManageGuard-f292f6cc8073d5358fbd64582d19fc4ea25ff1dfa5e70caedb0713b9b3da46c69c08294bfa04c791c162fd0553b8c0bd75b0cb612639291c8a575c3c74006336",
             "file": "src/app/core/guards/manage.guard.ts",
             "properties": [],
             "methods": [
@@ -11755,7 +11764,7 @@
             "deprecationMessage": "",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { Injectable } from '@angular/core';\nimport {\n  CanActivate,\n  Router,\n  ActivatedRouteSnapshot,\n  RouterStateSnapshot,\n  UrlTree,\n} from '@angular/router';\nimport { Observable, of } from 'rxjs';\nimport { UserState } from '../mobx/user/UserState';\nimport { UserService } from '@core/service/user.service';\nimport { map, catchError } from 'rxjs/operators';\nimport { UtilitiesService } from '@core/service/utilities.service';\n\n@Injectable({\n  providedIn: 'root',\n})\nexport class ManageGuard implements CanActivate {\n  constructor(\n    private router: Router,\n    private userState: UserState,\n    private userService: UserService,\n    private uti: UtilitiesService\n  ) {}\n  canActivate(\n    route: ActivatedRouteSnapshot,\n    state: RouterStateSnapshot\n  ):\n    | Observable<boolean | UrlTree>\n    | Promise<boolean | UrlTree>\n    | boolean\n    | UrlTree {\n    // TODO: change to user state\n    if (this.userState.authenticated) {\n      return this.userService\n        .getCurrentUserProfile(this.userState.csrfToken)\n        .pipe(\n          catchError((res: any) => {\n            console.log(res);\n            return of({});\n          }),\n          map((user) => {\n            console.log(user);\n            if (!user) {\n              this.router.navigate(['home']);\n              return false;\n            }\n            if (user?.roles?.includes('administrator')) {\n              return true;\n            }\n            this.router.navigate(['home']);\n            return false;\n          })\n        );\n    }\n    this.router.navigate(['home']);\n    return false;\n  }\n}\n",
+            "sourceCode": "import { Injectable } from '@angular/core';\nimport {\n  CanActivate,\n  Router,\n  ActivatedRouteSnapshot,\n  RouterStateSnapshot,\n  UrlTree,\n} from '@angular/router';\nimport { Observable, of } from 'rxjs';\nimport { UserState } from '../mobx/user/UserState';\nimport { UserService } from '@core/service/user.service';\nimport { map, catchError } from 'rxjs/operators';\nimport { UtilitiesService } from '@core/service/utilities.service';\n\n@Injectable({\n  providedIn: 'root',\n})\nexport class ManageGuard implements CanActivate {\n  constructor(\n    private router: Router,\n    private userState: UserState,\n    private userService: UserService,\n    private uti: UtilitiesService\n  ) {}\n  canActivate(\n    route: ActivatedRouteSnapshot,\n    state: RouterStateSnapshot\n  ):\n    | Observable<boolean | UrlTree>\n    | Promise<boolean | UrlTree>\n    | boolean\n    | UrlTree {\n    // TODO: change to user state\n    if (this.userState.authenticated) {\n      return this.userService\n        .getCurrentUserProfile(this.userState.csrfToken)\n        .pipe(\n          catchError((res: any) => {\n            console.log(res);\n            return of({});\n          }),\n          map((user) => {\n            console.log(user);\n            if (!user) {\n              this.router.navigate(['/home']);\n              return false;\n            }\n            if (user?.roles?.includes('administrator')) {\n              return true;\n            }\n            this.router.navigate(['/home']);\n            return false;\n          })\n        );\n    }\n    this.router.navigate(['home']);\n    return false;\n  }\n}\n",
             "constructorObj": {
                 "name": "constructor",
                 "description": "",
@@ -15095,7 +15104,7 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<mat-card *ngIf=\"content\" class=\"card {{content?.header?.meta ? 'has-header':''}}\" [ngClass]=\"content.classes\">\n  <mat-card-content *ngIf=\"content.header?.meta\">\n    <app-card-meta [content]=\"content.header.meta\"></app-card-meta>\n  </mat-card-content>\n  <mat-card-header class=\"m-bottom-xs\" *ngIf=\"content.header\">\n    <div mat-card-avatar *ngIf=\"content.header?.avatar\">\n      <app-img *ngIf=\"content.header?.avatar\" [content]=\"content.header.avatar\"></app-img>\n    </div>\n    <mat-card-title *ngIf=\"content.header?.title\" [innerHTML]=\"content.header.title\"></mat-card-title>\n    <mat-card-subtitle *ngIf=\"content.header?.subTitle\" [innerHTML]=\"content.header.subTitle\"></mat-card-subtitle>\n  </mat-card-header>\n  <div class=\"card-header\">\n    <ng-container *ngIf=\"content.carousel\">\n      <app-swiper *ngIf=\"content?.carousel?.elements.length >1;else feature\" [content]=\"content.carousel\">\n      </app-swiper>\n      <ng-template #feature>\n        <app-feature-box [content]=\"content.carousel.elements[0]\"></app-feature-box>\n      </ng-template>\n    </ng-container>\n    <ng-container *ngIf=\"!content.carousel && content.feature\">\n      <app-feature-box [content]=\"content.feature\"></app-feature-box>\n    </ng-container>\n  </div>\n  <mat-card-content>\n    <div fxLayout>\n      <div *ngIf=\"content.avatar\" mat-card-avatar class=\"m-right-xs\">\n        <app-img [content]=\"content.avatar\"></app-img>\n      </div>\n      <div fxLayout=\"row wrap\" fxFlex=\"100\">\n        <mat-card-title fxFlex=\"100\" *ngIf=\"content?.title;else link\">{{content.title}}</mat-card-title>\n        <ng-template #link>\n          <mat-card-title fxFlex=\"100\">\n            <app-link [content]=\"content.link\"></app-link>\n          </mat-card-title>\n        </ng-template>\n        <mat-card-subtitle fxFlex=\"100\" *ngIf=\"content?.subTitle\">\n          {{content.subTitle}}\n        </mat-card-subtitle>\n      </div>\n    </div>\n    <div *ngIf=\"content.body\" class=\"card-body\" [innerHTML]=\"content.body | safeHtml\">\n    </div>\n  </mat-card-content>\n  <mat-card-actions *ngIf=\"content?.actions\">\n    <button mat-button *ngFor=\"let action of content.actions\">{{action.label}}</button>\n  </mat-card-actions>\n  <mat-card-footer>\n    <div class=\"footer\" *ngIf=\"content.footer\">\n      <app-card-meta [content]=\"content.footer.meta\"></app-card-meta>\n    </div>\n    <mat-progress-bar *ngIf=\"content.progressBar\" [mode]=\"content.progressBar.mode\" [value]=\"content.progressBar.value\">\n    </mat-progress-bar>\n  </mat-card-footer>\n</mat-card>\n"
+            "templateData": "<mat-card *ngIf=\"content\" class=\"card {{content?.header?.meta ? 'has-header':''}}\" [ngClass]=\"content.classes\">\n  <mat-card-content *ngIf=\"content.header?.meta\">\n    <app-card-meta [content]=\"content.header?.meta\"></app-card-meta>\n  </mat-card-content>\n  <mat-card-header class=\"m-bottom-xs\" *ngIf=\"content?.header\">\n    <div mat-card-avatar *ngIf=\"content.header?.avatar\">\n      <app-img [content]=\"content.header?.avatar || {src:''}\"></app-img>\n    </div>\n    <mat-card-title *ngIf=\"content.header?.title\" [innerHTML]=\"content.header?.title || ''\"></mat-card-title>\n    <mat-card-subtitle *ngIf=\"content.header?.subTitle\" [innerHTML]=\"content.header?.subTitle || ''\">\n    </mat-card-subtitle>\n  </mat-card-header>\n  <div class=\"card-header\">\n    <ng-container *ngIf=\"content.carousel\">\n      <app-swiper *ngIf=\"content?.carousel?.elements.length >1;else feature\" [content]=\"content.carousel\">\n      </app-swiper>\n      <ng-template #feature>\n        <app-feature-box [content]=\"content.carousel.elements[0]\"></app-feature-box>\n      </ng-template>\n    </ng-container>\n    <ng-container *ngIf=\"!content.carousel && content.feature\">\n      <app-feature-box [content]=\"content.feature\"></app-feature-box>\n    </ng-container>\n  </div>\n  <mat-card-content>\n    <div fxLayout>\n      <div *ngIf=\"content.avatar\" mat-card-avatar class=\"m-right-xs\">\n        <app-img [content]=\"content.avatar\"></app-img>\n      </div>\n      <div fxLayout=\"row wrap\" fxFlex=\"100\">\n        <mat-card-title fxFlex=\"100\" *ngIf=\"content?.title;else link\">{{content.title}}</mat-card-title>\n        <ng-template #link>\n          <mat-card-title fxFlex=\"100\" *ngIf=\"content.link\">\n            <app-link [content]=\"content.link\"></app-link>\n          </mat-card-title>\n        </ng-template>\n        <mat-card-subtitle fxFlex=\"100\" *ngIf=\"content?.subTitle\">\n          {{content.subTitle}}\n        </mat-card-subtitle>\n      </div>\n    </div>\n    <div *ngIf=\"content.body\" class=\"card-body\" [innerHTML]=\"content.body | safeHtml\">\n    </div>\n  </mat-card-content>\n  <mat-card-actions *ngIf=\"content?.actions\">\n    <button mat-button *ngFor=\"let action of content.actions\">{{action.label}}</button>\n  </mat-card-actions>\n  <mat-card-footer>\n    <div class=\"footer\" *ngIf=\"content.footer\">\n      <app-card-meta [content]=\"content.footer.meta\"></app-card-meta>\n    </div>\n    <mat-progress-bar *ngIf=\"content.progressBar\" [mode]=\"content.progressBar.mode\" [value]=\"content.progressBar.value\">\n    </mat-progress-bar>\n  </mat-card-footer>\n</mat-card>\n"
         },
         {
             "name": "CardMetaComponent",
@@ -44096,7 +44105,7 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<ng-container>\n  <div class=\"title\" [ngClass]=\"content.style\">\n    <h2 class=\"title-header\" [ngClass]=\"content.classes || 'mat-h2'\" [innerHTML]=\"content.label|safeHtml\"\n      [class.m-bottom-sm]=\"content.style === 'none'\"></h2>\n    <div class=\"line-style\" [class.m-top-sm]=\"content.icon\">\n      <mat-icon *ngIf=\"content.icon && content.style\">{{content.icon}}</mat-icon>\n      <span></span>\n    </div>\n  </div>\n</ng-container>\n"
+            "templateData": "<ng-container *ngIf=\"content\">\n  <div class=\"title\" [ngClass]=\"content.style\">\n    <h2 class=\"title-header\" [ngClass]=\"content.classes || 'mat-h2'\" [innerHTML]=\"content.label|safeHtml\"\n      [class.m-bottom-sm]=\"content.style === 'none'\"></h2>\n    <div class=\"line-style\" [class.m-top-sm]=\"content.icon\">\n      <mat-icon *ngIf=\"content.icon && content.style\">{{content.icon}}</mat-icon>\n      <span></span>\n    </div>\n  </div>\n</ng-container>\n"
         },
         {
             "name": "TreeComponent",
@@ -45295,7 +45304,7 @@
         },
         {
             "name": "UserCardComponent",
-            "id": "component-UserCardComponent-60e0e1d8160595f9c20a17a6b71a141309f1941a54b6ac5a92cfa67f61992e66607cba6d3fe4b91e852f178e3aa8f42ce874022b13c733ac22b7f309452b6a60",
+            "id": "component-UserCardComponent-cd68de7f2050ccc5ef07f26640fa4ba8031c83bed44e17399fd824266851def9b101ce0b38d444f98c3bcc474b7d07fc253c6f927a3723368d22baf80dd80c9c",
             "file": "src/app/uiux/widgets/card/user-card/user-card.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -45932,7 +45941,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';\nimport { UserState } from '@core/mobx/user/UserState';\nimport { IMediaObject } from '@core/interface/widgets/IMediaObject';\nimport { NodeService } from '@core/service/node.service';\nimport { DialogService } from '@core/service/dialog.service';\nimport { BaseComponent } from '@uiux/base/base.widget';\nimport { catchError, map } from 'rxjs/operators';\nimport { of } from 'rxjs';\n\n@Component({\n  selector: 'app-user-card',\n  templateUrl: './user-card.component.html',\n  styleUrls: ['./user-card.component.scss'],\n})\nexport class UserCardComponent extends BaseComponent implements OnInit {\n  @Input() content: any;\n  profile: IMediaObject;\n  count: any[];\n  constructor(\n    public userState: UserState,\n    private nodeService: NodeService,\n    private cd: ChangeDetectorRef,\n    private dialogService: DialogService\n  ) {\n    super(userState);\n  }\n\n  ngOnInit(): void {\n    this.getProfile();\n    this.getCount();\n  }\n\n  getProfile(): void {\n    const user = this.userState.currentUser;\n    this.profile = {\n      img: {\n        src: this.userState.picture,\n        alt: user.current_user.name,\n        style: {\n          height: '50px',\n          width: '50px',\n          borderRadius: '50%',\n        },\n      },\n      title: user.current_user.name,\n      subTitle: user.display_name,\n      align: 'center center',\n    };\n  }\n\n  getCount(): void {\n    const api = this.getParams(this.content, 'api');\n    if (!api) {\n      this.count = this.content.count;\n      this.cd.detectChanges();\n    } else {\n      this.getContentFormApi(api);\n      this.handleDialogClosed(api);\n    }\n  }\n\n  getContentFormApi(api: string): void {\n    this.nodeService\n      .search(api, '')\n      .pipe(\n        // map((data) => {\n        //   if (!data.rows.length) {\n        //     return {\n        //       rows: [\n        //         {\n        //           title: '已完工',\n        //           value: 15,\n        //           color: '#f57f17',\n        //         },\n        //         {\n        //           title: '已更新',\n        //           value: 12,\n        //           color: '#4caf50',\n        //         },\n        //         {\n        //           title: '进行中',\n        //           value: 15,\n        //           color: '',\n        //         },\n        //         {\n        //           title: '新订单',\n        //           value: 12,\n        //           color: '#1976d2',\n        //         },\n        //         {\n        //           title: '已暂停',\n        //           value: 15,\n        //           color: '',\n        //         },\n        //         {\n        //           title: '已取消',\n        //           value: 12,\n        //           color: '',\n        //         },\n        //       ],\n        //       pager: {\n        //         current_page: null,\n        //         total_items: 2,\n        //         total_pages: 0,\n        //         items_per_page: 0,\n        //       },\n        //     };\n        //   } else {\n        //     return data;\n        //   }\n        // }),\n        catchError(() => {\n          return of({\n            rows: [],\n          });\n        })\n      )\n      .subscribe((res) => {\n        this.count = res.rows.map((item: any) => {\n          return {\n            digit: {\n              value: item.value,\n              from: item.from || 0,\n              duration: item.duration || 4,\n              style: {\n                color: item.color,\n              },\n            },\n            title: item.title,\n          };\n        });\n        this.cd.detectChanges();\n      });\n  }\n\n  handleDialogClosed(api: string): void {\n    if (this.dialogService.dialogState$) {\n      this.dialogService.dialogState$.subscribe((state) => {\n        if (!state) {\n          this.getContentFormApi(api);\n        }\n      });\n    }\n  }\n}\n",
+            "sourceCode": "import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';\nimport { UserState } from '@core/mobx/user/UserState';\nimport { IMediaObject } from '@core/interface/widgets/IMediaObject';\nimport { NodeService } from '@core/service/node.service';\nimport { DialogService } from '@core/service/dialog.service';\nimport { BaseComponent } from '@uiux/base/base.widget';\nimport { catchError, map } from 'rxjs/operators';\nimport { of } from 'rxjs';\n\n@Component({\n  selector: 'app-user-card',\n  templateUrl: './user-card.component.html',\n  styleUrls: ['./user-card.component.scss'],\n})\nexport class UserCardComponent extends BaseComponent implements OnInit {\n  @Input() content: any;\n  profile: IMediaObject;\n  count: any[];\n  constructor(\n    public userState: UserState,\n    private nodeService: NodeService,\n    private cd: ChangeDetectorRef,\n    private dialogService: DialogService\n  ) {\n    super(userState);\n  }\n\n  ngOnInit(): void {\n    this.getProfile();\n    this.getCount();\n  }\n\n  getProfile(): void {\n    const user = this.userState.currentUser;\n    this.profile = {\n      img: {\n        src: this.userState.picture,\n        alt: user.current_user.name,\n        style: {\n          height: '37px',\n          width: '37px',\n          borderRadius: '50%',\n        },\n      },\n      title: user.current_user.name,\n      subTitle: user.display_name,\n      align: 'center center',\n    };\n  }\n\n  getCount(): void {\n    const api = this.getParams(this.content, 'api');\n    if (!api) {\n      this.count = this.content.count;\n      this.cd.detectChanges();\n    } else {\n      this.getContentFormApi(api);\n      this.handleDialogClosed(api);\n    }\n  }\n\n  getContentFormApi(api: string): void {\n    this.nodeService\n      .search(api, '')\n      .pipe(\n        // map((data) => {\n        //   if (!data.rows.length) {\n        //     return {\n        //       rows: [\n        //         {\n        //           title: '已完工',\n        //           value: 15,\n        //           color: '#f57f17',\n        //         },\n        //         {\n        //           title: '已更新',\n        //           value: 12,\n        //           color: '#4caf50',\n        //         },\n        //         {\n        //           title: '进行中',\n        //           value: 15,\n        //           color: '',\n        //         },\n        //         {\n        //           title: '新订单',\n        //           value: 12,\n        //           color: '#1976d2',\n        //         },\n        //         {\n        //           title: '已暂停',\n        //           value: 15,\n        //           color: '',\n        //         },\n        //         {\n        //           title: '已取消',\n        //           value: 12,\n        //           color: '',\n        //         },\n        //       ],\n        //       pager: {\n        //         current_page: null,\n        //         total_items: 2,\n        //         total_pages: 0,\n        //         items_per_page: 0,\n        //       },\n        //     };\n        //   } else {\n        //     return data;\n        //   }\n        // }),\n        catchError(() => {\n          return of({\n            rows: [],\n          });\n        })\n      )\n      .subscribe((res) => {\n        this.count = res.rows.map((item: any) => {\n          return {\n            digit: {\n              value: item.value,\n              from: item.from || 0,\n              duration: item.duration || 4,\n              style: {\n                color: item.color,\n              },\n            },\n            title: item.title,\n          };\n        });\n        this.cd.detectChanges();\n      });\n  }\n\n  handleDialogClosed(api: string): void {\n    if (this.dialogService.dialogState$) {\n      this.dialogService.dialogState$.subscribe((state) => {\n        if (!state) {\n          this.getContentFormApi(api);\n        }\n      });\n    }\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -46735,7 +46744,7 @@
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": "@import \"/src/theme/mixins/amixin\";\n@import \"/src/theme/variable/breakpoint\";\n\n.user-center {\n  position: relative;\n  z-index: 100;\n  .inner {\n    margin: 4rem 0;\n    @media #{$gt-sm} {\n      margin: 0;\n      height: 8rem;\n      .profile {\n        top: -100px;\n      }\n    }\n  }\n}\n.avatar {\n  ::ng-deep {\n    img {\n      width: 140px;\n      height: 140px;\n      @include border-radius(50%, 50%, 50%, 50%);\n    }\n  }\n}\n\n.profile {\n  position: relative;\n  border-radius: 4px;\n}\n\n.label {\n  white-space: nowrap;\n}\n\n.main {\n  .box {\n    display: block;\n    padding: 2rem;\n    margin-bottom: 2rem;\n  }\n  .left,\n  .right {\n    .box:first-child {\n      min-height: 282px;\n    }\n  }\n}\n",
+                    "data": "@import \"/src/theme/mixins/amixin\";\n@import \"/src/theme/variable/breakpoint\";\n\n.user-center {\n  position: relative;\n  z-index: 100;\n  .inner {\n    margin: 4rem 0;\n    @media #{$gt-sm} {\n      margin: 0;\n      height: 8rem;\n      .profile {\n        top: -100px;\n      }\n    }\n  }\n}\n.avatar {\n  ::ng-deep {\n    img {\n      width: 140px;\n      height: 140px;\n      @include border-radius(50%, 50%, 50%, 50%);\n    }\n  }\n}\n\n.profile {\n  position: relative;\n  border-radius: 4px;\n}\n\n.label {\n  white-space: nowrap;\n}\n\n.main {\n  .box {\n    display: block;\n    padding: 2rem;\n    margin-bottom: 2rem;\n    border-radius: 4px;\n  }\n  .left,\n  .right {\n    .box:first-child {\n      min-height: 282px;\n    }\n  }\n}\n",
                     "styleUrl": "./user-center.component.scss"
                 }
             ],
@@ -48992,13 +49001,13 @@
         },
         {
             "name": "AppRoutingModule",
-            "id": "module-AppRoutingModule-15877be6bd3842db7c8e0e03dc619e8ef847b8307701cfc5c018137a5bd3aee739493f18c84bcb0014c4c28e2864d6b89e0340ff3f7750c62d362b8f61023214",
+            "id": "module-AppRoutingModule-bead19d791d84f2c0ddfca437c2207d89cfdc40e2f52943a1796927a1c243d9362b4c53c5873e84e97d46b517bcd74588583f288feb811fa25102ec431ccbdaa",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "src/app/app-routing.module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\nimport { Routes, RouterModule, PreloadAllModules } from '@angular/router';\nimport { AuthGuard } from '@core/guards/auth.guard';\nimport { ManageGuard } from '@core/guards/manage.guard';\n\nconst routes: Routes = [\n  {\n    path: '',\n    redirectTo: 'home',\n    pathMatch: 'full',\n  },\n  {\n    path: 'me',\n    canActivate: [AuthGuard],\n    loadChildren: () =>\n      \"import('./modules/user/user.module').then((m) => m.UserModule)\",\n  },\n  {\n    path: 'super',\n    canActivate: [ManageGuard],\n    loadChildren: () =>\n      \"import('./modules/manage/manage.module').then((m) => m.ManageModule)\",\n  },\n  {\n    path: 'samples',\n    loadChildren: () =>\n      \"import('./modules/sample/sample.module').then((m) => m.SampleModule)\",\n  },\n  {\n    path: '**',\n    loadChildren: () =>\n      \"import('./modules/page-render/page-render.module').then(\\\n        (m) => m.PageRenderModule\\\n      )\",\n    canActivate: [AuthGuard],\n  },\n];\n\n@NgModule({\n  imports: [\n    RouterModule.forRoot(routes, {\n      scrollPositionRestoration: 'enabled',\n      initialNavigation: 'enabled',\n      preloadingStrategy: PreloadAllModules,\n      anchorScrolling: 'enabled',\n    }),\n  ],\n  exports: [RouterModule],\n})\nexport class AppRoutingModule {}\n",
+            "sourceCode": "import { NgModule } from '@angular/core';\nimport { Routes, RouterModule, PreloadAllModules } from '@angular/router';\nimport { AuthGuard } from '@core/guards/auth.guard';\nimport { ManageGuard } from '@core/guards/manage.guard';\n\nconst routes: Routes = [\n  {\n    path: '',\n    redirectTo: 'home',\n    pathMatch: 'full',\n    canActivate: [AuthGuard],\n  },\n  {\n    path: 'me',\n    loadChildren: () =>\n      \"import('./modules/user/user.module').then((m) => m.UserModule)\",\n  },\n  {\n    path: 'super',\n    canActivate: [ManageGuard],\n    loadChildren: () =>\n      \"import('./modules/manage/manage.module').then((m) => m.ManageModule)\",\n  },\n  {\n    path: 'samples',\n    loadChildren: () =>\n      \"import('./modules/sample/sample.module').then((m) => m.SampleModule)\",\n  },\n  {\n    path: '**',\n    loadChildren: () =>\n      \"import('./modules/page-render/page-render.module').then(\\\n        (m) => m.PageRenderModule\\\n      )\",\n    canActivate: [AuthGuard],\n  },\n];\n\n@NgModule({\n  imports: [\n    RouterModule.forRoot(routes, {\n      scrollPositionRestoration: 'enabled',\n      initialNavigation: 'enabled',\n      preloadingStrategy: PreloadAllModules,\n      anchorScrolling: 'enabled',\n    }),\n  ],\n  exports: [RouterModule],\n})\nexport class AppRoutingModule {}\n",
             "children": [
                 {
                     "type": "providers",
@@ -50792,6 +50801,16 @@
                 "defaultValue": "Template.bind({})"
             },
             {
+                "name": "Card",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/widgets/card/Card.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
                 "name": "components",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -50845,21 +50864,21 @@
                 "name": "components",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/uiux/combs/hero/hero.module.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "[]",
-                "defaultValue": "[\n  Hero1v1Component,\n  Hero1v2Component,\n  Hero2v1Component,\n  Hero2v2Component,\n  Hero2v3Component,\n]"
-            },
-            {
-                "name": "components",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "src/app/uiux/combs/carousel/carousel.module.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "[]",
                 "defaultValue": "[\n  Carousel1v1Component,\n  Carousel1v2Component,\n  Carousel1v3Component,\n  Carousel2v1Component,\n  Carousel2v2Component,\n]"
+            },
+            {
+                "name": "components",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/uiux/combs/hero/hero.module.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "[]",
+                "defaultValue": "[\n  Hero1v1Component,\n  Hero1v2Component,\n  Hero2v1Component,\n  Hero2v2Component,\n  Hero2v3Component,\n]"
             },
             {
                 "name": "components",
@@ -50905,21 +50924,21 @@
                 "name": "components",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/uiux/combs/profile/profile.module.ts",
+                "file": "src/app/uiux/combs/node/node.module.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "[]",
-                "defaultValue": "[\n  Profile1v1Component,\n  UserCenterComponent,\n  UserFavoriteComponent,\n  UserPayComponent,\n]"
+                "defaultValue": "[\n  JobComponent,\n  CaseComponent,\n  ArticleComponent,\n  JobNodeComponent,\n  JobListComponent,\n  CaseNodeComponent,\n  JobFilterComponent,\n  ArticleBannerComponent,\n  ArticleMetaComponent,\n  QuestionComponent,\n  LawCaseComponent,\n  LawFilesComponent,\n  LawTableComponent,\n  CommentFormComponent,\n  CommentListComponent,\n  CommentItemComponent,\n  LawShowcaseComponent,\n  LawCardComponent,\n  LawHeaderComponent,\n  CommentActionsComponent,\n]"
             },
             {
                 "name": "components",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/uiux/combs/showcase/showcase.module.ts",
+                "file": "src/app/uiux/combs/profile/profile.module.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "[]",
-                "defaultValue": "[\n  Showcase1v1Component,\n  Showcase1v3Component,\n  Showcase2v1Component,\n  Showcase2v2Component,\n  Showcase2v3Component,\n  Showcase2v4Component,\n  Showcase2v5Component,\n  Showcase2v6Component,\n  Showcase3v1Component,\n  Showcase3v2Component,\n  Showcase3v3Component,\n  Showcase3v4Component,\n  Showcase3v5Component,\n  Showcase3v6Component,\n  Showcase3v7Component,\n  Showcase3v8Component,\n  Showcase4v1Component,\n]"
+                "defaultValue": "[\n  Profile1v1Component,\n  UserCenterComponent,\n  UserFavoriteComponent,\n  UserPayComponent,\n]"
             },
             {
                 "name": "components",
@@ -50935,21 +50954,21 @@
                 "name": "components",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/uiux/combs/video/video.module.ts",
+                "file": "src/app/uiux/combs/showcase/showcase.module.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "[]",
-                "defaultValue": "[VideoBgComponent]"
+                "defaultValue": "[\n  Showcase1v1Component,\n  Showcase1v3Component,\n  Showcase2v1Component,\n  Showcase2v2Component,\n  Showcase2v3Component,\n  Showcase2v4Component,\n  Showcase2v5Component,\n  Showcase2v6Component,\n  Showcase3v1Component,\n  Showcase3v2Component,\n  Showcase3v3Component,\n  Showcase3v4Component,\n  Showcase3v5Component,\n  Showcase3v6Component,\n  Showcase3v7Component,\n  Showcase3v8Component,\n  Showcase4v1Component,\n]"
             },
             {
                 "name": "components",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/uiux/combs/node/node.module.ts",
+                "file": "src/app/uiux/combs/video/video.module.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "[]",
-                "defaultValue": "[\n  JobComponent,\n  CaseComponent,\n  ArticleComponent,\n  JobNodeComponent,\n  JobListComponent,\n  CaseNodeComponent,\n  JobFilterComponent,\n  ArticleBannerComponent,\n  ArticleMetaComponent,\n  QuestionComponent,\n  LawCaseComponent,\n  LawFilesComponent,\n  LawTableComponent,\n  CommentFormComponent,\n  CommentListComponent,\n  CommentItemComponent,\n  LawShowcaseComponent,\n  LawCardComponent,\n  LawHeaderComponent,\n  CommentActionsComponent,\n]"
+                "defaultValue": "[VideoBgComponent]"
             },
             {
                 "name": "compressionModule",
@@ -51283,21 +51302,21 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/stories/widgets/Breadcrumb.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story<BreadcrumbComponent>",
-                "defaultValue": "(args) => ({\n  component: BreadcrumbComponent,\n  props: {\n    ...args,\n  },\n})"
-            },
-            {
-                "name": "Template",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "src/stories/widgets/Btn-animate.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story<BtnAnimateComponent>",
                 "defaultValue": "(args) => ({\n  component: BtnAnimateComponent,\n  props: {\n    ...args,\n  },\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/widgets/Breadcrumb.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story<BreadcrumbComponent>",
+                "defaultValue": "(args) => ({\n  component: BreadcrumbComponent,\n  props: {\n    ...args,\n  },\n})"
             },
             {
                 "name": "Template",
@@ -51777,6 +51796,38 @@
                     "defaultValue": "(args) => ({\n  component: BtnComponent,\n  props: {\n    ...args,\n  },\n})"
                 }
             ],
+            "src/stories/widgets/card/Card.stories.ts": [
+                {
+                    "name": "Card",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/widgets/card/Card.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/widgets/card/Card.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/widgets/card/Card.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story<CardComponent>",
+                    "defaultValue": "(args) => ({\n  component: CardComponent,\n  props: {\n    ...args,\n  },\n})"
+                }
+            ],
             "src/app/modules/manage/manage.module.ts": [
                 {
                     "name": "components",
@@ -51847,18 +51898,6 @@
                     "defaultValue": "[FullCalendarComponent]"
                 }
             ],
-            "src/app/uiux/combs/hero/hero.module.ts": [
-                {
-                    "name": "components",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/uiux/combs/hero/hero.module.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "[]",
-                    "defaultValue": "[\n  Hero1v1Component,\n  Hero1v2Component,\n  Hero2v1Component,\n  Hero2v2Component,\n  Hero2v3Component,\n]"
-                }
-            ],
             "src/app/uiux/combs/carousel/carousel.module.ts": [
                 {
                     "name": "components",
@@ -51869,6 +51908,18 @@
                     "deprecationMessage": "",
                     "type": "[]",
                     "defaultValue": "[\n  Carousel1v1Component,\n  Carousel1v2Component,\n  Carousel1v3Component,\n  Carousel2v1Component,\n  Carousel2v2Component,\n]"
+                }
+            ],
+            "src/app/uiux/combs/hero/hero.module.ts": [
+                {
+                    "name": "components",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/uiux/combs/hero/hero.module.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "[]",
+                    "defaultValue": "[\n  Hero1v1Component,\n  Hero1v2Component,\n  Hero2v1Component,\n  Hero2v2Component,\n  Hero2v3Component,\n]"
                 }
             ],
             "src/app/uiux/combs/list/list.module.ts": [
@@ -51919,6 +51970,18 @@
                     "defaultValue": "[\n  WhychooseusComponent,\n  NotfoundComponent,\n  DynamicFormComponent,\n]"
                 }
             ],
+            "src/app/uiux/combs/node/node.module.ts": [
+                {
+                    "name": "components",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/uiux/combs/node/node.module.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "[]",
+                    "defaultValue": "[\n  JobComponent,\n  CaseComponent,\n  ArticleComponent,\n  JobNodeComponent,\n  JobListComponent,\n  CaseNodeComponent,\n  JobFilterComponent,\n  ArticleBannerComponent,\n  ArticleMetaComponent,\n  QuestionComponent,\n  LawCaseComponent,\n  LawFilesComponent,\n  LawTableComponent,\n  CommentFormComponent,\n  CommentListComponent,\n  CommentItemComponent,\n  LawShowcaseComponent,\n  LawCardComponent,\n  LawHeaderComponent,\n  CommentActionsComponent,\n]"
+                }
+            ],
             "src/app/uiux/combs/profile/profile.module.ts": [
                 {
                     "name": "components",
@@ -51929,18 +51992,6 @@
                     "deprecationMessage": "",
                     "type": "[]",
                     "defaultValue": "[\n  Profile1v1Component,\n  UserCenterComponent,\n  UserFavoriteComponent,\n  UserPayComponent,\n]"
-                }
-            ],
-            "src/app/uiux/combs/showcase/showcase.module.ts": [
-                {
-                    "name": "components",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/uiux/combs/showcase/showcase.module.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "[]",
-                    "defaultValue": "[\n  Showcase1v1Component,\n  Showcase1v3Component,\n  Showcase2v1Component,\n  Showcase2v2Component,\n  Showcase2v3Component,\n  Showcase2v4Component,\n  Showcase2v5Component,\n  Showcase2v6Component,\n  Showcase3v1Component,\n  Showcase3v2Component,\n  Showcase3v3Component,\n  Showcase3v4Component,\n  Showcase3v5Component,\n  Showcase3v6Component,\n  Showcase3v7Component,\n  Showcase3v8Component,\n  Showcase4v1Component,\n]"
                 }
             ],
             "src/app/uiux/combs/tab/tab.module.ts": [
@@ -51955,6 +52006,18 @@
                     "defaultValue": "[Tab1v1Component]"
                 }
             ],
+            "src/app/uiux/combs/showcase/showcase.module.ts": [
+                {
+                    "name": "components",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/uiux/combs/showcase/showcase.module.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "[]",
+                    "defaultValue": "[\n  Showcase1v1Component,\n  Showcase1v3Component,\n  Showcase2v1Component,\n  Showcase2v2Component,\n  Showcase2v3Component,\n  Showcase2v4Component,\n  Showcase2v5Component,\n  Showcase2v6Component,\n  Showcase3v1Component,\n  Showcase3v2Component,\n  Showcase3v3Component,\n  Showcase3v4Component,\n  Showcase3v5Component,\n  Showcase3v6Component,\n  Showcase3v7Component,\n  Showcase3v8Component,\n  Showcase4v1Component,\n]"
+                }
+            ],
             "src/app/uiux/combs/video/video.module.ts": [
                 {
                     "name": "components",
@@ -51965,18 +52028,6 @@
                     "deprecationMessage": "",
                     "type": "[]",
                     "defaultValue": "[VideoBgComponent]"
-                }
-            ],
-            "src/app/uiux/combs/node/node.module.ts": [
-                {
-                    "name": "components",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/uiux/combs/node/node.module.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "[]",
-                    "defaultValue": "[\n  JobComponent,\n  CaseComponent,\n  ArticleComponent,\n  JobNodeComponent,\n  JobListComponent,\n  CaseNodeComponent,\n  JobFilterComponent,\n  ArticleBannerComponent,\n  ArticleMetaComponent,\n  QuestionComponent,\n  LawCaseComponent,\n  LawFilesComponent,\n  LawTableComponent,\n  CommentFormComponent,\n  CommentListComponent,\n  CommentItemComponent,\n  LawShowcaseComponent,\n  LawCardComponent,\n  LawHeaderComponent,\n  CommentActionsComponent,\n]"
                 }
             ],
             "src/test.ts": [
@@ -52032,28 +52083,6 @@
                     "deprecationMessage": "",
                     "type": "Story<BtnAnimateComponent>",
                     "defaultValue": "(args) => ({\n  component: BtnAnimateComponent,\n  props: {\n    ...args,\n  },\n})"
-                }
-            ],
-            "src/stories/widgets/card/Card.stories.ts": [
-                {
-                    "name": "Default",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/stories/widgets/card/Card.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "Template.bind({})"
-                },
-                {
-                    "name": "Template",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/stories/widgets/card/Card.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story<CardComponent>",
-                    "defaultValue": "(args) => ({\n  component: CardComponent,\n  props: {\n    ...args,\n  },\n})"
                 }
             ],
             "src/environments/environment.nnit.ts": [
@@ -54979,7 +55008,7 @@
                 "linktype": "interface",
                 "name": "IMeta",
                 "coveragePercent": 0,
-                "coverageCount": "0/3",
+                "coverageCount": "0/4",
                 "status": "low"
             },
             {
@@ -55986,6 +56015,16 @@
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
                 "name": "TitleV7",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/widgets/card/Card.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Card",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"

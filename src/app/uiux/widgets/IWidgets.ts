@@ -39,6 +39,7 @@ export interface IMeta {
   label: string;
   value: any;
   params?: {
+    line?: string;
     lightbox?: boolean;
     shorten?: number;
     dialog?: {

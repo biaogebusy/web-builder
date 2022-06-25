@@ -12,7 +12,7 @@ storiesOf('Widgets/Text', module)
       providers: [SafeHtmlPipe],
     })
   )
-  .add('Chris', () => ({
+  .add('Style v1', () => ({
     component: TextComponent,
     props: {
       content: {
@@ -41,32 +41,6 @@ storiesOf('Widgets/Text', module)
             icon: 'open_in_new',
           },
         ],
-      },
-    },
-  }))
-  .add('Jane', () => ({
-    component: TextComponent,
-    props: {
-      content: {
-        spacer: 'sm',
-        title: {
-          label:
-            '开源项目使用 Github actions 自动化测试部署 Angular 应用到 ECS 服务器',
-          style: 'style-v1',
-        },
-      },
-    },
-  }))
-  .add('Joe', () => ({
-    component: TextComponent,
-    props: {
-      content: {
-        spacer: 'sm',
-        title: {
-          label:
-            '开源项目使用 Github actions 自动化测试部署 Angular 应用到 ECS 服务器',
-          style: 'style-v1',
-        },
       },
     },
   }));

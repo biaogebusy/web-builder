@@ -8,13 +8,14 @@ import { Story } from '@storybook/angular/types-6-0';
 import { CardComponent } from '@uiux/widgets/card/card.component';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { CORE_CONFIG } from '@core/token/core.config';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 export default {
   title: 'Widgets/Card',
   component: CardComponent,
   decorators: [
     moduleMetadata({
       declarations: [],
-      imports: [ShareModule, WidgetsModule],
+      imports: [ShareModule, WidgetsModule, BrowserAnimationsModule],
       providers: [
         {
           provide: CORE_CONFIG,
@@ -127,6 +128,7 @@ Card.args = {
           value:
             'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. ',
           params: {
+            line: 'two',
             shorten: 100,
             dialog: {
               label: '更多',
@@ -138,6 +140,7 @@ Card.args = {
           value:
             'sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. ',
           params: {
+            line: 'two',
             shorten: 100,
             dialog: {
               label: '更多',
