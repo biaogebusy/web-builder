@@ -114,9 +114,5 @@ export class UserCenterComponent
     });
   }
 
-  logout(): void {
-    this.userState.logout();
-  }
-
   ngOnDestroy(): void {}
 }

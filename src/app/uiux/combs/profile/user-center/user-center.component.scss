@@ -1,4 +1,3 @@
-@import "/src/theme/mixins/amixin";
 @import "/src/theme/variable/breakpoint";
 
 .user-center {
@@ -9,25 +8,11 @@
     @media #{$gt-sm} {
       margin: 0;
       height: 8rem;
-      .profile {
-        top: -100px;
+      ::ng-deep .profile {
+        top: -74px;
       }
     }
   }
-}
-.avatar {
-  ::ng-deep {
-    img {
-      width: 140px;
-      height: 140px;
-      @include border-radius(50%, 50%, 50%, 50%);
-    }
-  }
-}
-
-.profile {
-  position: relative;
-  border-radius: 4px;
 }
 
 .label {
