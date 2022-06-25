@@ -97,15 +97,6 @@ export class UserCenterComponent
                 label: '手机',
                 content: info.phone_number || '没有填写',
               },
-              {
-                icon: {
-                  color: 'warn',
-                  svg: 'arrow_right',
-                  inline: true,
-                },
-                label: '角色',
-                content: this.getRoles(info.roles),
-              },
             ],
           },
         };
