@@ -3,7 +3,8 @@
     "params": {
       "themeSwitch": true,
       "userInfo": true,
-      "isMegaMenu": true
+      "isMegaMenu": true,
+      "menuHoverOpen": true
     },
     "logo": {
       "label": "信使",
