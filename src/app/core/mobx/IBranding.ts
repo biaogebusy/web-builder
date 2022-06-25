@@ -1,3 +1,5 @@
+import { ILink } from '@core/interface/widgets/ILink';
+import { IImg } from '@core/interface/widgets/IImg';
 export interface IBranding {
   header: Header;
   footer: Footer;
@@ -6,11 +8,16 @@ export interface IBranding {
 interface Header {
   params: HeaderParams;
   logo: Logo;
-  top: Top;
+  top: {
+    banner: {
+      left: Left[];
+      right: Right[];
+    };
+  };
   mainMenu: MainMenu[];
   search: Search;
   userMenu: UserMenu[];
-  actions: Child[];
+  actions: ILink[];
 }
 
 interface HeaderParams {
@@ -21,59 +28,53 @@ interface HeaderParams {
 }
 
 interface Footer {
-  params: Params4;
+  params: FooterParams;
   footerBrand: FooterBrand;
-  mainMenu: MainMenu2[];
-  mobileMenu: MainMenu2[];
+  mainMenu: FooterMenu[];
+  mobileMenu: FooterMenu[];
   footerNewsletter: FooterNewsletter;
   footerBottom: FooterBottom;
 }
 
 interface FooterBottom {
   left: string;
-  right: Child[];
+  right: ILink[];
 }
 
 interface FooterNewsletter {
-  params: Params5;
+  params: LetterParams;
   label: string;
   summary: string;
   forms: Form[];
-  action: Action2;
-}
-
-interface Action2 {
-  label: string;
+  action: {
+    label: string;
+  };
 }
 
 interface Form {
   type: string;
   label: string;
   key: string;
-  params: Params2;
+  params: {
+    required: true;
+  };
   placeholder: string;
   hint: string;
   error: string;
 }
 
-interface Params5 {
+interface LetterParams {
   webform_id: string;
 }
 
-interface MainMenu2 {
+interface FooterMenu {
   label: string;
-  child: Child3[];
+  child: ILink[];
 }
-
-interface Child3 {
-  label: string;
-  icon: string;
-  href: string;
-  target: string;
-}
-
 interface FooterBrand {
-  logo: Logo2;
+  logo: {
+    img: IImg;
+  };
   summary: string;
   social: Social[];
 }
@@ -84,18 +85,7 @@ interface Social {
   href: string;
 }
 
-interface Logo2 {
-  img: Img;
-}
-
-interface Img {
-  src: string;
-  alt: string;
-  href: string;
-  classes: string;
-}
-
-interface Params4 {
+interface FooterParams {
   mode: string;
   shape: boolean;
   style: string;
@@ -103,7 +93,9 @@ interface Params4 {
 
 interface UserMenu {
   label: string;
-  icon: Icon;
+  icon: {
+    name: string;
+  };
   dialog?: Dialog;
   href?: string;
 }
@@ -116,12 +108,10 @@ interface Dialog {
 interface Action {
   label: string;
   color: string;
-  params: Params3;
-}
-
-interface Params3 {
-  type: string;
-  snackMes: string;
+  params: {
+    type: string;
+    snackMes: string;
+  };
 }
 
 interface Content {
@@ -129,16 +119,10 @@ interface Content {
   key: string;
   label: string;
   placeholder: string;
-  params?: Params2;
+  params?: {
+    required: boolean;
+  };
   errorMes?: string;
-}
-
-interface Params2 {
-  required: boolean;
-}
-
-interface Icon {
-  name: string;
 }
 
 interface Search {
@@ -156,31 +140,14 @@ interface MainMenu {
   href?: string;
   queryParams?: QueryParams;
   fragment?: string;
-  child?: Child2[];
+  child?: Child[];
 }
 
-interface Child2 {
-  label: string;
-  child: Child[];
-  href?: string;
+interface Child extends ILink {
+  child: ILink[];
 }
-
-interface Child {
-  label: string;
-  href: string;
-}
-
 interface QueryParams {
   demo: string;
-}
-
-interface Top {
-  banner: Banner;
-}
-
-interface Banner {
-  left: Left[];
-  right: Right[];
 }
 
 interface Right {
