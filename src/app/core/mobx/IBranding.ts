@@ -10,8 +10,8 @@ export interface IHeader {
   top: IHeaderTop;
   banner: any;
   mainMenu: MainMenu[];
-  search: Search;
-  userMenu: UserMenu[];
+  search: IHeaderSearch;
+  userMenu: IUserMenu[];
   actions: ILink[];
 }
 
@@ -106,7 +106,7 @@ interface FooterParams {
   style: string;
 }
 
-interface UserMenu {
+export interface IUserMenu {
   label: string;
   icon: {
     name: string;
@@ -140,13 +140,14 @@ interface Content {
   errorMes?: string;
 }
 
-interface Search {
+export interface IHeaderSearch {
   enable: boolean;
   placeholder: string;
   tooltip: string;
   link: string;
   type: string;
   key: string;
+  value: string;
 }
 
 interface MainMenu {
@@ -169,4 +170,5 @@ interface Logo {
   label: string;
   version: boolean;
   href: string;
+  img: IImg;
 }

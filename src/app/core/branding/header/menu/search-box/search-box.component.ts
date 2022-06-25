@@ -14,6 +14,7 @@ import { FormService } from '@core/service/form.service';
 import { isEmpty, omitBy } from 'lodash';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { UserState } from '@core/mobx/user/UserState';
+import { IHeaderSearch } from '@core/mobx/IBranding';
 
 @Component({
   selector: 'app-search-box',
@@ -25,7 +26,7 @@ export class SearchBoxComponent
   extends BaseComponent
   implements OnInit, OnDestroy
 {
-  @Input() content: any;
+  @Input() content: IHeaderSearch;
 
   form: FormGroup;
   options: any[] = [];

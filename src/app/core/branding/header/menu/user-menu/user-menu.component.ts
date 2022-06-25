@@ -16,6 +16,7 @@ import { DialogService } from '@core/service/dialog.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { IUserMenu } from '@core/mobx/IBranding';
 
 @Component({
   selector: 'app-user-menu',
@@ -24,7 +25,7 @@ import { environment } from 'src/environments/environment';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserMenuComponent implements OnInit, OnDestroy {
-  @Input() content: any;
+  @Input() content: IUserMenu;
   dialogRef: any;
 
   destroy$: Subject<boolean> = new Subject<boolean>();
