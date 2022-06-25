@@ -1,23 +1,36 @@
 import { ILink } from '@core/interface/widgets/ILink';
 import { IImg } from '@core/interface/widgets/IImg';
 export interface IBranding {
-  header: Header;
-  footer: Footer;
+  header: IHeader;
+  footer: IFooter;
 }
-
-interface Header {
+export interface IHeader {
   params: HeaderParams;
   logo: Logo;
-  top: {
-    banner: {
-      left: Left[];
-      right: Right[];
-    };
-  };
+  top: IHeaderTop;
+  banner: any;
   mainMenu: MainMenu[];
   search: Search;
   userMenu: UserMenu[];
   actions: ILink[];
+}
+
+export interface IHeaderTop {
+  banner: {
+    left: Left[];
+    right: Right[];
+  };
+}
+
+interface Right {
+  label: string;
+  href: string;
+  svg?: string;
+}
+
+interface Left {
+  icon: string;
+  label: string;
 }
 
 interface HeaderParams {
@@ -25,15 +38,17 @@ interface HeaderParams {
   userInfo: boolean;
   isMegaMenu: boolean;
   menuHoverOpen: boolean;
+  inverse: boolean;
 }
 
-interface Footer {
+export interface IFooter {
   params: FooterParams;
   footerBrand: FooterBrand;
   mainMenu: FooterMenu[];
   mobileMenu: FooterMenu[];
   footerNewsletter: FooterNewsletter;
   footerBottom: FooterBottom;
+  fixBar: any[];
 }
 
 interface FooterBottom {
@@ -148,17 +163,6 @@ interface Child extends ILink {
 }
 interface QueryParams {
   demo: string;
-}
-
-interface Right {
-  label: string;
-  href: string;
-  svg?: string;
-}
-
-interface Left {
-  icon: string;
-  label: string;
 }
 
 interface Logo {

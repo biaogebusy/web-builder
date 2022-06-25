@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { action, observable, computed } from 'mobx-angular';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import { IBranding } from './IBranding';
+import { IBranding, IFooter, IHeader } from './IBranding';
 @Injectable()
 export class BrandingState {
   @observable private content: IBranding;
@@ -15,11 +15,11 @@ export class BrandingState {
     return this._READDY && this.content;
   }
 
-  @computed get header(): any {
+  @computed get header(): IHeader {
     return this.content && this.content.header;
   }
 
-  @computed get footer(): any {
+  @computed get footer(): IFooter {
     return this.content && this.content.footer;
   }
 
