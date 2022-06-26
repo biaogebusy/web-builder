@@ -5,11 +5,11 @@ export interface IBranding {
   footer: IFooter;
 }
 export interface IHeader {
-  params: HeaderParams;
+  params: IHeaderParams;
   logo: Logo;
   top: IHeaderTop;
   banner: any;
-  mainMenu: MainMenu[];
+  mainMenu: IMainMenu[];
   search: IHeaderSearch;
   userMenu: IUserMenu[];
   actions: ILink[];
@@ -33,7 +33,7 @@ interface Left {
   label: string;
 }
 
-interface HeaderParams {
+export interface IHeaderParams {
   themeSwitch: boolean;
   userInfo: boolean;
   isMegaMenu: boolean;
@@ -150,16 +150,16 @@ export interface IHeaderSearch {
   value: string;
 }
 
-interface MainMenu {
+export interface IMainMenu extends ILink {
   label: string;
   classes: string;
-  href?: string;
+  // href?: string;
   queryParams?: QueryParams;
   fragment?: string;
-  child?: Child[];
+  child?: IMainMenu[];
 }
 
-interface Child extends ILink {
+interface Child {
   child: ILink[];
 }
 interface QueryParams {

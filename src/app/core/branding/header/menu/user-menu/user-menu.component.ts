@@ -25,7 +25,7 @@ import { IUserMenu } from '@core/mobx/IBranding';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserMenuComponent implements OnInit, OnDestroy {
-  @Input() content: IUserMenu;
+  @Input() content: any[];
   dialogRef: any;
 
   destroy$: Subject<boolean> = new Subject<boolean>();
