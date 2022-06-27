@@ -16,6 +16,7 @@
   }
   .mat-header-cell {
     font-size: 15px;
+    word-break: keep-all;
   }
   .mat-cell {
     ::ng-deep {

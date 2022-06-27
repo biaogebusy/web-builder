@@ -17,6 +17,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { IUserMenu } from '@core/mobx/IBranding';
+import { IEnvironment } from '@core/interface/IEnvironment';
 
 @Component({
   selector: 'app-user-menu',
@@ -27,6 +28,7 @@ import { IUserMenu } from '@core/mobx/IBranding';
 export class UserMenuComponent implements OnInit, OnDestroy {
   @Input() content: any[];
   dialogRef: any;
+  env: IEnvironment;
 
   destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
@@ -39,6 +41,7 @@ export class UserMenuComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.env = environment;
     this.userState.user$.subscribe((user) => {
       this.cd.markForCheck();
     });
