@@ -93,6 +93,16 @@
       opacity: 0;
       @include transition(all, 0.4s, ease);
     }
+    .title {
+      position: absolute;
+      bottom: 0;
+      text-align: center;
+      display: block;
+      box-sizing: border-box;
+      width: 100%;
+      opacity: 0;
+      @include transition(all, 0.4s, ease);
+    }
   }
   &:hover {
     &:before,
@@ -107,11 +117,18 @@
         @include transition(all, 0.4s, ease);
       }
     }
+    .feature-inner-ling {
+      .title {
+        opacity: 1;
+        z-index: 10;
+        @include transition(all, 0.4s, ease);
+      }
+    }
     .feature-inner-btns {
       > a {
         @include scale(1);
         @include transition(all, 0.4s, ease);
-        &:hover {
+        &:not([class*="download"]):hover {
           z-index: 1;
           @include transform(45deg, 1.3, 0, 0);
           @include transition(all, 0.4s, ease);

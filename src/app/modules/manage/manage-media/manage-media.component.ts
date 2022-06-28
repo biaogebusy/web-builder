@@ -56,12 +56,12 @@ export class ManageMediaComponent implements OnInit {
             openIcon: 'file_download',
             link: attr.uri.url,
             img: {
-              classes: 'object-fill',
+              classes: 'object-fill p-x-lg p-y-lg',
               src:
                 type === 'pdf'
                   ? `${iconPath}/file-pdf.svg`
                   : type === 'excel'
-                  ? `${iconPath}/fil-excel.svg`
+                  ? `${iconPath}/file-excel.svg`
                   : `${iconPath}/file-word.svg`,
               alt: attr.filename,
             },
