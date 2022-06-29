@@ -13,6 +13,11 @@
   > ::ng-deep *:last-child {
     margin-bottom: 0;
   }
+  ::ng-deep {
+    img {
+      max-width: 100%;
+    }
+  }
 }
 
 .actions {

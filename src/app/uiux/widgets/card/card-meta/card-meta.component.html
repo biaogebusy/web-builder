@@ -2,12 +2,19 @@
   <div class="item" *ngFor="let meta of content" fxLayout fxLayoutAlign="start start">
     <span fxFlex="0 0 auto" class="bold m-right-xs" *ngIf="meta.label">{{meta.label}}: </span>
     <div class="right" fxLayoutAlign="start end" *ngIf="meta?.params">
-      <span class="{{meta?.params?.line || 'two'}}-line" [innerHTML]="meta.value | stripTags | shorten:200:''"></span>
+
+
+      <span *ngIf="!meta.params?.lightbox" class="{{meta?.params?.line || 'two'}}-line"
+        [innerHTML]="meta.value | stripTags | shorten:200:''"></span>
+
+      <!-- dialog -->
       <ng-container *ngIf="meta?.params?.dialog">
         <button class="custom-btn" mat-icon-button (click)="onDialog(meta)">
           <span [innerHTML]="meta.params.dialog.label"></span>
         </button>
       </ng-container>
+
+      <!-- lightbox -->
       <ng-container *ngIf="meta?.params?.lightbox">
         <app-inline-lightbox [content]="meta.value"></app-inline-lightbox>
       </ng-container>

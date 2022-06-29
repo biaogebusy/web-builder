@@ -48,11 +48,11 @@ export class UtilitiesService {
 
   getFileType(href: string): string {
     const url = href.toLowerCase();
-    const pdfReg = /^.+(\.pdf)$/;
-    const txtReg = /^.+(\.txt)$/;
-    const wordReg = /^.+(\.doc|\.docx)$/;
-    const excelReg = /^.+(\.xls|\.xlsx)$/;
-    const jpgReg = /^.+(\.png|\.jpg|\.jpeg|\.bmp)$/;
+    const pdfReg = /^.+(\.pdf)/;
+    const txtReg = /^.+(\.txt)/;
+    const wordReg = /^.+(\.doc|\.docx)/;
+    const excelReg = /^.+(\.xls|\.xlsx)/;
+    const jpgReg = /^.+(\.png|\.jpg|\.jpeg|\.bmp)/;
     if (pdfReg.test(url)) {
       return 'pdf';
     }
