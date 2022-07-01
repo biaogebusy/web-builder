@@ -40,7 +40,7 @@ const distFolder = join(process.cwd(), `${environment.site}/browser`);
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
   const server = express();
-  server.use(compressionModule({ level: 6 }));
+  server.use(compressionModule());
   server.use(
     rateLimit({
       windowMs: 15 * 60 * 1000, // 15 minutes
@@ -81,26 +81,6 @@ export function app(): express.Express {
       maxAge: '1y',
     })
   );
-
-  server.get('/sites/*', (req, res, next) => {
-    res.redirect(301, `${environment.apiUrl}${req.originalUrl}`);
-    return;
-  });
-
-  server.get('/system/*', (req, res, next) => {
-    res.redirect(301, `${environment.apiUrl}${req.originalUrl}`);
-    return;
-  });
-
-  server.get('/print/view/pdf/print/*', (req, res, next) => {
-    res.redirect(301, `${environment.apiUrl}${req.originalUrl}`);
-    return;
-  });
-
-  server.get('/print/view/word_docx/print/*', (req, res, next) => {
-    res.redirect(301, `${environment.apiUrl}${req.originalUrl}`);
-    return;
-  });
 
   // Set headers for all requests
   server.get('*', (req, res, next) => {
