@@ -1,9 +1,5 @@
 .view-list {
   position: relative;
-  min-height: 600px;
-  ::ng-deep .dynamic-table {
-    min-height: 600px;
-  }
   .loading-inner {
     position: absolute;
     left: 50%;

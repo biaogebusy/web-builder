@@ -6,6 +6,12 @@
       "params": {
         "apiType": "tab/case/parties-info"
       },
+      "tableParams": {
+        "sticky": true,
+        "style": {
+          "height": "500px"
+        }
+      },
       "tableClasses": "nowrap",
       "header": [{
           "label": "优先等级",

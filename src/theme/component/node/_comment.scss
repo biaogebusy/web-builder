@@ -14,8 +14,10 @@
       border-bottom: 1px solid mat-color($foreground, divider);
     }
     .item {
-      border-bottom: 1px solid mat-color($foreground, divider, 0.08);
-      &:last-child {
+      &:after {
+        border-bottom: 1px solid mat-color($foreground, divider, 0.08);
+      }
+      &:last-child:after {
         border-bottom: 0;
       }
       .item-child {

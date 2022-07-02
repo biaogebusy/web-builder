@@ -1,4 +1,4 @@
-<div class="dynamic-table width-100" [ngClass]="content.classes || 'nowrap'">
+<div class="dynamic-table width-100" [ngClass]="content.classes || 'nowrap'" [ngStyle]="content?.params?.style">
   <table mat-table [dataSource]="content.elements | dataSource" class="width-100" aria-describedby="dynamic table">
     <ng-container [matColumnDef]="item.key" *ngFor="let item of content.header">
       <th mat-header-cell *cdkHeaderCellDef class="{{item.classes}}" [ngStyle]="item.style || {}">
@@ -28,7 +28,7 @@
         </ng-template>
       </td>
     </ng-container>
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: content?.params?.sticky?true:false"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 </div>

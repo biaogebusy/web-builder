@@ -130,6 +130,7 @@ export class ViewListComponent
           header: this.content.header,
           elements: res.rows,
           classes: this.content?.tableClasses || '',
+          params: this.content?.tableParams || {},
         };
         this.pager = res.pager;
         this.loading = false;
