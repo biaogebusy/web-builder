@@ -61,7 +61,7 @@ export interface ILightboxElement {
 }
 
 export interface IDynamicTable {
-  params: {
+  params?: {
     sticky: boolean;
     style: object;
   };
