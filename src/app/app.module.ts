@@ -17,6 +17,8 @@ import { AppState } from './core/mobx/AppState';
 import { httpInterceptorProviders } from '@core/interceptors';
 import { Angulartics2Module } from 'angulartics2';
 import { CORE_CONFIG } from '@core/token/core.config';
+import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
+import { LoadingBarModule } from '@ngx-loading-bar/core';
 
 export function initConfig(appState: AppState, coreConfig: object) {
   return () => appState.loadConfig(coreConfig);
@@ -35,6 +37,8 @@ export function initConfig(appState: AppState, coreConfig: object) {
     Angulartics2Module.forRoot(),
     MobxModule.forRoot(),
     BrandingModule,
+    LoadingBarHttpClientModule,
+    LoadingBarModule,
   ],
   providers: [
     Title,
