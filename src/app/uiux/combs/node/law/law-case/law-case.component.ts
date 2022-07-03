@@ -132,10 +132,10 @@ export class LawCaseComponent
     }
     this.cd.detectChanges();
     this.nodeService
-      .getCommentsWitchChild(
-        this.content,
-        this.userState.currentUser.csrf_token,
-        timeStamp
+      .getCustomApiComment(
+        this.appState.pageConfig.node.uuid,
+        timeStamp,
+        this.userState.currentUser.csrf_token
       )
       .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {

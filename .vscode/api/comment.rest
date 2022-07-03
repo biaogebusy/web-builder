@@ -166,3 +166,5 @@ X-CSRF-Token: {{csrfToken}}
   }
 }
 
+## custom get comment api
+GET {{apiUrl}}/api/v3/comment/comment/{uuid}

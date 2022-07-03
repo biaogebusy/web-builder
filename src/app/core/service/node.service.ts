@@ -314,6 +314,31 @@ export class NodeService extends ApiService {
     );
   }
 
+  // custom get comment api
+  getCustomApiComment(
+    uuid: string,
+    timeStamp = 1,
+    token?: string
+  ): Observable<any> {
+    const key = JSON.stringify({ api: this.apiUrl, uuid, timeStamp });
+    const cache = this.responseCache.get(key);
+    const params = [`timeStamp=${timeStamp}`].join('&');
+    if (cache && environment.cache) {
+      return of(cache);
+    }
+    return this.http
+      .get(
+        `${this.apiUrl}/api/v3/comment/comment/${uuid}?${params}`,
+        token ? this.optionsWithCookieAndToken : this.httpOptionsOfCommon
+      )
+      .pipe(
+        switchMap((res) => {
+          this.responseCache.set(key, res);
+          return of(res);
+        })
+      );
+  }
+
   getFlaging(path: string, params: string, token: string): Observable<any> {
     return this.http.get<any>(
       `${this.apiUrl}${path}?${params}`,

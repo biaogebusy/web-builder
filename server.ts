@@ -89,6 +89,11 @@ export function app(): express.Express {
     next();
   });
 
+  server.get('/api/v1/config?content=/core/base', (req, res, next) => {
+    res.setHeader('Cache-Control', 'max-age=1800');
+    next();
+  });
+
   // All regular routes use the Universal engine
   server.get('*', (req, res) => {
     if (!environment.ssr) {
