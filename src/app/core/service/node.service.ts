@@ -38,7 +38,6 @@ export class NodeService extends ApiService {
   search(type: string, params: string, token?: string): Observable<any> {
     const key = JSON.stringify({ api: this.apiUrl, type, params });
     const searchFormCache = this.responseCache.get(key);
-    console.log(searchFormCache);
     if (searchFormCache && environment.cache) {
       return of(searchFormCache);
     }
