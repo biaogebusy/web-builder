@@ -5,6 +5,7 @@ import {
   ChangeDetectorRef,
   ChangeDetectionStrategy,
   AfterViewInit,
+  Inject,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ICase, ICasePrams } from '@core/interface/node/INode';
@@ -24,6 +25,8 @@ import {
   distinctUntilChanged,
   startWith,
 } from 'rxjs/operators';
+import { CORE_CONFIG } from '@core/token/core.config';
+import { ICoreConfig } from '@core/mobx/IAppConfig';
 // import data from './data.json';
 
 @Component({
@@ -51,7 +54,8 @@ export class LawCaseComponent
     private uti: UtilitiesService,
     private formState: FormState,
     private screenService: ScreenService,
-    public contentState: ContentState
+    public contentState: ContentState,
+    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig
   ) {
     super();
   }
@@ -123,6 +127,9 @@ export class LawCaseComponent
   }
 
   getComments(timeStamp = 1): void {
+    if (!this.coreConfig?.article?.comment?.enable) {
+      return;
+    }
     this.cd.detectChanges();
     this.nodeService
       .getCommentsWitchChild(
