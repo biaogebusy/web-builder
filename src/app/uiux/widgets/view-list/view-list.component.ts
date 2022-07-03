@@ -42,6 +42,7 @@ export class ViewListComponent
   noAuth: boolean;
   canShow = false;
   destroy$: Subject<boolean> = new Subject<boolean>();
+  first = true;
 
   constructor(
     private nodeService: NodeService,
@@ -55,7 +56,6 @@ export class ViewListComponent
 
   ngOnInit(): void {
     this.initForm();
-    this.getViews();
     this.afterClosedDialog();
   }
 
@@ -64,6 +64,10 @@ export class ViewListComponent
     if (this.checkShow(this.content) && !emptyHidden) {
       this.canShow = true;
       this.cd.detectChanges();
+    }
+    if (this.first) {
+      this.getViews();
+      this.first = false;
     }
   }
 

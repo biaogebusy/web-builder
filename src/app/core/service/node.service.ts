@@ -260,6 +260,7 @@ export class NodeService extends ApiService {
     };
   }
 
+  // api 在有权限的时候会有很大的性能开销，可使用自定义api
   getCommentsWitchChild(
     content: any,
     token = '',
