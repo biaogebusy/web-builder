@@ -38,6 +38,7 @@ export class NodeService extends ApiService {
   search(type: string, params: string, token?: string): Observable<any> {
     const key = JSON.stringify({ api: this.apiUrl, type, params });
     const searchFormCache = this.responseCache.get(key);
+    console.log(searchFormCache);
     if (searchFormCache && environment.cache) {
       return of(searchFormCache);
     }
@@ -85,6 +86,8 @@ export class NodeService extends ApiService {
   ): Observable<any> {
     const cacheKey = JSON.stringify({ api: this.apiUrl, path, type, params });
     const nodeCache = this.responseCache.get(cacheKey);
+    console.log(cacheKey);
+    console.log(nodeCache);
     if (nodeCache && environment.cache) {
       return of(nodeCache);
     } else {
@@ -207,7 +210,7 @@ export class NodeService extends ApiService {
         `fields[user--user]=name,user_picture`,
         `fields[file--file]=uri,url`,
         `sort=-created`,
-        'filter[status]=1',
+        // 'filter[status]=1',
         `jsonapi_include=1`,
         `timeStamp=${timeStamp}`,
       ].join('&'),

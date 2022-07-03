@@ -27,6 +27,7 @@ import {
 import { CalendarState } from '@core/mobx/CalendarState';
 import { formatDate } from '@angular/common';
 import { UserState } from '@core/mobx/user/UserState';
+import { RouteService } from '@core/service/route.service';
 
 @Component({
   selector: 'app-full-calendar',
@@ -54,7 +55,8 @@ export class FullCalendarComponent
     private screenService: ScreenService,
     private nodeService: NodeService,
     private calendarState: CalendarState,
-    public userState: UserState
+    public userState: UserState,
+    private routeService: RouteService
   ) {
     super(userState);
   }
@@ -137,6 +139,9 @@ export class FullCalendarComponent
               // custom event style bg, border
             };
           });
+          this.options.eventClick = (info) => {
+            this.routeService.eventLinkToNav(info.jsEvent);
+          };
           this.visiable = true;
           this.loading = false;
           this.cd.detectChanges();

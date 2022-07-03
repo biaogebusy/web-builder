@@ -17,13 +17,20 @@
         </ng-template>
         <ng-template #text>
           <ng-container *ngIf="item.dialog && element[item.key];else normal">
-            <span class="cell text-cell"
+            <span (click)="onNav($event)" class="cell text-cell" *ngIf="element[item.key] | isString;else number"
               [innerHTML]="element[item.key] | stripTags | shorten:item.dialog.shorten||10:'...'"></span>
+            <ng-template #number>
+              <span class="cell text-cell">
+                {{element[item.key]}}
+              </span>
+            </ng-template>
+            <span class="cell text-cell"></span>
             <a href="javascript:void(0)" [innerHTML]="item.dialog.label"
               (click)="onDialog(item.label, element[item.key])"></a>
           </ng-container>
           <ng-template #normal>
-            <span *ngIf="element[item.key]" class="cell text-cell" [innerHTML]="element[item.key]"></span>
+            <span (click)="onNav($event)" *ngIf="element[item.key]" class="cell text-cell"
+              [innerHTML]="element[item.key]"></span>
           </ng-template>
         </ng-template>
       </td>

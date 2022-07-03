@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
 import { IDynamicTable } from '../IWidgets';
 import { TextComponent } from '../text/text.component';
+import { RouteService } from '@core/service/route.service';
 
 @Component({
   selector: 'app-dynamic-table',
@@ -22,7 +23,7 @@ export class DynamicTableComponent implements OnInit {
 
   displayedColumns: string[];
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, private routService: RouteService) {}
 
   ngOnInit(): void {
     if (this.content.elements) {
@@ -48,5 +49,9 @@ export class DynamicTableComponent implements OnInit {
         },
       },
     });
+  }
+
+  onNav(event: any): void {
+    this.routService.eventLinkToNav(event);
   }
 }

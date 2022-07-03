@@ -23,6 +23,15 @@ export class RouteService {
     this.location.go(url);
   }
 
+  eventLinkToNav(event: any): void {
+    if (event.target.nodeName === 'A') {
+      event.preventDefault();
+      const target = event.target;
+      const link = target.href.split(target.host)[1];
+      this.router.navigate([link]);
+    }
+  }
+
   isAbsolute(href: string): boolean {
     const r = new RegExp('^(?:[a-z]+:)?//', 'i');
     return r.test(href);
