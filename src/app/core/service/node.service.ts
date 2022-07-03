@@ -224,7 +224,7 @@ export class NodeService extends ApiService {
       `fields[user--user]=name,user_picture`,
       `fields[file--file]=uri,url`,
       `sort=-created`,
-      'filter[status]=1',
+      // 'filter[status]=1',
       `jsonapi_include=1`,
       `timeStamp=${timeStamp}`,
     ].join('&');
