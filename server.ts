@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 const compressionModule = require('compression');
 const dominoModule = require('domino');
 const fsModule = require('fs');
+const mcache = require('memory-cache');
 const indexTemplate = fsModule
   .readFileSync(`${environment.site}/browser/index.html`)
   .toString();
@@ -36,6 +37,24 @@ import { APP_BASE_HREF } from '@angular/common';
 import { existsSync } from 'fs';
 
 const distFolder = join(process.cwd(), `${environment.site}/browser`);
+// https://medium.com/the-node-js-collection/simple-server-side-cache-for-express-js-with-node-js-45ff296ca0f0
+const cache = (duration: number) => {
+  return (req: any, res: any, next: any) => {
+    const key = '_express_' + req.url || req.originalUrl;
+    const cacheBody = mcache.get(key);
+    if (cacheBody) {
+      res.send(cacheBody);
+      return;
+    } else {
+      res.sendResponse = res.send;
+      res.send = (body: any) => {
+        mcache.put(key, body, duration * 1000);
+        res.sendResponse(body);
+      };
+      next();
+    }
+  };
+};
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
@@ -89,8 +108,8 @@ export function app(): express.Express {
     next();
   });
 
-  server.get('/api/v1/config?content=/core/base', (req, res, next) => {
-    res.setHeader('Cache-Control', 'max-age=1800');
+  server.get('/api/v1/config*', cache(3), (req, res, next) => {
+    // res.setHeader('Cache-Control', 'max-age=1800');
     next();
   });
 
