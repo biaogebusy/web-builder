@@ -37,24 +37,6 @@ import { APP_BASE_HREF } from '@angular/common';
 import { existsSync } from 'fs';
 
 const distFolder = join(process.cwd(), `${environment.site}/browser`);
-// https://medium.com/the-node-js-collection/simple-server-side-cache-for-express-js-with-node-js-45ff296ca0f0
-const cache = (duration: number) => {
-  return (req: any, res: any, next: any) => {
-    const key = '_express_' + req.url || req.originalUrl;
-    const cacheBody = mcache.get(key);
-    if (cacheBody) {
-      res.send(cacheBody);
-      return;
-    } else {
-      res.sendResponse = res.send;
-      res.send = (body: any) => {
-        mcache.put(key, body, duration * 1000);
-        res.sendResponse(body);
-      };
-      next();
-    }
-  };
-};
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
@@ -88,6 +70,22 @@ export function app(): express.Express {
   server.set('view engine', 'html');
   server.set('views', distFolder);
 
+  server.use((req, res, next) => {
+    let err = null;
+    console.log(req);
+    try {
+      decodeURIComponent(req.originalUrl);
+    } catch (e) {
+      err = e;
+    }
+
+    if (err) {
+      console.log(`\n======\n`, `${err}\n${req.originalUrl}\n=====\n`);
+      return res.status(400).send('400: Bad Request!');
+    }
+    next();
+  });
+
   // server static files
   server.use(express.static(__dirname + distFolder, { index: false }));
 
@@ -105,11 +103,6 @@ export function app(): express.Express {
   server.get('*', (req, res, next) => {
     // 表示客户端可以缓存资源，每次使用缓存资源前都必须重新验证其有效性。这意味着每次都会发起 HTTP 请求，但当缓存内容仍有效时可以跳过 HTTP 响应体的下载。
     res.setHeader('Cache-Control', 'no-cache');
-    next();
-  });
-
-  server.get('/api/v1/config*', cache(3), (req, res, next) => {
-    // res.setHeader('Cache-Control', 'max-age=1800');
     next();
   });
 
