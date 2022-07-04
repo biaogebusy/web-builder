@@ -10,7 +10,6 @@ import { environment } from 'src/environments/environment';
 const compressionModule = require('compression');
 const dominoModule = require('domino');
 const fsModule = require('fs');
-const mcache = require('memory-cache');
 const indexTemplate = fsModule
   .readFileSync(`${environment.site}/browser/index.html`)
   .toString();
