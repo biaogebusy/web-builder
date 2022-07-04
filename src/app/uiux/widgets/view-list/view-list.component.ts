@@ -73,6 +73,11 @@ export class ViewListComponent
 
   initForm(): void {
     if (this.content.form) {
+      this.content.form.push({
+        key: 'page',
+        value: 0,
+        type: 'text',
+      });
       this.form = this.formService.toFormGroup(this.content.form);
       this.form.valueChanges
         .pipe(
@@ -157,8 +162,10 @@ export class ViewListComponent
   }
 
   onPageChange(page: PageEvent): void {
-    this.getViews({
-      page: page.pageIndex,
-    });
+    debugger;
+    this.form.controls.page.setValue(page.pageIndex);
+    // const options = this.getViews({
+    //   page: page.pageIndex,
+    // });
   }
 }
