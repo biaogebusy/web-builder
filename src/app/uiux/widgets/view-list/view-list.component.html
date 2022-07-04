@@ -19,8 +19,8 @@
     <mat-divider></mat-divider>
     <div class="view" fxFlex.gt-sm="0 0 100" fxFlex.lt-md="100">
       <ngx-skeleton-loader *ngIf="loading" count="10" appearance="line"></ngx-skeleton-loader>
-      <app-dynamic-table [content]="table" *ngIf="table"></app-dynamic-table>
-      <div class="p-y p-x" *ngIf="noAuth">
+      <app-dynamic-table [content]="table" *ngIf="table && !loading"></app-dynamic-table>
+      <div class=" p-y p-x" *ngIf="noAuth">
         您没有权限访问该页面！
       </div>
       <mat-paginator *ngIf="pager" (page)="onPageChange($event)" [length]="pager.total_items"

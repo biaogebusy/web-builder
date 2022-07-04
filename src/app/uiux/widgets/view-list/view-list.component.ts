@@ -73,11 +73,6 @@ export class ViewListComponent
 
   initForm(): void {
     if (this.content.form) {
-      this.content.form.push({
-        key: 'page',
-        value: 0,
-        type: 'text',
-      });
       this.form = this.formService.toFormGroup(this.content.form);
       this.form.valueChanges
         .pipe(
@@ -92,6 +87,7 @@ export class ViewListComponent
           if (res.end) {
             res.end = formatDate(res.end, 'yyyy-MM-dd', 'en-US');
           }
+          res.page = 0;
           this.getViews(res);
         });
     }
@@ -162,10 +158,10 @@ export class ViewListComponent
   }
 
   onPageChange(page: PageEvent): void {
-    debugger;
-    this.form.controls.page.setValue(page.pageIndex);
-    // const options = this.getViews({
-    //   page: page.pageIndex,
-    // });
+    this.getViews(
+      Object.assign(this.form.value, {
+        page: page.pageIndex,
+      })
+    );
   }
 }
