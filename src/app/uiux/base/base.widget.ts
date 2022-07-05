@@ -36,7 +36,7 @@ export abstract class BaseComponent {
   }
 
   // For drupal view json api
-  getApiParams(state: any): any {
+  getApiParams(state: any): string {
     const params: string[] = [];
     if (state) {
       Object.keys(state).forEach((key) => {
