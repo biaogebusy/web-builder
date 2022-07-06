@@ -48,8 +48,8 @@ export class SelectComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    // TODO: init value
-    this.setInitialValue();
+    // 选择会有问题，暂时保留
+    // this.setInitialValue();
   }
 
   getOptionsFromApi(): void {

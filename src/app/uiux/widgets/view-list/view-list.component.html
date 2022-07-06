@@ -23,8 +23,8 @@
       <div class=" p-y p-x" *ngIf="noAuth">
         您没有权限访问该页面！
       </div>
-      <mat-paginator *ngIf="pager" (page)="onPageChange($event)" [length]="pager.total_items"
-        [pageSize]="pager.items_per_page">
+      <mat-paginator *ngIf="pager" [pageIndex]="currentPageIndex" (page)="onPageChange($event)"
+        [length]="pager.total_items" [pageSize]="pager.items_per_page">
       </mat-paginator>
     </div>
   </div>

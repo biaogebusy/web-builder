@@ -80,11 +80,7 @@ export class SearchComponent
   initForm(items: any[]): void {
     this.form = this.formService.toFormGroup(items);
     this.form.valueChanges
-      .pipe(
-        debounceTime(1000),
-        distinctUntilChanged(),
-        takeUntil(this.destroy$)
-      )
+      .pipe(debounceTime(500), distinctUntilChanged(), takeUntil(this.destroy$))
       .subscribe((value) => {
         const params = Object.assign({ page: 0 }, value);
         this.onSelectChange(params);
