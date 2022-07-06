@@ -152,8 +152,8 @@ export interface IHeaderSearch {
 
 export interface IMainMenu extends ILink {
   label: string;
-  classes: string;
-  // href?: string;
+  classes?: string;
+  href?: string;
   queryParams?: QueryParams;
   fragment?: string;
   child?: IMainMenu[];

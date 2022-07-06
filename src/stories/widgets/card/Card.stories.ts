@@ -9,13 +9,19 @@ import { CardComponent } from '@uiux/widgets/card/card.component';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { CORE_CONFIG } from '@core/token/core.config';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
 export default {
   title: 'Widgets/Card',
   component: CardComponent,
   decorators: [
     moduleMetadata({
       declarations: [],
-      imports: [ShareModule, WidgetsModule, BrowserAnimationsModule],
+      imports: [
+        ShareModule,
+        WidgetsModule,
+        BrowserAnimationsModule,
+        MatDialogModule,
+      ],
       providers: [
         {
           provide: CORE_CONFIG,

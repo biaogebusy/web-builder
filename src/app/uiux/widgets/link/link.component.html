@@ -2,7 +2,7 @@
   <a *ngIf="this.content.dialog; else link" [ngClass]="classes" [href]="'javascript:void(0);'"
     [innerHTML]="content?.label | safeHtml" title="{{content.label}}" rel="noopener" (click)="nav($event)"></a>
   <ng-template #link>
-    <a *ngIf="isAbsolute(this.content.href); else relative" [ngClass]="classes"
+    <a *ngIf="isAbsolute(this.content.href||''); else relative" [ngClass]="classes"
       [href]="this.content.href || 'javascript:void(0);'" [target]="content?.target || '_self'"
       [innerHTML]="content?.label | safeHtml" title="{{content.label}}" rel="noopener" (click)="nav($event)"></a>
     <ng-template #relative>
