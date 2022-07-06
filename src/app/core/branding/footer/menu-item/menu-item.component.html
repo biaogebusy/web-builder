@@ -3,12 +3,12 @@
     <div mat-subheader class="bold">{{menu.label}}</div>
     <ng-container *ngFor="let subMenu of menu.child; index as i">
       <mat-list-item *ngIf="!subMenu.popup; else popup" role="listitem">
-        <mat-icon mat-list-icon svgIcon="{{subMenu.icon}}"></mat-icon>
+        <mat-icon *ngIf="subMenu.icon" mat-list-icon svgIcon="{{subMenu.icon}}"></mat-icon>
         <app-link [content]="subMenu"></app-link>
       </mat-list-item>
       <ng-template #popup>
         <mat-list-item role="listitem" [matMenuTriggerFor]="popup">
-          <mat-icon mat-list-icon svgIcon="{{subMenu.icon}}"></mat-icon>
+          <mat-icon *ngIf="subMenu.icon" mat-list-icon svgIcon="{{subMenu.icon}}"></mat-icon>
           <span>{{subMenu.label}}</span>
           <mat-menu #popup="matMenu" yPosition="above">
             <span [innerHTML]="subMenu.popup|safeHtml"></span>
