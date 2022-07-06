@@ -23,7 +23,7 @@ import { catchError, shareReplay, take } from 'rxjs/operators';
 export class SelectComponent implements OnInit, AfterViewInit {
   @Input() content: IControl;
   @Input() form: FormGroup;
-  @ViewChild('select', { static: true }) select: MatSelect;
+  @ViewChild('select') select: MatSelect;
   /** control for the MatSelect filter keyword multi-selection */
   public searchCtrl: FormControl = new FormControl();
   /** list of banks filtered by search keyword */
@@ -48,7 +48,7 @@ export class SelectComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    // TODO: init value
+    // 选择会有问题，暂时保留
     // this.setInitialValue();
   }
 

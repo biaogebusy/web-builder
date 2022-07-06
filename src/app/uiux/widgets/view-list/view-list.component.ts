@@ -39,6 +39,7 @@ export class ViewListComponent
   table: any;
   loading: boolean;
   pager: any;
+  currentPageIndex = 0;
   noAuth: boolean;
   canShow = false;
   destroy$: Subject<boolean> = new Subject<boolean>();
@@ -87,6 +88,7 @@ export class ViewListComponent
           if (res.end) {
             res.end = formatDate(res.end, 'yyyy-MM-dd', 'en-US');
           }
+          this.currentPageIndex = 0;
           res.page = 0;
           this.getViews(res);
         });
@@ -158,6 +160,7 @@ export class ViewListComponent
   }
 
   onPageChange(page: PageEvent): void {
+    this.currentPageIndex = page.pageIndex;
     this.getViews(
       Object.assign(this.form.value, {
         page: page.pageIndex,
