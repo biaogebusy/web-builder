@@ -90,7 +90,9 @@
 
   .law-card {
     .mat-card {
-      @include mat-elevation(4, mat-color($foreground, divider, 0.75));
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 6px 16px 0 rgb(0 0 0 / 10%);
     }
   }
 }
