@@ -10,13 +10,20 @@ import {
 import { Story } from '@storybook/angular/types-6-0';
 import { BreadcrumbComponent } from '@uiux/widgets/breadcrumb/breadcrumb.component';
 import { LinkComponent } from '@uiux/widgets/link/link.component';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
 export default {
   title: 'Widgets/Breadcrumb',
   component: BreadcrumbComponent,
   decorators: [
     moduleMetadata({
-      declarations: [LinkComponent, SafeHtmlPipe],
-      imports: [ShareModule, BrowserAnimationsModule, RouterTestingModule],
+      declarations: [],
+      imports: [
+        ShareModule,
+        WidgetsModule,
+        BrowserAnimationsModule,
+        RouterTestingModule,
+      ],
+      providers: [SafeHtmlPipe],
     }),
     componentWrapperDecorator(
       (story) => `<div class="bg-primary bg-fill-width p-x p-y">${story}</div>`

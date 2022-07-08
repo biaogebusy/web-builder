@@ -5,11 +5,11 @@ import { CORE_CONFIG } from '@core/token/core.config';
 import { ShareModule } from '@share/share.module';
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { BoxComponent } from '@uiux/widgets/box/box.component';
+import { FeatureBoxComponent } from '@uiux/widgets/feature-box/feature-box.component';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 export default {
-  title: 'Widgets/Box',
-  component: BoxComponent,
+  title: 'Widgets/Feature Box',
+  component: FeatureBoxComponent,
   decorators: [
     moduleMetadata({
       declarations: [],
@@ -30,30 +30,39 @@ export default {
   ],
 } as Meta;
 
-const Template: Story<BoxComponent> = (args) => ({
-  component: BoxComponent,
+const Template: Story<FeatureBoxComponent> = (args) => ({
+  component: FeatureBoxComponent,
   props: {
     ...args,
   },
 });
-export const Box = Template.bind({});
+export const Default = Template.bind({});
 
-Box.args = {
+Default.args = {
   content: {
-    style: 'style-v9',
-    title: {
-      href: '/',
-      label: 'Best Financial Advice',
-    },
+    fullIcon: 'fullscreen',
+    openIcon: 'open_in_new',
+    link: '#',
+    ratios: 'media-4-3',
     img: {
       classes: 'object-fit',
       src: '/assets/images/cases/porto1.jpg',
       alt: 'alt',
     },
-    content: 'The most well-known which is said to have originated',
-    more: {
-      href: '#',
-      label: 'Read More',
+  },
+};
+
+export const HoverIcon = Template.bind({});
+
+HoverIcon.args = {
+  content: {
+    hoverIcon: true,
+    fullIcon: 'fullscreen',
+    ratios: 'media-4-3',
+    img: {
+      classes: 'object-fit',
+      src: '/assets/images/cases/porto1.jpg',
+      alt: 'lazyload',
     },
   },
 };

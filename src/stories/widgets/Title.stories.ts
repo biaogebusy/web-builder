@@ -4,15 +4,16 @@ import { moduleMetadata, Meta, Story } from '@storybook/angular';
 import { TitleComponent } from '@uiux/widgets/title/title.component';
 import { IconComponent } from '@uiux/widgets/icon/icon.component';
 import { MatIconModule } from '@angular/material/icon';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
 
 export default {
   title: 'Widgets/Title',
   component: TitleComponent,
   decorators: [
     moduleMetadata({
-      declarations: [IconComponent, SafeHtmlPipe],
-      imports: [MatIconModule, ShareModule],
-      providers: [],
+      declarations: [],
+      imports: [MatIconModule, ShareModule, WidgetsModule],
+      providers: [SafeHtmlPipe],
     }),
   ],
 } as Meta;
