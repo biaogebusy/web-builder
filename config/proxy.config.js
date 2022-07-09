@@ -24,7 +24,7 @@ const PROXY_CONFIG = [
       "/batch",
       "/editor",
     ],
-    target: "https://api.zhaobg.com",
+    target: "https://iooks.com",
     secure: false,
     changeOrigin: true,
   },
