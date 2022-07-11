@@ -85,8 +85,6 @@ export class NodeService extends ApiService {
   ): Observable<any> {
     const cacheKey = JSON.stringify({ api: this.apiUrl, path, type, params });
     const nodeCache = this.responseCache.get(cacheKey);
-    console.log(cacheKey);
-    console.log(nodeCache);
     if (nodeCache && environment.cache) {
       return of(nodeCache);
     } else {
