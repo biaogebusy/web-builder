@@ -13,6 +13,7 @@ import { UserState } from '@core/mobx/user/UserState';
 import { DialogService } from '@core/service/dialog.service';
 import { FormService } from '@core/service/form.service';
 import { NodeService } from '@core/service/node.service';
+import { ScreenService } from '@core/service/screen.service';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { isEmpty } from 'lodash-es';
 import { of, Subject } from 'rxjs';
@@ -50,14 +51,17 @@ export class ViewListComponent
     public userState: UserState,
     private cd: ChangeDetectorRef,
     private formService: FormService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private screenService: ScreenService
   ) {
     super(userState);
   }
 
   ngOnInit(): void {
-    this.initForm();
-    this.afterClosedDialog();
+    if (this.screenService.isPlatformBrowser()) {
+      this.initForm();
+      this.afterClosedDialog();
+    }
   }
 
   ngAfterViewInit(): void {
@@ -105,7 +109,6 @@ export class ViewListComponent
     const params = this.getApiParams(options);
     const emptyHidden = this.getParams(this.content, 'emptyHidden');
     this.loading = true;
-    this.cd.detectChanges();
     this.nodeService
       .search(this.content.params.apiType, params, this.userState.csrfToken)
       .pipe(
