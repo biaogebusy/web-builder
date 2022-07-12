@@ -35,7 +35,8 @@ export class ViewListComponent
   implements OnInit, AfterViewInit
 {
   @Input() content: any;
-  form: FormGroup;
+  form = new FormGroup({});
+  model: any = {};
   searchEntry: any;
   table: any;
   loading: boolean;
@@ -78,14 +79,15 @@ export class ViewListComponent
 
   initForm(): void {
     if (this.content.form) {
-      this.form = this.formService.toFormGroup(this.content.form);
+      // this.form = this.formService.toFormGroup(this.content.form);
       this.form.valueChanges
         .pipe(
           debounceTime(1000),
           distinctUntilChanged(),
           takeUntil(this.destroy$)
         )
-        .subscribe((res) => {
+        .subscribe(() => {
+          const res = this.model;
           if (res.start) {
             res.start = formatDate(res.start, 'yyyy-MM-dd', 'en-US');
           }
@@ -169,5 +171,9 @@ export class ViewListComponent
         page: page.pageIndex,
       })
     );
+  }
+
+  onSubmit(): void {
+    console.log(this.model);
   }
 }

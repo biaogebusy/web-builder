@@ -87,6 +87,8 @@ import { IframeComponent } from './iframe/iframe.component';
 import { SafePipe } from '@core/pipe/safe-url.pipe';
 import { UserCardComponent } from './card/user-card/user-card.component';
 import { UserCardCountComponent } from './card/user-card/user-card-count/user-card-count.component';
+import { FormlyModule } from '@ngx-formly/core';
+import { FormlyMaterialModule } from '@ngx-formly/material';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -187,6 +189,8 @@ const components = [
     FullCalendarModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    FormlyMaterialModule,
+    FormlyModule.forRoot({}),
   ],
   exports: [...components],
   providers: [
