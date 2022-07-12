@@ -25,3 +25,11 @@
 .view {
   position: relative;
 }
+
+form {
+  formly-form {
+    ::ng-deep formly-field {
+      width: 130px;
+    }
+  }
+}

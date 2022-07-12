@@ -15,7 +15,7 @@ import { TreeModule } from '@circlon/angular-tree-component';
 import { CdkTableModule } from '@angular/cdk/table';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-
+import { NgSelectModule } from '@ng-select/ng-select';
 import { BgComponent } from './bg/bg.component';
 import { ImgComponent } from './img/img.component';
 import { BoxComponent } from './box/box.component';
@@ -89,6 +89,7 @@ import { UserCardComponent } from './card/user-card/user-card.component';
 import { UserCardCountComponent } from './card/user-card/user-card-count/user-card-count.component';
 import { FormlyModule } from '@ngx-formly/core';
 import { FormlyMaterialModule } from '@ngx-formly/material';
+import { NgSelectFormlyComponent } from './form/ng-select/ng-select.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -173,6 +174,7 @@ const components = [
   MediaObjectGroupComponent,
   ContentTextCenterComponent,
   DynamicFormControlComponent,
+  NgSelectFormlyComponent,
 ];
 
 @NgModule({
@@ -188,9 +190,17 @@ const components = [
     CdkTableModule,
     FullCalendarModule,
     MatDatepickerModule,
+    NgSelectModule,
     MatNativeDateModule,
     FormlyMaterialModule,
-    FormlyModule.forRoot({}),
+    FormlyModule.forRoot({
+      types: [
+        {
+          name: 'ng-select',
+          component: NgSelectFormlyComponent,
+        },
+      ],
+    }),
   ],
   exports: [...components],
   providers: [

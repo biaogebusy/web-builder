@@ -80,24 +80,24 @@ export class ViewListComponent
   initForm(): void {
     if (this.content.form) {
       // this.form = this.formService.toFormGroup(this.content.form);
-      this.form.valueChanges
-        .pipe(
-          debounceTime(1000),
-          distinctUntilChanged(),
-          takeUntil(this.destroy$)
-        )
-        .subscribe(() => {
-          const res = this.model;
-          if (res.start) {
-            res.start = formatDate(res.start, 'yyyy-MM-dd', 'en-US');
-          }
-          if (res.end) {
-            res.end = formatDate(res.end, 'yyyy-MM-dd', 'en-US');
-          }
-          this.currentPageIndex = 0;
-          res.page = 0;
-          this.getViews(res);
-        });
+      // this.form.valueChanges
+      //   .pipe(
+      //     debounceTime(1000),
+      //     distinctUntilChanged(),
+      //     takeUntil(this.destroy$)
+      //   )
+      //   .subscribe(() => {
+      //     const res = this.model;
+      //     if (res.start) {
+      //       res.start = formatDate(res.start, 'yyyy-MM-dd', 'en-US');
+      //     }
+      //     if (res.end) {
+      //       res.end = formatDate(res.end, 'yyyy-MM-dd', 'en-US');
+      //     }
+      //     this.currentPageIndex = 0;
+      //     res.page = 0;
+      //     this.getViews(res);
+      //   });
     }
   }
 
@@ -175,5 +175,10 @@ export class ViewListComponent
 
   onSubmit(): void {
     console.log(this.model);
+  }
+
+  onModelChange(value: any): void {
+    console.log(value);
+    this.getViews(value);
   }
 }

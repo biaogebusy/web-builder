@@ -59,7 +59,7 @@
         }
       },
       {
-        "type": "select",
+        "type": "ng-select",
         "key": "customer",
         "api": "/api/v1/filter/customer",
         "none": {
