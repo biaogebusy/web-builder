@@ -7,7 +7,7 @@ import {
   ChangeDetectorRef,
   AfterViewInit,
 } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import { UserState } from '@core/mobx/user/UserState';
 import { DialogService } from '@core/service/dialog.service';
@@ -35,7 +35,10 @@ export class ViewListComponent
   implements OnInit, AfterViewInit
 {
   @Input() content: any;
-  form = new FormGroup({});
+  form = new FormGroup({
+    start: new FormControl(''),
+    end: new FormControl(''),
+  });
   model: any = {};
   searchEntry: any;
   table: any;

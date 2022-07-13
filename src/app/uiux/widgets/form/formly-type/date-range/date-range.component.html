@@ -1,0 +1,10 @@
+<mat-form-field class="width-100" [appearance]="to.appearance || 'fill'">
+  <mat-label *ngIf="to.label">{{to.label}}</mat-label>
+  <mat-date-range-input [rangePicker]="pickerRange" [formGroup]="range">
+    <input matStartDate formControlName="start" [placeholder]="'开始'">
+    <input matEndDate formControlName="end" [placeholder]="'结束'">
+  </mat-date-range-input>
+  <mat-datepicker-toggle matSuffix [for]="pickerRange"></mat-datepicker-toggle>
+  <mat-date-range-picker [dateClass]="to?.classes" #pickerRange>
+  </mat-date-range-picker>
+</mat-form-field>

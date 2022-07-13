@@ -90,7 +90,8 @@ import { UserCardCountComponent } from './card/user-card/user-card-count/user-ca
 import { FormlyModule } from '@ngx-formly/core';
 import { FormlyMaterialModule } from '@ngx-formly/material';
 import { FormlyMatDatepickerModule } from '@ngx-formly/material/datepicker';
-import { NgSelectFormlyComponent } from './form/ng-select/ng-select.component';
+import { NgSelectFormlyComponent } from './form/formly-type/ng-select/ng-select.component';
+import { DateRangeComponent } from './form/formly-type/date-range/date-range.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -176,6 +177,7 @@ const components = [
   ContentTextCenterComponent,
   DynamicFormControlComponent,
   NgSelectFormlyComponent,
+  DateRangeComponent,
 ];
 
 @NgModule({
@@ -200,6 +202,10 @@ const components = [
         {
           name: 'ng-select',
           component: NgSelectFormlyComponent,
+        },
+        {
+          name: 'date-range',
+          component: DateRangeComponent,
         },
       ],
     }),

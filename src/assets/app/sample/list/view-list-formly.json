@@ -130,7 +130,7 @@
           "label": "案件阶段"
         }
       }, {
-        "type": "datepicker",
+        "type": "date-range",
         "key": "date",
         "templateOptions": {
           "label": "期间",

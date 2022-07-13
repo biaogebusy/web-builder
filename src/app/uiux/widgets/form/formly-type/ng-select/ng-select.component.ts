@@ -19,7 +19,6 @@ export class NgSelectFormlyComponent extends FieldType implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this);
     this.content = this.field;
     if (this.content.api) {
       this.getOptionsFromApi();
