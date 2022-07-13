@@ -89,6 +89,7 @@ import { UserCardComponent } from './card/user-card/user-card.component';
 import { UserCardCountComponent } from './card/user-card/user-card-count/user-card-count.component';
 import { FormlyModule } from '@ngx-formly/core';
 import { FormlyMaterialModule } from '@ngx-formly/material';
+import { FormlyMatDatepickerModule } from '@ngx-formly/material/datepicker';
 import { NgSelectFormlyComponent } from './form/ng-select/ng-select.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
@@ -192,6 +193,7 @@ const components = [
     MatDatepickerModule,
     NgSelectModule,
     MatNativeDateModule,
+    FormlyMatDatepickerModule,
     FormlyMaterialModule,
     FormlyModule.forRoot({
       types: [

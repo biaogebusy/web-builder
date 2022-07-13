@@ -237,6 +237,9 @@
             "label": "View List",
             "href": "/sample/list/view-list"
           }, {
+            "label": "View List Formly",
+            "href": "/sample/list/view-list-formly"
+          }, {
             "label": "Tab View List",
             "href": "/sample/widgets/tab-view-list"
           }, {

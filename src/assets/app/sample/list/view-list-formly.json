@@ -67,199 +67,23 @@
         },
         "templateOptions": {
           "multiple": true,
-          "search": true,
-          "appearance": "standard",
-          "label": "客户名称",
-          "options": [{
-              "value": 392,
-              "label": "上海中油华鑫油气销售有限公司"
-            },
-            {
-              "value": 385,
-              "label": "上海农商银行"
-            },
-            {
-              "value": 383,
-              "label": "上海南大开发建设有限公司"
-            },
-            {
-              "value": 381,
-              "label": "中金公司"
-            },
-            {
-              "value": 379,
-              "label": "中国人保财险公司上海分公司"
-            },
-            {
-              "value": 378,
-              "label": "上海石油天然气交易中心有限公司"
-            },
-            {
-              "value": 376,
-              "label": "中油港汇能源科技发展有限公司"
-            },
-            {
-              "value": 374,
-              "label": "中国石油天然气股份有限公司上海销售分公司"
-            },
-            {
-              "value": 364,
-              "label": "先锋期货股份有限公司"
-            },
-            {
-              "value": 362,
-              "label": "上海新湖瑞丰金融服务有限公司"
-            },
-            {
-              "value": 360,
-              "label": "新湖期货股份有限公司"
-            },
-            {
-              "value": 346,
-              "label": "厦门德金贸易有限公司"
-            },
-            {
-              "value": 341,
-              "label": "上海演示用有限公司"
-            },
-            {
-              "value": 324,
-              "label": "上海药包材"
-            },
-            {
-              "value": 298,
-              "label": "付少娟"
-            },
-            {
-              "value": 268,
-              "label": "上海定成供就链管理有限公司"
-            },
-            {
-              "value": 262,
-              "label": "昆山灿林建筑设备有限公司"
-            },
-            {
-              "value": 245,
-              "label": "张福军"
-            },
-            {
-              "value": 233,
-              "label": "上海市医疗器械检验研究院"
-            },
-            {
-              "value": 219,
-              "label": "药智网"
-            },
-            {
-              "value": 217,
-              "label": "上海医药工业研究院有限公司"
-            },
-            {
-              "value": 214,
-              "label": "活动家"
-            },
-            {
-              "value": 213,
-              "label": "中国医药工业研究总院有限公司"
-            },
-            {
-              "value": 212,
-              "label": "苏州工业园区管理委员会"
-            },
-            {
-              "value": 211,
-              "label": "上海现代药物制剂工程研究中心有限公司"
-            },
-            {
-              "value": 202,
-              "label": "山东齐鲁生物"
-            },
-            {
-              "value": 154,
-              "label": "金诚同达律师所"
-            },
-            {
-              "value": 153,
-              "label": "广东通岩基础工程有限公司"
-            },
-            {
-              "value": 152,
-              "label": "和立东升集团有限公司"
-            },
-            {
-              "value": 151,
-              "label": "测试"
-            },
-            {
-              "value": 133,
-              "label": "上海医药行业协会"
-            },
-            {
-              "value": 82,
-              "label": "优贝融资租赁（上海）有限公司"
-            },
-            {
-              "value": 76,
-              "label": "舒志伟"
-            },
-            {
-              "value": 63,
-              "label": "易思远"
-            }
-          ]
+          "hideSelected": true,
+          "label": "客户名称"
         }
       },
       {
-        "type": "select",
+        "type": "ng-select",
         "key": "handler",
         "search": true,
         "api": "/api/v1/filter/handler",
         "templateOptions": {
           "multiple": true,
-          "search": true,
           "appearance": "standard",
-          "label": "经办人",
-          "options": [{
-              "value": 50,
-              "label": "忻州九洲公司"
-            },
-            {
-              "value": 42,
-              "label": "友博融资租赁（上海）有限公司"
-            },
-            {
-              "value": 8,
-              "label": "国家器审分中心"
-            },
-            {
-              "value": 10,
-              "label": "上海药检院"
-            },
-            {
-              "value": 9,
-              "label": "上海药审中心"
-            },
-            {
-              "value": 7,
-              "label": "国家药审分中心"
-            },
-            {
-              "value": 6,
-              "label": "上海云城租赁"
-            },
-            {
-              "value": 5,
-              "label": "苏州耀能太阳能发电有限公司"
-            },
-            {
-              "value": 11,
-              "label": "中轨六公司"
-            }
-          ]
+          "label": "经办人"
         }
       },
       {
-        "type": "select",
+        "type": "ng-select",
         "key": "other_party",
         "search": true,
         "api": "/api/v1/filter/other_party",
@@ -271,7 +95,7 @@
         }
       },
       {
-        "type": "select",
+        "type": "ng-select",
         "key": "court",
         "search": true,
         "api": "/api/v1/filter/court",
@@ -283,7 +107,7 @@
         }
       },
       {
-        "type": "select",
+        "type": "ng-select",
         "key": "judge",
         "search": true,
         "api": "/api/v1/filter/judge",
@@ -295,7 +119,7 @@
         }
       },
       {
-        "type": "select",
+        "type": "ng-select",
         "key": "case_procedure",
         "search": true,
         "api": "/api/v1/filter/taxonomy_term/case_procedure",
@@ -304,6 +128,16 @@
           "search": true,
           "appearance": "standard",
           "label": "案件阶段"
+        }
+      }, {
+        "type": "datepicker",
+        "key": "date",
+        "templateOptions": {
+          "label": "期间",
+          "value": "",
+          "range": true,
+          "appearance": "standard",
+          "placeholder": "请选择日期"
         }
       }
     ]

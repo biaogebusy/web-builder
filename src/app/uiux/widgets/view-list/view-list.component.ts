@@ -167,7 +167,7 @@ export class ViewListComponent
   onPageChange(page: PageEvent): void {
     this.currentPageIndex = page.pageIndex;
     this.getViews(
-      Object.assign(this.form.value, {
+      Object.assign(this.model, {
         page: page.pageIndex,
       })
     );
@@ -179,6 +179,17 @@ export class ViewListComponent
 
   onModelChange(value: any): void {
     console.log(value);
+    if (value.start) {
+      value.start = formatDate(value.start, 'yyyy-MM-dd', 'en-US');
+    }
+    if (value.end) {
+      value.end = formatDate(value.end, 'yyyy-MM-dd', 'en-US');
+    }
+    if (value.date) {
+      value.date = formatDate(value.date, 'yyyy-MM-dd', 'en-US');
+    }
+    this.currentPageIndex = 0;
+    value.page = 0;
     this.getViews(value);
   }
 }

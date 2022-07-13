@@ -1,5 +1,6 @@
-<div class="mat-input-infix mat-form-field-infix">
-  <ng-select [items]="to.options | async" [placeholder]="to.label" [bindValue]="to.bindValue || 'value'"
-    [formControl]="formControl" [class.is-invalid]="showError">
-  </ng-select>
-</div>
+ <div class="ng-select-inline">
+   <ng-select [items]="opts" [multiple]="to.multiple" [addTag]="to.addTag" [hideSelected]="to.hideSelected"
+     [closeOnSelect]="to.closeOnSelect" [placeholder]="to.label || ''" [bindValue]="to.bindValue || 'value'"
+     [formControl]="formControl">
+   </ng-select>
+ </div>
