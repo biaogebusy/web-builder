@@ -9,23 +9,22 @@ import { FieldType } from '@ngx-formly/core';
 })
 export class DateRangeComponent extends FieldType implements OnInit {
   formControl: FormControl;
-  range = new FormGroup({
-    start: new FormControl(''),
-    end: new FormControl(''),
-  });
+  start: FormControl;
+  end: FormControl;
   constructor() {
     super();
   }
 
   ngOnInit(): void {
-    this.range.valueChanges.subscribe((res) => {
-      // TODO: form value已生效，但是model不是最新的值
-      this.form.get('start')?.patchValue(res.start, {
-        emitEvent: true,
+    if (this.field.fieldGroup && this.field.fieldGroup?.length > 0) {
+      this.field.fieldGroup.map((item: any) => {
+        if (item.key === 'start') {
+          this.start = item.formControl;
+        }
+        if (item.key === 'end') {
+          this.end = item.formControl;
+        }
       });
-      this.form.get('end')?.patchValue(res.end, {
-        emitEvent: true,
-      });
-    });
+    }
   }
 }

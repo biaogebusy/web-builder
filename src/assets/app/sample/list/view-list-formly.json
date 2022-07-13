@@ -135,10 +135,17 @@
         "templateOptions": {
           "label": "期间",
           "value": "",
-          "range": true,
-          "appearance": "standard",
           "placeholder": "请选择日期"
-        }
+        },
+        "fieldGroup": [{
+          "type": "input",
+          "key": "start",
+          "placeholder": "开始"
+        }, {
+          "type": "input",
+          "key": "end",
+          "placeholder": "结束"
+        }]
       }
     ]
   }]

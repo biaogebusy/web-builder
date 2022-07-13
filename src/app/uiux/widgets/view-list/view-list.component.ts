@@ -1,4 +1,3 @@
-import { formatDate } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -17,12 +16,7 @@ import { ScreenService } from '@core/service/screen.service';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { isEmpty } from 'lodash-es';
 import { of, Subject } from 'rxjs';
-import {
-  debounceTime,
-  distinctUntilChanged,
-  takeUntil,
-  catchError,
-} from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-view-list',
@@ -63,7 +57,6 @@ export class ViewListComponent
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.initForm();
       this.afterClosedDialog();
     }
   }
@@ -77,30 +70,6 @@ export class ViewListComponent
     if (this.first) {
       this.getViews();
       this.first = false;
-    }
-  }
-
-  initForm(): void {
-    if (this.content.form) {
-      // this.form = this.formService.toFormGroup(this.content.form);
-      // this.form.valueChanges
-      //   .pipe(
-      //     debounceTime(1000),
-      //     distinctUntilChanged(),
-      //     takeUntil(this.destroy$)
-      //   )
-      //   .subscribe(() => {
-      //     const res = this.model;
-      //     if (res.start) {
-      //       res.start = formatDate(res.start, 'yyyy-MM-dd', 'en-US');
-      //     }
-      //     if (res.end) {
-      //       res.end = formatDate(res.end, 'yyyy-MM-dd', 'en-US');
-      //     }
-      //     this.currentPageIndex = 0;
-      //     res.page = 0;
-      //     this.getViews(res);
-      //   });
     }
   }
 
@@ -169,30 +138,15 @@ export class ViewListComponent
 
   onPageChange(page: PageEvent): void {
     this.currentPageIndex = page.pageIndex;
-    this.getViews(
-      Object.assign(this.model, {
-        page: page.pageIndex,
-      })
-    );
-  }
-
-  onSubmit(): void {
-    console.log(this.model);
+    const options = this.formService.handleRangeDate(this.model);
+    options.page = page.pageIndex;
+    this.getViews(options);
   }
 
   onModelChange(value: any): void {
-    console.log(value);
-    if (value.start) {
-      value.start = formatDate(value.start, 'yyyy-MM-dd', 'en-US');
-    }
-    if (value.end) {
-      value.end = formatDate(value.end, 'yyyy-MM-dd', 'en-US');
-    }
-    if (value.date) {
-      value.date = formatDate(value.date, 'yyyy-MM-dd', 'en-US');
-    }
+    const options = this.formService.handleRangeDate(value);
     this.currentPageIndex = 0;
-    value.page = 0;
-    this.getViews(value);
+    options.page = 0;
+    this.getViews(options);
   }
 }

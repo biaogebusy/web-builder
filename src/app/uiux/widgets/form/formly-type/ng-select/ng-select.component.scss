@@ -1,3 +1,7 @@
 .ng-select-inline {
   padding-top: 0.5em;
+  ::ng-deep .ng-value-label {
+    font-size: 10px !important;
+    font-weight: normal !important;
+  }
 }
