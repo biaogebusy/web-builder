@@ -1,6 +1,8 @@
- <div class="ng-select-inline">
-   <ng-select [items]="opts" [multiple]="to.multiple" [addTag]="to.addTag" [hideSelected]="to.hideSelected"
-     [closeOnSelect]="to.closeOnSelect" [placeholder]="to.label || ''" [bindValue]="to.bindValue || 'value'"
-     [formControl]="formControl">
-   </ng-select>
- </div>
+<ng-select class="custom" [items]="opts" [multiple]="to.multiple" [addTag]="to.addTag" [hideSelected]="to.hideSelected"
+  [closeOnSelect]="to.closeOnSelect" [placeholder]="to.label || ''" [bindValue]="to.bindValue || 'value'"
+  [formControl]="formControl">
+  <!-- custom template -->
+  <ng-template ng-label-tmp let-item="item">
+    {{item.label}}
+  </ng-template>
+</ng-select>

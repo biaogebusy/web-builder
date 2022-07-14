@@ -1,7 +1,55 @@
-.ng-select-inline {
-  padding-top: 0.5em;
-  ::ng-deep .ng-value-label {
-    font-size: 10px !important;
-    font-weight: normal !important;
+.custom.ng-select {
+  ::ng-deep {
+    .ng-select-container {
+      min-height: 45.5px;
+      .ng-value-container {
+        .ng-placeholder {
+          bottom: 0.4375em;
+          line-height: 18px;
+        }
+        .ng-value-label {
+          font-weight: normal !important;
+        }
+        .ng-input {
+          line-height: 18px;
+        }
+        .ng-value {
+          line-height: 18px;
+        }
+      }
+      &.ng-has-value {
+        .ng-value-container {
+          padding-top: 0;
+        }
+      }
+    }
+  }
+  &.ng-select-multiple {
+    ::ng-deep .ng-select-container .ng-value-container {
+      flex-wrap: nowrap;
+      overflow: hidden;
+      .ng-value {
+        background-color: transparent;
+        border-radius: 2px;
+        color: inherit;
+        padding: 0;
+        margin: 0 4px 0 0;
+      }
+    }
+  }
+  &.ng-select-single {
+    ::ng-deep {
+      .ng-select-container {
+        .ng-arrow-wrapper {
+          bottom: 4px;
+        }
+        .ng-value-container {
+          .ng-value {
+            position: relative;
+            top: 0.5em;
+          }
+        }
+      }
+    }
   }
 }
