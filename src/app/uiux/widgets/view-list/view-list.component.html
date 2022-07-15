@@ -3,6 +3,7 @@
   <app-bg-img [content]="content.bg"></app-bg-img>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <div class="getWidthClass()" fxLayout="row wrap">
+    {{model|json}}
     <app-text [content]="content.text" *ngIf="content.text"></app-text>
     <div class="filter" *ngIf="content.form" fxFlex.gt-sm="0 0 100" fxFlex.lt-md="100" fxLayout.gt-sm="row"
       fxLayout.lt-md="column" fxLayoutAlign="space-between center">
@@ -22,13 +23,22 @@
     <mat-divider></mat-divider>
     <div class="view" fxFlex.gt-sm="0 0 100" fxFlex.lt-md="100">
       <ngx-skeleton-loader *ngIf="loading" count="10" appearance="line"></ngx-skeleton-loader>
-      <app-dynamic-table [content]="table" *ngIf="table && !loading"></app-dynamic-table>
+      <app-dynamic-table [content]="table | paginate:{itemsPerPage: pager.itemsPerPage,currentPage: pager.current_page}"
+        *ngIf="table && !loading">
+      </app-dynamic-table>
+      {{form.getRawValue()|json}}<br>
       <div class=" p-y p-x" *ngIf="noAuth">
         您没有权限访问该页面！
       </div>
       <mat-paginator *ngIf="pager" [pageIndex]="currentPageIndex" (page)="onPageChange($event)"
         [length]="pager.total_items" [pageSize]="pager.items_per_page">
       </mat-paginator>
+      <ng-container *ngIf="table">
+        <ng-container *ngFor="let item of table.elements | paginate:{itemsPerPage: pager.items_per_page,currentPage:
+          pager.current_page,totalItems: pager.total_items}">
+        </ng-container>
+      </ng-container>
+      <app-pagination *ngIf="pager" (pageChange)="onPageChange($event)"></app-pagination>
     </div>
   </div>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>

@@ -29,10 +29,7 @@ export class ViewListComponent
   implements OnInit, AfterViewInit
 {
   @Input() content: any;
-  form = new FormGroup({
-    start: new FormControl(''),
-    end: new FormControl(''),
-  });
+  form = new FormGroup({});
   model: any = {};
   searchEntry: any;
   table: any;
@@ -136,17 +133,21 @@ export class ViewListComponent
     }
   }
 
-  onPageChange(page: PageEvent): void {
-    this.currentPageIndex = page.pageIndex;
+  onPageChange(page: number): void {
+    this.currentPageIndex = page - 1;
+    this.form
+      .get('page')
+      ?.patchValue(page, { onlySelf: true, emitEvent: false });
     const options = this.formService.handleRangeDate(this.model);
-    options.page = page.pageIndex;
+    console.log(this.model);
+    // options.page = this.currentPageIndex;
     this.getViews(options);
   }
 
   onModelChange(value: any): void {
-    const options = this.formService.handleRangeDate(value);
+    const options = this.formService.handleRangeDate(this.form.getRawValue());
     this.currentPageIndex = 0;
-    options.page = 0;
+    // options.page = 0;
     this.getViews(options);
   }
 

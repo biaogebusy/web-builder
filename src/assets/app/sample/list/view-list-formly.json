@@ -83,6 +83,12 @@
             "templateOptions": {
               "label": "标题"
             }
+          }, {
+            "type": "input",
+            "key": "page",
+            "templateOptions": {
+              "label": "页码"
+            }
           },
           {
             "type": "textarea",
