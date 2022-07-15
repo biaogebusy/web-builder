@@ -8,11 +8,9 @@
     <div class="filter" *ngIf="content.form" fxFlex.gt-sm="0 0 100" fxFlex.lt-md="100" fxLayout.gt-sm="row"
       fxLayout.lt-md="column" fxLayoutAlign="space-between center">
       <div class="filter-item" fxLayout.gt-sm="row wrap" fxLayout.lt-md="column" fxLayoutGap.gt-sm="1rem">
-        <form [formGroup]="form">
-          <formly-form fxLayout="row wrap" fxLayoutGap="1rem" [form]="form" [fields]="content.form" [model]="model"
-            (modelChange)="onModelChange($event)">
-          </formly-form>
-        </form>
+        <formly-form fxLayout="row wrap" fxLayoutGap="1rem" [form]="form" [fields]="content.form" [model]="model"
+          (modelChange)="onModelChange($event)">
+        </formly-form>
       </div>
       <div class="actions">
         <button mat-button (click)="clear()">
@@ -30,9 +28,9 @@
       <div class=" p-y p-x" *ngIf="noAuth">
         您没有权限访问该页面！
       </div>
-      <mat-paginator *ngIf="pager" [pageIndex]="currentPageIndex" (page)="onPageChange($event)"
+      <!-- <mat-paginator *ngIf="pager" [pageIndex]="currentPageIndex" (page)="onPageChange($event)"
         [length]="pager.total_items" [pageSize]="pager.items_per_page">
-      </mat-paginator>
+      </mat-paginator> -->
       <ng-container *ngIf="table">
         <ng-container *ngFor="let item of table.elements | paginate:{itemsPerPage: pager.items_per_page,currentPage:
           pager.current_page,totalItems: pager.total_items}">
