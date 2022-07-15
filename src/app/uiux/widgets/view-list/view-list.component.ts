@@ -134,20 +134,14 @@ export class ViewListComponent
   }
 
   onPageChange(page: number): void {
-    this.currentPageIndex = page - 1;
-    this.form
-      .get('page')
-      ?.patchValue(page, { onlySelf: true, emitEvent: false });
-    const options = this.formService.handleRangeDate(this.model);
+    const options = this.formService.handleRangeDate(this.form.getRawValue());
     console.log(this.model);
-    // options.page = this.currentPageIndex;
     this.getViews(options);
   }
 
   onModelChange(value: any): void {
-    const options = this.formService.handleRangeDate(this.form.getRawValue());
+    const options = this.formService.handleRangeDate(value);
     this.currentPageIndex = 0;
-    // options.page = 0;
     this.getViews(options);
   }
 

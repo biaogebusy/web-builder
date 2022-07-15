@@ -28,15 +28,12 @@
       <div class=" p-y p-x" *ngIf="noAuth">
         您没有权限访问该页面！
       </div>
-      <!-- <mat-paginator *ngIf="pager" [pageIndex]="currentPageIndex" (page)="onPageChange($event)"
-        [length]="pager.total_items" [pageSize]="pager.items_per_page">
-      </mat-paginator> -->
       <ng-container *ngIf="table">
         <ng-container *ngFor="let item of table.elements | paginate:{itemsPerPage: pager.items_per_page,currentPage:
-          pager.current_page,totalItems: pager.total_items}">
+          pager.current_page + 1,totalItems: pager.total_items}">
         </ng-container>
       </ng-container>
-      <app-pagination *ngIf="pager" (pageChange)="onPageChange($event)"></app-pagination>
+      <app-pagination [form]="form" *ngIf="pager"></app-pagination>
     </div>
   </div>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>

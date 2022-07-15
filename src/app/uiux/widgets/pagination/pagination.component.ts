@@ -1,3 +1,4 @@
+import { FormGroup } from '@angular/forms';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -16,6 +17,7 @@ import {
 export class PaginationComponent implements OnInit {
   @Input() id: string;
   @Input() maxSize: number;
+  @Input() form: FormGroup;
   @Output() pageChange: EventEmitter<number> = new EventEmitter();
   @Output() pageBoundsCorrection: EventEmitter<number> = new EventEmitter();
   constructor() {}
@@ -24,6 +26,9 @@ export class PaginationComponent implements OnInit {
 
   onPageChange(event: any): any {
     this.pageChange.emit(event);
+    if (this.form) {
+      this.form.get('page')?.patchValue(event, { onlySelf: true });
+    }
   }
 
   onPageBoundsCorrection(event: any): any {

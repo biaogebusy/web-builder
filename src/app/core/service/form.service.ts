@@ -82,6 +82,9 @@ export class FormService {
       }
       delete value.date;
     }
+    if (value.page) {
+      value.page = value.page - 1;
+    }
     return value;
   }
 }
