@@ -33,7 +33,7 @@
           pager.current_page + 1,totalItems: pager.total_items}">
         </ng-container>
       </ng-container>
-      <app-pagination [form]="form" *ngIf="pager"></app-pagination>
+      <app-pagination *ngIf="pager" (pageChange)="onPageChange($event)"></app-pagination>
     </div>
   </div>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
