@@ -118,6 +118,23 @@
                 "label": "案件阶段"
               }
             }, {
+              "type": "date-range",
+              "key": "date",
+              "templateOptions": {
+                "label": "期间",
+                "value": "",
+                "placeholder": "请选择日期"
+              },
+              "fieldGroup": [{
+                "type": "input",
+                "key": "start",
+                "placeholder": "开始"
+              }, {
+                "type": "input",
+                "key": "end",
+                "placeholder": "结束"
+              }]
+            }, {
               "type": "input",
               "key": "page",
               "className": "display-none",
