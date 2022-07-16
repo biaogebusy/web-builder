@@ -1,0 +1,175 @@
+{
+  "title": "Tabs",
+  "body": [{
+    "type": "tab",
+    "classes": "bg-light",
+    "bg": {
+      "classes": "bg-fill-width",
+      "style": {
+        "backgroundColor": "#fbfbfd"
+      }
+    },
+    "fullWidth": true,
+    "elements": [{
+      "label": "项目管理",
+      "elements": [{
+        "type": "view-list",
+        "spacer": "none",
+        "params": {
+          "apiType": "tab/project"
+        },
+        "header": [{
+            "label": "优先等级",
+            "key": "transaction_level"
+          },
+          {
+            "label": "创建时间",
+            "key": "business_date"
+          },
+          {
+            "label": "业务类型",
+            "key": "business_type"
+          },
+          {
+            "label": "标题",
+            "key": "title"
+          },
+          {
+            "label": "客户名称",
+            "key": "customer"
+          },
+          {
+            "label": "客户部门",
+            "key": "handler_dept"
+          },
+          {
+            "label": "经办人员",
+            "key": "handler"
+          },
+          {
+            "label": "业务对方",
+            "key": "other_party"
+          },
+          {
+            "label": "完工时间",
+            "key": "project_date"
+          },
+          {
+            "label": "分项标题",
+            "key": "title2",
+            "style": {
+              "color": "#cc9933"
+            }
+          },
+          {
+            "label": "文件清单",
+            "key": "case_files",
+            "style": {
+              "width": "10%"
+            }
+          },
+          {
+            "label": "工作工时",
+            "key": "man_hour"
+          },
+          {
+            "label": "更新者",
+            "key": "revision_uid"
+          }
+        ],
+        "form": [{
+            "type": "input",
+            "key": "title",
+            "templateOptions": {
+              "label": "标题"
+            }
+          },
+          {
+            "type": "textarea",
+            "key": "body",
+            "templateOptions": {
+              "label": "内容"
+            }
+          },
+          {
+            "type": "ng-select",
+            "key": "customer",
+            "api": "/api/v1/filter/customer",
+            "templateOptions": {
+              "multiple": false,
+              "hideSelected": true,
+              "label": "客户"
+            }
+          },
+          {
+            "type": "ng-select",
+            "key": "handler",
+            "api": "/api/v1/filter/handler",
+            "templateOptions": {
+              "multiple": true,
+              "appearance": "standard",
+              "label": "经办人"
+            }
+          },
+          {
+            "type": "ng-select",
+            "key": "other_party",
+            "api": "/api/v1/filter/other_party",
+            "templateOptions": {
+              "multiple": true,
+              "label": "第三方"
+            }
+          },
+          {
+            "type": "ng-select",
+            "key": "business_type",
+            "api": "/api/v1/filter/taxonomy_term/business_type?pid=95",
+            "templateOptions": {
+              "multiple": true,
+              "label": "业务对方"
+            }
+          },
+          {
+            "type": "date-range",
+            "key": "date",
+            "templateOptions": {
+              "label": "期间",
+              "value": "",
+              "placeholder": "请选择日期"
+            },
+            "fieldGroup": [{
+              "type": "input",
+              "key": "start",
+              "placeholder": "开始"
+            }, {
+              "type": "input",
+              "key": "end",
+              "placeholder": "结束"
+            }]
+          }, {
+            "key": "accept",
+            "type": "checkbox",
+            "templateOptions": {
+              "label": "Accept terms",
+              "descriptionBak": "In order to proceed, please accept terms",
+              "pattern": "true",
+              "required": true
+            },
+            "validation": {
+              "messages": {
+                "pattern": "Please accept the terms"
+              }
+            }
+          }, {
+            "type": "input",
+            "key": "page",
+            "className": "display-none",
+            "templateOptions": {
+              "label": "页码"
+            }
+          }
+        ]
+      }]
+    }]
+  }]
+}

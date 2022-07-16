@@ -15,7 +15,7 @@ import { TreeModule } from '@circlon/angular-tree-component';
 import { CdkTableModule } from '@angular/cdk/table';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-
+import { NgSelectModule } from '@ng-select/ng-select';
 import { BgComponent } from './bg/bg.component';
 import { ImgComponent } from './img/img.component';
 import { BoxComponent } from './box/box.component';
@@ -87,6 +87,11 @@ import { IframeComponent } from './iframe/iframe.component';
 import { SafePipe } from '@core/pipe/safe-url.pipe';
 import { UserCardComponent } from './card/user-card/user-card.component';
 import { UserCardCountComponent } from './card/user-card/user-card-count/user-card-count.component';
+import { FormlyModule } from '@ngx-formly/core';
+import { FormlyMaterialModule } from '@ngx-formly/material';
+import { FormlyMatDatepickerModule } from '@ngx-formly/material/datepicker';
+import { NgSelectFormlyComponent } from './form/formly-type/ng-select/ng-select.component';
+import { DateRangeComponent } from './form/formly-type/date-range/date-range.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -171,6 +176,8 @@ const components = [
   MediaObjectGroupComponent,
   ContentTextCenterComponent,
   DynamicFormControlComponent,
+  NgSelectFormlyComponent,
+  DateRangeComponent,
 ];
 
 @NgModule({
@@ -186,7 +193,22 @@ const components = [
     CdkTableModule,
     FullCalendarModule,
     MatDatepickerModule,
+    NgSelectModule,
     MatNativeDateModule,
+    FormlyMatDatepickerModule,
+    FormlyMaterialModule,
+    FormlyModule.forRoot({
+      types: [
+        {
+          name: 'ng-select',
+          component: NgSelectFormlyComponent,
+        },
+        {
+          name: 'date-range',
+          component: DateRangeComponent,
+        },
+      ],
+    }),
   ],
   exports: [...components],
   providers: [

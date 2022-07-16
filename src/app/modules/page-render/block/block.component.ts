@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AppState } from '@core/mobx/AppState';
-import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-block',
@@ -9,13 +8,9 @@ import { Router, NavigationEnd } from '@angular/router';
 })
 export class BlockComponent implements OnInit {
   content: any;
-  constructor(public appState: AppState, private router: Router) {}
+  constructor(public appState: AppState) {}
 
   ngOnInit(): void {
     this.appState.setPageContent();
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-      }
-    });
   }
 }

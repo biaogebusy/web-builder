@@ -1,4 +1,3 @@
-import { formatDate } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -7,7 +6,7 @@ import {
   ChangeDetectorRef,
   AfterViewInit,
 } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import { UserState } from '@core/mobx/user/UserState';
 import { DialogService } from '@core/service/dialog.service';
@@ -15,14 +14,9 @@ import { FormService } from '@core/service/form.service';
 import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
 import { BaseComponent } from '@uiux/base/base.widget';
-import { isEmpty } from 'lodash-es';
+import { isEmpty, merge } from 'lodash-es';
 import { of, Subject } from 'rxjs';
-import {
-  debounceTime,
-  distinctUntilChanged,
-  takeUntil,
-  catchError,
-} from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-view-list',
@@ -35,12 +29,12 @@ export class ViewListComponent
   implements OnInit, AfterViewInit
 {
   @Input() content: any;
-  form: FormGroup;
+  form = new FormGroup({});
+  model: any = {};
   searchEntry: any;
   table: any;
   loading: boolean;
   pager: any;
-  currentPageIndex = 0;
   noAuth: boolean;
   canShow = false;
   destroy$: Subject<boolean> = new Subject<boolean>();
@@ -59,7 +53,6 @@ export class ViewListComponent
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.initForm();
       this.afterClosedDialog();
     }
   }
@@ -73,29 +66,6 @@ export class ViewListComponent
     if (this.first) {
       this.getViews();
       this.first = false;
-    }
-  }
-
-  initForm(): void {
-    if (this.content.form) {
-      this.form = this.formService.toFormGroup(this.content.form);
-      this.form.valueChanges
-        .pipe(
-          debounceTime(1000),
-          distinctUntilChanged(),
-          takeUntil(this.destroy$)
-        )
-        .subscribe((res) => {
-          if (res.start) {
-            res.start = formatDate(res.start, 'yyyy-MM-dd', 'en-US');
-          }
-          if (res.end) {
-            res.end = formatDate(res.end, 'yyyy-MM-dd', 'en-US');
-          }
-          this.currentPageIndex = 0;
-          res.page = 0;
-          this.getViews(res);
-        });
     }
   }
 
@@ -162,12 +132,23 @@ export class ViewListComponent
     }
   }
 
-  onPageChange(page: PageEvent): void {
-    this.currentPageIndex = page.pageIndex;
-    this.getViews(
-      Object.assign(this.form.value, {
-        page: page.pageIndex,
-      })
-    );
+  onPageChange(page: number): void {
+    this.form
+      .get('page')
+      ?.patchValue(page, { onlySelf: true, emitEvent: false });
+    const value = merge(this.model, this.form.getRawValue());
+    const options = this.formService.handleRangeDate(value);
+    this.getViews(options);
+  }
+
+  onModelChange(value: any): void {
+    this.form.get('page')?.patchValue(1, { onlySelf: true, emitEvent: false });
+    const mergeValue = merge(this.model, this.form.getRawValue());
+    const options = this.formService.handleRangeDate(mergeValue);
+    this.getViews(options);
+  }
+
+  getWidthClass(): string {
+    return this.content.fullWidth ? 'container-fluid' : 'container';
   }
 }

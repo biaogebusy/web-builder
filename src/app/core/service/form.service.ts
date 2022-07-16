@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { ApiService } from '@core/service/api.service';
+import { formatDate } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
@@ -69,5 +70,21 @@ export class FormService {
       data,
       this.apiService.httpOptionsOfCommon
     );
+  }
+
+  handleRangeDate(value: any): any {
+    if (value.date) {
+      if (value.date.start) {
+        value.start = formatDate(value.date.start, 'yyyy-MM-dd', 'en-US');
+      }
+      if (value.date.end) {
+        value.end = formatDate(value.date.end, 'yyyy-MM-dd', 'en-US');
+      }
+      delete value.date;
+    }
+    if (value.page) {
+      value.page = value.page - 1;
+    }
+    return value;
   }
 }

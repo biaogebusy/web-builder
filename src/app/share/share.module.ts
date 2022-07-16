@@ -57,7 +57,7 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
     MatFormFieldModule,
     MatSelectModule,
     MatRippleModule,
-    ReactiveFormsModule,
+    FormsModule,
     MatProgressBarModule,
     MatProgressSpinnerModule,
     MatMenuModule,
