@@ -3,7 +3,6 @@
   <app-bg-img [content]="content.bg"></app-bg-img>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <div class="getWidthClass()" fxLayout="row wrap">
-    {{model|json}}
     <app-text [content]="content.text" *ngIf="content.text"></app-text>
     <div class="filter" *ngIf="content.form" fxFlex.gt-sm="0 0 100" fxFlex.lt-md="100" fxLayout.gt-sm="row"
       fxLayout.lt-md="column" fxLayoutAlign="space-between center">
@@ -24,7 +23,6 @@
       <app-dynamic-table [content]="table | paginate:{itemsPerPage: pager.itemsPerPage,currentPage: pager.current_page}"
         *ngIf="table && !loading">
       </app-dynamic-table>
-      {{form.getRawValue()|json}}<br>
       <div class=" p-y p-x" *ngIf="noAuth">
         您没有权限访问该页面！
       </div>

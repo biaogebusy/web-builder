@@ -14,7 +14,7 @@ import { FormService } from '@core/service/form.service';
 import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
 import { BaseComponent } from '@uiux/base/base.widget';
-import { isEmpty } from 'lodash-es';
+import { isEmpty, merge } from 'lodash-es';
 import { of, Subject } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
@@ -35,7 +35,6 @@ export class ViewListComponent
   table: any;
   loading: boolean;
   pager: any;
-  currentPageIndex = 0;
   noAuth: boolean;
   canShow = false;
   destroy$: Subject<boolean> = new Subject<boolean>();
@@ -134,15 +133,18 @@ export class ViewListComponent
   }
 
   onPageChange(page: number): void {
-    this.form.get('page')?.patchValue(page, { onlySelf: true });
-    // const options = this.formService.handleRangeDate(this.form.getRawValue());
-    // console.log(this.model);
-    // this.getViews(options);
+    this.form
+      .get('page')
+      ?.patchValue(page, { onlySelf: true, emitEvent: false });
+    const value = merge(this.model, this.form.getRawValue());
+    const options = this.formService.handleRangeDate(value);
+    this.getViews(options);
   }
 
   onModelChange(value: any): void {
-    const options = this.formService.handleRangeDate(value);
-    this.currentPageIndex = 0;
+    this.form.get('page')?.patchValue(1, { onlySelf: true, emitEvent: false });
+    const mergeValue = merge(this.model, this.form.getRawValue());
+    const options = this.formService.handleRangeDate(mergeValue);
     this.getViews(options);
   }
 
