@@ -1,4 +1,4 @@
-<pagination-template class="pagination m-y" #p="paginationApi" (pageChange)="onPageChange($event)"
+<pagination-template class="pagination m-y" #p="paginationApi" (pageChange)="onPageChange($event)" [id]="id"
   (pageBoundsCorrection)="onPageBoundsCorrection($event)" fxLayout fxLayoutAlign="center center">
   <button class="pagination-previous" color="primary" [class.disabled]="p.isFirstPage()" matTooltip="Prev Page"
     [matTooltipPosition]="'above'" (click)="p.previous()" mat-icon-button aria-label="Prev Page">

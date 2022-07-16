@@ -107,7 +107,7 @@
             "api": "/api/v1/filter/handler",
             "templateOptions": {
               "multiple": true,
-              "appearance": "standard",
+              "hideSelected": true,
               "label": "经办人"
             }
           },
@@ -117,6 +117,7 @@
             "api": "/api/v1/filter/other_party",
             "templateOptions": {
               "multiple": true,
+              "hideSelected": true,
               "label": "第三方"
             }
           },
@@ -126,6 +127,7 @@
             "api": "/api/v1/filter/taxonomy_term/business_type?pid=95",
             "templateOptions": {
               "multiple": true,
+              "hideSelected": true,
               "label": "业务对方"
             }
           },
