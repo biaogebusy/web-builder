@@ -6,10 +6,10 @@ import { IEnvironment } from '../app/core/interface/IEnvironment';
 export const environment: IEnvironment = {
   apiUrl: 'http://localhost:4200',
   // apiUrl: 'https://api.zhaobg.com',
-  production: true,
+  production: false,
   site: 'xinshi',
   port: 4000,
-  cache: true,
+  cache: false,
   ssr: false,
   drupalProxy: false,
 };

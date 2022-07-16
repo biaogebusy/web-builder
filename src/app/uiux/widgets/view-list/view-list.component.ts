@@ -6,8 +6,7 @@ import {
   ChangeDetectorRef,
   AfterViewInit,
 } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
-import { PageEvent } from '@angular/material/paginator';
+import { FormGroup } from '@angular/forms';
 import { UserState } from '@core/mobx/user/UserState';
 import { DialogService } from '@core/service/dialog.service';
 import { FormService } from '@core/service/form.service';
@@ -118,10 +117,6 @@ export class ViewListComponent
       });
   }
 
-  clear(): void {
-    this.form.reset();
-  }
-
   afterClosedDialog(): void {
     if (this.dialogService.dialogState$) {
       this.dialogService.dialogState$.subscribe((state) => {
@@ -130,6 +125,10 @@ export class ViewListComponent
         }
       });
     }
+  }
+
+  clear(): void {
+    this.form.reset();
   }
 
   onPageChange(page: number): void {
@@ -143,7 +142,7 @@ export class ViewListComponent
 
   onModelChange(value: any): void {
     this.form.get('page')?.patchValue(1, { onlySelf: true, emitEvent: false });
-    const mergeValue = merge(this.model, this.form.getRawValue());
+    const mergeValue = merge(value, this.form.getRawValue());
     const options = this.formService.handleRangeDate(mergeValue);
     this.getViews(options);
   }
