@@ -24,8 +24,7 @@ export default {
       ],
     }),
     componentWrapperDecorator(
-      (story) =>
-        `<div style="width:40%" class="position-relative text-light">${story}</div>`
+      (story) => `<div class="position-relative text-light">${story}</div>`
     ),
   ],
 } as Meta;
