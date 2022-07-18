@@ -9,5 +9,5 @@ export interface IMediaList {
 interface IElement {
   img: IImg;
   link: ILink;
-  changed: HTMLElement;
+  changed: string;
 }
