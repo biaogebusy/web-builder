@@ -92,6 +92,7 @@ import { FormlyMaterialModule } from '@ngx-formly/material';
 import { FormlyMatDatepickerModule } from '@ngx-formly/material/datepicker';
 import { NgSelectFormlyComponent } from './form/formly-type/ng-select/ng-select.component';
 import { DateRangeComponent } from './form/formly-type/date-range/date-range.component';
+import { MatSelectComponent } from './form/formly-type/mat-select/mat-select.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -178,6 +179,7 @@ const components = [
   DynamicFormControlComponent,
   NgSelectFormlyComponent,
   DateRangeComponent,
+  MatSelectComponent,
 ];
 
 @NgModule({
@@ -202,6 +204,10 @@ const components = [
         {
           name: 'ng-select',
           component: NgSelectFormlyComponent,
+        },
+        {
+          name: 'mat-select',
+          component: MatSelectComponent,
         },
         {
           name: 'date-range',

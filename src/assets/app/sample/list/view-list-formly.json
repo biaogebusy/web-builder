@@ -86,21 +86,42 @@
             }
           },
           {
-            "type": "ng-select",
+            "type": "mat-select",
             "key": "customer",
             "api": "/api/v1/filter/customer",
             "templateOptions": {
               "multiple": true,
+              "search": true,
               "hideSelected": true,
               "label": "客户名称"
             }
           },
           {
-            "type": "ng-select",
+            "type": "mat-select",
             "key": "handler",
             "api": "/api/v1/filter/handler",
             "templateOptions": {
               "multiple": true,
+              "hideSelected": true,
+              "label": "经办人员"
+            }
+          },
+          {
+            "type": "mat-select",
+            "key": "handler",
+            "api": "/api/v1/filter/handler",
+            "templateOptions": {
+              "multiple": false,
+              "hideSelected": true,
+              "label": "经办人员"
+            }
+          }, {
+            "type": "mat-select",
+            "key": "handler",
+            "api": "/api/v1/filter/handler",
+            "templateOptions": {
+              "multiple": false,
+              "search": true,
               "hideSelected": true,
               "label": "经办人员"
             }
