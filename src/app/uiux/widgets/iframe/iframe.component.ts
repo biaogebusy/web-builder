@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { UserState } from '@core/mobx/user/UserState';
 
 @Component({
   selector: 'app-iframe',
@@ -7,7 +8,17 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class IframeComponent implements OnInit {
   @Input() content: any;
-  constructor() {}
+  url: string;
+  constructor(private userState: UserState) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (!this.content?.url.includes(':id')) {
+      this.url = this.content.url;
+      return;
+    }
+    if (this.userState.authenticated) {
+      const id = this.userState.currentUser.current_user.uid;
+      this.url = this.content.url.replace(':id', id);
+    }
+  }
 }

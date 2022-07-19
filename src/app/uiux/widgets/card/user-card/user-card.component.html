@@ -4,5 +4,16 @@
     <app-user-card-count class="width-100" [content]="count"></app-user-card-count>
     <div class="time" *ngIf="userState.currentUser?.login">
       您上次登录时间：{{userState.currentUser?.login | date:"YYYY-MM-dd hh:mm"}}</div>
+    <div class="menus" *ngIf="content.menu">
+      <button mat-icon-button aria-label="menu" [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu" class="item">
+        <button mat-menu-item *ngFor="let action of content.menu">
+          <app-dynamic-widgets [content]="action">
+          </app-dynamic-widgets>
+        </button>
+      </mat-menu>
+    </div>
   </div>
 </div>
