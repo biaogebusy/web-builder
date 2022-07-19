@@ -9,7 +9,7 @@ export interface IText {
   classes?: string;
   style?: any;
   title?: ITitle;
-  body?: HTMLElement;
+  body?: string;
   actionsAlign?: string;
   lists?: {
     params: {

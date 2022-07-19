@@ -2,7 +2,6 @@ import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
 import { ShareModule } from '@share/share.module';
 import { moduleMetadata, Meta, Story } from '@storybook/angular';
 import { TitleComponent } from '@uiux/widgets/title/title.component';
-import { IconComponent } from '@uiux/widgets/icon/icon.component';
 import { MatIconModule } from '@angular/material/icon';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 

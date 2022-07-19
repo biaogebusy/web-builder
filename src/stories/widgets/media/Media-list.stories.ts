@@ -9,7 +9,6 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { BgComponent } from '@uiux/widgets/bg/bg.component';
 import { MediaListComponent } from '@uiux/widgets/media/media-list/media-list.component';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 
