@@ -14,13 +14,9 @@
       },
       "left": [{
         "type": "user-card",
-        "params": {
-          "api": "/api/v1/tab/order_process_statistics"
-        },
         "menu": [{
           "type": "link",
           "label": "资料更新",
-          "classes": "bold",
           "dialog": {
             "params": {
               "width": "1200px",
@@ -35,7 +31,7 @@
             "data": [{
               "type": "iframe",
               "url": "/user/:id/edit?disable_sidebar=1",
-              "height": "1200"
+              "height": "900"
             }]
           }
         }]
