@@ -1,18 +1,13 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import {
-  moduleMetadata,
-  Meta,
-  componentWrapperDecorator,
-} from '@storybook/angular';
+import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
 import { CORE_CONFIG } from '@core/token/core.config';
-import { CombsModule } from '../../../app/uiux/combs/combs.module';
 import { HttpClientModule } from '@angular/common/http';
 import { BannerSimpleComponent } from '../../../app/uiux/combs/banner/banner-simple/banner-simple.component';
 import { WidgetsModule } from '../../../app/uiux/widgets/widgets.module';
-import { LocalStorageService, NgxWebstorageModule } from 'ngx-webstorage';
+import { NgxWebstorageModule } from 'ngx-webstorage';
+import { ShareModule } from '../../../app/share/share.module';
 export default {
   title: 'Components/Banner/Banner simple',
   component: BannerSimpleComponent,
@@ -23,6 +18,7 @@ export default {
         RouterTestingModule,
         BrowserAnimationsModule,
         WidgetsModule,
+        ShareModule,
         HttpClientModule,
         NgxWebstorageModule.forRoot(),
       ],

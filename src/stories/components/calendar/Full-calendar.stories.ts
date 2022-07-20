@@ -123,7 +123,24 @@ Default.args = {
     ],
     calendar: {
       options: {
-        api: '/api/v1/amigo-full-calendar',
+        events: [
+          {
+            title: 'Angular 分享',
+            event: 'meeting',
+            start: '2022-07-20',
+            end: '2022-07-20',
+            user: 'Johnson',
+            className: 'bg-primary',
+          },
+          {
+            title: 'Drupal 分享',
+            event: 'drupal',
+            start: '2022-07-26',
+            end: '2022-07-26',
+            user: 'Johnson',
+            className: 'bg-warn',
+          },
+        ],
       },
       theme: {
         meeting: 'bg-warn',

@@ -119,6 +119,12 @@ export class FullCalendarComponent
     const params = this.getApiParams(state);
     const api = this.content?.calendar?.options?.api;
     this.initCalendar();
+    if (this.content.calendar?.options?.events) {
+      this.loading = true;
+      this.options.events = this.content.calendar.options.events;
+      this.initEvents();
+      return;
+    }
     if (api || params || this.options?.events) {
       this.loading = true;
       this.nodeService.search(api, params).subscribe((data) => {
@@ -139,15 +145,19 @@ export class FullCalendarComponent
               // custom event style bg, border
             };
           });
-          this.options.eventClick = (info) => {
-            this.routeService.eventLinkToNav(info.jsEvent);
-          };
-          this.visiable = true;
-          this.loading = false;
-          this.cd.detectChanges();
+          this.initEvents();
         }
       });
     }
+  }
+
+  initEvents(): void {
+    this.options.eventClick = (info) => {
+      this.routeService.eventLinkToNav(info.jsEvent);
+    };
+    this.visiable = true;
+    this.loading = false;
+    this.cd.detectChanges();
   }
 
   handleDates(dates: DatesSetArg): void {
