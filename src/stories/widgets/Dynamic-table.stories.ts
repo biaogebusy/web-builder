@@ -1,10 +1,10 @@
 import { MatTableModule } from '@angular/material/table';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ShareModule } from '@share/share.module';
+import { ShareModule } from '../../app/share/share.module';
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { DynamicTableComponent } from '@uiux/widgets/dynamic-table/dynamic-table.component';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { DynamicTableComponent } from '../../app/uiux/widgets/dynamic-table/dynamic-table.component';
+import { WidgetsModule } from '../../app/uiux/widgets/widgets.module';
 
 export default {
   title: 'Widgets/Dynamic table',

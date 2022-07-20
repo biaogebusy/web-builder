@@ -1,16 +1,16 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
-import { ShareModule } from '@share/share.module';
+import { SafeHtmlPipe } from '../../app/core/pipe/safe-html.pipe';
+import { ShareModule } from '../../app/share/share.module';
 import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { BreadcrumbComponent } from '@uiux/widgets/breadcrumb/breadcrumb.component';
-import { LinkComponent } from '@uiux/widgets/link/link.component';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { BreadcrumbComponent } from '../../app/uiux/widgets/breadcrumb/breadcrumb.component';
+import { LinkComponent } from '../../app/uiux/widgets/link/link.component';
+import { WidgetsModule } from '../../app/uiux/widgets/widgets.module';
 export default {
   title: 'Widgets/Breadcrumb',
   component: BreadcrumbComponent,

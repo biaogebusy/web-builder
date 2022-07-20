@@ -1,11 +1,11 @@
-import { ShareModule } from '@share/share.module';
+import { ShareModule } from '../../app/share/share.module';
 import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { BtnAnimateComponent } from '@uiux/widgets/btn-animate/btn-animate.component';
+import { BtnAnimateComponent } from '../../app/uiux/widgets/btn-animate/btn-animate.component';
 
 export default {
   title: 'Widgets/BtnAnimate',

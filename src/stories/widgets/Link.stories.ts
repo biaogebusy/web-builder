@@ -1,10 +1,10 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ShareModule } from '@share/share.module';
+import { ShareModule } from '../../app/share/share.module';
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { LinkComponent } from '@uiux/widgets/link/link.component';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { LinkComponent } from '../../app/uiux/widgets/link/link.component';
+import { WidgetsModule } from '../../app/uiux/widgets/widgets.module';
 
 export default {
   title: 'Widgets/Link',

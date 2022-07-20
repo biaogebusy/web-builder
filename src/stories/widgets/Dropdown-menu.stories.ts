@@ -4,10 +4,10 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { WidgetsModule } from '../../app/uiux/widgets/widgets.module';
 import { RouterTestingModule } from '@angular/router/testing';
-import { CORE_CONFIG } from '@core/token/core.config';
-import { DropdownMenuComponent } from '@uiux/widgets/dropdown-menu/dropdown-menu.component';
+import { CORE_CONFIG } from '../../app/core/token/core.config';
+import { DropdownMenuComponent } from '../../app/uiux/widgets/dropdown-menu/dropdown-menu.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 export default {
   title: 'Widgets/Dropdown Menu',

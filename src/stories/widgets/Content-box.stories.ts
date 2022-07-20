@@ -4,10 +4,10 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
-import { ContentBoxComponent } from '@uiux/widgets/content-box/content-box.component';
+import { WidgetsModule } from '../../app/uiux/widgets/widgets.module';
+import { ContentBoxComponent } from '../../app/uiux/widgets/content-box/content-box.component';
 import { RouterTestingModule } from '@angular/router/testing';
-import { CORE_CONFIG } from '@core/token/core.config';
+import { CORE_CONFIG } from '../../app/core/token/core.config';
 export default {
   title: 'Widgets/Content Box',
   component: ContentBoxComponent,

@@ -1,13 +1,13 @@
 import { MatButtonModule } from '@angular/material/button';
-import { ShareModule } from '@share/share.module';
+import { ShareModule } from '../../app/share/share.module';
 import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { BtnComponent } from '@uiux/widgets/btn/btn.component';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { BtnComponent } from '../../app/uiux/widgets/btn/btn.component';
+import { WidgetsModule } from '../../app/uiux/widgets/widgets.module';
 
 export default {
   title: 'Widgets/Button',

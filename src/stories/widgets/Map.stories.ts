@@ -1,19 +1,19 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { CORE_CONFIG } from '@core/token/core.config';
-import { ShareModule } from '@share/share.module';
+import { CORE_CONFIG } from '../../app/core/token/core.config';
+import { ShareModule } from '../../app/share/share.module';
 import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { MapComponent } from '@uiux/widgets/map/map.component';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { MapComponent } from '../../app/uiux/widgets/map/map.component';
+import { WidgetsModule } from '../../app/uiux/widgets/widgets.module';
 import { HttpClient } from '@angular/common/http';
-import { AppState } from '@core/mobx/AppState';
-import { AMapState } from '@core/mobx/amap/AMapState';
-import { AmapService } from '@core/service/amap.service';
+import { AppState } from '../../app/core/mobx/AppState';
+import { AMapState } from '../../app/core/mobx/amap/AMapState';
+import { AmapService } from '../../app/core/service/amap.service';
 
 export default {
   title: 'Widgets/Map',

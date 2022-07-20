@@ -1,9 +1,9 @@
-import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
-import { ShareModule } from '@share/share.module';
+import { SafeHtmlPipe } from '../../app/core/pipe/safe-html.pipe';
+import { ShareModule } from '../../app/share/share.module';
 import { moduleMetadata, Meta, Story } from '@storybook/angular';
-import { TitleComponent } from '@uiux/widgets/title/title.component';
+import { TitleComponent } from '../../app/uiux/widgets/title/title.component';
 import { MatIconModule } from '@angular/material/icon';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { WidgetsModule } from '../../app/uiux/widgets/widgets.module';
 
 export default {
   title: 'Widgets/Title',

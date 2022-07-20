@@ -1,7 +1,7 @@
-import { ShareModule } from '@share/share.module';
+import { ShareModule } from '../../app/share/share.module';
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { IconComponent } from '@uiux/widgets/icon/icon.component';
+import { IconComponent } from '../../app/uiux/widgets/icon/icon.component';
 
 export default {
   title: 'Widgets/Icon',

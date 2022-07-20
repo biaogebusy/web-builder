@@ -1,13 +1,13 @@
-import { ShareModule } from '@share/share.module';
+import { ShareModule } from '../../../app/share/share.module';
 import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { CardComponent } from '@uiux/widgets/card/card.component';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
-import { CORE_CONFIG } from '@core/token/core.config';
+import { CardComponent } from '../../../app/uiux/widgets/card/card.component';
+import { WidgetsModule } from '../../../app/uiux/widgets/widgets.module';
+import { CORE_CONFIG } from '../../../app/core/token/core.config';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 export default {

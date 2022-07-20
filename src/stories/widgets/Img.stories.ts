@@ -1,5 +1,5 @@
-import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
-import { ShareModule } from '@share/share.module';
+import { SafeHtmlPipe } from '../../app/core/pipe/safe-html.pipe';
+import { ShareModule } from '../../app/share/share.module';
 import {
   moduleMetadata,
   Meta,
@@ -7,9 +7,9 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { MatIconModule } from '@angular/material/icon';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
-import { ImgComponent } from '@uiux/widgets/img/img.component';
-import { CORE_CONFIG } from '@core/token/core.config';
+import { WidgetsModule } from '../../app/uiux/widgets/widgets.module';
+import { ImgComponent } from '../../app/uiux/widgets/img/img.component';
+import { CORE_CONFIG } from '../../app/core/token/core.config';
 
 export default {
   title: 'Widgets/Img',

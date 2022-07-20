@@ -1,11 +1,11 @@
-import { ShareModule } from '@share/share.module';
+import { ShareModule } from '../../app/share/share.module';
 import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { BgComponent } from '@uiux/widgets/bg/bg.component';
+import { BgComponent } from '../../app/uiux/widgets/bg/bg.component';
 
 export default {
   title: 'Widgets/Bg',

@@ -1,12 +1,12 @@
-import { ShareModule } from '@share/share.module';
+import { ShareModule } from '../../app/share/share.module';
 import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
-import { ChipListComponent } from '@uiux/widgets/chip-list/chip-list.component';
+import { WidgetsModule } from '../../app/uiux/widgets/widgets.module';
+import { ChipListComponent } from '../../app/uiux/widgets/chip-list/chip-list.component';
 export default {
   title: 'Widgets/Chips List',
   component: ChipListComponent,
