@@ -11,6 +11,8 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
 import { LoopWidgetsComponent } from '@uiux/widgets/loop-widgets/loop-widgets.component';
 import { DialogService } from '@core/service/dialog.service';
+import { BaseComponent } from '@uiux/base/base.widget';
+import { UserState } from '@core/mobx/user/UserState';
 
 @Component({
   selector: 'app-link',
@@ -18,7 +20,7 @@ import { DialogService } from '@core/service/dialog.service';
   styleUrls: ['./link.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LinkComponent implements OnInit {
+export class LinkComponent extends BaseComponent implements OnInit {
   @Input() content: ILink;
   classes: any;
   href: string;
@@ -27,8 +29,11 @@ export class LinkComponent implements OnInit {
     public routeService: RouteService,
     private util: UtilitiesService,
     private dialog: MatDialog,
-    private dialogService: DialogService
-  ) {}
+    private dialogService: DialogService,
+    public userState: UserState
+  ) {
+    super(userState);
+  }
 
   ngOnInit(): void {
     if (!this.content) {

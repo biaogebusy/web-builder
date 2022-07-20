@@ -49,6 +49,9 @@
         "label": "自习室",
         "classes": "bold",
         "href": "/lists/blog",
+        "params": {
+          "reqRoles": []
+        },
         "queryParams": {
           "demo": "466"
         },

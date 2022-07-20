@@ -8,6 +8,7 @@ export interface ILink {
   label: any;
   queryParams?: Params | null;
   fragment?: string;
+  params?: object;
   dialog?: {
     params: MatDialogConfig;
     data: any[];
