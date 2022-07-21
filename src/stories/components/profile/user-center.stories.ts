@@ -1,0 +1,389 @@
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
+import { moduleMetadata, Meta } from '@storybook/angular';
+import { Story } from '@storybook/angular/types-6-0';
+import { CORE_CONFIG } from '@core/token/core.config';
+import { HttpClientModule } from '@angular/common/http';
+import { WidgetsModule } from '../../../app/uiux/widgets/widgets.module';
+import { NgxWebstorageModule } from 'ngx-webstorage';
+import { ShareModule } from '../../../app/share/share.module';
+import { UserCenterComponent } from '@uiux/combs/profile/user-center/user-center.component';
+import { ProfileModule } from '../../../app/uiux/combs/profile/profile.module';
+export default {
+  title: 'Components/profile/userCenter',
+  component: UserCenterComponent,
+  decorators: [
+    moduleMetadata({
+      declarations: [],
+      imports: [
+        RouterTestingModule,
+        BrowserAnimationsModule,
+        WidgetsModule,
+        ShareModule,
+        HttpClientModule,
+        ProfileModule,
+        NgxWebstorageModule.forRoot(),
+      ],
+      providers: [
+        {
+          provide: CORE_CONFIG,
+          useValue: {},
+        },
+      ],
+    }),
+  ],
+} as Meta;
+
+const Template: Story<UserCenterComponent> = (args) => ({
+  component: UserCenterComponent,
+  props: {
+    ...args,
+  },
+});
+export const Default = Template.bind({});
+
+Default.args = {
+  content: {
+    params: {
+      showProfile: false,
+      showDetails: false,
+    },
+    main: {
+      spacer: 'sm',
+      bg: {
+        classes: 'bg-fill-width bg-shadow',
+      },
+    },
+    left: [
+      {
+        type: 'user-card',
+        menu: [
+          {
+            type: 'link',
+            label: '资料更新',
+            dialog: {
+              params: {
+                width: '1200px',
+                disableClose: true,
+              },
+              afterClosed: {
+                success: {
+                  label: '更新资料成功！',
+                },
+                emit: true,
+              },
+              data: [
+                {
+                  type: 'iframe',
+                  url: '/user/:id/edit?disable_sidebar=1',
+                  height: '900',
+                },
+              ],
+            },
+          },
+        ],
+      },
+    ],
+    right: [
+      {
+        type: 'showcase-3v6',
+        title: {
+          type: 'text',
+          spacer: 'xs',
+          title: {
+            label: '快捷入口',
+            style: 'style-v4',
+          },
+        },
+        params: {
+          reqRoles: ['customer_staff'],
+        },
+        spacer: 'xs',
+        row: '4',
+        elements: [
+          {
+            img: {
+              src: '/sites/amigo.zhaobg.com/files/styles/crop/public/2022-05/project.png',
+              style: {
+                width: '45px',
+                height: '45px',
+              },
+              alt: 'logo',
+            },
+            css3: true,
+            link: {
+              label: '填写订单',
+              classes: 'bold',
+              dialog: {
+                params: {
+                  width: '1200px',
+                  disableClose: true,
+                },
+                afterClosed: {
+                  success: {
+                    label: '请检查是否发布成功！',
+                  },
+                  emit: true,
+                },
+                data: [
+                  {
+                    type: 'iframe',
+                    url: '/manage/node/project/front/add?disable_sidebar=1',
+                    height: '1000',
+                  },
+                ],
+              },
+            },
+            subTitle: '发布工作需求给律师',
+          },
+          {
+            img: {
+              src: '/sites/amigo.zhaobg.com/files/styles/crop/public/2022-05/meeting_0.png',
+              style: {
+                width: '45px',
+                height: '45px',
+              },
+              alt: 'logo',
+            },
+            css3: true,
+            link: {
+              label: '会议管理',
+              classes: 'bold',
+              dialog: {
+                params: {
+                  width: '1200px',
+                  disableClose: true,
+                },
+                afterClosed: {
+                  success: {
+                    label: '请检查是否发布成功！',
+                  },
+                  emit: true,
+                },
+                data: [
+                  {
+                    type: 'iframe',
+                    url: '/manage/node/meeting/front/add?disable_sidebar=1',
+                    height: '1200',
+                  },
+                ],
+              },
+            },
+            subTitle: '快速发布会议内容',
+          },
+          {
+            img: {
+              src: '/sites/amigo.zhaobg.com/files/styles/crop/public/2022-05/case.png',
+              style: {
+                width: '45px',
+                height: '45px',
+              },
+              alt: 'logo',
+            },
+            css3: true,
+            link: {
+              label: '项目列表',
+              classes: 'bold',
+              href: '#',
+            },
+            subTitle: '查看项目 View 列表',
+          },
+          {
+            img: {
+              src: '/sites/amigo.zhaobg.com/files/styles/crop/public/2022-05/case.png',
+              style: {
+                width: '45px',
+                height: '45px',
+              },
+              alt: 'logo',
+            },
+            css3: true,
+            link: {
+              label: '我的收藏',
+              classes: 'bold',
+              href: '#',
+            },
+            subTitle: '查看收藏的内容',
+          },
+        ],
+      },
+      {
+        type: 'showcase-3v6',
+        row: '3',
+        spacer: 'xs',
+        title: {
+          type: 'text',
+          spacer: 'xs',
+          title: {
+            label: '快捷入口',
+            style: 'style-v4',
+          },
+        },
+        params: {
+          reqRoles: ['lawyer', 'assistant_lawyer'],
+        },
+        action: {
+          label: '管理更多',
+          href: 'https://amigo.zhaobg.com/manage/case',
+          style: 'style-v1',
+          icon: 'open_in_new',
+        },
+        elements: [
+          {
+            img: {
+              src: '/sites/amigo.zhaobg.com/files/styles/crop/public/2022-05/case.png?itok=yU2LM_vy',
+              style: {
+                width: '45px',
+                height: '45px',
+              },
+              alt: 'case.png',
+            },
+            css3: true,
+            subTitle: '发布案件内容',
+            link: {
+              href: 'https://amigo.zhaobg.com/manage/content/case/add?redirect=/preview&disable_sidebar=1',
+              label: '案件',
+              classes: 'bold',
+            },
+          },
+          {
+            img: {
+              src: '/sites/amigo.zhaobg.com/files/styles/crop/public/2022-05/project.png?itok=9QxO7EiP',
+              style: {
+                width: '45px',
+                height: '45px',
+              },
+              alt: 'project.png',
+            },
+            css3: true,
+            subTitle: '发布项目内容',
+            link: {
+              href: 'https://amigo.zhaobg.com/manage/content/project/add?redirect=/preview&disable_sidebar=1',
+              label: '项目',
+              classes: 'bold',
+            },
+          },
+          {
+            img: {
+              src: '/sites/amigo.zhaobg.com/files/styles/crop/public/2022-05/meeting_0.png?itok=VjqYAF7k',
+              style: {
+                width: '45px',
+                height: '45px',
+              },
+              alt: 'meeting.png',
+            },
+            css3: true,
+            subTitle: '发布会议',
+            link: {
+              href: 'https://amigo.zhaobg.com/manage/content/meeting/add?redirect=/preview&disable_sidebar=1',
+              label: '会议',
+              classes: 'bold',
+            },
+          },
+          {
+            img: {
+              src: '/sites/amigo.zhaobg.com/files/styles/crop/public/2022-05/doc.png?itok=2ouh91_g',
+              style: {
+                width: '45px',
+                height: '45px',
+              },
+              alt: 'doc.png',
+            },
+            css3: true,
+            subTitle: '发布文库资料',
+            link: {
+              href: 'https://amigo.zhaobg.com/manage/content/doc_lib/add?redirect=/preview&disable_sidebar=1',
+              label: '文库资料',
+              classes: 'bold',
+            },
+          },
+          {
+            img: {
+              src: '/sites/amigo.zhaobg.com/files/styles/crop/public/2022-05/customer.png?itok=KjaeKpkL',
+              style: {
+                width: '45px',
+                height: '45px',
+              },
+              alt: 'customer.png',
+            },
+            css3: true,
+            subTitle: '创建新客户',
+            link: {
+              href: 'https://amigo.zhaobg.com/manage/content/customer/add?redirect=/preview&disable_sidebar=1',
+              label: '客户',
+              classes: 'bold',
+            },
+          },
+          {
+            img: {
+              src: '/sites/amigo.zhaobg.com/files/styles/crop/public/2022-05/handler.png?itok=_RyjUlca',
+              style: {
+                width: '45px',
+                height: '45px',
+              },
+              alt: 'handler.png',
+            },
+            css3: true,
+            subTitle: '创建经办人',
+            link: {
+              href: 'https://amigo.zhaobg.com/manage/content/handler/add?redirect=/preview&disable_sidebar=1',
+              label: '经办人',
+              classes: 'bold',
+            },
+          },
+          {
+            img: {
+              src: '/sites/amigo.zhaobg.com/files/styles/crop/public/2022-05/faguan.png?itok=8oqkjCZX',
+              style: {
+                width: '45px',
+                height: '45px',
+              },
+              alt: 'faguan.png',
+            },
+            css3: true,
+            subTitle: '创建法官',
+            link: {
+              href: 'https://amigo.zhaobg.com/manage/content/court/add?redirect=/preview&disable_sidebar=1',
+              label: '法官',
+              classes: 'bold',
+            },
+          },
+          {
+            img: {
+              src: '/sites/amigo.zhaobg.com/files/styles/crop/public/2022-05/fayuan.png?itok=gqpsBY0_',
+              style: {
+                width: '45px',
+                height: '45px',
+              },
+              alt: 'fayuan.png',
+            },
+            css3: true,
+            subTitle: '创建法院',
+            link: {
+              href: 'https://amigo.zhaobg.com/manage/content/judge/add?redirect=/preview&disable_sidebar=1',
+              label: '法院',
+              classes: 'bold',
+            },
+          },
+          {
+            img: {
+              src: '/sites/amigo.zhaobg.com/files/styles/crop/public/2022-05/business.png?itok=ekLwAXBm',
+              style: {
+                width: '45px',
+                height: '45px',
+              },
+              alt: 'business.png',
+            },
+            css3: true,
+            subTitle: '创建业务对方',
+            link: {
+              href: 'https://amigo.zhaobg.com/manage/content/other_party/add?redirect=/preview&disable_sidebar=1',
+              label: '业务对方',
+              classes: 'bold',
+            },
+          },
+        ],
+      },
+    ],
+  },
+};
