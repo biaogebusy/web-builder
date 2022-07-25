@@ -10,6 +10,7 @@
       "href": "#"
     },
     "spacer": "none",
+    "showImage": true,
     "feature": {
       "fullIcon": "fullscreen",
       "openIcon": "open_in_new",

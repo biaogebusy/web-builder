@@ -5,7 +5,7 @@ export interface IBaseNode {
   body: string;
   banner?: any;
   meta?: any[];
-  params: {
+  params?: {
     pay?: {
       money: number;
     };
@@ -22,7 +22,7 @@ export interface IBaseNode {
   };
   comment?: ICommentConfig;
   actions: any[];
-  bottom: any[];
+  bottom?: any[];
   sidebar?: any[];
 }
 
@@ -33,7 +33,7 @@ export interface ICommentParams {
     entity_type?: string;
     field_name?: string;
     comment_body: {
-      value: any;
+      value?: any;
       format: 'full_html' | 'plain_text';
     };
   };
