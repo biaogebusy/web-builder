@@ -13,10 +13,10 @@ import { UserState } from '@core/mobx/user/UserState';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { ScreenService } from '@core/service/screen.service';
 import { Subject } from 'rxjs';
-import { IFlag } from '@core/interface/widgets/IFlag';
+import type { IFlag } from '@core/interface/widgets/IFlag';
 import { UtilitiesService } from '../../../../core/service/utilities.service';
 import { CORE_CONFIG } from '@core/token/core.config';
-import { ICoreConfig } from '@core/mobx/IAppConfig';
+import type { ICoreConfig } from '@core/mobx/IAppConfig';
 
 @Component({
   selector: 'app-flag',

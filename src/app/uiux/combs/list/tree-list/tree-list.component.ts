@@ -15,11 +15,10 @@ import { BaseComponent } from '@uiux/base/base.widget';
 import { ScreenService } from '@core/service/screen.service';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
-import { AppState } from '@core/mobx/AppState';
 import { FormGroup } from '@angular/forms';
 import { FormService } from '@core/service/form.service';
 import { CORE_CONFIG } from '@core/token/core.config';
-import { ICoreConfig } from '@core/mobx/IAppConfig';
+import type { ICoreConfig } from '@core/mobx/IAppConfig';
 import { UserState } from '@core/mobx/user/UserState';
 
 @Component({

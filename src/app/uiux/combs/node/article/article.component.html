@@ -17,7 +17,7 @@
             [style.fontSize.px]="fontSize">
           </div>
           <ng-template #canotAccess>
-            <div class="article-body m-y-sm position-relative">
+            <div class="article-body m-y-sm position-relative" *ngIf="content.body">
               <div [innerHTML]="content.body |stripTags:'p'|trim|shorten:1000:'...'" [style.fontSize.px]="fontSize">
               </div>
               <div class="shadow"></div>

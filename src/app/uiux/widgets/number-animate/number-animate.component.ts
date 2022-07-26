@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ElementRef, ViewChild } from '@angular/core';
 import { Component, Input, OnInit } from '@angular/core';
-import { INumberAnimate } from '@core/interface/widgets/INumberAnimate';
+import type { INumberAnimate } from '@core/interface/widgets/INumberAnimate';
 
 @Component({
   selector: 'app-number-animate',

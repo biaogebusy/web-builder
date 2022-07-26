@@ -2,7 +2,7 @@ import { IImg } from '@core/interface/widgets/IImg';
 import { QuillModule } from 'ngx-quill';
 export interface IBaseNode {
   title: string;
-  body: string;
+  body?: string;
   banner?: any;
   meta?: any[];
   params?: {
@@ -13,15 +13,20 @@ export interface IBaseNode {
     comment: ICommentParams;
   };
   editor?: {
-    title: any;
-    height: string;
-    modules: QuillModule;
-    placeholder: string;
-    action: any;
+    title?: any;
+    height?: string;
+    modules?: QuillModule;
+    placeholder?: string;
+    action: {
+      label: string;
+    };
     succes: any;
+    empty?: {
+      label: string;
+    };
   };
   comment?: ICommentConfig;
-  actions: any[];
+  actions?: any[];
   bottom?: any[];
   sidebar?: any[];
 }
@@ -32,7 +37,7 @@ export interface ICommentParams {
   attributes: {
     entity_type?: string;
     field_name?: string;
-    comment_body: {
+    comment_body?: {
       value?: any;
       format: 'full_html' | 'plain_text';
     };
@@ -86,7 +91,7 @@ export interface IQuestion extends IBaseNode {
 export interface ICase extends IBaseNode {
   date: any[];
   block: any[];
-  form: any[];
+  form?: any[];
 }
 
 export interface ICasePrams {

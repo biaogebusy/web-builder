@@ -8,7 +8,7 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
 } from '@angular/core';
-import { ITree } from '@core/interface/widgets/ITree';
+import type { ITree } from '@core/interface/widgets/ITree';
 import { ScreenService } from '@core/service/screen.service';
 @Component({
   selector: 'app-tree',

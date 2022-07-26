@@ -5,7 +5,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { IFeatureBox } from '@core/interface/widgets/IFeatureBox';
+import type { IFeatureBox } from '@core/interface/widgets/IFeatureBox';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { Lightbox, LightboxConfig } from 'ngx-lightbox';
 @Component({

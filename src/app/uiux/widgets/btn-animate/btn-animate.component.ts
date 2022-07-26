@@ -4,7 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { IBtnAnimate } from '@core/interface/widgets/IBtnAnimate';
+import type { IBtnAnimate } from '@core/interface/widgets/IBtnAnimate';
 
 @Component({
   selector: 'app-btn-animate',

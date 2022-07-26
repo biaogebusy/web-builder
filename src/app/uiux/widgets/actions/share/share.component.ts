@@ -5,8 +5,8 @@ import {
   ChangeDetectionStrategy,
   Inject,
 } from '@angular/core';
-import { IShare } from '@core/interface/widgets/IActions';
-import { ICoreConfig } from '@core/mobx/IAppConfig';
+import type { IShare } from '@core/interface/widgets/IActions';
+import type { ICoreConfig } from '@core/mobx/IAppConfig';
 import { ScreenService } from '@core/service/screen.service';
 import { CORE_CONFIG } from '@core/token/core.config';
 import { DOCUMENT } from '@angular/common';

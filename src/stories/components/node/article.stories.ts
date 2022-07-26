@@ -260,13 +260,9 @@ Comment.args = {
     ],
     body: '<img src="/assets/images/showcase/blog1-large.jpeg" /><p><strong style="color:#000">Lorem ipsum dolor sit amet</strong>, consectetur adipiscing elit Mauris non laoreet dui, Morbi lacus massa, euismod ut turpis molestie, tristique sodales est. Integer sit amet mi id sapien tempor molestie in nec massa Fusce non ante sed lorem rutrum feugiat, Vestibulum pellentesque, purus ut dignissim consectetur, nulla erat ultrices purus, ut consequat sem elit non sem. Morbi lacus massa, euismod ut turpis molestie, tristique sodales est</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit Mauris non laoreet dui, Morbi lacus massa, euismod ut turpis molestie, tristique sodales est. Integer sit amet mi id sapien tempor molestie in nec massa Fusce non ante sed lorem rutrum feugiat, Vestibulum pellentesque, purus ut dignissim consectetur, nulla erat ultrices purus, ut consequat sem elit non sem. Morbi lacus massa, euismod ut turpis molestie, tristique sodales est</p>',
     editor: {
-      actions: [
-        {
-          label: '提交',
-          type: 'submit',
-          color: 'primary',
-        },
-      ],
+      action: {
+        label: '提交',
+      },
       succes: {
         label: '成功发布！',
       },

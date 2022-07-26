@@ -15,12 +15,12 @@ import { UserState } from '@core/mobx/user/UserState';
 import { ScreenService } from '@core/service/screen.service';
 import { of, Subject } from 'rxjs';
 import { catchError, takeUntil } from 'rxjs/operators';
-import { IBaseNode, ICommentParams } from '@core/interface/node/INode';
+import type { IBaseNode, ICommentParams } from '@core/interface/node/INode';
 import { merge } from 'lodash-es';
 import { ContentState } from '@core/mobx/ContentState';
 import { QuillModule } from 'ngx-quill';
 import { CORE_CONFIG } from '@core/token/core.config';
-import { ICoreConfig } from '@core/mobx/IAppConfig';
+import type { ICoreConfig } from '@core/mobx/IAppConfig';
 
 @Component({
   selector: 'app-comment-form',
@@ -78,7 +78,7 @@ export class CommentFormComponent implements OnInit, OnDestroy {
   onSubmit(value: any): void {
     this.loading = true;
     const token = this.userState.csrfToken;
-    const params: ICommentParams = this.content.params.comment;
+    const params = this.content.params?.comment as ICommentParams;
     const type = params.attributes?.field_name || '';
     // reply, update 在组件内判断处理，默认新增，包括外部组件
     switch (this.type) {

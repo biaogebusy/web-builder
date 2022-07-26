@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CalendarOptions } from '@fullcalendar/angular';
+import type { CalendarOptions } from '@fullcalendar/angular';
 
 @Component({
   selector: 'app-calendar',

@@ -4,7 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { ILink } from '@core/interface/widgets/ILink';
+import type { ILink } from '@core/interface/widgets/ILink';
 import { RouteService } from '@core/service/route.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';

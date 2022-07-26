@@ -11,9 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { WidgetsModule } from '../../../app/uiux/widgets/widgets.module';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { ShareModule } from '../../../app/share/share.module';
-import { ArticleComponent } from '@uiux/combs/node/article/article.component';
 import { NodeModule } from '@uiux/combs/node/node.module';
-import { CaseComponent } from '@uiux/combs/node/case/case.component';
 import { LawCaseComponent } from '@uiux/combs/node/law/law-case/law-case.component';
 export default {
   title: 'Components/node/case',
@@ -777,13 +775,9 @@ Default.args = {
         label: '添加工作跟踪',
         style: 'style-v4',
       },
-      actions: [
-        {
-          label: '提交',
-          type: 'submit',
-          color: 'primary',
-        },
-      ],
+      action: {
+        label: '发布回答',
+      },
       succes: {
         label: '成功发布！',
       },
@@ -802,7 +796,6 @@ export const Meeting = Template.bind({});
 
 Meeting.args = {
   content: {
-    type: 'law-case',
     title: '两中心住房保障工作联席会议',
     date: [
       {
@@ -1387,13 +1380,9 @@ Meeting.args = {
         label: '添加工作跟踪',
         style: 'style-v4',
       },
-      actions: [
-        {
-          label: '提交',
-          type: 'submit',
-          color: 'primary',
-        },
-      ],
+      action: {
+        label: '提交',
+      },
       succes: {
         label: '成功发布！',
       },
@@ -1691,13 +1680,9 @@ Project.args = {
         label: '添加工作跟踪',
         style: 'style-v4',
       },
-      actions: [
-        {
-          label: '提交',
-          type: 'submit',
-          color: 'primary',
-        },
-      ],
+      action: {
+        label: '发布回答',
+      },
       succes: {
         label: '成功发布！',
       },

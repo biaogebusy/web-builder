@@ -7,7 +7,7 @@ import {
 import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
-import { IDynamicTable } from '../IWidgets';
+import type { IDynamicTable } from '../IWidgets';
 import { TextComponent } from '../text/text.component';
 import { RouteService } from '@core/service/route.service';
 

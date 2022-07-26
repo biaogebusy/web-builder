@@ -12,7 +12,7 @@
     <button (click)="onSubmit(commentContent)" mat-raised-button color="primary" [disabled]="!commentContent">
       <div fxLayoutAlign="center center">
         <mat-spinner diameter="14" *ngIf="loading"></mat-spinner>
-        <span class="p-x-xs">{{content?.editor?.action?.label || '提交'}}</span>
+        <span class="p-x-xs">{{content.editor?.action?.label || '提交'}}</span>
       </div>
     </button>
     <button class="m-left-xs" (click)="onCancel()" mat-button>

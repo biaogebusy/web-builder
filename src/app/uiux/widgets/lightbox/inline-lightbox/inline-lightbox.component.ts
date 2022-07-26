@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Lightbox } from 'ngx-lightbox';
 import { UtilitiesService } from '@core/service/utilities.service';
-import { IInlineLightbox } from '@uiux/widgets/IWidgets';
+import type { IInlineLightbox } from '@uiux/widgets/IWidgets';
 
 @Component({
   selector: 'app-inline-lightbox',

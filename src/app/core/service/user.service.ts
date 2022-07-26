@@ -7,7 +7,7 @@ import { TokenUser, IUser } from '../mobx/user/IUser';
 import { LocalStorageService } from 'ngx-webstorage';
 import { CryptoJSService } from './crypto-js.service';
 import { CORE_CONFIG } from '@core/token/core.config';
-import { ICoreConfig } from '@core/mobx/IAppConfig';
+import type { ICoreConfig } from '@core/mobx/IAppConfig';
 import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',

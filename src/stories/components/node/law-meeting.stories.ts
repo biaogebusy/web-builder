@@ -777,13 +777,9 @@ Default.args = {
         label: '添加工作跟踪',
         style: 'style-v4',
       },
-      actions: [
-        {
-          label: '提交',
-          type: 'submit',
-          color: 'primary',
-        },
-      ],
+      action: {
+        label: '提交',
+      },
       succes: {
         label: '成功发布！',
       },

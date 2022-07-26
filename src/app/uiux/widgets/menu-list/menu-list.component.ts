@@ -4,7 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { IMenuList } from '@core/interface/widgets/IMenuList';
+import type { IMenuList } from '@core/interface/widgets/IMenuList';
 import { ScreenService } from '@core/service/screen.service';
 
 @Component({

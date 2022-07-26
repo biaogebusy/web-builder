@@ -4,7 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { IMediaList } from '@core/interface/widgets/IMediaList';
+import type { IMediaList } from '@core/interface/widgets/IMediaList';
 
 @Component({
   selector: 'app-media-list',

@@ -4,7 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { IBg } from '@core/interface/widgets/IBg';
+import type { IBg } from '@core/interface/widgets/IBg';
 
 @Component({
   selector: 'app-bg',

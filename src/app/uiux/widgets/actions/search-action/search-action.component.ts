@@ -14,7 +14,7 @@ import { isEmpty, omitBy } from 'lodash';
 import { fromEvent, Subject } from 'rxjs';
 import { ScreenService } from '@core/service/screen.service';
 import { takeUntil } from 'rxjs/operators';
-import { ISearchAction } from '@core/interface/widgets/IActions';
+import type { ISearchAction } from '@core/interface/widgets/IActions';
 
 @Component({
   selector: 'app-search-action',

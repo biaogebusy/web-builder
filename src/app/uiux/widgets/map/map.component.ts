@@ -6,13 +6,13 @@ import {
   ChangeDetectionStrategy,
   Inject,
 } from '@angular/core';
-import { IMark } from '@core/interface/IAmap';
+import type { IMark } from '@core/interface/IAmap';
 import { AMapState } from '@core/mobx/amap/AMapState';
 import { AppState } from '@core/mobx/AppState';
 import { AmapService } from '@core/service/amap.service';
 import { isArray } from 'lodash-es';
 import { CORE_CONFIG } from '@core/token/core.config';
-import { ICoreConfig } from '@core/mobx/IAppConfig';
+import type { ICoreConfig } from '@core/mobx/IAppConfig';
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',

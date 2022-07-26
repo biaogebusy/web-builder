@@ -7,7 +7,7 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { IDownload } from '@core/interface/widgets/IDownload';
+import type { IDownload } from '@core/interface/widgets/IDownload';
 import { ScreenService } from '@core/service/screen.service';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginComponent } from 'src/app/modules/user/login/login.component';
@@ -16,7 +16,7 @@ import { Subject } from 'rxjs';
 import { NodeService } from '@core/service/node.service';
 import { UserState } from '@core/mobx/user/UserState';
 import { CORE_CONFIG } from '@core/token/core.config';
-import { ICoreConfig } from '@core/mobx/IAppConfig';
+import type { ICoreConfig } from '@core/mobx/IAppConfig';
 
 @Component({
   selector: 'app-download',

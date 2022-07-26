@@ -4,7 +4,7 @@ import {
   Input,
   ChangeDetectionStrategy,
 } from '@angular/core';
-import { IBgImg } from '@core/interface/widgets/IBgImg';
+import type { IBgImg } from '@core/interface/widgets/IBgImg';
 
 @Component({
   selector: 'app-bg-img',

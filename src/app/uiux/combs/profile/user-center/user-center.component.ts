@@ -6,7 +6,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { IUserCenter } from '@core/interface/IUserCenter';
+import type { IUserCenter } from '@core/interface/IUserCenter';
 import { UserState } from '@core/mobx/user/UserState';
 import { ScreenService } from '@core/service/screen.service';
 import { UserService } from '@core/service/user.service';

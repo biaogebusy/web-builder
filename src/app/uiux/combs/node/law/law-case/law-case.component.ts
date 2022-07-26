@@ -8,7 +8,7 @@ import {
   Inject,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { ICase, ICasePrams } from '@core/interface/node/INode';
+import type { ICase, ICasePrams } from '@core/interface/node/INode';
 import { AppState } from '@core/mobx/AppState';
 import { FormState } from '@core/mobx/FormState';
 import { UserState } from '@core/mobx/user/UserState';
@@ -26,7 +26,7 @@ import {
   startWith,
 } from 'rxjs/operators';
 import { CORE_CONFIG } from '@core/token/core.config';
-import { ICoreConfig } from '@core/mobx/IAppConfig';
+import type { ICoreConfig } from '@core/mobx/IAppConfig';
 // import data from './data.json';
 
 @Component({

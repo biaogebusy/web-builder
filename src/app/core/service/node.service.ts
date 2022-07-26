@@ -5,15 +5,15 @@ import { LocalStorageService } from 'ngx-webstorage';
 import { AppState } from '../mobx/AppState';
 import { forkJoin } from 'rxjs';
 import { Observable, of } from 'rxjs';
-import { IApiUrl } from '../mobx/IAppConfig';
+import type { IApiUrl } from '../mobx/IAppConfig';
 import { map, switchMap } from 'rxjs/operators';
 import { isEmpty } from 'lodash-es';
 import { UserState } from '@core/mobx/user/UserState';
-import { IArticleAccess } from '@core/interface/node/IArticle';
-import { ICommentContent } from '@core/interface/node/INode';
+import type { IArticleAccess } from '@core/interface/node/IArticle';
+import type { ICommentContent } from '@core/interface/node/INode';
 import { formatDate } from '@angular/common';
 import { CORE_CONFIG } from '@core/token/core.config';
-import { ICoreConfig } from '@core/mobx/IAppConfig';
+import type { ICoreConfig } from '@core/mobx/IAppConfig';
 import { environment } from '../../../environments/environment';
 @Injectable({
   providedIn: 'root',

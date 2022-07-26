@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatSelect } from '@angular/material/select';
-import { IControl } from '@core/interface/widgets/IControl';
+import type { IControl } from '@core/interface/widgets/IControl';
 import { NodeService } from '@core/service/node.service';
 import { of, ReplaySubject } from 'rxjs';
 import { catchError, shareReplay, take } from 'rxjs/operators';

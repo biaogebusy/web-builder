@@ -4,7 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { ITitle } from '@core/interface/widgets/ITitle';
+import type { ITitle } from '@core/interface/widgets/ITitle';
 
 @Component({
   selector: 'app-title',

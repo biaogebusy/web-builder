@@ -4,7 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { IIcon } from '@core/interface/widgets/IIcon';
+import type { IIcon } from '@core/interface/widgets/IIcon';
 
 @Component({
   selector: 'app-icon',
