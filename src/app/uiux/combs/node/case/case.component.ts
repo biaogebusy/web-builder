@@ -8,9 +8,8 @@ import {
 } from '@angular/core';
 import { NodeService } from '@core/service/node.service';
 import { map } from 'lodash-es';
-import { IShowcase2v1 } from '@uiux/combs/ICombs';
 import { ScreenService } from '@core/service/screen.service';
-import { Subject, Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 const text = {
