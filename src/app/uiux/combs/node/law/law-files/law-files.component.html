@@ -5,8 +5,8 @@
       *ngFor="let box of content.elements">
       <div class="inner p-x-sm p-y-sm">
         <div class="label mat-h3 bold">{{box.label}}</div>
-        <div class="li one-line" *ngFor="let file of box.elements">
-          <app-dynamic-widgets [content]="file"></app-dynamic-widgets>
+        <div class="li" *ngFor="let file of box.elements" fxLayoutAlign="space-between center">
+          <app-dynamic-widgets *ngFor="let link of file.elements" [content]="link"></app-dynamic-widgets>
         </div>
       </div>
     </div>

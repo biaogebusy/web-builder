@@ -239,29 +239,89 @@ Default.args = {
             label: '律师文件',
             elements: [
               {
-                type: 'link',
-                label: '第二次起诉签字-易思远-刘冰清.docx',
-                href: 'xxx.docx',
+                elements: [
+                  {
+                    type: 'link',
+                    label: '第二次起诉签字-易思远-刘冰清.docx',
+                    href: 'xxx.docx',
+                    classes: 'file one-line',
+                  },
+                  {
+                    type: 'btn',
+                    href: '#',
+                    mode: 'raised',
+                    label: '预览',
+                    color: 'primary',
+                  },
+                ],
               },
               {
-                type: 'link',
-                label: '第二次起诉签字-易思远-刘冰清.docx',
-                href: 'xxx.docx',
+                elements: [
+                  {
+                    type: 'link',
+                    label: '第二次起诉签字-易思远-刘冰清.docx',
+                    href: 'xxx.docx',
+                    classes: 'file one-line',
+                  },
+                  {
+                    type: 'btn',
+                    href: '#',
+                    mode: 'raised',
+                    label: '预览',
+                    color: 'primary',
+                  },
+                ],
               },
               {
-                type: 'link',
-                label: '第二次起诉签字-易思远-刘冰清.docx',
-                href: 'xxx.docx',
+                elements: [
+                  {
+                    type: 'link',
+                    label: '第二次起诉签字-易思远-刘冰清.docx',
+                    href: 'xxx.docx',
+                    classes: 'file one-line',
+                  },
+                  {
+                    type: 'btn',
+                    href: '#',
+                    mode: 'raised',
+                    label: '预览',
+                    color: 'primary',
+                  },
+                ],
               },
               {
-                type: 'link',
-                label: '第二次起诉签字-易思远-刘冰清.docx',
-                href: 'xxx.docx',
+                elements: [
+                  {
+                    type: 'link',
+                    label: '第二次起诉签字-易思远-刘冰清.docx',
+                    href: 'xxx.docx',
+                    classes: 'file one-line',
+                  },
+                  {
+                    type: 'btn',
+                    href: '#',
+                    mode: 'raised',
+                    label: '预览',
+                    color: 'primary',
+                  },
+                ],
               },
               {
-                type: 'link',
-                label: '第二次起诉签字-易思远-刘冰清.docx',
-                href: 'xxx.docx',
+                elements: [
+                  {
+                    type: 'link',
+                    label: '第二次起诉签字-易思远-刘冰清.docx',
+                    href: 'xxx.docx',
+                    classes: 'file one-line',
+                  },
+                  {
+                    type: 'btn',
+                    href: '#',
+                    mode: 'raised',
+                    label: '预览',
+                    color: 'primary',
+                  },
+                ],
               },
             ],
           },
@@ -269,29 +329,89 @@ Default.args = {
             label: '法院文件',
             elements: [
               {
-                type: 'link',
-                label: '易思远-刘冰清-判决书-浦东法院-202201 _0.pdf',
-                href: 'xxx.pdf',
+                elements: [
+                  {
+                    type: 'link',
+                    label: '易思远-刘冰清-判决书-浦东法院-202201 _0.pdf',
+                    href: 'xxx.docx',
+                    classes: 'file one-line',
+                  },
+                  {
+                    type: 'btn',
+                    href: '#',
+                    mode: 'raised',
+                    label: '预览',
+                    color: 'primary',
+                  },
+                ],
               },
               {
-                type: 'link',
-                label: '第二次起诉签字-易思远-刘冰清.docx',
-                href: 'xxx.docx',
+                elements: [
+                  {
+                    type: 'link',
+                    label: '易思远-刘冰清-判决书-浦东法院-202201 _0.pdf',
+                    href: 'xxx.docx',
+                    classes: 'file one-line',
+                  },
+                  {
+                    type: 'btn',
+                    href: '#',
+                    mode: 'raised',
+                    label: '预览',
+                    color: 'primary',
+                  },
+                ],
               },
               {
-                type: 'link',
-                label: '第二次起诉签字-易思远-刘冰清.docx',
-                href: 'xxx.docx',
+                elements: [
+                  {
+                    type: 'link',
+                    label: '易思远-刘冰清-判决书-浦东法院-202201 _0.pdf',
+                    href: 'xxx.docx',
+                    classes: 'file one-line',
+                  },
+                  {
+                    type: 'btn',
+                    href: '#',
+                    mode: 'raised',
+                    label: '预览',
+                    color: 'primary',
+                  },
+                ],
               },
               {
-                type: 'link',
-                label: '第二次起诉签字-易思远-刘冰清.docx',
-                href: 'xxx.docx',
+                elements: [
+                  {
+                    type: 'link',
+                    label: '易思远-刘冰清-判决书-浦东法院-202201 _0.pdf',
+                    href: 'xxx.docx',
+                    classes: 'file one-line',
+                  },
+                  {
+                    type: 'btn',
+                    href: '#',
+                    mode: 'raised',
+                    label: '预览',
+                    color: 'primary',
+                  },
+                ],
               },
               {
-                type: 'link',
-                label: '第二次起诉签字-易思远-刘冰清.docx',
-                href: 'xxx.docx',
+                elements: [
+                  {
+                    type: 'link',
+                    label: '易思远-刘冰清-判决书-浦东法院-202201 _0.pdf',
+                    href: 'xxx.docx',
+                    classes: 'file one-line',
+                  },
+                  {
+                    type: 'btn',
+                    href: '#',
+                    mode: 'raised',
+                    label: '预览',
+                    color: 'primary',
+                  },
+                ],
               },
             ],
           },
@@ -299,29 +419,89 @@ Default.args = {
             label: '客户文件',
             elements: [
               {
-                type: 'link',
-                label: '易思远-刘冰清-判决书-浦东法院-202201 _0.pdf',
-                href: 'xxx.pdf',
+                elements: [
+                  {
+                    type: 'link',
+                    label: '易思远-刘冰清-判决书-浦东法院-202201 _0.pdf',
+                    href: 'xxx.docx',
+                    classes: 'file one-line',
+                  },
+                  {
+                    type: 'btn',
+                    href: '#',
+                    mode: 'raised',
+                    label: '预览',
+                    color: 'primary',
+                  },
+                ],
               },
               {
-                type: 'link',
-                label: '第二次起诉签字-易思远-刘冰清.docx',
-                href: 'xxx.docx',
+                elements: [
+                  {
+                    type: 'link',
+                    label: '易思远-刘冰清-判决书-浦东法院-202201 _0.pdf',
+                    href: 'xxx.docx',
+                    classes: 'file one-line',
+                  },
+                  {
+                    type: 'btn',
+                    href: '#',
+                    mode: 'raised',
+                    label: '预览',
+                    color: 'primary',
+                  },
+                ],
               },
               {
-                type: 'link',
-                label: '第二次起诉签字-易思远-刘冰清.docx',
-                href: 'xxx.docx',
+                elements: [
+                  {
+                    type: 'link',
+                    label: '易思远-刘冰清-判决书-浦东法院-202201 _0.pdf',
+                    href: 'xxx.docx',
+                    classes: 'file one-line',
+                  },
+                  {
+                    type: 'btn',
+                    href: '#',
+                    mode: 'raised',
+                    label: '预览',
+                    color: 'primary',
+                  },
+                ],
               },
               {
-                type: 'link',
-                label: '第二次起诉签字-易思远-刘冰清.docx',
-                href: 'xxx.docx',
+                elements: [
+                  {
+                    type: 'link',
+                    label: '易思远-刘冰清-判决书-浦东法院-202201 _0.pdf',
+                    href: 'xxx.docx',
+                    classes: 'file one-line',
+                  },
+                  {
+                    type: 'btn',
+                    href: '#',
+                    mode: 'raised',
+                    label: '预览',
+                    color: 'primary',
+                  },
+                ],
               },
               {
-                type: 'link',
-                label: '第二次起诉签字-易思远-刘冰清.docx',
-                href: 'xxx.docx',
+                elements: [
+                  {
+                    type: 'link',
+                    label: '易思远-刘冰清-判决书-浦东法院-202201 _0.pdf',
+                    href: 'xxx.docx',
+                    classes: 'file one-line',
+                  },
+                  {
+                    type: 'btn',
+                    href: '#',
+                    mode: 'raised',
+                    label: '预览',
+                    color: 'primary',
+                  },
+                ],
               },
             ],
           },
@@ -329,29 +509,113 @@ Default.args = {
             label: '其他文件',
             elements: [
               {
-                type: 'link',
-                label: '易思远-刘冰清-判决书-浦东法院-202201 _0.pdf',
-                href: 'xxx.pdf',
+                elements: [
+                  {
+                    type: 'link',
+                    label: '易思远-刘冰清-判决书-浦东法院-202201 _0.pdf',
+                    href: 'xxx.docx',
+                    classes: 'file one-line',
+                    target: '_blank',
+                  },
+                  {
+                    type: 'btn',
+                    href: '#',
+                    mode: 'raised',
+                    label: '预览',
+                    color: 'primary',
+                    target: '_blank',
+                  },
+                ],
               },
               {
-                type: 'link',
-                label: '第二次起诉签字-易思远-刘冰清.docx',
-                href: 'xxx.docx',
+                elements: [
+                  {
+                    type: 'link',
+                    label: '易思远-刘冰清-判决书-浦东法院-202201 _0.pdf',
+                    href: 'xxx.docx',
+                    classes: 'file one-line',
+                    target: '_blank',
+                  },
+                  {
+                    type: 'btn',
+                    href: '#',
+                    mode: 'raised',
+                    label: '预览',
+                    color: 'primary',
+                    target: '_blank',
+                  },
+                ],
               },
               {
-                type: 'link',
-                label: '第二次起诉签字-易思远-刘冰清.docx',
-                href: 'xxx.docx',
+                elements: [
+                  {
+                    type: 'link',
+                    label: '易思远-刘冰清-判决书-浦东法院-202201 _0.pdf',
+                    href: 'xxx.docx',
+                    classes: 'file one-line',
+                    target: '_blank',
+                  },
+                  {
+                    type: 'btn',
+                    href: '#',
+                    mode: 'raised',
+                    label: '预览',
+                    color: 'primary',
+                    target: '_blank',
+                  },
+                ],
               },
               {
-                type: 'link',
-                label: '第二次起诉签字-易思远-刘冰清.docx',
-                href: 'xxx.docx',
+                elements: [
+                  {
+                    type: 'link',
+                    label: '易思远-刘冰清-判决书-浦东法院-202201 _0.pdf',
+                    href: 'xxx.docx',
+                    classes: 'file one-line',
+                  },
+                  {
+                    type: 'btn',
+                    href: '#',
+                    mode: 'raised',
+                    label: '预览',
+                    color: 'primary',
+                  },
+                ],
               },
               {
-                type: 'link',
-                label: '第二次起诉签字-易思远-刘冰清.docx',
-                href: 'xxx.docx',
+                elements: [
+                  {
+                    type: 'link',
+                    label: '易思远-刘冰清-判决书-浦东法院-202201 _0.pdf',
+                    href: 'xxx.docx',
+                    classes: 'file one-line',
+                  },
+                  {
+                    type: 'btn',
+                    href: '#',
+                    mode: 'raised',
+                    label: '预览',
+                    color: 'primary',
+                  },
+                ],
+              },
+              {
+                elements: [
+                  {
+                    type: 'link',
+                    label:
+                      '易思远-刘冰清-判决书-浦东法院-易思远-刘冰清-判决书-浦东法院-202201 _0.pdf',
+                    href: 'xxx.docx',
+                    classes: 'file one-line',
+                  },
+                  {
+                    type: 'btn',
+                    href: '#',
+                    mode: 'raised',
+                    label: '预览',
+                    color: 'primary',
+                  },
+                ],
               },
             ],
           },
