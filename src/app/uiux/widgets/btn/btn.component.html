@@ -20,7 +20,7 @@
       </button>
       <ng-template #link>
         <a [class]="content.classes" mat-stroked-button [href]="content.href" [target]="content?.target || ''"
-          [innerHTML]="content.label">
+          [innerHTML]="content.label" [color]="content?.color">
           <app-icon *ngIf="content.icon" [content]="content.icon"></app-icon>
           <span [innerHTML]="content.label"></span>
         </a>
@@ -31,7 +31,7 @@
         [color]="content.color">{{content.label}}</button>
       <ng-template #link>
         <a [class]="content.classes" mat-flat-button [href]="content.href" [target]="content?.target || ''"
-          [innerHTML]="content.label"></a>
+          [innerHTML]="content.label" [color]="content?.color"></a>
       </ng-template>
     </ng-container>
     <ng-container *ngSwitchCase="'icon'">
@@ -55,7 +55,8 @@
         <span [innerHTML]="content.label"></span>
       </button>
       <ng-template #link>
-        <a [class]="content.classes" mat-button [href]="content.href" [target]="content?.target || ''">
+        <a [class]="content.classes" mat-button [href]="content.href" [target]="content?.target || ''"
+          [color]="content?.color">
           <app-icon *ngIf="content.icon" [content]="content.icon"></app-icon>
           <span [innerHTML]="content.label"></span>
         </a>

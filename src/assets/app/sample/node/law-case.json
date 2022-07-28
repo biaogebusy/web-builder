@@ -174,9 +174,9 @@
             {
               "type": "btn",
               "href": "#",
-              "mode": "raised",
-              "label": "预览",
-              "color": "primary"
+              "mode": "stroked",
+              "label": "PDF",
+              "color": "warn"
             }
           ]
         }, {
