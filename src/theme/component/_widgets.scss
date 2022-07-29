@@ -218,4 +218,19 @@
       }
     }
   }
+
+  .border-primary {
+    border: 1px solid mat-color($primary) !important;
+    background-color: mat-color($background, card);
+  }
+
+  .border-warn {
+    border: 1px solid mat-color($warn) !important;
+    background-color: mat-color($background, card);
+  }
+
+  .border-accent {
+    border: 1px solid mat-color($accent) !important;
+    background-color: mat-color($background, card);
+  }
 }

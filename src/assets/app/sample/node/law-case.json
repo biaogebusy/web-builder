@@ -176,7 +176,8 @@
               "href": "#",
               "mode": "stroked",
               "label": "PDF",
-              "color": "warn"
+              "color": "warn",
+              "classes": "border-primary"
             }
           ]
         }, {
@@ -189,9 +190,10 @@
             {
               "type": "btn",
               "href": "#",
-              "mode": "raised",
-              "label": "预览",
-              "color": "primary"
+              "mode": "stroked",
+              "label": "PDF",
+              "color": "warn",
+              "classes": "border-warn"
             }
           ]
         }, {
@@ -204,9 +206,10 @@
             {
               "type": "btn",
               "href": "#",
-              "mode": "raised",
-              "label": "预览",
-              "color": "primary"
+              "mode": "stroked",
+              "label": "PDF",
+              "color": "warn",
+              "classes": "border-accent"
             }
           ]
         }, {
