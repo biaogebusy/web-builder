@@ -93,6 +93,8 @@ import { FormlyMatDatepickerModule } from '@ngx-formly/material/datepicker';
 import { NgSelectFormlyComponent } from './form/formly-type/ng-select/ng-select.component';
 import { DateRangeComponent } from './form/formly-type/date-range/date-range.component';
 import { MatSelectComponent } from './form/formly-type/mat-select/mat-select.component';
+import { ChartComponent } from './chart/chart.component';
+import { NgChartsModule } from 'ng2-charts';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -180,6 +182,7 @@ const components = [
   NgSelectFormlyComponent,
   DateRangeComponent,
   MatSelectComponent,
+  ChartComponent,
 ];
 
 @NgModule({
@@ -199,6 +202,7 @@ const components = [
     MatNativeDateModule,
     FormlyMatDatepickerModule,
     FormlyMaterialModule,
+    NgChartsModule,
     FormlyModule.forRoot({
       types: [
         {
