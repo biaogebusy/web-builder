@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { IChart } from '@core/interface/widgets/IChart';
 
 @Component({
   selector: 'app-chart',
@@ -6,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./chart.component.scss'],
 })
 export class ChartComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: IChart;
   constructor() {}
 
   ngOnInit(): void {}
