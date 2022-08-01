@@ -16,7 +16,19 @@
           "type": "view-list",
           "spacer": "none",
           "params": {
-            "apiType": "tab/case/parties-info"
+            "apiType": "tab/case/parties-info",
+            "export": {
+              "enable": true,
+              "btn": {
+                "mode": "raised",
+                "label": "导出",
+                "color": "primary",
+                "icon": {
+                  "name": "file_download",
+                  "inline": true
+                }
+              }
+            }
           },
           "header": [{
               "label": "优先等级",

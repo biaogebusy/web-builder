@@ -152,4 +152,24 @@ export class ViewListComponent
   getWidthClass(): string {
     return this.content.fullWidth ? 'container-fluid' : 'container';
   }
+
+  onExport(): any {
+    const mergeValue = merge(this.model, this.form.getRawValue());
+    const options = this.formService.handleRangeDate(mergeValue);
+    const apiParams = this.getApiParams(options);
+    const params = this.content?.params;
+    const btnContent = this.content?.params?.export?.btn;
+    let exportUrl = '';
+    if (btnContent) {
+      const api = params.apiType;
+      if (api.startsWith('/api/')) {
+        exportUrl = `/export/xlsx${api}`;
+      } else {
+        exportUrl = `/export/xlsx/api/v1/${api}`;
+      }
+      let href = btnContent.href || exportUrl;
+      href = `${href}?${apiParams}`;
+      window.open(href, '_blank');
+    }
+  }
 }
