@@ -23,6 +23,7 @@ const PROXY_CONFIG = [
       "/views/ajax",
       "/batch",
       "/editor",
+      "/export",
     ],
     target: "https://amigo.zhaobg.com",
     secure: false,
