@@ -1,3 +1,4 @@
+import { FormlyFieldConfig } from '@ngx-formly/core';
 import {
   ChartConfiguration,
   ChartData,
@@ -11,4 +12,5 @@ export interface IChart {
   width?: string;
   height?: string;
   legend?: any;
+  form?: FormlyFieldConfig[];
 }

@@ -638,6 +638,61 @@
           "key": "uid"
         }
       ]
+    }, {
+      "type": "tab",
+      "title": {
+        "label": "经办人工作时长统计",
+        "style": "style-v4"
+      },
+      "elements": [{
+        "label": "经办人工作时长统计",
+        "elements": [{
+          "type": "chart",
+          "chartType": "line",
+          "form": [{
+            "type": "date-range",
+            "key": "date",
+            "templateOptions": {
+              "label": "期间",
+              "value": "",
+              "placeholder": "请选择日期"
+            },
+            "fieldGroup": [{
+              "type": "input",
+              "key": "start",
+              "placeholder": "开始"
+            }, {
+              "type": "input",
+              "key": "end",
+              "placeholder": "结束"
+            }]
+          }],
+          "data": {
+            "datasets": [{
+                "data": [4, 3, 5, 3, 2, 3, 5],
+                "label": "张三"
+              },
+              {
+                "data": [1, 2, 4, 7, 3, 2, 6],
+                "label": "李四"
+              },
+              {
+                "data": [2, 4, 3, 7, 5, 1, 1],
+                "label": "王五"
+              }
+            ],
+            "labels": [
+              "2022-7-24",
+              "2022-7-25",
+              "2022-7-26",
+              "2022-7-28",
+              "2022-7-29",
+              "2022-7-30",
+              "2022-7-31"
+            ]
+          }
+        }]
+      }]
     }
   ]
 }

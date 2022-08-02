@@ -1,2 +1,7 @@
-<canvas *ngIf="content" baseChart [data]="content.data" [options]="content.options" [type]="content.chartType">
-</canvas>
+<div class="chart">
+  <formly-form *ngIf="content.form" fxLayout="row wrap" fxLayoutGap="1rem" [form]="form" [fields]="content.form"
+    [model]="model" (modelChange)="onModelChange($event)">
+  </formly-form>
+  <canvas *ngIf="content" baseChart [data]="content.data" [options]="content.options" [type]="content.chartType">
+  </canvas>
+</div>

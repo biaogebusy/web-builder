@@ -70,4 +70,19 @@ export class UtilitiesService {
     }
     return '';
   }
+
+  getDatesInRange(startDate: Date, endDate: Date): Date[] {
+    const date = new Date(startDate.getTime());
+
+    date.setDate(date.getDate() + 1);
+
+    const dates = [];
+
+    while (date < endDate) {
+      dates.push(new Date(date));
+      date.setDate(date.getDate() + 1);
+    }
+
+    return dates;
+  }
 }
