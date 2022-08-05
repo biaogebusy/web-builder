@@ -108,7 +108,7 @@
             "label": "",
             "value": "<span class=\"badge\">{分标标题}</span>"
           }, {
-            "label": "项目时间",
+            "label": "完工时间",
             "value": "周一，04/11/2022 11:30"
           }, {
             "label": "工作工时",
@@ -160,7 +160,7 @@
             "label": "",
             "value": "<span class=\"badge\">{分标标题}</span>"
           }, {
-            "label": "项目时间",
+            "label": "完工时间",
             "value": "周一，04/11/2022 11:30"
           }, {
             "label": "工作工时",
@@ -210,7 +210,7 @@
     }, {
       "type": "card",
       "title": {
-        "label": "订单详情",
+        "label": "项目详情",
         "style": "style-v4"
       },
       "bg": {
