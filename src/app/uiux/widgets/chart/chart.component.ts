@@ -12,6 +12,8 @@ export class ChartComponent implements OnInit {
   @Input() content: IChart;
   form = new FormGroup({});
   model: any;
+  data: any;
+
   constructor(private util: UtilitiesService) {}
 
   ngOnInit(): void {}
@@ -21,9 +23,28 @@ export class ChartComponent implements OnInit {
     if (value.date.start && value.date.end) {
       const labels = this.util.getDatesInRange(
         value.date.start,
-        value.date.end
+        value.date.end,
+        'MM-dd'
       );
+      const datasets = [
+        {
+          data: [4, 3, 5, 3, 2, 3, 5],
+          label: '张三',
+        },
+        {
+          data: [1, 2, 4, 7, 3, 2, 6],
+          label: '李四',
+        },
+        {
+          data: [2, 4, 3, 7, 5, 1, 1],
+          label: '王五',
+        },
+      ];
       console.log(labels);
+      this.data = {
+        labels,
+        datasets,
+      };
     }
   }
 }

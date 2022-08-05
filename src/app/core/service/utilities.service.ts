@@ -1,4 +1,4 @@
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT, formatDate } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 
@@ -71,15 +71,17 @@ export class UtilitiesService {
     return '';
   }
 
-  getDatesInRange(startDate: Date, endDate: Date): Date[] {
+  getDatesInRange(
+    startDate: Date,
+    endDate: Date,
+    formarDate: string
+  ): string[] {
     const date = new Date(startDate.getTime());
-
-    date.setDate(date.getDate() + 1);
 
     const dates = [];
 
-    while (date < endDate) {
-      dates.push(new Date(date));
+    while (date <= endDate) {
+      dates.push(formatDate(date, formarDate, 'en-US'));
       date.setDate(date.getDate() + 1);
     }
 
