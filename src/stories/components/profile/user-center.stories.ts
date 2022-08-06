@@ -8,20 +8,22 @@ import { WidgetsModule } from '../../../app/uiux/widgets/widgets.module';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { ShareModule } from '../../../app/share/share.module';
 import { UserCenterComponent } from '@uiux/combs/profile/user-center/user-center.component';
-import { ProfileModule } from '../../../app/uiux/combs/profile/profile.module';
+import { Profile1v1Component } from '@uiux/combs/profile/profile1v1/profile1v1.component';
+import { DynamicCombsModule } from '@uiux/combs/dynamic-combs/dynamic-combs.module';
+import { UserProfileComponent } from '@uiux/combs/profile/user-center/user-profile/user-profile.component';
 export default {
   title: 'Components/profile/userCenter',
   component: UserCenterComponent,
   decorators: [
     moduleMetadata({
-      declarations: [],
+      declarations: [Profile1v1Component, UserProfileComponent],
       imports: [
         RouterTestingModule,
         BrowserAnimationsModule,
         WidgetsModule,
         ShareModule,
         HttpClientModule,
-        ProfileModule,
+        DynamicCombsModule,
         NgxWebstorageModule.forRoot(),
       ],
       providers: [
@@ -95,15 +97,13 @@ Default.args = {
             style: 'style-v4',
           },
         },
-        params: {
-          reqRoles: ['customer_staff'],
-        },
+        params: {},
         spacer: 'xs',
         row: '4',
         elements: [
           {
             img: {
-              src: '/sites/amigo.zhaobg.com/files/styles/crop/public/2022-05/project.png',
+              src: '/assets/images/logo/codepen.svg',
               style: {
                 width: '45px',
                 height: '45px',
@@ -138,7 +138,7 @@ Default.args = {
           },
           {
             img: {
-              src: '/sites/amigo.zhaobg.com/files/styles/crop/public/2022-05/meeting_0.png',
+              src: '/assets/images/logo/codepen.svg',
               style: {
                 width: '45px',
                 height: '45px',
@@ -173,7 +173,7 @@ Default.args = {
           },
           {
             img: {
-              src: '/sites/amigo.zhaobg.com/files/styles/crop/public/2022-05/case.png',
+              src: '/assets/images/logo/codepen.svg',
               style: {
                 width: '45px',
                 height: '45px',
@@ -190,7 +190,7 @@ Default.args = {
           },
           {
             img: {
-              src: '/sites/amigo.zhaobg.com/files/styles/crop/public/2022-05/case.png',
+              src: '/assets/images/logo/codepen.svg',
               style: {
                 width: '45px',
                 height: '45px',
@@ -219,19 +219,17 @@ Default.args = {
             style: 'style-v4',
           },
         },
-        params: {
-          reqRoles: ['lawyer', 'assistant_lawyer'],
-        },
+        params: {},
         action: {
           label: '管理更多',
-          href: 'https://amigo.zhaobg.com/manage/case',
+          href: '/manage/case',
           style: 'style-v1',
           icon: 'open_in_new',
         },
         elements: [
           {
             img: {
-              src: '/sites/amigo.zhaobg.com/files/styles/crop/public/2022-05/case.png?itok=yU2LM_vy',
+              src: '/assets/images/logo/codepen.svg',
               style: {
                 width: '45px',
                 height: '45px',
@@ -241,14 +239,14 @@ Default.args = {
             css3: true,
             subTitle: '发布案件内容',
             link: {
-              href: 'https://amigo.zhaobg.com/manage/content/case/add?redirect=/preview&disable_sidebar=1',
+              href: '/manage/content/case/add?redirect=/preview&disable_sidebar=1',
               label: '案件',
               classes: 'bold',
             },
           },
           {
             img: {
-              src: '/sites/amigo.zhaobg.com/files/styles/crop/public/2022-05/project.png?itok=9QxO7EiP',
+              src: '/assets/images/logo/codepen.svg',
               style: {
                 width: '45px',
                 height: '45px',
@@ -258,14 +256,14 @@ Default.args = {
             css3: true,
             subTitle: '发布项目内容',
             link: {
-              href: 'https://amigo.zhaobg.com/manage/content/project/add?redirect=/preview&disable_sidebar=1',
+              href: '/manage/content/project/add?redirect=/preview&disable_sidebar=1',
               label: '项目',
               classes: 'bold',
             },
           },
           {
             img: {
-              src: '/sites/amigo.zhaobg.com/files/styles/crop/public/2022-05/meeting_0.png?itok=VjqYAF7k',
+              src: '/assets/images/logo/codepen.svg',
               style: {
                 width: '45px',
                 height: '45px',
@@ -275,14 +273,14 @@ Default.args = {
             css3: true,
             subTitle: '发布会议',
             link: {
-              href: 'https://amigo.zhaobg.com/manage/content/meeting/add?redirect=/preview&disable_sidebar=1',
+              href: '/manage/content/meeting/add?redirect=/preview&disable_sidebar=1',
               label: '会议',
               classes: 'bold',
             },
           },
           {
             img: {
-              src: '/sites/amigo.zhaobg.com/files/styles/crop/public/2022-05/doc.png?itok=2ouh91_g',
+              src: '/assets/images/logo/codepen.svg',
               style: {
                 width: '45px',
                 height: '45px',
@@ -292,14 +290,14 @@ Default.args = {
             css3: true,
             subTitle: '发布文库资料',
             link: {
-              href: 'https://amigo.zhaobg.com/manage/content/doc_lib/add?redirect=/preview&disable_sidebar=1',
+              href: '/manage/content/doc_lib/add?redirect=/preview&disable_sidebar=1',
               label: '文库资料',
               classes: 'bold',
             },
           },
           {
             img: {
-              src: '/sites/amigo.zhaobg.com/files/styles/crop/public/2022-05/customer.png?itok=KjaeKpkL',
+              src: '/assets/images/logo/codepen.svg',
               style: {
                 width: '45px',
                 height: '45px',
@@ -309,14 +307,14 @@ Default.args = {
             css3: true,
             subTitle: '创建新客户',
             link: {
-              href: 'https://amigo.zhaobg.com/manage/content/customer/add?redirect=/preview&disable_sidebar=1',
+              href: '/manage/content/customer/add?redirect=/preview&disable_sidebar=1',
               label: '客户',
               classes: 'bold',
             },
           },
           {
             img: {
-              src: '/sites/amigo.zhaobg.com/files/styles/crop/public/2022-05/handler.png?itok=_RyjUlca',
+              src: '/assets/images/logo/codepen.svg',
               style: {
                 width: '45px',
                 height: '45px',
@@ -326,14 +324,14 @@ Default.args = {
             css3: true,
             subTitle: '创建经办人',
             link: {
-              href: 'https://amigo.zhaobg.com/manage/content/handler/add?redirect=/preview&disable_sidebar=1',
+              href: '/manage/content/handler/add?redirect=/preview&disable_sidebar=1',
               label: '经办人',
               classes: 'bold',
             },
           },
           {
             img: {
-              src: '/sites/amigo.zhaobg.com/files/styles/crop/public/2022-05/faguan.png?itok=8oqkjCZX',
+              src: '/assets/images/logo/codepen.svg',
               style: {
                 width: '45px',
                 height: '45px',
@@ -343,14 +341,14 @@ Default.args = {
             css3: true,
             subTitle: '创建法官',
             link: {
-              href: 'https://amigo.zhaobg.com/manage/content/court/add?redirect=/preview&disable_sidebar=1',
+              href: '/manage/content/court/add?redirect=/preview&disable_sidebar=1',
               label: '法官',
               classes: 'bold',
             },
           },
           {
             img: {
-              src: '/sites/amigo.zhaobg.com/files/styles/crop/public/2022-05/fayuan.png?itok=gqpsBY0_',
+              src: '/assets/images/logo/codepen.svg',
               style: {
                 width: '45px',
                 height: '45px',
@@ -360,14 +358,14 @@ Default.args = {
             css3: true,
             subTitle: '创建法院',
             link: {
-              href: 'https://amigo.zhaobg.com/manage/content/judge/add?redirect=/preview&disable_sidebar=1',
+              href: '/manage/content/judge/add?redirect=/preview&disable_sidebar=1',
               label: '法院',
               classes: 'bold',
             },
           },
           {
             img: {
-              src: '/sites/amigo.zhaobg.com/files/styles/crop/public/2022-05/business.png?itok=ekLwAXBm',
+              src: '/assets/images/logo/codepen.svg',
               style: {
                 width: '45px',
                 height: '45px',
@@ -377,7 +375,7 @@ Default.args = {
             css3: true,
             subTitle: '创建业务对方',
             link: {
-              href: 'https://amigo.zhaobg.com/manage/content/other_party/add?redirect=/preview&disable_sidebar=1',
+              href: '/manage/content/other_party/add?redirect=/preview&disable_sidebar=1',
               label: '业务对方',
               classes: 'bold',
             },

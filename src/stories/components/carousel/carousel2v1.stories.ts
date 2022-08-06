@@ -112,9 +112,9 @@ Default.args = {
   },
 };
 
-export const bg = Template.bind({});
+export const Light = Template.bind({});
 
-bg.args = {
+Light.args = {
   content: {
     title: {
       label: 'HAPPY CLIENT',

@@ -9,6 +9,7 @@
   $warn: map-get($config, warn);
 
   .media {
+    background-color: mat-color($background, card);
     .meta,
     .media-body > div:not(.title) {
       color: mat-color($foreground, text, 0.5);
