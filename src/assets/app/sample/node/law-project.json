@@ -99,8 +99,122 @@
     }, {
       "type": "card",
       "title": {
+        "label": "完工详情",
+        "style": "style-v4"
+      },
+      "elements": [{
+        "header": {
+          "meta": [{
+            "label": "",
+            "value": "<span class=\"badge\">{分标标题}</span>"
+          }, {
+            "label": "完工时间",
+            "value": "周一，04/11/2022 11:30"
+          }, {
+            "label": "工作工时",
+            "value": 1
+          }]
+        },
+        "footer": {
+          "meta": [{
+            "label": "相关项目",
+            "value": "<a href=\"/node/1\">药审分中心制度修改</a>"
+          }, {
+            "label": "项目文件",
+            "value": {
+              "label": ["文件名1", "文件名2"],
+              "elements": [{
+                "src": "/assets/images/cases/porto1.docx",
+                "caption": "文件名1",
+                "thumb": "/assets/images/cases/porto1.jpg"
+              }, {
+                "src": "/assets/images/cases/porto2.jpg",
+                "caption": "文件名2",
+                "thumb": "/assets/images/cases/porto2.jpg"
+              }]
+            },
+            "params": {
+              "lightbox": true
+            }
+          }, {
+            "label": "关联内容"
+          }, {
+            "label": "项目备注",
+            "value": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. ",
+            "params": {
+              "shorten": 100,
+              "dialog": {
+                "label": "更多"
+              }
+            }
+          }]
+        },
+        "progressBar": {
+          "mode": "determinate",
+          "value": 33,
+          "value-": "当前次数除以总次数"
+        }
+      }, {
+        "header": {
+          "meta": [{
+            "label": "",
+            "value": "<span class=\"badge\">{分标标题}</span>"
+          }, {
+            "label": "完工时间",
+            "value": "周一，04/11/2022 11:30"
+          }, {
+            "label": "工作工时",
+            "value": 1
+          }]
+        },
+        "footer": {
+          "meta": [{
+            "label": "相关项目",
+            "value": "<a href=\"/node/1\">药审分中心制度修改</a>"
+          }, {
+            "label": "项目文件",
+            "value": {
+              "label": ["文件名1", "文件名2"],
+              "elements": [{
+                "src": "/assets/images/cases/porto1.docx",
+                "caption": "文件名1",
+                "thumb": "/assets/images/cases/porto1.jpg"
+              }, {
+                "src": "/assets/images/cases/porto2.jpg",
+                "caption": "文件名2",
+                "thumb": "/assets/images/cases/porto2.jpg"
+              }]
+            },
+            "params": {
+              "lightbox": true
+            }
+          }, {
+            "label": "关联内容"
+          }, {
+            "label": "项目备注",
+            "value": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. ",
+            "params": {
+              "shorten": 100,
+              "dialog": {
+                "label": "更多"
+              }
+            }
+          }]
+        },
+        "progressBar": {
+          "mode": "determinate",
+          "value": 33,
+          "value-": "当前次数除以总次数"
+        }
+      }]
+    }, {
+      "type": "card",
+      "title": {
         "label": "项目详情",
         "style": "style-v4"
+      },
+      "bg": {
+        "classes": "bg-fill-width bg-shadow"
       },
       "elements": [{
         "header": {

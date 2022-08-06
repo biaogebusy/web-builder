@@ -15,7 +15,6 @@ import { TreeModule } from '@circlon/angular-tree-component';
 import { CdkTableModule } from '@angular/cdk/table';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { NgSelectModule } from '@ng-select/ng-select';
 import { BgComponent } from './bg/bg.component';
 import { ImgComponent } from './img/img.component';
 import { BoxComponent } from './box/box.component';
@@ -90,7 +89,6 @@ import { UserCardCountComponent } from './card/user-card/user-card-count/user-ca
 import { FormlyModule } from '@ngx-formly/core';
 import { FormlyMaterialModule } from '@ngx-formly/material';
 import { FormlyMatDatepickerModule } from '@ngx-formly/material/datepicker';
-import { NgSelectFormlyComponent } from './form/formly-type/ng-select/ng-select.component';
 import { DateRangeComponent } from './form/formly-type/date-range/date-range.component';
 import { MatSelectComponent } from './form/formly-type/mat-select/mat-select.component';
 import { ChartComponent } from './chart/chart.component';
@@ -179,7 +177,6 @@ const components = [
   MediaObjectGroupComponent,
   ContentTextCenterComponent,
   DynamicFormControlComponent,
-  NgSelectFormlyComponent,
   DateRangeComponent,
   MatSelectComponent,
   ChartComponent,
@@ -198,17 +195,12 @@ const components = [
     CdkTableModule,
     FullCalendarModule,
     MatDatepickerModule,
-    NgSelectModule,
     MatNativeDateModule,
     FormlyMatDatepickerModule,
     FormlyMaterialModule,
     NgChartsModule,
     FormlyModule.forRoot({
       types: [
-        {
-          name: 'ng-select',
-          component: NgSelectFormlyComponent,
-        },
         {
           name: 'mat-select',
           component: MatSelectComponent,

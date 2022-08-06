@@ -27,7 +27,6 @@ import {
 } from 'rxjs/operators';
 import { CORE_CONFIG } from '@core/token/core.config';
 import type { ICoreConfig } from '@core/mobx/IAppConfig';
-// import data from './data.json';
 
 @Component({
   selector: 'app-law-case',
