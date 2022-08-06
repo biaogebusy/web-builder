@@ -15,7 +15,7 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [],
-      imports: [WidgetsModule],
+      imports: [ShareModule, WidgetsModule, MatButtonModule],
     }),
   ],
 } as Meta;

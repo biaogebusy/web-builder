@@ -8,13 +8,20 @@ import { WidgetsModule } from '../../app/uiux/widgets/widgets.module';
 import { ContentBoxComponent } from '../../app/uiux/widgets/content-box/content-box.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CORE_CONFIG } from '../../app/core/token/core.config';
+import { HttpClientModule } from '@angular/common/http';
+import { NgxWebstorageModule } from 'ngx-webstorage';
 export default {
   title: 'Widgets/Content Box',
   component: ContentBoxComponent,
   decorators: [
     moduleMetadata({
       declarations: [],
-      imports: [WidgetsModule, RouterTestingModule],
+      imports: [
+        WidgetsModule,
+        RouterTestingModule,
+        HttpClientModule,
+        NgxWebstorageModule.forRoot(),
+      ],
       providers: [
         {
           provide: CORE_CONFIG,

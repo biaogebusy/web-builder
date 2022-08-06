@@ -5,6 +5,11 @@ import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { LinkComponent } from '../../app/uiux/widgets/link/link.component';
 import { WidgetsModule } from '../../app/uiux/widgets/widgets.module';
+import { HttpClientModule } from '@angular/common/http';
+import { NgxWebstorageModule } from 'ngx-webstorage';
+import { CORE_CONFIG } from '@core/token/core.config';
+import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
+import { LoopWidgetsComponent } from '@uiux/widgets/loop-widgets/loop-widgets.component';
 
 export default {
   title: 'Widgets/Link',
@@ -12,11 +17,20 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [],
+      entryComponents: [DialogComponent, LoopWidgetsComponent],
       imports: [
         ShareModule,
         WidgetsModule,
         RouterTestingModule,
         BrowserAnimationsModule,
+        HttpClientModule,
+        NgxWebstorageModule.forRoot(),
+      ],
+      providers: [
+        {
+          provide: CORE_CONFIG,
+          useValue: {},
+        },
       ],
     }),
   ],

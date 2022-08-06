@@ -16,7 +16,11 @@ export class ChartComponent implements OnInit {
 
   constructor(private util: UtilitiesService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.content.data) {
+      this.data = this.content.data;
+    }
+  }
 
   onModelChange(value: any): any {
     console.log(value);

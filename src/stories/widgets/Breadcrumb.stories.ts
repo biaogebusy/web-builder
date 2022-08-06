@@ -9,8 +9,10 @@ import {
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { BreadcrumbComponent } from '../../app/uiux/widgets/breadcrumb/breadcrumb.component';
-import { LinkComponent } from '../../app/uiux/widgets/link/link.component';
 import { WidgetsModule } from '../../app/uiux/widgets/widgets.module';
+import { HttpClientModule } from '@angular/common/http';
+import { NgxWebstorageModule } from 'ngx-webstorage';
+import { CORE_CONFIG } from '@core/token/core.config';
 export default {
   title: 'Widgets/Breadcrumb',
   component: BreadcrumbComponent,
@@ -22,8 +24,16 @@ export default {
         WidgetsModule,
         BrowserAnimationsModule,
         RouterTestingModule,
+        HttpClientModule,
+        NgxWebstorageModule.forRoot(),
       ],
-      providers: [SafeHtmlPipe],
+      providers: [
+        SafeHtmlPipe,
+        {
+          provide: CORE_CONFIG,
+          useValue: {},
+        },
+      ],
     }),
     componentWrapperDecorator(
       (story) => `<div class="bg-primary bg-fill-width p-x p-y">${story}</div>`

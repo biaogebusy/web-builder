@@ -11,6 +11,8 @@ import {
 import { Story } from '@storybook/angular/types-6-0';
 import { MediaListComponent } from '../../../app/uiux/widgets/media/media-list/media-list.component';
 import { WidgetsModule } from '../../../app/uiux/widgets/widgets.module';
+import { HttpClientModule } from '@angular/common/http';
+import { NgxWebstorageModule } from 'ngx-webstorage';
 
 export default {
   title: 'Widgets/Media/MediaList',
@@ -23,6 +25,8 @@ export default {
         WidgetsModule,
         RouterTestingModule,
         BrowserAnimationsModule,
+        HttpClientModule,
+        NgxWebstorageModule.forRoot(),
       ],
       providers: [
         SafeHtmlPipe,

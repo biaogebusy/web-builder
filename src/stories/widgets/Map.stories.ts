@@ -10,10 +10,11 @@ import {
 import { Story } from '@storybook/angular/types-6-0';
 import { MapComponent } from '../../app/uiux/widgets/map/map.component';
 import { WidgetsModule } from '../../app/uiux/widgets/widgets.module';
-import { HttpClient } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { AppState } from '../../app/core/mobx/AppState';
 import { AMapState } from '../../app/core/mobx/amap/AMapState';
 import { AmapService } from '../../app/core/service/amap.service';
+import { NgxWebstorageModule } from 'ngx-webstorage';
 
 export default {
   title: 'Widgets/Map',
@@ -26,7 +27,8 @@ export default {
         WidgetsModule,
         RouterTestingModule,
         BrowserAnimationsModule,
-        HttpClient,
+        HttpClientModule,
+        NgxWebstorageModule.forRoot(),
       ],
       providers: [
         AppState,
@@ -40,7 +42,7 @@ export default {
     }),
     componentWrapperDecorator(
       (story) =>
-        `<div class="position-relative p-x p-y" style="z-index:1">${story}</div>`
+        `<div class="position-relative p-x p-y" style="z-index:1;height:500px;">${story}</div>`
     ),
   ],
 } as Meta;

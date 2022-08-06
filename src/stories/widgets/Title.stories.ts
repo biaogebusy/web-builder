@@ -4,6 +4,7 @@ import { moduleMetadata, Meta, Story } from '@storybook/angular';
 import { TitleComponent } from '../../app/uiux/widgets/title/title.component';
 import { MatIconModule } from '@angular/material/icon';
 import { WidgetsModule } from '../../app/uiux/widgets/widgets.module';
+import { NgxWebstorageModule } from 'ngx-webstorage';
 
 export default {
   title: 'Widgets/Title',
@@ -11,7 +12,12 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [],
-      imports: [MatIconModule, ShareModule, WidgetsModule],
+      imports: [
+        MatIconModule,
+        ShareModule,
+        WidgetsModule,
+        NgxWebstorageModule.forRoot(),
+      ],
       providers: [SafeHtmlPipe],
     }),
   ],

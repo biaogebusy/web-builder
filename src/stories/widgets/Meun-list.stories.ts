@@ -7,6 +7,8 @@ import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { MenuListComponent } from '../../app/uiux/widgets/menu-list/menu-list.component';
 import { WidgetsModule } from '../../app/uiux/widgets/widgets.module';
+import { HttpClientModule } from '@angular/common/http';
+import { NgxWebstorageModule } from 'ngx-webstorage';
 
 export default {
   title: 'Widgets/Menu list',
@@ -19,6 +21,8 @@ export default {
         WidgetsModule,
         RouterTestingModule,
         BrowserAnimationsModule,
+        HttpClientModule,
+        NgxWebstorageModule.forRoot(),
       ],
       providers: [
         SafeHtmlPipe,

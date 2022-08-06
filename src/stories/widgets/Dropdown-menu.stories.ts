@@ -9,13 +9,21 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { CORE_CONFIG } from '../../app/core/token/core.config';
 import { DropdownMenuComponent } from '../../app/uiux/widgets/dropdown-menu/dropdown-menu.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
+import { NgxWebstorageModule } from 'ngx-webstorage';
 export default {
   title: 'Widgets/Dropdown Menu',
   component: DropdownMenuComponent,
   decorators: [
     moduleMetadata({
       declarations: [],
-      imports: [WidgetsModule, RouterTestingModule, BrowserAnimationsModule],
+      imports: [
+        WidgetsModule,
+        RouterTestingModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        NgxWebstorageModule.forRoot(),
+      ],
       providers: [
         {
           provide: CORE_CONFIG,

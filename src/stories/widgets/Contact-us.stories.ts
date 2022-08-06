@@ -12,6 +12,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { CORE_CONFIG } from '../../app/core/token/core.config';
+import { NgxWebstorageModule } from 'ngx-webstorage';
 export default {
   title: 'Widgets/Contact Us',
   component: ContactUsComponent,
@@ -24,6 +25,7 @@ export default {
         RouterTestingModule,
         BrowserAnimationsModule,
         HttpClientModule,
+        NgxWebstorageModule.forRoot(),
       ],
       providers: [
         FormService,
