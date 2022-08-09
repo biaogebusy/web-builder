@@ -1,9 +1,14 @@
 @import "/src/theme/variable/breakpoint";
 .text-hero {
   overflow: hidden;
-  ::ng-deep .base-text {
-    overflow: visible;
-    position: static;
+  ::ng-deep {
+    .container {
+      position: inherit;
+    }
+    .base-text {
+      overflow: visible;
+      position: static;
+    }
   }
   @media #{$lt-md} {
     min-height: 600px;
