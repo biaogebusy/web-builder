@@ -42,7 +42,7 @@ export class NodeService extends ApiService {
       return of(searchFormCache);
     }
     let apiParams = '';
-    if (type.startsWith('/api/v1/')) {
+    if (type.startsWith('/api/')) {
       apiParams = `${this.apiUrl}${type}?${params}`;
     } else {
       apiParams = `${this.apiUrl}/api/v1/${type}?${params}`;
