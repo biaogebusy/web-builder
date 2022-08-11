@@ -1664,6 +1664,7 @@ export const Project = Template.bind({});
 
 Project.args = {
   content: {
+    type: 'law-case',
     title: '人才公寓',
     date: [
       {
@@ -1747,12 +1748,8 @@ Project.args = {
                   label: '张三',
                   href: '/node/4',
                 },
-                label2: '主办律师',
-                content2: {
-                  type: 'link',
-                  label: '李四',
-                  href: '/node/4',
-                },
+                label2: '订单时间',
+                content2: '2022-04-15',
               },
               {
                 label1: '业务对方',
@@ -1761,8 +1758,18 @@ Project.args = {
                   label: '王五',
                   href: '/node/4',
                 },
-                label2: '业务时间',
+                label2: '完工时间',
                 content2: '2022-04-15',
+              },
+              {
+                label1: '主办律师',
+                content1: {
+                  type: 'link',
+                  label: '张律师',
+                  href: '/node/4',
+                },
+                label2: '订单状态',
+                content2: '已完成',
               },
             ],
           },
@@ -1771,7 +1778,7 @@ Project.args = {
       {
         type: 'card',
         title: {
-          label: '项目详情',
+          label: '完工内容',
           style: 'style-v4',
         },
         elements: [
@@ -1783,7 +1790,7 @@ Project.args = {
                   value: '<span class="badge">{分标标题}</span>',
                 },
                 {
-                  label: '项目时间',
+                  label: '完工时间',
                   value: '周一，04/11/2022 11:30',
                 },
                 {
@@ -1837,7 +1844,7 @@ Project.args = {
             },
             progressBar: {
               mode: 'determinate',
-              value: 33,
+              value: 100,
               'value-': '当前次数除以总次数',
             },
           },
@@ -1849,7 +1856,7 @@ Project.args = {
                   value: '<span class="badge">{分标标题}</span>',
                 },
                 {
-                  label: '项目时间',
+                  label: '完工时间',
                   value: '周一，04/11/2022 11:30',
                 },
                 {
@@ -1903,8 +1910,130 @@ Project.args = {
             },
             progressBar: {
               mode: 'determinate',
-              value: 33,
+              value: 100,
               'value-': '当前次数除以总次数',
+            },
+          },
+        ],
+      },
+      {
+        type: 'card',
+        title: {
+          label: '项目详情',
+          style: 'style-v4',
+        },
+        bg: {
+          classes: 'bg-fill-width bg-shadow',
+        },
+        elements: [
+          {
+            header: {
+              meta: [
+                {
+                  label: '',
+                  value: '<span class="badge">{订单类型}</span>',
+                },
+                {
+                  label: '订单时间',
+                  value: '周一，04/11/2022 11:30',
+                },
+              ],
+            },
+            footer: {
+              meta: [
+                {
+                  label: '订单文件',
+                  value: {
+                    label: ['文件名1', '文件名2'],
+                    elements: [
+                      {
+                        src: '/assets/images/cases/porto1.docx',
+                        caption: '文件名1',
+                        thumb: '/assets/images/cases/porto1.jpg',
+                      },
+                      {
+                        src: '/assets/images/cases/porto2.jpg',
+                        caption: '文件名2',
+                        thumb: '/assets/images/cases/porto2.jpg',
+                      },
+                    ],
+                  },
+                  params: {
+                    lightbox: true,
+                  },
+                },
+                {
+                  label: '订单备注',
+                  value:
+                    'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. ',
+                  params: {
+                    shorten: 100,
+                    dialog: {
+                      label: '更多',
+                    },
+                  },
+                },
+              ],
+            },
+            progressBar: {
+              mode: 'determinate',
+              value: 33,
+              color: 'warn',
+            },
+          },
+          {
+            header: {
+              meta: [
+                {
+                  label: '',
+                  value: '<span class="badge">{订单类型}</span>',
+                },
+                {
+                  label: '订单时间',
+                  value: '周一，04/11/2022 11:30',
+                },
+              ],
+            },
+            footer: {
+              meta: [
+                {
+                  label: '订单文件',
+                  value: {
+                    label: ['文件名1', '文件名2'],
+                    elements: [
+                      {
+                        src: '/assets/images/cases/porto1.docx',
+                        caption: '文件名1',
+                        thumb: '/assets/images/cases/porto1.jpg',
+                      },
+                      {
+                        src: '/assets/images/cases/porto2.jpg',
+                        caption: '文件名2',
+                        thumb: '/assets/images/cases/porto2.jpg',
+                      },
+                    ],
+                  },
+                  params: {
+                    lightbox: true,
+                  },
+                },
+                {
+                  label: '订单备注',
+                  value:
+                    'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. ',
+                  params: {
+                    shorten: 100,
+                    dialog: {
+                      label: '更多',
+                    },
+                  },
+                },
+              ],
+            },
+            progressBar: {
+              mode: 'determinate',
+              value: 33,
+              color: 'warn',
             },
           },
         ],
@@ -1947,9 +2076,13 @@ Project.args = {
         label: '添加工作跟踪',
         style: 'style-v4',
       },
-      action: {
-        label: '发布回答',
-      },
+      actions: [
+        {
+          label: '提交',
+          type: 'submit',
+          color: 'primary',
+        },
+      ],
       succes: {
         label: '成功发布！',
       },

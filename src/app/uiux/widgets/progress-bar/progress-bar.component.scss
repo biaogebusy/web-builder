@@ -1,12 +1,15 @@
-.mat-progress-bar {
-  height: 8px;
-  border-radius: 6px;
-  .mat-progress-bar-fill {
-    &:after {
+:host ::ng-deep {
+  .mat-progress-bar {
+    height: 4px;
+    border-radius: 6px;
+    margin-bottom: 0 !important;
+    .mat-progress-bar-fill {
+      &:after {
+        border-radius: 6px;
+      }
+    }
+    .mat-progress-bar-buffer {
       border-radius: 6px;
     }
-  }
-  .mat-progress-bar-buffer {
-    border-radius: 6px;
   }
 }

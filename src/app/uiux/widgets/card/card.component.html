@@ -49,7 +49,6 @@
     <div class="footer" *ngIf="content.footer">
       <app-card-meta [content]="content.footer.meta"></app-card-meta>
     </div>
-    <mat-progress-bar *ngIf="content.progressBar" [mode]="content.progressBar.mode" [value]="content.progressBar.value">
-    </mat-progress-bar>
+    <app-progress-bar *ngIf="content.progressBar" [content]="content.progressBar"></app-progress-bar>
   </mat-card-footer>
 </mat-card>

@@ -78,12 +78,8 @@
               "label": "张三",
               "href": "/node/4"
             },
-            "label2": "主办律师",
-            "content2": {
-              "type": "link",
-              "label": "李四",
-              "href": "/node/4"
-            }
+            "label2": "订单时间",
+            "content2": "2022-04-15"
           }, {
             "label1": "业务对方",
             "content1": {
@@ -91,15 +87,24 @@
               "label": "王五",
               "href": "/node/4"
             },
-            "label2": "业务时间",
+            "label2": "完工时间",
             "content2": "2022-04-15"
+          }, {
+            "label1": "主办律师",
+            "content1": {
+              "type": "link",
+              "label": "张律师",
+              "href": "/node/4"
+            },
+            "label2": "订单状态",
+            "content2": "已完成"
           }
         ]
       }]
     }, {
       "type": "card",
       "title": {
-        "label": "完工详情",
+        "label": "完工内容",
         "style": "style-v4"
       },
       "elements": [{
@@ -151,7 +156,7 @@
         },
         "progressBar": {
           "mode": "determinate",
-          "value": 33,
+          "value": 100,
           "value-": "当前次数除以总次数"
         }
       }, {
@@ -203,7 +208,7 @@
         },
         "progressBar": {
           "mode": "determinate",
-          "value": 33,
+          "value": 100,
           "value-": "当前次数除以总次数"
         }
       }]
@@ -220,21 +225,15 @@
         "header": {
           "meta": [{
             "label": "",
-            "value": "<span class=\"badge\">{分标标题}</span>"
+            "value": "<span class=\"badge\">{订单类型}</span>"
           }, {
-            "label": "项目时间",
+            "label": "订单时间",
             "value": "周一，04/11/2022 11:30"
-          }, {
-            "label": "工作工时",
-            "value": 1
           }]
         },
         "footer": {
           "meta": [{
-            "label": "相关项目",
-            "value": "<a href=\"/node/1\">药审分中心制度修改</a>"
-          }, {
-            "label": "项目文件",
+            "label": "订单文件",
             "value": {
               "label": ["文件名1", "文件名2"],
               "elements": [{
@@ -251,9 +250,7 @@
               "lightbox": true
             }
           }, {
-            "label": "关联内容"
-          }, {
-            "label": "项目备注",
+            "label": "订单备注",
             "value": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. ",
             "params": {
               "shorten": 100,
@@ -266,27 +263,21 @@
         "progressBar": {
           "mode": "determinate",
           "value": 33,
-          "value-": "当前次数除以总次数"
+          "color": "warn"
         }
       }, {
         "header": {
           "meta": [{
             "label": "",
-            "value": "<span class=\"badge\">{分标标题}</span>"
+            "value": "<span class=\"badge\">{订单类型}</span>"
           }, {
-            "label": "项目时间",
+            "label": "订单时间",
             "value": "周一，04/11/2022 11:30"
-          }, {
-            "label": "工作工时",
-            "value": 1
           }]
         },
         "footer": {
           "meta": [{
-            "label": "相关项目",
-            "value": "<a href=\"/node/1\">药审分中心制度修改</a>"
-          }, {
-            "label": "项目文件",
+            "label": "订单文件",
             "value": {
               "label": ["文件名1", "文件名2"],
               "elements": [{
@@ -303,9 +294,7 @@
               "lightbox": true
             }
           }, {
-            "label": "关联内容"
-          }, {
-            "label": "项目备注",
+            "label": "订单备注",
             "value": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. ",
             "params": {
               "shorten": 100,
@@ -318,7 +307,7 @@
         "progressBar": {
           "mode": "determinate",
           "value": 33,
-          "value-": "当前次数除以总次数"
+          "color": "warn"
         }
       }]
     }, {
