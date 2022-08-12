@@ -1664,7 +1664,6 @@ export const Project = Template.bind({});
 
 Project.args = {
   content: {
-    type: 'law-case',
     title: '人才公寓',
     date: [
       {
@@ -1836,7 +1835,7 @@ Project.args = {
                   params: {
                     shorten: 100,
                     dialog: {
-                      label: '更多',
+                      label: '<strong style="font-size:20px">⋮</strong>',
                     },
                   },
                 },
@@ -1902,7 +1901,7 @@ Project.args = {
                   params: {
                     shorten: 100,
                     dialog: {
-                      label: '更多',
+                      label: '<strong style="font-size:20px">⋮</strong>',
                     },
                   },
                 },
@@ -1917,124 +1916,135 @@ Project.args = {
         ],
       },
       {
-        type: 'card',
+        type: 'panel',
         title: {
           label: '项目详情',
           style: 'style-v4',
         },
         bg: {
-          classes: 'bg-fill-width bg-shadow',
+          classes: 'bg-fill-width bg-light',
         },
         elements: [
           {
-            header: {
-              meta: [
-                {
-                  label: '',
-                  value: '<span class="badge">{订单类型}</span>',
-                },
-                {
-                  label: '订单时间',
-                  value: '周一，04/11/2022 11:30',
-                },
-              ],
+            title: '<strong>新订单</strong>',
+            params: {
+              expanded: false,
             },
-            footer: {
-              meta: [
-                {
-                  label: '订单文件',
-                  value: {
-                    label: ['文件名1', '文件名2'],
-                    elements: [
-                      {
-                        src: '/assets/images/cases/porto1.docx',
-                        caption: '文件名1',
-                        thumb: '/assets/images/cases/porto1.jpg',
-                      },
-                      {
-                        src: '/assets/images/cases/porto2.jpg',
-                        caption: '文件名2',
-                        thumb: '/assets/images/cases/porto2.jpg',
-                      },
-                    ],
-                  },
-                  params: {
-                    lightbox: true,
-                  },
-                },
-                {
-                  label: '订单备注',
-                  value:
-                    'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. ',
-                  params: {
-                    shorten: 100,
-                    dialog: {
-                      label: '更多',
+            elements: [
+              {
+                type: 'card',
+                classes:
+                  'card-no-shadow ng-star-inserted p-left-0 p-right-0 p-top-0',
+                header: {
+                  meta: [
+                    {
+                      label: '订单时间',
+                      value: '周一，04/11/2022 11:30',
                     },
-                  },
+                  ],
                 },
-              ],
-            },
-            progressBar: {
-              mode: 'determinate',
-              value: 33,
-              color: 'warn',
-            },
+                footer: {
+                  meta: [
+                    {
+                      label: '订单文件',
+                      value: {
+                        label: ['文件名1', '文件名2'],
+                        elements: [
+                          {
+                            src: '/assets/images/cases/porto1.docx',
+                            caption: '文件名1',
+                            thumb: '/assets/images/cases/porto1.jpg',
+                          },
+                          {
+                            src: '/assets/images/cases/porto2.jpg',
+                            caption: '文件名2',
+                            thumb: '/assets/images/cases/porto2.jpg',
+                          },
+                        ],
+                      },
+                      params: {
+                        lightbox: true,
+                      },
+                    },
+                    {
+                      label: '订单备注',
+                      value:
+                        'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. ',
+                      params: {
+                        shorten: 100,
+                        dialog: {
+                          label: '<strong style="font-size:20px">⋮</strong>',
+                        },
+                      },
+                    },
+                  ],
+                },
+                progressBar: {
+                  mode: 'determinate',
+                  value: 33,
+                  color: 'warn',
+                },
+              },
+            ],
           },
           {
-            header: {
-              meta: [
-                {
-                  label: '',
-                  value: '<span class="badge">{订单类型}</span>',
-                },
-                {
-                  label: '订单时间',
-                  value: '周一，04/11/2022 11:30',
-                },
-              ],
-            },
-            footer: {
-              meta: [
-                {
-                  label: '订单文件',
-                  value: {
-                    label: ['文件名1', '文件名2'],
-                    elements: [
-                      {
-                        src: '/assets/images/cases/porto1.docx',
-                        caption: '文件名1',
-                        thumb: '/assets/images/cases/porto1.jpg',
-                      },
-                      {
-                        src: '/assets/images/cases/porto2.jpg',
-                        caption: '文件名2',
-                        thumb: '/assets/images/cases/porto2.jpg',
-                      },
-                    ],
-                  },
-                  params: {
-                    lightbox: true,
-                  },
-                },
-                {
-                  label: '订单备注',
-                  value:
-                    'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. ',
-                  params: {
-                    shorten: 100,
-                    dialog: {
-                      label: '更多',
+            title: '<strong>重新审核</strong>',
+            elements: [
+              {
+                type: 'card',
+                classes:
+                  'card-no-shadow ng-star-inserted p-left-0 p-right-0 p-top-0',
+                header: {
+                  meta: [
+                    {
+                      label: '订单时间',
+                      value: '周一，04/11/2022 11:30',
                     },
-                  },
+                  ],
                 },
-              ],
-            },
-            progressBar: {
-              mode: 'determinate',
-              value: 33,
-              color: 'warn',
-            },
+                footer: {
+                  meta: [
+                    {
+                      label: '订单文件',
+                      value: {
+                        label: ['文件名1', '文件名2'],
+                        elements: [
+                          {
+                            src: '/assets/images/cases/porto1.docx',
+                            caption: '文件名1',
+                            thumb: '/assets/images/cases/porto1.jpg',
+                          },
+                          {
+                            src: '/assets/images/cases/porto2.jpg',
+                            caption: '文件名2',
+                            thumb: '/assets/images/cases/porto2.jpg',
+                          },
+                        ],
+                      },
+                      params: {
+                        lightbox: true,
+                      },
+                    },
+                    {
+                      label: '订单备注',
+                      value:
+                        'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. ',
+                      params: {
+                        shorten: 100,
+                        dialog: {
+                          label: '<strong style="font-size:20px">⋮</strong>',
+                        },
+                      },
+                    },
+                  ],
+                },
+                progressBar: {
+                  mode: 'determinate',
+                  value: 33,
+                  color: 'warn',
+                },
+              },
+            ],
           },
         ],
       },

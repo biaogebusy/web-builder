@@ -8,7 +8,7 @@
       <mat-expansion-panel [expanded]="item?.params?.expanded" *ngFor="let item of content.elements">
         <mat-expansion-panel-header>
           <mat-panel-title *ngIf="item.title">
-            {{item.title}}
+            <span [innerHTML]="item.title|safeHtml"></span>
           </mat-panel-title>
           <mat-panel-description *ngIf="item.description">
             {{item.description}}

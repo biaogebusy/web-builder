@@ -219,20 +219,18 @@
         "style": "style-v4"
       },
       "bg": {
-        "classes": "bg-fill-width bg-shadow"
+        "classes": "bg-fill-width bg-light"
       },
       "elements": [{
-        "title": "合同审核",
+        "title": "<strong>新订单</strong>",
         "params": {
           "expanded": false
         },
         "elements": [{
           "type": "card",
+          "classes": "card-no-shadow ng-star-inserted p-left-0 p-right-0 p-top-0",
           "header": {
             "meta": [{
-              "label": "",
-              "value": "<span class=\"badge\">{订单类型}</span>"
-            }, {
               "label": "订单时间",
               "value": "周一，04/11/2022 11:30"
             }]
@@ -273,14 +271,12 @@
           }
         }]
       }, {
-        "title": "制度修改",
+        "title": "<strong>重新审核</strong>",
         "elements": [{
           "type": "card",
+          "classes": "card-no-shadow ng-star-inserted p-left-0 p-right-0 p-top-0",
           "header": {
             "meta": [{
-              "label": "",
-              "value": "<span class=\"badge\">{订单类型}</span>"
-            }, {
               "label": "订单时间",
               "value": "周一，04/11/2022 11:30"
             }]
@@ -309,7 +305,7 @@
               "params": {
                 "shorten": 100,
                 "dialog": {
-                  "label": "更多"
+                  "label": "<strong style=\"font-size:20px\">⋮</strong>"
                 }
               }
             }]
