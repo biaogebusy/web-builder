@@ -13,7 +13,7 @@
             <app-law-table *ngSwitchCase="'table'" [content]="item">
             </app-law-table>
             <app-law-card *ngSwitchCase="'card'" [content]="item"></app-law-card>
-            <app-text *ngSwitchDefault [content]="item"></app-text>
+            <app-dynamic-widgets *ngSwitchDefault [content]="item"></app-dynamic-widgets>
           </ng-container>
         </div>
       </div>
