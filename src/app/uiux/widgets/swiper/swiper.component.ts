@@ -93,7 +93,7 @@ export class SwiperComponent implements OnInit, AfterViewInit, OnDestroy {
     console.log('slide change');
   }
   ngOnDestroy(): void {
-    if (this.navigationSub) {
+    if (this.navigationSub && this.navigationSub.unsubscribe) {
       this.navigationSub?.unsubscribe();
     }
   }

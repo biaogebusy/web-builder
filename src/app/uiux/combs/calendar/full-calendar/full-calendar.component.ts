@@ -199,7 +199,9 @@ export class FullCalendarComponent
   }
 
   ngOnDestroy(): void {
-    this.destroy$.next(true);
-    this.destroy$.complete();
+    if (this.destroy$.next) {
+      this.destroy$.next(true);
+      this.destroy$.complete();
+    }
   }
 }
