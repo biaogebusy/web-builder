@@ -48,3 +48,4 @@ testem.log
 Thumbs.db
 
 documentation.json
+/storybook-static
