@@ -52,7 +52,7 @@ export class UtilitiesService {
     const txtReg = /^.+(\.txt)/;
     const wordReg = /^.+(\.doc|\.docx)/;
     const excelReg = /^.+(\.xls|\.xlsx)/;
-    const jpgReg = /^.+(\.png|\.jpg|\.jpeg|\.bmp)/;
+    const jpgReg = /^.+(\.png|\.jpg|\.jpeg|\.bmp|\.gif)/;
     if (pdfReg.test(url)) {
       return 'pdf';
     }

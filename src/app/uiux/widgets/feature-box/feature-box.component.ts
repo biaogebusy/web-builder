@@ -49,6 +49,7 @@ export class FeatureBoxComponent implements OnInit {
               : this.type === 'excel'
               ? `${iconPath}/file-excel.svg`
               : `${iconPath}/file-word.svg`,
+          preview: this.content.img?.preview,
           alt: this.content.img.alt,
         },
       };
@@ -58,6 +59,10 @@ export class FeatureBoxComponent implements OnInit {
   }
 
   open(img: any): void {
+    if (img.preview) {
+      window.open(img.preview, '_blank');
+      return;
+    }
     this.lightbox.open([
       {
         src: img.src,

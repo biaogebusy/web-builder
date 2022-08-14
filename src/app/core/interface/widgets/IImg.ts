@@ -1,5 +1,6 @@
 export interface IImg {
   src: string;
+  preview?: string;
   target?: string;
   href?: string;
   style?: any;
