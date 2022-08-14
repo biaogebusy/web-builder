@@ -2,9 +2,6 @@
 .hero-1-v1 {
   height: calc(100vh - 50px);
   overflow: hidden;
-  .container {
-    position: static;
-  }
   ::ng-deep {
     .swiper-container {
       position: absolute;

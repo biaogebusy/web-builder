@@ -3,8 +3,8 @@
 .swiper-button-next,
 .swiper-button-prev {
   margin-top: calc(12px - (var(--swiper-navigation-size) / 2));
-  width: 40px;
-  height: 40px;
+  // width: 40px;
+  // height: 40px;
   &:after {
     font-family: inherit;
     font-size: 24px;

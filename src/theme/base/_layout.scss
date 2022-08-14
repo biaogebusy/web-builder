@@ -2,7 +2,6 @@
 @import "../variable/breakpoint";
 
 .container {
-  position: relative;
   box-sizing: border-box;
   width: 100%;
   margin: 0 auto;
@@ -191,7 +190,7 @@ a.anchor {
 }
 
 .object-fit {
-  position: absolute;
+  position: absolute !important;
   object-fit: cover;
   top: 0;
   bottom: 0;

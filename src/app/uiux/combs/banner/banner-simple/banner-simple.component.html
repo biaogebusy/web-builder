@@ -3,8 +3,8 @@
     <app-img [content]="content.bannerBg.img"></app-img>
   </app-bg>
   <div class="container">
-    <div class="banner-inner" fxLayout.lt-md="column" fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="space-between center"
-      fxLayoutAlign.lt-md="start start">
+    <div class="banner-inner position-relative" fxLayout.lt-md="column" fxLayout.gt-sm="row"
+      fxLayoutAlign.gt-sm="space-between center" fxLayoutAlign.lt-md="start start">
       <h2 class="page-title" *ngIf="content.title">{{content.title}}</h2>
       <app-breadcrumb [content]="content.breadcrumb" *ngIf="content.breadcrumb"></app-breadcrumb>
     </div>
