@@ -143,8 +143,6 @@
               "lightbox": true
             }
           }, {
-            "label": "关联内容"
-          }, {
             "label": "项目备注",
             "value": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. ",
             "params": {
@@ -195,8 +193,6 @@
             "params": {
               "lightbox": true
             }
-          }, {
-            "label": "关联内容"
           }, {
             "label": "项目备注",
             "value": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. ",
