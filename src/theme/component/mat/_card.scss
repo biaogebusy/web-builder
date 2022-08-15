@@ -19,7 +19,7 @@
     }
     .meta {
       .badge {
-        background-color: mat-color($primary, 500);
+        background-color: mat-color($primary, 400, 0.8);
         color: mat-color($primary, default-contrast);
       }
     }

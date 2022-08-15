@@ -127,9 +127,10 @@
           }, {
             "label": "项目文件",
             "value": {
-              "label": ["文件名1", "文件名2"],
+              "label": ["文件名 docx", "文件名 jpg"],
               "elements": [{
                 "src": "/assets/images/cases/porto1.docx",
+                "preview": "/system/xxx/xxx.pdf",
                 "caption": "文件名1",
                 "thumb": "/assets/images/cases/porto1.jpg"
               }, {
@@ -179,9 +180,10 @@
           }, {
             "label": "项目文件",
             "value": {
-              "label": ["文件名1", "文件名2"],
+              "label": ["文件名 docx", "文件名 jpg"],
               "elements": [{
                 "src": "/assets/images/cases/porto1.docx",
+                "preview": "/system/xxx/xxx.pdf",
                 "caption": "文件名1",
                 "thumb": "/assets/images/cases/porto1.jpg"
               }, {
@@ -239,9 +241,10 @@
             "meta": [{
               "label": "订单文件",
               "value": {
-                "label": ["文件名1", "文件名2"],
+                "label": ["文件名 docx", "文件名 jpg"],
                 "elements": [{
                   "src": "/assets/images/cases/porto1.docx",
+                  "preview": "/system/xxx/xxx.pdf",
                   "caption": "文件名1",
                   "thumb": "/assets/images/cases/porto1.jpg"
                 }, {
@@ -285,9 +288,10 @@
             "meta": [{
               "label": "订单文件",
               "value": {
-                "label": ["文件名1", "文件名2"],
+                "label": ["文件名 docx", "文件名 jpg"],
                 "elements": [{
                   "src": "/assets/images/cases/porto1.docx",
+                  "preview": "/system/xxx/xxx.pdf",
                   "caption": "文件名1",
                   "thumb": "/assets/images/cases/porto1.jpg"
                 }, {

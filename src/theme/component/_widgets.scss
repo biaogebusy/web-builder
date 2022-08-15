@@ -233,4 +233,10 @@
     border: 1px solid mat-color($accent) !important;
     background-color: mat-color($background, card);
   }
+
+  .inline-lightbox {
+    .inline {
+      color: mat-color($primary);
+    }
+  }
 }

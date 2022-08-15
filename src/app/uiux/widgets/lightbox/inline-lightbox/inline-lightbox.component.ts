@@ -16,10 +16,11 @@ export class InlineLightboxComponent implements OnInit {
 
   onClick(i: number): void {
     const src = this.content.elements[i].src;
+    const preview = this.content.elements[i]?.preview;
     if (this.util.getFileType(src) === 'picture') {
       this.lightbox.open(this.content.elements, i);
     } else {
-      window.open(src, '_blank');
+      window.open(preview || src, '_blank');
     }
   }
 }

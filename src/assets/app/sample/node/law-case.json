@@ -1,5 +1,5 @@
 {
-  "title": "xxx 案件",
+  "title": "Angular SSR 服务端渲染技术",
   "config": {
     "node": {
       "uuid": "cb31d69f-a95e-4c91-97d1-1169f82a10a5"
@@ -7,7 +7,7 @@
   },
   "body": [{
     "type": "law-case",
-    "title": "“细胞治疗产品隔离系统制备工艺无菌保障相关评价标准研究” 课题合作协议0414-修2-0415-2(1)(1)",
+    "title": "Angular SSR 服务端渲染技术",
     "date": [{
       "label": "更新",
       "value": "张三 周五 09:50 2022/03/31"
@@ -22,7 +22,7 @@
         "name": "editor",
         "inline": true
       },
-      "href": "https://admin.zhaobg.com/manage/content/50/edit",
+      "href": "#",
       "target": "_blank"
     }, {
       "type": "flag",

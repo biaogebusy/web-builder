@@ -91,7 +91,7 @@
     .item {
       margin-bottom: 2px;
       .inline-lightbox {
-        a {
+        .inline {
           display: block;
           @include line-clamp();
           padding-left: 0 !important;
