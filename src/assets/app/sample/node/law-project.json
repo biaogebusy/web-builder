@@ -216,6 +216,13 @@
         "label": "项目详情",
         "style": "style-v4"
       },
+      "params": {
+        "enableActions": true,
+        "actions": {
+          "openAll": "全部展开",
+          "closeAll": "全部收起"
+        }
+      },
       "bg": {
         "classes": "bg-fill-width bg-light"
       },

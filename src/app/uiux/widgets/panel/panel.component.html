@@ -4,6 +4,12 @@
   <app-bg-img [content]="content.bg"></app-bg-img>
   <div class="container">
     <app-title *ngIf="content.title" [content]="content.title"></app-title>
+    <div class="actions m-y-xs" fxLayout="row" fxLayoutAlign="end center" *ngIf="content?.params?.enableActions">
+      <button mat-button *ngIf="!isAll"
+        (click)="accordion.openAll(); isAll =!isAll">{{content.params?.actions?.openAll||'全部展开'}}</button>
+      <button mat-button *ngIf="isAll"
+        (click)="accordion.closeAll(); isAll =!isAll">{{content.params?.actions?.closeAll||'全部收起'}}</button>
+    </div>
     <mat-accordion multi>
       <mat-expansion-panel [expanded]="item?.params?.expanded" *ngFor="let item of content.elements">
         <mat-expansion-panel-header>
