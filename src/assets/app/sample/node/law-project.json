@@ -108,7 +108,7 @@
         "style": "style-v4"
       },
       "elements": [{
-        "header": {
+        "footer": {
           "meta": [{
             "label": "",
             "value": "<span class=\"badge\">{分标标题}</span>"
@@ -118,29 +118,92 @@
           }, {
             "label": "工作工时",
             "value": 1
-          }]
-        },
-        "footer": {
-          "meta": [{
+          }, {
             "label": "相关项目",
             "value": "<a href=\"/node/1\">药审分中心制度修改</a>"
           }, {
             "label": "项目文件",
-            "value": {
-              "label": ["文件名 docx", "文件名 jpg"],
+            "value": [{
               "elements": [{
-                "src": "/assets/images/cases/porto1.docx",
-                "preview": "/system/xxx/xxx.pdf",
-                "caption": "文件名1",
-                "thumb": "/assets/images/cases/porto1.jpg"
-              }, {
-                "src": "/assets/images/cases/porto2.jpg",
-                "caption": "文件名2",
-                "thumb": "/assets/images/cases/porto2.jpg"
-              }]
-            },
+                  "type": "link",
+                  "label": "第二次起诉签字.docx",
+                  "href": "xxx.docx",
+                  "classes": "file one-line"
+                },
+                {
+                  "type": "btn",
+                  "href": "#",
+                  "mode": "stroked",
+                  "label": "PDF",
+                  "color": "warn",
+                  "classes": "border-primary"
+                }
+              ]
+            }, {
+              "elements": [{
+                  "type": "link",
+                  "label": "第二次起诉签字.docx",
+                  "href": "xxx.docx",
+                  "classes": "file one-line"
+                },
+                {
+                  "type": "btn",
+                  "href": "#",
+                  "mode": "stroked",
+                  "label": "PDF",
+                  "color": "warn",
+                  "classes": "border-warn"
+                }
+              ]
+            }, {
+              "elements": [{
+                  "type": "link",
+                  "label": "第二次起诉签字.docx",
+                  "href": "xxx.docx",
+                  "classes": "file one-line"
+                },
+                {
+                  "type": "btn",
+                  "href": "#",
+                  "mode": "stroked",
+                  "label": "PDF",
+                  "color": "warn",
+                  "classes": "border-accent"
+                }
+              ]
+            }, {
+              "elements": [{
+                  "type": "link",
+                  "label": "第二次起诉签字.docx",
+                  "href": "xxx.docx",
+                  "classes": "file one-line"
+                },
+                {
+                  "type": "btn",
+                  "href": "#",
+                  "mode": "raised",
+                  "label": "预览",
+                  "color": "primary"
+                }
+              ]
+            }, {
+              "elements": [{
+                  "type": "link",
+                  "label": "第二次起诉签字.docx",
+                  "href": "xxx.docx",
+                  "classes": "file one-line"
+                },
+                {
+                  "type": "btn",
+                  "href": "#",
+                  "mode": "raised",
+                  "label": "预览",
+                  "color": "primary"
+                }
+              ]
+            }],
             "params": {
-              "lightbox": true
+              "dynamic": true
             }
           }, {
             "label": "项目备注",
@@ -159,7 +222,7 @@
           "value-": "当前次数除以总次数"
         }
       }, {
-        "header": {
+        "footer": {
           "meta": [{
             "label": "",
             "value": "<span class=\"badge\">{分标标题}</span>"
@@ -169,29 +232,92 @@
           }, {
             "label": "工作工时",
             "value": 1
-          }]
-        },
-        "footer": {
-          "meta": [{
+          }, {
             "label": "相关项目",
             "value": "<a href=\"/node/1\">药审分中心制度修改</a>"
           }, {
             "label": "项目文件",
-            "value": {
-              "label": ["文件名 docx", "文件名 jpg"],
+            "value": [{
               "elements": [{
-                "src": "/assets/images/cases/porto1.docx",
-                "preview": "/system/xxx/xxx.pdf",
-                "caption": "文件名1",
-                "thumb": "/assets/images/cases/porto1.jpg"
-              }, {
-                "src": "/assets/images/cases/porto2.jpg",
-                "caption": "文件名2",
-                "thumb": "/assets/images/cases/porto2.jpg"
-              }]
-            },
+                  "type": "link",
+                  "label": "第二次起诉签字.docx",
+                  "href": "xxx.docx",
+                  "classes": "file one-line"
+                },
+                {
+                  "type": "btn",
+                  "href": "#",
+                  "mode": "stroked",
+                  "label": "PDF",
+                  "color": "warn",
+                  "classes": "border-primary"
+                }
+              ]
+            }, {
+              "elements": [{
+                  "type": "link",
+                  "label": "第二次起诉签字.docx",
+                  "href": "xxx.docx",
+                  "classes": "file one-line"
+                },
+                {
+                  "type": "btn",
+                  "href": "#",
+                  "mode": "stroked",
+                  "label": "PDF",
+                  "color": "warn",
+                  "classes": "border-warn"
+                }
+              ]
+            }, {
+              "elements": [{
+                  "type": "link",
+                  "label": "第二次起诉签字.docx",
+                  "href": "xxx.docx",
+                  "classes": "file one-line"
+                },
+                {
+                  "type": "btn",
+                  "href": "#",
+                  "mode": "stroked",
+                  "label": "PDF",
+                  "color": "warn",
+                  "classes": "border-accent"
+                }
+              ]
+            }, {
+              "elements": [{
+                  "type": "link",
+                  "label": "第二次起诉签字.docx",
+                  "href": "xxx.docx",
+                  "classes": "file one-line"
+                },
+                {
+                  "type": "btn",
+                  "href": "#",
+                  "mode": "raised",
+                  "label": "预览",
+                  "color": "primary"
+                }
+              ]
+            }, {
+              "elements": [{
+                  "type": "link",
+                  "label": "第二次起诉签字.docx",
+                  "href": "xxx.docx",
+                  "classes": "file one-line"
+                },
+                {
+                  "type": "btn",
+                  "href": "#",
+                  "mode": "raised",
+                  "label": "预览",
+                  "color": "primary"
+                }
+              ]
+            }],
             "params": {
-              "lightbox": true
+              "dynamic": true
             }
           }, {
             "label": "项目备注",
@@ -234,30 +360,93 @@
         "elements": [{
           "type": "card",
           "classes": "card-no-shadow ng-star-inserted p-left-0 p-right-0 p-top-0",
-          "header": {
+          "footer": {
             "meta": [{
               "label": "订单时间",
               "value": "周一，04/11/2022 11:30"
-            }]
-          },
-          "footer": {
-            "meta": [{
+            }, {
               "label": "订单文件",
-              "value": {
-                "label": ["文件名 docx", "文件名 jpg"],
+              "value": [{
                 "elements": [{
-                  "src": "/assets/images/cases/porto1.docx",
-                  "preview": "/system/xxx/xxx.pdf",
-                  "caption": "文件名1",
-                  "thumb": "/assets/images/cases/porto1.jpg"
-                }, {
-                  "src": "/assets/images/cases/porto2.jpg",
-                  "caption": "文件名2",
-                  "thumb": "/assets/images/cases/porto2.jpg"
-                }]
-              },
+                    "type": "link",
+                    "label": "第二次起诉签字.docx",
+                    "href": "xxx.docx",
+                    "classes": "file one-line"
+                  },
+                  {
+                    "type": "btn",
+                    "href": "#",
+                    "mode": "stroked",
+                    "label": "PDF",
+                    "color": "warn",
+                    "classes": "border-primary"
+                  }
+                ]
+              }, {
+                "elements": [{
+                    "type": "link",
+                    "label": "第二次起诉签字.docx",
+                    "href": "xxx.docx",
+                    "classes": "file one-line"
+                  },
+                  {
+                    "type": "btn",
+                    "href": "#",
+                    "mode": "stroked",
+                    "label": "PDF",
+                    "color": "warn",
+                    "classes": "border-warn"
+                  }
+                ]
+              }, {
+                "elements": [{
+                    "type": "link",
+                    "label": "第二次起诉签字.docx",
+                    "href": "xxx.docx",
+                    "classes": "file one-line"
+                  },
+                  {
+                    "type": "btn",
+                    "href": "#",
+                    "mode": "stroked",
+                    "label": "PDF",
+                    "color": "warn",
+                    "classes": "border-accent"
+                  }
+                ]
+              }, {
+                "elements": [{
+                    "type": "link",
+                    "label": "第二次起诉签字.docx",
+                    "href": "xxx.docx",
+                    "classes": "file one-line"
+                  },
+                  {
+                    "type": "btn",
+                    "href": "#",
+                    "mode": "raised",
+                    "label": "预览",
+                    "color": "primary"
+                  }
+                ]
+              }, {
+                "elements": [{
+                    "type": "link",
+                    "label": "第二次起诉签字.docx",
+                    "href": "xxx.docx",
+                    "classes": "file one-line"
+                  },
+                  {
+                    "type": "btn",
+                    "href": "#",
+                    "mode": "raised",
+                    "label": "预览",
+                    "color": "primary"
+                  }
+                ]
+              }],
               "params": {
-                "lightbox": true
+                "dynamic": true
               }
             }, {
               "label": "订单备注",
@@ -281,30 +470,93 @@
         "elements": [{
           "type": "card",
           "classes": "card-no-shadow ng-star-inserted p-left-0 p-right-0 p-top-0",
-          "header": {
+          "footer": {
             "meta": [{
               "label": "订单时间",
               "value": "周一，04/11/2022 11:30"
-            }]
-          },
-          "footer": {
-            "meta": [{
+            }, {
               "label": "订单文件",
-              "value": {
-                "label": ["文件名 docx", "文件名 jpg"],
+              "value": [{
                 "elements": [{
-                  "src": "/assets/images/cases/porto1.docx",
-                  "preview": "/system/xxx/xxx.pdf",
-                  "caption": "文件名1",
-                  "thumb": "/assets/images/cases/porto1.jpg"
-                }, {
-                  "src": "/assets/images/cases/porto2.jpg",
-                  "caption": "文件名2",
-                  "thumb": "/assets/images/cases/porto2.jpg"
-                }]
-              },
+                    "type": "link",
+                    "label": "第二次起诉签字.docx",
+                    "href": "xxx.docx",
+                    "classes": "file one-line"
+                  },
+                  {
+                    "type": "btn",
+                    "href": "#",
+                    "mode": "stroked",
+                    "label": "PDF",
+                    "color": "warn",
+                    "classes": "border-primary"
+                  }
+                ]
+              }, {
+                "elements": [{
+                    "type": "link",
+                    "label": "第二次起诉签字.docx",
+                    "href": "xxx.docx",
+                    "classes": "file one-line"
+                  },
+                  {
+                    "type": "btn",
+                    "href": "#",
+                    "mode": "stroked",
+                    "label": "PDF",
+                    "color": "warn",
+                    "classes": "border-warn"
+                  }
+                ]
+              }, {
+                "elements": [{
+                    "type": "link",
+                    "label": "第二次起诉签字.docx",
+                    "href": "xxx.docx",
+                    "classes": "file one-line"
+                  },
+                  {
+                    "type": "btn",
+                    "href": "#",
+                    "mode": "stroked",
+                    "label": "PDF",
+                    "color": "warn",
+                    "classes": "border-accent"
+                  }
+                ]
+              }, {
+                "elements": [{
+                    "type": "link",
+                    "label": "第二次起诉签字.docx",
+                    "href": "xxx.docx",
+                    "classes": "file one-line"
+                  },
+                  {
+                    "type": "btn",
+                    "href": "#",
+                    "mode": "raised",
+                    "label": "预览",
+                    "color": "primary"
+                  }
+                ]
+              }, {
+                "elements": [{
+                    "type": "link",
+                    "label": "第二次起诉签字.docx",
+                    "href": "xxx.docx",
+                    "classes": "file one-line"
+                  },
+                  {
+                    "type": "btn",
+                    "href": "#",
+                    "mode": "raised",
+                    "label": "预览",
+                    "color": "primary"
+                  }
+                ]
+              }],
               "params": {
-                "lightbox": true
+                "dynamic": true
               }
             }, {
               "label": "订单备注",

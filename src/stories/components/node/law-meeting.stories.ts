@@ -242,27 +242,27 @@ Default.args = {
             elements: [
               {
                 type: 'link',
-                label: '第二次起诉签字-易思远-刘冰清.docx',
+                label: '第二次起诉签字.docx',
                 href: 'xxx.docx',
               },
               {
                 type: 'link',
-                label: '第二次起诉签字-易思远-刘冰清.docx',
+                label: '第二次起诉签字.docx',
                 href: 'xxx.docx',
               },
               {
                 type: 'link',
-                label: '第二次起诉签字-易思远-刘冰清.docx',
+                label: '第二次起诉签字.docx',
                 href: 'xxx.docx',
               },
               {
                 type: 'link',
-                label: '第二次起诉签字-易思远-刘冰清.docx',
+                label: '第二次起诉签字.docx',
                 href: 'xxx.docx',
               },
               {
                 type: 'link',
-                label: '第二次起诉签字-易思远-刘冰清.docx',
+                label: '第二次起诉签字.docx',
                 href: 'xxx.docx',
               },
             ],
@@ -277,22 +277,22 @@ Default.args = {
               },
               {
                 type: 'link',
-                label: '第二次起诉签字-易思远-刘冰清.docx',
+                label: '第二次起诉签字.docx',
                 href: 'xxx.docx',
               },
               {
                 type: 'link',
-                label: '第二次起诉签字-易思远-刘冰清.docx',
+                label: '第二次起诉签字.docx',
                 href: 'xxx.docx',
               },
               {
                 type: 'link',
-                label: '第二次起诉签字-易思远-刘冰清.docx',
+                label: '第二次起诉签字.docx',
                 href: 'xxx.docx',
               },
               {
                 type: 'link',
-                label: '第二次起诉签字-易思远-刘冰清.docx',
+                label: '第二次起诉签字.docx',
                 href: 'xxx.docx',
               },
             ],
@@ -307,22 +307,22 @@ Default.args = {
               },
               {
                 type: 'link',
-                label: '第二次起诉签字-易思远-刘冰清.docx',
+                label: '第二次起诉签字.docx',
                 href: 'xxx.docx',
               },
               {
                 type: 'link',
-                label: '第二次起诉签字-易思远-刘冰清.docx',
+                label: '第二次起诉签字.docx',
                 href: 'xxx.docx',
               },
               {
                 type: 'link',
-                label: '第二次起诉签字-易思远-刘冰清.docx',
+                label: '第二次起诉签字.docx',
                 href: 'xxx.docx',
               },
               {
                 type: 'link',
-                label: '第二次起诉签字-易思远-刘冰清.docx',
+                label: '第二次起诉签字.docx',
                 href: 'xxx.docx',
               },
             ],
@@ -337,22 +337,22 @@ Default.args = {
               },
               {
                 type: 'link',
-                label: '第二次起诉签字-易思远-刘冰清.docx',
+                label: '第二次起诉签字.docx',
                 href: 'xxx.docx',
               },
               {
                 type: 'link',
-                label: '第二次起诉签字-易思远-刘冰清.docx',
+                label: '第二次起诉签字.docx',
                 href: 'xxx.docx',
               },
               {
                 type: 'link',
-                label: '第二次起诉签字-易思远-刘冰清.docx',
+                label: '第二次起诉签字.docx',
                 href: 'xxx.docx',
               },
               {
                 type: 'link',
-                label: '第二次起诉签字-易思远-刘冰清.docx',
+                label: '第二次起诉签字.docx',
                 href: 'xxx.docx',
               },
             ],

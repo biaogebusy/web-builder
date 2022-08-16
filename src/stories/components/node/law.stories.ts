@@ -242,7 +242,7 @@ Default.args = {
                 elements: [
                   {
                     type: 'link',
-                    label: '第二次起诉签字-易思远-刘冰清.docx',
+                    label: '第二次起诉签字.docx',
                     href: 'xxx.docx',
                     classes: 'file one-line',
                   },
@@ -260,7 +260,7 @@ Default.args = {
                 elements: [
                   {
                     type: 'link',
-                    label: '第二次起诉签字-易思远-刘冰清.docx',
+                    label: '第二次起诉签字.docx',
                     href: 'xxx.docx',
                     classes: 'file one-line',
                   },
@@ -278,7 +278,7 @@ Default.args = {
                 elements: [
                   {
                     type: 'link',
-                    label: '第二次起诉签字-易思远-刘冰清.docx',
+                    label: '第二次起诉签字.docx',
                     href: 'xxx.docx',
                     classes: 'file one-line',
                   },
@@ -296,7 +296,7 @@ Default.args = {
                 elements: [
                   {
                     type: 'link',
-                    label: '第二次起诉签字-易思远-刘冰清.docx',
+                    label: '第二次起诉签字.docx',
                     href: 'xxx.docx',
                     classes: 'file one-line',
                   },
@@ -313,7 +313,7 @@ Default.args = {
                 elements: [
                   {
                     type: 'link',
-                    label: '第二次起诉签字-易思远-刘冰清.docx',
+                    label: '第二次起诉签字.docx',
                     href: 'xxx.docx',
                     classes: 'file one-line',
                   },
@@ -607,7 +607,7 @@ Default.args = {
                   {
                     type: 'link',
                     label:
-                      '易思远-刘冰清-判决书-浦东法院-易思远-刘冰清-判决书-浦东法院-202201 _0.pdf',
+                      '易思远-刘冰清-判决书-浦东法院-判决书-浦东法院-202201 _0.pdf',
                     href: 'xxx.docx',
                     classes: 'file one-line',
                   },
