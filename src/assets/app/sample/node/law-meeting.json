@@ -131,20 +131,45 @@
             "value": "<a href=\"/node/1\">药审分中心制度修改</a>"
           }, {
             "label": "会议文件",
-            "value": {
-              "label": ["文件名1", "文件名2"],
+            "value": [{
               "elements": [{
-                "src": "/assets/images/cases/porto1.jpg",
-                "caption": "文件名1",
-                "thumb": "/assets/images/cases/porto1.jpg"
-              }, {
-                "src": "/assets/images/cases/porto2.jpg",
-                "caption": "文件名2",
-                "thumb": "/assets/images/cases/porto2.jpg"
-              }]
-            },
+                  "type": "link",
+                  "label": "第二次起诉签字.docx",
+                  "href": "xxx.docx",
+                  "target": "_blank",
+                  "classes": "file one-line"
+                },
+                {
+                  "type": "btn",
+                  "href": "#",
+                  "mode": "stroked",
+                  "label": "PDF",
+                  "color": "warn",
+                  "target": "_blank",
+                  "classes": "border-warn"
+                }
+              ]
+            }, {
+              "elements": [{
+                  "type": "link",
+                  "label": "第二次起诉签字.docx",
+                  "href": "xxx.docx",
+                  "target": "_blank",
+                  "classes": "file one-line"
+                },
+                {
+                  "type": "btn",
+                  "href": "#",
+                  "mode": "stroked",
+                  "label": "PDF",
+                  "color": "warn",
+                  "target": "_blank",
+                  "classes": "border-warn"
+                }
+              ]
+            }],
             "params": {
-              "lightbox": true
+              "dynamic": true
             }
           }, {
             "label": "会议内容",
@@ -209,16 +234,45 @@
             "value": "<a href=\"/node/1\">药审分中心制度修改</a>"
           }, {
             "label": "会议文件",
-            "value": {
-              "label": ["文件名2"],
+            "value": [{
               "elements": [{
-                "src": "/assets/images/cases/porto1.jpg",
-                "caption": "文件名2",
-                "thumb": "/assets/images/cases/porto1.jpg"
-              }]
-            },
+                  "type": "link",
+                  "label": "第二次起诉签字.docx",
+                  "href": "xxx.docx",
+                  "target": "_blank",
+                  "classes": "file one-line"
+                },
+                {
+                  "type": "btn",
+                  "href": "#",
+                  "mode": "stroked",
+                  "label": "PDF",
+                  "color": "warn",
+                  "target": "_blank",
+                  "classes": "border-warn"
+                }
+              ]
+            }, {
+              "elements": [{
+                  "type": "link",
+                  "label": "第二次起诉签字.docx",
+                  "href": "xxx.docx",
+                  "target": "_blank",
+                  "classes": "file one-line"
+                },
+                {
+                  "type": "btn",
+                  "href": "#",
+                  "mode": "stroked",
+                  "label": "PDF",
+                  "color": "warn",
+                  "target": "_blank",
+                  "classes": "border-warn"
+                }
+              ]
+            }],
             "params": {
-              "lightbox": true
+              "dynamic": true
             }
           }, {
             "label": "会议内容",
@@ -282,16 +336,45 @@
             "value": "<a href=\"/node/1\">药审分中心制度修改</a>"
           }, {
             "label": "会议文件",
-            "value": {
-              "label": ["文件名3"],
+            "value": [{
               "elements": [{
-                "src": "/assets/images/cases/porto1.jpg",
-                "caption": "文件名3",
-                "thumb": "/assets/images/cases/porto1.jpg"
-              }]
-            },
+                  "type": "link",
+                  "label": "第二次起诉签字.docx",
+                  "href": "xxx.docx",
+                  "target": "_blank",
+                  "classes": "file one-line"
+                },
+                {
+                  "type": "btn",
+                  "href": "#",
+                  "mode": "stroked",
+                  "label": "PDF",
+                  "color": "warn",
+                  "target": "_blank",
+                  "classes": "border-warn"
+                }
+              ]
+            }, {
+              "elements": [{
+                  "type": "link",
+                  "label": "第二次起诉签字.docx",
+                  "href": "xxx.docx",
+                  "target": "_blank",
+                  "classes": "file one-line"
+                },
+                {
+                  "type": "btn",
+                  "href": "#",
+                  "mode": "stroked",
+                  "label": "PDF",
+                  "color": "warn",
+                  "target": "_blank",
+                  "classes": "border-warn"
+                }
+              ]
+            }],
             "params": {
-              "lightbox": true
+              "dynamic": true
             }
           }, {
             "label": "会议内容",
@@ -355,16 +438,45 @@
             "value": "<a href=\"/node/1\">药审分中心制度修改</a>"
           }, {
             "label": "会议文件",
-            "value": {
-              "label": ["文件名3"],
+            "value": [{
               "elements": [{
-                "src": "/assets/images/cases/porto1.jpg",
-                "caption": "文件名3",
-                "thumb": "/assets/images/cases/porto1.jpg"
-              }]
-            },
+                  "type": "link",
+                  "label": "第二次起诉签字.docx",
+                  "href": "xxx.docx",
+                  "target": "_blank",
+                  "classes": "file one-line"
+                },
+                {
+                  "type": "btn",
+                  "href": "#",
+                  "mode": "stroked",
+                  "label": "PDF",
+                  "color": "warn",
+                  "target": "_blank",
+                  "classes": "border-warn"
+                }
+              ]
+            }, {
+              "elements": [{
+                  "type": "link",
+                  "label": "第二次起诉签字.docx",
+                  "href": "xxx.docx",
+                  "target": "_blank",
+                  "classes": "file one-line"
+                },
+                {
+                  "type": "btn",
+                  "href": "#",
+                  "mode": "stroked",
+                  "label": "PDF",
+                  "color": "warn",
+                  "target": "_blank",
+                  "classes": "border-warn"
+                }
+              ]
+            }],
             "params": {
-              "lightbox": true
+              "dynamic": true
             }
           }, {
             "label": "会议内容",
@@ -428,16 +540,45 @@
             "value": "<a href=\"/node/1\">药审分中心制度修改</a>"
           }, {
             "label": "会议文件",
-            "value": {
-              "label": ["文件名3"],
+            "value": [{
               "elements": [{
-                "src": "/assets/images/cases/porto1.jpg",
-                "caption": "文件名3",
-                "thumb": "/assets/images/cases/porto1.jpg"
-              }]
-            },
+                  "type": "link",
+                  "label": "第二次起诉签字.docx",
+                  "href": "xxx.docx",
+                  "target": "_blank",
+                  "classes": "file one-line"
+                },
+                {
+                  "type": "btn",
+                  "href": "#",
+                  "mode": "stroked",
+                  "label": "PDF",
+                  "color": "warn",
+                  "target": "_blank",
+                  "classes": "border-warn"
+                }
+              ]
+            }, {
+              "elements": [{
+                  "type": "link",
+                  "label": "第二次起诉签字.docx",
+                  "href": "xxx.docx",
+                  "target": "_blank",
+                  "classes": "file one-line"
+                },
+                {
+                  "type": "btn",
+                  "href": "#",
+                  "mode": "stroked",
+                  "label": "PDF",
+                  "color": "warn",
+                  "target": "_blank",
+                  "classes": "border-warn"
+                }
+              ]
+            }],
             "params": {
-              "lightbox": true
+              "dynamic": true
             }
           }, {
             "label": "会议内容",
