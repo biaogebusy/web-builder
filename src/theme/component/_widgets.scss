@@ -241,7 +241,7 @@
   }
 
   .panel {
-    .mat-expansion-panel-header-title {
+    .mat-expanded .mat-expansion-panel-header-title {
       .badge {
         color: mat-color($primary, default-contrast);
         background-color: mat-color($primary, 400, 0.85);
