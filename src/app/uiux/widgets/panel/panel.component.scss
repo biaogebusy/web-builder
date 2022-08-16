@@ -1,0 +1,12 @@
+@import "/src/theme/mixins/amixin";
+:host ::ng-deep .mat-expansion-panel-header-title .badge {
+  padding: 4px 10px;
+  border-radius: 15px;
+  font-size: small;
+  display: inline-block;
+  @include line-clamp();
+  &:empty {
+    display: none !important;
+    opacity: 0;
+  }
+}

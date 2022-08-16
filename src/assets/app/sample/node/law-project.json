@@ -227,7 +227,7 @@
         "classes": "bg-fill-width bg-light"
       },
       "elements": [{
-        "title": "<strong>新订单</strong>",
+        "title": "<span class=\"badge\">新订单</span>",
         "params": {
           "expanded": false
         },
@@ -277,7 +277,7 @@
           }
         }]
       }, {
-        "title": "<strong>重新审核</strong>",
+        "title": "<span class=\"badge\">重新审核</span>",
         "elements": [{
           "type": "card",
           "classes": "card-no-shadow ng-star-inserted p-left-0 p-right-0 p-top-0",
