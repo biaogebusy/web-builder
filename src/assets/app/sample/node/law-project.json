@@ -128,6 +128,7 @@
                   "type": "link",
                   "label": "第二次起诉签字.docx",
                   "href": "xxx.docx",
+                  "target": "_blank",
                   "classes": "file one-line"
                 },
                 {
@@ -136,22 +137,7 @@
                   "mode": "stroked",
                   "label": "PDF",
                   "color": "warn",
-                  "classes": "border-primary"
-                }
-              ]
-            }, {
-              "elements": [{
-                  "type": "link",
-                  "label": "第二次起诉签字.docx",
-                  "href": "xxx.docx",
-                  "classes": "file one-line"
-                },
-                {
-                  "type": "btn",
-                  "href": "#",
-                  "mode": "stroked",
-                  "label": "PDF",
-                  "color": "warn",
+                  "target": "_blank",
                   "classes": "border-warn"
                 }
               ]
@@ -160,6 +146,7 @@
                   "type": "link",
                   "label": "第二次起诉签字.docx",
                   "href": "xxx.docx",
+                  "target": "_blank",
                   "classes": "file one-line"
                 },
                 {
@@ -168,37 +155,8 @@
                   "mode": "stroked",
                   "label": "PDF",
                   "color": "warn",
-                  "classes": "border-accent"
-                }
-              ]
-            }, {
-              "elements": [{
-                  "type": "link",
-                  "label": "第二次起诉签字.docx",
-                  "href": "xxx.docx",
-                  "classes": "file one-line"
-                },
-                {
-                  "type": "btn",
-                  "href": "#",
-                  "mode": "raised",
-                  "label": "预览",
-                  "color": "primary"
-                }
-              ]
-            }, {
-              "elements": [{
-                  "type": "link",
-                  "label": "第二次起诉签字.docx",
-                  "href": "xxx.docx",
-                  "classes": "file one-line"
-                },
-                {
-                  "type": "btn",
-                  "href": "#",
-                  "mode": "raised",
-                  "label": "预览",
-                  "color": "primary"
+                  "target": "_blank",
+                  "classes": "border-warn"
                 }
               ]
             }],
@@ -250,69 +208,7 @@
                   "mode": "stroked",
                   "label": "PDF",
                   "color": "warn",
-                  "classes": "border-primary"
-                }
-              ]
-            }, {
-              "elements": [{
-                  "type": "link",
-                  "label": "第二次起诉签字.docx",
-                  "href": "xxx.docx",
-                  "classes": "file one-line"
-                },
-                {
-                  "type": "btn",
-                  "href": "#",
-                  "mode": "stroked",
-                  "label": "PDF",
-                  "color": "warn",
                   "classes": "border-warn"
-                }
-              ]
-            }, {
-              "elements": [{
-                  "type": "link",
-                  "label": "第二次起诉签字.docx",
-                  "href": "xxx.docx",
-                  "classes": "file one-line"
-                },
-                {
-                  "type": "btn",
-                  "href": "#",
-                  "mode": "stroked",
-                  "label": "PDF",
-                  "color": "warn",
-                  "classes": "border-accent"
-                }
-              ]
-            }, {
-              "elements": [{
-                  "type": "link",
-                  "label": "第二次起诉签字.docx",
-                  "href": "xxx.docx",
-                  "classes": "file one-line"
-                },
-                {
-                  "type": "btn",
-                  "href": "#",
-                  "mode": "raised",
-                  "label": "预览",
-                  "color": "primary"
-                }
-              ]
-            }, {
-              "elements": [{
-                  "type": "link",
-                  "label": "第二次起诉签字.docx",
-                  "href": "xxx.docx",
-                  "classes": "file one-line"
-                },
-                {
-                  "type": "btn",
-                  "href": "#",
-                  "mode": "raised",
-                  "label": "预览",
-                  "color": "primary"
                 }
               ]
             }],
@@ -459,7 +355,7 @@
               }
             }]
           },
-          "progressBar": {
+          "progressBarBak": {
             "mode": "determinate",
             "value": 33,
             "color": "warn"
@@ -569,7 +465,7 @@
               }
             }]
           },
-          "progressBar": {
+          "progressBarBak": {
             "mode": "determinate",
             "value": 33,
             "color": "warn"
