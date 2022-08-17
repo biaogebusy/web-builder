@@ -184,6 +184,7 @@
             "label": "信息备注",
             "value": "sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. ",
             "params": {
+              "line": "one",
               "shorten": 100,
               "dialog": {
                 "label": "更多"
@@ -193,8 +194,7 @@
         },
         "progressBar": {
           "mode": "determinate",
-          "value": 33,
-          "value-": "当前次数除以总次数"
+          "value": 33
         }
       }, {
         "header": {

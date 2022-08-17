@@ -176,8 +176,7 @@
         },
         "progressBar": {
           "mode": "determinate",
-          "value": 100,
-          "value-": "当前次数除以总次数"
+          "value": 100
         }
       }, {
         "footer": {
