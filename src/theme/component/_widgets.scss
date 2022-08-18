@@ -64,14 +64,14 @@
     }
   }
 
-  .feature-inner {
+  .feature-cover {
     &:before {
       background: $bg-color;
     }
     &:after {
       background: $bg-color;
     }
-    .feature-inner-corners {
+    .inner {
       &:before {
         background: $bg-color;
       }
@@ -79,7 +79,7 @@
         background: $bg-color;
       }
     }
-    .feature-inner-btns {
+    .btns {
       > a {
         background: $bg-color;
         color: mat-color($primary);
@@ -103,6 +103,37 @@
       }
       &:after {
         background: mat-color($primary);
+      }
+    }
+  }
+
+  .feature-float {
+    background-color: mat-color($background, "app-bar");
+    .title {
+    }
+    .btns {
+      .btn {
+        transition: all 0.3s;
+      }
+      .btn-full {
+        color: mat-color($primary);
+        border: 1px solid mat-color($primary, 0.4);
+        background-color: mat-color($primary, 0.2);
+        @include mat-elevation(3, mat-color($primary), 0.5);
+        &:hover {
+          background-color: mat-color($primary);
+          color: mat-color($primary, default-contrast);
+        }
+      }
+      .btn-open {
+        color: mat-color($warn);
+        border: 1px solid mat-color($warn, 0.4);
+        background-color: mat-color($warn, 0.2);
+        @include mat-elevation(3, mat-color($warn), 0.5);
+        &:hover {
+          background-color: mat-color($warn);
+          color: mat-color($primary, default-contrast);
+        }
       }
     }
   }

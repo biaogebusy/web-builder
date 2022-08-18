@@ -8,4 +8,5 @@ export interface IFeatureBox {
   ratios?: string;
   img: IImg;
   link?: string;
+  mode?: 'float';
 }

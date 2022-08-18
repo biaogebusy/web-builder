@@ -1,15 +1,15 @@
-<div class="feature-inner" *ngIf="box">
-  <div class="feature-inner-corners">
-    <div class="feature-inner-btns" *ngIf="box.hoverIcon;else noIcon">
-      <a href="javascript:void(0)" (click)="open(box.img)" class="expand-image" *ngIf="box.fullIcon">
+<div class="feature-box {{content?.mode == 'float'?'feature-float':'feature-cover'}}" *ngIf="box">
+  <div class="inner">
+    <div class="btns" *ngIf="box.hoverIcon;else noIcon">
+      <a href="javascript:void(0)" (click)="open(box.img)" class="btn expand-image btn-full" *ngIf="box.fullIcon">
         <mat-icon>{{box.fullIcon}}</mat-icon>
       </a>
-      <a href="{{box.link}}" class="icon-link icon-{{box.openIcon}}" *ngIf="box.openIcon">
+      <a href="{{box.link}}" class="btn icon-link btn-open icon-{{box.openIcon}}" *ngIf="box.openIcon">
         <mat-icon>{{box.openIcon}}</mat-icon>
       </a>
     </div>
     <ng-template #noIcon>
-      <a *ngIf="box.link" href="{{box.link}}" class="feature-inner-btns width-100 height-100"></a>
+      <a *ngIf="box.link" href="{{box.link}}" class="btns width-100 height-100"></a>
     </ng-template>
     <div class="feature-inner-ling">
       <div class="media" [ngClass]="box.ratios || 'media-4-3'">

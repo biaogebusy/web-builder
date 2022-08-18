@@ -100,12 +100,13 @@
             },
             "elements": [{
               "type": "feature-box",
+              "mode": "float",
               "hoverIcon": true,
               "fullIcon": "fullscreen",
               "ratios": "media-4-3",
               "img": {
                 "classes": "object-fit",
-                "src": "/system/files/2022-08/%E5%9B%BD%E6%8A%95%E5%BC%80%E7%A5%A8%E4%BF%A1%E6%81%AF.docx",
+                "src": "/system/files/2022-08/AF.docx",
                 "preview": "/system/files/xxx.pdf",
                 "alt": "alt"
               }
