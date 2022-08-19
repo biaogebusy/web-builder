@@ -67,7 +67,6 @@
 
   .card-1-v3 {
     .viewport {
-      border-right: 1px solid rgb(97 97 97 / 8%);
       @include scrollbar(mat-color($foreground, divider, 0.2));
     }
     .item {
