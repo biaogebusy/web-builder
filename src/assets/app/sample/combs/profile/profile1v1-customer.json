@@ -101,14 +101,14 @@
             "elements": [{
               "type": "feature-box",
               "mode": "float",
+              "fullIcon": "visibility",
               "hoverIcon": true,
-              "fullIcon": "fullscreen",
               "ratios": "media-4-3",
               "img": {
                 "classes": "object-fit",
                 "src": "/system/files/2022-08/AF.docx",
                 "preview": "/system/files/xxx.pdf",
-                "alt": "alt"
+                "alt": "苏州耀能诉震纶用电纠纷案（10月后的电费案件）"
               }
             }]
           }
@@ -126,13 +126,14 @@
             },
             "elements": [{
               "type": "feature-box",
+              "mode": "float",
+              "fullIcon": "visibility",
               "hoverIcon": true,
-              "fullIcon": "fullscreen",
               "ratios": "media-4-3",
               "img": {
                 "classes": "object-fit",
                 "src": "/assets/images/cases/porto2.jpg",
-                "alt": "alt"
+                "alt": "苏州耀能诉震纶用电纠纷案（10月后的电费案件）"
               }
             }]
           }

@@ -18,6 +18,7 @@ export class FeatureBoxComponent implements OnInit {
   @Input() content: IFeatureBox;
   box: IFeatureBox;
   type: string;
+  isHoverIcon = true;
   constructor(
     private lightbox: Lightbox,
     private lightboxConfig: LightboxConfig,
@@ -36,10 +37,10 @@ export class FeatureBoxComponent implements OnInit {
       this.box = this.content;
     } else {
       this.box = {
-        fullIcon: 'fullscreen',
-        ratios: 'media-4-3',
+        fullIcon: this.content.fullIcon || 'fullscreen',
+        ratios: this.content.ratios || 'media-4-3',
         hoverIcon: true,
-        openIcon: 'file_download',
+        openIcon: this.content.openIcon || 'file_download',
         link: this.content.img.src,
         img: {
           classes: 'object-fill p-x-lg p-y-lg',
@@ -54,12 +55,25 @@ export class FeatureBoxComponent implements OnInit {
         },
       };
     }
+    this.getHoverIcon();
+    this.cd.detectChanges();
+  }
 
+  getHoverIcon(): void {
+    if (!this.content.hoverIcon) {
+      this.isHoverIcon = true;
+      return;
+    }
+    if (this.content.hoverIcon) {
+      this.isHoverIcon = true;
+    } else {
+      this.isHoverIcon = false;
+    }
     this.cd.detectChanges();
   }
 
   open(img: any): void {
-    if (img.preview) {
+    if (this.type !== 'picture') {
       window.open(img.preview, '_blank');
       return;
     }

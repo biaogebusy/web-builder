@@ -71,7 +71,7 @@
     &:after {
       background: $bg-color;
     }
-    .inner {
+    .feature-inner {
       &:before {
         background: $bg-color;
       }
@@ -108,8 +108,9 @@
   }
 
   .feature-float {
-    background-color: mat-color($background, "app-bar");
     .title {
+      background-color: mat-color($background, "app-bar", 0.7);
+      color: mat-color($foreground, text, 0.6);
     }
     .btns {
       .btn {
@@ -134,6 +135,11 @@
           background-color: mat-color($warn);
           color: mat-color($primary, default-contrast);
         }
+      }
+    }
+    .media {
+      img {
+        background-color: mat-color($background, "app-bar");
       }
     }
   }

@@ -201,7 +201,7 @@ a.anchor {
 }
 
 .object-fill {
-  position: absolute;
+  position: absolute !important;
   object-fit: fill;
   top: 0;
   bottom: 0;

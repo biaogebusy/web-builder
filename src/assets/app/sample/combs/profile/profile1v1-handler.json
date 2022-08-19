@@ -117,7 +117,8 @@
             "elements": [{
               "type": "feature-box",
               "hoverIcon": true,
-              "fullIcon": "fullscreen",
+              "mode": "float",
+              "fullIcon": "visibility",
               "ratios": "media-4-3",
               "img": {
                 "classes": "object-fit",
@@ -141,7 +142,8 @@
             "elements": [{
               "type": "feature-box",
               "hoverIcon": true,
-              "fullIcon": "fullscreen",
+              "mode": "float",
+              "fullIcon": "visibility",
               "ratios": "media-4-3",
               "img": {
                 "classes": "object-fit",

@@ -1,6 +1,6 @@
 <div class="feature-box {{content?.mode == 'float'?'feature-float':'feature-cover'}}" *ngIf="box">
-  <div class="inner">
-    <div class="btns" *ngIf="box.hoverIcon;else noIcon">
+  <div class="feature-inner">
+    <div class="btns" *ngIf="isHoverIcon;else noIcon">
       <a href="javascript:void(0)" (click)="open(box.img)" class="btn expand-image btn-full" *ngIf="box.fullIcon">
         <mat-icon>{{box.fullIcon}}</mat-icon>
       </a>
@@ -15,7 +15,7 @@
       <div class="media" [ngClass]="box.ratios || 'media-4-3'">
         <app-img *ngIf="box.img" [content]="box.img"></app-img>
       </div>
-      <div class="title one-line p-x-xs" *ngIf="type !== 'picture'">{{box.img?.alt}}</div>
+      <div class="title one-line p-x-xs" *ngIf="content?.mode === 'float' || type !== 'picture'">{{box.img?.alt}}</div>
     </div>
   </div>
 </div>
