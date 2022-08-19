@@ -13,16 +13,16 @@
     "style": "blue-theme",
     "icon": "laptop_mac"
   }, {
-    "name": "Enar 主题",
-    "style": "enar-theme",
+    "name": "Green 主题",
+    "style": "green-theme",
+    "icon": "laptop_mac"
+  }, {
+    "name": "Red 主题",
+    "style": "red-theme",
     "icon": "laptop_mac"
   }, {
     "name": "King 主题",
     "style": "king-theme",
-    "icon": "laptop_mac"
-  }, {
-    "name": "三字柒主题",
-    "style": "sanziqi-theme",
     "icon": "laptop_mac"
   }, {
     "name": "暗黑主题",

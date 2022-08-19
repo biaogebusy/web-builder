@@ -1,20 +1,20 @@
 @import "~@angular/material/theming";
-$enar-color: (
+$green-color: (
   //
-  50: #e0f6f7,
-  100: #b0e9e9,
-  200: #76dcdb,
-  300: #1ccdca,
-  400: #00c0bc,
-  500: #00b3ab,
-  600: #00a59c,
-  700: #00948a,
-  800: #00837a,
-  900: #00665a,
-  A100: #b0e9e9,
-  A200: #76dcdb,
-  A400: #00c0bc,
-  A700: #00948a,
+  50: #d5f5f1,
+  100: #95e6da,
+  200: #2bd6c2,
+  300: #00c2a8,
+  400: #00b295,
+  500: #00a281,
+  600: #009474,
+  700: #008463,
+  800: #007355,
+  900: #005637,
+  A100: #95e6da,
+  A200: #00c2a8,
+  A400: #00a281,
+  A700: #008463,
   contrast: (
     //
     50: $dark-primary-text,
@@ -34,7 +34,7 @@ $enar-color: (
   )
 );
 
-$enar-primary: mat-palette($enar-color, 500);
-$enar-accent: mat-palette($enar-color, A200, A100, A400);
-$enar-warn: mat-palette($mat-red, A200, A100, A400);
-$enar-theme: mat-light-theme($enar-primary, $enar-accent, $enar-warn);
+$green-primary: mat-palette($green-color);
+$green-accent: mat-palette($green-color, A200, A100, A400);
+$green-warn: mat-palette($mat-red, A200, A100, A400);
+$green-theme: mat-light-theme($green-primary, $green-accent, $green-warn);
