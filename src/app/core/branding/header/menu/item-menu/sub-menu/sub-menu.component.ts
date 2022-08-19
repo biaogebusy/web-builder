@@ -5,6 +5,8 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { UserState } from '@core/mobx/user/UserState';
+import { BaseComponent } from '@uiux/base/base.widget';
 
 @Component({
   selector: 'app-sub-menu',
@@ -12,10 +14,12 @@ import {
   styleUrls: ['./sub-menu.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SubMenuComponent implements OnInit {
+export class SubMenuComponent extends BaseComponent implements OnInit {
   @Input() content: any;
   @ViewChild('childMenu', { static: true }) public childMenu: any;
-  constructor() {}
+  constructor(public userState: UserState) {
+    super(userState);
+  }
 
   ngOnInit(): void {}
 }

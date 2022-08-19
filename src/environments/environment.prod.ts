@@ -1,11 +1,11 @@
 import { IEnvironment } from '../app/core/interface/IEnvironment';
 
 export const environment: IEnvironment = {
-  apiUrl: 'https://xhb-api.zhaobg.com',
+  apiUrl: 'https://xhb.zhaobg.com',
   production: true,
   site: 'dist',
   port: 4209,
-  cache: false,
+  cache: true,
   ssr: false,
   drupalProxy: true,
 };

@@ -13,6 +13,8 @@ import { Router } from '@angular/router';
 import { FormService } from '@core/service/form.service';
 import { isEmpty, omitBy } from 'lodash';
 import { BaseComponent } from '@uiux/base/base.widget';
+import { UserState } from '@core/mobx/user/UserState';
+import { IHeaderSearch } from '@core/mobx/IBranding';
 
 @Component({
   selector: 'app-search-box',
@@ -24,7 +26,7 @@ export class SearchBoxComponent
   extends BaseComponent
   implements OnInit, OnDestroy
 {
-  @Input() content: any;
+  @Input() content: IHeaderSearch;
 
   form: FormGroup;
   options: any[] = [];
@@ -33,9 +35,10 @@ export class SearchBoxComponent
     public nodeService: NodeService,
     private router: Router,
     private formService: FormService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    public userState: UserState
   ) {
-    super();
+    super(userState);
   }
 
   ngOnInit(): void {

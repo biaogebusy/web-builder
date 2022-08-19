@@ -3,12 +3,12 @@ import { ILink } from './ILink';
 import { IIcon } from './IIcon';
 export interface IMediaObject {
   css3?: boolean;
-  img: IImg;
+  img?: IImg;
   icon?: IIcon;
-  meta?: HTMLElement;
+  meta?: string;
   title?: string;
   subTitle?: string | null;
   link?: ILink;
-  content?: HTMLElement;
-  align: string;
+  content?: string;
+  align?: string;
 }

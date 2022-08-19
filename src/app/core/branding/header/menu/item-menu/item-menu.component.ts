@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { UserState } from '@core/mobx/user/UserState';
 import { ScreenService } from '@core/service/screen.service';
 import { BaseComponent } from '@uiux/base/base.widget';
 
@@ -18,8 +19,11 @@ export class ItemMenuComponent extends BaseComponent implements OnInit {
   @Input() params: any;
   isMegaMenu: boolean;
 
-  constructor(private screenService: ScreenService) {
-    super();
+  constructor(
+    private screenService: ScreenService,
+    public userState: UserState
+  ) {
+    super(userState);
   }
 
   ngOnInit(): void {

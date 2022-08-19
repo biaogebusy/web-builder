@@ -1,4 +1,4 @@
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT, formatDate } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 
@@ -48,11 +48,11 @@ export class UtilitiesService {
 
   getFileType(href: string): string {
     const url = href.toLowerCase();
-    const pdfReg = /^.+(\.pdf)$/;
-    const txtReg = /^.+(\.txt)$/;
-    const wordReg = /^.+(\.doc|\.docx)$/;
-    const excelReg = /^.+(\.xls|\.xlsx)$/;
-    const jpgReg = /^.+(\.png|\.jpg|\.jpeg|\.bmp)$/;
+    const pdfReg = /^.+(\.pdf)/;
+    const txtReg = /^.+(\.txt)/;
+    const wordReg = /^.+(\.doc|\.docx)/;
+    const excelReg = /^.+(\.xls|\.xlsx)/;
+    const jpgReg = /^.+(\.png|\.jpg|\.jpeg|\.bmp|\.gif)/;
     if (pdfReg.test(url)) {
       return 'pdf';
     }
@@ -69,5 +69,22 @@ export class UtilitiesService {
       return 'picture';
     }
     return '';
+  }
+
+  getDatesInRange(
+    startDate: Date,
+    endDate: Date,
+    formarDate: string
+  ): string[] {
+    const date = new Date(startDate.getTime());
+
+    const dates = [];
+
+    while (date <= endDate) {
+      dates.push(formatDate(date, formarDate, 'en-US'));
+      date.setDate(date.getDate() + 1);
+    }
+
+    return dates;
   }
 }

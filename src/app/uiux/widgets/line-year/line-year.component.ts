@@ -4,7 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { ILineYear } from '@core/interface/widgets/ILineYear';
+import type { ILineYear } from '@core/interface/widgets/ILineYear';
 
 @Component({
   selector: 'app-line-year',

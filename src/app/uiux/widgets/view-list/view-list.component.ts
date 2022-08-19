@@ -1,24 +1,21 @@
-import { formatDate } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
   Input,
   OnInit,
   ChangeDetectorRef,
+  AfterViewInit,
 } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { PageEvent } from '@angular/material/paginator';
+import { FormControl, FormGroup } from '@angular/forms';
 import { UserState } from '@core/mobx/user/UserState';
+import { DialogService } from '@core/service/dialog.service';
 import { FormService } from '@core/service/form.service';
 import { NodeService } from '@core/service/node.service';
+import { ScreenService } from '@core/service/screen.service';
 import { BaseComponent } from '@uiux/base/base.widget';
+import { isEmpty, merge } from 'lodash-es';
 import { of, Subject } from 'rxjs';
-import {
-  debounceTime,
-  distinctUntilChanged,
-  takeUntil,
-  catchError,
-} from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-view-list',
@@ -26,55 +23,63 @@ import {
   styleUrls: ['./view-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ViewListComponent extends BaseComponent implements OnInit {
+export class ViewListComponent
+  extends BaseComponent
+  implements OnInit, AfterViewInit
+{
   @Input() content: any;
-  form: FormGroup;
+  form = new FormGroup({
+    page: new FormControl(),
+  });
+  model: any = {};
   searchEntry: any;
   table: any;
   loading: boolean;
   pager: any;
   noAuth: boolean;
+  canShow = false;
   destroy$: Subject<boolean> = new Subject<boolean>();
+  first = true;
 
   constructor(
     private nodeService: NodeService,
-    private userState: UserState,
+    public userState: UserState,
     private cd: ChangeDetectorRef,
-    private formService: FormService
+    private formService: FormService,
+    private dialogService: DialogService,
+    private screenService: ScreenService
   ) {
-    super();
+    super(userState);
   }
 
   ngOnInit(): void {
-    this.initForm();
-    this.getViews();
+    if (this.screenService.isPlatformBrowser()) {
+      this.afterClosedDialog();
+    }
   }
 
-  initForm(): void {
-    if (this.content.form) {
-      this.form = this.formService.toFormGroup(this.content.form);
-      this.form.valueChanges
-        .pipe(
-          debounceTime(1000),
-          distinctUntilChanged(),
-          takeUntil(this.destroy$)
-        )
-        .subscribe((res) => {
-          if (res.start) {
-            res.start = formatDate(res.start, 'yyyy-MM-dd', 'en-US');
-          }
-          if (res.end) {
-            res.end = formatDate(res.end, 'yyyy-MM-dd', 'en-US');
-          }
-          this.getViews(res);
-        });
+  ngAfterViewInit(): void {
+    const emptyHidden = this.getParams(this.content, 'emptyHidden');
+    if (this.checkShow(this.content) && !emptyHidden) {
+      this.canShow = true;
+      this.cd.detectChanges();
+    }
+    if (this.first) {
+      this.getViews();
+      this.first = false;
     }
   }
 
   getViews(options = {}): void {
-    this.loading = true;
+    const isRole = this.checkShow(this.content);
+    if (!isRole) {
+      this.canShow = false;
+      this.cd.detectChanges();
+      return;
+    }
     const params = this.getApiParams(options);
-    this.cd.detectChanges();
+    const emptyHidden = this.getParams(this.content, 'emptyHidden');
+    this.loading = true;
     this.nodeService
       .search(this.content.params.apiType, params, this.userState.csrfToken)
       .pipe(
@@ -92,9 +97,21 @@ export class ViewListComponent extends BaseComponent implements OnInit {
           this.cd.detectChanges();
           return;
         }
+        if (emptyHidden && isEmpty(res.rows)) {
+          this.canShow = false;
+          this.cd.detectChanges();
+          return;
+        }
+
+        if (emptyHidden && !isEmpty(res.rows)) {
+          this.canShow = true;
+          this.cd.detectChanges();
+        }
         this.table = {
           header: this.content.header,
           elements: res.rows,
+          classes: this.content?.tableClasses || '',
+          params: this.content?.tableParams || {},
         };
         this.pager = res.pager;
         this.loading = false;
@@ -102,13 +119,57 @@ export class ViewListComponent extends BaseComponent implements OnInit {
       });
   }
 
+  afterClosedDialog(): void {
+    if (this.dialogService.dialogState$) {
+      this.dialogService.dialogState$.subscribe((state) => {
+        if (!state) {
+          this.getViews();
+        }
+      });
+    }
+  }
+
   clear(): void {
     this.form.reset();
   }
 
-  onPageChange(page: PageEvent): void {
-    this.getViews({
-      page: page.pageIndex,
-    });
+  onPageChange(page: number): void {
+    this.form
+      .get('page')
+      ?.patchValue(page, { onlySelf: true, emitEvent: false });
+    const value = merge(this.model, this.form.getRawValue());
+    const options = this.formService.handleRangeDate(value);
+    this.getViews(options);
+  }
+
+  onModelChange(value: any): void {
+    this.form.get('page')?.patchValue(1, { onlySelf: true, emitEvent: false });
+    const mergeValue = merge(value, this.form.getRawValue());
+    const options = this.formService.handleRangeDate(mergeValue);
+    this.getViews(options);
+  }
+
+  getWidthClass(): string {
+    return this.content.fullWidth ? 'container-fluid' : 'container';
+  }
+
+  onExport(): any {
+    const mergeValue = merge(this.model, this.form.getRawValue());
+    const options = this.formService.handleRangeDate(mergeValue);
+    const apiParams = this.getApiParams(options);
+    const params = this.content?.params;
+    const btnContent = this.content?.params?.export?.btn;
+    let exportUrl = '';
+    if (btnContent) {
+      const api = params.apiType;
+      if (api.startsWith('/api/')) {
+        exportUrl = `/export/xlsx${api}`;
+      } else {
+        exportUrl = `/export/xlsx/api/v1/${api}`;
+      }
+      let href = btnContent.href || exportUrl;
+      href = `${href}?${apiParams}`;
+      window.open(href, '_blank');
+    }
   }
 }

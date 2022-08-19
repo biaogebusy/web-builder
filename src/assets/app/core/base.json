@@ -84,6 +84,7 @@
     }
   },
   "loading": true,
+  "loadingBar": true,
   "article": {
     "fontSize": {
       "enable": true,

@@ -1,0 +1,20 @@
+{
+  "title": "用户收藏",
+  "body": [{
+    "type": "user-center",
+    "params": {
+      "showDetails": false
+    },
+    "right": []
+  }, {
+    "type": "user-favorite",
+    "text": {
+      "title": {
+        "label": "我的收藏",
+        "style": "style-v4",
+        "classes": "mat-display-2"
+      }
+    },
+    "spacer": "md"
+  }]
+}

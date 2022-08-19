@@ -40,7 +40,7 @@ const distFolder = join(process.cwd(), `${environment.site}/browser`);
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
   const server = express();
-  server.use(compressionModule({ level: 6 }));
+  server.use(compressionModule());
   server.use(
     rateLimit({
       windowMs: 15 * 60 * 1000, // 15 minutes
@@ -69,6 +69,22 @@ export function app(): express.Express {
   server.set('view engine', 'html');
   server.set('views', distFolder);
 
+  server.use((req, res, next) => {
+    let err = null;
+    console.log(req);
+    try {
+      decodeURIComponent(req.originalUrl);
+    } catch (e) {
+      err = e;
+    }
+
+    if (err) {
+      console.log(`\n======\n`, `${err}\n${req.originalUrl}\n=====\n`);
+      return res.status(400).send('400: Bad Request!');
+    }
+    next();
+  });
+
   // server static files
   server.use(express.static(__dirname + distFolder, { index: false }));
 
@@ -82,29 +98,8 @@ export function app(): express.Express {
     })
   );
 
-  server.get('/sites/*', (req, res, next) => {
-    res.redirect(301, `${environment.apiUrl}${req.originalUrl}`);
-    return;
-  });
-
-  server.get('/system/*', (req, res, next) => {
-    res.redirect(301, `${environment.apiUrl}${req.originalUrl}`);
-    return;
-  });
-
-  server.get('/print/view/pdf/print/*', (req, res, next) => {
-    res.redirect(301, `${environment.apiUrl}${req.originalUrl}`);
-    return;
-  });
-
-  server.get('/print/view/word_docx/print/*', (req, res, next) => {
-    res.redirect(301, `${environment.apiUrl}${req.originalUrl}`);
-    return;
-  });
-
   // Set headers for all requests
   server.get('*', (req, res, next) => {
-    res.setHeader('X-Frame-Options', 'DENY');
     // 表示客户端可以缓存资源，每次使用缓存资源前都必须重新验证其有效性。这意味着每次都会发起 HTTP 请求，但当缓存内容仍有效时可以跳过 HTTP 响应体的下载。
     res.setHeader('Cache-Control', 'no-cache');
     next();

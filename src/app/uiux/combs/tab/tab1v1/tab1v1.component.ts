@@ -14,6 +14,7 @@ import { isEmpty, omitBy } from 'lodash';
 import { ScreenService } from '@core/service/screen.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { UserState } from '@core/mobx/user/UserState';
 
 @Component({
   selector: 'app-tab1v1',
@@ -39,9 +40,10 @@ export class Tab1v1Component
     public routerService: RouteService,
     private router: ActivatedRoute,
     private screenService: ScreenService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    public userState: UserState
   ) {
-    super();
+    super(userState);
   }
 
   ngOnInit(): void {

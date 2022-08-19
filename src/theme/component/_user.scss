@@ -25,4 +25,17 @@
       }
     }
   }
+
+  .user-center {
+    .profile {
+      background-color: mat-color($background, card);
+      @include mat-elevation(4, mat-color($foreground, text), 0.3);
+    }
+    .main {
+      .box {
+        background-color: mat-color($background, card);
+        @include mat-elevation(4, mat-color($foreground, text), 0.3);
+      }
+    }
+  }
 }

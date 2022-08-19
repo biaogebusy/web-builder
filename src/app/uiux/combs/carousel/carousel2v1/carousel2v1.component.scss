@@ -13,6 +13,8 @@
     .swiper-button-next,
     .swiper-button-prev {
       top: 100px;
+      // width: 44px;
+      // height: 44px;
     }
     @media #{$gt-sm} {
       .swiper-button-prev {

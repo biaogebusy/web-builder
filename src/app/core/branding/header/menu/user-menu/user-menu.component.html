@@ -1,6 +1,7 @@
 <div class="user">
   <ng-container *ngIf="!userState.authenticated">
-    <button aria-label="user login" color="primary" [routerLink]="['/my/login']" mat-mini-fab mat-button>
+    <button aria-label="user login" color="primary" [routerLink]="[env?.drupalProxy?'/my':'/me/login']" mat-mini-fab
+      mat-button>
       <mat-icon>person</mat-icon>
     </button>
   </ng-container>

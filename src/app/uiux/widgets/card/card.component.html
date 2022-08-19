@@ -1,13 +1,14 @@
 <mat-card *ngIf="content" class="card {{content?.header?.meta ? 'has-header':''}}" [ngClass]="content.classes">
   <mat-card-content *ngIf="content.header?.meta">
-    <app-card-meta [content]="content.header.meta"></app-card-meta>
+    <app-card-meta [content]="content.header?.meta"></app-card-meta>
   </mat-card-content>
-  <mat-card-header class="m-bottom-xs" *ngIf="content.header">
+  <mat-card-header class="m-bottom-xs" *ngIf="content?.header">
     <div mat-card-avatar *ngIf="content.header?.avatar">
-      <app-img *ngIf="content.header?.avatar" [content]="content.header.avatar"></app-img>
+      <app-img [content]="content.header?.avatar || {src:''}"></app-img>
     </div>
-    <mat-card-title *ngIf="content.header?.title" [innerHTML]="content.header.title"></mat-card-title>
-    <mat-card-subtitle *ngIf="content.header?.subTitle" [innerHTML]="content.header.subTitle"></mat-card-subtitle>
+    <mat-card-title *ngIf="content.header?.title" [innerHTML]="content.header?.title || ''"></mat-card-title>
+    <mat-card-subtitle *ngIf="content.header?.subTitle" [innerHTML]="content.header?.subTitle || ''">
+    </mat-card-subtitle>
   </mat-card-header>
   <div class="card-header">
     <ng-container *ngIf="content.carousel">
@@ -29,7 +30,7 @@
       <div fxLayout="row wrap" fxFlex="100">
         <mat-card-title fxFlex="100" *ngIf="content?.title;else link">{{content.title}}</mat-card-title>
         <ng-template #link>
-          <mat-card-title fxFlex="100">
+          <mat-card-title fxFlex="100" *ngIf="content.link">
             <app-link [content]="content.link"></app-link>
           </mat-card-title>
         </ng-template>
@@ -48,7 +49,6 @@
     <div class="footer" *ngIf="content.footer">
       <app-card-meta [content]="content.footer.meta"></app-card-meta>
     </div>
-    <mat-progress-bar *ngIf="content.progressBar" [mode]="content.progressBar.mode" [value]="content.progressBar.value">
-    </mat-progress-bar>
+    <app-progress-bar *ngIf="content.progressBar" [content]="content.progressBar"></app-progress-bar>
   </mat-card-footer>
 </mat-card>

@@ -3,7 +3,8 @@
     "params": {
       "themeSwitch": true,
       "userInfo": true,
-      "isMegaMenu": true
+      "isMegaMenu": true,
+      "menuHoverOpen": true
     },
     "logo": {
       "label": "信使",
@@ -48,6 +49,9 @@
         "label": "自习室",
         "classes": "bold",
         "href": "/lists/blog",
+        "params": {
+          "reqRoles": []
+        },
         "queryParams": {
           "demo": "466"
         },
@@ -184,6 +188,9 @@
             "label": "问答",
             "href": "/sample/node/question"
           }, {
+            "label": "User center",
+            "href": "/sample/combs/profile/user-center"
+          }, {
             "label": "Profile 1v1",
             "href": "/sample/combs/profile/profile1v1"
           }, {
@@ -229,6 +236,12 @@
           }, {
             "label": "Tab",
             "href": "/sample/widgets/tab"
+          }, {
+            "label": "View List",
+            "href": "/sample/list/view-list"
+          }, {
+            "label": "View List Formly",
+            "href": "/sample/list/view-list-formly"
           }, {
             "label": "Tab View List",
             "href": "/sample/widgets/tab-view-list"

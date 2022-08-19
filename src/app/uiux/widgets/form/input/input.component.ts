@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { IControl } from '@core/interface/widgets/IControl';
+import type { IControl } from '@core/interface/widgets/IControl';
 import { FormState } from '@core/mobx/FormState';
 @Component({
   selector: 'app-input',

@@ -1,4 +1,4 @@
-<div class="item-menu" #itemMenu *ngIf="content">
+<div class="item-menu" #itemMenu *ngIf="content && checkShow(content)">
   <ng-container *ngIf="(!isMegaMenu) && content.child && content.child.length >0">
     <app-link class="top" [content]="content" [matMenuTriggerFor]="menu.childMenu"></app-link>
     <app-sub-menu #menu [content]="content"></app-sub-menu>

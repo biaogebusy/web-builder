@@ -7,7 +7,8 @@ import { TokenUser, IUser } from '../mobx/user/IUser';
 import { LocalStorageService } from 'ngx-webstorage';
 import { CryptoJSService } from './crypto-js.service';
 import { CORE_CONFIG } from '@core/token/core.config';
-import { ICoreConfig } from '@core/mobx/IAppConfig';
+import type { ICoreConfig } from '@core/mobx/IAppConfig';
+import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
 })
@@ -86,6 +87,16 @@ export class UserService extends ApiService {
     });
   }
 
+  getUserConfig(): Observable<any> {
+    if (environment.production) {
+      return this.http.get(
+        `${environment.apiUrl}/api/v1/config?content=/core/user`
+      );
+    } else {
+      return this.http.get(`${environment.apiUrl}/assets/app/core/user.json`);
+    }
+  }
+
   getUserById(id: string, crsfToken: string): Observable<any> {
     const params = [
       `filter[drupal_internal__uid]=${id}`,
@@ -112,7 +123,8 @@ export class UserService extends ApiService {
   getCurrentUserById(uid: string, token: string): Observable<any> {
     const params = [
       `filter[drupal_internal__uid]=${uid}`,
-      `include=user_picture`,
+      `include=user_picture,roles`,
+      `jsonapi_include=1`,
     ].join('&');
     return this.http
       .get<any>(
@@ -122,14 +134,16 @@ export class UserService extends ApiService {
       .pipe(
         map((res: any) => {
           const detail = res.data[0];
-          const info = detail.attributes;
-          const relate = res.included && res.included[0];
           return {
             id: detail.id,
-            display_name: info.display_name,
-            mail: info.mail,
+            display_name: detail?.display_name || '',
+            mail: detail?.mail || '',
             authenticated: true,
-            picture: relate ? relate.attributes.uri.url : null,
+            picture:
+              detail?.user_picture?.uri?.url ||
+              this.coreConfig?.defaultAvatar ||
+              '',
+            login: detail.login,
           };
         })
       );

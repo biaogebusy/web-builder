@@ -7,10 +7,10 @@ import {
 } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatSelect } from '@angular/material/select';
-import { IControl } from '@core/interface/widgets/IControl';
+import type { IControl } from '@core/interface/widgets/IControl';
 import { NodeService } from '@core/service/node.service';
-import { ReplaySubject } from 'rxjs';
-import { shareReplay, take } from 'rxjs/operators';
+import { of, ReplaySubject } from 'rxjs';
+import { catchError, shareReplay, take } from 'rxjs/operators';
 
 // tslint:disable-next-line:max-line-length
 // https://stackblitz.com/github/bithost-gmbh/ngx-mat-select-search-example?file=src%2Fapp%2Fexamples%2F02-multiple-selection-example%2Fmultiple-selection-example.component.ts
@@ -23,7 +23,7 @@ import { shareReplay, take } from 'rxjs/operators';
 export class SelectComponent implements OnInit, AfterViewInit {
   @Input() content: IControl;
   @Input() form: FormGroup;
-  @ViewChild('select', { static: true }) select: MatSelect;
+  @ViewChild('select') select: MatSelect;
   /** control for the MatSelect filter keyword multi-selection */
   public searchCtrl: FormControl = new FormControl();
   /** list of banks filtered by search keyword */
@@ -48,14 +48,20 @@ export class SelectComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    // TODO: init value
+    // 选择会有问题，暂时保留
     // this.setInitialValue();
   }
 
   getOptionsFromApi(): void {
     this.nodeService
       .search(this.content.api || '', '')
-      .pipe(shareReplay())
+      .pipe(
+        catchError(() => {
+          return of({
+            rows: [],
+          });
+        })
+      )
       .subscribe((res) => {
         this.options = res.rows;
         // load the initial options

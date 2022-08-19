@@ -5,9 +5,9 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { IImg } from '@core/interface/widgets/IImg';
+import type { IImg } from '@core/interface/widgets/IImg';
 import { CORE_CONFIG } from '@core/token/core.config';
-import { ICoreConfig } from '@core/mobx/IAppConfig';
+import type { ICoreConfig } from '@core/mobx/IAppConfig';
 
 @Component({
   selector: 'app-profile1v1',

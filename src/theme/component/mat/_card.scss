@@ -13,14 +13,13 @@
   .mat-card {
     color: inherit;
     background-color: $bg-color;
-
     &:hover {
       cursor: pointer;
       background-color: mat-color($background, background, 0.85);
     }
     .meta {
       .badge {
-        background-color: mat-color($primary);
+        background-color: mat-color($primary, 400, 0.8);
         color: mat-color($primary, default-contrast);
       }
     }
@@ -68,7 +67,6 @@
 
   .card-1-v3 {
     .viewport {
-      border-right: 1px solid rgb(97 97 97 / 8%);
       @include scrollbar(mat-color($foreground, divider, 0.2));
     }
     .item {
@@ -86,6 +84,14 @@
       &:before {
         background: mat-color($primary);
       }
+    }
+  }
+
+  .law-card {
+    .mat-card {
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 6px 16px 0 rgb(0 0 0 / 10%);
     }
   }
 }

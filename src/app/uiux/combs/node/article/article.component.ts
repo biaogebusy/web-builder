@@ -30,10 +30,10 @@ import { DialogComponent } from '../../../widgets/dialog/dialog.component';
 import { TextComponent } from '@uiux/widgets/text/text.component';
 import { UserService } from '@core/service/user.service';
 import { NodeComponent } from '@uiux/base/node.widget';
-import { IBaseNode } from '@core/interface/node/INode';
+import type { IBaseNode } from '@core/interface/node/INode';
 import { ContentState } from '@core/mobx/ContentState';
 import { CORE_CONFIG } from '@core/token/core.config';
-import { ICoreConfig } from '../../../../core/mobx/IAppConfig';
+import type { ICoreConfig } from '../../../../core/mobx/IAppConfig';
 
 @Component({
   selector: 'app-article',
@@ -54,7 +54,7 @@ export class ArticleComponent
   fontSize: number;
   fontForm: FormGroup;
   htmlBody: any;
-  isReqRule = false;
+  isReqRoles = false;
   canAccess: boolean;
   reqMoney: number;
   payUrl: string;
@@ -103,7 +103,7 @@ export class ArticleComponent
       .checkNodeAccess(this.content.params)
       .subscribe((access) => {
         this.canAccess = access.canAccess;
-        this.isReqRule = access.isReqRule;
+        this.isReqRoles = access.isReqRoles;
         this.isPayed = access.isPayed;
         this.payUrl = access.payUrl;
         this.reqMoney = access.reqMoney;

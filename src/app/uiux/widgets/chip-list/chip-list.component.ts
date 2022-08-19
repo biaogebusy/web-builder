@@ -4,7 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { IChipList } from '@core/interface/widgets/IChipList';
+import type { IChipList } from '@core/interface/widgets/IChipList';
 
 @Component({
   selector: 'app-chip-list',

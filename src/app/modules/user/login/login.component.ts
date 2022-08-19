@@ -2,12 +2,11 @@ import {
   Component,
   OnInit,
   AfterViewInit,
-  ViewChild,
   OnDestroy,
   Inject,
 } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { UserState } from '@core/mobx/user/UserState';
 import { ScreenState } from '@core/mobx/screen/ScreenState';
 import { AppState } from '@core/mobx/AppState';
@@ -15,7 +14,7 @@ import { TagsService } from '@core/service/tags.service';
 import { UserService } from '@core/service/user.service';
 import { ScreenService } from '@core/service/screen.service';
 import { CORE_CONFIG } from '@core/token/core.config';
-import { ICoreConfig } from '@core/mobx/IAppConfig';
+import type { ICoreConfig } from '@core/mobx/IAppConfig';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -32,7 +31,6 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     public userState: UserState,
-    private router: Router,
     private route: ActivatedRoute,
     public screenState: ScreenState,
     private tagsService: TagsService,

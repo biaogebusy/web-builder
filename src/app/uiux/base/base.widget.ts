@@ -1,11 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { Params } from '@angular/router';
+import { UserState } from '@core/mobx/user/UserState';
 import { isArray, remove, result } from 'lodash-es';
 @Injectable()
 export abstract class BaseComponent {
   abstract content: any;
 
-  constructor() {}
+  constructor(public userState: UserState) {}
 
   getParams(obj: any, key: string): any {
     return obj.params && obj.params[key];
@@ -35,7 +36,7 @@ export abstract class BaseComponent {
   }
 
   // For drupal view json api
-  getApiParams(state: any): any {
+  getApiParams(state: any): string {
     const params: string[] = [];
     if (state) {
       Object.keys(state).forEach((key) => {
@@ -103,6 +104,19 @@ export abstract class BaseComponent {
         currentPage: (pager.current_page || 0) + 1,
         totalItems: pager.total_items,
       };
+    }
+  }
+
+  checkShow(content: any): boolean {
+    const roles = this.getParams(content, 'reqRoles');
+    if (!roles || !roles.length) {
+      return true;
+    } else {
+      if (this.userState.isMatchCurrentRole(roles)) {
+        return true;
+      } else {
+        return false;
+      }
     }
   }
 }

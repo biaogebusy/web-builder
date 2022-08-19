@@ -1,8 +1,34 @@
 .meta {
   overflow: hidden;
-  ::ng-deep a {
-    &:hover {
-      text-decoration: underline;
+  ::ng-deep {
+    a {
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    .inner {
+      .li {
+        position: relative;
+        ::ng-deep {
+          a.one-line {
+            margin-right: 70px;
+          }
+          .mat-button-base {
+            position: absolute;
+            right: 0;
+            top: -9px;
+            opacity: 0;
+            transition: all 0.1s ease;
+          }
+        }
+        &:hover {
+          ::ng-deep {
+            .mat-button-base {
+              opacity: 1;
+            }
+          }
+        }
+      }
     }
   }
 }

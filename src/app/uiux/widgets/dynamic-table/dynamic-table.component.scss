@@ -1,13 +1,29 @@
 .dynamic-table {
   overflow-x: auto;
-  word-break: normal;
-  white-space: nowrap;
+
+  &.nowrap {
+    word-break: normal;
+    white-space: nowrap;
+  }
+  &.wrap {
+    white-space: normal;
+  }
+  &.fixed {
+    table {
+      table-layout: fixed;
+      word-break: break-word;
+    }
+  }
   .mat-header-cell {
-    font-size: 16px;
+    font-size: 15px;
+    word-break: keep-all;
   }
   .mat-cell {
-    line-height: 1.2;
     ::ng-deep {
+      ol,
+      ul {
+        margin-left: 0;
+      }
       li {
         list-style-type: none;
       }
@@ -20,6 +36,12 @@
     }
     .cell {
       padding: 0 4px;
+      display: inline-block;
+    }
+    a {
+      &:hover {
+        text-decoration: underline;
+      }
     }
     .text-cell {
       > * {

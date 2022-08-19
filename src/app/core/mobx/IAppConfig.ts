@@ -15,6 +15,7 @@ export interface ICoreConfig {
   amap: IAmap;
   apiUrl: IApiUrl;
   loading: boolean;
+  loadingBar: boolean;
   article: IArticle;
   editor: IEditor;
   actions: IActions;

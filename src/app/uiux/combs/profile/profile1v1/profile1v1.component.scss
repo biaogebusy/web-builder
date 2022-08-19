@@ -23,8 +23,8 @@
 .box {
   ::ng-deep {
     img {
-      width: 100px;
-      height: 100px;
+      width: 80px;
+      height: 80px;
       @include border-radius(50%, 50%, 50%, 50%);
     }
   }

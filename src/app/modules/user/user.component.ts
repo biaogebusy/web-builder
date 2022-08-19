@@ -40,6 +40,8 @@ export class UserComponent implements OnInit, OnDestroy {
           setTimeout(() => {
             this.route.navigate(['user/login']);
           }, 2000);
+        } else {
+          window.location.reload();
         }
       });
     }

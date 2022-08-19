@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { Event, NavigationStart, Router } from '@angular/router';
 import { AppState } from '@core/mobx/AppState';
+import { IHeader } from '@core/mobx/IBranding';
 import { ScreenState } from '@core/mobx/screen/ScreenState';
 @Component({
   selector: 'app-menu',
@@ -16,7 +17,7 @@ import { ScreenState } from '@core/mobx/screen/ScreenState';
 })
 export class MenuComponent implements OnInit {
   @Input() isDrawer: boolean;
-  @Input() content: any;
+  @Input() content: IHeader;
   isOpened = false;
   show = true;
 

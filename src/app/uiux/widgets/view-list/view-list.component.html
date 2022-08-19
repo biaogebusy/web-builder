@@ -1,14 +1,15 @@
-<div class="view-list" *ngIf="content">
+<div class="view-list" *ngIf="content && canShow">
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
   <app-bg-img [content]="content.bg"></app-bg-img>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
-  <div class="container" fxLayout="row wrap">
+  <div class="getWidthClass()" fxLayout="row wrap">
     <app-text [content]="content.text" *ngIf="content.text"></app-text>
     <div class="filter" *ngIf="content.form" fxFlex.gt-sm="0 0 100" fxFlex.lt-md="100" fxLayout.gt-sm="row"
       fxLayout.lt-md="column" fxLayoutAlign="space-between center">
       <div class="filter-item" fxLayout.gt-sm="row wrap" fxLayout.lt-md="column" fxLayoutGap.gt-sm="1rem">
-        <app-dynamic-widgets fxFlex="220px" *ngFor="let item of content.form" [content]="item" [form]="form">
-        </app-dynamic-widgets>
+        <formly-form fxLayout="row wrap" fxLayoutGap="1rem" [form]="form" [fields]="content.form" [model]="model"
+          (modelChange)="onModelChange($event)">
+        </formly-form>
       </div>
       <div class="actions">
         <button mat-button (click)="clear()">
@@ -19,13 +20,23 @@
     <mat-divider></mat-divider>
     <div class="view" fxFlex.gt-sm="0 0 100" fxFlex.lt-md="100">
       <ngx-skeleton-loader *ngIf="loading" count="10" appearance="line"></ngx-skeleton-loader>
-      <app-dynamic-table [content]="table" *ngIf="table"></app-dynamic-table>
+      <app-dynamic-table [content]="table | paginate:{itemsPerPage: pager.itemsPerPage,currentPage: pager.current_page}"
+        *ngIf="table && !loading">
+      </app-dynamic-table>
+      <div class="actions m-y p-x" fxLayoutAlign="end center">
+        <app-btn (click)="onExport()" [content]="content.params.export.btn" *ngIf="content?.params?.export?.enable">
+        </app-btn>
+      </div>
       <div class="p-y p-x" *ngIf="noAuth">
         您没有权限访问该页面！
       </div>
-      <mat-paginator *ngIf="pager" (page)="onPageChange($event)" [length]="pager.total_items"
-        [pageSize]="pager.items_per_page">
-      </mat-paginator>
+      <ng-container *ngIf="table">
+        <ng-container *ngFor="let item of table.elements | paginate:{id:content?.params?.apiType, itemsPerPage: pager.items_per_page,currentPage:
+          pager.current_page + 1,totalItems: pager.total_items}">
+        </ng-container>
+      </ng-container>
+      <app-pagination [id]="content?.params?.apiType" *ngIf="pager" (pageChange)="onPageChange($event)">
+      </app-pagination>
     </div>
   </div>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>

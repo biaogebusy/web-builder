@@ -1,0 +1,15 @@
+@import "/src/theme/mixins/amixin";
+
+.profile {
+  position: relative;
+  border-radius: 4px;
+}
+.avatar {
+  ::ng-deep {
+    img {
+      width: 100px;
+      height: 100px;
+      @include border-radius(50%, 50%, 50%, 50%);
+    }
+  }
+}

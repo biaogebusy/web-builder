@@ -42,13 +42,13 @@ export class ManageGuard implements CanActivate {
           map((user) => {
             console.log(user);
             if (!user) {
-              this.router.navigate(['home']);
+              this.router.navigate(['/home']);
               return false;
             }
             if (user?.roles?.includes('administrator')) {
               return true;
             }
-            this.router.navigate(['home']);
+            this.router.navigate(['/home']);
             return false;
           })
         );

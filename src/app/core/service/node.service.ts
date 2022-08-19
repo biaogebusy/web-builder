@@ -5,15 +5,15 @@ import { LocalStorageService } from 'ngx-webstorage';
 import { AppState } from '../mobx/AppState';
 import { forkJoin } from 'rxjs';
 import { Observable, of } from 'rxjs';
-import { IApiUrl } from '../mobx/IAppConfig';
+import type { IApiUrl } from '../mobx/IAppConfig';
 import { map, switchMap } from 'rxjs/operators';
 import { isEmpty } from 'lodash-es';
 import { UserState } from '@core/mobx/user/UserState';
-import { IArticleAccess } from '@core/interface/node/IArticle';
-import { ICommentContent } from '@core/interface/node/INode';
+import type { IArticleAccess } from '@core/interface/node/IArticle';
+import type { ICommentContent } from '@core/interface/node/INode';
 import { formatDate } from '@angular/common';
 import { CORE_CONFIG } from '@core/token/core.config';
-import { ICoreConfig } from '@core/mobx/IAppConfig';
+import type { ICoreConfig } from '@core/mobx/IAppConfig';
 import { environment } from '../../../environments/environment';
 @Injectable({
   providedIn: 'root',
@@ -42,7 +42,7 @@ export class NodeService extends ApiService {
       return of(searchFormCache);
     }
     let apiParams = '';
-    if (type.startsWith('/api/v1/')) {
+    if (type.startsWith('/api/')) {
       apiParams = `${this.apiUrl}${type}?${params}`;
     } else {
       apiParams = `${this.apiUrl}/api/v1/${type}?${params}`;
@@ -207,7 +207,7 @@ export class NodeService extends ApiService {
         `fields[user--user]=name,user_picture`,
         `fields[file--file]=uri,url`,
         `sort=-created`,
-        'filter[status]=1',
+        // 'filter[status]=1',
         `jsonapi_include=1`,
         `timeStamp=${timeStamp}`,
       ].join('&'),
@@ -221,7 +221,7 @@ export class NodeService extends ApiService {
       `fields[user--user]=name,user_picture`,
       `fields[file--file]=uri,url`,
       `sort=-created`,
-      'filter[status]=1',
+      // 'filter[status]=1',
       `jsonapi_include=1`,
       `timeStamp=${timeStamp}`,
     ].join('&');
@@ -257,6 +257,7 @@ export class NodeService extends ApiService {
     };
   }
 
+  // api 在有权限的时候会有很大的性能开销，可使用自定义api
   getCommentsWitchChild(
     content: any,
     token = '',
@@ -308,6 +309,31 @@ export class NodeService extends ApiService {
         );
       })
     );
+  }
+
+  // custom get comment api
+  getCustomApiComment(
+    uuid: string,
+    timeStamp = 1,
+    token?: string
+  ): Observable<any> {
+    const key = JSON.stringify({ api: this.apiUrl, uuid, timeStamp });
+    const cache = this.responseCache.get(key);
+    const params = [`timeStamp=${timeStamp}`].join('&');
+    if (cache && environment.cache) {
+      return of(cache);
+    }
+    return this.http
+      .get(
+        `${this.apiUrl}/api/v3/comment/comment/${uuid}?${params}`,
+        token ? this.optionsWithCookieAndToken : this.httpOptionsOfCommon
+      )
+      .pipe(
+        switchMap((res) => {
+          this.responseCache.set(key, res);
+          return of(res);
+        })
+      );
   }
 
   getFlaging(path: string, params: string, token: string): Observable<any> {
@@ -383,12 +409,12 @@ export class NodeService extends ApiService {
       this.appState.pageConfig?.node?.entityId || params?.entityId;
     if (!isEmpty(reqRule) || reqPay) {
       // 非公开浏览
-      const isReqRule = this.checkReqRule(reqRule);
+      const isReqRoles = this.checkReqRule(reqRule);
       // 是否可授权访问角色
-      if (isReqRule) {
+      if (isReqRoles) {
         return of({
           canAccess: true,
-          isReqRule: true,
+          isReqRoles: true,
           isPayed: false,
           reqMoney,
           payUrl: '',
@@ -406,7 +432,7 @@ export class NodeService extends ApiService {
                 // 已购买
                 return {
                   canAccess: true,
-                  isReqRule: false,
+                  isReqRoles: false,
                   isPayed: true,
                   reqMoney,
                   payUrl: this.getPayUrl(entityId),
@@ -415,7 +441,7 @@ export class NodeService extends ApiService {
                 // 未购买
                 return {
                   canAccess: false,
-                  isReqRule: false,
+                  isReqRoles: false,
                   isPayed: false,
                   reqMoney,
                   payUrl: this.getPayUrl(entityId),
@@ -426,7 +452,7 @@ export class NodeService extends ApiService {
         } else {
           return of({
             canAccess: false,
-            isReqRule: false,
+            isReqRoles: false,
             isPayed: false,
             reqMoney,
             payUrl: this.getPayUrl(entityId),
@@ -437,7 +463,7 @@ export class NodeService extends ApiService {
       // 公开浏览
       return of({
         canAccess: true,
-        isReqRule: false,
+        isReqRoles: false,
         isPayed: false,
         reqMoney,
         payUrl: '',

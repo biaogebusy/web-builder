@@ -1,5 +1,13 @@
 @import "../../../../../../../theme/variable/breakpoint";
-
+.item {
+  &:after {
+    content: "";
+    display: block;
+    width: 100%;
+    position: relative;
+    bottom: -20px;
+  }
+}
 .item-child {
   border-radius: 4px;
 }
@@ -13,6 +21,11 @@
   > ::ng-deep *:last-child {
     margin-bottom: 0;
   }
+  ::ng-deep {
+    img {
+      max-width: 100%;
+    }
+  }
 }
 
 .actions {
@@ -23,7 +36,8 @@
 
 @media #{$gt-sm} {
   .comment-body,
-  .item-child {
+  .item-child,
+  .item:after {
     margin-left: 50px;
   }
 }

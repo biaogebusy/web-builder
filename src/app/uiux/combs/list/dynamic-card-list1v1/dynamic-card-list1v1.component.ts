@@ -10,6 +10,7 @@ import { NodeService } from '@core/service/node.service';
 import { RouteService } from '@core/service/route.service';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { ScreenService } from '@core/service/screen.service';
+import { UserState } from '@core/mobx/user/UserState';
 
 @Component({
   selector: 'app-dynamic-card-list1v1',
@@ -31,9 +32,10 @@ export class DynamicCardList1v1Component
     public nodeService: NodeService,
     public routerService: RouteService,
     private screenService: ScreenService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    public userState: UserState
   ) {
-    super();
+    super(userState);
   }
 
   ngOnInit(): void {

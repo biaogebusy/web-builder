@@ -7,5 +7,6 @@ export interface IFeatureBox {
   openIcon?: string;
   ratios?: string;
   img: IImg;
-  link: ILink;
+  link?: string;
+  mode?: 'float';
 }

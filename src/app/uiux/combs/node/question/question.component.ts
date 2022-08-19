@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -8,7 +9,7 @@ import {
 } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { IQuestion } from '@core/interface/node/INode';
+import type { IQuestion } from '@core/interface/node/INode';
 import { UserState } from '@core/mobx/user/UserState';
 import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
@@ -26,7 +27,7 @@ import { ContentState } from '@core/mobx/ContentState';
 })
 export class QuestionComponent
   extends NodeComponent
-  implements OnInit, OnDestroy
+  implements OnInit, AfterViewInit, OnDestroy
 {
   @Input() content: IQuestion;
   comments: any;
@@ -48,7 +49,9 @@ export class QuestionComponent
     super();
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  ngAfterViewInit(): void {
     this.checkIsAsked();
     this.getComments();
     if (this.screenService.isPlatformBrowser()) {

@@ -15,6 +15,9 @@ import { DynamicFormComponent } from '@uiux/combs/other/dynamic-form/dynamic-for
 import { DialogService } from '@core/service/dialog.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
+import { IUserMenu } from '@core/mobx/IBranding';
+import { IEnvironment } from '@core/interface/IEnvironment';
 
 @Component({
   selector: 'app-user-menu',
@@ -23,8 +26,9 @@ import { takeUntil } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserMenuComponent implements OnInit, OnDestroy {
-  @Input() content: any;
+  @Input() content: any[];
   dialogRef: any;
+  env: IEnvironment;
 
   destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
@@ -37,6 +41,7 @@ export class UserMenuComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.env = environment;
     this.userState.user$.subscribe((user) => {
       this.cd.markForCheck();
     });
@@ -71,7 +76,10 @@ export class UserMenuComponent implements OnInit, OnDestroy {
   }
 
   get userPage(): any[] {
-    return [`/my`];
+    if (environment?.drupalProxy) {
+      return ['/my'];
+    }
+    return [`/me`];
   }
 
   ngOnDestroy(): void {

@@ -1,6 +1,5 @@
 import { IBgImg } from './IBgImg';
 import { ITitle } from './ITitle';
-import { ILink } from '@core/interface/widgets/ILink';
 
 export interface IText {
   id?: string;
@@ -9,13 +8,13 @@ export interface IText {
   classes?: string;
   style?: any;
   title?: ITitle;
-  body?: HTMLElement;
+  body?: string;
   actionsAlign?: string;
   lists?: {
     params: {
       icon: boolean;
     };
-    elements: ILink[];
+    elements: any[];
   };
   actions?: any[];
 }

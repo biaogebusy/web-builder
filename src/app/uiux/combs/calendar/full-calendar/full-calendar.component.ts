@@ -26,6 +26,8 @@ import {
 } from '@fullcalendar/angular';
 import { CalendarState } from '@core/mobx/CalendarState';
 import { formatDate } from '@angular/common';
+import { UserState } from '@core/mobx/user/UserState';
+import { RouteService } from '@core/service/route.service';
 
 @Component({
   selector: 'app-full-calendar',
@@ -52,9 +54,11 @@ export class FullCalendarComponent
     private formService: FormService,
     private screenService: ScreenService,
     private nodeService: NodeService,
-    private calendarState: CalendarState
+    private calendarState: CalendarState,
+    public userState: UserState,
+    private routeService: RouteService
   ) {
-    super();
+    super(userState);
   }
 
   ngOnInit(): void {
@@ -115,6 +119,12 @@ export class FullCalendarComponent
     const params = this.getApiParams(state);
     const api = this.content?.calendar?.options?.api;
     this.initCalendar();
+    if (this.content.calendar?.options?.events) {
+      this.loading = true;
+      this.options.events = this.content.calendar.options.events;
+      this.initEvents();
+      return;
+    }
     if (api || params || this.options?.events) {
       this.loading = true;
       this.nodeService.search(api, params).subscribe((data) => {
@@ -135,12 +145,19 @@ export class FullCalendarComponent
               // custom event style bg, border
             };
           });
-          this.visiable = true;
-          this.loading = false;
-          this.cd.detectChanges();
+          this.initEvents();
         }
       });
     }
+  }
+
+  initEvents(): void {
+    this.options.eventClick = (info) => {
+      this.routeService.eventLinkToNav(info.jsEvent);
+    };
+    this.visiable = true;
+    this.loading = false;
+    this.cd.detectChanges();
   }
 
   handleDates(dates: DatesSetArg): void {
@@ -182,7 +199,9 @@ export class FullCalendarComponent
   }
 
   ngOnDestroy(): void {
-    this.destroy$.next(true);
-    this.destroy$.complete();
+    if (this.destroy$.next) {
+      this.destroy$.next(true);
+      this.destroy$.complete();
+    }
   }
 }

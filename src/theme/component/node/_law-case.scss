@@ -36,7 +36,7 @@
           background-color: mat-color($background, "app-bar");
           @include mat-elevation(3, mat-color($background, "app-bar"), 0.5);
           .inner {
-            a {
+            a.file {
               color: mat-color($foreground, text, 0.75);
               &:hover {
                 color: mat-color($primary);

@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { ScreenState } from '@core/mobx/screen/ScreenState';
 import { ScreenService } from '@core/service/screen.service';
-import { IMediaMeta } from '../../../../core/interface/widgets/IMediaMeta';
+import type { IMediaMeta } from '../../../../core/interface/widgets/IMediaMeta';
 
 @Component({
   selector: 'app-media-meta',

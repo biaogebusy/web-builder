@@ -34,6 +34,7 @@
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true,
-    "preserveWhitespaces": false
+    "preserveWhitespaces": false,
+    "noImplicitReturns": false
   }
 }

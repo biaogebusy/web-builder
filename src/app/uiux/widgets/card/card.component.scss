@@ -91,7 +91,7 @@
     .item {
       margin-bottom: 2px;
       .inline-lightbox {
-        a {
+        .inline {
           display: block;
           @include line-clamp();
           padding-left: 0 !important;
@@ -105,13 +105,24 @@
       margin-bottom: 8px;
       display: inline-block;
       @include line-clamp();
+      &:empty {
+        display: none !important;
+        opacity: 0;
+      }
+    }
+  }
+  ::ng-deep .mat-card-footer {
+    .mat-progress-bar .mat-progress-bar-fill::after {
+      border-radius: 0 0 4px 4px;
     }
   }
   .footer {
     padding: 0 16px 16px;
-    ::ng-deep .meta {
-      .item {
-        margin-bottom: 10px;
+    ::ng-deep {
+      .meta {
+        .item {
+          margin-bottom: 10px;
+        }
       }
     }
   }

@@ -4,7 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { ILink } from '@core/interface/widgets/ILink';
+import type { ILink } from '@core/interface/widgets/ILink';
 
 @Component({
   selector: 'app-breadcrumb',

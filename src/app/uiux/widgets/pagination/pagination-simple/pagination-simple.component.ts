@@ -6,7 +6,7 @@ import {
   EventEmitter,
   ChangeDetectionStrategy,
 } from '@angular/core';
-import { IPaginationSimple } from '@core/interface/widgets/IPaginationSimple';
+import type { IPaginationSimple } from '@core/interface/widgets/IPaginationSimple';
 
 @Component({
   selector: 'app-pagination-simple',

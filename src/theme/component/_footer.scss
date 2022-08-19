@@ -201,10 +201,10 @@
     }
   }
   #go-to-top {
-    background: mat-color($primary);
-    color: mat-color($primary, default-contrast);
+    background: mat-color($accent);
+    color: mat-color($accent, default-contrast);
     &:hover {
-      background: mat-color($primary, text, 0.7);
+      background: mat-color($accent, text, 0.7);
       transition: all 0.2s ease-in;
     }
   }

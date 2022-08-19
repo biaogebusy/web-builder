@@ -124,15 +124,9 @@
     color: $contrast;
   }
 
-  // table:not(.mat-table) {
-  //   background-color: mat-color($background, card);
-  //   margin: 10px 0;
-  //   @include mat-elevation(5, mat-color($foreground, divider));
-  //   th,
-  //   td {
-  //     border-bottom: 1px solid mat-color($foreground, divider);
-  //   }
-  // }
+  .ngx-bar {
+    background-color: mat-color($primary) !important;
+  }
 }
 
 @mixin custom-overide() {

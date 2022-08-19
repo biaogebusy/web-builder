@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { action, observable, computed } from 'mobx-angular';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
+import { IBranding, IFooter, IHeader } from './IBranding';
 @Injectable()
 export class BrandingState {
-  @observable private content: any;
+  @observable private content: IBranding;
   private _READDY = true;
   constructor(private http: HttpClient) {
     this.initBranding();
@@ -14,11 +15,11 @@ export class BrandingState {
     return this._READDY && this.content;
   }
 
-  @computed get header(): any {
+  @computed get header(): IHeader {
     return this.content && this.content.header;
   }
 
-  @computed get footer(): any {
+  @computed get footer(): IFooter {
     return this.content && this.content.footer;
   }
 
@@ -30,13 +31,15 @@ export class BrandingState {
   initBranding(): any {
     if (environment.production) {
       this.http
-        .get(`${environment.apiUrl}/api/v1/config?content=/core/branding`)
+        .get<IBranding>(
+          `${environment.apiUrl}/api/v1/config?content=/core/branding`
+        )
         .subscribe((branding) => {
           this.content = branding;
         });
     } else {
       this.http
-        .get(`${environment.apiUrl}/assets/app/core/branding.json`)
+        .get<IBranding>(`${environment.apiUrl}/assets/app/core/branding.json`)
         .subscribe((branding) => {
           this.content = branding;
         });

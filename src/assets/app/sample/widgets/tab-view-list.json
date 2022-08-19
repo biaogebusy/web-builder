@@ -2,431 +2,1078 @@
   "title": "Tabs",
   "body": [{
     "type": "tab",
-    "title": {
-      "label": "案件管理",
-      "style": "style-v4"
-    },
     "classes": "bg-light",
+    "bg": {
+      "classes": "bg-fill-width",
+      "style": {
+        "backgroundColor": "#fbfbfd"
+      }
+    },
+    "fullWidth": true,
     "elements": [{
-      "label": "案件双方",
-      "elements": [{
-        "type": "view-list",
-        "spacer": "none",
-        "params": {
-          "apiType": "tab/case/parties-info"
-        },
-        "header": [{
-            "label": "优先等级",
-            "key": "transaction_level"
-          }, {
-            "label": "案件标题",
-            "key": "title"
+        "label": "案件双方",
+        "elements": [{
+          "type": "view-list",
+          "spacer": "none",
+          "params": {
+            "apiType": "tab/case/parties-info"
           },
-          {
-            "label": "业务时间",
-            "key": "business_date"
-          }, {
-            "label": "客户名称",
-            "key": "customer"
+          "header": [{
+              "label": "优先等级",
+              "key": "transaction_level"
+            },
+            {
+              "label": "案件标题",
+              "key": "title"
+            },
+            {
+              "label": "业务时间",
+              "key": "business_date"
+            },
+            {
+              "label": "客户名称",
+              "key": "customer"
+            },
+            {
+              "label": "经办人员",
+              "key": "handler"
+            },
+            {
+              "label": "业务对方",
+              "key": "other_party"
+            },
+            {
+              "label": " 法院名称",
+              "key": "court"
+            },
+            {
+              "label": "案件阶段",
+              "key": "case_procedure"
+            },
+            {
+              "label": "律师",
+              "key": "uid"
+            }
+          ],
+          "form": [{
+              "type": "input",
+              "key": "title",
+              "appearance": "standard",
+              "label": "标题"
+            },
+            {
+              "type": "select",
+              "key": "customer",
+              "multiple": true,
+              "search": true,
+              "appearance": "standard",
+              "label": "客户名称",
+              "api": "/api/v1/filter/customer"
+            },
+            {
+              "type": "select",
+              "key": "handler",
+              "multiple": true,
+              "search": true,
+              "appearance": "standard",
+              "label": "经办人员",
+              "api": "/api/v1/filter/handler"
+            },
+            {
+              "type": "select",
+              "key": "other_party",
+              "multiple": true,
+              "search": true,
+              "appearance": "standard",
+              "label": "业务对方",
+              "api": "/api/v1/filter/other_party"
+            },
+            {
+              "type": "select",
+              "key": "court",
+              "multiple": true,
+              "search": true,
+              "appearance": "standard",
+              "label": "法院",
+              "api": "/api/v1/filter/court"
+            },
+            {
+              "type": "select",
+              "key": "judge",
+              "multiple": true,
+              "search": true,
+              "appearance": "standard",
+              "label": "法官",
+              "api": "/api/v1/filter/judge"
+            },
+            {
+              "type": "select",
+              "key": "case_procedure",
+              "multiple": true,
+              "search": true,
+              "appearance": "standard",
+              "label": "案件阶段",
+              "api": "/api/v1/filter/taxonomy_term/case_procedure"
+            }
+          ]
+        }]
+      },
+      {
+        "label": "案件信息",
+        "elements": [{
+          "type": "view-list",
+          "spacer": "none",
+          "params": {
+            "apiType": "tab/case/case-info"
           },
-          {
-            "label": "经办人员",
-            "key": "handler"
+          "header": [{
+              "label": "标题",
+              "key": "title"
+            },
+            {
+              "label": "客户名称",
+              "key": "customer"
+            },
+            {
+              "label": "业务对方",
+              "key": "other_party"
+            },
+            {
+              "label": "法院名称",
+              "key": "court"
+            },
+            {
+              "label": "法官姓名",
+              "key": "judge"
+            },
+            {
+              "label": "案件阶段",
+              "key": "case_procedure"
+            },
+            {
+              "label": "案件案号",
+              "key": "citation"
+            },
+            {
+              "label": "开庭日期",
+              "key": "event_date"
+            },
+            {
+              "label": "律师",
+              "key": "uid"
+            }
+          ],
+          "form": [{
+              "type": "input",
+              "key": "title",
+              "appearance": "standard",
+              "label": "标题"
+            },
+            {
+              "type": "select",
+              "key": "customer",
+              "multiple": true,
+              "search": true,
+              "appearance": "standard",
+              "label": "客户名称",
+              "api": "/api/v1/filter/customer"
+            },
+            {
+              "type": "select",
+              "key": "handler",
+              "multiple": true,
+              "search": true,
+              "appearance": "standard",
+              "label": "经办人员",
+              "api": "/api/v1/filter/handler"
+            },
+            {
+              "type": "select",
+              "key": "other_party",
+              "multiple": true,
+              "search": true,
+              "appearance": "standard",
+              "label": "业务对方",
+              "api": "/api/v1/filter/other_party"
+            },
+            {
+              "type": "select",
+              "key": "court",
+              "multiple": true,
+              "search": true,
+              "appearance": "standard",
+              "label": "法院",
+              "api": "/api/v1/filter/court"
+            },
+            {
+              "type": "select",
+              "key": "judge",
+              "multiple": true,
+              "search": true,
+              "appearance": "standard",
+              "label": "法官",
+              "api": "/api/v1/filter/judge"
+            },
+            {
+              "type": "select",
+              "key": "case_procedure",
+              "multiple": true,
+              "search": true,
+              "appearance": "standard",
+              "label": "案件阶段",
+              "api": "/api/v1/filter/taxonomy_term/case_procedure"
+            }
+          ]
+        }]
+      },
+      {
+        "label": "诉讼标的",
+        "elements": [{
+          "type": "view-list",
+          "spacer": "none",
+          "params": {
+            "apiType": "tab/case/case-object"
           },
-          {
-            "label": "业务对方",
-            "key": "other_party"
-          }, {
-            "label": " 法院名称",
-            "key": "court"
-          }, {
-            "label": "案件阶段",
-            "key": "case_procedure"
-          }, {
-            "label": "律师",
-            "key": "uid"
-          }
-        ]
-      }]
-    }, {
-      "label": "案件信息",
-      "elements": [{
-        "type": "view-list",
-        "spacer": "none",
-        "params": {
-          "apiType": "tab/case/case-info"
-        },
-        "header": [{
-            "label": "标题",
-            "key": "title"
-          }, {
-            "label": "客户名称",
-            "key": "customer"
+          "header": [{
+              "label": "标题",
+              "key": "title"
+            },
+            {
+              "label": "客户名称",
+              "key": "customer"
+            },
+            {
+              "label": "业务对方",
+              "key": "other_party"
+            },
+            {
+              "label": "法院名称",
+              "key": "court"
+            },
+            {
+              "label": "案件案号",
+              "key": "citation"
+            },
+            {
+              "label": "诉讼本金",
+              "key": "amount"
+            },
+            {
+              "label": "利率",
+              "key": "interest_rate"
+            },
+            {
+              "label": "利息期间",
+              "key": "date_range"
+            },
+            {
+              "label": "利息",
+              "key": "interest"
+            },
+            {
+              "label": "违约利率",
+              "key": "damages_rate_1"
+            },
+            {
+              "label": "违约期间",
+              "key": "damages_date_range"
+            },
+            {
+              "label": "违约金",
+              "key": "damages"
+            },
+            {
+              "label": "金额合计",
+              "key": "litigation_total_amount"
+            },
+            {
+              "label": "律师",
+              "key": "uid"
+            }
+          ],
+          "form": [{
+              "type": "input",
+              "key": "title",
+              "appearance": "standard",
+              "label": "标题"
+            },
+            {
+              "type": "select",
+              "key": "customer",
+              "multiple": true,
+              "search": true,
+              "appearance": "standard",
+              "label": "客户名称",
+              "api": "/api/v1/filter/customer"
+            },
+            {
+              "type": "select",
+              "key": "handler",
+              "multiple": true,
+              "search": true,
+              "appearance": "standard",
+              "label": "经办人员",
+              "api": "/api/v1/filter/handler"
+            },
+            {
+              "type": "select",
+              "key": "other_party",
+              "multiple": true,
+              "search": true,
+              "appearance": "standard",
+              "label": "业务对方",
+              "api": "/api/v1/filter/other_party"
+            },
+            {
+              "type": "select",
+              "key": "court",
+              "multiple": true,
+              "search": true,
+              "appearance": "standard",
+              "label": "法院",
+              "api": "/api/v1/filter/court"
+            },
+            {
+              "type": "select",
+              "key": "judge",
+              "multiple": true,
+              "search": true,
+              "appearance": "standard",
+              "label": "法官",
+              "api": "/api/v1/filter/judge"
+            },
+            {
+              "type": "select",
+              "key": "case_procedure",
+              "multiple": true,
+              "search": true,
+              "appearance": "standard",
+              "label": "案件阶段",
+              "api": "/api/v1/filter/taxonomy_term/case_procedure"
+            }
+          ]
+        }]
+      },
+      {
+        "label": "诉讼费用",
+        "elements": [{
+          "type": "view-list",
+          "spacer": "none",
+          "params": {
+            "apiType": "tab/case/case-cost"
           },
-          {
-            "label": "业务对方",
-            "key": "other_party"
-          }, {
-            "label": "法院名称",
-            "key": "court"
+          "header": [{
+              "label": "案件标题",
+              "key": "title"
+            },
+            {
+              "label": "业务时间",
+              "key": "business_date"
+            },
+            {
+              "label": "客户名称",
+              "key": "customer"
+            },
+            {
+              "label": "业务对方",
+              "key": "other_party"
+            },
+            {
+              "label": "法院名称",
+              "key": "court"
+            },
+            {
+              "label": "案件阶段",
+              "key": "case_procedure"
+            },
+            {
+              "label": "文件类型",
+              "key": "category"
+            },
+            {
+              "label": "费用金额",
+              "key": "amount"
+            },
+            {
+              "label": "律师",
+              "key": "uid"
+            }
+          ],
+          "form": [{
+              "type": "input",
+              "key": "title",
+              "appearance": "standard",
+              "label": "标题"
+            },
+            {
+              "type": "select",
+              "key": "customer",
+              "multiple": true,
+              "search": true,
+              "appearance": "standard",
+              "label": "客户名称",
+              "api": "/api/v1/filter/customer"
+            },
+            {
+              "type": "select",
+              "key": "handler",
+              "multiple": true,
+              "search": true,
+              "appearance": "standard",
+              "label": "经办人员",
+              "api": "/api/v1/filter/handler"
+            },
+            {
+              "type": "select",
+              "key": "other_party",
+              "multiple": true,
+              "search": true,
+              "appearance": "standard",
+              "label": "业务对方",
+              "api": "/api/v1/filter/other_party"
+            },
+            {
+              "type": "select",
+              "key": "court",
+              "multiple": true,
+              "search": true,
+              "appearance": "standard",
+              "label": "法院",
+              "api": "/api/v1/filter/court"
+            },
+            {
+              "type": "select",
+              "key": "judge",
+              "multiple": true,
+              "search": true,
+              "appearance": "standard",
+              "label": "法官",
+              "api": "/api/v1/filter/judge"
+            },
+            {
+              "type": "select",
+              "key": "case_procedure",
+              "multiple": true,
+              "search": true,
+              "appearance": "standard",
+              "label": "案件阶段",
+              "api": "/api/v1/filter/taxonomy_term/case_procedure"
+            }
+          ]
+        }]
+      },
+      {
+        "label": "案件执行",
+        "elements": [{
+          "type": "view-list",
+          "spacer": "none",
+          "params": {
+            "apiType": "tab/case/case-enforcement"
           },
-          {
-            "label": "法官姓名",
-            "key": "judge"
+          "header": [{
+              "label": "案件标题",
+              "key": "title"
+            },
+            {
+              "label": "客户名称",
+              "key": "customer"
+            },
+            {
+              "label": "业务对方",
+              "key": "other_party"
+            },
+            {
+              "label": "法院名称",
+              "key": "court"
+            },
+            {
+              "label": "执行款(一)",
+              "key": "amount",
+              "style": {
+                "backgroundColor": "#00ffff20"
+              }
+            },
+            {
+              "label": "执行款（二）",
+              "key": "penalty_amount",
+              "style": {
+                "backgroundColor": "#00ffff20"
+              }
+            },
+            {
+              "label": "执行款（三）",
+              "key": "other_amount",
+              "style": {
+                "backgroundColor": "#00ffff20"
+              }
+            },
+            {
+              "label": "执行款合计",
+              "key": "amount_1",
+              "style": {
+                "color": "#ff0099",
+                "backgroundColor": "#00ff3340"
+              }
+            },
+            {
+              "label": "利息违金",
+              "key": "interest",
+              "style": {
+                "backgroundColor": "#00ffff20"
+              }
+            },
+            {
+              "label": "违约金",
+              "key": "damages",
+              "style": {
+                "backgroundColor": "#00ffff20"
+              }
+            },
+            {
+              "label": "利违合计",
+              "key": "interest_1",
+              "style": {
+                "backgroundColor": "#00ffff20"
+              }
+            },
+            {
+              "label": "双倍罚息",
+              "key": "penalty_interest",
+              "style": {
+                "backgroundColor": "#00ffff20"
+              }
+            },
+            {
+              "label": "双罚合计",
+              "key": "penalty_interest_2",
+              "style": {
+                "backgroundColor": "#00ffff20"
+              }
+            },
+            {
+              "label": "欠款合计金额",
+              "key": "total",
+              "style": {
+                "color": "#ff0099",
+                "backgroundColor": "#00ff3340"
+              }
+            },
+            {
+              "label": "还款日期",
+              "key": "paid_date",
+              "style": {
+                "color": "#009900",
+                "backgroundColor": "#ffff0030"
+              }
+            },
+            {
+              "label": "还款金额",
+              "key": "paid",
+              "style": {
+                "color": "#009900",
+                "backgroundColor": "#ffff0030"
+              }
+            },
+            {
+              "label": "末次欠款合计",
+              "key": "total_1",
+              "style": {
+                "color": "#ff0000",
+                "backgroundColor": "#ff000020"
+              }
+            },
+            {
+              "label": "律师",
+              "key": "uid"
+            }
+          ],
+          "form": [{
+              "type": "input",
+              "key": "title",
+              "appearance": "standard",
+              "label": "标题"
+            },
+            {
+              "type": "select",
+              "key": "customer",
+              "multiple": true,
+              "search": true,
+              "appearance": "standard",
+              "label": "客户名称",
+              "api": "/api/v1/filter/customer"
+            },
+            {
+              "type": "select",
+              "key": "handler",
+              "multiple": true,
+              "search": true,
+              "appearance": "standard",
+              "label": "经办人员",
+              "api": "/api/v1/filter/handler"
+            },
+            {
+              "type": "select",
+              "key": "other_party",
+              "multiple": true,
+              "search": true,
+              "appearance": "standard",
+              "label": "业务对方",
+              "api": "/api/v1/filter/other_party"
+            },
+            {
+              "type": "select",
+              "key": "court",
+              "multiple": true,
+              "search": true,
+              "appearance": "standard",
+              "label": "法院",
+              "api": "/api/v1/filter/court"
+            },
+            {
+              "type": "select",
+              "key": "judge",
+              "multiple": true,
+              "search": true,
+              "appearance": "standard",
+              "label": "法官",
+              "api": "/api/v1/filter/judge"
+            },
+            {
+              "type": "select",
+              "key": "case_procedure",
+              "multiple": true,
+              "search": true,
+              "appearance": "standard",
+              "label": "案件阶段",
+              "api": "/api/v1/filter/taxonomy_term/case_procedure"
+            }
+          ]
+        }]
+      },
+      {
+        "label": "裁判文书",
+        "elements": [{
+          "type": "view-list",
+          "spacer": "none",
+          "params": {
+            "apiType": "tab/case/judgment"
           },
-          {
-            "label": "案件阶段",
-            "key": "case_procedure"
-          }, {
-            "label": "案件案号",
-            "key": "citation"
-          }, {
-            "label": "开庭日期",
-            "key": "event_date"
-          }, {
-            "label": "律师",
-            "key": "uid"
-          }
-        ]
-      }]
-    }, {
-      "label": "诉讼标的",
-      "elements": [{
-        "type": "view-list",
-        "spacer": "none",
-        "params": {
-          "apiType": "tab/case/case-object"
-        },
-        "header": [{
-            "label": "标题",
-            "key": "title"
+          "header": [{
+              "label": "标题)",
+              "key": "title"
+            },
+            {
+              "label": "客户名称",
+              "key": "customer"
+            },
+            {
+              "label": "业务对方",
+              "key": "other_party"
+            },
+            {
+              "label": "法院名称",
+              "key": "court"
+            },
+            {
+              "label": "案件案号",
+              "key": "citation"
+            },
+            {
+              "label": "裁决文书",
+              "key": "case_files"
+            },
+            {
+              "label": "律师",
+              "key": "uid"
+            }
+          ],
+          "form": [{
+              "type": "input",
+              "key": "title",
+              "appearance": "standard",
+              "label": "标题"
+            },
+            {
+              "type": "select",
+              "key": "customer",
+              "multiple": true,
+              "search": true,
+              "appearance": "standard",
+              "label": "客户名称",
+              "api": "/api/v1/filter/customer"
+            },
+            {
+              "type": "select",
+              "key": "handler",
+              "multiple": true,
+              "search": true,
+              "appearance": "standard",
+              "label": "经办人员",
+              "api": "/api/v1/filter/handler"
+            },
+            {
+              "type": "select",
+              "key": "other_party",
+              "multiple": true,
+              "search": true,
+              "appearance": "standard",
+              "label": "业务对方",
+              "api": "/api/v1/filter/other_party"
+            },
+            {
+              "type": "select",
+              "key": "court",
+              "multiple": true,
+              "search": true,
+              "appearance": "standard",
+              "label": "法院",
+              "api": "/api/v1/filter/court"
+            },
+            {
+              "type": "select",
+              "key": "judge",
+              "multiple": true,
+              "search": true,
+              "appearance": "standard",
+              "label": "法官",
+              "api": "/api/v1/filter/judge"
+            },
+            {
+              "type": "select",
+              "key": "case_procedure",
+              "multiple": true,
+              "search": true,
+              "appearance": "standard",
+              "label": "案件阶段",
+              "api": "/api/v1/filter/taxonomy_term/case_procedure"
+            }
+          ]
+        }]
+      },
+      {
+        "label": "财产保全",
+        "elements": [{
+          "type": "view-list",
+          "spacer": "none",
+          "params": {
+            "apiType": "tab/case/preservation"
           },
-          {
-            "label": "客户名称",
-            "key": "customer"
+          "header": [{
+              "label": "标题",
+              "key": "title"
+            },
+            {
+              "label": "客户名称",
+              "key": "customer"
+            },
+            {
+              "label": "业务对方",
+              "key": "other_party"
+            },
+            {
+              "label": "法院名称",
+              "key": "court"
+            },
+            {
+              "label": "案件案号",
+              "key": "citation"
+            },
+            {
+              "label": "保全类型",
+              "key": "category"
+            },
+            {
+              "label": "保全金额",
+              "key": "amount"
+            },
+            {
+              "label": "保全期间",
+              "key": "date_range"
+            },
+            {
+              "label": "保全文书",
+              "key": "property_files"
+            },
+            {
+              "label": "保全备注",
+              "key": "remark"
+            },
+            {
+              "label": "律师",
+              "key": "uid"
+            }
+          ],
+          "form": [{
+              "type": "input",
+              "key": "title",
+              "appearance": "standard",
+              "label": "标题"
+            },
+            {
+              "type": "select",
+              "key": "customer",
+              "multiple": true,
+              "search": true,
+              "appearance": "standard",
+              "label": "客户名称",
+              "api": "/api/v1/filter/customer"
+            },
+            {
+              "type": "select",
+              "key": "handler",
+              "multiple": true,
+              "search": true,
+              "appearance": "standard",
+              "label": "经办人员",
+              "api": "/api/v1/filter/handler"
+            },
+            {
+              "type": "select",
+              "key": "other_party",
+              "multiple": true,
+              "search": true,
+              "appearance": "standard",
+              "label": "业务对方",
+              "api": "/api/v1/filter/other_party"
+            },
+            {
+              "type": "select",
+              "key": "court",
+              "multiple": true,
+              "search": true,
+              "appearance": "standard",
+              "label": "法院",
+              "api": "/api/v1/filter/court"
+            },
+            {
+              "type": "select",
+              "key": "judge",
+              "multiple": true,
+              "search": true,
+              "appearance": "standard",
+              "label": "法官",
+              "api": "/api/v1/filter/judge"
+            },
+            {
+              "type": "select",
+              "key": "case_procedure",
+              "multiple": true,
+              "search": true,
+              "appearance": "standard",
+              "label": "案件阶段",
+              "api": "/api/v1/filter/taxonomy_term/case_procedure"
+            }
+          ]
+        }]
+      },
+      {
+        "label": "发票管理",
+        "elements": [{
+          "type": "view-list",
+          "spacer": "none",
+          "params": {
+            "apiType": "tab/case/invoice"
           },
-          {
-            "label": "业务对方",
-            "key": "other_party"
+          "header": [{
+              "label": "标题",
+              "key": "title"
+            },
+            {
+              "label": "客户名称",
+              "key": "customer"
+            },
+            {
+              "label": "业务对方",
+              "key": "other_party"
+            },
+            {
+              "label": "法院名称",
+              "key": "court"
+            },
+            {
+              "label": "发票名称)",
+              "key": "category"
+            },
+            {
+              "label": "发票日期)",
+              "key": "invoice_date"
+            },
+            {
+              "label": "发票金额)",
+              "key": "amount"
+            },
+            {
+              "label": "发票图片)",
+              "key": "invoice_certificate"
+            },
+            {
+              "label": "发票快递)",
+              "key": "invoice_express"
+            },
+            {
+              "label": "律师",
+              "key": "uid"
+            }
+          ],
+          "form": [{
+              "type": "input",
+              "key": "title",
+              "appearance": "standard",
+              "label": "标题"
+            },
+            {
+              "type": "select",
+              "key": "customer",
+              "multiple": true,
+              "search": true,
+              "appearance": "standard",
+              "label": "客户名称",
+              "api": "/api/v1/filter/customer"
+            },
+            {
+              "type": "select",
+              "key": "handler",
+              "multiple": true,
+              "search": true,
+              "appearance": "standard",
+              "label": "经办人员",
+              "api": "/api/v1/filter/handler"
+            },
+            {
+              "type": "select",
+              "key": "other_party",
+              "multiple": true,
+              "search": true,
+              "appearance": "standard",
+              "label": "业务对方",
+              "api": "/api/v1/filter/other_party"
+            },
+            {
+              "type": "select",
+              "key": "court",
+              "multiple": true,
+              "search": true,
+              "appearance": "standard",
+              "label": "法院",
+              "api": "/api/v1/filter/court"
+            },
+            {
+              "type": "select",
+              "key": "judge",
+              "multiple": true,
+              "search": true,
+              "appearance": "standard",
+              "label": "法官",
+              "api": "/api/v1/filter/judge"
+            },
+            {
+              "type": "select",
+              "key": "case_procedure",
+              "multiple": true,
+              "search": true,
+              "appearance": "standard",
+              "label": "案件阶段",
+              "api": "/api/v1/filter/taxonomy_term/case_procedure"
+            }
+          ]
+        }]
+      },
+      {
+        "label": "律师合同",
+        "elements": [{
+          "type": "view-list",
+          "spacer": "none",
+          "params": {
+            "apiType": "tab/case/lawyer-contract"
           },
-          {
-            "label": "法院名称",
-            "key": "court"
-          },
-          {
-            "label": "案件案号",
-            "key": "citation"
-          },
-          {
-            "label": "诉讼本金",
-            "key": "amount"
-          },
-          {
-            "label": "利率",
-            "key": "interest_rate"
-          },
-          {
-            "label": "利息期间",
-            "key": "date_range"
-          },
-          {
-            "label": "利息",
-            "key": "interest"
-          },
-          {
-            "label": "违约利率",
-            "key": "damages_rate_1"
-          },
-          {
-            "label": "违约期间",
-            "key": "damages_date_range"
-          },
-          {
-            "label": "违约金",
-            "key": "damages"
-          },
-          {
-            "label": "金额合计",
-            "key": "litigation_total_amount"
-          },
-          {
-            "label": "律师",
-            "key": "uid"
-          }
-        ]
-      }]
-    }, {
-      "label": "诉讼费用",
-      "elements": [{
-        "type": "view-list",
-        "spacer": "none",
-        "params": {
-          "apiType": "tab/case/case-cost"
-        },
-        "header": [{
-            "label": "案件标题",
-            "key": "title"
-          },
-          {
-            "label": "业务时间",
-            "key": "business_date"
-          },
-          {
-            "label": "客户名称",
-            "key": "customer"
-          },
-          {
-            "label": "业务对方",
-            "key": "other_party"
-          },
-          {
-            "label": "法院名称",
-            "key": "court"
-          },
-          {
-            "label": "案件阶段",
-            "key": "case_procedure"
-          },
-          {
-            "label": "文件类型",
-            "key": "category"
-          },
-          {
-            "label": "费用金额",
-            "key": "amount"
-          },
-          {
-            "label": "律师",
-            "key": "uid"
-          }
-        ]
-      }]
-    }, {
-      "label": "案件执行",
-      "elements": [{
-        "type": "view-list",
-        "spacer": "none",
-        "params": {
-          "apiType": "tab/case/case-enforcement"
-        },
-        "header": [{
-            "label": "案件标题",
-            "key": "title"
-          }, {
-            "label": "客户名称",
-            "key": "customer"
-          },
-          {
-            "label": "业务对方",
-            "key": "other_party"
-          }, {
-            "label": "法院名称",
-            "key": "court"
-          },
-          {
-            "label": "执行款",
-            "key": "amount"
-          },
-          {
-            "label": "执行款（二）",
-            "key": "penalty_amount"
-          }, {
-            "label": "执行款（三）",
-            "key": "other_amount"
-          }, {
-            "label": "执行款合计",
-            "key": "amount_1"
-          }, {
-            "label": "利息违金",
-            "key": "interest"
-          }, {
-            "label": "违约金",
-            "key": "damages"
-          }, {
-            "label": "利违合计",
-            "key": "interest_1"
-          }, {
-            "label": "双倍罚息",
-            "key": "penalty_interest"
-          }, {
-            "label": "双罚合计",
-            "key": "penalty_interest_2"
-          }, {
-            "label": "欠款合计金额",
-            "key": "total"
-          }, {
-            "label": "还款日期",
-            "key": "paid_date"
-          }, {
-            "label": "还款金额",
-            "key": "paid"
-          }, {
-            "label": "末次欠款合计",
-            "key": "total_1"
-          }, {
-            "label": "律师",
-            "key": "uid"
-          }
-        ]
-      }]
-    }, {
-      "label": "裁判文书",
-      "elements": [{
-        "type": "view-list",
-        "spacer": "none",
-        "params": {
-          "apiType": "tab/case/judgment"
-        },
-        "header": [{
-            "label": "标题)",
-            "key": "title"
-          }, {
-            "label": "客户名称",
-            "key": "customer"
-          },
-          {
-            "label": "业务对方",
-            "key": "other_party"
-          }, {
-            "label": "法院名称",
-            "key": "court"
-          },
-          {
-            "label": "案件案号)",
-            "key": "citation"
-          },
-          {
-            "label": "(文件清单)",
-            "key": "case_files"
-          }, {
-            "label": "律师",
-            "key": "uid"
-          }
-        ]
-      }]
-    }, {
-      "label": "财产保全",
-      "elements": [{
-        "type": "view-list",
-        "spacer": "none",
-        "params": {
-          "apiType": "tab/case/preservation"
-        },
-        "header": [{
-            "label": "标题",
-            "key": "title"
-          }, {
-            "label": "客户名称",
-            "key": "customer"
-          },
-          {
-            "label": "业务对方",
-            "key": "other_party"
-          }, {
-            "label": "法院名称",
-            "key": "court"
-          },
-          {
-            "label": "案件案号",
-            "key": "citation"
-          },
-          {
-            "label": "保全类型",
-            "key": "category"
-          }, {
-            "label": "保全金额",
-            "key": "amount"
-          }, {
-            "label": "保全期间",
-            "key": "date_range"
-          }, {
-            "label": "保全文书",
-            "key": "property_files"
-          }, {
-            "label": "保全备注",
-            "key": "remark"
-          }, {
-            "label": "律师",
-            "key": "uid"
-          }
-        ]
-      }]
-    }, {
-      "label": "发票管理",
-      "elements": [{
-        "type": "view-list",
-        "spacer": "none",
-        "params": {
-          "apiType": "tab/case/invoice"
-        },
-        "header": [{
-            "label": "标题",
-            "key": "title"
-          }, {
-            "label": "客户名称",
-            "key": "customer"
-          },
-          {
-            "label": "业务对方",
-            "key": "other_party"
-          }, {
-            "label": "法院名称",
-            "key": "court"
-          },
-          {
-            "label": "发票名称)",
-            "key": "category"
-          },
-          {
-            "label": "发票日期)",
-            "key": "invoice_date"
-          }, {
-            "label": "发票金额)",
-            "key": "amount"
-          }, {
-            "label": "发票图片)",
-            "key": "invoice_certificate"
-          }, {
-            "label": "发票快递)",
-            "key": "invoice_express"
-          }, {
-            "label": "律师",
-            "key": "uid"
-          }
-        ]
-      }]
-    }, {
-      "label": "律师合同",
-      "elements": [{
-        "type": "view-list",
-        "spacer": "none",
-        "params": {
-          "apiType": "tab/case/lawyer-contract"
-        },
-        "header": [{
-            "label": "标题",
-            "key": "title"
-          }, {
-            "label": "客户名称",
-            "key": "customer"
-          },
-          {
-            "label": "业务对方",
-            "key": "other_party"
-          }, {
-            "label": "案件案号",
-            "key": "citation"
-          },
-          {
-            "label": "文件清单",
-            "key": "case_files"
-          },
-          {
-            "label": "律师",
-            "key": "uid"
-          }
-        ]
-      }]
-    }]
+          "header": [{
+              "label": "标题",
+              "key": "title"
+            },
+            {
+              "label": "客户名称",
+              "key": "customer"
+            },
+            {
+              "label": "业务对方",
+              "key": "other_party"
+            },
+            {
+              "label": "案件案号",
+              "key": "citation"
+            },
+            {
+              "label": "文件清单",
+              "key": "case_files"
+            },
+            {
+              "label": "律师",
+              "key": "uid"
+            }
+          ],
+          "form": [{
+              "type": "input",
+              "key": "title",
+              "appearance": "standard",
+              "label": "标题"
+            },
+            {
+              "type": "select",
+              "key": "customer",
+              "multiple": true,
+              "search": true,
+              "appearance": "standard",
+              "label": "客户名称",
+              "api": "/api/v1/filter/customer"
+            },
+            {
+              "type": "select",
+              "key": "handler",
+              "multiple": true,
+              "search": true,
+              "appearance": "standard",
+              "label": "经办人员",
+              "api": "/api/v1/filter/handler"
+            },
+            {
+              "type": "select",
+              "key": "other_party",
+              "multiple": true,
+              "search": true,
+              "appearance": "standard",
+              "label": "业务对方",
+              "api": "/api/v1/filter/other_party"
+            },
+            {
+              "type": "select",
+              "key": "court",
+              "multiple": true,
+              "search": true,
+              "appearance": "standard",
+              "label": "法院",
+              "api": "/api/v1/filter/court"
+            },
+            {
+              "type": "select",
+              "key": "judge",
+              "multiple": true,
+              "search": true,
+              "appearance": "standard",
+              "label": "法官",
+              "api": "/api/v1/filter/judge"
+            },
+            {
+              "type": "select",
+              "key": "case_procedure",
+              "multiple": true,
+              "search": true,
+              "appearance": "standard",
+              "label": "案件阶段",
+              "api": "/api/v1/filter/taxonomy_term/case_procedure"
+            }
+          ]
+        }]
+      }
+    ]
   }]
 }

@@ -3,6 +3,7 @@ import { ScreenState } from '@core/mobx/screen/ScreenState';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { AppState } from '@core/mobx/AppState';
 import { ScreenService } from '@core/service/screen.service';
+import { UserState } from '@core/mobx/user/UserState';
 
 @Component({
   selector: 'app-hero2v3',
@@ -16,9 +17,10 @@ export class Hero2v3Component extends BaseComponent implements OnInit {
     public appState: AppState,
     public screen: ScreenState,
     private screenService: ScreenService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    public userState: UserState
   ) {
-    super();
+    super(userState);
   }
 
   ngOnInit(): void {

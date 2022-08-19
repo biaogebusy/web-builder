@@ -1,5 +1,5 @@
 import { IImg } from './IImg';
-export interface IBgImg {
-  classes: string;
-  img: IImg;
+import { IBg } from './IBg';
+export interface IBgImg extends IBg {
+  img?: IImg;
 }

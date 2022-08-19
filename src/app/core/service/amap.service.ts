@@ -1,9 +1,9 @@
 import { Inject, Injectable } from '@angular/core';
 import * as AMapLoader from '@amap/amap-jsapi-loader';
 import { Observable, from } from 'rxjs';
-import { IAmap } from '../interface/IAmap';
+import type { IAmap } from '../interface/IAmap';
 import { CORE_CONFIG } from '@core/token/core.config';
-import { ICoreConfig } from '@core/mobx/IAppConfig';
+import type { ICoreConfig } from '@core/mobx/IAppConfig';
 
 // https://lbs.amap.com/demo-center/js-api
 // https://lbs.amap.com/api/jsapi-v2/summary

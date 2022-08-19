@@ -1,0 +1,43 @@
+<mat-form-field [appearance]="to.appearance || 'legacy'" class="width-100">
+  <mat-label>{{to.label}}</mat-label>
+  <!-- 单选不开启搜索 -->
+  <mat-select disableOptionCentering="true" panelClass="custom-select" *ngIf="!to.multiple && !to.search"
+    [formControl]="formControl" [formlyAttributes]="field" disableRipple #select>
+    <mat-option *ngIf="to?.none">{{to.none?.label || '无'}}</mat-option>
+    <mat-option value="{{option.value}}" *ngFor="let option of matOptions">{{option.label}}
+    </mat-option>
+  </mat-select>
+
+  <!-- 单选开启搜索 -->
+  <mat-select disableOptionCentering="true" panelClass="custom-select" *ngIf="!to.multiple && to.search"
+    [formControl]="formControl" [formlyAttributes]="field" disableRipple #select>
+    <mat-option>
+      <ngx-mat-select-search [placeholderLabel]="to.placeholder || '搜索'" [noEntriesFoundLabel]="to.noFound || '没有找到'"
+        [formControl]="searchCtrl">
+      </ngx-mat-select-search>
+    </mat-option>
+    <mat-option *ngIf="to?.none">{{to.none?.label || '无'}}</mat-option>
+    <mat-option *ngFor="let option of filteredOptions | async" [value]="option.value">{{option.label}}
+    </mat-option>
+  </mat-select>
+  <!-- 多选不开启搜索 -->
+  <mat-select disableOptionCentering="true" panelClass="custom-select" *ngIf="to.multiple && !to.search"
+    [formControl]="formControl" [formlyAttributes]="field" multiple disableRipple #select>
+    <mat-option *ngIf="to?.none">{{to.none?.label || '无'}}</mat-option>
+    <mat-option value="{{option.value}}" *ngFor="let option of matOptions">{{option.label}}
+    </mat-option>
+  </mat-select>
+
+  <!-- 多选开启搜索 -->
+  <mat-select disableOptionCentering="true" panelClass="custom-select" *ngIf="to.multiple && to.search"
+    [formControl]="formControl" [formlyAttributes]="field" multiple disableRipple #select>
+    <mat-option>
+      <ngx-mat-select-search [placeholderLabel]="to.placeholder || '搜索'" [noEntriesFoundLabel]="to.noFound || '没有找到'"
+        [formControl]="searchCtrl">
+      </ngx-mat-select-search>
+    </mat-option>
+    <mat-option *ngIf="to?.none">{{to.none?.label || '无'}}</mat-option>
+    <mat-option *ngFor="let option of filteredOptions | async" [value]="option.value">{{option.label}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>

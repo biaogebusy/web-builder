@@ -6,7 +6,7 @@ import {
   ChangeDetectorRef,
 } from '@angular/core';
 import { FormService } from '@core/service/form.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { UtilitiesService } from '@core/service/utilities.service';
 
 // TODO: need move to combs

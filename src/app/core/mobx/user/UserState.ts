@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { action, observable, computed } from 'mobx-angular';
 import { LocalStorageService } from 'ngx-webstorage';
-import { IUser, TokenUser } from './IUser';
+import type { IUser, TokenUser } from './IUser';
 import { of, Subject, forkJoin } from 'rxjs';
 import { UserService } from '@core/service/user.service';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -9,6 +9,7 @@ import { CryptoJSService } from '@core/service/crypto-js.service';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { intersection } from 'lodash-es';
 
 const unauthUser = {
   id: '',
@@ -20,7 +21,23 @@ const unauthUser = {
     roles: [],
   },
   logout_token: '',
+  login: '',
 };
+
+// const unauthUser = {
+//   csrf_token: 'XYnwdoW932Lhdin_jZnN0Ow7PM7VixZTzC7Lb2PAnXk',
+//   current_user: {
+//     uid: '1',
+//     name: 'root',
+//     roles: ['authenticated', 'administrator'],
+//   },
+//   id: '505d9929-18cc-496d-8750-2aa1d2a72c65',
+//   display_name: '超管员',
+//   mail: 'no-reply@xinshi.com',
+//   authenticated: true,
+//   picture: '/sites/amigo.zhaobg.com/files/pictures/2022-04/logo_t.png',
+//   login: '2022-06-20T13:00:29+00:00',
+// };
 
 @Injectable({
   providedIn: 'root',
@@ -38,13 +55,15 @@ export class UserState {
     private utilities: UtilitiesService,
     private storage: LocalStorageService
   ) {
+    // this.user = unauthUser;
+    // return;
     if (this.storage.retrieve(this.userService.localUserKey)) {
       this.user = JSON.parse(
         this.cryptoJS.decrypt(
           this.storage.retrieve(this.userService.localUserKey)
         )
       );
-      console.log(this.user);
+      // console.log(this.user);
     }
   }
 
@@ -52,9 +71,13 @@ export class UserState {
     return Object.assign({}, this.user);
   }
 
+  @computed get unauthUser(): IUser {
+    return Object.assign({}, unauthUser);
+  }
+
   @computed
   get authenticated(): boolean {
-    return this.user.authenticated;
+    return !!this.user.current_user.uid;
   }
 
   @computed
@@ -73,7 +96,7 @@ export class UserState {
 
   @computed
   get logoutToken(): string {
-    return this.currentUser && this.currentUser.logout_token;
+    return (this.currentUser && this.currentUser.logout_token) || '';
   }
 
   @computed
@@ -116,6 +139,7 @@ export class UserState {
   @action
   logout(): any {
     if (environment.drupalProxy) {
+      this.logoutUser();
       window.location.href = '/user/logout';
       return;
     }
@@ -131,10 +155,22 @@ export class UserState {
         })
       )
       .subscribe(() => {
-        this.user$.next(unauthUser);
-        this.user = unauthUser;
-        this.storage.clear(this.userService.localUserKey);
+        this.logoutUser();
       });
+  }
+
+  logoutUser(): void {
+    this.user$.next(unauthUser);
+    this.user = unauthUser;
+    this.storage.clear(this.userService.localUserKey);
+  }
+
+  @action
+  loginUser(data: any, user: any): void {
+    this.loading = false;
+    this.user$.next(user);
+    this.user = Object.assign(data, user);
+    this.userService.storeLocalUser(this.user);
   }
 
   @action
@@ -149,10 +185,7 @@ export class UserState {
     this.userService
       .getCurrentUserById(data.current_user.uid, data.csrf_token)
       .subscribe((user) => {
-        this.loading = false;
-        this.user$.next(user);
-        this.user = Object.assign(data, user);
-        this.userService.storeLocalUser(this.user);
+        this.loginUser(data, user);
       });
   }
 
@@ -192,10 +225,8 @@ export class UserState {
         })
       )
       .subscribe((user) => {
-        this.loading = false;
-        this.user$.next(user);
-        this.user = Object.assign(tokenUser, user);
-        this.userService.storeLocalUser(this.user);
+        console.log('get session user done!');
+        this.loginUser(tokenUser, user);
       });
   }
 
@@ -204,5 +235,9 @@ export class UserState {
     this.user$.next(user);
     this.user = user;
     this.userService.storeLocalUser(user);
+  }
+
+  isMatchCurrentRole(roles: string[]): boolean {
+    return intersection(this.roles, roles).length > 0;
   }
 }

@@ -7,12 +7,13 @@ export interface IUser extends TokenUser {
   status?: boolean;
   authenticated: boolean;
   picture?: string;
+  login: string;
 }
 
 export interface TokenUser {
   csrf_token: string;
   current_user: CurrentUser;
-  logout_token: string;
+  logout_token?: string;
 }
 
 export interface CurrentUser {

@@ -10,7 +10,7 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'my',
+    path: 'me',
     loadChildren: () =>
       import('./modules/user/user.module').then((m) => m.UserModule),
   },
@@ -19,11 +19,6 @@ const routes: Routes = [
     canActivate: [ManageGuard],
     loadChildren: () =>
       import('./modules/manage/manage.module').then((m) => m.ManageModule),
-  },
-  {
-    path: 'samples',
-    loadChildren: () =>
-      import('./modules/sample/sample.module').then((m) => m.SampleModule),
   },
   {
     path: '**',

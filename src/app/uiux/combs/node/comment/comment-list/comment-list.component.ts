@@ -4,7 +4,7 @@ import {
   OnInit,
   ChangeDetectionStrategy,
 } from '@angular/core';
-import { ICommentContent } from '@core/interface/node/INode';
+import type { IBaseNode, ICommentContent } from '@core/interface/node/INode';
 
 @Component({
   selector: 'app-comment-list',
@@ -13,7 +13,7 @@ import { ICommentContent } from '@core/interface/node/INode';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CommentListComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: IBaseNode;
   @Input() comments: ICommentContent[];
 
   constructor() {}

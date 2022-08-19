@@ -6,7 +6,8 @@
         <span [innerHTML]="content.label"></span>
       </button>
       <ng-template #link>
-        <a [class]="content.classes" mat-raised-button [href]="content.href" [target]="content?.target || ''">
+        <a [class]="content.classes" mat-raised-button [href]="content.href" [target]="content?.target || ''"
+          [color]="content?.color">
           <app-icon *ngIf="content.icon" [content]="content.icon"></app-icon>
           <span [innerHTML]="content.label"></span>
         </a>
@@ -18,8 +19,8 @@
         <span [innerHTML]="content.label"></span>
       </button>
       <ng-template #link>
-        <a [class]="content.classes" mat-stroked-button [href]="content.href" [target]="content.target"
-          [innerHTML]="content.label">
+        <a [class]="content.classes" mat-stroked-button [href]="content.href" [target]="content?.target || ''"
+          [innerHTML]="content.label" [color]="content?.color">
           <app-icon *ngIf="content.icon" [content]="content.icon"></app-icon>
           <span [innerHTML]="content.label"></span>
         </a>
@@ -29,8 +30,8 @@
       <button [class]="content.classes" mat-flat-button *ngIf="!content.href;else link"
         [color]="content.color">{{content.label}}</button>
       <ng-template #link>
-        <a [class]="content.classes" mat-flat-button [href]="content.href" [target]="content.target"
-          [innerHTML]="content.label"></a>
+        <a [class]="content.classes" mat-flat-button [href]="content.href" [target]="content?.target || ''"
+          [innerHTML]="content.label" [color]="content?.color"></a>
       </ng-template>
     </ng-container>
     <ng-container *ngSwitchCase="'icon'">
@@ -54,7 +55,8 @@
         <span [innerHTML]="content.label"></span>
       </button>
       <ng-template #link>
-        <a [class]="content.classes" mat-button [href]="content.href" [target]="content.target">
+        <a [class]="content.classes" mat-button [href]="content.href" [target]="content?.target || ''"
+          [color]="content?.color">
           <app-icon *ngIf="content.icon" [content]="content.icon"></app-icon>
           <span [innerHTML]="content.label"></span>
         </a>

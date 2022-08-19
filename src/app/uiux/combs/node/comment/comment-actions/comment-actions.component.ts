@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { ICommentConfig } from '@core/interface/node/INode';
+import type { ICommentConfig } from '@core/interface/node/INode';
 import { ContentState } from '@core/mobx/ContentState';
 import { UserState } from '@core/mobx/user/UserState';
 

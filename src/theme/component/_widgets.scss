@@ -64,14 +64,14 @@
     }
   }
 
-  .feature-inner {
+  .feature-cover {
     &:before {
       background: $bg-color;
     }
     &:after {
       background: $bg-color;
     }
-    .feature-inner-corners {
+    .feature-inner {
       &:before {
         background: $bg-color;
       }
@@ -79,7 +79,7 @@
         background: $bg-color;
       }
     }
-    .feature-inner-btns {
+    .btns {
       > a {
         background: $bg-color;
         color: mat-color($primary);
@@ -93,6 +93,9 @@
       .media {
         background-color: mat-color($background, background);
       }
+      .title {
+        color: mat-color($primary, default-contrast);
+      }
       &:before {
         box-shadow: 0px -5px 3px rgba(0, 0, 0, 0.1) inset;
         -moz-box-shadow: 0px -5px 3px rgba(0, 0, 0, 0.1) inset;
@@ -100,6 +103,43 @@
       }
       &:after {
         background: mat-color($primary);
+      }
+    }
+  }
+
+  .feature-float {
+    .title {
+      background-color: mat-color($background, "app-bar", 0.7);
+      color: mat-color($foreground, text, 0.6);
+    }
+    .btns {
+      .btn {
+        transition: all 0.3s;
+      }
+      .btn-full {
+        color: mat-color($primary);
+        border: 1px solid mat-color($primary, 0.4);
+        background-color: mat-color($primary, 0.2);
+        @include mat-elevation(3, mat-color($primary), 0.5);
+        &:hover {
+          background-color: mat-color($primary);
+          color: mat-color($primary, default-contrast);
+        }
+      }
+      .btn-open {
+        color: mat-color($warn);
+        border: 1px solid mat-color($warn, 0.4);
+        background-color: mat-color($warn, 0.2);
+        @include mat-elevation(3, mat-color($warn), 0.5);
+        &:hover {
+          background-color: mat-color($warn);
+          color: mat-color($primary, default-contrast);
+        }
+      }
+    }
+    .media {
+      img {
+        background-color: mat-color($background, "app-bar");
       }
     }
   }
@@ -199,17 +239,49 @@
 
   .dynamic-table {
     background-color: mat-color($background, card);
-
+    .mat-header-cell {
+      color: mat-color($foreground, text);
+    }
     tbody {
       > tr {
         &:hover {
-          background-color: mat-color($primary, 0.1);
+          background-color: #f5f5f5;
         }
       }
       td {
         .marker {
           color: mat-color($warn);
         }
+      }
+    }
+  }
+
+  .border-primary {
+    border: 1px solid mat-color($primary) !important;
+    background-color: mat-color($background, card);
+  }
+
+  .border-warn {
+    border: 1px solid mat-color($warn) !important;
+    background-color: mat-color($background, card);
+  }
+
+  .border-accent {
+    border: 1px solid mat-color($accent) !important;
+    background-color: mat-color($background, card);
+  }
+
+  .inline-lightbox {
+    .inline {
+      color: mat-color($primary);
+    }
+  }
+
+  .panel {
+    .mat-expanded .mat-expansion-panel-header-title {
+      .badge {
+        color: mat-color($primary, default-contrast);
+        background-color: mat-color($primary, 400, 0.85);
       }
     }
   }

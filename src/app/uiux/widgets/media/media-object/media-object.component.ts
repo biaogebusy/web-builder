@@ -4,7 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { IMediaObject } from '@core/interface/widgets/IMediaObject';
+import type { IMediaObject } from '@core/interface/widgets/IMediaObject';
 
 @Component({
   selector: 'app-media-object',

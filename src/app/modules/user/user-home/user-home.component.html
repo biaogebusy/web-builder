@@ -1,6 +1,5 @@
-<div class="user-home" *ngIf="content">
-  <div class="item m-bottom" *ngFor="let item of content">
-    <div class="mat-h2 label m-y-sm bold">{{item.label}}</div>
-    <app-dynamic-widgets [content]="item"></app-dynamic-widgets>
+<div class="user-home" *ngIf="appState.content">
+  <div class="item m-bottom" *ngFor="let item of appState.content">
+    <app-dynamic-combs [content]="item"></app-dynamic-combs>
   </div>
 </div>

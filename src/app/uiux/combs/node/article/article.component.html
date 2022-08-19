@@ -17,7 +17,7 @@
             [style.fontSize.px]="fontSize">
           </div>
           <ng-template #canotAccess>
-            <div class="article-body m-y-sm position-relative">
+            <div class="article-body m-y-sm position-relative" *ngIf="content.body">
               <div [innerHTML]="content.body |stripTags:'p'|trim|shorten:1000:'...'" [style.fontSize.px]="fontSize">
               </div>
               <div class="shadow"></div>
@@ -29,7 +29,7 @@
             <div *ngIf="userState.authenticated" class="pay line p-y-sm p-x-sm width-100 text-center m-bottom"
               fxLayoutAlign="center center">
               <div>
-                <ng-container *ngIf="!isReqRule">
+                <ng-container *ngIf="!isReqRoles">
                   成为<a (click)="upgrade()" href="javascript:void(0)">【会员】</a>
                 </ng-container>
                 <ng-container *ngIf="reqMoney">
@@ -47,7 +47,7 @@
           <app-dynamic-widgets [content]="action" *ngFor="let action of content.bottom"></app-dynamic-widgets>
         </div>
         <div class="ations m-y" *ngIf="content.actions">
-          <app-dynamic-widgets [data]="content?.params" [content]="action" *ngFor="let action of content.actions">
+          <app-dynamic-widgets [data]="content.params" [content]="action" *ngFor="let action of content.actions">
           </app-dynamic-widgets>
         </div>
         <app-comment-form

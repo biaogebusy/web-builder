@@ -1,13 +1,20 @@
 <div class="panel" *ngIf="content">
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
+  <app-bg-img [content]="content.bg"></app-bg-img>
   <div class="container">
     <app-title *ngIf="content.title" [content]="content.title"></app-title>
+    <div class="actions m-y-xs" fxLayout="row" fxLayoutAlign="end center" *ngIf="content?.params?.enableActions">
+      <button mat-button *ngIf="!isAll"
+        (click)="accordion.openAll(); isAll =!isAll">{{content.params?.actions?.openAll||'全部展开'}}</button>
+      <button mat-button *ngIf="isAll"
+        (click)="accordion.closeAll(); isAll =!isAll">{{content.params?.actions?.closeAll||'全部收起'}}</button>
+    </div>
     <mat-accordion multi>
       <mat-expansion-panel [expanded]="item?.params?.expanded" *ngFor="let item of content.elements">
         <mat-expansion-panel-header>
           <mat-panel-title *ngIf="item.title">
-            {{item.title}}
+            <span [innerHTML]="item.title|safeHtml"></span>
           </mat-panel-title>
           <mat-panel-description *ngIf="item.description">
             {{item.description}}

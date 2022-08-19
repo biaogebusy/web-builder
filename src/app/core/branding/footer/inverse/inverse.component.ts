@@ -21,9 +21,11 @@ export class InverseComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.form = this.formService.toFormGroup(
-      this.content.footerNewsletter.forms
-    );
+    if (this.content?.footerNewsletter) {
+      this.form = this.formService.toFormGroup(
+        this.content.footerNewsletter.forms
+      );
+    }
   }
 
   onSubmit(): void {

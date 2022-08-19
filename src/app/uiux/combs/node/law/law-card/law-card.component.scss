@@ -1,7 +1,10 @@
 .law-card {
+  .wrapper {
+    justify-content: space-between;
+  }
   .card-item {
     position: relative;
-    height: 100%;
+    height: auto;
     ::ng-deep {
       .mat-card {
         height: 100%;

@@ -15,7 +15,6 @@ import { TreeModule } from '@circlon/angular-tree-component';
 import { CdkTableModule } from '@angular/cdk/table';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-
 import { BgComponent } from './bg/bg.component';
 import { ImgComponent } from './img/img.component';
 import { BoxComponent } from './box/box.component';
@@ -83,6 +82,17 @@ import { DataSourcePipe } from '@core/pipe/dataSource.pipe';
 import { SearchActionComponent } from './actions/search-action/search-action.component';
 import { SearchSidebarComponent } from './sidebar/search-sidebar/search-sidebar.component';
 import { LoopWidgetsComponent } from './loop-widgets/loop-widgets.component';
+import { IframeComponent } from './iframe/iframe.component';
+import { SafePipe } from '@core/pipe/safe-url.pipe';
+import { UserCardComponent } from './card/user-card/user-card.component';
+import { UserCardCountComponent } from './card/user-card/user-card-count/user-card-count.component';
+import { FormlyModule } from '@ngx-formly/core';
+import { FormlyMaterialModule } from '@ngx-formly/material';
+import { FormlyMatDatepickerModule } from '@ngx-formly/material/datepicker';
+import { DateRangeComponent } from './form/formly-type/date-range/date-range.component';
+import { MatSelectComponent } from './form/formly-type/mat-select/mat-select.component';
+import { ChartComponent } from './chart/chart.component';
+import { NgChartsModule } from 'ng2-charts';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -118,6 +128,7 @@ const components = [
   Card1v1Component,
   Card1v2Component,
   Card1v3Component,
+  UserCardComponent,
   CheckboxComponent,
   ContentBoxComponent,
   ChipListComponent,
@@ -129,6 +140,7 @@ const components = [
   BreadcrumbComponent,
   TestimonialComponent,
   DropdownMenuComponent,
+  UserCardCountComponent,
   NumberAnimateComponent,
   DynamicWidgetsComponent,
   SidebarComponent,
@@ -141,6 +153,7 @@ const components = [
   ProgressBarComponent,
   ProgressGroupComponent,
   SafeHtmlPipe,
+  SafePipe,
   DataSourcePipe,
   DialogComponent,
   FlagComponent,
@@ -148,6 +161,7 @@ const components = [
   ShapeComponent,
   BgImgComponent,
   TreeComponent,
+  IframeComponent,
   CalendarComponent,
   DownloadComponent,
   CardMetaComponent,
@@ -163,6 +177,9 @@ const components = [
   MediaObjectGroupComponent,
   ContentTextCenterComponent,
   DynamicFormControlComponent,
+  DateRangeComponent,
+  MatSelectComponent,
+  ChartComponent,
 ];
 
 @NgModule({
@@ -179,6 +196,21 @@ const components = [
     FullCalendarModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    FormlyMatDatepickerModule,
+    FormlyMaterialModule,
+    NgChartsModule,
+    FormlyModule.forRoot({
+      types: [
+        {
+          name: 'mat-select',
+          component: MatSelectComponent,
+        },
+        {
+          name: 'date-range',
+          component: DateRangeComponent,
+        },
+      ],
+    }),
   ],
   exports: [...components],
   providers: [

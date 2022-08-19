@@ -4,7 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { IBox } from '@core/interface/widgets/IBox';
+import type { IBox } from '@core/interface/widgets/IBox';
 
 @Component({
   selector: 'app-box',

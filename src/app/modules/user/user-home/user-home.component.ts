@@ -1,28 +1,16 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { ScreenService } from '@core/service/screen.service';
+import { AppState } from '@core/mobx/AppState';
 
 @Component({
   selector: 'app-user-home',
   templateUrl: './user-home.component.html',
   styleUrls: ['./user-home.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserHomeComponent implements OnInit {
   content: any[] = [];
-  constructor(private screenService: ScreenService) {}
+  constructor(public appState: AppState) {}
 
   ngOnInit(): void {
-    if (this.screenService.isPlatformBrowser()) {
-      this.getContent();
-    }
-  }
-
-  getContent(): void {
-    this.content[0] = {
-      label: '',
-      type: 'text',
-      spacer: 'none',
-      body: '<p>暂无简介</p>',
-    };
+    this.appState.setPageContent();
   }
 }

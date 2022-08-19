@@ -5,9 +5,10 @@ import {
   ChangeDetectorRef,
   ChangeDetectionStrategy,
   AfterViewInit,
+  Inject,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { ICase, ICasePrams } from '@core/interface/node/INode';
+import type { ICase, ICasePrams } from '@core/interface/node/INode';
 import { AppState } from '@core/mobx/AppState';
 import { FormState } from '@core/mobx/FormState';
 import { UserState } from '@core/mobx/user/UserState';
@@ -24,7 +25,8 @@ import {
   distinctUntilChanged,
   startWith,
 } from 'rxjs/operators';
-// import data from './data.json';
+import { CORE_CONFIG } from '@core/token/core.config';
+import type { ICoreConfig } from '@core/mobx/IAppConfig';
 
 @Component({
   selector: 'app-law-case',
@@ -51,7 +53,8 @@ export class LawCaseComponent
     private uti: UtilitiesService,
     private formState: FormState,
     private screenService: ScreenService,
-    public contentState: ContentState
+    public contentState: ContentState,
+    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig
   ) {
     super();
   }
@@ -123,12 +126,15 @@ export class LawCaseComponent
   }
 
   getComments(timeStamp = 1): void {
+    if (!this.coreConfig?.article?.comment?.enable) {
+      return;
+    }
     this.cd.detectChanges();
     this.nodeService
-      .getCommentsWitchChild(
-        this.content,
-        this.userState.currentUser.csrf_token,
-        timeStamp
+      .getCustomApiComment(
+        this.appState.pageConfig.node.uuid,
+        timeStamp,
+        this.userState.currentUser.csrf_token
       )
       .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {
