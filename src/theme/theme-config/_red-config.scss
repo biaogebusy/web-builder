@@ -1,5 +1,5 @@
 @import "~@angular/material/theming";
-$sanziqi-color: (
+$red-color: (
   //
   50: #fdecef,
   100: #fccfd6,
@@ -34,11 +34,7 @@ $sanziqi-color: (
   )
 );
 
-$sanziqi-primary: mat-palette($sanziqi-color);
-$sanziqi-accent: mat-palette($sanziqi-color, A200, A100, A400);
-$sanziqi-warn: mat-palette($mat-red, A200, A100, A400);
-$sanziqi-theme: mat-light-theme(
-  $sanziqi-primary,
-  $sanziqi-accent,
-  $sanziqi-warn
-);
+$red-primary: mat-palette($red-color);
+$red-accent: mat-palette($red-color, A200, A100, A400);
+$red-warn: mat-palette($mat-red, A200, A100, A400);
+$red-theme: mat-light-theme($red-primary, $red-accent, $red-warn);

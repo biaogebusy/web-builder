@@ -1,5 +1,6 @@
 @import "~@angular/material/theming";
 @import "./variable/variable";
+@import "./theme-config/theme-config";
 @import "./mixins/base-color";
 @import "./base/base";
 @import "./component/component";
@@ -36,20 +37,20 @@
   @include component-theme($blue-theme);
 }
 
-.enar-theme {
-  @include angular-material-theme($enar-theme);
-  @include base-colors($enar-theme);
-  @include component-theme($enar-theme);
-}
-
 .king-theme {
   @include angular-material-theme($king-theme);
   @include base-colors($king-theme);
   @include component-theme($king-theme);
 }
 
-.sanziqi-theme {
-  @include angular-material-theme($sanziqi-theme);
-  @include base-colors($sanziqi-theme);
-  @include component-theme($sanziqi-theme);
+.red-theme {
+  @include angular-material-theme($red-theme);
+  @include base-colors($red-theme);
+  @include component-theme($red-theme);
+}
+
+.green-theme {
+  @include angular-material-theme($green-theme);
+  @include base-colors($green-theme);
+  @include component-theme($green-theme);
 }
