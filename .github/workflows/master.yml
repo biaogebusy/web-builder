@@ -23,9 +23,6 @@ jobs:
         with:
           node-version: "14"
 
-      - name: Browerslist Install
-        run: npx browserslist@latest --update-db
-
       - name: NPM Install
         run: npm ci over npm
 
