@@ -136,6 +136,11 @@
       .search-box .mat-icon {
         color: mat-color($primary);
       }
+      .switch-theme {
+        .mat-icon {
+          color: mat-color($primary, default-contrast);
+        }
+      }
       .header {
         .main-menu {
           .item {
