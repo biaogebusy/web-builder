@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import {
   CanActivate,
   Router,
@@ -12,6 +12,7 @@ import { UserService } from '@core/service/user.service';
 import { catchError, map, switchMap, shareReplay } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { API_URL } from '@core/token/token-providers';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +22,8 @@ export class AuthGuard implements CanActivate {
     private router: Router,
     private userState: UserState,
     private userService: UserService,
-    private http: HttpClient
+    private http: HttpClient,
+    @Inject(API_URL) private apiUrl: string
   ) {}
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -33,7 +35,7 @@ export class AuthGuard implements CanActivate {
     | UrlTree {
     // return true;
     return this.http
-      .get(`${environment.apiUrl}/api/v1/config?content=/core/base`)
+      .get(`${this.apiUrl}/api/v1/config?content=/core/base`)
       .pipe(
         shareReplay(),
         switchMap((config: any) => {

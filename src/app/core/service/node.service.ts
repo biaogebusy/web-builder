@@ -15,6 +15,7 @@ import { formatDate } from '@angular/common';
 import { CORE_CONFIG } from '@core/token/core.config';
 import type { ICoreConfig } from '@core/mobx/IAppConfig';
 import { environment } from '../../../environments/environment';
+import { API_URL } from '@core/token/token-providers';
 @Injectable({
   providedIn: 'root',
 })
@@ -26,9 +27,10 @@ export class NodeService extends ApiService {
     public http: HttpClient,
     private userState: UserState,
     public storage: LocalStorageService,
-    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
+    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
+    @Inject(API_URL) public apiBaseUrl: string
   ) {
-    super();
+    super(apiBaseUrl);
   }
 
   get apiUrlConfig(): IApiUrl {
@@ -36,11 +38,6 @@ export class NodeService extends ApiService {
   }
 
   search(type: string, params: string, token?: string): Observable<any> {
-    const key = JSON.stringify({ api: this.apiUrl, type, params });
-    const searchFormCache = this.responseCache.get(key);
-    if (searchFormCache && environment.cache) {
-      return of(searchFormCache);
-    }
     let apiParams = '';
     if (type.startsWith('/api/')) {
       apiParams = `${this.apiUrl}${type}?${params}`;
@@ -57,6 +54,13 @@ export class NodeService extends ApiService {
         }
         return false;
       });
+    }
+
+    // cache
+    const key = apiParams;
+    const searchFormCache = this.responseCache.get(key);
+    if (searchFormCache && environment.cache) {
+      return of(searchFormCache);
     }
 
     const response = this.http

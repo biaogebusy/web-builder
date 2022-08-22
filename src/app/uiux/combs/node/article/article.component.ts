@@ -34,6 +34,7 @@ import type { IBaseNode } from '@core/interface/node/INode';
 import { ContentState } from '@core/mobx/ContentState';
 import { CORE_CONFIG } from '@core/token/core.config';
 import type { ICoreConfig } from '../../../../core/mobx/IAppConfig';
+import { API_URL } from '@core/token/token-providers';
 
 @Component({
   selector: 'app-article',
@@ -74,7 +75,8 @@ export class ArticleComponent
     private userService: UserService,
     public contentState: ContentState,
     @Inject(DOCUMENT) private document: Document,
-    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig
+    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
+    @Inject(API_URL) private apiUrl: string
   ) {
     super();
     if (this.screenService.isPlatformBrowser()) {
@@ -173,10 +175,7 @@ export class ArticleComponent
 
   upgrade(): void {
     this.openPayMentDialog();
-    window.open(
-      `${environment.apiUrl}${this.coreConfig.commerce.vip}`,
-      '_blank'
-    );
+    window.open(`${this.apiUrl}${this.coreConfig.commerce.vip}`, '_blank');
   }
 
   pay(): void {

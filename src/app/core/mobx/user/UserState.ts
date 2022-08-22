@@ -212,7 +212,6 @@ export class UserState {
     })
       .pipe(
         switchMap((data: any) => {
-          console.log(data);
           tokenUser = data;
           return this.userService.getCurrentUserById(
             data.current_user.uid,

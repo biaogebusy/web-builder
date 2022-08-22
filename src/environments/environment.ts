@@ -4,8 +4,6 @@
 import { IEnvironment } from '../app/core/interface/IEnvironment';
 
 export const environment: IEnvironment = {
-  apiUrl: 'http://localhost:4200',
-  // apiUrl: 'https://api.zhaobg.com',
   production: false,
   site: 'xinshi',
   port: 4000,

@@ -1,5 +1,6 @@
 import { HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
+import { API_URL } from '@core/token/token-providers';
 import { camelCase, result } from 'lodash-es';
 import { Subject } from 'rxjs';
 import { environment } from '../../../environments/environment';
@@ -7,13 +8,16 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root',
 })
 export class ApiService {
-  localUserKey = camelCase(environment.apiUrl.split('//')[1]);
   public configLoadDone$ = new Subject();
 
-  constructor() {}
+  constructor(@Inject(API_URL) public apiBaseUrl: string) {}
 
   get apiUrl(): string {
-    return environment.apiUrl;
+    return this.apiBaseUrl;
+  }
+
+  get localUserKey(): string {
+    return camelCase(this.apiBaseUrl.split('//')[1]);
   }
 
   get httpOptionsOfCommon(): any {

@@ -9,6 +9,7 @@ import { CryptoJSService } from './crypto-js.service';
 import { CORE_CONFIG } from '@core/token/core.config';
 import type { ICoreConfig } from '@core/mobx/IAppConfig';
 import { environment } from 'src/environments/environment';
+import { API_URL } from '@core/token/token-providers';
 @Injectable({
   providedIn: 'root',
 })
@@ -17,9 +18,10 @@ export class UserService extends ApiService {
     public http: HttpClient,
     public storage: LocalStorageService,
     public cryptoJS: CryptoJSService,
-    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
+    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
+    @Inject(API_URL) public apiBaseUrl: string
   ) {
-    super();
+    super(apiBaseUrl);
   }
 
   get userApiPath(): string {
@@ -89,11 +91,9 @@ export class UserService extends ApiService {
 
   getUserConfig(): Observable<any> {
     if (environment.production) {
-      return this.http.get(
-        `${environment.apiUrl}/api/v1/config?content=/core/user`
-      );
+      return this.http.get(`${this.apiUrl}/api/v1/config?content=/core/user`);
     } else {
-      return this.http.get(`${environment.apiUrl}/assets/app/core/user.json`);
+      return this.http.get(`${this.apiUrl}/assets/app/core/user.json`);
     }
   }
 
