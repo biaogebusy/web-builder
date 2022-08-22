@@ -29,6 +29,7 @@ export class ServerStateInterceptor implements HttpInterceptor {
           (event.status === 200 || event.status === 202) &&
           !req.url.includes('preview')
         ) {
+          console.log('==========cached!========key\n', req.url);
           this.transferState.set(makeStateKey(req.url), event.body);
         }
       })

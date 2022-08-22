@@ -23,7 +23,6 @@ SSR config，set cache true enabel api cache
 
 ```javascript
 export const environment: IEnvironment = {
-  apiUrl: "{{apiUrl}}",
   production: true,
   site: "{{siteId}}",
   port: 4200,
@@ -36,7 +35,6 @@ export const environment: IEnvironment = {
 
 ```javascript
 export const environment: IEnvironment = {
-  apiUrl: "{{apiUrl}}",
   production: true,
   site: "{{siteId}}",
   port: 4200,
@@ -51,7 +49,6 @@ export const environment: IEnvironment = {
 
 ```javascript
 export const environment: IEnvironment = {
-  apiUrl: "http://localhost:4200",
   production: true, // 设置为true读取线上环境数据
   site: "xinshi",
   port: 4000,
