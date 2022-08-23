@@ -8,6 +8,7 @@ import { delay } from 'rxjs/operators';
 import { ScreenService } from './screen.service';
 import { CORE_CONFIG } from '@core/token/core.config';
 import { ICoreConfig } from '@core/mobx/IAppConfig';
+import { NotifyService } from './notify.service';
 
 @Injectable({
   providedIn: 'root',
@@ -20,6 +21,7 @@ export class ConfigService {
     private dialogService: DialogService,
     private loadingservice: LoadingService,
     private screenService: ScreenService,
+    private notifyService: NotifyService,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
   ) {}
 
@@ -41,6 +43,9 @@ export class ConfigService {
         }
         if (this.coreConfig?.dialog?.forceDialog) {
           this.dialogService.forceDialog(this.coreConfig.dialog.forceDialog);
+        }
+        if (this.coreConfig?.notify?.enable) {
+          this.notifyService.watchNotify();
         }
       }
     }

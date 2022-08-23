@@ -1,5 +1,6 @@
 import { IText } from '../interface/widgets/IText';
 import { IAmap } from '../interface/IAmap';
+import { IndividualConfig } from 'ngx-toastr';
 export interface IAppConfig {
   defTheme: string;
   config?: ICoreConfig | null;
@@ -31,6 +32,21 @@ export interface ICoreConfig {
     id: string;
     key: string;
   };
+  notify?: {
+    enable: boolean;
+    params: {
+      interval: number;
+    };
+    api: INotify[];
+  };
+}
+
+export interface INotify {
+  get: string;
+  action: string;
+  title: string;
+  type: 'success' | 'warn' | 'info' | 'error';
+  options: IndividualConfig;
 }
 export interface ITheme {
   name: string;

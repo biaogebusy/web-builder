@@ -20,6 +20,7 @@ import { CORE_CONFIG } from '@core/token/core.config';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { apiUrlFactory, API_URL } from '@core/token/token-providers';
+import { ToastrModule } from 'ngx-toastr';
 
 export function initConfig(appState: AppState, coreConfig: object) {
   return () => appState.loadConfig(coreConfig);
@@ -37,6 +38,9 @@ export function initConfig(appState: AppState, coreConfig: object) {
     NgxWebstorageModule.forRoot(),
     Angulartics2Module.forRoot(),
     MobxModule.forRoot(),
+    ToastrModule.forRoot({
+      maxOpened: 6,
+    }),
     BrandingModule,
     LoadingBarHttpClientModule,
     LoadingBarModule,

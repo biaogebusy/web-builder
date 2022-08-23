@@ -226,5 +226,34 @@
   },
   "access": {
     "check": true
+  },
+  "notify": {
+    "enable": false,
+    "params": {
+      "interval": 10000
+    },
+    "api": [{
+      "get": "/api/v1/filter/customer",
+      "action": "/api/v3/private/read",
+      "title": "您有新的指派任务",
+      "type": "warn",
+      "options": {
+        "enableHtml": true,
+        "tapToDismiss": false,
+        "disableTimeOut": true,
+        "closeButton": true
+      }
+    }, {
+      "get": "/api/v1/filter/handler",
+      "action": "/api/v3/private/read",
+      "title": "您有新的指派任务",
+      "type": "success",
+      "options": {
+        "enableHtml": true,
+        "tapToDismiss": false,
+        "disableTimeOut": true,
+        "closeButton": true
+      }
+    }]
   }
 }
