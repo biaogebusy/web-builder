@@ -233,7 +233,7 @@
       "interval": 10000
     },
     "api": [{
-      "get": "/api/v1/filter/customer",
+      "get": "/api/v2/task?lawyer={uid}",
       "action": "/api/v3/private/read",
       "title": "您有新的指派任务",
       "type": "warn",

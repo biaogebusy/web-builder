@@ -45,6 +45,7 @@ export interface INotify {
   get: string;
   action: string;
   title: string;
+  bodyField: string;
   type: 'success' | 'warn' | 'info' | 'error';
   options: IndividualConfig;
 }

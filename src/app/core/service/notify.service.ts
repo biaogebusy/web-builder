@@ -42,13 +42,13 @@ export class NotifyService {
                     const config = apis[index];
                     this.toastr
                       .show(
-                        item.label,
+                        item[config.bodyField] || item.title,
                         config.title,
                         config.options,
                         config.type || 'success'
                       )
-                      .onHidden.subscribe(() => {
-                        console.log('closed!');
+                      .onTap.subscribe(() => {
+                        console.log('click!');
                       });
                   });
                 }

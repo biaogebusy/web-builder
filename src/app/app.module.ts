@@ -40,6 +40,9 @@ export function initConfig(appState: AppState, coreConfig: object) {
     MobxModule.forRoot(),
     ToastrModule.forRoot({
       maxOpened: 6,
+      easeTime: 300,
+      newestOnTop: true,
+      preventDuplicates: true,
     }),
     BrandingModule,
     LoadingBarHttpClientModule,
