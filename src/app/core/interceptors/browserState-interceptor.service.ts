@@ -30,7 +30,6 @@ export class BrowserStateInterceptor implements HttpInterceptor {
       const key = makeStateKey(req.url);
       const storedResponse: any = this.transferState.get(key, null);
       if (storedResponse) {
-        console.log('get cached!', key);
         const response = new HttpResponse({
           body: storedResponse,
           status: 200,
