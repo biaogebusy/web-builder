@@ -4,12 +4,13 @@
 import { IEnvironment } from '../app/core/interface/IEnvironment';
 
 export const environment: IEnvironment = {
-  production: false,
-  site: 'xinshi',
-  port: 4000,
-  cache: false,
-  ssr: false,
-  drupalProxy: false,
+  apiUrl: 'https://www.zhaobg.com',
+  production: true,
+  site: 'dist',
+  port: 4200,
+  cache: true,
+  ssr: true,
+  drupalProxy: true,
 };
 
 /*

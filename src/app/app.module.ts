@@ -58,7 +58,7 @@ export function initConfig(appState: AppState, coreConfig: object) {
     {
       provide: API_URL,
       useFactory: apiUrlFactory,
-      deps: [DOCUMENT],
+      deps: [],
     },
   ],
   bootstrap: [AppComponent],
