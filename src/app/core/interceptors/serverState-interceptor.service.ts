@@ -21,8 +21,6 @@ export class ServerStateInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(
       tap((event) => {
-        // can check changed?
-        console.log(event);
         if (
           event instanceof HttpResponse &&
           environment.cache &&

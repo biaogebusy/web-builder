@@ -127,6 +127,14 @@
   .ngx-bar {
     background-color: mat-color($primary) !important;
   }
+
+  hr {
+    height: 1px !important;
+    margin: 1rem 0;
+    padding: 0;
+    border: none;
+    background: mat-color($foreground, divider);
+  }
 }
 
 @mixin custom-overide() {

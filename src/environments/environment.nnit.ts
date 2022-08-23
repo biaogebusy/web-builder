@@ -1,7 +1,7 @@
 import { IEnvironment } from '../app/core/interface/IEnvironment';
 
 export const environment: IEnvironment = {
-  apiUrl: 'https://api.nnitpai.com',
+  apiUrl: 'https://www.nnitpai.com',
   production: true,
   site: 'nnit',
   port: 4201,

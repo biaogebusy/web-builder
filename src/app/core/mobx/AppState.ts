@@ -2,7 +2,6 @@ import { Inject, Injectable } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { action, observable, computed } from 'mobx-angular';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
 import { LocalStorageService } from 'ngx-webstorage';
 import type { IAppConfig, ICoreConfig, IPage } from './IAppConfig';
 import { Subject } from 'rxjs';
@@ -12,6 +11,8 @@ import { isArray } from 'lodash-es';
 import { ApiService } from '@core/service/api.service';
 import { ScreenState } from '@core/mobx/screen/ScreenState';
 import { tap } from 'rxjs/operators';
+import { API_URL } from '@core/token/token-providers';
+import { environment } from 'src/environments/environment';
 
 const initPage = {
   title: '',
@@ -35,7 +36,8 @@ export class AppState {
     private storage: LocalStorageService,
     private tagsService: TagsService,
     public apiService: ApiService,
-    private screenState: ScreenState
+    private screenState: ScreenState,
+    @Inject(API_URL) private apiUrl: string
   ) {}
 
   @computed get config(): any {
@@ -125,7 +127,7 @@ export class AppState {
   public loadConfig(coreConfig: object): any {
     if (environment.production) {
       return this.http
-        .get(`${environment.apiUrl}/api/v1/config?content=/core/base`)
+        .get(`${this.apiUrl}/api/v1/config?content=/core/base`)
         .pipe(
           tap((config: any) => {
             Object.assign(coreConfig, config);
@@ -145,7 +147,7 @@ export class AppState {
         );
     } else {
       return this.http
-        .get(`${environment.apiUrl}/assets/app/core/base.json`)
+        .get(`${this.apiUrl}/assets/app/core/base.json`)
         .pipe(
           tap((config: any) => {
             Object.assign(coreConfig, config);
@@ -181,24 +183,24 @@ export class AppState {
     if (environment.production) {
       const landingPath = '/api/v1/landingPage?content=';
       this.http
-        .get<any>(`${environment.apiUrl}${landingPath}${this.apiPath}`)
+        .get<any>(`${this.apiUrl}${landingPath}${this.apiPath}`)
         .subscribe(
           (pageValue: IPage) => {
             this.updatePage(pageValue);
           },
           (error) => {
-            this.setPageNotFound(`${environment.apiUrl}${landingPath}404`);
+            this.setPageNotFound(`${this.apiUrl}${landingPath}404`);
           }
         );
     } else {
       this.http
-        .get<any>(`${environment.apiUrl}/assets/app${this.apiPath}.json`)
+        .get<any>(`${this.apiUrl}/assets/app${this.apiPath}.json`)
         .subscribe(
           (pageValue: IPage) => {
             this.updatePage(pageValue);
           },
           (error) => {
-            this.setPageNotFound(`${environment.apiUrl}/assets/app/404.json`);
+            this.setPageNotFound(`${this.apiUrl}/assets/app/404.json`);
           }
         );
     }
