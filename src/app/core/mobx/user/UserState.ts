@@ -24,21 +24,6 @@ const unauthUser = {
   login: '',
 };
 
-// const unauthUser = {
-//   csrf_token: 'XYnwdoW932Lhdin_jZnN0Ow7PM7VixZTzC7Lb2PAnXk',
-//   current_user: {
-//     uid: '1',
-//     name: 'root',
-//     roles: ['authenticated', 'administrator'],
-//   },
-//   id: '505d9929-18cc-496d-8750-2aa1d2a72c65',
-//   display_name: '超管员',
-//   mail: 'no-reply@xinshi.com',
-//   authenticated: true,
-//   picture: '/sites/amigo.zhaobg.com/files/pictures/2022-04/logo_t.png',
-//   login: '2022-06-20T13:00:29+00:00',
-// };
-
 @Injectable({
   providedIn: 'root',
 })

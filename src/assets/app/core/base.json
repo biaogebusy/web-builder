@@ -233,10 +233,10 @@
       "interval": 10000
     },
     "api": [{
-      "get": "/api/v2/task?lawyer={uid}",
-      "action": "/api/v3/private/read",
+      "get": "/api/v2/unread-message",
+      "action": "/api/v1/flagging/message_unread",
       "title": "您有新的指派任务",
-      "type": "warn",
+      "type": "success",
       "options": {
         "enableHtml": true,
         "tapToDismiss": false,

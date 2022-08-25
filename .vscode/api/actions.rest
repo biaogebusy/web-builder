@@ -81,7 +81,7 @@ X-CSRF-Token: {{csrfToken}}
 
 
 ### 通知
-GET {{apiUrl}}/api/v2/unread-message
+GET {{apiUrl}}/api/v2/unread-message?noCache=11
 
 ### 设置为已读
 DELETE {{apiUrl}}/api/v1/flagging/message_unread/{UUID}
