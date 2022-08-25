@@ -664,9 +664,6 @@
         "label": "违约金",
         "key": "damages"
       }, {
-        "label": "其他本金",
-        "key": "OtherPrincipal"
-      }, {
         "label": "分项合计",
         "key": "total"
       }],
@@ -677,8 +674,16 @@
         "interest": "5000.00元",
         "defaultPeriod": "2022/03/05-2022/05/01",
         "damages": "5089.00元",
-        "OtherPrincipal": "律师费 2000.00元<br>担保费 5000.00元</br>赔偿金 55.00元",
-        "total": "4846.00元"
+        "total": "4846.00元",
+        "expand": [{
+          "type": "text",
+          "spacer": "none",
+          "title": {
+            "label": "其他本金",
+            "style": "style-v4"
+          },
+          "body": "律师费 2000.00元<br>担保费 5000.00元</br>赔偿金 55.00元"
+        }]
       }, {
         "name": "工程款",
         "principal": "12323.00元",
@@ -686,8 +691,16 @@
         "interest": "5000.00元",
         "defaultPeriod": "",
         "damages": "",
-        "OtherPrincipal": "",
-        "total": "4845.00元"
+        "total": "4845.00元",
+        "expand": [{
+          "type": "text",
+          "spacer": "none",
+          "title": {
+            "label": "其他本金",
+            "style": "style-v4"
+          },
+          "body": "律师费 2000.00元<br>担保费 5000.00元</br>赔偿金 55.00元"
+        }]
       }, {
         "name": "劳务费",
         "principal": "12323.00元",
@@ -695,8 +708,16 @@
         "interest": "5000.00元",
         "defaultPeriod": "",
         "damages": "",
-        "OtherPrincipal": "",
-        "total": "4845.00元"
+        "total": "4845.00元",
+        "expand": [{
+          "type": "text",
+          "spacer": "none",
+          "title": {
+            "label": "其他本金",
+            "style": "style-v4"
+          },
+          "body": "律师费 2000.00元<br>担保费 5000.00元</br>赔偿金 55.00元"
+        }]
       }, {
         "name": "合计",
         "principal": "68751.00元",
@@ -704,8 +725,16 @@
         "interest": "9000.00元",
         "defaultPeriod": "",
         "damages": "8455.00元",
-        "OtherPrincipal": "7894.00元",
-        "total": "48456.00元"
+        "total": "48456.00元",
+        "expand": [{
+          "type": "text",
+          "spacer": "none",
+          "title": {
+            "label": "其他本金",
+            "style": "style-v4"
+          },
+          "body": "律师费 2000.00元<br>担保费 5000.00元</br>赔偿金 55.00元"
+        }]
       }]
     }, {
       "type": "table",
@@ -729,12 +758,6 @@
         "label": "利息",
         "key": "interest"
       }, {
-        "label": "违约金",
-        "key": "damages"
-      }, {
-        "label": "逾期罚息",
-        "key": "PenaltyInterest"
-      }, {
         "label": "总合计",
         "key": "total"
       }, {
@@ -747,40 +770,100 @@
         "paymentTwo": "13000.00元",
         "paymentThree": "13520.00元",
         "interest": "5000.00元<br><span class=\"sub\">2022/02/01-2023/01/03</span>",
-        "damages": "5000.00元<br><span class=\"sub\">2022/02/01-2023/01/03</span>",
-        "PenaltyInterest": "5000.00元<br><span class=\"sub\">2022/02/01-2023/01/03</span>",
         "total": "17658.00元",
-        "date": "2022/03/06"
+        "date": "2022/03/06",
+        "expand": [{
+          "type": "text",
+          "spacer": "none",
+          "title": {
+            "label": "违约金",
+            "style": "style-v4"
+          },
+          "body": "5000.00元<br><span class=\"sub\">2022/02/01-2023/01/03</span>"
+        }, {
+          "type": "text",
+          "spacer": "none",
+          "title": {
+            "label": "逾期罚息",
+            "style": "style-v4"
+          },
+          "body": "5000.00元<br><span class=\"sub\">2022/02/01-2023/01/03</span>"
+        }]
       }, {
         "no": "2",
         "paymentOne": "12000.00元",
         "paymentTwo": "13000.00元",
         "paymentThree": "13520.00元",
         "interest": "5000.00元<br><span class=\"sub\">2022/02/01-2023/01/03</span>",
-        "damages": "5000.00元<br><span class=\"sub\">2022/02/01-2023/01/03</span>",
-        "PenaltyInterest": "5000.00元<br><span class=\"sub\">2022/02/01-2023/01/03</span>",
         "total": "17658.00元",
-        "date": "2022/03/06"
+        "date": "2022/03/06",
+        "expand": [{
+          "type": "text",
+          "spacer": "none",
+          "title": {
+            "label": "违约金",
+            "style": "style-v4"
+          },
+          "body": "5000.00元<br><span class=\"sub\">2022/02/01-2023/01/03</span>"
+        }, {
+          "type": "text",
+          "spacer": "none",
+          "title": {
+            "label": "逾期罚息",
+            "style": "style-v4"
+          },
+          "body": "5000.00元<br><span class=\"sub\">2022/02/01-2023/01/03</span>"
+        }]
       }, {
         "no": "3",
         "paymentOne": "12000.00元",
         "paymentTwo": "13000.00元",
         "paymentThree": "13520.00元",
         "interest": "5000.00元<br><span class=\"sub\">2022/02/01-2023/01/03</span>",
-        "damages": "5000.00元<br><span class=\"sub\">2022/02/01-2023/01/03</span>",
-        "PenaltyInterest": "5000.00元<br><span class=\"sub\">2022/02/01-2023/01/03</span>",
         "total": "17658.00元",
-        "date": "2022/03/06"
+        "date": "2022/03/06",
+        "expand": [{
+          "type": "text",
+          "spacer": "none",
+          "title": {
+            "label": "违约金",
+            "style": "style-v4"
+          },
+          "body": "5000.00元<br><span class=\"sub\">2022/02/01-2023/01/03</span>"
+        }, {
+          "type": "text",
+          "spacer": "none",
+          "title": {
+            "label": "逾期罚息",
+            "style": "style-v4"
+          },
+          "body": "5000.00元<br><span class=\"sub\">2022/02/01-2023/01/03</span>"
+        }]
       }, {
         "no": "合计",
         "paymentOne": "32000.00元",
         "paymentTwo": "33000.00元",
         "paymentThree": "33520.00元",
         "interest": "8000.00元<br><span class=\"sub\">2022/02/01-2023/01/03</span>",
-        "damages": "8000.00元<br><span class=\"sub\">2022/02/01-2023/01/03</span>",
-        "PenaltyInterest": "8000.00元<br><span class=\"sub\">2022/02/01-2023/01/03</span>",
         "total": "57658.00元",
-        "date": ""
+        "date": "",
+        "expand": [{
+          "type": "text",
+          "spacer": "none",
+          "title": {
+            "label": "违约金",
+            "style": "style-v4"
+          },
+          "body": "5000.00元<br><span class=\"sub\">2022/02/01-2023/01/03</span>"
+        }, {
+          "type": "text",
+          "spacer": "none",
+          "title": {
+            "label": "逾期罚息",
+            "style": "style-v4"
+          },
+          "body": "5000.00元<br><span class=\"sub\">2022/02/01-2023/01/03</span>"
+        }]
       }]
     }, {
       "type": "text",
