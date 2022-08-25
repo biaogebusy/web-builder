@@ -19,11 +19,15 @@
     word-break: keep-all;
   }
 
-  tr.example-detail-row {
+  tr.detail-row {
     height: 0;
   }
 
-  .example-element-detail {
+  .element-row td {
+    border-bottom-width: 0;
+  }
+
+  .element-detail {
     overflow: hidden;
     display: flex;
   }

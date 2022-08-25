@@ -518,15 +518,6 @@
         "label": "发票时间",
         "key": "deliveryTime"
       }, {
-        "label": "发票图片",
-        "key": "images"
-      }, {
-        "label": "付款凭证",
-        "key": "voucher"
-      }, {
-        "label": "发票快递",
-        "key": "express"
-      }, {
         "label": "备注",
         "key": "remarks"
       }],
@@ -535,7 +526,8 @@
         "money": "3679",
         "billingTime": "2022-03-03",
         "deliveryTime": "2022-03-04",
-        "images": {
+        "remarks": "已收到",
+        "expand": [{
           "type": "inline-lightbox",
           "label": ["受理费第一次", "受理费-补交", "受理费第二次"],
           "elements": [{
@@ -551,8 +543,7 @@
             "caption": "受理费第二次",
             "thumb": "/assets/images/cases/porto3.jpg"
           }]
-        },
-        "voucher": {
+        }, {
           "label": ["发票凭证"],
           "type": "inline-lightbox",
           "elements": [{
@@ -560,8 +551,7 @@
             "caption": "发票凭证",
             "thumb": "/assets/images/cases/porto4.jpg"
           }]
-        },
-        "express": {
+        }, {
           "type": "inline-lightbox",
           "label": ["户籍信息"],
           "elements": [{
@@ -569,14 +559,14 @@
             "caption": "户籍信息",
             "thumb": "/assets/images/cases/porto5.jpg"
           }]
-        },
-        "remarks": "已收到"
+        }]
       }, {
-        "name": "鉴定费",
-        "money": "4879",
+        "name": "受理费",
+        "money": "3679",
         "billingTime": "2022-03-03",
         "deliveryTime": "2022-03-04",
-        "images": {
+        "remarks": "已收到",
+        "expand": [{
           "type": "inline-lightbox",
           "label": ["受理费第一次", "受理费-补交", "受理费第二次"],
           "elements": [{
@@ -592,8 +582,7 @@
             "caption": "受理费第二次",
             "thumb": "/assets/images/cases/porto3.jpg"
           }]
-        },
-        "voucher": {
+        }, {
           "label": ["发票凭证"],
           "type": "inline-lightbox",
           "elements": [{
@@ -601,8 +590,7 @@
             "caption": "发票凭证",
             "thumb": "/assets/images/cases/porto4.jpg"
           }]
-        },
-        "express": {
+        }, {
           "type": "inline-lightbox",
           "label": ["户籍信息"],
           "elements": [{
@@ -610,14 +598,14 @@
             "caption": "户籍信息",
             "thumb": "/assets/images/cases/porto5.jpg"
           }]
-        },
-        "remarks": "已收到"
+        }]
       }, {
-        "name": "保全费",
-        "money": "123423",
+        "name": "受理费",
+        "money": "3679",
         "billingTime": "2022-03-03",
         "deliveryTime": "2022-03-04",
-        "images": {
+        "remarks": "已收到",
+        "expand": [{
           "type": "inline-lightbox",
           "label": ["受理费第一次", "受理费-补交", "受理费第二次"],
           "elements": [{
@@ -633,8 +621,7 @@
             "caption": "受理费第二次",
             "thumb": "/assets/images/cases/porto3.jpg"
           }]
-        },
-        "voucher": {
+        }, {
           "label": ["发票凭证"],
           "type": "inline-lightbox",
           "elements": [{
@@ -642,8 +629,7 @@
             "caption": "发票凭证",
             "thumb": "/assets/images/cases/porto4.jpg"
           }]
-        },
-        "express": {
+        }, {
           "type": "inline-lightbox",
           "label": ["户籍信息"],
           "elements": [{
@@ -651,8 +637,7 @@
             "caption": "户籍信息",
             "thumb": "/assets/images/cases/porto5.jpg"
           }]
-        },
-        "remarks": "未收到"
+        }]
       }]
     }, {
       "type": "table",

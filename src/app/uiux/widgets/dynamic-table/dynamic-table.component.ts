@@ -41,13 +41,17 @@ export class DynamicTableComponent implements OnInit {
   displayedColumns: string[];
   columnsToDisplayWithExpand: string[];
   expandedElement: null;
+  isExpand: boolean;
 
   constructor(private dialog: MatDialog, private routService: RouteService) {}
 
   ngOnInit(): void {
     if (this.content.elements) {
+      this.isExpand = this.content.elements.some((item) => item.expand);
       this.displayedColumns = this.content.header.map((item: any) => item.key);
-      this.columnsToDisplayWithExpand = [...this.displayedColumns, 'expand'];
+      if (this.isExpand) {
+        this.columnsToDisplayWithExpand = [...this.displayedColumns, 'expand'];
+      }
     }
   }
 
