@@ -11,8 +11,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { WidgetsModule } from '../../../app/uiux/widgets/widgets.module';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { ShareModule } from '../../../app/share/share.module';
-import { Showcase3v7Component } from '@uiux/combs/showcase/showcase3v7/showcase3v7.component';
 import { Showcase3v8Component } from '@uiux/combs/showcase/showcase3v8/showcase3v8.component';
+import { API_URL, apiUrlFactory } from '@core/token/token-providers';
 export default {
   title: 'Components/showcase/3v8',
   component: Showcase3v8Component,
@@ -31,6 +31,11 @@ export default {
         {
           provide: CORE_CONFIG,
           useValue: {},
+        },
+        {
+          provide: API_URL,
+          useFactory: apiUrlFactory,
+          deps: [],
         },
       ],
     }),

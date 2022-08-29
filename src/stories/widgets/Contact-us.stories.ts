@@ -13,6 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { CORE_CONFIG } from '../../app/core/token/core.config';
 import { NgxWebstorageModule } from 'ngx-webstorage';
+import { API_URL, apiUrlFactory } from '@core/token/token-providers';
 export default {
   title: 'Widgets/Contact Us',
   component: ContactUsComponent,
@@ -32,6 +33,11 @@ export default {
         {
           provide: CORE_CONFIG,
           userValue: {},
+        },
+        {
+          provide: API_URL,
+          useFactory: apiUrlFactory,
+          deps: [],
         },
       ],
     }),

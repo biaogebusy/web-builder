@@ -9,6 +9,7 @@ import { NgxWebstorageModule } from 'ngx-webstorage';
 import { ShareModule } from '../../../app/share/share.module';
 import { AmapService } from '../../../app/core/service/amap.service';
 import { ContactUsComponent } from '../../../app/uiux/widgets/contact-us/contact-us.component';
+import { apiUrlFactory, API_URL } from '@core/token/token-providers';
 
 export default {
   title: 'Components/other/contact',
@@ -29,6 +30,11 @@ export default {
         {
           provide: CORE_CONFIG,
           useValue: {},
+        },
+        {
+          provide: API_URL,
+          useFactory: apiUrlFactory,
+          deps: [],
         },
       ],
     }),

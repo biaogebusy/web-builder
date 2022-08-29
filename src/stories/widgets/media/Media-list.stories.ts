@@ -13,6 +13,7 @@ import { MediaListComponent } from '../../../app/uiux/widgets/media/media-list/m
 import { WidgetsModule } from '../../../app/uiux/widgets/widgets.module';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxWebstorageModule } from 'ngx-webstorage';
+import { API_URL, apiUrlFactory } from '@core/token/token-providers';
 
 export default {
   title: 'Widgets/Media/MediaList',
@@ -33,6 +34,11 @@ export default {
         {
           provide: CORE_CONFIG,
           useValue: {},
+        },
+        {
+          provide: API_URL,
+          useFactory: apiUrlFactory,
+          deps: [],
         },
       ],
     }),

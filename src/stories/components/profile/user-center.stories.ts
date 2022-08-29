@@ -11,6 +11,7 @@ import { UserCenterComponent } from '@uiux/combs/profile/user-center/user-center
 import { Profile1v1Component } from '@uiux/combs/profile/profile1v1/profile1v1.component';
 import { DynamicCombsModule } from '@uiux/combs/dynamic-combs/dynamic-combs.module';
 import { UserProfileComponent } from '@uiux/combs/profile/user-center/user-profile/user-profile.component';
+import { apiUrlFactory, API_URL } from '@core/token/token-providers';
 export default {
   title: 'Components/profile/userCenter',
   component: UserCenterComponent,
@@ -30,6 +31,11 @@ export default {
         {
           provide: CORE_CONFIG,
           useValue: {},
+        },
+        {
+          provide: API_URL,
+          useFactory: apiUrlFactory,
+          deps: [],
         },
       ],
     }),

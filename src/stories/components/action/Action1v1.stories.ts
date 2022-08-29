@@ -11,6 +11,8 @@ import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
 import { CORE_CONFIG } from '@core/token/core.config';
 import { CombsModule } from '../../../app/uiux/combs/combs.module';
 import { HttpClientModule } from '@angular/common/http';
+import { apiUrlFactory, API_URL } from '@core/token/token-providers';
+import { NgxWebstorageModule } from 'ngx-webstorage';
 export default {
   title: 'Components/Action/Action 1v1',
   component: Action1v1Component,
@@ -22,12 +24,18 @@ export default {
         BrowserAnimationsModule,
         HttpClientModule,
         CombsModule,
+        NgxWebstorageModule.forRoot(),
       ],
       providers: [
         SafeHtmlPipe,
         {
           provide: CORE_CONFIG,
           useValue: {},
+        },
+        {
+          provide: API_URL,
+          useFactory: apiUrlFactory,
+          deps: [],
         },
       ],
     }),

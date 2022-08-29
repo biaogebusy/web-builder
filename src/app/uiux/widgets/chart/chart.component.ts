@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { IChart } from '@core/interface/widgets/IChart';
+import type { IChart } from '@core/interface/widgets/IChart';
 import { UtilitiesService } from '@core/service/utilities.service';
 
 @Component({

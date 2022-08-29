@@ -9,6 +9,7 @@ import { MenuListComponent } from '../../app/uiux/widgets/menu-list/menu-list.co
 import { WidgetsModule } from '../../app/uiux/widgets/widgets.module';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxWebstorageModule } from 'ngx-webstorage';
+import { API_URL, apiUrlFactory } from '@core/token/token-providers';
 
 export default {
   title: 'Widgets/Menu list',
@@ -29,6 +30,11 @@ export default {
         {
           provide: CORE_CONFIG,
           useValue: {},
+        },
+        {
+          provide: API_URL,
+          useFactory: apiUrlFactory,
+          deps: [],
         },
       ],
     }),

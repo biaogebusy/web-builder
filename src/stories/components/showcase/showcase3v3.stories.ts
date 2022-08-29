@@ -13,6 +13,7 @@ import { NgxWebstorageModule } from 'ngx-webstorage';
 import { ShareModule } from '../../../app/share/share.module';
 import { Showcase3v2Component } from '@uiux/combs/showcase/showcase3v2/showcase3v2.component';
 import { Showcase3v3Component } from '@uiux/combs/showcase/showcase3v3/showcase3v3.component';
+import { API_URL, apiUrlFactory } from '@core/token/token-providers';
 export default {
   title: 'Components/showcase/3v3',
   component: Showcase3v3Component,
@@ -31,6 +32,11 @@ export default {
         {
           provide: CORE_CONFIG,
           useValue: {},
+        },
+        {
+          provide: API_URL,
+          useFactory: apiUrlFactory,
+          deps: [],
         },
       ],
     }),

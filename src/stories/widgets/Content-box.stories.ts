@@ -10,6 +10,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { CORE_CONFIG } from '../../app/core/token/core.config';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxWebstorageModule } from 'ngx-webstorage';
+import { API_URL, apiUrlFactory } from '@core/token/token-providers';
 export default {
   title: 'Widgets/Content Box',
   component: ContentBoxComponent,
@@ -26,6 +27,11 @@ export default {
         {
           provide: CORE_CONFIG,
           userValue: {},
+        },
+        {
+          provide: API_URL,
+          useFactory: apiUrlFactory,
+          deps: [],
         },
       ],
     }),

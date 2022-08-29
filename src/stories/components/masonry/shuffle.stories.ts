@@ -10,6 +10,7 @@ import { ShareModule } from '../../../app/share/share.module';
 import { SwiperModule } from 'ngx-swiper-wrapper';
 import { AmapService } from '../../../app/core/service/amap.service';
 import { ShuffleComponent } from '../../../app/uiux/combs/masonry/shuffle/shuffle.component';
+import { apiUrlFactory, API_URL } from '@core/token/token-providers';
 export default {
   title: 'Components/masonry/shuffle',
   component: ShuffleComponent,
@@ -30,6 +31,11 @@ export default {
         {
           provide: CORE_CONFIG,
           useValue: {},
+        },
+        {
+          provide: API_URL,
+          useFactory: apiUrlFactory,
+          deps: [],
         },
       ],
     }),
