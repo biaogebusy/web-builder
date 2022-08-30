@@ -1,5 +1,5 @@
 {
-  "title": "与开发人员对接网站开发时间",
+  "title": "任务指派",
   "config": {
     "node": {
       "uuid": "cb31d69f-a95e-4c91-97d1-1169f82a10a5"
@@ -7,7 +7,7 @@
   },
   "body": [{
     "type": "law-case",
-    "title": "Angular SSR 服务端渲染技术",
+    "title": "任务指派",
     "date": [{
       "label": "更新",
       "value": "张三 周五 09:50 2022/03/31"
@@ -53,6 +53,25 @@
       "value": "aff056e8-4638-4901-b866-8cc6ea7a05c9"
     }],
     "block": [{
+      "type": "stepper",
+      "params": {
+        "mode": "horizontal",
+        "labelPosition": "bottom",
+        "linear": true
+      },
+      "steps": [{
+        "label": "指派中"
+      }, {
+        "label": "接受",
+        "completed": true
+      }, {
+        "label": "停止"
+      }, {
+        "label": "转移"
+      }, {
+        "label": "已完成"
+      }]
+    }, {
       "type": "showcase",
       "elements": [{
         "header": [{

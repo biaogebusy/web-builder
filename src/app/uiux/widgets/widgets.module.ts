@@ -15,6 +15,7 @@ import { TreeModule } from '@circlon/angular-tree-component';
 import { CdkTableModule } from '@angular/cdk/table';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+
 import { BgComponent } from './bg/bg.component';
 import { ImgComponent } from './img/img.component';
 import { BoxComponent } from './box/box.component';
@@ -93,6 +94,7 @@ import { DateRangeComponent } from './form/formly-type/date-range/date-range.com
 import { MatSelectComponent } from './form/formly-type/mat-select/mat-select.component';
 import { ChartComponent } from './chart/chart.component';
 import { NgChartsModule } from 'ng2-charts';
+import { StepperComponent } from './stepper/stepper.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -180,6 +182,7 @@ const components = [
   DateRangeComponent,
   MatSelectComponent,
   ChartComponent,
+  StepperComponent,
 ];
 
 @NgModule({
