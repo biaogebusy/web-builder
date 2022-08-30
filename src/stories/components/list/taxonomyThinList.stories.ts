@@ -11,7 +11,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { WidgetsModule } from '../../../app/uiux/widgets/widgets.module';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { ShareModule } from '../../../app/share/share.module';
-import { TaxonomyListComponent } from '@uiux/combs/list/taxonomy-list/taxonomy-list.component';
 import { ListModule } from '@uiux/combs/list/list.module';
 import { TaxonomyThinListComponent } from '@uiux/combs/list/taxonomy-thin-list/taxonomy-thin-list.component';
 import { apiUrlFactory, API_URL } from '@core/token/token-providers';
