@@ -159,9 +159,6 @@
         "label": "案件文件",
         "style": "style-v4"
       },
-      "icon": {
-        "name": "case"
-      },
       "elements": [{
         "label": "律师文件",
         "elements": [{

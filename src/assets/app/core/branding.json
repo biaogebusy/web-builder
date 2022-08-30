@@ -179,6 +179,9 @@
             "label": "Law Project",
             "href": "/sample/node/law-project"
           }, {
+            "label": "Law Tab",
+            "href": "/sample/node/law-tab"
+          }, {
             "label": "article",
             "href": "/sample/node/article"
           }, {

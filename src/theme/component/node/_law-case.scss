@@ -49,5 +49,12 @@
     .comment-wrapper {
       background-color: mat-color($background, card);
     }
+
+    .law-tab {
+      .mat-tab-label-active {
+        color: mat-color($primary);
+        border-bottom: 1px solid mat-color($primary);
+      }
+    }
   }
 }
