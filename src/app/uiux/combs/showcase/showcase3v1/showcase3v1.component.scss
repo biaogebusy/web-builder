@@ -12,4 +12,9 @@
       max-width: 800px;
     }
   }
+  &.hasBg {
+    ::ng-deep .bg-fill-width {
+      background-color: transparent !important;
+    }
+  }
 }
