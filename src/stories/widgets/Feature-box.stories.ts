@@ -3,7 +3,11 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { SafeHtmlPipe } from '../../app/core/pipe/safe-html.pipe';
 import { CORE_CONFIG } from '../../app/core/token/core.config';
 import { ShareModule } from '../../app/share/share.module';
-import { moduleMetadata, Meta } from '@storybook/angular';
+import {
+  moduleMetadata,
+  Meta,
+  componentWrapperDecorator,
+} from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { FeatureBoxComponent } from '../../app/uiux/widgets/feature-box/feature-box.component';
 import { WidgetsModule } from '../../app/uiux/widgets/widgets.module';
@@ -27,6 +31,9 @@ export default {
         },
       ],
     }),
+    componentWrapperDecorator(
+      (story) => `<div style="width:33%">${story}</div>`
+    ),
   ],
 } as Meta;
 
@@ -59,6 +66,22 @@ HoverIcon.args = {
     hoverIcon: true,
     fullIcon: 'fullscreen',
     ratios: 'media-4-3',
+    img: {
+      classes: 'object-fit',
+      src: '/assets/images/cases/porto1.jpg',
+      alt: 'lazyload',
+    },
+  },
+};
+
+export const Float = Template.bind({});
+
+Float.args = {
+  content: {
+    mode: 'float',
+    hoverIcon: true,
+    fullIcon: 'fullscreen',
+    ratios: 'media-16-9',
     img: {
       classes: 'object-fit',
       src: '/assets/images/cases/porto1.jpg',

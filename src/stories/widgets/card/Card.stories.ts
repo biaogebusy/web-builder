@@ -10,12 +10,15 @@ import { WidgetsModule } from '../../../app/uiux/widgets/widgets.module';
 import { CORE_CONFIG } from '../../../app/core/token/core.config';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
+import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
+import { TextComponent } from '@uiux/widgets/text/text.component';
 export default {
   title: 'Widgets/Card',
   component: CardComponent,
   decorators: [
     moduleMetadata({
       declarations: [],
+      entryComponents: [DialogComponent, TextComponent],
       imports: [
         ShareModule,
         WidgetsModule,

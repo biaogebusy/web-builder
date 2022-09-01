@@ -225,7 +225,7 @@
     "authGuard": false
   },
   "access": {
-    "check": true
+    "check": false
   },
   "notify": {
     "enable": false,

@@ -1,11 +1,11 @@
-<div class="dynamic-table width-100" [ngClass]="content.classes || 'nowrap'" [ngStyle]="content?.params?.style||null">
-  <table mat-table [dataSource]="content.elements | dataSource" multiTemplateDataRows class="width-100"
+<div class="dynamic-table width-100" [ngClass]="content?.classes || 'nowrap'" [ngStyle]="content?.params?.style||null">
+  <table mat-table [dataSource]="content.elements | dataSource" multiTemplateDataRows [ngClass]="'width-100'"
     aria-describedby="dynamic table">
     <ng-container [matColumnDef]="item.key" *ngFor="let item of content.header">
-      <th mat-header-cell *cdkHeaderCellDef class="{{item.classes}}" [ngStyle]="item.style || {}">
+      <th mat-header-cell *cdkHeaderCellDef [ngClass]="item.classes||''" [ngStyle]="item.style || {}">
         <span class="p-x-xs" [innerHTML]="item.label"></span>
       </th>
-      <td mat-cell *cdkCellDef="let element" class="{{item.classes}}" [ngStyle]="item.style || {}">
+      <td mat-cell *cdkCellDef="let element" [ngClass]="item.classes||''" [ngStyle]="item.style || {}">
         <ng-container *ngIf="element[item.key] | isArray;else object">
           <app-dynamic-widgets *ngFor="let item of element[item.key]" class="cell" [content]="item" [form]="form">
           </app-dynamic-widgets>
@@ -66,11 +66,11 @@
     <tr mat-header-row *matHeaderRowDef="isExpand?columnsToDisplayWithExpand:displayedColumns; sticky:
       content?.params?.sticky?true:false"></tr>
     <tr mat-row *matRowDef="let element; columns: isExpand?columnsToDisplayWithExpand:displayedColumns;"
-      [class]="isExpand?'element-row':''" [class.example-expanded-row]="expandedElement === element"></tr>
+      [ngClass]="isExpand?'element-row':''" [class.example-expanded-row]="expandedElement === element"></tr>
 
     <!-- expand row -->
     <ng-container *ngIf="isExpand">
-      <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" [ngClass]="'detail-row'"></tr>
     </ng-container>
 
   </table>

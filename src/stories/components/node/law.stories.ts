@@ -14,12 +14,15 @@ import { ShareModule } from '../../../app/share/share.module';
 import { NodeModule } from '@uiux/combs/node/node.module';
 import { LawCaseComponent } from '@uiux/combs/node/law/law-case/law-case.component';
 import { apiUrlFactory, API_URL } from '@core/token/token-providers';
+import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
+import { TextComponent } from '@uiux/widgets/text/text.component';
 export default {
   title: 'Components/node/case',
   component: LawCaseComponent,
   decorators: [
     moduleMetadata({
       declarations: [],
+      entryComponents: [DialogComponent, TextComponent],
       imports: [
         RouterTestingModule,
         BrowserAnimationsModule,

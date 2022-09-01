@@ -1,10 +1,6 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import {
-  moduleMetadata,
-  Meta,
-  componentWrapperDecorator,
-} from '@storybook/angular';
+import { moduleMetadata, Meta } from '@storybook/angular';
 import { Action1v1Component } from '../../../app/uiux/combs/action/action1v1/action1v1.component';
 import { Story } from '@storybook/angular/types-6-0';
 import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
