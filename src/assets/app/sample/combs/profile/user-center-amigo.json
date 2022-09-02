@@ -181,6 +181,38 @@
           },
           "elements": [{
               "img": {
+                "src": "/sites/amigo.zhaobg.com/files/styles/crop/public/2022-05/project.png",
+                "style": {
+                  "width": "45px",
+                  "height": "45px"
+                },
+                "alt": "logo"
+              },
+              "css3": true,
+              "link": {
+                "label": "填写订单",
+                "classes": "bold",
+                "dialog": {
+                  "params": {
+                    "width": "1200px",
+                    "disableClose": true
+                  },
+                  "afterClosed": {
+                    "success": {
+                      "label": "请检查是否发布成功！"
+                    },
+                    "emit": true
+                  },
+                  "data": [{
+                    "type": "iframe",
+                    "url": "/sample/combs/other/autoclose",
+                    "height": "1000"
+                  }]
+                }
+              },
+              "subTitle": "发布工作需求给律师"
+            }, {
+              "img": {
                 "src": "/sites/amigo.zhaobg.com/files/styles/crop/public/2022-05/case.png?itok=yU2LM_vy",
                 "style": {
                   "width": "45px",

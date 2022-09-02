@@ -57,6 +57,8 @@
     "crypto-js": "^4.1.1",
     "hammerjs": "^2.0.8",
     "highlight.js": "^10.7.2",
+    "jspdf": "^2.5.1",
+    "jspdf-autotable": "^3.5.25",
     "lodash-es": "^4.17.20",
     "material-design-icons": "^3.0.1",
     "mobx": "6.2.0",
