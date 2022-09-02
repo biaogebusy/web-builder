@@ -32,7 +32,6 @@ export class NotifyService {
         this.getWatchList(time)
           .pipe(
             catchError((error: any) => {
-              console.log(error);
               return of(null);
             })
           )
@@ -41,7 +40,6 @@ export class NotifyService {
               Object.keys(res).forEach((index: any) => {
                 if (res[index].rows.length) {
                   const lists = res[index].rows;
-                  console.log(res[index].rows);
                   lists.forEach((item: any) => {
                     const config = apis[index];
                     const toastr = this.toastr.show(
