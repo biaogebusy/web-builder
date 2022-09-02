@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
-import '../../../../../../assets/fonts/STSong-normal.js';
+import '../../../../../../assets/fonts/STHeiti-normal.js';
 @Component({
   selector: 'app-law-header',
   templateUrl: './law-header.component.html',
@@ -15,18 +15,19 @@ export class LawHeaderComponent implements OnInit {
 
   onSavePdf(): void {
     const doc = new jsPDF();
-    doc.setFont('STSong');
+    doc.setFont('STHeiti');
     doc.setFontSize(18);
     doc.text('单项项目法律合规审查意见', 70, 15);
     doc.setFontSize(10);
-    doc.text('审查流水号：国药分 20220810002', 145, 25);
+    doc.text('审查流水号：国药分 20220810002', 140, 25);
     autoTable(doc, {
       startY: 30,
       styles: {
         fillColor: [255, 255, 255],
-        font: 'STSong',
+        font: 'STHeiti',
         fontStyle: 'normal',
         textColor: [0, 0, 0],
+        lineColor: 5,
       },
       theme: 'grid',
       body: [
@@ -154,7 +155,7 @@ export class LawHeaderComponent implements OnInit {
               fontStyle: 'bold',
             },
           },
-          '杜长明',
+          'Johnson',
           {
             content: '出具日期',
             styles: {
@@ -165,7 +166,7 @@ export class LawHeaderComponent implements OnInit {
         ],
       ],
     });
-    doc.output('dataurlnewwindow');
+    doc.output('dataurlnewwindow', { filename: 'sample.pdf' });
     // doc.save('sample.pdf');
   }
 }
