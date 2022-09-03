@@ -15,11 +15,15 @@ export class LawHeaderComponent implements OnInit {
 
   onSavePdf(): void {
     const doc = new jsPDF();
+    const pdf = this.content.pdf;
+    if (!pdf) {
+      return;
+    }
     doc.setFont('STHeiti');
     doc.setFontSize(18);
-    doc.text('单项项目法律合规审查意见', 70, 15);
+    doc.text(pdf.title, 70, 15);
     doc.setFontSize(10);
-    doc.text('审查流水号：国药分 20220810002', 140, 25);
+    doc.text(pdf.subTitle, 140, 25);
     autoTable(doc, {
       startY: 30,
       styles: {
@@ -30,141 +34,20 @@ export class LawHeaderComponent implements OnInit {
         lineColor: 5,
       },
       theme: 'grid',
-      body: [
-        [
-          {
-            content: '项目名称',
-            styles: {
-              fontStyle: 'bold',
-            },
-          },
-          {
-            content: '购买药典',
-            colSpan: 3,
-          },
-        ],
-        [
-          {
-            content: '文件名称',
-            styles: {
-              fontStyle: 'bold',
-            },
-          },
-          {
-            content: '',
-            colSpan: 3,
-          },
-        ],
-        [
-          {
-            content: '合同甲方',
-            styles: {
-              fontStyle: 'bold',
-            },
-          },
-
-          '国家药审长三角中心',
-          {
-            content: '合同乙方',
-            styles: {
-              fontStyle: 'bold',
-            },
-          },
-
-          '北京优势有限公司',
-        ],
-        [
-          {
-            content: '业务类型',
-            styles: {
-              fontStyle: 'bold',
-            },
-          },
-
-          '',
-          {
-            content: '业务时间',
-            styles: {
-              fontStyle: 'bold',
-            },
-          },
-          '',
-        ],
-        [
-          {
-            content: '主办律师',
-            styles: {
-              fontStyle: 'bold',
-            },
-          },
-          '',
-          {
-            content: '完工时间',
-            styles: {
-              fontStyle: 'bold',
-            },
-          },
-          '',
-        ],
-        [
-          {
-            content: '经办人员',
-            styles: {
-              fontStyle: 'bold',
-            },
-          },
-          {
-            content: '',
-            colSpan: 3,
-          },
-        ],
-        [
-          {
-            content: '合同修改详情：\n\n见本意见附件',
-            colSpan: 4,
-            styles: {
-              fontStyle: 'bold',
-              minCellHeight: 40,
-            },
-          },
-        ],
-        [
-          {
-            content: '审查意见/法律咨询',
-            colSpan: 4,
-            styles: {
-              fontStyle: 'bold',
-              minCellHeight: 40,
-            },
-          },
-        ],
-        [
-          {
-            content: '审查结论',
-            colSpan: 4,
-            styles: {
-              fontStyle: 'bold',
-              minCellHeight: 50,
-            },
-          },
-        ],
-        [
-          {
-            content: '律师签字',
-            styles: {
-              fontStyle: 'bold',
-            },
-          },
-          'Johnson',
-          {
-            content: '出具日期',
-            styles: {
-              fontStyle: 'bold',
-            },
-          },
-          '2022年7月28日',
-        ],
-      ],
+      didDrawCell: (data) => {
+        // 签名图片
+        if (
+          data.row.index === pdf.sign.row &&
+          data.column.index === pdf.sign.column &&
+          data.cell.section === 'body'
+        ) {
+          console.log(data);
+          const dim = data.cell.height - data.cell.padding('vertical');
+          const textPos = data.cell.getTextPos();
+          doc.addImage(pdf.sign.data, textPos.x, textPos.y, dim, dim);
+        }
+      },
+      body: pdf.table.body,
     });
     doc.output('dataurlnewwindow', { filename: 'sample.pdf' });
     // doc.save('sample.pdf');
