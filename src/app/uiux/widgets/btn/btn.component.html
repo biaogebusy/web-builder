@@ -3,26 +3,26 @@
     <ng-container *ngSwitchCase="'raised'">
       <button [ngClass]="content.classes" mat-raised-button *ngIf="!content.href;else link" [color]="content.color">
         <app-icon *ngIf="content.icon" [content]="content.icon"></app-icon>
-        <span [innerHTML]="content.label"></span>
+        <span [innerHTML]="content.label|safeHtml"></span>
       </button>
       <ng-template #link>
         <a [class]="content.classes" mat-raised-button [href]="content.href" [target]="content?.target || ''"
           [color]="content?.color">
           <app-icon *ngIf="content.icon" [content]="content.icon"></app-icon>
-          <span [innerHTML]="content.label"></span>
+          <span [innerHTML]="content.label|safeHtml"></span>
         </a>
       </ng-template>
     </ng-container>
     <ng-container *ngSwitchCase="'stroked'">
       <button [ngClass]="content.classes" mat-stroked-button *ngIf="!content.href;else link" [color]="content.color">
         <app-icon *ngIf="content.icon" [content]="content.icon"></app-icon>
-        <span [innerHTML]="content.label"></span>
+        <span [innerHTML]="content.label|safeHtml"></span>
       </button>
       <ng-template #link>
         <a [ngClass]="content.classes" mat-stroked-button [href]="content.href" [target]="content?.target || ''"
-          [innerHTML]="content.label" [color]="content?.color">
+          [innerHTML]="content.label|safeHtml" [color]="content?.color">
           <app-icon *ngIf="content.icon" [content]="content.icon"></app-icon>
-          <span [innerHTML]="content.label"></span>
+          <span [innerHTML]="content.label|safeHtml"></span>
         </a>
       </ng-template>
     </ng-container>
@@ -31,7 +31,7 @@
         [color]="content.color">{{content.label}}</button>
       <ng-template #link>
         <a [ngClass]="content.classes" mat-flat-button [href]="content.href" [target]="content?.target || ''"
-          [innerHTML]="content.label" [color]="content?.color"></a>
+          [innerHTML]="content.label|safeHtml" [color]="content?.color"></a>
       </ng-template>
     </ng-container>
     <ng-container *ngSwitchCase="'icon'">
@@ -52,13 +52,13 @@
     <ng-container *ngSwitchDefault>
       <button [ngClass]="content.classes" mat-button *ngIf="!content.href;else link" [color]="content.color">
         <app-icon *ngIf="content.icon" [content]="content.icon"></app-icon>
-        <span [innerHTML]="content.label"></span>
+        <span [innerHTML]="content.label|safeHtml"></span>
       </button>
       <ng-template #link>
         <a [ngClass]="content.classes" mat-button [href]="content.href" [target]="content?.target || ''"
           [color]="content?.color">
           <app-icon *ngIf="content.icon" [content]="content.icon"></app-icon>
-          <span [innerHTML]="content.label"></span>
+          <span [innerHTML]="content.label|safeHtml"></span>
         </a>
       </ng-template>
     </ng-container>

@@ -1,10 +1,17 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 
 @Component({
   selector: 'app-hero1v2',
   templateUrl: './hero1v2.component.html',
   styleUrls: ['./hero1v2.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Hero1v2Component implements OnInit {
   @Input() content: any;
@@ -21,7 +28,7 @@ export class Hero1v2Component implements OnInit {
     slidesPerView: 1,
     autoplay: true,
   };
-  constructor() {}
+  constructor(private cd: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.setConfig();
@@ -32,5 +39,6 @@ export class Hero1v2Component implements OnInit {
       this.defaultConfig,
       this.content.sliders.params
     );
+    this.cd.detectChanges();
   }
 }

@@ -4,6 +4,8 @@ import {
   OnInit,
   ViewChild,
   AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatSelect } from '@angular/material/select';
@@ -19,6 +21,7 @@ import { catchError, shareReplay, take } from 'rxjs/operators';
   selector: 'app-select',
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectComponent implements OnInit, AfterViewInit {
   @Input() content: IControl;
@@ -32,7 +35,10 @@ export class SelectComponent implements OnInit, AfterViewInit {
     label: string;
     value: string;
   }[];
-  constructor(private nodeService: NodeService) {}
+  constructor(
+    private nodeService: NodeService,
+    private cd: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     if (this.content.api) {
@@ -40,7 +46,7 @@ export class SelectComponent implements OnInit, AfterViewInit {
     } else {
       this.options = this.content.options || [];
     }
-
+    this.cd.detectChanges();
     // listen for search field value changes
     this.searchCtrl.valueChanges.subscribe(() => {
       this.filterMulti();
@@ -66,6 +72,7 @@ export class SelectComponent implements OnInit, AfterViewInit {
         this.options = res.rows;
         // load the initial options
         this.filteredOptions.next(this.options.slice());
+        this.cd.detectChanges();
       });
   }
 

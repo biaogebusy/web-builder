@@ -6,8 +6,8 @@
     <div mat-card-avatar *ngIf="content.header?.avatar">
       <app-img [content]="content.header?.avatar || {src:''}"></app-img>
     </div>
-    <mat-card-title *ngIf="content.header?.title" [innerHTML]="content.header?.title || ''"></mat-card-title>
-    <mat-card-subtitle *ngIf="content.header?.subTitle" [innerHTML]="content.header?.subTitle || ''">
+    <mat-card-title *ngIf="content.header?.title" [innerHTML]="content.header?.title || ''|safeHtml"></mat-card-title>
+    <mat-card-subtitle *ngIf="content.header?.subTitle" [innerHTML]="content.header?.subTitle || ''|safeHtml">
     </mat-card-subtitle>
   </mat-card-header>
   <div class="card-header">

@@ -18,13 +18,13 @@
           <app-link [content]="item.link"></app-link>
         </h2>
         <div class="content" *ngIf="item.body"
-          [innerHTML]="item.body | stripTags:'strong':'a':'em' | shorten: 150: '...' "></div>
+          [innerHTML]="item.body | stripTags:'strong':'a':'em' | shorten: 150: '...'|safeHtml "></div>
         <div class="bottom m-y-sm" fxLayoutAlign="space-between center">
           <div fxLayoutGap="1rem" fxLayout fxLayoutAlign="start center">
             <div>{{item.user | ucfirst}}</div>
             <div>{{item?.type}}</div>
-            <div [innerHTML]="item?.category"></div>
-            <div [innerHTML]="item?.tags"></div>
+            <div [innerHTML]="item?.category|safeHtml"></div>
+            <div [innerHTML]="item?.tags|safeHtml"></div>
             <div class="actions">
               <app-dynamic-widgets [content]="action" *ngFor="let action of item.actions"></app-dynamic-widgets>
             </div>

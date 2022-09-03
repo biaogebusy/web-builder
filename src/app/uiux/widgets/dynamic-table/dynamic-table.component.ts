@@ -3,6 +3,7 @@ import {
   Input,
   OnInit,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -43,7 +44,11 @@ export class DynamicTableComponent implements OnInit {
   expandedElement: null;
   isExpand: boolean;
 
-  constructor(private dialog: MatDialog, private routService: RouteService) {}
+  constructor(
+    private dialog: MatDialog,
+    private routService: RouteService,
+    private cd: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     if (this.content.elements) {
@@ -52,6 +57,7 @@ export class DynamicTableComponent implements OnInit {
       if (this.isExpand) {
         this.columnsToDisplayWithExpand = [...this.displayedColumns, 'expand'];
       }
+      this.cd.detectChanges();
     }
   }
 

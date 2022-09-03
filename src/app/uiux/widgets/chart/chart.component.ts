@@ -1,4 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import type { IChart } from '@core/interface/widgets/IChart';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -7,6 +13,7 @@ import { UtilitiesService } from '@core/service/utilities.service';
   selector: 'app-chart',
   templateUrl: './chart.component.html',
   styleUrls: ['./chart.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChartComponent implements OnInit {
   @Input() content: IChart;
@@ -14,11 +21,12 @@ export class ChartComponent implements OnInit {
   model: any;
   data: any;
 
-  constructor(private util: UtilitiesService) {}
+  constructor(private util: UtilitiesService, private cd: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     if (this.content.data) {
       this.data = this.content.data;
+      this.cd.detectChanges();
     }
   }
 
@@ -49,6 +57,7 @@ export class ChartComponent implements OnInit {
         labels,
         datasets,
       };
+      this.cd.detectChanges();
     }
   }
 }

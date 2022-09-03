@@ -8,9 +8,9 @@
       <div class="item p-x-xs m-bottom-sm" fxFlex.xs="100" fxFlex.gt-xs="0 0 calc(100% / {{content.row}} - 2rem)"
         *ngFor="let item of content.elements" fxLayoutAlign="space-between center">
         <div fxLayout="column">
-          <h2 class="bold" [innerHTML]="item.title"></h2>
+          <h2 class="bold" [innerHTML]="item.title|safeHtml"></h2>
           <p [innerHTML]="item.subTitle|safeHtml"></p>
-          <a mat-raised-button color="{{item.link.color}}" href="{{item.link.href}}"
+          <a mat-raised-button color="{{item.link.color}}" [href]="item.link.href"
             target="_blank">{{item.link.label}}</a>
         </div>
         <app-img class="p-left" [content]="item.img"></app-img>

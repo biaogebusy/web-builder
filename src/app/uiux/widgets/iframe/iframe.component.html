@@ -1,2 +1,2 @@
-<iframe width="100%" height="{{content.height || 500}}" [src]="url | safe" [title]="content?.title" [id]="content?.id"
-  frameborder="0"></iframe>
+<iframe width="100%" height="{{content.height || 500}}" [src]="url | safeUrl" [title]="content?.title"
+  [id]="content?.id" frameborder="0"></iframe>

@@ -2,8 +2,8 @@
   <mat-tab *ngFor="let item of content.elements" label="{{item.label}}">
     <div class="p-y-sm p-x-sm">
       <ng-container [ngSwitch]="item.type">
-        <law-showcase *ngSwitchCase="'showcase'" [content]="item" [form]="form">
-        </law-showcase>
+        <app-law-showcase *ngSwitchCase="'showcase'" [content]="item" [form]="form">
+        </app-law-showcase>
         <app-law-files *ngSwitchCase="'files'" [content]="item"></app-law-files>
         <app-law-table *ngSwitchCase="'table'" [content]="item">
         </app-law-table>

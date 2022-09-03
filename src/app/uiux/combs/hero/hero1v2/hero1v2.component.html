@@ -17,7 +17,7 @@
       <div #text class="swiper-container" [swiper]="textConfig" [(index)]="index">
         <div class="swiper-wrapper">
           <div class="swiper-slide" *ngFor="let slide of content.sliders.elements">
-            <h2 class="title" [innerHTML]="slide.title"></h2>
+            <h2 class="title" [innerHTML]="slide.title|safeHtml"></h2>
             <app-btn [content]="slide.btn"></app-btn>
           </div>
         </div>

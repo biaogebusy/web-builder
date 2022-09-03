@@ -3,7 +3,7 @@
     aria-describedby="dynamic table">
     <ng-container [matColumnDef]="item.key" *ngFor="let item of content.header">
       <th mat-header-cell *cdkHeaderCellDef [ngClass]="item.classes||''" [ngStyle]="item.style || {}">
-        <span class="p-x-xs" [innerHTML]="item.label"></span>
+        <span class="p-x-xs" [innerHTML]="item.label|safeHtml"></span>
       </th>
       <td mat-cell *cdkCellDef="let element" [ngClass]="item.classes||''" [ngStyle]="item.style || {}">
         <ng-container *ngIf="element[item.key] | isArray;else object">
@@ -26,12 +26,12 @@
               </span>
             </ng-template>
             <span class="cell text-cell"></span>
-            <a href="javascript:void(0)" [innerHTML]="item.dialog.label"
+            <a href="javascript:void(0)" [innerHTML]="item.dialog.label|safeHtml"
               (click)="onDialog(item.label, element[item.key])"></a>
           </ng-container>
           <ng-template #normal>
             <span (click)="onNav($event)" *ngIf="element[item.key]" class="cell text-cell"
-              [innerHTML]="element[item.key]"></span>
+              [innerHTML]="element[item.key]|safeHtml"></span>
           </ng-template>
         </ng-template>
       </td>

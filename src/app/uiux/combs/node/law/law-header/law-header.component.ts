@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import '../../../../../../assets/fonts/STHeiti-normal.js';
@@ -6,6 +13,7 @@ import '../../../../../../assets/fonts/STHeiti-normal.js';
   selector: 'app-law-header',
   templateUrl: './law-header.component.html',
   styleUrls: ['./law-header.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LawHeaderComponent implements OnInit {
   @Input() content: any;

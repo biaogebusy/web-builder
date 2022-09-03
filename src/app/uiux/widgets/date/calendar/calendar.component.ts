@@ -1,4 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import type { CalendarOptions } from '@fullcalendar/angular';
 
 @Component({

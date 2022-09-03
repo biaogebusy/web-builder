@@ -1,4 +1,10 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { interval } from 'rxjs';
 import { CORE_CONFIG } from '@core/token/core.config';
 import { ICoreConfig } from '@core/mobx/IAppConfig';
@@ -7,6 +13,7 @@ import { ICoreConfig } from '@core/mobx/IAppConfig';
   selector: 'app-autoclose',
   templateUrl: './autoclose.component.html',
   styleUrls: ['./autoclose.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AutocloseComponent implements OnInit {
   @Input() content: any;

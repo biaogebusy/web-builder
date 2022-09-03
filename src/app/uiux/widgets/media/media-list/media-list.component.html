@@ -8,7 +8,7 @@
       </a>
       <div class="blog-title">
         <app-link [content]="item.link"></app-link>
-        <div class="blog-date" [innerHTML]="item.changed">
+        <div class="blog-date" [innerHTML]="item.changed|safeHtml">
         </div>
       </div>
     </div>

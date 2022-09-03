@@ -61,7 +61,8 @@
               "@babel/runtime/helpers/inherits",
               "@babel/runtime/helpers/construct",
               "@babel/runtime/helpers/inheritsLoose",
-              "global/document"
+              "global/document",
+              "jspdf-autotable"
             ]
           },
           "configurations": {

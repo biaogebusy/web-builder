@@ -1,11 +1,16 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'law-showcase',
+  selector: 'app-law-showcase',
   templateUrl: './law-showcase.component.html',
   styleUrls: ['./law-showcase.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LawShowcaseComponent implements OnInit {
   @Input() content: any;

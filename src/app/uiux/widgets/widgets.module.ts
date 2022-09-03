@@ -84,7 +84,7 @@ import { SearchActionComponent } from './actions/search-action/search-action.com
 import { SearchSidebarComponent } from './sidebar/search-sidebar/search-sidebar.component';
 import { LoopWidgetsComponent } from './loop-widgets/loop-widgets.component';
 import { IframeComponent } from './iframe/iframe.component';
-import { SafePipe } from '@core/pipe/safe-url.pipe';
+import { SafeUrlPipe } from '@core/pipe/safe-url.pipe';
 import { UserCardComponent } from './card/user-card/user-card.component';
 import { UserCardCountComponent } from './card/user-card/user-card-count/user-card-count.component';
 import { FormlyModule } from '@ngx-formly/core';
@@ -155,7 +155,7 @@ const components = [
   ProgressBarComponent,
   ProgressGroupComponent,
   SafeHtmlPipe,
-  SafePipe,
+  SafeUrlPipe,
   DataSourcePipe,
   DialogComponent,
   FlagComponent,

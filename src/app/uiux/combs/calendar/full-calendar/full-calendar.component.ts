@@ -146,6 +146,7 @@ export class FullCalendarComponent
             };
           });
           this.initEvents();
+          this.cd.detectChanges();
         }
       });
     }

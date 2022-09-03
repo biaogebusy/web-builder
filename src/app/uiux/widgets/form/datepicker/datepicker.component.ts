@@ -1,4 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { formatDate } from '@angular/common';
 
@@ -6,6 +11,7 @@ import { formatDate } from '@angular/common';
   selector: 'app-datepicker',
   templateUrl: './datepicker.component.html',
   styleUrls: ['./datepicker.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DatepickerComponent implements OnInit {
   @Input() content: any;

@@ -1,4 +1,10 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { UserState } from '@core/mobx/user/UserState';
 import type { IMediaObject } from '@core/interface/widgets/IMediaObject';
 import { NodeService } from '@core/service/node.service';
@@ -11,6 +17,7 @@ import { of } from 'rxjs';
   selector: 'app-user-card',
   templateUrl: './user-card.component.html',
   styleUrls: ['./user-card.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserCardComponent extends BaseComponent implements OnInit {
   @Input() content: any;
@@ -46,6 +53,7 @@ export class UserCardComponent extends BaseComponent implements OnInit {
       subTitle: user.display_name,
       align: 'center center',
     };
+    this.cd.detectChanges();
   }
 
   getCount(): void {

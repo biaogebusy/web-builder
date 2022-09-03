@@ -1,4 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { AMapState } from '@core/mobx/amap/AMapState';
 import { IMark } from '@core/interface/IAmap';
 
@@ -6,6 +11,7 @@ import { IMark } from '@core/interface/IAmap';
   selector: 'app-map-list-v1',
   templateUrl: './map-list-v1.component.html',
   styleUrls: ['./map-list-v1.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MapListV1Component implements OnInit {
   @Input() content: any;

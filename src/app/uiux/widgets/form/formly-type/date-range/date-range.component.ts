@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+} from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { FieldType } from '@ngx-formly/core';
 
@@ -6,12 +11,13 @@ import { FieldType } from '@ngx-formly/core';
   selector: 'app-date-range',
   templateUrl: './date-range.component.html',
   styleUrls: ['./date-range.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DateRangeComponent extends FieldType implements OnInit {
   formControl: FormControl;
   start: FormControl;
   end: FormControl;
-  constructor() {
+  constructor(private cd: ChangeDetectorRef) {
     super();
   }
 
@@ -25,6 +31,7 @@ export class DateRangeComponent extends FieldType implements OnInit {
           this.end = item.formControl;
         }
       });
+      this.cd.detectChanges();
     }
   }
 }
