@@ -1,14 +1,10 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  EventEmitter,
   Input,
   OnInit,
-  Output,
 } from '@angular/core';
-import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
-import '../../../../../../assets/fonts/STHeiti-normal.js';
 @Component({
   selector: 'app-law-header',
   templateUrl: './law-header.component.html',
@@ -21,12 +17,16 @@ export class LawHeaderComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onSavePdf(): void {
-    const doc = new jsPDF();
+  async onSavePdf(): Promise<void> {
     const pdf = this.content.pdf;
     if (!pdf) {
       return;
     }
+    // @ts-ignore
+    await import('../../../../../../assets/fonts/STHeiti-normal.js');
+    const { jsPDF } = await import('jspdf');
+
+    const doc = new jsPDF();
     doc.setFont('STHeiti');
     doc.setFontSize(18);
     doc.text(pdf.title, 70, 15);
@@ -42,7 +42,7 @@ export class LawHeaderComponent implements OnInit {
         lineColor: 5,
       },
       theme: 'grid',
-      didDrawCell: (data) => {
+      didDrawCell: (data: any) => {
         // 签名图片
         if (
           data.row.index === pdf.sign.row &&
