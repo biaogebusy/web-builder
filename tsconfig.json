@@ -18,7 +18,7 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "target": "es2015",
-    "module": "es2020",
+    "module": "esnext",
     "lib": ["es2018", "dom"],
     "paths": {
       "@angular/*": ["./node_modules/@angular/*"],
