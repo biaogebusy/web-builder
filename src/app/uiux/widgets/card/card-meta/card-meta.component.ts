@@ -1,4 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { TextComponent } from '../../text/text.component';
 import { DialogComponent } from '../../dialog/dialog.component';
@@ -7,6 +12,7 @@ import { DialogComponent } from '../../dialog/dialog.component';
   selector: 'app-card-meta',
   templateUrl: './card-meta.component.html',
   styleUrls: ['./card-meta.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CardMetaComponent implements OnInit {
   @Input() content: any;

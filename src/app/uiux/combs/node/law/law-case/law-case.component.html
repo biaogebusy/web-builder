@@ -7,12 +7,13 @@
         <div class="block position-relative" ngClass.gt-sm="p-y p-x" ngClass.lt-md="p-y-xs p-x-xs"
           *ngFor="let item of content.block">
           <ng-container [ngSwitch]="item.type">
-            <law-showcase *ngSwitchCase="'showcase'" [content]="item" [form]="form">
-            </law-showcase>
+            <app-law-showcase *ngSwitchCase="'showcase'" [content]="item" [form]="form">
+            </app-law-showcase>
             <app-law-files *ngSwitchCase="'files'" [content]="item"></app-law-files>
             <app-law-table *ngSwitchCase="'table'" [content]="item">
             </app-law-table>
             <app-law-card *ngSwitchCase="'card'" [content]="item"></app-law-card>
+            <app-law-tab *ngSwitchCase="'tab'" [content]=" item"></app-law-tab>
             <app-dynamic-widgets *ngSwitchDefault [content]="item"></app-dynamic-widgets>
           </ng-container>
         </div>

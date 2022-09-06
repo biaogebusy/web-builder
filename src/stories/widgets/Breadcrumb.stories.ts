@@ -13,6 +13,7 @@ import { WidgetsModule } from '../../app/uiux/widgets/widgets.module';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { CORE_CONFIG } from '@core/token/core.config';
+import { API_URL, apiUrlFactory } from '@core/token/token-providers';
 export default {
   title: 'Widgets/Breadcrumb',
   component: BreadcrumbComponent,
@@ -32,6 +33,11 @@ export default {
         {
           provide: CORE_CONFIG,
           useValue: {},
+        },
+        {
+          provide: API_URL,
+          useFactory: apiUrlFactory,
+          deps: [],
         },
       ],
     }),

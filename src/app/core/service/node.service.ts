@@ -81,6 +81,7 @@ export class NodeService extends ApiService {
     return this.http.get<any>(`${link}`);
   }
 
+  // params can use for noCache
   getNodes(
     path: string,
     type: string,
@@ -358,8 +359,9 @@ export class NodeService extends ApiService {
   deleteFlagging(path: string, items: any[], token: string): Observable<any> {
     const obj: any = {};
     items.forEach((item) => {
-      obj[item.id] = this.http.delete<any>(
-        `${this.apiUrl}${path}/${item.id}`,
+      const id = item.uuid || item.id;
+      obj[id] = this.http.delete<any>(
+        `${this.apiUrl}${path}/${id}`,
         this.optionsWithCookieAndToken(token)
       );
     });

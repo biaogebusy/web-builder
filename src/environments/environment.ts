@@ -5,12 +5,12 @@ import { IEnvironment } from '../app/core/interface/IEnvironment';
 
 export const environment: IEnvironment = {
   apiUrl: 'http://localhost:4200',
-  production: true,
+  production: false,
   site: 'dist',
   port: 4200,
-  cache: true,
-  ssr: true,
-  drupalProxy: true,
+  cache: false,
+  ssr: false,
+  drupalProxy: false,
 };
 
 /*

@@ -1,0 +1,11 @@
+<mat-horizontal-stepper [linear]="getParams(content,'linear')" [labelPosition]="getParams(content, 'labelPosition')"
+  #stepper *ngIf="getParams(content, 'mode') === 'horizontal'">
+  <mat-step *ngFor="let step of content.steps" [completed]="step.completed">
+    <ng-template matStepLabel>{{step.label}}</ng-template>
+    <ng-container *ngIf="step.elements">
+      <ng-container *ngFor="let item of step.elements">
+        <app-dynamic-widgets [content]="item"></app-dynamic-widgets>
+      </ng-container>
+    </ng-container>
+  </mat-step>
+</mat-horizontal-stepper>

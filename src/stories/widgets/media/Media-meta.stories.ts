@@ -13,6 +13,7 @@ import { MediaMetaComponent } from '../../../app/uiux/widgets/media/media-meta/m
 import { WidgetsModule } from '../../../app/uiux/widgets/widgets.module';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxWebstorageModule } from 'ngx-webstorage';
+import { API_URL, apiUrlFactory } from '@core/token/token-providers';
 
 export default {
   title: 'Widgets/Media/Media-meta',
@@ -33,6 +34,11 @@ export default {
         {
           provide: CORE_CONFIG,
           useValue: {},
+        },
+        {
+          provide: API_URL,
+          useFactory: apiUrlFactory,
+          deps: [],
         },
       ],
     }),

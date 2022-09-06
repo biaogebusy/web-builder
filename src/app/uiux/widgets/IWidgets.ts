@@ -69,7 +69,7 @@ export interface IDynamicTable {
   header: {
     label: string;
     key: string;
-    classes?: string;
+    classes?: string | string[] | Set<string> | { [klass: string]: any };
     style?: object;
     dialog?: {
       shorten: number;

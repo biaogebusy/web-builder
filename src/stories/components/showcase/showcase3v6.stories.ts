@@ -12,6 +12,7 @@ import { WidgetsModule } from '../../../app/uiux/widgets/widgets.module';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { ShareModule } from '../../../app/share/share.module';
 import { Showcase3v6Component } from '@uiux/combs/showcase/showcase3v6/showcase3v6.component';
+import { apiUrlFactory, API_URL } from '@core/token/token-providers';
 export default {
   title: 'Components/showcase/3v6',
   component: Showcase3v6Component,
@@ -30,6 +31,11 @@ export default {
         {
           provide: CORE_CONFIG,
           useValue: {},
+        },
+        {
+          provide: API_URL,
+          useFactory: apiUrlFactory,
+          deps: [],
         },
       ],
     }),

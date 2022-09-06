@@ -26,6 +26,7 @@
 @import "./media";
 @import "./user";
 @import "./node/comment";
+@import "./toastr";
 
 // material custom
 @import "./mat/card";
@@ -61,6 +62,7 @@
   @include user-color($config-or-theme);
   @include calendar-color($config-or-theme);
   @include comment-color($config-or-theme);
+  @include toastr-color($config-or-theme);
 
   // material custom ui
   @include card-color($config-or-theme);

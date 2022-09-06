@@ -12,6 +12,7 @@ import { WidgetsModule } from '../../../app/uiux/widgets/widgets.module';
 import { FullCalendarComponent } from '../../../app/uiux/combs/calendar/full-calendar/full-calendar.component';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { ShareModule } from '../../../app/share/share.module';
+import { apiUrlFactory, API_URL } from '@core/token/token-providers';
 export default {
   title: 'Components/calendar/Full calendar',
   component: FullCalendarComponent,
@@ -30,6 +31,11 @@ export default {
         {
           provide: CORE_CONFIG,
           useValue: {},
+        },
+        {
+          provide: API_URL,
+          useFactory: apiUrlFactory,
+          deps: [],
         },
       ],
     }),

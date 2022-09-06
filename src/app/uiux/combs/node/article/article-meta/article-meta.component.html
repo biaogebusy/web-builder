@@ -2,7 +2,7 @@
   <div *ngFor="let item of content" fxLayoutAlign="center center">
     <ng-container *ngIf="item.icon;else value">
       <mat-icon>{{item.icon}}</mat-icon>
-      <div>{{item.value}}</div>
+      <div>{{item.value || item.label}}</div>
     </ng-container>
     <ng-template #value>
       <div class="label">{{item.label}}:&nbsp;</div>

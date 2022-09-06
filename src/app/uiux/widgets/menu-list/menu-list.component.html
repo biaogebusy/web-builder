@@ -1,10 +1,10 @@
 <div class="menu-list" *ngIf="content">
-  <h2 class="block-title">{{content.title}}</h2>
+  <h2 class="block-title" *ngIf="content.title | isString">{{content.title}}</h2>
   <mat-divider></mat-divider>
   <div class="list" *ngIf="list">
     <div class="item" *ngFor="let item of list" fxLayoutAlign="space-between center">
       <app-link [content]="item.link"></app-link>
-      <div class="num-posts">
+      <div class="num-posts" *ngIf="item.label">
         {{item.label}}
       </div>
     </div>

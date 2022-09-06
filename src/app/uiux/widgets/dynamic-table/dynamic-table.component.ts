@@ -3,6 +3,7 @@ import {
   Input,
   OnInit,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -10,24 +11,53 @@ import { DialogComponent } from '../dialog/dialog.component';
 import type { IDynamicTable } from '../IWidgets';
 import { TextComponent } from '../text/text.component';
 import { RouteService } from '@core/service/route.service';
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 
 @Component({
   selector: 'app-dynamic-table',
   templateUrl: './dynamic-table.component.html',
   styleUrls: ['./dynamic-table.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
+      transition(
+        'expanded <=> collapsed',
+        animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')
+      ),
+    ]),
+  ],
 })
 export class DynamicTableComponent implements OnInit {
   @Input() content: IDynamicTable;
   @Input() form: FormGroup;
 
   displayedColumns: string[];
+  columnsToDisplayWithExpand: string[];
+  expandedElement: null;
+  isExpand: boolean;
 
-  constructor(private dialog: MatDialog, private routService: RouteService) {}
+  constructor(
+    private dialog: MatDialog,
+    private routService: RouteService,
+    private cd: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     if (this.content.elements) {
+      this.isExpand = this.content.elements.some((item) => item.expand);
       this.displayedColumns = this.content.header.map((item: any) => item.key);
+      if (this.isExpand) {
+        this.columnsToDisplayWithExpand = [...this.displayedColumns, 'expand'];
+      }
+      this.cd.detectChanges();
     }
   }
 

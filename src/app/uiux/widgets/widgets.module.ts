@@ -15,6 +15,7 @@ import { TreeModule } from '@circlon/angular-tree-component';
 import { CdkTableModule } from '@angular/cdk/table';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+
 import { BgComponent } from './bg/bg.component';
 import { ImgComponent } from './img/img.component';
 import { BoxComponent } from './box/box.component';
@@ -83,7 +84,7 @@ import { SearchActionComponent } from './actions/search-action/search-action.com
 import { SearchSidebarComponent } from './sidebar/search-sidebar/search-sidebar.component';
 import { LoopWidgetsComponent } from './loop-widgets/loop-widgets.component';
 import { IframeComponent } from './iframe/iframe.component';
-import { SafePipe } from '@core/pipe/safe-url.pipe';
+import { SafeUrlPipe } from '@core/pipe/safe-url.pipe';
 import { UserCardComponent } from './card/user-card/user-card.component';
 import { UserCardCountComponent } from './card/user-card/user-card-count/user-card-count.component';
 import { FormlyModule } from '@ngx-formly/core';
@@ -93,6 +94,7 @@ import { DateRangeComponent } from './form/formly-type/date-range/date-range.com
 import { MatSelectComponent } from './form/formly-type/mat-select/mat-select.component';
 import { ChartComponent } from './chart/chart.component';
 import { NgChartsModule } from 'ng2-charts';
+import { StepperComponent } from './stepper/stepper.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -153,7 +155,7 @@ const components = [
   ProgressBarComponent,
   ProgressGroupComponent,
   SafeHtmlPipe,
-  SafePipe,
+  SafeUrlPipe,
   DataSourcePipe,
   DialogComponent,
   FlagComponent,
@@ -180,6 +182,7 @@ const components = [
   DateRangeComponent,
   MatSelectComponent,
   ChartComponent,
+  StepperComponent,
 ];
 
 @NgModule({

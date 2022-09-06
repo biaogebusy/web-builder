@@ -129,7 +129,7 @@
           },
           {
             "customer": "经办律师",
-            "contentOfCustomer": "杜长明",
+            "contentOfCustomer": "Johnson",
             "court": "案件编号",
             "contentOfCourt": "（2022）苏05民终3823"
           }, {
@@ -158,9 +158,6 @@
       "title": {
         "label": "案件文件",
         "style": "style-v4"
-      },
-      "icon": {
-        "name": "case"
       },
       "elements": [{
         "label": "律师文件",
@@ -518,15 +515,6 @@
         "label": "发票时间",
         "key": "deliveryTime"
       }, {
-        "label": "发票图片",
-        "key": "images"
-      }, {
-        "label": "付款凭证",
-        "key": "voucher"
-      }, {
-        "label": "发票快递",
-        "key": "express"
-      }, {
         "label": "备注",
         "key": "remarks"
       }],
@@ -535,7 +523,8 @@
         "money": "3679",
         "billingTime": "2022-03-03",
         "deliveryTime": "2022-03-04",
-        "images": {
+        "remarks": "已收到",
+        "expand": [{
           "type": "inline-lightbox",
           "label": ["受理费第一次", "受理费-补交", "受理费第二次"],
           "elements": [{
@@ -551,8 +540,7 @@
             "caption": "受理费第二次",
             "thumb": "/assets/images/cases/porto3.jpg"
           }]
-        },
-        "voucher": {
+        }, {
           "label": ["发票凭证"],
           "type": "inline-lightbox",
           "elements": [{
@@ -560,8 +548,7 @@
             "caption": "发票凭证",
             "thumb": "/assets/images/cases/porto4.jpg"
           }]
-        },
-        "express": {
+        }, {
           "type": "inline-lightbox",
           "label": ["户籍信息"],
           "elements": [{
@@ -569,14 +556,14 @@
             "caption": "户籍信息",
             "thumb": "/assets/images/cases/porto5.jpg"
           }]
-        },
-        "remarks": "已收到"
+        }]
       }, {
-        "name": "鉴定费",
-        "money": "4879",
+        "name": "受理费",
+        "money": "3679",
         "billingTime": "2022-03-03",
         "deliveryTime": "2022-03-04",
-        "images": {
+        "remarks": "已收到",
+        "expand": [{
           "type": "inline-lightbox",
           "label": ["受理费第一次", "受理费-补交", "受理费第二次"],
           "elements": [{
@@ -592,8 +579,7 @@
             "caption": "受理费第二次",
             "thumb": "/assets/images/cases/porto3.jpg"
           }]
-        },
-        "voucher": {
+        }, {
           "label": ["发票凭证"],
           "type": "inline-lightbox",
           "elements": [{
@@ -601,8 +587,7 @@
             "caption": "发票凭证",
             "thumb": "/assets/images/cases/porto4.jpg"
           }]
-        },
-        "express": {
+        }, {
           "type": "inline-lightbox",
           "label": ["户籍信息"],
           "elements": [{
@@ -610,14 +595,14 @@
             "caption": "户籍信息",
             "thumb": "/assets/images/cases/porto5.jpg"
           }]
-        },
-        "remarks": "已收到"
+        }]
       }, {
-        "name": "保全费",
-        "money": "123423",
+        "name": "受理费",
+        "money": "3679",
         "billingTime": "2022-03-03",
         "deliveryTime": "2022-03-04",
-        "images": {
+        "remarks": "已收到",
+        "expand": [{
           "type": "inline-lightbox",
           "label": ["受理费第一次", "受理费-补交", "受理费第二次"],
           "elements": [{
@@ -633,8 +618,7 @@
             "caption": "受理费第二次",
             "thumb": "/assets/images/cases/porto3.jpg"
           }]
-        },
-        "voucher": {
+        }, {
           "label": ["发票凭证"],
           "type": "inline-lightbox",
           "elements": [{
@@ -642,8 +626,7 @@
             "caption": "发票凭证",
             "thumb": "/assets/images/cases/porto4.jpg"
           }]
-        },
-        "express": {
+        }, {
           "type": "inline-lightbox",
           "label": ["户籍信息"],
           "elements": [{
@@ -651,8 +634,7 @@
             "caption": "户籍信息",
             "thumb": "/assets/images/cases/porto5.jpg"
           }]
-        },
-        "remarks": "未收到"
+        }]
       }]
     }, {
       "type": "table",
@@ -679,9 +661,6 @@
         "label": "违约金",
         "key": "damages"
       }, {
-        "label": "其他本金",
-        "key": "OtherPrincipal"
-      }, {
         "label": "分项合计",
         "key": "total"
       }],
@@ -692,8 +671,16 @@
         "interest": "5000.00元",
         "defaultPeriod": "2022/03/05-2022/05/01",
         "damages": "5089.00元",
-        "OtherPrincipal": "律师费 2000.00元<br>担保费 5000.00元</br>赔偿金 55.00元",
-        "total": "4846.00元"
+        "total": "4846.00元",
+        "expand": [{
+          "type": "text",
+          "spacer": "none",
+          "title": {
+            "label": "其他本金",
+            "style": "style-v4"
+          },
+          "body": "律师费 2000.00元<br>担保费 5000.00元</br>赔偿金 55.00元"
+        }]
       }, {
         "name": "工程款",
         "principal": "12323.00元",
@@ -701,8 +688,16 @@
         "interest": "5000.00元",
         "defaultPeriod": "",
         "damages": "",
-        "OtherPrincipal": "",
-        "total": "4845.00元"
+        "total": "4845.00元",
+        "expand": [{
+          "type": "text",
+          "spacer": "none",
+          "title": {
+            "label": "其他本金",
+            "style": "style-v4"
+          },
+          "body": "律师费 2000.00元<br>担保费 5000.00元</br>赔偿金 55.00元"
+        }]
       }, {
         "name": "劳务费",
         "principal": "12323.00元",
@@ -710,8 +705,16 @@
         "interest": "5000.00元",
         "defaultPeriod": "",
         "damages": "",
-        "OtherPrincipal": "",
-        "total": "4845.00元"
+        "total": "4845.00元",
+        "expand": [{
+          "type": "text",
+          "spacer": "none",
+          "title": {
+            "label": "其他本金",
+            "style": "style-v4"
+          },
+          "body": "律师费 2000.00元<br>担保费 5000.00元</br>赔偿金 55.00元"
+        }]
       }, {
         "name": "合计",
         "principal": "68751.00元",
@@ -719,8 +722,16 @@
         "interest": "9000.00元",
         "defaultPeriod": "",
         "damages": "8455.00元",
-        "OtherPrincipal": "7894.00元",
-        "total": "48456.00元"
+        "total": "48456.00元",
+        "expand": [{
+          "type": "text",
+          "spacer": "none",
+          "title": {
+            "label": "其他本金",
+            "style": "style-v4"
+          },
+          "body": "律师费 2000.00元<br>担保费 5000.00元</br>赔偿金 55.00元"
+        }]
       }]
     }, {
       "type": "table",
@@ -744,12 +755,6 @@
         "label": "利息",
         "key": "interest"
       }, {
-        "label": "违约金",
-        "key": "damages"
-      }, {
-        "label": "逾期罚息",
-        "key": "PenaltyInterest"
-      }, {
         "label": "总合计",
         "key": "total"
       }, {
@@ -762,40 +767,100 @@
         "paymentTwo": "13000.00元",
         "paymentThree": "13520.00元",
         "interest": "5000.00元<br><span class=\"sub\">2022/02/01-2023/01/03</span>",
-        "damages": "5000.00元<br><span class=\"sub\">2022/02/01-2023/01/03</span>",
-        "PenaltyInterest": "5000.00元<br><span class=\"sub\">2022/02/01-2023/01/03</span>",
         "total": "17658.00元",
-        "date": "2022/03/06"
+        "date": "2022/03/06",
+        "expand": [{
+          "type": "text",
+          "spacer": "none",
+          "title": {
+            "label": "违约金",
+            "style": "style-v4"
+          },
+          "body": "5000.00元<br><span class=\"sub\">2022/02/01-2023/01/03</span>"
+        }, {
+          "type": "text",
+          "spacer": "none",
+          "title": {
+            "label": "逾期罚息",
+            "style": "style-v4"
+          },
+          "body": "5000.00元<br><span class=\"sub\">2022/02/01-2023/01/03</span>"
+        }]
       }, {
         "no": "2",
         "paymentOne": "12000.00元",
         "paymentTwo": "13000.00元",
         "paymentThree": "13520.00元",
         "interest": "5000.00元<br><span class=\"sub\">2022/02/01-2023/01/03</span>",
-        "damages": "5000.00元<br><span class=\"sub\">2022/02/01-2023/01/03</span>",
-        "PenaltyInterest": "5000.00元<br><span class=\"sub\">2022/02/01-2023/01/03</span>",
         "total": "17658.00元",
-        "date": "2022/03/06"
+        "date": "2022/03/06",
+        "expand": [{
+          "type": "text",
+          "spacer": "none",
+          "title": {
+            "label": "违约金",
+            "style": "style-v4"
+          },
+          "body": "5000.00元<br><span class=\"sub\">2022/02/01-2023/01/03</span>"
+        }, {
+          "type": "text",
+          "spacer": "none",
+          "title": {
+            "label": "逾期罚息",
+            "style": "style-v4"
+          },
+          "body": "5000.00元<br><span class=\"sub\">2022/02/01-2023/01/03</span>"
+        }]
       }, {
         "no": "3",
         "paymentOne": "12000.00元",
         "paymentTwo": "13000.00元",
         "paymentThree": "13520.00元",
         "interest": "5000.00元<br><span class=\"sub\">2022/02/01-2023/01/03</span>",
-        "damages": "5000.00元<br><span class=\"sub\">2022/02/01-2023/01/03</span>",
-        "PenaltyInterest": "5000.00元<br><span class=\"sub\">2022/02/01-2023/01/03</span>",
         "total": "17658.00元",
-        "date": "2022/03/06"
+        "date": "2022/03/06",
+        "expand": [{
+          "type": "text",
+          "spacer": "none",
+          "title": {
+            "label": "违约金",
+            "style": "style-v4"
+          },
+          "body": "5000.00元<br><span class=\"sub\">2022/02/01-2023/01/03</span>"
+        }, {
+          "type": "text",
+          "spacer": "none",
+          "title": {
+            "label": "逾期罚息",
+            "style": "style-v4"
+          },
+          "body": "5000.00元<br><span class=\"sub\">2022/02/01-2023/01/03</span>"
+        }]
       }, {
         "no": "合计",
         "paymentOne": "32000.00元",
         "paymentTwo": "33000.00元",
         "paymentThree": "33520.00元",
         "interest": "8000.00元<br><span class=\"sub\">2022/02/01-2023/01/03</span>",
-        "damages": "8000.00元<br><span class=\"sub\">2022/02/01-2023/01/03</span>",
-        "PenaltyInterest": "8000.00元<br><span class=\"sub\">2022/02/01-2023/01/03</span>",
         "total": "57658.00元",
-        "date": ""
+        "date": "",
+        "expand": [{
+          "type": "text",
+          "spacer": "none",
+          "title": {
+            "label": "违约金",
+            "style": "style-v4"
+          },
+          "body": "5000.00元<br><span class=\"sub\">2022/02/01-2023/01/03</span>"
+        }, {
+          "type": "text",
+          "spacer": "none",
+          "title": {
+            "label": "逾期罚息",
+            "style": "style-v4"
+          },
+          "body": "5000.00元<br><span class=\"sub\">2022/02/01-2023/01/03</span>"
+        }]
       }]
     }, {
       "type": "text",
@@ -834,11 +899,9 @@
         "label": "添加工作跟踪",
         "style": "style-v4"
       },
-      "actions": [{
-        "label": "提交",
-        "type": "submit",
-        "color": "primary"
-      }],
+      "action": {
+        "label": "提交"
+      },
       "succes": {
         "label": "成功发布！"
       },

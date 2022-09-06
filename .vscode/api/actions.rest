@@ -1,4 +1,4 @@
-@apiUrl = https://amigo-api.zhaobg.com
+@apiUrl = https://admin.iooks.com
 @user = root
 @psw = Amigo@Abcd1234
 
@@ -78,3 +78,11 @@ DELETE {{apiUrl}}/api/v1/flagging/favorite/ba70cd3c-7bd7-48c2-9aa5-07b175d8f4d7
 Accept: application/vnd.api+json
 Content-Type: application/vnd.api+json
 X-CSRF-Token: {{csrfToken}}
+
+
+### 通知
+GET {{apiUrl}}/api/v2/unread-message?noCache=11
+
+### 设置为已读
+DELETE {{apiUrl}}/api/v1/flagging/message_unread/{UUID}
+

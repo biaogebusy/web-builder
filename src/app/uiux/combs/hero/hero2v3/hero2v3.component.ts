@@ -1,4 +1,10 @@
-import { Component, Input, OnInit, ChangeDetectorRef } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  ChangeDetectorRef,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { ScreenState } from '@core/mobx/screen/ScreenState';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { AppState } from '@core/mobx/AppState';
@@ -9,6 +15,7 @@ import { UserState } from '@core/mobx/user/UserState';
   selector: 'app-hero2v3',
   templateUrl: './hero2v3.component.html',
   styleUrls: ['./hero2v3.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Hero2v3Component extends BaseComponent implements OnInit {
   @Input() content: any;

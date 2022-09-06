@@ -108,7 +108,7 @@ export function app(): express.Express {
   // All regular routes use the Universal engine
   server.get('*', (req, res) => {
     if (!environment.ssr) {
-      res.sendFile(join(distFolder, `index.html`));
+      res.sendFile(join(distFolder, 'index.html'));
       return;
     }
     res.render(indexHtml, {

@@ -11,6 +11,7 @@ import { DropdownMenuComponent } from '../../app/uiux/widgets/dropdown-menu/drop
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxWebstorageModule } from 'ngx-webstorage';
+import { API_URL, apiUrlFactory } from '@core/token/token-providers';
 export default {
   title: 'Widgets/Dropdown Menu',
   component: DropdownMenuComponent,
@@ -28,6 +29,11 @@ export default {
         {
           provide: CORE_CONFIG,
           userValue: {},
+        },
+        {
+          provide: API_URL,
+          useFactory: apiUrlFactory,
+          deps: [],
         },
       ],
     }),

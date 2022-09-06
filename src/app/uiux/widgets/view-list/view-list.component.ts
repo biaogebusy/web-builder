@@ -149,7 +149,7 @@ export class ViewListComponent
     this.getViews(options);
   }
 
-  getWidthClass(): string {
+  get containerClass(): string {
     return this.content.fullWidth ? 'container-fluid' : 'container';
   }
 

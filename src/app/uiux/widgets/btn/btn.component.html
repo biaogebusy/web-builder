@@ -1,64 +1,64 @@
 <ng-container *ngIf="content">
   <ng-container [ngSwitch]="content.mode">
     <ng-container *ngSwitchCase="'raised'">
-      <button [class]="content.classes" mat-raised-button *ngIf="!content.href;else link" [color]="content.color">
+      <button [ngClass]="content.classes" mat-raised-button *ngIf="!content.href;else link" [color]="content.color">
         <app-icon *ngIf="content.icon" [content]="content.icon"></app-icon>
-        <span [innerHTML]="content.label"></span>
+        <span [innerHTML]="content.label|safeHtml"></span>
       </button>
       <ng-template #link>
         <a [class]="content.classes" mat-raised-button [href]="content.href" [target]="content?.target || ''"
           [color]="content?.color">
           <app-icon *ngIf="content.icon" [content]="content.icon"></app-icon>
-          <span [innerHTML]="content.label"></span>
+          <span [innerHTML]="content.label|safeHtml"></span>
         </a>
       </ng-template>
     </ng-container>
     <ng-container *ngSwitchCase="'stroked'">
-      <button [class]="content.classes" mat-stroked-button *ngIf="!content.href;else link" [color]="content.color">
+      <button [ngClass]="content.classes" mat-stroked-button *ngIf="!content.href;else link" [color]="content.color">
         <app-icon *ngIf="content.icon" [content]="content.icon"></app-icon>
-        <span [innerHTML]="content.label"></span>
+        <span [innerHTML]="content.label|safeHtml"></span>
       </button>
       <ng-template #link>
-        <a [class]="content.classes" mat-stroked-button [href]="content.href" [target]="content?.target || ''"
-          [innerHTML]="content.label" [color]="content?.color">
+        <a [ngClass]="content.classes" mat-stroked-button [href]="content.href" [target]="content?.target || ''"
+          [innerHTML]="content.label|safeHtml" [color]="content?.color">
           <app-icon *ngIf="content.icon" [content]="content.icon"></app-icon>
-          <span [innerHTML]="content.label"></span>
+          <span [innerHTML]="content.label|safeHtml"></span>
         </a>
       </ng-template>
     </ng-container>
     <ng-container *ngSwitchCase="'flat'">
-      <button [class]="content.classes" mat-flat-button *ngIf="!content.href;else link"
+      <button [ngClass]="content.classes" mat-flat-button *ngIf="!content.href;else link"
         [color]="content.color">{{content.label}}</button>
       <ng-template #link>
-        <a [class]="content.classes" mat-flat-button [href]="content.href" [target]="content?.target || ''"
-          [innerHTML]="content.label" [color]="content?.color"></a>
+        <a [ngClass]="content.classes" mat-flat-button [href]="content.href" [target]="content?.target || ''"
+          [innerHTML]="content.label|safeHtml" [color]="content?.color"></a>
       </ng-template>
     </ng-container>
     <ng-container *ngSwitchCase="'icon'">
-      <button [class]="content.classes" mat-icon-button [color]="content.color">
+      <button [ngClass]="content.classes" mat-icon-button [color]="content.color">
         <app-icon [content]="content.icon"></app-icon>
       </button>
     </ng-container>
     <ng-container *ngSwitchCase="'fab'">
-      <button [class]="content.classes" mat-fab [color]="content.color">
+      <button [ngClass]="content.classes" mat-fab [color]="content.color">
         <app-icon [content]="content.icon"></app-icon>
       </button>
     </ng-container>
     <ng-container *ngSwitchCase="'mini-fab'">
-      <button [class]="content.classes" mat-mini-fab [color]="content.color">
+      <button [ngClass]="content.classes" mat-mini-fab [color]="content.color">
         <app-icon [content]="content.icon"></app-icon>
       </button>
     </ng-container>
     <ng-container *ngSwitchDefault>
-      <button [class]="content.classes" mat-button *ngIf="!content.href;else link" [color]="content.color">
+      <button [ngClass]="content.classes" mat-button *ngIf="!content.href;else link" [color]="content.color">
         <app-icon *ngIf="content.icon" [content]="content.icon"></app-icon>
-        <span [innerHTML]="content.label"></span>
+        <span [innerHTML]="content.label|safeHtml"></span>
       </button>
       <ng-template #link>
-        <a [class]="content.classes" mat-button [href]="content.href" [target]="content?.target || ''"
+        <a [ngClass]="content.classes" mat-button [href]="content.href" [target]="content?.target || ''"
           [color]="content?.color">
           <app-icon *ngIf="content.icon" [content]="content.icon"></app-icon>
-          <span [innerHTML]="content.label"></span>
+          <span [innerHTML]="content.label|safeHtml"></span>
         </a>
       </ng-template>
     </ng-container>

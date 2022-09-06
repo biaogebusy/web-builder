@@ -71,7 +71,7 @@
             "label2": "主办律师",
             "content2": {
               "type": "link",
-              "label": "杜长明",
+              "label": "Johnson",
               "href": "/node/3"
             }
           },
@@ -107,7 +107,7 @@
               "value": "中国上海市浦东新区 线上会议"
             }, {
               "label": "参会人员",
-              "value": "<a href=\"/node/1\">庞博</a>,<a href=\"/node/2\">杜长明</a>"
+              "value": "<a href=\"/node/1\">庞博</a>,<a href=\"/node/2\">Johnson</a>"
             }, {
               "label": "工作工时",
               "value": 1
@@ -211,7 +211,7 @@
               "value": "中国上海市浦东新区 线上会议"
             }, {
               "label": "参会人员",
-              "value": "<a href=\"/node/1\">庞博</a>,<a href=\"/node/2\">杜长明</a>"
+              "value": "<a href=\"/node/1\">庞博</a>,<a href=\"/node/2\">Johnson</a>"
             }, {
               "label": "工作工时",
               "value": 1
@@ -648,11 +648,9 @@
         "label": "添加工作跟踪",
         "style": "style-v4"
       },
-      "actions": [{
-        "label": "提交",
-        "type": "submit",
-        "color": "primary"
-      }],
+      "action": {
+        "label": "提交"
+      },
       "succes": {
         "label": "成功发布！"
       },

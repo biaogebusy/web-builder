@@ -10,12 +10,15 @@ import { WidgetsModule } from '../../../app/uiux/widgets/widgets.module';
 import { CORE_CONFIG } from '../../../app/core/token/core.config';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
+import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
+import { TextComponent } from '@uiux/widgets/text/text.component';
 export default {
   title: 'Widgets/Card',
   component: CardComponent,
   decorators: [
     moduleMetadata({
       declarations: [],
+      entryComponents: [DialogComponent, TextComponent],
       imports: [
         ShareModule,
         WidgetsModule,
@@ -83,7 +86,7 @@ Card.args = {
         },
         {
           label: '参会人员',
-          value: '<a href="/node/1">庞博</a>,<a href="/node/2">杜长明</a>',
+          value: '<a href="/node/1">庞博</a>,<a href="/node/2">Johnson</a>',
         },
         {
           label: '工作工时',

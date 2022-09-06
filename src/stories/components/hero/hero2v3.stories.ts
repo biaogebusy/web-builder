@@ -9,6 +9,7 @@ import { NgxWebstorageModule } from 'ngx-webstorage';
 import { ShareModule } from '../../../app/share/share.module';
 import { SwiperModule } from 'ngx-swiper-wrapper';
 import { Hero2v3Component } from '@uiux/combs/hero/hero2v3/hero2v3.component';
+import { apiUrlFactory, API_URL } from '@core/token/token-providers';
 export default {
   title: 'Components/hero/2v3',
   component: Hero2v3Component,
@@ -28,6 +29,11 @@ export default {
         {
           provide: CORE_CONFIG,
           useValue: {},
+        },
+        {
+          provide: API_URL,
+          useFactory: apiUrlFactory,
+          deps: [],
         },
       ],
     }),

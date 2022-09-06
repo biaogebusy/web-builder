@@ -1,4 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { Lightbox } from 'ngx-lightbox';
 import { UtilitiesService } from '@core/service/utilities.service';
 import type { IInlineLightbox } from '@uiux/widgets/IWidgets';
@@ -10,6 +15,7 @@ import { DynamicWidgetsComponent } from '../../dynamic-widgets/dynamic-widgets.c
   selector: 'app-inline-lightbox',
   templateUrl: './inline-lightbox.component.html',
   styleUrls: ['./inline-lightbox.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InlineLightboxComponent implements OnInit {
   @Input() content: IInlineLightbox;

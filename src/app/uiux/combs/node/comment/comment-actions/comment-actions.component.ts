@@ -1,4 +1,11 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  Output,
+  EventEmitter,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import type { ICommentConfig } from '@core/interface/node/INode';
 import { ContentState } from '@core/mobx/ContentState';
 import { UserState } from '@core/mobx/user/UserState';
@@ -7,6 +14,7 @@ import { UserState } from '@core/mobx/user/UserState';
   selector: 'app-comment-actions',
   templateUrl: './comment-actions.component.html',
   styleUrls: ['./comment-actions.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CommentActionsComponent implements OnInit {
   @Input() config: ICommentConfig;

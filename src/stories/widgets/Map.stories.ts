@@ -15,6 +15,7 @@ import { AppState } from '../../app/core/mobx/AppState';
 import { AMapState } from '../../app/core/mobx/amap/AMapState';
 import { AmapService } from '../../app/core/service/amap.service';
 import { NgxWebstorageModule } from 'ngx-webstorage';
+import { API_URL, apiUrlFactory } from '@core/token/token-providers';
 
 export default {
   title: 'Widgets/Map',
@@ -37,6 +38,11 @@ export default {
         {
           provide: CORE_CONFIG,
           useValue: {},
+        },
+        {
+          provide: API_URL,
+          useFactory: apiUrlFactory,
+          deps: [],
         },
       ],
     }),

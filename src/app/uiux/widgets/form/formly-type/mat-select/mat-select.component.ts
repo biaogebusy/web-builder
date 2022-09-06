@@ -1,4 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  ViewChild,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatSelect } from '@angular/material/select';
 import { NodeService } from '@core/service/node.service';
@@ -10,6 +16,7 @@ import { catchError, take } from 'rxjs/operators';
   selector: 'app-mat-select',
   templateUrl: './mat-select.component.html',
   styleUrls: ['./mat-select.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MatSelectComponent
   extends FieldType<FieldTypeConfig>
@@ -22,7 +29,7 @@ export class MatSelectComponent
   public filteredOptions: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
   matOptions: any;
   fieldConfig: any;
-  constructor(private nodeService: NodeService) {
+  constructor(private nodeService: NodeService, private cd: ChangeDetectorRef) {
     super();
   }
 
@@ -39,6 +46,7 @@ export class MatSelectComponent
     this.searchCtrl.valueChanges.subscribe(() => {
       this.filterMulti();
     });
+    this.cd.detectChanges();
   }
 
   getOptionsFromApi(): void {
@@ -55,6 +63,7 @@ export class MatSelectComponent
         this.matOptions = res.rows;
         // load the initial options
         this.filteredOptions.next(this.matOptions.slice());
+        this.cd.detectChanges();
       });
   }
 

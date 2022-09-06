@@ -6,7 +6,7 @@ import {
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { APP_INITIALIZER, NgModule, Inject } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { MobxModule } from '@core/mobx/mobx.module';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -20,6 +20,8 @@ import { CORE_CONFIG } from '@core/token/core.config';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { apiUrlFactory, API_URL } from '@core/token/token-providers';
+import { ToastrModule } from 'ngx-toastr';
+import { UiuxModule } from '@uiux/uiux.module';
 
 export function initConfig(appState: AppState, coreConfig: object) {
   return () => appState.loadConfig(coreConfig);
@@ -37,6 +39,13 @@ export function initConfig(appState: AppState, coreConfig: object) {
     NgxWebstorageModule.forRoot(),
     Angulartics2Module.forRoot(),
     MobxModule.forRoot(),
+    UiuxModule,
+    ToastrModule.forRoot({
+      maxOpened: 6,
+      easeTime: 300,
+      newestOnTop: true,
+      preventDuplicates: true,
+    }),
     BrandingModule,
     LoadingBarHttpClientModule,
     LoadingBarModule,

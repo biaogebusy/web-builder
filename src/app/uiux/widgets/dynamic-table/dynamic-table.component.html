@@ -1,10 +1,11 @@
-<div class="dynamic-table width-100" [ngClass]="content.classes || 'nowrap'" [ngStyle]="content?.params?.style||null">
-  <table mat-table [dataSource]="content.elements | dataSource" class="width-100" aria-describedby="dynamic table">
+<div class="dynamic-table width-100" [ngClass]="content?.classes || 'nowrap'" [ngStyle]="content?.params?.style||null">
+  <table mat-table [dataSource]="content.elements | dataSource" multiTemplateDataRows [ngClass]="'width-100'"
+    aria-describedby="dynamic table">
     <ng-container [matColumnDef]="item.key" *ngFor="let item of content.header">
-      <th mat-header-cell *cdkHeaderCellDef class="{{item.classes}}" [ngStyle]="item.style || {}">
-        <span class="p-x-xs" [innerHTML]="item.label"></span>
+      <th mat-header-cell *cdkHeaderCellDef [ngClass]="item.classes||''" [ngStyle]="item.style || {}">
+        <span class="p-x-xs" [innerHTML]="item.label|safeHtml"></span>
       </th>
-      <td mat-cell *cdkCellDef="let element" class="{{item.classes}}" [ngStyle]="item.style || {}">
+      <td mat-cell *cdkCellDef="let element" [ngClass]="item.classes||''" [ngStyle]="item.style || {}">
         <ng-container *ngIf="element[item.key] | isArray;else object">
           <app-dynamic-widgets *ngFor="let item of element[item.key]" class="cell" [content]="item" [form]="form">
           </app-dynamic-widgets>
@@ -25,17 +26,52 @@
               </span>
             </ng-template>
             <span class="cell text-cell"></span>
-            <a href="javascript:void(0)" [innerHTML]="item.dialog.label"
+            <a href="javascript:void(0)" [innerHTML]="item.dialog.label|safeHtml"
               (click)="onDialog(item.label, element[item.key])"></a>
           </ng-container>
           <ng-template #normal>
             <span (click)="onNav($event)" *ngIf="element[item.key]" class="cell text-cell"
-              [innerHTML]="element[item.key]"></span>
+              [innerHTML]="element[item.key]|safeHtml"></span>
           </ng-template>
         </ng-template>
       </td>
     </ng-container>
-    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: content?.params?.sticky?true:false"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <!-- expand row -->
+    <ng-container *ngIf="isExpand">
+      <ng-container matColumnDef="expand">
+        <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button aria-label="expand row"
+            (click)="(expandedElement = expandedElement === element ? null : element); $event.stopPropagation()">
+            <mat-icon *ngIf="expandedElement !== element">keyboard_arrow_down</mat-icon>
+            <mat-icon *ngIf="expandedElement === element">keyboard_arrow_up</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+      <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+      <ng-container matColumnDef="expandedDetail">
+        <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
+          <div class="element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+            <div class="p-y-sm">
+              <app-dynamic-widgets class="display-block width-100" *ngFor="let item of element['expand']"
+                [content]="item" [form]="form">
+              </app-dynamic-widgets>
+            </div>
+          </div>
+        </td>
+      </ng-container>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="isExpand?columnsToDisplayWithExpand:displayedColumns; sticky:
+      content?.params?.sticky?true:false"></tr>
+    <tr mat-row *matRowDef="let element; columns: isExpand?columnsToDisplayWithExpand:displayedColumns;"
+      [ngClass]="isExpand?'element-row':''" [class.example-expanded-row]="expandedElement === element"></tr>
+
+    <!-- expand row -->
+    <ng-container *ngIf="isExpand">
+      <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" [ngClass]="'detail-row'"></tr>
+    </ng-container>
+
   </table>
 </div>

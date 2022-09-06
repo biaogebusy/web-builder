@@ -5,6 +5,10 @@ import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { DynamicTableComponent } from '../../app/uiux/widgets/dynamic-table/dynamic-table.component';
 import { WidgetsModule } from '../../app/uiux/widgets/widgets.module';
+import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
+import { TextComponent } from '@uiux/widgets/text/text.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
 
 export default {
   title: 'Widgets/Dynamic table',
@@ -12,11 +16,14 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [],
+      entryComponents: [DialogComponent, TextComponent],
       imports: [
         ShareModule,
         WidgetsModule,
         RouterTestingModule,
         MatTableModule,
+        BrowserAnimationsModule,
+        MatDialogModule,
       ],
     }),
   ],
@@ -32,36 +39,165 @@ export const Default = Template.bind({});
 
 Default.args = {
   content: {
-    classes: '',
     header: [
       {
-        label: '位置',
-        key: 'position',
-      },
-      {
-        label: '名称',
+        label: '发票名称',
         key: 'name',
       },
       {
-        label: '质量',
-        key: 'weight',
+        label: '开票金额',
+        key: 'money',
       },
       {
-        label: '编号',
-        key: 'symbol',
+        label: '交票时间',
+        key: 'billingTime',
+      },
+      {
+        label: '发票时间',
+        key: 'deliveryTime',
+      },
+      {
+        label: '备注',
+        key: 'remarks',
       },
     ],
     elements: [
-      { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-      { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-      { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-      { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-      { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-      { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-      { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-      { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
-      { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-      { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
+      {
+        name: '受理费',
+        money: '3679',
+        billingTime: '2022-03-03',
+        deliveryTime: '2022-03-04',
+        remarks: '已收到',
+      },
+      {
+        name: '受理费',
+        money: '3679',
+        billingTime: '2022-03-03',
+        deliveryTime: '2022-03-04',
+        remarks: '已收到',
+      },
+      {
+        name: '受理费',
+        money: '3679',
+        billingTime: '2022-03-03',
+        deliveryTime: '2022-03-04',
+        remarks: '已收到',
+      },
+    ],
+  },
+};
+
+export const CustomStyle = Template.bind({});
+
+CustomStyle.args = {
+  content: {
+    header: [
+      {
+        label: '发票名称',
+        key: 'name',
+      },
+      {
+        label: '开票金额',
+        key: 'money',
+      },
+      {
+        label: '交票时间',
+        key: 'billingTime',
+        style: {
+          textAlign: 'center',
+          backgroundColor: 'rgba(0, 255, 51, 0.25)',
+        },
+      },
+      {
+        label: '发票时间',
+        key: 'deliveryTime',
+      },
+      {
+        label: '备注',
+        key: 'remarks',
+      },
+    ],
+    elements: [
+      {
+        name: '受理费',
+        money: '3679',
+        billingTime: '2022-03-03',
+        deliveryTime: '2022-03-04',
+        remarks: '已收到',
+      },
+      {
+        name: '受理费',
+        money: '3679',
+        billingTime: '2022-03-03',
+        deliveryTime: '2022-03-04',
+        remarks: '已收到',
+      },
+      {
+        name: '受理费',
+        money: '3679',
+        billingTime: '2022-03-03',
+        deliveryTime: '2022-03-04',
+        remarks: '已收到',
+      },
+    ],
+  },
+};
+
+export const DialogColumn = Template.bind({});
+
+DialogColumn.args = {
+  content: {
+    header: [
+      {
+        label: '发票名称',
+        key: 'name',
+      },
+      {
+        label: '开票金额',
+        key: 'money',
+      },
+      {
+        label: '交票时间',
+        key: 'billingTime',
+      },
+      {
+        label: '发票时间',
+        key: 'deliveryTime',
+      },
+      {
+        label: '备注',
+        key: 'remarks',
+        dialog: {
+          shorten: 20,
+          label: '更多',
+        },
+      },
+    ],
+    elements: [
+      {
+        name: '受理费',
+        money: '3679',
+        billingTime: '2022-03-03',
+        deliveryTime: '2022-03-04',
+        remarks:
+          'sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
+      },
+      {
+        name: '受理费',
+        money: '3679',
+        billingTime: '2022-03-03',
+        deliveryTime: '2022-03-04',
+        remarks:
+          'consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr',
+      },
+      {
+        name: '受理费',
+        money: '3679',
+        billingTime: '2022-03-03',
+        deliveryTime: '2022-03-04',
+        remarks:
+          'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet',
+      },
     ],
   },
 };

@@ -14,6 +14,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxWebstorageModule } from 'ngx-webstorage';
+import { API_URL, apiUrlFactory } from '@core/token/token-providers';
 
 export default {
   title: 'Widgets/Text',
@@ -34,6 +35,11 @@ export default {
         {
           provide: CORE_CONFIG,
           userValue: {},
+        },
+        {
+          provide: API_URL,
+          useFactory: apiUrlFactory,
+          deps: [],
         },
       ],
     }),

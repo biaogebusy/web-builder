@@ -11,6 +11,7 @@ import { SwiperModule } from 'ngx-swiper-wrapper';
 import { AmapService } from '../../../app/core/service/amap.service';
 import { PackeryComponent } from '../../../app/uiux/combs/masonry/packery/packery.component';
 import { NgxPackeryModule } from 'ngx-packery';
+import { apiUrlFactory, API_URL } from '@core/token/token-providers';
 export default {
   title: 'Components/masonry/packery',
   component: PackeryComponent,
@@ -32,6 +33,11 @@ export default {
         {
           provide: CORE_CONFIG,
           useValue: {},
+        },
+        {
+          provide: API_URL,
+          useFactory: apiUrlFactory,
+          deps: [],
         },
       ],
     }),

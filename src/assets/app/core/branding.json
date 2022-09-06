@@ -19,7 +19,7 @@
           },
           {
             "icon": "email",
-            "label": "service@mlaw.com"
+            "label": "service@zhaobg.com"
           }
         ],
         "right": [{
@@ -179,6 +179,9 @@
             "label": "Law Project",
             "href": "/sample/node/law-project"
           }, {
+            "label": "Law Tab",
+            "href": "/sample/node/law-tab"
+          }, {
             "label": "article",
             "href": "/sample/node/article"
           }, {
@@ -188,8 +191,11 @@
             "label": "问答",
             "href": "/sample/node/question"
           }, {
-            "label": "User center",
-            "href": "/sample/combs/profile/user-center"
+            "label": "User center lxy",
+            "href": "/sample/combs/profile/user-center-lxy"
+          }, {
+            "label": "User center amigo",
+            "href": "/sample/combs/profile/user-center-amigo"
           }, {
             "label": "Profile 1v1",
             "href": "/sample/combs/profile/profile1v1"
@@ -296,6 +302,9 @@
           }, {
             "label": "Full calendar",
             "href": "/sample/combs/calendar/full-calendar"
+          }, {
+            "label": "Auto Close Page",
+            "href": "/sample/combs/other/autoclose"
           }]
         }]
       },

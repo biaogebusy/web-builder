@@ -1,5 +1,11 @@
 import { formatDate } from '@angular/common';
-import { Component, OnInit, ChangeDetectorRef, Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectorRef,
+  Input,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { UserState } from '@core/mobx/user/UserState';
 import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
@@ -10,6 +16,7 @@ import { takeUntil } from 'rxjs/operators';
   selector: 'app-user-pay',
   templateUrl: './user-pay.component.html',
   styleUrls: ['./user-pay.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserPayComponent implements OnInit {
   @Input() content: any;

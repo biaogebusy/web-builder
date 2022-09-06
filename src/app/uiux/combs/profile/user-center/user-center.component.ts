@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   Input,
@@ -20,6 +21,7 @@ import { BaseComponent } from '@uiux/base/base.widget';
   selector: 'app-user-center',
   templateUrl: './user-center.component.html',
   styleUrls: ['./user-center.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserCenterComponent
   extends BaseComponent

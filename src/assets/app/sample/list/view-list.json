@@ -19,8 +19,9 @@
             "apiType": "tab/case/parties-info",
             "export": {
               "enable": true,
+              "position": "top",
               "btn": {
-                "mode": "raised",
+                "mode": "stroked",
                 "label": "导出",
                 "color": "primary",
                 "icon": {

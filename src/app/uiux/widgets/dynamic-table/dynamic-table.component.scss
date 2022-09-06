@@ -18,6 +18,20 @@
     font-size: 15px;
     word-break: keep-all;
   }
+
+  tr.detail-row {
+    height: 0;
+  }
+
+  .element-row td {
+    border-bottom-width: 0;
+  }
+
+  .element-detail {
+    overflow: hidden;
+    display: flex;
+  }
+
   .mat-cell {
     ::ng-deep {
       ol,
