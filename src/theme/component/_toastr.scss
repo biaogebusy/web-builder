@@ -157,7 +157,7 @@
       background-color: #51a351;
     }
     &.warn {
-      background-color: mat-color($warn);
+      background-color: mat-color($warn, 300);
     }
   }
   .toast-success {
