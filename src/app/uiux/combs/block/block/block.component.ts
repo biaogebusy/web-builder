@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { AppState } from '@core/mobx/AppState';
 
 @Component({
@@ -8,9 +9,14 @@ import { AppState } from '@core/mobx/AppState';
 })
 export class BlockComponent implements OnInit {
   content: any;
-  constructor(public appState: AppState) {}
+  constructor(
+    public appState: AppState,
+    private activateRoute: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    this.appState.setPageContent();
+    this.activateRoute.url.subscribe((url) => {
+      this.appState.setPageContent();
+    });
   }
 }

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 import { AuthGuard } from '@core/guards/auth.guard';
 import { ManageGuard } from '@core/guards/manage.guard';
+import { BlockComponent } from '@uiux/combs/block/block/block.component';
 
 const routes: Routes = [
   {
@@ -22,10 +23,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    loadChildren: () =>
-      import('./modules/page-render/page-render.module').then(
-        (m) => m.PageRenderModule
-      ),
+    component: BlockComponent,
     canActivate: [AuthGuard],
   },
 ];
@@ -36,7 +34,7 @@ const routes: Routes = [
       scrollPositionRestoration: 'enabled',
       initialNavigation: 'enabled',
       preloadingStrategy: PreloadAllModules,
-      anchorScrolling: 'enabled',
+      // enableTracing: true,
     }),
   ],
   exports: [RouterModule],

@@ -17,6 +17,7 @@ import { TabModule } from './tab/tab.module';
 import { NodeModule } from './node/node.module';
 import { CalendarModule } from './calendar/calendar.module';
 import { CalculatorModule } from './calculator/calculator.module';
+import { BlockModule } from './block/block.module';
 
 const modules = [
   ActionModule,
@@ -36,6 +37,7 @@ const modules = [
   NodeModule,
   CalendarModule,
   CalculatorModule,
+  BlockModule,
 ];
 
 @NgModule({
