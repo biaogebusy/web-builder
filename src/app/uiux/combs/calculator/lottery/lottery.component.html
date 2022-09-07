@@ -6,10 +6,11 @@
   <div class="container">
     <app-text [content]="content.text"></app-text>
     <div class="inner" fxLayout="row wrap" fxLayoutAlign="center center">
-      <formly-form fxFlex="500px" fxLayout="row wrap" fxLayoutGap="1rem" [form]="form" [fields]="content.form"
-        [model]="model" (modelChange)="onModelChange($event)">
+      <formly-form [ngClass]="'m-y'" fxFlex.lt-md="100" fxFlex.gt-sm="500px" fxLayout="row wrap" fxLayoutGap="1rem"
+        [form]="form" [fields]="content.form" [model]="model" (modelChange)="onModelChange($event)">
       </formly-form>
-      <div fxFlex="500px" class="result p-x-sm p-y" fxLayout="row" fxLayoutAlign="center center">
+      <div fxFlex.lt-md="100" fxFlex.gt-sm="500px" class="result p-x-sm p-y" fxLayout="row"
+        fxLayoutAlign="center center">
         <div class="left" fxLayoutAlign="center center" fxLayout="column">
           <h2>红包大约需要总预算</h2>
           <h1 class="total p-y-sm">¥<span>{{total}}</span></h1>

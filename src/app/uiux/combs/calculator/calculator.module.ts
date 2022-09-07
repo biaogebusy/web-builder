@@ -31,6 +31,17 @@ const components = [LotteryComponent];
           component: DateRangeComponent,
         },
       ],
+      validationMessages: [
+        { name: 'required', message: '该字段必填' },
+        {
+          name: 'max',
+          message: '不能超过最大值',
+        },
+        {
+          name: 'min',
+          message: '不能小于最小值',
+        },
+      ],
     }),
   ],
   exports: [...components],

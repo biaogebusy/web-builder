@@ -25,9 +25,15 @@ export class LotteryComponent implements OnInit {
 
   constructor(private cd: ChangeDetectorRef) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.form.markAsTouched();
+    this.form.markAllAsTouched();
+    this.form.updateValueAndValidity();
+  }
   onModelChange(value: any): void {
-    console.log(value);
+    if (!this.form.valid) {
+      return;
+    }
     this.total = Math.round(value.max + value.min);
     this.maxPer = (value.max / value.maxTotal).toFixed(2);
     this.minPer = (value.min / value.minTotal).toFixed(2);
@@ -42,8 +48,6 @@ export class LotteryComponent implements OnInit {
     };
 
     this.chart = Object.assign({ data }, this.content.chart);
-    // debugger;
     this.cd.detectChanges();
-    // this.cd.markForCheck();
   }
 }

@@ -1,5 +1,5 @@
 {
-  "title": "Lottery",
+  "title": "小海报红包抽奖预算计算器",
   "body": [{
     "type": "lottery",
     "text": {
@@ -19,19 +19,27 @@
           "label": "大额红包总金额",
           "appearance": "outline",
           "type": "number",
-          "required": true
+          "required": true,
+          "min": 10,
+          "max": 10000,
+          "description": "最小10元，最大10000元"
         }
-      }, {
+      },
+      {
         "type": "input",
         "key": "maxTotal",
-        "defaultValue": 1,
+        "defaultValue": 10,
         "templateOptions": {
           "label": "大额红包个数",
           "appearance": "outline",
           "type": "number",
-          "required": true
+          "required": true,
+          "min": 5,
+          "max": 1000,
+          "description": "最小5个，最大1000个"
         }
-      }, {
+      },
+      {
         "type": "input",
         "key": "min",
         "defaultValue": 100,
@@ -39,18 +47,24 @@
           "label": "小额红包总金额",
           "appearance": "outline",
           "type": "number",
-          "required": true
+          "required": true,
+          "min": 100,
+          "max": 10000,
+          "description": "最小100元，最大10000元"
         }
       },
       {
         "type": "input",
         "key": "minTotal",
-        "defaultValue": 1,
+        "defaultValue": 20,
         "templateOptions": {
           "label": "小额红包个数",
           "appearance": "outline",
           "type": "number",
-          "required": true
+          "required": true,
+          "min": 20,
+          "max": 1000,
+          "description": "最小20个，最大1000个"
         }
       }
     ],
