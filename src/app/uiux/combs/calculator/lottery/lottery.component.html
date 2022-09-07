@@ -1,1 +1,34 @@
-<p>lottery works!</p>
+<div class="lottery position-relative">
+  <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
+  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
+  <app-bg [content]="content.bg" *ngIf="content.bg">
+  </app-bg>
+  <div class="container">
+    <app-text [content]="content.text"></app-text>
+    <div class="inner" fxLayout="row wrap" fxLayoutAlign="center center">
+      <formly-form fxFlex="500px" fxLayout="row wrap" fxLayoutGap="1rem" [form]="form" [fields]="content.form"
+        [model]="model" (modelChange)="onModelChange($event)">
+      </formly-form>
+      <div fxFlex="500px" class="result p-x-sm p-y" fxLayout="row" fxLayoutAlign="center center">
+        <div class="left" fxLayoutAlign="center center" fxLayout="column">
+          <h2>红包大约需要总预算</h2>
+          <h1 class="total p-y-sm">¥<span>{{total}}</span></h1>
+          <div class="result-footer text-center" fxLayout="row" fxLayoutGap="2rem">
+            <div class="item" fxLayout="column">
+              <span class="label">大额红包每个</span>
+              <span class="value">{{maxPer}}元</span>
+            </div>
+            <div class="item" fxLayout="column">
+              <span class="label">小额红包平均每个</span>
+              <span class="value">{{minPer}}元</span>
+            </div>
+          </div>
+        </div>
+        <div class="right" fxFlex="40%">
+          <app-chart *ngIf="chart" [content]="chart"></app-chart>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
+</div>

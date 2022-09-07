@@ -12,6 +12,7 @@ import { OtherModule } from '../other/other.module';
 import { ActionModule } from '../action/action.module';
 import { ShareModule } from '@share/share.module';
 import { MapModule } from '../map/map.module';
+import { CalculatorModule } from '../calculator/calculator.module';
 @NgModule({
   declarations: [DynamicCombsComponent],
   imports: [
@@ -28,6 +29,7 @@ import { MapModule } from '../map/map.module';
     OtherModule,
     ActionModule,
     MapModule,
+    CalculatorModule,
   ],
   exports: [DynamicCombsComponent],
 })

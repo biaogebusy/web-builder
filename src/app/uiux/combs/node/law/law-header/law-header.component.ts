@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { ScreenService } from '@core/service/screen.service.js';
 import autoTable from 'jspdf-autotable';
 @Component({
   selector: 'app-law-header',
@@ -13,13 +14,16 @@ import autoTable from 'jspdf-autotable';
 })
 export class LawHeaderComponent implements OnInit {
   @Input() content: any;
-  constructor() {}
+  constructor(private screenService: ScreenService) {}
 
   ngOnInit(): void {}
 
   async onSavePdf(): Promise<void> {
     const pdf = this.content.pdf;
     if (!pdf) {
+      return;
+    }
+    if (this.screenService.isPlatformServer()) {
       return;
     }
     // @ts-ignore
