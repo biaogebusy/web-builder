@@ -306,6 +306,12 @@
             "label": "Auto Close Page",
             "href": "/sample/combs/other/autoclose"
           }]
+        }, {
+          "label": "Calculator",
+          "child": [{
+            "label": "Lottery",
+            "href": "/sample/combs/calculator/lottery"
+          }]
         }]
       },
       {

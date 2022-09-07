@@ -1,0 +1,70 @@
+{
+  "title": "Lottery",
+  "body": [{
+    "type": "lottery",
+    "text": {
+      "spacer": "md",
+      "title": {
+        "label": "红包抽奖预算计算器",
+        "style": "style-v1"
+      },
+      "classes": "text-center",
+      "body": "输入指标，自动计算出预算，指导市场营销计划。"
+    },
+    "form": [{
+        "type": "input",
+        "key": "max",
+        "defaultValue": 100,
+        "templateOptions": {
+          "label": "大额红包总金额",
+          "appearance": "outline",
+          "type": "number",
+          "required": true
+        }
+      }, {
+        "type": "input",
+        "key": "maxTotal",
+        "defaultValue": 1,
+        "templateOptions": {
+          "label": "大额红包个数",
+          "appearance": "outline",
+          "type": "number",
+          "required": true
+        }
+      }, {
+        "type": "input",
+        "key": "min",
+        "defaultValue": 100,
+        "templateOptions": {
+          "label": "小额红包总金额",
+          "appearance": "outline",
+          "type": "number",
+          "required": true
+        }
+      },
+      {
+        "type": "input",
+        "key": "minTotal",
+        "defaultValue": 1,
+        "templateOptions": {
+          "label": "小额红包个数",
+          "appearance": "outline",
+          "type": "number",
+          "required": true
+        }
+      }
+    ],
+    "chart": {
+      "chartType": "pie",
+      "options": {
+        "responsive": true,
+        "plugins": {
+          "legend": {
+            "display": true,
+            "position": "top"
+          }
+        }
+      }
+    }
+  }]
+}
