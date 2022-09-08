@@ -18,7 +18,7 @@
         "fieldGroup": [{
           "type": "input",
           "key": "total",
-          "defaultValue": 100,
+          "defaultValue": 300,
           "className": "m-right-sm",
           "templateOptions": {
             "label": "大额红包总金额",
@@ -38,9 +38,9 @@
             "appearance": "outline",
             "type": "number",
             "required": true,
-            "min": 5,
+            "min": 0.5,
             "max": 100,
-            "description": "最小5元，最大100元"
+            "description": "最小0.5元，最大100元"
           }
         }]
       },
@@ -51,7 +51,7 @@
         "fieldGroup": [{
           "type": "input",
           "key": "total",
-          "defaultValue": 100,
+          "defaultValue": 500,
           "className": "m-right-sm",
           "templateOptions": {
             "label": "小额红包总金额",
@@ -72,8 +72,8 @@
             "type": "number",
             "required": true,
             "min": 0.1,
-            "max": 1,
-            "description": "最小0.1元，最大1元"
+            "max": 2,
+            "description": "最小0.1元，最大2元"
           }
         }]
       }, {
@@ -125,10 +125,11 @@
         "plugins": {
           "legend": {
             "display": true,
-            "position": "top"
+            "position": "bottom"
           }
         }
       }
-    }
+    },
+    "description": "<ul class=\"list-done\"><li>总金额 = 红包总金额（大额+小额）+ 推广金额</li><li>当红包总金额没有余额就不发了</li><li>推广总金额没有余额停止输入推广ID（停止提成）</li></ul>"
   }]
 }

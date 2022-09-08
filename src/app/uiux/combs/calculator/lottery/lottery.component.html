@@ -10,29 +10,31 @@
         [form]="form" [fields]="content.form" [model]="model" (modelChange)="onModelChange($event)">
       </formly-form>
 
-      <div fxFlex.lt-md="100" fxFlex.gt-sm="500px" class="result p-x-sm p-y" fxLayout="row"
-        fxLayoutAlign="center center">
-        <div class="left" fxLayoutAlign="center center" fxLayout="column">
-          <h2>红包大约需要总预算</h2>
-          <h1 class="total p-y-sm">¥<span>{{total}}</span></h1>
-          <div class="result-footer text-center" fxLayout="row wrap" fxLayoutGap="2rem">
-            <div class="item" fxLayout="column">
-              <span class="label">大额红包可发</span>
-              <span class="value">{{maxTimes}}个</span>
-            </div>
-            <div class="item" fxLayout="column">
-              <span class="label">小额红包可发</span>
-              <span class="value">{{minTimes}}个</span>
-            </div>
-            <div *ngIf="model.isPromote" class="item" fxLayout="column">
-              <span class="label">推广占用金额</span>
-              <span class="value">{{promoteMoney}}元</span>
+      <div fxFlex.lt-md="100" fxFlex.gt-sm="500px" fxLayout="column">
+        <div class="result p-x-sm p-y" fxLayout="row" fxLayoutAlign="center center">
+          <div class="left" fxLayoutAlign="center center" fxLayout="column">
+            <h2>红包大约需要总预算</h2>
+            <h1 class="total p-y-sm">¥<span>{{total}}</span></h1>
+            <div class="result-footer text-center" fxLayout="row wrap" fxLayoutGap="2rem">
+              <div class="item" fxLayout="column">
+                <span class="label">大额红包可发</span>
+                <span class="value">{{maxTimes}}个</span>
+              </div>
+              <div class="item" fxLayout="column">
+                <span class="label">小额红包可发</span>
+                <span class="value">{{minTimes}}个</span>
+              </div>
+              <div *ngIf="model.isPromote" class="item" fxLayout="column">
+                <span class="label">推广占用金额</span>
+                <span class="value">{{promoteMoney}}元</span>
+              </div>
             </div>
           </div>
+          <div class="right" fxFlex="40%">
+            <app-chart *ngIf="chart" [content]="chart"></app-chart>
+          </div>
         </div>
-        <div class="right" fxFlex="40%">
-          <app-chart *ngIf="chart" [content]="chart"></app-chart>
-        </div>
+        <div fxFlex="100%" class="description m-y-sm" [innerHTML]="content.description|safeHtml"></div>
       </div>
     </div>
   </div>
