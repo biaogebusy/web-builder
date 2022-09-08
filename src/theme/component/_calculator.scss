@@ -8,10 +8,10 @@
   $accent: map-get($config, accent);
   $warn: map-get($config, warn);
   .lottery {
-    background-color: mat-color($primary, 400, 0.1);
+    background-color: mat-color($primary, 400, 0.07);
     .result {
       background-color: mat-color($primary, default-contrast);
-      @include mat-elevation(4, mat-color($primary), 0.1);
+      @include mat-elevation(6, mat-color($primary), 0.3);
       .total {
         color: mat-color($primary);
       }
