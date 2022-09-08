@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -14,36 +15,50 @@ import { IChart } from '@core/interface/widgets/IChart';
   styleUrls: ['./lottery.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LotteryComponent implements OnInit {
+export class LotteryComponent implements OnInit, AfterViewInit {
   @Input() content: any;
   form = new FormGroup({});
   model: any = {};
   total = 0;
-  maxPer = '0';
-  minPer = '0';
+  maxTimes = '0';
+  minTimes = '0';
+  promoteMoney = '0';
   chart: IChart;
 
   constructor(private cd: ChangeDetectorRef) {}
 
   ngOnInit(): void {}
+
+  ngAfterViewInit(): void {
+    if (this.form.controls?.isPromote) {
+      this.form.controls.isPromote.setValue(false);
+    }
+  }
+
   onModelChange(value: any): void {
-    console.log(value);
-    this.total = Math.round(value.max + value.min);
-    this.maxPer = (value.max / value.maxTotal).toFixed(2);
-    this.minPer = (value.min / value.minTotal).toFixed(2);
+    if (!this.form.valid) {
+      return;
+    }
+    const { max, min, promote, isPromote } = value;
+    if (isPromote) {
+      this.promoteMoney = (promote.times * promote.money).toFixed(2);
+    } else {
+      this.promoteMoney = '0';
+    }
+    this.total = Math.round(max.total + min.total + Number(this.promoteMoney));
+    this.maxTimes = (max.total / max.per).toFixed(0);
+    this.minTimes = (min.total / min.per).toFixed(0);
 
     const data = {
-      labels: ['大红包总金额', '小红包总金额'],
+      labels: ['大红包总金额', '小红包总金额', '提成总额'],
       datasets: [
         {
-          data: [value.max, value.min],
+          data: [max.total, min.total, this.promoteMoney],
         },
       ],
     };
 
     this.chart = Object.assign({ data }, this.content.chart);
-    // debugger;
     this.cd.detectChanges();
-    // this.cd.markForCheck();
   }
 }

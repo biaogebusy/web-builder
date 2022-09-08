@@ -1,5 +1,5 @@
 {
-  "title": "Lottery",
+  "title": "小海报红包抽奖预算计算器",
   "body": [{
     "type": "lottery",
     "text": {
@@ -12,46 +12,110 @@
       "body": "输入指标，自动计算出预算，指导市场营销计划。"
     },
     "form": [{
-        "type": "input",
         "key": "max",
-        "defaultValue": 100,
-        "templateOptions": {
-          "label": "大额红包总金额",
-          "appearance": "outline",
-          "type": "number",
-          "required": true
-        }
-      }, {
-        "type": "input",
-        "key": "maxTotal",
-        "defaultValue": 1,
-        "templateOptions": {
-          "label": "大额红包个数",
-          "appearance": "outline",
-          "type": "number",
-          "required": true
-        }
-      }, {
-        "type": "input",
+        "className": "m-bottom",
+        "fieldGroupClassName": "display-flex",
+        "fieldGroup": [{
+          "type": "input",
+          "key": "total",
+          "defaultValue": 100,
+          "className": "m-right-sm",
+          "templateOptions": {
+            "label": "大额红包总金额",
+            "appearance": "outline",
+            "type": "number",
+            "required": true,
+            "min": 10,
+            "max": 10000,
+            "description": "最小10元，最大10000元"
+          }
+        }, {
+          "type": "input",
+          "key": "per",
+          "defaultValue": 10,
+          "templateOptions": {
+            "label": "期望大额红包",
+            "appearance": "outline",
+            "type": "number",
+            "required": true,
+            "min": 5,
+            "max": 100,
+            "description": "最小5元，最大100元"
+          }
+        }]
+      },
+      {
         "key": "min",
-        "defaultValue": 100,
+        "className": "m-bottom",
+        "fieldGroupClassName": "display-flex",
+        "fieldGroup": [{
+          "type": "input",
+          "key": "total",
+          "defaultValue": 100,
+          "className": "m-right-sm",
+          "templateOptions": {
+            "label": "小额红包总金额",
+            "appearance": "outline",
+            "type": "number",
+            "required": true,
+            "min": 100,
+            "max": 10000,
+            "description": "最小100元，最大10000元"
+          }
+        }, {
+          "type": "input",
+          "key": "per",
+          "defaultValue": 0.8,
+          "templateOptions": {
+            "label": "期望小额红包",
+            "appearance": "outline",
+            "type": "number",
+            "required": true,
+            "min": 0.1,
+            "max": 1,
+            "description": "最小0.1元，最大1元"
+          }
+        }]
+      }, {
+        "key": "isPromote",
+        "type": "toggle",
+        "className": "width-100 m-bottom",
         "templateOptions": {
-          "label": "小额红包总金额",
-          "appearance": "outline",
-          "type": "number",
-          "required": true
+          "label": "开启推广提成",
+          "description": "超过推广次数则关闭推广入口"
         }
       },
       {
-        "type": "input",
-        "key": "minTotal",
-        "defaultValue": 1,
-        "templateOptions": {
-          "label": "小额红包个数",
-          "appearance": "outline",
-          "type": "number",
-          "required": true
-        }
+        "key": "promote",
+        "fieldGroupClassName": "display-flex",
+        "fieldGroup": [{
+          "type": "input",
+          "key": "times",
+          "defaultValue": 100,
+          "className": "m-right-sm",
+          "templateOptions": {
+            "label": "推广成功次数",
+            "appearance": "outline",
+            "type": "number",
+            "required": true,
+            "min": 5,
+            "max": 500,
+            "description": "设置本次广告推广有效次数"
+          }
+        }, {
+          "type": "input",
+          "key": "money",
+          "defaultValue": 2,
+          "templateOptions": {
+            "label": "每次推广可得",
+            "appearance": "outline",
+            "type": "number",
+            "required": true,
+            "min": 1,
+            "max": 100,
+            "description": "推广员推广一次固定的提成"
+          }
+        }]
       }
     ],
     "chart": {

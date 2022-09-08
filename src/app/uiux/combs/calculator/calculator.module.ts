@@ -9,6 +9,8 @@ import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { LotteryComponent } from './lottery/lottery.component';
 import { FormlyMaterialModule } from '@ngx-formly/material';
 import { FormlyMatSliderModule } from '@ngx-formly/material/slider';
+import { FormlyMatToggleModule } from '@ngx-formly/material/toggle';
+
 const components = [LotteryComponent];
 
 @NgModule({
@@ -20,6 +22,7 @@ const components = [LotteryComponent];
     ReactiveFormsModule,
     FormlyMaterialModule,
     FormlyMatSliderModule,
+    FormlyMatToggleModule,
     FormlyModule.forRoot({
       types: [
         {
@@ -29,6 +32,17 @@ const components = [LotteryComponent];
         {
           name: 'date-range',
           component: DateRangeComponent,
+        },
+      ],
+      validationMessages: [
+        { name: 'required', message: '该字段必填' },
+        {
+          name: 'max',
+          message: '不能超过最大值',
+        },
+        {
+          name: 'min',
+          message: '不能小于最小值',
         },
       ],
     }),
