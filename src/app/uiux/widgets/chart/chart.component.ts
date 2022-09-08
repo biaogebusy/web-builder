@@ -6,7 +6,6 @@ import {
   ChangeDetectorRef,
 } from '@angular/core';
 import type { IChart } from '@core/interface/widgets/IChart';
-import { UtilitiesService } from '@core/service/utilities.service';
 
 @Component({
   selector: 'app-chart',
