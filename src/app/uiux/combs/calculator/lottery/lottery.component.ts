@@ -50,7 +50,7 @@ export class LotteryComponent implements OnInit, AfterViewInit {
     this.minTimes = (min.total / min.per).toFixed(0);
 
     const data = {
-      labels: ['大红包总金额', '小红包总金额', '提成总额'],
+      labels: ['大额红包总金额', '小额红包总金额', '提成总额'],
       datasets: [
         {
           data: [max.total, min.total, this.promoteMoney],

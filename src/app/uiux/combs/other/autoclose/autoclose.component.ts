@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { interval } from 'rxjs';
 import { CORE_CONFIG } from '@core/token/core.config';
-import { ICoreConfig } from '@core/mobx/IAppConfig';
+import type { ICoreConfig } from '@core/mobx/IAppConfig';
 
 @Component({
   selector: 'app-autoclose',
