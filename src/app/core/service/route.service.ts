@@ -31,6 +31,10 @@ export class RouteService {
       const link = target.href.split(target.host)[1];
       if (!this.util.getFileType(link)) {
         // not file type
+        if (target.target === '_blank') {
+          window.open(link, '_blank');
+          return;
+        }
         event.preventDefault();
         this.router.navigate([link]);
       }

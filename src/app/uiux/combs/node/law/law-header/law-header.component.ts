@@ -31,13 +31,15 @@ export class LawHeaderComponent implements OnInit {
     const { jsPDF } = await import('jspdf');
 
     const doc = new jsPDF();
+    doc.addImage(pdf.logo, 80, 5, 66, 10);
     doc.setFont('STHeiti');
     doc.setFontSize(18);
-    doc.text(pdf.title, 70, 15);
+    doc.text(pdf.title, 60, 25);
+    doc.setFontSize(18);
+    doc.text(pdf.subTitle, 85, 35);
     doc.setFontSize(10);
-    doc.text(pdf.subTitle, 140, 25);
     autoTable(doc, {
-      startY: 30,
+      startY: 45,
       styles: {
         fillColor: [255, 255, 255],
         font: 'STHeiti',
@@ -61,6 +63,9 @@ export class LawHeaderComponent implements OnInit {
       },
       body: pdf.table.body,
     });
+    const finalY = (doc as any).lastAutoTable.finalY;
+    doc.text('打印日期：2022年9月8日16:43', 15, finalY + 5);
+
     doc.output('dataurlnewwindow', { filename: 'sample.pdf' });
     // doc.save('sample.pdf');
   }
