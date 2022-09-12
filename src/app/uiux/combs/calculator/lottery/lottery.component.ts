@@ -39,9 +39,22 @@ export class LotteryComponent implements OnInit, AfterViewInit {
     if (!this.form.valid) {
       return;
     }
+    // max: 大额红包 min: 小额红包 promote: 提成
     const { max, min, promote, isPromote } = value;
     if (isPromote) {
-      this.promoteMoney = (promote.times * promote.money).toFixed(2);
+      // 固定金额
+      if (promote.type === 'fixed') {
+        this.promoteMoney = (promote.fixedTimes * promote.fixedMoney).toFixed(
+          2
+        );
+      }
+      // 按比例
+      if (promote.type === 'prop') {
+        const prop = promote.prop / 100;
+        const maxMoney = promote.maxTimes * prop * max.per;
+        const minMoney = promote.minTimes * prop * min.per;
+        this.promoteMoney = (maxMoney + minMoney).toFixed(0);
+      }
     } else {
       this.promoteMoney = '0';
     }
