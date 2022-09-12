@@ -5,7 +5,7 @@
     </button>
 
     <mat-menu #menu="matMenu">
-      <button aria-label="switch theme item" *ngFor="let theme of coreConfig.theme" mat-menu-item
+      <button aria-label="switch theme item" *ngFor="let theme of coreConfig.theme;trachBy:trackByFn" mat-menu-item
         (click)="onSwitchTheme(theme.style)">
         <mat-icon *ngIf="appState.theme !== theme.style">radio_button_unchecked</mat-icon>
         <mat-icon color="primary" *ngIf="appState.theme === theme.style"> radio_button_checked </mat-icon>

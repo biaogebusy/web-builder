@@ -172,4 +172,8 @@ export class ViewListComponent
       window.open(href, '_blank');
     }
   }
+
+  trackByFn(index: number, item: any): number {
+    return index;
+  }
 }

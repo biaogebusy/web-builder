@@ -176,4 +176,8 @@ export class LawCaseComponent
       return [];
     }
   }
+
+  trackByFn(index: number, item: any): number {
+    return index;
+  }
 }

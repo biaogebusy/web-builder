@@ -43,4 +43,8 @@ export class InputComponent implements OnInit {
   displayFn(item: any): string {
     return item.label;
   }
+
+  trackByFn(index: number, item: any): number {
+    return index;
+  }
 }

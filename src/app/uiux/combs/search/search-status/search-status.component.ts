@@ -16,4 +16,8 @@ export class SearchStatusComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
+  trackByFn(index: number, item: any): number {
+    return index;
+  }
 }

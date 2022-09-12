@@ -36,7 +36,7 @@
       </div>
       <ng-container *ngIf="table">
         <ng-container *ngFor="let item of table.elements | paginate:{id:content?.params?.apiType, itemsPerPage: pager.items_per_page,currentPage:
-          pager.current_page + 1,totalItems: pager.total_items}">
+          pager.current_page + 1,totalItems: pager.total_items};trackBy:trackByFn">
         </ng-container>
       </ng-container>
       <app-pagination [id]="content?.params?.apiType" *ngIf="pager" (pageChange)="onPageChange($event)">

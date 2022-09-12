@@ -13,4 +13,8 @@ export class UserHomeComponent implements OnInit {
   ngOnInit(): void {
     this.appState.setPageContent();
   }
+
+  trackByFn(index: number, item: any): number {
+    return index;
+  }
 }
