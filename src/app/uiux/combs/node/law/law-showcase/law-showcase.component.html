@@ -1,6 +1,6 @@
 <div class="law-showcase" *ngIf="content">
   <div fxLayout="row wrap">
-    <app-dynamic-table fxFlex.lt-sm="100" fxFlex.gt-xs="100" *ngFor="let table of content.elements" [content]="table"
-      [form]="form"></app-dynamic-table>
+    <app-dynamic-table fxFlex.lt-sm="100" fxFlex.gt-xs="100" *ngFor="let table of content.elements;trackBy:trackByFn"
+      [content]="table" [form]="form"></app-dynamic-table>
   </div>
 </div>

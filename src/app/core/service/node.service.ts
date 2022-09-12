@@ -321,7 +321,7 @@ export class NodeService extends ApiService {
     uuid: string,
     timeStamp = 1,
     token?: string
-  ): Observable<any> {
+  ): Observable<ICommentContent[]> {
     const key = JSON.stringify({ api: this.apiUrl, uuid, timeStamp });
     const cache = this.responseCache.get(key);
     const params = [`timeStamp=${timeStamp}`].join('&');
@@ -334,7 +334,7 @@ export class NodeService extends ApiService {
         token ? this.optionsWithCookieAndToken : this.httpOptionsOfCommon
       )
       .pipe(
-        switchMap((res) => {
+        switchMap((res: any) => {
           this.responseCache.set(key, res);
           return of(res);
         })

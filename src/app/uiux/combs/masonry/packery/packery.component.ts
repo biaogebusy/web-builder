@@ -33,4 +33,8 @@ export class PackeryComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.packery.pckryService.reloadItems();
   }
+
+  trackByFn(index: number, item: any): number {
+    return index;
+  }
 }

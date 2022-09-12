@@ -1,5 +1,5 @@
 <mat-tab-group class="law-tab" mat-align-tabs="start" [ngClass]="content.classes">
-  <mat-tab *ngFor="let item of content.elements" label="{{item.label}}">
+  <mat-tab *ngFor="let item of content.elements;trackBy:trackByFn" label="{{item.label}}">
     <div class="p-y-sm p-x-sm">
       <ng-container [ngSwitch]="item.type">
         <app-law-showcase *ngSwitchCase="'showcase'" [content]="item" [form]="form">

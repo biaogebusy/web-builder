@@ -16,7 +16,7 @@
       </button>
 
       <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-        <mat-option *ngFor="let option of autoLists" [value]="option">
+        <mat-option *ngFor="let option of autoLists;trackBy:trackByFn" [value]="option">
           {{option.label}}
         </mat-option>
       </mat-autocomplete>

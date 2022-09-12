@@ -19,4 +19,8 @@ export class BlockComponent implements OnInit {
       this.appState.setPageContent();
     });
   }
+
+  trackByFn(index: number, item: any): number {
+    return index;
+  }
 }

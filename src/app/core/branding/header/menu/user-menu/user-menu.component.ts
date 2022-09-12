@@ -82,6 +82,10 @@ export class UserMenuComponent implements OnInit, OnDestroy {
     return [`/me`];
   }
 
+  trackByFn(index: number, item: any): number {
+    return index;
+  }
+
   ngOnDestroy(): void {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();

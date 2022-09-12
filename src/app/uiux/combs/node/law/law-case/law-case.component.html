@@ -5,7 +5,7 @@
       <app-law-header [content]="content"></app-law-header>
       <div class="content m-y-sm">
         <div class="block position-relative" ngClass.gt-sm="p-y p-x" ngClass.lt-md="p-y-xs p-x-xs"
-          *ngFor="let item of content.block">
+          *ngFor="let item of content.block;trackBy:trackByFn">
           <ng-container [ngSwitch]="item.type">
             <app-law-showcase *ngSwitchCase="'showcase'" [content]="item" [form]="form">
             </app-law-showcase>
@@ -22,7 +22,7 @@
         ngClass.lt-md="m-y-xs p-y-xs p-x-xs">
         <app-comment-form *ngIf="content?.params?.comment" [content]="content" [type]="'add'">
         </app-comment-form>
-        <app-comment-list [comments]="comments" [content]="content">
+        <app-comment-list [comments]="comments$ | async" [content]="content">
         </app-comment-list>
       </div>
     </ng-container>

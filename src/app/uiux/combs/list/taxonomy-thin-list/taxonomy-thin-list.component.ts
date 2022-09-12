@@ -20,4 +20,7 @@ export class TaxonomyThinListComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+  trackByFn(index: number, item: any): number {
+    return index;
+  }
 }

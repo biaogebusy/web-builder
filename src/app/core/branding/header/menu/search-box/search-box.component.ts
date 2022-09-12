@@ -85,6 +85,10 @@ export class SearchBoxComponent
     this.cd.detectChanges();
   }
 
+  trackByFn(index: number, item: any): number {
+    return index;
+  }
+
   ngOnDestroy(): void {}
 
   search(value: any): void {

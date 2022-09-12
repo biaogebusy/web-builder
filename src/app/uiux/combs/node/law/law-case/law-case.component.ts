@@ -8,7 +8,11 @@ import {
   Inject,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import type { ICase, ICasePrams } from '@core/interface/node/INode';
+import type {
+  ICase,
+  ICasePrams,
+  ICommentContent,
+} from '@core/interface/node/INode';
 import { AppState } from '@core/mobx/AppState';
 import { FormState } from '@core/mobx/FormState';
 import { UserState } from '@core/mobx/user/UserState';
@@ -16,7 +20,7 @@ import { FormService } from '@core/service/form.service';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { NodeComponent } from '@uiux/base/node.widget';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { ScreenService } from '@core/service/screen.service';
 import { ContentState } from '@core/mobx/ContentState';
 import {
@@ -39,7 +43,7 @@ export class LawCaseComponent
   implements OnInit, AfterViewInit
 {
   @Input() content: ICase;
-  comments: any[];
+  comments$: Observable<ICommentContent[]>;
   initCommentContent: string;
   form: FormGroup;
   first = true;
@@ -65,7 +69,6 @@ export class LawCaseComponent
     if (this.content?.form?.length) {
       this.initForm(this.content.form);
     }
-    // this.getlawyers();
     this.getComments();
     if (this.screenService.isPlatformBrowser()) {
       this.contentState.commentChange$
@@ -96,14 +99,6 @@ export class LawCaseComponent
       });
   }
 
-  handleLawyer(apiParams: any): any {
-    if (!apiParams.data.relationships.lawyer.data.length) {
-      delete apiParams.data.relationships.lawyer;
-      return apiParams;
-    }
-    return apiParams;
-  }
-
   updateNode(apiParams: any): void {
     const uuid = this.appState.pageConfig.node.uuid;
     this.nodeService
@@ -113,34 +108,16 @@ export class LawCaseComponent
       });
   }
 
-  getlawyers(): void {
-    this.nodeService.getNodes('/api/v1/node', 'handler').subscribe((res) => {
-      const autoList = res.data.map((item: any) => {
-        return {
-          label: item.attributes.title,
-          value: item.id,
-        };
-      });
-      this.formState.autoList$.next(autoList);
-    });
-  }
-
   getComments(timeStamp = 1): void {
     if (!this.coreConfig?.article?.comment?.enable) {
       return;
     }
+    this.comments$ = this.nodeService.getCustomApiComment(
+      this.appState.pageConfig.node.uuid,
+      timeStamp,
+      this.userState.currentUser.csrf_token
+    );
     this.cd.detectChanges();
-    this.nodeService
-      .getCustomApiComment(
-        this.appState.pageConfig.node.uuid,
-        timeStamp,
-        this.userState.currentUser.csrf_token
-      )
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((res) => {
-        this.comments = res;
-        this.cd.detectChanges();
-      });
   }
 
   getCaseParams(value: ICasePrams): any {
@@ -175,5 +152,9 @@ export class LawCaseComponent
     } else {
       return [];
     }
+  }
+
+  trackByFn(index: number, item: any): number {
+    return index;
   }
 }

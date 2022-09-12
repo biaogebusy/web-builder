@@ -16,4 +16,8 @@ export class LawCardComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
+  trackByFn(index: number, item: any): number {
+    return index;
+  }
 }

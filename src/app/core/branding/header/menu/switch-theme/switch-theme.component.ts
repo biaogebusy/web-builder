@@ -21,6 +21,10 @@ export class SwitchThemeComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  trackByFn(index: number, item: any): number {
+    return index;
+  }
+
   onSwitchTheme(theme: string): void {
     this.appState.switchTheme(theme);
   }

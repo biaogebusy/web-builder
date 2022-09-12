@@ -14,7 +14,7 @@ import type { IBaseNode, ICommentContent } from '@core/interface/node/INode';
 })
 export class CommentListComponent implements OnInit {
   @Input() content: IBaseNode;
-  @Input() comments: ICommentContent[];
+  @Input() comments: ICommentContent[] | null;
 
   constructor() {}
 

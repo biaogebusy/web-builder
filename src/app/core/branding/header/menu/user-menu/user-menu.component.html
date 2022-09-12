@@ -19,7 +19,7 @@
       <a mat-menu-item [routerLink]="userPage">
         <mat-icon>account_circle</mat-icon>{{userState.currentUser?.display_name}}
       </a>
-      <ng-container *ngFor="let item of content">
+      <ng-container *ngFor="let item of content;trackBy:trackByFn">
         <button aria-label="dialog" *ngIf="item.dialog;else link" mat-menu-item (click)="openDialog(item.dialog)">
           <app-icon [content]="item.icon"></app-icon>{{item.label}}
         </button>

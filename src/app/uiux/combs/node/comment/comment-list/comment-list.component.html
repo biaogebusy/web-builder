@@ -1,10 +1,10 @@
-<div class="comment-list m-y-sm position-relative" *ngIf="comments">
-  <ng-container *ngIf="comments.length;else empty">
+<div class="comment-list m-y-sm position-relative">
+  <ng-container *ngIf="comments?.length;else empty">
     <div class="comment-count p-y-xs p-x-sm" fxLayoutAlign="space-between center">
       <span *ngIf="content.comment?.title" class="bold" fxFlex="100">{{content.title}}</span>
-      <span class="bold {{content.comment?.title?'text-right':''}}" fxFlex="100">{{comments.length}}个回复</span>
+      <span class="bold {{content.comment?.title?'text-right':''}}" fxFlex="100">{{comments?.length}}个回复</span>
     </div>
-    <app-comment-item [comments]="comments" [content]="content"></app-comment-item>
+    <app-comment-item *ngIf="comments" [comments]="comments" [content]="content"></app-comment-item>
   </ng-container>
   <ng-template #empty>
     <div class="empty p-y" fxLayout="column" fxLayoutAlign="center center">

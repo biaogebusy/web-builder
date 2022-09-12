@@ -21,5 +21,9 @@ export class SubMenuComponent extends BaseComponent implements OnInit {
     super(userState);
   }
 
+  trackByFn(index: number, item: any): number {
+    return index;
+  }
+
   ngOnInit(): void {}
 }

@@ -1,7 +1,7 @@
 <app-link class="top" [content]="content"></app-link>
 <div class="mega-menu" [class.active]="active">
   <div class="container inner">
-    <div class="item" fxFlex="0 1 100" *ngFor="let item of content.child">
+    <div class="item" fxFlex="0 1 100" *ngFor="let item of content.child;trackBy:trackByFn">
       <div class="label m-bottom-xs">
         <app-link [content]="item"></app-link>
       </div>

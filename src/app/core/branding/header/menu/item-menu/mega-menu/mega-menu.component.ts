@@ -69,6 +69,9 @@ export class MegaMenuComponent implements OnInit, OnDestroy {
       this.cd.detectChanges();
     });
   }
+  trackByFn(index: number, item: any): number {
+    return index;
+  }
 
   ngOnDestroy(): void {}
 }

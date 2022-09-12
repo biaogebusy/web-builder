@@ -28,19 +28,31 @@
             "min": 10,
             "max": 10000,
             "description": "最小10元，最大10000元"
+          },
+          "validation": {
+            "messages": {
+              "min": "不能设置小于 10",
+              "max": "不能设置大于 10000"
+            }
           }
         }, {
           "type": "input",
           "key": "per",
           "defaultValue": 10,
           "templateOptions": {
-            "label": "期望大额红包",
+            "label": "大额红包平均每次可抽得",
             "appearance": "outline",
             "type": "number",
             "required": true,
             "min": 0.5,
             "max": 100,
             "description": "最小0.5元，最大100元"
+          },
+          "validation": {
+            "messages": {
+              "min": "不能设置小于 0.5",
+              "max": "不能设置大于 100"
+            }
           }
         }]
       },
@@ -61,19 +73,31 @@
             "min": 100,
             "max": 10000,
             "description": "最小100元，最大10000元"
+          },
+          "validation": {
+            "messages": {
+              "min": "不能设置小于 100",
+              "max": "不能设置大于 10000"
+            }
           }
         }, {
           "type": "input",
           "key": "per",
           "defaultValue": 0.8,
           "templateOptions": {
-            "label": "期望小额红包",
+            "label": "小额红包平均每次可抽得",
             "appearance": "outline",
             "type": "number",
             "required": true,
             "min": 0.1,
             "max": 2,
             "description": "最小0.1元，最大2元"
+          },
+          "validation": {
+            "messages": {
+              "min": "不能设置小于 0.1",
+              "max": "不能设置大于 2"
+            }
           }
         }]
       }, {
@@ -82,39 +106,126 @@
         "className": "width-100 m-bottom",
         "templateOptions": {
           "label": "开启推广提成",
-          "description": "超过推广次数则关闭推广入口"
+          "description": "超过推广次数则推广结束"
         }
       },
       {
         "key": "promote",
-        "fieldGroupClassName": "display-flex",
+        "fieldGroupClassName": "display-flex flex-wrap",
         "fieldGroup": [{
-          "type": "input",
-          "key": "times",
-          "defaultValue": 100,
-          "className": "m-right-sm",
+          "type": "select",
+          "key": "type",
+          "defaultValue": "fixed",
+          "className": "width-100 m-bottom-sm m-right-sm",
           "templateOptions": {
-            "label": "推广成功次数",
+            "label": "选择提成方式",
+            "description": "固定金额或者按比例",
+            "options": [{
+              "label": "固定金额",
+              "value": "fixed"
+            }, {
+              "label": "比例",
+              "value": "prop"
+            }]
+          }
+        }, {
+          "type": "input",
+          "key": "fixedTimes",
+          "defaultValue": 100,
+          "className": "m-right-sm m-bottom-sm",
+          "templateOptions": {
+            "label": "推广成功总次数",
             "appearance": "outline",
             "type": "number",
             "required": true,
             "min": 5,
             "max": 500,
-            "description": "设置本次广告推广有效次数"
-          }
+            "description": "预测推广成功总次数"
+          },
+          "validation": {
+            "messages": {
+              "min": "不能设置小于 5",
+              "max": "不能设置大于 500"
+            }
+          },
+          "hideExpression": "model.type == 'prop'"
         }, {
           "type": "input",
-          "key": "money",
+          "key": "fixedMoney",
           "defaultValue": 2,
+          "className": "m-bottom-sm",
           "templateOptions": {
-            "label": "每次推广可得",
+            "label": "每次推广可得金额",
             "appearance": "outline",
             "type": "number",
             "required": true,
             "min": 1,
             "max": 100,
-            "description": "推广员推广一次固定的提成"
-          }
+            "description": "推广员推广一次固定的提成金额"
+          },
+          "validation": {
+            "messages": {
+              "min": "不能设置小于 1",
+              "max": "不能设置大于 100"
+            }
+          },
+          "hideExpression": "model.type == 'prop'"
+        }, {
+          "type": "input",
+          "key": "maxTimes",
+          "defaultValue": 100,
+          "className": "m-right-sm m-bottom-sm",
+          "templateOptions": {
+            "label": "大额推广成功总次数",
+            "appearance": "outline",
+            "type": "number",
+            "required": true,
+            "min": 5,
+            "max": 500,
+            "description": "预测大额红包推广成功总次数"
+          },
+          "validation": {
+            "messages": {
+              "min": "不能设置小于 5",
+              "max": "不能设置大于 500"
+            }
+          },
+          "hideExpression": "model.type == 'fixed'"
+        }, {
+          "type": "input",
+          "key": "minTimes",
+          "defaultValue": 100,
+          "className": "m-right-sm m-bottom-sm",
+          "templateOptions": {
+            "label": "小额推广成功总次数",
+            "appearance": "outline",
+            "type": "number",
+            "required": true,
+            "min": 5,
+            "max": 500,
+            "description": "预测小额红包推广成功总次数"
+          },
+          "validation": {
+            "messages": {
+              "min": "不能设置小于 5",
+              "max": "不能设置大于 500"
+            }
+          },
+          "hideExpression": "model.type == 'fixed'"
+        }, {
+          "type": "input",
+          "key": "prop",
+          "defaultValue": 80,
+          "templateOptions": {
+            "label": "每次推广可得比例",
+            "appearance": "outline",
+            "type": "number",
+            "required": true,
+            "min": 1,
+            "max": 500,
+            "description": "最小 1% 到 500%"
+          },
+          "hideExpression": "model.type == 'fixed'"
         }]
       }
     ],
@@ -130,6 +241,6 @@
         }
       }
     },
-    "description": "<ul class=\"list-done\"><li>总金额 = 红包总金额（大额+小额）+ 推广金额</li><li>当红包总金额没有余额就不发了</li><li>推广总金额没有余额停止输入推广ID（停止提成）</li></ul>"
+    "description": "<ul class=\"list-done\"><li>总金额 = 红包总金额（大额+小额）+ 推广金额</li><li>当红包总金额没有余额就不发了</li><li>推广总金额没有余额停止输入推广ID（停止提成）</li><li>推广比例算法：用户抽得金额*推广比例</li></ul>"
   }]
 }

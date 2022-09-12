@@ -73,6 +73,10 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
       );
   }
 
+  trackByFn(index: number, item: any): number {
+    return index;
+  }
+
   ngOnDestroy(): void {
     this.destroy$.next(true);
     this.destroy$.complete();
