@@ -148,7 +148,7 @@
               "max": "不能设置大于 500"
             }
           },
-          "hideExpression": "model.type == 'prop'"
+          "hideExpression": "model.type==\"prop\""
         }, {
           "type": "input",
           "key": "fixedMoney",
@@ -169,7 +169,7 @@
               "max": "不能设置大于 100"
             }
           },
-          "hideExpression": "model.type == 'prop'"
+          "hideExpression": "model.type==\"prop\""
         }, {
           "type": "input",
           "key": "maxTimes",
@@ -190,7 +190,7 @@
               "max": "不能设置大于 500"
             }
           },
-          "hideExpression": "model.type == 'fixed'"
+          "hideExpression": "model.type==\"fixed\""
         }, {
           "type": "input",
           "key": "minTimes",
@@ -211,7 +211,7 @@
               "max": "不能设置大于 500"
             }
           },
-          "hideExpression": "model.type == 'fixed'"
+          "hideExpression": "model.type==\"fixed\""
         }, {
           "type": "input",
           "key": "prop",
@@ -225,7 +225,7 @@
             "max": 500,
             "description": "最小 1% 到 500%"
           },
-          "hideExpression": "model.type == 'fixed'"
+          "hideExpression": "model.type==\"fixed\""
         }]
       }
     ],
