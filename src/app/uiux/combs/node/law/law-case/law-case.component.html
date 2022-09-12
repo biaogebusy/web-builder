@@ -22,7 +22,7 @@
         ngClass.lt-md="m-y-xs p-y-xs p-x-xs">
         <app-comment-form *ngIf="content?.params?.comment" [content]="content" [type]="'add'">
         </app-comment-form>
-        <app-comment-list [comments]="comments" [content]="content">
+        <app-comment-list [comments]="comments$ | async" [content]="content">
         </app-comment-list>
       </div>
     </ng-container>
