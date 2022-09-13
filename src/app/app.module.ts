@@ -4,9 +4,10 @@ import {
   Title,
 } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { APP_INITIALIZER, NgModule, Inject } from '@angular/core';
+import { APP_INITIALIZER, NgModule, Inject, LOCALE_ID } from '@angular/core';
+import zhHans from '@angular/common/locales/zh-Hans';
 import { HttpClientModule } from '@angular/common/http';
-import { CommonModule } from '@angular/common';
+import { CommonModule, registerLocaleData } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { MobxModule } from '@core/mobx/mobx.module';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -22,7 +23,7 @@ import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { apiUrlFactory, API_URL } from '@core/token/token-providers';
 import { ToastrModule } from 'ngx-toastr';
 import { UiuxModule } from '@uiux/uiux.module';
-
+registerLocaleData(zhHans, 'zh-hans');
 export function initConfig(appState: AppState, coreConfig: object) {
   return () => appState.loadConfig(coreConfig);
 }
