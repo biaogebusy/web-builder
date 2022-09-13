@@ -155,7 +155,7 @@
           "defaultValue": 2,
           "className": "m-bottom-sm",
           "templateOptions": {
-            "label": "每次推广可得金额",
+            "label": "每次推广可得金额/元",
             "appearance": "outline",
             "type": "number",
             "required": true,
@@ -173,7 +173,7 @@
         }, {
           "type": "input",
           "key": "maxTimes",
-          "defaultValue": 100,
+          "defaultValue": 15,
           "className": "m-right-sm m-bottom-sm",
           "templateOptions": {
             "label": "大额推广成功总次数",
@@ -194,7 +194,7 @@
         }, {
           "type": "input",
           "key": "minTimes",
-          "defaultValue": 100,
+          "defaultValue": 300,
           "className": "m-right-sm m-bottom-sm",
           "templateOptions": {
             "label": "小额推广成功总次数",
@@ -217,13 +217,13 @@
           "key": "prop",
           "defaultValue": 80,
           "templateOptions": {
-            "label": "每次推广可得比例",
+            "label": "每次推广可得比例%",
             "appearance": "outline",
             "type": "number",
             "required": true,
             "min": 1,
             "max": 500,
-            "description": "最小 1% 到 500%"
+            "description": "最小 1% 到 最大500%"
           },
           "hideExpression": "model.type==\"fixed\""
         }]
@@ -241,6 +241,6 @@
         }
       }
     },
-    "description": "<ul class=\"list-done\"><li>总金额 = 红包总金额（大额+小额）+ 推广金额</li><li>当红包总金额没有余额就不发了</li><li>推广总金额没有余额停止输入推广ID（停止提成）</li><li>推广比例算法：用户抽得金额*推广比例</li></ul>"
+    "description": "<ul class=\"list-done\"><li>总金额 = 红包总金额（大额+小额）+ 推广金额</li><li>当红包总金额没有余额时不可再抽奖</li><li>推广总金额没有余额时停止推广</li><li>推广员按比例所得：用户抽得金额*推广比例</li><li>以上参数只是预估，实际业务中会有变差，仅做参考</li></ul>"
   }]
 }
