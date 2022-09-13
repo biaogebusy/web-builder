@@ -1,3 +1,4 @@
+import { formatDate } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -29,17 +30,12 @@ export class LawHeaderComponent implements OnInit {
     // @ts-ignore
     await import('../../../../../../assets/fonts/STHeiti-normal.js');
     const { jsPDF } = await import('jspdf');
-
+    // example: http://raw.gimportithack.com/MrRio/jsPDF/master/index.html
     const doc = new jsPDF();
-    doc.addImage(pdf.logo, 80, 5, 66, 10);
     doc.setFont('STHeiti');
-    doc.setFontSize(18);
-    doc.text(pdf.title, 60, 25);
-    doc.setFontSize(18);
-    doc.text(pdf.subTitle, 85, 35);
     doc.setFontSize(10);
     autoTable(doc, {
-      startY: 45,
+      startY: 5,
       styles: {
         fillColor: [255, 255, 255],
         font: 'STHeiti',
@@ -49,6 +45,15 @@ export class LawHeaderComponent implements OnInit {
       },
       theme: 'grid',
       didDrawCell: (data: any) => {
+        // logo
+        if (
+          data.row.index === 0 &&
+          data.column.index === 0 &&
+          data.cell.section === 'body'
+        ) {
+          const textPos = data.cell.getTextPos();
+          doc.addImage(pdf.logo, textPos.x - 20, textPos.y, 40, 6);
+        }
         // 签名图片
         if (
           data.row.index === pdf.sign.row &&
@@ -64,7 +69,25 @@ export class LawHeaderComponent implements OnInit {
       body: pdf.table.body,
     });
     const finalY = (doc as any).lastAutoTable.finalY;
-    doc.text('打印日期：2022年9月8日16:43', 15, finalY + 5);
+    const now = Date.now();
+    const time = formatDate(new Date(), 'yyyy年MM月dd日 HH:mm', 'zh-Hans');
+    doc.text(`打印日期：${time}`, 15, finalY + 5);
+
+    // page number
+    const internal: any = doc.internal;
+    const pages = internal.getNumberOfPages();
+    const pageWidth = doc.internal.pageSize.width;
+    const pageHeight = doc.internal.pageSize.height;
+    doc.setFontSize(10);
+
+    for (let j = 1; j < pages + 1; j++) {
+      const horizontalPos = pageWidth / 2;
+      const verticalPos = pageHeight - 5;
+      doc.setPage(j);
+      doc.text(`${j}/${pages}`, horizontalPos, verticalPos, {
+        align: 'center',
+      });
+    }
 
     doc.output('dataurlnewwindow', { filename: 'sample.pdf' });
     // doc.save('sample.pdf');
