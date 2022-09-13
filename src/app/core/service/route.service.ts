@@ -32,6 +32,7 @@ export class RouteService {
       if (!this.util.getFileType(link)) {
         // not file type
         if (target.target === '_blank') {
+          event.preventDefault();
           window.open(link, '_blank');
           return;
         }

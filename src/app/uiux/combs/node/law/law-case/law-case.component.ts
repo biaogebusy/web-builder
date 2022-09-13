@@ -109,11 +109,12 @@ export class LawCaseComponent
   }
 
   getComments(timeStamp = 1): void {
-    if (!this.coreConfig?.article?.comment?.enable) {
+    const uuid = this.appState?.pageConfig?.node?.uuid;
+    if (!this.coreConfig?.article?.comment?.enable || !uuid) {
       return;
     }
     this.comments$ = this.nodeService.getCustomApiComment(
-      this.appState.pageConfig.node.uuid,
+      uuid,
       timeStamp,
       this.userState.currentUser.csrf_token
     );

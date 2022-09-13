@@ -29,19 +29,34 @@ export class LawHeaderComponent implements OnInit {
     }
     // @ts-ignore
     await import('../../../../../../assets/fonts/STHeiti-normal.js');
+    // @ts-ignore
+    await import('../../../../../../assets/fonts/STSong-normal.js');
     const { jsPDF } = await import('jspdf');
     // example: http://raw.gimportithack.com/MrRio/jsPDF/master/index.html
-    const doc = new jsPDF();
-    doc.setFont('STHeiti');
-    doc.setFontSize(10);
+    const doc = new jsPDF({
+      orientation: 'portrait',
+      unit: 'px',
+    });
+    doc.setFont('STSong');
+    doc.setFontSize(16);
     autoTable(doc, {
       startY: 5,
       styles: {
         fillColor: [255, 255, 255],
-        font: 'STHeiti',
+        fontSize: 16,
+        font: 'STSong',
         fontStyle: 'normal',
         textColor: [0, 0, 0],
         lineColor: 5,
+        valign: 'middle',
+      },
+      tableLineWidth: 0.5,
+      tableLineColor: 5,
+      margin: {
+        top: 20,
+        right: 20,
+        bottom: 20,
+        left: 30,
       },
       theme: 'grid',
       didDrawCell: (data: any) => {
@@ -52,7 +67,7 @@ export class LawHeaderComponent implements OnInit {
           data.cell.section === 'body'
         ) {
           const textPos = data.cell.getTextPos();
-          doc.addImage(pdf.logo, textPos.x - 20, textPos.y, 40, 6);
+          doc.addImage(pdf.logo, textPos.x - 20, textPos.y, 67, 10);
         }
         // 签名图片
         if (
@@ -63,7 +78,7 @@ export class LawHeaderComponent implements OnInit {
           console.log(data);
           const dim = data.cell.height - data.cell.padding('vertical');
           const textPos = data.cell.getTextPos();
-          doc.addImage(pdf.sign.data, textPos.x, textPos.y, dim, dim);
+          doc.addImage(pdf.sign.data, textPos.x, textPos.y - 10, 68, 20);
         }
       },
       body: pdf.table.body,
@@ -71,7 +86,7 @@ export class LawHeaderComponent implements OnInit {
     const finalY = (doc as any).lastAutoTable.finalY;
     const now = Date.now();
     const time = formatDate(new Date(), 'yyyy年MM月dd日 HH:mm', 'zh-Hans');
-    doc.text(`打印日期：${time}`, 15, finalY + 5);
+    doc.text(`打印日期：${time}`, 30, finalY + 15);
 
     // page number
     const internal: any = doc.internal;
