@@ -6,9 +6,9 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { ScreenService } from '@core/service/screen.service.js';
 import autoTable from 'jspdf-autotable';
 import { jsPDF } from 'jspdf';
+import { ScreenService } from '@core/service/screen.service';
 @Component({
   selector: 'app-law-header',
   templateUrl: './law-header.component.html',
