@@ -37,19 +37,20 @@ export class LawHeaderComponent implements OnInit {
     // @ts-ignore
     // await import('../../../../../../assets/fonts/STHeiti-normal.js');
     // @ts-ignore
-    await import('../../../../../../assets/fonts/STSong-normal.js');
+    // await import('../../../../../../assets/fonts/STSong-normal.js');
+    await import('../../../../../../assets/fonts/FangSong-normal.js');
     // example: http://raw.githack.com/MrRio/jsPDF/master/index.html
     const doc = new jsPDF({
       orientation: 'portrait',
       unit: 'px',
     });
-    doc.setFont('STSong');
+    doc.setFont('FangSong');
     doc.setFontSize(12);
     autoTable(doc, {
       startY: 24,
       tableLineWidth: 0,
       styles: {
-        font: 'STSong',
+        font: 'FangSong',
         fontStyle: 'bold',
         fontSize: 1,
         fillColor: [255, 255, 255],
@@ -87,8 +88,7 @@ export class LawHeaderComponent implements OnInit {
       styles: {
         fillColor: [255, 255, 255],
         fontSize: 12,
-        font: 'STSong',
-        fontStyle: 'normal',
+        font: 'FangSong',
         textColor: [0, 0, 0],
         valign: 'middle',
         lineWidth: 0.2,
