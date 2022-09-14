@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { ScreenService } from '@core/service/screen.service.js';
 import autoTable from 'jspdf-autotable';
+import { jsPDF } from 'jspdf';
 @Component({
   selector: 'app-law-header',
   templateUrl: './law-header.component.html',
@@ -34,10 +35,9 @@ export class LawHeaderComponent implements OnInit {
     }
     this.saveDocLoading = true;
     // @ts-ignore
-    await import('../../../../../../assets/fonts/STHeiti-normal.js');
+    // await import('../../../../../../assets/fonts/STHeiti-normal.js');
     // @ts-ignore
     await import('../../../../../../assets/fonts/STSong-normal.js');
-    const { jsPDF } = await import('jspdf');
     // example: http://raw.githack.com/MrRio/jsPDF/master/index.html
     const doc = new jsPDF({
       orientation: 'portrait',
@@ -49,11 +49,14 @@ export class LawHeaderComponent implements OnInit {
       startY: 5,
       tableLineWidth: 0,
       styles: {
-        font: 'STHeiti',
+        font: 'STSong',
+        fontStyle: 'bold',
         fontSize: 16,
         fillColor: [255, 255, 255],
         textColor: [0, 0, 0],
         valign: 'middle',
+        halign: 'center',
+        lineWidth: 0,
       },
       theme: 'grid',
       margin: {
@@ -135,8 +138,8 @@ export class LawHeaderComponent implements OnInit {
       });
     }
     this.saveDocLoading = false;
-    this.cd.detectChanges();
     doc.output('dataurlnewwindow', { filename: 'sample.pdf' });
+    this.cd.detectChanges();
     // doc.save('sample.pdf');
   }
 }

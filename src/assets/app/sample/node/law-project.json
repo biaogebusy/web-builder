@@ -58,8 +58,6 @@
             "content": "",
             "colSpan": 4,
             "styles": {
-              "halign": "center",
-              "lineWidth": 0,
               "cellPadding": 10
             }
           }],
@@ -67,20 +65,14 @@
             "content": "北京金诚同达（上海）律师事务所",
             "colSpan": 4,
             "styles": {
-              "halign": "center",
-              "lineWidth": 0,
-              "fontSize": 21,
-              "font": "STHeiti"
+              "fontSize": 21
             }
           }],
           [{
             "content": "合同审核意见",
             "colSpan": 4,
             "styles": {
-              "halign": "center",
-              "lineWidth": 0,
-              "fontSize": 21,
-              "font": "STHeiti"
+              "fontSize": 21
             }
           }]
         ],
@@ -90,12 +82,11 @@
               "styles": {
                 "cellWidth": 46,
                 "halign": "center",
-                "fontStyle": "bold",
-                "font": "STHeiti"
+                "fontStyle": "bold"
               }
             },
             {
-              "content": "国家药品监督管理局药品审评检查长三角分中心2022年SciFinder合同国家药品监督管理局药品审评检查长三角分中心2022年SciFinder合同",
+              "content": "国家药品监督管理局药品审评检查长三角分中心2022年SciFinder合同",
               "colSpan": 3
             }
           ],
@@ -104,8 +95,7 @@
               "styles": {
                 "cellWidth": 46,
                 "halign": "center",
-                "fontStyle": "bold",
-                "font": "STHeiti"
+                "fontStyle": "bold"
               }
             },
             {
@@ -118,8 +108,7 @@
               "styles": {
                 "cellWidth": 46,
                 "halign": "center",
-                "fontStyle": "bold",
-                "font": "STHeiti"
+                "fontStyle": "bold"
               }
             },
             {
@@ -133,8 +122,7 @@
               "styles": {
                 "cellWidth": 46,
                 "halign": "center",
-                "fontStyle": "bold",
-                "font": "STHeiti"
+                "fontStyle": "bold"
               }
             },
             "中国教育图书进出口有限公司"
@@ -144,8 +132,7 @@
               "styles": {
                 "cellWidth": 46,
                 "halign": "center",
-                "fontStyle": "bold",
-                "font": "STHeiti"
+                "fontStyle": "bold"
               }
             },
             {
@@ -158,8 +145,7 @@
               "styles": {
                 "cellWidth": 46,
                 "halign": "center",
-                "fontStyle": "bold",
-                "font": "STHeiti"
+                "fontStyle": "bold"
               }
             },
             "唐慧鑫",
@@ -168,8 +154,7 @@
               "styles": {
                 "cellWidth": 46,
                 "halign": "center",
-                "fontStyle": "bold",
-                "font": "STHeiti"
+                "fontStyle": "bold"
               }
             },
             "2022-09-07"
@@ -179,8 +164,7 @@
               "styles": {
                 "cellWidth": 46,
                 "halign": "center",
-                "fontStyle": "bold",
-                "font": "STHeiti"
+                "fontStyle": "bold"
               }
             },
             "杜长明",
@@ -189,8 +173,7 @@
               "styles": {
                 "cellWidth": 46,
                 "halign": "center",
-                "fontStyle": "bold",
-                "font": "STHeiti"
+                "fontStyle": "bold"
               }
             },
             "2022-09-08"
@@ -254,8 +237,7 @@
               "styles": {
                 "cellWidth": 46,
                 "halign": "center",
-                "fontStyle": "bold",
-                "font": "STHeiti"
+                "fontStyle": "bold"
               }
             },
             "",
@@ -264,8 +246,7 @@
               "styles": {
                 "cellWidth": 46,
                 "halign": "center",
-                "fontStyle": "bold",
-                "font": "STHeiti"
+                "fontStyle": "bold"
               }
             },
             "2022年7月28日"
