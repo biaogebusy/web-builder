@@ -1,6 +1,7 @@
 import { formatDate } from '@angular/common';
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   Input,
   OnInit,
@@ -15,7 +16,11 @@ import autoTable from 'jspdf-autotable';
 })
 export class LawHeaderComponent implements OnInit {
   @Input() content: any;
-  constructor(private screenService: ScreenService) {}
+  saveDocLoading = false;
+  constructor(
+    private screenService: ScreenService,
+    private cd: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {}
 
@@ -27,6 +32,7 @@ export class LawHeaderComponent implements OnInit {
     if (this.screenService.isPlatformServer()) {
       return;
     }
+    this.saveDocLoading = true;
     // @ts-ignore
     await import('../../../../../../assets/fonts/STHeiti-normal.js');
     // @ts-ignore
@@ -127,7 +133,8 @@ export class LawHeaderComponent implements OnInit {
         align: 'center',
       });
     }
-
+    this.saveDocLoading = false;
+    this.cd.detectChanges();
     doc.output('dataurlnewwindow', { filename: 'sample.pdf' });
     // doc.save('sample.pdf');
   }

@@ -12,7 +12,11 @@
     <div class="actions p-y-sm" *ngIf="content.actions">
       <div class="inner" fxLayout="row" fxLayoutGap="1rem">
         <button *ngIf="content?.pdf" (click)="onSavePdf()" mat-button>
-          <mat-icon>print</mat-icon> 法律意见
+          <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="1rem">
+            <mat-icon *ngIf="!saveDocLoading">print</mat-icon>
+            <mat-spinner diameter="16" *ngIf="saveDocLoading"></mat-spinner>
+            <span>法律意见</span>
+          </div>
         </button>
         <app-dynamic-widgets [content]="action" *ngFor="let action of content.actions"></app-dynamic-widgets>
       </div>
