@@ -49,6 +49,7 @@ export class LawHeaderComponent implements OnInit {
       startY: 5,
       tableLineWidth: 0,
       styles: {
+        font: 'STHeiti',
         fontSize: 16,
         fillColor: [255, 255, 255],
         textColor: [0, 0, 0],
