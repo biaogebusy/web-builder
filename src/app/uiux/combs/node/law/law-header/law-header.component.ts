@@ -46,24 +46,26 @@ export class LawHeaderComponent implements OnInit {
     doc.setFont('STSong');
     doc.setFontSize(12);
     autoTable(doc, {
-      startY: 5,
+      startY: 24,
       tableLineWidth: 0,
       styles: {
         font: 'STSong',
         fontStyle: 'bold',
-        fontSize: 16,
+        fontSize: 1,
         fillColor: [255, 255, 255],
         textColor: [0, 0, 0],
         valign: 'middle',
         halign: 'center',
         lineWidth: 0,
+        cellWidth: 'auto',
+        overflow: 'linebreak',
       },
       theme: 'grid',
       margin: {
-        top: 20,
-        right: 20,
-        bottom: 20,
-        left: 30,
+        top: 24,
+        right: 24,
+        bottom: 24,
+        left: 35,
       },
       body: pdf.table.header,
       didDrawCell: (data: any) => {
@@ -74,14 +76,14 @@ export class LawHeaderComponent implements OnInit {
           data.cell.section === 'body'
         ) {
           const textPos = data.cell.getTextPos();
-          doc.addImage(pdf.logo.data, textPos.x - 33, textPos.y, 67, 10);
+          doc.addImage(pdf.logo.data, textPos.x - 33, textPos.y - 5, 67, 10);
         }
       },
     });
     let finalY = (doc as any).lastAutoTable.finalY;
 
     autoTable(doc, {
-      startY: finalY + 5,
+      startY: finalY,
       styles: {
         fillColor: [255, 255, 255],
         fontSize: 12,
@@ -89,16 +91,16 @@ export class LawHeaderComponent implements OnInit {
         fontStyle: 'normal',
         textColor: [0, 0, 0],
         valign: 'middle',
-        lineWidth: 0.5,
+        lineWidth: 0.2,
         lineColor: 5,
       },
-      tableLineWidth: 0.5,
+      tableLineWidth: 0.2,
       tableLineColor: 5,
       margin: {
-        top: 20,
-        right: 20,
-        bottom: 20,
-        left: 30,
+        top: 24,
+        right: 24,
+        bottom: 24,
+        left: 35,
       },
       theme: 'grid',
       didDrawCell: (data: any) => {
@@ -120,7 +122,7 @@ export class LawHeaderComponent implements OnInit {
     finalY = (doc as any).lastAutoTable.finalY;
     const now = Date.now();
     const time = formatDate(new Date(), 'yyyy年MM月dd日 HH:mm', 'zh-Hans');
-    doc.text(`打印日期：${time}`, 30, finalY + 15);
+    doc.text(`打印日期：${time}`, 35, finalY + 15);
 
     // page number
     const internal: any = doc.internal;

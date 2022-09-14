@@ -58,21 +58,22 @@
             "content": "",
             "colSpan": 4,
             "styles": {
-              "cellPadding": 10
+              "cellPadding": 0,
+              "minCellHeight": 10
             }
           }],
           [{
             "content": "北京金诚同达（上海）律师事务所",
             "colSpan": 4,
             "styles": {
-              "fontSize": 21
+              "fontSize": 20
             }
           }],
           [{
             "content": "合同审核意见",
             "colSpan": 4,
             "styles": {
-              "fontSize": 21
+              "fontSize": 20
             }
           }]
         ],
