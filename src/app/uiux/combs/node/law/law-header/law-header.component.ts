@@ -34,7 +34,7 @@ export class LawHeaderComponent implements OnInit, AfterViewInit {
   async loadFonts(): Promise<void> {
     this.saveDocLoading = true;
     // @ts-ignore
-    await import('../../../../../../assets/fonts/STSong-normal.js');
+    await import('../../../../../../assets/fonts/SIMSUN-normal.js');
     // @ts-ignore
     await import('../../../../../../assets/fonts/STHeiti-normal.js').then(
       () => {
@@ -61,7 +61,7 @@ export class LawHeaderComponent implements OnInit, AfterViewInit {
       orientation: 'portrait',
       unit: 'px',
     });
-    doc.setFont('STSong');
+    doc.setFont('SIMSUN');
     doc.setFontSize(12);
     autoTable(doc, {
       startY: 24,
@@ -105,7 +105,7 @@ export class LawHeaderComponent implements OnInit, AfterViewInit {
       styles: {
         fillColor: [255, 255, 255],
         fontSize: 12,
-        font: 'STSong',
+        font: 'SIMSUN',
         textColor: [0, 0, 0],
         valign: 'middle',
         lineWidth: 0.2,
