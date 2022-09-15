@@ -13,6 +13,7 @@ import { AmapService } from '@core/service/amap.service';
 import { isArray } from 'lodash-es';
 import { CORE_CONFIG } from '@core/token/core.config';
 import type { ICoreConfig } from '@core/mobx/IAppConfig';
+import { IAmap } from '../../../core/interface/IAmap';
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -39,7 +40,11 @@ export class MapComponent implements OnInit, OnDestroy {
   }
 
   initMap(content: any): void {
-    this.amapService.load().subscribe(
+    const amapConfig: IAmap = this.coreConfig.amap;
+    if (!amapConfig) {
+      return;
+    }
+    this.amapService.load(amapConfig).subscribe(
       (AMap: any) => {
         this.AMap = AMap;
         this.geocoder = new AMap.Geocoder({
@@ -148,9 +153,5 @@ export class MapComponent implements OnInit, OnDestroy {
     this.map.setFitView();
   }
 
-  ngOnDestroy(): void {
-    this.appState.switchChange$?.unsubscribe();
-    this.amapState.position$?.unsubscribe();
-    this.amapState.markers$?.unsubscribe();
-  }
+  ngOnDestroy(): void {}
 }

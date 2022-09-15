@@ -10,6 +10,11 @@ import { ShareModule } from '../../../app/share/share.module';
 import { SwiperModule } from 'ngx-swiper-wrapper';
 import { AmapService } from '../../../app/core/service/amap.service';
 import { MapListV1Component } from '../../../app/uiux/combs/map/map-list-v1/map-list-v1.component';
+import { API_URL, apiUrlFactory } from '@core/token/token-providers';
+import { APP_INITIALIZER, Inject } from '@angular/core';
+import { AppState } from '@core/mobx/AppState';
+import { initConfig } from 'src/app/app.module';
+
 export default {
   title: 'Components/map/map list 1v1',
   component: MapListV1Component,
@@ -30,6 +35,17 @@ export default {
         {
           provide: CORE_CONFIG,
           useValue: {},
+        },
+        {
+          provide: APP_INITIALIZER,
+          useFactory: initConfig,
+          deps: [AppState, [new Inject(CORE_CONFIG)]],
+          multi: true,
+        },
+        {
+          provide: API_URL,
+          useFactory: apiUrlFactory,
+          deps: [],
         },
       ],
     }),

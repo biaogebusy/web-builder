@@ -11,6 +11,10 @@ import {
 import { Story } from '@storybook/angular/types-6-0';
 import { BgComponent } from '../../app/uiux/widgets/bg/bg.component';
 import { WidgetsModule } from '../../app/uiux/widgets/widgets.module';
+import { API_URL, apiUrlFactory } from '@core/token/token-providers';
+import { APP_INITIALIZER, Inject } from '@angular/core';
+import { AppState } from '@core/mobx/AppState';
+import { initConfig } from 'src/app/app.module';
 
 export default {
   title: 'Widgets/Bg',
@@ -29,6 +33,17 @@ export default {
         {
           provide: CORE_CONFIG,
           useValue: {},
+        },
+        {
+          provide: APP_INITIALIZER,
+          useFactory: initConfig,
+          deps: [AppState, [new Inject(CORE_CONFIG)]],
+          multi: true,
+        },
+        {
+          provide: API_URL,
+          useFactory: apiUrlFactory,
+          deps: [],
         },
       ],
     }),
