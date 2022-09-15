@@ -19,6 +19,7 @@ import { ScreenService } from '@core/service/screen.service';
 export class LawHeaderComponent implements OnInit, AfterViewInit {
   @Input() content: any;
   saveDocLoading = false;
+  disabled = true;
   constructor(
     private screenService: ScreenService,
     private cd: ChangeDetectorRef
@@ -27,11 +28,22 @@ export class LawHeaderComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
+    this.loadFonts();
+  }
+
+  async loadFonts(): Promise<void> {
+    this.saveDocLoading = true;
     // @ts-ignore
-    import('../../../../../../assets/fonts/STHeiti-normal.js');
+    await import('../../../../../../assets/fonts/STSong-normal.js');
     // @ts-ignore
-    import('../../../../../../assets/fonts/STSong-normal.js');
-    //  import('../../../../../../assets/fonts/FangSong-normal.js');
+    await import('../../../../../../assets/fonts/STHeiti-normal.js').then(
+      () => {
+        console.log('Load font done!');
+        this.disabled = false;
+        this.saveDocLoading = false;
+        this.cd.detectChanges();
+      }
+    );
   }
 
   async onSavePdf(): Promise<void> {

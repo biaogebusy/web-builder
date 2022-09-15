@@ -11,7 +11,7 @@
     </div>
     <div class="actions p-y-sm" *ngIf="content.actions">
       <div class="inner" fxLayout="row" fxLayoutGap="1rem">
-        <button *ngIf="content?.pdf" (click)="onSavePdf()" mat-button>
+        <button [disabled]="disabled" *ngIf="content?.pdf" (click)="onSavePdf()" mat-button>
           <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="1rem">
             <mat-icon *ngIf="!saveDocLoading">print</mat-icon>
             <mat-spinner diameter="16" *ngIf="saveDocLoading"></mat-spinner>
