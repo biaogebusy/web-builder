@@ -4,7 +4,7 @@ import {
   Title,
 } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { APP_INITIALIZER, NgModule, Inject, LOCALE_ID } from '@angular/core';
+import { APP_INITIALIZER, NgModule, Inject } from '@angular/core';
 import zhHans from '@angular/common/locales/zh-Hans';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule, registerLocaleData } from '@angular/common';
