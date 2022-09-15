@@ -1,5 +1,6 @@
 import { formatDate } from '@angular/common';
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -15,7 +16,7 @@ import { ScreenService } from '@core/service/screen.service';
   styleUrls: ['./law-header.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LawHeaderComponent implements OnInit {
+export class LawHeaderComponent implements OnInit, AfterViewInit {
   @Input() content: any;
   saveDocLoading = false;
   constructor(
@@ -24,6 +25,14 @@ export class LawHeaderComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {}
+
+  ngAfterViewInit(): void {
+    // @ts-ignore
+    import('../../../../../../assets/fonts/STHeiti-normal.js');
+    // @ts-ignore
+    import('../../../../../../assets/fonts/STSong-normal.js');
+    //  import('../../../../../../assets/fonts/FangSong-normal.js');
+  }
 
   async onSavePdf(): Promise<void> {
     const pdf = this.content.pdf;
@@ -34,23 +43,19 @@ export class LawHeaderComponent implements OnInit {
       return;
     }
     this.saveDocLoading = true;
-    // @ts-ignore
-    // await import('../../../../../../assets/fonts/STHeiti-normal.js');
-    // @ts-ignore
-    // await import('../../../../../../assets/fonts/STSong-normal.js');
-    await import('../../../../../../assets/fonts/FangSong-normal.js');
+
     // example: http://raw.githack.com/MrRio/jsPDF/master/index.html
     const doc = new jsPDF({
       orientation: 'portrait',
       unit: 'px',
     });
-    doc.setFont('FangSong');
+    doc.setFont('STSong');
     doc.setFontSize(12);
     autoTable(doc, {
       startY: 24,
       tableLineWidth: 0,
       styles: {
-        font: 'FangSong',
+        font: 'STHeiti',
         fontStyle: 'bold',
         fontSize: 1,
         fillColor: [255, 255, 255],
@@ -88,7 +93,7 @@ export class LawHeaderComponent implements OnInit {
       styles: {
         fillColor: [255, 255, 255],
         fontSize: 12,
-        font: 'FangSong',
+        font: 'STSong',
         textColor: [0, 0, 0],
         valign: 'middle',
         lineWidth: 0.2,

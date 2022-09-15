@@ -83,7 +83,7 @@
               "styles": {
                 "cellWidth": 46,
                 "halign": "center",
-                "fontStyle": "bold"
+                "font": "STHeiti"
               }
             },
             {
@@ -96,7 +96,7 @@
               "styles": {
                 "cellWidth": 46,
                 "halign": "center",
-                "fontStyle": "bold"
+                "font": "STHeiti"
               }
             },
             {
@@ -109,7 +109,7 @@
               "styles": {
                 "cellWidth": 46,
                 "halign": "center",
-                "fontStyle": "bold"
+                "font": "STHeiti"
               }
             },
             {
@@ -123,7 +123,7 @@
               "styles": {
                 "cellWidth": 46,
                 "halign": "center",
-                "fontStyle": "bold"
+                "font": "STHeiti"
               }
             },
             "中国教育图书进出口有限公司"
@@ -133,7 +133,7 @@
               "styles": {
                 "cellWidth": 46,
                 "halign": "center",
-                "fontStyle": "bold"
+                "font": "STHeiti"
               }
             },
             {
@@ -146,7 +146,7 @@
               "styles": {
                 "cellWidth": 46,
                 "halign": "center",
-                "fontStyle": "bold"
+                "font": "STHeiti"
               }
             },
             "唐慧鑫",
@@ -155,7 +155,7 @@
               "styles": {
                 "cellWidth": 46,
                 "halign": "center",
-                "fontStyle": "bold"
+                "font": "STHeiti"
               }
             },
             "2022-09-07"
@@ -165,7 +165,7 @@
               "styles": {
                 "cellWidth": 46,
                 "halign": "center",
-                "fontStyle": "bold"
+                "font": "STHeiti"
               }
             },
             "杜长明",
@@ -174,7 +174,7 @@
               "styles": {
                 "cellWidth": 46,
                 "halign": "center",
-                "fontStyle": "bold"
+                "font": "STHeiti"
               }
             },
             "2022-09-08"
@@ -191,7 +191,7 @@
             "content": "合同审核意见",
             "colSpan": 4,
             "styles": {
-              "fontStyle": "bold",
+              "font": "STHeiti",
               "lineWidth": 0,
               "halign": "center",
               "fontSize": 17
@@ -201,7 +201,6 @@
             "content": "第一次（2020-09-07 09:12）\n1. 请审查交付方式是否为合同中所述。\n2. 以前同CAS签订的合同作废， 不能同时从多个人处购买同一样产品， 在逻辑上不成立。\n3. 请同对方确认发票的内容， 有使用期限的一般为信息服务类。 不能为图书， 图书在理论上是可以无期限保存的。\n\n第二次（ 2020 - 09 - 08 16: 04）\n对反馈意见没有异议。\n\n第一次（2020-09-07 09:12）\n1. 请审查交付方式是否为合同中所述。\n2. 以前同CAS签订的合同作废， 不能同时从多个人处购买同一样产品， 在逻辑上不成立。\n3. 请同对方确认发票的内容， 有使用期限的一般为信息服务类。 不能为图书， 图书在理论上是可以无期限保存的。\n\n第二次（ 2020 - 09 - 08 16: 04）\n对反馈意见没有异议。（ 以下无正文）",
             "colSpan": 4,
             "styles": {
-              "fontStyle": "bold",
               "minCellHeight": 40,
               "lineWidth": 0
             }
@@ -218,7 +217,7 @@
             "content": "合同审核详情",
             "colSpan": 4,
             "styles": {
-              "fontStyle": "bold",
+              "font": "STHeiti",
               "lineWidth": 0,
               "halign": "center",
               "fontSize": 17
@@ -229,7 +228,7 @@
             "colSpan": 4,
             "styles": {
               "lineWidth": 0,
-              "fontStyle": "bold",
+              "font": "STHeiti",
               "minCellHeight": 40
             }
           }],
@@ -238,7 +237,7 @@
               "styles": {
                 "cellWidth": 46,
                 "halign": "center",
-                "fontStyle": "bold"
+                "font": "STHeiti"
               }
             },
             "",
@@ -247,7 +246,7 @@
               "styles": {
                 "cellWidth": 46,
                 "halign": "center",
-                "fontStyle": "bold"
+                "font": "STHeiti"
               }
             },
             "2022年7月28日"
