@@ -1927,7 +1927,6 @@ export const Project = Template.bind({});
 
 Project.args = {
   content: {
-    type: 'law-case',
     title: '人才公寓',
     date: [
       {
