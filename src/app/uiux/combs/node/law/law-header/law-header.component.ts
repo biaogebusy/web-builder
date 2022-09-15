@@ -23,13 +23,13 @@ export class LawHeaderComponent implements OnInit, AfterViewInit {
   constructor(
     private screenService: ScreenService,
     private cd: ChangeDetectorRef
-  ) {}
+  ) {
+    this.loadFonts();
+  }
 
   ngOnInit(): void {}
 
-  ngAfterViewInit(): void {
-    this.loadFonts();
-  }
+  ngAfterViewInit(): void {}
 
   async loadFonts(): Promise<void> {
     this.saveDocLoading = true;
