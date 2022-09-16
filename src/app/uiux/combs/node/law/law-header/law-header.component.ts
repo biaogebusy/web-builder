@@ -62,7 +62,7 @@ export class LawHeaderComponent implements OnInit, AfterViewInit {
     doc.setFont('SIMSUN');
     doc.setFontSize(12);
     autoTable(doc, {
-      startY: 24,
+      startY: 33,
       tableLineWidth: 0,
       styles: {
         font: 'simhei',
@@ -78,10 +78,10 @@ export class LawHeaderComponent implements OnInit, AfterViewInit {
       },
       theme: 'grid',
       margin: {
-        top: 24,
-        right: 24,
-        bottom: 24,
-        left: 35,
+        top: 33,
+        right: 33,
+        bottom: 33,
+        left: 50,
       },
       body: pdf.table.header,
       didDrawCell: (data: any) => {
@@ -92,7 +92,7 @@ export class LawHeaderComponent implements OnInit, AfterViewInit {
           data.cell.section === 'body'
         ) {
           const textPos = data.cell.getTextPos();
-          doc.addImage(pdf.logo.data, textPos.x - 33, textPos.y - 5, 67, 10);
+          doc.addImage(pdf.logo.data, textPos.x - 53, textPos.y - 8, 107, 16);
         }
       },
     });
@@ -112,10 +112,10 @@ export class LawHeaderComponent implements OnInit, AfterViewInit {
       tableLineWidth: 0.2,
       tableLineColor: 5,
       margin: {
-        top: 24,
-        right: 24,
-        bottom: 24,
-        left: 35,
+        top: 33,
+        right: 33,
+        bottom: 33,
+        left: 50,
       },
       theme: 'grid',
       didDrawCell: (data: any) => {
@@ -137,18 +137,18 @@ export class LawHeaderComponent implements OnInit, AfterViewInit {
     finalY = (doc as any).lastAutoTable.finalY;
     const now = Date.now();
     const time = formatDate(new Date(), 'yyyy年MM月dd日 HH:mm', 'zh-Hans');
-    doc.text(`打印日期：${time}`, 35, finalY + 15);
+    doc.text(`打印日期：${time}`, 50, finalY + 15);
 
     // page number
     const internal: any = doc.internal;
     const pages = internal.getNumberOfPages();
     const pageWidth = doc.internal.pageSize.width;
     const pageHeight = doc.internal.pageSize.height;
-    doc.setFontSize(10);
+    doc.setFontSize(12);
 
     for (let j = 1; j < pages + 1; j++) {
       const horizontalPos = pageWidth / 2;
-      const verticalPos = pageHeight - 5;
+      const verticalPos = pageHeight - 12;
       doc.setPage(j);
       doc.text(`${j}/${pages}`, horizontalPos, verticalPos, {
         align: 'center',
