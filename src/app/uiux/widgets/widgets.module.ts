@@ -95,6 +95,7 @@ import { MatSelectComponent } from './form/formly-type/mat-select/mat-select.com
 import { ChartComponent } from './chart/chart.component';
 import { NgChartsModule } from 'ng2-charts';
 import { StepperComponent } from './stepper/stepper.component';
+import { ChartRealtimeComponent } from './chart/chart-realtime/chart-realtime.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -183,6 +184,7 @@ const components = [
   MatSelectComponent,
   ChartComponent,
   StepperComponent,
+  ChartRealtimeComponent,
 ];
 
 @NgModule({
