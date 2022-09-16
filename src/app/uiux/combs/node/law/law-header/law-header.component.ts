@@ -24,7 +24,12 @@ export class LawHeaderComponent implements OnInit, AfterViewInit {
     private screenService: ScreenService,
     private cd: ChangeDetectorRef
   ) {
-    this.loadFonts();
+    this.loadFonts().then(() => {
+      console.log('Load font done!');
+      this.disabled = false;
+      this.saveDocLoading = false;
+      this.cd.detectChanges();
+    });
   }
 
   ngOnInit(): void {}
@@ -34,16 +39,9 @@ export class LawHeaderComponent implements OnInit, AfterViewInit {
   async loadFonts(): Promise<void> {
     this.saveDocLoading = true;
     // @ts-ignore
-    await import('../../../../../../assets/fonts/SIMSUN-normal.js');
+    await import('../../../../../../assets/fonts/simhei-normal.js');
     // @ts-ignore
-    await import('../../../../../../assets/fonts/STHeiti-normal.js').then(
-      () => {
-        console.log('Load font done!');
-        this.disabled = false;
-        this.saveDocLoading = false;
-        this.cd.detectChanges();
-      }
-    );
+    await import('../../../../../../assets/fonts/SIMSUN-normal.js');
   }
 
   async onSavePdf(): Promise<void> {
@@ -67,7 +65,7 @@ export class LawHeaderComponent implements OnInit, AfterViewInit {
       startY: 24,
       tableLineWidth: 0,
       styles: {
-        font: 'STHeiti',
+        font: 'simhei',
         fontStyle: 'bold',
         fontSize: 1,
         fillColor: [255, 255, 255],

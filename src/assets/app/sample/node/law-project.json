@@ -83,7 +83,7 @@
               "styles": {
                 "cellWidth": 46,
                 "halign": "center",
-                "font": "STHeiti"
+                "font": "simhei"
               }
             },
             {
@@ -96,7 +96,7 @@
               "styles": {
                 "cellWidth": 46,
                 "halign": "center",
-                "font": "STHeiti"
+                "font": "simhei"
               }
             },
             {
@@ -109,7 +109,7 @@
               "styles": {
                 "cellWidth": 46,
                 "halign": "center",
-                "font": "STHeiti"
+                "font": "simhei"
               }
             },
             {
@@ -123,7 +123,7 @@
               "styles": {
                 "cellWidth": 46,
                 "halign": "center",
-                "font": "STHeiti"
+                "font": "simhei"
               }
             },
             "中国教育图书进出口有限公司"
@@ -133,7 +133,7 @@
               "styles": {
                 "cellWidth": 46,
                 "halign": "center",
-                "font": "STHeiti"
+                "font": "simhei"
               }
             },
             {
@@ -146,7 +146,7 @@
               "styles": {
                 "cellWidth": 46,
                 "halign": "center",
-                "font": "STHeiti"
+                "font": "simhei"
               }
             },
             "唐慧鑫",
@@ -155,7 +155,7 @@
               "styles": {
                 "cellWidth": 46,
                 "halign": "center",
-                "font": "STHeiti"
+                "font": "simhei"
               }
             },
             "2022-09-07"
@@ -165,7 +165,7 @@
               "styles": {
                 "cellWidth": 46,
                 "halign": "center",
-                "font": "STHeiti"
+                "font": "simhei"
               }
             },
             "杜长明",
@@ -174,7 +174,7 @@
               "styles": {
                 "cellWidth": 46,
                 "halign": "center",
-                "font": "STHeiti"
+                "font": "simhei"
               }
             },
             "2022-09-08"
@@ -191,7 +191,7 @@
             "content": "合同审核意见",
             "colSpan": 4,
             "styles": {
-              "font": "STHeiti",
+              "font": "simhei",
               "lineWidth": 0,
               "halign": "center",
               "fontSize": 17
@@ -217,7 +217,7 @@
             "content": "合同审核详情",
             "colSpan": 4,
             "styles": {
-              "font": "STHeiti",
+              "font": "simhei",
               "lineWidth": 0,
               "halign": "center",
               "fontSize": 17
@@ -228,7 +228,7 @@
             "colSpan": 4,
             "styles": {
               "lineWidth": 0,
-              "font": "STHeiti",
+              "font": "simhei",
               "minCellHeight": 40
             }
           }],
@@ -237,7 +237,7 @@
               "styles": {
                 "cellWidth": 46,
                 "halign": "center",
-                "font": "STHeiti"
+                "font": "simhei"
               }
             },
             "",
@@ -246,7 +246,7 @@
               "styles": {
                 "cellWidth": 46,
                 "halign": "center",
-                "font": "STHeiti"
+                "font": "simhei"
               }
             },
             "2022年7月28日"
