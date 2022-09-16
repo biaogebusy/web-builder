@@ -352,7 +352,7 @@ Default.args = {
                 elements: [
                   {
                     type: 'link',
-                    label: '易思远-刘冰清-判决书-浦东法院-202201 _0.pdf',
+                    label: '法院判决书',
                     href: 'xxx.docx',
                     classes: 'file one-line',
                   },
@@ -369,7 +369,7 @@ Default.args = {
                 elements: [
                   {
                     type: 'link',
-                    label: '易思远-刘冰清-判决书-浦东法院-202201 _0.pdf',
+                    label: '法院判决书',
                     href: 'xxx.docx',
                     classes: 'file one-line',
                   },
@@ -386,7 +386,7 @@ Default.args = {
                 elements: [
                   {
                     type: 'link',
-                    label: '易思远-刘冰清-判决书-浦东法院-202201 _0.pdf',
+                    label: '法院判决书',
                     href: 'xxx.docx',
                     classes: 'file one-line',
                   },
@@ -403,7 +403,7 @@ Default.args = {
                 elements: [
                   {
                     type: 'link',
-                    label: '易思远-刘冰清-判决书-浦东法院-202201 _0.pdf',
+                    label: '法院判决书',
                     href: 'xxx.docx',
                     classes: 'file one-line',
                   },
@@ -420,7 +420,7 @@ Default.args = {
                 elements: [
                   {
                     type: 'link',
-                    label: '易思远-刘冰清-判决书-浦东法院-202201 _0.pdf',
+                    label: '法院判决书',
                     href: 'xxx.docx',
                     classes: 'file one-line',
                   },
@@ -442,7 +442,7 @@ Default.args = {
                 elements: [
                   {
                     type: 'link',
-                    label: '易思远-刘冰清-判决书-浦东法院-202201 _0.pdf',
+                    label: '法院判决书',
                     href: 'xxx.docx',
                     classes: 'file one-line',
                   },
@@ -459,7 +459,7 @@ Default.args = {
                 elements: [
                   {
                     type: 'link',
-                    label: '易思远-刘冰清-判决书-浦东法院-202201 _0.pdf',
+                    label: '法院判决书',
                     href: 'xxx.docx',
                     classes: 'file one-line',
                   },
@@ -476,7 +476,7 @@ Default.args = {
                 elements: [
                   {
                     type: 'link',
-                    label: '易思远-刘冰清-判决书-浦东法院-202201 _0.pdf',
+                    label: '法院判决书',
                     href: 'xxx.docx',
                     classes: 'file one-line',
                   },
@@ -493,7 +493,7 @@ Default.args = {
                 elements: [
                   {
                     type: 'link',
-                    label: '易思远-刘冰清-判决书-浦东法院-202201 _0.pdf',
+                    label: '法院判决书',
                     href: 'xxx.docx',
                     classes: 'file one-line',
                   },
@@ -510,7 +510,7 @@ Default.args = {
                 elements: [
                   {
                     type: 'link',
-                    label: '易思远-刘冰清-判决书-浦东法院-202201 _0.pdf',
+                    label: '法院判决书',
                     href: 'xxx.docx',
                     classes: 'file one-line',
                   },
@@ -532,7 +532,7 @@ Default.args = {
                 elements: [
                   {
                     type: 'link',
-                    label: '易思远-刘冰清-判决书-浦东法院-202201 _0.pdf',
+                    label: '法院判决书',
                     href: 'xxx.docx',
                     classes: 'file one-line',
                     target: '_blank',
@@ -551,7 +551,7 @@ Default.args = {
                 elements: [
                   {
                     type: 'link',
-                    label: '易思远-刘冰清-判决书-浦东法院-202201 _0.pdf',
+                    label: '法院判决书',
                     href: 'xxx.docx',
                     classes: 'file one-line',
                     target: '_blank',
@@ -570,7 +570,7 @@ Default.args = {
                 elements: [
                   {
                     type: 'link',
-                    label: '易思远-刘冰清-判决书-浦东法院-202201 _0.pdf',
+                    label: '法院判决书',
                     href: 'xxx.docx',
                     classes: 'file one-line',
                     target: '_blank',
@@ -589,7 +589,7 @@ Default.args = {
                 elements: [
                   {
                     type: 'link',
-                    label: '易思远-刘冰清-判决书-浦东法院-202201 _0.pdf',
+                    label: '法院判决书',
                     href: 'xxx.docx',
                     classes: 'file one-line',
                   },
@@ -606,7 +606,7 @@ Default.args = {
                 elements: [
                   {
                     type: 'link',
-                    label: '易思远-刘冰清-判决书-浦东法院-202201 _0.pdf',
+                    label: '法院判决书',
                     href: 'xxx.docx',
                     classes: 'file one-line',
                   },
@@ -623,8 +623,7 @@ Default.args = {
                 elements: [
                   {
                     type: 'link',
-                    label:
-                      '易思远-刘冰清-判决书-浦东法院-判决书-浦东法院-202201 _0.pdf',
+                    label: '法院判决书',
                     href: 'xxx.docx',
                     classes: 'file one-line',
                   },
@@ -1424,7 +1423,7 @@ Meeting.args = {
                 classes: 'object-fit',
                 src: '/system/files/2022-08/AF.docx',
                 preview: '/system/files/xxx.pdf',
-                alt: '苏州耀能诉震纶用电纠纷案（10月后的电费案件）',
+                alt: '南宁三字柒',
               },
             },
             footer: {

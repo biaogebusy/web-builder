@@ -83,7 +83,7 @@ Default.args = {
             src: '/assets/images/client2.jpeg',
             alt: '',
           },
-          body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat. ',
+          body: 'Drupal 已经超越了传统的 Web概念，可以通过不同的渠道部署你的数据内容，从一个数据中心点到各个应用，从简单到复杂。 ',
         },
         {
           type: 'testimonial',
@@ -150,7 +150,7 @@ Light.args = {
             src: '/assets/images/client2.jpeg',
             alt: '',
           },
-          body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat. ',
+          body: 'Drupal 已经超越了传统的 Web概念，可以通过不同的渠道部署你的数据内容，从一个数据中心点到各个应用，从简单到复杂。 ',
         },
         {
           type: 'testimonial',

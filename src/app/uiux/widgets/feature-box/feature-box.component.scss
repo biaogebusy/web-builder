@@ -4,7 +4,7 @@
   &:before {
     content: "";
     height: 16px;
-    left: 0;
+    left: 10px;
     position: absolute;
     top: 16px;
     width: 1px;
@@ -15,7 +15,7 @@
   &:after {
     content: "";
     height: 1px;
-    left: 0;
+    left: 10px;
     position: absolute;
     top: 16px;
     width: 16px;
@@ -26,7 +26,7 @@
     &:before {
       content: "";
       height: 16px;
-      right: 0;
+      right: 10px;
       position: absolute;
       bottom: 16px;
       width: 1px;
@@ -37,7 +37,7 @@
     &:after {
       content: "";
       height: 1px;
-      right: 0;
+      right: 10px;
       position: absolute;
       bottom: 16px;
       width: 16px;

@@ -290,7 +290,7 @@ Sidebar.args = {
             },
             meta: '2022/08/01',
             link: {
-              label: '苏州耀能诉苏州世缘一案（10月前电费）',
+              label: '南宁三字柒',
               href: '#',
             },
             subTitle: '法官 / 张三',
@@ -303,7 +303,7 @@ Sidebar.args = {
             },
             meta: '2021/08/16',
             link: {
-              label: '苏州耀能诉震纶用电纠纷案（10月后的电费案件）',
+              label: '南宁三字柒',
               href: '#',
             },
             subTitle: '法官 / 李四',
@@ -316,7 +316,7 @@ Sidebar.args = {
             },
             meta: '2021/08/16',
             link: {
-              label: '苏州耀能诉震纶用电纠纷案（10月后的电费案件）',
+              label: '南宁三字柒',
               href: '#',
             },
             subTitle: '法官 / 李四',
@@ -329,7 +329,7 @@ Sidebar.args = {
             },
             meta: '2021/08/16',
             link: {
-              label: '苏州耀能诉震纶用电纠纷案（10月后的电费案件）',
+              label: '南宁三字柒',
               href: '#',
             },
             subTitle: '法官 / 李四',
@@ -342,7 +342,7 @@ Sidebar.args = {
             },
             meta: '2021/08/16',
             link: {
-              label: '苏州耀能诉震纶用电纠纷案（10月后的电费案件）',
+              label: '南宁三字柒',
               href: '#',
             },
             subTitle: '法官 / 李四',

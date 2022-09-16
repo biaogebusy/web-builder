@@ -5,7 +5,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { AppState } from '@core/mobx/AppState';
-import { ICoreConfig } from '@core/mobx/IAppConfig';
+import type { ICoreConfig } from '@core/mobx/IAppConfig';
 import { CORE_CONFIG } from '@core/token/core.config';
 @Component({
   selector: 'app-switch-theme',

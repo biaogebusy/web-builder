@@ -16,4 +16,14 @@ export class Showcase3v3Component implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
+  showImage(): boolean {
+    if (!this.content?.showImage && this.content.feature) {
+      return true;
+    }
+    if (this.content.showImage === false) {
+      return false;
+    }
+    return true;
+  }
 }

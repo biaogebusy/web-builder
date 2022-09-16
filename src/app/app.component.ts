@@ -8,7 +8,7 @@ import { ScreenService } from '@core/service/screen.service';
 import { ConfigService } from '@core/service/config.service';
 import { NavigationService } from '@core/service/navigation.service';
 import { CORE_CONFIG } from '@core/token/core.config';
-import { ICoreConfig } from '@core/mobx/IAppConfig';
+import type { ICoreConfig } from '@core/mobx/IAppConfig';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
