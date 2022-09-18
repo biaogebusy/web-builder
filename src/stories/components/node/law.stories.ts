@@ -118,7 +118,7 @@ Default.args = {
       {
         type: 'select',
         key: 'case_procedure',
-        value: 'aff056e8-4638-4901-b866-8cc6ea7a05c9',
+        value: '10',
       },
     ],
     block: [
