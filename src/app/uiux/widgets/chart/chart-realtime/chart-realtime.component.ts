@@ -3,6 +3,7 @@ import { IChart } from '@core/interface/widgets/IChart';
 import { Chart, ChartDataset, ChartOptions } from 'chart.js';
 import 'chartjs-adapter-luxon';
 import StreamingPlugin from 'chartjs-plugin-streaming';
+import { interval } from 'rxjs';
 Chart.register(StreamingPlugin);
 
 @Component({
@@ -38,7 +39,8 @@ export class ChartRealtimeComponent implements OnInit {
         x: {
           type: 'realtime',
           realtime: {
-            delay: 2000,
+            duration: 10000 * 10,
+            refresh: 10000,
             onRefresh: (chart: Chart) => {
               chart.data.datasets.forEach((dataset: ChartDataset) => {
                 dataset.data.push({
