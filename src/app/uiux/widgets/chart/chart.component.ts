@@ -3,9 +3,8 @@ import {
   Component,
   Input,
   OnInit,
-  ChangeDetectorRef,
 } from '@angular/core';
-import type { IChart } from '@core/interface/widgets/IChart';
+import { EChartsOption } from 'echarts';
 
 @Component({
   selector: 'app-chart',
@@ -14,9 +13,9 @@ import type { IChart } from '@core/interface/widgets/IChart';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChartComponent implements OnInit {
-  @Input() content: IChart;
-
-  constructor(private cd: ChangeDetectorRef) {}
+  @Input() content: EChartsOption;
+  @Input() chartOption: EChartsOption;
+  constructor() {}
 
   ngOnInit(): void {}
 }

@@ -1,4 +1,1 @@
-<div class="chart">
-  <canvas *ngIf="content" baseChart [data]="content.data" [options]="content.options" [type]="content.chartType">
-  </canvas>
-</div>
+<div echarts [options]="chartOption" class="chart"></div>

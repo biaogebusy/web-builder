@@ -7,7 +7,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { IChart } from '@core/interface/widgets/IChart';
+import { EChartsOption } from 'echarts';
 
 @Component({
   selector: 'app-lottery',
@@ -23,7 +23,7 @@ export class LotteryComponent implements OnInit, AfterViewInit {
   maxTimes = '0';
   minTimes = '0';
   promoteMoney = '0';
-  chart: IChart;
+  chart: EChartsOption;
 
   constructor(private cd: ChangeDetectorRef) {}
 
@@ -62,16 +62,39 @@ export class LotteryComponent implements OnInit, AfterViewInit {
     this.maxTimes = (max.total / max.per).toFixed(0);
     this.minTimes = (min.total / min.per).toFixed(0);
 
-    const data = {
-      labels: ['大额红包总金额', '小额红包总金额', '提成总额'],
-      datasets: [
+    const data = [
+      {
+        value: max.total,
+        name: '大额红包总金额',
+      },
+      {
+        value: min.total,
+        name: '小额红包总金额',
+      },
+      {
+        value: this.promoteMoney,
+        name: '提成总额',
+      },
+    ];
+    const updateOptions = {
+      series: [
         {
-          data: [max.total, min.total, this.promoteMoney],
+          data,
+          name: '预算占比',
+          type: 'pie',
+          radius: '50%',
+          emphasis: {
+            itemStyle: {
+              shadowBlur: 10,
+              shadowOffsetX: 0,
+              shadowColor: 'rgba(0, 0, 0, 0.5)',
+            },
+          },
         },
       ],
     };
 
-    this.chart = Object.assign({ data }, this.content.chart);
+    this.chart = { ...this.content.chart, ...updateOptions };
     this.cd.detectChanges();
   }
 }

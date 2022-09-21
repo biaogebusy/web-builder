@@ -31,7 +31,7 @@ export class AuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    return true;
+    // return true;
     return this.nodeService.search(`/api/v1/config`, 'content=/core/base').pipe(
       switchMap((config: any) => {
         if (state.url.startsWith('/my') || config?.guard?.authGuard) {
