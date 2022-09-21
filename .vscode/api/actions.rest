@@ -1,6 +1,6 @@
-@apiUrl = https://admin.iooks.com
+@apiUrl = https://xhb-api.zhaobg.com
 @user = root
-@psw = Amigo@Abcd1234
+@psw = TH$$Q^AQFs9XLOX*
 
 ### get session
 GET {{apiUrl}}/session/token
@@ -86,3 +86,8 @@ GET {{apiUrl}}/api/v2/unread-message?noCache=11
 ### 设置为已读
 DELETE {{apiUrl}}/api/v1/flagging/message_unread/{UUID}
 
+### get flaging v2
+GET {{apiUrl}}/api/v2/node/flagging/favorite/ef7490d0-2024-45f6-a564-e1aafe6b8fdc
+
+### post node statistics
+POST {{apiUrl}}/api/v3/statistics/node/8
