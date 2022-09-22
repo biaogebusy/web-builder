@@ -16,7 +16,7 @@ import { AppState } from '@core/mobx/AppState';
 import { initConfig } from 'src/app/app.module';
 
 export default {
-  title: '组件/地图/地图列表 1v1',
+  title: '组件/地图/位置列表 1v1',
   component: MapListV1Component,
   decorators: [
     moduleMetadata({
@@ -50,6 +50,13 @@ export default {
       ],
     }),
   ],
+  parameters: {
+    docs: {
+      description: {
+        component: `通过点击左侧的位置列表可定位到具体的地理位置。`,
+      },
+    },
+  },
 } as Meta;
 
 const Template: Story<MapListV1Component> = (args) => ({

@@ -52,6 +52,13 @@ export default {
     }),
     componentWrapperDecorator((story) => `${story}`),
   ],
+  parameters: {
+    docs: {
+      description: {
+        component: `通用的普遍文章，一般包含标题和内容相关属性信息，还包括文章相关联的数据等等。`,
+      },
+    },
+  },
 } as Meta;
 
 const Template: Story<ArticleComponent> = (args) => ({

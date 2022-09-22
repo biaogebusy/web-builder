@@ -49,6 +49,13 @@ export default {
       ],
     }),
   ],
+  parameters: {
+    docs: {
+      description: {
+        component: `位置信息常用于展示指定位置的地理位置，方便用户查看。`,
+      },
+    },
+  },
 } as Meta;
 
 const Template: Story<LocationComponent> = (args) => ({

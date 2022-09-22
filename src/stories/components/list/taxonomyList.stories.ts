@@ -43,6 +43,13 @@ export default {
     }),
     componentWrapperDecorator((story) => `${story}`),
   ],
+  parameters: {
+    docs: {
+      description: {
+        component: `分类列表一般用在分类术语上，该列表聚合了该分类下的所属文章列表。`,
+      },
+    },
+  },
 } as Meta;
 
 const Template: Story<TaxonomyListComponent> = (args) => ({

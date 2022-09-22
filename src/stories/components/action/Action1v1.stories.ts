@@ -36,6 +36,13 @@ export default {
       ],
     }),
   ],
+  parameters: {
+    docs: {
+      description: {
+        component: `通过可选的过滤条件进行对内容的搜索`,
+      },
+    },
+  },
 } as Meta;
 
 const Template: Story<Action1v1Component> = (args) => ({

@@ -17,7 +17,7 @@ import { AppState } from '@core/mobx/AppState';
 import { initConfig } from 'src/app/app.module';
 
 export default {
-  title: '基础/Bg',
+  title: '基础/示例',
   component: BgComponent,
   decorators: [
     moduleMetadata({

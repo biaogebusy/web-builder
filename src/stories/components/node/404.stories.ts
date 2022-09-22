@@ -38,6 +38,13 @@ export default {
     }),
     componentWrapperDecorator((story) => `${story}`),
   ],
+  parameters: {
+    docs: {
+      description: {
+        component: `当用户访问的页面不存在时，显示404页面。`,
+      },
+    },
+  },
 } as Meta;
 
 const Template: Story<NotfoundComponent> = (args) => ({
@@ -65,13 +72,13 @@ Default.args = {
     },
     actions: [
       {
-        label: 'Go Back',
+        label: '返回',
         href: '/',
         style: 'style-v1',
         icon: 'open_in_new',
       },
       {
-        label: 'Go To Home',
+        label: '回到主页',
         href: '/',
         style: 'style-v1',
         icon: 'open_in_new',

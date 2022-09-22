@@ -30,6 +30,13 @@ export default {
       ],
     }),
   ],
+  parameters: {
+    docs: {
+      description: {
+        component: `该幻灯片组件可自定义内部的文字所在的位置。`,
+      },
+    },
+  },
 } as Meta;
 
 const Template: Story<Carousel1v1Component> = (args) => ({

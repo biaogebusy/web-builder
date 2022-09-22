@@ -10,7 +10,7 @@ import { NgxWebstorageModule } from 'ngx-webstorage';
 import { ShareModule } from '../../../app/share/share.module';
 import { apiUrlFactory, API_URL } from '@core/token/token-providers';
 export default {
-  title: '组件/Banner/Banner simple',
+  title: '组件/横幅/简单横幅',
   component: BannerSimpleComponent,
   decorators: [
     moduleMetadata({
@@ -36,6 +36,13 @@ export default {
       ],
     }),
   ],
+  parameters: {
+    docs: {
+      description: {
+        component: `一般用在页面顶部，由标题、面包屑和背景图片组成。`,
+      },
+    },
+  },
 } as Meta;
 
 const Template: Story<BannerSimpleComponent> = (args) => ({

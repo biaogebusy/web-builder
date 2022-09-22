@@ -43,6 +43,13 @@ export default {
     }),
     componentWrapperDecorator((story) => `${story}`),
   ],
+  parameters: {
+    docs: {
+      description: {
+        component: `树形边栏可以方便的展示多级的分类，通过查看分类过滤出所选分类下的数据内容。`,
+      },
+    },
+  },
 } as Meta;
 
 const Template: Story<TreeListComponent> = (args) => ({

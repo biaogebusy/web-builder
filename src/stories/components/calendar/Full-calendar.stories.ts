@@ -40,6 +40,13 @@ export default {
       ],
     }),
   ],
+  parameters: {
+    docs: {
+      description: {
+        component: `把数据映射到日历上，根据搜索条件显示日历内容。`,
+      },
+    },
+  },
 } as Meta;
 
 const Template: Story<FullCalendarComponent> = (args) => ({

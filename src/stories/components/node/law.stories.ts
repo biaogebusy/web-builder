@@ -25,7 +25,7 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [],
-      entry组件: [DialogComponent, TextComponent],
+      entryComponents: [DialogComponent, TextComponent],
       imports: [
         RouterTestingModule,
         BrowserAnimationsModule,
