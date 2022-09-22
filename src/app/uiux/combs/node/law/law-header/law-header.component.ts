@@ -41,7 +41,7 @@ export class LawHeaderComponent implements OnInit, AfterViewInit {
     // @ts-ignore
     await import('../../../../../../assets/fonts/simhei-normal.js');
     // @ts-ignore
-    await import('../../../../../../assets/fonts/SIMSUN-normal.js');
+    await import('../../../../../../assets/fonts/fangsong_GB2312-normal.js');
   }
 
   async onSavePdf(): Promise<void> {
@@ -59,7 +59,7 @@ export class LawHeaderComponent implements OnInit, AfterViewInit {
       orientation: 'portrait',
       unit: 'px',
     });
-    doc.setFont('SIMSUN');
+    doc.setFont('fangsong_GB2312');
     doc.setFontSize(12);
     autoTable(doc, {
       startY: 33,
@@ -103,7 +103,7 @@ export class LawHeaderComponent implements OnInit, AfterViewInit {
       styles: {
         fillColor: [255, 255, 255],
         fontSize: 12,
-        font: 'SIMSUN',
+        font: 'fangsong_GB2312',
         textColor: [0, 0, 0],
         valign: 'middle',
         lineWidth: 0.2,

@@ -228,7 +228,6 @@
             "colSpan": 4,
             "styles": {
               "lineWidth": 0,
-              "font": "simhei",
               "minCellHeight": 40
             }
           }],
