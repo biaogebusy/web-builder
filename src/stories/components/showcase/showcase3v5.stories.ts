@@ -14,7 +14,7 @@ import { ShareModule } from '../../../app/share/share.module';
 import { Showcase3v5Component } from '@uiux/combs/showcase/showcase3v5/showcase3v5.component';
 import { API_URL, apiUrlFactory } from '@core/token/token-providers';
 export default {
-  title: 'Components/showcase/3v5',
+  title: '组件/showcase/3v5',
   component: Showcase3v5Component,
   decorators: [
     moduleMetadata({
@@ -106,7 +106,7 @@ Default.args = {
           label: 'Retina Ready',
         },
         content:
-          'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.',
+          'Drupal 已经超越了传统的 Web概念，可以通过不同的渠道部署你的数据内容，从一个数据中心点到各个应用，从简单到复杂。',
       },
       {
         icon: {

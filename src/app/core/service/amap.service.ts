@@ -1,9 +1,7 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import * as AMapLoader from '@amap/amap-jsapi-loader';
 import { Observable, from } from 'rxjs';
 import type { IAmap } from '../interface/IAmap';
-import { CORE_CONFIG } from '@core/token/core.config';
-import type { ICoreConfig } from '@core/mobx/IAppConfig';
 
 // https://lbs.amap.com/demo-center/js-api
 // https://lbs.amap.com/api/jsapi-v2/summary
@@ -14,15 +12,15 @@ import type { ICoreConfig } from '@core/mobx/IAppConfig';
   providedIn: 'root',
 })
 export class AmapService {
-  constructor(@Inject(CORE_CONFIG) private coreConfig: ICoreConfig) {}
+  constructor() {}
 
-  load(): Observable<any> {
-    const amapConfig: IAmap = this.coreConfig?.amap;
+  load(config: IAmap): Observable<any> {
+    // const amapConfig: IAmap = this.coreConfig?.amap;
     return from(
       AMapLoader.load({
-        key: amapConfig.key,
-        version: amapConfig.version,
-        plugins: amapConfig.plugins, // 需要使用的的插件列表，如比例尺'AMap.Scale'等
+        key: config.key,
+        version: config.version,
+        plugins: config.plugins, // 需要使用的的插件列表，如比例尺'AMap.Scale'等
         AMapUI: {
           // 是否加载 AMapUI，缺省不加载
           version: '1.1', // AMapUI 缺省 1.1

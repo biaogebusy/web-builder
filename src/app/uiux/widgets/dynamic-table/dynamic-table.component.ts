@@ -4,6 +4,7 @@ import {
   OnInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
+  AfterViewInit,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -11,6 +12,7 @@ import { DialogComponent } from '../dialog/dialog.component';
 import type { IDynamicTable } from '../IWidgets';
 import { TextComponent } from '../text/text.component';
 import { RouteService } from '@core/service/route.service';
+import { isArray } from 'lodash-es';
 import {
   animate,
   state,
@@ -35,7 +37,7 @@ import {
     ]),
   ],
 })
-export class DynamicTableComponent implements OnInit {
+export class DynamicTableComponent implements OnInit, AfterViewInit {
   @Input() content: IDynamicTable;
   @Input() form: FormGroup;
 
@@ -50,9 +52,13 @@ export class DynamicTableComponent implements OnInit {
     private cd: ChangeDetectorRef
   ) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  ngAfterViewInit(): void {
     if (this.content.elements) {
-      this.isExpand = this.content.elements.some((item) => item.expand);
+      this.isExpand = this.content.elements.some((item) =>
+        isArray(item.expand)
+      );
       this.displayedColumns = this.content.header.map((item: any) => item.key);
       if (this.isExpand) {
         this.columnsToDisplayWithExpand = [...this.displayedColumns, 'expand'];

@@ -13,7 +13,7 @@ import { SpacerComponent } from '../../app/uiux/widgets/spacer/spacer.component'
 import { WidgetsModule } from '../../app/uiux/widgets/widgets.module';
 
 export default {
-  title: 'Widgets/Spacer',
+  title: '基础/间距',
   component: SpacerComponent,
   decorators: [
     moduleMetadata({

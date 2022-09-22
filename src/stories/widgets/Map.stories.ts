@@ -16,9 +16,11 @@ import { AMapState } from '../../app/core/mobx/amap/AMapState';
 import { AmapService } from '../../app/core/service/amap.service';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { API_URL, apiUrlFactory } from '@core/token/token-providers';
+import { APP_INITIALIZER, Inject } from '@angular/core';
+import { initConfig } from 'src/app/app.module';
 
 export default {
-  title: 'Widgets/Map',
+  title: '基础/地图',
   component: MapComponent,
   decorators: [
     moduleMetadata({
@@ -38,6 +40,12 @@ export default {
         {
           provide: CORE_CONFIG,
           useValue: {},
+        },
+        {
+          provide: APP_INITIALIZER,
+          useFactory: initConfig,
+          deps: [AppState, [new Inject(CORE_CONFIG)]],
+          multi: true,
         },
         {
           provide: API_URL,

@@ -17,6 +17,16 @@
       border-top-right-radius: inherit;
       width: calc(100% + 32px);
       margin: 0 -16px 16px -16px;
+      &:after,
+      &:before {
+        right: 0 !important;
+      }
+    }
+    .feature-cover {
+      &:after,
+      &:before {
+        left: 0;
+      }
     }
     .swiper-container {
       .feature-inner {

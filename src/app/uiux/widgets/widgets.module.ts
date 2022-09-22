@@ -93,7 +93,7 @@ import { FormlyMatDatepickerModule } from '@ngx-formly/material/datepicker';
 import { DateRangeComponent } from './form/formly-type/date-range/date-range.component';
 import { MatSelectComponent } from './form/formly-type/mat-select/mat-select.component';
 import { ChartComponent } from './chart/chart.component';
-import { NgChartsModule } from 'ng2-charts';
+import { NgxEchartsModule } from 'ngx-echarts';
 import { StepperComponent } from './stepper/stepper.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
@@ -201,7 +201,9 @@ const components = [
     MatNativeDateModule,
     FormlyMatDatepickerModule,
     FormlyMaterialModule,
-    NgChartsModule,
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts'),
+    }),
     FormlyModule.forRoot({
       types: [
         {

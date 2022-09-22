@@ -15,7 +15,7 @@ import { ListModule } from '@uiux/combs/list/list.module';
 import { TreeListComponent } from '@uiux/combs/list/tree-list/tree-list.component';
 import { apiUrlFactory, API_URL } from '@core/token/token-providers';
 export default {
-  title: 'Components/list/Tree list',
+  title: '组件/列表/树形列表',
   component: TreeListComponent,
   decorators: [
     moduleMetadata({
@@ -43,6 +43,13 @@ export default {
     }),
     componentWrapperDecorator((story) => `${story}`),
   ],
+  parameters: {
+    docs: {
+      description: {
+        component: `树形边栏可以方便的展示多级的分类，通过查看分类过滤出所选分类下的数据内容。`,
+      },
+    },
+  },
 } as Meta;
 
 const Template: Story<TreeListComponent> = (args) => ({

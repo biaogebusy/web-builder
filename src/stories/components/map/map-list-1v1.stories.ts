@@ -10,8 +10,13 @@ import { ShareModule } from '../../../app/share/share.module';
 import { SwiperModule } from 'ngx-swiper-wrapper';
 import { AmapService } from '../../../app/core/service/amap.service';
 import { MapListV1Component } from '../../../app/uiux/combs/map/map-list-v1/map-list-v1.component';
+import { API_URL, apiUrlFactory } from '@core/token/token-providers';
+import { APP_INITIALIZER, Inject } from '@angular/core';
+import { AppState } from '@core/mobx/AppState';
+import { initConfig } from 'src/app/app.module';
+
 export default {
-  title: 'Components/map/map list 1v1',
+  title: '组件/地图/位置列表 1v1',
   component: MapListV1Component,
   decorators: [
     moduleMetadata({
@@ -31,9 +36,27 @@ export default {
           provide: CORE_CONFIG,
           useValue: {},
         },
+        {
+          provide: APP_INITIALIZER,
+          useFactory: initConfig,
+          deps: [AppState, [new Inject(CORE_CONFIG)]],
+          multi: true,
+        },
+        {
+          provide: API_URL,
+          useFactory: apiUrlFactory,
+          deps: [],
+        },
       ],
     }),
   ],
+  parameters: {
+    docs: {
+      description: {
+        component: `通过点击左侧的位置列表可定位到具体的地理位置。`,
+      },
+    },
+  },
 } as Meta;
 
 const Template: Story<MapListV1Component> = (args) => ({
@@ -274,7 +297,7 @@ Sidebar.args = {
             },
             meta: '2022/08/01',
             link: {
-              label: '苏州耀能诉苏州世缘一案（10月前电费）',
+              label: '南宁三字柒',
               href: '#',
             },
             subTitle: '法官 / 张三',
@@ -287,7 +310,7 @@ Sidebar.args = {
             },
             meta: '2021/08/16',
             link: {
-              label: '苏州耀能诉震纶用电纠纷案（10月后的电费案件）',
+              label: '南宁三字柒',
               href: '#',
             },
             subTitle: '法官 / 李四',
@@ -300,7 +323,7 @@ Sidebar.args = {
             },
             meta: '2021/08/16',
             link: {
-              label: '苏州耀能诉震纶用电纠纷案（10月后的电费案件）',
+              label: '南宁三字柒',
               href: '#',
             },
             subTitle: '法官 / 李四',
@@ -313,7 +336,7 @@ Sidebar.args = {
             },
             meta: '2021/08/16',
             link: {
-              label: '苏州耀能诉震纶用电纠纷案（10月后的电费案件）',
+              label: '南宁三字柒',
               href: '#',
             },
             subTitle: '法官 / 李四',
@@ -326,7 +349,7 @@ Sidebar.args = {
             },
             meta: '2021/08/16',
             link: {
-              label: '苏州耀能诉震纶用电纠纷案（10月后的电费案件）',
+              label: '南宁三字柒',
               href: '#',
             },
             subTitle: '法官 / 李四',

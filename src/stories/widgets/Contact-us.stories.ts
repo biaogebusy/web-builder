@@ -15,7 +15,7 @@ import { CORE_CONFIG } from '../../app/core/token/core.config';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { API_URL, apiUrlFactory } from '@core/token/token-providers';
 export default {
-  title: 'Widgets/Contact Us',
+  title: '基础/联系我们',
   component: ContactUsComponent,
   decorators: [
     moduleMetadata({
@@ -73,17 +73,17 @@ Default.args = {
     contact: [
       {
         title: {
-          label: 'Address',
+          label: '地址',
         },
         icon: {
           name: 'location_on',
         },
         style: 'style-v7 small-box',
-        content: 'NO.28 Street Name - City. Country',
+        content: '广西南宁市创客城2栋',
       },
       {
         title: {
-          label: 'Phone number',
+          label: '电话号码',
         },
         style: 'style-v7 small-box',
         icon: {
@@ -93,33 +93,23 @@ Default.args = {
       },
       {
         title: {
-          label: 'Email Adress',
+          label: '邮件',
         },
         style: 'style-v7 small-box',
         icon: {
           name: 'mail',
         },
-        content: 'info@kingzonetech.com',
+        content: 'service@zhaobg.com',
       },
       {
         title: {
-          label: 'Wechat',
+          label: '微信',
         },
         style: 'style-v7 small-box',
         icon: {
           name: 'chat_bubble',
         },
-        content: 'kingzonetech',
-      },
-      {
-        title: {
-          label: 'Facebook',
-        },
-        style: 'style-v7 small-box',
-        img: {
-          src: '/assets/images/facebook.png',
-        },
-        content: 'kingzonetech',
+        content: 'biaogebusy',
       },
     ],
     forms: [

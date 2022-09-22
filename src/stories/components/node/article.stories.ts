@@ -14,8 +14,11 @@ import { ShareModule } from '../../../app/share/share.module';
 import { ArticleComponent } from '@uiux/combs/node/article/article.component';
 import { NodeModule } from '@uiux/combs/node/node.module';
 import { apiUrlFactory, API_URL } from '@core/token/token-providers';
+import { APP_INITIALIZER, Inject } from '@angular/core';
+import { AppState } from '@core/mobx/AppState';
+import { initConfig } from 'src/app/app.module';
 export default {
-  title: 'Components/node/article',
+  title: '组件/文章/普通文章',
   component: ArticleComponent,
   decorators: [
     moduleMetadata({
@@ -35,6 +38,12 @@ export default {
           useValue: {},
         },
         {
+          provide: APP_INITIALIZER,
+          useFactory: initConfig,
+          deps: [AppState, [new Inject(CORE_CONFIG)]],
+          multi: true,
+        },
+        {
           provide: API_URL,
           useFactory: apiUrlFactory,
           deps: [],
@@ -43,6 +52,13 @@ export default {
     }),
     componentWrapperDecorator((story) => `${story}`),
   ],
+  parameters: {
+    docs: {
+      description: {
+        component: `通用的普遍文章，一般包含标题和内容相关属性信息，还包括文章相关联的数据等等。`,
+      },
+    },
+  },
 } as Meta;
 
 const Template: Story<ArticleComponent> = (args) => ({

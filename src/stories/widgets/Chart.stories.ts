@@ -10,7 +10,7 @@ import { WidgetsModule } from '../../app/uiux/widgets/widgets.module';
 import { ChartComponent } from '@uiux/widgets/chart/chart.component';
 
 export default {
-  title: 'Widgets/Chart',
+  title: '基础/图表',
   component: ChartComponent,
   decorators: [
     moduleMetadata({
@@ -23,6 +23,13 @@ export default {
         `<div class="position-relative p-x p-y" style="z-index:1">${story}</div>`
     ),
   ],
+  parameters: {
+    docs: {
+      description: {
+        component: `数据可视化的一个常见思路是：（I）提供数据，（II）指定数据到视觉的映射。简而言之，可以进行这些映射的设定：指定 数据集 的列（column）还是行（row）映射为 系列（series）。这件事可以使用 series.seriesLayoutBy 属性来配置。默认是按照列（column）来映射。指定维度映射的规则：如何从 dataset 的维度（一个“维度”的意思是一行/列）映射到坐标轴（如 X、Y 轴）、提示框（tooltip）、标签（label）、图形元素大小颜色等（visualMap）。这件事可以使用 series.encode 属性，以及 visualMap 组件来配置（如果有需要映射颜色大小等视觉维度的话）。`,
+      },
+    },
+  },
 } as Meta;
 
 const Template: Story<ChartComponent> = (args) => ({
@@ -34,216 +41,219 @@ const Template: Story<ChartComponent> = (args) => ({
 export const Line = Template.bind({});
 
 Line.args = {
-  content: {
-    chartType: 'line',
-    data: {
-      datasets: [
-        {
-          data: [4, 3, 5, 3, 2, 3, 5],
-          label: '张三',
-        },
-        {
-          data: [1, 2, 4, 7, 3, 2, 6],
-          label: '李四',
-        },
-        {
-          data: [2, 4, 3, 7, 5, 1, 1],
-          label: '王五',
-        },
-      ],
-      labels: [
-        '2022-7-24',
-        '2022-7-25',
-        '2022-7-26',
-        '2022-7-28',
-        '2022-7-29',
-        '2022-7-30',
-        '2022-7-31',
+  chartOption: {
+    title: {
+      text: '年度活动金额预算',
+      subtext: '南宁',
+    },
+    tooltip: {
+      trigger: 'axis',
+    },
+    dataset: {
+      // 提供一份数据
+      source: [
+        ['红包预算', '2020', '2021', '2022'],
+        ['大额红包', 3600, 4000, 4551],
+        ['小额红包', 6000, 7000, 8450],
+        ['推广费用', 2400, 4000, 6000],
       ],
     },
+    // 声明x轴，类目轴（category），默认情况下类目轴对应到 dataset 第一列
+    xAxis: {
+      type: 'category',
+    },
+    // 声明一个 y 轴，数值轴
+    yAxis: {},
+    // 声明对应的数据使用系列，默认情况下每个系列自动对应到 dataset 的每一列
+    series: [
+      {
+        type: 'line',
+      },
+      {
+        type: 'line',
+      },
+      {
+        type: 'line',
+      },
+    ],
+  },
+};
+
+export const LineTime = Template.bind({});
+LineTime.args = {
+  chartOption: {
+    title: {
+      text: '超市宣传上新红包抽奖趋势图',
+      subtext: '万科金域缇香店',
+    },
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: {
+        type: 'cross',
+      },
+    },
+    toolbox: {
+      show: true,
+      feature: {
+        saveAsImage: {},
+      },
+    },
+    dataset: {
+      source: [
+        ['时间', '中奖个数'],
+        ['00:00', 0],
+        ['01:00', 2],
+        ['02:00', 3],
+        ['03:00', 5],
+        ['04:00', 6],
+        ['05:00', 8],
+        ['06:00', 10],
+        ['07:00', 11],
+        ['08:00', 15],
+        ['09:00', 20],
+        ['10:00', 30],
+        ['11:00', 50],
+        ['12:00', 60],
+        ['13:00', 66],
+        ['14:00', 100],
+        ['15:00', 120],
+        ['16:00', 155],
+        ['17:00', 226],
+        ['18:00', 300],
+        ['19:00', 330],
+        ['20:00', 412],
+        ['21:00', 500],
+        ['22:00', 516],
+        ['23:00', 530],
+      ],
+    },
+    xAxis: {
+      type: 'category',
+      boundaryGap: false,
+    },
+    yAxis: {
+      type: 'value',
+      axisLabel: {
+        formatter: '{value} 个',
+      },
+      axisPointer: {
+        snap: true,
+      },
+    },
+    series: [
+      {
+        name: '红包个数',
+        type: 'line',
+        smooth: true,
+      },
+    ],
   },
 };
 
 export const Bar = Template.bind({});
 
 Bar.args = {
-  content: {
-    chartType: 'bar',
-    data: {
-      labels: ['2006', '2007', '2008', '2009', '2010', '2011', '2012'],
-      datasets: [
-        { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
-        { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' },
+  chartOption: {
+    title: {
+      text: '年度活动金额预算',
+      subtext: '南宁',
+    },
+    tooltip: {
+      trigger: 'axis',
+    },
+    dataset: {
+      // 提供一份数据。
+      source: [
+        ['红包预算', '2020', '2021', '2022'],
+        ['大额红包', 3600, 4000, 4551],
+        ['小额红包', 6000, 7000, 8450],
+        ['推广费用', 2400, 4000, 6000],
       ],
     },
-    options: {
-      responsive: true,
-      scales: {
-        x: {},
-        y: {
-          min: 10,
-        },
-      },
-      plugins: {
-        legend: {
-          display: true,
-        },
-      },
-    },
-  },
-};
-
-export const Doughnut = Template.bind({});
-
-Doughnut.args = {
-  content: {
-    chartType: 'doughnut',
-    data: {
-      labels: ['Johnson', 'Don', 'Wilian', 'UI'],
-      datasets: [
-        { data: [5663, 5663, 2831, 1875] },
-        { data: [2284, 2284, 1142, 700] },
-        { data: [2660, 2660, 1330, 700] },
-      ],
-    },
-  },
-};
-
-export const Radar = Template.bind({});
-Radar.args = {
-  content: {
-    chartType: 'radar',
-    data: {
-      labels: ['网站维护', 'Amigo', '云服务', '电子烟', '小程序'],
-      datasets: [
-        { data: [2000, 5663, 11868, 2636, 3200], label: 'Johnson' },
-        { data: [1600, 5100, 9847, 2145, 2874], label: 'Don' },
-        { data: [1000, 2831, 5934, 1318, 1491], label: 'Willian' },
-        { data: [0, 1760, 700, 0, 375], label: 'UI' },
-      ],
-    },
+    // 声明一个 X 轴，类目轴（category）。默认情况下，类目轴对应到 dataset 第一列。
+    xAxis: { type: 'category' },
+    // 声明一个 Y 轴，数值轴。
+    yAxis: {},
+    // 声明多个 bar 系列，默认情况下，每个系列会自动对应到 dataset 的每一列。
+    series: [{ type: 'bar' }, { type: 'bar' }, { type: 'bar' }],
   },
 };
 
 export const Pie = Template.bind({});
 Pie.args = {
-  content: {
-    chartType: 'pie',
-    data: {
-      labels: ['Johnson', 'Don', 'Willian', 'UI'],
-      datasets: [
-        {
-          data: [5663, 5100, 2831, 1760],
-        },
+  chartOption: {
+    title: {
+      text: '金额预算占比',
+      subtext: '2022年9月',
+      left: 'center',
+    },
+    tooltip: {
+      trigger: 'item',
+    },
+    legend: {
+      orient: 'vertical',
+      left: 'left',
+    },
+    dataset: {
+      source: [
+        ['预算', '费用'],
+        ['大额红包总金额', 300],
+        ['小额红包总金额', 500],
+        ['提成总额', 200],
       ],
     },
-    options: {
-      responsive: true,
-      plugins: {
-        legend: {
-          display: true,
-          position: 'top',
+    series: [
+      {
+        name: 'Access From',
+        type: 'pie',
+        radius: '50%',
+        emphasis: {
+          itemStyle: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: 'rgba(0, 0, 0, 0.5)',
+          },
         },
       },
-    },
+    ],
   },
 };
 
-export const PolarArea = Template.bind({});
-PolarArea.args = {
-  content: {
-    chartType: 'polarArea',
-    data: {
-      labels: ['Johnson', 'Don', 'Willian', 'UI'],
-      datasets: [
-        {
-          data: [5663, 5100, 2831, 1760],
-          label: 'Series 1',
-        },
+export const Radar = Template.bind({});
+Radar.args = {
+  chartOption: {
+    title: {
+      text: 'Basic Radar Chart',
+    },
+    legend: {
+      data: ['Allocated Budget', 'Actual Spending'],
+    },
+    radar: {
+      // shape: 'circle',
+      indicator: [
+        { name: 'Sales', max: 6500 },
+        { name: 'Administration', max: 16000 },
+        { name: 'Information Technology', max: 30000 },
+        { name: 'Customer Support', max: 38000 },
+        { name: 'Development', max: 52000 },
+        { name: 'Marketing', max: 25000 },
       ],
     },
-  },
-};
-
-export const Bubble = Template.bind({});
-Bubble.args = {
-  content: {
-    chartType: 'bubble',
-    data: {
-      labels: [],
-      datasets: [
-        {
-          data: [
-            { x: 10, y: 10, r: 10 },
-            { x: 15, y: 5, r: 15 },
-            { x: 26, y: 12, r: 23 },
-            { x: 7, y: 8, r: 8 },
-          ],
-          label: 'Series A',
-          backgroundColor: [
-            'red',
-            'green',
-            'blue',
-            'purple',
-            'yellow',
-            'brown',
-            'magenta',
-            'cyan',
-            'orange',
-            'pink',
-          ],
-          borderColor: 'blue',
-          hoverBackgroundColor: 'purple',
-          hoverBorderColor: 'red',
-        },
-      ],
-    },
-    options: {
-      scales: {
-        x: {
-          min: 0,
-          max: 30,
-          ticks: {},
-        },
-        y: {
-          min: 0,
-          max: 30,
-          ticks: {},
-        },
+    series: [
+      {
+        name: 'Budget vs spending',
+        type: 'radar',
+        data: [
+          {
+            value: [4200, 3000, 20000, 35000, 50000, 18000],
+            name: 'Allocated Budget',
+          },
+          {
+            value: [5000, 14000, 28000, 26000, 42000, 21000],
+            name: 'Actual Spending',
+          },
+        ],
       },
-    },
-  },
-};
-
-export const MixedChart = Template.bind({});
-MixedChart.args = {
-  content: {
-    chartType: 'scatter',
-    data: {
-      labels: ['January', 'February', 'March', 'April'],
-      datasets: [
-        {
-          type: 'bar',
-          label: 'Bar Dataset',
-          data: [10, 20, 30, 40],
-          borderColor: 'rgb(255, 99, 132)',
-          backgroundColor: 'rgba(255, 99, 132, 0.2)',
-        },
-        {
-          type: 'line',
-          label: 'Line Dataset',
-          data: [5, 15, 9, 16],
-          fill: false,
-          borderColor: 'rgb(54, 162, 235)',
-        },
-      ],
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true,
-        },
-      },
-    },
+    ],
   },
 };

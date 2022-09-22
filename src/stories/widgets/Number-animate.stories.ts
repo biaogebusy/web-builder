@@ -14,7 +14,7 @@ import { NumberAnimateComponent } from '../../app/uiux/widgets/number-animate/nu
 import { WidgetsModule } from '../../app/uiux/widgets/widgets.module';
 
 export default {
-  title: 'Widgets/Number Animate',
+  title: '基础/动态数字',
   component: NumberAnimateComponent,
   decorators: [
     moduleMetadata({

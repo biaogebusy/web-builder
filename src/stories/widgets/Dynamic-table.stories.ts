@@ -9,14 +9,21 @@ import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { TextComponent } from '@uiux/widgets/text/text.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
+import { DynamicWidgetsComponent } from '@uiux/widgets/dynamic-widgets/dynamic-widgets.component';
+import { IconComponent } from '@uiux/widgets/icon/icon.component';
 
 export default {
-  title: 'Widgets/Dynamic table',
+  title: '基础/动态表格',
   component: DynamicTableComponent,
   decorators: [
     moduleMetadata({
       declarations: [],
-      entryComponents: [DialogComponent, TextComponent],
+      entryComponents: [
+        DialogComponent,
+        TextComponent,
+        DynamicWidgetsComponent,
+        IconComponent,
+      ],
       imports: [
         ShareModule,
         WidgetsModule,
@@ -197,6 +204,161 @@ DialogColumn.args = {
         deliveryTime: '2022-03-04',
         remarks:
           'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet',
+      },
+    ],
+  },
+};
+
+export const ExpandColumn = Template.bind({});
+
+ExpandColumn.args = {
+  content: {
+    header: [
+      {
+        label: '还款次数',
+        key: 'no',
+      },
+      {
+        label: '执行款',
+        key: 'paymentOne',
+      },
+      {
+        label: '执行款二',
+        key: 'paymentTwo',
+      },
+      {
+        label: '执行款二',
+        key: 'paymentThree',
+      },
+      {
+        label: '利息',
+        key: 'interest',
+      },
+      {
+        label: '总合计',
+        key: 'total',
+      },
+      {
+        label: '还款日期',
+        key: 'date',
+      },
+    ],
+    elements: [
+      {
+        no: '1',
+        paymentOne: '12000.00元',
+        paymentTwo: '13000.00元',
+        paymentThree: '13520.00元',
+        interest: '5000.00元<br><span class="sub">2022/02/01-2023/01/03</span>',
+        total: '17658.00元',
+        date: '2022/03/06',
+        expand: [
+          {
+            type: 'text',
+            spacer: 'none',
+            title: {
+              label: '违约金',
+              style: 'style-v4',
+            },
+            body: '5000.00元<br><span class="sub">2022/02/01-2023/01/03</span>',
+          },
+          {
+            type: 'text',
+            spacer: 'none',
+            title: {
+              label: '逾期罚息',
+              style: 'style-v4',
+            },
+            body: '5000.00元<br><span class="sub">2022/02/01-2023/01/03</span>',
+          },
+        ],
+      },
+      {
+        no: '2',
+        paymentOne: '12000.00元',
+        paymentTwo: '13000.00元',
+        paymentThree: '13520.00元',
+        interest: '5000.00元<br><span class="sub">2022/02/01-2023/01/03</span>',
+        total: '17658.00元',
+        date: '2022/03/06',
+        expand: [
+          {
+            type: 'text',
+            spacer: 'none',
+            title: {
+              label: '违约金',
+              style: 'style-v4',
+            },
+            body: '5000.00元<br><span class="sub">2022/02/01-2023/01/03</span>',
+          },
+          {
+            type: 'text',
+            spacer: 'none',
+            title: {
+              label: '逾期罚息',
+              style: 'style-v4',
+            },
+            body: '5000.00元<br><span class="sub">2022/02/01-2023/01/03</span>',
+          },
+        ],
+      },
+      {
+        no: '3',
+        paymentOne: '12000.00元',
+        paymentTwo: '13000.00元',
+        paymentThree: '13520.00元',
+        interest: '5000.00元<br><span class="sub">2022/02/01-2023/01/03</span>',
+        total: '17658.00元',
+        date: '2022/03/06',
+        expand: [
+          {
+            type: 'text',
+            spacer: 'none',
+            title: {
+              label: '违约金',
+              style: 'style-v4',
+            },
+            body: '5000.00元<br><span class="sub">2022/02/01-2023/01/03</span>',
+          },
+          {
+            type: 'text',
+            spacer: 'none',
+            title: {
+              label: '逾期罚息',
+              style: 'style-v4',
+            },
+            body: '5000.00元<br><span class="sub">2022/02/01-2023/01/03</span>',
+          },
+        ],
+      },
+      {
+        no: '合计',
+        paymentOne: '32000.00元',
+        paymentTwo: '33000.00元',
+        paymentThree: '33520.00元',
+        interest: '8000.00元<br><span class="sub">2022/02/01-2023/01/03</span>',
+        total: '57658.00元',
+        date: '',
+        expand: [
+          {
+            type: 'text',
+            spacer: 'none',
+            title: {
+              label: '违约金',
+              style: 'style-v4',
+            },
+            body: '5000.00元<br><span class="sub">2022/02/01-2023/01/03</span>',
+          },
+          {
+            type: 'text',
+            spacer: 'none',
+            title: {
+              label: '逾期罚息',
+              style: 'style-v4',
+            },
+            body: '5000.00元<br><span class="sub">2022/02/01-2023/01/03</span>',
+          },
+        ],
       },
     ],
   },

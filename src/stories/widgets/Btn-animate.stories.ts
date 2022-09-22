@@ -8,7 +8,7 @@ import { Story } from '@storybook/angular/types-6-0';
 import { BtnAnimateComponent } from '../../app/uiux/widgets/btn-animate/btn-animate.component';
 
 export default {
-  title: 'Widgets/BtnAnimate',
+  title: '基础/动态按钮',
   component: BtnAnimateComponent,
   decorators: [
     moduleMetadata({

@@ -10,8 +10,12 @@ import { ShareModule } from '../../../app/share/share.module';
 import { SwiperModule } from 'ngx-swiper-wrapper';
 import { LocationComponent } from '@uiux/combs/map/location/location.component';
 import { AmapService } from '../../../app/core/service/amap.service';
+import { API_URL, apiUrlFactory } from '@core/token/token-providers';
+import { APP_INITIALIZER, Inject } from '@angular/core';
+import { AppState } from '@core/mobx/AppState';
+import { initConfig } from 'src/app/app.module';
 export default {
-  title: 'Components/map/location',
+  title: '组件/地图/位置',
   component: LocationComponent,
   decorators: [
     moduleMetadata({
@@ -31,9 +35,27 @@ export default {
           provide: CORE_CONFIG,
           useValue: {},
         },
+        {
+          provide: APP_INITIALIZER,
+          useFactory: initConfig,
+          deps: [AppState, [new Inject(CORE_CONFIG)]],
+          multi: true,
+        },
+        {
+          provide: API_URL,
+          useFactory: apiUrlFactory,
+          deps: [],
+        },
       ],
     }),
   ],
+  parameters: {
+    docs: {
+      description: {
+        component: `位置信息常用于展示指定位置的地理位置，方便用户查看。`,
+      },
+    },
+  },
 } as Meta;
 
 const Template: Story<LocationComponent> = (args) => ({

@@ -7,7 +7,7 @@ import { QiDianService } from './qidian.service';
 import { delay } from 'rxjs/operators';
 import { ScreenService } from './screen.service';
 import { CORE_CONFIG } from '@core/token/core.config';
-import { ICoreConfig } from '@core/mobx/IAppConfig';
+import type { ICoreConfig } from '@core/mobx/IAppConfig';
 import { NotifyService } from './notify.service';
 
 @Injectable({

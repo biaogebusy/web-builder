@@ -1,4 +1,5 @@
-<div class="dynamic-table width-100" [ngClass]="content?.classes || 'nowrap'" [ngStyle]="content?.params?.style||null">
+<div class="dynamic-table width-100" *ngIf="content.elements" [ngClass]="content?.classes || 'nowrap'"
+  [ngStyle]="content?.params?.style||null">
   <table mat-table [dataSource]="content.elements | dataSource" multiTemplateDataRows [ngClass]="'width-100'"
     aria-describedby="dynamic table">
     <ng-container [matColumnDef]="item.key" *ngFor="let item of content.header">

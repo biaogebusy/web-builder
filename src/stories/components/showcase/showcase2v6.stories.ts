@@ -14,7 +14,7 @@ import { ShareModule } from '../../../app/share/share.module';
 import { Showcase2v6Component } from '@uiux/combs/showcase/showcase2v6/showcase2v6.component';
 import { API_URL, apiUrlFactory } from '@core/token/token-providers';
 export default {
-  title: 'Components/showcase/2v6',
+  title: '组件/showcase/2v6',
   component: Showcase2v6Component,
   decorators: [
     moduleMetadata({
@@ -59,7 +59,7 @@ Default.args = {
         style: 'style-v1',
         classes: 'mat-display-1',
       },
-      body: '<p class="text-center">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.</p>',
+      body: '<p class="text-center">Drupal 已经超越了传统的 Web概念，可以通过不同的渠道部署你的数据内容，从一个数据中心点到各个应用，从简单到复杂。</p>',
     },
     spacer: 'md',
     row: '2',

@@ -9,7 +9,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { CORE_CONFIG } from '../../app/core/token/core.config';
 import { ContentTextCenterComponent } from '../../app/uiux/widgets/content-text-center/content-text-center.component';
 export default {
-  title: 'Widgets/Content Text Center',
+  title: '基础/内容居中块',
   component: ContentTextCenterComponent,
   decorators: [
     moduleMetadata({

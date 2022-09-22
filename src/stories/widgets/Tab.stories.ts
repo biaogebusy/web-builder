@@ -13,7 +13,7 @@ import { TabComponent } from '../../app/uiux/widgets/tab/tab.component';
 import { WidgetsModule } from '../../app/uiux/widgets/widgets.module';
 
 export default {
-  title: 'Widgets/Tab',
+  title: '基础/选项卡',
   component: TabComponent,
   decorators: [
     moduleMetadata({

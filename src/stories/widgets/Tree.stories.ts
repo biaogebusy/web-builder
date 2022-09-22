@@ -14,7 +14,7 @@ import { TreeComponent } from '../../app/uiux/widgets/tree/tree.component';
 import { WidgetsModule } from '../../app/uiux/widgets/widgets.module';
 
 export default {
-  title: 'Widgets/Tree',
+  title: '基础/树形',
   component: TreeComponent,
   decorators: [
     moduleMetadata({

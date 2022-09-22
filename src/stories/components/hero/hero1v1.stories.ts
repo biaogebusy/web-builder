@@ -9,7 +9,7 @@ import { NgxWebstorageModule } from 'ngx-webstorage';
 import { ShareModule } from '../../../app/share/share.module';
 import { Hero1v1Component } from '../../../app/uiux/combs/hero/hero1v1/hero1v1.component';
 export default {
-  title: 'Components/hero/1v1',
+  title: '组件/英雄区/1v1',
   component: Hero1v1Component,
   decorators: [
     moduleMetadata({
@@ -92,7 +92,7 @@ Default.args = {
               mobile: '/assets/images/mobile/mobile-04.jpg',
             },
           },
-          body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.',
+          body: 'Drupal 已经超越了传统的 Web概念，可以通过不同的渠道部署你的数据内容，从一个数据中心点到各个应用，从简单到复杂。',
           actionsAlign: 'center center',
           actions: [
             {

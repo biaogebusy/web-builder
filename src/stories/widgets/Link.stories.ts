@@ -13,7 +13,7 @@ import { LoopWidgetsComponent } from '@uiux/widgets/loop-widgets/loop-widgets.co
 import { API_URL, apiUrlFactory } from '@core/token/token-providers';
 
 export default {
-  title: 'Widgets/Link',
+  title: '基础/链接',
   component: LinkComponent,
   decorators: [
     moduleMetadata({

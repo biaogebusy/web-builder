@@ -237,6 +237,10 @@
       "action": "/api/v1/flagging/message_unread",
       "title": "您有新的指派任务",
       "type": "success",
+      "reqRoles": [
+        "lawyer",
+        "assistant_lawyer"
+      ],
       "options": {
         "enableHtml": true,
         "tapToDismiss": false,
@@ -248,6 +252,10 @@
       "action": "/api/v3/private/read",
       "title": "您有新的指派任务",
       "type": "success",
+      "reqRoles": [
+        "lawyer",
+        "assistant_lawyer"
+      ],
       "options": {
         "enableHtml": true,
         "tapToDismiss": false,

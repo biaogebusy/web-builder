@@ -12,8 +12,11 @@ import { Profile1v1Component } from '@uiux/combs/profile/profile1v1/profile1v1.c
 import { DynamicCombsModule } from '@uiux/combs/dynamic-combs/dynamic-combs.module';
 import { UserProfileComponent } from '@uiux/combs/profile/user-center/user-profile/user-profile.component';
 import { apiUrlFactory, API_URL } from '@core/token/token-providers';
+import { APP_INITIALIZER, Inject } from '@angular/core';
+import { AppState } from '@core/mobx/AppState';
+import { initConfig } from 'src/app/app.module';
 export default {
-  title: 'Components/profile/userCenter',
+  title: '组件/个人资料/用户中心',
   component: UserCenterComponent,
   decorators: [
     moduleMetadata({
@@ -31,6 +34,12 @@ export default {
         {
           provide: CORE_CONFIG,
           useValue: {},
+        },
+        {
+          provide: APP_INITIALIZER,
+          useFactory: initConfig,
+          deps: [AppState, [new Inject(CORE_CONFIG)]],
+          multi: true,
         },
         {
           provide: API_URL,

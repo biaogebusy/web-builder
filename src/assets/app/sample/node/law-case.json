@@ -50,7 +50,7 @@
     }, {
       "type": "select",
       "key": "case_procedure",
-      "value": "aff056e8-4638-4901-b866-8cc6ea7a05c9"
+      "value": "10"
     }],
     "block": [{
       "type": "showcase",
@@ -245,7 +245,7 @@
         "elements": [{
           "elements": [{
               "type": "link",
-              "label": "易思远-刘冰清-判决书-浦东法院-202201 _0.pdf",
+              "label": "法院判决书",
               "href": "xxx.docx",
               "classes": "file one-line"
             },
@@ -260,7 +260,7 @@
         }, {
           "elements": [{
               "type": "link",
-              "label": "易思远-刘冰清-判决书-浦东法院-202201 _0.pdf",
+              "label": "法院判决书",
               "href": "xxx.docx",
               "classes": "file one-line"
             },
@@ -275,7 +275,7 @@
         }, {
           "elements": [{
               "type": "link",
-              "label": "易思远-刘冰清-判决书-浦东法院-202201 _0.pdf",
+              "label": "法院判决书",
               "href": "xxx.docx",
               "classes": "file one-line"
             },
@@ -290,7 +290,7 @@
         }, {
           "elements": [{
               "type": "link",
-              "label": "易思远-刘冰清-判决书-浦东法院-202201 _0.pdf",
+              "label": "法院判决书",
               "href": "xxx.docx",
               "classes": "file one-line"
             },
@@ -305,7 +305,7 @@
         }, {
           "elements": [{
               "type": "link",
-              "label": "易思远-刘冰清-判决书-浦东法院-202201 _0.pdf",
+              "label": "法院判决书",
               "href": "xxx.docx",
               "classes": "file one-line"
             },
@@ -323,7 +323,7 @@
         "elements": [{
           "elements": [{
               "type": "link",
-              "label": "易思远-刘冰清-判决书-浦东法院-202201 _0.pdf",
+              "label": "法院判决书",
               "href": "xxx.docx",
               "classes": "file one-line"
             },
@@ -338,7 +338,7 @@
         }, {
           "elements": [{
               "type": "link",
-              "label": "易思远-刘冰清-判决书-浦东法院-202201 _0.pdf",
+              "label": "法院判决书",
               "href": "xxx.docx",
               "classes": "file one-line"
             },
@@ -353,7 +353,7 @@
         }, {
           "elements": [{
               "type": "link",
-              "label": "易思远-刘冰清-判决书-浦东法院-202201 _0.pdf",
+              "label": "法院判决书",
               "href": "xxx.docx",
               "classes": "file one-line"
             },
@@ -368,7 +368,7 @@
         }, {
           "elements": [{
               "type": "link",
-              "label": "易思远-刘冰清-判决书-浦东法院-202201 _0.pdf",
+              "label": "法院判决书",
               "href": "xxx.docx",
               "classes": "file one-line"
             },
@@ -383,7 +383,7 @@
         }, {
           "elements": [{
               "type": "link",
-              "label": "易思远-刘冰清-判决书-浦东法院-202201 _0.pdf",
+              "label": "法院判决书",
               "href": "xxx.docx",
               "classes": "file one-line"
             },
@@ -401,7 +401,7 @@
         "elements": [{
           "elements": [{
               "type": "link",
-              "label": "易思远-刘冰清-判决书-浦东法院-202201 _0.pdf",
+              "label": "法院判决书",
               "href": "xxx.docx",
               "classes": "file one-line",
               "target": "_blank"
@@ -418,7 +418,7 @@
         }, {
           "elements": [{
               "type": "link",
-              "label": "易思远-刘冰清-判决书-浦东法院-202201 _0.pdf",
+              "label": "法院判决书",
               "href": "xxx.docx",
               "classes": "file one-line",
               "target": "_blank"
@@ -435,7 +435,7 @@
         }, {
           "elements": [{
               "type": "link",
-              "label": "易思远-刘冰清-判决书-浦东法院-202201 _0.pdf",
+              "label": "法院判决书",
               "href": "xxx.docx",
               "classes": "file one-line",
               "target": "_blank"
@@ -452,7 +452,7 @@
         }, {
           "elements": [{
               "type": "link",
-              "label": "易思远-刘冰清-判决书-浦东法院-202201 _0.pdf",
+              "label": "法院判决书",
               "href": "xxx.docx",
               "classes": "file one-line"
             },
@@ -467,7 +467,7 @@
         }, {
           "elements": [{
               "type": "link",
-              "label": "易思远-刘冰清-判决书-浦东法院-202201 _0.pdf",
+              "label": "法院判决书",
               "href": "xxx.docx",
               "classes": "file one-line"
             },
@@ -482,7 +482,7 @@
         }, {
           "elements": [{
               "type": "link",
-              "label": "易思远-刘冰清-判决书-浦东法院-判决书-浦东法院-202201 _0.pdf",
+              "label": "法院判决书",
               "href": "xxx.docx",
               "classes": "file one-line"
             },

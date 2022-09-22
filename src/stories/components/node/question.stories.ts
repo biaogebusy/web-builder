@@ -15,8 +15,11 @@ import { ArticleComponent } from '@uiux/combs/node/article/article.component';
 import { NodeModule } from '@uiux/combs/node/node.module';
 import { QuestionComponent } from '@uiux/combs/node/question/question.component';
 import { apiUrlFactory, API_URL } from '@core/token/token-providers';
+import { APP_INITIALIZER, Inject } from '@angular/core';
+import { AppState } from '@core/mobx/AppState';
+import { initConfig } from 'src/app/app.module';
 export default {
-  title: 'Components/node/question',
+  title: '组件/文章/问答',
   component: QuestionComponent,
   decorators: [
     moduleMetadata({
@@ -34,6 +37,12 @@ export default {
         {
           provide: CORE_CONFIG,
           useValue: {},
+        },
+        {
+          provide: APP_INITIALIZER,
+          useFactory: initConfig,
+          deps: [AppState, [new Inject(CORE_CONFIG)]],
+          multi: true,
         },
         {
           provide: API_URL,

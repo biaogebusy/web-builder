@@ -15,7 +15,7 @@ import { ArticleComponent } from '@uiux/combs/node/article/article.component';
 import { OtherModule } from '@uiux/combs/other/other.module';
 import { NotfoundComponent } from '@uiux/combs/other/notfound/notfound.component';
 export default {
-  title: 'Components/node/404',
+  title: '组件/文章/404',
   component: NotfoundComponent,
   decorators: [
     moduleMetadata({
@@ -38,6 +38,13 @@ export default {
     }),
     componentWrapperDecorator((story) => `${story}`),
   ],
+  parameters: {
+    docs: {
+      description: {
+        component: `当用户访问的页面不存在时，显示404页面。`,
+      },
+    },
+  },
 } as Meta;
 
 const Template: Story<NotfoundComponent> = (args) => ({
@@ -57,21 +64,21 @@ Default.args = {
     text: {
       spacer: 'none',
       title: {
-        label: 'OH!NO <br>Page Not Found',
+        label: 'OH!NO <br>页面没有找到',
         style: 'style-v1',
         classes: 'mat-display-1',
       },
-      body: 'Xinshi is base on angular,use material theme and drupal jsonapi.',
+      body: '信使是基于 Material UI 的 Angular 前端框架，后端适配 Drupal，提供优秀的数字创新体验。',
     },
     actions: [
       {
-        label: 'Go Back',
+        label: '返回',
         href: '/',
         style: 'style-v1',
         icon: 'open_in_new',
       },
       {
-        label: 'Go To Home',
+        label: '回到主页',
         href: '/',
         style: 'style-v1',
         icon: 'open_in_new',

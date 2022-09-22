@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { ICoreConfig } from '@core/mobx/IAppConfig';
+import type { ICoreConfig } from '@core/mobx/IAppConfig';
 import { CORE_CONFIG } from '@core/token/core.config';
 import { forkJoin, interval, Observable, of } from 'rxjs';
 import { NodeService } from '@core/service/node.service';
@@ -80,8 +80,14 @@ export class NotifyService {
     const obj: any = {};
     const params = `noCache=${time}`;
     const apiList = this.coreConfig?.notify?.api;
-    if (apiList && apiList?.length > 0) {
-      apiList.forEach((list: any, index: number) => {
+    const finalList = apiList?.filter((api) => {
+      if (!api.reqRoles || api.reqRoles.length === 0) {
+        return true;
+      }
+      return this.userState.isMatchCurrentRole(api.reqRoles || []);
+    });
+    if (finalList && finalList?.length > 0) {
+      finalList.forEach((list: any, index: number) => {
         obj[index] = this.nodeService.getNodes(list.get, '', params);
       });
     }

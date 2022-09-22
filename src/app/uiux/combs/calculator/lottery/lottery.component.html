@@ -9,9 +9,9 @@
       <formly-form [ngClass]="'m-y p-x-sm'" fxFlex.lt-md="100" fxFlex.gt-sm="500px" fxLayout="row wrap"
         fxLayoutGap="1rem" [form]="form" [fields]="content.form" [model]="model" (modelChange)="onModelChange($event)">
       </formly-form>
-      <div fxFlex.lt-md="100" fxFlex.gt-sm="500px" fxLayout="column">
-        <div class="result p-x-sm p-y" fxLayout="row" fxLayoutAlign="center center">
-          <div class="left" fxLayoutAlign="center center" fxLayout="column">
+      <div fxFlex.lt-md="100" fxFlex.gt-sm="50%" fxLayout="column">
+        <div class="result p-x-sm p-y" fxLayout="row wrap" fxLayoutAlign="space-between center">
+          <div class="left" fxFlex.lt-md="100" fxFlex.gt-sm="50" fxLayoutAlign="center center" fxLayout="column">
             <h2>红包大约需要总预算</h2>
             <h1 class="total p-y-sm">¥<span>{{total}}</span></h1>
             <div class="result-footer text-center" fxLayout="row wrap" fxLayoutGap="2rem">
@@ -29,8 +29,8 @@
               </div>
             </div>
           </div>
-          <div class="right" fxFlex="40%">
-            <app-chart *ngIf="chart" [content]="chart"></app-chart>
+          <div class="right" fxFlex.lt-md="100" fxFlex.gt-sm="50%">
+            <app-chart *ngIf="chart" [chartOption]="chart"></app-chart>
           </div>
         </div>
         <div fxFlex="100%" class="description m-y-sm" [innerHTML]="content.description|safeHtml"></div>

@@ -48,6 +48,7 @@ export interface INotify {
   bodyField: string;
   type: 'success' | 'warn' | 'info' | 'error';
   options: IndividualConfig;
+  reqRoles?: string[];
 }
 export interface ITheme {
   name: string;

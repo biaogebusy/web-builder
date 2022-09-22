@@ -14,7 +14,7 @@ import { FormService } from '@core/service/form.service';
 import { isEmpty, omitBy } from 'lodash';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { UserState } from '@core/mobx/user/UserState';
-import { IHeaderSearch } from '@core/mobx/IBranding';
+import type { IHeaderSearch } from '@core/mobx/IBranding';
 
 @Component({
   selector: 'app-search-box',

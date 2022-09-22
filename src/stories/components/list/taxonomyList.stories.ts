@@ -15,7 +15,7 @@ import { TaxonomyListComponent } from '@uiux/combs/list/taxonomy-list/taxonomy-l
 import { ListModule } from '@uiux/combs/list/list.module';
 import { apiUrlFactory, API_URL } from '@core/token/token-providers';
 export default {
-  title: 'Components/list/taxonomy list',
+  title: '组件/列表/分类列表',
   component: TaxonomyListComponent,
   decorators: [
     moduleMetadata({
@@ -43,6 +43,13 @@ export default {
     }),
     componentWrapperDecorator((story) => `${story}`),
   ],
+  parameters: {
+    docs: {
+      description: {
+        component: `分类列表一般用在分类术语上，该列表聚合了该分类下的所属文章列表。`,
+      },
+    },
+  },
 } as Meta;
 
 const Template: Story<TaxonomyListComponent> = (args) => ({

@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { action, observable, computed } from 'mobx-angular';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import { IBranding, IFooter, IHeader } from './IBranding';
+import type { IBranding, IFooter, IHeader } from './IBranding';
 import { API_URL } from '@core/token/token-providers';
 @Injectable()
 export class BrandingState {

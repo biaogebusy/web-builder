@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
   CanActivate,
   Router,
@@ -9,10 +9,8 @@ import {
 import { Observable, of } from 'rxjs';
 import { UserState } from '../mobx/user/UserState';
 import { UserService } from '@core/service/user.service';
-import { catchError, map, switchMap, shareReplay } from 'rxjs/operators';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { HttpClient } from '@angular/common/http';
-import { API_URL } from '@core/token/token-providers';
 import { NodeService } from '@core/service/node.service';
 
 @Injectable({
@@ -23,9 +21,7 @@ export class AuthGuard implements CanActivate {
     private router: Router,
     private userState: UserState,
     private userService: UserService,
-    private nodeService: NodeService,
-    private http: HttpClient,
-    @Inject(API_URL) private apiUrl: string
+    private nodeService: NodeService
   ) {}
   canActivate(
     route: ActivatedRouteSnapshot,

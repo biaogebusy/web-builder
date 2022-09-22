@@ -13,7 +13,7 @@ import { ProgressBarComponent } from '../../app/uiux/widgets/progress-bar/progre
 import { WidgetsModule } from '../../app/uiux/widgets/widgets.module';
 
 export default {
-  title: 'Widgets/ProgressBar',
+  title: '基础/进度条',
   component: ProgressBarComponent,
   decorators: [
     moduleMetadata({

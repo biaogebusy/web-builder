@@ -9,7 +9,7 @@ import { NgxWebstorageModule } from 'ngx-webstorage';
 import { ShareModule } from '../../../app/share/share.module';
 import { Carousel1v1Component } from '@uiux/combs/carousel/carousel1v1/carousel1v1.component';
 export default {
-  title: 'Components/carousel/1v4',
+  title: '组件/幻灯片/1v4',
   component: Carousel1v1Component,
   decorators: [
     moduleMetadata({
@@ -30,6 +30,13 @@ export default {
       ],
     }),
   ],
+  parameters: {
+    docs: {
+      description: {
+        component: `该幻灯片组件可自定义内部的文字所在的位置。`,
+      },
+    },
+  },
 } as Meta;
 
 const Template: Story<Carousel1v1Component> = (args) => ({
