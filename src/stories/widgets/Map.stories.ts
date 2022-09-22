@@ -20,7 +20,7 @@ import { APP_INITIALIZER, Inject } from '@angular/core';
 import { initConfig } from 'src/app/app.module';
 
 export default {
-  title: 'Widgets/Map',
+  title: '基础/地图',
   component: MapComponent,
   decorators: [
     moduleMetadata({

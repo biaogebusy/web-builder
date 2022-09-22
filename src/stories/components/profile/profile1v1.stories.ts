@@ -9,7 +9,7 @@ import { NgxWebstorageModule } from 'ngx-webstorage';
 import { ShareModule } from '../../../app/share/share.module';
 import { Profile1v1Component } from '../../../app/uiux/combs/profile/profile1v1/profile1v1.component';
 export default {
-  title: 'Components/profile/1v1',
+  title: '组件/个人资料/1v1',
   component: Profile1v1Component,
   decorators: [
     moduleMetadata({

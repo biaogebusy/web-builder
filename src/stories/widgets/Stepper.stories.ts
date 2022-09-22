@@ -16,7 +16,7 @@ import { NgxWebstorageModule } from 'ngx-webstorage';
 import { API_URL, apiUrlFactory } from '@core/token/token-providers';
 
 export default {
-  title: 'Widgets/Stepper',
+  title: '基础/进步器',
   component: StepperComponent,
   decorators: [
     moduleMetadata({

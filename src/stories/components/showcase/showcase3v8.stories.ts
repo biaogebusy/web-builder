@@ -14,7 +14,7 @@ import { ShareModule } from '../../../app/share/share.module';
 import { Showcase3v8Component } from '@uiux/combs/showcase/showcase3v8/showcase3v8.component';
 import { API_URL, apiUrlFactory } from '@core/token/token-providers';
 export default {
-  title: 'Components/showcase/3v8',
+  title: '组件/showcase/3v8',
   component: Showcase3v8Component,
   decorators: [
     moduleMetadata({

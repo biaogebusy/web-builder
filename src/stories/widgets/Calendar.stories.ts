@@ -7,10 +7,9 @@ import { Story } from '@storybook/angular/types-6-0';
 import { WidgetsModule } from '../../app/uiux/widgets/widgets.module';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CORE_CONFIG } from '../../app/core/token/core.config';
-import { ContentTextCenterComponent } from '../../app/uiux/widgets/content-text-center/content-text-center.component';
 import { CalendarComponent } from '../../app/uiux/widgets/date/calendar/calendar.component';
 export default {
-  title: 'Widgets/Calendar',
+  title: '基础/日历',
   component: CalendarComponent,
   decorators: [
     moduleMetadata({

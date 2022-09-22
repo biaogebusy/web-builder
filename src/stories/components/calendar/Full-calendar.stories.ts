@@ -1,10 +1,6 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import {
-  moduleMetadata,
-  Meta,
-  componentWrapperDecorator,
-} from '@storybook/angular';
+import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { CORE_CONFIG } from '@core/token/core.config';
 import { HttpClientModule } from '@angular/common/http';
@@ -14,7 +10,7 @@ import { NgxWebstorageModule } from 'ngx-webstorage';
 import { ShareModule } from '../../../app/share/share.module';
 import { apiUrlFactory, API_URL } from '@core/token/token-providers';
 export default {
-  title: 'Components/calendar/Full calendar',
+  title: '组件/日历/Full calendar',
   component: FullCalendarComponent,
   decorators: [
     moduleMetadata({
@@ -40,6 +36,13 @@ export default {
       ],
     }),
   ],
+  parameters: {
+    docs: {
+      description: {
+        component: `把数据映射到日历上，根据搜索条件显示日历内容。`,
+      },
+    },
+  },
 } as Meta;
 
 const Template: Story<FullCalendarComponent> = (args) => ({

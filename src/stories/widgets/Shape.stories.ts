@@ -14,7 +14,7 @@ import { WidgetsModule } from '../../app/uiux/widgets/widgets.module';
 import { HttpClientModule } from '@angular/common/http';
 
 export default {
-  title: 'Widgets/Shape',
+  title: '基础/形状',
   component: ShapeComponent,
   decorators: [
     moduleMetadata({

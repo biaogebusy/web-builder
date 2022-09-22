@@ -15,7 +15,7 @@ import { ArticleComponent } from '@uiux/combs/node/article/article.component';
 import { OtherModule } from '@uiux/combs/other/other.module';
 import { NotfoundComponent } from '@uiux/combs/other/notfound/notfound.component';
 export default {
-  title: 'Components/node/404',
+  title: '组件/文章/404',
   component: NotfoundComponent,
   decorators: [
     moduleMetadata({
@@ -38,6 +38,13 @@ export default {
     }),
     componentWrapperDecorator((story) => `${story}`),
   ],
+  parameters: {
+    docs: {
+      description: {
+        component: `当用户访问的页面不存在时，显示404页面。`,
+      },
+    },
+  },
 } as Meta;
 
 const Template: Story<NotfoundComponent> = (args) => ({
@@ -65,13 +72,13 @@ Default.args = {
     },
     actions: [
       {
-        label: 'Go Back',
+        label: '返回',
         href: '/',
         style: 'style-v1',
         icon: 'open_in_new',
       },
       {
-        label: 'Go To Home',
+        label: '回到主页',
         href: '/',
         style: 'style-v1',
         icon: 'open_in_new',

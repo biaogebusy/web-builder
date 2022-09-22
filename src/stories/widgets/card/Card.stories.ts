@@ -13,7 +13,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { TextComponent } from '@uiux/widgets/text/text.component';
 export default {
-  title: 'Widgets/Card',
+  title: '基础/卡片',
   component: CardComponent,
   decorators: [
     moduleMetadata({

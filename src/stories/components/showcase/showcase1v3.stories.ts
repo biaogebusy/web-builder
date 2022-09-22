@@ -13,7 +13,7 @@ import { NgxWebstorageModule } from 'ngx-webstorage';
 import { ShareModule } from '../../../app/share/share.module';
 import { Showcase1v3Component } from '@uiux/combs/showcase/showcase1v3/showcase1v3.component';
 export default {
-  title: 'Components/showcase/1v3',
+  title: '组件/showcase/1v3',
   component: Showcase1v3Component,
   decorators: [
     moduleMetadata({

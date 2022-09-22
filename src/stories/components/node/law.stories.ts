@@ -20,7 +20,7 @@ import { APP_INITIALIZER, Inject } from '@angular/core';
 import { AppState } from '@core/mobx/AppState';
 import { initConfig } from 'src/app/app.module';
 export default {
-  title: 'Components/node/case',
+  title: '组件/文章/案件',
   component: LawCaseComponent,
   decorators: [
     moduleMetadata({

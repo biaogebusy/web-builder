@@ -10,7 +10,7 @@ import { BtnComponent } from '../../app/uiux/widgets/btn/btn.component';
 import { WidgetsModule } from '../../app/uiux/widgets/widgets.module';
 
 export default {
-  title: 'Widgets/Button',
+  title: '基础/按钮',
   component: BtnComponent,
   decorators: [
     moduleMetadata({

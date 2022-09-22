@@ -8,7 +8,7 @@ import { Story } from '@storybook/angular/types-6-0';
 import { BgComponent } from '../../app/uiux/widgets/bg/bg.component';
 
 export default {
-  title: 'Widgets/Bg',
+  title: '基础/背景色',
   component: BgComponent,
   decorators: [
     moduleMetadata({

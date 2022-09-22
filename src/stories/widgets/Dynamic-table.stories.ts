@@ -13,7 +13,7 @@ import { DynamicWidgetsComponent } from '@uiux/widgets/dynamic-widgets/dynamic-w
 import { IconComponent } from '@uiux/widgets/icon/icon.component';
 
 export default {
-  title: 'Widgets/Dynamic table',
+  title: '基础/动态表格',
   component: DynamicTableComponent,
   decorators: [
     moduleMetadata({

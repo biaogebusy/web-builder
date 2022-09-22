@@ -10,7 +10,7 @@ import { WidgetsModule } from '../../app/uiux/widgets/widgets.module';
 import { ChartComponent } from '@uiux/widgets/chart/chart.component';
 
 export default {
-  title: 'Widgets/Chart',
+  title: '基础/图表',
   component: ChartComponent,
   decorators: [
     moduleMetadata({
@@ -23,6 +23,17 @@ export default {
         `<div class="position-relative p-x p-y" style="z-index:1">${story}</div>`
     ),
   ],
+  parameters: {
+    docs: {
+      description: {
+        component: `
+        数据可视化的一个常见思路是：（I）提供数据，（II）指定数据到视觉的映射。
+        简而言之，可以进行这些映射的设定：
+指定 数据集 的列（column）还是行（row）映射为 系列（series）。这件事可以使用 series.seriesLayoutBy 属性来配置。默认是按照列（column）来映射。
+指定维度映射的规则：如何从 dataset 的维度（一个“维度”的意思是一行/列）映射到坐标轴（如 X、Y 轴）、提示框（tooltip）、标签（label）、图形元素大小颜色等（visualMap）。这件事可以使用 series.encode 属性，以及 visualMap 组件来配置（如果有需要映射颜色大小等视觉维度的话）。`,
+      },
+    },
+  },
 } as Meta;
 
 const Template: Story<ChartComponent> = (args) => ({
@@ -35,32 +46,37 @@ export const Line = Template.bind({});
 
 Line.args = {
   chartOption: {
-    xAxis: {
-      type: 'category',
-      data: [
-        '2022-7-24',
-        '2022-7-25',
-        '2022-7-26',
-        '2022-7-28',
-        '2022-7-29',
-        '2022-7-30',
-        '2022-7-31',
+    title: {
+      text: '年度活动金额预算',
+      subtext: '南宁',
+    },
+    tooltip: {
+      trigger: 'axis',
+    },
+    dataset: {
+      // 提供一份数据
+      source: [
+        ['红包预算', '2020', '2021', '2022'],
+        ['大额红包', 3600, 4000, 4551],
+        ['小额红包', 6000, 7000, 8450],
+        ['推广费用', 2400, 4000, 6000],
       ],
     },
-    yAxis: {
-      type: 'value',
+    // 声明x轴，类目轴（category），默认情况下类目轴对应到 dataset 第一列
+    xAxis: {
+      type: 'category',
     },
+    // 声明一个 y 轴，数值轴
+    yAxis: {},
+    // 声明对应的数据使用系列，默认情况下每个系列自动对应到 dataset 的每一列
     series: [
       {
-        data: [4, 3, 5, 3, 2, 3, 5],
         type: 'line',
       },
       {
-        data: [1, 2, 4, 7, 3, 2, 6],
         type: 'line',
       },
       {
-        data: [2, 4, 3, 7, 5, 1, 1],
         type: 'line',
       },
     ],
@@ -71,8 +87,8 @@ export const LineTime = Template.bind({});
 LineTime.args = {
   chartOption: {
     title: {
-      text: '一天用电量分布图',
-      subtext: '万科金域缇香',
+      text: '超市宣传上新红包抽奖趋势图',
+      subtext: '万科金域缇香店',
     },
     tooltip: {
       trigger: 'axis',
@@ -86,82 +102,53 @@ LineTime.args = {
         saveAsImage: {},
       },
     },
+    dataset: {
+      source: [
+        ['时间', '中奖个数'],
+        ['00:00', 0],
+        ['01:00', 2],
+        ['02:00', 3],
+        ['03:00', 5],
+        ['04:00', 6],
+        ['05:00', 8],
+        ['06:00', 10],
+        ['07:00', 11],
+        ['08:00', 15],
+        ['09:00', 20],
+        ['10:00', 30],
+        ['11:00', 50],
+        ['12:00', 60],
+        ['13:00', 66],
+        ['14:00', 100],
+        ['15:00', 120],
+        ['16:00', 155],
+        ['17:00', 226],
+        ['18:00', 300],
+        ['19:00', 330],
+        ['20:00', 412],
+        ['21:00', 500],
+        ['22:00', 516],
+        ['23:00', 530],
+      ],
+    },
     xAxis: {
       type: 'category',
       boundaryGap: false,
-      // prettier-ignore
-      data: ['00:00', '01:15', '02:30', '03:45', '05:00', '06:15', '07:30', '08:45', '10:00', '11:15', '12:30', '13:45', '15:00', '16:15', '17:30', '18:45', '20:00', '21:15', '22:30', '23:45'],
     },
     yAxis: {
       type: 'value',
       axisLabel: {
-        formatter: '{value} W',
+        formatter: '{value} 个',
       },
       axisPointer: {
         snap: true,
       },
     },
-    visualMap: {
-      show: false,
-      dimension: 0,
-      pieces: [
-        {
-          lte: 6,
-          color: 'green',
-        },
-        {
-          gt: 6,
-          lte: 8,
-          color: 'red',
-        },
-        {
-          gt: 8,
-          lte: 14,
-          color: 'green',
-        },
-        {
-          gt: 14,
-          lte: 17,
-          color: 'red',
-        },
-        {
-          gt: 17,
-          color: 'green',
-        },
-      ],
-    },
     series: [
       {
-        name: 'Electricity',
+        name: '红包个数',
         type: 'line',
         smooth: true,
-        // prettier-ignore
-        data: [300, 280, 250, 260, 270, 300, 550, 500, 400, 390, 380, 390, 400, 500, 600, 750, 800, 700, 600, 400],
-        markArea: {
-          itemStyle: {
-            color: 'rgba(255, 173, 177, 0.4)',
-          },
-          data: [
-            [
-              {
-                name: 'Morning Peak',
-                xAxis: '07:30',
-              },
-              {
-                xAxis: '10:00',
-              },
-            ],
-            [
-              {
-                name: 'Evening Peak',
-                xAxis: '17:30',
-              },
-              {
-                xAxis: '21:15',
-              },
-            ],
-          ],
-        },
       },
     ],
   },
@@ -171,19 +158,28 @@ export const Bar = Template.bind({});
 
 Bar.args = {
   chartOption: {
-    xAxis: {
-      type: 'category',
-      data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+    title: {
+      text: '年度活动金额预算',
+      subtext: '南宁',
     },
-    yAxis: {
-      type: 'value',
+    tooltip: {
+      trigger: 'axis',
     },
-    series: [
-      {
-        data: [120, 200, 150, 80, 70, 110, 130],
-        type: 'bar',
-      },
-    ],
+    dataset: {
+      // 提供一份数据。
+      source: [
+        ['红包预算', '2020', '2021', '2022'],
+        ['大额红包', 3600, 4000, 4551],
+        ['小额红包', 6000, 7000, 8450],
+        ['推广费用', 2400, 4000, 6000],
+      ],
+    },
+    // 声明一个 X 轴，类目轴（category）。默认情况下，类目轴对应到 dataset 第一列。
+    xAxis: { type: 'category' },
+    // 声明一个 Y 轴，数值轴。
+    yAxis: {},
+    // 声明多个 bar 系列，默认情况下，每个系列会自动对应到 dataset 的每一列。
+    series: [{ type: 'bar' }, { type: 'bar' }, { type: 'bar' }],
   },
 };
 
@@ -191,8 +187,8 @@ export const Pie = Template.bind({});
 Pie.args = {
   chartOption: {
     title: {
-      text: 'Referer of a Website',
-      subtext: 'Fake Data',
+      text: '金额预算占比',
+      subtext: '2022年9月',
       left: 'center',
     },
     tooltip: {
@@ -202,18 +198,19 @@ Pie.args = {
       orient: 'vertical',
       left: 'left',
     },
+    dataset: {
+      source: [
+        ['预算', '费用'],
+        ['大额红包总金额', 300],
+        ['小额红包总金额', 500],
+        ['提成总额', 200],
+      ],
+    },
     series: [
       {
         name: 'Access From',
         type: 'pie',
         radius: '50%',
-        data: [
-          { value: 1048, name: 'Search Engine' },
-          { value: 735, name: 'Direct' },
-          { value: 580, name: 'Email' },
-          { value: 484, name: 'Union Ads' },
-          { value: 300, name: 'Video Ads' },
-        ],
         emphasis: {
           itemStyle: {
             shadowBlur: 10,

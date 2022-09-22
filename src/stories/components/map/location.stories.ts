@@ -15,7 +15,7 @@ import { APP_INITIALIZER, Inject } from '@angular/core';
 import { AppState } from '@core/mobx/AppState';
 import { initConfig } from 'src/app/app.module';
 export default {
-  title: 'Components/map/location',
+  title: '组件/地图/位置',
   component: LocationComponent,
   decorators: [
     moduleMetadata({
@@ -49,6 +49,13 @@ export default {
       ],
     }),
   ],
+  parameters: {
+    docs: {
+      description: {
+        component: `位置信息常用于展示指定位置的地理位置，方便用户查看。`,
+      },
+    },
+  },
 } as Meta;
 
 const Template: Story<LocationComponent> = (args) => ({

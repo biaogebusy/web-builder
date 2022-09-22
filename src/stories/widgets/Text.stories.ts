@@ -17,7 +17,7 @@ import { NgxWebstorageModule } from 'ngx-webstorage';
 import { API_URL, apiUrlFactory } from '@core/token/token-providers';
 
 export default {
-  title: 'Widgets/Text',
+  title: '基础/文本',
   component: TextComponent,
   decorators: [
     moduleMetadata({

@@ -10,7 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { apiUrlFactory, API_URL } from '@core/token/token-providers';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 export default {
-  title: 'Components/Action/Action 1v1',
+  title: '组件/Action/Action 1v1',
   component: Action1v1Component,
   decorators: [
     moduleMetadata({
@@ -36,6 +36,13 @@ export default {
       ],
     }),
   ],
+  parameters: {
+    docs: {
+      description: {
+        component: `通过可选的过滤条件进行对内容的搜索`,
+      },
+    },
+  },
 } as Meta;
 
 const Template: Story<Action1v1Component> = (args) => ({

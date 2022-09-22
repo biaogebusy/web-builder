@@ -9,7 +9,7 @@ import { NgxWebstorageModule } from 'ngx-webstorage';
 import { ShareModule } from '../../../app/share/share.module';
 import { Carousel2v1Component } from '@uiux/combs/carousel/carousel2v1/carousel2v1.component';
 export default {
-  title: 'Components/carousel/2v1',
+  title: '组件/幻灯片/2v1',
   component: Carousel2v1Component,
   decorators: [
     moduleMetadata({

@@ -7,7 +7,7 @@ import { WidgetsModule } from '../../app/uiux/widgets/widgets.module';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 
 export default {
-  title: 'Widgets/Title',
+  title: '基础/标题',
   component: TitleComponent,
   decorators: [
     moduleMetadata({
