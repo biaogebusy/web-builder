@@ -147,19 +147,28 @@ export const Bar = Template.bind({});
 
 Bar.args = {
   chartOption: {
-    xAxis: {
-      type: 'category',
-      data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+    title: {
+      text: '年度活动金额预算',
+      subtext: '南宁',
     },
-    yAxis: {
-      type: 'value',
+    tooltip: {
+      trigger: 'axis',
     },
-    series: [
-      {
-        data: [120, 200, 150, 80, 70, 110, 130],
-        type: 'bar',
-      },
-    ],
+    dataset: {
+      // 提供一份数据。
+      source: [
+        ['红包预算', '2020', '2021', '2022'],
+        ['大额红包', 3600, 4000, 4551],
+        ['小额红包', 6000, 7000, 8450],
+        ['推广费用', 2400, 4000, 6000],
+      ],
+    },
+    // 声明一个 X 轴，类目轴（category）。默认情况下，类目轴对应到 dataset 第一列。
+    xAxis: { type: 'category' },
+    // 声明一个 Y 轴，数值轴。
+    yAxis: {},
+    // 声明多个 bar 系列，默认情况下，每个系列会自动对应到 dataset 的每一列。
+    series: [{ type: 'bar' }, { type: 'bar' }, { type: 'bar' }],
   },
 };
 
@@ -167,8 +176,8 @@ export const Pie = Template.bind({});
 Pie.args = {
   chartOption: {
     title: {
-      text: 'Referer of a Website',
-      subtext: 'Fake Data',
+      text: '金额预算占比',
+      subtext: '2022年9月',
       left: 'center',
     },
     tooltip: {
@@ -178,18 +187,19 @@ Pie.args = {
       orient: 'vertical',
       left: 'left',
     },
+    dataset: {
+      source: [
+        ['预算', '费用'],
+        ['大额红包总金额', 300],
+        ['小额红包总金额', 500],
+        ['提成总额', 200],
+      ],
+    },
     series: [
       {
         name: 'Access From',
         type: 'pie',
         radius: '50%',
-        data: [
-          { value: 1048, name: 'Search Engine' },
-          { value: 735, name: 'Direct' },
-          { value: 580, name: 'Email' },
-          { value: 484, name: 'Union Ads' },
-          { value: 300, name: 'Video Ads' },
-        ],
         emphasis: {
           itemStyle: {
             shadowBlur: 10,

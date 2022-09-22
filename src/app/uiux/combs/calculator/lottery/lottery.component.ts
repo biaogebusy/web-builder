@@ -62,39 +62,18 @@ export class LotteryComponent implements OnInit, AfterViewInit {
     this.maxTimes = (max.total / max.per).toFixed(0);
     this.minTimes = (min.total / min.per).toFixed(0);
 
-    const data = [
-      {
-        value: max.total,
-        name: '大额红包总金额',
+    const data = {
+      dataset: {
+        source: [
+          ['预算', '费用'],
+          ['大额红包总金额', max.total],
+          ['小额红包总金额', min.total],
+          ['提成总额', this.promoteMoney],
+        ],
       },
-      {
-        value: min.total,
-        name: '小额红包总金额',
-      },
-      {
-        value: this.promoteMoney,
-        name: '提成总额',
-      },
-    ];
-    const updateOptions = {
-      series: [
-        {
-          data,
-          name: '预算占比',
-          type: 'pie',
-          radius: '50%',
-          emphasis: {
-            itemStyle: {
-              shadowBlur: 10,
-              shadowOffsetX: 0,
-              shadowColor: 'rgba(0, 0, 0, 0.5)',
-            },
-          },
-        },
-      ],
     };
 
-    this.chart = { ...this.content.chart, ...updateOptions };
+    this.chart = { ...this.content.chart, ...data };
     this.cd.detectChanges();
   }
 }
