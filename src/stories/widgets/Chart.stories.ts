@@ -35,32 +35,37 @@ export const Line = Template.bind({});
 
 Line.args = {
   chartOption: {
-    xAxis: {
-      type: 'category',
-      data: [
-        '2022-7-24',
-        '2022-7-25',
-        '2022-7-26',
-        '2022-7-28',
-        '2022-7-29',
-        '2022-7-30',
-        '2022-7-31',
+    title: {
+      text: '年度活动金额预算',
+      subtext: '南宁',
+    },
+    tooltip: {
+      trigger: 'axis',
+    },
+    dataset: {
+      // 提供一份数据
+      source: [
+        ['红包预算', '2020', '2021', '2022'],
+        ['大额红包', 3600, 4000, 4551],
+        ['小额红包', 6000, 7000, 8450],
+        ['推广费用', 2400, 4000, 6000],
       ],
     },
-    yAxis: {
-      type: 'value',
+    // 声明x轴，类目轴（category），默认情况下类目轴对应到 dataset 第一列
+    xAxis: {
+      type: 'category',
     },
+    // 声明一个 y 轴，数值轴
+    yAxis: {},
+    // 声明对应的数据使用系列，默认情况下每个系列自动对应到 dataset 的每一列
     series: [
       {
-        data: [4, 3, 5, 3, 2, 3, 5],
         type: 'line',
       },
       {
-        data: [1, 2, 4, 7, 3, 2, 6],
         type: 'line',
       },
       {
-        data: [2, 4, 3, 7, 5, 1, 1],
         type: 'line',
       },
     ],
