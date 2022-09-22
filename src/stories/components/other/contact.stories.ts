@@ -12,7 +12,7 @@ import { ContactUsComponent } from '../../../app/uiux/widgets/contact-us/contact
 import { apiUrlFactory, API_URL } from '@core/token/token-providers';
 
 export default {
-  title: 'Components/other/contact',
+  title: '组件/other/contact',
   component: ContactUsComponent,
   decorators: [
     moduleMetadata({

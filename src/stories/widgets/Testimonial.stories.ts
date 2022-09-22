@@ -14,7 +14,7 @@ import { TestimonialComponent } from '../../app/uiux/widgets/testimonial/testimo
 import { WidgetsModule } from '../../app/uiux/widgets/widgets.module';
 
 export default {
-  title: 'Widgets/Testimonial',
+  title: '基础/Testimonial',
   component: TestimonialComponent,
   decorators: [
     moduleMetadata({

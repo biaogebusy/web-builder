@@ -10,7 +10,7 @@ import { NgxWebstorageModule } from 'ngx-webstorage';
 import { ShareModule } from '../../../app/share/share.module';
 import { apiUrlFactory, API_URL } from '@core/token/token-providers';
 export default {
-  title: 'Components/Banner/Banner simple',
+  title: '组件/Banner/Banner simple',
   component: BannerSimpleComponent,
   decorators: [
     moduleMetadata({

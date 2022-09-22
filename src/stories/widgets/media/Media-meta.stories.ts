@@ -16,7 +16,7 @@ import { NgxWebstorageModule } from 'ngx-webstorage';
 import { API_URL, apiUrlFactory } from '@core/token/token-providers';
 
 export default {
-  title: 'Widgets/Media/Media-meta',
+  title: '基础/媒体/媒体 meta',
   component: MediaMetaComponent,
   decorators: [
     moduleMetadata({

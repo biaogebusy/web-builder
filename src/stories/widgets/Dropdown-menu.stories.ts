@@ -13,7 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { API_URL, apiUrlFactory } from '@core/token/token-providers';
 export default {
-  title: 'Widgets/Dropdown Menu',
+  title: '基础/下拉菜单',
   component: DropdownMenuComponent,
   decorators: [
     moduleMetadata({

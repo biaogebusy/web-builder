@@ -12,7 +12,7 @@ import { Story } from '@storybook/angular/types-6-0';
 import { FeatureBoxComponent } from '../../app/uiux/widgets/feature-box/feature-box.component';
 import { WidgetsModule } from '../../app/uiux/widgets/widgets.module';
 export default {
-  title: 'Widgets/Feature Box',
+  title: '基础/功能盒子',
   component: FeatureBoxComponent,
   decorators: [
     moduleMetadata({

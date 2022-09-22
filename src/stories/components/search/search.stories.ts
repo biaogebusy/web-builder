@@ -13,7 +13,7 @@ import { SearchComponent } from '../../../app/uiux/combs/search/search.component
 import { SearchModule } from '@uiux/combs/search/search.module';
 import { apiUrlFactory, API_URL } from '@core/token/token-providers';
 export default {
-  title: 'Components/search/defualt',
+  title: '组件/search/defualt',
   component: SearchComponent,
   decorators: [
     moduleMetadata({

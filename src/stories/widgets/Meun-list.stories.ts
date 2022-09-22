@@ -12,7 +12,7 @@ import { NgxWebstorageModule } from 'ngx-webstorage';
 import { API_URL, apiUrlFactory } from '@core/token/token-providers';
 
 export default {
-  title: 'Widgets/Menu list',
+  title: '基础/菜单项',
   component: MenuListComponent,
   decorators: [
     moduleMetadata({

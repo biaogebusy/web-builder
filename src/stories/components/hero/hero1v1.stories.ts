@@ -9,7 +9,7 @@ import { NgxWebstorageModule } from 'ngx-webstorage';
 import { ShareModule } from '../../../app/share/share.module';
 import { Hero1v1Component } from '../../../app/uiux/combs/hero/hero1v1/hero1v1.component';
 export default {
-  title: 'Components/hero/1v1',
+  title: '组件/hero/1v1',
   component: Hero1v1Component,
   decorators: [
     moduleMetadata({

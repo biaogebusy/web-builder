@@ -15,7 +15,7 @@ import { NgxWebstorageModule } from 'ngx-webstorage';
 import { CORE_CONFIG } from '@core/token/core.config';
 import { API_URL, apiUrlFactory } from '@core/token/token-providers';
 export default {
-  title: 'Widgets/Breadcrumb',
+  title: '基础/面包屑',
   component: BreadcrumbComponent,
   decorators: [
     moduleMetadata({

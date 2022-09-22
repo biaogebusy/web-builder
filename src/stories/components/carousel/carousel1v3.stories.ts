@@ -10,7 +10,7 @@ import { ShareModule } from '../../../app/share/share.module';
 import { Carousel1v3Component } from '@uiux/combs/carousel/carousel1v3/carousel1v3.component';
 import { apiUrlFactory, API_URL } from '@core/token/token-providers';
 export default {
-  title: 'Components/carousel/1v3',
+  title: '组件/幻灯片/1v3',
   component: Carousel1v3Component,
   decorators: [
     moduleMetadata({

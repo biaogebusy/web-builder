@@ -15,7 +15,7 @@ import { SwiperModule } from 'ngx-swiper-wrapper';
 import { Showcase1v1Component } from '@uiux/combs/showcase/showcase1v1/showcase1v1.component';
 import { apiUrlFactory, API_URL } from '@core/token/token-providers';
 export default {
-  title: 'Components/showcase/1v1',
+  title: '组件/showcase/1v1',
   component: Showcase1v1Component,
   decorators: [
     moduleMetadata({

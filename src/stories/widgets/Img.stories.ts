@@ -12,7 +12,7 @@ import { ImgComponent } from '../../app/uiux/widgets/img/img.component';
 import { CORE_CONFIG } from '../../app/core/token/core.config';
 
 export default {
-  title: 'Widgets/Img',
+  title: '基础/图片',
   component: ImgComponent,
   decorators: [
     moduleMetadata({

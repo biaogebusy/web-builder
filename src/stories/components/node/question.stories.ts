@@ -19,7 +19,7 @@ import { APP_INITIALIZER, Inject } from '@angular/core';
 import { AppState } from '@core/mobx/AppState';
 import { initConfig } from 'src/app/app.module';
 export default {
-  title: 'Components/node/question',
+  title: '组件/node/question',
   component: QuestionComponent,
   decorators: [
     moduleMetadata({

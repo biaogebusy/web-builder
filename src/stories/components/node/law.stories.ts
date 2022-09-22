@@ -20,12 +20,12 @@ import { APP_INITIALIZER, Inject } from '@angular/core';
 import { AppState } from '@core/mobx/AppState';
 import { initConfig } from 'src/app/app.module';
 export default {
-  title: 'Components/node/case',
+  title: '组件/node/case',
   component: LawCaseComponent,
   decorators: [
     moduleMetadata({
       declarations: [],
-      entryComponents: [DialogComponent, TextComponent],
+      entry组件: [DialogComponent, TextComponent],
       imports: [
         RouterTestingModule,
         BrowserAnimationsModule,

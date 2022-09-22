@@ -8,7 +8,7 @@ import { Story } from '@storybook/angular/types-6-0';
 import { WidgetsModule } from '../../app/uiux/widgets/widgets.module';
 import { ChipListComponent } from '../../app/uiux/widgets/chip-list/chip-list.component';
 export default {
-  title: 'Widgets/Chips List',
+  title: '基础/胶囊',
   component: ChipListComponent,
   decorators: [
     moduleMetadata({

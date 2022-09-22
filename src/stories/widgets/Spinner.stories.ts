@@ -13,7 +13,7 @@ import { SpinnerComponent } from '../../app/uiux/widgets/spinner/spinner.compone
 import { WidgetsModule } from '../../app/uiux/widgets/widgets.module';
 
 export default {
-  title: 'Widgets/Spinner',
+  title: '基础/旋转',
   component: SpinnerComponent,
   decorators: [
     moduleMetadata({

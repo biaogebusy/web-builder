@@ -4,7 +4,7 @@ import { Story } from '@storybook/angular/types-6-0';
 import { IconComponent } from '../../app/uiux/widgets/icon/icon.component';
 
 export default {
-  title: 'Widgets/Icon',
+  title: '基础/图标',
   component: IconComponent,
   decorators: [
     moduleMetadata({
