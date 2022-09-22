@@ -15,7 +15,7 @@ import { TaxonomyListComponent } from '@uiux/combs/list/taxonomy-list/taxonomy-l
 import { ListModule } from '@uiux/combs/list/list.module';
 import { apiUrlFactory, API_URL } from '@core/token/token-providers';
 export default {
-  title: '组件/list/taxonomy list',
+  title: '组件/列表/分类列表',
   component: TaxonomyListComponent,
   decorators: [
     moduleMetadata({

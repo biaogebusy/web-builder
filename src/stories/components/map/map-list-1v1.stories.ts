@@ -16,7 +16,7 @@ import { AppState } from '@core/mobx/AppState';
 import { initConfig } from 'src/app/app.module';
 
 export default {
-  title: '组件/map/map list 1v1',
+  title: '组件/地图/地图列表 1v1',
   component: MapListV1Component,
   decorators: [
     moduleMetadata({

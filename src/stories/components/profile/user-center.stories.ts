@@ -16,7 +16,7 @@ import { APP_INITIALIZER, Inject } from '@angular/core';
 import { AppState } from '@core/mobx/AppState';
 import { initConfig } from 'src/app/app.module';
 export default {
-  title: '组件/profile/userCenter',
+  title: '组件/个人资料/用户中心',
   component: UserCenterComponent,
   decorators: [
     moduleMetadata({

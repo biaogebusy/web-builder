@@ -10,7 +10,7 @@ import { ShareModule } from '../../../app/share/share.module';
 import { SwiperModule } from 'ngx-swiper-wrapper';
 import { Hero2v2Component } from '@uiux/combs/hero/hero2v2/hero2v2.component';
 export default {
-  title: '组件/hero/2v2',
+  title: '组件/英雄区/2v2',
   component: Hero2v2Component,
   decorators: [
     moduleMetadata({

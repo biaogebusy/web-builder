@@ -12,7 +12,7 @@ import { AmapService } from '../../../app/core/service/amap.service';
 import { ShuffleComponent } from '../../../app/uiux/combs/masonry/shuffle/shuffle.component';
 import { apiUrlFactory, API_URL } from '@core/token/token-providers';
 export default {
-  title: '组件/masonry/shuffle',
+  title: '组件/瀑布流/洗牌',
   component: ShuffleComponent,
   decorators: [
     moduleMetadata({

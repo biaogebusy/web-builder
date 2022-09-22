@@ -52,6 +52,13 @@ export default {
         `<div class="position-relative p-x p-y" style="z-index:1">${story}</div>`
     ),
   ],
+  parameters: {
+    docs: {
+      description: {
+        component: `描述`,
+      },
+    },
+  },
 } as Meta;
 
 const Template: Story<BgComponent> = (args) => ({

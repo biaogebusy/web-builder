@@ -14,7 +14,7 @@ import { ShareModule } from '../../../app/share/share.module';
 import { VideoBgComponent } from '@uiux/combs/video/video-bg/video-bg.component';
 import { DynamicCombsModule } from '@uiux/combs/dynamic-combs/dynamic-combs.module';
 export default {
-  title: '组件/video/bg',
+  title: '组件/视频/背景视频',
   component: VideoBgComponent,
   decorators: [
     moduleMetadata({

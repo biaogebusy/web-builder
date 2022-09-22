@@ -15,7 +15,7 @@ import { ListModule } from '@uiux/combs/list/list.module';
 import { TreeListComponent } from '@uiux/combs/list/tree-list/tree-list.component';
 import { apiUrlFactory, API_URL } from '@core/token/token-providers';
 export default {
-  title: '组件/list/Tree list',
+  title: '组件/列表/树形列表',
   component: TreeListComponent,
   decorators: [
     moduleMetadata({

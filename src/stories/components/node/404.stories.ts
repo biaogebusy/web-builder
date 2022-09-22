@@ -15,7 +15,7 @@ import { ArticleComponent } from '@uiux/combs/node/article/article.component';
 import { OtherModule } from '@uiux/combs/other/other.module';
 import { NotfoundComponent } from '@uiux/combs/other/notfound/notfound.component';
 export default {
-  title: '组件/node/404',
+  title: '组件/文章/404',
   component: NotfoundComponent,
   decorators: [
     moduleMetadata({

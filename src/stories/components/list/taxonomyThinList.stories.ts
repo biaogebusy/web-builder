@@ -15,7 +15,7 @@ import { ListModule } from '@uiux/combs/list/list.module';
 import { TaxonomyThinListComponent } from '@uiux/combs/list/taxonomy-thin-list/taxonomy-thin-list.component';
 import { apiUrlFactory, API_URL } from '@core/token/token-providers';
 export default {
-  title: '组件/list/taxonomy thin list',
+  title: '组件/列表/分类列表（thin）',
   component: TaxonomyThinListComponent,
   decorators: [
     moduleMetadata({

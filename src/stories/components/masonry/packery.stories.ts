@@ -13,7 +13,7 @@ import { PackeryComponent } from '../../../app/uiux/combs/masonry/packery/packer
 import { NgxPackeryModule } from 'ngx-packery';
 import { apiUrlFactory, API_URL } from '@core/token/token-providers';
 export default {
-  title: '组件/masonry/packery',
+  title: '组件/瀑布流/packery',
   component: PackeryComponent,
   decorators: [
     moduleMetadata({

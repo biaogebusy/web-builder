@@ -15,7 +15,7 @@ import { APP_INITIALIZER, Inject } from '@angular/core';
 import { AppState } from '@core/mobx/AppState';
 import { initConfig } from 'src/app/app.module';
 export default {
-  title: '组件/map/location',
+  title: '组件/地图/位置',
   component: LocationComponent,
   decorators: [
     moduleMetadata({
