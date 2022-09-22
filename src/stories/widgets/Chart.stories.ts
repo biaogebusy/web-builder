@@ -76,8 +76,8 @@ export const LineTime = Template.bind({});
 LineTime.args = {
   chartOption: {
     title: {
-      text: '一天用电量分布图',
-      subtext: '万科金域缇香',
+      text: '超市宣传上新红包抽奖趋势图',
+      subtext: '万科金域缇香店',
     },
     tooltip: {
       trigger: 'axis',
@@ -91,82 +91,53 @@ LineTime.args = {
         saveAsImage: {},
       },
     },
+    dataset: {
+      source: [
+        ['时间', '中奖个数'],
+        ['00:00', 0],
+        ['01:00', 2],
+        ['02:00', 3],
+        ['03:00', 5],
+        ['04:00', 6],
+        ['05:00', 8],
+        ['06:00', 10],
+        ['07:00', 11],
+        ['08:00', 15],
+        ['09:00', 20],
+        ['10:00', 30],
+        ['11:00', 50],
+        ['12:00', 60],
+        ['13:00', 66],
+        ['14:00', 100],
+        ['15:00', 120],
+        ['16:00', 155],
+        ['17:00', 226],
+        ['18:00', 300],
+        ['19:00', 330],
+        ['20:00', 412],
+        ['21:00', 500],
+        ['22:00', 516],
+        ['23:00', 530],
+      ],
+    },
     xAxis: {
       type: 'category',
       boundaryGap: false,
-      // prettier-ignore
-      data: ['00:00', '01:15', '02:30', '03:45', '05:00', '06:15', '07:30', '08:45', '10:00', '11:15', '12:30', '13:45', '15:00', '16:15', '17:30', '18:45', '20:00', '21:15', '22:30', '23:45'],
     },
     yAxis: {
       type: 'value',
       axisLabel: {
-        formatter: '{value} W',
+        formatter: '{value} 个',
       },
       axisPointer: {
         snap: true,
       },
     },
-    visualMap: {
-      show: false,
-      dimension: 0,
-      pieces: [
-        {
-          lte: 6,
-          color: 'green',
-        },
-        {
-          gt: 6,
-          lte: 8,
-          color: 'red',
-        },
-        {
-          gt: 8,
-          lte: 14,
-          color: 'green',
-        },
-        {
-          gt: 14,
-          lte: 17,
-          color: 'red',
-        },
-        {
-          gt: 17,
-          color: 'green',
-        },
-      ],
-    },
     series: [
       {
-        name: 'Electricity',
+        name: '红包个数',
         type: 'line',
         smooth: true,
-        // prettier-ignore
-        data: [300, 280, 250, 260, 270, 300, 550, 500, 400, 390, 380, 390, 400, 500, 600, 750, 800, 700, 600, 400],
-        markArea: {
-          itemStyle: {
-            color: 'rgba(255, 173, 177, 0.4)',
-          },
-          data: [
-            [
-              {
-                name: 'Morning Peak',
-                xAxis: '07:30',
-              },
-              {
-                xAxis: '10:00',
-              },
-            ],
-            [
-              {
-                name: 'Evening Peak',
-                xAxis: '17:30',
-              },
-              {
-                xAxis: '21:15',
-              },
-            ],
-          ],
-        },
       },
     ],
   },
