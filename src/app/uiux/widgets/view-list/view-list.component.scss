@@ -1,3 +1,4 @@
+@import "../../../../theme/variable/breakpoint";
 .view-list {
   position: relative;
   .loading-inner {
@@ -5,19 +6,29 @@
     left: 50%;
     top: 25%;
   }
-  ::ng-deep .dynamic-table {
-    .mat-header-cell {
-      font-size: 14px;
+  ::ng-deep {
+    formly-field {
+      margin-right: 1rem;
     }
-    .mat-cell {
-      padding: 10px 12px;
-      font-size: 14px;
-      line-height: 1.5;
+    @media #{$xs} {
+      formly-field {
+        width: 46%;
+      }
     }
-    .badge {
-      padding: 2px;
-      border-radius: 4px;
-      word-break: keep-all;
+    .dynamic-table {
+      .mat-header-cell {
+        font-size: 14px;
+      }
+      .mat-cell {
+        padding: 10px 12px;
+        font-size: 14px;
+        line-height: 1.5;
+      }
+      .badge {
+        padding: 2px;
+        border-radius: 4px;
+        word-break: keep-all;
+      }
     }
   }
 }

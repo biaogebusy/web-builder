@@ -1,36 +1,37 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+
+// Material
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatDividerModule } from '@angular/material/divider';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
-import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { MatRippleModule } from '@angular/material/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatListModule } from '@angular/material/list';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { MatChipsModule } from '@angular/material/chips';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
 import { MatStepperModule } from '@angular/material/stepper';
 
+// Form
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+
 // utils
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgPipesModule } from 'ngx-pipes';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { IconService } from '@core/service/icon.service';
@@ -51,19 +52,13 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
     MatButtonToggleModule,
     MatCardModule,
     MatAutocompleteModule,
-    MatInputModule,
     MatDividerModule,
     FlexLayoutModule,
-    MatCheckboxModule,
-    MatFormFieldModule,
-    MatSelectModule,
     MatRippleModule,
-    FormsModule,
     MatProgressBarModule,
     MatProgressSpinnerModule,
     MatMenuModule,
     MatExpansionModule,
-    MatChipsModule,
     RouterModule,
     ScrollingModule,
     MatTabsModule,
@@ -72,9 +67,12 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
     NgPipesModule,
     NgxPaginationModule,
     MatTableModule,
-    NgxMatSelectSearchModule,
     NgxSkeletonLoaderModule,
     MatStepperModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
   ],
   exports: [
     CommonModule,
@@ -88,7 +86,6 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
     MatInputModule,
     MatDividerModule,
     FlexLayoutModule,
-    MatCheckboxModule,
     MatFormFieldModule,
     MatSelectModule,
     MatRippleModule,
@@ -100,7 +97,6 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
     MatListModule,
     MatTooltipModule,
     MatExpansionModule,
-    MatChipsModule,
     ScrollingModule,
     MatTabsModule,
     MatDialogModule,
@@ -109,7 +105,6 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
     NgxPaginationModule,
     MatTableModule,
     MatPaginatorModule,
-    NgxMatSelectSearchModule,
     NgxSkeletonLoaderModule,
     MatStepperModule,
   ],

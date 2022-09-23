@@ -9,7 +9,6 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { BgComponent } from '../../app/uiux/widgets/bg/bg.component';
 import { WidgetsModule } from '../../app/uiux/widgets/widgets.module';
 import { API_URL, apiUrlFactory } from '@core/token/token-providers';
 import { APP_INITIALIZER, Inject } from '@angular/core';
@@ -54,10 +53,7 @@ export default {
         },
       ],
     }),
-    componentWrapperDecorator(
-      (story) =>
-        `<div class="position-relative p-x p-y" style="z-index:1">${story}</div>`
-    ),
+    componentWrapperDecorator((story) => `${story}`),
   ],
   parameters: {
     docs: {
