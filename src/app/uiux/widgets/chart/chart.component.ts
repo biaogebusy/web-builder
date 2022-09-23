@@ -4,7 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { EChartsOption } from 'echarts';
+import type { EChartsOption } from 'echarts';
 
 @Component({
   selector: 'app-chart',

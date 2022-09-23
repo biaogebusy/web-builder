@@ -6,9 +6,9 @@
   <div class="container">
     <app-text [content]="content.text"></app-text>
     <div class="inner" fxLayout="row wrap" fxLayoutAlign="center center">
-      <formly-form [ngClass]="'m-y p-x-sm'" fxFlex.lt-md="100" fxFlex.gt-sm="500px" fxLayout="row wrap"
-        fxLayoutGap="1rem" [form]="form" [fields]="content.form" [model]="model" (modelChange)="onModelChange($event)">
-      </formly-form>
+      <app-formly [ngClass]="'m-y p-x-sm'" fxFlex.lt-md="100" fxFlex.gt-sm="500px" [fields]="content.form" [form]="form"
+        [model]="model" (modelChange)="onModelChange($event)">
+      </app-formly>
       <div fxFlex.lt-md="100" fxFlex.gt-sm="50%" fxLayout="column">
         <div class="result p-x-sm p-y" fxLayout="row wrap" fxLayoutAlign="space-between center">
           <div class="left" fxFlex.lt-md="100" fxFlex.gt-sm="50" fxLayoutAlign="center center" fxLayout="column">
