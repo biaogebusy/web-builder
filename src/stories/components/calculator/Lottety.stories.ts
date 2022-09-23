@@ -1,4 +1,8 @@
-import { moduleMetadata, Meta } from '@storybook/angular';
+import {
+  moduleMetadata,
+  Meta,
+  componentWrapperDecorator,
+} from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { API_URL, apiUrlFactory } from '@core/token/token-providers';
 import { APP_INITIALIZER, Inject } from '@angular/core';
@@ -20,6 +24,7 @@ import { FormlyMatToggleModule } from '@ngx-formly/material/toggle';
 import { DateRangeComponent } from '@uiux/widgets/form/formly-type/date-range/date-range.component';
 import { MatSelectComponent } from '@uiux/widgets/form/formly-type/mat-select/mat-select.component';
 import { MatSliderModule } from '@angular/material/slider';
+import { FormGroup } from '@angular/forms';
 
 export default {
   title: '组件/计算器/红包预算',
@@ -81,17 +86,20 @@ export default {
         },
       ],
     }),
+    componentWrapperDecorator(
+      (story) => `
+      ${story}
+      <p>
+      {{model|json}}
+      </p>
+    `
+    ),
   ],
   parameters: {
     docs: {
       description: {
-        component: `对组件的介绍描述`,
+        component: `通过红包预算计算器可以方便直观的查看活动的预算金额，进而营销活动。`,
       },
-    },
-  },
-  argTypes: {
-    content: {
-      description: '字段描述',
     },
   },
 } as Meta;
@@ -103,8 +111,11 @@ const Template: Story<LotteryComponent> = (args) => ({
   },
 });
 export const Default = Template.bind({});
-
+const form = new FormGroup({});
+const model: any = {};
 Default.args = {
+  model,
+  form,
   content: {
     text: {
       spacer: 'md',

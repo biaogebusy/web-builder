@@ -17,8 +17,8 @@ import { EChartsOption } from 'echarts';
 })
 export class LotteryComponent implements OnInit, AfterViewInit {
   @Input() content: any;
-  form = new FormGroup({});
-  model: any = {};
+  @Input() form = new FormGroup({});
+  @Input() model: any = {};
   total = 0;
   maxTimes = '0';
   minTimes = '0';

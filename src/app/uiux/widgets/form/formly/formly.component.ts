@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { FormlyFieldConfig } from '@ngx-formly/core';
 
 @Component({
   selector: 'app-formly',
@@ -7,7 +8,7 @@ import { FormGroup } from '@angular/forms';
   styleUrls: ['./formly.component.scss'],
 })
 export class FormlyComponent implements OnInit {
-  @Input() fields: any;
+  @Input() fields: FormlyFieldConfig[];
   @Input() form: FormGroup;
   @Input() model: any;
 
