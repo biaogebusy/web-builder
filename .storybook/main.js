@@ -8,9 +8,9 @@ module.exports = {
     "@storybook/addon-ie11",
   ],
   framework: "@storybook/angular",
-  core: {
-    builder: "@storybook/builder-webpack5",
-  },
+  // core: {
+  //   builder: "@storybook/builder-webpack5",
+  // },
   features: {
     interactionsDebugger: true,
   },
