@@ -50,7 +50,7 @@ Default.args = {
 };
 
 export const ImgWithLink = Template.bind({});
-
+ImgWithLink.storyName = '带链接';
 ImgWithLink.args = {
   content: {
     classes: 'object-fit',

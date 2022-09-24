@@ -85,7 +85,7 @@ Default.args = {
 };
 
 export const YCenter = Template.bind({});
-
+YCenter.storyName = 'Y轴中心';
 YCenter.args = {
   content: {
     theme: 'text-light',
@@ -127,7 +127,7 @@ YCenter.args = {
 };
 
 export const YCenterXCustom = Template.bind({});
-
+YCenterXCustom.storyName = 'Y 轴中心 X 轴自定义';
 YCenterXCustom.args = {
   content: {
     theme: '',
@@ -170,7 +170,7 @@ YCenterXCustom.args = {
 };
 
 export const XYCustom = Template.bind({});
-
+XYCustom.storyName = 'XY 轴自定义';
 XYCustom.args = {
   content: {
     theme: 'text-light',

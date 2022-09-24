@@ -95,7 +95,7 @@ Default.args = {
 };
 
 export const CustomStyle = Template.bind({});
-
+CustomStyle.storyName = '自定义样式';
 CustomStyle.args = {
   content: {
     header: [
@@ -151,7 +151,7 @@ CustomStyle.args = {
 };
 
 export const DialogColumn = Template.bind({});
-
+DialogColumn.storyName = '支持弹窗';
 DialogColumn.args = {
   content: {
     header: [
@@ -210,7 +210,7 @@ DialogColumn.args = {
 };
 
 export const ExpandColumn = Template.bind({});
-
+ExpandColumn.storyName = '可折叠指定列';
 ExpandColumn.args = {
   content: {
     header: [

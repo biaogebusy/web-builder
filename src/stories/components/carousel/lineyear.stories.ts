@@ -9,7 +9,7 @@ import { NgxWebstorageModule } from 'ngx-webstorage';
 import { ShareModule } from '../../../app/share/share.module';
 import { Carousel1v1Component } from '@uiux/combs/carousel/carousel1v1/carousel1v1.component';
 export default {
-  title: '组件/幻灯片/line year',
+  title: '组件/幻灯片/时间轴',
   component: Carousel1v1Component,
   decorators: [
     moduleMetadata({

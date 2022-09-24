@@ -202,6 +202,7 @@ Default.args = {
 };
 
 export const TextHero = Template.bind({});
+TextHero.storyName = '图片带文本';
 TextHero.args = {
   content: {
     spacer: 'none',

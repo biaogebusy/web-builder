@@ -60,7 +60,7 @@ Default.args = {
 };
 
 export const HoverIcon = Template.bind({});
-
+HoverIcon.storyName = 'Icon 经过';
 HoverIcon.args = {
   content: {
     hoverIcon: true,
@@ -75,13 +75,13 @@ HoverIcon.args = {
 };
 
 export const Float = Template.bind({});
-
+Float.storyName = 'Icon 浮出';
 Float.args = {
   content: {
     mode: 'float',
     hoverIcon: true,
     fullIcon: 'fullscreen',
-    ratios: 'media-16-9',
+    ratios: 'media-4-3',
     img: {
       classes: 'object-fit',
       src: '/assets/images/cases/porto1.jpg',

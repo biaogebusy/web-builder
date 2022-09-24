@@ -113,7 +113,7 @@ Default.args = {
 };
 
 export const Light = Template.bind({});
-
+Light.storyName = '浅色';
 Light.args = {
   content: {
     title: {

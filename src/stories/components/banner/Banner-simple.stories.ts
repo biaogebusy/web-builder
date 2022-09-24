@@ -70,7 +70,7 @@ Default.args = {
   },
 };
 export const BannerWithBg = Template.bind({});
-
+BannerWithBg.storyName = '横幅带背景图';
 BannerWithBg.args = {
   content: {
     style: 'normal',

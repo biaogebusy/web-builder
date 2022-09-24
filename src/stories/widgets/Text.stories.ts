@@ -17,7 +17,7 @@ import { NgxWebstorageModule } from 'ngx-webstorage';
 import { API_URL, apiUrlFactory } from '@core/token/token-providers';
 
 export default {
-  title: '基础/文本',
+  title: '基础/富文本',
   component: TextComponent,
   decorators: [
     moduleMetadata({
@@ -57,7 +57,7 @@ const Template: Story<TextComponent> = (args) => ({
   },
 });
 export const Default = Template.bind({});
-
+Default.storyName = '基础文本';
 Default.args = {
   content: {
     body: '<p><strong>Github</strong> <a href="#">actions</a> 从2019年就<em>免费</em>开放给个人开源项目使用，对于自动化开放测试部署，开发者一定非常的熟悉，如果把中间这项流程做好，不仅节省了大量的人力也大大加快了开发效率，在配置完善的情况下可以提高代码质量。</p><p>查了些文档文章，Github Actions有几个重要的信息如下：</p><ul class="list-done"><li>通过 Docker 隔离</li><li>每个 workflow 独享1核虚拟CPU, 3.75GB内存，包括网络权限和100GB 磁盘</li><li>在 yml 配置文件中可以使用上下文环境变量，比如分支或者不公开变量</li><li>每个workflow 排队和执行时间最多 58 分钟，最多可以包含100个action，每个仓库同一时刻只能运行两个 workflow</li></ul>',
@@ -65,6 +65,7 @@ Default.args = {
 };
 
 export const Title = Template.bind({});
+Title.storyName = '带标题风格';
 Title.args = {
   content: {
     spacer: 'sm',
@@ -78,6 +79,7 @@ Title.args = {
 };
 
 export const Actions = Template.bind({});
+Actions.storyName = '带 Actions 风格';
 Actions.args = {
   content: {
     spacer: 'lg',
@@ -112,6 +114,7 @@ Actions.args = {
 };
 
 export const List = Template.bind({});
+List.storyName = '带列表风格';
 List.args = {
   content: {
     spacer: 'xl',

@@ -59,7 +59,7 @@ Default.args = {
 };
 
 export const queryParams = Template.bind({});
-
+queryParams.storyName = '链接带 QueryParams 参数';
 queryParams.args = {
   content: {
     label: '自习室',
@@ -73,7 +73,7 @@ queryParams.args = {
 };
 
 export const fragment = Template.bind({});
-
+fragment.storyName = '链接到 Fragment 片段';
 fragment.args = {
   content: {
     label: '案例',
@@ -84,7 +84,7 @@ fragment.args = {
 };
 
 export const dialog = Template.bind({});
-
+dialog.storyName = '链接 Dialog';
 dialog.args = {
   content: {
     label: '更多',

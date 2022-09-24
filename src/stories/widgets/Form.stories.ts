@@ -80,7 +80,7 @@ const form = new FormGroup({});
 const model: any = {};
 
 export const Default = Template.bind({});
-Default.storyName = '元素';
+Default.storyName = '预览';
 Default.args = {
   form,
   model,

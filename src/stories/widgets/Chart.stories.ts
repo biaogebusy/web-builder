@@ -80,6 +80,7 @@ Line.args = {
 };
 
 export const LineTime = Template.bind({});
+LineTime.storyName = '折线图';
 LineTime.args = {
   chartOption: {
     title: {
@@ -151,7 +152,7 @@ LineTime.args = {
 };
 
 export const Bar = Template.bind({});
-
+Bar.storyName = '柱状图';
 Bar.args = {
   chartOption: {
     title: {
@@ -180,6 +181,7 @@ Bar.args = {
 };
 
 export const Pie = Template.bind({});
+Pie.storyName = '饼图';
 Pie.args = {
   chartOption: {
     title: {
@@ -220,6 +222,7 @@ Pie.args = {
 };
 
 export const Radar = Template.bind({});
+Radar.storyName = '雷达图';
 Radar.args = {
   chartOption: {
     title: {
