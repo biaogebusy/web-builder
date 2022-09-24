@@ -49,8 +49,7 @@ export default {
   ],
 } as Meta;
 
-const Template: Story<MediaMetaComponent> = (args) => ({
-  component: MediaMetaComponent,
+const Template: Story = (args) => ({
   props: {
     ...args,
   },

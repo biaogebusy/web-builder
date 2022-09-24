@@ -47,8 +47,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story<NotfoundComponent> = (args) => ({
-  component: NotfoundComponent,
+const Template: Story = (args) => ({
   props: {
     ...args,
   },

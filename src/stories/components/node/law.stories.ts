@@ -57,8 +57,7 @@ export default {
   ],
 } as Meta;
 
-const Template: Story<LawCaseComponent> = (args) => ({
-  component: LawCaseComponent,
+const Template: Story = (args) => ({
   props: {
     ...args,
   },

@@ -52,8 +52,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story<TreeListComponent> = (args) => ({
-  component: TreeListComponent,
+const Template: Story = (args) => ({
   props: {
     ...args,
   },

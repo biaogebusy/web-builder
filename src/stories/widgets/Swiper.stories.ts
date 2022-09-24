@@ -26,8 +26,7 @@ export default {
   ],
 } as Meta;
 
-const Template: Story<SwiperComponent> = (args) => ({
-  component: SwiperComponent,
+const Template: Story = (args) => ({
   props: {
     ...args,
   },

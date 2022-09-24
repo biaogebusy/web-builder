@@ -37,8 +37,7 @@ export default {
   ],
 } as Meta;
 
-const Template: Story<FeatureBoxComponent> = (args) => ({
-  component: FeatureBoxComponent,
+const Template: Story = (args) => ({
   props: {
     ...args,
   },

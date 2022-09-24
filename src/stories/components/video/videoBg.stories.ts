@@ -39,8 +39,7 @@ export default {
   ],
 } as Meta;
 
-const Template: Story<VideoBgComponent> = (args) => ({
-  component: VideoBgComponent,
+const Template: Story = (args) => ({
   props: {
     ...args,
   },

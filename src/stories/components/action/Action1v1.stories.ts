@@ -45,8 +45,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story<Action1v1Component> = (args) => ({
-  component: Action1v1Component,
+const Template: Story = (args) => ({
   props: {
     ...args,
   },

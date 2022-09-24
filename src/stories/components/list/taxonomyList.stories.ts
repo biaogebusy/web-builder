@@ -52,8 +52,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story<TaxonomyListComponent> = (args) => ({
-  component: TaxonomyListComponent,
+const Template: Story = (args) => ({
   props: {
     ...args,
   },

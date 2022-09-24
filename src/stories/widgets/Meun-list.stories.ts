@@ -41,8 +41,7 @@ export default {
   ],
 } as Meta;
 
-const Template: Story<MenuListComponent> = (args) => ({
-  component: MenuListComponent,
+const Template: Story = (args) => ({
   props: {
     ...args,
   },

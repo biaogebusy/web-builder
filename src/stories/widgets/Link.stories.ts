@@ -42,8 +42,7 @@ export default {
   ],
 } as Meta;
 
-const Template: Story<LinkComponent> = (args) => ({
-  component: LinkComponent,
+const Template: Story = (args) => ({
   props: {
     ...args,
   },

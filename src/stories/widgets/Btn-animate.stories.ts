@@ -22,7 +22,7 @@ export default {
   ],
 } as Meta;
 
-const Template: Story<BtnAnimateComponent> = (args) => ({
+const Template: Story = (args) => ({
   component: BtnAnimateComponent,
   props: {
     ...args,

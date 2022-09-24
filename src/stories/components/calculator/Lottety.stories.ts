@@ -104,8 +104,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story<LotteryComponent> = (args) => ({
-  component: LotteryComponent,
+const Template: Story = (args) => ({
   props: {
     ...args,
   },

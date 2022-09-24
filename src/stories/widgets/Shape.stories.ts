@@ -44,8 +44,7 @@ export default {
   ],
 } as Meta;
 
-const Template: Story<ShapeComponent> = (args) => ({
-  component: ShapeComponent,
+const Template: Story = (args) => ({
   props: {
     ...args,
   },

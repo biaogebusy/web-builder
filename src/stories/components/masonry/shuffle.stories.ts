@@ -42,8 +42,7 @@ export default {
   ],
 } as Meta;
 
-const Template: Story<ShuffleComponent> = (args) => ({
-  component: ShuffleComponent,
+const Template: Story = (args) => ({
   props: {
     ...args,
   },

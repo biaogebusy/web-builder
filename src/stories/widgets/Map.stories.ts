@@ -61,8 +61,7 @@ export default {
   ],
 } as Meta;
 
-const Template: Story<MapComponent> = (args) => ({
-  component: MapComponent,
+const Template: Story = (args) => ({
   props: {
     ...args,
   },

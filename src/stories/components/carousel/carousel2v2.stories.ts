@@ -32,8 +32,7 @@ export default {
   ],
 } as Meta;
 
-const Template: Story<Carousel2v2Component> = (args) => ({
-  component: Carousel2v2Component,
+const Template: Story = (args) => ({
   props: {
     ...args,
   },

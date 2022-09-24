@@ -39,8 +39,7 @@ export default {
   ],
 } as Meta;
 
-const Template: Story<ProgressBarComponent> = (args) => ({
-  component: ProgressBarComponent,
+const Template: Story = (args) => ({
   props: {
     ...args,
   },

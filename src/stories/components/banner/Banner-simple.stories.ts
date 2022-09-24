@@ -45,8 +45,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story<BannerSimpleComponent> = (args) => ({
-  component: BannerSimpleComponent,
+const Template: Story = (args) => ({
   props: {
     ...args,
   },

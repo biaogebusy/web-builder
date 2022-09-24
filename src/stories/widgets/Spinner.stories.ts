@@ -39,8 +39,7 @@ export default {
   ],
 } as Meta;
 
-const Template: Story<SpinnerComponent> = (args) => ({
-  component: SpinnerComponent,
+const Template: Story = (args) => ({
   props: {
     ...args,
   },

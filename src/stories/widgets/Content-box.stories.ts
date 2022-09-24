@@ -42,8 +42,7 @@ export default {
   ],
 } as Meta;
 
-const Template: Story<ContentBoxComponent> = (args) => ({
-  component: ContentBoxComponent,
+const Template: Story = (args) => ({
   props: {
     ...args,
   },

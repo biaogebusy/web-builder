@@ -45,8 +45,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story<FullCalendarComponent> = (args) => ({
-  component: FullCalendarComponent,
+const Template: Story = (args) => ({
   props: {
     ...args,
   },

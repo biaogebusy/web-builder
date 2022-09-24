@@ -34,8 +34,7 @@ export default {
   ],
 } as Meta;
 
-const Template: Story<Hero2v1Component> = (args) => ({
-  component: Hero2v1Component,
+const Template: Story = (args) => ({
   props: {
     ...args,
   },

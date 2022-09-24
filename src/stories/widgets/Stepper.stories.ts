@@ -49,8 +49,7 @@ export default {
   ],
 } as Meta;
 
-const Template: Story<StepperComponent> = (args) => ({
-  component: StepperComponent,
+const Template: Story = (args) => ({
   props: {
     ...args,
   },

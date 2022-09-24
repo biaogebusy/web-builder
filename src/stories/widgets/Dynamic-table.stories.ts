@@ -36,8 +36,7 @@ export default {
   ],
 } as Meta;
 
-const Template: Story<DynamicTableComponent> = (args) => ({
-  component: DynamicTableComponent,
+const Template: Story = (args) => ({
   props: {
     ...args,
   },

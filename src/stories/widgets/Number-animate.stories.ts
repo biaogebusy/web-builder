@@ -36,8 +36,7 @@ export default {
   ],
 } as Meta;
 
-const Template: Story<NumberAnimateComponent> = (args) => ({
-  component: NumberAnimateComponent,
+const Template: Story = (args) => ({
   props: {
     ...args,
   },

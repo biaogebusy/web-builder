@@ -21,8 +21,7 @@ export default {
   ],
 } as Meta;
 
-const Template: Story<ChipListComponent> = (args) => ({
-  component: ChipListComponent,
+const Template: Story = (args) => ({
   props: {
     ...args,
   },

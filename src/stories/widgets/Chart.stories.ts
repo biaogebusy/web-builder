@@ -32,8 +32,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story<ChartComponent> = (args) => ({
-  component: ChartComponent,
+const Template: Story = (args) => ({
   props: {
     ...args,
   },
