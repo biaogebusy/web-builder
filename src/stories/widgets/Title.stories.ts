@@ -43,7 +43,7 @@ export const TitleV2 = Template.bind({});
 TitleV2.storyName = 'Style V2';
 TitleV2.args = {
   content: {
-    label: '我们的故事',
+    ...TitleV1.args.content,
     style: 'style-v2',
     icon: 'mail',
   },
@@ -53,7 +53,7 @@ export const TitleV3 = Template.bind({});
 TitleV3.storyName = 'Style V3';
 TitleV3.args = {
   content: {
-    label: '职位内推',
+    ...TitleV1.args.content,
     style: 'style-v3',
   },
 };
@@ -62,7 +62,7 @@ export const TitleV4 = Template.bind({});
 TitleV4.storyName = 'Style V4';
 TitleV4.args = {
   content: {
-    label: '技术分享',
+    ...TitleV1.args.content,
     style: 'style-v4',
   },
 };
@@ -71,7 +71,7 @@ export const TitleV5 = Template.bind({});
 TitleV5.storyName = 'Style V5';
 TitleV5.args = {
   content: {
-    label: '关于我们',
+    ...TitleV1.args.content,
     style: 'style-v5',
   },
 };
@@ -80,7 +80,7 @@ export const TitleV6 = Template.bind({});
 TitleV6.storyName = 'Style V6';
 TitleV6.args = {
   content: {
-    label: '关于我们',
+    ...TitleV1.args.content,
     style: 'style-v6',
   },
 };
@@ -89,7 +89,7 @@ export const TitleV7 = Template.bind({});
 TitleV7.storyName = 'Style V7';
 TitleV7.args = {
   content: {
-    label: '关于我们',
+    ...TitleV1.args.content,
     style: 'style-v7',
   },
 };

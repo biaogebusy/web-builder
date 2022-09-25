@@ -20,7 +20,7 @@ import { TextComponent } from '@uiux/widgets/text/text.component';
 import { TitleComponent } from '@uiux/widgets/title/title.component';
 
 export default {
-  title: '基础/示例',
+  title: '基础/示例 Sample',
   component: TextComponent,
   subcomponents: { TitleComponent },
   decorators: [
@@ -75,7 +75,8 @@ const Template: Story = (args) => ({
   },
 });
 export const Default = Template.bind({});
-
+// Raname Story
+Default.storyName = '预览';
 Default.args = {
   content: {
     spacer: 'sm',

@@ -58,7 +58,6 @@ export const Horizontal = Template.bind({});
 Horizontal.storyName = '水平方向';
 Horizontal.args = {
   content: {
-    type: 'stepper',
     params: {
       mode: 'horizontal',
       labelPosition: 'bottom',
@@ -88,28 +87,10 @@ export const Vertical = Template.bind({});
 Vertical.storyName = '垂直方向';
 Vertical.args = {
   content: {
-    type: 'stepper',
+    ...Horizontal.args.content,
     params: {
       mode: 'vertical',
       linear: true,
     },
-    steps: [
-      {
-        label: '指派中',
-      },
-      {
-        label: '接受',
-        completed: true,
-      },
-      {
-        label: '停止',
-      },
-      {
-        label: '转移',
-      },
-      {
-        label: '已完成',
-      },
-    ],
   },
 };
