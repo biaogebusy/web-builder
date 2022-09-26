@@ -179,7 +179,7 @@ export class AppState {
   }
 
   @action
-  setPageContent(): void {
+  loadPageContent(): void {
     if (environment.production) {
       const landingPath = '/api/v1/landingPage?content=';
       this.http
