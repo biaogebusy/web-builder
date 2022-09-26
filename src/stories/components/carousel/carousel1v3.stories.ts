@@ -52,12 +52,12 @@ Default.args = {
     text: {
       spacer: 'none',
       title: {
-        label: 'Work with some amazing partners',
+        label: '选择Drupal的原因',
         icon: '',
         style: 'style-v1',
         classes: 'mat-display-1',
       },
-      body: '<p class="text-center">Start working with <a href="#">xinshi</a> that can provide everything you need to generate awareness,<br> drive traffic, connect.</p><br>',
+      body: '<p class="text-center">Drupal是数据管理中心，提供集中的地方来访问所有平台的数据</p><br>',
     },
     style: '',
     bg: {
@@ -69,11 +69,11 @@ Default.args = {
         spaceBetween: 20,
         navigation: false,
         breakpoints: {
-          '600': {
+          600: {
             slidesPerView: 3,
             spaceBetween: 20,
           },
-          '960': {
+          960: {
             slidesPerView: 3,
             spaceBetween: 30,
           },
@@ -90,10 +90,9 @@ Default.args = {
           style: 'style-v8',
           title: {
             href: '#',
-            label: 'SUPER CODING',
+            label: '组件编辑',
           },
-          content:
-            'One disadvantage of Lorum Ipsum is that in Latin certain letters appear more frequently than others.',
+          content: '通过简单的管理界面对复杂的可视化编辑',
         },
         {
           type: 'box',
@@ -104,10 +103,9 @@ Default.args = {
           style: 'style-v8',
           title: {
             href: '#',
-            label: 'SUPER CODING',
+            label: '企业营销',
           },
-          content:
-            'One disadvantage of Lorum Ipsum is that in Latin certain letters appear more frequently than others.',
+          content: '与企业营销工具整合，实现对内容和表单的管理',
         },
         {
           type: 'box',
@@ -118,10 +116,9 @@ Default.args = {
           style: 'style-v8',
           title: {
             href: '#',
-            label: 'SUPER CODING',
+            label: '数据收集',
           },
-          content:
-            'One disadvantage of Lorum Ipsum is that in Latin certain letters appear more frequently than others.',
+          content: '对数据进行收集和删除，符合政策的合规',
         },
         {
           type: 'box',
@@ -132,10 +129,9 @@ Default.args = {
           style: 'style-v8',
           title: {
             href: '#',
-            label: 'SUPER CODING',
+            label: '简化管理',
           },
-          content:
-            'One disadvantage of Lorum Ipsum is that in Latin certain letters appear more frequently than others.',
+          content: '简化了内容管理和用户角色管理，易于提高服务器性能',
         },
         {
           type: 'box',
@@ -146,10 +142,9 @@ Default.args = {
           style: 'style-v8',
           title: {
             href: '#',
-            label: 'SUPER CODING',
+            label: '存储集成',
           },
-          content:
-            'One disadvantage of Lorum Ipsum is that in Latin certain letters appear more frequently than others.',
+          content: '与云存储集成以实现解耦的文件管理',
         },
         {
           type: 'box',
@@ -160,10 +155,9 @@ Default.args = {
           style: 'style-v8',
           title: {
             href: '#',
-            label: 'SUPER CODING',
+            label: 'API 优先',
           },
-          content:
-            'One disadvantage of Lorum Ipsum is that in Latin certain letters appear more frequently than others.',
+          content: 'API First 易于与外部系统集成',
         },
       ],
     },
