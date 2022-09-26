@@ -10,5 +10,10 @@ export const parameters = {
       date: /Date$/,
     },
   },
+  options: {
+    storySort: {
+      order: ["Pages", "基础", "组件", "特色组件", "*"],
+    },
+  },
   docs: { inlineStories: true },
-}
+};

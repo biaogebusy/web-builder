@@ -10,7 +10,7 @@ import { NgxWebstorageModule } from 'ngx-webstorage';
 import { ShareModule } from '../../../app/share/share.module';
 import { apiUrlFactory, API_URL } from '@core/token/token-providers';
 export default {
-  title: '组件/日历/Full calendar',
+  title: '特色组件/日历/Full calendar',
   component: FullCalendarComponent,
   decorators: [
     moduleMetadata({

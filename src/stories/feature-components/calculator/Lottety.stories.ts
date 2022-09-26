@@ -27,7 +27,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { FormGroup } from '@angular/forms';
 
 export default {
-  title: '组件/计算器/红包预算',
+  title: '特色组件/计算器/红包预算',
   component: LotteryComponent,
   decorators: [
     moduleMetadata({

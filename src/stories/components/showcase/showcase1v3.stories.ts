@@ -12,6 +12,11 @@ import { WidgetsModule } from '../../../app/uiux/widgets/widgets.module';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { ShareModule } from '../../../app/share/share.module';
 import { Showcase1v3Component } from '@uiux/combs/showcase/showcase1v3/showcase1v3.component';
+import { APP_INITIALIZER, Inject } from '@angular/core';
+import { AppState } from '@core/mobx/AppState';
+import { API_URL, apiUrlFactory } from '@core/token/token-providers';
+import { initConfig } from 'src/app/app.module';
+import { Simple } from '../../widgets/ContactUs.stories';
 export default {
   title: '组件/showcase/1v3',
   component: Showcase1v3Component,
@@ -30,6 +35,17 @@ export default {
         {
           provide: CORE_CONFIG,
           useValue: {},
+        },
+        {
+          provide: APP_INITIALIZER,
+          useFactory: initConfig,
+          deps: [AppState, [new Inject(CORE_CONFIG)]],
+          multi: true,
+        },
+        {
+          provide: API_URL,
+          useFactory: apiUrlFactory,
+          deps: [],
         },
       ],
     }),
@@ -85,6 +101,29 @@ Default.args = {
         style: 'style-v1',
         icon: 'fingerprint',
       },
+    ],
+  },
+};
+
+export const ContactUs = Template.bind({});
+ContactUs.storyName = '联系我们';
+const data: any = Simple.args;
+ContactUs.args = {
+  content: {
+    id: 'form',
+    type: 'showcase-1v3',
+    title: {
+      label: 'Contact Us',
+      style: 'style-v1',
+    },
+    elements: [
+      {
+        type: 'text',
+        spacer: 'none',
+        classes: 'text-center',
+        body: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum obcaecati dignissimos quae quo ad iste ipsum officiis deleniti asperiores sit.',
+      },
+      data.content,
     ],
   },
 };

@@ -53,9 +53,9 @@ const Template: Story = (args) => ({
     ...args,
   },
 });
-export const Default = Template.bind({});
+export const Simple = Template.bind({});
 
-Default.args = {
+Simple.args = {
   content: {
     type: 'contact-us',
     params: {
