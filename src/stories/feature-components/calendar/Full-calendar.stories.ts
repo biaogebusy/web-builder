@@ -135,16 +135,14 @@ Default.args = {
           {
             title: 'Angular 分享',
             event: 'meeting',
-            start: '2022-07-20',
-            end: '2022-07-20',
+            start: new Date(),
             user: 'Johnson',
             className: 'bg-primary',
           },
           {
             title: 'Drupal 分享',
             event: 'drupal',
-            start: '2022-07-26',
-            end: '2022-07-26',
+            start: new Date(),
             user: 'Johnson',
             className: 'bg-warn',
           },
