@@ -22,7 +22,8 @@
     "bundle-report": "ng build --prod --stats-json && webpack-bundle-analyzer dist/browser/stats.json",
     "docs:json": "compodoc -p ./tsconfig.json -e json -d .",
     "storybook": "npm run docs:json && start-storybook -p 6006",
-    "build-storybook": "npm run docs:json && build-storybook"
+    "build-storybook": "npm run docs:json && build-storybook",
+    "test-storybook": "test-storybook"
   },
   "dependencies": {
     "@amap/amap-jsapi-loader": "0.0.7",
@@ -103,6 +104,7 @@
     "@storybook/builder-webpack5": "^6.5.12",
     "@storybook/manager-webpack4": "^6.5.12",
     "@storybook/manager-webpack5": "^6.5.12",
+    "@storybook/test-runner": "^0.7.2",
     "@storybook/testing-library": "^0.0.13",
     "@types/crypto-js": "^4.0.2",
     "@types/express": "^4.17.0",
