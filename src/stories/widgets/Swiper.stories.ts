@@ -56,7 +56,7 @@ Base.args = {
         title: '高性能',
         subTitle: 'High Performance',
         classes: 'card-no-shadow',
-        body: '；',
+        body: '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
         feature: {
           fullIcon: 'fullscreen',
           openIcon: 'open_in_new',
@@ -85,7 +85,7 @@ Base.args = {
         title: '易用的编辑器',
         subTitle: 'Simplicity for Editors',
         classes: 'card-no-shadow',
-        body: '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作； ',
+        body: '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作；',
       },
       {
         type: 'card',
