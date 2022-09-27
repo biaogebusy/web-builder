@@ -34,6 +34,13 @@ export default {
       ],
     }),
   ],
+  parameters: {
+    docs: {
+      description: {
+        component: '基于 Material Table 组件',
+      },
+    },
+  },
 } as Meta;
 
 const Template: Story = (args) => ({

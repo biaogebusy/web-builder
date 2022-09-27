@@ -1,13 +1,13 @@
-import { SafeHtmlPipe } from '../../app/core/pipe/safe-html.pipe';
-import { ShareModule } from '../../app/share/share.module';
 import { moduleMetadata, Meta, Story } from '@storybook/angular';
-import { TitleComponent } from '../../app/uiux/widgets/title/title.component';
 import { MatIconModule } from '@angular/material/icon';
-import { WidgetsModule } from '../../app/uiux/widgets/widgets.module';
 import { NgxWebstorageModule } from 'ngx-webstorage';
+import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
+import { ShareModule } from '@share/share.module';
+import { TitleComponent } from '@uiux/widgets/title/title.component';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
 
 export default {
-  title: '基础/标题',
+  title: '基础/内容/标题',
   component: TitleComponent,
   decorators: [
     moduleMetadata({

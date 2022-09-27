@@ -1,14 +1,14 @@
-import { ShareModule } from '../../app/share/share.module';
+import { ShareModule } from '../../../app/share/share.module';
 import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { BtnAnimateComponent } from '../../app/uiux/widgets/btn-animate/btn-animate.component';
+import { BtnAnimateComponent } from '@uiux/widgets/btn-animate/btn-animate.component';
 
 export default {
-  title: '基础/动态按钮',
+  title: '基础/内容/动态按钮',
   component: BtnAnimateComponent,
   decorators: [
     moduleMetadata({

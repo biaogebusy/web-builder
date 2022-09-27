@@ -4,15 +4,15 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { WidgetsModule } from '../../app/uiux/widgets/widgets.module';
-import { ContentBoxComponent } from '../../app/uiux/widgets/content-box/content-box.component';
-import { RouterTestingModule } from '@angular/router/testing';
-import { CORE_CONFIG } from '../../app/core/token/core.config';
-import { HttpClientModule } from '@angular/common/http';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { API_URL, apiUrlFactory } from '@core/token/token-providers';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterTestingModule } from '@angular/router/testing';
+import { CORE_CONFIG } from '@core/token/core.config';
+import { ContentBoxComponent } from '@uiux/widgets/content-box/content-box.component';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
 export default {
-  title: '基础/内容块',
+  title: '基础/内容/内容块',
   component: ContentBoxComponent,
   decorators: [
     moduleMetadata({

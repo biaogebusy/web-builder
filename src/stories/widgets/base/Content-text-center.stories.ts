@@ -4,12 +4,12 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { WidgetsModule } from '../../app/uiux/widgets/widgets.module';
 import { RouterTestingModule } from '@angular/router/testing';
-import { CORE_CONFIG } from '../../app/core/token/core.config';
-import { ContentTextCenterComponent } from '../../app/uiux/widgets/content-text-center/content-text-center.component';
+import { CORE_CONFIG } from '@core/token/core.config';
+import { ContentTextCenterComponent } from '@uiux/widgets/content-text-center/content-text-center.component';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
 export default {
-  title: '基础/内容居中块',
+  title: '基础/内容/内容居中块',
   component: ContentTextCenterComponent,
   decorators: [
     moduleMetadata({

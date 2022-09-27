@@ -9,6 +9,7 @@ import { WidgetsModule } from '../../../app/uiux/widgets/widgets.module';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { ShareModule } from '../../../app/share/share.module';
 import { apiUrlFactory, API_URL } from '@core/token/token-providers';
+import * as Breadcrumb from 'src/stories/widgets/Breadcrumb.stories';
 export default {
   title: '组件/横幅/简单横幅',
   component: BannerSimpleComponent,
@@ -51,21 +52,12 @@ const Template: Story = (args) => ({
   },
 });
 export const Default = Template.bind({});
-
+const breadcrumb: any = Breadcrumb.Base.args;
 Default.args = {
   content: {
     style: 'no-bg',
-    title: 'Contact Us',
-    breadcrumb: [
-      {
-        label: 'Home',
-        href: '#',
-      },
-      {
-        label: 'Contact Us',
-        href: '/about',
-      },
-    ],
+    title: '横幅',
+    breadcrumb: breadcrumb.content,
   },
 };
 export const BannerWithBg = Template.bind({});
@@ -81,16 +73,7 @@ BannerWithBg.args = {
         alt: 'page title',
       },
     },
-    title: 'Contact Us',
-    breadcrumb: [
-      {
-        label: 'Home',
-        href: '#',
-      },
-      {
-        label: 'Contact Us',
-        href: '/about',
-      },
-    ],
+    title: Default.args.content.title,
+    breadcrumb: breadcrumb.content,
   },
 };

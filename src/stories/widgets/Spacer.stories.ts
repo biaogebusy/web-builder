@@ -37,6 +37,13 @@ export default {
         `<div class="position-relative bg-primary" style="z-index:1">${story}</div>`
     ),
   ],
+  parameters: {
+    docs: {
+      description: {
+        component: '间距信使 UI 元素与元素之间的间隔，组件与组件之间的间距。',
+      },
+    },
+  },
 } as Meta;
 
 const Template: Story = (args) => ({

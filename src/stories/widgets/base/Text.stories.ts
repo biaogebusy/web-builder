@@ -1,5 +1,3 @@
-import { SafeHtmlPipe } from '../../app/core/pipe/safe-html.pipe';
-import { ShareModule } from '../../app/share/share.module';
 import {
   storiesOf,
   moduleMetadata,
@@ -7,17 +5,19 @@ import {
   Meta,
   Story,
 } from '@storybook/angular';
-import { TextComponent } from '../../app/uiux/widgets/text/text.component';
-import { WidgetsModule } from '../../app/uiux/widgets/widgets.module';
 import { CORE_CONFIG } from '@core/token/core.config';
 import { RouterTestingModule } from '@angular/router/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { API_URL, apiUrlFactory } from '@core/token/token-providers';
+import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
+import { ShareModule } from '@share/share.module';
+import { TextComponent } from '@uiux/widgets/text/text.component';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
 
 export default {
-  title: '基础/富文本',
+  title: '基础/内容/富文本',
   component: TextComponent,
   decorators: [
     moduleMetadata({

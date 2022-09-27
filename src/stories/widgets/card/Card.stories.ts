@@ -47,10 +47,10 @@ export const Default = Template.bind({});
 Default.storyName = '无边框、无阴影';
 Default.args = {
   content: {
-    title: 'JOHNSON',
-    subTitle: 'Frontend Devel',
+    title: '高性能',
+    subTitle: 'High Performance',
     classes: 'card-no-shadow',
-    body: 'Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. ',
+    body: '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
     feature: {
       fullIcon: 'fullscreen',
       openIcon: 'open_in_new',

@@ -52,17 +52,21 @@ const Template: Story = (args) => ({
     ...args,
   },
 });
-export const Breadcrumb = Template.bind({});
+export const Base = Template.bind({});
 
-Breadcrumb.args = {
+Base.args = {
   content: [
     {
-      label: 'Home',
+      label: '首页',
       href: '#',
     },
     {
-      label: 'Contact Us',
-      href: '/about',
+      label: '组件',
+      href: '#',
+    },
+    {
+      label: '横幅',
+      href: '#',
     },
   ],
 };

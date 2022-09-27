@@ -36,10 +36,25 @@ const Template: Story = (args) => ({
 export const Default = Template.bind({});
 
 Default.args = {
+  options: {
+    events: [
+      {
+        title: 'Angular 分享',
+        event: 'meeting',
+        start: new Date(),
+        user: 'Johnson',
+        className: 'bg-primary',
+      },
+      {
+        title: 'Drupal 分享',
+        event: 'drupal',
+        start: new Date(),
+        user: 'Johnson',
+        className: 'bg-warn',
+      },
+    ],
+  },
   content: {
-    options: {
-      api: '/api/v1/full-calendar',
-    },
     theme: {
       meeting: 'bg-warn',
       case: 'bg-primary',

@@ -18,7 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { TextComponent } from '@uiux/widgets/text/text.component';
 import { TitleComponent } from '@uiux/widgets/title/title.component';
-import * as TextStories from './Text.stories';
+import * as TextStories from './base/Text.stories';
 
 export default {
   title: '特色组件/示例 Sample',
