@@ -125,15 +125,15 @@ Avatar.args = {
       ],
     },
     link: {
-      href: '/node/1',
-      label: '高性能',
+      href: '/use/1',
+      label: 'Johnson',
     },
   },
 };
 
-export const Card = Template.bind({});
-Card.storyName = '带边框和阴影';
-Card.args = {
+export const BroderShadow = Template.bind({});
+BroderShadow.storyName = '带边框和阴影';
+BroderShadow.args = {
   content: {
     header: {
       meta: [

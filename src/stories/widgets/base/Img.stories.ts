@@ -27,7 +27,8 @@ export default {
       ],
     }),
     componentWrapperDecorator(
-      (story) => `<div style="height:300px">${story}</div>`
+      (story) =>
+        `<div class="position-relative" fxFlex="300px" style="height:300px">${story}</div>`
     ),
   ],
 } as Meta;
@@ -52,9 +53,7 @@ export const ImgWithLink = Template.bind({});
 ImgWithLink.storyName = '带链接';
 ImgWithLink.args = {
   content: {
-    classes: 'object-fit',
-    src: '/assets/images/cases/porto2.jpg',
-    alt: 'alt',
+    ...Default.args.content,
     href: '#',
     target: '_blank',
   },
