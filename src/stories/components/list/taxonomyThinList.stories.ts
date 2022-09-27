@@ -45,8 +45,7 @@ export default {
   ],
 } as Meta;
 
-const Template: Story<TaxonomyThinListComponent> = (args) => ({
-  component: TaxonomyThinListComponent,
+const Template: Story = (args) => ({
   props: {
     ...args,
   },

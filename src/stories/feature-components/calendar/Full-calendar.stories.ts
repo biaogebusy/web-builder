@@ -10,7 +10,7 @@ import { NgxWebstorageModule } from 'ngx-webstorage';
 import { ShareModule } from '../../../app/share/share.module';
 import { apiUrlFactory, API_URL } from '@core/token/token-providers';
 export default {
-  title: '组件/日历/Full calendar',
+  title: '特色组件/日历/Full calendar',
   component: FullCalendarComponent,
   decorators: [
     moduleMetadata({
@@ -45,8 +45,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story<FullCalendarComponent> = (args) => ({
-  component: FullCalendarComponent,
+const Template: Story = (args) => ({
   props: {
     ...args,
   },
@@ -136,16 +135,14 @@ Default.args = {
           {
             title: 'Angular 分享',
             event: 'meeting',
-            start: '2022-07-20',
-            end: '2022-07-20',
+            start: new Date(),
             user: 'Johnson',
             className: 'bg-primary',
           },
           {
             title: 'Drupal 分享',
             event: 'drupal',
-            start: '2022-07-26',
-            end: '2022-07-26',
+            start: new Date(),
             user: 'Johnson',
             className: 'bg-warn',
           },

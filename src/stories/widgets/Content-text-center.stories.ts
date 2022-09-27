@@ -29,8 +29,7 @@ export default {
   ],
 } as Meta;
 
-const Template: Story<ContentTextCenterComponent> = (args) => ({
-  component: ContentTextCenterComponent,
+const Template: Story = (args) => ({
   props: {
     ...args,
   },
@@ -41,7 +40,7 @@ Default.args = {
   content: {
     width: '25',
     ratios: 'media-140',
-    text: '<p style="font-size:45px">52<sup>%</sup></p><p>Women</p><p style="font-size:45px">32<sup>%</sup></p><p>POC</p><p style="font-size:45px">7<sup>%</sup></p><p>LGBT+</p><p>2020 ASSOCIATE CLASS</p>',
+    text: '<p style="font-size:45px">118k</p><p>活跃的模块</p><p style="font-size:45px">46k<sup>+</sup></p><p>开发者</p><p style="font-size:45px">1.4M<sup></sup></p><p>使用</p><p>Drupal 统计</p>',
     img: {
       classes: 'object-fit',
       src: '/assets/images/showcase/info01.png',

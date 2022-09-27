@@ -45,8 +45,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story<BannerSimpleComponent> = (args) => ({
-  component: BannerSimpleComponent,
+const Template: Story = (args) => ({
   props: {
     ...args,
   },
@@ -70,7 +69,7 @@ Default.args = {
   },
 };
 export const BannerWithBg = Template.bind({});
-
+BannerWithBg.storyName = '横幅带背景图';
 BannerWithBg.args = {
   content: {
     style: 'normal',

@@ -39,8 +39,7 @@ export default {
   ],
 } as Meta;
 
-const Template: Story<SpacerComponent> = (args) => ({
-  component: SpacerComponent,
+const Template: Story = (args) => ({
   props: {
     ...args,
   },

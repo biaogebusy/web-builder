@@ -44,8 +44,7 @@ export default {
   ],
 } as Meta;
 
-const Template: Story<DropdownMenuComponent> = (args) => ({
-  component: DropdownMenuComponent,
+const Template: Story = (args) => ({
   props: {
     ...args,
   },

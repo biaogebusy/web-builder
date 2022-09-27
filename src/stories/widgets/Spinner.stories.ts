@@ -13,7 +13,7 @@ import { SpinnerComponent } from '../../app/uiux/widgets/spinner/spinner.compone
 import { WidgetsModule } from '../../app/uiux/widgets/widgets.module';
 
 export default {
-  title: '基础/旋转',
+  title: '基础/旋转 Loading',
   component: SpinnerComponent,
   decorators: [
     moduleMetadata({
@@ -39,8 +39,7 @@ export default {
   ],
 } as Meta;
 
-const Template: Story<SpinnerComponent> = (args) => ({
-  component: SpinnerComponent,
+const Template: Story = (args) => ({
   props: {
     ...args,
   },

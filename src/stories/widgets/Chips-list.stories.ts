@@ -21,8 +21,7 @@ export default {
   ],
 } as Meta;
 
-const Template: Story<ChipListComponent> = (args) => ({
-  component: ChipListComponent,
+const Template: Story = (args) => ({
   props: {
     ...args,
   },
@@ -51,19 +50,5 @@ export const Mini = Template.bind({});
 
 Mini.args = {
   classes: 'mini',
-  content: {
-    elements: [
-      {
-        label: 'Primary',
-      },
-      {
-        label: 'Warn',
-        color: 'warn',
-      },
-      {
-        label: 'Accent',
-        color: 'accent',
-      },
-    ],
-  },
+  ...Default.args,
 };

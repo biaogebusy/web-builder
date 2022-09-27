@@ -49,17 +49,15 @@ export default {
   ],
 } as Meta;
 
-const Template: Story<StepperComponent> = (args) => ({
-  component: StepperComponent,
+const Template: Story = (args) => ({
   props: {
     ...args,
   },
 });
 export const Horizontal = Template.bind({});
-
+Horizontal.storyName = '水平方向';
 Horizontal.args = {
   content: {
-    type: 'stepper',
     params: {
       mode: 'horizontal',
       labelPosition: 'bottom',
@@ -83,5 +81,16 @@ Horizontal.args = {
         label: '已完成',
       },
     ],
+  },
+};
+export const Vertical = Template.bind({});
+Vertical.storyName = '垂直方向';
+Vertical.args = {
+  content: {
+    ...Horizontal.args.content,
+    params: {
+      mode: 'vertical',
+      linear: true,
+    },
   },
 };

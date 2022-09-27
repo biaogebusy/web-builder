@@ -20,8 +20,7 @@ export default {
   ],
 } as Meta;
 
-const Template: Story<BtnComponent> = (args) => ({
-  component: BtnComponent,
+const Template: Story = (args) => ({
   props: {
     ...args,
   },

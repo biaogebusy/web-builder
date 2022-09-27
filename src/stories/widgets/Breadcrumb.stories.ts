@@ -47,8 +47,7 @@ export default {
   ],
 } as Meta;
 
-const Template: Story<BreadcrumbComponent> = (args) => ({
-  component: BreadcrumbComponent,
+const Template: Story = (args) => ({
   props: {
     ...args,
   },

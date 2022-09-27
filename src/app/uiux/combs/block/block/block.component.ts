@@ -16,7 +16,7 @@ export class BlockComponent implements OnInit {
 
   ngOnInit(): void {
     this.activateRoute.url.subscribe((url) => {
-      this.appState.setPageContent();
+      this.appState.loadPageContent();
     });
   }
 

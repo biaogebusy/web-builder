@@ -44,8 +44,7 @@ export default {
   ],
 } as Meta;
 
-const Template: Story<SearchComponent> = (args) => ({
-  component: SearchComponent,
+const Template: Story = (args) => ({
   props: {
     ...args,
   },

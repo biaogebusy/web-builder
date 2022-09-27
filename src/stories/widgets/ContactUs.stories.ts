@@ -48,15 +48,14 @@ export default {
   ],
 } as Meta;
 
-const Template: Story<ContactUsComponent> = (args) => ({
-  component: ContactUsComponent,
+const Template: Story = (args) => ({
   props: {
     ...args,
   },
 });
-export const Default = Template.bind({});
+export const Simple = Template.bind({});
 
-Default.args = {
+Simple.args = {
   content: {
     type: 'contact-us',
     params: {

@@ -32,8 +32,7 @@ export default {
   ],
 } as Meta;
 
-const Template: Story<ImgComponent> = (args) => ({
-  component: ImgComponent,
+const Template: Story = (args) => ({
   props: {
     ...args,
   },
@@ -50,7 +49,7 @@ Default.args = {
 };
 
 export const ImgWithLink = Template.bind({});
-
+ImgWithLink.storyName = '带链接';
 ImgWithLink.args = {
   content: {
     classes: 'object-fit',

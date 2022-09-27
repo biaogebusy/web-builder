@@ -1,5 +1,6 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   Input,
   OnInit,
@@ -13,17 +14,25 @@ import {
 })
 export class Showcase3v3Component implements OnInit {
   @Input() content: any;
-  constructor() {}
+  isShow: boolean;
+  constructor(private cd: ChangeDetectorRef) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.showImage();
+  }
 
-  showImage(): boolean {
+  showImage(): void {
     if (!this.content?.showImage && this.content.feature) {
-      return true;
+      this.isShow = true;
+      this.cd.detectChanges();
+      return;
     }
-    if (this.content.showImage === false) {
-      return false;
+    if (!this.content?.showImage) {
+      this.isShow = false;
+      this.cd.detectChanges();
+      return;
     }
-    return true;
+    this.isShow = true;
+    this.cd.detectChanges();
   }
 }

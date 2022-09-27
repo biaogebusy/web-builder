@@ -38,14 +38,13 @@ export default {
   ],
 } as Meta;
 
-const Template: Story<CardComponent> = (args) => ({
-  component: CardComponent,
+const Template: Story = (args) => ({
   props: {
     ...args,
   },
 });
 export const Default = Template.bind({});
-
+Default.storyName = '无边框、无阴影';
 Default.args = {
   content: {
     title: 'JOHNSON',
@@ -67,7 +66,7 @@ Default.args = {
 };
 
 export const Card = Template.bind({});
-
+Card.storyName = '带边框和阴影';
 Card.args = {
   content: {
     header: {

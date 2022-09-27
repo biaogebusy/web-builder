@@ -13,7 +13,7 @@
     },
     "form": [{
         "key": "max",
-        "className": "m-bottom",
+        "className": "m-bottom-sm",
         "fieldGroupClassName": "display-flex flex-wrap",
         "fieldGroup": [{
           "type": "input",
@@ -58,7 +58,7 @@
       },
       {
         "key": "min",
-        "className": "m-bottom",
+        "className": "m-bottom-sm",
         "fieldGroupClassName": "display-flex flex-wrap",
         "fieldGroup": [{
           "type": "input",
