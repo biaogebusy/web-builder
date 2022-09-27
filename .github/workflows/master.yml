@@ -23,9 +23,6 @@ jobs:
         with:
           node-version: "14"
 
-      - name: Clear cache
-        run: npm cache clean --force
-
       - name: NPM Install
         run: npm ci over npm
 
