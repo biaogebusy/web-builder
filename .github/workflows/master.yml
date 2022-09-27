@@ -23,6 +23,9 @@ jobs:
         with:
           node-version: "14"
 
+      - name: Delete lock file
+        run: rm package-lock.json
+
       - name: NPM Install
         run: npm ci over npm
 
