@@ -4,12 +4,12 @@ import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { CORE_CONFIG } from '@core/token/core.config';
 import { HttpClientModule } from '@angular/common/http';
-import { BannerSimpleComponent } from '../../../app/uiux/combs/banner/banner-simple/banner-simple.component';
-import { WidgetsModule } from '../../../app/uiux/widgets/widgets.module';
 import { NgxWebstorageModule } from 'ngx-webstorage';
-import { ShareModule } from '../../../app/share/share.module';
 import { apiUrlFactory, API_URL } from '@core/token/token-providers';
 import * as Breadcrumb from 'src/stories/widgets/Breadcrumb.stories';
+import { ShareModule } from '@share/share.module';
+import { BannerSimpleComponent } from '@uiux/combs/banner/banner-simple/banner-simple.component';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
 export default {
   title: '组件/横幅/简单横幅',
   component: BannerSimpleComponent,

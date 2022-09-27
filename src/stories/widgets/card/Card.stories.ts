@@ -1,19 +1,23 @@
-import { ShareModule } from '../../../app/share/share.module';
 import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { CardComponent } from '../../../app/uiux/widgets/card/card.component';
-import { WidgetsModule } from '../../../app/uiux/widgets/widgets.module';
-import { CORE_CONFIG } from '../../../app/core/token/core.config';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { TextComponent } from '@uiux/widgets/text/text.component';
+import { CORE_CONFIG } from '@core/token/core.config';
+import { ShareModule } from '@share/share.module';
+import { CardComponent } from '@uiux/widgets/card/card.component';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { HttpClientModule } from '@angular/common/http';
+import { NgxWebstorageModule } from 'ngx-webstorage';
+import { API_URL, apiUrlFactory } from '@core/token/token-providers';
+import { RouterTestingModule } from '@angular/router/testing';
 export default {
-  title: '基础/卡片',
+  title: '基础/卡片/基础',
   component: CardComponent,
   decorators: [
     moduleMetadata({
@@ -23,12 +27,20 @@ export default {
         ShareModule,
         WidgetsModule,
         BrowserAnimationsModule,
+        NgxWebstorageModule.forRoot(),
+        RouterTestingModule,
         MatDialogModule,
+        HttpClientModule,
       ],
       providers: [
         {
           provide: CORE_CONFIG,
           useValue: {},
+        },
+        {
+          provide: API_URL,
+          useFactory: apiUrlFactory,
+          deps: [],
         },
       ],
     }),
@@ -43,9 +55,9 @@ const Template: Story = (args) => ({
     ...args,
   },
 });
-export const Default = Template.bind({});
-Default.storyName = '无边框、无阴影';
-Default.args = {
+export const Base = Template.bind({});
+Base.storyName = '无边框、无阴影';
+Base.args = {
   content: {
     title: '高性能',
     subTitle: 'High Performance',
@@ -61,6 +73,60 @@ Default.args = {
         src: '/assets/images/cases/porto1.jpg',
         alt: 'alt',
       },
+    },
+  },
+};
+
+export const Avatar = Template.bind({});
+Avatar.storyName = '头像及幻灯片';
+Avatar.args = {
+  content: {
+    subTitle: '2022/03/04',
+    avatar: {
+      src: '/assets/images/showcase/weather.png',
+      alt: '',
+    },
+    carousel: {
+      params: {
+        slidesPerView: 1,
+        navigation: false,
+        autoplay: {
+          delay: 5000,
+        },
+        breakpoints: null,
+      },
+      elements: [
+        {
+          type: 'feature-box',
+          hoverIcon: true,
+          fullIcon: 'fullscreen',
+          openIcon: 'open_in_new',
+          link: '#',
+          ratios: 'media-4-3',
+          img: {
+            classes: 'object-fit',
+            src: '/assets/images/cases/porto1.jpg',
+            alt: 'lazyload',
+          },
+        },
+        {
+          type: 'feature-box',
+          hoverIcon: false,
+          fullIcon: 'fullscreen',
+          openIcon: 'open_in_new',
+          link: '#',
+          ratios: 'media-4-3',
+          img: {
+            classes: 'object-fit',
+            src: '/assets/images/cases/porto2.jpg',
+            alt: 'lazyload',
+          },
+        },
+      ],
+    },
+    link: {
+      href: '/node/1',
+      label: '高性能',
     },
   },
 };

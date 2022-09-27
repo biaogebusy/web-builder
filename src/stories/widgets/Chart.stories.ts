@@ -1,13 +1,13 @@
-import { SafeHtmlPipe } from '../../app/core/pipe/safe-html.pipe';
-import { ShareModule } from '../../app/share/share.module';
+import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
+import { ShareModule } from '@share/share.module';
 import {
   moduleMetadata,
   componentWrapperDecorator,
   Meta,
   Story,
 } from '@storybook/angular';
-import { WidgetsModule } from '../../app/uiux/widgets/widgets.module';
 import { ChartComponent } from '@uiux/widgets/chart/chart.component';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
 
 export default {
   title: '基础/图表',

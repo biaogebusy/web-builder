@@ -1,12 +1,11 @@
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { SafeHtmlPipe } from '../../app/core/pipe/safe-html.pipe';
-import { CORE_CONFIG } from '../../app/core/token/core.config';
-import { ShareModule } from '../../app/share/share.module';
+import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
+import { CORE_CONFIG } from '@core/token/core.config';
+import { ShareModule } from '@share/share.module';
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { SwiperComponent } from '../../app/uiux/widgets/swiper/swiper.component';
-import { WidgetsModule } from '../../app/uiux/widgets/widgets.module';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { SwiperComponent } from 'ngx-swiper-wrapper';
 
 export default {
   title: '基础/Swiper',
@@ -57,7 +56,7 @@ Base.args = {
         title: '高性能',
         subTitle: 'High Performance',
         classes: 'card-no-shadow',
-        body: '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
+        body: '；',
         feature: {
           fullIcon: 'fullscreen',
           openIcon: 'open_in_new',
@@ -104,7 +103,7 @@ Base.args = {
         title: '多语言',
         subTitle: 'Leader in Multilingual',
         classes: 'card-no-shadow',
-        body: 'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程； ',
+        body: 'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程；',
       },
       {
         type: 'card',

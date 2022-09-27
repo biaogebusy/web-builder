@@ -1,14 +1,14 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { moduleMetadata, Meta } from '@storybook/angular';
-import { Action1v1Component } from '../../../app/uiux/combs/action/action1v1/action1v1.component';
 import { Story } from '@storybook/angular/types-6-0';
 import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
 import { CORE_CONFIG } from '@core/token/core.config';
-import { CombsModule } from '../../../app/uiux/combs/combs.module';
 import { HttpClientModule } from '@angular/common/http';
 import { apiUrlFactory, API_URL } from '@core/token/token-providers';
 import { NgxWebstorageModule } from 'ngx-webstorage';
+import { Action1v1Component } from '@uiux/combs/action/action1v1/action1v1.component';
+import { CombsModule } from '@uiux/combs/combs.module';
 export default {
   title: '组件/引导/Action 1v1',
   component: Action1v1Component,

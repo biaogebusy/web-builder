@@ -8,12 +8,12 @@ import {
 import { Story } from '@storybook/angular/types-6-0';
 import { CORE_CONFIG } from '@core/token/core.config';
 import { HttpClientModule } from '@angular/common/http';
-import { WidgetsModule } from '../../../app/uiux/widgets/widgets.module';
 import { NgxWebstorageModule } from 'ngx-webstorage';
-import { ShareModule } from '../../../app/share/share.module';
 import { SwiperModule } from 'ngx-swiper-wrapper';
 import { Showcase1v1Component } from '@uiux/combs/showcase/showcase1v1/showcase1v1.component';
 import { apiUrlFactory, API_URL } from '@core/token/token-providers';
+import { ShareModule } from '@share/share.module';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
 export default {
   title: '组件/展示/1v2',
   component: Showcase1v1Component,
@@ -56,12 +56,12 @@ Default.args = {
   content: {
     type: 'showcase-1v1',
     title: {
-      label: 'Showcase 1 v2',
+      label: '你将来喜欢 Drupal 的理由',
       style: 'style-v2',
     },
     subTitle: {
       spacer: 'none',
-      body: '<p class="text-center">At vero eos et accusam et justo duo dolores et ea rebum. <br>Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p><br>',
+      body: '<p class="text-center">Drupal 已经超越了传统的 Web概念，可以通过不同的渠道部署你的数据内容，从一个数据中心点到各个应用，从简单到复杂。</p><br>',
     },
     bg: {
       classes: 'bg-shadow bg-fill-width',
@@ -76,10 +76,10 @@ Default.args = {
         style: 'style-v3 use-image',
         title: {
           href: '#',
-          label: 'SUPER CODING',
+          label: '高性能',
         },
         content:
-          'There are many variations of demo text passed sages of Lorem Ipsum available the majority.',
+          '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
         more: {
           href: '#',
           label: '+',
@@ -93,10 +93,9 @@ Default.args = {
         style: 'style-v3 use-image',
         title: {
           href: '#',
-          label: 'BEST USER INTERFACE',
+          label: '易用的编辑器',
         },
-        content:
-          'There are many variations of demo text passed sages of Lorem Ipsum available the majority.',
+        content: '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作；',
         more: {
           href: '#',
           label: '+',
@@ -110,10 +109,9 @@ Default.args = {
         style: 'style-v3 use-image',
         title: {
           href: '#',
-          label: 'UNIQUE DESIGN',
+          label: '多语言',
         },
-        content:
-          'There are many variations of demo text passed sages of Lorem Ipsum available the majority.',
+        content: 'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程； ',
         more: {
           href: '#',
           label: '+',
@@ -127,10 +125,9 @@ Default.args = {
         style: 'style-v3 use-image',
         title: {
           href: '#',
-          label: 'EASY TO CUSTOMIZE',
+          label: '更有弹性',
         },
-        content:
-          'There are many variations of demo text passed sages of Lorem Ipsum available the majority.',
+        content: '无论是一个还是多个站点，Drupal 总是可以游刃有余的构建；',
         more: {
           href: '#',
           label: '+',

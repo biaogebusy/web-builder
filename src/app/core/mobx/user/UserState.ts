@@ -62,6 +62,10 @@ export class UserState {
 
   @computed
   get authenticated(): boolean {
+    // for storybook
+    if (window.location.host === 'localhost:6006') {
+      return true;
+    }
     return !!this.user.current_user.uid;
   }
 

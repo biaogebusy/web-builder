@@ -4,11 +4,11 @@ import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { CORE_CONFIG } from '@core/token/core.config';
 import { HttpClientModule } from '@angular/common/http';
-import { WidgetsModule } from '../../../app/uiux/widgets/widgets.module';
-import { FullCalendarComponent } from '../../../app/uiux/combs/calendar/full-calendar/full-calendar.component';
 import { NgxWebstorageModule } from 'ngx-webstorage';
-import { ShareModule } from '../../../app/share/share.module';
 import { apiUrlFactory, API_URL } from '@core/token/token-providers';
+import { FullCalendarComponent } from '@fullcalendar/angular';
+import { ShareModule } from '@share/share.module';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
 export default {
   title: '特色组件/日历/Full calendar',
   component: FullCalendarComponent,

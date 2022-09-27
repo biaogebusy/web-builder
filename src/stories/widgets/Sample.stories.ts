@@ -1,15 +1,11 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { SafeHtmlPipe } from '../../app/core/pipe/safe-html.pipe';
-import { CORE_CONFIG } from '../../app/core/token/core.config';
-import { ShareModule } from '../../app/share/share.module';
 import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { WidgetsModule } from '../../app/uiux/widgets/widgets.module';
 import { API_URL, apiUrlFactory } from '@core/token/token-providers';
 import { APP_INITIALIZER, Inject } from '@angular/core';
 import { AppState } from '@core/mobx/AppState';
@@ -19,6 +15,10 @@ import { NgxWebstorageModule } from 'ngx-webstorage';
 import { TextComponent } from '@uiux/widgets/text/text.component';
 import { TitleComponent } from '@uiux/widgets/title/title.component';
 import * as TextStories from './base/Text.stories';
+import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
+import { CORE_CONFIG } from '@core/token/core.config';
+import { ShareModule } from '@share/share.module';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
 
 export default {
   title: '特色组件/示例 Sample',

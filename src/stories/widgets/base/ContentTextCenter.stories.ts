@@ -34,9 +34,9 @@ const Template: Story = (args) => ({
     ...args,
   },
 });
-export const Default = Template.bind({});
+export const Base = Template.bind({});
 
-Default.args = {
+Base.args = {
   content: {
     width: '25',
     ratios: 'media-140',

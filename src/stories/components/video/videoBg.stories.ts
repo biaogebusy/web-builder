@@ -8,11 +8,11 @@ import {
 import { Story } from '@storybook/angular/types-6-0';
 import { CORE_CONFIG } from '@core/token/core.config';
 import { HttpClientModule } from '@angular/common/http';
-import { WidgetsModule } from '../../../app/uiux/widgets/widgets.module';
 import { NgxWebstorageModule } from 'ngx-webstorage';
-import { ShareModule } from '../../../app/share/share.module';
 import { VideoBgComponent } from '@uiux/combs/video/video-bg/video-bg.component';
 import { DynamicCombsModule } from '@uiux/combs/dynamic-combs/dynamic-combs.module';
+import { ShareModule } from '@share/share.module';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
 export default {
   title: '组件/视频/背景视频',
   component: VideoBgComponent,

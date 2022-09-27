@@ -4,9 +4,7 @@ import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { CORE_CONFIG } from '@core/token/core.config';
 import { HttpClientModule } from '@angular/common/http';
-import { WidgetsModule } from '../../../app/uiux/widgets/widgets.module';
 import { NgxWebstorageModule } from 'ngx-webstorage';
-import { ShareModule } from '../../../app/share/share.module';
 import { UserCenterComponent } from '@uiux/combs/profile/user-center/user-center.component';
 import { Profile1v1Component } from '@uiux/combs/profile/profile1v1/profile1v1.component';
 import { DynamicCombsModule } from '@uiux/combs/dynamic-combs/dynamic-combs.module';
@@ -15,8 +13,10 @@ import { apiUrlFactory, API_URL } from '@core/token/token-providers';
 import { APP_INITIALIZER, Inject } from '@angular/core';
 import { AppState } from '@core/mobx/AppState';
 import { initConfig } from 'src/app/app.module';
+import { ShareModule } from '@share/share.module';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
 export default {
-  title: '组件/个人资料/用户中心',
+  title: '组件/用户/用户中心',
   component: UserCenterComponent,
   decorators: [
     moduleMetadata({

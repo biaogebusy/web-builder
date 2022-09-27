@@ -8,11 +8,12 @@ import {
 import { Story } from '@storybook/angular/types-6-0';
 import { CORE_CONFIG } from '@core/token/core.config';
 import { HttpClientModule } from '@angular/common/http';
-import { WidgetsModule } from '../../../app/uiux/widgets/widgets.module';
 import { NgxWebstorageModule } from 'ngx-webstorage';
-import { ShareModule } from '../../../app/share/share.module';
 import { Showcase2v6Component } from '@uiux/combs/showcase/showcase2v6/showcase2v6.component';
 import { API_URL, apiUrlFactory } from '@core/token/token-providers';
+import { ShareModule } from '@share/share.module';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import * as Card1v2Stories from 'src/stories/widgets/card/Card1v2.stories';
 export default {
   title: '组件/展示/2v6',
   component: Showcase2v6Component,
@@ -49,7 +50,7 @@ const Template: Story = (args) => ({
   },
 });
 export const Default = Template.bind({});
-
+const card1v2: any = Card1v2Stories.Base.args;
 Default.args = {
   content: {
     text: {
@@ -66,31 +67,16 @@ Default.args = {
     elements: [
       {
         type: 'card-1v2',
-        link: {
-          href: '#',
-          label: 'Sustainability Toolkit: What GCs Need to Know',
-        },
-        subTitle: 'TOOLKIT',
-        img: {
-          href: '#',
-          src: '/assets/images/showcase/card-1v2-1.jpg',
-          alt: 'alt',
-        },
-        bg: {
-          classes: 'object-fit',
-          img: {
-            hostClasses: '',
-            src: '/assets/images/showcase/pattern-01.png',
-          },
-        },
+        ...card1v2.content,
       },
       {
         type: 'card-1v2',
         link: {
           href: '#',
-          label: 'Global Problem Solving from Covington',
+          label:
+            '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快',
         },
-        subTitle: 'CASE STUDIES',
+        subTitle: '高性能',
         img: {
           href: '#',
           src: '/assets/images/showcase/card-1v2-2.jpg',

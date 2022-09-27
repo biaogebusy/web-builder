@@ -9,15 +9,15 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { MediaObjectComponent } from '../../../app/uiux/widgets/media/media-object/media-object.component';
+import { MediaListComponent } from '../../../app/uiux/widgets/media/media-list/media-list.component';
 import { WidgetsModule } from '../../../app/uiux/widgets/widgets.module';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { API_URL, apiUrlFactory } from '@core/token/token-providers';
 
 export default {
-  title: '基础/媒体/媒体对象',
-  component: MediaObjectComponent,
+  title: '基础/媒体/媒体列表',
+  component: MediaListComponent,
   decorators: [
     moduleMetadata({
       declarations: [],
@@ -54,20 +54,56 @@ const Template: Story = (args) => ({
     ...args,
   },
 });
-export const Default = Template.bind({});
+export const Base = Template.bind({});
 
-Default.args = {
+Base.args = {
   content: {
-    icon: {
-      name: 'gavel',
-    },
-    meta: '2022/08',
-    link: {
-      label: '你应该了解的 ANGULAR 最佳实践',
-      href: '#',
-    },
-    subTitle: 'Johnson',
-    content:
-      '遵循最佳实践可以让你的 Angular 应用保持性能优越，使团队的代码风格一致，以下代码摘自南宁IT派官网项目。 把默认的变更检测设置为 OnPush Angular 默认变更检测是 Defualt，只要在组件中有任意一个值发生改变或者 Dom中有事件的更新都会触发整个应用自上而下的变更...',
+    title: '热门文章',
+    elements: [
+      {
+        link: {
+          label: '使用 DevTools 对 Angular 前端应用性能分析优化',
+          href: '/node/417',
+        },
+        img: {
+          src: '../assets/images/showcase/blog1-large.jpeg',
+          alt: '',
+        },
+        changed: '2022/01/08',
+      },
+      {
+        link: {
+          label: '使用 takeUntil 操作符管理 Angular 组件的订阅',
+          href: '/node/415',
+        },
+        img: {
+          src: '../assets/images/showcase/blog2-large.jpeg',
+          alt: '',
+        },
+        changed: '2022/01/03',
+      },
+      {
+        link: {
+          label: '你应该了解的 Angular 最佳实践',
+          href: '/node/414',
+        },
+        img: {
+          src: '../assets/images/showcase/blog3-large.jpeg',
+          alt: '',
+        },
+        changed: '2022/01/03',
+      },
+      {
+        link: {
+          label: 'Angular 5 rxjs 5.5.2 多个 http 并行 forkJoin 请求',
+          href: '/node/387',
+        },
+        img: {
+          src: '../assets/images/showcase/blog4-large.jpeg',
+          alt: '',
+        },
+        changed: '2021/05/14',
+      },
+    ],
   },
 };

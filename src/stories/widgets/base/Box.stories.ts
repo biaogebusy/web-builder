@@ -145,3 +145,12 @@ StyleV9.args = {
     style: 'style-v9',
   },
 };
+
+export const StyleV10 = Template.bind({});
+
+StyleV10.args = {
+  content: {
+    ...StyleV1.args.content,
+    style: 'style-v10',
+  },
+};

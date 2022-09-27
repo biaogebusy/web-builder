@@ -1,14 +1,14 @@
-import { ShareModule } from '../../app/share/share.module';
+import { ShareModule } from '@share/share.module';
 import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { WidgetsModule } from '../../app/uiux/widgets/widgets.module';
-import { ChipListComponent } from '../../app/uiux/widgets/chip-list/chip-list.component';
+import { ChipListComponent } from '@uiux/widgets/chip-list/chip-list.component';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
 export default {
-  title: '基础/胶囊',
+  title: '基础/胶囊按钮',
   component: ChipListComponent,
   decorators: [
     moduleMetadata({

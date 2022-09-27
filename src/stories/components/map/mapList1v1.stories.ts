@@ -6,17 +6,20 @@ import { CORE_CONFIG } from '@core/token/core.config';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { SwiperModule } from 'ngx-swiper-wrapper';
-import { LocationComponent } from '@uiux/combs/map/location/location.component';
 import { API_URL, apiUrlFactory } from '@core/token/token-providers';
 import { APP_INITIALIZER, Inject } from '@angular/core';
 import { AppState } from '@core/mobx/AppState';
 import { initConfig } from 'src/app/app.module';
 import { AmapService } from '@core/service/amap.service';
 import { ShareModule } from '@share/share.module';
+import { MapListV1Component } from '@uiux/combs/map/map-list-v1/map-list-v1.component';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import * as Card1v3Stories from 'src/stories/widgets/card/Card1v3.stories';
+import * as MediaObjectStories from 'src/stories/widgets/media/MediaObject.stories';
+
 export default {
-  title: '组件/地图/位置',
-  component: LocationComponent,
+  title: '组件/地图/位置列表 1v1',
+  component: MapListV1Component,
   decorators: [
     moduleMetadata({
       declarations: [],
@@ -52,7 +55,7 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: `位置信息常用于展示指定位置的地理位置，方便用户查看。`,
+        component: `通过点击左侧的位置列表可定位到具体的地理位置。`,
       },
     },
   },
@@ -63,29 +66,45 @@ const Template: Story = (args) => ({
     ...args,
   },
 });
-export const Default = Template.bind({});
-
-Default.args = {
+export const Base = Template.bind({});
+const card1v3: any = Card1v3Stories.Base.args;
+Base.args = {
   content: {
     title: {
-      label: 'My Location',
-      style: 'banner-title',
-      classes: 'm-bottom-0',
+      label: '良庆区人民法院',
+      style: 'style-v4',
     },
-    style: {
-      height: '500px',
-    },
-    city: '南宁市',
-    params: {
-      zoomEnable: false,
-      draggable: false,
-    },
-    elements: [
+    meta: [
       {
-        company: {
-          setCenter: true,
-          address: '高新区8号创客城',
-        },
+        label: '地址',
+        value: '良庆区玉洞街道玉洞大道8-1号',
+      },
+      {
+        label: '电话',
+        value: '0771-4509585',
+      },
+    ],
+    map: {
+      citi: '南宁市',
+      elements: card1v3.content.elements,
+    },
+  },
+};
+
+export const Sidebar = Template.bind({});
+const mediaObject: any = MediaObjectStories.Base.args;
+Sidebar.args = {
+  content: {
+    ...Base.args.content,
+    sidebarRight: [
+      {
+        type: 'title',
+        label: '关联案件',
+        style: 'style-v4',
+      },
+      {
+        type: 'media-object-group',
+        elements: [mediaObject.content],
       },
     ],
   },

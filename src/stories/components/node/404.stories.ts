@@ -8,12 +8,11 @@ import {
 import { Story } from '@storybook/angular/types-6-0';
 import { CORE_CONFIG } from '@core/token/core.config';
 import { HttpClientModule } from '@angular/common/http';
-import { WidgetsModule } from '../../../app/uiux/widgets/widgets.module';
 import { NgxWebstorageModule } from 'ngx-webstorage';
-import { ShareModule } from '../../../app/share/share.module';
-import { ArticleComponent } from '@uiux/combs/node/article/article.component';
 import { OtherModule } from '@uiux/combs/other/other.module';
 import { NotfoundComponent } from '@uiux/combs/other/notfound/notfound.component';
+import { ShareModule } from '@share/share.module';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
 export default {
   title: '组件/文章/404',
   component: NotfoundComponent,
