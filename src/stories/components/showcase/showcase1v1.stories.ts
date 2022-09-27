@@ -15,7 +15,7 @@ import { SwiperModule } from 'ngx-swiper-wrapper';
 import { Showcase1v1Component } from '@uiux/combs/showcase/showcase1v1/showcase1v1.component';
 import { apiUrlFactory, API_URL } from '@core/token/token-providers';
 export default {
-  title: '组件/showcase/1v1',
+  title: '组件/展示/1v1',
   component: Showcase1v1Component,
   decorators: [
     moduleMetadata({
@@ -71,12 +71,13 @@ Default.args = {
         style: 'style-v9',
         title: {
           href: '#',
-          label: 'Best Financial Advice',
+          label: '高性能',
         },
-        content: 'The most well-known which is said to have originated',
+        content:
+          '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
         more: {
           href: '#',
-          label: 'Read More',
+          label: '更多',
         },
       },
       {
@@ -86,12 +87,12 @@ Default.args = {
         style: 'style-v9',
         title: {
           href: '#',
-          label: 'Authorised Finance Brand',
+          label: '易用的编辑器',
         },
-        content: 'The most well-known which is said to have originated',
+        content: '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作；',
         more: {
           href: '#',
-          label: 'Read More',
+          label: '更多',
         },
       },
       {
@@ -101,12 +102,12 @@ Default.args = {
         style: 'style-v9',
         title: {
           href: '#',
-          label: 'Compehensive Advices',
+          label: '多语言',
         },
-        content: 'The most well-known which is said to have originated',
+        content: 'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程； ',
         more: {
           href: '#',
-          label: 'Read More',
+          label: '更多',
         },
       },
       {
@@ -116,12 +117,12 @@ Default.args = {
         style: 'style-v9',
         title: {
           href: '#',
-          label: 'Best Tax Advantages',
+          label: '更有弹性',
         },
-        content: 'The most well-known which is said to have originated',
+        content: '无论是一个还是多个站点，Drupal 总是可以游刃有余的构建；',
         more: {
           href: '#',
-          label: 'Read More',
+          label: '更多',
         },
       },
     ],

@@ -10,7 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { apiUrlFactory, API_URL } from '@core/token/token-providers';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 export default {
-  title: '组件/Action/Action 1v1',
+  title: '组件/引导/Action 1v1',
   component: Action1v1Component,
   decorators: [
     moduleMetadata({

@@ -18,7 +18,7 @@ import { API_URL, apiUrlFactory } from '@core/token/token-providers';
 import { initConfig } from 'src/app/app.module';
 import { Simple } from '../../widgets/ContactUs.stories';
 export default {
-  title: '组件/showcase/1v3',
+  title: '组件/展示/1v3',
   component: Showcase1v3Component,
   decorators: [
     moduleMetadata({
