@@ -20,13 +20,16 @@ import { Angulartics2Module } from 'angulartics2';
 import { CORE_CONFIG } from '@core/token/core.config';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
-import { apiUrlFactory, API_URL } from '@core/token/token-providers';
+import { API_URL } from '@core/token/token-providers';
 import { ToastrModule } from 'ngx-toastr';
 import { UiuxModule } from '@uiux/uiux.module';
+import { apiUrlFactory } from '@core/factory/factory';
 registerLocaleData(zhHans, 'zh-hans');
+
 export function initConfig(appState: AppState, coreConfig: object) {
   return () => appState.loadConfig(coreConfig);
 }
+
 @NgModule({
   declarations: [AppComponent],
   imports: [

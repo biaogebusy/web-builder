@@ -1,5 +1,11 @@
 {
   "title": "Hero 2v3",
+  "config": {
+    "headerMode": {
+      "transparent": true,
+      "style": "light"
+    }
+  },
   "body": [{
     "type": "hero-2v3",
     "id": "xxx",

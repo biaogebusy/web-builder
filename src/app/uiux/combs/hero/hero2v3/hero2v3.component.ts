@@ -4,12 +4,16 @@ import {
   OnInit,
   ChangeDetectorRef,
   ChangeDetectionStrategy,
+  Inject,
 } from '@angular/core';
 import { ScreenState } from '@core/mobx/screen/ScreenState';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { AppState } from '@core/mobx/AppState';
 import { ScreenService } from '@core/service/screen.service';
 import { UserState } from '@core/mobx/user/UserState';
+import { PAGE_CONTENT } from '@core/token/token-providers';
+import { IPage } from '@core/mobx/IAppConfig';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-hero2v3',
@@ -25,7 +29,8 @@ export class Hero2v3Component extends BaseComponent implements OnInit {
     public screen: ScreenState,
     private screenService: ScreenService,
     private cd: ChangeDetectorRef,
-    public userState: UserState
+    public userState: UserState,
+    @Inject(PAGE_CONTENT) public pageContent$: Observable<IPage>
   ) {
     super(userState);
   }
