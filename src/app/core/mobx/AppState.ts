@@ -48,22 +48,6 @@ export class AppState {
     return this.state && this.state.defTheme;
   }
 
-  @computed get meta(): any {
-    return this.state.page && this.state.page.meta;
-  }
-
-  @computed get pageConfig(): any {
-    return this.state.page && this.state.page.config;
-  }
-
-  @computed get title(): any {
-    return this.state.page && this.state.page.title;
-  }
-
-  @computed get content(): any[] {
-    return this.state.page && this.state.page.body;
-  }
-
   get version(): string {
     return version;
   }
