@@ -7,7 +7,7 @@ import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
-import { CORE_CONFIG } from '@core/token/core.config';
+import { CORE_CONFIG } from '@core/token/token-providers';
 import { API_URL, apiUrlFactory } from '@core/token/token-providers';
 import { Hero2v3Component } from '@uiux/combs/hero/hero2v3/hero2v3.component';
 

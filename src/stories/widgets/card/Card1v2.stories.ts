@@ -8,7 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { Card1v2Component } from '@uiux/widgets/card/card1v2/card1v2.component';
-import { CORE_CONFIG } from '@core/token/core.config';
+import { CORE_CONFIG } from '@core/token/token-providers';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
 export default {

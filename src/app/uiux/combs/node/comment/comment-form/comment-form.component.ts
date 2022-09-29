@@ -19,7 +19,7 @@ import type { IBaseNode, ICommentParams } from '@core/interface/node/INode';
 import { merge } from 'lodash-es';
 import { ContentState } from '@core/mobx/ContentState';
 import { QuillModule } from 'ngx-quill';
-import { CORE_CONFIG } from '@core/token/core.config';
+import { CORE_CONFIG } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/mobx/IAppConfig';
 
 @Component({

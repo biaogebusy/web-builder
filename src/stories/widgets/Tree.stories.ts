@@ -2,7 +2,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TreeComponent } from '@circlon/angular-tree-component';
 import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
-import { CORE_CONFIG } from '@core/token/core.config';
+import { CORE_CONFIG } from '@core/token/token-providers';
 import { ShareModule } from '@share/share.module';
 import {
   moduleMetadata,

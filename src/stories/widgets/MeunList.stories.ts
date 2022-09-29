@@ -6,7 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { API_URL, apiUrlFactory } from '@core/token/token-providers';
 import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
-import { CORE_CONFIG } from '@core/token/core.config';
+import { CORE_CONFIG } from '@core/token/token-providers';
 import { ShareModule } from '@share/share.module';
 import { MenuListComponent } from '@uiux/widgets/menu-list/menu-list.component';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';

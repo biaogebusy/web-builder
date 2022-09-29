@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { TokenUser, IUser } from '../mobx/user/IUser';
 import { LocalStorageService } from 'ngx-webstorage';
 import { CryptoJSService } from './crypto-js.service';
-import { CORE_CONFIG } from '@core/token/core.config';
+import { CORE_CONFIG } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/mobx/IAppConfig';
 import { environment } from 'src/environments/environment';
 import { API_URL } from '@core/token/token-providers';

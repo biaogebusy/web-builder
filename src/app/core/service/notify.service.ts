@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import type { ICoreConfig } from '@core/mobx/IAppConfig';
-import { CORE_CONFIG } from '@core/token/core.config';
+import { CORE_CONFIG } from '@core/token/token-providers';
 import { forkJoin, interval, Observable, of } from 'rxjs';
 import { NodeService } from '@core/service/node.service';
 import { catchError, take, switchMap } from 'rxjs/operators';

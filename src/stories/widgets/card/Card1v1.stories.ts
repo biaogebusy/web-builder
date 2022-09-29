@@ -7,7 +7,7 @@ import { Story } from '@storybook/angular/types-6-0';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
-import { CORE_CONFIG } from '@core/token/core.config';
+import { CORE_CONFIG } from '@core/token/token-providers';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { Card1v1Component } from '@uiux/widgets/card/card1v1/card1v1.component';

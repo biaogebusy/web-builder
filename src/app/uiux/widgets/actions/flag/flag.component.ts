@@ -15,7 +15,7 @@ import { ScreenService } from '@core/service/screen.service';
 import { Subject } from 'rxjs';
 import type { IFlag } from '@core/interface/widgets/IFlag';
 import { UtilitiesService } from '../../../../core/service/utilities.service';
-import { CORE_CONFIG } from '@core/token/core.config';
+import { CORE_CONFIG } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/mobx/IAppConfig';
 
 @Component({

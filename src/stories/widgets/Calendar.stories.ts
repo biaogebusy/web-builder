@@ -5,7 +5,7 @@ import {
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { RouterTestingModule } from '@angular/router/testing';
-import { CORE_CONFIG } from '@core/token/core.config';
+import { CORE_CONFIG } from '@core/token/token-providers';
 import { CalendarComponent } from '@uiux/widgets/date/calendar/calendar.component';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 export default {

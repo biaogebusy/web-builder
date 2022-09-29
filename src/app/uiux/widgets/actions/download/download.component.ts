@@ -15,7 +15,7 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject, Observable } from 'rxjs';
 import { NodeService } from '@core/service/node.service';
 import { UserState } from '@core/mobx/user/UserState';
-import { CORE_CONFIG } from '@core/token/core.config';
+import { CORE_CONFIG } from '@core/token/token-providers';
 import type { ICoreConfig, IPage } from '@core/mobx/IAppConfig';
 import { PAGE_CONTENT } from '@core/token/token-providers';
 

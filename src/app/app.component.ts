@@ -7,7 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ScreenService } from '@core/service/screen.service';
 import { ConfigService } from '@core/service/config.service';
 import { NavigationService } from '@core/service/navigation.service';
-import { CORE_CONFIG } from '@core/token/core.config';
+import { CORE_CONFIG } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/mobx/IAppConfig';
 @Component({
   selector: 'app-root',

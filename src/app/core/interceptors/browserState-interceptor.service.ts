@@ -9,7 +9,7 @@ import { Inject, Injectable } from '@angular/core';
 import { makeStateKey, TransferState } from '@angular/platform-browser';
 import type { ICoreConfig } from '@core/mobx/IAppConfig';
 import { ApiService } from '@core/service/api.service';
-import { CORE_CONFIG } from '@core/token/core.config';
+import { CORE_CONFIG } from '@core/token/token-providers';
 import { Observable, of } from 'rxjs';
 
 @Injectable({

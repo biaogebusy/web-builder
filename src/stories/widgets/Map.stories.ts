@@ -14,7 +14,7 @@ import { initConfig } from 'src/app/app.module';
 import { AMapState } from '@core/mobx/amap/AMapState';
 import { AppState } from '@core/mobx/AppState';
 import { AmapService } from '@core/service/amap.service';
-import { CORE_CONFIG } from '@core/token/core.config';
+import { CORE_CONFIG } from '@core/token/token-providers';
 import { ShareModule } from '@share/share.module';
 import { MapComponent } from '@uiux/widgets/map/map.component';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';

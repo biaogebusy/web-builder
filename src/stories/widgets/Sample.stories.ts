@@ -16,7 +16,7 @@ import { TextComponent } from '@uiux/widgets/text/text.component';
 import { TitleComponent } from '@uiux/widgets/title/title.component';
 import * as TextStories from './base/Text.stories';
 import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
-import { CORE_CONFIG } from '@core/token/core.config';
+import { CORE_CONFIG } from '@core/token/token-providers';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 

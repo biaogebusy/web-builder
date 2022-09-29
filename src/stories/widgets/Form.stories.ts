@@ -15,7 +15,7 @@ import { NgxWebstorageModule } from 'ngx-webstorage';
 import { FormlyComponent } from '@uiux/widgets/form/formly/formly.component';
 import { FormGroup } from '@angular/forms';
 import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
-import { CORE_CONFIG } from '@core/token/core.config';
+import { CORE_CONFIG } from '@core/token/token-providers';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 

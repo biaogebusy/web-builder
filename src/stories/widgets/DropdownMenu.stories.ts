@@ -9,7 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { API_URL, apiUrlFactory } from '@core/token/token-providers';
-import { CORE_CONFIG } from '@core/token/core.config';
+import { CORE_CONFIG } from '@core/token/token-providers';
 import { DropdownMenuComponent } from '@uiux/widgets/dropdown-menu/dropdown-menu.component';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 export default {

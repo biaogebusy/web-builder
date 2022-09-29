@@ -14,7 +14,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ScreenService } from '@core/service/screen.service';
 import { ContentState } from '@core/mobx/ContentState';
-import { CORE_CONFIG } from '@core/token/core.config';
+import { CORE_CONFIG } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/mobx/IAppConfig';
 
 @Component({

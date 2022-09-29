@@ -1,9 +1,9 @@
 import { InjectionToken } from '@angular/core';
-import { IPage } from '@core/mobx/IAppConfig';
+import { ICoreConfig, IPage } from '@core/mobx/IAppConfig';
 import { Observable } from 'rxjs';
 
 export const API_URL = new InjectionToken<string>('api url');
-
+export const CORE_CONFIG = new InjectionToken<ICoreConfig>('core config');
 export const PAGE_CONTENT = new InjectionToken<Observable<IPage | object>>(
   'page_content'
 );

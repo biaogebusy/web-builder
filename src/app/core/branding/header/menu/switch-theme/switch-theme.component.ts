@@ -5,7 +5,7 @@ import {
   OnInit,
 } from '@angular/core';
 import type { ICoreConfig } from '@core/mobx/IAppConfig';
-import { CORE_CONFIG } from '@core/token/core.config';
+import { CORE_CONFIG } from '@core/token/token-providers';
 import { DOCUMENT } from '@angular/common';
 import { ConfigService } from '@core/service/config.service';
 import { LocalStorageService } from 'ngx-webstorage';

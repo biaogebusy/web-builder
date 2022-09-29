@@ -6,7 +6,7 @@ import {
 } from '@storybook/angular';
 import { MatIconModule } from '@angular/material/icon';
 import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
-import { CORE_CONFIG } from '@core/token/core.config';
+import { CORE_CONFIG } from '@core/token/token-providers';
 import { ShareModule } from '@share/share.module';
 import { ImgComponent } from '@uiux/widgets/img/img.component';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';

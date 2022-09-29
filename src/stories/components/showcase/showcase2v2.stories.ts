@@ -6,7 +6,7 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { CORE_CONFIG } from '@core/token/core.config';
+import { CORE_CONFIG } from '@core/token/token-providers';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { Showcase2v2Component } from '@uiux/combs/showcase/showcase2v2/showcase2v2.component';

@@ -10,7 +10,7 @@ import { UserState } from '@core/mobx/user/UserState';
 import type { IArticleAccess } from '@core/interface/node/IArticle';
 import type { ICommentContent } from '@core/interface/node/INode';
 import { formatDate } from '@angular/common';
-import { CORE_CONFIG } from '@core/token/core.config';
+import { CORE_CONFIG } from '@core/token/token-providers';
 import type { IApiUrl, ICoreConfig } from '@core/mobx/IAppConfig';
 import { environment } from '../../../environments/environment';
 import { API_URL } from '@core/token/token-providers';

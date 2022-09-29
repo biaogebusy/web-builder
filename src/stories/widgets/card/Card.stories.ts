@@ -8,7 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { TextComponent } from '@uiux/widgets/text/text.component';
-import { CORE_CONFIG } from '@core/token/core.config';
+import { CORE_CONFIG } from '@core/token/token-providers';
 import { ShareModule } from '@share/share.module';
 import { CardComponent } from '@uiux/widgets/card/card.component';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';

@@ -2,7 +2,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { CORE_CONFIG } from '@core/token/core.config';
+import { CORE_CONFIG } from '@core/token/token-providers';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { Carousel1v3Component } from '@uiux/combs/carousel/carousel1v3/carousel1v3.component';

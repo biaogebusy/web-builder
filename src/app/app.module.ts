@@ -16,7 +16,7 @@ import { BrandingModule } from '@core/branding/branding.module';
 import { AppComponent } from './app.component';
 import { httpInterceptorProviders } from '@core/interceptors';
 import { Angulartics2Module } from 'angulartics2';
-import { CORE_CONFIG } from '@core/token/core.config';
+import { CORE_CONFIG } from '@core/token/token-providers';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { API_URL, THEME } from '@core/token/token-providers';

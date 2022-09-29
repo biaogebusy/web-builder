@@ -27,7 +27,7 @@ import {
   distinctUntilChanged,
   startWith,
 } from 'rxjs/operators';
-import { CORE_CONFIG } from '@core/token/core.config';
+import { CORE_CONFIG } from '@core/token/token-providers';
 import type { ICoreConfig, IPage } from '@core/mobx/IAppConfig';
 import { PAGE_CONTENT } from '@core/token/token-providers';
 

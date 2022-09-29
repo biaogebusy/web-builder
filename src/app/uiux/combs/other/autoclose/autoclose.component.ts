@@ -6,7 +6,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { interval } from 'rxjs';
-import { CORE_CONFIG } from '@core/token/core.config';
+import { CORE_CONFIG } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/mobx/IAppConfig';
 
 @Component({
