@@ -13,8 +13,6 @@ import type {
   ICasePrams,
   ICommentContent,
 } from '@core/interface/node/INode';
-import { AppState } from '@core/mobx/AppState';
-import { FormState } from '@core/mobx/FormState';
 import { UserState } from '@core/mobx/user/UserState';
 import { FormService } from '@core/service/form.service';
 import { NodeService } from '@core/service/node.service';
@@ -30,7 +28,8 @@ import {
   startWith,
 } from 'rxjs/operators';
 import { CORE_CONFIG } from '@core/token/core.config';
-import type { ICoreConfig } from '@core/mobx/IAppConfig';
+import type { ICoreConfig, IPage } from '@core/mobx/IAppConfig';
+import { PAGE_CONTENT } from '@core/token/token-providers';
 
 @Component({
   selector: 'app-law-case',
@@ -43,27 +42,31 @@ export class LawCaseComponent
   implements OnInit, AfterViewInit
 {
   @Input() content: ICase;
+  uuid: string;
   comments$: Observable<ICommentContent[]>;
   initCommentContent: string;
   form: FormGroup;
   first = true;
   destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
-    public appState: AppState,
     public userState: UserState,
     public nodeService: NodeService,
     private cd: ChangeDetectorRef,
     private formService: FormService,
     private uti: UtilitiesService,
-    private formState: FormState,
     private screenService: ScreenService,
     public contentState: ContentState,
-    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig
+    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
+    @Inject(PAGE_CONTENT) public pageContent$: Observable<IPage>
   ) {
     super();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.pageContent$.subscribe((page) => {
+      this.uuid = page.config.node.uuid;
+    });
+  }
 
   ngAfterViewInit(): void {
     if (this.content?.form?.length) {
@@ -100,16 +103,15 @@ export class LawCaseComponent
   }
 
   updateNode(apiParams: any): void {
-    const uuid = this.appState.pageConfig.node.uuid;
     this.nodeService
-      .updateLawCase(apiParams, uuid, this.userState.csrfToken)
+      .updateLawCase(apiParams, this.uuid, this.userState.csrfToken)
       .subscribe((res) => {
         this.uti.openSnackbar('已更新！', '✓');
       });
   }
 
   getComments(timeStamp = 1): void {
-    const uuid = this.appState?.pageConfig?.node?.uuid;
+    const uuid = this.uuid;
     if (!this.coreConfig?.article?.comment?.enable || !uuid) {
       return;
     }
@@ -125,7 +127,7 @@ export class LawCaseComponent
     return {
       data: {
         type: 'node--case',
-        id: this.appState.pageConfig?.node?.uuid,
+        id: this.uuid,
         attributes: {
           transaction_level: value.transaction_level,
         },

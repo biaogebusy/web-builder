@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { observable } from 'mobx-angular';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { IPage } from './IAppConfig';
 @Injectable({
   providedIn: 'root',
 })
 export class ContentState {
-  @observable private content: any;
   public commentChange$ = new Subject();
   public commentQuote$ = new Subject();
+  public pageConfig$ = new BehaviorSubject<IPage | object | boolean>(false);
   constructor() {}
 }
