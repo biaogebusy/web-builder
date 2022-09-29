@@ -16,7 +16,7 @@ import { BrandingModule } from '@core/branding/branding.module';
 import { AppComponent } from './app.component';
 import { httpInterceptorProviders } from '@core/interceptors';
 import { Angulartics2Module } from 'angulartics2';
-import { CORE_CONFIG } from '@core/token/token-providers';
+import { BRANDING, CORE_CONFIG } from '@core/token/token-providers';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { API_URL, THEME } from '@core/token/token-providers';
@@ -24,6 +24,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { UiuxModule } from '@uiux/uiux.module';
 import {
   apiUrlFactory,
+  brandingFactory,
   coreConfigFactory,
   themeFactory,
 } from '@core/factory/factory';
@@ -60,6 +61,11 @@ import { ContentService } from '@core/service/content.service';
     {
       provide: CORE_CONFIG,
       useValue: {},
+    },
+    {
+      provide: BRANDING,
+      useFactory: brandingFactory,
+      deps: [ContentService],
     },
     {
       provide: THEME,

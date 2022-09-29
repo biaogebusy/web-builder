@@ -5,6 +5,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ContentState } from '@core/mobx/ContentState';
 import { LocalStorageService } from 'ngx-webstorage';
+import { IBranding } from '../mobx/IBranding';
 
 export const MODE = 'themeMode';
 
@@ -43,4 +44,10 @@ export function themeFactory(
     return localTheme;
   }
   return coreConfig.defaultTheme || 'light-theme';
+}
+
+export function brandingFactory(
+  contentService: ContentService
+): Observable<IBranding | object> {
+  return contentService.loadBranding();
 }

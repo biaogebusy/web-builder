@@ -11,9 +11,11 @@ import {
 } from '@angular/core';
 import { ScreenService } from '../../service/screen.service';
 import { ScreenState } from '../../mobx/screen/ScreenState';
-import { BrandingState } from '../../mobx/BrandingState';
 import { DOCUMENT } from '@angular/common';
 import { ContentState } from '@core/mobx/ContentState';
+import { BRANDING } from '@core/token/token-providers';
+import { Observable } from 'rxjs';
+import { IBranding } from '@core/mobx/IBranding';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -30,11 +32,11 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     public screenService: ScreenService,
     public screenState: ScreenState,
-    public branding: BrandingState,
     public screen: ScreenState,
     private cd: ChangeDetectorRef,
+    public contentState: ContentState,
     @Inject(DOCUMENT) private doc: Document,
-    public contentState: ContentState
+    @Inject(BRANDING) public branding$: Observable<IBranding>
   ) {}
 
   ngOnInit(): void {
@@ -46,9 +48,11 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       this.screenState.scroll$.subscribe(() => {
-        this.sticky = this.screenService.isElementOutTopViewport(
-          this.menu.nativeElement
-        );
+        if (this.menu) {
+          this.sticky = this.screenService.isElementOutTopViewport(
+            this.menu.nativeElement
+          );
+        }
         this.cd.detectChanges();
         this.listenSticky(this.sticky);
         if (this.headerMode?.transparent) {
@@ -82,15 +86,17 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   initBanner(): void {
-    const banner = this.branding.header.banner;
-    if (!banner) {
-      this.showBanner = false;
-    } else {
-      this.screenState.mqAlias$().subscribe((mq) => {
-        this.showBanner = mq.includes(banner.breakpoint || 'gt-md');
-        this.cd.detectChanges();
-      });
-    }
+    this.branding$.subscribe((branding) => {
+      const banner = branding.header.banner;
+      if (!banner) {
+        this.showBanner = false;
+      } else {
+        this.screenState.mqAlias$().subscribe((mq) => {
+          this.showBanner = mq.includes(banner.breakpoint || 'gt-md');
+          this.cd.detectChanges();
+        });
+      }
+    });
   }
 
   ngOnDestroy(): void {}

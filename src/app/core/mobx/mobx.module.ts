@@ -1,5 +1,4 @@
 import {
-  LOCALE_ID,
   ModuleWithProviders,
   NgModule,
   Optional,
@@ -8,9 +7,8 @@ import {
 import { CommonModule } from '@angular/common';
 import { MobxAngularModule } from 'mobx-angular';
 import { UserState } from './user/UserState';
-import { BrandingState } from './BrandingState';
 
-const states = [UserState, BrandingState];
+const states = [UserState];
 
 @NgModule({
   declarations: [],

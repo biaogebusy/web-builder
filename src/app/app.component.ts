@@ -2,13 +2,14 @@ import { Component, OnInit, AfterViewInit, Inject } from '@angular/core';
 import { UserState } from './core/mobx/user/UserState';
 import { ScreenState } from './core/mobx/screen/ScreenState';
 import { MatDrawer } from '@angular/material/sidenav';
-import { BrandingState } from './core/mobx/BrandingState';
 import { ActivatedRoute } from '@angular/router';
 import { ScreenService } from '@core/service/screen.service';
 import { ConfigService } from '@core/service/config.service';
 import { NavigationService } from '@core/service/navigation.service';
-import { CORE_CONFIG } from '@core/token/token-providers';
+import { CORE_CONFIG, BRANDING } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/mobx/IAppConfig';
+import { IBranding } from './core/mobx/IBranding';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -21,12 +22,12 @@ export class AppComponent implements OnInit, AfterViewInit {
   constructor(
     public userState: UserState,
     public screen: ScreenState,
-    public branding: BrandingState,
     private router: ActivatedRoute,
     private screenService: ScreenService,
     private configService: ConfigService,
     public navigation: NavigationService,
-    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig
+    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
+    @Inject(BRANDING) public branding$: Observable<IBranding>
   ) {
     this.navigation.startSaveHistory();
   }

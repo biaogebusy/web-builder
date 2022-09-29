@@ -13,6 +13,7 @@ import { ScreenState } from '@core/mobx/screen/ScreenState';
 import { ApiService } from '@core/service/api.service';
 import { LocalStorageService } from 'ngx-webstorage';
 import { MODE } from '@core/factory/factory';
+import { IBranding } from '@core/mobx/IBranding';
 @Injectable({
   providedIn: 'root',
 })
@@ -78,6 +79,13 @@ export class ContentService {
           })
         );
     }
+  }
+
+  loadBranding(): Observable<IBranding> {
+    const brandingPath = environment.production
+      ? `${this.apiUrl}/api/v1/config?content=/core/branding`
+      : `${this.apiUrl}/assets/app/core/branding.json`;
+    return this.http.get<IBranding>(brandingPath);
   }
 
   loadConfig(coreConfig: object): any {
