@@ -20,7 +20,7 @@ import { ContentState } from '@core/mobx/ContentState';
   ],
 })
 export class BlockComponent implements OnInit {
-  constructor(@Inject(PAGE_CONTENT) public $pageContent: Observable<IPage>) {}
+  constructor(@Inject(PAGE_CONTENT) public pageContent$: Observable<IPage>) {}
 
   ngOnInit(): void {}
 

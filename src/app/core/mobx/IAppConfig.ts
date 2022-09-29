@@ -124,6 +124,9 @@ export interface Comment {
 export interface IArticle {
   fontSize: FontSize;
   comment: Comment;
+  login: {
+    label: string;
+  };
 }
 
 export interface Modules {

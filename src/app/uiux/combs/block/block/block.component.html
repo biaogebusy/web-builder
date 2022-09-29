@@ -1,4 +1,4 @@
-<ng-container *ngIf="$pageContent | async as page">
+<ng-container *ngIf="pageContent$ | async as page">
   <ng-container *ngFor="let item of page.body;trackBy:trackByFn">
     <ng-container [ngSwitch]="item.type">
       <app-job *ngSwitchCase="'job'" [content]="item"></app-job>

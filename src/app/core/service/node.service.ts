@@ -2,10 +2,8 @@ import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ApiService } from './api.service';
 import { LocalStorageService } from 'ngx-webstorage';
-import { AppState } from '../mobx/AppState';
 import { forkJoin } from 'rxjs';
 import { Observable, of } from 'rxjs';
-import type { IApiUrl } from '../mobx/IAppConfig';
 import { map, switchMap } from 'rxjs/operators';
 import { isEmpty } from 'lodash-es';
 import { UserState } from '@core/mobx/user/UserState';
@@ -13,7 +11,7 @@ import type { IArticleAccess } from '@core/interface/node/IArticle';
 import type { ICommentContent } from '@core/interface/node/INode';
 import { formatDate } from '@angular/common';
 import { CORE_CONFIG } from '@core/token/core.config';
-import type { ICoreConfig } from '@core/mobx/IAppConfig';
+import type { IApiUrl, ICoreConfig } from '@core/mobx/IAppConfig';
 import { environment } from '../../../environments/environment';
 import { API_URL } from '@core/token/token-providers';
 @Injectable({
@@ -23,7 +21,6 @@ export class NodeService extends ApiService {
   public responseCache = new Map();
 
   constructor(
-    private appState: AppState,
     public http: HttpClient,
     private userState: UserState,
     public storage: LocalStorageService,
@@ -407,12 +404,10 @@ export class NodeService extends ApiService {
     return `${this.apiUrl}${this.coreConfig?.commerce?.payNode}/${entityId}`;
   }
 
-  checkNodeAccess(params: any): Observable<IArticleAccess> {
+  checkNodeAccess(params: any, entityId: string): Observable<IArticleAccess> {
     const reqPay = params?.pay;
     const reqRule = params?.require_rule;
     const reqMoney = reqPay?.money;
-    const entityId =
-      this.appState.pageConfig?.node?.entityId || params?.entityId;
     if (!isEmpty(reqRule) || reqPay) {
       // 非公开浏览
       const isReqRoles = this.checkReqRule(reqRule);
@@ -430,7 +425,7 @@ export class NodeService extends ApiService {
         if (reqPay && this.userState.authenticated) {
           return this.checkCurrentUserPayed(
             this.userState.currentUser.id,
-            this.appState.pageConfig.node.entityId,
+            entityId,
             this.userState.csrfToken
           ).pipe(
             map((payed) => {

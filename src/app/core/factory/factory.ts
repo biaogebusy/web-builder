@@ -12,7 +12,6 @@ export function pageContentFactory(
 ): Observable<IPage | object | boolean> {
   const $pageContent = new BehaviorSubject<IPage | object | boolean>(false);
   activateRoute.url.subscribe(async (url) => {
-    console.log(url);
     const page = await contentService.loadPageContent().toPromise();
     $pageContent.next(page);
     contentState.pageConfig$.next(page);
