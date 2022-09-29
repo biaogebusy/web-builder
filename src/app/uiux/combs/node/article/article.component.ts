@@ -32,9 +32,8 @@ import { NodeComponent } from '@uiux/base/node.widget';
 import type { IBaseNode } from '@core/interface/node/INode';
 import { ContentState } from '@core/mobx/ContentState';
 import { CORE_CONFIG } from '@core/token/token-providers';
-import type { IArticle, ICoreConfig } from '../../../../core/mobx/IAppConfig';
 import { API_URL, PAGE_CONTENT } from '@core/token/token-providers';
-import { IPage } from '@core/mobx/IAppConfig';
+import { IArticle, ICoreConfig, IPage } from '@core/interface/IAppConfig';
 
 @Component({
   selector: 'app-article',

@@ -7,7 +7,7 @@ import {
 } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { makeStateKey, TransferState } from '@angular/platform-browser';
-import type { ICoreConfig } from '@core/mobx/IAppConfig';
+import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { ApiService } from '@core/service/api.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import { Observable, of } from 'rxjs';

@@ -20,7 +20,7 @@ import { merge } from 'lodash-es';
 import { ContentState } from '@core/mobx/ContentState';
 import { QuillModule } from 'ngx-quill';
 import { CORE_CONFIG } from '@core/token/token-providers';
-import type { ICoreConfig } from '@core/mobx/IAppConfig';
+import type { ICoreConfig } from '@core/interface/IAppConfig';
 
 @Component({
   selector: 'app-comment-form',

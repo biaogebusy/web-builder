@@ -28,7 +28,7 @@ import {
   startWith,
 } from 'rxjs/operators';
 import { CORE_CONFIG } from '@core/token/token-providers';
-import type { ICoreConfig, IPage } from '@core/mobx/IAppConfig';
+import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { PAGE_CONTENT } from '@core/token/token-providers';
 
 @Component({

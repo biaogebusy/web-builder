@@ -13,7 +13,7 @@ import { TagsService } from '@core/service/tags.service';
 import { UserService } from '@core/service/user.service';
 import { ScreenService } from '@core/service/screen.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
-import type { ICoreConfig } from '@core/mobx/IAppConfig';
+import type { ICoreConfig } from '@core/interface/IAppConfig';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',

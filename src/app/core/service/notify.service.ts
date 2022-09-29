@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import type { ICoreConfig } from '@core/mobx/IAppConfig';
+import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import { forkJoin, interval, Observable, of } from 'rxjs';
 import { NodeService } from '@core/service/node.service';

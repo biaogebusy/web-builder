@@ -16,7 +16,7 @@ import { DialogService } from '@core/service/dialog.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { IUserMenu } from '@core/mobx/IBranding';
+import { IUserMenu } from '@core/interface/IBranding';
 import { IEnvironment } from '@core/interface/IEnvironment';
 
 @Component({

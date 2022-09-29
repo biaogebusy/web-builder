@@ -11,7 +11,7 @@ import { BaseComponent } from '@uiux/base/base.widget';
 import { ScreenService } from '@core/service/screen.service';
 import { UserState } from '@core/mobx/user/UserState';
 import { PAGE_CONTENT } from '@core/token/token-providers';
-import { IPage } from '@core/mobx/IAppConfig';
+import { IPage } from '@core/interface/IAppConfig';
 import { Observable } from 'rxjs';
 
 @Component({

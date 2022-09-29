@@ -12,7 +12,7 @@ import { UserState } from '@core/mobx/user/UserState';
 import { ScreenService } from '@core/service/screen.service';
 import { isEmpty } from 'lodash-es';
 import { CORE_CONFIG } from '@core/token/token-providers';
-import type { ICoreConfig } from '@core/mobx/IAppConfig';
+import type { ICoreConfig } from '@core/interface/IAppConfig';
 
 @Component({
   selector: 'app-user',

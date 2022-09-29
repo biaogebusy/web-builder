@@ -16,7 +16,7 @@ import { Subject } from 'rxjs';
 import type { IFlag } from '@core/interface/widgets/IFlag';
 import { UtilitiesService } from '../../../../core/service/utilities.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
-import type { ICoreConfig } from '@core/mobx/IAppConfig';
+import type { ICoreConfig } from '@core/interface/IAppConfig';
 
 @Component({
   selector: 'app-flag',

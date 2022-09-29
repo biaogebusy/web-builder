@@ -4,7 +4,7 @@ import { GoogleAnalyticsService } from './ga.service';
 import { QiDianService } from './qidian.service';
 import { ScreenService } from './screen.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
-import type { ICoreConfig } from '@core/mobx/IAppConfig';
+import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { NotifyService } from './notify.service';
 import { Subject } from 'rxjs';
 

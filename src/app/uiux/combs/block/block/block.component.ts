@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IPage } from '@core/mobx/IAppConfig';
+import { IPage } from '@core/interface/IAppConfig';
 import { PAGE_CONTENT } from '@core/token/token-providers';
 import { ActivatedRoute } from '@angular/router';
 import { pageContentFactory } from '@core/factory/factory';

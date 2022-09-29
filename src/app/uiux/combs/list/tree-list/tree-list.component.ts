@@ -18,7 +18,7 @@ import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { FormGroup } from '@angular/forms';
 import { FormService } from '@core/service/form.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
-import type { ICoreConfig } from '@core/mobx/IAppConfig';
+import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { UserState } from '@core/mobx/user/UserState';
 
 @Component({

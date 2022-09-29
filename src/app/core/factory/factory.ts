@@ -1,11 +1,11 @@
 import { ActivatedRoute } from '@angular/router';
-import { ICoreConfig, IPage } from '@core/mobx/IAppConfig';
+import { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { ContentService } from '@core/service/content.service';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ContentState } from '@core/mobx/ContentState';
 import { LocalStorageService } from 'ngx-webstorage';
-import { IBranding } from '../mobx/IBranding';
+import { IBranding } from '../interface/IBranding';
 
 export const MODE = 'themeMode';
 

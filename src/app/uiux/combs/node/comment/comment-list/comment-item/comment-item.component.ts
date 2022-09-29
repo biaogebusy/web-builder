@@ -15,7 +15,7 @@ import { takeUntil } from 'rxjs/operators';
 import { ScreenService } from '@core/service/screen.service';
 import { ContentState } from '@core/mobx/ContentState';
 import { CORE_CONFIG } from '@core/token/token-providers';
-import type { ICoreConfig } from '@core/mobx/IAppConfig';
+import type { ICoreConfig } from '@core/interface/IAppConfig';
 
 @Component({
   selector: 'app-comment-item',

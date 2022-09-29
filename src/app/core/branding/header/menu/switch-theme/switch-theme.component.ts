@@ -4,7 +4,7 @@ import {
   Inject,
   OnInit,
 } from '@angular/core';
-import type { ICoreConfig } from '@core/mobx/IAppConfig';
+import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import { DOCUMENT } from '@angular/common';
 import { ConfigService } from '@core/service/config.service';

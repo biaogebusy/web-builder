@@ -15,7 +15,7 @@ import { DOCUMENT } from '@angular/common';
 import { ContentState } from '@core/mobx/ContentState';
 import { BRANDING } from '@core/token/token-providers';
 import { Observable } from 'rxjs';
-import { IBranding } from '@core/mobx/IBranding';
+import { IBranding } from '@core/interface/IBranding';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',

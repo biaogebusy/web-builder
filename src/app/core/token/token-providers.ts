@@ -1,7 +1,7 @@
 import { InjectionToken } from '@angular/core';
-import { ICoreConfig, IPage } from '@core/mobx/IAppConfig';
+import { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { Observable } from 'rxjs';
-import { IBranding } from '../mobx/IBranding';
+import { IBranding } from '../interface/IBranding';
 
 export const API_URL = new InjectionToken<string>('api url');
 export const CORE_CONFIG = new InjectionToken<ICoreConfig>('core config');

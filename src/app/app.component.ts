@@ -7,8 +7,8 @@ import { ScreenService } from '@core/service/screen.service';
 import { ConfigService } from '@core/service/config.service';
 import { NavigationService } from '@core/service/navigation.service';
 import { CORE_CONFIG, BRANDING } from '@core/token/token-providers';
-import type { ICoreConfig } from '@core/mobx/IAppConfig';
-import { IBranding } from './core/mobx/IBranding';
+import type { ICoreConfig } from '@core/interface/IAppConfig';
+import { IBranding } from './core/interface/IBranding';
 import { Observable } from 'rxjs';
 @Component({
   selector: 'app-root',
