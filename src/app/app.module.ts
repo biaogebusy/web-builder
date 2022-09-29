@@ -14,7 +14,6 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { NgxWebstorageModule, LocalStorageService } from 'ngx-webstorage';
 import { BrandingModule } from '@core/branding/branding.module';
 import { AppComponent } from './app.component';
-import { AppState } from './core/mobx/AppState';
 import { httpInterceptorProviders } from '@core/interceptors';
 import { Angulartics2Module } from 'angulartics2';
 import { CORE_CONFIG } from '@core/token/core.config';
@@ -57,7 +56,6 @@ import { ContentService } from '@core/service/content.service';
   ],
   providers: [
     Title,
-    AppState,
     httpInterceptorProviders,
     {
       provide: CORE_CONFIG,

@@ -94,7 +94,6 @@ export class ContentService {
       .toPromise()
       .then(
         (config: ICoreConfig) => {
-          console.log(config);
           this.apiService.configLoadDone$.next(true);
           this.initTheme(config);
         },

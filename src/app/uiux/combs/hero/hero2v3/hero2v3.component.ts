@@ -8,7 +8,6 @@ import {
 } from '@angular/core';
 import { ScreenState } from '@core/mobx/screen/ScreenState';
 import { BaseComponent } from '@uiux/base/base.widget';
-import { AppState } from '@core/mobx/AppState';
 import { ScreenService } from '@core/service/screen.service';
 import { UserState } from '@core/mobx/user/UserState';
 import { PAGE_CONTENT } from '@core/token/token-providers';
@@ -25,7 +24,6 @@ export class Hero2v3Component extends BaseComponent implements OnInit {
   @Input() content: any;
   showGtXs: boolean;
   constructor(
-    public appState: AppState,
     public screen: ScreenState,
     private screenService: ScreenService,
     private cd: ChangeDetectorRef,
