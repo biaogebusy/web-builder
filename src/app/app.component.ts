@@ -38,7 +38,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.screen.drawer$.subscribe((res) => {
+      this.screen.drawer$.subscribe(() => {
         this.opened = !this.opened;
       });
 
@@ -47,12 +47,6 @@ export class AppComponent implements OnInit, AfterViewInit {
           this.screenService.scrollToAnchor(fragment);
         }
       });
-    }
-  }
-
-  updateDrawer(drawer: MatDrawer): void {
-    if (this.screenService.isPlatformBrowser()) {
-      this.screen.updateDrwer(drawer);
     }
   }
 }

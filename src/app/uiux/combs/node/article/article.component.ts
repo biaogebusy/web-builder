@@ -18,14 +18,12 @@ import { TagsService } from '@core/service/tags.service';
 import { ScreenState } from '@core/mobx/screen/ScreenState';
 import { ScreenService } from '@core/service/screen.service';
 import { FormService } from '@core/service/form.service';
-import { Subject, of, Observable } from 'rxjs';
-import { takeUntil, catchError } from 'rxjs/operators';
+import { Subject, Observable } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { UserState } from '@core/mobx/user/UserState';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { LoginComponent } from '../../../../modules/user/login/login.component';
 import { Router } from '@angular/router';
 import { NodeService } from '@core/service/node.service';
-import { DialogComponent } from '../../../widgets/dialog/dialog.component';
 import { TextComponent } from '@uiux/widgets/text/text.component';
 import { UserService } from '@core/service/user.service';
 import { NodeComponent } from '@uiux/base/node.widget';
@@ -34,6 +32,8 @@ import { ContentState } from '@core/mobx/ContentState';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import { API_URL, PAGE_CONTENT } from '@core/token/token-providers';
 import { IArticle, ICoreConfig, IPage } from '@core/interface/IAppConfig';
+import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
+import { LoginComponent } from 'src/app/modules/user/login/login.component';
 
 @Component({
   selector: 'app-article',

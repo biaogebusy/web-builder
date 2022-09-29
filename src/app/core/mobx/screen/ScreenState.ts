@@ -16,7 +16,6 @@ export class ScreenState {
   public stickyMenu$ = new Subject();
 
   @observable viewPort: string[];
-  @observable isDrawer = false;
 
   constructor(
     public breakpointObserver: BreakpointObserver,
@@ -71,13 +70,7 @@ export class ScreenState {
       });
   }
 
-  @action
   toggleDrawer(open: boolean): any {
     this.drawer$.next();
-  }
-
-  @action
-  updateDrwer(drawer: MatDrawer): void {
-    this.isDrawer = drawer.opened;
   }
 }
