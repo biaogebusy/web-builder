@@ -23,12 +23,9 @@ import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { API_URL } from '@core/token/token-providers';
 import { ToastrModule } from 'ngx-toastr';
 import { UiuxModule } from '@uiux/uiux.module';
-import { apiUrlFactory } from '@core/factory/factory';
+import { apiUrlFactory, coreConfigFactory } from '@core/factory/factory';
 registerLocaleData(zhHans, 'zh-hans');
-
-export function initConfig(appState: AppState, coreConfig: object) {
-  return () => appState.loadConfig(coreConfig);
-}
+import { ContentService } from '@core/service/content.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -64,8 +61,8 @@ export function initConfig(appState: AppState, coreConfig: object) {
     },
     {
       provide: APP_INITIALIZER,
-      useFactory: initConfig,
-      deps: [AppState, [new Inject(CORE_CONFIG)]],
+      useFactory: coreConfigFactory,
+      deps: [ContentService, [new Inject(CORE_CONFIG)]],
       multi: true,
     },
     {

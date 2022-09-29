@@ -14,6 +14,7 @@ import { isArray } from 'lodash-es';
 import { CORE_CONFIG } from '@core/token/core.config';
 import type { ICoreConfig } from '@core/mobx/IAppConfig';
 import { IAmap } from '../../../core/interface/IAmap';
+import { ConfigService } from '@core/service/config.service';
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -32,7 +33,8 @@ export class MapComponent implements OnInit, OnDestroy {
     private amapState: AMapState,
     private amapService: AmapService,
     private appState: AppState,
-    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
+    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
+    private configService: ConfigService
   ) {}
 
   ngOnInit(): void {
@@ -102,7 +104,7 @@ export class MapComponent implements OnInit, OnDestroy {
       'map',
       Object.assign({}, defaultOptions, options)
     );
-    this.appState.switchChange$.subscribe((theme) => {
+    this.configService.switchChange$.subscribe((theme) => {
       const newMapStyle =
         theme === 'dark-theme' ? mapStyle.dark : mapStyle.light;
       this.map.setMapStyle(newMapStyle);

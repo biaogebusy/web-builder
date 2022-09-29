@@ -4,6 +4,7 @@ import { ContentService } from '@core/service/content.service';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ContentState } from '@core/mobx/ContentState';
+import { AppState } from '@core/mobx/AppState';
 
 export function pageContentFactory(
   activateRoute: ActivatedRoute,
@@ -23,3 +24,10 @@ export const apiUrlFactory = () => {
   // can use front url to query backend api, ngxin will proxy
   return environment.apiUrl;
 };
+
+export function coreConfigFactory(
+  contentService: ContentService,
+  coreConfig: object
+): any {
+  return () => contentService.loadConfig(coreConfig);
+}

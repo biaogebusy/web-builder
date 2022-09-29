@@ -1,7 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { IPage } from '@core/mobx/IAppConfig';
+import { ICoreConfig, IPage } from '@core/mobx/IAppConfig';
 import { API_URL } from '@core/token/token-providers';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
@@ -10,15 +10,20 @@ import { tap } from 'rxjs/operators';
 import { isArray } from 'lodash-es';
 import { TagsService } from '@core/service/tags.service';
 import { ScreenState } from '@core/mobx/screen/ScreenState';
+import { ApiService } from '@core/service/api.service';
+import { LocalStorageService } from 'ngx-webstorage';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ContentService {
+  public readonly MODE = 'themeMode';
   constructor(
     private http: HttpClient,
     private tagsService: TagsService,
     private screenState: ScreenState,
+    private apiService: ApiService,
+    private storage: LocalStorageService,
     @Inject(API_URL) private apiUrl: string,
     @Inject(DOCUMENT) private document: Document
   ) {}
@@ -74,5 +79,45 @@ export class ContentService {
           })
         );
     }
+  }
+
+  loadConfig(coreConfig: object): any {
+    const configPath = environment.production
+      ? `${this.apiUrl}/api/v1/config?content=/core/base`
+      : `${this.apiUrl}/assets/app/core/base.json`;
+    return this.http
+      .get(configPath)
+      .pipe(
+        tap((config: any) => {
+          Object.assign(coreConfig, config);
+        })
+      )
+      .toPromise()
+      .then(
+        (config: ICoreConfig) => {
+          console.log(config);
+          this.apiService.configLoadDone$.next(true);
+          this.initTheme(config);
+        },
+        (error) => {
+          console.log(error);
+          console.log('base json not found!');
+        }
+      );
+  }
+
+  initTheme(coreConfig: ICoreConfig): void {
+    if (this.storage.retrieve(this.MODE)) {
+      const theme = this.storage.retrieve(this.MODE);
+      this.setBodyClasses(theme);
+    } else {
+      const defTheme = coreConfig.defaultTheme || 'light-theme';
+      this.setBodyClasses(defTheme);
+    }
+  }
+
+  setBodyClasses(theme: string): void {
+    const body = this.document.getElementsByTagName('body')[0];
+    body.classList.add(theme);
   }
 }

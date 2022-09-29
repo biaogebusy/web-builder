@@ -6,11 +6,13 @@ import { ScreenService } from './screen.service';
 import { CORE_CONFIG } from '@core/token/core.config';
 import type { ICoreConfig } from '@core/mobx/IAppConfig';
 import { NotifyService } from './notify.service';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ConfigService {
+  public switchChange$ = new Subject();
   constructor(
     private googleAnalyticsService: GoogleAnalyticsService,
     private qiDianService: QiDianService,

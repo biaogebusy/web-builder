@@ -40,7 +40,6 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit(): void {
     this.contentState.pageConfig$.subscribe((config) => {
       this.headerMode = config?.headerMode;
-      console.log(this.headerMode);
     });
   }
 
