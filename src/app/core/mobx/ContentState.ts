@@ -7,6 +7,6 @@ import { IPage } from './IAppConfig';
 export class ContentState {
   public commentChange$ = new Subject();
   public commentQuote$ = new Subject();
-  public pageConfig$ = new BehaviorSubject<IPage | object | boolean>(false);
+  public pageConfig$ = new BehaviorSubject<any | object | boolean>(false);
   constructor() {}
 }

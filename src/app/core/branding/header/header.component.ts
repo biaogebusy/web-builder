@@ -12,8 +12,8 @@ import {
 import { ScreenService } from '../../service/screen.service';
 import { ScreenState } from '../../mobx/screen/ScreenState';
 import { BrandingState } from '../../mobx/BrandingState';
-import { AppState } from '../../mobx/AppState';
 import { DOCUMENT } from '@angular/common';
+import { ContentState } from '@core/mobx/ContentState';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -23,7 +23,7 @@ import { DOCUMENT } from '@angular/common';
 export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   sticky = false;
   showBanner: boolean;
-
+  headerMode: any;
   @ViewChild('header', { read: ElementRef }) header: ElementRef;
   @ViewChild('menu', { read: ElementRef }) menu: ElementRef;
 
@@ -31,13 +31,18 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
     public screenService: ScreenService,
     public screenState: ScreenState,
     public branding: BrandingState,
-    public appState: AppState,
     public screen: ScreenState,
     private cd: ChangeDetectorRef,
-    @Inject(DOCUMENT) private doc: Document
+    @Inject(DOCUMENT) private doc: Document,
+    public contentState: ContentState
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.contentState.pageConfig$.subscribe((config) => {
+      this.headerMode = config?.headerMode;
+      console.log(this.headerMode);
+    });
+  }
 
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
@@ -47,7 +52,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
         );
         this.cd.detectChanges();
         this.listenSticky(this.sticky);
-        if (this.appState?.pageConfig?.headerMode?.transparent) {
+        if (this.headerMode?.transparent) {
           this.windowScroll();
         }
       });
@@ -64,7 +69,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   windowScroll(): void {
-    const style = this.appState.pageConfig.headerMode.style;
+    const style = this.headerMode?.style;
     if (
       this.doc.body.scrollTop > 50 ||
       this.doc.documentElement.scrollTop > 50

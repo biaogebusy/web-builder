@@ -14,7 +14,7 @@ export function pageContentFactory(
   activateRoute.url.subscribe(async (url) => {
     const page = await contentService.loadPageContent().toPromise();
     $pageContent.next(page);
-    contentState.pageConfig$.next(page);
+    contentState.pageConfig$.next(page.config);
   });
   return $pageContent;
 }
