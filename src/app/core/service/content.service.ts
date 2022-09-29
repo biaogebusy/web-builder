@@ -12,12 +12,11 @@ import { TagsService } from '@core/service/tags.service';
 import { ScreenState } from '@core/mobx/screen/ScreenState';
 import { ApiService } from '@core/service/api.service';
 import { LocalStorageService } from 'ngx-webstorage';
-
+import { MODE } from '@core/factory/factory';
 @Injectable({
   providedIn: 'root',
 })
 export class ContentService {
-  public readonly MODE = 'themeMode';
   constructor(
     private http: HttpClient,
     private tagsService: TagsService,
@@ -107,8 +106,8 @@ export class ContentService {
   }
 
   initTheme(coreConfig: ICoreConfig): void {
-    if (this.storage.retrieve(this.MODE)) {
-      const theme = this.storage.retrieve(this.MODE);
+    if (this.storage.retrieve(MODE)) {
+      const theme = this.storage.retrieve(MODE);
       this.setBodyClasses(theme);
     } else {
       const defTheme = coreConfig.defaultTheme || 'light-theme';

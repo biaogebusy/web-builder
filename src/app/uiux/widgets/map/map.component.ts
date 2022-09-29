@@ -8,13 +8,13 @@ import {
 } from '@angular/core';
 import type { IMark } from '@core/interface/IAmap';
 import { AMapState } from '@core/mobx/amap/AMapState';
-import { AppState } from '@core/mobx/AppState';
 import { AmapService } from '@core/service/amap.service';
 import { isArray } from 'lodash-es';
 import { CORE_CONFIG } from '@core/token/core.config';
 import type { ICoreConfig } from '@core/mobx/IAppConfig';
 import { IAmap } from '../../../core/interface/IAmap';
 import { ConfigService } from '@core/service/config.service';
+import { THEME } from '@core/token/token-providers';
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -32,9 +32,9 @@ export class MapComponent implements OnInit, OnDestroy {
   constructor(
     private amapState: AMapState,
     private amapService: AmapService,
-    private appState: AppState,
-    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
-    private configService: ConfigService
+    private configService: ConfigService,
+    @Inject(THEME) private theme: string,
+    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
   ) {}
 
   ngOnInit(): void {
@@ -89,7 +89,6 @@ export class MapComponent implements OnInit, OnDestroy {
   }
 
   renderMap(): void {
-    const themeStyle = this.appState.theme;
     const amapConfig = this.coreConfig?.amap;
     const mapStyle: any = amapConfig.mapStyle;
     const options = this.content?.params;
@@ -97,7 +96,7 @@ export class MapComponent implements OnInit, OnDestroy {
       resizeEnable: true,
       zoom: amapConfig.zoom,
       center: this.center || amapConfig.center,
-      mapStyle: themeStyle === 'dark-theme' ? mapStyle.dark : mapStyle.light,
+      mapStyle: this.theme === 'dark-theme' ? mapStyle.dark : mapStyle.light,
       features: amapConfig.features,
     };
     this.map = new this.AMap.Map(

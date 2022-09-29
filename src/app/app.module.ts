@@ -11,7 +11,7 @@ import { CommonModule, registerLocaleData } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { MobxModule } from '@core/mobx/mobx.module';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { NgxWebstorageModule } from 'ngx-webstorage';
+import { NgxWebstorageModule, LocalStorageService } from 'ngx-webstorage';
 import { BrandingModule } from '@core/branding/branding.module';
 import { AppComponent } from './app.component';
 import { AppState } from './core/mobx/AppState';
@@ -20,10 +20,14 @@ import { Angulartics2Module } from 'angulartics2';
 import { CORE_CONFIG } from '@core/token/core.config';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
-import { API_URL } from '@core/token/token-providers';
+import { API_URL, THEME } from '@core/token/token-providers';
 import { ToastrModule } from 'ngx-toastr';
 import { UiuxModule } from '@uiux/uiux.module';
-import { apiUrlFactory, coreConfigFactory } from '@core/factory/factory';
+import {
+  apiUrlFactory,
+  coreConfigFactory,
+  themeFactory,
+} from '@core/factory/factory';
 registerLocaleData(zhHans, 'zh-hans');
 import { ContentService } from '@core/service/content.service';
 
@@ -58,6 +62,11 @@ import { ContentService } from '@core/service/content.service';
     {
       provide: CORE_CONFIG,
       useValue: {},
+    },
+    {
+      provide: THEME,
+      useFactory: themeFactory,
+      deps: [[new Inject(CORE_CONFIG)], LocalStorageService],
     },
     {
       provide: APP_INITIALIZER,

@@ -1,10 +1,12 @@
 import { ActivatedRoute } from '@angular/router';
-import { IPage } from '@core/mobx/IAppConfig';
+import { ICoreConfig, IPage } from '@core/mobx/IAppConfig';
 import { ContentService } from '@core/service/content.service';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ContentState } from '@core/mobx/ContentState';
-import { AppState } from '@core/mobx/AppState';
+import { LocalStorageService } from 'ngx-webstorage';
+
+export const MODE = 'themeMode';
 
 export function pageContentFactory(
   activateRoute: ActivatedRoute,
@@ -30,4 +32,15 @@ export function coreConfigFactory(
   coreConfig: object
 ): any {
   return () => contentService.loadConfig(coreConfig);
+}
+
+export function themeFactory(
+  coreConfig: ICoreConfig,
+  storage: LocalStorageService
+): string {
+  const localTheme = storage.retrieve(MODE);
+  if (localTheme) {
+    return localTheme;
+  }
+  return coreConfig.defaultTheme || 'light-theme';
 }
