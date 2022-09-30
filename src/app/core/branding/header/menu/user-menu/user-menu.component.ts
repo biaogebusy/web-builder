@@ -5,6 +5,7 @@ import {
   OnDestroy,
   ChangeDetectorRef,
   ChangeDetectionStrategy,
+  Inject,
 } from '@angular/core';
 import { UserState } from '@core/mobx/user/UserState';
 import { MatDialog } from '@angular/material/dialog';
@@ -16,8 +17,9 @@ import { DialogService } from '@core/service/dialog.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { IUserMenu } from '@core/interface/IBranding';
 import { IEnvironment } from '@core/interface/IEnvironment';
+import { USER } from '@core/token/token-providers';
+import { IUser } from '@core/interface/IUser';
 
 @Component({
   selector: 'app-user-menu',
@@ -37,12 +39,13 @@ export class UserMenuComponent implements OnInit, OnDestroy {
     public screen: ScreenState,
     public dialog: MatDialog,
     private dialogService: DialogService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    @Inject(USER) public user: IUser
   ) {}
 
   ngOnInit(): void {
     this.env = environment;
-    this.userState.user$.subscribe((user) => {
+    this.userState.userSub$.subscribe((user) => {
       this.cd.markForCheck();
     });
   }

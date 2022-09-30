@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  Inject,
   Input,
   OnDestroy,
   OnInit,
@@ -16,6 +17,9 @@ import { Observable } from 'rxjs';
 import { IUserConfig } from '../../../../core/interface/IUserConfig';
 import { environment } from 'src/environments/environment';
 import { BaseComponent } from '@uiux/base/base.widget';
+import { CORE_CONFIG, USER } from '@core/token/token-providers';
+import { ICoreConfig } from '@core/interface/IAppConfig';
+import { IUser } from '@core/interface/IUser';
 
 @Component({
   selector: 'app-user-center',
@@ -28,7 +32,7 @@ export class UserCenterComponent
   implements OnInit, OnDestroy
 {
   @Input() content: IUserCenter;
-  user: any;
+  currentUser: any;
   id: any;
   userConfig$: Observable<IUserConfig>;
   constructor(
@@ -36,7 +40,9 @@ export class UserCenterComponent
     private route: Router,
     private screenService: ScreenService,
     public userService: UserService,
-    public userState: UserState
+    public userState: UserState,
+    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
+    @Inject(USER) private user: IUser
   ) {
     super(userState);
   }
@@ -45,7 +51,7 @@ export class UserCenterComponent
     if (this.screenService.isPlatformBrowser()) {
       this.userConfig$ = this.userService.getUserConfig();
       this.getUser();
-      this.userState.user$.subscribe((user) => {
+      this.userState.userSub$.subscribe((user) => {
         if (!user.authenticated) {
           setTimeout(() => {
             this.route.navigate(['user/login']);
@@ -65,7 +71,7 @@ export class UserCenterComponent
     this.userService
       .getUserById(
         this.userState.currentUser.current_user.uid,
-        this.userState.csrfToken
+        this.user.csrf_token
       )
       .subscribe((res) => {
         const info = res.data[0];
@@ -74,7 +80,7 @@ export class UserCenterComponent
         }
         const profile = {
           avatar: {
-            src: info?.user_picture?.uri?.url || this.userState.defaultAvatar,
+            src: info?.user_picture?.uri?.url || this.coreConfig.defaultAvatar,
             alt: info.name,
           },
           name: info.name,
@@ -102,7 +108,7 @@ export class UserCenterComponent
             ],
           },
         };
-        this.user = Object.assign(people, profile);
+        this.currentUser = Object.assign(people, profile);
         this.cd.detectChanges();
       });
   }

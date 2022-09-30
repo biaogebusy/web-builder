@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import {
   CanActivate,
   Router,
@@ -12,6 +12,8 @@ import { UserService } from '@core/service/user.service';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { NodeService } from '@core/service/node.service';
+import { IUser } from '@core/interface/IUser';
+import { USER } from '@core/token/token-providers';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +23,8 @@ export class AuthGuard implements CanActivate {
     private router: Router,
     private userState: UserState,
     private userService: UserService,
-    private nodeService: NodeService
+    private nodeService: NodeService,
+    @Inject(USER) private user: IUser
   ) {}
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -40,7 +43,7 @@ export class AuthGuard implements CanActivate {
               console.log('userState:', status);
               if (status) {
                 if (environment?.drupalProxy) {
-                  if (!this.userState.csrfToken) {
+                  if (!this.user.csrf_token) {
                     this.userState.updateUserBySession();
                   }
                 }

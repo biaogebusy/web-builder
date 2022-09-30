@@ -1,7 +1,7 @@
 <div class="user-center position-relative" *ngIf="content">
   <div class="inner" *ngIf="content?.params?.showProfile">
     <div class="container">
-      <app-user-profile *ngIf="userConfig$" [content]="user" [userConfig$]="userConfig$">
+      <app-user-profile *ngIf="userConfig$" [content]="currentUser" [userConfig$]="userConfig$">
       </app-user-profile>
     </div>
   </div>

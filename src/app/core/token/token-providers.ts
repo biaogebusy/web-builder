@@ -1,5 +1,6 @@
 import { InjectionToken } from '@angular/core';
 import { ICoreConfig, IPage } from '@core/interface/IAppConfig';
+import { IUser } from '@core/interface/IUser';
 import { Observable } from 'rxjs';
 import { IBranding } from '../interface/IBranding';
 
@@ -10,3 +11,5 @@ export const PAGE_CONTENT = new InjectionToken<Observable<IPage | object>>(
 );
 export const THEME = new InjectionToken<string>('current theme');
 export const BRANDING = new InjectionToken<IBranding>('branding config');
+
+export const USER = new InjectionToken<IUser>('user');

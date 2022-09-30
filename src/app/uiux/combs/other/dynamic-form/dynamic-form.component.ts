@@ -5,6 +5,7 @@ import {
   OnInit,
   ChangeDetectorRef,
   OnDestroy,
+  Inject,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { IAction, IActionParams } from '@core/interface/IForm';
@@ -18,6 +19,8 @@ import { ScreenService } from '@core/service/screen.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { IControl } from '@core/interface/widgets/IControl';
+import { IUser } from '@core/interface/IUser';
+import { USER } from '@core/token/token-providers';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -40,7 +43,8 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
     private userState: UserState,
     private utilitiesService: UtilitiesService,
     private router: Router,
-    private screenService: ScreenService
+    private screenService: ScreenService,
+    @Inject(USER) private user: IUser
   ) {}
 
   ngOnInit(): void {
@@ -52,7 +56,7 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
   onClick(params: IActionParams): void {
     this.loading = true;
     this.nodeService
-      .addNode(params.type, this.form.value, this.userState.csrfToken)
+      .addNode(params.type, this.form.value, this.user.csrf_token)
       .pipe(takeUntil(this.destroy$))
       .subscribe(
         (res) => {

@@ -11,8 +11,9 @@ import { UserService } from '@core/service/user.service';
 import { UserState } from '@core/mobx/user/UserState';
 import { ScreenService } from '@core/service/screen.service';
 import { isEmpty } from 'lodash-es';
-import { CORE_CONFIG } from '@core/token/token-providers';
+import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
+import { IUser } from '@core/interface/IUser';
 
 @Component({
   selector: 'app-user',
@@ -21,7 +22,7 @@ import type { ICoreConfig } from '@core/interface/IAppConfig';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserComponent implements OnInit, OnDestroy {
-  user: any;
+  currentUser: any;
   id: any;
   constructor(
     private cd: ChangeDetectorRef,
@@ -29,13 +30,14 @@ export class UserComponent implements OnInit, OnDestroy {
     private screenService: ScreenService,
     private userService: UserService,
     private userState: UserState,
-    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
+    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
+    @Inject(USER) private user: IUser
   ) {}
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       this.getUser();
-      this.userState.user$.subscribe((user) => {
+      this.userState.userSub$.subscribe((user) => {
         if (!user.authenticated) {
           setTimeout(() => {
             this.route.navigate(['user/login']);
@@ -52,7 +54,7 @@ export class UserComponent implements OnInit, OnDestroy {
     this.userService
       .getUserById(
         this.userState.currentUser.current_user.uid,
-        this.userState.csrfToken
+        this.user.csrf_token
       )
       .subscribe((res) => {
         const info = res.data[0];
@@ -62,7 +64,7 @@ export class UserComponent implements OnInit, OnDestroy {
         const profile = {
           bannerBg: this.getBanner(),
           avatar: {
-            src: info?.user_picture?.uri?.url || this.userState.defaultAvatar,
+            src: info?.user_picture?.uri?.url || this.coreConfig.defaultAvatar,
             alt: info.name,
           },
           name: info.name,
@@ -100,7 +102,7 @@ export class UserComponent implements OnInit, OnDestroy {
             ],
           },
         };
-        this.user = Object.assign(people, profile);
+        this.currentUser = Object.assign(people, profile);
         this.cd.detectChanges();
       });
   }

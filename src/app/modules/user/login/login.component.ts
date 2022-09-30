@@ -12,8 +12,9 @@ import { ScreenState } from '@core/mobx/screen/ScreenState';
 import { TagsService } from '@core/service/tags.service';
 import { UserService } from '@core/service/user.service';
 import { ScreenService } from '@core/service/screen.service';
-import { CORE_CONFIG } from '@core/token/token-providers';
+import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
+import { IUser } from '@core/interface/IUser';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -35,7 +36,8 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
     private tagsService: TagsService,
     public userService: UserService,
     private screenService: ScreenService,
-    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig
+    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
+    @Inject(USER) public user: IUser
   ) {}
 
   ngOnInit(): void {
@@ -58,7 +60,7 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
       code: ['', Validators.required],
     });
     if (this.screenService.isPlatformBrowser()) {
-      this.userState.user$.subscribe((user) => {
+      this.userState.userSub$.subscribe((user) => {
         if (user.authenticated) {
           setTimeout(() => {
             window.location.href =

@@ -27,9 +27,10 @@ import {
   distinctUntilChanged,
   startWith,
 } from 'rxjs/operators';
-import { CORE_CONFIG } from '@core/token/token-providers';
+import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { PAGE_CONTENT } from '@core/token/token-providers';
+import { IUser } from '@core/interface/IUser';
 
 @Component({
   selector: 'app-law-case',
@@ -57,7 +58,8 @@ export class LawCaseComponent
     private screenService: ScreenService,
     public contentState: ContentState,
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
-    @Inject(PAGE_CONTENT) public pageContent$: Observable<IPage>
+    @Inject(PAGE_CONTENT) public pageContent$: Observable<IPage>,
+    @Inject(USER) private user: IUser
   ) {
     super();
   }
@@ -104,7 +106,7 @@ export class LawCaseComponent
 
   updateNode(apiParams: any): void {
     this.nodeService
-      .updateLawCase(apiParams, this.uuid, this.userState.csrfToken)
+      .updateLawCase(apiParams, this.uuid, this.user.csrf_token)
       .subscribe((res) => {
         this.uti.openSnackbar('已更新！', '✓');
       });

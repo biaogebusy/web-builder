@@ -15,9 +15,10 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject, Observable } from 'rxjs';
 import { NodeService } from '@core/service/node.service';
 import { UserState } from '@core/mobx/user/UserState';
-import { CORE_CONFIG } from '@core/token/token-providers';
+import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { PAGE_CONTENT } from '@core/token/token-providers';
+import { IUser } from '@core/interface/IUser';
 
 @Component({
   selector: 'app-download',
@@ -42,7 +43,8 @@ export class DownloadComponent implements OnInit, OnDestroy {
     public userState: UserState,
     private cd: ChangeDetectorRef,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
-    @Inject(PAGE_CONTENT) private pageContent$: Observable<IPage>
+    @Inject(PAGE_CONTENT) private pageContent$: Observable<IPage>,
+    @Inject(USER) public user: IUser
   ) {}
 
   ngOnInit(): void {
@@ -55,14 +57,16 @@ export class DownloadComponent implements OnInit, OnDestroy {
   checkAccess(data: any): void {
     this.pageContent$.subscribe((page) => {
       const entityId = page.config?.node?.entityId || '';
-      this.nodeService.checkNodeAccess(data, entityId).subscribe((access) => {
-        this.canAccess = access.canAccess;
-        this.isReqRoles = access.isReqRoles;
-        this.isPayed = access.isPayed;
-        this.payUrl = access.payUrl;
-        this.reqMoney = access.reqMoney;
-        this.cd.detectChanges();
-      });
+      this.nodeService
+        .checkNodeAccess(data, entityId, this.user)
+        .subscribe((access) => {
+          this.canAccess = access.canAccess;
+          this.isReqRoles = access.isReqRoles;
+          this.isPayed = access.isPayed;
+          this.payUrl = access.payUrl;
+          this.reqMoney = access.reqMoney;
+          this.cd.detectChanges();
+        });
     });
   }
 

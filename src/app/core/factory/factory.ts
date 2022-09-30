@@ -6,6 +6,9 @@ import { environment } from 'src/environments/environment';
 import { ContentState } from '@core/mobx/ContentState';
 import { LocalStorageService } from 'ngx-webstorage';
 import { IBranding } from '../interface/IBranding';
+import { CryptoJSService } from '@core/service/crypto-js.service';
+import { UserService } from '@core/service/user.service';
+import { IUser } from '@core/interface/IUser';
 
 export const MODE = 'themeMode';
 
@@ -50,4 +53,17 @@ export function brandingFactory(
   contentService: ContentService
 ): Observable<IBranding | object> {
   return contentService.loadBranding();
+}
+
+export function userFactory(
+  storage: LocalStorageService,
+  cryptoJS: CryptoJSService,
+  userService: UserService
+): IUser | boolean {
+  const key = userService.localUserKey;
+  const user = {};
+  if (storage.retrieve(key)) {
+    return JSON.parse(cryptoJS.decrypt(storage.retrieve(key)));
+  }
+  return false;
 }

@@ -7,15 +7,15 @@ import {
   OnInit,
 } from '@angular/core';
 import type { ICommentContent } from '@core/interface/node/INode';
-import { UserState } from '@core/mobx/user/UserState';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ScreenService } from '@core/service/screen.service';
 import { ContentState } from '@core/mobx/ContentState';
-import { CORE_CONFIG } from '@core/token/token-providers';
+import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
+import { IUser } from '@core/interface/IUser';
 
 @Component({
   selector: 'app-comment-item',
@@ -34,13 +34,13 @@ export class CommentItemComponent implements OnInit, OnDestroy {
   loading: boolean;
   type: 'reply' | 'update' | 'add';
   constructor(
-    public userState: UserState,
     private cd: ChangeDetectorRef,
     private nodeService: NodeService,
     private utilitiesService: UtilitiesService,
     private screenService: ScreenService,
     public contentState: ContentState,
-    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
+    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
+    @Inject(USER) private user: IUser
   ) {}
 
   ngOnInit(): void {
@@ -97,7 +97,7 @@ export class CommentItemComponent implements OnInit, OnDestroy {
       .deleteEntity(
         `${this.coreConfig.apiUrl.commentGetPath}/${this.content.params.comment.attributes.field_name}`,
         id,
-        this.userState.csrfToken
+        this.user.csrf_token
       )
       .pipe(takeUntil(this.destroy$))
       .subscribe(

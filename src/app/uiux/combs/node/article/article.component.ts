@@ -29,11 +29,12 @@ import { UserService } from '@core/service/user.service';
 import { NodeComponent } from '@uiux/base/node.widget';
 import type { IBaseNode } from '@core/interface/node/INode';
 import { ContentState } from '@core/mobx/ContentState';
-import { CORE_CONFIG } from '@core/token/token-providers';
+import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import { API_URL, PAGE_CONTENT } from '@core/token/token-providers';
 import { IArticle, ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { LoginComponent } from 'src/app/modules/user/login/login.component';
+import { IUser } from '@core/interface/IUser';
 
 @Component({
   selector: 'app-article',
@@ -76,7 +77,8 @@ export class ArticleComponent
     @Inject(DOCUMENT) private document: Document,
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
     @Inject(API_URL) private apiUrl: string,
-    @Inject(PAGE_CONTENT) private pageContent$: Observable<IPage>
+    @Inject(PAGE_CONTENT) private pageContent$: Observable<IPage>,
+    @Inject(USER) public user: IUser
   ) {
     super();
     if (this.screenService.isPlatformBrowser()) {
@@ -95,7 +97,7 @@ export class ArticleComponent
     }
     this.checkAccess();
 
-    this.userState.user$.subscribe(() => {
+    this.userState.userSub$.subscribe(() => {
       this.cd.markForCheck();
     });
   }
@@ -104,7 +106,7 @@ export class ArticleComponent
     this.pageContent$.subscribe((page) => {
       const entityId = page.config?.node?.entityId || '';
       this.nodeService
-        .checkNodeAccess(this.content.params, entityId)
+        .checkNodeAccess(this.content.params, entityId, this.user)
         .subscribe((access) => {
           this.canAccess = access.canAccess;
           this.isReqRoles = access.isReqRoles;
@@ -154,7 +156,7 @@ export class ArticleComponent
 
   getComments(timeStamp = 1): void {
     this.nodeService
-      .getCommentsWitchChild(this.content, this.userState.csrfToken, timeStamp)
+      .getCommentsWitchChild(this.content, this.user.csrf_token, timeStamp)
       .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {
         this.comments = res;
@@ -202,22 +204,20 @@ export class ArticleComponent
       .afterClosed()
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
-        this.userService
-          .getCurrentUserProfile(this.userState.csrfToken)
-          .subscribe(
-            (profile) => {
-              const user = {
-                current_user: profile,
-              };
-              this.userState.refreshLocalUser(
-                Object.assign(this.userState.currentUser, user)
-              );
-              this.checkAccess();
-            },
-            (error) => {
-              console.log(error);
-            }
-          );
+        this.userService.getCurrentUserProfile(this.user.csrf_token).subscribe(
+          (profile) => {
+            const user = {
+              current_user: profile,
+            };
+            this.userState.refreshLocalUser(
+              Object.assign(this.userState.currentUser, user)
+            );
+            this.checkAccess();
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
       });
   }
 

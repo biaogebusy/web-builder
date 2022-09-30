@@ -16,7 +16,7 @@ import { BrandingModule } from '@core/branding/branding.module';
 import { AppComponent } from './app.component';
 import { httpInterceptorProviders } from '@core/interceptors';
 import { Angulartics2Module } from 'angulartics2';
-import { BRANDING, CORE_CONFIG } from '@core/token/token-providers';
+import { BRANDING, CORE_CONFIG, USER } from '@core/token/token-providers';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { API_URL, THEME } from '@core/token/token-providers';
@@ -27,9 +27,12 @@ import {
   brandingFactory,
   coreConfigFactory,
   themeFactory,
+  userFactory,
 } from '@core/factory/factory';
 registerLocaleData(zhHans, 'zh-hans');
 import { ContentService } from '@core/service/content.service';
+import { CryptoJSService } from '@core/service/crypto-js.service';
+import { UserService } from '@core/service/user.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -82,6 +85,11 @@ import { ContentService } from '@core/service/content.service';
       provide: API_URL,
       useFactory: apiUrlFactory,
       deps: [],
+    },
+    {
+      provide: USER,
+      useFactory: userFactory,
+      deps: [LocalStorageService, CryptoJSService, UserService],
     },
   ],
   bootstrap: [AppComponent],

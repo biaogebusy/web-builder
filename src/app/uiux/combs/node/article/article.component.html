@@ -22,11 +22,11 @@
               </div>
               <div class="shadow"></div>
             </div>
-            <div *ngIf="!userState.authenticated" class="auth line p-y-sm p-x-sm width-100 text-center"
+            <div *ngIf="!user.authenticated" class="auth line p-y-sm p-x-sm width-100 text-center"
               fxLayoutAlign="center center">
               <a href="javascript:void(0)" (click)="openLogin()" [innerHTML]="loginConfig?.label|safeHtml"></a>
             </div>
-            <div *ngIf="userState.authenticated" class="pay line p-y-sm p-x-sm width-100 text-center m-bottom"
+            <div *ngIf="user.authenticated" class="pay line p-y-sm p-x-sm width-100 text-center m-bottom"
               fxLayoutAlign="center center">
               <div>
                 <ng-container *ngIf="!isReqRoles">
@@ -50,11 +50,10 @@
           <app-dynamic-widgets [data]="content.params" [content]="action" *ngFor="let action of content.actions">
           </app-dynamic-widgets>
         </div>
-        <app-comment-form
-          *ngIf="userState.authenticated && coreConfig.article?.comment?.enable && content?.params?.comment"
+        <app-comment-form *ngIf="user.authenticated && coreConfig.article?.comment?.enable && content?.params?.comment"
           [content]="content" [type]="'add'">
         </app-comment-form>
-        <app-comment-list *ngIf="userState.authenticated" [comments]="comments" [content]="content">
+        <app-comment-list *ngIf="user.authenticated" [comments]="comments" [content]="content">
         </app-comment-list>
       </div>
       <app-sidebar [ngClass.gt-sm]="'m-left-sm'" *ngIf="content.sidebar" fxFlex.lt-md="100" fxFlex.gt-sm="25"
