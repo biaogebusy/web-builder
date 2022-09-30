@@ -1,5 +1,6 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
+import { IUser } from '@core/interface/IUser';
 import { UserState } from '@core/mobx/user/UserState';
 import { isArray, remove, result } from 'lodash-es';
 @Injectable()
@@ -107,11 +108,15 @@ export abstract class BaseComponent {
     }
   }
 
-  checkShow(content: any, currentUserRoles: string[]): boolean {
+  checkShow(content: any, user: IUser): boolean {
     const roles = this.getParams(content, 'reqRoles');
     if (!roles || !roles.length) {
       return true;
     } else {
+      if (!user) {
+        return false;
+      }
+      const currentUserRoles = user.current_user.roles;
       if (this.userState.isMatchCurrentRole(roles, currentUserRoles)) {
         return true;
       } else {

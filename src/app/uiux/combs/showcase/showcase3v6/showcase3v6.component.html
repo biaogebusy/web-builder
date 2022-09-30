@@ -1,4 +1,4 @@
-<div class="showcase-3-v6 position-relative" *ngIf="content && checkShow(content, user.current_user.roles)">
+<div class="showcase-3-v6 position-relative" *ngIf="content && checkShow(content, user)">
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <app-bg [content]="content.bg" *ngIf="content.bg"></app-bg>

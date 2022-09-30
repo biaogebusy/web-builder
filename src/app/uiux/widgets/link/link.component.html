@@ -1,4 +1,4 @@
-<ng-container *ngIf="content && checkShow(content, user.current_user.roles)">
+<ng-container *ngIf="content && checkShow(content, user)">
   <a *ngIf="this.content.dialog; else link" [ngClass]="classes" [href]="'javascript:void(0);'"
     [innerHTML]="content?.label | safeHtml" title="{{content.label}}" rel="noopener" (click)="nav($event)"></a>
   <ng-template #link>

@@ -24,6 +24,9 @@ export class NotifyService {
   ) {}
 
   watchNotify(): void {
+    if (!this.user) {
+      return;
+    }
     const apis = this.coreConfig?.notify?.api;
     if (apis) {
       const source = interval(

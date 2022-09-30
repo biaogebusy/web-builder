@@ -64,10 +64,7 @@ export class ViewListComponent
 
   ngAfterViewInit(): void {
     const emptyHidden = this.getParams(this.content, 'emptyHidden');
-    if (
-      this.checkShow(this.content, this.user.current_user.roles) &&
-      !emptyHidden
-    ) {
+    if (this.checkShow(this.content, this.user) && !emptyHidden) {
       this.canShow = true;
       this.cd.detectChanges();
     }
@@ -78,7 +75,7 @@ export class ViewListComponent
   }
 
   getViews(options = {}): void {
-    const isRole = this.checkShow(this.content, this.user.current_user.roles);
+    const isRole = this.checkShow(this.content, this.user);
     if (!isRole) {
       this.canShow = false;
       this.cd.detectChanges();
