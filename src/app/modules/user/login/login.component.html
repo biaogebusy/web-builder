@@ -6,7 +6,7 @@
       </app-dynamic-widgets>
     </div>
     <ng-template #default>
-      <img src="/assets/images/login-second.png" alt="">
+      <app-dynamic-widgets [content]="config.login.left"></app-dynamic-widgets>
     </ng-template>
     <div class="login-form position-relative" [class.is-login]="user.authenticated" fxFlex.xs="100" fxFlex.gt-xs="50"
       fxLayout="column" fxLayoutAlign="center center">

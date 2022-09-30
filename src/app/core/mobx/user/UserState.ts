@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
-import { action, observable, computed } from 'mobx-angular';
+import { action, observable } from 'mobx-angular';
 import { LocalStorageService } from 'ngx-webstorage';
 import { of, Subject, forkJoin } from 'rxjs';
 import { UserService } from '@core/service/user.service';
 import { UtilitiesService } from '@core/service/utilities.service';
-import { CryptoJSService } from '@core/service/crypto-js.service';
 import { catchError, switchMap } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
