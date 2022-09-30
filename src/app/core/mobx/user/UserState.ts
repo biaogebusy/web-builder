@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { action, observable, computed } from 'mobx-angular';
 import { LocalStorageService } from 'ngx-webstorage';
-import type { IUser, TokenUser } from '../../interface/IUser';
 import { of, Subject, forkJoin } from 'rxjs';
 import { UserService } from '@core/service/user.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { CryptoJSService } from '@core/service/crypto-js.service';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { catchError, switchMap } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { intersection } from 'lodash-es';
+import { IUser, TokenUser } from '@core/interface/IUser';
 
 const unauthUser = {
   id: '',
@@ -40,15 +40,9 @@ export class UserState {
     private utilities: UtilitiesService,
     private storage: LocalStorageService
   ) {
-    // this.user = unauthUser;
-    // return;
-    if (this.storage.retrieve(this.userService.localUserKey)) {
-      this.user = JSON.parse(
-        this.cryptoJS.decrypt(
-          this.storage.retrieve(this.userService.localUserKey)
-        )
-      );
-      // console.log(this.user);
+    const key = this.userService.localUserKey;
+    if (this.storage.retrieve(key)) {
+      this.user = JSON.parse(this.cryptoJS.decrypt(this.storage.retrieve(key)));
     }
   }
 
