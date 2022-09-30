@@ -107,12 +107,12 @@ export abstract class BaseComponent {
     }
   }
 
-  checkShow(content: any): boolean {
+  checkShow(content: any, currentUserRoles: string[]): boolean {
     const roles = this.getParams(content, 'reqRoles');
     if (!roles || !roles.length) {
       return true;
     } else {
-      if (this.userState.isMatchCurrentRole(roles)) {
+      if (this.userState.isMatchCurrentRole(roles, currentUserRoles)) {
         return true;
       } else {
         return false;

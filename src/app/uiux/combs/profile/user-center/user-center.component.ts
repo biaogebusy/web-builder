@@ -42,7 +42,7 @@ export class UserCenterComponent
     public userService: UserService,
     public userState: UserState,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
-    @Inject(USER) private user: IUser
+    @Inject(USER) public user: IUser
   ) {
     super(userState);
   }

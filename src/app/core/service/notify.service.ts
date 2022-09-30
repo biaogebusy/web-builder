@@ -86,7 +86,10 @@ export class NotifyService {
       if (!api.reqRoles || api.reqRoles.length === 0) {
         return true;
       }
-      return this.userState.isMatchCurrentRole(api.reqRoles || []);
+      return this.userState.isMatchCurrentRole(
+        api.reqRoles || [],
+        this.user.current_user.roles
+      );
     });
     if (finalList && finalList?.length > 0) {
       finalList.forEach((list: any, index: number) => {

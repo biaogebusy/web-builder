@@ -130,7 +130,7 @@ export class UserComponent implements OnInit, OnDestroy {
   }
 
   logout(): void {
-    this.userState.logout();
+    this.userState.logout(this.user.logout_token);
   }
 
   ngOnDestroy(): void {}

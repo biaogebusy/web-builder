@@ -1,12 +1,15 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  Inject,
   Input,
   OnInit,
   ViewChild,
 } from '@angular/core';
 import { UserState } from '@core/mobx/user/UserState';
 import { BaseComponent } from '@uiux/base/base.widget';
+import { USER } from '@core/token/token-providers';
+import { IUser } from '@core/interface/IUser';
 
 @Component({
   selector: 'app-sub-menu',
@@ -17,7 +20,7 @@ import { BaseComponent } from '@uiux/base/base.widget';
 export class SubMenuComponent extends BaseComponent implements OnInit {
   @Input() content: any;
   @ViewChild('childMenu', { static: true }) public childMenu: any;
-  constructor(public userState: UserState) {
+  constructor(public userState: UserState, @Inject(USER) public user: IUser) {
     super(userState);
   }
 

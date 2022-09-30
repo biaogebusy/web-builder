@@ -32,7 +32,7 @@ export class UserState {
   @observable public error = '';
   @observable public loading = false;
 
-  user$ = new Subject<IUser>();
+  userSub$ = new Subject<IUser>();
 
   constructor(
     private cryptoJS: CryptoJSService,
@@ -55,36 +55,8 @@ export class UserState {
   }
 
   @computed
-  get authenticated(): boolean {
-    // for storybook
-    if (window.location.host === 'localhost:6006') {
-      return true;
-    }
-    return !!this.user.current_user.uid;
-  }
-
-  @computed
   get picture(): any {
     return this.user && this.user.picture;
-  }
-
-  @computed
-  get roles(): string[] {
-    return (this.currentUser && this.currentUser.current_user.roles) || [''];
-  }
-
-  get defaultAvatar(): string {
-    return '/assets/images/avatar/default.svg';
-  }
-
-  @computed
-  get logoutToken(): string {
-    return (this.currentUser && this.currentUser.logout_token) || '';
-  }
-
-  @computed
-  get csrfToken(): string {
-    return this.currentUser && this.currentUser.csrf_token;
   }
 
   @action
@@ -120,14 +92,14 @@ export class UserState {
   }
 
   @action
-  logout(): any {
+  logout(logouToken: string): any {
     if (environment.drupalProxy) {
       this.logoutUser();
       window.location.href = '/user/logout';
       return;
     }
     this.userService
-      .logout(this.logoutToken)
+      .logout(logouToken)
       .pipe(
         catchError((error) => {
           if (error.status === 403) {
@@ -143,7 +115,7 @@ export class UserState {
   }
 
   logoutUser(): void {
-    this.user$.next(unauthUser);
+    this.userSub$.next(unauthUser);
     this.user = unauthUser;
     this.storage.clear(this.userService.localUserKey);
   }
@@ -151,14 +123,14 @@ export class UserState {
   @action
   loginUser(data: any, user: any): void {
     this.loading = false;
-    this.user$.next(user);
+    this.userSub$.next(user);
     this.user = Object.assign(data, user);
     this.userService.storeLocalUser(this.user);
   }
 
   @action
   logouLocalUser(): void {
-    this.user$.next(unauthUser);
+    this.userSub$.next(unauthUser);
     this.user = unauthUser;
     this.storage.clear(this.userService.localUserKey);
   }
@@ -214,12 +186,12 @@ export class UserState {
 
   @action
   refreshLocalUser(user: IUser): void {
-    this.user$.next(user);
+    this.userSub$.next(user);
     this.user = user;
     this.userService.storeLocalUser(user);
   }
 
-  isMatchCurrentRole(roles: string[]): boolean {
-    return intersection(this.roles, roles).length > 0;
+  isMatchCurrentRole(roles: string[], currentUserRoles: string[]): boolean {
+    return intersection(currentUserRoles, roles).length > 0;
   }
 }

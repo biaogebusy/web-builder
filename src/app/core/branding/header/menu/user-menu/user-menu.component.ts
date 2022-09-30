@@ -51,7 +51,7 @@ export class UserMenuComponent implements OnInit, OnDestroy {
   }
 
   logout(): void {
-    this.userState.logout();
+    this.userState.logout(this.user.logout_token);
   }
 
   openDialog(dialog: any): void {

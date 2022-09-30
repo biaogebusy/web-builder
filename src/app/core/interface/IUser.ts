@@ -13,7 +13,7 @@ export interface IUser extends TokenUser {
 export interface TokenUser {
   csrf_token: string;
   current_user: CurrentUser;
-  logout_token?: string;
+  logout_token: string;
 }
 
 export interface CurrentUser {
