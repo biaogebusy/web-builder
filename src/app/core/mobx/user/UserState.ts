@@ -54,11 +54,6 @@ export class UserState {
     return Object.assign({}, unauthUser);
   }
 
-  @computed
-  get picture(): any {
-    return this.user && this.user.picture;
-  }
-
   @action
   login(userName: string, passWord: string): any {
     this.loading = true;

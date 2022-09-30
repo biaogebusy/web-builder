@@ -20,4 +20,5 @@ export interface CurrentUser {
   uid: string;
   name: string;
   roles: string[];
+  login?: string;
 }

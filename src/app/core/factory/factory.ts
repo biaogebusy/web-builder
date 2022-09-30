@@ -61,9 +61,10 @@ export function userFactory(
   userService: UserService
 ): IUser | boolean {
   const key = userService.localUserKey;
-  const user = {};
   if (storage.retrieve(key)) {
-    return JSON.parse(cryptoJS.decrypt(storage.retrieve(key)));
+    const user = JSON.parse(cryptoJS.decrypt(storage.retrieve(key)));
+    console.log(user);
+    return user;
   }
   return false;
 }
