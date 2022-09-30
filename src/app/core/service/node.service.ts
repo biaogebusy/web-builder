@@ -6,7 +6,6 @@ import { forkJoin } from 'rxjs';
 import { Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { isEmpty } from 'lodash-es';
-import { UserState } from '@core/mobx/user/UserState';
 import type { IArticleAccess } from '@core/interface/node/IArticle';
 import type { ICommentContent } from '@core/interface/node/INode';
 import { formatDate } from '@angular/common';
@@ -46,7 +45,7 @@ export class NodeService extends ApiService {
     const searchForRole = this.coreConfig?.apiUrl?.search;
     if (searchForRole && apiParams.indexOf('/api/v1/content')) {
       Object.keys(searchForRole).some((role) => {
-        if (this.user.current_user.roles.includes(role)) {
+        if (!this.user || this.user.current_user.roles.includes(role)) {
           apiParams = apiParams.replace('/api/v1/content', searchForRole[role]);
           return true;
         }

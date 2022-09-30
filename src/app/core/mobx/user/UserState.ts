@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { action, observable } from 'mobx-angular';
 import { LocalStorageService } from 'ngx-webstorage';
 import { of, Subject, forkJoin } from 'rxjs';
 import { UserService } from '@core/service/user.service';
@@ -14,8 +13,8 @@ import { IUser, TokenUser } from '@core/interface/IUser';
   providedIn: 'root',
 })
 export class UserState {
-  @observable public error = '';
-  @observable public loading = false;
+  public error = '';
+  public loading = false;
 
   userSub$ = new Subject<IUser | boolean>();
 
@@ -25,7 +24,6 @@ export class UserState {
     private storage: LocalStorageService
   ) {}
 
-  @action
   login(userName: string, passWord: string): any {
     this.loading = true;
     this.userService.login(userName, passWord).subscribe(
@@ -39,7 +37,6 @@ export class UserState {
     );
   }
 
-  @action
   loginByPhone(phone: number, code: string): any {
     this.loading = true;
     this.userService.loginByPhone(phone, code).subscribe(
@@ -57,7 +54,6 @@ export class UserState {
     );
   }
 
-  @action
   logout(logouToken: string): any {
     if (environment.drupalProxy) {
       this.logoutUser();
@@ -85,7 +81,6 @@ export class UserState {
     this.storage.clear(this.userService.localUserKey);
   }
 
-  @action
   loginUser(data: any, user: any): void {
     this.loading = false;
     this.userSub$.next(user);
@@ -93,13 +88,11 @@ export class UserState {
     this.userService.storeLocalUser(currentUser);
   }
 
-  @action
   logouLocalUser(): void {
     this.userSub$.next(false);
     this.storage.clear(this.userService.localUserKey);
   }
 
-  @action
   updateUser(data: TokenUser): any {
     this.userService
       .getCurrentUserById(data.current_user.uid, data.csrf_token)
@@ -108,7 +101,6 @@ export class UserState {
       });
   }
 
-  @action
   updateUserBySession(): void {
     const options = {
       headers: new HttpHeaders({
@@ -148,7 +140,6 @@ export class UserState {
       });
   }
 
-  @action
   refreshLocalUser(user: IUser): void {
     this.userSub$.next(user);
     this.userService.storeLocalUser(user);

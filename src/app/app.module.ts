@@ -9,7 +9,6 @@ import zhHans from '@angular/common/locales/zh-Hans';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
-import { MobxModule } from '@core/mobx/mobx.module';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { NgxWebstorageModule, LocalStorageService } from 'ngx-webstorage';
 import { BrandingModule } from '@core/branding/branding.module';
@@ -46,7 +45,6 @@ import { UserService } from '@core/service/user.service';
     MatSidenavModule,
     NgxWebstorageModule.forRoot(),
     Angulartics2Module.forRoot(),
-    MobxModule.forRoot(),
     UiuxModule,
     ToastrModule.forRoot({
       maxOpened: 6,
