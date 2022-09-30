@@ -38,7 +38,7 @@ export class UserComponent implements OnInit, OnDestroy {
     if (this.screenService.isPlatformBrowser()) {
       this.getUser();
       this.userState.userSub$.subscribe((user) => {
-        if (!user.authenticated) {
+        if (!user) {
           setTimeout(() => {
             this.route.navigate(['user/login']);
           }, 2000);

@@ -52,7 +52,7 @@ export class UserCenterComponent
       this.userConfig$ = this.userService.getUserConfig();
       this.getUser();
       this.userState.userSub$.subscribe((user) => {
-        if (!user.authenticated) {
+        if (!user) {
           setTimeout(() => {
             this.route.navigate(['user/login']);
           }, 2000);

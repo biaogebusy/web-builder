@@ -11,40 +11,20 @@ import { environment } from 'src/environments/environment';
 import { intersection } from 'lodash-es';
 import { IUser, TokenUser } from '@core/interface/IUser';
 
-const unauthUser = {
-  id: '',
-  authenticated: false,
-  csrf_token: '',
-  current_user: {
-    uid: '',
-    name: '',
-    roles: [],
-  },
-  logout_token: '',
-  login: '',
-};
-
 @Injectable({
   providedIn: 'root',
 })
 export class UserState {
-  @observable private user: IUser = unauthUser;
   @observable public error = '';
   @observable public loading = false;
 
-  userSub$ = new Subject<IUser>();
+  userSub$ = new Subject<IUser | boolean>();
 
   constructor(
-    private cryptoJS: CryptoJSService,
     private userService: UserService,
     private utilities: UtilitiesService,
     private storage: LocalStorageService
-  ) {
-    const key = this.userService.localUserKey;
-    if (this.storage.retrieve(key)) {
-      this.user = JSON.parse(this.cryptoJS.decrypt(this.storage.retrieve(key)));
-    }
-  }
+  ) {}
 
   @action
   login(userName: string, passWord: string): any {
@@ -102,8 +82,7 @@ export class UserState {
   }
 
   logoutUser(): void {
-    this.userSub$.next(unauthUser);
-    this.user = unauthUser;
+    this.userSub$.next(false);
     this.storage.clear(this.userService.localUserKey);
   }
 
@@ -111,14 +90,13 @@ export class UserState {
   loginUser(data: any, user: any): void {
     this.loading = false;
     this.userSub$.next(user);
-    this.user = Object.assign(data, user);
-    this.userService.storeLocalUser(this.user);
+    const currentUser = Object.assign(data, user);
+    this.userService.storeLocalUser(currentUser);
   }
 
   @action
   logouLocalUser(): void {
-    this.userSub$.next(unauthUser);
-    this.user = unauthUser;
+    this.userSub$.next(false);
     this.storage.clear(this.userService.localUserKey);
   }
 
@@ -174,7 +152,6 @@ export class UserState {
   @action
   refreshLocalUser(user: IUser): void {
     this.userSub$.next(user);
-    this.user = user;
     this.userService.storeLocalUser(user);
   }
 

@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
     });
     if (this.screenService.isPlatformBrowser()) {
       this.userState.userSub$.subscribe((user) => {
-        if (user.authenticated) {
+        if (user) {
           setTimeout(() => {
             window.location.href =
               this.route.snapshot.queryParams.returnUrl ||
