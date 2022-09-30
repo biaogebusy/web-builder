@@ -88,7 +88,7 @@ export class QuestionComponent
     const entityId = this.nodeService.getCommentRelEntityId(this.content);
     const entityType = this.nodeService.getCommentType(this.content);
     const params = [
-      `filter[uid.id]=${this.userState.currentUser.id}`,
+      `filter[uid.id]=${this.user.id}`,
       `filter[entity_id.id]=${entityId}`,
       `sort=-created`,
       'filter[status]=1',

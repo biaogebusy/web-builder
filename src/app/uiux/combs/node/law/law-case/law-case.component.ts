@@ -120,7 +120,7 @@ export class LawCaseComponent
     this.comments$ = this.nodeService.getCustomApiComment(
       uuid,
       timeStamp,
-      this.userState.currentUser.csrf_token
+      this.user.csrf_token
     );
     this.cd.detectChanges();
   }

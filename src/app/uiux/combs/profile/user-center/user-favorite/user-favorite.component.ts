@@ -49,7 +49,7 @@ export class UserFavoriteComponent implements OnInit, OnDestroy {
     this.loading = true;
     const path = this.nodeService.apiUrlConfig.flaggingGetPath;
     const params = [
-      `filter[uid.id]=${this.userState.currentUser.id}`,
+      `filter[uid.id]=${this.user.id}`,
       `include=flagged_entity`,
       `sort=-created`,
       `jsonapi_include=1`,

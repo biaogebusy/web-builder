@@ -209,9 +209,7 @@ export class ArticleComponent
             const user = {
               current_user: profile,
             };
-            this.userState.refreshLocalUser(
-              Object.assign(this.userState.currentUser, user)
-            );
+            this.userState.refreshLocalUser(Object.assign(this.user, user));
             this.checkAccess();
           },
           (error) => {

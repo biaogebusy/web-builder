@@ -46,14 +46,6 @@ export class UserState {
     }
   }
 
-  @computed get currentUser(): IUser {
-    return Object.assign({}, this.user);
-  }
-
-  @computed get unauthUser(): IUser {
-    return Object.assign({}, unauthUser);
-  }
-
   @action
   login(userName: string, passWord: string): any {
     this.loading = true;

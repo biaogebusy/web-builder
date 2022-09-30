@@ -107,7 +107,7 @@ export class FlagComponent extends BaseComponent implements OnInit, OnDestroy {
             uid: {
               data: {
                 type: 'user--user',
-                id: this.userState.currentUser.id,
+                id: this.user.id,
               },
             },
           },

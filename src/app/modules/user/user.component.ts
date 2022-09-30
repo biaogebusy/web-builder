@@ -52,10 +52,7 @@ export class UserComponent implements OnInit, OnDestroy {
   getUser(): any {
     const people = {};
     this.userService
-      .getUserById(
-        this.userState.currentUser.current_user.uid,
-        this.user.csrf_token
-      )
+      .getUserById(this.user.current_user.uid, this.user.csrf_token)
       .subscribe((res) => {
         const info = res.data[0];
         if (!info) {

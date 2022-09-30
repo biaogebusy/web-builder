@@ -50,7 +50,7 @@ export class UserPayComponent implements OnInit {
     const path = this.nodeService.apiUrlConfig.flaggingGetPath;
 
     const params = [
-      `filter[uid.id]=${this.userState.currentUser.id}`,
+      `filter[uid.id]=${this.user.id}`,
       `include=flagged_entity`,
       `sort=-created`,
       `jsonapi_include=1`,
