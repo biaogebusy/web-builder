@@ -1,5 +1,4 @@
 import { Component, OnInit, AfterViewInit, Inject } from '@angular/core';
-import { UserState } from './core/mobx/user/UserState';
 import { ScreenState } from './core/mobx/screen/ScreenState';
 import { MatDrawer } from '@angular/material/sidenav';
 import { ActivatedRoute } from '@angular/router';
@@ -20,7 +19,6 @@ export class AppComponent implements OnInit, AfterViewInit {
   opened: boolean;
   loading = false;
   constructor(
-    public userState: UserState,
     public screen: ScreenState,
     private router: ActivatedRoute,
     private screenService: ScreenService,
