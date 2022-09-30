@@ -6,6 +6,7 @@ import {
   ChangeDetectionStrategy,
   AfterViewInit,
   Inject,
+  OnDestroy,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import type {
@@ -40,7 +41,7 @@ import { IUser } from '@core/interface/IUser';
 })
 export class LawCaseComponent
   extends NodeComponent
-  implements OnInit, AfterViewInit
+  implements OnInit, AfterViewInit, OnDestroy
 {
   @Input() content: ICase;
   uuid: string;
@@ -65,8 +66,8 @@ export class LawCaseComponent
   }
 
   ngOnInit(): void {
-    this.pageContent$.subscribe((page) => {
-      this.uuid = page.config.node.uuid;
+    this.pageContent$.pipe(takeUntil(this.destroy$)).subscribe((page) => {
+      this.uuid = page.config?.node?.uuid;
     });
   }
 
@@ -161,5 +162,10 @@ export class LawCaseComponent
 
   trackByFn(index: number, item: any): number {
     return index;
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.complete();
   }
 }
