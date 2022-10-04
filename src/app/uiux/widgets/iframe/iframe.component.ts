@@ -4,8 +4,10 @@ import {
   OnInit,
   ChangeDetectorRef,
   ChangeDetectionStrategy,
+  Inject,
 } from '@angular/core';
-import { UserState } from '@core/mobx/user/UserState';
+import { IUser } from '@core/interface/IUser';
+import { USER } from '@core/token/token-providers';
 
 @Component({
   selector: 'app-iframe',
@@ -16,7 +18,10 @@ import { UserState } from '@core/mobx/user/UserState';
 export class IframeComponent implements OnInit {
   @Input() content: any;
   url: string;
-  constructor(private userState: UserState, private cd: ChangeDetectorRef) {}
+  constructor(
+    private cd: ChangeDetectorRef,
+    @Inject(USER) private user: IUser
+  ) {}
 
   ngOnInit(): void {
     if (!this.content?.url.includes(':id')) {
@@ -24,8 +29,8 @@ export class IframeComponent implements OnInit {
       this.cd.detectChanges();
       return;
     }
-    if (this.userState.authenticated) {
-      const id = this.userState.currentUser.current_user.uid;
+    if (this.user) {
+      const id = this.user.current_user.uid;
       this.url = this.content.url.replace(':id', id);
     }
   }

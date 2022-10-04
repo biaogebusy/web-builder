@@ -14,8 +14,8 @@ import { ScreenService } from '@core/service/screen.service';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { CORE_CONFIG } from '@core/token/core.config';
-import type { ICoreConfig } from '@core/mobx/IAppConfig';
+import { CORE_CONFIG } from '@core/token/token-providers';
+import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { UserState } from '@core/mobx/user/UserState';
 
 @Component({

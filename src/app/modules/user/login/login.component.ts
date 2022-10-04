@@ -4,27 +4,32 @@ import {
   AfterViewInit,
   OnDestroy,
   Inject,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { UserState } from '@core/mobx/user/UserState';
 import { ScreenState } from '@core/mobx/screen/ScreenState';
-import { AppState } from '@core/mobx/AppState';
 import { TagsService } from '@core/service/tags.service';
 import { UserService } from '@core/service/user.service';
 import { ScreenService } from '@core/service/screen.service';
-import { CORE_CONFIG } from '@core/token/core.config';
-import type { ICoreConfig } from '@core/mobx/IAppConfig';
+import { CORE_CONFIG, USER } from '@core/token/token-providers';
+import type { ICoreConfig } from '@core/interface/IAppConfig';
+import { IUser } from '@core/interface/IUser';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
   hide = true;
+  loading: boolean;
   error: string;
   userForm: FormGroup;
   phoneForm: FormGroup;
+  currentUser: IUser;
 
   config: any;
 
@@ -34,14 +39,16 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
     private route: ActivatedRoute,
     public screenState: ScreenState,
     private tagsService: TagsService,
-    public appState: AppState,
     public userService: UserService,
     private screenService: ScreenService,
-    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig
+    private cd: ChangeDetectorRef,
+    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
+    @Inject(USER) public user: IUser
   ) {}
 
   ngOnInit(): void {
     this.tagsService.setTitle('欢迎登录！');
+    this.currentUser = this.user;
     this.userForm = this.fb.group({
       name: ['', Validators.required],
       pass: ['', Validators.required],
@@ -60,13 +67,21 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
       code: ['', Validators.required],
     });
     if (this.screenService.isPlatformBrowser()) {
-      this.userState.user$.subscribe((user) => {
-        if (user.authenticated) {
+      this.userState.userSub$.subscribe((user: any) => {
+        // login
+        if (user) {
+          this.currentUser = user;
+          this.cd.detectChanges();
           setTimeout(() => {
             window.location.href =
               this.route.snapshot.queryParams.returnUrl ||
               this.coreConfig.login.loginRedirect;
           }, 2000);
+        }
+        // logout
+        if (!user) {
+          this.currentUser.authenticated = false;
+          this.cd.detectChanges();
         }
       });
     }
@@ -86,21 +101,40 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.userForm.invalid) {
       return;
     }
-
-    this.userState.login(this.userForm.value.name, this.userForm.value.pass);
+    this.loading = true;
+    this.userState
+      .login(this.userForm.value.name, this.userForm.value.pass)
+      .subscribe((state) => {
+        this.onLogin(state, '登录出现问题，请联系管理员！');
+      });
   }
 
   loginByPhone(): void {
-    this.userState.loginByPhone(
-      this.phoneForm.value.phone,
-      this.phoneForm.value.code
-    );
+    this.loading = true;
+    this.userState
+      .loginByPhone(this.phoneForm.value.phone, this.phoneForm.value.code)
+      .subscribe((state) => {
+        this.onLogin(state, '请检查手机号或者验证码！');
+      });
+  }
+
+  onLogin(state: any, errorMessage: string): void {
+    if (state) {
+      this.loading = false;
+      this.cd.detectChanges();
+    }
+    if (!state) {
+      this.loading = false;
+      this.error = errorMessage;
+      this.cd.detectChanges();
+    }
   }
 
   getCode(event: any): any {
     event.preventDefault();
     if (!this.phoneForm.value.phone) {
       this.error = '请输入手机号码';
+      this.cd.detectChanges();
       return false;
     }
     this.userService.getCode(this.phoneForm.value.phone).subscribe((code) => {

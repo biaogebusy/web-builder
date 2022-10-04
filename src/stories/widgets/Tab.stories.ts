@@ -1,16 +1,16 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { SafeHtmlPipe } from '../../app/core/pipe/safe-html.pipe';
-import { CORE_CONFIG } from '../../app/core/token/core.config';
-import { ShareModule } from '../../app/share/share.module';
+import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
+import { CORE_CONFIG } from '@core/token/token-providers';
+import { ShareModule } from '@share/share.module';
 import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { TabComponent } from '../../app/uiux/widgets/tab/tab.component';
-import { WidgetsModule } from '../../app/uiux/widgets/widgets.module';
+import { TabComponent } from '@uiux/widgets/tab/tab.component';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
 
 export default {
   title: '基础/选项卡',
@@ -39,8 +39,7 @@ export default {
   ],
 } as Meta;
 
-const Template: Story<TabComponent> = (args) => ({
-  component: TabComponent,
+const Template: Story = (args) => ({
   props: {
     ...args,
   },
@@ -51,38 +50,58 @@ Default.args = {
   content: {
     type: 'tab',
     title: {
-      label: 'Why choose us',
+      label: '为什么你将会喜欢 Drupal？',
       style: 'style-v4',
     },
     classes: 'bg-light',
     elements: [
       {
-        label: 'Quality',
+        label: '高性能',
         elements: [
           {
             type: 'text',
             spacer: 'none',
-            body: '<p>Lorem Ipsum is simply dummy text of the printing and typeseting industry Lorem in text Ipsum has been the industry standar dummyy text ever since the when an iunesi known.</p><ul class="list3 clearfix">\n\t<li>Multiple Layout</li>\n\t<li>Awesome Shortcodes</li>\n\t<li>Browser Compatibility</li>\n\t<li>Easy to Edit Animations</li>\n\t<li>Parallax Effect</li>\n\t<li>Responsive Design</li>\n\t<li>Many Home Page Versions</li>\n\t<li>Many Blog Pages</li>\n</ul>',
+            body: '<p>默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；</p>',
           },
         ],
       },
       {
-        label: 'Design',
+        label: '易用的编辑器',
         elements: [
           {
             type: 'text',
             spacer: 'none',
-            body: '<p>Lorem Ipsum is simply dummy text of the printing and typeseting industry Lorem in text Ipsum has been the industry standar dummyy text ever since the when an iunesi known.</p><ul class="list3 clearfix">\n\t<li>Multiple Layout</li>\n\t<li>Awesome Shortcodes</li>\n\t<li>Browser Compatibility</li>\n\t<li>Easy to Edit Animations</li>\n\t<li>Parallax Effect</li>\n\t<li>Responsive Design</li>\n\t<li>Many Home Page Versions</li>\n\t<li>Many Blog Pages</li>\n</ul>',
+            body: '<p>通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作；</p>',
           },
         ],
       },
       {
-        label: 'Programing',
+        label: '多语言',
         elements: [
           {
             type: 'text',
             spacer: 'none',
-            body: '<p>Lorem Ipsum is simply dummy text of the printing and typeseting industry Lorem in text Ipsum has been the industry standar dummyy text ever since the when an iunesi known.</p><ul class="list3 clearfix">\n\t<li>Multiple Layout</li>\n\t<li>Awesome Shortcodes</li>\n\t<li>Browser Compatibility</li>\n\t<li>Easy to Edit Animations</li>\n\t<li>Parallax Effect</li>\n\t<li>Responsive Design</li>\n\t<li>Many Home Page Versions</li>\n\t<li>Many Blog Pages</li>\n</ul>',
+            body: '<p>Drupal 100多种语言提供了无以伦比的支持和翻译工作流程；</p>',
+          },
+        ],
+      },
+      {
+        label: '更有弹性',
+        elements: [
+          {
+            type: 'text',
+            spacer: 'none',
+            body: '<p>无论是一个还是多个站点，Drupal 总是可以游刃有余的构建；</p>',
+          },
+        ],
+      },
+      {
+        label: '安全性',
+        elements: [
+          {
+            type: 'text',
+            spacer: 'none',
+            body: '<p>为了抵御安全漏洞，将有一组团队解决并发布安全修补程序，超过45000名贡献者使该平台成为市场上最安全、最稳定的平台之一；</p>',
           },
         ],
       },

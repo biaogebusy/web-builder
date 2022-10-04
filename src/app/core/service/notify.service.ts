@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
-import type { ICoreConfig } from '@core/mobx/IAppConfig';
-import { CORE_CONFIG } from '@core/token/core.config';
+import type { ICoreConfig } from '@core/interface/IAppConfig';
+import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import { forkJoin, interval, Observable, of } from 'rxjs';
 import { NodeService } from '@core/service/node.service';
 import { catchError, take, switchMap } from 'rxjs/operators';
@@ -8,6 +8,7 @@ import { isEmpty } from 'lodash';
 import { ToastrService } from 'ngx-toastr';
 import { UserState } from '@core/mobx/user/UserState';
 import { Router } from '@angular/router';
+import { IUser } from '@core/interface/IUser';
 
 @Injectable({
   providedIn: 'root',
@@ -18,10 +19,14 @@ export class NotifyService {
     private nodeService: NodeService,
     private toastr: ToastrService,
     private userState: UserState,
-    private router: Router
+    private router: Router,
+    @Inject(USER) private user: IUser
   ) {}
 
   watchNotify(): void {
+    if (!this.user) {
+      return;
+    }
     const apis = this.coreConfig?.notify?.api;
     if (apis) {
       const source = interval(
@@ -56,7 +61,7 @@ export class NotifyService {
                           return this.nodeService.deleteFlagging(
                             config.action,
                             [item],
-                            this.userState.csrfToken
+                            this.user.csrf_token
                           );
                         })
                       )
@@ -84,7 +89,10 @@ export class NotifyService {
       if (!api.reqRoles || api.reqRoles.length === 0) {
         return true;
       }
-      return this.userState.isMatchCurrentRole(api.reqRoles || []);
+      return this.userState.isMatchCurrentRole(
+        api.reqRoles || [],
+        this.user.current_user.roles
+      );
     });
     if (finalList && finalList?.length > 0) {
       finalList.forEach((list: any, index: number) => {

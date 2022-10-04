@@ -6,17 +6,19 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { CORE_CONFIG } from '@core/token/core.config';
+import { CORE_CONFIG } from '@core/token/token-providers';
 import { HttpClientModule } from '@angular/common/http';
-import { WidgetsModule } from '../../../app/uiux/widgets/widgets.module';
 import { NgxWebstorageModule } from 'ngx-webstorage';
-import { ShareModule } from '../../../app/share/share.module';
 import { ArticleComponent } from '@uiux/combs/node/article/article.component';
 import { NodeModule } from '@uiux/combs/node/node.module';
 import { apiUrlFactory, API_URL } from '@core/token/token-providers';
 import { APP_INITIALIZER, Inject } from '@angular/core';
 import { AppState } from '@core/mobx/AppState';
 import { initConfig } from 'src/app/app.module';
+import { ShareModule } from '@share/share.module';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import * as MediaListStories from 'src/stories/widgets/media/MediaList.stories';
+import * as MeunListStories from 'src/stories/widgets/MeunList.stories';
 export default {
   title: '组件/文章/普通文章',
   component: ArticleComponent,
@@ -61,14 +63,14 @@ export default {
   },
 } as Meta;
 
-const Template: Story<ArticleComponent> = (args) => ({
-  component: ArticleComponent,
+const Template: Story = (args) => ({
   props: {
     ...args,
   },
 });
 export const Default = Template.bind({});
-
+const MediaList: any = MediaListStories.Base.args;
+const MenuList: any = MeunListStories.Base.args;
 Default.args = {
   content: {
     title: '使用 DevTools 对 Angular 前端应用性能分析优化',
@@ -91,83 +93,21 @@ Default.args = {
     sidebar: [
       {
         type: 'media-list',
-        title: 'POPULAR POSTS',
-        elements: [
-          {
-            link: {
-              label: '使用 DevTools 对 Angular 前端应用性能分析优化',
-              href: '/node/417',
-            },
-            img: {
-              src: '../assets/images/showcase/blog1-large.jpeg',
-              alt: '',
-            },
-            changed: '2022/01/08',
-          },
-          {
-            link: {
-              label: '使用 takeUntil 操作符管理 Angular 组件的订阅',
-              href: '/node/415',
-            },
-            img: {
-              src: '../assets/images/showcase/blog2-large.jpeg',
-              alt: '',
-            },
-            changed: '2022/01/03',
-          },
-          {
-            link: {
-              label: '你应该了解的 Angular 最佳实践',
-              href: '/node/414',
-            },
-            img: {
-              src: '../assets/images/showcase/blog3-large.jpeg',
-              alt: '',
-            },
-            changed: '2022/01/03',
-          },
-          {
-            link: {
-              label: 'Angular 5 rxjs 5.5.2 多个 http 并行 forkJoin 请求',
-              href: '/node/387',
-            },
-            img: {
-              src: '../assets/images/showcase/blog4-large.jpeg',
-              alt: '',
-            },
-            changed: '2021/05/14',
-          },
-        ],
+        ...MediaList.content,
       },
       {
         type: 'menu-list',
-        title: 'CATEGORIES',
-        elements: [
-          {
-            link: {
-              href: '/frontend',
-              label: '前端茶馆',
-            },
-            label: '10',
-          },
-          {
-            link: {
-              href: '/drupal',
-              label: 'Drupal 自习室',
-            },
-            label: '6',
-          },
-        ],
+        ...MenuList.content,
       },
     ],
   },
 };
 
 export const Comment = Template.bind({});
-
+Comment.storyName = '带评论';
 Comment.args = {
   content: {
-    title: 'DRAG AND DROP LAYOUT',
+    ...Default.args.content,
     params: {
       pay: {
         money: 10,
@@ -198,21 +138,6 @@ Comment.args = {
         },
       },
     },
-    meta: [
-      {
-        label: '发布日期',
-        value: '2021-12-14',
-      },
-      {
-        label: '类别',
-        value: '分享',
-      },
-      {
-        label: '关键字',
-        value: '纠纷',
-      },
-    ],
-    body: '<img src="/assets/images/showcase/blog1-large.jpeg" /><p><strong style="color:#000">Lorem ipsum dolor sit amet</strong>, consectetur adipiscing elit Mauris non laoreet dui, Morbi lacus massa, euismod ut turpis molestie, tristique sodales est. Integer sit amet mi id sapien tempor molestie in nec massa Fusce non ante sed lorem rutrum feugiat, Vestibulum pellentesque, purus ut dignissim consectetur, nulla erat ultrices purus, ut consequat sem elit non sem. Morbi lacus massa, euismod ut turpis molestie, tristique sodales est</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit Mauris non laoreet dui, Morbi lacus massa, euismod ut turpis molestie, tristique sodales est. Integer sit amet mi id sapien tempor molestie in nec massa Fusce non ante sed lorem rutrum feugiat, Vestibulum pellentesque, purus ut dignissim consectetur, nulla erat ultrices purus, ut consequat sem elit non sem. Morbi lacus massa, euismod ut turpis molestie, tristique sodales est</p>',
     editor: {
       action: {
         label: '提交',

@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  Inject,
   Input,
   OnInit,
 } from '@angular/core';
@@ -10,8 +11,11 @@ import type { IMediaObject } from '@core/interface/widgets/IMediaObject';
 import { NodeService } from '@core/service/node.service';
 import { DialogService } from '@core/service/dialog.service';
 import { BaseComponent } from '@uiux/base/base.widget';
-import { catchError, map } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { IUser } from '@core/interface/IUser';
+import { USER, CORE_CONFIG } from '@core/token/token-providers';
+import { ICoreConfig } from '@core/interface/IAppConfig';
 
 @Component({
   selector: 'app-user-card',
@@ -27,7 +31,9 @@ export class UserCardComponent extends BaseComponent implements OnInit {
     public userState: UserState,
     private nodeService: NodeService,
     private cd: ChangeDetectorRef,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    @Inject(USER) public user: IUser,
+    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
   ) {
     super(userState);
   }
@@ -38,19 +44,18 @@ export class UserCardComponent extends BaseComponent implements OnInit {
   }
 
   getProfile(): void {
-    const user = this.userState.currentUser;
     this.profile = {
       img: {
-        src: this.userState.picture,
-        alt: user.current_user.name,
+        src: this.user.picture || this.coreConfig.defaultAvatar,
+        alt: this.user.current_user.name,
         style: {
           height: '37px',
           width: '37px',
           borderRadius: '50%',
         },
       },
-      title: user.current_user.name,
-      subTitle: user.display_name,
+      title: this.user.current_user.name,
+      subTitle: this.user.display_name,
       align: 'center center',
     };
     this.cd.detectChanges();
@@ -71,52 +76,6 @@ export class UserCardComponent extends BaseComponent implements OnInit {
     this.nodeService
       .search(api, '')
       .pipe(
-        // map((data) => {
-        //   if (!data.rows.length) {
-        //     return {
-        //       rows: [
-        //         {
-        //           title: '已完工',
-        //           value: 15,
-        //           color: '#f57f17',
-        //         },
-        //         {
-        //           title: '已更新',
-        //           value: 12,
-        //           color: '#4caf50',
-        //         },
-        //         {
-        //           title: '进行中',
-        //           value: 15,
-        //           color: '',
-        //         },
-        //         {
-        //           title: '新订单',
-        //           value: 12,
-        //           color: '#1976d2',
-        //         },
-        //         {
-        //           title: '已暂停',
-        //           value: 15,
-        //           color: '',
-        //         },
-        //         {
-        //           title: '已取消',
-        //           value: 12,
-        //           color: '',
-        //         },
-        //       ],
-        //       pager: {
-        //         current_page: null,
-        //         total_items: 2,
-        //         total_pages: 0,
-        //         items_per_page: 0,
-        //       },
-        //     };
-        //   } else {
-        //     return data;
-        //   }
-        // }),
         catchError(() => {
           return of({
             rows: [],

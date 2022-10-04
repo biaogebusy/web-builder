@@ -26,8 +26,7 @@
     }
   }
   .title {
-    font-size: 20px;
-    line-height: 1.5;
+    font-size: 16px;
     ::ng-deep a {
       @include line-clamp(2);
       &:hover {
@@ -45,8 +44,7 @@
         top: -54px;
       }
       .title {
-        font-size: 36px;
-        line-height: 45px;
+        font-size: 20px;
       }
     }
   }

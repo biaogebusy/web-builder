@@ -1,13 +1,13 @@
-import { SafeHtmlPipe } from '../../app/core/pipe/safe-html.pipe';
-import { ShareModule } from '../../app/share/share.module';
+import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
+import { ShareModule } from '@share/share.module';
 import {
   moduleMetadata,
   componentWrapperDecorator,
   Meta,
   Story,
 } from '@storybook/angular';
-import { WidgetsModule } from '../../app/uiux/widgets/widgets.module';
 import { ChartComponent } from '@uiux/widgets/chart/chart.component';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
 
 export default {
   title: '基础/图表',
@@ -32,8 +32,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story<ChartComponent> = (args) => ({
-  component: ChartComponent,
+const Template: Story = (args) => ({
   props: {
     ...args,
   },
@@ -80,6 +79,7 @@ Line.args = {
 };
 
 export const LineTime = Template.bind({});
+LineTime.storyName = '折线图';
 LineTime.args = {
   chartOption: {
     title: {
@@ -151,7 +151,7 @@ LineTime.args = {
 };
 
 export const Bar = Template.bind({});
-
+Bar.storyName = '柱状图';
 Bar.args = {
   chartOption: {
     title: {
@@ -180,6 +180,7 @@ Bar.args = {
 };
 
 export const Pie = Template.bind({});
+Pie.storyName = '饼图';
 Pie.args = {
   chartOption: {
     title: {
@@ -220,6 +221,7 @@ Pie.args = {
 };
 
 export const Radar = Template.bind({});
+Radar.storyName = '雷达图';
 Radar.args = {
   chartOption: {
     title: {

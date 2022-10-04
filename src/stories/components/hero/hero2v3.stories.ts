@@ -2,14 +2,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { CORE_CONFIG } from '@core/token/core.config';
+import { CORE_CONFIG } from '@core/token/token-providers';
 import { HttpClientModule } from '@angular/common/http';
-import { WidgetsModule } from '../../../app/uiux/widgets/widgets.module';
 import { NgxWebstorageModule } from 'ngx-webstorage';
-import { ShareModule } from '../../../app/share/share.module';
 import { SwiperModule } from 'ngx-swiper-wrapper';
 import { Hero2v3Component } from '@uiux/combs/hero/hero2v3/hero2v3.component';
 import { apiUrlFactory, API_URL } from '@core/token/token-providers';
+import { ShareModule } from '@share/share.module';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
 export default {
   title: '组件/英雄区/2v3',
   component: Hero2v3Component,
@@ -40,8 +40,7 @@ export default {
   ],
 } as Meta;
 
-const Template: Story<Hero2v3Component> = (args) => ({
-  component: Hero2v3Component,
+const Template: Story = (args) => ({
   props: {
     ...args,
   },

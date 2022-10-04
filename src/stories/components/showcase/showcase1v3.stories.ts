@@ -6,14 +6,19 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { CORE_CONFIG } from '@core/token/core.config';
+import { CORE_CONFIG } from '@core/token/token-providers';
 import { HttpClientModule } from '@angular/common/http';
-import { WidgetsModule } from '../../../app/uiux/widgets/widgets.module';
 import { NgxWebstorageModule } from 'ngx-webstorage';
-import { ShareModule } from '../../../app/share/share.module';
 import { Showcase1v3Component } from '@uiux/combs/showcase/showcase1v3/showcase1v3.component';
+import { APP_INITIALIZER, Inject } from '@angular/core';
+import { AppState } from '@core/mobx/AppState';
+import { API_URL, apiUrlFactory } from '@core/token/token-providers';
+import { initConfig } from 'src/app/app.module';
+import { ShareModule } from '@share/share.module';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import * as ContactUs from 'src/stories/widgets/ContactUs.stories';
 export default {
-  title: '组件/showcase/1v3',
+  title: '组件/展示/1v3',
   component: Showcase1v3Component,
   decorators: [
     moduleMetadata({
@@ -31,14 +36,24 @@ export default {
           provide: CORE_CONFIG,
           useValue: {},
         },
+        {
+          provide: APP_INITIALIZER,
+          useFactory: initConfig,
+          deps: [AppState, [new Inject(CORE_CONFIG)]],
+          multi: true,
+        },
+        {
+          provide: API_URL,
+          useFactory: apiUrlFactory,
+          deps: [],
+        },
       ],
     }),
     componentWrapperDecorator((story) => `${story}`),
   ],
 } as Meta;
 
-const Template: Story<Showcase1v3Component> = (args) => ({
-  component: Showcase1v3Component,
+const Template: Story = (args) => ({
   props: {
     ...args,
   },
@@ -71,21 +86,47 @@ Default.args = {
           width: '600px',
         },
         body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.At vero eos et accusam et justo duo dolores et ea rebum.Stet clita kasd gubergren.',
+        actionsAlign: 'center center',
+        actions: [
+          {
+            label: 'Read more',
+            type: 'btn-animate',
+            href: '#',
+            style: 'style-v1',
+            icon: 'verified_user',
+          },
+          {
+            label: 'Learn more',
+            type: 'btn-animate',
+            href: '#',
+            style: 'style-v1',
+            icon: 'fingerprint',
+          },
+        ],
       },
     ],
-    actions: [
+  },
+};
+
+export const Contact = Template.bind({});
+Contact.storyName = '联系我们';
+const contact: any = ContactUs.Base.args;
+Contact.args = {
+  content: {
+    id: 'form',
+    type: 'showcase-1v3',
+    title: {
+      label: '联系我们',
+      style: 'style-v1',
+    },
+    elements: [
       {
-        label: 'Read more',
-        href: '#',
-        style: 'style-v1',
-        icon: 'verified_user',
+        type: 'text',
+        spacer: 'none',
+        classes: 'text-center',
+        body: '信使是以 Material UI为基础的 Angular 前端框架，为Drupal的数字创新提供友好的用户体验。',
       },
-      {
-        label: 'Learn more',
-        href: '#',
-        style: 'style-v1',
-        icon: 'fingerprint',
-      },
+      contact.content,
     ],
   },
 };

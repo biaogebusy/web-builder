@@ -6,15 +6,15 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { CORE_CONFIG } from '@core/token/core.config';
+import { CORE_CONFIG } from '@core/token/token-providers';
 import { HttpClientModule } from '@angular/common/http';
-import { WidgetsModule } from '../../../app/uiux/widgets/widgets.module';
 import { NgxWebstorageModule } from 'ngx-webstorage';
-import { ShareModule } from '../../../app/share/share.module';
 import { Showcase3v6Component } from '@uiux/combs/showcase/showcase3v6/showcase3v6.component';
 import { apiUrlFactory, API_URL } from '@core/token/token-providers';
+import { ShareModule } from '@share/share.module';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
 export default {
-  title: '组件/showcase/3v6',
+  title: '组件/展示/3v6',
   component: Showcase3v6Component,
   decorators: [
     moduleMetadata({
@@ -43,8 +43,7 @@ export default {
   ],
 } as Meta;
 
-const Template: Story<Showcase3v6Component> = (args) => ({
-  component: Showcase3v6Component,
+const Template: Story = (args) => ({
   props: {
     ...args,
   },
@@ -152,142 +151,11 @@ export const Background = Template.bind({});
 
 Background.args = {
   content: {
-    id: '',
-    title: {
-      type: 'text',
-      spacer: 'sm',
-      title: {
-        label: '职位招聘',
-        style: 'style-v1',
-      },
-      body: '<p class="text-center">免费推送相关职位信息，关注公众号随时随地了解职位情况。</p>',
-    },
+    ...Default.args.content,
     bg: {
       classes: 'bg-shadow bg-fill-width',
     },
     row: '3',
-    elements: [
-      {
-        img: {
-          src: '/assets/images/logo/codepen.svg',
-          style: {
-            width: '45px',
-            height: '45px',
-          },
-          alt: 'logo',
-        },
-        css3: true,
-        link: {
-          label: '前端开发工程师 @dialog',
-          classes: 'bold',
-          dialog: {
-            params: {
-              width: '1000px',
-              disableClose: true,
-            },
-            afterClosed: {
-              success: {
-                label: '请检查是否发布成功！',
-              },
-              emit: true,
-            },
-            data: [
-              {
-                type: 'iframe',
-                url: '/manage/node/meeting/front/add?disable_sidebar=1',
-                height: '1000',
-              },
-            ],
-          },
-        },
-        subTitle: '字节跳动，北京',
-      },
-      {
-        img: {
-          src: '/assets/images/logo/codepen.svg',
-          style: {
-            width: '45px',
-            height: '45px',
-          },
-          alt: 'logo',
-        },
-        css3: true,
-        link: {
-          label: '前端架构师',
-          classes: 'bold',
-          href: '#',
-        },
-        subTitle: '美团，广州',
-      },
-      {
-        img: {
-          src: '/assets/images/logo/codepen.svg',
-          style: {
-            width: '45px',
-            height: '45px',
-          },
-          alt: 'logo',
-        },
-        css3: true,
-        link: {
-          label: '后端开发',
-          classes: 'bold',
-          href: '#',
-        },
-        subTitle: '微软，北京',
-      },
-      {
-        img: {
-          src: '/assets/images/logo/codepen.svg',
-          style: {
-            width: '45px',
-            height: '45px',
-          },
-          alt: 'logo',
-        },
-        css3: true,
-        link: {
-          label: 'UI 设计师',
-          classes: 'bold',
-          href: '#',
-        },
-        subTitle: '腾讯，深圳',
-      },
-      {
-        img: {
-          src: '/assets/images/logo/codepen.svg',
-          style: {
-            width: '45px',
-            height: '45px',
-          },
-          alt: 'logo',
-        },
-        css3: true,
-        link: {
-          label: 'IOS 开发',
-          classes: 'bold',
-          href: '#',
-        },
-        subTitle: '华为，深圳',
-      },
-      {
-        img: {
-          src: '/assets/images/logo/codepen.svg',
-          style: {
-            width: '45px',
-            height: '45px',
-          },
-          alt: 'logo',
-        },
-        css3: true,
-        link: {
-          label: '游戏开发',
-          classes: 'bold',
-          href: '#',
-        },
-        subTitle: '腾讯，成都',
-      },
-    ],
     action: {
       label: 'Read more',
       href: '#',

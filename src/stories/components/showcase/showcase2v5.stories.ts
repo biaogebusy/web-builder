@@ -6,14 +6,15 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { CORE_CONFIG } from '@core/token/core.config';
+import { CORE_CONFIG } from '@core/token/token-providers';
 import { HttpClientModule } from '@angular/common/http';
-import { WidgetsModule } from '../../../app/uiux/widgets/widgets.module';
 import { NgxWebstorageModule } from 'ngx-webstorage';
-import { ShareModule } from '../../../app/share/share.module';
 import { Showcase2v5Component } from '@uiux/combs/showcase/showcase2v5/showcase2v5.component';
+import { ShareModule } from '@share/share.module';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import * as ContentTextCenterStories from 'src/stories/widgets/base/ContentTextCenter.stories';
 export default {
-  title: '组件/showcase/2v5',
+  title: '组件/展示/2v5',
   component: Showcase2v5Component,
   decorators: [
     moduleMetadata({
@@ -37,14 +38,13 @@ export default {
   ],
 } as Meta;
 
-const Template: Story<Showcase2v5Component> = (args) => ({
-  component: Showcase2v5Component,
+const Template: Story = (args) => ({
   props: {
     ...args,
   },
 });
 export const Default = Template.bind({});
-
+const contentTextCenter: any = ContentTextCenterStories.Base.args;
 Default.args = {
   content: {
     text: {
@@ -59,15 +59,8 @@ Default.args = {
     fullWidth: true,
     elements: [
       {
+        ...contentTextCenter.content,
         type: 'content-text-center',
-        width: '25',
-        ratios: 'media-140',
-        text: '<p style="font-size:45px">52<sup>%</sup></p><p>Women</p><p style="font-size:45px">32<sup>%</sup></p><p>POC</p><p style="font-size:45px">7<sup>%</sup></p><p>LGBT+</p><p>2020 ASSOCIATE CLASS</p>',
-        img: {
-          classes: 'object-fit',
-          src: '/assets/images/showcase/info01.png',
-          alt: 'alt',
-        },
       },
       {
         type: 'content-text-center',

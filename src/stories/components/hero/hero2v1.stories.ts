@@ -2,13 +2,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { CORE_CONFIG } from '@core/token/core.config';
+import { CORE_CONFIG } from '@core/token/token-providers';
 import { HttpClientModule } from '@angular/common/http';
-import { WidgetsModule } from '../../../app/uiux/widgets/widgets.module';
 import { NgxWebstorageModule } from 'ngx-webstorage';
-import { ShareModule } from '../../../app/share/share.module';
 import { SwiperModule } from 'ngx-swiper-wrapper';
 import { Hero2v1Component } from '@uiux/combs/hero/hero2v1/hero2v1.component';
+import { ShareModule } from '@share/share.module';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
 export default {
   title: '组件/英雄区/2v1',
   component: Hero2v1Component,
@@ -34,8 +34,7 @@ export default {
   ],
 } as Meta;
 
-const Template: Story<Hero2v1Component> = (args) => ({
-  component: Hero2v1Component,
+const Template: Story = (args) => ({
   props: {
     ...args,
   },
@@ -85,7 +84,7 @@ Default.args = {
 };
 
 export const YCenter = Template.bind({});
-
+YCenter.storyName = 'Y轴中心';
 YCenter.args = {
   content: {
     theme: 'text-light',
@@ -127,7 +126,7 @@ YCenter.args = {
 };
 
 export const YCenterXCustom = Template.bind({});
-
+YCenterXCustom.storyName = 'Y 轴中心 X 轴自定义';
 YCenterXCustom.args = {
   content: {
     theme: '',
@@ -170,7 +169,7 @@ YCenterXCustom.args = {
 };
 
 export const XYCustom = Template.bind({});
-
+XYCustom.storyName = 'XY 轴自定义';
 XYCustom.args = {
   content: {
     theme: 'text-light',

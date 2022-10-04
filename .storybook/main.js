@@ -4,7 +4,14 @@ module.exports = {
     "@storybook/addon-links",
     "@storybook/addon-essentials",
     "@storybook/addon-interactions",
-    "@storybook/addon-postcss",
+    "@storybook/addon-a11y",
+    "@storybook/addon-ie11",
   ],
   framework: "@storybook/angular",
+  // core: {
+  //   builder: "@storybook/builder-webpack5",
+  // },
+  features: {
+    interactionsDebugger: true,
+  },
 };

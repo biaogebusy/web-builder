@@ -5,10 +5,12 @@ import {
   Output,
   EventEmitter,
   ChangeDetectionStrategy,
+  Inject,
 } from '@angular/core';
 import type { ICommentConfig } from '@core/interface/node/INode';
 import { ContentState } from '@core/mobx/ContentState';
-import { UserState } from '@core/mobx/user/UserState';
+import { USER } from '@core/token/token-providers';
+import { IUser } from '@core/interface/IUser';
 
 @Component({
   selector: 'app-comment-actions',
@@ -25,7 +27,10 @@ export class CommentActionsComponent implements OnInit {
   @Output() update = new EventEmitter();
   @Output() reply = new EventEmitter();
   @Output() delete = new EventEmitter();
-  constructor(public userState: UserState, public contentState: ContentState) {}
+  constructor(
+    public contentState: ContentState,
+    @Inject(USER) private user: IUser
+  ) {}
 
   ngOnInit(): void {}
 
@@ -48,8 +53,7 @@ export class CommentActionsComponent implements OnInit {
 
   isMy(): boolean {
     return (
-      this.item.author.id === this.userState.currentUser.id &&
-      !(this.item.id === this.currentId)
+      this.item.author.id === this.user.id && !(this.item.id === this.currentId)
     );
   }
 }

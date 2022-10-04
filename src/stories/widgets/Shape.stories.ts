@@ -1,17 +1,17 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { SafeHtmlPipe } from '../../app/core/pipe/safe-html.pipe';
-import { CORE_CONFIG } from '../../app/core/token/core.config';
-import { ShareModule } from '../../app/share/share.module';
 import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { ShapeComponent } from '../../app/uiux/widgets/shape/shape.component';
-import { WidgetsModule } from '../../app/uiux/widgets/widgets.module';
 import { HttpClientModule } from '@angular/common/http';
+import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
+import { CORE_CONFIG } from '@core/token/token-providers';
+import { ShareModule } from '@share/share.module';
+import { ShapeComponent } from '@uiux/widgets/shape/shape.component';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
 
 export default {
   title: '基础/形状',
@@ -44,8 +44,7 @@ export default {
   ],
 } as Meta;
 
-const Template: Story<ShapeComponent> = (args) => ({
-  component: ShapeComponent,
+const Template: Story = (args) => ({
   props: {
     ...args,
   },

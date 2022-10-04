@@ -3,7 +3,7 @@
   <app-bg-img [content]="content.bg"></app-bg-img>
   <div class="card-content">
     <app-img class="media" [content]="content.img" *ngIf="content.img"></app-img>
-    <div class="card-bottom">
+    <div class="card-bottom m-top-xs">
       <p [innerHTML]="content.subTitle|safeHtml" *ngIf="content.subTitle"></p>
       <app-link class="title" [content]="content.link" *ngIf="content.link"></app-link>
     </div>

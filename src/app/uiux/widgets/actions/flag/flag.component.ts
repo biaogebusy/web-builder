@@ -15,8 +15,9 @@ import { ScreenService } from '@core/service/screen.service';
 import { Subject } from 'rxjs';
 import type { IFlag } from '@core/interface/widgets/IFlag';
 import { UtilitiesService } from '../../../../core/service/utilities.service';
-import { CORE_CONFIG } from '@core/token/core.config';
-import type { ICoreConfig } from '@core/mobx/IAppConfig';
+import { CORE_CONFIG, USER } from '@core/token/token-providers';
+import type { ICoreConfig } from '@core/interface/IAppConfig';
+import { IUser } from '@core/interface/IUser';
 
 @Component({
   selector: 'app-flag',
@@ -36,7 +37,8 @@ export class FlagComponent extends BaseComponent implements OnInit, OnDestroy {
     public userState: UserState,
     public nodeService: NodeService,
     private utiltiy: UtilitiesService,
-    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
+    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
+    @Inject(USER) private user: IUser
   ) {
     super(userState);
   }
@@ -44,7 +46,7 @@ export class FlagComponent extends BaseComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       this.config = this.coreConfig?.actions?.flag;
-      if (this.config?.enable && this.userState.authenticated) {
+      if (this.config?.enable && this.user.authenticated) {
         this.getFlagging();
       }
     }
@@ -52,7 +54,7 @@ export class FlagComponent extends BaseComponent implements OnInit, OnDestroy {
 
   get flaggingParams(): any {
     const params = [
-      `filter[uid.id]=${this.userState.currentUser.id}`,
+      `filter[uid.id]=${this.user.id}`,
       `filter[entity_id]=${this.getDeepValue(
         this.content,
         'params.entity_id'
@@ -67,7 +69,7 @@ export class FlagComponent extends BaseComponent implements OnInit, OnDestroy {
         this.coreConfig.apiUrl.flaggingGetPath,
         this.type,
         this.flaggingParams,
-        this.userState.csrfToken
+        this.user.csrf_token
       )
       .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {
@@ -79,7 +81,7 @@ export class FlagComponent extends BaseComponent implements OnInit, OnDestroy {
   }
 
   onFlag(): void {
-    if (!this.userState.authenticated) {
+    if (!this.user.authenticated) {
       this.utiltiy.openSnackbar('请登录，再收藏！', 'x');
       return;
     }
@@ -105,14 +107,14 @@ export class FlagComponent extends BaseComponent implements OnInit, OnDestroy {
             uid: {
               data: {
                 type: 'user--user',
-                id: this.userState.currentUser.id,
+                id: this.user.id,
               },
             },
           },
         },
       };
       this.nodeService
-        .flagging(this.path, JSON.stringify(data), this.userState.csrfToken)
+        .flagging(this.path, JSON.stringify(data), this.user.csrf_token)
         .pipe(takeUntil(this.destroy$))
         .subscribe((res) => {
           this.flagging = true;
@@ -131,7 +133,7 @@ export class FlagComponent extends BaseComponent implements OnInit, OnDestroy {
             return this.nodeService.deleteFlagging(
               this.path,
               res.data,
-              this.userState.csrfToken
+              this.user.csrf_token
             );
           }),
           takeUntil(this.destroy$)

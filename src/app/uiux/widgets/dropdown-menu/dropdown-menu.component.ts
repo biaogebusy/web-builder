@@ -4,7 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import type { IMainMenu } from '@core/mobx/IBranding';
+import type { IMainMenu } from '@core/interface/IBranding';
 
 @Component({
   selector: 'app-dropdown-menu',

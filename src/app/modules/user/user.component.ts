@@ -11,8 +11,10 @@ import { UserService } from '@core/service/user.service';
 import { UserState } from '@core/mobx/user/UserState';
 import { ScreenService } from '@core/service/screen.service';
 import { isEmpty } from 'lodash-es';
-import { CORE_CONFIG } from '@core/token/core.config';
-import type { ICoreConfig } from '@core/mobx/IAppConfig';
+import { CORE_CONFIG, USER } from '@core/token/token-providers';
+import type { ICoreConfig } from '@core/interface/IAppConfig';
+import { IUser } from '@core/interface/IUser';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-user',
@@ -21,7 +23,7 @@ import type { ICoreConfig } from '@core/mobx/IAppConfig';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserComponent implements OnInit, OnDestroy {
-  user: any;
+  currentUser: any;
   id: any;
   constructor(
     private cd: ChangeDetectorRef,
@@ -29,16 +31,19 @@ export class UserComponent implements OnInit, OnDestroy {
     private screenService: ScreenService,
     private userService: UserService,
     private userState: UserState,
-    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
+    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
+    @Inject(USER) private user: IUser
   ) {}
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       this.getUser();
-      this.userState.user$.subscribe((user) => {
-        if (!user.authenticated) {
+      this.userState.userSub$.subscribe((user) => {
+        if (!user) {
           setTimeout(() => {
-            this.route.navigate(['user/login']);
+            this.route.navigate([
+              environment.drupalProxy ? '/my' : '/me/login',
+            ]);
           }, 2000);
         } else {
           window.location.reload();
@@ -50,10 +55,7 @@ export class UserComponent implements OnInit, OnDestroy {
   getUser(): any {
     const people = {};
     this.userService
-      .getUserById(
-        this.userState.currentUser.current_user.uid,
-        this.userState.csrfToken
-      )
+      .getUserById(this.user.current_user.uid, this.user.csrf_token)
       .subscribe((res) => {
         const info = res.data[0];
         if (!info) {
@@ -62,7 +64,7 @@ export class UserComponent implements OnInit, OnDestroy {
         const profile = {
           bannerBg: this.getBanner(),
           avatar: {
-            src: info?.user_picture?.uri?.url || this.userState.defaultAvatar,
+            src: info?.user_picture?.uri?.url || this.coreConfig.defaultAvatar,
             alt: info.name,
           },
           name: info.name,
@@ -100,7 +102,7 @@ export class UserComponent implements OnInit, OnDestroy {
             ],
           },
         };
-        this.user = Object.assign(people, profile);
+        this.currentUser = Object.assign(people, profile);
         this.cd.detectChanges();
       });
   }
@@ -128,7 +130,7 @@ export class UserComponent implements OnInit, OnDestroy {
   }
 
   logout(): void {
-    this.userState.logout();
+    this.userState.logout(this.user.logout_token);
   }
 
   ngOnDestroy(): void {}

@@ -1,13 +1,12 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { SafeHtmlPipe } from '../../app/core/pipe/safe-html.pipe';
-import { CORE_CONFIG } from '../../app/core/token/core.config';
-import { ShareModule } from '../../app/share/share.module';
+import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
+import { CORE_CONFIG } from '@core/token/token-providers';
+import { ShareModule } from '@share/share.module';
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { BgComponent } from '../../app/uiux/widgets/bg/bg.component';
-import { PanelComponent } from '../../app/uiux/widgets/panel/panel.component';
-import { WidgetsModule } from '../../app/uiux/widgets/widgets.module';
+import { PanelComponent } from '@uiux/widgets/panel/panel.component';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
 
 export default {
   title: '基础/面板',
@@ -32,8 +31,7 @@ export default {
   ],
 } as Meta;
 
-const Template: Story<PanelComponent> = (args) => ({
-  component: PanelComponent,
+const Template: Story = (args) => ({
   props: {
     ...args,
   },

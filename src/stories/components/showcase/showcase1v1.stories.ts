@@ -6,16 +6,16 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { CORE_CONFIG } from '@core/token/core.config';
+import { CORE_CONFIG } from '@core/token/token-providers';
 import { HttpClientModule } from '@angular/common/http';
-import { WidgetsModule } from '../../../app/uiux/widgets/widgets.module';
 import { NgxWebstorageModule } from 'ngx-webstorage';
-import { ShareModule } from '../../../app/share/share.module';
 import { SwiperModule } from 'ngx-swiper-wrapper';
 import { Showcase1v1Component } from '@uiux/combs/showcase/showcase1v1/showcase1v1.component';
 import { apiUrlFactory, API_URL } from '@core/token/token-providers';
+import { ShareModule } from '@share/share.module';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
 export default {
-  title: '组件/showcase/1v1',
+  title: '组件/展示/1v1',
   component: Showcase1v1Component,
   decorators: [
     moduleMetadata({
@@ -48,8 +48,7 @@ export default {
   ],
 } as Meta;
 
-const Template: Story<Showcase1v1Component> = (args) => ({
-  component: Showcase1v1Component,
+const Template: Story = (args) => ({
   props: {
     ...args,
   },
@@ -67,18 +66,18 @@ Default.args = {
     elements: [
       {
         icon: {
-          svg: 'zhihu',
-          inline: true,
+          name: 'verified_user',
         },
         style: 'style-v9',
         title: {
           href: '#',
-          label: 'Best Financial Advice',
+          label: '高性能',
         },
-        content: 'The most well-known which is said to have originated',
+        content:
+          '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
         more: {
           href: '#',
-          label: 'Read More',
+          label: '更多',
         },
       },
       {
@@ -88,12 +87,12 @@ Default.args = {
         style: 'style-v9',
         title: {
           href: '#',
-          label: 'Authorised Finance Brand',
+          label: '易用的编辑器',
         },
-        content: 'The most well-known which is said to have originated',
+        content: '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作；',
         more: {
           href: '#',
-          label: 'Read More',
+          label: '更多',
         },
       },
       {
@@ -103,12 +102,12 @@ Default.args = {
         style: 'style-v9',
         title: {
           href: '#',
-          label: 'Compehensive Advices',
+          label: '多语言',
         },
-        content: 'The most well-known which is said to have originated',
+        content: 'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程； ',
         more: {
           href: '#',
-          label: 'Read More',
+          label: '更多',
         },
       },
       {
@@ -118,12 +117,12 @@ Default.args = {
         style: 'style-v9',
         title: {
           href: '#',
-          label: 'Best Tax Advantages',
+          label: '更有弹性',
         },
-        content: 'The most well-known which is said to have originated',
+        content: '无论是一个还是多个站点，Drupal 总是可以游刃有余的构建；',
         more: {
           href: '#',
-          label: 'Read More',
+          label: '更多',
         },
       },
     ],
@@ -141,68 +140,20 @@ StyleV1.args = {
     row: 4,
     elements: [
       {
-        icon: {
-          name: 'verified_user',
-        },
+        ...Default.args.content.elements[0],
         style: 'style-v1',
-        title: {
-          href: '#',
-          label: 'SUPER CODING',
-        },
-        content:
-          'There are many variations of demo text passed sages of Lorem Ipsum available the majority.',
-        more: {
-          href: '#',
-          label: '+',
-        },
       },
       {
-        icon: {
-          name: 'fingerprint',
-        },
+        ...Default.args.content.elements[1],
         style: 'style-v1',
-        title: {
-          href: '#',
-          label: 'BEST USER INTERFACE',
-        },
-        content:
-          'There are many variations of demo text passed sages of Lorem Ipsum available the majority.',
-        more: {
-          href: '#',
-          label: '+',
-        },
       },
       {
-        icon: {
-          name: 'favorite',
-        },
+        ...Default.args.content.elements[2],
         style: 'style-v1',
-        title: {
-          href: '#',
-          label: 'UNIQUE DESIGN',
-        },
-        content:
-          'There are many variations of demo text passed sages of Lorem Ipsum available the majority.',
-        more: {
-          href: '#',
-          label: '+',
-        },
       },
       {
-        icon: {
-          name: 'android',
-        },
+        ...Default.args.content.elements[3],
         style: 'style-v1',
-        title: {
-          href: '#',
-          label: 'EASY TO CUSTOMIZE',
-        },
-        content:
-          'There are many variations of demo text passed sages of Lorem Ipsum available the majority.',
-        more: {
-          href: '#',
-          label: '+',
-        },
       },
     ],
   },
@@ -224,68 +175,32 @@ StyleV2.args = {
     },
     elements: [
       {
+        ...Default.args.content.elements[0],
         icon: {
           name: 'verified_user',
         },
         style: 'style-v2',
-        title: {
-          href: '#',
-          label: 'SUPER CODING',
-        },
-        content:
-          'There are many variations of demo text passed sages of Lorem Ipsum available the majority.',
-        more: {
-          href: '#',
-          label: '+',
-        },
       },
       {
+        ...Default.args.content.elements[1],
         icon: {
           name: 'fingerprint',
         },
         style: 'style-v2',
-        title: {
-          href: '#',
-          label: 'BEST USER INTERFACE',
-        },
-        content:
-          'There are many variations of demo text passed sages of Lorem Ipsum available the majority.',
-        more: {
-          href: '#',
-          label: '+',
-        },
       },
       {
+        ...Default.args.content.elements[2],
         icon: {
           name: 'favorite',
         },
         style: 'style-v2',
-        title: {
-          href: '#',
-          label: 'UNIQUE DESIGN',
-        },
-        content:
-          'There are many variations of demo text passed sages of Lorem Ipsum available the majority.',
-        more: {
-          href: '#',
-          label: '+',
-        },
       },
       {
+        ...Default.args.content.elements[3],
         icon: {
           name: 'android',
         },
         style: 'style-v2',
-        title: {
-          href: '#',
-          label: 'EASY TO CUSTOMIZE',
-        },
-        content:
-          'There are many variations of demo text passed sages of Lorem Ipsum available the majority.',
-        more: {
-          href: '#',
-          label: '+',
-        },
       },
     ],
   },
@@ -304,68 +219,32 @@ StyleV3.args = {
     style: 'style-v3',
     elements: [
       {
+        ...Default.args.content.elements[0],
         icon: {
           name: 'verified_user',
         },
         style: 'style-v3',
-        title: {
-          href: '#',
-          label: 'SUPER CODING',
-        },
-        content:
-          'There are many variations of demo text passed sages of Lorem Ipsum available the majority.',
-        more: {
-          href: '#',
-          label: '+',
-        },
       },
       {
+        ...Default.args.content.elements[1],
         icon: {
           name: 'fingerprint',
         },
         style: 'style-v3',
-        title: {
-          href: '#',
-          label: 'BEST USER INTERFACE',
-        },
-        content:
-          'There are many variations of demo text passed sages of Lorem Ipsum available the majority.',
-        more: {
-          href: '#',
-          label: '+',
-        },
       },
       {
+        ...Default.args.content.elements[2],
         icon: {
           name: 'favorite',
         },
         style: 'style-v3',
-        title: {
-          href: '#',
-          label: 'UNIQUE DESIGN',
-        },
-        content:
-          'There are many variations of demo text passed sages of Lorem Ipsum available the majority.',
-        more: {
-          href: '#',
-          label: '+',
-        },
       },
       {
+        ...Default.args.content.elements[3],
         icon: {
           name: 'android',
         },
         style: 'style-v3',
-        title: {
-          href: '#',
-          label: 'EASY TO CUSTOMIZE',
-        },
-        content:
-          'There are many variations of demo text passed sages of Lorem Ipsum available the majority.',
-        more: {
-          href: '#',
-          label: '+',
-        },
       },
     ],
   },
@@ -386,68 +265,32 @@ StyleV4.args = {
     },
     elements: [
       {
+        ...Default.args.content.elements[0],
         style: 'style-v4',
         icon: {
           name: 'verified_user',
         },
-        title: {
-          href: '#',
-          label: 'SUPER CODING',
-        },
-        content:
-          'There are many variations of demo text passed sages of Lorem Ipsum available the majority.',
-        more: {
-          href: '#',
-          label: '+',
-        },
       },
       {
+        ...Default.args.content.elements[1],
         icon: {
           name: 'fingerprint',
         },
         style: 'style-v4',
-        title: {
-          href: '#',
-          label: 'BEST USER INTERFACE',
-        },
-        content:
-          'There are many variations of demo text passed sages of Lorem Ipsum available the majority.',
-        more: {
-          href: '#',
-          label: '+',
-        },
       },
       {
+        ...Default.args.content.elements[2],
         icon: {
           name: 'favorite',
         },
         style: 'style-v4',
-        title: {
-          href: '#',
-          label: 'UNIQUE DESIGN',
-        },
-        content:
-          'There are many variations of demo text passed sages of Lorem Ipsum available the majority.',
-        more: {
-          href: '#',
-          label: '+',
-        },
       },
       {
+        ...Default.args.content.elements[3],
         icon: {
           name: 'android',
         },
         style: 'style-v4',
-        title: {
-          href: '#',
-          label: 'EASY TO CUSTOMIZE',
-        },
-        content:
-          'There are many variations of demo text passed sages of Lorem Ipsum available the majority.',
-        more: {
-          href: '#',
-          label: '+',
-        },
       },
     ],
   },
@@ -465,68 +308,32 @@ StyleV5.args = {
     row: 4,
     elements: [
       {
+        ...Default.args.content.elements[0],
         icon: {
           name: 'verified_user',
         },
         style: 'style-v5',
-        title: {
-          href: '#',
-          label: 'SUPER CODING',
-        },
-        content:
-          'There are many variations of demo text passed sages of Lorem Ipsum available the majority.',
-        more: {
-          href: '#',
-          label: '+',
-        },
       },
       {
+        ...Default.args.content.elements[1],
         icon: {
           name: 'fingerprint',
         },
         style: 'style-v5',
-        title: {
-          href: '#',
-          label: 'BEST USER INTERFACE',
-        },
-        content:
-          'There are many variations of demo text passed sages of Lorem Ipsum available the majority.',
-        more: {
-          href: '#',
-          label: '+',
-        },
       },
       {
+        ...Default.args.content.elements[2],
         icon: {
           name: 'favorite',
         },
         style: 'style-v5',
-        title: {
-          href: '#',
-          label: 'UNIQUE DESIGN',
-        },
-        content:
-          'There are many variations of demo text passed sages of Lorem Ipsum available the majority.',
-        more: {
-          href: '#',
-          label: '+',
-        },
       },
       {
+        ...Default.args.content.elements[3],
         icon: {
           name: 'android',
         },
         style: 'style-v5',
-        title: {
-          href: '#',
-          label: 'EASY TO CUSTOMIZE',
-        },
-        content:
-          'There are many variations of demo text passed sages of Lorem Ipsum available the majority.',
-        more: {
-          href: '#',
-          label: '+',
-        },
       },
     ],
   },
@@ -547,68 +354,32 @@ StyleV6.args = {
     },
     elements: [
       {
+        ...Default.args.content.elements[0],
         icon: {
           name: 'verified_user',
         },
         style: 'style-v6',
-        title: {
-          href: '#',
-          label: 'SUPER CODING',
-        },
-        content:
-          'There are many variations of demo text passed sages of Lorem Ipsum available the majority.',
-        more: {
-          href: '#',
-          label: 'Read More',
-        },
       },
       {
+        ...Default.args.content.elements[1],
         icon: {
           name: 'fingerprint',
         },
         style: 'style-v6',
-        title: {
-          href: '#',
-          label: 'BEST USER INTERFACE',
-        },
-        content:
-          'There are many variations of demo text passed sages of Lorem Ipsum available the majority.',
-        more: {
-          href: '#',
-          label: 'Read More',
-        },
       },
       {
+        ...Default.args.content.elements[2],
         icon: {
           name: 'favorite',
         },
         style: 'style-v6',
-        title: {
-          href: '#',
-          label: 'UNIQUE DESIGN',
-        },
-        content:
-          'There are many variations of demo text passed sages of Lorem Ipsum available the majority.',
-        more: {
-          href: '#',
-          label: 'Read More',
-        },
       },
       {
+        ...Default.args.content.elements[3],
         icon: {
           name: 'android',
         },
         style: 'style-v6',
-        title: {
-          href: '#',
-          label: 'EASY TO CUSTOMIZE',
-        },
-        content:
-          'There are many variations of demo text passed sages of Lorem Ipsum available the majority.',
-        more: {
-          href: '#',
-          label: 'Read More',
-        },
       },
     ],
   },
@@ -626,68 +397,32 @@ StyleV7.args = {
     row: 4,
     elements: [
       {
+        ...Default.args.content.elements[0],
         icon: {
           name: 'verified_user',
         },
         style: 'style-v7',
-        title: {
-          href: '#',
-          label: 'SUPER CODING',
-        },
-        content:
-          'There are many variations of demo text passed sages of Lorem Ipsum available the majority.',
-        more: {
-          href: '#',
-          label: 'Read More',
-        },
       },
       {
+        ...Default.args.content.elements[1],
         icon: {
           name: 'fingerprint',
         },
         style: 'style-v7',
-        title: {
-          href: '#',
-          label: 'BEST USER INTERFACE',
-        },
-        content:
-          'There are many variations of demo text passed sages of Lorem Ipsum available the majority.',
-        more: {
-          href: '#',
-          label: 'Read More',
-        },
       },
       {
+        ...Default.args.content.elements[2],
         icon: {
           name: 'favorite',
         },
         style: 'style-v7',
-        title: {
-          href: '#',
-          label: 'UNIQUE DESIGN',
-        },
-        content:
-          'There are many variations of demo text passed sages of Lorem Ipsum available the majority.',
-        more: {
-          href: '#',
-          label: 'Read More',
-        },
       },
       {
+        ...Default.args.content.elements[3],
         icon: {
           name: 'android',
         },
         style: 'style-v7',
-        title: {
-          href: '#',
-          label: 'EASY TO CUSTOMIZE',
-        },
-        content:
-          'There are many variations of demo text passed sages of Lorem Ipsum available the majority.',
-        more: {
-          href: '#',
-          label: 'Read More',
-        },
       },
     ],
   },

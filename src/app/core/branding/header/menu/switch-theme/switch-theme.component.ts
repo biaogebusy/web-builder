@@ -4,9 +4,13 @@ import {
   Inject,
   OnInit,
 } from '@angular/core';
-import { AppState } from '@core/mobx/AppState';
-import type { ICoreConfig } from '@core/mobx/IAppConfig';
-import { CORE_CONFIG } from '@core/token/core.config';
+import type { ICoreConfig } from '@core/interface/IAppConfig';
+import { CORE_CONFIG } from '@core/token/token-providers';
+import { DOCUMENT } from '@angular/common';
+import { ConfigService } from '@core/service/config.service';
+import { LocalStorageService } from 'ngx-webstorage';
+import { THEME } from '@core/token/token-providers';
+import { MODE } from '@core/factory/factory';
 @Component({
   selector: 'app-switch-theme',
   templateUrl: './switch-theme.component.html',
@@ -15,8 +19,11 @@ import { CORE_CONFIG } from '@core/token/core.config';
 })
 export class SwitchThemeComponent implements OnInit {
   constructor(
-    public appState: AppState,
-    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig
+    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
+    @Inject(DOCUMENT) private document: Document,
+    @Inject(THEME) public currentTheme: string,
+    private configService: ConfigService,
+    private storage: LocalStorageService
   ) {}
 
   ngOnInit(): void {}
@@ -26,6 +33,10 @@ export class SwitchThemeComponent implements OnInit {
   }
 
   onSwitchTheme(theme: string): void {
-    this.appState.switchTheme(theme);
+    const body = this.document.getElementsByTagName('body')[0];
+    body.removeAttribute('class');
+    body.classList.add(theme);
+    this.configService.switchChange$.next(theme);
+    this.storage.store(MODE, theme);
   }
 }

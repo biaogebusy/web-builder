@@ -7,9 +7,8 @@
     <div class="filter" *ngIf="content.form" fxFlex.gt-sm="0 0 100" fxFlex.lt-md="100" fxLayout.gt-sm="row"
       fxLayout.lt-md="column" fxLayoutAlign="space-between center">
       <div class="filter-item" fxLayout.gt-sm="row wrap" fxLayout.lt-md="column" fxLayoutGap.gt-sm="1rem">
-        <formly-form fxLayout="row wrap" fxLayoutGap="1rem" [form]="form" [fields]="content.form" [model]="model"
-          (modelChange)="onModelChange($event)">
-        </formly-form>
+        <app-formly [form]="form" [fields]="content.form" [model]="model" (modelChange)="onModelChange($event)">
+        </app-formly>
       </div>
       <div class="actions" fxLayoutGap="1rem" fxLayoutAlign="center center">
         <app-btn (click)="onExport()" [content]="content.params.export.btn"

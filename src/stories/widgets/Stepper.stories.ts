@@ -1,19 +1,19 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { SafeHtmlPipe } from '../../app/core/pipe/safe-html.pipe';
-import { CORE_CONFIG } from '../../app/core/token/core.config';
-import { ShareModule } from '../../app/share/share.module';
 import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { WidgetsModule } from '../../app/uiux/widgets/widgets.module';
 import { StepperComponent } from '@uiux/widgets/stepper/stepper.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { API_URL, apiUrlFactory } from '@core/token/token-providers';
+import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
+import { CORE_CONFIG } from '@core/token/token-providers';
+import { ShareModule } from '@share/share.module';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
 
 export default {
   title: '基础/进步器',
@@ -49,17 +49,15 @@ export default {
   ],
 } as Meta;
 
-const Template: Story<StepperComponent> = (args) => ({
-  component: StepperComponent,
+const Template: Story = (args) => ({
   props: {
     ...args,
   },
 });
 export const Horizontal = Template.bind({});
-
+Horizontal.storyName = '水平方向';
 Horizontal.args = {
   content: {
-    type: 'stepper',
     params: {
       mode: 'horizontal',
       labelPosition: 'bottom',
@@ -83,5 +81,16 @@ Horizontal.args = {
         label: '已完成',
       },
     ],
+  },
+};
+export const Vertical = Template.bind({});
+Vertical.storyName = '垂直方向';
+Vertical.args = {
+  content: {
+    ...Horizontal.args.content,
+    params: {
+      mode: 'vertical',
+      linear: true,
+    },
   },
 };

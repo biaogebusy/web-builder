@@ -1,139 +1,63 @@
 import { Injectable } from '@angular/core';
-import { action, observable, computed } from 'mobx-angular';
 import { LocalStorageService } from 'ngx-webstorage';
-import type { IUser, TokenUser } from './IUser';
-import { of, Subject, forkJoin } from 'rxjs';
+import { of, Subject, forkJoin, Observable } from 'rxjs';
 import { UserService } from '@core/service/user.service';
 import { UtilitiesService } from '@core/service/utilities.service';
-import { CryptoJSService } from '@core/service/crypto-js.service';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { intersection } from 'lodash-es';
-
-const unauthUser = {
-  id: '',
-  authenticated: false,
-  csrf_token: '',
-  current_user: {
-    uid: '',
-    name: '',
-    roles: [],
-  },
-  logout_token: '',
-  login: '',
-};
+import { IUser, TokenUser } from '@core/interface/IUser';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserState {
-  @observable private user: IUser = unauthUser;
-  @observable public error = '';
-  @observable public loading = false;
-
-  user$ = new Subject<IUser>();
+  userSub$ = new Subject<IUser | boolean>();
 
   constructor(
-    private cryptoJS: CryptoJSService,
     private userService: UserService,
     private utilities: UtilitiesService,
     private storage: LocalStorageService
-  ) {
-    // this.user = unauthUser;
-    // return;
-    if (this.storage.retrieve(this.userService.localUserKey)) {
-      this.user = JSON.parse(
-        this.cryptoJS.decrypt(
-          this.storage.retrieve(this.userService.localUserKey)
-        )
-      );
-      // console.log(this.user);
-    }
-  }
+  ) {}
 
-  @computed get currentUser(): IUser {
-    return Object.assign({}, this.user);
-  }
-
-  @computed get unauthUser(): IUser {
-    return Object.assign({}, unauthUser);
-  }
-
-  @computed
-  get authenticated(): boolean {
-    return !!this.user.current_user.uid;
-  }
-
-  @computed
-  get picture(): any {
-    return this.user && this.user.picture;
-  }
-
-  @computed
-  get roles(): string[] {
-    return (this.currentUser && this.currentUser.current_user.roles) || [''];
-  }
-
-  get defaultAvatar(): string {
-    return '/assets/images/avatar/default.svg';
-  }
-
-  @computed
-  get logoutToken(): string {
-    return (this.currentUser && this.currentUser.logout_token) || '';
-  }
-
-  @computed
-  get csrfToken(): string {
-    return this.currentUser && this.currentUser.csrf_token;
-  }
-
-  @action
-  login(userName: string, passWord: string): any {
-    this.loading = true;
-    this.userService.login(userName, passWord).subscribe(
-      (data) => {
+  login(userName: string, passWord: string): Observable<boolean> {
+    return this.userService.login(userName, passWord).pipe(
+      map((data) => {
         this.updateUser(data);
-      },
-      (error) => {
-        this.loading = false;
-        this.error = error.message;
-      }
+        return true;
+      }),
+      catchError(() => {
+        return of(false);
+      })
     );
   }
 
-  @action
-  loginByPhone(phone: number, code: string): any {
-    this.loading = true;
-    this.userService.loginByPhone(phone, code).subscribe(
-      (data) => {
-        if (data.status) {
-          this.updateUser(data);
-        } else {
-          this.utilities.openSnackbar(data.message);
-          this.loading = false;
-        }
-      },
-      (error) => {
-        console.log(error);
-      }
+  loginByPhone(phone: number, code: string): Observable<boolean> {
+    return this.userService.loginByPhone(phone, code).pipe(
+      map((data) => {
+        this.updateUser(data);
+        return true;
+      }),
+      catchError(() => {
+        return of(false);
+      })
     );
   }
 
-  @action
-  logout(): any {
+  logout(logouToken: string): any {
     if (environment.drupalProxy) {
       this.logoutUser();
       window.location.href = '/user/logout';
       return;
     }
     this.userService
-      .logout(this.logoutToken)
+      .logout(logouToken)
       .pipe(
         catchError((error) => {
           if (error.status === 403) {
-            return of(true);
+            // false: logout
+            return of(false);
           }
           console.log('退出异常！');
           return of(false);
@@ -145,27 +69,21 @@ export class UserState {
   }
 
   logoutUser(): void {
-    this.user$.next(unauthUser);
-    this.user = unauthUser;
+    this.userSub$.next(false);
     this.storage.clear(this.userService.localUserKey);
   }
 
-  @action
   loginUser(data: any, user: any): void {
-    this.loading = false;
-    this.user$.next(user);
-    this.user = Object.assign(data, user);
-    this.userService.storeLocalUser(this.user);
+    const currentUser: IUser = Object.assign(data, user);
+    this.userSub$.next(currentUser);
+    this.userService.storeLocalUser(currentUser);
   }
 
-  @action
   logouLocalUser(): void {
-    this.user$.next(unauthUser);
-    this.user = unauthUser;
+    this.userSub$.next(false);
     this.storage.clear(this.userService.localUserKey);
   }
 
-  @action
   updateUser(data: TokenUser): any {
     this.userService
       .getCurrentUserById(data.current_user.uid, data.csrf_token)
@@ -174,7 +92,6 @@ export class UserState {
       });
   }
 
-  @action
   updateUserBySession(): void {
     const options = {
       headers: new HttpHeaders({
@@ -214,14 +131,12 @@ export class UserState {
       });
   }
 
-  @action
   refreshLocalUser(user: IUser): void {
-    this.user$.next(user);
-    this.user = user;
+    this.userSub$.next(user);
     this.userService.storeLocalUser(user);
   }
 
-  isMatchCurrentRole(roles: string[]): boolean {
-    return intersection(this.roles, roles).length > 0;
+  isMatchCurrentRole(roles: string[], currentUserRoles: string[]): boolean {
+    return intersection(currentUserRoles, roles).length > 0;
   }
 }

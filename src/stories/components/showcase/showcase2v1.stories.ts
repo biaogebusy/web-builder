@@ -6,15 +6,15 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { CORE_CONFIG } from '@core/token/core.config';
+import { CORE_CONFIG } from '@core/token/token-providers';
 import { HttpClientModule } from '@angular/common/http';
-import { WidgetsModule } from '../../../app/uiux/widgets/widgets.module';
 import { NgxWebstorageModule } from 'ngx-webstorage';
-import { ShareModule } from '../../../app/share/share.module';
 import { Showcase2v1Component } from '@uiux/combs/showcase/showcase2v1/showcase2v1.component';
 import { apiUrlFactory, API_URL } from '@core/token/token-providers';
+import { ShareModule } from '@share/share.module';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
 export default {
-  title: '组件/showcase/2v1',
+  title: '组件/展示/2v1',
   component: Showcase2v1Component,
   decorators: [
     moduleMetadata({
@@ -43,8 +43,7 @@ export default {
   ],
 } as Meta;
 
-const Template: Story<Showcase2v1Component> = (args) => ({
-  component: Showcase2v1Component,
+const Template: Story = (args) => ({
   props: {
     ...args,
   },
@@ -63,7 +62,7 @@ Default.args = {
     },
     elements: [
       {
-        subTitle: '2016/03/04',
+        subTitle: '2022/03/04',
         avatar: {
           src: '/assets/images/showcase/weather.png',
           alt: '',
@@ -112,7 +111,7 @@ Default.args = {
         },
       },
       {
-        subTitle: '2016/02/26',
+        subTitle: '2022/02/26',
         avatar: {
           src: '/assets/images/showcase/browser.png',
           alt: '',
@@ -148,7 +147,7 @@ Default.args = {
         },
       },
       {
-        subTitle: '2016/02/26',
+        subTitle: '2022/02/26',
         avatar: {
           src: '/assets/images/showcase/clipboard.png',
           alt: '',
@@ -184,7 +183,7 @@ Default.args = {
         },
       },
       {
-        subTitle: '2016/02/26',
+        subTitle: '2022/02/26',
         avatar: {
           src: '/assets/images/showcase/console.png',
           alt: '',
@@ -220,7 +219,7 @@ Default.args = {
         },
       },
       {
-        subTitle: '2016/02/26',
+        subTitle: '2022/02/26',
         avatar: {
           src: '/assets/images/showcase/weather.png',
           alt: '',
@@ -256,7 +255,7 @@ Default.args = {
         },
       },
       {
-        subTitle: '2016/02/26',
+        subTitle: '2022/02/26',
         avatar: {
           src: '/assets/images/showcase/weather.png',
           alt: '',
@@ -292,7 +291,7 @@ Default.args = {
         },
       },
       {
-        subTitle: '2016/02/26',
+        subTitle: '2022/02/26',
         avatar: {
           src: '/assets/images/showcase/weather.png',
           alt: '',
@@ -328,7 +327,7 @@ Default.args = {
         },
       },
       {
-        subTitle: '2016/02/26',
+        subTitle: '2022/02/26',
         avatar: {
           src: '/assets/images/showcase/weather.png',
           alt: '',

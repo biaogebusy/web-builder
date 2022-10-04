@@ -2,20 +2,18 @@ import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ApiService } from './api.service';
 import { LocalStorageService } from 'ngx-webstorage';
-import { AppState } from '../mobx/AppState';
 import { forkJoin } from 'rxjs';
 import { Observable, of } from 'rxjs';
-import type { IApiUrl } from '../mobx/IAppConfig';
 import { map, switchMap } from 'rxjs/operators';
 import { isEmpty } from 'lodash-es';
-import { UserState } from '@core/mobx/user/UserState';
 import type { IArticleAccess } from '@core/interface/node/IArticle';
 import type { ICommentContent } from '@core/interface/node/INode';
 import { formatDate } from '@angular/common';
-import { CORE_CONFIG } from '@core/token/core.config';
-import type { ICoreConfig } from '@core/mobx/IAppConfig';
+import { CORE_CONFIG, USER } from '@core/token/token-providers';
+import type { IApiUrl, ICoreConfig } from '@core/interface/IAppConfig';
 import { environment } from '../../../environments/environment';
 import { API_URL } from '@core/token/token-providers';
+import { IUser } from '@core/interface/IUser';
 @Injectable({
   providedIn: 'root',
 })
@@ -23,12 +21,11 @@ export class NodeService extends ApiService {
   public responseCache = new Map();
 
   constructor(
-    private appState: AppState,
     public http: HttpClient,
-    private userState: UserState,
     public storage: LocalStorageService,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
-    @Inject(API_URL) public apiBaseUrl: string
+    @Inject(API_URL) public apiBaseUrl: string,
+    @Inject(USER) private user: IUser
   ) {
     super(apiBaseUrl);
   }
@@ -48,7 +45,7 @@ export class NodeService extends ApiService {
     const searchForRole = this.coreConfig?.apiUrl?.search;
     if (searchForRole && apiParams.indexOf('/api/v1/content')) {
       Object.keys(searchForRole).some((role) => {
-        if (this.userState.roles.includes(role)) {
+        if (!this.user || this.user.current_user.roles.includes(role)) {
           apiParams = apiParams.replace('/api/v1/content', searchForRole[role]);
           return true;
         }
@@ -237,7 +234,8 @@ export class NodeService extends ApiService {
       author: {
         img: {
           src:
-            comment.uid?.user_picture?.uri?.url || this.userState.defaultAvatar,
+            comment.uid?.user_picture?.uri?.url ||
+            this.coreConfig?.defaultAvatar,
           style: {
             width: '40px',
             height: '40px',
@@ -368,11 +366,11 @@ export class NodeService extends ApiService {
     return forkJoin(obj);
   }
 
-  checkReqRule(reqRules: string[]): boolean {
-    if (!this.userState.authenticated) {
+  checkReqRule(reqRules: string[], user: IUser): boolean {
+    if (!user.authenticated) {
       return false;
     } else {
-      const currentUserRule = this.userState.roles;
+      const currentUserRule = user.current_user.roles;
       if (currentUserRule.includes('administrator')) {
         return true;
       } else {
@@ -407,15 +405,17 @@ export class NodeService extends ApiService {
     return `${this.apiUrl}${this.coreConfig?.commerce?.payNode}/${entityId}`;
   }
 
-  checkNodeAccess(params: any): Observable<IArticleAccess> {
+  checkNodeAccess(
+    params: any,
+    entityId: string,
+    user: IUser
+  ): Observable<IArticleAccess> {
     const reqPay = params?.pay;
     const reqRule = params?.require_rule;
     const reqMoney = reqPay?.money;
-    const entityId =
-      this.appState.pageConfig?.node?.entityId || params?.entityId;
     if (!isEmpty(reqRule) || reqPay) {
       // 非公开浏览
-      const isReqRoles = this.checkReqRule(reqRule);
+      const isReqRoles = this.checkReqRule(reqRule, user);
       // 是否可授权访问角色
       if (isReqRoles) {
         return of({
@@ -427,11 +427,11 @@ export class NodeService extends ApiService {
         });
       } else {
         // 是否已购买
-        if (reqPay && this.userState.authenticated) {
+        if (reqPay && user.authenticated) {
           return this.checkCurrentUserPayed(
-            this.userState.currentUser.id,
-            this.appState.pageConfig.node.entityId,
-            this.userState.csrfToken
+            user.id,
+            entityId,
+            user.csrf_token
           ).pipe(
             map((payed) => {
               if (payed) {

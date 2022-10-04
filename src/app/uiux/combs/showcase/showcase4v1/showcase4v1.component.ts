@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  Inject,
   Input,
   OnInit,
 } from '@angular/core';
@@ -10,7 +11,9 @@ import { DialogService } from '@core/service/dialog.service';
 import { NodeService } from '@core/service/node.service';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
+import { IUser } from '@core/interface/IUser';
+import { USER } from '@core/token/token-providers';
 
 @Component({
   selector: 'app-showcase4v1',
@@ -25,7 +28,8 @@ export class Showcase4v1Component extends BaseComponent implements OnInit {
     public userState: UserState,
     private nodeService: NodeService,
     private cd: ChangeDetectorRef,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    @Inject(USER) public user: IUser
   ) {
     super(userState);
   }

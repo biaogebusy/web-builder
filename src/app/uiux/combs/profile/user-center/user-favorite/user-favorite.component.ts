@@ -5,6 +5,7 @@ import {
   ChangeDetectorRef,
   OnDestroy,
   Input,
+  Inject,
 } from '@angular/core';
 import { NodeService } from '@core/service/node.service';
 import { takeUntil } from 'rxjs/operators';
@@ -12,6 +13,8 @@ import { formatDate } from '@angular/common';
 import { ScreenService } from '@core/service/screen.service';
 import { Subject } from 'rxjs';
 import { UserState } from '@core/mobx/user/UserState';
+import { IUser } from '@core/interface/IUser';
+import { USER } from '@core/token/token-providers';
 @Component({
   selector: 'app-user-favorite',
   templateUrl: './user-favorite.component.html',
@@ -32,7 +35,8 @@ export class UserFavoriteComponent implements OnInit, OnDestroy {
     private cd: ChangeDetectorRef,
     private userState: UserState,
     private nodeService: NodeService,
-    private screenService: ScreenService
+    private screenService: ScreenService,
+    @Inject(USER) private user: IUser
   ) {}
 
   ngOnInit(): void {
@@ -45,13 +49,13 @@ export class UserFavoriteComponent implements OnInit, OnDestroy {
     this.loading = true;
     const path = this.nodeService.apiUrlConfig.flaggingGetPath;
     const params = [
-      `filter[uid.id]=${this.userState.currentUser.id}`,
+      `filter[uid.id]=${this.user.id}`,
       `include=flagged_entity`,
       `sort=-created`,
       `jsonapi_include=1`,
     ].join('&');
     this.nodeService
-      .getNodes(path, 'favorite', params, this.userState.csrfToken)
+      .getNodes(path, 'favorite', params, this.user.csrf_token)
       .pipe(takeUntil(this.destroy$))
       .subscribe(
         (res) => {

@@ -11,9 +11,11 @@ import {
 } from '@angular/core';
 import { ScreenService } from '../../service/screen.service';
 import { ScreenState } from '../../mobx/screen/ScreenState';
-import { BrandingState } from '../../mobx/BrandingState';
-import { AppState } from '../../mobx/AppState';
 import { DOCUMENT } from '@angular/common';
+import { ContentState } from '@core/mobx/ContentState';
+import { BRANDING } from '@core/token/token-providers';
+import { Observable } from 'rxjs';
+import { IBranding } from '@core/interface/IBranding';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -23,31 +25,37 @@ import { DOCUMENT } from '@angular/common';
 export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   sticky = false;
   showBanner: boolean;
-
+  headerMode: any;
   @ViewChild('header', { read: ElementRef }) header: ElementRef;
   @ViewChild('menu', { read: ElementRef }) menu: ElementRef;
 
   constructor(
     public screenService: ScreenService,
     public screenState: ScreenState,
-    public branding: BrandingState,
-    public appState: AppState,
     public screen: ScreenState,
     private cd: ChangeDetectorRef,
-    @Inject(DOCUMENT) private doc: Document
+    public contentState: ContentState,
+    @Inject(DOCUMENT) private doc: Document,
+    @Inject(BRANDING) public branding$: Observable<IBranding>
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.contentState.pageConfig$.subscribe((config) => {
+      this.headerMode = config?.headerMode;
+    });
+  }
 
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       this.screenState.scroll$.subscribe(() => {
-        this.sticky = this.screenService.isElementOutTopViewport(
-          this.menu.nativeElement
-        );
+        if (this.menu) {
+          this.sticky = this.screenService.isElementOutTopViewport(
+            this.menu.nativeElement
+          );
+        }
         this.cd.detectChanges();
         this.listenSticky(this.sticky);
-        if (this.appState?.pageConfig?.headerMode?.transparent) {
+        if (this.headerMode?.transparent) {
           this.windowScroll();
         }
       });
@@ -64,7 +72,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   windowScroll(): void {
-    const style = this.appState.pageConfig.headerMode.style;
+    const style = this.headerMode?.style;
     if (
       this.doc.body.scrollTop > 50 ||
       this.doc.documentElement.scrollTop > 50
@@ -78,15 +86,17 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   initBanner(): void {
-    const banner = this.branding.header.banner;
-    if (!banner) {
-      this.showBanner = false;
-    } else {
-      this.screenState.mqAlias$().subscribe((mq) => {
-        this.showBanner = mq.includes(banner.breakpoint || 'gt-md');
-        this.cd.detectChanges();
-      });
-    }
+    this.branding$.subscribe((branding) => {
+      const banner = branding.header.banner;
+      if (!banner) {
+        this.showBanner = false;
+      } else {
+        this.screenState.mqAlias$().subscribe((mq) => {
+          this.showBanner = mq.includes(banner.breakpoint || 'gt-md');
+          this.cd.detectChanges();
+        });
+      }
+    });
   }
 
   ngOnDestroy(): void {}

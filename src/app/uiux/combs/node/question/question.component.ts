@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  Inject,
   Input,
   OnDestroy,
   OnInit,
@@ -18,6 +19,8 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { LoginComponent } from 'src/app/modules/user/login/login.component';
 import { ContentState } from '@core/mobx/ContentState';
+import { IUser } from '@core/interface/IUser';
+import { USER } from '@core/token/token-providers';
 
 @Component({
   selector: 'app-question',
@@ -44,7 +47,8 @@ export class QuestionComponent
     private cd: ChangeDetectorRef,
     private router: Router,
     private dialog: MatDialog,
-    public contentState: ContentState
+    public contentState: ContentState,
+    @Inject(USER) public user: IUser
   ) {
     super();
   }
@@ -84,7 +88,7 @@ export class QuestionComponent
     const entityId = this.nodeService.getCommentRelEntityId(this.content);
     const entityType = this.nodeService.getCommentType(this.content);
     const params = [
-      `filter[uid.id]=${this.userState.currentUser.id}`,
+      `filter[uid.id]=${this.user.id}`,
       `filter[entity_id.id]=${entityId}`,
       `sort=-created`,
       'filter[status]=1',
@@ -114,7 +118,7 @@ export class QuestionComponent
 
   getComments(timeStamp = 1): void {
     this.nodeService
-      .getCommentsWitchChild(this.content, this.userState.csrfToken, timeStamp)
+      .getCommentsWitchChild(this.content, this.user.csrf_token, timeStamp)
       .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {
         this.comments = res;

@@ -1,18 +1,18 @@
 <div class="login-container" fxLayoutAlign="center center">
   <div class="login-wrapper m-x position-relative" fxLayout>
-    <div *ngIf="!screenState.eq('xs')" class="login-second position-relative" fxFlex.xs="100" fxFlex.gt-xs="50"
-      fxLayoutAlign="center center">
+    <div *ngIf="!screenState.eq('xs')" class="login-second position-relative p-x-sm p-y-sm" fxFlex.xs="100"
+      fxFlex.gt-xs="50" fxLayoutAlign="center center">
       <app-dynamic-widgets *ngIf="coreConfig.login.left;else default" [content]="coreConfig.login.left">
       </app-dynamic-widgets>
     </div>
     <ng-template #default>
-      <img src="/assets/images/login-second.png" alt="">
+      <app-dynamic-widgets [content]="config.login.left"></app-dynamic-widgets>
     </ng-template>
-    <div class="login-form position-relative" [class.is-login]="userState.authenticated" fxFlex.xs="100"
+    <div class="login-form position-relative" [class.is-login]="currentUser.authenticated" fxFlex.xs="100"
       fxFlex.gt-xs="50" fxLayout="column" fxLayoutAlign="center center">
-      <div class="width-100 form-scroll" *ngIf="!userState.loading">
-        <ng-container *ngIf="!userState.authenticated">
-          <div *ngIf="userState.error||error" class="error p-y-xs p-x-xs m-bottom-xs">{{userState.error}}{{error}}
+      <div class="width-100 form-scroll" *ngIf="!loading">
+        <ng-container *ngIf="!currentUser.authenticated">
+          <div *ngIf="error" class="error p-y-xs p-x-xs m-bottom-xs">{{error}}
           </div>
           <mat-tab-group animationDuration="0ms" [disablePagination]="true">
             <mat-tab label="{{coreConfig.login.phoneLogin.tabLabel || '手机登录'}}"
@@ -71,15 +71,15 @@
             </mat-tab>
           </mat-tab-group>
         </ng-container>
-        <ng-container *ngIf="userState.authenticated">
+        <ng-container *ngIf="currentUser.authenticated">
           <h1 class="mat-h1 text-base">
-            Hi, {{userState.currentUser.display_name}}
+            Hi, {{currentUser.display_name}}
           </h1>
           <mat-divider></mat-divider>
           <p class="text-base m-top-xs">欢迎。</p>
         </ng-container>
       </div>
-      <mat-spinner diameter="50" color="accent" *ngIf="userState.loading"></mat-spinner>
+      <mat-spinner diameter="50" color="accent" *ngIf="loading"></mat-spinner>
     </div>
     <div class="mark-bg position-absolute"></div>
   </div>

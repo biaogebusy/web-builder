@@ -7,15 +7,33 @@ import { LightboxModule } from 'ngx-lightbox';
 import { SwiperModule } from 'ngx-swiper-wrapper';
 import { SWIPER_CONFIG } from 'ngx-swiper-wrapper';
 import { ShareModule } from '@share/share.module';
-import { MatChipsModule } from '@angular/material/chips';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { CountToModule } from 'angular-count-to';
 import { DynamicModule } from 'ng-dynamic-component';
 import { TreeModule } from '@circlon/angular-tree-component';
 import { CdkTableModule } from '@angular/cdk/table';
+
+// Material
+import { MatChipsModule } from '@angular/material/chips';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
+// Form
+import { FormlyModule } from '@ngx-formly/core';
+import { FormlyMatToggleModule } from '@ngx-formly/material/toggle';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { FormlyMaterialModule } from '@ngx-formly/material';
+import { FormlyMatDatepickerModule } from '@ngx-formly/material/datepicker';
+import { FormlyMatSliderModule } from '@ngx-formly/material/slider';
+
+// Core
+import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
+import { DataSourcePipe } from '@core/pipe/dataSource.pipe';
+import { SafeUrlPipe } from '@core/pipe/safe-url.pipe';
+
+// Components
 import { BgComponent } from './bg/bg.component';
 import { ImgComponent } from './img/img.component';
 import { BoxComponent } from './box/box.component';
@@ -46,7 +64,6 @@ import { DropdownMenuComponent } from './dropdown-menu/dropdown-menu.component';
 import { NumberAnimateComponent } from './number-animate/number-animate.component';
 import { DynamicWidgetsComponent } from './dynamic-widgets/dynamic-widgets.component';
 
-import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
 import { IconComponent } from './icon/icon.component';
 import { ProgressGroupComponent } from './progress-group/progress-group.component';
 import { MediaListComponent } from './media/media-list/media-list.component';
@@ -79,22 +96,19 @@ import { ContentTextCenterComponent } from './content-text-center/content-text-c
 import { CalendarComponent } from './date/calendar/calendar.component';
 import { DatepickerComponent } from './form/datepicker/datepicker.component'; // a plugin!
 import { ViewListComponent } from './view-list/view-list.component';
-import { DataSourcePipe } from '@core/pipe/dataSource.pipe';
 import { SearchActionComponent } from './actions/search-action/search-action.component';
 import { SearchSidebarComponent } from './sidebar/search-sidebar/search-sidebar.component';
 import { LoopWidgetsComponent } from './loop-widgets/loop-widgets.component';
 import { IframeComponent } from './iframe/iframe.component';
-import { SafeUrlPipe } from '@core/pipe/safe-url.pipe';
 import { UserCardComponent } from './card/user-card/user-card.component';
 import { UserCardCountComponent } from './card/user-card/user-card-count/user-card-count.component';
-import { FormlyModule } from '@ngx-formly/core';
-import { FormlyMaterialModule } from '@ngx-formly/material';
-import { FormlyMatDatepickerModule } from '@ngx-formly/material/datepicker';
+
 import { DateRangeComponent } from './form/formly-type/date-range/date-range.component';
 import { MatSelectComponent } from './form/formly-type/mat-select/mat-select.component';
 import { ChartComponent } from './chart/chart.component';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { StepperComponent } from './stepper/stepper.component';
+import { FormlyComponent } from './form/formly/formly.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -183,6 +197,7 @@ const components = [
   MatSelectComponent,
   ChartComponent,
   StepperComponent,
+  FormlyComponent,
 ];
 
 @NgModule({
@@ -199,8 +214,13 @@ const components = [
     FullCalendarModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    NgxMatSelectSearchModule,
     FormlyMatDatepickerModule,
     FormlyMaterialModule,
+    MatSliderModule,
+    FormlyMatSliderModule,
+    FormlyMatToggleModule,
+    MatCheckboxModule,
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts'),
     }),
@@ -213,6 +233,17 @@ const components = [
         {
           name: 'date-range',
           component: DateRangeComponent,
+        },
+      ],
+      validationMessages: [
+        { name: 'required', message: '该字段必填' },
+        {
+          name: 'max',
+          message: '不能超过最大值',
+        },
+        {
+          name: 'min',
+          message: '不能小于最小值',
         },
       ],
     }),

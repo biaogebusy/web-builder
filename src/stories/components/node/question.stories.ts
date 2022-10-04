@@ -6,18 +6,17 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { CORE_CONFIG } from '@core/token/core.config';
+import { CORE_CONFIG } from '@core/token/token-providers';
 import { HttpClientModule } from '@angular/common/http';
-import { WidgetsModule } from '../../../app/uiux/widgets/widgets.module';
 import { NgxWebstorageModule } from 'ngx-webstorage';
-import { ShareModule } from '../../../app/share/share.module';
-import { ArticleComponent } from '@uiux/combs/node/article/article.component';
 import { NodeModule } from '@uiux/combs/node/node.module';
 import { QuestionComponent } from '@uiux/combs/node/question/question.component';
 import { apiUrlFactory, API_URL } from '@core/token/token-providers';
 import { APP_INITIALIZER, Inject } from '@angular/core';
 import { AppState } from '@core/mobx/AppState';
 import { initConfig } from 'src/app/app.module';
+import { ShareModule } from '@share/share.module';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
 export default {
   title: '组件/文章/问答',
   component: QuestionComponent,
@@ -55,8 +54,7 @@ export default {
   ],
 } as Meta;
 
-const Template: Story<QuestionComponent> = (args) => ({
-  component: QuestionComponent,
+const Template: Story = (args) => ({
   props: {
     ...args,
   },
