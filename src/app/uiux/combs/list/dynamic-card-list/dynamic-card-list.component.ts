@@ -14,7 +14,6 @@ import { BaseComponent } from '@uiux/base/base.widget';
 import { FormService } from '@core/service/form.service';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { ScreenService } from '@core/service/screen.service';
-import { UserState } from '@core/mobx/user/UserState';
 
 @Component({
   selector: 'app-dynamic-card-list',
@@ -39,10 +38,9 @@ export class DynamicCardListComponent extends BaseComponent implements OnInit {
     public routerService: RouteService,
     private formService: FormService,
     private screenService: ScreenService,
-    private cd: ChangeDetectorRef,
-    public userState: UserState
+    private cd: ChangeDetectorRef
   ) {
-    super(userState);
+    super();
   }
 
   ngOnInit(): void {

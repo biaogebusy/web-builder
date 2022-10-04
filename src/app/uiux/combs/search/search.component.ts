@@ -16,7 +16,6 @@ import { FormService } from '@core/service/form.service';
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { ScreenService } from '@core/service/screen.service';
 import { Subject } from 'rxjs';
-import { UserState } from '@core/mobx/user/UserState';
 
 @Component({
   selector: 'app-search',
@@ -44,10 +43,9 @@ export class SearchComponent
     public routerService: RouteService,
     private formService: FormService,
     private screenService: ScreenService,
-    private cd: ChangeDetectorRef,
-    public userState: UserState
+    private cd: ChangeDetectorRef
   ) {
-    super(userState);
+    super();
   }
 
   ngOnInit(): void {

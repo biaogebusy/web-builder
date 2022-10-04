@@ -8,7 +8,6 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '@core/service/user.service';
-import { UserState } from '@core/mobx/user/UserState';
 import { ScreenService } from '@core/service/screen.service';
 import { isEmpty } from 'lodash-es';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
@@ -30,7 +29,6 @@ export class UserComponent implements OnInit, OnDestroy {
     private route: Router,
     private screenService: ScreenService,
     private userService: UserService,
-    private userState: UserState,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
     @Inject(USER) private user: IUser
   ) {}
@@ -38,7 +36,7 @@ export class UserComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       this.getUser();
-      this.userState.userSub$.subscribe((user) => {
+      this.userService.userSub$.subscribe((user) => {
         if (!user) {
           setTimeout(() => {
             this.route.navigate([
@@ -130,7 +128,7 @@ export class UserComponent implements OnInit, OnDestroy {
   }
 
   logout(): void {
-    this.userState.logout(this.user.logout_token);
+    this.userService.logout(this.user.logout_token);
   }
 
   ngOnDestroy(): void {}

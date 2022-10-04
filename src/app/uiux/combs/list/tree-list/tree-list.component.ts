@@ -19,7 +19,6 @@ import { FormGroup } from '@angular/forms';
 import { FormService } from '@core/service/form.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
-import { UserState } from '@core/mobx/user/UserState';
 
 @Component({
   selector: 'app-tree-list',
@@ -48,10 +47,9 @@ export class TreeListComponent
     private screenService: ScreenService,
     private cd: ChangeDetectorRef,
     private formService: FormService,
-    public userState: UserState,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
   ) {
-    super(userState);
+    super();
   }
 
   ngOnInit(): void {

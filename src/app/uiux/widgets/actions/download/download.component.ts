@@ -14,7 +14,6 @@ import { LoginComponent } from 'src/app/modules/user/login/login.component';
 import { takeUntil } from 'rxjs/operators';
 import { Subject, Observable } from 'rxjs';
 import { NodeService } from '@core/service/node.service';
-import { UserState } from '@core/mobx/user/UserState';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { PAGE_CONTENT } from '@core/token/token-providers';
@@ -40,7 +39,6 @@ export class DownloadComponent implements OnInit, OnDestroy {
     private screenService: ScreenService,
     private dialog: MatDialog,
     private nodeService: NodeService,
-    public userState: UserState,
     private cd: ChangeDetectorRef,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
     @Inject(PAGE_CONTENT) private pageContent$: Observable<IPage>,

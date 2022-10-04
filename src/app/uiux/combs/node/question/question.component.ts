@@ -11,7 +11,6 @@ import {
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import type { IQuestion } from '@core/interface/node/INode';
-import { UserState } from '@core/mobx/user/UserState';
 import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
 import { NodeComponent } from '@uiux/base/node.widget';
@@ -42,7 +41,6 @@ export class QuestionComponent
   destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     public nodeService: NodeService,
-    public userState: UserState,
     private screenService: ScreenService,
     private cd: ChangeDetectorRef,
     private router: Router,

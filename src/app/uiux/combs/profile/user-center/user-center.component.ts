@@ -9,7 +9,6 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import type { IUserCenter } from '@core/interface/IUserCenter';
-import { UserState } from '@core/mobx/user/UserState';
 import { ScreenService } from '@core/service/screen.service';
 import { UserService } from '@core/service/user.service';
 import { isEmpty } from 'lodash-es';
@@ -40,18 +39,17 @@ export class UserCenterComponent
     private route: Router,
     private screenService: ScreenService,
     public userService: UserService,
-    public userState: UserState,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
     @Inject(USER) public user: IUser
   ) {
-    super(userState);
+    super();
   }
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       this.userConfig$ = this.userService.getUserConfig();
       this.getUser();
-      this.userState.userSub$.subscribe((user) => {
+      this.userService.userSub$.subscribe((user) => {
         // logout
         if (!user) {
           setTimeout(() => {

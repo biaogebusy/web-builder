@@ -9,7 +9,6 @@ import {
 } from '@angular/core';
 import { NodeService } from '@core/service/node.service';
 import { BaseComponent } from '@uiux/base/base.widget';
-import { UserState } from '@core/mobx/user/UserState';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { ScreenService } from '@core/service/screen.service';
 import { Subject } from 'rxjs';
@@ -34,13 +33,12 @@ export class FlagComponent extends BaseComponent implements OnInit, OnDestroy {
   constructor(
     private cd: ChangeDetectorRef,
     private screenService: ScreenService,
-    public userState: UserState,
     public nodeService: NodeService,
     private utiltiy: UtilitiesService,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
     @Inject(USER) private user: IUser
   ) {
-    super(userState);
+    super();
   }
 
   ngOnInit(): void {

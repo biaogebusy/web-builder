@@ -9,7 +9,6 @@ import {
 } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { IUser } from '@core/interface/IUser';
-import { UserState } from '@core/mobx/user/UserState';
 import { DialogService } from '@core/service/dialog.service';
 import { FormService } from '@core/service/form.service';
 import { NodeService } from '@core/service/node.service';
@@ -46,14 +45,13 @@ export class ViewListComponent
 
   constructor(
     private nodeService: NodeService,
-    public userState: UserState,
     private cd: ChangeDetectorRef,
     private formService: FormService,
     private dialogService: DialogService,
     private screenService: ScreenService,
     @Inject(USER) private user: IUser
   ) {
-    super(userState);
+    super();
   }
 
   ngOnInit(): void {

@@ -7,7 +7,6 @@ import {
   ChangeDetectionStrategy,
   Inject,
 } from '@angular/core';
-import { UserState } from '@core/mobx/user/UserState';
 import { MatDialog } from '@angular/material/dialog';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { ScreenState } from '@core/mobx/screen/ScreenState';
@@ -19,6 +18,7 @@ import { takeUntil } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { USER } from '@core/token/token-providers';
 import { IUser } from '@core/interface/IUser';
+import { UserService } from '@core/service/user.service';
 
 @Component({
   selector: 'app-user-menu',
@@ -33,19 +33,19 @@ export class UserMenuComponent implements OnInit, OnDestroy {
 
   destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
-    public userState: UserState,
     public utilities: UtilitiesService,
     public screen: ScreenState,
     public dialog: MatDialog,
     private dialogService: DialogService,
     private cd: ChangeDetectorRef,
+    private userService: UserService,
     @Inject(USER) public user: IUser
   ) {
     this.currentUser = user;
   }
 
   ngOnInit(): void {
-    this.userState.userSub$.subscribe((user: any) => {
+    this.userService.userSub$.subscribe((user: any) => {
       // login
       if (user) {
         this.currentUser = user;
@@ -60,7 +60,7 @@ export class UserMenuComponent implements OnInit, OnDestroy {
   }
 
   logout(): void {
-    this.userState.logout(this.user.logout_token);
+    this.userService.logout(this.user.logout_token);
   }
 
   get userLink(): string[] {

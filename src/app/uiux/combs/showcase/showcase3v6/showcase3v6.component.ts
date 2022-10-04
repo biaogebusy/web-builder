@@ -6,7 +6,6 @@ import {
   OnInit,
 } from '@angular/core';
 import { IUser } from '@core/interface/IUser';
-import { UserState } from '@core/mobx/user/UserState';
 import { USER } from '@core/token/token-providers';
 import { BaseComponent } from '@uiux/base/base.widget';
 
@@ -18,8 +17,8 @@ import { BaseComponent } from '@uiux/base/base.widget';
 })
 export class Showcase3v6Component extends BaseComponent implements OnInit {
   @Input() content: any;
-  constructor(public userState: UserState, @Inject(USER) public user: IUser) {
-    super(userState);
+  constructor(@Inject(USER) public user: IUser) {
+    super();
   }
 
   ngOnInit(): void {}

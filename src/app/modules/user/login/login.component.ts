@@ -9,7 +9,6 @@ import {
 } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { UserState } from '@core/mobx/user/UserState';
 import { ScreenState } from '@core/mobx/screen/ScreenState';
 import { TagsService } from '@core/service/tags.service';
 import { UserService } from '@core/service/user.service';
@@ -35,7 +34,6 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
-    public userState: UserState,
     private route: ActivatedRoute,
     public screenState: ScreenState,
     private tagsService: TagsService,
@@ -67,7 +65,7 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
       code: ['', Validators.required],
     });
     if (this.screenService.isPlatformBrowser()) {
-      this.userState.userSub$.subscribe((user: any) => {
+      this.userService.userSub$.subscribe((user: any) => {
         // login
         if (user) {
           this.currentUser = user;
@@ -102,7 +100,7 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
       return;
     }
     this.loading = true;
-    this.userState
+    this.userService
       .login(this.userForm.value.name, this.userForm.value.pass)
       .subscribe((state) => {
         this.onLogin(state, '登录出现问题，请联系管理员！');
@@ -111,7 +109,7 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
 
   loginByPhone(): void {
     this.loading = true;
-    this.userState
+    this.userService
       .loginByPhone(this.phoneForm.value.phone, this.phoneForm.value.code)
       .subscribe((state) => {
         this.onLogin(state, '请检查手机号或者验证码！');

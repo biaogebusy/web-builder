@@ -6,7 +6,6 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { UserState } from '@core/mobx/user/UserState';
 import type { IMediaObject } from '@core/interface/widgets/IMediaObject';
 import { NodeService } from '@core/service/node.service';
 import { DialogService } from '@core/service/dialog.service';
@@ -28,14 +27,13 @@ export class UserCardComponent extends BaseComponent implements OnInit {
   profile: IMediaObject;
   count: any[];
   constructor(
-    public userState: UserState,
     private nodeService: NodeService,
     private cd: ChangeDetectorRef,
     private dialogService: DialogService,
     @Inject(USER) public user: IUser,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
   ) {
-    super(userState);
+    super();
   }
 
   ngOnInit(): void {

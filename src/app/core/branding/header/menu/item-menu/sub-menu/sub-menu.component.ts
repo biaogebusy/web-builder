@@ -6,7 +6,6 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { UserState } from '@core/mobx/user/UserState';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { USER } from '@core/token/token-providers';
 import { IUser } from '@core/interface/IUser';
@@ -20,8 +19,8 @@ import { IUser } from '@core/interface/IUser';
 export class SubMenuComponent extends BaseComponent implements OnInit {
   @Input() content: any;
   @ViewChild('childMenu', { static: true }) public childMenu: any;
-  constructor(public userState: UserState, @Inject(USER) public user: IUser) {
-    super(userState);
+  constructor(@Inject(USER) public user: IUser) {
+    super();
   }
 
   trackByFn(index: number, item: any): number {

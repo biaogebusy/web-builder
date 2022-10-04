@@ -7,7 +7,6 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { UserState } from '../mobx/user/UserState';
 import { UserService } from '@core/service/user.service';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
@@ -21,7 +20,6 @@ import { USER } from '@core/token/token-providers';
 export class AuthGuard implements CanActivate {
   constructor(
     private router: Router,
-    private userState: UserState,
     private userService: UserService,
     private nodeService: NodeService,
     @Inject(USER) private user: IUser
@@ -44,12 +42,12 @@ export class AuthGuard implements CanActivate {
               if (status) {
                 if (environment?.drupalProxy) {
                   if (!this.user.csrf_token) {
-                    this.userState.updateUserBySession();
+                    this.userService.updateUserBySession();
                   }
                 }
                 return true;
               } else {
-                this.userState.logouLocalUser();
+                this.userService.logouLocalUser();
                 if (environment?.drupalProxy) {
                   window.location.href = '/user/login';
                   return false;
