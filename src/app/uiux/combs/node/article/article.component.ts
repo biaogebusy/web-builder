@@ -30,10 +30,10 @@ import type { IBaseNode } from '@core/interface/node/INode';
 import { ContentState } from '@core/mobx/ContentState';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import { API_URL, PAGE_CONTENT } from '@core/token/token-providers';
-import { IArticle, ICoreConfig, IPage } from '@core/interface/IAppConfig';
+import type { IArticle, ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { LoginComponent } from 'src/app/modules/user/login/login.component';
-import { IUser } from '@core/interface/IUser';
+import type { IUser } from '@core/interface/IUser';
 
 @Component({
   selector: 'app-article',

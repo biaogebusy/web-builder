@@ -12,9 +12,9 @@ import { DialogService } from '@core/service/dialog.service';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
-import { IUser } from '@core/interface/IUser';
+import type { IUser } from '@core/interface/IUser';
 import { USER, CORE_CONFIG } from '@core/token/token-providers';
-import { ICoreConfig } from '@core/interface/IAppConfig';
+import type { ICoreConfig } from '@core/interface/IAppConfig';
 
 @Component({
   selector: 'app-user-card',

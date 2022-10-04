@@ -6,7 +6,7 @@ import {
   ChangeDetectionStrategy,
   Inject,
 } from '@angular/core';
-import { IUser } from '@core/interface/IUser';
+import type { IUser } from '@core/interface/IUser';
 import { USER } from '@core/token/token-providers';
 
 @Component({

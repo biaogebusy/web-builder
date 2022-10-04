@@ -9,7 +9,7 @@ import {
 import { Observable, of } from 'rxjs';
 import { UserService } from '@core/service/user.service';
 import { map, catchError } from 'rxjs/operators';
-import { IUser } from '@core/interface/IUser';
+import type { IUser } from '@core/interface/IUser';
 import { USER } from '@core/token/token-providers';
 
 @Injectable({

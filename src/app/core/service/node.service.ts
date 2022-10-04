@@ -13,7 +13,7 @@ import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import type { IApiUrl, ICoreConfig } from '@core/interface/IAppConfig';
 import { environment } from '../../../environments/environment';
 import { API_URL } from '@core/token/token-providers';
-import { IUser } from '@core/interface/IUser';
+import type { IUser } from '@core/interface/IUser';
 @Injectable({
   providedIn: 'root',
 })

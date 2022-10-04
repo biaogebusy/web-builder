@@ -30,7 +30,7 @@ import {
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { PAGE_CONTENT } from '@core/token/token-providers';
-import { IUser } from '@core/interface/IUser';
+import type { IUser } from '@core/interface/IUser';
 
 @Component({
   selector: 'app-law-case',

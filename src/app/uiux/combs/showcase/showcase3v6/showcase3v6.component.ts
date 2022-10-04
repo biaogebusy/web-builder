@@ -5,7 +5,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { IUser } from '@core/interface/IUser';
+import type { IUser } from '@core/interface/IUser';
 import { USER } from '@core/token/token-providers';
 import { BaseComponent } from '@uiux/base/base.widget';
 

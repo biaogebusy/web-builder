@@ -8,7 +8,7 @@ import {
   ChangeDetectorRef,
 } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IMark } from '@core/interface/IAmap';
+import type { IMark } from '@core/interface/IAmap';
 
 @Component({
   selector: 'app-job-list',

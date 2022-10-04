@@ -17,8 +17,8 @@ import { IUserConfig } from '../../../../core/interface/IUserConfig';
 import { environment } from 'src/environments/environment';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
-import { ICoreConfig } from '@core/interface/IAppConfig';
-import { IUser } from '@core/interface/IUser';
+import type { ICoreConfig } from '@core/interface/IAppConfig';
+import type { IUser } from '@core/interface/IUser';
 
 @Component({
   selector: 'app-user-center',

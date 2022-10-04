@@ -11,7 +11,7 @@ import { NodeService } from '@core/service/node.service';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { IUser } from '@core/interface/IUser';
+import type { IUser } from '@core/interface/IUser';
 import { USER } from '@core/token/token-providers';
 
 @Component({

@@ -15,7 +15,7 @@ import { ScreenService } from '@core/service/screen.service';
 import { ContentState } from '@core/mobx/ContentState';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
-import { IUser } from '@core/interface/IUser';
+import type { IUser } from '@core/interface/IUser';
 
 @Component({
   selector: 'app-comment-item',

@@ -8,7 +8,7 @@ import {
   Inject,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { IAction, IActionParams } from '@core/interface/IForm';
+import type { IAction, IActionParams } from '@core/interface/IForm';
 import { DialogService } from '@core/service/dialog.service';
 import { FormService } from '@core/service/form.service';
 import { NodeService } from '@core/service/node.service';
@@ -17,8 +17,8 @@ import { Router } from '@angular/router';
 import { ScreenService } from '@core/service/screen.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { IControl } from '@core/interface/widgets/IControl';
-import { IUser } from '@core/interface/IUser';
+import type { IControl } from '@core/interface/widgets/IControl';
+import type { IUser } from '@core/interface/IUser';
 import { USER } from '@core/token/token-providers';
 
 @Component({

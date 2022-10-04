@@ -5,7 +5,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { AMapState } from '@core/mobx/amap/AMapState';
-import { IMark } from '@core/interface/IAmap';
+import type { IMark } from '@core/interface/IAmap';
 
 @Component({
   selector: 'app-map-list-v1',

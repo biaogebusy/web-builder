@@ -8,7 +8,7 @@ import {
   Inject,
 } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { IUser } from '@core/interface/IUser';
+import  type { IUser } from '@core/interface/IUser';
 import { DialogService } from '@core/service/dialog.service';
 import { FormService } from '@core/service/form.service';
 import { NodeService } from '@core/service/node.service';

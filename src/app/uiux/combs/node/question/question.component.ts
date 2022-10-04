@@ -18,8 +18,8 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { LoginComponent } from 'src/app/modules/user/login/login.component';
 import { ContentState } from '@core/mobx/ContentState';
-import { IUser } from '@core/interface/IUser';
-import { USER } from '@core/token/token-providers';
+import type { IUser } from '@core/interface/IUser';
+import type { USER } from '@core/token/token-providers';
 
 @Component({
   selector: 'app-question',
