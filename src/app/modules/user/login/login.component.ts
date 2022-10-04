@@ -42,7 +42,27 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
     private cd: ChangeDetectorRef,
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
     @Inject(USER) public user: IUser
-  ) {}
+  ) {
+    if (this.screenService.isPlatformBrowser()) {
+      this.userService.userSub$.subscribe((currentUser: any) => {
+        // login
+        if (currentUser) {
+          this.currentUser = currentUser;
+          this.cd.detectChanges();
+          setTimeout(() => {
+            window.location.href =
+              this.route.snapshot.queryParams.returnUrl ||
+              this.coreConfig.login.loginRedirect;
+          }, 2000);
+        }
+        // logout
+        if (!currentUser) {
+          this.currentUser.authenticated = false;
+          this.cd.detectChanges();
+        }
+      });
+    }
+  }
 
   ngOnInit(): void {
     this.tagsService.setTitle('欢迎登录！');
@@ -64,25 +84,6 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
       ],
       code: ['', Validators.required],
     });
-    if (this.screenService.isPlatformBrowser()) {
-      this.userService.userSub$.subscribe((user: any) => {
-        // login
-        if (user) {
-          this.currentUser = user;
-          this.cd.detectChanges();
-          setTimeout(() => {
-            window.location.href =
-              this.route.snapshot.queryParams.returnUrl ||
-              this.coreConfig.login.loginRedirect;
-          }, 2000);
-        }
-        // logout
-        if (!user) {
-          this.currentUser.authenticated = false;
-          this.cd.detectChanges();
-        }
-      });
-    }
   }
 
   ngAfterViewInit(): void {}

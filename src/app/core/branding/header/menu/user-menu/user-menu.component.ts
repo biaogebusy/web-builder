@@ -42,22 +42,21 @@ export class UserMenuComponent implements OnInit, OnDestroy {
     @Inject(USER) public user: IUser
   ) {
     this.currentUser = user;
-  }
-
-  ngOnInit(): void {
-    this.userService.userSub$.subscribe((user: any) => {
+    this.userService.userSub$.subscribe((currentUser: any) => {
       // login
-      if (user) {
-        this.currentUser = user;
+      if (currentUser) {
+        this.currentUser = currentUser;
         this.cd.detectChanges();
       }
       // logout
-      if (!user) {
+      if (!currentUser) {
         this.currentUser.authenticated = false;
         this.cd.detectChanges();
       }
     });
   }
+
+  ngOnInit(): void {}
 
   logout(): void {
     this.userService.logout(this.user.logout_token);
