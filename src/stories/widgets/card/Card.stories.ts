@@ -8,14 +8,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { TextComponent } from '@uiux/widgets/text/text.component';
-import { CORE_CONFIG } from '@core/token/token-providers';
+import { API_URL, CORE_CONFIG } from '@core/token/token-providers';
 import { ShareModule } from '@share/share.module';
 import { CardComponent } from '@uiux/widgets/card/card.component';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxWebstorageModule } from 'ngx-webstorage';
-import { API_URL, apiUrlFactory } from '@core/token/token-providers';
 import { RouterTestingModule } from '@angular/router/testing';
+import { apiUrlFactory } from '@core/factory/factory';
 export default {
   title: '基础/卡片/基础',
   component: CardComponent,

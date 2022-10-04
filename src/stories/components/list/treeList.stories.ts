@@ -6,14 +6,14 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { CORE_CONFIG } from '@core/token/token-providers';
+import { API_URL, CORE_CONFIG } from '@core/token/token-providers';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { ListModule } from '@uiux/combs/list/list.module';
 import { TreeListComponent } from '@uiux/combs/list/tree-list/tree-list.component';
-import { apiUrlFactory, API_URL } from '@core/token/token-providers';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { apiUrlFactory } from '@core/factory/factory';
 export default {
   title: '组件/列表/树形列表',
   component: TreeListComponent,

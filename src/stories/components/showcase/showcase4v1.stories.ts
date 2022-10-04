@@ -6,13 +6,13 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { CORE_CONFIG } from '@core/token/token-providers';
+import { API_URL, CORE_CONFIG } from '@core/token/token-providers';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { Showcase4v1Component } from '@uiux/combs/showcase/showcase4v1/showcase4v1.component';
-import { API_URL, apiUrlFactory } from '@core/token/token-providers';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { apiUrlFactory } from '@core/factory/factory';
 export default {
   title: '组件/展示/4v1',
   component: Showcase4v1Component,

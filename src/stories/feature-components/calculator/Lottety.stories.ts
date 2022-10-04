@@ -4,15 +4,12 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { API_URL, apiUrlFactory } from '@core/token/token-providers';
 import { APP_INITIALIZER, Inject } from '@angular/core';
-import { AppState } from '@core/mobx/AppState';
-import { initConfig } from 'src/app/app.module';
 import { LotteryComponent } from '@uiux/combs/calculator/lottery/lottery.component';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
-import { CORE_CONFIG } from '@core/token/token-providers';
+import { API_URL, CORE_CONFIG } from '@core/token/token-providers';
 import { CalculatorModule } from '@uiux/combs/calculator/calculator.module';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxWebstorageModule } from 'ngx-webstorage';
@@ -25,6 +22,8 @@ import { DateRangeComponent } from '@uiux/widgets/form/formly-type/date-range/da
 import { MatSelectComponent } from '@uiux/widgets/form/formly-type/mat-select/mat-select.component';
 import { MatSliderModule } from '@angular/material/slider';
 import { FormGroup } from '@angular/forms';
+import { coreConfigFactory, apiUrlFactory } from '@core/factory/factory';
+import { ContentService } from '@core/service/content.service';
 
 export default {
   title: '特色组件/计算器/红包预算',
@@ -75,8 +74,8 @@ export default {
         },
         {
           provide: APP_INITIALIZER,
-          useFactory: initConfig,
-          deps: [AppState, [new Inject(CORE_CONFIG)]],
+          useFactory: coreConfigFactory,
+          deps: [ContentService, [new Inject(CORE_CONFIG)]],
           multi: true,
         },
         {

@@ -8,16 +8,15 @@ import {
 import { Story } from '@storybook/angular/types-6-0';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxWebstorageModule } from 'ngx-webstorage';
-import { API_URL, apiUrlFactory } from '@core/token/token-providers';
 import { APP_INITIALIZER, Inject } from '@angular/core';
-import { initConfig } from 'src/app/app.module';
 import { AMapState } from '@core/mobx/amap/AMapState';
-import { AppState } from '@core/mobx/AppState';
 import { AmapService } from '@core/service/amap.service';
-import { CORE_CONFIG } from '@core/token/token-providers';
+import { API_URL, CORE_CONFIG } from '@core/token/token-providers';
 import { ShareModule } from '@share/share.module';
 import { MapComponent } from '@uiux/widgets/map/map.component';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { coreConfigFactory, apiUrlFactory } from '@core/factory/factory';
+import { ContentService } from '@core/service/content.service';
 
 export default {
   title: '基础/地图',
@@ -34,7 +33,6 @@ export default {
         NgxWebstorageModule.forRoot(),
       ],
       providers: [
-        AppState,
         AMapState,
         AmapService,
         {
@@ -43,8 +41,8 @@ export default {
         },
         {
           provide: APP_INITIALIZER,
-          useFactory: initConfig,
-          deps: [AppState, [new Inject(CORE_CONFIG)]],
+          useFactory: coreConfigFactory,
+          deps: [ContentService, [new Inject(CORE_CONFIG)]],
           multi: true,
         },
         {

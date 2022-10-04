@@ -8,12 +8,12 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxWebstorageModule } from 'ngx-webstorage';
-import { API_URL, apiUrlFactory } from '@core/token/token-providers';
 import { FormService } from '@core/service/form.service';
-import { CORE_CONFIG } from '@core/token/token-providers';
+import { API_URL, CORE_CONFIG } from '@core/token/token-providers';
 import { ShareModule } from '@share/share.module';
 import { ContactUsComponent } from '@uiux/widgets/contact-us/contact-us.component';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { apiUrlFactory } from '@core/factory/factory';
 export default {
   title: '基础/联系我们',
   component: ContactUsComponent,

@@ -8,12 +8,12 @@ import {
 import { Story } from '@storybook/angular/types-6-0';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxWebstorageModule } from 'ngx-webstorage';
-import { CORE_CONFIG } from '@core/token/token-providers';
-import { API_URL, apiUrlFactory } from '@core/token/token-providers';
+import { API_URL, CORE_CONFIG } from '@core/token/token-providers';
 import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
 import { ShareModule } from '@share/share.module';
 import { BreadcrumbComponent } from '@uiux/widgets/breadcrumb/breadcrumb.component';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { apiUrlFactory } from '@core/factory/factory';
 export default {
   title: '基础/面包屑',
   component: BreadcrumbComponent,

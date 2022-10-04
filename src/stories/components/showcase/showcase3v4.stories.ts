@@ -6,14 +6,14 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { CORE_CONFIG } from '@core/token/token-providers';
+import { API_URL, CORE_CONFIG } from '@core/token/token-providers';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { Showcase3v4Component } from '@uiux/combs/showcase/showcase3v4/showcase3v4.component';
-import { API_URL, apiUrlFactory } from '@core/token/token-providers';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import * as BoxStories from 'src/stories/widgets/base/Box.stories';
+import { apiUrlFactory } from '@core/factory/factory';
 export default {
   title: '组件/展示/3v4',
   component: Showcase3v4Component,

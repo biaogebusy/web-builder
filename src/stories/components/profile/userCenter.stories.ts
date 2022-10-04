@@ -2,19 +2,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { CORE_CONFIG } from '@core/token/token-providers';
+import { API_URL, CORE_CONFIG } from '@core/token/token-providers';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { UserCenterComponent } from '@uiux/combs/profile/user-center/user-center.component';
 import { Profile1v1Component } from '@uiux/combs/profile/profile1v1/profile1v1.component';
 import { DynamicCombsModule } from '@uiux/combs/dynamic-combs/dynamic-combs.module';
 import { UserProfileComponent } from '@uiux/combs/profile/user-center/user-profile/user-profile.component';
-import { apiUrlFactory, API_URL } from '@core/token/token-providers';
 import { APP_INITIALIZER, Inject } from '@angular/core';
-import { AppState } from '@core/mobx/AppState';
-import { initConfig } from 'src/app/app.module';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { coreConfigFactory, apiUrlFactory } from '@core/factory/factory';
+import { ContentService } from '@core/service/content.service';
 export default {
   title: '组件/用户/用户中心',
   component: UserCenterComponent,
@@ -37,8 +36,8 @@ export default {
         },
         {
           provide: APP_INITIALIZER,
-          useFactory: initConfig,
-          deps: [AppState, [new Inject(CORE_CONFIG)]],
+          useFactory: coreConfigFactory,
+          deps: [ContentService, [new Inject(CORE_CONFIG)]],
           multi: true,
         },
         {

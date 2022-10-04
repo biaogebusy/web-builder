@@ -4,14 +4,14 @@ import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxWebstorageModule } from 'ngx-webstorage';
-import { CORE_CONFIG } from '@core/token/token-providers';
+import { API_URL, CORE_CONFIG } from '@core/token/token-providers';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { LoopWidgetsComponent } from '@uiux/widgets/loop-widgets/loop-widgets.component';
-import { API_URL, apiUrlFactory } from '@core/token/token-providers';
 import { ShareModule } from '@share/share.module';
 import { LinkComponent } from '@uiux/widgets/link/link.component';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import * as TextStories from './Text.stories';
+import { apiUrlFactory } from '@core/factory/factory';
 
 export default {
   title: '基础/内容/链接',

@@ -6,19 +6,18 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { CORE_CONFIG } from '@core/token/token-providers';
+import { API_URL, CORE_CONFIG } from '@core/token/token-providers';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { NodeModule } from '@uiux/combs/node/node.module';
 import { LawCaseComponent } from '@uiux/combs/node/law/law-case/law-case.component';
-import { apiUrlFactory, API_URL } from '@core/token/token-providers';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { TextComponent } from '@uiux/widgets/text/text.component';
 import { APP_INITIALIZER, Inject } from '@angular/core';
-import { AppState } from '@core/mobx/AppState';
-import { initConfig } from 'src/app/app.module';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { coreConfigFactory, apiUrlFactory } from '@core/factory/factory';
+import { ContentService } from '@core/service/content.service';
 export default {
   title: '组件/文章/案件',
   component: LawCaseComponent,
@@ -42,8 +41,8 @@ export default {
         },
         {
           provide: APP_INITIALIZER,
-          useFactory: initConfig,
-          deps: [AppState, [new Inject(CORE_CONFIG)]],
+          useFactory: coreConfigFactory,
+          deps: [ContentService, [new Inject(CORE_CONFIG)]],
           multi: true,
         },
         {

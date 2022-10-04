@@ -8,12 +8,12 @@ import {
 import { Story } from '@storybook/angular/types-6-0';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxWebstorageModule } from 'ngx-webstorage';
-import { API_URL, apiUrlFactory } from '@core/token/token-providers';
 import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
-import { CORE_CONFIG } from '@core/token/token-providers';
+import { API_URL, CORE_CONFIG } from '@core/token/token-providers';
 import { ShareModule } from '@share/share.module';
 import { MediaObjectComponent } from '@uiux/widgets/media/media-object/media-object.component';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { apiUrlFactory } from '@core/factory/factory';
 
 export default {
   title: '基础/媒体/媒体对象',
