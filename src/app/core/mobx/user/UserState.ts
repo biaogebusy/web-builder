@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { LocalStorageService } from 'ngx-webstorage';
-import { of, Subject, forkJoin } from 'rxjs';
+import { of, Subject, forkJoin, Observable } from 'rxjs';
 import { UserService } from '@core/service/user.service';
 import { UtilitiesService } from '@core/service/utilities.service';
-import { catchError, switchMap } from 'rxjs/operators';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { intersection } from 'lodash-es';
@@ -13,9 +13,6 @@ import { IUser, TokenUser } from '@core/interface/IUser';
   providedIn: 'root',
 })
 export class UserState {
-  public error = '';
-  public loading = false;
-
   userSub$ = new Subject<IUser | boolean>();
 
   constructor(
@@ -24,33 +21,27 @@ export class UserState {
     private storage: LocalStorageService
   ) {}
 
-  login(userName: string, passWord: string): any {
-    this.loading = true;
-    this.userService.login(userName, passWord).subscribe(
-      (data) => {
+  login(userName: string, passWord: string): Observable<boolean> {
+    return this.userService.login(userName, passWord).pipe(
+      map((data) => {
         this.updateUser(data);
-      },
-      (error) => {
-        this.loading = false;
-        this.error = error.message;
-      }
+        return true;
+      }),
+      catchError(() => {
+        return of(false);
+      })
     );
   }
 
-  loginByPhone(phone: number, code: string): any {
-    this.loading = true;
-    this.userService.loginByPhone(phone, code).subscribe(
-      (data) => {
-        if (data.status) {
-          this.updateUser(data);
-        } else {
-          this.utilities.openSnackbar(data.message);
-          this.loading = false;
-        }
-      },
-      (error) => {
-        console.log(error);
-      }
+  loginByPhone(phone: number, code: string): Observable<boolean> {
+    return this.userService.loginByPhone(phone, code).pipe(
+      map((data) => {
+        this.updateUser(data);
+        return true;
+      }),
+      catchError(() => {
+        return of(false);
+      })
     );
   }
 
@@ -82,9 +73,8 @@ export class UserState {
   }
 
   loginUser(data: any, user: any): void {
-    this.loading = false;
-    this.userSub$.next(user);
-    const currentUser = Object.assign(data, user);
+    const currentUser: IUser = Object.assign(data, user);
+    this.userSub$.next(currentUser);
     this.userService.storeLocalUser(currentUser);
   }
 

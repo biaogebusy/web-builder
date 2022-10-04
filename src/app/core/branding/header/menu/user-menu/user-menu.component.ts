@@ -17,7 +17,6 @@ import { DialogService } from '@core/service/dialog.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { IEnvironment } from '@core/interface/IEnvironment';
 import { USER } from '@core/token/token-providers';
 import { IUser } from '@core/interface/IUser';
 
@@ -30,7 +29,7 @@ import { IUser } from '@core/interface/IUser';
 export class UserMenuComponent implements OnInit, OnDestroy {
   @Input() content: any[];
   dialogRef: any;
-  env: IEnvironment;
+  currentUser: IUser;
 
   destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
@@ -41,17 +40,31 @@ export class UserMenuComponent implements OnInit, OnDestroy {
     private dialogService: DialogService,
     private cd: ChangeDetectorRef,
     @Inject(USER) public user: IUser
-  ) {}
+  ) {
+    this.currentUser = user;
+  }
 
   ngOnInit(): void {
-    this.env = environment;
-    this.userState.userSub$.subscribe((user) => {
-      this.cd.markForCheck();
+    this.userState.userSub$.subscribe((user: any) => {
+      // login
+      if (user) {
+        this.currentUser = user;
+        this.cd.detectChanges();
+      }
+      // logout
+      if (!user) {
+        this.currentUser.authenticated = false;
+        this.cd.detectChanges();
+      }
     });
   }
 
   logout(): void {
     this.userState.logout(this.user.logout_token);
+  }
+
+  get userLink(): string[] {
+    return [environment.drupalProxy ? '/my' : '/me/login'];
   }
 
   openDialog(dialog: any): void {
