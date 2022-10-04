@@ -105,15 +105,7 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
     this.userState
       .login(this.userForm.value.name, this.userForm.value.pass)
       .subscribe((state) => {
-        if (state) {
-          this.loading = false;
-          this.cd.detectChanges();
-        }
-        if (!state) {
-          this.loading = false;
-          this.error = '登录出现问题，请联系管理员！';
-          this.cd.detectChanges();
-        }
+        this.onLogin(state, '登录出现问题，请联系管理员！');
       });
   }
 
@@ -122,15 +114,20 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
     this.userState
       .loginByPhone(this.phoneForm.value.phone, this.phoneForm.value.code)
       .subscribe((state) => {
-        if (state) {
-          this.loading = false;
-          this.cd.detectChanges();
-        } else {
-          this.loading = false;
-          this.error = '请检查手机号或者验证码！';
-          this.cd.detectChanges();
-        }
+        this.onLogin(state, '请检查手机号或者验证码！');
       });
+  }
+
+  onLogin(state: any, errorMessage: string): void {
+    if (state) {
+      this.loading = false;
+      this.cd.detectChanges();
+    }
+    if (!state) {
+      this.loading = false;
+      this.error = errorMessage;
+      this.cd.detectChanges();
+    }
   }
 
   getCode(event: any): any {

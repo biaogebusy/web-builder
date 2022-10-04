@@ -52,9 +52,12 @@ export class UserCenterComponent
       this.userConfig$ = this.userService.getUserConfig();
       this.getUser();
       this.userState.userSub$.subscribe((user) => {
+        // logout
         if (!user) {
           setTimeout(() => {
-            this.route.navigate(['user/login']);
+            this.route.navigate([
+              environment.drupalProxy ? '/my' : '/me/login',
+            ]);
           }, 2000);
         } else {
           window.location.reload();

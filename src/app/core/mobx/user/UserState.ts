@@ -56,7 +56,8 @@ export class UserState {
       .pipe(
         catchError((error) => {
           if (error.status === 403) {
-            return of(true);
+            // false: logout
+            return of(false);
           }
           console.log('退出异常！');
           return of(false);

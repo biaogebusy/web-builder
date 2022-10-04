@@ -14,6 +14,7 @@ import { isEmpty } from 'lodash-es';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { IUser } from '@core/interface/IUser';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-user',
@@ -40,7 +41,9 @@ export class UserComponent implements OnInit, OnDestroy {
       this.userState.userSub$.subscribe((user) => {
         if (!user) {
           setTimeout(() => {
-            this.route.navigate(['user/login']);
+            this.route.navigate([
+              environment.drupalProxy ? '/my' : '/me/login',
+            ]);
           }, 2000);
         } else {
           window.location.reload();
