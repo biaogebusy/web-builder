@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
 import { IUser } from '@core/interface/IUser';
-import { UserState } from '@core/mobx/user/UserState';
-import { isArray, remove, result } from 'lodash-es';
+import { intersection, isArray, remove, result } from 'lodash-es';
 @Injectable()
 export abstract class BaseComponent {
   abstract content: any;
 
-  constructor(public userState: UserState) {}
+  constructor() {}
 
   getParams(obj: any, key: string): any {
     return obj.params && obj.params[key];
@@ -117,11 +116,15 @@ export abstract class BaseComponent {
         return false;
       }
       const currentUserRoles = user.current_user.roles;
-      if (this.userState.isMatchCurrentRole(roles, currentUserRoles)) {
+      if (this.isMatchCurrentRole(roles, currentUserRoles)) {
         return true;
       } else {
         return false;
       }
     }
+  }
+
+  isMatchCurrentRole(roles: string[], currentUserRoles: string[]): boolean {
+    return intersection(currentUserRoles, roles).length > 0;
   }
 }

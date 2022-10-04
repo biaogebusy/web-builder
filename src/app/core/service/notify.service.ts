@@ -6,9 +6,9 @@ import { NodeService } from '@core/service/node.service';
 import { catchError, take, switchMap } from 'rxjs/operators';
 import { isEmpty } from 'lodash';
 import { ToastrService } from 'ngx-toastr';
-import { UserState } from '@core/mobx/user/UserState';
 import { Router } from '@angular/router';
 import { IUser } from '@core/interface/IUser';
+import { UserService } from '@core/service/user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -18,8 +18,8 @@ export class NotifyService {
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
     private nodeService: NodeService,
     private toastr: ToastrService,
-    private userState: UserState,
     private router: Router,
+    private userService: UserService,
     @Inject(USER) private user: IUser
   ) {}
 
@@ -89,7 +89,7 @@ export class NotifyService {
       if (!api.reqRoles || api.reqRoles.length === 0) {
         return true;
       }
-      return this.userState.isMatchCurrentRole(
+      return this.userService.isMatchCurrentRole(
         api.reqRoles || [],
         this.user.current_user.roles
       );

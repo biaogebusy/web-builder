@@ -20,7 +20,6 @@ import { ScreenService } from '@core/service/screen.service';
 import { FormService } from '@core/service/form.service';
 import { Subject, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { UserState } from '@core/mobx/user/UserState';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { NodeService } from '@core/service/node.service';
@@ -71,7 +70,6 @@ export class ArticleComponent
     public screen: ScreenState,
     private screenService: ScreenService,
     private tagsService: TagsService,
-    public userState: UserState,
     private userService: UserService,
     public contentState: ContentState,
     @Inject(DOCUMENT) private document: Document,
@@ -97,7 +95,7 @@ export class ArticleComponent
     }
     this.checkAccess();
 
-    this.userState.userSub$.subscribe(() => {
+    this.userService.userSub$.subscribe(() => {
       this.cd.markForCheck();
     });
   }
@@ -209,7 +207,7 @@ export class ArticleComponent
             const user = {
               current_user: profile,
             };
-            this.userState.refreshLocalUser(Object.assign(this.user, user));
+            this.userService.refreshLocalUser(Object.assign(this.user, user));
             this.checkAccess();
           },
           (error) => {

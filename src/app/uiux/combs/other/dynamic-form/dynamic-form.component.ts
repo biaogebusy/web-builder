@@ -9,7 +9,6 @@ import {
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { IAction, IActionParams } from '@core/interface/IForm';
-import { UserState } from '@core/mobx/user/UserState';
 import { DialogService } from '@core/service/dialog.service';
 import { FormService } from '@core/service/form.service';
 import { NodeService } from '@core/service/node.service';
@@ -40,7 +39,6 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
     private dialogService: DialogService,
     private formService: FormService,
     private nodeService: NodeService,
-    private userState: UserState,
     private utilitiesService: UtilitiesService,
     private router: Router,
     private screenService: ScreenService,

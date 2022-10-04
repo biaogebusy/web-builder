@@ -9,7 +9,6 @@ import {
 import { ScreenState } from '@core/mobx/screen/ScreenState';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { ScreenService } from '@core/service/screen.service';
-import { UserState } from '@core/mobx/user/UserState';
 import { PAGE_CONTENT } from '@core/token/token-providers';
 import { IPage } from '@core/interface/IAppConfig';
 import { Observable } from 'rxjs';
@@ -27,10 +26,9 @@ export class Hero2v3Component extends BaseComponent implements OnInit {
     public screen: ScreenState,
     private screenService: ScreenService,
     private cd: ChangeDetectorRef,
-    public userState: UserState,
     @Inject(PAGE_CONTENT) public pageContent$: Observable<IPage>
   ) {
-    super(userState);
+    super();
   }
 
   ngOnInit(): void {

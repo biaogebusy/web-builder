@@ -12,7 +12,6 @@ import { takeUntil } from 'rxjs/operators';
 import { formatDate } from '@angular/common';
 import { ScreenService } from '@core/service/screen.service';
 import { Subject } from 'rxjs';
-import { UserState } from '@core/mobx/user/UserState';
 import { IUser } from '@core/interface/IUser';
 import { USER } from '@core/token/token-providers';
 @Component({
@@ -33,7 +32,6 @@ export class UserFavoriteComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     private cd: ChangeDetectorRef,
-    private userState: UserState,
     private nodeService: NodeService,
     private screenService: ScreenService,
     @Inject(USER) private user: IUser

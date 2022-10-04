@@ -14,7 +14,6 @@ import type {
   ICasePrams,
   ICommentContent,
 } from '@core/interface/node/INode';
-import { UserState } from '@core/mobx/user/UserState';
 import { FormService } from '@core/service/form.service';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -51,7 +50,6 @@ export class LawCaseComponent
   first = true;
   destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
-    public userState: UserState,
     public nodeService: NodeService,
     private cd: ChangeDetectorRef,
     private formService: FormService,

@@ -5,7 +5,6 @@ import {
   OnInit,
 } from '@angular/core';
 import { BaseComponent } from '@uiux/base/base.widget';
-import { UserState } from '@core/mobx/user/UserState';
 
 @Component({
   selector: 'app-stepper',
@@ -15,8 +14,8 @@ import { UserState } from '@core/mobx/user/UserState';
 })
 export class StepperComponent extends BaseComponent implements OnInit {
   @Input() content: any;
-  constructor(public userState: UserState) {
-    super(userState);
+  constructor() {
+    super();
   }
 
   ngOnInit(): void {}

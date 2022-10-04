@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { forkJoin, Observable, of, Subject } from 'rxjs';
 import { ApiService } from './api.service';
-import { map } from 'rxjs/operators';
+import { map, catchError, switchMap } from 'rxjs/operators';
 import { TokenUser, IUser } from '../interface/IUser';
 import { LocalStorageService } from 'ngx-webstorage';
 import { CryptoJSService } from './crypto-js.service';
@@ -10,10 +10,12 @@ import { CORE_CONFIG } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { environment } from 'src/environments/environment';
 import { API_URL } from '@core/token/token-providers';
+import { intersection } from 'lodash-es';
 @Injectable({
   providedIn: 'root',
 })
 export class UserService extends ApiService {
+  userSub$ = new Subject<IUser | boolean>();
   constructor(
     public http: HttpClient,
     public storage: LocalStorageService,
@@ -28,7 +30,7 @@ export class UserService extends ApiService {
     return `${this.apiUrl}${this.coreConfig.apiUrl.userGetPath}`;
   }
 
-  login(userName: string, passWord: string): Observable<any> {
+  login(userName: string, passWord: string): Observable<boolean> {
     const httpOptions = {
       headers: new HttpHeaders({
         Accept: 'application/vnd.api+json',
@@ -37,17 +39,101 @@ export class UserService extends ApiService {
       withCredentials: true,
     };
 
-    return this.http.post<any>(
-      `${this.apiUrl}${this.coreConfig.apiUrl.loginPath}?_format=json`,
-      {
-        name: userName,
-        pass: passWord,
-      },
-      httpOptions
+    return this.http
+      .post<any>(
+        `${this.apiUrl}${this.coreConfig.apiUrl.loginPath}?_format=json`,
+        {
+          name: userName,
+          pass: passWord,
+        },
+        httpOptions
+      )
+      .pipe(
+        map((user) => {
+          this.updateUser(user);
+          return true;
+        }),
+        catchError(() => {
+          return of(false);
+        })
+      );
+  }
+
+  updateUser(data: TokenUser): any {
+    this.getCurrentUserById(data.current_user.uid, data.csrf_token).subscribe(
+      (user) => {
+        this.loginUser(data, user);
+      }
     );
   }
 
-  logout(logoutToken: string): Observable<any> {
+  updateUserBySession(): void {
+    const options = {
+      headers: new HttpHeaders({
+        Accept: 'application/vnd.api+json',
+        'Content-Type': 'application/vnd.api+json',
+      }),
+      withCredentials: true,
+    };
+    const sesstion = this.http.get('/session/token', {
+      responseType: 'text',
+    });
+    const profile = this.http.get('/api/v1/accountProfile', options);
+    let tokenUser = {};
+    forkJoin({
+      csrf_token: sesstion,
+      current_user: profile,
+    })
+      .pipe(
+        switchMap((data: any) => {
+          tokenUser = data;
+          return this.getCurrentUserById(
+            data.current_user.uid,
+            data.csrf_token
+          );
+        }),
+        catchError((error: any) => {
+          console.log(error);
+          return of(null);
+        })
+      )
+      .subscribe((user) => {
+        console.log('get session user done!');
+        this.loginUser(tokenUser, user);
+      });
+  }
+
+  refreshLocalUser(user: IUser): void {
+    this.userSub$.next(user);
+    this.storeLocalUser(user);
+  }
+
+  isMatchCurrentRole(roles: string[], currentUserRoles: string[]): boolean {
+    return intersection(currentUserRoles, roles).length > 0;
+  }
+
+  loginUser(data: any, user: any): void {
+    const currentUser: IUser = Object.assign(data, user);
+    this.userSub$.next(currentUser);
+    this.storeLocalUser(currentUser);
+  }
+
+  logoutUser(): void {
+    this.userSub$.next(false);
+    this.storage.clear(this.localUserKey);
+  }
+
+  logouLocalUser(): void {
+    this.userSub$.next(false);
+    this.storage.clear(this.localUserKey);
+  }
+
+  logout(logoutToken: string): any {
+    if (environment.drupalProxy) {
+      this.logoutUser();
+      window.location.href = '/user/logout';
+      return;
+    }
     const httpOptions = {
       headers: new HttpHeaders({
         Accept: 'application/vnd.api+json',
@@ -55,11 +141,25 @@ export class UserService extends ApiService {
       withCredentials: true,
     };
     const params = ['_format=json', `token=${logoutToken}`].join('&');
-    return this.http.post(
-      `${this.apiUrl}${this.coreConfig.apiUrl.logoutPath}?${params}`,
-      null,
-      httpOptions
-    );
+    return this.http
+      .post(
+        `${this.apiUrl}${this.coreConfig.apiUrl.logoutPath}?${params}`,
+        null,
+        httpOptions
+      )
+      .pipe(
+        catchError((error) => {
+          if (error.status === 403) {
+            // false: logout
+            return of(false);
+          }
+          console.log('退出异常！');
+          return of(false);
+        })
+      )
+      .subscribe(() => {
+        this.logoutUser();
+      });
   }
 
   getCode(phone: string): Observable<any> {
@@ -75,18 +175,21 @@ export class UserService extends ApiService {
     });
   }
 
-  loginByPhone(phone: number, code: string): Observable<any> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-type': 'application/json',
-        Accept: 'application/json',
-      }),
-    };
-
-    return this.http.post(`${this.apiUrl}/api/v1/otp/login?format=json`, {
-      mobile_number: phone,
-      code,
-    });
+  loginByPhone(phone: number, code: string): Observable<boolean> {
+    return this.http
+      .post<any>(`${this.apiUrl}/api/v1/otp/login?format=json`, {
+        mobile_number: phone,
+        code,
+      })
+      .pipe(
+        map((user) => {
+          this.updateUser(user);
+          return true;
+        }),
+        catchError(() => {
+          return of(false);
+        })
+      );
   }
 
   getUserConfig(): Observable<any> {

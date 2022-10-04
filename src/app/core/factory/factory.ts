@@ -63,7 +63,7 @@ export function userFactory(
   const key = userService.localUserKey;
   if (storage.retrieve(key)) {
     const user = JSON.parse(cryptoJS.decrypt(storage.retrieve(key)));
-    // console.log(user);
+    console.log(user);
     return user;
   }
   return false;

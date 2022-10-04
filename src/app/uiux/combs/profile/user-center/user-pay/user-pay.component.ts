@@ -8,7 +8,6 @@ import {
   Inject,
 } from '@angular/core';
 import { IUser } from '@core/interface/IUser';
-import { UserState } from '@core/mobx/user/UserState';
 import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
 import { USER } from '@core/token/token-providers';
@@ -34,7 +33,6 @@ export class UserPayComponent implements OnInit {
   constructor(
     private screenService: ScreenService,
     private nodeService: NodeService,
-    private userState: UserState,
     private cd: ChangeDetectorRef,
     @Inject(USER) private user: IUser
   ) {}

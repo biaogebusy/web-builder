@@ -4,7 +4,6 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { UserState } from '@core/mobx/user/UserState';
 import { BaseComponent } from '@uiux/base/base.widget';
 
 @Component({
@@ -15,8 +14,8 @@ import { BaseComponent } from '@uiux/base/base.widget';
 })
 export class Showcase1v1Component extends BaseComponent implements OnInit {
   @Input() content: any;
-  constructor(public userState: UserState) {
-    super(userState);
+  constructor() {
+    super();
   }
 
   ngOnInit(): void {}

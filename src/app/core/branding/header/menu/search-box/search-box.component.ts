@@ -13,7 +13,6 @@ import { Router } from '@angular/router';
 import { FormService } from '@core/service/form.service';
 import { isEmpty, omitBy } from 'lodash';
 import { BaseComponent } from '@uiux/base/base.widget';
-import { UserState } from '@core/mobx/user/UserState';
 import type { IHeaderSearch } from '@core/interface/IBranding';
 
 @Component({
@@ -35,10 +34,9 @@ export class SearchBoxComponent
     public nodeService: NodeService,
     private router: Router,
     private formService: FormService,
-    private cd: ChangeDetectorRef,
-    public userState: UserState
+    private cd: ChangeDetectorRef
   ) {
-    super(userState);
+    super();
   }
 
   ngOnInit(): void {

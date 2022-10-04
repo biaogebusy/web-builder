@@ -7,9 +7,9 @@ import {
 } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IUserConfig } from '@core/interface/IUserConfig';
-import { UserState } from '@core/mobx/user/UserState';
 import { IUser } from '@core/interface/IUser';
 import { USER } from '@core/token/token-providers';
+import { UserService } from '@core/service/user.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -21,13 +21,13 @@ export class UserProfileComponent implements OnInit {
   @Input() content: any;
   @Input() userConfig$: Observable<IUserConfig>;
   constructor(
-    private userState: UserState,
+    private userService: UserService,
     @Inject(USER) private user: IUser
   ) {}
 
   ngOnInit(): void {}
 
   logout(): void {
-    this.userState.logout(this.user.logout_token);
+    this.userService.logout(this.user.logout_token);
   }
 }
