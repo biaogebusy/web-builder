@@ -2,9 +2,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { API_URL, CORE_CONFIG } from '@core/token/token-providers';
+import { API_URL, CORE_CONFIG, USER } from '@core/token/token-providers';
 import { HttpClientModule } from '@angular/common/http';
-import { NgxWebstorageModule } from 'ngx-webstorage';
+import { LocalStorageService, NgxWebstorageModule } from 'ngx-webstorage';
 import { UserCenterComponent } from '@uiux/combs/profile/user-center/user-center.component';
 import { Profile1v1Component } from '@uiux/combs/profile/profile1v1/profile1v1.component';
 import { DynamicCombsModule } from '@uiux/combs/dynamic-combs/dynamic-combs.module';
@@ -12,8 +12,14 @@ import { UserProfileComponent } from '@uiux/combs/profile/user-center/user-profi
 import { APP_INITIALIZER, Inject } from '@angular/core';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
-import { coreConfigFactory, apiUrlFactory } from '@core/factory/factory';
+import {
+  coreConfigFactory,
+  apiUrlFactory,
+  userFactory,
+} from '@core/factory/factory';
 import { ContentService } from '@core/service/content.service';
+import { CryptoJSService } from '@core/service/crypto-js.service';
+import { UserService } from '@core/service/user.service';
 export default {
   title: '组件/用户/用户中心',
   component: UserCenterComponent,
@@ -44,6 +50,11 @@ export default {
           provide: API_URL,
           useFactory: apiUrlFactory,
           deps: [],
+        },
+        {
+          provide: USER,
+          useFactory: userFactory,
+          deps: [LocalStorageService, CryptoJSService, UserService],
         },
       ],
     }),

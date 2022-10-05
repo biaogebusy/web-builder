@@ -6,14 +6,16 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { API_URL, CORE_CONFIG } from '@core/token/token-providers';
+import { API_URL, CORE_CONFIG, USER } from '@core/token/token-providers';
 import { HttpClientModule } from '@angular/common/http';
-import { NgxWebstorageModule } from 'ngx-webstorage';
+import { LocalStorageService, NgxWebstorageModule } from 'ngx-webstorage';
 import { Showcase1v1Component } from '@uiux/combs/showcase/showcase1v1/showcase1v1.component';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
-import { apiUrlFactory } from '@core/factory/factory';
+import { apiUrlFactory, userFactory } from '@core/factory/factory';
 import { SwiperModule } from 'swiper/angular';
+import { CryptoJSService } from '@core/service/crypto-js.service';
+import { UserService } from '@core/service/user.service';
 export default {
   title: '组件/展示/1v1',
   component: Showcase1v1Component,
@@ -38,6 +40,11 @@ export default {
           provide: API_URL,
           useFactory: apiUrlFactory,
           deps: [],
+        },
+        {
+          provide: USER,
+          useFactory: userFactory,
+          deps: [LocalStorageService, CryptoJSService, UserService],
         },
       ],
     }),

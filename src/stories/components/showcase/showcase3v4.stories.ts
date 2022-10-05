@@ -6,14 +6,16 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { API_URL, CORE_CONFIG } from '@core/token/token-providers';
+import { API_URL, CORE_CONFIG, USER } from '@core/token/token-providers';
 import { HttpClientModule } from '@angular/common/http';
-import { NgxWebstorageModule } from 'ngx-webstorage';
+import { LocalStorageService, NgxWebstorageModule } from 'ngx-webstorage';
 import { Showcase3v4Component } from '@uiux/combs/showcase/showcase3v4/showcase3v4.component';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import * as BoxStories from 'src/stories/widgets/base/Box.stories';
-import { apiUrlFactory } from '@core/factory/factory';
+import { apiUrlFactory, userFactory } from '@core/factory/factory';
+import { CryptoJSService } from '@core/service/crypto-js.service';
+import { UserService } from '@core/service/user.service';
 export default {
   title: '组件/展示/3v4',
   component: Showcase3v4Component,
@@ -37,6 +39,11 @@ export default {
           provide: API_URL,
           useFactory: apiUrlFactory,
           deps: [],
+        },
+        {
+          provide: USER,
+          useFactory: userFactory,
+          deps: [LocalStorageService, CryptoJSService, UserService],
         },
       ],
     }),

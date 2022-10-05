@@ -6,7 +6,7 @@
         <span [innerHTML]="content.label|safeHtml"></span>
       </button>
       <ng-template #link>
-        <a [class]="content.classes" mat-raised-button [href]="content.href" [target]="content?.target || ''"
+        <a [ngClass]="content.classes" mat-raised-button [href]="content.href" [target]="content?.target || ''"
           [color]="content?.color">
           <app-icon *ngIf="content.icon" [content]="content.icon"></app-icon>
           <span [innerHTML]="content.label|safeHtml"></span>

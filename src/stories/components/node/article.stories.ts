@@ -6,9 +6,14 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { API_URL, CORE_CONFIG } from '@core/token/token-providers';
+import {
+  API_URL,
+  CORE_CONFIG,
+  PAGE_CONTENT,
+  USER,
+} from '@core/token/token-providers';
 import { HttpClientModule } from '@angular/common/http';
-import { NgxWebstorageModule } from 'ngx-webstorage';
+import { LocalStorageService, NgxWebstorageModule } from 'ngx-webstorage';
 import { ArticleComponent } from '@uiux/combs/node/article/article.component';
 import { NodeModule } from '@uiux/combs/node/node.module';
 import { APP_INITIALIZER, Inject } from '@angular/core';
@@ -16,19 +21,32 @@ import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import * as MediaListStories from 'src/stories/widgets/media/MediaList.stories';
 import * as MeunListStories from 'src/stories/widgets/MeunList.stories';
-import { coreConfigFactory, apiUrlFactory } from '@core/factory/factory';
+import {
+  coreConfigFactory,
+  apiUrlFactory,
+  userFactory,
+  pageContentFactory,
+} from '@core/factory/factory';
 import { ContentService } from '@core/service/content.service';
+import { CryptoJSService } from '@core/service/crypto-js.service';
+import { UserService } from '@core/service/user.service';
+import { ActivatedRoute } from '@angular/router';
+import { ContentState } from '@core/mobx/ContentState';
+import { LoginComponent } from 'src/app/modules/user/login/login.component';
+import { UserModule } from 'src/app/modules/user/user.module';
 export default {
   title: '组件/文章/普通文章',
   component: ArticleComponent,
   decorators: [
     moduleMetadata({
       declarations: [],
+      entryComponents: [LoginComponent, LoginComponent],
       imports: [
         RouterTestingModule,
         BrowserAnimationsModule,
         WidgetsModule,
         ShareModule,
+        UserModule,
         NodeModule,
         HttpClientModule,
         NgxWebstorageModule.forRoot(),
@@ -48,6 +66,16 @@ export default {
           provide: API_URL,
           useFactory: apiUrlFactory,
           deps: [],
+        },
+        {
+          provide: USER,
+          useFactory: userFactory,
+          deps: [LocalStorageService, CryptoJSService, UserService],
+        },
+        {
+          provide: PAGE_CONTENT,
+          useFactory: pageContentFactory,
+          deps: [ActivatedRoute, ContentService, ContentState],
         },
       ],
     }),

@@ -6,16 +6,30 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { API_URL, CORE_CONFIG } from '@core/token/token-providers';
+import {
+  API_URL,
+  CORE_CONFIG,
+  PAGE_CONTENT,
+  USER,
+} from '@core/token/token-providers';
 import { HttpClientModule } from '@angular/common/http';
-import { NgxWebstorageModule } from 'ngx-webstorage';
+import { LocalStorageService, NgxWebstorageModule } from 'ngx-webstorage';
 import { NodeModule } from '@uiux/combs/node/node.module';
 import { QuestionComponent } from '@uiux/combs/node/question/question.component';
 import { APP_INITIALIZER, Inject } from '@angular/core';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
-import { coreConfigFactory, apiUrlFactory } from '@core/factory/factory';
+import {
+  coreConfigFactory,
+  apiUrlFactory,
+  pageContentFactory,
+  userFactory,
+} from '@core/factory/factory';
 import { ContentService } from '@core/service/content.service';
+import { ActivatedRoute } from '@angular/router';
+import { ContentState } from '@core/mobx/ContentState';
+import { CryptoJSService } from '@core/service/crypto-js.service';
+import { UserService } from '@core/service/user.service';
 export default {
   title: '组件/文章/问答',
   component: QuestionComponent,
@@ -46,6 +60,16 @@ export default {
           provide: API_URL,
           useFactory: apiUrlFactory,
           deps: [],
+        },
+        {
+          provide: USER,
+          useFactory: userFactory,
+          deps: [LocalStorageService, CryptoJSService, UserService],
+        },
+        {
+          provide: PAGE_CONTENT,
+          useFactory: pageContentFactory,
+          deps: [ActivatedRoute, ContentService, ContentState],
         },
       ],
     }),

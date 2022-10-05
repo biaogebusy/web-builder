@@ -2,9 +2,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { API_URL, CORE_CONFIG } from '@core/token/token-providers';
+import { API_URL, CORE_CONFIG, THEME, USER } from '@core/token/token-providers';
 import { HttpClientModule } from '@angular/common/http';
-import { NgxWebstorageModule } from 'ngx-webstorage';
+import { LocalStorageService, NgxWebstorageModule } from 'ngx-webstorage';
 import { APP_INITIALIZER, Inject } from '@angular/core';
 import { AmapService } from '@core/service/amap.service';
 import { ShareModule } from '@share/share.module';
@@ -12,9 +12,16 @@ import { MapListV1Component } from '@uiux/combs/map/map-list-v1/map-list-v1.comp
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import * as Card1v3Stories from 'src/stories/widgets/card/Card1v3.stories';
 import * as MediaObjectStories from 'src/stories/widgets/media/MediaObject.stories';
-import { coreConfigFactory, apiUrlFactory } from '@core/factory/factory';
+import {
+  coreConfigFactory,
+  apiUrlFactory,
+  themeFactory,
+  userFactory,
+} from '@core/factory/factory';
 import { ContentService } from '@core/service/content.service';
 import { SwiperModule } from 'swiper/angular';
+import { CryptoJSService } from '@core/service/crypto-js.service';
+import { UserService } from '@core/service/user.service';
 
 export default {
   title: '组件/地图/位置列表 1v1',
@@ -47,6 +54,16 @@ export default {
           provide: API_URL,
           useFactory: apiUrlFactory,
           deps: [],
+        },
+        {
+          provide: USER,
+          useFactory: userFactory,
+          deps: [LocalStorageService, CryptoJSService, UserService],
+        },
+        {
+          provide: THEME,
+          useFactory: themeFactory,
+          deps: [[new Inject(CORE_CONFIG)], LocalStorageService],
         },
       ],
     }),
