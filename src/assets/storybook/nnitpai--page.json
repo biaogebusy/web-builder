@@ -34,8 +34,8 @@
             "bg": {
               "classes": "bg-shadow  overlay overlay-80",
               "img": {
-                "src": "/sites/default/files/styles/crop/public/2021-05/photo-1484417894907-623942c8ee29.jpeg?h=18822e16&itok=udv2Cz5d",
-                "mobile": "/sites/default/files/styles/crop/public/2021-05/photo-1484417894907-623942c8ee29.jpeg?h=18822e16&itok=udv2Cz5d"
+                "src": "/assets/images/hero/1-3.jpg",
+                "mobile": "/assets/images/hero/1-3.jpg"
               }
             },
             "body": "<p>信使使用 Angular 最新稳定的版本开发，提供强大而优秀的底层框架。</p>\r\n",
@@ -60,8 +60,8 @@
             "bg": {
               "classes": "bg-shadow  overlay overlay-80",
               "img": {
-                "src": "/sites/default/files/styles/crop/public/2021-05/business-11_0.jpg?itok=kqtknmg8",
-                "mobile": "/sites/default/files/styles/crop/public/2021-05/business-11_0.jpg?itok=kqtknmg8"
+                "src": "/assets/images/hero/1-6.jpg",
+                "mobile": "/assets/images/hero/1-6.jpg"
               }
             },
             "body": "<p>依托 JSONAPI 统一的接口规范</p>\r\n",
@@ -135,13 +135,13 @@
       "bg": {
         "classes": "bg-fill-width overlay overlay-",
         "img": {
-          "src": "/sites/default/files/styles/crop/public/2021-06/bg-02.png?itok=JM7ougw0",
+          "src": "/assets/images/illustration/home-shape.png",
           "hostClasses": ""
         }
       },
       "elements": [{
         "img": {
-          "src": "/sites/default/files/styles/crop/public/2022-03/hero.png?itok=qLc_A4ZG",
+          "src": "/assets/images/illustration/23.png",
           "alt": ""
         },
         "content": {
@@ -217,7 +217,7 @@
       "bg": {
         "classes": " bg-fill-width",
         "img": {
-          "src": "/sites/default/files/styles/crop/public/2021-06/bg-03.jpeg?itok=Q7PjekNk"
+          "src": "/assets/images/16-9/nature-08.jpg"
         }
       },
       "sliders": {
@@ -235,7 +235,7 @@
             "title": "表歌",
             "subTitle": "前端开发",
             "img": {
-              "src": "/sites/default/files/styles/crop/public/2021-06/IMG_2578_0.JPG?itok=bwumd89t",
+              "src": "/assets/images/avatar/01.jpeg",
               "alt": ""
             },
             "body": "专注前端开发领域，多年 Drupal 前端开发经验，微信公众号：Drupal 自习室 维护者。"
@@ -246,7 +246,7 @@
             "title": "骗人的鱼",
             "subTitle": "后端开发",
             "img": {
-              "src": "/sites/default/files/styles/crop/public/2021-06/IMG_2579_0.JPG?itok=B93BDt4y",
+              "src": "/assets/images/avatar/02.jpeg",
               "alt": ""
             },
             "body": "Drupal 后端开发多年，拥有丰富的 Drupal 项目开发经验"
@@ -285,7 +285,7 @@
               "ratios": "media-16-9",
               "img": {
                 "classes": "object-fit",
-                "src": "/sites/default/files/styles/media_16_9/public/2021-05/badge.scene_.png?itok=lI3ATrWE",
+                "src": "/assets/images/badge.scene.png",
                 "alt": "badge.scene_.png"
               }
             }]
@@ -313,7 +313,7 @@
               "ratios": "media-16-9",
               "img": {
                 "classes": "object-fit",
-                "src": "/sites/default/files/styles/media_16_9/public/2021-05/grid-list.scene_.png?itok=SUGPceUm",
+                "src": "/assets/images/grid-list.scene.png",
                 "alt": "grid-list.scene_.png"
               }
             }]
@@ -341,7 +341,7 @@
               "ratios": "media-16-9",
               "img": {
                 "classes": "object-fit",
-                "src": "/sites/default/files/styles/media_16_9/public/2021-05/Blueprint_for_MWS_2000x1520.jpeg?h=08798cb6&itok=eo4UFdcc",
+                "src": "/assets/images/form-field.scene.png",
                 "alt": "Blueprint_for_MWS_2000x1520.jpeg"
               }
             }]
@@ -369,7 +369,7 @@
               "ratios": "media-16-9",
               "img": {
                 "classes": "object-fit",
-                "src": "/sites/default/files/styles/media_16_9/public/2021-05/Reg_Page_Video_Image_Watch_Now.jpeg?itok=FWIxyuzp",
+                "src": "/assets/images/menu.scene.png",
                 "alt": "Reg_Page_Video_Image_Watch_Now.jpeg"
               }
             }]
@@ -381,7 +381,7 @@
       "type": "video-bg",
       "spacer": "sm",
       "source": {
-        "src": "/sites/default/files/2022-03/afterglow.mp4",
+        "src": "/assets/video/afterglow.mp4",
         "type": "video/mp4"
       },
       "widget": {
@@ -548,7 +548,7 @@
           "category": "前端茶馆",
           "subTitle": "2022-01-08",
           "avatar": {
-            "src": "/sites/default/files/styles/crop/public/pictures/2022-01/%E6%A8%A1%E5%9D%97%E6%8E%A8%E8%8D%90.png?itok=JqtNQbc7",
+            "src": "/assets/images/1-1/business-01.png",
             "alt": ""
           },
           "carousel": {
@@ -568,7 +568,7 @@
               "ratios": "media-4-3",
               "img": {
                 "classes": "object-fit",
-                "src": "/sites/default/files/styles/crop/public/2022-01/55.jpg?itok=UtKYaymH",
+                "src": "/assets/images/1-1/business-02.png",
                 "alt": "lazyload"
               }
             }]
@@ -583,7 +583,7 @@
           "category": "Drupal 自习室",
           "subTitle": "2022-01-03",
           "avatar": {
-            "src": "/sites/default/files/styles/crop/public/pictures/2022-01/%E6%A8%A1%E5%9D%97%E6%8E%A8%E8%8D%90.png?itok=JqtNQbc7",
+            "src": "/assets/images/1-1/business-03.png",
             "alt": ""
           },
           "carousel": {
@@ -603,7 +603,7 @@
               "ratios": "media-4-3",
               "img": {
                 "classes": "object-fit",
-                "src": "/sites/default/files/styles/crop/public/2022-01/361.jpg?itok=DvPGC9Uw",
+                "src": "/assets/images/1-1/business-04.png",
                 "alt": "lazyload"
               }
             }]
@@ -618,7 +618,7 @@
           "category": "前端茶馆",
           "subTitle": "2022-01-03",
           "avatar": {
-            "src": "/sites/default/files/styles/crop/public/pictures/2022-01/%E6%A8%A1%E5%9D%97%E6%8E%A8%E8%8D%90.png?itok=JqtNQbc7",
+            "src": "/assets/images/1-1/natural-01.jpg",
             "alt": ""
           },
           "carousel": {
@@ -638,7 +638,7 @@
               "ratios": "media-4-3",
               "img": {
                 "classes": "object-fit",
-                "src": "/sites/default/files/styles/crop/public/2022-01/400.png?itok=RDEq5ZQi",
+                "src": "/assets/images/1-1/animal-01.jpg",
                 "alt": "lazyload"
               }
             }]
@@ -653,7 +653,7 @@
           "category": "前端茶馆",
           "subTitle": "2021-05-14",
           "avatar": {
-            "src": "/sites/default/files/styles/crop/public/pictures/2021-05/logo_transparent-v2.png?itok=BsNbWTTZ",
+            "src": "/assets/images/cases/porto1.jpg",
             "alt": ""
           },
           "carousel": {
@@ -673,7 +673,7 @@
               "ratios": "media-4-3",
               "img": {
                 "classes": "object-fit",
-                "src": "/sites/default/files/styles/crop/public/2021-05/v2-5c27976d3638bc5c984d2f49329347f5_r.jpeg?h=a4b59061&itok=dpbKHecu",
+                "src": "/assets/images/cases/porto2.jpg",
                 "alt": "lazyload"
               }
             }]
@@ -708,7 +708,7 @@
               "ratios": "media-4-3",
               "img": {
                 "classes": "object-fit",
-                "src": "/sites/default/files/styles/crop/public/2021-05/1-10.jpg?itok=rEMI7B6h",
+                "src": "/assets/images/cases/porto3.jpg",
                 "alt": "lazyload"
               }
             }]
@@ -723,7 +723,7 @@
     {
       "type": "text",
       "spacer": "xl",
-      "body": "<p class=\"text-align-center\">基于 Drupal jsonapi 为核心，使用 Angular 来快速搭建用户体验优先的前端主题。</p>\r\n\r\n<div class=\"text-center\"><img alt=\"Drupal自习室\" data-align=\"center\" data-entity-type=\"file\" data-entity-uuid=\"b82fa893-a20b-4ea8-b562-ec620e977eea\" src=\"/sites/default/files/inline-images/weixin.jpg\" /></div>\r\n\r\n<p>&nbsp;</p>\r\n"
+      "body": "<p class=\"text-align-center\">基于 Drupal jsonapi 为核心，使用 Angular 来快速搭建用户体验优先的前端主题。</p>\r\n\r\n<div class=\"text-center\"><img alt=\"Drupal自习室\" data-align=\"center\" data-entity-type=\"file\" data-entity-uuid=\"b82fa893-a20b-4ea8-b562-ec620e977eea\" src=\"/assets/images/wechat.jpg\" /></div>\r\n\r\n<p>&nbsp;</p>\r\n"
     }
   ]
 }
