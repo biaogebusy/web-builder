@@ -7,7 +7,6 @@ import {
   Inject,
 } from '@angular/core';
 import type { IMark } from '@core/interface/IAmap';
-import { AMapState } from '@core/mobx/amap/AMapState';
 import { AmapService } from '@core/service/amap.service';
 import { isArray } from 'lodash-es';
 import { CORE_CONFIG } from '@core/token/token-providers';
@@ -30,7 +29,6 @@ export class MapComponent implements OnInit, OnDestroy {
   center: any;
 
   constructor(
-    private amapState: AMapState,
     private amapService: AmapService,
     private configService: ConfigService,
     @Inject(THEME) private theme: string,
@@ -80,7 +78,7 @@ export class MapComponent implements OnInit, OnDestroy {
               this.center = [location.lng, location.lat];
             }
             if (lists.length === index + 1) {
-              this.amapState.position$.next(true);
+              this.amapService.position$.next(true);
             }
           }
         });
@@ -111,7 +109,7 @@ export class MapComponent implements OnInit, OnDestroy {
   }
 
   getMarkers(lists: any[]): void {
-    this.amapState.position$.subscribe((res) => {
+    this.amapService.position$.subscribe((res) => {
       this.renderMap();
       this.onMarkers();
       this.setMarkers(lists);
@@ -136,7 +134,7 @@ export class MapComponent implements OnInit, OnDestroy {
   }
 
   onMarkers(): void {
-    this.amapState.markers$.subscribe((marker: IMark) => {
+    this.amapService.markers$.subscribe((marker: IMark) => {
       const position = this.map
         .getAllOverlays('marker')
         [marker.index].getPosition();

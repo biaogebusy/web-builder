@@ -8,11 +8,11 @@ import {
 import { NodeService } from '@core/service/node.service';
 import { IChipList } from './IJob';
 import { map } from 'lodash-es';
-import { AMapState } from '@core/mobx/amap/AMapState';
 import { RouteService } from '@core/service/route.service';
 import { Params, ActivatedRoute } from '@angular/router';
 import { TagsService } from '@core/service/tags.service';
 import { ScreenService } from '@core/service/screen.service';
+import { AmapService } from '@core/service/amap.service';
 
 const feature = {
   type: 'showcase-3v6',
@@ -165,7 +165,7 @@ export class JobComponent implements OnInit {
   show = false;
   constructor(
     private nodeService: NodeService,
-    public amapState: AMapState,
+    private amapService: AmapService,
     private tagsService: TagsService,
     private routerService: RouteService,
     private route: ActivatedRoute,
@@ -251,7 +251,7 @@ export class JobComponent implements OnInit {
   onSelected(obj: any): void {
     this.selected = obj.item;
     this.selectedId = obj.item.nid;
-    this.amapState.markers$.next(obj);
+    this.amapService.markers$.next(obj);
     const query: Params = { id: this.selectedId };
     this.routerService.updateQueryParams(query);
     this.cd.detectChanges();

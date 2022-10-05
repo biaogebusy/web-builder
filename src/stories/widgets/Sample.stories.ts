@@ -8,16 +8,22 @@ import {
 import { Story } from '@storybook/angular/types-6-0';
 import { APP_INITIALIZER, Inject } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { NgxWebstorageModule } from 'ngx-webstorage';
+import { LocalStorageService, NgxWebstorageModule } from 'ngx-webstorage';
 import { TextComponent } from '@uiux/widgets/text/text.component';
 import { TitleComponent } from '@uiux/widgets/title/title.component';
 import * as TextStories from './base/Text.stories';
 import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
-import { API_URL, CORE_CONFIG } from '@core/token/token-providers';
+import { API_URL, CORE_CONFIG, USER } from '@core/token/token-providers';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
-import { apiUrlFactory, coreConfigFactory } from '@core/factory/factory';
+import {
+  apiUrlFactory,
+  coreConfigFactory,
+  userFactory,
+} from '@core/factory/factory';
 import { ContentService } from '@core/service/content.service';
+import { CryptoJSService } from '@core/service/crypto-js.service';
+import { UserService } from '@core/service/user.service';
 
 export default {
   title: '特色组件/示例 Sample',
@@ -50,6 +56,11 @@ export default {
           provide: API_URL,
           useFactory: apiUrlFactory,
           deps: [],
+        },
+        {
+          provide: USER,
+          useFactory: userFactory,
+          deps: [LocalStorageService, CryptoJSService, UserService],
         },
       ],
     }),

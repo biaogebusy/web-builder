@@ -5,7 +5,6 @@ import { Story } from '@storybook/angular/types-6-0';
 import { API_URL, CORE_CONFIG } from '@core/token/token-providers';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxWebstorageModule } from 'ngx-webstorage';
-import { SwiperModule } from 'ngx-swiper-wrapper';
 import { APP_INITIALIZER, Inject } from '@angular/core';
 import { AmapService } from '@core/service/amap.service';
 import { ShareModule } from '@share/share.module';
@@ -15,6 +14,7 @@ import * as Card1v3Stories from 'src/stories/widgets/card/Card1v3.stories';
 import * as MediaObjectStories from 'src/stories/widgets/media/MediaObject.stories';
 import { coreConfigFactory, apiUrlFactory } from '@core/factory/factory';
 import { ContentService } from '@core/service/content.service';
+import { SwiperModule } from 'swiper/angular';
 
 export default {
   title: '组件/地图/位置列表 1v1',

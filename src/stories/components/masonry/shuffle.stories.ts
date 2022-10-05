@@ -5,12 +5,12 @@ import { Story } from '@storybook/angular/types-6-0';
 import { API_URL, CORE_CONFIG } from '@core/token/token-providers';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxWebstorageModule } from 'ngx-webstorage';
-import { SwiperModule } from 'ngx-swiper-wrapper';
 import { AmapService } from '@core/service/amap.service';
 import { ShareModule } from '@share/share.module';
 import { ShuffleComponent } from '@uiux/combs/masonry/shuffle/shuffle.component';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { apiUrlFactory } from '@core/factory/factory';
+import { SwiperModule } from 'swiper/angular';
 export default {
   title: '组件/瀑布流/洗牌',
   component: ShuffleComponent,

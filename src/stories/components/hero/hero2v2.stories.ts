@@ -5,10 +5,10 @@ import { Story } from '@storybook/angular/types-6-0';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxWebstorageModule } from 'ngx-webstorage';
-import { SwiperModule } from 'ngx-swiper-wrapper';
 import { Hero2v2Component } from '@uiux/combs/hero/hero2v2/hero2v2.component';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { SwiperModule } from 'swiper/angular';
 export default {
   title: '组件/英雄区/2v2',
   component: Hero2v2Component,

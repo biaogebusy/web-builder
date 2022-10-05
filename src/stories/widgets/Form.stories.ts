@@ -8,15 +8,21 @@ import {
 import { Story } from '@storybook/angular/types-6-0';
 import { APP_INITIALIZER, Inject } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { NgxWebstorageModule } from 'ngx-webstorage';
+import { LocalStorageService, NgxWebstorageModule } from 'ngx-webstorage';
 import { FormlyComponent } from '@uiux/widgets/form/formly/formly.component';
 import { FormGroup } from '@angular/forms';
 import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
-import { API_URL, CORE_CONFIG } from '@core/token/token-providers';
+import { API_URL, CORE_CONFIG, USER } from '@core/token/token-providers';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
-import { coreConfigFactory, apiUrlFactory } from '@core/factory/factory';
+import {
+  coreConfigFactory,
+  apiUrlFactory,
+  userFactory,
+} from '@core/factory/factory';
 import { ContentService } from '@core/service/content.service';
+import { CryptoJSService } from '@core/service/crypto-js.service';
+import { UserService } from '@core/service/user.service';
 
 export default {
   title: '基础/表单',
@@ -49,6 +55,11 @@ export default {
           provide: API_URL,
           useFactory: apiUrlFactory,
           deps: [],
+        },
+        {
+          provide: USER,
+          useFactory: userFactory,
+          deps: [LocalStorageService, CryptoJSService, UserService],
         },
       ],
     }),

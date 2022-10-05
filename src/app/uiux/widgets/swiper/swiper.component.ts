@@ -7,22 +7,21 @@ import {
   OnDestroy,
   ChangeDetectionStrategy,
 } from '@angular/core';
-import {
-  SwiperConfigInterface,
-  SwiperPaginationInterface,
-  SwiperDirective,
-} from 'ngx-swiper-wrapper';
+import SwiperCore, { Navigation, Pagination, SwiperOptions } from 'swiper';
+import { SwiperComponent as SwiperCom } from 'swiper/angular';
+
 import { Subject } from 'rxjs';
 import { ScreenService } from '@core/service/screen.service';
+import { PaginationOptions } from 'swiper/types';
 
-// https://www.npmjs.com/package/ngx-swiper-wrapper
-
-const paginationgConfig: SwiperPaginationInterface = {
-  el: '.swiper-pagination',
+const paginationgConfig: PaginationOptions = {
   type: 'bullets',
   clickable: true,
   hideOnClick: false,
 };
+
+// install Swiper modules
+SwiperCore.use([Navigation, Pagination]);
 
 @Component({
   selector: 'app-swiper',
@@ -34,10 +33,10 @@ export class SwiperComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() content: any;
   @Input() index: number;
   @Input() navigationSub: Subject<any>;
-  @ViewChild(SwiperDirective) public swiperWrapper: SwiperDirective;
+  @ViewChild('swiper', { static: false }) swiper: SwiperCom;
   constructor(private screenService: ScreenService) {}
 
-  defaultConfig: SwiperConfigInterface = {
+  defaultConfig: SwiperOptions = {
     slidesPerView: 'auto',
     speed: 1000,
     scrollbar: false,
@@ -46,30 +45,8 @@ export class SwiperComponent implements OnInit, AfterViewInit, OnDestroy {
     navigation: true,
     pagination: paginationgConfig,
     autoplay: true,
-    // Responsive breakpoints
-    // breakpoints: {
-    //   // when window width is >= 320px
-    //   320: {
-    //     slidesPerView: 1.2,
-    //     spaceBetween: 10,
-    //   },
-    //   // when window width is >= 480px
-    //   480: {
-    //     slidesPerView: 2,
-    //     spaceBetween: 20,
-    //   },
-    //   // when window width is >= 640px
-    //   640: {
-    //     slidesPerView: 3,
-    //     spaceBetween: 30,
-    //   },
-    //   768: {
-    //     slidesPerView: 4,
-    //     spaceBetween: 30,
-    //   },
-    // },
   };
-  config: SwiperConfigInterface;
+  config: SwiperOptions;
   ngOnInit(): void {
     this.config = Object.assign(this.defaultConfig, this.content.params);
   }
@@ -78,9 +55,9 @@ export class SwiperComponent implements OnInit, AfterViewInit, OnDestroy {
       if (this.navigationSub) {
         this.navigationSub.subscribe((action) => {
           if (action > 0) {
-            this.swiperWrapper.nextSlide();
+            this.swiper.swiperRef.slideNext();
           } else {
-            this.swiperWrapper.prevSlide();
+            this.swiper.swiperRef.slidePrev();
           }
         });
       }

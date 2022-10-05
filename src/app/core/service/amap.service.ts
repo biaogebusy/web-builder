@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as AMapLoader from '@amap/amap-jsapi-loader';
-import { Observable, from } from 'rxjs';
-import type { IAmap } from '../interface/IAmap';
+import { Observable, from, Subject } from 'rxjs';
+import type { IAmap, IMark } from '../interface/IAmap';
 
 // https://lbs.amap.com/demo-center/js-api
 // https://lbs.amap.com/api/jsapi-v2/summary
@@ -12,6 +12,8 @@ import type { IAmap } from '../interface/IAmap';
   providedIn: 'root',
 })
 export class AmapService {
+  position$ = new Subject();
+  markers$: Subject<IMark> = new Subject();
   constructor() {}
 
   load(config: IAmap): Observable<any> {

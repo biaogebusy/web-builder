@@ -9,7 +9,6 @@ import { Story } from '@storybook/angular/types-6-0';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { APP_INITIALIZER, Inject } from '@angular/core';
-import { AMapState } from '@core/mobx/amap/AMapState';
 import { AmapService } from '@core/service/amap.service';
 import { API_URL, CORE_CONFIG } from '@core/token/token-providers';
 import { ShareModule } from '@share/share.module';
@@ -33,7 +32,6 @@ export default {
         NgxWebstorageModule.forRoot(),
       ],
       providers: [
-        AMapState,
         AmapService,
         {
           provide: CORE_CONFIG,

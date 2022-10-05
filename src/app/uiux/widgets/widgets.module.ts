@@ -4,10 +4,8 @@ import listPlugin from '@fullcalendar/list';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import { LightboxModule } from 'ngx-lightbox';
-import { SwiperModule } from 'ngx-swiper-wrapper';
-import { SWIPER_CONFIG } from 'ngx-swiper-wrapper';
 import { ShareModule } from '@share/share.module';
-import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
+import { SwiperModule } from 'swiper/angular';
 import { CountToModule } from 'angular-count-to';
 import { DynamicModule } from 'ng-dynamic-component';
 import { TreeModule } from '@circlon/angular-tree-component';
@@ -110,11 +108,6 @@ import { NgxEchartsModule } from 'ngx-echarts';
 import { StepperComponent } from './stepper/stepper.component';
 import { FormlyComponent } from './form/formly/formly.component';
 
-const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
-  direction: 'horizontal',
-  slidesPerView: 'auto',
-};
-
 FullCalendarModule.registerPlugins([
   // register FullCalendar plugins
   dayGridPlugin,
@@ -205,7 +198,6 @@ const components = [
   imports: [
     MatChipsModule,
     ShareModule,
-    SwiperModule,
     TreeModule,
     LightboxModule,
     CountToModule,
@@ -221,6 +213,7 @@ const components = [
     FormlyMatSliderModule,
     FormlyMatToggleModule,
     MatCheckboxModule,
+    SwiperModule,
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts'),
     }),
@@ -251,10 +244,6 @@ const components = [
   exports: [...components],
   providers: [
     MatDatepickerModule,
-    {
-      provide: SWIPER_CONFIG,
-      useValue: DEFAULT_SWIPER_CONFIG,
-    },
     // { provide: MAT_DATE_LOCALE, useValue: 'zh-cn' },
   ],
 })

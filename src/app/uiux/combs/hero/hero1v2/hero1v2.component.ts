@@ -4,9 +4,12 @@ import {
   Component,
   Input,
   OnInit,
+  ViewChild,
 } from '@angular/core';
-import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
-
+import { SwiperComponent } from 'swiper/angular';
+import SwiperCore, { Navigation, Pagination, SwiperOptions } from 'swiper';
+// install Swiper modules
+SwiperCore.use([Navigation, Pagination]);
 @Component({
   selector: 'app-hero1v2',
   templateUrl: './hero1v2.component.html',
@@ -15,16 +18,10 @@ import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 })
 export class Hero1v2Component implements OnInit {
   @Input() content: any;
-  index: number;
-  mediaConfig: SwiperConfigInterface;
-  defaultConfig: SwiperConfigInterface = {
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
-    },
-  };
-
-  textConfig: SwiperConfigInterface = {
+  @ViewChild('media', { static: false }) media: SwiperComponent;
+  index = 0;
+  mediaConfig: SwiperOptions;
+  textConfig: SwiperOptions = {
     slidesPerView: 1,
     autoplay: true,
   };
@@ -34,11 +31,13 @@ export class Hero1v2Component implements OnInit {
     this.setConfig();
   }
 
+  onSlideChange(event: any): void {
+    this.index = event.activeIndex;
+    this.cd.detectChanges();
+  }
+
   setConfig(): void {
-    this.mediaConfig = Object.assign(
-      this.defaultConfig,
-      this.content.sliders.params
-    );
+    this.mediaConfig = Object.assign({}, this.content.sliders.params);
     this.cd.detectChanges();
   }
 }
