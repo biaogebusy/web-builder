@@ -10,16 +10,10 @@ import { APP_INITIALIZER, Inject } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { LocalStorageService, NgxWebstorageModule } from 'ngx-webstorage';
 import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
-import {
-  API_URL,
-  CORE_CONFIG,
-  PAGE_CONTENT,
-  USER,
-} from '@core/token/token-providers';
+import { API_URL, CORE_CONFIG, USER } from '@core/token/token-providers';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { BlockComponent } from '@uiux/combs/block/block/block.component';
-import { of } from 'rxjs';
 import { BlockModule } from '@uiux/combs/block/block.module';
 import {
   coreConfigFactory,
@@ -75,7 +69,7 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: `对组件的介绍描述`,
+        component: `南宁IT派官网`,
       },
     },
   },

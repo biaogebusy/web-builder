@@ -12,7 +12,7 @@ import { ScreenService } from '@core/service/screen.service';
 import { isEmpty } from 'lodash-es';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
-import { IUser } from '@core/interface/IUser';
+import type { IUser } from '@core/interface/IUser';
 import { environment } from 'src/environments/environment';
 
 @Component({
