@@ -7,12 +7,14 @@ import { Story } from '@storybook/angular/types-6-0';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
-import { API_URL, CORE_CONFIG } from '@core/token/token-providers';
+import { API_URL, CORE_CONFIG, USER } from '@core/token/token-providers';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { Card1v1Component } from '@uiux/widgets/card/card1v1/card1v1.component';
-import { NgxWebstorageModule } from 'ngx-webstorage';
-import { apiUrlFactory } from '@core/factory/factory';
+import { LocalStorageService, NgxWebstorageModule } from 'ngx-webstorage';
+import { apiUrlFactory, userFactory } from '@core/factory/factory';
+import { CryptoJSService } from '@core/service/crypto-js.service';
+import { UserService } from '@core/service/user.service';
 export default {
   title: '基础/卡片/1v1',
   id: 'card-1v1',
@@ -37,6 +39,11 @@ export default {
           provide: API_URL,
           useFactory: apiUrlFactory,
           deps: [],
+        },
+        {
+          provide: USER,
+          useFactory: userFactory,
+          deps: [LocalStorageService, CryptoJSService, UserService],
         },
       ],
     }),

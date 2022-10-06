@@ -3,15 +3,17 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { HttpClientModule } from '@angular/common/http';
-import { NgxWebstorageModule } from 'ngx-webstorage';
-import { API_URL, CORE_CONFIG } from '@core/token/token-providers';
+import { LocalStorageService, NgxWebstorageModule } from 'ngx-webstorage';
+import { API_URL, CORE_CONFIG, USER } from '@core/token/token-providers';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { LoopWidgetsComponent } from '@uiux/widgets/loop-widgets/loop-widgets.component';
 import { ShareModule } from '@share/share.module';
 import { LinkComponent } from '@uiux/widgets/link/link.component';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import * as TextStories from './Text.stories';
-import { apiUrlFactory } from '@core/factory/factory';
+import { apiUrlFactory, userFactory } from '@core/factory/factory';
+import { CryptoJSService } from '@core/service/crypto-js.service';
+import { UserService } from '@core/service/user.service';
 
 export default {
   title: '基础/内容/链接',
@@ -38,6 +40,11 @@ export default {
           provide: API_URL,
           useFactory: apiUrlFactory,
           deps: [],
+        },
+        {
+          provide: USER,
+          useFactory: userFactory,
+          deps: [LocalStorageService, CryptoJSService, UserService],
         },
       ],
     }),
