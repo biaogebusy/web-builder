@@ -9,7 +9,8 @@
       <a *ngIf="content.href;else void" [routerLink]="[this.content.href]" [routerLinkActive]="['active']"
         [target]="content?.target || '_self'" [routerLinkActiveOptions]="{exact: true}"
         [queryParams]="content.queryParams" [fragment]="content.fragment" [ngClass]="classes"
-        [innerHTML]="content?.label | safeHtml" title="{{content.label}}" (click)="nav($event)"></a>
+        [innerHTML]="content?.label | safeHtml" title="{{content.label}}" (click)="nav($event)">
+      </a>
       <ng-template #void>
         <a [ngClass]="classes" href="javascript:void(0);" [target]="content?.target || '_self'"
           [innerHTML]="content?.label | safeHtml" title="{{content.label}}" (click)="nav($event)"></a>
