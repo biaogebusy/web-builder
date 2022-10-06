@@ -46,6 +46,17 @@ BtnRaised.args = {
   },
 };
 
+export const Round = Template.bind({});
+
+Round.args = {
+  content: {
+    label: 'Round',
+    color: 'primary',
+    mode: 'raised',
+    classes: 'round-btn',
+  },
+};
+
 export const BtnLink = Template.bind({});
 
 BtnLink.args = {

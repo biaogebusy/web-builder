@@ -1,10 +1,5 @@
 {
   "title": "Search",
-  "meta": {
-    "config": {
-      "loading": false
-    }
-  },
   "body": [{
     "type": "search",
     "header": {
@@ -131,74 +126,6 @@
         "label": "金融非诉讼",
         "value": "150"
       }]
-    }, {
-      "type": "treeView",
-      "label": "四分法",
-      "key": "four_point",
-      "elements": {
-        "text": "四分法",
-        "value": "all",
-        "children": [{
-            "text": "金融科技",
-            "value": 173,
-            "children": [{
-              "text": "金融基础设施",
-              "value": 186
-            }]
-          },
-          {
-            "text": "金融体系",
-            "value": 174,
-            "children": [{
-                "text": "基础设施金融",
-                "value": 197
-              },
-              {
-                "text": "金融公司管理与重整",
-                "value": 203,
-                "children": [{
-                  "text": "公司管理",
-                  "value": 429
-                }]
-              }
-            ]
-          }
-        ]
-      }
-    }, {
-      "type": "treeView",
-      "label": "六分法",
-      "key": "six_point",
-      "elements": {
-        "text": "四分法",
-        "value": "all",
-        "children": [{
-            "text": "金融科技",
-            "value": 173,
-            "children": [{
-              "text": "金融基础设施",
-              "value": 186
-            }]
-          },
-          {
-            "text": "金融体系",
-            "value": 174,
-            "children": [{
-                "text": "基础设施金融",
-                "value": 197
-              },
-              {
-                "text": "金融公司管理与重整",
-                "value": 203,
-                "children": [{
-                  "text": "公司管理",
-                  "value": 429
-                }]
-              }
-            ]
-          }
-        ]
-      }
     }, {
       "type": "checkbox",
       "label": "文章<span>50</span>",
