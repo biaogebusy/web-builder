@@ -13,6 +13,7 @@ import { CryptoJSService } from '@core/service/crypto-js.service';
 import { UserService } from '@core/service/user.service';
 export default {
   title: '组件/幻灯片/1v2',
+  id: 'carousel-1v2',
   component: Carousel1v2Component,
   decorators: [
     moduleMetadata({

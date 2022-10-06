@@ -23,6 +23,7 @@ import { UserService } from '@core/service/user.service';
 
 export default {
   title: '信使 UI',
+  id: 'home',
   component: Hero2v3Component,
   parameters: {
     // More on Story layout: https://storybook.js.org/docs/angular/configure/story-layout

@@ -12,6 +12,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { HttpClientModule } from '@angular/common/http';
 export default {
   title: '基础/卡片/1v3',
+  id: 'card-1v3',
   component: Card1v3Component,
   decorators: [
     moduleMetadata({

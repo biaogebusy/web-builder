@@ -12,6 +12,7 @@ import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { apiUrlFactory } from '@core/factory/factory';
 export default {
   title: '组件/横幅/简单横幅',
+  id: 'banner-sample',
   component: BannerSimpleComponent,
   decorators: [
     moduleMetadata({

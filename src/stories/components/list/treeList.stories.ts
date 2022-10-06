@@ -16,6 +16,7 @@ import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { apiUrlFactory } from '@core/factory/factory';
 export default {
   title: '组件/列表/树形列表',
+  id: 'tree-list',
   component: TreeListComponent,
   decorators: [
     moduleMetadata({

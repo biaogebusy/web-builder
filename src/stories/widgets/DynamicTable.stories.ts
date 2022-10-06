@@ -14,6 +14,7 @@ import { WidgetsModule } from '@uiux/widgets/widgets.module';
 
 export default {
   title: '基础/动态表格',
+  id: 'dynamic-table',
   component: DynamicTableComponent,
   decorators: [
     moduleMetadata({

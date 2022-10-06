@@ -7,6 +7,7 @@ import { WidgetsModule } from '@uiux/widgets/widgets.module';
 
 export default {
   title: '基础/内容/按钮',
+  id: 'btn',
   component: BtnComponent,
   decorators: [
     moduleMetadata({

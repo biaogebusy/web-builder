@@ -18,6 +18,7 @@ import { apiUrlFactory } from '@core/factory/factory';
 
 export default {
   title: '基础/内容/富文本',
+  id: 'text',
   component: TextComponent,
   decorators: [
     moduleMetadata({

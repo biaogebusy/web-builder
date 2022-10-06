@@ -10,6 +10,7 @@ import { ContentTextCenterComponent } from '@uiux/widgets/content-text-center/co
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 export default {
   title: '基础/内容/内容居中块',
+  id: 'content-text-center',
   component: ContentTextCenterComponent,
   decorators: [
     moduleMetadata({

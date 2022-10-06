@@ -26,6 +26,7 @@ import { ContentState } from '@core/mobx/ContentState';
 import { ContentService } from '@core/service/content.service';
 export default {
   title: '组件/英雄区/2v3',
+  id: 'hero-2v3',
   component: Hero2v3Component,
   decorators: [
     moduleMetadata({

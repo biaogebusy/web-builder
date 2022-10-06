@@ -14,6 +14,7 @@ import { WidgetsModule } from '@uiux/widgets/widgets.module';
 
 export default {
   title: '基础/选项卡',
+  id: 'tab',
   component: TabComponent,
   decorators: [
     moduleMetadata({

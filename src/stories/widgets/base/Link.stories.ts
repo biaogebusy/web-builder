@@ -15,6 +15,7 @@ import { apiUrlFactory } from '@core/factory/factory';
 
 export default {
   title: '基础/内容/链接',
+  id: 'link',
   component: LinkComponent,
   decorators: [
     moduleMetadata({

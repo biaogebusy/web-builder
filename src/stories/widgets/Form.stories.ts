@@ -26,6 +26,7 @@ import { UserService } from '@core/service/user.service';
 
 export default {
   title: '基础/表单',
+  id: 'form',
   component: FormlyComponent,
   subcomponents: { FormlyComponent },
   decorators: [

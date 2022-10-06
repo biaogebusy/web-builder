@@ -10,6 +10,7 @@ import { WidgetsModule } from '@uiux/widgets/widgets.module';
 
 export default {
   title: '基础/面板',
+  id: 'panel',
   component: PanelComponent,
   decorators: [
     moduleMetadata({

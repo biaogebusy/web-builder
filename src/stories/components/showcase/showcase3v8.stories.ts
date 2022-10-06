@@ -17,6 +17,7 @@ import { CryptoJSService } from '@core/service/crypto-js.service';
 import { UserService } from '@core/service/user.service';
 export default {
   title: '组件/展示/3v8',
+  id: 'showcase-3v8',
   component: Showcase3v8Component,
   decorators: [
     moduleMetadata({

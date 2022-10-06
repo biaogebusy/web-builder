@@ -15,6 +15,7 @@ import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 export default {
   title: '组件/视频/背景视频',
+  id: 'video-bg',
   component: VideoBgComponent,
   decorators: [
     moduleMetadata({

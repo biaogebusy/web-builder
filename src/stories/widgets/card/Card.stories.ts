@@ -20,6 +20,7 @@ import { CryptoJSService } from '@core/service/crypto-js.service';
 import { UserService } from '@core/service/user.service';
 export default {
   title: '基础/卡片/基础',
+  id: 'card',
   component: CardComponent,
   decorators: [
     moduleMetadata({

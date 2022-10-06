@@ -10,6 +10,7 @@ import { SwiperModule } from 'swiper/angular';
 
 export default {
   title: '基础/Swiper',
+  id: 'swiper',
   component: SwiperComponent,
   decorators: [
     moduleMetadata({

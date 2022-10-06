@@ -9,6 +9,7 @@ import { ChipListComponent } from '@uiux/widgets/chip-list/chip-list.component';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 export default {
   title: '基础/胶囊按钮',
+  id: 'chip-list',
   component: ChipListComponent,
   decorators: [
     moduleMetadata({

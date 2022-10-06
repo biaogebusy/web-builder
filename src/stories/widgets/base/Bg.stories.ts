@@ -9,6 +9,7 @@ import { BgComponent } from '@uiux/widgets/bg/bg.component';
 
 export default {
   title: '基础/内容/背景色',
+  id: 'bg',
   component: BgComponent,
   decorators: [
     moduleMetadata({

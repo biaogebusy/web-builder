@@ -11,6 +11,7 @@ import { WidgetsModule } from '@uiux/widgets/widgets.module';
 
 export default {
   title: '基础/图表',
+  id: 'chart',
   component: ChartComponent,
   decorators: [
     moduleMetadata({

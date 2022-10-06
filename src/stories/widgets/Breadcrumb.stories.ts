@@ -18,6 +18,7 @@ import { CryptoJSService } from '@core/service/crypto-js.service';
 import { UserService } from '@core/service/user.service';
 export default {
   title: '基础/面包屑',
+  id: 'breadcrumb',
   component: BreadcrumbComponent,
   decorators: [
     moduleMetadata({

@@ -5,6 +5,7 @@ import { IconComponent } from '@uiux/widgets/icon/icon.component';
 
 export default {
   title: '基础/内容/图标',
+  id: 'icon',
   component: IconComponent,
   decorators: [
     moduleMetadata({

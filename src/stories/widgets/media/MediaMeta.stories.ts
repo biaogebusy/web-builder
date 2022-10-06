@@ -17,6 +17,7 @@ import { apiUrlFactory } from '@core/factory/factory';
 
 export default {
   title: '基础/媒体/媒体 meta',
+  id: 'media-meta',
   component: MediaMetaComponent,
   decorators: [
     moduleMetadata({

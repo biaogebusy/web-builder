@@ -11,6 +11,7 @@ import { CombsModule } from '@uiux/combs/combs.module';
 import { apiUrlFactory } from '@core/factory/factory';
 export default {
   title: '组件/引导/Action 1v1',
+  id: 'action-1v1',
   component: Action1v1Component,
   decorators: [
     moduleMetadata({

@@ -12,6 +12,7 @@ import { apiUrlFactory } from '@core/factory/factory';
 import { SwiperModule } from 'swiper/angular';
 export default {
   title: '组件/英雄区/1v2',
+  id: 'hero-1v2',
   component: Hero1v2Component,
   decorators: [
     moduleMetadata({

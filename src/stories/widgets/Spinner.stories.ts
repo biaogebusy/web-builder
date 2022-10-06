@@ -14,6 +14,7 @@ import { WidgetsModule } from '@uiux/widgets/widgets.module';
 
 export default {
   title: '基础/旋转 Loading',
+  id: 'spinner',
   component: SpinnerComponent,
   decorators: [
     moduleMetadata({

@@ -36,6 +36,7 @@ import { LoginComponent } from 'src/app/modules/user/login/login.component';
 import { UserModule } from 'src/app/modules/user/user.module';
 export default {
   title: '组件/文章/普通文章',
+  id: 'article',
   component: ArticleComponent,
   decorators: [
     moduleMetadata({

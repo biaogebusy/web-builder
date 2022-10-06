@@ -15,6 +15,7 @@ import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import * as ContentTextCenterStories from 'src/stories/widgets/base/ContentTextCenter.stories';
 export default {
   title: '组件/展示/2v5',
+  id: 'showcase-2v5',
   component: Showcase2v5Component,
   decorators: [
     moduleMetadata({

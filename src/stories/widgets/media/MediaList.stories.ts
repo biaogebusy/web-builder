@@ -17,6 +17,7 @@ import { WidgetsModule } from '@uiux/widgets/widgets.module';
 
 export default {
   title: '基础/媒体/媒体列表',
+  id: 'media-list',
   component: MediaListComponent,
   decorators: [
     moduleMetadata({

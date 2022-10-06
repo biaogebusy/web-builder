@@ -13,6 +13,7 @@ import { apiUrlFactory } from '@core/factory/factory';
 import { SwiperModule } from 'swiper/angular';
 export default {
   title: '组件/瀑布流/洗牌',
+  id: 'shuffle',
   component: ShuffleComponent,
   decorators: [
     moduleMetadata({

@@ -11,6 +11,7 @@ import { WidgetsModule } from '@uiux/widgets/widgets.module';
 
 export default {
   title: '基础/内容/背景图片',
+  id: 'bg-img',
   component: BgImgComponent,
   decorators: [
     moduleMetadata({

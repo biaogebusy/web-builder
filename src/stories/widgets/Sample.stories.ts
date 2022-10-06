@@ -37,6 +37,7 @@ import { ContentState } from '@core/mobx/ContentState';
 
 export default {
   title: '特色组件/示例 Sample',
+  id: 'sample',
   component: TextComponent,
   subcomponents: { TitleComponent },
   decorators: [

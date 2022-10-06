@@ -10,6 +10,7 @@ import { Hero1v1Component } from '@uiux/combs/hero/hero1v1/hero1v1.component';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 export default {
   title: '组件/英雄区/1v1',
+  id: 'hero-1v1',
   component: Hero1v1Component,
   decorators: [
     moduleMetadata({

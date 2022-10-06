@@ -10,6 +10,7 @@ import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 export default {
   title: '组件/幻灯片/时间轴',
+  id: 'lineyear',
   component: Carousel1v1Component,
   decorators: [
     moduleMetadata({

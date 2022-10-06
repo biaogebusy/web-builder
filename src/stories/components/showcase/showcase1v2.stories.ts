@@ -18,6 +18,7 @@ import { CryptoJSService } from '@core/service/crypto-js.service';
 import { UserService } from '@core/service/user.service';
 export default {
   title: '组件/展示/1v2',
+  id: 'showcase-1v2',
   component: Showcase1v1Component,
   decorators: [
     moduleMetadata({

@@ -34,6 +34,7 @@ import { CryptoJSService } from '@core/service/crypto-js.service';
 import { UserService } from '@core/service/user.service';
 export default {
   title: '组件/文章/案件',
+  id: 'law',
   component: LawCaseComponent,
   decorators: [
     moduleMetadata({

@@ -14,6 +14,7 @@ import { apiUrlFactory } from '@core/factory/factory';
 import { SwiperModule } from 'swiper/angular';
 export default {
   title: '组件/瀑布流/packery',
+  id: 'packery',
   component: PackeryComponent,
   decorators: [
     moduleMetadata({

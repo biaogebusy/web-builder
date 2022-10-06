@@ -15,6 +15,7 @@ import { NgxWebstorageModule } from 'ngx-webstorage';
 import { apiUrlFactory } from '@core/factory/factory';
 export default {
   title: '基础/卡片/1v1',
+  id: 'card-1v1',
   component: Card1v1Component,
   decorators: [
     moduleMetadata({

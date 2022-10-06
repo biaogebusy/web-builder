@@ -10,6 +10,7 @@ import { CalendarComponent } from '@uiux/widgets/date/calendar/calendar.componen
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 export default {
   title: '基础/日历',
+  id: 'calendar',
   component: CalendarComponent,
   decorators: [
     moduleMetadata({

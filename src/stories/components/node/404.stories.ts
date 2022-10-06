@@ -15,6 +15,7 @@ import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 export default {
   title: '组件/文章/404',
+  id: '404',
   component: NotfoundComponent,
   decorators: [
     moduleMetadata({

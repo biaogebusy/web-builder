@@ -22,6 +22,7 @@ import { CryptoJSService } from '@core/service/crypto-js.service';
 import { UserService } from '@core/service/user.service';
 export default {
   title: '组件/用户/用户中心',
+  id: 'user-center',
   component: UserCenterComponent,
   decorators: [
     moduleMetadata({

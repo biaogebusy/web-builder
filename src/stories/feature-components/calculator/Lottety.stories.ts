@@ -27,6 +27,7 @@ import { ContentService } from '@core/service/content.service';
 
 export default {
   title: '特色组件/计算器/红包预算',
+  id: 'lottery',
   component: LotteryComponent,
   decorators: [
     moduleMetadata({

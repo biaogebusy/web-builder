@@ -13,6 +13,7 @@ import { CryptoJSService } from '@core/service/crypto-js.service';
 import { UserService } from '@core/service/user.service';
 export default {
   title: '特色组件/日历/Full calendar',
+  id: 'full-calendar',
   component: FullCalendarComponent,
   decorators: [
     moduleMetadata({

@@ -14,6 +14,7 @@ import { WidgetsModule } from '@uiux/widgets/widgets.module';
 
 export default {
   title: '基础/进度条',
+  id: 'progress-bar',
   component: ProgressBarComponent,
   decorators: [
     moduleMetadata({

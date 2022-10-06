@@ -13,6 +13,7 @@ import { FeatureBoxComponent } from '@uiux/widgets/feature-box/feature-box.compo
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 export default {
   title: '基础/功能盒子',
+  id: 'feature-box',
   component: FeatureBoxComponent,
   decorators: [
     moduleMetadata({

@@ -14,6 +14,7 @@ import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 export default {
   title: '组件/展示/3v1',
+  id: 'showcase-3v1',
   component: Showcase3v1Component,
   decorators: [
     moduleMetadata({

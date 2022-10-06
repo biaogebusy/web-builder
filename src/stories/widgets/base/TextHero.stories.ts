@@ -14,6 +14,7 @@ import { TextHeroComponent } from '@uiux/widgets/text-hero/text-hero.component';
 import { apiUrlFactory } from '@core/factory/factory';
 export default {
   title: '基础/内容/英雄区内容',
+  id: 'text-hero',
   component: TextHeroComponent,
   decorators: [
     moduleMetadata({

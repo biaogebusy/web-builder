@@ -16,6 +16,7 @@ import { ShareModule } from '@share/share.module';
 import { apiUrlFactory } from '@core/factory/factory';
 export default {
   title: '基础/内容/内容盒子',
+  id: 'box',
   component: BoxComponent,
   decorators: [
     moduleMetadata({

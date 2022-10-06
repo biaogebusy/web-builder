@@ -25,6 +25,7 @@ import { UserService } from '@core/service/user.service';
 
 export default {
   title: '组件/地图/位置列表 1v1',
+  id: 'map-list-1v1',
   component: MapListV1Component,
   decorators: [
     moduleMetadata({

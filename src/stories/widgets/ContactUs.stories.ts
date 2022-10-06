@@ -18,6 +18,7 @@ import { CryptoJSService } from '@core/service/crypto-js.service';
 import { UserService } from '@core/service/user.service';
 export default {
   title: '基础/联系我们',
+  id: 'contact-us',
   component: ContactUsComponent,
   decorators: [
     moduleMetadata({

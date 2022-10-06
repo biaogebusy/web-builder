@@ -11,6 +11,7 @@ import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import * as SwiperStories from 'src/stories/widgets/Swiper.stories';
 export default {
   title: '组件/用户/1v1',
+  id: 'profile-1v1',
   component: Profile1v1Component,
   decorators: [
     moduleMetadata({

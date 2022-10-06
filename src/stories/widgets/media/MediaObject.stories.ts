@@ -17,6 +17,7 @@ import { apiUrlFactory } from '@core/factory/factory';
 
 export default {
   title: '基础/媒体/媒体对象',
+  id: 'media-object',
   component: MediaObjectComponent,
   decorators: [
     moduleMetadata({

@@ -16,6 +16,7 @@ import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { apiUrlFactory } from '@core/factory/factory';
 export default {
   title: '组件/列表/分类列表（thin）',
+  id: 'taxonomy-thin-list',
   component: TaxonomyThinListComponent,
   decorators: [
     moduleMetadata({

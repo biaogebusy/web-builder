@@ -15,6 +15,7 @@ import { WidgetsModule } from '@uiux/widgets/widgets.module';
 
 export default {
   title: '基础/形状',
+  id: 'shape',
   component: ShapeComponent,
   decorators: [
     moduleMetadata({

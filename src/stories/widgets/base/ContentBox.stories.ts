@@ -13,6 +13,7 @@ import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { apiUrlFactory } from '@core/factory/factory';
 export default {
   title: '基础/内容/内容块',
+  id: 'content-box',
   component: ContentBoxComponent,
   decorators: [
     moduleMetadata({

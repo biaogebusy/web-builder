@@ -16,6 +16,7 @@ import { CryptoJSService } from '@core/service/crypto-js.service';
 import { UserService } from '@core/service/user.service';
 export default {
   title: '组件/搜索/默认',
+  id: 'search',
   component: SearchComponent,
   decorators: [
     moduleMetadata({

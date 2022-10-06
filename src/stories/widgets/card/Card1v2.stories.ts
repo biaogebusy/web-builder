@@ -13,6 +13,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
 export default {
   title: '基础/卡片/1v2',
+  id: 'card-1v2',
   component: Card1v2Component,
   decorators: [
     moduleMetadata({

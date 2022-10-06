@@ -17,6 +17,7 @@ import { apiUrlFactory } from '@core/factory/factory';
 
 export default {
   title: '基础/进步器',
+  id: 'stepper',
   component: StepperComponent,
   decorators: [
     moduleMetadata({

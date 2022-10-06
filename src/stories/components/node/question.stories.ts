@@ -32,6 +32,7 @@ import { CryptoJSService } from '@core/service/crypto-js.service';
 import { UserService } from '@core/service/user.service';
 export default {
   title: '组件/文章/问答',
+  id: 'question',
   component: QuestionComponent,
   decorators: [
     moduleMetadata({

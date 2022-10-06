@@ -10,6 +10,7 @@ import { WidgetsModule } from '@uiux/widgets/widgets.module';
 
 export default {
   title: '基础/动态数字',
+  id: 'number-animate',
   component: NumberAnimateComponent,
   decorators: [
     moduleMetadata({

@@ -11,6 +11,7 @@ import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 export default {
   title: '组件/幻灯片/1v1',
+  id: 'carousel-1v1',
   component: Carousel1v1Component,
   decorators: [
     moduleMetadata({

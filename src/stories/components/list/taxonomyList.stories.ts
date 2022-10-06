@@ -16,6 +16,7 @@ import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { apiUrlFactory } from '@core/factory/factory';
 export default {
   title: '组件/列表/分类列表',
+  id: 'taxonomy-list',
   component: TaxonomyListComponent,
   decorators: [
     moduleMetadata({

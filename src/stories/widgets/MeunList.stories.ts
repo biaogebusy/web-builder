@@ -15,6 +15,7 @@ import { UserService } from '@core/service/user.service';
 
 export default {
   title: '基础/菜单项',
+  id: 'menu-list',
   component: MenuListComponent,
   decorators: [
     moduleMetadata({

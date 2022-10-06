@@ -19,6 +19,7 @@ import { ContentService } from '@core/service/content.service';
 
 export default {
   title: '基础/地图',
+  id: 'map',
   component: MapComponent,
   decorators: [
     moduleMetadata({
