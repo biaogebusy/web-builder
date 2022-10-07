@@ -230,8 +230,11 @@
             "label": "Tree list",
             "href": "/sample/list/tree-list"
           }, {
-            "label": "Search index",
+            "label": "Search",
             "href": "/sample/combs/search/search"
+          }, {
+            "label": "Search filter dialog",
+            "href": "/sample/combs/search/search-filter-dialog"
           }]
         }, {
           "label": "Widgets",

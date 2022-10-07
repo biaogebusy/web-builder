@@ -1,0 +1,21 @@
+<div class="item-inner m-y">
+  <app-title [content]="content.title" *ngIf="content.title"></app-title>
+  <div fxLayout="row wrap">
+    <div *ngFor="let item of filters" (click)="onClick(item);" [ngClass]="getActive(item)"
+      class="item p-y-sm p-x-sm text-center" fxFlex.lt-sm="calc(100% / 2)" fxFlex.gt-xs="calc(100% / 6)">
+      <span class="one-line">
+        {{item.label}}
+      </span>
+    </div>
+  </div>
+  <div class="actions p-y-sm" fxLayoutAlign="center center" *ngIf="content?.params?.expand">
+    <a href="javascript:void(0)" (click)="onToggle()">
+      <ng-container *ngIf="isMore">{{content.params.expand.less}}</ng-container>
+      <ng-container *ngIf="!isMore">{{content.params.expand.more}}</ng-container>
+    </a>
+  </div>
+  <div class="actions m-y" *ngIf="content.actions" fxLayoutAlign="center center" mat-dialog-actions>
+    <app-dynamic-widgets mat-dialog-close [content]="action" *ngFor="let action of content.actions">
+    </app-dynamic-widgets>
+  </div>
+</div>
