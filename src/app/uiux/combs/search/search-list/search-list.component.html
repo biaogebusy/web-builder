@@ -23,8 +23,8 @@
           <div fxLayoutGap="1rem" fxLayout fxLayoutAlign="start center">
             <div>{{item.user | ucfirst}}</div>
             <div>{{item?.type}}</div>
-            <div [innerHTML]="item?.category|safeHtml"></div>
-            <div [innerHTML]="item?.tags|safeHtml"></div>
+            <div [innerHTML]="item?.category|safeHtml" *ngIf="item.category"></div>
+            <div [innerHTML]="item?.tags|safeHtml" *ngIf="item.tags"></div>
             <div class="actions">
               <app-dynamic-widgets [content]="action" *ngFor="let action of item.actions"></app-dynamic-widgets>
             </div>
