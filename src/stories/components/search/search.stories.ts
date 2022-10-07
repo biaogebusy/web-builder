@@ -14,6 +14,9 @@ import { apiUrlFactory, userFactory } from '@core/factory/factory';
 import { SwiperModule } from 'swiper/angular';
 import { CryptoJSService } from '@core/service/crypto-js.service';
 import { UserService } from '@core/service/user.service';
+import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
+import { SearchFilterDialogComponent } from '@uiux/combs/search/search-filter-dialog/search-filter-dialog.component';
+import { SearchFilterItemComponent } from '@uiux/combs/search/search-filter-dialog/search-filter-item/search-filter-item.component';
 export default {
   title: '组件/搜索/默认',
   id: 'search',
@@ -21,6 +24,11 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [],
+      entryComponents: [
+        DialogComponent,
+        SearchFilterDialogComponent,
+        SearchFilterItemComponent,
+      ],
       imports: [
         RouterTestingModule,
         BrowserAnimationsModule,
@@ -230,5 +238,164 @@ Default.args = {
         value: true,
       },
     ],
+  },
+};
+
+export const FilterDialog = Template.bind({});
+FilterDialog.storyName = '弹窗过滤';
+FilterDialog.args = {
+  content: {
+    filterDialog: {
+      filter: {
+        title: {
+          label: '主分类',
+          style: 'style-v4',
+        },
+        params: {
+          expand: {
+            show: 10,
+            less: '收起',
+            more: '展开更多',
+          },
+        },
+        key: 'hundred_point',
+        elements: [
+          {
+            label: '国家、财政与税务',
+            value: '1',
+            dialogFrom: 0,
+          },
+          {
+            label: '一委一行两会',
+            value: '2',
+            dialogFrom: 0,
+          },
+          {
+            label: '自贸区与一带一路金融',
+            value: '3',
+            dialogFrom: 0,
+          },
+          {
+            label: '政府与社会资本合作',
+            value: '4',
+            dialogFrom: 0,
+          },
+          {
+            label: '国际投资与外汇',
+            value: '4',
+            dialogFrom: 0,
+          },
+          {
+            label: '全球金融法',
+            value: '4',
+            dialogFrom: 0,
+          },
+          {
+            label: '金融科技与大数据',
+            value: '4',
+            dialogFrom: 0,
+          },
+          {
+            label: '金融单位及政府信息公开',
+            value: '4',
+            dialogFrom: 0,
+          },
+          {
+            label: '基础设施、建工金融',
+            value: '4',
+            dialogFrom: 0,
+          },
+          {
+            label: '房地产金融',
+            value: '4',
+            dialogFrom: 0,
+          },
+          {
+            label: 'P2P及非法金融',
+            value: '4',
+            dialogFrom: 0,
+          },
+          {
+            label: '投资人并消费者权益保护',
+            value: '4',
+            dialogFrom: 0,
+          },
+          {
+            label: '不良债权处置',
+            value: '4',
+            dialogFrom: 0,
+          },
+          {
+            label: '金融衍生品与创新',
+            value: '4',
+            dialogFrom: 0,
+          },
+          {
+            label: '金融公司管理与重整',
+            value: '4',
+            dialogFrom: 0,
+          },
+        ],
+      },
+      dialog: [
+        {
+          title: {
+            label: '十大要点',
+            style: 'style-v4',
+          },
+          key: 'search_category',
+          actions: [
+            {
+              type: 'btn',
+              label: '生成',
+              color: 'primary',
+              mode: 'raised',
+            },
+          ],
+          elements: [
+            {
+              label: '案由分类',
+              value: 1,
+            },
+            {
+              label: '合同范本',
+              value: 2,
+            },
+            {
+              label: '法律依据',
+              value: 3,
+            },
+            {
+              label: '司法判例',
+              value: 4,
+            },
+            {
+              label: '合规审查',
+              value: 5,
+            },
+            {
+              label: '律师务实',
+              value: 6,
+            },
+            {
+              label: '焦点研判',
+              value: 7,
+            },
+            {
+              label: '金融数据',
+              value: 8,
+            },
+            {
+              label: '智能生成',
+              value: 9,
+            },
+            {
+              label: '金融律师',
+              value: 10,
+            },
+          ],
+        },
+      ],
+    },
   },
 };
