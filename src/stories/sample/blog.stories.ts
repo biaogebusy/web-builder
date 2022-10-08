@@ -25,8 +25,8 @@ import { CryptoJSService } from '@core/service/crypto-js.service';
 import { UserService } from '@core/service/user.service';
 
 export default {
-  title: '示例页面/律鑫云',
-  id: 'lvxinyun',
+  title: '示例页面/博客列表',
+  id: 'blog',
   component: BlockComponent,
   decorators: [
     moduleMetadata({
@@ -69,7 +69,7 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: `律鑫云官网`,
+        component: `博客列表`,
       },
     },
   },

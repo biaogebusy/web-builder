@@ -10,7 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { LocalStorageService, NgxWebstorageModule } from 'ngx-webstorage';
 import { APP_INITIALIZER, Inject } from '@angular/core';
 import { AmapService } from '@core/service/amap.service';
-import { API_URL, CORE_CONFIG, USER } from '@core/token/token-providers';
+import { API_URL, CORE_CONFIG, THEME, USER } from '@core/token/token-providers';
 import { ShareModule } from '@share/share.module';
 import { MapComponent } from '@uiux/widgets/map/map.component';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
@@ -18,10 +18,12 @@ import {
   coreConfigFactory,
   apiUrlFactory,
   userFactory,
+  themeFactory,
 } from '@core/factory/factory';
 import { ContentService } from '@core/service/content.service';
 import { CryptoJSService } from '@core/service/crypto-js.service';
 import { UserService } from '@core/service/user.service';
+import { ConfigService } from '@core/service/config.service';
 
 export default {
   title: '基础/地图',
@@ -31,15 +33,16 @@ export default {
     moduleMetadata({
       declarations: [],
       imports: [
-        ShareModule,
-        WidgetsModule,
         RouterTestingModule,
         BrowserAnimationsModule,
+        WidgetsModule,
+        ShareModule,
         HttpClientModule,
         NgxWebstorageModule.forRoot(),
       ],
       providers: [
         AmapService,
+        ConfigService,
         {
           provide: CORE_CONFIG,
           useValue: {},
@@ -60,6 +63,11 @@ export default {
           useFactory: userFactory,
           deps: [LocalStorageService, CryptoJSService, UserService],
         },
+        {
+          provide: THEME,
+          useFactory: themeFactory,
+          deps: [[new Inject(CORE_CONFIG)], LocalStorageService],
+        },
       ],
     }),
     componentWrapperDecorator(
@@ -74,96 +82,11 @@ const Template: Story = (args) => ({
     ...args,
   },
 });
-export const MapList = Template.bind({});
+export const Map = Template.bind({});
 
-MapList.args = {
+Map.args = {
   content: {
     citi: '南宁市',
-    elements: [
-      {
-        title: '第一法庭',
-        address: '良庆区玉洞街道玉洞大道8-1号',
-        params: {
-          address: '良庆区玉洞街道玉洞大道8-1号',
-          title: '第一法庭',
-        },
-        meta: [
-          {
-            icon: {
-              color: 'warn',
-              svg: 'arrow_right',
-              inline: true,
-            },
-            label: '经办人员',
-            value: '李四',
-          },
-          {
-            icon: {
-              color: 'warn',
-              svg: 'arrow_right',
-              inline: true,
-            },
-            label: '联系电话',
-            value: '18878793xx',
-          },
-        ],
-      },
-      {
-        title: '第二法庭',
-        address: '良庆区玉洞街道玉洞大道86号',
-        params: {
-          address: '良庆区玉洞街道玉洞大道86号',
-          title: '第二法庭',
-        },
-        meta: [
-          {
-            icon: {
-              color: 'warn',
-              svg: 'arrow_right',
-              inline: true,
-            },
-            label: '经办人员',
-            value: '张三',
-          },
-          {
-            icon: {
-              color: 'warn',
-              svg: 'arrow_right',
-              inline: true,
-            },
-            label: '联系电话',
-            value: '0771-78734454',
-          },
-        ],
-      },
-      {
-        title: '第三法庭',
-        address: '良庆区玉洞街道玉洞大道80号',
-        params: {
-          address: '良庆区玉洞街道玉洞大道80号',
-          title: '第三法庭',
-        },
-        meta: [
-          {
-            icon: {
-              color: 'warn',
-              svg: 'arrow_right',
-              inline: true,
-            },
-            label: '经办人员',
-            value: '王五',
-          },
-          {
-            icon: {
-              color: 'warn',
-              svg: 'arrow_right',
-              inline: true,
-            },
-            label: '联系电话',
-            value: '0771-6543976',
-          },
-        ],
-      },
-    ],
+    elements: [],
   },
 };

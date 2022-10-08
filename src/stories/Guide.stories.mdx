@@ -1,10 +1,121 @@
 import { Meta } from "@storybook/addon-docs";
 
-<Meta title="指南" id="guide" />
+<Meta title="模块及主题指南" id="guide" />
 
 # 使用指南
 
-介绍如何安装，配置主题，给使用者和开发者指导如何使用。
+## 模块安装
+
+使用`npm install module-name --save` 或者 `npm install module-name --save-dev`安装相应的第三方模块。
+
+## 主题更新及新建
+
+信使默认配置了：
+
+- 暗黑主题
+- 粉色主题
+- 蓝色主题
+- 红色主题
+- 绿色主题
+
+在主题配置文件 `src/theme/theme.scss` 中可查看并根据项目情况删除或者添加主题，我们推荐严格按照此方式来添加主题，即不会在具体的组件中写相关的颜色信息，而是在 theme 中根据变量严格设置，才能够保证组件统一颜色。
+
+### 步骤一
+
+1. 复制以下示例新建主题配置文件：`_xxx-config.scss` 在`src/theme/theme-config`文件夹中;
+
+```sass
+@import "~@angular/material/theming";
+$yourTheme-color: (
+  //
+  50: #e7e9ff,
+  100: #c2c8fe,
+  200: #96a4fe,
+  300: #6280ff,
+  400: #2962ff,
+  500: #0044fc,
+  600: #003bf0,
+  700: #002fe3,
+  800: #0022d9,
+  900: #0001c0,
+  A100: #c2c8fe,
+  A200: #96a4fe,
+  A400: #2962ff,
+  A700: #002fe3,
+  contrast: (
+    //
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $light-primary-text,
+    400: $light-primary-text,
+    500: $light-primary-text,
+    600: $light-primary-text,
+    700: $light-primary-text,
+    800: $light-primary-text,
+    900: $light-primary-text,
+    A100: $dark-primary-text,
+    A200: $light-primary-text,
+    A400: $light-primary-text,
+    A700: $light-primary-text
+  )
+);
+
+// user material mat blue
+$yourTheme-primary: mat-palette($yourTheme-color, 400);
+$yourTheme-accent: mat-palette($yourTheme-color, A400);
+$yourTheme-warn: mat-palette($mat-red, A200, A100, A400);
+$yourTheme-theme: mat-light-theme($yourTheme-primary, $yourTheme-accent, $yourTheme-warn);
+```
+
+2. 使用 Material 主题[调色板生成器](https://material.io/design/color/the-color-system.html#tools-for-picking-colors)生成并更新主题颜色值;
+   ![tool](/assets/storybook/assets/tool.png)
+3. 导入到入口文件：`src/theme/theme-config/_theme-config.scss`;
+4. 在主题入口文件添加对应的 class:
+
+```css
+.yourTheme-theme {
+  @include angular-material-theme($green-theme);
+  @include base-colors($green-theme);
+  @include component-theme($green-theme);
+}
+```
+
+5. 在 base.json（src/assets/app/core/base.json）配置文件中，添加新的主题：
+
+```json
+"theme": [{
+    "name": "默认主题",
+    "style": "light-theme",
+    "icon": "laptop_mac"
+  }, {
+    "name": "Pink 主题",
+    "style": "pink-theme",
+    "icon": "laptop_mac"
+  }, {
+    "name": "Blue 主题",
+    "style": "blue-theme",
+    "icon": "laptop_mac"
+  }, {
+    "name": "Green 主题",
+    "style": "green-theme",
+    "icon": "laptop_mac"
+  }, {
+    "name": "Red 主题",
+    "style": "red-theme",
+    "icon": "laptop_mac"
+  }, {
+    "name": "King 主题",
+    "style": "king-theme",
+    "icon": "laptop_mac"
+  }, {
+    "name": "暗黑主题",
+    "style": "dark-theme",
+    "svgIcon": "dark_mode"
+  }]
+```
+
+![theme](/assets/storybook/assets/theme.png) 6. 当组件需要配置颜色时，可在 `src/theme/component`中新建对应的该组件的配置文件，参考里面的写法即可，并导入到入口文件：`src/theme/component/_component.scss`
 
 ## 微信公众号：Drupal 自习室
 
@@ -14,6 +125,6 @@ import { Meta } from "@storybook/addon-docs";
 
 [get started](https://storybook.js.org/tutorials/intro-to-storybook/angular/en/get-started/)
 
-## 扫码入群，或加微信：biaogebusy
+## 扫码入群讨论交流，加微信：biaogebusy
 
 ![交流群](/assets/images/qrcode.png)

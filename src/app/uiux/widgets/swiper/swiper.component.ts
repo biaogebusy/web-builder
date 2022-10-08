@@ -63,12 +63,8 @@ export class SwiperComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     }
   }
-  onSwiper(swiper: any): void {
-    console.log(swiper);
-  }
-  onSlideChange(): void {
-    console.log('slide change');
-  }
+  onSwiper(swiper: any): void {}
+  onSlideChange(): void {}
   ngOnDestroy(): void {
     if (this.navigationSub && this.navigationSub.unsubscribe) {
       this.navigationSub?.unsubscribe();
