@@ -25,7 +25,7 @@ const PROXY_CONFIG = [
       "/editor",
       "/export",
     ],
-    target: "https://amigo.zhaobg.com",
+    target: "https://api.zhaobg.com",
     secure: false,
     changeOrigin: true,
   },
