@@ -6,7 +6,7 @@
         <span [innerHTML]="content.label|safeHtml"></span>
       </button>
       <ng-template #link>
-        <a [ngClass]="content.classes" mat-raised-button [href]="content.href" [target]="content?.target || ''"
+        <a [ngClass]="content.classes" mat-raised-button (click)="onNav($event, content)" [href]="content.href" [target]="content?.target || ''"
           [color]="content?.color">
           <app-icon *ngIf="content.icon" [content]="content.icon"></app-icon>
           <span [innerHTML]="content.label|safeHtml"></span>
@@ -19,7 +19,7 @@
         <span [innerHTML]="content.label|safeHtml"></span>
       </button>
       <ng-template #link>
-        <a [ngClass]="content.classes" mat-stroked-button [href]="content.href" [target]="content?.target || ''"
+        <a [ngClass]="content.classes" mat-stroked-button (click)="onNav($event, content)" [href]="content.href" [target]="content?.target || ''"
           [innerHTML]="content.label|safeHtml" [color]="content?.color">
           <app-icon *ngIf="content.icon" [content]="content.icon"></app-icon>
           <span [innerHTML]="content.label|safeHtml"></span>
@@ -30,7 +30,7 @@
       <button [ngClass]="content.classes" mat-flat-button *ngIf="!content.href;else link"
         [color]="content.color">{{content.label}}</button>
       <ng-template #link>
-        <a [ngClass]="content.classes" mat-flat-button [href]="content.href" [target]="content?.target || ''"
+        <a [ngClass]="content.classes" mat-flat-button (click)="onNav($event, content)" [href]="content.href" [target]="content?.target || ''"
           [innerHTML]="content.label|safeHtml" [color]="content?.color"></a>
       </ng-template>
     </ng-container>
@@ -55,7 +55,7 @@
         <span [innerHTML]="content.label|safeHtml"></span>
       </button>
       <ng-template #link>
-        <a [ngClass]="content.classes" mat-button [href]="content.href" [target]="content?.target || ''"
+        <a [ngClass]="content.classes" mat-button (click)="onNav($event, content)" [href]="content.href" [target]="content?.target || ''"
           [color]="content?.color">
           <app-icon *ngIf="content.icon" [content]="content.icon"></app-icon>
           <span [innerHTML]="content.label|safeHtml"></span>

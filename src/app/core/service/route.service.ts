@@ -25,6 +25,24 @@ export class RouteService {
     this.location.go(url);
   }
 
+  toNavigate(event: any, link: any): void {
+    const href = link.href;
+    if (!this.util.getFileType(href)) {
+      if (href.startsWith('/print') || href.startsWith('/export')) {
+        event.preventDefault();
+        window.open(href, link.target || '_self');
+        return;
+      }
+      if (this.isAbsolute(href)) {
+        event.preventDefault();
+        window.open(href, link.target || '_self');
+      } else {
+        event.preventDefault();
+        this.router.navigate([href]);
+      }
+    }
+  }
+
   eventLinkToNav(event: any): void {
     if (event.target.nodeName === 'A') {
       const target = event.target;

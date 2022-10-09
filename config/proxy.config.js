@@ -24,6 +24,7 @@ const PROXY_CONFIG = [
       "/batch",
       "/editor",
       "/export",
+      "/print",
     ],
     target: "https://api.zhaobg.com",
     secure: false,

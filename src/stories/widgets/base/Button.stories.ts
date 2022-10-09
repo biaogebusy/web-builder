@@ -1,4 +1,6 @@
+import { HttpClientModule } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
+import { RouterTestingModule } from '@angular/router/testing';
 import { ShareModule } from '@share/share.module';
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
@@ -12,7 +14,13 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [],
-      imports: [ShareModule, WidgetsModule, MatButtonModule],
+      imports: [
+        ShareModule,
+        WidgetsModule,
+        MatButtonModule,
+        HttpClientModule,
+        RouterTestingModule,
+      ],
     }),
   ],
 } as Meta;
@@ -61,7 +69,7 @@ export const BtnLink = Template.bind({});
 
 BtnLink.args = {
   content: {
-    href: '#',
+    href: '/node/1',
     target: '_blank',
     label: 'Primary link',
     mode: 'raised',
