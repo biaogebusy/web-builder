@@ -86,7 +86,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   initBanner(): void {
-    this.branding$.subscribe((branding) => {
+    this.branding$.subscribe((branding: any) => {
       const banner = branding.header.banner;
       if (!banner) {
         this.showBanner = false;

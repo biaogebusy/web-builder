@@ -73,7 +73,7 @@ export class SearchComponent
         this.nodeSearch(querys);
       });
       if (this.content.filterDialog) {
-        this.storage.observe('filterDate').subscribe((filterData) => {
+        this.storage.observe('filterDate').subscribe((filterData: any) => {
           this.nodeSearch(filterData);
         });
       }
@@ -86,7 +86,7 @@ export class SearchComponent
     this.form = this.formService.toFormGroup(items);
     this.form.valueChanges
       .pipe(debounceTime(500), distinctUntilChanged(), takeUntil(this.destroy$))
-      .subscribe((value) => {
+      .subscribe((value: any) => {
         const params = Object.assign({ page: 0 }, value);
         this.onSelectChange(params);
       });
