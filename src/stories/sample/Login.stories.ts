@@ -71,7 +71,7 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: `博客列表`,
+        component: `用户登录页面，可根据json配置开启手机或者密码方式登录。`,
       },
     },
   },

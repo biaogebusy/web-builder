@@ -66,13 +66,6 @@ export default {
     }),
     componentWrapperDecorator((story) => `${story}`),
   ],
-  parameters: {
-    docs: {
-      description: {
-        component: `律鑫云官网`,
-      },
-    },
-  },
 } as Meta;
 
 const Template: Story = (args) => ({
