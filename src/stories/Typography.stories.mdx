@@ -1,0 +1,56 @@
+<!-- Typography.stories.mdx -->
+
+import { Meta, Typeset } from "@storybook/addon-docs/blocks";
+
+<Meta title="文字排版" id="typography" />
+
+export const typography = {
+  type: {
+    primary: `"Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
+  "Microsoft YaHei", "微软雅黑", Arial, sans-serif`,
+  },
+  weight: {
+    regular: "400",
+    bold: "700",
+    extrabold: "800",
+    black: "900",
+  },
+  size: {
+    s1: 12,
+    s2: 14,
+    s3: 16,
+    m1: 20,
+    m2: 24,
+    m3: 34,
+    l1: 45,
+    l2: 56,
+    l3: 67,
+  },
+};
+
+export const SampleText =
+  "信使围绕 Drupal jsonapi 为核心的 Angular 前端框架，分享 Drupal 优秀的数字创新体验。";
+
+# 文字排版
+
+**字体:** "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
+"Microsoft YaHei", "微软雅黑", Arial, sans-serif
+
+**Weights:** 400(regular), 700(bold), 800(extrabold), 900(black)
+
+<Typeset
+  fontSizes={[
+    Number(typography.size.s1),
+    Number(typography.size.s2),
+    Number(typography.size.s3),
+    Number(typography.size.m1),
+    Number(typography.size.m2),
+    Number(typography.size.m3),
+    Number(typography.size.l1),
+    Number(typography.size.l2),
+    Number(typography.size.l3),
+  ]}
+  fontWeight={typography.weight.black}
+  sampleText={SampleText}
+  fontFamily={typography.type.primary}
+/>
