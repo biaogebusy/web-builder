@@ -1,15 +1,10 @@
 import { Meta, ColorPalette, ColorItem } from "@storybook/addon-docs";
 
-<Meta title="模块与主题" id="guide" />
+<Meta title="主题/主题色" id="themeConfig" />
 
 # 使用指南
 
-## 模块安装
-
-使用`npm install module-name --save` 或者 `npm install module-name --save-dev`安装相应的第三方模块。
-
-## 主题更新及新建
-
+![theme](/assets/storybook/assets/theme.png)
 信使默认配置了：
 
 - 浅色主题（默认）
@@ -168,16 +163,4 @@ $yourTheme-theme: mat-light-theme($yourTheme-primary, $yourTheme-accent, $yourTh
   }]
 ```
 
-![theme](/assets/storybook/assets/theme.png) 6. 当组件需要配置颜色时，可在 `src/theme/component`中新建对应的该组件的配置文件，参考里面的写法即可，并导入到入口文件：`src/theme/component/_component.scss`
-
-## 微信公众号：Drupal 自习室
-
-![Drupal 自习室](/assets/images/qrcode.jpg)
-
-## Storybook angular guide
-
-[get started](https://storybook.js.org/tutorials/intro-to-storybook/angular/en/get-started/)
-
-## 扫码入群讨论交流，加微信：biaogebusy
-
-![交流群](/assets/images/qrcode.png)
+6. 当组件需要配置颜色时，可在 `src/theme/component`中新建对应的该组件的配置文件，参考里面的写法即可，并导入到入口文件：`src/theme/component/_component.scss`

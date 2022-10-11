@@ -25,8 +25,8 @@ import { CryptoJSService } from '@core/service/crypto-js.service';
 import { UserService } from '@core/service/user.service';
 
 export default {
-  title: '示例页面/律鑫云',
-  id: 'lvxinyun',
+  title: '示例页面/首页 v2',
+  id: 'home-v2',
   component: BlockComponent,
   decorators: [
     moduleMetadata({
