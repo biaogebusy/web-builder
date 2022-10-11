@@ -16,7 +16,7 @@ import { ScreenService } from '@core/service/screen.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderTopComponent implements OnInit {
-  @Input() content: IHeaderTop;
+  @Input() content: IHeaderTop | undefined;
   showNoXs: boolean;
   constructor(
     private screen: ScreenState,

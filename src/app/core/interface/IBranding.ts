@@ -7,7 +7,7 @@ export interface IBranding {
 export interface IHeader {
   params: IHeaderParams;
   logo: Logo;
-  top: IHeaderTop;
+  top?: IHeaderTop;
   banner?: any;
   mainMenu: IMainMenu[];
   search: IHeaderSearch;

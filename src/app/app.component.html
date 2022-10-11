@@ -4,7 +4,7 @@
 <ngx-loading-bar [includeSpinner]="false" *ngIf="coreConfig?.loadingBar"></ngx-loading-bar>
 <mat-drawer-container *ngIf="coreConfig && branding$|async">
   <mat-drawer #drawer [(opened)]="opened">
-    <app-menu [isDrawer]="opened" [content]="(branding$ | async)?.header || null"></app-menu>
+    <app-menu [isDrawer]="opened" [content]="(branding$ | async)?.header || undefined"></app-menu>
   </mat-drawer>
   <mat-drawer-content>
     <app-header></app-header>
