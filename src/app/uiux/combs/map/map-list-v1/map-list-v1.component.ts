@@ -20,7 +20,8 @@ export class MapListV1Component implements OnInit {
   constructor(private amapService: AmapService) {}
 
   ngOnInit(): void {}
-  onClick(event: IMark): void {
+
+  onMap(event: IMark): void {
     const obj: IMark = {
       index: event.index,
       marker: this.markerTem(event.item),

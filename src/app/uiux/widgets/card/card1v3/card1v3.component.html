@@ -2,7 +2,7 @@
   <cdk-virtual-scroll-viewport [itemSize]="5" class="viewport" *ngIf="content">
     <div class="list item m-y-sm p-y-xs m-x-xs p-x-xs" [class.selected]="i == selectedId" matRipple
       [matRippleColor]="'rgba(0, 0, 0, 0.04)'" *cdkVirtualFor="let item of content.elements; index as i"
-      fxLayout="column" (click)="onClick(item, i)">
+      fxLayout="column" (click)="onCard(item, i)">
       <h3 class="m-bottom-xs bold">{{item.title}}</h3>
       <div class="address" *ngIf="item.address">{{item.address}}</div>
       <div class="meta">

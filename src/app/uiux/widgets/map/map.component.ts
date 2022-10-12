@@ -101,11 +101,13 @@ export class MapComponent implements OnInit, OnDestroy {
       'map',
       Object.assign({}, defaultOptions, options)
     );
-    this.configService.switchChange$.subscribe((theme) => {
-      const newMapStyle =
-        theme === 'dark-theme' ? mapStyle.dark : mapStyle.light;
-      this.map.setMapStyle(newMapStyle);
-    });
+    if (this.configService?.switchChange$) {
+      this.configService.switchChange$.subscribe((theme) => {
+        const newMapStyle =
+          theme === 'dark-theme' ? mapStyle.dark : mapStyle.light;
+        this.map.setMapStyle(newMapStyle);
+      });
+    }
   }
 
   getMarkers(lists: any[]): void {

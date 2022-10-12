@@ -27,7 +27,7 @@ export class Card1v3Component implements OnInit {
 
   ngOnInit(): void {}
 
-  onClick(item: any, i: number): void {
+  onCard(item: any, i: number): void {
     this.selectedId = i;
     if (item.dialog) {
       this.openDialog(item.dialog);

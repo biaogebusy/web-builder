@@ -22,6 +22,8 @@ import { ContentService } from '@core/service/content.service';
 import { SwiperModule } from 'swiper/angular';
 import { CryptoJSService } from '@core/service/crypto-js.service';
 import { UserService } from '@core/service/user.service';
+import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
+import { LoopWidgetsComponent } from '@uiux/widgets/loop-widgets/loop-widgets.component';
 
 export default {
   title: '组件/地图/位置列表 1v1',
@@ -30,6 +32,7 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [],
+      entryComponents: [DialogComponent, LoopWidgetsComponent],
       imports: [
         RouterTestingModule,
         BrowserAnimationsModule,

@@ -10,6 +10,10 @@ import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { Card1v3Component } from '@uiux/widgets/card/card1v3/card1v3.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { HttpClientModule } from '@angular/common/http';
+import * as TextStories from '../base/Text.stories';
+import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
+import { LoopWidgetsComponent } from '@uiux/widgets/loop-widgets/loop-widgets.component';
+
 export default {
   title: '基础/卡片/1v3',
   id: 'card-1v3',
@@ -17,6 +21,7 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [],
+      entryComponents: [DialogComponent, LoopWidgetsComponent],
       imports: [
         ShareModule,
         WidgetsModule,
@@ -30,6 +35,13 @@ export default {
       (story) => `<div fxFlex="300px" class="position-relative">${story}</div>`
     ),
   ],
+  parameters: {
+    docs: {
+      description: {
+        component: `卡片1v3主要应用在地图作为背景的页面，当点击某个卡片时，如果是dialog则弹窗显示对应widget的内容，否则emit item数据给外部组件订阅，当外部组件比如map订阅到item的数据，则更新地图的位置信息。`,
+      },
+    },
+  },
 } as Meta;
 
 const Template: Story = (args) => ({
@@ -38,15 +50,16 @@ const Template: Story = (args) => ({
   },
 });
 export const Base = Template.bind({});
+const text: any = TextStories.Title.args;
 Base.args = {
   content: {
     elements: [
       {
-        title: '第一法庭',
-        address: '良庆区玉洞街道玉洞大道8-1号',
+        title: '创客城',
+        address: '南宁市高科路八号创客城',
         params: {
-          address: '良庆区玉洞街道玉洞大道8-1号',
-          title: '第一法庭',
+          address: '南宁市高科路八号创客城',
+          title: '创客城',
         },
         meta: [
           {
@@ -55,8 +68,8 @@ Base.args = {
               svg: 'arrow_right',
               inline: true,
             },
-            label: '经办人员',
-            value: '李四',
+            label: '联系人',
+            value: '张三',
           },
           {
             icon: {
@@ -70,11 +83,11 @@ Base.args = {
         ],
       },
       {
-        title: '第二法庭',
-        address: '良庆区玉洞街道玉洞大道86号',
+        title: '中关村',
+        address: '南宁市高新区创新路中关村',
         params: {
-          address: '良庆区玉洞街道玉洞大道86号',
-          title: '第二法庭',
+          address: '南宁市高新区创新路中关村',
+          title: '中关村',
         },
         meta: [
           {
@@ -83,8 +96,8 @@ Base.args = {
               svg: 'arrow_right',
               inline: true,
             },
-            label: '经办人员',
-            value: '张三',
+            label: '联系人',
+            value: '李四',
           },
           {
             icon: {
@@ -98,11 +111,11 @@ Base.args = {
         ],
       },
       {
-        title: '第三法庭',
-        address: '良庆区玉洞街道玉洞大道80号',
+        title: '华尔街工谷',
+        address: '南宁市高新区发展大道189号华尔街工谷',
         params: {
-          address: '良庆区玉洞街道玉洞大道80号',
-          title: '第三法庭',
+          address: '南宁市高新区发展大道189号华尔街工谷',
+          title: '华尔街工谷',
         },
         meta: [
           {
@@ -111,7 +124,7 @@ Base.args = {
               svg: 'arrow_right',
               inline: true,
             },
-            label: '经办人员',
+            label: '联系人',
             value: '王五',
           },
           {
@@ -122,6 +135,40 @@ Base.args = {
             },
             label: '联系电话',
             value: '0771-6543976',
+          },
+        ],
+      },
+      {
+        title: '点击查看更多',
+        address: '南宁市高科路八号创客城',
+        params: {
+          address: '南宁市高科路八号创客城',
+          title: '创客城',
+        },
+        meta: [
+          {
+            icon: {
+              color: 'warn',
+              svg: 'arrow_right',
+              inline: true,
+            },
+            label: '联系人',
+            value: '张三',
+          },
+          {
+            icon: {
+              color: 'warn',
+              svg: 'arrow_right',
+              inline: true,
+            },
+            label: '联系电话',
+            value: '18878793xx',
+          },
+        ],
+        dialog: [
+          {
+            type: 'text',
+            ...text.content,
           },
         ],
       },
