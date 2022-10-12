@@ -6,16 +6,16 @@ import {
   EventEmitter,
   ChangeDetectionStrategy,
 } from '@angular/core';
-import type { IPaginationSimple } from '@core/interface/widgets/IPaginationSimple';
+import type { IPaginationLinks } from '@core/interface/widgets/IPaginationLinks';
 
 @Component({
-  selector: 'app-pagination-simple',
-  templateUrl: './pagination-simple.component.html',
-  styleUrls: ['./pagination-simple.component.scss'],
+  selector: 'app-pagination-links',
+  templateUrl: './pagination-links.component.html',
+  styleUrls: ['./pagination-links.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PaginationSimpleComponent implements OnInit {
-  @Input() links: IPaginationSimple;
+export class PaginationLinksComponent implements OnInit {
+  @Input() links: IPaginationLinks;
   @Output() pageChange: EventEmitter<string> = new EventEmitter();
   constructor() {}
 

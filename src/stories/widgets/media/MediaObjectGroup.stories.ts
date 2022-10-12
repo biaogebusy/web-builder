@@ -11,16 +11,17 @@ import { LocalStorageService, NgxWebstorageModule } from 'ngx-webstorage';
 import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
 import { API_URL, CORE_CONFIG, USER } from '@core/token/token-providers';
 import { ShareModule } from '@share/share.module';
-import { MediaObjectComponent } from '@uiux/widgets/media/media-object/media-object.component';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { apiUrlFactory, userFactory } from '@core/factory/factory';
 import { CryptoJSService } from '@core/service/crypto-js.service';
 import { UserService } from '@core/service/user.service';
+import { MediaObjectGroupComponent } from '@uiux/widgets/media/media-object-group/media-object-group.component';
+import * as MediaObjectStories from './MediaObject.stories';
 
 export default {
-  title: '基础/媒体/媒体对象',
-  id: 'media-object',
-  component: MediaObjectComponent,
+  title: '基础/媒体/媒体对象组',
+  id: 'media-object-group',
+  component: MediaObjectGroupComponent,
   decorators: [
     moduleMetadata({
       declarations: [],
@@ -63,21 +64,30 @@ const Template: Story = (args) => ({
   },
 });
 export const Base = Template.bind({});
-
+const mediaObject: any = MediaObjectStories.Base.args;
 Base.args = {
   content: {
-    img: {
-      src: '/assets/images/logo/codepen.svg',
-      style: {
-        width: '45px',
-        height: '45px',
+    label: '工作经历',
+    type: 'media-object-group',
+    elements: [
+      {
+        ...mediaObject.content,
       },
-      alt: 'logo',
-    },
-    meta: '2017-08',
-    title: '前端开发工程师',
-    subTitle: '字节跳动',
-    content:
-      'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. ',
+      {
+        img: {
+          src: '/assets/images/logo/logo_default.png',
+          style: {
+            width: '45px',
+            height: '45px',
+          },
+          alt: 'logo',
+        },
+        meta: '2022-08',
+        title: '前端架构师',
+        subTitle: '阿里蚂蚁',
+        content:
+          'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. ',
+      },
+    ],
   },
 };

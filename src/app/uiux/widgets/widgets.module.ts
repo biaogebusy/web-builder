@@ -70,7 +70,7 @@ import { MediaObjectGroupComponent } from './media/media-object-group/media-obje
 import { DialogComponent } from './dialog/dialog.component';
 import { DynamicFormControlComponent } from './dynamic-form-control/dynamic-form-control.component';
 import { SelectComponent } from './form/select/select.component';
-import { PaginationSimpleComponent } from './pagination/pagination-simple/pagination-simple.component';
+import { PaginationLinksComponent } from './pagination/pagination-links/pagination-links.component';
 import { FlagComponent } from './actions/flag/flag.component';
 import { ShapeComponent } from './shape/shape.component';
 import { BgImgComponent } from './bg-img/bg-img.component';
@@ -158,7 +158,7 @@ const components = [
   MediaObjectComponent,
   MenuListComponent,
   PaginationComponent,
-  PaginationSimpleComponent,
+  PaginationLinksComponent,
   ProgressBarComponent,
   ProgressGroupComponent,
   SafeHtmlPipe,

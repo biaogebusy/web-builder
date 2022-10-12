@@ -9,6 +9,7 @@ import { ShareModule } from '@share/share.module';
 import { Profile1v1Component } from '@uiux/combs/profile/profile1v1/profile1v1.component';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import * as SwiperStories from 'src/stories/widgets/Swiper.stories';
+import * as MediaObjectGroupStories from 'src/stories/widgets/media/MediaObjectGroup.stories';
 export default {
   title: '组件/用户/1v1',
   id: 'profile-1v1',
@@ -41,6 +42,7 @@ const Template: Story = (args) => ({
 });
 export const Default = Template.bind({});
 const swiper: any = SwiperStories.Base.args;
+const medaiObjectGroup: any = MediaObjectGroupStories.Base.args;
 Default.args = {
   content: {
     bannerBg: {
@@ -147,38 +149,7 @@ Default.args = {
       {
         label: '工作经历',
         type: 'media-object-group',
-        elements: [
-          {
-            img: {
-              src: '/assets/images/logo/codepen.svg',
-              style: {
-                width: '45px',
-                height: '45px',
-              },
-              alt: 'logo',
-            },
-            meta: '2017-08',
-            title: '前端开发工程师',
-            subTitle: '字节跳动',
-            content:
-              'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. ',
-          },
-          {
-            img: {
-              src: '/assets/images/logo/logo_default.png',
-              style: {
-                width: '45px',
-                height: '45px',
-              },
-              alt: 'logo',
-            },
-            meta: '2017-08',
-            title: '前端开发工程师',
-            subTitle: '字节跳动',
-            content:
-              'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. ',
-          },
-        ],
+        ...medaiObjectGroup.content,
       },
       {
         label: '案例',
