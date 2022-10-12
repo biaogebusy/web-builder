@@ -50,7 +50,11 @@ const Template: Story = (args) => ({
   },
 });
 export const Default = Template.bind({});
-
+Default.parameters = {
+  controls: {
+    include: ['content', 'form'],
+  },
+};
 Default.args = {
   content: {
     header: [

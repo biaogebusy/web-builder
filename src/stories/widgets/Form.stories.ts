@@ -67,7 +67,8 @@ export default {
     componentWrapperDecorator(
       (story) => `
       ${story}
-      <p>
+      <mat-divider></mat-divider>
+      <p class="p-y-sm p-x-sm bg-shadow">
       {{model|json}}
       </p>
     `
@@ -76,7 +77,7 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: `Formly 表单，基于 Material UI`,
+        component: `基于 ngx-Formly 封装的响应式表单，可通过JSON进行构建，可灵活的设置校验和显示条件。`,
       },
     },
   },

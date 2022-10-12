@@ -74,7 +74,7 @@ Base.args = {
       icon: 'wave',
     },
     action: {
-      label: 'Submit',
+      label: '提交',
     },
     formOrder: '1',
     contact: [
@@ -122,7 +122,7 @@ Base.args = {
     forms: [
       {
         type: 'input',
-        label: 'Name',
+        label: '姓名',
         key: 'name',
         params: {
           required: true,
@@ -138,7 +138,7 @@ Base.args = {
       },
       {
         type: 'input',
-        label: 'Subject',
+        label: '主题',
         key: 'subject',
         params: {
           required: true,
@@ -146,7 +146,7 @@ Base.args = {
       },
       {
         type: 'textarea',
-        label: 'Message',
+        label: '内容',
         params: {
           required: true,
           matAutosizeMinRows: 5,

@@ -32,7 +32,11 @@ const Template: Story = (args) => ({
 });
 
 export const BtnDefault = Template.bind({});
-
+BtnDefault.parameters = {
+  controls: {
+    include: ['content'],
+  },
+};
 BtnDefault.args = {
   content: {
     color: 'primary',

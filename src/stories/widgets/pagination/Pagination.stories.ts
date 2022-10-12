@@ -104,4 +104,9 @@ const Template: Story = (args) => ({
 });
 export const Default = Template.bind({});
 // Raname Story
+Default.parameters = {
+  controls: {
+    include: ['id', 'maxSize'],
+  },
+};
 Default.storyName = '预览';

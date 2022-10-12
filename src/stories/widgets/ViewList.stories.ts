@@ -91,11 +91,6 @@ export default {
       },
     },
   },
-  argTypes: {
-    content: {
-      description: '字段描述',
-    },
-  },
 } as Meta;
 
 const Template: Story = (args) => ({
@@ -106,33 +101,39 @@ const Template: Story = (args) => ({
 export const Default = Template.bind({});
 // Raname Story
 Default.storyName = '预览';
+Default.parameters = {
+  controls: {
+    include: ['content', 'canShow', 'form', 'table'],
+  },
+};
 Default.args = {
+  canShow: true,
   content: {
     type: 'view-list',
     spacer: 'none',
     params: {
-      apiType: '/api/v1/content',
+      apiType: '/api/v1/event',
     },
     header: [
       {
-        label: '创建时间',
-        key: 'business_date',
-      },
-      {
-        label: '会议标题',
+        label: '标题',
         key: 'title',
       },
       {
-        label: '客户名称',
-        key: 'customer',
+        label: 'Url',
+        key: 'url',
       },
       {
-        label: '经办人员',
-        key: 'handler',
+        label: '图片',
+        key: 'image',
       },
       {
-        label: '会议时间',
-        key: 'date_time_range',
+        label: '内容',
+        key: 'body',
+      },
+      {
+        label: '用户',
+        key: 'user',
       },
     ],
     form: [
@@ -145,32 +146,16 @@ Default.args = {
       },
       {
         type: 'mat-select',
-        key: 'customer',
+        key: 'user',
         templateOptions: {
           multiple: true,
           search: true,
           hideSelected: true,
-          label: '客户名称',
+          label: '用户',
           options: [
-            { value: 1, label: 'Option 1' },
-            { value: 2, label: 'Option 2' },
-            { value: 3, label: 'Option 3' },
-            { value: 4, label: 'Option 4', disabled: true },
-          ],
-        },
-      },
-      {
-        type: 'mat-select',
-        key: 'handler',
-        templateOptions: {
-          multiple: false,
-          hideSelected: true,
-          label: '经办人员',
-          options: [
-            { value: 1, label: 'Option 1' },
-            { value: 2, label: 'Option 2' },
-            { value: 3, label: 'Option 3' },
-            { value: 4, label: 'Option 4', disabled: true },
+            { value: 1, label: 'Johnson' },
+            { value: 2, label: '表歌' },
+            { value: 3, label: '小南' },
           ],
         },
       },
@@ -180,7 +165,7 @@ Default.args = {
         templateOptions: {
           label: '期间',
           value: '',
-          placeholder: '请选择日期',
+          placeholder: '选择发布日期',
         },
         fieldGroup: [
           {
