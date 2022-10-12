@@ -5,658 +5,752 @@
       "uuid": "cb31d69f-a95e-4c91-97d1-1169f82a10a5"
     }
   },
-  "body": [{
-    "type": "law-case",
-    "title": "两中心住房保障工作联席会议",
-    "date": [{
-      "label": "更新",
-      "value": "张三 周五 09:50 2022/03/31"
-    }, {
-      "label": "提交",
-      "value": "李四 周六 08:10 2022/03/27"
-    }],
-    "actions": [{
-      "type": "btn",
-      "label": "编辑",
-      "icon": {
-        "name": "editor",
-        "inline": true
-      },
-      "href": "https://admin.zhaobg.com/manage/content/50/edit",
-      "target": "_blank"
-    }, {
-      "type": "flag",
-      "label": "收藏",
-      "icon": {
-        "name": "star",
-        "inline": true
-      },
+  "body": [
+    {
+      "type": "law-case",
+      "title": "两中心住房保障工作联席会议",
+      "date": [
+        {
+          "label": "更新",
+          "value": "张三 周五 09:50 2022/03/31"
+        },
+        {
+          "label": "提交",
+          "value": "李四 周六 08:10 2022/03/27"
+        }
+      ],
+      "actions": [
+        {
+          "type": "btn",
+          "label": "编辑",
+          "icon": {
+            "name": "editor",
+            "inline": true
+          },
+          "href": "https://admin.zhaobg.com/manage/content/50/edit",
+          "target": "_blank"
+        },
+        {
+          "type": "flag",
+          "label": "收藏",
+          "icon": {
+            "name": "star",
+            "inline": true
+          },
+          "params": {
+            "type": "flagging--favorite",
+            "entity_type": "node",
+            "entity_id": "1312",
+            "relationships": {
+              "flagged_entity": {
+                "type": "node--case",
+                "id": "cb31d69f-a95e-4c91-97d1-1169f82a10a5"
+              }
+            }
+          }
+        }
+      ],
+      "block": [
+        {
+          "type": "showcase",
+          "elements": [
+            {
+              "header": [
+                {
+                  "label": "标签1",
+                  "key": "label1"
+                },
+                {
+                  "label": "内容1",
+                  "key": "content1"
+                },
+                {
+                  "label": "标签2",
+                  "key": "label2"
+                },
+                {
+                  "label": "内容2",
+                  "key": "content2"
+                }
+              ],
+              "elements": [
+                {
+                  "label1": "客户名称",
+                  "content1": {
+                    "type": "link",
+                    "label": "创客城",
+                    "href": "/node/3"
+                  },
+                  "label2": "主办律师",
+                  "content2": {
+                    "type": "link",
+                    "label": "Johnson",
+                    "href": "/node/3"
+                  }
+                },
+                {
+                  "label1": "经办人",
+                  "content1": {
+                    "type": "link",
+                    "label": "张三",
+                    "href": "/node/4"
+                  },
+                  "label2": "业务时间",
+                  "content2": "2022-04-15"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "card",
+          "title": {
+            "label": "会议详情",
+            "style": "style-v4"
+          },
+          "elements": [
+            {
+              "header": {
+                "meta": [
+                  {
+                    "label": "",
+                    "value": "<span class=\"badge\">第一次会议</span>"
+                  },
+                  {
+                    "label": "会议期间",
+                    "value": "周一，04/11/2022 11:30<br>周一，04/11/2022 16:30"
+                  },
+                  {
+                    "label": "会议地址",
+                    "value": "中国上海市浦东新区 线上会议"
+                  },
+                  {
+                    "label": "参会人员",
+                    "value": "<a href=\"/node/1\">张三</a>,<a href=\"/node/2\">Johnson</a>"
+                  },
+                  {
+                    "label": "工作工时",
+                    "value": 1
+                  }
+                ]
+              },
+              "feature": {
+                "type": "feature-box",
+                "mode": "float",
+                "hoverIcon": true,
+                "fullIcon": "fullscreen",
+                "ratios": "media-16-9",
+                "img": {
+                  "classes": "object-fit",
+                  "src": "/assets/images/cases/porto1.jpg",
+                  "alt": "lazyload"
+                }
+              },
+              "footer": {
+                "meta": [
+                  {
+                    "label": "相关项目",
+                    "value": "<a href=\"/node/1\">创客城制度修改</a>"
+                  },
+                  {
+                    "label": "会议文件",
+                    "value": [
+                      {
+                        "elements": [
+                          {
+                            "type": "link",
+                            "label": "第二次起诉签字.docx",
+                            "href": "xxx.docx",
+                            "target": "_blank",
+                            "classes": "file one-line"
+                          },
+                          {
+                            "type": "btn",
+                            "href": "#",
+                            "mode": "stroked",
+                            "label": "PDF",
+                            "color": "warn",
+                            "target": "_blank",
+                            "classes": "border-warn"
+                          }
+                        ]
+                      },
+                      {
+                        "elements": [
+                          {
+                            "type": "link",
+                            "label": "第二次起诉签字.docx",
+                            "href": "xxx.docx",
+                            "target": "_blank",
+                            "classes": "file one-line"
+                          },
+                          {
+                            "type": "btn",
+                            "href": "#",
+                            "mode": "stroked",
+                            "label": "PDF",
+                            "color": "warn",
+                            "target": "_blank",
+                            "classes": "border-warn"
+                          }
+                        ]
+                      }
+                    ],
+                    "params": {
+                      "dynamic": true
+                    }
+                  },
+                  {
+                    "label": "会议内容",
+                    "value": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. ",
+                    "params": {
+                      "shorten": 100,
+                      "dialog": {
+                        "label": "更多"
+                      }
+                    }
+                  },
+                  {
+                    "label": "信息备注",
+                    "value": "sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. ",
+                    "params": {
+                      "line": "one",
+                      "shorten": 100,
+                      "dialog": {
+                        "label": "更多"
+                      }
+                    }
+                  }
+                ]
+              },
+              "progressBar": {
+                "mode": "determinate",
+                "value": 33
+              }
+            },
+            {
+              "header": {
+                "meta": [
+                  {
+                    "label": "",
+                    "value": "<span class=\"badge\">第二次会议</span>"
+                  },
+                  {
+                    "label": "会议期间",
+                    "value": "周一，04/11/2022 11:30<br>周一，04/11/2022 16:30"
+                  },
+                  {
+                    "label": "会议地址",
+                    "value": "中国上海市浦东新区 线上会议"
+                  },
+                  {
+                    "label": "参会人员",
+                    "value": "<a href=\"/node/1\">张三</a>,<a href=\"/node/2\">Johnson</a>"
+                  },
+                  {
+                    "label": "工作工时",
+                    "value": 1
+                  }
+                ]
+              },
+              "feature": {
+                "type": "feature-box",
+                "mode": "float",
+                "hoverIcon": true,
+                "fullIcon": "fullscreen",
+                "ratios": "media-16-9",
+                "img": {
+                  "classes": "object-fit",
+                  "src": "/system/files/2022-08/AF.docx",
+                  "preview": "/system/files/xxx.pdf",
+                  "alt": "南宁三字柒"
+                }
+              },
+              "footer": {
+                "meta": [
+                  {
+                    "label": "相关项目",
+                    "value": "<a href=\"/node/1\">创客城制度修改</a>"
+                  },
+                  {
+                    "label": "会议文件",
+                    "value": [
+                      {
+                        "elements": [
+                          {
+                            "type": "link",
+                            "label": "第二次起诉签字.docx",
+                            "href": "xxx.docx",
+                            "target": "_blank",
+                            "classes": "file one-line"
+                          },
+                          {
+                            "type": "btn",
+                            "href": "#",
+                            "mode": "stroked",
+                            "label": "PDF",
+                            "color": "warn",
+                            "target": "_blank",
+                            "classes": "border-warn"
+                          }
+                        ]
+                      },
+                      {
+                        "elements": [
+                          {
+                            "type": "link",
+                            "label": "第二次起诉签字.docx",
+                            "href": "xxx.docx",
+                            "target": "_blank",
+                            "classes": "file one-line"
+                          },
+                          {
+                            "type": "btn",
+                            "href": "#",
+                            "mode": "stroked",
+                            "label": "PDF",
+                            "color": "warn",
+                            "target": "_blank",
+                            "classes": "border-warn"
+                          }
+                        ]
+                      }
+                    ],
+                    "params": {
+                      "dynamic": true
+                    }
+                  },
+                  {
+                    "label": "会议内容",
+                    "value": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore",
+                    "params": {
+                      "shorten": 100,
+                      "dialog": {
+                        "label": "更多"
+                      }
+                    }
+                  },
+                  {
+                    "label": "信息备注",
+                    "value": "sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. ",
+                    "params": {
+                      "shorten": 100,
+                      "dialog": {
+                        "label": "更多"
+                      }
+                    }
+                  }
+                ]
+              },
+              "progressBar": {
+                "mode": "determinate",
+                "value": 66
+              }
+            },
+            {
+              "header": {
+                "meta": [
+                  {
+                    "label": "",
+                    "value": "<span class=\"badge\">第三次会议</span>"
+                  },
+                  {
+                    "label": "会议期间",
+                    "value": "周一，04/11/2022 11:30<br>周一，04/11/2022 16:30"
+                  },
+                  {
+                    "label": "会议地址",
+                    "value": "中国上海市浦东新区 线上会议"
+                  },
+                  {
+                    "label": "参会人员",
+                    "value": "<a href=\"/node/1\">张三</a>"
+                  },
+                  {
+                    "label": "工作工时",
+                    "value": 1
+                  }
+                ]
+              },
+              "feature": {
+                "type": "feature-box",
+                "mode": "float",
+                "hoverIcon": true,
+                "fullIcon": "fullscreen",
+                "ratios": "media-16-9",
+                "img": {
+                  "classes": "object-fit",
+                  "src": "/assets/images/cases/porto3.jpg",
+                  "alt": "lazyload"
+                }
+              },
+              "footer": {
+                "meta": [
+                  {
+                    "label": "相关项目",
+                    "value": "<a href=\"/node/1\">创客城制度修改</a>"
+                  },
+                  {
+                    "label": "会议文件",
+                    "value": [
+                      {
+                        "elements": [
+                          {
+                            "type": "link",
+                            "label": "第二次起诉签字.docx",
+                            "href": "xxx.docx",
+                            "target": "_blank",
+                            "classes": "file one-line"
+                          },
+                          {
+                            "type": "btn",
+                            "href": "#",
+                            "mode": "stroked",
+                            "label": "PDF",
+                            "color": "warn",
+                            "target": "_blank",
+                            "classes": "border-warn"
+                          }
+                        ]
+                      },
+                      {
+                        "elements": [
+                          {
+                            "type": "link",
+                            "label": "第二次起诉签字.docx",
+                            "href": "xxx.docx",
+                            "target": "_blank",
+                            "classes": "file one-line"
+                          },
+                          {
+                            "type": "btn",
+                            "href": "#",
+                            "mode": "stroked",
+                            "label": "PDF",
+                            "color": "warn",
+                            "target": "_blank",
+                            "classes": "border-warn"
+                          }
+                        ]
+                      }
+                    ],
+                    "params": {
+                      "dynamic": true
+                    }
+                  },
+                  {
+                    "label": "会议内容",
+                    "value": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. ",
+                    "params": {
+                      "shorten": 100,
+                      "dialog": {
+                        "label": "更多"
+                      }
+                    }
+                  },
+                  {
+                    "label": "信息备注",
+                    "value": "sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat ",
+                    "params": {
+                      "shorten": 100,
+                      "dialog": {
+                        "label": "更多"
+                      }
+                    }
+                  }
+                ]
+              },
+              "progressBar": {
+                "mode": "determinate",
+                "value": 100
+              }
+            },
+            {
+              "header": {
+                "meta": [
+                  {
+                    "label": "",
+                    "value": "<span class=\"badge\">第三次会议</span>"
+                  },
+                  {
+                    "label": "会议期间",
+                    "value": "周一，04/11/2022 11:30<br>周一，04/11/2022 16:30"
+                  },
+                  {
+                    "label": "会议地址",
+                    "value": "中国上海市浦东新区 线上会议"
+                  },
+                  {
+                    "label": "参会人员",
+                    "value": "<a href=\"/node/1\">张三</a>"
+                  },
+                  {
+                    "label": "工作工时",
+                    "value": 1
+                  }
+                ]
+              },
+              "feature": {
+                "type": "feature-box",
+                "mode": "float",
+                "hoverIcon": true,
+                "fullIcon": "fullscreen",
+                "ratios": "media-16-9",
+                "img": {
+                  "classes": "object-fit",
+                  "src": "/assets/images/cases/porto3.jpg",
+                  "alt": "lazyload"
+                }
+              },
+              "footer": {
+                "meta": [
+                  {
+                    "label": "相关项目",
+                    "value": "<a href=\"/node/1\">创客城制度修改</a>"
+                  },
+                  {
+                    "label": "会议文件",
+                    "value": [
+                      {
+                        "elements": [
+                          {
+                            "type": "link",
+                            "label": "第二次起诉签字.docx",
+                            "href": "xxx.docx",
+                            "target": "_blank",
+                            "classes": "file one-line"
+                          },
+                          {
+                            "type": "btn",
+                            "href": "#",
+                            "mode": "stroked",
+                            "label": "PDF",
+                            "color": "warn",
+                            "target": "_blank",
+                            "classes": "border-warn"
+                          }
+                        ]
+                      },
+                      {
+                        "elements": [
+                          {
+                            "type": "link",
+                            "label": "第二次起诉签字.docx",
+                            "href": "xxx.docx",
+                            "target": "_blank",
+                            "classes": "file one-line"
+                          },
+                          {
+                            "type": "btn",
+                            "href": "#",
+                            "mode": "stroked",
+                            "label": "PDF",
+                            "color": "warn",
+                            "target": "_blank",
+                            "classes": "border-warn"
+                          }
+                        ]
+                      }
+                    ],
+                    "params": {
+                      "dynamic": true
+                    }
+                  },
+                  {
+                    "label": "会议内容",
+                    "value": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. ",
+                    "params": {
+                      "shorten": 100,
+                      "dialog": {
+                        "label": "更多"
+                      }
+                    }
+                  },
+                  {
+                    "label": "信息备注",
+                    "value": "sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat ",
+                    "params": {
+                      "shorten": 100,
+                      "dialog": {
+                        "label": "更多"
+                      }
+                    }
+                  }
+                ]
+              },
+              "progressBar": {
+                "mode": "determinate",
+                "value": 100
+              }
+            },
+            {
+              "header": {
+                "meta": [
+                  {
+                    "label": "",
+                    "value": "<span class=\"badge\">第三次会议</span>"
+                  },
+                  {
+                    "label": "会议期间",
+                    "value": "周一，04/11/2022 11:30<br>周一，04/11/2022 16:30"
+                  },
+                  {
+                    "label": "会议地址",
+                    "value": "中国上海市浦东新区 线上会议"
+                  },
+                  {
+                    "label": "参会人员",
+                    "value": "<a href=\"/node/1\">张三</a>"
+                  },
+                  {
+                    "label": "工作工时",
+                    "value": 1
+                  }
+                ]
+              },
+              "feature": {
+                "type": "feature-box",
+                "mode": "float",
+                "hoverIcon": true,
+                "fullIcon": "fullscreen",
+                "ratios": "media-16-9",
+                "img": {
+                  "classes": "object-fit",
+                  "src": "/assets/images/cases/porto3.jpg",
+                  "alt": "lazyload"
+                }
+              },
+              "footer": {
+                "meta": [
+                  {
+                    "label": "相关项目",
+                    "value": "<a href=\"/node/1\">创客城制度修改</a>"
+                  },
+                  {
+                    "label": "会议文件",
+                    "value": [
+                      {
+                        "elements": [
+                          {
+                            "type": "link",
+                            "label": "第二次起诉签字.docx",
+                            "href": "xxx.docx",
+                            "target": "_blank",
+                            "classes": "file one-line"
+                          },
+                          {
+                            "type": "btn",
+                            "href": "#",
+                            "mode": "stroked",
+                            "label": "PDF",
+                            "color": "warn",
+                            "target": "_blank",
+                            "classes": "border-warn"
+                          }
+                        ]
+                      },
+                      {
+                        "elements": [
+                          {
+                            "type": "link",
+                            "label": "第二次起诉签字.docx",
+                            "href": "xxx.docx",
+                            "target": "_blank",
+                            "classes": "file one-line"
+                          },
+                          {
+                            "type": "btn",
+                            "href": "#",
+                            "mode": "stroked",
+                            "label": "PDF",
+                            "color": "warn",
+                            "target": "_blank",
+                            "classes": "border-warn"
+                          }
+                        ]
+                      }
+                    ],
+                    "params": {
+                      "dynamic": true
+                    }
+                  },
+                  {
+                    "label": "会议内容",
+                    "value": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. ",
+                    "params": {
+                      "shorten": 100,
+                      "dialog": {
+                        "label": "更多"
+                      }
+                    }
+                  },
+                  {
+                    "label": "信息备注",
+                    "value": "sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat ",
+                    "params": {
+                      "shorten": 100,
+                      "dialog": {
+                        "label": "更多"
+                      }
+                    }
+                  }
+                ]
+              },
+              "progressBar": {
+                "mode": "determinate",
+                "value": 100
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "title": {
+            "label": "信息备注",
+            "style": "style-v4"
+          },
+          "spacer": "none",
+          "body": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
+        }
+      ],
       "params": {
-        "type": "flagging--favorite",
-        "entity_type": "node",
-        "entity_id": "1312",
-        "relationships": {
-          "flagged_entity": {
-            "type": "node--case",
-            "id": "cb31d69f-a95e-4c91-97d1-1169f82a10a5"
-          }
-        }
-      }
-    }],
-    "block": [{
-      "type": "showcase",
-      "elements": [{
-        "header": [{
-            "label": "标签1",
-            "key": "label1"
+        "comment": {
+          "type": "comment--comment",
+          "attributes": {
+            "entity_type": "node",
+            "field_name": "comment"
           },
-          {
-            "label": "内容1",
-            "key": "content1"
-          }, {
-            "label": "标签2",
-            "key": "label2"
-          }, {
-            "label": "内容2",
-            "key": "content2"
-          }
-        ],
-        "elements": [{
-            "label1": "客户名称",
-            "content1": {
-              "type": "link",
-              "label": "国家药审分中心",
-              "href": "/node/3"
+          "relationships": {
+            "comment_type": {
+              "data": {
+                "type": "comment_type--comment_type",
+                "id": "a395ac8e-3c9a-43d5-8ec8-cea74116d5f3"
+              }
             },
-            "label2": "主办律师",
-            "content2": {
-              "type": "link",
-              "label": "Johnson",
-              "href": "/node/3"
+            "entity_id": {
+              "data": {
+                "type": "node--article",
+                "id": "b59a2767-89b8-418d-91fe-6f0e6a5638ec"
+              }
             }
-          },
-          {
-            "label1": "经办人",
-            "content1": {
-              "type": "link",
-              "label": "张三",
-              "href": "/node/4"
-            },
-            "label2": "业务时间",
-            "content2": "2022-04-15"
           }
-        ]
-      }]
-    }, {
-      "type": "card",
-      "title": {
-        "label": "会议详情",
-        "style": "style-v4"
+        }
       },
-      "elements": [{
-        "header": {
-          "meta": [{
-              "label": "",
-              "value": "<span class=\"badge\">第一次会议</span>"
-            }, {
-              "label": "会议期间",
-              "value": "周一，04/11/2022 11:30<br>周一，04/11/2022 16:30"
-            },
-            {
-              "label": "会议地址",
-              "value": "中国上海市浦东新区 线上会议"
-            }, {
-              "label": "参会人员",
-              "value": "<a href=\"/node/1\">庞博</a>,<a href=\"/node/2\">Johnson</a>"
-            }, {
-              "label": "工作工时",
-              "value": 1
-            }
-          ]
+      "editor": {
+        "title": {
+          "label": "添加工作跟踪",
+          "style": "style-v4"
         },
-        "feature": {
-          "type": "feature-box",
-          "mode": "float",
-          "hoverIcon": true,
-          "fullIcon": "fullscreen",
-          "ratios": "media-16-9",
-          "img": {
-            "classes": "object-fit",
-            "src": "/assets/images/cases/porto1.jpg",
-            "alt": "lazyload"
-          }
+        "action": {
+          "label": "提交"
         },
-        "footer": {
-          "meta": [{
-            "label": "相关项目",
-            "value": "<a href=\"/node/1\">药审分中心制度修改</a>"
-          }, {
-            "label": "会议文件",
-            "value": [{
-              "elements": [{
-                  "type": "link",
-                  "label": "第二次起诉签字.docx",
-                  "href": "xxx.docx",
-                  "target": "_blank",
-                  "classes": "file one-line"
-                },
-                {
-                  "type": "btn",
-                  "href": "#",
-                  "mode": "stroked",
-                  "label": "PDF",
-                  "color": "warn",
-                  "target": "_blank",
-                  "classes": "border-warn"
-                }
-              ]
-            }, {
-              "elements": [{
-                  "type": "link",
-                  "label": "第二次起诉签字.docx",
-                  "href": "xxx.docx",
-                  "target": "_blank",
-                  "classes": "file one-line"
-                },
-                {
-                  "type": "btn",
-                  "href": "#",
-                  "mode": "stroked",
-                  "label": "PDF",
-                  "color": "warn",
-                  "target": "_blank",
-                  "classes": "border-warn"
-                }
-              ]
-            }],
-            "params": {
-              "dynamic": true
-            }
-          }, {
-            "label": "会议内容",
-            "value": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. ",
-            "params": {
-              "shorten": 100,
-              "dialog": {
-                "label": "更多"
-              }
-            }
-          }, {
-            "label": "信息备注",
-            "value": "sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. ",
-            "params": {
-              "line": "one",
-              "shorten": 100,
-              "dialog": {
-                "label": "更多"
-              }
-            }
-          }]
+        "succes": {
+          "label": "成功发布！"
         },
-        "progressBar": {
-          "mode": "determinate",
-          "value": 33
+        "empty": {
+          "label": "暂时还没有工作日志。"
         }
-      }, {
-        "header": {
-          "meta": [{
-              "label": "",
-              "value": "<span class=\"badge\">第二次会议</span>"
-            }, {
-              "label": "会议期间",
-              "value": "周一，04/11/2022 11:30<br>周一，04/11/2022 16:30"
-            },
-            {
-              "label": "会议地址",
-              "value": "中国上海市浦东新区 线上会议"
-            }, {
-              "label": "参会人员",
-              "value": "<a href=\"/node/1\">庞博</a>,<a href=\"/node/2\">Johnson</a>"
-            }, {
-              "label": "工作工时",
-              "value": 1
-            }
-          ]
-        },
-        "feature": {
-          "type": "feature-box",
-          "mode": "float",
-          "hoverIcon": true,
-          "fullIcon": "fullscreen",
-          "ratios": "media-16-9",
-          "img": {
-            "classes": "object-fit",
-            "src": "/system/files/2022-08/AF.docx",
-            "preview": "/system/files/xxx.pdf",
-            "alt": "南宁三字柒"
-          }
-        },
-        "footer": {
-          "meta": [{
-            "label": "相关项目",
-            "value": "<a href=\"/node/1\">药审分中心制度修改</a>"
-          }, {
-            "label": "会议文件",
-            "value": [{
-              "elements": [{
-                  "type": "link",
-                  "label": "第二次起诉签字.docx",
-                  "href": "xxx.docx",
-                  "target": "_blank",
-                  "classes": "file one-line"
-                },
-                {
-                  "type": "btn",
-                  "href": "#",
-                  "mode": "stroked",
-                  "label": "PDF",
-                  "color": "warn",
-                  "target": "_blank",
-                  "classes": "border-warn"
-                }
-              ]
-            }, {
-              "elements": [{
-                  "type": "link",
-                  "label": "第二次起诉签字.docx",
-                  "href": "xxx.docx",
-                  "target": "_blank",
-                  "classes": "file one-line"
-                },
-                {
-                  "type": "btn",
-                  "href": "#",
-                  "mode": "stroked",
-                  "label": "PDF",
-                  "color": "warn",
-                  "target": "_blank",
-                  "classes": "border-warn"
-                }
-              ]
-            }],
-            "params": {
-              "dynamic": true
-            }
-          }, {
-            "label": "会议内容",
-            "value": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore",
-            "params": {
-              "shorten": 100,
-              "dialog": {
-                "label": "更多"
-              }
-            }
-          }, {
-            "label": "信息备注",
-            "value": "sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. ",
-            "params": {
-              "shorten": 100,
-              "dialog": {
-                "label": "更多"
-              }
-            }
-          }]
-        },
-        "progressBar": {
-          "mode": "determinate",
-          "value": 66
-        }
-      }, {
-        "header": {
-          "meta": [{
-              "label": "",
-              "value": "<span class=\"badge\">第三次会议</span>"
-            }, {
-              "label": "会议期间",
-              "value": "周一，04/11/2022 11:30<br>周一，04/11/2022 16:30"
-            },
-            {
-              "label": "会议地址",
-              "value": "中国上海市浦东新区 线上会议"
-            }, {
-              "label": "参会人员",
-              "value": "<a href=\"/node/1\">庞博</a>"
-            }, {
-              "label": "工作工时",
-              "value": 1
-            }
-          ]
-        },
-        "feature": {
-          "type": "feature-box",
-          "mode": "float",
-          "hoverIcon": true,
-          "fullIcon": "fullscreen",
-          "ratios": "media-16-9",
-          "img": {
-            "classes": "object-fit",
-            "src": "/assets/images/cases/porto3.jpg",
-            "alt": "lazyload"
-          }
-        },
-        "footer": {
-          "meta": [{
-            "label": "相关项目",
-            "value": "<a href=\"/node/1\">药审分中心制度修改</a>"
-          }, {
-            "label": "会议文件",
-            "value": [{
-              "elements": [{
-                  "type": "link",
-                  "label": "第二次起诉签字.docx",
-                  "href": "xxx.docx",
-                  "target": "_blank",
-                  "classes": "file one-line"
-                },
-                {
-                  "type": "btn",
-                  "href": "#",
-                  "mode": "stroked",
-                  "label": "PDF",
-                  "color": "warn",
-                  "target": "_blank",
-                  "classes": "border-warn"
-                }
-              ]
-            }, {
-              "elements": [{
-                  "type": "link",
-                  "label": "第二次起诉签字.docx",
-                  "href": "xxx.docx",
-                  "target": "_blank",
-                  "classes": "file one-line"
-                },
-                {
-                  "type": "btn",
-                  "href": "#",
-                  "mode": "stroked",
-                  "label": "PDF",
-                  "color": "warn",
-                  "target": "_blank",
-                  "classes": "border-warn"
-                }
-              ]
-            }],
-            "params": {
-              "dynamic": true
-            }
-          }, {
-            "label": "会议内容",
-            "value": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. ",
-            "params": {
-              "shorten": 100,
-              "dialog": {
-                "label": "更多"
-              }
-            }
-          }, {
-            "label": "信息备注",
-            "value": "sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat ",
-            "params": {
-              "shorten": 100,
-              "dialog": {
-                "label": "更多"
-              }
-            }
-          }]
-        },
-        "progressBar": {
-          "mode": "determinate",
-          "value": 100
-        }
-      }, {
-        "header": {
-          "meta": [{
-              "label": "",
-              "value": "<span class=\"badge\">第三次会议</span>"
-            }, {
-              "label": "会议期间",
-              "value": "周一，04/11/2022 11:30<br>周一，04/11/2022 16:30"
-            },
-            {
-              "label": "会议地址",
-              "value": "中国上海市浦东新区 线上会议"
-            }, {
-              "label": "参会人员",
-              "value": "<a href=\"/node/1\">庞博</a>"
-            }, {
-              "label": "工作工时",
-              "value": 1
-            }
-          ]
-        },
-        "feature": {
-          "type": "feature-box",
-          "mode": "float",
-          "hoverIcon": true,
-          "fullIcon": "fullscreen",
-          "ratios": "media-16-9",
-          "img": {
-            "classes": "object-fit",
-            "src": "/assets/images/cases/porto3.jpg",
-            "alt": "lazyload"
-          }
-        },
-        "footer": {
-          "meta": [{
-            "label": "相关项目",
-            "value": "<a href=\"/node/1\">药审分中心制度修改</a>"
-          }, {
-            "label": "会议文件",
-            "value": [{
-              "elements": [{
-                  "type": "link",
-                  "label": "第二次起诉签字.docx",
-                  "href": "xxx.docx",
-                  "target": "_blank",
-                  "classes": "file one-line"
-                },
-                {
-                  "type": "btn",
-                  "href": "#",
-                  "mode": "stroked",
-                  "label": "PDF",
-                  "color": "warn",
-                  "target": "_blank",
-                  "classes": "border-warn"
-                }
-              ]
-            }, {
-              "elements": [{
-                  "type": "link",
-                  "label": "第二次起诉签字.docx",
-                  "href": "xxx.docx",
-                  "target": "_blank",
-                  "classes": "file one-line"
-                },
-                {
-                  "type": "btn",
-                  "href": "#",
-                  "mode": "stroked",
-                  "label": "PDF",
-                  "color": "warn",
-                  "target": "_blank",
-                  "classes": "border-warn"
-                }
-              ]
-            }],
-            "params": {
-              "dynamic": true
-            }
-          }, {
-            "label": "会议内容",
-            "value": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. ",
-            "params": {
-              "shorten": 100,
-              "dialog": {
-                "label": "更多"
-              }
-            }
-          }, {
-            "label": "信息备注",
-            "value": "sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat ",
-            "params": {
-              "shorten": 100,
-              "dialog": {
-                "label": "更多"
-              }
-            }
-          }]
-        },
-        "progressBar": {
-          "mode": "determinate",
-          "value": 100
-        }
-      }, {
-        "header": {
-          "meta": [{
-              "label": "",
-              "value": "<span class=\"badge\">第三次会议</span>"
-            }, {
-              "label": "会议期间",
-              "value": "周一，04/11/2022 11:30<br>周一，04/11/2022 16:30"
-            },
-            {
-              "label": "会议地址",
-              "value": "中国上海市浦东新区 线上会议"
-            }, {
-              "label": "参会人员",
-              "value": "<a href=\"/node/1\">庞博</a>"
-            }, {
-              "label": "工作工时",
-              "value": 1
-            }
-          ]
-        },
-        "feature": {
-          "type": "feature-box",
-          "mode": "float",
-          "hoverIcon": true,
-          "fullIcon": "fullscreen",
-          "ratios": "media-16-9",
-          "img": {
-            "classes": "object-fit",
-            "src": "/assets/images/cases/porto3.jpg",
-            "alt": "lazyload"
-          }
-        },
-        "footer": {
-          "meta": [{
-            "label": "相关项目",
-            "value": "<a href=\"/node/1\">药审分中心制度修改</a>"
-          }, {
-            "label": "会议文件",
-            "value": [{
-              "elements": [{
-                  "type": "link",
-                  "label": "第二次起诉签字.docx",
-                  "href": "xxx.docx",
-                  "target": "_blank",
-                  "classes": "file one-line"
-                },
-                {
-                  "type": "btn",
-                  "href": "#",
-                  "mode": "stroked",
-                  "label": "PDF",
-                  "color": "warn",
-                  "target": "_blank",
-                  "classes": "border-warn"
-                }
-              ]
-            }, {
-              "elements": [{
-                  "type": "link",
-                  "label": "第二次起诉签字.docx",
-                  "href": "xxx.docx",
-                  "target": "_blank",
-                  "classes": "file one-line"
-                },
-                {
-                  "type": "btn",
-                  "href": "#",
-                  "mode": "stroked",
-                  "label": "PDF",
-                  "color": "warn",
-                  "target": "_blank",
-                  "classes": "border-warn"
-                }
-              ]
-            }],
-            "params": {
-              "dynamic": true
-            }
-          }, {
-            "label": "会议内容",
-            "value": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. ",
-            "params": {
-              "shorten": 100,
-              "dialog": {
-                "label": "更多"
-              }
-            }
-          }, {
-            "label": "信息备注",
-            "value": "sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat ",
-            "params": {
-              "shorten": 100,
-              "dialog": {
-                "label": "更多"
-              }
-            }
-          }]
-        },
-        "progressBar": {
-          "mode": "determinate",
-          "value": 100
-        }
-      }]
-    }, {
-      "type": "text",
-      "title": {
-        "label": "信息备注",
-        "style": "style-v4"
-      },
-      "spacer": "none",
-      "body": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
-    }],
-    "params": {
-      "comment": {
-        "type": "comment--comment",
-        "attributes": {
-          "entity_type": "node",
-          "field_name": "comment"
-        },
-        "relationships": {
-          "comment_type": {
-            "data": {
-              "type": "comment_type--comment_type",
-              "id": "a395ac8e-3c9a-43d5-8ec8-cea74116d5f3"
-            }
-          },
-          "entity_id": {
-            "data": {
-              "type": "node--article",
-              "id": "b59a2767-89b8-418d-91fe-6f0e6a5638ec"
-            }
-          }
-        }
-      }
-    },
-    "editor": {
-      "title": {
-        "label": "添加工作跟踪",
-        "style": "style-v4"
-      },
-      "action": {
-        "label": "提交"
-      },
-      "succes": {
-        "label": "成功发布！"
-      },
-      "empty": {
-        "label": "暂时还没有工作日志。"
       }
     }
-  }]
+  ]
 }

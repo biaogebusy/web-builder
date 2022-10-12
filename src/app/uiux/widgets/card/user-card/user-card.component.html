@@ -2,8 +2,9 @@
   <div class="inner" fxLayout="column" fxLayoutAlign="center start">
     <app-media-object class="width-100" [content]="profile"></app-media-object>
     <app-user-card-count class="width-100" [content]="count"></app-user-card-count>
-    <div class="time" *ngIf="user.current_user?.login">
-      您上次登录时间：{{user.current_user.login | date:"YYYY-MM-dd hh:mm"}}</div>
+    <div class="time m-top-xs" *ngIf="user?.login">
+      您上次登录时间：{{user.login | date:"YYYY-MM-dd hh:mm"}}
+    </div>
     <div class="menus" *ngIf="content.menu">
       <button mat-icon-button aria-label="menu" [matMenuTriggerFor]="menu">
         <mat-icon>more_vert</mat-icon>

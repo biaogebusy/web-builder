@@ -261,7 +261,7 @@ FilterDialog.args = {
         key: 'hundred_point',
         elements: [
           {
-            label: '国家、财政与税务',
+            label: '财政与税务',
             value: '1',
             dialogFrom: 0,
           },

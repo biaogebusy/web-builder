@@ -159,7 +159,7 @@ BroderShadow.args = {
         },
         {
           label: '参会人员',
-          value: '<a href="/node/1">庞博</a>,<a href="/node/2">Johnson</a>',
+          value: '<a href="/node/1">张三</a>,<a href="/node/2">Johnson</a>',
         },
         {
           label: '工作工时',
@@ -182,7 +182,7 @@ BroderShadow.args = {
       meta: [
         {
           label: '相关项目',
-          value: '<a href="/node/1">药审分中心制度修改</a>',
+          value: '<a href="/node/1">创客城制度修改</a>',
         },
         {
           label: '会议文件',
