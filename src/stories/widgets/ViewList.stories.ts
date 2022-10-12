@@ -9,9 +9,6 @@ import { Story } from '@storybook/angular/types-6-0';
 import { APP_INITIALIZER, Inject } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { LocalStorageService, NgxWebstorageModule } from 'ngx-webstorage';
-import { TextComponent } from '@uiux/widgets/text/text.component';
-import { TitleComponent } from '@uiux/widgets/title/title.component';
-import * as TextStories from './base/Text.stories';
 import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
 import {
   API_URL,
@@ -34,12 +31,12 @@ import { CryptoJSService } from '@core/service/crypto-js.service';
 import { UserService } from '@core/service/user.service';
 import { ActivatedRoute } from '@angular/router';
 import { ContentState } from '@core/mobx/ContentState';
+import { ViewListComponent } from '@uiux/widgets/view-list/view-list.component';
 
 export default {
-  title: '基础/Sample',
-  id: 'sample',
-  component: TextComponent,
-  subcomponents: { TitleComponent },
+  title: '基础/View 视图列表',
+  id: 'view-list',
+  component: ViewListComponent,
   decorators: [
     moduleMetadata({
       declarations: [],
@@ -90,7 +87,7 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: `对组件的介绍描述`,
+        component: `View List 组件顾名思义是针对 Drupal view 视图进行配置的组件，通过 View 配置出数据的REST api，配置出下拉菜单选项的 api，根据这些 view api 来动态读取和筛选数据的组件。`,
       },
     },
   },
@@ -114,7 +111,7 @@ Default.args = {
     type: 'view-list',
     spacer: 'none',
     params: {
-      apiType: 'tab/meeting',
+      apiType: '/api/v1/content',
     },
     header: [
       {
@@ -130,51 +127,12 @@ Default.args = {
         key: 'customer',
       },
       {
-        label: '客户部门',
-        key: 'handler_dept',
-      },
-      {
         label: '经办人员',
         key: 'handler',
       },
       {
-        label: '会议主题',
-        key: 'theme',
-        style: {
-          color: '#cc9933',
-        },
-      },
-      {
         label: '会议时间',
         key: 'date_time_range',
-      },
-      {
-        label: '会议地址',
-        key: 'meeting_address_address_line1',
-      },
-      {
-        label: '参会人员',
-        key: 'participant',
-      },
-      {
-        label: '会议内容',
-        key: 'meeting_minutes',
-        dialog: {
-          shorten: 12,
-          label: '⋮',
-        },
-      },
-      {
-        label: '文件清单',
-        key: 'case_files',
-      },
-      {
-        label: '工作工时',
-        key: 'man_hour',
-      },
-      {
-        label: '律师',
-        key: 'uid',
       },
     ],
     form: [
@@ -188,43 +146,32 @@ Default.args = {
       {
         type: 'mat-select',
         key: 'customer',
-        api: '/api/v1/filter/customer',
         templateOptions: {
           multiple: true,
           search: true,
           hideSelected: true,
           label: '客户名称',
+          options: [
+            { value: 1, label: 'Option 1' },
+            { value: 2, label: 'Option 2' },
+            { value: 3, label: 'Option 3' },
+            { value: 4, label: 'Option 4', disabled: true },
+          ],
         },
       },
       {
         type: 'mat-select',
         key: 'handler',
-        api: '/api/v1/filter/handler',
-        templateOptions: {
-          multiple: true,
-          hideSelected: true,
-          label: '经办人员',
-        },
-      },
-      {
-        type: 'mat-select',
-        key: 'handler',
-        api: '/api/v1/filter/handler',
         templateOptions: {
           multiple: false,
           hideSelected: true,
           label: '经办人员',
-        },
-      },
-      {
-        type: 'mat-select',
-        key: 'handler',
-        api: '/api/v1/filter/handler',
-        templateOptions: {
-          multiple: false,
-          search: true,
-          hideSelected: true,
-          label: '经办人员',
+          options: [
+            { value: 1, label: 'Option 1' },
+            { value: 2, label: 'Option 2' },
+            { value: 3, label: 'Option 3' },
+            { value: 4, label: 'Option 4', disabled: true },
+          ],
         },
       },
       {

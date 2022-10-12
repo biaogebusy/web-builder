@@ -67,7 +67,7 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onDialog(label: string, content: any): void {
+  openDialog(label: string, content: any): void {
     this.dialog.open(DialogComponent, {
       width: '600px',
       data: {
