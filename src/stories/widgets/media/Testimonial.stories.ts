@@ -13,7 +13,7 @@ import { TestimonialComponent } from '@uiux/widgets/testimonial/testimonial.comp
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 
 export default {
-  title: '基础/Testimonial',
+  title: '基础/媒体/Testimonial',
   id: 'testimonial',
   component: TestimonialComponent,
   decorators: [

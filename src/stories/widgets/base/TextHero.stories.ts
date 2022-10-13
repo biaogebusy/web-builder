@@ -1,14 +1,9 @@
-import {
-  moduleMetadata,
-  Meta,
-  componentWrapperDecorator,
-} from '@storybook/angular';
+import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { LocalStorageService, NgxWebstorageModule } from 'ngx-webstorage';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterTestingModule } from '@angular/router/testing';
 import { API_URL, CORE_CONFIG, USER } from '@core/token/token-providers';
-import { ContentBoxComponent } from '@uiux/widgets/content-box/content-box.component';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { TextHeroComponent } from '@uiux/widgets/text-hero/text-hero.component';
 import { apiUrlFactory, userFactory } from '@core/factory/factory';

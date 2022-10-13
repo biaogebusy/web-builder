@@ -37,81 +37,8 @@ import { ContentState } from '@core/mobx/ContentState';
 import { BrandingModule } from '@core/branding/branding.module';
 import { IBranding } from '@core/interface/IBranding';
 import { FooterComponent } from '@core/branding/footer/footer.component';
-const branding: IBranding = {
-  footer: {
-    params: {
-      mode: 'space-between',
-      shape: false,
-    },
-    footerBrand: {
-      logo: {
-        img: {
-          src: '/assets/images/logo.png',
-          alt: '信使',
-          href: '/',
-          classes: 'logo',
-        },
-      },
-    },
-    content: {
-      left: {
-        spacer: 'none',
-        body: '<p class="m-bottom-0"><strong>地址：</strong>南宁市创客城</p><p class="m-bottom-0"><strong>微信：</strong> biaogebusy</p>',
-      },
-      middle: {
-        spacer: 'none',
-        body: '',
-      },
-    },
-    footerBottom: {
-      left: 'Copyright ©2021 xinshi',
-      right: [
-        {
-          label: '首页',
-          href: '/',
-        },
-        {
-          label: '关于我们',
-          href: '/about',
-        },
-        {
-          label: '帮助中心',
-          href: '#',
-        },
-        {
-          label: '联系我们',
-          href: '#',
-        },
-        {
-          label: '常用网站',
-          href: '#',
-        },
-      ],
-    },
-    fixBar: [
-      {
-        type: 'link',
-        href: '#',
-        target: '_blank',
-        icon: {
-          name: 'chat',
-        },
-        label: '在线客服',
-      },
-      {
-        type: 'popup',
-        icon: {
-          svg: 'wechat',
-        },
-        label: '咨询合作',
-        content: {
-          spacer: 'none',
-          body: '<p><img height="120" src="/assets/images/wechat.jpg" />',
-        },
-      },
-    ],
-  },
-};
+import { footerSimple } from '../Branding.json';
+
 export default {
   title: '页头页脚/页脚/简单',
   id: 'footer-simple',
@@ -162,15 +89,15 @@ export default {
         },
         {
           provide: BRANDING,
-          useValue: of(branding),
+          useValue: of(footerSimple),
         },
       ],
     }),
     componentWrapperDecorator(
       (story) => `
-        <div style="min-height:100vh">
-          ${story}
+       <div style="min-height:75vh">
         </div>
+          ${story}
     `
     ),
   ],
@@ -199,7 +126,7 @@ Default.storyName = '预览';
 Default.parameters = {
   docs: {
     source: {
-      code: JSON.stringify(branding),
+      code: JSON.stringify(footerSimple),
       language: 'json',
       type: 'auto',
     },
