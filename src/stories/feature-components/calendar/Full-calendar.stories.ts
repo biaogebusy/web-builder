@@ -2,6 +2,7 @@ import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { FullCalendarComponent } from '@uiux/combs/calendar/full-calendar/full-calendar.component';
 import { StorysModule } from '@core/storys.module';
+
 export default {
   title: '特色组件/日历/Full calendar',
   id: 'full-calendar',
