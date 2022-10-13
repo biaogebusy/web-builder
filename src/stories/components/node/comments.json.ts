@@ -1,5 +1,5 @@
-import { ICommentContent } from '@core/interface/node/INode';
-const comments: ICommentContent[] = [
+import { IComment } from '@core/interface/node/INode';
+export const comments: IComment[] = [
   {
     author: {
       img: {
@@ -15,7 +15,7 @@ const comments: ICommentContent[] = [
     time: '2022-05-20T05:54:31+00:00',
     id: '24213e00-d4b8-4ece-bbea-a588efcc7d8d',
     content:
-      '<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>',
+      '<p>从用户的角度看，简而言之后端是用户看不到摸不着的那一端，对数据进行读写删除更新组织数据。流行的开发语言比如：C# Golang Java JavaScript PHP Python Ruby SQL 前端广泛的概念是做用户看得到体验得到的那部分，页面的设计行为的交互体验等等，开发使用到的语言无非：HTML CSS JavaScript</p>',
     child: [
       {
         author: {
@@ -31,7 +31,8 @@ const comments: ICommentContent[] = [
         },
         time: '2022-05-23T02:01:38+00:00',
         id: 'bbbe5e9f-9b85-421e-a839-7d50be0eb7ed',
-        content: '<p>天选打工人</p>',
+        content:
+          '<p>大概就是所谓的：心中有千言，下笔无一字。就像学开车一样，你看着视频看攻略貌似很简单，真正操作的时候就无从下手，而编程，也是需要手感的，那对于新手来说，手感从哪里培养呢？通过视频学习的时候，每看完一个章节或者视频就暂停，然后试着回忆需求，然后亲自手写代码去实践，不懂不理解的就反复往回看，直到理解为止，不求快；通过书本学习也类似，不是看过以为真懂了，还是需要亲自手写去实践；每天制定计划去 coding</p>',
         child: [],
         level: 2,
       },

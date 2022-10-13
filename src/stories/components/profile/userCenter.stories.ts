@@ -1,25 +1,13 @@
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { API_URL, CORE_CONFIG, USER } from '@core/token/token-providers';
-import { HttpClientModule } from '@angular/common/http';
-import { LocalStorageService, NgxWebstorageModule } from 'ngx-webstorage';
 import { UserCenterComponent } from '@uiux/combs/profile/user-center/user-center.component';
 import { Profile1v1Component } from '@uiux/combs/profile/profile1v1/profile1v1.component';
-import { DynamicCombsModule } from '@uiux/combs/dynamic-combs/dynamic-combs.module';
 import { UserProfileComponent } from '@uiux/combs/profile/user-center/user-profile/user-profile.component';
-import { APP_INITIALIZER, Inject } from '@angular/core';
-import { ShareModule } from '@share/share.module';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
-import {
-  coreConfigFactory,
-  apiUrlFactory,
-  userFactory,
-} from '@core/factory/factory';
-import { ContentService } from '@core/service/content.service';
-import { CryptoJSService } from '@core/service/crypto-js.service';
-import { UserService } from '@core/service/user.service';
+import { StorysModule } from '@core/storys.module';
+import { DynamicCombsModule } from '@uiux/combs/dynamic-combs/dynamic-combs.module';
+import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
+import { IframeComponent } from '@uiux/widgets/iframe/iframe.component';
+
 export default {
   title: '组件/用户/用户中心',
   id: 'user-center',
@@ -27,37 +15,8 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [Profile1v1Component, UserProfileComponent],
-      imports: [
-        RouterTestingModule,
-        BrowserAnimationsModule,
-        WidgetsModule,
-        ShareModule,
-        HttpClientModule,
-        DynamicCombsModule,
-        NgxWebstorageModule.forRoot(),
-      ],
-      providers: [
-        {
-          provide: CORE_CONFIG,
-          useValue: {},
-        },
-        {
-          provide: APP_INITIALIZER,
-          useFactory: coreConfigFactory,
-          deps: [ContentService, [new Inject(CORE_CONFIG)]],
-          multi: true,
-        },
-        {
-          provide: API_URL,
-          useFactory: apiUrlFactory,
-          deps: [],
-        },
-        {
-          provide: USER,
-          useFactory: userFactory,
-          deps: [LocalStorageService, CryptoJSService, UserService],
-        },
-      ],
+      entryComponents: [DialogComponent, IframeComponent],
+      imports: [DynamicCombsModule, StorysModule.forRoot()],
     }),
   ],
 } as Meta;
@@ -102,7 +61,7 @@ Default.args = {
               data: [
                 {
                   type: 'iframe',
-                  url: '/user/:id/edit?disable_sidebar=1',
+                  url: '/?path=/story/full-calendar--default',
                   height: '900',
                 },
               ],

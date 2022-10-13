@@ -1,15 +1,10 @@
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { CORE_CONFIG } from '@core/token/token-providers';
-import { HttpClientModule } from '@angular/common/http';
-import { NgxWebstorageModule } from 'ngx-webstorage';
-import { ShareModule } from '@share/share.module';
 import { Profile1v1Component } from '@uiux/combs/profile/profile1v1/profile1v1.component';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import * as SwiperStories from 'src/stories/widgets/Swiper.stories';
 import * as MediaObjectGroupStories from 'src/stories/widgets/media/MediaObjectGroup.stories';
+import { StorysModule } from '@core/storys.module';
+
 export default {
   title: '组件/用户/1v1',
   id: 'profile-1v1',
@@ -17,20 +12,7 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [],
-      imports: [
-        RouterTestingModule,
-        BrowserAnimationsModule,
-        WidgetsModule,
-        ShareModule,
-        HttpClientModule,
-        NgxWebstorageModule.forRoot(),
-      ],
-      providers: [
-        {
-          provide: CORE_CONFIG,
-          useValue: {},
-        },
-      ],
+      imports: [StorysModule.forRoot()],
     }),
   ],
 } as Meta;

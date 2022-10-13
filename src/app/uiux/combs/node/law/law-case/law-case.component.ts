@@ -9,11 +9,7 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import type {
-  ICase,
-  ICasePrams,
-  ICommentContent,
-} from '@core/interface/node/INode';
+import type { ICase, ICasePrams, IComment } from '@core/interface/node/INode';
 import { FormService } from '@core/service/form.service';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -44,7 +40,7 @@ export class LawCaseComponent
 {
   @Input() content: ICase;
   uuid: string;
-  comments$: Observable<ICommentContent[]>;
+  comments$: Observable<IComment[]>;
   initCommentContent: string;
   form: FormGroup;
   first = true;

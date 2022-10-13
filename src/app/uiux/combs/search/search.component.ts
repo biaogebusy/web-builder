@@ -34,7 +34,7 @@ export class SearchComponent
   pager: any;
   form: FormGroup;
   filterForm: any[];
-  nodes: [];
+  nodes: any[];
   loading = false;
   destroy$: Subject<boolean> = new Subject<boolean>();
 

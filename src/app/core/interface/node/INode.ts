@@ -64,7 +64,7 @@ export interface ICommentParams {
   };
 }
 
-export interface ICommentContent {
+export interface IComment {
   author: {
     img: IImg;
     id: string;
@@ -75,7 +75,7 @@ export interface ICommentContent {
   time: string;
   id: string;
   content: string;
-  child: ICommentContent[] | [];
+  child: IComment[] | [];
   level: number;
 }
 

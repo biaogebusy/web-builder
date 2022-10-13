@@ -6,7 +6,7 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import type { ICommentContent } from '@core/interface/node/INode';
+import type { IComment } from '@core/interface/node/INode';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { Subject } from 'rxjs';
@@ -24,7 +24,7 @@ import type { IUser } from '@core/interface/IUser';
 })
 export class CommentItemComponent implements OnInit, OnDestroy {
   @Input() content: any;
-  @Input() comments: ICommentContent[];
+  @Input() comments: IComment[];
 
   destroy$: Subject<boolean> = new Subject<boolean>();
   currentId: string;

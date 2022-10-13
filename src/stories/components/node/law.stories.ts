@@ -10,6 +10,8 @@ import { LawCaseComponent } from '@uiux/combs/node/law/law-case/law-case.compone
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { TextComponent } from '@uiux/widgets/text/text.component';
 import { StorysModule } from '@core/storys.module';
+import { comments } from './comments.json';
+import { of } from 'rxjs';
 
 export default {
   title: '组件/文章/案件',
@@ -195,6 +197,7 @@ Default.args = {
                       label: '重大事务',
                       value: 'important',
                     },
+
                     {
                       label: '紧急事务',
                       value: 'exigence',
@@ -1124,6 +1127,7 @@ Default.args = {
       title: true,
     },
   },
+  comments$: of(comments),
 };
 
 export const Meeting = Template.bind({});
@@ -1886,6 +1890,7 @@ Meeting.args = {
       },
     },
   },
+  comments$: of(comments),
 };
 
 export const Project = Template.bind({});
@@ -2731,4 +2736,5 @@ Project.args = {
       },
     },
   },
+  comments$: of(comments),
 };
