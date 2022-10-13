@@ -1,21 +1,11 @@
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
 import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { HttpClientModule } from '@angular/common/http';
-import { LocalStorageService, NgxWebstorageModule } from 'ngx-webstorage';
-import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
-import { API_URL, CORE_CONFIG, USER } from '@core/token/token-providers';
-import { ShareModule } from '@share/share.module';
 import { MediaMetaComponent } from '@uiux/widgets/media/media-meta/media-meta.component';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
-import { apiUrlFactory, userFactory } from '@core/factory/factory';
-import { CryptoJSService } from '@core/service/crypto-js.service';
-import { UserService } from '@core/service/user.service';
+import { StorysModule } from '@core/storys.module';
 
 export default {
   title: '基础/媒体/媒体 meta',
@@ -24,31 +14,7 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [],
-      imports: [
-        ShareModule,
-        WidgetsModule,
-        RouterTestingModule,
-        BrowserAnimationsModule,
-        HttpClientModule,
-        NgxWebstorageModule.forRoot(),
-      ],
-      providers: [
-        SafeHtmlPipe,
-        {
-          provide: CORE_CONFIG,
-          useValue: {},
-        },
-        {
-          provide: API_URL,
-          useFactory: apiUrlFactory,
-          deps: [],
-        },
-        {
-          provide: USER,
-          useFactory: userFactory,
-          deps: [LocalStorageService, CryptoJSService, UserService],
-        },
-      ],
+      imports: [StorysModule.forRoot()],
     }),
     componentWrapperDecorator(
       (story) =>

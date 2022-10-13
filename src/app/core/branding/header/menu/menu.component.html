@@ -2,7 +2,7 @@
   <header *ngIf="show" class="header">
     <div class="container">
       <div class="header-container" fxLayout="row" fxLayoutAlign="{{content.logo?'space-between center':'end center'}}">
-        <div class="header-left" *ngIf="content.logo">
+        <div class="header-left one-line" *ngIf="content.logo">
           <div class="logo" *ngIf="content.logo?.img; else name" fxLayout fxLayoutAlign="start end">
             <app-img [content]="content.logo.img"></app-img>
             <span *ngIf="content.logo.version" class="version">v{{version}}</span>

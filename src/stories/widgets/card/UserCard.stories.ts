@@ -4,19 +4,12 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatDialogModule } from '@angular/material/dialog';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { TextComponent } from '@uiux/widgets/text/text.component';
-import { API_URL, CORE_CONFIG, USER } from '@core/token/token-providers';
-import { ShareModule } from '@share/share.module';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
-import { HttpClientModule } from '@angular/common/http';
-import { NgxWebstorageModule } from 'ngx-webstorage';
-import { RouterTestingModule } from '@angular/router/testing';
-import { apiUrlFactory } from '@core/factory/factory';
 import { UserCardComponent } from '@uiux/widgets/card/user-card/user-card.component';
 import { LoopWidgetsComponent } from '@uiux/widgets/loop-widgets/loop-widgets.component';
+import { StorysModule } from '@core/storys.module';
+
 export default {
   title: '基础/卡片/用户卡片',
   id: 'user-card',
@@ -25,43 +18,7 @@ export default {
     moduleMetadata({
       declarations: [],
       entryComponents: [DialogComponent, TextComponent, LoopWidgetsComponent],
-      imports: [
-        ShareModule,
-        WidgetsModule,
-        BrowserAnimationsModule,
-        NgxWebstorageModule.forRoot(),
-        RouterTestingModule,
-        MatDialogModule,
-        HttpClientModule,
-      ],
-      providers: [
-        {
-          provide: CORE_CONFIG,
-          useValue: {},
-        },
-        {
-          provide: API_URL,
-          useFactory: apiUrlFactory,
-          deps: [],
-        },
-        {
-          provide: USER,
-          useValue: {
-            csrf_token: 'pUsbILTBk2fdd6dfadafiLmufthxnVJ6hcXBenZuVcYVRQ600cM',
-            current_user: {
-              uid: '1',
-              name: 'Johnson',
-              roles: ['authenticated'],
-            },
-            id: '029f3488-92ed-4fb5-8fa2-62df6fdaf90bd9d5',
-            display_name: '表歌',
-            mail: 'hi@zhaobg.com',
-            authenticated: true,
-            picture: '/assets/images/avatar/01.jpeg',
-            login: new Date(),
-          },
-        },
-      ],
+      imports: [StorysModule.forRoot()],
     }),
     componentWrapperDecorator(
       (story) => `<div fxFlex="300px" class="position-relative">${story}</div>`

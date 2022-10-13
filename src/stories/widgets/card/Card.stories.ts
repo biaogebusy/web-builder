@@ -4,20 +4,10 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatDialogModule } from '@angular/material/dialog';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { TextComponent } from '@uiux/widgets/text/text.component';
-import { API_URL, CORE_CONFIG, USER } from '@core/token/token-providers';
-import { ShareModule } from '@share/share.module';
 import { CardComponent } from '@uiux/widgets/card/card.component';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
-import { HttpClientModule } from '@angular/common/http';
-import { LocalStorageService, NgxWebstorageModule } from 'ngx-webstorage';
-import { RouterTestingModule } from '@angular/router/testing';
-import { apiUrlFactory, userFactory } from '@core/factory/factory';
-import { CryptoJSService } from '@core/service/crypto-js.service';
-import { UserService } from '@core/service/user.service';
+import { StorysModule } from '@core/storys.module';
 export default {
   title: '基础/卡片/基础',
   id: 'card',
@@ -26,31 +16,7 @@ export default {
     moduleMetadata({
       declarations: [],
       entryComponents: [DialogComponent, TextComponent],
-      imports: [
-        ShareModule,
-        WidgetsModule,
-        BrowserAnimationsModule,
-        NgxWebstorageModule.forRoot(),
-        RouterTestingModule,
-        MatDialogModule,
-        HttpClientModule,
-      ],
-      providers: [
-        {
-          provide: CORE_CONFIG,
-          useValue: {},
-        },
-        {
-          provide: API_URL,
-          useFactory: apiUrlFactory,
-          deps: [],
-        },
-        {
-          provide: USER,
-          useFactory: userFactory,
-          deps: [LocalStorageService, CryptoJSService, UserService],
-        },
-      ],
+      imports: [StorysModule.forRoot()],
     }),
     componentWrapperDecorator(
       (story) => `<div fxFlex="300px" class="position-relative">${story}</div>`

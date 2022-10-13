@@ -13,6 +13,7 @@ import { apiUrlFactory, userFactory } from '@core/factory/factory';
 import { SwiperModule } from 'swiper/angular';
 import { CryptoJSService } from '@core/service/crypto-js.service';
 import { UserService } from '@core/service/user.service';
+import { StorysModule } from '@core/storys.module';
 export default {
   title: '组件/瀑布流/洗牌',
   id: 'shuffle',
@@ -20,32 +21,7 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [],
-      imports: [
-        RouterTestingModule,
-        BrowserAnimationsModule,
-        WidgetsModule,
-        ShareModule,
-        SwiperModule,
-        HttpClientModule,
-        NgxWebstorageModule.forRoot(),
-      ],
-      providers: [
-        AmapService,
-        {
-          provide: CORE_CONFIG,
-          useValue: {},
-        },
-        {
-          provide: API_URL,
-          useFactory: apiUrlFactory,
-          deps: [],
-        },
-        {
-          provide: USER,
-          useFactory: userFactory,
-          deps: [LocalStorageService, CryptoJSService, UserService],
-        },
-      ],
+      imports: [StorysModule.forRoot()],
     }),
   ],
 } as Meta;

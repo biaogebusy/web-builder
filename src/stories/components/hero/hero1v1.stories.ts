@@ -1,13 +1,8 @@
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { CORE_CONFIG } from '@core/token/token-providers';
-import { HttpClientModule } from '@angular/common/http';
-import { NgxWebstorageModule } from 'ngx-webstorage';
-import { ShareModule } from '@share/share.module';
 import { Hero1v1Component } from '@uiux/combs/hero/hero1v1/hero1v1.component';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { StorysModule } from '@core/storys.module';
+
 export default {
   title: '组件/英雄区/1v1',
   id: 'hero-1v1',
@@ -15,20 +10,7 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [],
-      imports: [
-        RouterTestingModule,
-        BrowserAnimationsModule,
-        WidgetsModule,
-        ShareModule,
-        HttpClientModule,
-        NgxWebstorageModule.forRoot(),
-      ],
-      providers: [
-        {
-          provide: CORE_CONFIG,
-          useValue: {},
-        },
-      ],
+      imports: [StorysModule.forRoot()],
     }),
   ],
 } as Meta;

@@ -1,21 +1,12 @@
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
 import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { HttpClientModule } from '@angular/common/http';
-import { LocalStorageService, NgxWebstorageModule } from 'ngx-webstorage';
 import { TitleComponent } from '@uiux/widgets/title/title.component';
-import { API_URL, CORE_CONFIG, THEME, USER } from '@core/token/token-providers';
-import { ShareModule } from '@share/share.module';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
-import { apiUrlFactory, userFactory } from '@core/factory/factory';
-import { CryptoJSService } from '@core/service/crypto-js.service';
-import { UserService } from '@core/service/user.service';
 import { IframeComponent } from '@uiux/widgets/iframe/iframe.component';
+import { StorysModule } from '@core/storys.module';
 
 export default {
   title: '基础/Iframe',
@@ -25,30 +16,7 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [],
-      imports: [
-        ShareModule,
-        WidgetsModule,
-        HttpClientModule,
-        NgxWebstorageModule.forRoot(),
-        RouterTestingModule,
-        BrowserAnimationsModule,
-      ],
-      providers: [
-        {
-          provide: CORE_CONFIG,
-          useValue: {},
-        },
-        {
-          provide: API_URL,
-          useFactory: apiUrlFactory,
-          deps: [],
-        },
-        {
-          provide: USER,
-          useFactory: userFactory,
-          deps: [LocalStorageService, CryptoJSService, UserService],
-        },
-      ],
+      imports: [StorysModule.forRoot()],
     }),
     componentWrapperDecorator((story) => `${story}`),
   ],

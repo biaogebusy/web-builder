@@ -1,16 +1,11 @@
-import { MatTableModule } from '@angular/material/table';
-import { RouterTestingModule } from '@angular/router/testing';
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { TextComponent } from '@uiux/widgets/text/text.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatDialogModule } from '@angular/material/dialog';
 import { DynamicWidgetsComponent } from '@uiux/widgets/dynamic-widgets/dynamic-widgets.component';
 import { IconComponent } from '@uiux/widgets/icon/icon.component';
-import { ShareModule } from '@share/share.module';
 import { DynamicTableComponent } from '@uiux/widgets/dynamic-table/dynamic-table.component';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { StorysModule } from '@core/storys.module';
 
 export default {
   title: '基础/动态表格',
@@ -25,14 +20,7 @@ export default {
         DynamicWidgetsComponent,
         IconComponent,
       ],
-      imports: [
-        ShareModule,
-        WidgetsModule,
-        RouterTestingModule,
-        MatTableModule,
-        BrowserAnimationsModule,
-        MatDialogModule,
-      ],
+      imports: [StorysModule.forRoot()],
     }),
   ],
   parameters: {

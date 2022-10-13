@@ -1,14 +1,8 @@
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { LocalStorageService, NgxWebstorageModule } from 'ngx-webstorage';
-import { HttpClientModule } from '@angular/common/http';
-import { RouterTestingModule } from '@angular/router/testing';
-import { API_URL, CORE_CONFIG, USER } from '@core/token/token-providers';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { TextHeroComponent } from '@uiux/widgets/text-hero/text-hero.component';
-import { apiUrlFactory, userFactory } from '@core/factory/factory';
-import { CryptoJSService } from '@core/service/crypto-js.service';
-import { UserService } from '@core/service/user.service';
+import { StorysModule } from '@core/storys.module';
+
 export default {
   title: '基础/内容/英雄区内容',
   id: 'text-hero',
@@ -16,28 +10,7 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [],
-      imports: [
-        WidgetsModule,
-        RouterTestingModule,
-        HttpClientModule,
-        NgxWebstorageModule.forRoot(),
-      ],
-      providers: [
-        {
-          provide: CORE_CONFIG,
-          userValue: {},
-        },
-        {
-          provide: API_URL,
-          useFactory: apiUrlFactory,
-          deps: [],
-        },
-        {
-          provide: USER,
-          useFactory: userFactory,
-          deps: [LocalStorageService, CryptoJSService, UserService],
-        },
-      ],
+      imports: [StorysModule.forRoot()],
     }),
   ],
 } as Meta;

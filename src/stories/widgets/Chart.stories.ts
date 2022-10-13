@@ -1,5 +1,4 @@
-import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
-import { ShareModule } from '@share/share.module';
+import { StorysModule } from '@core/storys.module';
 import {
   moduleMetadata,
   componentWrapperDecorator,
@@ -7,7 +6,6 @@ import {
   Story,
 } from '@storybook/angular';
 import { ChartComponent } from '@uiux/widgets/chart/chart.component';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
 
 export default {
   title: '基础/图表',
@@ -16,8 +14,7 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [],
-      imports: [ShareModule, WidgetsModule],
-      providers: [SafeHtmlPipe],
+      imports: [StorysModule.forRoot()],
     }),
     componentWrapperDecorator(
       (story) =>

@@ -4,12 +4,8 @@ import {
   Story,
   componentWrapperDecorator,
 } from '@storybook/angular';
-import { MatIconModule } from '@angular/material/icon';
-import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
-import { CORE_CONFIG } from '@core/token/token-providers';
-import { ShareModule } from '@share/share.module';
 import { ImgComponent } from '@uiux/widgets/img/img.component';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { StorysModule } from '@core/storys.module';
 
 export default {
   title: '基础/内容/图片',
@@ -18,14 +14,7 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [],
-      imports: [MatIconModule, ShareModule, WidgetsModule],
-      providers: [
-        SafeHtmlPipe,
-        {
-          provide: CORE_CONFIG,
-          useValue: {},
-        },
-      ],
+      imports: [StorysModule.forRoot()],
     }),
     componentWrapperDecorator(
       (story) =>

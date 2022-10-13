@@ -52,7 +52,10 @@ export class ScreenState {
 
   eq(targetPoint: string): boolean {
     if (this.screenService.isPlatformBrowser()) {
-      return this.viewPort.includes(targetPoint);
+      if (this.viewPort?.length) {
+        return this.viewPort.includes(targetPoint);
+      }
+      return false;
     } else {
       // TODO: need confirm
       return 'xs' === targetPoint;

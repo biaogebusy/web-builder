@@ -1,37 +1,16 @@
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
 import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import {
-  API_URL,
-  CORE_CONFIG,
-  PAGE_CONTENT,
-  USER,
-} from '@core/token/token-providers';
-import { HttpClientModule } from '@angular/common/http';
-import { LocalStorageService, NgxWebstorageModule } from 'ngx-webstorage';
+
 import { NodeModule } from '@uiux/combs/node/node.module';
 import { LawCaseComponent } from '@uiux/combs/node/law/law-case/law-case.component';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { TextComponent } from '@uiux/widgets/text/text.component';
-import { APP_INITIALIZER, Inject } from '@angular/core';
-import { ShareModule } from '@share/share.module';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
-import {
-  coreConfigFactory,
-  apiUrlFactory,
-  pageContentFactory,
-  userFactory,
-} from '@core/factory/factory';
-import { ContentService } from '@core/service/content.service';
-import { ActivatedRoute } from '@angular/router';
-import { ContentState } from '@core/mobx/ContentState';
-import { CryptoJSService } from '@core/service/crypto-js.service';
-import { UserService } from '@core/service/user.service';
+import { StorysModule } from '@core/storys.module';
+
 export default {
   title: '组件/文章/案件',
   id: 'law',
@@ -40,42 +19,7 @@ export default {
     moduleMetadata({
       declarations: [],
       entryComponents: [DialogComponent, TextComponent],
-      imports: [
-        RouterTestingModule,
-        BrowserAnimationsModule,
-        WidgetsModule,
-        ShareModule,
-        NodeModule,
-        HttpClientModule,
-        NgxWebstorageModule.forRoot(),
-      ],
-      providers: [
-        {
-          provide: CORE_CONFIG,
-          useValue: {},
-        },
-        {
-          provide: APP_INITIALIZER,
-          useFactory: coreConfigFactory,
-          deps: [ContentService, [new Inject(CORE_CONFIG)]],
-          multi: true,
-        },
-        {
-          provide: API_URL,
-          useFactory: apiUrlFactory,
-          deps: [],
-        },
-        {
-          provide: USER,
-          useFactory: userFactory,
-          deps: [LocalStorageService, CryptoJSService, UserService],
-        },
-        {
-          provide: PAGE_CONTENT,
-          useFactory: pageContentFactory,
-          deps: [ActivatedRoute, ContentService, ContentState],
-        },
-      ],
+      imports: [NodeModule, StorysModule.forRoot()],
     }),
     componentWrapperDecorator((story) => `${story}`),
   ],
@@ -87,7 +31,6 @@ const Template: Story = (args) => ({
   },
 });
 export const Default = Template.bind({});
-
 Default.args = {
   content: {
     title: 'Angular SSR 服务端渲染技术',

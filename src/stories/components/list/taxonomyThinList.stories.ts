@@ -1,33 +1,13 @@
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
 import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import {
-  API_URL,
-  CORE_CONFIG,
-  PAGE_CONTENT,
-  USER,
-} from '@core/token/token-providers';
-import { HttpClientModule } from '@angular/common/http';
-import { LocalStorageService, NgxWebstorageModule } from 'ngx-webstorage';
 import { ListModule } from '@uiux/combs/list/list.module';
 import { TaxonomyThinListComponent } from '@uiux/combs/list/taxonomy-thin-list/taxonomy-thin-list.component';
-import { ShareModule } from '@share/share.module';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
-import {
-  apiUrlFactory,
-  pageContentFactory,
-  userFactory,
-} from '@core/factory/factory';
-import { CryptoJSService } from '@core/service/crypto-js.service';
-import { UserService } from '@core/service/user.service';
-import { ActivatedRoute } from '@angular/router';
-import { ContentState } from '@core/mobx/ContentState';
-import { ContentService } from '@core/service/content.service';
+import { StorysModule } from '@core/storys.module';
+
 export default {
   title: '组件/列表/分类列表（thin）',
   id: 'taxonomy-thin-list',
@@ -35,36 +15,7 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [],
-      imports: [
-        RouterTestingModule,
-        BrowserAnimationsModule,
-        WidgetsModule,
-        ShareModule,
-        ListModule,
-        HttpClientModule,
-        NgxWebstorageModule.forRoot(),
-      ],
-      providers: [
-        {
-          provide: CORE_CONFIG,
-          useValue: {},
-        },
-        {
-          provide: API_URL,
-          useFactory: apiUrlFactory,
-          deps: [],
-        },
-        {
-          provide: USER,
-          useFactory: userFactory,
-          deps: [LocalStorageService, CryptoJSService, UserService],
-        },
-        {
-          provide: PAGE_CONTENT,
-          useFactory: pageContentFactory,
-          deps: [ActivatedRoute, ContentService, ContentState],
-        },
-      ],
+      imports: [ListModule, StorysModule.forRoot()],
     }),
     componentWrapperDecorator((story) => `${story}`),
   ],

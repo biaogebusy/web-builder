@@ -4,15 +4,11 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ShareModule } from '@share/share.module';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { Card1v3Component } from '@uiux/widgets/card/card1v3/card1v3.component';
-import { ScrollingModule } from '@angular/cdk/scrolling';
-import { HttpClientModule } from '@angular/common/http';
 import * as TextStories from '../base/Text.stories';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { LoopWidgetsComponent } from '@uiux/widgets/loop-widgets/loop-widgets.component';
+import { StorysModule } from '@core/storys.module';
 
 export default {
   title: '基础/卡片/1v3',
@@ -22,13 +18,7 @@ export default {
     moduleMetadata({
       declarations: [],
       entryComponents: [DialogComponent, LoopWidgetsComponent],
-      imports: [
-        ShareModule,
-        WidgetsModule,
-        BrowserAnimationsModule,
-        ScrollingModule,
-        HttpClientModule,
-      ],
+      imports: [StorysModule.forRoot()],
       providers: [],
     }),
     componentWrapperDecorator(

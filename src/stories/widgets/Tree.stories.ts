@@ -1,8 +1,4 @@
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
-import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
-import { CORE_CONFIG } from '@core/token/token-providers';
-import { ShareModule } from '@share/share.module';
+import { StorysModule } from '@core/storys.module';
 import {
   moduleMetadata,
   Meta,
@@ -10,7 +6,6 @@ import {
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { TreeComponent } from '@uiux/widgets/tree/tree.component';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
 
 export default {
   title: '基础/树形',
@@ -19,19 +14,7 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [],
-      imports: [
-        ShareModule,
-        WidgetsModule,
-        RouterTestingModule,
-        BrowserAnimationsModule,
-      ],
-      providers: [
-        SafeHtmlPipe,
-        {
-          provide: CORE_CONFIG,
-          useValue: {},
-        },
-      ],
+      imports: [StorysModule.forRoot()],
     }),
     componentWrapperDecorator(
       (story) =>
@@ -49,7 +32,7 @@ export const Default = Template.bind({});
 
 Default.args = {
   content: {
-    label: '金融',
+    label: '开发语言',
     key: 'type',
     expandAll: true,
     value: 245,

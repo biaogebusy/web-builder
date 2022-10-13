@@ -1,11 +1,7 @@
-import { HttpClientModule } from '@angular/common/http';
-import { MatButtonModule } from '@angular/material/button';
-import { RouterTestingModule } from '@angular/router/testing';
-import { ShareModule } from '@share/share.module';
+import { StorysModule } from '@core/storys.module';
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { BtnComponent } from '@uiux/widgets/btn/btn.component';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
 
 export default {
   title: '基础/内容/按钮',
@@ -14,13 +10,7 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [],
-      imports: [
-        ShareModule,
-        WidgetsModule,
-        MatButtonModule,
-        HttpClientModule,
-        RouterTestingModule,
-      ],
+      imports: [StorysModule.forRoot()],
     }),
   ],
 } as Meta;

@@ -1,25 +1,8 @@
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { API_URL, CORE_CONFIG, THEME, USER } from '@core/token/token-providers';
-import { HttpClientModule } from '@angular/common/http';
-import { LocalStorageService, NgxWebstorageModule } from 'ngx-webstorage';
 import { LocationComponent } from '@uiux/combs/map/location/location.component';
-import { APP_INITIALIZER, Inject } from '@angular/core';
-import { AmapService } from '@core/service/amap.service';
-import { ShareModule } from '@share/share.module';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
-import {
-  coreConfigFactory,
-  apiUrlFactory,
-  themeFactory,
-  userFactory,
-} from '@core/factory/factory';
-import { ContentService } from '@core/service/content.service';
-import { SwiperModule } from 'swiper/angular';
-import { CryptoJSService } from '@core/service/crypto-js.service';
-import { UserService } from '@core/service/user.service';
+import { StorysModule } from '@core/storys.module';
+
 export default {
   title: '组件/地图/位置',
   id: 'location',
@@ -27,43 +10,7 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [],
-      imports: [
-        RouterTestingModule,
-        BrowserAnimationsModule,
-        WidgetsModule,
-        ShareModule,
-        SwiperModule,
-        HttpClientModule,
-        NgxWebstorageModule.forRoot(),
-      ],
-      providers: [
-        AmapService,
-        {
-          provide: CORE_CONFIG,
-          useValue: {},
-        },
-        {
-          provide: APP_INITIALIZER,
-          useFactory: coreConfigFactory,
-          deps: [ContentService, [new Inject(CORE_CONFIG)]],
-          multi: true,
-        },
-        {
-          provide: API_URL,
-          useFactory: apiUrlFactory,
-          deps: [],
-        },
-        {
-          provide: USER,
-          useFactory: userFactory,
-          deps: [LocalStorageService, CryptoJSService, UserService],
-        },
-        {
-          provide: THEME,
-          useFactory: themeFactory,
-          deps: [[new Inject(CORE_CONFIG)], LocalStorageService],
-        },
-      ],
+      imports: [StorysModule.forRoot()],
     }),
   ],
   parameters: {

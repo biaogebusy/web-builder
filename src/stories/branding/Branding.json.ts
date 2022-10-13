@@ -183,13 +183,13 @@ const footerNewsletter = {
   forms: [
     {
       type: 'input',
-      label: 'Your email:',
+      label: '邮箱地址',
       key: 'email',
       params: {
         required: true,
         email: true,
       },
-      placeholder: 'Your email:',
+      placeholder: '请输入您的邮箱',
       hint: '请输入邮箱',
       error: '邮箱地址无效',
     },

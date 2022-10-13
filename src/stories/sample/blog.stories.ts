@@ -23,6 +23,7 @@ import {
 import { ContentService } from '@core/service/content.service';
 import { CryptoJSService } from '@core/service/crypto-js.service';
 import { UserService } from '@core/service/user.service';
+import { StorysModule } from '@core/storys.module';
 
 export default {
   title: '示例页面/博客列表',
@@ -31,38 +32,7 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [],
-      imports: [
-        ShareModule,
-        WidgetsModule,
-        HttpClientModule,
-        NgxWebstorageModule.forRoot(),
-        RouterTestingModule,
-        BrowserAnimationsModule,
-        BlockModule,
-      ],
-      providers: [
-        SafeHtmlPipe,
-        {
-          provide: CORE_CONFIG,
-          useValue: {},
-        },
-        {
-          provide: APP_INITIALIZER,
-          useFactory: coreConfigFactory,
-          deps: [ContentService, [new Inject(CORE_CONFIG)]],
-          multi: true,
-        },
-        {
-          provide: API_URL,
-          useFactory: apiUrlFactory,
-          deps: [],
-        },
-        {
-          provide: USER,
-          useFactory: userFactory,
-          deps: [LocalStorageService, CryptoJSService, UserService],
-        },
-      ],
+      imports: [StorysModule.forRoot(), BlockModule],
     }),
     componentWrapperDecorator((story) => `${story}`),
   ],
