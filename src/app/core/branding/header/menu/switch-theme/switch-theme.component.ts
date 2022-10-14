@@ -9,7 +9,6 @@ import { CORE_CONFIG } from '@core/token/token-providers';
 import { DOCUMENT } from '@angular/common';
 import { ConfigService } from '@core/service/config.service';
 import { LocalStorageService } from 'ngx-webstorage';
-import { THEME } from '@core/token/token-providers';
 import { MODE } from '@core/factory/factory';
 @Component({
   selector: 'app-switch-theme',
@@ -18,10 +17,10 @@ import { MODE } from '@core/factory/factory';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SwitchThemeComponent implements OnInit {
+  currentTheme: string;
   constructor(
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
     @Inject(DOCUMENT) private document: Document,
-    @Inject(THEME) public currentTheme: string,
     private configService: ConfigService,
     private storage: LocalStorageService
   ) {}
@@ -38,5 +37,6 @@ export class SwitchThemeComponent implements OnInit {
     body.classList.add(theme);
     this.configService.switchChange$.next(theme);
     this.storage.store(MODE, theme);
+    this.currentTheme = theme;
   }
 }

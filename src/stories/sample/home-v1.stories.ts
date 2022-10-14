@@ -22,7 +22,7 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: `南宁IT派官网`,
+        component: ``,
       },
     },
   },

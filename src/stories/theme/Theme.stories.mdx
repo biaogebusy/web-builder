@@ -2,7 +2,7 @@ import { Meta, ColorPalette, ColorItem } from "@storybook/addon-docs";
 
 <Meta title="主题/主题色" id="themeConfig" />
 
-# 使用指南
+# 介绍
 
 ![theme](/assets/storybook/assets/theme.png)
 信使默认配置了：
@@ -16,7 +16,7 @@ import { Meta, ColorPalette, ColorItem } from "@storybook/addon-docs";
 
 在主题配置文件 `src/theme/theme.scss` 中可查看并根据项目情况删除或者添加主题，我们推荐严格按照此方式来添加主题，即不会在具体的组件中写相关的颜色信息，而是在 theme 中根据变量严格设置，才能够保证组件统一颜色。
 
-### 颜色
+### 浅色主题颜色配置
 
 <ColorPalette>
   <ColorItem
@@ -40,7 +40,7 @@ import { Meta, ColorPalette, ColorItem } from "@storybook/addon-docs";
     colors={{ warn: "#ff5252" }}
   />
   <ColorItem
-    title="浅色主题"
+    title="主色级别"
     subtitle="颜色值"
     colors={{
       50: "#efe8fe",
@@ -56,8 +56,8 @@ import { Meta, ColorPalette, ColorItem } from "@storybook/addon-docs";
     }}
   />
   <ColorItem
-    title="浅色主题"
-    subtitle="强调色"
+    title="强调色级别"
+    subtitle="颜色值"
     colors={{
       A100: "#764ef8",
       A200: "#532af5",
@@ -68,7 +68,7 @@ import { Meta, ColorPalette, ColorItem } from "@storybook/addon-docs";
 
 </ColorPalette>
 
-### 步骤一
+### 如何新建主题
 
 1. 复制以下示例新建主题配置文件：`_xxx-config.scss` 在`src/theme/theme-config`文件夹中;
 
@@ -164,3 +164,136 @@ $yourTheme-theme: mat-light-theme($yourTheme-primary, $yourTheme-accent, $yourTh
 ```
 
 6. 当组件需要配置颜色时，可在 `src/theme/component`中新建对应的该组件的配置文件，参考里面的写法即可，并导入到入口文件：`src/theme/component/_component.scss`
+
+7. 最佳实践
+
+```scss
+@import "~@angular/material/theming";
+
+@mixin hero-color($config-or-theme) {
+  $config: mat-get-color-config($config-or-theme);
+  $foreground: map-get($config, foreground);
+  $background: map-get($config, background);
+  $primary: map-get($config, primary);
+  $accent: map-get($config, accent);
+  $warn: map-get($config, warn);
+
+  $bg-card-color: mat-color($background, card);
+  .hero-1-v2 {
+    .title {
+      color: mat-color($primary, default-contrast);
+    }
+  }
+  .hero-2-v2 {
+    .box {
+      background-color: $bg-card-color;
+      @include mat-elevation(4, mat-color($foreground, text), 0.2);
+      .content {
+        color: mat-color($foreground, text, 0.5);
+      }
+    }
+  }
+
+  .hero-2-v3 {
+    background-color: mat-color($primary);
+    color: mat-color($primary, default-contrast);
+    .card {
+      background-color: $bg-card-color;
+      @include mat-elevation(4, mat-color($foreground, text), 0.2);
+      .card-media {
+        @include mat-elevation(5, mat-color($foreground, text), 0.3);
+      }
+    }
+  }
+}
+```
+
+以上是 hero 组件的颜色样式代码，所有的颜色应该从以下读取，才能够保证颜色的统一：
+
+- $foreground: 前景色
+- $background: 背景色
+- $primary: 主色
+- $accent: 强调色
+- $warn: 警告色
+
+使用 mat-color(palette,hue: default, $opacity: null) :从调色盘获取特定的颜色，可以指定色调和透明度。
+
+#### 前景色调色盘
+
+```scss
+$mat-light-theme-foreground: (
+  base: black,
+  divider: $dark-dividers,
+  dividers: $dark-dividers,
+  disabled: $dark-disabled-text,
+  disabled-button: rgba(black, 0.26),
+  disabled-text: $dark-disabled-text,
+  elevation: black,
+  hint-text: $dark-disabled-text,
+  secondary-text: $dark-secondary-text,
+  icon: rgba(black, 0.54),
+  icons: rgba(black, 0.54),
+  text: rgba(black, 0.87),
+  slider-min: rgba(black, 0.87),
+  slider-off: rgba(black, 0.26),
+  slider-off-active: rgba(black, 0.38),
+);
+
+$mat-dark-theme-foreground: (
+  base: white,
+  divider: $light-dividers,
+  dividers: $light-dividers,
+  disabled: $light-disabled-text,
+  disabled-button: rgba(white, 0.3),
+  disabled-text: $light-disabled-text,
+  elevation: black,
+  hint-text: $light-disabled-text,
+  secondary-text: $light-secondary-text,
+  icon: white,
+  icons: white,
+  text: white,
+  slider-min: white,
+  slider-off: rgba(white, 0.3),
+  slider-off-active: rgba(white, 0.3),
+);
+```
+
+#### 背景色调色盘
+
+```scss
+$mat-light-theme-background: (
+  status-bar: map-get($mat-grey, 300),
+  app-bar: map-get($mat-grey, 100),
+  background: map-get($mat-grey, 50),
+  hover: rgba(black, 0.04),
+  card: white,
+  dialog: white,
+  disabled-button: rgba(black, 0.12),
+  raised-button: white,
+  focused-button: $dark-focused,
+  selected-button: map-get($mat-grey, 300),
+  selected-disabled-button: map-get($mat-grey, 400),
+  disabled-button-toggle: map-get($mat-grey, 200),
+  unselected-chip: map-get($mat-grey, 300),
+  disabled-list-option: map-get($mat-grey, 200),
+  tooltip: map-get($mat-grey, 700),
+);
+
+$mat-dark-theme-background: (
+  status-bar: black,
+  app-bar: map-get($mat-grey, 900),
+  background: #303030,
+  hover: rgba(white, 0.04),
+  card: map-get($mat-grey, 800),
+  dialog: map-get($mat-grey, 800),
+  disabled-button: rgba(white, 0.12),
+  raised-button: map-get($mat-grey, 800),
+  focused-button: $light-focused,
+  selected-button: map-get($mat-grey, 900),
+  selected-disabled-button: map-get($mat-grey, 800),
+  disabled-button-toggle: black,
+  unselected-chip: map-get($mat-grey, 700),
+  disabled-list-option: black,
+  tooltip: map-get($mat-grey, 700),
+);
+```

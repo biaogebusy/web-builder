@@ -2,11 +2,13 @@ import { Meta } from "@storybook/addon-docs";
 
 <Meta title="介绍" id="welcome" />
 
-# 远方信使 Xinshi
+# 信使前端框架
 
-- 远方信使是一个使用 Drupal 提供 API 的 Angular 前端开发学习框架，拥有丰富的前端组件，通过 Drupal Pannel 可快速构建 Landing 营销着陆页；
-- 拥有丰富的前端组件，支持多应用构建；
+- 信使基于 Material 的 Angular 前端框架，为了适配 IE11 目前的版本保持在 Angular v11；
 - 支持 SSR 服务端渲染；
+- 支持多主题、暗黑模式；
+- 全局配置、品牌菜单配置、主题配置、API、用户状态在 app.module 中注入，不同的项目可覆盖 Token 改变业务逻辑；
+- 页面内容数据通过当前页面的 url 来读取 api，根据返回的 body 数组渲染对应的组件；
 
 ## 微信公众号：Drupal 自习室
 
