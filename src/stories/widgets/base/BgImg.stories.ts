@@ -1,5 +1,3 @@
-import { CORE_CONFIG } from '@core/token/token-providers';
-import { ShareModule } from '@share/share.module';
 import {
   moduleMetadata,
   Meta,
@@ -7,22 +5,16 @@ import {
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { BgImgComponent } from '@uiux/widgets/bg-img/bg-img.component';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { StorysModule } from '@core/storys.module';
 
 export default {
-  title: '基础/内容/背景图片',
+  title: '基础/内容/背景图',
   id: 'bg-img',
   component: BgImgComponent,
   decorators: [
     moduleMetadata({
       declarations: [],
-      imports: [ShareModule, WidgetsModule],
-      providers: [
-        {
-          provide: CORE_CONFIG,
-          useValue: {},
-        },
-      ],
+      imports: [StorysModule.forRoot()],
     }),
     componentWrapperDecorator(
       (story) =>

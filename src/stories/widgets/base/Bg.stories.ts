@@ -28,10 +28,18 @@ const Template: Story = (args) => ({
     ...args,
   },
 });
-export const BgColor = Template.bind({});
-
-BgColor.args = {
+export const BgPrimary = Template.bind({});
+BgPrimary.storyName = '主色背景';
+BgPrimary.args = {
   content: {
     classes: 'bg-fill-width bg-primary',
+  },
+};
+
+export const BgShadow = Template.bind({});
+BgShadow.storyName = '灰色背景';
+BgShadow.args = {
+  content: {
+    classes: 'bg-fill-width bg-shadow',
   },
 };
