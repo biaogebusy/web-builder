@@ -43,7 +43,7 @@ Default.args = {
         classes: 'mat-display-1',
       },
       spacer: 'none',
-      body: '<p>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>',
+      body: '<p>这里有你想要的答案，请根据以下筛选条件选择进行搜索。</p>',
       actions: [
         {
           type: 'search-action',

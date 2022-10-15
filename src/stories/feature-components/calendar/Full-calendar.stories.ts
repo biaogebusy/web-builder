@@ -55,16 +55,16 @@ Default.args = {
         label: '内容来源',
         options: [
           {
-            label: '案件',
-            value: 'case',
+            label: '文章',
+            value: 'article',
+          },
+          {
+            label: '博客',
+            value: 'blog',
           },
           {
             label: '会议',
-            value: 'meeting',
-          },
-          {
-            label: '项目',
-            value: 'project',
+            value: 'metting',
           },
         ],
       },
@@ -75,20 +75,16 @@ Default.args = {
         label: '最新更新',
         options: [
           {
-            label: '案件',
-            value: 'case',
+            label: '文章',
+            value: 'article',
           },
           {
-            label: '会议管理',
-            value: 'meeting',
+            label: '博客',
+            value: 'blog',
           },
           {
-            label: '项目管理',
-            value: 'project',
-          },
-          {
-            label: '资料文库',
-            value: 'doc_lib',
+            label: '会议',
+            value: 'metting',
           },
         ],
       },

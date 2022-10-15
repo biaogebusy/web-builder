@@ -35,13 +35,13 @@ export default {
     }),
     componentWrapperDecorator(
       (story) =>
-        `<div class="position-relative bg-primary" style="z-index:1">${story}</div>`
+        `<div class="position-relative bg-shadow" style="z-index:1">${story}</div>`
     ),
   ],
   parameters: {
     docs: {
       description: {
-        component: '间距信使 UI 元素与元素之间的间隔，组件与组件之间的间距。',
+        component: '间距是 UI 元素与元素之间的间隔，组件与组件之间的间距。',
       },
     },
   },

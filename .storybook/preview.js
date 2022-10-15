@@ -12,7 +12,7 @@ export const parameters = {
   },
   options: {
     storySort: {
-      order: ["介绍", "主题", "基础", "组件", "特色组件", "页头页脚", "*"],
+      order: ["介绍", "主题", "组件", "特色组件", "页头页脚", "*"],
     },
   },
   docs: { inlineStories: true },
