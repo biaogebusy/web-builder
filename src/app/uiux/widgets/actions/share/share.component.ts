@@ -6,7 +6,7 @@ import {
   Inject,
 } from '@angular/core';
 import type { IShare } from '@core/interface/widgets/IActions';
-import type { ICoreConfig } from '@core/interface/IAppConfig';
+import type { ICoreConfig, ICoreShare } from '@core/interface/IAppConfig';
 import { ScreenService } from '@core/service/screen.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import { DOCUMENT } from '@angular/common';
@@ -20,7 +20,7 @@ declare var window: any;
 })
 export class ShareComponent implements OnInit {
   @Input() content: IShare;
-  config: any;
+  config: ICoreShare;
   url: string;
 
   constructor(

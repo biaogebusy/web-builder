@@ -1,6 +1,8 @@
 import { IText } from '../interface/widgets/IText';
 import { IAmap } from '../interface/IAmap';
 import { IndividualConfig } from 'ngx-toastr';
+import { IDownload } from './widgets/IDownload';
+import { IIcon } from './widgets/IIcon';
 export interface IAppConfig {
   defTheme: string;
   config?: ICoreConfig | null;
@@ -137,13 +139,8 @@ export interface IEditor {
   modules: Modules;
 }
 
-export interface Icon {
-  name: string;
-  inline: boolean;
-}
-
-export interface Flag {
-  icon: Icon;
+export interface ICoreFlag {
+  icon: IIcon;
   enable: boolean;
 }
 
@@ -152,26 +149,19 @@ export interface Button {
   label: string;
 }
 
-export interface Share {
+export interface ICoreShare {
   button: Button;
   enable: boolean;
 }
 
-export interface Icon2 {
-  name: string;
-  inline: boolean;
-}
-
-export interface Download {
-  label: string;
-  icon: Icon2;
+export interface ICoreDownload extends IDownload {
   enable: boolean;
 }
 
 export interface IActions {
-  flag: Flag;
-  share: Share;
-  download: Download;
+  flag: ICoreFlag;
+  share: ICoreShare;
+  download: ICoreDownload;
 }
 
 export interface Params {

@@ -15,7 +15,11 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject, Observable } from 'rxjs';
 import { NodeService } from '@core/service/node.service';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
-import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
+import type {
+  ICoreConfig,
+  ICoreDownload,
+  IPage,
+} from '@core/interface/IAppConfig';
 import { PAGE_CONTENT } from '@core/token/token-providers';
 import type { IUser } from '@core/interface/IUser';
 
@@ -29,7 +33,7 @@ export class DownloadComponent implements OnInit, OnDestroy {
   @Input() content: IDownload;
   @Input() data: any;
   destroy$: Subject<boolean> = new Subject<boolean>();
-  config: any;
+  config: ICoreDownload;
   canAccess: boolean;
   isPayed: boolean;
   isReqRoles: boolean;
