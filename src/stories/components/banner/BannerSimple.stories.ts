@@ -37,6 +37,7 @@ Default.args = {
     breadcrumb: breadcrumb.content,
   },
 };
+
 export const BannerWithBg = Template.bind({});
 BannerWithBg.storyName = '横幅带背景图';
 BannerWithBg.args = {
@@ -46,7 +47,25 @@ BannerWithBg.args = {
       classes: 'bg-fill-width overlay',
       img: {
         hostClasses: 'bg-center',
-        src: '/assets/images/banner-01.jpeg',
+        src: '/assets/images/16-9/nature-08.jpg',
+        alt: 'page title',
+      },
+    },
+    title: Default.args.content.title,
+    breadcrumb: breadcrumb.content,
+  },
+};
+
+export const BannerOverlay = Template.bind({});
+BannerOverlay.storyName = '背景图不透明度';
+BannerOverlay.args = {
+  content: {
+    style: 'normal',
+    bannerBg: {
+      classes: 'bg-fill-width overlay overlay-80',
+      img: {
+        hostClasses: 'bg-center',
+        src: '/assets/images/16-9/nature-08.jpg',
         alt: 'page title',
       },
     },

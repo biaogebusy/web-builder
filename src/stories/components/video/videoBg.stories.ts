@@ -6,6 +6,7 @@ import {
 import { Story } from '@storybook/angular/types-6-0';
 import { VideoBgComponent } from '@uiux/combs/video/video-bg/video-bg.component';
 import { StorysModule } from '@core/storys.module';
+import { VideoModule } from '@uiux/combs/video/video.module';
 
 export default {
   title: '组件/视频/背景视频',
@@ -14,7 +15,7 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [],
-      imports: [StorysModule.forRoot()],
+      imports: [VideoModule, StorysModule.forRoot()],
     }),
     componentWrapperDecorator((story) => `${story}`),
   ],

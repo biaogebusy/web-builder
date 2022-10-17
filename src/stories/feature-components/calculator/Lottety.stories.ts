@@ -54,9 +54,6 @@ export default {
     componentWrapperDecorator(
       (story) => `
       ${story}
-      <p>
-      {{model|json}}
-      </p>
     `
     ),
   ],
@@ -349,7 +346,5 @@ Default.args = {
         },
       ],
     },
-    description:
-      '<ul class="list-done"><li>总金额 = 红包总金额（大额+小额）+ 推广金额</li><li>当红包总金额没有余额时不可再抽奖</li><li>推广总金额没有余额时停止推广</li><li>推广员按比例所得：用户抽得金额*推广比例</li><li>以上参数只是预估，实际业务中会有变差，仅做参考</li></ul>',
   },
 };

@@ -5,7 +5,7 @@ import { PackeryComponent } from '@uiux/combs/masonry/packery/packery.component'
 import { StorysModule } from '@core/storys.module';
 
 export default {
-  title: '组件/瀑布流/packery',
+  title: '组件/瀑布流/图片堆砌',
   id: 'packery',
   component: PackeryComponent,
   decorators: [
@@ -33,7 +33,7 @@ Default.args = {
     spacer: 'md',
     text: {
       title: {
-        label: 'Our Products',
+        label: 'Drupal 数字创新',
         style: 'style-v1',
         classes: 'mat-display-1 text-light',
       },
@@ -160,22 +160,8 @@ ContentBox.args = {
       percentPosition: true,
     },
     spacer: 'md',
-    text: {
-      title: {
-        label: 'Our Products',
-        style: 'style-v1',
-        classes: 'mat-display-1',
-      },
-      body: '<p class="text-center">Drupal 已经超越了传统的 Web概念，可以通过不同的渠道部署你的数据内容，从一个数据中心点到各个应用，从简单到复杂。</p>',
-    },
-    bg: {
-      classes: 'bg-fill-width bg-shadow',
-      img: {
-        hostClasses: '',
-        src: '/assets/images/illustration/home-shape.png',
-        mobile: '/assets/images/illustration/home-shape.png',
-      },
-    },
+    text: Default.args.content.text,
+    bg: Default.args.content.bg,
     fullWidth: true,
     elements: [
       {

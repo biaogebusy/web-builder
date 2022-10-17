@@ -35,7 +35,7 @@ export class LotteryComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onModelChange(value: any): void {
+  onFormlyChange(value: any): void {
     if (!this.form.valid) {
       return;
     }

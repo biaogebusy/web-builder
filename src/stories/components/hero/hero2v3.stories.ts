@@ -51,7 +51,7 @@ Default.args = {
         },
         link: {
           href: '/',
-          label: '健康生活',
+          label: '高性能',
         },
       },
       {
@@ -61,7 +61,7 @@ Default.args = {
         },
         link: {
           href: '/',
-          label: '定期人寿保险',
+          label: '易用的编辑器',
         },
       },
       {
@@ -71,7 +71,7 @@ Default.args = {
         },
         link: {
           href: '/',
-          label: '家庭健康保险',
+          label: '多语言',
         },
       },
       {
@@ -81,7 +81,7 @@ Default.args = {
         },
         link: {
           href: '/',
-          label: '投资计划',
+          label: '更有弹性',
         },
       },
       {
@@ -91,7 +91,7 @@ Default.args = {
         },
         link: {
           href: '/',
-          label: '汽车保险',
+          label: '安全性',
         },
       },
       {
@@ -101,7 +101,7 @@ Default.args = {
         },
         link: {
           href: '/',
-          label: '出行保险',
+          label: '无障碍访问',
         },
       },
     ],

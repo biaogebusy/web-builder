@@ -32,7 +32,7 @@ export const Default = Template.bind({});
 Default.args = {
   content: {
     title: {
-      label: 'My Location',
+      label: '我的位置',
       style: 'banner-title',
       classes: 'm-bottom-0',
     },

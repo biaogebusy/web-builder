@@ -37,17 +37,17 @@ const card1v3: any = Card1v3Stories.Base.args;
 Base.args = {
   content: {
     title: {
-      label: '良庆区人民法院',
+      label: '南宁市创业孵化服务中心',
       style: 'style-v4',
     },
     meta: [
       {
         label: '地址',
-        value: '良庆区玉洞街道玉洞大道8-1号',
+        value: '良庆区玉洞街道玉洞大道x号',
       },
       {
         label: '电话',
-        value: '0771-4509585',
+        value: '0771-xxxxxx',
       },
     ],
     map: {
@@ -65,7 +65,7 @@ Sidebar.args = {
     sidebarRight: [
       {
         type: 'title',
-        label: '关联案件',
+        label: '相关信息',
         style: 'style-v4',
       },
       {

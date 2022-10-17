@@ -20,7 +20,7 @@ export default {
         SearchFilterDialogComponent,
         SearchFilterItemComponent,
       ],
-      imports: [SearchModule, StorysModule.forRoot()],
+      imports: [StorysModule.forRoot(), SearchModule],
     }),
   ],
 } as Meta;

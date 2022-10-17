@@ -123,7 +123,7 @@ Default.args = {
                 court: '法院名称',
                 contentOfCourt: {
                   type: 'link',
-                  label: '苏州人民法院',
+                  label: '人民法院',
                   href: '/node/3',
                 },
               },

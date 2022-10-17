@@ -96,7 +96,7 @@ Default.args = {
             },
             css3: true,
             link: {
-              label: '填写订单',
+              label: '发布文章',
               classes: 'bold',
               dialog: {
                 params: {
@@ -118,7 +118,7 @@ Default.args = {
                 ],
               },
             },
-            subTitle: '发布工作需求给律师',
+            subTitle: '发布内容到文章',
           },
           {
             img: {
@@ -131,7 +131,7 @@ Default.args = {
             },
             css3: true,
             link: {
-              label: '会议管理',
+              label: '发布博客',
               classes: 'bold',
               dialog: {
                 params: {
@@ -153,7 +153,7 @@ Default.args = {
                 ],
               },
             },
-            subTitle: '快速发布会议内容',
+            subTitle: '发布内容到博客',
           },
           {
             img: {
@@ -166,11 +166,11 @@ Default.args = {
             },
             css3: true,
             link: {
-              label: '项目列表',
+              label: '文章列表',
               classes: 'bold',
               href: '#',
             },
-            subTitle: '查看项目 View 列表',
+            subTitle: '查看项目文章列表',
           },
           {
             img: {
@@ -188,181 +188,6 @@ Default.args = {
               href: '#',
             },
             subTitle: '查看收藏的内容',
-          },
-        ],
-      },
-      {
-        type: 'showcase-3v6',
-        row: '3',
-        spacer: 'xs',
-        title: {
-          type: 'text',
-          spacer: 'xs',
-          title: {
-            label: '快捷入口',
-            style: 'style-v4',
-          },
-        },
-        params: {},
-        action: {
-          label: '管理更多',
-          href: '/manage/case',
-          style: 'style-v1',
-          icon: 'open_in_new',
-        },
-        elements: [
-          {
-            img: {
-              src: '/assets/images/logo/codepen.svg',
-              style: {
-                width: '45px',
-                height: '45px',
-              },
-              alt: 'case.png',
-            },
-            css3: true,
-            subTitle: '发布案件内容',
-            link: {
-              href: '/manage/content/case/add?redirect=/preview&disable_sidebar=1',
-              label: '案件',
-              classes: 'bold',
-            },
-          },
-          {
-            img: {
-              src: '/assets/images/logo/codepen.svg',
-              style: {
-                width: '45px',
-                height: '45px',
-              },
-              alt: 'project.png',
-            },
-            css3: true,
-            subTitle: '发布项目内容',
-            link: {
-              href: '/manage/content/project/add?redirect=/preview&disable_sidebar=1',
-              label: '项目',
-              classes: 'bold',
-            },
-          },
-          {
-            img: {
-              src: '/assets/images/logo/codepen.svg',
-              style: {
-                width: '45px',
-                height: '45px',
-              },
-              alt: 'meeting.png',
-            },
-            css3: true,
-            subTitle: '发布会议',
-            link: {
-              href: '/manage/content/meeting/add?redirect=/preview&disable_sidebar=1',
-              label: '会议',
-              classes: 'bold',
-            },
-          },
-          {
-            img: {
-              src: '/assets/images/logo/codepen.svg',
-              style: {
-                width: '45px',
-                height: '45px',
-              },
-              alt: 'doc.png',
-            },
-            css3: true,
-            subTitle: '发布文库资料',
-            link: {
-              href: '/manage/content/doc_lib/add?redirect=/preview&disable_sidebar=1',
-              label: '文库资料',
-              classes: 'bold',
-            },
-          },
-          {
-            img: {
-              src: '/assets/images/logo/codepen.svg',
-              style: {
-                width: '45px',
-                height: '45px',
-              },
-              alt: 'customer.png',
-            },
-            css3: true,
-            subTitle: '创建新客户',
-            link: {
-              href: '/manage/content/customer/add?redirect=/preview&disable_sidebar=1',
-              label: '客户',
-              classes: 'bold',
-            },
-          },
-          {
-            img: {
-              src: '/assets/images/logo/codepen.svg',
-              style: {
-                width: '45px',
-                height: '45px',
-              },
-              alt: 'handler.png',
-            },
-            css3: true,
-            subTitle: '创建经办人',
-            link: {
-              href: '/manage/content/handler/add?redirect=/preview&disable_sidebar=1',
-              label: '经办人',
-              classes: 'bold',
-            },
-          },
-          {
-            img: {
-              src: '/assets/images/logo/codepen.svg',
-              style: {
-                width: '45px',
-                height: '45px',
-              },
-              alt: 'faguan.png',
-            },
-            css3: true,
-            subTitle: '创建法官',
-            link: {
-              href: '/manage/content/court/add?redirect=/preview&disable_sidebar=1',
-              label: '法官',
-              classes: 'bold',
-            },
-          },
-          {
-            img: {
-              src: '/assets/images/logo/codepen.svg',
-              style: {
-                width: '45px',
-                height: '45px',
-              },
-              alt: 'fayuan.png',
-            },
-            css3: true,
-            subTitle: '创建法院',
-            link: {
-              href: '/manage/content/judge/add?redirect=/preview&disable_sidebar=1',
-              label: '法院',
-              classes: 'bold',
-            },
-          },
-          {
-            img: {
-              src: '/assets/images/logo/codepen.svg',
-              style: {
-                width: '45px',
-                height: '45px',
-              },
-              alt: 'business.png',
-            },
-            css3: true,
-            subTitle: '创建业务对方',
-            link: {
-              href: '/manage/content/other_party/add?redirect=/preview&disable_sidebar=1',
-              label: '业务对方',
-              classes: 'bold',
-            },
           },
         ],
       },

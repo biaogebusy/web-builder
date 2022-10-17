@@ -12,7 +12,7 @@ import { defaultHeader } from '../Branding.json';
 import { StorysModule } from '@core/storys.module';
 
 export default {
-  title: '页头页脚/页头/默认',
+  title: '页头页脚/页头/经典',
   id: 'header-default',
   component: HeaderComponent,
   decorators: [
