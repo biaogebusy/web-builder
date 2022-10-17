@@ -9,10 +9,10 @@
     "type": "article",
     "title": "DRAG AND DROP LAYOUT",
     "params": {
-      "payBak": {
+      "pay": {
         "money": 10
       },
-      "require_ruleBak": [
+      "require_rule": [
         "authenticated"
       ],
       "comment": {

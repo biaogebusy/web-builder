@@ -28,8 +28,9 @@
     }
     &:not(.no-bg) {
       color: mat-color($foreground, text, 0.5);
-      .page-title {
-        color: mat-color($accent, default-contrast);
+      .page-title,
+      .breadcrumb {
+        color: mat-color($primary, default-contrast);
       }
     }
   }

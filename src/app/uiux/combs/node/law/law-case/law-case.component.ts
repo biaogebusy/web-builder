@@ -6,6 +6,7 @@ import {
   ChangeDetectionStrategy,
   AfterViewInit,
   Inject,
+  OnDestroy,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import type {
@@ -13,9 +14,6 @@ import type {
   ICasePrams,
   ICommentContent,
 } from '@core/interface/node/INode';
-import { AppState } from '@core/mobx/AppState';
-import { FormState } from '@core/mobx/FormState';
-import { UserState } from '@core/mobx/user/UserState';
 import { FormService } from '@core/service/form.service';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -29,8 +27,10 @@ import {
   distinctUntilChanged,
   startWith,
 } from 'rxjs/operators';
-import { CORE_CONFIG } from '@core/token/core.config';
-import type { ICoreConfig } from '@core/mobx/IAppConfig';
+import { CORE_CONFIG, USER } from '@core/token/token-providers';
+import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
+import { PAGE_CONTENT } from '@core/token/token-providers';
+import { IUser } from '@core/interface/IUser';
 
 @Component({
   selector: 'app-law-case',
@@ -40,30 +40,34 @@ import type { ICoreConfig } from '@core/mobx/IAppConfig';
 })
 export class LawCaseComponent
   extends NodeComponent
-  implements OnInit, AfterViewInit
+  implements OnInit, AfterViewInit, OnDestroy
 {
   @Input() content: ICase;
+  uuid: string;
   comments$: Observable<ICommentContent[]>;
   initCommentContent: string;
   form: FormGroup;
   first = true;
   destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
-    public appState: AppState,
-    public userState: UserState,
     public nodeService: NodeService,
     private cd: ChangeDetectorRef,
     private formService: FormService,
     private uti: UtilitiesService,
-    private formState: FormState,
     private screenService: ScreenService,
     public contentState: ContentState,
-    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig
+    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
+    @Inject(PAGE_CONTENT) public pageContent$: Observable<IPage>,
+    @Inject(USER) private user: IUser
   ) {
     super();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.pageContent$.pipe(takeUntil(this.destroy$)).subscribe((page) => {
+      this.uuid = page.config?.node?.uuid;
+    });
+  }
 
   ngAfterViewInit(): void {
     if (this.content?.form?.length) {
@@ -100,23 +104,22 @@ export class LawCaseComponent
   }
 
   updateNode(apiParams: any): void {
-    const uuid = this.appState.pageConfig.node.uuid;
     this.nodeService
-      .updateLawCase(apiParams, uuid, this.userState.csrfToken)
+      .updateLawCase(apiParams, this.uuid, this.user.csrf_token)
       .subscribe((res) => {
         this.uti.openSnackbar('已更新！', '✓');
       });
   }
 
   getComments(timeStamp = 1): void {
-    const uuid = this.appState?.pageConfig?.node?.uuid;
+    const uuid = this.uuid;
     if (!this.coreConfig?.article?.comment?.enable || !uuid) {
       return;
     }
     this.comments$ = this.nodeService.getCustomApiComment(
       uuid,
       timeStamp,
-      this.userState.currentUser.csrf_token
+      this.user.csrf_token
     );
     this.cd.detectChanges();
   }
@@ -125,7 +128,7 @@ export class LawCaseComponent
     return {
       data: {
         type: 'node--case',
-        id: this.appState.pageConfig?.node?.uuid,
+        id: this.uuid,
         attributes: {
           transaction_level: value.transaction_level,
         },
@@ -157,5 +160,10 @@ export class LawCaseComponent
 
   trackByFn(index: number, item: any): number {
     return index;
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.complete();
   }
 }

@@ -10,9 +10,11 @@ import {
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { MatAccordion } from '@angular/material/expansion';
-import { BrandingState } from '../../mobx/BrandingState';
 import { ScreenState } from '../../mobx/screen/ScreenState';
 import { ScreenService } from '@core/service/screen.service';
+import { BRANDING } from '@core/token/token-providers';
+import { Observable } from 'rxjs';
+import { IBranding } from '@core/interface/IBranding';
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html',
@@ -29,8 +31,8 @@ export class FooterComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     public screen: ScreenState,
     private screenService: ScreenService,
-    public branding: BrandingState,
-    @Inject(DOCUMENT) private document: Document
+    @Inject(DOCUMENT) private document: Document,
+    @Inject(BRANDING) public branding$: Observable<IBranding>
   ) {}
 
   ngOnInit(): void {}
@@ -42,10 +44,12 @@ export class FooterComponent implements OnInit, AfterViewInit, OnDestroy {
   onScroll(): void {
     if (this.screenService.isPlatformBrowser()) {
       this.screen.scroll$.subscribe(() => {
-        if (this.document.body.getBoundingClientRect().top < -100) {
-          this.goTop.nativeElement.style.bottom = '7rem';
-        } else {
-          this.goTop.nativeElement.style.bottom = '-10rem';
+        if (this.goTop) {
+          if (this.document.body.getBoundingClientRect().top < -100) {
+            this.goTop.nativeElement.style.bottom = '7rem';
+          } else {
+            this.goTop.nativeElement.style.bottom = '-10rem';
+          }
         }
       });
     }

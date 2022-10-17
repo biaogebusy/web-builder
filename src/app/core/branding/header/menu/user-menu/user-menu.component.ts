@@ -5,8 +5,8 @@ import {
   OnDestroy,
   ChangeDetectorRef,
   ChangeDetectionStrategy,
+  Inject,
 } from '@angular/core';
-import { UserState } from '@core/mobx/user/UserState';
 import { MatDialog } from '@angular/material/dialog';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { ScreenState } from '@core/mobx/screen/ScreenState';
@@ -16,8 +16,9 @@ import { DialogService } from '@core/service/dialog.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { IUserMenu } from '@core/mobx/IBranding';
-import { IEnvironment } from '@core/interface/IEnvironment';
+import { USER } from '@core/token/token-providers';
+import { IUser } from '@core/interface/IUser';
+import { UserService } from '@core/service/user.service';
 
 @Component({
   selector: 'app-user-menu',
@@ -28,27 +29,41 @@ import { IEnvironment } from '@core/interface/IEnvironment';
 export class UserMenuComponent implements OnInit, OnDestroy {
   @Input() content: any[];
   dialogRef: any;
-  env: IEnvironment;
+  currentUser: IUser;
 
   destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
-    public userState: UserState,
     public utilities: UtilitiesService,
     public screen: ScreenState,
     public dialog: MatDialog,
     private dialogService: DialogService,
-    private cd: ChangeDetectorRef
-  ) {}
-
-  ngOnInit(): void {
-    this.env = environment;
-    this.userState.user$.subscribe((user) => {
-      this.cd.markForCheck();
+    private cd: ChangeDetectorRef,
+    private userService: UserService,
+    @Inject(USER) public user: IUser
+  ) {
+    this.currentUser = user;
+    this.userService.userSub$.subscribe((currentUser: any) => {
+      // login
+      if (currentUser) {
+        this.currentUser = currentUser;
+        this.cd.detectChanges();
+      }
+      // logout
+      if (!currentUser) {
+        this.currentUser.authenticated = false;
+        this.cd.detectChanges();
+      }
     });
   }
 
+  ngOnInit(): void {}
+
   logout(): void {
-    this.userState.logout();
+    this.userService.logout(this.user.logout_token);
+  }
+
+  get userLink(): string[] {
+    return [environment.drupalProxy ? '/my' : '/me/login'];
   }
 
   openDialog(dialog: any): void {

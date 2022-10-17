@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import {
   CanActivate,
   Router,
@@ -7,11 +7,12 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { UserState } from '../mobx/user/UserState';
 import { UserService } from '@core/service/user.service';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { NodeService } from '@core/service/node.service';
+import { IUser } from '@core/interface/IUser';
+import { USER } from '@core/token/token-providers';
 
 @Injectable({
   providedIn: 'root',
@@ -19,9 +20,9 @@ import { NodeService } from '@core/service/node.service';
 export class AuthGuard implements CanActivate {
   constructor(
     private router: Router,
-    private userState: UserState,
     private userService: UserService,
-    private nodeService: NodeService
+    private nodeService: NodeService,
+    @Inject(USER) private user: IUser
   ) {}
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -40,13 +41,13 @@ export class AuthGuard implements CanActivate {
               console.log('userState:', status);
               if (status) {
                 if (environment?.drupalProxy) {
-                  if (!this.userState.csrfToken) {
-                    this.userState.updateUserBySession();
+                  if (!this.user.csrf_token) {
+                    this.userService.updateUserBySession();
                   }
                 }
                 return true;
               } else {
-                this.userState.logouLocalUser();
+                this.userService.logouLocalUser();
                 if (environment?.drupalProxy) {
                   window.location.href = '/user/login';
                   return false;

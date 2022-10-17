@@ -1,5 +1,5 @@
-<ng-container *ngIf="appState.content">
-  <ng-container *ngFor="let item of appState.content;trackBy:trackByFn">
+<ng-container *ngIf="pageContent$ | async as page">
+  <ng-container *ngFor="let item of page.body;trackBy:trackByFn">
     <ng-container [ngSwitch]="item.type">
       <app-job *ngSwitchCase="'job'" [content]="item"></app-job>
       <app-case *ngSwitchCase="'case'" [content]="item"></app-case>
@@ -15,7 +15,6 @@
       <app-map-list-v1 *ngSwitchCase="'map-list-v1'" [content]="item"></app-map-list-v1>
       <app-user-center *ngSwitchCase="'user-center'" [content]="item"></app-user-center>
       <app-whychooseus *ngSwitchCase="'whychooseus'" [content]="item"></app-whychooseus>
-      <app-user-center *ngSwitchCase="'user-center'" [content]="content"></app-user-center>
       <app-user-favorite *ngSwitchCase="'user-favorite'" [content]="item"></app-user-favorite>
       <app-full-calendar *ngSwitchCase="'full-calendar'" [content]="item"></app-full-calendar>
       <app-dynamic-combs *ngSwitchDefault [content]="item"></app-dynamic-combs>

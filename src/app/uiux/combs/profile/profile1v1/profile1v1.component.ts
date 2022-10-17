@@ -6,8 +6,8 @@ import {
   OnInit,
 } from '@angular/core';
 import type { IImg } from '@core/interface/widgets/IImg';
-import { CORE_CONFIG } from '@core/token/core.config';
-import type { ICoreConfig } from '@core/mobx/IAppConfig';
+import { CORE_CONFIG } from '@core/token/token-providers';
+import type { ICoreConfig } from '@core/interface/IAppConfig';
 
 @Component({
   selector: 'app-profile1v1',

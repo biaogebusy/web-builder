@@ -6,14 +6,14 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { CORE_CONFIG } from '@core/token/core.config';
+import { CORE_CONFIG } from '@core/token/token-providers';
 import { HttpClientModule } from '@angular/common/http';
-import { WidgetsModule } from '../../../app/uiux/widgets/widgets.module';
 import { NgxWebstorageModule } from 'ngx-webstorage';
-import { ShareModule } from '../../../app/share/share.module';
 import { Showcase2v3Component } from '@uiux/combs/showcase/showcase2v3/showcase2v3.component';
+import { ShareModule } from '@share/share.module';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
 export default {
-  title: '组件/showcase/2v3',
+  title: '组件/展示/2v3',
   component: Showcase2v3Component,
   decorators: [
     moduleMetadata({

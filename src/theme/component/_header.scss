@@ -151,6 +151,12 @@
                 }
               }
             }
+            .sub-menu {
+              color: mat-color($foreground, text, 0.75) !important;
+              a {
+                color: mat-color($foreground, text, 0.75) !important;
+              }
+            }
           }
         }
       }

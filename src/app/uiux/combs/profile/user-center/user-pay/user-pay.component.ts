@@ -5,10 +5,12 @@ import {
   ChangeDetectorRef,
   Input,
   ChangeDetectionStrategy,
+  Inject,
 } from '@angular/core';
-import { UserState } from '@core/mobx/user/UserState';
+import { IUser } from '@core/interface/IUser';
 import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
+import { USER } from '@core/token/token-providers';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -31,8 +33,8 @@ export class UserPayComponent implements OnInit {
   constructor(
     private screenService: ScreenService,
     private nodeService: NodeService,
-    private userState: UserState,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    @Inject(USER) private user: IUser
   ) {}
 
   ngOnInit(): void {
@@ -46,13 +48,13 @@ export class UserPayComponent implements OnInit {
     const path = this.nodeService.apiUrlConfig.flaggingGetPath;
 
     const params = [
-      `filter[uid.id]=${this.userState.currentUser.id}`,
+      `filter[uid.id]=${this.user.id}`,
       `include=flagged_entity`,
       `sort=-created`,
       `jsonapi_include=1`,
     ].join('&');
     this.nodeService
-      .getNodes(path, 'payment', params, this.userState.csrfToken)
+      .getNodes(path, 'payment', params, this.user.csrf_token)
       .pipe(takeUntil(this.destroy$))
       .subscribe(
         (res) => {

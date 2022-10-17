@@ -9,7 +9,6 @@ import { VideoModule } from '../video/video.module';
 import { MapModule } from '../map/map.module';
 import { CalendarModule } from '../calendar/calendar.module';
 import { DynamicCombsModule } from '../dynamic-combs/dynamic-combs.module';
-
 @NgModule({
   declarations: [BlockComponent],
   imports: [
@@ -23,5 +22,6 @@ import { DynamicCombsModule } from '../dynamic-combs/dynamic-combs.module';
     CalendarModule,
     DynamicCombsModule,
   ],
+  exports: [BlockComponent],
 })
 export class BlockModule {}

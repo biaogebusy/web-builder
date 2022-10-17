@@ -26,7 +26,7 @@
     },
     "sidebar": [{
       "type": "media-list",
-      "title": "POPULAR POSTS",
+      "title": "热门文章",
       "elements": [{
         "link": {
           "label": "Drag and Drop Layout",
@@ -70,7 +70,7 @@
       }]
     }, {
       "type": "menu-list",
-      "title": "CATEGORIES",
+      "title": "分类",
       "elements": [{
         "link": {
           "href": "#",

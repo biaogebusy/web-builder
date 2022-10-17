@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { IMark } from '@core/interface/IAmap';
 import { Subject } from 'rxjs';
 

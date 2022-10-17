@@ -6,14 +6,14 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { CORE_CONFIG } from '@core/token/core.config';
+import { CORE_CONFIG } from '@core/token/token-providers';
 import { HttpClientModule } from '@angular/common/http';
-import { WidgetsModule } from '../../../app/uiux/widgets/widgets.module';
 import { NgxWebstorageModule } from 'ngx-webstorage';
-import { ShareModule } from '../../../app/share/share.module';
 import { TaxonomyListComponent } from '@uiux/combs/list/taxonomy-list/taxonomy-list.component';
 import { ListModule } from '@uiux/combs/list/list.module';
 import { apiUrlFactory, API_URL } from '@core/token/token-providers';
+import { ShareModule } from '@share/share.module';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
 export default {
   title: '组件/列表/分类列表',
   component: TaxonomyListComponent,

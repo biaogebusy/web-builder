@@ -11,7 +11,7 @@
       </button>
     </ng-container>
     <ng-template #canotAccess>
-      <ng-container *ngIf="!userState.authenticated">
+      <ng-container *ngIf="!user.authenticated">
         <button mat-menu-item>
           <app-icon [content]="{'name':'person'}"></app-icon>
           <a href="javascript:vovid(0)" (click)="openLogin()">登录</a>

@@ -1,19 +1,19 @@
-import { ShareModule } from '../../app/share/share.module';
 import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { WidgetsModule } from '../../app/uiux/widgets/widgets.module';
-import { ContactUsComponent } from '../../app/uiux/widgets/contact-us/contact-us.component';
-import { FormService } from '../../app/core/service/form.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
-import { CORE_CONFIG } from '../../app/core/token/core.config';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { API_URL, apiUrlFactory } from '@core/token/token-providers';
+import { FormService } from '@core/service/form.service';
+import { CORE_CONFIG } from '@core/token/token-providers';
+import { ShareModule } from '@share/share.module';
+import { ContactUsComponent } from '@uiux/widgets/contact-us/contact-us.component';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
 export default {
   title: '基础/联系我们',
   component: ContactUsComponent,
@@ -53,9 +53,9 @@ const Template: Story = (args) => ({
     ...args,
   },
 });
-export const Simple = Template.bind({});
+export const Base = Template.bind({});
 
-Simple.args = {
+Base.args = {
   content: {
     type: 'contact-us',
     params: {

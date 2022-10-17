@@ -11,16 +11,16 @@ import {
 } from '@angular/core';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
-import { UserState } from '@core/mobx/user/UserState';
 import { ScreenService } from '@core/service/screen.service';
-import { of, Subject } from 'rxjs';
-import { catchError, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import type { IBaseNode, ICommentParams } from '@core/interface/node/INode';
 import { merge } from 'lodash-es';
 import { ContentState } from '@core/mobx/ContentState';
 import { QuillModule } from 'ngx-quill';
-import { CORE_CONFIG } from '@core/token/core.config';
-import type { ICoreConfig } from '@core/mobx/IAppConfig';
+import { CORE_CONFIG, USER } from '@core/token/token-providers';
+import type { ICoreConfig } from '@core/interface/IAppConfig';
+import { IUser } from '@core/interface/IUser';
 
 @Component({
   selector: 'app-comment-form',
@@ -45,9 +45,9 @@ export class CommentFormComponent implements OnInit, OnDestroy {
     private nodeService: NodeService,
     public screenService: ScreenService,
     private utilitiesService: UtilitiesService,
-    private userState: UserState,
     public contentState: ContentState,
-    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
+    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
+    @Inject(USER) private user: IUser
   ) {}
 
   ngOnInit(): void {
@@ -77,7 +77,7 @@ export class CommentFormComponent implements OnInit, OnDestroy {
 
   onSubmit(value: any): void {
     this.loading = true;
-    const token = this.userState.csrfToken;
+    const token = this.user.csrf_token;
     const params = this.content.params?.comment as ICommentParams;
     const type = params.attributes?.field_name || '';
     // reply, update 在组件内判断处理，默认新增，包括外部组件
@@ -180,7 +180,7 @@ export class CommentFormComponent implements OnInit, OnDestroy {
         uid: {
           data: {
             type: 'user--user',
-            id: this.userState.currentUser.id,
+            id: this.user.id,
           },
         },
       },

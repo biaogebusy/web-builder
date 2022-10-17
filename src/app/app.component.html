@@ -2,9 +2,9 @@
   <div class="loader">Loading...</div>
 </div>
 <ngx-loading-bar [includeSpinner]="false" *ngIf="coreConfig?.loadingBar"></ngx-loading-bar>
-<mat-drawer-container [class.authenticated]="userState.authenticated" *ngIf="coreConfig && branding.ready">
-  <mat-drawer #drawer [(opened)]="opened" (opened)="updateDrawer(drawer)" (closed)="updateDrawer(drawer)">
-    <app-menu [isDrawer]="opened" [content]="branding.header"></app-menu>
+<mat-drawer-container *ngIf="coreConfig && branding$|async">
+  <mat-drawer #drawer [(opened)]="opened">
+    <app-menu [isDrawer]="opened" [content]="(branding$ | async)?.header || null"></app-menu>
   </mat-drawer>
   <mat-drawer-content>
     <app-header></app-header>

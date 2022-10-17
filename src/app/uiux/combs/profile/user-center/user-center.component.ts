@@ -2,13 +2,13 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  Inject,
   Input,
   OnDestroy,
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import type { IUserCenter } from '@core/interface/IUserCenter';
-import { UserState } from '@core/mobx/user/UserState';
 import { ScreenService } from '@core/service/screen.service';
 import { UserService } from '@core/service/user.service';
 import { isEmpty } from 'lodash-es';
@@ -16,6 +16,9 @@ import { Observable } from 'rxjs';
 import { IUserConfig } from '../../../../core/interface/IUserConfig';
 import { environment } from 'src/environments/environment';
 import { BaseComponent } from '@uiux/base/base.widget';
+import { CORE_CONFIG, USER } from '@core/token/token-providers';
+import { ICoreConfig } from '@core/interface/IAppConfig';
+import { IUser } from '@core/interface/IUser';
 
 @Component({
   selector: 'app-user-center',
@@ -28,7 +31,7 @@ export class UserCenterComponent
   implements OnInit, OnDestroy
 {
   @Input() content: IUserCenter;
-  user: any;
+  currentUser: any;
   id: any;
   userConfig$: Observable<IUserConfig>;
   constructor(
@@ -36,19 +39,23 @@ export class UserCenterComponent
     private route: Router,
     private screenService: ScreenService,
     public userService: UserService,
-    public userState: UserState
+    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
+    @Inject(USER) public user: IUser
   ) {
-    super(userState);
+    super();
   }
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       this.userConfig$ = this.userService.getUserConfig();
       this.getUser();
-      this.userState.user$.subscribe((user) => {
-        if (!user.authenticated) {
+      this.userService.userSub$.subscribe((user) => {
+        // logout
+        if (!user) {
           setTimeout(() => {
-            this.route.navigate(['user/login']);
+            this.route.navigate([
+              environment.drupalProxy ? '/my' : '/me/login',
+            ]);
           }, 2000);
         } else {
           window.location.reload();
@@ -63,10 +70,7 @@ export class UserCenterComponent
     }
     const people = {};
     this.userService
-      .getUserById(
-        this.userState.currentUser.current_user.uid,
-        this.userState.csrfToken
-      )
+      .getUserById(this.user.current_user.uid, this.user.csrf_token)
       .subscribe((res) => {
         const info = res.data[0];
         if (!info) {
@@ -74,7 +78,7 @@ export class UserCenterComponent
         }
         const profile = {
           avatar: {
-            src: info?.user_picture?.uri?.url || this.userState.defaultAvatar,
+            src: info?.user_picture?.uri?.url || this.coreConfig.defaultAvatar,
             alt: info.name,
           },
           name: info.name,
@@ -102,7 +106,7 @@ export class UserCenterComponent
             ],
           },
         };
-        this.user = Object.assign(people, profile);
+        this.currentUser = Object.assign(people, profile);
         this.cd.detectChanges();
       });
   }

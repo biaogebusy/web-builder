@@ -6,7 +6,6 @@ import {
   ChangeDetectorRef,
   OnDestroy,
 } from '@angular/core';
-import { UserState } from '@core/mobx/user/UserState';
 import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
 import { BaseComponent } from '@uiux/base/base.widget';
@@ -33,9 +32,8 @@ export class DynamicMediaListComponent
     public nodeService: NodeService,
     private screenService: ScreenService,
     private cd: ChangeDetectorRef,
-    public userState: UserState
   ) {
-    super(userState);
+    super();
   }
 
   ngOnInit(): void {

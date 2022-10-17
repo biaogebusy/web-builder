@@ -1,12 +1,12 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
-import { UserState } from '@core/mobx/user/UserState';
-import { isArray, remove, result } from 'lodash-es';
+import { IUser } from '@core/interface/IUser';
+import { intersection, isArray, remove, result } from 'lodash-es';
 @Injectable()
 export abstract class BaseComponent {
   abstract content: any;
 
-  constructor(public userState: UserState) {}
+  constructor() {}
 
   getParams(obj: any, key: string): any {
     return obj.params && obj.params[key];
@@ -107,16 +107,24 @@ export abstract class BaseComponent {
     }
   }
 
-  checkShow(content: any): boolean {
+  checkShow(content: any, user: IUser): boolean {
     const roles = this.getParams(content, 'reqRoles');
     if (!roles || !roles.length) {
       return true;
     } else {
-      if (this.userState.isMatchCurrentRole(roles)) {
+      if (!user) {
+        return false;
+      }
+      const currentUserRoles = user.current_user.roles;
+      if (this.isMatchCurrentRole(roles, currentUserRoles)) {
         return true;
       } else {
         return false;
       }
     }
+  }
+
+  isMatchCurrentRole(roles: string[], currentUserRoles: string[]): boolean {
+    return intersection(currentUserRoles, roles).length > 0;
   }
 }

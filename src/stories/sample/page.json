@@ -1,0 +1,87 @@
+{
+  "title": "Tabs",
+  "body": [{
+    "type": "tab",
+    "title": {
+      "label": "Why choose us",
+      "style": "style-v4"
+    },
+    "classes": "bg-light",
+    "elements": [{
+      "label": "Quality",
+      "elements": [{
+        "type": "text",
+        "spacer": "none",
+        "body": "<p>Lorem Ipsum is simply dummy text of the printing and typeseting industry Lorem in text Ipsum has been the industry standar dummyy text ever since the when an iunesi known.</p><ul class=\"list3 clearfix\">\n\t<li>Multiple Layout</li>\n\t<li>Awesome Shortcodes</li>\n\t<li>Browser Compatibility</li>\n\t<li>Easy to Edit Animations</li>\n\t<li>Parallax Effect</li>\n\t<li>Responsive Design</li>\n\t<li>Many Home Page Versions</li>\n\t<li>Many Blog Pages</li>\n</ul>"
+      }]
+    }, {
+      "label": "Design",
+      "elements": [{
+        "type": "text",
+        "spacer": "none",
+        "body": "<p>Lorem Ipsum is simply dummy text of the printing and typeseting industry Lorem in text Ipsum has been the industry standar dummyy text ever since the when an iunesi known.</p><ul class=\"list3 clearfix\">\n\t<li>Multiple Layout</li>\n\t<li>Awesome Shortcodes</li>\n\t<li>Browser Compatibility</li>\n\t<li>Easy to Edit Animations</li>\n\t<li>Parallax Effect</li>\n\t<li>Responsive Design</li>\n\t<li>Many Home Page Versions</li>\n\t<li>Many Blog Pages</li>\n</ul>"
+      }]
+    }, {
+      "label": "Programing",
+      "elements": [{
+        "type": "text",
+        "spacer": "none",
+        "body": "<p>Lorem Ipsum is simply dummy text of the printing and typeseting industry Lorem in text Ipsum has been the industry standar dummyy text ever since the when an iunesi known.</p><ul class=\"list3 clearfix\">\n\t<li>Multiple Layout</li>\n\t<li>Awesome Shortcodes</li>\n\t<li>Browser Compatibility</li>\n\t<li>Easy to Edit Animations</li>\n\t<li>Parallax Effect</li>\n\t<li>Responsive Design</li>\n\t<li>Many Home Page Versions</li>\n\t<li>Many Blog Pages</li>\n</ul>"
+      }]
+    }]
+  }, {
+    "type": "showcase-3v4",
+    "title": {
+      "label": "OUR FEATRUES",
+      "style": "style-v1"
+    },
+    "bg": {
+      "classes": "bg-shadow bg-fill-width"
+    },
+    "img": {
+      "src": "/assets/images/1-1/business-01.png",
+      "alt": "OUR FEATURES"
+    },
+    "elements": [{
+      "icon": {
+        "name": "verified_user"
+      },
+      "style": "style-v7",
+      "title": {
+        "label": "FREMIUM MODULES INCLUDED",
+        "href": "#"
+      },
+      "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority."
+    }, {
+      "icon": {
+        "name": "verified_user"
+      },
+      "style": "style-v7",
+      "title": {
+        "label": "FREMIUM MODULES INCLUDED",
+        "href": "#"
+      },
+      "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority."
+    }, {
+      "icon": {
+        "name": "favorite"
+      },
+      "style": "style-v7",
+      "title": {
+        "label": "FREMIUM MODULES INCLUDED",
+        "href": "#"
+      },
+      "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority."
+    }, {
+      "icon": {
+        "name": "android"
+      },
+      "style": "style-v7",
+      "title": {
+        "label": "FREMIUM MODULES INCLUDED",
+        "href": "#"
+      },
+      "content": "There are many variations of demo text passed sages of Lorem Ipsum available the majority."
+    }]
+  }]
+}

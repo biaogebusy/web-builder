@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  Inject,
   Input,
   OnInit,
 } from '@angular/core';
@@ -12,7 +13,8 @@ import { DialogComponent } from '../dialog/dialog.component';
 import { LoopWidgetsComponent } from '@uiux/widgets/loop-widgets/loop-widgets.component';
 import { DialogService } from '@core/service/dialog.service';
 import { BaseComponent } from '@uiux/base/base.widget';
-import { UserState } from '@core/mobx/user/UserState';
+import { IUser } from '@core/interface/IUser';
+import { USER } from '@core/token/token-providers';
 
 @Component({
   selector: 'app-link',
@@ -30,9 +32,9 @@ export class LinkComponent extends BaseComponent implements OnInit {
     private util: UtilitiesService,
     private dialog: MatDialog,
     private dialogService: DialogService,
-    public userState: UserState
+    @Inject(USER) public user: IUser
   ) {
-    super(userState);
+    super();
   }
 
   ngOnInit(): void {

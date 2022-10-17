@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { Subject, Observable, fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { action, observable } from 'mobx-angular';
-import { MatDrawer } from '@angular/material/sidenav';
 import { MediaObserver, MediaChange } from '@angular/flex-layout';
 import { ScreenService } from '@core/service/screen.service';
 
@@ -15,8 +13,7 @@ export class ScreenState {
   public drawer$ = new Subject();
   public stickyMenu$ = new Subject();
 
-  @observable viewPort: string[];
-  @observable isDrawer = false;
+  viewPort: string[];
 
   constructor(
     public breakpointObserver: BreakpointObserver,
@@ -29,7 +26,6 @@ export class ScreenState {
     }
   }
 
-  @action
   initScreen(): any {
     this.mqAlias$().subscribe((mq) => {
       this.viewPort = mq;
@@ -71,13 +67,7 @@ export class ScreenState {
       });
   }
 
-  @action
   toggleDrawer(open: boolean): any {
     this.drawer$.next();
-  }
-
-  @action
-  updateDrwer(drawer: MatDrawer): void {
-    this.isDrawer = drawer.opened;
   }
 }

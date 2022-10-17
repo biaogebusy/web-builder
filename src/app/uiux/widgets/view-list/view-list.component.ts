@@ -5,13 +5,15 @@ import {
   OnInit,
   ChangeDetectorRef,
   AfterViewInit,
+  Inject,
 } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { UserState } from '@core/mobx/user/UserState';
+import { IUser } from '@core/interface/IUser';
 import { DialogService } from '@core/service/dialog.service';
 import { FormService } from '@core/service/form.service';
 import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
+import { USER } from '@core/token/token-providers';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { isEmpty, merge } from 'lodash-es';
 import { of, Subject } from 'rxjs';
@@ -43,13 +45,13 @@ export class ViewListComponent
 
   constructor(
     private nodeService: NodeService,
-    public userState: UserState,
     private cd: ChangeDetectorRef,
     private formService: FormService,
     private dialogService: DialogService,
-    private screenService: ScreenService
+    private screenService: ScreenService,
+    @Inject(USER) private user: IUser
   ) {
-    super(userState);
+    super();
   }
 
   ngOnInit(): void {
@@ -60,7 +62,7 @@ export class ViewListComponent
 
   ngAfterViewInit(): void {
     const emptyHidden = this.getParams(this.content, 'emptyHidden');
-    if (this.checkShow(this.content) && !emptyHidden) {
+    if (this.checkShow(this.content, this.user) && !emptyHidden) {
       this.canShow = true;
       this.cd.detectChanges();
     }
@@ -71,7 +73,7 @@ export class ViewListComponent
   }
 
   getViews(options = {}): void {
-    const isRole = this.checkShow(this.content);
+    const isRole = this.checkShow(this.content, this.user);
     if (!isRole) {
       this.canShow = false;
       this.cd.detectChanges();
@@ -81,7 +83,7 @@ export class ViewListComponent
     const emptyHidden = this.getParams(this.content, 'emptyHidden');
     this.loading = true;
     this.nodeService
-      .search(this.content.params.apiType, params, this.userState.csrfToken)
+      .search(this.content.params.apiType, params, this.user.csrf_token)
       .pipe(
         catchError((error: any) => {
           if (error.status === 403) {

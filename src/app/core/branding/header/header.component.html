@@ -1,17 +1,17 @@
-<ng-container *ngIf="branding?.ready">
-  <header *ngIf="!appState.pageConfig?.headerMode?.transparent;else transparent">
-    <div class="static" [class.header-inverse]="branding.isInverse">
+<ng-container *ngIf="branding$ | async as branding">
+  <header *ngIf="!(contentState.pageConfig$|async)?.headerMode?.transparent;else transparent">
+    <div class="static" [class.header-inverse]="branding.header.params.inverse">
       <app-header-banner *ngIf="showBanner" [content]="branding.header.banner">
       </app-header-banner>
       <app-header-top *ngIf="branding.header?.top" [content]="branding.header.top"></app-header-top>
       <app-menu #menu [content]="branding.header"></app-menu>
     </div>
-    <app-menu class="sticky" [class.sticking]="sticky" [class.header-inverse]="branding.isInverse"
+    <app-menu class="sticky" [class.sticking]="sticky" [class.header-inverse]="branding.header.params.inverse"
       [content]="branding.header"></app-menu>
   </header>
   <ng-template #transparent>
-    <header #header class="transparent-mode" [class.header-inverse]="branding.isInverse"
-      [ngClass]="appState.pageConfig.headerMode.style">
+    <header #header class="transparent-mode" [class.header-inverse]="branding.header.params.inverse"
+      [ngClass]="(contentState.pageConfig$|async)?.headerMode?.style">
       <div class="static">
         <app-header-top *ngIf="branding.header?.top" [content]="branding.header.top"></app-header-top>
         <app-menu #menu [content]="branding.header"></app-menu>

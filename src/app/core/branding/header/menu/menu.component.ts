@@ -6,9 +6,9 @@ import {
   ChangeDetectorRef,
 } from '@angular/core';
 import { Event, NavigationStart, Router } from '@angular/router';
-import { AppState } from '@core/mobx/AppState';
-import type { IHeader } from '@core/mobx/IBranding';
+import type { IHeader } from '@core/interface/IBranding';
 import { ScreenState } from '@core/mobx/screen/ScreenState';
+import { version } from '../../../../../../package.json';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
@@ -17,13 +17,12 @@ import { ScreenState } from '@core/mobx/screen/ScreenState';
 })
 export class MenuComponent implements OnInit {
   @Input() isDrawer: boolean;
-  @Input() content: IHeader;
+  @Input() content: IHeader | null;
   isOpened = false;
   show = true;
 
   constructor(
     public screen: ScreenState,
-    public appState: AppState,
     private router: Router,
     private cd: ChangeDetectorRef
   ) {
@@ -49,5 +48,9 @@ export class MenuComponent implements OnInit {
 
   trackByFn(index: number, item: any): number {
     return index;
+  }
+
+  get version(): string {
+    return version;
   }
 }

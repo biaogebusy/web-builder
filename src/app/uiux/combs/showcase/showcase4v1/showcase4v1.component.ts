@@ -2,15 +2,17 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  Inject,
   Input,
   OnInit,
 } from '@angular/core';
-import { UserState } from '@core/mobx/user/UserState';
 import { DialogService } from '@core/service/dialog.service';
 import { NodeService } from '@core/service/node.service';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
+import { IUser } from '@core/interface/IUser';
+import { USER } from '@core/token/token-providers';
 
 @Component({
   selector: 'app-showcase4v1',
@@ -22,12 +24,12 @@ export class Showcase4v1Component extends BaseComponent implements OnInit {
   @Input() content: any;
   elements: any[];
   constructor(
-    public userState: UserState,
     private nodeService: NodeService,
     private cd: ChangeDetectorRef,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    @Inject(USER) public user: IUser
   ) {
-    super(userState);
+    super();
   }
 
   ngOnInit(): void {
@@ -45,32 +47,6 @@ export class Showcase4v1Component extends BaseComponent implements OnInit {
     this.nodeService
       .search(api, '')
       .pipe(
-        // map((data) => {
-        //   if (!data.rows.length) {
-        //     return {
-        //       rows: [
-        //         {
-        //           title: '\u65b0\u6307\u6d3e',
-        //           value: 15,
-        //           icon: 'replay\n',
-        //         },
-        //         {
-        //           title: '\u5df2\u5b8c\u5de5',
-        //           value: 12,
-        //           icon: 'done\n',
-        //         },
-        //       ],
-        //       pager: {
-        //         current_page: null,
-        //         total_items: 2,
-        //         total_pages: 0,
-        //         items_per_page: 0,
-        //       },
-        //     };
-        //   } else {
-        //     return data;
-        //   }
-        // }),
         catchError(() => {
           return of({
             rows: [],

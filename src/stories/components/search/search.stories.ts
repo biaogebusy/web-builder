@@ -2,16 +2,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { CORE_CONFIG } from '@core/token/core.config';
+import { CORE_CONFIG } from '@core/token/token-providers';
 import { HttpClientModule } from '@angular/common/http';
-import { WidgetsModule } from '../../../app/uiux/widgets/widgets.module';
 import { NgxWebstorageModule } from 'ngx-webstorage';
-import { ShareModule } from '../../../app/share/share.module';
 import { SwiperModule } from 'ngx-swiper-wrapper';
-import { AmapService } from '../../../app/core/service/amap.service';
-import { SearchComponent } from '../../../app/uiux/combs/search/search.component';
 import { SearchModule } from '@uiux/combs/search/search.module';
 import { apiUrlFactory, API_URL } from '@core/token/token-providers';
+import { AmapService } from '@core/service/amap.service';
+import { ShareModule } from '@share/share.module';
+import { SearchComponent } from '@uiux/combs/search/search.component';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
 export default {
   title: '组件/搜索/默认',
   component: SearchComponent,

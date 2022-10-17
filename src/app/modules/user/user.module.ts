@@ -6,11 +6,10 @@ import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { ListModule } from '@uiux/combs/list/list.module';
 import { CountdownModule } from 'ngx-countdown';
 import { UserComponent } from './user.component';
-import { UserHomeComponent } from './user-home/user-home.component';
 import { DynamicCombsModule } from '@uiux/combs/dynamic-combs/dynamic-combs.module';
 
 @NgModule({
-  declarations: [LoginComponent, UserComponent, UserHomeComponent],
+  declarations: [LoginComponent, UserComponent],
   imports: [
     ShareModule,
     WidgetsModule,

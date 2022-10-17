@@ -1,19 +1,19 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { SafeHtmlPipe } from '../../app/core/pipe/safe-html.pipe';
-import { ShareModule } from '../../app/share/share.module';
 import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { BreadcrumbComponent } from '../../app/uiux/widgets/breadcrumb/breadcrumb.component';
-import { WidgetsModule } from '../../app/uiux/widgets/widgets.module';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxWebstorageModule } from 'ngx-webstorage';
-import { CORE_CONFIG } from '@core/token/core.config';
+import { CORE_CONFIG } from '@core/token/token-providers';
 import { API_URL, apiUrlFactory } from '@core/token/token-providers';
+import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
+import { ShareModule } from '@share/share.module';
+import { BreadcrumbComponent } from '@uiux/widgets/breadcrumb/breadcrumb.component';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
 export default {
   title: '基础/面包屑',
   component: BreadcrumbComponent,
@@ -52,17 +52,21 @@ const Template: Story = (args) => ({
     ...args,
   },
 });
-export const Breadcrumb = Template.bind({});
+export const Base = Template.bind({});
 
-Breadcrumb.args = {
+Base.args = {
   content: [
     {
-      label: 'Home',
+      label: '首页',
       href: '#',
     },
     {
-      label: 'Contact Us',
-      href: '/about',
+      label: '组件',
+      href: '#',
+    },
+    {
+      label: '横幅',
+      href: '#',
     },
   ],
 };

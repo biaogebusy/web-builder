@@ -12,7 +12,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SpacerComponent implements OnInit {
-  @Input() size: any;
+  @Input() size: string;
   constructor() {}
 
   ngOnInit(): void {}

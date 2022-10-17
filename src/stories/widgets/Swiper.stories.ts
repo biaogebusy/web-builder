@@ -1,12 +1,11 @@
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { SafeHtmlPipe } from '../../app/core/pipe/safe-html.pipe';
-import { CORE_CONFIG } from '../../app/core/token/core.config';
-import { ShareModule } from '../../app/share/share.module';
+import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
+import { CORE_CONFIG } from '@core/token/token-providers';
+import { ShareModule } from '@share/share.module';
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { SwiperComponent } from '../../app/uiux/widgets/swiper/swiper.component';
-import { WidgetsModule } from '../../app/uiux/widgets/widgets.module';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { SwiperComponent } from 'ngx-swiper-wrapper';
 
 export default {
   title: '基础/Swiper',
@@ -31,9 +30,9 @@ const Template: Story = (args) => ({
     ...args,
   },
 });
-export const Default = Template.bind({});
+export const Base = Template.bind({});
 
-Default.args = {
+Base.args = {
   content: {
     params: {
       slidesPerView: 1.2,
@@ -54,10 +53,10 @@ Default.args = {
     elements: [
       {
         type: 'card',
-        title: 'JOHNSON',
-        subTitle: 'Frontend Devel',
+        title: '高性能',
+        subTitle: 'High Performance',
         classes: 'card-no-shadow',
-        body: 'Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. ',
+        body: '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
         feature: {
           fullIcon: 'fullscreen',
           openIcon: 'open_in_new',
@@ -83,10 +82,10 @@ Default.args = {
             alt: 'alt',
           },
         },
-        title: 'JOHNSON',
-        subTitle: 'Frontend Devel',
+        title: '易用的编辑器',
+        subTitle: 'Simplicity for Editors',
         classes: 'card-no-shadow',
-        body: 'Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. ',
+        body: '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作；',
       },
       {
         type: 'card',
@@ -101,10 +100,10 @@ Default.args = {
             alt: 'alt',
           },
         },
-        title: 'Will',
-        subTitle: 'Frontend Devel',
+        title: '多语言',
+        subTitle: 'Leader in Multilingual',
         classes: 'card-no-shadow',
-        body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr. ',
+        body: 'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程；',
       },
       {
         type: 'card',
@@ -119,10 +118,10 @@ Default.args = {
             alt: 'alt',
           },
         },
-        title: 'Tamy',
-        subTitle: 'Backend Devel',
+        title: '更有弹性',
+        subTitle: 'Flexibility',
         classes: 'card-no-shadow',
-        body: 'Sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.',
+        body: '无论是一个还是多个站点，Drupal 总是可以游刃有余的构建；',
       },
       {
         type: 'card',
@@ -137,46 +136,10 @@ Default.args = {
             alt: 'alt',
           },
         },
-        title: 'Ada',
-        subTitle: 'Frontend Devel',
+        title: '安全性',
+        subTitle: 'Rigorous Security',
         classes: 'card-no-shadow',
-        body: 'Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat.',
-      },
-      {
-        type: 'card',
-        feature: {
-          fullIcon: 'fullscreen',
-          openIcon: 'open_in_new',
-          link: '#',
-          ratios: 'media-4-3',
-          img: {
-            classes: 'object-fit',
-            src: '/assets/images/cases/porto5.jpg',
-            alt: 'alt',
-          },
-        },
-        title: 'MeiMei',
-        subTitle: 'Frontend Devel',
-        classes: 'card-no-shadow',
-        body: 'Vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim.',
-      },
-      {
-        type: 'card',
-        feature: {
-          fullIcon: 'fullscreen',
-          openIcon: 'open_in_new',
-          link: '#',
-          ratios: 'media-4-3',
-          img: {
-            classes: 'object-fit',
-            src: '/assets/images/cases/porto6.jpg',
-            alt: 'alt',
-          },
-        },
-        title: 'Nikki',
-        subTitle: 'BA Test',
-        classes: 'card-no-shadow',
-        body: 'Consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.',
+        body: '为了抵御安全漏洞，将有一组团队解决并发布安全修补程序，超过45000名贡献者使该平台成为市场上最安全、最稳定的平台之一；',
       },
     ],
   },

@@ -6,15 +6,16 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { CORE_CONFIG } from '@core/token/core.config';
+import { CORE_CONFIG } from '@core/token/token-providers';
 import { HttpClientModule } from '@angular/common/http';
-import { WidgetsModule } from '../../../app/uiux/widgets/widgets.module';
 import { NgxWebstorageModule } from 'ngx-webstorage';
-import { ShareModule } from '../../../app/share/share.module';
 import { Showcase3v4Component } from '@uiux/combs/showcase/showcase3v4/showcase3v4.component';
 import { API_URL, apiUrlFactory } from '@core/token/token-providers';
+import { ShareModule } from '@share/share.module';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import * as BoxStories from 'src/stories/widgets/base/Box.stories';
 export default {
-  title: '组件/showcase/3v4',
+  title: '组件/展示/3v4',
   component: Showcase3v4Component,
   decorators: [
     moduleMetadata({
@@ -49,7 +50,7 @@ const Template: Story = (args) => ({
   },
 });
 export const Default = Template.bind({});
-
+const BoxStyleV7: any = BoxStories.StyleV7.args;
 Default.args = {
   content: {
     title: {
@@ -65,52 +66,41 @@ Default.args = {
     },
     elements: [
       {
-        icon: {
-          name: 'verified_user',
-        },
-        style: 'style-v7',
-        title: {
-          label: 'FREMIUM MODULES INCLUDED',
-          href: '#',
-        },
-        content:
-          'There are many variations of demo text passed sages of Lorem Ipsum available the majority.',
+        ...BoxStyleV7.content,
       },
       {
+        ...BoxStyleV7.content,
         icon: {
           name: 'fingerprint',
         },
-        style: 'style-v7',
         title: {
-          label: 'FREMIUM MODULES INCLUDED',
-          href: '#',
+          href: '/',
+          label: '多语言',
         },
-        content:
-          'There are many variations of demo text passed sages of Lorem Ipsum available the majority.',
+        content: 'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程',
       },
       {
+        ...BoxStyleV7.content,
         icon: {
           name: 'favorite',
         },
-        style: 'style-v7',
         title: {
-          label: 'FREMIUM MODULES INCLUDED',
-          href: '#',
+          href: '/',
+          label: '高性能',
         },
         content:
-          'There are many variations of demo text passed sages of Lorem Ipsum available the majority.',
+          '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快',
       },
       {
+        ...BoxStyleV7.content,
         icon: {
           name: 'android',
         },
-        style: 'style-v7',
         title: {
-          label: 'FREMIUM MODULES INCLUDED',
-          href: '#',
+          href: '/',
+          label: '易用的编辑器',
         },
-        content:
-          'There are many variations of demo text passed sages of Lorem Ipsum available the majority.',
+        content: '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作',
       },
     ],
   },
@@ -120,10 +110,7 @@ export const Background = Template.bind({});
 
 Background.args = {
   content: {
-    title: {
-      label: 'OUR FEATRUES',
-      style: 'style-v1',
-    },
+    ...Default.args.content,
     bg: {
       classes: 'bg-shadow bg-fill-width',
     },
@@ -131,55 +118,5 @@ Background.args = {
       src: '/assets/images/1-1/business-02.png',
       alt: 'OUR FEATURES',
     },
-    elements: [
-      {
-        icon: {
-          name: 'verified_user',
-        },
-        style: 'style-v7',
-        title: {
-          label: 'FREMIUM MODULES INCLUDED',
-          href: '#',
-        },
-        content:
-          'There are many variations of demo text passed sages of Lorem Ipsum available the majority.',
-      },
-      {
-        icon: {
-          name: 'fingerprint',
-        },
-        style: 'style-v7',
-        title: {
-          label: 'FREMIUM MODULES INCLUDED',
-          href: '#',
-        },
-        content:
-          'There are many variations of demo text passed sages of Lorem Ipsum available the majority.',
-      },
-      {
-        icon: {
-          name: 'favorite',
-        },
-        style: 'style-v7',
-        title: {
-          label: 'FREMIUM MODULES INCLUDED',
-          href: '#',
-        },
-        content:
-          'There are many variations of demo text passed sages of Lorem Ipsum available the majority.',
-      },
-      {
-        icon: {
-          name: 'android',
-        },
-        style: 'style-v7',
-        title: {
-          label: 'FREMIUM MODULES INCLUDED',
-          href: '#',
-        },
-        content:
-          'There are many variations of demo text passed sages of Lorem Ipsum available the majority.',
-      },
-    ],
   },
 };

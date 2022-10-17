@@ -1,23 +1,22 @@
 <div class="user">
-  <ng-container *ngIf="!userState.authenticated">
-    <button aria-label="user login" color="primary" [routerLink]="[env?.drupalProxy?'/my':'/me/login']" mat-mini-fab
-      mat-button>
+  <ng-container *ngIf="!currentUser.authenticated">
+    <button aria-label="user login" color="primary" [routerLink]="userLink" mat-mini-fab mat-button>
       <mat-icon>person</mat-icon>
     </button>
   </ng-container>
-  <ng-container *ngIf="userState.authenticated">
-    <button aria-label="user name" *ngIf="!userState.picture; else picture" mat-mini-fab color="primary" mat-button
+  <ng-container *ngIf="currentUser.authenticated">
+    <button aria-label="user name" *ngIf="!currentUser.picture; else picture" mat-mini-fab color="primary" mat-button
       [matMenuTriggerFor]="menu">
       <h3 class="name">
-        {{utilities.getIndexTitle(userState?.currentUser?.display_name || 'N')}}</h3>
+        {{utilities.getIndexTitle(currentUser.display_name || 'N')}}</h3>
     </button>
     <ng-template #picture>
-      <img class="user-picture" [matMenuTriggerFor]="menu" [src]="userState.picture"
-        alt="{{userState.currentUser.display_name}}">
+      <img class="user-picture" [matMenuTriggerFor]="menu" [src]="currentUser.picture"
+        alt="{{currentUser.display_name}}">
     </ng-template>
     <mat-menu #menu="matMenu" class="user-dropdown">
       <a mat-menu-item [routerLink]="userPage">
-        <mat-icon>account_circle</mat-icon>{{userState.currentUser?.display_name}}
+        <mat-icon>account_circle</mat-icon>{{currentUser.display_name}}
       </a>
       <ng-container *ngFor="let item of content;trackBy:trackByFn">
         <button aria-label="dialog" *ngIf="item.dialog;else link" mat-menu-item (click)="openDialog(item.dialog)">

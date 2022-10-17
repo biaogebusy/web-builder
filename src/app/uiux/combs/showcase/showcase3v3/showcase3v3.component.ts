@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -12,12 +13,14 @@ import {
   styleUrls: ['./showcase3v3.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Showcase3v3Component implements OnInit {
+export class Showcase3v3Component implements OnInit, AfterViewInit {
   @Input() content: any;
   isShow: boolean;
   constructor(private cd: ChangeDetectorRef) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  ngAfterViewInit(): void {
     this.showImage();
   }
 
