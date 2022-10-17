@@ -3,7 +3,7 @@ import { ITitle } from './ITitle';
 
 export interface IText {
   id?: string;
-  spacer?: string;
+  spacer?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'none';
   bg?: IBgImg;
   classes?: string;
   style?: any;
@@ -17,4 +17,11 @@ export interface IText {
     elements: any[];
   };
   actions?: any[];
+}
+
+export interface ITextHero {
+  params: object;
+  theme: string;
+  id?: string;
+  text: IText;
 }

@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { ITab } from '@core/interface/widgets/ITab';
 
 @Component({
   selector: 'app-tab',
@@ -12,7 +13,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TabComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: ITab;
   constructor() {}
 
   ngOnInit(): void {}

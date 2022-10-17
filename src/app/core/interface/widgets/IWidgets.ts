@@ -1,3 +1,7 @@
+import { ThemePalette } from '@angular/material/core';
+import { ProgressBarMode } from '@angular/material/progress-bar';
+import { IImg } from './IImg';
+
 export interface IInlineLightbox {
   label: string[];
   elements: ILightboxElement[];
@@ -45,4 +49,24 @@ export interface IIframe {
   url: string;
   title?: string;
   id?: string;
+}
+
+export interface IProgressBar {
+  label?: string;
+  color: ThemePalette;
+  mode: ProgressBarMode;
+  value: number;
+  bufferValue: number;
+}
+
+export interface IProgressGroup {
+  elements: IProgressBar[];
+}
+
+export interface ITestimonial {
+  style: object | string;
+  img: IImg;
+  title: string;
+  subTitle: string;
+  body: string;
 }

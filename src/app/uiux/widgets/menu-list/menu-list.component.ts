@@ -4,7 +4,10 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import type { IMenuList } from '@core/interface/widgets/IMenuList';
+import type {
+  IMenuList,
+  IMenuListItem,
+} from '@core/interface/widgets/IMenuList';
 import { ScreenService } from '@core/service/screen.service';
 
 @Component({
@@ -15,8 +18,8 @@ import { ScreenService } from '@core/service/screen.service';
 })
 export class MenuListComponent implements OnInit {
   @Input() content: IMenuList;
-  list: any[];
-  initList: any[];
+  list: IMenuListItem[];
+  initList: IMenuListItem[];
   expand = false;
   row = 12;
   constructor(private screenService: ScreenService) {}

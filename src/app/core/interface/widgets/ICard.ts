@@ -4,6 +4,7 @@ import { ILink } from './ILink';
 import { IFeatureBox } from './IFeatureBox';
 import { IBg } from './IBg';
 import { INumberAnimate } from './INumberAnimate';
+import { IProgressBar } from './IWidgets';
 
 export interface ICard {
   title?: string;
@@ -32,10 +33,7 @@ export interface ICard {
   overlay?: any[];
   link?: ILink;
   actions?: any;
-  progressBar?: {
-    mode: 'determinate' | 'indeterminate' | 'buffer' | 'query';
-    value: number;
-  };
+  progressBar?: IProgressBar;
 }
 
 export interface IMeta {

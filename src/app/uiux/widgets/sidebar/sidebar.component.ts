@@ -12,7 +12,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SidebarComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: any[];
   constructor() {}
 
   ngOnInit(): void {}

@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { ITextHero } from '@core/interface/widgets/IText';
 
 @Component({
   selector: 'app-text-hero',
@@ -12,7 +13,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TextHeroComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: ITextHero;
   constructor() {}
 
   ngOnInit(): void {}

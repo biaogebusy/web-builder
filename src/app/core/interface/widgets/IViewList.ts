@@ -4,7 +4,7 @@ import { IText } from './IText';
 
 export interface IViewList {
   type: string;
-  spacer?: string;
+  spacer?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'none';
   params: Params;
   header: Header[];
   form: FormlyFieldConfig[];

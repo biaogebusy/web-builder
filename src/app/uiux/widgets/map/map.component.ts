@@ -39,7 +39,7 @@ export class MapComponent implements OnInit, OnDestroy {
     this.initMap(this.content);
   }
 
-  initMap(content: any): void {
+  initMap(content: IMap): void {
     const amapConfig: IAmap = this.coreConfig.amap;
     if (!amapConfig) {
       return;
@@ -50,14 +50,8 @@ export class MapComponent implements OnInit, OnDestroy {
         this.geocoder = new AMap.Geocoder({
           city: this.content?.city || this.coreConfig?.amap?.city || '全国',
         });
-        let lists = [];
-        if (isArray(content)) {
-          lists = content;
-        } else {
-          lists = content.elements;
-        }
-        this.getPosition(lists);
-        this.getMarkers(lists);
+        this.getPosition(content.elements);
+        this.getMarkers(content.elements);
       },
       (error) => {
         console.log(error);
