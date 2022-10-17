@@ -4,10 +4,8 @@ import listPlugin from '@fullcalendar/list';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import { LightboxModule } from 'ngx-lightbox';
-import { SwiperModule } from 'ngx-swiper-wrapper';
-import { SWIPER_CONFIG } from 'ngx-swiper-wrapper';
 import { ShareModule } from '@share/share.module';
-import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
+import { SwiperModule } from 'swiper/angular';
 import { CountToModule } from 'angular-count-to';
 import { DynamicModule } from 'ng-dynamic-component';
 import { TreeModule } from '@circlon/angular-tree-component';
@@ -72,7 +70,7 @@ import { MediaObjectGroupComponent } from './media/media-object-group/media-obje
 import { DialogComponent } from './dialog/dialog.component';
 import { DynamicFormControlComponent } from './dynamic-form-control/dynamic-form-control.component';
 import { SelectComponent } from './form/select/select.component';
-import { PaginationSimpleComponent } from './pagination/pagination-simple/pagination-simple.component';
+import { PaginationLinksComponent } from './pagination/pagination-links/pagination-links.component';
 import { FlagComponent } from './actions/flag/flag.component';
 import { ShapeComponent } from './shape/shape.component';
 import { BgImgComponent } from './bg-img/bg-img.component';
@@ -109,11 +107,6 @@ import { ChartComponent } from './chart/chart.component';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { StepperComponent } from './stepper/stepper.component';
 import { FormlyComponent } from './form/formly/formly.component';
-
-const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
-  direction: 'horizontal',
-  slidesPerView: 'auto',
-};
 
 FullCalendarModule.registerPlugins([
   // register FullCalendar plugins
@@ -165,7 +158,7 @@ const components = [
   MediaObjectComponent,
   MenuListComponent,
   PaginationComponent,
-  PaginationSimpleComponent,
+  PaginationLinksComponent,
   ProgressBarComponent,
   ProgressGroupComponent,
   SafeHtmlPipe,
@@ -205,7 +198,6 @@ const components = [
   imports: [
     MatChipsModule,
     ShareModule,
-    SwiperModule,
     TreeModule,
     LightboxModule,
     CountToModule,
@@ -221,6 +213,7 @@ const components = [
     FormlyMatSliderModule,
     FormlyMatToggleModule,
     MatCheckboxModule,
+    SwiperModule,
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts'),
     }),
@@ -251,10 +244,6 @@ const components = [
   exports: [...components],
   providers: [
     MatDatepickerModule,
-    {
-      provide: SWIPER_CONFIG,
-      useValue: DEFAULT_SWIPER_CONFIG,
-    },
     // { provide: MAT_DATE_LOCALE, useValue: 'zh-cn' },
   ],
 })

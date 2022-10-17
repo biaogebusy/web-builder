@@ -1,45 +1,19 @@
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
 import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { CORE_CONFIG } from '@core/token/token-providers';
-import { HttpClientModule } from '@angular/common/http';
-import { NgxWebstorageModule } from 'ngx-webstorage';
-import { SwiperModule } from 'ngx-swiper-wrapper';
 import { Showcase1v1Component } from '@uiux/combs/showcase/showcase1v1/showcase1v1.component';
-import { apiUrlFactory, API_URL } from '@core/token/token-providers';
-import { ShareModule } from '@share/share.module';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { StorysModule } from '@core/storys.module';
 export default {
   title: '组件/展示/1v2',
+  id: 'showcase-1v2',
   component: Showcase1v1Component,
   decorators: [
     moduleMetadata({
       declarations: [],
-      imports: [
-        RouterTestingModule,
-        BrowserAnimationsModule,
-        WidgetsModule,
-        ShareModule,
-        SwiperModule,
-        HttpClientModule,
-        NgxWebstorageModule.forRoot(),
-      ],
-      providers: [
-        {
-          provide: CORE_CONFIG,
-          useValue: {},
-        },
-        {
-          provide: API_URL,
-          useFactory: apiUrlFactory,
-          deps: [],
-        },
-      ],
+      imports: [StorysModule.forRoot()],
     }),
     componentWrapperDecorator((story) => `${story}`),
   ],

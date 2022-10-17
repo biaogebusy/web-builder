@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PaginationSimpleComponent } from './pagination-simple.component';
+import { SearchFilterDialogComponent } from './search-filter-dialog.component';
 
-describe('PaginationSimpleComponent', () => {
-  let component: PaginationSimpleComponent;
-  let fixture: ComponentFixture<PaginationSimpleComponent>;
+describe('SearchFilterDialogComponent', () => {
+  let component: SearchFilterDialogComponent;
+  let fixture: ComponentFixture<SearchFilterDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PaginationSimpleComponent ]
+      declarations: [ SearchFilterDialogComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PaginationSimpleComponent);
+    fixture = TestBed.createComponent(SearchFilterDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -12,7 +12,7 @@ import { takeUntil } from 'rxjs/operators';
 import { formatDate } from '@angular/common';
 import { ScreenService } from '@core/service/screen.service';
 import { Subject } from 'rxjs';
-import { IUser } from '@core/interface/IUser';
+import type { IUser } from '@core/interface/IUser';
 import { USER } from '@core/token/token-providers';
 @Component({
   selector: 'app-user-favorite',

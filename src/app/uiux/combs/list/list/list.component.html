@@ -6,7 +6,7 @@
     <ng-container *ngIf="links">
       <app-showcase3v3 [content]="item" *ngFor="let item of content; trackBy: trackByFn">
       </app-showcase3v3>
-      <app-pagination-simple (pageChange)="onPageChange($event)" [links]="links"></app-pagination-simple>
+      <app-pagination-links (pageChange)="onPageChange($event)" [links]="links"></app-pagination-links>
     </ng-container>
     <ng-container *ngIf="pager">
       <app-showcase3v3 [content]="item" *ngFor="let item of content | paginate: { itemsPerPage: pager.itemsPerPage || 20, currentPage: p }; trackBy:

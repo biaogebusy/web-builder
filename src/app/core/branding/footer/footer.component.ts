@@ -14,7 +14,7 @@ import { ScreenState } from '../../mobx/screen/ScreenState';
 import { ScreenService } from '@core/service/screen.service';
 import { BRANDING } from '@core/token/token-providers';
 import { Observable } from 'rxjs';
-import { IBranding } from '@core/interface/IBranding';
+import type { IBranding } from '@core/interface/IBranding';
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html',

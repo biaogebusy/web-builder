@@ -1,39 +1,16 @@
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { CORE_CONFIG } from '@core/token/token-providers';
-import { HttpClientModule } from '@angular/common/http';
-import { NgxWebstorageModule } from 'ngx-webstorage';
-import { apiUrlFactory, API_URL } from '@core/token/token-providers';
-import { FullCalendarComponent } from '@fullcalendar/angular';
-import { ShareModule } from '@share/share.module';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { FullCalendarComponent } from '@uiux/combs/calendar/full-calendar/full-calendar.component';
+import { StorysModule } from '@core/storys.module';
+
 export default {
   title: '特色组件/日历/Full calendar',
+  id: 'full-calendar',
   component: FullCalendarComponent,
   decorators: [
     moduleMetadata({
       declarations: [],
-      imports: [
-        RouterTestingModule,
-        BrowserAnimationsModule,
-        WidgetsModule,
-        ShareModule,
-        HttpClientModule,
-        NgxWebstorageModule.forRoot(),
-      ],
-      providers: [
-        {
-          provide: CORE_CONFIG,
-          useValue: {},
-        },
-        {
-          provide: API_URL,
-          useFactory: apiUrlFactory,
-          deps: [],
-        },
-      ],
+      imports: [StorysModule.forRoot()],
     }),
   ],
   parameters: {
@@ -78,16 +55,16 @@ Default.args = {
         label: '内容来源',
         options: [
           {
-            label: '案件',
-            value: 'case',
+            label: '文章',
+            value: 'article',
+          },
+          {
+            label: '博客',
+            value: 'blog',
           },
           {
             label: '会议',
-            value: 'meeting',
-          },
-          {
-            label: '项目',
-            value: 'project',
+            value: 'metting',
           },
         ],
       },
@@ -98,20 +75,16 @@ Default.args = {
         label: '最新更新',
         options: [
           {
-            label: '案件',
-            value: 'case',
+            label: '文章',
+            value: 'article',
           },
           {
-            label: '会议管理',
-            value: 'meeting',
+            label: '博客',
+            value: 'blog',
           },
           {
-            label: '项目管理',
-            value: 'project',
-          },
-          {
-            label: '资料文库',
-            value: 'doc_lib',
+            label: '会议',
+            value: 'metting',
           },
         ],
       },

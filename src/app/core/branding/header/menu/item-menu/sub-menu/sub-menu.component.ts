@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { USER } from '@core/token/token-providers';
-import { IUser } from '@core/interface/IUser';
+import type { IUser } from '@core/interface/IUser';
 
 @Component({
   selector: 'app-sub-menu',

@@ -19,7 +19,7 @@ import { CORE_CONFIG } from '@core/token/token-providers';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ImgComponent implements OnInit {
-  @Input() content: IImg;
+  @Input() content: IImg | undefined;
   @HostBinding('class') hostClasses: any;
 
   constructor(
@@ -30,7 +30,7 @@ export class ImgComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      if (this.content.hostClasses) {
+      if (this.content?.hostClasses) {
         this.hostClasses = this.content.hostClasses;
       }
     }

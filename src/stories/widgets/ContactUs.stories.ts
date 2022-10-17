@@ -4,42 +4,16 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { RouterTestingModule } from '@angular/router/testing';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
-import { NgxWebstorageModule } from 'ngx-webstorage';
-import { API_URL, apiUrlFactory } from '@core/token/token-providers';
-import { FormService } from '@core/service/form.service';
-import { CORE_CONFIG } from '@core/token/token-providers';
-import { ShareModule } from '@share/share.module';
 import { ContactUsComponent } from '@uiux/widgets/contact-us/contact-us.component';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { StorysModule } from '@core/storys.module';
 export default {
   title: '基础/联系我们',
+  id: 'contact-us',
   component: ContactUsComponent,
   decorators: [
     moduleMetadata({
       declarations: [],
-      imports: [
-        ShareModule,
-        WidgetsModule,
-        RouterTestingModule,
-        BrowserAnimationsModule,
-        HttpClientModule,
-        NgxWebstorageModule.forRoot(),
-      ],
-      providers: [
-        FormService,
-        {
-          provide: CORE_CONFIG,
-          userValue: {},
-        },
-        {
-          provide: API_URL,
-          useFactory: apiUrlFactory,
-          deps: [],
-        },
-      ],
+      imports: [StorysModule.forRoot()],
     }),
     componentWrapperDecorator(
       (story) =>
@@ -66,7 +40,7 @@ Base.args = {
       icon: 'wave',
     },
     action: {
-      label: 'Submit',
+      label: '提交',
     },
     formOrder: '1',
     contact: [
@@ -114,7 +88,7 @@ Base.args = {
     forms: [
       {
         type: 'input',
-        label: 'Name',
+        label: '姓名',
         key: 'name',
         params: {
           required: true,
@@ -130,7 +104,7 @@ Base.args = {
       },
       {
         type: 'input',
-        label: 'Subject',
+        label: '主题',
         key: 'subject',
         params: {
           required: true,
@@ -138,7 +112,7 @@ Base.args = {
       },
       {
         type: 'textarea',
-        label: 'Message',
+        label: '内容',
         params: {
           required: true,
           matAutosizeMinRows: 5,

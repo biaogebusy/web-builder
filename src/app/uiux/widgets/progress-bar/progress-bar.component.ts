@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { IProgressBar } from '@core/interface/widgets/IWidgets';
 
 @Component({
   selector: 'app-progress-bar',
@@ -12,7 +13,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProgressBarComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: IProgressBar;
   constructor() {}
 
   ngOnInit(): void {}

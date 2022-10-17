@@ -6,7 +6,7 @@ import { Hero1v1Component } from './hero1v1/hero1v1.component';
 import { Hero2v2Component } from './hero2v2/hero2v2.component';
 import { Hero2v3Component } from './hero2v3/hero2v3.component';
 import { Hero1v2Component } from './hero1v2/hero1v2.component';
-import { SwiperModule } from 'ngx-swiper-wrapper';
+import { SwiperModule } from 'swiper/angular';
 
 const components = [
   Hero1v1Component,

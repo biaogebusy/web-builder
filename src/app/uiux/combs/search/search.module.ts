@@ -7,6 +7,8 @@ import { SearchHeaderComponent } from './search-header/search-header.component';
 import { SearchListComponent } from './search-list/search-list.component';
 import { SearchTopComponent } from './search-top/search-top.component';
 import { SearchStatusComponent } from './search-status/search-status.component';
+import { SearchFilterDialogComponent } from './search-filter-dialog/search-filter-dialog.component';
+import { SearchFilterItemComponent } from './search-filter-dialog/search-filter-item/search-filter-item.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +17,8 @@ import { SearchStatusComponent } from './search-status/search-status.component';
     SearchListComponent,
     SearchTopComponent,
     SearchStatusComponent,
+    SearchFilterDialogComponent,
+    SearchFilterItemComponent,
   ],
   imports: [ShareModule, WidgetsModule, HeroModule],
   exports: [SearchComponent, SearchListComponent, SearchHeaderComponent],

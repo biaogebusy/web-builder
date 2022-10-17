@@ -1,39 +1,16 @@
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
-import { CORE_CONFIG } from '@core/token/token-providers';
-import { HttpClientModule } from '@angular/common/http';
-import { apiUrlFactory, API_URL } from '@core/token/token-providers';
-import { NgxWebstorageModule } from 'ngx-webstorage';
 import { Action1v1Component } from '@uiux/combs/action/action1v1/action1v1.component';
-import { CombsModule } from '@uiux/combs/combs.module';
+import { StorysModule } from '@core/storys.module';
+
 export default {
   title: '组件/引导/Action 1v1',
+  id: 'action-1v1',
   component: Action1v1Component,
   decorators: [
     moduleMetadata({
       declarations: [],
-      imports: [
-        RouterTestingModule,
-        BrowserAnimationsModule,
-        HttpClientModule,
-        CombsModule,
-        NgxWebstorageModule.forRoot(),
-      ],
-      providers: [
-        SafeHtmlPipe,
-        {
-          provide: CORE_CONFIG,
-          useValue: {},
-        },
-        {
-          provide: API_URL,
-          useFactory: apiUrlFactory,
-          deps: [],
-        },
-      ],
+      imports: [StorysModule.forRoot()],
     }),
   ],
   parameters: {
@@ -66,7 +43,7 @@ Default.args = {
         classes: 'mat-display-1',
       },
       spacer: 'none',
-      body: '<p>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>',
+      body: '<p>这里有你想要的答案，请根据以下筛选条件选择进行搜索。</p>',
       actions: [
         {
           type: 'search-action',

@@ -1,10 +1,10 @@
 <mat-chip-list *ngIf="content" [ngClass]="classes">
   <mat-chip color="{{item?.color || 'primary'}}" selected="{{item?.selected}}" *ngFor="let item of content.elements">
-    <ng-container *ngIf="!item.href;else link">
+    <ng-container *ngIf="!item.link;else link">
       {{item.label}}
     </ng-container>
     <ng-template #link>
-      <app-link [content]="item"></app-link>
+      <app-link *ngIf="item.link" [content]="item.link"></app-link>
     </ng-template>
   </mat-chip>
 </mat-chip-list>

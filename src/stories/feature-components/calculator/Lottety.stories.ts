@@ -4,41 +4,25 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { API_URL, apiUrlFactory } from '@core/token/token-providers';
-import { APP_INITIALIZER, Inject } from '@angular/core';
-import { AppState } from '@core/mobx/AppState';
-import { initConfig } from 'src/app/app.module';
 import { LotteryComponent } from '@uiux/combs/calculator/lottery/lottery.component';
-import { ShareModule } from '@share/share.module';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
-import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
-import { CORE_CONFIG } from '@core/token/token-providers';
-import { CalculatorModule } from '@uiux/combs/calculator/calculator.module';
-import { HttpClientModule } from '@angular/common/http';
-import { NgxWebstorageModule } from 'ngx-webstorage';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormlyModule } from '@ngx-formly/core';
 import { FormlyMaterialModule } from '@ngx-formly/material';
 import { FormlyMatSliderModule } from '@ngx-formly/material/slider';
 import { FormlyMatToggleModule } from '@ngx-formly/material/toggle';
 import { DateRangeComponent } from '@uiux/widgets/form/formly-type/date-range/date-range.component';
 import { MatSelectComponent } from '@uiux/widgets/form/formly-type/mat-select/mat-select.component';
-import { MatSliderModule } from '@angular/material/slider';
 import { FormGroup } from '@angular/forms';
+import { StorysModule } from '@core/storys.module';
 
 export default {
   title: '特色组件/计算器/红包预算',
+  id: 'lottery',
   component: LotteryComponent,
   decorators: [
     moduleMetadata({
       declarations: [],
       imports: [
-        ShareModule,
-        WidgetsModule,
-        CalculatorModule,
-        HttpClientModule,
-        BrowserAnimationsModule,
-        MatSliderModule,
+        StorysModule.forRoot(),
         FormlyMaterialModule,
         FormlyMatSliderModule,
         FormlyMatToggleModule,
@@ -65,33 +49,11 @@ export default {
             },
           ],
         }),
-        NgxWebstorageModule.forRoot(),
-      ],
-      providers: [
-        SafeHtmlPipe,
-        {
-          provide: CORE_CONFIG,
-          useValue: {},
-        },
-        {
-          provide: APP_INITIALIZER,
-          useFactory: initConfig,
-          deps: [AppState, [new Inject(CORE_CONFIG)]],
-          multi: true,
-        },
-        {
-          provide: API_URL,
-          useFactory: apiUrlFactory,
-          deps: [],
-        },
       ],
     }),
     componentWrapperDecorator(
       (story) => `
       ${story}
-      <p>
-      {{model|json}}
-      </p>
     `
     ),
   ],
@@ -384,7 +346,5 @@ Default.args = {
         },
       ],
     },
-    description:
-      '<ul class="list-done"><li>总金额 = 红包总金额（大额+小额）+ 推广金额</li><li>当红包总金额没有余额时不可再抽奖</li><li>推广总金额没有余额时停止推广</li><li>推广员按比例所得：用户抽得金额*推广比例</li><li>以上参数只是预估，实际业务中会有变差，仅做参考</li></ul>',
   },
 };

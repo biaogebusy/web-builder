@@ -6,13 +6,13 @@ import {
   OnInit,
 } from '@angular/core';
 import { NodeService } from '@core/service/node.service';
-import { IChipList } from './IJob';
 import { map } from 'lodash-es';
-import { AMapState } from '@core/mobx/amap/AMapState';
 import { RouteService } from '@core/service/route.service';
 import { Params, ActivatedRoute } from '@angular/router';
 import { TagsService } from '@core/service/tags.service';
 import { ScreenService } from '@core/service/screen.service';
+import { AmapService } from '@core/service/amap.service';
+import { IMap } from '@core/interface/IAmap';
 
 const feature = {
   type: 'showcase-3v6',
@@ -150,7 +150,9 @@ const feature = {
 })
 export class JobComponent implements OnInit {
   @Input() content: any;
-  nodes: any[];
+  nodes: IMap = {
+    elements: [],
+  };
   autoList: any[];
   skills: string[];
   selectedSkill: string;
@@ -165,15 +167,13 @@ export class JobComponent implements OnInit {
   show = false;
   constructor(
     private nodeService: NodeService,
-    public amapState: AMapState,
+    private amapService: AmapService,
     private tagsService: TagsService,
     private routerService: RouteService,
     private route: ActivatedRoute,
     private screenService: ScreenService,
     private cd: ChangeDetectorRef
-  ) {
-    this.nodes = [];
-  }
+  ) {}
 
   ngOnInit(): void {
     this.tagsService.setTitle('内推职位列表');
@@ -218,17 +218,6 @@ export class JobComponent implements OnInit {
     });
   }
 
-  getWelfare(lists: string[]): IChipList[] {
-    return lists
-      .map((list) => {
-        return {
-          color: 'primary',
-          label: list,
-        };
-      })
-      .slice(0, 4);
-  }
-
   get nodePath(): string {
     return this.nodeService.apiUrlConfig.taxonomyGetPath;
   }
@@ -251,7 +240,7 @@ export class JobComponent implements OnInit {
   onSelected(obj: any): void {
     this.selected = obj.item;
     this.selectedId = obj.item.nid;
-    this.amapState.markers$.next(obj);
+    this.amapService.markers$.next(obj);
     const query: Params = { id: this.selectedId };
     this.routerService.updateQueryParams(query);
     this.cd.detectChanges();
@@ -314,7 +303,7 @@ export class JobComponent implements OnInit {
 
   updateList(lists: any): void {
     this.loading = false;
-    this.nodes = map(lists, (item) => {
+    this.nodes.elements = map(lists, (item) => {
       return {
         nid: item.id,
         title: item.title,

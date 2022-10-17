@@ -7,6 +7,9 @@
     position: relative;
     bottom: -20px;
   }
+  ::ng-deep .media-object {
+    background-color: transparent;
+  }
 }
 .item-child {
   border-radius: 4px;

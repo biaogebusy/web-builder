@@ -1,27 +1,20 @@
-<div class="hero-1-v2 position-relative p-top-xl" ngClass.gt-sm="m-bottom-xl" *ngIf="content">
+<div class="hero-1-v2 position-relative p-top-xl" [ngClass.gt-sm]="'m-bottom-xl'" *ngIf="content">
   <app-bg-img [content]="content.bg"></app-bg-img>
   <div class="container position-relative" *ngIf="mediaConfig">
     <div class="swiper-media">
-      <div #media class="swiper-container" [swiper]="mediaConfig" [(index)]="index">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide" *ngFor="let slide of content.sliders.elements">
-            <app-img [content]="slide.img"></app-img>
-          </div>
-        </div>
-        <div class="swiper-pagination"></div>
-        <div class="swiper-button-prev"></div>
-        <div class="swiper-button-next"></div>
-      </div>
+      <swiper #media [config]="mediaConfig" [(index)]="index" (slideChange)="onSlideChange($event)">
+        <ng-template swiperSlide *ngFor="let slide of content.sliders.elements">
+          <app-img [content]="slide.img"></app-img>
+        </ng-template>
+      </swiper>
     </div>
     <div class="swiper-text p-y-sm p-x-sm">
-      <div #text class="swiper-container" [swiper]="textConfig" [(index)]="index">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide" *ngFor="let slide of content.sliders.elements">
-            <h2 class="title" [innerHTML]="slide.title|safeHtml"></h2>
-            <app-btn [content]="slide.btn"></app-btn>
-          </div>
-        </div>
-      </div>
+      <swiper #text [config]="textConfig" [(index)]="index" (slideChange)="onSlideChange($event)">
+        <ng-template swiperSlide *ngFor="let slide of content.sliders.elements">
+          <h2 class="title" [innerHTML]="slide.title|safeHtml"></h2>
+          <app-btn [content]="slide.btn"></app-btn>
+        </ng-template>
+      </swiper>
     </div>
   </div>
 </div>

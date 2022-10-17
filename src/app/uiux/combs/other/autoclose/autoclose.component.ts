@@ -1,13 +1,10 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Inject,
   Input,
   OnInit,
 } from '@angular/core';
 import { interval } from 'rxjs';
-import { CORE_CONFIG } from '@core/token/token-providers';
-import type { ICoreConfig } from '@core/interface/IAppConfig';
 
 @Component({
   selector: 'app-autoclose',
@@ -17,7 +14,7 @@ import type { ICoreConfig } from '@core/interface/IAppConfig';
 })
 export class AutocloseComponent implements OnInit {
   @Input() content: any;
-  constructor(@Inject(CORE_CONFIG) private coreConfig: ICoreConfig) {}
+  constructor() {}
 
   ngOnInit(): void {
     const source = interval(2 * 1000);

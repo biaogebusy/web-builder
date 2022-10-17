@@ -18,5 +18,6 @@ import { DynamicCombsModule } from '@uiux/combs/dynamic-combs/dynamic-combs.modu
     ListModule,
     UserRoutingModule,
   ],
+  exports: [LoginComponent],
 })
 export class UserModule {}

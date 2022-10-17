@@ -1,5 +1,5 @@
 <div class="progress-bar" *ngIf="content">
-  <div class="label">{{content?.label}}</div>
+  <div class="label" *ngIf="content?.label">{{content.label}}</div>
   <mat-progress-bar class="m-bottom-sm" [color]="content.color" [mode]="content.mode" [value]="content.value"
     [bufferValue]="content.bufferValue">
   </mat-progress-bar>

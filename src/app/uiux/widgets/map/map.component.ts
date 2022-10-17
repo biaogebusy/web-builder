@@ -6,8 +6,7 @@ import {
   ChangeDetectionStrategy,
   Inject,
 } from '@angular/core';
-import type { IMark } from '@core/interface/IAmap';
-import { AMapState } from '@core/mobx/amap/AMapState';
+import type { IMap, IMark } from '@core/interface/IAmap';
 import { AmapService } from '@core/service/amap.service';
 import { isArray } from 'lodash-es';
 import { CORE_CONFIG } from '@core/token/token-providers';
@@ -22,7 +21,7 @@ import { THEME } from '@core/token/token-providers';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MapComponent implements OnInit, OnDestroy {
-  @Input() content: any;
+  @Input() content: IMap;
   AMap: any;
   markers: any[];
   geocoder: any;
@@ -30,7 +29,6 @@ export class MapComponent implements OnInit, OnDestroy {
   center: any;
 
   constructor(
-    private amapState: AMapState,
     private amapService: AmapService,
     private configService: ConfigService,
     @Inject(THEME) private theme: string,
@@ -41,7 +39,7 @@ export class MapComponent implements OnInit, OnDestroy {
     this.initMap(this.content);
   }
 
-  initMap(content: any): void {
+  initMap(content: IMap): void {
     const amapConfig: IAmap = this.coreConfig.amap;
     if (!amapConfig) {
       return;
@@ -52,14 +50,8 @@ export class MapComponent implements OnInit, OnDestroy {
         this.geocoder = new AMap.Geocoder({
           city: this.content?.city || this.coreConfig?.amap?.city || '全国',
         });
-        let lists = [];
-        if (isArray(content)) {
-          lists = content;
-        } else {
-          lists = content.elements;
-        }
-        this.getPosition(lists);
-        this.getMarkers(lists);
+        this.getPosition(content.elements);
+        this.getMarkers(content.elements);
       },
       (error) => {
         console.log(error);
@@ -80,7 +72,7 @@ export class MapComponent implements OnInit, OnDestroy {
               this.center = [location.lng, location.lat];
             }
             if (lists.length === index + 1) {
-              this.amapState.position$.next(true);
+              this.amapService.position$.next(true);
             }
           }
         });
@@ -103,15 +95,17 @@ export class MapComponent implements OnInit, OnDestroy {
       'map',
       Object.assign({}, defaultOptions, options)
     );
-    this.configService.switchChange$.subscribe((theme) => {
-      const newMapStyle =
-        theme === 'dark-theme' ? mapStyle.dark : mapStyle.light;
-      this.map.setMapStyle(newMapStyle);
-    });
+    if (this.configService?.switchChange$) {
+      this.configService.switchChange$.subscribe((theme) => {
+        const newMapStyle =
+          theme === 'dark-theme' ? mapStyle.dark : mapStyle.light;
+        this.map.setMapStyle(newMapStyle);
+      });
+    }
   }
 
   getMarkers(lists: any[]): void {
-    this.amapState.position$.subscribe((res) => {
+    this.amapService.position$.subscribe((res) => {
       this.renderMap();
       this.onMarkers();
       this.setMarkers(lists);
@@ -136,7 +130,7 @@ export class MapComponent implements OnInit, OnDestroy {
   }
 
   onMarkers(): void {
-    this.amapState.markers$.subscribe((marker: IMark) => {
+    this.amapService.markers$.subscribe((marker: IMark) => {
       const position = this.map
         .getAllOverlays('marker')
         [marker.index].getPosition();

@@ -12,7 +12,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoopWidgetsComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: any[];
   constructor() {}
 
   ngOnInit(): void {}

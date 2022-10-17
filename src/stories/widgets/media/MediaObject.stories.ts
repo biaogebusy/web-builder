@@ -1,46 +1,20 @@
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
 import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { HttpClientModule } from '@angular/common/http';
-import { NgxWebstorageModule } from 'ngx-webstorage';
-import { API_URL, apiUrlFactory } from '@core/token/token-providers';
-import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
-import { CORE_CONFIG } from '@core/token/token-providers';
-import { ShareModule } from '@share/share.module';
 import { MediaObjectComponent } from '@uiux/widgets/media/media-object/media-object.component';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { StorysModule } from '@core/storys.module';
 
 export default {
   title: '基础/媒体/媒体对象',
+  id: 'media-object',
   component: MediaObjectComponent,
   decorators: [
     moduleMetadata({
       declarations: [],
-      imports: [
-        ShareModule,
-        WidgetsModule,
-        RouterTestingModule,
-        BrowserAnimationsModule,
-        HttpClientModule,
-        NgxWebstorageModule.forRoot(),
-      ],
-      providers: [
-        SafeHtmlPipe,
-        {
-          provide: CORE_CONFIG,
-          useValue: {},
-        },
-        {
-          provide: API_URL,
-          useFactory: apiUrlFactory,
-          deps: [],
-        },
-      ],
+      imports: [StorysModule.forRoot()],
     }),
     componentWrapperDecorator(
       (story) =>
@@ -58,16 +32,18 @@ export const Base = Template.bind({});
 
 Base.args = {
   content: {
-    icon: {
-      name: 'gavel',
+    img: {
+      src: '/assets/images/logo/codepen.svg',
+      style: {
+        width: '45px',
+        height: '45px',
+      },
+      alt: 'logo',
     },
-    meta: '2022/08',
-    link: {
-      label: '你应该了解的 ANGULAR 最佳实践',
-      href: '#',
-    },
-    subTitle: 'Johnson',
+    meta: '2017-08',
+    title: '前端开发工程师',
+    subTitle: '字节跳动',
     content:
-      '遵循最佳实践可以让你的 Angular 应用保持性能优越，使团队的代码风格一致，以下代码摘自南宁IT派官网项目。 把默认的变更检测设置为 OnPush Angular 默认变更检测是 Defualt，只要在组件中有任意一个值发生改变或者 Dom中有事件的更新都会触发整个应用自上而下的变更...',
+      'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. ',
   },
 };

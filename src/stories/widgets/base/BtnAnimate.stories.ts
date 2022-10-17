@@ -9,6 +9,7 @@ import { BtnAnimateComponent } from '@uiux/widgets/btn-animate/btn-animate.compo
 
 export default {
   title: '基础/内容/动态按钮',
+  id: 'btn-animate',
   component: BtnAnimateComponent,
   decorators: [
     moduleMetadata({
@@ -23,7 +24,6 @@ export default {
 } as Meta;
 
 const Template: Story = (args) => ({
-  component: BtnAnimateComponent,
   props: {
     ...args,
   },

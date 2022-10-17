@@ -6,48 +6,31 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { CORE_CONFIG } from '@core/token/token-providers';
+import { API_URL, CORE_CONFIG, USER } from '@core/token/token-providers';
 import { HttpClientModule } from '@angular/common/http';
-import { NgxWebstorageModule } from 'ngx-webstorage';
+import { LocalStorageService, NgxWebstorageModule } from 'ngx-webstorage';
 import { Showcase1v3Component } from '@uiux/combs/showcase/showcase1v3/showcase1v3.component';
 import { APP_INITIALIZER, Inject } from '@angular/core';
-import { AppState } from '@core/mobx/AppState';
-import { API_URL, apiUrlFactory } from '@core/token/token-providers';
-import { initConfig } from 'src/app/app.module';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import * as ContactUs from 'src/stories/widgets/ContactUs.stories';
+import {
+  coreConfigFactory,
+  apiUrlFactory,
+  userFactory,
+} from '@core/factory/factory';
+import { ContentService } from '@core/service/content.service';
+import { CryptoJSService } from '@core/service/crypto-js.service';
+import { UserService } from '@core/service/user.service';
+import { StorysModule } from '@core/storys.module';
 export default {
   title: '组件/展示/1v3',
+  id: 'showcase-1v3',
   component: Showcase1v3Component,
   decorators: [
     moduleMetadata({
       declarations: [],
-      imports: [
-        RouterTestingModule,
-        BrowserAnimationsModule,
-        WidgetsModule,
-        ShareModule,
-        HttpClientModule,
-        NgxWebstorageModule.forRoot(),
-      ],
-      providers: [
-        {
-          provide: CORE_CONFIG,
-          useValue: {},
-        },
-        {
-          provide: APP_INITIALIZER,
-          useFactory: initConfig,
-          deps: [AppState, [new Inject(CORE_CONFIG)]],
-          multi: true,
-        },
-        {
-          provide: API_URL,
-          useFactory: apiUrlFactory,
-          deps: [],
-        },
-      ],
+      imports: [StorysModule.forRoot()],
     }),
     componentWrapperDecorator((story) => `${story}`),
   ],

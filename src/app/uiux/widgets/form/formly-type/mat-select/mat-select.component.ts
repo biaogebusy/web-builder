@@ -40,6 +40,7 @@ export class MatSelectComponent
       this.getOptionsFromApi();
     } else {
       this.matOptions = this.to.options || [];
+      this.filteredOptions.next(this.matOptions.slice());
     }
 
     // listen for search field value changes

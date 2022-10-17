@@ -26,14 +26,14 @@ import { NodeService } from '@core/service/node.service';
 import { TextComponent } from '@uiux/widgets/text/text.component';
 import { UserService } from '@core/service/user.service';
 import { NodeComponent } from '@uiux/base/node.widget';
-import type { IBaseNode } from '@core/interface/node/INode';
+import type { IBaseNode, IComment } from '@core/interface/node/INode';
 import { ContentState } from '@core/mobx/ContentState';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import { API_URL, PAGE_CONTENT } from '@core/token/token-providers';
-import { IArticle, ICoreConfig, IPage } from '@core/interface/IAppConfig';
+import type { IArticle, ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { LoginComponent } from 'src/app/modules/user/login/login.component';
-import { IUser } from '@core/interface/IUser';
+import type { IUser } from '@core/interface/IUser';
 
 @Component({
   selector: 'app-article',
@@ -48,7 +48,7 @@ export class ArticleComponent
   @Input() content: IBaseNode;
   currentUserRule: string[];
   commentForm: FormGroup;
-  comments: any[];
+  comments: IComment[];
   destroy$: Subject<boolean> = new Subject<boolean>();
   dialogRef: MatDialogRef<any>;
   fontSize: number;

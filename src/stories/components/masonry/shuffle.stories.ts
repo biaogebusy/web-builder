@@ -1,43 +1,16 @@
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { CORE_CONFIG } from '@core/token/token-providers';
-import { HttpClientModule } from '@angular/common/http';
-import { NgxWebstorageModule } from 'ngx-webstorage';
-import { SwiperModule } from 'ngx-swiper-wrapper';
-import { apiUrlFactory, API_URL } from '@core/token/token-providers';
-import { AmapService } from '@core/service/amap.service';
-import { ShareModule } from '@share/share.module';
 import { ShuffleComponent } from '@uiux/combs/masonry/shuffle/shuffle.component';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { StorysModule } from '@core/storys.module';
+
 export default {
-  title: '组件/瀑布流/洗牌',
+  title: '组件/瀑布流/图片洗牌',
+  id: 'shuffle',
   component: ShuffleComponent,
   decorators: [
     moduleMetadata({
       declarations: [],
-      imports: [
-        RouterTestingModule,
-        BrowserAnimationsModule,
-        WidgetsModule,
-        ShareModule,
-        SwiperModule,
-        HttpClientModule,
-        NgxWebstorageModule.forRoot(),
-      ],
-      providers: [
-        AmapService,
-        {
-          provide: CORE_CONFIG,
-          useValue: {},
-        },
-        {
-          provide: API_URL,
-          useFactory: apiUrlFactory,
-          deps: [],
-        },
-      ],
+      imports: [StorysModule.forRoot()],
     }),
   ],
 } as Meta;
@@ -57,21 +30,21 @@ Default.args = {
     },
     filter: [
       {
-        label: 'Show All',
+        label: '全部',
         value: 'all',
         selected: true,
       },
       {
-        label: 'Design',
+        label: '设计',
         value: 'design',
       },
       {
-        label: 'Drupal',
-        value: 'drupal',
+        label: 'CMS',
+        value: 'cms',
       },
       {
-        label: 'Priting',
-        value: 'priting',
+        label: '框架',
+        value: 'frontEnd',
       },
     ],
     row: '4',
@@ -152,7 +125,7 @@ Default.args = {
       },
       {
         type: 'card',
-        category: 'drupal,design',
+        category: 'cms,design',
         subTitle: '2016/02/26',
         avatar: {
           src: '/assets/images/showcase/clipboard.png',
@@ -189,7 +162,7 @@ Default.args = {
       },
       {
         type: 'card',
-        category: 'priting,drupal',
+        category: 'frontEnd,drupal',
         subTitle: '2016/02/26',
         avatar: {
           src: '/assets/images/showcase/console.png',
@@ -226,7 +199,7 @@ Default.args = {
       },
       {
         type: 'card',
-        category: 'design,drupal',
+        category: 'design,cms',
         subTitle: '2016/02/26',
         avatar: {
           src: '/assets/images/showcase/weather.png',
@@ -263,7 +236,7 @@ Default.args = {
       },
       {
         type: 'card',
-        category: 'drupal',
+        category: 'cms',
         subTitle: '2016/02/26',
         avatar: {
           src: '/assets/images/showcase/weather.png',
@@ -300,7 +273,7 @@ Default.args = {
       },
       {
         type: 'card',
-        category: 'design,priting',
+        category: 'design,frontEnd',
         subTitle: '2016/02/26',
         avatar: {
           src: '/assets/images/showcase/weather.png',
@@ -337,7 +310,7 @@ Default.args = {
       },
       {
         type: 'card',
-        category: 'drupal,priting',
+        category: 'drupal,frontEnd',
         subTitle: '2016/02/26',
         avatar: {
           src: '/assets/images/showcase/weather.png',

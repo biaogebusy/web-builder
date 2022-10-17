@@ -1,7 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { ICoreConfig, IPage } from '@core/interface/IAppConfig';
+import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { API_URL } from '@core/token/token-providers';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
@@ -13,7 +13,7 @@ import { ScreenState } from '@core/mobx/screen/ScreenState';
 import { ApiService } from '@core/service/api.service';
 import { LocalStorageService } from 'ngx-webstorage';
 import { MODE } from '@core/factory/factory';
-import { IBranding } from '@core/interface/IBranding';
+import type { IBranding } from '@core/interface/IBranding';
 @Injectable({
   providedIn: 'root',
 })
@@ -54,6 +54,18 @@ export class ContentService {
   }
 
   loadPageContent(): Observable<IPage> {
+    // storybook content
+    const queryString = location.search;
+    const searchParams = new URLSearchParams(queryString);
+    const mode = searchParams.get('viewMode');
+    if (mode === 'docs' || mode === 'story') {
+      const storyPath = searchParams.get('id');
+      return this.http.get<any>(`/assets/storybook/${storyPath}.json`).pipe(
+        tap((page) => {
+          this.updatePage(page);
+        })
+      );
+    }
     if (environment.production) {
       const landingPath = '/api/v1/landingPage?content=';
       return this.http

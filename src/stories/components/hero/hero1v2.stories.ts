@@ -1,41 +1,17 @@
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { CORE_CONFIG } from '@core/token/token-providers';
-import { HttpClientModule } from '@angular/common/http';
-import { NgxWebstorageModule } from 'ngx-webstorage';
 import { Hero1v2Component } from '@uiux/combs/hero/hero1v2/hero1v2.component';
-import { SwiperModule } from 'ngx-swiper-wrapper';
-import { apiUrlFactory, API_URL } from '@core/token/token-providers';
-import { ShareModule } from '@share/share.module';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { SwiperModule } from 'swiper/angular';
+import { StorysModule } from '@core/storys.module';
+
 export default {
   title: '组件/英雄区/1v2',
+  id: 'hero-1v2',
   component: Hero1v2Component,
   decorators: [
     moduleMetadata({
       declarations: [],
-      imports: [
-        RouterTestingModule,
-        BrowserAnimationsModule,
-        WidgetsModule,
-        ShareModule,
-        SwiperModule,
-        HttpClientModule,
-        NgxWebstorageModule.forRoot(),
-      ],
-      providers: [
-        {
-          provide: CORE_CONFIG,
-          useValue: {},
-        },
-        {
-          provide: API_URL,
-          useFactory: apiUrlFactory,
-          deps: [],
-        },
-      ],
+      imports: [SwiperModule, StorysModule.forRoot()],
     }),
   ],
 } as Meta;

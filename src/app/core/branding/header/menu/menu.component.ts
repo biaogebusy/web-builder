@@ -17,7 +17,7 @@ import { version } from '../../../../../../package.json';
 })
 export class MenuComponent implements OnInit {
   @Input() isDrawer: boolean;
-  @Input() content: IHeader | null;
+  @Input() content: IHeader | undefined;
   isOpened = false;
   show = true;
 

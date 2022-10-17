@@ -1,45 +1,26 @@
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { CORE_CONFIG } from '@core/token/token-providers';
-import { HttpClientModule } from '@angular/common/http';
-import { NgxWebstorageModule } from 'ngx-webstorage';
-import { SwiperModule } from 'ngx-swiper-wrapper';
 import { SearchModule } from '@uiux/combs/search/search.module';
-import { apiUrlFactory, API_URL } from '@core/token/token-providers';
-import { AmapService } from '@core/service/amap.service';
-import { ShareModule } from '@share/share.module';
 import { SearchComponent } from '@uiux/combs/search/search.component';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
+import { SearchFilterDialogComponent } from '@uiux/combs/search/search-filter-dialog/search-filter-dialog.component';
+import { SearchFilterItemComponent } from '@uiux/combs/search/search-filter-dialog/search-filter-item/search-filter-item.component';
+import { StorysModule } from '@core/storys.module';
+import { nodes } from './search.json';
+
 export default {
   title: '组件/搜索/默认',
+  id: 'search',
   component: SearchComponent,
   decorators: [
     moduleMetadata({
       declarations: [],
-      imports: [
-        RouterTestingModule,
-        BrowserAnimationsModule,
-        WidgetsModule,
-        ShareModule,
-        SwiperModule,
-        SearchModule,
-        HttpClientModule,
-        NgxWebstorageModule.forRoot(),
+      entryComponents: [
+        DialogComponent,
+        SearchFilterDialogComponent,
+        SearchFilterItemComponent,
       ],
-      providers: [
-        AmapService,
-        {
-          provide: CORE_CONFIG,
-          useValue: {},
-        },
-        {
-          provide: API_URL,
-          useFactory: apiUrlFactory,
-          deps: [],
-        },
-      ],
+      imports: [StorysModule.forRoot(), SearchModule],
     }),
   ],
 } as Meta;
@@ -223,4 +204,167 @@ Default.args = {
       },
     ],
   },
+  nodes,
+  pager: { itemsPerPage: 20, currentPage: 1, totalItems: 22 },
+};
+
+export const FilterDialog = Template.bind({});
+FilterDialog.storyName = '弹窗过滤';
+FilterDialog.args = {
+  content: {
+    filterDialog: {
+      filter: {
+        title: {
+          label: '主分类',
+          style: 'style-v4',
+        },
+        params: {
+          expand: {
+            show: 10,
+            less: '收起',
+            more: '展开更多',
+          },
+        },
+        key: 'hundred_point',
+        elements: [
+          {
+            label: '财政与税务',
+            value: '1',
+            dialogFrom: 0,
+          },
+          {
+            label: '一委一行两会',
+            value: '2',
+            dialogFrom: 0,
+          },
+          {
+            label: '自贸区与一带一路金融',
+            value: '3',
+            dialogFrom: 0,
+          },
+          {
+            label: '政府与社会资本合作',
+            value: '4',
+            dialogFrom: 0,
+          },
+          {
+            label: '国际投资与外汇',
+            value: '4',
+            dialogFrom: 0,
+          },
+          {
+            label: '全球金融法',
+            value: '4',
+            dialogFrom: 0,
+          },
+          {
+            label: '金融科技与大数据',
+            value: '4',
+            dialogFrom: 0,
+          },
+          {
+            label: '金融单位及政府信息公开',
+            value: '4',
+            dialogFrom: 0,
+          },
+          {
+            label: '基础设施、建工金融',
+            value: '4',
+            dialogFrom: 0,
+          },
+          {
+            label: '房地产金融',
+            value: '4',
+            dialogFrom: 0,
+          },
+          {
+            label: 'P2P及非法金融',
+            value: '4',
+            dialogFrom: 0,
+          },
+          {
+            label: '投资人并消费者权益保护',
+            value: '4',
+            dialogFrom: 0,
+          },
+          {
+            label: '不良债权处置',
+            value: '4',
+            dialogFrom: 0,
+          },
+          {
+            label: '金融衍生品与创新',
+            value: '4',
+            dialogFrom: 0,
+          },
+          {
+            label: '金融公司管理与重整',
+            value: '4',
+            dialogFrom: 0,
+          },
+        ],
+      },
+      dialog: [
+        {
+          title: {
+            label: '十大要点',
+            style: 'style-v4',
+          },
+          key: 'search_category',
+          actions: [
+            {
+              type: 'btn',
+              label: '生成',
+              color: 'primary',
+              mode: 'raised',
+            },
+          ],
+          elements: [
+            {
+              label: '案由分类',
+              value: 1,
+            },
+            {
+              label: '合同范本',
+              value: 2,
+            },
+            {
+              label: '法律依据',
+              value: 3,
+            },
+            {
+              label: '司法判例',
+              value: 4,
+            },
+            {
+              label: '合规审查',
+              value: 5,
+            },
+            {
+              label: '律师务实',
+              value: 6,
+            },
+            {
+              label: '焦点研判',
+              value: 7,
+            },
+            {
+              label: '金融数据',
+              value: 8,
+            },
+            {
+              label: '智能生成',
+              value: 9,
+            },
+            {
+              label: '金融律师',
+              value: 10,
+            },
+          ],
+        },
+      ],
+    },
+  },
+  nodes,
+  pager: { itemsPerPage: 20, currentPage: 1, totalItems: 22 },
 };

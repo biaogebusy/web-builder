@@ -1,44 +1,20 @@
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { HttpClientModule } from '@angular/common/http';
-import { NgxWebstorageModule } from 'ngx-webstorage';
-import { CORE_CONFIG } from '@core/token/token-providers';
-import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { LoopWidgetsComponent } from '@uiux/widgets/loop-widgets/loop-widgets.component';
-import { API_URL, apiUrlFactory } from '@core/token/token-providers';
-import { ShareModule } from '@share/share.module';
-import { LinkComponent } from '@uiux/widgets/link/link.component';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import * as TextStories from './Text.stories';
+import { StorysModule } from '@core/storys.module';
+import { LinkComponent } from '@uiux/widgets/link/link.component';
+import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 
 export default {
   title: '基础/内容/链接',
+  id: 'link',
   component: LinkComponent,
   decorators: [
     moduleMetadata({
       declarations: [],
       entryComponents: [DialogComponent, LoopWidgetsComponent],
-      imports: [
-        ShareModule,
-        WidgetsModule,
-        RouterTestingModule,
-        BrowserAnimationsModule,
-        HttpClientModule,
-        NgxWebstorageModule.forRoot(),
-      ],
-      providers: [
-        {
-          provide: CORE_CONFIG,
-          useValue: {},
-        },
-        {
-          provide: API_URL,
-          useFactory: apiUrlFactory,
-          deps: [],
-        },
-      ],
+      imports: [StorysModule.forRoot()],
     }),
   ],
 } as Meta;

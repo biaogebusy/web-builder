@@ -15,8 +15,8 @@ import { Subject } from 'rxjs';
 import type { IFlag } from '@core/interface/widgets/IFlag';
 import { UtilitiesService } from '../../../../core/service/utilities.service';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
-import type { ICoreConfig } from '@core/interface/IAppConfig';
-import { IUser } from '@core/interface/IUser';
+import type { ICoreConfig, ICoreFlag } from '@core/interface/IAppConfig';
+import type { IUser } from '@core/interface/IUser';
 
 @Component({
   selector: 'app-flag',
@@ -26,7 +26,7 @@ import { IUser } from '@core/interface/IUser';
 })
 export class FlagComponent extends BaseComponent implements OnInit, OnDestroy {
   @Input() content: IFlag;
-  config: any;
+  config: ICoreFlag;
   flagging = false;
 
   destroy$: Subject<boolean> = new Subject<boolean>();

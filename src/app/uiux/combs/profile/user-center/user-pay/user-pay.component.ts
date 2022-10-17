@@ -7,7 +7,7 @@ import {
   ChangeDetectionStrategy,
   Inject,
 } from '@angular/core';
-import { IUser } from '@core/interface/IUser';
+import type { IUser } from '@core/interface/IUser';
 import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
 import { USER } from '@core/token/token-providers';

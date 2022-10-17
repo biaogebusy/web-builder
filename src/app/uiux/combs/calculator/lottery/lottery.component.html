@@ -7,7 +7,7 @@
     <app-text [content]="content.text"></app-text>
     <div class="inner" fxLayout="row wrap" fxLayoutAlign="center center">
       <app-formly [ngClass]="'m-y p-x-sm'" fxFlex.lt-md="100" fxFlex.gt-sm="500px" [fields]="content.form" [form]="form"
-        [model]="model" (modelChange)="onModelChange($event)">
+        [model]="model" (modelChange)="onFormlyChange($event)">
       </app-formly>
       <div fxFlex.lt-md="100" fxFlex.gt-sm="50%" fxLayout="column">
         <div class="result p-x-sm p-y" fxLayout="row wrap" fxLayoutAlign="space-between center">
@@ -33,7 +33,8 @@
             <app-chart *ngIf="chart" [chartOption]="chart"></app-chart>
           </div>
         </div>
-        <div fxFlex="100%" class="description m-y-sm" [innerHTML]="content.description|safeHtml"></div>
+        <div *ngIf="content.description" fxFlex="100%" class="description m-y-sm"
+          [innerHTML]="content.description|safeHtml"></div>
       </div>
     </div>
   </div>

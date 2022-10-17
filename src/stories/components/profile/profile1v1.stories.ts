@@ -1,34 +1,18 @@
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { CORE_CONFIG } from '@core/token/token-providers';
-import { HttpClientModule } from '@angular/common/http';
-import { NgxWebstorageModule } from 'ngx-webstorage';
-import { ShareModule } from '@share/share.module';
 import { Profile1v1Component } from '@uiux/combs/profile/profile1v1/profile1v1.component';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import * as SwiperStories from 'src/stories/widgets/Swiper.stories';
+import * as MediaObjectGroupStories from 'src/stories/widgets/media/MediaObjectGroup.stories';
+import { StorysModule } from '@core/storys.module';
+
 export default {
-  title: '组件/用户/1v1',
+  title: '组件/用户/用户资料',
+  id: 'profile-1v1',
   component: Profile1v1Component,
   decorators: [
     moduleMetadata({
       declarations: [],
-      imports: [
-        RouterTestingModule,
-        BrowserAnimationsModule,
-        WidgetsModule,
-        ShareModule,
-        HttpClientModule,
-        NgxWebstorageModule.forRoot(),
-      ],
-      providers: [
-        {
-          provide: CORE_CONFIG,
-          useValue: {},
-        },
-      ],
+      imports: [StorysModule.forRoot()],
     }),
   ],
 } as Meta;
@@ -40,6 +24,7 @@ const Template: Story = (args) => ({
 });
 export const Default = Template.bind({});
 const swiper: any = SwiperStories.Base.args;
+const medaiObjectGroup: any = MediaObjectGroupStories.Base.args;
 Default.args = {
   content: {
     bannerBg: {
@@ -146,38 +131,7 @@ Default.args = {
       {
         label: '工作经历',
         type: 'media-object-group',
-        elements: [
-          {
-            img: {
-              src: '/assets/images/logo/codepen.svg',
-              style: {
-                width: '45px',
-                height: '45px',
-              },
-              alt: 'logo',
-            },
-            meta: '2017-08',
-            title: '前端开发工程师',
-            subTitle: '字节跳动',
-            content:
-              'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. ',
-          },
-          {
-            img: {
-              src: '/assets/images/logo/logo_default.png',
-              style: {
-                width: '45px',
-                height: '45px',
-              },
-              alt: 'logo',
-            },
-            meta: '2017-08',
-            title: '前端开发工程师',
-            subTitle: '字节跳动',
-            content:
-              'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. ',
-          },
-        ],
+        ...medaiObjectGroup.content,
       },
       {
         label: '案例',

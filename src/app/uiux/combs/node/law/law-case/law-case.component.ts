@@ -9,11 +9,7 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import type {
-  ICase,
-  ICasePrams,
-  ICommentContent,
-} from '@core/interface/node/INode';
+import type { ICase, ICasePrams, IComment } from '@core/interface/node/INode';
 import { FormService } from '@core/service/form.service';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -30,7 +26,7 @@ import {
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { PAGE_CONTENT } from '@core/token/token-providers';
-import { IUser } from '@core/interface/IUser';
+import type { IUser } from '@core/interface/IUser';
 
 @Component({
   selector: 'app-law-case',
@@ -44,7 +40,7 @@ export class LawCaseComponent
 {
   @Input() content: ICase;
   uuid: string;
-  comments$: Observable<ICommentContent[]>;
+  comments$: Observable<IComment[]>;
   initCommentContent: string;
   form: FormGroup;
   first = true;
@@ -163,7 +159,9 @@ export class LawCaseComponent
   }
 
   ngOnDestroy(): void {
-    this.destroy$.next(true);
-    this.destroy$.complete();
+    if (this.destroy$?.next) {
+      this.destroy$.next(true);
+      this.destroy$.complete();
+    }
   }
 }

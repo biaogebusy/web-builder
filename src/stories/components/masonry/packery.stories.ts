@@ -1,45 +1,17 @@
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { CORE_CONFIG } from '@core/token/token-providers';
-import { HttpClientModule } from '@angular/common/http';
-import { NgxWebstorageModule } from 'ngx-webstorage';
-import { SwiperModule } from 'ngx-swiper-wrapper';
 import { NgxPackeryModule } from 'ngx-packery';
-import { apiUrlFactory, API_URL } from '@core/token/token-providers';
-import { AmapService } from '@core/service/amap.service';
-import { ShareModule } from '@share/share.module';
 import { PackeryComponent } from '@uiux/combs/masonry/packery/packery.component';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { StorysModule } from '@core/storys.module';
+
 export default {
-  title: '组件/瀑布流/packery',
+  title: '组件/瀑布流/图片堆砌',
+  id: 'packery',
   component: PackeryComponent,
   decorators: [
     moduleMetadata({
       declarations: [],
-      imports: [
-        RouterTestingModule,
-        BrowserAnimationsModule,
-        WidgetsModule,
-        ShareModule,
-        SwiperModule,
-        HttpClientModule,
-        NgxWebstorageModule.forRoot(),
-        NgxPackeryModule,
-      ],
-      providers: [
-        AmapService,
-        {
-          provide: CORE_CONFIG,
-          useValue: {},
-        },
-        {
-          provide: API_URL,
-          useFactory: apiUrlFactory,
-          deps: [],
-        },
-      ],
+      imports: [StorysModule.forRoot(), NgxPackeryModule],
     }),
   ],
 } as Meta;
@@ -61,7 +33,7 @@ Default.args = {
     spacer: 'md',
     text: {
       title: {
-        label: 'Our Products',
+        label: 'Drupal 数字创新',
         style: 'style-v1',
         classes: 'mat-display-1 text-light',
       },
@@ -188,22 +160,8 @@ ContentBox.args = {
       percentPosition: true,
     },
     spacer: 'md',
-    text: {
-      title: {
-        label: 'Our Products',
-        style: 'style-v1',
-        classes: 'mat-display-1',
-      },
-      body: '<p class="text-center">Drupal 已经超越了传统的 Web概念，可以通过不同的渠道部署你的数据内容，从一个数据中心点到各个应用，从简单到复杂。</p>',
-    },
-    bg: {
-      classes: 'bg-fill-width bg-shadow',
-      img: {
-        hostClasses: '',
-        src: '/assets/images/illustration/home-shape.png',
-        mobile: '/assets/images/illustration/home-shape.png',
-      },
-    },
+    text: Default.args.content.text,
+    bg: Default.args.content.bg,
     fullWidth: true,
     elements: [
       {

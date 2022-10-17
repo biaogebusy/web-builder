@@ -1,46 +1,20 @@
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
-import { SafeHtmlPipe } from '../../../app/core/pipe/safe-html.pipe';
-import { CORE_CONFIG } from '../../../app/core/token/core.config';
-import { ShareModule } from '../../../app/share/share.module';
 import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { MediaListComponent } from '../../../app/uiux/widgets/media/media-list/media-list.component';
-import { WidgetsModule } from '../../../app/uiux/widgets/widgets.module';
-import { HttpClientModule } from '@angular/common/http';
-import { NgxWebstorageModule } from 'ngx-webstorage';
-import { API_URL, apiUrlFactory } from '@core/token/token-providers';
+import { MediaListComponent } from '@uiux/widgets/media/media-list/media-list.component';
+import { StorysModule } from '@core/storys.module';
 
 export default {
   title: '基础/媒体/媒体列表',
+  id: 'media-list',
   component: MediaListComponent,
   decorators: [
     moduleMetadata({
       declarations: [],
-      imports: [
-        ShareModule,
-        WidgetsModule,
-        RouterTestingModule,
-        BrowserAnimationsModule,
-        HttpClientModule,
-        NgxWebstorageModule.forRoot(),
-      ],
-      providers: [
-        SafeHtmlPipe,
-        {
-          provide: CORE_CONFIG,
-          useValue: {},
-        },
-        {
-          provide: API_URL,
-          useFactory: apiUrlFactory,
-          deps: [],
-        },
-      ],
+      imports: [StorysModule.forRoot()],
     }),
     componentWrapperDecorator(
       (story) =>

@@ -1,8 +1,4 @@
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
-import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
-import { CORE_CONFIG } from '@core/token/token-providers';
-import { ShareModule } from '@share/share.module';
+import { StorysModule } from '@core/storys.module';
 import {
   moduleMetadata,
   Meta,
@@ -10,26 +6,15 @@ import {
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { FeatureBoxComponent } from '@uiux/widgets/feature-box/feature-box.component';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
+
 export default {
   title: '基础/功能盒子',
+  id: 'feature-box',
   component: FeatureBoxComponent,
   decorators: [
     moduleMetadata({
       declarations: [],
-      imports: [
-        ShareModule,
-        WidgetsModule,
-        BrowserAnimationsModule,
-        RouterTestingModule,
-      ],
-      providers: [
-        SafeHtmlPipe,
-        {
-          provide: CORE_CONFIG,
-          useValue: {},
-        },
-      ],
+      imports: [StorysModule.forRoot()],
     }),
     componentWrapperDecorator(
       (story) => `<div style="width:33%">${story}</div>`

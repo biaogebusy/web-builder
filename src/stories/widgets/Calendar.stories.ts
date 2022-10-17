@@ -4,23 +4,16 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { RouterTestingModule } from '@angular/router/testing';
-import { CORE_CONFIG } from '@core/token/token-providers';
 import { CalendarComponent } from '@uiux/widgets/date/calendar/calendar.component';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { StorysModule } from '@core/storys.module';
 export default {
   title: '基础/日历',
+  id: 'calendar',
   component: CalendarComponent,
   decorators: [
     moduleMetadata({
       declarations: [],
-      imports: [WidgetsModule, RouterTestingModule],
-      providers: [
-        {
-          provide: CORE_CONFIG,
-          userValue: {},
-        },
-      ],
+      imports: [StorysModule.forRoot()],
     }),
     componentWrapperDecorator(
       (story) => `<div class="position-relative text-light">${story}</div>`
@@ -53,13 +46,5 @@ Default.args = {
         className: 'bg-warn',
       },
     ],
-  },
-  content: {
-    theme: {
-      meeting: 'bg-warn',
-      case: 'bg-primary',
-      project: 'bg-accent',
-      event: 'bg-red',
-    },
   },
 };

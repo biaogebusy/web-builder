@@ -10,37 +10,26 @@ import {
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { SpacerComponent } from '@uiux/widgets/spacer/spacer.component';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { StorysModule } from '@core/storys.module';
 
 export default {
-  title: '基础/间距',
+  title: '主题/间距',
+  id: 'spacer',
   component: SpacerComponent,
   decorators: [
     moduleMetadata({
       declarations: [],
-      imports: [
-        ShareModule,
-        WidgetsModule,
-        RouterTestingModule,
-        BrowserAnimationsModule,
-      ],
-      providers: [
-        SafeHtmlPipe,
-        {
-          provide: CORE_CONFIG,
-          useValue: {},
-        },
-      ],
+      imports: [StorysModule.forRoot()],
     }),
     componentWrapperDecorator(
       (story) =>
-        `<div class="position-relative bg-primary" style="z-index:1">${story}</div>`
+        `<div class="position-relative bg-shadow" style="z-index:1">${story}</div>`
     ),
   ],
   parameters: {
     docs: {
       description: {
-        component: '间距信使 UI 元素与元素之间的间隔，组件与组件之间的间距。',
+        component: '间距是 UI 元素与元素之间的间隔，组件与组件之间的间距。',
       },
     },
   },

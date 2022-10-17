@@ -1,11 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IPage } from '@core/interface/IAppConfig';
+import type { IPage } from '@core/interface/IAppConfig';
 import { PAGE_CONTENT } from '@core/token/token-providers';
 import { ActivatedRoute } from '@angular/router';
+import { ContentState } from '@core/mobx/ContentState';
 import { pageContentFactory } from '@core/factory/factory';
 import { ContentService } from '@core/service/content.service';
-import { ContentState } from '@core/mobx/ContentState';
 
 @Component({
   selector: 'app-block',

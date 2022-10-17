@@ -12,3 +12,7 @@ export interface IMediaObject {
   content?: string;
   align?: string;
 }
+
+export interface IMediaObjectGroup {
+  elements: IMediaObject[];
+}

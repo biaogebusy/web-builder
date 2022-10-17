@@ -4,36 +4,17 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { NgxWebstorageModule } from 'ngx-webstorage';
-import { API_URL, apiUrlFactory } from '@core/token/token-providers';
-import { HttpClientModule } from '@angular/common/http';
-import { RouterTestingModule } from '@angular/router/testing';
-import { CORE_CONFIG } from '@core/token/token-providers';
 import { ContentBoxComponent } from '@uiux/widgets/content-box/content-box.component';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { StorysModule } from '@core/storys.module';
+
 export default {
   title: '基础/内容/内容块',
+  id: 'content-box',
   component: ContentBoxComponent,
   decorators: [
     moduleMetadata({
       declarations: [],
-      imports: [
-        WidgetsModule,
-        RouterTestingModule,
-        HttpClientModule,
-        NgxWebstorageModule.forRoot(),
-      ],
-      providers: [
-        {
-          provide: CORE_CONFIG,
-          userValue: {},
-        },
-        {
-          provide: API_URL,
-          useFactory: apiUrlFactory,
-          deps: [],
-        },
-      ],
+      imports: [StorysModule.forRoot()],
     }),
     componentWrapperDecorator(
       (story) =>
@@ -52,7 +33,6 @@ export const Default = Template.bind({});
 Default.args = {
   content: {
     type: 'content-box',
-    width: '33.33',
     ratios: 'media-140',
     subTitle: {
       label: '信使',

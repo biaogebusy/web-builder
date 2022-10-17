@@ -4,8 +4,8 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { AMapState } from '@core/mobx/amap/AMapState';
-import { IMark } from '@core/interface/IAmap';
+import type { IMark } from '@core/interface/IAmap';
+import { AmapService } from '@core/service/amap.service';
 
 @Component({
   selector: 'app-map-list-v1',
@@ -17,15 +17,16 @@ export class MapListV1Component implements OnInit {
   @Input() content: any;
   loading: boolean;
   selectedId: number;
-  constructor(private amapState: AMapState) {}
+  constructor(private amapService: AmapService) {}
 
   ngOnInit(): void {}
-  onClick(event: IMark): void {
+
+  onMap(event: IMark): void {
     const obj: IMark = {
       index: event.index,
       marker: this.markerTem(event.item),
     };
-    this.amapState.markers$.next(obj);
+    this.amapService.markers$.next(obj);
   }
 
   markerTem(item: any): any {

@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { ITestimonial } from '@core/interface/widgets/IWidgets';
 
 @Component({
   selector: 'app-testimonial',
@@ -12,7 +13,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TestimonialComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: ITestimonial;
   constructor() {}
 
   ngOnInit(): void {}

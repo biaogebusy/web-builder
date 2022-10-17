@@ -7,13 +7,13 @@ import { Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { isEmpty } from 'lodash-es';
 import type { IArticleAccess } from '@core/interface/node/IArticle';
-import type { ICommentContent } from '@core/interface/node/INode';
+import type { IComment } from '@core/interface/node/INode';
 import { formatDate } from '@angular/common';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import type { IApiUrl, ICoreConfig } from '@core/interface/IAppConfig';
 import { environment } from '../../../environments/environment';
 import { API_URL } from '@core/token/token-providers';
-import { IUser } from '@core/interface/IUser';
+import type { IUser } from '@core/interface/IUser';
 @Injectable({
   providedIn: 'root',
 })
@@ -229,7 +229,7 @@ export class NodeService extends ApiService {
     ].join('&');
   }
 
-  handleComment(comment: any, level: number): ICommentContent {
+  handleComment(comment: any, level: number): IComment {
     return {
       author: {
         img: {
@@ -319,7 +319,7 @@ export class NodeService extends ApiService {
     uuid: string,
     timeStamp = 1,
     token?: string
-  ): Observable<ICommentContent[]> {
+  ): Observable<IComment[]> {
     const key = JSON.stringify({ api: this.apiUrl, uuid, timeStamp });
     const cache = this.responseCache.get(key);
     const params = [`timeStamp=${timeStamp}`].join('&');

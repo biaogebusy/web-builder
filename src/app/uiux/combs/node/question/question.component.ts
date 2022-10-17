@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import type { IQuestion } from '@core/interface/node/INode';
+import type { IComment, IQuestion } from '@core/interface/node/INode';
 import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
 import { NodeComponent } from '@uiux/base/node.widget';
@@ -18,7 +18,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { LoginComponent } from 'src/app/modules/user/login/login.component';
 import { ContentState } from '@core/mobx/ContentState';
-import { IUser } from '@core/interface/IUser';
+import type { IUser } from '@core/interface/IUser';
 import { USER } from '@core/token/token-providers';
 
 @Component({
@@ -32,7 +32,7 @@ export class QuestionComponent
   implements OnInit, AfterViewInit, OnDestroy
 {
   @Input() content: IQuestion;
-  comments: any;
+  comments: IComment[];
   showEditor = false;
   isAsked = false;
   myCommentId = '';

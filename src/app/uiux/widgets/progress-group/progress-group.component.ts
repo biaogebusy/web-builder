@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { IProgressGroup } from '@core/interface/widgets/IWidgets';
 
 @Component({
   selector: 'app-progress-group',
@@ -12,7 +13,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProgressGroupComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: IProgressGroup;
   constructor() {}
 
   ngOnInit(): void {}

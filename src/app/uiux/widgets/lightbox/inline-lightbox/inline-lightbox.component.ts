@@ -6,10 +6,10 @@ import {
 } from '@angular/core';
 import { Lightbox } from 'ngx-lightbox';
 import { UtilitiesService } from '@core/service/utilities.service';
-import type { IInlineLightbox } from '@uiux/widgets/IWidgets';
+import type { IInlineLightbox } from '@core/interface/widgets/IWidgets';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
-import { DynamicWidgetsComponent } from '../../dynamic-widgets/dynamic-widgets.component';
+import { DynamicWidgetsComponent } from '@uiux/widgets/dynamic-widgets/dynamic-widgets.component';
 
 @Component({
   selector: 'app-inline-lightbox',
@@ -28,9 +28,8 @@ export class InlineLightboxComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onClick(i: number): void {
+  onLightbox(i: number): void {
     const src = this.content.elements[i].src;
-    const preview = this.content.elements[i]?.preview;
     if (this.util.getFileType(src) === 'picture') {
       this.lightbox.open(this.content.elements, i);
     } else {

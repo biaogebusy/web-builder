@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { IContentTextCenter } from '@core/interface/widgets/IContentWidget';
 
 @Component({
   selector: 'app-content-text-center',
@@ -12,7 +13,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ContentTextCenterComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: IContentTextCenter;
   constructor() {}
 
   ngOnInit(): void {}

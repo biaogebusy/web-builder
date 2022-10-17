@@ -1,55 +1,21 @@
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { CORE_CONFIG } from '@core/token/token-providers';
-import { HttpClientModule } from '@angular/common/http';
-import { NgxWebstorageModule } from 'ngx-webstorage';
-import { SwiperModule } from 'ngx-swiper-wrapper';
-import { API_URL, apiUrlFactory } from '@core/token/token-providers';
-import { APP_INITIALIZER, Inject } from '@angular/core';
-import { AppState } from '@core/mobx/AppState';
-import { initConfig } from 'src/app/app.module';
-import { AmapService } from '@core/service/amap.service';
-import { ShareModule } from '@share/share.module';
 import { MapListV1Component } from '@uiux/combs/map/map-list-v1/map-list-v1.component';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import * as Card1v3Stories from 'src/stories/widgets/card/Card1v3.stories';
 import * as MediaObjectStories from 'src/stories/widgets/media/MediaObject.stories';
+import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
+import { LoopWidgetsComponent } from '@uiux/widgets/loop-widgets/loop-widgets.component';
+import { StorysModule } from '@core/storys.module';
 
 export default {
   title: '组件/地图/位置列表 1v1',
+  id: 'map-list-1v1',
   component: MapListV1Component,
   decorators: [
     moduleMetadata({
       declarations: [],
-      imports: [
-        RouterTestingModule,
-        BrowserAnimationsModule,
-        WidgetsModule,
-        ShareModule,
-        SwiperModule,
-        HttpClientModule,
-        NgxWebstorageModule.forRoot(),
-      ],
-      providers: [
-        AmapService,
-        {
-          provide: CORE_CONFIG,
-          useValue: {},
-        },
-        {
-          provide: APP_INITIALIZER,
-          useFactory: initConfig,
-          deps: [AppState, [new Inject(CORE_CONFIG)]],
-          multi: true,
-        },
-        {
-          provide: API_URL,
-          useFactory: apiUrlFactory,
-          deps: [],
-        },
-      ],
+      entryComponents: [DialogComponent, LoopWidgetsComponent],
+      imports: [StorysModule.forRoot()],
     }),
   ],
   parameters: {
@@ -71,17 +37,17 @@ const card1v3: any = Card1v3Stories.Base.args;
 Base.args = {
   content: {
     title: {
-      label: '良庆区人民法院',
+      label: '南宁市创业孵化服务中心',
       style: 'style-v4',
     },
     meta: [
       {
         label: '地址',
-        value: '良庆区玉洞街道玉洞大道8-1号',
+        value: '良庆区玉洞街道玉洞大道x号',
       },
       {
         label: '电话',
-        value: '0771-4509585',
+        value: '0771-xxxxxx',
       },
     ],
     map: {
@@ -99,7 +65,7 @@ Sidebar.args = {
     sidebarRight: [
       {
         type: 'title',
-        label: '关联案件',
+        label: '相关信息',
         style: 'style-v4',
       },
       {

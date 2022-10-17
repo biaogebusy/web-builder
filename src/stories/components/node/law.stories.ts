@@ -1,57 +1,27 @@
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
 import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { CORE_CONFIG } from '@core/token/token-providers';
-import { HttpClientModule } from '@angular/common/http';
-import { NgxWebstorageModule } from 'ngx-webstorage';
+
 import { NodeModule } from '@uiux/combs/node/node.module';
 import { LawCaseComponent } from '@uiux/combs/node/law/law-case/law-case.component';
-import { apiUrlFactory, API_URL } from '@core/token/token-providers';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { TextComponent } from '@uiux/widgets/text/text.component';
-import { APP_INITIALIZER, Inject } from '@angular/core';
-import { AppState } from '@core/mobx/AppState';
-import { initConfig } from 'src/app/app.module';
-import { ShareModule } from '@share/share.module';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { StorysModule } from '@core/storys.module';
+import { comments } from './comments.json';
+import { of } from 'rxjs';
+
 export default {
   title: '组件/文章/案件',
+  id: 'law',
   component: LawCaseComponent,
   decorators: [
     moduleMetadata({
       declarations: [],
       entryComponents: [DialogComponent, TextComponent],
-      imports: [
-        RouterTestingModule,
-        BrowserAnimationsModule,
-        WidgetsModule,
-        ShareModule,
-        NodeModule,
-        HttpClientModule,
-        NgxWebstorageModule.forRoot(),
-      ],
-      providers: [
-        {
-          provide: CORE_CONFIG,
-          useValue: {},
-        },
-        {
-          provide: APP_INITIALIZER,
-          useFactory: initConfig,
-          deps: [AppState, [new Inject(CORE_CONFIG)]],
-          multi: true,
-        },
-        {
-          provide: API_URL,
-          useFactory: apiUrlFactory,
-          deps: [],
-        },
-      ],
+      imports: [NodeModule, StorysModule.forRoot()],
     }),
     componentWrapperDecorator((story) => `${story}`),
   ],
@@ -63,7 +33,6 @@ const Template: Story = (args) => ({
   },
 });
 export const Default = Template.bind({});
-
 Default.args = {
   content: {
     title: 'Angular SSR 服务端渲染技术',
@@ -154,7 +123,7 @@ Default.args = {
                 court: '法院名称',
                 contentOfCourt: {
                   type: 'link',
-                  label: '苏州人民法院',
+                  label: '人民法院',
                   href: '/node/3',
                 },
               },
@@ -228,6 +197,7 @@ Default.args = {
                       label: '重大事务',
                       value: 'important',
                     },
+
                     {
                       label: '紧急事务',
                       value: 'exigence',
@@ -1157,6 +1127,7 @@ Default.args = {
       title: true,
     },
   },
+  comments$: of(comments),
 };
 
 export const Meeting = Template.bind({});
@@ -1233,7 +1204,7 @@ Meeting.args = {
                 label1: '客户名称',
                 content1: {
                   type: 'link',
-                  label: '国家药审分中心',
+                  label: '创客城',
                   href: '/node/3',
                 },
                 label2: '主办律师',
@@ -1282,7 +1253,7 @@ Meeting.args = {
                 {
                   label: '参会人员',
                   value:
-                    '<a href="/node/1">庞博</a>,<a href="/node/2">Johnson</a>',
+                    '<a href="/node/1">张三</a>,<a href="/node/2">Johnson</a>',
                 },
                 {
                   label: '工作工时',
@@ -1306,7 +1277,7 @@ Meeting.args = {
               meta: [
                 {
                   label: '相关项目',
-                  value: '<a href="/node/1">药审分中心制度修改</a>',
+                  value: '<a href="/node/1">创客城制度修改</a>',
                 },
                 {
                   label: '会议文件',
@@ -1404,7 +1375,7 @@ Meeting.args = {
                 {
                   label: '参会人员',
                   value:
-                    '<a href="/node/1">庞博</a>,<a href="/node/2">Johnson</a>',
+                    '<a href="/node/1">张三</a>,<a href="/node/2">Johnson</a>',
                 },
                 {
                   label: '工作工时',
@@ -1429,7 +1400,7 @@ Meeting.args = {
               meta: [
                 {
                   label: '相关项目',
-                  value: '<a href="/node/1">药审分中心制度修改</a>',
+                  value: '<a href="/node/1">创客城制度修改</a>',
                 },
                 {
                   label: '会议文件',
@@ -1525,7 +1496,7 @@ Meeting.args = {
                 },
                 {
                   label: '参会人员',
-                  value: '<a href="/node/1">庞博</a>',
+                  value: '<a href="/node/1">张三</a>',
                 },
                 {
                   label: '工作工时',
@@ -1549,7 +1520,7 @@ Meeting.args = {
               meta: [
                 {
                   label: '相关项目',
-                  value: '<a href="/node/1">药审分中心制度修改</a>',
+                  value: '<a href="/node/1">创客城制度修改</a>',
                 },
                 {
                   label: '会议文件',
@@ -1645,7 +1616,7 @@ Meeting.args = {
                 },
                 {
                   label: '参会人员',
-                  value: '<a href="/node/1">庞博</a>',
+                  value: '<a href="/node/1">张三</a>',
                 },
                 {
                   label: '工作工时',
@@ -1669,7 +1640,7 @@ Meeting.args = {
               meta: [
                 {
                   label: '相关项目',
-                  value: '<a href="/node/1">药审分中心制度修改</a>',
+                  value: '<a href="/node/1">创客城制度修改</a>',
                 },
                 {
                   label: '会议文件',
@@ -1765,7 +1736,7 @@ Meeting.args = {
                 },
                 {
                   label: '参会人员',
-                  value: '<a href="/node/1">庞博</a>',
+                  value: '<a href="/node/1">张三</a>',
                 },
                 {
                   label: '工作工时',
@@ -1789,7 +1760,7 @@ Meeting.args = {
               meta: [
                 {
                   label: '相关项目',
-                  value: '<a href="/node/1">药审分中心制度修改</a>',
+                  value: '<a href="/node/1">创客城制度修改</a>',
                 },
                 {
                   label: '会议文件',
@@ -1919,6 +1890,7 @@ Meeting.args = {
       },
     },
   },
+  comments$: of(comments),
 };
 
 export const Project = Template.bind({});
@@ -2019,7 +1991,7 @@ Project.args = {
             },
             {
               content:
-                '国家药品监督管理局药品审评检查长三角分中心2022年SciFinder合同',
+                '药品监督管理局药品审评检查长三角分中心2022年SciFinder合同',
               colSpan: 3,
             },
           ],
@@ -2034,7 +2006,7 @@ Project.args = {
             },
             {
               content:
-                '国家药品监督管理局药品审评检查长三角分中心2022年SciFinder合同（2） -0908乙方意见.doc',
+                '药品监督管理局药品审评检查长三角分中心2022年SciFinder合同（2） -0908乙方意见.doc',
               colSpan: 3,
             },
           ],
@@ -2048,7 +2020,7 @@ Project.args = {
               },
             },
             {
-              content: '国家药审分中心',
+              content: '创客城',
               styles: {
                 cellWidth: 152,
               },
@@ -2235,7 +2207,7 @@ Project.args = {
                 label1: '客户名称',
                 content1: {
                   type: 'link',
-                  label: '国家药审分中心',
+                  label: '创客城',
                   href: '/node/3',
                 },
                 label2: '业务类型',
@@ -2299,7 +2271,7 @@ Project.args = {
                 },
                 {
                   label: '相关项目',
-                  value: '<a href="/node/1">药审分中心制度修改</a>',
+                  value: '<a href="/node/1">创客城制度修改</a>',
                 },
                 {
                   label: '项目文件',
@@ -2384,7 +2356,7 @@ Project.args = {
                 },
                 {
                   label: '相关项目',
-                  value: '<a href="/node/1">药审分中心制度修改</a>',
+                  value: '<a href="/node/1">创客城制度修改</a>',
                 },
                 {
                   label: '项目文件',
@@ -2764,4 +2736,5 @@ Project.args = {
       },
     },
   },
+  comments$: of(comments),
 };

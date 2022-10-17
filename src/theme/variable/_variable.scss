@@ -26,11 +26,11 @@ $font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
 // https://material.angular.io/guide/typography
 $custom-typography: mat-typography-config(
   $font-family: $font-family,
-  $display-4: mat-typography-level(67px, 67px, 300, $font-family: $font-family),
-  $display-3: mat-typography-level(56px, 56px, 400, $font-family: $font-family),
-  $display-2: mat-typography-level(45px, 48px, 400, $font-family: $font-family),
-  $display-1: mat-typography-level(34px, 40px, 400, $font-family: $font-family),
-  $headline: mat-typography-level(24px, 32px, 400, $font-family: $font-family),
+  $display-4: mat-typography-level(48px, 1.618, 300, $font-family: $font-family),
+  $display-3: mat-typography-level(40px, 1.618, 400, $font-family: $font-family),
+  $display-2: mat-typography-level(32px, 1.618, 400, $font-family: $font-family),
+  $display-1: mat-typography-level(28px, 1.618, 400, $font-family: $font-family),
+  $headline: mat-typography-level(24px, 1.618, 400, $font-family: $font-family),
   $title: mat-typography-level(20px, 1.618, 500, $font-family: $font-family),
   $body-1: mat-typography-level(16px, 1.618, 400),
 );

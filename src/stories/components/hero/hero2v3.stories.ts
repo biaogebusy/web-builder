@@ -1,41 +1,16 @@
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { CORE_CONFIG } from '@core/token/token-providers';
-import { HttpClientModule } from '@angular/common/http';
-import { NgxWebstorageModule } from 'ngx-webstorage';
-import { SwiperModule } from 'ngx-swiper-wrapper';
 import { Hero2v3Component } from '@uiux/combs/hero/hero2v3/hero2v3.component';
-import { apiUrlFactory, API_URL } from '@core/token/token-providers';
-import { ShareModule } from '@share/share.module';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { StorysModule } from '@core/storys.module';
+
 export default {
   title: '组件/英雄区/2v3',
+  id: 'hero-2v3',
   component: Hero2v3Component,
   decorators: [
     moduleMetadata({
       declarations: [],
-      imports: [
-        RouterTestingModule,
-        BrowserAnimationsModule,
-        WidgetsModule,
-        ShareModule,
-        SwiperModule,
-        HttpClientModule,
-        NgxWebstorageModule.forRoot(),
-      ],
-      providers: [
-        {
-          provide: CORE_CONFIG,
-          useValue: {},
-        },
-        {
-          provide: API_URL,
-          useFactory: apiUrlFactory,
-          deps: [],
-        },
-      ],
+      imports: [StorysModule.forRoot()],
     }),
   ],
 } as Meta;
@@ -76,7 +51,7 @@ Default.args = {
         },
         link: {
           href: '/',
-          label: '健康生活',
+          label: '高性能',
         },
       },
       {
@@ -86,7 +61,7 @@ Default.args = {
         },
         link: {
           href: '/',
-          label: '定期人寿保险',
+          label: '易用的编辑器',
         },
       },
       {
@@ -96,7 +71,7 @@ Default.args = {
         },
         link: {
           href: '/',
-          label: '家庭健康保险',
+          label: '多语言',
         },
       },
       {
@@ -106,7 +81,7 @@ Default.args = {
         },
         link: {
           href: '/',
-          label: '投资计划',
+          label: '更有弹性',
         },
       },
       {
@@ -116,7 +91,7 @@ Default.args = {
         },
         link: {
           href: '/',
-          label: '汽车保险',
+          label: '安全性',
         },
       },
       {
@@ -126,7 +101,7 @@ Default.args = {
         },
         link: {
           href: '/',
-          label: '出行保险',
+          label: '无障碍访问',
         },
       },
     ],

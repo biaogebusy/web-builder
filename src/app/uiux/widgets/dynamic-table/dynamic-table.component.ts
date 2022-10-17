@@ -9,7 +9,7 @@ import {
 import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
-import type { IDynamicTable } from '../IWidgets';
+import type { IDynamicTable } from '../../../core/interface/widgets/IWidgets';
 import { TextComponent } from '../text/text.component';
 import { RouteService } from '@core/service/route.service';
 import { isArray } from 'lodash-es';
@@ -67,7 +67,7 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onDialog(label: string, content: any): void {
+  openDialog(label: string, content: any): void {
     this.dialog.open(DialogComponent, {
       width: '600px',
       data: {

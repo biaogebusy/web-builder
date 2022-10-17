@@ -8,7 +8,8 @@ import {
   Inject,
 } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { IUser } from '@core/interface/IUser';
+import type { IUser } from '@core/interface/IUser';
+import type { IViewList } from '@core/interface/widgets/IViewList';
 import { DialogService } from '@core/service/dialog.service';
 import { FormService } from '@core/service/form.service';
 import { NodeService } from '@core/service/node.service';
@@ -29,7 +30,7 @@ export class ViewListComponent
   extends BaseComponent
   implements OnInit, AfterViewInit
 {
-  @Input() content: any;
+  @Input() content: IViewList;
   form = new FormGroup({
     page: new FormControl(),
   });

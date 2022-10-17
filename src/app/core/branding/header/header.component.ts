@@ -15,7 +15,7 @@ import { DOCUMENT } from '@angular/common';
 import { ContentState } from '@core/mobx/ContentState';
 import { BRANDING } from '@core/token/token-providers';
 import { Observable } from 'rxjs';
-import { IBranding } from '@core/interface/IBranding';
+import type { IBranding } from '@core/interface/IBranding';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -86,7 +86,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   initBanner(): void {
-    this.branding$.subscribe((branding) => {
+    this.branding$.subscribe((branding: any) => {
       const banner = branding.header.banner;
       if (!banner) {
         this.showBanner = false;

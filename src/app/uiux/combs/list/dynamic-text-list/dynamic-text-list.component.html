@@ -21,6 +21,6 @@
       </div>
       <mat-divider *ngIf="!isLast" class="m-y"></mat-divider>
     </div>
-    <app-pagination-simple (pageChange)="onPageChange($event)" [links]="links"></app-pagination-simple>
+    <app-pagination-links (pageChange)="onPageChange($event)" [links]="links"></app-pagination-links>
   </div>
 </div>

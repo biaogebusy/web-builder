@@ -1,4 +1,4 @@
-import { ShareModule } from '@share/share.module';
+import { StorysModule } from '@core/storys.module';
 import {
   moduleMetadata,
   Meta,
@@ -6,18 +6,17 @@ import {
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { ChipListComponent } from '@uiux/widgets/chip-list/chip-list.component';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
+
 export default {
   title: '基础/胶囊按钮',
+  id: 'chip-list',
   component: ChipListComponent,
   decorators: [
     moduleMetadata({
       declarations: [],
-      imports: [ShareModule, WidgetsModule],
+      imports: [StorysModule.forRoot()],
     }),
-    componentWrapperDecorator(
-      (story) => `<div fxFlex="300px" class="position-relative">${story}</div>`
-    ),
+    componentWrapperDecorator((story) => `${story}`),
   ],
 } as Meta;
 
@@ -41,6 +40,17 @@ Default.args = {
       {
         label: 'Accent',
         color: 'accent',
+      },
+      {
+        label: 'Selected',
+        selected: true,
+      },
+      {
+        color: 'accent',
+        link: {
+          label: 'link',
+          href: '#',
+        },
       },
     ],
   },

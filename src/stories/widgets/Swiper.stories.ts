@@ -4,16 +4,18 @@ import { CORE_CONFIG } from '@core/token/token-providers';
 import { ShareModule } from '@share/share.module';
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
+import { SwiperComponent } from '@uiux/widgets/swiper/swiper.component';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
-import { SwiperComponent } from 'ngx-swiper-wrapper';
+import { SwiperModule } from 'swiper/angular';
 
 export default {
   title: '基础/Swiper',
+  id: 'swiper',
   component: SwiperComponent,
   decorators: [
     moduleMetadata({
       declarations: [],
-      imports: [ShareModule, WidgetsModule, RouterTestingModule],
+      imports: [ShareModule, WidgetsModule, RouterTestingModule, SwiperModule],
       providers: [
         SafeHtmlPipe,
         {

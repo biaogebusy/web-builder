@@ -16,6 +16,7 @@ import { FormService } from '@core/service/form.service';
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { ScreenService } from '@core/service/screen.service';
 import { Subject } from 'rxjs';
+import { LocalStorageService } from 'ngx-webstorage';
 
 @Component({
   selector: 'app-search',
@@ -33,7 +34,7 @@ export class SearchComponent
   pager: any;
   form: FormGroup;
   filterForm: any[];
-  nodes: [];
+  nodes: any[];
   loading = false;
   destroy$: Subject<boolean> = new Subject<boolean>();
 
@@ -43,7 +44,8 @@ export class SearchComponent
     public routerService: RouteService,
     private formService: FormService,
     private screenService: ScreenService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private storage: LocalStorageService
   ) {
     super();
   }
@@ -70,6 +72,11 @@ export class SearchComponent
         }
         this.nodeSearch(querys);
       });
+      if (this.content.filterDialog) {
+        this.storage.observe('filterDate').subscribe((filterData: any) => {
+          this.nodeSearch(filterData);
+        });
+      }
     } else {
       this.form = new FormGroup({});
     }
@@ -79,7 +86,7 @@ export class SearchComponent
     this.form = this.formService.toFormGroup(items);
     this.form.valueChanges
       .pipe(debounceTime(500), distinctUntilChanged(), takeUntil(this.destroy$))
-      .subscribe((value) => {
+      .subscribe((value: any) => {
         const params = Object.assign({ page: 0 }, value);
         this.onSelectChange(params);
       });
@@ -98,15 +105,16 @@ export class SearchComponent
   nodeSearch(options: any): void {
     this.loading = true;
     this.searchEntry = omitBy(options, isEmpty);
+    const formValue = this.form?.value || {};
     const type = this.getParams(this.content, 'type') || 'content';
-    const state = this.getParamsState(this.form.value, options);
+    const state = this.getParamsState(formValue, options);
     const params = this.getApiParams(state);
     this.nodeService
       .search(type, params)
       .pipe(takeUntil(this.destroy$))
       .subscribe(
         (data) => {
-          this.updateList(data, this.form.value, options);
+          this.updateList(data, formValue, options);
           this.loading = false;
           this.cd.detectChanges();
         },

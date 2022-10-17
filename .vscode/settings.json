@@ -25,5 +25,8 @@
   "git.confirmSync": false,
   "git.autofetch": true,
   "files.eol": "\n",
-  "gitlens.currentLine.enabled": false
+  "gitlens.currentLine.enabled": false,
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  }
 }

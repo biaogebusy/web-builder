@@ -6,8 +6,8 @@ import {
   Inject,
 } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IUserConfig } from '@core/interface/IUserConfig';
-import { IUser } from '@core/interface/IUser';
+import type { IUserConfig } from '@core/interface/IUserConfig';
+import type { IUser } from '@core/interface/IUser';
 import { USER } from '@core/token/token-providers';
 import { UserService } from '@core/service/user.service';
 

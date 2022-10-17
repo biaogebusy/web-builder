@@ -16,3 +16,9 @@ export interface IMark {
   marker: string;
   item?: any;
 }
+
+export interface IMap {
+  city?: string;
+  elements: any[];
+  params?: any;
+}

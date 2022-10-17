@@ -1,17 +1,16 @@
-import { MatButtonModule } from '@angular/material/button';
-import { ShareModule } from '@share/share.module';
+import { StorysModule } from '@core/storys.module';
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { BtnComponent } from '@uiux/widgets/btn/btn.component';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
 
 export default {
   title: '基础/内容/按钮',
+  id: 'btn',
   component: BtnComponent,
   decorators: [
     moduleMetadata({
       declarations: [],
-      imports: [ShareModule, WidgetsModule, MatButtonModule],
+      imports: [StorysModule.forRoot()],
     }),
   ],
 } as Meta;
@@ -23,7 +22,11 @@ const Template: Story = (args) => ({
 });
 
 export const BtnDefault = Template.bind({});
-
+BtnDefault.parameters = {
+  controls: {
+    include: ['content'],
+  },
+};
 BtnDefault.args = {
   content: {
     color: 'primary',
@@ -45,11 +48,22 @@ BtnRaised.args = {
   },
 };
 
+export const Round = Template.bind({});
+
+Round.args = {
+  content: {
+    label: 'Round',
+    color: 'primary',
+    mode: 'raised',
+    classes: 'round-btn',
+  },
+};
+
 export const BtnLink = Template.bind({});
 
 BtnLink.args = {
   content: {
-    href: '#',
+    href: '/node/1',
     target: '_blank',
     label: 'Primary link',
     mode: 'raised',

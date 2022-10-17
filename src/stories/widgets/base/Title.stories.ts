@@ -1,23 +1,16 @@
 import { moduleMetadata, Meta, Story } from '@storybook/angular';
-import { MatIconModule } from '@angular/material/icon';
-import { NgxWebstorageModule } from 'ngx-webstorage';
 import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
-import { ShareModule } from '@share/share.module';
 import { TitleComponent } from '@uiux/widgets/title/title.component';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { StorysModule } from '@core/storys.module';
 
 export default {
   title: '基础/内容/标题',
+  id: 'title',
   component: TitleComponent,
   decorators: [
     moduleMetadata({
       declarations: [],
-      imports: [
-        MatIconModule,
-        ShareModule,
-        WidgetsModule,
-        NgxWebstorageModule.forRoot(),
-      ],
+      imports: [StorysModule.forRoot()],
       providers: [SafeHtmlPipe],
     }),
   ],

@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { ICard1v1 } from '@core/interface/widgets/ICard';
 
 @Component({
   selector: 'app-card1v1',
@@ -12,7 +13,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Card1v1Component implements OnInit {
-  @Input() content: any;
+  @Input() content: ICard1v1;
   constructor() {}
 
   ngOnInit(): void {}

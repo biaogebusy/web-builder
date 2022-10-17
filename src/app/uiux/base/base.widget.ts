@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
-import { IUser } from '@core/interface/IUser';
+import type { IUser } from '@core/interface/IUser';
 import { intersection, isArray, remove, result } from 'lodash-es';
 @Injectable()
 export abstract class BaseComponent {

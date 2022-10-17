@@ -7,7 +7,7 @@ import { catchError, take, switchMap } from 'rxjs/operators';
 import { isEmpty } from 'lodash';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-import { IUser } from '@core/interface/IUser';
+import type { IUser } from '@core/interface/IUser';
 import { UserService } from '@core/service/user.service';
 
 @Injectable({

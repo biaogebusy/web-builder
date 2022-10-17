@@ -4,6 +4,8 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { IBtn } from '@core/interface/widgets/IBtn';
+import { RouteService } from '@core/service/route.service';
 
 @Component({
   selector: 'app-btn',
@@ -12,8 +14,12 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BtnComponent implements OnInit {
-  @Input() content: any;
-  constructor() {}
+  @Input() content: IBtn;
+  constructor(private routService: RouteService) {}
 
   ngOnInit(): void {}
+
+  onNav(event: any, content: any): void {
+    this.routService.toNavigate(event, content);
+  }
 }

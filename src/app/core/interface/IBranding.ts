@@ -1,14 +1,14 @@
 import { ILink } from '@core/interface/widgets/ILink';
 import { IImg } from '@core/interface/widgets/IImg';
 export interface IBranding {
-  header: IHeader;
-  footer: IFooter;
+  header?: IHeader;
+  footer?: IFooter;
 }
 export interface IHeader {
   params: IHeaderParams;
   logo: Logo;
-  top: IHeaderTop;
-  banner: any;
+  top?: IHeaderTop;
+  banner?: any;
   mainMenu: IMainMenu[];
   search: IHeaderSearch;
   userMenu: IUserMenu[];
@@ -38,17 +38,31 @@ export interface IHeaderParams {
   userInfo: boolean;
   isMegaMenu: boolean;
   menuHoverOpen: boolean;
-  inverse: boolean;
+  inverse?: boolean;
 }
 
 export interface IFooter {
   params: FooterParams;
-  footerBrand: FooterBrand;
-  mainMenu: FooterMenu[];
-  mobileMenu: FooterMenu[];
-  footerNewsletter: FooterNewsletter;
-  footerBottom: FooterBottom;
-  fixBar: any[];
+  footerBrand?: FooterBrand;
+  mainMenu?: FooterMenu[];
+  mobileMenu?: FooterMenu[];
+  footerNewsletter?: FooterNewsletter;
+  footerBottom?: FooterBottom;
+  fixBar?: any[];
+  logo?: {
+    label: string;
+  };
+  copyRight?: string;
+  content?: {
+    left: {
+      spacer: string;
+      body: string;
+    };
+    middle: {
+      spacer: string;
+      body: string;
+    };
+  };
 }
 
 interface FooterBottom {
@@ -70,9 +84,7 @@ interface Form {
   type: string;
   label: string;
   key: string;
-  params: {
-    required: true;
-  };
+  params: any;
   placeholder: string;
   hint: string;
   error: string;
@@ -90,8 +102,8 @@ interface FooterBrand {
   logo: {
     img: IImg;
   };
-  summary: string;
-  social: Social[];
+  summary?: string;
+  social?: Social[];
 }
 
 interface Social {
@@ -101,9 +113,9 @@ interface Social {
 }
 
 interface FooterParams {
-  mode: string;
-  shape: boolean;
-  style: string;
+  mode: 'light' | 'inverse' | 'space-between';
+  shape?: boolean;
+  // style: string;
 }
 
 export interface IUserMenu {
@@ -147,7 +159,7 @@ export interface IHeaderSearch {
   link: string;
   type: string;
   key: string;
-  value: string;
+  value?: string;
 }
 
 export interface IMainMenu extends ILink {
@@ -159,9 +171,6 @@ export interface IMainMenu extends ILink {
   child?: IMainMenu[];
 }
 
-interface Child {
-  child: ILink[];
-}
 interface QueryParams {
   demo: string;
 }
@@ -170,5 +179,5 @@ interface Logo {
   label: string;
   version: boolean;
   href: string;
-  img: IImg;
+  img?: IImg;
 }

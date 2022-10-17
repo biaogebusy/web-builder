@@ -10,7 +10,7 @@ import {
 import type { ICommentConfig } from '@core/interface/node/INode';
 import { ContentState } from '@core/mobx/ContentState';
 import { USER } from '@core/token/token-providers';
-import { IUser } from '@core/interface/IUser';
+import type { IUser } from '@core/interface/IUser';
 
 @Component({
   selector: 'app-comment-actions',

@@ -11,6 +11,7 @@ export class FormlyComponent implements OnInit {
   @Input() fields: FormlyFieldConfig[];
   @Input() form: FormGroup;
   @Input() model: any;
+  @Input() classes: string | object;
 
   @Output() modelChange: EventEmitter<any> = new EventEmitter();
   constructor() {}
