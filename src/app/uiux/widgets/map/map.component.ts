@@ -6,7 +6,7 @@ import {
   ChangeDetectionStrategy,
   Inject,
 } from '@angular/core';
-import type { IMark } from '@core/interface/IAmap';
+import type { IMap, IMark } from '@core/interface/IAmap';
 import { AmapService } from '@core/service/amap.service';
 import { isArray } from 'lodash-es';
 import { CORE_CONFIG } from '@core/token/token-providers';
@@ -21,7 +21,7 @@ import { THEME } from '@core/token/token-providers';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MapComponent implements OnInit, OnDestroy {
-  @Input() content: any;
+  @Input() content: IMap;
   AMap: any;
   markers: any[];
   geocoder: any;

@@ -33,7 +33,6 @@ export const Default = Template.bind({});
 Default.args = {
   content: {
     type: 'content-box',
-    width: '33.33',
     ratios: 'media-140',
     subTitle: {
       label: '信使',

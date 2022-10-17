@@ -29,3 +29,20 @@ export interface IDynamicTable {
   classes?: string | string[] | Set<string> | { [klass: string]: any };
   elements: any[];
 }
+
+export interface IRatios {
+  ratios:
+    | 'media-140'
+    | 'media-1-2'
+    | 'media-1-1'
+    | 'media-4-3'
+    | 'media-16-9'
+    | 'media-2-1';
+}
+
+export interface IIframe {
+  height?: number;
+  url: string;
+  title?: string;
+  id?: string;
+}

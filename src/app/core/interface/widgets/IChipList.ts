@@ -1,7 +1,10 @@
 import { ILink } from './ILink';
 
-export interface IChipList extends ILink {
-  label: string;
-  color?: string;
-  selected?: boolean;
+export interface IChipList {
+  elements: {
+    label: string;
+    color?: 'primary' | 'warn' | 'accent';
+    selected?: boolean;
+    link?: ILink;
+  }[];
 }

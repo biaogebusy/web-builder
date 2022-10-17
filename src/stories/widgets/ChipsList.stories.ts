@@ -16,9 +16,7 @@ export default {
       declarations: [],
       imports: [StorysModule.forRoot()],
     }),
-    componentWrapperDecorator(
-      (story) => `<div fxFlex="300px" class="position-relative">${story}</div>`
-    ),
+    componentWrapperDecorator((story) => `${story}`),
   ],
 } as Meta;
 
@@ -42,6 +40,17 @@ Default.args = {
       {
         label: 'Accent',
         color: 'accent',
+      },
+      {
+        label: 'Selected',
+        selected: true,
+      },
+      {
+        color: 'accent',
+        link: {
+          label: 'link',
+          href: '#',
+        },
       },
     ],
   },

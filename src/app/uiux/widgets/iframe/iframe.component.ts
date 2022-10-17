@@ -7,6 +7,7 @@ import {
   Inject,
 } from '@angular/core';
 import type { IUser } from '@core/interface/IUser';
+import { IIframe } from '@core/interface/widgets/IWidgets';
 import { USER } from '@core/token/token-providers';
 
 @Component({
@@ -16,7 +17,7 @@ import { USER } from '@core/token/token-providers';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IframeComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: IIframe;
   url: string;
   constructor(
     private cd: ChangeDetectorRef,

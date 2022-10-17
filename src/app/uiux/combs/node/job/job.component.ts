@@ -6,7 +6,6 @@ import {
   OnInit,
 } from '@angular/core';
 import { NodeService } from '@core/service/node.service';
-import { IChipList } from './IJob';
 import { map } from 'lodash-es';
 import { RouteService } from '@core/service/route.service';
 import { Params, ActivatedRoute } from '@angular/router';
@@ -150,7 +149,7 @@ const feature = {
 })
 export class JobComponent implements OnInit {
   @Input() content: any;
-  nodes: any[];
+  nodes: any;
   autoList: any[];
   skills: string[];
   selectedSkill: string;
@@ -216,17 +215,6 @@ export class JobComponent implements OnInit {
     this.nodeService.getNodes(path, 'job', params).subscribe((res) => {
       this.updateList(res.data);
     });
-  }
-
-  getWelfare(lists: string[]): IChipList[] {
-    return lists
-      .map((list) => {
-        return {
-          color: 'primary',
-          label: list,
-        };
-      })
-      .slice(0, 4);
   }
 
   get nodePath(): string {
@@ -314,7 +302,7 @@ export class JobComponent implements OnInit {
 
   updateList(lists: any): void {
     this.loading = false;
-    this.nodes = map(lists, (item) => {
+    this.nodes.elements = map(lists, (item) => {
       return {
         nid: item.id,
         title: item.title,

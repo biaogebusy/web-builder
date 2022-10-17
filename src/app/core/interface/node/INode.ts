@@ -1,5 +1,6 @@
 import { IImg } from '@core/interface/widgets/IImg';
 import { QuillModule } from 'ngx-quill';
+import { IChipList } from '../widgets/IChipList';
 export interface IBaseNode {
   title: string;
   body?: string;
@@ -85,7 +86,7 @@ export interface ICommentConfig {
 }
 
 export interface IQuestion extends IBaseNode {
-  topic: any[];
+  topic: IChipList;
 }
 
 export interface ICase extends IBaseNode {

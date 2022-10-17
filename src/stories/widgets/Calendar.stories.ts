@@ -47,12 +47,4 @@ Default.args = {
       },
     ],
   },
-  content: {
-    theme: {
-      meeting: 'bg-warn',
-      case: 'bg-primary',
-      project: 'bg-accent',
-      event: 'bg-red',
-    },
-  },
 };

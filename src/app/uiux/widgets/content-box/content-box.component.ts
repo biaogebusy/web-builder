@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { IContentBox } from '@core/interface/widgets/IContentWidget';
 
 @Component({
   selector: 'app-content-box',
@@ -12,7 +13,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ContentBoxComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: IContentBox;
   constructor() {}
 
   ngOnInit(): void {}

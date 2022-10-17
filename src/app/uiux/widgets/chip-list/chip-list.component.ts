@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { IChipList } from '@core/interface/widgets/IChipList';
 
 @Component({
   selector: 'app-chip-list',
@@ -12,8 +13,8 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChipListComponent implements OnInit {
-  @Input() content: any;
-  @Input() classes: any;
+  @Input() content: IChipList;
+  @Input() classes: object | string;
 
   constructor() {}
 
