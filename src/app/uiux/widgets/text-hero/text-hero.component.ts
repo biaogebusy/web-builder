@@ -4,7 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { ITextHero } from '@core/interface/widgets/IText';
+import type { ITextHero } from '@core/interface/widgets/IText';
 
 @Component({
   selector: 'app-text-hero',

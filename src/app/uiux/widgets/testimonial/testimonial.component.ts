@@ -4,7 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { ITestimonial } from '@core/interface/widgets/IWidgets';
+import type { ITestimonial } from '@core/interface/widgets/IWidgets';
 
 @Component({
   selector: 'app-testimonial',

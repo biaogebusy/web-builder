@@ -4,7 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { IBtn } from '@core/interface/widgets/IBtn';
+import type { IBtn } from '@core/interface/widgets/IBtn';
 import { RouteService } from '@core/service/route.service';
 
 @Component({

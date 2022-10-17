@@ -4,7 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { IContentTextCenter } from '@core/interface/widgets/IContentWidget';
+import type { IContentTextCenter } from '@core/interface/widgets/IContentWidget';
 
 @Component({
   selector: 'app-content-text-center',
