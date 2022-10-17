@@ -7,8 +7,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
 } from '@angular/core';
-import { Observable } from 'rxjs';
-import type { IMark } from '@core/interface/IAmap';
+import type { IMap, IMark } from '@core/interface/IAmap';
 
 @Component({
   selector: 'app-job-list',
@@ -17,7 +16,7 @@ import type { IMark } from '@core/interface/IAmap';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class JobListComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: IMap;
   @Input() selectedId: string;
   @Output() selected = new EventEmitter();
   @Output() scroller = new EventEmitter();

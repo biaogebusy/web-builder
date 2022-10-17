@@ -12,6 +12,7 @@ import { Params, ActivatedRoute } from '@angular/router';
 import { TagsService } from '@core/service/tags.service';
 import { ScreenService } from '@core/service/screen.service';
 import { AmapService } from '@core/service/amap.service';
+import { IMap } from '@core/interface/IAmap';
 
 const feature = {
   type: 'showcase-3v6',
@@ -149,7 +150,9 @@ const feature = {
 })
 export class JobComponent implements OnInit {
   @Input() content: any;
-  nodes: any;
+  nodes: IMap = {
+    elements: [],
+  };
   autoList: any[];
   skills: string[];
   selectedSkill: string;
@@ -170,9 +173,7 @@ export class JobComponent implements OnInit {
     private route: ActivatedRoute,
     private screenService: ScreenService,
     private cd: ChangeDetectorRef
-  ) {
-    this.nodes = [];
-  }
+  ) {}
 
   ngOnInit(): void {
     this.tagsService.setTitle('内推职位列表');

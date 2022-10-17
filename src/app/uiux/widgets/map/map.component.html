@@ -1,4 +1,6 @@
-<div id="map" fxFill></div>
-<button (click)="setFitView()" class="set-fit-view" mat-fab color="primary">
-  <mat-icon>filter_center_focus</mat-icon>
-</button>
+<ng-container *ngIf="content">
+  <div id="map" fxFill></div>
+  <button (click)="setFitView()" class="set-fit-view" mat-fab color="primary">
+    <mat-icon>filter_center_focus</mat-icon>
+  </button>
+</ng-container>
