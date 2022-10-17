@@ -28,7 +28,11 @@ export class RouteService {
   toNavigate(event: any, link: any): void {
     const href = link.href;
     if (!this.util.getFileType(href)) {
-      if (href.startsWith('/print') || href.startsWith('/export')) {
+      if (
+        href.startsWith('/print') ||
+        href.startsWith('/export') ||
+        href.startsWith('/manage')
+      ) {
         event.preventDefault();
         window.open(href, link.target || '_self');
         return;
