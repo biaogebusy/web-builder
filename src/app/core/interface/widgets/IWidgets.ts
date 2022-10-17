@@ -1,6 +1,6 @@
 import { IImg } from '@core/interface/widgets/IImg';
 import { ILink } from '@core/interface/widgets/ILink';
-import { IIcon } from '../../core/interface/widgets/IIcon';
+import { IIcon } from './IIcon';
 
 export interface ICard {
   title?: string;
@@ -42,6 +42,7 @@ export interface IMeta {
     line?: string;
     lightbox?: boolean;
     shorten?: number;
+    dynamic?: boolean;
     dialog?: {
       label: string;
     };

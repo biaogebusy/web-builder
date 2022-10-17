@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ManageService } from '@core/service/manage.service';
-import { IDynamicTable } from '@uiux/widgets/IWidgets';
+import { IDynamicTable } from '@core/interface/widgets/IWidgets';
 import { of } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 // import data from './block.json';

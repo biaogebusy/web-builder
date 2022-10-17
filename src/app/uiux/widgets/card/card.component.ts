@@ -4,7 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import type { ICard } from '../IWidgets';
+import { ICard } from '@core/interface/widgets/IWidgets';
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',

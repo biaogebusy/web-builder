@@ -7,9 +7,9 @@
       <!-- dialog -->
       <ng-container *ngIf="meta?.params?.dialog">
         <span class="{{meta?.params?.line || 'two'}}-line p-right-xs"
-          [innerHTML]="meta.value | stripTags | shorten:meta.params?.shorten||'200':''"></span>
+          [innerHTML]="meta.value | stripTags | shorten:meta.params?.shorten||200"></span>
         <button class="custom-btn" mat-icon-button (click)="onDialog(meta)">
-          <span [innerHTML]="meta.params.dialog.label|safeHtml"></span>
+          <span [innerHTML]="meta.params?.dialog?.label|safeHtml"></span>
         </button>
       </ng-container>
 

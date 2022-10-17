@@ -1,4 +1,4 @@
-import { ICard } from '../widgets/IWidgets';
+import { ICard } from '../../core/interface/widgets/IWidgets';
 
 export interface IShowcase2v1 {
   text?: any;
