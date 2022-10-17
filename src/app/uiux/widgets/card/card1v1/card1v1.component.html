@@ -5,7 +5,7 @@
       <app-link [content]="content.link"></app-link>
     </div>
     <div class="post-meta" fxLayoutAlign="space-between center">
-      <a href="{{content.link.href}}" class="text-muted readmore">{{content.moreLabel}}
+      <a [href]="content.link.href" class="text-muted readmore">{{content.moreLabel}}
         <mat-icon inline="true">navigate_next</mat-icon>
       </a>
     </div>

@@ -83,5 +83,34 @@ Default.args = {
         },
       },
     ],
+    count: [
+      {
+        digit: {
+          value: 100,
+          form: 0,
+          duration: 2,
+          style: {
+            color: 'red',
+          },
+        },
+        title: '发布',
+      },
+      {
+        digit: {
+          value: 55,
+          form: 0,
+          duration: 2,
+        },
+        title: '回复',
+      },
+      {
+        digit: {
+          value: 12,
+          form: 0,
+          duration: 2,
+        },
+        title: '审批',
+      },
+    ],
   },
 };

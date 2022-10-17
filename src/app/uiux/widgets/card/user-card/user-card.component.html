@@ -1,7 +1,7 @@
 <div class="user-card position-relative p-x p-y-sm">
   <div class="inner" fxLayout="column" fxLayoutAlign="center start">
     <app-media-object class="width-100" [content]="profile"></app-media-object>
-    <app-user-card-count class="width-100" [content]="count"></app-user-card-count>
+    <app-user-card-count class="width-100 m-y-sm" [content]="count"></app-user-card-count>
     <div class="time m-top-xs" *ngIf="user?.login">
       您上次登录时间：{{user.login | date:"YYYY-MM-dd hh:mm"}}
     </div>

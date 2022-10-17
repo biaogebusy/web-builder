@@ -15,6 +15,7 @@ import { of } from 'rxjs';
 import type { IUser } from '@core/interface/IUser';
 import { USER, CORE_CONFIG } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
+import { IUserCard, IUserCount } from '@core/interface/widgets/ICard';
 
 @Component({
   selector: 'app-user-card',
@@ -23,9 +24,9 @@ import type { ICoreConfig } from '@core/interface/IAppConfig';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserCardComponent extends BaseComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: IUserCard;
   profile: IMediaObject;
-  count: any[];
+  count: IUserCount[];
   constructor(
     private nodeService: NodeService,
     private cd: ChangeDetectorRef,
@@ -61,7 +62,7 @@ export class UserCardComponent extends BaseComponent implements OnInit {
 
   getCount(): void {
     const api = this.getParams(this.content, 'api');
-    if (!api) {
+    if (!api && this.content.count) {
       this.count = this.content.count;
       this.cd.detectChanges();
     } else {

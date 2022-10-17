@@ -11,6 +11,7 @@ import type { IMark } from '@core/interface/IAmap';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { LoopWidgetsComponent } from '@uiux/widgets/loop-widgets/loop-widgets.component';
+import { Card1v3Item, ICard1v3 } from '@core/interface/widgets/ICard';
 
 @Component({
   selector: 'app-card1v3',
@@ -19,7 +20,7 @@ import { LoopWidgetsComponent } from '@uiux/widgets/loop-widgets/loop-widgets.co
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Card1v3Component implements OnInit {
-  @Input() content: any;
+  @Input() content: ICard1v3;
   @Output() selected = new EventEmitter();
   selectedId: number;
 
@@ -27,7 +28,7 @@ export class Card1v3Component implements OnInit {
 
   ngOnInit(): void {}
 
-  onCard(item: any, i: number): void {
+  onCard(item: Card1v3Item, i: number): void {
     this.selectedId = i;
     if (item.dialog) {
       this.openDialog(item.dialog);
