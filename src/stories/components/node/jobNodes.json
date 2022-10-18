@@ -1,0 +1,522 @@
+{
+  "elements": [
+    {
+      "nid": "cf493591-89bb-4af0-8de9-971de49d7e30",
+      "title": "前端开发工程师 ",
+      "number": 2,
+      "salary": {
+        "from": 7,
+        "to": 10
+      },
+      "skill": [
+        {
+          "label": "VUE"
+        }
+      ],
+      "deadline": "2021-04-30",
+      "work_experience": {
+        "from": 3,
+        "to": 5
+      },
+      "body": "<p>职位描述<br />\r\n1. 主要参与电商平台前端、后端⻚⾯代码编写、根据产品设计完成前后端数据对接；<br />\r\n2. 参与项⽬需求和⽤例评审、编写开发⽂档、计划⽂档；<br />\r\n3. 负责业务系统Web前端⻚⾯开发以及交互的技术设计、开发、代码优化等；<br />\r\n4. 与后端⼯程师深度交流合作，⼀起研讨技术实现⽅案，并落实为具体的开发⼯作；<br />\r\n5. 配合团队整体建设，协助构建优秀的团队开发环境和基础设施，分享前端技术经验。<br />\r\n任职要求<br />\r\n1. 三年以上前端开发经验；<br />\r\n2. 熟练JavaScript， TypeScript语⾔， 精通Vue.js 熟悉vuex, axios等常;<br />\r\n3. 熟悉⻚⾯架构及布局，熟悉UI交互的实现；<br />\r\n4. 熟悉uni-app，有完整uni-app项⽬开发经验;<br />\r\n5. 熟悉HTTP/HTTPS协议，深刻了解浏览器是如何通过HTTP实现和服务器交互；<br />\r\n6. 熟悉Webpack、Node.js等⾃动化构建⼯具。<br />\r\n7. 有完整的⼩程序开发经验优先；<br />\r\n8. 热爱软件开发⼯作，善于分析，细致认真，富有耐⼼，拥有良好的沟通能⼒;<br />\r\n9. 有团队合作精神，注重学习和总结进步;</p>\r\n",
+      "params": {
+        "address": "金洲路琅西56栋-12号(汇发集团)3楼",
+        "title": "广西叫酒网络科技有限公司"
+      },
+      "company": {
+        "id": "30507ec4-67ad-429d-b85f-94addebfaa5a",
+        "logo": {
+          "src": "/sites/default/files/2021-01/CgpOIFrO0p6AQgLVAAAuwmMdjUE904.png",
+          "alt": "广西叫酒网络科技有限公司",
+          "style": {
+            "height": "80px",
+            "width": "80px"
+          }
+        },
+        "title": "广西叫酒网络科技有限公司",
+        "welfare": [
+          {
+            "label": "绩效奖金"
+          },
+          {
+            "label": "午餐补助"
+          },
+          {
+            "label": "美女多"
+          }
+        ],
+        "address": "金洲路琅西56栋-12号(汇发集团)3楼",
+        "phone": "15877194199"
+      }
+    },
+    {
+      "nid": "f5cfba94-0b6e-4452-8e16-27eba170920b",
+      "title": "新媒体运营",
+      "number": 5,
+      "salary": {
+        "from": 3,
+        "to": 6
+      },
+      "skill": [
+        {
+          "label": "运营"
+        }
+      ],
+      "deadline": "2021-04-25",
+      "work_experience": {
+        "from": 1,
+        "to": 3
+      },
+      "body": "<p><strong>岗位职责</strong></p>\r\n\r\n<ol>\r\n\t<li>\r\n\t<p>制定市场传播计划，负责组织并落实公司产品及项目的文稿及文案撰写，包含不限于：官方新闻稿件、产业洞察、品牌活动策划文案等；&nbsp;</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>负责公司新媒体业务（微信、微博、第三方自媒体平台）日常选题、内容策划与运营；&nbsp;</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>根据公司产品相关领域热点或用户兴趣策划线上活动并执行，有效增长粉丝数量，提升用户的活跃度和黏性；&nbsp;</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>能及时捕获当下热点、大事件，懂得借势营销，结合平台调性策划内容；&nbsp;</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>持续对运营数据进行监测和分析，收集用户反馈，不断优化运营策略；</p>\r\n\t</li>\r\n</ol>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>任职要求</strong></p>\r\n\r\n<ol>\r\n\t<li>\r\n\t<p>中文、传媒、新闻等相关专业毕业；&nbsp;</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>有一定的文字功底，有关注和阅读大量订阅号的习惯；</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>有较强的策划及传播能力，优秀的创意及资源整合能力；</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>拥有长期观察用户，了解用户的能力与耐心，具备敏锐的市场洞察力，熟悉新媒体传播特点；</p>\r\n\t</li>\r\n</ol>\r\n",
+      "params": {
+        "address": "平乐大道21号大唐·总部1号1号楼",
+        "title": "广西猫头鹰科技有限公司"
+      },
+      "company": {
+        "id": "51109b5f-8ede-4919-ab70-b4642754a4ed",
+        "logo": {
+          "src": "/sites/default/files/2021-01/QQ20210125-182042%402x.png",
+          "alt": "广西猫头鹰科技有限公司",
+          "style": {
+            "height": "80px",
+            "width": "80px"
+          }
+        },
+        "title": "广西猫头鹰科技有限公司",
+        "welfare": [
+          {
+            "label": "职位晋升"
+          }
+        ],
+        "address": "平乐大道21号大唐·总部1号1号楼",
+        "phone": "15278305294"
+      }
+    },
+    {
+      "nid": "5c252f28-3f9a-4740-83d0-56ce2aae343f",
+      "title": "cto首席技术官 ",
+      "number": 1,
+      "salary": {
+        "from": 15,
+        "to": 20
+      },
+      "skill": [
+        {
+          "label": "技术机构"
+        }
+      ],
+      "deadline": "2021-04-25",
+      "work_experience": {
+        "from": 5,
+        "to": 10
+      },
+      "body": "<p>一、岗位职责：<br />\r\n1、根据公司的战略规划，制定技术中心各项规章制度、工作流程等，并监督实施；<br />\r\n2、规划产品研发进度安排，根据公司需要确定产品开发周期，全面监控产品开发质量、进度和成本控制；<br />\r\n3、负责技术中心的日常管理工作和部门建设，制订并监督执行部门工作计划；<br />\r\n4、负责技术中心人才的引进，逐步建立人才梯队；<br />\r\n5、负责技术中心的绩效管理工作，有效激励员工，逐步提高技术中心员工的归属感和凝聚力。<br />\r\n6、参与制定公司软件产品的发展方向，确定公司产品框架及开发实施计划；<br />\r\n7、负责处理、协调和解决公司产品开发中出现的技术问题；<br />\r\n8、完成公司交代的其他工作。<br />\r\n二、岗位要求：<br />\r\n1、***本科以上学历，计算机、软件工程及相关专业；<br />\r\n2、5年以上开发经验，3年以上技术架构设计经验和项目管理经验，有互联网公司CTO或技术总监工作经验者尤佳；<br />\r\n3、熟悉服务器运维与网络安全技术，对其他开发语言相关技术有一定涉猎，有中级工程师/高级项目经理职称或等同资质者优先；<br />\r\n4、熟悉互联网主流技术架构，熟练掌握分布式数据库及缓存、高并发架构，有大型互联网产品架构设计经验，有大规模数据存储、传输、检索、性能优化等丰富经验者优先；<br />\r\n5、能够把握行业技术发展趋势和业务发展动向，对关键技术有自己独到见解。</p>\r\n",
+      "params": {
+        "address": "金洲路琅西56栋-12号(汇发集团)3楼",
+        "title": "广西叫酒网络科技有限公司"
+      },
+      "company": {
+        "id": "30507ec4-67ad-429d-b85f-94addebfaa5a",
+        "logo": {
+          "src": "/sites/default/files/2021-01/CgpOIFrO0p6AQgLVAAAuwmMdjUE904.png",
+          "alt": "广西叫酒网络科技有限公司",
+          "style": {
+            "height": "80px",
+            "width": "80px"
+          }
+        },
+        "title": "广西叫酒网络科技有限公司",
+        "welfare": [
+          {
+            "label": "绩效奖金"
+          },
+          {
+            "label": "午餐补助"
+          },
+          {
+            "label": "美女多"
+          }
+        ],
+        "address": "金洲路琅西56栋-12号(汇发集团)3楼",
+        "phone": "15877194199"
+      }
+    },
+    {
+      "nid": "f2041e71-de9c-4a91-91bd-dc62f2251f7b",
+      "title": "产品经理",
+      "number": 2,
+      "salary": {
+        "from": 6,
+        "to": 8
+      },
+      "skill": [
+        {
+          "label": "新零售"
+        }
+      ],
+      "deadline": "2021-04-25",
+      "work_experience": {
+        "from": 3,
+        "to": 5
+      },
+      "body": "<p>岗位职责：<br />\r\n从多方面获取用户需求，经过科学合理的需求分析，结合公司业务实际和部门工作安排情况，对需求进行整理、提炼、归纳、排序；<br />\r\n根据部门工作安排，将已知需求按迭代计划进行具体的产品需求设计，包括且不限于：产品架构设计、产品重要业务逻辑设计、产品交互原型设计等；<br />\r\n组织产品设计评审，参与相关功能开发讨论，和开发同事沟通并根据版本迭代时间节点，参与内部测试并验收产品成果；<br />\r\n按要求完成公司交代的其他工作。<br />\r\n&nbsp;<br />\r\n任职要求：&nbsp;<br />\r\n本科以上学历，理工类专业尤佳；<br />\r\n3~5年互联网产品经理或项目经理从业经验，有互联网+餐饮/新零售/快消/供应链、B2B项目、政府项目经验者尤佳；<br />\r\n对互联网和IT行业极富兴趣，对业内主流公司和产品有一定了解，日常涉猎面广；&nbsp;<br />\r\n有用户思维，注重用户体验<br />\r\n熟练掌握思维导图和产品原形设计相关软件。<br />\r\n为人谦逊，不浮夸、不主观臆断，可以从多角度客观看待事物，富有同理心；<br />\r\n热衷学习和创造，对自己的产出有成就感，并能赋予等价的责任感；<br />\r\n有极强的逻辑思维能力和文字表达功底，产出文档规范、优质、高效，能与内部各职能角色或外部用户进行无碍沟通。</p>\r\n",
+      "params": {
+        "address": "民族大道159号万丰新新大厦",
+        "title": " 广西桂呈永军科技有限公司"
+      },
+      "company": {
+        "id": "a1ebd406-ffe3-4db7-9bc0-b0bfb81ad33e",
+        "logo": {
+          "src": "/sites/default/files/2021-01/Cgq2xl6MRb-AOhnJAABwvOeFuTI609.jpg",
+          "alt": " 广西桂呈永军科技有限公司",
+          "style": {
+            "height": "80px",
+            "width": "80px"
+          }
+        },
+        "title": " 广西桂呈永军科技有限公司",
+        "welfare": [
+          {
+            "label": "五险一金"
+          },
+          {
+            "label": "绩效奖金"
+          },
+          {
+            "label": "包中餐"
+          },
+          {
+            "label": "产假"
+          }
+        ],
+        "address": "民族大道159号万丰新新大厦",
+        "phone": null
+      }
+    },
+    {
+      "nid": "c5f33d0b-5fdb-4044-bf30-6a84d0bfcabe",
+      "title": "产品经理",
+      "number": 2,
+      "salary": {
+        "from": 4,
+        "to": 6
+      },
+      "skill": [
+        {
+          "label": "产品分析"
+        }
+      ],
+      "deadline": "2021-04-25",
+      "work_experience": {
+        "from": 1,
+        "to": 3
+      },
+      "body": "<p>岗位职责：<br />\r\n负责产品的生命周期管理，跟进产品的规划、设计、落地；深度理解业务，规划业务产品模型，根据用户分析、行业需求、同行竞争分析，对产品方案和制定产品线路给出建议；&nbsp;<br />\r\n根据业务需求，撰写详细的产品规划文档和原型设计文档；&nbsp;<br />\r\n与客户、运营、设计、开发等部门有效沟通，确保各方对产品的理解充分；&nbsp;<br />\r\n负责完成产品界面规划、功能流程设计，协调并推动开发人员工作；&nbsp;<br />\r\n监控产品数据，进行分析和统计，负责产品的用户研究，用户体验提升，并据此进行产品优化迭代。<br />\r\n&nbsp;<br />\r\n任职要求：&nbsp;<br />\r\n熟悉软件开发流程，可独立进行系统需求分析、产品规划和设计，有系统需求分析或产品经理相关工作经验更佳，有开发和架构经验者优先；<br />\r\n可以快速将客户需求、自有想法落实成原型，能熟练精通产品工具：如Photoshop/ Visio、Xmind，MS Project/JIRA/Redmind等；&nbsp;<br />\r\n思维逻辑清晰，理解能力强，具备优秀的沟通能力、学习能力（良好的跨领域学习能力）、技术理解力、组织协调能力及解决问题能力，特别是良好的跨部门沟通和项目协调能力，善于协调资源推动项目进展；&nbsp;<br />\r\n熟练掌握Excel、Word、PPT等办公软件，具有良好的文档编写能力；具备良好的数据分析能力、理解能力及综合判断能力；<br />\r\n喜欢迎接挑战，做事认真有激情，工作积极主动有耐力；坚持原则，具备较强抗压能力。</p>\r\n",
+      "params": {
+        "address": "平乐大道21号大唐·总部1号1号楼",
+        "title": "广西猫头鹰科技有限公司"
+      },
+      "company": {
+        "id": "51109b5f-8ede-4919-ab70-b4642754a4ed",
+        "logo": {
+          "src": "/sites/default/files/2021-01/QQ20210125-182042%402x.png",
+          "alt": "广西猫头鹰科技有限公司",
+          "style": {
+            "height": "80px",
+            "width": "80px"
+          }
+        },
+        "title": "广西猫头鹰科技有限公司",
+        "welfare": [
+          {
+            "label": "职位晋升"
+          }
+        ],
+        "address": "平乐大道21号大唐·总部1号1号楼",
+        "phone": "15278305294"
+      }
+    },
+    {
+      "nid": "44d1a05e-7ea9-4cb4-8403-db909f8800a2",
+      "title": "招软件测试工程师，入职即购买五险一金",
+      "number": 2,
+      "salary": {
+        "from": 7,
+        "to": 9
+      },
+      "skill": [
+        {
+          "label": "Linux"
+        }
+      ],
+      "deadline": "2021-04-24",
+      "work_experience": {
+        "from": 2,
+        "to": 4
+      },
+      "body": "<p><strong>任职要求：&nbsp;</strong></p>\r\n\r\n<ol>\r\n\t<li>\r\n\t<p>本科及以上学历，计算机或相关专业毕业；</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>2年及以上软件系统测试工作经验；</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>熟悉测试过程和测试规范；</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>能根据需求和设计文档独立编制产品测试计划、方案和用例；</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>有细致的测试工作规划，热衷测试工作，能熟练使用主流BUG及项目追踪工具；</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>有较强的逻辑分析能力和学习能力，工作责任心强，细致有耐心；</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>熟悉网络、linux命令、数据库及与产品相关的常用软件；</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>清晰的项目流程意识，沟通能力强；</p>\r\n\t</li>\r\n</ol>\r\n",
+      "params": {
+        "address": "平乐大道18号东盟信息港",
+        "title": "中软国际"
+      },
+      "company": {
+        "id": "486f0188-a93f-405c-be02-91c964c0e4c5",
+        "logo": {
+          "src": "/sites/default/files/2021-01/t0139ad267d7aefb529.png",
+          "alt": "中软国际",
+          "style": {
+            "height": "80px",
+            "width": "80px"
+          }
+        },
+        "title": "中软国际",
+        "welfare": [
+          {
+            "label": "五险一金"
+          }
+        ],
+        "address": "平乐大道18号东盟信息港",
+        "phone": "15013715340"
+      }
+    },
+    {
+      "nid": "4e959218-1b7c-487b-93a2-8cdd0ac7decf",
+      "title": "急招WEB前端开发工程师",
+      "number": 1,
+      "salary": {
+        "from": 8,
+        "to": 12
+      },
+      "skill": [
+        {
+          "label": "VUE"
+        }
+      ],
+      "deadline": "2021-04-23",
+      "work_experience": {
+        "from": 3,
+        "to": 5
+      },
+      "body": "<p><strong>岗位职责：</strong></p>\r\n\r\n<ol>\r\n\t<li>\r\n\t<p>负责WEB网站前端页面开发部；负责公司移动平台的前端页面开发；</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>负责根据文档或需求整理页面资料；对网站交互及性能进行优化；对页面交互有一定的设计能力；</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>能及时的发现问题、解决问题、归纳问题；能独立开发混合App应用。</p>\r\n\t</li>\r\n</ol>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>任职要求：&nbsp;</strong></p>\r\n\r\n<ol>\r\n\t<li>\r\n\t<p>男女不限、大专以上学历，2 年以上工作经验；较好的英文，工作中有较多英文文档，需要有阅读能力。</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>能挑起整个项目，能封装或修改组件库、工具类等；能高度还原设计稿(不接受很 low )；</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>必须熟悉 Vuejs，至少熟练使用一种构建工具，如 grunt、gulp、webpack 等;</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>符合 VUE 的技术栈，能搭建整个工程，不仅限依赖于 vue-cli 等脚手架；</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>须符合或可以转以下技术栈 PC: iview、Ant Design of Vue; APP: uni-app、weex、Flutter。</p>\r\n\t</li>\r\n</ol>\r\n",
+      "params": {
+        "address": "九洲国际38楼3802b",
+        "title": "掌悦网络科技"
+      },
+      "company": {
+        "id": "6113edf2-636b-48a7-b895-a4cc7db6c6a6",
+        "logo": {
+          "src": "/sites/default/files/2021-01/CgqKkVePQ7SAK8dOAABQUAlvNu8191.png",
+          "alt": "掌悦网络科技",
+          "style": {
+            "height": "80px",
+            "width": "80px"
+          }
+        },
+        "title": "掌悦网络科技",
+        "welfare": [
+          {
+            "label": "五险一金"
+          },
+          {
+            "label": "节日福利"
+          },
+          {
+            "label": "年终奖金"
+          },
+          {
+            "label": "带薪年假"
+          }
+        ],
+        "address": "九洲国际38楼3802b",
+        "phone": "13557019314"
+      }
+    },
+    {
+      "nid": "ea7f13a7-fb97-4f71-9c74-c7bd1db08520",
+      "title": "Java架构师",
+      "number": 1,
+      "salary": {
+        "from": 12,
+        "to": 18
+      },
+      "skill": [
+        {
+          "label": "Spring"
+        },
+        {
+          "label": "Oracle"
+        }
+      ],
+      "deadline": "2021-04-23",
+      "work_experience": {
+        "from": 5,
+        "to": 10
+      },
+      "body": "<p><strong>岗位职责：</strong></p>\r\n\r\n<ol>\r\n\t<li>\r\n\t<p>&nbsp;</p>\r\n\r\n\t<p>负责软件系统架构分析、设计及原型实现，指导技术团队完成产品研发；</p>\r\n\r\n\t<p></p>\r\n\t</li>\r\n\t<li>\r\n\t<p>参与制定设计及实现规范，指导设计、实现及部署工作；</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>配合项目经理进行技术决策，进行技术风险评估；</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>协助、指导工程师解决关键问题；</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>设计开发关键性功能模块；</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>参与系统架构分析设计。</p>\r\n\t</li>\r\n</ol>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>任职要求：</strong></p>\r\n\r\n<ol>\r\n\t<li>\r\n\t<p>本科以上学历，计算机相关专业，有扎实的Java基础，理解io、多线程、集合等基础框架，对JVM原理有一定的了解；</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>5年及以上使用Java开发的经验，对于用过的开源框架，能了解到它的原理和机制；</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>深入理解Spring、SpringMVC、Spring cloud、Spring boot，Ibatis、Mybatis、Hibernate等开源框架；</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>熟悉分布式系统的设计和应用，熟悉分布式、权限、单点登录、缓存、消息等机制；</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>掌握多线程及高性能的设计与编码及性能调优，能对分布式常用技术进行合理应用；</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>熟悉Linux 操作系统和数据库 Oracle、MySql 、Redis、对Redis优化有丰富的经验；</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>精通Tomcat，Apache，Nginx等Web应用服务器的搭建部署，具有大规模高并发访问Web应用架构的开发经验，有良好的系统性能瓶颈分析及优化能力；</p>\r\n\t</li>\r\n</ol>\r\n",
+      "params": {
+        "address": "东盟慧谷13栋15楼1501",
+        "title": "佳凯智能技术"
+      },
+      "company": {
+        "id": "82a338cb-fd21-4edc-b4c8-f82f326775f7",
+        "logo": {
+          "src": "/sites/default/files/2021-01/CgotOVvrlYKAXaTLAACs2FwPh24394.png",
+          "alt": "佳凯智能技术",
+          "style": {
+            "height": "80px",
+            "width": "80px"
+          }
+        },
+        "title": "佳凯智能技术",
+        "welfare": [
+          {
+            "label": "周末双休"
+          }
+        ],
+        "address": "东盟慧谷13栋15楼1501",
+        "phone": null
+      }
+    },
+    {
+      "nid": "dc644fc7-73f6-4dc5-944a-72ce1cc8832d",
+      "title": "高级Java开发",
+      "number": 2,
+      "salary": {
+        "from": 10,
+        "to": 16
+      },
+      "skill": [
+        {
+          "label": "Java"
+        }
+      ],
+      "deadline": "2021-04-23",
+      "work_experience": {
+        "from": 2,
+        "to": 5
+      },
+      "body": "<p><strong>岗位职责：</strong></p>\r\n\r\n<ol>\r\n\t<li>\r\n\t<p>从事服务端后台的开发，参与系统系统架构的设计和研发：</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>深入参与核心系统建设，技术驱动运营效率提升和用户体验改善；</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>参与产品需求的讨论和评审，与团队共同制定技术方案并落地执行；</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>对新技术进行调研，并在合适的应用场景下落地执行；</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>参与部门内的技术分享，对初中级员工提供必要的指导</p>\r\n\t</li>\r\n</ol>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>任职要求：&nbsp;</strong></p>\r\n\r\n<ol>\r\n\t<li>\r\n\t<p>三年以上JAVA WEB开发经验，两年以上Spring MVC,spring boot、Mybatis或Hibernate使用经验；</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>熟悉Linux开发环境，掌握一种脚本语言（Shell，Python，Perl）的使用；</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>掌握常用的数据结构和基本算法，面向对象的思想和设计模式；</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>精通至少Memcached或者Radis一直缓存技术；</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>精通至少activemq、kafka或者rabbitmq一种消息队列；</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>精通mysql、sql server等主流数据库，有数据库高并发、高写入优化经验优先</p>\r\n\t</li>\r\n</ol>\r\n",
+      "params": {
+        "address": "东盟慧谷13栋15楼1501",
+        "title": "佳凯智能技术"
+      },
+      "company": {
+        "id": "82a338cb-fd21-4edc-b4c8-f82f326775f7",
+        "logo": {
+          "src": "/sites/default/files/2021-01/CgotOVvrlYKAXaTLAACs2FwPh24394.png",
+          "alt": "佳凯智能技术",
+          "style": {
+            "height": "80px",
+            "width": "80px"
+          }
+        },
+        "title": "佳凯智能技术",
+        "welfare": [
+          {
+            "label": "周末双休"
+          }
+        ],
+        "address": "东盟慧谷13栋15楼1501",
+        "phone": null
+      }
+    },
+    {
+      "nid": "f26b1fd7-490f-46e8-a60e-5078518cfa95",
+      "title": "中级Java开发",
+      "number": 2,
+      "salary": {
+        "from": 7,
+        "to": 11
+      },
+      "skill": [
+        {
+          "label": "Java"
+        }
+      ],
+      "deadline": "2021-04-23",
+      "work_experience": {
+        "from": 2,
+        "to": 5
+      },
+      "body": "<p><strong>岗位职责：</strong></p>\r\n\r\n<ol>\r\n\t<li>\r\n\t<p>参与公司相关业务系统开发；</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>结合具体业务场景，协助业务目标进行数据分析</p>\r\n\t</li>\r\n</ol>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>任职要求：</strong></p>\r\n\r\n<ol>\r\n\t<li>\r\n\t<p>计算机相关专业，大专及以上学历，基础扎实2年以上Java 项目开发工作经验；</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>熟练使用JAVA 开发语言，熟练应用常用的设计模式，熟悉JAVA EE技术（JSP、Servlet、Structs、Spring、Hibernate、Webservice 等）具备良好的系统分析设计能力，使用springBoot、MySQL、Redis等开发组件</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>良好的沟通协调能力，团队意识</p>\r\n\t</li>\r\n</ol>\r\n",
+      "params": {
+        "address": "东盟慧谷13栋15楼1501",
+        "title": "佳凯智能技术"
+      },
+      "company": {
+        "id": "82a338cb-fd21-4edc-b4c8-f82f326775f7",
+        "logo": {
+          "src": "/sites/default/files/2021-01/CgotOVvrlYKAXaTLAACs2FwPh24394.png",
+          "alt": "佳凯智能技术",
+          "style": {
+            "height": "80px",
+            "width": "80px"
+          }
+        },
+        "title": "佳凯智能技术",
+        "welfare": [
+          {
+            "label": "周末双休"
+          }
+        ],
+        "address": "东盟慧谷13栋15楼1501",
+        "phone": null
+      }
+    },
+    {
+      "nid": "2586cab7-ed6a-4599-859c-7fca2e924ab5",
+      "title": "IT工程师(需求测试运维)",
+      "number": 2,
+      "salary": {
+        "from": 6,
+        "to": 12
+      },
+      "skill": [
+        {
+          "label": "Angular"
+        },
+        {
+          "label": "React"
+        },
+        {
+          "label": "VUE"
+        }
+      ],
+      "deadline": "2021-04-22",
+      "work_experience": {
+        "from": 3,
+        "to": 4
+      },
+      "body": "<p><strong>岗位职责：</strong></p>\r\n\r\n<ol>\r\n\t<li>\r\n\t<p>项目管理</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>负责将需求转换为系统设计</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>评估就设计是否本地二次开发或委托供应商开发</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>完善系统功能：完善信息网络平台的业务服务功能 (本地开发或指导供应商)</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>平台测试及部署和维护</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>做好系统部署</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>跟进公司信息网络平台模块的功能测试</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>用户反馈问题时能第一时间识别问题所在，并提出解决方案&nbsp;</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>在一些情况下进行简单的开发工作</p>\r\n\t</li>\r\n</ol>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>任职要求：&nbsp;</strong></p>\r\n\r\n<ol>\r\n\t<li>\r\n\t<p>信息化相关专业。（Java, 微信小程序, python, html）</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>熟练英语</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>能够用Java或其他编程语言编程</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>能够开发微信应用程序</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>具备HTML基础知识（网页设计）</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>能够学习和使用新的软件工具</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>熟练应用Excel等办公软件</p>\r\n\t</li>\r\n\t<li>\r\n\t<p>具备良好的沟通表达和创新能力</p>\r\n\t</li>\r\n</ol>\r\n",
+      "params": {
+        "address": "高科路八号创客城2栋01",
+        "title": "北部湾港"
+      },
+      "company": {
+        "id": "35a30d9e-af8b-4e34-8ffe-7d31698ae0ee",
+        "logo": {
+          "src": "/sites/default/files/2021-01/1_0.png",
+          "alt": "北部湾港",
+          "style": {
+            "height": "80px",
+            "width": "80px"
+          }
+        },
+        "title": "北部湾港",
+        "welfare": [
+          {
+            "label": "人才住房"
+          },
+          {
+            "label": "周末双休"
+          },
+          {
+            "label": "五险一金"
+          }
+        ],
+        "address": "高科路八号创客城2栋01",
+        "phone": "0771688888"
+      }
+    }
+  ]
+}
