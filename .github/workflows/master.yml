@@ -45,3 +45,17 @@ jobs:
           SERVER_IP: ${{ secrets.HOST }}
           USERNAME: ${{ secrets.SSH_USER }}
           SERVER_DESTINATION: ${{ secrets.APP_PATH }}
+
+      - name: Build Storybook
+        run: npm run build-storybook
+
+      - name: Deploy to Server
+        uses: AEnterprise/rsync-deploy@v1.0
+        env:
+          DEPLOY_KEY: ${{ secrets.KEY }}
+          ARGS: -avz --delete
+          SERVER_PORT: "22"
+          FOLDER: "storybook-static"
+          SERVER_IP: ${{ secrets.HOST }}
+          USERNAME: ${{ secrets.SSH_USER }}
+          SERVER_DESTINATION: "/sdc/www"
