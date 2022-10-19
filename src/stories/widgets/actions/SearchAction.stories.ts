@@ -4,6 +4,7 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
+import { screen, userEvent } from '@storybook/testing-library';
 import { SearchActionComponent } from '@uiux/widgets/actions/search-action/search-action.component';
 import { StorysModule } from '@core/storys.module';
 
@@ -99,4 +100,33 @@ Default.args = {
       },
     ],
   },
+};
+
+Default.play = async () => {
+  const skillInput = screen.getByLabelText('技能', {
+    selector: 'mat-select',
+  });
+
+  await userEvent.type(skillInput, 'Angular', {
+    delay: 200,
+  });
+
+  const cmsInput = screen.getByLabelText('CMS', {
+    selector: 'mat-select',
+  });
+
+  await userEvent.type(cmsInput, 'Drupal', {
+    delay: 200,
+  });
+
+  const keysInput = screen.getByLabelText('关键词', {
+    selector: 'input',
+  });
+
+  await userEvent.type(keysInput, '开发', {
+    delay: 300,
+  });
+
+  const search = screen.getByRole('button');
+  await userEvent.hover(search);
 };

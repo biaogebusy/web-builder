@@ -33,17 +33,17 @@ export const Base = Template.bind({});
 Base.args = {
   content: {
     img: {
-      src: '/assets/images/logo/codepen.svg',
+      src: '/assets/images/avatar/01.jpeg',
       style: {
         width: '45px',
         height: '45px',
       },
       alt: 'logo',
     },
-    meta: '2017-08',
+    meta: '2017/08',
     title: '前端开发工程师',
-    subTitle: '字节跳动',
+    subTitle: 'Davyin',
     content:
-      'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. ',
+      '专注于 Drupal 前端主题开发，目前主要从事于 Angular 前端开发，终身学习体验者，热衷于健身，希望明天比今天好一点。',
   },
 };

@@ -21,7 +21,7 @@
                 <mat-form-field appearance="fill">
                   <mat-label>请输入手机号码</mat-label>
                   <mat-icon matSuffix>phone_iphone</mat-icon>
-                  <input type="text" matInput formControlName="phone">
+                  <input placeholder="请输入手机号码" type="text" matInput formControlName="phone">
                   <mat-error *ngIf="formPhone.phone.errors?.pattern">
                     {{coreConfig.login.phoneLogin.error || '请输入正确的手机号码'}}</mat-error>
                 </mat-form-field>

@@ -83,7 +83,9 @@ export class DownloadComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.destroy$.next(true);
-    this.destroy$.complete();
+    if (this.destroy$.next) {
+      this.destroy$.next(true);
+      this.destroy$.complete();
+    }
   }
 }

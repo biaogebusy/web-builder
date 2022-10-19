@@ -164,7 +164,9 @@ export class FlagComponent extends BaseComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.destroy$.next(true);
-    this.destroy$.complete();
+    if (this.destroy$.next) {
+      this.destroy$.next(true);
+      this.destroy$.complete();
+    }
   }
 }

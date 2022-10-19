@@ -41,18 +41,18 @@ Base.args = {
       },
       {
         img: {
-          src: '/assets/images/logo/logo_default.png',
+          src: '/assets/images/avatar/03.jpeg',
           style: {
             width: '45px',
             height: '45px',
           },
           alt: 'logo',
         },
-        meta: '2022-08',
+        meta: '2022/08',
         title: '前端架构师',
         subTitle: '阿里蚂蚁',
         content:
-          'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. ',
+          '深入产品和行业场景，深入行业技术，分析影响稳定性和质量的潜在异常节点，把握蚂蚁金服强大的监控能力，设计和制定监控方案。',
       },
     ],
   },
