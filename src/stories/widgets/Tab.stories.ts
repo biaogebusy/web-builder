@@ -34,7 +34,7 @@ Default.args = {
   content: {
     type: 'tab',
     title: {
-      label: '为什么你将会喜欢 Drupal？',
+      label: '为什么你将会喜欢信使？',
       style: 'style-v4',
     },
     classes: 'bg-light',

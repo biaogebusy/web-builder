@@ -6,6 +6,7 @@ import {
 import { Story } from '@storybook/angular/types-6-0';
 import { Showcase3v5Component } from '@uiux/combs/showcase/showcase3v5/showcase3v5.component';
 import { StorysModule } from '@core/storys.module';
+import * as showcase3v4Stories from './showcase3v4.stories';
 
 export default {
   title: '组件/展示/3v5',
@@ -26,7 +27,7 @@ const Template: Story = (args) => ({
   },
 });
 export const Default = Template.bind({});
-
+const Showcase3v4: any = showcase3v4Stories.Default.args;
 Default.args = {
   content: {
     type: 'showcase-3v5',
@@ -35,10 +36,10 @@ Default.args = {
       type: 'text',
       spacer: 'sm',
       title: {
-        label: 'App Features',
+        label: '为什么你将会喜欢信使？',
         style: 'style-v1',
       },
-      body: '<p class="text-center">Start working with xinshi that can provide everything you need to generate awareness, drive traffic, connect.</p>',
+      body: '<p class="text-center">信使是基于 Material UI 的 Angular 前端框架，后端适配 Drupal，提供优秀的数字创新体验。</p>',
     },
     bg: {
       classes: 'bg-shadow bg-fill-width',
@@ -49,76 +50,58 @@ Default.args = {
     },
     elements: [
       {
+        ...Showcase3v4.content.elements[0],
         icon: {
           name: 'verified_user',
         },
         style: 'style-v8',
-        title: {
-          href: '#',
-          label: 'Use On Any Device',
-        },
-        content:
-          'Composed in a pseudo-Latin language which more or less pseudo-Latin language corresponds.',
+        more: {},
       },
       {
-        icon: {
-          name: 'verified_user',
-        },
-        style: 'style-v8',
-        title: {
-          href: '#',
-          label: 'Feather Icons',
-        },
-        content:
-          'There are many variations of demo text passed sages of Lorem Ipsum available the majority.',
-      },
-      {
+        ...Showcase3v4.content.elements[1],
         icon: {
           name: 'favorite',
         },
         style: 'style-v8',
-        title: {
-          href: '#',
-          label: 'Retina Ready',
-        },
-        content:
-          'Drupal 已经超越了传统的 Web概念，可以通过不同的渠道部署你的数据内容，从一个数据中心点到各个应用，从简单到复杂。',
+        more: {},
       },
       {
+        ...Showcase3v4.content.elements[2],
         icon: {
           name: 'android',
         },
         style: 'style-v8',
-        title: {
-          href: '#',
-          label: 'W3c Valid Code',
+        more: {},
+      },
+      {
+        ...Showcase3v4.content.elements[3],
+        icon: {
+          name: 'devices',
         },
-        content:
-          'At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. ',
+        style: 'style-v8',
+        more: {},
       },
       {
         icon: {
-          name: 'favorite',
+          name: 'border_all',
         },
         style: 'style-v8',
         title: {
           href: '#',
-          label: 'Fully Responsive',
+          label: '更有弹性',
         },
-        content:
-          'Consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. ',
+        content: '无论是一个还是多个站点，Drupal 总是可以游刃有余的构建',
       },
       {
         icon: {
-          name: 'android',
+          name: 'functions',
         },
         style: 'style-v8',
         title: {
           href: '#',
-          label: 'Browser Compatibility',
+          label: '安全性',
         },
-        content:
-          'Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat.',
+        content: '超过45000名贡献者使该平台成为市场上最安全、最稳定的平台之一',
       },
     ],
   },

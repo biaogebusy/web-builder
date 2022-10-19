@@ -1,5 +1,6 @@
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
+import { screen, userEvent } from '@storybook/testing-library';
 import { Carousel1v2Component } from '@uiux/combs/carousel/carousel1v2/carousel1v2.component';
 import { StorysModule } from '@core/storys.module';
 
@@ -357,4 +358,9 @@ Default.args = {
       ],
     },
   },
+};
+
+Default.play = async () => {
+  const Next = screen.getByTestId('next');
+  await userEvent.click(Next);
 };

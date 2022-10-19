@@ -4,6 +4,7 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
+import { screen, userEvent } from '@storybook/testing-library';
 import { TaxonomyListComponent } from '@uiux/combs/list/taxonomy-list/taxonomy-list.component';
 import { ListModule } from '@uiux/combs/list/list.module';
 import { StorysModule } from '@core/storys.module';
@@ -397,4 +398,9 @@ Default.args = {
       },
     ],
   },
+};
+
+Default.play = async () => {
+  const Btn = document.querySelectorAll('.btn-animate')[0];
+  await userEvent.hover(Btn);
 };

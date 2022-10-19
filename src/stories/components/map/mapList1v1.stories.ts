@@ -1,11 +1,12 @@
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
+import { screen, userEvent } from '@storybook/testing-library';
 import { MapListV1Component } from '@uiux/combs/map/map-list-v1/map-list-v1.component';
 import * as Card1v3Stories from 'src/stories/widgets/card/Card1v3.stories';
 import * as MediaObjectStories from 'src/stories/widgets/media/MediaObject.stories';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { LoopWidgetsComponent } from '@uiux/widgets/loop-widgets/loop-widgets.component';
-import { StorysModule } from '@core/storys.module';
+import { sleep, StorysModule } from '@core/storys.module';
 
 export default {
   title: '组件/地图/位置列表 1v1',
@@ -55,6 +56,19 @@ Base.args = {
       elements: card1v3.content.elements,
     },
   },
+};
+
+Base.play = async () => {
+  await sleep(2000);
+
+  const First = document.querySelectorAll('.list')[0];
+  await userEvent.click(First);
+  await sleep(2000);
+  const Dialog = document.querySelectorAll('.list')[3];
+  await userEvent.click(Dialog);
+  await sleep(2000);
+  const CloseDialog = document.querySelectorAll('button.close')[0];
+  await userEvent.click(CloseDialog);
 };
 
 export const Sidebar = Template.bind({});

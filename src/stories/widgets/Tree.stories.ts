@@ -34,7 +34,7 @@ Default.args = {
   content: {
     label: '开发语言',
     key: 'type',
-    expandAll: true,
+    expandAll: false,
     value: 245,
     nodes: [
       {

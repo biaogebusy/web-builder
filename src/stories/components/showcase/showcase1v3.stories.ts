@@ -1,27 +1,11 @@
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
 import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { API_URL, CORE_CONFIG, USER } from '@core/token/token-providers';
-import { HttpClientModule } from '@angular/common/http';
-import { LocalStorageService, NgxWebstorageModule } from 'ngx-webstorage';
 import { Showcase1v3Component } from '@uiux/combs/showcase/showcase1v3/showcase1v3.component';
-import { APP_INITIALIZER, Inject } from '@angular/core';
-import { ShareModule } from '@share/share.module';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import * as ContactUs from 'src/stories/widgets/ContactUs.stories';
-import {
-  coreConfigFactory,
-  apiUrlFactory,
-  userFactory,
-} from '@core/factory/factory';
-import { ContentService } from '@core/service/content.service';
-import { CryptoJSService } from '@core/service/crypto-js.service';
-import { UserService } from '@core/service/user.service';
 import { StorysModule } from '@core/storys.module';
 export default {
   title: '组件/展示/1v3',
@@ -46,7 +30,7 @@ export const Default = Template.bind({});
 Default.args = {
   content: {
     title: {
-      label: 'Showcase 1v3',
+      label: '为什么你将会喜欢信使？',
       style: 'style-v1',
       classes: 'mat-display-1',
     },
@@ -55,7 +39,7 @@ Default.args = {
       classes: 'bg-fill-width overlay overlay-20',
       img: {
         hostClasses: 'bg-center',
-        src: '/assets/images/banner-01.jpeg',
+        src: '/assets/images/hero/bg-pattern-hero.png',
         alt: 'page title',
       },
     },
@@ -68,18 +52,18 @@ Default.args = {
           'text-align': 'center',
           width: '600px',
         },
-        body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.At vero eos et accusam et justo duo dolores et ea rebum.Stet clita kasd gubergren.',
+        body: 'Drupal 已经超越了传统的 Web概念，可以通过不同的渠道部署你的数据内容，从一个数据中心点到各个应用，从简单到复杂。',
         actionsAlign: 'center center',
         actions: [
           {
-            label: 'Read more',
+            label: '了解更多',
             type: 'btn-animate',
             href: '#',
             style: 'style-v1',
             icon: 'verified_user',
           },
           {
-            label: 'Learn more',
+            label: '回到官网',
             type: 'btn-animate',
             href: '#',
             style: 'style-v1',

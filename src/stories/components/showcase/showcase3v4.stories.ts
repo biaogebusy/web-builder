@@ -31,7 +31,7 @@ const BoxStyleV7: any = BoxStories.StyleV7.args;
 Default.args = {
   content: {
     title: {
-      label: 'OUR FEATRUES',
+      label: '为什么你将会喜欢信使？',
       style: 'style-v1',
     },
     bg: {

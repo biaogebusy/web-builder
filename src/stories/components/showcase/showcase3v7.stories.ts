@@ -6,6 +6,7 @@ import {
 import { Story } from '@storybook/angular/types-6-0';
 import { Showcase3v7Component } from '@uiux/combs/showcase/showcase3v7/showcase3v7.component';
 import { StorysModule } from '@core/storys.module';
+import * as showcase3v5Stories from './showcase3v5.stories';
 
 export default {
   title: '组件/展示/3v7',
@@ -26,18 +27,11 @@ const Template: Story = (args) => ({
   },
 });
 export const Default = Template.bind({});
-
+const showcase3v5: any = showcase3v5Stories.Default.args;
 Default.args = {
   content: {
-    id: '',
     title: {
-      type: 'text',
-      spacer: 'sm',
-      title: {
-        label: 'App Features',
-        style: 'style-v1',
-      },
-      body: '<p class="text-center">Start working with xinshi that can provide everything you need to generate awareness, drive traffic, connect.</p>',
+      ...showcase3v5.content.title,
     },
     bg: {
       classes: 'bg-shadow bg-fill-width',
@@ -48,78 +42,30 @@ Default.args = {
     },
     left: [
       {
-        icon: {
-          name: 'verified_user',
-        },
+        ...showcase3v5.content.elements[0],
         style: 'style-v10',
-        title: {
-          href: '#',
-          label: 'Use On Any Device',
-        },
-        content:
-          'Composed in a pseudo-Latin language which more or less pseudo-Latin language corresponds.',
       },
       {
-        icon: {
-          name: 'fingerprint',
-        },
+        ...showcase3v5.content.elements[1],
         style: 'style-v10',
-        title: {
-          href: '#',
-          label: 'Feather Icons',
-        },
-        content:
-          'There are many variations of demo text passed sages of Lorem Ipsum available the majority.',
       },
       {
-        icon: {
-          name: 'favorite',
-        },
+        ...showcase3v5.content.elements[2],
         style: 'style-v10',
-        title: {
-          href: '#',
-          label: 'Fully Responsive',
-        },
-        content:
-          'Consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. ',
       },
     ],
     right: [
       {
-        icon: {
-          name: 'favorite',
-        },
+        ...showcase3v5.content.elements[3],
         style: 'style-v8',
-        title: {
-          href: '#',
-          label: 'Retina Ready',
-        },
-        content:
-          'Drupal 已经超越了传统的 Web概念，可以通过不同的渠道部署你的数据内容，从一个数据中心点到各个应用，从简单到复杂。',
       },
       {
-        icon: {
-          name: 'android',
-        },
+        ...showcase3v5.content.elements[4],
         style: 'style-v8',
-        title: {
-          href: '#',
-          label: 'W3c Valid Code',
-        },
-        content:
-          'At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. ',
       },
       {
-        icon: {
-          name: 'android',
-        },
+        ...showcase3v5.content.elements[5],
         style: 'style-v8',
-        title: {
-          href: '#',
-          label: 'Browser Compatibility',
-        },
-        content:
-          'Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat.',
       },
     ],
   },

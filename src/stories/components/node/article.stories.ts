@@ -4,13 +4,14 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
+import { screen, userEvent } from '@storybook/testing-library';
 import { ArticleComponent } from '@uiux/combs/node/article/article.component';
 import { NodeModule } from '@uiux/combs/node/node.module';
 import * as MediaListStories from 'src/stories/widgets/media/MediaList.stories';
 import * as MeunListStories from 'src/stories/widgets/MeunList.stories';
 import { LoginComponent } from 'src/app/modules/user/login/login.component';
 import { UserModule } from 'src/app/modules/user/user.module';
-import { StorysModule } from '@core/storys.module';
+import { StorysModule, sleep } from '@core/storys.module';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { comments } from './comments.json';
 
@@ -179,4 +180,35 @@ Comment.args = {
   },
   canAccess: true,
   comments,
+};
+
+Comment.play = async () => {
+  const Flaging = screen.getByText('收藏');
+  await userEvent.click(Flaging);
+
+  await sleep(2000);
+  const Share = screen.getByText('分享');
+  await userEvent.click(Share);
+  await sleep(1000);
+  await userEvent.click(Share);
+
+  await sleep(2000);
+  const Download = screen.getByText('下载');
+  await userEvent.click(Download);
+  await sleep(1000);
+  await userEvent.click(Download);
+
+  await sleep(2000);
+  const Form = document.querySelectorAll('.ql-editor')[0];
+  await userEvent.type(
+    Form,
+    '信使基于 Material 的 Angular 前端框架，为了适配 IE11 目前的版本保持在 Angular v11，支持 SSR 服务端渲染。',
+    {
+      delay: 100,
+    }
+  );
+
+  await sleep(2000);
+  const Submit = screen.getByText('提交');
+  await userEvent.click(Submit);
 };

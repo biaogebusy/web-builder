@@ -134,7 +134,7 @@ Background.args = {
     },
     row: '3',
     action: {
-      label: 'Read more',
+      label: '查看更多',
       href: '#',
       style: 'style-v1',
       icon: 'open_in_new',

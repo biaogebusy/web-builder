@@ -116,7 +116,8 @@ export class CommentFormComponent implements OnInit, OnDestroy {
         },
         () => {
           this.loading = false;
-          this.utilitiesService.openSnackbar('请重新登录！');
+          this.utilitiesService.openSnackbar('提交失败！');
+          this.cd.detectChanges();
         }
       );
   }
