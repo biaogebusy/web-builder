@@ -47,6 +47,8 @@
   }
   .btns {
     position: absolute;
+    display: flex;
+
     z-index: 1;
     .mat-icon {
       line-height: 40px;

@@ -1,34 +1,42 @@
 {
   "defaultTheme": "light-theme",
-  "theme": [{
-    "name": "默认主题",
-    "style": "light-theme",
-    "icon": "laptop_mac"
-  }, {
-    "name": "Pink 主题",
-    "style": "pink-theme",
-    "icon": "laptop_mac"
-  }, {
-    "name": "Blue 主题",
-    "style": "blue-theme",
-    "icon": "laptop_mac"
-  }, {
-    "name": "Green 主题",
-    "style": "green-theme",
-    "icon": "laptop_mac"
-  }, {
-    "name": "Red 主题",
-    "style": "red-theme",
-    "icon": "laptop_mac"
-  }, {
-    "name": "King 主题",
-    "style": "king-theme",
-    "icon": "laptop_mac"
-  }, {
-    "name": "暗黑主题",
-    "style": "dark-theme",
-    "svgIcon": "dark_mode"
-  }],
+  "theme": [
+    {
+      "name": "默认主题",
+      "style": "light-theme",
+      "icon": "laptop_mac"
+    },
+    {
+      "name": "Pink 主题",
+      "style": "pink-theme",
+      "icon": "laptop_mac"
+    },
+    {
+      "name": "Blue 主题",
+      "style": "blue-theme",
+      "icon": "laptop_mac"
+    },
+    {
+      "name": "Green 主题",
+      "style": "green-theme",
+      "icon": "laptop_mac"
+    },
+    {
+      "name": "Red 主题",
+      "style": "red-theme",
+      "icon": "laptop_mac"
+    },
+    {
+      "name": "King 主题",
+      "style": "king-theme",
+      "icon": "laptop_mac"
+    },
+    {
+      "name": "暗黑主题",
+      "style": "dark-theme",
+      "svgIcon": "dark_mode"
+    }
+  ],
   "login": {
     "loginRedirect": "/",
     "left": {
@@ -55,15 +63,24 @@
   "amap": {
     "key": "33877188af64f0213ff4fa259b1c14b8",
     "version": "1.4.15",
-    "plugins": ["AMap.Geocoder"],
+    "plugins": [
+      "AMap.Geocoder"
+    ],
     "city": "0771",
     "zoom": 18,
-    "center": [108.32067, 22.817424],
+    "center": [
+      108.32067,
+      22.817424
+    ],
     "mapStyle": {
       "light": "amap://styles/1421728e809147de8bfac4fd1abd2fb3",
       "dark": "amap://styles/50fcdf3719b8cd479cd3017044e49c22"
     },
-    "features": ["bg", "road", "point"]
+    "features": [
+      "bg",
+      "road",
+      "point"
+    ]
   },
   "apiUrl": {
     "loginPath": "/user/login",
@@ -88,19 +105,21 @@
   "article": {
     "fontSize": {
       "enable": true,
-      "form": [{
-        "label": "字体大小",
-        "key": "font",
-        "value": 16,
-        "type": "input",
-        "placeholder": "Ex. 12",
-        "controlType": "number",
-        "appearance": "legacy",
-        "errorMes": "最小: 10px",
-        "tooltip": "通过键盘上下键可快速更改大小",
-        "matTooltipPosition": "above",
-        "suffix": "px"
-      }]
+      "form": [
+        {
+          "label": "字体大小",
+          "key": "font",
+          "value": 16,
+          "type": "input",
+          "placeholder": "Ex. 12",
+          "controlType": "number",
+          "appearance": "legacy",
+          "errorMes": "最小: 10px",
+          "tooltip": "通过键盘上下键可快速更改大小",
+          "matTooltipPosition": "above",
+          "suffix": "px"
+        }
+      ]
     },
     "login": {
       "label": "登录"
@@ -112,32 +131,64 @@
   "editor": {
     "modules": {
       "toolbar": [
-        [{
-          "header": [1, 2, 3, 4, 5, 6, false]
-        }],
-        ["bold", "italic", "underline", "strike"],
-        ["clean"],
-
-        [{
-          "background": []
-        }, {
-          "color": []
-        }],
-        [{
-          "align": []
-        }],
-        [{
-          "list": "ordered"
-        }, {
-          "list": "bullet"
-        }],
-        [{
-          "indent": "-1"
-        }, {
-          "indent": "+1"
-        }],
-        ["link"],
-        ["blockquote", "code-block"]
+        [
+          {
+            "header": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              false
+            ]
+          }
+        ],
+        [
+          "bold",
+          "italic",
+          "underline",
+          "strike"
+        ],
+        [
+          "clean"
+        ],
+        [
+          {
+            "background": []
+          },
+          {
+            "color": []
+          }
+        ],
+        [
+          {
+            "align": []
+          }
+        ],
+        [
+          {
+            "list": "ordered"
+          },
+          {
+            "list": "bullet"
+          }
+        ],
+        [
+          {
+            "indent": "-1"
+          },
+          {
+            "indent": "+1"
+          }
+        ],
+        [
+          "link"
+        ],
+        [
+          "blockquote",
+          "code-block"
+        ]
       ]
     }
   },
@@ -166,7 +217,7 @@
     }
   },
   "dialog": {
-    "forceDialogBak": {
+    "forceDialog": {
       "params": {
         "width": "500px",
         "path": "home",
@@ -179,7 +230,8 @@
         },
         "spacer": "none",
         "body": "Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. ",
-        "actions": [{
+        "actions": [
+          {
             "type": "closeDialog",
             "label": "21+",
             "color": "primary"
@@ -209,7 +261,8 @@
       },
       "body": "<p class=\"text-center\">感谢您付费购买。</p>",
       "actionsAlign": "center center",
-      "actions": [{
+      "actions": [
+        {
           "type": "closeDialog",
           "label": "已成功支付！"
         },
@@ -235,36 +288,39 @@
     "params": {
       "interval": 10000
     },
-    "api": [{
-      "get": "/api/v2/unread-message",
-      "action": "/api/v1/flagging/message_unread",
-      "title": "您有新的指派任务",
-      "type": "success",
-      "reqRoles": [
-        "lawyer",
-        "assistant_lawyer"
-      ],
-      "options": {
-        "enableHtml": true,
-        "tapToDismiss": false,
-        "disableTimeOut": true,
-        "closeButton": true
+    "api": [
+      {
+        "get": "/api/v2/unread-message",
+        "action": "/api/v1/flagging/message_unread",
+        "title": "您有新的指派任务",
+        "type": "success",
+        "reqRoles": [
+          "lawyer",
+          "assistant_lawyer"
+        ],
+        "options": {
+          "enableHtml": true,
+          "tapToDismiss": false,
+          "disableTimeOut": true,
+          "closeButton": true
+        }
+      },
+      {
+        "get": "/api/v1/filter/handler",
+        "action": "/api/v3/private/read",
+        "title": "您有新的指派任务",
+        "type": "success",
+        "reqRoles": [
+          "lawyer",
+          "assistant_lawyer"
+        ],
+        "options": {
+          "enableHtml": true,
+          "tapToDismiss": false,
+          "disableTimeOut": true,
+          "closeButton": true
+        }
       }
-    }, {
-      "get": "/api/v1/filter/handler",
-      "action": "/api/v3/private/read",
-      "title": "您有新的指派任务",
-      "type": "success",
-      "reqRoles": [
-        "lawyer",
-        "assistant_lawyer"
-      ],
-      "options": {
-        "enableHtml": true,
-        "tapToDismiss": false,
-        "disableTimeOut": true,
-        "closeButton": true
-      }
-    }]
+    ]
   }
 }
