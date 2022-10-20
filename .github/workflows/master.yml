@@ -21,16 +21,13 @@ jobs:
       - name: use Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: "16"
+          node-version: "14"
 
       - name: Cache verify
         run: npm cache verify
 
-      - name: Remove lock file
-        run: rm package-lock.json
-
       - name: NPM Install
-        run: npm install
+        run: npm ci over npm
 
       - name: NPM Install Angular
         run: npm install -g @angular/cli > /dev/null
