@@ -11,7 +11,7 @@ import { sleep, StorysModule } from '@core/storys.module';
 import { comments } from './comments.json';
 
 export default {
-  title: '组件/文章/问答',
+  title: '示例页面/文章/问答',
   id: 'question',
   component: QuestionComponent,
   decorators: [

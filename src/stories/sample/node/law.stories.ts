@@ -14,7 +14,7 @@ import { comments } from './comments.json';
 import { of } from 'rxjs';
 
 export default {
-  title: '组件/文章/案件',
+  title: '示例页面/文章/卡片表格组合',
   id: 'law',
   component: LawCaseComponent,
   decorators: [
@@ -33,6 +33,7 @@ const Template: Story = (args) => ({
   },
 });
 export const Default = Template.bind({});
+Default.storyName = '预览';
 Default.args = {
   content: {
     title: 'Angular SSR 服务端渲染技术',
@@ -1131,7 +1132,7 @@ Default.args = {
 };
 
 export const Meeting = Template.bind({});
-
+Meeting.storyName = 'v1';
 Meeting.args = {
   content: {
     title: '两中心住房保障工作联席会议',
@@ -1894,7 +1895,7 @@ Meeting.args = {
 };
 
 export const Project = Template.bind({});
-
+Project.storyName = 'v2';
 Project.args = {
   content: {
     title: '人才公寓',

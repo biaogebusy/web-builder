@@ -16,7 +16,7 @@ import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { comments } from './comments.json';
 
 export default {
-  title: '组件/文章/普通文章',
+  title: '示例页面/文章/普通文章',
   id: 'article',
   component: ArticleComponent,
   decorators: [
