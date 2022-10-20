@@ -26,6 +26,9 @@ jobs:
       - name: Cache verify
         run: npm cache verify
 
+      - name: Remove lock file
+        run: rm package-lock.json
+
       - name: NPM Install
         run: npm ci over npm
 
