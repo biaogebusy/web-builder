@@ -7,10 +7,10 @@ import { Story } from '@storybook/angular/types-6-0';
 import { VideoBgComponent } from '@uiux/combs/video/video-bg/video-bg.component';
 import { StorysModule } from '@core/storys.module';
 import { VideoModule } from '@uiux/combs/video/video.module';
-import * as showcase1v3Stories from '../showcase/showcase1v3.stories';
+import * as showcase1v3Stories from '../../feature-components/showcase/showcase1v3.stories';
 
 export default {
-  title: '组件/视频/背景视频',
+  title: '常规组件/视频/背景视频',
   id: 'video-bg',
   component: VideoBgComponent,
   decorators: [

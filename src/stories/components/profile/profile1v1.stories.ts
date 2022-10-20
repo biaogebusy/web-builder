@@ -6,7 +6,7 @@ import * as MediaObjectGroupStories from 'src/stories/widgets/media/MediaObjectG
 import { StorysModule } from '@core/storys.module';
 
 export default {
-  title: '组件/用户/用户资料',
+  title: '常规组件/用户/用户资料',
   id: 'profile-1v1',
   component: Profile1v1Component,
   decorators: [

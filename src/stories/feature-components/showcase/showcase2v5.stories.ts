@@ -9,7 +9,7 @@ import * as ContentTextCenterStories from 'src/stories/widgets/base/ContentTextC
 import { StorysModule } from '@core/storys.module';
 
 export default {
-  title: '组件/展示/2v5',
+  title: '特色组件/展示 Showcase/2v5',
   id: 'showcase-2v5',
   component: Showcase2v5Component,
   decorators: [

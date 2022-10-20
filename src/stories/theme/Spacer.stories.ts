@@ -23,7 +23,7 @@ export default {
     }),
     componentWrapperDecorator(
       (story) =>
-        `<div class="position-relative bg-shadow" style="z-index:1">${story}</div>`
+        `<div class="position-relative bg-primary" style="z-index:1">${story}</div>`
     ),
   ],
   parameters: {

@@ -1,0 +1,108 @@
+{
+  "title": "工作日历",
+  "body": [
+    {
+      "type": "banner-simple",
+      "style": "normal",
+      "bannerBg": {
+        "classes": "bg-fill-width overlay overlay-40",
+        "img": {
+          "hostClasses": "bg-center",
+          "src": "/assets/images/16-9/business-03.jpg",
+          "alt": "grass-3251984_1920.jpg"
+        }
+      },
+      "title": "日历",
+      "breadcrumb": []
+    },
+    {
+      "type": "full-calendar",
+      "id": "full_calendar",
+      "spacer": "sm",
+      "calendar": {
+        "options": {
+          "events": [
+            {
+              "title": "Angular 分享",
+              "event": "meeting",
+              "start": "2022-10-20T09:07:08.078Z",
+              "user": "Johnson",
+              "className": "bg-primary"
+            },
+            {
+              "title": "Drupal 分享",
+              "event": "drupal",
+              "start": "2022-10-20T09:07:08.078Z",
+              "user": "Johnson",
+              "className": "bg-warn"
+            }
+          ]
+        },
+        "theme": {
+          "case": "bg-yellow",
+          "meeting": "bg-light-green",
+          "project": "bg-accent",
+          "event": "bg-red"
+        }
+      },
+      "sidebar": [
+        {
+          "type": "text",
+          "title": {
+            "label": "筛选",
+            "style": "style-v4",
+            "classes": " m-bottom-xs"
+          },
+          "spacer": "sm"
+        },
+        {
+          "type": "input",
+          "key": "keys",
+          "placeholder": "请输入关键词",
+          "label": "关键词",
+          "appearance": "legacy",
+          "controlType": "search"
+        },
+        {
+          "type": "select",
+          "key": "status",
+          "label": "状态",
+          "options": [
+            {
+              "label": "无",
+              "value": ""
+            },
+            {
+              "label": "规划中",
+              "value": "0"
+            },
+            {
+              "label": "实现中",
+              "value": "1"
+            },
+            {
+              "label": "已实现",
+              "value": "2"
+            },
+            {
+              "label": "已拒绝",
+              "value": "3"
+            }
+          ]
+        },
+        {
+          "type": "datepicker",
+          "label": "日历",
+          "hint": "MM/DD/YYYY – MM/DD/YYYY",
+          "key": "datepicker",
+          "value": "",
+          "inline": true,
+          "placeholder": "请选择日期",
+          "params": {
+            "required": true
+          }
+        }
+      ]
+    }
+  ]
+}

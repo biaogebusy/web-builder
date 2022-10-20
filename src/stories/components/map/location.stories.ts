@@ -4,7 +4,7 @@ import { LocationComponent } from '@uiux/combs/map/location/location.component';
 import { StorysModule } from '@core/storys.module';
 
 export default {
-  title: '组件/地图/位置',
+  title: '常规组件/地图/位置',
   id: 'location',
   component: LocationComponent,
   decorators: [

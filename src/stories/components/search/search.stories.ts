@@ -10,7 +10,7 @@ import { sleep, StorysModule } from '@core/storys.module';
 import { nodes } from './search.json';
 
 export default {
-  title: '组件/搜索/默认',
+  title: '常规组件/搜索/默认',
   id: 'search',
   component: SearchComponent,
   decorators: [

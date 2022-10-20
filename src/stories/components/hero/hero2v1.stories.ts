@@ -5,7 +5,7 @@ import { SwiperModule } from 'swiper/angular';
 import { StorysModule } from '@core/storys.module';
 
 export default {
-  title: '组件/英雄区/2v1',
+  title: '常规组件/英雄区/2v1',
   id: 'hero-2v1',
   component: Hero2v1Component,
   decorators: [

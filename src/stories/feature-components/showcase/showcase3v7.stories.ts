@@ -9,7 +9,7 @@ import { StorysModule } from '@core/storys.module';
 import * as showcase3v5Stories from './showcase3v5.stories';
 
 export default {
-  title: '组件/展示/3v7',
+  title: '特色组件/展示 Showcase/3v7',
   id: 'showcase-3v7',
   component: Showcase3v7Component,
   decorators: [

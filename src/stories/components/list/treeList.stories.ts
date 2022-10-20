@@ -11,7 +11,7 @@ import * as TreeStories from 'src/stories/widgets/Tree.stories';
 import { StorysModule, sleep } from '@core/storys.module';
 
 export default {
-  title: '组件/列表/树形列表',
+  title: '常规组件/列表/树形列表',
   id: 'tree-list',
   component: TreeListComponent,
   decorators: [

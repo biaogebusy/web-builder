@@ -9,7 +9,7 @@ import { LoopWidgetsComponent } from '@uiux/widgets/loop-widgets/loop-widgets.co
 import { sleep, StorysModule } from '@core/storys.module';
 
 export default {
-  title: '组件/地图/位置列表 1v1',
+  title: '常规组件/地图/位置列表 1v1',
   id: 'map-list-1v1',
   component: MapListV1Component,
   decorators: [

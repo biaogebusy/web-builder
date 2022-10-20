@@ -4,7 +4,7 @@ import { Carousel1v3Component } from '@uiux/combs/carousel/carousel1v3/carousel1
 import { StorysModule } from '@core/storys.module';
 
 export default {
-  title: '组件/幻灯片/1v3',
+  title: '常规组件/幻灯片/1v3',
   id: 'carousel-1v3',
   component: Carousel1v3Component,
   decorators: [

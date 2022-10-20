@@ -720,50 +720,13 @@
             "href": "/node/387",
             "label": "Angular 5 rxjs 5.5.2 多个 http 并行 forkJoin 请求"
           }
-        },
-        {
-          "type": "card",
-          "category": "Drupal 自习室",
-          "subTitle": "2021-05-14",
-          "avatar": {
-            "src": "/assets/images/avatar/05.jpeg",
-            "alt": ""
-          },
-          "carousel": {
-            "params": {
-              "slidesPerView": 1,
-              "navigation": false,
-              "autoplay": {
-                "delay": 5000
-              },
-              "breakpoints": null
-            },
-            "elements": [
-              {
-                "type": "feature-box",
-                "fullIcon": "fullscreen",
-                "openIcon": "open_in_new",
-                "link": "/node/386",
-                "ratios": "media-4-3",
-                "img": {
-                  "classes": "object-fit",
-                  "src": "/assets/images/cases/porto3.jpg",
-                  "alt": "lazyload"
-                }
-              }
-            ]
-          },
-          "link": {
-            "href": "/node/386",
-            "label": "Drupal 8 Ajax 弹出框可监听利用的 Event 事件"
-          }
         }
       ]
     },
     {
       "type": "text",
       "spacer": "xl",
-      "body": "<p class=\"text-align-center\">基于 Drupal jsonapi 为核心，使用 Angular 来快速搭建用户体验优先的前端主题。</p>\r\n\r\n<div class=\"text-center\"><img alt=\"Drupal自习室\" data-align=\"center\" data-entity-type=\"file\" data-entity-uuid=\"b82fa893-a20b-4ea8-b562-ec620e977eea\" src=\"/assets/images/wechat.jpg\" /></div>\r\n\r\n<p>&nbsp;</p>\r\n"
+      "body": "<p class=\"text-align-center\">基于 Drupal jsonapi 为核心，使用 Angular 来快速搭建用户体验优先的前端主题。</p>\r\n\r\n<div class=\"text-center\"><br><img alt=\"Drupal自习室\" data-align=\"center\" data-entity-type=\"file\" data-entity-uuid=\"b82fa893-a20b-4ea8-b562-ec620e977eea\" src=\"/assets/images/wechat.jpg\" /></div>\r\n\r\n<p>&nbsp;</p>\r\n"
     }
   ]
 }

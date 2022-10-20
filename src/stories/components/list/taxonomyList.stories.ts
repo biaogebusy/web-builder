@@ -10,7 +10,7 @@ import { ListModule } from '@uiux/combs/list/list.module';
 import { StorysModule } from '@core/storys.module';
 
 export default {
-  title: '组件/列表/分类列表',
+  title: '常规组件/列表/分类列表',
   id: 'taxonomy-list',
   component: TaxonomyListComponent,
   decorators: [

@@ -5,7 +5,7 @@ import { ShuffleComponent } from '@uiux/combs/masonry/shuffle/shuffle.component'
 import { sleep, StorysModule } from '@core/storys.module';
 
 export default {
-  title: '组件/瀑布流/图片洗牌',
+  title: '常规组件/瀑布流/图片洗牌',
   id: 'shuffle',
   component: ShuffleComponent,
   decorators: [

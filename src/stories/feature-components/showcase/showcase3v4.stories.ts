@@ -9,7 +9,7 @@ import * as BoxStories from 'src/stories/widgets/base/Box.stories';
 import { StorysModule } from '@core/storys.module';
 
 export default {
-  title: '组件/展示/3v4',
+  title: '特色组件/展示 Showcase/3v4',
   id: 'showcase-3v4',
   component: Showcase3v4Component,
   decorators: [

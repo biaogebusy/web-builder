@@ -9,7 +9,7 @@ import * as Card1v2Stories from 'src/stories/widgets/card/Card1v2.stories';
 import { StorysModule } from '@core/storys.module';
 
 export default {
-  title: '组件/展示/2v6',
+  title: '特色组件/展示 Showcase/2v6',
   id: 'showcase-2v6',
   component: Showcase2v6Component,
   decorators: [
