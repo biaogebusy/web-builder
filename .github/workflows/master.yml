@@ -30,7 +30,7 @@ jobs:
         run: rm package-lock.json
 
       - name: NPM Install
-        run: npm ci over npm
+        run: npm install
 
       - name: NPM Install Angular
         run: npm install -g @angular/cli > /dev/null
