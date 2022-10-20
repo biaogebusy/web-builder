@@ -7,6 +7,7 @@ import { Story } from '@storybook/angular/types-6-0';
 import { BlockComponent } from '@uiux/combs/block/block/block.component';
 import { BlockModule } from '@uiux/combs/block/block.module';
 import { StorysModule } from '@core/storys.module';
+import { BrandingModule } from '@core/branding/branding.module';
 
 export default {
   title: '示例页面/计算器',
@@ -15,9 +16,15 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [],
-      imports: [BlockModule, StorysModule.forRoot()],
+      imports: [BlockModule, StorysModule.forRoot(), BrandingModule],
     }),
-    componentWrapperDecorator((story) => `${story}`),
+    componentWrapperDecorator(
+      (story) => `
+      <app-header></app-header>
+      ${story}
+      <app-footer></app-footer>
+    `
+    ),
   ],
   parameters: {
     docs: {

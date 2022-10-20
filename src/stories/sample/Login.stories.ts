@@ -14,6 +14,7 @@ import { UserModule } from '../../app/modules/user/user.module';
 import { sleep, StorysModule } from '@core/storys.module';
 import { USER } from '@core/token/token-providers';
 import { userFactory } from '@core/factory/factory';
+import { BrandingModule } from '@core/branding/branding.module';
 
 export default {
   title: '示例页面/登录页',
@@ -22,7 +23,12 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [],
-      imports: [UserModule, StorysModule.forRoot(), BlockModule],
+      imports: [
+        UserModule,
+        StorysModule.forRoot(),
+        BlockModule,
+        BrandingModule,
+      ],
       providers: [
         {
           provide: USER,
@@ -31,7 +37,13 @@ export default {
         },
       ],
     }),
-    componentWrapperDecorator((story) => `${story}`),
+    componentWrapperDecorator(
+      (story) => `
+     <app-header></app-header>
+      ${story}
+      <app-footer></app-footer>
+    `
+    ),
   ],
   parameters: {
     docs: {
