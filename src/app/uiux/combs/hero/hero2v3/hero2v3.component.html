@@ -2,9 +2,7 @@
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
   <app-spacer *ngIf="(pageContent$|async)?.config?.headerMode?.transparent && showGtXs" [size]="'xl'"></app-spacer>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
-  <app-bg [content]="content.bg" *ngIf="content.bg">
-    <app-img [content]="content.bg.img" *ngIf="content.bg.img"></app-img>
-  </app-bg>
+  <app-bg-img [content]="content.bg"></app-bg-img>
   <div class="container position-relative">
     <div class="hero-body text-center" fxLayout="row wrap" fxLayoutAlign="center center">
       <app-text [content]="content.text"></app-text>

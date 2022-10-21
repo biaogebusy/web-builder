@@ -13,7 +13,7 @@ import { SwiperComponent as SwiperCom } from 'swiper/angular';
 import { Subject } from 'rxjs';
 import { ScreenService } from '@core/service/screen.service';
 import { PaginationOptions } from 'swiper/types';
-import { ISwiper } from '@core/interface/widgets/ISwiper';
+import type { ISwiper } from '@core/interface/widgets/ISwiper';
 
 const paginationgConfig: PaginationOptions = {
   type: 'bullets',

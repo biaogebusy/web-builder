@@ -18,16 +18,11 @@ import {
   takeUntil,
 } from 'rxjs/operators';
 import { EMPTY, Subject } from 'rxjs';
-import {
-  CalendarOptions,
-  DatesSetArg,
-  EventApi,
-  ViewApi,
-} from '@fullcalendar/angular';
+import { CalendarOptions, DatesSetArg, ViewApi } from '@fullcalendar/angular';
 import { CalendarState } from '@core/mobx/CalendarState';
 import { formatDate } from '@angular/common';
 import { RouteService } from '@core/service/route.service';
-import { IFullCalendar } from '@core/interface/combs/ICalendar';
+import type { IFullCalendar } from '@core/interface/combs/ICalendar';
 
 @Component({
   selector: 'app-full-calendar',
