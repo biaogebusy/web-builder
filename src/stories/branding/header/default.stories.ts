@@ -9,7 +9,7 @@ import { BRANDING } from '@core/token/token-providers';
 import { of } from 'rxjs';
 import { HeaderComponent } from '@core/branding/header/header.component';
 import { BrandingModule } from '@core/branding/branding.module';
-import { defaultHeader } from '../Branding.json';
+import { defaultHeader, footerInverse } from '../Branding.json';
 import { sleep, StorysModule } from '@core/storys.module';
 
 export default {
@@ -23,15 +23,16 @@ export default {
       providers: [
         {
           provide: BRANDING,
-          useValue: of(defaultHeader),
+          useValue: of({ ...defaultHeader, ...footerInverse }),
         },
       ],
     }),
     componentWrapperDecorator(
       (story) => `
+      ${story}
         <div style="min-height:100vh">
-          ${story}
         </div>
+        <app-footer></app-footer>
     `
     ),
   ],

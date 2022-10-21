@@ -8,7 +8,7 @@ import { BRANDING } from '@core/token/token-providers';
 import { of } from 'rxjs';
 import { BrandingModule } from '@core/branding/branding.module';
 import { FooterComponent } from '@core/branding/footer/footer.component';
-import { footerLight } from '../Branding.json';
+import { defaultHeader, footerLight } from '../Branding.json';
 import { StorysModule } from '@core/storys.module';
 
 export default {
@@ -22,12 +22,13 @@ export default {
       providers: [
         {
           provide: BRANDING,
-          useValue: of(footerLight),
+          useValue: of({ ...footerLight, ...defaultHeader }),
         },
       ],
     }),
     componentWrapperDecorator(
       (story) => `
+        <app-header></app-header>
         <div style="min-height:85vh">
         </div>
         <mat-divider></mat-divider>

@@ -6,7 +6,7 @@ import {
 import { Story } from '@storybook/angular/types-6-0';
 import { BRANDING } from '@core/token/token-providers';
 import { of } from 'rxjs';
-import { footerSimple } from '../Branding.json';
+import { defaultHeader, footerSimple } from '../Branding.json';
 import { StorysModule } from '@core/storys.module';
 import { FooterComponent } from '@core/branding/footer/footer.component';
 import { BrandingModule } from '@core/branding/branding.module';
@@ -22,12 +22,13 @@ export default {
       providers: [
         {
           provide: BRANDING,
-          useValue: of(footerSimple),
+          useValue: of({ ...footerSimple, ...defaultHeader }),
         },
       ],
     }),
     componentWrapperDecorator(
       (story) => `
+      <app-header></app-header>
        <div style="min-height:75vh">
         </div>
           ${story}

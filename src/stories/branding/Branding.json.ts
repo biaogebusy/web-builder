@@ -200,7 +200,7 @@ const footerNewsletter = {
 };
 
 const footerBottom = {
-  left: 'Copyright Xinshi',
+  left: '© 2022 Copyright ❤️ XINSHI. ',
   right: [
     {
       label: '首页',
