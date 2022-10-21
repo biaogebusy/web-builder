@@ -43,11 +43,11 @@ Default.args = {
           delay: 5000,
         },
         breakpoints: {
-          '600': {
+          600: {
             slidesPerView: 3,
             spaceBetween: 20,
           },
-          '960': {
+          960: {
             slidesPerView: 5,
             spaceBetween: 20,
           },

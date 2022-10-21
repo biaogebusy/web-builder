@@ -1,0 +1,212 @@
+{
+  "title": "首页 v2",
+  "meta": [
+    {
+      "name": "description",
+      "content": ""
+    },
+    {
+      "name": "keywords",
+      "content": ""
+    }
+  ],
+  "body": [
+    {
+      "type": "hero-1v3",
+      "spacer": "xl",
+      "text": {
+        "title": {
+          "label": "使用信使构建你们的项目",
+          "classes": "mat-display-4 bold",
+          "style": "style-v4"
+        },
+        "classes": "p-x",
+        "body": "信使是基于 Material UI 的 Angular 前端框架，后端适配 Drupal，提供优秀的数字创新体验。",
+        "actions": [
+          {
+            "href": "#",
+            "label": "立刻体验",
+            "target": "_blank"
+          }
+        ]
+      },
+      "right": [
+        {
+          "type": "img",
+          "hostClasses": "img-bg-shape",
+          "src": "/assets/images/illustr ation/29.png"
+        }
+      ]
+    },
+    {
+      "type": "carousel-2v2",
+      "id": "",
+      "spacer": "xl",
+      "classes": "bg-shadow",
+      "sliders": {
+        "params": {
+          "slidesPerView": 1.2,
+          "pagination": false,
+          "autoplay": {
+            "delay": 5000
+          },
+          "breakpoints": {
+            "600": {
+              "slidesPerView": 3,
+              "spaceBetween": 20
+            },
+            "960": {
+              "slidesPerView": 5,
+              "spaceBetween": 20
+            }
+          }
+        },
+        "elements": [
+          {
+            "type": "img",
+            "src": "/assets/images/logo/amazon.svg",
+            "href": "#",
+            "alt": "",
+            "style": {
+              "width": "auto",
+              "height": "40px"
+            }
+          },
+          {
+            "type": "img",
+            "src": "/assets/images/logo/google.svg",
+            "href": "#",
+            "alt": "",
+            "style": {
+              "width": "auto",
+              "height": "40px"
+            }
+          },
+          {
+            "type": "img",
+            "src": "/assets/images/logo/lenovo.svg",
+            "href": "#",
+            "alt": "",
+            "style": {
+              "width": "auto",
+              "height": "40px"
+            }
+          },
+          {
+            "type": "img",
+            "src": "/assets/images/logo/paypal.svg",
+            "href": "#",
+            "alt": "",
+            "style": {
+              "width": "auto",
+              "height": "40px"
+            }
+          },
+          {
+            "type": "img",
+            "src": "/assets/images/logo/shopify.svg",
+            "href": "#",
+            "alt": "",
+            "style": {
+              "width": "auto",
+              "height": "40px"
+            }
+          },
+          {
+            "type": "img",
+            "src": "/assets/images/logo/spotify.svg",
+            "href": "#",
+            "alt": "",
+            "style": {
+              "width": "auto",
+              "height": "40px"
+            }
+          },
+          {
+            "type": "img",
+            "src": "/assets/images/logo/logo10.png",
+            "href": "#",
+            "alt": "",
+            "style": {
+              "width": "auto",
+              "height": "40px"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "showcase-1v1",
+      "bg": {
+        "classes": "bg-none bg-fill-width"
+      },
+      "row": "4",
+      "elements": [
+        {
+          "img": {
+            "src": "/assets/images/svg/user.svg",
+            "alt": "browser"
+          },
+          "style": "style-v3 use-image",
+          "title": {
+            "href": "#",
+            "label": "高性能"
+          },
+          "content": "默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；",
+          "more": {
+            "href": "#",
+            "label": "+"
+          }
+        },
+        {
+          "img": {
+            "src": "/assets/images/svg/calendar.svg",
+            "alt": "browser"
+          },
+          "style": "style-v3 use-image",
+          "title": {
+            "href": "#",
+            "label": "易用的编辑器"
+          },
+          "content": "通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作；",
+          "more": {
+            "href": "#",
+            "label": "+"
+          }
+        },
+        {
+          "img": {
+            "src": "/assets/images/svg/sand-clock.svg",
+            "alt": "browser"
+          },
+          "style": "style-v3 use-image",
+          "title": {
+            "href": "#",
+            "label": "多语言"
+          },
+          "content": "Drupal 100多种语言提供了无以伦比的支持和翻译工作流程； ",
+          "more": {
+            "href": "#",
+            "label": "+"
+          }
+        },
+        {
+          "img": {
+            "src": "/assets/images/svg/health.svg",
+            "alt": "browser"
+          },
+          "style": "style-v3 use-image",
+          "title": {
+            "href": "#",
+            "label": "更有弹性"
+          },
+          "content": "无论是一个还是多个站点，Drupal 总是可以游刃有余的构建；",
+          "more": {
+            "href": "#",
+            "label": "+"
+          }
+        }
+      ]
+    }
+  ]
+}

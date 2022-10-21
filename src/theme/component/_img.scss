@@ -22,4 +22,10 @@
       }
     }
   }
+  .img-bg-shape {
+    &:after {
+      background-color: mat-color($primary);
+      box-shadow: 0 0 40px mat-color($primary);
+    }
+  }
 }
