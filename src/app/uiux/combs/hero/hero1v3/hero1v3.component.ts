@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import type { IHero1v3 } from '@core/interface/widgets/IHero';
+import type { IHero1v3 } from '@core/interface/combs/IHero';
 
 @Component({
   selector: 'app-hero1v3',

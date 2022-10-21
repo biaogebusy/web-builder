@@ -31,7 +31,7 @@ Default.args = {
       classes: 'bg-center',
       img: {
         hostClasses: 'bg-center',
-        src: '/assets/images/bg-04.png',
+        src: '/assets/images/bg/bg-04.png',
       },
     },
     text: {

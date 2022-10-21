@@ -127,7 +127,7 @@ Default.args = {
       },
       {
         img: {
-          src: '/assets/images/illustration/26.png',
+          src: '/assets/images/illustration/25.png',
           alt: '',
         },
         content: {
