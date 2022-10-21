@@ -5,6 +5,29 @@ img {
   max-width: 100%;
 }
 
+:host(.img-bg-shape) {
+  display: block;
+  position: relative;
+  @media #{$gt-sm} {
+    img {
+      max-width: none;
+      margin-left: 8rem;
+    }
+  }
+  &:after {
+    content: " ";
+    position: absolute;
+    z-index: -1;
+    bottom: 3rem;
+    left: 0;
+    width: 100rem;
+    height: 80rem;
+    border-radius: 25rem;
+    opacity: 0.9;
+    transform: rotate(130deg);
+  }
+}
+
 // will deprecated, user .object-fit
 :host(.bg-center) {
   @media #{$lt-md} {

@@ -7,10 +7,12 @@ import { Hero2v2Component } from './hero2v2/hero2v2.component';
 import { Hero2v3Component } from './hero2v3/hero2v3.component';
 import { Hero1v2Component } from './hero1v2/hero1v2.component';
 import { SwiperModule } from 'swiper/angular';
+import { Hero1v3Component } from './hero1v3/hero1v3.component';
 
 const components = [
   Hero1v1Component,
   Hero1v2Component,
+  Hero1v3Component,
   Hero2v1Component,
   Hero2v2Component,
   Hero2v3Component,
