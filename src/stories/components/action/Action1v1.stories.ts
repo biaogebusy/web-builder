@@ -35,7 +35,7 @@ Default.args = {
     id: 'xxx',
     spacer: 'xl',
     bg: {
-      classes: 'bg-shadow',
+      classes: 'bg-shadow bg-fill-width',
     },
     text: {
       title: {

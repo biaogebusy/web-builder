@@ -13,6 +13,7 @@ import { SwiperComponent as SwiperCom } from 'swiper/angular';
 import { Subject } from 'rxjs';
 import { ScreenService } from '@core/service/screen.service';
 import { PaginationOptions } from 'swiper/types';
+import { ISwiper } from '@core/interface/widgets/ISwiper';
 
 const paginationgConfig: PaginationOptions = {
   type: 'bullets',
@@ -30,7 +31,7 @@ SwiperCore.use([Navigation, Pagination]);
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SwiperComponent implements OnInit, AfterViewInit, OnDestroy {
-  @Input() content: any;
+  @Input() content: ISwiper;
   @Input() index: number;
   @Input() navigationSub: Subject<any>;
   @ViewChild('swiper', { static: false }) swiper: SwiperCom;

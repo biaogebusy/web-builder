@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import type { IBannerSimple } from '@core/interface/combs/IBanner';
 import { BaseComponent } from '@uiux/base/base.widget';
 
 @Component({
@@ -13,7 +14,7 @@ import { BaseComponent } from '@uiux/base/base.widget';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BannerSimpleComponent extends BaseComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: IBannerSimple;
   constructor() {
     super();
   }

@@ -7,7 +7,8 @@ import {
   OnInit,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { EChartsOption } from 'echarts';
+import type { ILottery } from '@core/interface/combs/ICalculator';
+import type { EChartsOption } from 'echarts';
 
 @Component({
   selector: 'app-lottery',
@@ -16,7 +17,7 @@ import { EChartsOption } from 'echarts';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LotteryComponent implements OnInit, AfterViewInit {
-  @Input() content: any;
+  @Input() content: ILottery;
   @Input() form = new FormGroup({});
   @Input() model: any = {};
   total = 0;

@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { SwiperComponent } from 'swiper/angular';
 import SwiperCore, { Navigation, Pagination, SwiperOptions } from 'swiper';
+import type { IHero1v2 } from '@core/interface/combs/IHero';
 // install Swiper modules
 SwiperCore.use([Navigation, Pagination]);
 @Component({
@@ -17,7 +18,7 @@ SwiperCore.use([Navigation, Pagination]);
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Hero1v2Component implements OnInit {
-  @Input() content: any;
+  @Input() content: IHero1v2;
   @ViewChild('media', { static: false }) media: SwiperComponent;
   index = 0;
   mediaConfig: SwiperOptions;

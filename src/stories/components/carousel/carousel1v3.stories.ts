@@ -36,7 +36,7 @@ Default.args = {
       },
       body: '<p class="text-center">Drupal是数据管理中心，提供集中的地方来访问所有平台的数据</p><br>',
     },
-    style: '',
+    classes: '',
     bg: {
       classes: 'bg-shadow',
     },

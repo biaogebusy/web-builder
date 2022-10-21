@@ -6,4 +6,5 @@ export interface ICombsBase {
   bg: IBg;
   spacer: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'none';
   text: IText;
+  classes: object | string;
 }

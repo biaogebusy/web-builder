@@ -27,6 +27,7 @@ import {
 import { CalendarState } from '@core/mobx/CalendarState';
 import { formatDate } from '@angular/common';
 import { RouteService } from '@core/service/route.service';
+import { IFullCalendar } from '@core/interface/combs/ICalendar';
 
 @Component({
   selector: 'app-full-calendar',
@@ -38,7 +39,7 @@ export class FullCalendarComponent
   extends BaseComponent
   implements OnInit, OnDestroy
 {
-  @Input() content: any;
+  @Input() content: IFullCalendar;
   selected: Date | null;
   options: CalendarOptions;
   theme: any;
@@ -69,7 +70,7 @@ export class FullCalendarComponent
   initCalendar(): void {
     this.options = Object.assign(
       this.calendarState.default,
-      this.content.calendar.option,
+      this.content.calendar.options,
       {
         datesSet: this.handleDates.bind(this),
       }
@@ -115,7 +116,7 @@ export class FullCalendarComponent
   getEvents(options?: any): void {
     const state = this.getParamsState(this.form.value, options);
     const params = this.getApiParams(state);
-    const api = this.content?.calendar?.options?.api;
+    const api = this.content?.calendar?.api || '';
     this.initCalendar();
     if (this.content.calendar?.options?.events) {
       this.loading = true;
