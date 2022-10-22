@@ -6,6 +6,7 @@ import {
   EventEmitter,
   ChangeDetectionStrategy,
 } from '@angular/core';
+import type { IShowcase3v3 } from '@core/interface/combs/IShowcase';
 import type { IPaginationLinks } from '@core/interface/widgets/IPaginationLinks';
 import { ScreenService } from '@core/service/screen.service';
 
@@ -16,7 +17,7 @@ import { ScreenService } from '@core/service/screen.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ListComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: IShowcase3v3[];
   @Input() links: IPaginationLinks;
   @Input() pager: any;
   @Input() loading: boolean;

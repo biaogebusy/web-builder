@@ -6,6 +6,7 @@ import {
   ChangeDetectorRef,
   OnDestroy,
 } from '@angular/core';
+import type { IDynamicMediaList } from '@core/interface/combs/IList';
 import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
 import { BaseComponent } from '@uiux/base/base.widget';
@@ -22,7 +23,7 @@ export class DynamicMediaListComponent
   extends BaseComponent
   implements OnInit, OnDestroy
 {
-  @Input() content: any;
+  @Input() content: IDynamicMediaList;
   list: any;
   links: any;
   loading = true;
@@ -31,7 +32,7 @@ export class DynamicMediaListComponent
   constructor(
     public nodeService: NodeService,
     private screenService: ScreenService,
-    private cd: ChangeDetectorRef,
+    private cd: ChangeDetectorRef
   ) {
     super();
   }

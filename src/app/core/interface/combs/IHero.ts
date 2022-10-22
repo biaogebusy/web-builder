@@ -27,4 +27,5 @@ export interface IHero2v3 extends ICombsBase {
     img: IImg;
     link: ILink;
   }[];
+  shape: boolean;
 }

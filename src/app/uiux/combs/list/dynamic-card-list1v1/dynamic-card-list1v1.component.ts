@@ -5,11 +5,11 @@ import {
   OnInit,
   ChangeDetectorRef,
 } from '@angular/core';
-import { result } from 'lodash';
 import { NodeService } from '@core/service/node.service';
 import { RouteService } from '@core/service/route.service';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { ScreenService } from '@core/service/screen.service';
+import type { IDynamicCardList1v1 } from '@core/interface/combs/IList';
 
 @Component({
   selector: 'app-dynamic-card-list1v1',
@@ -21,7 +21,7 @@ export class DynamicCardList1v1Component
   extends BaseComponent
   implements OnInit
 {
-  @Input() content: any;
+  @Input() content: IDynamicCardList1v1;
 
   page: number;
   pager: any;

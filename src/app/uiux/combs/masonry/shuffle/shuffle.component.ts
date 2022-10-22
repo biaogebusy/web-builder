@@ -6,6 +6,7 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
 } from '@angular/core';
+import type { IShuffle } from '@core/interface/combs/IMasonry';
 import { ScreenService } from '@core/service/screen.service';
 import Shuffle from 'shufflejs';
 @Component({
@@ -15,7 +16,7 @@ import Shuffle from 'shufflejs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ShuffleComponent implements OnInit, AfterViewInit {
-  @Input() content: any;
+  @Input() content: IShuffle;
   shuffle: any;
   constructor(private el: ElementRef, private screenService: ScreenService) {}
 

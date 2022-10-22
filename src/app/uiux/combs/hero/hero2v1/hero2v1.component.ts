@@ -4,8 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { ITextHero } from '@core/interface/widgets/IText';
-import { ScreenState } from '@core/mobx/screen/ScreenState';
+import type { ITextHero } from '@core/interface/widgets/IText';
 
 @Component({
   selector: 'app-hero2v1',

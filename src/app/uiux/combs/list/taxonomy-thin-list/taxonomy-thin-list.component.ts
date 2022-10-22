@@ -4,6 +4,7 @@ import {
   Input,
   ChangeDetectionStrategy,
 } from '@angular/core';
+import type { ITaxonomyThinList } from '@core/interface/combs/IList';
 import { BaseComponent } from '@uiux/base/base.widget';
 
 @Component({
@@ -13,7 +14,7 @@ import { BaseComponent } from '@uiux/base/base.widget';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TaxonomyThinListComponent extends BaseComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: ITaxonomyThinList;
   constructor() {
     super();
   }

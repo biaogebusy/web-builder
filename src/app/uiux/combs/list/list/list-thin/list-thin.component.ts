@@ -6,6 +6,7 @@ import {
   EventEmitter,
   ChangeDetectionStrategy,
 } from '@angular/core';
+import type { IListThin } from '@core/interface/combs/IList';
 import { ScreenService } from '@core/service/screen.service';
 @Component({
   selector: 'app-list-thin',
@@ -14,7 +15,7 @@ import { ScreenService } from '@core/service/screen.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ListThinComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: IListThin[];
   @Input() loading: boolean;
   @Input() pager: any;
 

@@ -17,6 +17,7 @@ import { takeUntil } from 'rxjs/operators';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type { IPaginationLinks } from '@core/interface/widgets/IPaginationLinks';
+import type { IDynamicTextList } from '@core/interface/combs/IList';
 
 @Component({
   selector: 'app-dynamic-text-list',
@@ -28,7 +29,7 @@ export class DynamicTextListComponent
   extends BaseComponent
   implements OnInit, OnDestroy
 {
-  @Input() content: any;
+  @Input() content: IDynamicTextList;
   @Output() pageChange: EventEmitter<string> = new EventEmitter();
 
   lists: any[];

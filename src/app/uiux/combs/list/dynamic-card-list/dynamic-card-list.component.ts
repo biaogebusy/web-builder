@@ -14,6 +14,7 @@ import { BaseComponent } from '@uiux/base/base.widget';
 import { FormService } from '@core/service/form.service';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { ScreenService } from '@core/service/screen.service';
+import type { IDynamicCardList } from '@core/interface/combs/IList';
 
 @Component({
   selector: 'app-dynamic-card-list',
@@ -22,7 +23,7 @@ import { ScreenService } from '@core/service/screen.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DynamicCardListComponent extends BaseComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: IDynamicCardList;
   keys: string;
   page: number;
   pager: any;
