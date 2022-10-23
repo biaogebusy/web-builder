@@ -107,6 +107,7 @@ import { ChartComponent } from './chart/chart.component';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { StepperComponent } from './stepper/stepper.component';
 import { FormlyComponent } from './form/formly/formly.component';
+import { PlayerComponent } from './media/player/player.component';
 
 FullCalendarModule.registerPlugins([
   // register FullCalendar plugins
@@ -191,6 +192,7 @@ const components = [
   ChartComponent,
   StepperComponent,
   FormlyComponent,
+  PlayerComponent,
 ];
 
 @NgModule({

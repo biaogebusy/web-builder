@@ -2,9 +2,10 @@
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <div class="layer"></div>
-  <video class="video-js" autoplay muted loop preload="auto">
+  <!-- <video class="video-js" autoplay muted loop preload="auto">
     <source src="{{content?.source?.src}}" type="{{content?.source?.type}}">
-  </video>
+  </video> -->
+  <app-player *ngIf="video" [content]="video"></app-player>
   <div class="inner position-relative" ngClass.gt-sm="xy-center" ngClass.lt-md="y-center">
     <app-dynamic-combs [content]="content.widget"></app-dynamic-combs>
   </div>

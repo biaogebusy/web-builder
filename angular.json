@@ -26,25 +26,30 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "aot": true,
-            "assets": [{
-              "glob": "**/*",
-              "input": "src/assets/",
-              "output": "/assets/"
-            }, {
-              "glob": "favicon.ico",
-              "input": "src/",
-              "output": "/"
-            }, {
-              "glob": "robots.txt",
-              "input": "src/",
-              "output": "/"
-            }],
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "src/assets/",
+                "output": "/assets/"
+              },
+              {
+                "glob": "favicon.ico",
+                "input": "src/",
+                "output": "/"
+              },
+              {
+                "glob": "robots.txt",
+                "input": "src/",
+                "output": "/"
+              }
+            ],
             "styles": [
               "src/styles.scss",
               "node_modules/swiper/swiper-bundle.css",
               "node_modules/highlight.js/styles/github.css",
               "node_modules/ngx-lightbox/lightbox.css",
-              "node_modules/social-share.js/dist/css/share.min.css"
+              "node_modules/social-share.js/dist/css/share.min.css",
+              "node_modules/plyr/dist/plyr.css"
             ],
             "scripts": [
               "node_modules/social-share.js/src/js/qrcode.js",
@@ -67,10 +72,12 @@
           },
           "configurations": {
             "production": {
-              "fileReplacements": [{
-                "replace": "src/environments/environment.ts",
-                "with": "src/environments/environment.prod.ts"
-              }],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -78,7 +85,8 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
-              "budgets": [{
+              "budgets": [
+                {
                   "type": "initial",
                   "maximumWarning": "3mb",
                   "maximumError": "6mb"
@@ -91,10 +99,12 @@
               ]
             },
             "xinshi": {
-              "fileReplacements": [{
-                "replace": "src/environments/environment.ts",
-                "with": "src/environments/environment.xinshi.ts"
-              }],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.xinshi.ts"
+                }
+              ],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -102,7 +112,8 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
-              "budgets": [{
+              "budgets": [
+                {
                   "type": "initial",
                   "maximumWarning": "3mb",
                   "maximumError": "6mb"
@@ -115,10 +126,12 @@
               ]
             },
             "nnit": {
-              "fileReplacements": [{
-                "replace": "src/environments/environment.ts",
-                "with": "src/environments/environment.nnit.ts"
-              }],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.nnit.ts"
+                }
+              ],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -126,7 +139,8 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
-              "budgets": [{
+              "budgets": [
+                {
                   "type": "initial",
                   "maximumWarning": "3mb",
                   "maximumError": "6mb"
@@ -139,10 +153,12 @@
               ]
             },
             "sanziqi": {
-              "fileReplacements": [{
-                "replace": "src/environments/environment.ts",
-                "with": "src/environments/environment.sanziqi.ts"
-              }],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.sanziqi.ts"
+                }
+              ],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -150,7 +166,8 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
-              "budgets": [{
+              "budgets": [
+                {
                   "type": "initial",
                   "maximumWarning": "3mb",
                   "maximumError": "6mb"
@@ -174,37 +191,45 @@
           "configurations": {
             "production": {
               "outputHashing": "media",
-              "fileReplacements": [{
-                "replace": "src/environments/environment.ts",
-                "with": "src/environments/environment.prod.ts"
-              }],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
               "sourceMap": false,
               "optimization": true
             },
             "xinshi": {
               "outputHashing": "media",
-              "fileReplacements": [{
-                "replace": "src/environments/environment.ts",
-                "with": "src/environments/environment.xinshi.ts"
-              }],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.xinshi.ts"
+                }
+              ],
               "sourceMap": false,
               "optimization": true
             },
             "nnit": {
               "outputHashing": "media",
-              "fileReplacements": [{
-                "replace": "src/environments/environment.ts",
-                "with": "src/environments/environment.nnit.ts"
-              }],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.nnit.ts"
+                }
+              ],
               "sourceMap": false,
               "optimization": true
             },
             "sanziqi": {
               "outputHashing": "media",
-              "fileReplacements": [{
-                "replace": "src/environments/environment.ts",
-                "with": "src/environments/environment.sanziqi.ts"
-              }],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.sanziqi.ts"
+                }
+              ],
               "sourceMap": false,
               "optimization": true
             }
