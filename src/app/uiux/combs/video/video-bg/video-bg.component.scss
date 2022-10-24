@@ -6,24 +6,32 @@
     min-height: 400px;
   }
 }
-.video-js {
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200% !important;
-  height: 200% !important;
-  max-width: none !important;
-  video {
+
+:host ::ng-deep {
+  .plyr {
     position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    margin: auto;
-    min-height: 50%;
-    min-width: 50%;
+    top: -50%;
+    left: -50%;
+    width: 200% !important;
+    height: 200% !important;
+    max-width: none !important;
+    video {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      margin: auto;
+      min-height: 50%;
+      min-width: 50%;
+    }
+    .plyr__controls,
+    .plyr__control {
+      display: none;
+    }
   }
 }
+
 .layer {
   z-index: 1;
   background: #000;

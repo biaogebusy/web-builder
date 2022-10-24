@@ -5,7 +5,7 @@
   <!-- <video class="video-js" autoplay muted loop preload="auto">
     <source src="{{content?.source?.src}}" type="{{content?.source?.type}}">
   </video> -->
-  <app-player *ngIf="video" [content]="video"></app-player>
+  <app-player *ngIf="video" [content]="video" [config]="config"></app-player>
   <div class="inner position-relative" ngClass.gt-sm="xy-center" ngClass.lt-md="y-center">
     <app-dynamic-combs [content]="content.widget"></app-dynamic-combs>
   </div>

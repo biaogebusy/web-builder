@@ -16,13 +16,15 @@ import { ScreenService } from '@core/service/screen.service';
 })
 export class VideoBgComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() content: any;
-  video: IPlayer;
+  @Input() config: any;
+  video: any;
   constructor(private screenService: ScreenService) {}
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       this.video = {
+        autoplay: true,
         source: {
           type: 'video',
           sources: [
