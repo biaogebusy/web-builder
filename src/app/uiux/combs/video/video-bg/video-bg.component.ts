@@ -29,6 +29,9 @@ export class VideoBgComponent implements OnInit, AfterViewInit, OnDestroy {
           controls: false,
           muted: true,
           loop: true,
+          aspectRatio: '16:9',
+          fluid: true,
+          fill: true,
           sources: [
             {
               ...this.content.source,

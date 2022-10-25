@@ -32,19 +32,11 @@ export const Base = Template.bind({});
 
 Base.args = {
   content: {
-    source: {
-      type: 'video',
-      title: 'Afterglow',
-      sources: [
-        {
-          src: '/assets/video/afterglow.mp4',
-          type: 'video/mp4',
-          size: 720,
-        },
-      ],
+    options: {
+      controls: true,
+      aspectRatio: '16:9',
       poster: '/assets/images/16-9/business-02.jpg',
-      muted: true,
-      hideControls: true,
+      sources: [{ src: '/assets/video/afterglow.mp4', type: 'video/mp4' }],
     },
   },
 };
