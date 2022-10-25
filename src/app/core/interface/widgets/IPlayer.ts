@@ -1,5 +1,5 @@
-import { SourceInfo } from 'plyr';
+import { VideoJsPlayerOptions } from 'video.js';
 
 export interface IPlayer {
-  source: SourceInfo;
+  options: VideoJsPlayerOptions;
 }

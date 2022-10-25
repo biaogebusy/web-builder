@@ -30,9 +30,6 @@ const Template: Story = (args) => ({
 export const Default = Template.bind({});
 const showcase1v3: any = showcase1v3Stories.Default.args;
 Default.args = {
-  config: {
-    autoplay: true,
-  },
   content: {
     source: {
       src: '/assets/video/afterglow.mp4',
