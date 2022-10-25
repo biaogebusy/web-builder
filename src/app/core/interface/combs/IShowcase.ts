@@ -3,6 +3,15 @@ import { IFeatureBox } from '../widgets/IFeatureBox';
 import { ILink } from '../widgets/ILink';
 import { IBtnAnimate } from '../widgets/IBtnAnimate';
 
+export interface IShowcase2v1 extends ICombsBase {
+  layout?: {
+    fxFlex: any;
+    fxLayout: string;
+    fxLayoutAlign: string;
+  };
+  elements: any[];
+}
+
 export interface IShowcase3v3 extends ICombsBase {
   feature: IFeatureBox;
   showImage: boolean;

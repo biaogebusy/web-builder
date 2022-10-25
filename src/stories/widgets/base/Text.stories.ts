@@ -70,7 +70,9 @@ Actions.args = {
     actionsAlign: 'center center',
     actions: [
       {
-        type: 'link',
+        type: 'btn',
+        mode: 'raised',
+        color: 'primary',
         href: '#',
         label: '开始',
       },

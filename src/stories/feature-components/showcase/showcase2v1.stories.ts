@@ -26,7 +26,7 @@ const Template: Story = (args) => ({
   },
 });
 export const Default = Template.bind({});
-
+Default.storyName = '卡片列表';
 Default.args = {
   content: {
     text: {
@@ -39,6 +39,7 @@ Default.args = {
     },
     elements: [
       {
+        type: 'card',
         subTitle: '2022/03/04',
         avatar: {
           src: '/assets/images/showcase/weather.png',
@@ -88,6 +89,7 @@ Default.args = {
         },
       },
       {
+        type: 'card',
         subTitle: '2022/02/26',
         avatar: {
           src: '/assets/images/showcase/browser.png',
@@ -124,6 +126,7 @@ Default.args = {
         },
       },
       {
+        type: 'card',
         subTitle: '2022/02/26',
         avatar: {
           src: '/assets/images/showcase/clipboard.png',
@@ -160,6 +163,7 @@ Default.args = {
         },
       },
       {
+        type: 'card',
         subTitle: '2022/02/26',
         avatar: {
           src: '/assets/images/showcase/console.png',
@@ -196,6 +200,7 @@ Default.args = {
         },
       },
       {
+        type: 'card',
         subTitle: '2022/02/26',
         avatar: {
           src: '/assets/images/showcase/weather.png',
@@ -232,6 +237,7 @@ Default.args = {
         },
       },
       {
+        type: 'card',
         subTitle: '2022/02/26',
         avatar: {
           src: '/assets/images/showcase/weather.png',
@@ -268,6 +274,7 @@ Default.args = {
         },
       },
       {
+        type: 'card',
         subTitle: '2022/02/26',
         avatar: {
           src: '/assets/images/showcase/weather.png',
@@ -304,6 +311,7 @@ Default.args = {
         },
       },
       {
+        type: 'card',
         subTitle: '2022/02/26',
         avatar: {
           src: '/assets/images/showcase/weather.png',
@@ -338,6 +346,93 @@ Default.args = {
           href: '/node/1',
           label: 'FLAT LOGO DESIGN',
         },
+      },
+    ],
+  },
+};
+
+export const Card1v1 = Template.bind({});
+Card1v1.storyName = '卡片 1v1';
+Card1v1.args = {
+  content: {
+    text: {
+      title: {
+        label: '最新活动',
+        style: 'style-v1',
+        classes: 'mat-display-0 bold',
+      },
+      body: '<p class="text-center">欢迎分享 Drupal 优秀的数字创新体验，前端开发分享，欢迎交流！</p>',
+    },
+    layout: {
+      fxFlex: {
+        xs: '100',
+        sm: 'calc(50% - 30px)',
+        'gt-sm': '0 0 calc(33% - 40px)',
+      },
+    },
+    elements: [
+      {
+        type: 'card-1v1',
+        link: {
+          href: '#',
+          label: 'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程',
+        },
+        user: '表歌',
+        time: '2022/09/27',
+        feature: {
+          fullIcon: 'fullscreen',
+          openIcon: 'open_in_new',
+          link: '#',
+          ratios: 'media-4-3',
+          img: {
+            classes: 'object-fit',
+            src: '/assets/images/16-9/business-01.jpg',
+            alt: 'alt',
+          },
+        },
+        moreLabel: '查看更多',
+      },
+      {
+        type: 'card-1v1',
+        link: {
+          href: '#',
+          label: '使用 DEVTOOLS 对 ANGULAR 前端应用性能分析优化',
+        },
+        user: '表歌',
+        time: '2022/09/27',
+        feature: {
+          fullIcon: 'fullscreen',
+          openIcon: 'open_in_new',
+          link: '#',
+          ratios: 'media-4-3',
+          img: {
+            classes: 'object-fit',
+            src: '/assets/images/16-9/business-02.jpg',
+            alt: 'alt',
+          },
+        },
+        moreLabel: '查看更多',
+      },
+      {
+        type: 'card-1v1',
+        link: {
+          href: '#',
+          label: '你应该了解的 ANGULAR 最佳实践',
+        },
+        user: '表歌',
+        time: '2022/09/27',
+        feature: {
+          fullIcon: 'fullscreen',
+          openIcon: 'open_in_new',
+          link: '#',
+          ratios: 'media-4-3',
+          img: {
+            classes: 'object-fit',
+            src: '/assets/images/16-9/business-03.jpg',
+            alt: 'alt',
+          },
+        },
+        moreLabel: '查看更多',
       },
     ],
   },

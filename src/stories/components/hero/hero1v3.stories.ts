@@ -35,6 +35,9 @@ Default.args = {
       body: '信使是基于 Material UI 的 Angular 前端框架，后端适配 Drupal，提供优秀的数字创新体验。',
       actions: [
         {
+          type: 'btn',
+          mode: 'raised',
+          color: 'primary',
           href: '#',
           label: '立刻体验',
           target: '_blank',
