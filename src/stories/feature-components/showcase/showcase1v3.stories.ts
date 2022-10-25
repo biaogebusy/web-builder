@@ -76,7 +76,7 @@ Default.args = {
 };
 
 export const Contact = Template.bind({});
-Contact.storyName = '联系我们';
+Contact.storyName = 'Widgets';
 const contact: any = ContactUs.Base.args;
 Contact.args = {
   content: {
@@ -94,6 +94,55 @@ Contact.args = {
         body: '信使是以 Material UI为基础的 Angular 前端框架，为Drupal的数字创新提供友好的用户体验。',
       },
       contact.content,
+    ],
+  },
+};
+
+export const Video = Template.bind({});
+Video.args = {
+  content: {
+    title: {
+      label: '为什么你将会喜欢信使？',
+      style: 'style-v1',
+      classes: 'mat-display-1',
+    },
+    classes: 'text-light',
+    bg: {
+      classes: 'bg-fill-width overlay overlay-80',
+      img: {
+        hostClasses: 'bg-center',
+        src: '/assets/images/16-9/business-17.jpeg',
+        alt: 'page title',
+      },
+    },
+    elements: [
+      {
+        type: 'text',
+        spacer: 'none',
+        style: {
+          margin: '0 auto',
+          'text-align': 'center',
+          width: '600px',
+        },
+        body: 'Drupal 已经超越了传统的 Web概念，可以通过不同的渠道部署你的数据内容，从一个数据中心点到各个应用，从简单到复杂。',
+        actionsAlign: 'center center',
+        actions: [
+          {
+            label: '了解更多',
+            type: 'btn-animate',
+            href: '#',
+            style: 'style-v1',
+            icon: 'verified_user',
+          },
+          {
+            label: '回到官网',
+            type: 'btn-animate',
+            href: '#',
+            style: 'style-v1',
+            icon: 'fingerprint',
+          },
+        ],
+      },
     ],
   },
 };

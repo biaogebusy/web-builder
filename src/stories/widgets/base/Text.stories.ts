@@ -6,6 +6,8 @@ import {
 } from '@storybook/angular';
 import { TextComponent } from '@uiux/widgets/text/text.component';
 import { StorysModule } from '@core/storys.module';
+import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
+import { PlayerComponent } from '@uiux/widgets/media/player/player.component';
 
 export default {
   title: '基础/内容/富文本',
@@ -13,6 +15,7 @@ export default {
   component: TextComponent,
   decorators: [
     moduleMetadata({
+      entryComponents: [DialogComponent, PlayerComponent],
       declarations: [],
       imports: [StorysModule.forRoot()],
     }),
@@ -67,6 +70,7 @@ Actions.args = {
     actionsAlign: 'center center',
     actions: [
       {
+        type: 'link',
         href: '#',
         label: '开始',
       },
@@ -80,6 +84,123 @@ Actions.args = {
         href: '#',
         style: 'style-v1',
         icon: 'open_in_new',
+      },
+    ],
+  },
+};
+
+export const SearchAction = Template.bind({});
+SearchAction.storyName = '搜索';
+SearchAction.args = {
+  content: {
+    ...Base.args.content,
+    spacer: 'lg',
+    title: {
+      label:
+        '开源项目使用 Github actions 自动化测试部署 Angular 应用到 ECS 服务器',
+      style: 'style-v1',
+    },
+    bg: {
+      classes: 'bg-shadow bg-fill-width',
+    },
+    actionsAlign: 'center center',
+    actions: [
+      {
+        type: 'search-action',
+        button: {
+          label: '搜索',
+          color: 'primary',
+        },
+        form: [
+          {
+            type: 'select',
+            key: 'skill',
+            label: '技能',
+            options: [
+              {
+                label: '无',
+                value: '',
+              },
+              {
+                label: 'Angular',
+                value: 'angular',
+              },
+              {
+                label: 'React',
+                value: 'react',
+              },
+              {
+                label: 'Vue',
+                value: 'vue',
+              },
+            ],
+          },
+          {
+            type: 'select',
+            key: 'cms',
+            label: 'CMS',
+            options: [
+              {
+                label: '无',
+                value: '',
+              },
+              {
+                label: 'Drupal',
+                value: 'drupal',
+              },
+              {
+                label: 'WP',
+                value: 'wp',
+              },
+              {
+                label: 'Joomla',
+                value: 'joomla',
+              },
+            ],
+          },
+          {
+            type: 'input',
+            key: 'keys',
+            placeholder: '请输入关键词搜索',
+            controlType: 'search',
+            label: '关键词',
+            appearance: 'legacy',
+          },
+        ],
+      },
+    ],
+  },
+};
+
+export const BtnVideoAction = Template.bind({});
+BtnVideoAction.storyName = '视频播放';
+BtnVideoAction.args = {
+  content: {
+    ...Base.args.content,
+    spacer: 'lg',
+    title: {
+      label:
+        '开源项目使用 Github actions 自动化测试部署 Angular 应用到 ECS 服务器',
+      style: 'style-v1',
+    },
+    bg: {
+      classes: 'bg-shadow bg-fill-width',
+    },
+    actionsAlign: 'center center',
+    actions: [
+      {
+        type: 'btn-video',
+        color: 'primary',
+        video: {
+          options: {
+            controls: true,
+            aspectRatio: '16:9',
+            poster: '/assets/images/16-9/business-02.jpg',
+            sources: [
+              { src: '/assets/video/afterglow.mp4', type: 'video/mp4' },
+            ],
+          },
+        },
       },
     ],
   },
