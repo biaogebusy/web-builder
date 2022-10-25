@@ -53,6 +53,9 @@ Default.args = {
       actionsAlign: 'center center',
       actions: [
         {
+          type: 'btn',
+          mode: 'raised',
+          color: 'primary',
           href: '#',
           label: 'Get Started',
         },
@@ -95,6 +98,9 @@ YCenter.args = {
       actionsAlign: 'start center',
       actions: [
         {
+          type: 'btn',
+          mode: 'raised',
+          color: 'primary',
           href: '#',
           label: 'Get Started',
         },
@@ -138,6 +144,9 @@ YCenterXCustom.args = {
       actionsAlign: 'start center',
       actions: [
         {
+          type: 'btn',
+          mode: 'raised',
+          color: 'primary',
           href: '#',
           label: 'Get Started',
         },
@@ -182,6 +191,9 @@ XYCustom.args = {
       actionsAlign: 'start center',
       actions: [
         {
+          type: 'btn',
+          mode: 'raised',
+          color: 'primary',
           href: '#',
           label: 'Get Started',
         },

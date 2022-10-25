@@ -53,6 +53,9 @@ Default.args = {
           actionsAlign: 'center center',
           actions: [
             {
+              type: 'btn',
+              mode: 'raised',
+              color: 'primary',
               href: '#',
               label: 'Get Started',
             },
@@ -78,6 +81,9 @@ Default.args = {
           actionsAlign: 'center center',
           actions: [
             {
+              type: 'btn',
+              mode: 'raised',
+              color: 'primary',
               href: '#',
               label: 'Get Started',
             },

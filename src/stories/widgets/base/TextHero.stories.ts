@@ -47,6 +47,9 @@ Base.args = {
       actionsAlign: 'start center',
       actions: [
         {
+          type: 'btn',
+          mode: 'raised',
+          color: 'primary',
           href: '',
           label: '了解更多',
         },
