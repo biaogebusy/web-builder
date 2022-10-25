@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { IBtn } from '@core/interface/widgets/IBtn';
 import type { IText } from '@core/interface/widgets/IText';
 
 @Component({
@@ -17,4 +18,12 @@ export class TextComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
+  getBtnLink(content: any): IBtn {
+    return {
+      mode: 'raised',
+      color: 'primary',
+      ...content,
+    };
+  }
 }

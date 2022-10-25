@@ -5,6 +5,7 @@ import { ISwiper } from '../widgets/ISwiper';
 export interface ICarouselBase extends ICombsBase {
   bg: IBgImg;
   fullWidth?: boolean;
+  disableContainer?: boolean;
   title: ITitle;
   sliders: ISwiper;
 }

@@ -7,7 +7,7 @@ import {
   ViewEncapsulation,
   OnDestroy,
 } from '@angular/core';
-import { IPlayer } from '@core/interface/widgets/IPlayer';
+import type { IPlayer } from '@core/interface/widgets/IPlayer';
 import videojs from 'video.js';
 
 @Component({
@@ -29,14 +29,13 @@ export class PlayerComponent implements OnInit, OnDestroy {
     this.player = videojs(
       this.target.nativeElement,
       this.content.options,
-      function onPlayerReady() {
+      function onPlayerReady(): void {
         console.log('onPlayerReady', this);
       }
     );
   }
 
-  // Dispose the player OnDestroy
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     if (this.player) {
       this.player.dispose();
     }

@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IBtnVideo } from '@core/interface/widgets/IBtn';
+import type { IBtnVideo } from '@core/interface/widgets/IBtn';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { PlayerComponent } from '@uiux/widgets/media/player/player.component';
-import { IPlayer } from '@core/interface/widgets/IPlayer';
+import type { IPlayer } from '@core/interface/widgets/IPlayer';
 
 @Component({
   selector: 'app-btn-video',
