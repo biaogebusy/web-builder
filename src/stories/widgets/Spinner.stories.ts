@@ -8,7 +8,7 @@ import { Story } from '@storybook/angular/types-6-0';
 import { SpinnerComponent } from '@uiux/widgets/spinner/spinner.component';
 
 export default {
-  title: '基础/旋转 Loading',
+  title: '基础组件/旋转 Loading',
   id: 'spinner',
   component: SpinnerComponent,
   decorators: [

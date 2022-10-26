@@ -12,7 +12,7 @@ import { IconComponent } from '@uiux/widgets/icon/icon.component';
 import { TextComponent } from '@uiux/widgets/text/text.component';
 
 export default {
-  title: '基础/View 视图列表',
+  title: '基础组件/View 视图列表',
   id: 'view-list',
   component: ViewListComponent,
   decorators: [

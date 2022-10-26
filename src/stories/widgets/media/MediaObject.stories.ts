@@ -8,7 +8,7 @@ import { MediaObjectComponent } from '@uiux/widgets/media/media-object/media-obj
 import { StorysModule } from '@core/storys.module';
 
 export default {
-  title: '基础/媒体/媒体对象',
+  title: '基础组件/媒体/媒体对象',
   id: 'media-object',
   component: MediaObjectComponent,
   decorators: [

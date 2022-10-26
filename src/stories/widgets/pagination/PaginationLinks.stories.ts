@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 import { StorysModule } from '@core/storys.module';
 
 export default {
-  title: '基础/分页/JSONAPI 分页',
+  title: '基础组件/分页/JSONAPI 分页',
   id: 'pagination-links',
   component: PaginationLinksComponent,
   decorators: [

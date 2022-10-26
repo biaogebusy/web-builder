@@ -8,7 +8,7 @@ import { MediaMetaComponent } from '@uiux/widgets/media/media-meta/media-meta.co
 import { StorysModule } from '@core/storys.module';
 
 export default {
-  title: '基础/媒体/媒体 meta',
+  title: '基础组件/媒体/媒体 meta',
   id: 'media-meta',
   component: MediaMetaComponent,
   decorators: [

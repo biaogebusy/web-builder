@@ -3,6 +3,7 @@ import { ILink } from '../widgets/ILink';
 import { IShowcase3v3 } from '@core/interface/combs/IShowcase';
 export interface IDynamicCardList {
   sidebar: any[];
+  row: number;
   shadow: boolean;
   ratios:
     | 'media-140'
@@ -16,6 +17,7 @@ export interface IDynamicCardList {
 export interface IDynamicCardList1v1 {
   header: IText;
   sidebar: any;
+  row: number;
   params: {
     type: string;
   };

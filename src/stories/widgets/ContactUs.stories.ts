@@ -8,7 +8,7 @@ import { screen, userEvent } from '@storybook/testing-library';
 import { ContactUsComponent } from '@uiux/widgets/contact-us/contact-us.component';
 import { StorysModule } from '@core/storys.module';
 export default {
-  title: '基础/联系我们',
+  title: '基础组件/联系我们',
   id: 'contact-us',
   component: ContactUsComponent,
   decorators: [

@@ -8,7 +8,7 @@ import { Story } from '@storybook/angular/types-6-0';
 import { FeatureBoxComponent } from '@uiux/widgets/feature-box/feature-box.component';
 
 export default {
-  title: '基础/功能盒子',
+  title: '基础组件/功能盒子',
   id: 'feature-box',
   component: FeatureBoxComponent,
   decorators: [

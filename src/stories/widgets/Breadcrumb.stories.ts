@@ -8,7 +8,7 @@ import { Story } from '@storybook/angular/types-6-0';
 import { BreadcrumbComponent } from '@uiux/widgets/breadcrumb/breadcrumb.component';
 
 export default {
-  title: '基础/面包屑',
+  title: '基础组件/面包屑',
   id: 'breadcrumb',
   component: BreadcrumbComponent,
   decorators: [

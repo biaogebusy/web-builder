@@ -9,7 +9,7 @@ import { screen, userEvent } from '@storybook/testing-library';
 import { TabComponent } from '@uiux/widgets/tab/tab.component';
 
 export default {
-  title: '基础/选项卡',
+  title: '基础组件/选项卡',
   id: 'tab',
   component: TabComponent,
   decorators: [

@@ -5,7 +5,7 @@ import * as SwiperStories from 'src/stories/widgets/Swiper.stories';
 import { StorysModule } from '@core/storys.module';
 
 export default {
-  title: '常规组件/幻灯片/1v1',
+  title: '复合组件/幻灯片/1v1',
   id: 'carousel-1v1',
   component: Carousel1v1Component,
   decorators: [

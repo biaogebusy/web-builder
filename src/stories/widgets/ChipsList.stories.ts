@@ -8,7 +8,7 @@ import { Story } from '@storybook/angular/types-6-0';
 import { ChipListComponent } from '@uiux/widgets/chip-list/chip-list.component';
 
 export default {
-  title: '基础/胶囊按钮',
+  title: '基础组件/胶囊按钮',
   id: 'chip-list',
   component: ChipListComponent,
   decorators: [

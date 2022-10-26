@@ -8,7 +8,7 @@ import { MediaListComponent } from '@uiux/widgets/media/media-list/media-list.co
 import { StorysModule } from '@core/storys.module';
 
 export default {
-  title: '基础/媒体/媒体列表',
+  title: '基础组件/媒体/媒体列表',
   id: 'media-list',
   component: MediaListComponent,
   decorators: [

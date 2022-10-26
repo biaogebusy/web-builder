@@ -9,7 +9,7 @@
       <div fxLayout.lt-md="column" fxLayout.gt-sm="row wrap" fxLayoutGap.lt-md="6rem" fxLayoutAlign.gt-sm="center start"
         fxLayoutAlign.lt-md="center center">
         <app-box class="p-x-sm p-y-sm" [content]="item" *ngFor="let item of content.elements" fxFlex.lt-md="100%"
-          [fxFlex.gt-sm]="row(content, '0rem')"></app-box>
+          [fxFlex.gt-sm]="row(content.row, '0rem')"></app-box>
       </div>
     </div>
   </div>

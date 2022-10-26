@@ -10,7 +10,7 @@ import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { PlayerComponent } from '@uiux/widgets/media/player/player.component';
 
 export default {
-  title: '基础/内容/富文本',
+  title: '基础组件/内容/富文本',
   id: 'text',
   component: TextComponent,
   decorators: [

@@ -8,7 +8,7 @@ import { StorysModule } from '@core/storys.module';
 import { PlayerComponent } from '@uiux/widgets/media/player/player.component';
 
 export default {
-  title: '基础/媒体/播放器',
+  title: '基础组件/媒体/播放器',
   id: 'player',
   component: PlayerComponent,
   decorators: [

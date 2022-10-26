@@ -10,7 +10,7 @@ import { ConfigService } from '@core/service/config.service';
 import { StorysModule } from '@core/storys.module';
 
 export default {
-  title: '基础/地图',
+  title: '基础组件/地图',
   id: 'map',
   component: MapComponent,
   decorators: [

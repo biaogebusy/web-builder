@@ -8,7 +8,7 @@ import { StepperComponent } from '@uiux/widgets/stepper/stepper.component';
 import { StorysModule } from '@core/storys.module';
 
 export default {
-  title: '基础/进步器',
+  title: '基础组件/进步器',
   id: 'stepper',
   component: StepperComponent,
   decorators: [

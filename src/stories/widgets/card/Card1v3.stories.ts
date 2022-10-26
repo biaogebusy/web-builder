@@ -11,7 +11,7 @@ import { LoopWidgetsComponent } from '@uiux/widgets/loop-widgets/loop-widgets.co
 import { StorysModule } from '@core/storys.module';
 
 export default {
-  title: '基础/卡片/1v3',
+  title: '基础组件/卡片/1v3',
   id: 'card-1v3',
   component: Card1v3Component,
   decorators: [

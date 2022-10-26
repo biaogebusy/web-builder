@@ -8,7 +8,7 @@ import { Story } from '@storybook/angular/types-6-0';
 import { ProgressGroupComponent } from '@uiux/widgets/progress-group/progress-group.component';
 
 export default {
-  title: '基础/进度条组',
+  title: '基础组件/进度条组',
   id: 'progress-group',
   component: ProgressGroupComponent,
   decorators: [

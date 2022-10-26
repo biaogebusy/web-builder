@@ -9,7 +9,7 @@ import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { SwiperModule } from 'swiper/angular';
 
 export default {
-  title: '基础/Swiper',
+  title: '基础组件/Swiper',
   id: 'swiper',
   component: SwiperComponent,
   decorators: [

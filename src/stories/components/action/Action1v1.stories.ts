@@ -5,7 +5,7 @@ import { Action1v1Component } from '@uiux/combs/action/action1v1/action1v1.compo
 import { StorysModule } from '@core/storys.module';
 
 export default {
-  title: '常规组件/引导/Action 1v1',
+  title: '复合组件/引导/Action 1v1',
   id: 'action-1v1',
   component: Action1v1Component,
   decorators: [

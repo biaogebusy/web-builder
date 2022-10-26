@@ -4,7 +4,7 @@ import { Carousel1v1Component } from '@uiux/combs/carousel/carousel1v1/carousel1
 import { StorysModule } from '@core/storys.module';
 
 export default {
-  title: '常规组件/幻灯片/时间轴',
+  title: '复合组件/幻灯片/时间轴',
   id: 'lineyear',
   component: Carousel1v1Component,
   decorators: [

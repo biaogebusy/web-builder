@@ -8,7 +8,7 @@ import {
 import { ChartComponent } from '@uiux/widgets/chart/chart.component';
 
 export default {
-  title: '基础/图表/柱状图',
+  title: '基础组件/图表/柱状图',
   id: 'chart-bar',
   component: ChartComponent,
   decorators: [

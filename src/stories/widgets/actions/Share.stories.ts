@@ -8,7 +8,7 @@ import { ShareComponent } from '@uiux/widgets/actions/share/share.component';
 import { StorysModule } from '@core/storys.module';
 
 export default {
-  title: '基础/Actions/分享',
+  title: '基础组件/Actions/分享',
   id: 'share',
   component: ShareComponent,
   decorators: [

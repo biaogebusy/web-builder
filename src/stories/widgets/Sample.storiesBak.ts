@@ -10,7 +10,7 @@ import { TitleComponent } from '@uiux/widgets/title/title.component';
 import { StorysModule } from '@core/storys.module';
 
 export default {
-  title: '基础/Sample',
+  title: '基础组件/Sample',
   id: 'sample',
   component: TextComponent,
   subcomponents: { TitleComponent },

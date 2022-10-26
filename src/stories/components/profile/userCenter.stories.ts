@@ -9,7 +9,7 @@ import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { IframeComponent } from '@uiux/widgets/iframe/iframe.component';
 
 export default {
-  title: '常规组件/用户/用户中心',
+  title: '复合组件/用户/用户中心',
   id: 'user-center',
   component: UserCenterComponent,
   decorators: [

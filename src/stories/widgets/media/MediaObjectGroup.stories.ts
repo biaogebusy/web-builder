@@ -9,7 +9,7 @@ import * as MediaObjectStories from './MediaObject.stories';
 import { StorysModule } from '@core/storys.module';
 
 export default {
-  title: '基础/媒体/媒体对象组',
+  title: '基础组件/媒体/媒体对象组',
   id: 'media-object-group',
   component: MediaObjectGroupComponent,
   decorators: [

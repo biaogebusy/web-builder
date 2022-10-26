@@ -8,7 +8,7 @@ import { Story } from '@storybook/angular/types-6-0';
 import { ProgressBarComponent } from '@uiux/widgets/progress-bar/progress-bar.component';
 
 export default {
-  title: '基础/进度条',
+  title: '基础组件/进度条',
   id: 'progress-bar',
   component: ProgressBarComponent,
   decorators: [

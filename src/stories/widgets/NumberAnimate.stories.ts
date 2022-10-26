@@ -4,7 +4,7 @@ import { Story } from '@storybook/angular/types-6-0';
 import { NumberAnimateComponent } from '@uiux/widgets/number-animate/number-animate.component';
 
 export default {
-  title: '基础/动态数字',
+  title: '基础组件/动态数字',
   id: 'number-animate',
   component: NumberAnimateComponent,
   decorators: [

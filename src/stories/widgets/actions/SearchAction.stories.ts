@@ -9,7 +9,7 @@ import { SearchActionComponent } from '@uiux/widgets/actions/search-action/searc
 import { StorysModule } from '@core/storys.module';
 
 export default {
-  title: '基础/Actions/搜索控件',
+  title: '基础组件/Actions/搜索控件',
   id: 'search-action',
   component: SearchActionComponent,
   decorators: [

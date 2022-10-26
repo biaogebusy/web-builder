@@ -8,7 +8,7 @@ import { Story } from '@storybook/angular/types-6-0';
 import { DownloadComponent } from '@uiux/widgets/actions/download/download.component';
 
 export default {
-  title: '基础/Actions/下载',
+  title: '基础组件/Actions/下载',
   id: 'download',
   component: DownloadComponent,
   decorators: [
