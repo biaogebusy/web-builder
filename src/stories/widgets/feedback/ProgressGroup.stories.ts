@@ -5,12 +5,12 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { SpinnerComponent } from '@uiux/widgets/spinner/spinner.component';
+import { ProgressGroupComponent } from '@uiux/widgets/progress-group/progress-group.component';
 
 export default {
-  title: '基础组件/旋转 Loading',
-  id: 'spinner',
-  component: SpinnerComponent,
+  title: '基础组件/反馈组件/进度条组',
+  id: 'progress-group',
+  component: ProgressGroupComponent,
   decorators: [
     moduleMetadata({
       declarations: [],
@@ -28,11 +28,23 @@ const Template: Story = (args) => ({
     ...args,
   },
 });
-export const Default = Template.bind({});
+export const Base = Template.bind({});
 
-Default.args = {
+Base.args = {
   content: {
-    color: 'primary',
-    size: '50',
+    elements: [
+      {
+        label: 'HTML/CSS',
+        value: '95',
+      },
+      {
+        label: 'Angular/JavaScript',
+        value: '79',
+      },
+      {
+        label: 'Drupal',
+        value: '60',
+      },
+    ],
   },
 };

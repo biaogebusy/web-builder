@@ -4,7 +4,7 @@
   <app-bg-img [content]="content.bg"></app-bg-img>
   <div class="container">
     <div class="inner text-center" fxLayout="column" fxLayoutAlign="center center">
-      <app-text [content]="content.text"></app-text>
+      <app-text *ngIf="content.text" [content]="content.text"></app-text>
     </div>
   </div>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>

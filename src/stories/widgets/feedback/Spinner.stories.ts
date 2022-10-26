@@ -1,16 +1,16 @@
+import { StorysModule } from '@core/storys.module';
 import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { StorysModule } from '@core/storys.module';
-import { PlayerComponent } from '@uiux/widgets/media/player/player.component';
+import { SpinnerComponent } from '@uiux/widgets/spinner/spinner.component';
 
 export default {
-  title: '基础组件/媒体/播放器',
-  id: 'player',
-  component: PlayerComponent,
+  title: '基础组件/反馈组件/加载 Loading',
+  id: 'spinner',
+  component: SpinnerComponent,
   decorators: [
     moduleMetadata({
       declarations: [],
@@ -28,15 +28,11 @@ const Template: Story = (args) => ({
     ...args,
   },
 });
-export const Base = Template.bind({});
+export const Default = Template.bind({});
 
-Base.args = {
+Default.args = {
   content: {
-    options: {
-      controls: true,
-      aspectRatio: '16:9',
-      poster: '/assets/images/16-9/business-02.jpg',
-      sources: [{ src: '/assets/video/afterglow.mp4', type: 'video/mp4' }],
-    },
+    color: 'primary',
+    size: '50',
   },
 };

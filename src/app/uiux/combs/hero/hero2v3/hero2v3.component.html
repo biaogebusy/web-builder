@@ -5,7 +5,7 @@
   <app-bg-img [content]="content.bg"></app-bg-img>
   <div class="container position-relative">
     <div class="hero-body text-center" fxLayout="row wrap" fxLayoutAlign="center center">
-      <app-text [content]="content.text"></app-text>
+      <app-text *ngIf="content.text" [content]="content.text"></app-text>
       <div fxFlex="100" class="box m-top-md" fxLayout="row wrap" fxLayoutAlign="center center">
         <div class="item" fxFlex.lt-md="50" fxFlex.gt-sm="33.33" fxFlex.gt-md="{{row(content.row, '0rem')}}"
           *ngFor="let item of content.elements">

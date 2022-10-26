@@ -7,7 +7,7 @@ import { Story } from '@storybook/angular/types-6-0';
 import { fireEvent, screen, userEvent } from '@storybook/testing-library';
 import { ListModule } from '@uiux/combs/list/list.module';
 import { TreeListComponent } from '@uiux/combs/list/tree-list/tree-list.component';
-import * as TreeStories from 'src/stories/widgets/Tree.stories';
+import * as TreeStories from 'src/stories/feature-components/list/Tree.stories';
 import { StorysModule, sleep } from '@core/storys.module';
 
 export default {

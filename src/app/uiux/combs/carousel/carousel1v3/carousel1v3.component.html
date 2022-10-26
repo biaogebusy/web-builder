@@ -5,7 +5,7 @@
     <app-img *ngIf="content.bg?.img" [content]="content.bg.img"></app-img>
   </app-bg>
   <div class="container ">
-    <app-text [content]="content.text"></app-text>
+    <app-text *ngIf="content.text" [content]="content.text"></app-text>
     <app-swiper [content]="content.sliders"></app-swiper>
   </div>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
