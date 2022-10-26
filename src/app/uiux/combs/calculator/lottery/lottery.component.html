@@ -4,9 +4,9 @@
   <app-bg [content]="content.bg" *ngIf="content.bg">
   </app-bg>
   <div class="container">
-    <app-text [content]="content.text"></app-text>
+    <app-text *ngIf="content.text" [content]="content.text"></app-text>
     <div class="inner" fxLayout="row wrap" fxLayoutAlign="center center">
-      <app-formly [ngClass]="'m-y p-x-sm'" fxFlex.lt-md="100" fxFlex.gt-sm="500px" [fields]="content.form" [form]="form"
+      <app-formly [ngClass]="'m-y p-x-sm'" fxFlex.lt-md="100" fxFlex.gt-sm="50%" [fields]="content.form" [form]="form"
         [model]="model" (modelChange)="onFormlyChange($event)">
       </app-formly>
       <div fxFlex.lt-md="100" fxFlex.gt-sm="50%" fxLayout="column">

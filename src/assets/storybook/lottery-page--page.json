@@ -1,20 +1,15 @@
 {
   "title": "红包抽奖预算计算器",
-  "config": {
-    "headerMode": {
-      "transparent": true,
-      "style": "light"
-    }
-  },
+  "config": {},
   "body": [
     {
       "type": "banner-simple",
       "style": "normal",
       "bannerBg": {
-        "classes": "bg-fill-width",
+        "classes": "bg-fill-width overlay overlay-80",
         "img": {
           "hostClasses": "bg-center",
-          "src": "/assets/images/16-9/business-13.jpg",
+          "src": "/assets/images/16-9/nature-07.jpg",
           "alt": "nature-08.jpg"
         }
       },

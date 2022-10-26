@@ -10,7 +10,7 @@ import { StorysModule } from '@core/storys.module';
 import { BrandingModule } from '@core/branding/branding.module';
 
 export default {
-  title: '示例页面/计算器',
+  title: '特色组件/计算器',
   id: 'lottery-page',
   component: BlockComponent,
   decorators: [
