@@ -31,7 +31,7 @@ Default.args = {
   content: {
     spacer: 'lg',
     title: {
-      label: 'SHOWCASE 4v1',
+      label: '平台实时数据',
       style: 'style-v1',
     },
     paramsBak: {
@@ -44,7 +44,7 @@ Default.args = {
           value: 100,
           label: '+',
         },
-        title: 'Clients',
+        title: '日访问人数',
       },
       {
         icon: 'verified_user',
@@ -52,23 +52,23 @@ Default.args = {
           value: 200,
           label: '+',
         },
-        title: 'Awards',
+        title: '日打开次数',
       },
       {
         icon: 'android',
         digit: {
           value: 246,
-          label: 'million',
+          label: '人',
         },
-        title: 'Line of code',
+        title: '日新增人数',
       },
       {
         icon: 'mail',
         digit: {
           value: 578,
-          label: '㎡',
+          label: '万',
         },
-        title: 'Project',
+        title: '累计用户数',
       },
     ],
   },

@@ -26,17 +26,18 @@ export class Showcase3v3Component implements OnInit, AfterViewInit {
   }
 
   showImage(): void {
-    if (!this.content?.showImage && this.content.feature) {
+    if (this.content?.showImage) {
       this.isShow = true;
       this.cd.detectChanges();
       return;
     }
-    if (!this.content?.showImage) {
-      this.isShow = false;
+    if (this.content?.showImage === undefined && this.content.feature) {
+      this.isShow = true;
       this.cd.detectChanges();
       return;
     }
-    this.isShow = true;
+
+    this.isShow = false;
     this.cd.detectChanges();
   }
 }

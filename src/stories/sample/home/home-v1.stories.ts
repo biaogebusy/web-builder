@@ -10,7 +10,7 @@ import { StorysModule } from '@core/storys.module';
 import { BrandingModule } from '@core/branding/branding.module';
 
 export default {
-  title: '示例页面/首页/v1',
+  title: '示例页面/首页示例/v1',
   id: 'home-v1',
   component: BlockComponent,
   decorators: [
