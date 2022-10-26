@@ -4,7 +4,7 @@ import { Inject, Injectable } from '@angular/core';
 import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { API_URL } from '@core/token/token-providers';
 import { environment } from 'src/environments/environment';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
 import { isArray } from 'lodash-es';
@@ -18,6 +18,8 @@ import type { IBranding } from '@core/interface/IBranding';
   providedIn: 'root',
 })
 export class ContentService {
+  public responseCache = new Map();
+
   constructor(
     private http: HttpClient,
     private tagsService: TagsService,
@@ -66,18 +68,23 @@ export class ContentService {
         })
       );
     }
+
     if (environment.production) {
       const landingPath = '/api/v1/landingPage?content=';
-      return this.http
-        .get<any>(`${this.apiUrl}${landingPath}${this.pageUrl}`)
-        .pipe(
-          tap((page) => {
-            this.updatePage(page);
-          }),
-          catchError(() => {
-            return this.http.get<any>(`${this.apiUrl}${landingPath}404`);
-          })
-        );
+      const pageUrl = `${this.apiUrl}${landingPath}${this.pageUrl}`;
+      const contentCache = this.responseCache.get(pageUrl);
+      if (contentCache && environment.cache) {
+        return of(contentCache);
+      }
+      return this.http.get<any>(pageUrl).pipe(
+        tap((page) => {
+          this.updatePage(page);
+          this.responseCache.set(pageUrl, page);
+        }),
+        catchError(() => {
+          return this.http.get<any>(`${this.apiUrl}${landingPath}404`);
+        })
+      );
     } else {
       return this.http
         .get<any>(`${this.apiUrl}/assets/app${this.pageUrl}.json`)
