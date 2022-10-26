@@ -13,7 +13,7 @@ import { defaultHeader, footerInverse } from '../Branding.json';
 import { sleep, StorysModule } from '@core/storys.module';
 
 export default {
-  title: '页头页脚/页头/经典',
+  title: '页面布局/页头/经典',
   id: 'header-default',
   component: HeaderComponent,
   decorators: [

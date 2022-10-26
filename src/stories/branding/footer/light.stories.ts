@@ -12,7 +12,7 @@ import { defaultHeader, footerLight } from '../Branding.json';
 import { StorysModule } from '@core/storys.module';
 
 export default {
-  title: '页头页脚/页脚/浅色',
+  title: '页面布局/页脚/浅色',
   id: 'footer-light',
   component: FooterComponent,
   decorators: [

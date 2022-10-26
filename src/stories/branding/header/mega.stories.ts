@@ -13,7 +13,7 @@ import { footerInverse, megaHeader } from '../Branding.json';
 import { sleep, StorysModule } from '@core/storys.module';
 
 export default {
-  title: '页头页脚/页头/Mage',
+  title: '页面布局/页头/Mage',
   id: 'header-mega',
   component: HeaderComponent,
   decorators: [

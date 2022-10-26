@@ -279,6 +279,7 @@
       },
       "elements": [
         {
+          "type": "card",
           "subTitle": "Material UI 有完善的主题颜色系统，有优秀的性能和用户体验",
           "link": {
             "href": "javascript:void(0);",
@@ -309,6 +310,7 @@
           }
         },
         {
+          "type": "card",
           "subTitle": "提供了足够丰富的布局 API，响应式适配各种设备视口尺寸",
           "link": {
             "href": "javascript:void(0);",
@@ -339,6 +341,7 @@
           }
         },
         {
+          "type": "card",
           "subTitle": "可切换内建的自定义主题，可自定义符合品牌的颜色主题",
           "link": {
             "href": "javascript:void(0);",
@@ -369,6 +372,7 @@
           }
         },
         {
+          "type": "card",
           "subTitle": "使用AOT编译和懒加载使你的应用反应更快速",
           "link": {
             "href": "javascript:void(0);",

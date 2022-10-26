@@ -10,8 +10,8 @@ import { StorysModule } from '@core/storys.module';
 import { BrandingModule } from '@core/branding/branding.module';
 
 export default {
-  title: '示例页面/首页 v3',
-  id: 'home-v3',
+  title: '示例页面/首页/v2',
+  id: 'home-v2',
   component: BlockComponent,
   decorators: [
     moduleMetadata({
@@ -21,9 +21,7 @@ export default {
     componentWrapperDecorator(
       (story) => `
       <app-header></app-header>
-      <div style="overflow:hidden">
       ${story}
-      </div>
       <app-footer></app-footer>
     `
     ),

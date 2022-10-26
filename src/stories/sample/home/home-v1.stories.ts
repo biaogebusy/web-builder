@@ -10,22 +10,29 @@ import { StorysModule } from '@core/storys.module';
 import { BrandingModule } from '@core/branding/branding.module';
 
 export default {
-  title: '示例页面/首页 v2',
-  id: 'home-v2',
+  title: '示例页面/首页/v1',
+  id: 'home-v1',
   component: BlockComponent,
   decorators: [
     moduleMetadata({
       declarations: [],
-      imports: [StorysModule.forRoot(), BlockModule, BrandingModule],
+      imports: [BlockModule, BrandingModule, StorysModule.forRoot()],
     }),
     componentWrapperDecorator(
       (story) => `
-      <app-header></app-header>
-      ${story}
-      <app-footer></app-footer>
+    <app-header></app-header>
+    ${story}
+    <app-footer></app-footer>
     `
     ),
   ],
+  parameters: {
+    docs: {
+      description: {
+        component: ``,
+      },
+    },
+  },
 } as Meta;
 
 const Template: Story = (args) => ({

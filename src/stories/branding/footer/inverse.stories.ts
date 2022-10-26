@@ -12,7 +12,7 @@ import { defaultHeader, footerInverse } from '../Branding.json';
 import { StorysModule } from '@core/storys.module';
 
 export default {
-  title: '页头页脚/页脚/反色',
+  title: '页面布局/页脚/反色',
   id: 'footer-inverse',
   component: FooterComponent,
   decorators: [

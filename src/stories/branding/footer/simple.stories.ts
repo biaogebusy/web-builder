@@ -12,7 +12,7 @@ import { FooterComponent } from '@core/branding/footer/footer.component';
 import { BrandingModule } from '@core/branding/branding.module';
 
 export default {
-  title: '页头页脚/页脚/简单',
+  title: '页面布局/页脚/简单',
   id: 'footer-simple',
   component: FooterComponent,
   decorators: [

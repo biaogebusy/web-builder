@@ -10,7 +10,7 @@ import { NotfoundComponent } from '@uiux/combs/other/notfound/notfound.component
 import { StorysModule } from '@core/storys.module';
 
 export default {
-  title: '示例页面/文章/404',
+  title: '示例页面/404',
   id: 'notFound',
   component: NotfoundComponent,
   decorators: [

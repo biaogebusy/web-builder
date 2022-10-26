@@ -211,6 +211,7 @@
       "type": "showcase-2v1",
       "elements": [
         {
+          "type": "card",
           "subTitle": "以经济、知识、智能、科技驱动",
           "link": {
             "href": "/taxonomy/term/1263",
@@ -243,6 +244,7 @@
           }
         },
         {
+          "type": "card",
           "subTitle": "用金融服务提升行业竞争力",
           "link": {
             "href": "/taxonomy/term/1264",
@@ -275,6 +277,7 @@
           }
         },
         {
+          "type": "card",
           "subTitle": "产业升级，保驾护航",
           "link": {
             "href": "/taxonomy/term/1265",
@@ -307,6 +310,7 @@
           }
         },
         {
+          "type": "card",
           "subTitle": "用科技提升金融行业竞争力",
           "link": {
             "href": "/taxonomy/term/1266",

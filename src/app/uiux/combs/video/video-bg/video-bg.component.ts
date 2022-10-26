@@ -5,6 +5,7 @@ import {
   OnInit,
   AfterViewInit,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { IPlayer } from '@core/interface/widgets/IPlayer';
 import { ScreenService } from '@core/service/screen.service';
@@ -18,7 +19,10 @@ export class VideoBgComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() content: any;
   @Input() options: any;
   video: IPlayer;
-  constructor(private screenService: ScreenService) {}
+  constructor(
+    private screenService: ScreenService,
+    private cd: ChangeDetectorRef
+  ) {}
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
@@ -39,6 +43,7 @@ export class VideoBgComponent implements OnInit, AfterViewInit, OnDestroy {
           ],
         },
       };
+      this.cd.detectChanges();
     }
   }
 
