@@ -35,8 +35,7 @@ Default.args = {
       },
       elements: [
         {
-          title:
-            'Innovative Solutions for the Toughest Business Problems, Deals, and Disputes',
+          title: '使用 DEVTOOLS 对 ANGULAR 前端应用性能分析优化',
           img: {
             src: '/assets/images/hero/hero-1-v2-4.jpeg',
             alt: '',
@@ -44,12 +43,12 @@ Default.args = {
           btn: {
             href: '#',
             mode: 'raised',
-            label: 'Learn More',
+            label: '查看更多',
             classes: 'round-btn',
           },
         },
         {
-          title: 'Collaborative, Team-Based Culture Benefitting Our Clients',
+          title: '使用 TAKEUNTIL 操作符管理 ANGULAR 组件的订阅',
           img: {
             src: '/assets/images/hero/hero-1-v2-3.jpeg',
             alt: '',
@@ -57,12 +56,12 @@ Default.args = {
           btn: {
             href: '#',
             mode: 'raised',
-            label: 'Learn More',
+            label: '查看更多',
             classes: 'round-btn',
           },
         },
         {
-          title: 'Strategic Foresight at the Intersection of Law and Policy',
+          title: '你应该了解的 ANGULAR 最佳实践',
           img: {
             src: '/assets/images/hero/hero-1-v2-2.jpeg',
             alt: '',
@@ -70,12 +69,12 @@ Default.args = {
           btn: {
             href: '#',
             mode: 'raised',
-            label: 'Learn More',
+            label: '查看更多',
             classes: 'round-btn',
           },
         },
         {
-          title: 'Collaborative, Team-Based Culture Benefitting Our Clients',
+          title: 'ANGULAR 5 RXJS 5.5.2 多个 HTTP 并行 FORKJOIN 请求',
           img: {
             src: '/assets/images/hero/hero-1-v2-1.jpeg',
             alt: '',
@@ -83,7 +82,7 @@ Default.args = {
           btn: {
             href: '#',
             mode: 'raised',
-            label: 'Learn More',
+            label: '查看更多',
             classes: 'round-btn',
           },
         },

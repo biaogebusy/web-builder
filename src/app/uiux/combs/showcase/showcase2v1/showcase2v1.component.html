@@ -3,8 +3,8 @@
   <app-spacer [size]="content.spacer || 'md'"></app-spacer>
   <app-text [content]="content.text" *ngIf="content.text"></app-text>
   <div class="m-y" fxLayout="row wrap" fxLayoutAlign="center start" fxFlex="100%">
-    <app-dynamic-widgets class="m-x-sm m-bottom-sm" [fxFlex.xs]="content?.layout?.fxFlex?.xs||'100'"
-    [fxFlex.sm]="content?.layout?.fxFlex?.sm||'calc(50% - 30px)'" [fxFlex.gt-sm]="content?.layout?.fxFlex['gt-sm']||'0 0 calc(25% - 40px)'" *ngFor="let item of content.elements" [content]="item"></app-dynamic-widgets>
+    <app-dynamic-widgets class="m-x-sm m-bottom-sm" fxFlex.xs="100"
+    [fxFlex.sm]="row(content)" [fxFlex.gt-sm]="row(content)" *ngFor="let item of content.elements" [content]="item"></app-dynamic-widgets>
   </div>
   <app-spacer [size]="content.spacer || 'md'"></app-spacer>
 </div>

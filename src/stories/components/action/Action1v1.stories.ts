@@ -35,7 +35,7 @@ Default.args = {
     id: 'xxx',
     spacer: 'xl',
     bg: {
-      classes: 'bg-shadow bg-fill-width',
+      classes: 'bg-primary bg-fill-width',
     },
     text: {
       title: {
@@ -43,6 +43,7 @@ Default.args = {
         style: 'none',
         classes: 'mat-display-1',
       },
+      classes: 'text-light',
       spacer: 'none',
       body: '<p>这里有你想要的答案，请根据以下筛选条件选择进行搜索。</p>',
       actions: [

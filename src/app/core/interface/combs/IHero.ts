@@ -23,6 +23,7 @@ export interface IHero2v2 extends ICombsBase {
 
 export interface IHero2v3 extends ICombsBase {
   body: IText;
+  row: number;
   elements: {
     img: IImg;
     link: ILink;

@@ -37,6 +37,7 @@ Default.args = {
       },
       body: '<p class="text-center">欢迎分享 Drupal 优秀的数字创新体验</p>',
     },
+    row: 5,
     elements: [
       {
         type: 'card',
@@ -363,13 +364,7 @@ Card1v1.args = {
       },
       body: '<p class="text-center">欢迎分享 Drupal 优秀的数字创新体验，前端开发分享，欢迎交流！</p>',
     },
-    layout: {
-      fxFlex: {
-        xs: '100',
-        sm: 'calc(50% - 30px)',
-        'gt-sm': '0 0 calc(33% - 40px)',
-      },
-    },
+    row: 3,
     elements: [
       {
         type: 'card-1v1',
