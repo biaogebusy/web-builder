@@ -4,6 +4,39 @@ import { Meta, Typeset } from "@storybook/addon-docs";
 
 <Meta title="主题/文字排版" id="typography" />
 
+### Material 字体排版配置及应用
+
+| Class 类名                      | 对应变量名    | 应用 HTML 元素 |
+| ------------------------------- | ------------- | -------------- |
+| .mat-display-4                  | $display-4    | Hero 标题      |
+| .mat-display-3                  | $display-3    | Hero 标题      |
+| .mat-display-2                  | $display-2    | Hero 标题      |
+| .mat-display-1                  | $display-1    | Hero 标题      |
+| .mat-h1 or .mat-headline        | $headline     | `<h1>`         |
+| .mat-h2 or .mat-title           | $title        | `<h2>`         |
+| .mat-h3 or .mat-subheading-2    | $subheading-2 | `<h3>`         |
+| .mat-h4 or .mat-subheading-1    | $subheading-1 | `<h4>`         |
+| .mat-h5                         | none          | `<h5>`         |
+| .mat-h6                         | none          | `<h6>`         |
+| .mat-body or .mat-body-1        | body-1        | body text      |
+| .mat-body-strong or .mat-body-2 | body-2        | none           |
+| .mat-small or .mat-caption      | caption       | none           |
+
+自定义字体配置生成
+
+```ts
+$custom-typography: mat-typography-config(
+  $font-family: $font-family,
+  $display-4: mat-typography-level(48px, 1.618, 300, $font-family: $font-family),
+  $display-3: mat-typography-level(40px, 1.618, 400, $font-family: $font-family),
+  $display-2: mat-typography-level(32px, 1.618, 400, $font-family: $font-family),
+  $display-1: mat-typography-level(28px, 1.618, 400, $font-family: $font-family),
+  $headline: mat-typography-level(24px, 1.618, 400, $font-family: $font-family),
+  $title: mat-typography-level(20px, 1.618, 500, $font-family: $font-family),
+  $body-1: mat-typography-level(16px, 1.618, 400),
+);
+```
+
 export const typography = {
   type: {
     primary: `"Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
@@ -16,22 +49,21 @@ export const typography = {
     black: "900",
   },
   size: {
-    s1: 12,
-    s2: 14,
-    s3: 16,
-    m1: 20,
-    m2: 24,
-    m3: 28,
-    l1: 32,
-    l2: 40,
-    l3: 48,
+    h1: 24,
+    h2: 20,
+    body: 16,
+  },
+  display: {
+    d1: 28,
+    d2: 32,
+    d3: 40,
+    d4: 48,
   },
 };
 
-export const SampleText =
-  "我这双手，曾经也是挽过大弓、降过烈马的，可是现在只能在这阴诡地狱里，搅弄风云了。";
+export const SampleText = "千山鸟飞绝，万径人踪灭。孤舟蓑笠翁，独钓寒江雪。";
 
-# 文字排版
+### 文字排版预览
 
 **字体:** "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
 "Microsoft YaHei", "微软雅黑", Arial, sans-serif
@@ -40,15 +72,23 @@ export const SampleText =
 
 <Typeset
   fontSizes={[
-    Number(typography.size.s1),
-    Number(typography.size.s2),
-    Number(typography.size.s3),
-    Number(typography.size.m1),
-    Number(typography.size.m2),
-    Number(typography.size.m3),
-    Number(typography.size.l1),
-    Number(typography.size.l2),
-    Number(typography.size.l3),
+    Number(typography.size.h1),
+    Number(typography.size.h2),
+    Number(typography.size.body),
+  ]}
+  fontWeight={typography.weight.black}
+  sampleText={SampleText}
+  fontFamily={typography.type.primary}
+/>
+
+# Hero 页面大标题
+
+<Typeset
+  fontSizes={[
+    Number(typography.display.d1),
+    Number(typography.display.d2),
+    Number(typography.display.d3),
+    Number(typography.display.d4),
   ]}
   fontWeight={typography.weight.black}
   sampleText={SampleText}
