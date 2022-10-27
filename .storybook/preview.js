@@ -14,6 +14,8 @@ export const parameters = {
     storySort: {
       order: [
         "介绍",
+        "更新日志",
+        "开发指南",
         "主题",
         "页面布局",
         "示例页面",

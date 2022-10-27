@@ -9,7 +9,7 @@ import { StorysModule } from '@core/storys.module';
 
 const sm = { label: 'sm', style: 'style-v4', classes: 'mat-display-1' };
 export default {
-  title: '主题/间距',
+  title: '主题/间距大小',
   id: 'spacer',
   component: SpacerComponent,
   decorators: [
