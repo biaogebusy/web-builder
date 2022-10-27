@@ -141,7 +141,6 @@
               "type": "select",
               "key": "type",
               "defaultValue": "fixed",
-              "id": "way",
               "className": "width-100 m-bottom-sm m-right-sm",
               "templateOptions": {
                 "label": "选择提成方式",

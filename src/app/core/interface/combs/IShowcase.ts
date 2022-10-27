@@ -7,6 +7,10 @@ import { IMediaObject } from '../widgets/IMediaObject';
 
 export interface IShowcase2v1 extends ICombsBase {
   elements: any[];
+  params?: {
+    api: string;
+    widget: string;
+  };
 }
 
 export interface IShowcase3v3 extends ICombsBase {

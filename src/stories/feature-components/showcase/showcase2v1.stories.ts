@@ -26,7 +26,7 @@ const Template: Story = (args) => ({
   },
 });
 export const Default = Template.bind({});
-Default.storyName = '卡片列表';
+Default.storyName = 'Card';
 Default.args = {
   content: {
     text: {
@@ -353,7 +353,7 @@ Default.args = {
 };
 
 export const Card1v1 = Template.bind({});
-Card1v1.storyName = '卡片 1v1';
+Card1v1.storyName = 'Card 1v1';
 Card1v1.args = {
   content: {
     text: {
@@ -364,7 +364,7 @@ Card1v1.args = {
       },
       body: '<p class="text-center">欢迎分享 Drupal 优秀的数字创新体验，前端开发分享，欢迎交流！</p>',
     },
-    row: 3,
+    row: 4,
     elements: [
       {
         type: 'card-1v1',
@@ -430,5 +430,25 @@ Card1v1.args = {
         moreLabel: '查看更多',
       },
     ],
+  },
+};
+
+export const Card1v1FromApi = Template.bind({});
+Card1v1FromApi.storyName = 'Card 1v1 From api';
+Card1v1FromApi.args = {
+  content: {
+    text: {
+      title: {
+        label: '最新活动',
+        style: 'style-v1',
+        classes: 'mat-display-0 bold',
+      },
+      body: '<p class="text-center">欢迎分享 Drupal 优秀的数字创新体验，前端开发分享，欢迎交流！</p>',
+    },
+    row: 4,
+    params: {
+      api: '/api/v1/blog',
+      widget: 'card-1v1',
+    },
   },
 };
