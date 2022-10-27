@@ -36,7 +36,7 @@
             {
               "type": "input",
               "key": "total",
-              "defaultValue": 300,
+              "id": "maxTotal",
               "className": "m-right-sm",
               "templateOptions": {
                 "label": "大额红包总金额",
@@ -57,7 +57,7 @@
             {
               "type": "input",
               "key": "per",
-              "defaultValue": 10,
+              "id": "maxPer",
               "templateOptions": {
                 "label": "大额红包平均每次可抽得",
                 "appearance": "outline",
@@ -84,7 +84,7 @@
             {
               "type": "input",
               "key": "total",
-              "defaultValue": 500,
+              "id": "minTotal",
               "className": "m-right-sm",
               "templateOptions": {
                 "label": "小额红包总金额",
@@ -105,7 +105,7 @@
             {
               "type": "input",
               "key": "per",
-              "defaultValue": 0.8,
+              "id": "minPer",
               "templateOptions": {
                 "label": "小额红包平均每次可抽得",
                 "appearance": "outline",
@@ -141,6 +141,7 @@
               "type": "select",
               "key": "type",
               "defaultValue": "fixed",
+              "id": "way",
               "className": "width-100 m-bottom-sm m-right-sm",
               "templateOptions": {
                 "label": "选择提成方式",
