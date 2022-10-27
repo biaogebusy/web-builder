@@ -9,7 +9,7 @@ export abstract class BaseComponent {
   constructor() {}
 
   getParams(obj: any, key: string): any {
-    return obj.params && obj.params[key];
+    return obj?.params && obj.params[key];
   }
 
   getValue(obj: any, path: string, key: string): any {

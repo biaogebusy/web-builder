@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -17,14 +18,18 @@ import { of } from 'rxjs';
   styleUrls: ['./showcase2v1.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Showcase2v1Component extends BaseComponent implements OnInit {
+export class Showcase2v1Component
+  extends BaseComponent
+  implements OnInit, AfterViewInit
+{
   @Input() content: IShowcase2v1;
   elements: ICard1v1[];
   constructor(private nodeService: NodeService, private cd: ChangeDetectorRef) {
     super();
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+  ngAfterViewInit(): void {
     const api = this.getParams(this.content, 'api');
     const type = this.getParams(this.content, 'widget');
     if (api) {

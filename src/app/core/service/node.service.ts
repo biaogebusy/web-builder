@@ -11,15 +11,12 @@ import type { IComment } from '@core/interface/node/INode';
 import { formatDate } from '@angular/common';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import type { IApiUrl, ICoreConfig } from '@core/interface/IAppConfig';
-import { environment } from '../../../environments/environment';
 import { API_URL } from '@core/token/token-providers';
 import type { IUser } from '@core/interface/IUser';
 @Injectable({
   providedIn: 'root',
 })
 export class NodeService extends ApiService {
-  public responseCache = new Map();
-
   constructor(
     public http: HttpClient,
     public storage: LocalStorageService,
@@ -53,25 +50,10 @@ export class NodeService extends ApiService {
       });
     }
 
-    // cache
-    const key = apiParams;
-    const searchFormCache = this.responseCache.get(key);
-    if (searchFormCache && environment.cache) {
-      return of(searchFormCache);
-    }
-
-    const response = this.http
-      .get<any>(
-        apiParams,
-        token ? this.optionsWithCookieAndToken(token) : this.httpOptionsOfCommon
-      )
-      .pipe(
-        switchMap((res) => {
-          this.responseCache.set(key, res);
-          return of(res);
-        })
-      );
-    return response;
+    return this.http.get<any>(
+      apiParams,
+      token ? this.optionsWithCookieAndToken(token) : this.httpOptionsOfCommon
+    );
   }
 
   getNodeByLink(link: string): Observable<any> {
@@ -85,25 +67,10 @@ export class NodeService extends ApiService {
     params: string = '',
     token: string = ''
   ): Observable<any> {
-    const cacheKey = JSON.stringify({ api: this.apiUrl, path, type, params });
-    const nodeCache = this.responseCache.get(cacheKey);
-    if (nodeCache && environment.cache) {
-      return of(nodeCache);
-    } else {
-      return this.http
-        .get<any>(
-          `${this.apiUrl}${path}/${type}?${params}`,
-          token
-            ? this.optionsWithCookieAndToken(token)
-            : this.httpOptionsOfCommon
-        )
-        .pipe(
-          switchMap((res) => {
-            this.responseCache.set(cacheKey, res);
-            return of(res);
-          })
-        );
-    }
+    return this.http.get<any>(
+      `${this.apiUrl}${path}/${type}?${params}`,
+      token ? this.optionsWithCookieAndToken(token) : this.httpOptionsOfCommon
+    );
   }
 
   deleteEntity(path: string, id: string, token: string): Observable<any> {
@@ -320,12 +287,8 @@ export class NodeService extends ApiService {
     timeStamp = 1,
     token?: string
   ): Observable<IComment[]> {
-    const key = JSON.stringify({ api: this.apiUrl, uuid, timeStamp });
-    const cache = this.responseCache.get(key);
     const params = [`timeStamp=${timeStamp}`].join('&');
-    if (cache && environment.cache) {
-      return of(cache);
-    }
+
     return this.http
       .get(
         `${this.apiUrl}/api/v3/comment/comment/${uuid}?${params}`,
@@ -333,7 +296,6 @@ export class NodeService extends ApiService {
       )
       .pipe(
         switchMap((res: any) => {
-          this.responseCache.set(key, res);
           return of(res);
         })
       );

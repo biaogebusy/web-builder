@@ -56,7 +56,7 @@ import { Meta } from "@storybook/addon-docs";
 用户访问数据会经过多层缓存：
 
 1. ngxin proxy 反向代理缓存，有缓存直接返回，通过 url 参数或者清空缓存文件夹可查看最新；
-2. app 程序内请求缓存，刷新页面或者重新加载可查看最新；
+2. app 程序内请求拦截，对 get 请求进行缓存，刷新页面或者重新加载则清除缓存，对`/user`,`preview`,`noCache`,`/session/`忽略；
 3. api 后端缓存，清空后台缓存；
    ![缓存架构](/assets/storybook/assets/cache.png)
 
