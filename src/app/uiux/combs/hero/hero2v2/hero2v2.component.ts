@@ -4,6 +4,7 @@ import {
   Input,
   ChangeDetectionStrategy,
 } from '@angular/core';
+import type { IHero2v2 } from '@core/interface/combs/IHero';
 
 @Component({
   selector: 'app-hero2v2',
@@ -12,7 +13,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Hero2v2Component implements OnInit {
-  @Input() content: any;
+  @Input() content: IHero2v2;
   constructor() {}
 
   ngOnInit(): void {}

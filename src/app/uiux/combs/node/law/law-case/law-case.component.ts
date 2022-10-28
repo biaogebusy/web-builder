@@ -16,7 +16,7 @@ import { UtilitiesService } from '@core/service/utilities.service';
 import { NodeComponent } from '@uiux/base/node.widget';
 import { Subject, Observable } from 'rxjs';
 import { ScreenService } from '@core/service/screen.service';
-import { ContentState } from '@core/mobx/ContentState';
+import { ContentState } from '@core/state/ContentState';
 import {
   takeUntil,
   debounceTime,

@@ -6,6 +6,7 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
 } from '@angular/core';
+import type { IPackery } from '@core/interface/combs/IMasonry';
 import { NgxPackeryOptions } from 'ngx-packery';
 
 @Component({
@@ -15,7 +16,7 @@ import { NgxPackeryOptions } from 'ngx-packery';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PackeryComponent implements OnInit, AfterViewInit {
-  @Input() content: any;
+  @Input() content: IPackery;
   @ViewChild('packery') packery: any;
   config: NgxPackeryOptions;
   default: NgxPackeryOptions = {

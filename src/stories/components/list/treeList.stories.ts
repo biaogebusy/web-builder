@@ -4,13 +4,14 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
+import { fireEvent, screen, userEvent } from '@storybook/testing-library';
 import { ListModule } from '@uiux/combs/list/list.module';
 import { TreeListComponent } from '@uiux/combs/list/tree-list/tree-list.component';
-import * as TreeStories from 'src/stories/widgets/Tree.stories';
-import { StorysModule } from '@core/storys.module';
+import * as TreeStories from 'src/stories/feature-components/list/Tree.stories';
+import { StorysModule, sleep } from '@core/storys.module';
 
 export default {
-  title: '组件/列表/树形列表',
+  title: '复合组件/列表/树形列表',
   id: 'tree-list',
   component: TreeListComponent,
   decorators: [
@@ -89,4 +90,14 @@ Default.args = {
     currentPage: 0,
     totalItems: 100,
   },
+};
+Default.play = async () => {
+  const CollapseAll = screen.getByText('折叠');
+  await fireEvent.click(CollapseAll);
+  await sleep(2000);
+  const ExpandAll = screen.getByText('展开');
+  await fireEvent.click(ExpandAll);
+  await sleep(2000);
+  const Drupal = screen.getByText('Drupal');
+  await userEvent.click(Drupal);
 };

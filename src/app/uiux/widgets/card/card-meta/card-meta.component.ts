@@ -7,7 +7,7 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { TextComponent } from '../../text/text.component';
 import { DialogComponent } from '../../dialog/dialog.component';
-import { IMeta } from '@core/interface/widgets/ICard';
+import type { IMeta } from '@core/interface/widgets/ICard';
 
 @Component({
   selector: 'app-card-meta',

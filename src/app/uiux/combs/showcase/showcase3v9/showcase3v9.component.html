@@ -1,0 +1,20 @@
+<div class="showcase-3-v9 position-relative" *ngIf="content">
+  <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
+  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
+  <app-bg-img [content]="content.bg" *ngIf="content.bg"></app-bg-img>
+  <div class="container" *ngIf="content">
+    <div class="inner" fxLayout="row wrap" fxLayoutAlign="center center">
+      <div class="left" [fxFlexOrder]="content.order.left" fxFlex.lt-md="100%" fxFlex.gt-sm="58%"
+        fxLayoutAlign="center center" fxLayout="row wrap">
+        <app-dynamic-widgets class="display-block p-x-sm width-100" *ngFor="let item of content.left" [content]="item">
+        </app-dynamic-widgets>
+      </div>
+      <div class="right" [fxFlexOrder]="content.order.right" fxFlex.lt-md="100%" fxFlex.gt-sm="42%" fxLayout="row wrap"
+        fxLayoutAlign="center center">
+        <app-dynamic-widgets class="display-block p-x-sm width-100" *ngFor="let item of content.right" [content]="item">
+        </app-dynamic-widgets>
+      </div>
+    </div>
+  </div>
+  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
+</div>

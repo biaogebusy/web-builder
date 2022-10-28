@@ -9,7 +9,7 @@ import { FormGroup } from '@angular/forms';
 import { StorysModule } from '@core/storys.module';
 
 export default {
-  title: '基础/表单',
+  title: '基础组件/表单',
   id: 'form',
   component: FormlyComponent,
   subcomponents: { FormlyComponent },

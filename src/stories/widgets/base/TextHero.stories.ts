@@ -4,7 +4,7 @@ import { TextHeroComponent } from '@uiux/widgets/text-hero/text-hero.component';
 import { StorysModule } from '@core/storys.module';
 
 export default {
-  title: '基础/内容/英雄区内容',
+  title: '基础组件/内容/英雄区内容',
   id: 'text-hero',
   component: TextHeroComponent,
   decorators: [
@@ -30,7 +30,7 @@ Base.args = {
     },
     text: {
       title: {
-        label: '为什么你将会喜欢 Drupal？',
+        label: '为什么你将会喜欢信使？',
         style: 'style-v4',
         classes: 'mat-display-2 bold',
       },
@@ -47,6 +47,9 @@ Base.args = {
       actionsAlign: 'start center',
       actions: [
         {
+          type: 'btn',
+          mode: 'raised',
+          color: 'primary',
           href: '',
           label: '了解更多',
         },

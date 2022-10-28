@@ -1,8 +1,3 @@
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
-import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
-import { CORE_CONFIG } from '@core/token/token-providers';
-import { ShareModule } from '@share/share.module';
 import {
   moduleMetadata,
   Meta,
@@ -12,8 +7,9 @@ import { Story } from '@storybook/angular/types-6-0';
 import { SpacerComponent } from '@uiux/widgets/spacer/spacer.component';
 import { StorysModule } from '@core/storys.module';
 
+const sm = { label: 'sm', style: 'style-v4', classes: 'mat-display-1' };
 export default {
-  title: '主题/间距',
+  title: '主题/间距大小',
   id: 'spacer',
   component: SpacerComponent,
   decorators: [
@@ -23,7 +19,33 @@ export default {
     }),
     componentWrapperDecorator(
       (story) =>
-        `<div class="position-relative bg-shadow" style="z-index:1">${story}</div>`
+        `<div fxFlex="50" fxFlexOffset="25" class="position-relative bg-shadow p-y p-x" style="z-index:1;">
+
+          <app-title [content]="{ 'label': 'xs', 'style': 'style-v4', 'classes': 'mat-display-1' }"></app-title>
+          <div class="bg-primary">
+            <app-spacer [size]="'xs'"></app-spacer>
+          </div>
+
+          <app-title [content]="{ 'label': 'sm', 'style': 'style-v4', 'classes': 'mat-display-1' }"></app-title>
+          <div class="bg-primary">
+            <app-spacer [size]="'sm'"></app-spacer>
+          </div>
+
+          <app-title [content]="{ 'label': 'md', 'style': 'style-v4', 'classes': 'mat-display-1' }"></app-title>
+          <div class="bg-primary">
+           <app-spacer [size]="'md'"></app-spacer>
+          </div>
+
+          <app-title [content]="{ 'label': 'lg', 'style': 'style-v4', 'classes': 'mat-display-1' }"></app-title>
+          <div class="bg-primary">
+           <app-spacer [size]="'lg'"></app-spacer>
+          </div>
+
+          <app-title [content]="{ 'label': 'xl', 'style': 'style-v4', 'classes': 'mat-display-1' }"></app-title>
+          <div class="bg-primary">
+           <app-spacer [size]="'xl'"></app-spacer>
+          </div>
+        </div>`
     ),
   ],
   parameters: {
@@ -40,32 +62,6 @@ const Template: Story = (args) => ({
     ...args,
   },
 });
-export const Xs = Template.bind({});
 
-Xs.args = {
-  size: 'xs',
-};
-
-export const Sm = Template.bind({});
-
-Sm.args = {
-  size: 'sm',
-};
-
-export const Md = Template.bind({});
-
-Md.args = {
-  size: 'md',
-};
-
-export const Lg = Template.bind({});
-
-Lg.args = {
-  size: 'lg',
-};
-
-export const Xl = Template.bind({});
-
-Xl.args = {
-  size: 'xl',
-};
+export const Default = Template.bind({});
+Default.storyName = '预览';

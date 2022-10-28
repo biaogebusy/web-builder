@@ -1,15 +1,17 @@
 {
-  "title": "首页 | 律鑫云",
-  "meta": [{
+  "title": "首页 v2",
+  "meta": [
+    {
       "name": "description",
-      "content": "律鑫云致力于打造国内第一智能化、共享型“金融产业”服务平台，志在接手金融服务工作，打造金融产业联合专家，塑造现代金融行家，创造无限价值与能量。"
+      "content": ""
     },
     {
       "name": "keywords",
-      "content": "律鑫云,法律科技"
+      "content": "法律科技"
     }
   ],
-  "body": [{
+  "body": [
+    {
       "type": "hero-2v3",
       "id": "",
       "spacer": "md",
@@ -18,7 +20,7 @@
         "classes": "bg-center",
         "img": {
           "hostClasses": "bg-center",
-          "src": "/assets/images/bg-04.png",
+          "src": "/assets/images/bg/bg-04.png",
           "mobile": ""
         }
       },
@@ -32,7 +34,8 @@
         "body": ""
       },
       "row": "3",
-      "elements": [{
+      "elements": [
+        {
           "img": {
             "src": "/assets/images/svg/bike.svg",
             "href": "/financial-law"
@@ -105,7 +108,8 @@
       "bg": {
         "classes": "bg-light bg-fill-width"
       },
-      "elements": [{
+      "elements": [
+        {
           "img": {
             "src": "/assets/images/svg/bike.svg",
             "alt": "信托.png"
@@ -205,7 +209,9 @@
     },
     {
       "type": "showcase-2v1",
-      "elements": [{
+      "elements": [
+        {
+          "type": "card",
           "subTitle": "以经济、知识、智能、科技驱动",
           "link": {
             "href": "/taxonomy/term/1263",
@@ -220,22 +226,25 @@
               },
               "breakpoints": null
             },
-            "elements": [{
-              "type": "feature-box",
-              "hoverIcon": 0,
-              "fullIcon": "fullscreen",
-              "openIcon": "open_in_new",
-              "link": "/taxonomy/term/1263",
-              "ratios": "media-16-9",
-              "img": {
-                "classes": "object-fit",
-                "src": "/assets/images/16-9/f-01.png",
-                "alt": "f-01.png"
+            "elements": [
+              {
+                "type": "feature-box",
+                "hoverIcon": 0,
+                "fullIcon": "fullscreen",
+                "openIcon": "open_in_new",
+                "link": "/taxonomy/term/1263",
+                "ratios": "media-16-9",
+                "img": {
+                  "classes": "object-fit",
+                  "src": "/assets/images/16-9/f-01.png",
+                  "alt": "f-01.png"
+                }
               }
-            }]
+            ]
           }
         },
         {
+          "type": "card",
           "subTitle": "用金融服务提升行业竞争力",
           "link": {
             "href": "/taxonomy/term/1264",
@@ -250,22 +259,25 @@
               },
               "breakpoints": null
             },
-            "elements": [{
-              "type": "feature-box",
-              "hoverIcon": 0,
-              "fullIcon": "fullscreen",
-              "openIcon": "open_in_new",
-              "link": "/taxonomy/term/1264",
-              "ratios": "media-16-9",
-              "img": {
-                "classes": "object-fit",
-                "src": "/assets/images/16-9/f-02.png",
-                "alt": "f-02.png"
+            "elements": [
+              {
+                "type": "feature-box",
+                "hoverIcon": 0,
+                "fullIcon": "fullscreen",
+                "openIcon": "open_in_new",
+                "link": "/taxonomy/term/1264",
+                "ratios": "media-16-9",
+                "img": {
+                  "classes": "object-fit",
+                  "src": "/assets/images/16-9/f-02.png",
+                  "alt": "f-02.png"
+                }
               }
-            }]
+            ]
           }
         },
         {
+          "type": "card",
           "subTitle": "产业升级，保驾护航",
           "link": {
             "href": "/taxonomy/term/1265",
@@ -280,22 +292,25 @@
               },
               "breakpoints": null
             },
-            "elements": [{
-              "type": "feature-box",
-              "hoverIcon": 0,
-              "fullIcon": "fullscreen",
-              "openIcon": "open_in_new",
-              "link": "/taxonomy/term/1265",
-              "ratios": "media-16-9",
-              "img": {
-                "classes": "object-fit",
-                "src": "/assets/images/16-9/f-03.png",
-                "alt": "f-03.png"
+            "elements": [
+              {
+                "type": "feature-box",
+                "hoverIcon": 0,
+                "fullIcon": "fullscreen",
+                "openIcon": "open_in_new",
+                "link": "/taxonomy/term/1265",
+                "ratios": "media-16-9",
+                "img": {
+                  "classes": "object-fit",
+                  "src": "/assets/images/16-9/f-03.png",
+                  "alt": "f-03.png"
+                }
               }
-            }]
+            ]
           }
         },
         {
+          "type": "card",
           "subTitle": "用科技提升金融行业竞争力",
           "link": {
             "href": "/taxonomy/term/1266",
@@ -310,19 +325,21 @@
               },
               "breakpoints": null
             },
-            "elements": [{
-              "type": "feature-box",
-              "hoverIcon": 0,
-              "fullIcon": "fullscreen",
-              "openIcon": "open_in_new",
-              "link": "/taxonomy/term/1266",
-              "ratios": "media-16-9",
-              "img": {
-                "classes": "object-fit",
-                "src": "/assets/images/16-9/f-04.png",
-                "alt": "f-04.png"
+            "elements": [
+              {
+                "type": "feature-box",
+                "hoverIcon": 0,
+                "fullIcon": "fullscreen",
+                "openIcon": "open_in_new",
+                "link": "/taxonomy/term/1266",
+                "ratios": "media-16-9",
+                "img": {
+                  "classes": "object-fit",
+                  "src": "/assets/images/16-9/f-04.png",
+                  "alt": "f-04.png"
+                }
               }
-            }]
+            ]
           }
         }
       ]
@@ -341,23 +358,73 @@
           "classes": "mat-display-1"
         },
         "spacer": "none",
-        "body": "",
+        "body": "<p>这里有你想要的答案，请根据以下筛选条件选择进行搜索。</p>",
         "actionsAlign": "center center",
-        "actions": [{
-          "type": "search-action",
-          "button": {
-            "label": "搜索",
-            "color": "primary"
-          },
-          "form": [{
-            "type": "input",
-            "key": "title",
-            "placeholder": "请输入关键词",
-            "controlType": "text",
-            "label": "关键词",
-            "appearance": "legacy"
-          }]
-        }]
+        "actions": [
+          {
+            "type": "search-action",
+            "button": {
+              "label": "搜索",
+              "color": "primary"
+            },
+            "form": [
+              {
+                "type": "select",
+                "key": "skill",
+                "label": "技能",
+                "options": [
+                  {
+                    "label": "无",
+                    "value": ""
+                  },
+                  {
+                    "label": "Angular",
+                    "value": "angular"
+                  },
+                  {
+                    "label": "React",
+                    "value": "react"
+                  },
+                  {
+                    "label": "Vue",
+                    "value": "vue"
+                  }
+                ]
+              },
+              {
+                "type": "select",
+                "key": "cms",
+                "label": "CMS",
+                "options": [
+                  {
+                    "label": "无",
+                    "value": ""
+                  },
+                  {
+                    "label": "Drupal",
+                    "value": "drupal"
+                  },
+                  {
+                    "label": "WP",
+                    "value": "wp"
+                  },
+                  {
+                    "label": "Joomla",
+                    "value": "joomla"
+                  }
+                ]
+              },
+              {
+                "type": "input",
+                "key": "keys",
+                "placeholder": "请输入关键词搜索",
+                "controlType": "search",
+                "label": "关键词",
+                "appearance": "legacy"
+              }
+            ]
+          }
+        ]
       },
       "shape": true
     },
@@ -371,7 +438,8 @@
         "src": "/assets/images/1-1/business-02.png",
         "alt": "business-02.png"
       },
-      "elements": [{
+      "elements": [
+        {
           "icon": {
             "name": "done"
           },
@@ -423,7 +491,8 @@
       "bg": {
         "classes": "bg-light bg-fill-width"
       },
-      "elements": [{
+      "elements": [
+        {
           "icon": "groups",
           "digit": {
             "value": 80,
@@ -493,7 +562,8 @@
           }
         },
         "classes": "p-bottom",
-        "elements": [{
+        "elements": [
+          {
             "type": "box",
             "style": "style-v8",
             "title": {

@@ -1,0 +1,296 @@
+{
+  "title": "红包抽奖预算计算器",
+  "config": {},
+  "body": [
+    {
+      "type": "banner-simple",
+      "style": "normal",
+      "bannerBg": {
+        "classes": "bg-fill-width overlay overlay-80",
+        "img": {
+          "hostClasses": "bg-center",
+          "src": "/assets/images/16-9/nature-07.jpg",
+          "alt": "nature-08.jpg"
+        }
+      },
+      "title": "红包抽奖预算计算器",
+      "breadcrumb": []
+    },
+    {
+      "type": "lottery",
+      "text": {
+        "spacer": "md",
+        "title": {
+          "label": "红包抽奖预算计算器",
+          "style": "style-v1"
+        },
+        "classes": "text-center",
+        "body": "输入指标，自动计算出预算，指导市场营销计划。"
+      },
+      "form": [
+        {
+          "key": "max",
+          "className": "m-bottom-sm",
+          "fieldGroupClassName": "display-flex flex-wrap",
+          "fieldGroup": [
+            {
+              "type": "input",
+              "key": "total",
+              "id": "maxTotal",
+              "className": "m-right-sm",
+              "templateOptions": {
+                "label": "大额红包总金额",
+                "appearance": "outline",
+                "type": "number",
+                "required": true,
+                "min": 10,
+                "max": 10000,
+                "description": "最小10元，最大10000元"
+              },
+              "validation": {
+                "messages": {
+                  "min": "不能设置小于 10",
+                  "max": "不能设置大于 10000"
+                }
+              }
+            },
+            {
+              "type": "input",
+              "key": "per",
+              "id": "maxPer",
+              "templateOptions": {
+                "label": "大额红包平均每次可抽得",
+                "appearance": "outline",
+                "type": "number",
+                "required": true,
+                "min": 0.5,
+                "max": 100,
+                "description": "最小0.5元，最大100元"
+              },
+              "validation": {
+                "messages": {
+                  "min": "不能设置小于 0.5",
+                  "max": "不能设置大于 100"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "key": "min",
+          "className": "m-bottom-sm",
+          "fieldGroupClassName": "display-flex flex-wrap",
+          "fieldGroup": [
+            {
+              "type": "input",
+              "key": "total",
+              "id": "minTotal",
+              "className": "m-right-sm",
+              "templateOptions": {
+                "label": "小额红包总金额",
+                "appearance": "outline",
+                "type": "number",
+                "required": true,
+                "min": 100,
+                "max": 10000,
+                "description": "最小100元，最大10000元"
+              },
+              "validation": {
+                "messages": {
+                  "min": "不能设置小于 100",
+                  "max": "不能设置大于 10000"
+                }
+              }
+            },
+            {
+              "type": "input",
+              "key": "per",
+              "id": "minPer",
+              "templateOptions": {
+                "label": "小额红包平均每次可抽得",
+                "appearance": "outline",
+                "type": "number",
+                "required": true,
+                "min": 0.1,
+                "max": 2,
+                "description": "最小0.1元，最大2元"
+              },
+              "validation": {
+                "messages": {
+                  "min": "不能设置小于 0.1",
+                  "max": "不能设置大于 2"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "key": "isPromote",
+          "type": "toggle",
+          "className": "width-100 m-bottom",
+          "templateOptions": {
+            "label": "开启推广提成",
+            "description": "超过推广次数则推广结束"
+          }
+        },
+        {
+          "key": "promote",
+          "fieldGroupClassName": "display-flex flex-wrap",
+          "fieldGroup": [
+            {
+              "type": "select",
+              "key": "type",
+              "defaultValue": "fixed",
+              "className": "width-100 m-bottom-sm m-right-sm",
+              "templateOptions": {
+                "label": "选择提成方式",
+                "description": "固定金额或者按比例",
+                "options": [
+                  {
+                    "label": "固定金额",
+                    "value": "fixed"
+                  },
+                  {
+                    "label": "比例",
+                    "value": "prop"
+                  }
+                ]
+              }
+            },
+            {
+              "type": "input",
+              "key": "fixedTimes",
+              "defaultValue": 100,
+              "className": "m-right-sm m-bottom-sm",
+              "templateOptions": {
+                "label": "推广成功总次数",
+                "appearance": "outline",
+                "type": "number",
+                "required": true,
+                "min": 5,
+                "max": 500,
+                "description": "预测推广成功总次数"
+              },
+              "validation": {
+                "messages": {
+                  "min": "不能设置小于 5",
+                  "max": "不能设置大于 500"
+                }
+              },
+              "hideExpression": "model.type==\"prop\""
+            },
+            {
+              "type": "input",
+              "key": "fixedMoney",
+              "defaultValue": 2,
+              "className": "m-bottom-sm",
+              "templateOptions": {
+                "label": "每次推广可得金额/元",
+                "appearance": "outline",
+                "type": "number",
+                "required": true,
+                "min": 1,
+                "max": 100,
+                "description": "推广员推广一次固定的提成金额"
+              },
+              "validation": {
+                "messages": {
+                  "min": "不能设置小于 1",
+                  "max": "不能设置大于 100"
+                }
+              },
+              "hideExpression": "model.type==\"prop\""
+            },
+            {
+              "type": "input",
+              "key": "maxTimes",
+              "defaultValue": 15,
+              "className": "m-right-sm m-bottom-sm",
+              "templateOptions": {
+                "label": "大额推广成功总次数",
+                "appearance": "outline",
+                "type": "number",
+                "required": true,
+                "min": 5,
+                "max": 500,
+                "description": "预测大额红包推广成功总次数"
+              },
+              "validation": {
+                "messages": {
+                  "min": "不能设置小于 5",
+                  "max": "不能设置大于 500"
+                }
+              },
+              "hideExpression": "model.type==\"fixed\""
+            },
+            {
+              "type": "input",
+              "key": "minTimes",
+              "defaultValue": 300,
+              "className": "m-right-sm m-bottom-sm",
+              "templateOptions": {
+                "label": "小额推广成功总次数",
+                "appearance": "outline",
+                "type": "number",
+                "required": true,
+                "min": 5,
+                "max": 500,
+                "description": "预测小额红包推广成功总次数"
+              },
+              "validation": {
+                "messages": {
+                  "min": "不能设置小于 5",
+                  "max": "不能设置大于 500"
+                }
+              },
+              "hideExpression": "model.type==\"fixed\""
+            },
+            {
+              "type": "input",
+              "key": "prop",
+              "defaultValue": 80,
+              "templateOptions": {
+                "label": "每次推广可得比例%",
+                "appearance": "outline",
+                "type": "number",
+                "required": true,
+                "min": 1,
+                "max": 500,
+                "description": "最小 1% 到 最大500%"
+              },
+              "hideExpression": "model.type==\"fixed\""
+            }
+          ]
+        }
+      ],
+      "chart": {
+        "color": [
+          "#0071a2",
+          "#00A281",
+          "#8200a2"
+        ],
+        "tooltip": {
+          "trigger": "item"
+        },
+        "legend": {
+          "bottom": "0"
+        },
+        "series": [
+          {
+            "name": "预算占比",
+            "type": "pie",
+            "radius": "50%",
+            "emphasis": {
+              "itemStyle": {
+                "shadowBlur": 10,
+                "shadowOffsetX": 0,
+                "shadowColor": "rgba(0, 0, 0, 0.5)"
+              }
+            }
+          }
+        ]
+      },
+      "description": "<ul class=\"list-done\"><li>抽奖规则明细</li></ul>"
+    }
+  ]
+}

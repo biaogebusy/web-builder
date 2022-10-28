@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
@@ -41,6 +41,7 @@ import {
 } from '@angular/material/paginator';
 import { MatPaginatorIntlCro } from '@core/service/paginator.service';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { throwError } from 'rxjs';
 
 @NgModule({
   declarations: [],
@@ -121,7 +122,13 @@ export class ShareModule {
    * @SkipSelf 让模块去父级寻找依赖，不然会造成死循环
    * @Optional 可选，如果CoreModule不存在正常执行
    */
-  constructor(private iconService: IconService) {
+  constructor(
+    private iconService: IconService,
+    @Optional() @SkipSelf() parentModule: ShareModule
+  ) {
     this.iconService.loadSvgResources();
+    if (parentModule) {
+      throwError('ShareModule already loaded!');
+    }
   }
 }

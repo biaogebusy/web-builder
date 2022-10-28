@@ -10,9 +10,9 @@ import {
   ChangeDetectionStrategy,
 } from '@angular/core';
 import { ScreenService } from '../../service/screen.service';
-import { ScreenState } from '../../mobx/screen/ScreenState';
+import { ScreenState } from '../../state/screen/ScreenState';
 import { DOCUMENT } from '@angular/common';
-import { ContentState } from '@core/mobx/ContentState';
+import { ContentState } from '@core/state/ContentState';
 import { BRANDING } from '@core/token/token-providers';
 import { Observable } from 'rxjs';
 import type { IBranding } from '@core/interface/IBranding';

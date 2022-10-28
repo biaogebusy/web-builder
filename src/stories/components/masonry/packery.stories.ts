@@ -5,7 +5,7 @@ import { PackeryComponent } from '@uiux/combs/masonry/packery/packery.component'
 import { StorysModule } from '@core/storys.module';
 
 export default {
-  title: '组件/瀑布流/图片堆砌',
+  title: '复合组件/瀑布流/图片堆砌',
   id: 'packery',
   component: PackeryComponent,
   decorators: [

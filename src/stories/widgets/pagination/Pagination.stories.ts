@@ -8,7 +8,7 @@ import { PaginationComponent } from '@uiux/widgets/pagination/pagination.compone
 import { StorysModule } from '@core/storys.module';
 
 export default {
-  title: '基础/分页/普通分页',
+  title: '基础组件/分页/普通分页',
   id: 'pagination-default',
   component: PaginationComponent,
   decorators: [

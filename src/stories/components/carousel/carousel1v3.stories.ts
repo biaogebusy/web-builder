@@ -4,7 +4,7 @@ import { Carousel1v3Component } from '@uiux/combs/carousel/carousel1v3/carousel1
 import { StorysModule } from '@core/storys.module';
 
 export default {
-  title: '组件/幻灯片/1v3',
+  title: '复合组件/幻灯片/1v3',
   id: 'carousel-1v3',
   component: Carousel1v3Component,
   decorators: [
@@ -36,7 +36,7 @@ Default.args = {
       },
       body: '<p class="text-center">Drupal是数据管理中心，提供集中的地方来访问所有平台的数据</p><br>',
     },
-    style: '',
+    classes: '',
     bg: {
       classes: 'bg-shadow',
     },

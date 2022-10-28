@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import type { ICarouselBase } from '@core/interface/combs/ICarousel';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -13,7 +14,7 @@ import { Subject } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Carousel1v2Component implements OnInit {
-  @Input() content: any;
+  @Input() content: ICarouselBase;
   navigation$ = new Subject();
   constructor() {}
 

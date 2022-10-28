@@ -8,7 +8,7 @@ import { Card1v2Component } from '@uiux/widgets/card/card1v2/card1v2.component';
 import { StorysModule } from '@core/storys.module';
 
 export default {
-  title: '基础/卡片/1v2',
+  title: '基础组件/卡片/1v2',
   id: 'card-1v2',
   component: Card1v2Component,
   decorators: [

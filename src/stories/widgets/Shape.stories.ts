@@ -8,7 +8,7 @@ import { ShapeComponent } from '@uiux/widgets/shape/shape.component';
 import { StorysModule } from '@core/storys.module';
 
 export default {
-  title: '基础/形状',
+  title: '基础组件/形状',
   id: 'shape',
   component: ShapeComponent,
   decorators: [

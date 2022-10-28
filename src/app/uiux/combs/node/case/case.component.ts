@@ -76,6 +76,7 @@ export class CaseComponent implements OnInit, OnDestroy {
         item.created
       ).getMonth()}/${new Date(item.created).getDate()}`;
       return {
+        type: 'card',
         subTitle: date,
         avatar: {
           src: '/assets/images/showcase/console.png',

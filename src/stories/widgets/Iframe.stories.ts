@@ -9,7 +9,7 @@ import { IframeComponent } from '@uiux/widgets/iframe/iframe.component';
 import { StorysModule } from '@core/storys.module';
 
 export default {
-  title: '基础/Iframe',
+  title: '基础组件/Iframe',
   id: 'iframe',
   component: IframeComponent,
   subcomponents: { TitleComponent },

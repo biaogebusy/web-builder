@@ -7,7 +7,7 @@ import { Story } from '@storybook/angular/types-6-0';
 import { CalendarComponent } from '@uiux/widgets/date/calendar/calendar.component';
 import { StorysModule } from '@core/storys.module';
 export default {
-  title: '基础/日历',
+  title: '基础组件/日历',
   id: 'calendar',
   component: CalendarComponent,
   decorators: [

@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import type { ILocation } from '@core/interface/combs/IMap';
 
 @Component({
   selector: 'app-location',
@@ -12,7 +13,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LocationComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: ILocation;
 
   constructor() {}
 

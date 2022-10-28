@@ -6,13 +6,13 @@ import bodyParser from 'body-parser';
 import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
 import { environment } from 'src/environments/environment';
+import compression from 'compression';
+import { readFileSync, existsSync } from 'fs';
 
-const compressionModule = require('compression');
 const dominoModule = require('domino');
-const fsModule = require('fs');
-const indexTemplate = fsModule
-  .readFileSync(`${environment.site}/browser/index.html`)
-  .toString();
+const indexTemplate = readFileSync(
+  `${environment.site}/browser/index.html`
+).toString();
 const win = dominoModule.createWindow(indexTemplate);
 
 (global as any).window = win;
@@ -33,14 +33,13 @@ const win = dominoModule.createWindow(indexTemplate);
 
 import { AppServerModule } from './src/main.server';
 import { APP_BASE_HREF } from '@angular/common';
-import { existsSync } from 'fs';
 
 const distFolder = join(process.cwd(), `${environment.site}/browser`);
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
   const server = express();
-  server.use(compressionModule());
+  server.use(compression());
   server.use(
     rateLimit({
       windowMs: 15 * 60 * 1000, // 15 minutes

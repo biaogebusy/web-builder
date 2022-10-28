@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { UtilitiesService } from '@core/service/utilities.service';
-import { ScreenState } from '@core/mobx/screen/ScreenState';
+import { ScreenState } from '@core/state/screen/ScreenState';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { DynamicFormComponent } from '@uiux/combs/other/dynamic-form/dynamic-form.component';
 import { DialogService } from '@core/service/dialog.service';

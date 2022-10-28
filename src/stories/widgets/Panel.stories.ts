@@ -4,7 +4,7 @@ import { Story } from '@storybook/angular/types-6-0';
 import { PanelComponent } from '@uiux/widgets/panel/panel.component';
 
 export default {
-  title: '基础/面板',
+  title: '基础组件/面板',
   id: 'panel',
   component: PanelComponent,
   decorators: [

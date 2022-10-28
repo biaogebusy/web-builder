@@ -7,7 +7,7 @@ import { Story } from '@storybook/angular/types-6-0';
 import { DropdownMenuComponent } from '@uiux/widgets/dropdown-menu/dropdown-menu.component';
 import { StorysModule } from '@core/storys.module';
 export default {
-  title: '基础/下拉菜单',
+  title: '基础组件/下拉菜单',
   id: 'dropdown-menu',
   component: DropdownMenuComponent,
   decorators: [

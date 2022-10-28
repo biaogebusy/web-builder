@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { Event, NavigationStart, Router } from '@angular/router';
 import type { IHeader } from '@core/interface/IBranding';
-import { ScreenState } from '@core/mobx/screen/ScreenState';
+import { ScreenState } from '@core/state/screen/ScreenState';
 import { version } from '../../../../../../package.json';
 @Component({
   selector: 'app-menu',

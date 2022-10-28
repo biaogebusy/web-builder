@@ -7,7 +7,7 @@ import { Story } from '@storybook/angular/types-6-0';
 import { BoxComponent } from '@uiux/widgets/box/box.component';
 import { StorysModule } from '@core/storys.module';
 export default {
-  title: '基础/内容/内容盒子',
+  title: '基础组件/内容/内容盒子',
   id: 'box',
   component: BoxComponent,
   decorators: [

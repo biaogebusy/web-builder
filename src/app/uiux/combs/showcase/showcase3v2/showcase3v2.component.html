@@ -11,10 +11,10 @@
     </div>
     <div class="item m-y-sm" fxLayout="row wrap" fxLayoutAlign="center center" [ngClass]="content.classes"
       *ngFor="let item of content.elements">
-      <div class="image-container p-sm" fxFlex.lt-sm="100" fxFlex.gt-md="0 0 50" fxLayoutAlign="center center">
+      <div class="image-container p-sm" fxFlex.lt-md="100" fxFlex.gt-sm="0 0 50" fxLayoutAlign="center center">
         <app-img [content]="item.img" *ngIf="item.img"></app-img>
       </div>
-      <div class="module-content" fxFlex.lt-sm="100" fxFlex.gt-md="0 0 50" [ngClass.lt-md]="'p-sm'"
+      <div class="module-content" fxFlex.lt-md="100" fxFlex.gt-sm="0 0 50" [ngClass.lt-md]="'p-sm'"
         [ngClass.gt-sm]="'p-md'">
         <app-text [content]="item.content"></app-text>
       </div>

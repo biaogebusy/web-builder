@@ -4,7 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { ITab } from '@core/interface/widgets/ITab';
+import type { ITab } from '@core/interface/widgets/ITab';
 
 @Component({
   selector: 'app-tab',

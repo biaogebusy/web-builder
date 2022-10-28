@@ -4,7 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { IContentBox } from '@core/interface/widgets/IContentWidget';
+import type { IContentBox } from '@core/interface/widgets/IContentWidget';
 
 @Component({
   selector: 'app-content-box',

@@ -5,7 +5,7 @@ import { BannerSimpleComponent } from '@uiux/combs/banner/banner-simple/banner-s
 import { StorysModule } from '@core/storys.module';
 
 export default {
-  title: '组件/横幅/简单横幅',
+  title: '复合组件/横幅/简单横幅',
   id: 'banner-sample',
   component: BannerSimpleComponent,
   decorators: [

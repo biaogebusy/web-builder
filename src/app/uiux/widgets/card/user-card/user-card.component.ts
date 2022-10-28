@@ -15,7 +15,7 @@ import { of } from 'rxjs';
 import type { IUser } from '@core/interface/IUser';
 import { USER, CORE_CONFIG } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
-import { IUserCard, IUserCount } from '@core/interface/widgets/ICard';
+import type { IUserCard, IUserCount } from '@core/interface/widgets/ICard';
 
 @Component({
   selector: 'app-user-card',

@@ -1,10 +1,11 @@
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
+import { screen, userEvent } from '@storybook/testing-library';
 import { Carousel1v2Component } from '@uiux/combs/carousel/carousel1v2/carousel1v2.component';
 import { StorysModule } from '@core/storys.module';
 
 export default {
-  title: '组件/幻灯片/1v2',
+  title: '复合组件/幻灯片/1v2',
   id: 'carousel-1v2',
   component: Carousel1v2Component,
   decorators: [
@@ -357,4 +358,9 @@ Default.args = {
       ],
     },
   },
+};
+
+Default.play = async () => {
+  const Next = screen.getByTestId('next');
+  await userEvent.click(Next);
 };

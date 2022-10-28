@@ -1,14 +1,15 @@
-import { StorysModule } from '@core/storys.module';
+import { sleep, StorysModule } from '@core/storys.module';
 import {
   moduleMetadata,
   Meta,
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
+import { screen, userEvent } from '@storybook/testing-library';
 import { TabComponent } from '@uiux/widgets/tab/tab.component';
 
 export default {
-  title: '基础/选项卡',
+  title: '基础组件/选项卡',
   id: 'tab',
   component: TabComponent,
   decorators: [
@@ -34,7 +35,7 @@ Default.args = {
   content: {
     type: 'tab',
     title: {
-      label: '为什么你将会喜欢 Drupal？',
+      label: '为什么你将会喜欢信使？',
       style: 'style-v4',
     },
     classes: 'bg-light',
@@ -91,4 +92,23 @@ Default.args = {
       },
     ],
   },
+};
+
+Default.play = async () => {
+  const tab = document.getElementsByClassName('mat-tab-label');
+
+  await userEvent.click(tab[0]);
+  await sleep(1000);
+
+  await userEvent.click(tab[1]);
+  await sleep(1000);
+
+  await userEvent.click(tab[2]);
+  await sleep(1000);
+
+  await userEvent.click(tab[3]);
+  await sleep(1000);
+
+  await userEvent.click(tab[4]);
+  await sleep(1000);
 };

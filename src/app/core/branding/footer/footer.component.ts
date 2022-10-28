@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { MatAccordion } from '@angular/material/expansion';
-import { ScreenState } from '../../mobx/screen/ScreenState';
+import { ScreenState } from '../../state/screen/ScreenState';
 import { ScreenService } from '@core/service/screen.service';
 import { BRANDING } from '@core/token/token-providers';
 import { Observable } from 'rxjs';

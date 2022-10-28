@@ -7,7 +7,7 @@ import {
   Inject,
 } from '@angular/core';
 import type { IUser } from '@core/interface/IUser';
-import { IIframe } from '@core/interface/widgets/IWidgets';
+import type { IIframe } from '@core/interface/widgets/IWidgets';
 import { USER } from '@core/token/token-providers';
 
 @Component({

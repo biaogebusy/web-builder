@@ -8,7 +8,7 @@ import { FlagComponent } from '@uiux/widgets/actions/flag/flag.component';
 import { StorysModule } from '@core/storys.module';
 
 export default {
-  title: '基础/Actions/收藏',
+  title: '基础组件/Actions/收藏',
   id: 'flag',
   component: FlagComponent,
   decorators: [

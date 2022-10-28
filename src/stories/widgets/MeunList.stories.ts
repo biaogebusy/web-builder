@@ -4,7 +4,7 @@ import { MenuListComponent } from '@uiux/widgets/menu-list/menu-list.component';
 import { StorysModule } from '@core/storys.module';
 
 export default {
-  title: '基础/菜单项',
+  title: '基础组件/菜单项',
   id: 'menu-list',
   component: MenuListComponent,
   decorators: [

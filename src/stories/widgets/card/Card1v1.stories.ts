@@ -8,7 +8,7 @@ import { Card1v1Component } from '@uiux/widgets/card/card1v1/card1v1.component';
 import { StorysModule } from '@core/storys.module';
 
 export default {
-  title: '基础/卡片/1v1',
+  title: '基础组件/卡片/1v1',
   id: 'card-1v1',
   component: Card1v1Component,
   decorators: [
@@ -17,7 +17,7 @@ export default {
       imports: [StorysModule.forRoot()],
     }),
     componentWrapperDecorator(
-      (story) => `<div fxFlex="50%" class="position-relative">${story}</div>`
+      (story) => `<div fxFlex="33.33%" class="position-relative">${story}</div>`
     ),
   ],
 } as Meta;

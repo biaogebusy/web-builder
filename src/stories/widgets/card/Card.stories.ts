@@ -9,7 +9,7 @@ import { TextComponent } from '@uiux/widgets/text/text.component';
 import { CardComponent } from '@uiux/widgets/card/card.component';
 import { StorysModule } from '@core/storys.module';
 export default {
-  title: '基础/卡片/基础',
+  title: '基础组件/卡片/基础',
   id: 'card',
   component: CardComponent,
   decorators: [

@@ -8,7 +8,7 @@ import { DynamicTableComponent } from '@uiux/widgets/dynamic-table/dynamic-table
 import { StorysModule } from '@core/storys.module';
 
 export default {
-  title: '基础/动态表格',
+  title: '基础组件/动态表格',
   id: 'dynamic-table',
   component: DynamicTableComponent,
   decorators: [

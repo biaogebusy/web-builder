@@ -8,11 +8,11 @@ import { BRANDING } from '@core/token/token-providers';
 import { of } from 'rxjs';
 import { BrandingModule } from '@core/branding/branding.module';
 import { FooterComponent } from '@core/branding/footer/footer.component';
-import { footerInverse } from '../Branding.json';
+import { defaultHeader, footerInverse } from '../Branding.json';
 import { StorysModule } from '@core/storys.module';
 
 export default {
-  title: '页头页脚/页脚/反色',
+  title: '页面布局/页脚/反色',
   id: 'footer-inverse',
   component: FooterComponent,
   decorators: [
@@ -22,12 +22,13 @@ export default {
       providers: [
         {
           provide: BRANDING,
-          useValue: of(footerInverse),
+          useValue: of({ ...footerInverse, ...defaultHeader }),
         },
       ],
     }),
     componentWrapperDecorator(
       (story) => `
+        <app-header></app-header>
         <div style="min-height:50vh">
         </div>
         ${story}

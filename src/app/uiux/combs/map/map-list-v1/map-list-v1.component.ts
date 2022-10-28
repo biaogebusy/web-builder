@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import type { IMapListv1 } from '@core/interface/combs/IMap';
 import type { IMark } from '@core/interface/IAmap';
 import { AmapService } from '@core/service/amap.service';
 
@@ -14,7 +15,7 @@ import { AmapService } from '@core/service/amap.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MapListV1Component implements OnInit {
-  @Input() content: any;
+  @Input() content: IMapListv1;
   loading: boolean;
   selectedId: number;
   constructor(private amapService: AmapService) {}

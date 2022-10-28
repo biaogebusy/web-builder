@@ -1,6 +1,7 @@
 {
-  "title": "首页 | 信使 XINSHI",
-  "meta": [{
+  "title": "首页 | v1",
+  "meta": [
+    {
       "name": "description",
       "content": "信使是一个基于戴文 Dyniva 开源模块，围绕 Drupal jsonapi 为核心的 Angular 前端框架，分享 Drupal 优秀的数字创新体验。"
     },
@@ -9,7 +10,8 @@
       "content": "angular,drupal,jsonapi,信使"
     }
   ],
-  "body": [{
+  "body": [
+    {
       "type": "hero-1v1",
       "spacer": "none",
       "classes": "text-light text-center",
@@ -19,7 +21,8 @@
           "spaceBetween": 0,
           "pagination": false
         },
-        "elements": [{
+        "elements": [
+          {
             "type": "text",
             "spacer": "xl",
             "title": {
@@ -40,10 +43,12 @@
             },
             "body": "<p>信使使用 Angular 最新稳定的版本开发，提供强大而优秀的底层框架。</p>\r\n",
             "actionsAlign": "center center",
-            "actions": [{
-              "href": "https://angular.cn/",
-              "label": "了解更多"
-            }]
+            "actions": [
+              {
+                "href": "https://angular.cn/",
+                "label": "了解更多"
+              }
+            ]
           },
           {
             "type": "text",
@@ -66,10 +71,12 @@
             },
             "body": "<p>依托 JSONAPI 统一的接口规范</p>\r\n",
             "actionsAlign": "center center",
-            "actions": [{
-              "href": "https://jsonapi.org/format/",
-              "label": "了解更多"
-            }]
+            "actions": [
+              {
+                "href": "https://jsonapi.org/format/",
+                "label": "了解更多"
+              }
+            ]
           }
         ]
       }
@@ -82,7 +89,8 @@
         "classes": "bg-shadow bg-fill-width"
       },
       "row": 4,
-      "elements": [{
+      "elements": [
+        {
           "icon": {
             "name": "verified_user"
           },
@@ -139,27 +147,31 @@
           "hostClasses": ""
         }
       },
-      "elements": [{
-        "img": {
-          "src": "/assets/images/illustration/23.png",
-          "alt": ""
-        },
-        "content": {
-          "title": {
-            "label": "快速创建优秀数字创新体验",
-            "style": "style-v4",
-            "classes": "mat-display-1"
+      "elements": [
+        {
+          "img": {
+            "src": "/assets/images/illustration/23.png",
+            "alt": ""
           },
-          "actions": [{
-            "type": "btn-animate",
-            "label": "了解更多",
-            "href": "/home",
-            "style": "style-v1",
-            "icon": "open_in_new"
-          }],
-          "body": "<p>Drupal 拥有数万个贡献模块和上千套主题，基于这些贡献模块和主题快速构建应用原型，为客户搭建应用价值的可行性。</p>\r\n\r\n<ul class=\"list-done\">\r\n\t<li>47194 个贡献模块</li>\r\n\t<li>2960 套主题</li>\r\n\t<li>1392 套发行版</li>\r\n</ul>\r\n"
+          "content": {
+            "title": {
+              "label": "快速创建优秀数字创新体验",
+              "style": "style-v4",
+              "classes": "mat-display-1"
+            },
+            "actions": [
+              {
+                "type": "btn-animate",
+                "label": "了解更多",
+                "href": "/home",
+                "style": "style-v1",
+                "icon": "open_in_new"
+              }
+            ],
+            "body": "<p>Drupal 拥有数万个贡献模块和上千套主题，基于这些贡献模块和主题快速构建应用原型，为客户搭建应用价值的可行性。</p>\r\n\r\n<ul class=\"list-done\">\r\n\t<li>47194 个贡献模块</li>\r\n\t<li>2960 套主题</li>\r\n\t<li>1392 套发行版</li>\r\n</ul>\r\n"
+          }
         }
-      }]
+      ]
     },
     {
       "type": "showcase-4v1",
@@ -172,7 +184,8 @@
       "bg": {
         "classes": "bg-shadow bg-fill-width"
       },
-      "elements": [{
+      "elements": [
+        {
           "icon": "settings",
           "digit": {
             "value": 47194,
@@ -229,7 +242,8 @@
           }
         },
         "classes": "p-bottom",
-        "elements": [{
+        "elements": [
+          {
             "type": "testimonial",
             "style": "style-v2",
             "title": "表歌",
@@ -263,7 +277,9 @@
           "classes": "mat-display-1 bold"
         }
       },
-      "elements": [{
+      "elements": [
+        {
+          "type": "card",
           "subTitle": "Material UI 有完善的主题颜色系统，有优秀的性能和用户体验",
           "link": {
             "href": "javascript:void(0);",
@@ -278,20 +294,23 @@
               },
               "breakpoints": null
             },
-            "elements": [{
-              "type": "feature-box",
-              "hoverIcon": 0,
-              "fullIcon": "fullscreen",
-              "ratios": "media-16-9",
-              "img": {
-                "classes": "object-fit",
-                "src": "/assets/images/badge.scene.png",
-                "alt": "badge.scene_.png"
+            "elements": [
+              {
+                "type": "feature-box",
+                "hoverIcon": 0,
+                "fullIcon": "fullscreen",
+                "ratios": "media-16-9",
+                "img": {
+                  "classes": "object-fit",
+                  "src": "/assets/images/badge.scene.png",
+                  "alt": "badge.scene_.png"
+                }
               }
-            }]
+            ]
           }
         },
         {
+          "type": "card",
           "subTitle": "提供了足够丰富的布局 API，响应式适配各种设备视口尺寸",
           "link": {
             "href": "javascript:void(0);",
@@ -306,20 +325,23 @@
               },
               "breakpoints": null
             },
-            "elements": [{
-              "type": "feature-box",
-              "hoverIcon": 0,
-              "fullIcon": "fullscreen",
-              "ratios": "media-16-9",
-              "img": {
-                "classes": "object-fit",
-                "src": "/assets/images/grid-list.scene.png",
-                "alt": "grid-list.scene_.png"
+            "elements": [
+              {
+                "type": "feature-box",
+                "hoverIcon": 0,
+                "fullIcon": "fullscreen",
+                "ratios": "media-16-9",
+                "img": {
+                  "classes": "object-fit",
+                  "src": "/assets/images/grid-list.scene.png",
+                  "alt": "grid-list.scene_.png"
+                }
               }
-            }]
+            ]
           }
         },
         {
+          "type": "card",
           "subTitle": "可切换内建的自定义主题，可自定义符合品牌的颜色主题",
           "link": {
             "href": "javascript:void(0);",
@@ -334,20 +356,23 @@
               },
               "breakpoints": null
             },
-            "elements": [{
-              "type": "feature-box",
-              "hoverIcon": 0,
-              "fullIcon": "fullscreen",
-              "ratios": "media-16-9",
-              "img": {
-                "classes": "object-fit",
-                "src": "/assets/images/form-field.scene.png",
-                "alt": "Blueprint_for_MWS_2000x1520.jpeg"
+            "elements": [
+              {
+                "type": "feature-box",
+                "hoverIcon": 0,
+                "fullIcon": "fullscreen",
+                "ratios": "media-16-9",
+                "img": {
+                  "classes": "object-fit",
+                  "src": "/assets/images/form-field.scene.png",
+                  "alt": "Blueprint_for_MWS_2000x1520.jpeg"
+                }
               }
-            }]
+            ]
           }
         },
         {
+          "type": "card",
           "subTitle": "使用AOT编译和懒加载使你的应用反应更快速",
           "link": {
             "href": "javascript:void(0);",
@@ -362,17 +387,19 @@
               },
               "breakpoints": null
             },
-            "elements": [{
-              "type": "feature-box",
-              "hoverIcon": 0,
-              "fullIcon": "fullscreen",
-              "ratios": "media-16-9",
-              "img": {
-                "classes": "object-fit",
-                "src": "/assets/images/menu.scene.png",
-                "alt": "Reg_Page_Video_Image_Watch_Now.jpeg"
+            "elements": [
+              {
+                "type": "feature-box",
+                "hoverIcon": 0,
+                "fullIcon": "fullscreen",
+                "ratios": "media-16-9",
+                "img": {
+                  "classes": "object-fit",
+                  "src": "/assets/images/menu.scene.png",
+                  "alt": "Reg_Page_Video_Image_Watch_Now.jpeg"
+                }
               }
-            }]
+            ]
           }
         }
       ]
@@ -392,22 +419,26 @@
           "classes": "mat-display-1 bold"
         },
         "classes": "text-light",
-        "elements": [{
-          "type": "text",
-          "spacer": "none",
-          "style": {
-            "margin": "0 auto",
-            "text-align": "center",
-            "width": "600px"
-          },
-          "body": "<p class=\"text-align-center\">欢迎加入 Drupal 自习室微信交流群，分享主题开发和模块设计，快来享受Drupal优秀的数字创新体验，滑到底部扫码加入：）</p>\r\n"
-        }],
-        "actions": [{
-          "label": "关于我们",
-          "href": "/about",
-          "style": "style-v1",
-          "icon": "favorite"
-        }]
+        "elements": [
+          {
+            "type": "text",
+            "spacer": "none",
+            "style": {
+              "margin": "0 auto",
+              "text-align": "center",
+              "width": "600px"
+            },
+            "body": "<p class=\"text-align-center\">欢迎加入 Drupal 自习室微信交流群，分享主题开发和模块设计，快来享受Drupal优秀的数字创新体验，滑到底部扫码加入：）</p>\r\n"
+          }
+        ],
+        "actions": [
+          {
+            "label": "关于我们",
+            "href": "/about",
+            "style": "style-v1",
+            "icon": "favorite"
+          }
+        ]
       }
     },
     {
@@ -427,7 +458,8 @@
         "classes": "bg-light bg-fill-width"
       },
       "row": "3",
-      "elements": [{
+      "elements": [
+        {
           "img": {
             "src": "",
             "style": {
@@ -528,7 +560,8 @@
         "style": "style-v1",
         "classes": "mat-display-1 bold"
       },
-      "filter": [{
+      "filter": [
+        {
           "label": "All",
           "value": "all",
           "selected": true
@@ -543,12 +576,13 @@
         }
       ],
       "row": "4",
-      "elements": [{
+      "elements": [
+        {
           "type": "card",
           "category": "前端茶馆",
           "subTitle": "2022-01-08",
           "avatar": {
-            "src": "/assets/images/1-1/business-01.png",
+            "src": "/assets/images/avatar/01.jpeg",
             "alt": ""
           },
           "carousel": {
@@ -560,18 +594,20 @@
               },
               "breakpoints": null
             },
-            "elements": [{
-              "type": "feature-box",
-              "fullIcon": "fullscreen",
-              "openIcon": "open_in_new",
-              "link": "/node/417",
-              "ratios": "media-4-3",
-              "img": {
-                "classes": "object-fit",
-                "src": "/assets/images/1-1/business-02.png",
-                "alt": "lazyload"
+            "elements": [
+              {
+                "type": "feature-box",
+                "fullIcon": "fullscreen",
+                "openIcon": "open_in_new",
+                "link": "/node/417",
+                "ratios": "media-4-3",
+                "img": {
+                  "classes": "object-fit",
+                  "src": "/assets/images/1-1/business-02.png",
+                  "alt": "lazyload"
+                }
               }
-            }]
+            ]
           },
           "link": {
             "href": "/node/417",
@@ -583,7 +619,7 @@
           "category": "Drupal 自习室",
           "subTitle": "2022-01-03",
           "avatar": {
-            "src": "/assets/images/1-1/business-03.png",
+            "src": "/assets/images/avatar/02.jpeg",
             "alt": ""
           },
           "carousel": {
@@ -595,18 +631,20 @@
               },
               "breakpoints": null
             },
-            "elements": [{
-              "type": "feature-box",
-              "fullIcon": "fullscreen",
-              "openIcon": "open_in_new",
-              "link": "/node/415",
-              "ratios": "media-4-3",
-              "img": {
-                "classes": "object-fit",
-                "src": "/assets/images/1-1/business-04.png",
-                "alt": "lazyload"
+            "elements": [
+              {
+                "type": "feature-box",
+                "fullIcon": "fullscreen",
+                "openIcon": "open_in_new",
+                "link": "/node/415",
+                "ratios": "media-4-3",
+                "img": {
+                  "classes": "object-fit",
+                  "src": "/assets/images/1-1/business-04.png",
+                  "alt": "lazyload"
+                }
               }
-            }]
+            ]
           },
           "link": {
             "href": "/node/415",
@@ -618,7 +656,7 @@
           "category": "前端茶馆",
           "subTitle": "2022-01-03",
           "avatar": {
-            "src": "/assets/images/1-1/natural-01.jpg",
+            "src": "/assets/images/avatar/03.jpeg",
             "alt": ""
           },
           "carousel": {
@@ -630,18 +668,20 @@
               },
               "breakpoints": null
             },
-            "elements": [{
-              "type": "feature-box",
-              "fullIcon": "fullscreen",
-              "openIcon": "open_in_new",
-              "link": "/node/414",
-              "ratios": "media-4-3",
-              "img": {
-                "classes": "object-fit",
-                "src": "/assets/images/1-1/animal-01.jpg",
-                "alt": "lazyload"
+            "elements": [
+              {
+                "type": "feature-box",
+                "fullIcon": "fullscreen",
+                "openIcon": "open_in_new",
+                "link": "/node/414",
+                "ratios": "media-4-3",
+                "img": {
+                  "classes": "object-fit",
+                  "src": "/assets/images/1-1/animal-01.jpg",
+                  "alt": "lazyload"
+                }
               }
-            }]
+            ]
           },
           "link": {
             "href": "/node/414",
@@ -653,7 +693,7 @@
           "category": "前端茶馆",
           "subTitle": "2021-05-14",
           "avatar": {
-            "src": "/assets/images/cases/porto1.jpg",
+            "src": "/assets/images/avatar/04.jpeg",
             "alt": ""
           },
           "carousel": {
@@ -665,57 +705,24 @@
               },
               "breakpoints": null
             },
-            "elements": [{
-              "type": "feature-box",
-              "fullIcon": "fullscreen",
-              "openIcon": "open_in_new",
-              "link": "/node/387",
-              "ratios": "media-4-3",
-              "img": {
-                "classes": "object-fit",
-                "src": "/assets/images/cases/porto2.jpg",
-                "alt": "lazyload"
+            "elements": [
+              {
+                "type": "feature-box",
+                "fullIcon": "fullscreen",
+                "openIcon": "open_in_new",
+                "link": "/node/387",
+                "ratios": "media-4-3",
+                "img": {
+                  "classes": "object-fit",
+                  "src": "/assets/images/cases/porto2.jpg",
+                  "alt": "lazyload"
+                }
               }
-            }]
+            ]
           },
           "link": {
             "href": "/node/387",
             "label": "Angular 5 rxjs 5.5.2 多个 http 并行 forkJoin 请求"
-          }
-        },
-        {
-          "type": "card",
-          "category": "Drupal 自习室",
-          "subTitle": "2021-05-14",
-          "avatar": {
-            "src": "/sites/default/files/styles/crop/public/pictures/2021-05/logo_transparent-v2.png?itok=BsNbWTTZ",
-            "alt": ""
-          },
-          "carousel": {
-            "params": {
-              "slidesPerView": 1,
-              "navigation": false,
-              "autoplay": {
-                "delay": 5000
-              },
-              "breakpoints": null
-            },
-            "elements": [{
-              "type": "feature-box",
-              "fullIcon": "fullscreen",
-              "openIcon": "open_in_new",
-              "link": "/node/386",
-              "ratios": "media-4-3",
-              "img": {
-                "classes": "object-fit",
-                "src": "/assets/images/cases/porto3.jpg",
-                "alt": "lazyload"
-              }
-            }]
-          },
-          "link": {
-            "href": "/node/386",
-            "label": "Drupal 8 Ajax 弹出框可监听利用的 Event 事件"
           }
         }
       ]
@@ -723,7 +730,7 @@
     {
       "type": "text",
       "spacer": "xl",
-      "body": "<p class=\"text-align-center\">基于 Drupal jsonapi 为核心，使用 Angular 来快速搭建用户体验优先的前端主题。</p>\r\n\r\n<div class=\"text-center\"><img alt=\"Drupal自习室\" data-align=\"center\" data-entity-type=\"file\" data-entity-uuid=\"b82fa893-a20b-4ea8-b562-ec620e977eea\" src=\"/assets/images/wechat.jpg\" /></div>\r\n\r\n<p>&nbsp;</p>\r\n"
+      "body": "<p class=\"text-align-center\">基于 Drupal jsonapi 为核心，使用 Angular 来快速搭建用户体验优先的前端主题。</p>\r\n\r\n<div class=\"text-center\"><br><img alt=\"Drupal自习室\" data-align=\"center\" data-entity-type=\"file\" data-entity-uuid=\"b82fa893-a20b-4ea8-b562-ec620e977eea\" src=\"/assets/images/wechat.jpg\" /></div>\r\n\r\n<p>&nbsp;</p>\r\n"
     }
   ]
 }

@@ -6,9 +6,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import base from '../../assets/app/core/base.json';
+import branding from '../../assets/app/core/branding.json';
 import { ActivatedRoute } from '@angular/router';
 import { pageContentFactory } from '@core/factory/factory';
-import { ContentState } from '@core/mobx/ContentState';
+import { ContentState } from '@core/state/ContentState';
 import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
 import { ContentService } from '@core/service/content.service';
 import {
@@ -17,7 +18,14 @@ import {
   USER,
   THEME,
   PAGE_CONTENT,
+  BRANDING,
 } from '@core/token/token-providers';
+import { of } from 'rxjs';
+
+export function sleep(ms: number): Promise<any> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 @NgModule({
   declarations: [],
   imports: [
@@ -75,6 +83,10 @@ export class StorysModule {
           provide: PAGE_CONTENT,
           useFactory: pageContentFactory,
           deps: [ActivatedRoute, ContentService, ContentState],
+        },
+        {
+          provide: BRANDING,
+          useValue: of(branding),
         },
       ],
     };

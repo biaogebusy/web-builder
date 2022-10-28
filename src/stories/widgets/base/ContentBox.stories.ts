@@ -8,7 +8,7 @@ import { ContentBoxComponent } from '@uiux/widgets/content-box/content-box.compo
 import { StorysModule } from '@core/storys.module';
 
 export default {
-  title: '基础/内容/内容块',
+  title: '基础组件/内容/内容块',
   id: 'content-box',
   component: ContentBoxComponent,
   decorators: [

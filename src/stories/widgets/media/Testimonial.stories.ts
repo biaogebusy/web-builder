@@ -8,7 +8,7 @@ import { Story } from '@storybook/angular/types-6-0';
 import { TestimonialComponent } from '@uiux/widgets/testimonial/testimonial.component';
 
 export default {
-  title: '基础/媒体/Testimonial',
+  title: '基础组件/媒体/Testimonial',
   id: 'testimonial',
   component: TestimonialComponent,
   decorators: [

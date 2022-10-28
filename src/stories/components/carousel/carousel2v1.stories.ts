@@ -4,7 +4,7 @@ import { Carousel2v1Component } from '@uiux/combs/carousel/carousel2v1/carousel2
 import { StorysModule } from '@core/storys.module';
 
 export default {
-  title: '组件/幻灯片/2v1',
+  title: '复合组件/幻灯片/2v1',
   id: 'carousel-2v1',
   component: Carousel2v1Component,
   decorators: [
@@ -31,7 +31,7 @@ Default.args = {
     bg: {
       classes: 'bg-fill-width overlay overlay-80',
       img: {
-        src: '/assets/images/bg-03.jpeg',
+        src: '/assets/images/bg/bg-03.jpeg',
         hostClasses: 'bg-center',
       },
     },

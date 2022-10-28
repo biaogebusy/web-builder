@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import type { ICarouselBase } from '@core/interface/combs/ICarousel';
 
 @Component({
   selector: 'app-carousel2v1',
@@ -12,7 +13,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Carousel2v1Component implements OnInit {
-  @Input() content: any;
+  @Input() content: ICarouselBase;
   constructor() {}
 
   ngOnInit(): void {}

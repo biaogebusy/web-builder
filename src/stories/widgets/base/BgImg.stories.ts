@@ -8,7 +8,7 @@ import { BgImgComponent } from '@uiux/widgets/bg-img/bg-img.component';
 import { StorysModule } from '@core/storys.module';
 
 export default {
-  title: '基础/内容/背景图',
+  title: '基础组件/内容/背景图',
   id: 'bg-img',
   component: BgImgComponent,
   decorators: [
@@ -34,7 +34,7 @@ export const Base = Template.bind({});
 Base.args = {
   content: {
     img: {
-      src: '/assets/images/bg-03.jpeg',
+      src: '/assets/images/bg/bg-03.jpeg',
       hostClasses: 'bg-center',
     },
   },
@@ -46,7 +46,7 @@ Opacity.args = {
   content: {
     classes: 'bg-fill-width overlay overlay-80',
     img: {
-      src: '/assets/images/bg-03.jpeg',
+      src: '/assets/images/bg/bg-03.jpeg',
       hostClasses: 'bg-center',
     },
   },

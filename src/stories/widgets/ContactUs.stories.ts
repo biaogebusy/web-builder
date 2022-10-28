@@ -4,10 +4,11 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
+import { screen, userEvent } from '@storybook/testing-library';
 import { ContactUsComponent } from '@uiux/widgets/contact-us/contact-us.component';
 import { StorysModule } from '@core/storys.module';
 export default {
-  title: '基础/联系我们',
+  title: '基础组件/联系我们',
   id: 'contact-us',
   component: ContactUsComponent,
   decorators: [
@@ -96,7 +97,7 @@ Base.args = {
       },
       {
         type: 'input',
-        label: 'Email',
+        label: '邮箱',
         key: 'email',
         params: {
           required: true,
@@ -122,4 +123,30 @@ Base.args = {
       },
     ],
   },
+};
+
+Base.play = async () => {
+  const Name = screen.getByLabelText('姓名');
+  await userEvent.type(Name, 'Johnson', {
+    delay: 100,
+  });
+
+  const Email = screen.getByLabelText('邮箱');
+  await userEvent.type(Email, 'hi@zhaobg.com', {
+    delay: 100,
+  });
+
+  const Subject = screen.getByLabelText('主题');
+  await userEvent.type(Subject, '关于贡献', {
+    delay: 100,
+  });
+
+  const Content = screen.getByLabelText('内容');
+  await userEvent.type(
+    Content,
+    '信使前端框架可以快速的构建页面，我们很希望未来有更多的可能性。',
+    {
+      delay: 100,
+    }
+  );
 };

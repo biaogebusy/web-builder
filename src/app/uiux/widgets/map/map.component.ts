@@ -6,14 +6,14 @@ import {
   ChangeDetectionStrategy,
   Inject,
 } from '@angular/core';
-import type { IMap, IMark } from '@core/interface/IAmap';
+import type { IAmap, IMap, IMark } from '@core/interface/IAmap';
 import { AmapService } from '@core/service/amap.service';
 import { isArray } from 'lodash-es';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
-import { IAmap } from '../../../core/interface/IAmap';
 import { ConfigService } from '@core/service/config.service';
 import { THEME } from '@core/token/token-providers';
+import { ScreenService } from '@core/service/screen.service';
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -31,12 +31,15 @@ export class MapComponent implements OnInit, OnDestroy {
   constructor(
     private amapService: AmapService,
     private configService: ConfigService,
+    private screenService: ScreenService,
     @Inject(THEME) private theme: string,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
   ) {}
 
   ngOnInit(): void {
-    this.initMap(this.content);
+    if (this.screenService.isPlatformBrowser()) {
+      this.initMap(this.content);
+    }
   }
 
   initMap(content: IMap): void {

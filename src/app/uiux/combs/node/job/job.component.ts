@@ -13,12 +13,13 @@ import { TagsService } from '@core/service/tags.service';
 import { ScreenService } from '@core/service/screen.service';
 import { AmapService } from '@core/service/amap.service';
 import { IMap } from '@core/interface/IAmap';
+import { IShowcase3v6 } from '@core/interface/combs/IShowcase';
 
-const feature = {
-  type: 'showcase-3v6',
+const feature: IShowcase3v6 = {
   id: '',
+  spacer: 'md',
+  classes: '',
   title: {
-    type: 'text',
     spacer: 'sm',
     title: {
       label: '职位招聘',
@@ -29,7 +30,7 @@ const feature = {
   bg: {
     classes: 'bg-light bg-fill-width',
   },
-  row: '3',
+  row: 3,
   elements: [
     {
       img: {

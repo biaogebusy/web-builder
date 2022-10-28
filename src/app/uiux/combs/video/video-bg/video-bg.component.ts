@@ -5,7 +5,9 @@ import {
   OnInit,
   AfterViewInit,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
 } from '@angular/core';
+import { IPlayer } from '@core/interface/widgets/IPlayer';
 import { ScreenService } from '@core/service/screen.service';
 @Component({
   selector: 'app-video-bg',
@@ -15,12 +17,33 @@ import { ScreenService } from '@core/service/screen.service';
 })
 export class VideoBgComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() content: any;
-
-  constructor(private screenService: ScreenService) {}
+  @Input() options: any;
+  video: IPlayer;
+  constructor(
+    private screenService: ScreenService,
+    private cd: ChangeDetectorRef
+  ) {}
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
+      this.video = {
+        options: {
+          autoplay: true,
+          controls: false,
+          muted: true,
+          loop: true,
+          aspectRatio: '16:9',
+          fluid: true,
+          fill: true,
+          sources: [
+            {
+              ...this.content.source,
+            },
+          ],
+        },
+      };
+      this.cd.detectChanges();
     }
   }
 

@@ -102,4 +102,12 @@ export class NotifyService {
 
     return forkJoin(obj);
   }
+
+  showSuccess(message: string, title: string): void {
+    this.toastr.show(message, title, undefined, 'success');
+  }
+
+  showError(message: string, title: string): void {
+    this.toastr.show(message, title, undefined, 'error');
+  }
 }

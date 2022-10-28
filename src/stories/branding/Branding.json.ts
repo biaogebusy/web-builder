@@ -200,7 +200,7 @@ const footerNewsletter = {
 };
 
 const footerBottom = {
-  left: 'Copyright Xinshi',
+  left: '© 2022 Copyright ❤️ XINSHI. ',
   right: [
     {
       label: '首页',
@@ -372,7 +372,7 @@ export const defaultHeader: IBranding = {
       },
       {
         label: '组件库',
-        classes: 'bold',
+        classes: 'bold for-test',
         child: [
           {
             label: 'Hero',

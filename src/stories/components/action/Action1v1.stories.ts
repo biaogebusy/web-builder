@@ -1,10 +1,11 @@
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
+import { screen, userEvent } from '@storybook/testing-library';
 import { Action1v1Component } from '@uiux/combs/action/action1v1/action1v1.component';
 import { StorysModule } from '@core/storys.module';
 
 export default {
-  title: '组件/引导/Action 1v1',
+  title: '复合组件/引导/Action 1v1',
   id: 'action-1v1',
   component: Action1v1Component,
   decorators: [
@@ -34,7 +35,7 @@ Default.args = {
     id: 'xxx',
     spacer: 'xl',
     bg: {
-      classes: 'bg-shadow',
+      classes: 'bg-primary bg-fill-width',
     },
     text: {
       title: {
@@ -42,6 +43,7 @@ Default.args = {
         style: 'none',
         classes: 'mat-display-1',
       },
+      classes: 'text-light',
       spacer: 'none',
       body: '<p>这里有你想要的答案，请根据以下筛选条件选择进行搜索。</p>',
       actions: [
@@ -63,15 +65,15 @@ Default.args = {
                 },
                 {
                   label: 'Angular',
-                  value: '170',
+                  value: 'angular',
                 },
                 {
                   label: 'React',
-                  value: '162',
+                  value: 'react',
                 },
                 {
                   label: 'Vue',
-                  value: '167',
+                  value: 'vue',
                 },
               ],
             },
@@ -86,15 +88,15 @@ Default.args = {
                 },
                 {
                   label: 'Drupal',
-                  value: '170',
+                  value: 'drupal',
                 },
                 {
                   label: 'WP',
-                  value: '162',
+                  value: 'wp',
                 },
                 {
                   label: 'Joomla',
-                  value: '167',
+                  value: 'joomla',
                 },
               ],
             },
@@ -112,4 +114,33 @@ Default.args = {
     },
     shape: true,
   },
+};
+
+Default.play = async () => {
+  const skillInput = screen.getByLabelText('技能', {
+    selector: 'mat-select',
+  });
+
+  await userEvent.type(skillInput, 'Angular', {
+    delay: 200,
+  });
+
+  const cmsInput = screen.getByLabelText('CMS', {
+    selector: 'mat-select',
+  });
+
+  await userEvent.type(cmsInput, 'Drupal', {
+    delay: 200,
+  });
+
+  const keysInput = screen.getByLabelText('关键词', {
+    selector: 'input',
+  });
+
+  await userEvent.type(keysInput, '开发', {
+    delay: 300,
+  });
+
+  const search = screen.getByRole('button');
+  await userEvent.hover(search);
 };

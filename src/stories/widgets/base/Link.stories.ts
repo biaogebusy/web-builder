@@ -7,7 +7,7 @@ import { LinkComponent } from '@uiux/widgets/link/link.component';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 
 export default {
-  title: '基础/内容/链接',
+  title: '基础组件/内容/链接',
   id: 'link',
   component: LinkComponent,
   decorators: [

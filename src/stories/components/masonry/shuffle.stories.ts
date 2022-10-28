@@ -1,10 +1,11 @@
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
+import { screen, userEvent } from '@storybook/testing-library';
 import { ShuffleComponent } from '@uiux/combs/masonry/shuffle/shuffle.component';
-import { StorysModule } from '@core/storys.module';
+import { sleep, StorysModule } from '@core/storys.module';
 
 export default {
-  title: '组件/瀑布流/图片洗牌',
+  title: '复合组件/瀑布流/图片洗牌',
   id: 'shuffle',
   component: ShuffleComponent,
   decorators: [
@@ -347,4 +348,21 @@ Default.args = {
       },
     ],
   },
+};
+
+Default.play = async () => {
+  const Desige = screen.getByText('设计');
+  await userEvent.click(Desige);
+
+  await sleep(2000);
+  const CMS = screen.getByText('CMS');
+  await userEvent.click(CMS);
+
+  await sleep(2000);
+  const FW = screen.getByText('框架');
+  await userEvent.click(FW);
+
+  await sleep(2000);
+  const All = screen.getByText('全部');
+  await userEvent.click(All);
 };

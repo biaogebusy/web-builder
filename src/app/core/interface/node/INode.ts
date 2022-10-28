@@ -6,7 +6,7 @@ export interface IBaseNode {
   body?: string;
   banner?: any;
   meta?: any[];
-  params?: {
+  params: {
     pay?: {
       money: number;
     };
@@ -78,6 +78,10 @@ export interface IComment {
   content: string;
   child: IComment[] | [];
   level: number;
+}
+
+export interface ICommentItem extends IBaseNode {
+  comment: ICommentConfig;
 }
 
 export interface ICommentConfig {

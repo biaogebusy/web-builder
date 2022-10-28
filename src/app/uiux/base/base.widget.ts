@@ -9,7 +9,7 @@ export abstract class BaseComponent {
   constructor() {}
 
   getParams(obj: any, key: string): any {
-    return obj.params && obj.params[key];
+    return obj?.params && obj.params[key];
   }
 
   getValue(obj: any, path: string, key: string): any {
@@ -20,8 +20,8 @@ export abstract class BaseComponent {
     return result(obj, path);
   }
 
-  row(content: any, padding = '4rem'): string {
-    return `0 0 calc(100% / ${content.row || 3} - ${padding})`;
+  row(row = 3, padding = '4rem'): string {
+    return `0 0 calc(100% / ${row} - ${padding})`;
   }
 
   initFormValueWithUrlQuery(query: any, controls: any[]): any {

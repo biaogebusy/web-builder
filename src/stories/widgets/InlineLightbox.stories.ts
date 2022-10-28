@@ -10,7 +10,7 @@ import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { DynamicWidgetsComponent } from '@uiux/widgets/dynamic-widgets/dynamic-widgets.component';
 import { StorysModule } from '@core/storys.module';
 export default {
-  title: '基础/行内 Lightbox',
+  title: '基础组件/行内 Lightbox',
   id: 'inline-lightbox',
   component: InlineLightboxComponent,
   decorators: [

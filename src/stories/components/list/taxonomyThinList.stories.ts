@@ -9,7 +9,7 @@ import { TaxonomyThinListComponent } from '@uiux/combs/list/taxonomy-thin-list/t
 import { StorysModule } from '@core/storys.module';
 
 export default {
-  title: '组件/列表/分类列表（thin）',
+  title: '复合组件/列表/分类列表（thin）',
   id: 'taxonomy-thin-list',
   component: TaxonomyThinListComponent,
   decorators: [

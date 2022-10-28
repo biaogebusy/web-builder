@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import type { IControl } from '@core/interface/widgets/IControl';
-import { FormState } from '@core/mobx/FormState';
+import { FormService } from '@core/service/form.service';
 @Component({
   selector: 'app-input',
   templateUrl: './input.component.html',
@@ -18,7 +18,10 @@ export class InputComponent implements OnInit {
   @Input() content: IControl;
   @Input() form: FormGroup;
   autoLists: any[];
-  constructor(private formState: FormState, private cd: ChangeDetectorRef) {}
+  constructor(
+    private formService: FormService,
+    private cd: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     if (this.content.mode === 'autocomplete') {
@@ -34,7 +37,7 @@ export class InputComponent implements OnInit {
   }
 
   getAutoList(): void {
-    this.formState.autoList$.subscribe((res: any[]) => {
+    this.formService.autoList$.subscribe((res: any[]) => {
       this.autoLists = res;
       this.cd.detectChanges();
     });

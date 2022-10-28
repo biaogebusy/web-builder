@@ -4,7 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { IProgressBar } from '@core/interface/widgets/IWidgets';
+import type { IProgressBar } from '@core/interface/widgets/IWidgets';
 
 @Component({
   selector: 'app-progress-bar',

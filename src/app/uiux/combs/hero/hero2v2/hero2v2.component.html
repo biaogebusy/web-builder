@@ -1,9 +1,7 @@
 <div class="hero-2-v2 position-relative p-y-xl">
   <a class="anchor" [id]="content.id||''"></a>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
-  <app-bg [content]="content.bg" *ngIf="content.bg">
-    <app-img [content]="content.bg.img" *ngIf="content.bg.img"></app-img>
-  </app-bg>
+  <app-bg-img [content]="content.bg"></app-bg-img>
   <div class="container position-relative">
     <div class="inner" fxFlex.lt-md="100" fxFlex.gt-sm="58" fxFlexOffset.gt-sm="42">
       <div class="box p-x">

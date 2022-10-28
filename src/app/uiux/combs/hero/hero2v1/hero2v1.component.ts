@@ -4,7 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { ScreenState } from '@core/mobx/screen/ScreenState';
+import type { ITextHero } from '@core/interface/widgets/IText';
 
 @Component({
   selector: 'app-hero2v1',
@@ -13,7 +13,7 @@ import { ScreenState } from '@core/mobx/screen/ScreenState';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Hero2v1Component implements OnInit {
-  @Input() content: any;
+  @Input() content: ITextHero;
   constructor() {}
 
   ngOnInit(): void {}

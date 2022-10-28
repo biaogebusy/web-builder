@@ -8,7 +8,7 @@ import {
   Inject,
 } from '@angular/core';
 import type { ICommentConfig } from '@core/interface/node/INode';
-import { ContentState } from '@core/mobx/ContentState';
+import { ContentState } from '@core/state/ContentState';
 import { USER } from '@core/token/token-providers';
 import type { IUser } from '@core/interface/IUser';
 
