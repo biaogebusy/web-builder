@@ -12,7 +12,7 @@ import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { PlayerComponent } from '@uiux/widgets/media/player/player.component';
 
 export default {
-  title: '示例页面/首页示例/v4',
+  title: '示例页面/首页示例/v4 应用介绍',
   id: 'home-v4',
   component: BlockComponent,
   decorators: [

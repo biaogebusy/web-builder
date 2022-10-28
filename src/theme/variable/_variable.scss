@@ -39,3 +39,26 @@ $spacer: 4rem;
 $font-size: 1.6rem;
 $font-size-sm: 1.4rem;
 $line-height: 1.618;
+
+@media #{$lt-md} {
+  .mat-display-1 {
+    font-size: 20px !important;
+    line-height: 1.2 !important;
+    margin-bottom: 20px !important;
+  }
+  .mat-display-2 {
+    font-size: 24px !important;
+    line-height: 1.2 !important;
+    margin-bottom: 20px !important;
+  }
+  .mat-display-3 {
+    font-size: 32px !important;
+    line-height: 1.2 !important;
+    margin-bottom: 20px !important;
+  }
+  .mat-display-4 {
+    font-size: 40px !important;
+    line-height: 1.2 !important;
+    margin-bottom: 20px !important;
+  }
+}

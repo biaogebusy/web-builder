@@ -5,7 +5,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { IShowcase3v6 } from '@core/interface/combs/IShowcase';
+import type { IShowcase3v6 } from '@core/interface/combs/IShowcase';
 import type { IUser } from '@core/interface/IUser';
 import { USER } from '@core/token/token-providers';
 import { BaseComponent } from '@uiux/base/base.widget';
