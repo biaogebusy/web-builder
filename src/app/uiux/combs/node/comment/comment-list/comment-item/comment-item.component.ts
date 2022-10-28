@@ -16,7 +16,7 @@ import { UtilitiesService } from '@core/service/utilities.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ScreenService } from '@core/service/screen.service';
-import { ContentState } from '@core/mobx/ContentState';
+import { ContentState } from '@core/state/ContentState';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type { IUser } from '@core/interface/IUser';

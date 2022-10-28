@@ -9,7 +9,7 @@ import base from '../../assets/app/core/base.json';
 import branding from '../../assets/app/core/branding.json';
 import { ActivatedRoute } from '@angular/router';
 import { pageContentFactory } from '@core/factory/factory';
-import { ContentState } from '@core/mobx/ContentState';
+import { ContentState } from '@core/state/ContentState';
 import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
 import { ContentService } from '@core/service/content.service';
 import {

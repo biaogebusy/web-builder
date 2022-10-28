@@ -9,7 +9,7 @@ import { catchError } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
 import { isArray } from 'lodash-es';
 import { TagsService } from '@core/service/tags.service';
-import { ScreenState } from '@core/mobx/screen/ScreenState';
+import { ScreenState } from '@core/state/screen/ScreenState';
 import { ApiService } from '@core/service/api.service';
 import { LocalStorageService } from 'ngx-webstorage';
 import { MODE } from '@core/factory/factory';

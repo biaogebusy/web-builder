@@ -3,7 +3,7 @@ import { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { ContentService } from '@core/service/content.service';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { ContentState } from '@core/mobx/ContentState';
+import { ContentState } from '@core/state/ContentState';
 import { LocalStorageService } from 'ngx-webstorage';
 import { IBranding } from '../interface/IBranding';
 import { CryptoJSService } from '@core/service/crypto-js.service';

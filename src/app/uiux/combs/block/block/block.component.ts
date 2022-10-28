@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import type { IPage } from '@core/interface/IAppConfig';
 import { PAGE_CONTENT } from '@core/token/token-providers';
 import { ActivatedRoute } from '@angular/router';
-import { ContentState } from '@core/mobx/ContentState';
+import { ContentState } from '@core/state/ContentState';
 import { pageContentFactory } from '@core/factory/factory';
 import { ContentService } from '@core/service/content.service';
 

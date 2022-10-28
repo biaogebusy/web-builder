@@ -6,7 +6,7 @@ import {
   ChangeDetectionStrategy,
   Inject,
 } from '@angular/core';
-import { ScreenState } from '@core/mobx/screen/ScreenState';
+import { ScreenState } from '@core/state/screen/ScreenState';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { ScreenService } from '@core/service/screen.service';
 import { PAGE_CONTENT } from '@core/token/token-providers';

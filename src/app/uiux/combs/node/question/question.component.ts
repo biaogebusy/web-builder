@@ -17,7 +17,7 @@ import { NodeComponent } from '@uiux/base/node.widget';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { LoginComponent } from 'src/app/modules/user/login/login.component';
-import { ContentState } from '@core/mobx/ContentState';
+import { ContentState } from '@core/state/ContentState';
 import type { IUser } from '@core/interface/IUser';
 import { USER } from '@core/token/token-providers';
 

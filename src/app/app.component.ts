@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit, Inject } from '@angular/core';
-import { ScreenState } from './core/mobx/screen/ScreenState';
+import { ScreenState } from './core/state/screen/ScreenState';
 import { MatDrawer } from '@angular/material/sidenav';
 import { ActivatedRoute } from '@angular/router';
 import { ScreenService } from '@core/service/screen.service';

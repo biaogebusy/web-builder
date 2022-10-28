@@ -6,7 +6,7 @@ import {
   OnInit,
 } from '@angular/core';
 import type { IHeaderTop } from '@core/interface/IBranding';
-import { ScreenState } from '@core/mobx/screen/ScreenState';
+import { ScreenState } from '@core/state/screen/ScreenState';
 import { ScreenService } from '@core/service/screen.service';
 
 @Component({
