@@ -10,11 +10,11 @@ import {
 } from '@angular/core';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { IBtn } from '@core/interface/widgets/IBtn';
+import type { IBtn } from '@core/interface/widgets/IBtn';
 import type { IText } from '@core/interface/widgets/IText';
 import { ScreenService } from '@core/service/screen.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
-import { ICoreConfig } from '@core/interface/IAppConfig';
+import type { ICoreConfig } from '@core/interface/IAppConfig';
 
 @Component({
   selector: 'app-text',
@@ -61,7 +61,7 @@ export class TextComponent implements OnInit, AfterViewInit {
         end: 'bottom 30%',
         markers: false,
         scrub: false, // 滚动一次动画就对应更新，细粒度控制，适合根据鼠标滚动精细变化
-        toggleActions: 'play resume reverse resume', // onEnter, onLeave, onEnterBack, and onLeaveBack
+        toggleActions: 'play pause resume reset', // onEnter, onLeave, onEnterBack, and onLeaveBack
       },
     });
 
