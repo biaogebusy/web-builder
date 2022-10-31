@@ -4,6 +4,8 @@ import { ILink } from '../widgets/ILink';
 import { IBtnAnimate } from '../widgets/IBtnAnimate';
 import { IText } from '../widgets/IText';
 import { IMediaObject } from '../widgets/IMediaObject';
+import { ITitle } from '../widgets/ITitle';
+import { IImg } from '../widgets/IImg';
 
 export interface IShowcase2v1 extends ICombsBase {
   elements: any[];
@@ -11,6 +13,22 @@ export interface IShowcase2v1 extends ICombsBase {
     api: string;
     widget: string;
   };
+}
+
+export interface IShowcase3v1 extends ICombsBase {
+  title: ITitle;
+  bgImg?: string;
+  carousel?: any;
+  content: string;
+}
+
+export interface IShowcase3v2 extends ICombsBase {
+  title: ITitle;
+  subTitle: string;
+  elements: {
+    img: IImg;
+    content: IText;
+  }[];
 }
 
 export interface IShowcase3v3 extends ICombsBase {

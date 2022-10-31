@@ -29,6 +29,7 @@ export class Showcase2v1Component
   }
 
   ngOnInit(): void {}
+
   ngAfterViewInit(): void {
     const api = this.getParams(this.content, 'api');
     const type = this.getParams(this.content, 'widget');
