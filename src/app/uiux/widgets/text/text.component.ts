@@ -81,39 +81,55 @@ export class TextComponent implements OnInit, AfterViewInit {
     }
 
     if (title) {
-      tl.from(title, {
-        y: 100,
-        autoAlpha: 0,
-        duration: 2,
-        ease: 'expo.out',
-      });
+      tl.from(
+        title,
+        {
+          y: 100,
+          autoAlpha: 0,
+          duration: 2,
+          ease: 'expo.out',
+        },
+        '<0.5'
+      );
     }
 
     if (body) {
-      tl.from(body, {
-        y: 100,
-        autoAlpha: 0,
-        duration: 1,
-        ease: 'expo.out',
-      });
+      tl.from(
+        body,
+        {
+          y: 100,
+          autoAlpha: 0,
+          duration: 1,
+          ease: 'expo.out',
+        },
+        '<0.5'
+      );
     }
 
     if (list) {
-      tl.from(list, {
-        y: 100,
-        autoAlpha: 0,
-        duration: 1,
-        ease: 'expo.out',
-      });
+      tl.from(
+        list,
+        {
+          y: 100,
+          autoAlpha: 0,
+          duration: 1,
+          ease: 'expo.out',
+        },
+        '<0.5'
+      );
     }
 
     if (actions) {
-      tl.from(actions, {
-        y: 100,
-        autoAlpha: 0,
-        duration: 1,
-        ease: 'expo.out',
-      });
+      tl.from(
+        actions,
+        {
+          y: 100,
+          autoAlpha: 0,
+          duration: 1,
+          ease: 'expo.out',
+        },
+        '<0.5'
+      );
     }
   }
 
