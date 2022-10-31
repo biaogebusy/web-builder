@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { IText } from '@core/interface/widgets/IText';
 
 @Component({
   selector: 'app-showcase1v3',
@@ -13,7 +14,14 @@ import {
 })
 export class Showcase1v3Component implements OnInit {
   @Input() content: any;
+  text: IText;
+
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.text = {
+      title: this.content.title,
+      spacer: 'none',
+    };
+  }
 }

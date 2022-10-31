@@ -5,10 +5,11 @@
   <app-bg [content]="content.bg" *ngIf="content.bg">
   </app-bg>
   <div class="container">
-    <app-title *ngIf="content.title" [content]="content.title"></app-title>
-    <div *ngIf="content.content" class="showcase-content" [innerHTML]="content.content | safeHtml"></div>
-    <app-swiper class="text-center" *ngIf="content?.carousel.elements.length > 1;else img" [content]="content.carousel">
-    </app-swiper>
+    <app-text *ngIf="text" [content]="text"></app-text>
+    <ng-container *ngIf="content?.carousel?.elements.length > 0;else img">
+      <app-swiper class="text-center"  [content]="content.carousel">
+      </app-swiper>
+    </ng-container>
     <ng-template #img>
       <div class="text-center">
         <app-img [content]="content.carousel.elements[0]"></app-img>

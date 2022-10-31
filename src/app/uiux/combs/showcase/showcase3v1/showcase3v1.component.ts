@@ -1,9 +1,11 @@
+import { IText } from '@core/interface/widgets/IText';
 import {
   ChangeDetectionStrategy,
   Component,
   Input,
   OnInit,
 } from '@angular/core';
+import { IShowcase3v1 } from '@core/interface/combs/IShowcase';
 
 @Component({
   selector: 'app-showcase3v1',
@@ -12,8 +14,16 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Showcase3v1Component implements OnInit {
-  @Input() content: any;
+  @Input() content: IShowcase3v1;
+  text: IText;
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.text = {
+      title: this.content.title,
+      spacer: 'none',
+      body: this.content.content,
+      classes: 'text-center',
+    };
+  }
 }
