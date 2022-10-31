@@ -1,4 +1,7 @@
 @import "/src/theme/mixins/amixin";
+:host {
+  display: block;
+}
 .title {
   text-align: center;
   &.style-v1,

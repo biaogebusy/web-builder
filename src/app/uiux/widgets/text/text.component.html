@@ -1,17 +1,17 @@
 <div [id]="content.id || ''" class="base-text position-relative" *ngIf="content">
   <app-spacer [size]="content.spacer || 'md'"></app-spacer>
-  <app-bg-img [content]="content.bg" *ngIf="content.bg"></app-bg-img>
+  <app-bg-img #bg [content]="content.bg" *ngIf="content.bg"></app-bg-img>
   <div class="container">
-    <div class="inner" [ngClass.gt-sm]="content.classes" [ngStyle.gt-sm]="content.style">
-      <app-title [content]="content.title" *ngIf="content.title"></app-title>
-      <div class="text-body" [innerHTML]="content.body | safeHtml" *ngIf="content.body"></div>
-      <ul class="lists m-y-sm" [class.list-done]="content.lists?.params?.icon" *ngIf="content.lists?.elements"
+    <div #inner class="inner" [ngClass.gt-sm]="content.classes" [ngStyle.gt-sm]="content.style">
+      <app-title #title [content]="content.title" *ngIf="content.title"></app-title>
+      <div #body class="text-body" [innerHTML]="content.body | safeHtml" *ngIf="content.body"></div>
+      <ul #list class="lists m-y-sm" [class.list-done]="content.lists?.params?.icon" *ngIf="content.lists?.elements"
         fxLayout="column">
         <li *ngFor="let list of content.lists?.elements" fxLayout="row" fxLayoutAlign="start center">
           <app-link [content]="list"></app-link>
         </li>
       </ul>
-      <div class="actions m-top p-bottom-xs" *ngIf="content.actions" fxLayoutAlign="{{content.actionsAlign || 'start center'}}">
+      <div #actions class="actions m-top p-bottom-xs" *ngIf="content.actions" fxLayoutAlign="{{content.actionsAlign || 'start center'}}">
         <ng-container *ngFor="let action of content.actions">
           <ng-container [ngSwitch]="action.type">
             <button *ngSwitchCase="'closeDialog'" mat-raised-button mat-dialog-close color="{{action.color||'primary'}}"

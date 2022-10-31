@@ -41,6 +41,7 @@ export interface ICoreConfig {
     };
     api: INotify[];
   };
+  animate?: boolean;
 }
 
 export interface INotify {
