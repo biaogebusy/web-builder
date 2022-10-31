@@ -70,7 +70,7 @@ export class Showcase3v2Component implements OnInit, AfterViewInit {
     });
   }
 
-  isEven(n): boolean {
+  isEven(n: number): boolean {
     return n % 2 == 0;
   }
 }
