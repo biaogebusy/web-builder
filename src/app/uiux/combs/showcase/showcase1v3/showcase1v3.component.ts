@@ -1,5 +1,6 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   Input,
   OnInit,
@@ -16,12 +17,13 @@ export class Showcase1v3Component implements OnInit {
   @Input() content: any;
   text: IText;
 
-  constructor() {}
+  constructor(private cd: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.text = {
       title: this.content.title,
       spacer: 'none',
     };
+    this.cd.detectChanges();
   }
 }

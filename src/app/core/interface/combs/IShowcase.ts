@@ -5,7 +5,6 @@ import { IBtnAnimate } from '../widgets/IBtnAnimate';
 import { IText } from '../widgets/IText';
 import { IMediaObject } from '../widgets/IMediaObject';
 import { ITitle } from '../widgets/ITitle';
-import { ISwiper } from '../widgets/ISwiper';
 import { IImg } from '../widgets/IImg';
 
 export interface IShowcase2v1 extends ICombsBase {

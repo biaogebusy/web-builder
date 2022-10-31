@@ -24,6 +24,7 @@ import type { ICoreConfig } from '@core/interface/IAppConfig';
 })
 export class TextComponent implements OnInit, AfterViewInit {
   @Input() content: IText;
+  @Input() animate = true;
   @ViewChild('inner', { read: ElementRef }) inner: ElementRef;
   @ViewChild('title', { read: ElementRef }) title: ElementRef;
   @ViewChild('body', { read: ElementRef }) body: ElementRef;
@@ -42,23 +43,28 @@ export class TextComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    if (this.screenService.isPlatformBrowser() && this.coreConfig.animate) {
-      this.animate();
+    if (
+      this.screenService.isPlatformBrowser() &&
+      this.coreConfig.animate &&
+      this.animate
+    ) {
+      this.showAnimate();
     }
   }
 
-  animate(): void {
+  showAnimate(): void {
     const title: Element = this.title?.nativeElement;
     const body: Element = this.body?.nativeElement;
     const list: Element = this.list?.nativeElement;
     const actions: Element = this.actions?.nativeElement;
     const bg: Element = this.bg?.nativeElement;
 
-    let tl = gsap.timeline({
+    const tl = gsap.timeline({
       scrollTrigger: {
+        id: 'text',
         trigger: this.inner.nativeElement,
         start: 'top 85%', // [触发元素开始的地方,视口开始的位置],
-        end: 'bottom 30%',
+        end: 'bottom 75px',
         markers: false,
         scrub: false, // 滚动一次动画就对应更新，细粒度控制，适合根据鼠标滚动精细变化
         toggleActions: 'play pause resume reset', // onEnter, onLeave, onEnterBack, and onLeaveBack
@@ -84,29 +90,21 @@ export class TextComponent implements OnInit, AfterViewInit {
     }
 
     if (body) {
-      tl.from(
-        body,
-        {
-          y: 100,
-          autoAlpha: 0,
-          duration: 1,
-          ease: 'expo.out',
-        },
-        '-=1'
-      );
+      tl.from(body, {
+        y: 100,
+        autoAlpha: 0,
+        duration: 1,
+        ease: 'expo.out',
+      });
     }
 
     if (list) {
-      tl.from(
-        list,
-        {
-          y: 100,
-          autoAlpha: 0,
-          duration: 1,
-          ease: 'expo.out',
-        },
-        '-=1'
-      );
+      tl.from(list, {
+        y: 100,
+        autoAlpha: 0,
+        duration: 1,
+        ease: 'expo.out',
+      });
     }
 
     if (actions) {
