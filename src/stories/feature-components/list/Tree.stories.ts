@@ -18,7 +18,7 @@ export default {
     }),
     componentWrapperDecorator(
       (story) =>
-        `<div class="position-relative p-x p-y" style="z-index:1">${story}</div>`
+        `<div fxFlex="33.33" class="position-relative p-x p-y" style="z-index:1">${story}</div>`
     ),
   ],
 } as Meta;
