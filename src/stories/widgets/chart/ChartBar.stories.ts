@@ -39,7 +39,7 @@ const Template: Story = (args) => ({
 export const Bar = Template.bind({});
 Bar.storyName = '柱状图';
 Bar.args = {
-  chartOption: {
+  content: {
     title: {
       text: '年度活动金额预算',
       subtext: '南宁',

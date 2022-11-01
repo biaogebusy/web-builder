@@ -39,7 +39,7 @@ const Template: Story = (args) => ({
 export const Pie = Template.bind({});
 Pie.storyName = '饼图';
 Pie.args = {
-  chartOption: {
+  content: {
     title: {
       text: '金额预算占比',
       subtext: '2022年9月',

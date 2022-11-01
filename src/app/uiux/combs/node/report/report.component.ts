@@ -13,4 +13,8 @@ export class ReportComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
+  clear(): void {
+    this.form.reset();
+  }
 }

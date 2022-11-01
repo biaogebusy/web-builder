@@ -7,6 +7,7 @@ import { Story } from '@storybook/angular/types-6-0';
 import { NodeModule } from '@uiux/combs/node/node.module';
 import { StorysModule, sleep } from '@core/storys.module';
 import { ReportComponent } from '@uiux/combs/node/report/report.component';
+import { FormGroup } from '@angular/forms';
 
 export default {
   title: '示例页面/内容类型/统计报告',
@@ -36,12 +37,14 @@ const Template: Story = (args) => ({
 });
 export const Default = Template.bind({});
 Default.args = {
+  form: new FormGroup({}),
+  model: {},
   content: {
     header: {
       text: {
         spaver: 'none',
         title: {
-          label: '南宁互联网职业求职渠道调查',
+          label: '十一月份我的福利投票统计',
           style: 'style-v4',
           classes: 'mat-display-3 m-bottom-0',
         },
@@ -63,49 +66,80 @@ Default.args = {
     },
     form: [
       {
-        key: 'max',
-        className: 'm-bottom-sm',
+        key: 'filter',
+        className: '',
         fieldGroupClassName: 'display-flex flex-wrap',
         fieldGroup: [
           {
-            type: 'input',
-            key: 'total',
-            defaultValue: 300,
-            className: 'm-right-sm',
+            type: 'select',
+            key: 'position',
+            defaultValue: 5,
+            className: 'display-block m-bottom-sm m-right-sm',
             templateOptions: {
-              label: '大额红包总金额',
-              appearance: 'outline',
-              type: 'number',
-              required: true,
-              min: 10,
-              max: 10000,
-              description: '最小10元，最大10000元',
-            },
-            validation: {
-              messages: {
-                min: '不能设置小于 10',
-                max: '不能设置大于 10000',
-              },
+              label: '位置距离',
+              description: '请选择位置距离',
+              options: [
+                {
+                  label: '0.5公里',
+                  value: 0.5,
+                },
+                {
+                  label: '1公里',
+                  value: 1,
+                },
+                {
+                  label: '2公里',
+                  value: 2,
+                },
+                {
+                  label: '3公里',
+                  value: 3,
+                },
+                {
+                  label: '4公里',
+                  value: 4,
+                },
+                {
+                  label: '5公里',
+                  value: 5,
+                },
+                {
+                  label: '10公里',
+                  value: 10,
+                },
+                {
+                  label: '20公里',
+                  value: 20,
+                },
+                {
+                  label: '50公里',
+                  value: 50,
+                },
+                {
+                  label: '100公里',
+                  value: 100,
+                },
+              ],
             },
           },
           {
-            type: 'input',
-            key: 'per',
-            defaultValue: 10,
+            type: 'select',
+            key: 'shop',
+            defaultValue: 5,
+            className: 'display-block m-bottom-sm m-right-sm',
             templateOptions: {
-              label: '大额红包平均每次可抽得',
-              appearance: 'outline',
-              type: 'number',
-              required: true,
-              min: 0.5,
-              max: 100,
-              description: '最小0.5元，最大100元',
-            },
-            validation: {
-              messages: {
-                min: '不能设置小于 0.5',
-                max: '不能设置大于 100',
-              },
+              label: '指定门店',
+              description: '请选择门店',
+              options: [
+                {
+                  label: '南宁市西乡塘区爱特买百货超市',
+                  value: 26,
+                },
+                {
+                  label: '钦州协盛百货有限公司',
+                  value: 6,
+                },
+              ],
             },
           },
         ],
@@ -191,23 +225,24 @@ Default.args = {
         },
         dataset: [
           {
-            dimensions: ['name', 'age', 'profession', 'score', 'date'],
+            dimensions: ['name', 'total'],
             source: [
-              ['Hannah Krause', 41, 'Engineer', 314, '2011-02-12'],
-              ['Zhao Qian', 20, 'Teacher', 351, '2011-03-01'],
-              ['Jasmin Krause ', 52, 'Musician', 287, '2011-02-14'],
-              ['Li Lei', 37, 'Teacher', 219, '2011-02-18'],
-              ['Karle Neumann', 25, 'Engineer', 253, '2011-04-02'],
-              ['Adrian Groß', 19, 'Teacher', '-', '2011-01-16'],
-              ['Mia Neumann', 71, 'Engineer', 165, '2011-03-19'],
-              ['Böhm Fuchs', 36, 'Musician', 318, '2011-02-24'],
-              ['Han Meimei', 67, 'Engineer', 366, '2011-03-12'],
+              ['新鲜蔬菜', 152],
+              ['当季水果', 123],
+              ['豆制类品', 109],
+              ['海鲜水产', 90],
+              ['淡水水产', 75],
+              ['鸡鸭鹅肉', 55],
+              ['猪牛羊肉', 35],
+              ['禽蛋', 25],
+              ['脸盆水桶', 22],
+              ['懒人拖把', 10],
             ],
           },
           {
             transform: {
               type: 'sort',
-              config: { dimension: 'score', order: 'desc' },
+              config: { dimension: 'total', order: 'desc' },
             },
           },
         ],
@@ -218,7 +253,7 @@ Default.args = {
         yAxis: {},
         series: {
           type: 'bar',
-          encode: { x: 'name', y: 'score' },
+          encode: { x: 'name', y: 'total' },
           datasetIndex: 1,
         },
       },

@@ -38,7 +38,7 @@ const Template: Story = (args) => ({
 export const Line = Template.bind({});
 
 Line.args = {
-  chartOption: {
+  content: {
     title: {
       text: '年度活动金额预算',
       subtext: '南宁',
@@ -79,7 +79,7 @@ Line.args = {
 export const LineTime = Template.bind({});
 LineTime.storyName = '折线图';
 LineTime.args = {
-  chartOption: {
+  content: {
     title: {
       text: '超市宣传上新红包抽奖趋势图',
       subtext: '万科金域缇香店',
