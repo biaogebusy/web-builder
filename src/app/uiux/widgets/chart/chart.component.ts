@@ -14,7 +14,6 @@ import type { EChartsOption } from 'echarts';
 })
 export class ChartComponent implements OnInit {
   @Input() content: EChartsOption;
-  @Input() chartOption: EChartsOption;
   constructor() {}
 
   ngOnInit(): void {}

@@ -24,6 +24,7 @@ import { LawHeaderComponent } from './law/law-header/law-header.component';
 import { CommentActionsComponent } from './comment/comment-actions/comment-actions.component';
 import { CommentItemComponent } from './comment/comment-list/comment-item/comment-item.component';
 import { LawTabComponent } from './law/law-tab/law-tab.component';
+import { ReportComponent } from './report/report.component';
 
 const components = [
   JobComponent,
@@ -47,6 +48,7 @@ const components = [
   LawHeaderComponent,
   CommentActionsComponent,
   LawTabComponent,
+  ReportComponent,
 ];
 @NgModule({
   declarations: [...components],
@@ -58,6 +60,7 @@ const components = [
     QuestionComponent,
     JobComponent,
     LawCaseComponent,
+    ReportComponent,
   ],
 })
 export class NodeModule {}

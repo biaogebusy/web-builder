@@ -30,7 +30,7 @@
             </div>
           </div>
           <div class="right" fxFlex.lt-md="100" fxFlex.gt-sm="50%">
-            <app-chart *ngIf="chart" [chartOption]="chart"></app-chart>
+            <app-chart *ngIf="chart" [content]="chart"></app-chart>
           </div>
         </div>
         <div *ngIf="content.description" fxFlex="100%" class="description m-y-sm"

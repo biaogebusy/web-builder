@@ -1,0 +1,18 @@
+@import "~@angular/material/theming";
+
+@mixin report-color($config-or-theme) {
+  $config: mat-get-color-config($config-or-theme);
+  $foreground: map-get($config, foreground);
+  $background: map-get($config, background);
+  $primary: map-get($config, primary);
+  $accent: map-get($config, accent);
+  $warn: map-get($config, warn);
+
+  $text-color: mat-color($foreground, text, 0.75);
+  .report {
+    background-color: mat-color($primary, 0.07);
+    .box {
+      background-color: mat-color($background, card);
+    }
+  }
+}

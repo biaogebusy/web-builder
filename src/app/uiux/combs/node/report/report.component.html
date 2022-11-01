@@ -1,0 +1,19 @@
+<div class="report">
+  <div class="container">
+    <div class="report-header position-relative" fxLayout="row wrap" fxLayoutAlign="space-between	center">
+      <app-text fxFlex.lt-md="100" fxFlex.gt-sm="50" [content]="content.header.text"></app-text>
+      <div fxFlexAlign="end center" fxFlex.lt-md="100" fxFlex.gt-sm="50" class="meta" fxLayout="row">
+        <div class="item" *ngFor="let item of content.header.meta" fxLayout="column" fxLayoutAlign="center center">
+          <span class="label">{{item.label}}</span>
+          <span class="value mat-display-2 m-bottom-0">{{item.value}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="box filter p-x-sm p-y-sm">
+      <app-formly [form]="form" [model]="model" [fields]="content.form"></app-formly>
+    </div>
+    <div class="box details p-x-sm p-y-sm">
+     <app-dynamic-widgets class="display-block m-bottom" [content]="box" *ngFor="let box of content.box"></app-dynamic-widgets>
+    </div>
+  </div>
+</div>
