@@ -15,6 +15,7 @@
     "infinity1207.angular2-switcher",
     "Angular.ng-template",
     "MariusAlchimavicius.json-to-ts",
-    "formulahendry.auto-rename-tag"
+    "formulahendry.auto-rename-tag",
+    "lukasz-wronski.ftp-sync"
   ]
 }

@@ -1,0 +1,26 @@
+.report {
+  min-height: 100vh;
+  ::ng-deep {
+    .dynamic-table {
+      padding: 2rem;
+    }
+  }
+}
+.report-header {
+  .meta {
+    .item {
+      margin-left: 4rem;
+      .label {
+        font-size: 18px;
+        font-weight: lighter;
+      }
+    }
+  }
+}
+.box {
+  border-radius: 4px;
+  margin-bottom: 4rem;
+  ::ng-deep .chart {
+    height: 800px;
+  }
+}

@@ -6,10 +6,10 @@
   <div class="container">
     <app-text *ngIf="content.text" [content]="content.text"></app-text>
     <div class="inner" fxLayout="row wrap" fxLayoutAlign="center center">
-      <app-formly [ngClass]="'m-y p-x-sm'" fxFlex.lt-md="100" fxFlex.gt-sm="50%" [fields]="content.form" [form]="form"
+      <app-formly [ngClass]="'m-y p-x-sm'" fxFlex.lt-md="100" fxFlex.gt-sm="40%" [fields]="content.form" [form]="form"
         [model]="model" (modelChange)="onFormlyChange($event)">
       </app-formly>
-      <div fxFlex.lt-md="100" fxFlex.gt-sm="50%" fxLayout="column">
+      <div fxFlex.lt-md="100" fxFlex.gt-sm="60%" fxLayout="column">
         <div class="result p-x-sm p-y" fxLayout="row wrap" fxLayoutAlign="space-between center">
           <div class="left" fxFlex.lt-md="100" fxFlex.gt-sm="50" fxLayoutAlign="center center" fxLayout="column">
             <h2>红包大约需要总预算</h2>
@@ -30,7 +30,7 @@
             </div>
           </div>
           <div class="right" fxFlex.lt-md="100" fxFlex.gt-sm="50%">
-            <app-chart *ngIf="chart" [chartOption]="chart"></app-chart>
+            <app-chart *ngIf="chart" [content]="chart" [data]="content.data"></app-chart>
           </div>
         </div>
         <div *ngIf="content.description" fxFlex="100%" class="description m-y-sm"

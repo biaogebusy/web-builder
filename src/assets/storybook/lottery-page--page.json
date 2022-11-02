@@ -263,6 +263,34 @@
           ]
         }
       ],
+      "data": {
+        "toggle": [
+          {
+            "label": "饼图",
+            "icon": {
+              "name": "pie_chart",
+              "inline": true
+            },
+            "value": "pie"
+          },
+          {
+            "label": "柱状图",
+            "icon": {
+              "name": "equalizer",
+              "inline": true
+            },
+            "value": "bar"
+          },
+          {
+            "label": "折线图",
+            "icon": {
+              "name": "show_chart",
+              "inline": true
+            },
+            "value": "line"
+          }
+        ]
+      },
       "chart": {
         "color": [
           "#0071a2",
@@ -275,6 +303,10 @@
         "legend": {
           "bottom": "0"
         },
+        "xAxis": {
+          "type": "category"
+        },
+        "yAxis": {},
         "series": [
           {
             "name": "预算占比",

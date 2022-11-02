@@ -1,6 +1,6 @@
 {
   "name": "xinshi",
-  "version": "3.0.0",
+  "version": "3.0.4",
   "homepage": "https://biaogebusy.github.io/xinshi-angular",
   "scripts": {
     "ng": "ng",

@@ -1,77 +1,74 @@
-# 远方信使 Xinshi
+# 信使前端框架
 
-- 远方信使是一个使用 Drupal 提供 API 的 Angular 前端开发学习框架，拥有丰富的前端组件，通过 Drupal Pannel 可快速构建 Landing 营销着陆页；
-- 拥有丰富的前端组件，支持多应用构建；
+信使是基于 Material UI 的 Angular 前端框架，提供优秀的数字创新体验，快速构建响应式优先的 Web 项目。这是一套完整的前端解决方案，包含工程构建，主题定制等功能，极大提升了开发效率，如果您的业务中面向前台业务的，不妨看看。
 
-## Demo
+- 为了适配 IE11 目前的版本保持在 Angular v11；
+- 支持 SSR 服务端渲染；
+- 支持多主题、暗黑模式；
+- 全局配置、品牌菜单配置、主题配置、API、用户状态在 app.module 中注入，不同的项目可覆盖 Token 改变业务逻辑；
+- 页面内容数据通过当前页面的 url 来读取 api，根据返回的 body 数组渲染对应的组件；
+- 框架全面使用 Storybook 进行开发、测试和文档的更新；
 
-- [信使首页](https://www.zhaobg.com)
+## 开始开发
 
-## 开发 Development server
+## environment 开发环境设置
+
+```javascript
+export const environment: IEnvironment = {
+  apiUrl: "http://localhost:4200",
+  production: false,
+  site: "dist",
+  port: 4200,
+  cache: false,
+  ssr: false,
+  drupalProxy: false,
+};
+```
+
+- apiUrl: 是整个应用的 Base api 参数；
+- production: 为 false 时，页面的内容 api 将调用本地 json 文件，`${this.apiUrl}/assets/app${this.pageUrl}.json`，true 时将会调用`${this.apiUrl}/api/v1/landingPage?content=${this.pageUrl}`接口；
+- site: prod 打包时生成的文件夹名称，此设置是为了生存多个站点项目；
+- port: 自定义应用端口；
+- cache: 是否开启 api 请求缓存；
+- ssr: 是否使用 SSR 服务端渲染方式；
+- drupalProxy: 对应后端为 drupal，统一使用 Drupal 来登录登出；
+
+## 路由守卫配置
+
+默认会读取 `/api/v1/config` 的全局配置信息，这里主要是查看该站点是否是开放还是需要登录的，文件路径`src/app/core/guards/auth.guard.ts`，本地开发时可注释掉大概 35 行`reture true；`；
+
+## 代理
+
+配置文件`config/proxy.config.js`，本地开发时，会根据对应的 api url 前缀进行代理转发，根据实际情况进行配置；
+
+```javascript
+const PROXY_CONFIG = [
+  {
+    context: ["/api", "/user", "/sites"],
+    target: "https://api.zhaobg.com",
+    secure: false,
+    changeOrigin: true,
+  },
+];
+
+module.exports = PROXY_CONFIG;
+```
+
+## 运行
 
 `npm start`
 
-## 打包 Build
+## 为生产环境打包
 
-`npm run build`
+`npm run build:ssr`
 
-## 支持 CSR 和 SSR
+## 运行 Storybook
 
-### SSR
+`npm run storybook`
 
-SSR config，set cache true enabel api cache
+> 如果有提示内存不足的报错，可在命令行执行`export NODE_OPTIONS="--max-old-space-size=8192"`，然后重新运行。
 
-```javascript
-export const environment: IEnvironment = {
-  production: true,
-  site: "{{siteId}}",
-  port: 4200,
-  cache: true,
-  ssr: true,
-};
-```
+## Storybook 相关资源
 
-### CSR
-
-```javascript
-export const environment: IEnvironment = {
-  production: true,
-  site: "{{siteId}}",
-  port: 4200,
-  cache: false,
-  ssr: false,
-};
-```
-
-## 本地调式线上环境
-
-- 配置本地开发环境
-
-```javascript
-export const environment: IEnvironment = {
-  production: true, // 设置为true读取线上环境数据
-  site: "xinshi",
-  port: 4000,
-  cache: false,
-  ssr: false,
-  drupalProxy: true, // 如果站点前后台统一的域名，需要设置为ture，这样可以自动获取用户信息
-};
-```
-
-- 配置 proxy 代理
-  进入 `cofing/proxy.config.json`，检查和新增对应需要的代理
-
-- 配置 cookies
-  Drupal Proxy 的情况下，路由守卫会自动调转到 `/my`，通过本地 cookie 来获取用户信息自动登录，所以需要用户先在在线环境登录，进入 devTool 直接修改该对应站点的 cookie 的 path 为`localhost:4200`，这样本地就有了 cookies 信息
-
-## 微信公众号：Drupal 自习室
-
-![Drupal 自习室](./src/assets/images/qrcode.jpg)
-
-## Storybook angular guide
-
-[get started](https://storybook.js.org/tutorials/intro-to-storybook/angular/en/get-started/)
-
-## 扫码入群，或加微信：biaogebusy
-
-![交流群](./src/assets/images/qrcode.png)
+- [官网](https://storybook.js.org/)
+- [play test query](https://testing-library.com/docs/queries/about)
