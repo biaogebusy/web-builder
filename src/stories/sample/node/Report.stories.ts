@@ -142,119 +142,233 @@ Default.args = {
               ],
             },
           },
+          {
+            type: 'date-range',
+            key: 'date',
+            templateOptions: {
+              label: '日期范围',
+              value: '',
+              placeholder: '选择发布日期',
+            },
+            fieldGroup: [
+              {
+                type: 'input',
+                key: 'start',
+                placeholder: '开始',
+              },
+              {
+                type: 'input',
+                key: 'end',
+                placeholder: '结束',
+              },
+            ],
+          },
         ],
       },
     ],
+    row: 2,
     box: [
       {
-        type: 'dynamic-table',
-        header: [
-          {
-            label: '礼品',
-            key: 'name',
-          },
-          {
-            label: '投票数',
-            key: 'total',
-          },
-          {
-            label: '占比',
-            key: 'percent',
-          },
-        ],
-        elements: [
-          {
-            name: '新鲜蔬菜',
-            total: '152',
-            percent: '24.4%',
-          },
-          {
-            name: '当季水果',
-            total: '123',
-            percent: '19.8%',
-          },
-          {
-            name: '豆制类品',
-            total: '109',
-            percent: '17.5%',
-          },
-          {
-            name: '海鲜水产',
-            total: '90',
-            percent: '14.5%',
-          },
-          {
-            name: '淡水水产',
-            total: '90',
-            percent: '5.8%',
-          },
-          {
-            name: '鸡鸭鹅肉',
-            total: '55',
-            percent: '8.8%',
-          },
-          {
-            name: '猪牛羊肉',
-            total: '36',
-            percent: '5.8%',
-          },
-          {
-            name: '禽蛋',
-            total: '25',
-            percent: '4%',
-          },
-          {
-            name: '脸盆水桶',
-            total: '22',
-            percent: '3.5%',
-          },
-          {
-            name: '懒人拖把',
-            total: '10',
-            percent: '1.6%',
-          },
-        ],
-      },
-      {
-        type: 'chart',
-        title: {
-          text: '柱状图',
+        data: {
+          toggle: [
+            {
+              label: '饼图',
+              icon: {
+                name: 'pie_chart',
+                inline: true,
+              },
+              value: 'pie',
+            },
+            {
+              label: '柱状图',
+              icon: {
+                name: 'equalizer',
+                inline: true,
+              },
+              value: 'bar',
+            },
+            {
+              label: '折线图',
+              icon: {
+                name: 'show_chart',
+                inline: true,
+              },
+              value: 'line',
+            },
+          ],
         },
-        tooltip: {
-          trigger: 'axis',
-        },
-        dataset: [
-          {
-            dimensions: ['name', 'total'],
-            source: [
-              ['新鲜蔬菜', 152],
-              ['当季水果', 123],
-              ['豆制类品', 109],
-              ['海鲜水产', 90],
-              ['淡水水产', 75],
-              ['鸡鸭鹅肉', 55],
-              ['猪牛羊肉', 35],
-              ['禽蛋', 25],
-              ['脸盆水桶', 22],
-              ['懒人拖把', 10],
-            ],
+        content: {
+          type: 'chart',
+          tooltip: {
+            trigger: 'axis',
           },
-          {
-            transform: {
-              type: 'sort',
-              config: { dimension: 'total', order: 'desc' },
+          dataset: [
+            {
+              source: [
+                ['name', 'total'],
+                ['当季水果', 123],
+                ['猪牛羊肉', 35],
+                ['鸡鸭鹅肉', 55],
+                ['新鲜蔬菜', 152],
+                ['海鲜水产', 90],
+                ['豆制类品', 109],
+                ['懒人拖把', 10],
+                ['禽蛋', 25],
+                ['脸盆水桶', 22],
+                ['淡水水产', 75],
+                ['花卉绿植', 12],
+                ['日用百货', 66],
+                ['个护清洁', 10],
+                ['冷冻冷藏', 9],
+                ['粮油调味', 98],
+                ['休闲零食', 36],
+                ['酒水乳饮', 59],
+                ['肉蛋水产', 18],
+                ['时令水果', 59],
+                ['生鲜商品', 78],
+              ],
+            },
+            {
+              transform: {
+                type: 'sort',
+                config: { dimension: 'total', order: 'asc' },
+              },
+            },
+          ],
+          xAxis: {
+            type: 'category',
+            axisLabel: {
+              interval: 0,
+              rotate: 30,
             },
           },
-        ],
-        xAxis: {
-          type: 'category',
-          axisLabel: { interval: 0 },
+          yAxis: {},
+          series: [
+            {
+              type: 'bar',
+              label: {
+                position: 'top',
+                show: true,
+              },
+              datasetIndex: 1,
+            },
+          ],
         },
-        yAxis: {},
-        series: {
-          type: 'bar',
-          encode: { x: 'name', y: 'total' },
-          datasetIndex: 1,
+      },
+      {
+        content: {
+          type: 'dynamic-table',
+          header: [
+            {
+              label: '想要礼品',
+              key: 'name',
+            },
+            {
+              label: '想要人数',
+              key: 'total',
+            },
+            {
+              label: '占比',
+              key: 'percent',
+            },
+          ],
+          elements: [
+            {
+              name: '新鲜蔬菜',
+              total: '152',
+              percent: '24.4%',
+            },
+            {
+              name: '当季水果',
+              total: '123',
+              percent: '19.8%',
+            },
+            {
+              name: '豆制类品',
+              total: '109',
+              percent: '17.5%',
+            },
+            {
+              name: '海鲜水产',
+              total: '90',
+              percent: '14.5%',
+            },
+            {
+              name: '淡水水产',
+              total: '90',
+              percent: '5.8%',
+            },
+            {
+              name: '鸡鸭鹅肉',
+              total: '55',
+              percent: '8.8%',
+            },
+            {
+              name: '猪牛羊肉',
+              total: '36',
+              percent: '5.8%',
+            },
+            {
+              name: '禽蛋',
+              total: '25',
+              percent: '4%',
+            },
+            {
+              name: '脸盆水桶',
+              total: '22',
+              percent: '3.5%',
+            },
+            {
+              name: '懒人拖把',
+              total: '10',
+              percent: '1.6%',
+            },
+            {
+              name: '花卉绿植',
+              total: '12',
+              percent: '1.9%',
+            },
+            {
+              name: '日用百货',
+              total: '66',
+              percent: '10.6%',
+            },
+            {
+              name: '冷冻冷藏',
+              total: '10',
+              percent: '1.4%',
+            },
+            {
+              name: '粮油调味',
+              total: '99',
+              percent: '15%',
+            },
+            {
+              name: '休闲零食',
+              total: '36',
+              percent: '5.7%',
+            },
+            {
+              name: '酒水乳饮',
+              total: '59',
+              percent: '9.4%',
+            },
+            {
+              name: '肉蛋水产',
+              total: '18',
+              percent: '2.8%',
+            },
+            {
+              name: '时令水果',
+              total: '59',
+              percent: '9.4%',
+            },
+            {
+              name: '生鲜商品',
+              total: '78',
+              percent: '12.5%',
+            },
+          ],
         },
       },
     ],

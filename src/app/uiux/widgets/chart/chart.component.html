@@ -1,1 +1,7 @@
+<mat-button-toggle-group *ngIf="data?.toggle" (change)="onChange($event)" ngClass="m-bottom-sm" name="switchChart" aria-label="switch chart">
+  <mat-button-toggle value="{{item.value}}" *ngFor="let item of data.toggle">
+    <app-icon *ngIf="item.icon" [content]="item.icon"></app-icon>
+    {{item.label}}
+  </mat-button-toggle>
+</mat-button-toggle-group>
 <div echarts [options]="content" class="chart"></div>

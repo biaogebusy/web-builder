@@ -1,5 +1,10 @@
 .report {
   min-height: 100vh;
+  ::ng-deep {
+    .dynamic-table {
+      padding: 2rem;
+    }
+  }
 }
 .report-header {
   .meta {
@@ -15,4 +20,7 @@
 .box {
   border-radius: 4px;
   margin-bottom: 4rem;
+  ::ng-deep .chart {
+    height: 800px;
+  }
 }

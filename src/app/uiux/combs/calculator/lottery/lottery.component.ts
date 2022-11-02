@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import type { ILottery } from '@core/interface/combs/ICalculator';
-import type { EChartsOption } from 'echarts';
+import { EChartsOption } from 'echarts';
 
 @Component({
   selector: 'app-lottery',
@@ -69,7 +69,7 @@ export class LotteryComponent implements OnInit, AfterViewInit {
           ['预算', '费用'],
           ['大额红包总金额', max.total],
           ['小额红包总金额', min.total],
-          ['提成总额', this.promoteMoney],
+          ['提成总额', Number(this.promoteMoney)],
         ],
       },
     };

@@ -20,6 +20,11 @@
     }
     .box {
       background-color: mat-color($background, card);
+      @include mat-elevation(3, mat-color($foreground, divider), 0.4);
+    }
+    .dynamic-table {
+      background-color: mat-color($primary, 0.1);
+      @include mat-elevation(3, mat-color($foreground, divider), 0.4);
     }
   }
 }

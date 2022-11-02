@@ -1,6 +1,8 @@
 import { ThemePalette } from '@angular/material/core';
 import { ProgressBarMode } from '@angular/material/progress-bar';
 import { IImg } from './IImg';
+import { IIcon } from '@core/interface/widgets/IIcon';
+import { EChartsOption } from 'echarts';
 
 export interface IInlineLightbox {
   label: string[];
@@ -69,4 +71,13 @@ export interface ITestimonial {
   title: string;
   subTitle: string;
   body: string;
+}
+
+export interface IChart {
+  toggle?: {
+    label: string;
+    icon?: IIcon;
+    value: string;
+  }[];
+  options: EChartsOption;
 }

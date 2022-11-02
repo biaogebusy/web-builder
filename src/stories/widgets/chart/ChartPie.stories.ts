@@ -39,6 +39,34 @@ const Template: Story = (args) => ({
 export const Pie = Template.bind({});
 Pie.storyName = '饼图';
 Pie.args = {
+  data: {
+    toggle: [
+      {
+        label: '饼图',
+        icon: {
+          name: 'pie_chart',
+          inline: true,
+        },
+        value: 'pie',
+      },
+      {
+        label: '柱状图',
+        icon: {
+          name: 'equalizer',
+          inline: true,
+        },
+        value: 'bar',
+      },
+      {
+        label: '折线图',
+        icon: {
+          name: 'show_chart',
+          inline: true,
+        },
+        value: 'line',
+      },
+    ],
+  },
   content: {
     title: {
       text: '金额预算占比',
@@ -52,6 +80,10 @@ Pie.args = {
       orient: 'vertical',
       left: 'left',
     },
+    xAxis: {
+      type: 'category',
+    },
+    yAxis: {},
     dataset: {
       source: [
         ['预算', '费用'],

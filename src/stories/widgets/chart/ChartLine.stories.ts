@@ -38,6 +38,34 @@ const Template: Story = (args) => ({
 export const Line = Template.bind({});
 
 Line.args = {
+  data: {
+    toggle: [
+      {
+        label: '饼图',
+        icon: {
+          name: 'pie_chart',
+          inline: true,
+        },
+        value: 'pie',
+      },
+      {
+        label: '柱状图',
+        icon: {
+          name: 'equalizer',
+          inline: true,
+        },
+        value: 'bar',
+      },
+      {
+        label: '折线图',
+        icon: {
+          name: 'show_chart',
+          inline: true,
+        },
+        value: 'line',
+      },
+    ],
+  },
   content: {
     title: {
       text: '年度活动金额预算',
@@ -79,6 +107,34 @@ Line.args = {
 export const LineTime = Template.bind({});
 LineTime.storyName = '折线图';
 LineTime.args = {
+  data: {
+    toggle: [
+      {
+        label: '饼图',
+        icon: {
+          name: 'pie_chart',
+          inline: true,
+        },
+        value: 'pie',
+      },
+      {
+        label: '柱状图',
+        icon: {
+          name: 'equalizer',
+          inline: true,
+        },
+        value: 'bar',
+      },
+      {
+        label: '折线图',
+        icon: {
+          name: 'show_chart',
+          inline: true,
+        },
+        value: 'line',
+      },
+    ],
+  },
   content: {
     title: {
       text: '超市宣传上新红包抽奖趋势图',

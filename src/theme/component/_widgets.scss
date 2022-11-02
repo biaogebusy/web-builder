@@ -285,4 +285,9 @@
       }
     }
   }
+
+  .chart {
+    border: 1px solid mat-color($foreground, divider);
+    @include mat-elevation(2, mat-color($foreground, divider), 0.07);
+  }
 }
