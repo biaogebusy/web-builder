@@ -3,6 +3,7 @@
     <ng-container [ngSwitch]="item.type">
       <app-job *ngSwitchCase="'job'" [content]="item"></app-job>
       <app-case *ngSwitchCase="'case'" [content]="item"></app-case>
+      <app-report *ngSwitchCase="'report'" [content]="item"></app-report>
       <app-search *ngSwitchCase="'search'" [content]="item"></app-search>
       <app-notfound *ngSwitchCase="'404'" [content]="item"></app-notfound>
       <app-article *ngSwitchCase="'article'" [content]="item"></app-article>
