@@ -24,7 +24,6 @@ import type { ICoreConfig } from '@core/interface/IAppConfig';
 })
 export class TextComponent implements OnInit, AfterViewInit {
   @Input() content: IText;
-  @Input() animate = true;
   @ViewChild('inner', { read: ElementRef }) inner: ElementRef;
   @ViewChild('title', { read: ElementRef }) title: ElementRef;
   @ViewChild('body', { read: ElementRef }) body: ElementRef;
@@ -46,7 +45,7 @@ export class TextComponent implements OnInit, AfterViewInit {
     if (
       this.screenService.isPlatformBrowser() &&
       this.coreConfig.animate &&
-      this.animate
+      !this.content?.animate?.disable
     ) {
       this.showAnimate();
     }
@@ -66,7 +65,7 @@ export class TextComponent implements OnInit, AfterViewInit {
         start: 'top 85%', // [触发元素开始的地方,视口开始的位置],
         end: 'bottom 75px',
         markers: false,
-        scrub: false, // 滚动一次动画就对应更新，细粒度控制，适合根据鼠标滚动精细变化
+        scrub: this.content?.animate?.scrub || false, // 滚动一次动画就对应更新，细粒度控制，适合根据鼠标滚动精细变化
         toggleActions: 'play pause resume reset', // onEnter, onLeave, onEnterBack, and onLeaveBack
       },
     });

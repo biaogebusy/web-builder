@@ -18,6 +18,9 @@
           "width": "50%",
           "top": "25%"
         },
+        "animate": {
+          "scrub": true
+        },
         "classes": "xy-center",
         "bg": {
           "classes": "bg-shadow bg-fill-width",
@@ -46,6 +49,9 @@
           "width": "25%",
           "left": "40%"
         },
+        "animate": {
+          "scrub": true
+        },
         "classes": "xy-center",
         "bg": {
           "classes": "bg-shadow bg-fill-width",
@@ -68,6 +74,9 @@
           "label": "NEW GENERATION OF CERAMIC COIL",
           "style": "style-v4",
           "classes": "mat-display-1 bold"
+        },
+        "animate": {
+          "scrub": true
         },
         "spacer": "md",
         "style": {
@@ -97,6 +106,9 @@
           "style": "style-v4",
           "classes": "mat-display-1 bold"
         },
+        "animate": {
+          "scrub": true
+        },
         "spacer": "md",
         "style": {
           "width": "30%",
@@ -124,6 +136,9 @@
           "label": "STEALTH IN YOUR HAND",
           "style": "style-v4",
           "classes": "mat-display-1 bold"
+        },
+        "animate": {
+          "scrub": true
         },
         "spacer": "md",
         "style": {
@@ -153,6 +168,9 @@
           "style": "style-v4",
           "classes": "mat-display-1 bold"
         },
+        "animate": {
+          "scrub": true
+        },
         "spacer": "md",
         "style": {
           "width": "25%",
@@ -180,6 +198,9 @@
           "label": "INTELLIGENT LED LIGHT",
           "style": "style-v4",
           "classes": "mat-display-1 bold"
+        },
+        "animate": {
+          "scrub": true
         },
         "spacer": "md",
         "style": {
@@ -209,6 +230,9 @@
           "style": "",
           "classes": "mat-display-1 bold"
         },
+        "animate": {
+          "scrub": true
+        },
         "spacer": "md",
         "style": {
           "width": "50%",
@@ -236,6 +260,9 @@
           "label": "AVAILABLE IN VARIOUS COLORS",
           "style": "",
           "classes": "mat-display-1 bold"
+        },
+        "animate": {
+          "scrub": true
         },
         "spacer": "md",
         "style": {
@@ -265,6 +292,9 @@
           "style": "style-v4",
           "classes": "mat-display-1 bold"
         },
+        "animate": {
+          "scrub": true
+        },
         "spacer": "md",
         "style": {
           "width": "20%",
@@ -292,6 +322,9 @@
         "style": {
           "width": "50%"
         },
+        "animate": {
+          "scrub": true
+        },
         "classes": "y-center",
         "bg": {
           "classes": "bg-shadow bg-fill-width",
@@ -313,6 +346,9 @@
         "spacer": "none",
         "style": {
           "width": "50%"
+        },
+        "animate": {
+          "scrub": true
         },
         "classes": "y-center",
         "bg": {
