@@ -242,7 +242,9 @@ Default.args = {
               rotate: 30,
             },
           },
-          yAxis: {},
+          yAxis: {
+            type: 'value',
+          },
           series: [
             {
               type: 'bar',
