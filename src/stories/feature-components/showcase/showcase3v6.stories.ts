@@ -67,7 +67,7 @@ Default.args = {
           alt: 'logo',
         },
         css3: true,
-        title: '基于 Material',
+        title: '支持 SSR 服务端渲染',
       },
       {
         img: {
@@ -80,7 +80,7 @@ Default.args = {
           alt: 'logo',
         },
         css3: true,
-        title: 'Icon 库',
+        title: '支持多主题、暗黑模式',
       },
       {
         img: {
@@ -93,7 +93,7 @@ Default.args = {
           alt: 'logo',
         },
         css3: true,
-        title: '使用 Sass 构建',
+        title: 'MDI 6000多个icons',
       },
       {
         img: {
@@ -106,7 +106,7 @@ Default.args = {
           alt: 'logo',
         },
         css3: true,
-        title: 'W3C 验证',
+        title: 'Storybook 全覆盖测试',
       },
       {
         img: {
@@ -118,7 +118,7 @@ Default.args = {
           alt: 'logo',
         },
         css3: true,
-        title: '易于扩展',
+        title: '动态组件动态表单',
       },
     ],
   },

@@ -45,13 +45,12 @@ Default.args = {
         },
         style: 'style-v9',
         title: {
-          href: '#',
-          label: '高性能',
+          href: '/?path=/story/guide--page',
+          label: '开发指南',
         },
-        content:
-          '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
+        content: '开发前环境的设置，详细介绍应用参数的初始化配置',
         more: {
-          href: '#',
+          href: '/?path=/story/guide--page',
           label: '更多',
         },
       },
@@ -61,12 +60,12 @@ Default.args = {
         },
         style: 'style-v9',
         title: {
-          href: '#',
-          label: '易用的编辑器',
+          href: '/?path=/story/themeconfig--page',
+          label: '主题定制',
         },
-        content: '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作；',
+        content: '详细介绍如何新建主题，通过色盘来构建UI颜色',
         more: {
-          href: '#',
+          href: '/?path=/story/themeconfig--page',
           label: '更多',
         },
       },
@@ -76,12 +75,12 @@ Default.args = {
         },
         style: 'style-v9',
         title: {
-          href: '#',
-          label: '多语言',
+          href: '/?path=/story/flexlayout--page',
+          label: 'FxLayout 布局',
         },
-        content: 'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程； ',
+        content: '在模板中使用动态响应式灵活 flex 快速布局',
         more: {
-          href: '#',
+          href: '/?path=/story/flexlayout--page',
           label: '更多',
         },
       },
@@ -91,12 +90,12 @@ Default.args = {
         },
         style: 'style-v9',
         title: {
-          href: '#',
-          label: '更有弹性',
+          href: '/?path=/story/home-v1--page',
+          label: '页面示例',
         },
-        content: '无论是一个还是多个站点，Drupal 总是可以游刃有余的构建；',
+        content: '我们构建了多个页面的示例，展示组件的灵活性',
         more: {
-          href: '#',
+          href: '/?path=/story/home-v1--page',
           label: '更多',
         },
       },
