@@ -10,6 +10,7 @@ import {
 import { FormControl, FormGroup } from '@angular/forms';
 import type { IUser } from '@core/interface/IUser';
 import type { IViewList } from '@core/interface/widgets/IViewList';
+import { IPager } from '@core/interface/widgets/IWidgets';
 import { DialogService } from '@core/service/dialog.service';
 import { FormService } from '@core/service/form.service';
 import { NodeService } from '@core/service/node.service';
@@ -38,7 +39,7 @@ export class ViewListComponent
   searchEntry: any;
   table: any;
   loading: boolean;
-  pager: any;
+  pager: IPager;
   noAuth: boolean;
   canShow = false;
   destroy$: Subject<boolean> = new Subject<boolean>();
@@ -116,7 +117,7 @@ export class ViewListComponent
           classes: this.content?.tableClasses || '',
           params: this.content?.tableParams || {},
         };
-        this.pager = res.pager;
+        this.pager = this.handlerPager(res.pager, res.rows.length);
         this.loading = false;
         this.cd.detectChanges();
       });

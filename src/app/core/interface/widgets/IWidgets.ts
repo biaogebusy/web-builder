@@ -81,3 +81,9 @@ export interface IChart {
   }[];
   options: EChartsOption;
 }
+
+export interface IPager {
+  itemsPerPage: number;
+  currentPage: number;
+  totalItems: number;
+}

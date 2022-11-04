@@ -10,6 +10,7 @@ import { RouteService } from '@core/service/route.service';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { ScreenService } from '@core/service/screen.service';
 import type { IDynamicCardList1v1 } from '@core/interface/combs/IList';
+import { IPager } from '@core/interface/widgets/IWidgets';
 
 @Component({
   selector: 'app-dynamic-card-list1v1',
@@ -24,7 +25,7 @@ export class DynamicCardList1v1Component
   @Input() content: IDynamicCardList1v1;
 
   page: number;
-  pager: any;
+  pager: IPager;
   loading = false;
   nodes: any[];
   constructor(
