@@ -8,6 +8,7 @@ import { CORE_CONFIG } from '@core/token/token-providers';
 import { OtherModule } from '@uiux/combs/other/other.module';
 import { NotfoundComponent } from '@uiux/combs/other/notfound/notfound.component';
 import { StorysModule } from '@core/storys.module';
+import { BrandingModule } from '@core/branding/branding.module';
 
 export default {
   title: '示例页面/404',
@@ -16,9 +17,15 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [],
-      imports: [OtherModule, StorysModule.forRoot()],
+      imports: [OtherModule, StorysModule.forRoot(), BrandingModule],
     }),
-    componentWrapperDecorator((story) => `${story}`),
+    componentWrapperDecorator(
+      (story) => `
+      <app-header></app-header>
+      ${story}
+      <app-footer></app-footer>
+    `
+    ),
   ],
   parameters: {
     docs: {
