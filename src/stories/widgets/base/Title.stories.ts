@@ -4,7 +4,7 @@ import { TitleComponent } from '@uiux/widgets/title/title.component';
 import { StorysModule } from '@core/storys.module';
 
 export default {
-  title: '基础组件/内容/标题',
+  title: '基础组件/基本元素/标题',
   id: 'title',
   component: TitleComponent,
   decorators: [
