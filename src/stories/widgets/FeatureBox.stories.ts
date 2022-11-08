@@ -38,7 +38,7 @@ Default.args = {
     img: {
       classes: 'object-fit',
       src: '/assets/images/cases/porto1.jpg',
-      alt: 'alt',
+      alt: 'Feature box',
     },
   },
 };
@@ -59,5 +59,30 @@ Float.args = {
     ...Default.args.content,
     mode: 'float',
     hoverIcon: true,
+  },
+};
+
+export const NotMedia = Template.bind({});
+NotMedia.storyName = '非图片';
+NotMedia.parameters = {
+  docs: {
+    description: {
+      story:
+        '非图片类例如doc,pdf等文档，则显示对于的文档图标，并提供预览或者下载的按钮。',
+    },
+  },
+};
+NotMedia.args = {
+  content: {
+    ...Default.args.content,
+    mode: 'float',
+    hoverIcon: true,
+    openIcon: 'file_download',
+    img: {
+      class: 'object-fit',
+      src: '/xxx.doc',
+      preview: '/xxx.doc',
+      alt: '说明文档v1.doc',
+    },
   },
 };
