@@ -75,11 +75,11 @@ export class SearchFilterItemComponent implements OnInit {
           renderInputComponent: SearchFilterItemComponent,
           inputData: {
             content: {
-              ...this.currentDialogData,
               title: {
                 label: item.label,
                 style: 'style-v4',
               },
+              ...this.currentDialogData,
             },
           },
         },

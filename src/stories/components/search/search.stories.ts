@@ -158,7 +158,7 @@ Dialog.args = {
     filterDialog: {
       filter: {
         title: {
-          label: '60T',
+          label: '文章分类',
           style: 'style-v4',
         },
         params: {
@@ -168,7 +168,7 @@ Dialog.args = {
             more: '展开更多',
           },
         },
-        key: 'hundred_point',
+        key: 'category',
         elements: [
           {
             label: '财政与税务',
