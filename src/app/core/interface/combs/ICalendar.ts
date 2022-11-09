@@ -6,5 +6,6 @@ export interface IFullCalendar {
     options: CalendarOptions;
     theme: object;
     api?: string;
+    drawer?: boolean;
   };
 }

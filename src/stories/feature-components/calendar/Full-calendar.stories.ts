@@ -105,6 +105,7 @@ Default.args = {
       },
     ],
     calendar: {
+      drawer: true,
       options: {
         events: [
           {

@@ -24,7 +24,6 @@ import { CalendarState } from '@core/state/CalendarState';
 import { formatDate } from '@angular/common';
 import { RouteService } from '@core/service/route.service';
 import type { IFullCalendar } from '@core/interface/combs/ICalendar';
-import { MatDrawer } from '@angular/material/sidenav';
 import { ContentService } from '@core/service/content.service';
 
 @Component({
@@ -45,6 +44,7 @@ export class FullCalendarComponent
   theme: any;
   form: FormGroup;
   loading: boolean;
+  drawerLoading: boolean;
   visiable = false;
   viewApi: ViewApi;
   destroy$: Subject<boolean> = new Subject<boolean>();
@@ -155,16 +155,21 @@ export class FullCalendarComponent
 
   initEvents(): void {
     this.options.eventClick = (info) => {
-      this.opened = true;
-      this.contentService
-        .loadPageContent(info.event.url)
-        .subscribe((content) => {
-          console.log(content);
-          this.drawerContent = content.body;
-          this.cd.detectChanges();
-        });
-      info.jsEvent.preventDefault();
-      // this.routeService.eventLinkToNav(info.jsEvent);
+      if (this.content.calendar?.drawer) {
+        this.opened = true;
+        this.drawerLoading = true;
+        this.cd.detectChanges();
+        this.contentService
+          .loadPageContent(info.event.url)
+          .subscribe((content) => {
+            this.drawerLoading = false;
+            this.drawerContent = content.body;
+            this.cd.detectChanges();
+          });
+        info.jsEvent.preventDefault();
+        return;
+      }
+      this.routeService.eventLinkToNav(info.jsEvent);
       this.cd.detectChanges();
     };
     this.visiable = true;
