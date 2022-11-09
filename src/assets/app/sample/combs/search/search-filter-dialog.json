@@ -97,10 +97,6 @@
         },
         "dialog": [
           {
-            "title": {
-              "label": "十大要点",
-              "style": "style-v4"
-            },
             "key": "search_category",
             "actions": [
               {
