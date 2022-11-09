@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
 import type { IUser } from '@core/interface/IUser';
+import { IPager } from '@core/interface/widgets/IWidgets';
 import { intersection, isArray, remove, result } from 'lodash-es';
 @Injectable()
 export abstract class BaseComponent {
@@ -91,10 +92,10 @@ export abstract class BaseComponent {
     return query;
   }
 
-  handlerPager(pager: any): any {
+  handlerPager(pager: any, length?: number): IPager {
     if (pager.current_page === null && pager.total_pages === 0) {
       return {
-        itemsPerPage: pager.total_items,
+        itemsPerPage: length || pager.total_items,
         currentPage: 0,
         totalItems: pager.total_items,
       };

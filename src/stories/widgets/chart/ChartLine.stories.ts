@@ -71,6 +71,9 @@ Line.args = {
       text: '年度活动金额预算',
       subtext: '南宁',
     },
+    legend: {
+      bottom: '10px',
+    },
     tooltip: {
       trigger: 'axis',
     },
@@ -146,6 +149,9 @@ LineTime.args = {
         type: 'cross',
       },
     },
+    legend: {
+      bottom: '10px',
+    },
     toolbox: {
       show: true,
       feature: {
@@ -199,6 +205,109 @@ LineTime.args = {
         name: '红包个数',
         type: 'line',
         smooth: true,
+      },
+    ],
+  },
+};
+
+export const MutipleLineTime = Template.bind({});
+MutipleLineTime.storyName = '多条折线图';
+MutipleLineTime.args = {
+  data: {
+    toggle: [
+      {
+        label: '饼图',
+        icon: {
+          name: 'pie_chart',
+          inline: true,
+        },
+        value: 'pie',
+      },
+      {
+        label: '柱状图',
+        icon: {
+          name: 'equalizer',
+          inline: true,
+        },
+        value: 'bar',
+      },
+      {
+        label: '折线图',
+        icon: {
+          name: 'show_chart',
+          inline: true,
+        },
+        value: 'line',
+      },
+    ],
+  },
+  content: {
+    title: {
+      text: '超市宣传上新红包抽奖趋势图',
+      subtext: '万科金域缇香店',
+    },
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: {
+        type: 'cross',
+      },
+    },
+    legend: {
+      bottom: '10px',
+    },
+    toolbox: {
+      show: true,
+      feature: {
+        saveAsImage: {},
+      },
+    },
+    dataset: {
+      source: [
+        ['时间', '中奖个数', '浏览量'],
+        ['00:00', 0, 12],
+        ['01:00', 2, 22],
+        ['02:00', 3, 23],
+        ['03:00', 5, 25],
+        ['04:00', 6, 26],
+        ['05:00', 8, 28],
+        ['06:00', 10, 40],
+        ['07:00', 11, 41],
+        ['08:00', 15, 45],
+        ['09:00', 20, 60],
+        ['10:00', 30, 80],
+        ['11:00', 50, 120],
+        ['12:00', 60, 140],
+        ['13:00', 66, 146],
+        ['14:00', 100, 400],
+        ['15:00', 120, 420],
+        ['16:00', 155, 455],
+        ['17:00', 226, 626],
+        ['18:00', 300, 800],
+        ['19:00', 330, 830],
+        ['20:00', 412, 1012],
+        ['21:00', 500, 1200],
+        ['22:00', 516, 1210],
+        ['23:00', 530, 1230],
+      ],
+    },
+    xAxis: {
+      type: 'category',
+    },
+    yAxis: {},
+    series: [
+      {
+        type: 'line',
+        label: {
+          position: 'top',
+          show: true,
+        },
+      },
+      {
+        type: 'line',
+        label: {
+          position: 'top',
+          show: true,
+        },
       },
     ],
   },

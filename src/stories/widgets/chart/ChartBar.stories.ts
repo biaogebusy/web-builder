@@ -72,6 +72,9 @@ Bar.args = {
       text: '年度活动金额预算',
       subtext: '南宁',
     },
+    legend: {
+      bottom: '10px',
+    },
     tooltip: {
       trigger: 'axis',
     },

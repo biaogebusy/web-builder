@@ -5,6 +5,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   AfterViewInit,
+  ViewChild,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -20,6 +21,8 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-dynamic-table',
@@ -41,20 +44,25 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
   @Input() content: IDynamicTable;
   @Input() form: FormGroup;
 
+  @ViewChild(MatSort) sort: MatSort;
+  dataSource: any;
+
   displayedColumns: string[];
   columnsToDisplayWithExpand: string[];
   expandedElement: null;
   isExpand: boolean;
-
   constructor(
     private dialog: MatDialog,
     private routService: RouteService,
     private cd: ChangeDetectorRef
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.dataSource = new MatTableDataSource(this.content.elements);
+  }
 
   ngAfterViewInit(): void {
+    this.dataSource.sort = this.sort;
     if (this.content.elements) {
       this.isExpand = this.content.elements.some((item) =>
         isArray(item.expand)

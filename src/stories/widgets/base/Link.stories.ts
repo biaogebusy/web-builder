@@ -7,7 +7,7 @@ import { LinkComponent } from '@uiux/widgets/link/link.component';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 
 export default {
-  title: '基础组件/内容/链接',
+  title: '基础组件/基本元素/链接',
   id: 'link',
   component: LinkComponent,
   decorators: [
@@ -35,7 +35,7 @@ Default.args = {
 };
 
 export const queryParams = Template.bind({});
-queryParams.storyName = '链接带 QueryParams 参数';
+queryParams.storyName = 'QueryParams 参数';
 queryParams.args = {
   content: {
     ...Default.args.content,
@@ -47,7 +47,7 @@ queryParams.args = {
 };
 
 export const fragment = Template.bind({});
-fragment.storyName = '链接到 Fragment 片段';
+fragment.storyName = 'Fragment 片段';
 fragment.args = {
   content: {
     ...Default.args.content,
@@ -56,7 +56,7 @@ fragment.args = {
 };
 
 export const dialog = Template.bind({});
-dialog.storyName = '链接 Dialog';
+dialog.storyName = 'Dialog';
 const textContent: any = TextStories.List.args;
 dialog.args = {
   content: {

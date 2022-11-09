@@ -8,7 +8,7 @@ import { BgImgComponent } from '@uiux/widgets/bg-img/bg-img.component';
 import { StorysModule } from '@core/storys.module';
 
 export default {
-  title: '基础组件/内容/背景图',
+  title: '基础组件/基本元素/背景图',
   id: 'bg-img',
   component: BgImgComponent,
   decorators: [

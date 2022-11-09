@@ -8,8 +8,8 @@ import { DynamicTableComponent } from '@uiux/widgets/dynamic-table/dynamic-table
 import { StorysModule } from '@core/storys.module';
 
 export default {
-  title: '基础组件/动态表格',
-  id: 'dynamic-table',
+  title: '基础组件/基本元素/表格',
+  id: 'table',
   component: DynamicTableComponent,
   decorators: [
     moduleMetadata({
@@ -70,24 +70,24 @@ Default.args = {
     elements: [
       {
         name: '受理费',
-        money: '3679',
+        money: '1000',
         billingTime: '2022-03-03',
         deliveryTime: '2022-03-04',
         remarks: '已收到',
       },
       {
-        name: '受理费',
-        money: '3679',
-        billingTime: '2022-03-03',
-        deliveryTime: '2022-03-04',
+        name: '咨询费',
+        money: '2000',
+        billingTime: '2022-04-02',
+        deliveryTime: '2022-04-03',
         remarks: '已收到',
       },
       {
-        name: '受理费',
-        money: '3679',
+        name: '追加费',
+        money: '3000',
         billingTime: '2022-03-03',
-        deliveryTime: '2022-03-04',
-        remarks: '已收到',
+        deliveryTime: '2022-04-04',
+        remarks: '未收到',
       },
     ],
   },
@@ -123,29 +123,7 @@ CustomStyle.args = {
         key: 'remarks',
       },
     ],
-    elements: [
-      {
-        name: '受理费',
-        money: '3679',
-        billingTime: '2022-03-03',
-        deliveryTime: '2022-03-04',
-        remarks: '已收到',
-      },
-      {
-        name: '受理费',
-        money: '3679',
-        billingTime: '2022-03-03',
-        deliveryTime: '2022-03-04',
-        remarks: '已收到',
-      },
-      {
-        name: '受理费',
-        money: '3679',
-        billingTime: '2022-03-03',
-        deliveryTime: '2022-03-04',
-        remarks: '已收到',
-      },
-    ],
+    elements: Default.args.content.elements,
   },
 };
 

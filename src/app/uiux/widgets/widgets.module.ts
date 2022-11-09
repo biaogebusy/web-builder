@@ -17,6 +17,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSortModule } from '@angular/material/sort';
 
 // Form
 import { FormlyModule } from '@ngx-formly/core';
@@ -218,6 +219,7 @@ const components = [
     FormlyMatToggleModule,
     MatCheckboxModule,
     SwiperModule,
+    MatSortModule,
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts'),
     }),

@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material/icon';
 import { ScreenService } from '@core/service/screen.service';
-import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -20,6 +19,11 @@ export class IconService {
         this.ds.bypassSecurityTrustHtml('<svg></svg>')
       );
     } else {
+      // mdi
+      const mdiPath = '/assets/mdi.svg';
+      this.ir.addSvgIconSet(this.ds.bypassSecurityTrustResourceUrl(mdiPath));
+
+      // custom
       const svgPath = '/assets/icons/icons.svg';
       const url = this.ds.bypassSecurityTrustResourceUrl(svgPath);
       this.ir.addSvgIconSet(url);

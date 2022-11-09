@@ -43,6 +43,13 @@ const Template: Story = (args) => ({
 export const Default = Template.bind({});
 // Raname Story
 Default.storyName = '预览';
+Default.parameters = {
+  docs: {
+    description: {
+      story: '描述',
+    },
+  },
+};
 Default.args = {
   content: {
     type: 'view-list',

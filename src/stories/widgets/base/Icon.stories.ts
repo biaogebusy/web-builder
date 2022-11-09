@@ -4,7 +4,7 @@ import { Story } from '@storybook/angular/types-6-0';
 import { IconComponent } from '@uiux/widgets/icon/icon.component';
 
 export default {
-  title: '基础组件/内容/图标',
+  title: '基础组件/基本元素/图标',
   id: 'icon',
   component: IconComponent,
   decorators: [
@@ -17,7 +17,7 @@ export default {
     docs: {
       description: {
         component: `Icon使用了 Material的字体图标，也可svg自定义。<br>
-        Matetrial 图标库 https://fonts.google.com/icons<br>
+        Matetrial 图标库 https://materialdesignicons.com/<br>
         自定义svg图标参考：/src/assets/icons/icons.svg`,
       },
     },
