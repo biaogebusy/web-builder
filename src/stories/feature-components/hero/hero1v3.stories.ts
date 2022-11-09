@@ -119,7 +119,7 @@ V2.args = {
       },
     ],
     bg: {
-      classes: 'bg-fill-width bg-primary bg-center overlay overlay-',
+      classes: 'bg-fill-width bg-primary bg-center',
       img: {
         src: '/assets/images/bg/bg-hero.svg',
         mobile: '/assets/images/bg/bg-hero.svg',
