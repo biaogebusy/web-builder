@@ -5,6 +5,7 @@ import {
   OnInit,
   ChangeDetectorRef,
   ChangeDetectionStrategy,
+  ViewChild,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ScreenService } from '@core/service/screen.service';
@@ -23,6 +24,8 @@ import { CalendarState } from '@core/state/CalendarState';
 import { formatDate } from '@angular/common';
 import { RouteService } from '@core/service/route.service';
 import type { IFullCalendar } from '@core/interface/combs/ICalendar';
+import { MatDrawer } from '@angular/material/sidenav';
+import { ContentService } from '@core/service/content.service';
 
 @Component({
   selector: 'app-full-calendar',
@@ -35,6 +38,8 @@ export class FullCalendarComponent
   implements OnInit, OnDestroy
 {
   @Input() content: IFullCalendar;
+  @ViewChild('drawer') drawer: any;
+  opened = false;
   selected: Date | null;
   options: CalendarOptions;
   theme: any;
@@ -43,6 +48,7 @@ export class FullCalendarComponent
   visiable = false;
   viewApi: ViewApi;
   destroy$: Subject<boolean> = new Subject<boolean>();
+  drawerContent: any[];
 
   constructor(
     private cd: ChangeDetectorRef,
@@ -50,7 +56,8 @@ export class FullCalendarComponent
     private screenService: ScreenService,
     private nodeService: NodeService,
     private calendarState: CalendarState,
-    private routeService: RouteService
+    private routeService: RouteService,
+    private contentService: ContentService
   ) {
     super();
   }
@@ -148,10 +155,25 @@ export class FullCalendarComponent
 
   initEvents(): void {
     this.options.eventClick = (info) => {
-      this.routeService.eventLinkToNav(info.jsEvent);
+      this.opened = true;
+      this.contentService
+        .loadPageContent(info.event.url)
+        .subscribe((content) => {
+          console.log(content);
+          this.drawerContent = content.body;
+          this.cd.detectChanges();
+        });
+      info.jsEvent.preventDefault();
+      // this.routeService.eventLinkToNav(info.jsEvent);
+      this.cd.detectChanges();
     };
     this.visiable = true;
     this.loading = false;
+    this.cd.detectChanges();
+  }
+
+  onBackdrop(): void {
+    this.opened = false;
     this.cd.detectChanges();
   }
 

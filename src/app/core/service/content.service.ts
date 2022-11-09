@@ -53,7 +53,7 @@ export class ContentService {
     }
   }
 
-  loadPageContent(): Observable<IPage> {
+  loadPageContent(pageUrl = this.pageUrl): Observable<IPage> {
     // storybook content
     const queryString = location.search;
     const searchParams = new URLSearchParams(queryString);
@@ -69,9 +69,9 @@ export class ContentService {
 
     if (environment.production) {
       const landingPath = '/api/v1/landingPage?content=';
-      const pageUrl = `${this.apiUrl}${landingPath}${this.pageUrl}`;
+      const pageUrlParams = `${this.apiUrl}${landingPath}${pageUrl}`;
 
-      return this.http.get<any>(pageUrl).pipe(
+      return this.http.get<any>(pageUrlParams).pipe(
         tap((page) => {
           this.updatePage(page);
         }),
@@ -81,7 +81,7 @@ export class ContentService {
       );
     } else {
       return this.http
-        .get<any>(`${this.apiUrl}/assets/app${this.pageUrl}.json`)
+        .get<any>(`${this.apiUrl}/assets/app${pageUrl}.json`)
         .pipe(
           tap((page) => {
             this.updatePage(page);
