@@ -33,6 +33,7 @@ export const Default = Template.bind({});
 
 Default.args = {
   content: {
+    spacer: 'xxl',
     sidebar: [
       {
         type: 'text',
