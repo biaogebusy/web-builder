@@ -17,8 +17,8 @@ const components = [
 ];
 
 @NgModule({
-  declarations: [components, UserProfileComponent],
+  declarations: [...components, UserProfileComponent],
   imports: [ShareModule, WidgetsModule, ListModule, DynamicCombsModule],
-  exports: [components],
+  exports: [...components],
 })
 export class ProfileModule {}
