@@ -1,10 +1,19 @@
 <div *ngIf="loading" class="loading-container">
   <div class="loader">Loading...</div>
 </div>
-<ngx-loading-bar [includeSpinner]="false" *ngIf="coreConfig?.loadingBar"></ngx-loading-bar>
-<mat-drawer-container *ngIf="coreConfig && branding$|async">
-  <mat-drawer #drawer [(opened)]="opened">
-    <app-menu [isDrawer]="opened" [content]="(branding$ | async)?.header || undefined"></app-menu>
+<ngx-loading-bar
+  [includeSpinner]="false"
+  *ngIf="coreConfig?.loadingBar"
+></ngx-loading-bar>
+<mat-drawer-container
+  *ngIf="coreConfig && branding$ | async"
+  (backdropClick)="onBackdrop()"
+>
+  <mat-drawer #drawer [(opened)]="mobileMenuOpened">
+    <app-menu
+      [isDrawer]="opened"
+      [content]="(branding$ | async)?.header || undefined"
+    ></app-menu>
   </mat-drawer>
   <mat-drawer-content>
     <app-header></app-header>
@@ -13,4 +22,30 @@
     </div>
     <app-footer></app-footer>
   </mat-drawer-content>
+  <mat-drawer
+    class="drawer-right"
+    [mode]="'over'"
+    [opened]="opened"
+    position="end"
+  >
+    <div
+      class="loading-inner"
+      fxFlexFill
+      fxLayoutAlign="center center"
+      *ngIf="drawerLoading"
+    >
+      <mat-spinner diameter="50" color="accent"></mat-spinner>
+    </div>
+    <ngx-skeleton-loader
+      *ngIf="drawerLoading"
+      count="10"
+      appearance="line"
+    ></ngx-skeleton-loader>
+    <ng-container *ngIf="drawerContent">
+      <app-dynamic-combs
+        *ngFor="let item of drawerContent"
+        [content]="item"
+      ></app-dynamic-combs>
+    </ng-container>
+  </mat-drawer>
 </mat-drawer-container>

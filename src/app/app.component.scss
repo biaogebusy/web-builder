@@ -29,3 +29,12 @@
   background-color: rgba(255, 255, 255, 1);
   z-index: 5;
 }
+
+.drawer-right.mat-drawer-opened {
+  max-width: 75%;
+  min-width: 200px;
+  // border-top-left-radius: 10px;
+  // border-bottom-left-radius: 10px;
+  // top: 10px;
+  // bottom: 10px;
+}

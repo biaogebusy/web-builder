@@ -25,6 +25,7 @@ import { formatDate } from '@angular/common';
 import { RouteService } from '@core/service/route.service';
 import type { IFullCalendar } from '@core/interface/combs/ICalendar';
 import { ContentService } from '@core/service/content.service';
+import { ContentState } from '@core/state/ContentState';
 
 @Component({
   selector: 'app-full-calendar',
@@ -37,7 +38,6 @@ export class FullCalendarComponent
   implements OnInit, OnDestroy
 {
   @Input() content: IFullCalendar;
-  @ViewChild('drawer') drawer: any;
   opened = false;
   selected: Date | null;
   options: CalendarOptions;
@@ -57,7 +57,8 @@ export class FullCalendarComponent
     private nodeService: NodeService,
     private calendarState: CalendarState,
     private routeService: RouteService,
-    private contentService: ContentService
+    private contentService: ContentService,
+    private contentState: ContentState
   ) {
     super();
   }
@@ -157,14 +158,16 @@ export class FullCalendarComponent
   initEvents(): void {
     this.options.eventClick = (info) => {
       if (this.content.calendar?.drawer) {
-        this.opened = true;
+        // this.opened = true;
+        this.contentState.drawerOpened$.next(true);
         this.drawerLoading = true;
         this.cd.detectChanges();
         this.contentService
           .loadPageContent(info.event.url)
           .subscribe((content) => {
             this.drawerLoading = false;
-            this.drawerContent = content.body;
+            // this.drawerContent = content.body;
+            this.contentState.drawerContent$.next(content.body);
             this.cd.detectChanges();
           });
         info.jsEvent.preventDefault();

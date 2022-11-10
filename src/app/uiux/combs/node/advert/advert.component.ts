@@ -7,13 +7,13 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { ICoreConfig, IPage } from '@core/interface/IAppConfig';
+import { ICoreConfig } from '@core/interface/IAppConfig';
 import type { IUser } from '@core/interface/IUser';
 import type { IAdvert, IComment } from '@core/interface/node/INode';
 import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
 import { ContentState } from '@core/state/ContentState';
-import { CORE_CONFIG, PAGE_CONTENT, USER } from '@core/token/token-providers';
+import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -30,7 +30,6 @@ export class AdvertComponent implements OnInit, AfterViewInit {
   destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
-    @Inject(PAGE_CONTENT) public pageContent$: Observable<IPage>,
     @Inject(USER) public user: IUser,
     private screenService: ScreenService,
     public nodeService: NodeService,

@@ -8,6 +8,7 @@ import { CORE_CONFIG, BRANDING } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { IBranding } from './core/interface/IBranding';
 import { Observable } from 'rxjs';
+import { ContentState } from '@core/state/ContentState';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -15,10 +16,14 @@ import { Observable } from 'rxjs';
 })
 export class AppComponent implements OnInit, AfterViewInit {
   authenticated: boolean;
+  mobileMenuOpened: boolean;
+  drawerLoading: boolean;
+  drawerContent: any[];
   opened: boolean;
   loading = false;
   constructor(
     public screen: ScreenState,
+    private contentState: ContentState,
     private router: ActivatedRoute,
     private screenService: ScreenService,
     private configService: ConfigService,
@@ -36,7 +41,20 @@ export class AppComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       this.screen.drawer$.subscribe(() => {
-        this.opened = !this.opened;
+        this.mobileMenuOpened = !this.mobileMenuOpened;
+      });
+
+      this.contentState.drawerOpened$.subscribe((opened) => {
+        this.opened = opened;
+        // this.drawerLoading =opened;
+      });
+
+      this.contentState.drawerContent$.subscribe((content) => {
+        if (content) {
+          this.drawerContent = content;
+        } else {
+          this.drawerContent = [];
+        }
       });
 
       this.router.fragment.subscribe((fragment) => {
@@ -45,5 +63,9 @@ export class AppComponent implements OnInit, AfterViewInit {
         }
       });
     }
+  }
+
+  onBackdrop(): void {
+    this.opened = false;
   }
 }

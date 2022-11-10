@@ -32,6 +32,8 @@ registerLocaleData(zhHans, 'zh-hans');
 import { ContentService } from '@core/service/content.service';
 import { CryptoJSService } from '@core/service/crypto-js.service';
 import { UserService } from '@core/service/user.service';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [AppComponent],
@@ -43,6 +45,8 @@ import { UserService } from '@core/service/user.service';
     BrowserTransferStateModule,
     CommonModule,
     MatSidenavModule,
+    NgxSkeletonLoaderModule,
+    MatProgressSpinnerModule,
     NgxWebstorageModule.forRoot(),
     Angulartics2Module.forRoot(),
     UiuxModule,
