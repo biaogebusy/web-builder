@@ -102,9 +102,11 @@ export class FullCalendarComponent
             this.form.controls.datepicker.setValue('');
             return EMPTY;
           }
+          this.loading = true;
+          this.cd.detectChanges();
           return data;
         }),
-        debounceTime(1000),
+        debounceTime(500),
         distinctUntilChanged(),
         takeUntil(this.destroy$)
       )
@@ -121,13 +123,12 @@ export class FullCalendarComponent
     const api = this.content?.calendar?.api || '';
     this.initCalendar();
     if (this.content.calendar?.options?.events) {
-      this.loading = true;
       this.options.events = this.content.calendar.options.events;
       this.initEvents();
+      this.cd.detectChanges();
       return;
     }
     if (api || params || this.options?.events) {
-      this.loading = true;
       this.nodeService.search(api, params).subscribe((data) => {
         if (this.options) {
           this.options.events = data.map((item: any) => {

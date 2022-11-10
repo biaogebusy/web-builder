@@ -59,11 +59,7 @@ export class LawCaseComponent
     super();
   }
 
-  ngOnInit(): void {
-    this.pageContent$.pipe(takeUntil(this.destroy$)).subscribe((page) => {
-      this.uuid = page.config?.node?.uuid;
-    });
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     if (this.content?.form?.length) {
@@ -108,7 +104,7 @@ export class LawCaseComponent
   }
 
   getComments(timeStamp = 1): void {
-    const uuid = this.uuid;
+    const uuid = this.content.uuid;
     if (!this.coreConfig?.article?.comment?.enable || !uuid) {
       return;
     }

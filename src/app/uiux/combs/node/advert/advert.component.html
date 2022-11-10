@@ -1,0 +1,51 @@
+<div class="advert position-relative" *ngIf="content">
+  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
+  <div class="container">
+    <div
+      class="mobile-view"
+      fxFlex.lt-md="100"
+      fxFlex.gt-sm="375px"
+      fxLayout="column"
+    >
+      <div class="navbar text-center p-x-xs p-y-xs" fxLayout="row">
+        <app-icon [content]="{ svg: 'chevron-left', inline: true }"></app-icon>
+        <h3 class="one-line mat-h3 m-bottom-0">{{ content.title }}</h3>
+      </div>
+      <div class="inner" fxFlex="auto">
+        <div
+          class="adver-header p-y-xs p-x-xs"
+          fxLayout="row"
+          fxLayoutAlign="space-between center"
+        >
+          <div class="left">
+            <img class="logo" [src]="content.store.logo" alt="" />
+            {{ content.store.name }}
+          </div>
+          <div class="right">
+            {{ content.date.start }} - {{ content.date.end }}
+          </div>
+        </div>
+        <div class="advert-body" [innerHTML]="content.body | safeHtml"></div>
+        <div class="view m-y-xs m-x-xs" fxLayout="row">
+          <app-icon [content]="{ svg: 'eye', inline: true }"></app-icon>
+          {{ content.view }}
+        </div>
+      </div>
+    </div>
+    <div class="meta m-x" fxFlex="auto">
+      <app-comment-form
+        *ngIf="user.authenticated && content?.params?.comment"
+        [content]="content"
+        [type]="'add'"
+      >
+      </app-comment-form>
+      <app-comment-list
+        *ngIf="user.authenticated"
+        [comments]="comments$ | async"
+        [content]="content"
+      >
+      </app-comment-list>
+    </div>
+  </div>
+  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
+</div>

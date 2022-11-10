@@ -14,6 +14,7 @@
 @import "./banner";
 @import "./node/job";
 @import "./node/article";
+@import "./node/advert";
 @import "./node/report";
 @import "./node/law-case";
 @import "./node/map-list-common";
@@ -52,6 +53,7 @@
   @include carousel-color($config-or-theme);
   @include banner-color($config-or-theme);
   @include article-color($config-or-theme);
+  @include advert-color($config-or-theme);
   @include report-color($config-or-theme);
   @include law-case-color($config-or-theme);
   @include map-list-color($config-or-theme);

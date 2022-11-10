@@ -1890,6 +1890,10 @@ Meeting.args = {
         label: '暂时还没有工作日志。',
       },
     },
+    comment: {
+      actions: ['update', 'delete', 'reply', 'quote'],
+      title: true,
+    },
   },
   comments$: of(comments),
 };
@@ -2735,6 +2739,10 @@ Project.args = {
       empty: {
         label: '暂时还没有工作日志。',
       },
+    },
+    comment: {
+      actions: ['update', 'delete', 'reply', 'quote'],
+      title: true,
     },
   },
   comments$: of(comments),

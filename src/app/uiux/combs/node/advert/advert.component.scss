@@ -1,0 +1,16 @@
+.mobile-view {
+  overflow-x: hidden;
+  overflow-y: auto;
+  box-sizing: border-box;
+  height: 580px;
+  ::ng-deep img {
+    max-width: 100%;
+  }
+  .adver-header {
+    .left {
+      .logo {
+        width: 40px;
+      }
+    }
+  }
+}

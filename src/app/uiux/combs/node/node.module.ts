@@ -25,6 +25,7 @@ import { CommentActionsComponent } from './comment/comment-actions/comment-actio
 import { CommentItemComponent } from './comment/comment-list/comment-item/comment-item.component';
 import { LawTabComponent } from './law/law-tab/law-tab.component';
 import { ReportComponent } from './report/report.component';
+import { AdvertComponent } from './advert/advert.component';
 
 const components = [
   JobComponent,
@@ -49,6 +50,7 @@ const components = [
   CommentActionsComponent,
   LawTabComponent,
   ReportComponent,
+  AdvertComponent,
 ];
 @NgModule({
   declarations: [...components],
@@ -61,6 +63,7 @@ const components = [
     JobComponent,
     LawCaseComponent,
     ReportComponent,
+    AdvertComponent,
   ],
 })
 export class NodeModule {}
