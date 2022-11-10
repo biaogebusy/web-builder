@@ -46,7 +46,10 @@ export class AppComponent implements OnInit, AfterViewInit {
 
       this.contentState.drawerOpened$.subscribe((opened) => {
         this.opened = opened;
-        // this.drawerLoading =opened;
+      });
+
+      this.contentState.drawerLoading$.subscribe((loading) => {
+        this.drawerLoading = loading;
       });
 
       this.contentState.drawerContent$.subscribe((content) => {

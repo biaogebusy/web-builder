@@ -5,7 +5,6 @@ import {
   OnInit,
   ChangeDetectorRef,
   ChangeDetectionStrategy,
-  ViewChild,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ScreenService } from '@core/service/screen.service';
@@ -38,17 +37,14 @@ export class FullCalendarComponent
   implements OnInit, OnDestroy
 {
   @Input() content: IFullCalendar;
-  opened = false;
   selected: Date | null;
   options: CalendarOptions;
   theme: any;
   form: FormGroup;
   loading: boolean;
-  drawerLoading: boolean;
   visiable = false;
   viewApi: ViewApi;
   destroy$: Subject<boolean> = new Subject<boolean>();
-  drawerContent: any[];
 
   constructor(
     private cd: ChangeDetectorRef,
@@ -158,15 +154,13 @@ export class FullCalendarComponent
   initEvents(): void {
     this.options.eventClick = (info) => {
       if (this.content.calendar?.drawer) {
-        // this.opened = true;
         this.contentState.drawerOpened$.next(true);
-        this.drawerLoading = true;
+        this.contentState.drawerLoading$.next(true);
         this.cd.detectChanges();
         this.contentService
           .loadPageContent(info.event.url)
           .subscribe((content) => {
-            this.drawerLoading = false;
-            // this.drawerContent = content.body;
+            this.contentState.drawerLoading$.next(false);
             this.contentState.drawerContent$.next(content.body);
             this.cd.detectChanges();
           });
@@ -178,11 +172,6 @@ export class FullCalendarComponent
     };
     this.visiable = true;
     this.loading = false;
-    this.cd.detectChanges();
-  }
-
-  onBackdrop(): void {
-    this.opened = false;
     this.cd.detectChanges();
   }
 

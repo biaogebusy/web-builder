@@ -8,6 +8,7 @@ export class ContentState {
   public commentQuote$ = new Subject();
   public pageConfig$ = new BehaviorSubject<any | object | boolean>(false);
   public drawerOpened$ = new BehaviorSubject<boolean>(false);
+  public drawerLoading$ = new BehaviorSubject<boolean>(false);
   public drawerContent$ = new BehaviorSubject<any | object | boolean>(false);
   constructor() {}
 }
