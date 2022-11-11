@@ -1,8 +1,8 @@
 <ng-container *ngIf="content && checkShow(content, user)">
   <!-- dialog -->
-  <a *ngIf="content.dialog;else link" [ngClass]="classes" href="javascript:void(0);"
-    [innerHTML]="content.label | safeHtml" title="{{content.label}}" rel="noopener" (click)="nav($event)"></a>
-
+  <ng-container *ngIf="content.dialog;else link">
+    <div *ngTemplateOutlet="action;context:{link: content}"></div>
+  </ng-container>
   <!-- link -->
   <ng-template #link>
     <!-- absolute link -->
@@ -14,10 +14,9 @@
     <ng-template #relative>
       <ng-container *ngIf="content.href;else void">
         <!-- drawer -->
-        <a *ngIf="content.rel && content.rel === 'drawer';else default" [ngClass]="classes" href="javascript:void(0);"
-          [innerHTML]="content.label | safeHtml" title="{{content.label}}" rel="{{content.rel}}"
-          [attr.data-href]="content.href" (click)="nav($event);"></a>
-
+        <ng-container *ngIf="content.rel && content.rel === 'drawer';else default">
+          <div *ngTemplateOutlet="action;context:{link: content}"></div>
+        </ng-container>
         <!-- router link -->
         <ng-template #default>
           <a [routerLink]="[content.href]" [routerLinkActive]="['active']" [target]="content.target || '_self'"
@@ -27,9 +26,14 @@
         </ng-template>
       </ng-container>
       <ng-template #void>
-        <a [ngClass]="classes" href="javascript:void(0);" [target]="content.target || '_self'"
-          [innerHTML]="content.label | safeHtml" title="{{content.label}}" (click)="nav($event)"></a>
+        <div *ngTemplateOutlet="action;context:{link: content}"></div>
       </ng-template>
     </ng-template>
   </ng-template>
 </ng-container>
+
+<ng-template let-link="link" #action>
+  <a [ngClass]="classes" href="javascript:void(0);" [target]="link.target || '_self'"
+    [innerHTML]="link.label | safeHtml" title="{{link.label}}" rel="{{link.rel}}" [attr.data-href]="link.href"
+    (click)="nav($event)"></a>
+</ng-template>
