@@ -84,7 +84,7 @@ export class SearchBoxComponent
   }
 
   trackByFn(index: number, item: any): number {
-    return index;
+    return item.label;
   }
 
   ngOnDestroy(): void {}

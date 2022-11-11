@@ -34,6 +34,6 @@ export class ListComponent implements OnInit {
   }
 
   trackByFn(index: number, item: any): number {
-    return index;
+    return item.title.href;
   }
 }

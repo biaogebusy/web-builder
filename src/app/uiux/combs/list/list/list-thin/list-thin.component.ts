@@ -31,6 +31,6 @@ export class ListThinComponent implements OnInit {
   }
 
   trackByFn(index: number, item: any): number {
-    return index;
+    return item.link.href;
   }
 }

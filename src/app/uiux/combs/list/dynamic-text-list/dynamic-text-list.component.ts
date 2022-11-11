@@ -102,7 +102,7 @@ export class DynamicTextListComponent
   }
 
   trackByFn(index: number, item: any): number {
-    return index;
+    return item.link.href;
   }
 
   ngOnDestroy(): void {

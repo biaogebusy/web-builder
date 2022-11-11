@@ -96,6 +96,6 @@ export class DynamicCardList1v1Component
   }
 
   trackByFn(index: number, item: any): number {
-    return index;
+    return item.link.href;
   }
 }

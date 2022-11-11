@@ -33,8 +33,10 @@ export class FeatureBoxComponent implements OnInit {
   ngOnInit(): void {
     this.type = this.utli.getFileType(this.content.img.src);
     const iconPath = '/assets/icons';
+    this.cd.detectChanges();
     if (this.type === 'picture') {
       this.box = this.content;
+      this.cd.detectChanges();
     } else {
       this.box = {
         fullIcon: this.content.fullIcon || 'fullscreen',
