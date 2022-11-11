@@ -9,6 +9,7 @@ import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { IBranding } from './core/interface/IBranding';
 import { Observable } from 'rxjs';
 import { ContentState } from '@core/state/ContentState';
+import { DOCUMENT } from '@angular/common';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -29,7 +30,8 @@ export class AppComponent implements OnInit, AfterViewInit {
     private configService: ConfigService,
     public navigation: NavigationService,
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
-    @Inject(BRANDING) public branding$: Observable<IBranding>
+    @Inject(BRANDING) public branding$: Observable<IBranding>,
+    @Inject(DOCUMENT) private doc: Document
   ) {
     this.navigation.startSaveHistory();
   }
@@ -70,5 +72,10 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   onBackdrop(): void {
     this.opened = false;
+    this.drawerContent = [];
+  }
+
+  onDrawer(): void {
+    this.doc.getElementsByTagName('body')[0].classList.toggle('disable-scroll');
   }
 }

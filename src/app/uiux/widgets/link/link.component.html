@@ -1,19 +1,34 @@
 <ng-container *ngIf="content && checkShow(content, user)">
-  <a *ngIf="content.dialog; else link" [ngClass]="classes" [href]="'javascript:void(0);'"
-    [innerHTML]="content?.label | safeHtml" title="{{content.label}}" rel="noopener" (click)="nav($event)"></a>
+  <!-- dialog -->
+  <a *ngIf="content.dialog;else link" [ngClass]="classes" href="javascript:void(0);"
+    [innerHTML]="content.label | safeHtml" title="{{content.label}}" rel="noopener" (click)="nav($event)"></a>
+
+  <!-- link -->
   <ng-template #link>
+    <!-- absolute link -->
     <a *ngIf="isAbsolute(content.href||''); else relative" [ngClass]="classes"
-      [href]="content.href || 'javascript:void(0);'" [target]="content?.target || '_self'"
-      [innerHTML]="content?.label | safeHtml" title="{{content.label}}" rel="noopener" (click)="nav($event)"></a>
+      [href]="content.href || 'javascript:void(0);'" [target]="content.target || '_self'"
+      [innerHTML]="content.label | safeHtml" title="{{content.label}}" rel="noopener" (click)="nav($event)"></a>
+
+    <!-- relative link /node/1 -->
     <ng-template #relative>
-      <a *ngIf="content.href;else void" [routerLink]="[content.href]" [routerLinkActive]="['active']"
-        [target]="content?.target || '_self'" [routerLinkActiveOptions]="{exact: true}"
-        [queryParams]="content.queryParams" [fragment]="content.fragment" [ngClass]="classes"
-        [innerHTML]="content?.label | safeHtml" title="{{content.label}}" (click)="nav($event)">
-      </a>
+      <ng-container *ngIf="content.href;else void">
+        <!-- drawer -->
+        <a *ngIf="content.rel && content.rel === 'drawer';else default" [ngClass]="classes" href="javascript:void(0);"
+          [innerHTML]="content.label | safeHtml" title="{{content.label}}" rel="{{content.rel}}"
+          [attr.data-href]="content.href" (click)="nav($event);"></a>
+
+        <!-- router link -->
+        <ng-template #default>
+          <a [routerLink]="[content.href]" [routerLinkActive]="['active']" [target]="content.target || '_self'"
+            [routerLinkActiveOptions]="{exact: true}" [queryParams]="content.queryParams" [fragment]="content.fragment"
+            [ngClass]="classes" [innerHTML]="content.label | safeHtml" title="{{content.label}}" (click)="nav($event)">
+          </a>
+        </ng-template>
+      </ng-container>
       <ng-template #void>
-        <a [ngClass]="classes" href="javascript:void(0);" [target]="content?.target || '_self'"
-          [innerHTML]="content?.label | safeHtml" title="{{content.label}}" (click)="nav($event)"></a>
+        <a [ngClass]="classes" href="javascript:void(0);" [target]="content.target || '_self'"
+          [innerHTML]="content.label | safeHtml" title="{{content.label}}" (click)="nav($event)"></a>
       </ng-template>
     </ng-template>
   </ng-template>

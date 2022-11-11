@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { UtilitiesService } from '@core/service/utilities.service';
+import { ContentState } from '@core/state/ContentState';
+import { ContentService } from './content.service';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +13,9 @@ export class RouteService {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private location: Location,
-    private util: UtilitiesService
+    private util: UtilitiesService,
+    private contentService: ContentService,
+    private contentState: ContentState
   ) {}
 
   updateQueryParams(query: Params): void {
@@ -52,6 +56,16 @@ export class RouteService {
       const target = event.target;
       const link = target.href.split(target.host)[1];
       if (!this.util.getFileType(link)) {
+        if (target.rel === 'drawer') {
+          this.contentState.drawerOpened$.next(true);
+          this.contentState.drawerLoading$.next(true);
+          this.contentService.loadPageContent(link).subscribe((content) => {
+            this.contentState.drawerContent$.next(content.body);
+            this.contentState.drawerLoading$.next(false);
+          });
+          event.preventDefault();
+          return;
+        }
         // not file type
         if (target.target === '_blank') {
           event.preventDefault();

@@ -18,6 +18,11 @@ body {
   line-height: 1.618;
   overflow-x: hidden;
   overflow-y: auto;
+  &.disable-scroll {
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+  }
 }
 
 // fix sidebar position sticky

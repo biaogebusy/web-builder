@@ -19,6 +19,7 @@
     }
   }
 }
+
 .loading-container {
   display: flex;
   position: fixed;
@@ -31,6 +32,7 @@
 }
 
 .drawer-right.mat-drawer-opened {
+  position: fixed;
   max-width: 75%;
   min-width: 200px;
   // border-top-left-radius: 10px;
