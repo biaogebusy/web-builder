@@ -19,5 +19,9 @@
       }
       @include mat-elevation(3, mat-color($foreground, divider), 0.6);
     }
+    .meta {
+      border: 1px solid mat-color($foreground, divider);
+      @include mat-elevation(3, mat-color($foreground, divider), 0.6);
+    }
   }
 }

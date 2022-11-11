@@ -55,6 +55,11 @@ export class BlockComponent implements OnInit, AfterViewInit {
   }
 
   onDrawer(): void {
-    this.doc.getElementsByTagName('body')[0].classList.toggle('disable-scroll');
+    this.doc
+      .getElementsByTagName('body')[0]
+      .classList.toggle('drawer-disable-scroll');
+    this.doc
+      .getElementById('transparent-mode')
+      ?.classList.toggle('transparent-mode');
   }
 }

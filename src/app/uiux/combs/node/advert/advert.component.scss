@@ -7,10 +7,14 @@
     max-width: 100%;
   }
   .adver-header {
+    font-size: small;
     .left {
       .logo {
         width: 40px;
       }
     }
+  }
+  .advert-body {
+    min-height: 580px;
   }
 }

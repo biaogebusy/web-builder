@@ -1,4 +1,4 @@
-<ng-container *ngIf="pageContent$ | async as page">
+<div class="block" *ngIf="pageContent$ | async as page">
   <mat-drawer-container (backdropClick)="onBackdrop()">
     <mat-drawer-content>
       <div *ngTemplateOutlet="block; context: {content:page.body}"></div>
@@ -8,11 +8,11 @@
         <mat-spinner diameter="50" color="accent"></mat-spinner>
       </div>
       <ng-container *ngIf="!drawerLoading">
-        <div *ngTemplateOutlet="block; context: {content:drawerContent.body}"></div>
+        <div *ngTemplateOutlet="block; context: {content:drawerContent?.body}"></div>
       </ng-container>
     </mat-drawer>
   </mat-drawer-container>
-</ng-container>
+</div>
 
 <ng-template let-content="content" #block>
   <ng-container *ngFor="let item of content; trackBy: trackByFn">
