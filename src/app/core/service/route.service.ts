@@ -4,6 +4,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { ContentState } from '@core/state/ContentState';
 import { ContentService } from './content.service';
+import { IPage } from '@core/interface/IAppConfig';
 
 @Injectable({
   providedIn: 'root',
@@ -59,10 +60,12 @@ export class RouteService {
         if (target.rel === 'drawer') {
           this.contentState.drawerOpened$.next(true);
           this.contentState.drawerLoading$.next(true);
-          this.contentService.loadPageContent(link).subscribe((content) => {
-            this.contentState.drawerContent$.next(content.body);
-            this.contentState.drawerLoading$.next(false);
-          });
+          this.contentService
+            .loadPageContent(link)
+            .subscribe((content: IPage) => {
+              this.contentState.drawerContent$.next(content);
+              this.contentState.drawerLoading$.next(false);
+            });
           event.preventDefault();
           return;
         }

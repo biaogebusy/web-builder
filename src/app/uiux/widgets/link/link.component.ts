@@ -17,6 +17,7 @@ import type { IUser } from '@core/interface/IUser';
 import { USER } from '@core/token/token-providers';
 import { ContentService } from '@core/service/content.service';
 import { ContentState } from '@core/state/ContentState';
+import { IPage } from '@core/interface/IAppConfig';
 
 @Component({
   selector: 'app-link',
@@ -65,9 +66,9 @@ export class LinkComponent extends BaseComponent implements OnInit {
       this.contentState.drawerLoading$.next(true);
       this.contentService
         .loadPageContent(this.content.href)
-        .subscribe((content) => {
+        .subscribe((content: IPage) => {
           this.contentState.drawerLoading$.next(false);
-          this.contentState.drawerContent$.next(content.body);
+          this.contentState.drawerContent$.next(content);
         });
       return false;
     }

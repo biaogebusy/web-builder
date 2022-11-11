@@ -20,21 +20,24 @@
       "id": "full_calendar",
       "spacer": "sm",
       "calendar": {
+        "drawer": true,
         "options": {
           "events": [
             {
               "title": "Angular 分享",
               "event": "meeting",
-              "start": "2022-10-20T09:07:08.078Z",
+              "start": "2022-11-20T09:07:08.078Z",
               "user": "Johnson",
-              "className": "bg-primary"
+              "className": "bg-primary",
+              "url": "/lottery-page"
             },
             {
               "title": "Drupal 分享",
               "event": "drupal",
-              "start": "2022-10-20T09:07:08.078Z",
+              "start": "2022-11-12T09:07:08.078Z",
               "user": "Johnson",
-              "className": "bg-warn"
+              "className": "bg-warn",
+              "url": "/lottery-page"
             }
           ]
         },

@@ -25,6 +25,7 @@ import { RouteService } from '@core/service/route.service';
 import type { IFullCalendar } from '@core/interface/combs/ICalendar';
 import { ContentService } from '@core/service/content.service';
 import { ContentState } from '@core/state/ContentState';
+import { IPage } from '@core/interface/IAppConfig';
 
 @Component({
   selector: 'app-full-calendar',
@@ -159,9 +160,9 @@ export class FullCalendarComponent
         this.cd.detectChanges();
         this.contentService
           .loadPageContent(info.event.url)
-          .subscribe((content) => {
+          .subscribe((content: IPage) => {
             this.contentState.drawerLoading$.next(false);
-            this.contentState.drawerContent$.next(content.body);
+            this.contentState.drawerContent$.next(content);
             this.cd.detectChanges();
           });
         info.jsEvent.preventDefault();

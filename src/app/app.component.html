@@ -2,7 +2,7 @@
   <div class="loader">Loading...</div>
 </div>
 <ngx-loading-bar [includeSpinner]="false" *ngIf="coreConfig?.loadingBar"></ngx-loading-bar>
-<mat-drawer-container *ngIf="coreConfig && branding$ | async" (backdropClick)="onBackdrop()">
+<mat-drawer-container *ngIf="coreConfig && branding$ | async">
   <mat-drawer class="mobile-menu" #drawer [(opened)]="mobileMenuOpened">
     <app-menu [isDrawer]="mobileMenuOpened" [content]="(branding$ | async)?.header || undefined"></app-menu>
   </mat-drawer>
@@ -13,12 +13,4 @@
     </div>
     <app-footer></app-footer>
   </mat-drawer-content>
-  <mat-drawer (openedChange)="onDrawer()" class="drawer-right" [mode]="'over'" [opened]="opened" position="end">
-    <div class="drawer-loading" *ngIf="drawerLoading">
-      <mat-spinner diameter="50" color="accent"></mat-spinner>
-    </div>
-    <ng-container *ngIf="!drawerLoading">
-      <app-dynamic-combs *ngFor="let item of drawerContent" [content]="item"></app-dynamic-combs>
-    </ng-container>
-  </mat-drawer>
 </mat-drawer-container>

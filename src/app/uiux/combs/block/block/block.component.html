@@ -1,5 +1,21 @@
 <ng-container *ngIf="pageContent$ | async as page">
-  <ng-container *ngFor="let item of page.body; trackBy: trackByFn">
+  <mat-drawer-container (backdropClick)="onBackdrop()">
+    <mat-drawer-content>
+      <div *ngTemplateOutlet="block; context: {content:page.body}"></div>
+    </mat-drawer-content>
+    <mat-drawer (openedChange)="onDrawer()" class="drawer-right" [mode]="'over'" [opened]="opened" position="end">
+      <div class="drawer-loading" *ngIf="drawerLoading">
+        <mat-spinner diameter="50" color="accent"></mat-spinner>
+      </div>
+      <ng-container *ngIf="!drawerLoading">
+        <div *ngTemplateOutlet="block; context: {content:drawerContent.body}"></div>
+      </ng-container>
+    </mat-drawer>
+  </mat-drawer-container>
+</ng-container>
+
+<ng-template let-content="content" #block>
+  <ng-container *ngFor="let item of content; trackBy: trackByFn">
     <ng-container [ngSwitch]="item.type">
       <app-job *ngSwitchCase="'job'" [content]="item"></app-job>
       <app-case *ngSwitchCase="'case'" [content]="item"></app-case>
@@ -10,7 +26,6 @@
       <app-case-node *ngSwitchCase="'case-node'" [content]="item"></app-case-node>
       <app-map-list-v1 *ngSwitchCase="'map-list-v1'" [content]="item"></app-map-list-v1>
       <app-whychooseus *ngSwitchCase="'whychooseus'" [content]="item"></app-whychooseus>
-      <app-full-calendar *ngSwitchCase="'full-calendar'" [content]="item"></app-full-calendar>
       <!-- user center -->
       <app-profile1v1 *ngSwitchCase="'profile-1v1'" [content]="item"></app-profile1v1>
       <app-user-pay *ngSwitchCase="'user-pay'" [content]="item"></app-user-pay>
@@ -19,4 +34,4 @@
       <app-dynamic-combs *ngSwitchDefault [content]="item"></app-dynamic-combs>
     </ng-container>
   </ng-container>
-</ng-container>
+</ng-template>
