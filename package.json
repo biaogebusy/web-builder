@@ -44,6 +44,7 @@
     "@fullcalendar/daygrid": "^5.11.0",
     "@fullcalendar/list": "^5.11.0",
     "@fullcalendar/timegrid": "^5.11.0",
+    "@mdi/angular-material": "^7.0.96",
     "@nguniversal/express-engine": "^11.2.1",
     "@ngx-formly/core": "^5.12.5",
     "@ngx-formly/material": "^5.12.5",

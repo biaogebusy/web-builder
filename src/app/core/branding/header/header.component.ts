@@ -42,6 +42,11 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit(): void {
     this.contentState.pageConfig$.subscribe((config) => {
       this.headerMode = config?.headerMode;
+      if (this.headerMode?.transparent) {
+        this.doc
+          .getElementsByTagName('body')[0]
+          .classList.add('transparent-header');
+      }
     });
   }
 

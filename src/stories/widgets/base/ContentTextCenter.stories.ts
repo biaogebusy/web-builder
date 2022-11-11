@@ -8,7 +8,7 @@ import { ContentTextCenterComponent } from '@uiux/widgets/content-text-center/co
 import { StorysModule } from '@core/storys.module';
 
 export default {
-  title: '基础组件/内容/内容居中块',
+  title: '基础组件/基本元素/内容居中块',
   id: 'content-text-center',
   component: ContentTextCenterComponent,
   decorators: [

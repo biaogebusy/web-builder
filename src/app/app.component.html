@@ -2,9 +2,9 @@
   <div class="loader">Loading...</div>
 </div>
 <ngx-loading-bar [includeSpinner]="false" *ngIf="coreConfig?.loadingBar"></ngx-loading-bar>
-<mat-drawer-container *ngIf="coreConfig && branding$|async">
-  <mat-drawer #drawer [(opened)]="opened">
-    <app-menu [isDrawer]="opened" [content]="(branding$ | async)?.header || undefined"></app-menu>
+<mat-drawer-container *ngIf="coreConfig && branding$ | async">
+  <mat-drawer class="mobile-menu" #drawer [(opened)]="mobileMenuOpened">
+    <app-menu [isDrawer]="mobileMenuOpened" [content]="(branding$ | async)?.header || undefined"></app-menu>
   </mat-drawer>
   <mat-drawer-content>
     <app-header></app-header>

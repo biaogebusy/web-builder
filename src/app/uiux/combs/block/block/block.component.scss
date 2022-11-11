@@ -1,0 +1,23 @@
+.block {
+  position: relative;
+}
+
+.drawer-right {
+  // border-top-left-radius: 10px;
+  // border-bottom-left-radius: 10px;
+  // top: 10px;
+  // bottom: 10px;
+}
+
+.drawer-right.mat-drawer-opened {
+  max-width: 75%;
+  min-width: 200px;
+}
+
+.drawer-loading {
+  height: 50vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -22,7 +22,7 @@
     <mat-divider></mat-divider>
     <div class="view" fxFlex.gt-sm="0 0 100" fxFlex.lt-md="100">
       <ngx-skeleton-loader *ngIf="loading" count="10" appearance="line"></ngx-skeleton-loader>
-      <app-dynamic-table [content]="table | paginate:{itemsPerPage: pager.itemsPerPage,currentPage: pager.current_page}"
+      <app-dynamic-table [content]="table"
         *ngIf="table && !loading">
       </app-dynamic-table>
       <div class="actions m-y p-x" fxLayoutAlign="end center">
@@ -34,8 +34,8 @@
         您没有权限访问该页面！
       </div>
       <ng-container *ngIf="table">
-        <ng-container *ngFor="let item of table.elements | paginate:{id:content?.params?.apiType, itemsPerPage: pager.items_per_page,currentPage:
-          pager.current_page + 1,totalItems: pager.total_items};trackBy:trackByFn">
+        <ng-container *ngFor="let item of table.elements | paginate:{id:content?.params?.apiType, itemsPerPage: pager.itemsPerPage,currentPage:
+          pager.currentPage,totalItems: pager.totalItems};trackBy:trackByFn">
         </ng-container>
       </ng-container>
       <app-pagination [id]="content?.params?.apiType || ''" *ngIf="pager" (pageChange)="onPageChange($event)">

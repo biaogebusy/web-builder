@@ -3,6 +3,7 @@ import { QuillModule } from 'ngx-quill';
 import { IChipList } from '../widgets/IChipList';
 export interface IBaseNode {
   title: string;
+  uuid: string;
   body?: string;
   banner?: any;
   meta?: any[];
@@ -103,4 +104,17 @@ export interface ICase extends IBaseNode {
 export interface ICasePrams {
   transaction_level: 'general' | 'important' | 'exigence';
   case_procedure: string;
+}
+
+export interface IAdvert extends IBaseNode {
+  spacer: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'none';
+  store: {
+    logo: string;
+    name: string;
+  };
+  date: {
+    start: string;
+    end: string;
+  };
+  view: string;
 }

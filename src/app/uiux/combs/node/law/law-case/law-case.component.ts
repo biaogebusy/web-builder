@@ -24,8 +24,7 @@ import {
   startWith,
 } from 'rxjs/operators';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
-import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
-import { PAGE_CONTENT } from '@core/token/token-providers';
+import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type { IUser } from '@core/interface/IUser';
 
 @Component({
@@ -53,17 +52,12 @@ export class LawCaseComponent
     private screenService: ScreenService,
     public contentState: ContentState,
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
-    @Inject(PAGE_CONTENT) public pageContent$: Observable<IPage>,
     @Inject(USER) private user: IUser
   ) {
     super();
   }
 
-  ngOnInit(): void {
-    this.pageContent$.pipe(takeUntil(this.destroy$)).subscribe((page) => {
-      this.uuid = page.config?.node?.uuid;
-    });
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     if (this.content?.form?.length) {
@@ -108,7 +102,7 @@ export class LawCaseComponent
   }
 
   getComments(timeStamp = 1): void {
-    const uuid = this.uuid;
+    const uuid = this.content.uuid;
     if (!this.coreConfig?.article?.comment?.enable || !uuid) {
       return;
     }

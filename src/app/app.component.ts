@@ -1,6 +1,5 @@
 import { Component, OnInit, AfterViewInit, Inject } from '@angular/core';
 import { ScreenState } from './core/state/screen/ScreenState';
-import { MatDrawer } from '@angular/material/sidenav';
 import { ActivatedRoute } from '@angular/router';
 import { ScreenService } from '@core/service/screen.service';
 import { ConfigService } from '@core/service/config.service';
@@ -16,6 +15,7 @@ import { Observable } from 'rxjs';
 })
 export class AppComponent implements OnInit, AfterViewInit {
   authenticated: boolean;
+  mobileMenuOpened: boolean;
   opened: boolean;
   loading = false;
   constructor(
@@ -37,7 +37,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       this.screen.drawer$.subscribe(() => {
-        this.opened = !this.opened;
+        this.mobileMenuOpened = !this.mobileMenuOpened;
       });
 
       this.router.fragment.subscribe((fragment) => {

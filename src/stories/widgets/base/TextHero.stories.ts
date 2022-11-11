@@ -4,7 +4,7 @@ import { TextHeroComponent } from '@uiux/widgets/text-hero/text-hero.component';
 import { StorysModule } from '@core/storys.module';
 
 export default {
-  title: '基础组件/内容/英雄区内容',
+  title: '基础组件/基本元素/英雄区内容',
   id: 'text-hero',
   component: TextHeroComponent,
   decorators: [

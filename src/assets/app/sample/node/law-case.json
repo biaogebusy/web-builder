@@ -1114,7 +1114,9 @@
       "comment": {
         "actions": [
           "update",
-          "delete"
+          "delete",
+          "reply",
+          "quote"
         ],
         "title": true
       }

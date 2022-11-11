@@ -177,6 +177,10 @@ Comment.args = {
         ],
       },
     ],
+    comment: {
+      actions: ['update', 'delete', 'reply', 'quote'],
+      title: true,
+    },
   },
   canAccess: true,
   comments,

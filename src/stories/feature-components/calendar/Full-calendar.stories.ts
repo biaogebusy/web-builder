@@ -2,6 +2,8 @@ import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { FullCalendarComponent } from '@uiux/combs/calendar/full-calendar/full-calendar.component';
 import { StorysModule } from '@core/storys.module';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { DynamicCombsModule } from '@uiux/combs/dynamic-combs/dynamic-combs.module';
 
 export default {
   title: '特色组件/日历/Full calendar',
@@ -10,7 +12,7 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [],
-      imports: [StorysModule.forRoot()],
+      imports: [MatSidenavModule, DynamicCombsModule, StorysModule.forRoot()],
     }),
   ],
   parameters: {
@@ -31,6 +33,7 @@ export const Default = Template.bind({});
 
 Default.args = {
   content: {
+    spacer: 'xxl',
     sidebar: [
       {
         type: 'text',
@@ -103,6 +106,7 @@ Default.args = {
       },
     ],
     calendar: {
+      drawer: true,
       options: {
         events: [
           {
@@ -111,6 +115,7 @@ Default.args = {
             start: new Date(),
             user: 'Johnson',
             className: 'bg-primary',
+            url: '/node/1',
           },
           {
             title: 'Drupal 分享',
@@ -118,6 +123,7 @@ Default.args = {
             start: new Date(),
             user: 'Johnson',
             className: 'bg-warn',
+            url: '/node/2',
           },
         ],
       },

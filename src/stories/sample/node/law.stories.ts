@@ -14,8 +14,8 @@ import { comments } from './comments.json';
 import { of } from 'rxjs';
 
 export default {
-  title: '示例页面/内容类型/卡片表格组合',
-  id: 'law',
+  title: '示例页面/内容类型/数据表格',
+  id: 'data-table',
   component: LawCaseComponent,
   decorators: [
     moduleMetadata({
@@ -1890,6 +1890,10 @@ Meeting.args = {
         label: '暂时还没有工作日志。',
       },
     },
+    comment: {
+      actions: ['update', 'delete', 'reply', 'quote'],
+      title: true,
+    },
   },
   comments$: of(comments),
 };
@@ -2735,6 +2739,10 @@ Project.args = {
       empty: {
         label: '暂时还没有工作日志。',
       },
+    },
+    comment: {
+      actions: ['update', 'delete', 'reply', 'quote'],
+      title: true,
     },
   },
   comments$: of(comments),

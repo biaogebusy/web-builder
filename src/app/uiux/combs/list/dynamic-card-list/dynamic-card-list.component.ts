@@ -15,6 +15,7 @@ import { FormService } from '@core/service/form.service';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { ScreenService } from '@core/service/screen.service';
 import type { IDynamicCardList } from '@core/interface/combs/IList';
+import { IPager } from '@core/interface/widgets/IWidgets';
 
 @Component({
   selector: 'app-dynamic-card-list',
@@ -26,7 +27,7 @@ export class DynamicCardListComponent extends BaseComponent implements OnInit {
   @Input() content: IDynamicCardList;
   keys: string;
   page: number;
-  pager: any;
+  pager: IPager;
   form: FormGroup;
   filterForm: any[];
   nodes: any[];
@@ -110,6 +111,7 @@ export class DynamicCardListComponent extends BaseComponent implements OnInit {
 
   updateList(data: any, formValues: any, options: any): void {
     this.pager = this.handlerPager(data.pager);
+    this.cd.detectChanges();
     this.nodes = data.rows.map((item: any) => {
       const link = item.url;
       const title = result(

@@ -306,7 +306,9 @@
         "xAxis": {
           "type": "category"
         },
-        "yAxis": {},
+        "yAxis": {
+          "type": "value"
+        },
         "series": [
           {
             "name": "预算占比",

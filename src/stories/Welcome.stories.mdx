@@ -1,19 +1,14 @@
-import { Meta } from "@storybook/addon-docs";
+import { Meta, Story } from "@storybook/addon-docs";
 
 <Meta title="介绍" id="welcome" />
 
 # 信使前端框架
 
-信使是基于 Material UI 的 Angular 前端框架，提供优秀的数字创新体验，快速构建响应式优先的 Web 项目。这是一套完整的前端解决方案，包含工程构建，主题定制等功能，极大提升了开发效率，如果您的业务中面向前台业务的，不妨看看。
+信使是基于 Material UI 的 Angular 前端框架，提供优秀的数字创新体验，快速构建响应式优先的 Web 项目。这是一套完整的前端解决方案，包含工程构建，主题定制等功能，极大提升了开发效率。
 
-- 为了适配 IE11 目前的版本保持在 Angular v11；
-- 支持 SSR 服务端渲染；
-- 支持多主题、暗黑模式；
-- 全局配置、品牌菜单配置、主题配置、API、用户状态在 app.module 中注入，不同的项目可覆盖 Token 改变业务逻辑；
-- 页面内容数据通过当前页面的 url 来读取 api，根据返回的 body 数组渲染对应的组件；
-- 框架全面使用 Storybook 进行开发、测试和文档的更新；
+<Story id="showcase-1v1--default" />
 
-### Storybook
+## Storybook
 
 ![storybook](/assets/storybook/assets/multiverse.png)
 
@@ -27,7 +22,8 @@ import { Meta } from "@storybook/addon-docs";
 - 支持站点消息推送；
 - 链接或者组件可根据角色显示；
 - 页头和页脚根据 JSON 构建，菜单支持角色显示；
-- 动态组件，动态表单
+- 动态组件，动态表单；
+- link 组件、View list 组件设置`rel="drawer"`可以调用 drawer 切出`href`的接口数据并显示对应组件；
 
 ## 技术选型
 
@@ -38,18 +34,12 @@ import { Meta } from "@storybook/addon-docs";
 - pdf 生成：jspdf
 - 编辑器：quill
 - 幻灯片：swiper
+- 字体图标：material design icons + 自定义 svg icon
 - 加密：crypto-js
 - 工具函数：lodash-es
 - 测试预览：storybook
 - web 服务：Nginx
 - 后端：Drupal(推荐)，通过 Drupal 的 views 视图可灵活配置动态组件、动态 api；
-
-## 下一步的规划
-
-组件应该允许两种方式获取数据：
-
-- 直接在 elements 输出数据；
-- 当有 api 时，优先使用 api 获取数据，通过后台 view 灵活配置字段来匹配动态组件；
 
 ## 缓存方案
 
@@ -60,7 +50,16 @@ import { Meta } from "@storybook/addon-docs";
 3. api 后端缓存，清空后台缓存；
    ![缓存架构](/assets/storybook/assets/cache.png)
 
-| 交流学习              | 二维码                                      |
-| --------------------- | ------------------------------------------- |
-| 公众号：Drupal 自习室 | ![Drupal 自习室](/assets/images/qrcode.jpg) |
-| 个人微信：biaogebusy  | ![交流群](/assets/images/qrcode.png)        |
+## 下一步的规划
+
+组件应该允许两种方式获取数据：
+
+- 直接在 elements 输出数据；
+- 当有 api 时，优先使用 api 获取数据，通过后台 view 灵活配置字段来匹配动态组件；
+
+## 交流学习
+
+| 联系                   | 二维码                                      |
+| ---------------------- | ------------------------------------------- |
+| 公众号：Drupal 自习室  | ![Drupal 自习室](/assets/images/qrcode.jpg) |
+| 入群加微信：biaogebusy | ![交流群](/assets/images/qrcode.png)        |

@@ -1,8 +1,11 @@
 <div class="full-calendar position-relative" *ngIf="content">
+  <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
+  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
+  <app-bg [content]="content.bg" *ngIf="content.bg"></app-bg>
   <div class="container">
     <div class="inner p-y" fxLayout="row wrap">
       <div class="sidebar p-x-sm" fxFlex.gt-sm="25" fxFlex.lt-md="100">
-        <app-dynamic-widgets [content]="item" [form]="form" *ngFor="let item of content.sidebar;trackBy:trackByFn">
+        <app-dynamic-widgets [content]="item" [form]="form" *ngFor="let item of content.sidebar; trackBy: trackByFn">
         </app-dynamic-widgets>
       </div>
       <div class="main p-x-sm p-y-sm" fxFlex.gt-sm="75" fxFlex.lt-md="100">
@@ -13,4 +16,5 @@
       </div>
     </div>
   </div>
+  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
 </div>

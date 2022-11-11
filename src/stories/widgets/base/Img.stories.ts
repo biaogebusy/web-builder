@@ -8,7 +8,7 @@ import { ImgComponent } from '@uiux/widgets/img/img.component';
 import { StorysModule } from '@core/storys.module';
 
 export default {
-  title: '基础组件/内容/图片',
+  title: '基础组件/基本元素/图片',
   id: 'img',
   component: ImgComponent,
   decorators: [

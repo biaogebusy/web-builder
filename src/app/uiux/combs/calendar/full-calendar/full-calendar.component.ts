@@ -23,6 +23,9 @@ import { CalendarState } from '@core/state/CalendarState';
 import { formatDate } from '@angular/common';
 import { RouteService } from '@core/service/route.service';
 import type { IFullCalendar } from '@core/interface/combs/ICalendar';
+import { ContentService } from '@core/service/content.service';
+import { ContentState } from '@core/state/ContentState';
+import { IPage } from '@core/interface/IAppConfig';
 
 @Component({
   selector: 'app-full-calendar',
@@ -50,7 +53,9 @@ export class FullCalendarComponent
     private screenService: ScreenService,
     private nodeService: NodeService,
     private calendarState: CalendarState,
-    private routeService: RouteService
+    private routeService: RouteService,
+    private contentService: ContentService,
+    private contentState: ContentState
   ) {
     super();
   }
@@ -95,9 +100,11 @@ export class FullCalendarComponent
             this.form.controls.datepicker.setValue('');
             return EMPTY;
           }
+          this.loading = true;
+          this.cd.detectChanges();
           return data;
         }),
-        debounceTime(1000),
+        debounceTime(500),
         distinctUntilChanged(),
         takeUntil(this.destroy$)
       )
@@ -114,13 +121,12 @@ export class FullCalendarComponent
     const api = this.content?.calendar?.api || '';
     this.initCalendar();
     if (this.content.calendar?.options?.events) {
-      this.loading = true;
       this.options.events = this.content.calendar.options.events;
       this.initEvents();
+      this.cd.detectChanges();
       return;
     }
     if (api || params || this.options?.events) {
-      this.loading = true;
       this.nodeService.search(api, params).subscribe((data) => {
         if (this.options) {
           this.options.events = data.map((item: any) => {
@@ -148,7 +154,22 @@ export class FullCalendarComponent
 
   initEvents(): void {
     this.options.eventClick = (info) => {
+      if (this.content.calendar?.drawer) {
+        this.contentState.drawerOpened$.next(true);
+        this.contentState.drawerLoading$.next(true);
+        this.cd.detectChanges();
+        this.contentService
+          .loadPageContent(info.event.url)
+          .subscribe((content: IPage) => {
+            this.contentState.drawerLoading$.next(false);
+            this.contentState.drawerContent$.next(content);
+            this.cd.detectChanges();
+          });
+        info.jsEvent.preventDefault();
+        return;
+      }
       this.routeService.eventLinkToNav(info.jsEvent);
+      this.cd.detectChanges();
     };
     this.visiable = true;
     this.loading = false;

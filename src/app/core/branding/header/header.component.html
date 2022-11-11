@@ -10,7 +10,8 @@
       [content]="branding.header"></app-menu>
   </header>
   <ng-template #transparent>
-    <header #header class="transparent-mode" [class.header-inverse]="branding.header?.params?.inverse"
+    <header #header id="transparent-mode" class="transparent-mode"
+      [class.header-inverse]="branding.header?.params?.inverse"
       [ngClass]="(contentState.pageConfig$|async)?.headerMode?.style">
       <div class="static">
         <app-header-top *ngIf="branding.header?.top" [content]="branding.header?.top"></app-header-top>

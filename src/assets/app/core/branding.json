@@ -26,20 +26,24 @@
         "right": [
           {
             "label": "关于",
-            "href": "/about"
+            "href": "/sample/combs/action/action1v1",
+            "rel": "drawer"
           },
           {
             "label": "公益",
-            "href": "/"
+            "href": "/sample/combs/action/action1v1",
+            "rel": "drawer"
           },
           {
             "label": "活动",
-            "href": "/events"
+            "href": "/sample/combs/action/action1v1",
+            "rel": "drawer"
           },
           {
             "label": "nnitpay",
             "svg": "wechat",
-            "href": "#"
+            "href": "/sample/combs/action/action1v1",
+            "rel": "drawer"
           }
         ]
       }

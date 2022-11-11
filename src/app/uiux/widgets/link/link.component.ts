@@ -15,6 +15,9 @@ import { DialogService } from '@core/service/dialog.service';
 import { BaseComponent } from '@uiux/base/base.widget';
 import type { IUser } from '@core/interface/IUser';
 import { USER } from '@core/token/token-providers';
+import { ContentService } from '@core/service/content.service';
+import { ContentState } from '@core/state/ContentState';
+import { IPage } from '@core/interface/IAppConfig';
 
 @Component({
   selector: 'app-link',
@@ -32,6 +35,8 @@ export class LinkComponent extends BaseComponent implements OnInit {
     private util: UtilitiesService,
     private dialog: MatDialog,
     private dialogService: DialogService,
+    private contentService: ContentService,
+    private contentState: ContentState,
     @Inject(USER) public user: IUser
   ) {
     super();
@@ -53,6 +58,18 @@ export class LinkComponent extends BaseComponent implements OnInit {
       event.preventDefault();
       event.stopPropagation();
       this.openDialog(this.content.dialog);
+      return false;
+    }
+
+    if (this.content?.rel === 'drawer') {
+      this.contentState.drawerOpened$.next(true);
+      this.contentState.drawerLoading$.next(true);
+      this.contentService
+        .loadPageContent(this.content.href)
+        .subscribe((content: IPage) => {
+          this.contentState.drawerLoading$.next(false);
+          this.contentState.drawerContent$.next(content);
+        });
       return false;
     }
   }
