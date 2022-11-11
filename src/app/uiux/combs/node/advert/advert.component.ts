@@ -7,7 +7,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { ICoreConfig } from '@core/interface/IAppConfig';
+import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type { IUser } from '@core/interface/IUser';
 import type { IAdvert, IComment } from '@core/interface/node/INode';
 import { NodeService } from '@core/service/node.service';
