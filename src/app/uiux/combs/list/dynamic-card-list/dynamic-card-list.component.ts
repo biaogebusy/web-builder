@@ -144,11 +144,11 @@ export class DynamicCardListComponent extends BaseComponent implements OnInit {
         body,
       };
     });
-    this.routerService.updateQueryParams(this.getUrlQuery(formValues, options));
     this.cd.detectChanges();
+    this.routerService.updateQueryParams(this.getUrlQuery(formValues, options));
   }
 
   trackByFn(index: number, item: any): number {
-    return index;
+    return item.link;
   }
 }
