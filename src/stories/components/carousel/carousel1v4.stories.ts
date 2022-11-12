@@ -46,6 +46,7 @@ Default.args = {
         spaceBetween: 0,
         navigation: false,
         pagination: false,
+        effect: 'fade',
       },
       classes: 'p-bottom',
       elements: [

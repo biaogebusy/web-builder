@@ -7,7 +7,16 @@ import {
   OnDestroy,
   ChangeDetectionStrategy,
 } from '@angular/core';
-import SwiperCore, { Navigation, Pagination, SwiperOptions } from 'swiper';
+import SwiperCore, {
+  Navigation,
+  Pagination,
+  SwiperOptions,
+  EffectFade,
+  Lazy,
+  Autoplay,
+  Keyboard,
+  Mousewheel,
+} from 'swiper';
 import { SwiperComponent as SwiperCom } from 'swiper/angular';
 
 import { Subject } from 'rxjs';
@@ -22,7 +31,15 @@ const paginationgConfig: PaginationOptions = {
 };
 
 // install Swiper modules
-SwiperCore.use([Navigation, Pagination]);
+SwiperCore.use([
+  Navigation,
+  Pagination,
+  EffectFade,
+  Lazy,
+  Autoplay,
+  Keyboard,
+  Mousewheel,
+]);
 
 @Component({
   selector: 'app-swiper',
