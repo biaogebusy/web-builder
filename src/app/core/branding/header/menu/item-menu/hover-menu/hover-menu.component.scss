@@ -6,3 +6,13 @@
   left: 0;
   top: 100%;
 }
+
+.sub-menu {
+  position: relative;
+  .child {
+    position: absolute;
+    left: 100%;
+    top: 0;
+    background: #fff;
+  }
+}
