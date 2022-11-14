@@ -1,0 +1,14 @@
+<app-link class="top" [content]="content"></app-link>
+<div class="hover-menu" [class.active]="active">
+  <div class="inner">
+    <div class="item p-x-xs p-y-xs" *ngFor="let item of content.child;">
+      <div class="label">
+        <app-link [content]="item"></app-link>
+      </div>
+      <div class="sub-menu" *ngFor="let subMenu of item.child; last as isLast">
+        <app-link [content]="subMenu"></app-link>
+        <mat-divider *ngIf="!isLast" class="m-y-xs"></mat-divider>
+      </div>
+    </div>
+  </div>
+</div>

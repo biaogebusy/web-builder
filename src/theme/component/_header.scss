@@ -89,6 +89,11 @@
         @include mat-elevation(3, mat-color($foreground, divider, 0.7));
         @include scrollbar(mat-color($foreground, divider, 0.2));
       }
+
+      .hover-menu {
+        background-color: mat-color($primary, default-contrast);
+        @include mat-elevation(3, mat-color($foreground, divider, 0.7));
+      }
     }
 
     .actions {

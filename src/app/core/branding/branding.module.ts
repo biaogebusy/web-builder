@@ -21,6 +21,7 @@ import { MegaMenuComponent } from './header/menu/item-menu/mega-menu/mega-menu.c
 import { SpaceBetweenComponent } from './footer/space-between/space-between.component';
 import { FixBarComponent } from './footer/fix-bar/fix-bar.component';
 import { FixBarPopupComponent } from './footer/fix-bar/fix-bar-popup/fix-bar-popup.component';
+import { HoverMenuComponent } from './header/menu/item-menu/hover-menu/hover-menu.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { FixBarPopupComponent } from './footer/fix-bar/fix-bar-popup/fix-bar-pop
     SpaceBetweenComponent,
     FixBarComponent,
     FixBarPopupComponent,
+    HoverMenuComponent,
   ],
   imports: [ShareModule, WidgetsModule, HeroModule, DynamicCombsModule],
   exports: [HeaderComponent, FooterComponent, MenuComponent],

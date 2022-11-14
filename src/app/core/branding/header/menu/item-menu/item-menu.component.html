@@ -1,8 +1,19 @@
 <div class="item-menu" #itemMenu *ngIf="content && checkShow(content, user)">
   <ng-container *ngIf="(!isMegaMenu) && content.child && content.child.length >0">
-    <app-link class="top" [content]="content" [matMenuTriggerFor]="menu.childMenu"></app-link>
-    <app-sub-menu #menu [content]="content"></app-sub-menu>
+
+    <!-- hover open -->
+    <ng-container *ngIf="params?.menuHoverOpen;else clickOpen">
+      <app-hover-menu [content]="content"></app-hover-menu>
+    </ng-container>
+
+    <!-- click open -->
+    <ng-template #clickOpen>
+      <app-link class="top" [content]="content" [matMenuTriggerFor]="menu.childMenu"></app-link>
+      <app-sub-menu #menu [content]="content"></app-sub-menu>
+    </ng-template>
   </ng-container>
+
+  <!-- mega menu -->
   <ng-container *ngIf="isMegaMenu && content.child && content.child.length >0">
     <app-mega-menu [content]="content"></app-mega-menu>
   </ng-container>
