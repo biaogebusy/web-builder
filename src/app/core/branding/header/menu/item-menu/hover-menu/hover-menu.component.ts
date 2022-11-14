@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { ScreenService } from '@core/service/screen.service';
 import { ScreenState } from '@core/state/screen/ScreenState';
+import { BaseComponent } from '@uiux/base/base.widget';
 import { fromEvent, of } from 'rxjs';
 import { mergeMap, delay, takeUntil } from 'rxjs/operators';
 
@@ -17,7 +18,7 @@ import { mergeMap, delay, takeUntil } from 'rxjs/operators';
   styleUrls: ['./hover-menu.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HoverMenuComponent implements OnInit {
+export class HoverMenuComponent extends BaseComponent implements OnInit {
   @Input() content: any;
   active: boolean;
   constructor(
@@ -25,7 +26,9 @@ export class HoverMenuComponent implements OnInit {
     private cd: ChangeDetectorRef,
     private screenService: ScreenService,
     private screenState: ScreenState
-  ) {}
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {

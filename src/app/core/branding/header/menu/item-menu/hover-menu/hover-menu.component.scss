@@ -5,14 +5,51 @@
   position: absolute;
   left: 0;
   top: 100%;
-}
-
-.sub-menu {
-  position: relative;
-  .child {
-    position: absolute;
-    left: 100%;
-    top: 0;
-    background: #fff;
+  display: none;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  border-radius: 4px;
+  outline: 0;
+  &.active {
+    display: block;
+  }
+  .sub-menu {
+    position: relative;
+    .has-child {
+      &:after {
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 5px 0 5px 5px;
+        border-color: transparent transparent transparent currentColor;
+        content: "";
+        display: inline-block;
+        position: absolute;
+        top: 50%;
+        right: 16px;
+        transform: translateY(-50%);
+        color: rgba(0, 0, 0, 0.54);
+      }
+    }
+    &:hover {
+      .child {
+        display: block;
+      }
+    }
+    .mat-menu-item {
+      min-width: 180px;
+    }
+    .child {
+      position: absolute;
+      overflow: auto;
+      max-height: 580px;
+      left: 100%;
+      top: 0;
+      display: none;
+      padding-top: 8px;
+      padding-bottom: 8px;
+      border-radius: 4px;
+      outline: 0;
+    }
   }
 }
