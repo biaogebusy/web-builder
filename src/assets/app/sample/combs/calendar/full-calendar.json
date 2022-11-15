@@ -1,84 +1,93 @@
 {
   "title": "full calendar",
-  "body": [{
-    "type": "full-calendar",
-    "sidebar": [{
-        "type": "text",
-        "title": {
-          "label": "筛选",
-          "style": "style-v4",
-          "classes": "m-bottom-xs"
+  "body": [
+    {
+      "type": "full-calendar",
+      "sidebar": [
+        {
+          "type": "text",
+          "title": {
+            "label": "筛选",
+            "style": "style-v4",
+            "classes": "m-bottom-xs"
+          },
+          "spacer": "sm"
         },
-        "spacer": "sm"
-      }, {
-        "appearance": "legacy",
-        "controlType": "search",
-        "key": "keys",
-        "label": "关键词",
-        "type": "input"
-      },
-      {
-        "type": "select",
-        "key": "type",
-        "mutiple": false,
-        "label": "内容来源",
-        "options": [{
-            "label": "案件",
-            "value": "case"
-          },
-          {
-            "label": "会议",
-            "value": "meeting"
-          },
-          {
-            "label": "项目",
-            "value": "project"
+        {
+          "appearance": "legacy",
+          "controlType": "search",
+          "key": "keys",
+          "label": "关键词",
+          "type": "input"
+        },
+        {
+          "type": "select",
+          "key": "type",
+          "mutiple": false,
+          "label": "内容来源",
+          "options": [
+            {
+              "label": "案件",
+              "value": "case"
+            },
+            {
+              "label": "会议",
+              "value": "meeting"
+            },
+            {
+              "label": "项目",
+              "value": "project"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "key": "changed",
+          "mutiple": false,
+          "label": "最新更新",
+          "options": [
+            {
+              "label": "案件",
+              "value": "case"
+            },
+            {
+              "label": "会议管理",
+              "value": "meeting"
+            },
+            {
+              "label": "项目管理",
+              "value": "project"
+            },
+            {
+              "label": "资料文库",
+              "value": "doc_lib"
+            }
+          ]
+        },
+        {
+          "type": "datepicker",
+          "label": "日历",
+          "hint": "MM/DD/YYYY – MM/DD/YYYY",
+          "key": "datepicker",
+          "key-": "固定值",
+          "value": "",
+          "inline": true,
+          "placeholder": "请选择日期",
+          "params": {
+            "required": true
           }
-        ]
-      },
-      {
-        "type": "select",
-        "key": "changed",
-        "mutiple": false,
-        "label": "最新更新",
-        "options": [{
-          "label": "案件",
-          "value": "case"
-        }, {
-          "label": "会议管理",
-          "value": "meeting"
-        }, {
-          "label": "项目管理",
-          "value": "project"
-        }, {
-          "label": "资料文库",
-          "value": "doc_lib"
-        }]
-      },
-      {
-        "type": "datepicker",
-        "label": "日历",
-        "hint": "MM/DD/YYYY – MM/DD/YYYY",
-        "key": "datepicker",
-        "key-": "固定值",
-        "value": "",
-        "inline": true,
-        "placeholder": "请选择日期",
-        "params": {
-          "required": true
+        }
+      ],
+      "calendar": {
+        "options": {},
+        "api": "/api/v1/amigo-full-calendar",
+        "theme": {
+          "meeting": "bg-warn",
+          "case": "bg-primary",
+          "project": "bg-accent",
+          "event": "bg-red"
         }
       }
-    ],
-    "calendar": {
-      "options": {
-        "api": "/api/v1/amigo-full-calendar"
-      },
-      "theme": {
-        "meeting": "bg-warn",
-        "case": "bg-primary",
-        "project": "bg-accent",
-        "event": "bg-red"
-      }
     }
-  }]
+  ]
 }

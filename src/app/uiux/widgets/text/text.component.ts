@@ -61,7 +61,7 @@ export class TextComponent implements OnInit, AfterViewInit {
     const tl = gsap.timeline({
       scrollTrigger: {
         id: 'text',
-        trigger: this.inner.nativeElement,
+        trigger: this.inner?.nativeElement,
         start: 'top 85%', // [触发元素开始的地方,视口开始的位置],
         end: 'bottom 75px',
         markers: false,

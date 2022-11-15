@@ -1,313 +1,11 @@
 import { IBranding } from '../../app/core/interface/IBranding';
-
-const footerMainMenu = [
-  {
-    label: '相关资源',
-    child: [
-      {
-        label: 'Angular 中文站',
-        icon: 'arrow_right',
-        href: 'https://angular.cn/',
-        target: '_blank',
-      },
-      {
-        label: 'Material Angular',
-        icon: 'arrow_right',
-        href: 'https://material.angular.io/',
-        target: '_blank',
-      },
-      {
-        label: 'Flex Layout',
-        icon: 'arrow_right',
-        href: 'https://github.com/angular/flex-layout/wiki',
-        target: '_blank',
-      },
-      {
-        label: 'JSONAPI',
-        icon: 'arrow_right',
-        href: 'https://jsonapi.org/format/',
-        target: '_blank',
-      },
-    ],
-  },
-  {
-    label: '帮助',
-    child: [
-      {
-        label: 'Angular 中文站',
-        icon: 'github',
-        href: 'https://github.com/biaogebusy/nnitpay-angular',
-        target: '_blank',
-      },
-      {
-        label: 'Drupal 自习室',
-        icon: 'offiaccount',
-        href: 'https://www.zhihu.com/column/c_1331898788731375616',
-        target: '_blank',
-      },
-      {
-        label: '前端茶馆',
-        icon: 'zhihu',
-        href: 'https://www.zhihu.com/column/frontend-focus',
-        target: '_blank',
-      },
-      {
-        label: 'Drupal 中文模块',
-        icon: 'github',
-        href: 'https://github.com/biaogebusy/drupal-modules-cn',
-        target: '_blank',
-      },
-    ],
-  },
-  {
-    label: '社区',
-    child: [
-      {
-        label: 'Drupal 自习室',
-        icon: 'offiaccount',
-        popup: '<img width="112px" src="./assets/images/qrcode.jpg" alt="">',
-      },
-      {
-        label: 'Drupal 主题开发',
-        icon: 'wechat',
-        popup: '<img width="112px" src="./assets/images/wechat.jpg" alt="">',
-      },
-      {
-        label: '南宁IT派',
-        icon: 'offiaccount',
-        popup: '<img width="112px" src="./assets/images/wechat.jpg" alt="">',
-      },
-    ],
-  },
-];
-
-const footerMobileMenu = [
-  {
-    label: '相关资源',
-    child: [
-      {
-        label: 'Angular 中文站',
-        icon: 'arrow_right',
-        href: 'https://angular.cn/',
-        target: '_blank',
-      },
-      {
-        label: 'Material Angular',
-        icon: 'arrow_right',
-        href: 'https://material.angular.io/',
-        target: '_blank',
-      },
-      {
-        label: 'Flex Layout',
-        icon: 'arrow_right',
-        href: 'https://github.com/angular/flex-layout/wiki',
-        target: '_blank',
-      },
-      {
-        label: 'JSONAPI',
-        icon: 'arrow_right',
-        href: 'https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/jsonapi',
-        target: '_blank',
-      },
-    ],
-  },
-  {
-    label: '帮助',
-    child: [
-      {
-        label: 'Angular 中文站',
-        icon: 'github',
-        href: 'https://github.com/biaogebusy/nnitpay-angular',
-        target: '_blank',
-      },
-      {
-        label: 'Drupal 自习室',
-        icon: 'offiaccount',
-        href: 'https://www.zhihu.com/column/c_1331898788731375616',
-        target: '_blank',
-      },
-      {
-        label: '前端茶馆',
-        icon: 'zhihu',
-        href: 'https://www.zhihu.com/column/frontend-focus',
-        target: '_blank',
-      },
-      {
-        label: 'Drupal 中文模块',
-        icon: 'github',
-        href: 'https://github.com/biaogebusy/drupal-modules-cn',
-        target: '_blank',
-      },
-    ],
-  },
-];
-
-const fixBar = [
-  {
-    type: 'link',
-    href: '#',
-    target: '_blank',
-    icon: {
-      name: 'chat',
-    },
-    label: '在线客服',
-  },
-  {
-    type: 'popup',
-    icon: {
-      svg: 'wechat',
-    },
-    label: '咨询合作',
-    content: {
-      spacer: 'none',
-      body: '<p><img height="120" src="/assets/images/wechat.jpg" />',
-    },
-  },
-];
-
-const footerBrandLogo = {
-  img: {
-    src: '/assets/images/logo.png',
-    alt: '信使',
-    href: '/',
-    classes: 'logo',
-  },
-};
-
-const footerNewsletter = {
-  params: {
-    webform_id: 'subscribe',
-  },
-  label: '资讯',
-  summary: '欢迎使用邮箱订阅最新的公告和产品。',
-  forms: [
-    {
-      type: 'input',
-      label: '邮箱地址',
-      key: 'email',
-      params: {
-        required: true,
-        email: true,
-      },
-      placeholder: '请输入您的邮箱',
-      hint: '请输入邮箱',
-      error: '邮箱地址无效',
-    },
-  ],
-  action: {
-    label: '订阅',
-  },
-};
-
-const footerBottom = {
-  left: '© 2022 Copyright ❤️ XINSHI. ',
-  right: [
-    {
-      label: '首页',
-      href: '/',
-    },
-    {
-      label: '关于我们',
-      href: '/about',
-    },
-    {
-      label: '帮助中心',
-      href: '#',
-    },
-    {
-      label: '联系我们',
-      href: '#',
-    },
-  ],
-};
-
-export const footerLight: IBranding = {
-  footer: {
-    params: {
-      mode: 'light',
-    },
-    logo: {
-      label: '远方信使',
-    },
-    copyRight: 'Copyright by XinShi',
-    mainMenu: footerMainMenu,
-    mobileMenu: footerMobileMenu,
-    fixBar,
-  },
-};
-
-export const footerSimple: IBranding = {
-  footer: {
-    params: {
-      mode: 'space-between',
-      shape: false,
-    },
-    footerBrand: {
-      logo: footerBrandLogo,
-    },
-    content: {
-      left: {
-        spacer: 'none',
-        body: '<p class="m-bottom-0"><strong>地址：</strong>南宁市创客城</p><p class="m-bottom-0"><strong>微信：</strong> biaogebusy</p>',
-      },
-      middle: {
-        spacer: 'none',
-        body: '',
-      },
-    },
-    footerBottom,
-    fixBar,
-  },
-};
-
-export const footerInverse: IBranding = {
-  footer: {
-    params: {
-      mode: 'inverse',
-      shape: true,
-    },
-    footerBrand: {
-      logo: footerBrandLogo,
-      summary:
-        '信使围绕 Drupal jsonapi 为核心的 Angular 前端框架，分享 Drupal 优秀的数字创新体验。',
-      social: [
-        {
-          label: 'zhihu',
-          svg: 'zhihu',
-          href: 'https://www.zhihu.com/column/c_1331898788731375616',
-        },
-        {
-          label: '微博',
-          svg: 'weibo',
-          href: '#',
-        },
-        {
-          label: 'nnitpay',
-          svg: 'wechat',
-          href: '#',
-        },
-        {
-          label: 'Github',
-          svg: 'github',
-          href: 'https://github.com/biaogebusy/xinshi-angular',
-        },
-      ],
-    },
-    mainMenu: footerMainMenu,
-    mobileMenu: footerMobileMenu,
-    footerNewsletter,
-    footerBottom,
-    fixBar,
-  },
-};
-
 export const defaultHeader: IBranding = {
   header: {
     params: {
       themeSwitch: true,
       userInfo: true,
       isMegaMenu: false,
-      menuHoverOpen: true,
+      menuHoverOpen: false,
     },
     logo: {
       label: '信使',
@@ -789,6 +487,22 @@ export const defaultHeader: IBranding = {
 };
 
 const defaultHeaderParams: any = defaultHeader.header;
+export const HoverHeader: IBranding = {
+  header: {
+    params: {
+      themeSwitch: true,
+      userInfo: true,
+      isMegaMenu: false,
+      menuHoverOpen: true,
+    },
+    logo: defaultHeaderParams.logo,
+    top: defaultHeaderParams.top,
+    mainMenu: defaultHeaderParams.mainMenu,
+    search: defaultHeaderParams.search,
+    userMenu: defaultHeaderParams.userMenu,
+    actions: defaultHeaderParams.actions,
+  },
+};
 
 export const megaHeader: IBranding = {
   header: {
@@ -804,5 +518,306 @@ export const megaHeader: IBranding = {
     search: defaultHeaderParams.search,
     userMenu: defaultHeaderParams.userMenu,
     actions: defaultHeaderParams.actions,
+  },
+};
+
+const footerMainMenu = [
+  {
+    label: '相关资源',
+    child: [
+      {
+        label: 'Angular 中文站',
+        icon: 'arrow_right',
+        href: 'https://angular.cn/',
+        target: '_blank',
+      },
+      {
+        label: 'Material Angular',
+        icon: 'arrow_right',
+        href: 'https://material.angular.io/',
+        target: '_blank',
+      },
+      {
+        label: 'Flex Layout',
+        icon: 'arrow_right',
+        href: 'https://github.com/angular/flex-layout/wiki',
+        target: '_blank',
+      },
+      {
+        label: 'JSONAPI',
+        icon: 'arrow_right',
+        href: 'https://jsonapi.org/format/',
+        target: '_blank',
+      },
+    ],
+  },
+  {
+    label: '帮助',
+    child: [
+      {
+        label: 'Angular 中文站',
+        icon: 'github',
+        href: 'https://github.com/biaogebusy/nnitpay-angular',
+        target: '_blank',
+      },
+      {
+        label: 'Drupal 自习室',
+        icon: 'offiaccount',
+        href: 'https://www.zhihu.com/column/c_1331898788731375616',
+        target: '_blank',
+      },
+      {
+        label: '前端茶馆',
+        icon: 'zhihu',
+        href: 'https://www.zhihu.com/column/frontend-focus',
+        target: '_blank',
+      },
+      {
+        label: 'Drupal 中文模块',
+        icon: 'github',
+        href: 'https://github.com/biaogebusy/drupal-modules-cn',
+        target: '_blank',
+      },
+    ],
+  },
+  {
+    label: '社区',
+    child: [
+      {
+        label: 'Drupal 自习室',
+        icon: 'offiaccount',
+        popup: '<img width="112px" src="./assets/images/qrcode.jpg" alt="">',
+      },
+      {
+        label: 'Drupal 主题开发',
+        icon: 'wechat',
+        popup: '<img width="112px" src="./assets/images/wechat.jpg" alt="">',
+      },
+      {
+        label: '南宁IT派',
+        icon: 'offiaccount',
+        popup: '<img width="112px" src="./assets/images/wechat.jpg" alt="">',
+      },
+    ],
+  },
+];
+
+const footerMobileMenu = [
+  {
+    label: '相关资源',
+    child: [
+      {
+        label: 'Angular 中文站',
+        icon: 'arrow_right',
+        href: 'https://angular.cn/',
+        target: '_blank',
+      },
+      {
+        label: 'Material Angular',
+        icon: 'arrow_right',
+        href: 'https://material.angular.io/',
+        target: '_blank',
+      },
+      {
+        label: 'Flex Layout',
+        icon: 'arrow_right',
+        href: 'https://github.com/angular/flex-layout/wiki',
+        target: '_blank',
+      },
+      {
+        label: 'JSONAPI',
+        icon: 'arrow_right',
+        href: 'https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/jsonapi',
+        target: '_blank',
+      },
+    ],
+  },
+  {
+    label: '帮助',
+    child: [
+      {
+        label: 'Angular 中文站',
+        icon: 'github',
+        href: 'https://github.com/biaogebusy/nnitpay-angular',
+        target: '_blank',
+      },
+      {
+        label: 'Drupal 自习室',
+        icon: 'offiaccount',
+        href: 'https://www.zhihu.com/column/c_1331898788731375616',
+        target: '_blank',
+      },
+      {
+        label: '前端茶馆',
+        icon: 'zhihu',
+        href: 'https://www.zhihu.com/column/frontend-focus',
+        target: '_blank',
+      },
+      {
+        label: 'Drupal 中文模块',
+        icon: 'github',
+        href: 'https://github.com/biaogebusy/drupal-modules-cn',
+        target: '_blank',
+      },
+    ],
+  },
+];
+
+const fixBar = [
+  {
+    type: 'link',
+    href: '#',
+    target: '_blank',
+    icon: {
+      name: 'chat',
+    },
+    label: '在线客服',
+  },
+  {
+    type: 'popup',
+    icon: {
+      svg: 'wechat',
+    },
+    label: '咨询合作',
+    content: {
+      spacer: 'none',
+      body: '<p><img height="120" src="/assets/images/wechat.jpg" />',
+    },
+  },
+];
+
+const footerBrandLogo = {
+  img: {
+    src: '/assets/images/logo.png',
+    alt: '信使',
+    href: '/',
+    classes: 'logo',
+  },
+};
+
+const footerNewsletter = {
+  params: {
+    webform_id: 'subscribe',
+  },
+  label: '资讯',
+  summary: '欢迎使用邮箱订阅最新的公告和产品。',
+  forms: [
+    {
+      type: 'input',
+      label: '邮箱地址',
+      key: 'email',
+      params: {
+        required: true,
+        email: true,
+      },
+      placeholder: '请输入您的邮箱',
+      hint: '请输入邮箱',
+      error: '邮箱地址无效',
+    },
+  ],
+  action: {
+    label: '订阅',
+  },
+};
+
+const footerBottom = {
+  left: '© 2022 Copyright ❤️ XINSHI. ',
+  right: [
+    {
+      label: '首页',
+      href: '/',
+    },
+    {
+      label: '关于我们',
+      href: '/about',
+    },
+    {
+      label: '帮助中心',
+      href: '#',
+    },
+    {
+      label: '联系我们',
+      href: '#',
+    },
+  ],
+};
+
+export const footerLight: IBranding = {
+  footer: {
+    params: {
+      mode: 'light',
+    },
+    logo: {
+      label: '远方信使',
+    },
+    copyRight: 'Copyright by XinShi',
+    mainMenu: footerMainMenu,
+    mobileMenu: footerMobileMenu,
+    fixBar,
+  },
+};
+
+export const footerSimple: IBranding = {
+  footer: {
+    params: {
+      mode: 'space-between',
+      shape: false,
+    },
+    footerBrand: {
+      logo: footerBrandLogo,
+    },
+    content: {
+      left: {
+        spacer: 'none',
+        body: '<p class="m-bottom-0"><strong>地址：</strong>南宁市创客城</p><p class="m-bottom-0"><strong>微信：</strong> biaogebusy</p>',
+      },
+      middle: {
+        spacer: 'none',
+        body: '',
+      },
+    },
+    footerBottom,
+    fixBar,
+  },
+};
+
+export const footerInverse: IBranding = {
+  footer: {
+    params: {
+      mode: 'inverse',
+      shape: true,
+    },
+    footerBrand: {
+      logo: footerBrandLogo,
+      summary:
+        '信使围绕 Drupal jsonapi 为核心的 Angular 前端框架，分享 Drupal 优秀的数字创新体验。',
+      social: [
+        {
+          label: 'zhihu',
+          svg: 'zhihu',
+          href: 'https://www.zhihu.com/column/c_1331898788731375616',
+        },
+        {
+          label: '微博',
+          svg: 'weibo',
+          href: '#',
+        },
+        {
+          label: 'nnitpay',
+          svg: 'wechat',
+          href: '#',
+        },
+        {
+          label: 'Github',
+          svg: 'github',
+          href: 'https://github.com/biaogebusy/xinshi-angular',
+        },
+      ],
+    },
+    mainMenu: footerMainMenu,
+    mobileMenu: footerMobileMenu,
+    footerNewsletter,
+    footerBottom,
+    fixBar,
   },
 };

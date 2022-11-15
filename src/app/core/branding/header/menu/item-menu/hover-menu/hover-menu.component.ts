@@ -1,40 +1,41 @@
 import {
-  Component,
-  Input,
-  OnInit,
-  ElementRef,
-  OnDestroy,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
 } from '@angular/core';
+import type { IMainMenu } from '@core/interface/IBranding';
+import { ScreenService } from '@core/service/screen.service';
+import { ScreenState } from '@core/state/screen/ScreenState';
+import { BaseComponent } from '@uiux/base/base.widget';
 import { fromEvent, of } from 'rxjs';
 import { mergeMap, delay, takeUntil } from 'rxjs/operators';
-import { ScreenState } from '@core/state/screen/ScreenState';
-import { ScreenService } from '@core/service/screen.service';
-import type { IMainMenu } from '@core/interface/IBranding';
 
 @Component({
-  selector: 'app-mega-menu',
-  templateUrl: './mega-menu.component.html',
-  styleUrls: ['./mega-menu.component.scss'],
+  selector: 'app-hover-menu',
+  templateUrl: './hover-menu.component.html',
+  styleUrls: ['./hover-menu.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MegaMenuComponent implements OnInit, OnDestroy {
+export class HoverMenuComponent extends BaseComponent implements OnInit {
   @Input() content: IMainMenu;
   active: boolean;
   constructor(
     private eleRef: ElementRef,
-    private screenState: ScreenState,
+    private cd: ChangeDetectorRef,
     private screenService: ScreenService,
-    private cd: ChangeDetectorRef
-  ) {}
+    private screenState: ScreenState
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       this.initActionEvent();
     }
   }
-
   initActionEvent(): void {
     const megaMenu = this.eleRef.nativeElement;
     const enter = fromEvent(megaMenu, 'mouseenter');
@@ -70,9 +71,4 @@ export class MegaMenuComponent implements OnInit, OnDestroy {
       this.cd.detectChanges();
     });
   }
-  trackByFn(index: number, item: any): number {
-    return index;
-  }
-
-  ngOnDestroy(): void {}
 }
