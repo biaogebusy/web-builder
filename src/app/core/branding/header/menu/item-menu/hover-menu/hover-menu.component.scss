@@ -53,13 +53,6 @@
         }
       }
     }
-    .nest-menu {
-      &:hover {
-        .child {
-          display: block;
-        }
-      }
-    }
     .child {
       position: absolute;
       min-width: 180px;
@@ -72,11 +65,6 @@
       padding-bottom: 8px;
       border-radius: 4px;
       outline: 0;
-      .sub-menu {
-        position: relative;
-        padding-top: 8px;
-        padding-bottom: 8px;
-      }
     }
   }
 }
