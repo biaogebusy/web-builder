@@ -9,12 +9,12 @@ import { BRANDING } from '@core/token/token-providers';
 import { of } from 'rxjs';
 import { HeaderComponent } from '@core/branding/header/header.component';
 import { BrandingModule } from '@core/branding/branding.module';
-import { footerInverse, megaHeader } from '../Branding.json';
+import { footerInverse, HoverHeader } from '../Branding.json';
 import { sleep, StorysModule } from '@core/storys.module';
 
 export default {
-  title: '页面布局/页头/Mage',
-  id: 'header-mega',
+  title: '页面布局/页头/Hover',
+  id: 'header-hover',
   component: HeaderComponent,
   decorators: [
     moduleMetadata({
@@ -23,7 +23,7 @@ export default {
       providers: [
         {
           provide: BRANDING,
-          useValue: of({ ...megaHeader, ...footerInverse }),
+          useValue: of({ ...HoverHeader, ...footerInverse }),
         },
       ],
     }),
@@ -39,13 +39,13 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: `Mage 风格的页头，当鼠标经过时下拉显示该主菜单的所有子菜单，可以方便快速查看导航菜单的内容，适合菜单过多时使用。
+        component: `Hover 风格的菜单，当鼠标经过时下拉显示。
         ## 在params中定义显示
         params: {
           themeSwitch: true,
           userInfo: true,
-          isMegaMenu: true,
-          menuHoverOpen: false,
+          isMegaMenu: false,
+          menuHoverOpen: true,
         }
         `,
       },
@@ -63,25 +63,9 @@ Default.storyName = '预览';
 Default.parameters = {
   docs: {
     source: {
-      code: JSON.stringify(megaHeader),
+      code: JSON.stringify(HoverHeader),
       language: 'json',
       type: 'auto',
     },
   },
-};
-
-Default.play = async () => {
-  const MenuComp = document.querySelectorAll('.for-test')[0];
-  await userEvent.click(MenuComp);
-  await sleep(2000);
-  await userEvent.click(MenuComp);
-
-  const SwithTheme = document.querySelectorAll('.switch-theme button')[0];
-  await userEvent.click(SwithTheme);
-  await sleep(2000);
-  await userEvent.click(SwithTheme);
-
-  await sleep(2000);
-  const UserMenu = document.getElementsByClassName('user-picture')[0];
-  await userEvent.click(UserMenu);
 };
