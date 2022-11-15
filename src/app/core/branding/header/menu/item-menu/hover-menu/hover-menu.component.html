@@ -1,17 +1,5 @@
 <app-link class="top" [content]="content"></app-link>
 <div class="hover-menu" [class.active]="active">
-  <!-- <div class="sub-menu" *ngFor="let item of content.child;">
-    <button mat-menu-item [class.has-child]="item.child ? true : false">
-      <app-link [content]="item"></app-link>
-    </button>
-    <div class="child" *ngIf="item.child && item.child.length > 0">
-      <div class="item" *ngFor="let subMenu of item.child; last as isLast">
-        <button mat-menu-item>
-          <app-link [content]="subMenu"></app-link>
-        </button>
-      </div>
-    </div>
-  </div> -->
   <div *ngTemplateOutlet="child;context:{content: content}"></div>
 </div>
 
@@ -21,14 +9,14 @@
       <app-link [content]="item"></app-link>
     </button>
     <div class="child" *ngIf="item.child && item.child.length > 0">
-      <div class="item" *ngFor="let subMenu of item.child; last as isLast">
+      <ng-container *ngFor="let subMenu of item.child">
         <button mat-menu-item [class.has-child]="subMenu.child ? true : false">
           <app-link [content]="subMenu"></app-link>
         </button>
-        <ng-container *ngIf="subMenu.child">
+        <div class="child" *ngIf="subMenu.child">
           <div *ngTemplateOutlet="child;context:{content: subMenu}"></div>
-        </ng-container>
-      </div>
+        </div>
+      </ng-container>
     </div>
   </div>
 </ng-template>

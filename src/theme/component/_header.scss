@@ -91,7 +91,8 @@
       }
 
       .hover-menu,
-      .child {
+      .child,
+      .child .sub-menu {
         background-color: mat-color($primary, default-contrast);
         @include mat-elevation(3, mat-color($foreground, divider, 0.7));
       }

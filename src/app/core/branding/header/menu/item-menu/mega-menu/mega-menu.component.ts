@@ -11,6 +11,7 @@ import { fromEvent, of } from 'rxjs';
 import { mergeMap, delay, takeUntil } from 'rxjs/operators';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { ScreenService } from '@core/service/screen.service';
+import type { IMainMenu } from '@core/interface/IBranding';
 
 @Component({
   selector: 'app-mega-menu',
@@ -19,7 +20,7 @@ import { ScreenService } from '@core/service/screen.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MegaMenuComponent implements OnInit, OnDestroy {
-  @Input() content: any;
+  @Input() content: IMainMenu;
   active: boolean;
   constructor(
     private eleRef: ElementRef,

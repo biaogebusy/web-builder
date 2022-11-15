@@ -6,6 +6,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import type { IMainMenu } from '@core/interface/IBranding';
 import { ScreenService } from '@core/service/screen.service';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { BaseComponent } from '@uiux/base/base.widget';
@@ -19,7 +20,7 @@ import { mergeMap, delay, takeUntil } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HoverMenuComponent extends BaseComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: IMainMenu;
   active: boolean;
   constructor(
     private eleRef: ElementRef,

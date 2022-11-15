@@ -9,6 +9,7 @@ import { ScreenService } from '@core/service/screen.service';
 import { BaseComponent } from '@uiux/base/base.widget';
 import type { IUser } from '@core/interface/IUser';
 import { USER } from '@core/token/token-providers';
+import type { IHeaderParams, IMainMenu } from '@core/interface/IBranding';
 
 @Component({
   selector: 'app-item-menu',
@@ -17,8 +18,8 @@ import { USER } from '@core/token/token-providers';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ItemMenuComponent extends BaseComponent implements OnInit {
-  @Input() content: any;
-  @Input() params: any;
+  @Input() content: IMainMenu;
+  @Input() params: IHeaderParams;
   isMegaMenu: boolean;
 
   constructor(

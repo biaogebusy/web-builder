@@ -32,7 +32,7 @@
       }
     }
     &:hover {
-      .child {
+      > .child {
         display: block;
       }
     }
@@ -41,7 +41,7 @@
     }
     .child {
       position: absolute;
-      overflow: auto;
+      // overflow: auto;
       max-height: 580px;
       left: 100%;
       top: 0;
@@ -50,6 +50,18 @@
       padding-bottom: 8px;
       border-radius: 4px;
       outline: 0;
+      &:hover {
+        > .child {
+          display: block;
+        }
+      }
+      .sub-menu {
+        position: absolute;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        border-radius: 4px;
+        outline: 0;
+      }
     }
   }
 }
