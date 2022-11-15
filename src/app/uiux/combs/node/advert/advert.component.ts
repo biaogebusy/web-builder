@@ -9,7 +9,11 @@ import {
 } from '@angular/core';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type { IUser } from '@core/interface/IUser';
-import type { IAdvert, IComment } from '@core/interface/node/INode';
+import type {
+  IAdvert,
+  IComment,
+  IHeaderMeta,
+} from '@core/interface/node/INode';
 import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
 import { ContentState } from '@core/state/ContentState';
@@ -25,6 +29,7 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class AdvertComponent implements OnInit, AfterViewInit {
   @Input() content: IAdvert;
+  headerMeta: IHeaderMeta;
   uuid: string;
   comments$: Observable<IComment[]>;
   destroy$: Subject<boolean> = new Subject<boolean>();
@@ -37,7 +42,24 @@ export class AdvertComponent implements OnInit, AfterViewInit {
     public contentState: ContentState
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.headerMeta = {
+      text: {
+        spacer: 'md',
+        title: {
+          label: this.content.title,
+          style: 'style-v4',
+          classes: 'mat-display-1 m-bottom-0',
+        },
+      },
+      meta: [
+        {
+          label: '浏览量',
+          value: this.content.view,
+        },
+      ],
+    };
+  }
 
   ngAfterViewInit(): void {
     this.getComments();

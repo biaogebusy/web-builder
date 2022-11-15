@@ -42,7 +42,7 @@ Default.args = {
   content: {
     header: {
       text: {
-        spaver: 'none',
+        spacer: 'none',
         title: {
           label: '十一月份我的福利投票统计',
           style: 'style-v4',

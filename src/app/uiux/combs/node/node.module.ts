@@ -26,6 +26,7 @@ import { CommentItemComponent } from './comment/comment-list/comment-item/commen
 import { LawTabComponent } from './law/law-tab/law-tab.component';
 import { ReportComponent } from './report/report.component';
 import { AdvertComponent } from './advert/advert.component';
+import { HeaderMetaComponent } from './header-meta/header-meta.component';
 
 const components = [
   JobComponent,
@@ -51,6 +52,7 @@ const components = [
   LawTabComponent,
   ReportComponent,
   AdvertComponent,
+  HeaderMetaComponent,
 ];
 @NgModule({
   declarations: [...components],

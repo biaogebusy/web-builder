@@ -1,6 +1,7 @@
 import { IImg } from '@core/interface/widgets/IImg';
 import { QuillModule } from 'ngx-quill';
 import { IChipList } from '../widgets/IChipList';
+import { IText } from '../widgets/IText';
 export interface IBaseNode {
   title: string;
   uuid: string;
@@ -117,4 +118,13 @@ export interface IAdvert extends IBaseNode {
     end: string;
   };
   view: string;
+  header: IHeaderMeta;
+}
+
+export interface IHeaderMeta {
+  text: IText;
+  meta: {
+    label: string;
+    value: any;
+  }[];
 }
