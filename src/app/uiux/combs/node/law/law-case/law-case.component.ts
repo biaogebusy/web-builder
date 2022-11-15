@@ -38,7 +38,6 @@ export class LawCaseComponent
   implements OnInit, AfterViewInit, OnDestroy
 {
   @Input() content: ICase;
-  uuid: string;
   comments$: Observable<IComment[]>;
   initCommentContent: string;
   form: FormGroup;
@@ -95,7 +94,7 @@ export class LawCaseComponent
 
   updateNode(apiParams: any): void {
     this.nodeService
-      .updateLawCase(apiParams, this.uuid, this.user.csrf_token)
+      .updateLawCase(apiParams, this.content.uuid, this.user.csrf_token)
       .subscribe((res) => {
         this.uti.openSnackbar('已更新！', '✓');
       });
@@ -118,7 +117,7 @@ export class LawCaseComponent
     return {
       data: {
         type: 'node--case',
-        id: this.uuid,
+        id: this.content.uuid,
         attributes: {
           transaction_level: value.transaction_level,
         },

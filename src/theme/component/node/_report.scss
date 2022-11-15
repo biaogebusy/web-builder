@@ -11,13 +11,6 @@
   $text-color: mat-color($foreground, text, 0.75);
   .report {
     background-color: mat-color($primary, 0.07);
-    .report-header {
-      .meta {
-        .label {
-          color: mat-color($foreground, text, 0.5);
-        }
-      }
-    }
     .box {
       background-color: mat-color($background, card);
       @include mat-elevation(3, mat-color($foreground, divider), 0.4);

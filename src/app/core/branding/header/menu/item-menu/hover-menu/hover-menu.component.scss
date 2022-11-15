@@ -15,6 +15,7 @@
   }
   .sub-menu {
     position: relative;
+    min-width: 180px;
     .has-child {
       &:after {
         width: 0;
@@ -36,13 +37,27 @@
         display: block;
       }
     }
-    .mat-menu-item {
-      min-width: 180px;
+    .mat-button {
+      width: 100%;
+      display: block;
+      text-align: left;
+      overflow: hidden;
+      line-height: 48px;
+      height: 48px;
+      border-radius: 0;
+      font-weight: 400;
+      font-size: 16px;
+      ::ng-deep {
+        a {
+          display: block;
+        }
+      }
     }
     .child {
       position: absolute;
-      // overflow: auto;
+      min-width: 180px;
       max-height: 580px;
+      overflow-y: auto;
       left: 100%;
       top: 0;
       display: none;

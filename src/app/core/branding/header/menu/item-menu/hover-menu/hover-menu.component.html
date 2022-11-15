@@ -5,12 +5,12 @@
 
 <ng-template let-content="content" #child>
   <div class="sub-menu" *ngFor="let item of content.child;">
-    <button mat-menu-item [class.has-child]="item.child ? true : false">
+    <button mat-button [class.has-child]="item.child ? true : false">
       <app-link [content]="item"></app-link>
     </button>
     <div class="child" *ngIf="item.child && item.child.length > 0">
       <ng-container *ngFor="let subMenu of item.child">
-        <button mat-menu-item [class.has-child]="subMenu.child ? true : false">
+        <button mat-button [class.has-child]="subMenu.child ? true : false">
           <app-link [content]="subMenu"></app-link>
         </button>
         <div class="child" *ngIf="subMenu.child">
