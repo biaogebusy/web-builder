@@ -79,3 +79,19 @@ X-CSRF-Token: 0tqSQmpQKzfOu21U5ufO6dTU9hGdajPXmCKRbKuvTi8
   "mail":[{ "value" : "johnsonss@qq.com" }],
   "pass":[{"value":"654321"}]
 }
+
+### update wechat user
+PATCH {{apiUrl}}/entity/wechat_user/15?_format=hal_json
+Content-Type: application/hal+json
+withCredentials: true
+X-CSRF-Token: 6G4y09P_6SxE1wuQh_UMdhEq-I6-aQ9_mGFTs9SEnFs
+
+{
+  "_links": {
+    "type": {
+     "href": "{{apiUrl}}/rest/type/wechat_user/wechat_user"
+  }
+  },
+  "nickname":[{ "value" : "johnson" }],
+  "headimgurl":[{ "value" : "https://thirdwx.qlogo.cn/mmopen/vi_32/1b820GreUob15yeicXA8alyZbjoibIMSHPmDnaZwHnVrn4tQP3nPwYMXgu1diaicfRnpBvpNy8DcBajsfQuicmPJtGA/132" }]
+}

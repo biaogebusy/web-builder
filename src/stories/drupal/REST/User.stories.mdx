@@ -96,3 +96,25 @@ X-CSRF-Token: 0tqSQmpQKzfOu43U5ufO6dTU9hGdajPXmCKRbKuvTi8
 }
 
 ```
+
+3. 更新微信用户的资料
+   和 drupal 用户一样，也是需要 token 和 cookies：
+
+```
+### update wechat user
+PATCH {{apiUrl}}/entity/wechat_user/15?_format=hal_json
+Content-Type: application/hal+json
+withCredentials: true
+X-CSRF-Token: 6G4y09P_6SxE1wuQh_UMdhEq-I6-aQ9_mGFTs9SEnFs
+
+{
+  "_links": {
+    "type": {
+     "href": "{{apiUrl}}/rest/type/wechat_user/wechat_user"
+  }
+  },
+  "nickname":[{ "value" : "johnson" }],
+  "headimgurl":[{ "value" : "https://thirdwx.qlogo.cn/mmopen/vi_32/1b820GreUob15yeicXA8alyZbjoibIMSHPmDnaZwHnVrn4tQP3nPwYMXgu1diaicfRnpBvpNy8DcBajsfQuicmPJtGA/132" }]
+}
+
+```
