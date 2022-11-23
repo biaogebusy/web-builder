@@ -10,7 +10,7 @@ import {
 import autoTable from 'jspdf-autotable';
 import { jsPDF } from 'jspdf';
 import { ScreenService } from '@core/service/screen.service';
-import { ICase } from '@core/interface/node/INode.js';
+import type { ICase } from '@core/interface/node/INode';
 @Component({
   selector: 'app-law-header',
   templateUrl: './law-header.component.html',
