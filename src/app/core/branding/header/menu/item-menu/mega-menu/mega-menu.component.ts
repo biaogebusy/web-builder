@@ -46,7 +46,7 @@ export class MegaMenuComponent implements OnInit, OnDestroy {
           return of(event).pipe(delay(100), takeUntil(leave));
         })
       )
-      .subscribe((event) => {
+      .subscribe(() => {
         this.active = true;
         this.cd.detectChanges();
       });
@@ -57,7 +57,7 @@ export class MegaMenuComponent implements OnInit, OnDestroy {
           return of(event).pipe(delay(100), takeUntil(enter));
         })
       )
-      .subscribe((event) => {
+      .subscribe(() => {
         this.active = false;
         this.cd.detectChanges();
       });

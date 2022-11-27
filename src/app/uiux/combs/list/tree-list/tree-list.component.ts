@@ -103,7 +103,7 @@ export class TreeListComponent
           this.loading = false;
           this.cd.detectChanges();
         },
-        (error) => {
+        () => {
           this.loading = false;
           this.cd.detectChanges();
         }
@@ -158,7 +158,7 @@ export class TreeListComponent
   }
 
   trackByFn(index: number, item: any): number {
-    return index;
+    return item.link.href;
   }
 
   ngOnDestroy(): void {

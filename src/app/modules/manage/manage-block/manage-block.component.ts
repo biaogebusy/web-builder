@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ManageService } from '@core/service/manage.service';
 import { IDynamicTable } from '@core/interface/widgets/IWidgets';
-import { of } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
-// import data from './block.json';
+
 @Component({
   selector: 'app-manage-block',
   templateUrl: './manage-block.component.html',
@@ -32,33 +30,23 @@ export class ManageBlockComponent implements OnInit {
         key: 'description',
       },
     ];
-    this.manageSerive
-      .getBlock()
-      // .pipe(
-      //   map((res: any) => {
-      //     if (!res.data.length) {
-      //       return data;
-      //     }
-      //     return {};
-      //   })
-      // )
-      .subscribe((blocks: any) => {
-        console.log(blocks);
-        if (!blocks.data.length) {
-          return;
-        }
-        this.blocks = {
-          header,
-          elements: blocks.data.map((block: any, index: number) => {
-            const attr = block.attributes;
-            return {
-              index: index + 1,
-              label: attr.label,
-              description: attr.description,
-              id: attr.drupal_internal__id,
-            };
-          }),
-        };
-      });
+    this.manageSerive.getBlock().subscribe((blocks: any) => {
+      console.log(blocks);
+      if (!blocks.data.length) {
+        return;
+      }
+      this.blocks = {
+        header,
+        elements: blocks.data.map((block: any, index: number) => {
+          const attr = block.attributes;
+          return {
+            index: index + 1,
+            label: attr.label,
+            description: attr.description,
+            id: attr.drupal_internal__id,
+          };
+        }),
+      };
+    });
   }
 }

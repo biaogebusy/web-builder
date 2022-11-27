@@ -3,7 +3,7 @@ import { Inject, Injectable } from '@angular/core';
 import { API_URL } from '@core/token/token-providers';
 import { camelCase, result } from 'lodash-es';
 import { Subject } from 'rxjs';
-import { environment } from '../../../environments/environment';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -21,17 +21,16 @@ export class ApiService {
   }
 
   get httpOptionsOfCommon(): any {
-    const httpOptions = {
+    return {
       headers: new HttpHeaders({
         Accept: 'application/json',
         'Content-Type': 'application/json',
       }),
     };
-    return httpOptions;
   }
 
   optionsWithCookieAndToken(csrfToken: string): any {
-    const httpOptions = {
+    return {
       headers: new HttpHeaders({
         Accept: 'application/vnd.api+json',
         'Content-Type': 'application/vnd.api+json',
@@ -39,7 +38,6 @@ export class ApiService {
       }),
       withCredentials: true,
     };
-    return httpOptions;
   }
 
   getParams(obj: any, key: string): any {

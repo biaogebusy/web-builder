@@ -1,7 +1,6 @@
 import {
   Component,
   OnInit,
-  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
 } from '@angular/core';

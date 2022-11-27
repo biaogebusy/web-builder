@@ -1,7 +1,6 @@
 import {
   Component,
   OnInit,
-  OnDestroy,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Inject,
@@ -21,7 +20,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./user.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserComponent implements OnInit, OnDestroy {
+export class UserComponent implements OnInit {
   currentUser: any;
   id: any;
   constructor(
@@ -130,6 +129,4 @@ export class UserComponent implements OnInit, OnDestroy {
   logout(): void {
     this.userService.logout(this.user.logout_token);
   }
-
-  ngOnDestroy(): void {}
 }
