@@ -81,6 +81,7 @@
       "calendar": {
         "options": {},
         "api": "/api/v1/amigo-full-calendar",
+        "drawer": true,
         "theme": {
           "meeting": "bg-warn",
           "case": "bg-primary",
