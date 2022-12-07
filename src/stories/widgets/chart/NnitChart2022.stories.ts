@@ -21,6 +21,13 @@ export default {
         `<div class="position-relative p-x p-y" style="z-index:1">${story}</div>`
     ),
   ],
+  parameters: {
+    docs: {
+      description: {
+        component: `[2022年度南宁IT派互联网IT行业薪资生存情况调查](https://mp.weixin.qq.com/s/N4iFb0GBLkGwJyznRlIX4g)`,
+      },
+    },
+  },
 } as Meta;
 
 const Template: Story = (args) => ({
@@ -103,7 +110,7 @@ ITChart01.args = {
 };
 
 export const ITChart02 = Template.bind({});
-ITChart02.storyName = '年龄';
+ITChart02.storyName = '年龄分布';
 ITChart02.args = {
   data: {
     toggle: [
@@ -135,7 +142,7 @@ ITChart02.args = {
   },
   content: {
     title: {
-      text: '年龄',
+      text: '年龄分布',
       left: 'center',
     },
     tooltip: {
@@ -166,10 +173,10 @@ ITChart02.args = {
       source: [
         ['年龄', '人数'],
         ['22岁以下', 3],
-        ['22~24', 16],
-        ['25~29', 40],
-        ['30~34', 28],
-        ['35~39', 9],
+        ['22岁~24岁', 16],
+        ['25岁~29岁', 40],
+        ['30岁~34岁', 28],
+        ['35岁~39岁', 9],
         ['40及以上', 1],
       ],
     },
@@ -195,6 +202,22 @@ ITChart02.args = {
         type: 'line',
         smooth: true,
         emphasis: { focus: 'series' },
+        markArea: {
+          itemStyle: {
+            color: 'rgba(255, 173, 177, 0.4)',
+          },
+          data: [
+            [
+              {
+                name: '集中',
+                xAxis: '25岁~29岁',
+              },
+              {
+                xAxis: '30岁~34岁',
+              },
+            ],
+          ],
+        },
       },
     ],
   },
@@ -307,7 +330,7 @@ ITChart03.args = {
 };
 
 export const ITChart04 = Template.bind({});
-ITChart04.storyName = '职位';
+ITChart04.storyName = '当前职位';
 ITChart04.args = {
   data: {
     toggle: [
@@ -339,7 +362,7 @@ ITChart04.args = {
   },
   content: {
     title: {
-      text: '职位',
+      text: '当前职位',
       left: 'center',
     },
     tooltip: {
@@ -443,7 +466,7 @@ ITChart05.args = {
   },
   content: {
     title: {
-      text: '职位',
+      text: '月薪收入',
       left: 'center',
     },
     tooltip: {
@@ -505,6 +528,22 @@ ITChart05.args = {
         type: 'line',
         smooth: true,
         emphasis: { focus: 'series' },
+        markArea: {
+          itemStyle: {
+            color: 'rgba(255, 173, 177, 0.4)',
+          },
+          data: [
+            [
+              {
+                name: '收入',
+                xAxis: '6000元~8000元',
+              },
+              {
+                xAxis: '1万~1.2万',
+              },
+            ],
+          ],
+        },
       },
     ],
   },
