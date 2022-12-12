@@ -82,18 +82,19 @@ ITChart01.args = {
     xAxis: {
       type: 'category',
     },
-    yAxis: {},
+    yAxis: { show: false },
+    grid: { top: '55%' },
     dataset: {
       source: [
-        ['性别', '数值'],
-        ['女生', 14],
-        ['男生', 83],
+        ['女生', 16],
+        ['男生', 114],
       ],
     },
     series: [
       {
         type: 'pie',
-        radius: '50%',
+        radius: '30%',
+        center: ['50%', '25%'],
         label: {
           formatter: '{b}: {d}%',
         },
@@ -105,7 +106,17 @@ ITChart01.args = {
           },
         },
       },
+      {
+        type: 'bar',
+        label: {
+          show: true,
+          position: 'top',
+        },
+      },
     ],
+  },
+  style: {
+    height: '600px',
   },
 };
 
@@ -157,27 +168,17 @@ ITChart02.args = {
     },
     xAxis: {
       type: 'category',
-      boundaryGap: false,
     },
-    yAxis: {
-      type: 'value',
-      axisLabel: {
-        formatter: '{value} 人',
-      },
-      axisPointer: {
-        snap: true,
-      },
-    },
+    yAxis: { show: false },
     grid: { top: '55%' },
     dataset: {
       source: [
-        ['年龄', '人数'],
-        ['22岁以下', 3],
-        ['22岁~24岁', 16],
-        ['25岁~29岁', 40],
-        ['30岁~34岁', 28],
-        ['35岁~39岁', 9],
-        ['40及以上', 1],
+        ['22岁以下', 5],
+        ['22岁~24岁', 18],
+        ['25岁~29岁', 49],
+        ['30岁~34岁', 43],
+        ['35岁~39岁', 12],
+        ['40及以上', 3],
       ],
     },
     series: [
@@ -198,25 +199,10 @@ ITChart02.args = {
         },
       },
       {
-        name: '人数',
-        type: 'line',
-        smooth: true,
-        emphasis: { focus: 'series' },
-        markArea: {
-          itemStyle: {
-            color: 'rgba(255, 173, 177, 0.4)',
-          },
-          data: [
-            [
-              {
-                name: '集中',
-                xAxis: '25岁~29岁',
-              },
-              {
-                xAxis: '30岁~34岁',
-              },
-            ],
-          ],
+        type: 'bar',
+        label: {
+          show: true,
+          position: 'top',
         },
       },
     ],
@@ -274,7 +260,6 @@ ITChart03.args = {
     },
     xAxis: {
       type: 'category',
-      boundaryGap: false,
     },
     yAxis: {
       type: 'value',
@@ -286,19 +271,27 @@ ITChart03.args = {
       },
     },
     grid: { top: '55%' },
-    dataset: {
-      source: [
-        ['办公所在地', '人数'],
-        ['青秀区', 28],
-        ['兴宁区', 4],
-        ['江南区', 8],
-        ['良庆区', 23],
-        ['邕宁区', 1],
-        ['西乡塘区', 12],
-        ['武鸣区', 0],
-        ['区外', 21],
-      ],
-    },
+    dataset: [
+      {
+        dimensions: ['name', 'value'],
+        source: [
+          ['青秀区', 43],
+          ['兴宁区', 5],
+          ['江南区', 10],
+          ['良庆区', 31],
+          ['邕宁区', 1],
+          ['西乡塘区', 12],
+          ['武鸣区', 0],
+          ['区外', 26],
+        ],
+      },
+      {
+        transform: {
+          type: 'sort',
+          config: { dimension: 'value', order: 'desc' },
+        },
+      },
+    ],
     series: [
       {
         type: 'pie',
@@ -317,10 +310,12 @@ ITChart03.args = {
         },
       },
       {
-        name: '人数',
-        type: 'line',
-        smooth: true,
-        emphasis: { focus: 'series' },
+        type: 'bar',
+        encode: { x: 'name', y: 'value' },
+        label: {
+          show: true,
+          position: 'top',
+        },
       },
     ],
   },
@@ -377,7 +372,6 @@ ITChart04.args = {
     },
     xAxis: {
       type: 'category',
-      boundaryGap: false,
     },
     yAxis: {
       type: 'value',
@@ -391,16 +385,15 @@ ITChart04.args = {
     grid: { top: '55%' },
     dataset: {
       source: [
-        ['职位', '人数'],
-        ['产品', 7],
-        ['设计', 4],
-        ['技术', 76],
-        ['运营', 5],
+        ['产品', 11],
+        ['设计', 5],
+        ['技术', 101],
+        ['运营', 6],
         ['市场', 1],
         ['公关', 0],
         ['财务', 0],
         ['人力行政', 3],
-        ['自由职业', 1],
+        ['自由职业', 3],
       ],
     },
     series: [
@@ -421,10 +414,11 @@ ITChart04.args = {
         },
       },
       {
-        name: '人数',
-        type: 'line',
-        smooth: true,
-        emphasis: { focus: 'series' },
+        type: 'bar',
+        label: {
+          show: true,
+          position: 'top',
+        },
       },
     ],
   },
@@ -481,7 +475,6 @@ ITChart05.args = {
     },
     xAxis: {
       type: 'category',
-      boundaryGap: false,
     },
     yAxis: {
       type: 'value',
@@ -496,14 +489,14 @@ ITChart05.args = {
     dataset: {
       source: [
         ['月薪收入', '月薪'],
-        ['4000元以下', 8],
-        ['4000元~6000元', 11],
-        ['6000元~8000元', 19],
-        ['8000元~1万', 14],
-        ['1万~1.2万', 19],
-        ['1.2万~1.5万', 12],
-        ['1.5万~2万', 6],
-        ['2万以上', 8],
+        ['4000以下', 12],
+        ['4000~6000', 12],
+        ['6000~8000', 21],
+        ['8000~1w', 23],
+        ['1w~1.2w', 22],
+        ['1.2w~1.5w', 17],
+        ['1.5w~2w', 8],
+        ['2w以上', 15],
       ],
     },
     series: [
@@ -524,25 +517,14 @@ ITChart05.args = {
         },
       },
       {
-        name: '人数',
         type: 'line',
-        smooth: true,
         emphasis: { focus: 'series' },
-        markArea: {
-          itemStyle: {
-            color: 'rgba(255, 173, 177, 0.4)',
-          },
-          data: [
-            [
-              {
-                name: '收入',
-                xAxis: '6000元~8000元',
-              },
-              {
-                xAxis: '1万~1.2万',
-              },
-            ],
-          ],
+      },
+      {
+        type: 'bar',
+        label: {
+          show: true,
+          position: 'top',
         },
       },
     ],
@@ -599,17 +581,18 @@ ITChart06.args = {
       type: 'category',
     },
     yAxis: {},
+    grid: { top: '55%' },
     dataset: {
       source: [
-        ['周末双休', '人数'],
-        ['是', 78],
-        ['否', 19],
+        ['是', 104],
+        ['否', 26],
       ],
     },
     series: [
       {
         type: 'pie',
-        radius: '50%',
+        radius: '30%',
+        center: ['50%', '25%'],
         label: {
           formatter: '{b}: {d}%',
         },
@@ -621,7 +604,17 @@ ITChart06.args = {
           },
         },
       },
+      {
+        type: 'bar',
+        label: {
+          show: true,
+          position: 'top',
+        },
+      },
     ],
+  },
+  style: {
+    height: '600px',
   },
 };
 
@@ -672,18 +665,19 @@ ITChart07.args = {
       type: 'category',
     },
     yAxis: {},
+    grid: { top: '55%' },
     dataset: {
       source: [
-        ['是否加班', '人数'],
-        ['没有或少有', 34],
-        ['偶尔或一般', 37],
-        ['经常、严重', 26],
+        ['没有或少有', 47],
+        ['偶尔或一般', 49],
+        ['经常、严重', 34],
       ],
     },
     series: [
       {
         type: 'pie',
-        radius: '50%',
+        radius: '30%',
+        center: ['50%', '25%'],
         label: {
           formatter: '{b}: {d}%',
         },
@@ -695,7 +689,17 @@ ITChart07.args = {
           },
         },
       },
+      {
+        type: 'bar',
+        label: {
+          show: true,
+          position: 'top',
+        },
+      },
     ],
+  },
+  style: {
+    height: '600px',
   },
 };
 
@@ -730,6 +734,9 @@ ITChart09.args = {
       },
     ],
   },
+  style: {
+    height: '600px',
+  },
   content: {
     title: {
       text: '五险一金缴纳',
@@ -746,18 +753,19 @@ ITChart09.args = {
       type: 'category',
     },
     yAxis: {},
+    grid: { top: '55%' },
     dataset: {
       source: [
-        ['五险一金缴纳', '人数'],
-        ['都没有', 7],
-        ['只有五险', 22],
-        ['都有', 68],
+        ['都没有', 8],
+        ['只有五险', 34],
+        ['都有', 88],
       ],
     },
     series: [
       {
         type: 'pie',
-        radius: '50%',
+        radius: '30%',
+        center: ['50%', '25%'],
         label: {
           formatter: '{b}: {d}%',
         },
@@ -767,6 +775,13 @@ ITChart09.args = {
             shadowOffsetX: 0,
             shadowColor: 'rgba(0, 0, 0, 0.5)',
           },
+        },
+      },
+      {
+        type: 'bar',
+        label: {
+          show: true,
+          position: 'top',
         },
       },
     ],
@@ -804,6 +819,9 @@ ITChart08.args = {
       },
     ],
   },
+  style: {
+    height: '600px',
+  },
   content: {
     title: {
       text: '今年公司或团队扩招裁员情况',
@@ -820,18 +838,19 @@ ITChart08.args = {
       type: 'category',
     },
     yAxis: {},
+    grid: { top: '55%' },
     dataset: {
       source: [
-        ['今年公司或团队扩招裁员情况', '人数'],
-        ['没有明显变化', 60],
-        ['有明显的裁员', 24],
-        ['有明显的扩招', 13],
+        ['没有明显变化', 77],
+        ['有明显的裁员', 31],
+        ['有明显的扩招', 22],
       ],
     },
     series: [
       {
         type: 'pie',
-        radius: '50%',
+        radius: '30%',
+        center: ['50%', '25%'],
         label: {
           formatter: '{b}: {d}%',
         },
@@ -841,6 +860,13 @@ ITChart08.args = {
             shadowOffsetX: 0,
             shadowColor: 'rgba(0, 0, 0, 0.5)',
           },
+        },
+      },
+      {
+        type: 'bar',
+        label: {
+          show: true,
+          position: 'top',
         },
       },
     ],
@@ -878,6 +904,9 @@ ITChart10.args = {
       },
     ],
   },
+  style: {
+    height: '600px',
+  },
   content: {
     title: {
       text: '感情状况',
@@ -895,7 +924,6 @@ ITChart10.args = {
     },
     xAxis: {
       type: 'category',
-      boundaryGap: false,
     },
     yAxis: { type: 'value' },
     grid: {
@@ -907,13 +935,12 @@ ITChart10.args = {
     },
     dataset: {
       source: [
-        ['感情状况', '人数'],
-        ['单身', 27],
-        ['求交往', 17],
+        ['单身', 36],
+        ['求交往', 18],
         ['暗恋中', 2],
-        ['恋爱中', 14],
-        ['已婚', 28],
-        ['其他', 9],
+        ['恋爱中', 20],
+        ['已婚', 42],
+        ['其他', 12],
       ],
     },
     series: [
@@ -934,11 +961,12 @@ ITChart10.args = {
         },
       },
       {
-        type: 'line',
+        type: 'bar',
+        label: {
+          show: true,
+          position: 'top',
+        },
       },
     ],
-  },
-  style: {
-    height: '600px',
   },
 };
