@@ -129,7 +129,15 @@ export class FullCalendarComponent
     if (api || params || this.options?.events) {
       this.nodeService.search(api, params).subscribe((data) => {
         if (this.options) {
-          this.options.events = data.map((item: any) => {
+          let events = [];
+          if (data.rows && data.pager) {
+            // view api
+            events = data.rows;
+          } else {
+            // custom calendar api
+            events = data;
+          }
+          this.options.events = events.map((item: any) => {
             // events attr see EventApi
             const type = item.type;
             const event = item.event;
