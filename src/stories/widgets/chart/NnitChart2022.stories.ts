@@ -68,10 +68,24 @@ ITChart01.args = {
     ],
   },
   content: {
-    title: {
-      text: '男女占比',
-      left: 'center',
-    },
+    title: [
+      {
+        text: '男女占比',
+        left: 'center',
+      },
+      {
+        text: '2021年',
+        left: '33%',
+        top: '85%',
+        textAlign: 'center',
+      },
+      {
+        text: '2022年',
+        left: '66%',
+        top: '85%',
+        textAlign: 'center',
+      },
+    ],
     tooltip: {
       trigger: 'item',
     },
@@ -82,19 +96,36 @@ ITChart01.args = {
     xAxis: {
       type: 'category',
     },
-    yAxis: { show: false },
-    grid: { top: '55%' },
-    dataset: {
-      source: [
-        ['女生', 16],
-        ['男生', 114],
-      ],
-    },
+    yAxis: {},
+    dataset: [
+      {
+        source: [
+          ['性别', '人数', '年份'],
+          ['女生', 16, 2022],
+          ['女生', 19, 2021],
+          ['男生', 116, 2022],
+          ['男生', 97, 2021],
+        ],
+      },
+      {
+        transform: {
+          type: 'filter',
+          config: { dimension: '年份', value: 2021 },
+        },
+      },
+      {
+        transform: {
+          type: 'filter',
+          config: { dimension: '年份', value: 2022 },
+        },
+      },
+    ],
     series: [
       {
+        name: '2021',
         type: 'pie',
-        radius: '30%',
-        center: ['50%', '25%'],
+        radius: '50%',
+        center: ['33%', '50%'],
         label: {
           formatter: '{b}: {d}%',
         },
@@ -105,18 +136,26 @@ ITChart01.args = {
             shadowColor: 'rgba(0, 0, 0, 0.5)',
           },
         },
+        datasetIndex: 1,
       },
       {
-        type: 'bar',
+        name: '2022',
+        type: 'pie',
+        radius: '50%',
+        center: ['66%', '50%'],
         label: {
-          show: true,
-          position: 'top',
+          formatter: '{b}: {d}%',
         },
+        emphasis: {
+          itemStyle: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: 'rgba(0, 0, 0, 0.5)',
+          },
+        },
+        datasetIndex: 2,
       },
     ],
-  },
-  style: {
-    height: '600px',
   },
 };
 
@@ -152,10 +191,24 @@ ITChart02.args = {
     ],
   },
   content: {
-    title: {
-      text: '年龄分布',
-      left: 'center',
-    },
+    title: [
+      {
+        text: '年龄分布',
+        left: 'center',
+      },
+      {
+        text: '2021年',
+        left: '33%',
+        top: '45%',
+        textAlign: 'center',
+      },
+      {
+        text: '2022年',
+        left: '66%',
+        top: '45%',
+        textAlign: 'center',
+      },
+    ],
     tooltip: {
       trigger: 'axis',
       axisPointer: {
@@ -169,23 +222,53 @@ ITChart02.args = {
     xAxis: {
       type: 'category',
     },
-    yAxis: { show: false },
-    grid: { top: '55%' },
-    dataset: {
-      source: [
-        ['22岁以下', 5],
-        ['22岁~24岁', 18],
-        ['25岁~29岁', 49],
-        ['30岁~34岁', 43],
-        ['35岁~39岁', 12],
-        ['40及以上', 3],
-      ],
+    yAxis: {
+      type: 'value',
+      axisLabel: {
+        formatter: '{value} 人',
+      },
+      axisPointer: {
+        snap: true,
+      },
     },
+    grid: { top: '55%' },
+    dataset: [
+      {
+        source: [
+          ['年龄', '人数', '年份'],
+          ['22岁以下', 5, 2022],
+          ['22岁~24岁', 18, 2022],
+          ['25岁~29岁', 49, 2022],
+          ['30岁~34岁', 45, 2022],
+          ['35岁~39岁', 12, 2022],
+          ['40及以上', 3, 2022],
+          ['22岁以下', 4, 2021],
+          ['22岁~24岁', 23, 2021],
+          ['25岁~29岁', 44, 2021],
+          ['30岁~34岁', 36, 2021],
+          ['35岁~39岁', 8, 2021],
+          ['40及以上', 1, 2021],
+        ],
+      },
+      {
+        transform: {
+          type: 'filter',
+          config: { dimension: '年份', value: 2021 },
+        },
+      },
+      {
+        transform: {
+          type: 'filter',
+          config: { dimension: '年份', value: 2022 },
+        },
+      },
+    ],
     series: [
       {
+        name: '2021',
         type: 'pie',
         radius: '30%',
-        center: ['50%', '25%'],
+        center: ['33%', '25%'],
         label: {
           formatter: '{b}: {d}%',
         },
@@ -197,18 +280,52 @@ ITChart02.args = {
             shadowColor: 'rgba(0, 0, 0, 0.5)',
           },
         },
+        datasetIndex: 1,
       },
       {
-        type: 'bar',
+        name: '2022',
+        type: 'pie',
+        radius: '30%',
+        center: ['70%', '25%'],
         label: {
-          show: true,
+          formatter: '{b}: {d}%',
+        },
+        emphasis: {
+          focus: 'self',
+          itemStyle: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: 'rgba(0, 0, 0, 0.5)',
+          },
+        },
+        datasetIndex: 2,
+      },
+      {
+        name: '2021',
+        type: 'line',
+        smooth: true,
+        emphasis: { focus: 'series' },
+        datasetIndex: 1,
+        label: {
           position: 'top',
+          show: true,
+        },
+      },
+      {
+        name: '2022',
+        type: 'line',
+        smooth: true,
+        emphasis: { focus: 'series' },
+        datasetIndex: 2,
+        label: {
+          position: 'top',
+          show: true,
         },
       },
     ],
   },
   style: {
-    height: '600px',
+    height: '800px',
   },
 };
 
@@ -244,10 +361,24 @@ ITChart03.args = {
     ],
   },
   content: {
-    title: {
-      text: '办公所在地',
-      left: 'center',
-    },
+    title: [
+      {
+        text: '办公所在地',
+        left: 'center',
+      },
+      {
+        text: '2021年',
+        left: '30%',
+        top: '45%',
+        textAlign: 'center',
+      },
+      {
+        text: '2022年',
+        left: '70%',
+        top: '45%',
+        textAlign: 'center',
+      },
+    ],
     tooltip: {
       trigger: 'axis',
       axisPointer: {
@@ -273,30 +404,45 @@ ITChart03.args = {
     grid: { top: '55%' },
     dataset: [
       {
-        dimensions: ['name', 'value'],
         source: [
-          ['青秀区', 43],
-          ['兴宁区', 5],
-          ['江南区', 10],
-          ['良庆区', 31],
-          ['邕宁区', 1],
-          ['西乡塘区', 12],
-          ['武鸣区', 0],
-          ['区外', 26],
+          ['办公所在地', '人数', '年份'],
+          ['青秀区', 44, 2022],
+          ['兴宁区', 5, 2022],
+          ['江南区', 10, 2022],
+          ['良庆区', 32, 2022],
+          ['邕宁区', 1, 2022],
+          ['西乡塘区', 14, 2022],
+          ['武鸣区', 0, 2022],
+          ['区外', 26, 2022],
+          ['青秀区', 42, 2021],
+          ['兴宁区', 2, 2021],
+          ['江南区', 5, 2021],
+          ['良庆区', 33, 2021],
+          ['邕宁区', 0, 2021],
+          ['西乡塘区', 22, 2021],
+          ['武鸣区', 1, 2021],
+          ['区外', 1, 2021],
         ],
       },
       {
         transform: {
-          type: 'sort',
-          config: { dimension: 'value', order: 'desc' },
+          type: 'filter',
+          config: { dimension: '年份', value: 2021 },
+        },
+      },
+      {
+        transform: {
+          type: 'filter',
+          config: { dimension: '年份', value: 2022 },
         },
       },
     ],
     series: [
       {
+        name: '2021',
         type: 'pie',
         radius: '30%',
-        center: ['50%', '25%'],
+        center: ['30%', '25%'],
         label: {
           formatter: '{b}: {d}%',
         },
@@ -308,19 +454,52 @@ ITChart03.args = {
             shadowColor: 'rgba(0, 0, 0, 0.5)',
           },
         },
+        datasetIndex: 1,
       },
       {
-        type: 'bar',
-        encode: { x: 'name', y: 'value' },
+        name: '2022',
+        type: 'pie',
+        radius: '30%',
+        center: ['70%', '25%'],
         label: {
-          show: true,
+          formatter: '{b}: {d}%',
+        },
+        emphasis: {
+          focus: 'self',
+          itemStyle: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: 'rgba(0, 0, 0, 0.5)',
+          },
+        },
+        datasetIndex: 2,
+      },
+      {
+        name: '2021',
+        type: 'line',
+        smooth: true,
+        emphasis: { focus: 'series' },
+        datasetIndex: 1,
+        label: {
           position: 'top',
+          show: true,
+        },
+      },
+      {
+        name: '2022',
+        type: 'line',
+        smooth: true,
+        emphasis: { focus: 'series' },
+        datasetIndex: 2,
+        label: {
+          position: 'top',
+          show: true,
         },
       },
     ],
   },
   style: {
-    height: '600px',
+    height: '800px',
   },
 };
 
@@ -356,10 +535,24 @@ ITChart04.args = {
     ],
   },
   content: {
-    title: {
-      text: '当前职位',
-      left: 'center',
-    },
+    title: [
+      {
+        text: '当前职位',
+        left: 'center',
+      },
+      {
+        text: '2021年',
+        left: '30%',
+        top: '45%',
+        textAlign: 'center',
+      },
+      {
+        text: '2022年',
+        left: '70%',
+        top: '45%',
+        textAlign: 'center',
+      },
+    ],
     tooltip: {
       trigger: 'axis',
       axisPointer: {
@@ -383,24 +576,49 @@ ITChart04.args = {
       },
     },
     grid: { top: '55%' },
-    dataset: {
-      source: [
-        ['产品', 11],
-        ['设计', 5],
-        ['技术', 101],
-        ['运营', 6],
-        ['市场', 1],
-        ['公关', 0],
-        ['财务', 0],
-        ['人力行政', 3],
-        ['自由职业', 3],
-      ],
-    },
+    dataset: [
+      {
+        source: [
+          ['职位', '人数', '年份'],
+          ['产品', 11, 2022],
+          ['设计', 5, 2022],
+          ['技术', 103, 2022],
+          ['运营', 6, 2022],
+          ['市场', 1, 2022],
+          ['公关', 0, 2022],
+          ['财务', 0, 2022],
+          ['人力行政', 3, 2022],
+          ['自由职业', 3, 2022],
+          ['产品', 6, 2021],
+          ['设计', 3, 2021],
+          ['技术', 85, 2021],
+          ['运营', 9, 2021],
+          ['市场', 1, 2021],
+          ['公关', 0, 2021],
+          ['财务', 2, 2021],
+          ['人力行政', 2, 2021],
+          ['自由职业', 8, 2021],
+        ],
+      },
+      {
+        transform: {
+          type: 'filter',
+          config: { dimension: '年份', value: 2021 },
+        },
+      },
+      {
+        transform: {
+          type: 'filter',
+          config: { dimension: '年份', value: 2022 },
+        },
+      },
+    ],
     series: [
       {
+        name: '2021',
         type: 'pie',
         radius: '30%',
-        center: ['50%', '25%'],
+        center: ['30%', '25%'],
         label: {
           formatter: '{b}: {d}%',
         },
@@ -412,18 +630,48 @@ ITChart04.args = {
             shadowColor: 'rgba(0, 0, 0, 0.5)',
           },
         },
+        datasetIndex: 1,
       },
       {
-        type: 'bar',
+        name: '2022',
+        type: 'pie',
+        radius: '30%',
+        center: ['70%', '25%'],
         label: {
-          show: true,
+          formatter: '{b}: {d}%',
+        },
+        emphasis: {
+          focus: 'self',
+          itemStyle: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: 'rgba(0, 0, 0, 0.5)',
+          },
+        },
+        datasetIndex: 2,
+      },
+      {
+        name: '2021',
+        type: 'bar',
+        datasetIndex: 1,
+        label: {
           position: 'top',
+          show: true,
+        },
+      },
+      {
+        name: '2022',
+        type: 'bar',
+        datasetIndex: 2,
+        label: {
+          position: 'top',
+          show: true,
         },
       },
     ],
   },
   style: {
-    height: '600px',
+    height: '800px',
   },
 };
 
@@ -459,10 +707,24 @@ ITChart05.args = {
     ],
   },
   content: {
-    title: {
-      text: '月薪收入',
-      left: 'center',
-    },
+    title: [
+      {
+        text: '月薪收入',
+        left: 'center',
+      },
+      {
+        text: '2021年',
+        left: '30%',
+        top: '45%',
+        textAlign: 'center',
+      },
+      {
+        text: '2022年',
+        left: '70%',
+        top: '45%',
+        textAlign: 'center',
+      },
+    ],
     tooltip: {
       trigger: 'axis',
       axisPointer: {
@@ -485,25 +747,48 @@ ITChart05.args = {
         snap: true,
       },
     },
-    grid: { top: '55%' },
-    dataset: {
-      source: [
-        ['月薪收入', '月薪'],
-        ['4000以下', 12],
-        ['4000~6000', 12],
-        ['6000~8000', 21],
-        ['8000~1w', 23],
-        ['1w~1.2w', 22],
-        ['1.2w~1.5w', 17],
-        ['1.5w~2w', 8],
-        ['2w以上', 15],
-      ],
-    },
+    grid: { top: '60%', left: '4%', right: '4%' },
+    dataset: [
+      {
+        source: [
+          ['月薪收入', '月薪', '年份'],
+          ['4000元以下', 12, 2022],
+          ['4000元~6000元', 12, 2022],
+          ['6000元~8000元', 21, 2022],
+          ['8000元~1万', 23, 2022],
+          ['1万~1.2万', 22, 2022],
+          ['1.2万~1.5万', 18, 2022],
+          ['1.5万~2万', 8, 2022],
+          ['2万以上', 16, 2022],
+          ['4000元以下', 12, 2021],
+          ['4000元~6000元', 14, 2021],
+          ['6000元~8000元', 25, 2021],
+          ['8000元~1万', 27, 2021],
+          ['1万~1.2万', 13, 2021],
+          ['1.2万~1.5万', 11, 2021],
+          ['1.5万~2万', 6, 2021],
+          ['2万以上', 14, 2021],
+        ],
+      },
+      {
+        transform: {
+          type: 'filter',
+          config: { dimension: '年份', value: 2021 },
+        },
+      },
+      {
+        transform: {
+          type: 'filter',
+          config: { dimension: '年份', value: 2022 },
+        },
+      },
+    ],
     series: [
       {
+        name: '2021',
         type: 'pie',
         radius: '30%',
-        center: ['50%', '25%'],
+        center: ['30%', '25%'],
         label: {
           formatter: '{b}: {d}%',
         },
@@ -515,22 +800,68 @@ ITChart05.args = {
             shadowColor: 'rgba(0, 0, 0, 0.5)',
           },
         },
+        datasetIndex: 1,
       },
       {
-        type: 'line',
-        emphasis: { focus: 'series' },
-      },
-      {
-        type: 'bar',
+        name: '2022',
+        type: 'pie',
+        radius: '30%',
+        center: ['70%', '25%'],
         label: {
-          show: true,
+          formatter: '{b}: {d}%',
+        },
+        emphasis: {
+          focus: 'self',
+          itemStyle: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: 'rgba(0, 0, 0, 0.5)',
+          },
+        },
+        datasetIndex: 2,
+      },
+      {
+        name: '2021',
+        type: 'line',
+        smooth: true,
+        emphasis: { focus: 'series' },
+        markArea: {
+          itemStyle: {
+            color: 'rgba(255, 173, 177, 0.4)',
+          },
+          data: [
+            [
+              {
+                name: '收入',
+                xAxis: '6000元~8000元',
+              },
+              {
+                xAxis: '1万~1.2万',
+              },
+            ],
+          ],
+        },
+        label: {
           position: 'top',
+          show: true,
+        },
+        datasetIndex: 1,
+      },
+      {
+        name: '2022',
+        type: 'line',
+        smooth: true,
+        emphasis: { focus: 'series' },
+        datasetIndex: 2,
+        label: {
+          position: 'top',
+          show: true,
         },
       },
     ],
   },
   style: {
-    height: '600px',
+    height: '800px',
   },
 };
 
@@ -566,10 +897,24 @@ ITChart06.args = {
     ],
   },
   content: {
-    title: {
-      text: '周末双休',
-      left: 'center',
-    },
+    title: [
+      {
+        text: '周末双休',
+        left: 'center',
+      },
+      {
+        text: '2021年',
+        left: '30%',
+        top: '85%',
+        textAlign: 'center',
+      },
+      {
+        text: '2022年',
+        left: '70%',
+        top: '85%',
+        textAlign: 'center',
+      },
+    ],
     tooltip: {
       trigger: 'item',
     },
@@ -581,18 +926,35 @@ ITChart06.args = {
       type: 'category',
     },
     yAxis: {},
-    grid: { top: '55%' },
-    dataset: {
-      source: [
-        ['是', 104],
-        ['否', 26],
-      ],
-    },
+    dataset: [
+      {
+        source: [
+          ['周末双休', '人数', '年份'],
+          ['是', 106, 2022],
+          ['否', 26, 2022],
+          ['是', 89, 2021],
+          ['否', 27, 2021],
+        ],
+      },
+      {
+        transform: {
+          type: 'filter',
+          config: { dimension: '年份', value: 2021 },
+        },
+      },
+      {
+        transform: {
+          type: 'filter',
+          config: { dimension: '年份', value: 2022 },
+        },
+      },
+    ],
     series: [
       {
+        name: '2021',
         type: 'pie',
-        radius: '30%',
-        center: ['50%', '25%'],
+        radius: '50%',
+        center: ['30%', '50%'],
         label: {
           formatter: '{b}: {d}%',
         },
@@ -603,18 +965,26 @@ ITChart06.args = {
             shadowColor: 'rgba(0, 0, 0, 0.5)',
           },
         },
+        datasetIndex: 1,
       },
       {
-        type: 'bar',
+        name: '2022',
+        type: 'pie',
+        radius: '50%',
+        center: ['70%', '50%'],
         label: {
-          show: true,
-          position: 'top',
+          formatter: '{b}: {d}%',
         },
+        emphasis: {
+          itemStyle: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: 'rgba(0, 0, 0, 0.5)',
+          },
+        },
+        datasetIndex: 2,
       },
     ],
-  },
-  style: {
-    height: '600px',
   },
 };
 
@@ -650,10 +1020,24 @@ ITChart07.args = {
     ],
   },
   content: {
-    title: {
-      text: '是否加班',
-      left: 'center',
-    },
+    title: [
+      {
+        text: '是否加班',
+        left: 'center',
+      },
+      {
+        text: '2021年',
+        left: '30%',
+        top: '85%',
+        textAlign: 'center',
+      },
+      {
+        text: '2022年',
+        left: '70%',
+        top: '85%',
+        textAlign: 'center',
+      },
+    ],
     tooltip: {
       trigger: 'item',
     },
@@ -665,19 +1049,37 @@ ITChart07.args = {
       type: 'category',
     },
     yAxis: {},
-    grid: { top: '55%' },
-    dataset: {
-      source: [
-        ['没有或少有', 47],
-        ['偶尔或一般', 49],
-        ['经常、严重', 34],
-      ],
-    },
+    dataset: [
+      {
+        source: [
+          ['是否加班', '人数', '年份'],
+          ['没有或少有', 48, 2022],
+          ['偶尔或一般', 50, 2022],
+          ['经常、严重', 34, 2022],
+          ['没有或少有', 37, 2021],
+          ['偶尔或一般', 55, 2021],
+          ['经常、严重', 24, 2021],
+        ],
+      },
+      {
+        transform: {
+          type: 'filter',
+          config: { dimension: '年份', value: 2021 },
+        },
+      },
+      {
+        transform: {
+          type: 'filter',
+          config: { dimension: '年份', value: 2022 },
+        },
+      },
+    ],
     series: [
       {
+        name: '2021',
         type: 'pie',
-        radius: '30%',
-        center: ['50%', '25%'],
+        radius: '50%',
+        center: ['30%', '50%'],
         label: {
           formatter: '{b}: {d}%',
         },
@@ -688,18 +1090,26 @@ ITChart07.args = {
             shadowColor: 'rgba(0, 0, 0, 0.5)',
           },
         },
+        datasetIndex: 1,
       },
       {
-        type: 'bar',
+        name: '2022',
+        type: 'pie',
+        radius: '50%',
+        center: ['70%', '50%'],
         label: {
-          show: true,
-          position: 'top',
+          formatter: '{b}: {d}%',
         },
+        emphasis: {
+          itemStyle: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: 'rgba(0, 0, 0, 0.5)',
+          },
+        },
+        datasetIndex: 2,
       },
     ],
-  },
-  style: {
-    height: '600px',
   },
 };
 
@@ -734,14 +1144,25 @@ ITChart09.args = {
       },
     ],
   },
-  style: {
-    height: '600px',
-  },
   content: {
-    title: {
-      text: '五险一金缴纳',
-      left: 'center',
-    },
+    title: [
+      {
+        text: '五险一金缴纳',
+        left: 'center',
+      },
+      {
+        text: '2021年',
+        left: '30%',
+        top: '85%',
+        textAlign: 'center',
+      },
+      {
+        text: '2022年',
+        left: '70%',
+        top: '85%',
+        textAlign: 'center',
+      },
+    ],
     tooltip: {
       trigger: 'item',
     },
@@ -753,19 +1174,37 @@ ITChart09.args = {
       type: 'category',
     },
     yAxis: {},
-    grid: { top: '55%' },
-    dataset: {
-      source: [
-        ['都没有', 8],
-        ['只有五险', 34],
-        ['都有', 88],
-      ],
-    },
+    dataset: [
+      {
+        source: [
+          ['五险一金缴纳', '人数', '年份'],
+          ['都没有', 8, 2022],
+          ['只有五险', 34, 2022],
+          ['都有', 90, 2022],
+          ['都没有', 6, 2021],
+          ['只有五险', 32, 2021],
+          ['都有', 78, 2021],
+        ],
+      },
+      {
+        transform: {
+          type: 'filter',
+          config: { dimension: '年份', value: 2021 },
+        },
+      },
+      {
+        transform: {
+          type: 'filter',
+          config: { dimension: '年份', value: 2022 },
+        },
+      },
+    ],
     series: [
       {
+        name: '2021',
         type: 'pie',
-        radius: '30%',
-        center: ['50%', '25%'],
+        radius: '50%',
+        center: ['30%', '50%'],
         label: {
           formatter: '{b}: {d}%',
         },
@@ -776,13 +1215,24 @@ ITChart09.args = {
             shadowColor: 'rgba(0, 0, 0, 0.5)',
           },
         },
+        datasetIndex: 1,
       },
       {
-        type: 'bar',
+        name: '2022',
+        type: 'pie',
+        radius: '50%',
+        center: ['70%', '50%'],
         label: {
-          show: true,
-          position: 'top',
+          formatter: '{b}: {d}%',
         },
+        emphasis: {
+          itemStyle: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: 'rgba(0, 0, 0, 0.5)',
+          },
+        },
+        datasetIndex: 2,
       },
     ],
   },
@@ -819,9 +1269,6 @@ ITChart08.args = {
       },
     ],
   },
-  style: {
-    height: '600px',
-  },
   content: {
     title: {
       text: '今年公司或团队扩招裁员情况',
@@ -838,19 +1285,18 @@ ITChart08.args = {
       type: 'category',
     },
     yAxis: {},
-    grid: { top: '55%' },
     dataset: {
       source: [
-        ['没有明显变化', 77],
-        ['有明显的裁员', 31],
-        ['有明显的扩招', 22],
+        ['今年公司或团队扩招裁员情况', '人数'],
+        ['没有明显变化', 60],
+        ['有明显的裁员', 24],
+        ['有明显的扩招', 13],
       ],
     },
     series: [
       {
         type: 'pie',
-        radius: '30%',
-        center: ['50%', '25%'],
+        radius: '50%',
         label: {
           formatter: '{b}: {d}%',
         },
@@ -860,13 +1306,6 @@ ITChart08.args = {
             shadowOffsetX: 0,
             shadowColor: 'rgba(0, 0, 0, 0.5)',
           },
-        },
-      },
-      {
-        type: 'bar',
-        label: {
-          show: true,
-          position: 'top',
         },
       },
     ],
@@ -904,9 +1343,6 @@ ITChart10.args = {
       },
     ],
   },
-  style: {
-    height: '600px',
-  },
   content: {
     title: {
       text: '感情状况',
@@ -935,11 +1371,12 @@ ITChart10.args = {
     },
     dataset: {
       source: [
+        ['感情状况', '人数'],
         ['单身', 36],
         ['求交往', 18],
         ['暗恋中', 2],
         ['恋爱中', 20],
-        ['已婚', 42],
+        ['已婚', 44],
         ['其他', 12],
       ],
     },
@@ -961,12 +1398,18 @@ ITChart10.args = {
         },
       },
       {
+        type: 'line',
+      },
+      {
         type: 'bar',
         label: {
-          show: true,
           position: 'top',
+          show: true,
         },
       },
     ],
+  },
+  style: {
+    height: '600px',
   },
 };
