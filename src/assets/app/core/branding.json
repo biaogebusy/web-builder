@@ -442,24 +442,27 @@
           "name": "edit"
         },
         "dialog": {
-          "content": [
-            {
-              "type": "input",
-              "key": "title",
-              "label": "标题",
-              "placeholder": "请输入问题",
-              "params": {
-                "required": true
+          "content": {
+            "type": "dynamic-form",
+            "form": [
+              {
+                "type": "input",
+                "key": "title",
+                "label": "标题",
+                "placeholder": "请输入问题",
+                "params": {
+                  "required": true
+                },
+                "errorMes": "问题必填"
               },
-              "errorMes": "问题必填"
-            },
-            {
-              "type": "textarea",
-              "key": "body",
-              "label": "问题描述",
-              "placeholder": "请输入问题描述（可选）"
-            }
-          ],
+              {
+                "type": "textarea",
+                "key": "body",
+                "label": "问题描述",
+                "placeholder": "请输入问题描述（可选）"
+              }
+            ]
+          },
           "actions": [
             {
               "label": "发布问题",

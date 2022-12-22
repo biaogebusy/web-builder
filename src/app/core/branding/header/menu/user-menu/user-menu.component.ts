@@ -11,7 +11,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
-import { DynamicFormComponent } from '@uiux/combs/other/dynamic-form/dynamic-form.component';
 import { DialogService } from '@core/service/dialog.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -19,6 +18,7 @@ import { environment } from 'src/environments/environment';
 import { USER } from '@core/token/token-providers';
 import type { IUser } from '@core/interface/IUser';
 import { UserService } from '@core/service/user.service';
+import { DynamicCombsComponent } from '@uiux/combs/dynamic-combs/dynamic-combs/dynamic-combs.component';
 
 @Component({
   selector: 'app-user-menu',
@@ -68,9 +68,9 @@ export class UserMenuComponent implements OnInit, OnDestroy {
 
   openDialog(dialog: any): void {
     this.dialogRef = this.dialog.open(DialogComponent, {
-      width: '600px',
+      width: dialog.width || '600px',
       data: {
-        renderInputComponent: DynamicFormComponent,
+        renderInputComponent: DynamicCombsComponent,
         inputData: {
           content: dialog.content,
           actions: dialog.actions,

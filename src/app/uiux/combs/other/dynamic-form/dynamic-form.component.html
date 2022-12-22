@@ -1,5 +1,5 @@
 <form [formGroup]="form">
-  <div *ngFor="let control of content;trackBy:trackByFn" class="form-row">
+  <div *ngFor="let control of content.form;trackBy:trackByFn" class="form-row">
     <app-dynamic-form-control [control]="control" [form]="form"></app-dynamic-form-control>
   </div>
   <div class="action" fxLayoutAlign="end center">
