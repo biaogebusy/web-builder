@@ -99,23 +99,7 @@ export class LinkComponent extends BaseComponent implements OnInit {
         }
       });
     }
-    this.handlerIframe();
-  }
-
-  handlerIframe(): void {
-    window.addEventListener(
-      'message',
-      (event) => {
-        const origin = event.origin;
-        if (origin !== window.location.origin) {
-          return;
-        }
-        if (event.data === 'closeDialog') {
-          this.dialog.closeAll();
-        }
-      },
-      false
-    );
+    this.dialogService.handlerIframe(this.dialog);
   }
 
   getClasses(): void {

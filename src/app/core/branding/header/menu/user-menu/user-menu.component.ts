@@ -88,6 +88,7 @@ export class UserMenuComponent implements OnInit, OnDestroy {
           this.dialogRef.close();
         }
       });
+    this.dialogService.handlerIframe(this.dialog);
   }
 
   get userPage(): any[] {
