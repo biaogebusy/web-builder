@@ -38,7 +38,7 @@ export class InverseComponent implements OnInit {
       this.form
     );
     this.formService.submitWebForm(data).subscribe(
-      (res) => {
+      () => {
         this.submited = false;
         this.success = true;
         this.utilitiesService.openSnackbar('成功订阅！');

@@ -3,7 +3,6 @@ import { ScreenState } from './core/state/screen/ScreenState';
 import { ActivatedRoute } from '@angular/router';
 import { ScreenService } from '@core/service/screen.service';
 import { ConfigService } from '@core/service/config.service';
-import { NavigationService } from '@core/service/navigation.service';
 import { CORE_CONFIG, BRANDING } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { IBranding } from './core/interface/IBranding';
@@ -23,12 +22,9 @@ export class AppComponent implements OnInit, AfterViewInit {
     private router: ActivatedRoute,
     private screenService: ScreenService,
     private configService: ConfigService,
-    public navigation: NavigationService,
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
     @Inject(BRANDING) public branding$: Observable<IBranding>
-  ) {
-    this.navigation.startSaveHistory();
-  }
+  ) {}
 
   ngOnInit(): void {
     this.configService.init();

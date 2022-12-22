@@ -163,13 +163,6 @@ export class UserService extends ApiService {
   }
 
   getCode(phone: string): Observable<any> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-type': 'application/json',
-        Accept: 'application/json',
-      }),
-    };
-
     return this.http.post(`${this.apiUrl}/api/v1/otp/generate?format=json`, {
       mobile_number: phone,
     });

@@ -29,6 +29,13 @@ POST {{apiUrl}}/user/logout?_format=json&token={{logoutToken}} HTTP/1.1
 Content-type: application/json
 withCredentials: true
 
+### logout v2 强制退出
+POST {{apiUrl}}/user/logout HTTP/1.1
+
+
+### get user
+GET {{apiUrl}}/api/v1/user/user/ac50c155-8d35-498a-bf62-5b8545d7be33
+
 
 ### wechat
 POST {{apiUrl}}/api/v1/miniprogram/login?_format=json

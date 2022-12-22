@@ -22,6 +22,7 @@ export const parameters = {
         "特色组件",
         "复合组件",
         "*",
+        "Drupal",
       ],
     },
   },

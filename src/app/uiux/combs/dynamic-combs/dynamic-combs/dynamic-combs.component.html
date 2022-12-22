@@ -1,8 +1,5 @@
 <ng-container *ngIf="content">
   <ng-container [ngSwitch]="content.type">
-    <app-tab *ngSwitchCase="'tab'" [content]="content"></app-tab>
-    <app-text *ngSwitchCase="'text'" [content]="content"></app-text>
-    <app-panel *ngSwitchCase="'panel'" [content]="content"></app-panel>
     <app-tab1v1 *ngSwitchCase="'tab-1v1'" [content]="content"></app-tab1v1>
     <app-shuffle *ngSwitchCase="'shuffle'" [content]="content"></app-shuffle>
     <app-packery *ngSwitchCase="'packery'" [content]="content"></app-packery>
@@ -54,5 +51,6 @@
     <app-taxonomy-thin-list *ngSwitchCase="'taxonomy-thin-list'" [content]="content"></app-taxonomy-thin-list>
     <app-dynamic-media-list *ngSwitchCase="'dynamic-media-list'" [content]="content"></app-dynamic-media-list>
     <app-dynamic-card-list1v1 *ngSwitchCase="'dynamic-card-list-1v1'" [content]="content"></app-dynamic-card-list1v1>
+    <app-dynamic-widgets *ngSwitchDefault [content]="content"></app-dynamic-widgets>
   </ng-container>
 </ng-container>

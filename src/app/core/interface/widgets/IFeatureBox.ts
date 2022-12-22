@@ -1,5 +1,4 @@
 import { IImg } from './IImg';
-import { ILink } from './ILink';
 
 export interface IFeatureBox {
   hoverIcon?: boolean;

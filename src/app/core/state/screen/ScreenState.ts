@@ -57,7 +57,6 @@ export class ScreenState {
       }
       return false;
     } else {
-      // TODO: need confirm
       return 'xs' === targetPoint;
     }
   }
@@ -70,7 +69,7 @@ export class ScreenState {
       });
   }
 
-  toggleDrawer(open: boolean): any {
+  toggleDrawer(): any {
     this.drawer$.next();
   }
 }

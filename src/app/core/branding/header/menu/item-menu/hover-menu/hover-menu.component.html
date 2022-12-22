@@ -9,14 +9,7 @@
       <app-link [content]="item"></app-link>
     </button>
     <div class="child" *ngIf="item.child && item.child.length > 0">
-      <ng-container *ngFor="let subMenu of item.child">
-        <button mat-button [class.has-child]="subMenu.child ? true : false">
-          <app-link [content]="subMenu"></app-link>
-        </button>
-        <div class="child" *ngIf="subMenu.child">
-          <div *ngTemplateOutlet="child;context:{content: subMenu}"></div>
-        </div>
-      </ng-container>
+      <div *ngTemplateOutlet="child;context:{content: item}"></div>
     </div>
   </div>
 </ng-template>

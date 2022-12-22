@@ -60,7 +60,7 @@ export class SearchFilterItemComponent implements OnInit {
 
   onClick(item: any): void {
     const filterData = this.storage.retrieve(this.filterDataKey);
-    let dialgoRef: any = {};
+    let dialogRef: any = {};
     // tragger dialog
     this.activeItem = item;
     if ('dialogFrom' in item) {
@@ -68,7 +68,7 @@ export class SearchFilterItemComponent implements OnInit {
       this.storage.store(this.filterDataKey, {
         [this.content.key]: item.value,
       });
-      dialgoRef = this.dialog.open(DialogComponent, {
+      dialogRef = this.dialog.open(DialogComponent, {
         width: '80vw',
         panelClass: 'search-filter-dialog',
         data: {
@@ -91,6 +91,7 @@ export class SearchFilterItemComponent implements OnInit {
           [this.content.key]: item.value,
         })
       );
+      this.dialog.closeAll();
     }
 
     this.cd.detectChanges();

@@ -114,7 +114,7 @@ export class FlagComponent extends BaseComponent implements OnInit, OnDestroy {
       this.nodeService
         .flagging(this.path, JSON.stringify(data), this.user.csrf_token)
         .pipe(takeUntil(this.destroy$))
-        .subscribe((res) => {
+        .subscribe(() => {
           this.flagging = true;
           this.utiltiy.openSnackbar('已添加收藏！', 'x');
           this.cd.detectChanges();

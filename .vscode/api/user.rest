@@ -1,9 +1,10 @@
-@apiUrl = https://amigo-api.zhaobg.com
+@apiUrl = https://xhb-api.zhaobg.com
 @user = root
-@psw = Amigo@Abcd1234
+@psw = TH$$Q^AQFs9XLOX*
 
 ### get session
 GET {{apiUrl}}/session/token
+content-type: application/json
 
 ### user login
 # @name login
@@ -44,3 +45,53 @@ GET {{apiUrl}}/api/v1/user/user?filter[drupal_internal__uid]={{login.response.bo
 
 ### get all user
 GET {{apiUrl}}/api/v1/user/user
+
+
+### REST 注册用户
+POST {{apiUrl}}/user/register?_format=hal_json
+Content-Type: application/hal+json
+
+{
+  "_links": {
+    "type": {
+     "href": "{{apiUrl}}/rest/type/user/user"
+  }
+  },
+  "name":[{ "value" : "johnson" }],
+  "mail":[{ "value" : "johnson@qq.com" }],
+  "pass":[{"value":"123456"}]
+}
+
+
+### update user
+PATCH {{apiUrl}}/user/119?_format=hal_json
+Content-Type: application/hal+json
+withCredentials: true
+X-CSRF-Token: 0tqSQmpQKzfOu21U5ufO6dTU9hGdajPXmCKRbKuvTi8
+
+{
+  "_links": {
+    "type": {
+     "href": "{{apiUrl}}/rest/type/user/user"
+  }
+  },
+  "name":[{ "value" : "johnsonss" }],
+  "mail":[{ "value" : "johnsonss@qq.com" }],
+  "pass":[{"value":"654321"}]
+}
+
+### update wechat user
+PATCH {{apiUrl}}/entity/wechat_user/15?_format=hal_json
+Content-Type: application/hal+json
+withCredentials: true
+X-CSRF-Token: 6G4y09P_6SxE1wuQh_UMdhEq-I6-aQ9_mGFTs9SEnFs
+
+{
+  "_links": {
+    "type": {
+     "href": "{{apiUrl}}/rest/type/wechat_user/wechat_user"
+  }
+  },
+  "nickname":[{ "value" : "johnson" }],
+  "headimgurl":[{ "value" : "https://thirdwx.qlogo.cn/mmopen/vi_32/1b820GreUob15yeicXA8alyZbjoibIMSHPmDnaZwHnVrn4tQP3nPwYMXgu1diaicfRnpBvpNy8DcBajsfQuicmPJtGA/132" }]
+}

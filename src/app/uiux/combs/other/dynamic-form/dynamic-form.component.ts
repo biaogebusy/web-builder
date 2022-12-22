@@ -28,7 +28,7 @@ import { USER } from '@core/token/token-providers';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DynamicFormComponent implements OnInit, OnDestroy {
-  @Input() content: IControl[];
+  @Input() content: any;
   @Input() actions: IAction[];
   loading = false;
   form: FormGroup;
@@ -47,7 +47,7 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.form = this.formService.toFormGroup(this.content);
+      this.form = this.formService.toFormGroup(this.content.form);
     }
   }
 

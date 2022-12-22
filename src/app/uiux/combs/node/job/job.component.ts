@@ -247,7 +247,7 @@ export class JobComponent implements OnInit {
     this.cd.detectChanges();
   }
 
-  onScroll(event: boolean): void {
+  onScroll(): void {
     this.moveBox(false);
   }
 

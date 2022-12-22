@@ -76,7 +76,7 @@ export class AdvertComponent implements OnInit, AfterViewInit {
 
   getComments(timeStamp = 1): void {
     const uuid = this.content.uuid;
-    if (!this.coreConfig?.article?.comment?.enable || !uuid) {
+    if (!uuid) {
       return;
     }
     this.comments$ = this.nodeService

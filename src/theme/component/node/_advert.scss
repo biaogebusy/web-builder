@@ -13,6 +13,10 @@
     background-color: mat-color($primary, 0.07);
     .box {
       background-color: mat-color($background, card);
+      .right-content {
+        border: 1px solid mat-color($foreground, divider);
+        @include mat-elevation(3, mat-color($foreground, divider), 0.6);
+      }
     }
     .mobile-view {
       border: 1px solid mat-color($foreground, divider);
@@ -21,10 +25,6 @@
         background-color: mat-color($primary);
         color: mat-color($primary, default-contrast);
       }
-      @include mat-elevation(3, mat-color($foreground, divider), 0.6);
-    }
-    .right {
-      border: 1px solid mat-color($foreground, divider);
       @include mat-elevation(3, mat-color($foreground, divider), 0.6);
     }
   }
