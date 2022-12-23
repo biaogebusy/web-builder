@@ -1,7 +1,7 @@
 <ng-container *ngIf="content && userSerivice.checkShow(content, user)">
-  <div class="manage-sidebar" *ngIf="branding$ | async as branding">
-    <div class="manage-brand p-y p-x" *ngIf="branding.header">
-      <app-logo [content]="branding.header.logo"></app-logo>
+  <div class="manage-sidebar">
+    <div class="manage-brand p-y p-x">
+      <app-logo [content]="content.logo"></app-logo>
     </div>
     <div class="manage-menu">
       <app-dropdown-menu [content]="content.menu"></app-dropdown-menu>
