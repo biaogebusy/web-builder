@@ -76,7 +76,7 @@ export class LinkComponent extends BaseComponent implements OnInit {
 
   openDialog(dialog: any): void {
     const options = {
-      width: dialog.width || '800px',
+      width: dialog.params.width || '800px',
     };
     const config = Object.assign(this.content.dialog?.params || {}, options);
     this.dialogRef = this.dialog.open(DialogComponent, {
