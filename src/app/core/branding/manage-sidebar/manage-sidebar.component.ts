@@ -1,8 +1,10 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
-import { CORE_CONFIG, USER } from '@core/token/token-providers';
+import { BRANDING, CORE_CONFIG, USER } from '@core/token/token-providers';
 import { ICoreConfig } from '@core/interface/IAppConfig';
 import { IUser } from '@core/interface/IUser';
 import { UserService } from '@core/service/user.service';
+import { IBranding } from '@core/interface/IBranding';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-manage-sidebar',
@@ -10,11 +12,11 @@ import { UserService } from '@core/service/user.service';
   styleUrls: ['./manage-sidebar.component.scss'],
 })
 export class ManageSidebarComponent implements OnInit {
-  @Input() content: any;
   constructor(
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
     @Inject(USER) public user: IUser,
-    public userSerivice: UserService
+    public userSerivice: UserService,
+    @Inject(BRANDING) public branding$: Observable<IBranding>
   ) {}
 
   ngOnInit(): void {}

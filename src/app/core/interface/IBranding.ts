@@ -7,12 +7,13 @@ export interface IBranding {
 }
 export interface IHeader {
   params: IHeaderParams;
-  logo: Logo;
+  logo?: Logo;
   top?: IHeaderTop;
   banner?: any;
   mainMenu: IMainMenu[];
   sidebar?: {
     params: any;
+    logo: Logo;
     menu: IMainMenu[];
   };
   search: IHeaderSearch;
@@ -133,7 +134,7 @@ export interface IUserMenu {
 }
 
 interface Dialog {
-  content: Content[];
+  content: any;
   actions: Action[];
 }
 

@@ -10,7 +10,7 @@
     <mat-drawer-container>
       <mat-drawer mode="side" opened class="sidebar"
         *ngIf="branding.header?.sidebar && userService.checkShow(branding.header?.sidebar, user)">
-        <app-manage-sidebar [content]="branding.header?.sidebar"></app-manage-sidebar>
+        <app-manage-sidebar></app-manage-sidebar>
       </mat-drawer>
       <mat-drawer-content>
         <app-header></app-header>
