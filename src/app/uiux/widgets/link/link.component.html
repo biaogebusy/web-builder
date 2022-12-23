@@ -1,4 +1,4 @@
-<ng-container *ngIf="content && checkShow(content, user)">
+<ng-container *ngIf="content && userSerivice.checkShow(content, user)">
   <!-- dialog -->
   <ng-container *ngIf="content.dialog;else link">
     <div *ngTemplateOutlet="action;context:{link: content}"></div>

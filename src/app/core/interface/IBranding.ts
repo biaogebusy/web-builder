@@ -1,5 +1,6 @@
 import { ILink } from '@core/interface/widgets/ILink';
 import { IImg } from '@core/interface/widgets/IImg';
+import { IIcon } from '@core/interface/widgets/IIcon';
 export interface IBranding {
   header?: IHeader;
   footer?: IFooter;
@@ -10,6 +11,10 @@ export interface IHeader {
   top?: IHeaderTop;
   banner?: any;
   mainMenu: IMainMenu[];
+  sidebar?: {
+    params: any;
+    menu: IMainMenu[];
+  };
   search: IHeaderSearch;
   userMenu: IUserMenu[];
   actions: ILink[];
@@ -168,6 +173,8 @@ export interface IMainMenu extends ILink {
   href?: string;
   queryParams?: QueryParams;
   fragment?: string;
+  expanded?: boolean;
+  icon?: IIcon;
   child?: IMainMenu[];
 }
 

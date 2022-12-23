@@ -3,14 +3,7 @@
     <div class="container">
       <div class="header-container" fxLayout="row" fxLayoutAlign="{{content.logo?'space-between center':'end center'}}">
         <div class="header-left one-line" *ngIf="content.logo">
-          <div class="logo" *ngIf="content.logo?.img; else name" fxLayout fxLayoutAlign="start end">
-            <app-img [content]="content.logo.img"></app-img>
-            <span *ngIf="content.logo.version" class="version">v{{version}}</span>
-          </div>
-          <ng-template #name>
-            <a class="site-name mat-h2" [routerLink]="content.logo.href" [innerHTML]="content.logo?.label|safeHtml"></a>
-            <span *ngIf="content.logo.version" class="version">v{{version}}</span>
-          </ng-template>
+          <app-logo [content]="content.logo"></app-logo>
         </div>
         <div class="header-right" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap.lt-lg="1rem"
           fxLayoutGap.gt-md="3rem">

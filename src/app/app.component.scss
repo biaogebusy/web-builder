@@ -2,6 +2,9 @@
 
 .main {
   min-height: calc(100vh - 76px);
+  &.has-manage-sidebar {
+    background-color: #f7f7f7;
+  }
 }
 
 .mobile-menu {
@@ -37,4 +40,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.sidebar {
+  position: fixed;
+  overflow: auto;
+  width: 270px;
 }

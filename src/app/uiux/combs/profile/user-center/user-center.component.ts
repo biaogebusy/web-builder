@@ -15,7 +15,6 @@ import { isEmpty } from 'lodash-es';
 import { Observable } from 'rxjs';
 import { IUserConfig } from '../../../../core/interface/IUserConfig';
 import { environment } from 'src/environments/environment';
-import { BaseComponent } from '@uiux/base/base.widget';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type { IUser } from '@core/interface/IUser';
@@ -26,10 +25,7 @@ import type { IUser } from '@core/interface/IUser';
   styleUrls: ['./user-center.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserCenterComponent
-  extends BaseComponent
-  implements OnInit, OnDestroy
-{
+export class UserCenterComponent implements OnInit, OnDestroy {
   @Input() content: IUserCenter;
   currentUser: any;
   id: any;
@@ -41,9 +37,7 @@ export class UserCenterComponent
     public userService: UserService,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
     @Inject(USER) public user: IUser
-  ) {
-    super();
-  }
+  ) {}
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {

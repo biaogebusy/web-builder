@@ -1,0 +1,40 @@
+.manage-sidebar {
+  .manage-brand {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .manage-menu {
+    max-height: calc(100vh - 520px);
+  }
+  ::ng-deep {
+    mat-panel-title {
+      font-size: 17px;
+    }
+    .mat-accordion {
+      .mat-expansion-panel {
+        .mat-expansion-panel-header {
+          height: 56px;
+        }
+      }
+    }
+    .mat-expansion-panel-header {
+      border-bottom: 0;
+    }
+    .icon {
+      height: 24px;
+    }
+    .mat-list {
+      border-bottom: none !important;
+      padding-top: 0;
+      .mat-list-item {
+        height: 56px;
+      }
+      .mat-list-item-content {
+        padding-top: 4px;
+        padding-bottom: 4px;
+        margin-left: 17px;
+      }
+    }
+  }
+}
