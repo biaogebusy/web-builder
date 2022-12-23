@@ -62,4 +62,20 @@ export class DialogService {
       },
     });
   }
+
+  handlerIframe(dialog: MatDialog): void {
+    window.addEventListener(
+      'message',
+      (event) => {
+        const origin = event.origin;
+        if (origin !== window.location.origin) {
+          return;
+        }
+        if (event.data === 'closeDialog') {
+          dialog.closeAll();
+        }
+      },
+      false
+    );
+  }
 }
