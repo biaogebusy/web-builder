@@ -3,8 +3,8 @@
     "params": {
       "themeSwitch": true,
       "userInfo": true,
-      "isMegaMenu": true,
-      "menuHoverOpen": true
+      "isMegaMenu": false,
+      "menuHoverOpen": false
     },
     "mainMenu": [
       {
@@ -399,6 +399,13 @@
         }
       },
       "menu": [
+        {
+          "label": "内容管理",
+          "icon": {
+            "svg": "poll"
+          },
+          "href": "#10"
+        },
         {
           "label": "数据看板",
           "expanded": true,
