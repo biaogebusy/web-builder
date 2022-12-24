@@ -1,21 +1,45 @@
 <ng-container *ngIf="branding$ | async as branding">
-  <div class="manage-sidebar" *ngIf="userService.checkShow(branding.header?.sidebar, user)">
-    <div class="manage-brand p-y p-x">
-      <app-logo *ngIf="!branding.header?.sidebar?.params.showUser; else profile"
-        [content]="branding.header?.sidebar?.logo"></app-logo>
+  <div class="manage-sidebar {{opened?'opened':'expanded'}}"
+    *ngIf="userService.checkShow(branding.header?.sidebar, user)">
+    <div class="manage-brand p-y p-x" *ngIf="branding.header?.sidebar as sidebar">
+      <app-logo *ngIf="!sidebar?.params.showUser; else profile" [content]="sidebar?.logo"></app-logo>
       <ng-template #profile>
         <div class="profile">
           <a [routerLink]="userService.userPage">
             <img [src]="user.picture || coreConfig.defaultAvatar" alt="">
           </a>
-          <div class="name p-y-xs">
-            <a [routerLink]="userService.userPage">{{user.display_name}}</a>
+          <ng-container *ngIf="opened">
+            <div class="name bold p-top-xs">
+              <a [routerLink]="userService.userPage">{{user.display_name}}</a>
+            </div>
+            <div class="email" *ngIf="user.mail">
+              {{user.mail}}
+            </div>
+          </ng-container>
+        </div>
+      </ng-template>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="manage-menu" *ngIf="branding.header?.sidebar?.menu as menu"
+      [ngStyle]="{'overflow': opened?'auto' : 'visible'}">
+      <app-dropdown-menu *ngIf="opened; else iconMode" [content]="menu"></app-dropdown-menu>
+      <ng-template #iconMode>
+        <div class="icon-list">
+          <div class="item" *ngFor="let item of menu">
+            <app-icon *ngIf="item.icon" [content]="item.icon"></app-icon>
+            <app-hover-menu [content]="item"></app-hover-menu>
           </div>
         </div>
       </ng-template>
     </div>
-    <div class="manage-menu">
-      <app-dropdown-menu [content]="branding.header?.sidebar?.menu"></app-dropdown-menu>
+    <mat-divider></mat-divider>
+    <div class="manage-footer p-y-sm p-x-sm">
+      <div class="toggle">
+        <div class="wrapper" (click)="onToggle()">
+          <app-icon *ngIf="opened" [content]="{svg:'page-first'}"></app-icon>
+          <app-icon *ngIf="!opened" [content]="{svg:'page-last'}"></app-icon>
+        </div>
+      </div>
     </div>
   </div>
 </ng-container>

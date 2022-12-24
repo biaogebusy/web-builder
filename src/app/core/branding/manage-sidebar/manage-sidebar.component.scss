@@ -1,8 +1,12 @@
 .manage-sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   .manage-brand {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex: none;
     .profile {
       display: flex;
       flex-direction: column;
@@ -12,11 +16,89 @@
         width: 80px;
         height: 80px;
         border-radius: 50%;
+        transition: all 0.2s ease-in;
       }
     }
   }
+
   .manage-menu {
     max-height: calc(100vh - 520px);
+    flex: 1 1 auto;
+    overflow: auto;
+    .icon-list {
+      .item {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        &:hover {
+          cursor: pointer;
+          app-hover-menu {
+            display: block;
+          }
+        }
+        app-icon {
+          height: 56px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        app-hover-menu {
+          position: absolute;
+          display: none;
+          left: 100%;
+          top: 0;
+          min-width: 180px;
+          ::ng-deep {
+            .top {
+              width: 100%;
+              display: block;
+              text-align: left;
+              overflow: hidden;
+              line-height: 48px;
+              height: 48px;
+              border-radius: 0;
+              font-weight: 400;
+              font-size: 16px;
+              padding: 0 16px;
+              box-sizing: border-box;
+            }
+            .hover-menu {
+              position: relative;
+              box-shadow: none;
+              display: block;
+            }
+          }
+        }
+      }
+    }
+  }
+  .manage-footer {
+    flex: none;
+    .toggle {
+      display: flex;
+      justify-content: center;
+      .wrapper {
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+      }
+    }
+  }
+  &.expanded {
+    .manage-brand {
+      .profile {
+        img {
+          width: 50px;
+          height: 50px;
+          transition: all 0.2s ease-in;
+        }
+      }
+    }
   }
   ::ng-deep {
     mat-panel-title {
@@ -47,5 +129,17 @@
         margin-left: 17px;
       }
     }
+  }
+}
+
+::ng-deep .mat-drawer.sidebar {
+  position: fixed;
+  overflow: auto;
+  box-shadow: 1px 1px 6px 0px rgb(221 221 221 / 47%);
+  width: 80px;
+  visibility: visible !important;
+  transform: none !important;
+  &.mat-drawer-opened {
+    width: 270px;
   }
 }

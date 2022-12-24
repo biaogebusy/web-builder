@@ -17,6 +17,7 @@ import { IUser } from '@core/interface/IUser';
 export class AppComponent implements OnInit, AfterViewInit {
   authenticated: boolean;
   mobileMenuOpened: boolean;
+  sidebarMenuOpened = true;
   opened: boolean;
   loading = false;
   constructor(
@@ -38,6 +39,10 @@ export class AppComponent implements OnInit, AfterViewInit {
     if (this.screenService.isPlatformBrowser()) {
       this.screen.drawer$.subscribe(() => {
         this.mobileMenuOpened = !this.mobileMenuOpened;
+      });
+
+      this.screen.sidebarDrawer$.subscribe(() => {
+        this.sidebarMenuOpened = !this.sidebarMenuOpened;
       });
 
       this.router.fragment.subscribe((fragment) => {

@@ -37,38 +37,4 @@
       }
     }
   }
-
-  .manage-sidebar {
-    .mat-list {
-      .mat-list-item {
-        color: mat-color($foreground, text, 0.5);
-        &:hover {
-          a {
-            &:after {
-              background-color: mat-color($foreground, text, 0.02);
-            }
-          }
-        }
-        a {
-          color: mat-color($foreground, text, 0.5);
-          &:after {
-            display: block;
-            content: "";
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 150%;
-            height: 100%;
-            transform: translateX(-50px);
-          }
-          &.active {
-            color: mat-color($primary);
-            &:after {
-              background-color: mat-color($primary, 0.05);
-            }
-          }
-        }
-      }
-    }
-  }
 }
