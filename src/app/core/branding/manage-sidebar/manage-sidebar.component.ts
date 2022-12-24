@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { BRANDING, CORE_CONFIG, USER } from '@core/token/token-providers';
 import { ICoreConfig } from '@core/interface/IAppConfig';
 import { IUser } from '@core/interface/IUser';
@@ -15,7 +15,7 @@ export class ManageSidebarComponent implements OnInit {
   constructor(
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
     @Inject(USER) public user: IUser,
-    public userSerivice: UserService,
+    public userService: UserService,
     @Inject(BRANDING) public branding$: Observable<IBranding>
   ) {}
 

@@ -3,6 +3,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    .profile {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      img {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+      }
+    }
   }
   .manage-menu {
     max-height: calc(100vh - 520px);

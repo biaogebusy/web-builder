@@ -387,7 +387,8 @@
     ],
     "sidebar": {
       "params": {
-        "reqRoles": []
+        "reqRoles": [],
+        "showUser": true
       },
       "logo": {
         "label": "信使",

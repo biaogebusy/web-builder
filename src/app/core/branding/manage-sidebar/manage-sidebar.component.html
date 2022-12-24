@@ -1,7 +1,18 @@
 <ng-container *ngIf="branding$ | async as branding">
-  <div class="manage-sidebar" *ngIf="userSerivice.checkShow(branding.header?.sidebar, user)">
+  <div class="manage-sidebar" *ngIf="userService.checkShow(branding.header?.sidebar, user)">
     <div class="manage-brand p-y p-x">
-      <app-logo [content]="branding.header?.sidebar?.logo"></app-logo>
+      <app-logo *ngIf="!branding.header?.sidebar?.params.showUser; else profile"
+        [content]="branding.header?.sidebar?.logo"></app-logo>
+      <ng-template #profile>
+        <div class="profile">
+          <a [routerLink]="userService.userPage">
+            <img [src]="user.picture || coreConfig.defaultAvatar" alt="">
+          </a>
+          <div class="name p-y-xs">
+            <a [routerLink]="userService.userPage">{{user.display_name}}</a>
+          </div>
+        </div>
+      </ng-template>
     </div>
     <div class="manage-menu">
       <app-dropdown-menu [content]="branding.header?.sidebar?.menu"></app-dropdown-menu>

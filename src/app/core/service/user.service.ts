@@ -287,4 +287,15 @@ export class UserService extends ApiService {
         })
       );
   }
+
+  get userPage(): any[] {
+    if (environment?.drupalProxy) {
+      return ['/my'];
+    }
+    return [`/me`];
+  }
+
+  get userLink(): string[] {
+    return [environment.drupalProxy ? '/my' : '/me/login'];
+  }
 }
