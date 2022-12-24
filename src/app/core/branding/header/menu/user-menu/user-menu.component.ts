@@ -14,7 +14,6 @@ import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { DialogService } from '@core/service/dialog.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
 import { USER } from '@core/token/token-providers';
 import type { IUser } from '@core/interface/IUser';
 import { UserService } from '@core/service/user.service';
@@ -38,7 +37,7 @@ export class UserMenuComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     private dialogService: DialogService,
     private cd: ChangeDetectorRef,
-    private userService: UserService,
+    public userService: UserService,
     @Inject(USER) public user: IUser
   ) {
     this.currentUser = user;
@@ -60,10 +59,6 @@ export class UserMenuComponent implements OnInit, OnDestroy {
 
   logout(): void {
     this.userService.logout(this.user.logout_token);
-  }
-
-  get userLink(): string[] {
-    return [environment.drupalProxy ? '/my' : '/me/login'];
   }
 
   openDialog(dialog: any): void {
@@ -89,13 +84,6 @@ export class UserMenuComponent implements OnInit, OnDestroy {
         }
       });
     this.dialogService.handlerIframe(this.dialog);
-  }
-
-  get userPage(): any[] {
-    if (environment?.drupalProxy) {
-      return ['/my'];
-    }
-    return [`/me`];
   }
 
   trackByFn(index: number, item: any): number {

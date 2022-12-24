@@ -107,25 +107,4 @@ export abstract class BaseComponent {
       };
     }
   }
-
-  checkShow(content: any, user: IUser): boolean {
-    const roles = this.getParams(content, 'reqRoles');
-    if (!roles || !roles.length) {
-      return true;
-    } else {
-      if (!user) {
-        return false;
-      }
-      const currentUserRoles = user.current_user.roles;
-      if (this.isMatchCurrentRole(roles, currentUserRoles)) {
-        return true;
-      } else {
-        return false;
-      }
-    }
-  }
-
-  isMatchCurrentRole(roles: string[], currentUserRoles: string[]): boolean {
-    return intersection(currentUserRoles, roles).length > 0;
-  }
 }

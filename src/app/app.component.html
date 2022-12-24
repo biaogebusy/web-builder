@@ -2,15 +2,23 @@
   <div class="loader">Loading...</div>
 </div>
 <ngx-loading-bar [includeSpinner]="false" *ngIf="coreConfig?.loadingBar"></ngx-loading-bar>
-<mat-drawer-container *ngIf="coreConfig && branding$ | async">
+<mat-drawer-container *ngIf="coreConfig && branding$ | async as branding">
   <mat-drawer class="mobile-menu" #drawer [(opened)]="mobileMenuOpened">
-    <app-menu [isDrawer]="mobileMenuOpened" [content]="(branding$ | async)?.header || undefined"></app-menu>
+    <app-menu [isDrawer]="mobileMenuOpened" [content]="branding.header || undefined"></app-menu>
   </mat-drawer>
   <mat-drawer-content>
-    <app-header></app-header>
-    <div class="main">
-      <router-outlet></router-outlet>
-    </div>
-    <app-footer></app-footer>
+    <mat-drawer-container>
+      <mat-drawer id="sidebar" mode="side" [(opened)]="sidebarMenuOpened" class="sidebar"
+        *ngIf="branding.header?.sidebar && userService.checkShow(branding.header?.sidebar, user)">
+        <app-manage-sidebar [opened]="sidebarMenuOpened"></app-manage-sidebar>
+      </mat-drawer>
+      <mat-drawer-content id="main-container">
+        <app-header></app-header>
+        <div class="main" [ngClass]="{'has-manage-sidebar': branding.header?.sidebar ? true : false }">
+          <router-outlet></router-outlet>
+        </div>
+      </mat-drawer-content>
+    </mat-drawer-container>
+    <app-footer [hidden]="sidebarMenuOpened"></app-footer>
   </mat-drawer-content>
 </mat-drawer-container>

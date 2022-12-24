@@ -1,6 +1,6 @@
 <mat-menu class="sub-menu" #childMenu="matMenu" [overlapTrigger]="false">
   <div *ngFor="let item of content.child;trackBy:trackByFn">
-    <ng-container *ngIf="checkShow(item, user)">
+    <ng-container *ngIf="userSerivice.checkShow(item, user)">
       <div *ngIf="item.child && item.child.length > 0">
         <button mat-menu-item [matMenuTriggerFor]="menu.childMenu">
           <mat-icon *ngIf="item.icon">{{item.icon}}</mat-icon>

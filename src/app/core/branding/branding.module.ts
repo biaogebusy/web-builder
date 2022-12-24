@@ -22,6 +22,8 @@ import { SpaceBetweenComponent } from './footer/space-between/space-between.comp
 import { FixBarComponent } from './footer/fix-bar/fix-bar.component';
 import { FixBarPopupComponent } from './footer/fix-bar/fix-bar-popup/fix-bar-popup.component';
 import { HoverMenuComponent } from './header/menu/item-menu/hover-menu/hover-menu.component';
+import { ManageSidebarComponent } from './manage-sidebar/manage-sidebar.component';
+import { LogoComponent } from './meta/logo/logo.component';
 
 @NgModule({
   declarations: [
@@ -44,8 +46,15 @@ import { HoverMenuComponent } from './header/menu/item-menu/hover-menu/hover-men
     FixBarComponent,
     FixBarPopupComponent,
     HoverMenuComponent,
+    ManageSidebarComponent,
+    LogoComponent,
   ],
   imports: [ShareModule, WidgetsModule, HeroModule, DynamicCombsModule],
-  exports: [HeaderComponent, FooterComponent, MenuComponent],
+  exports: [
+    HeaderComponent,
+    FooterComponent,
+    MenuComponent,
+    ManageSidebarComponent,
+  ],
 })
 export class BrandingModule {}

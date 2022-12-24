@@ -1,5 +1,5 @@
 <app-link class="top" [content]="content"></app-link>
-<div class="hover-menu" [class.active]="active">
+<div class="hover-menu" [class.active]="active" *ngIf="content.child && content.child.length > 0">
   <div *ngTemplateOutlet="child;context:{content: content}"></div>
 </div>
 

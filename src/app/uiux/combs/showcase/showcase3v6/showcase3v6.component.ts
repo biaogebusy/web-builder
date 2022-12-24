@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import type { IShowcase3v6 } from '@core/interface/combs/IShowcase';
 import type { IUser } from '@core/interface/IUser';
+import { UserService } from '@core/service/user.service';
 import { USER } from '@core/token/token-providers';
 import { BaseComponent } from '@uiux/base/base.widget';
 
@@ -18,7 +19,10 @@ import { BaseComponent } from '@uiux/base/base.widget';
 })
 export class Showcase3v6Component extends BaseComponent implements OnInit {
   @Input() content: IShowcase3v6;
-  constructor(@Inject(USER) public user: IUser) {
+  constructor(
+    @Inject(USER) public user: IUser,
+    public userSerivice: UserService
+  ) {
     super();
   }
 

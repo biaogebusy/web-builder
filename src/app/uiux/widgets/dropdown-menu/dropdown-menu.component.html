@@ -1,20 +1,24 @@
 <ng-container *ngIf="content">
   <mat-accordion multi>
     <ng-container *ngFor="let item of content">
-      <mat-list *ngIf="!item.child">
-        <mat-list-item>
-          <app-link [content]="item"></app-link>
-        </mat-list-item>
-      </mat-list>
-      <mat-expansion-panel *ngIf="item.child" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-        <mat-expansion-panel-header>
-          <mat-panel-title *ngIf="!item.href" [ngClass]="item.classes||''">
-            {{item.label}}
-          </mat-panel-title>
-          <app-link *ngIf="item.href" [ngClass]="item.classes||''" [content]="item"></app-link>
-        </mat-expansion-panel-header>
-        <app-dropdown-menu [content]="item.child"></app-dropdown-menu>
-      </mat-expansion-panel>
+      <ng-container *ngIf="userService.checkShow(item, user)">
+        <mat-list *ngIf="!item.child">
+          <mat-list-item class="no-child">
+            <app-icon class="icon p-right-xs" *ngIf="item.icon" [content]="item.icon"></app-icon><app-link
+              [content]="item"></app-link>
+          </mat-list-item>
+        </mat-list>
+        <mat-expansion-panel [expanded]="item.expanded" *ngIf="item.child" (opened)="panelOpenState = true"
+          (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title *ngIf="!item.href" [ngClass]="item.classes||''">
+              <app-icon class="icon p-right-xs" *ngIf="item.icon" [content]="item.icon"></app-icon>{{item.label}}
+            </mat-panel-title>
+            <app-link *ngIf="item.href" [ngClass]="item.classes||''" [content]="item"></app-link>
+          </mat-expansion-panel-header>
+          <app-dropdown-menu [content]="item.child"></app-dropdown-menu>
+        </mat-expansion-panel>
+      </ng-container>
     </ng-container>
   </mat-accordion>
 </ng-container>
