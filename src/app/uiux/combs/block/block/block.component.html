@@ -15,7 +15,7 @@
 </div>
 
 <ng-template let-content="content" #block>
-  <ng-container *ngFor="let item of content; trackBy: trackByFn">
+  <ng-container *ngFor="let item of content;">
     <ng-container [ngSwitch]="item.type">
       <app-job *ngSwitchCase="'job'" [content]="item"></app-job>
       <app-case *ngSwitchCase="'case'" [content]="item"></app-case>

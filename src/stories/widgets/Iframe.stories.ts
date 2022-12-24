@@ -39,7 +39,7 @@ export const Default = Template.bind({});
 Default.storyName = '预览';
 Default.args = {
   content: {
-    url: '/?path=/story/full-calendar--default',
-    height: '900',
+    url: '/manage/content/shop/add?disable_sidebar=1&destination=/create/shop',
+    height: '1200',
   },
 };
