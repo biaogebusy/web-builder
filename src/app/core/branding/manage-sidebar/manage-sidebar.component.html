@@ -22,15 +22,13 @@
     <mat-divider></mat-divider>
     <div class="manage-menu" *ngIf="branding.header?.sidebar?.menu as menu"
       [ngStyle]="{'overflow': opened?'auto' : 'visible'}">
-      <app-dropdown-menu *ngIf="opened; else iconMode" [content]="menu"></app-dropdown-menu>
-      <ng-template #iconMode>
-        <div class="icon-list">
-          <div class="item" *ngFor="let item of menu">
-            <app-icon *ngIf="item.icon" [content]="item.icon"></app-icon>
-            <app-hover-menu [content]="item"></app-hover-menu>
-          </div>
+      <app-dropdown-menu [hidden]="!opened" [content]="menu"></app-dropdown-menu>
+      <div class="icon-list" [hidden]="opened">
+        <div class="item" *ngFor="let item of menu">
+          <app-icon *ngIf="item.icon" [content]="item.icon"></app-icon>
+          <app-hover-menu [content]="item"></app-hover-menu>
         </div>
-      </ng-template>
+      </div>
     </div>
     <mat-divider></mat-divider>
     <div class="manage-footer p-y-sm p-x-sm">

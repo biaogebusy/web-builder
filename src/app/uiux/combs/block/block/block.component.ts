@@ -32,10 +32,6 @@ export class BlockComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {}
 
-  trackByFn(index: number, item: any): number {
-    return index;
-  }
-
   onBackdrop(): void {
     this.opened = false;
   }
