@@ -9,6 +9,7 @@ import { IBranding } from './core/interface/IBranding';
 import { Observable } from 'rxjs';
 import { UserService } from '@core/service/user.service';
 import { IUser } from '@core/interface/IUser';
+import { LocalStorageService } from 'ngx-webstorage';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -17,7 +18,7 @@ import { IUser } from '@core/interface/IUser';
 export class AppComponent implements OnInit, AfterViewInit {
   authenticated: boolean;
   mobileMenuOpened: boolean;
-  sidebarMenuOpened = true;
+  sidebarMenuOpened: boolean;
   opened: boolean;
   loading = false;
   constructor(
@@ -26,6 +27,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     private screenService: ScreenService,
     private configService: ConfigService,
     public userService: UserService,
+    private storage: LocalStorageService,
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
     @Inject(BRANDING) public branding$: Observable<IBranding>,
     @Inject(USER) public user: IUser
@@ -37,12 +39,14 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
+      this.sidebarMenuOpened = this.storage.retrieve('sidebarOpened');
       this.screen.drawer$.subscribe(() => {
         this.mobileMenuOpened = !this.mobileMenuOpened;
       });
 
       this.screen.sidebarDrawer$.subscribe(() => {
         this.sidebarMenuOpened = !this.sidebarMenuOpened;
+        this.storage.store('sidebarOpened', this.sidebarMenuOpened);
       });
 
       this.router.fragment.subscribe((fragment) => {

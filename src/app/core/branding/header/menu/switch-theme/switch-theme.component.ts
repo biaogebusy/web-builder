@@ -5,7 +5,7 @@ import {
   OnInit,
 } from '@angular/core';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
-import { CORE_CONFIG } from '@core/token/token-providers';
+import { CORE_CONFIG, THEME } from '@core/token/token-providers';
 import { DOCUMENT } from '@angular/common';
 import { ConfigService } from '@core/service/config.service';
 import { LocalStorageService } from 'ngx-webstorage';
@@ -21,11 +21,14 @@ export class SwitchThemeComponent implements OnInit {
   constructor(
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
     @Inject(DOCUMENT) private document: Document,
+    @Inject(THEME) public theme: string,
     private configService: ConfigService,
     private storage: LocalStorageService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.currentTheme = this.theme;
+  }
 
   trackByFn(index: number, item: any): number {
     return index;
