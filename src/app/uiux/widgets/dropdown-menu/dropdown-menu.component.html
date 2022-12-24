@@ -3,7 +3,7 @@
     <ng-container *ngFor="let item of content">
       <ng-container *ngIf="userService.checkShow(item, user)">
         <mat-list *ngIf="!item.child">
-          <mat-list-item>
+          <mat-list-item class="no-child">
             <app-icon class="icon p-right-xs" *ngIf="item.icon" [content]="item.icon"></app-icon><app-link
               [content]="item"></app-link>
           </mat-list-item>

@@ -32,6 +32,9 @@
       .mat-list {
         .mat-list-item {
           color: mat-color($foreground, text, 0.5);
+          .icon {
+            color: mat-color($foreground, text, 0.75);
+          }
           &:hover {
             a {
               &:after {
@@ -74,6 +77,11 @@
               background-color: mat-color($background, card);
             }
           }
+        }
+      }
+      .mat-expansion-panel-body {
+        a {
+          color: mat-color($foreground, text, 0.6);
         }
       }
     }

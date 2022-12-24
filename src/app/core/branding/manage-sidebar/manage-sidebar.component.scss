@@ -72,6 +72,18 @@
         }
       }
     }
+    ::ng-deep > app-dropdown-menu > .mat-accordion {
+      > .mat-list {
+        > .mat-list-item {
+          &.no-child {
+            overflow: hidden;
+            .mat-list-item-content {
+              margin-left: 0;
+            }
+          }
+        }
+      }
+    }
   }
   .manage-footer {
     flex: none;
@@ -117,6 +129,7 @@
     .icon {
       height: 24px;
     }
+
     .mat-list {
       border-bottom: none !important;
       padding-top: 0;
