@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import type { IMainMenu } from '@core/interface/IBranding';
 import { UserService } from '@core/service/user.service';
-import { IUser } from '@core/interface/IUser';
+import type { IUser } from '@core/interface/IUser';
 import { USER } from '@core/token/token-providers';
 
 @Component({
