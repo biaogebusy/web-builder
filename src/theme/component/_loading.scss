@@ -21,10 +21,10 @@
   }
 
   .app-loader {
+    position: fixed;
     top: calc(50vh - 50px);
-    margin: 0 auto;
+    left: calc(50% - 5em);
     font-size: 7px;
-    position: relative;
     text-indent: -9999em;
     border-top: 1em solid mat-color($primary, 0.85);
     border-right: 1em solid mat-color($primary, 0.85);
