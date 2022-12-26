@@ -22,7 +22,6 @@
   }
 
   .manage-menu {
-    max-height: calc(100vh - 520px);
     flex: 1 1 auto;
     overflow: auto;
     .icon-list {
@@ -87,6 +86,7 @@
   }
   .manage-footer {
     flex: none;
+    min-height: 10%;
     .toggle {
       display: flex;
       justify-content: center;
@@ -98,6 +98,9 @@
         justify-content: center;
         align-items: center;
         border-radius: 50%;
+        app-icon {
+          display: inherit;
+        }
       }
     }
   }

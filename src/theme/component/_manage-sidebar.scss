@@ -29,12 +29,12 @@
     }
     .manage-menu {
       @include scrollbar(mat-color($foreground, divider, 0.2));
+      .icon {
+        color: mat-color($foreground, text, 0.7);
+      }
       .mat-list {
         .mat-list-item {
           color: mat-color($foreground, text, 0.5);
-          .icon {
-            color: mat-color($foreground, text, 0.75);
-          }
           &:hover {
             a {
               &:after {

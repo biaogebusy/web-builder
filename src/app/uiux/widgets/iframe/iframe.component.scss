@@ -1,0 +1,5 @@
+@import "../../../../theme/mixins/amixin";
+
+.mat-spinner {
+  @include middle-center();
+}

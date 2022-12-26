@@ -17,8 +17,8 @@
         <div class="main" [ngClass]="{'has-manage-sidebar': branding.header?.sidebar ? true : false }">
           <router-outlet></router-outlet>
         </div>
+        <app-footer [hidden]="sidebarMenuOpened"></app-footer>
       </mat-drawer-content>
     </mat-drawer-container>
-    <app-footer [hidden]="sidebarMenuOpened"></app-footer>
   </mat-drawer-content>
 </mat-drawer-container>
