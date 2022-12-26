@@ -36,10 +36,29 @@ const Template: Story = (args) => ({
 });
 export const Default = Template.bind({});
 // Raname Story
-Default.storyName = '预览';
+Default.storyName = '默认';
 Default.args = {
   content: {
     url: '/manage/content/shop/add?disable_sidebar=1&destination=/create/shop',
-    height: '1200',
+  },
+};
+
+export const CustomSize = Template.bind({});
+CustomSize.storyName = '自定义';
+CustomSize.args = {
+  content: {
+    url: '/manage/content/shop/add?disable_sidebar=1&destination=/create/shop',
+    width: '800',
+    classes: '800',
+  },
+};
+
+export const FullScreenHeight = Template.bind({});
+FullScreenHeight.storyName = '全屏高';
+FullScreenHeight.args = {
+  content: {
+    url: '/manage/content/shop/add?disable_sidebar=1&destination=/create/shop',
+    width: '100%',
+    classes: 'height-100vh',
   },
 };
