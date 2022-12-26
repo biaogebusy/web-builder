@@ -3,3 +3,7 @@
 .mat-spinner {
   @include middle-center();
 }
+.loading-inner {
+  position: relative;
+  min-height: 200px;
+}
