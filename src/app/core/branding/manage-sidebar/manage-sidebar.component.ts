@@ -1,13 +1,14 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { BRANDING, CORE_CONFIG, USER } from '@core/token/token-providers';
-import { ICoreConfig } from '@core/interface/IAppConfig';
-import { IUser } from '@core/interface/IUser';
+import type { ICoreConfig } from '@core/interface/IAppConfig';
+import type { IUser } from '@core/interface/IUser';
 import { UserService } from '@core/service/user.service';
-import { IBranding } from '@core/interface/IBranding';
+import type { IBranding } from '@core/interface/IBranding';
 import { Observable } from 'rxjs';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { ScreenService } from '@core/service/screen.service';
 import { DOCUMENT } from '@angular/common';
+import { LocalStorageService } from 'ngx-webstorage';
 
 @Component({
   selector: 'app-manage-sidebar',
@@ -26,7 +27,8 @@ export class ManageSidebarComponent implements OnInit {
     @Inject(DOCUMENT) private doc: Document,
     public userService: UserService,
     private screenState: ScreenState,
-    private screenService: ScreenService
+    private screenService: ScreenService,
+    private storage: LocalStorageService
   ) {}
 
   ngOnInit(): void {
@@ -36,20 +38,26 @@ export class ManageSidebarComponent implements OnInit {
       this.container = this.sidebar.getElementsByClassName(
         'mat-drawer-inner-container'
       )[0];
-      this.screenState.sidebarDrawer$.subscribe(() => {});
+
+      // init sidebar style
+      this.initSidebarStyle(this.storage.retrieve('sidebarOpened'));
     }
   }
 
   onToggle(): void {
     this.screenState.toggleSidebarDrawer();
-    if (this.opened) {
-      this.main.style.paddingLeft = '80px';
-      this.sidebar.style.overflow = 'visible';
-      this.container.style.overflow = 'visible';
-    } else {
+    this.initSidebarStyle(!this.opened);
+  }
+
+  initSidebarStyle(opened: any): void {
+    if (opened) {
       this.main.style.paddingLeft = '0';
       this.sidebar.style.overflow = 'auto';
       this.container.style.overflow = 'auto';
+    } else {
+      this.main.style.paddingLeft = '80px';
+      this.sidebar.style.overflow = 'visible';
+      this.container.style.overflow = 'visible';
     }
   }
 }
