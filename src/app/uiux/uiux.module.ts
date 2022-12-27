@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { WidgetsModule } from './widgets/widgets.module';
 import { CombsModule } from './combs/combs.module';
 
-const modules = [WidgetsModule, CombsModule];
+const modules = [CombsModule];
 
 @NgModule({
   declarations: [],
