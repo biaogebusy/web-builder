@@ -24,7 +24,6 @@ import { CalendarModule } from '../calendar/calendar.module';
     HeroModule,
     WidgetsModule,
     TabModule,
-    CarouselModule,
     MasonryModule,
     ListModule,
     BannerModule,
