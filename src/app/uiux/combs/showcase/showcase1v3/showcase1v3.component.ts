@@ -8,7 +8,7 @@ import {
 import { IText } from '@core/interface/widgets/IText';
 
 @Component({
-  selector: 'app-showcase1v3',
+  selector: 'app-showcase-1v3',
   templateUrl: './showcase1v3.component.html',
   styleUrls: ['./showcase1v3.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

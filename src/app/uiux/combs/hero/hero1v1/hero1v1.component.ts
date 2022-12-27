@@ -7,7 +7,7 @@ import {
 import type { IHero1v1 } from '@core/interface/combs/IHero';
 
 @Component({
-  selector: 'app-hero1v1',
+  selector: 'app-hero-1v1',
   templateUrl: './hero1v1.component.html',
   styleUrls: ['./hero1v1.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

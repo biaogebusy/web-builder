@@ -12,7 +12,7 @@ import { USER } from '@core/token/token-providers';
 import { BaseComponent } from '@uiux/base/base.widget';
 
 @Component({
-  selector: 'app-showcase3v6',
+  selector: 'app-showcase-3v6',
   templateUrl: './showcase3v6.component.html',
   styleUrls: ['./showcase3v6.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

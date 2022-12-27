@@ -15,7 +15,7 @@ import { Observable } from 'rxjs';
 import type { IHero2v3 } from '@core/interface/combs/IHero';
 
 @Component({
-  selector: 'app-hero2v3',
+  selector: 'app-hero-2v3',
   templateUrl: './hero2v3.component.html',
   styleUrls: ['./hero2v3.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

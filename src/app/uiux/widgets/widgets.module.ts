@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { FullCalendarModule } from '@fullcalendar/angular'; // must go before plugins
 import listPlugin from '@fullcalendar/list';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -110,6 +110,7 @@ import { StepperComponent } from './stepper/stepper.component';
 import { FormlyComponent } from './form/formly/formly.component';
 import { PlayerComponent } from './media/player/player.component';
 import { BtnVideoComponent } from './actions/btn-video/btn-video.component';
+import { BaseModule } from '@uiux/base/base.module';
 
 FullCalendarModule.registerPlugins([
   // register FullCalendar plugins
@@ -253,4 +254,10 @@ const components = [
     // { provide: MAT_DATE_LOCALE, useValue: 'zh-cn' },
   ],
 })
-export class WidgetsModule {}
+export class WidgetsModule extends BaseModule {
+  dynamicComponents = [...components];
+
+  constructor(protected componentFactoryResolver: ComponentFactoryResolver) {
+    super(componentFactoryResolver);
+  }
+}

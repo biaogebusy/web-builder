@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '../../widgets/widgets.module';
 import { Profile1v1Component } from './profile1v1/profile1v1.component';
@@ -8,6 +8,7 @@ import { ListModule } from '../list/list.module';
 import { UserFavoriteComponent } from './user-center/user-favorite/user-favorite.component';
 import { UserPayComponent } from './user-center/user-pay/user-pay.component';
 import { UserProfileComponent } from './user-center/user-profile/user-profile.component';
+import { BaseModule } from '@uiux/base/base.module';
 
 const components = [
   Profile1v1Component,
@@ -21,4 +22,10 @@ const components = [
   imports: [ShareModule, WidgetsModule, ListModule, DynamicCombsModule],
   exports: [...components],
 })
-export class ProfileModule {}
+export class ProfileModule extends BaseModule {
+  dynamicComponents = [...components];
+
+  constructor(protected componentFactoryResolver: ComponentFactoryResolver) {
+    super(componentFactoryResolver);
+  }
+}

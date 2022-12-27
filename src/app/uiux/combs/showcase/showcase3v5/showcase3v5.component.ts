@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'app-showcase3v5',
+  selector: 'app-showcase-3v5',
   templateUrl: './showcase3v5.component.html',
   styleUrls: ['./showcase3v5.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
