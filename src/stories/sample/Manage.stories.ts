@@ -12,6 +12,15 @@ import { BRANDING } from '@core/token/token-providers';
 import brandingSidebar from '../../assets/app/core/branding-sidebar.json';
 import { of } from 'rxjs';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { NodeModule } from '@uiux/combs/node/node.module';
+import { CaseNodeComponent } from '@uiux/combs/node/case/case-node/case-node.component';
+import { CaseComponent } from '@uiux/combs/node/case/case.component';
+import { LawCaseComponent } from '@uiux/combs/node/law/law-case/law-case.component';
+import { ArticleComponent } from '@uiux/combs/node/article/article.component';
+import { QuestionComponent } from '@uiux/combs/node/question/question.component';
+import { JobComponent } from '@uiux/combs/node/job/job.component';
+import { ReportComponent } from '@uiux/combs/node/report/report.component';
+import { AdvertComponent } from '@uiux/combs/node/advert/advert.component';
 export default {
   title: '示例页面/中台布局',
   id: 'manage-sidebar',
@@ -19,9 +28,20 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [],
+      entryComponents: [
+        CaseNodeComponent,
+        CaseComponent,
+        LawCaseComponent,
+        ArticleComponent,
+        QuestionComponent,
+        JobComponent,
+        ReportComponent,
+        AdvertComponent,
+      ],
       imports: [
         MatSidenavModule,
         BlockModule,
+        NodeModule,
         BrandingModule,
         StorysModule.forRoot(),
       ],
