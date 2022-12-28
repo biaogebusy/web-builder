@@ -15,6 +15,63 @@ export class ComponentService {
   constructor(private injector: Injector) {}
 
   initUiuxModuleLoad(): void {
+    [
+      'bg',
+      'img',
+      'tab',
+      'box',
+      'btn',
+      'text',
+      'card',
+      'link',
+      'icon',
+      'flag',
+      'title',
+      'panel',
+      'title',
+      'share',
+      'player',
+      'swiper',
+      'iframe',
+      'bg-img',
+      'spinner',
+      'stepper',
+      'card-1v1',
+      'card-1v2',
+      'calendar',
+      'user-card',
+      'btn-video',
+      'view-list',
+      'text-hero',
+      'menu-list',
+      'line-year',
+      'chip-list',
+      'chart',
+      'input',
+      'contact-us',
+      'media-list',
+      'select',
+      'btn-animate',
+      'feature-box',
+      'content-box',
+      'testimonial',
+      'media-object',
+      'textarea',
+      'checkbox',
+      'download',
+      'dynamic-table',
+      'dropdown-menu',
+      'search-action',
+      'progress-group',
+      'datepicker',
+      'inline-lightbox',
+      'media-object-group',
+      'content-text-center',
+    ].forEach((type) =>
+      this.setModule(type, () =>
+        import('@uiux/widgets/widgets.module').then((m) => m.WidgetsModule)
+      )
+    );
     ['action-1v1'].forEach((type) =>
       this.setModule(type, () =>
         import('@uiux/combs/action/action.module').then((m) => m.ActionModule)
@@ -163,72 +220,13 @@ export class ComponentService {
         import('@uiux/combs/video/video.module').then((m) => m.VideoModule)
       )
     );
-
-    [
-      'bg',
-      'img',
-      'tab',
-      'box',
-      'btn',
-      'text',
-      'card',
-      'link',
-      'icon',
-      'flag',
-      'title',
-      'panel',
-      'title',
-      'share',
-      'player',
-      'swiper',
-      'iframe',
-      'bg-img',
-      'spinner',
-      'stepper',
-      'card-1v1',
-      'card-1v2',
-      'calendar',
-      'user-card',
-      'btn-video',
-      'view-list',
-      'text-hero',
-      'menu-list',
-      'line-year',
-      'chip-list',
-      'chart',
-      'input',
-      'contact-us',
-      'media-list',
-      'select',
-      'btn-animate',
-      'feature-box',
-      'content-box',
-      'testimonial',
-      'progress-bar',
-      'media-object',
-      'textarea',
-      'checkbox',
-      'download',
-      'dynamic-table',
-      'dropdown-menu',
-      'search-action',
-      'progress-group',
-      'datepicker',
-      'inline-lightbox',
-      'media-object-group',
-      'content-text-center',
-    ].forEach((type) =>
-      this.setModule(type, () =>
-        import('@uiux/widgets/widgets.module').then((m) => m.WidgetsModule)
-      )
-    );
   }
 
   setModule(type: string, loadModule: () => Promise<any>) {
     this.moduleLists[type] = loadModule;
   }
 
-  getComponent(
+  async getComponent(
     type: string
   ): Promise<ComponentRef<unknown> | ComponentRef<any> | undefined> {
     return this.getModuleFactory(type)
@@ -240,7 +238,7 @@ export class ComponentService {
         }
       })
       .catch((error) => {
-        console.error(error);
+        console.log(error);
       });
   }
 

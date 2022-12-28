@@ -16,6 +16,6 @@
 
 <ng-template let-content="content" #block>
   <ng-container *ngFor="let item of content;">
-    <app-dynamic-component [content]="item"></app-dynamic-component>
+    <app-dynamic-component [inputs]="{content:item}"></app-dynamic-component>
   </ng-container>
 </ng-template>

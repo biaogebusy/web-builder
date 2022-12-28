@@ -165,9 +165,7 @@ const components = [
   PaginationLinksComponent,
   ProgressBarComponent,
   ProgressGroupComponent,
-  SafeHtmlPipe,
-  SafeUrlPipe,
-  DataSourcePipe,
+
   DialogComponent,
   FlagComponent,
   ShareComponent,
@@ -200,7 +198,7 @@ const components = [
 ];
 
 @NgModule({
-  declarations: [...components],
+  declarations: [...components, SafeHtmlPipe, SafeUrlPipe, DataSourcePipe],
   imports: [
     MatChipsModule,
     ShareModule,
@@ -248,7 +246,7 @@ const components = [
       ],
     }),
   ],
-  exports: [...components],
+  exports: [...components, SafeHtmlPipe, SafeUrlPipe, DataSourcePipe],
   providers: [
     MatDatepickerModule,
     // { provide: MAT_DATE_LOCALE, useValue: 'zh-cn' },

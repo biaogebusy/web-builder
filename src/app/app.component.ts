@@ -11,7 +11,6 @@ import { UserService } from '@core/service/user.service';
 import { IUser } from '@core/interface/IUser';
 import { LocalStorageService } from 'ngx-webstorage';
 import { ComponentService } from '@core/service/component.service';
-import { NodeModule } from '@uiux/combs/node/node.module';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
