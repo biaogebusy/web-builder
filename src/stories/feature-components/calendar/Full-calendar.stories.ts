@@ -3,7 +3,7 @@ import { Story } from '@storybook/angular/types-6-0';
 import { FullCalendarComponent } from '@uiux/combs/calendar/full-calendar/full-calendar.component';
 import { StorysModule } from '@core/storys.module';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { DynamicCombsModule } from '@uiux/combs/dynamic-combs/dynamic-combs.module';
+import { CalendarModule } from '@uiux/combs/calendar/calendar.module';
 
 export default {
   title: '特色组件/日历/Full calendar',
@@ -12,7 +12,7 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [],
-      imports: [MatSidenavModule, DynamicCombsModule, StorysModule.forRoot()],
+      imports: [MatSidenavModule, CalendarModule, StorysModule.forRoot()],
     }),
   ],
   parameters: {

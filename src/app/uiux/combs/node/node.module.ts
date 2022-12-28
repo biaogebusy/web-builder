@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { ShowcaseModule } from '../showcase/showcase.module';
@@ -27,6 +27,7 @@ import { LawTabComponent } from './law/law-tab/law-tab.component';
 import { ReportComponent } from './report/report.component';
 import { AdvertComponent } from './advert/advert.component';
 import { HeaderMetaComponent } from './header-meta/header-meta.component';
+import { BaseModule } from '@uiux/base/base.module';
 
 const components = [
   JobComponent,
@@ -68,4 +69,19 @@ const components = [
     AdvertComponent,
   ],
 })
-export class NodeModule {}
+export class NodeModule extends BaseModule {
+  dynamicComponents = [
+    CaseNodeComponent,
+    CaseComponent,
+    ArticleComponent,
+    QuestionComponent,
+    JobComponent,
+    LawCaseComponent,
+    ReportComponent,
+    AdvertComponent,
+  ];
+
+  constructor(protected componentFactoryResolver: ComponentFactoryResolver) {
+    super(componentFactoryResolver);
+  }
+}

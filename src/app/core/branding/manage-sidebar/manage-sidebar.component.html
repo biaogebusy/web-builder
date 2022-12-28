@@ -1,6 +1,5 @@
 <ng-container *ngIf="branding$ | async as branding">
-  <div class="manage-sidebar {{opened?'opened':'expanded'}}"
-    *ngIf="userService.checkShow(branding.header?.sidebar, user)">
+  <div class="manage-sidebar {{opened?'opened':'expanded'}}">
     <div class="manage-brand p-y p-x" *ngIf="branding.header?.sidebar as sidebar">
       <app-logo *ngIf="!sidebar?.params.showUser; else profile" [content]="sidebar?.logo"></app-logo>
       <ng-template #profile>

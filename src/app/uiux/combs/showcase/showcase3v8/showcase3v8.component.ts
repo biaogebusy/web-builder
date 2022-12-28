@@ -7,7 +7,7 @@ import {
 import { BaseComponent } from '@uiux/base/base.widget';
 
 @Component({
-  selector: 'app-showcase3v8',
+  selector: 'app-showcase-3v8',
   templateUrl: './showcase3v8.component.html',
   styleUrls: ['./showcase3v8.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

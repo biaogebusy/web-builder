@@ -10,7 +10,6 @@ import {
 import type { IMark } from '@core/interface/IAmap';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
-import { LoopWidgetsComponent } from '@uiux/widgets/loop-widgets/loop-widgets.component';
 import type { Card1v3Item, ICard1v3 } from '@core/interface/widgets/ICard';
 
 @Component({
@@ -42,7 +41,6 @@ export class Card1v3Component implements OnInit {
     this.dialog.open(DialogComponent, {
       width: '800px',
       data: {
-        renderInputComponent: LoopWidgetsComponent,
         inputData: {
           content,
         },

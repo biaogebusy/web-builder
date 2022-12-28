@@ -20,8 +20,8 @@
       <div class="right" *ngIf="content?.right?.length" fxFlex.lt-md="0 0 100"
         fxFlex.gt-sm="0 0 {{content?.left?.length ? 'calc(100% - 30% - 2rem)' : '100'}}">
         <ng-container *ngFor="let item of content.right">
-          <app-dynamic-combs *ngIf="userService.checkShow(item, user)" class="box" [content]="item">
-          </app-dynamic-combs>
+          <app-dynamic-component *ngIf="userService.checkShow(item, user)" class="box" [inputs]="{content:item}">
+          </app-dynamic-component>
         </ng-container>
 
       </div>

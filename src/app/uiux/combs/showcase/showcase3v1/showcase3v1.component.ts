@@ -8,7 +8,7 @@ import {
 import type { IShowcase3v1 } from '@core/interface/combs/IShowcase';
 
 @Component({
-  selector: 'app-showcase3v1',
+  selector: 'app-showcase-3v1',
   templateUrl: './showcase3v1.component.html',
   styleUrls: ['./showcase3v1.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

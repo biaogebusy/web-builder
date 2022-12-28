@@ -16,7 +16,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 @Component({
-  selector: 'app-showcase3v2',
+  selector: 'app-showcase-3v2',
   templateUrl: './showcase3v2.component.html',
   styleUrls: ['./showcase3v2.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

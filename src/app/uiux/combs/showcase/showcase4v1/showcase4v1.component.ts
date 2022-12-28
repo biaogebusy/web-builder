@@ -16,7 +16,7 @@ import { USER } from '@core/token/token-providers';
 import { UserService } from '@core/service/user.service';
 
 @Component({
-  selector: 'app-showcase4v1',
+  selector: 'app-showcase-4v1',
   templateUrl: './showcase4v1.component.html',
   styleUrls: ['./showcase4v1.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
