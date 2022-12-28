@@ -4,7 +4,6 @@ import { UserCenterComponent } from '@uiux/combs/profile/user-center/user-center
 import { Profile1v1Component } from '@uiux/combs/profile/profile1v1/profile1v1.component';
 import { UserProfileComponent } from '@uiux/combs/profile/user-center/user-profile/user-profile.component';
 import { StorysModule } from '@core/storys.module';
-import { DynamicCombsModule } from '@uiux/combs/dynamic-combs/dynamic-combs.module';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { IframeComponent } from '@uiux/widgets/iframe/iframe.component';
 
@@ -16,7 +15,7 @@ export default {
     moduleMetadata({
       declarations: [Profile1v1Component, UserProfileComponent],
       entryComponents: [DialogComponent, IframeComponent],
-      imports: [DynamicCombsModule, StorysModule.forRoot()],
+      imports: [StorysModule.forRoot()],
     }),
   ],
 } as Meta;
