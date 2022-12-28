@@ -17,8 +17,6 @@ import { takeUntil } from 'rxjs/operators';
 import { USER } from '@core/token/token-providers';
 import type { IUser } from '@core/interface/IUser';
 import { UserService } from '@core/service/user.service';
-import { DynamicCombsComponent } from '@uiux/combs/dynamic-combs/dynamic-combs/dynamic-combs.component';
-import { DynamicComponentComponent } from '@uiux/combs/block/dynamic-component/dynamic-component.component';
 
 @Component({
   selector: 'app-user-menu',
@@ -66,12 +64,9 @@ export class UserMenuComponent implements OnInit, OnDestroy {
     this.dialogRef = this.dialog.open(DialogComponent, {
       width: dialog.width || '600px',
       data: {
-        renderInputComponent: DynamicComponentComponent,
         inputData: {
-          inputs: {
-            content: dialog.content,
-            actions: dialog.actions,
-          },
+          content: dialog.content,
+          actions: dialog.actions,
         },
       },
     });

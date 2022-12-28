@@ -7,6 +7,7 @@ import { ContentState } from '@core/state/ContentState';
 import { pageContentFactory } from '@core/factory/factory';
 import { ContentService } from '@core/service/content.service';
 import { DOCUMENT } from '@angular/common';
+import { ComponentService } from '@core/service/component.service';
 
 @Component({
   selector: 'app-block',
@@ -25,10 +26,13 @@ export class BlockComponent implements OnInit, AfterViewInit {
   drawerContent: IPage;
   opened: boolean;
   constructor(
+    @Inject(DOCUMENT) private doc: Document,
     @Inject(PAGE_CONTENT) public pageContent$: Observable<IPage>,
     private contentState: ContentState,
-    @Inject(DOCUMENT) private doc: Document
-  ) {}
+    private componentService: ComponentService
+  ) {
+    this.componentService.initUiuxModuleLoad();
+  }
 
   ngOnInit(): void {}
 

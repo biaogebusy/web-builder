@@ -11,7 +11,6 @@ import { SubMenuComponent } from './header/menu/item-menu/sub-menu/sub-menu.comp
 import { HeaderTopComponent } from './header/header-top/header-top.component';
 import { HeroModule } from '@uiux/combs/hero/hero.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
-import { DynamicCombsModule } from '@uiux/combs/dynamic-combs/dynamic-combs.module';
 import { LightComponent } from './footer/light/light.component';
 import { InverseComponent } from './footer/inverse/inverse.component';
 import { MenuItemComponent } from './footer/menu-item/menu-item.component';
@@ -49,7 +48,7 @@ import { LogoComponent } from './meta/logo/logo.component';
     ManageSidebarComponent,
     LogoComponent,
   ],
-  imports: [ShareModule, WidgetsModule, HeroModule, DynamicCombsModule],
+  imports: [ShareModule, WidgetsModule, HeroModule],
   exports: [
     HeaderComponent,
     FooterComponent,

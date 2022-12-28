@@ -64,7 +64,6 @@
     "lodash-es": "^4.17.20",
     "luxon": "^3.0.3",
     "material-design-icons": "^3.0.1",
-    "ng-dynamic-component": "^8.0.1",
     "ngx-countdown": "^12.0.1",
     "ngx-echarts": "^7.1.0",
     "ngx-lightbox": "^2.3.0",

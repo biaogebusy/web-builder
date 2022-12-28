@@ -161,7 +161,7 @@ export class ComponentService {
       'article',
       'advert',
       'job',
-      'case',
+      'case-node',
       'law',
       'law-case',
       'question',
@@ -178,7 +178,13 @@ export class ComponentService {
       )
     );
 
-    ['profile-1v1', 'user-center'].forEach((type) =>
+    [
+      'profile-1v1',
+      'user-center',
+      'user-favorite',
+      'user-pay',
+      'user-profile',
+    ].forEach((type) =>
       this.setModule(type, () =>
         import('@uiux/combs/profile/profile.module').then(
           (m) => m.ProfileModule

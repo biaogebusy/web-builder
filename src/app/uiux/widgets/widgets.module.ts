@@ -7,7 +7,6 @@ import { LightboxModule } from 'ngx-lightbox';
 import { ShareModule } from '@share/share.module';
 import { SwiperModule } from 'swiper/angular';
 import { CountToModule } from 'angular-count-to';
-import { DynamicModule } from 'ng-dynamic-component';
 import { TreeModule } from '@circlon/angular-tree-component';
 import { CdkTableModule } from '@angular/cdk/table';
 
@@ -110,6 +109,8 @@ import { StepperComponent } from './stepper/stepper.component';
 import { FormlyComponent } from './form/formly/formly.component';
 import { PlayerComponent } from './media/player/player.component';
 import { BtnVideoComponent } from './actions/btn-video/btn-video.component';
+import { DynamicComponentComponent } from './dynamic-component/dynamic-component.component';
+
 import { BaseModule } from '@uiux/base/base.module';
 
 FullCalendarModule.registerPlugins([
@@ -198,14 +199,19 @@ const components = [
 ];
 
 @NgModule({
-  declarations: [...components, SafeHtmlPipe, SafeUrlPipe, DataSourcePipe],
+  declarations: [
+    ...components,
+    SafeHtmlPipe,
+    SafeUrlPipe,
+    DataSourcePipe,
+    DynamicComponentComponent,
+  ],
   imports: [
     MatChipsModule,
     ShareModule,
     TreeModule,
     LightboxModule,
     CountToModule,
-    DynamicModule,
     CdkTableModule,
     FullCalendarModule,
     MatDatepickerModule,
@@ -246,7 +252,13 @@ const components = [
       ],
     }),
   ],
-  exports: [...components, SafeHtmlPipe, SafeUrlPipe, DataSourcePipe],
+  exports: [
+    ...components,
+    SafeHtmlPipe,
+    SafeUrlPipe,
+    DataSourcePipe,
+    DynamicComponentComponent,
+  ],
   providers: [
     MatDatepickerModule,
     // { provide: MAT_DATE_LOCALE, useValue: 'zh-cn' },

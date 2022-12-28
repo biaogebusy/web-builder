@@ -10,7 +10,6 @@ import { RouteService } from '@core/service/route.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
-import { LoopWidgetsComponent } from '@uiux/widgets/loop-widgets/loop-widgets.component';
 import { DialogService } from '@core/service/dialog.service';
 import { BaseComponent } from '@uiux/base/base.widget';
 import type { IUser } from '@core/interface/IUser';
@@ -84,7 +83,6 @@ export class LinkComponent extends BaseComponent implements OnInit {
     this.dialogRef = this.dialog.open(DialogComponent, {
       ...config,
       data: {
-        renderInputComponent: LoopWidgetsComponent,
         inputData: {
           content: dialog.data,
         },
