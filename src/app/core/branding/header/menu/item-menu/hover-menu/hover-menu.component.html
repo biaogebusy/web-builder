@@ -5,11 +5,13 @@
 
 <ng-template let-content="content" #child>
   <div class="sub-menu" *ngFor="let item of content.child;">
-    <button mat-button [class.has-child]="item.child ? true : false">
-      <app-link [content]="item"></app-link>
-    </button>
-    <div class="child" *ngIf="item.child && item.child.length > 0">
-      <div *ngTemplateOutlet="child;context:{content: item}"></div>
-    </div>
+    <ng-container *ngIf="userService.checkShow(item, user)">
+      <button mat-button [class.has-child]="item.child ? true : false">
+        <app-link [content]="item"></app-link>
+      </button>
+      <div class="child" *ngIf="item.child && item.child.length > 0">
+        <div *ngTemplateOutlet="child;context:{content: item}"></div>
+      </div>
+    </ng-container>
   </div>
 </ng-template>
