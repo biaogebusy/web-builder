@@ -3,4 +3,4 @@
 </div>
 <iframe [hidden]="loading" [width]="content.width || '100%'" [class]="content.classes"
   height="{{content.height || '100%'}}" [src]="url | safeUrl" [title]="content?.title" [id]="content?.id"
-  frameborder="0"></iframe>
+  frameborder="0" [name]="content.name || 'xinshi'"></iframe>

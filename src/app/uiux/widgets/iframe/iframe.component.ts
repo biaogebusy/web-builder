@@ -36,6 +36,13 @@ export class IframeComponent implements OnInit {
           (event) => {
             if (event.data === 'ready') {
               this.loading = false;
+              console.log('ready');
+              this.cd.detectChanges();
+            }
+
+            if (event.data === 'loading') {
+              this.loading = true;
+              console.log('loading');
               this.cd.detectChanges();
             }
           },
