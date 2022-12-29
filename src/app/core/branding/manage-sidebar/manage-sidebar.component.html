@@ -35,8 +35,8 @@
     <div class="manage-footer p-y-sm p-x-sm">
       <div class="toggle">
         <div class="wrapper" (click)="onToggle()">
-          <app-icon *ngIf="opened" [content]="{svg:'page-first'}"></app-icon>
-          <app-icon *ngIf="!opened" [content]="{svg:'page-last'}"></app-icon>
+          <app-icon matTooltip="收起" matTooltipPosition="above" *ngIf="opened" [content]="{svg:'page-first'}"></app-icon>
+          <app-icon matTooltip="展开" matTooltipPosition="above" *ngIf="!opened" [content]="{svg:'page-last'}"></app-icon>
         </div>
       </div>
     </div>

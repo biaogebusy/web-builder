@@ -99,8 +99,8 @@
       .manage-brand {
         .profile {
           .picture {
-            background-color: mat-color($primary, default-contrast);
-            @include mat-elevation(2, mat-color($foreground, divider, 0.2));
+            background-color: mat-color($primary, 0.5);
+            border: 4px solid mat-color($primary, 0.5);
           }
         }
       }
