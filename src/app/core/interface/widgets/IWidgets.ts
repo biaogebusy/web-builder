@@ -53,6 +53,7 @@ export interface IIframe {
   url: string;
   title?: string;
   id?: string;
+  name?: string;
 }
 
 export interface IProgressBar {
