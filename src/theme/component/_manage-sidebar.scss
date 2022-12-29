@@ -11,6 +11,7 @@
   $text-color: mat-color($foreground, text, 0.75);
 
   .manage-sidebar {
+    background-color: mat-color($primary, default-contrast);
     a {
       color: mat-color($foreground, text, 0.75);
       &:hover {
@@ -90,6 +91,33 @@
         .wrapper {
           @include mat-elevation(4, mat-color($foreground, text), 0.3);
         }
+      }
+    }
+    &.expanded {
+      background-color: mat-color($primary, 0.85);
+      color: mat-color($primary, default-contrast);
+      .manage-brand {
+        .profile {
+          .picture {
+            background-color: mat-color($primary, default-contrast);
+            @include mat-elevation(2, mat-color($foreground, divider, 0.2));
+          }
+        }
+      }
+      .manage-menu {
+        .icon {
+          color: mat-color($primary, default-contrast);
+        }
+      }
+      .manage-footer {
+        .toggle {
+          .wrapper {
+            @include mat-elevation(4, mat-color($primary), 0.3);
+          }
+        }
+      }
+      .mat-divider {
+        border-top-color: mat-color($background, card, 0.12);
       }
     }
   }

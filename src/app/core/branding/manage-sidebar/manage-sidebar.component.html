@@ -4,7 +4,7 @@
       <app-logo *ngIf="!sidebar?.params.showUser; else profile" [content]="sidebar?.logo"></app-logo>
       <ng-template #profile>
         <div class="profile">
-          <a [routerLink]="userService.userPage">
+          <a class="picture" [routerLink]="userService.userPage">
             <img [src]="user.picture || coreConfig.defaultAvatar" alt="">
           </a>
           <ng-container *ngIf="opened">
