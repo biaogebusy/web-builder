@@ -13,8 +13,8 @@
       justify-content: center;
       align-items: center;
       img {
-        width: 80px;
-        height: 80px;
+        width: 60px;
+        height: 60px;
         border-radius: 50%;
         transition: all 0.2s ease-in;
       }
@@ -30,6 +30,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+
         &:hover {
           cursor: pointer;
           app-hover-menu {
@@ -42,6 +43,7 @@
           justify-content: center;
           align-items: center;
         }
+
         app-hover-menu {
           position: absolute;
           display: none;
@@ -61,6 +63,16 @@
               font-size: 16px;
               padding: 0 16px;
               box-sizing: border-box;
+            }
+            .header-title {
+              display: block;
+              width: 100%;
+              height: 48px;
+              line-height: 48px;
+              font-size: 16px;
+              font-weight: 500;
+              text-align: left;
+              cursor: default;
             }
             .hover-menu {
               position: relative;
@@ -110,7 +122,6 @@
         .picture {
           display: inline-block;
           border-radius: 50%;
-          padding: 4px;
           img {
             width: 40px;
             height: 40px;

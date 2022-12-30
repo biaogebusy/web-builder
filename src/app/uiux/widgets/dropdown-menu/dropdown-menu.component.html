@@ -4,15 +4,15 @@
       <ng-container *ngIf="userService.checkShow(item, user)">
         <mat-list *ngIf="!item.child">
           <mat-list-item class="no-child">
-            <app-icon class="icon p-right-xs" *ngIf="item.icon" [content]="item.icon"></app-icon><app-link
-              [content]="item"></app-link>
+            <mat-icon [class]="'xp-right-s'" *ngIf="item.icon" svgIcon="{{item.icon}}"></mat-icon>
+            <app-link [content]="item"></app-link>
           </mat-list-item>
         </mat-list>
         <mat-expansion-panel [expanded]="item.expanded" *ngIf="item.child" (opened)="panelOpenState = true"
           (closed)="panelOpenState = false">
           <mat-expansion-panel-header>
             <mat-panel-title *ngIf="!item.href" [ngClass]="item.classes||''">
-              <app-icon class="icon p-right-xs" *ngIf="item.icon" [content]="item.icon"></app-icon>{{item.label}}
+              <app-icon class="icon xp-right-s" *ngIf="item.icon" [content]="item.icon"></app-icon>{{item.label}}
             </mat-panel-title>
             <app-link *ngIf="item.href" [ngClass]="item.classes||''" [content]="item"></app-link>
           </mat-expansion-panel-header>
