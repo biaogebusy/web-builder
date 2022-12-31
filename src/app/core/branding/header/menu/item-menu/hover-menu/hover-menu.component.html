@@ -1,10 +1,4 @@
-<app-link *ngIf="content.href;else title" class="top" [content]="content"></app-link>
-<ng-template #title>
-  <button mat-button class="header-title" [class]="content.classes">
-    {{content.label}}
-  </button>
-  <mat-divider></mat-divider>
-</ng-template>
+<app-link class="top {{content.href ? 'is-link':'not-link'}}" [content]="content"></app-link>
 <div class="hover-menu" [class.active]="active" *ngIf="content.child && content.child.length > 0">
   <div *ngTemplateOutlet="child;context:{content: content}"></div>
 </div>
