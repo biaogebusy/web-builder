@@ -24,16 +24,18 @@ export class LawHeaderComponent implements OnInit, AfterViewInit {
   constructor(
     private screenService: ScreenService,
     private cd: ChangeDetectorRef
-  ) {
-    this.loadFonts().then(() => {
-      console.log('Load font done!');
-      this.disabled = false;
-      this.saveDocLoading = false;
-      this.cd.detectChanges();
-    });
-  }
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.screenService.isPlatformBrowser() && this.content?.pdf) {
+      this.loadFonts().then(() => {
+        console.log('Load font done!');
+        this.disabled = false;
+        this.saveDocLoading = false;
+        this.cd.detectChanges();
+      });
+    }
+  }
 
   ngAfterViewInit(): void {}
 
