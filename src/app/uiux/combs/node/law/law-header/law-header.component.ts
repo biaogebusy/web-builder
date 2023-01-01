@@ -131,7 +131,6 @@ export class LawHeaderComponent implements OnInit, AfterViewInit {
           data.column.index === pdf.sign.column &&
           data.cell.section === 'body'
         ) {
-          console.log(data);
           const dim = data.cell.height - data.cell.padding('vertical');
           const textPos = data.cell.getTextPos();
           doc.addImage(pdf.sign.data, textPos.x, textPos.y - 7, 47, 14);
