@@ -18,4 +18,7 @@ export class MapModule extends BaseModule {
   constructor(protected componentFactoryResolver: ComponentFactoryResolver) {
     super(componentFactoryResolver);
   }
+  static forStorybook(): any {
+    return [...components];
+  }
 }

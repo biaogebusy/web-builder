@@ -30,7 +30,7 @@ export default {
     componentWrapperDecorator(
       (story) => `
       ${story}
-        <div style="min-height:100vh">
+        <div style="min-height:50vh">
         </div>
         <app-footer></app-footer>
     `

@@ -83,9 +83,7 @@ export class LinkComponent extends BaseComponent implements OnInit {
     this.dialogRef = this.dialog.open(DialogComponent, {
       ...config,
       data: {
-        inputData: {
-          content: dialog.data,
-        },
+        inputData: dialog.data,
       },
     });
     if (dialog?.afterClosed) {

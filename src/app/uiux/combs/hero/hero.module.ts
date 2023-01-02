@@ -30,4 +30,7 @@ export class HeroModule extends BaseModule {
   constructor(protected componentFactoryResolver: ComponentFactoryResolver) {
     super(componentFactoryResolver);
   }
+  static forStorybook(): any {
+    return [...components];
+  }
 }

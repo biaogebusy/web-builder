@@ -166,7 +166,6 @@ const components = [
   PaginationLinksComponent,
   ProgressBarComponent,
   ProgressGroupComponent,
-
   DialogComponent,
   FlagComponent,
   ShareComponent,
@@ -269,5 +268,9 @@ export class WidgetsModule extends BaseModule {
 
   constructor(protected componentFactoryResolver: ComponentFactoryResolver) {
     super(componentFactoryResolver);
+  }
+
+  static forStorybook(): any {
+    return [...components];
   }
 }

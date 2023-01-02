@@ -2,8 +2,6 @@ import { StorysModule } from '@core/storys.module';
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { BtnVideoComponent } from '@uiux/widgets/actions/btn-video/btn-video.component';
-import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
-import { PlayerComponent } from '@uiux/widgets/media/player/player.component';
 
 export default {
   title: '基础组件/基本元素/播放按钮',
@@ -11,7 +9,7 @@ export default {
   component: BtnVideoComponent,
   decorators: [
     moduleMetadata({
-      entryComponents: [DialogComponent, PlayerComponent],
+      entryComponents: [...StorysModule.forEntryComponents()],
       declarations: [],
       imports: [StorysModule.forRoot()],
     }),

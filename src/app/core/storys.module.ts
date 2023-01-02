@@ -21,6 +21,23 @@ import {
   BRANDING,
 } from '@core/token/token-providers';
 import { of } from 'rxjs';
+import { ActionModule } from '@uiux/combs/action/action.module';
+import { BannerModule } from '@uiux/combs/banner/banner.module';
+import { CalculatorModule } from '@uiux/combs/calculator/calculator.module';
+import { HeroModule } from '@uiux/combs/hero/hero.module';
+import { ListModule } from '@uiux/combs/list/list.module';
+import { MapModule } from '@uiux/combs/map/map.module';
+import { MasonryModule } from '@uiux/combs/masonry/masonry.module';
+import { NodeModule } from '@uiux/combs/node/node.module';
+import { OtherModule } from '@uiux/combs/other/other.module';
+import { ProfileModule } from '@uiux/combs/profile/profile.module';
+import { SearchModule } from '@uiux/combs/search/search.module';
+import { ShowcaseModule } from '@uiux/combs/showcase/showcase.module';
+import { TabModule } from '@uiux/combs/tab/tab.module';
+import { VideoModule } from '@uiux/combs/video/video.module';
+import { CombsModule } from '@uiux/combs/combs.module';
+import { CarouselModule } from '@uiux/combs/carousel/carousel.module';
+import { ComponentService } from '@core/service/component.service';
 
 export function sleep(ms: number): Promise<any> {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -31,6 +48,7 @@ export function sleep(ms: number): Promise<any> {
   imports: [
     ShareModule,
     WidgetsModule,
+    CombsModule,
     HttpClientModule,
     NgxWebstorageModule.forRoot(),
     RouterTestingModule,
@@ -39,6 +57,7 @@ export function sleep(ms: number): Promise<any> {
   exports: [
     ShareModule,
     WidgetsModule,
+    CombsModule,
     HttpClientModule,
     RouterTestingModule,
     BrowserAnimationsModule,
@@ -90,5 +109,30 @@ export class StorysModule {
         },
       ],
     };
+  }
+
+  static forEntryComponents(): any[] {
+    return [
+      ...WidgetsModule.forStorybook(),
+      ...ActionModule.forStorybook(),
+      ...BannerModule.forStorybook(),
+      ...CalculatorModule.forStorybook(),
+      ...CarouselModule.forStorybook(),
+      ...HeroModule.forStorybook(),
+      ...ListModule.forStorybook(),
+      ...MapModule.forStorybook(),
+      ...MasonryModule.forStorybook(),
+      ...NodeModule.forStorybook(),
+      ...OtherModule.forStorybook(),
+      ...ProfileModule.forStorybook(),
+      ...SearchModule.forStorybook(),
+      ...ShowcaseModule.forStorybook(),
+      ...TabModule.forStorybook(),
+      ...VideoModule.forStorybook(),
+    ];
+  }
+
+  constructor(private componentService: ComponentService) {
+    this.componentService.initUiuxModuleLoad();
   }
 }

@@ -1,11 +1,7 @@
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { UserCenterComponent } from '@uiux/combs/profile/user-center/user-center.component';
-import { Profile1v1Component } from '@uiux/combs/profile/profile1v1/profile1v1.component';
-import { UserProfileComponent } from '@uiux/combs/profile/user-center/user-profile/user-profile.component';
 import { StorysModule } from '@core/storys.module';
-import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
-import { IframeComponent } from '@uiux/widgets/iframe/iframe.component';
 
 export default {
   title: '复合组件/用户/用户中心',
@@ -13,8 +9,7 @@ export default {
   component: UserCenterComponent,
   decorators: [
     moduleMetadata({
-      declarations: [Profile1v1Component, UserProfileComponent],
-      entryComponents: [DialogComponent, IframeComponent],
+      entryComponents: [...StorysModule.forEntryComponents()],
       imports: [StorysModule.forRoot()],
     }),
   ],

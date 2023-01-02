@@ -17,4 +17,7 @@ export class CalendarModule extends BaseModule {
   constructor(protected componentFactoryResolver: ComponentFactoryResolver) {
     super(componentFactoryResolver);
   }
+  static forStorybook(): any {
+    return [...components];
+  }
 }

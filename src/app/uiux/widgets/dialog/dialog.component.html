@@ -4,6 +4,11 @@
   </button>
   <h2 mat-dialog-title *ngIf="data.title">{{data.title}}</h2>
   <mat-dialog-content class="p-y-sm">
-    <app-dynamic-component [inputs]="data.inputData"></app-dynamic-component>
+    <ng-container *ngIf="data.inputData | isArray; else one">
+      <app-dynamic-component *ngFor="let widget of data.inputData" [inputs]="{content:widget}"></app-dynamic-component>
+    </ng-container>
+    <ng-template #one>
+      <app-dynamic-component [inputs]="{content:data.inputData}"></app-dynamic-component>
+    </ng-template>
   </mat-dialog-content>
 </div>

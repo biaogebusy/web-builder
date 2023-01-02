@@ -39,7 +39,7 @@ export const Default = Template.bind({});
 Default.storyName = '默认';
 Default.args = {
   content: {
-    url: '/manage/content/shop/add?disable_sidebar=1&destination=/create/shop',
+    url: '?path=/story/full-calendar--default',
   },
 };
 
@@ -47,9 +47,9 @@ export const CustomSize = Template.bind({});
 CustomSize.storyName = '自定义';
 CustomSize.args = {
   content: {
-    url: '/manage/content/shop/add?disable_sidebar=1&destination=/create/shop',
+    url: '?path=/story/full-calendar--default',
     width: '800',
-    classes: '800',
+    height: '800',
   },
 };
 
@@ -57,7 +57,7 @@ export const FullScreenHeight = Template.bind({});
 FullScreenHeight.storyName = '全屏高';
 FullScreenHeight.args = {
   content: {
-    url: '/manage/content/shop/add?disable_sidebar=1&destination=/create/shop',
+    url: '?path=/story/full-calendar--default',
     width: '100%',
     classes: 'height-100vh',
   },

@@ -84,4 +84,8 @@ export class NodeModule extends BaseModule {
   constructor(protected componentFactoryResolver: ComponentFactoryResolver) {
     super(componentFactoryResolver);
   }
+
+  static forStorybook(): any {
+    return [...components];
+  }
 }

@@ -19,7 +19,7 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [],
-      entryComponents: [LotteryComponent],
+      entryComponents: [...StorysModule.forEntryComponents()],
       imports: [
         BlockModule,
         StorysModule.forRoot(),

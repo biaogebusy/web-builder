@@ -11,27 +11,30 @@ import { SearchFilterDialogComponent } from './search-filter-dialog/search-filte
 import { SearchFilterItemComponent } from './search-filter-dialog/search-filter-item/search-filter-item.component';
 import { BaseModule } from '@uiux/base/base.module';
 
+const components = [
+  SearchComponent,
+  SearchListComponent,
+  SearchHeaderComponent,
+];
 @NgModule({
   declarations: [
-    SearchComponent,
-    SearchHeaderComponent,
-    SearchListComponent,
     SearchTopComponent,
     SearchStatusComponent,
     SearchFilterDialogComponent,
     SearchFilterItemComponent,
+    ...components,
   ],
   imports: [ShareModule, WidgetsModule, HeroModule],
   exports: [SearchComponent, SearchListComponent, SearchHeaderComponent],
 })
 export class SearchModule extends BaseModule {
-  dynamicComponents = [
-    SearchComponent,
-    SearchListComponent,
-    SearchHeaderComponent,
-  ];
+  dynamicComponents = [...components];
 
   constructor(protected componentFactoryResolver: ComponentFactoryResolver) {
     super(componentFactoryResolver);
+  }
+
+  static forStorybook(): any {
+    return [...components];
   }
 }

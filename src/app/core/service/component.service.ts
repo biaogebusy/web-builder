@@ -106,6 +106,7 @@ export class ComponentService {
       'carousel-1v3',
       'carousel-2v1',
       'carousel-2v1',
+      'carousel-2v2',
     ].forEach((type) =>
       this.setModule(type, () =>
         import('@uiux/combs/carousel/carousel.module').then(

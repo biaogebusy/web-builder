@@ -29,7 +29,7 @@ export default {
     componentWrapperDecorator(
       (story) => `
         <app-header></app-header>
-        <div style="min-height:85vh">
+        <div style="min-height:65vh">
         </div>
         <mat-divider></mat-divider>
         ${story}
