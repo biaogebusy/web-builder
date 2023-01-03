@@ -65,12 +65,12 @@ export class MapComponent implements OnInit, OnDestroy {
   getPosition(lists: any): void {
     if (lists.length > 0) {
       lists.forEach((item: any, index: number) => {
-        const address = item.params.address;
+        const address = item.address;
         this.geocoder.getLocation(address, (status: any, result: any) => {
           if (status === 'complete' && result.info === 'OK') {
             const location = result.geocodes[0].location;
-            item.params.position = [location.lng, location.lat];
-            if (item.params.setCenter) {
+            item.position = [location.lng, location.lat];
+            if (item.setCenter) {
               this.center = [location.lng, location.lat];
             }
             if (lists.length === index + 1) {
@@ -118,8 +118,8 @@ export class MapComponent implements OnInit, OnDestroy {
     this.markers = lists.map((item: any) => {
       return new this.AMap.Marker({
         content: this.simpleMarkerTem(),
-        position: item.params.position,
-        title: item.params.title,
+        position: item.position,
+        title: item.title,
       });
     });
     this.map.add(this.markers);

@@ -1,35 +1,56 @@
 <div class="view-map position-relation" *ngIf="content">
-  <div class="siderbar">
-    <div class="filter" *ngIf="content.form" fxFlex.gt-sm="0 0 100" fxFlex.lt-md="100" fxLayout.gt-sm="row"
-      fxLayout.lt-md="column" fxLayoutAlign="space-between center">
-      <div class="filter-item" fxLayout.gt-sm="row wrap" fxLayout.lt-md="column" fxLayoutGap.gt-sm="1rem">
+  <div class="sidebar p-x-sm p-y-sm" fxFlex.lt-md="100" fxFlex.gt-sm="500px" fxLayout="column">
+    <div class="filter" *ngIf="content.form">
+      <div class="filter-item" fxLayout="row wrap">
         <app-formly [form]="form" [fields]="content.form" [model]="model" (modelChange)="onModelChange($event)">
         </app-formly>
-      </div>
-      <div class="actions" fxLayoutGap="1rem" fxLayoutAlign="center center">
-        <button mat-button (click)="clear()">
-          <mat-icon>clear</mat-icon>清空
-        </button>
+        <div class="actions" fxLayoutGap="1rem" fxLayoutAlign="center center">
+          <button mat-button (click)="clear()">
+            <mat-icon>clear</mat-icon>清空
+          </button>
+        </div>
       </div>
     </div>
-    <div class="sidebar-wrapper">
-      <div class="job-header position-relative">
-        <div class="result p-y-xs">总计 <span class="result-total">{{content.elements.length}}</span> 个职位
-        </div>
-        <!-- <div class="scroll" [class.scrolling]="scrolling"></div> -->
-      </div>
-      <cdk-virtual-scroll-viewport [itemSize]="5" class="viewport">
-        <div class="list item m-y-sm p-y-xs m-x-xs p-x-xs" [class.selected]="i == selectedId" matRipple
-          [matRippleColor]="'rgba(0, 0, 0, 0.04)'" *cdkVirtualFor="let item of content.elements; index as i"
-          fxLayout="column" (click)="onCard(item, i)">
-          <h3 class="m-bottom-xs bold">{{item.title}}</h3>
-          <div class="sub-title">{{item.subTitle}}</div>
+    <div class="sidebar-wrapper" *ngIf="lists">
 
-        </div>
-      </cdk-virtual-scroll-viewport>
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <div class="job-header position-relative">
+              <div class="result p-y-xs">总计 <span class="result-total">{{lists?.length}}</span> 条数据
+              </div>
+            </div>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <cdk-virtual-scroll-viewport [itemSize]="5" class="viewport">
+          <div class="list m-y-sm p-y-xs m-x-xs p-x-xs" [class.selected]="i == selectedId" matRipple
+            [matRippleColor]="'rgba(0, 0, 0, 0.04)'" *cdkVirtualFor="let item of lists; index as i" fxLayout="row"
+            (click)="onCard(item, i)">
+            <div class="media">
+              <img [src]="item.img" [alt]="item.title">
+            </div>
+            <div class="content" fxLayout="column" fxFlex="auto">
+              <div class="head" fxLayout="row wrap">
+                <h3 class="title bold m-bottom-0">{{item.title}}</h3>
+                <div class="badge" [innerHTML]="item.badge_1"></div>
+              </div>
+              <div class="inner" fxLayout="row" fxLayoutAlign="space-between start">
+                <div class="left">
+                  <div class="title sub-title">{{item.subTitle}}</div>
+                  <div class="badge" [innerHTML]="item.badge_2"></div>
+                </div>
+                <div class="meta text-right">
+                  <div class="item" [innerHTML]="item.meta_1"></div>
+                  <div class="item" [innerHTML]="item.meta_2"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </cdk-virtual-scroll-viewport>
+      </mat-expansion-panel>
     </div>
   </div>
-  <div class="map-wrapper">
-    <!-- <app-map fxFlex="100%"></app-map> -->
+  <div class="map-wrapper" *ngIf="lists">
+    <app-map fxFlex="100%" [content]="{city:'南宁',elements:lists}"></app-map>
   </div>
 </div>

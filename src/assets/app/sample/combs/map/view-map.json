@@ -2,8 +2,10 @@
   "title": "地图应用",
   "body": [
     {
-      "type": "map-list",
-      "params": {},
+      "type": "view-map",
+      "params": {
+        "api": "/api/v2/view-map"
+      },
       "form": [
         {
           "type": "input",
@@ -39,24 +41,94 @@
       ],
       "elements": [
         {
-          "title": "广西叫酒网络科技",
-          "subTitle": "前端开发工程师",
-          "badge": "Vue",
-          "meta_1": "7-10k",
-          "mate_2": "2022-04-30",
-          "position": "南宁市创客城",
-          "img": "/assets/images/avatar/04.jpeg",
-          "url": "/node/1?drawer=true"
+          "subTitle": "产品经理",
+          "title": " 广西桂呈永军科技有限公司",
+          "meta_2": "2021-04-25",
+          "badge_2": "\n\n<!-- THEME DEBUG -->\n<!-- THEME HOOK: 'item_list' -->\n<!-- BEGIN OUTPUT from 'core/themes/claro/templates/classy/dataset/item-list.html.twig' -->\n<div class=\"item-list\"><ul><li>新零售</li></ul></div>\n<!-- END OUTPUT from 'core/themes/claro/templates/classy/dataset/item-list.html.twig' -->\n\n",
+          "meta_1": "\n\n\n\n\n6-8\n\n\n k",
+          "badge_1": "\n\n<!-- THEME DEBUG -->\n<!-- THEME HOOK: 'item_list' -->\n<!-- BEGIN OUTPUT from 'core/themes/claro/templates/classy/dataset/item-list.html.twig' -->\n<div class=\"item-list\"><ul><li>五险一金</li><li>绩效奖金</li><li>包中餐</li><li>产假</li></ul></div>\n<!-- END OUTPUT from 'core/themes/claro/templates/classy/dataset/item-list.html.twig' -->\n\n",
+          "img": "/sites/admin.nnitpai.com/files/2021-01/Cgq2xl6MRb-AOhnJAABwvOeFuTI609.jpg"
         },
         {
+          "subTitle": "新媒体运营",
           "title": "广西猫头鹰科技有限公司",
+          "meta_2": "2021-04-25",
+          "badge_2": "\n\n<!-- THEME DEBUG -->\n<!-- THEME HOOK: 'item_list' -->\n<!-- BEGIN OUTPUT from 'core/themes/claro/templates/classy/dataset/item-list.html.twig' -->\n<div class=\"item-list\"><ul><li>运营</li></ul></div>\n<!-- END OUTPUT from 'core/themes/claro/templates/classy/dataset/item-list.html.twig' -->\n\n",
+          "meta_1": "\n\n\n\n\n3-6\n\n\n k",
+          "badge_1": "\n\n<!-- THEME DEBUG -->\n<!-- THEME HOOK: 'item_list' -->\n<!-- BEGIN OUTPUT from 'core/themes/claro/templates/classy/dataset/item-list.html.twig' -->\n<div class=\"item-list\"><ul><li>职位晋升</li></ul></div>\n<!-- END OUTPUT from 'core/themes/claro/templates/classy/dataset/item-list.html.twig' -->\n\n",
+          "img": "/sites/admin.nnitpai.com/files/2021-01/QQ20210125-182042%402x.png"
+        },
+        {
           "subTitle": "产品经理",
-          "badge": "Vue",
-          "meta_1": "7-10k",
-          "mate_2": "2022-04-30",
-          "position": "南宁市创客城",
-          "img": "/assets/images/avatar/04.jpeg",
-          "url": "/node/1?drawer=true"
+          "title": "广西猫头鹰科技有限公司",
+          "meta_2": "2021-04-25",
+          "badge_2": "\n\n<!-- THEME DEBUG -->\n<!-- THEME HOOK: 'item_list' -->\n<!-- BEGIN OUTPUT from 'core/themes/claro/templates/classy/dataset/item-list.html.twig' -->\n<div class=\"item-list\"><ul><li>产品分析</li></ul></div>\n<!-- END OUTPUT from 'core/themes/claro/templates/classy/dataset/item-list.html.twig' -->\n\n",
+          "meta_1": "\n\n\n\n\n4-6\n\n\n k",
+          "badge_1": "\n\n<!-- THEME DEBUG -->\n<!-- THEME HOOK: 'item_list' -->\n<!-- BEGIN OUTPUT from 'core/themes/claro/templates/classy/dataset/item-list.html.twig' -->\n<div class=\"item-list\"><ul><li>职位晋升</li></ul></div>\n<!-- END OUTPUT from 'core/themes/claro/templates/classy/dataset/item-list.html.twig' -->\n\n",
+          "img": "/sites/admin.nnitpai.com/files/2021-01/QQ20210125-182042%402x.png"
+        },
+        {
+          "subTitle": "cto首席技术官 ",
+          "title": "广西叫酒网络科技有限公司",
+          "meta_2": "2021-04-25",
+          "badge_2": "\n\n<!-- THEME DEBUG -->\n<!-- THEME HOOK: 'item_list' -->\n<!-- BEGIN OUTPUT from 'core/themes/claro/templates/classy/dataset/item-list.html.twig' -->\n<div class=\"item-list\"><ul><li>技术机构</li></ul></div>\n<!-- END OUTPUT from 'core/themes/claro/templates/classy/dataset/item-list.html.twig' -->\n\n",
+          "meta_1": "\n\n\n\n\n15-20\n\n\n k",
+          "badge_1": "\n\n<!-- THEME DEBUG -->\n<!-- THEME HOOK: 'item_list' -->\n<!-- BEGIN OUTPUT from 'core/themes/claro/templates/classy/dataset/item-list.html.twig' -->\n<div class=\"item-list\"><ul><li>绩效奖金</li><li>午餐补助</li><li>美女多</li></ul></div>\n<!-- END OUTPUT from 'core/themes/claro/templates/classy/dataset/item-list.html.twig' -->\n\n",
+          "img": "/sites/admin.nnitpai.com/files/2021-01/CgpOIFrO0p6AQgLVAAAuwmMdjUE904.png"
+        },
+        {
+          "subTitle": "前端开发工程师 ",
+          "title": "广西叫酒网络科技有限公司",
+          "meta_2": "2021-04-30",
+          "badge_2": "\n\n<!-- THEME DEBUG -->\n<!-- THEME HOOK: 'item_list' -->\n<!-- BEGIN OUTPUT from 'core/themes/claro/templates/classy/dataset/item-list.html.twig' -->\n<div class=\"item-list\"><ul><li>VUE</li></ul></div>\n<!-- END OUTPUT from 'core/themes/claro/templates/classy/dataset/item-list.html.twig' -->\n\n",
+          "meta_1": "\n\n\n\n\n7-10\n\n\n k",
+          "badge_1": "\n\n<!-- THEME DEBUG -->\n<!-- THEME HOOK: 'item_list' -->\n<!-- BEGIN OUTPUT from 'core/themes/claro/templates/classy/dataset/item-list.html.twig' -->\n<div class=\"item-list\"><ul><li>绩效奖金</li><li>午餐补助</li><li>美女多</li></ul></div>\n<!-- END OUTPUT from 'core/themes/claro/templates/classy/dataset/item-list.html.twig' -->\n\n",
+          "img": "/sites/admin.nnitpai.com/files/2021-01/CgpOIFrO0p6AQgLVAAAuwmMdjUE904.png"
+        },
+        {
+          "subTitle": "招软件测试工程师，入职即购买五险一金",
+          "title": "中软国际",
+          "meta_2": "2021-04-24",
+          "badge_2": "\n\n<!-- THEME DEBUG -->\n<!-- THEME HOOK: 'item_list' -->\n<!-- BEGIN OUTPUT from 'core/themes/claro/templates/classy/dataset/item-list.html.twig' -->\n<div class=\"item-list\"><ul><li>Linux</li></ul></div>\n<!-- END OUTPUT from 'core/themes/claro/templates/classy/dataset/item-list.html.twig' -->\n\n",
+          "meta_1": "\n\n\n\n\n7-9\n\n\n k",
+          "badge_1": "\n\n<!-- THEME DEBUG -->\n<!-- THEME HOOK: 'item_list' -->\n<!-- BEGIN OUTPUT from 'core/themes/claro/templates/classy/dataset/item-list.html.twig' -->\n<div class=\"item-list\"><ul><li>五险一金</li></ul></div>\n<!-- END OUTPUT from 'core/themes/claro/templates/classy/dataset/item-list.html.twig' -->\n\n",
+          "img": "/sites/admin.nnitpai.com/files/2021-01/t0139ad267d7aefb529.png"
+        },
+        {
+          "subTitle": "Java架构师",
+          "title": "佳凯智能技术",
+          "meta_2": "2021-04-23",
+          "badge_2": "\n\n<!-- THEME DEBUG -->\n<!-- THEME HOOK: 'item_list' -->\n<!-- BEGIN OUTPUT from 'core/themes/claro/templates/classy/dataset/item-list.html.twig' -->\n<div class=\"item-list\"><ul><li>Spring</li><li>Oracle</li></ul></div>\n<!-- END OUTPUT from 'core/themes/claro/templates/classy/dataset/item-list.html.twig' -->\n\n",
+          "meta_1": "\n\n\n\n\n12-18\n\n\n k",
+          "badge_1": "\n\n<!-- THEME DEBUG -->\n<!-- THEME HOOK: 'item_list' -->\n<!-- BEGIN OUTPUT from 'core/themes/claro/templates/classy/dataset/item-list.html.twig' -->\n<div class=\"item-list\"><ul><li>周末双休</li></ul></div>\n<!-- END OUTPUT from 'core/themes/claro/templates/classy/dataset/item-list.html.twig' -->\n\n",
+          "img": "/sites/admin.nnitpai.com/files/2021-01/CgotOVvrlYKAXaTLAACs2FwPh24394.png"
+        },
+        {
+          "subTitle": "中级Java开发",
+          "title": "佳凯智能技术",
+          "meta_2": "2021-04-23",
+          "badge_2": "\n\n<!-- THEME DEBUG -->\n<!-- THEME HOOK: 'item_list' -->\n<!-- BEGIN OUTPUT from 'core/themes/claro/templates/classy/dataset/item-list.html.twig' -->\n<div class=\"item-list\"><ul><li>Java</li></ul></div>\n<!-- END OUTPUT from 'core/themes/claro/templates/classy/dataset/item-list.html.twig' -->\n\n",
+          "meta_1": "\n\n\n\n\n7-11\n\n\n k",
+          "badge_1": "\n\n<!-- THEME DEBUG -->\n<!-- THEME HOOK: 'item_list' -->\n<!-- BEGIN OUTPUT from 'core/themes/claro/templates/classy/dataset/item-list.html.twig' -->\n<div class=\"item-list\"><ul><li>周末双休</li></ul></div>\n<!-- END OUTPUT from 'core/themes/claro/templates/classy/dataset/item-list.html.twig' -->\n\n",
+          "img": "/sites/admin.nnitpai.com/files/2021-01/CgotOVvrlYKAXaTLAACs2FwPh24394.png"
+        },
+        {
+          "subTitle": "高级Java开发",
+          "title": "佳凯智能技术",
+          "meta_2": "2021-04-23",
+          "badge_2": "\n\n<!-- THEME DEBUG -->\n<!-- THEME HOOK: 'item_list' -->\n<!-- BEGIN OUTPUT from 'core/themes/claro/templates/classy/dataset/item-list.html.twig' -->\n<div class=\"item-list\"><ul><li>Java</li></ul></div>\n<!-- END OUTPUT from 'core/themes/claro/templates/classy/dataset/item-list.html.twig' -->\n\n",
+          "meta_1": "\n\n\n\n\n10-16\n\n\n k",
+          "badge_1": "\n\n<!-- THEME DEBUG -->\n<!-- THEME HOOK: 'item_list' -->\n<!-- BEGIN OUTPUT from 'core/themes/claro/templates/classy/dataset/item-list.html.twig' -->\n<div class=\"item-list\"><ul><li>周末双休</li></ul></div>\n<!-- END OUTPUT from 'core/themes/claro/templates/classy/dataset/item-list.html.twig' -->\n\n",
+          "img": "/sites/admin.nnitpai.com/files/2021-01/CgotOVvrlYKAXaTLAACs2FwPh24394.png"
+        },
+        {
+          "subTitle": "急招WEB前端开发工程师",
+          "title": "掌悦网络科技",
+          "meta_2": "2021-04-23",
+          "badge_2": "\n\n<!-- THEME DEBUG -->\n<!-- THEME HOOK: 'item_list' -->\n<!-- BEGIN OUTPUT from 'core/themes/claro/templates/classy/dataset/item-list.html.twig' -->\n<div class=\"item-list\"><ul><li>VUE</li></ul></div>\n<!-- END OUTPUT from 'core/themes/claro/templates/classy/dataset/item-list.html.twig' -->\n\n",
+          "meta_1": "\n\n\n\n\n8-12\n\n\n k",
+          "badge_1": "\n\n<!-- THEME DEBUG -->\n<!-- THEME HOOK: 'item_list' -->\n<!-- BEGIN OUTPUT from 'core/themes/claro/templates/classy/dataset/item-list.html.twig' -->\n<div class=\"item-list\"><ul><li>五险一金</li><li>节日福利</li><li>年终奖金</li><li>带薪年假</li></ul></div>\n<!-- END OUTPUT from 'core/themes/claro/templates/classy/dataset/item-list.html.twig' -->\n\n",
+          "img": "/sites/admin.nnitpai.com/files/2021-01/CgqKkVePQ7SAK8dOAABQUAlvNu8191.png"
         }
       ]
     }

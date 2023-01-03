@@ -31,6 +31,7 @@
 @import "./node/comment";
 @import "./toastr";
 @import "./manage-sidebar";
+@import "./view-map";
 
 // material custom
 @import "./mat/card";
@@ -71,6 +72,7 @@
   @include toastr-color($config-or-theme);
   @include calculator-color($config-or-theme);
   @include manage-sidebar-color($config-or-theme);
+  @include view-map-color($config-or-theme);
 
   // material custom ui
   @include card-color($config-or-theme);

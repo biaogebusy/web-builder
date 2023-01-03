@@ -358,6 +358,10 @@
             "href": "javascript:void(0)",
             "child": [
               {
+                "label": "视图地图",
+                "href": "/sample/combs/map/view-map"
+              },
+              {
                 "label": "Location",
                 "href": "/sample/combs/map/location"
               },
