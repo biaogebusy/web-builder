@@ -8,7 +8,6 @@ import {
 } from '@angular/core';
 import type { IAmap, IMap, IMark } from '@core/interface/IAmap';
 import { AmapService } from '@core/service/amap.service';
-import { isArray } from 'lodash-es';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { ConfigService } from '@core/service/config.service';

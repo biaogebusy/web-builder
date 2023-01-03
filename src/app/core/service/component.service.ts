@@ -144,7 +144,7 @@ export class ComponentService {
       )
     );
 
-    ['location', 'map-list-v1'].forEach((type) =>
+    ['location', 'map-list-v1', 'view-map'].forEach((type) =>
       this.setModule(type, () =>
         import('@uiux/combs/map/map.module').then((m) => m.MapModule)
       )

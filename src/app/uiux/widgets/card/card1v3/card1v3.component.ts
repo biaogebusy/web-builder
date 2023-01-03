@@ -41,9 +41,7 @@ export class Card1v3Component implements OnInit {
     this.dialog.open(DialogComponent, {
       width: '800px',
       data: {
-        inputData: {
-          content,
-        },
+        inputData: [...content],
       },
     });
   }

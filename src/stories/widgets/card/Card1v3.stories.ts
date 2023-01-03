@@ -6,8 +6,6 @@ import {
 import { Story } from '@storybook/angular/types-6-0';
 import { Card1v3Component } from '@uiux/widgets/card/card1v3/card1v3.component';
 import * as TextStories from '../base/Text.stories';
-import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
-import { LoopWidgetsComponent } from '@uiux/widgets/loop-widgets/loop-widgets.component';
 import { StorysModule } from '@core/storys.module';
 
 export default {

@@ -4,8 +4,9 @@ import { BaseModule } from '@uiux/base/base.module';
 import { WidgetsModule } from '../../widgets/widgets.module';
 import { LocationComponent } from './location/location.component';
 import { MapListV1Component } from './map-list-v1/map-list-v1.component';
+import { ViewMapComponent } from './view-map/view-map.component';
 
-const components = [LocationComponent, MapListV1Component];
+const components = [LocationComponent, MapListV1Component, ViewMapComponent];
 
 @NgModule({
   declarations: [...components],
