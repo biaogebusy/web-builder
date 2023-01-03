@@ -20,15 +20,10 @@
         <mat-icon>account_circle</mat-icon>{{currentUser.display_name}}
       </a>
       <ng-container *ngFor="let item of content;trackBy:trackByFn">
-        <button aria-label="dialog" *ngIf="item.dialog;else link" mat-menu-item (click)="openDialog(item.dialog)">
-          <app-icon [content]="item.icon"></app-icon>{{item.label}}
+        <button aria-label="user link" mat-menu-item>
+          <app-icon [content]="item.icon"></app-icon>
+          <app-link [content]="item"></app-link>
         </button>
-        <ng-template #link>
-          <button aria-label="user link" mat-menu-item>
-            <app-icon [content]="item.icon"></app-icon>
-            <app-link [content]="item"></app-link>
-          </button>
-        </ng-template>
       </ng-container>
       <button aria-label="logout" mat-menu-item (click)="logout()">
         <mat-icon>exit_to_app</mat-icon>退出

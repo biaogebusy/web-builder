@@ -33,6 +33,7 @@ export const Default = Template.bind({});
 Default.args = {
   content: {
     id: 'xxx',
+    type: 'action-1v1',
     spacer: 'xl',
     bg: {
       classes: 'bg-shadow bg-fill-width',

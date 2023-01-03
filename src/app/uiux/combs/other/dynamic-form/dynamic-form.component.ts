@@ -17,7 +17,6 @@ import { Router } from '@angular/router';
 import { ScreenService } from '@core/service/screen.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import type { IControl } from '@core/interface/widgets/IControl';
 import type { IUser } from '@core/interface/IUser';
 import { USER } from '@core/token/token-providers';
 

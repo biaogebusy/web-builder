@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { ComponentService } from '@core/service/component.service';
 export interface dynamicInputs {
-  content: any;
+  content?: any;
   [key: string]: any;
 }
 @Component({
@@ -32,19 +32,22 @@ export class DynamicComponentComponent implements OnInit, OnDestroy {
   }
 
   async loadConponent(): Promise<void> {
+    const type = this.inputs.type ? this.inputs.type : this.inputs.content.type;
     this.container.clear();
-    this.component = await this.componentService.getComponent(
-      this.inputs.content.type
-    );
+    this.component = await this.componentService.getComponent(type);
     if (!this.component) {
       return;
     }
     if (this.component.instance && this.inputs) {
-      Object.keys(this.inputs).map((key) => {
-        if (this.component) {
-          this.component.instance[key] = this.inputs[key];
-        }
-      });
+      if (!this.inputs.type && this.inputs.content) {
+        Object.keys(this.inputs).map((key) => {
+          if (this.component) {
+            this.component.instance[key] = this.inputs[key];
+          }
+        });
+      } else {
+        this.component.instance['content'] = this.inputs;
+      }
     }
     this.container.insert(this.component.hostView);
     this.component.changeDetectorRef.markForCheck();
