@@ -1,11 +1,9 @@
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { screen, userEvent } from '@storybook/testing-library';
+import { userEvent } from '@storybook/testing-library';
 import { MapListV1Component } from '@uiux/combs/map/map-list-v1/map-list-v1.component';
 import * as Card1v3Stories from 'src/stories/widgets/card/Card1v3.stories';
 import * as MediaObjectStories from 'src/stories/widgets/media/MediaObject.stories';
-import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
-import { LoopWidgetsComponent } from '@uiux/widgets/loop-widgets/loop-widgets.component';
 import { sleep, StorysModule } from '@core/storys.module';
 
 export default {
@@ -15,7 +13,7 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [],
-      entryComponents: [DialogComponent, LoopWidgetsComponent],
+      entryComponents: [...StorysModule.forEntryComponents()],
       imports: [StorysModule.forRoot()],
     }),
   ],

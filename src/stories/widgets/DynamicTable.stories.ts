@@ -1,9 +1,5 @@
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
-import { TextComponent } from '@uiux/widgets/text/text.component';
-import { DynamicWidgetsComponent } from '@uiux/widgets/dynamic-widgets/dynamic-widgets.component';
-import { IconComponent } from '@uiux/widgets/icon/icon.component';
 import { DynamicTableComponent } from '@uiux/widgets/dynamic-table/dynamic-table.component';
 import { StorysModule } from '@core/storys.module';
 
@@ -14,12 +10,7 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [],
-      entryComponents: [
-        DialogComponent,
-        TextComponent,
-        DynamicWidgetsComponent,
-        IconComponent,
-      ],
+      entryComponents: [...StorysModule.forEntryComponents()],
       imports: [StorysModule.forRoot()],
     }),
   ],

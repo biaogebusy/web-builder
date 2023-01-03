@@ -7,15 +7,14 @@ import { Story } from '@storybook/angular/types-6-0';
 import { Showcase1v3Component } from '@uiux/combs/showcase/showcase1v3/showcase1v3.component';
 import * as ContactUs from 'src/stories/widgets/ContactUs.stories';
 import { StorysModule } from '@core/storys.module';
-import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
-import { PlayerComponent } from '@uiux/widgets/media/player/player.component';
+
 export default {
   title: '特色组件/展示 Showcase/1v3',
   id: 'showcase-1v3',
   component: Showcase1v3Component,
   decorators: [
     moduleMetadata({
-      entryComponents: [DialogComponent, PlayerComponent],
+      entryComponents: [...StorysModule.forEntryComponents()],
       declarations: [],
       imports: [StorysModule.forRoot()],
     }),

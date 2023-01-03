@@ -6,10 +6,6 @@ import {
 import { Story } from '@storybook/angular/types-6-0';
 import { ViewListComponent } from '@uiux/widgets/view-list/view-list.component';
 import { StorysModule } from '@core/storys.module';
-import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
-import { DynamicWidgetsComponent } from '@uiux/widgets/dynamic-widgets/dynamic-widgets.component';
-import { IconComponent } from '@uiux/widgets/icon/icon.component';
-import { TextComponent } from '@uiux/widgets/text/text.component';
 
 export default {
   title: '特色组件/View 视图列表',
@@ -18,12 +14,7 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [],
-      entryComponents: [
-        DialogComponent,
-        TextComponent,
-        DynamicWidgetsComponent,
-        IconComponent,
-      ],
+      entryComponents: [...StorysModule.forEntryComponents()],
       imports: [StorysModule.forRoot()],
     }),
     componentWrapperDecorator((story) => `${story}`),

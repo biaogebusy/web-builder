@@ -9,8 +9,7 @@ import { BlockModule } from '@uiux/combs/block/block.module';
 import { StorysModule } from '@core/storys.module';
 import { BrandingModule } from '@core/branding/branding.module';
 import { CalendarModule } from '@uiux/combs/calendar/calendar.module';
-import { BannerSimpleComponent } from '@uiux/combs/banner/banner-simple/banner-simple.component';
-import { FullCalendarComponent } from '@uiux/combs/calendar/full-calendar/full-calendar.component';
+
 export default {
   title: '示例页面/工作日历',
   id: 'calendar-page',
@@ -18,7 +17,7 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [],
-      entryComponents: [FullCalendarComponent],
+      entryComponents: [...StorysModule.forEntryComponents()],
       imports: [
         BlockModule,
         StorysModule.forRoot(),

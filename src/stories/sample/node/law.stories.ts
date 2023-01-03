@@ -7,8 +7,6 @@ import { Story } from '@storybook/angular/types-6-0';
 
 import { NodeModule } from '@uiux/combs/node/node.module';
 import { LawCaseComponent } from '@uiux/combs/node/law/law-case/law-case.component';
-import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
-import { TextComponent } from '@uiux/widgets/text/text.component';
 import { StorysModule } from '@core/storys.module';
 import { comments } from './comments.json';
 import { of } from 'rxjs';
@@ -20,7 +18,7 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [],
-      entryComponents: [DialogComponent, TextComponent],
+      entryComponents: [...StorysModule.forEntryComponents()],
       imports: [NodeModule, StorysModule.forRoot()],
     }),
     componentWrapperDecorator((story) => `${story}`),

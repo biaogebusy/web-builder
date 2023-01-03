@@ -4,10 +4,7 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
-import { TextComponent } from '@uiux/widgets/text/text.component';
 import { UserCardComponent } from '@uiux/widgets/card/user-card/user-card.component';
-import { LoopWidgetsComponent } from '@uiux/widgets/loop-widgets/loop-widgets.component';
 import { StorysModule } from '@core/storys.module';
 
 export default {
@@ -17,7 +14,7 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [],
-      entryComponents: [DialogComponent, TextComponent, LoopWidgetsComponent],
+      entryComponents: [...StorysModule.forEntryComponents()],
       imports: [StorysModule.forRoot()],
     }),
     componentWrapperDecorator(

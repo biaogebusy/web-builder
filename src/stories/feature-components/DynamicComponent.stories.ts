@@ -1,8 +1,4 @@
-import {
-  moduleMetadata,
-  Meta,
-  componentWrapperDecorator,
-} from '@storybook/angular';
+import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { StorysModule } from '@core/storys.module';
 import { DynamicComponentComponent } from '@uiux/widgets/dynamic-component/dynamic-component.component';

@@ -17,7 +17,7 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [],
-      entryComponents: [DialogComponent, LoopWidgetsComponent],
+      entryComponents: [...StorysModule.forEntryComponents()],
       imports: [StorysModule.forRoot()],
       providers: [],
     }),
@@ -129,7 +129,7 @@ Base.args = {
         ],
       },
       {
-        title: '点击查看更多',
+        title: 'Dialog',
         address: '南宁市高科路八号创客城',
         params: {
           address: '南宁市高科路八号创客城',
