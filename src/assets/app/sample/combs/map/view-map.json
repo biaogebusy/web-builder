@@ -1,0 +1,64 @@
+{
+  "title": "地图应用",
+  "body": [
+    {
+      "type": "map-list",
+      "params": {},
+      "form": [
+        {
+          "type": "input",
+          "key": "keys",
+          "templateOptions": {
+            "label": "搜索职位"
+          }
+        },
+        {
+          "type": "mat-select",
+          "key": "skill",
+          "templateOptions": {
+            "multiple": true,
+            "search": true,
+            "hideSelected": true,
+            "label": "技能",
+            "options": [
+              {
+                "value": 1,
+                "label": "Angular"
+              },
+              {
+                "value": 2,
+                "label": "React"
+              },
+              {
+                "value": 3,
+                "label": "Vue"
+              }
+            ]
+          }
+        }
+      ],
+      "elements": [
+        {
+          "title": "广西叫酒网络科技",
+          "subTitle": "前端开发工程师",
+          "badge": "Vue",
+          "meta_1": "7-10k",
+          "mate_2": "2022-04-30",
+          "position": "南宁市创客城",
+          "img": "/assets/images/avatar/04.jpeg",
+          "url": "/node/1?drawer=true"
+        },
+        {
+          "title": "广西猫头鹰科技有限公司",
+          "subTitle": "产品经理",
+          "badge": "Vue",
+          "meta_1": "7-10k",
+          "mate_2": "2022-04-30",
+          "position": "南宁市创客城",
+          "img": "/assets/images/avatar/04.jpeg",
+          "url": "/node/1?drawer=true"
+        }
+      ]
+    }
+  ]
+}

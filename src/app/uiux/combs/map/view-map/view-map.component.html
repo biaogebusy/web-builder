@@ -1,0 +1,35 @@
+<div class="view-map position-relation" *ngIf="content">
+  <div class="siderbar">
+    <div class="filter" *ngIf="content.form" fxFlex.gt-sm="0 0 100" fxFlex.lt-md="100" fxLayout.gt-sm="row"
+      fxLayout.lt-md="column" fxLayoutAlign="space-between center">
+      <div class="filter-item" fxLayout.gt-sm="row wrap" fxLayout.lt-md="column" fxLayoutGap.gt-sm="1rem">
+        <app-formly [form]="form" [fields]="content.form" [model]="model" (modelChange)="onModelChange($event)">
+        </app-formly>
+      </div>
+      <div class="actions" fxLayoutGap="1rem" fxLayoutAlign="center center">
+        <button mat-button (click)="clear()">
+          <mat-icon>clear</mat-icon>清空
+        </button>
+      </div>
+    </div>
+    <div class="sidebar-wrapper">
+      <div class="job-header position-relative">
+        <div class="result p-y-xs">总计 <span class="result-total">{{content.elements.length}}</span> 个职位
+        </div>
+        <!-- <div class="scroll" [class.scrolling]="scrolling"></div> -->
+      </div>
+      <cdk-virtual-scroll-viewport [itemSize]="5" class="viewport">
+        <div class="list item m-y-sm p-y-xs m-x-xs p-x-xs" [class.selected]="i == selectedId" matRipple
+          [matRippleColor]="'rgba(0, 0, 0, 0.04)'" *cdkVirtualFor="let item of content.elements; index as i"
+          fxLayout="column" (click)="onCard(item, i)">
+          <h3 class="m-bottom-xs bold">{{item.title}}</h3>
+          <div class="sub-title">{{item.subTitle}}</div>
+
+        </div>
+      </cdk-virtual-scroll-viewport>
+    </div>
+  </div>
+  <div class="map-wrapper">
+    <!-- <app-map fxFlex="100%"></app-map> -->
+  </div>
+</div>

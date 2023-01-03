@@ -1,0 +1,11 @@
+.view-map {
+  .siderbar {
+    display: flex;
+    flex-direction: column;
+    .sidebar-wrapper {
+      .viewport {
+        height: 100vh;
+      }
+    }
+  }
+}
