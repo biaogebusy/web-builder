@@ -1,32 +1,28 @@
 {
-  "title": "地图应用",
+  "title": "消费者分布",
   "body": [
     {
       "type": "view-map",
       "params": {
-        "api": "/api/v2/view-map",
+        "api": "/api/v2/trade-order/merchant-pay",
         "city": "南宁市",
         "drawer": true
       },
       "form": [
         {
           "type": "input",
-          "key": "title",
-          "className": "m-right-xs",
+          "key": "advert",
+          "className": "m-right-xs width-30",
           "templateOptions": {
-            "label": "搜索职位"
+            "label": "广告标题"
           }
         },
         {
-          "type": "mat-select",
-          "key": "skill",
-          "className": "m-right-xs",
-          "api": "/api/v2/filter/taxonomy/skill",
+          "type": "input",
+          "key": "shop",
+          "className": "m-right-xs width-30",
           "templateOptions": {
-            "multiple": true,
-            "search": true,
-            "hideSelected": true,
-            "label": "技能"
+            "label": "门店名称"
           }
         }
       ]

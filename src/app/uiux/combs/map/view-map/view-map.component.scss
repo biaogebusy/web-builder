@@ -1,5 +1,5 @@
 .view-map {
-  height: 100vh;
+  height: calc(100vh - 100px);
   .sidebar {
     display: flex;
     position: absolute;
@@ -45,6 +45,12 @@
                 margin: 4px;
                 border-radius: 16px;
               }
+            }
+          }
+
+          .meta {
+            .item {
+              font-size: small;
             }
           }
         }

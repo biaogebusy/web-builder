@@ -5,6 +5,8 @@ import {
   OnDestroy,
   ChangeDetectionStrategy,
   Inject,
+  OnChanges,
+  SimpleChanges,
 } from '@angular/core';
 import type { IAmap, IMap, IMark } from '@core/interface/IAmap';
 import { AmapService } from '@core/service/amap.service';
@@ -13,13 +15,14 @@ import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { ConfigService } from '@core/service/config.service';
 import { THEME } from '@core/token/token-providers';
 import { ScreenService } from '@core/service/screen.service';
+import { isArray } from 'lodash-es';
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MapComponent implements OnInit, OnDestroy {
+export class MapComponent implements OnInit, OnChanges, OnDestroy {
   @Input() content: IMap;
   AMap: any;
   markers: any[];
@@ -38,6 +41,12 @@ export class MapComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       this.initMap(this.content);
+    }
+  }
+
+  ngOnChanges(change: SimpleChanges): void {
+    console.log(change);
+    if (!change.firstChange) {
     }
   }
 
@@ -64,21 +73,25 @@ export class MapComponent implements OnInit, OnDestroy {
   // https://lbs.amap.com/demo/javascript-api/example/geocoder/geocoding
   getPosition(lists: any): void {
     if (lists.length > 0) {
-      lists.forEach((item: any, index: number) => {
-        const address = item.address;
-        this.geocoder.getLocation(address, (status: any, result: any) => {
-          if (status === 'complete' && result.info === 'OK') {
-            const location = result.geocodes[0].location;
-            item.position = [location.lng, location.lat];
-            if (item.setCenter) {
-              this.center = [location.lng, location.lat];
+      if (lists[0].position && isArray(lists[0].position)) {
+        this.getMarkers(lists);
+      } else {
+        lists.forEach((item: any, index: number) => {
+          const address = item.address;
+          this.geocoder.getLocation(address, (status: any, result: any) => {
+            if (status === 'complete' && result.info === 'OK') {
+              const location = result.geocodes[0].location;
+              item.position = [location.lng, location.lat];
+              if (item.setCenter) {
+                this.center = [location.lng, location.lat];
+              }
+              if (lists.length === index + 1) {
+                this.getMarkers(lists);
+              }
             }
-            if (lists.length === index + 1) {
-              this.amapService.position$.next(true);
-            }
-          }
+          });
         });
-      });
+      }
     }
   }
 
@@ -107,11 +120,9 @@ export class MapComponent implements OnInit, OnDestroy {
   }
 
   getMarkers(lists: any[]): void {
-    this.amapService.position$.subscribe((res) => {
-      this.renderMap();
-      this.onMarkers();
-      this.setMarkers(lists);
-    });
+    this.renderMap();
+    this.onMarkers();
+    this.setMarkers(lists);
   }
 
   setMarkers(lists: any[]): void {
