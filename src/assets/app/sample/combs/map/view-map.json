@@ -5,7 +5,8 @@
       "type": "view-map",
       "params": {
         "api": "/api/v2/view-map",
-        "city": "南宁市"
+        "city": "南宁市",
+        "drawer": true
       },
       "form": [
         {

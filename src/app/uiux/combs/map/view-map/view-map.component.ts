@@ -1,4 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { FormService } from '@core/service/form.service';
 import { merge } from 'lodash-es';
@@ -6,11 +12,15 @@ import { NodeService } from '@core/service/node.service';
 import { IMark } from '@core/interface/IAmap';
 import { AmapService } from '@core/service/amap.service';
 import { BaseComponent } from '@uiux/base/base.widget';
+import { ContentState } from '@core/state/ContentState';
+import { ContentService } from '@core/service/content.service';
+import { IPage } from '@core/interface/IAppConfig';
 
 @Component({
   selector: 'app-view-map',
   templateUrl: './view-map.component.html',
   styleUrls: ['./view-map.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ViewMapComponent extends BaseComponent implements OnInit {
   @Input() content: any;
@@ -23,7 +33,10 @@ export class ViewMapComponent extends BaseComponent implements OnInit {
   constructor(
     private formService: FormService,
     private nodeService: NodeService,
-    private amapService: AmapService
+    private amapService: AmapService,
+    private contentState: ContentState,
+    private contentService: ContentService,
+    private cd: ChangeDetectorRef
   ) {
     super();
   }
@@ -33,6 +46,7 @@ export class ViewMapComponent extends BaseComponent implements OnInit {
       this.getContent();
     } else {
       this.lists = this.content.elements;
+      this.cd.detectChanges();
     }
   }
 
@@ -46,6 +60,7 @@ export class ViewMapComponent extends BaseComponent implements OnInit {
           item.address = item.address.replace(/\s+/g, '').trim();
         });
         this.lists = rows;
+        this.cd.detectChanges();
       });
   }
 
@@ -69,6 +84,17 @@ export class ViewMapComponent extends BaseComponent implements OnInit {
     };
 
     this.amapService.markers$.next(obj);
+    if (this.content?.params?.drawer) {
+      this.contentState.drawerOpened$.next(true);
+      this.contentState.drawerLoading$.next(true);
+      this.contentService
+        .loadPageContent(item.url)
+        .subscribe((content: IPage) => {
+          this.contentState.drawerLoading$.next(false);
+          this.contentState.drawerContent$.next(content);
+          this.cd.detectChanges();
+        });
+    }
   }
 
   getMarker(item: any): any {
