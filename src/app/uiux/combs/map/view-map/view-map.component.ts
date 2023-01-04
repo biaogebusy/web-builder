@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { FormService } from '@core/service/form.service';
-import { merge } from 'lodash-es';
+import { isString, merge } from 'lodash-es';
 import { NodeService } from '@core/service/node.service';
 import { IMark } from '@core/interface/IAmap';
 import { AmapService } from '@core/service/amap.service';
@@ -30,6 +30,7 @@ export class ViewMapComponent extends BaseComponent implements OnInit {
   });
   model: any = {};
   selectedId: number;
+  loading: boolean;
   constructor(
     private formService: FormService,
     private nodeService: NodeService,
@@ -53,13 +54,20 @@ export class ViewMapComponent extends BaseComponent implements OnInit {
   getContent(options = {}): void {
     const params = this.getApiParams(options);
     console.log(params);
+    this.loading = true;
     this.nodeService
       .search(this.content.params.api, params)
       .subscribe(({ rows, pager }) => {
         rows.forEach((item: any) => {
-          item.address = item.address.replace(/\s+/g, '').trim();
+          if (item.address) {
+            item.address = item.address.replace(/\s+/g, '').trim();
+          }
+          if (item.position && isString(item.position)) {
+            item.position = item.position.split(',');
+          }
         });
-        this.lists = rows;
+        this.lists = [...rows];
+        this.loading = false;
         this.cd.detectChanges();
       });
   }
@@ -104,10 +112,10 @@ export class ViewMapComponent extends BaseComponent implements OnInit {
         <img src="${item.img}" />
       </div>
       <div class="media-body m-left-xs">
-        <div class="mat-h4 m-bottom-xs text-base">${item.title}</div>
-        <div class="mat-h4 m-bottom-xs text-dark title">${item.subTitle}</div>
+        <div class="mat-h4 m-bottom-xs text-base one-line">${item.title}</div>
+        <div class="mat-h4 m-bottom-xs text-dark title one-line">${item.subTitle}</div>
         <div class="mat-h3 meta m-bottom-0 text-primary">
-          <div>${item.meta_1}</div> <div>${item.meta_2}</div>
+          <div>${item.badge_1}</div> <div>${item.badge_2}</div>
         </div>
       </div>
       <div class="top arrow"></div>

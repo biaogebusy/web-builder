@@ -5,6 +5,9 @@ import {
   OnDestroy,
   ChangeDetectionStrategy,
   Inject,
+  OnChanges,
+  SimpleChanges,
+  ChangeDetectorRef,
 } from '@angular/core';
 import type { IAmap, IMap, IMark } from '@core/interface/IAmap';
 import { AmapService } from '@core/service/amap.service';
@@ -13,35 +16,61 @@ import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { ConfigService } from '@core/service/config.service';
 import { THEME } from '@core/token/token-providers';
 import { ScreenService } from '@core/service/screen.service';
+import { isArray } from 'lodash-es';
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MapComponent implements OnInit, OnDestroy {
+export class MapComponent implements OnInit, OnChanges, OnDestroy {
   @Input() content: IMap;
   AMap: any;
   markers: any[];
   geocoder: any;
   map: any;
   center: any;
+  mapLoading: boolean;
 
   constructor(
     private amapService: AmapService,
     private configService: ConfigService,
     private screenService: ScreenService,
+    private cd: ChangeDetectorRef,
     @Inject(THEME) private theme: string,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
   ) {}
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.initMap(this.content);
+      this.initMap();
+      this.mapLoading = true;
+      this.amapService.mapLoading$.subscribe((state) => {
+        // init map, run once
+        if (state) {
+          this.mapLoading = false;
+          this.getPosition(this.content.elements);
+          this.getMarkers(this.content.elements);
+          this.cd.detectChanges();
+        }
+      });
     }
   }
 
-  initMap(content: IMap): void {
+  ngOnChanges(change: SimpleChanges): void {
+    console.log(change);
+    const content = change.content;
+    if (
+      !this.mapLoading &&
+      content.currentValue.elements &&
+      content.currentValue.elements.length > 0
+    ) {
+      this.getPosition(content.currentValue.elements);
+      this.getMarkers(content.currentValue.elements);
+    }
+  }
+
+  initMap(): void {
     const amapConfig: IAmap = this.coreConfig.amap;
     if (!amapConfig) {
       return;
@@ -52,8 +81,7 @@ export class MapComponent implements OnInit, OnDestroy {
         this.geocoder = new AMap.Geocoder({
           city: this.content?.city || this.coreConfig?.amap?.city || '全国',
         });
-        this.getPosition(content.elements);
-        this.getMarkers(content.elements);
+        this.renderMap();
       },
       (error) => {
         console.log(error);
@@ -64,21 +92,25 @@ export class MapComponent implements OnInit, OnDestroy {
   // https://lbs.amap.com/demo/javascript-api/example/geocoder/geocoding
   getPosition(lists: any): void {
     if (lists.length > 0) {
-      lists.forEach((item: any, index: number) => {
-        const address = item.address;
-        this.geocoder.getLocation(address, (status: any, result: any) => {
-          if (status === 'complete' && result.info === 'OK') {
-            const location = result.geocodes[0].location;
-            item.position = [location.lng, location.lat];
-            if (item.setCenter) {
-              this.center = [location.lng, location.lat];
+      if (lists[0].position && isArray(lists[0].position)) {
+        this.getMarkers(lists);
+      } else {
+        lists.forEach((item: any, index: number) => {
+          const address = item.address;
+          this.geocoder.getLocation(address, (status: any, result: any) => {
+            if (status === 'complete' && result.info === 'OK') {
+              const location = result.geocodes[0].location;
+              item.position = [location.lng, location.lat];
+              if (item.setCenter) {
+                this.center = [location.lng, location.lat];
+              }
+              if (lists.length === index + 1) {
+                this.getMarkers(lists);
+              }
             }
-            if (lists.length === index + 1) {
-              this.amapService.position$.next(true);
-            }
-          }
+          });
         });
-      });
+      }
     }
   }
 
@@ -104,14 +136,20 @@ export class MapComponent implements OnInit, OnDestroy {
         this.map.setMapStyle(newMapStyle);
       });
     }
+    this.amapService.mapLoading$.next(true);
   }
 
   getMarkers(lists: any[]): void {
-    this.amapService.position$.subscribe((res) => {
-      this.renderMap();
-      this.onMarkers();
-      this.setMarkers(lists);
-    });
+    this.onMarkers();
+    if (this.markers && this.markers.length > 0) {
+      this.clearMarkers();
+    }
+    this.setMarkers(lists);
+  }
+
+  clearMarkers() {
+    this.map.remove(this.markers);
+    this.cd.detectChanges();
   }
 
   setMarkers(lists: any[]): void {
@@ -123,6 +161,7 @@ export class MapComponent implements OnInit, OnDestroy {
       });
     });
     this.map.add(this.markers);
+    this.cd.detectChanges();
   }
 
   simpleMarkerTem(): any {

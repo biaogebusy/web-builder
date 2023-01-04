@@ -1,15 +1,5 @@
 <div class="view-map position-relation" *ngIf="content">
-  <div class="sidebar p-x-sm p-y-sm" fxFlex.lt-md="100" fxFlex.gt-sm="500px" fxLayout="column">
-    <div class="filter" *ngIf="content.form">
-      <app-formly [form]="form" [fields]="content.form" [model]="model" (modelChange)="onModelChange($event)">
-      </app-formly>
-      <div class="actions" fxLayoutGap="1rem" fxLayoutAlign="end center">
-        <button mat-button (click)="clear()">
-          <mat-icon>clear</mat-icon>清空
-        </button>
-      </div>
-    </div>
-    <mat-divider class="m-y-sm"></mat-divider>
+  <div class="sidebar p-x-sm p-y-sm" fxFlex.lt-md="100" fxFlex.gt-sm="30vw" fxLayout="column">
     <div class="sidebar-wrapper" *ngIf="lists">
       <mat-expansion-panel [expanded]="true">
         <mat-expansion-panel-header>
@@ -21,6 +11,18 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
         <cdk-virtual-scroll-viewport [itemSize]="5" class="viewport">
+          <div class="filter" *ngIf="content.form">
+            <app-formly [classes]="'form-field-width-auto'" [form]="form" [fields]="content.form" [model]="model"
+              (modelChange)="onModelChange($event)">
+            </app-formly>
+
+            <div class="actions" fxLayoutGap="1rem" fxLayoutAlign="end center">
+              <button mat-button (click)="clear()">
+                <mat-icon>clear</mat-icon>清空
+              </button>
+            </div>
+          </div>
+          <mat-divider class="m-y-sm"></mat-divider>
           <div class="list m-y-sm p-y-xs m-x-xs p-x-xs" [class.selected]="i == selectedId" matRipple
             [matRippleColor]="'rgba(0, 0, 0, 0.04)'" *cdkVirtualFor="let item of lists; index as i" fxLayout="row"
             (click)="onCard(item, i)">
@@ -32,14 +34,14 @@
                 <h3 class="title bold m-bottom-0">{{item.title}}</h3>
                 <div class="badge" [innerHTML]="item.badge_1"></div>
               </div>
-              <div class="inner" fxLayout="row" fxLayoutAlign="space-between start">
+              <div class="inner" fxLayout="row" fxLayoutAlign="space-between end">
                 <div class="left">
-                  <div class="title sub-title">{{item.subTitle}}</div>
+                  <div class="title sub-title one-line">{{item.subTitle}}</div>
                   <div class="badge" [innerHTML]="item.badge_2"></div>
                 </div>
                 <div class="meta text-right">
-                  <div class="item" [innerHTML]="item.meta_1"></div>
-                  <div class="item" [innerHTML]="item.meta_2"></div>
+                  <div class="item one-line" [innerHTML]="item.meta_1"></div>
+                  <div class="item one-line" [innerHTML]="item.meta_2"></div>
                 </div>
               </div>
             </div>
@@ -48,7 +50,7 @@
       </mat-expansion-panel>
     </div>
   </div>
-  <div class="map-wrapper" *ngIf="lists">
-    <app-map fxFlex="100%" [content]="{city:content.params.city,elements:lists}"></app-map>
+  <div class="map-wrapper">
+    <app-map fxFlex="100%" [content]="{city: content.params.city, elements: lists}"></app-map>
   </div>
 </div>

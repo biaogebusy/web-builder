@@ -4,4 +4,12 @@ formly-form {
       display: inline-block;
     }
   }
+
+  &.form-field-width-auto {
+    ::ng-deep {
+      .mat-form-field-infix {
+        width: auto;
+      }
+    }
+  }
 }
