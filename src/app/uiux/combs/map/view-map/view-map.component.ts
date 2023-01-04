@@ -30,6 +30,7 @@ export class ViewMapComponent extends BaseComponent implements OnInit {
   });
   model: any = {};
   selectedId: number;
+  loading: boolean;
   constructor(
     private formService: FormService,
     private nodeService: NodeService,
@@ -53,11 +54,12 @@ export class ViewMapComponent extends BaseComponent implements OnInit {
   getContent(options = {}): void {
     const params = this.getApiParams(options);
     console.log(params);
+    this.loading = true;
     this.nodeService
       .search(this.content.params.api, params)
       .subscribe(({ rows, pager }) => {
         rows.forEach((item: any) => {
-          if (item.addres) {
+          if (item.address) {
             item.address = item.address.replace(/\s+/g, '').trim();
           }
           if (item.position && isString(item.position)) {
@@ -65,6 +67,7 @@ export class ViewMapComponent extends BaseComponent implements OnInit {
           }
         });
         this.lists = [...rows];
+        this.loading = false;
         this.cd.detectChanges();
       });
   }

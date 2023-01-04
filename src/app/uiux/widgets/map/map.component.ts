@@ -30,7 +30,7 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
   geocoder: any;
   map: any;
   center: any;
-  mapLoading = false;
+  mapLoading: boolean;
 
   constructor(
     private amapService: AmapService,
@@ -43,12 +43,15 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.initMap(this.content);
+      this.initMap();
+      this.mapLoading = true;
       this.amapService.mapLoading$.subscribe((state) => {
         // init map, run once
         if (state) {
+          this.mapLoading = false;
           this.getPosition(this.content.elements);
           this.getMarkers(this.content.elements);
+          this.cd.detectChanges();
         }
       });
     }
@@ -57,14 +60,17 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
   ngOnChanges(change: SimpleChanges): void {
     console.log(change);
     const content = change.content;
-    if (!content.firstChange) {
-      this.clearMarkers();
+    if (
+      !this.mapLoading &&
+      content.currentValue.elements &&
+      content.currentValue.elements.length > 0
+    ) {
       this.getPosition(content.currentValue.elements);
       this.getMarkers(content.currentValue.elements);
     }
   }
 
-  initMap(content: IMap): void {
+  initMap(): void {
     const amapConfig: IAmap = this.coreConfig.amap;
     if (!amapConfig) {
       return;
@@ -135,6 +141,9 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
 
   getMarkers(lists: any[]): void {
     this.onMarkers();
+    if (this.markers && this.markers.length > 0) {
+      this.clearMarkers();
+    }
     this.setMarkers(lists);
   }
 
@@ -152,6 +161,7 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
       });
     });
     this.map.add(this.markers);
+    this.cd.detectChanges();
   }
 
   simpleMarkerTem(): any {

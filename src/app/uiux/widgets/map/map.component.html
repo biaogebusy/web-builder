@@ -1,4 +1,7 @@
 <ng-container *ngIf="content">
+  <div class="loading-inner" fxFlexFill fxLayoutAlign="center center" *ngIf="mapLoading">
+    <mat-spinner diameter="50"></mat-spinner>
+  </div>
   <div id="map" fxFill></div>
   <button (click)="setFitView()" class="set-fit-view" mat-fab color="primary">
     <mat-icon>filter_center_focus</mat-icon>

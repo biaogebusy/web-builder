@@ -25,11 +25,11 @@
     }
   }
   .mark {
-    background-color: mat-color($foreground, divider, 0.04);
-    animation: breathe 3s linear infinite;
+    background-color: mat-color($primary, 0.07);
+    // animation: breathe 3s linear infinite;
 
     &:after {
-      background-color: mat-color($foreground, disabled-button, 0.6);
+      background-color: mat-color($primary);
     }
   }
 

@@ -16,8 +16,8 @@
           cursor: pointer;
           margin-bottom: 2rem;
           .media {
-            width: 10rem;
-            height: 10rem;
+            width: 8rem;
+            height: 8rem;
             margin-right: 1rem;
             border-radius: 4px;
 
@@ -99,5 +99,8 @@
     height: 100%;
     width: 100%;
     z-index: 1;
+    .loading-inner {
+      position: absolute;
+    }
   }
 }
