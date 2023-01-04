@@ -11,6 +11,7 @@
   .view-map {
     .sidebar {
       background-color: mat-color($background, card);
+      @include mat-elevation(4, #000, 0.35);
     }
     .viewport {
       border-right: 1px solid rgb(97 97 97 / 8%);
@@ -27,6 +28,12 @@
           li {
             color: mat-color($primary, default-contrast);
             background-color: mat-color($primary);
+          }
+        }
+        &.selected {
+          &:after,
+          &:before {
+            background: mat-color($primary);
           }
         }
       }

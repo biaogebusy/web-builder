@@ -66,6 +66,12 @@
       .title {
         white-space: nowrap;
       }
+
+      .meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
     }
 
     @media #{$xs} {

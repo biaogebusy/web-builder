@@ -1,14 +1,15 @@
 .view-map {
   height: 100vh;
   .sidebar {
-    position: absolute;
-    left: 0;
     display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
     flex-direction: column;
     z-index: 10;
     .sidebar-wrapper {
       .viewport {
-        height: 100vh;
+        height: 80vh;
         overflow: auto;
         .list {
           border-radius: 10px;
@@ -46,6 +47,15 @@
               }
             }
           }
+        }
+      }
+
+      ::ng-deep {
+        .mat-expansion-panel {
+          box-shadow: none !important;
+        }
+        .mat-expansion-panel-body {
+          padding: 0 0px 16px;
         }
       }
     }
