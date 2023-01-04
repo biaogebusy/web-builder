@@ -6,7 +6,6 @@ export interface ILink {
   classes?: any;
   target?: string;
   label: any;
-  icon?: string;
   popup?: any;
   queryParams?: Params | null;
   fragment?: string;

@@ -19,7 +19,7 @@ import {
   takeUntil,
 } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
-import { fromEvent, Subject, Subscription } from 'rxjs';
+import { fromEvent, Subject } from 'rxjs';
 import { ScreenService } from '@core/service/screen.service';
 
 @Component({

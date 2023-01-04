@@ -6,9 +6,9 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { BaseComponent } from '@uiux/base/base.widget';
 import { USER } from '@core/token/token-providers';
 import type { IUser } from '@core/interface/IUser';
+import { UserService } from '@core/service/user.service';
 
 @Component({
   selector: 'app-sub-menu',
@@ -16,12 +16,13 @@ import type { IUser } from '@core/interface/IUser';
   styleUrls: ['./sub-menu.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SubMenuComponent extends BaseComponent implements OnInit {
+export class SubMenuComponent implements OnInit {
   @Input() content: any;
   @ViewChild('childMenu', { static: true }) public childMenu: any;
-  constructor(@Inject(USER) public user: IUser) {
-    super();
-  }
+  constructor(
+    @Inject(USER) public user: IUser,
+    public userSerivice: UserService
+  ) {}
 
   trackByFn(index: number, item: any): number {
     return index;

@@ -45,6 +45,9 @@ Default.args = {
         elements: [
           {
             type: 'text',
+            animate: {
+              disable: true,
+            },
             spacer: 'none',
             body: '<p>默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；</p>',
           },
@@ -55,6 +58,9 @@ Default.args = {
         elements: [
           {
             type: 'text',
+            animate: {
+              disable: true,
+            },
             spacer: 'none',
             body: '<p>通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作；</p>',
           },
@@ -65,6 +71,9 @@ Default.args = {
         elements: [
           {
             type: 'text',
+            animate: {
+              disable: true,
+            },
             spacer: 'none',
             body: '<p>Drupal 100多种语言提供了无以伦比的支持和翻译工作流程；</p>',
           },
@@ -75,6 +84,9 @@ Default.args = {
         elements: [
           {
             type: 'text',
+            animate: {
+              disable: true,
+            },
             spacer: 'none',
             body: '<p>无论是一个还是多个站点，Drupal 总是可以游刃有余的构建；</p>',
           },
@@ -85,6 +97,9 @@ Default.args = {
         elements: [
           {
             type: 'text',
+            animate: {
+              disable: true,
+            },
             spacer: 'none',
             body: '<p>为了抵御安全漏洞，将有一组团队解决并发布安全修补程序，超过45000名贡献者使该平台成为市场上最安全、最稳定的平台之一；</p>',
           },

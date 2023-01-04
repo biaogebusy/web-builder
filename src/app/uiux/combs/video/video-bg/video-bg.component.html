@@ -4,7 +4,7 @@
   <div class="layer"></div>
   <app-player *ngIf="video" [content]="video"></app-player>
   <div class="inner position-relative" ngClass.gt-sm="xy-center" ngClass.lt-md="y-center">
-    <app-dynamic-combs [content]="content.widget"></app-dynamic-combs>
+    <app-dynamic-component [inputs]="{content:content.widget}"></app-dynamic-component>
   </div>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
 </div>

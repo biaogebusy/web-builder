@@ -1,10 +1,14 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  Inject,
   Input,
   OnInit,
 } from '@angular/core';
 import type { IMainMenu } from '@core/interface/IBranding';
+import { UserService } from '@core/service/user.service';
+import type { IUser } from '@core/interface/IUser';
+import { USER } from '@core/token/token-providers';
 
 @Component({
   selector: 'app-dropdown-menu',
@@ -13,9 +17,12 @@ import type { IMainMenu } from '@core/interface/IBranding';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DropdownMenuComponent implements OnInit {
-  @Input() content: IMainMenu[];
+  @Input() content: IMainMenu[] | undefined;
   panelOpenState = false;
-  constructor() {}
+  constructor(
+    public userService: UserService,
+    @Inject(USER) public user: IUser
+  ) {}
 
   ngOnInit(): void {}
 }

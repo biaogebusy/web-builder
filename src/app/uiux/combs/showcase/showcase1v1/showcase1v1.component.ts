@@ -16,7 +16,7 @@ import { ScreenService } from '@core/service/screen.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
 
 @Component({
-  selector: 'app-showcase1v1',
+  selector: 'app-showcase-1v1',
   templateUrl: './showcase1v1.component.html',
   styleUrls: ['./showcase1v1.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -58,7 +58,7 @@
     }
   },
   "defaultLogo": "/assets/images/logo.png",
-  "defaultAvatar": "/assets/image/avatar.png",
+  "defaultAvatar": "/assets/images/avatar/01.jpeg",
   "defaultThumb": "/assets/images/default.png",
   "amap": {
     "key": "33877188af64f0213ff4fa259b1c14b8",

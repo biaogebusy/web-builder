@@ -14,11 +14,12 @@
       <div class="media-body" fxLayout="column" fxFlex="100" fxLayoutGap="1rem">
         <div class="m-bottom-xs" fxLayoutAlign="start center" fxLayout="row wrap" fxLayoutGap="1rem">
           <div class="title" *ngIf="item?.company">
-            {{item.company.title}}</div>
+            {{item.company.title}}
+          </div>
           <app-chip-list [content]="item.company.welfare" [classes]="'mini primary'"></app-chip-list>
         </div>
         <div class="info" fxLayout="row wrap" fxLayoutAlign="space-between center">
-          <div class="position m-y-xs">{{item.title}}</div>
+          <div class="position">{{item.title}}</div>
           <div class="wage bold" *ngIf="item.salary">{{item.salary.from}} -
             {{item.salary.to}} k
           </div>

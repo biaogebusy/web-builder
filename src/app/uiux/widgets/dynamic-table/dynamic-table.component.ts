@@ -11,7 +11,6 @@ import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
 import type { IDynamicTable } from '../../../core/interface/widgets/IWidgets';
-import { TextComponent } from '../text/text.component';
 import { RouteService } from '@core/service/route.service';
 import { isArray } from 'lodash-es';
 import {
@@ -79,17 +78,14 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
     this.dialog.open(DialogComponent, {
       width: '600px',
       data: {
-        renderInputComponent: TextComponent,
         inputData: {
-          content: {
-            type: 'text',
-            spacer: 'none',
-            title: {
-              label,
-              style: 'style-v4',
-            },
-            body: content,
+          type: 'text',
+          spacer: 'none',
+          title: {
+            label,
+            style: 'style-v4',
           },
+          body: content,
         },
       },
     });

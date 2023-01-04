@@ -1,10 +1,10 @@
 <form [formGroup]="form">
-  <div *ngFor="let control of content;trackBy:trackByFn" class="form-row">
+  <div *ngFor="let control of content.form" class="form-row">
     <app-dynamic-form-control [control]="control" [form]="form"></app-dynamic-form-control>
   </div>
   <div class="action" fxLayoutAlign="end center">
-    <button *ngFor="let action of actions;trackBy:trackByFn" mat-raised-button color="{{action.color}}"
-      type="{{action.type}}" [disabled]="!form.valid" (click)="onClick(action.params)">
+    <button *ngFor="let action of actions" mat-raised-button color="{{action.color}}" type="{{action.type}}"
+      [disabled]="!form.valid" (click)="onClick(action.params)">
       <div fxLayoutAlign="center center">
         <mat-spinner diameter="20" color="accent" *ngIf="loading"></mat-spinner>
         <span class="p-x-xs">{{action.label}}</span>

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { FullCalendarModule } from '@fullcalendar/angular'; // must go before plugins
 import listPlugin from '@fullcalendar/list';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -7,7 +7,6 @@ import { LightboxModule } from 'ngx-lightbox';
 import { ShareModule } from '@share/share.module';
 import { SwiperModule } from 'swiper/angular';
 import { CountToModule } from 'angular-count-to';
-import { DynamicModule } from 'ng-dynamic-component';
 import { TreeModule } from '@circlon/angular-tree-component';
 import { CdkTableModule } from '@angular/cdk/table';
 
@@ -110,6 +109,9 @@ import { StepperComponent } from './stepper/stepper.component';
 import { FormlyComponent } from './form/formly/formly.component';
 import { PlayerComponent } from './media/player/player.component';
 import { BtnVideoComponent } from './actions/btn-video/btn-video.component';
+import { DynamicComponentComponent } from './dynamic-component/dynamic-component.component';
+
+import { BaseModule } from '@uiux/base/base.module';
 
 FullCalendarModule.registerPlugins([
   // register FullCalendar plugins
@@ -164,9 +166,6 @@ const components = [
   PaginationLinksComponent,
   ProgressBarComponent,
   ProgressGroupComponent,
-  SafeHtmlPipe,
-  SafeUrlPipe,
-  DataSourcePipe,
   DialogComponent,
   FlagComponent,
   ShareComponent,
@@ -199,14 +198,19 @@ const components = [
 ];
 
 @NgModule({
-  declarations: [...components],
+  declarations: [
+    ...components,
+    SafeHtmlPipe,
+    SafeUrlPipe,
+    DataSourcePipe,
+    DynamicComponentComponent,
+  ],
   imports: [
     MatChipsModule,
     ShareModule,
     TreeModule,
     LightboxModule,
     CountToModule,
-    DynamicModule,
     CdkTableModule,
     FullCalendarModule,
     MatDatepickerModule,
@@ -247,10 +251,26 @@ const components = [
       ],
     }),
   ],
-  exports: [...components],
+  exports: [
+    ...components,
+    SafeHtmlPipe,
+    SafeUrlPipe,
+    DataSourcePipe,
+    DynamicComponentComponent,
+  ],
   providers: [
     MatDatepickerModule,
     // { provide: MAT_DATE_LOCALE, useValue: 'zh-cn' },
   ],
 })
-export class WidgetsModule {}
+export class WidgetsModule extends BaseModule {
+  dynamicComponents = [...components];
+
+  constructor(protected componentFactoryResolver: ComponentFactoryResolver) {
+    super(componentFactoryResolver);
+  }
+
+  static forStorybook(): any {
+    return [...components];
+  }
+}

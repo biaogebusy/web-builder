@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import type { IHero1v3 } from '@core/interface/combs/IHero';
 
 @Component({
-  selector: 'app-hero1v3',
+  selector: 'app-hero-1v3',
   templateUrl: './hero1v3.component.html',
   styleUrls: ['./hero1v3.component.scss'],
 })

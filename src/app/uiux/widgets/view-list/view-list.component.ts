@@ -15,6 +15,7 @@ import { DialogService } from '@core/service/dialog.service';
 import { FormService } from '@core/service/form.service';
 import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
+import { UserService } from '@core/service/user.service';
 import { USER } from '@core/token/token-providers';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { isEmpty, merge } from 'lodash-es';
@@ -51,7 +52,8 @@ export class ViewListComponent
     private formService: FormService,
     private dialogService: DialogService,
     private screenService: ScreenService,
-    @Inject(USER) private user: IUser
+    @Inject(USER) private user: IUser,
+    public userSerivice: UserService
   ) {
     super();
   }
@@ -64,7 +66,7 @@ export class ViewListComponent
 
   ngAfterViewInit(): void {
     const emptyHidden = this.getParams(this.content, 'emptyHidden');
-    if (this.checkShow(this.content, this.user) && !emptyHidden) {
+    if (this.userSerivice.checkShow(this.content, this.user) && !emptyHidden) {
       this.canShow = true;
       this.cd.detectChanges();
     }
@@ -75,7 +77,7 @@ export class ViewListComponent
   }
 
   getViews(options = {}): void {
-    const isRole = this.checkShow(this.content, this.user);
+    const isRole = this.userSerivice.checkShow(this.content, this.user);
     if (!isRole) {
       this.canShow = false;
       this.cd.detectChanges();

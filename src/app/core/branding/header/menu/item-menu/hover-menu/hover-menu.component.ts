@@ -3,6 +3,7 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
+  Inject,
   Input,
   OnInit,
 } from '@angular/core';
@@ -12,6 +13,9 @@ import { ScreenState } from '@core/state/screen/ScreenState';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { fromEvent, of } from 'rxjs';
 import { mergeMap, delay, takeUntil } from 'rxjs/operators';
+import { USER } from '@core/token/token-providers';
+import type { IUser } from '@core/interface/IUser';
+import { UserService } from '@core/service/user.service';
 
 @Component({
   selector: 'app-hover-menu',
@@ -23,10 +27,12 @@ export class HoverMenuComponent extends BaseComponent implements OnInit {
   @Input() content: IMainMenu;
   active: boolean;
   constructor(
+    @Inject(USER) public user: IUser,
     private eleRef: ElementRef,
     private cd: ChangeDetectorRef,
     private screenService: ScreenService,
-    private screenState: ScreenState
+    private screenState: ScreenState,
+    public userService: UserService
   ) {
     super();
   }

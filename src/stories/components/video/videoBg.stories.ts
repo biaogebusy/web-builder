@@ -8,6 +8,7 @@ import { VideoBgComponent } from '@uiux/combs/video/video-bg/video-bg.component'
 import { StorysModule } from '@core/storys.module';
 import { VideoModule } from '@uiux/combs/video/video.module';
 import * as showcase1v3Stories from '../../feature-components/showcase/showcase1v3.stories';
+import { Showcase1v3Component } from '@uiux/combs/showcase/showcase1v3/showcase1v3.component';
 
 export default {
   title: '复合组件/视频/背景视频',
@@ -16,6 +17,10 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [],
+      entryComponents: [
+        ...StorysModule.forEntryComponents(),
+        Showcase1v3Component,
+      ],
       imports: [VideoModule, StorysModule.forRoot()],
     }),
     componentWrapperDecorator((story) => `${story}`),

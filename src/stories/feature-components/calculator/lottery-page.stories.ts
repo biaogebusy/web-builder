@@ -9,6 +9,8 @@ import { BlockComponent } from '@uiux/combs/block/block/block.component';
 import { BlockModule } from '@uiux/combs/block/block.module';
 import { sleep, StorysModule } from '@core/storys.module';
 import { BrandingModule } from '@core/branding/branding.module';
+import { LotteryComponent } from '@uiux/combs/calculator/lottery/lottery.component';
+import { CalculatorModule } from '@uiux/combs/calculator/calculator.module';
 
 export default {
   title: '特色组件/计算器',
@@ -17,7 +19,13 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [],
-      imports: [BlockModule, StorysModule.forRoot(), BrandingModule],
+      entryComponents: [...StorysModule.forEntryComponents()],
+      imports: [
+        BlockModule,
+        StorysModule.forRoot(),
+        BrandingModule,
+        CalculatorModule,
+      ],
     }),
     componentWrapperDecorator(
       (story) => `

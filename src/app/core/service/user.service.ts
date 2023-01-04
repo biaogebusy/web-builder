@@ -108,6 +108,23 @@ export class UserService extends ApiService {
     this.storeLocalUser(user);
   }
 
+  checkShow(content: any, user: IUser): boolean {
+    const roles = this.getParams(content, 'reqRoles');
+    if (!roles || !roles.length) {
+      return true;
+    } else {
+      if (!user) {
+        return false;
+      }
+      const currentUserRoles = user.current_user.roles;
+      if (this.isMatchCurrentRole(roles, currentUserRoles)) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
+
   isMatchCurrentRole(roles: string[], currentUserRoles: string[]): boolean {
     return intersection(currentUserRoles, roles).length > 0;
   }
@@ -163,13 +180,6 @@ export class UserService extends ApiService {
   }
 
   getCode(phone: string): Observable<any> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-type': 'application/json',
-        Accept: 'application/json',
-      }),
-    };
-
     return this.http.post(`${this.apiUrl}/api/v1/otp/generate?format=json`, {
       mobile_number: phone,
     });
@@ -276,5 +286,16 @@ export class UserService extends ApiService {
           return false;
         })
       );
+  }
+
+  get userPage(): any[] {
+    if (environment?.drupalProxy) {
+      return ['/my'];
+    }
+    return [`/me`];
+  }
+
+  get userLink(): string[] {
+    return [environment.drupalProxy ? '/my' : '/me/login'];
   }
 }

@@ -105,7 +105,7 @@ export class CommentItemComponent implements OnInit, OnDestroy {
       )
       .pipe(takeUntil(this.destroy$))
       .subscribe(
-        (res) => {
+        () => {
           this.loading = false;
           this.utilitiesService.openSnackbar('您的回答已删除！', '√');
         },
@@ -118,7 +118,7 @@ export class CommentItemComponent implements OnInit, OnDestroy {
   }
 
   trackByFn(index: number, item: any): number {
-    return index;
+    return item.id;
   }
 
   ngOnDestroy(): void {

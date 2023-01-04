@@ -1,0 +1,44 @@
+<ng-container *ngIf="branding$ | async as branding">
+  <div class="manage-sidebar {{opened?'opened':'expanded'}}">
+    <div class="manage-brand p-y p-x" *ngIf="branding.header?.sidebar as sidebar">
+      <app-logo *ngIf="!sidebar?.params.showUser; else profile" [content]="sidebar?.logo"></app-logo>
+      <ng-template #profile>
+        <div class="profile">
+          <a class="picture" [routerLink]="userService.userPage">
+            <img [src]="user.picture || coreConfig.defaultAvatar" alt="">
+          </a>
+          <ng-container *ngIf="opened">
+            <div class="name bold p-top-xs">
+              <a [routerLink]="userService.userPage">{{user.display_name}}</a>
+            </div>
+            <div class="email" *ngIf="user.mail">
+              {{user.mail}}
+            </div>
+          </ng-container>
+        </div>
+      </ng-template>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="manage-menu" *ngIf="branding.header?.sidebar?.menu as menu"
+      [ngStyle]="{'overflow': opened?'auto' : 'visible'}">
+      <app-dropdown-menu [hidden]="!opened" [content]="menu"></app-dropdown-menu>
+      <div class="icon-list" [hidden]="opened">
+        <div class="item" *ngFor="let item of menu">
+          <ng-container *ngIf="userService.checkShow(item, user)">
+            <app-icon class="icon" *ngIf="item.icon" [content]="item.icon"></app-icon>
+            <app-hover-menu [content]="item"></app-hover-menu>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="manage-footer p-y-sm p-x-sm">
+      <div class="toggle">
+        <div class="wrapper" (click)="onToggle()">
+          <app-icon matTooltip="收起" matTooltipPosition="above" *ngIf="opened" [content]="{svg:'page-first'}"></app-icon>
+          <app-icon matTooltip="展开" matTooltipPosition="above" *ngIf="!opened" [content]="{svg:'page-last'}"></app-icon>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

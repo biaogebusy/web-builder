@@ -11,5 +11,4 @@ export class ContentState {
   public drawerOpened$ = new BehaviorSubject<boolean>(false);
   public drawerLoading$ = new BehaviorSubject<boolean>(false);
   public drawerContent$ = new Subject<IPage>();
-  constructor() {}
 }

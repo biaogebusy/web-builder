@@ -10,7 +10,7 @@ import { CORE_CONFIG } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 
 @Component({
-  selector: 'app-profile1v1',
+  selector: 'app-profile-1v1',
   templateUrl: './profile1v1.component.html',
   styleUrls: ['./profile1v1.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -1,0 +1,35 @@
+{
+  "title": "地图应用",
+  "body": [
+    {
+      "type": "view-map",
+      "params": {
+        "api": "/api/v2/view-map",
+        "city": "南宁市",
+        "drawer": true
+      },
+      "form": [
+        {
+          "type": "input",
+          "key": "title",
+          "className": "m-right-xs",
+          "templateOptions": {
+            "label": "搜索职位"
+          }
+        },
+        {
+          "type": "mat-select",
+          "key": "skill",
+          "className": "m-right-xs",
+          "api": "/api/v2/filter/taxonomy/skill",
+          "templateOptions": {
+            "multiple": true,
+            "search": true,
+            "hideSelected": true,
+            "label": "技能"
+          }
+        }
+      ]
+    }
+  ]
+}

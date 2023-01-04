@@ -53,7 +53,7 @@ export class CommentActionsComponent implements OnInit {
 
   isMy(): boolean {
     return (
-      this.item.author.id === this.user.id && !(this.item.id === this.currentId)
+      this.item.author.id === this.user.id && this.item.id !== this.currentId
     );
   }
 }

@@ -13,9 +13,10 @@ import { of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import type { IUser } from '@core/interface/IUser';
 import { USER } from '@core/token/token-providers';
+import { UserService } from '@core/service/user.service';
 
 @Component({
-  selector: 'app-showcase4v1',
+  selector: 'app-showcase-4v1',
   templateUrl: './showcase4v1.component.html',
   styleUrls: ['./showcase4v1.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -27,7 +28,8 @@ export class Showcase4v1Component extends BaseComponent implements OnInit {
     private nodeService: NodeService,
     private cd: ChangeDetectorRef,
     private dialogService: DialogService,
-    @Inject(USER) public user: IUser
+    @Inject(USER) public user: IUser,
+    public userSerivice: UserService
   ) {
     super();
   }

@@ -2,9 +2,6 @@ import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { StorysModule } from '@core/storys.module';
 import { Hero1v3Component } from '@uiux/combs/hero/hero1v3/hero1v3.component';
-import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
-import { PlayerComponent } from '@uiux/widgets/media/player/player.component';
-
 export default {
   title: '特色组件/英雄区/1v3',
   id: 'hero-1v3',
@@ -12,7 +9,7 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [],
-      entryComponents: [DialogComponent, PlayerComponent],
+      entryComponents: [...StorysModule.forEntryComponents()],
       imports: [StorysModule.forRoot()],
     }),
   ],

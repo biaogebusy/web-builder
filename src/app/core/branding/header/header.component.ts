@@ -5,7 +5,6 @@ import {
   ElementRef,
   AfterViewInit,
   Inject,
-  OnDestroy,
   ChangeDetectorRef,
   ChangeDetectionStrategy,
 } from '@angular/core';
@@ -22,7 +21,7 @@ import type { IBranding } from '@core/interface/IBranding';
   styleUrls: ['./header.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
+export class HeaderComponent implements OnInit, AfterViewInit {
   sticky = false;
   showBanner: boolean;
   headerMode: any;
@@ -103,6 +102,4 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     });
   }
-
-  ngOnDestroy(): void {}
 }

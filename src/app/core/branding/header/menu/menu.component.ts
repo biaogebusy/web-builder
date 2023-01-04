@@ -28,7 +28,7 @@ export class MenuComponent implements OnInit {
   ) {
     this.router.events.subscribe((event: Event) => {
       if (this.isDrawer && event instanceof NavigationStart) {
-        this.screen.toggleDrawer(true);
+        this.screen.toggleDrawer();
       }
     });
   }
@@ -42,7 +42,7 @@ export class MenuComponent implements OnInit {
 
   onToggle(): void {
     this.isOpened = !this.isOpened;
-    this.screen.toggleDrawer(this.isOpened);
+    this.screen.toggleDrawer();
     this.cd.detectChanges();
   }
 

@@ -9,10 +9,8 @@ import { ArticleComponent } from '@uiux/combs/node/article/article.component';
 import { NodeModule } from '@uiux/combs/node/node.module';
 import * as MediaListStories from 'src/stories/widgets/media/MediaList.stories';
 import * as MeunListStories from 'src/stories/widgets/MeunList.stories';
-import { LoginComponent } from 'src/app/modules/user/login/login.component';
 import { UserModule } from 'src/app/modules/user/user.module';
 import { StorysModule, sleep } from '@core/storys.module';
-import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { comments } from './comments.json';
 
 export default {
@@ -22,7 +20,7 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [],
-      entryComponents: [LoginComponent, DialogComponent],
+      entryComponents: [...StorysModule.forEntryComponents()],
       imports: [StorysModule.forRoot(), UserModule, NodeModule],
     }),
     componentWrapperDecorator((story) => `${story}`),

@@ -1,8 +1,6 @@
 import {
   Component,
   OnInit,
-  AfterViewInit,
-  OnDestroy,
   Inject,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -22,7 +20,7 @@ import type { IUser } from '@core/interface/IUser';
   styleUrls: ['./login.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
+export class LoginComponent implements OnInit {
   hide = true;
   loading: boolean;
   error: string;
@@ -86,8 +84,6 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  ngAfterViewInit(): void {}
-
   get f(): any {
     return this.userForm.controls;
   }
@@ -136,13 +132,11 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
       this.cd.detectChanges();
       return false;
     }
-    this.userService.getCode(this.phoneForm.value.phone).subscribe((code) => {
+    this.userService.getCode(this.phoneForm.value.phone).subscribe(() => {
       this.config = {
         leftTime: 60,
         format: 'ss',
       };
     });
   }
-
-  ngOnDestroy(): void {}
 }

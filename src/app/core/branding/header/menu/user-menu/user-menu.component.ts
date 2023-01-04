@@ -11,11 +11,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
-import { DynamicFormComponent } from '@uiux/combs/other/dynamic-form/dynamic-form.component';
 import { DialogService } from '@core/service/dialog.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
 import { USER } from '@core/token/token-providers';
 import type { IUser } from '@core/interface/IUser';
 import { UserService } from '@core/service/user.service';
@@ -38,7 +36,7 @@ export class UserMenuComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     private dialogService: DialogService,
     private cd: ChangeDetectorRef,
-    private userService: UserService,
+    public userService: UserService,
     @Inject(USER) public user: IUser
   ) {
     this.currentUser = user;
@@ -62,15 +60,10 @@ export class UserMenuComponent implements OnInit, OnDestroy {
     this.userService.logout(this.user.logout_token);
   }
 
-  get userLink(): string[] {
-    return [environment.drupalProxy ? '/my' : '/me/login'];
-  }
-
   openDialog(dialog: any): void {
     this.dialogRef = this.dialog.open(DialogComponent, {
-      width: '600px',
+      width: dialog.width || '600px',
       data: {
-        renderInputComponent: DynamicFormComponent,
         inputData: {
           content: dialog.content,
           actions: dialog.actions,
@@ -88,13 +81,7 @@ export class UserMenuComponent implements OnInit, OnDestroy {
           this.dialogRef.close();
         }
       });
-  }
-
-  get userPage(): any[] {
-    if (environment?.drupalProxy) {
-      return ['/my'];
-    }
-    return [`/me`];
+    this.dialogService.handlerIframe(this.dialog);
   }
 
   trackByFn(index: number, item: any): number {

@@ -47,10 +47,13 @@ export interface IRatios {
 }
 
 export interface IIframe {
-  height?: number;
+  height?: string;
+  width?: string;
+  classes?: string | string[] | Set<string> | { [klass: string]: any };
   url: string;
   title?: string;
   id?: string;
+  name?: string;
 }
 
 export interface IProgressBar {

@@ -17,7 +17,6 @@ import { Router } from '@angular/router';
 import { ScreenService } from '@core/service/screen.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import type { IControl } from '@core/interface/widgets/IControl';
 import type { IUser } from '@core/interface/IUser';
 import { USER } from '@core/token/token-providers';
 
@@ -28,7 +27,7 @@ import { USER } from '@core/token/token-providers';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DynamicFormComponent implements OnInit, OnDestroy {
-  @Input() content: IControl[];
+  @Input() content: any;
   @Input() actions: IAction[];
   loading = false;
   form: FormGroup;
@@ -47,7 +46,7 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.form = this.formService.toFormGroup(this.content);
+      this.form = this.formService.toFormGroup(this.content.form);
     }
   }
 

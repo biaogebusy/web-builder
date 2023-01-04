@@ -6,8 +6,6 @@ import {
 import { Story } from '@storybook/angular/types-6-0';
 import { Card1v3Component } from '@uiux/widgets/card/card1v3/card1v3.component';
 import * as TextStories from '../base/Text.stories';
-import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
-import { LoopWidgetsComponent } from '@uiux/widgets/loop-widgets/loop-widgets.component';
 import { StorysModule } from '@core/storys.module';
 
 export default {
@@ -17,7 +15,7 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [],
-      entryComponents: [DialogComponent, LoopWidgetsComponent],
+      entryComponents: [...StorysModule.forEntryComponents()],
       imports: [StorysModule.forRoot()],
       providers: [],
     }),
@@ -129,7 +127,7 @@ Base.args = {
         ],
       },
       {
-        title: '点击查看更多',
+        title: 'Dialog',
         address: '南宁市高科路八号创客城',
         params: {
           address: '南宁市高科路八号创客城',

@@ -26,9 +26,16 @@
   }
   .mark {
     background-color: mat-color($foreground, divider, 0.04);
+    animation: breathe 3s linear infinite;
 
     &:after {
       background-color: mat-color($foreground, disabled-button, 0.6);
+    }
+  }
+
+  @keyframes breathe {
+    0% {
+      box-shadow: 0 0 0 10px mat-color($primary, 0.2);
     }
   }
 }

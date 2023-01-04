@@ -16,7 +16,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-tab1v1',
+  selector: 'app-tab-1v1',
   templateUrl: './tab1v1.component.html',
   styleUrls: ['./tab1v1.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

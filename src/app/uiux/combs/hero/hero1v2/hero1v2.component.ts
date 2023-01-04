@@ -12,7 +12,7 @@ import type { IHero1v2 } from '@core/interface/combs/IHero';
 // install Swiper modules
 SwiperCore.use([Navigation, Pagination]);
 @Component({
-  selector: 'app-hero1v2',
+  selector: 'app-hero-1v2',
   templateUrl: './hero1v2.component.html',
   styleUrls: ['./hero1v2.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

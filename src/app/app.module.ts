@@ -20,7 +20,7 @@ import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { API_URL, THEME } from '@core/token/token-providers';
 import { ToastrModule } from 'ngx-toastr';
-import { UiuxModule } from '@uiux/uiux.module';
+import { BlockModule } from '@uiux/combs/block/block.module';
 import {
   apiUrlFactory,
   brandingFactory,
@@ -45,7 +45,7 @@ import { UserService } from '@core/service/user.service';
     MatSidenavModule,
     NgxWebstorageModule.forRoot(),
     Angulartics2Module.forRoot(),
-    UiuxModule,
+    BlockModule,
     ToastrModule.forRoot({
       maxOpened: 6,
       easeTime: 300,

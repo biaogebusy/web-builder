@@ -9,6 +9,7 @@ import {
 import type { IUser } from '@core/interface/IUser';
 import type { IIframe } from '@core/interface/widgets/IWidgets';
 import { USER } from '@core/token/token-providers';
+import { ScreenService } from '@core/service/screen.service';
 
 @Component({
   selector: 'app-iframe',
@@ -19,12 +20,36 @@ import { USER } from '@core/token/token-providers';
 export class IframeComponent implements OnInit {
   @Input() content: IIframe;
   url: string;
+  loading: boolean;
   constructor(
+    @Inject(USER) private user: IUser,
     private cd: ChangeDetectorRef,
-    @Inject(USER) private user: IUser
+    private screenService: ScreenService
   ) {}
 
   ngOnInit(): void {
+    if (this.screenService.isPlatformBrowser()) {
+      if (this.content.url.includes('disable_sidebar')) {
+        this.loading = true;
+        window.addEventListener(
+          'message',
+          (event) => {
+            if (event.data === 'ready') {
+              this.loading = false;
+              console.log('ready');
+              this.cd.detectChanges();
+            }
+
+            if (event.data === 'loading') {
+              this.loading = true;
+              console.log('loading');
+              this.cd.detectChanges();
+            }
+          },
+          false
+        );
+      }
+    }
     if (!this.content?.url.includes(':id')) {
       this.url = this.content.url;
       this.cd.detectChanges();

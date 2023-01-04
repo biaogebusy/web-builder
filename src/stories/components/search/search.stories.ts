@@ -3,9 +3,6 @@ import { Story } from '@storybook/angular/types-6-0';
 import { screen, userEvent } from '@storybook/testing-library';
 import { SearchModule } from '@uiux/combs/search/search.module';
 import { SearchComponent } from '@uiux/combs/search/search.component';
-import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
-import { SearchFilterDialogComponent } from '@uiux/combs/search/search-filter-dialog/search-filter-dialog.component';
-import { SearchFilterItemComponent } from '@uiux/combs/search/search-filter-dialog/search-filter-item/search-filter-item.component';
 import { sleep, StorysModule } from '@core/storys.module';
 import { nodes } from './search.json';
 
@@ -16,11 +13,7 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [],
-      entryComponents: [
-        DialogComponent,
-        SearchFilterDialogComponent,
-        SearchFilterItemComponent,
-      ],
+      entryComponents: [...StorysModule.forEntryComponents()],
       imports: [StorysModule.forRoot(), SearchModule],
     }),
   ],

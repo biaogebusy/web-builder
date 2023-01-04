@@ -10,7 +10,6 @@ import { RouteService } from '@core/service/route.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
-import { LoopWidgetsComponent } from '@uiux/widgets/loop-widgets/loop-widgets.component';
 import { DialogService } from '@core/service/dialog.service';
 import { BaseComponent } from '@uiux/base/base.widget';
 import type { IUser } from '@core/interface/IUser';
@@ -18,6 +17,7 @@ import { USER } from '@core/token/token-providers';
 import { ContentService } from '@core/service/content.service';
 import { ContentState } from '@core/state/ContentState';
 import { IPage } from '@core/interface/IAppConfig';
+import { UserService } from '@core/service/user.service';
 
 @Component({
   selector: 'app-link',
@@ -37,7 +37,8 @@ export class LinkComponent extends BaseComponent implements OnInit {
     private dialogService: DialogService,
     private contentService: ContentService,
     private contentState: ContentState,
-    @Inject(USER) public user: IUser
+    @Inject(USER) public user: IUser,
+    public userSerivice: UserService
   ) {
     super();
   }
@@ -76,16 +77,13 @@ export class LinkComponent extends BaseComponent implements OnInit {
 
   openDialog(dialog: any): void {
     const options = {
-      width: dialog.width || '800px',
+      width: dialog?.params?.width || '800px',
     };
-    const config = Object.assign(this.content.dialog?.params || {}, options);
+    const config = Object.assign(dialog?.params || {}, options);
     this.dialogRef = this.dialog.open(DialogComponent, {
       ...config,
       data: {
-        renderInputComponent: LoopWidgetsComponent,
-        inputData: {
-          content: dialog.data,
-        },
+        inputData: dialog.data,
       },
     });
     if (dialog?.afterClosed) {
@@ -99,23 +97,7 @@ export class LinkComponent extends BaseComponent implements OnInit {
         }
       });
     }
-    this.handlerIframe();
-  }
-
-  handlerIframe(): void {
-    window.addEventListener(
-      'message',
-      (event) => {
-        const origin = event.origin;
-        if (origin !== window.location.origin) {
-          return;
-        }
-        if (event.data === 'closeDialog') {
-          this.dialog.closeAll();
-        }
-      },
-      false
-    );
+    this.dialogService.handlerIframe(this.dialog);
   }
 
   getClasses(): void {

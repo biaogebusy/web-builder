@@ -66,6 +66,12 @@
       .title {
         white-space: nowrap;
       }
+
+      .meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
     }
 
     @media #{$xs} {
@@ -83,11 +89,12 @@
     width: 50px;
     height: 50px;
     position: relative;
+
     &:after {
       content: "";
       display: block;
-      width: 13px;
-      height: 13px;
+      width: 14px;
+      height: 14px;
       position: absolute;
       left: 50%;
       top: 50%;

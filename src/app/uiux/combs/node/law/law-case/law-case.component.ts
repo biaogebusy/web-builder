@@ -95,7 +95,7 @@ export class LawCaseComponent
   updateNode(apiParams: any): void {
     this.nodeService
       .updateLawCase(apiParams, this.content.uuid, this.user.csrf_token)
-      .subscribe((res) => {
+      .subscribe(() => {
         this.uti.openSnackbar('已更新！', '✓');
       });
   }

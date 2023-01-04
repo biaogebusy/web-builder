@@ -17,6 +17,7 @@ import { isArray } from 'lodash-es';
 export class ChartComponent implements OnInit {
   @Input() content: EChartsOption;
   @Input() data: any;
+  @Input() style: any;
   constructor(private cd: ChangeDetectorRef) {}
 
   ngOnInit(): void {}

@@ -21,9 +21,11 @@ export class BtnVideoComponent implements OnInit {
     this.dialogRef = this.dialog.open(DialogComponent, {
       width: '800px',
       data: {
-        renderInputComponent: PlayerComponent,
         inputData: {
-          content: video,
+          content: {
+            type: 'player',
+            ...video,
+          },
         },
       },
     });

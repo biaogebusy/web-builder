@@ -6,8 +6,6 @@ import {
 } from '@storybook/angular';
 import { TextComponent } from '@uiux/widgets/text/text.component';
 import { StorysModule } from '@core/storys.module';
-import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
-import { PlayerComponent } from '@uiux/widgets/media/player/player.component';
 
 export default {
   title: '基础组件/基本元素/富文本',
@@ -15,7 +13,7 @@ export default {
   component: TextComponent,
   decorators: [
     moduleMetadata({
-      entryComponents: [DialogComponent, PlayerComponent],
+      entryComponents: [...StorysModule.forEntryComponents()],
       declarations: [],
       imports: [StorysModule.forRoot()],
     }),

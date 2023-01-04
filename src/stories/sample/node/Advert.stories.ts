@@ -4,13 +4,10 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { ArticleComponent } from '@uiux/combs/node/article/article.component';
 import { NodeModule } from '@uiux/combs/node/node.module';
-import { LoginComponent } from 'src/app/modules/user/login/login.component';
 import { UserModule } from 'src/app/modules/user/user.module';
-import { StorysModule, sleep } from '@core/storys.module';
-import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
-import { comments } from './comments.json';
+import { StorysModule } from '@core/storys.module';
+
 import { AdvertComponent } from '@uiux/combs/node/advert/advert.component';
 
 export default {
@@ -20,7 +17,7 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [],
-      entryComponents: [LoginComponent, DialogComponent],
+      entryComponents: [...StorysModule.forEntryComponents()],
       imports: [StorysModule.forRoot(), UserModule, NodeModule],
     }),
     componentWrapperDecorator((story) => `${story}`),

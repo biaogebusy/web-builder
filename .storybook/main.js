@@ -5,7 +5,6 @@ module.exports = {
     "@storybook/addon-essentials",
     "@storybook/addon-interactions",
     "@storybook/addon-a11y",
-    "@storybook/addon-ie11",
   ],
   framework: "@storybook/angular",
   // core: {
@@ -13,5 +12,16 @@ module.exports = {
   // },
   features: {
     interactionsDebugger: true,
+  },
+  webpackFinal: async (config, { configType }) => {
+    // `configType` has a value of 'DEVELOPMENT' or 'PRODUCTION'
+    // You can change the configuration based on that.
+    // 'PRODUCTION' is used when building the static version of storybook.
+
+    // Make whatever fine-grained changes you need
+    if (configType === "DEVELOPMENT") {
+      console.log("====config=====", config);
+    }
+    return config;
   },
 };

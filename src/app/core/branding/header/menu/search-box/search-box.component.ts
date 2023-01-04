@@ -2,7 +2,6 @@ import {
   Component,
   Input,
   OnInit,
-  OnDestroy,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
 } from '@angular/core';
@@ -21,10 +20,7 @@ import type { IHeaderSearch } from '@core/interface/IBranding';
   styleUrls: ['./search-box.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SearchBoxComponent
-  extends BaseComponent
-  implements OnInit, OnDestroy
-{
+export class SearchBoxComponent extends BaseComponent implements OnInit {
   @Input() content: IHeaderSearch;
 
   form: FormGroup;
@@ -86,8 +82,6 @@ export class SearchBoxComponent
   trackByFn(index: number, item: any): number {
     return item.label;
   }
-
-  ngOnDestroy(): void {}
 
   search(value: any): void {
     this.form.reset();

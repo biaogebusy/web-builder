@@ -89,13 +89,6 @@
         @include mat-elevation(3, mat-color($foreground, divider, 0.7));
         @include scrollbar(mat-color($foreground, divider, 0.2));
       }
-
-      .hover-menu,
-      .child,
-      .child .sub-menu {
-        background-color: mat-color($primary, default-contrast);
-        @include mat-elevation(3, mat-color($foreground, divider, 0.7));
-      }
     }
 
     .actions {
@@ -103,6 +96,12 @@
         color: $primary-contrast;
       }
     }
+  }
+
+  .hover-menu,
+  .hover-menu .child {
+    background-color: mat-color($primary, default-contrast);
+    @include mat-elevation(3, mat-color($foreground, divider, 0.7));
   }
 
   // user dropdown menu

@@ -11,7 +11,6 @@ import { SubMenuComponent } from './header/menu/item-menu/sub-menu/sub-menu.comp
 import { HeaderTopComponent } from './header/header-top/header-top.component';
 import { HeroModule } from '@uiux/combs/hero/hero.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
-import { DynamicCombsModule } from '@uiux/combs/dynamic-combs/dynamic-combs.module';
 import { LightComponent } from './footer/light/light.component';
 import { InverseComponent } from './footer/inverse/inverse.component';
 import { MenuItemComponent } from './footer/menu-item/menu-item.component';
@@ -22,6 +21,8 @@ import { SpaceBetweenComponent } from './footer/space-between/space-between.comp
 import { FixBarComponent } from './footer/fix-bar/fix-bar.component';
 import { FixBarPopupComponent } from './footer/fix-bar/fix-bar-popup/fix-bar-popup.component';
 import { HoverMenuComponent } from './header/menu/item-menu/hover-menu/hover-menu.component';
+import { ManageSidebarComponent } from './manage-sidebar/manage-sidebar.component';
+import { LogoComponent } from './meta/logo/logo.component';
 
 @NgModule({
   declarations: [
@@ -44,8 +45,15 @@ import { HoverMenuComponent } from './header/menu/item-menu/hover-menu/hover-men
     FixBarComponent,
     FixBarPopupComponent,
     HoverMenuComponent,
+    ManageSidebarComponent,
+    LogoComponent,
   ],
-  imports: [ShareModule, WidgetsModule, HeroModule, DynamicCombsModule],
-  exports: [HeaderComponent, FooterComponent, MenuComponent],
+  imports: [ShareModule, WidgetsModule, HeroModule],
+  exports: [
+    HeaderComponent,
+    FooterComponent,
+    MenuComponent,
+    ManageSidebarComponent,
+  ],
 })
 export class BrandingModule {}

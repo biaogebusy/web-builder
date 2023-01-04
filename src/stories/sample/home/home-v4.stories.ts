@@ -17,7 +17,7 @@ export default {
   component: BlockComponent,
   decorators: [
     moduleMetadata({
-      entryComponents: [DialogComponent, PlayerComponent],
+      entryComponents: [...StorysModule.forEntryComponents()],
       declarations: [],
       imports: [StorysModule.forRoot(), BlockModule, BrandingModule],
     }),

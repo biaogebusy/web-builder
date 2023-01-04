@@ -1,7 +1,6 @@
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { Hero2v2Component } from '@uiux/combs/hero/hero2v2/hero2v2.component';
-import { SwiperModule } from 'swiper/angular';
 import { StorysModule } from '@core/storys.module';
 
 export default {

@@ -6,8 +6,6 @@ import {
 import { Story } from '@storybook/angular/types-6-0';
 
 import { InlineLightboxComponent } from '@uiux/widgets/lightbox/inline-lightbox/inline-lightbox.component';
-import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
-import { DynamicWidgetsComponent } from '@uiux/widgets/dynamic-widgets/dynamic-widgets.component';
 import { StorysModule } from '@core/storys.module';
 export default {
   title: '基础组件/Lightbox',
@@ -16,7 +14,7 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [],
-      entryComponents: [DialogComponent, DynamicWidgetsComponent],
+      entryComponents: [...StorysModule.forEntryComponents()],
       imports: [StorysModule.forRoot()],
     }),
     componentWrapperDecorator((story) => `${story}`),

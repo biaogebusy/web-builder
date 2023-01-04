@@ -13,135 +13,6 @@ import { TagsService } from '@core/service/tags.service';
 import { ScreenService } from '@core/service/screen.service';
 import { AmapService } from '@core/service/amap.service';
 import { IMap } from '@core/interface/IAmap';
-import { IShowcase3v6 } from '@core/interface/combs/IShowcase';
-
-const feature: IShowcase3v6 = {
-  id: '',
-  spacer: 'md',
-  classes: '',
-  title: {
-    spacer: 'sm',
-    title: {
-      label: '职位招聘',
-      style: 'style-v1',
-    },
-    body: '<p class="text-center">免费推送相关职位信息，关注公众号随时随地了解职位情况。</p>',
-  },
-  bg: {
-    classes: 'bg-light bg-fill-width',
-  },
-  row: 3,
-  elements: [
-    {
-      img: {
-        src: '/assets/images/logo/codepen.svg',
-        style: {
-          width: '45px',
-          height: '45px',
-        },
-        alt: 'logo',
-      },
-      css3: true,
-      link: {
-        label: '前端开发工程师',
-        classes: 'bold',
-        href: '#',
-      },
-      subTitle: '字节跳动，北京',
-    },
-    {
-      img: {
-        src: '/assets/images/logo/codepen.svg',
-        style: {
-          width: '45px',
-          height: '45px',
-        },
-        alt: 'logo',
-      },
-      css3: true,
-      link: {
-        label: '前端架构师',
-        classes: 'bold',
-        href: '#',
-      },
-      subTitle: '美团，广州',
-    },
-    {
-      img: {
-        src: '/assets/images/logo/codepen.svg',
-        style: {
-          width: '45px',
-          height: '45px',
-        },
-        alt: 'logo',
-      },
-      css3: true,
-      link: {
-        label: '后端开发',
-        classes: 'bold',
-        href: '#',
-      },
-      subTitle: '微软，北京',
-    },
-    {
-      img: {
-        src: '/assets/images/logo/codepen.svg',
-        style: {
-          width: '45px',
-          height: '45px',
-        },
-        alt: 'logo',
-      },
-      css3: true,
-      link: {
-        label: 'UI 设计师',
-        classes: 'bold',
-        href: '#',
-      },
-      subTitle: '腾讯，深圳',
-    },
-    {
-      img: {
-        src: '/assets/images/logo/codepen.svg',
-        style: {
-          width: '45px',
-          height: '45px',
-        },
-        alt: 'logo',
-      },
-      css3: true,
-      link: {
-        label: 'IOS 开发',
-        classes: 'bold',
-        href: '#',
-      },
-      subTitle: '华为，深圳',
-    },
-    {
-      img: {
-        src: '/assets/images/logo/codepen.svg',
-        style: {
-          width: '45px',
-          height: '45px',
-        },
-        alt: 'logo',
-      },
-      css3: true,
-      link: {
-        label: '游戏开发',
-        classes: 'bold',
-        href: '#',
-      },
-      subTitle: '腾讯，成都',
-    },
-  ],
-  action: {
-    label: '查看更多',
-    href: '#',
-    style: 'style-v1',
-    icon: 'open_in_new',
-  },
-};
 
 @Component({
   selector: 'app-job',
@@ -163,7 +34,6 @@ export class JobComponent implements OnInit {
   geocoder: any;
   selectedId: string;
   selected: any;
-  feature = feature;
 
   show = false;
   constructor(
@@ -247,7 +117,7 @@ export class JobComponent implements OnInit {
     this.cd.detectChanges();
   }
 
-  onScroll(event: boolean): void {
+  onScroll(): void {
     this.moveBox(false);
   }
 
@@ -310,9 +180,11 @@ export class JobComponent implements OnInit {
         title: item.title,
         number: item.number,
         salary: item.salary,
-        skill: map(item.skill, (skill) => {
-          return { label: skill.name };
-        }),
+        skill: {
+          elements: map(item.skill, (skill) => {
+            return { label: skill.name };
+          }),
+        },
         deadline: item.deadline,
         work_experience: item.work_experience,
         body: item.body.value,
@@ -331,9 +203,11 @@ export class JobComponent implements OnInit {
             },
           },
           title: item.company.title,
-          welfare: map(item.company.welfare, (welfare) => {
-            return { label: welfare };
-          }),
+          welfare: {
+            elements: map(item.company.welfare, (welfare) => {
+              return { label: welfare, selected: true };
+            }),
+          },
           address: item.company.address.address_line1,
           phone: item.company.phone,
         },

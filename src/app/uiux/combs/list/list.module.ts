@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '../../widgets/widgets.module';
 import { ShowcaseModule } from '../showcase/showcase.module';
@@ -12,6 +12,7 @@ import { ListThinComponent } from './list/list-thin/list-thin.component';
 import { SearchModule } from '../search/search.module';
 import { TreeListComponent } from './tree-list/tree-list.component';
 import { DynamicCardList1v1Component } from './dynamic-card-list1v1/dynamic-card-list1v1.component';
+import { BaseModule } from '@uiux/base/base.module';
 
 const components = [
   ListComponent,
@@ -30,4 +31,13 @@ const components = [
   imports: [ShareModule, WidgetsModule, ShowcaseModule, SearchModule],
   exports: [...components],
 })
-export class ListModule {}
+export class ListModule extends BaseModule {
+  dynamicComponents = [...components];
+
+  constructor(protected componentFactoryResolver: ComponentFactoryResolver) {
+    super(componentFactoryResolver);
+  }
+  static forStorybook(): any {
+    return [...components];
+  }
+}

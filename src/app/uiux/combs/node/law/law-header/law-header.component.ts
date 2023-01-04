@@ -10,6 +10,7 @@ import {
 import autoTable from 'jspdf-autotable';
 import { jsPDF } from 'jspdf';
 import { ScreenService } from '@core/service/screen.service';
+import type { ICase } from '@core/interface/node/INode';
 @Component({
   selector: 'app-law-header',
   templateUrl: './law-header.component.html',
@@ -17,22 +18,24 @@ import { ScreenService } from '@core/service/screen.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LawHeaderComponent implements OnInit, AfterViewInit {
-  @Input() content: any;
+  @Input() content: ICase;
   saveDocLoading = false;
   disabled = true;
   constructor(
     private screenService: ScreenService,
     private cd: ChangeDetectorRef
-  ) {
-    this.loadFonts().then(() => {
-      console.log('Load font done!');
-      this.disabled = false;
-      this.saveDocLoading = false;
-      this.cd.detectChanges();
-    });
-  }
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.screenService.isPlatformBrowser() && this.content?.pdf) {
+      this.loadFonts().then(() => {
+        console.log('Load font done!');
+        this.disabled = false;
+        this.saveDocLoading = false;
+        this.cd.detectChanges();
+      });
+    }
+  }
 
   ngAfterViewInit(): void {}
 
@@ -58,6 +61,9 @@ export class LawHeaderComponent implements OnInit, AfterViewInit {
     const doc = new jsPDF({
       orientation: 'portrait',
       unit: 'px',
+    });
+    doc.setProperties({
+      title: this.content.pdf.fileName || this.content.title,
     });
     doc.setFont('fangsong_GB2312');
     doc.setFontSize(12);
@@ -125,7 +131,6 @@ export class LawHeaderComponent implements OnInit, AfterViewInit {
           data.column.index === pdf.sign.column &&
           data.cell.section === 'body'
         ) {
-          console.log(data);
           const dim = data.cell.height - data.cell.padding('vertical');
           const textPos = data.cell.getTextPos();
           doc.addImage(pdf.sign.data, textPos.x, textPos.y - 7, 47, 14);
@@ -155,8 +160,9 @@ export class LawHeaderComponent implements OnInit, AfterViewInit {
       });
     }
     this.saveDocLoading = false;
+    const title = this.content.title.replace(/#/i, '');
     doc.output('dataurlnewwindow', {
-      filename: `${this.content.title || 'doc'}.pdf`,
+      filename: `${title || 'doc'}.pdf`,
     });
     this.cd.detectChanges();
     // doc.save('sample.pdf');

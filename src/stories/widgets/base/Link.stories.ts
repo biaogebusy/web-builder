@@ -1,10 +1,8 @@
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { LoopWidgetsComponent } from '@uiux/widgets/loop-widgets/loop-widgets.component';
 import * as TextStories from './Text.stories';
 import { StorysModule } from '@core/storys.module';
 import { LinkComponent } from '@uiux/widgets/link/link.component';
-import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 
 export default {
   title: '基础组件/基本元素/链接',
@@ -13,7 +11,7 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [],
-      entryComponents: [DialogComponent, LoopWidgetsComponent],
+      entryComponents: [...StorysModule.forEntryComponents()],
       imports: [StorysModule.forRoot()],
     }),
   ],

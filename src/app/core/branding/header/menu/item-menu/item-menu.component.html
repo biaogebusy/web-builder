@@ -1,4 +1,4 @@
-<div class="item-menu" #itemMenu *ngIf="content && checkShow(content, user)">
+<div class="item-menu" #itemMenu *ngIf="content && userSerivice.checkShow(content, user)">
   <ng-container *ngIf="(!isMegaMenu) && content.child && content.child.length >0">
 
     <!-- hover open -->

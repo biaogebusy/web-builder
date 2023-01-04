@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'app-notfound',
+  selector: 'app-404',
   templateUrl: './notfound.component.html',
   styleUrls: ['./notfound.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

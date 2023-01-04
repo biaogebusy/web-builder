@@ -6,10 +6,10 @@ import {
   OnInit,
 } from '@angular/core';
 import { ScreenService } from '@core/service/screen.service';
-import { BaseComponent } from '@uiux/base/base.widget';
 import type { IUser } from '@core/interface/IUser';
 import { USER } from '@core/token/token-providers';
 import type { IHeaderParams, IMainMenu } from '@core/interface/IBranding';
+import { UserService } from '@core/service/user.service';
 
 @Component({
   selector: 'app-item-menu',
@@ -17,17 +17,16 @@ import type { IHeaderParams, IMainMenu } from '@core/interface/IBranding';
   styleUrls: ['./item-menu.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ItemMenuComponent extends BaseComponent implements OnInit {
+export class ItemMenuComponent implements OnInit {
   @Input() content: IMainMenu;
   @Input() params: IHeaderParams;
   isMegaMenu: boolean;
 
   constructor(
     private screenService: ScreenService,
+    public userSerivice: UserService,
     @Inject(USER) public user: IUser
-  ) {
-    super();
-  }
+  ) {}
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {

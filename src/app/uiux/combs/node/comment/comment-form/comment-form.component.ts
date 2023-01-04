@@ -109,7 +109,7 @@ export class CommentFormComponent implements OnInit, OnDestroy {
       .addComment(type, params, token)
       .pipe(takeUntil(this.destroy$))
       .subscribe(
-        (res) => {
+        () => {
           this.commentContent = '';
           this.done('提交成功！');
           this.cd.detectChanges();
@@ -155,7 +155,7 @@ export class CommentFormComponent implements OnInit, OnDestroy {
         // }),
         takeUntil(this.destroy$)
       )
-      .subscribe((res) => {
+      .subscribe(() => {
         this.commentContent = '';
         this.done('回复成功！');
         this.cd.detectChanges();
@@ -195,7 +195,7 @@ export class CommentFormComponent implements OnInit, OnDestroy {
         takeUntil(this.destroy$)
       )
       .subscribe(
-        (res) => {
+        () => {
           this.done('更新成功！');
           this.cd.detectChanges();
         },

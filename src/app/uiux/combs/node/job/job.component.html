@@ -10,7 +10,7 @@
       <div class="m-y" *ngIf="!nodes?.elements?.length" fxLayoutAlign="center center">
         暂无相关数据
       </div>
-      <app-job-list (selected)="onSelected($event)" (scroller)="onScroll($event)"
+      <app-job-list (selected)="onSelected($event)" (scroller)="onScroll()"
         *ngIf="nodes?.elements && nodes.elements.length > 0" [content]="nodes" [selectedId]="selectedId">
       </app-job-list>
     </div>
@@ -23,5 +23,4 @@
       </div>
     </div>
   </div>
-  <app-showcase3v6 [content]="feature"></app-showcase3v6>
 </div>

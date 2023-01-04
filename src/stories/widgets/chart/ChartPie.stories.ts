@@ -97,6 +97,9 @@ Pie.args = {
         name: 'Access From',
         type: 'pie',
         radius: '50%',
+        label: {
+          formatter: '{b}: {d}%',
+        },
         emphasis: {
           itemStyle: {
             shadowBlur: 10,

@@ -1,0 +1,51 @@
+import { Meta } from "@storybook/addon-docs";
+
+<Meta title="Drupal/JSONAPI/更新用户头像" id="user-picture" />
+
+## 使用 Drupal JSONAPI 更新用户头像
+
+JSONAPI 在 Drupal8 已经可以上传文件，相关文章参考底部资源。
+
+### 配置
+
+- 允许接受 JSON:API 的创建、读、更新和删除所有操作。
+  ![jsonapiSetting](/assets/storybook/assets/drupal/jsonapi-setting.png)
+
+- `/api/v1` 可在 JSONAPI 中根据需要设置 api 前缀，以区分不同的 api 版本：
+  ![jsonapiPre](/assets/storybook/assets/drupal/jsonapi-pre.png)
+
+### 在微信小程序中，使用 JSONAPI 更新用户头像
+
+POST 方法已经封装：
+
+```js
+export function updateUserPicture(uuid, avatarPath) {
+  const uid = userStore.profile.uid || "user";
+  const imageData = wx.getFileSystemManager().readFileSync(avatarPath);
+  return POST(`/api/v1/user/user/${uuid}/user_picture`, {
+    header: {
+      Accept: "application/vnd.api+json",
+      "Content-Type": "application/octet-stream",
+      "Content-Disposition": 'file; filename="' + uid + '-picture.jpg"',
+    },
+    data: imageData,
+  });
+}
+
+// 调用
+updateUserPicture(uuid, avatarUrl.value).then((res) => {
+  // do something
+  showToast({
+    icon: "success",
+    title: "头像更新成功",
+  });
+});
+```
+
+注意：`filename的值不能是中文`。
+`wx.getFileSystemManager().readFileSync(avatarPath)` 微信小程序的方法会返回图片文件的 base64 数据。
+
+### 相关的文章参考：
+
+- [File Uploads](https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/file-uploads)
+- [Allow creation of file entities from binary data](https://www.drupal.org/node/3024331)
