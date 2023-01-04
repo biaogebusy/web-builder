@@ -7,6 +7,7 @@ import {
   Inject,
   OnChanges,
   SimpleChanges,
+  ChangeDetectorRef,
 } from '@angular/core';
 import type { IAmap, IMap, IMark } from '@core/interface/IAmap';
 import { AmapService } from '@core/service/amap.service';
@@ -29,11 +30,13 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
   geocoder: any;
   map: any;
   center: any;
+  mapLoading = false;
 
   constructor(
     private amapService: AmapService,
     private configService: ConfigService,
     private screenService: ScreenService,
+    private cd: ChangeDetectorRef,
     @Inject(THEME) private theme: string,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
   ) {}
@@ -41,12 +44,23 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       this.initMap(this.content);
+      this.amapService.mapLoading$.subscribe((state) => {
+        // init map, run once
+        if (state) {
+          this.getPosition(this.content.elements);
+          this.getMarkers(this.content.elements);
+        }
+      });
     }
   }
 
   ngOnChanges(change: SimpleChanges): void {
     console.log(change);
-    if (!change.firstChange) {
+    const content = change.content;
+    if (!content.firstChange) {
+      this.clearMarkers();
+      this.getPosition(content.currentValue.elements);
+      this.getMarkers(content.currentValue.elements);
     }
   }
 
@@ -61,8 +75,7 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
         this.geocoder = new AMap.Geocoder({
           city: this.content?.city || this.coreConfig?.amap?.city || '全国',
         });
-        this.getPosition(content.elements);
-        this.getMarkers(content.elements);
+        this.renderMap();
       },
       (error) => {
         console.log(error);
@@ -117,12 +130,17 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
         this.map.setMapStyle(newMapStyle);
       });
     }
+    this.amapService.mapLoading$.next(true);
   }
 
   getMarkers(lists: any[]): void {
-    this.renderMap();
     this.onMarkers();
     this.setMarkers(lists);
+  }
+
+  clearMarkers() {
+    this.map.remove(this.markers);
+    this.cd.detectChanges();
   }
 
   setMarkers(lists: any[]): void {

@@ -15,6 +15,7 @@ import { ScreenService } from './screen.service';
 export class AmapService {
   position$ = new Subject();
   markers$: Subject<IMark> = new Subject();
+  mapLoading$: Subject<boolean> = new Subject();
   constructor(private screenSerivce: ScreenService) {}
 
   load(config: IAmap): Observable<any> {
