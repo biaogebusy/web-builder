@@ -43,14 +43,14 @@ export class AmapService {
 
   getMarker(item: IMarkInfo): any {
     return `
-    <div class="mark-card p-y-xs p-x-xs">
+    <div class="mark-card reverse p-y-xs p-x-xs">
       <div class="media">
         <img src="${item.img}" />
       </div>
       <div class="media-body m-left-xs">
-        <div class="mat-h4 m-bottom-xs text-base one-line">${item.title}</div>
-        <div class="mat-h4 m-bottom-xs text-dark title one-line">${item.subTitle}</div>
-        <div class="mat-h3 meta m-bottom-0 text-primary">
+        <div class="text-base one-line">${item.title}</div>
+        <div class="text-dark title one-line">${item.subTitle}</div>
+        <div class="meta m-bottom-0 text-primary">
           <div>${item.badge_1}</div> <div>${item.badge_2}</div>
         </div>
       </div>
