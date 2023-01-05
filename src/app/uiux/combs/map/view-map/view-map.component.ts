@@ -88,7 +88,8 @@ export class ViewMapComponent extends BaseComponent implements OnInit {
     const obj: IMark = {
       index: i,
       item,
-      marker: this.getMarker(item),
+      content: this.getMarker(item),
+      setCenter: true,
     };
 
     this.amapService.markers$.next(obj);

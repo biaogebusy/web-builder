@@ -31,6 +31,7 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
   map: any;
   center: any;
   mapLoading: boolean;
+  currentInfoWindow: any;
 
   constructor(
     private amapService: AmapService,
@@ -58,7 +59,6 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnChanges(change: SimpleChanges): void {
-    console.log(change);
     const content = change.content;
     if (
       !this.mapLoading &&
@@ -153,12 +153,24 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   setMarkers(lists: any[]): void {
-    this.markers = lists.map((item: any) => {
+    this.markers = lists.map((item: any, index: number) => {
       return new this.AMap.Marker({
         content: this.simpleMarkerTem(),
         position: item.position,
         title: item.title,
-      });
+      })
+        .on('mouseover', (e: any) => {
+          const obj: IMark = {
+            index,
+            item,
+            content: this.getMarker(item),
+            setCenter: false,
+          };
+          this.amapService.markers$.next(obj);
+        })
+        .on('mouseout', () => {
+          this.currentInfoWindow.close();
+        });
     });
     this.map.add(this.markers);
     this.cd.detectChanges();
@@ -175,18 +187,38 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
       const position = this.map
         .getAllOverlays('marker')
         [marker.index].getPosition();
-      const popup = new this.AMap.InfoWindow({
-        content: marker.marker,
+      this.currentInfoWindow = new this.AMap.InfoWindow({
+        content: marker.content,
         isCustom: true,
         offset: new this.AMap.Pixel(15, -2),
       });
-      popup.open(this.map, position);
-      this.map.setCenter(position);
+      this.currentInfoWindow.open(this.map, position);
+      if (marker.setCenter) {
+        this.map.setCenter(position);
+      }
     });
   }
 
   setFitView(): void {
     this.map.setFitView();
+  }
+
+  getMarker(item: any): any {
+    return `
+    <div class="mark-card p-y-xs p-x-xs">
+      <div class="media">
+        <img src="${item.img}" />
+      </div>
+      <div class="media-body m-left-xs">
+        <div class="mat-h4 m-bottom-xs text-base one-line">${item.title}</div>
+        <div class="mat-h4 m-bottom-xs text-dark title one-line">${item.subTitle}</div>
+        <div class="mat-h3 meta m-bottom-0 text-primary">
+          <div>${item.badge_1}</div> <div>${item.badge_2}</div>
+        </div>
+      </div>
+      <div class="top arrow"></div>
+    </div>
+    `;
   }
 
   ngOnDestroy(): void {}

@@ -13,8 +13,9 @@ export interface IAmap {
 
 export interface IMark {
   index: number;
-  marker: string;
   item?: any;
+  content: string;
+  setCenter: boolean;
 }
 
 export interface IMap {

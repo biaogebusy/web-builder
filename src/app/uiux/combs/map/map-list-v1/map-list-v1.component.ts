@@ -25,7 +25,8 @@ export class MapListV1Component implements OnInit {
   onMap(event: IMark): void {
     const obj: IMark = {
       index: event.index,
-      marker: this.markerTem(event.item),
+      content: this.markerTem(event.item),
+      setCenter: true,
     };
     this.amapService.markers$.next(obj);
   }
