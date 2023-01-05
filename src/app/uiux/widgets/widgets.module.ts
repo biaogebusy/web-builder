@@ -13,7 +13,7 @@ import { CdkTableModule } from '@angular/cdk/table';
 // Material
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSortModule } from '@angular/material/sort';
@@ -260,7 +260,7 @@ const components = [
   ],
   providers: [
     MatDatepickerModule,
-    // { provide: MAT_DATE_LOCALE, useValue: 'zh-cn' },
+    { provide: MAT_DATE_LOCALE, useValue: 'zh-cn' },
   ],
 })
 export class WidgetsModule extends BaseModule {
