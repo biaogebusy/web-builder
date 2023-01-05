@@ -9,12 +9,9 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { FormService } from '@core/service/form.service';
 import { isString, merge } from 'lodash-es';
 import { NodeService } from '@core/service/node.service';
-import { IMark, IMarkInfo } from '@core/interface/IAmap';
+import { IMark } from '@core/interface/IAmap';
 import { AmapService } from '@core/service/amap.service';
 import { BaseComponent } from '@uiux/base/base.widget';
-import { ContentState } from '@core/state/ContentState';
-import { ContentService } from '@core/service/content.service';
-import { IPage } from '@core/interface/IAppConfig';
 
 @Component({
   selector: 'app-view-map',
@@ -35,8 +32,6 @@ export class ViewMapComponent extends BaseComponent implements OnInit {
     private formService: FormService,
     private nodeService: NodeService,
     private amapService: AmapService,
-    private contentState: ContentState,
-    private contentService: ContentService,
     private cd: ChangeDetectorRef
   ) {
     super();
@@ -93,16 +88,5 @@ export class ViewMapComponent extends BaseComponent implements OnInit {
     };
 
     this.amapService.markers$.next(obj);
-    if (this.content?.params?.drawer) {
-      this.contentState.drawerOpened$.next(true);
-      this.contentState.drawerLoading$.next(true);
-      this.contentService
-        .loadPageContent(item.url)
-        .subscribe((content: IPage) => {
-          this.contentState.drawerLoading$.next(false);
-          this.contentState.drawerContent$.next(content);
-          this.cd.detectChanges();
-        });
-    }
   }
 }

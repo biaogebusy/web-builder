@@ -42,14 +42,15 @@ export class AmapService {
   }
 
   getMarker(item: IMarkInfo): any {
+    const isLink = item.url ? 'drawer' : '';
     return `
     <div class="mark-card reverse p-y-xs p-x-xs">
       <div class="media">
         <img src="${item.img}" />
       </div>
       <div class="media-body m-left-xs">
-        <div class="text-base one-line">${item.title}</div>
-        <div class="text-dark title one-line">${item.subTitle}</div>
+        <div class="title one-line ${isLink}" data-url="${item.url}">${item.title}</div>
+        <div class="text-dark sub-title one-line">${item.subTitle}</div>
         <div class="meta m-bottom-0 text-primary">
           <div>${item.badge_1}</div> <div>${item.badge_2}</div>
         </div>

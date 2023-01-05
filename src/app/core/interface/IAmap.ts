@@ -24,6 +24,7 @@ export interface IMarkInfo {
   subTitle: string;
   badge_1: string;
   badge_2: string;
+  [key: string]: string;
 }
 
 export interface IMap {

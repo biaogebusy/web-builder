@@ -12,11 +12,13 @@ import {
 import type { IAmap, IMap, IMark, IMarkInfo } from '@core/interface/IAmap';
 import { AmapService } from '@core/service/amap.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
-import type { ICoreConfig } from '@core/interface/IAppConfig';
+import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { ConfigService } from '@core/service/config.service';
 import { THEME } from '@core/token/token-providers';
 import { ScreenService } from '@core/service/screen.service';
 import { isArray } from 'lodash-es';
+import { ContentService } from '@core/service/content.service';
+import { ContentState } from '@core/state/ContentState';
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -37,6 +39,8 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
     private amapService: AmapService,
     private configService: ConfigService,
     private screenService: ScreenService,
+    private contentState: ContentState,
+    private contentService: ContentService,
     private cd: ChangeDetectorRef,
     @Inject(THEME) private theme: string,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
@@ -180,6 +184,18 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
     return `
       <div class="mark"></div>
     `;
+  }
+
+  onMarkLink(event: any): void {
+    if (event.target.className.includes('drawer')) {
+      const url = event.target.dataset.url;
+      this.contentState.drawerOpened$.next(true);
+      this.contentState.drawerLoading$.next(true);
+      this.contentService.loadPageContent(url).subscribe((content: IPage) => {
+        this.contentState.drawerLoading$.next(false);
+        this.contentState.drawerContent$.next(content);
+      });
+    }
   }
 
   onMarkers(): void {
