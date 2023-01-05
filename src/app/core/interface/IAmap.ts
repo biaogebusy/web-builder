@@ -13,8 +13,18 @@ export interface IAmap {
 
 export interface IMark {
   index: number;
-  marker: string;
   item?: any;
+  content: string;
+  setCenter: boolean;
+}
+
+export interface IMarkInfo {
+  img: string;
+  title: string;
+  subTitle: string;
+  badge_1: string;
+  badge_2: string;
+  [key: string]: string;
 }
 
 export interface IMap {

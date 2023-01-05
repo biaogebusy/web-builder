@@ -12,9 +12,6 @@ import { NodeService } from '@core/service/node.service';
 import { IMark } from '@core/interface/IAmap';
 import { AmapService } from '@core/service/amap.service';
 import { BaseComponent } from '@uiux/base/base.widget';
-import { ContentState } from '@core/state/ContentState';
-import { ContentService } from '@core/service/content.service';
-import { IPage } from '@core/interface/IAppConfig';
 
 @Component({
   selector: 'app-view-map',
@@ -35,8 +32,6 @@ export class ViewMapComponent extends BaseComponent implements OnInit {
     private formService: FormService,
     private nodeService: NodeService,
     private amapService: AmapService,
-    private contentState: ContentState,
-    private contentService: ContentService,
     private cd: ChangeDetectorRef
   ) {
     super();
@@ -88,38 +83,10 @@ export class ViewMapComponent extends BaseComponent implements OnInit {
     const obj: IMark = {
       index: i,
       item,
-      marker: this.getMarker(item),
+      content: this.amapService.getMarker(item),
+      setCenter: true,
     };
 
     this.amapService.markers$.next(obj);
-    if (this.content?.params?.drawer) {
-      this.contentState.drawerOpened$.next(true);
-      this.contentState.drawerLoading$.next(true);
-      this.contentService
-        .loadPageContent(item.url)
-        .subscribe((content: IPage) => {
-          this.contentState.drawerLoading$.next(false);
-          this.contentState.drawerContent$.next(content);
-          this.cd.detectChanges();
-        });
-    }
-  }
-
-  getMarker(item: any): any {
-    return `
-    <div class="mark-card p-y-xs p-x-xs">
-      <div class="media">
-        <img src="${item.img}" />
-      </div>
-      <div class="media-body m-left-xs">
-        <div class="mat-h4 m-bottom-xs text-base one-line">${item.title}</div>
-        <div class="mat-h4 m-bottom-xs text-dark title one-line">${item.subTitle}</div>
-        <div class="mat-h3 meta m-bottom-0 text-primary">
-          <div>${item.badge_1}</div> <div>${item.badge_2}</div>
-        </div>
-      </div>
-      <div class="top arrow"></div>
-    </div>
-    `;
   }
 }
