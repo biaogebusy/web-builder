@@ -19,8 +19,8 @@
       <a mat-menu-item [routerLink]="userService.userPage">
         <mat-icon>account_circle</mat-icon>{{currentUser.display_name}}
       </a>
-      <ng-container *ngFor="let item of content;trackBy:trackByFn">
-        <button aria-label="user link" mat-menu-item>
+      <ng-container *ngFor="let item of content;">
+        <button aria-label="user link" mat-menu-item *ngIf="userService.checkShow(item, currentUser)">
           <app-icon [content]="item.icon"></app-icon>
           <app-link [content]="item"></app-link>
         </button>
