@@ -10,20 +10,50 @@
       },
       "form": [
         {
-          "type": "input",
+          "type": "mat-select",
           "key": "advert",
-          "className": "m-right-xs width-30",
+          "className": "m-right-xs width-20",
+          "api": "/api/v2/filter/advert",
           "templateOptions": {
-            "label": "广告标题"
+            "multiple": false,
+            "search": true,
+            "hideSelected": true,
+            "label": "选择广告"
           }
         },
         {
-          "type": "input",
+          "type": "mat-select",
           "key": "shop",
-          "className": "m-right-xs width-30",
+          "className": "m-right-xs width-20",
+          "api": "/api/v2/filter/shop",
           "templateOptions": {
-            "label": "门店名称"
+            "multiple": false,
+            "search": true,
+            "hideSelected": true,
+            "label": "选择门店"
           }
+        },
+        {
+          "type": "date-range",
+          "key": "date",
+          "className": "width-50",
+          "templateOptions": {
+            "label": "日期范围",
+            "value": "",
+            "placeholder": "请选择日期"
+          },
+          "fieldGroup": [
+            {
+              "type": "input",
+              "key": "start",
+              "placeholder": "开始"
+            },
+            {
+              "type": "input",
+              "key": "end",
+              "placeholder": "结束"
+            }
+          ]
         }
       ]
     }
