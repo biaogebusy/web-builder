@@ -18,6 +18,14 @@ export interface IMark {
   setCenter: boolean;
 }
 
+export interface IMarkInfo {
+  img: string;
+  title: string;
+  subTitle: string;
+  badge_1: string;
+  badge_2: string;
+}
+
 export interface IMap {
   city?: string;
   elements: any[];

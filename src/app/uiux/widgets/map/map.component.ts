@@ -9,7 +9,7 @@ import {
   SimpleChanges,
   ChangeDetectorRef,
 } from '@angular/core';
-import type { IAmap, IMap, IMark } from '@core/interface/IAmap';
+import type { IAmap, IMap, IMark, IMarkInfo } from '@core/interface/IAmap';
 import { AmapService } from '@core/service/amap.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
@@ -163,7 +163,7 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
           const obj: IMark = {
             index,
             item,
-            content: this.getMarker(item),
+            content: this.amapService.getMarker(item),
             setCenter: false,
           };
           this.amapService.markers$.next(obj);
@@ -201,24 +201,6 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
 
   setFitView(): void {
     this.map.setFitView();
-  }
-
-  getMarker(item: any): any {
-    return `
-    <div class="mark-card p-y-xs p-x-xs">
-      <div class="media">
-        <img src="${item.img}" />
-      </div>
-      <div class="media-body m-left-xs">
-        <div class="mat-h4 m-bottom-xs text-base one-line">${item.title}</div>
-        <div class="mat-h4 m-bottom-xs text-dark title one-line">${item.subTitle}</div>
-        <div class="mat-h3 meta m-bottom-0 text-primary">
-          <div>${item.badge_1}</div> <div>${item.badge_2}</div>
-        </div>
-      </div>
-      <div class="top arrow"></div>
-    </div>
-    `;
   }
 
   ngOnDestroy(): void {}

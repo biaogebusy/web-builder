@@ -9,7 +9,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { FormService } from '@core/service/form.service';
 import { isString, merge } from 'lodash-es';
 import { NodeService } from '@core/service/node.service';
-import { IMark } from '@core/interface/IAmap';
+import { IMark, IMarkInfo } from '@core/interface/IAmap';
 import { AmapService } from '@core/service/amap.service';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { ContentState } from '@core/state/ContentState';
@@ -88,7 +88,7 @@ export class ViewMapComponent extends BaseComponent implements OnInit {
     const obj: IMark = {
       index: i,
       item,
-      content: this.getMarker(item),
+      content: this.amapService.getMarker(item),
       setCenter: true,
     };
 
@@ -104,23 +104,5 @@ export class ViewMapComponent extends BaseComponent implements OnInit {
           this.cd.detectChanges();
         });
     }
-  }
-
-  getMarker(item: any): any {
-    return `
-    <div class="mark-card p-y-xs p-x-xs">
-      <div class="media">
-        <img src="${item.img}" />
-      </div>
-      <div class="media-body m-left-xs">
-        <div class="mat-h4 m-bottom-xs text-base one-line">${item.title}</div>
-        <div class="mat-h4 m-bottom-xs text-dark title one-line">${item.subTitle}</div>
-        <div class="mat-h3 meta m-bottom-0 text-primary">
-          <div>${item.badge_1}</div> <div>${item.badge_2}</div>
-        </div>
-      </div>
-      <div class="top arrow"></div>
-    </div>
-    `;
   }
 }
