@@ -8,7 +8,6 @@ import { BlockComponent } from '@uiux/combs/block/block/block.component';
 import { BlockModule } from '@uiux/combs/block/block.module';
 import { StorysModule } from '@core/storys.module';
 import { BrandingModule } from '@core/branding/branding.module';
-import { RouterTestingModule } from '@angular/router/testing';
 
 export default {
   title: '示例页面/首页示例/v2 服务介绍',
