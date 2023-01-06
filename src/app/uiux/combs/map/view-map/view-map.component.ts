@@ -12,6 +12,7 @@ import { NodeService } from '@core/service/node.service';
 import { IMark } from '@core/interface/IAmap';
 import { AmapService } from '@core/service/amap.service';
 import { BaseComponent } from '@uiux/base/base.widget';
+import { IViewMap, IViewMapItem } from '@core/interface/combs/IViewMap';
 
 @Component({
   selector: 'app-view-map',
@@ -20,8 +21,8 @@ import { BaseComponent } from '@uiux/base/base.widget';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ViewMapComponent extends BaseComponent implements OnInit {
-  @Input() content: any;
-  lists: any[];
+  @Input() content: IViewMap;
+  lists: IViewMapItem[];
   form = new FormGroup({
     page: new FormControl(),
   });
@@ -41,30 +42,31 @@ export class ViewMapComponent extends BaseComponent implements OnInit {
     if (this.content?.params?.api) {
       this.getContent();
     } else {
-      this.lists = this.content.elements;
-      this.cd.detectChanges();
+      if (this.content.elements) {
+        this.lists = this.content.elements;
+        this.cd.detectChanges();
+      }
     }
   }
 
   getContent(options = {}): void {
     const params = this.getApiParams(options);
+    const urlApi = this.content.params.api || '';
     console.log(params);
     this.loading = true;
-    this.nodeService
-      .search(this.content.params.api, params)
-      .subscribe(({ rows, pager }) => {
-        rows.forEach((item: any) => {
-          if (item.address) {
-            item.address = item.address.replace(/\s+/g, '').trim();
-          }
-          if (item.position && isString(item.position)) {
-            item.position = item.position.split(',');
-          }
-        });
-        this.lists = [...rows];
-        this.loading = false;
-        this.cd.detectChanges();
+    this.nodeService.search(urlApi, params).subscribe(({ rows, pager }) => {
+      rows.forEach((item: any) => {
+        if (item.address) {
+          item.address = item.address.replace(/\s+/g, '').trim();
+        }
+        if (item.position && isString(item.position)) {
+          item.position = item.position.split(',');
+        }
       });
+      this.lists = [...rows];
+      this.loading = false;
+      this.cd.detectChanges();
+    });
   }
 
   onModelChange(value: any): void {
