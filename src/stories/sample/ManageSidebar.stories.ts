@@ -39,7 +39,7 @@ export default {
     componentWrapperDecorator(
       (story) => `
     <mat-drawer-container>
-      <mat-drawer id="sidebar" mode="side" opened="false" class="sidebar">
+      <mat-drawer id="sidebar" mode="side" class="sidebar">
         <app-manage-sidebar></app-manage-sidebar>
       </mat-drawer>
       <mat-drawer-content id="main-container">

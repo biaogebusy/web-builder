@@ -11,7 +11,6 @@ export interface ILocation extends ICombsBase {
 }
 
 export interface IMapListv1 {
-  elements: any[];
   title: ITitle;
   meta: {
     label: string;

@@ -1,7 +1,8 @@
 {
   "header": {
     "params": {
-      "themeSwitch": true,
+      "themeSwitch": false,
+      "禁用switch": "fix storybook error",
       "userInfo": true,
       "isMegaMenu": true,
       "menuHoverOpen": true

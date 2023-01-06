@@ -1,4 +1,4 @@
-import { ModuleWithProviders, NgModule } from '@angular/core';
+import { APP_INITIALIZER, ModuleWithProviders, NgModule } from '@angular/core';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { HttpClientModule } from '@angular/common/http';
@@ -38,6 +38,7 @@ import { VideoModule } from '@uiux/combs/video/video.module';
 import { CombsModule } from '@uiux/combs/combs.module';
 import { CarouselModule } from '@uiux/combs/carousel/carousel.module';
 import { ComponentService } from '@core/service/component.service';
+import { CalendarModule } from '@uiux/combs/calendar/calendar.module';
 
 export function sleep(ms: number): Promise<any> {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -117,6 +118,7 @@ export class StorysModule {
       ...ActionModule.forStorybook(),
       ...BannerModule.forStorybook(),
       ...CalculatorModule.forStorybook(),
+      ...CalendarModule.forStorybook(),
       ...CarouselModule.forStorybook(),
       ...HeroModule.forStorybook(),
       ...ListModule.forStorybook(),

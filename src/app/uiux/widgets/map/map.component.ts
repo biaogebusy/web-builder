@@ -54,8 +54,7 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
         // init map, run once
         if (state) {
           this.mapLoading = false;
-          this.getPosition(this.content.elements);
-          this.getMarkers(this.content.elements);
+          this.getPositionAndMarkers(this.content.elements);
           this.cd.detectChanges();
         }
       });
@@ -66,11 +65,18 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
     const content = change.content;
     if (
       !this.mapLoading &&
+      !content.firstChange &&
       content.currentValue.elements &&
       content.currentValue.elements.length > 0
     ) {
-      this.getPosition(content.currentValue.elements);
-      this.getMarkers(content.currentValue.elements);
+      this.getPositionAndMarkers(content.currentValue.elements);
+    }
+  }
+
+  getPositionAndMarkers(lists: any[]) {
+    if (lists.length > 0) {
+      this.getPosition(lists);
+      this.getMarkers(lists);
     }
   }
 
@@ -95,26 +101,24 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
 
   // https://lbs.amap.com/demo/javascript-api/example/geocoder/geocoding
   getPosition(lists: any): void {
-    if (lists.length > 0) {
-      if (lists[0].position && isArray(lists[0].position)) {
-        this.getMarkers(lists);
-      } else {
-        lists.forEach((item: any, index: number) => {
-          const address = item.address;
-          this.geocoder.getLocation(address, (status: any, result: any) => {
-            if (status === 'complete' && result.info === 'OK') {
-              const location = result.geocodes[0].location;
-              item.position = [location.lng, location.lat];
-              if (item.setCenter) {
-                this.center = [location.lng, location.lat];
-              }
-              if (lists.length === index + 1) {
-                this.getMarkers(lists);
-              }
+    if (lists[0].position && isArray(lists[0].position)) {
+      this.getMarkers(lists);
+    } else {
+      lists.forEach((item: any, index: number) => {
+        const address = item.address;
+        this.geocoder.getLocation(address, (status: any, result: any) => {
+          if (status === 'complete' && result.info === 'OK') {
+            const location = result.geocodes[0].location;
+            item.position = [location.lng, location.lat];
+            if (item.setCenter) {
+              this.center = [location.lng, location.lat];
             }
-          });
+            if (lists.length === index + 1) {
+              this.getMarkers(lists);
+            }
+          }
         });
-      }
+      });
     }
   }
 
