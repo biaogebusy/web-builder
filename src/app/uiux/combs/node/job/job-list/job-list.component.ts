@@ -30,7 +30,8 @@ export class JobListComponent implements OnInit {
     const obj: IMark = {
       index: i,
       item,
-      marker: this.getMarker(item),
+      content: this.getMarker(item),
+      setCenter: true,
     };
     this.selected.emit(obj);
   }

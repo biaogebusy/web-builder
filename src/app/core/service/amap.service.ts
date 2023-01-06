@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as AMapLoader from '@amap/amap-jsapi-loader';
 import { Observable, from, Subject, of } from 'rxjs';
-import type { IAmap, IMark } from '../interface/IAmap';
+import type { IAmap, IMark, IMarkInfo } from '../interface/IAmap';
 import { ScreenService } from './screen.service';
 
 // https://lbs.amap.com/demo-center/js-api
@@ -39,5 +39,27 @@ export class AmapService {
       );
     }
     return of(false);
+  }
+
+  getMarker(item: IMarkInfo): any {
+    const isLink = item.url ? 'drawer' : '';
+    const img = item.img
+      ? `<div class="media"><img src="${item.img}" /></div>`
+      : '';
+    const badge_1 = item.badge_1 ? `<div>${item.badge_1}</div>` : '';
+    const badge_2 = item.badge_2 ? `<div>${item.badge_2}</div>` : '';
+    return `
+    <div class="mark-card reverse p-y-xs p-x-xs">
+        ${img}
+      <div class="media-body m-left-xs">
+        <div class="title one-line ${isLink}" data-url="${item.url}">${item.title}</div>
+        <div class="text-dark sub-title one-line">${item.subTitle}</div>
+        <div class="meta m-bottom-0 text-primary">
+           ${badge_1}${badge_2}
+        </div>
+      </div>
+      <div class="top arrow"></div>
+    </div>
+    `;
   }
 }

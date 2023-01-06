@@ -9,12 +9,10 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { FormService } from '@core/service/form.service';
 import { isString, merge } from 'lodash-es';
 import { NodeService } from '@core/service/node.service';
-import { IMark } from '@core/interface/IAmap';
+import type { IMark } from '@core/interface/IAmap';
 import { AmapService } from '@core/service/amap.service';
 import { BaseComponent } from '@uiux/base/base.widget';
-import { ContentState } from '@core/state/ContentState';
-import { ContentService } from '@core/service/content.service';
-import { IPage } from '@core/interface/IAppConfig';
+import type { IViewMap, IViewMapItem } from '@core/interface/combs/IViewMap';
 
 @Component({
   selector: 'app-view-map',
@@ -23,8 +21,8 @@ import { IPage } from '@core/interface/IAppConfig';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ViewMapComponent extends BaseComponent implements OnInit {
-  @Input() content: any;
-  lists: any[];
+  @Input() content: IViewMap;
+  lists: IViewMapItem[];
   form = new FormGroup({
     page: new FormControl(),
   });
@@ -35,8 +33,6 @@ export class ViewMapComponent extends BaseComponent implements OnInit {
     private formService: FormService,
     private nodeService: NodeService,
     private amapService: AmapService,
-    private contentState: ContentState,
-    private contentService: ContentService,
     private cd: ChangeDetectorRef
   ) {
     super();
@@ -46,30 +42,31 @@ export class ViewMapComponent extends BaseComponent implements OnInit {
     if (this.content?.params?.api) {
       this.getContent();
     } else {
-      this.lists = this.content.elements;
-      this.cd.detectChanges();
+      if (this.content.elements) {
+        this.lists = this.content.elements;
+        this.cd.detectChanges();
+      }
     }
   }
 
   getContent(options = {}): void {
     const params = this.getApiParams(options);
+    const urlApi = this.content.params.api || '';
     console.log(params);
     this.loading = true;
-    this.nodeService
-      .search(this.content.params.api, params)
-      .subscribe(({ rows, pager }) => {
-        rows.forEach((item: any) => {
-          if (item.address) {
-            item.address = item.address.replace(/\s+/g, '').trim();
-          }
-          if (item.position && isString(item.position)) {
-            item.position = item.position.split(',');
-          }
-        });
-        this.lists = [...rows];
-        this.loading = false;
-        this.cd.detectChanges();
+    this.nodeService.search(urlApi, params).subscribe(({ rows, pager }) => {
+      rows.forEach((item: any) => {
+        if (item.address) {
+          item.address = item.address.replace(/\s+/g, '').trim();
+        }
+        if (item.position && isString(item.position)) {
+          item.position = item.position.split(',');
+        }
       });
+      this.lists = [...rows];
+      this.loading = false;
+      this.cd.detectChanges();
+    });
   }
 
   onModelChange(value: any): void {
@@ -88,38 +85,10 @@ export class ViewMapComponent extends BaseComponent implements OnInit {
     const obj: IMark = {
       index: i,
       item,
-      marker: this.getMarker(item),
+      content: this.amapService.getMarker(item),
+      setCenter: true,
     };
 
     this.amapService.markers$.next(obj);
-    if (this.content?.params?.drawer) {
-      this.contentState.drawerOpened$.next(true);
-      this.contentState.drawerLoading$.next(true);
-      this.contentService
-        .loadPageContent(item.url)
-        .subscribe((content: IPage) => {
-          this.contentState.drawerLoading$.next(false);
-          this.contentState.drawerContent$.next(content);
-          this.cd.detectChanges();
-        });
-    }
-  }
-
-  getMarker(item: any): any {
-    return `
-    <div class="mark-card p-y-xs p-x-xs">
-      <div class="media">
-        <img src="${item.img}" />
-      </div>
-      <div class="media-body m-left-xs">
-        <div class="mat-h4 m-bottom-xs text-base one-line">${item.title}</div>
-        <div class="mat-h4 m-bottom-xs text-dark title one-line">${item.subTitle}</div>
-        <div class="mat-h3 meta m-bottom-0 text-primary">
-          <div>${item.badge_1}</div> <div>${item.badge_2}</div>
-        </div>
-      </div>
-      <div class="top arrow"></div>
-    </div>
-    `;
   }
 }

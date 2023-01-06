@@ -12,15 +12,34 @@
     position: relative;
     border-radius: 6px;
     min-width: 200px;
+    font-size: 14px;
 
     .media {
-      width: auto;
+      width: 8rem;
+      height: 8rem;
+      padding: 4px;
+      border-radius: 6px;
+      flex: 0 0 80px;
+      box-sizing: border-box;
       img {
         width: 7rem;
         height: auto;
+        object-fit: contain;
       }
     }
 
+    .media-body {
+      .drawer {
+        cursor: pointer;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    li {
+      list-style: none;
+    }
     .arrow {
       position: absolute;
       display: block;

@@ -66,6 +66,7 @@ export interface ICard1v2 {
 }
 
 export interface ICard1v3 {
+  city?: string;
   elements: Card1v3Item[];
 }
 

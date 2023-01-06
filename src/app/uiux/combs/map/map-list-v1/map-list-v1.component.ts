@@ -16,31 +16,26 @@ import { AmapService } from '@core/service/amap.service';
 })
 export class MapListV1Component implements OnInit {
   @Input() content: IMapListv1;
+  elements: any[];
   loading: boolean;
   selectedId: number;
   constructor(private amapService: AmapService) {}
 
-  ngOnInit(): void {}
-
-  onMap(event: IMark): void {
-    const obj: IMark = {
-      index: event.index,
-      marker: this.markerTem(event.item),
-    };
-    this.amapService.markers$.next(obj);
+  ngOnInit(): void {
+    this.elements = this.content.map.elements.map((item) => {
+      return {
+        ...item,
+        subTitle: item.address,
+      };
+    });
   }
 
-  markerTem(item: any): any {
-    return `
-      <div class="mark-card p-y-xs p-x-xs">
-      <div class="media-body">
-        <div class="mat-h4 m-bottom-xs text-base">${item.title}</div>
-        <div class="mat-h4 m-bottom-xs text-dark title">${item.params.address}</div>
-        <div class="mat-h3 m-bottom-0 text-primary">
-        </div>
-      </div>
-      <div class="top arrow"></div>
-    </div>
-    `;
+  onMap(card: IMark): void {
+    const obj: IMark = {
+      index: card.index,
+      content: this.amapService.getMarker(card.item),
+      setCenter: true,
+    };
+    this.amapService.markers$.next(obj);
   }
 }

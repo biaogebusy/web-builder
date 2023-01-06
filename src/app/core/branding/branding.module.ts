@@ -9,7 +9,6 @@ import { PopupComponent } from './footer/popup/popup.component';
 import { ItemMenuComponent } from './header/menu/item-menu/item-menu.component';
 import { SubMenuComponent } from './header/menu/item-menu/sub-menu/sub-menu.component';
 import { HeaderTopComponent } from './header/header-top/header-top.component';
-import { HeroModule } from '@uiux/combs/hero/hero.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { LightComponent } from './footer/light/light.component';
 import { InverseComponent } from './footer/inverse/inverse.component';
@@ -48,7 +47,7 @@ import { LogoComponent } from './meta/logo/logo.component';
     ManageSidebarComponent,
     LogoComponent,
   ],
-  imports: [ShareModule, WidgetsModule, HeroModule],
+  imports: [ShareModule, WidgetsModule],
   exports: [
     HeaderComponent,
     FooterComponent,
