@@ -1,11 +1,9 @@
-import { RouterTestingModule } from '@angular/router/testing';
 import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
+import { StorysModule } from '@core/storys.module';
 import { CORE_CONFIG } from '@core/token/token-providers';
-import { ShareModule } from '@share/share.module';
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { SwiperComponent } from '@uiux/widgets/swiper/swiper.component';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { SwiperModule } from 'swiper/angular';
 
 export default {
@@ -15,7 +13,8 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [],
-      imports: [ShareModule, WidgetsModule, RouterTestingModule, SwiperModule],
+      entryComponents: [...StorysModule.forEntryComponents()],
+      imports: [StorysModule.forRoot(), SwiperModule],
       providers: [
         SafeHtmlPipe,
         {

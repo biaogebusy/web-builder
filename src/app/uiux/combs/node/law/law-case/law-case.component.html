@@ -14,7 +14,7 @@
             </app-law-table>
             <app-law-card *ngSwitchCase="'card'" [content]="item"></app-law-card>
             <app-law-tab *ngSwitchCase="'tab'" [content]=" item"></app-law-tab>
-            <app-dynamic-widgets *ngSwitchDefault [content]="item"></app-dynamic-widgets>
+            <app-dynamic-component *ngSwitchDefault [inputs]="{content: item}"></app-dynamic-component>
           </ng-container>
         </div>
       </div>

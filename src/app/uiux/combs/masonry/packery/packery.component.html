@@ -7,7 +7,7 @@
     <ngx-packery #packery [options]="config">
       <ngx-packery-item fxFlex.lt-md="0 0 100" fxFlex.gt-sm="0 0 {{item.width || 20}}"
         *ngFor="let item of content.elements">
-        <app-dynamic-widgets [content]="item"></app-dynamic-widgets>
+        <app-dynamic-component [inputs]="{content: item}"></app-dynamic-component>
       </ngx-packery-item>
       <ngx-packery-item fxFlex="0 0 100">
         <!-- fix bug -->

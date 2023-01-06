@@ -2,7 +2,7 @@
   <div class="container">
     <div class="inner" fxLayout="row wrap">
       <div class="masonry-item" *ngFor="let item of content" fxFlex="0 0 25">
-        <app-dynamic-widgets class="display-block" [content]="item"></app-dynamic-widgets>
+        <app-dynamic-component class="display-block" [inputs]="{content:item}"></app-dynamic-component>
       </div>
     </div>
   </div>
