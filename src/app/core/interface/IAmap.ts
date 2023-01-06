@@ -19,12 +19,12 @@ export interface IMark {
 }
 
 export interface IMarkInfo {
-  img: string;
   title: string;
   subTitle: string;
-  badge_1: string;
-  badge_2: string;
-  [key: string]: string;
+  img?: string;
+  badge_1?: string;
+  badge_2?: string;
+  url?: string;
 }
 
 export interface IMap {
