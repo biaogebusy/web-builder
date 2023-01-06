@@ -28,11 +28,6 @@ export default {
       },
     },
   },
-  argTypes: {
-    content: {
-      description: '字段描述',
-    },
-  },
 } as Meta;
 
 const Template: Story = (args) => ({

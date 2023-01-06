@@ -9,10 +9,10 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { FormService } from '@core/service/form.service';
 import { isString, merge } from 'lodash-es';
 import { NodeService } from '@core/service/node.service';
-import { IMark } from '@core/interface/IAmap';
+import type { IMark } from '@core/interface/IAmap';
 import { AmapService } from '@core/service/amap.service';
 import { BaseComponent } from '@uiux/base/base.widget';
-import { IViewMap, IViewMapItem } from '@core/interface/combs/IViewMap';
+import type { IViewMap, IViewMapItem } from '@core/interface/combs/IViewMap';
 
 @Component({
   selector: 'app-view-map',

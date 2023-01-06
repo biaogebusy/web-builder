@@ -30,10 +30,6 @@ export class SwitchThemeComponent implements OnInit {
     this.currentTheme = this.theme;
   }
 
-  trackByFn(index: number, item: any): number {
-    return index;
-  }
-
   onSwitchTheme(theme: string): void {
     const body = this.document.getElementsByTagName('body')[0];
     body.removeAttribute('class');
