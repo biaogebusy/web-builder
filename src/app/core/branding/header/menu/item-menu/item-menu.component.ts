@@ -1,15 +1,11 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Inject,
   Input,
   OnInit,
 } from '@angular/core';
 import { ScreenService } from '@core/service/screen.service';
-import type { IUser } from '@core/interface/IUser';
-import { USER } from '@core/token/token-providers';
 import type { IHeaderParams, IMainMenu } from '@core/interface/IBranding';
-import { UserService } from '@core/service/user.service';
 
 @Component({
   selector: 'app-item-menu',
@@ -22,11 +18,7 @@ export class ItemMenuComponent implements OnInit {
   @Input() params: IHeaderParams;
   isMegaMenu: boolean;
 
-  constructor(
-    private screenService: ScreenService,
-    public userSerivice: UserService,
-    @Inject(USER) public user: IUser
-  ) {}
+  constructor(private screenService: ScreenService) {}
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {

@@ -1,7 +1,6 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Inject,
   Input,
   OnInit,
 } from '@angular/core';
@@ -12,12 +11,9 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
 import { DialogService } from '@core/service/dialog.service';
 import { BaseComponent } from '@uiux/base/base.widget';
-import type { IUser } from '@core/interface/IUser';
-import { USER } from '@core/token/token-providers';
 import { ContentService } from '@core/service/content.service';
 import { ContentState } from '@core/state/ContentState';
 import { IPage } from '@core/interface/IAppConfig';
-import { UserService } from '@core/service/user.service';
 
 @Component({
   selector: 'app-link',
@@ -36,9 +32,7 @@ export class LinkComponent extends BaseComponent implements OnInit {
     private dialog: MatDialog,
     private dialogService: DialogService,
     private contentService: ContentService,
-    private contentState: ContentState,
-    @Inject(USER) public user: IUser,
-    public userSerivice: UserService
+    private contentState: ContentState
   ) {
     super();
   }

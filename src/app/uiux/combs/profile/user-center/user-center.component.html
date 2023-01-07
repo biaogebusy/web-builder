@@ -13,7 +13,7 @@
     <div class="main" fxLayoutAlign="space-between start" fxLayout="row wrap">
       <div class="left" *ngIf="content?.left?.length" fxFlex.lt-md="0 0 100" fxFlex.gt-sm="0 0 30">
         <ng-container *ngFor="let item of content.left">
-          <app-dynamic-widgets *ngIf="userService.checkShow(item,user)" class="box" [content]="item">
+          <app-dynamic-widgets *reqRolesIf="item" class="box" [content]="item">
           </app-dynamic-widgets>
         </ng-container>
       </div>

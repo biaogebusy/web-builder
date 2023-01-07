@@ -20,7 +20,7 @@
         <mat-icon>account_circle</mat-icon>{{currentUser.display_name}}
       </a>
       <ng-container *ngFor="let item of content;">
-        <button aria-label="user link" mat-menu-item *ngIf="userService.checkShow(item, currentUser)">
+        <button aria-label="user link" mat-menu-item *reqRolesIf="item">
           <app-icon [content]="item.icon"></app-icon>
           <app-link [content]="item"></app-link>
         </button>

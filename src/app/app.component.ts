@@ -27,7 +27,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     private router: ActivatedRoute,
     private screenService: ScreenService,
     private configService: ConfigService,
-    public userService: UserService,
+    private userService: UserService,
     private storage: LocalStorageService,
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
     @Inject(BRANDING) public branding$: Observable<IBranding>,

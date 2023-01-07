@@ -1,7 +1,7 @@
 <ng-container *ngIf="content">
   <mat-accordion multi>
     <ng-container *ngFor="let item of content">
-      <ng-container *ngIf="userService.checkShow(item, user)">
+      <ng-container *reqRolesIf="item">
         <mat-list *ngIf="!item.child">
           <mat-list-item class="no-child">
             <app-icon [class]="'icon p-right-xs'" *ngIf="item.icon" [content]="item.icon"></app-icon>

@@ -25,7 +25,6 @@ export class ReqRolesDirective {
   ) {}
 
   @Input() set reqRolesIf(content: any) {
-    console.log(content && this.userService.checkShow(content, this.user));
     if (content && this.userService.checkShow(content, this.user)) {
       this.viewContainer.createEmbeddedView(this.templateRef);
       this.hasView = true;

@@ -1,4 +1,4 @@
-<div class="showcase-4-v1 position-relative" *ngIf="content && userSerivice.checkShow(content, user)">
+<div class="showcase-4-v1 position-relative" *reqRolesIf="content">
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <app-bg *ngIf="content.bg" [content]="content.bg"></app-bg>
