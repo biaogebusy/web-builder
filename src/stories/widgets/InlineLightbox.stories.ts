@@ -6,7 +6,7 @@ import {
 import { Story } from '@storybook/angular/types-6-0';
 
 import { InlineLightboxComponent } from '@uiux/widgets/lightbox/inline-lightbox/inline-lightbox.component';
-import { StorysModule } from '@core/storys.module';
+import { StorysModule } from '@core/module/storys.module';
 export default {
   title: '基础组件/Lightbox',
   id: 'inline-lightbox',

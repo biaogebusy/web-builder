@@ -42,9 +42,10 @@ import {
 import { MatPaginatorIntlCro } from '@core/service/paginator.service';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { throwError } from 'rxjs';
+import { ReqRolesDirective } from '@core/directive/req-roles.directive';
 
 @NgModule({
-  declarations: [],
+  declarations: [ReqRolesDirective],
   imports: [
     CommonModule,
     MatToolbarModule,
@@ -108,6 +109,7 @@ import { throwError } from 'rxjs';
     MatPaginatorModule,
     NgxSkeletonLoaderModule,
     MatStepperModule,
+    ReqRolesDirective,
   ],
   providers: [
     IconService,

@@ -5,7 +5,7 @@ import {
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { Showcase3v2Component } from '@uiux/combs/showcase/showcase3v2/showcase3v2.component';
-import { StorysModule } from '@core/storys.module';
+import { StorysModule } from '@core/module/storys.module';
 
 export default {
   title: '特色组件/展示 Showcase/3v2',

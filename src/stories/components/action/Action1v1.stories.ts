@@ -2,7 +2,7 @@ import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { screen, userEvent } from '@storybook/testing-library';
 import { Action1v1Component } from '@uiux/combs/action/action1v1/action1v1.component';
-import { StorysModule } from '@core/storys.module';
+import { StorysModule } from '@core/module/storys.module';
 
 export default {
   title: '复合组件/引导/Action 1v1',

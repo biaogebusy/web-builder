@@ -1,4 +1,4 @@
-import { StorysModule } from '@core/storys.module';
+import { StorysModule } from '@core/module/storys.module';
 import {
   moduleMetadata,
   componentWrapperDecorator,

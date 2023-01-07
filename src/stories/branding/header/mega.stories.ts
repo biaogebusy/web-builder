@@ -10,7 +10,7 @@ import { of } from 'rxjs';
 import { HeaderComponent } from '@core/branding/header/header.component';
 import { BrandingModule } from '@core/branding/branding.module';
 import { footerInverse, megaHeader } from '../Branding.json';
-import { sleep, StorysModule } from '@core/storys.module';
+import { sleep, StorysModule } from '@core/module/storys.module';
 
 export default {
   title: '页面布局/页头/Mage',

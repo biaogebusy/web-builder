@@ -1,7 +1,7 @@
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import * as TextStories from './Text.stories';
-import { StorysModule } from '@core/storys.module';
+import { StorysModule } from '@core/module/storys.module';
 import { LinkComponent } from '@uiux/widgets/link/link.component';
 
 export default {

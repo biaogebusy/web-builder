@@ -7,7 +7,7 @@ import { Story } from '@storybook/angular/types-6-0';
 import { AmapService } from '@core/service/amap.service';
 import { MapComponent } from '@uiux/widgets/map/map.component';
 import { ConfigService } from '@core/service/config.service';
-import { StorysModule } from '@core/storys.module';
+import { StorysModule } from '@core/module/storys.module';
 
 export default {
   title: '基础组件/地图',

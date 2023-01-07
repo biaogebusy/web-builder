@@ -5,7 +5,7 @@ import {
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { CardComponent } from '@uiux/widgets/card/card.component';
-import { StorysModule } from '@core/storys.module';
+import { StorysModule } from '@core/module/storys.module';
 export default {
   title: '基础组件/卡片/基础',
   id: 'card',

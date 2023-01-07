@@ -5,7 +5,7 @@ import {
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { Showcase3v7Component } from '@uiux/combs/showcase/showcase3v7/showcase3v7.component';
-import { StorysModule } from '@core/storys.module';
+import { StorysModule } from '@core/module/storys.module';
 import * as showcase3v5Stories from './showcase3v5.stories';
 
 export default {

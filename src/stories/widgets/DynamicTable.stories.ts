@@ -1,7 +1,7 @@
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { DynamicTableComponent } from '@uiux/widgets/dynamic-table/dynamic-table.component';
-import { StorysModule } from '@core/storys.module';
+import { StorysModule } from '@core/module/storys.module';
 
 export default {
   title: '基础组件/基本元素/表格',

@@ -6,7 +6,7 @@ import {
 import { Story } from '@storybook/angular/types-6-0';
 import { Showcase3v4Component } from '@uiux/combs/showcase/showcase3v4/showcase3v4.component';
 import * as BoxStories from 'src/stories/widgets/base/Box.stories';
-import { StorysModule } from '@core/storys.module';
+import { StorysModule } from '@core/module/storys.module';
 
 export default {
   title: '特色组件/展示 Showcase/3v4',

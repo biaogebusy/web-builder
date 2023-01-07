@@ -9,7 +9,7 @@ import { of } from 'rxjs';
 import { BrandingModule } from '@core/branding/branding.module';
 import { FooterComponent } from '@core/branding/footer/footer.component';
 import { defaultHeader, footerLight } from '../Branding.json';
-import { StorysModule } from '@core/storys.module';
+import { StorysModule } from '@core/module/storys.module';
 
 export default {
   title: '页面布局/页脚/浅色',

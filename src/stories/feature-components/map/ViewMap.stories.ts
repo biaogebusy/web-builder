@@ -1,6 +1,6 @@
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { StorysModule } from '@core/storys.module';
+import { StorysModule } from '@core/module/storys.module';
 import { ViewMapComponent } from '@uiux/combs/map/view-map/view-map.component';
 
 export default {

@@ -1,7 +1,7 @@
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { FullCalendarComponent } from '@uiux/combs/calendar/full-calendar/full-calendar.component';
-import { StorysModule } from '@core/storys.module';
+import { StorysModule } from '@core/module/storys.module';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { CalendarModule } from '@uiux/combs/calendar/calendar.module';
 

@@ -1,7 +1,7 @@
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { Carousel2v1Component } from '@uiux/combs/carousel/carousel2v1/carousel2v1.component';
-import { StorysModule } from '@core/storys.module';
+import { StorysModule } from '@core/module/storys.module';
 
 export default {
   title: '复合组件/幻灯片/2v1',

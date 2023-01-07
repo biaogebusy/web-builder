@@ -8,7 +8,7 @@ import { NgxWebstorageModule } from 'ngx-webstorage';
 import { Carousel2v2Component } from '@uiux/combs/carousel/carousel2v2/carousel2v2.component';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
-import { StorysModule } from '@core/storys.module';
+import { StorysModule } from '@core/module/storys.module';
 export default {
   title: '复合组件/幻灯片/2v2',
   id: 'carousel-2v2',

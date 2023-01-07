@@ -1,7 +1,7 @@
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { Hero1v1Component } from '@uiux/combs/hero/hero1v1/hero1v1.component';
-import { StorysModule } from '@core/storys.module';
+import { StorysModule } from '@core/module/storys.module';
 
 export default {
   title: '特色组件/英雄区/1v1',

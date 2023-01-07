@@ -1,7 +1,7 @@
 import { moduleMetadata, Meta, Story } from '@storybook/angular';
 import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
 import { TitleComponent } from '@uiux/widgets/title/title.component';
-import { StorysModule } from '@core/storys.module';
+import { StorysModule } from '@core/module/storys.module';
 
 export default {
   title: '基础组件/基本元素/标题',

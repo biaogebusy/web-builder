@@ -4,7 +4,7 @@ import { userEvent } from '@storybook/testing-library';
 import { MapListV1Component } from '@uiux/combs/map/map-list-v1/map-list-v1.component';
 import * as Card1v3Stories from 'src/stories/widgets/card/Card1v3.stories';
 import * as MediaObjectStories from 'src/stories/widgets/media/MediaObject.stories';
-import { sleep, StorysModule } from '@core/storys.module';
+import { sleep, StorysModule } from '@core/module/storys.module';
 
 export default {
   title: '复合组件/地图/位置列表 1v1',

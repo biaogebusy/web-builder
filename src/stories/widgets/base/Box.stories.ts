@@ -5,7 +5,7 @@ import {
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { BoxComponent } from '@uiux/widgets/box/box.component';
-import { StorysModule } from '@core/storys.module';
+import { StorysModule } from '@core/module/storys.module';
 export default {
   title: '基础组件/基本元素/内容盒子',
   id: 'box',

@@ -1,4 +1,4 @@
-import { sleep, StorysModule } from '@core/storys.module';
+import { sleep, StorysModule } from '@core/module/storys.module';
 import {
   moduleMetadata,
   Meta,

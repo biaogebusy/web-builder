@@ -7,7 +7,7 @@ import { Story } from '@storybook/angular/types-6-0';
 
 import { NodeModule } from '@uiux/combs/node/node.module';
 import { LawCaseComponent } from '@uiux/combs/node/law/law-case/law-case.component';
-import { StorysModule } from '@core/storys.module';
+import { StorysModule } from '@core/module/storys.module';
 import { comments } from './comments.json';
 import { of } from 'rxjs';
 

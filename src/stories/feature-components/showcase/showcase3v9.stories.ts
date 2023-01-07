@@ -4,7 +4,7 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { StorysModule } from '@core/storys.module';
+import { StorysModule } from '@core/module/storys.module';
 import { Showcase3v9Component } from '@uiux/combs/showcase/showcase3v9/showcase3v9.component';
 
 export default {

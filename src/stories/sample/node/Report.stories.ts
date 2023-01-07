@@ -5,7 +5,7 @@ import {
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { NodeModule } from '@uiux/combs/node/node.module';
-import { StorysModule, sleep } from '@core/storys.module';
+import { StorysModule, sleep } from '@core/module/storys.module';
 import { ReportComponent } from '@uiux/combs/node/report/report.component';
 import { FormGroup } from '@angular/forms';
 

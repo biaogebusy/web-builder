@@ -1,4 +1,4 @@
-import { StorysModule } from '@core/storys.module';
+import { StorysModule } from '@core/module/storys.module';
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { BtnComponent } from '@uiux/widgets/btn/btn.component';

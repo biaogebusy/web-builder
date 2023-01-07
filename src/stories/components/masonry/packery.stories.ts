@@ -2,7 +2,7 @@ import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { NgxPackeryModule } from 'ngx-packery';
 import { PackeryComponent } from '@uiux/combs/masonry/packery/packery.component';
-import { StorysModule } from '@core/storys.module';
+import { StorysModule } from '@core/module/storys.module';
 
 export default {
   title: '复合组件/瀑布流/图片堆砌',

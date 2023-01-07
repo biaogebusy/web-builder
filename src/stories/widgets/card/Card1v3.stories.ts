@@ -6,7 +6,7 @@ import {
 import { Story } from '@storybook/angular/types-6-0';
 import { Card1v3Component } from '@uiux/widgets/card/card1v3/card1v3.component';
 import * as TextStories from '../base/Text.stories';
-import { StorysModule } from '@core/storys.module';
+import { StorysModule } from '@core/module/storys.module';
 
 export default {
   title: '基础组件/卡片/1v3',

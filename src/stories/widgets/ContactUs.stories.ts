@@ -6,7 +6,7 @@ import {
 import { Story } from '@storybook/angular/types-6-0';
 import { screen, userEvent } from '@storybook/testing-library';
 import { ContactUsComponent } from '@uiux/widgets/contact-us/contact-us.component';
-import { StorysModule } from '@core/storys.module';
+import { StorysModule } from '@core/module/storys.module';
 export default {
   title: '基础组件/联系我们',
   id: 'contact-us',

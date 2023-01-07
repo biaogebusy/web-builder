@@ -6,7 +6,7 @@ import {
 import { Story } from '@storybook/angular/types-6-0';
 import { FormlyComponent } from '@uiux/widgets/form/formly/formly.component';
 import { FormGroup } from '@angular/forms';
-import { StorysModule } from '@core/storys.module';
+import { StorysModule } from '@core/module/storys.module';
 
 export default {
   title: '基础组件/表单',

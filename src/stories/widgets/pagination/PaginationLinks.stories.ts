@@ -6,7 +6,7 @@ import {
 import { Story } from '@storybook/angular/types-6-0';
 import { PaginationLinksComponent } from '@uiux/widgets/pagination/pagination-links/pagination-links.component';
 import { environment } from 'src/environments/environment';
-import { StorysModule } from '@core/storys.module';
+import { StorysModule } from '@core/module/storys.module';
 
 export default {
   title: '基础组件/分页/JSONAPI 分页',

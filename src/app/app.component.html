@@ -8,16 +8,15 @@
   </mat-drawer>
   <mat-drawer-content>
     <mat-drawer-container>
-      <mat-drawer id="sidebar" mode="side" [(opened)]="sidebarMenuOpened" class="sidebar"
-        *ngIf="branding.header?.sidebar && userService.checkShow(branding.header?.sidebar, user)">
-        <app-manage-sidebar [opened]="sidebarMenuOpened"></app-manage-sidebar>
+      <mat-drawer id="sidebar" class="sidebar" mode="side" [(opened)]="sidebarOpened" *ngIf="enableSidebar">
+        <app-manage-sidebar [opened]="sidebarOpened"></app-manage-sidebar>
       </mat-drawer>
       <mat-drawer-content id="main-container">
         <app-header></app-header>
         <div class="main" [ngClass]="{'has-manage-sidebar': branding.header?.sidebar ? true : false }">
           <router-outlet></router-outlet>
         </div>
-        <app-footer [hidden]="sidebarMenuOpened"></app-footer>
+        <app-footer [hidden]="sidebarOpened"></app-footer>
       </mat-drawer-content>
     </mat-drawer-container>
   </mat-drawer-content>

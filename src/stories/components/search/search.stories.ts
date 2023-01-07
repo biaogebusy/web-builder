@@ -3,7 +3,7 @@ import { Story } from '@storybook/angular/types-6-0';
 import { screen, userEvent } from '@storybook/testing-library';
 import { SearchModule } from '@uiux/combs/search/search.module';
 import { SearchComponent } from '@uiux/combs/search/search.component';
-import { sleep, StorysModule } from '@core/storys.module';
+import { sleep, StorysModule } from '@core/module/storys.module';
 import { nodes } from './search.json';
 
 export default {

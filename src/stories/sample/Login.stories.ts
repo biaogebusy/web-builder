@@ -11,7 +11,7 @@ import { CryptoJSService } from '@core/service/crypto-js.service';
 import { UserService } from '@core/service/user.service';
 import { LoginComponent } from '../../app/modules/user/login/login.component';
 import { UserModule } from '../../app/modules/user/user.module';
-import { sleep, StorysModule } from '@core/storys.module';
+import { sleep, StorysModule } from '@core/module/storys.module';
 import { USER } from '@core/token/token-providers';
 import { userFactory } from '@core/factory/factory';
 import { BrandingModule } from '@core/branding/branding.module';

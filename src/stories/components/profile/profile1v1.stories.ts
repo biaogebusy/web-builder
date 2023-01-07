@@ -3,7 +3,7 @@ import { Story } from '@storybook/angular/types-6-0';
 import { Profile1v1Component } from '@uiux/combs/profile/profile1v1/profile1v1.component';
 import * as SwiperStories from 'src/stories/widgets/Swiper.stories';
 import * as MediaObjectGroupStories from 'src/stories/widgets/media/MediaObjectGroup.stories';
-import { StorysModule } from '@core/storys.module';
+import { StorysModule } from '@core/module/storys.module';
 
 export default {
   title: '复合组件/用户/用户资料',

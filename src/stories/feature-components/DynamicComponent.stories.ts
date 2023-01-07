@@ -1,6 +1,6 @@
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { StorysModule } from '@core/storys.module';
+import { StorysModule } from '@core/module/storys.module';
 import { DynamicComponentComponent } from '@uiux/widgets/dynamic-component/dynamic-component.component';
 import * as action1v1 from '../components/action/Action1v1.stories';
 

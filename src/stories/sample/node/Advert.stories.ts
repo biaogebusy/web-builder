@@ -6,7 +6,7 @@ import {
 import { Story } from '@storybook/angular/types-6-0';
 import { NodeModule } from '@uiux/combs/node/node.module';
 import { UserModule } from 'src/app/modules/user/user.module';
-import { StorysModule } from '@core/storys.module';
+import { StorysModule } from '@core/module/storys.module';
 
 import { AdvertComponent } from '@uiux/combs/node/advert/advert.component';
 

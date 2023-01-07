@@ -5,7 +5,7 @@ import {
   Story,
 } from '@storybook/angular';
 import { TextComponent } from '@uiux/widgets/text/text.component';
-import { StorysModule } from '@core/storys.module';
+import { StorysModule } from '@core/module/storys.module';
 
 export default {
   title: '基础组件/基本元素/富文本',

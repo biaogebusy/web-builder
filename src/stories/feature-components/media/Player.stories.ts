@@ -4,7 +4,7 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { StorysModule } from '@core/storys.module';
+import { StorysModule } from '@core/module/storys.module';
 import { PlayerComponent } from '@uiux/widgets/media/player/player.component';
 
 export default {

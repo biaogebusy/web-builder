@@ -6,7 +6,7 @@ import {
 import { Story } from '@storybook/angular/types-6-0';
 import { MediaObjectGroupComponent } from '@uiux/widgets/media/media-object-group/media-object-group.component';
 import * as MediaObjectStories from './MediaObject.stories';
-import { StorysModule } from '@core/storys.module';
+import { StorysModule } from '@core/module/storys.module';
 
 export default {
   title: '基础组件/媒体/媒体对象组',

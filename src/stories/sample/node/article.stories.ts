@@ -10,7 +10,7 @@ import { NodeModule } from '@uiux/combs/node/node.module';
 import * as MediaListStories from 'src/stories/widgets/media/MediaList.stories';
 import * as MeunListStories from 'src/stories/widgets/MeunList.stories';
 import { UserModule } from 'src/app/modules/user/user.module';
-import { StorysModule, sleep } from '@core/storys.module';
+import { StorysModule, sleep } from '@core/module/storys.module';
 import { comments } from './comments.json';
 
 export default {

@@ -6,7 +6,7 @@ import {
 import { Story } from '@storybook/angular/types-6-0';
 import { screen, userEvent } from '@storybook/testing-library';
 import { SearchActionComponent } from '@uiux/widgets/actions/search-action/search-action.component';
-import { StorysModule } from '@core/storys.module';
+import { StorysModule } from '@core/module/storys.module';
 
 export default {
   title: '基础组件/Actions/搜索控件',

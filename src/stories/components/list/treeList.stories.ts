@@ -8,7 +8,7 @@ import { fireEvent, screen, userEvent } from '@storybook/testing-library';
 import { ListModule } from '@uiux/combs/list/list.module';
 import { TreeListComponent } from '@uiux/combs/list/tree-list/tree-list.component';
 import * as TreeStories from 'src/stories/feature-components/list/Tree.stories';
-import { StorysModule, sleep } from '@core/storys.module';
+import { StorysModule, sleep } from '@core/module/storys.module';
 
 export default {
   title: '复合组件/列表/树形列表',

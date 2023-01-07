@@ -38,8 +38,10 @@ export class UserCardComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getProfile();
-    this.getCount();
+    if (this.user) {
+      this.getProfile();
+      this.getCount();
+    }
   }
 
   getProfile(): void {

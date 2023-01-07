@@ -18,7 +18,8 @@ import { LocalStorageService } from 'ngx-webstorage';
 export class AppComponent implements OnInit, AfterViewInit {
   authenticated: boolean;
   mobileMenuOpened: boolean;
-  sidebarMenuOpened: boolean;
+  sidebarOpened: boolean;
+  enableSidebar = false;
   opened: boolean;
   loading = false;
   constructor(
@@ -39,14 +40,22 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.sidebarMenuOpened = this.storage.retrieve('sidebarOpened');
       this.screen.drawer$.subscribe(() => {
         this.mobileMenuOpened = !this.mobileMenuOpened;
       });
 
-      this.screen.sidebarDrawer$.subscribe(() => {
-        this.sidebarMenuOpened = !this.sidebarMenuOpened;
-        this.storage.store('sidebarOpened', this.sidebarMenuOpened);
+      this.branding$.subscribe((branding) => {
+        if (this.userService.checkShow(branding.header?.sidebar, this.user)) {
+          this.enableSidebar = true;
+          this.sidebarOpened = this.storage.retrieve('sidebarOpened');
+          this.screen.sidebarDrawer$.subscribe(() => {
+            this.sidebarOpened = !this.sidebarOpened;
+            this.storage.store('sidebarOpened', this.sidebarOpened);
+          });
+        } else {
+          this.sidebarOpened = false;
+          this.enableSidebar = false;
+        }
       });
 
       this.router.fragment.subscribe((fragment) => {

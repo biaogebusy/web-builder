@@ -7,7 +7,7 @@ import { Story } from '@storybook/angular/types-6-0';
 import { screen, userEvent } from '@storybook/testing-library';
 import { NodeModule } from '@uiux/combs/node/node.module';
 import { QuestionComponent } from '@uiux/combs/node/question/question.component';
-import { sleep, StorysModule } from '@core/storys.module';
+import { sleep, StorysModule } from '@core/module/storys.module';
 import { comments } from './comments.json';
 
 export default {

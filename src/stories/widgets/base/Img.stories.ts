@@ -5,7 +5,7 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { ImgComponent } from '@uiux/widgets/img/img.component';
-import { StorysModule } from '@core/storys.module';
+import { StorysModule } from '@core/module/storys.module';
 
 export default {
   title: '基础组件/基本元素/图片',
