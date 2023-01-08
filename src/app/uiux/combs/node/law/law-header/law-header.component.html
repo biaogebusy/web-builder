@@ -1,0 +1,25 @@
+<div class="case-header">
+  <div class="title">
+    <h2 class="m-bottom-xs bold" ngClass.gt-sm="mat-display-1">{{content.title}}</h2>
+  </div>
+  <div class="title-banner" fxLayout="row warp" fxLayoutAlign="space-between center">
+    <div class="date">
+      <div *ngFor="let date of content.date">
+        <span>{{date.label}} | </span>
+        <span>{{date.value}}</span>
+      </div>
+    </div>
+    <div class="actions p-y-sm" *ngIf="content.actions">
+      <div class="inner" fxLayout="row" fxLayoutGap="1rem">
+        <button [disabled]="disabled" *ngIf="content?.pdf" (click)="onSavePdf()" mat-button>
+          <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="1rem">
+            <mat-icon *ngIf="!saveDocLoading">print</mat-icon>
+            <mat-spinner diameter="16" *ngIf="saveDocLoading"></mat-spinner>
+            <span>法律意见</span>
+          </div>
+        </button>
+        <app-dynamic-widgets [content]="action" *ngFor="let action of content.actions"></app-dynamic-widgets>
+      </div>
+    </div>
+  </div>
+</div>

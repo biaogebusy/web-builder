@@ -19,6 +19,13 @@ import { ReportComponent } from './report/report.component';
 import { AdvertComponent } from './advert/advert.component';
 import { HeaderMetaComponent } from './header-meta/header-meta.component';
 import { BaseModule } from '@uiux/base/base.module';
+import { LawCaseComponent } from './law/law-case/law-case.component';
+import { LawCardComponent } from './law/law-card/law-card.component';
+import { LawFilesComponent } from './law/law-files/law-files.component';
+import { LawHeaderComponent } from './law/law-header/law-header.component';
+import { LawTabComponent } from './law/law-tab/law-tab.component';
+import { LawTableComponent } from './law/law-table/law-table.component';
+import { LawShowcaseComponent } from './law/law-showcase/law-showcase.component';
 
 const components = [
   JobComponent,
@@ -36,6 +43,13 @@ const components = [
   ReportComponent,
   AdvertComponent,
   HeaderMetaComponent,
+  LawCaseComponent,
+  LawCardComponent,
+  LawFilesComponent,
+  LawHeaderComponent,
+  LawTabComponent,
+  LawTableComponent,
+  LawShowcaseComponent,
 ];
 @NgModule({
   declarations: [...components],
