@@ -158,10 +158,11 @@ export class ComponentService {
       )
     );
 
-    ['article', 'advert', 'job', 'question', 'report'].forEach((type) =>
-      this.setModule(type, () =>
-        import('@uiux/combs/node/node.module').then((m) => m.NodeModule)
-      )
+    ['article', 'advert', 'job', 'question', 'report', 'law-case'].forEach(
+      (type) =>
+        this.setModule(type, () =>
+          import('@uiux/combs/node/node.module').then((m) => m.NodeModule)
+        )
     );
 
     ['autoclose', 'dynamic-form', '404', 'whychooseus'].forEach((type) =>

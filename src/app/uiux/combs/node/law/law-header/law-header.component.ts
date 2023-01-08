@@ -11,6 +11,7 @@ import autoTable from 'jspdf-autotable';
 import { jsPDF } from 'jspdf';
 import { ScreenService } from '@core/service/screen.service';
 import type { ICase } from '@core/interface/node/INode';
+import { environment } from '../../../../../../environments/environment';
 @Component({
   selector: 'app-law-header',
   templateUrl: './law-header.component.html',
@@ -25,12 +26,14 @@ export class LawHeaderComponent implements OnInit, AfterViewInit {
     private screenService: ScreenService,
     private cd: ChangeDetectorRef
   ) {
-    this.loadFonts().then(() => {
-      console.log('Load font done!');
-      this.disabled = false;
-      this.saveDocLoading = false;
-      this.cd.detectChanges();
-    });
+    if (this.screenService.isPlatformBrowser() && environment.port === 4208) {
+      this.loadFonts().then(() => {
+        console.log('Load font done!');
+        this.disabled = false;
+        this.saveDocLoading = false;
+        this.cd.detectChanges();
+      });
+    }
   }
 
   ngOnInit(): void {}
@@ -40,9 +43,9 @@ export class LawHeaderComponent implements OnInit, AfterViewInit {
   async loadFonts(): Promise<void> {
     this.saveDocLoading = true;
     // @ts-ignore
-    await import('../../../../../../assets/fonts/simhei-normal.js');
+    await import('./fonts/simhei-normal.js');
     // @ts-ignore
-    await import('../../../../../../assets/fonts/fangsong_GB2312-normal.js');
+    await import('./fonts/fangsong_GB2312-normal.js');
   }
 
   async onSavePdf(): Promise<void> {

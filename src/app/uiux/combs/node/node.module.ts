@@ -60,6 +60,7 @@ const components = [
     JobComponent,
     ReportComponent,
     AdvertComponent,
+    LawCaseComponent,
   ],
 })
 export class NodeModule extends BaseModule {
@@ -69,6 +70,7 @@ export class NodeModule extends BaseModule {
     JobComponent,
     ReportComponent,
     AdvertComponent,
+    LawCaseComponent,
   ];
 
   constructor(protected componentFactoryResolver: ComponentFactoryResolver) {
