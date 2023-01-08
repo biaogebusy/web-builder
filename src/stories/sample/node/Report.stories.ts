@@ -71,7 +71,7 @@ Default.args = {
         fieldGroupClassName: 'display-flex flex-wrap',
         fieldGroup: [
           {
-            type: 'select',
+            type: 'mat-select',
             key: 'position',
             defaultValue: 5,
             className: 'display-block m-bottom-sm m-right-sm',
@@ -123,7 +123,7 @@ Default.args = {
             },
           },
           {
-            type: 'select',
+            type: 'mat-select',
             key: 'shop',
             defaultValue: 5,
             className: 'display-block m-bottom-sm m-right-sm',
@@ -166,6 +166,9 @@ Default.args = {
         ],
       },
     ],
+    params: {
+      apiBak: '/api/v3/node/vote/report',
+    },
     row: 2,
     box: [
       {

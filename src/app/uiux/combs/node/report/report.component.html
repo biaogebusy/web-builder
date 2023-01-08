@@ -2,7 +2,8 @@
   <div class="container">
     <app-header-meta [content]="content.header"></app-header-meta>
     <div class="box filter p-x-sm p-y-sm" fxLayout="row wrap" fxLayoutAlign="space-between center">
-      <app-formly [form]="form" [model]="model" [fields]="content.form"></app-formly>
+      <app-formly [form]="form" [model]="model" [fields]="content.form"
+        (modelChange)="onModelChange($event)"></app-formly>
       <div class="actions">
         <button mat-button (click)="clear()">
           <mat-icon>clear</mat-icon>重置
@@ -14,7 +15,7 @@
     </div>
     <div class="box details p-x-sm p-y-sm" fxLayout="row wrap" fxLayoutAlign="space-between start">
       <app-dynamic-component fxFlex.lt-md="100" [fxFlex.gt-sm]="row(content.row)" class="display-block m-bottom m-x-sm"
-        [inputs]="{content:box.content, data:box.data}" *ngFor="let box of content.box"></app-dynamic-component>
+        [inputs]="{content:box.content, data:box.data}" *ngFor="let box of box"></app-dynamic-component>
     </div>
   </div>
 </div>
