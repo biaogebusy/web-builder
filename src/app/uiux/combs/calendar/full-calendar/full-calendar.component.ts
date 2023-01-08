@@ -222,10 +222,6 @@ export class FullCalendarComponent
     }
   }
 
-  trackByFn(index: number, item: any): number {
-    return index;
-  }
-
   ngOnDestroy(): void {
     if (this.destroy$.next) {
       this.destroy$.next(true);

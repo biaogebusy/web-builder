@@ -7,8 +7,9 @@
       <app-img [content]="content.bg.img" *ngIf="content.bg.img"></app-img>
     </app-bg>
     <div class="inner" fxLayout.lt-md="column" fxLayout.gt-sm="row" fxLayoutAlign="space-between start">
-      <app-dynamic-widgets fxFlex.lt-md="100" fxFlex.gt-sm="48" [content]="item" *ngFor="let item of content.elements">
-      </app-dynamic-widgets>
+      <app-dynamic-component fxFlex.lt-md="100" fxFlex.gt-sm="48" [inputs]="{content:item}"
+        *ngFor="let item of content.elements">
+      </app-dynamic-component>
     </div>
   </div>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>

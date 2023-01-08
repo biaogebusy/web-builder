@@ -1,0 +1,15 @@
+<mat-tab-group class="law-tab" mat-align-tabs="start" [ngClass]="content.classes">
+  <mat-tab *ngFor="let item of content.elements;trackBy:trackByFn" label="{{item.label}}">
+    <div class="p-y-sm p-x-sm">
+      <ng-container [ngSwitch]="item.type">
+        <app-law-showcase *ngSwitchCase="'showcase'" [content]="item" [form]="form">
+        </app-law-showcase>
+        <app-law-files *ngSwitchCase="'files'" [content]="item"></app-law-files>
+        <app-law-table *ngSwitchCase="'table'" [content]="item">
+        </app-law-table>
+        <app-law-card *ngSwitchCase="'card'" [content]="item"></app-law-card>
+        <app-dynamic-component *ngSwitchDefault [inputs]="{content:item}"></app-dynamic-component>
+      </ng-container>
+    </div>
+  </mat-tab>
+</mat-tab-group>

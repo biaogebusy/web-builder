@@ -16,9 +16,12 @@
       "left": [
         {
           "type": "user-card",
+<<<<<<< HEAD
           "params": {
             "reqRoles": []
           },
+=======
+>>>>>>> 9e3ddb1db51a26b3b92f393c8c4e27c21b9a9699
           "menu": [
             {
               "type": "link",
@@ -182,10 +185,7 @@
             }
           },
           "params": {
-            "reqRoles": [
-              "lawyer",
-              "assistant_lawyer"
-            ]
+            "reqRoles": []
           },
           "action": {
             "label": "管理更多",
@@ -385,6 +385,7 @@
           ]
         }
       ]
+<<<<<<< HEAD
     },
     {
       "type": "view-list",
@@ -736,6 +737,8 @@
           ]
         }
       ]
+=======
+>>>>>>> 9e3ddb1db51a26b3b92f393c8c4e27c21b9a9699
     }
   ]
 }

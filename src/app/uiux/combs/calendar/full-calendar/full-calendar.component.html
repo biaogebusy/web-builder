@@ -5,7 +5,7 @@
   <div class="container">
     <div class="inner p-y" fxLayout="row wrap">
       <div class="sidebar p-x-sm" fxFlex.gt-sm="25" fxFlex.lt-md="100">
-        <app-dynamic-widgets [content]="item" [form]="form" *ngFor="let item of content.sidebar; trackBy: trackByFn">
+        <app-dynamic-widgets [content]="item" [form]="form" *ngFor="let item of content.sidebar;">
         </app-dynamic-widgets>
       </div>
       <div class="main p-x-sm p-y-sm" fxFlex.gt-sm="75" fxFlex.lt-md="100">
