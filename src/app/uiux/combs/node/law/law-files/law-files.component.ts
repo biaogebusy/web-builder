@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { BaseComponent } from '@uiux/base/base.widget';
 
 @Component({
   selector: 'app-law-files',
@@ -11,13 +12,11 @@ import {
   styleUrls: ['./law-files.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LawFilesComponent implements OnInit {
+export class LawFilesComponent extends BaseComponent implements OnInit {
   @Input() content: any;
-  constructor() {}
+  constructor() {
+    super();
+  }
 
   ngOnInit(): void {}
-
-  trackByFn(index: number, item: any): number {
-    return index;
-  }
 }
