@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { UserService } from '@core/service/user.service';
 import { USER } from '@core/token/token-providers';
-import { IUser } from '@core/interface/IUser';
+import type { IUser } from '@core/interface/IUser';
 
 @Directive({
   selector: '[reqRolesIf]',

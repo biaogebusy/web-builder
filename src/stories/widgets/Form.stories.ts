@@ -427,3 +427,31 @@ HideExpression.args = {
     },
   ],
 };
+
+export const ExpressionProperties = Template.bind({});
+ExpressionProperties.storyName = '动态更新属性';
+ExpressionProperties.args = {
+  form,
+  model,
+  fields: [
+    {
+      key: 'text',
+      type: 'input',
+      templateOptions: {
+        label: 'Text',
+        placeholder: '请输入您的姓名',
+      },
+    },
+    {
+      key: 'text2',
+      type: 'input',
+      templateOptions: {
+        label: 'Hey!',
+        placeholder: '请输入您的学号',
+      },
+      expressionProperties: {
+        'templateOptions.disabled': '!model.text',
+      },
+    },
+  ],
+};
