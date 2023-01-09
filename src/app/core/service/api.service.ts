@@ -41,7 +41,7 @@ export class ApiService {
   }
 
   getParams(obj: any, key: string): any {
-    return obj.params && obj.params[key];
+    return obj && obj.params && obj.params[key];
   }
 
   getDeepValue(obj: any, path: string): any {

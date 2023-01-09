@@ -9,6 +9,7 @@ import { FormGroup } from '@angular/forms';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { NodeService } from '@core/service/node.service';
 import { FormService } from '@core/service/form.service';
+import { isArray } from 'lodash-es';
 @Component({
   selector: 'app-report',
   templateUrl: './report.component.html',
@@ -20,6 +21,7 @@ export class ReportComponent extends BaseComponent implements OnInit {
   @Input() form = new FormGroup({});
   @Input() model: any = {};
   box: any[];
+  loading: boolean;
   constructor(
     private nodeService: NodeService,
     private cd: ChangeDetectorRef,
@@ -33,6 +35,7 @@ export class ReportComponent extends BaseComponent implements OnInit {
       this.getContent();
     } else {
       this.box = this.content.box;
+      this.loading = false;
       this.cd.detectChanges();
     }
   }
@@ -44,99 +47,118 @@ export class ReportComponent extends BaseComponent implements OnInit {
   }
 
   getContent(options = {}): void {
+    this.loading = true;
     const params = this.getApiParams(options);
     console.log(params);
     const api = '/api/v3/node/vote/report';
     this.nodeService.search(api, params).subscribe(({ chart, table }) => {
-      this.box = [
-        {
-          data: {
-            toggle: [
-              {
-                label: '饼图',
-                icon: {
-                  name: 'pie_chart',
-                  inline: true,
+      if (isArray(chart) && isArray(table)) {
+        this.box = [
+          {
+            data: {
+              toggle: [
+                {
+                  label: '饼图',
+                  icon: {
+                    name: 'pie_chart',
+                    inline: true,
+                  },
+                  value: 'pie',
                 },
-                value: 'pie',
-              },
-              {
-                label: '柱状图',
-                icon: {
-                  name: 'equalizer',
-                  inline: true,
+                {
+                  label: '柱状图',
+                  icon: {
+                    name: 'equalizer',
+                    inline: true,
+                  },
+                  value: 'bar',
                 },
-                value: 'bar',
-              },
-              {
-                label: '折线图',
-                icon: {
-                  name: 'show_chart',
-                  inline: true,
+                {
+                  label: '折线图',
+                  icon: {
+                    name: 'show_chart',
+                    inline: true,
+                  },
+                  value: 'line',
                 },
-                value: 'line',
-              },
-            ],
-          },
-          content: {
-            type: 'chart',
-            tooltip: {
-              trigger: 'axis',
+              ],
             },
-            dataset: [
-              {
-                source: chart,
+            content: {
+              type: 'chart',
+              tooltip: {
+                trigger: 'item',
               },
-              {
-                transform: {
-                  type: 'sort',
-                  config: { dimension: 'total', order: 'asc' },
+              legend: {
+                orient: 'vertical',
+                left: 'left',
+              },
+              dataset: [
+                {
+                  source: chart,
+                },
+                {
+                  transform: {
+                    type: 'sort',
+                    config: { dimension: 'total', order: 'asc' },
+                  },
+                },
+              ],
+              xAxis: {
+                type: 'category',
+                axisLabel: {
+                  interval: 0,
+                  rotate: 30,
                 },
               },
-            ],
-            xAxis: {
-              type: 'category',
-              axisLabel: {
-                interval: 0,
-                rotate: 30,
+              yAxis: {
+                type: 'value',
               },
-            },
-            yAxis: {
-              type: 'value',
-            },
-            series: [
-              {
-                type: 'bar',
-                label: {
-                  position: 'top',
-                  show: true,
+              series: [
+                {
+                  type: 'bar',
+                  radius: '50%',
+                  center: ['50%', '50%'],
+                  label: {
+                    position: 'top',
+                    show: true,
+                  },
+                  datasetIndex: 1,
                 },
-                datasetIndex: 1,
-              },
-            ],
+              ],
+            },
           },
-        },
-        {
-          content: {
-            type: 'dynamic-table',
-            header: [
-              {
-                label: '想要礼品',
-                key: 'name',
-              },
-              {
-                label: '想要人数',
-                key: 'total',
-              },
-              {
-                label: '占比',
-                key: 'percent',
-              },
-            ],
-            elements: table,
+          {
+            content: {
+              type: 'dynamic-table',
+              header: [
+                {
+                  label: '想要礼品',
+                  key: 'name',
+                },
+                {
+                  label: '想要人数',
+                  key: 'total',
+                },
+                {
+                  label: '占比',
+                  key: 'percent',
+                },
+              ],
+              elements: table,
+            },
           },
-        },
-      ];
+        ];
+      } else {
+        this.box = [
+          {
+            content: {
+              type: 'text',
+              body: '无数据',
+            },
+          },
+        ];
+      }
+      this.loading = false;
       this.cd.detectChanges();
     });
   }

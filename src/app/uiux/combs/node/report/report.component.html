@@ -13,9 +13,12 @@
         </button> -->
       </div>
     </div>
-    <div class="box details p-x-sm p-y-sm" fxLayout="row wrap" fxLayoutAlign="space-between start">
+    <div class="box details p-x-sm p-y-sm position-relative" fxLayout="row wrap" fxLayoutAlign="space-between start">
+      <div class="loading-inner position-absolute" fxFlexFill fxLayoutAlign="center center" *ngIf="loading">
+        <mat-spinner diameter="50"></mat-spinner>
+      </div>
       <app-dynamic-component fxFlex.lt-md="100" [fxFlex.gt-sm]="row(content.row)" class="display-block m-bottom m-x-sm"
-        [inputs]="{content:box.content, data:box.data}" *ngFor="let box of box"></app-dynamic-component>
+        [inputs]="{content:item.content, data:item.data}" *ngFor="let item of box"></app-dynamic-component>
     </div>
   </div>
 </div>
