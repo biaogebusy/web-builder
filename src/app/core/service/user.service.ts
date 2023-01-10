@@ -109,6 +109,10 @@ export class UserService extends ApiService {
   }
 
   checkShow(content: any, user: IUser): boolean {
+    // 没有内容不显示
+    if (!content) {
+      return false;
+    }
     const roles = this.getParams(content, 'reqRoles');
     if (!roles || !roles.length) {
       return true;
