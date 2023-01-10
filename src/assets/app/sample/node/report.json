@@ -7,12 +7,12 @@
         "text": {
           "spaver": "none",
           "title": {
-            "label": "我的福利投票统计",
+            "label": "福利投票统计",
             "style": "style-v4",
-            "classes": "mat-display-3 m-bottom-0"
+            "classes": "mat-display-1 m-bottom-0"
           }
         },
-        "meta": [
+        "metaBak": [
           {
             "label": "回收量",
             "value": 622
