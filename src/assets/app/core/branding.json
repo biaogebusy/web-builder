@@ -51,11 +51,6 @@
     },
     "mainMenu": [
       {
-        "label": "内推",
-        "classes": "bold",
-        "href": "/lists/jobs"
-      },
-      {
         "label": "自习室",
         "classes": "bold",
         "href": "/lists/blog",
@@ -243,6 +238,10 @@
               {
                 "label": "article v1 with comment",
                 "href": "/sample/node/article-v1"
+              },
+              {
+                "label": "统计报表",
+                "href": "/sample/node/report"
               },
               {
                 "label": "问答",

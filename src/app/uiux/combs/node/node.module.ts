@@ -3,10 +3,6 @@ import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { ShowcaseModule } from '../showcase/showcase.module';
 import { QuillModule } from 'ngx-quill';
-import { JobComponent } from './job/job.component';
-import { JobFilterComponent } from './job/job-filter/job-filter.component';
-import { JobListComponent } from './job/job-list/job-list.component';
-import { JobNodeComponent } from './job/job-node/job-node.component';
 import { ArticleBannerComponent } from './article/article-banner/article-banner.component';
 import { ArticleComponent } from './article/article.component';
 import { QuestionComponent } from './question/question.component';
@@ -28,11 +24,7 @@ import { LawTableComponent } from './law/law-table/law-table.component';
 import { LawShowcaseComponent } from './law/law-showcase/law-showcase.component';
 
 const components = [
-  JobComponent,
   ArticleComponent,
-  JobNodeComponent,
-  JobListComponent,
-  JobFilterComponent,
   ArticleBannerComponent,
   ArticleMetaComponent,
   QuestionComponent,
@@ -57,7 +49,6 @@ const components = [
   exports: [
     ArticleComponent,
     QuestionComponent,
-    JobComponent,
     ReportComponent,
     AdvertComponent,
     LawCaseComponent,
@@ -67,7 +58,6 @@ export class NodeModule extends BaseModule {
   dynamicComponents = [
     ArticleComponent,
     QuestionComponent,
-    JobComponent,
     ReportComponent,
     AdvertComponent,
     LawCaseComponent,
