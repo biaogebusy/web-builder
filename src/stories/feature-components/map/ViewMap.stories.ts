@@ -89,6 +89,21 @@ Default.args = {
         position: [108.407058, 22.815584],
       },
       {
+        subTitle: '产品经理',
+        title: '亚马逊 Amazon',
+        meta_2: '2021-04-25',
+        badge_2: '<div class="item-list"><ul><li>新零售</li></ul></div>',
+        meta_1: '<span class="text-primary bold">6-8 k</span>',
+        badge_1:
+          '<div class="item-list"><ul><li>五险一金</li><li>绩效奖金</li><li>包中餐</li><li>产假</li></ul></div>',
+        img: '/assets/images/logo/amazon.svg',
+        address: '中国广西壮族自治区南宁市青秀区民族大道159号万丰新新大厦',
+        nid: '247',
+        url: '/node/247',
+        latitude: '22.83393',
+        longitude: '108.31343',
+      },
+      {
         subTitle: '新媒体运营',
         title: 'Codepen',
         meta_2: '2021-04-25',

@@ -80,11 +80,6 @@ export class NodeService extends ApiService {
     );
   }
 
-  searchByKey(key: string): Observable<any> {
-    const params = [`keys=${key}`].join('&');
-    return this.http.get<any>(`${this.apiUrl}/api/v1/job?${params}`);
-  }
-
   getNodePath(attr: any): string {
     return attr?.path?.alias
       ? attr.path.alias

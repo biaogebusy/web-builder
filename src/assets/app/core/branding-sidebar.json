@@ -8,11 +8,6 @@
     },
     "mainMenu": [
       {
-        "label": "内推",
-        "classes": "bold",
-        "href": "/lists/jobs"
-      },
-      {
         "label": "自习室",
         "classes": "bold",
         "href": "/lists/blog",

@@ -5,7 +5,7 @@
       <app-formly [form]="form" [model]="model" [fields]="content.form"
         (modelChange)="onModelChange($event)"></app-formly>
       <div class="actions">
-        <button mat-button (click)="clear()">
+        <button mat-raised-button color="primary" (click)="clear()">
           <mat-icon>clear</mat-icon>重置
         </button>
         <!-- <button disabled mat-button>

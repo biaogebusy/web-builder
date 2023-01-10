@@ -56,11 +56,18 @@ export class ViewMapComponent extends BaseComponent implements OnInit {
     this.loading = true;
     this.nodeService.search(urlApi, params).subscribe(({ rows, pager }) => {
       rows.forEach((item: any) => {
+        // 文字地址形式
         if (item.address) {
           item.address = item.address.replace(/\s+/g, '').trim();
         }
+        // position 数组形式 [108.407058, 22.815584]
         if (item.position && isString(item.position)) {
           item.position = item.position.split(',');
+        }
+
+        // 经纬度独立字段则处理到position
+        if (item.latitude && item.longitude) {
+          item.position = [item.longitude, item.latitude];
         }
       });
       this.lists = [...rows];

@@ -47,11 +47,6 @@ export const defaultHeader: IBranding = {
     },
     mainMenu: [
       {
-        label: '内推',
-        classes: 'bold',
-        href: '/lists/jobs',
-      },
-      {
         label: '自习室',
         classes: 'bold',
         href: '/lists/blog',
@@ -498,11 +493,6 @@ export const manageHeader: IBranding = {
       menuHoverOpen: true,
     },
     mainMenu: [
-      {
-        label: '内推',
-        classes: 'bold',
-        href: '/lists/jobs',
-      },
       {
         label: '自习室',
         classes: 'bold',
