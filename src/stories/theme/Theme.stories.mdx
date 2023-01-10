@@ -19,52 +19,52 @@ import { Meta, ColorPalette, ColorItem } from "@storybook/addon-docs";
 ### 浅色主题颜色配置
 
 <ColorPalette>
-  <ColorItem
-    title="文本"
+<ColorItem
+    title="主题色"
     subtitle="颜色"
-    colors={{ text: "rgba(0,0,0,.75)"}}
-  />
-  <ColorItem
-    title="主色"
-    subtitle="Primary"
-    colors={{ primary: "#613bfa" }}
-  />
-  <ColorItem
-    title="强调色"
-    subtitle="Accent"
-    colors={{ accent: "#613bfa" }}
-  />
-  <ColorItem
-    title="警告色"
-    subtitle="Warn"
-    colors={{ warn: "#ff5252" }}
-  />
-  <ColorItem
-    title="主色级别"
-    subtitle="颜色值"
     colors={{
-      50: "#efe8fe",
-      100: "#d5c7fd",
-      200: "#b9a2fd",
-      300: "#9a7afd",
-      400: "#7f5afc",
-      500: "#613bfa",
-      600: "#5336f3",
-      700: "#3c2eea",
-      800: "#1c28e5",
-      900: "#0019dd"
+      '文本': "rgba(0,0,0,.75)",
+      '主色 Primary': "#613bfa",
+      '强调色 Accent': "#613bfa",
+      '警告色 Wran': "#ff5252"
     }}
   />
-  <ColorItem
-    title="强调色级别"
-    subtitle="颜色值"
-    colors={{
-      A100: "#764ef8",
-      A200: "#532af5",
-      A400: "#4326ef",
-      A700: "#251ee7"
-    }}
-  />
+
+<ColorItem
+  title="Text color"
+  subtitle="class 类名"
+  colors={{
+    ".text-primary": "#613bfa",
+    ".text-accent": "#613bfa",
+    ".text-warn": "#ff5252",
+  }}
+/>
+<ColorItem
+  title="主色级别"
+  subtitle="颜色值"
+  colors={{
+    50: "#efe8fe",
+    100: "#d5c7fd",
+    200: "#b9a2fd",
+    300: "#9a7afd",
+    400: "#7f5afc",
+    500: "#613bfa",
+    600: "#5336f3",
+    700: "#3c2eea",
+    800: "#1c28e5",
+    900: "#0019dd",
+  }}
+/>
+<ColorItem
+  title="强调色级别"
+  subtitle="颜色值"
+  colors={{
+    A100: "#764ef8",
+    A200: "#532af5",
+    A400: "#4326ef",
+    A700: "#251ee7",
+  }}
+/>
 
 </ColorPalette>
 

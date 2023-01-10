@@ -41,6 +41,7 @@ Default.args = {
       {
         type: 'input',
         key: 'title',
+        className: 'm-right-xs width-30',
         templateOptions: {
           label: '搜索职位',
         },
@@ -48,6 +49,7 @@ Default.args = {
       {
         type: 'mat-select',
         key: 'skill',
+        className: 'm-right-xs width-30',
         apiBak: '/api/v2/filter/taxonomy/skill',
         templateOptions: {
           multiple: true,
@@ -77,7 +79,7 @@ Default.args = {
         title: '亚马逊 Amazon',
         meta_2: '2021-04-25',
         badge_2: '<div class="item-list"><ul><li>新零售</li></ul></div>',
-        meta_1: '\n\n\n\n\n6-8\n\n\n k',
+        meta_1: '<span class="text-primary bold">6-8 k</span>',
         badge_1:
           '<div class="item-list"><ul><li>五险一金</li><li>绩效奖金</li><li>包中餐</li><li>产假</li></ul></div>',
         img: '/assets/images/logo/amazon.svg',
@@ -91,7 +93,7 @@ Default.args = {
         title: 'Codepen',
         meta_2: '2021-04-25',
         badge_2: '<div class="item-list"><ul><li>运营</li></ul></div>',
-        meta_1: '\n\n\n\n\n3-6\n\n\n k',
+        meta_1: '<span class="text-primary bold">3-6 k</span>',
         badge_1: '<div class="item-list"><ul><li>职位晋升</li></ul></div>',
         img: '/assets/images/logo/codepen.svg',
         address: '中国广西壮族自治区南宁市良庆区平乐大道21号大唐·总部1号1号楼',
@@ -104,7 +106,7 @@ Default.args = {
         title: '中国谷歌 Google',
         meta_2: '2021-04-25',
         badge_2: '<div class="item-list"><ul><li>产品分析</li></ul></div>',
-        meta_1: '\n\n\n\n\n4-6\n\n\n k',
+        meta_1: '<span class="text-primary bold">4-6 k</span>',
         badge_1: '<div class="item-list"><ul><li>职位晋升</li></ul></div>',
         img: '/assets/images/logo/google.svg',
         address: '中国广西壮族自治区南宁市良庆区平乐大道21号大唐·总部1号1号楼',
@@ -117,7 +119,7 @@ Default.args = {
         title: '联想集团',
         meta_2: '2021-04-25',
         badge_2: '<div class="item-list"><ul><li>技术机构</li></ul></div>',
-        meta_1: '\n\n\n\n\n15-20\n\n\n k',
+        meta_1: '<span class="text-primary bold">15-20 k</span>',
         badge_1:
           '<div class="item-list"><ul><li>绩效奖金</li><li>午餐补助</li><li>美女多</li></ul></div>',
         img: '/assets/images/logo/lenovo.svg',
@@ -132,7 +134,7 @@ Default.args = {
         title: 'Paypal 海外',
         meta_2: '2021-04-30',
         badge_2: '<div class="item-list"><ul><li>VUE</li></ul></div>',
-        meta_1: '\n\n\n\n\n7-10\n\n\n k',
+        meta_1: '<span class="text-primary bold">7-10 k</span>',
         badge_1:
           '<div class="item-list"><ul><li>绩效奖金</li><li>午餐补助</li><li>美女多</li></ul></div>',
         img: '/assets/images/logo/paypal.svg',
@@ -147,7 +149,7 @@ Default.args = {
         title: 'Shopify 购物',
         meta_2: '2021-04-24',
         badge_2: '<div class="item-list"><ul><li>Linux</li></ul></div>',
-        meta_1: '\n\n\n\n\n7-9\n\n\n k',
+        meta_1: '<span class="text-primary bold">7-9 k</span>',
         badge_1: '<div class="item-list"><ul><li>五险一金</li></ul></div>',
         img: '/assets/images/logo/shopify.svg',
         address: '中国广西壮族自治区南宁市良庆区平乐大道18号东盟信息港',
@@ -161,7 +163,7 @@ Default.args = {
         meta_2: '2021-04-23',
         badge_2:
           '<div class="item-list"><ul><li>Spring</li><li>Oracle</li></ul></div>',
-        meta_1: '\n\n\n\n\n12-18\n\n\n k',
+        meta_1: '<span class="text-primary bold">12-18 k</span>',
         badge_1: '<div class="item-list"><ul><li>周末双休</li></ul></div>',
         img: '/assets/images/logo/spotify.svg',
         address: '中国广西壮族自治区南宁市西乡塘区东盟慧谷13栋15楼1501',

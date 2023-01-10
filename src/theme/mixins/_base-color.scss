@@ -46,6 +46,18 @@
     }
   }
 
+  .text-primary {
+    color: mat-color($primary);
+  }
+
+  .text-accent {
+    color: mat-color($accent);
+  }
+
+  .text-warn {
+    color: mat-color($warn);
+  }
+
   .bg-primary {
     background-color: mat-color($primary);
     color: $contrast;

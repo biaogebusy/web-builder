@@ -1,5 +1,5 @@
+import { StorysModule } from '@core/module/storys.module';
 import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
-import { StorysModule } from '@core/storys.module';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';

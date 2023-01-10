@@ -1,6 +1,9 @@
 @import "/src/theme/variable/variable";
 
 :host ::ng-deep {
+  .amap-marker-content {
+    line-height: 1;
+  }
   .mark-card {
     padding: $spacer / 4;
     display: flex;
@@ -29,6 +32,7 @@
     }
 
     .media-body {
+      min-width: 200px;
       .drawer {
         cursor: pointer;
         &:hover {
@@ -39,6 +43,8 @@
 
     li {
       list-style: none;
+      display: inline-block;
+      margin-right: 6px;
     }
     .arrow {
       position: absolute;
@@ -91,6 +97,10 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+      }
+      ol,
+      ul {
+        margin-left: 0;
       }
     }
 
