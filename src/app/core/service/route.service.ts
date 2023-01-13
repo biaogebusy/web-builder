@@ -32,6 +32,23 @@ export class RouteService {
 
   toNavigate(event: any, link: any): void {
     const href = link.href;
+    if (link.drawerIframe) {
+      this.contentState.drawerOpened$.next(true);
+      this.contentState.drawerLoading$.next(true);
+      this.contentState.drawerContent$.next({
+        title: link.label,
+        body: [
+          {
+            type: 'iframe',
+            url: link.href,
+            width: '800px',
+          },
+        ],
+      });
+      this.contentState.drawerLoading$.next(false);
+      event.preventDefault();
+      return;
+    }
     if (!this.util.getFileType(href)) {
       if (
         href.startsWith('/print') ||

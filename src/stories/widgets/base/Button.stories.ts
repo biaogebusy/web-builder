@@ -70,6 +70,17 @@ BtnLink.args = {
   },
 };
 
+export const BtnDrawer = Template.bind({});
+
+BtnDrawer.args = {
+  content: {
+    href: '/node/1',
+    label: 'Drawer 预览',
+    mode: 'raised',
+    drawerIframe: true,
+  },
+};
+
 export const BtnStroked = Template.bind({});
 
 BtnStroked.args = {

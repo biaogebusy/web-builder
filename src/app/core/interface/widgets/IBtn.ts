@@ -9,6 +9,7 @@ export interface IBtn {
   icon?: IIcon;
   label: string;
   target?: string;
+  drawerIframe?: boolean;
 }
 
 export interface IBtnVideo {
