@@ -10,6 +10,7 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [],
+      entryComponents: [...StorysModule.forEntryComponents()],
       imports: [StorysModule.forRoot()],
     }),
   ],
@@ -26,7 +27,7 @@ Default.args = {
   content: {
     type: 'carousel-1v1',
     title: {
-      label: 'XINSHI History',
+      label: '信使更新日志',
       style: 'style-v1',
     },
     style: 'text-dark',
@@ -57,43 +58,43 @@ Default.args = {
       elements: [
         {
           type: 'line-year',
-          title: '2013',
-          body: '1.KingZone was established <br>2. The 1 st product Teasla VW came out, and got over 5 million hits on social media.',
+          title: '2022/10/09',
+          body: `- 移除 mobx-angular；<br>
+                - 移除了 ngx-swiper-wrapper 模块依赖；<br>
+                - coreConfig, branding, theme, apiUrl, user 通过 useFactory provider 注入；<br>
+                - 更新了 storybook 文档；<br>
+                - 添加"@types/express-serve-static-core": "^4.17.21" 修复打包报错的问题；<br>
+                - 升级 angular 至 11.2.14 版本；<br>
+                - 降级 storybook 版本为 6.5.10，修复最新版无法 build 的问题；`,
         },
         {
           type: 'line-year',
-          title: '2014',
-          body: '1.Entered the U.S. market<br>2. Cooperated with more than 10 distributors',
+          title: '2022/10/13',
+          body: `- 优化了 Storybook import 和 provider，新建了 StoryModule 统一处理；<br>- 添加了 Storybook 的 play function，定义 action 更好的做演示；`,
         },
         {
           type: 'line-year',
-          title: '2015',
-          body: '1. Entered the European market<br>2. Exhibited internationally and established channel partnerships in many countries<br>3. Enriched product series',
+          title: '2022/10/25',
+          body: `- 添加了视频播放组件，基于 Video.js；<br>
+                - 添加了 btn-video widget，点击弹窗播放视频；<br>
+                - Storybook 升级到 6.5.13;<br>
+                - 移除了分散在各处的 api 请求缓存，统一在请求拦截处处理请求缓存；`,
         },
         {
           type: 'line-year',
-          title: '2016',
-          body: 'Developed domestic market',
+          title: '2022/10/31',
+          body: `- 使用 MDI 扩展了 icons 库；<br>
+                - 添加了 gsap 动画库，[示例](?path=/story/product-v2--page)；<br>
+                - 表格默认可以单元格 Sort 排序；<br>
+                - 应用可通过 Drawer 参数开启点击链接内容从右侧切出；<br>
+                - link 组件、View list 组件设置 rel="drawer" 可以调用 drawer 切出 href 的数据；`,
         },
         {
           type: 'line-year',
-          title: '2017',
-          body: '1.Entered Tmall<br>2. Further enriched the products<br>Terminator 90 W kit, Steampunk series, WYE series got incredible success',
-        },
-        {
-          type: 'line-year',
-          title: '2018',
-          body: '1. Made a breakthrough on the atomizer<br>2. Entered the device market<br>3. Brand strategy promotion',
-        },
-        {
-          type: 'line-year',
-          title: '2019',
-          body: '1. Established CBD product lines<br>2. Built a new factory <br>3. Built a professional R & D center <br> 4. Got more than 60 patents in utility model, invention, and appearance design <br> 5. Acquired ISO9001: 2015 quality management certification ',
-        },
-        {
-          type: 'line-year',
-          title: '2020',
-          body: '1.Passed GMP certification<br>2. The second factory was established, lean production was achieved<br>3. Total area of factory reached 32, 000 square meters, more than 1000 employees',
+          title: '2022/12/27',
+          body: `- 动态导入模块组件；<br>
+                - 添加了 Manage sidebar 管理边栏，[示例](?path=/story/manage-sidebar--page)；<br>
+                - 添加了 View Map 通用型地图映射组件，通过 Drupal view 即可配置出数据来源，[示例](?path=/story/viewmap--default)；`,
         },
       ],
     },
