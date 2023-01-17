@@ -1,4 +1,11 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  Input,
+  NgZone,
+  OnInit,
+} from '@angular/core';
 import { BRANDING, CORE_CONFIG, USER } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type { IUser } from '@core/interface/IUser';
@@ -14,6 +21,7 @@ import { LocalStorageService } from 'ngx-webstorage';
   selector: 'app-manage-sidebar',
   templateUrl: './manage-sidebar.component.html',
   styleUrls: ['./manage-sidebar.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ManageSidebarComponent implements OnInit {
   @Input() opened: boolean;
@@ -28,7 +36,8 @@ export class ManageSidebarComponent implements OnInit {
     public userService: UserService,
     private screenState: ScreenState,
     private screenService: ScreenService,
-    private storage: LocalStorageService
+    private storage: LocalStorageService,
+    private zooe: NgZone
   ) {}
 
   ngOnInit(): void {
@@ -50,14 +59,16 @@ export class ManageSidebarComponent implements OnInit {
   }
 
   initSidebarStyle(opened: any): void {
-    if (opened) {
-      this.main.style.paddingLeft = '0';
-      this.sidebar.style.overflow = 'auto';
-      this.container.style.overflow = 'auto';
-    } else {
-      this.main.style.paddingLeft = '80px';
-      this.sidebar.style.overflow = 'visible';
-      this.container.style.overflow = 'visible';
-    }
+    this.zooe.runOutsideAngular(() => {
+      if (opened) {
+        this.main.style.paddingLeft = '0';
+        this.sidebar.style.overflow = 'auto';
+        this.container.style.overflow = 'auto';
+      } else {
+        this.main.style.paddingLeft = '80px';
+        this.sidebar.style.overflow = 'visible';
+        this.container.style.overflow = 'visible';
+      }
+    });
   }
 }
