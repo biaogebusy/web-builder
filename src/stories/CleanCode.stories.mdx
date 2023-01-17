@@ -360,6 +360,7 @@ createMenu(menuConfig);
 ### 不要使用 flags 作为函数的参数
 
 Flags 告诉用户函数做的不止一件事情，应拆分出来。
+
 **不好**
 
 ```javascript
@@ -563,6 +564,7 @@ if (isDOMNodePresent(node)) {
 ### 函数中尽量避免使用条件
 
 还是一个函数只做一件事情的基本原则。
+
 **不好**
 
 ```javascript
@@ -613,6 +615,7 @@ class Cessna extends Airplane {
 ### 避免类型检查
 
 应该避免多态性，会是去可读性，可测试性。
+
 **不好**
 
 ```javascript
@@ -656,9 +659,10 @@ function combine(val1, val2) {
 }
 ```
 
-### 无需多度优化
+### 无需过度优化
 
 现代浏览器在运行时已经自动代码优化。
+
 **不好**
 
 ```javascript
@@ -927,6 +931,7 @@ get("https://en.wikipedia.org/wiki/Robert_Cecil_Martin")
 ### Async/Await 甚至比 Promises 更干净整洁
 
 ES2017/ES8 提供了更加简洁的解决方案，条件允许的情况下可使用。
+
 **不好**
 
 ```javascript
@@ -969,6 +974,7 @@ getCleanCodeArticle();
 ### 不要忽略引起的错误
 
 除了在控制台上显示错误通知您，你应该有计划的进行处理。
+
 **不好**
 
 ```javascript
@@ -1030,6 +1036,7 @@ getdata()
 ### 仅注释业务复杂的部分
 
 注释并不是要求，好的代码应该在函数本身体现出可读性。
+
 **不好**
 
 ```javascript
