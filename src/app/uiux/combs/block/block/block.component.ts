@@ -36,7 +36,7 @@ export class BlockComponent implements OnInit, AfterViewInit {
     @Inject(PAGE_CONTENT) public pageContent$: Observable<IPage>,
     private contentState: ContentState,
     private componentService: ComponentService,
-    private zooe: NgZone
+    private zone: NgZone
   ) {
     this.componentService.initUiuxModuleLoad();
   }
@@ -62,7 +62,7 @@ export class BlockComponent implements OnInit, AfterViewInit {
   }
 
   onDrawer(): void {
-    this.zooe.runOutsideAngular(() => {
+    this.zone.runOutsideAngular(() => {
       this.doc
         .getElementsByTagName('body')[0]
         .classList.toggle('drawer-disable-scroll');

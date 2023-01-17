@@ -37,7 +37,7 @@ export class ManageSidebarComponent implements OnInit {
     private screenState: ScreenState,
     private screenService: ScreenService,
     private storage: LocalStorageService,
-    private zooe: NgZone
+    private zone: NgZone
   ) {}
 
   ngOnInit(): void {
@@ -59,7 +59,7 @@ export class ManageSidebarComponent implements OnInit {
   }
 
   initSidebarStyle(opened: any): void {
-    this.zooe.runOutsideAngular(() => {
+    this.zone.runOutsideAngular(() => {
       if (opened) {
         this.main.style.paddingLeft = '0';
         this.sidebar.style.overflow = 'auto';

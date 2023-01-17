@@ -8,7 +8,7 @@ export class CheckChildMenuActiveDirective implements AfterViewInit {
   constructor(
     private el: ElementRef,
     private router: Router,
-    private zooe: NgZone
+    private zone: NgZone
   ) {}
 
   ngAfterViewInit(): void {
@@ -26,7 +26,7 @@ export class CheckChildMenuActiveDirective implements AfterViewInit {
   }
 
   updateClasses(): void {
-    this.zooe.runOutsideAngular(() => {
+    this.zone.runOutsideAngular(() => {
       const el = this.el.nativeElement;
       if (el.classList.contains('active')) {
         el.classList.remove('active');
