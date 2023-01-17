@@ -1,4 +1,10 @@
-import { Component, Inject, OnInit, AfterViewInit } from '@angular/core';
+import {
+  Component,
+  Inject,
+  OnInit,
+  AfterViewInit,
+  NgZone,
+} from '@angular/core';
 import { Observable } from 'rxjs';
 import type { IPage } from '@core/interface/IAppConfig';
 import { PAGE_CONTENT } from '@core/token/token-providers';
@@ -29,7 +35,8 @@ export class BlockComponent implements OnInit, AfterViewInit {
     @Inject(DOCUMENT) private doc: Document,
     @Inject(PAGE_CONTENT) public pageContent$: Observable<IPage>,
     private contentState: ContentState,
-    private componentService: ComponentService
+    private componentService: ComponentService,
+    private zooe: NgZone
   ) {
     this.componentService.initUiuxModuleLoad();
   }
@@ -55,11 +62,13 @@ export class BlockComponent implements OnInit, AfterViewInit {
   }
 
   onDrawer(): void {
-    this.doc
-      .getElementsByTagName('body')[0]
-      .classList.toggle('drawer-disable-scroll');
-    this.doc
-      .getElementById('transparent-mode')
-      ?.classList.toggle('transparent-mode');
+    this.zooe.runOutsideAngular(() => {
+      this.doc
+        .getElementsByTagName('body')[0]
+        .classList.toggle('drawer-disable-scroll');
+      this.doc
+        .getElementById('transparent-mode')
+        ?.classList.toggle('transparent-mode');
+    });
   }
 }
