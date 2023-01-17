@@ -32,6 +32,24 @@
       .icon {
         color: mat-color($foreground, text, 0.7);
       }
+      a {
+        &:after {
+          display: block;
+          content: "";
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 150%;
+          height: 100%;
+          transform: translateX(-50px);
+        }
+        &.active {
+          color: mat-color($primary);
+          &:after {
+            background-color: mat-color($primary, 0.05);
+          }
+        }
+      }
       .mat-list {
         .mat-list-item {
           color: mat-color($foreground, text, 0.5);
@@ -42,30 +60,18 @@
               }
             }
           }
-          a {
-            &:after {
-              display: block;
-              content: "";
-              position: absolute;
-              left: 0;
-              top: 0;
-              width: 150%;
-              height: 100%;
-              transform: translateX(-50px);
-            }
-            &.active {
-              color: mat-color($primary);
-              &:after {
-                background-color: mat-color($primary, 0.05);
-              }
-            }
-          }
         }
       }
       .icon-list {
         .item {
+          &.active,
           &:hover {
             background-color: mat-color($foreground, text, 0.05);
+          }
+          &.active {
+            &::before {
+              background-color: mat-color($primary, default-contrast);
+            }
           }
           app-hover-menu {
             background-color: mat-color($background, card);
@@ -82,6 +88,24 @@
             }
             .hover-menu {
               background-color: mat-color($background, card);
+            }
+          }
+        }
+      }
+      .mat-accordion {
+        > .mat-list {
+          &.active {
+            &::before {
+              background-color: mat-color($primary);
+            }
+          }
+        }
+        .mat-expansion-panel {
+          &.active {
+            .mat-expansion-panel-header {
+              &::before {
+                background-color: mat-color($primary);
+              }
             }
           }
         }

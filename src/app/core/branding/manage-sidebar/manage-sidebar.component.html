@@ -23,7 +23,7 @@
       [ngStyle]="{'overflow': opened?'auto' : 'visible'}">
       <app-dropdown-menu [hidden]="!opened" [content]="menu"></app-dropdown-menu>
       <div class="icon-list" [hidden]="opened">
-        <div class="item" *ngFor="let item of menu">
+        <div class="item" *ngFor="let item of menu" checkChildMenuActive>
           <ng-container *reqRolesIf="item">
             <app-icon class="icon" *ngIf="item.icon" [content]="item.icon"></app-icon>
             <app-hover-menu [content]="item"></app-hover-menu>

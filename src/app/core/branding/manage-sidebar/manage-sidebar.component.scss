@@ -1,3 +1,13 @@
+@mixin activeStyle() {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  border-radius: 2px;
+}
+
 .manage-sidebar {
   display: flex;
   flex-direction: column;
@@ -31,7 +41,9 @@
         display: flex;
         justify-content: center;
         align-items: center;
-
+        &::before {
+          @include activeStyle();
+        }
         &:hover {
           cursor: pointer;
           app-hover-menu {
@@ -88,8 +100,14 @@
     }
     ::ng-deep > app-dropdown-menu > .mat-accordion {
       > .mat-list {
-        > .mat-list-item {
-          &.no-child {
+        &.active {
+          position: relative;
+          &::before {
+            @include activeStyle();
+          }
+        }
+        &.no-child {
+          > .mat-list-item {
             overflow: hidden;
             .mat-list-item-content {
               margin-left: 0;
@@ -137,11 +155,19 @@
   ::ng-deep {
     mat-panel-title {
       font-size: 17px;
+      align-items: center;
     }
     .mat-accordion {
       .mat-expansion-panel {
         .mat-expansion-panel-header {
           height: 56px;
+        }
+        &.active {
+          .mat-expansion-panel-header {
+            &::before {
+              @include activeStyle();
+            }
+          }
         }
       }
     }

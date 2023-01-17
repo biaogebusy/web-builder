@@ -1,8 +1,6 @@
 import {
   Directive,
   Input,
-  OnChanges,
-  SimpleChanges,
   Inject,
   TemplateRef,
   ViewContainerRef,

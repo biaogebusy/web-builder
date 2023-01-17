@@ -43,9 +43,10 @@ import { MatPaginatorIntlCro } from '@core/service/paginator.service';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { throwError } from 'rxjs';
 import { ReqRolesDirective } from '@core/directive/req-roles.directive';
+import { CheckChildMenuActiveDirective } from '@core/directive/check-child-menu-active.directive';
 
 @NgModule({
-  declarations: [ReqRolesDirective],
+  declarations: [ReqRolesDirective, CheckChildMenuActiveDirective],
   imports: [
     CommonModule,
     MatToolbarModule,
@@ -110,6 +111,7 @@ import { ReqRolesDirective } from '@core/directive/req-roles.directive';
     NgxSkeletonLoaderModule,
     MatStepperModule,
     ReqRolesDirective,
+    CheckChildMenuActiveDirective,
   ],
   providers: [
     IconService,
