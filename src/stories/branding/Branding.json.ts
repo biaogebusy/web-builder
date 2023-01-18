@@ -59,11 +59,6 @@ export const defaultHeader: IBranding = {
         fragment: 'title',
       },
       {
-        label: '案例',
-        classes: 'bold',
-        href: '/lists/cases',
-      },
-      {
         label: '组件库',
         classes: 'bold for-test',
         child: [
