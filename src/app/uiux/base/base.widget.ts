@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
-import type { IUser } from '@core/interface/IUser';
 import { IPager } from '@core/interface/widgets/IWidgets';
-import { intersection, isArray, remove, result } from 'lodash-es';
+import { isArray, remove, result } from 'lodash-es';
 @Injectable()
 export abstract class BaseComponent {
   abstract content: any;
