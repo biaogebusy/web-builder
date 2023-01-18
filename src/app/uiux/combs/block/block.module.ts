@@ -8,12 +8,12 @@ import { pageContentFactory } from '@core/factory/factory';
 import { ContentService } from '@core/service/content.service';
 import { ContentState } from '@core/state/ContentState';
 import { PAGE_CONTENT } from '@core/token/token-providers';
-import { WidgetsModule } from '@uiux/widgets/widgets.module';
+import { ShareModule } from '@share/share.module';
 @NgModule({
   declarations: [BlockComponent],
   imports: [
     CommonModule,
-    WidgetsModule,
+    ShareModule,
     MatSidenavModule,
     MatProgressSpinnerModule,
   ],

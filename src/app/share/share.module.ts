@@ -44,9 +44,15 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { throwError } from 'rxjs';
 import { ReqRolesDirective } from '@core/directive/req-roles.directive';
 import { CheckChildMenuActiveDirective } from '@core/directive/check-child-menu-active.directive';
+import { DynamicComponentComponent } from './dynamic-component/dynamic-component.component';
+import { ComponentService } from '@core/service/component.service';
 
 @NgModule({
-  declarations: [ReqRolesDirective, CheckChildMenuActiveDirective],
+  declarations: [
+    DynamicComponentComponent,
+    ReqRolesDirective,
+    CheckChildMenuActiveDirective,
+  ],
   imports: [
     CommonModule,
     MatToolbarModule,
@@ -112,6 +118,7 @@ import { CheckChildMenuActiveDirective } from '@core/directive/check-child-menu-
     MatStepperModule,
     ReqRolesDirective,
     CheckChildMenuActiveDirective,
+    DynamicComponentComponent,
   ],
   providers: [
     IconService,
@@ -128,8 +135,10 @@ export class ShareModule {
    */
   constructor(
     private iconService: IconService,
+    private componentService: ComponentService,
     @Optional() @SkipSelf() parentModule: ShareModule
   ) {
+    this.componentService.initUiuxModuleLoad();
     this.iconService.loadSvgResources();
     if (parentModule) {
       throwError('ShareModule already loaded!');

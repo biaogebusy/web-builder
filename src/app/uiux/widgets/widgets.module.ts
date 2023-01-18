@@ -109,7 +109,6 @@ import { StepperComponent } from './stepper/stepper.component';
 import { FormlyComponent } from './form/formly/formly.component';
 import { PlayerComponent } from './media/player/player.component';
 import { BtnVideoComponent } from './actions/btn-video/btn-video.component';
-import { DynamicComponentComponent } from './dynamic-component/dynamic-component.component';
 
 import { BaseModule } from '@uiux/base/base.module';
 
@@ -198,13 +197,7 @@ const components = [
 ];
 
 @NgModule({
-  declarations: [
-    ...components,
-    SafeHtmlPipe,
-    SafeUrlPipe,
-    DataSourcePipe,
-    DynamicComponentComponent,
-  ],
+  declarations: [...components, SafeHtmlPipe, SafeUrlPipe, DataSourcePipe],
   imports: [
     MatChipsModule,
     ShareModule,
@@ -251,13 +244,7 @@ const components = [
       ],
     }),
   ],
-  exports: [
-    ...components,
-    SafeHtmlPipe,
-    SafeUrlPipe,
-    DataSourcePipe,
-    DynamicComponentComponent,
-  ],
+  exports: [...components, SafeHtmlPipe, SafeUrlPipe, DataSourcePipe],
   providers: [
     MatDatepickerModule,
     { provide: MAT_DATE_LOCALE, useValue: 'zh-cn' },
