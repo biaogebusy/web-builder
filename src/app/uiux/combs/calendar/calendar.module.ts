@@ -1,14 +1,14 @@
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { FullCalendarComponent } from './full-calendar/full-calendar.component';
-import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { BaseModule } from '@uiux/base/base.module';
+import { CommonModule } from '@angular/common';
 
 const components = [FullCalendarComponent];
 
 @NgModule({
   declarations: [...components],
-  imports: [ShareModule, WidgetsModule],
+  imports: [CommonModule, WidgetsModule],
   exports: [...components],
   providers: [],
 })
