@@ -63,11 +63,6 @@
         "fragment": "title"
       },
       {
-        "label": "案例",
-        "classes": "bold",
-        "href": "/lists/cases"
-      },
-      {
         "label": "组件库",
         "classes": "bold",
         "child": [
@@ -211,10 +206,6 @@
             "label": "Node",
             "href": "javascript:void(0)",
             "child": [
-              {
-                "label": "Case",
-                "href": "/sample/node/case"
-              },
               {
                 "label": "Law Case",
                 "href": "/sample/node/law-case"

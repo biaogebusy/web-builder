@@ -46,11 +46,6 @@ Default.args = {
       fragment: 'title',
     },
     {
-      label: '案例',
-      classes: 'bold',
-      href: '#',
-    },
-    {
       label: '组件库',
       classes: 'bold',
       child: [
