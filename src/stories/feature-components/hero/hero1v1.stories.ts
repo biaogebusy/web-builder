@@ -38,7 +38,7 @@ Default.args = {
           type: 'text',
           spacer: 'xl',
           title: {
-            label: 'Light text, and xy center',
+            label: '开源',
             style: 'style-v1',
             classes: 'mat-display-3 bold',
           },
@@ -50,7 +50,7 @@ Default.args = {
               mobile: '/assets/images/mobile/mobile-03.jpg',
             },
           },
-          body: '<p style="font-size:18px">At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.</p>',
+          body: '<p style="font-size:18px">它是一个开放源代码软件，可以免费使用和修改</p>',
           actionsAlign: 'center center',
           actions: [
             {
@@ -58,14 +58,14 @@ Default.args = {
               mode: 'raised',
               color: 'primary',
               href: '#',
-              label: 'Get Started',
+              label: '开始',
             },
           ],
         },
         {
           type: 'text',
           title: {
-            label: 'Enable overlay',
+            label: '强大的内容管理功能',
             style: 'style-v1',
             classes: 'mat-display-3 bold',
           },
@@ -86,11 +86,11 @@ Default.args = {
               mode: 'raised',
               color: 'primary',
               href: '#',
-              label: 'Get Started',
+              label: '开始',
             },
             {
               type: 'closeDialog',
-              label: 'Ok',
+              label: '前往',
             },
           ],
         },

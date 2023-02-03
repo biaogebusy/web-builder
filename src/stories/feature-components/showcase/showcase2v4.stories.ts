@@ -31,7 +31,7 @@ Default.args = {
   content: {
     text: {
       title: {
-        label: 'Our Products',
+        label: '我们的产品',
         style: 'style-v1',
         classes: 'mat-display-1',
       },

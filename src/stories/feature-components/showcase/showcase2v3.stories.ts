@@ -31,7 +31,7 @@ Default.args = {
     spacer: 'md',
     text: {
       title: {
-        label: 'Our Products',
+        label: '我们的产品',
         style: 'style-v1',
         classes: 'display-v2',
       },
