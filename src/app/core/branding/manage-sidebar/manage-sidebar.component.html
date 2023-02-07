@@ -1,6 +1,6 @@
 <ng-container *ngIf="branding$ | async as branding">
   <div class="manage-sidebar {{opened?'opened':'expanded'}}" *reqRolesIf="branding.header?.sidebar">
-    <div class="manage-brand p-y p-x" *ngIf="branding.header?.sidebar as sidebar">
+    <div class="manage-brand p-y p-x-sm" *ngIf="branding.header?.sidebar as sidebar">
       <app-logo *ngIf="!sidebar?.params.showUser; else profile" [content]="sidebar?.logo"></app-logo>
       <ng-template #profile>
         <div class="profile">
@@ -9,9 +9,9 @@
           </a>
           <ng-container *ngIf="opened">
             <div class="name bold p-top-xs">
-              <a [routerLink]="userService.userPage">{{user.display_name}}</a>
+              <a class="one-line" [routerLink]="userService.userPage">{{user.display_name}}</a>
             </div>
-            <div class="email" *ngIf="user.mail">
+            <div class="email one-line" *ngIf="user.mail">
               {{user.mail}}
             </div>
           </ng-container>

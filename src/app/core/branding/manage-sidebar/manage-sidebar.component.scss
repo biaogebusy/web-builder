@@ -1,3 +1,4 @@
+@import "../../../../theme/variable/breakpoint";
 @mixin activeStyle() {
   content: "";
   position: absolute;
@@ -201,6 +202,11 @@
   visibility: visible !important;
   transform: none !important;
   &.mat-drawer-opened {
-    width: 270px;
+    width: 200px;
+  }
+  @media #{$gt-lg} {
+    &.mat-drawer-opened {
+      width: 260px;
+    }
   }
 }
