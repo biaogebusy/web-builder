@@ -278,7 +278,9 @@
     "id": "G-N7PGP9ND57"
   },
   "guard": {
-    "authGuard": false
+    "authGuard": false,
+    "defaultDrupalLoginPage": "/user/login",
+    "defaultFrontLoginPage": "/me/login"
   },
   "access": {
     "check": false

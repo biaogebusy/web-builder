@@ -13,6 +13,7 @@ import { environment } from 'src/environments/environment';
 import { NodeService } from '@core/service/node.service';
 import { IUser } from '@core/interface/IUser';
 import { USER } from '@core/token/token-providers';
+import { ICoreConfig } from '@core/interface/IAppConfig';
 
 @Injectable({
   providedIn: 'root',
@@ -34,8 +35,9 @@ export class AuthGuard implements CanActivate {
     | UrlTree {
     // return true;
     return this.nodeService.search(`/api/v1/config`, 'content=/core/base').pipe(
-      switchMap((config: any) => {
-        if (state.url.startsWith('/my') || config?.guard?.authGuard) {
+      switchMap((config: ICoreConfig) => {
+        const guardConfig = config.guard;
+        if (state.url.startsWith('/my') || guardConfig?.authGuard) {
           return this.userService.getLoginState().pipe(
             map((status) => {
               // console.log('userState:', status);
@@ -49,22 +51,29 @@ export class AuthGuard implements CanActivate {
               } else {
                 this.userService.logouLocalUser();
                 if (environment?.drupalProxy) {
-                  window.location.href = '/user/login';
+                  window.location.href =
+                    guardConfig.defaultDrupalLoginPage || '/user/login';
                   return false;
                 } else {
-                  this.router.navigate(['/me/login'], {
-                    queryParams: { returnUrl: state.url },
-                  });
+                  this.router.navigate(
+                    [guardConfig.defaultFrontLoginPage || '/me/login'],
+                    {
+                      queryParams: { returnUrl: state.url },
+                    }
+                  );
                   return false;
                 }
               }
             }),
             catchError(() => {
               if (environment?.drupalProxy) {
-                window.location.href = '/user/login';
+                window.location.href =
+                  guardConfig.defaultDrupalLoginPage || '/user/login';
                 return of(false);
               } else {
-                this.router.navigate(['/me/login']);
+                this.router.navigate([
+                  guardConfig.defaultFrontLoginPage || '/me/login',
+                ]);
                 return of(false);
               }
             })

@@ -231,6 +231,8 @@ export interface GoogleAnalytics {
 
 export interface Guard {
   authGuard: boolean;
+  defaultDrupalLoginPage?: string;
+  defaultFrontLoginPage?: string;
 }
 
 export interface IPage {
