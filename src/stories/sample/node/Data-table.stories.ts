@@ -34,7 +34,7 @@ export const Default = Template.bind({});
 Default.storyName = '预览';
 Default.args = {
   content: {
-    title: 'Angular SSR 服务端渲染技术',
+    title: '商业品牌LOGO归属权纠纷',
     date: [
       {
         label: '更新',
@@ -150,12 +150,12 @@ Default.args = {
                   },
                   {
                     type: 'link',
-                    label: '南宁一建',
+                    label: '南宁二建',
                     href: '/node/6',
                   },
                 ],
                 court: '法官电话',
-                contentOfCourt: '0512-6587459',
+                contentOfCourt: '0771-1234567',
               },
               {
                 customer: '案件类型',
@@ -213,7 +213,7 @@ Default.args = {
       {
         type: 'files',
         title: {
-          label: '案件文件',
+          label: '相关文件',
           style: 'style-v4',
         },
         icon: {
@@ -227,7 +227,7 @@ Default.args = {
                 elements: [
                   {
                     type: 'link',
-                    label: '第二次起诉签字.docx',
+                    label: '第一次起诉签字.docx',
                     href: 'xxx.docx',
                     classes: 'file one-line',
                   },
@@ -263,7 +263,7 @@ Default.args = {
                 elements: [
                   {
                     type: 'link',
-                    label: '第二次起诉签字.docx',
+                    label: '第三次起诉签字.docx',
                     href: 'xxx.docx',
                     classes: 'file one-line',
                   },
@@ -277,79 +277,11 @@ Default.args = {
                   },
                 ],
               },
-              {
-                elements: [
-                  {
-                    type: 'link',
-                    label: '第二次起诉签字.docx',
-                    href: 'xxx.docx',
-                    classes: 'file one-line',
-                  },
-                  {
-                    type: 'btn',
-                    href: '#',
-                    mode: 'raised',
-                    label: '预览',
-                    color: 'primary',
-                  },
-                ],
-              },
-              {
-                elements: [
-                  {
-                    type: 'link',
-                    label: '第二次起诉签字.docx',
-                    href: 'xxx.docx',
-                    classes: 'file one-line',
-                  },
-                  {
-                    type: 'btn',
-                    href: '#',
-                    mode: 'raised',
-                    label: '预览',
-                    color: 'primary',
-                  },
-                ],
-              },
             ],
           },
           {
             label: '法院文件',
             elements: [
-              {
-                elements: [
-                  {
-                    type: 'link',
-                    label: '法院判决书',
-                    href: 'xxx.docx',
-                    classes: 'file one-line',
-                  },
-                  {
-                    type: 'btn',
-                    href: '#',
-                    mode: 'raised',
-                    label: '预览',
-                    color: 'primary',
-                  },
-                ],
-              },
-              {
-                elements: [
-                  {
-                    type: 'link',
-                    label: '法院判决书',
-                    href: 'xxx.docx',
-                    classes: 'file one-line',
-                  },
-                  {
-                    type: 'btn',
-                    href: '#',
-                    mode: 'raised',
-                    label: '预览',
-                    color: 'primary',
-                  },
-                ],
-              },
               {
                 elements: [
                   {
@@ -410,77 +342,10 @@ Default.args = {
                 elements: [
                   {
                     type: 'link',
-                    label: '法院判决书',
-                    href: 'xxx.docx',
+                    label: '注册发行规则.pdf',
+                    href: '/system/files/2022-09/注册发行规则.pdf',
                     classes: 'file one-line',
-                  },
-                  {
-                    type: 'btn',
-                    href: '#',
-                    mode: 'raised',
-                    label: '预览',
-                    color: 'primary',
-                  },
-                ],
-              },
-              {
-                elements: [
-                  {
-                    type: 'link',
-                    label: '法院判决书',
-                    href: 'xxx.docx',
-                    classes: 'file one-line',
-                  },
-                  {
-                    type: 'btn',
-                    href: '#',
-                    mode: 'raised',
-                    label: '预览',
-                    color: 'primary',
-                  },
-                ],
-              },
-              {
-                elements: [
-                  {
-                    type: 'link',
-                    label: '法院判决书',
-                    href: 'xxx.docx',
-                    classes: 'file one-line',
-                  },
-                  {
-                    type: 'btn',
-                    href: '#',
-                    mode: 'raised',
-                    label: '预览',
-                    color: 'primary',
-                  },
-                ],
-              },
-              {
-                elements: [
-                  {
-                    type: 'link',
-                    label: '法院判决书',
-                    href: 'xxx.docx',
-                    classes: 'file one-line',
-                  },
-                  {
-                    type: 'btn',
-                    href: '#',
-                    mode: 'raised',
-                    label: '预览',
-                    color: 'primary',
-                  },
-                ],
-              },
-              {
-                elements: [
-                  {
-                    type: 'link',
-                    label: '法院判决书',
-                    href: 'xxx.docx',
-                    classes: 'file one-line',
+                    target: '_blank',
                   },
                   {
                     type: 'btn',
@@ -500,8 +365,8 @@ Default.args = {
                 elements: [
                   {
                     type: 'link',
-                    label: '法院判决书',
-                    href: 'xxx.docx',
+                    label: 'WechatIMG330_0.jpeg',
+                    href: '/xxx/xxx.jpeg',
                     classes: 'file one-line',
                     target: '_blank',
                   },
@@ -512,95 +377,6 @@ Default.args = {
                     label: '预览',
                     color: 'primary',
                     target: '_blank',
-                  },
-                ],
-              },
-              {
-                elements: [
-                  {
-                    type: 'link',
-                    label: '法院判决书',
-                    href: 'xxx.docx',
-                    classes: 'file one-line',
-                    target: '_blank',
-                  },
-                  {
-                    type: 'btn',
-                    href: '#',
-                    mode: 'raised',
-                    label: '预览',
-                    color: 'primary',
-                    target: '_blank',
-                  },
-                ],
-              },
-              {
-                elements: [
-                  {
-                    type: 'link',
-                    label: '法院判决书',
-                    href: 'xxx.docx',
-                    classes: 'file one-line',
-                    target: '_blank',
-                  },
-                  {
-                    type: 'btn',
-                    href: '#',
-                    mode: 'raised',
-                    label: '预览',
-                    color: 'primary',
-                    target: '_blank',
-                  },
-                ],
-              },
-              {
-                elements: [
-                  {
-                    type: 'link',
-                    label: '法院判决书',
-                    href: 'xxx.docx',
-                    classes: 'file one-line',
-                  },
-                  {
-                    type: 'btn',
-                    href: '#',
-                    mode: 'raised',
-                    label: '预览',
-                    color: 'primary',
-                  },
-                ],
-              },
-              {
-                elements: [
-                  {
-                    type: 'link',
-                    label: '法院判决书',
-                    href: 'xxx.docx',
-                    classes: 'file one-line',
-                  },
-                  {
-                    type: 'btn',
-                    href: '#',
-                    mode: 'raised',
-                    label: '预览',
-                    color: 'primary',
-                  },
-                ],
-              },
-              {
-                elements: [
-                  {
-                    type: 'link',
-                    label: '法院判决书',
-                    href: 'xxx.docx',
-                    classes: 'file one-line',
-                  },
-                  {
-                    type: 'btn',
-                    href: '#',
-                    mode: 'raised',
-                    label: '预览',
-                    color: 'primary',
                   },
                 ],
               },
@@ -632,6 +408,10 @@ Default.args = {
             key: 'deliveryTime',
           },
           {
+            label: '发票图片',
+            key: 'images',
+          },
+          {
             label: '备注',
             key: 'remarks',
           },
@@ -642,6 +422,17 @@ Default.args = {
             money: '3679',
             billingTime: '2022-03-03',
             deliveryTime: '2022-03-04',
+            images: {
+              type: 'inline-lightbox',
+              label: ['111.jpg'],
+              elements: [
+                {
+                  src: '/assets/images/cases/porto1.jpg',
+                  caption: '111.jpg',
+                  thumb: '/assets/images/cases/porto1.jpg',
+                },
+              ],
+            },
             remarks: '已收到',
             expand: [
               {
@@ -694,6 +485,17 @@ Default.args = {
             money: '3679',
             billingTime: '2022-03-03',
             deliveryTime: '2022-03-04',
+            images: {
+              type: 'inline-lightbox',
+              label: ['111.jpg'],
+              elements: [
+                {
+                  src: '/assets/images/cases/porto1.jpg',
+                  caption: '111.jpg',
+                  thumb: '/assets/images/cases/porto1.jpg',
+                },
+              ],
+            },
             remarks: '已收到',
             expand: [
               {
@@ -746,6 +548,17 @@ Default.args = {
             money: '3679',
             billingTime: '2022-03-03',
             deliveryTime: '2022-03-04',
+            images: {
+              type: 'inline-lightbox',
+              label: ['111.jpg'],
+              elements: [
+                {
+                  src: '/assets/images/cases/porto1.jpg',
+                  caption: '111.jpg',
+                  thumb: '/assets/images/cases/porto1.jpg',
+                },
+              ],
+            },
             remarks: '已收到',
             expand: [
               {
