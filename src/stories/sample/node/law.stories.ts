@@ -180,7 +180,7 @@ Default.args = {
                 customer: '经办律师',
                 contentOfCustomer: 'Johnson',
                 court: '案件编号',
-                contentOfCourt: '（2022）苏05民终3823',
+                contentOfCourt: 'NO.57896',
               },
               {
                 customer: '优先等级',
