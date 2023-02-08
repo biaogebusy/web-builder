@@ -27,7 +27,7 @@ export const Default = Template.bind({});
 Default.args = {
   content: {
     title: {
-      label: 'Our Blog',
+      label: 'Vue 开发',
       style: 'style-v1',
     },
     filter: [
