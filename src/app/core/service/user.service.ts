@@ -249,19 +249,37 @@ export class UserService extends ApiService {
         this.optionsWithCookieAndToken(token)
       )
       .pipe(
+        catchError((error: any) => {
+          return this.http.get<any>(
+            `${this.apiUrl}/api/v1/personalProfile`,
+            this.optionsWithCookieAndToken(token)
+          );
+        }),
         map((res: any) => {
-          const detail = res.data[0];
-          return {
-            id: detail.id,
-            display_name: detail?.display_name || '',
-            mail: detail?.mail || '',
-            authenticated: true,
-            picture:
-              detail?.user_picture?.uri?.url ||
-              this.coreConfig?.defaultAvatar ||
-              '',
-            login: detail.login,
-          };
+          // jsonapi
+          if (res.data) {
+            const detail = res.data[0];
+            return {
+              id: detail.id,
+              display_name: detail?.display_name || '',
+              mail: detail?.mail || '',
+              authenticated: true,
+              picture:
+                detail?.user_picture?.uri?.url ||
+                this.coreConfig?.defaultAvatar ||
+                '',
+              login: detail.login,
+            };
+          } else {
+            return {
+              id: res.uid,
+              display_name: res.name,
+              mail: res.mail || '',
+              authenticated: true,
+              picture: res.avatar || this.coreConfig?.defaultAvatar || '',
+              login: new Date(),
+            };
+          }
         })
       );
   }
