@@ -10,7 +10,7 @@ export interface ILink {
   queryParams?: Params | null;
   fragment?: string;
   rel?: string;
-  params?: object;
+  params?: any;
   dialog?: {
     params: MatDialogConfig;
     data: any[];
