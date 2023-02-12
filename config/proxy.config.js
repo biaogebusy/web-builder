@@ -26,6 +26,7 @@ const PROXY_CONFIG = [
       "/export",
       "/print",
       "/wechat",
+      "/media",
     ],
     target: "https://api.zhaobg.com",
     secure: false,
