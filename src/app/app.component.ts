@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { UserService } from '@core/service/user.service';
 import { IUser } from '@core/interface/IUser';
 import { LocalStorageService } from 'ngx-webstorage';
+import { DOCUMENT } from '@angular/common';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -31,7 +32,8 @@ export class AppComponent implements OnInit, AfterViewInit {
     private storage: LocalStorageService,
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
     @Inject(BRANDING) public branding$: Observable<IBranding>,
-    @Inject(USER) public user: IUser
+    @Inject(USER) public user: IUser,
+    @Inject(DOCUMENT) private doc: Document
   ) {}
 
   ngOnInit(): void {
@@ -46,6 +48,10 @@ export class AppComponent implements OnInit, AfterViewInit {
 
       this.branding$.subscribe((branding) => {
         if (this.userService.checkShow(branding.header?.sidebar, this.user)) {
+          if (this.doc.location.pathname.split('/').length === 2) {
+            this.enableSidebar = false;
+            return;
+          }
           this.enableSidebar = true;
           const openState = this.storage.retrieve('sidebarOpened');
           if (openState === null) {
