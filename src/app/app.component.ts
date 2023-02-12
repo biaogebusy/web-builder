@@ -47,7 +47,12 @@ export class AppComponent implements OnInit, AfterViewInit {
       this.branding$.subscribe((branding) => {
         if (this.userService.checkShow(branding.header?.sidebar, this.user)) {
           this.enableSidebar = true;
-          this.sidebarOpened = this.storage.retrieve('sidebarOpened');
+          const openState = this.storage.retrieve('sidebarOpened');
+          if (openState === null) {
+            this.sidebarOpened = true;
+          } else {
+            this.sidebarOpened = this.storage.retrieve('sidebarOpened');
+          }
           this.screen.sidebarDrawer$.subscribe(() => {
             this.sidebarOpened = !this.sidebarOpened;
             this.storage.store('sidebarOpened', this.sidebarOpened);

@@ -13,6 +13,7 @@ export interface IHeader {
   mainMenu: IMainMenu[];
   sidebar?: {
     params: any;
+    classes?: any;
     logo: Logo;
     menu: IMainMenu[];
   };

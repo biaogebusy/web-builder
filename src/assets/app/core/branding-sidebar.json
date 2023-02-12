@@ -380,6 +380,9 @@
         "reqRoles": [],
         "showUser": true
       },
+      "classes": {
+        "inverse": true
+      },
       "logo": {
         "label": "信使",
         "version": false,

@@ -42,6 +42,7 @@
           width: 150%;
           height: 100%;
           transform: translateX(-50px);
+          z-index: -1;
         }
         &.active {
           color: mat-color($primary);
@@ -80,6 +81,7 @@
               border-bottom: 1px solid mat-color($foreground, divider);
               &.not-link {
                 color: mat-color($foreground, text, 0.75);
+                background-color: mat-color($foreground, text, 0.02);
                 a,
                 a:hover {
                   color: mat-color($foreground, text, 0.75);
@@ -124,8 +126,6 @@
       }
     }
     &.expanded {
-      background-color: mat-color($primary, 0.85);
-      color: mat-color($primary, default-contrast);
       .manage-brand {
         .profile {
           .picture {
@@ -134,20 +134,25 @@
           }
         }
       }
-      .manage-menu {
-        .icon {
-          color: mat-color($primary, default-contrast);
-        }
-      }
-      .manage-footer {
-        .toggle {
-          .wrapper {
-            @include mat-elevation(4, mat-color($primary), 0.3);
-          }
-        }
-      }
+
       > .mat-divider {
         border-top-color: mat-color($background, card, 0.12);
+      }
+      &.inverse {
+        background-color: mat-color($primary, 0.85);
+        color: mat-color($primary, default-contrast);
+        .manage-menu {
+          .icon {
+            color: mat-color($primary, default-contrast);
+          }
+        }
+        .manage-footer {
+          .toggle {
+            .wrapper {
+              @include mat-elevation(4, mat-color($primary), 0.3);
+            }
+          }
+        }
       }
     }
   }
