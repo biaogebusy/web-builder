@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit, Inject } from '@angular/core';
 import { ScreenState } from './core/state/screen/ScreenState';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { ScreenService } from '@core/service/screen.service';
 import { ConfigService } from '@core/service/config.service';
 import { CORE_CONFIG, BRANDING, USER } from '@core/token/token-providers';
@@ -25,7 +25,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   loading = false;
   constructor(
     public screen: ScreenState,
-    private router: ActivatedRoute,
+    private activateRouter: ActivatedRoute,
+    private router: Router,
     private screenService: ScreenService,
     private configService: ConfigService,
     private userService: UserService,
@@ -48,17 +49,29 @@ export class AppComponent implements OnInit, AfterViewInit {
 
       this.branding$.subscribe((branding) => {
         if (this.userService.checkShow(branding.header?.sidebar, this.user)) {
+          // init manage sidebar
           if (this.doc.location.pathname.split('/').length === 2) {
             this.enableSidebar = false;
-            return;
-          }
-          this.enableSidebar = true;
-          const openState = this.storage.retrieve('sidebarOpened');
-          if (openState === null) {
-            this.sidebarOpened = true;
+            this.sidebarOpened = false;
           } else {
-            this.sidebarOpened = this.storage.retrieve('sidebarOpened');
+            this.initSidebar();
           }
+
+          // subject manage sidebar
+          this.router.events.subscribe((event) => {
+            if (event instanceof NavigationEnd) {
+              const url = event.url;
+              if (url.split('/').length === 2) {
+                if (this.enableSidebar) {
+                  this.enableSidebar = false;
+                  this.sidebarOpened = false;
+                  this.screenService.initSidebarStyle(true);
+                }
+              } else {
+                this.initSidebar();
+              }
+            }
+          });
           this.screen.sidebarDrawer$.subscribe(() => {
             this.sidebarOpened = !this.sidebarOpened;
             this.storage.store('sidebarOpened', this.sidebarOpened);
@@ -69,11 +82,21 @@ export class AppComponent implements OnInit, AfterViewInit {
         }
       });
 
-      this.router.fragment.subscribe((fragment) => {
+      this.activateRouter.fragment.subscribe((fragment) => {
         if (fragment) {
           this.screenService.scrollToAnchor(fragment);
         }
       });
+    }
+  }
+
+  initSidebar(): void {
+    this.enableSidebar = true;
+    const openState = this.storage.retrieve('sidebarOpened');
+    if (openState === null) {
+      this.sidebarOpened = true;
+    } else {
+      this.sidebarOpened = this.storage.retrieve('sidebarOpened');
     }
   }
 }

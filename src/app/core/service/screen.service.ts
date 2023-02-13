@@ -1,13 +1,17 @@
-import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID, NgZone } from '@angular/core';
 import { DOCUMENT, isPlatformBrowser, isPlatformServer } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ScreenService {
+  main: any;
+  sidebar: any;
+  container: any;
   constructor(
     @Inject(DOCUMENT) private document: Document,
-    @Inject(PLATFORM_ID) public platformId: object
+    @Inject(PLATFORM_ID) public platformId: object,
+    private zone: NgZone
   ) {}
 
   isPlatformServer(): boolean {
@@ -67,6 +71,25 @@ export class ScreenService {
       top: 0,
       left: 0,
       behavior: 'smooth',
+    });
+  }
+
+  initSidebarStyle(opened: any): void {
+    this.main = this.document.getElementById('main-container');
+    this.sidebar = this.document.getElementById('sidebar');
+    this.container = this.sidebar.getElementsByClassName(
+      'mat-drawer-inner-container'
+    )[0];
+    this.zone.runOutsideAngular(() => {
+      if (opened) {
+        this.main.style.paddingLeft = '0';
+        this.sidebar.style.overflow = 'auto';
+        this.container.style.overflow = 'auto';
+      } else {
+        this.main.style.paddingLeft = '80px';
+        this.sidebar.style.overflow = 'visible';
+        this.container.style.overflow = 'visible';
+      }
     });
   }
 }
