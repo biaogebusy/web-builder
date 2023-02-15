@@ -52,6 +52,10 @@ const components = [
     ReportComponent,
     AdvertComponent,
     LawCaseComponent,
+    CommentFormComponent,
+    CommentListComponent,
+    CommentItemComponent,
+    CommentActionsComponent,
   ],
 })
 export class NodeModule extends BaseModule {

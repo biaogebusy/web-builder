@@ -8,6 +8,7 @@ import { UserFavoriteComponent } from './user-center/user-favorite/user-favorite
 import { UserPayComponent } from './user-center/user-pay/user-pay.component';
 import { UserProfileComponent } from './user-center/user-profile/user-profile.component';
 import { BaseModule } from '@uiux/base/base.module';
+import { NodeModule } from '@uiux/combs/node/node.module';
 
 const components = [
   Profile1v1Component,
@@ -18,7 +19,7 @@ const components = [
 
 @NgModule({
   declarations: [...components, UserProfileComponent],
-  imports: [ShareModule, WidgetsModule, ListModule],
+  imports: [ShareModule, WidgetsModule, ListModule, NodeModule],
   exports: [...components],
 })
 export class ProfileModule extends BaseModule {

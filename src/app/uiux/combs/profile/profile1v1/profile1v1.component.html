@@ -58,5 +58,12 @@
         </div>
       </div>
     </div>
+    <div class="comment-wrapper" *ngIf="content?.params?.comment" ngClass.gt-sm="m-y-sm p-y p-x"
+      ngClass.lt-md="m-y-xs p-y-xs p-x-xs">
+      <app-comment-form *ngIf="content?.params?.comment" [content]="content" [type]="'add'">
+      </app-comment-form>
+      <app-comment-list [comments]="comments$ | async" [content]="content">
+      </app-comment-list>
+    </div>
   </div>
 </div>
