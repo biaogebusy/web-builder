@@ -1,4 +1,5 @@
 @import "~@angular/material/theming";
+@import "../mixins/amixin";
 
 @mixin manage-sidebar-color($config-or-theme) {
   $config: mat-get-color-config($config-or-theme);
@@ -90,6 +91,7 @@
             }
             .hover-menu {
               background-color: mat-color($background, card);
+              @include scrollbar(mat-color($foreground, divider));
             }
           }
         }

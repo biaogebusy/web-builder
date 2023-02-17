@@ -89,6 +89,9 @@
               position: relative;
               box-shadow: none;
               display: block;
+              max-height: 450px;
+              overflow-y: auto;
+              overflow-x: hidden;
               .sub-menu {
                 .mat-button {
                   height: 56px;
