@@ -232,7 +232,7 @@ export class UserService extends ApiService {
 
   getCurrentUserProfile(crsfToken: string): Observable<any> {
     return this.http.get<any>(
-      `${this.apiUrl}/api/v1/accountProfile`,
+      `${this.apiUrl}/api/v1/accountProfile?noCache=1`,
       this.optionsWithCookieAndToken(crsfToken)
     );
   }
@@ -242,6 +242,7 @@ export class UserService extends ApiService {
       `filter[drupal_internal__uid]=${uid}`,
       `include=user_picture,roles`,
       `jsonapi_include=1`,
+      `noCache=1`,
     ].join('&');
     return this.http
       .get<any>(
@@ -251,7 +252,7 @@ export class UserService extends ApiService {
       .pipe(
         catchError((error: any) => {
           return this.http.get<any>(
-            `${this.apiUrl}/api/v1/personalProfile`,
+            `${this.apiUrl}/api/v1/personalProfile?noCache=1`,
             this.optionsWithCookieAndToken(token)
           );
         }),
@@ -299,7 +300,10 @@ export class UserService extends ApiService {
       withCredentials: true,
     };
     return this.http
-      .get<any>(`${this.apiUrl}/user/login_status?_format=json`, httpOptions)
+      .get<any>(
+        `${this.apiUrl}/user/login_status?_format=json&noCache=1`,
+        httpOptions
+      )
       .pipe(
         map((state) => {
           if (state) {
