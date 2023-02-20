@@ -17,6 +17,7 @@ import { takeUntil } from 'rxjs/operators';
 import { USER } from '@core/token/token-providers';
 import type { IUser } from '@core/interface/IUser';
 import { UserService } from '@core/service/user.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-user-menu',
@@ -54,7 +55,17 @@ export class UserMenuComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (!environment.drupalProxy) {
+      if (this.user) {
+        this.userService.getLoginState().subscribe((state) => {
+          if (!state) {
+            this.userService.logouLocalUser();
+          }
+        });
+      }
+    }
+  }
 
   logout(): void {
     this.userService.logout(this.user.logout_token);
