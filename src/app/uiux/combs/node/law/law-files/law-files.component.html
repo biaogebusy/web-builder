@@ -5,12 +5,21 @@
       *ngFor="let box of content.elements;">
       <div class="inner p-x-sm p-y-sm">
         <div class="label mat-h3 bold" *ngIf="box.label">{{box.label}}</div>
-        <div class="li" *ngFor="let file of box.elements" fxLayout="row wrap" fxLayoutAlign="space-between center">
-          <app-dynamic-widgets class="m-y-xs" fxFlex.md="100" fxFlex.gt-sm="auto" *ngFor="let link of file.elements;"
-            [content]="link">
-          </app-dynamic-widgets>
-          <mat-divider fxFlex="100"></mat-divider>
-        </div>
+        <ng-container *ngFor="let file of box.elements">
+          <div class="li" *ngIf="file.elements.length > 2;else fullWidth" fxLayout="row wrap"
+            fxLayoutAlign="space-between center">
+            <app-dynamic-widgets class="m-y-xs" fxFlex.md="100" fxFlex.gt-sm="auto" *ngFor="let link of file.elements;"
+              [content]="link">
+            </app-dynamic-widgets>
+            <mat-divider fxFlex="100"></mat-divider>
+          </div>
+          <ng-template #fullWidth>
+            <div class="li" fxLayoutAlign="space-between center">
+              <app-dynamic-widgets *ngFor="let link of file.elements;" [content]="link">
+              </app-dynamic-widgets>
+            </div>
+          </ng-template>
+        </ng-container>
       </div>
     </div>
   </div>
