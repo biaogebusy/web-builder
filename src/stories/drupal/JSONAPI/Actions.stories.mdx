@@ -1,0 +1,46 @@
+import { Meta } from "@storybook/addon-docs";
+
+<Meta title="Drupal/JSONAPI/行为" id="jsonapi-actions" />
+
+## 收藏
+
+```
+POST {{apiUrl}}/api/v1/flagging/favorite
+Accept: application/vnd.api+json
+Content-Type: application/vnd.api+json
+X-CSRF-Token: {{csrfToken}}
+
+{
+  "data": {
+    "type": "flagging--favorite",
+    "attributes": {
+      "entity_type": "node",
+      "entity_id": "1302",
+      "global": false
+    },
+    "relationships": {
+      "flagged_entity": {
+        "data": {
+          "type": "node--question",
+          "id": "8aae1766-38d7-4690-af3a-77b099e56e85"
+        }
+      },
+      "uid": {
+        "data": {
+          "type": "user--user",
+          "id": "15765815-07f2-4d7d-8142-cb598f82af2e"
+        }
+      }
+    }
+  }
+}
+```
+
+## 取消收藏
+
+```
+DELETE {{apiUrl}}/api/v1/flagging/favorite/ba70cd3c-7bd7-48c2-9aa5-07b175d8f4d7
+Accept: application/vnd.api+json
+Content-Type: application/vnd.api+json
+X-CSRF-Token: {{csrfToken}}
+```

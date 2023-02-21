@@ -1,6 +1,29 @@
 import { Meta } from "@storybook/addon-docs";
 
-<Meta title="Drupal/REST/用户注册及更新" id="user" />
+<Meta title="Drupal/REST/用户相关" id="user" />
+
+## 用户登录
+
+```
+POST {{apiUrl}}/user/login?_format=json HTTP/1.1
+content-type: application/json
+
+{"name": "{{user}}","pass": "{{psw}}"}
+```
+
+## 用户退出
+
+```
+POST {{apiUrl}}/user/logout?_format=json&token={{logoutToken}} HTTP/1.1
+Content-type: application/json
+withCredentials: true
+```
+
+## 查看用户状态
+
+```
+GET {{apiUrl}}/user/login_status?_format=json HTTP/1.1
+```
 
 ## 使用 Drupal REST API 注册用户
 
@@ -118,4 +141,10 @@ X-CSRF-Token: 6G4y09P_6SxE1wuQh_UMdhEq-I6-aQ9_mGFTs9SEnFs
   "headimgurl":[{ "value" : "https://thirdwx.qlogo.cn/mmopen/vi_32/1b820GreUob15yeicXA8alyZbjoibIMSHPmDnaZwHnVrn4tQP3nPwYMXgu1diaicfRnpBvpNy8DcBajsfQuicmPJtGA/132" }]
 }
 
+```
+
+## 获取 session
+
+```
+GET {{apiUrl}}/session/token
 ```

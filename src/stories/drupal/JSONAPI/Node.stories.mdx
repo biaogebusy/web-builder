@@ -1,0 +1,99 @@
+import { Meta } from "@storybook/addon-docs";
+
+<Meta title="Drupal/JSONAPI/节点" id="jsonapi-node" />
+
+## 获取文件列表
+
+```
+GET {{apiUrl}}/api/v1/file/file
+```
+
+## 获取具体某个内容类型的指定字段
+
+```
+GET {{apiUrl}}/api/v1/node/case/?fields[node--case]=title,created,drupal_internal__vid,path
+```
+
+## 获取指定节点
+
+```
+GET {{apiUrl}}/api/v1/node/{{type}}/b59a2767-89b8-418d-91fe-6f0e6a5638ec
+```
+
+## 过滤指定标题的节点
+
+```
+GET {{apiUrl}}/api/v1/node/page?filter[title]=隐私政策
+```
+
+## 分页显示条数
+
+```
+GET {{apiUrl}}/api/v1/node/{{type}}?page[limit]=10
+```
+
+## 排序
+
+```
+GET {{apiUrl}}/api/v1/node/{{type}}?sort=title
+GET {{apiUrl}}/api/v1/node/{{type}}?sort=nid
+```
+
+## 新建节点
+
+```
+POST {{apiUrl}}/api/v1/node/{{sample_type}} HTTP/1.1
+Accept: application/vnd.api+json
+Content-Type: application/vnd.api+json
+X-CSRF-Token: {{csrfToken}}
+
+{
+  "data": {
+    "type": "node--{{sample_type}}",
+    "attributes": {
+      "title": "new article by Johnson xxx",
+      "body": {
+        "value": "Hello world! Lorem ipsum dolor sit amet consectetur adipiscing elit",
+        "format": "plain_text"
+      }
+    }
+  }
+}
+```
+
+## 更新节点
+
+```
+PATCH {{apiUrl}}/api/v1/node/article/{{article_node_uuid}}
+Accept: application/vnd.api+json
+Content-Type: application/vnd.api+json
+X-CSRF-Token: {{csrfToken}}
+
+{
+  "data": {
+    "type": "node--article",
+    "id": "{{article_node_uuid}}",
+    "attributes": {
+      "title": "update the article",
+    },
+    "relationships": {
+      "uid": {
+        "data": {
+          "type": "user--user",
+          "id": "{{user_uuid}}"
+        }
+      }
+    }
+  }
+}
+
+```
+
+## 删除节点
+
+```
+DELETE {{apiUrl}}/api/v1/node/article/{{article_node_uuid}}
+Accept: application/vnd.api+json
+Content-Type: application/vnd.api+json
+X-CSRF-Token: {{csrfToken}}
+```
