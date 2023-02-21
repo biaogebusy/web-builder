@@ -10,8 +10,8 @@ import {
 import type { IImg } from '@core/interface/widgets/IImg';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
-import { IUser } from '@core/interface/IUser';
-import { IComment } from '@core/interface/node/INode';
+import type { IUser } from '@core/interface/IUser';
+import type { IComment } from '@core/interface/node/INode';
 import { Observable, Subject } from 'rxjs';
 import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';

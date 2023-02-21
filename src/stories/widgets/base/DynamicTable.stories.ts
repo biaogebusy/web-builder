@@ -85,7 +85,7 @@ Default.args = {
 };
 
 export const CustomStyle = Template.bind({});
-CustomStyle.storyName = '自定义样式';
+CustomStyle.storyName = '自定义列样式';
 CustomStyle.args = {
   content: {
     header: [
