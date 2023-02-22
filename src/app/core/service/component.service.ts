@@ -26,6 +26,7 @@ export class ComponentService {
       'link',
       'icon',
       'flag',
+      'menu',
       'title',
       'panel',
       'title',
@@ -158,10 +159,11 @@ export class ComponentService {
       )
     );
 
-    ['article', 'advert', 'question', 'report', 'law-case'].forEach((type) =>
-      this.setModule(type, () =>
-        import('@uiux/combs/node/node.module').then((m) => m.NodeModule)
-      )
+    ['article', 'advert', 'question', 'report', 'law-case', 'relate'].forEach(
+      (type) =>
+        this.setModule(type, () =>
+          import('@uiux/combs/node/node.module').then((m) => m.NodeModule)
+        )
     );
 
     ['autoclose', 'dynamic-form', '404', 'whychooseus'].forEach((type) =>

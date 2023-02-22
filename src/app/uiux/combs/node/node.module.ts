@@ -22,6 +22,8 @@ import { LawHeaderComponent } from './law/law-header/law-header.component';
 import { LawTabComponent } from './law/law-tab/law-tab.component';
 import { LawTableComponent } from './law/law-table/law-table.component';
 import { LawShowcaseComponent } from './law/law-showcase/law-showcase.component';
+import { RelateComponent } from './relate/relate.component';
+import { SummaryComponent } from './common/summary/summary.component';
 
 const components = [
   ArticleComponent,
@@ -42,6 +44,8 @@ const components = [
   LawTabComponent,
   LawTableComponent,
   LawShowcaseComponent,
+  RelateComponent,
+  SummaryComponent,
 ];
 @NgModule({
   declarations: [...components],
@@ -56,6 +60,7 @@ const components = [
     CommentListComponent,
     CommentItemComponent,
     CommentActionsComponent,
+    RelateComponent,
   ],
 })
 export class NodeModule extends BaseModule {
@@ -65,6 +70,7 @@ export class NodeModule extends BaseModule {
     ReportComponent,
     AdvertComponent,
     LawCaseComponent,
+    RelateComponent,
   ];
 
   constructor(protected componentFactoryResolver: ComponentFactoryResolver) {

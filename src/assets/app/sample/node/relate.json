@@ -1,0 +1,108 @@
+{
+  "title": "财务数据",
+  "body": [
+    {
+      "type": "relate",
+      "title": {
+        "label": "团队A中国移动中标发票",
+        "style": "style-v4",
+        "classes": "mat-display-1 m-bottom-0"
+      },
+      "summary": {
+        "left": {
+          "icon": {
+            "color": "primary",
+            "name": "credit-card-check"
+          },
+          "menu": [
+            {
+              "type": "link",
+              "label": "发票A",
+              "dialog": {
+                "params": {
+                  "width": "800px"
+                },
+                "data": [
+                  {
+                    "type": "text",
+                    "content": "<img src=\"/assets/images/16-9/business-01.jpg\" />"
+                  }
+                ]
+              }
+            },
+            {
+              "type": "link",
+              "label": "发票B",
+              "dialog": {
+                "params": {
+                  "width": "800px"
+                },
+                "data": [
+                  {
+                    "type": "text",
+                    "content": "<img src=\"/assets/images/16-9/business-02.jpg\" />"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "middle": {
+          "label": "发票信息",
+          "elements": [
+            [
+              {
+                "label": "类别",
+                "value": "广告物料"
+              },
+              {
+                "label": "开票日期",
+                "value": "2023/02/23"
+              }
+            ],
+            [
+              {
+                "label": "团队负责人",
+                "value": "张三"
+              }
+            ],
+            [
+              {
+                "label": "备注",
+                "value": "该发票类别有误，但是已经告知，下次要及时"
+              }
+            ]
+          ]
+        },
+        "right": {
+          "label": "更新记录",
+          "elements": [
+            {
+              "type": "table",
+              "header": [
+                {
+                  "label": "用户",
+                  "key": "user"
+                },
+                {
+                  "label": "时间",
+                  "key": "date"
+                }
+              ],
+              "elements": [
+                {
+                  "user": "张三",
+                  "date": "2023/02/21"
+                },
+                {
+                  "user": "李四",
+                  "date": "2023/02/23"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+<div class="node-summary" *ngIf="content">
+  <div class="left p-x-md p-y-md" fxLayout="column">
+    <app-dynamic-widgets [content]="item" *ngFor="let item of content.left"></app-dynamic-widgets>
+  </div>
+</div>

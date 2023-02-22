@@ -5,7 +5,7 @@
       "type": "report",
       "header": {
         "text": {
-          "spaver": "none",
+          "spacer": "md",
           "title": {
             "label": "福利投票统计",
             "style": "style-v4",

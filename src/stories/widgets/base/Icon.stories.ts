@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { ShareModule } from '@share/share.module';
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
@@ -10,7 +11,7 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [IconComponent],
-      imports: [ShareModule],
+      imports: [ShareModule, HttpClientModule],
     }),
   ],
   parameters: {
@@ -54,5 +55,13 @@ Warn.args = {
   content: {
     color: 'warn',
     name: 'format_color_fill',
+  },
+};
+
+export const svgIcon = Template.bind({});
+svgIcon.args = {
+  content: {
+    color: 'primary',
+    svg: 'credit-card-check',
   },
 };

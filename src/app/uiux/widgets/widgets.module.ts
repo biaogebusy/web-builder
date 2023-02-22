@@ -111,6 +111,7 @@ import { PlayerComponent } from './media/player/player.component';
 import { BtnVideoComponent } from './actions/btn-video/btn-video.component';
 
 import { BaseModule } from '@uiux/base/base.module';
+import { MenuComponent } from './menu/menu.component';
 
 FullCalendarModule.registerPlugins([
   // register FullCalendar plugins
@@ -194,6 +195,7 @@ const components = [
   FormlyComponent,
   PlayerComponent,
   BtnVideoComponent,
+  MenuComponent,
 ];
 
 @NgModule({
