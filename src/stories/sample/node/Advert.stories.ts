@@ -11,7 +11,7 @@ import { StorysModule } from '@core/module/storys.module';
 import { AdvertComponent } from '@uiux/combs/node/advert/advert.component';
 
 export default {
-  title: '示例页面/内容类型/小程序广告',
+  title: '示例页面/内容类型/小程序预览',
   id: 'advert',
   component: AdvertComponent,
   decorators: [
