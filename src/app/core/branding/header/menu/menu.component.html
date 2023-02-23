@@ -39,7 +39,7 @@
       <app-user-menu class="m-left-xs"></app-user-menu>
     </mat-toolbar>
     <div [hidden]="!(!show && isDrawer)">
-      <app-dropdown-menu *ngIf="content.mainMenu" [content]="content.mainMenu"></app-dropdown-menu>
+      <app-accordion *ngIf="content.mainMenu" [content]="content.mainMenu"></app-accordion>
     </div>
   </div>
 </ng-container>

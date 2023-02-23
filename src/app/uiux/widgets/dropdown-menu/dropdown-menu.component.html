@@ -1,24 +1,11 @@
-<ng-container *ngIf="content">
-  <mat-accordion multi>
-    <ng-container *ngFor="let item of content">
-      <ng-container *reqRolesIf="item">
-        <mat-list class="no-child" *ngIf="!item.child" checkChildMenuActive>
-          <mat-list-item>
-            <app-icon [class]="'icon p-right-xs'" *ngIf="item.icon" [content]="item.icon"></app-icon>
-            <app-link [content]="item"></app-link>
-          </mat-list-item>
-        </mat-list>
-        <mat-expansion-panel checkChildMenuActive [expanded]="item.expanded" *ngIf="item.child"
-          (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-          <mat-expansion-panel-header>
-            <mat-panel-title *ngIf="!item.href" [ngClass]="item.classes||''">
-              <app-icon class="icon p-right-xs" *ngIf="item.icon" [content]="item.icon"></app-icon>{{item.label}}
-            </mat-panel-title>
-            <app-link *ngIf="item.href" [ngClass]="item.classes||''" [content]="item"></app-link>
-          </mat-expansion-panel-header>
-          <app-dropdown-menu [content]="item.child"></app-dropdown-menu>
-        </mat-expansion-panel>
-      </ng-container>
+<div class="dropdown-menu">
+  <app-btn [content]="content.btn" [matMenuTriggerFor]="menu"></app-btn>
+  <mat-menu #menu="matMenu">
+    <ng-container *ngFor="let item of content.child;">
+      <button mat-menu-item>
+        <app-icon [content]="item.icon"></app-icon>
+        <app-link [content]="item"></app-link>
+      </button>
     </ng-container>
-  </mat-accordion>
-</ng-container>
+  </mat-menu>
+</div>

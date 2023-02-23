@@ -58,7 +58,6 @@ import { BtnAnimateComponent } from './btn-animate/btn-animate.component';
 import { FeatureBoxComponent } from './feature-box/feature-box.component';
 import { TestimonialComponent } from './testimonial/testimonial.component';
 import { ProgressBarComponent } from './progress-bar/progress-bar.component';
-import { DropdownMenuComponent } from './dropdown-menu/dropdown-menu.component';
 import { NumberAnimateComponent } from './number-animate/number-animate.component';
 import { DynamicWidgetsComponent } from './dynamic-widgets/dynamic-widgets.component';
 
@@ -111,7 +110,8 @@ import { PlayerComponent } from './media/player/player.component';
 import { BtnVideoComponent } from './actions/btn-video/btn-video.component';
 
 import { BaseModule } from '@uiux/base/base.module';
-import { MenuComponent } from './menu/menu.component';
+import { AccordionComponent } from './accordion/accordion.component';
+import { DropdownMenuComponent } from './dropdown-menu/dropdown-menu.component';
 
 FullCalendarModule.registerPlugins([
   // register FullCalendar plugins
@@ -153,7 +153,6 @@ const components = [
   FeatureBoxComponent,
   BreadcrumbComponent,
   TestimonialComponent,
-  DropdownMenuComponent,
   UserCardCountComponent,
   NumberAnimateComponent,
   DynamicWidgetsComponent,
@@ -195,7 +194,8 @@ const components = [
   FormlyComponent,
   PlayerComponent,
   BtnVideoComponent,
-  MenuComponent,
+  AccordionComponent,
+  DropdownMenuComponent,
 ];
 
 @NgModule({

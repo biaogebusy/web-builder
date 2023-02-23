@@ -22,7 +22,7 @@
     <mat-divider></mat-divider>
     <div class="manage-menu" *ngIf="branding.header?.sidebar?.menu as menu"
       [ngStyle]="{'overflow': opened?'auto' : 'visible'}">
-      <app-dropdown-menu [hidden]="!opened" [content]="menu"></app-dropdown-menu>
+      <app-accordion [hidden]="!opened" [content]="menu"></app-accordion>
       <div class="icon-list" [hidden]="opened">
         <div class="item" *ngFor="let item of menu" checkChildMenuActive>
           <ng-container *reqRolesIf="item">

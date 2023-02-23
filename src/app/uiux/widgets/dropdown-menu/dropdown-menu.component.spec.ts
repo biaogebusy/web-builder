@@ -8,8 +8,9 @@ describe('DropdownMenuComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [DropdownMenuComponent],
-    }).compileComponents();
+      declarations: [ DropdownMenuComponent ]
+    })
+    .compileComponents();
   });
 
   beforeEach(() => {
