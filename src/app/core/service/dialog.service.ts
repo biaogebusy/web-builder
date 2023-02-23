@@ -63,6 +63,15 @@ export class DialogService {
     });
   }
 
+  openDynamicDialog(config: any): void {
+    this.dialogRef = this.dialog.open(DialogComponent, {
+      ...config.params,
+      data: {
+        inputData: [...config.content],
+      },
+    });
+  }
+
   handlerIframe(dialog: MatDialog): void {
     window.addEventListener(
       'message',

@@ -12,7 +12,8 @@
     <div *ngIf="content.content" class="box-content" [innerHTML]="content.content | safeHtml">
     </div>
     <div class="read-more" *ngIf="content.more">
-      <a href="{{content.more.href}}"><span>{{content.more.label}}</span></a>
+      <a href="{{content.more.href}}"
+        target="${{content.more.target||'_blank'}}"><span>{{content.more.label}}</span></a>
     </div>
   </div>
 </div>

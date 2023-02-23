@@ -7,6 +7,7 @@ import { CORE_CONFIG } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { NotifyService } from './notify.service';
 import { Subject } from 'rxjs';
+import { NavigationService } from './navigation.service';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +20,7 @@ export class ConfigService {
     private dialogService: DialogService,
     private screenService: ScreenService,
     private notifyService: NotifyService,
+    private navigationService: NavigationService,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
   ) {}
 
@@ -38,6 +40,14 @@ export class ConfigService {
         }
         if (this.coreConfig?.notify?.enable) {
           this.notifyService.watchNotify();
+        }
+        if (this.coreConfig?.checkIE?.enable) {
+          // console.log(this.navigationService.isIE);
+          if (this.navigationService.isIE) {
+            this.dialogService.openDynamicDialog(
+              this.coreConfig.checkIE.dialog
+            );
+          }
         }
       }
     }

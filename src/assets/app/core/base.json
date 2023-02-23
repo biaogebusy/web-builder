@@ -325,5 +325,100 @@
       }
     ]
   },
-  "animate": true
+  "animate": true,
+  "checkIE": {
+    "enable": true,
+    "dialog": {
+      "params": {
+        "width": "1000px"
+      },
+      "content": [
+        {
+          "type": "text",
+          "spacer": "none",
+          "title": {
+            "label": "温馨提示",
+            "style": "style-v1"
+          },
+          "body": "<p>当前检测到您的浏览器为旧版本浏览器，我们强烈建议使用谷歌或者Edge等现代浏览器，当今的现代浏览器功能强大、速度快、安全可靠，并拥有优秀的用户使用体验。</p>"
+        },
+        {
+          "type": "showcase-1v1",
+          "classes": "",
+          "spacer": "sm",
+          "row": 4,
+          "elements": [
+            {
+              "icon": {
+                "name": "verified_user"
+              },
+              "style": "style-v9",
+              "title": {
+                "href": "https://pc.qq.com/search.html#!keyword=chrome",
+                "label": "谷歌浏览器",
+                "target": "_blank"
+              },
+              "content": "速度快，可扩展性强的全球最受欢迎的浏览器之一",
+              "more": {
+                "href": "https://pc.qq.com/search.html#!keyword=chrome",
+                "label": "下载",
+                "target": "_blank"
+              }
+            },
+            {
+              "icon": {
+                "name": "verified_user"
+              },
+              "style": "style-v9",
+              "title": {
+                "href": "https://www.microsoft.com/zh-cn/edge",
+                "label": "微软 Edge 浏览器",
+                "target": "_blank"
+              },
+              "content": "速度快、资源占用低、内置追踪保护等功能",
+              "more": {
+                "href": "https://www.microsoft.com/zh-cn/edge",
+                "label": "下载",
+                "target": "_blank"
+              }
+            },
+            {
+              "icon": {
+                "name": "fingerprint"
+              },
+              "style": "style-v9",
+              "title": {
+                "href": "https://www.mozilla.org/zh-CN/firefox/new/",
+                "label": "火狐浏览器",
+                "target": "_blank"
+              },
+              "content": "注重隐私保护和安全性的浏览器",
+              "more": {
+                "href": "https://www.mozilla.org/zh-CN/firefox/new/",
+                "label": "下载",
+                "target": "_blank"
+              }
+            },
+            {
+              "icon": {
+                "name": "favorite"
+              },
+              "style": "style-v9",
+              "title": {
+                "href": "https://www.apple.com/cn/safari/",
+                "label": "Safari 浏览器",
+                "target": "_blank"
+              },
+              "content": "流畅的性能和良好的用户体验",
+              "more": {
+                "href": "https://www.apple.com/cn/safari/",
+                "label": "下载",
+                "target": "_blank"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
 }

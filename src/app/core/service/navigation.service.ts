@@ -36,4 +36,8 @@ export class NavigationService {
     }
     return '';
   }
+
+  public get isIE(): boolean {
+    return /msie\s|trident\/|edge\//i.test(window.navigator.userAgent);
+  }
 }
