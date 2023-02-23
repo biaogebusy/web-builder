@@ -71,6 +71,8 @@ import 'core-js/es/map';
 import 'core-js/es/weak-map';
 import 'core-js/es/set';
 import 'core-js/es/reflect';
+import 'url-search-params-polyfill';
+
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */
