@@ -13,6 +13,7 @@
 @import "./carousel";
 @import "./banner";
 @import "./node/article";
+@import "./node/relate";
 @import "./node/advert";
 @import "./node/report";
 @import "./node/law-case";
@@ -53,6 +54,7 @@
   @include carousel-color($config-or-theme);
   @include banner-color($config-or-theme);
   @include article-color($config-or-theme);
+  @include relate-color($config-or-theme);
   @include advert-color($config-or-theme);
   @include report-color($config-or-theme);
   @include law-case-color($config-or-theme);

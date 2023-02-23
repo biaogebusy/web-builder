@@ -50,7 +50,13 @@ Default.args = {
           svg: 'credit-card-check',
         },
         {
-          type: 'menu',
+          type: 'text',
+          space: 'none',
+          classes: 'mat-display-4 m-bottom-0',
+          body: '10,000',
+        },
+        {
+          type: 'dropdown-menu',
           btn: {
             label: '发票预览',
             color: 'primary',

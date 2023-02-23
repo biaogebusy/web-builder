@@ -65,3 +65,14 @@ svgIcon.args = {
     svg: 'credit-card-check',
   },
 };
+
+export const customStyle = Template.bind({});
+customStyle.args = {
+  content: {
+    color: 'primary',
+    svg: 'credit-card-check',
+    style: {
+      color: 'red',
+    },
+  },
+};

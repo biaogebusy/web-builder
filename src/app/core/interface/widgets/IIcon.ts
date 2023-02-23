@@ -3,4 +3,5 @@ export interface IIcon {
   name?: string;
   svg?: string;
   inline?: boolean;
+  style?: any;
 }
