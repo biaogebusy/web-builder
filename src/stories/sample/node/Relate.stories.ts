@@ -114,7 +114,7 @@ Default.args = {
           [
             {
               label: '团队',
-              value: '星之火下属A公司',
+              value: 'A公司',
             },
             {
               label: '团队负责人',
@@ -163,6 +163,170 @@ Default.args = {
           },
         ],
       },
+    },
+    showcase: {
+      img: {
+        src: '/assets/images/logo/logo_default.png',
+        alt: 'alt',
+      },
+      text: {
+        spacer: 'none',
+        title: {
+          label: '中国移动A团队',
+          style: 'style-v7',
+          classes: 'm-bottom-0 m-top-0',
+        },
+      },
+      meta: [
+        [
+          {
+            label: '类型',
+            value: '通信',
+          },
+          {
+            label: '联系人',
+            value: '张三',
+          },
+        ],
+        [
+          {
+            label: '备注',
+            value:
+              'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.',
+          },
+        ],
+      ],
+      content: [
+        {
+          type: 'showcase-2v1',
+          row: 5,
+          spacer: 'xs',
+          elements: [
+            {
+              type: 'card',
+              title: '营业执照',
+              feature: {
+                fullIcon: 'fullscreen',
+                openIcon: 'open_in_new',
+                link: '#',
+                ratios: 'media-4-3',
+                img: {
+                  classes: 'object-fit',
+                  src: '/assets/images/cases/porto1.jpg',
+                  alt: '营业执照',
+                },
+              },
+              progressBar: {
+                mode: 'determinate',
+                value: 20,
+              },
+            },
+            {
+              type: 'card',
+              title: '开户许可证',
+              feature: {
+                fullIcon: 'fullscreen',
+                openIcon: 'open_in_new',
+                link: '#',
+                ratios: 'media-4-3',
+                img: {
+                  classes: 'object-fit',
+                  src: '/assets/images/cases/porto2.jpg',
+                  alt: '开户许可证',
+                },
+              },
+              progressBar: {
+                mode: 'determinate',
+                value: 40,
+              },
+            },
+            {
+              type: 'card',
+              title: '资信证明',
+              feature: {
+                fullIcon: 'fullscreen',
+                openIcon: 'open_in_new',
+                link: '#',
+                ratios: 'media-4-3',
+                img: {
+                  classes: 'object-fit',
+                  src: '/assets/images/cases/porto3.jpg',
+                  alt: '资信证明',
+                },
+              },
+              progressBar: {
+                mode: 'determinate',
+                value: 60,
+              },
+            },
+            {
+              type: 'card',
+              title: '纳税人信用等级',
+              feature: {
+                fullIcon: 'fullscreen',
+                openIcon: 'open_in_new',
+                link: '#',
+                ratios: 'media-4-3',
+                img: {
+                  classes: 'object-fit',
+                  src: '/assets/images/cases/porto4.jpg',
+                  alt: '纳税人信用等级',
+                },
+              },
+              progressBar: {
+                mode: 'determinate',
+                value: 80,
+              },
+            },
+            {
+              type: 'card',
+              title: '法人身份证',
+              carousel: {
+                params: {
+                  slidesPerView: 1,
+                  navigation: false,
+                  autoplay: {
+                    delay: 5000,
+                  },
+                  breakpoints: null,
+                },
+                elements: [
+                  {
+                    type: 'feature-box',
+                    hoverIcon: true,
+                    fullIcon: 'fullscreen',
+                    openIcon: 'open_in_new',
+                    link: '#',
+                    ratios: 'media-4-3',
+                    img: {
+                      classes: 'object-fit',
+                      src: '/assets/images/cases/porto1.jpg',
+                      alt: 'lazyload',
+                    },
+                  },
+                  {
+                    type: 'feature-box',
+                    hoverIcon: false,
+                    fullIcon: 'fullscreen',
+                    openIcon: 'open_in_new',
+                    link: '#',
+                    ratios: 'media-4-3',
+                    img: {
+                      classes: 'object-fit',
+                      src: '/assets/images/cases/porto2.jpg',
+                      alt: 'lazyload',
+                    },
+                  },
+                ],
+              },
+              progressBar: {
+                mode: 'determinate',
+                value: 100,
+              },
+            },
+          ],
+        },
+      ],
     },
   },
 };

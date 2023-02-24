@@ -31,4 +31,16 @@
       }
     }
   }
+
+  .relate-showcase {
+    @include mat-elevation(3, mat-color($foreground, divider), 0.6);
+    .right {
+      // background-color: mat-color($primary, 0.05);
+    }
+    .meta {
+      .label {
+        color: mat-color($foreground, base, 0.4);
+      }
+    }
+  }
 }
