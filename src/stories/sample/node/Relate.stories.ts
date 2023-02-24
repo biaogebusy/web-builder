@@ -52,8 +52,8 @@ Default.args = {
         {
           type: 'text',
           space: 'none',
-          classes: 'mat-display-4 m-bottom-0',
-          body: '10,000',
+          classes: 'mat-h1 m-bottom-0',
+          body: '10,000¥',
         },
         {
           type: 'dropdown-menu',
@@ -73,8 +73,8 @@ Default.args = {
                 data: [
                   {
                     type: 'text',
-                    content:
-                      '<img src="/assets/images/16-9/business-01.jpg" />',
+                    spacer: 'none',
+                    body: '<img src="/assets/images/16-9/business-01.jpg" />',
                   },
                 ],
               },
@@ -89,8 +89,8 @@ Default.args = {
                 data: [
                   {
                     type: 'text',
-                    content:
-                      '<img src="/assets/images/16-9/business-02.jpg" />',
+                    spacer: 'none',
+                    body: '<img src="/assets/images/16-9/business-02.jpg" />',
                   },
                 ],
               },
@@ -99,7 +99,7 @@ Default.args = {
         },
       ],
       middle: {
-        label: '发票信息',
+        title: '发票信息',
         elements: [
           [
             {
@@ -112,6 +112,10 @@ Default.args = {
             },
           ],
           [
+            {
+              label: '团队',
+              value: '星之火下属A公司',
+            },
             {
               label: '团队负责人',
               value: '张三',
@@ -126,10 +130,10 @@ Default.args = {
         ],
       },
       right: {
-        label: '更新记录',
+        title: '更新记录',
         elements: [
           {
-            type: 'table',
+            type: 'dynamic-table',
             header: [
               {
                 label: '用户',
@@ -139,15 +143,21 @@ Default.args = {
                 label: '时间',
                 key: 'date',
               },
+              {
+                label: '操作',
+                key: 'action',
+              },
             ],
             elements: [
               {
                 user: '张三',
                 date: '2023/02/21',
+                action: '提交',
               },
               {
                 user: '李四',
                 date: '2023/02/23',
+                action: '更新',
               },
             ],
           },

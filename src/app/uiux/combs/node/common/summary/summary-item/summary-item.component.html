@@ -1,0 +1,16 @@
+<div class="summary-item" *ngIf="content">
+  <div class="title p-y-sm">{{content.title}}</div>
+  <div class="list p-y-sm" fxLayout="row wrap" *ngFor="let list of content.elements">
+    <ng-container *ngIf="list | isArray;else widgets">
+      <ng-container *ngFor="let item of list">
+        <div class="item" fxFlex="50">
+          <div class="label">{{item.label}}</div>
+          <div class="value">{{item.value}}</div>
+        </div>
+      </ng-container>
+    </ng-container>
+    <ng-template #widgets>
+      <app-dynamic-widgets class="width-100" [content]="list"></app-dynamic-widgets>
+    </ng-template>
+  </div>
+</div>

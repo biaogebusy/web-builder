@@ -13,8 +13,22 @@
   }
 
   .node-summary {
+    @include mat-elevation(3, mat-color($foreground, divider), 0.6);
     .left {
-      background-color: mat-color($primary, 0.2);
+      background-color: mat-color($primary, 0.08);
+    }
+    .summary-item {
+      .list {
+        border-top: 1px solid mat-color($foreground, divider);
+        .item {
+          .label {
+            color: mat-color($foreground, base, 0.4);
+          }
+        }
+        .mat-header-cell {
+          color: mat-color($foreground, base, 0.4);
+        }
+      }
     }
   }
 }

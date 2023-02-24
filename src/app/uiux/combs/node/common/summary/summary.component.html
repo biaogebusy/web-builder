@@ -1,5 +1,12 @@
-<div class="node-summary" *ngIf="content">
-  <div class="left p-x-md p-y-lg" fxLayout="column" fxLayoutAlign="center center">
+<div class="node-summary" *ngIf="content" fxLayout="row wrap">
+  <div class="left p-x-md p-y-lg" fxFlex.lt-md="100" fxFlex.gt-sm="30" fxFlex.gt- fxLayout="column"
+    fxLayoutAlign="center center">
     <app-dynamic-widgets [content]="item" *ngFor="let item of content.left"></app-dynamic-widgets>
+  </div>
+  <div class="middle" fxFlex.lt-md="100" fxFlex.gt-sm="35">
+    <app-summary-item class="display-block p-x-sm p-y-sm" [content]="content.middle"></app-summary-item>
+  </div>
+  <div class="right" fxFlex.lt-md="100" fxFlex.gt-sm="35">
+    <app-summary-item class="display-block p-x-sm p-y-sm" [content]="content.right"></app-summary-item>
   </div>
 </div>

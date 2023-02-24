@@ -24,6 +24,7 @@ import { LawTableComponent } from './law/law-table/law-table.component';
 import { LawShowcaseComponent } from './law/law-showcase/law-showcase.component';
 import { RelateComponent } from './relate/relate.component';
 import { SummaryComponent } from './common/summary/summary.component';
+import { SummaryItemComponent } from './common/summary/summary-item/summary-item.component';
 
 const components = [
   ArticleComponent,
@@ -46,6 +47,7 @@ const components = [
   LawShowcaseComponent,
   RelateComponent,
   SummaryComponent,
+  SummaryItemComponent,
 ];
 @NgModule({
   declarations: [...components],
