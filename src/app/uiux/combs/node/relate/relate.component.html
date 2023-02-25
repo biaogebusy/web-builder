@@ -1,8 +1,9 @@
 <div class="relate position-relative" *ngIf="content">
   <app-bg [content]="content.bg" *ngIf="content.bg"></app-bg>
   <div class="container">
-    <div class="head m-y-md">
+    <div class="head m-y-md" fxLayoutAlign="space-between center">
       <app-title [content]="content.title"></app-title>
+      <app-dynamic-widgets [content]="action" *ngFor="let action of content.actions"></app-dynamic-widgets>
     </div>
     <app-summary [content]="content.summary"></app-summary>
     <app-spacer [size]="'md'"></app-spacer>

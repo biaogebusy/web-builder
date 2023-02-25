@@ -6,7 +6,7 @@ import * as MediaObjectGroupStories from 'src/stories/widgets/media/MediaObjectG
 import { StorysModule } from '@core/module/storys.module';
 
 export default {
-  title: '复合组件/用户/用户资料',
+  title: '示例页面/简介',
   id: 'profile-1v1',
   component: Profile1v1Component,
   decorators: [
@@ -23,10 +23,11 @@ const Template: Story = (args) => ({
     ...args,
   },
 });
-export const Default = Template.bind({});
+export const UserProfile = Template.bind({});
+UserProfile.storyName = '用户资料';
 const swiper: any = SwiperStories.Base.args;
 const medaiObjectGroup: any = MediaObjectGroupStories.Base.args;
-Default.args = {
+UserProfile.args = {
   content: {
     bannerBg: {
       classes: 'bg-fill-width overlay overlay-80',
@@ -138,6 +139,197 @@ Default.args = {
         label: '案例',
         type: 'swiper',
         ...swiper.content,
+      },
+    ],
+  },
+};
+
+export const Componey = Template.bind({});
+Componey.storyName = '公司简介';
+Componey.args = {
+  content: {
+    type: 'profile-1v1',
+    bannerBg: {
+      classes: 'bg-fill-width overlay overlay-80',
+      img: {
+        hostClasses: 'bg-center',
+        src: '/assets/images/16-9/business-14.jpeg',
+        alt: 'page title',
+      },
+    },
+    avatar: {
+      src: '/assets/images/logo/lenovo.svg',
+      alt: '联想集团',
+    },
+    name: '联想集团',
+    details: {
+      label: '公司资料',
+      elements: [
+        {
+          icon: {
+            color: 'warn',
+            svg: 'arrow_right',
+            inline: true,
+          },
+          label: '类型',
+          content: '科技',
+        },
+        {
+          icon: {
+            color: 'warn',
+            svg: 'arrow_right',
+            inline: true,
+          },
+          label: '联系人',
+          content: '张三',
+        },
+        {
+          icon: {
+            color: 'warn',
+            svg: 'arrow_right',
+            inline: true,
+          },
+          label: '联系方式',
+          content: '18878718888',
+        },
+      ],
+    },
+    content: [
+      {
+        label: '简介',
+        type: 'text',
+        spacer: 'none',
+        body: '<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. </p>At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
+      },
+      {
+        type: 'showcase-2v1',
+        row: 5,
+        label: '相关材料',
+        spacer: 'xs',
+        elements: [
+          {
+            type: 'card',
+            title: '营业执照',
+            feature: {
+              fullIcon: 'fullscreen',
+              openIcon: 'open_in_new',
+              link: '#',
+              ratios: 'media-4-3',
+              img: {
+                classes: 'object-fit',
+                src: '/assets/images/cases/porto1.jpg',
+                alt: '营业执照',
+              },
+            },
+            progressBar: {
+              mode: 'determinate',
+              value: 20,
+            },
+          },
+          {
+            type: 'card',
+            title: '开户许可证',
+            feature: {
+              fullIcon: 'fullscreen',
+              openIcon: 'open_in_new',
+              link: '#',
+              ratios: 'media-4-3',
+              img: {
+                classes: 'object-fit',
+                src: '/assets/images/cases/porto2.jpg',
+                alt: '开户许可证',
+              },
+            },
+            progressBar: {
+              mode: 'determinate',
+              value: 40,
+            },
+          },
+          {
+            type: 'card',
+            title: '资信证明',
+            feature: {
+              fullIcon: 'fullscreen',
+              openIcon: 'open_in_new',
+              link: '#',
+              ratios: 'media-4-3',
+              img: {
+                classes: 'object-fit',
+                src: '/assets/images/cases/porto3.jpg',
+                alt: '资信证明',
+              },
+            },
+            progressBar: {
+              mode: 'determinate',
+              value: 60,
+            },
+          },
+          {
+            type: 'card',
+            title: '纳税人信用等级',
+            feature: {
+              fullIcon: 'fullscreen',
+              openIcon: 'open_in_new',
+              link: '#',
+              ratios: 'media-4-3',
+              img: {
+                classes: 'object-fit',
+                src: '/assets/images/cases/porto4.jpg',
+                alt: '纳税人信用等级',
+              },
+            },
+            progressBar: {
+              mode: 'determinate',
+              value: 80,
+            },
+          },
+          {
+            type: 'card',
+            title: '法人身份证',
+            carousel: {
+              params: {
+                slidesPerView: 1,
+                navigation: false,
+                autoplay: {
+                  delay: 5000,
+                },
+                breakpoints: null,
+              },
+              elements: [
+                {
+                  type: 'feature-box',
+                  hoverIcon: true,
+                  fullIcon: 'fullscreen',
+                  openIcon: 'open_in_new',
+                  link: '#',
+                  ratios: 'media-4-3',
+                  img: {
+                    classes: 'object-fit',
+                    src: '/assets/images/cases/porto1.jpg',
+                    alt: 'lazyload',
+                  },
+                },
+                {
+                  type: 'feature-box',
+                  hoverIcon: false,
+                  fullIcon: 'fullscreen',
+                  openIcon: 'open_in_new',
+                  link: '#',
+                  ratios: 'media-4-3',
+                  img: {
+                    classes: 'object-fit',
+                    src: '/assets/images/cases/porto2.jpg',
+                    alt: 'lazyload',
+                  },
+                },
+              ],
+            },
+            progressBar: {
+              mode: 'determinate',
+              value: 100,
+            },
+          },
+        ],
       },
     ],
   },
