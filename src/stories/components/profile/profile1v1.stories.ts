@@ -331,6 +331,53 @@ Componey.args = {
           },
         ],
       },
+      {
+        label: '相关业务',
+        type: 'tab',
+        spacer: 'none',
+        classes: 'bg-light',
+        elements: [
+          {
+            label: '财务数据',
+            elements: [
+              {
+                type: 'text',
+                animate: {
+                  disable: true,
+                },
+                spacer: 'none',
+                body: '<p>动态组件</p>',
+              },
+            ],
+          },
+          {
+            label: '业绩合同',
+            elements: [
+              {
+                type: 'text',
+                animate: {
+                  disable: true,
+                },
+                spacer: 'none',
+                body: '<p>动态组件</p>',
+              },
+            ],
+          },
+          {
+            label: '项目',
+            elements: [
+              {
+                type: 'text',
+                animate: {
+                  disable: true,
+                },
+                spacer: 'none',
+                body: '<p>动态组件</p>',
+              },
+            ],
+          },
+        ],
+      },
     ],
   },
 };
