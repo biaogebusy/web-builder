@@ -8,8 +8,10 @@ import {
 } from '@angular/core';
 import type { IUser } from '@core/interface/IUser';
 import type { IIframe } from '@core/interface/widgets/IWidgets';
-import { USER } from '@core/token/token-providers';
+import { PAGE_CONTENT, USER } from '@core/token/token-providers';
 import { ScreenService } from '@core/service/screen.service';
+import { IPage } from '@core/interface/IAppConfig';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-iframe',
@@ -23,6 +25,7 @@ export class IframeComponent implements OnInit {
   loading: boolean;
   constructor(
     @Inject(USER) private user: IUser,
+    @Inject(PAGE_CONTENT) private pageContent$: Observable<IPage>,
     private cd: ChangeDetectorRef,
     private screenService: ScreenService
   ) {}
@@ -50,14 +53,30 @@ export class IframeComponent implements OnInit {
         );
       }
     }
-    if (!this.content?.url.includes(':id')) {
+    if (
+      !this.content?.url.includes(':id') ||
+      !this.content?.url.includes(':nid')
+    ) {
       this.url = this.content.url;
       this.cd.detectChanges();
       return;
     }
-    if (this.user) {
-      const id = this.user.current_user.uid;
-      this.url = this.content.url.replace(':id', id);
+    if (this.content?.url.includes('id')) {
+      if (this.user) {
+        const id = this.user.current_user.uid;
+        this.url = this.content.url.replace(':id', id);
+        this.cd.detectChanges();
+      }
+    }
+
+    if (this.content?.url.includes(':nid')) {
+      this.pageContent$.subscribe((page) => {
+        const nid = page.config?.node.nid;
+        if (nid) {
+          this.url = this.content.url.replace(':nid', nid);
+          this.cd.detectChanges();
+        }
+      });
     }
   }
 }
