@@ -2,4 +2,9 @@
   .title {
     font-weight: bold;
   }
+  :ng-deep {
+    .mat-cell {
+      font-size: small;
+    }
+  }
 }

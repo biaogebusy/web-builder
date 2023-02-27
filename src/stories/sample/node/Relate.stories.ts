@@ -42,6 +42,20 @@ Default.args = {
       style: 'style-v4',
       classes: 'mat-display-1 m-bottom-0',
     },
+    actions: [
+      {
+        type: 'btn',
+        label: '编辑',
+        color: 'primary',
+        mode: 'raised',
+        icon: {
+          name: 'editor',
+          inline: true,
+        },
+        href: '#',
+        target: '_blank',
+      },
+    ],
     summary: {
       left: [
         {
@@ -327,6 +341,106 @@ Default.args = {
           ],
         },
       ],
+    },
+  },
+};
+
+export const RelateV2 = Template.bind({});
+RelateV2.args = {
+  content: {
+    ...Default.args.content,
+    title: {
+      label: 'A公司广告制作年度合作合同2020年',
+      style: 'style-v4',
+      classes: 'mat-display-1 m-bottom-0',
+    },
+    summary: {
+      left: [
+        {
+          type: 'icon',
+          color: 'primary',
+          svg: 'calendar-range',
+        },
+        {
+          type: 'text',
+          space: 'none',
+          classes: 'mat-h1 m-bottom-0',
+          body: '2020年',
+        },
+        {
+          type: 'btn',
+          href: '#',
+          target: '_blank',
+          label: '合同预览',
+          mode: 'raised',
+          color: 'primary',
+        },
+      ],
+      middle: {
+        title: '合同基本信息',
+        elements: [
+          [
+            {
+              label: '类别',
+              value: '广告物料',
+            },
+            {
+              label: '签约日期',
+              value: '2023/02/23',
+            },
+          ],
+          [
+            {
+              label: '团队',
+              value: 'A公司',
+            },
+            {
+              label: '项目负责人',
+              value: '张三',
+            },
+          ],
+          [
+            {
+              label: '备注',
+              value: '请留意付款期限',
+            },
+          ],
+        ],
+      },
+      right: {
+        title: '更新记录',
+        elements: [
+          {
+            type: 'dynamic-table',
+            header: [
+              {
+                label: '用户',
+                key: 'user',
+              },
+              {
+                label: '时间',
+                key: 'date',
+              },
+              {
+                label: '操作',
+                key: 'action',
+              },
+            ],
+            elements: [
+              {
+                user: '张三',
+                date: '2023/02/21',
+                action: '提交',
+              },
+              {
+                user: '李四',
+                date: '2023/02/23',
+                action: '更新',
+              },
+            ],
+          },
+        ],
+      },
     },
   },
 };
