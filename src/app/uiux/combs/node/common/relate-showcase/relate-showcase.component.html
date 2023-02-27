@@ -9,7 +9,7 @@
         <ng-container *ngFor="let item of list">
           <div class="item" fxFlex="100">
             <span class="label m-right-xs">{{item.label}}:</span>
-            <span class="value">{{item.value}}</span>
+            <span class="value" [innerHTML]="item.value|safeHtml"></span>
           </div>
         </ng-container>
       </div>

@@ -124,7 +124,7 @@ Default.args = {
           [
             {
               label: '备注',
-              value: '该发票类别有误，但是已经告知，下次要及时',
+              value: '<p>该发票类别有误，但是已经告知，下次要及时</p>',
             },
           ],
         ],
@@ -185,14 +185,14 @@ Default.args = {
           },
           {
             label: '联系人',
-            value: '张三',
+            value: '张三，李四',
           },
         ],
         [
           {
             label: '备注',
             value:
-              'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.',
+              '<strong>Lorem ipsum</strong> dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.',
           },
         ],
       ],
