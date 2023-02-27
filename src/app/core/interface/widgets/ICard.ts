@@ -88,6 +88,7 @@ export interface Card1v3Item {
 export interface IUserCard {
   menu: any[];
   count?: IUserCount[];
+  content?: any[];
 }
 
 export interface IUserCount {

@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  Inject,
   Input,
   OnInit,
 } from '@angular/core';
@@ -14,6 +15,9 @@ import { BaseComponent } from '@uiux/base/base.widget';
 import { ContentService } from '@core/service/content.service';
 import { ContentState } from '@core/state/ContentState';
 import { IPage } from '@core/interface/IAppConfig';
+import { IUser } from '@core/interface/IUser';
+import { USER } from '@core/token/token-providers';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-link',
@@ -27,7 +31,9 @@ export class LinkComponent extends BaseComponent implements OnInit {
   href: string;
   dialogRef: MatDialogRef<any>;
   constructor(
+    @Inject(USER) private user: IUser,
     public routeService: RouteService,
+    private router: Router,
     private util: UtilitiesService,
     private dialog: MatDialog,
     private dialogService: DialogService,
@@ -66,6 +72,15 @@ export class LinkComponent extends BaseComponent implements OnInit {
           this.contentState.drawerContent$.next(content);
         });
       return false;
+    }
+
+    if (this.content.href && this.content.href.includes(':id')) {
+      if (this.user) {
+        const id = this.user.current_user.uid;
+        const url = this.content.href.replace(':id', id);
+        this.router.navigate([url]);
+        return;
+      }
     }
   }
 
