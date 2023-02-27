@@ -53,15 +53,12 @@ export class IframeComponent implements OnInit {
         );
       }
     }
-    if (
-      !this.content?.url.includes(':id') ||
-      !this.content?.url.includes(':nid')
-    ) {
+    if (!this.content?.url.includes(':')) {
       this.url = this.content.url;
       this.cd.detectChanges();
       return;
     }
-    if (this.content?.url.includes('id')) {
+    if (this.content?.url.includes(':id')) {
       if (this.user) {
         const id = this.user.current_user.uid;
         this.url = this.content.url.replace(':id', id);
