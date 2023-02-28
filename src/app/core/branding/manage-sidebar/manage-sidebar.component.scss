@@ -11,7 +11,6 @@
 
 .manage-sidebar {
   position: relative;
-  top: 70px;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -36,7 +35,7 @@
   }
 
   .manage-menu {
-    flex: 1 1 auto;
+    flex: 0 1 auto;
     overflow: auto;
     .icon-list {
       .item {
@@ -126,7 +125,6 @@
   }
   .manage-footer {
     flex: none;
-    min-height: 10%;
     .toggle {
       display: flex;
       justify-content: center;
@@ -201,12 +199,13 @@
 }
 
 ::ng-deep .mat-drawer.sidebar {
-  position: fixed;
+  position: absolute;
   overflow: auto;
   box-shadow: 1px 1px 6px 0px rgb(221 221 221 / 47%);
   width: 80px;
   visibility: visible !important;
   transform: none !important;
+
   &.mat-drawer-opened {
     width: 200px;
   }
