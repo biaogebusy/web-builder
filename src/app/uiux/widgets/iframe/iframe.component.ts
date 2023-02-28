@@ -53,7 +53,7 @@ export class IframeComponent implements OnInit {
         );
       }
     }
-    if (!this.content?.url.includes(':')) {
+    if (!this.content?.url.includes('/:')) {
       this.url = this.content.url;
       this.cd.detectChanges();
       return;
