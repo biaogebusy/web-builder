@@ -1,7 +1,7 @@
 <ng-container *ngIf="branding$ | async as branding">
   <div class="manage-sidebar {{opened?'opened':'expanded'}}" [ngClass]="branding.header?.sidebar?.classes"
     *reqRolesIf="branding.header?.sidebar">
-    <div class="manage-brand p-y p-x-sm" *ngIf="branding.header?.sidebar as sidebar">
+    <div class="manage-brand p-y-sm p-x-sm" *ngIf="branding.header?.sidebar as sidebar">
       <app-logo *ngIf="!sidebar?.params.showUser; else profile" [content]="sidebar?.logo"></app-logo>
       <ng-template #profile>
         <div class="profile">

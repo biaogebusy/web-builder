@@ -95,6 +95,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     const openState = this.storage.retrieve('sidebarOpened');
     if (openState === null) {
       this.sidebarOpened = true;
+      this.storage.store('sidebarOpened', true);
     } else {
       this.sidebarOpened = this.storage.retrieve('sidebarOpened');
     }
