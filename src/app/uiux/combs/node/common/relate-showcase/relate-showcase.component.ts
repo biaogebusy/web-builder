@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import type { IRelateShowcase } from '@core/interface/node/IRelate';
 
 @Component({
   selector: 'app-relate-showcase',
@@ -12,7 +13,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RelateShowcaseComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: IRelateShowcase;
   constructor() {}
 
   ngOnInit(): void {}
