@@ -22,8 +22,7 @@
     <mat-divider></mat-divider>
     <div class="view" fxFlex.gt-sm="0 0 100" fxFlex.lt-md="100">
       <ngx-skeleton-loader *ngIf="loading" count="10" appearance="line"></ngx-skeleton-loader>
-      <app-dynamic-table [content]="table"
-        *ngIf="table && !loading">
+      <app-dynamic-table [content]="table" *ngIf="table && !loading">
       </app-dynamic-table>
       <div class="actions m-y p-x" fxLayoutAlign="end center">
         <app-btn (click)="onExport()" [content]="content.params.export.btn"

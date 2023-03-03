@@ -7,7 +7,7 @@
   <ng-container *ngFor="let page of p.pages">
     <button [class.current]="p.getCurrent() === page.value" (click)="p.setCurrent(page.value)" mat-icon-button
       *ngIf="p.getCurrent() !== page.value">
-      <a href="javascript:void();">{{ page.label }}</a>
+      <a>{{ page.label }}</a>
     </button>
     <button disabled [class.current]="p.getCurrent() === page.value" mat-mini-fab *ngIf="p.getCurrent() === page.value">
       {{ page.label }}

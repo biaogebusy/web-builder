@@ -64,10 +64,10 @@
       </ng-container>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="isExpand?columnsToDisplayWithExpand:displayedColumns; sticky:
-      content?.params?.sticky?true:false"></tr>
-    <tr mat-row *matRowDef="let element; columns: isExpand?columnsToDisplayWithExpand:displayedColumns;"
-      [ngClass]="isExpand?'element-row':''" [class.example-expanded-row]="expandedElement === element"></tr>
+    <tr mat-header-row *matHeaderRowDef="isExpand ? columnsToDisplayWithExpand : displayedColumns; sticky:
+      content?.params?.sticky ? true : false"></tr>
+    <tr mat-row *matRowDef="let element; columns: isExpand ? columnsToDisplayWithExpand : displayedColumns;"
+      [ngClass]="isExpand ? 'element-row' : ''" [class.example-expanded-row]="expandedElement === element"></tr>
 
     <!-- expand row -->
     <ng-container *ngIf="isExpand">

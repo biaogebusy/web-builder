@@ -6,6 +6,8 @@ import {
   ChangeDetectorRef,
   AfterViewInit,
   ViewChild,
+  OnChanges,
+  SimpleChanges,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -39,7 +41,7 @@ import { MatSort } from '@angular/material/sort';
     ]),
   ],
 })
-export class DynamicTableComponent implements OnInit, AfterViewInit {
+export class DynamicTableComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() content: IDynamicTable;
   @Input() form: FormGroup;
 
@@ -58,6 +60,12 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource(this.content.elements);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.dataSource = new MatTableDataSource(
+      changes.content.currentValue.elements
+    );
   }
 
   ngAfterViewInit(): void {
