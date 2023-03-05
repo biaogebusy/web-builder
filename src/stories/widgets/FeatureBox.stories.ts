@@ -68,7 +68,7 @@ NotMedia.parameters = {
   docs: {
     description: {
       story:
-        '非图片类例如doc,pdf等文档，则显示对于的文档图标，并提供预览或者下载的按钮。',
+        '非图片类例如doc,pdf等文档，则显示对于的文档图标，并提供预览或者下载的按钮，可开启Iframe侧边栏切出。',
     },
   },
 };
@@ -78,6 +78,7 @@ NotMedia.args = {
     mode: 'float',
     hoverIcon: true,
     openIcon: 'file_download',
+    openIframe: true,
     img: {
       class: 'object-fit',
       src: '/xxx.doc',

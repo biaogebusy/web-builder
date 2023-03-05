@@ -6,8 +6,10 @@ import {
   OnInit,
 } from '@angular/core';
 import type { IFeatureBox } from '@core/interface/widgets/IFeatureBox';
+import type { IImg } from '@core/interface/widgets/IImg';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { Lightbox, LightboxConfig } from 'ngx-lightbox';
+import { RouteService } from '@core/service/route.service';
 @Component({
   selector: 'app-feature-box',
   templateUrl: './feature-box.component.html',
@@ -23,7 +25,8 @@ export class FeatureBoxComponent implements OnInit {
     private lightbox: Lightbox,
     private lightboxConfig: LightboxConfig,
     private utli: UtilitiesService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private routerService: RouteService
   ) {
     this.lightboxConfig.disableScrolling = true;
     this.lightboxConfig.centerVertically = true;
@@ -74,7 +77,15 @@ export class FeatureBoxComponent implements OnInit {
     this.cd.detectChanges();
   }
 
-  open(img: any): void {
+  open(img: IImg): void {
+    if (this.content.openIframe) {
+      this.routerService.toNavigate(null, {
+        label: img.alt || '预览',
+        href: img.preview || img.src,
+        drawerIframe: true,
+      });
+      return;
+    }
     if (this.type !== 'picture') {
       window.open(img.preview, '_blank');
       return;
