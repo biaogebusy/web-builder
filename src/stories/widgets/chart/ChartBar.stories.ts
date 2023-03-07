@@ -95,3 +95,21 @@ Bar.args = {
     series: [{ type: 'bar' }, { type: 'bar' }, { type: 'bar' }],
   },
 };
+
+export const SingleSelected = Template.bind({});
+SingleSelected.storyName = '单选图例';
+SingleSelected.args = {
+  ...Bar.args.data,
+  content: {
+    ...Bar.args.content,
+    legend: {
+      selected: {
+        红包预算: true,
+        大额红包: false,
+        小额红包: false,
+        推广费用: false,
+      },
+      selectedMode: 'single',
+    },
+  },
+};
