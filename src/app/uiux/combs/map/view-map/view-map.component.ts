@@ -52,7 +52,6 @@ export class ViewMapComponent extends BaseComponent implements OnInit {
   getContent(options = {}): void {
     const params = this.getApiParams(options);
     const urlApi = this.content.params.api || '';
-    console.log(params);
     this.loading = true;
     this.nodeService.search(urlApi, params).subscribe(({ rows, pager }) => {
       rows.forEach((item: any) => {

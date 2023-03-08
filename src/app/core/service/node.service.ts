@@ -33,10 +33,15 @@ export class NodeService extends ApiService {
 
   search(type: string, params: string, token?: string): Observable<any> {
     let apiParams = '';
+    const hasApiParam = type.indexOf('?') > 0;
     if (type.startsWith('/api/')) {
-      apiParams = `${this.apiUrl}${type}?${params}`;
+      apiParams = hasApiParam
+        ? `${this.apiUrl}${type}&${params}`
+        : `${this.apiUrl}${type}?${params}`;
     } else {
-      apiParams = `${this.apiUrl}/api/v1/${type}?${params}`;
+      apiParams = hasApiParam
+        ? `${this.apiUrl}/api/v1/${type}&${params}`
+        : `${this.apiUrl}/api/v1/${type}?${params}`;
     }
     // search for role
     const searchForRole = this.coreConfig?.apiUrl?.search;
