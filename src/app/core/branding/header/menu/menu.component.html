@@ -21,6 +21,7 @@
             </button>
           </div>
           <app-switch-theme *ngIf="content?.params?.themeSwitch"></app-switch-theme>
+          <app-notify></app-notify>
           <app-user-menu *ngIf="content?.params?.userInfo" [content]="content.userMenu"></app-user-menu>
         </div>
       </div>

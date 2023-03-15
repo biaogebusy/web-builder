@@ -1,0 +1,19 @@
+<ng-container *ngIf="coreConfig?.notify?.enable">
+  <div class="notify">
+    <button aria-label="show notify" mat-icon-button [mat-menu-trigger-for]="menu">
+      <app-icon matBadge="15" matBadgeSize="small" matBadgeColor="warn" [content]="{svg:'bell-outline'}"></app-icon>
+    </button>
+
+    <mat-menu #menu="matMenu">
+      <mat-list>
+        <div mat-subheader>通知</div>
+        <mat-divider></mat-divider>
+        <mat-list-item *ngFor="let item of content">
+          <mat-icon mat-list-icon>folder</mat-icon>
+          <div mat-line>{{item.title}}</div>
+          <div mat-line style="opacity:0.4">{{item.date | date}}</div>
+        </mat-list-item>
+      </mat-list>
+    </mat-menu>
+  </div>
+</ng-container>
