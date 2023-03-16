@@ -72,3 +72,11 @@ dialog.args = {
     },
   },
 };
+
+export const Drawer = Template.bind({});
+Drawer.args = {
+  content: {
+    ...Default.args.content,
+    rel: 'drawer',
+  },
+};

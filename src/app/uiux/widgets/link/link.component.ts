@@ -6,6 +6,8 @@ import {
   OnInit,
 } from '@angular/core';
 import type { ILink } from '@core/interface/widgets/ILink';
+import type { IPage } from '@core/interface/IAppConfig';
+import type { IUser } from '@core/interface/IUser';
 import { RouteService } from '@core/service/route.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
@@ -14,8 +16,6 @@ import { DialogService } from '@core/service/dialog.service';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { ContentService } from '@core/service/content.service';
 import { ContentState } from '@core/state/ContentState';
-import { IPage } from '@core/interface/IAppConfig';
-import { IUser } from '@core/interface/IUser';
 import { USER } from '@core/token/token-providers';
 import { Router } from '@angular/router';
 

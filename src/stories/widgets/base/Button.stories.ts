@@ -67,6 +67,7 @@ BtnLink.args = {
     target: '_blank',
     label: 'Primary link',
     mode: 'raised',
+    color: 'primary',
   },
 };
 

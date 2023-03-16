@@ -368,12 +368,26 @@ RelateV2.args = {
           body: '2020年',
         },
         {
-          type: 'btn',
-          href: '#',
-          target: '_blank',
-          label: '合同预览',
-          mode: 'raised',
-          color: 'primary',
+          type: 'dropdown-menu',
+          btn: {
+            label: '合同预览',
+            color: 'primary',
+            mode: 'raised',
+          },
+          child: [
+            {
+              type: 'btn',
+              label: '合同20230312',
+              href: '/assets/doc/frontend.xlsx',
+              drawerIframe: true,
+            },
+            {
+              type: 'btn',
+              label: '合同快照',
+              href: '/assets/images/16-9/business-01.jpg',
+              drawerIframe: true,
+            },
+          ],
         },
       ],
       middle: {

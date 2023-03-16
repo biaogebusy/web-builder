@@ -4,7 +4,10 @@
     <ng-container *ngFor="let item of content.child;">
       <button mat-menu-item>
         <app-icon [content]="item.icon"></app-icon>
-        <app-link [content]="item"></app-link>
+        <app-dynamic-widgets *ngIf="item.type;else link" [content]="item"></app-dynamic-widgets>
+        <ng-template #link>
+          <app-link [content]="item"></app-link>
+        </ng-template>
       </button>
     </ng-container>
   </mat-menu>
