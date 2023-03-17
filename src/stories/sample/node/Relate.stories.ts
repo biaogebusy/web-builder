@@ -23,7 +23,7 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: `主要展示几个不同的数据类型互相关联的展示`,
+        component: `主要展示几个不同的数据类型互相关联的展示，预览按钮有Dialog和Drawer展示两种方式。`,
       },
     },
   },
@@ -72,7 +72,7 @@ Default.args = {
         {
           type: 'dropdown-menu',
           btn: {
-            label: '发票预览',
+            label: '发票预览 Dialog',
             color: 'primary',
             mode: 'raised',
           },
@@ -370,7 +370,7 @@ RelateV2.args = {
         {
           type: 'dropdown-menu',
           btn: {
-            label: '合同预览',
+            label: '合同预览 Drawer',
             color: 'primary',
             mode: 'raised',
           },

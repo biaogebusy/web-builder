@@ -1,5 +1,33 @@
-:host ::ng-deep .mat-icon.mat-icon-inline {
-  width: 24px;
+:host ::ng-deep {
+  .mat-icon.mat-icon-inline {
+    width: 24px;
+  }
+}
+
+::ng-deep {
+  .mat-menu-content {
+    .mat-menu-item {
+      a.mat-button {
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-align: left;
+        line-height: 48px;
+        height: 48px;
+        padding-left: 0;
+        padding-right: 0;
+        .mat-button-ripple {
+          display: none;
+        }
+        &:hover {
+          .mat-button-focus-overlay {
+            opacity: 0;
+          }
+        }
+      }
+    }
+  }
 }
 
 .round-btn {

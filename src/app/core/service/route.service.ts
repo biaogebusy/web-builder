@@ -42,6 +42,7 @@ export class RouteService {
             type: 'iframe',
             url: link.href,
             width: '800px',
+            classes: 'p-x-xs',
           },
         ],
       });
