@@ -1,54 +1,74 @@
 {
-  "title": "财务数据",
+  "title": "缙云县永坚塑料五金有限公司印刷品发票 | 星之火",
+  "config": {
+    "node": {
+      "uuid": "8e80688a-e047-4a50-b684-cd752e40663e"
+    }
+  },
   "body": [
     {
       "type": "relate",
       "title": {
-        "label": "团队A中国移动中标发票",
+        "label": "缙云县永坚塑料五金有限公司印刷品发票",
         "style": "style-v4",
         "classes": "mat-display-1 m-bottom-0"
       },
-      "summary": {
-        "left": {
+      "actions": [
+        {
+          "type": "btn",
+          "label": "编辑",
+          "color": "primary",
+          "mode": "raised",
           "icon": {
-            "color": "primary",
-            "name": "credit-card-check"
+            "name": "editor",
+            "inline": true
           },
-          "menu": [
-            {
-              "type": "link",
-              "label": "发票A",
-              "dialog": {
-                "params": {
-                  "width": "800px"
-                },
-                "data": [
-                  {
-                    "type": "text",
-                    "content": "<img src=\"/assets/images/16-9/business-01.jpg\" />"
-                  }
-                ]
-              }
+          "href": "/manage/content/82/edit?destination=/preview/node/82&disable_sidebar=1",
+          "target": "_blank"
+        }
+      ],
+      "summary": {
+        "left": [
+          {
+            "type": "icon",
+            "color": "primary",
+            "svg": "credit-card-check"
+          },
+          {
+            "type": "text",
+            "space": "none",
+            "classes": "mat-h1 m-bottom-0",
+            "body": "10,000¥"
+          },
+          {
+            "type": "dropdown-menu",
+            "btn": {
+              "label": "发票预览",
+              "color": "primary",
+              "mode": "raised"
             },
-            {
-              "type": "link",
-              "label": "发票B",
-              "dialog": {
-                "params": {
-                  "width": "800px"
-                },
-                "data": [
-                  {
-                    "type": "text",
-                    "content": "<img src=\"/assets/images/16-9/business-02.jpg\" />"
-                  }
-                ]
+            "child": [
+              {
+                "type": "link",
+                "label": "缙云县永坚塑料五金有限公司-11370372-印刷品-99502.54.jpg",
+                "dialog": {
+                  "params": {
+                    "width": "800px"
+                  },
+                  "data": [
+                    {
+                      "type": "text",
+                      "spacer": "none",
+                      "body": "<img src=\"https://xzh.zhaobg.com/sites/xzh.zhaobg.com/files/2023-03/%E7%BC%99%E4%BA%91%E5%8E%BF%E6%B0%B8%E5%9D%9A%E5%A1%91%E6%96%99%E4%BA%94%E9%87%91%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8-11370372-%E5%8D%B0%E5%88%B7%E5%93%81-99502.54.jpg\" />"
+                    }
+                  ]
+                }
               }
-            }
-          ]
-        },
+            ]
+          }
+        ],
         "middle": {
-          "label": "发票信息",
+          "title": "发票信息",
           "elements": [
             [
               {
@@ -57,28 +77,32 @@
               },
               {
                 "label": "开票日期",
-                "value": "2023/02/23"
+                "value": "2023-01-05"
               }
             ],
             [
               {
+                "label": "团队",
+                "value": "南宁星之火广告有限公司"
+              },
+              {
                 "label": "团队负责人",
-                "value": "张三"
+                "value": "黄"
               }
             ],
             [
               {
                 "label": "备注",
-                "value": "该发票类别有误，但是已经告知，下次要及时"
+                "value": ""
               }
             ]
           ]
         },
         "right": {
-          "label": "更新记录",
+          "title": "更新记录",
           "elements": [
             {
-              "type": "table",
+              "type": "dynamic-table",
               "header": [
                 {
                   "label": "用户",
@@ -87,21 +111,238 @@
                 {
                   "label": "时间",
                   "key": "date"
+                },
+                {
+                  "label": "操作",
+                  "key": "action"
                 }
               ],
               "elements": [
                 {
-                  "user": "张三",
-                  "date": "2023/02/21"
+                  "user": "root",
+                  "date": "2023/03/03 17:57:01 周五",
+                  "action": "提交"
                 },
                 {
-                  "user": "李四",
-                  "date": "2023/02/23"
+                  "user": "root",
+                  "date": "2023/03/16 22:35:16 周四",
+                  "action": "更新"
                 }
               ]
             }
           ]
         }
+      },
+      "showcase": {
+        "img": {
+          "src": "https://xzh.zhaobg.com/sites/xzh.zhaobg.com/files/default_images/logo_default.png",
+          "alt": "alt"
+        },
+        "text": {
+          "spacer": "none",
+          "title": {
+            "label": "南宁星之火广告有限公司",
+            "style": "style-v7",
+            "classes": "m-bottom-0 m-top-0"
+          }
+        },
+        "meta": [
+          [
+            {
+              "label": "类型",
+              "value": "广告"
+            },
+            {
+              "label": "联系人",
+              "value": "黄"
+            }
+          ],
+          [
+            {
+              "label": "备注",
+              "value": ""
+            }
+          ]
+        ],
+        "content": [
+          {
+            "type": "showcase-2v1",
+            "row": 5,
+            "spacer": "xs",
+            "elements": [
+              {
+                "type": "card",
+                "title": "营业执照",
+                "carousel": {
+                  "params": {
+                    "slidesPerView": 1,
+                    "navigation": false,
+                    "autoplay": {
+                      "delay": 5000
+                    },
+                    "breakpoints": null
+                  },
+                  "elements": [
+                    {
+                      "type": "feature-box",
+                      "fullIcon": "fullscreen",
+                      "openIcon": "file_download",
+                      "link": "https://xzh.zhaobg.com/system/files/2023-03/13293123.pdf",
+                      "ratios": "media-4-3",
+                      "openIframe": true,
+                      "img": {
+                        "class": "object-fit",
+                        "src": "https://xzh.zhaobg.com/system/files/2023-03/13293123.pdf",
+                        "preview": "/system/files/2023-03/13293123.pdf",
+                        "alt": ""
+                      }
+                    }
+                  ]
+                },
+                "progressBar": {
+                  "mode": "determinate",
+                  "value": 100
+                }
+              },
+              {
+                "type": "card",
+                "title": "开户许可证",
+                "carousel": {
+                  "params": {
+                    "slidesPerView": 1,
+                    "navigation": false,
+                    "autoplay": {
+                      "delay": 5000
+                    },
+                    "breakpoints": null
+                  },
+                  "elements": [
+                    {
+                      "type": "feature-box",
+                      "fullIcon": "fullscreen",
+                      "openIcon": "file_download",
+                      "link": "https://xzh.zhaobg.com/system/files/2023-03/11370371.pdf",
+                      "ratios": "media-4-3",
+                      "openIframe": true,
+                      "img": {
+                        "class": "object-fit",
+                        "src": "https://xzh.zhaobg.com/system/files/2023-03/11370371.pdf",
+                        "preview": "/system/files/2023-03/11370371.pdf",
+                        "alt": ""
+                      }
+                    }
+                  ]
+                },
+                "progressBar": {
+                  "mode": "determinate",
+                  "value": 100
+                }
+              },
+              {
+                "type": "card",
+                "title": "资信证明",
+                "carousel": {
+                  "params": {
+                    "slidesPerView": 1,
+                    "navigation": false,
+                    "autoplay": {
+                      "delay": 5000
+                    },
+                    "breakpoints": null
+                  },
+                  "elements": [
+                    {
+                      "type": "feature-box",
+                      "fullIcon": "fullscreen",
+                      "openIcon": "file_download",
+                      "link": "https://xzh.zhaobg.com/system/files/2023-03/%E9%99%84%E4%BB%B64%EF%BC%9A%E6%BE%84%E6%B8%85%E9%97%AE%E9%A2%98%E5%8F%8D%E9%A6%88%E6%A0%BC%E5%BC%8F_1.xls",
+                      "ratios": "media-4-3",
+                      "openIframe": true,
+                      "img": {
+                        "class": "object-fit",
+                        "src": "https://xzh.zhaobg.com/system/files/2023-03/%E9%99%84%E4%BB%B64%EF%BC%9A%E6%BE%84%E6%B8%85%E9%97%AE%E9%A2%98%E5%8F%8D%E9%A6%88%E6%A0%BC%E5%BC%8F_1.xls",
+                        "preview": "/print/file/preview/9a73afd3-386d-43e4-9a23-720481aa45fc/%E9%99%84%E4%BB%B64%EF%BC%9A%E6%BE%84%E6%B8%85%E9%97%AE%E9%A2%98%E5%8F%8D%E9%A6%88%E6%A0%BC%E5%BC%8F_1",
+                        "alt": ""
+                      }
+                    }
+                  ]
+                },
+                "progressBar": {
+                  "mode": "determinate",
+                  "value": 100
+                }
+              },
+              {
+                "type": "card",
+                "title": "纳税人信用等级",
+                "carousel": {
+                  "params": {
+                    "slidesPerView": 1,
+                    "navigation": false,
+                    "autoplay": {
+                      "delay": 5000
+                    },
+                    "breakpoints": null
+                  },
+                  "elements": [
+                    {
+                      "type": "feature-box",
+                      "fullIcon": "fullscreen",
+                      "openIcon": "file_download",
+                      "link": "https://xzh.zhaobg.com/system/files/2023-03/%E9%99%84%E4%BB%B69%EF%BC%9A%E5%80%99%E9%80%89%E4%BA%BA%E4%B8%9A%E7%BB%A9%E7%BB%9F%E8%AE%A1%E8%A1%A8.xlsx",
+                      "ratios": "media-4-3",
+                      "openIframe": true,
+                      "img": {
+                        "class": "object-fit",
+                        "src": "https://xzh.zhaobg.com/system/files/2023-03/%E9%99%84%E4%BB%B69%EF%BC%9A%E5%80%99%E9%80%89%E4%BA%BA%E4%B8%9A%E7%BB%A9%E7%BB%9F%E8%AE%A1%E8%A1%A8.xlsx",
+                        "preview": "/print/file/preview/d4cde75c-deea-4ae0-aa8a-a1144b10b57a/%E9%99%84%E4%BB%B69%EF%BC%9A%E5%80%99%E9%80%89%E4%BA%BA%E4%B8%9A%E7%BB%A9%E7%BB%9F%E8%AE%A1%E8%A1%A8",
+                        "alt": ""
+                      }
+                    }
+                  ]
+                },
+                "progressBar": {
+                  "mode": "determinate",
+                  "value": 100
+                }
+              },
+              {
+                "type": "card",
+                "title": "法人身份证",
+                "carousel": {
+                  "params": {
+                    "slidesPerView": 1,
+                    "navigation": false,
+                    "autoplay": {
+                      "delay": 5000
+                    },
+                    "breakpoints": null
+                  },
+                  "elements": [
+                    {
+                      "type": "feature-box",
+                      "fullIcon": "fullscreen",
+                      "openIcon": "file_download",
+                      "link": "https://xzh.zhaobg.com/system/files/2023-03/%E9%99%84%E4%BB%B613%EF%BC%9A%E6%AF%94%E9%80%89%E6%96%87%E4%BB%B6%E6%A0%87%E2%80%9C%E2%98%85%E2%80%9D%E7%9A%84%E6%9D%A1%E6%AC%BE%E5%BA%94%E7%AD%94%E9%A1%BB%E7%9F%A5_0.docx",
+                      "ratios": "media-4-3",
+                      "openIframe": true,
+                      "img": {
+                        "class": "object-fit",
+                        "src": "https://xzh.zhaobg.com/system/files/2023-03/%E9%99%84%E4%BB%B613%EF%BC%9A%E6%AF%94%E9%80%89%E6%96%87%E4%BB%B6%E6%A0%87%E2%80%9C%E2%98%85%E2%80%9D%E7%9A%84%E6%9D%A1%E6%AC%BE%E5%BA%94%E7%AD%94%E9%A1%BB%E7%9F%A5_0.docx",
+                        "preview": "/print/file/preview/699d8398-eb81-41bf-adef-eea9946ba907/%E9%99%84%E4%BB%B613%EF%BC%9A%E6%AF%94%E9%80%89%E6%96%87%E4%BB%B6%E6%A0%87%E2%80%9C%E2%98%85%E2%80%9D%E7%9A%84%E6%9D%A1%E6%AC%BE%E5%BA%94%E7%AD%94%E9%A1%BB%E7%9F%A5_0",
+                        "alt": ""
+                      }
+                    }
+                  ]
+                },
+                "progressBar": {
+                  "mode": "determinate",
+                  "value": 100
+                }
+              }
+            ]
+          }
+        ]
       }
     }
   ]
