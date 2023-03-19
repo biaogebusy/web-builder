@@ -26,11 +26,17 @@ export class NotifyComponent implements OnInit {
       console.log(res);
       this.content = [
         {
-          title: '测试11',
+          link: {
+            label: '测试11',
+            href: '#',
+          },
           date: '2023/03/14 15:30:10',
         },
         {
-          title: '测试12',
+          link: {
+            label: '测试12',
+            href: '#',
+          },
           date: '2023/03/14 15:30:10',
         },
       ];

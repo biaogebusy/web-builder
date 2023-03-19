@@ -37,4 +37,22 @@
       }
     }
   }
+
+  .notify-menu {
+    .mat-menu-content {
+      .mat-list-item {
+        &:hover {
+          background-color: mat-color($background, background);
+        }
+      }
+      .mat-line {
+        a {
+          color: $text-color;
+          &:hover {
+            color: mat-color($primary);
+          }
+        }
+      }
+    }
+  }
 }
