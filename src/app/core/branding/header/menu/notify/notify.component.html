@@ -1,7 +1,8 @@
 <ng-container *ngIf="coreConfig?.notify?.enable">
   <div class="notify">
     <button aria-label="show notify" mat-icon-button [mat-menu-trigger-for]="menu">
-      <app-icon matBadge="15" matBadgeSize="small" matBadgeColor="warn" [content]="{svg:'bell-outline'}"></app-icon>
+      <app-icon [matBadge]="content.length" matBadgeSize="small" matBadgeColor="warn"
+        [content]="{svg:'bell-outline'}"></app-icon>
     </button>
 
     <mat-menu #menu="matMenu" [class]="'notify-menu'">
@@ -9,7 +10,7 @@
         <div mat-subheader>通知</div>
         <mat-divider></mat-divider>
         <mat-list-item *ngFor="let item of content">
-          <mat-icon mat-list-icon>folder</mat-icon>
+          <app-icon class="bg-{{item.color}}" mat-list-icon [content]="item.icon"></app-icon>
           <div mat-line>
             <app-link [content]="item.link"></app-link>
           </div>

@@ -294,34 +294,22 @@
       {
         "get": "/api/v2/unread-message",
         "action": "/api/v1/flagging/message_unread",
-        "title": "您有新的指派任务",
-        "type": "success",
         "reqRoles": [
           "lawyer",
           "assistant_lawyer"
         ],
-        "options": {
-          "enableHtml": true,
-          "tapToDismiss": false,
-          "disableTimeOut": true,
-          "closeButton": true
-        }
+        "icon": "clipboard-text-clock",
+        "color": "primay"
       },
       {
         "get": "/api/v1/filter/handler",
         "action": "/api/v3/private/read",
-        "title": "您有新的指派任务",
-        "type": "success",
         "reqRoles": [
           "lawyer",
           "assistant_lawyer"
         ],
-        "options": {
-          "enableHtml": true,
-          "tapToDismiss": false,
-          "disableTimeOut": true,
-          "closeButton": true
-        }
+        "icon": "chart-line",
+        "color": "warn"
       }
     ]
   },

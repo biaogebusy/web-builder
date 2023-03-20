@@ -1,8 +1,23 @@
 ::ng-deep {
-  .notify-menu {
+  .notify-menu.mat-menu-panel {
+    min-width: 330px;
     .mat-menu-content {
-      .mat-line {
+      .mat-list-icon {
+        display: flex;
+        .mat-icon {
+          transform: scale(0.8);
+        }
       }
+    }
+  }
+}
+
+.notify {
+  ::ng-deep {
+    .mat-badge {
+      display: inline-block;
+      width: 24px;
+      height: 24px;
     }
   }
 }
