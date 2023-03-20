@@ -24,22 +24,55 @@ export class NotifyComponent implements OnInit {
   ngOnInit(): void {
     this.notifyService.getWatchList().subscribe((res) => {
       console.log(res);
-      this.content = [
-        {
-          link: {
-            label: '测试11',
-            href: '#',
+      const data = {
+        '0': {
+          rows: [
+            {
+              id: '0',
+              url: '/node/1',
+              title: '移动公司A投标已到期',
+              date: '2023/03/14 15:30:10',
+            },
+            {
+              id: '2',
+              url: '/node/2',
+              title: '移动公司B投标已到期',
+              date: '2023/03/15 15:30:10',
+            },
+          ],
+          pager: {
+            current_page: null,
+            total_items: 0,
+            total_pages: 0,
+            items_per_page: 10,
           },
-          date: '2023/03/14 15:30:10',
         },
-        {
-          link: {
-            label: '测试12',
-            href: '#',
+        '1': {
+          rows: [
+            {
+              id: '0',
+              url: '/node/1',
+              title: '移动公司A投标已到期',
+              date: '2023/03/14 15:30:10',
+            },
+            {
+              id: '2',
+              url: '/node/2',
+              title: '移动公司B投标已到期',
+              date: '2023/03/15 15:30:10',
+            },
+          ],
+          pager: {
+            current_page: null,
+            total_items: 0,
+            total_pages: 0,
+            items_per_page: 10,
           },
-          date: '2023/03/14 15:30:10',
         },
-      ];
+      };
+      for (const item in data) {
+        console.log(item);
+      }
     });
   }
 }
