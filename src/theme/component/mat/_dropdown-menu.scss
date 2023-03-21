@@ -37,4 +37,34 @@
       }
     }
   }
+
+  .notify-menu {
+    @include scrollbar(mat-color($foreground, divider, 0.2));
+
+    .mat-menu-content {
+      .mat-list-item {
+        &:hover {
+          background-color: mat-color($background, background);
+        }
+        .mat-line:nth-child(n + 2) {
+          color: mat-color($foreground, text, 0.5);
+        }
+      }
+      .mat-line {
+        a {
+          color: $text-color;
+          &:hover {
+            color: mat-color($primary);
+          }
+        }
+      }
+    }
+  }
+  .cdk-overlay-container {
+    .cdk-overlay-pane {
+      .mat-menu-content {
+        max-height: 580px;
+      }
+    }
+  }
 }
