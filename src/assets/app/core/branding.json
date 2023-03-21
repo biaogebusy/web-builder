@@ -9,8 +9,12 @@
     },
     "logo": {
       "label": "信使",
-      "version": true,
-      "href": "/"
+      "version": false,
+      "href": "/",
+      "img": {
+        "src": "/assets/images/logo/logo-blue.png",
+        "alt": "信使 logo"
+      }
     },
     "top": {
       "banner": {
@@ -497,7 +501,7 @@
     "footerBrand": {
       "logo": {
         "img": {
-          "src": "/assets/images/logo.png",
+          "src": "/assets/images/logo/logo-white.png",
           "alt": "信使 Demo",
           "href": "/",
           "classes": "logo"

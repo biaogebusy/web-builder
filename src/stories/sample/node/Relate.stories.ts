@@ -23,7 +23,7 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: `主要展示几个不同的数据类型互相关联的展示`,
+        component: `主要展示几个不同的数据类型互相关联的展示，预览按钮有Dialog和Drawer展示两种方式。`,
       },
     },
   },
@@ -72,7 +72,7 @@ Default.args = {
         {
           type: 'dropdown-menu',
           btn: {
-            label: '发票预览',
+            label: '发票预览 Dialog',
             color: 'primary',
             mode: 'raised',
           },
@@ -370,7 +370,7 @@ RelateV2.args = {
         {
           type: 'dropdown-menu',
           btn: {
-            label: '合同预览',
+            label: '合同预览 Drawer',
             color: 'primary',
             mode: 'raised',
           },
@@ -455,6 +455,202 @@ RelateV2.args = {
           },
         ],
       },
+    },
+  },
+};
+
+export const RelateV3 = Template.bind({});
+RelateV3.args = {
+  content: {
+    title: {
+      label: '南宁三四柒文化传播',
+      style: 'style-v4',
+      classes: 'mat-display-1 m-bottom-0',
+    },
+    actions: [
+      {
+        type: 'btn',
+        label: '编辑',
+        color: 'primary',
+        mode: 'raised',
+        icon: {
+          name: 'editor',
+          inline: true,
+        },
+        href: '#',
+        target: '_blank',
+      },
+    ],
+    summary: {
+      left: [
+        {
+          type: 'icon',
+          color: 'primary',
+          svg: 'credit-card-check',
+        },
+        {
+          type: 'text',
+          space: 'none',
+          classes: 'mat-h1 m-bottom-0',
+          body: '91450100MA5KEA307N',
+        },
+      ],
+      middle: {
+        title: '门店信息',
+        elements: [
+          [
+            {
+              label: '门店简称',
+              value: '南宁三四柒文化传播',
+            },
+            {
+              label: '公司地址',
+              value: '南宁市高新区创客城2栋',
+            },
+          ],
+          [
+            {
+              label: '信用号',
+              value: '91450100MA5KEA307N',
+            },
+            {
+              label: '企业法人',
+              value: '张三',
+            },
+          ],
+          [
+            {
+              label: '企业邮箱',
+              value: '3212794947@qq.com',
+            },
+            {
+              label: '紧急联系方式',
+              value: '0771-77880347',
+            },
+          ],
+          [
+            {
+              label: '紧急联系人',
+              value: '李四',
+            },
+            {
+              label: '法人联系方式',
+              value: '0771-77880347',
+            },
+          ],
+        ],
+      },
+      right: {
+        title: '更新记录',
+        elements: [
+          {
+            type: 'dynamic-table',
+            header: [
+              {
+                label: '用户',
+                key: 'user',
+              },
+              {
+                label: '时间',
+                key: 'date',
+              },
+              {
+                label: '操作',
+                key: 'action',
+              },
+            ],
+            elements: [
+              {
+                user: '张三',
+                date: '2023/02/21',
+                action: '提交',
+              },
+              {
+                user: '李四',
+                date: '2023/02/23',
+                action: '更新',
+              },
+            ],
+          },
+        ],
+      },
+    },
+    showcase: {
+      img: {
+        src: '/assets/images/logo/logo_default.png',
+        alt: 'alt',
+      },
+      text: {
+        spacer: 'none',
+        title: {
+          label: '南宁三四柒文化传播',
+          style: 'style-v7',
+          classes: 'm-bottom-0 m-top-0',
+        },
+      },
+      meta: [
+        [
+          {
+            label: '门店经营地址',
+            value: '广西壮族自治区南宁市西乡塘区高新区科园大道70号',
+          },
+          {
+            label: '纬度',
+            value: '22.866611',
+          },
+          {
+            label: '经度',
+            value: '108.272937',
+          },
+        ],
+      ],
+      content: [
+        {
+          type: 'showcase-2v1',
+          row: 4,
+          spacer: 'xs',
+          elements: [
+            {
+              type: 'card',
+              title: '营业执照',
+              feature: {
+                fullIcon: 'fullscreen',
+                openIcon: 'open_in_new',
+                link: '#',
+                ratios: 'media-4-3',
+                img: {
+                  classes: 'object-fit',
+                  src: '/assets/images/cases/porto1.jpg',
+                  alt: '营业执照',
+                },
+              },
+              progressBar: {
+                mode: 'determinate',
+                value: 20,
+              },
+            },
+            {
+              type: 'card',
+              title: '门店门头照',
+              feature: {
+                fullIcon: 'fullscreen',
+                openIcon: 'open_in_new',
+                link: '#',
+                ratios: 'media-4-3',
+                img: {
+                  classes: 'object-fit',
+                  src: '/assets/images/cases/porto2.jpg',
+                  alt: '开户许可证',
+                },
+              },
+              progressBar: {
+                mode: 'determinate',
+                value: 40,
+              },
+            },
+          ],
+        },
+      ],
     },
   },
 };

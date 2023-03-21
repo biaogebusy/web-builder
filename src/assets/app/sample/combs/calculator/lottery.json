@@ -1,5 +1,5 @@
 {
-  "title": "小海报红包抽奖预算计算器",
+  "title": "红包抽奖预算计算器 | 小海报",
   "body": [
     {
       "type": "lottery",
@@ -20,42 +20,42 @@
           "fieldGroup": [
             {
               "type": "input",
-              "key": "total",
+              "key": "total_money",
               "defaultValue": 300,
               "className": "m-right-sm",
               "templateOptions": {
-                "label": "大额红包总金额",
+                "label": "大额红包总预算",
                 "appearance": "outline",
                 "type": "number",
                 "required": true,
-                "min": 10,
+                "min": 1,
                 "max": 10000,
-                "description": "最小10元，最大10000元"
+                "description": "最小1元，最大10000元"
               },
               "validation": {
                 "messages": {
-                  "min": "不能设置小于 10",
+                  "min": "不能设置小于 1",
                   "max": "不能设置大于 10000"
                 }
               }
             },
             {
               "type": "input",
-              "key": "per",
+              "key": "total_number",
               "defaultValue": 10,
               "templateOptions": {
-                "label": "大额红包平均每次可抽得",
+                "label": "大额红包总个数",
                 "appearance": "outline",
                 "type": "number",
                 "required": true,
-                "min": 0.5,
-                "max": 100,
-                "description": "最小0.5元，最大100元"
+                "min": 1,
+                "max": 500,
+                "description": "最小1元，最大500元"
               },
               "validation": {
                 "messages": {
-                  "min": "不能设置小于 0.5",
-                  "max": "不能设置大于 100"
+                  "min": "不能设置小于 1",
+                  "max": "不能设置大于 500"
                 }
               }
             }
@@ -63,47 +63,88 @@
         },
         {
           "key": "min",
-          "className": "m-bottom-sm",
+          "className": "m-bottom-sm m-top-sm",
           "fieldGroupClassName": "display-flex flex-wrap",
           "fieldGroup": [
             {
               "type": "input",
-              "key": "total",
+              "key": "total_money",
               "defaultValue": 500,
               "className": "m-right-sm",
               "templateOptions": {
-                "label": "小额红包总金额",
+                "label": "小额红包总预算",
                 "appearance": "outline",
                 "type": "number",
                 "required": true,
-                "min": 100,
+                "min": 1,
                 "max": 10000,
-                "description": "最小100元，最大10000元"
+                "description": "最小1元，最大10000元"
               },
               "validation": {
                 "messages": {
-                  "min": "不能设置小于 100",
+                  "min": "不能设置小于 1",
                   "max": "不能设置大于 10000"
                 }
               }
             },
             {
               "type": "input",
-              "key": "per",
-              "defaultValue": 0.8,
+              "key": "total_number",
+              "defaultValue": 1,
               "templateOptions": {
-                "label": "小额红包平均每次可抽得",
+                "label": "小额红包总个数",
                 "appearance": "outline",
                 "type": "number",
                 "required": true,
-                "min": 0.1,
-                "max": 2,
-                "description": "最小0.1元，最大2元"
+                "min": 1,
+                "max": 500,
+                "description": "最小1次，最大500次"
               },
               "validation": {
                 "messages": {
-                  "min": "不能设置小于 0.1",
+                  "min": "不能设置小于 1",
+                  "max": "不能设置大于 500"
+                }
+              }
+            },
+            {
+              "type": "input",
+              "key": "per_max",
+              "defaultValue": 0.8,
+              "className": "m-right-sm",
+              "templateOptions": {
+                "label": "小额红包单次最大额",
+                "appearance": "outline",
+                "type": "number",
+                "required": true,
+                "min": 0.3,
+                "max": 2,
+                "description": "最小0.3元，最大2元"
+              },
+              "validation": {
+                "messages": {
+                  "min": "不能设置小于 0.3",
                   "max": "不能设置大于 2"
+                }
+              }
+            },
+            {
+              "type": "input",
+              "key": "per_max",
+              "defaultValue": 0.3,
+              "templateOptions": {
+                "label": "小额红包单次最小额",
+                "appearance": "outline",
+                "type": "number",
+                "required": true,
+                "min": 0.3,
+                "max": 1,
+                "description": "最小0.3元，最大1元"
+              },
+              "validation": {
+                "messages": {
+                  "min": "不能设置小于 0.3",
+                  "max": "不能设置大于 1"
                 }
               }
             }
@@ -126,7 +167,7 @@
               "type": "select",
               "key": "type",
               "defaultValue": "fixed",
-              "className": "width-100 m-bottom-sm m-right-sm",
+              "className": "m-bottom-sm m-right-sm",
               "templateOptions": {
                 "label": "选择提成方式",
                 "description": "固定金额或者按比例",
@@ -137,36 +178,14 @@
                   },
                   {
                     "label": "比例",
-                    "value": "prop"
+                    "value": "percent"
                   }
                 ]
               }
             },
             {
               "type": "input",
-              "key": "fixedTimes",
-              "defaultValue": 100,
-              "className": "m-right-sm m-bottom-sm",
-              "templateOptions": {
-                "label": "推广成功总次数",
-                "appearance": "outline",
-                "type": "number",
-                "required": true,
-                "min": 5,
-                "max": 500,
-                "description": "预测推广成功总次数"
-              },
-              "validation": {
-                "messages": {
-                  "min": "不能设置小于 5",
-                  "max": "不能设置大于 500"
-                }
-              },
-              "hideExpression": "model.type==\"prop\""
-            },
-            {
-              "type": "input",
-              "key": "fixedMoney",
+              "key": "fixed",
               "defaultValue": 2,
               "className": "m-bottom-sm",
               "templateOptions": {
@@ -174,65 +193,21 @@
                 "appearance": "outline",
                 "type": "number",
                 "required": true,
-                "min": 1,
+                "min": 0.3,
                 "max": 100,
                 "description": "推广员推广一次固定的提成金额"
               },
               "validation": {
                 "messages": {
-                  "min": "不能设置小于 1",
+                  "min": "不能设置小于 0.3",
                   "max": "不能设置大于 100"
                 }
               },
-              "hideExpression": "model.type==\"prop\""
+              "hideExpression": "model.type==\"percent\""
             },
             {
               "type": "input",
-              "key": "maxTimes",
-              "defaultValue": 15,
-              "className": "m-right-sm m-bottom-sm",
-              "templateOptions": {
-                "label": "大额推广成功总次数",
-                "appearance": "outline",
-                "type": "number",
-                "required": true,
-                "min": 5,
-                "max": 500,
-                "description": "预测大额红包推广成功总次数"
-              },
-              "validation": {
-                "messages": {
-                  "min": "不能设置小于 5",
-                  "max": "不能设置大于 500"
-                }
-              },
-              "hideExpression": "model.type==\"fixed\""
-            },
-            {
-              "type": "input",
-              "key": "minTimes",
-              "defaultValue": 300,
-              "className": "m-right-sm m-bottom-sm",
-              "templateOptions": {
-                "label": "小额推广成功总次数",
-                "appearance": "outline",
-                "type": "number",
-                "required": true,
-                "min": 5,
-                "max": 500,
-                "description": "预测小额红包推广成功总次数"
-              },
-              "validation": {
-                "messages": {
-                  "min": "不能设置小于 5",
-                  "max": "不能设置大于 500"
-                }
-              },
-              "hideExpression": "model.type==\"fixed\""
-            },
-            {
-              "type": "input",
-              "key": "prop",
+              "key": "percent",
               "defaultValue": 80,
               "templateOptions": {
                 "label": "每次推广可得比例%",
@@ -292,7 +267,7 @@
           "type": "category"
         },
         "yAxis": {
-          "type": "category"
+          "type": "value"
         },
         "series": [
           {
@@ -309,7 +284,7 @@
           }
         ]
       },
-      "description": "<ul class=\"list-done\"><li>总金额 = 红包总金额（大额+小额）+ 推广金额</li><li>当红包总金额没有余额时不可再抽奖</li><li>推广总金额没有余额时停止推广</li><li>推广员按比例所得：用户抽得金额*推广比例</li><li>以上参数只是预估，实际业务中会有变差，仅做参考</li></ul>"
+      "description": "<ul class=\"list-done\"><li>总金额 = 红包总金额（大额+小额）+ 推广金额</li><li>大额红包中奖金额为平均值：大额红包总金额/大额总个数</li><li>小额红包中奖金额为介于小额最小值和小额最大值的随机值；</li><li>推广金额计算：比例方式：（大额+小额)x比例；固定金额方式：固定金额乘个数；</li><li>推广员按比例所得：用户抽得金额*推广比例</li><li>以上参数只是预估，实际业务中会有变差，仅做参考</li></ul>"
     }
   ]
 }
