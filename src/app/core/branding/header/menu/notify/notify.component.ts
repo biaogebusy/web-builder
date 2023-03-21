@@ -7,8 +7,9 @@ import {
 } from '@angular/core';
 import { ICoreConfig } from '@core/interface/IAppConfig';
 import { NotifyService } from '@core/service/notify.service';
-import { CORE_CONFIG } from '@core/token/token-providers';
-import { take } from 'rxjs/operators';
+import { CORE_CONFIG, USER } from '@core/token/token-providers';
+import { NodeService } from '@core/service/node.service';
+import { IUser } from '@core/interface/IUser';
 
 @Component({
   selector: 'app-notify',
@@ -18,9 +19,12 @@ import { take } from 'rxjs/operators';
 })
 export class NotifyComponent implements OnInit {
   content: any[] = [];
+  apis: any;
   constructor(
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
+    @Inject(USER) private user: IUser,
     private notifyService: NotifyService,
+    private nodeService: NodeService,
     private cd: ChangeDetectorRef
   ) {}
 
@@ -29,54 +33,37 @@ export class NotifyComponent implements OnInit {
   }
 
   getContent(): void {
-    const apis: any = this.coreConfig?.notify?.api;
-    this.notifyService
-      .getWatchList()
-      .pipe(take(1))
-      .subscribe((res) => {
-        const data: any = {
-          '0': {
-            rows: [
-              {
-                id: '0',
-                url: '/node/1',
-                title: '移动公司A投标已到期',
-                date: '2023/03/14 15:30:10',
-              },
-              {
-                id: '2',
-                url: '/node/2',
-                title: '移动公司B投标已到期',
-                date: '2023/03/15 15:30:10',
-              },
-            ],
-            pager: {
-              current_page: null,
-              total_items: 0,
-              total_pages: 0,
-              items_per_page: 10,
+    this.apis = this.coreConfig?.notify?.api;
+    this.notifyService.getWatchList().subscribe((res) => {
+      for (const item in res) {
+        const message = res[item].rows.map((list: any) => {
+          return {
+            link: {
+              href: list.url,
+              label: list.title,
             },
-          },
-        };
-        for (const item in data) {
-          const message = data[item].rows.map((list: any) => {
-            return {
-              link: {
-                href: list.url,
-                label: list.title,
-              },
-              icon: {
-                svg: apis[item].icon,
-                inline: true,
-              },
-              date: list.date,
-              color: apis[item].color,
-            };
-          });
-          this.content.push(...message);
-        }
-        console.log(this.content);
-        this.cd.detectChanges();
+            icon: {
+              svg: this.apis[item].icon,
+              inline: true,
+            },
+            message: list.message,
+            date: list.date,
+            color: this.apis[item].color,
+            action: this.apis[item].action,
+            uuid: list.uuid,
+          };
+        });
+        this.content.push(...message);
+      }
+      this.cd.detectChanges();
+    });
+  }
+
+  onRead(item: any): void {
+    this.nodeService
+      .deleteFlagging(item.action, [item], this.user.csrf_token)
+      .subscribe((res) => {
+        console.log(res);
       });
   }
 }

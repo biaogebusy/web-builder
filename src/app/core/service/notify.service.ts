@@ -23,27 +23,12 @@ export class NotifyService {
     @Inject(USER) private user: IUser
   ) {}
 
+  // TODO: remove
   watchNotify(): Observable<any> {
     const apis = this.coreConfig?.notify?.api;
     return this.getWatchList().pipe(
       catchError((error: any) => {
         return of(null);
-      }),
-      map((data) => {
-        return [
-          {
-            rows: [
-              {
-                title: '测试11',
-                date: '2023/03/14 15:30:10',
-              },
-              {
-                title: '测试12',
-                date: '2023/03/14 15:30:10',
-              },
-            ],
-          },
-        ];
       })
     );
     if (apis) {

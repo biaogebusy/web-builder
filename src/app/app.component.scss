@@ -1,4 +1,5 @@
 @import "/src/theme/variable/breakpoint";
+@import "/src/theme//mixins/amixin";
 
 .main {
   min-height: calc(100vh - 76px);
@@ -11,15 +12,6 @@
   @media #{$xs} {
     position: fixed !important;
     width: 80vw;
-  }
-}
-::ng-deep {
-  .cdk-overlay-container {
-    .cdk-overlay-pane {
-      .mat-menu-content {
-        max-height: 580px;
-      }
-    }
   }
 }
 
