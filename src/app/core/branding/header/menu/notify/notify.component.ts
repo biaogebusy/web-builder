@@ -11,6 +11,7 @@ import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import { NodeService } from '@core/service/node.service';
 import { IUser } from '@core/interface/IUser';
 import { interval } from 'rxjs';
+import { startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'app-notify',
@@ -39,7 +40,7 @@ export class NotifyComponent implements OnInit {
       const source = interval(
         this.coreConfig?.notify?.params.interval || 2 * 60 * 1000
       );
-      source.subscribe((time) => {
+      source.pipe(startWith(0)).subscribe((time) => {
         this.notifyService.getWatchList().subscribe((res) => {
           for (const item in res) {
             const message = res[item].rows.map((list: any) => {
@@ -59,7 +60,7 @@ export class NotifyComponent implements OnInit {
                 uuid: list.uuid,
               };
             });
-            this.content.push(...message);
+            this.content = [...message];
           }
           this.cd.detectChanges();
         });
