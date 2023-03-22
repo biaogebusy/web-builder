@@ -23,60 +23,6 @@ export class NotifyService {
     @Inject(USER) private user: IUser
   ) {}
 
-  // TODO: remove
-  watchNotify(): Observable<any> {
-    const apis = this.coreConfig?.notify?.api;
-    return this.getWatchList().pipe(
-      catchError((error: any) => {
-        return of(null);
-      })
-    );
-    if (apis) {
-      const source = interval(
-        this.coreConfig?.notify?.params.interval || 2 * 60 * 1000
-      );
-      // https://ngx-toastr.vercel.app/
-      // .subscribe((res) => {
-      //   if (!isEmpty(res)) {
-      //     Object.keys(res).forEach((index: any) => {
-      //       if (res[index].rows.length) {
-      //         const lists = res[index].rows;
-      //         lists.forEach((item: any) => {
-      //           const config = apis[index];
-      //           const toastr = this.toastr.show(
-      //             item[config.bodyField] || item.title,
-      //             config.title,
-      //             config.options,
-      //             config.type || 'success'
-      //           );
-
-      //           toastr.onTap
-      //             .pipe(
-      //               take(1),
-      //               switchMap(() => {
-      //                 return this.nodeService.deleteFlagging(
-      //                   config.action,
-      //                   [item],
-      //                   this.user.csrf_token
-      //                 );
-      //               })
-      //             )
-      //             .subscribe(() => {
-      //               console.log(toastr);
-      //               this.toastr.remove(toastr.toastId);
-      //               if (item.url) {
-      //                 this.router.navigate([item.url]);
-      //               }
-      //             });
-      //         });
-      //       }
-      //     });
-      //   }
-      // });
-      source.subscribe((time) => {});
-    }
-  }
-
   getWatchList(): Observable<any> {
     const obj: any = {};
     const params = `noCache=1`;

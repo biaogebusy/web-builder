@@ -10,6 +10,7 @@ import { NotifyService } from '@core/service/notify.service';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import { NodeService } from '@core/service/node.service';
 import { IUser } from '@core/interface/IUser';
+import { interval } from 'rxjs';
 
 @Component({
   selector: 'app-notify',
@@ -34,29 +35,36 @@ export class NotifyComponent implements OnInit {
 
   getContent(): void {
     this.apis = this.coreConfig?.notify?.api;
-    this.notifyService.getWatchList().subscribe((res) => {
-      for (const item in res) {
-        const message = res[item].rows.map((list: any) => {
-          return {
-            link: {
-              href: list.url,
-              label: list.title,
-            },
-            icon: {
-              svg: this.apis[item].icon,
-              inline: true,
-            },
-            message: list.message,
-            date: list.date,
-            color: this.apis[item].color,
-            action: this.apis[item].action,
-            uuid: list.uuid,
-          };
+    if (this.apis) {
+      const source = interval(
+        this.coreConfig?.notify?.params.interval || 2 * 60 * 1000
+      );
+      source.subscribe((time) => {
+        this.notifyService.getWatchList().subscribe((res) => {
+          for (const item in res) {
+            const message = res[item].rows.map((list: any) => {
+              return {
+                link: {
+                  href: list.url,
+                  label: list.title,
+                },
+                icon: {
+                  svg: this.apis[item].icon,
+                  inline: true,
+                },
+                message: list.message,
+                date: list.date,
+                color: this.apis[item].color,
+                action: this.apis[item].action,
+                uuid: list.uuid,
+              };
+            });
+            this.content.push(...message);
+          }
+          this.cd.detectChanges();
         });
-        this.content.push(...message);
-      }
-      this.cd.detectChanges();
-    });
+      });
+    }
   }
 
   onRead(item: any): void {
