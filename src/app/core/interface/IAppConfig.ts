@@ -38,6 +38,7 @@ export interface ICoreConfig {
     enable: boolean;
     params: {
       interval: number;
+      dateFormat: string;
     };
     api: INotify[];
   };

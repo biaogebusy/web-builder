@@ -1,12 +1,9 @@
 import { Inject, Injectable } from '@angular/core';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
-import { forkJoin, interval, Observable, of } from 'rxjs';
+import { forkJoin, Observable } from 'rxjs';
 import { NodeService } from '@core/service/node.service';
-import { catchError, take, switchMap, map } from 'rxjs/operators';
-import { isEmpty } from 'lodash';
 import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
 import type { IUser } from '@core/interface/IUser';
 import { UserService } from '@core/service/user.service';
 
@@ -18,7 +15,6 @@ export class NotifyService {
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
     private nodeService: NodeService,
     private toastr: ToastrService,
-    private router: Router,
     private userService: UserService,
     @Inject(USER) private user: IUser
   ) {}

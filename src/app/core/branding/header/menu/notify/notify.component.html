@@ -19,10 +19,10 @@
             <div mat-line>
               <app-link (click)="onRead(item)" [content]="item.link"></app-link>
             </div>
-            <div mat-line *ngIf="item.message">
-              {{item.message}}
+            <div mat-line *ngIf="item.message" [innerHTML]="item.message|stripTags">
             </div>
-            <div mat-line>{{item.date | date:"YYYY-MM-dd HH:mm:ss"}}
+            <div mat-line *ngIf="item.date">
+              {{item.date | date:coreConfig.notify?.params?.dateFormat || "YYYY-MM-dd"}}
             </div>
           </mat-list-item>
         </mat-list>

@@ -4,11 +4,14 @@ import {
   Input,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
+  Inject,
 } from '@angular/core';
 import { Event, NavigationStart, Router } from '@angular/router';
 import type { IHeader } from '@core/interface/IBranding';
 import { ScreenState } from '@core/state/screen/ScreenState';
+import { CORE_CONFIG } from '@core/token/token-providers';
 import { version } from '../../../../../../package.json';
+import type { ICoreConfig } from '@core/interface/IAppConfig';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
@@ -22,6 +25,7 @@ export class MenuComponent implements OnInit {
   show = true;
 
   constructor(
+    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
     public screen: ScreenState,
     private router: Router,
     private cd: ChangeDetectorRef
