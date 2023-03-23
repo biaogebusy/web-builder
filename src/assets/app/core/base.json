@@ -288,7 +288,8 @@
   "notify": {
     "enable": false,
     "params": {
-      "interval": 10000
+      "interval": 10000,
+      "dateFormat": "YYYY-MM-dd"
     },
     "api": [
       {
