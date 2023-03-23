@@ -31,4 +31,5 @@ export interface IMap {
   city?: string;
   elements: any[];
   params?: any;
+  model?: any;
 }

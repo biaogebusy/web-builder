@@ -5,11 +5,11 @@ import {
   Inject,
   OnInit,
 } from '@angular/core';
-import { ICoreConfig } from '@core/interface/IAppConfig';
+import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { NotifyService } from '@core/service/notify.service';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import { NodeService } from '@core/service/node.service';
-import { IUser } from '@core/interface/IUser';
+import type { IUser } from '@core/interface/IUser';
 import { interval } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 

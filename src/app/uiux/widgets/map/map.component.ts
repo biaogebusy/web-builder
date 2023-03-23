@@ -9,7 +9,8 @@ import {
   SimpleChanges,
   ChangeDetectorRef,
 } from '@angular/core';
-import type { IAmap, IMap, IMark, IMarkInfo } from '@core/interface/IAmap';
+import { Clipboard } from '@angular/cdk/clipboard';
+import type { IAmap, IMap, IMark } from '@core/interface/IAmap';
 import { AmapService } from '@core/service/amap.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
@@ -19,6 +20,7 @@ import { ScreenService } from '@core/service/screen.service';
 import { isArray } from 'lodash-es';
 import { ContentService } from '@core/service/content.service';
 import { ContentState } from '@core/state/ContentState';
+import { UtilitiesService } from '@core/service/utilities.service';
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -28,6 +30,7 @@ import { ContentState } from '@core/state/ContentState';
 export class MapComponent implements OnInit, OnChanges, OnDestroy {
   @Input() content: IMap;
   AMap: any;
+  circle: any;
   markers: any[];
   geocoder: any;
   map: any;
@@ -41,7 +44,9 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
     private screenService: ScreenService,
     private contentState: ContentState,
     private contentService: ContentService,
+    private utilService: UtilitiesService,
     private cd: ChangeDetectorRef,
+    private clipboard: Clipboard,
     @Inject(THEME) private theme: string,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
   ) {}
@@ -62,14 +67,24 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnChanges(change: SimpleChanges): void {
-    const content = change.content;
-    if (
-      !this.mapLoading &&
-      !content.firstChange &&
-      content.currentValue.elements &&
-      content.currentValue.elements.length > 0
-    ) {
-      this.getPositionAndMarkers(content.currentValue.elements);
+    const {
+      firstChange,
+      currentValue: { elements, model },
+    } = change.content;
+    if (!this.mapLoading && !firstChange && elements && elements.length > 0) {
+      this.getPositionAndMarkers(elements);
+    }
+    if (model.enableCircle) {
+      console.log(model);
+      if (model.circle.lnglat) {
+        this.setFitView();
+      } else {
+        this.utilService.openSnackbar('点击地图复制经纬度', 'ok');
+      }
+    }
+
+    if (!model.enableCire && this.circle) {
+      this.map.remove(this.circle);
     }
   }
 
@@ -144,6 +159,15 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
         this.map.setMapStyle(newMapStyle);
       });
     }
+    this.map.on('click', (event: any) => {
+      if (this.content?.model.enableCircle) {
+        const {
+          lnglat: { lng, lat },
+        } = event;
+        this.clipboard.copy(`${lng},${lat}`);
+        this.utilService.openSnackbar('经纬度已复制', 'ok');
+      }
+    });
     this.amapService.mapLoading$.next(true);
   }
 
@@ -221,6 +245,26 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
 
   setFitView(): void {
     this.map.setFitView();
+    if (this.content?.model?.enableCircle) {
+      const { lnglat, radius, bg, opacity } = this.content.model.circle;
+      if (!lnglat) {
+        this.utilService.openSnackbar('点击地图复制经纬度', 'ok');
+        return;
+      }
+      if (this.circle) {
+        this.map.remove(this.circle);
+      }
+      const [lng, lat] = lnglat.split(',');
+      this.circle = new this.AMap.Circle({
+        center: new this.AMap.LngLat(lng, lat), // 圆心位置
+        radius: radius * 1000, // 圆半径
+        fillColor: bg, // 圆形填充颜色
+        fillOpacity: opacity,
+        strokeColor: '#fff', // 描边颜色
+        strokeWeight: 2, // 描边宽度
+      });
+      this.map.add(this.circle);
+    }
   }
 
   ngOnDestroy(): void {}

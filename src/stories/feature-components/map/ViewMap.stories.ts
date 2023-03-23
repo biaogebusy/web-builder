@@ -189,3 +189,126 @@ Default.args = {
     ],
   },
 };
+
+export const Circle = Template.bind({});
+Circle.storyName = '地图范围圈';
+Circle.args = {
+  content: {
+    ...Default.args.content,
+    form: [
+      {
+        type: 'input',
+        key: 'title',
+        className: 'm-right-xs width-30',
+        templateOptions: {
+          label: '搜索职位',
+        },
+      },
+      {
+        type: 'mat-select',
+        key: 'skill',
+        className: 'm-right-xs width-30',
+        apiBak: '/api/v2/filter/taxonomy/skill',
+        templateOptions: {
+          multiple: true,
+          search: true,
+          hideSelected: true,
+          label: '技能',
+          options: [
+            {
+              value: 1,
+              label: 'Angular',
+            },
+            {
+              value: 2,
+              label: 'React',
+            },
+            {
+              value: 3,
+              label: 'Vue',
+            },
+          ],
+        },
+      },
+      {
+        key: 'enableCircle',
+        type: 'toggle',
+        className: 'width-100',
+        templateOptions: {
+          label: '开启范围圈',
+          description: '开启后点击地图获取经纬度',
+        },
+      },
+      {
+        key: 'circle',
+        className: 'width-100',
+        fieldGroupClassName: 'display-flex flex-wrap width-100',
+        fieldGroup: [
+          {
+            type: 'input',
+            key: 'lnglat',
+            className: 'm-bottom-sm width-100',
+            templateOptions: {
+              label: '经纬度',
+              appearance: 'outline',
+              type: 'text',
+              required: true,
+            },
+          },
+          {
+            type: 'input',
+            key: 'radius',
+            defaultValue: 3,
+            className: 'm-bottom-sm width-30 m-right-xs',
+            templateOptions: {
+              label: '圆半径/公里',
+              appearance: 'outline',
+              type: 'number',
+              required: true,
+              min: 1,
+              max: 100,
+            },
+            validation: {
+              messages: {
+                min: '不能设置小于 1',
+                max: '不能设置大于 100',
+              },
+            },
+          },
+          {
+            type: 'input',
+            key: 'bg',
+            className: 'm-bottom-sm width-30 m-right-xs',
+            defaultValue: '#00a281',
+            templateOptions: {
+              label: '圆背景色',
+              appearance: 'outline',
+              type: 'color',
+              required: true,
+            },
+          },
+          {
+            type: 'input',
+            key: 'opacity',
+            defaultValue: 0.1,
+            className: 'm-bottom-sm width-30  m-right-xs',
+            templateOptions: {
+              label: '不透明度',
+              appearance: 'outline',
+              type: 'number',
+              required: true,
+              min: 0.1,
+              max: 1,
+            },
+            validation: {
+              messages: {
+                min: '不能设置小于 0.1',
+                max: '不能设置大于 100',
+              },
+            },
+          },
+        ],
+      },
+    ],
+  },
+};
