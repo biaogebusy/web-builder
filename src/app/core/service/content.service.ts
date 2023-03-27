@@ -12,7 +12,6 @@ import { TagsService } from '@core/service/tags.service';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { ApiService } from '@core/service/api.service';
 import { LocalStorageService } from 'ngx-webstorage';
-import { MODE } from '@core/factory/factory';
 import type { IBranding } from '@core/interface/IBranding';
 @Injectable({
   providedIn: 'root',
@@ -23,7 +22,6 @@ export class ContentService {
     private tagsService: TagsService,
     private screenState: ScreenState,
     private apiService: ApiService,
-    private storage: LocalStorageService,
     @Inject(API_URL) private apiUrl: string,
     @Inject(DOCUMENT) private document: Document
   ) {}
@@ -116,23 +114,12 @@ export class ContentService {
       .then(
         (config: ICoreConfig) => {
           this.apiService.configLoadDone$.next(true);
-          this.initTheme(config);
         },
         (error) => {
           console.log(error);
           console.log('base json not found!');
         }
       );
-  }
-
-  initTheme(coreConfig: ICoreConfig): void {
-    if (this.storage.retrieve(MODE)) {
-      const theme = this.storage.retrieve(MODE);
-      this.setBodyClasses(theme);
-    } else {
-      const defTheme = coreConfig.defaultTheme || 'light-theme';
-      this.setBodyClasses(defTheme);
-    }
   }
 
   setBodyClasses(theme: string): void {

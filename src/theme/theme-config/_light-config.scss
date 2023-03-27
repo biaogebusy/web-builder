@@ -37,4 +37,4 @@ $light-color: (
 $app-primary: mat-palette($light-color);
 $app-accent: mat-palette($light-color, A200, A100, A400);
 $app-warn: mat-palette($mat-red, A200, A100, A400);
-$app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
+$light-theme: mat-light-theme($app-primary, $app-accent, $app-warn);

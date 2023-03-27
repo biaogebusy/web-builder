@@ -74,8 +74,7 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
     if (!this.mapLoading && !firstChange && elements && elements.length > 0) {
       this.getPositionAndMarkers(elements);
     }
-    if (model.enableCircle) {
-      console.log(model);
+    if (model?.enableCircle) {
       if (model.circle.lnglat) {
         this.setFitView();
       } else {
@@ -83,7 +82,7 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
       }
     }
 
-    if (!model.enableCire && this.circle) {
+    if (!model?.enableCire && this.circle) {
       this.map.remove(this.circle);
     }
   }

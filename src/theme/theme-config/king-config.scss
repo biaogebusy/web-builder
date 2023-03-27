@@ -1,4 +1,6 @@
 @import "~@angular/material/theming";
+@import "../mixins/base-color";
+@import "../component/component";
 $king-color: (
   //
   50: #faf1df,
@@ -38,3 +40,7 @@ $king-primary: mat-palette($king-color);
 $king-accent: mat-palette($king-color, A200, A100, A400);
 $king-warn: mat-palette($mat-red, A200, A100, A400);
 $king-theme: mat-light-theme($king-primary, $king-accent, $king-warn);
+
+@include angular-material-theme($king-theme);
+@include base-colors($king-theme);
+@include component-theme($king-theme);

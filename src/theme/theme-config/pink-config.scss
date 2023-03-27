@@ -1,4 +1,6 @@
 @import "~@angular/material/theming";
+@import "../mixins/base-color";
+@import "../component/component";
 $pink-color: (
   //
   50: #f9efee,
@@ -38,3 +40,7 @@ $pink-primary: mat-palette($mat-pink, 500);
 $pink-accent: mat-palette($mat-pink, A400);
 $pink-warn: mat-palette($mat-green, 800);
 $pink-theme: mat-light-theme($pink-primary, $pink-accent, $pink-warn);
+
+@include angular-material-theme($pink-theme);
+@include base-colors($pink-theme);
+@include component-theme($pink-theme);

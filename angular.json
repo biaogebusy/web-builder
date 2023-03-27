@@ -54,7 +54,37 @@
               "node_modules/highlight.js/styles/github.css",
               "node_modules/ngx-lightbox/lightbox.css",
               "node_modules/social-share.js/dist/css/share.min.css",
-              "node_modules/video.js/dist/video-js.css"
+              "node_modules/video.js/dist/video-js.css",
+              {
+                "input": "src/theme/theme-config/blue-config.scss",
+                "bundleName": "blue-theme",
+                "inject": false
+              },
+              {
+                "input": "src/theme/theme-config/dark-config.scss",
+                "bundleName": "dark-theme",
+                "inject": false
+              },
+              {
+                "input": "src/theme/theme-config/green-config.scss",
+                "bundleName": "green-theme",
+                "inject": false
+              },
+              {
+                "input": "src/theme/theme-config/king-config.scss",
+                "bundleName": "king-theme",
+                "inject": false
+              },
+              {
+                "input": "src/theme/theme-config/pink-config.scss",
+                "bundleName": "pink-theme",
+                "inject": false
+              },
+              {
+                "input": "src/theme/theme-config/red-config.scss",
+                "bundleName": "red-theme",
+                "inject": false
+              }
             ],
             "scripts": [
               "node_modules/social-share.js/src/js/qrcode.js",

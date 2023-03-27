@@ -1,4 +1,6 @@
 @import "~@angular/material/theming";
+@import "../mixins/base-color";
+@import "../component/component";
 $red-color: (
   //
   50: #fdecef,
@@ -38,3 +40,7 @@ $red-primary: mat-palette($red-color);
 $red-accent: mat-palette($red-color, A200, A100, A400);
 $red-warn: mat-palette($mat-red, A200, A100, A400);
 $red-theme: mat-light-theme($red-primary, $red-accent, $red-warn);
+
+@include angular-material-theme($red-theme);
+@include base-colors($red-theme);
+@include component-theme($red-theme);
