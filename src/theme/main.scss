@@ -2,18 +2,13 @@
 @import "./variable/variable";
 @import "./mixins/base-color";
 @import "./base/base";
-@import "./component/component";
 @import "./drupal";
-@import "./theme-config/light-config";
 
 @include reset-styles();
 // override typography
 @include mat-core($custom-typography);
-@include angular-material-theme($light-theme);
 
 @include branding(map-get($color-theme, shadow), "shadow");
 @include branding(map-get($color-theme, light), "light");
 
 @include custom-overide();
-@include base-colors($light-theme);
-@include component-theme($light-theme);

@@ -76,6 +76,11 @@
                 "inject": false
               },
               {
+                "input": "src/theme/theme-config/light-config.scss",
+                "bundleName": "light-theme",
+                "inject": false
+              },
+              {
                 "input": "src/theme/theme-config/pink-config.scss",
                 "bundleName": "pink-theme",
                 "inject": false

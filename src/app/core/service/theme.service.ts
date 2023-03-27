@@ -36,16 +36,18 @@ export class ThemeService {
     // Set type of the link item and path to the css file
     renderer2.setProperty(this.style, 'rel', 'stylesheet');
     renderer2.setProperty(this.style, 'href', this.cssFile);
-    renderer2.setProperty(this.style, 'id', this.themeCSSID);
+    renderer2.setProperty(this.style, 'className', this.themeCSSID);
 
     // Add the style to the head section
     renderer2.appendChild(this.document.head, this.style);
   }
 
   removeExistingThemeStyle(renderer2: Renderer2, themeCSSID: string) {
-    const themeIDHTMlElem = this.document.getElementById(themeCSSID);
-    if (themeIDHTMlElem) {
-      renderer2.removeChild(this.document.head, themeIDHTMlElem);
-    }
+    const themeIDHTMlElem = this.document.getElementsByClassName(themeCSSID);
+    Array.from(themeIDHTMlElem).forEach((child) => {
+      if (child) {
+        renderer2.removeChild(this.document.head, child);
+      }
+    });
   }
 }
