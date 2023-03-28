@@ -379,3 +379,247 @@ Default.args = {
     ],
   },
 };
+
+export const WorkTime = Template.bind({});
+WorkTime.args = {
+  form: new FormGroup({}),
+  model: {},
+  content: {
+    header: {
+      text: {
+        spacer: 'md',
+        title: {
+          label: '工时统计',
+          style: 'style-v4',
+          classes: 'mat-display-3 m-bottom-0',
+        },
+      },
+    },
+    form: [
+      {
+        key: 'filter',
+        className: '',
+        fieldGroupClassName: 'display-flex flex-wrap',
+        fieldGroup: [
+          {
+            type: 'mat-select',
+            key: 'lawyer',
+            defaultValue: 5,
+            className: 'display-block m-bottom-sm m-right-sm',
+            templateOptions: {
+              label: '选择律师',
+              description: '请选择律师',
+              options: [
+                {
+                  label: '张三',
+                  value: 26,
+                },
+                {
+                  label: '李四',
+                  value: 6,
+                },
+              ],
+            },
+          },
+          {
+            type: 'mat-select',
+            key: 'position',
+            defaultValue: 5,
+            className: 'display-block m-bottom-sm m-right-sm',
+            templateOptions: {
+              label: '年份',
+              description: '请选择年份',
+              options: [
+                {
+                  label: '2023',
+                  value: 2023,
+                },
+                {
+                  label: '2022',
+                  value: 2022,
+                },
+                {
+                  label: '2021',
+                  value: 2021,
+                },
+                {
+                  label: '2020',
+                  value: 2020,
+                },
+              ],
+            },
+          },
+        ],
+      },
+    ],
+    params: {
+      apiBak: '/api/v3/node/vote/report',
+    },
+    row: 2,
+    box: [
+      {
+        data: {
+          toggle: [
+            {
+              label: '饼图',
+              icon: {
+                name: 'pie_chart',
+                inline: true,
+              },
+              value: 'pie',
+            },
+            {
+              label: '柱状图',
+              icon: {
+                name: 'equalizer',
+                inline: true,
+              },
+              value: 'bar',
+            },
+            {
+              label: '折线图',
+              icon: {
+                name: 'show_chart',
+                inline: true,
+              },
+              value: 'line',
+            },
+          ],
+        },
+        content: {
+          type: 'chart',
+          tooltip: {
+            trigger: 'axis',
+          },
+          dataset: {
+            source: [
+              ['name', 'total'],
+              ['1月', 12],
+              ['2月', 35],
+              ['3月', 55],
+              ['4月', 152],
+              ['5月', 90],
+              ['6月', 109],
+              ['7月', 10],
+              ['8月', 25],
+              ['9月', 22],
+              ['10月', 75],
+              ['11月', 12],
+              ['12月', 66],
+            ],
+          },
+          xAxis: {
+            type: 'category',
+            axisLabel: {
+              interval: 0,
+              rotate: 30,
+            },
+          },
+          yAxis: {
+            type: 'value',
+          },
+          series: [
+            {
+              type: 'bar',
+              label: {
+                position: 'top',
+                show: true,
+              },
+            },
+          ],
+        },
+      },
+      {
+        content: {
+          type: 'dynamic-table',
+          header: [
+            {
+              label: '标题',
+              key: 'title',
+            },
+            {
+              label: '月份',
+              key: 'month',
+            },
+            {
+              label: '工时',
+              key: 'worktime',
+            },
+          ],
+          elements: [
+            {
+              title: '使用协议审查',
+              month: '1月',
+              worktime: 5,
+            },
+            {
+              title: '销售框架合同',
+              month: '1月',
+              worktime: 7,
+            },
+            {
+              title: '商务协议',
+              month: '2月',
+              worktime: 15,
+            },
+            {
+              title: '技术转让合同',
+              month: '2月',
+              worktime: 20,
+            },
+            {
+              title: '联合申报协议',
+              month: '3月',
+              worktime: 1,
+            },
+            {
+              title: '汽车长期租赁合同',
+              month: '3月',
+              worktime: 8,
+            },
+            {
+              title: '采购合同审查',
+              month: '5月',
+              worktime: 25,
+            },
+            {
+              title: '保密协议',
+              month: '6月',
+              worktime: 13,
+            },
+            {
+              title: '科技租用',
+              month: '7月',
+              worktime: 22,
+            },
+            {
+              title: '销售合同（泡腾片）',
+              month: '8月',
+              worktime: 31,
+            },
+            {
+              title: '厂房租赁合同',
+              month: '9月',
+              worktime: 35,
+            },
+            {
+              title: '劳务合同',
+              month: '10月',
+              worktime: 46,
+            },
+            {
+              title: '补充协议',
+              month: '11月',
+              worktime: 19,
+            },
+            {
+              title: '律师函',
+              month: '12月',
+              worktime: 9,
+            },
+          ],
+        },
+      },
+    ],
+  },
+};
