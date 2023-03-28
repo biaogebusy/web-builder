@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   Inject,
@@ -18,7 +17,7 @@ import { ThemeService } from '@core/service/theme.service';
   styleUrls: ['./switch-theme.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SwitchThemeComponent implements OnInit, AfterViewInit {
+export class SwitchThemeComponent implements OnInit {
   currentTheme: string;
   constructor(
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
@@ -31,10 +30,6 @@ export class SwitchThemeComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.currentTheme = this.theme;
-  }
-
-  ngAfterViewInit(): void {
-    this.themeService.initTheme(this.coreConfig, this.render2);
   }
 
   onSwitchTheme(theme: string): void {

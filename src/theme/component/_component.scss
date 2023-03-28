@@ -2,7 +2,6 @@
 @import "./footer";
 @import "./login";
 @import "./map";
-@import "./loading";
 @import "./widgets";
 @import "./showcase";
 @import "./box";
@@ -43,7 +42,6 @@
   @include footer-color($config-or-theme);
   @include login-color($config-or-theme);
   @include map-color($config-or-theme);
-  @include loading-color($config-or-theme);
   @include widgets-color($config-or-theme);
   @include box-color($config-or-theme);
   @include showcase-color($config-or-theme);

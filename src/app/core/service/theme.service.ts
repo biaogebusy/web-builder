@@ -37,6 +37,9 @@ export class ThemeService {
     renderer2.setProperty(this.style, 'rel', 'stylesheet');
     renderer2.setProperty(this.style, 'href', this.cssFile);
     renderer2.setProperty(this.style, 'className', this.themeCSSID);
+    const root = this.document.getElementsByTagName('app-root')[0];
+    root.removeAttribute('class');
+    root.classList.add(theme);
 
     // Add the style to the head section
     renderer2.appendChild(this.document.head, this.style);

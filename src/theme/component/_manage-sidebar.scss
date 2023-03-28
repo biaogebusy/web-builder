@@ -34,17 +34,6 @@
         color: mat-color($foreground, text, 0.7);
       }
       a {
-        &:after {
-          display: block;
-          content: "";
-          position: absolute;
-          left: 0;
-          top: 0;
-          width: 150%;
-          height: 100%;
-          transform: translateX(-50px);
-          z-index: -1;
-        }
         &.active {
           color: mat-color($primary);
           &:after {

@@ -20,9 +20,6 @@
     .item {
       background-color: mat-color($background, card);
       @include mat-elevation(4, mat-color($foreground, text), 0.1);
-      .item-bottom {
-        opacity: 0.85;
-      }
     }
   }
 }

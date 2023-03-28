@@ -23,9 +23,12 @@
 
   $contrast: mat-color($primary, default-contrast);
 
+  .loading {
+    background-color: mat-color($primary);
+  }
+
   a {
     color: mat-color($accent);
-    text-decoration: none;
 
     &:hover,
     &:focus,
@@ -145,10 +148,6 @@
   }
 
   hr {
-    height: 1px !important;
-    margin: 1rem 0;
-    padding: 0;
-    border: none;
     background: mat-color($foreground, divider);
   }
 }

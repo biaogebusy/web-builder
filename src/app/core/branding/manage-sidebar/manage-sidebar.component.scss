@@ -25,8 +25,8 @@
       justify-content: center;
       align-items: center;
       img {
-        width: 60px;
-        height: 60px;
+        width: 50px;
+        height: 50px;
         border-radius: 50%;
         transition: all 0.2s ease-in;
         object-fit: contain;
@@ -37,6 +37,21 @@
   .manage-menu {
     flex: 0 1 auto;
     overflow: auto;
+    ::ng-deep {
+      a {
+        &:after {
+          display: block;
+          content: "";
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 150%;
+          height: 100%;
+          transform: translateX(-50px);
+          z-index: -1;
+        }
+      }
+    }
     .icon-list {
       .item {
         position: relative;

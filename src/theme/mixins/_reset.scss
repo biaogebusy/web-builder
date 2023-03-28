@@ -27,6 +27,10 @@
     margin: 0;
   }
 
+  a {
+    text-decoration: none;
+  }
+
   /**
  * Render the `main` element consistently in IE.
  */
@@ -60,6 +64,10 @@
     /* 1 */
     overflow: visible;
     /* 2 */
+    height: 1px !important;
+    margin: 1rem 0;
+    padding: 0;
+    border: none;
   }
 
   /**
@@ -385,5 +393,10 @@
     border: 0;
     font-family: inherit;
     vertical-align: baseline;
+  }
+
+  blockquote {
+    margin: 1.4em 0;
+    padding-left: 1em;
   }
 }

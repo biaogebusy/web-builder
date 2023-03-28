@@ -1,4 +1,10 @@
-import { Component, OnInit, AfterViewInit, Inject } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  Inject,
+  Renderer2,
+} from '@angular/core';
 import { ScreenState } from './core/state/screen/ScreenState';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { ScreenService } from '@core/service/screen.service';
@@ -11,6 +17,7 @@ import { UserService } from '@core/service/user.service';
 import { IUser } from '@core/interface/IUser';
 import { LocalStorageService } from 'ngx-webstorage';
 import { DOCUMENT } from '@angular/common';
+import { ThemeService } from '@core/service/theme.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -31,6 +38,8 @@ export class AppComponent implements OnInit, AfterViewInit {
     private configService: ConfigService,
     private userService: UserService,
     private storage: LocalStorageService,
+    private themeService: ThemeService,
+    private renderer2: Renderer2,
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
     @Inject(BRANDING) public branding$: Observable<IBranding>,
     @Inject(USER) public user: IUser,
@@ -43,6 +52,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
+      this.themeService.initTheme(this.coreConfig, this.renderer2);
       this.screen.drawer$.subscribe(() => {
         this.mobileMenuOpened = !this.mobileMenuOpened;
       });

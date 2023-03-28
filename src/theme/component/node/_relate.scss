@@ -9,8 +9,6 @@
   $warn: map-get($config, warn);
 
   $text-color: mat-color($foreground, text, 0.75);
-  .relate {
-  }
 
   .node-summary {
     @include mat-elevation(3, mat-color($foreground, divider), 0.6);
@@ -34,9 +32,6 @@
 
   .relate-showcase {
     @include mat-elevation(3, mat-color($foreground, divider), 0.6);
-    .right {
-      // background-color: mat-color($primary, 0.05);
-    }
     .meta {
       .label {
         color: mat-color($foreground, base, 0.4);
