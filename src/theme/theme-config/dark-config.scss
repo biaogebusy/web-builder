@@ -8,6 +8,8 @@ $dark-accent: mat-palette($mat-teal, A200, A100, A400);
 $dark-warn: mat-palette($mat-deep-orange);
 $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 
-@include angular-material-theme($dark-theme);
-@include base-colors($dark-theme);
-@include component-theme($dark-theme);
+.dark-theme {
+  @include angular-material-theme($dark-theme);
+  @include base-colors($dark-theme);
+  @include component-theme($dark-theme);
+}

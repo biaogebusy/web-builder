@@ -98,6 +98,7 @@
     "@storybook/addon-interactions": "6.5.16",
     "@storybook/addon-links": "6.5.16",
     "@storybook/addon-postcss": "^2.0.0",
+    "@storybook/addon-styling": "^0.3.2",
     "@storybook/angular": "6.5.16",
     "@storybook/builder-webpack4": "6.5.16",
     "@storybook/builder-webpack5": "6.5.16",

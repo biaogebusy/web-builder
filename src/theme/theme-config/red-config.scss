@@ -41,6 +41,8 @@ $red-accent: mat-palette($red-color, A200, A100, A400);
 $red-warn: mat-palette($mat-red, A200, A100, A400);
 $red-theme: mat-light-theme($red-primary, $red-accent, $red-warn);
 
-@include angular-material-theme($red-theme);
-@include base-colors($red-theme);
-@include component-theme($red-theme);
+.red-theme {
+  @include angular-material-theme($red-theme);
+  @include base-colors($red-theme);
+  @include component-theme($red-theme);
+}

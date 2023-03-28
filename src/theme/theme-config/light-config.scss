@@ -41,6 +41,8 @@ $app-accent: mat-palette($light-color, A200, A100, A400);
 $app-warn: mat-palette($mat-red, A200, A100, A400);
 $light-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
 
-@include angular-material-theme($light-theme);
-@include base-colors($light-theme);
-@include component-theme($light-theme);
+.light-theme {
+  @include angular-material-theme($light-theme);
+  @include base-colors($light-theme);
+  @include component-theme($light-theme);
+}

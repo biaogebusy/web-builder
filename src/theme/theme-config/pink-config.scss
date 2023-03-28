@@ -41,6 +41,8 @@ $pink-accent: mat-palette($mat-pink, A400);
 $pink-warn: mat-palette($mat-green, 800);
 $pink-theme: mat-light-theme($pink-primary, $pink-accent, $pink-warn);
 
-@include angular-material-theme($pink-theme);
-@include base-colors($pink-theme);
-@include component-theme($pink-theme);
+.pink-theme {
+  @include angular-material-theme($pink-theme);
+  @include base-colors($pink-theme);
+  @include component-theme($pink-theme);
+}

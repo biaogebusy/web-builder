@@ -41,6 +41,8 @@ $green-accent: mat-palette($green-color, A200, A100, A400);
 $green-warn: mat-palette($mat-red, A200, A100, A400);
 $green-theme: mat-light-theme($green-primary, $green-accent, $green-warn);
 
-@include angular-material-theme($green-theme);
-@include base-colors($green-theme);
-@include component-theme($green-theme);
+.green-theme {
+  @include angular-material-theme($green-theme);
+  @include base-colors($green-theme);
+  @include component-theme($green-theme);
+}

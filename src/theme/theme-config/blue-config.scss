@@ -42,6 +42,8 @@ $blue-accent: mat-palette($blue-color, A400);
 $blue-warn: mat-palette($mat-red, A200, A100, A400);
 $blue-theme: mat-light-theme($blue-primary, $blue-accent, $blue-warn);
 
-@include angular-material-theme($blue-theme);
-@include base-colors($blue-theme);
-@include component-theme($blue-theme);
+.blue-theme {
+  @include angular-material-theme($blue-theme);
+  @include base-colors($blue-theme);
+  @include component-theme($blue-theme);
+}

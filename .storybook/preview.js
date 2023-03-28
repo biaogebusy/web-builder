@@ -1,5 +1,6 @@
 import { setCompodocJson } from "@storybook/addon-docs/angular";
 import docJson from "../documentation.json";
+import { withThemeByClassName } from "@storybook/addon-styling";
 setCompodocJson(docJson);
 
 export const parameters = {
@@ -28,3 +29,18 @@ export const parameters = {
   },
   docs: { inlineStories: true },
 };
+
+export const decorators = [
+  withThemeByClassName({
+    themes: {
+      blue: "blue-theme",
+      dark: "dark-theme",
+      green: "green-theme",
+      king: "king-theme",
+      light: "light-theme",
+      pink: "pink-theme",
+      red: "red-theme",
+    },
+    defaultTheme: "light",
+  }),
+];
