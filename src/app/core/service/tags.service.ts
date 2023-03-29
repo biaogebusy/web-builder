@@ -57,7 +57,7 @@ export class TagsService {
     hljs.registerLanguage('json', json);
     this.document.querySelectorAll('pre').forEach((block) => {
       // then highlight each
-      hljs.highlightBlock(block);
+      hljs.highlightElement(block);
     });
   }
 }
