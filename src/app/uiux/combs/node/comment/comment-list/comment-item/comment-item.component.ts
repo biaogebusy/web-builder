@@ -17,13 +17,7 @@ import { ContentState } from '@core/state/ContentState';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type { IUser } from '@core/interface/IUser';
-import hljs from 'highlight.js/lib/core';
-import javascript from 'highlight.js/lib/languages/javascript';
-import php from 'highlight.js/lib/languages/php';
-import scss from 'highlight.js/lib/languages/scss';
-import xml from 'highlight.js/lib/languages/xml';
-import json from 'highlight.js/lib/languages/json';
-import { DOCUMENT } from '@angular/common';
+import { TagsService } from '@core/service/tags.service';
 
 @Component({
   selector: 'app-comment-item',
@@ -49,16 +43,11 @@ export class CommentItemComponent implements OnInit, AfterViewInit, OnDestroy {
     public contentState: ContentState,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
     @Inject(USER) private user: IUser,
-    @Inject(DOCUMENT) private document: Document
+    private tagsService: TagsService
   ) {}
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      hljs.registerLanguage('javascript', javascript);
-      hljs.registerLanguage('php', php);
-      hljs.registerLanguage('scss', scss);
-      hljs.registerLanguage('xml', xml);
-      hljs.registerLanguage('json', json);
       this.contentState.commentChange$.subscribe((state) => {
         if (state) {
           this.showComment = true;
@@ -72,10 +61,9 @@ export class CommentItemComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    this.document.querySelectorAll('pre').forEach((block) => {
-      // then highlight each
-      hljs.highlightBlock(block);
-    });
+    if (this.screenService.isPlatformBrowser()) {
+      this.tagsService.highlightCode();
+    }
   }
 
   onUpdate(data: any): void {

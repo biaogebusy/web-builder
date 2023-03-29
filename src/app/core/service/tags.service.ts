@@ -1,12 +1,23 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import type { IPage } from '@core/interface/IAppConfig';
+import hljs from 'highlight.js/lib/core';
+import javascript from 'highlight.js/lib/languages/javascript';
+import php from 'highlight.js/lib/languages/php';
+import scss from 'highlight.js/lib/languages/scss';
+import xml from 'highlight.js/lib/languages/xml';
+import json from 'highlight.js/lib/languages/json';
+import { DOCUMENT } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TagsService {
-  constructor(private titleService: Title, private meta: Meta) {}
+  constructor(
+    private titleService: Title,
+    private meta: Meta,
+    @Inject(DOCUMENT) private document: Document
+  ) {}
 
   public setTitle(newTitle: string): void {
     this.titleService.setTitle(newTitle);
@@ -36,5 +47,17 @@ export class TagsService {
         content: '',
       });
     }
+  }
+
+  highlightCode(): void {
+    hljs.registerLanguage('javascript', javascript);
+    hljs.registerLanguage('php', php);
+    hljs.registerLanguage('scss', scss);
+    hljs.registerLanguage('xml', xml);
+    hljs.registerLanguage('json', json);
+    this.document.querySelectorAll('pre').forEach((block) => {
+      // then highlight each
+      hljs.highlightBlock(block);
+    });
   }
 }
