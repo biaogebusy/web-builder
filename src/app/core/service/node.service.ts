@@ -1,10 +1,10 @@
 import { Inject, Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ApiService } from './api.service';
 import { LocalStorageService } from 'ngx-webstorage';
 import { forkJoin } from 'rxjs';
 import { Observable, of } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import { isEmpty } from 'lodash-es';
 import type { IArticleAccess } from '@core/interface/node/IArticle';
 import type { IComment } from '@core/interface/node/INode';
@@ -437,5 +437,31 @@ export class NodeService extends ApiService {
         payUrl: '',
       });
     }
+  }
+
+  uploadImage(imageData: any, csrfToken: string): Observable<any> {
+    return this.http
+      .post('/api/v1/media/image/field_media_image', imageData, {
+        headers: new HttpHeaders({
+          Accept: 'application/vnd.api+json',
+          'Content-Type': 'application/octet-stream',
+          'Content-Disposition': 'file; filename="user.jpg"',
+          'X-CSRF-Token': csrfToken,
+        }),
+        withCredentials: true,
+      })
+      .pipe(
+        map((res: any) => {
+          const {
+            data: {
+              attributes: { uri },
+            },
+          } = res;
+          return uri.url;
+        }),
+        catchError(() => {
+          return '';
+        })
+      );
   }
 }
