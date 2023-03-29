@@ -39,7 +39,6 @@ export class CommentFormComponent implements OnInit, OnDestroy {
   placeholder = '请输入...';
   destroy$: Subject<boolean> = new Subject<boolean>();
   modules: QuillModule;
-  quillEditorRef: any;
 
   constructor(
     private cd: ChangeDetectorRef,
@@ -53,51 +52,10 @@ export class CommentFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.modules = Object.assign(this.coreConfig?.editor?.modules || {}, {
-        imageHandler: {
-          upload: (file: any) => {
-            return new Promise((resolve, reject) => {
-              if (
-                file.type === 'image/jpeg' ||
-                file.type === 'image/png' ||
-                file.type === 'image/jpg'
-              ) {
-                // File types supported for image
-                if (file.size < 1000000) {
-                  // Customize file size as per requirement
-
-                  // Sample API Call
-                  const uploadData = new FormData();
-                  uploadData.append('file', file, file.name);
-                  return this.nodeService
-                    .uploadImage(uploadData, this.user.csrf_token)
-                    .subscribe((imagePath) => {
-                      console.log(imagePath);
-                      if (imagePath) {
-                        resolve(imagePath);
-                      } else {
-                        reject('Something error');
-                      }
-                    });
-                } else {
-                  reject('Size too large');
-                }
-              } else {
-                reject('Unsupported type');
-              }
-            });
-          },
-          accepts: ['png', 'jpg', 'jpeg', 'jfif'], // Extensions to allow for images (Optional) | Default - ['jpg', 'jpeg', 'png']
-        },
-        videoHandler: {
-          upload: (file: any) => {
-            // TODO: upload video
-            console.log('上传视频功能未开放！');
-            return; // your uploaded video URL as Promise<string>
-          },
-          accepts: ['mpeg', 'avi'], // Extensions to allow for videos (Optional) | Default - ['mp4', 'webm']
-        },
-      });
+      this.modules = Object.assign(
+        this.coreConfig?.editor?.modules || {},
+        this.content.editor?.modules
+      );
       this.contentState.commentQuote$.subscribe((quote: any) => {
         this.screenService.scrollToAnchor('comment');
         this.commentContent = `

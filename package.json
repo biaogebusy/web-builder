@@ -72,7 +72,6 @@
     "ngx-pagination": "^5.1.0",
     "ngx-pipes": "^2.7.5",
     "ngx-quill": "^13.0.0",
-    "ngx-quill-upload": "^2.0.0",
     "ngx-skeleton-loader": "4.0.0",
     "ngx-toastr": "^13.2.1",
     "ngx-webstorage": "^7.0.1",

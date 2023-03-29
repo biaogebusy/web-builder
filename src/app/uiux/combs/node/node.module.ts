@@ -26,11 +26,7 @@ import { RelateComponent } from './relate/relate.component';
 import { SummaryComponent } from './common/summary/summary.component';
 import { SummaryItemComponent } from './common/summary/summary-item/summary-item.component';
 import { RelateShowcaseComponent } from './common/relate-showcase/relate-showcase.component';
-import Quill from 'quill';
-import { VideoHandler, ImageHandler } from 'ngx-quill-upload';
 
-Quill.register('modules/imageHandler', ImageHandler);
-Quill.register('modules/videoHandler', VideoHandler);
 const components = [
   ArticleComponent,
   ArticleBannerComponent,

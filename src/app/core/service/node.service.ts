@@ -440,6 +440,7 @@ export class NodeService extends ApiService {
   }
 
   uploadImage(imageData: any, csrfToken: string): Observable<any> {
+    console.log(imageData);
     return this.http
       .post('/api/v1/media/image/field_media_image', imageData, {
         headers: new HttpHeaders({
