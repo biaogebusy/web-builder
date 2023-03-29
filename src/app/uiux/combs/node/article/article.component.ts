@@ -14,6 +14,8 @@ import hljs from 'highlight.js/lib/core';
 import javascript from 'highlight.js/lib/languages/javascript';
 import php from 'highlight.js/lib/languages/php';
 import scss from 'highlight.js/lib/languages/scss';
+import xml from 'highlight.js/lib/languages/xml';
+import json from 'highlight.js/lib/languages/json';
 import { TagsService } from '@core/service/tags.service';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { ScreenService } from '@core/service/screen.service';
@@ -83,6 +85,8 @@ export class ArticleComponent
       hljs.registerLanguage('javascript', javascript);
       hljs.registerLanguage('php', php);
       hljs.registerLanguage('scss', scss);
+      hljs.registerLanguage('xml', xml);
+      hljs.registerLanguage('json', json);
     }
   }
 
@@ -129,7 +133,7 @@ export class ArticleComponent
 
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.document.querySelectorAll('code').forEach((block) => {
+      this.document.querySelectorAll('pre').forEach((block) => {
         // then highlight each
         hljs.highlightBlock(block);
       });

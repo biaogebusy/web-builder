@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   ChangeDetectorRef,
   Component,
   Inject,
@@ -6,11 +7,7 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import type {
-  IBaseNode,
-  IComment,
-  ICommentItem,
-} from '@core/interface/node/INode';
+import type { IBaseNode, IComment } from '@core/interface/node/INode';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { Subject } from 'rxjs';
@@ -20,13 +17,20 @@ import { ContentState } from '@core/state/ContentState';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type { IUser } from '@core/interface/IUser';
+import hljs from 'highlight.js/lib/core';
+import javascript from 'highlight.js/lib/languages/javascript';
+import php from 'highlight.js/lib/languages/php';
+import scss from 'highlight.js/lib/languages/scss';
+import xml from 'highlight.js/lib/languages/xml';
+import json from 'highlight.js/lib/languages/json';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-comment-item',
   templateUrl: './comment-item.component.html',
   styleUrls: ['./comment-item.component.scss'],
 })
-export class CommentItemComponent implements OnInit, OnDestroy {
+export class CommentItemComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() content: IBaseNode;
   @Input() comments: IComment[];
 
@@ -44,11 +48,17 @@ export class CommentItemComponent implements OnInit, OnDestroy {
     private screenService: ScreenService,
     public contentState: ContentState,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
-    @Inject(USER) private user: IUser
+    @Inject(USER) private user: IUser,
+    @Inject(DOCUMENT) private document: Document
   ) {}
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
+      hljs.registerLanguage('javascript', javascript);
+      hljs.registerLanguage('php', php);
+      hljs.registerLanguage('scss', scss);
+      hljs.registerLanguage('xml', xml);
+      hljs.registerLanguage('json', json);
       this.contentState.commentChange$.subscribe((state) => {
         if (state) {
           this.showComment = true;
@@ -59,6 +69,13 @@ export class CommentItemComponent implements OnInit, OnDestroy {
         }
       });
     }
+  }
+
+  ngAfterViewInit(): void {
+    this.document.querySelectorAll('pre').forEach((block) => {
+      // then highlight each
+      hljs.highlightBlock(block);
+    });
   }
 
   onUpdate(data: any): void {

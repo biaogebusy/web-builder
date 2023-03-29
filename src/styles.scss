@@ -35,3 +35,17 @@ body {
 .mat-icon {
   display: swap;
 }
+
+pre {
+  font-size: 0.9em;
+  background: #f6f6f6 !important;
+  padding: calc(0.8em / 0.9);
+  word-break: initial;
+  word-wrap: initial;
+  white-space: pre;
+  overflow: auto;
+  border-radius: 4px;
+  .hljs {
+    background-color: transparent;
+  }
+}
