@@ -46,7 +46,7 @@ Default.args = {
         title: {
           label: '十一月份我的福利投票统计',
           style: 'style-v4',
-          classes: 'mat-display-3 m-bottom-0',
+          classes: 'mat-display-1 m-bottom-0',
         },
       },
       meta: [
@@ -391,7 +391,7 @@ WorkTime.args = {
         title: {
           label: '工时统计',
           style: 'style-v4',
-          classes: 'mat-display-3 m-bottom-0',
+          classes: 'mat-display-1 m-bottom-0',
         },
       },
     },
@@ -491,23 +491,25 @@ WorkTime.args = {
           tooltip: {
             trigger: 'axis',
           },
-          dataset: {
-            source: [
-              ['name', 'total'],
-              ['1月', 12],
-              ['2月', 35],
-              ['3月', 55],
-              ['4月', 152],
-              ['5月', 90],
-              ['6月', 109],
-              ['7月', 10],
-              ['8月', 25],
-              ['9月', 22],
-              ['10月', 75],
-              ['11月', 12],
-              ['12月', 66],
-            ],
-          },
+          dataset: [
+            {
+              source: [
+                ['name', 'total'],
+                ['1月', 12],
+                ['2月', 35],
+                ['3月', 55],
+                ['4月', 152],
+                ['5月', 90],
+                ['6月', 109],
+                ['7月', 10],
+                ['8月', 25],
+                ['9月', 22],
+                ['10月', 75],
+                ['11月', 12],
+                ['12月', 66],
+              ],
+            },
+          ],
           xAxis: {
             type: 'category',
             axisLabel: {
@@ -525,6 +527,7 @@ WorkTime.args = {
                 position: 'top',
                 show: true,
               },
+              datasetIndex: 0,
             },
           ],
         },
@@ -772,6 +775,15 @@ FromApi.args = {
       {
         label: '占比',
         key: 'percent',
+      },
+    ],
+    datasetIndex: 1,
+    customDataset: [
+      {
+        transform: {
+          type: 'sort',
+          config: { dimension: 'total', order: 'asc' },
+        },
       },
     ],
   },

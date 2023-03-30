@@ -94,12 +94,7 @@ export class ReportComponent extends BaseComponent implements OnInit {
                 {
                   source: chart,
                 },
-                {
-                  transform: {
-                    type: 'sort',
-                    config: { dimension: 'total', order: 'asc' },
-                  },
-                },
+                ...this.content.customDataset,
               ],
               xAxis: {
                 type: 'category',
@@ -120,7 +115,7 @@ export class ReportComponent extends BaseComponent implements OnInit {
                     position: 'top',
                     show: true,
                   },
-                  datasetIndex: 1,
+                  datasetIndex: this.content.datasetIndex || 0,
                 },
               ],
             },

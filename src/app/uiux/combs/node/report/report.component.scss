@@ -9,8 +9,11 @@
 
 .box {
   border-radius: 4px;
-  margin-bottom: 4rem;
+  .item {
+    height: 650px;
+    overflow: auto;
+  }
   ::ng-deep .chart {
-    height: 800px;
+    height: calc(650px - 60px);
   }
 }
