@@ -54,32 +54,7 @@ export class ReportComponent extends BaseComponent implements OnInit {
         this.box = [
           {
             data: {
-              toggle: [
-                {
-                  label: '饼图',
-                  icon: {
-                    name: 'pie_chart',
-                    inline: true,
-                  },
-                  value: 'pie',
-                },
-                {
-                  label: '柱状图',
-                  icon: {
-                    name: 'equalizer',
-                    inline: true,
-                  },
-                  value: 'bar',
-                },
-                {
-                  label: '折线图',
-                  icon: {
-                    name: 'show_chart',
-                    inline: true,
-                  },
-                  value: 'line',
-                },
-              ],
+              toggle: [...this.content.toggle],
             },
             content: {
               type: 'chart',
@@ -118,6 +93,7 @@ export class ReportComponent extends BaseComponent implements OnInit {
                   datasetIndex: this.content.datasetIndex || 0,
                 },
               ],
+              ...this.content.options,
             },
           },
           {

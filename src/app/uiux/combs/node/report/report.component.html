@@ -14,8 +14,8 @@
       <div class="loading-inner position-absolute" fxFlexFill fxLayoutAlign="center center" *ngIf="loading">
         <mat-spinner diameter="50"></mat-spinner>
       </div>
-      <app-dynamic-component fxFlex.lt-md="100" [fxFlex.gt-sm]="row(content.row)"
-        class="item display-block m-bottom m-x-sm" [inputs]="{content:item.content, data:item.data}"
+      <app-dynamic-component fxFlex.lt-md="100" [fxFlex.gt-sm]="row(content.row,'2rem')"
+        class="item display-block m-bottom m-x-xs" [inputs]="{content:item.content, data:item.data}"
         *ngFor="let item of box"></app-dynamic-component>
     </div>
   </div>

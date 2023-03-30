@@ -627,6 +627,189 @@ WorkTime.args = {
   },
 };
 
+export const SingleMode = Template.bind({});
+SingleMode.args = {
+  form: new FormGroup({}),
+  model: {},
+  content: {
+    header: {
+      text: {
+        spacer: 'md',
+        title: {
+          label: '客户年度统计报告',
+          style: 'style-v4',
+          classes: 'mat-display-1 m-bottom-0',
+        },
+      },
+    },
+    form: [
+      {
+        key: 'filter',
+        className: '',
+        fieldGroupClassName: 'display-flex flex-wrap',
+        fieldGroup: [
+          {
+            type: 'mat-select',
+            key: 'lawyer',
+            defaultValue: 5,
+            className: 'display-block m-bottom-sm m-right-sm',
+            templateOptions: {
+              label: '选择客户',
+              description: '请选择客户',
+              options: [
+                {
+                  label: '张三',
+                  value: 26,
+                },
+                {
+                  label: '李四',
+                  value: 6,
+                },
+              ],
+            },
+          },
+          {
+            type: 'mat-select',
+            key: 'position',
+            defaultValue: 5,
+            className: 'display-block m-bottom-sm m-right-sm',
+            templateOptions: {
+              label: '年份',
+              description: '请选择年份',
+              options: [
+                {
+                  label: '2023',
+                  value: 2023,
+                },
+                {
+                  label: '2022',
+                  value: 2022,
+                },
+                {
+                  label: '2021',
+                  value: 2021,
+                },
+                {
+                  label: '2020',
+                  value: 2020,
+                },
+              ],
+            },
+          },
+        ],
+      },
+    ],
+    params: {
+      apiBak: '/api/v3/node/vote/report',
+    },
+    row: 1,
+    options: {},
+    box: [
+      {
+        data: {
+          toggle: [
+            {
+              label: '柱状图',
+              icon: {
+                name: 'equalizer',
+                inline: true,
+              },
+              value: 'bar',
+            },
+            {
+              label: '折线图',
+              icon: {
+                name: 'show_chart',
+                inline: true,
+              },
+              value: 'line',
+            },
+          ],
+        },
+        content: {
+          type: 'chart',
+          tooltip: {
+            trigger: 'axis',
+          },
+          legend: {
+            selected: {
+              类别: true,
+              合同: false,
+              咨询: false,
+              案件: false,
+              工时: false,
+            },
+            selectedMode: 'single',
+          },
+          dataset: [
+            {
+              source: [
+                ['类别', '合同', '咨询', '案件', '工时'],
+                ['1月', 5, 1, 0, 10],
+                ['2月', 4, 5, 1, 20],
+                ['3月', 5, 10, 3, 15],
+                ['4月', 10, 11, 4, 20],
+                ['5月', 9, 9, 6, 12],
+                ['6月', 11, 15, 8, 30],
+                ['7月', 10, 20, 6, 33],
+                ['8月', 13, 25, 9, 50],
+                ['9月', 12, 12, 3, 27],
+                ['10月', 16, 20, 5, 36],
+                ['11月', 11, 10, 4, 28],
+                ['12月', 10, 13, 9, 31],
+              ],
+            },
+          ],
+          xAxis: {
+            type: 'category',
+            axisLabel: {
+              interval: 0,
+              rotate: 30,
+            },
+          },
+          yAxis: {
+            type: 'value',
+          },
+          series: [
+            {
+              type: 'bar',
+              label: {
+                position: 'top',
+                show: true,
+              },
+              datasetIndex: 0,
+            },
+            {
+              type: 'bar',
+              label: {
+                position: 'top',
+                show: true,
+              },
+              datasetIndex: 0,
+            },
+            {
+              type: 'bar',
+              label: {
+                position: 'top',
+                show: true,
+              },
+              datasetIndex: 0,
+            },
+            {
+              type: 'bar',
+              label: {
+                position: 'top',
+                show: true,
+              },
+              datasetIndex: 0,
+            },
+          ],
+        },
+      },
+    ],
+  },
+};
+
 export const FromApi = Template.bind({});
 FromApi.args = {
   content: {
@@ -777,6 +960,32 @@ FromApi.args = {
         key: 'percent',
       },
     ],
+    toggle: [
+      {
+        label: '饼图',
+        icon: {
+          name: 'pie_chart',
+          inline: true,
+        },
+        value: 'pie',
+      },
+      {
+        label: '柱状图',
+        icon: {
+          name: 'equalizer',
+          inline: true,
+        },
+        value: 'bar',
+      },
+      {
+        label: '折线图',
+        icon: {
+          name: 'show_chart',
+          inline: true,
+        },
+        value: 'line',
+      },
+    ],
     datasetIndex: 1,
     customDataset: [
       {
@@ -786,5 +995,51 @@ FromApi.args = {
         },
       },
     ],
+    options: {
+      legend: {
+        selected: {
+          类别: true,
+          合同: false,
+          咨询: false,
+          案件: false,
+          工时: false,
+        },
+        selectedMode: 'single',
+      },
+      series: [
+        {
+          type: 'bar',
+          label: {
+            position: 'top',
+            show: true,
+          },
+          datasetIndex: 0,
+        },
+        {
+          type: 'bar',
+          label: {
+            position: 'top',
+            show: true,
+          },
+          datasetIndex: 0,
+        },
+        {
+          type: 'bar',
+          label: {
+            position: 'top',
+            show: true,
+          },
+          datasetIndex: 0,
+        },
+        {
+          type: 'bar',
+          label: {
+            position: 'top',
+            show: true,
+          },
+          datasetIndex: 0,
+        },
+      ],
+    },
   },
 };
