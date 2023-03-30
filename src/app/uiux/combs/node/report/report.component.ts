@@ -41,7 +41,6 @@ export class ReportComponent extends BaseComponent implements OnInit {
   }
 
   onModelChange(value: any): void {
-    console.log(value);
     const options = this.formService.handleRangeDate(value.filter);
     this.getContent(options);
   }
@@ -49,8 +48,7 @@ export class ReportComponent extends BaseComponent implements OnInit {
   getContent(options = {}): void {
     this.loading = true;
     const params = this.getApiParams(options);
-    console.log(params);
-    const api = '/api/v3/node/vote/report';
+    const api = this.content.params.api;
     this.nodeService.search(api, params).subscribe(({ chart, table }) => {
       if (isArray(chart) && isArray(table)) {
         this.box = [
@@ -130,20 +128,7 @@ export class ReportComponent extends BaseComponent implements OnInit {
           {
             content: {
               type: 'dynamic-table',
-              header: [
-                {
-                  label: '想要礼品',
-                  key: 'name',
-                },
-                {
-                  label: '想要人数',
-                  key: 'total',
-                },
-                {
-                  label: '占比',
-                  key: 'percent',
-                },
-              ],
+              header: [...this.content.tableHeader],
               elements: table,
             },
           },
