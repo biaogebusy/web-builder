@@ -1,4 +1,5 @@
 @import "~@angular/material/theming";
+@import "../../mixins/amixin";
 
 @mixin report-color($config-or-theme) {
   $config: mat-get-color-config($config-or-theme);
@@ -14,9 +15,14 @@
     .box {
       background-color: mat-color($background, card);
       @include mat-elevation(3, mat-color($foreground, divider), 0.4);
+      .item {
+        @include scrollbar(mat-color($primary));
+        &:nth-child(2) {
+          border: 10px solid mat-color($primary, 0.1);
+        }
+      }
     }
     .dynamic-table {
-      background-color: mat-color($primary, 0.1);
       @include mat-elevation(3, mat-color($foreground, divider), 0.4);
     }
   }

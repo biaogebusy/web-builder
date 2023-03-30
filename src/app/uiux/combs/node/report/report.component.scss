@@ -12,6 +12,9 @@
   .item {
     height: 650px;
     overflow: auto;
+    &:nth-child(2n) {
+      border-radius: 10px;
+    }
   }
   ::ng-deep .chart {
     height: calc(650px - 60px);
