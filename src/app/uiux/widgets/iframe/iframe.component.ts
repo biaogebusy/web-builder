@@ -68,11 +68,15 @@ export class IframeComponent implements OnInit {
 
     if (this.content?.url.includes(':nid')) {
       this.pageContent$.subscribe((page) => {
-        const nid = page.config?.node.nid;
+        const nid = page.config?.node?.nid;
         if (nid) {
+          // node 的详情页
           this.url = this.content.url.replace(':nid', nid);
-          this.cd.detectChanges();
+        } else {
+          // 非node详情页，例如日历页面
+          this.url = '/go-to-node';
         }
+        this.cd.detectChanges();
       });
     }
   }
