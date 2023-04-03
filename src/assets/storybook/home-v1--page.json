@@ -177,7 +177,7 @@
       "type": "showcase-4v1",
       "spacer": "xl",
       "title": {
-        "label": "Drupal Data",
+        "label": "Drupal 数据",
         "style": "style-v1",
         "classes": "mat-display-1 bold"
       },
@@ -272,7 +272,7 @@
       "type": "showcase-2v1",
       "text": {
         "title": {
-          "label": "Feature",
+          "label": "特色功能",
           "style": "style-v1",
           "classes": "mat-display-1 bold"
         }

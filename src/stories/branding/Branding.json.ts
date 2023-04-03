@@ -9,8 +9,12 @@ export const defaultHeader: IBranding = {
     },
     logo: {
       label: '信使',
-      version: true,
+      version: false,
       href: '/',
+      img: {
+        src: '/assets/images/logo/logo-blue.png',
+        alt: '信使 logo',
+      },
     },
     top: {
       banner: {
@@ -870,7 +874,7 @@ export const manageHeader: IBranding = {
         version: false,
         href: '/',
         img: {
-          src: '/assets/images/logo.png',
+          src: '/assets/images/logo/logo-blue.png',
         },
       },
       menu: [
@@ -1273,7 +1277,7 @@ const fixBar = [
 
 const footerBrandLogo = {
   img: {
-    src: '/assets/images/logo.png',
+    src: '/assets/images/logo/logo-white.png',
     alt: '信使',
     href: '/',
     classes: 'logo',
@@ -1306,7 +1310,7 @@ const footerNewsletter = {
 };
 
 const footerBottom = {
-  left: '© 2022 Copyright ❤️ XINSHI. ',
+  left: '©2022 Copyright ❤️ XINSHI. ',
   right: [
     {
       label: '首页',
