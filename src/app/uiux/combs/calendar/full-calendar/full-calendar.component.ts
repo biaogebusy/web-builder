@@ -90,7 +90,7 @@ export class FullCalendarComponent
       },
     ];
     this.form = this.formService.toFormGroup(
-      calendarForm.concat(this.content.sidebar)
+      calendarForm.concat(this.content.sidebar || [])
     );
     this.form.valueChanges
       .pipe(
