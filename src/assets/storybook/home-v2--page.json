@@ -10,6 +10,12 @@
       "content": "法律科技"
     }
   ],
+  "config": {
+    "headerMode": {
+      "transparent": true,
+      "style": "light"
+    }
+  },
   "body": [
     {
       "type": "hero-2v3",

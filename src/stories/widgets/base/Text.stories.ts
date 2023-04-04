@@ -268,3 +268,14 @@ List.args = {
     ],
   },
 };
+
+export const DisableAnimate = Template.bind({});
+DisableAnimate.storyName = '禁用动画';
+DisableAnimate.args = {
+  content: {
+    ...List.args.content,
+    animate: {
+      disable: true,
+    },
+  },
+};
