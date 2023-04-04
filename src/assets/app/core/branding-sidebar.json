@@ -6,6 +6,15 @@
       "isMegaMenu": false,
       "menuHoverOpen": false
     },
+    "logo": {
+      "label": "信使",
+      "version": false,
+      "href": "/",
+      "img": {
+        "src": "/assets/images/logo/logo-blue.png",
+        "alt": "信使 logo"
+      }
+    },
     "mainMenu": [
       {
         "label": "自习室",
@@ -393,141 +402,188 @@
       },
       "menu": [
         {
-          "label": "内容管理",
-          "icon": {
-            "svg": "poll"
-          },
-          "href": "#10"
-        },
-        {
-          "label": "数据看板",
+          "label": "数据管理",
           "expanded": true,
           "icon": {
             "svg": "poll"
           },
           "child": [
             {
-              "label": "平台数据",
-              "href": "#1"
+              "label": "广告列表",
+              "href": "/front/manage/advert"
             },
             {
-              "label": "经营分析",
-              "href": "#2"
+              "label": "评论列表",
+              "href": "/front/manage/comment",
+              "params": {
+                "reqRoles": []
+              }
             },
             {
-              "label": "分析看板",
-              "href": "#3"
+              "label": "门店列表",
+              "href": "/front/manage/shop"
+            },
+            {
+              "label": "新闻公告",
+              "href": "/front/manage/news",
+              "params": {
+                "reqRoles": []
+              }
             }
           ]
         },
         {
-          "label": "数据管理",
-          "icon": {
-            "svg": "tune-vertical"
-          },
-          "child": [
-            {
-              "label": "发布门店",
-              "href": "#"
-            },
-            {
-              "label": "门店管理",
-              "href": "#"
-            },
-            {
-              "label": "发布广告",
-              "href": "#"
-            },
-            {
-              "label": "广告管理",
-              "href": "#"
-            }
-          ]
-        },
-        {
-          "label": "行为分析",
-          "icon": {
-            "svg": "map-marker-path"
-          },
-          "child": [
-            {
-              "label": "事件分析",
-              "href": "#"
-            },
-            {
-              "label": "路径分析",
-              "href": "#"
-            },
-            {
-              "label": "投票统计",
-              "href": "#"
-            }
-          ]
-        },
-        {
-          "label": "数据看板",
+          "label": "审核管理",
           "expanded": true,
           "icon": {
-            "svg": "poll"
+            "svg": "shield-crown-outline"
+          },
+          "params": {
+            "reqRoles": []
           },
           "child": [
             {
-              "label": "平台数据",
-              "href": "#1"
+              "label": "广告审核",
+              "href": "/front/manage/advert-review"
             },
             {
-              "label": "经营分析",
-              "href": "#2"
+              "label": "门店审核",
+              "href": "/front/manage/shop-review"
             },
             {
-              "label": "分析看板",
-              "href": "#3"
+              "label": "提现审核",
+              "href": "/front/manage/withdrawal-review",
+              "params": {
+                "reqRoles": []
+              }
             }
           ]
         },
         {
-          "label": "数据管理",
+          "label": "抽奖明细",
+          "expanded": true,
           "icon": {
-            "svg": "tune-vertical"
+            "svg": "format-list-bulleted"
+          },
+          "params": {
+            "reqRoles": []
           },
           "child": [
             {
-              "label": "发布门店",
-              "href": "#"
+              "label": "红包支付",
+              "href": "/front/view/trade-order"
             },
             {
-              "label": "门店管理",
-              "href": "#"
+              "label": "抽奖队列",
+              "href": "/front/view/queues-job"
             },
             {
-              "label": "发布广告",
-              "href": "#"
+              "label": "推广记录",
+              "href": "/front/view/commission"
             },
             {
-              "label": "广告管理",
-              "href": "#"
+              "label": "提成明细",
+              "href": "/front/view/account-commission"
+            },
+            {
+              "label": "红包记录",
+              "href": "/front/view/red-packet"
             }
           ]
         },
         {
-          "label": "行为分析",
+          "label": "营销分析",
           "icon": {
-            "svg": "map-marker-path"
+            "svg": "tooltip-check-outline"
           },
           "child": [
             {
-              "label": "事件分析",
-              "href": "#"
+              "label": "消费者分布",
+              "href": "/customer-map"
             },
             {
-              "label": "路径分析",
-              "href": "#"
+              "label": "投票分布",
+              "href": "/vote/map"
+            },
+            {
+              "label": "红包预算",
+              "href": "/calculator/lottery"
             },
             {
               "label": "投票统计",
-              "href": "#"
+              "href": "/vote/report"
+            },
+            {
+              "label": "WE 分析",
+              "href": "https://wedata.weixin.qq.com/",
+              "target": "_blank"
             }
           ]
+        },
+        {
+          "label": "创建内容",
+          "icon": {
+            "svg": "gift"
+          },
+          "child": [
+            {
+              "label": "发布广告",
+              "href": "/create/advert"
+            },
+            {
+              "label": "创建门店",
+              "href": "/create/shop"
+            }
+          ]
+        },
+        {
+          "label": "用户管理",
+          "icon": {
+            "svg": "account-multiple-check"
+          },
+          "params": {
+            "reqRoles": []
+          },
+          "child": [
+            {
+              "label": "用户列表",
+              "href": "/front/manage/user"
+            },
+            {
+              "label": "消费者列表",
+              "href": "/front/manage/consumer"
+            },
+            {
+              "label": "员工列表",
+              "href": "/front/manage/staff"
+            }
+          ]
+        },
+        {
+          "label": "表单收集",
+          "icon": {
+            "svg": "archive-check-outline"
+          },
+          "params": {
+            "reqRoles": []
+          },
+          "child": [
+            {
+              "label": "客户需求",
+              "href": "/front/manage/demand"
+            },
+            {
+              "label": "投诉建议",
+              "href": "/front/manage/complaint"
+            }
+          ]
+        },
+        {
+          "label": "更新资料",
+          "icon": {
+            "svg": "account-edit"
+          },
+          "href": "/front/editor/profile"
         }
       ]
     },
