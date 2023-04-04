@@ -1,0 +1,15 @@
+.dashboard {
+  .box {
+    padding: 2rem;
+    .box-wrapper {
+      border-radius: 4px;
+      padding: 2rem;
+    }
+    ::ng-deep {
+      .chart {
+        padding: 0;
+        border: 0;
+      }
+    }
+  }
+}

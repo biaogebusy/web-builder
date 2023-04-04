@@ -1,0 +1,21 @@
+@import "~@angular/material/theming";
+
+@mixin dashboard-color($config-or-theme) {
+  $config: mat-get-color-config($config-or-theme);
+  $foreground: map-get($config, foreground);
+  $background: map-get($config, background);
+  $primary: map-get($config, primary);
+  $accent: map-get($config, accent);
+  $warn: map-get($config, warn);
+
+  $text-base: mat-color($foreground, text, 0.75);
+  $text-primary: mat-color($primary);
+  $bg-card-color: mat-color($background, card);
+  .dashboard {
+    .box {
+      .box-wrapper {
+        border: 1px solid mat-color($foreground, divider);
+      }
+    }
+  }
+}

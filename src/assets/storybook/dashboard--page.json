@@ -1,0 +1,214 @@
+{
+  "title": "Dashboard",
+  "config": {},
+  "body": [
+    {
+      "type": "dashboard",
+      "elements": [
+        {
+          "type": "chart",
+          "title": {
+            "label": "消费者注册"
+          },
+          "row": "12",
+          "tooltip": {
+            "trigger": "axis"
+          },
+          "dataset": [
+            {
+              "source": [
+                [
+                  "name",
+                  "total"
+                ],
+                [
+                  "1月",
+                  12
+                ],
+                [
+                  "2月",
+                  35
+                ],
+                [
+                  "3月",
+                  55
+                ],
+                [
+                  "4月",
+                  152
+                ],
+                [
+                  "5月",
+                  90
+                ],
+                [
+                  "6月",
+                  109
+                ],
+                [
+                  "7月",
+                  10
+                ],
+                [
+                  "8月",
+                  25
+                ],
+                [
+                  "9月",
+                  22
+                ],
+                [
+                  "10月",
+                  75
+                ],
+                [
+                  "11月",
+                  12
+                ],
+                [
+                  "12月",
+                  66
+                ]
+              ]
+            }
+          ],
+          "xAxis": {
+            "type": "category"
+          },
+          "yAxis": {
+            "type": "value"
+          },
+          "series": [
+            {
+              "type": "bar",
+              "label": {
+                "position": "top",
+                "show": true
+              },
+              "datasetIndex": 0
+            }
+          ]
+        },
+        {
+          "type": "dynamic-table",
+          "title": {
+            "label": "消费者注册"
+          },
+          "row": "12",
+          "header": [
+            {
+              "label": "诉讼标的",
+              "key": "name"
+            },
+            {
+              "label": "本金",
+              "key": "principal"
+            },
+            {
+              "label": "利息期间",
+              "key": "InterestPeriod"
+            },
+            {
+              "label": "利息",
+              "key": "interest"
+            },
+            {
+              "label": "违约期间",
+              "key": "defaultPeriod"
+            },
+            {
+              "label": "违约金",
+              "key": "damages"
+            },
+            {
+              "label": "分项合计",
+              "key": "total"
+            }
+          ],
+          "elements": [
+            {
+              "name": "租金",
+              "principal": "12323.00元",
+              "InterestPeriod": "2022/03/05-2022/05/01",
+              "interest": "5000.00元",
+              "defaultPeriod": "2022/03/05-2022/05/01",
+              "damages": "5089.00元",
+              "total": "4846.00元",
+              "expand": [
+                {
+                  "type": "text",
+                  "spacer": "none",
+                  "title": {
+                    "label": "其他本金",
+                    "style": "style-v4"
+                  },
+                  "body": "律师费 2000.00元<br>担保费 5000.00元</br>赔偿金 55.00元"
+                }
+              ]
+            },
+            {
+              "name": "工程款",
+              "principal": "12323.00元",
+              "InterestPeriod": "2022/03/05-2022/05/01",
+              "interest": "5000.00元",
+              "defaultPeriod": "",
+              "damages": "",
+              "total": "4845.00元",
+              "expand": [
+                {
+                  "type": "text",
+                  "spacer": "none",
+                  "title": {
+                    "label": "其他本金",
+                    "style": "style-v4"
+                  },
+                  "body": "律师费 2000.00元<br>担保费 5000.00元</br>赔偿金 55.00元"
+                }
+              ]
+            },
+            {
+              "name": "劳务费",
+              "principal": "12323.00元",
+              "InterestPeriod": "2022/03/05-2022/05/01",
+              "interest": "5000.00元",
+              "defaultPeriod": "",
+              "damages": "",
+              "total": "4845.00元",
+              "expand": [
+                {
+                  "type": "text",
+                  "spacer": "none",
+                  "title": {
+                    "label": "其他本金",
+                    "style": "style-v4"
+                  },
+                  "body": "律师费 2000.00元<br>担保费 5000.00元</br>赔偿金 55.00元"
+                }
+              ]
+            },
+            {
+              "name": "合计",
+              "principal": "68751.00元",
+              "InterestPeriod": "",
+              "interest": "9000.00元",
+              "defaultPeriod": "",
+              "damages": "8455.00元",
+              "total": "48456.00元",
+              "expand": [
+                {
+                  "type": "text",
+                  "spacer": "none",
+                  "title": {
+                    "label": "其他本金",
+                    "style": "style-v4"
+                  },
+                  "body": "律师费 2000.00元<br>担保费 5000.00元</br>赔偿金 55.00元"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
