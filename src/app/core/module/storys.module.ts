@@ -38,6 +38,7 @@ import { VideoModule } from '@uiux/combs/video/video.module';
 import { CombsModule } from '@uiux/combs/combs.module';
 import { CarouselModule } from '@uiux/combs/carousel/carousel.module';
 import { CalendarModule } from '@uiux/combs/calendar/calendar.module';
+import { DashboardModule } from '@uiux/combs/dashboard/dashboard.module';
 
 export function sleep(ms: number): Promise<any> {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -130,6 +131,7 @@ export class StorysModule {
       ...ShowcaseModule.forStorybook(),
       ...TabModule.forStorybook(),
       ...VideoModule.forStorybook(),
+      ...DashboardModule.forStorybook(),
     ];
   }
 

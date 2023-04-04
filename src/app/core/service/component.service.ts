@@ -229,6 +229,14 @@ export class ComponentService {
         import('@uiux/combs/video/video.module').then((m) => m.VideoModule)
       )
     );
+
+    ['dashboard'].forEach((type) =>
+      this.setModule(type, () =>
+        import('@uiux/combs/dashboard/dashboard.module').then(
+          (m) => m.DashboardModule
+        )
+      )
+    );
   }
 
   setModule(type: string, loadModule: () => Promise<any>) {
