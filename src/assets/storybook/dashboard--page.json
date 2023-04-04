@@ -94,117 +94,116 @@
           "title": {
             "label": "消费者注册"
           },
-          "row": "12",
+          "row": "8",
           "header": [
             {
-              "label": "诉讼标的",
-              "key": "name"
+              "label": "广告标题",
+              "key": "title"
             },
             {
-              "label": "本金",
-              "key": "principal"
+              "label": "中奖数",
+              "key": "lottery"
             },
             {
-              "label": "利息期间",
-              "key": "InterestPeriod"
+              "label": "访问量",
+              "key": "visitor"
             },
             {
-              "label": "利息",
-              "key": "interest"
+              "label": "评论数",
+              "key": "comment"
             },
             {
-              "label": "违约期间",
-              "key": "defaultPeriod"
-            },
-            {
-              "label": "违约金",
-              "key": "damages"
-            },
-            {
-              "label": "分项合计",
-              "key": "total"
+              "label": "结束时间",
+              "key": "end"
             }
           ],
           "elements": [
             {
-              "name": "租金",
-              "principal": "12323.00元",
-              "InterestPeriod": "2022/03/05-2022/05/01",
-              "interest": "5000.00元",
-              "defaultPeriod": "2022/03/05-2022/05/01",
-              "damages": "5089.00元",
-              "total": "4846.00元",
-              "expand": [
-                {
-                  "type": "text",
-                  "spacer": "none",
-                  "title": {
-                    "label": "其他本金",
-                    "style": "style-v4"
-                  },
-                  "body": "律师费 2000.00元<br>担保费 5000.00元</br>赔偿金 55.00元"
-                }
-              ]
+              "title": "清明特惠，赢面单啦",
+              "lottery": "110",
+              "visitor": "620",
+              "comment": "0",
+              "end": "2023/04/11 23:59:59"
             },
             {
-              "name": "工程款",
-              "principal": "12323.00元",
-              "InterestPeriod": "2022/03/05-2022/05/01",
-              "interest": "5000.00元",
-              "defaultPeriod": "",
-              "damages": "",
-              "total": "4845.00元",
-              "expand": [
-                {
-                  "type": "text",
-                  "spacer": "none",
-                  "title": {
-                    "label": "其他本金",
-                    "style": "style-v4"
-                  },
-                  "body": "律师费 2000.00元<br>担保费 5000.00元</br>赔偿金 55.00元"
-                }
-              ]
+              "title": "城盛百汇周末特惠 会员1元换购大米/面粉",
+              "lottery": "66",
+              "visitor": "415",
+              "comment": "1",
+              "end": "2023/03/29 23:59:59"
             },
             {
-              "name": "劳务费",
-              "principal": "12323.00元",
-              "InterestPeriod": "2022/03/05-2022/05/01",
-              "interest": "5000.00元",
-              "defaultPeriod": "",
-              "damages": "",
-              "total": "4845.00元",
-              "expand": [
-                {
-                  "type": "text",
-                  "spacer": "none",
-                  "title": {
-                    "label": "其他本金",
-                    "style": "style-v4"
-                  },
-                  "body": "律师费 2000.00元<br>担保费 5000.00元</br>赔偿金 55.00元"
-                }
-              ]
+              "title": "九要“拾”惠 精品汇选 养生开始 每日10款限时秒杀",
+              "lottery": "7",
+              "visitor": "181",
+              "comment": "0",
+              "end": "2022/12/30 23:59:59"
             },
             {
-              "name": "合计",
-              "principal": "68751.00元",
-              "InterestPeriod": "",
-              "interest": "9000.00元",
-              "defaultPeriod": "",
-              "damages": "8455.00元",
-              "total": "48456.00元",
-              "expand": [
-                {
-                  "type": "text",
-                  "spacer": "none",
-                  "title": {
-                    "label": "其他本金",
-                    "style": "style-v4"
-                  },
-                  "body": "律师费 2000.00元<br>担保费 5000.00元</br>赔偿金 55.00元"
-                }
-              ]
+              "title": "金秋丰收季，爆款惠不停（文末福利持续加码中）",
+              "lottery": "4",
+              "visitor": "365",
+              "comment": "0",
+              "end": "2022/11/30 23:59:59"
+            }
+          ]
+        },
+        {
+          "type": "dynamic-table",
+          "title": {
+            "label": "消费者注册"
+          },
+          "row": "4",
+          "header": [
+            {
+              "label": "广告标题",
+              "key": "title"
+            },
+            {
+              "label": "中奖数",
+              "key": "lottery"
+            },
+            {
+              "label": "访问量",
+              "key": "visitor"
+            },
+            {
+              "label": "评论数",
+              "key": "comment"
+            },
+            {
+              "label": "结束时间",
+              "key": "end"
+            }
+          ],
+          "elements": [
+            {
+              "title": "清明特惠，赢面单啦",
+              "lottery": "110",
+              "visitor": "620",
+              "comment": "0",
+              "end": "2023/04/11 23:59:59"
+            },
+            {
+              "title": "城盛百汇周末特惠 会员1元换购大米/面粉",
+              "lottery": "66",
+              "visitor": "415",
+              "comment": "1",
+              "end": "2023/03/29 23:59:59"
+            },
+            {
+              "title": "九要“拾”惠 精品汇选 养生开始 每日10款限时秒杀",
+              "lottery": "7",
+              "visitor": "181",
+              "comment": "0",
+              "end": "2022/12/30 23:59:59"
+            },
+            {
+              "title": "金秋丰收季，爆款惠不停（文末福利持续加码中）",
+              "lottery": "4",
+              "visitor": "365",
+              "comment": "0",
+              "end": "2022/11/30 23:59:59"
             }
           ]
         }
