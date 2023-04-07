@@ -8,7 +8,7 @@
         {
           "type": "chart",
           "title": {
-            "label": "消费者注册"
+            "label": "消费者注册数据"
           },
           "row": "12",
           "tooltip": {
@@ -19,7 +19,7 @@
               "source": [
                 [
                   "name",
-                  "total"
+                  "用户"
                 ],
                 [
                   "1月",
@@ -72,6 +72,10 @@
               ]
             }
           ],
+          "grid": {
+            "left": "30px",
+            "right": "30px"
+          },
           "xAxis": {
             "type": "category"
           },
@@ -92,28 +96,28 @@
         {
           "type": "dynamic-table",
           "title": {
-            "label": "消费者注册"
+            "label": "最新广告"
           },
           "row": "8",
           "header": [
             {
-              "label": "广告标题",
+              "label": "标题",
               "key": "title"
             },
             {
-              "label": "中奖数",
+              "label": "中奖",
               "key": "lottery"
             },
             {
-              "label": "访问量",
+              "label": "访问",
               "key": "visitor"
             },
             {
-              "label": "评论数",
+              "label": "评论",
               "key": "comment"
             },
             {
-              "label": "结束时间",
+              "label": "结束",
               "key": "end"
             }
           ],
@@ -151,61 +155,91 @@
         {
           "type": "dynamic-table",
           "title": {
-            "label": "消费者注册"
+            "label": "最新评论"
           },
           "row": "4",
           "header": [
             {
-              "label": "广告标题",
+              "label": "内容",
+              "key": "body"
+            },
+            {
+              "label": "评论人",
+              "key": "user"
+            },
+            {
+              "label": "标题",
               "key": "title"
             },
             {
-              "label": "中奖数",
-              "key": "lottery"
-            },
-            {
-              "label": "访问量",
-              "key": "visitor"
-            },
-            {
-              "label": "评论数",
-              "key": "comment"
-            },
-            {
-              "label": "结束时间",
-              "key": "end"
+              "label": "时间",
+              "key": "date"
             }
           ],
           "elements": [
             {
-              "title": "清明特惠，赢面单啦",
-              "lottery": "110",
-              "visitor": "620",
-              "comment": "0",
-              "end": "2023/04/11 23:59:59"
+              "title": "九要“拾”惠 精品汇选 养生开始 每日10款限时秒杀",
+              "user": "用户ERSyAUCP",
+              "body": "看起来不错！",
+              "date": "2023/04/01"
             },
             {
               "title": "城盛百汇周末特惠 会员1元换购大米/面粉",
-              "lottery": "66",
-              "visitor": "415",
-              "comment": "1",
-              "end": "2023/03/29 23:59:59"
-            },
-            {
-              "title": "九要“拾”惠 精品汇选 养生开始 每日10款限时秒杀",
-              "lottery": "7",
-              "visitor": "181",
-              "comment": "0",
-              "end": "2022/12/30 23:59:59"
+              "user": "用户FGDDDES",
+              "body": "为什么超出范围？",
+              "date": "2023/03/28"
             },
             {
               "title": "金秋丰收季，爆款惠不停（文末福利持续加码中）",
-              "lottery": "4",
-              "visitor": "365",
-              "comment": "0",
-              "end": "2022/11/30 23:59:59"
+              "user": "用户PIJFN",
+              "body": "可以多一些这样的好物！",
+              "date": "2023/02/18"
+            },
+            {
+              "title": "清明特惠，赢面单啦",
+              "user": "用户WQUDJD",
+              "body": "这个超市挺实惠，活动挺多！",
+              "date": "2023/02/01"
             }
           ]
+        },
+        {
+          "type": "full-calendar",
+          "title": {
+            "label": "活动日历"
+          },
+          "spacer": "none",
+          "row": "12",
+          "calendar": {
+            "drawer": true,
+            "apiBak": "/api/v1/demo",
+            "options": {
+              "events": [
+                {
+                  "title": "Angular 分享",
+                  "event": "meeting",
+                  "start": "2023/05/01 10:10:10",
+                  "user": "Johnson",
+                  "className": "bg-primary",
+                  "url": "/node/1"
+                },
+                {
+                  "title": "Drupal 分享",
+                  "event": "drupal",
+                  "start": "2023/04/08 10:10:10",
+                  "user": "Johnson",
+                  "className": "bg-warn",
+                  "url": "/node/2"
+                }
+              ]
+            },
+            "theme": {
+              "meeting": "bg-warn",
+              "case": "bg-primary",
+              "project": "bg-accent",
+              "event": "bg-red"
+            }
+          }
         }
       ]
     }
