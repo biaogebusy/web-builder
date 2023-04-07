@@ -4,4 +4,10 @@
   .count {
     font-size: 56px;
   }
+  ::ng-deep {
+    .chart {
+      padding: 0;
+      border: 0;
+    }
+  }
 }

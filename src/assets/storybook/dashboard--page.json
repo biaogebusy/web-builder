@@ -73,8 +73,8 @@
             }
           ],
           "grid": {
-            "left": "30px",
-            "right": "30px",
+            "left": "40px",
+            "right": "40px",
             "top": "30px",
             "bottom": "30px"
           },
@@ -99,7 +99,7 @@
         {
           "type": "chart-box",
           "row": "3",
-          "title": "广告发布量",
+          "label": "广告发布量",
           "count": "5",
           "params": {
             "apiBak": "/api/v3/node/vote/report"
@@ -182,7 +182,11 @@
                 "type": "line",
                 "symbol": "none",
                 "areaStyle": {
-                  "opacity": 0.2
+                  "opacity": 0.1,
+                  "color": "#1976d2"
+                },
+                "lineStyle": {
+                  "color": "#1976d2"
                 },
                 "label": {
                   "position": "top",
@@ -196,7 +200,7 @@
         {
           "type": "chart-box",
           "row": "3",
-          "title": "消费者增长",
+          "label": "消费者增长",
           "count": "1,156",
           "params": {
             "apiBak": "/api/v3/node/vote/report"
@@ -279,7 +283,11 @@
                 "type": "line",
                 "symbol": "none",
                 "areaStyle": {
-                  "opacity": 0.2
+                  "opacity": 0.1,
+                  "color": "#512da8"
+                },
+                "lineStyle": {
+                  "color": "#512da8"
                 },
                 "label": {
                   "position": "top",
@@ -293,7 +301,7 @@
         {
           "type": "chart-box",
           "row": "3",
-          "title": "门店增长",
+          "label": "门店增长",
           "count": "50%",
           "params": {
             "apiBak": "/api/v3/node/vote/report"
@@ -342,7 +350,7 @@
                   ],
                   [
                     "6月",
-                    10
+                    5
                   ],
                   [
                     "7月",
@@ -376,7 +384,11 @@
                 "type": "line",
                 "symbol": "none",
                 "areaStyle": {
-                  "opacity": 0.2
+                  "opacity": 0.1,
+                  "color": "#f57f17"
+                },
+                "lineStyle": {
+                  "color": "#f57f17"
                 },
                 "label": {
                   "position": "top",
@@ -390,7 +402,7 @@
         {
           "type": "chart-box",
           "row": "3",
-          "title": "评论量",
+          "label": "评论量",
           "count": "28",
           "params": {
             "apiBak": "/api/v3/node/vote/report"
@@ -473,7 +485,11 @@
                 "type": "line",
                 "symbol": "none",
                 "areaStyle": {
-                  "opacity": 0.2
+                  "opacity": 0.1,
+                  "color": "#c2185b"
+                },
+                "lineStyle": {
+                  "color": "#c2185b"
                 },
                 "label": {
                   "position": "top",
@@ -514,28 +530,28 @@
           ],
           "elements": [
             {
-              "title": "清明特惠，赢面单啦",
+              "title": "<a href=\"#\">清明特惠，赢面单啦</a>",
               "lottery": "110",
               "visitor": "620",
               "comment": "0",
               "end": "2023/04/11 23:59:59"
             },
             {
-              "title": "城盛百汇周末特惠 会员1元换购大米/面粉",
+              "title": "<a href=\"#\">城盛百汇周末特惠 会员1元换购大米/面粉</a>",
               "lottery": "66",
               "visitor": "415",
               "comment": "1",
               "end": "2023/03/29 23:59:59"
             },
             {
-              "title": "九要“拾”惠 精品汇选 养生开始 每日10款限时秒杀",
+              "title": "<a href=\"#\">九要“拾”惠 精品汇选 养生开始 每日10款限时秒杀</a>",
               "lottery": "7",
               "visitor": "181",
               "comment": "0",
               "end": "2022/12/30 23:59:59"
             },
             {
-              "title": "金秋丰收季，爆款惠不停（文末福利持续加码中）",
+              "title": "<a href=\"#\">金秋丰收季，爆款惠不停（文末福利持续加码中）</a>",
               "lottery": "4",
               "visitor": "365",
               "comment": "0",
@@ -569,25 +585,25 @@
           ],
           "elements": [
             {
-              "title": "九要“拾”惠 精品汇选 养生开始 每日10款限时秒杀",
+              "title": "<a href=\"#\">九要“拾”惠 精品汇选 养生开始 每日10款限时秒杀</a>",
               "user": "用户ERSyAUCP",
               "body": "看起来不错！",
               "date": "2023/04/01"
             },
             {
-              "title": "城盛百汇周末特惠 会员1元换购大米/面粉",
+              "title": "<a href=\"#\">城盛百汇周末特惠 会员1元换购大米/面粉</a>",
               "user": "用户FGDDDES",
               "body": "为什么超出范围？",
               "date": "2023/03/28"
             },
             {
-              "title": "金秋丰收季，爆款惠不停（文末福利持续加码中）",
+              "title": "<a href=\"#\">金秋丰收季，爆款惠不停（文末福利持续加码中）</a>",
               "user": "用户PIJFN",
               "body": "可以多一些这样的好物！",
               "date": "2023/02/18"
             },
             {
-              "title": "清明特惠，赢面单啦",
+              "title": "<a href=\"#\">清明特惠，赢面单啦</a>",
               "user": "用户WQUDJD",
               "body": "这个超市挺实惠，活动挺多！",
               "date": "2023/02/01"
