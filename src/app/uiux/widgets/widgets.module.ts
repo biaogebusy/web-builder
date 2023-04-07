@@ -113,6 +113,7 @@ import { BtnVideoComponent } from './actions/btn-video/btn-video.component';
 import { BaseModule } from '@uiux/base/base.module';
 import { AccordionComponent } from './accordion/accordion.component';
 import { DropdownMenuComponent } from './dropdown-menu/dropdown-menu.component';
+import { ChartBoxComponent } from './chart/chart-box/chart-box.component';
 
 FullCalendarModule.registerPlugins([
   // register FullCalendar plugins
@@ -191,6 +192,7 @@ const components = [
   DateRangeComponent,
   MatSelectComponent,
   ChartComponent,
+  ChartBoxComponent,
   StepperComponent,
   FormlyComponent,
   PlayerComponent,

@@ -1,0 +1,9 @@
+<div class="chart-box" fxLayout="column" fxLayoutAlign="center center">
+  <div class="title mat-h3">
+    {{content.title}}
+  </div>
+  <div class="count">
+    {{content.count}}
+  </div>
+  <app-chart class="width-100" [content]="chart" [style]="style"></app-chart>
+</div>

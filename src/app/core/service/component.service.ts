@@ -39,6 +39,7 @@ export class ComponentService {
       'card-1v1',
       'card-1v2',
       'calendar',
+      'chart-box',
       'accordion',
       'user-card',
       'btn-video',

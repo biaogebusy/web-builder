@@ -74,7 +74,9 @@
           ],
           "grid": {
             "left": "30px",
-            "right": "30px"
+            "right": "30px",
+            "top": "30px",
+            "bottom": "30px"
           },
           "xAxis": {
             "type": "category"
@@ -89,9 +91,398 @@
                 "position": "top",
                 "show": true
               },
+              "barMaxWidth": "30px",
               "datasetIndex": 0
             }
           ]
+        },
+        {
+          "type": "chart-box",
+          "row": "3",
+          "title": "广告发布量",
+          "count": "5",
+          "params": {
+            "apiBak": "/api/v3/node/vote/report"
+          },
+          "chart": {
+            "grid": {
+              "left": "0",
+              "right": "0",
+              "top": "0",
+              "bottom": "0"
+            },
+            "xAxis": {
+              "show": false,
+              "type": "category"
+            },
+            "yAxis": {
+              "show": false,
+              "type": "value"
+            },
+            "dataset": [
+              {
+                "source": [
+                  [
+                    "name",
+                    "用户"
+                  ],
+                  [
+                    "1月",
+                    12
+                  ],
+                  [
+                    "2月",
+                    35
+                  ],
+                  [
+                    "3月",
+                    55
+                  ],
+                  [
+                    "4月",
+                    152
+                  ],
+                  [
+                    "5月",
+                    90
+                  ],
+                  [
+                    "6月",
+                    109
+                  ],
+                  [
+                    "7月",
+                    10
+                  ],
+                  [
+                    "8月",
+                    25
+                  ],
+                  [
+                    "9月",
+                    22
+                  ],
+                  [
+                    "10月",
+                    75
+                  ],
+                  [
+                    "11月",
+                    12
+                  ],
+                  [
+                    "12月",
+                    66
+                  ]
+                ]
+              }
+            ],
+            "series": [
+              {
+                "type": "line",
+                "symbol": "none",
+                "areaStyle": {
+                  "opacity": 0.2
+                },
+                "label": {
+                  "position": "top",
+                  "show": true
+                },
+                "datasetIndex": 0
+              }
+            ]
+          }
+        },
+        {
+          "type": "chart-box",
+          "row": "3",
+          "title": "消费者增长",
+          "count": "1,156",
+          "params": {
+            "apiBak": "/api/v3/node/vote/report"
+          },
+          "chart": {
+            "grid": {
+              "left": "0",
+              "right": "0",
+              "top": "0",
+              "bottom": "0"
+            },
+            "xAxis": {
+              "show": false,
+              "type": "category"
+            },
+            "yAxis": {
+              "show": false,
+              "type": "value"
+            },
+            "dataset": [
+              {
+                "source": [
+                  [
+                    "name",
+                    "用户"
+                  ],
+                  [
+                    "1月",
+                    12
+                  ],
+                  [
+                    "2月",
+                    35
+                  ],
+                  [
+                    "3月",
+                    55
+                  ],
+                  [
+                    "4月",
+                    152
+                  ],
+                  [
+                    "5月",
+                    90
+                  ],
+                  [
+                    "6月",
+                    109
+                  ],
+                  [
+                    "7月",
+                    10
+                  ],
+                  [
+                    "8月",
+                    25
+                  ],
+                  [
+                    "9月",
+                    22
+                  ],
+                  [
+                    "10月",
+                    75
+                  ],
+                  [
+                    "11月",
+                    12
+                  ],
+                  [
+                    "12月",
+                    66
+                  ]
+                ]
+              }
+            ],
+            "series": [
+              {
+                "type": "line",
+                "symbol": "none",
+                "areaStyle": {
+                  "opacity": 0.2
+                },
+                "label": {
+                  "position": "top",
+                  "show": true
+                },
+                "datasetIndex": 0
+              }
+            ]
+          }
+        },
+        {
+          "type": "chart-box",
+          "row": "3",
+          "title": "门店增长",
+          "count": "50%",
+          "params": {
+            "apiBak": "/api/v3/node/vote/report"
+          },
+          "chart": {
+            "grid": {
+              "left": "0",
+              "right": "0",
+              "top": "0",
+              "bottom": "0"
+            },
+            "xAxis": {
+              "show": false,
+              "type": "category"
+            },
+            "yAxis": {
+              "show": false,
+              "type": "value"
+            },
+            "dataset": [
+              {
+                "source": [
+                  [
+                    "name",
+                    "用户"
+                  ],
+                  [
+                    "1月",
+                    1
+                  ],
+                  [
+                    "2月",
+                    3
+                  ],
+                  [
+                    "3月",
+                    5
+                  ],
+                  [
+                    "4月",
+                    7
+                  ],
+                  [
+                    "5月",
+                    2
+                  ],
+                  [
+                    "6月",
+                    10
+                  ],
+                  [
+                    "7月",
+                    10
+                  ],
+                  [
+                    "8月",
+                    9
+                  ],
+                  [
+                    "9月",
+                    2
+                  ],
+                  [
+                    "10月",
+                    7
+                  ],
+                  [
+                    "11月",
+                    1
+                  ],
+                  [
+                    "12月",
+                    6
+                  ]
+                ]
+              }
+            ],
+            "series": [
+              {
+                "type": "line",
+                "symbol": "none",
+                "areaStyle": {
+                  "opacity": 0.2
+                },
+                "label": {
+                  "position": "top",
+                  "show": true
+                },
+                "datasetIndex": 0
+              }
+            ]
+          }
+        },
+        {
+          "type": "chart-box",
+          "row": "3",
+          "title": "评论量",
+          "count": "28",
+          "params": {
+            "apiBak": "/api/v3/node/vote/report"
+          },
+          "chart": {
+            "grid": {
+              "left": "0",
+              "right": "0",
+              "top": "0",
+              "bottom": "0"
+            },
+            "xAxis": {
+              "show": false,
+              "type": "category"
+            },
+            "yAxis": {
+              "show": false,
+              "type": "value"
+            },
+            "dataset": [
+              {
+                "source": [
+                  [
+                    "name",
+                    "用户"
+                  ],
+                  [
+                    "1月",
+                    0
+                  ],
+                  [
+                    "2月",
+                    1
+                  ],
+                  [
+                    "3月",
+                    5
+                  ],
+                  [
+                    "4月",
+                    1
+                  ],
+                  [
+                    "5月",
+                    9
+                  ],
+                  [
+                    "6月",
+                    10
+                  ],
+                  [
+                    "7月",
+                    6
+                  ],
+                  [
+                    "8月",
+                    11
+                  ],
+                  [
+                    "9月",
+                    2
+                  ],
+                  [
+                    "10月",
+                    6
+                  ],
+                  [
+                    "11月",
+                    12
+                  ],
+                  [
+                    "12月",
+                    5
+                  ]
+                ]
+              }
+            ],
+            "series": [
+              {
+                "type": "line",
+                "symbol": "none",
+                "areaStyle": {
+                  "opacity": 0.2
+                },
+                "label": {
+                  "position": "top",
+                  "show": true
+                },
+                "datasetIndex": 0
+              }
+            ]
+          }
         },
         {
           "type": "dynamic-table",
