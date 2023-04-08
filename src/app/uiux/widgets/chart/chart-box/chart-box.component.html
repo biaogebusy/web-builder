@@ -1,9 +1,11 @@
-<div class="chart-box p-x-sm p-y-sm" fxLayout="column" fxLayoutAlign="center center">
-  <div class="title mat-h3">
-    {{content.label}}
-  </div>
-  <div class="count">
-    {{content.count}}
+<div class="chart-box p-x-sm p-y-sm" fxLayout="row" fxLayoutAlign="center end">
+  <div class="width-100" fxLayout="column" fxLayoutAlign="center start">
+    <div class="title mat-h3">
+      {{content.label}}
+    </div>
+    <div class="count">
+      {{content.count}}
+    </div>
   </div>
   <app-chart class="width-100" [content]="chart" [style]="style"></app-chart>
 </div>

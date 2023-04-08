@@ -1,13 +1,19 @@
+@import "../../../../../theme/variable/breakpoint";
 .chart-box {
-  .title {
-  }
   .count {
-    font-size: 56px;
+    font-size: 38px;
+    line-height: 1;
+  }
+  @media #{$gt-sm} {
+    .count {
+      font-size: 50px;
+    }
   }
   ::ng-deep {
     .chart {
       padding: 0;
       border: 0;
+      box-shadow: none;
     }
   }
 }
