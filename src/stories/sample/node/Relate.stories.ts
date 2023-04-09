@@ -462,11 +462,6 @@ RelateV2.args = {
 export const RelateV3 = Template.bind({});
 RelateV3.args = {
   content: {
-    title: {
-      label: '南宁三四柒文化传播',
-      style: 'style-v4',
-      classes: 'mat-display-1 m-bottom-0',
-    },
     actions: [
       {
         type: 'btn',
@@ -486,13 +481,13 @@ RelateV3.args = {
         {
           type: 'icon',
           color: 'primary',
-          svg: 'credit-card-check',
+          svg: 'domain',
         },
         {
           type: 'text',
           space: 'none',
           classes: 'mat-h1 m-bottom-0',
-          body: '91450100MA5KEA307N',
+          body: '南宁三四柒文化传播有限公司',
         },
       ],
       middle: {
@@ -583,7 +578,7 @@ RelateV3.args = {
       text: {
         spacer: 'none',
         title: {
-          label: '南宁三四柒文化传播',
+          label: '南宁三四柒文化传播有限公司',
           style: 'style-v7',
           classes: 'm-bottom-0 m-top-0',
         },
