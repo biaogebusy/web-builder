@@ -1,0 +1,92 @@
+import { Meta } from "@storybook/addon-docs";
+
+<Meta title="代码编写指南/并发性" />
+
+编写可读可复用可重构的代码指南，并非这里的每一项都必须严格遵守，但至少这些原则得到了普通的社区认可，是集体经验的结晶。
+
+## **并发性**
+
+### 使用 Promises 而不是 Callbacks
+
+**不好**
+
+```javascript
+import { get } from "request";
+import { writeFile } from "fs";
+
+get(
+  "https://en.wikipedia.org/wiki/Robert_Cecil_Martin",
+  (requestErr, response, body) => {
+    if (requestErr) {
+      console.error(requestErr);
+    } else {
+      writeFile("article.html", body, (writeErr) => {
+        if (writeErr) {
+          console.error(writeErr);
+        } else {
+          console.log("File written");
+        }
+      });
+    }
+  }
+);
+```
+
+**推荐**
+
+```javascript
+import { get } from "request-promise";
+import { writeFile } from "fs-extra";
+
+get("https://en.wikipedia.org/wiki/Robert_Cecil_Martin")
+  .then((body) => {
+    return writeFile("article.html", body);
+  })
+  .then(() => {
+    console.log("File written");
+  })
+  .catch((err) => {
+    console.error(err);
+  });
+```
+
+### Async/Await 甚至比 Promises 更干净整洁
+
+ES2017/ES8 提供了更加简洁的解决方案，条件允许的情况下可使用。
+
+**不好**
+
+```javascript
+import { get } from "request-promise";
+import { writeFile } from "fs-extra";
+
+get("https://en.wikipedia.org/wiki/Robert_Cecil_Martin")
+  .then((body) => {
+    return writeFile("article.html", body);
+  })
+  .then(() => {
+    console.log("File written");
+  })
+  .catch((err) => {
+    console.error(err);
+  });
+```
+
+**推荐**
+
+```javascript
+import { get } from "request-promise";
+import { writeFile } from "fs-extra";
+
+async function getCleanCodeArticle() {
+  try {
+    const body = await get("https://en.wikipedia.org/wiki/Robert_Cecil_Martin");
+    await writeFile("article.html", body);
+    console.log("File written");
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+getCleanCodeArticle();
+```

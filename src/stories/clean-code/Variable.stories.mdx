@@ -1,0 +1,107 @@
+import { Meta } from "@storybook/addon-docs";
+
+<Meta title="代码编写指南/变量" />
+
+编写可读可复用可重构的代码指南，并非这里的每一项都必须严格遵守，但至少这些原则得到了普通的社区认可，是集体经验的结晶。
+
+## 变量
+
+### 使用有意义的变量名
+
+**不好**
+
+```js
+const yyymmdstr = moment().format("YYYY/MM/DD");
+```
+
+**推荐**
+
+```js
+const currentDate = moment().format("YYYY/MM/DD");
+```
+
+### 使用可搜索的名字
+
+** 不好 **
+
+```js
+setTimeout(blastOff, 86400000);
+```
+
+** 推荐 **
+
+```js
+const MILLISECONDS_PER_DAY = 60 * 60 * 24 * 1000; //86400000;
+setTimeout(blastOff, MILLISECONDS_PER_DAY);
+```
+
+### 使用可解构的变量
+
+**不好**
+
+```javascript
+const address = "One Infinite Loop, Cupertino 95014";
+const cityZipCodeRegex = /^[^,\\]+[,\\\s]+(.+?)\s*(\d{5})?$/;
+saveCityZipCode(
+  address.match(cityZipCodeRegex)[1],
+  address.match(cityZipCodeRegex)[2]
+);
+```
+
+**推荐**
+
+```javascript
+const address = "One Infinite Loop, Cupertino 95014";
+const cityZipCodeRegex = /^[^,\\]+[,\\\s]+(.+?)\s*(\d{5})?$/;
+const [_, city, zipCode] = address.match(cityZipCodeRegex) || [];
+saveCityZipCode(city, zipCode);
+```
+
+### 不添加不必要的上下文
+
+**不好**
+
+```javascript
+const Car = {
+  carMake: "Honda",
+  carModel: "Accord",
+  carColor: "Blue",
+};
+function paintCar(car, color) {
+  car.carColor = color;
+}
+```
+
+**推荐**
+
+```javascript
+const Car = {
+  make: "Honda",
+  model: "Accord",
+  color: "Blue",
+};
+function paintCar(car, color) {
+  car.color = color;
+}
+```
+
+### 使用默认参数而不是使用短路或者添加判断
+
+默认参数可读性更好，而且会进行严格的判断。
+
+**不好**
+
+```javascript
+function createMicrobrewery(name) {
+  const breweryName = name || "Hipster Brew Co.";
+  // ...
+}
+```
+
+**推荐**
+
+```javascript
+function createMicrobrewery(name = "Hipster Brew Co.") {
+  // ...
+}
+```

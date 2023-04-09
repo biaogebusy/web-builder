@@ -1,0 +1,135 @@
+import { Meta } from "@storybook/addon-docs";
+
+<Meta title="代码编写指南/重复代码" />
+
+编写可读可复用可重构的代码指南，并非这里的每一项都必须严格遵守，但至少这些原则得到了普通的社区认可，是集体经验的结晶。
+
+## 删除重复的代码
+
+应尽最大的努力避免代码的重复，代码的重复意味着你变更某个逻辑时，有不止一个地方也需要变更，维护更加的困难，也会容易出错，记住：Don't repeat youself!
+
+**不好**
+
+```javascript
+function showDeveloperList(developers) {
+  developers.forEach((developer) => {
+    const expectedSalary = developer.calculateExpectedSalary();
+    const experience = developer.getExperience();
+    const githubLink = developer.getGithubLink();
+    const data = {
+      expectedSalary,
+      experience,
+      githubLink,
+    };
+    render(data);
+  });
+}
+function showManagerList(managers) {
+  managers.forEach((manager) => {
+    const expectedSalary = manager.calculateExpectedSalary();
+    const experience = manager.getExperience();
+    const portfolio = manager.getMBAProjects();
+    const data = {
+      expectedSalary,
+      experience,
+      portfolio,
+    };
+    render(data);
+  });
+}
+```
+
+**推荐**
+
+```javascript
+function showEmployeeList(employees) {
+  employees.forEach((employee) => {
+    const expectedSalary = employee.calculateExpectedSalary();
+    const experience = employee.getExperience();
+    const data = {
+      expectedSalary,
+      experience,
+    };
+    switch (employee.type) {
+      case "manager":
+        data.portfolio = employee.getMBAProjects();
+        break;
+      case "developer":
+        data.githubLink = employee.getGithubLink();
+        break;
+    }
+    render(data);
+  });
+}
+```
+
+### 无需过度优化
+
+现代浏览器在运行时已经自动代码优化。
+
+**不好**
+
+```javascript
+// On old browsers, each iteration with uncached `list.length` would be costly
+// because of `list.length` recomputation. In modern browsers, this is optimized.
+for (let i = 0, len = list.length; i < len; i++) {
+  // ...
+}
+```
+
+**推荐**
+
+```javascript
+for (let i = 0; i < list.length; i++) {
+  // ...
+}
+```
+
+## **对象和数据结构**
+
+### 使用 getters 和 setters
+
+**不好**
+
+```javascript
+function makeBankAccount() {
+  // ...
+
+  return {
+    balance: 0,
+    // ...
+  };
+}
+
+const account = makeBankAccount();
+account.balance = 100;
+```
+
+**推荐**
+
+```javascript
+function makeBankAccount() {
+  // this one is private
+  let balance = 0;
+
+  // a "getter", made public via the returned object below
+  function getBalance() {
+    return balance;
+  }
+
+  // a "setter", made public via the returned object below
+  function setBalance(amount) {
+    // ... validate before updating the balance
+    balance = amount;
+  }
+
+  return {
+    // ...
+    getBalance,
+    setBalance,
+  };
+}
+
+const account = makeBankAccount();
+account.setBalance(100);
+```

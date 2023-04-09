@@ -1,0 +1,48 @@
+import { Meta } from "@storybook/addon-docs";
+
+<Meta title="代码编写指南/注释" />
+
+编写可读可复用可重构的代码指南，并非这里的每一项都必须严格遵守，但至少这些原则得到了普通的社区认可，是集体经验的结晶。
+
+### 仅注释业务复杂的部分
+
+注释并不是要求，好的代码应该在函数本身体现出可读性。
+
+**不好**
+
+```javascript
+function hashIt(data) {
+  // The hash
+  let hash = 0;
+
+  // Length of string
+  const length = data.length;
+
+  // Loop through every character in data
+  for (let i = 0; i < length; i++) {
+    // Get character code.
+    const char = data.charCodeAt(i);
+    // Make the hash
+    hash = (hash << 5) - hash + char;
+    // Convert to 32-bit integer
+    hash &= hash;
+  }
+}
+```
+
+**推荐**
+
+```javascript
+function hashIt(data) {
+  let hash = 0;
+  const length = data.length;
+
+  for (let i = 0; i < length; i++) {
+    const char = data.charCodeAt(i);
+    hash = (hash << 5) - hash + char;
+
+    // Convert to 32-bit integer
+    hash &= hash;
+  }
+}
+```

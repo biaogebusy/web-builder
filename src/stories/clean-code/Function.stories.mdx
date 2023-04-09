@@ -1,0 +1,452 @@
+import { Meta } from "@storybook/addon-docs";
+
+<Meta title="代码编写指南/函数" />
+
+编写可读可复用可重构的代码指南，并非这里的每一项都必须严格遵守，但至少这些原则得到了普通的社区认可，是集体经验的结晶。
+
+## 函数
+
+### 函数参数（理想情况下 2 个或者更少）
+
+限制函数的参数非常重要，让测试更加的容易，如果你的函数参数太多了，说明你的函数做得太多的功能，推荐使用解构语法的参数：
+
+1. 很清楚的看到对象的变量哪些正在使用；
+2. 对象传到函数中，防止副作用；
+3. 未来新增或者减少更容易重构；
+
+**不好**
+
+```javascript
+function createMenu(title, body, buttonText, cancellable) {
+  // ...
+}
+createMenu("Foo", "Bar", "Baz", true);
+```
+
+**推荐**
+
+```javascript
+function createMenu({ title, body, buttonText, cancellable }) {
+  // ...
+}
+createMenu({
+  title: "Foo",
+  body: "Bar",
+  buttonText: "Baz",
+  cancellable: true,
+});
+```
+
+### 一个函数只应该做一件事情
+
+这是软件工程中最重要的原则，一个函数做多个事情，会使得函数的维护更难、不利测试和推理。只做一件事情，更容易重构、测试、代码更干净。
+
+**不好**
+
+```javascript
+function emailClients(clients) {
+  clients.forEach((client) => {
+    const clientRecord = database.lookup(client);
+    if (clientRecord.isActive()) {
+      email(client);
+    }
+  });
+}
+```
+
+**推荐**
+
+```javascript
+function emailActiveClients(clients) {
+  clients.filter(isActiveClient).forEach(email);
+}
+function isActiveClient(client) {
+  const clientRecord = database.lookup(client);
+  return clientRecord.isActive();
+}
+```
+
+### 你的函数名应该看得出函数在做什么事情
+
+**不好**
+
+```javascript
+function addToDate(date, month) {
+  // ...
+}
+const date = new Date();
+// It's hard to tell from the function name what is added
+addToDate(date, 1);
+```
+
+**推荐**
+
+```javascript
+function addMonthToDate(month, date) {
+  // ...
+}
+const date = new Date();
+addMonthToDate(1, date);
+```
+
+### 函数应该只做一层抽象
+
+当你的函数又嵌套其他处理逻辑时，通常函数做得太多了，应该进行拆分以便更好的重构和测试。
+
+**不好**
+
+```javascript
+function parseBetterJSAlternative(code) {
+  const REGEXES = [
+    // ...
+  ];
+  const statements = code.split(" ");
+  const tokens = [];
+  REGEXES.forEach((REGEX) => {
+    statements.forEach((statement) => {
+      // ...
+    });
+  });
+  const ast = [];
+  tokens.forEach((token) => {
+    // lex...
+  });
+  ast.forEach((node) => {
+    // parse...
+  });
+}
+```
+
+**推荐**
+
+```javascript
+function parseBetterJSAlternative(code) {
+  const tokens = tokenize(code);
+  const syntaxTree = parse(tokens);
+  syntaxTree.forEach((node) => {
+    // parse...
+  });
+}
+function tokenize(code) {
+  const REGEXES = [
+    // ...
+  ];
+  const statements = code.split(" ");
+  const tokens = [];
+  REGEXES.forEach((REGEX) => {
+    statements.forEach((statement) => {
+      tokens.push(/* ... */);
+    });
+  });
+  return tokens;
+}
+function parse(tokens) {
+  const syntaxTree = [];
+  tokens.forEach((token) => {
+    syntaxTree.push(/* ... */);
+  });
+  return syntaxTree;
+}
+```
+
+### 不要使用 flags 作为函数的参数
+
+Flags 告诉用户函数做的不止一件事情，应拆分出来。
+
+**不好**
+
+```javascript
+function createFile(name, temp) {
+  if (temp) {
+    fs.create(`./temp/${name}`);
+  } else {
+    fs.create(name);
+  }
+}
+```
+
+**推荐**
+
+```javascript
+function createFile(name) {
+  fs.create(name);
+}
+function createTempFile(name) {
+  createFile(`./temp/${name}`);
+}
+```
+
+### 避免副作用
+
+**不好**
+
+```javascript
+// Global variable referenced by following function.
+// If we had another function that used this name, now it'd be an array and it could break it.
+let name = "Ryan McDermott";
+
+function splitIntoFirstAndLastName() {
+  name = name.split(" ");
+}
+
+splitIntoFirstAndLastName();
+
+console.log(name); // ['Ryan', 'McDermott'];
+```
+
+**推荐**
+
+```javascript
+function splitIntoFirstAndLastName(name) {
+  return name.split(" ");
+}
+
+const name = "Ryan McDermott";
+const newName = splitIntoFirstAndLastName(name);
+
+console.log(name); // 'Ryan McDermott';
+console.log(newName); // ['Ryan', 'McDermott'];
+```
+
+**不好**
+
+```javascript
+const addItemToCart = (cart, item) => {
+  cart.push({ item, date: Date.now() });
+};
+```
+
+**推荐**
+
+```javascript
+const addItemToCart = (cart, item) => {
+  return [...cart, { item, date: Date.now() }];
+};
+```
+
+### 不要把功能挂载到全局
+
+**不好**
+
+```javascript
+Array.prototype.diff = function diff(comparisonArray) {
+  const hash = new Set(comparisonArray);
+  return this.filter((elem) => !hash.has(elem));
+};
+```
+
+**推荐**
+
+```javascript
+class SuperArray extends Array {
+  diff(comparisonArray) {
+    const hash = new Set(comparisonArray);
+    return this.filter((elem) => !hash.has(elem));
+  }
+}
+```
+
+### 使用函数式编程而非命令式编程
+
+**不好**
+
+```javascript
+const programmerOutput = [
+  {
+    name: "Uncle Bobby",
+    linesOfCode: 500,
+  },
+  {
+    name: "Suzie Q",
+    linesOfCode: 1500,
+  },
+  {
+    name: "Jimmy Gosling",
+    linesOfCode: 150,
+  },
+  {
+    name: "Gracie Hopper",
+    linesOfCode: 1000,
+  },
+];
+
+let totalOutput = 0;
+
+for (let i = 0; i < programmerOutput.length; i++) {
+  totalOutput += programmerOutput[i].linesOfCode;
+}
+```
+
+**推荐**
+
+```javascript
+const programmerOutput = [
+  {
+    name: "Uncle Bobby",
+    linesOfCode: 500,
+  },
+  {
+    name: "Suzie Q",
+    linesOfCode: 1500,
+  },
+  {
+    name: "Jimmy Gosling",
+    linesOfCode: 150,
+  },
+  {
+    name: "Gracie Hopper",
+    linesOfCode: 1000,
+  },
+];
+
+const totalOutput = programmerOutput.reduce(
+  (totalLines, output) => totalLines + output.linesOfCode,
+  0
+);
+```
+
+### 条件判断复杂时应考虑封装成函数
+
+**不好**
+
+```javascript
+if (fsm.state === "fetching" && isEmpty(listNode)) {
+  // ...
+}
+```
+
+**推荐**
+
+```javascript
+function shouldShowSpinner(fsm, listNode) {
+  return fsm.state === "fetching" && isEmpty(listNode);
+}
+
+if (shouldShowSpinner(fsmInstance, listNodeInstance)) {
+  // ...
+}
+```
+
+### 避免使用否定条件
+
+**不好**
+
+```javascript
+function isDOMNodeNotPresent(node) {
+  // ...
+}
+
+if (!isDOMNodeNotPresent(node)) {
+  // ...
+}
+```
+
+**推荐**
+
+```javascript
+function isDOMNodePresent(node) {
+  // ...
+}
+
+if (isDOMNodePresent(node)) {
+  // ...
+}
+```
+
+### 函数中尽量避免使用条件
+
+还是一个函数只做一件事情的基本原则。
+
+**不好**
+
+```javascript
+class Airplane {
+  // ...
+  getCruisingAltitude() {
+    switch (this.type) {
+      case "777":
+        return this.getMaxAltitude() - this.getPassengerCount();
+      case "Air Force One":
+        return this.getMaxAltitude();
+      case "Cessna":
+        return this.getMaxAltitude() - this.getFuelExpenditure();
+    }
+  }
+}
+```
+
+**推荐**
+
+```javascript
+class Airplane {
+  // ...
+}
+
+class Boeing777 extends Airplane {
+  // ...
+  getCruisingAltitude() {
+    return this.getMaxAltitude() - this.getPassengerCount();
+  }
+}
+
+class AirForceOne extends Airplane {
+  // ...
+  getCruisingAltitude() {
+    return this.getMaxAltitude();
+  }
+}
+
+class Cessna extends Airplane {
+  // ...
+  getCruisingAltitude() {
+    return this.getMaxAltitude() - this.getFuelExpenditure();
+  }
+}
+```
+
+### 避免类型检查
+
+应该避免多态性，会是去可读性，可测试性。
+
+**不好**
+
+```javascript
+function travelToTexas(vehicle) {
+  if (vehicle instanceof Bicycle) {
+    vehicle.pedal(this.currentLocation, new Location("texas"));
+  } else if (vehicle instanceof Car) {
+    vehicle.drive(this.currentLocation, new Location("texas"));
+  }
+}
+```
+
+**推荐**
+
+```javascript
+function travelToTexas(vehicle) {
+  vehicle.move(this.currentLocation, new Location("texas"));
+}
+```
+
+**不好**
+
+```javascript
+function combine(val1, val2) {
+  if (
+    (typeof val1 === "number" && typeof val2 === "number") ||
+    (typeof val1 === "string" && typeof val2 === "string")
+  ) {
+    return val1 + val2;
+  }
+
+  throw new Error("Must be of type String or Number");
+}
+```
+
+**推荐**
+
+```javascript
+function combine(val1, val2) {
+  return val1 + val2;
+}
+```
