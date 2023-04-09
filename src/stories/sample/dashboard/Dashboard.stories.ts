@@ -519,7 +519,7 @@ Order.args = {
       {
         type: 'chart',
         title: {
-          label: '消费者注册数据',
+          label: '订单数据',
         },
         row: '12',
         tooltip: {
@@ -571,8 +571,8 @@ Order.args = {
       {
         type: 'chart-box',
         row: '3',
-        label: '广告发布量',
-        count: '5',
+        label: '合同',
+        count: '25',
         params: {
           apiBak: '/api/v3/node/vote/report',
         },
@@ -633,8 +633,8 @@ Order.args = {
       {
         type: 'chart-box',
         row: '3',
-        label: '消费者增长',
-        count: '1,156',
+        label: '咨询',
+        count: '36',
         params: {
           apiBak: '/api/v3/node/vote/report',
         },
@@ -695,8 +695,8 @@ Order.args = {
       {
         type: 'chart-box',
         row: '3',
-        label: '门店增长',
-        count: '50%',
+        label: '案件',
+        count: '12',
         params: {
           apiBak: '/api/v3/node/vote/report',
         },
@@ -757,8 +757,8 @@ Order.args = {
       {
         type: 'chart-box',
         row: '3',
-        label: '评论量',
-        count: '28',
+        label: '工时',
+        count: '456',
         params: {
           apiBak: '/api/v3/node/vote/report',
         },
@@ -819,121 +819,139 @@ Order.args = {
       {
         type: 'dynamic-table',
         title: {
-          label: '最新广告',
+          label: '最新案件',
         },
-        row: '8',
+        row: '6',
         header: [
           {
             label: '标题',
             key: 'title',
           },
           {
-            label: '中奖',
-            key: 'lottery',
+            label: '客户',
+            key: 'custom',
           },
           {
-            label: '访问',
-            key: 'visitor',
+            label: '经办人',
+            key: 'hander',
           },
           {
-            label: '评论',
-            key: 'comment',
+            label: '阶段',
+            key: 'type',
           },
           {
-            label: '结束',
-            key: 'end',
+            label: '业务时间',
+            key: 'date',
           },
         ],
         elements: [
           {
-            title: '<a href="#">清明特惠，赢面单啦</a>',
-            lottery: '110',
-            visitor: '620',
-            comment: '0',
-            end: '2023/04/11 23:59:59',
+            title: '<a href="#">质保金案件</a>',
+            custom: '新能源公司',
+            hander: '张三',
+            type: '一审立案完成',
+            date: '2023/03/29',
           },
           {
-            title: '<a href="#">城盛百汇周末特惠 会员1元换购大米/面粉</a>',
-            lottery: '66',
-            visitor: '415',
-            comment: '1',
-            end: '2023/03/29 23:59:59',
+            title: '<a href="#">赠与合同纠纷</a>',
+            custom: '云城租赁',
+            hander: '李四',
+            type: '二审立案完成',
+            date: '2022/09/26',
           },
           {
-            title:
-              '<a href="#">九要“拾”惠 精品汇选 养生开始 每日10款限时秒杀</a>',
-            lottery: '7',
-            visitor: '181',
-            comment: '0',
-            end: '2022/12/30 23:59:59',
+            title: '<a href="#">仲裁案</a>',
+            custom: '建工集团',
+            hander: '王五',
+            type: '一审开庭确认',
+            date: '2023/03/12',
           },
           {
-            title:
-              '<a href="#">金秋丰收季，爆款惠不停（文末福利持续加码中）</a>',
-            lottery: '4',
-            visitor: '365',
-            comment: '0',
-            end: '2022/11/30 23:59:59',
+            title: '<a href="#">执行异议</a>',
+            custom: '劳务租赁',
+            hander: '张三',
+            type: '一审立案准备',
+            date: '2023/02/21',
+          },
+          {
+            title: '<a href="#">工程施工合同</a>',
+            custom: '工程集团',
+            hander: '张三',
+            type: '一审判决完成',
+            date: '2023/02/17',
           },
         ],
       },
       {
         type: 'dynamic-table',
         title: {
-          label: '最新评论',
+          label: '最新订单',
         },
-        row: '4',
+        row: '6',
         header: [
-          {
-            label: '内容',
-            key: 'body',
-          },
-          {
-            label: '评论人',
-            key: 'user',
-          },
           {
             label: '标题',
             key: 'title',
           },
           {
-            label: '时间',
+            label: '客户',
+            key: 'custom',
+          },
+          {
+            label: '经办人',
+            key: 'hander',
+          },
+          {
+            label: '类型',
+            key: 'type',
+          },
+          {
+            label: '创建时间',
             key: 'date',
           },
         ],
         elements: [
           {
-            title:
-              '<a href="#">九要“拾”惠 精品汇选 养生开始 每日10款限时秒杀</a>',
-            user: '用户ERSyAUCP',
-            body: '看起来不错！',
-            date: '2023/04/01',
+            title: '<a href="#">二日游合同</a>',
+            custom: '药审中心',
+            hander: '张三',
+            type: '合同审查',
+            date: '2023/04/08',
           },
           {
-            title: '<a href="#">城盛百汇周末特惠 会员1元换购大米/面粉</a>',
-            user: '用户FGDDDES',
-            body: '为什么超出范围？',
-            date: '2023/03/28',
+            title: '<a href="#">疗休养合同</a>',
+            custom: '检验研究院',
+            hander: '李四',
+            type: '合同审查',
+            date: '2023/04/7',
           },
           {
-            title:
-              '<a href="#">金秋丰收季，爆款惠不停（文末福利持续加码中）</a>',
-            user: '用户PIJFN',
-            body: '可以多一些这样的好物！',
-            date: '2023/02/18',
+            title: '<a href="#">保密协议</a>',
+            custom: '长三角分中心',
+            hander: '王五',
+            type: '法律咨询',
+            date: '2023/04/7',
           },
           {
-            title: '<a href="#">清明特惠，赢面单啦</a>',
-            user: '用户WQUDJD',
-            body: '这个超市挺实惠，活动挺多！',
-            date: '2023/02/01',
+            title: '<a href="#">设备采购合同审批</a>',
+            custom: '检验研究院',
+            hander: '张三',
+            type: '合同审查',
+            date: '2023/04/03',
+          },
+          {
+            title: '<a href="#">封面设计合同</a>',
+            custom: '药检院',
+            hander: '张三',
+            type: '制度修改',
+            date: '2023/04/03',
           },
         ],
       },
       {
         type: 'full-calendar',
         title: {
-          label: '活动日历',
+          label: '工作日历',
         },
         spacer: 'none',
         row: '12',
