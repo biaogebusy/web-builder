@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { IDashboard } from '@core/interface/combs/IDashboard';
+import type { IDashboard } from '@core/interface/combs/IDashboard';
 
 @Component({
   selector: 'app-dashboard',

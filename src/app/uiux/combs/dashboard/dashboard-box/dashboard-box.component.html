@@ -8,5 +8,5 @@
         (modelChange)="onModelChange($event)"></app-formly>
     </div>
   </div>
-  <app-dynamic-component [inputs]="{content: content.widget}"></app-dynamic-component>
+  <app-dynamic-component *ngIf="widget" [inputs]="{content: widget}"></app-dynamic-component>
 </div>
