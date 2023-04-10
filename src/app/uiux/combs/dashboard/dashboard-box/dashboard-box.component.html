@@ -2,5 +2,5 @@
   <div class="box-header mat-h3 bold" *ngIf="content.title">
     {{content.title.label}}
   </div>
-  <app-dynamic-component [inputs]="{content: content}"></app-dynamic-component>
+  <app-dynamic-component *ngFor="let widget of content.widgets" [inputs]="{content: widget}"></app-dynamic-component>
 </div>
