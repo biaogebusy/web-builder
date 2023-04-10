@@ -1,12 +1,7 @@
 <div class="dashboard" *ngIf="content">
   <div class="wrapper" fxLayout="row wrap">
     <div class="box" fxFlex.lt-md="100" [fxFlex.gt-sm]="(box.row/12)*100" *ngFor="let box of content.elements">
-      <div class="box-wrapper">
-        <div class="box-header mat-h3 bold" *ngIf="box.title">
-          {{box.title.label}}
-        </div>
-        <app-dynamic-component [inputs]="{content: box}"></app-dynamic-component>
-      </div>
+      <app-dashboard-box [content]="box"></app-dashboard-box>
     </div>
   </div>
 </div>

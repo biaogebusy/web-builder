@@ -1,0 +1,6 @@
+<div class="box-wrapper">
+  <div class="box-header mat-h3 bold" *ngIf="content.title">
+    {{content.title.label}}
+  </div>
+  <app-dynamic-component [inputs]="{content: content}"></app-dynamic-component>
+</div>
