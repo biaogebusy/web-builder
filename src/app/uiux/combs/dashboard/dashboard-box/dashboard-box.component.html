@@ -1,6 +1,12 @@
 <div class="dashboard-box">
-  <div class="box-header mat-h3 bold" *ngIf="content.title">
-    {{content.title.label}}
+  <div class="box-header" *ngIf="content.title || content.form" fxLayout="row" fxLayoutAlign="space-between center">
+    <div class="mat-h3 bold m-bottom-0" *ngIf="content.title">
+      {{content.title.label}}
+    </div>
+    <div class="filter" *ngIf="content.form">
+      <app-formly [form]="form" [model]="model" [fields]="content.form"
+        (modelChange)="onModelChange($event)"></app-formly>
+    </div>
   </div>
-  <app-dynamic-component *ngFor="let widget of content.widgets" [inputs]="{content: widget}"></app-dynamic-component>
+  <app-dynamic-component [inputs]="{content: content.widget}"></app-dynamic-component>
 </div>
