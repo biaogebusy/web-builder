@@ -1,3 +1,4 @@
+@import "../../../../../theme/mixins/amixin";
 .calendar {
   ::ng-deep {
     .fc {
@@ -15,6 +16,11 @@
       }
       .fc-event-title {
         font-weight: normal;
+        line-height: 1.25;
+        @include line-clamp(2);
+        &:hover {
+          text-decoration: underline;
+        }
       }
       .fc-event-time {
         white-space: nowrap;
