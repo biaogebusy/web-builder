@@ -47,35 +47,95 @@ export class DashboardBoxComponent extends BaseComponent implements OnInit {
   getContent(options = {}): void {
     const api = this.content.params?.api || '';
     const params = this.getApiParams(options);
+    const type = this.content.widget.type;
     this.widget$ = this.nodeService.search(api, params).pipe(
       catchError(() => {
-        return of([
-          ['name', '用户'],
-          ['1月', random(1, 100)],
-          ['2月', random(1, 100)],
-          ['3月', random(1, 100)],
-          ['4月', random(1, 100)],
-          ['5月', random(1, 100)],
-          ['6月', random(1, 100)],
-          ['7月', random(1, 100)],
-          ['8月', random(1, 100)],
-          ['9月', random(1, 100)],
-          ['10月', random(1, 100)],
-          ['11月', random(1, 100)],
-          ['12月', random(1, 100)],
-        ]);
+        let data: any[] = [];
+        switch (type) {
+          case 'chart':
+            data = [
+              ['name', '用户'],
+              ['1月', random(1, 100)],
+              ['2月', random(1, 100)],
+              ['3月', random(1, 100)],
+              ['4月', random(1, 100)],
+              ['5月', random(1, 100)],
+              ['6月', random(1, 100)],
+              ['7月', random(1, 100)],
+              ['8月', random(1, 100)],
+              ['9月', random(1, 100)],
+              ['10月', random(1, 100)],
+              ['11月', random(1, 100)],
+              ['12月', random(1, 100)],
+            ];
+            break;
+
+          case 'dynamic-table':
+            data = [
+              {
+                title: '<a href="#">质保金案件</a>',
+                custom: '新能源公司',
+                hander: '张三',
+                type: '一审立案完成',
+                date: '2023/03/29',
+              },
+              {
+                title: '<a href="#">赠与合同纠纷</a>',
+                custom: '云城租赁',
+                hander: '李四',
+                type: '二审立案完成',
+                date: '2022/09/26',
+              },
+              {
+                title: '<a href="#">仲裁案</a>',
+                custom: '建工集团',
+                hander: '王五',
+                type: '一审开庭确认',
+                date: '2023/03/12',
+              },
+              {
+                title: '<a href="#">执行异议</a>',
+                custom: '劳务租赁',
+                hander: '张三',
+                type: '一审立案准备',
+                date: '2023/02/21',
+              },
+              {
+                title: '<a href="#">工程施工合同</a>',
+                custom: '工程集团',
+                hander: '张三',
+                type: '一审判决完成',
+                date: '2023/02/17',
+              },
+            ];
+            break;
+        }
+        return of(data);
       }),
       map((res) => {
-        const data = defaultsDeep(
-          {
-            dataset: [
+        let data: any = {};
+        switch (type) {
+          case 'chart':
+            data = defaultsDeep(
               {
-                source: res,
+                dataset: [
+                  {
+                    source: res,
+                  },
+                ],
               },
-            ],
-          },
-          this.content.widget
-        );
+              this.content.widget
+            );
+            break;
+          case 'dynamic-table':
+            data = defaultsDeep(
+              {
+                elements: res,
+              },
+              this.content.widget
+            );
+            break;
+        }
         return data;
       })
     );

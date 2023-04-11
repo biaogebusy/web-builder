@@ -393,6 +393,9 @@ Order.args = {
         title: {
           label: '最新案件',
         },
+        params: {
+          api: '/api/v3/xxx',
+        },
         row: '6',
         widget: {
           type: 'dynamic-table',
@@ -460,6 +463,9 @@ Order.args = {
       {
         title: {
           label: '最新订单',
+        },
+        params: {
+          apiBak: '/api/v3/xxx',
         },
         row: '6',
         widget: {
@@ -580,6 +586,9 @@ Advert.args = {
         title: {
           label: '消费者注册数据',
         },
+        params: {
+          api: '/api/v3/xxx',
+        },
         row: '12',
         form: [
           {
@@ -667,7 +676,7 @@ Advert.args = {
           label: '广告发布量',
           count: '5',
           params: {
-            apiBak: '/api/v3/node/vote/report',
+            api: '/api/v3/node/vote/report',
           },
           chart: {
             grid: {
@@ -731,7 +740,7 @@ Advert.args = {
           label: '消费者增长',
           count: '1,156',
           params: {
-            apiBak: '/api/v3/node/vote/report',
+            api: '/api/v3/node/vote/report',
           },
           chart: {
             grid: {
@@ -795,7 +804,7 @@ Advert.args = {
           label: '门店增长',
           count: '50%',
           params: {
-            apiBak: '/api/v3/node/vote/report',
+            api: '/api/v3/node/vote/report',
           },
           chart: {
             grid: {
@@ -859,7 +868,7 @@ Advert.args = {
           label: '评论量',
           count: '28',
           params: {
-            apiBak: '/api/v3/node/vote/report',
+            api: '/api/v3/node/vote/report',
           },
           chart: {
             grid: {
@@ -983,9 +992,12 @@ Advert.args = {
         },
       },
       {
-        row: '8',
         title: {
           label: '最新广告',
+        },
+        row: '8',
+        params: {
+          api: '/api/v3/xxx',
         },
         widget: {
           type: 'dynamic-table',
@@ -1050,6 +1062,9 @@ Advert.args = {
           label: '最新评论',
         },
         row: '4',
+        params: {
+          api: '/api/v3/xxx',
+        },
         widget: {
           type: 'dynamic-table',
           header: [
