@@ -140,7 +140,7 @@ Order.args = {
           label: '合同',
           count: '25',
           params: {
-            apiBak: '/api/v3/node/vote/report',
+            api: '/api/v3/xxx',
           },
           chart: {
             grid: {
@@ -204,7 +204,7 @@ Order.args = {
           label: '咨询',
           count: '36',
           params: {
-            apiBak: '/api/v3/node/vote/report',
+            api: '/api/v3/node/vote/report',
           },
           chart: {
             grid: {
@@ -268,7 +268,7 @@ Order.args = {
           label: '案件',
           count: '12',
           params: {
-            apiBak: '/api/v3/node/vote/report',
+            api: '/api/v3/node/vote/report',
           },
           chart: {
             grid: {
@@ -332,7 +332,7 @@ Order.args = {
           label: '工时',
           count: '456',
           params: {
-            apiBak: '/api/v3/node/vote/report',
+            api: '/api/v3/node/vote/report',
           },
           chart: {
             grid: {

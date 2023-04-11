@@ -1,11 +1,11 @@
-<div class="chart-box p-x-sm p-y-sm" fxLayout="row" fxLayoutAlign="center end">
+<div class="chart-box p-x-sm p-y-sm" fxLayout="row" fxLayoutAlign="center end" *ngIf="data$|async as data">
   <div class="width-100" fxLayout="column" fxLayoutAlign="center start">
     <div class="title mat-h3 one-line">
-      {{content.label}}
+      {{data.label}}
     </div>
     <div class="count one-line">
-      {{content.count}}
+      {{data.count}}
     </div>
   </div>
-  <app-chart class="width-100" [content]="chart" [style]="style"></app-chart>
+  <app-chart class="width-100" [content]="data.chart" [style]="style"></app-chart>
 </div>

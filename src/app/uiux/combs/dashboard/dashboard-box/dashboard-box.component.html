@@ -8,5 +8,7 @@
         (modelChange)="onModelChange($event)"></app-formly>
     </div>
   </div>
-  <app-dynamic-component *ngIf="widget" [inputs]="{content: widget}"></app-dynamic-component>
+  <ng-container *ngIf="widget$ | async as widget">
+    <app-dynamic-component [inputs]="{content: widget}"></app-dynamic-component>
+  </ng-container>
 </div>
