@@ -8,7 +8,7 @@ import { ViewListComponent } from '@uiux/widgets/view-list/view-list.component';
 import { StorysModule } from '@core/module/storys.module';
 
 export default {
-  title: '特色组件/View 视图列表',
+  title: '特色组件/视图列表',
   id: 'view-list',
   component: ViewListComponent,
   decorators: [

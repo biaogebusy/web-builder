@@ -4,7 +4,7 @@ import { StorysModule } from '@core/module/storys.module';
 import { ViewMapComponent } from '@uiux/combs/map/view-map/view-map.component';
 
 export default {
-  title: '特色组件/地图应用/视图地图',
+  title: '特色组件/地图应用',
   id: 'viewMap',
   component: ViewMapComponent,
   decorators: [

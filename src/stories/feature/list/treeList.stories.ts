@@ -7,11 +7,11 @@ import { Story } from '@storybook/angular/types-6-0';
 import { fireEvent, screen, userEvent } from '@storybook/testing-library';
 import { ListModule } from '@uiux/combs/list/list.module';
 import { TreeListComponent } from '@uiux/combs/list/tree-list/tree-list.component';
-import * as TreeStories from 'src/stories/feature-components/list/Tree.stories';
+import * as TreeStories from 'src/stories/widgets/Tree.stories';
 import { StorysModule, sleep } from '@core/module/storys.module';
 
 export default {
-  title: '复合组件/列表/树形列表',
+  title: '特色组件/树形列表',
   id: 'tree-list',
   component: TreeListComponent,
   decorators: [

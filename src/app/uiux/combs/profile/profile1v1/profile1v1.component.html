@@ -22,7 +22,7 @@
           </div>
         </div>
         <mat-divider></mat-divider>
-        <div class="left-item p-y-sm p-x-sm" *ngIf="content?.details">
+        <div class="left-item p-y-sm p-x-xs" *ngIf="content?.details">
           <app-title [content]="{
             'label':content.details.label,
             'style':'style-v4'
@@ -31,7 +31,7 @@
             <div fxLayoutAlign="start start" *ngFor="let item of content.details.elements">
               <app-icon [content]="item.icon"></app-icon>
               <div class="label m-right-xs bold">{{item.label}}:</div>
-              <div>{{item.content}}</div>
+              <div class="one-line">{{item.content}}</div>
             </div>
           </div>
         </div>

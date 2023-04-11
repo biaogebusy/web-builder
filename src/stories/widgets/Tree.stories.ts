@@ -8,7 +8,7 @@ import { Story } from '@storybook/angular/types-6-0';
 import { TreeComponent } from '@uiux/widgets/tree/tree.component';
 
 export default {
-  title: '特色组件/树形',
+  title: '基础组件/树形',
   id: 'tree',
   component: TreeComponent,
   decorators: [
