@@ -130,7 +130,7 @@ export class DashboardBoxComponent extends BaseComponent implements OnInit {
           case 'dynamic-table':
             data = defaultsDeep(
               {
-                elements: res,
+                elements: res.rows,
               },
               this.content.widget
             );
