@@ -10,6 +10,12 @@
       .fc-daygrid-event-dot {
         display: none;
       }
+      .fc-daygrid-event {
+        white-space: normal;
+      }
+      .fc-event-title {
+        font-weight: normal;
+      }
     }
   }
   .loading-inner {

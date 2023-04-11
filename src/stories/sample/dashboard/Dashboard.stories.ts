@@ -6,6 +6,8 @@ import { BrandingModule } from '@core/branding/branding.module';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { NodeModule } from '@uiux/combs/node/node.module';
 import { DashboardComponent } from '@uiux/combs/dashboard/dashboard.component';
+import * as calendarStory from '../../widgets/Calendar.stories';
+const calendar: any = calendarStory.Default.args;
 
 export default {
   title: '示例页面/中台布局/Dashboard',
@@ -543,24 +545,7 @@ Order.args = {
             drawer: true,
             apiBak: '/api/v1/demo',
             options: {
-              events: [
-                {
-                  title: 'Angular 分享',
-                  event: 'meeting',
-                  start: '2023/05/01 10:10:10',
-                  user: 'Johnson',
-                  className: 'bg-primary',
-                  url: '/node/1',
-                },
-                {
-                  title: 'Drupal 分享',
-                  event: 'drupal',
-                  start: '2023/04/08 10:10:10',
-                  user: 'Johnson',
-                  className: 'bg-warn',
-                  url: '/node/2',
-                },
-              ],
+              ...calendar.options,
             },
             theme: {
               meeting: 'bg-warn',
@@ -1127,24 +1112,7 @@ Advert.args = {
             drawer: true,
             apiBak: '/api/v1/demo',
             options: {
-              events: [
-                {
-                  title: 'Angular 分享',
-                  event: 'meeting',
-                  start: '2023/05/01 10:10:10',
-                  user: 'Johnson',
-                  className: 'bg-primary',
-                  url: '/node/1',
-                },
-                {
-                  title: 'Drupal 分享',
-                  event: 'drupal',
-                  start: '2023/04/08 10:10:10',
-                  user: 'Johnson',
-                  className: 'bg-warn',
-                  url: '/node/2',
-                },
-              ],
+              ...calendar.options,
             },
             theme: {
               meeting: 'bg-warn',
