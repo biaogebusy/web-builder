@@ -20,7 +20,7 @@ export class ReportComponent extends BaseComponent implements OnInit {
   @Input() content: any;
   @Input() form = new FormGroup({});
   @Input() model: any = {};
-  box: any[];
+  box: any[] = [];
   loading: boolean;
   constructor(
     private nodeService: NodeService,
@@ -53,22 +53,22 @@ export class ReportComponent extends BaseComponent implements OnInit {
       if (isArray(chart)) {
         this.box.push({
           data: {
-            toggle: [...this.content.toggle],
+            ...this.content.box[0].data,
           },
           content: {
             type: 'chart',
             tooltip: {
               trigger: 'item',
+              ...this.content.box[0].content.tooltip,
             },
             legend: {
-              orient: 'vertical',
-              left: 'left',
+              ...this.content.box[0].content.legend,
             },
             dataset: [
               {
                 source: chart,
               },
-              ...this.content.customDataset,
+              { ...(this.content.customDataset || {}) },
             ],
             xAxis: {
               type: 'category',
@@ -76,23 +76,14 @@ export class ReportComponent extends BaseComponent implements OnInit {
                 interval: 0,
                 rotate: 30,
               },
+              ...this.content.box[0].content.xAxis,
             },
             yAxis: {
               type: 'value',
+              ...this.content.box[0].content.yAxis,
             },
-            series: [
-              {
-                type: 'bar',
-                radius: '50%',
-                center: ['50%', '50%'],
-                label: {
-                  position: 'top',
-                  show: true,
-                },
-                datasetIndex: this.content.datasetIndex || 0,
-              },
-            ],
-            ...this.content.options,
+            series: [...this.content.box[0].content.series],
+            ...this.content.box[0].options,
           },
         });
       }
@@ -100,13 +91,13 @@ export class ReportComponent extends BaseComponent implements OnInit {
         this.box.push({
           content: {
             type: 'dynamic-table',
-            header: [...this.content.tableHeader],
+            header: [...this.content.box[1].content.header],
             elements: table,
           },
         });
       }
 
-      if (!isArray(chart) || !isArray(table)) {
+      if (!isArray(chart) && !isArray(table)) {
         this.box = [
           {
             content: {
