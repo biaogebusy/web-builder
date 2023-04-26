@@ -385,6 +385,7 @@ WorkTime.args = {
   form: new FormGroup({}),
   model: {},
   content: {
+    type: 'report',
     header: {
       text: {
         spacer: 'md',
@@ -406,24 +407,15 @@ WorkTime.args = {
             key: 'lawyer',
             defaultValue: 5,
             className: 'display-block m-bottom-sm m-right-sm',
+            api: '/api/v2/lawyer',
             templateOptions: {
               label: '选择律师',
               description: '请选择律师',
-              options: [
-                {
-                  label: '张三',
-                  value: 26,
-                },
-                {
-                  label: '李四',
-                  value: 6,
-                },
-              ],
             },
           },
           {
             type: 'mat-select',
-            key: 'position',
+            key: 'year',
             defaultValue: 5,
             className: 'display-block m-bottom-sm m-right-sm',
             templateOptions: {
@@ -453,7 +445,7 @@ WorkTime.args = {
       },
     ],
     params: {
-      apiBak: '/api/v3/node/vote/report',
+      api: '/api/v3/statistics/lawyer/work',
     },
     row: 2,
     box: [
@@ -491,25 +483,6 @@ WorkTime.args = {
           tooltip: {
             trigger: 'axis',
           },
-          dataset: [
-            {
-              source: [
-                ['name', 'total'],
-                ['1月', 12],
-                ['2月', 35],
-                ['3月', 55],
-                ['4月', 152],
-                ['5月', 90],
-                ['6月', 109],
-                ['7月', 10],
-                ['8月', 25],
-                ['9月', 22],
-                ['10月', 75],
-                ['11月', 12],
-                ['12月', 66],
-              ],
-            },
-          ],
           xAxis: {
             type: 'category',
             axisLabel: {
@@ -535,6 +508,7 @@ WorkTime.args = {
       {
         content: {
           type: 'dynamic-table',
+          classes: 'wrap',
           header: [
             {
               label: '标题',
@@ -547,78 +521,6 @@ WorkTime.args = {
             {
               label: '工时',
               key: 'worktime',
-            },
-          ],
-          elements: [
-            {
-              title: '使用协议审查',
-              month: '1月',
-              worktime: 5,
-            },
-            {
-              title: '销售框架合同',
-              month: '1月',
-              worktime: 7,
-            },
-            {
-              title: '商务协议',
-              month: '2月',
-              worktime: 15,
-            },
-            {
-              title: '技术转让合同',
-              month: '2月',
-              worktime: 20,
-            },
-            {
-              title: '联合申报协议',
-              month: '3月',
-              worktime: 1,
-            },
-            {
-              title: '汽车长期租赁合同',
-              month: '3月',
-              worktime: 8,
-            },
-            {
-              title: '采购合同审查',
-              month: '5月',
-              worktime: 25,
-            },
-            {
-              title: '保密协议',
-              month: '6月',
-              worktime: 13,
-            },
-            {
-              title: '科技租用',
-              month: '7月',
-              worktime: 22,
-            },
-            {
-              title: '销售合同（泡腾片）',
-              month: '8月',
-              worktime: 31,
-            },
-            {
-              title: '厂房租赁合同',
-              month: '9月',
-              worktime: 35,
-            },
-            {
-              title: '劳务合同',
-              month: '10月',
-              worktime: 46,
-            },
-            {
-              title: '补充协议',
-              month: '11月',
-              worktime: 19,
-            },
-            {
-              title: '律师函',
-              month: '12月',
-              worktime: 9,
             },
           ],
         },
@@ -816,14 +718,14 @@ FromApi.args = {
     type: 'report',
     header: {
       text: {
-        spacer: 'md',
+        spaver: 'none',
         title: {
           label: '福利投票统计',
           style: 'style-v4',
           classes: 'mat-display-1 m-bottom-0',
         },
       },
-      meta: [
+      metaBak: [
         {
           label: '回收量',
           value: 622,
@@ -946,100 +848,94 @@ FromApi.args = {
     params: {
       api: '/api/v3/node/vote/report',
     },
-    tableHeader: [
-      {
-        label: '想要礼品',
-        key: 'name',
-      },
-      {
-        label: '想要人数',
-        key: 'total',
-      },
-      {
-        label: '占比',
-        key: 'percent',
-      },
-    ],
-    toggle: [
-      {
-        label: '饼图',
-        icon: {
-          name: 'pie_chart',
-          inline: true,
-        },
-        value: 'pie',
-      },
-      {
-        label: '柱状图',
-        icon: {
-          name: 'equalizer',
-          inline: true,
-        },
-        value: 'bar',
-      },
-      {
-        label: '折线图',
-        icon: {
-          name: 'show_chart',
-          inline: true,
-        },
-        value: 'line',
-      },
-    ],
     datasetIndex: 1,
     customDataset: [
       {
         transform: {
           type: 'sort',
-          config: { dimension: 'total', order: 'asc' },
+          config: {
+            dimension: 'total',
+            order: 'asc',
+          },
         },
       },
     ],
-    options: {
-      legend: {
-        selected: {
-          类别: true,
-          合同: false,
-          咨询: false,
-          案件: false,
-          工时: false,
+    box: [
+      {
+        data: {
+          toggle: [
+            {
+              label: '饼图',
+              icon: {
+                name: 'pie_chart',
+                inline: true,
+              },
+              value: 'pie',
+            },
+            {
+              label: '柱状图',
+              icon: {
+                name: 'equalizer',
+                inline: true,
+              },
+              value: 'bar',
+            },
+            {
+              label: '折线图',
+              icon: {
+                name: 'show_chart',
+                inline: true,
+              },
+              value: 'line',
+            },
+          ],
         },
-        selectedMode: 'single',
+        content: {
+          type: 'chart',
+          tooltip: {
+            trigger: 'axis',
+          },
+          xAxis: {
+            type: 'category',
+            axisLabel: {
+              interval: 0,
+              rotate: 30,
+            },
+          },
+          yAxis: {
+            type: 'value',
+          },
+          series: [
+            {
+              type: 'bar',
+              label: {
+                position: 'top',
+                show: true,
+              },
+              datasetIndex: 0,
+            },
+          ],
+        },
       },
-      series: [
-        {
-          type: 'bar',
-          label: {
-            position: 'top',
-            show: true,
-          },
-          datasetIndex: 0,
+      {
+        content: {
+          type: 'dynamic-table',
+          header: [
+            {
+              label: '想要礼品',
+              key: 'name',
+            },
+            {
+              label: '想要人数',
+              key: 'total',
+            },
+            {
+              label: '占比',
+              key: 'percent',
+            },
+          ],
         },
-        {
-          type: 'bar',
-          label: {
-            position: 'top',
-            show: true,
-          },
-          datasetIndex: 0,
-        },
-        {
-          type: 'bar',
-          label: {
-            position: 'top',
-            show: true,
-          },
-          datasetIndex: 0,
-        },
-        {
-          type: 'bar',
-          label: {
-            position: 'top',
-            show: true,
-          },
-          datasetIndex: 0,
-        },
-      ],
-    },
+      },
+    ],
   },
 };

@@ -51,7 +51,7 @@ export class ReportComponent extends BaseComponent implements OnInit {
     const api = this.content.params.api;
     this.nodeService.search(api, params).subscribe(({ chart, table }) => {
       if (isArray(chart)) {
-        this.box.push({
+        this.box[0] = {
           data: {
             ...this.content.box[0].data,
           },
@@ -85,16 +85,17 @@ export class ReportComponent extends BaseComponent implements OnInit {
             series: [...this.content.box[0].content.series],
             ...this.content.box[0].options,
           },
-        });
+        };
       }
       if (isArray(table)) {
-        this.box.push({
+        this.box[1] = {
           content: {
             type: 'dynamic-table',
             header: [...this.content.box[1].content.header],
+            classes: this.content.box[1].content.classes,
             elements: table,
           },
-        });
+        };
       }
 
       if (!isArray(chart) && !isArray(table)) {
