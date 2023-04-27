@@ -1,0 +1,148 @@
+{
+  "title": "工时统计",
+  "body": [
+    {
+      "type": "report",
+      "header": {
+        "text": {
+          "spacer": "md",
+          "title": {
+            "label": "工时统计",
+            "style": "style-v4",
+            "classes": "mat-display-1 m-bottom-0"
+          }
+        }
+      },
+      "form": [
+        {
+          "key": "filter",
+          "className": "",
+          "fieldGroupClassName": "display-flex flex-wrap",
+          "fieldGroup": [
+            {
+              "type": "mat-select",
+              "key": "lawyer",
+              "defaultValue": 5,
+              "className": "display-block m-bottom-sm m-right-sm",
+              "api": "/api/v2/lawyer",
+              "templateOptions": {
+                "label": "选择律师",
+                "description": "请选择律师"
+              }
+            },
+            {
+              "type": "mat-select",
+              "key": "year",
+              "defaultValue": 5,
+              "className": "display-block m-bottom-sm m-right-sm",
+              "templateOptions": {
+                "label": "年份",
+                "description": "请选择年份",
+                "options": [
+                  {
+                    "label": "2023",
+                    "value": 2023
+                  },
+                  {
+                    "label": "2022",
+                    "value": 2022
+                  },
+                  {
+                    "label": "2021",
+                    "value": 2021
+                  },
+                  {
+                    "label": "2020",
+                    "value": 2020
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "params": {
+        "api": "/api/v3/statistics/lawyer/work"
+      },
+      "row": 2,
+      "box": [
+        {
+          "data": {
+            "toggle": [
+              {
+                "label": "饼图",
+                "icon": {
+                  "name": "pie_chart",
+                  "inline": true
+                },
+                "value": "pie"
+              },
+              {
+                "label": "柱状图",
+                "icon": {
+                  "name": "equalizer",
+                  "inline": true
+                },
+                "value": "bar"
+              },
+              {
+                "label": "折线图",
+                "icon": {
+                  "name": "show_chart",
+                  "inline": true
+                },
+                "value": "line"
+              }
+            ]
+          },
+          "content": {
+            "type": "chart",
+            "tooltip": {
+              "trigger": "axis"
+            },
+            "xAxis": {
+              "type": "category",
+              "axisLabel": {
+                "interval": 0,
+                "rotate": 30
+              }
+            },
+            "yAxis": {
+              "type": "value"
+            },
+            "series": [
+              {
+                "type": "bar",
+                "label": {
+                  "position": "top",
+                  "show": true
+                },
+                "datasetIndex": 0
+              }
+            ]
+          }
+        },
+        {
+          "content": {
+            "type": "dynamic-table",
+            "classes": "wrap",
+            "header": [
+              {
+                "label": "标题",
+                "key": "title"
+              },
+              {
+                "label": "月份",
+                "key": "month"
+              },
+              {
+                "label": "工时",
+                "key": "worktime"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

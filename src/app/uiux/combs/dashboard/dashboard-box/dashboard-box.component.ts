@@ -112,7 +112,7 @@ export class DashboardBoxComponent extends BaseComponent implements OnInit {
         }
         return of(data);
       }),
-      map((res) => {
+      map(({ chart, table }) => {
         let data: any = {};
         switch (type) {
           case 'chart':
@@ -120,7 +120,7 @@ export class DashboardBoxComponent extends BaseComponent implements OnInit {
               {
                 dataset: [
                   {
-                    source: res,
+                    source: chart,
                   },
                 ],
               },
@@ -130,7 +130,7 @@ export class DashboardBoxComponent extends BaseComponent implements OnInit {
           case 'dynamic-table':
             data = defaultsDeep(
               {
-                elements: res.rows,
+                elements: table,
               },
               this.content.widget
             );
