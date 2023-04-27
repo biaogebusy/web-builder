@@ -10,6 +10,7 @@ import { BaseComponent } from '@uiux/base/base.widget';
 import { NodeService } from '@core/service/node.service';
 import { FormService } from '@core/service/form.service';
 import { isArray } from 'lodash-es';
+import type { IReport } from '@core/interface/node/IReport';
 @Component({
   selector: 'app-report',
   templateUrl: './report.component.html',
@@ -17,7 +18,7 @@ import { isArray } from 'lodash-es';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ReportComponent extends BaseComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: IReport;
   @Input() form = new FormGroup({});
   @Input() model: any = {};
   box: any[] = [];
