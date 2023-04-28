@@ -18,158 +18,430 @@
   ],
   "body": [
     {
-      "type": "hero-1v1",
-      "spacer": "none",
-      "classes": "text-light text-center",
+      "type": "hero-1v3",
+      "spacer": "xl",
+      "text": {
+        "title": {
+          "label": "Hope Changes Lives",
+          "classes": "mat-display-4 bold",
+          "style": "style-v4"
+        },
+        "classes": "p-x text-light",
+        "body": "We’re in relentless pursuit of scientific breakthroughs and revolutionary medicines that will create a healthier world for everyone. ",
+        "actions": [
+          {
+            "type": "btn",
+            "mode": "raised",
+            "color": "primary",
+            "href": "#",
+            "label": "Explore Our Science",
+            "target": "_blank"
+          },
+          {
+            "type": "btn-video",
+            "color": "primary",
+            "video": {
+              "options": {
+                "controls": true,
+                "aspectRatio": "16:9",
+                "poster": "/assets/images/16-9/business-02.jpg",
+                "sources": [
+                  {
+                    "src": "/assets/video/afterglow.mp4",
+                    "type": "video/mp4"
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "right": [
+        {
+          "type": "img",
+          "hostClasses": "img-bg-shape",
+          "src": "/assets/images/hero/hero-component.svg"
+        }
+      ],
+      "bg": {
+        "classes": "bg-fill-width bg-primary bg-center",
+        "img": {
+          "src": "/assets/images/bg/bg-hero.svg",
+          "mobile": "/assets/images/bg/bg-hero.svg"
+        }
+      }
+    },
+    {
+      "id": "",
+      "type": "showcase-3v9",
+      "spacer": "xl",
+      "bg": {
+        "classes": "bg-fill-width",
+        "img": {
+          "src": "/assets/images/bg/bg-01.png"
+        }
+      },
+      "order": {
+        "left": 0,
+        "right": 1
+      },
+      "left": [
+        {
+          "type": "img",
+          "src": "/assets/images/medical/showcase-01.jpg",
+          "alt": ""
+        }
+      ],
+      "right": [
+        {
+          "type": "text",
+          "spacer": "sm",
+          "title": {
+            "label": "2023 Annual Meeting of Shareholders",
+            "style": "style-v4",
+            "classes": "mat-display-2"
+          },
+          "body": "Annual Shareholder Meeting",
+          "actions": [
+            {
+              "type": "btn-animate",
+              "label": "Click here to join the meeting",
+              "href": "#",
+              "style": "style-v1",
+              "icon": "open_in_new"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "",
+      "type": "showcase-3v9",
+      "spacer": "xl",
+      "bg": {
+        "classes": "bg-fill-width",
+        "img": {
+          "src": "/assets/images/bg/bg-01.png"
+        }
+      },
+      "order": {
+        "left": 1,
+        "right": 0
+      },
+      "left": [
+        {
+          "type": "img",
+          "src": "/assets/images/medical/showcase-02.jpg",
+          "alt": ""
+        }
+      ],
+      "right": [
+        {
+          "type": "text",
+          "spacer": "sm",
+          "title": {
+            "label": "Working to Meet ESG Commitments",
+            "style": "style-v4",
+            "classes": "mat-display-2"
+          },
+          "body": "Pfizer prioritizes the health and well-being of people and the planet to deliver breakthroughs around the world in a responsible way. Pfizer’s commitment to ESG spans product innovation; equitable access and pricing; product quality and safety; diversity, equity, and inclusion; climate change; and business ethics.",
+          "actions": [
+            {
+              "type": "btn-animate",
+              "label": "Read the 2022 ESG Report",
+              "href": "#",
+              "style": "style-v1",
+              "icon": "open_in_new"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "showcase-2v1",
+      "row": "4",
+      "text": {
+        "title": {
+          "label": "Latest Articles",
+          "style": "style-v1",
+          "classes": "mat-display-0 bold"
+        }
+      },
+      "elements": [
+        {
+          "type": "card-1v1",
+          "link": {
+            "href": "#",
+            "label": "Cancer Biomarkers: Paving the Way for Better Lung Cancer Treatment"
+          },
+          "user": "Science & Innovation",
+          "time": "2022/09/27",
+          "feature": {
+            "fullIcon": "fullscreen",
+            "openIcon": "open_in_new",
+            "link": "#",
+            "ratios": "media-4-3",
+            "img": {
+              "classes": "object-fit",
+              "src": "/assets/images/medical/showcase-03.jpg",
+              "alt": "alt"
+            }
+          },
+          "moreLabel": "Learn More"
+        },
+        {
+          "type": "card-1v1",
+          "link": {
+            "href": "#",
+            "label": "Maternal Immunization: Protecting Children from RSV and GBS"
+          },
+          "user": "Science & Innovation",
+          "time": "2022/09/27",
+          "feature": {
+            "fullIcon": "fullscreen",
+            "openIcon": "open_in_new",
+            "link": "#",
+            "ratios": "media-4-3",
+            "img": {
+              "classes": "object-fit",
+              "src": "/assets/images/medical/showcase-04.jpg",
+              "alt": "alt"
+            }
+          },
+          "moreLabel": "Learn More"
+        },
+        {
+          "type": "card-1v1",
+          "link": {
+            "href": "#",
+            "label": "Pfizer’s Biopharma Global Chief Marketing Officer Drew Panayiotou is ‘Radically Obsessed’ with Listening to Patients"
+          },
+          "user": "Real People",
+          "time": "2022/09/27",
+          "feature": {
+            "fullIcon": "fullscreen",
+            "openIcon": "open_in_new",
+            "link": "#",
+            "ratios": "media-4-3",
+            "img": {
+              "classes": "object-fit",
+              "src": "/assets/images/medical/showcase-05.jpg",
+              "alt": "alt"
+            }
+          },
+          "moreLabel": "Learn More"
+        },
+        {
+          "type": "card-1v1",
+          "link": {
+            "href": "#",
+            "label": "'I Choose to Be Positive': A Metastatic Melanoma Story Guided by Hope"
+          },
+          "user": "Real People",
+          "time": "2022/09/27",
+          "feature": {
+            "fullIcon": "fullscreen",
+            "openIcon": "open_in_new",
+            "link": "#",
+            "ratios": "media-4-3",
+            "img": {
+              "classes": "object-fit",
+              "src": "/assets/images/medical/showcase-06.jpg",
+              "alt": "alt"
+            }
+          },
+          "moreLabel": "Learn More"
+        }
+      ]
+    },
+    {
+      "type": "carousel-1v2",
+      "title": {
+        "label": "Gallery",
+        "style": "style-v6 line-full-width"
+      },
+      "bg": {
+        "classes": "bg-white bg-fill-width"
+      },
       "sliders": {
         "params": {
-          "slidesPerView": 1,
-          "spaceBetween": 0,
-          "pagination": false
+          "slidesPerView": 1.2,
+          "spaceBetween": 10,
+          "navigation": false,
+          "pagination": false,
+          "breakpoints": {
+            "600": {
+              "slidesPerView": 3,
+              "spaceBetween": 20
+            },
+            "960": {
+              "slidesPerView": 4,
+              "spaceBetween": 20
+            }
+          }
         },
+        "classes": "p-bottom",
         "elements": [
           {
-            "type": "text",
-            "spacer": "xl",
-            "title": {
-              "label": "前端面试全家桶",
-              "style": "style-v1",
-              "classes": "mat-display-3"
+            "type": "card",
+            "classes": "card-no-shadow",
+            "link": {
+              "href": "#",
+              "label": "A Two-Pronged Approach to Addressing COVID-19"
             },
-            "classes": "xy-center",
-            "style": {
-              "width": "50%"
-            },
-            "bg": {
-              "classes": "bg-shadow  overlay overlay-80",
+            "body": "Explore how vaccinations and treatment with authorized oral medication for those eligible are working to combat COVID-19.",
+            "moreLabel": "Learn More",
+            "feature": {
+              "fullIcon": "fullscreen",
+              "openIcon": "open_in_new",
+              "link": "#",
+              "ratios": "media-4-3",
               "img": {
-                "src": "/assets/images/hero/bg01.jpg",
-                "mobile": "/assets/images/hero/bg01.jpg"
+                "classes": "object-fit",
+                "src": "/assets/images/medical/card-01.jpg",
+                "alt": "alt"
               }
-            },
-            "body": "<p>专业老师带你刷爆大厂前面面试和流程，从求职准备到面试演练</p>\r\n",
-            "actionsAlign": "center center",
-            "actions": [
-              {
-                "href": "#",
-                "label": "了解更多"
-              }
-            ]
+            }
           },
           {
-            "type": "text",
-            "spacer": "xl",
-            "title": {
-              "label": "Java 亿级项目架构设计的落地和应用",
-              "style": "style-v1",
-              "classes": "mat-display-3"
+            "type": "card",
+            "link": {
+              "href": "#",
+              "label": "Our Vaccine Efforts"
             },
-            "classes": "xy-center",
-            "style": {
-              "width": "50%"
-            },
-            "bg": {
-              "classes": "bg-shadow  overlay overlay-80",
+            "classes": "card-no-shadow",
+            "body": "Follow the latest progress in the development, manufacturing, and distribution of our vaccine to help protect against the novel coronavirus.",
+            "feature": {
+              "fullIcon": "fullscreen",
+              "openIcon": "open_in_new",
+              "link": "#",
+              "ratios": "media-4-3",
               "img": {
-                "src": "/assets/images/hero/bg02.jpg",
-                "mobile": "/assets/images/hero/bg02.jpg"
+                "classes": "object-fit",
+                "src": "/assets/images/medical/card-02.jpg",
+                "alt": "alt"
               }
-            },
-            "body": "<p>稀缺好课，实践可落地的架构设计</p>\r\n",
-            "actionsAlign": "center center",
-            "actions": [
-              {
-                "href": "#",
-                "label": "了解更多"
-              }
-            ]
+            }
           },
           {
-            "type": "text",
-            "spacer": "xl",
-            "title": {
-              "label": "产品经理电商系统实践",
-              "style": "style-v1",
-              "classes": "mat-display-3"
+            "type": "card",
+            "link": {
+              "href": "#",
+              "label": "Our Treatment Efforts"
             },
-            "classes": "xy-center",
-            "style": {
-              "width": "50%"
-            },
-            "bg": {
-              "classes": "bg-shadow  overlay overlay-80",
+            "classes": "card-no-shadow",
+            "body": "Orally administered treatments for COVID-19 are designed to be prescribed at the first sign of infection, potentially helping patients avoid severe illness, which can lead to hospitalization and death.",
+            "feature": {
+              "fullIcon": "fullscreen",
+              "openIcon": "open_in_new",
+              "link": "#",
+              "ratios": "media-4-3",
               "img": {
-                "src": "/assets/images/hero/bg05.jpg",
-                "mobile": "/assets/images/hero/bg05.jpg"
+                "classes": "object-fit",
+                "src": "/assets/images/medical/card-03.jpg",
+                "alt": "alt"
               }
+            }
+          },
+          {
+            "type": "card",
+            "link": {
+              "href": "#",
+              "label": "Recursos para Hispanohablantes (Resources for Spanish-Speakers)"
             },
-            "body": "<p>全流程搭建企业级应用，全面掌握前后端设计精髓</p>\r\n",
-            "actionsAlign": "center center",
-            "actions": [
-              {
-                "href": "https://jsonapi.org/format/",
-                "label": "了解更多"
+            "classes": "card-no-shadow",
+            "body": "El Dr. Santiago López informa en temas relacionados a la atención médica tales como vacunas, noticias falsas, y ensayos clínicos.",
+            "feature": {
+              "fullIcon": "fullscreen",
+              "openIcon": "open_in_new",
+              "link": "#",
+              "ratios": "media-4-3",
+              "img": {
+                "classes": "object-fit",
+                "src": "/assets/images/medical/card-04.jpg",
+                "alt": "alt"
               }
-            ]
+            }
+          },
+          {
+            "type": "card",
+            "link": {
+              "href": "#",
+              "label": "Collaborating to Address COVID-19"
+            },
+            "classes": "card-no-shadow",
+            "body": "We’re collaborating across the healthcare innovation ecosystem to help advance research and address the COVID-19 global health crisis.",
+            "feature": {
+              "fullIcon": "fullscreen",
+              "openIcon": "open_in_new",
+              "link": "#",
+              "ratios": "media-4-3",
+              "img": {
+                "classes": "object-fit",
+                "src": "/assets/images/medical/card-05.jpg",
+                "alt": "alt"
+              }
+            }
+          },
+          {
+            "type": "card",
+            "link": {
+              "href": "#",
+              "label": "Supporting Those Fighting on the Front Lines"
+            },
+            "classes": "card-no-shadow",
+            "body": "The Pfizer Foundation is supporting our partners who are working tirelessly to address the evolving health needs related to COVID-19 in the U.S. and around the world.",
+            "feature": {
+              "fullIcon": "fullscreen",
+              "openIcon": "open_in_new",
+              "link": "#",
+              "ratios": "media-4-3",
+              "img": {
+                "classes": "object-fit",
+                "src": "/assets/images/medical/card-06.jpg",
+                "alt": "alt"
+              }
+            }
           }
         ]
       }
     },
     {
-      "type": "showcase-1v1",
-      "spacer": "lg",
-      "classes": "features-absolute",
+      "type": "action-1v1",
+      "spacer": "xl",
       "bg": {
         "classes": "bg-shadow bg-fill-width"
       },
-      "row": 4,
-      "elements": [
-        {
-          "icon": {
-            "name": "verified_user"
-          },
-          "style": "style-v9",
-          "title": {
-            "href": "#",
-            "label": "会员无限制访问"
-          },
-          "content": "<p>只要支付799元/年，就可以成为会员，无限制观看所有的视频课程</p>\r\n",
-          "more": {
-            "href": "#",
-            "label": "成为会员"
-          }
+      "text": {
+        "title": {
+          "label": "Products",
+          "style": "none",
+          "classes": "mat-display-1"
         },
-        {
-          "icon": {
-            "name": "favorite"
-          },
-          "style": "style-v9",
-          "title": {
-            "href": "#",
-            "label": "我们的课程"
-          },
-          "content": "<p>课程包括了初入职场的初级课程，也包括进阶高级的精品好课</p>\r\n",
-          "more": {
-            "href": "#",
-            "label": "浏览更多"
+        "classes": "",
+        "spacer": "none",
+        "body": "<p>Every product is the result of 1,500 scientists overseeing more than 500,000 lab tests and over 36 clinical trials before the first prescription. </p>",
+        "actions": [
+          {
+            "type": "search-action",
+            "button": {
+              "label": "Search",
+              "color": "primary"
+            },
+            "form": [
+              {
+                "type": "input",
+                "key": "keys",
+                "placeholder": "Looking for a product?",
+                "controlType": "search",
+                "label": "Looking for a product?",
+                "appearance": "legacy"
+              }
+            ]
           }
-        },
-        {
-          "icon": {
-            "name": "fingerprint"
-          },
-          "style": "style-v9",
-          "title": {
-            "href": "#",
-            "label": "优秀的老师"
-          },
-          "content": "<p>所有的老师都是层层筛选和把关，为学员提供真实有效的技能和经验</p>\r\n",
-          "more": {
-            "href": "https://jsonapi.org/format/",
-            "label": "成为老师"
-          }
-        }
-      ]
+        ]
+      },
+      "shape": true
     },
     {
       "type": "carousel-2v2",
@@ -270,109 +542,9 @@
       }
     },
     {
-      "type": "showcase-3v9",
-      "id": "",
-      "spacer": "xl",
-      "bg": {
-        "classes": "bg-fill-width",
-        "img": {
-          "src": "/assets/images/bg/bg-01.png"
-        }
-      },
-      "order": {
-        "left": 1,
-        "right": 0
-      },
-      "left": [
-        {
-          "type": "text",
-          "spacer": "sm",
-          "title": {
-            "label": "我们的故事",
-            "style": "style-v4",
-            "classes": "mat-display-2"
-          },
-          "body": "我们一直为在线教育做实践真正提供有价值的课程，并希望得到学员和社会企业的认可。在这短短的三年内，我们得到了大量的反馈和意见，对我们的改进非常有用。"
-        },
-        {
-          "type": "swiper",
-          "params": {
-            "slidesPerView": 1,
-            "spaceBetween": 20,
-            "navigation": false
-          },
-          "classes": "p-bottom",
-          "elements": [
-            {
-              "type": "card",
-              "title": "前端开发",
-              "subTitle": "Web developer",
-              "avatar": {
-                "src": "/assets/images/avatar/01.jpeg",
-                "alt": ""
-              },
-              "classes": "card-no-shadow",
-              "body": "默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；"
-            },
-            {
-              "type": "card",
-              "avatar": {
-                "src": "/assets/images/avatar/02.jpeg",
-                "alt": ""
-              },
-              "title": "Java 后端开发",
-              "subTitle": "Endback Developer",
-              "classes": "card-no-shadow",
-              "body": "通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作；"
-            },
-            {
-              "type": "card",
-              "avatar": {
-                "src": "/assets/images/avatar/03.jpeg",
-                "alt": ""
-              },
-              "title": "产品经理",
-              "subTitle": "Production manage",
-              "classes": "card-no-shadow",
-              "body": "Drupal 100多种语言提供了无以伦比的支持和翻译工作流程；"
-            },
-            {
-              "type": "card",
-              "avatar": {
-                "src": "/assets/images/avatar/04.jpeg",
-                "alt": ""
-              },
-              "title": "更有弹性",
-              "subTitle": "Flexibility",
-              "classes": "card-no-shadow",
-              "body": "无论是一个还是多个站点，Drupal 总是可以游刃有余的构建；"
-            },
-            {
-              "type": "card",
-              "avatar": {
-                "src": "/assets/images/avatar/05.jpeg",
-                "alt": ""
-              },
-              "title": "安全性",
-              "subTitle": "Rigorous Security",
-              "classes": "card-no-shadow",
-              "body": "为了抵御安全漏洞，将有一组团队解决并发布安全修补程序，超过45000名贡献者使该平台成为市场上最安全、最稳定的平台之一；"
-            }
-          ]
-        }
-      ],
-      "right": [
-        {
-          "type": "img",
-          "src": "/assets/images/showcase/education.jpg",
-          "alt": ""
-        }
-      ]
-    },
-    {
       "type": "showcase-1v3",
       "title": {
-        "label": "新的课程学习体验",
+        "label": "About",
         "style": "style-v1",
         "classes": "mat-display-1"
       },
@@ -395,7 +567,7 @@
             "text-align": "center",
             "width": "600px"
           },
-          "body": "不管你在哪里在何处，都可以通过在线教育平台得到良好的学习体验。",
+          "body": "Starting with Charles Pfizer inventing an almond-flavored antiparasite medicine in 1849, our people have always been innovators and trailblazers, committed to finding the next cure. ",
           "actionsAlign": "center center",
           "actions": [
             {
@@ -420,213 +592,18 @@
       ]
     },
     {
-      "type": "showcase-3v6",
-      "id": "",
-      "title": {
-        "type": "text",
-        "spacer": "sm",
-        "title": {
-          "label": "为所有开发者、所有应用场景而设计",
-          "style": "style-v1"
-        },
-        "body": "<p class=\"text-center\">让前端开发更快速、简单。所有开发者都能快速上手、所有设备都可以适配、所有项目都适用。</p>"
-      },
-      "bg": {
-        "classes": "bg-shadow bg-fill-width"
-      },
-      "row": "3",
-      "action": {
-        "label": "查看更多",
-        "href": "#",
-        "style": "style-v1",
-        "icon": "open_in_new"
-      },
-      "elements": [
-        {
-          "img": {
-            "src": "/assets/images/logo/codepen.svg",
-            "style": {
-              "width": "45px",
-              "height": "45px"
-            },
-            "alt": "logo"
-          },
-          "css3": true,
-          "title": "响应式设计"
-        },
-        {
-          "img": {
-            "src": "/assets/images/logo/codepen.svg",
-            "style": {
-              "width": "45px",
-              "height": "45px"
-            },
-            "alt": "logo"
-          },
-          "css3": true,
-          "title": "基于 Material"
-        },
-        {
-          "img": {
-            "src": "/assets/images/logo/codepen.svg",
-            "style": {
-              "width": "45px",
-              "height": "45px"
-            },
-            "alt": "logo"
-          },
-          "css3": true,
-          "title": "Icon 库"
-        },
-        {
-          "img": {
-            "src": "/assets/images/logo/codepen.svg",
-            "style": {
-              "width": "45px",
-              "height": "45px"
-            },
-            "alt": "logo"
-          },
-          "css3": true,
-          "title": "使用 Sass 构建"
-        },
-        {
-          "img": {
-            "src": "/assets/images/logo/codepen.svg",
-            "style": {
-              "width": "45px",
-              "height": "45px"
-            },
-            "alt": "logo"
-          },
-          "css3": true,
-          "title": "W3C 验证"
-        },
-        {
-          "img": {
-            "src": "/assets/images/logo/codepen.svg",
-            "style": {
-              "width": "45px",
-              "height": "45px"
-            },
-            "alt": "logo"
-          },
-          "css3": true,
-          "title": "易于扩展"
-        }
-      ]
-    },
-    {
-      "type": "showcase-2v1",
-      "row": "4",
-      "text": {
-        "title": {
-          "label": "最新课程",
-          "style": "style-v1",
-          "classes": "mat-display-0 bold"
-        },
-        "body": "<p class=\"text-center\">欢迎分享 Drupal 优秀的数字创新体验，新上好课！</p>"
-      },
-      "elements": [
-        {
-          "type": "card-1v1",
-          "link": {
-            "href": "#",
-            "label": "自主搭建5个精品脚手架，助力前端研发全流程提效"
-          },
-          "user": "表歌",
-          "time": "2022/09/27",
-          "feature": {
-            "fullIcon": "fullscreen",
-            "openIcon": "open_in_new",
-            "link": "#",
-            "ratios": "media-4-3",
-            "img": {
-              "classes": "object-fit",
-              "src": "/assets/images/16-9/business-01.jpg",
-              "alt": "alt"
-            }
-          },
-          "moreLabel": "立即学习"
-        },
-        {
-          "type": "card-1v1",
-          "link": {
-            "href": "#",
-            "label": "2022全新 Node.js+Express+Koa2 开发Web Server博客"
-          },
-          "user": "表歌",
-          "time": "2022/09/27",
-          "feature": {
-            "fullIcon": "fullscreen",
-            "openIcon": "open_in_new",
-            "link": "#",
-            "ratios": "media-4-3",
-            "img": {
-              "classes": "object-fit",
-              "src": "/assets/images/16-9/business-02.jpg",
-              "alt": "alt"
-            }
-          },
-          "moreLabel": "立即学习"
-        },
-        {
-          "type": "card-1v1",
-          "link": {
-            "href": "#",
-            "label": "国家级认证-软考高级，一站式通关课程，全力备战2022"
-          },
-          "user": "表歌",
-          "time": "2022/09/27",
-          "feature": {
-            "fullIcon": "fullscreen",
-            "openIcon": "open_in_new",
-            "link": "#",
-            "ratios": "media-4-3",
-            "img": {
-              "classes": "object-fit",
-              "src": "/assets/images/16-9/business-03.jpg",
-              "alt": "alt"
-            }
-          },
-          "moreLabel": "立即学习"
-        },
-        {
-          "type": "card-1v1",
-          "link": {
-            "href": "#",
-            "label": "基于 Vue3 ，打造前台+中台通用提效解决方案"
-          },
-          "user": "表歌",
-          "time": "2022/09/27",
-          "feature": {
-            "fullIcon": "fullscreen",
-            "openIcon": "open_in_new",
-            "link": "#",
-            "ratios": "media-4-3",
-            "img": {
-              "classes": "object-fit",
-              "src": "/assets/images/16-9/business-04.jpg",
-              "alt": "alt"
-            }
-          },
-          "moreLabel": "立即学习"
-        }
-      ]
-    },
-    {
       "type": "text",
       "title": {
-        "label": "超过 <span class=\"text-primary\">1000</span> 多位用户在使用",
+        "label": "Sign up for communications from Pfizer",
         "style": "style-v1",
         "classes": "mat-display-2"
       },
-      "body": "<p class=\"text-center\">信使是基于 Material UI 的 Angular 前端框架，后端适配 Drupal，提供优秀的数字创新体验，快速构建响应式优先的 Web 项目。</p>",
+      "body": "<p class=\"text-center\">Receive the latest news from Pfizer in our monthly The Breakthrough newsletter and email alerts on a variety of topics.</p>",
       "actionsAlign": "center center",
       "actions": [
         {
           "type": "btn-animate",
-          "label": "开始学习",
+          "label": "Sign Up Now",
           "href": "#",
           "style": "style-v1",
           "icon": "open_in_new"

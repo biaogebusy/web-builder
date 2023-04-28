@@ -24,7 +24,10 @@ export default {
       providers: [
         {
           provide: BRANDING,
-          useValue: of({ ...canvasHeader, ...footerInverse }),
+          useValue: of({
+            ...canvasHeader,
+            ...footerInverse,
+          }),
         },
       ],
     }),
