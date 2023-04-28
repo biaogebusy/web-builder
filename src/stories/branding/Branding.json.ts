@@ -3237,3 +3237,115 @@ export const footerInverse: IBranding = {
     fixBar,
   },
 };
+
+export const medicalInverse: IBranding = {
+  footer: {
+    params: {
+      mode: 'inverse',
+      shape: false,
+    },
+    footerBrand: {
+      logo: footerBrandLogo,
+      summary:
+        'This information—including product information—is intended only for residents of the United States.The products discussed herein may have different labeling in different countries.',
+      social: [
+        {
+          label: 'zhihu',
+          svg: 'zhihu',
+          href: 'https://www.zhihu.com/column/c_1331898788731375616',
+        },
+        {
+          label: '微博',
+          svg: 'weibo',
+          href: '#',
+        },
+        {
+          label: 'nnitpay',
+          svg: 'wechat',
+          href: '#',
+        },
+        {
+          label: 'Github',
+          svg: 'github',
+          href: 'https://github.com/biaogebusy/xinshi-angular',
+        },
+      ],
+    },
+    mainMenu: [
+      {
+        label: '相关资源',
+        child: [
+          {
+            label: 'Investors',
+            href: '#',
+            target: '_blank',
+          },
+          {
+            label: 'Careers',
+            href: '#',
+            target: '_blank',
+          },
+          {
+            label: 'Media',
+            href: '#',
+            target: '_blank',
+          },
+          {
+            label: 'Partners',
+            href: '#',
+            target: '_blank',
+          },
+        ],
+      },
+      {
+        label: '帮助',
+        child: [
+          {
+            label: 'Grant Seekers',
+            href: '#',
+            target: '_blank',
+          },
+          {
+            label: 'Healthcare Professionals',
+            href: '#',
+            target: '_blank',
+          },
+          {
+            label: 'Business to Business',
+            href: '#',
+            target: '_blank',
+          },
+          {
+            label: 'Merchandise',
+            href: '#',
+            target: '_blank',
+          },
+        ],
+      },
+      {
+        label: '社区',
+        child: [
+          {
+            label: 'Privacy Statement',
+            href: '#',
+            target: '_blank',
+          },
+          {
+            label: 'Terms of Use',
+            href: '#',
+            target: '_blank',
+          },
+          {
+            label: 'Contact Us',
+            href: '#',
+            target: '_blank',
+          },
+        ],
+      },
+    ],
+    mobileMenu: footerMobileMenu,
+    footerNewsletter,
+    footerBottom,
+    fixBar,
+  },
+};

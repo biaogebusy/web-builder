@@ -421,6 +421,7 @@
         "classes": "",
         "spacer": "none",
         "body": "<p>Every product is the result of 1,500 scientists overseeing more than 500,000 lab tests and over 36 clinical trials before the first prescription. </p>",
+        "actionsAlign": "center center",
         "actions": [
           {
             "type": "search-action",

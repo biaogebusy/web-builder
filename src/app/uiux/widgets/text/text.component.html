@@ -11,17 +11,18 @@
           <app-link [content]="list"></app-link>
         </li>
       </ul>
-      <div #actions class="actions m-top p-bottom-xs" *ngIf="content.actions" fxLayoutAlign="{{content.actionsAlign || 'start center'}}">
+      <div #actions class="actions m-top p-bottom-xs" *ngIf="content.actions"
+        fxLayoutAlign="{{content.actionsAlign || 'start center'}}">
         <ng-container *ngFor="let action of content.actions">
           <ng-container [ngSwitch]="action.type">
-            <button *ngSwitchCase="'closeDialog'" mat-raised-button mat-dialog-close color="{{action.color||'primary'}}"
-              >{{action.label}}</button>
-              <ng-container *ngSwitchDefault>
-                <app-btn *ngIf="!action.type;else widgets" [content]="getBtnLink(action)"></app-btn>
-                <ng-template #widgets>
-                  <app-dynamic-widgets  [content]="action"></app-dynamic-widgets>
-                </ng-template>
-              </ng-container>
+            <button *ngSwitchCase="'closeDialog'" mat-raised-button mat-dialog-close
+              color="{{action.color||'primary'}}">{{action.label}}</button>
+            <ng-container *ngSwitchDefault>
+              <app-btn *ngIf="!action.type;else widgets" [content]="getBtnLink(action)"></app-btn>
+              <ng-template #widgets>
+                <app-dynamic-widgets [content]="action"></app-dynamic-widgets>
+              </ng-template>
+            </ng-container>
           </ng-container>
         </ng-container>
       </div>
