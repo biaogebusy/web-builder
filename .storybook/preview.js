@@ -29,6 +29,7 @@ export const parameters = {
     },
   },
   docs: { inlineStories: true },
+  layout: "fullscreen",
 };
 
 export const decorators = [

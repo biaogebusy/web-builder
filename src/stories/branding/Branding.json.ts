@@ -1123,7 +1123,7 @@ export const canvasHeader: IBranding = {
       version: false,
       href: '/',
       img: {
-        src: '/assets/images/logo/logo-blue.png',
+        src: '/assets/images/logo/huiming.png',
         alt: '汇明医疗',
       },
     },

@@ -1,6 +1,6 @@
 {
   "title": "首页 v6 医疗科技",
-  "config": {
+  "configBak": {
     "headerMode": {
       "transparent": true,
       "style": "light"
