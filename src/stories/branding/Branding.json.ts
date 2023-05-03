@@ -2012,7 +2012,7 @@ export const medicalInverse: IBranding = {
     ],
     footerNewsletter,
     footerBottom: {
-      left: '©2023 Copyright ❤️ HUIMING. ',
+      left: '©2023 Copyright HUIMING. ',
       right: [
         {
           label: 'Home',
