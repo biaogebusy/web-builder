@@ -1833,7 +1833,14 @@ export const medicalInverse: IBranding = {
       shape: false,
     },
     footerBrand: {
-      logo: footerBrandLogo,
+      logo: {
+        img: {
+          src: '/assets/images/logo/huiming.png',
+          alt: 'huiming',
+          href: '/',
+          classes: 'logo',
+        },
+      },
       summary:
         'This information—including product information—is intended only for residents of the United States.The products discussed herein may have different labeling in different countries.',
       social: [
@@ -1861,7 +1868,7 @@ export const medicalInverse: IBranding = {
     },
     mainMenu: [
       {
-        label: '相关资源',
+        label: 'Related',
         child: [
           {
             label: 'Investors',
@@ -1886,7 +1893,7 @@ export const medicalInverse: IBranding = {
         ],
       },
       {
-        label: '帮助',
+        label: 'Help',
         child: [
           {
             label: 'Grant Seekers',
@@ -1911,7 +1918,7 @@ export const medicalInverse: IBranding = {
         ],
       },
       {
-        label: '社区',
+        label: 'About',
         child: [
           {
             label: 'Privacy Statement',
@@ -1931,9 +1938,100 @@ export const medicalInverse: IBranding = {
         ],
       },
     ],
-    mobileMenu: footerMobileMenu,
+    mobileMenu: [
+      {
+        label: 'Related',
+        child: [
+          {
+            label: 'Investors',
+            href: '#',
+            target: '_blank',
+          },
+          {
+            label: 'Careers',
+            href: '#',
+            target: '_blank',
+          },
+          {
+            label: 'Media',
+            href: '#',
+            target: '_blank',
+          },
+          {
+            label: 'Partners',
+            href: '#',
+            target: '_blank',
+          },
+        ],
+      },
+      {
+        label: 'Help',
+        child: [
+          {
+            label: 'Grant Seekers',
+            href: '#',
+            target: '_blank',
+          },
+          {
+            label: 'Healthcare Professionals',
+            href: '#',
+            target: '_blank',
+          },
+          {
+            label: 'Business to Business',
+            href: '#',
+            target: '_blank',
+          },
+          {
+            label: 'Merchandise',
+            href: '#',
+            target: '_blank',
+          },
+        ],
+      },
+      {
+        label: 'About',
+        child: [
+          {
+            label: 'Privacy Statement',
+            href: '#',
+            target: '_blank',
+          },
+          {
+            label: 'Terms of Use',
+            href: '#',
+            target: '_blank',
+          },
+          {
+            label: 'Contact Us',
+            href: '#',
+            target: '_blank',
+          },
+        ],
+      },
+    ],
     footerNewsletter,
-    footerBottom,
+    footerBottom: {
+      left: '©2023 Copyright ❤️ HUIMING. ',
+      right: [
+        {
+          label: 'Home',
+          href: '/',
+        },
+        {
+          label: 'About',
+          href: '/about',
+        },
+        {
+          label: 'Help',
+          href: '#',
+        },
+        {
+          label: 'Contact',
+          href: '#',
+        },
+      ],
+    },
     fixBar,
   },
 };

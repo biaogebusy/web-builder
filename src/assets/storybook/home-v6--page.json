@@ -167,6 +167,9 @@
           "classes": "mat-display-0 bold"
         }
       },
+      "bg": {
+        "classes": "bg-fill-width bg-shadow"
+      },
       "elements": [
         {
           "type": "card-1v1",
@@ -599,6 +602,7 @@
         "style": "style-v1",
         "classes": "mat-display-2"
       },
+      "spacer": "xxl",
       "body": "<p class=\"text-center\">Receive the latest news from Pfizer in our monthly The Breakthrough newsletter and email alerts on a variety of topics.</p>",
       "actionsAlign": "center center",
       "actions": [
