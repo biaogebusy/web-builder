@@ -136,6 +136,7 @@ export class ComponentService {
       'dynamic-media-list',
       'dynamic-text-list',
       'list',
+      'list-2v1',
       'list-thin',
       'taxonomy-list',
       'taxonomy-thin-list',

@@ -1,0 +1,10 @@
+.list-2v1 {
+  font-size: larger;
+  .title {
+    font-size: 28px;
+  }
+
+  ::ng-deep img {
+    border-radius: 10px;
+  }
+}

@@ -1,0 +1,21 @@
+<div class="list-2v1 position-relative" *ngIf="content">
+  <app-bg [content]="content.bg" *ngIf="content.bg"></app-bg>
+  <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
+  <app-spacer [size]="content.spacer || 'md'"></app-spacer>
+  <div class="container">
+    <app-title [content]="content.title"></app-title>
+    <div class="lists">
+      <div class="item p-y" *ngFor="let item of lists" fxLayout.lt-md="column" fxLayout.gt-sm="row">
+        <div class="tag" fxFlex.gt-md="8%" fxFlex.lt-md="100%">{{item.tag}}</div>
+        <div class="inner" ngClass.gt-sm="p-x" fxFlex="auto">
+          <app-link class="title" [content]="item.link"></app-link>
+          <div class="content" [innerHTML]="item.body|safeHtml"></div>
+        </div>
+        <div class="media" fxFlex.gt-sm="400px" fxFlex.lt-md="100%">
+          <app-img [content]="item.img"></app-img>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-spacer [size]="content.spacer || 'md'"></app-spacer>
+</div>
