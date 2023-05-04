@@ -1835,7 +1835,7 @@ export const medicalInverse: IBranding = {
     footerBrand: {
       logo: {
         img: {
-          src: '/assets/images/logo/huiming.png',
+          src: '/assets/images/logo/huiming-white.png',
           alt: 'huiming',
           href: '/',
           classes: 'logo',
