@@ -25,6 +25,7 @@ export default {
         component: `View List 组件顾名思义是针对 Drupal view 视图进行配置的组件，通过 View 配置出数据的REST api，配置出下拉菜单选项的 api，根据这些 view api 来动态读取和筛选数据的组件。`,
       },
     },
+    layout: 'fullscreen',
   },
 } as Meta;
 

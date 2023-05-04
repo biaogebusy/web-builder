@@ -6,6 +6,7 @@ import {
   Story,
 } from '@storybook/angular';
 import { ChartComponent } from '@uiux/widgets/chart/chart.component';
+import { random } from 'lodash-es';
 
 export default {
   title: '基础组件/图表/饼图',
@@ -87,9 +88,9 @@ Pie.args = {
     dataset: {
       source: [
         ['预算', '费用'],
-        ['大额红包总金额', 300],
-        ['小额红包总金额', 500],
-        ['提成总额', 200],
+        ['大额红包总金额', random(300, 1000)],
+        ['小额红包总金额', random(300, 1000)],
+        ['提成总额', random(300, 1000)],
       ],
     },
     series: [

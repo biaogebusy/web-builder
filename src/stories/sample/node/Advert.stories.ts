@@ -7,8 +7,9 @@ import { Story } from '@storybook/angular/types-6-0';
 import { NodeModule } from '@uiux/combs/node/node.module';
 import { UserModule } from 'src/app/modules/user/user.module';
 import { StorysModule } from '@core/module/storys.module';
-
 import { AdvertComponent } from '@uiux/combs/node/advert/advert.component';
+import { comments } from './comments.json';
+import { of } from 'rxjs';
 
 export default {
   title: '示例页面/内容类型/小程序预览',
@@ -28,6 +29,7 @@ export default {
         component: `通用的普遍文章，一般包含标题和内容相关属性信息，还包括文章相关联的数据等等。`,
       },
     },
+    layout: 'fullscreen',
   },
 } as Meta;
 
@@ -131,4 +133,5 @@ Default.args = {
       label: '成功发布！',
     },
   },
+  comments$: of(comments),
 };

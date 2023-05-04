@@ -4,7 +4,6 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { CORE_CONFIG } from '@core/token/token-providers';
 import { OtherModule } from '@uiux/combs/other/other.module';
 import { NotfoundComponent } from '@uiux/combs/other/notfound/notfound.component';
 import { StorysModule } from '@core/module/storys.module';
@@ -33,6 +32,7 @@ export default {
         component: `当用户访问的页面不存在时，显示404页面。`,
       },
     },
+    layout: 'fullscreen',
   },
 } as Meta;
 

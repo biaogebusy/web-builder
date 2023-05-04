@@ -20,6 +20,7 @@ export default {
         component: `通过可选的过滤条件进行对内容的搜索`,
       },
     },
+    layout: 'fullscreen',
   },
 } as Meta;
 

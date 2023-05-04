@@ -6,6 +6,7 @@ import {
   Story,
 } from '@storybook/angular';
 import { ChartComponent } from '@uiux/widgets/chart/chart.component';
+import { random } from 'lodash-es';
 
 export default {
   title: '基础组件/图表/柱状图',
@@ -82,9 +83,24 @@ Bar.args = {
       // 提供一份数据。
       source: [
         ['红包预算', '2020', '2021', '2022'],
-        ['大额红包', 3600, 4000, 4551],
-        ['小额红包', 6000, 7000, 8450],
-        ['推广费用', 2400, 4000, 6000],
+        [
+          '大额红包',
+          random(3000, 10000),
+          random(3000, 10000),
+          random(3000, 10000),
+        ],
+        [
+          '小额红包',
+          random(3000, 10000),
+          random(3000, 10000),
+          random(3000, 10000),
+        ],
+        [
+          '推广费用',
+          random(3000, 10000),
+          random(3000, 10000),
+          random(3000, 10000),
+        ],
       ],
     },
     // 声明一个 X 轴，类目轴（category）。默认情况下，类目轴对应到 dataset 第一列。

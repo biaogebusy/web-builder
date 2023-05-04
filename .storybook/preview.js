@@ -18,8 +18,8 @@ export const parameters = {
         "更新日志",
         "开发指南",
         "主题",
-        "页面布局",
         "示例页面",
+        "品牌布局",
         "特色组件",
         "复合组件",
         "*",
@@ -29,7 +29,6 @@ export const parameters = {
     },
   },
   docs: { inlineStories: true },
-  layout: "fullscreen",
 };
 
 export const decorators = [

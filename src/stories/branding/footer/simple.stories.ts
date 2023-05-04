@@ -47,6 +47,7 @@ export default {
         `,
       },
     },
+    layout: 'fullscreen',
   },
 } as Meta;
 

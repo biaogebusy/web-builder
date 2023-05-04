@@ -17,6 +17,14 @@ export default {
       imports: [StorysModule.forRoot(), SearchModule],
     }),
   ],
+  parameters: {
+    docs: {
+      description: {
+        component: ``,
+      },
+    },
+    layout: 'fullscreen',
+  },
 } as Meta;
 
 const Template: Story = (args) => ({

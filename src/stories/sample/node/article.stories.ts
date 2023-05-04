@@ -31,6 +31,7 @@ export default {
         component: `通用的普遍文章，一般包含标题和内容相关属性信息，还包括文章相关联的数据等等。`,
       },
     },
+    layout: 'fullscreen',
   },
 } as Meta;
 

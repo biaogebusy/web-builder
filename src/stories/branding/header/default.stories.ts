@@ -42,6 +42,7 @@ export default {
         component: `Mage 风格的页头，当鼠标经过时下拉显示该主菜单的所有子菜单，可以方便快速查看导航菜单的内容，适合菜单过多时使用。`,
       },
     },
+    layout: 'fullscreen',
   },
 } as Meta;
 

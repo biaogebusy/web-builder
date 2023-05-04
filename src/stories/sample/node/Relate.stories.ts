@@ -7,6 +7,7 @@ import { Story } from '@storybook/angular/types-6-0';
 import { NodeModule } from '@uiux/combs/node/node.module';
 import { StorysModule } from '@core/module/storys.module';
 import { RelateComponent } from '@uiux/combs/node/relate/relate.component';
+import { random } from 'lodash-es';
 
 export default {
   title: '示例页面/内容类型/相关性',
@@ -26,6 +27,7 @@ export default {
         component: `主要展示几个不同的数据类型互相关联的展示，预览按钮有Dialog和Drawer展示两种方式。`,
       },
     },
+    layout: 'fullscreen',
   },
 } as Meta;
 
@@ -67,7 +69,7 @@ Default.args = {
           type: 'text',
           space: 'none',
           classes: 'mat-h1 m-bottom-0',
-          body: '10,000¥',
+          body: `${random(3000, 100000)}¥`,
         },
         {
           type: 'dropdown-menu',

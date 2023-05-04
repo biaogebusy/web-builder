@@ -51,6 +51,7 @@ export default {
         component: `用户登录页面，可根据json配置开启手机或者密码方式登录。`,
       },
     },
+    layout: 'fullscreen',
   },
 } as Meta;
 

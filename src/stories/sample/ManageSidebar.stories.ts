@@ -58,6 +58,7 @@ export default {
         component: ``,
       },
     },
+    layout: 'fullscreen',
   },
 } as Meta;
 

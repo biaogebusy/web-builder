@@ -20,6 +20,7 @@ export default {
         component: `一般用在页面顶部，由标题、面包屑和背景图片组成。`,
       },
     },
+    layout: 'fullscreen',
   },
 } as Meta;
 

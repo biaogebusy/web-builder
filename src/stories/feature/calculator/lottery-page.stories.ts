@@ -44,6 +44,7 @@ export default {
     previewTabs: {
       canvas: { hidden: true },
     },
+    layout: 'fullscreen',
   },
 } as Meta;
 

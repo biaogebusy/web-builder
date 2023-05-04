@@ -14,6 +14,14 @@ export default {
       imports: [SwiperModule, StorysModule.forRoot()],
     }),
   ],
+  parameters: {
+    docs: {
+      description: {
+        component: ``,
+      },
+    },
+    layout: 'fullscreen',
+  },
 } as Meta;
 
 const Template: Story = (args) => ({

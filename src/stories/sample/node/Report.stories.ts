@@ -27,6 +27,7 @@ export default {
         component: `主要展示统计调查报告等数据内容`,
       },
     },
+    layout: 'fullscreen',
   },
 } as Meta;
 
