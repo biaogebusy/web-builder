@@ -5,7 +5,7 @@
   <div class="container">
     <app-title [content]="content.title"></app-title>
     <div class="lists">
-      <div class="item p-y" *ngFor="let item of lists" fxLayout.lt-md="column" fxLayout.gt-sm="row">
+      <div class="item p-y" *ngFor="let item of lists$|async" fxLayout.lt-md="column" fxLayout.gt-sm="row">
         <div fxFlex="auto" fxLayout.lt-lg="column" fxLayout.gt-md="row">
           <div class="subtitle" fxFlex.gt-md="10%" fxFlex.lt-md="100%">{{item.subTitle}}</div>
           <div class="inner" ngClass.gt-md="p-x">
