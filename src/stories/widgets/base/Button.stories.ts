@@ -4,7 +4,7 @@ import { Story } from '@storybook/angular/types-6-0';
 import { BtnComponent } from '@uiux/widgets/btn/btn.component';
 
 export default {
-  title: '基础组件/基本元素/按钮',
+  title: '基础组件/基本元素/按钮/基础',
   id: 'btn',
   component: BtnComponent,
   decorators: [
@@ -75,7 +75,7 @@ export const BtnDrawer = Template.bind({});
 
 BtnDrawer.args = {
   content: {
-    href: '/node/1',
+    href: '/?path=/story/welcome--page',
     label: 'Drawer 预览',
     mode: 'raised',
     drawerIframe: true,

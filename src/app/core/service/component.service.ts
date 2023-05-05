@@ -26,7 +26,6 @@ export class ComponentService {
       'link',
       'icon',
       'flag',
-      'title',
       'panel',
       'title',
       'share',
