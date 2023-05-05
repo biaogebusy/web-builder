@@ -35,14 +35,6 @@ export class List2v1Component implements OnInit {
               body: 'Advancements with cancer biomarkers are paving the way for better lung cancer treatments and personalization for patients.',
               img: '/assets/images/medical/showcase-03.jpg',
             },
-            {
-              title:
-                'Maternal Immunization: Protecting Children from RSV and GBS',
-              url: '#',
-              subTitle: 'Science & Innovation',
-              body: 'Scientists at the forefront of fetal health innovation are studying ways that vaccines given during pregnancy can continue to protect children in the months after birth.',
-              img: '/assets/images/medical/showcase-04.jpg',
-            },
           ],
         });
       }),
