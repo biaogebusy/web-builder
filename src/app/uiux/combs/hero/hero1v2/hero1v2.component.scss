@@ -26,12 +26,6 @@
     box-sizing: border-box;
   }
 }
-.swiper-text {
-  .title {
-    font-size: 36px;
-    line-height: 42px;
-  }
-}
 
 @media #{$gt-xs} {
   .swiper-media {
@@ -45,5 +39,12 @@
     z-index: 2;
     width: 50%;
     bottom: 0;
+    .title {
+      font-size: 36px;
+      line-height: 42px;
+    }
+    .sub-title {
+      font-size: 20px;
+    }
   }
 }

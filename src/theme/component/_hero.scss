@@ -10,7 +10,8 @@
 
   $bg-card-color: mat-color($background, card);
   .hero-1-v2 {
-    .title {
+    .title,
+    .sub-title {
       color: mat-color($primary, default-contrast);
     }
   }
