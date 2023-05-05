@@ -4,7 +4,6 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { userEvent } from '@storybook/testing-library';
 import { ListModule } from '@uiux/combs/list/list.module';
 import { StorysModule } from '@core/module/storys.module';
 import { List2v1Component } from '@uiux/combs/list/list2v1/list2v1.component';
@@ -46,6 +45,8 @@ Default.args = {
     more: {
       label: 'More Articles',
       href: '#',
+      mode: 'raised',
+      color: 'primary',
     },
   },
   lists: [
@@ -55,8 +56,8 @@ Default.args = {
           'Cancer Biomarkers: Paving the Way for Better Lung Cancer Treatment',
         href: '#',
       },
+      subTitle: 'Science & Innovation',
       body: 'Advancements with cancer biomarkers are paving the way for better lung cancer treatments and personalization for patients.',
-      tag: 'Science & Innovation',
       img: {
         src: '/assets/images/medical/showcase-03.jpg',
         alt: '',
@@ -67,8 +68,8 @@ Default.args = {
         label: 'Maternal Immunization: Protecting Children from RSV and GBS',
         href: '#',
       },
+      subTitle: 'Science & Innovation',
       body: 'Scientists at the forefront of fetal health innovation are studying ways that vaccines given during pregnancy can continue to protect children in the months after birth.',
-      tag: 'Science & Innovation',
       img: {
         src: '/assets/images/medical/showcase-04.jpg',
         alt: '',
@@ -80,8 +81,8 @@ Default.args = {
           'Pfizer’s Biopharma Global Chief Marketing Officer Drew Panayiotou is ‘Radically Obsessed’ with Listening to Patients',
         href: '#',
       },
+      subTitle: 'Real People',
       body: "For Pfizer's Biopharma Global Chief Marketing Officer Drew Panayiotou, working at Pfizer comes with an enormous perk. The potential to change the world.",
-      tag: 'Real People',
       img: {
         src: '/assets/images/medical/showcase-05.jpg',
         alt: '',
