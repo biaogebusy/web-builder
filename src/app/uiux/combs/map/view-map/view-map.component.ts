@@ -13,6 +13,8 @@ import type { IMark } from '@core/interface/IAmap';
 import { AmapService } from '@core/service/amap.service';
 import { BaseComponent } from '@uiux/base/base.widget';
 import type { IViewMap, IViewMapItem } from '@core/interface/combs/IViewMap';
+import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-view-map',
@@ -22,7 +24,7 @@ import type { IViewMap, IViewMapItem } from '@core/interface/combs/IViewMap';
 })
 export class ViewMapComponent extends BaseComponent implements OnInit {
   @Input() content: IViewMap;
-  lists: IViewMapItem[];
+  lists$: Observable<IViewMapItem[] | any>;
   form = new FormGroup({
     page: new FormControl(),
   });
@@ -43,7 +45,7 @@ export class ViewMapComponent extends BaseComponent implements OnInit {
       this.getContent();
     } else {
       if (this.content.elements) {
-        this.lists = this.content.elements;
+        this.lists$ = of(this.content.elements);
         this.cd.detectChanges();
       }
     }
@@ -53,26 +55,27 @@ export class ViewMapComponent extends BaseComponent implements OnInit {
     const params = this.getApiParams(options);
     const urlApi = this.content.params.api || '';
     this.loading = true;
-    this.nodeService.search(urlApi, params).subscribe(({ rows, pager }) => {
-      rows.forEach((item: any) => {
-        // 文字地址形式
-        if (item.address) {
-          item.address = item.address.replace(/\s+/g, '').trim();
-        }
-        // position 数组形式 [108.407058, 22.815584]
-        if (item.position && isString(item.position)) {
-          item.position = item.position.split(',');
-        }
+    this.lists$ = this.nodeService.search(urlApi, params).pipe(
+      map(({ rows, pager }) => {
+        rows.forEach((item: any) => {
+          // 文字地址形式
+          if (item.address) {
+            item.address = item.address.replace(/\s+/g, '').trim();
+          }
+          // position 数组形式 [108.407058, 22.815584]
+          if (item.position && isString(item.position)) {
+            item.position = item.position.split(',');
+          }
 
-        // 经纬度独立字段则处理到position
-        if (item.latitude && item.longitude) {
-          item.position = [item.longitude, item.latitude];
-        }
-      });
-      this.lists = [...rows];
-      this.loading = false;
-      this.cd.detectChanges();
-    });
+          // 经纬度独立字段则处理到position
+          if (item.latitude && item.longitude) {
+            item.position = [item.longitude, item.latitude];
+          }
+        });
+        this.loading = false;
+        return [...rows];
+      })
+    );
   }
 
   onModelChange(value: any): void {

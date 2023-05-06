@@ -1,6 +1,6 @@
 <div class="view-map position-relation" *ngIf="content">
   <div class="sidebar p-x-sm p-y-sm" fxFlex.lt-md="100" fxFlex.gt-sm="500px" fxLayout="column">
-    <div class="sidebar-wrapper" *ngIf="lists">
+    <div class="sidebar-wrapper" *ngIf="lists$|async as lists">
       <mat-expansion-panel [expanded]="true">
         <mat-expansion-panel-header>
           <mat-panel-title>
@@ -51,6 +51,6 @@
     </div>
   </div>
   <div class="map-wrapper">
-    <app-map fxFlex="100%" [content]="{city: content.params.city, elements: lists, model: model}"></app-map>
+    <app-map fxFlex="100%" [content]="{city: content.params.city, elements: lists$ | async, model: model}"></app-map>
   </div>
 </div>
