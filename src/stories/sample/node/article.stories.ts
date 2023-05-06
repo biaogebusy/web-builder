@@ -12,6 +12,7 @@ import * as MeunListStories from 'src/stories/widgets/MeunList.stories';
 import { UserModule } from 'src/app/modules/user/user.module';
 import { StorysModule, sleep } from '@core/module/storys.module';
 import { comments } from './comments.json';
+import { of } from 'rxjs';
 
 export default {
   title: '示例页面/内容类型/普通文章',
@@ -182,7 +183,7 @@ Comment.args = {
     },
   },
   canAccess: true,
-  comments,
+  comments$: of(comments),
 };
 
 Comment.play = async () => {

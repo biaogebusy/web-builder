@@ -14,7 +14,7 @@ import type { IComment, IQuestion } from '@core/interface/node/INode';
 import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
 import { NodeComponent } from '@uiux/base/node.widget';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { LoginComponent } from 'src/app/modules/user/login/login.component';
 import { ContentState } from '@core/state/ContentState';
@@ -32,7 +32,7 @@ export class QuestionComponent
   implements OnInit, AfterViewInit, OnDestroy
 {
   @Input() content: IQuestion;
-  comments: IComment[];
+  comments$: Observable<IComment[]>;
   showEditor = false;
   isAsked = false;
   myCommentId = '';
@@ -115,13 +115,9 @@ export class QuestionComponent
   }
 
   getComments(timeStamp = 1): void {
-    this.nodeService
+    this.comments$ = this.nodeService
       .getCommentsWitchChild(this.content, this.user.csrf_token, timeStamp)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((res) => {
-        this.comments = res;
-        this.cd.detectChanges();
-      });
+      .pipe(takeUntil(this.destroy$));
   }
 
   openLogin(): void {

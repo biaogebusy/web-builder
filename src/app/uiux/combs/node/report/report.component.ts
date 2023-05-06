@@ -11,6 +11,8 @@ import { NodeService } from '@core/service/node.service';
 import { FormService } from '@core/service/form.service';
 import { isArray } from 'lodash-es';
 import type { IReport } from '@core/interface/node/IReport';
+import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 @Component({
   selector: 'app-report',
   templateUrl: './report.component.html',
@@ -21,7 +23,7 @@ export class ReportComponent extends BaseComponent implements OnInit {
   @Input() content: IReport;
   @Input() form = new FormGroup({});
   @Input() model: any = {};
-  box: any[] = [];
+  box$: Observable<any[]>;
   loading: boolean;
   constructor(
     private nodeService: NodeService,
@@ -35,7 +37,7 @@ export class ReportComponent extends BaseComponent implements OnInit {
     if (this.content?.params?.api) {
       this.getContent();
     } else {
-      this.box = this.content.box;
+      this.box$ = of(this.content.box);
       this.loading = false;
       this.cd.detectChanges();
     }
@@ -50,68 +52,71 @@ export class ReportComponent extends BaseComponent implements OnInit {
     this.loading = true;
     const params = this.getApiParams(options);
     const api = this.content.params.api;
-    this.nodeService.search(api, params).subscribe(({ chart, table }) => {
-      if (isArray(chart)) {
-        this.box[0] = {
-          data: {
-            ...this.content.box[0].data,
-          },
-          content: {
-            type: 'chart',
-            tooltip: {
-              trigger: 'item',
-              ...this.content.box[0].content.tooltip,
+    this.box$ = this.nodeService.search(api, params).pipe(
+      map(({ chart, table }) => {
+        let box = [];
+        if (isArray(chart)) {
+          box[0] = {
+            data: {
+              ...this.content.box[0].data,
             },
-            legend: {
-              ...this.content.box[0].content.legend,
-            },
-            dataset: [
-              {
-                source: chart,
-              },
-              { ...(this.content.customDataset || {}) },
-            ],
-            xAxis: {
-              type: 'category',
-              axisLabel: {
-                interval: 0,
-                rotate: 30,
-              },
-              ...this.content.box[0].content.xAxis,
-            },
-            yAxis: {
-              type: 'value',
-              ...this.content.box[0].content.yAxis,
-            },
-            series: [...this.content.box[0].content.series],
-            ...this.content.box[0].options,
-          },
-        };
-      }
-      if (isArray(table)) {
-        this.box[1] = {
-          content: {
-            type: 'dynamic-table',
-            header: [...this.content.box[1].content.header],
-            classes: this.content.box[1].content.classes,
-            elements: table,
-          },
-        };
-      }
-
-      if (!isArray(chart) && !isArray(table)) {
-        this.box = [
-          {
             content: {
-              type: 'text',
-              body: '无数据',
+              type: 'chart',
+              tooltip: {
+                trigger: 'item',
+                ...this.content.box[0].content.tooltip,
+              },
+              legend: {
+                ...this.content.box[0].content.legend,
+              },
+              dataset: [
+                {
+                  source: chart,
+                },
+                { ...(this.content.customDataset || {}) },
+              ],
+              xAxis: {
+                type: 'category',
+                axisLabel: {
+                  interval: 0,
+                  rotate: 30,
+                },
+                ...this.content.box[0].content.xAxis,
+              },
+              yAxis: {
+                type: 'value',
+                ...this.content.box[0].content.yAxis,
+              },
+              series: [...this.content.box[0].content.series],
+              ...this.content.box[0].options,
             },
-          },
-        ];
-      }
-      this.loading = false;
-      this.cd.detectChanges();
-    });
+          };
+        }
+        if (isArray(table)) {
+          box[1] = {
+            content: {
+              type: 'dynamic-table',
+              header: [...(this.content.box[1].content.header || [])],
+              classes: this.content.box[1].content.classes,
+              elements: table,
+            },
+          };
+        }
+
+        if (!isArray(chart) && !isArray(table)) {
+          box = [
+            {
+              content: {
+                type: 'text',
+                body: '无数据',
+              },
+            },
+          ];
+        }
+        this.loading = false;
+        return box;
+      })
+    );
   }
 
   clear(): void {

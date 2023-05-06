@@ -44,7 +44,7 @@ export class ArticleComponent
   @Input() content: IBaseNode;
   currentUserRule: string[];
   commentForm: FormGroup;
-  comments: IComment[];
+  comments$: Observable<IComment[]>;
   destroy$: Subject<boolean> = new Subject<boolean>();
   dialogRef: MatDialogRef<any>;
   fontSize: number;
@@ -141,13 +141,9 @@ export class ArticleComponent
   }
 
   getComments(timeStamp = 1): void {
-    this.nodeService
+    this.comments$ = this.nodeService
       .getCommentsWitchChild(this.content, this.user.csrf_token, timeStamp)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((res) => {
-        this.comments = res;
-        this.cd.markForCheck();
-      });
+      .pipe(takeUntil(this.destroy$));
   }
 
   openLogin(): void {

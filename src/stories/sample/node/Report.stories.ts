@@ -408,10 +408,19 @@ WorkTime.args = {
             key: 'lawyer',
             defaultValue: 5,
             className: 'display-block m-bottom-sm m-right-sm',
-            api: '/api/v2/lawyer',
             templateOptions: {
               label: '选择律师',
               description: '请选择律师',
+              options: [
+                {
+                  label: '张三',
+                  value: 26,
+                },
+                {
+                  label: '李四',
+                  value: 6,
+                },
+              ],
             },
           },
           {
@@ -446,7 +455,7 @@ WorkTime.args = {
       },
     ],
     params: {
-      api: '/api/v3/statistics/lawyer/work',
+      apiBak: '/api/v3/statistics/lawyer/work',
     },
     row: 2,
     box: [
@@ -484,6 +493,22 @@ WorkTime.args = {
           tooltip: {
             trigger: 'axis',
           },
+          dataset: [
+            {
+              source: [
+                ['name', 'total'],
+                ['4月', '0.50'],
+                ['5月', '7.50'],
+                ['6月', '40.10'],
+                ['7月', '45.50'],
+                ['8月', '57.20'],
+                ['9月', '49.50'],
+                ['10月', '34.00'],
+                ['11月', '114.20'],
+                ['12月', '24.50'],
+              ],
+            },
+          ],
           xAxis: {
             type: 'category',
             axisLabel: {
@@ -522,6 +547,60 @@ WorkTime.args = {
             {
               label: '工时',
               key: 'worktime',
+            },
+          ],
+          elements: [
+            {
+              title: '关于考试费用的调整问题',
+              month: '4月',
+              worktime: '0.50',
+            },
+            {
+              title:
+                '3-借用人员的大协议-（2015版标准版)-(清稿)--法修-0512.docx',
+              month: '5月',
+              worktime: '1.00',
+            },
+            {
+              title: 'SIFDC-Miltenyi Biotec技术转让合同5.15.xls',
+              month: '5月',
+              worktime: '1.00',
+            },
+            {
+              title:
+                '3-借用人员的大协议-（2015版标准版)-(清稿)--法修-【器审分中心】【药审分中心】',
+              month: '5月',
+              worktime: '2.00',
+            },
+            {
+              title: '疫情期间物资保障二个合同',
+              month: '5月',
+              worktime: '2.00',
+            },
+            {
+              title: '人才公寓-给高科公司的定稿打包合同+单签合同+框架协议',
+              month: '5月',
+              worktime: '1.50',
+            },
+            {
+              title: '商业地产项目法律咨询',
+              month: '6月',
+              worktime: '1.00',
+            },
+            {
+              title: '上海药审中心2021年度法律合规审查',
+              month: '6月',
+              worktime: '0.00',
+            },
+            {
+              title: '企业邮箱服务框架合同-国器审分-上海星橙',
+              month: '6月',
+              worktime: '3.00',
+            },
+            {
+              title: '长三角分中心VS国润--抗原试剂--产品单次合同20220321.pdf',
+              month: '6月',
+              worktime: '0.50',
             },
           ],
         },
@@ -749,105 +828,58 @@ FromApi.args = {
         fieldGroup: [
           {
             type: 'mat-select',
-            key: 'vote',
-            className: 'display-block m-bottom-sm m-right-sm',
-            api: '/api/v2/filter/vote',
-            templateOptions: {
-              label: '选择投票',
-              description: '默认最新的投票',
-            },
-          },
-          {
-            type: 'mat-select',
-            key: 'shop',
-            className: 'display-block m-bottom-sm m-right-sm',
-            api: '/api/v2/filter/shop/id',
-            templateOptions: {
-              label: '指定门店',
-              description: '请选择门店',
-            },
-          },
-          {
-            type: 'mat-select',
-            key: 'range',
+            key: 'lawyer',
+            defaultValue: 5,
             className: 'display-block m-bottom-sm m-right-sm',
             templateOptions: {
-              label: '范围选定',
-              description: '请选择位置距离',
+              label: '选择客户',
+              description: '请选择客户',
               options: [
                 {
-                  label: '0.5公里',
-                  value: 0.5,
+                  label: '张三',
+                  value: 26,
                 },
                 {
-                  label: '1公里',
-                  value: 1,
-                },
-                {
-                  label: '2公里',
-                  value: 2,
-                },
-                {
-                  label: '3公里',
-                  value: 3,
-                },
-                {
-                  label: '4公里',
-                  value: 4,
-                },
-                {
-                  label: '5公里',
-                  value: 5,
-                },
-                {
-                  label: '10公里',
-                  value: 10,
-                },
-                {
-                  label: '20公里',
-                  value: 20,
-                },
-                {
-                  label: '50公里',
-                  value: 50,
-                },
-                {
-                  label: '100公里',
-                  value: 100,
+                  label: '李四',
+                  value: 6,
                 },
               ],
             },
-            expressionProperties: {
-              'templateOptions.disabled': '!model.shop',
-            },
           },
           {
-            type: 'date-range',
-            key: 'date',
+            type: 'mat-select',
+            key: 'position',
+            defaultValue: 5,
+            className: 'display-block m-bottom-sm m-right-sm',
             templateOptions: {
-              label: '日期范围',
-              value: '',
-              placeholder: '选择发布日期',
+              label: '年份',
+              description: '请选择年份',
+              options: [
+                {
+                  label: '2023',
+                  value: 2023,
+                },
+                {
+                  label: '2022',
+                  value: 2022,
+                },
+                {
+                  label: '2021',
+                  value: 2021,
+                },
+                {
+                  label: '2020',
+                  value: 2020,
+                },
+              ],
             },
-            fieldGroup: [
-              {
-                type: 'input',
-                key: 'start',
-                placeholder: '开始',
-              },
-              {
-                type: 'input',
-                key: 'end',
-                placeholder: '结束',
-              },
-            ],
           },
         ],
       },
     ],
     row: 2,
     params: {
-      api: '/api/v3/node/vote/report',
+      apiBak: '/api/v3/node/vote/report',
     },
     datasetIndex: 1,
     customDataset: [

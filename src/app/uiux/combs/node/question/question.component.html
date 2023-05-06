@@ -23,7 +23,7 @@
     <!-- input params and editor config -->
     <app-comment-form [type]="'add'" *ngIf="showEditor" [content]="content">
     </app-comment-form>
-    <app-comment-list [comments]="comments" [content]="content">
+    <app-comment-list [comments]="comments$|async" [content]="content">
     </app-comment-list>
   </div>
 </article>
