@@ -8,12 +8,13 @@ import {
   Inject,
 } from '@angular/core';
 import { NodeService } from '@core/service/node.service';
-import { takeUntil } from 'rxjs/operators';
+import { map, takeUntil } from 'rxjs/operators';
 import { formatDate } from '@angular/common';
 import { ScreenService } from '@core/service/screen.service';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import type { IUser } from '@core/interface/IUser';
 import { USER } from '@core/token/token-providers';
+import { IListThin } from '@core/interface/combs/IList';
 @Component({
   selector: 'app-user-favorite',
   templateUrl: './user-favorite.component.html',
@@ -22,7 +23,7 @@ import { USER } from '@core/token/token-providers';
 })
 export class UserFavoriteComponent implements OnInit, OnDestroy {
   @Input() content: any;
-  lists: any;
+  lists$: Observable<IListThin[]>;
   id: string;
   loading: boolean;
   pager = {
@@ -52,15 +53,16 @@ export class UserFavoriteComponent implements OnInit, OnDestroy {
       `sort=-created`,
       `jsonapi_include=1`,
     ].join('&');
-    this.nodeService
+    this.lists$ = this.nodeService
       .getNodes(path, 'favorite', params, this.user.csrf_token)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(
-        (res) => {
+      .pipe(
+        takeUntil(this.destroy$),
+        map((res) => {
           const lists = res.data.filter((item: any) => {
             return item.flagged_entity?.status ? true : false;
           });
-          this.lists = lists.map((item: any) => {
+          this.loading = false;
+          return lists.map((item: any) => {
             const node = item.flagged_entity;
             return {
               type: 'list-thin',
@@ -111,12 +113,7 @@ export class UserFavoriteComponent implements OnInit, OnDestroy {
               ],
             };
           });
-          this.loading = false;
-          this.cd.detectChanges();
-        },
-        (error) => {
-          console.log(error);
-        }
+        })
       );
   }
 

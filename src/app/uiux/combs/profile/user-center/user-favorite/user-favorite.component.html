@@ -6,7 +6,7 @@
   </app-bg>
   <div class="container">
     <app-text [content]="content.text" *ngIf="content.text"></app-text>
-    <app-list-thin *ngIf="lists" [pager]="pager" [content]="lists" [loading]="loading"></app-list-thin>
+    <app-list-thin *ngIf="lists$|async as lists" [pager]="pager" [content]="lists" [loading]="loading"></app-list-thin>
   </div>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
 </div>
