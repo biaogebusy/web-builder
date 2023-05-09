@@ -15,7 +15,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { NodeModule } from '@uiux/combs/node/node.module';
 
 export default {
-  title: '示例页面/中台布局/管理边栏',
+  title: '示例页面/中台管理/管理边栏',
   id: 'manage-sidebar',
   component: BlockComponent,
   decorators: [

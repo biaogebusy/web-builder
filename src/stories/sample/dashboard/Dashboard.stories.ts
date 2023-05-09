@@ -11,7 +11,7 @@ import { random } from 'lodash-es';
 const calendar: any = calendarStory.Default.args;
 
 export default {
-  title: '示例页面/中台布局/Dashboard',
+  title: '示例页面/中台管理/工作面板',
   id: 'dashboard',
   component: DashboardComponent,
   decorators: [
