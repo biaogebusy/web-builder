@@ -1,5 +1,5 @@
 <div class="dashboard" *ngIf="content">
-  <div class="wrapper" fxLayout="row wrap">
+  <div class="wrapper" fxLayout="row wrap" *reqRolesIf="content">
     <div class="box" fxFlex.lt-md="100" [fxFlex.gt-sm]="(box.row/12)*100" *ngFor="let box of content.elements">
       <app-dashboard-box [content]="box"></app-dashboard-box>
     </div>
