@@ -982,7 +982,7 @@ Advert.args = {
         title: {
           label: '最新广告',
         },
-        row: '8',
+        row: '6',
         params: {
           api: '/api/v3/xxx',
         },
@@ -1048,7 +1048,7 @@ Advert.args = {
         title: {
           label: '最新评论',
         },
-        row: '4',
+        row: '6',
         params: {
           api: '/api/v3/xxx',
         },
