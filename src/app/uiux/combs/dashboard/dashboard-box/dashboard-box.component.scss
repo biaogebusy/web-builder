@@ -1,7 +1,12 @@
+@import "../../../../../theme/mixins/amixin";
 .dashboard-box {
+  position: relative;
   border-radius: 4px;
   .box-header {
     padding: 2rem;
+  }
+  .loading-inner {
+    @include middle-center();
   }
   ::ng-deep {
     .chart {

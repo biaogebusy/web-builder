@@ -1,5 +1,6 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   Input,
   OnInit,
@@ -24,9 +25,11 @@ export class DashboardBoxComponent extends BaseComponent implements OnInit {
   @Input() form = new FormGroup({});
   @Input() model: any = {};
   widget$: Observable<any>;
+  loading = true;
   constructor(
     private formService: FormService,
-    private nodeService: NodeService
+    private nodeService: NodeService,
+    private cd: ChangeDetectorRef
   ) {
     super();
   }
@@ -36,6 +39,8 @@ export class DashboardBoxComponent extends BaseComponent implements OnInit {
       this.getContent();
     } else {
       this.widget$ = of(this.content.widget);
+      this.loading = false;
+      this.cd.detectChanges();
     }
   }
 
@@ -48,6 +53,7 @@ export class DashboardBoxComponent extends BaseComponent implements OnInit {
     const api = this.content.params?.api || '';
     const params = this.getApiParams(options);
     const type = this.content.widget.type;
+    this.loading = true;
     this.widget$ = this.nodeService.search(api, params).pipe(
       catchError(() => {
         let data: any[] = [];
@@ -136,6 +142,8 @@ export class DashboardBoxComponent extends BaseComponent implements OnInit {
             );
             break;
         }
+        this.loading = false;
+        this.cd.detectChanges();
         return data;
       })
     );

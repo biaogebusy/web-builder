@@ -11,4 +11,7 @@
   <ng-container *ngIf="widget$ | async as widget">
     <app-dynamic-component [inputs]="{content: widget}"></app-dynamic-component>
   </ng-container>
+  <div class="loading-inner" *ngIf="loading">
+    <mat-spinner diameter="50"></mat-spinner>
+  </div>
 </div>

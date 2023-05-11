@@ -2,8 +2,10 @@ import {
   Component,
   ComponentRef,
   Input,
+  OnChanges,
   OnDestroy,
   OnInit,
+  SimpleChanges,
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
@@ -17,15 +19,22 @@ export interface dynamicInputs {
   templateUrl: './dynamic-component.component.html',
   styleUrls: ['./dynamic-component.component.scss'],
 })
-export class DynamicComponentComponent implements OnInit, OnDestroy {
+export class DynamicComponentComponent implements OnInit, OnChanges, OnDestroy {
   @Input() inputs: dynamicInputs;
   @ViewChild('componentContainer', { read: ViewContainerRef, static: true })
   container: ViewContainerRef;
 
-  public component: ComponentRef<unknown> | ComponentRef<any> | undefined;
+  public component: ComponentRef<unknown> | ComponentRef<any> | undefined | any;
   constructor(private componentService: ComponentService) {}
 
   ngOnInit(): void {}
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes);
+    if (!changes.inputs.firstChange) {
+      this.loadConponent();
+    }
+  }
 
   ngAfterViewInit(): void {
     this.loadConponent();
