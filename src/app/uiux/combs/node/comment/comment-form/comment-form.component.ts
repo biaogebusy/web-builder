@@ -128,7 +128,6 @@ export class CommentFormComponent implements OnInit, OnDestroy {
     type: string,
     token: string
   ): void {
-    console.log(value);
     const entity = {
       type: params.type,
       attributes: {
@@ -146,7 +145,7 @@ export class CommentFormComponent implements OnInit, OnDestroy {
         },
       },
     };
-    const data = merge(params, entity);
+    const data = merge({}, params, entity);
     this.nodeService
       .replyComment(type, data, token)
       .pipe(
