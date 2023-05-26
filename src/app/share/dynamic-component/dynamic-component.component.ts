@@ -30,7 +30,6 @@ export class DynamicComponentComponent implements OnInit, OnChanges, OnDestroy {
   ngOnInit(): void {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
     if (!changes.inputs.firstChange) {
       this.loadConponent();
     }
