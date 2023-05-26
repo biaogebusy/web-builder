@@ -12,9 +12,13 @@
     .sidebar {
       background-color: mat-color($background, card);
       @include mat-elevation(4, #000, 0.35);
-      .mat-expansion-panel-header:not(.mat-expanded) {
-        background-color: mat-color($foreground, text, 0.1);
-      }
+    }
+    .mat-expansion-panel-header:not(.mat-expanded) {
+      background-color: mat-color($foreground, text, 0.1);
+    }
+    .tools {
+      background-color: mat-color($background, card);
+      @include mat-elevation(4, #000, 0.35);
     }
     .viewport {
       border-right: 1px solid rgb(97 97 97 / 8%);

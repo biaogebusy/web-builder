@@ -88,7 +88,7 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   getPositionAndMarkers(lists: any[]) {
-    if (lists.length > 0) {
+    if (lists && lists.length > 0) {
       this.getPosition(lists);
       this.getMarkers(lists);
     }

@@ -1,31 +1,20 @@
 <div class="view-map position-relation" *ngIf="content">
-  <div class="sidebar p-x-sm p-y-sm" fxFlex.lt-md="100" fxFlex.gt-sm="500px" fxLayout="column">
-    <div class="sidebar-wrapper" *ngIf="lists$|async as lists">
-      <mat-expansion-panel [expanded]="true">
+  <div class="sidebar p-x-xs p-y-xs" fxLayout="column" fxFlex.lt-md="100" fxFlex.gt-sm="450px">
+    <div class="sidebar-wrapper">
+      <mat-expansion-panel [expanded]="false">
         <mat-expansion-panel-header>
           <mat-panel-title>
             <div class="view-map-header position-relative">
-              <div class="result p-y-xs">总计 <span class="result-total">{{lists?.length}}</span> 条数据
+              <div class="result p-y-xs">总计 <span class="result-total">{{(lists$|async)?.length}}</span> 条数据
               </div>
             </div>
           </mat-panel-title>
         </mat-expansion-panel-header>
         <cdk-virtual-scroll-viewport [itemSize]="5" class="viewport">
-          <div class="filter" *ngIf="content.form">
-            <app-formly [classes]="'form-field-width-auto'" [form]="form" [fields]="content.form" [model]="model"
-              (modelChange)="onModelChange($event)">
-            </app-formly>
-
-            <div class="actions" fxLayoutGap="1rem" fxLayoutAlign="end center">
-              <button mat-button (click)="clear()">
-                <mat-icon>clear</mat-icon>清空
-              </button>
-            </div>
-          </div>
           <mat-divider class="m-y-sm"></mat-divider>
           <div class="list m-y-sm p-y-xs m-x-xs p-x-xs" [class.selected]="i == selectedId" matRipple
-            [matRippleColor]="'rgba(0, 0, 0, 0.04)'" *cdkVirtualFor="let item of lists; index as i" fxLayout="row"
-            (click)="onCard(item, i)">
+            [matRippleColor]="'rgba(0, 0, 0, 0.04)'" *cdkVirtualFor="let item of lists$ | async as lists; index as i"
+            fxLayout="row" (click)="onCard(item, i)">
             <div class="media">
               <img [src]="item.img" [alt]="item.title">
             </div>
@@ -49,6 +38,28 @@
         </cdk-virtual-scroll-viewport>
       </mat-expansion-panel>
     </div>
+  </div>
+  <div class="tools p-x-xs p-y-xs" fxFlexOffset.gt-sm="460px" fxFlex.lt-md="100" fxFlex.gt-sm="1 1 calc(100% - 460px)">
+    <mat-expansion-panel [expanded]="false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <div class="view-map-header position-relative">
+            展开
+          </div>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-divider class="m-y-sm"></mat-divider>
+      <app-formly [classes]="'form-field-width-auto'" [form]="form" [fields]="content.form" [model]="model"
+        (modelChange)="onModelChange($event)">
+      </app-formly>
+      <mat-divider class="m-y-sm"></mat-divider>
+      <div class="actions" fxLayoutGap="1rem" fxLayoutAlign="end center">
+        <button mat-raised-button color="primary" (click)="clear()">
+          <mat-icon>clear</mat-icon>清空
+        </button>
+      </div>
+
+    </mat-expansion-panel>
   </div>
   <div class="map-wrapper">
     <app-map fxFlex="100%" [content]="{city: content.params.city, elements: lists$ | async, model: model}"></app-map>
