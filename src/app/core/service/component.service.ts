@@ -37,6 +37,7 @@ export class ComponentService {
       'stepper',
       'card-1v1',
       'card-1v2',
+      'card-1v4',
       'calendar',
       'chart-box',
       'accordion',

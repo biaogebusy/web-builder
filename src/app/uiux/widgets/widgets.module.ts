@@ -80,6 +80,7 @@ import { Card1v1Component } from './card/card1v1/card1v1.component';
 import { BtnComponent } from './btn/btn.component';
 import { Card1v2Component } from './card/card1v2/card1v2.component';
 import { Card1v3Component } from './card/card1v3/card1v3.component';
+import { Card1v4Component } from './card/card1v4/card1v4.component';
 import { CardMetaComponent } from './card/card-meta/card-meta.component';
 import { DownloadComponent } from './actions/download/download.component';
 import { MediaMetaComponent } from './media/media-meta/media-meta.component';
@@ -144,6 +145,7 @@ const components = [
   Card1v1Component,
   Card1v2Component,
   Card1v3Component,
+  Card1v4Component,
   UserCardComponent,
   CheckboxComponent,
   ContentBoxComponent,
