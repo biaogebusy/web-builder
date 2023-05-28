@@ -110,6 +110,7 @@
     .inner {
       @include mat-elevation(4, mat-color($foreground, text), 0.3);
       color: mat-color($foreground, text, 0.5);
+      background-color: mat-color($background, card);
     }
   }
 }

@@ -1,9 +1,10 @@
 .card-1-v4 {
   .left {
+    position: relative;
+    width: 65px;
+    height: 65px;
     ::ng-deep {
       img {
-        width: 65px;
-        height: 65px;
         max-width: none;
         border-radius: 6px;
       }

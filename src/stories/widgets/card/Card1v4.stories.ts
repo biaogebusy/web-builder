@@ -34,6 +34,7 @@ export const Base = Template.bind({});
 Base.args = {
   content: {
     img: {
+      classes: 'object-fit',
       src: '/assets/images/avatar/01.jpeg',
     },
     star: 5,
