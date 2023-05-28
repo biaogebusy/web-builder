@@ -1,0 +1,139 @@
+{
+  "title": "首页 v7 Sass",
+  "configBak": {
+    "headerMode": {
+      "transparent": true,
+      "style": "light"
+    }
+  },
+  "meta": [
+    {
+      "name": "description",
+      "content": ""
+    },
+    {
+      "name": "keywords",
+      "content": ""
+    }
+  ],
+  "body": [
+    {
+      "type": "hero-1v4",
+      "spacer": "xl",
+      "text": {
+        "title": {
+          "label": "Conduct More Customer In A Better Way",
+          "classes": "mat-display-4 bold",
+          "style": "style-v1"
+        },
+        "classes": "p-x text-center",
+        "body": "Launch your campaign and benefit from our expertise on designing and managing conversion centered bootstrap4 html page.",
+        "actionsAlign": "center center",
+        "actions": [
+          {
+            "type": "btn",
+            "mode": "raised",
+            "color": "primary",
+            "href": "#",
+            "label": "立刻体验",
+            "target": "_blank"
+          }
+        ]
+      },
+      "bg": {
+        "classes": "bg-fill-width overlay overlay-",
+        "img": {
+          "src": "/assets/images/bg/home-shape.png",
+          "hostClasses": "bg-center"
+        }
+      },
+      "bottom": [
+        {
+          "type": "img",
+          "src": "/assets/images/illustration/29.png"
+        }
+      ]
+    },
+    {
+      "type": "showcase-1v1",
+      "title": {
+        "label": "Our Trusted Clients",
+        "style": "style-v2"
+      },
+      "subTitle": {
+        "spacer": "none",
+        "body": "<p class=\"text-center\">Start working with Landrick that can provide everything you need to generate awareness, drive traffic, connect.</p><br>"
+      },
+      "bg": {
+        "classes": "bg-shadow bg-fill-width"
+      },
+      "row": "4",
+      "elements": [
+        {
+          "img": {
+            "src": "/assets/images/logo/amazon.svg",
+            "alt": "browser"
+          },
+          "style": "style-v3 use-image",
+          "title": {
+            "href": "#",
+            "label": "高性能"
+          },
+          "content": "默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；",
+          "more": {
+            "href": "#",
+            "label": "+"
+          }
+        },
+        {
+          "img": {
+            "src": "/assets/images/logo/codepen.svg",
+            "alt": "browser"
+          },
+          "style": "style-v3 use-image",
+          "title": {
+            "href": "#",
+            "label": "易用的编辑器"
+          },
+          "content": "通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作；",
+          "more": {
+            "href": "#",
+            "label": "+"
+          }
+        },
+        {
+          "img": {
+            "src": "/assets/images/logo/google.svg",
+            "alt": "browser"
+          },
+          "style": "style-v3 use-image",
+          "title": {
+            "href": "#",
+            "label": "多语言"
+          },
+          "content": "Drupal 100多种语言提供了无以伦比的支持和翻译工作流程； ",
+          "more": {
+            "href": "#",
+            "label": "+"
+          }
+        },
+        {
+          "img": {
+            "src": "/assets/images/logo/lenovo.svg",
+            "alt": "browser"
+          },
+          "style": "style-v3 use-image",
+          "title": {
+            "href": "#",
+            "label": "更有弹性"
+          },
+          "content": "无论是一个还是多个站点，Drupal 总是可以游刃有余的构建；",
+          "more": {
+            "href": "#",
+            "label": "+"
+          }
+        }
+      ]
+    }
+  ]
+}
