@@ -52,8 +52,8 @@ Default.args = {
       classes: 'bg-fill-width bg-shadow overlay overlay-80',
       img: {
         hostClasses: '',
-        src: '/assets/images/illustration/home-shape.png',
-        mobile: '/assets/images/illustration/home-shape.png',
+        src: '/assets/images/bg/home-shape.png',
+        mobile: '/assets/images/bg/home-shape.png',
       },
     },
     elements: [

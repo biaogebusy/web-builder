@@ -48,3 +48,13 @@ ImgWithLink.args = {
     target: '_blank',
   },
 };
+
+export const Shape = Template.bind({});
+Shape.storyName = '带背景形状';
+Shape.args = {
+  content: {
+    type: 'img',
+    hostClasses: 'img-bg-shape',
+    src: '/assets/images/illustration/29.png',
+  },
+};

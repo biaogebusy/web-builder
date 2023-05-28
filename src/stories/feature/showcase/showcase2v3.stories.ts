@@ -40,8 +40,8 @@ Default.args = {
       classes: 'bg-fill-width',
       img: {
         hostClasses: '',
-        src: '/assets/images/illustration/home-shape.png',
-        mobile: '/assets/images/illustration/home-shape.png',
+        src: '/assets/images/bg/home-shape.png',
+        mobile: '/assets/images/bg/home-shape.png',
       },
     },
     row: '3',

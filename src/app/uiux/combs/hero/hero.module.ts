@@ -9,11 +9,13 @@ import { Hero1v2Component } from './hero1v2/hero1v2.component';
 import { SwiperModule } from 'swiper/angular';
 import { Hero1v3Component } from './hero1v3/hero1v3.component';
 import { BaseModule } from '@uiux/base/base.module';
+import { Hero1v4Component } from './hero1v4/hero1v4.component';
 
 const components = [
   Hero1v1Component,
   Hero1v2Component,
   Hero1v3Component,
+  Hero1v4Component,
   Hero2v1Component,
   Hero2v2Component,
   Hero2v3Component,

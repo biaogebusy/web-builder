@@ -120,6 +120,7 @@ export class ComponentService {
       'hero-1v1',
       'hero-1v2',
       'hero-1v3',
+      'hero-1v4',
       'hero-2v1',
       'hero-2v2',
       'hero-2v3',

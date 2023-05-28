@@ -14,7 +14,7 @@
       "img": {
         "hostClasses": "",
         "@src": "先固定写死",
-        "src": "/assets/images/illustration/home-shape.png"
+        "src": "/assets/images/bg/home-shape.png"
       }
     },
     "elements": [{
