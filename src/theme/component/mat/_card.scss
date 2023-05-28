@@ -7,7 +7,6 @@
   $primary: map-get($config, primary);
   $accent: map-get($config, accent);
   $warn: map-get($config, warn);
-
   $text-color: mat-color($foreground, text, 0.75);
   $bg-color: mat-color($background, card);
   .mat-card {
@@ -92,6 +91,25 @@
       overflow: hidden;
       border-radius: 12px;
       box-shadow: 0 6px 16px 0 rgb(0 0 0 / 10%);
+    }
+  }
+
+  .card-1-v4 {
+    .left {
+      img {
+        @include mat-elevation(4, mat-color($foreground, text), 0.3);
+      }
+    }
+    .mat-icon {
+      color: mat-color($warn, text);
+    }
+    .title {
+      color: mat-color($primary);
+    }
+
+    .inner {
+      @include mat-elevation(4, mat-color($foreground, text), 0.3);
+      color: mat-color($foreground, text, 0.5);
     }
   }
 }

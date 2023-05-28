@@ -1,0 +1,40 @@
+.card-1-v4 {
+  .left {
+    ::ng-deep {
+      img {
+        width: 65px;
+        height: 65px;
+        max-width: none;
+        border-radius: 6px;
+      }
+    }
+  }
+  .star {
+    font-size: small;
+    ::ng-deep {
+      .mat-icon {
+        width: 16px !important;
+        height: 16px !important;
+        line-height: 16px !important;
+      }
+    }
+  }
+
+  .inner {
+    position: relative;
+    border-radius: 6px;
+    &:before {
+      content: "";
+      position: absolute;
+      top: 30px;
+      left: 0;
+      margin-left: 13px;
+      box-sizing: border-box;
+      border: 8px solid #3c4858;
+      border-color: transparent #ffffff #ffffff transparent;
+      transform-origin: 0 0;
+      transform: rotate(135deg);
+      box-shadow: 2px 2px 2px -1px rgba(60, 72, 88, 0.15);
+    }
+  }
+}

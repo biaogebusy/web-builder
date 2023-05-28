@@ -1,1 +1,15 @@
-<p>card1v4 works!</p>
+<div class="card-1-v4" fxLayout="row" fxLayoutAlign="start start" *ngIf="content">
+  <div class="left m-right-sm">
+    <app-img [content]="content.img"></app-img>
+  </div>
+  <div class="inner p-x-sm p-y-sm" fxLayout="column">
+    <div class="star">
+      <app-icon [content]="{svg:'star'}" *ngFor="let item of star"></app-icon>
+    </div>
+    <div class="content m-y-xs" [innerHTML]="content.body|safeHtml"></div>
+    <div fxLayout="row">
+      <div class="title m-right-xs">{{content.title}}</div>
+      <div class="sub-title" *ngIf="content.subTitle">{{content.subTitle}}</div>
+    </div>
+  </div>
+</div>

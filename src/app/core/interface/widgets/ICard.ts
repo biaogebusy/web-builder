@@ -70,6 +70,14 @@ export interface ICard1v3 {
   elements: Card1v3Item[];
 }
 
+export interface ICard1v4 {
+  img: IImg;
+  star?: number;
+  title: string;
+  subTitle?: string;
+  body: string;
+}
+
 export interface Card1v3Item {
   title: string;
   address: string;

@@ -20,7 +20,7 @@ export default {
       providers: [],
     }),
     componentWrapperDecorator(
-      (story) => `<div fxFlex="300px" class="position-relative">${story}</div>`
+      (story) => `<div fxFlex="370px" class="position-relative">${story}</div>`
     ),
   ],
 } as Meta;
@@ -31,7 +31,14 @@ const Template: Story = (args) => ({
   },
 });
 export const Base = Template.bind({});
-const text: any = TextStories.Title.args;
 Base.args = {
-  content: {},
+  content: {
+    img: {
+      src: '/assets/images/avatar/01.jpeg',
+    },
+    star: 5,
+    title: '- Johnson',
+    subTitle: '前端开发',
+    body: '" 信使是一个大而全的前端框架，这并不是一件好事，但是兴许能够有意义的思考和经验。 "',
+  },
 };
