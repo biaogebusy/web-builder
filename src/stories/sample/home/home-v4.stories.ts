@@ -8,8 +8,6 @@ import { BlockComponent } from '@uiux/combs/block/block/block.component';
 import { BlockModule } from '@uiux/combs/block/block.module';
 import { StorysModule } from '@core/module/storys.module';
 import { BrandingModule } from '@core/branding/branding.module';
-import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
-import { PlayerComponent } from '@uiux/widgets/media/player/player.component';
 
 export default {
   title: '示例页面/首页示例/v4 应用介绍',

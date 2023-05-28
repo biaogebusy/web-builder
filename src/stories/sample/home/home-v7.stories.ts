@@ -8,9 +8,6 @@ import { BlockComponent } from '@uiux/combs/block/block/block.component';
 import { BlockModule } from '@uiux/combs/block/block.module';
 import { StorysModule } from '@core/module/storys.module';
 import { BrandingModule } from '@core/branding/branding.module';
-import { BRANDING } from '@core/token/token-providers';
-import { of } from 'rxjs';
-import { canvasHeader, medicalInverse } from '../../branding/Branding.json';
 
 export default {
   title: '示例页面/首页示例/v7 Sass',
@@ -21,15 +18,6 @@ export default {
       entryComponents: [...StorysModule.forEntryComponents()],
       declarations: [],
       imports: [StorysModule.forRoot(), BlockModule, BrandingModule],
-      providers: [
-        {
-          provide: BRANDING,
-          useValue: of({
-            ...canvasHeader,
-            ...medicalInverse,
-          }),
-        },
-      ],
     }),
     componentWrapperDecorator(
       (story) => `
