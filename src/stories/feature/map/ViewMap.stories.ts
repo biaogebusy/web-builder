@@ -247,7 +247,7 @@ Circle.args = {
           {
             type: 'input',
             key: 'lnglat',
-            className: 'm-bottom-sm width-100',
+            className: 'm-bottom-sm width-20 m-right-xs',
             templateOptions: {
               label: '经纬度',
               appearance: 'outline',
@@ -259,7 +259,7 @@ Circle.args = {
             type: 'input',
             key: 'radius',
             defaultValue: 3,
-            className: 'm-bottom-sm width-30 m-right-xs',
+            className: 'm-bottom-sm width-20 m-right-xs',
             templateOptions: {
               label: '圆半径/公里',
               appearance: 'outline',
@@ -278,7 +278,7 @@ Circle.args = {
           {
             type: 'input',
             key: 'bg',
-            className: 'm-bottom-sm width-30 m-right-xs',
+            className: 'm-bottom-sm width-20 m-right-xs',
             defaultValue: '#00a281',
             templateOptions: {
               label: '圆背景色',
@@ -291,7 +291,7 @@ Circle.args = {
             type: 'input',
             key: 'opacity',
             defaultValue: 0.1,
-            className: 'm-bottom-sm width-30  m-right-xs',
+            className: 'm-bottom-sm width-20',
             templateOptions: {
               label: '不透明度',
               appearance: 'outline',

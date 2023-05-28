@@ -20,6 +20,11 @@
         @include mat-elevation(3, mat-color($background, tooltip), 0.4);
         .box-header {
           border-bottom: 1px solid mat-color($foreground, divider);
+          .filter {
+            .mat-icon {
+              color: mat-color($foreground, text, 0.5);
+            }
+          }
         }
       }
     }

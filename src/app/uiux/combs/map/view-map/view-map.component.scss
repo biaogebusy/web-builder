@@ -56,16 +56,21 @@
           }
         }
       }
-
-      ::ng-deep {
-        .mat-expansion-panel {
-          box-shadow: none !important;
-        }
-        .mat-expansion-panel-body {
-          padding: 0 0px 16px;
-        }
-      }
     }
+  }
+  ::ng-deep {
+    .mat-expansion-panel {
+      box-shadow: none !important;
+    }
+    .mat-expansion-panel-body {
+      padding: 0 0px 16px;
+    }
+  }
+
+  .tools {
+    position: absolute;
+    z-index: 10;
+    top: 0;
   }
 
   .selected {

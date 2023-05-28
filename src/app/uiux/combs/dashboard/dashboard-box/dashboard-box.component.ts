@@ -11,8 +11,8 @@ import { FormService } from '@core/service/form.service';
 import { NodeService } from '@core/service/node.service';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { defaultsDeep, random } from 'lodash-es';
-import { Observable, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { Observable, defer, of } from 'rxjs';
+import { catchError, delay, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard-box',
@@ -118,6 +118,7 @@ export class DashboardBoxComponent extends BaseComponent implements OnInit {
         }
         return of(data);
       }),
+      delay(500),
       map(({ chart, rows }) => {
         let data: any = {};
         switch (type) {
@@ -147,5 +148,11 @@ export class DashboardBoxComponent extends BaseComponent implements OnInit {
         return data;
       })
     );
+    this.cd.detectChanges();
+  }
+
+  reload(): void {
+    this.form.reset();
+    this.getContent();
   }
 }

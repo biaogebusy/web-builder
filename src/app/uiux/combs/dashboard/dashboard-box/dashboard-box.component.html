@@ -3,14 +3,13 @@
     <div class="mat-h3 bold m-bottom-0" *ngIf="content.title">
       {{content.title.label}}
     </div>
-    <div class="filter" *ngIf="content.form">
-      <app-formly [form]="form" [model]="model" [fields]="content.form"
+    <div class="filter" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="1rem">
+      <app-formly *ngIf="content.form" [form]="form" [model]="model" [fields]="content.form"
         (modelChange)="onModelChange($event)"></app-formly>
+      <app-icon *ngIf="content?.params?.api" (click)="reload()" [content]="{svg:'reload'}"></app-icon>
     </div>
   </div>
-  <ng-container *ngIf="widget$ | async as widget">
-    <app-dynamic-component [inputs]="{content: widget}"></app-dynamic-component>
-  </ng-container>
+  <app-dynamic-component [inputs]="{content: widget$ | async}"></app-dynamic-component>
   <div class="loading-inner" *ngIf="loading">
     <mat-spinner diameter="50"></mat-spinner>
   </div>
