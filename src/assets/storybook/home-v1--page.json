@@ -176,17 +176,21 @@
     {
       "type": "showcase-4v1",
       "spacer": "xl",
-      "title": {
-        "label": "Drupal 数据",
-        "style": "style-v1",
-        "classes": "mat-display-1 bold"
+      "text": {
+        "title": {
+          "label": "Drupal 数据",
+          "style": "style-v1",
+          "classes": "mat-display-1 bold"
+        }
       },
       "bg": {
         "classes": "bg-shadow bg-fill-width"
       },
       "elements": [
         {
-          "icon": "settings",
+          "icon": {
+            "name": "settings"
+          },
           "digit": {
             "value": 47194,
             "label": "个"
@@ -194,7 +198,9 @@
           "title": "贡献模块"
         },
         {
-          "icon": "camera",
+          "icon": {
+            "name": "camera"
+          },
           "digit": {
             "value": 2960,
             "label": "个"
@@ -202,7 +208,9 @@
           "title": "主题"
         },
         {
-          "icon": "filter_vintage",
+          "icon": {
+            "name": "filter_vintage"
+          },
           "digit": {
             "value": 1392,
             "label": "套"
@@ -210,7 +218,9 @@
           "title": "发行版"
         },
         {
-          "icon": "security",
+          "icon": {
+            "name": "security"
+          },
           "digit": {
             "value": 9,
             "label": "Version"

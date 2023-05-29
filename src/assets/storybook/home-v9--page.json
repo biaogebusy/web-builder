@@ -181,16 +181,20 @@
     {
       "type": "showcase-4v1",
       "spacer": "lg",
-      "title": {
-        "label": "Pipeline Snapshot as of May 2, 2023",
-        "style": "style-v1"
+      "text": {
+        "title": {
+          "label": "Pipeline Snapshot as of May 2, 2023",
+          "style": "style-v1"
+        }
       },
       "bg": {
         "classes": "bg-fill-width bg-shadow"
       },
       "elements": [
         {
-          "icon": "fingerprint",
+          "icon": {
+            "name": "fingerprint"
+          },
           "digit": {
             "value": 38,
             "label": "+"
@@ -198,7 +202,9 @@
           "title": "Phase 1"
         },
         {
-          "icon": "verified_user",
+          "icon": {
+            "name": "verified_user"
+          },
           "digit": {
             "value": 28,
             "label": "+"
@@ -206,7 +212,9 @@
           "title": "Phase 2"
         },
         {
-          "icon": "android",
+          "icon": {
+            "name": "android"
+          },
           "digit": {
             "value": 23,
             "label": "+"
@@ -214,7 +222,9 @@
           "title": "Phase 3"
         },
         {
-          "icon": "mail",
+          "icon": {
+            "name": "mail"
+          },
           "digit": {
             "value": 12,
             "label": "+"
@@ -222,7 +232,9 @@
           "title": "Registration"
         },
         {
-          "icon": "mail",
+          "icon": {
+            "name": "mail"
+          },
           "digit": {
             "value": 101,
             "label": "+"

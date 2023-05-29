@@ -499,7 +499,9 @@
       },
       "elements": [
         {
-          "icon": "groups",
+          "icon": {
+            "name": "groups"
+          },
           "digit": {
             "value": 80,
             "label": "+"
@@ -507,7 +509,9 @@
           "title": "金融专业团队"
         },
         {
-          "icon": "vpn_key",
+          "icon": {
+            "name": "vpn_key"
+          },
           "digit": {
             "value": 300,
             "label": "+"
@@ -515,7 +519,9 @@
           "title": "实务操作指南"
         },
         {
-          "icon": "business_center",
+          "icon": {
+            "name": "business_center"
+          },
           "digit": {
             "value": 1000,
             "label": "+"
@@ -523,7 +529,9 @@
           "title": "金融实例"
         },
         {
-          "icon": "gavel",
+          "icon": {
+            "name": "gavel"
+          },
           "digit": {
             "value": 10000,
             "label": "+"
