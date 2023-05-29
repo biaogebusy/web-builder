@@ -2,7 +2,7 @@
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
   <app-spacer [size]="content.spacer || 'md'"></app-spacer>
   <div class="{{content.fullWidth?'container-fluid':'container'}}">
-    <app-title *ngIf="content.title" [content]="content.title"></app-title>
+    <app-text *ngIf="content.text" [content]="content.text"></app-text>
     <ng-container [ngSwitch]="content.align">
       <mat-tab-group *ngSwitchCase="'center'" mat-align-tabs="center" [ngClass]="content.classes">
         <mat-tab *ngFor="let item of content.elements" label="{{item.label}}">

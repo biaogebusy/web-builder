@@ -1,10 +1,10 @@
-import { ITitle } from './ITitle';
 import { IBgImg } from './IBgImg';
+import { IText } from './IText';
 export interface ITab {
   id?: string;
   spacer?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'none';
   fullWidth: boolean;
-  title: ITitle;
+  text: IText;
   classes: object | string;
   elements: any[];
   bg: IBgImg;
