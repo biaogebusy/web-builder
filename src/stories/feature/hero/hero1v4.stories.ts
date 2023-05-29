@@ -60,10 +60,59 @@ Default.args = {
         hostClasses: 'bg-center',
       },
     },
-    bottom: [
+    widget: [
       {
         type: 'img',
         src: '/assets/images/illustration/29.png',
+      },
+    ],
+  },
+};
+
+export const Order = Template.bind({});
+
+Order.args = {
+  content: {
+    spacer: 'xl',
+    text: {
+      title: {
+        label: 'Conduct More Customer In A Better Way',
+        classes: 'mat-display-4 bold',
+        style: 'style-v1',
+      },
+      classes: 'p-x text-center',
+      body: 'Launch your campaign and benefit from our expertise on designing and managing conversion centered bootstrap4 html page.',
+      actionsAlign: 'center center',
+      actions: [
+        {
+          type: 'btn',
+          mode: 'raised',
+          color: 'primary',
+          href: '#',
+          label: '立刻体验',
+          target: '_blank',
+        },
+      ],
+    },
+    bg: {
+      classes: 'bg-fill-width overlay overlay-',
+      img: {
+        src: '/assets/images/bg/bg-02.png',
+        hostClasses: 'bg-center',
+      },
+    },
+    order: -1,
+    style: {
+      maxWidth: '800px',
+      margin: '0 auto',
+    },
+    widget: [
+      {
+        type: 'img',
+        style: {
+          maxHeight: '400px',
+        },
+        src: '/assets/images/illustration/30.png',
       },
     ],
   },
