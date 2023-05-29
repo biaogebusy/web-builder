@@ -1,0 +1,16 @@
+.tab {
+  &.pills {
+    ::ng-deep {
+      .mat-tab-header {
+        border-bottom: 0;
+        .mat-tab-label-active,
+        .mat-tab-labels {
+          border-radius: 6px;
+        }
+        .mat-ink-bar {
+          display: none;
+        }
+      }
+    }
+  }
+}

@@ -290,4 +290,17 @@
     border: 1px solid mat-color($foreground, divider);
     @include mat-elevation(2, mat-color($foreground, divider), 0.07);
   }
+
+  .tab {
+    &.pills {
+      .mat-tab-labels {
+        background-color: mat-color($primary, 0.06);
+      }
+      .mat-tab-label-active {
+        background-color: mat-color($primary);
+        color: mat-color($primary, default-contrast);
+        opacity: 1;
+      }
+    }
+  }
 }

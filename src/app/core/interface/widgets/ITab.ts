@@ -8,4 +8,6 @@ export interface ITab {
   classes: object | string;
   elements: any[];
   bg: IBgImg;
+  align: 'start' | 'center' | 'end';
+  pills?: boolean;
 }

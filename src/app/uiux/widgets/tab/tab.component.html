@@ -1,16 +1,34 @@
-<div class="tab" *ngIf="content">
+<div class="tab" *ngIf="content" [ngClass]="{pills: content.pills}">
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
   <app-spacer [size]="content.spacer || 'md'"></app-spacer>
   <div class="{{content.fullWidth?'container-fluid':'container'}}">
     <app-title *ngIf="content.title" [content]="content.title"></app-title>
-    <mat-tab-group mat-align-tabs="start" [ngClass]="content.classes">
-      <mat-tab *ngFor="let item of content.elements" label="{{item.label}}">
-        <div class="p-y-sm p-x-sm">
-          <app-bg-img [content]="content.bg"></app-bg-img>
-          <app-dynamic-component *ngFor="let item of item.elements" [inputs]="{content:item}"></app-dynamic-component>
-        </div>
-      </mat-tab>
-    </mat-tab-group>
+    <ng-container [ngSwitch]="content.align">
+      <mat-tab-group *ngSwitchCase="'center'" mat-align-tabs="center" [ngClass]="content.classes">
+        <mat-tab *ngFor="let item of content.elements" label="{{item.label}}">
+          <div class="p-y-sm p-x-sm">
+            <app-bg-img [content]="content.bg"></app-bg-img>
+            <app-dynamic-component *ngFor="let item of item.elements" [inputs]="{content:item}"></app-dynamic-component>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+      <mat-tab-group *ngSwitchCase="'end'" mat-align-tabs="center" [ngClass]="content.classes">
+        <mat-tab *ngFor="let item of content.elements" label="{{item.label}}">
+          <div class="p-y-sm p-x-sm">
+            <app-bg-img [content]="content.bg"></app-bg-img>
+            <app-dynamic-component *ngFor="let item of item.elements" [inputs]="{content:item}"></app-dynamic-component>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+      <mat-tab-group *ngSwitchDefault mat-align-tabs="start" [ngClass]="content.classes">
+        <mat-tab *ngFor="let item of content.elements" label="{{item.label}}">
+          <div class="p-y-sm p-x-sm">
+            <app-bg-img [content]="content.bg"></app-bg-img>
+            <app-dynamic-component *ngFor="let item of item.elements" [inputs]="{content:item}"></app-dynamic-component>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </ng-container>
   </div>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
 </div>
