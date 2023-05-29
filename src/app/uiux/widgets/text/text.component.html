@@ -8,7 +8,10 @@
       <ul #list class="lists m-y-sm" [class.list-done]="content.lists?.params?.icon" *ngIf="content.lists?.elements"
         fxLayout="column">
         <li *ngFor="let list of content.lists?.elements" fxLayout="row" fxLayoutAlign="start center">
-          <app-link [content]="list"></app-link>
+          <span [innerHTML]="list.label" *ngIf="!list.href;else link"></span>
+          <ng-template #link>
+            <app-link [content]="list"></app-link>
+          </ng-template>
         </li>
       </ul>
       <div #actions class="actions m-top p-bottom-xs" *ngIf="content.actions"

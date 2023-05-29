@@ -44,7 +44,7 @@ Default.args = {
     elements: [
       {
         img: {
-          src: '/assets/images/showcase/browser.png',
+          src: '/assets/images/svg/Asset187.svg',
           alt: 'browser',
         },
         style: 'style-v3 use-image',
@@ -61,7 +61,7 @@ Default.args = {
       },
       {
         img: {
-          src: '/assets/images/showcase/clipboard.png',
+          src: '/assets/images/svg/Asset189.svg',
           alt: 'browser',
         },
         style: 'style-v3 use-image',
@@ -77,7 +77,7 @@ Default.args = {
       },
       {
         img: {
-          src: '/assets/images/showcase/console.png',
+          src: '/assets/images/svg/Asset190.svg',
           alt: 'browser',
         },
         style: 'style-v3 use-image',
@@ -93,7 +93,7 @@ Default.args = {
       },
       {
         img: {
-          src: '/assets/images/showcase/weather.png',
+          src: '/assets/images/svg/Asset192.svg',
           alt: 'browser',
         },
         style: 'style-v3 use-image',

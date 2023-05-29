@@ -29,11 +29,15 @@
       </ng-template>
     </ng-container>
     <ng-container *ngSwitchCase="'flat'">
-      <button [ngClass]="content.classes || ''" mat-flat-button *ngIf="!content.href;else link"
-        [color]="content.color">{{content.label}}</button>
+      <button [ngClass]="content.classes || ''" mat-flat-button *ngIf="!content.href;else link" [color]="content.color">
+        <app-icon *ngIf="content.icon" [content]="content.icon"></app-icon>
+        <span [innerHTML]="content.label|safeHtml"></span></button>
       <ng-template #link>
         <a [ngClass]="content.classes || ''" mat-flat-button (click)="onNav($event, content)" [href]="content.href"
-          [target]="content?.target || ''" [innerHTML]="content.label|safeHtml" [color]="content?.color"></a>
+          [target]="content?.target || ''" [color]="content?.color">
+          <app-icon *ngIf="content.icon" [content]="content.icon"></app-icon>
+          <span [innerHTML]="content.label|safeHtml"></span>
+        </a>
       </ng-template>
     </ng-container>
     <ng-container *ngSwitchCase="'icon'">

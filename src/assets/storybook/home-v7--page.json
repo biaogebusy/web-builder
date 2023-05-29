@@ -47,7 +47,7 @@
           "hostClasses": "bg-center"
         }
       },
-      "bottom": [
+      "widget": [
         {
           "type": "img",
           "src": "/assets/images/illustration/29.png"

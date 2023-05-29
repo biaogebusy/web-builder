@@ -3,18 +3,19 @@
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <app-bg *ngIf="content.bg" [content]="content.bg"></app-bg>
   <div class="container">
-    <app-title [content]="content.title" *ngIf="content.title"></app-title>
+    <app-text [content]="content.text" *ngIf="content.text"></app-text>
     <div class="inner" fxLayout.xs="column" fxLayout.gt-xs="row">
       <div fxFlex *ngFor="let item of elements">
         <div class="style04 inv-stats">
           <div class="stats-icon">
-            <mat-icon>{{item.icon}}</mat-icon>
+            <app-icon *ngIf="item.icon" [content]="item.icon"></app-icon>
+            <app-img *ngIf="item.img" [content]="item.img"></app-img>
           </div>
           <div class="stats-count">
             <app-number-animate [content]="item.digit"></app-number-animate>
           </div>
-          <div class="stats-title">{{item.title}}</div>
-          <div class="stats-desc">{{item.desc}}</div>
+          <div class="stats-title" *ngIf="item.title">{{item.title}}</div>
+          <div class="stats-desc" *ngIf="item.desc">{{item.desc}}</div>
         </div>
       </div>
     </div>

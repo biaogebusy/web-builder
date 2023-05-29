@@ -5,6 +5,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { IShowcase4v1 } from '@core/interface/combs/IShowcase';
 import { DialogService } from '@core/service/dialog.service';
 import { NodeService } from '@core/service/node.service';
 import { BaseComponent } from '@uiux/base/base.widget';
@@ -18,7 +19,7 @@ import { catchError } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Showcase4v1Component extends BaseComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: IShowcase4v1;
   elements: any[];
   constructor(
     private nodeService: NodeService,

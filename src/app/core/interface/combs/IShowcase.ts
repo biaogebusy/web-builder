@@ -6,6 +6,7 @@ import { IText } from '../widgets/IText';
 import { IMediaObject } from '../widgets/IMediaObject';
 import { ITitle } from '../widgets/ITitle';
 import { IImg } from '../widgets/IImg';
+import { IIcon } from '../widgets/IIcon';
 
 export interface IShowcase2v1 extends ICombsBase {
   elements: any[];
@@ -55,4 +56,16 @@ export interface IShowcase3v9 extends ICombsBase {
     left: number;
     right: number;
   };
+}
+
+export interface IShowcase4v1 extends ICombsBase {
+  elements: IShowcase4v1Element[];
+}
+
+export interface IShowcase4v1Element {
+  icon?: IIcon;
+  img?: IImg;
+  digit: number;
+  title: string;
+  desc?: string;
 }

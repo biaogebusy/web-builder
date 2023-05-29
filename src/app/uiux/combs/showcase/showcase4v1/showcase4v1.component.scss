@@ -9,6 +9,12 @@
       position: relative;
       z-index: 1;
     }
+    ::ng-deep {
+      img {
+        width: 65px;
+        height: 65px;
+      }
+    }
   }
   .stats-count {
     font-size: 32px;
@@ -22,5 +28,10 @@
     margin-top: 15px;
     text-transform: capitalize;
     position: relative;
+  }
+
+  .stats-title,
+  .stats-desc {
+    opacity: 0.6;
   }
 }

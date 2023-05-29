@@ -30,17 +30,22 @@ export const Default = Template.bind({});
 
 Default.args = {
   content: {
+    type: 'showcase-1v4',
     spacer: 'lg',
-    title: {
-      label: '平台实时数据',
-      style: 'style-v1',
+    text: {
+      title: {
+        label: '平台实时数据',
+        style: 'style-v1',
+      },
     },
     paramsBak: {
       api: 'api/v1/tab/order_process_statistics',
     },
     elements: [
       {
-        icon: 'fingerprint',
+        icon: {
+          name: 'fingerprint',
+        },
         digit: {
           value: random(100, 1000),
           label: '+',
@@ -48,7 +53,9 @@ Default.args = {
         title: '日访问人数',
       },
       {
-        icon: 'verified_user',
+        icon: {
+          name: 'verified_user',
+        },
         digit: {
           value: random(100, 500),
           label: '+',
@@ -56,7 +63,9 @@ Default.args = {
         title: '日打开次数',
       },
       {
-        icon: 'android',
+        icon: {
+          name: 'android',
+        },
         digit: {
           value: random(10, 300),
           label: '人',
@@ -64,12 +73,76 @@ Default.args = {
         title: '日新增人数',
       },
       {
-        icon: 'mail',
+        icon: {
+          name: 'mail',
+        },
         digit: {
           value: random(3000, 10000),
           label: '万',
         },
         title: '累计用户数',
+      },
+    ],
+  },
+};
+
+export const Img = Template.bind({});
+
+Img.args = {
+  content: {
+    type: 'showcase-1v4',
+    spacer: 'lg',
+    text: {
+      title: {
+        label: 'See everything about your Landrick',
+        style: 'style-v1',
+        classes: 'mat-display-1',
+      },
+      body: '<p class="text-center">Start working with Landrick that can provide everything you need to generate awareness, drive traffic, connect.</p>',
+    },
+    paramsBak: {
+      api: 'api/v1/tab/order_process_statistics',
+    },
+    elements: [
+      {
+        img: {
+          src: '/assets/images/svg/Asset187.svg',
+        },
+        digit: {
+          value: random(50, 100),
+          label: '%',
+        },
+        title: 'Happy Client',
+      },
+      {
+        img: {
+          src: '/assets/images/svg/Asset189.svg',
+        },
+        digit: {
+          value: random(100, 500),
+          label: '+',
+        },
+        title: 'Awards',
+      },
+      {
+        img: {
+          src: '/assets/images/svg/Asset190.svg',
+        },
+        digit: {
+          value: random(10, 300),
+          label: 'K',
+        },
+        title: 'Job Placement',
+      },
+      {
+        img: {
+          src: '/assets/images/svg/Asset192.svg',
+        },
+        digit: {
+          value: random(60, 100),
+          label: '%',
+        },
+        title: 'Project Complete',
       },
     ],
   },

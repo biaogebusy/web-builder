@@ -92,6 +92,16 @@ Order.args = {
           label: '立刻体验',
           target: '_blank',
         },
+        {
+          type: 'btn',
+          color: 'primary',
+          label: '联系我们',
+          icon: {
+            inline: true,
+            name: 'phone',
+          },
+          mode: 'stroked',
+        },
       ],
     },
     bg: {
