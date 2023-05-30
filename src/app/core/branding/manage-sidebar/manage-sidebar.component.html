@@ -1,6 +1,5 @@
-<ng-container *ngIf="branding$ | async as branding">
-  <div class="manage-sidebar {{opened?'opened':'expanded'}}" [ngClass]="branding.header?.sidebar?.classes"
-    *reqRolesIf="branding.header?.sidebar">
+<div class="height-100" *ngIf="branding$ | async as branding" [ngClass]="branding.header?.sidebar?.classes">
+  <div class="manage-sidebar {{opened?'opened':'expanded'}}" *reqRolesIf="branding.header?.sidebar">
     <div class="manage-brand p-y-sm p-x-sm" *ngIf="branding.header?.sidebar as sidebar">
       <app-logo *ngIf="!sidebar?.params.showUser; else profile" [content]="sidebar?.logo"></app-logo>
       <ng-template #profile>
@@ -19,7 +18,6 @@
         </div>
       </ng-template>
     </div>
-    <mat-divider></mat-divider>
     <div class="manage-menu" *ngIf="branding.header?.sidebar?.menu as menu"
       [ngStyle]="{'overflow': opened?'auto' : 'visible'}">
       <app-accordion [hidden]="!opened" [content]="menu"></app-accordion>
@@ -32,7 +30,6 @@
         </div>
       </div>
     </div>
-    <mat-divider></mat-divider>
     <div class="manage-footer p-y-sm p-x-sm">
       <div class="toggle">
         <div class="wrapper" (click)="onToggle()">
@@ -42,4 +39,4 @@
       </div>
     </div>
   </div>
-</ng-container>
+</div>

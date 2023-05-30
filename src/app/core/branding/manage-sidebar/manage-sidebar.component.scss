@@ -1,4 +1,5 @@
 @import "../../../../theme/variable/breakpoint";
+
 @mixin activeStyle() {
   content: "";
   position: absolute;
@@ -35,7 +36,7 @@
   }
 
   .manage-menu {
-    flex: 0 1 auto;
+    flex: 0 1 100%;
     overflow: auto;
     ::ng-deep {
       a {
@@ -214,7 +215,7 @@
 }
 
 ::ng-deep .mat-drawer.sidebar {
-  position: absolute;
+  position: fixed;
   overflow: auto;
   box-shadow: 1px 1px 6px 0px rgb(221 221 221 / 47%);
   width: 80px;

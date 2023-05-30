@@ -1,924 +1,413 @@
 {
-  "type": "dashboard",
-  "elements": [
+  "defaultTheme": "light-theme",
+  "theme": [
     {
-      "title": {
-        "label": "消费者注册数据"
-      },
-      "params": {
-        "api": "/api/v3/xxx"
-      },
-      "row": "12",
+      "name": "默认主题",
+      "style": "light-theme",
+      "icon": "laptop_mac"
+    },
+    {
+      "name": "Pink 主题",
+      "style": "pink-theme",
+      "icon": "laptop_mac"
+    },
+    {
+      "name": "Blue 主题",
+      "style": "blue-theme",
+      "icon": "laptop_mac"
+    },
+    {
+      "name": "Green 主题",
+      "style": "green-theme",
+      "icon": "laptop_mac"
+    },
+    {
+      "name": "Red 主题",
+      "style": "red-theme",
+      "icon": "laptop_mac"
+    },
+    {
+      "name": "King 主题",
+      "style": "king-theme",
+      "icon": "laptop_mac"
+    },
+    {
+      "name": "暗黑主题",
+      "style": "dark-theme",
+      "svgIcon": "dark_mode"
+    }
+  ],
+  "login": {
+    "loginRedirect": "/",
+    "left": {
+      "type": "img",
+      "src": "/assets/images/login-second.png",
+      "alt": "登录"
+    },
+    "phoneLogin": {
+      "enable": true,
+      "tabLabel": "手机登录",
+      "leftTime": 59,
+      "submitLabel": "注册/登录",
+      "error": "请输入正确的手机号码"
+    },
+    "pswLogin": {
+      "enable": true,
+      "tabLabel": "密码登录",
+      "submitLabel": "登录"
+    }
+  },
+  "defaultLogo": "/assets/images/logo.png",
+  "defaultAvatar": "/assets/images/avatar/01.jpeg",
+  "defaultThumb": "/assets/images/default.png",
+  "amap": {
+    "key": "33877188af64f0213ff4fa259b1c14b8",
+    "version": "1.4.15",
+    "plugins": [
+      "AMap.Geocoder"
+    ],
+    "city": "0771",
+    "zoom": 18,
+    "center": [
+      108.32067,
+      22.817424
+    ],
+    "mapStyle": {
+      "light": "amap://styles/1421728e809147de8bfac4fd1abd2fb3",
+      "dark": "amap://styles/50fcdf3719b8cd479cd3017044e49c22"
+    },
+    "features": [
+      "bg",
+      "road",
+      "point"
+    ]
+  },
+  "apiUrl": {
+    "loginPath": "/user/login",
+    "logoutPath": "/user/logout",
+    "userIdGetPath": "/api/v1",
+    "nodeGetPath": "/api/v1/node",
+    "commentGetPath": "/api/v1/comment",
+    "taxonomyGetPath": "/api/v1/taxonomy_term",
+    "flaggingGetPath": "/api/v1/flagging",
+    "userGetPath": "/api/v1/user/user",
+    "searchBak": {
+      "customer_staff": "/api/v1/customer-content",
+      "handler": "/api/v1/handler-content"
+    },
+    "github": {
+      "repos": "https://github.com/biaogebusy/xinshi-angular",
+      "api": "https://api.github.com/repos/biaogebusy/xinshi-angular"
+    }
+  },
+  "loading": true,
+  "loadingBar": true,
+  "article": {
+    "fontSize": {
+      "enable": true,
       "form": [
         {
-          "type": "mat-select",
-          "key": "position",
-          "defaultValue": 2023,
-          "className": "display-block",
-          "templateOptions": {
-            "label": "年份",
-            "description": "请选择年份",
-            "options": [
-              {
-                "label": "2023年",
-                "value": 2023
-              },
-              {
-                "label": "2022年",
-                "value": 2022
-              },
-              {
-                "label": "2021年",
-                "value": 2021
-              },
-              {
-                "label": "2020年",
-                "value": 2020
-              }
-            ]
-          }
+          "label": "字体大小",
+          "key": "font",
+          "value": 16,
+          "type": "input",
+          "placeholder": "Ex. 12",
+          "controlType": "number",
+          "appearance": "legacy",
+          "errorMes": "最小: 10px",
+          "tooltip": "通过键盘上下键可快速更改大小",
+          "matTooltipPosition": "above",
+          "suffix": "px"
         }
-      ],
-      "widget": {
-        "type": "chart",
-        "tooltip": {
-          "trigger": "axis"
-        },
-        "dataset": [
+      ]
+    },
+    "login": {
+      "label": "登录"
+    },
+    "comment": {
+      "enable": true
+    }
+  },
+  "editor": {
+    "modules": {
+      "toolbar": [
+        [
           {
-            "source": [
-              [
-                "name",
-                "用户"
-              ],
-              [
-                "1月",
-                34
-              ],
-              [
-                "2月",
-                43
-              ],
-              [
-                "3月",
-                66
-              ],
-              [
-                "4月",
-                75
-              ],
-              [
-                "5月",
-                42
-              ],
-              [
-                "6月",
-                85
-              ],
-              [
-                "7月",
-                61
-              ],
-              [
-                "8月",
-                28
-              ],
-              [
-                "9月",
-                54
-              ],
-              [
-                "10月",
-                82
-              ],
-              [
-                "11月",
-                95
-              ],
-              [
-                "12月",
-                33
-              ]
+            "header": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              false
             ]
           }
         ],
-        "grid": {
-          "left": "40px",
-          "right": "40px",
-          "top": "30px",
-          "bottom": "30px"
-        },
-        "xAxis": {
-          "type": "category"
-        },
-        "yAxis": {
-          "type": "value"
-        },
-        "series": [
+        [
+          "bold",
+          "italic",
+          "underline",
+          "strike"
+        ],
+        [
+          "clean"
+        ],
+        [
           {
-            "type": "bar",
-            "label": {
-              "position": "top",
-              "show": true
-            },
-            "barMaxWidth": "30px",
-            "datasetIndex": 0
-          }
-        ]
-      }
-    },
-    {
-      "row": "3",
-      "widget": {
-        "type": "chart-box",
-        "label": "广告发布量",
-        "count": "5",
-        "params": {
-          "api": "/api/v3/node/vote/report"
-        },
-        "chart": {
-          "grid": {
-            "left": "0",
-            "right": "0",
-            "top": "0",
-            "bottom": "0"
+            "background": []
           },
-          "xAxis": {
-            "show": false,
-            "type": "category"
-          },
-          "yAxis": {
-            "show": false,
-            "type": "value"
-          },
-          "dataset": [
-            {
-              "source": [
-                [
-                  "name",
-                  "广告"
-                ],
-                [
-                  "1月",
-                  50
-                ],
-                [
-                  "2月",
-                  49
-                ],
-                [
-                  "3月",
-                  98
-                ],
-                [
-                  "4月",
-                  97
-                ],
-                [
-                  "5月",
-                  55
-                ],
-                [
-                  "6月",
-                  30
-                ],
-                [
-                  "7月",
-                  62
-                ],
-                [
-                  "8月",
-                  83
-                ],
-                [
-                  "9月",
-                  36
-                ],
-                [
-                  "10月",
-                  54
-                ],
-                [
-                  "11月",
-                  71
-                ],
-                [
-                  "12月",
-                  45
-                ]
-              ]
-            }
-          ],
-          "series": [
-            {
-              "type": "line",
-              "symbol": "none",
-              "areaStyle": {
-                "opacity": 0.1,
-                "color": "#1976d2"
-              },
-              "lineStyle": {
-                "color": "#1976d2"
-              },
-              "label": {
-                "position": "top",
-                "show": true
-              },
-              "datasetIndex": 0
-            }
-          ]
-        }
-      }
-    },
-    {
-      "row": "3",
-      "widget": {
-        "type": "chart-box",
-        "label": "消费者增长",
-        "count": "1,156",
-        "params": {
-          "api": "/api/v3/node/vote/report"
-        },
-        "chart": {
-          "grid": {
-            "left": "0",
-            "right": "0",
-            "top": "0",
-            "bottom": "0"
-          },
-          "xAxis": {
-            "show": false,
-            "type": "category"
-          },
-          "yAxis": {
-            "show": false,
-            "type": "value"
-          },
-          "dataset": [
-            {
-              "source": [
-                [
-                  "name",
-                  "用户"
-                ],
-                [
-                  "1月",
-                  66
-                ],
-                [
-                  "2月",
-                  16
-                ],
-                [
-                  "3月",
-                  21
-                ],
-                [
-                  "4月",
-                  73
-                ],
-                [
-                  "5月",
-                  86
-                ],
-                [
-                  "6月",
-                  88
-                ],
-                [
-                  "7月",
-                  68
-                ],
-                [
-                  "8月",
-                  91
-                ],
-                [
-                  "9月",
-                  31
-                ],
-                [
-                  "10月",
-                  10
-                ],
-                [
-                  "11月",
-                  84
-                ],
-                [
-                  "12月",
-                  37
-                ]
-              ]
-            }
-          ],
-          "series": [
-            {
-              "type": "line",
-              "symbol": "none",
-              "areaStyle": {
-                "opacity": 0.1,
-                "color": "#512da8"
-              },
-              "lineStyle": {
-                "color": "#512da8"
-              },
-              "label": {
-                "position": "top",
-                "show": true
-              },
-              "datasetIndex": 0
-            }
-          ]
-        }
-      }
-    },
-    {
-      "row": "3",
-      "widget": {
-        "type": "chart-box",
-        "label": "门店增长",
-        "count": "50%",
-        "params": {
-          "api": "/api/v3/node/vote/report"
-        },
-        "chart": {
-          "grid": {
-            "left": "0",
-            "right": "0",
-            "top": "0",
-            "bottom": "0"
-          },
-          "xAxis": {
-            "show": false,
-            "type": "category"
-          },
-          "yAxis": {
-            "show": false,
-            "type": "value"
-          },
-          "dataset": [
-            {
-              "source": [
-                [
-                  "name",
-                  "门店"
-                ],
-                [
-                  "1月",
-                  10
-                ],
-                [
-                  "2月",
-                  6
-                ],
-                [
-                  "3月",
-                  4
-                ],
-                [
-                  "4月",
-                  10
-                ],
-                [
-                  "5月",
-                  3
-                ],
-                [
-                  "6月",
-                  3
-                ],
-                [
-                  "7月",
-                  10
-                ],
-                [
-                  "8月",
-                  5
-                ],
-                [
-                  "9月",
-                  8
-                ],
-                [
-                  "10月",
-                  9
-                ],
-                [
-                  "11月",
-                  5
-                ],
-                [
-                  "12月",
-                  8
-                ]
-              ]
-            }
-          ],
-          "series": [
-            {
-              "type": "line",
-              "symbol": "none",
-              "areaStyle": {
-                "opacity": 0.1,
-                "color": "#f57f17"
-              },
-              "lineStyle": {
-                "color": "#f57f17"
-              },
-              "label": {
-                "position": "top",
-                "show": true
-              },
-              "datasetIndex": 0
-            }
-          ]
-        }
-      }
-    },
-    {
-      "row": "3",
-      "widget": {
-        "type": "chart-box",
-        "label": "评论量",
-        "count": "28",
-        "params": {
-          "api": "/api/v3/node/vote/report"
-        },
-        "chart": {
-          "grid": {
-            "left": "0",
-            "right": "0",
-            "top": "0",
-            "bottom": "0"
-          },
-          "xAxis": {
-            "show": false,
-            "type": "category"
-          },
-          "yAxis": {
-            "show": false,
-            "type": "value"
-          },
-          "dataset": [
-            {
-              "source": [
-                [
-                  "name",
-                  "评论"
-                ],
-                [
-                  "1月",
-                  27
-                ],
-                [
-                  "2月",
-                  31
-                ],
-                [
-                  "3月",
-                  76
-                ],
-                [
-                  "4月",
-                  49
-                ],
-                [
-                  "5月",
-                  38
-                ],
-                [
-                  "6月",
-                  56
-                ],
-                [
-                  "7月",
-                  76
-                ],
-                [
-                  "8月",
-                  15
-                ],
-                [
-                  "9月",
-                  50
-                ],
-                [
-                  "10月",
-                  76
-                ],
-                [
-                  "11月",
-                  72
-                ],
-                [
-                  "12月",
-                  57
-                ]
-              ]
-            }
-          ],
-          "series": [
-            {
-              "type": "line",
-              "symbol": "none",
-              "areaStyle": {
-                "opacity": 0.1,
-                "color": "#c2185b"
-              },
-              "lineStyle": {
-                "color": "#c2185b"
-              },
-              "label": {
-                "position": "top",
-                "show": true
-              },
-              "datasetIndex": 0
-            }
-          ]
-        }
-      }
-    },
-    {
-      "title": {
-        "label": "抽奖数据"
-      },
-      "row": "12",
-      "widget": {
-        "type": "chart",
-        "tooltip": {
-          "trigger": "axis"
-        },
-        "legend": {
-          "bottom": "10px"
-        },
-        "dataset": [
           {
-            "source": [
-              [
-                "type",
-                "红包",
-                "推广"
-              ],
-              [
-                "1月",
-                77,
-                63
-              ],
-              [
-                "2月",
-                10,
-                35
-              ],
-              [
-                "3月",
-                24,
-                66
-              ],
-              [
-                "4月",
-                74,
-                44
-              ],
-              [
-                "5月",
-                97,
-                67
-              ],
-              [
-                "6月",
-                11,
-                56
-              ],
-              [
-                "7月",
-                46,
-                15
-              ],
-              [
-                "8月",
-                71,
-                19
-              ],
-              [
-                "9月",
-                11,
-                55
-              ],
-              [
-                "10月",
-                54,
-                65
-              ],
-              [
-                "11月",
-                73,
-                86
-              ],
-              [
-                "12月",
-                59,
-                12
-              ]
-            ]
+            "color": []
           }
         ],
-        "grid": {
-          "left": "40px",
-          "right": "40px",
-          "top": "30px",
-          "bottom": "60px"
-        },
-        "xAxis": {
-          "type": "category"
-        },
-        "yAxis": {
-          "type": "value"
-        },
-        "series": [
+        [
           {
-            "name": "红包",
-            "type": "bar",
-            "label": {
-              "position": "top",
-              "show": true
-            },
-            "barMaxWidth": "30px"
+            "align": []
+          }
+        ],
+        [
+          {
+            "list": "ordered"
           },
           {
-            "name": "推广",
-            "type": "bar",
-            "label": {
-              "position": "top",
-              "show": true
-            },
-            "barMaxWidth": "30px"
+            "list": "bullet"
           }
+        ],
+        [
+          {
+            "indent": "-1"
+          },
+          {
+            "indent": "+1"
+          }
+        ],
+        [
+          "link"
+        ],
+        [
+          "blockquote",
+          "code-block"
         ]
-      }
-    },
-    {
-      "title": {
-        "label": "最新广告"
+      ]
+    }
+  },
+  "actions": {
+    "flag": {
+      "icon": {
+        "name": "star",
+        "inline": true
       },
-      "row": "8",
+      "enable": true
+    },
+    "share": {
+      "button": {
+        "icon": "share",
+        "label": "分享"
+      },
+      "enable": true
+    },
+    "download": {
+      "label": "下载",
+      "icon": {
+        "name": "file_download",
+        "inline": true
+      },
+      "enable": true
+    }
+  },
+  "dialog": {
+    "forceDialogBak": {
       "params": {
-        "api": "/api/v3/xxx"
+        "width": "500px",
+        "path": "home",
+        "first": true
       },
-      "widget": {
-        "type": "dynamic-table",
-        "header": [
-          {
-            "label": "标题",
-            "key": "title"
-          },
-          {
-            "label": "中奖",
-            "key": "lottery"
-          },
-          {
-            "label": "访问",
-            "key": "visitor"
-          },
-          {
-            "label": "评论",
-            "key": "comment"
-          },
-          {
-            "label": "结束",
-            "key": "end"
-          }
-        ],
-        "elements": [
-          {
-            "title": "<a href=\"#\">清明特惠，赢面单啦</a>",
-            "lottery": "110",
-            "visitor": "620",
-            "comment": "0",
-            "end": "2023/04/11 23:59:59"
-          },
-          {
-            "title": "<a href=\"#\">城盛百汇周末特惠 会员1元换购大米/面粉</a>",
-            "lottery": "66",
-            "visitor": "415",
-            "comment": "1",
-            "end": "2023/03/29 23:59:59"
-          },
-          {
-            "title": "<a href=\"#\">九要“拾”惠 精品汇选 养生开始 每日10款限时秒杀</a>",
-            "lottery": "7",
-            "visitor": "181",
-            "comment": "0",
-            "end": "2022/12/30 23:59:59"
-          },
-          {
-            "title": "<a href=\"#\">金秋丰收季，爆款惠不停（文末福利持续加码中）</a>",
-            "lottery": "4",
-            "visitor": "365",
-            "comment": "0",
-            "end": "2022/11/30 23:59:59"
-          }
-        ]
-      }
-    },
-    {
-      "title": {
-        "label": "最新评论"
-      },
-      "row": "4",
-      "params": {
-        "api": "/api/v3/xxx"
-      },
-      "widget": {
-        "type": "dynamic-table",
-        "header": [
-          {
-            "label": "内容",
-            "key": "body"
-          },
-          {
-            "label": "评论人",
-            "key": "user"
-          },
-          {
-            "label": "标题",
-            "key": "title"
-          },
-          {
-            "label": "时间",
-            "key": "date"
-          }
-        ],
-        "elements": [
-          {
-            "title": "<a href=\"#\">九要“拾”惠 精品汇选 养生开始 每日10款限时秒杀</a>",
-            "user": "用户ERSyAUCP",
-            "body": "看起来不错！",
-            "date": "2023/04/01"
-          },
-          {
-            "title": "<a href=\"#\">城盛百汇周末特惠 会员1元换购大米/面粉</a>",
-            "user": "用户FGDDDES",
-            "body": "为什么超出范围？",
-            "date": "2023/03/28"
-          },
-          {
-            "title": "<a href=\"#\">金秋丰收季，爆款惠不停（文末福利持续加码中）</a>",
-            "user": "用户PIJFN",
-            "body": "可以多一些这样的好物！",
-            "date": "2023/02/18"
-          },
-          {
-            "title": "<a href=\"#\">清明特惠，赢面单啦</a>",
-            "user": "用户WQUDJD",
-            "body": "这个超市挺实惠，活动挺多！",
-            "date": "2023/02/01"
-          }
-        ]
-      }
-    },
-    {
-      "title": {
-        "label": "活动日历"
-      },
-      "row": "12",
-      "widget": {
-        "type": "full-calendar",
+      "text": {
+        "title": {
+          "label": "WARNING",
+          "style": "style-v1"
+        },
         "spacer": "none",
-        "calendar": {
-          "drawer": true,
-          "apiBak": "/api/v1/demo",
-          "options": {
-            "events": [
-              {
-                "title": "使用 DEVTOOLS 对 ANGULAR 前端应用性能分析优化",
-                "event": "meeting",
-                "start": "2023-05-09T14:57:01.296Z",
-                "user": "Johnson",
-                "className": "bg-primary"
-              },
-              {
-                "title": "使用 TAKEUNTIL 操作符管理 ANGULAR 组件的订阅",
-                "event": "drupal",
-                "start": 1684335421296,
-                "user": "Johnson",
-                "className": "bg-accent"
-              },
-              {
-                "title": "你应该了解的 ANGULAR 最佳实践",
-                "event": "drupal",
-                "start": 1683817021296,
-                "user": "Johnson",
-                "className": "bg-warn"
-              },
-              {
-                "title": "ANGULAR 5 RXJS 5.5.2 多个 HTTP 并行 FORKJOIN 请求",
-                "event": "drupal",
-                "start": 1684508221296,
-                "user": "Johnson",
-                "className": "bg-warn"
-              },
-              {
-                "title": "DRUPAL 8 AJAX 弹出框可监听利用的 EVENT 事件",
-                "event": "drupal",
-                "start": 1684335421296,
-                "user": "Johnson",
-                "className": "bg-pink"
-              },
-              {
-                "title": "DRUPAL8 用户登录后自定义重定向",
-                "event": "drupal",
-                "start": 1684076221296,
-                "user": "Johnson",
-                "className": "bg-orange"
-              },
-              {
-                "title": "如何更改 GIT COMMIT 某个历史提交信息",
-                "event": "drupal",
-                "start": 1683903421296,
-                "user": "Johnson",
-                "className": "bg-yellow"
-              },
-              {
-                "title": "开源项目使用 GITHUB ACTIONS 自动化测试部署 ANGULAR 应用到 ECS 服务器",
-                "event": "drupal",
-                "start": 1684335421296,
-                "user": "Johnson",
-                "className": "bg-red"
-              },
-              {
-                "title": "DRUPAL JSONAPI 初级入门实践",
-                "event": "drupal",
-                "start": 1684249021296,
-                "user": "Johnson",
-                "className": "bg-purple"
-              },
-              {
-                "title": "RXJS SWITCHMAP 在 DRUPAL API中的应用",
-                "event": "drupal",
-                "start": 1683903421296,
-                "user": "Johnson",
-                "className": "bg-indigo"
-              },
-              {
-                "title": "五年了，再谈南宁和深圳的差距",
-                "event": "drupal",
-                "start": 1684508221296,
-                "user": "Johnson",
-                "className": "bg-blue"
-              },
-              {
-                "title": "没想到吧？2021年南宁IT互联网相关工作者最近一份工作求职渠道最受欢迎的竟然是它",
-                "event": "drupal",
-                "start": 1682953021296,
-                "user": "Johnson",
-                "className": "bg-cyan"
-              },
-              {
-                "title": "南宁IT互联网行业薪资福利待遇如何？",
-                "event": "drupal",
-                "start": 1683557821296,
-                "user": "Johnson",
-                "className": "bg-teal"
-              },
-              {
-                "title": "南宁IT互联网公司，有哪些是双休？",
-                "event": "drupal",
-                "start": 1682953021296,
-                "user": "Johnson",
-                "className": "bg-green"
-              },
-              {
-                "title": "JSONA 一款转换 JSONAPI 数据的工具库，也算是解放 DRUPAL JSONAPI 反序列化的利器",
-                "event": "drupal",
-                "start": 1683385021296,
-                "user": "Johnson",
-                "className": "bg-light-green"
-              },
-              {
-                "title": "ANGULAR 有哪几种不同类型的绑定",
-                "event": "drupal",
-                "start": 1683385021296,
-                "user": "Johnson",
-                "className": "bg-brown"
-              },
-              {
-                "title": "ANGULAR NG-CONTENT、NG-TEMPLATE、NG-CONTAINER 之间的区别",
-                "event": "drupal",
-                "start": 1683298621296,
-                "user": "Johnson",
-                "className": "bg-grey"
-              }
-            ]
+        "body": "Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. ",
+        "actions": [
+          {
+            "type": "closeDialog",
+            "label": "21+",
+            "color": "primary"
           },
-          "theme": {
-            "meeting": "bg-warn",
-            "case": "bg-primary",
-            "project": "bg-accent",
-            "event": "bg-red"
+          {
+            "type": "link",
+            "label": "UNDER 21",
+            "href": "http://www.google.com",
+            "color": "warn"
           }
-        }
+        ],
+        "actionsAlign": "center center"
       }
     }
-  ]
+  },
+  "user": {
+    "banner": "/assets/images/16-9/business-14.jpeg"
+  },
+  "commerce": {
+    "vip": "/pay/trade/create/1",
+    "payNode": "/pay/trade/node",
+    "dialog": {
+      "spacer": "node",
+      "title": {
+        "label": "支付过程有什么问题吗？",
+        "style": "style-v1"
+      },
+      "body": "<p class=\"text-center\">感谢您付费购买。</p>",
+      "actionsAlign": "center center",
+      "actions": [
+        {
+          "type": "closeDialog",
+          "label": "已成功支付！"
+        },
+        {
+          "href": "/contact",
+          "color": "warn",
+          "label": "支付遇到问题，请联系我们"
+        }
+      ]
+    }
+  },
+  "googleAnalyticsBak": {
+    "id": "G-N7PGP9ND57"
+  },
+  "guard": {
+    "authGuard": false,
+    "defaultDrupalLoginPage": "/user/login",
+    "defaultFrontLoginPage": "/me/login"
+  },
+  "access": {
+    "check": false
+  },
+  "notify": {
+    "enable": false,
+    "params": {
+      "interval": 10000,
+      "dateFormat": "YYYY-MM-dd"
+    },
+    "api": [
+      {
+        "get": "/api/v2/unread-message",
+        "action": "/api/v1/flagging/message_unread",
+        "reqRoles": [
+          "lawyer",
+          "assistant_lawyer"
+        ],
+        "icon": "clipboard-text-clock",
+        "color": "primay"
+      },
+      {
+        "get": "/api/v1/filter/handler",
+        "action": "/api/v3/private/read",
+        "reqRoles": [
+          "lawyer",
+          "assistant_lawyer"
+        ],
+        "icon": "chart-line",
+        "color": "warn"
+      }
+    ]
+  },
+  "animate": true,
+  "checkIE": {
+    "enable": true,
+    "dialog": {
+      "params": {
+        "width": "1000px"
+      },
+      "content": [
+        {
+          "type": "text",
+          "spacer": "none",
+          "title": {
+            "label": "温馨提示",
+            "style": "style-v1"
+          },
+          "body": "<p>当前检测到您的浏览器为旧版本浏览器，我们强烈建议使用谷歌或者Edge等现代浏览器，当今的现代浏览器功能强大、速度快、安全可靠，并拥有优秀的用户使用体验。</p>"
+        },
+        {
+          "type": "showcase-1v1",
+          "classes": "",
+          "spacer": "sm",
+          "row": 4,
+          "elements": [
+            {
+              "icon": {
+                "name": "verified_user"
+              },
+              "style": "style-v9",
+              "title": {
+                "href": "https://pc.qq.com/search.html#!keyword=chrome",
+                "label": "谷歌浏览器",
+                "target": "_blank"
+              },
+              "content": "速度快，可扩展性强的全球最受欢迎的浏览器之一",
+              "more": {
+                "href": "https://pc.qq.com/search.html#!keyword=chrome",
+                "label": "下载",
+                "target": "_blank"
+              }
+            },
+            {
+              "icon": {
+                "name": "verified_user"
+              },
+              "style": "style-v9",
+              "title": {
+                "href": "https://www.microsoft.com/zh-cn/edge",
+                "label": "微软 Edge 浏览器",
+                "target": "_blank"
+              },
+              "content": "速度快、资源占用低、内置追踪保护等功能",
+              "more": {
+                "href": "https://www.microsoft.com/zh-cn/edge",
+                "label": "下载",
+                "target": "_blank"
+              }
+            },
+            {
+              "icon": {
+                "name": "fingerprint"
+              },
+              "style": "style-v9",
+              "title": {
+                "href": "https://www.mozilla.org/zh-CN/firefox/new/",
+                "label": "火狐浏览器",
+                "target": "_blank"
+              },
+              "content": "注重隐私保护和安全性的浏览器",
+              "more": {
+                "href": "https://www.mozilla.org/zh-CN/firefox/new/",
+                "label": "下载",
+                "target": "_blank"
+              }
+            },
+            {
+              "icon": {
+                "name": "favorite"
+              },
+              "style": "style-v9",
+              "title": {
+                "href": "https://www.apple.com/cn/safari/",
+                "label": "Safari 浏览器",
+                "target": "_blank"
+              },
+              "content": "流畅的性能和良好的用户体验",
+              "more": {
+                "href": "https://www.apple.com/cn/safari/",
+                "label": "下载",
+                "target": "_blank"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
 }

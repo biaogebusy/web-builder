@@ -19,6 +19,7 @@
       }
     }
     .manage-brand {
+      border-bottom: 1px solid mat-color($foreground, divider);
       .name {
         a {
           color: mat-color($foreground, text, 0.75);
@@ -110,6 +111,7 @@
       }
     }
     .manage-footer {
+      border-top: 1px solid mat-color($foreground, divider);
       .toggle {
         .wrapper {
           @include mat-elevation(4, mat-color($foreground, text), 0.3);
@@ -129,19 +131,22 @@
       > .mat-divider {
         border-top-color: mat-color($background, card, 0.12);
       }
-      &.inverse {
-        background-color: mat-color($primary, 0.85);
-        color: mat-color($primary, default-contrast);
-        .manage-menu {
-          .icon {
-            color: mat-color($primary, default-contrast);
-          }
+    }
+  }
+
+  .inverse {
+    .expanded {
+      background-color: mat-color($primary, 0.85);
+      color: mat-color($primary, default-contrast);
+      .manage-menu {
+        .icon {
+          color: mat-color($primary, default-contrast);
         }
-        .manage-footer {
-          .toggle {
-            .wrapper {
-              @include mat-elevation(4, mat-color($primary), 0.3);
-            }
+      }
+      .manage-footer {
+        .toggle {
+          .wrapper {
+            @include mat-elevation(4, mat-color($primary), 0.3);
           }
         }
       }
