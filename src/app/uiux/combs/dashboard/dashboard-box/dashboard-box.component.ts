@@ -153,6 +153,6 @@ export class DashboardBoxComponent extends BaseComponent implements OnInit {
 
   reload(): void {
     this.form.reset();
-    this.getContent();
+    this.getContent({ time: +new Date() });
   }
 }
