@@ -10,7 +10,7 @@ import { StorysModule } from '@core/module/storys.module';
 import { BrandingModule } from '@core/branding/branding.module';
 
 export default {
-  title: '示例页面/首页示例/v8 Marketing',
+  title: '示例页面/首页示例/08 应用市场',
   id: 'home-v8',
   component: BlockComponent,
   decorators: [

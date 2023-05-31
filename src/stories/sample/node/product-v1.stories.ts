@@ -10,7 +10,7 @@ import { StorysModule } from '@core/module/storys.module';
 import { BrandingModule } from '@core/branding/branding.module';
 
 export default {
-  title: '示例页面/产品介绍/v1',
+  title: '示例页面/产品介绍/01 自动播放动画',
   id: 'product-v1',
   component: BlockComponent,
   decorators: [

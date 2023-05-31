@@ -10,7 +10,7 @@ import { StorysModule } from '@core/module/storys.module';
 import { BrandingModule } from '@core/branding/branding.module';
 
 export default {
-  title: '示例页面/首页示例/v7 Sass',
+  title: '示例页面/首页示例/07 Sass 服务',
   id: 'home-v7',
   component: BlockComponent,
   decorators: [

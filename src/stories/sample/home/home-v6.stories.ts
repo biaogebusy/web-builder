@@ -13,7 +13,7 @@ import { of } from 'rxjs';
 import { canvasHeader, medicalInverse } from '../../branding/Branding.json';
 
 export default {
-  title: '示例页面/首页示例/v6 医疗科技',
+  title: '示例页面/首页示例/06 医疗科技',
   id: 'home-v6',
   component: BlockComponent,
   decorators: [

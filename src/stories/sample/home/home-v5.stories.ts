@@ -10,7 +10,7 @@ import { StorysModule } from '@core/module/storys.module';
 import { BrandingModule } from '@core/branding/branding.module';
 
 export default {
-  title: '示例页面/首页示例/v5 在线课程',
+  title: '示例页面/首页示例/05 在线课程',
   id: 'home-v5',
   component: BlockComponent,
   decorators: [
