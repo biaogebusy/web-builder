@@ -6,7 +6,6 @@ on:
 
 jobs:
   build:
-    # using Ubuntu
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -36,7 +35,7 @@ jobs:
         run: npm run build:master
 
       - name: Deploy to Server
-        uses: AEnterprise/rsync-deploy@v1.0
+        uses: AEnterprise/rsync-deploy@v1.0.2
         env:
           DEPLOY_KEY: ${{ secrets.KEY }}
           ARGS: -avz --delete
