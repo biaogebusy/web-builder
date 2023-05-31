@@ -32,6 +32,7 @@ Default.args = {
   content: {
     id: '',
     spacer: 'xl',
+    type: 'showcase-3v9',
     bg: {
       classes: 'bg-fill-width',
       img: {

@@ -10,7 +10,7 @@ import { StorysModule } from '@core/module/storys.module';
 import { BrandingModule } from '@core/branding/branding.module';
 
 export default {
-  title: '示例页面/反馈/404',
+  title: '示例页面/反馈页面/404',
   id: 'notFound',
   component: NotfoundComponent,
   decorators: [

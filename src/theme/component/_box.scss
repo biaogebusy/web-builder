@@ -283,5 +283,24 @@
         }
       }
     }
+
+    &.use-image {
+      &.primary {
+        background-color: mat-color($primary);
+        color: mat-color($primary, default-contrast);
+        a,
+        .box-content {
+          color: mat-color($primary, default-contrast);
+        }
+        .box-content {
+          opacity: 0.7;
+        }
+        img {
+          background-color: #fff;
+          padding: 1rem;
+          border-radius: 6px;
+        }
+      }
+    }
   }
 }

@@ -58,3 +58,14 @@ Shape.args = {
     src: '/assets/images/illustration/29.png',
   },
 };
+
+export const Mover = Template.bind({});
+Mover.storyName = '动起来';
+Mover.args = {
+  content: {
+    type: 'img',
+    hostClasses: 'img-bg-shape',
+    classes: 'mover',
+    src: '/assets/images/illustration/12.png',
+  },
+};

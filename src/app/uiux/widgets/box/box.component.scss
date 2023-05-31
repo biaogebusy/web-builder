@@ -527,4 +527,11 @@
       margin-top: 2rem;
     }
   }
+
+  &.use-image {
+    padding: 2rem;
+    &.primary {
+      border-radius: 6px;
+    }
+  }
 }
