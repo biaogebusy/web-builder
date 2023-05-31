@@ -15,7 +15,7 @@
     background-color: mat-color($background, background);
     .box {
       .dashboard-box {
-        background-color: mat-color($primary, default-contrast);
+        background-color: mat-color($background, background);
         border: 1px solid mat-color($foreground, divider, 0.07);
         @include mat-elevation(3, mat-color($background, tooltip), 0.4);
         .box-header {
