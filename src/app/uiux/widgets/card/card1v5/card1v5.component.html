@@ -1,0 +1,14 @@
+<div class="card-1v5" *ngIf="content">
+  <div class="card-inner p-x-sm p-y-sm" fxLayout="column">
+    <div class="title mat-h2" [innerHTML]="content.title"></div>
+    <div class="content" [innerHTML]="content.body"></div>
+    <div class="more m-y-sm" fxLayoutAlign="start center">
+      <app-link [content]="content.more"></app-link>
+      <app-icon [content]="{svg:'chevron-right',inline:true}"></app-icon>
+    </div>
+    <div class="footer mat-display-2 m-bottom-0" fxLayoutAlign="space-between center">
+      <div class="left" [innerHTML]="content.footer.label"></div>
+      <app-icon [content]="content.footer.icon"></app-icon>
+    </div>
+  </div>
+</div>

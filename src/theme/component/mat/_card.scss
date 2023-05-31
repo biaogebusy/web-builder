@@ -113,4 +113,15 @@
       background-color: mat-color($background, card);
     }
   }
+
+  .card-1v5 {
+    @include mat-elevation(3, mat-color($foreground, divider), 0.3);
+    background-color: #fff;
+    .more {
+      color: mat-color($primary);
+      .mat-icon {
+        color: inherit;
+      }
+    }
+  }
 }

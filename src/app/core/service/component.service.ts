@@ -38,6 +38,7 @@ export class ComponentService {
       'card-1v1',
       'card-1v2',
       'card-1v4',
+      'card-1v5',
       'calendar',
       'chart-box',
       'accordion',
@@ -197,6 +198,7 @@ export class ComponentService {
     [
       'showcase-1v1',
       'showcase-1v3',
+      'showcase-1v4',
       'showcase-2v1',
       'showcase-2v2',
       'showcase-2v3',

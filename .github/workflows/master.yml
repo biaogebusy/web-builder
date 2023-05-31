@@ -45,6 +45,9 @@ jobs:
           USERNAME: ${{ secrets.SSH_USER }}
           SERVER_DESTINATION: ${{ secrets.APP_PATH }}
 
+      - name: run NODE_OPTIONS
+        run: export NODE_OPTIONS="--max-old-space-size=8192"
+
       - name: NPM build storybook
         run: npm run build-storybook
 

@@ -1,4 +1,4 @@
-<div class="feature-box {{content?.mode == 'float'?'feature-float':'feature-cover'}}" *ngIf="box">
+<div class="feature-box {{content?.mode == 'float'?'feature-float':'feature-cover'}}" *ngIf="box && content">
   <div class="feature-inner">
     <div class="btns" *ngIf="isHoverIcon;else noIcon">
       <a href="javascript:void(0)" (click)="open(box.img)" class="btn expand-image btn-full" *ngIf="box.fullIcon">

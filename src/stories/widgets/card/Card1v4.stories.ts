@@ -4,7 +4,6 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import * as TextStories from '../base/Text.stories';
 import { StorysModule } from '@core/module/storys.module';
 import { Card1v4Component } from '@uiux/widgets/card/card1v4/card1v4.component';
 

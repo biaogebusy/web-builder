@@ -20,10 +20,12 @@ import { Showcase2v5Component } from './showcase2v5/showcase2v5.component';
 import { Showcase2v6Component } from './showcase2v6/showcase2v6.component';
 import { Showcase3v9Component } from './showcase3v9/showcase3v9.component';
 import { BaseModule } from '@uiux/base/base.module';
+import { Showcase1v4Component } from './showcase1v4/showcase1v4.component';
 
 const components = [
   Showcase1v1Component,
   Showcase1v3Component,
+  Showcase1v4Component,
   Showcase2v1Component,
   Showcase2v2Component,
   Showcase2v3Component,

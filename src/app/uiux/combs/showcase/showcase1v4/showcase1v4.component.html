@@ -1,0 +1,16 @@
+<div class="showcase-1-v4 position-relative" *ngIf="content">
+  <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
+  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
+  <app-bg [content]="content.bg" *ngIf="content.bg"></app-bg>
+  <div class="container">
+    <div [ngClass]="content.classes">
+      <app-text *ngIf="content.text" [content]="content.text"></app-text>
+      <div fxLayout.lt-md="column" fxLayout.gt-sm="row wrap" fxLayoutGap.lt-md="6rem" fxLayoutAlign.gt-sm="center start"
+        fxLayoutAlign.lt-md="center center">
+        <app-dynamic-component class="box p-x-sm p-y-sm" [inputs]="{content:item}" *ngFor="let item of content.elements"
+          fxFlex.lt-md="100%" [fxFlex.gt-sm]="row(content.row, '0rem')"></app-dynamic-component>
+      </div>
+    </div>
+  </div>
+  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
+</div>

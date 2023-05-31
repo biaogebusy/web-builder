@@ -115,6 +115,7 @@ import { BaseModule } from '@uiux/base/base.module';
 import { AccordionComponent } from './accordion/accordion.component';
 import { DropdownMenuComponent } from './dropdown-menu/dropdown-menu.component';
 import { ChartBoxComponent } from './chart/chart-box/chart-box.component';
+import { Card1v5Component } from './card/card1v5/card1v5.component';
 
 FullCalendarModule.registerPlugins([
   // register FullCalendar plugins
@@ -146,6 +147,7 @@ const components = [
   Card1v2Component,
   Card1v3Component,
   Card1v4Component,
+  Card1v5Component,
   UserCardComponent,
   CheckboxComponent,
   ContentBoxComponent,
