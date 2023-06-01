@@ -7,7 +7,7 @@ import {
 import type { ICard1v1 } from '@core/interface/widgets/ICard';
 
 @Component({
-  selector: 'app-card1v1',
+  selector: 'app-card-1v1',
   templateUrl: './card1v1.component.html',
   styleUrls: ['./card1v1.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

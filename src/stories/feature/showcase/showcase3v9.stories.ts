@@ -150,8 +150,7 @@ Reverse.args = {
     left: [
       {
         type: 'img',
-        src: '/assets/images/illustration/25.png',
-        alt: '',
+        src: '/assets/images/illustration/12.png',
       },
     ],
     right: [

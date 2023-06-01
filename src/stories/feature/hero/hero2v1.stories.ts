@@ -33,6 +33,7 @@ export const Default = Template.bind({});
 
 Default.args = {
   content: {
+    type: 'hero-2v1',
     theme: 'text-light',
     params: {
       height: '750px',
@@ -80,6 +81,7 @@ export const YCenter = Template.bind({});
 YCenter.storyName = 'Y轴中心';
 YCenter.args = {
   content: {
+    type: 'hero-2v1',
     theme: 'text-light',
     params: {
       height: '750px',
@@ -125,6 +127,7 @@ export const YCenterXCustom = Template.bind({});
 YCenterXCustom.storyName = 'Y 轴中心 X 轴自定义';
 YCenterXCustom.args = {
   content: {
+    type: 'hero-2v1',
     theme: '',
     params: {
       height: '750px',
@@ -171,6 +174,7 @@ export const XYCustom = Template.bind({});
 XYCustom.storyName = 'XY 轴自定义';
 XYCustom.args = {
   content: {
+    type: 'hero-2v1',
     theme: 'text-light',
     params: {
       height: '750px',

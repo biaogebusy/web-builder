@@ -33,6 +33,7 @@ export const Default = Template.bind({});
 
 Default.args = {
   content: {
+    type: 'hero-1v2',
     spacer: 'none',
     classes: 'text-light text-center',
     sliders: {

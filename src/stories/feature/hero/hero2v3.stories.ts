@@ -32,6 +32,7 @@ export const Default = Template.bind({});
 
 Default.args = {
   content: {
+    type: 'hero-2v3',
     id: 'xxx',
     spacer: 'lg',
     shape: true,

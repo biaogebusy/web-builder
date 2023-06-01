@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { BaseComponent } from '@uiux/base/base.widget';
 
 @Component({
-  selector: 'app-showcase1v4',
+  selector: 'app-showcase-1v4',
   templateUrl: './showcase1v4.component.html',
   styleUrls: ['./showcase1v4.component.scss'],
 })

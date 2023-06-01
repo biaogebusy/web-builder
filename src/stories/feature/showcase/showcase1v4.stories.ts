@@ -33,9 +33,10 @@ export const Default = Template.bind({});
 
 Default.args = {
   content: {
+    type: 'showcase-1v4',
     spacer: 'lg',
     bg: {
-      classes: 'bg-shadow bg-fill-width',
+      classes: 'bg- bg-fill-width',
     },
     row: 3,
     text: {

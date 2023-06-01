@@ -5,7 +5,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { IShowcase4v1 } from '@core/interface/combs/IShowcase';
+import type { IShowcase4v1 } from '@core/interface/combs/IShowcase';
 import { DialogService } from '@core/service/dialog.service';
 import { NodeService } from '@core/service/node.service';
 import { BaseComponent } from '@uiux/base/base.widget';

@@ -32,12 +32,13 @@ export const Default = Template.bind({});
 
 Default.args = {
   content: {
+    type: 'hero-2v1',
     spacer: 'lg',
     id: 'xxx',
     bg: {
-      classes: 'bg-center overlay',
+      classes: 'bg-fill-width overlay',
       img: {
-        hostClasses: 'bg-center',
+        classes: 'object-fit',
         src: '/assets/images/16-9/business-16.jpeg',
       },
     },

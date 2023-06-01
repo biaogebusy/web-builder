@@ -13,7 +13,7 @@ import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import type { Card1v3Item, ICard1v3 } from '@core/interface/widgets/ICard';
 
 @Component({
-  selector: 'app-card1v3',
+  selector: 'app-card-1v3',
   templateUrl: './card1v3.component.html',
   styleUrls: ['./card1v3.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

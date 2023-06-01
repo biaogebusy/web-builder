@@ -32,6 +32,7 @@ export const Default = Template.bind({});
 
 Default.args = {
   content: {
+    type: 'hero-1v4',
     spacer: 'xl',
     text: {
       title: {

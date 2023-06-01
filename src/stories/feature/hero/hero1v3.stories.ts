@@ -32,6 +32,7 @@ export const V1 = Template.bind({});
 
 V1.args = {
   content: {
+    type: 'hero-1v3',
     spacer: 'xl',
     text: {
       title: {
