@@ -17,10 +17,6 @@ export default {
       entryComponents: [...StorysModule.forEntryComponents()],
       imports: [StorysModule.forRoot()],
     }),
-    componentWrapperDecorator(
-      (story) =>
-        `<div class="position-relative p-top-xl m-top-xl" style="z-index:1">${story}</div>`
-    ),
   ],
 } as Meta;
 
@@ -94,6 +90,130 @@ Default.args = {
             svg: 'check-all',
           },
         },
+      },
+    ],
+    actions: [
+      {
+        type: 'btn-animate',
+        label: '了解更多',
+        href: '#',
+        style: 'style-v1',
+        icon: 'open_in_new',
+      },
+    ],
+  },
+};
+
+export const Dynamic = Template.bind({});
+
+Dynamic.args = {
+  content: {
+    type: 'showcase-1v4',
+    spacer: 'lg',
+    bg: {
+      classes: 'bg- bg-fill-width',
+    },
+    row: 2,
+    text: {
+      title: {
+        label: 'Our Latest Projects',
+        style: 'style-v1',
+      },
+      body: '<p class="text-center">Start working with Landrick that can provide everything you need to generate awareness, drive traffic, connect.</p>',
+    },
+    elements: [
+      {
+        type: 'card-1v1',
+        link: {
+          href: '#',
+          label: 'Iphone mockup',
+        },
+        user: '表歌',
+        time: '2022/09/27',
+        feature: {
+          fullIcon: 'fullscreen',
+          openIcon: 'open_in_new',
+          link: '#',
+          ratios: 'media-4-3',
+          img: {
+            classes: 'object-fit',
+            src: '/assets/images/showcase/1.jpg',
+            alt: 'alt',
+          },
+        },
+        moreLabel: '查看更多',
+      },
+      {
+        type: 'card-1v1',
+        link: {
+          href: '#',
+          label: 'Mockup Collection',
+        },
+        user: '表歌',
+        time: '2022/09/27',
+        feature: {
+          fullIcon: 'fullscreen',
+          openIcon: 'open_in_new',
+          link: '#',
+          ratios: 'media-4-3',
+          img: {
+            classes: 'object-fit',
+            src: '/assets/images/showcase/2.jpg',
+            alt: 'alt',
+          },
+        },
+        moreLabel: '查看更多',
+      },
+      {
+        type: 'card-1v1',
+        link: {
+          href: '#',
+          label: 'Abstract images',
+        },
+        user: '表歌',
+        time: '2022/09/27',
+        feature: {
+          fullIcon: 'fullscreen',
+          openIcon: 'open_in_new',
+          link: '#',
+          ratios: 'media-4-3',
+          img: {
+            classes: 'object-fit',
+            src: '/assets/images/showcase/3.jpg',
+            alt: 'alt',
+          },
+        },
+        moreLabel: '查看更多',
+      },
+      {
+        type: 'card-1v1',
+        link: {
+          href: '#',
+          label: 'Yellow bg with Books',
+        },
+        user: '表歌',
+        time: '2022/09/27',
+        feature: {
+          fullIcon: 'fullscreen',
+          openIcon: 'open_in_new',
+          link: '#',
+          ratios: 'media-4-3',
+          img: {
+            classes: 'object-fit',
+            src: '/assets/images/showcase/4.jpg',
+            alt: 'alt',
+          },
+        },
+        moreLabel: '查看更多',
+      },
+    ],
+    actions: [
+      {
+        type: 'btn-animate',
+        label: '了解更多',
+        href: '#',
+        style: 'style-v1',
+        icon: 'open_in_new',
       },
     ],
   },

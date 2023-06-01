@@ -150,7 +150,7 @@
     },
     {
       "type": "showcase-1v4",
-      "spacer": "lg",
+      "spacer": "md",
       "bg": {
         "classes": "bg- bg-fill-width"
       },
@@ -215,7 +215,7 @@
     },
     {
       "type": "showcase-1v4",
-      "spacer": "lg",
+      "spacer": "md",
       "bg": {
         "classes": "bg- bg-fill-width"
       },
@@ -311,6 +311,15 @@
             }
           },
           "moreLabel": "查看更多"
+        }
+      ],
+      "actions": [
+        {
+          "type": "btn-animate",
+          "label": "了解更多",
+          "href": "#",
+          "style": "style-v1",
+          "icon": "open_in_new"
         }
       ]
     },

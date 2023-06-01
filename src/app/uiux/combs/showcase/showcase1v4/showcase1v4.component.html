@@ -10,6 +10,11 @@
         <app-dynamic-component class="box p-x-sm p-y-sm" [inputs]="{content:item}" *ngFor="let item of content.elements"
           fxFlex.lt-md="100%" [fxFlex.gt-sm]="row(content.row, '0rem')"></app-dynamic-component>
       </div>
+      <div class="actions m-top p-bottom-xs" *ngIf="content.actions" fxLayoutAlign="center center">
+        <ng-container *ngFor="let action of content.actions">
+          <app-dynamic-widgets [content]="action"></app-dynamic-widgets>
+        </ng-container>
+      </div>
     </div>
   </div>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
