@@ -9,7 +9,7 @@ import { BlockModule } from '@uiux/combs/block/block.module';
 import { StorysModule } from '@core/module/storys.module';
 import { BrandingModule } from '@core/branding/branding.module';
 import { BRANDING } from '@core/token/token-providers';
-import brandingSidebar from '../../assets/app/core/branding-sidebar.json';
+import brandingSidebar from '@assets/app/core/branding-sidebar.json';
 import { of } from 'rxjs';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { NodeModule } from '@uiux/combs/node/node.module';
