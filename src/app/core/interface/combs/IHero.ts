@@ -17,6 +17,12 @@ export interface IHero1v3 extends ICombsBase {
   right: any[];
 }
 
+export interface IHero1v4 extends ICombsBase {
+  style: any;
+  order: number;
+  widget: any[];
+}
+
 export interface IHero2v2 extends ICombsBase {
   body: IText;
 }

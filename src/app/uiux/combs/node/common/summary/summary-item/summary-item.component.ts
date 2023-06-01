@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { ISummaryItem } from '@core/interface/node/ISummaryItem';
 
 @Component({
   selector: 'app-summary-item',
@@ -12,7 +13,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SummaryItemComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: ISummaryItem;
   constructor() {}
 
   ngOnInit(): void {}

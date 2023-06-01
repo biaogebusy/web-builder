@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import type { IShowcase3v8 } from '@core/interface/combs/IShowcase';
 import { BaseComponent } from '@uiux/base/base.widget';
 
 @Component({
@@ -13,7 +14,7 @@ import { BaseComponent } from '@uiux/base/base.widget';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Showcase3v8Component extends BaseComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: IShowcase3v8;
   constructor() {
     super();
   }

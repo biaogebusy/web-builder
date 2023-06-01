@@ -5,6 +5,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import type { IShowcase1v3 } from '@core/interface/combs/IShowcase';
 import { IText } from '@core/interface/widgets/IText';
 
 @Component({
@@ -14,7 +15,7 @@ import { IText } from '@core/interface/widgets/IText';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Showcase1v3Component implements OnInit {
-  @Input() content: any;
+  @Input() content: IShowcase1v3;
   text: IText;
 
   constructor(private cd: ChangeDetectorRef) {}

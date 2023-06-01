@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import type { IList2v1 } from '@core/interface/combs/IList';
 import { NodeService } from '@core/service/node.service';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -9,7 +10,7 @@ import { catchError, map } from 'rxjs/operators';
   styleUrls: ['./list2v1.component.scss'],
 })
 export class List2v1Component implements OnInit {
-  @Input() content: any;
+  @Input() content: IList2v1;
   lists$: Observable<any>;
   constructor(private nodeService: NodeService) {}
 

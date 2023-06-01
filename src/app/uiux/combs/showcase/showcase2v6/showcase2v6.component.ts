@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import type { IShowcase2v6 } from '@core/interface/combs/IShowcase';
 
 @Component({
   selector: 'app-showcase-2v6',
@@ -12,7 +13,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Showcase2v6Component implements OnInit {
-  @Input() content: any;
+  @Input() content: IShowcase2v6;
   constructor() {}
 
   ngOnInit(): void {}

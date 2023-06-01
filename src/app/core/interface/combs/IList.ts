@@ -1,6 +1,9 @@
 import { IText } from '../widgets/IText';
 import { ILink } from '../widgets/ILink';
 import { IShowcase3v3 } from '@core/interface/combs/IShowcase';
+import { ICombsBase } from './ICombsBase';
+import { ITitle } from '../widgets/ITitle';
+import { IBtn } from '../widgets/IBtn';
 export interface IDynamicCardList {
   sidebar: any[];
   row: number;
@@ -80,4 +83,11 @@ export interface ITaxonomyThinList {
   elements: any[];
   sidebar: any;
   pager: any;
+}
+
+export interface IList2v1 extends ICombsBase {
+  params: any;
+  elements: any[];
+  title: ITitle;
+  more: IBtn;
 }

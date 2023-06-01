@@ -14,6 +14,7 @@ import { BaseComponent } from '@uiux/base/base.widget';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { ScreenService } from '@core/service/screen.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
+import type { IShowcase1v1 } from '@core/interface/combs/IShowcase';
 
 @Component({
   selector: 'app-showcase-1v1',
@@ -25,7 +26,7 @@ export class Showcase1v1Component
   extends BaseComponent
   implements OnInit, AfterViewInit
 {
-  @Input() content: any;
+  @Input() content: IShowcase1v1;
   @ViewChild('title', { read: ElementRef }) title: ElementRef;
   constructor(
     private el: ElementRef,

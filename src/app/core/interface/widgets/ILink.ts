@@ -11,6 +11,7 @@ export interface ILink {
   fragment?: string;
   rel?: string;
   params?: any;
+  color?: string;
   dialog?: {
     params: MatDialogConfig;
     data: any[];
