@@ -4,7 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { ISummaryItem } from '@core/interface/node/ISummaryItem';
+import type { ISummaryItem } from '@core/interface/node/ISummaryItem';
 
 @Component({
   selector: 'app-summary-item',
