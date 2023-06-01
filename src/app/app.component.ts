@@ -11,7 +11,7 @@ import { ScreenService } from '@core/service/screen.service';
 import { ConfigService } from '@core/service/config.service';
 import { CORE_CONFIG, BRANDING, USER } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
-import { IBranding } from './core/interface/IBranding';
+import { IBranding } from './core/interface/branding/IBranding';
 import { Observable } from 'rxjs';
 import { UserService } from '@core/service/user.service';
 import { IUser } from '@core/interface/IUser';

@@ -103,3 +103,13 @@ export interface IUserCount {
   digit: INumberAnimate;
   title: string;
 }
+
+export interface ICard1v5 {
+  title: string;
+  body: string;
+  more: ILink;
+  footer: {
+    label: string;
+    icon: IIcon;
+  };
+}

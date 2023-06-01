@@ -8,6 +8,11 @@ import { ITitle } from '../widgets/ITitle';
 import { IImg } from '../widgets/IImg';
 import { IIcon } from '../widgets/IIcon';
 
+export interface IShowcase1v4 extends ICombsBase {
+  elements: any[];
+  actions: any[];
+}
+
 export interface IShowcase2v1 extends ICombsBase {
   elements: any[];
   params?: {

@@ -1,12 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { version } from '../../../../../../package.json';
+import { ILogo } from '@core/interface/branding/IBranding';
 @Component({
   selector: 'app-logo',
   templateUrl: './logo.component.html',
   styleUrls: ['./logo.component.scss'],
 })
 export class LogoComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: ILogo;
   constructor() {}
 
   ngOnInit(): void {}

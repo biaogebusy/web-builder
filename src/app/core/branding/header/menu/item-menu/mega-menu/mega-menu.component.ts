@@ -11,7 +11,7 @@ import { fromEvent, of } from 'rxjs';
 import { mergeMap, delay, takeUntil } from 'rxjs/operators';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { ScreenService } from '@core/service/screen.service';
-import type { IMainMenu } from '@core/interface/IBranding';
+import type { IMainMenu } from '@core/interface/branding/IBranding';
 
 @Component({
   selector: 'app-mega-menu',

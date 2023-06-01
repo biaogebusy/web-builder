@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import type { IFixBarPopup } from '@core/interface/branding/IFixBarPopup';
 
 @Component({
   selector: 'app-fix-bar-popup',
@@ -12,7 +13,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FixBarPopupComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: IFixBarPopup;
   constructor() {}
 
   ngOnInit(): void {}

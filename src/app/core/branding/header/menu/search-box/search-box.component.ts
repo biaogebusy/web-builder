@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 import { FormService } from '@core/service/form.service';
 import { isEmpty, omitBy } from 'lodash';
 import { BaseComponent } from '@uiux/base/base.widget';
-import type { IHeaderSearch } from '@core/interface/IBranding';
+import type { IHeaderSearch } from '@core/interface/branding/IBranding';
 
 @Component({
   selector: 'app-search-box',

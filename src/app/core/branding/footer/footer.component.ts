@@ -14,7 +14,7 @@ import { ScreenState } from '../../state/screen/ScreenState';
 import { ScreenService } from '@core/service/screen.service';
 import { BRANDING } from '@core/token/token-providers';
 import { Observable } from 'rxjs';
-import type { IBranding } from '@core/interface/IBranding';
+import type { IBranding } from '@core/interface/branding/IBranding';
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html',
@@ -22,7 +22,6 @@ import type { IBranding } from '@core/interface/IBranding';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FooterComponent implements OnInit, AfterViewInit, OnDestroy {
-  content: any;
   panelOpenState = false;
 
   @ViewChild(MatAccordion) accordion: MatAccordion;

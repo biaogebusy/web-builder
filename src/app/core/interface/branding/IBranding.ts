@@ -7,14 +7,14 @@ export interface IBranding {
 }
 export interface IHeader {
   params: IHeaderParams;
-  logo?: Logo;
+  logo?: ILogo;
   top?: IHeaderTop;
   banner?: any;
   mainMenu: IMainMenu[];
   sidebar?: {
     params: any;
     classes?: any;
-    logo: Logo;
+    logo: ILogo;
     menu: IMainMenu[];
   };
   search: IHeaderSearch;
@@ -185,7 +185,7 @@ interface QueryParams {
   demo: string;
 }
 
-interface Logo {
+export interface ILogo {
   label: string;
   version: boolean;
   href: string;

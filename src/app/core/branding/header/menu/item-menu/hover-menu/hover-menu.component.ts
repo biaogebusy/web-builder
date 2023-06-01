@@ -6,7 +6,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import type { IMainMenu } from '@core/interface/IBranding';
+import type { IMainMenu } from '@core/interface/branding/IBranding';
 import { ScreenService } from '@core/service/screen.service';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { BaseComponent } from '@uiux/base/base.widget';

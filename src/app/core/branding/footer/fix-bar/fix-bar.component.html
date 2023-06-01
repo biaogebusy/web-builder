@@ -1,4 +1,4 @@
-<div class="fix-bar">
+<div class="fix-bar" *ngIf="content">
   <div class="bar-inner">
     <ng-container *ngFor="let item of content">
       <ng-container [ngSwitch]="item.type">

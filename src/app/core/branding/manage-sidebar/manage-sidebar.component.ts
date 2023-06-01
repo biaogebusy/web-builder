@@ -9,7 +9,7 @@ import { BRANDING, CORE_CONFIG, USER } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type { IUser } from '@core/interface/IUser';
 import { UserService } from '@core/service/user.service';
-import type { IBranding } from '@core/interface/IBranding';
+import type { IBranding } from '@core/interface/branding/IBranding';
 import { Observable } from 'rxjs';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { ScreenService } from '@core/service/screen.service';

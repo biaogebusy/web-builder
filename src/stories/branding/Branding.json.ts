@@ -1,4 +1,4 @@
-import { IBranding } from '../../app/core/interface/IBranding';
+import { IBranding } from '../../app/core/interface/branding/IBranding';
 export const defaultHeader: IBranding = {
   header: {
     params: {

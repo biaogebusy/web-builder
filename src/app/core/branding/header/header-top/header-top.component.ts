@@ -5,7 +5,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import type { IHeaderTop } from '@core/interface/IBranding';
+import type { IHeaderTop } from '@core/interface/branding/IBranding';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { ScreenService } from '@core/service/screen.service';
 

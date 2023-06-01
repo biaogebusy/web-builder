@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import type { IShowcase1v4 } from '@core/interface/combs/IShowcase';
 import { BaseComponent } from '@uiux/base/base.widget';
 
 @Component({
@@ -7,7 +8,7 @@ import { BaseComponent } from '@uiux/base/base.widget';
   styleUrls: ['./showcase1v4.component.scss'],
 })
 export class Showcase1v4Component extends BaseComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: IShowcase1v4;
   constructor() {
     super();
   }

@@ -5,7 +5,10 @@ import {
   OnInit,
 } from '@angular/core';
 import { ScreenService } from '@core/service/screen.service';
-import type { IHeaderParams, IMainMenu } from '@core/interface/IBranding';
+import type {
+  IHeaderParams,
+  IMainMenu,
+} from '@core/interface/branding/IBranding';
 
 @Component({
   selector: 'app-item-menu',

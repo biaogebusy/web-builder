@@ -4,7 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { IMainMenu } from '@core/interface/IBranding';
+import { IMainMenu } from '@core/interface/branding/IBranding';
 
 @Component({
   selector: 'app-accordion',

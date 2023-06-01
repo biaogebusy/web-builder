@@ -5,7 +5,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ContentState } from '@core/state/ContentState';
 import { LocalStorageService } from 'ngx-webstorage';
-import { IBranding } from '../interface/IBranding';
+import { IBranding } from '../interface/branding/IBranding';
 import { CryptoJSService } from '@core/service/crypto-js.service';
 import { UserService } from '@core/service/user.service';
 import { IUser } from '@core/interface/IUser';

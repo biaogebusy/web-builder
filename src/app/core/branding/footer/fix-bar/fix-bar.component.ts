@@ -12,7 +12,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FixBarComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: any[] | undefined;
   constructor() {}
 
   ngOnInit(): void {}
