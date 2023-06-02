@@ -208,3 +208,98 @@ Reverse.args = {
     ],
   },
 };
+
+export const Video = Template.bind({});
+Video.args = {
+  content: {
+    id: '',
+    type: 'showcase-3v9',
+    spacer: 'xl',
+    bg: {
+      classes: 'bg-fill-width',
+      img: {
+        src: '/assets/images/bg/bg-02.png',
+      },
+    },
+    order: {
+      left: 1,
+      right: 0,
+    },
+    left: [
+      {
+        type: 'img',
+        src: '/assets/images/showcase/7.jpg',
+        hostClasses: 'position-relative',
+        actions: [
+          {
+            type: 'btn-video',
+            color: 'default',
+            video: {
+              options: {
+                controls: true,
+                aspectRatio: '16:9',
+                poster: '/assets/images/16-9/business-02.jpg',
+                sources: [
+                  { src: '/assets/video/afterglow.mp4', type: 'video/mp4' },
+                ],
+              },
+            },
+          },
+        ],
+      },
+    ],
+    right: [
+      {
+        type: 'text',
+        spacer: 'sm',
+        title: {
+          label: '为什么选择我们？',
+          style: 'style-v4',
+          classes: 'mat-display-2',
+        },
+        body: '为所有开发者、所有应用场景而设计，让前端开发更快速、简单。所有开发者都能快速上手、所有设备都可以适配、所有项目都适用。',
+      },
+      {
+        type: 'panel',
+        elements: [
+          {
+            title: '关于我们',
+            icon: 'person',
+            params: {
+              expanded: true,
+            },
+            elements: [
+              {
+                type: 'text',
+                spacer: 'none',
+                body: '远方信使（XINSHI）是一个使用 Drupal 提供 API 的 Angular 前端开发学习框架，拥有丰富的前端组件，通 过 Drupal Pannel 可快速构建 Landing 营销着陆页，常规的 Web 官网通过拖曳的方式即可创建。',
+              },
+            ],
+          },
+          {
+            title: '我们的故事',
+            icon: 'faviores',
+            elements: [
+              {
+                type: 'text',
+                spacer: 'none',
+                body: '我们是专业开发 Drupal 多年的前后端开发人员，热衷于分享 Drupal 相关的技术和资讯，创建维护微信公众号：  drupalstudy 从 Drupal 7开始，目前已发布了了四百多期，是国内为数不多的 Drupal 相关的微信公众号。',
+              },
+            ],
+          },
+          {
+            title: '技术分享',
+            icon: 'faviores',
+            elements: [
+              {
+                type: 'text',
+                spacer: 'none',
+                body: '我们也及时在知乎更新 Drupal 相关的技术文章，分享给更多感兴趣的人，愿你们能够享受 Drupal 带来的字数创新体验。',
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+};

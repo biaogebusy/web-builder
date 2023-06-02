@@ -33,6 +33,7 @@ export const Default = Template.bind({});
 Default.args = {
   content: {
     title: 'FREE',
+    type: 'card-1v6',
     prefix: '$',
     number: '79',
     suffix: '/mo',

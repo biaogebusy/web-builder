@@ -115,7 +115,11 @@ export interface ICard1v5 {
 }
 
 export interface ICard1v6 {
-  title: string;
+  title: {
+    label: string;
+    classes: any;
+  };
+  classes: any;
   prefix: string;
   number: number | string;
   suffix: string;

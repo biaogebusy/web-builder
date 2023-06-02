@@ -104,6 +104,118 @@ Default.args = {
   },
 };
 
+export const Price = Template.bind({});
+Price.storyName = '价格组件';
+Price.args = {
+  content: {
+    type: 'showcase-1v4',
+    spacer: 'lg',
+    bg: {
+      classes: 'bg- bg-fill-width',
+    },
+    row: 4,
+    text: {
+      title: {
+        label: 'Charge your creative inspiration',
+        style: 'style-v1',
+        clsses: 'mat-display-4',
+      },
+      body: '<p class="text-center">Start working with Landrick that can provide everything you need to generate awareness, drive traffic, connect.</p>',
+    },
+    elements: [
+      {
+        title: {
+          label: 'FREE',
+          classes: '',
+        },
+        type: 'card-1v6',
+        prefix: '$',
+        number: '0',
+        suffix: '/mo',
+        body: '<ul class="list-done"><li>Full Access</li><li>Source Files</li></ul>',
+        actionsAlign: 'start center',
+        actions: [
+          {
+            type: 'btn',
+            href: '/node/1',
+            target: '_blank',
+            label: 'Buy Now',
+            mode: 'raised',
+            color: 'primary',
+          },
+        ],
+      },
+      {
+        title: {
+          label: 'STARTER',
+          classes: 'text-primary',
+        },
+        type: 'card-1v6',
+        prefix: '$',
+        number: '39',
+        suffix: '/mo',
+        classes: 'bg-light',
+        body: '<ul class="list-done"><li>Full Access</li><li>Source Files</li><li>Free Installment</li></ul>',
+        actionsAlign: 'start center',
+        actions: [
+          {
+            type: 'btn',
+            href: '/node/1',
+            target: '_blank',
+            label: 'Buy Now',
+            mode: 'raised',
+            color: 'primary',
+          },
+        ],
+      },
+      {
+        title: {
+          label: 'PROFESSIONAL',
+          classes: '',
+        },
+        type: 'card-1v6',
+        prefix: '$',
+        number: '59',
+        suffix: '/mo',
+        body: '<ul class="list-done"><li>Full Access</li><li>Source Files</li><li>1 Domain Free</li><li>Enhanced Security</li></ul>',
+        actionsAlign: 'start center',
+        actions: [
+          {
+            type: 'btn',
+            href: '/node/1',
+            target: '_blank',
+            label: 'Buy Now',
+            mode: 'raised',
+            color: 'primary',
+          },
+        ],
+      },
+      {
+        title: {
+          label: 'ULTIMATE',
+          classes: '',
+        },
+        type: 'card-1v6',
+        prefix: '$',
+        number: '79',
+        suffix: '/mo',
+        body: '<ul class="list-done"><li>Full Access</li><li>Enhanced Security</li><li>Source Files</li><li>1 Domain Free</li><li>Free Installment</li></ul>',
+        actionsAlign: 'start center',
+        actions: [
+          {
+            type: 'btn',
+            href: '/node/1',
+            target: '_blank',
+            label: 'Buy Now',
+            mode: 'raised',
+            color: 'primary',
+          },
+        ],
+      },
+    ],
+  },
+};
+
 export const Dynamic = Template.bind({});
 
 Dynamic.args = {
