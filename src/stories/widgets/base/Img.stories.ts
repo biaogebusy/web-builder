@@ -104,6 +104,7 @@ VideoPrimary.args = {
     type: 'img',
     src: '/assets/images/showcase/7.jpg',
     alt: '',
+    hostClass: 'position-relative',
     actions: [
       {
         type: 'btn-video',

@@ -31,6 +31,7 @@ export const Default = Template.bind({});
 
 Default.args = {
   content: {
+    type: 'showcase-1v3',
     title: {
       label: '为什么你将会喜欢信使？',
       style: 'style-v1',
@@ -103,6 +104,7 @@ Contact.args = {
 export const Video = Template.bind({});
 Video.args = {
   content: {
+    type: 'showcase-1v3',
     title: {
       label: '为什么你将会喜欢信使？',
       style: 'style-v1',
