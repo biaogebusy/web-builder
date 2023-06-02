@@ -1,4 +1,8 @@
-import { moduleMetadata, Meta } from '@storybook/angular';
+import {
+  moduleMetadata,
+  Meta,
+  componentWrapperDecorator,
+} from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { BlockModule } from '@uiux/combs/block/block.module';
 import { StorysModule } from '@core/module/storys.module';
@@ -8,6 +12,9 @@ import { NodeModule } from '@uiux/combs/node/node.module';
 import { DashboardComponent } from '@uiux/combs/dashboard/dashboard.component';
 import * as calendarStory from '../../widgets/Calendar.stories';
 import { random } from 'lodash-es';
+import { BRANDING } from '@core/token/token-providers';
+import { of } from 'rxjs';
+import brandingSidebar from '@assets/app/core/branding-sidebar.json';
 const calendar: any = calendarStory.Default.args;
 
 export default {
@@ -25,8 +32,28 @@ export default {
         BrandingModule,
         StorysModule.forRoot(),
       ],
-      providers: [],
+      providers: [
+        {
+          provide: BRANDING,
+          useValue: of(brandingSidebar),
+        },
+      ],
     }),
+    componentWrapperDecorator(
+      (story) => `
+    <mat-drawer-container>
+      <mat-drawer id="sidebar" mode="side" class="sidebar">
+        <app-manage-sidebar></app-manage-sidebar>
+      </mat-drawer>
+      <mat-drawer-content id="main-container">
+        <app-header></app-header>
+        <div class="main has-manage-sidebar">
+              ${story}
+        </div>
+      </mat-drawer-content>
+    </mat-drawer-container>
+    `
+    ),
   ],
   parameters: {
     docs: {
