@@ -116,6 +116,7 @@ import { AccordionComponent } from './accordion/accordion.component';
 import { DropdownMenuComponent } from './dropdown-menu/dropdown-menu.component';
 import { ChartBoxComponent } from './chart/chart-box/chart-box.component';
 import { Card1v5Component } from './card/card1v5/card1v5.component';
+import { Card1v6Component } from './card/card1v6/card1v6.component';
 
 FullCalendarModule.registerPlugins([
   // register FullCalendar plugins
@@ -148,6 +149,7 @@ const components = [
   Card1v3Component,
   Card1v4Component,
   Card1v5Component,
+  Card1v6Component,
   UserCardComponent,
   CheckboxComponent,
   ContentBoxComponent,

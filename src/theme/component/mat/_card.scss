@@ -124,4 +124,18 @@
       }
     }
   }
+
+  .card-1v6 {
+    @include mat-elevation(3, mat-color($foreground, divider), 0.3);
+    background-color: mat-color($primary, 0.07);
+    border-bottom: 3px solid mat-color($foreground, divider, 0.2);
+    &:hover {
+      border-color: mat-color($primary);
+      background-color: #ffffff !important;
+      @include mat-elevation(5, mat-color($foreground, divider), 0.7);
+      .title {
+        color: mat-color($primary);
+      }
+    }
+  }
 }

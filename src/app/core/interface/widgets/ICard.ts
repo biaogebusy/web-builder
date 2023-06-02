@@ -113,3 +113,13 @@ export interface ICard1v5 {
     icon: IIcon;
   };
 }
+
+export interface ICard1v6 {
+  title: string;
+  prefix: string;
+  number: number | string;
+  suffix: string;
+  body: string;
+  actionsAlign: string;
+  actions: any[];
+}
