@@ -8,4 +8,5 @@ export interface IImg {
   mobile?: string;
   alt?: string;
   hostClasses?: string;
+  actions: any[];
 }

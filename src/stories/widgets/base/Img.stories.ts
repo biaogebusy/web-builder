@@ -14,6 +14,7 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [],
+      entryComponents: [...StorysModule.forEntryComponents()],
       imports: [StorysModule.forRoot()],
     }),
     componentWrapperDecorator(
@@ -33,7 +34,7 @@ export const Default = Template.bind({});
 
 Default.args = {
   content: {
-    classes: 'object-fit',
+    classes: '',
     src: '/assets/images/cases/porto2.jpg',
     alt: 'alt',
   },
@@ -70,9 +71,35 @@ Mover.args = {
   },
 };
 
-export const Video = Template.bind({});
-Video.storyName = '视频';
-Video.args = {
+export const VideoDefault = Template.bind({});
+VideoDefault.storyName = '视频-默认';
+VideoDefault.args = {
+  content: {
+    type: 'img',
+    src: '/assets/images/showcase/7.jpg',
+    alt: '',
+    actions: [
+      {
+        type: 'btn-video',
+        color: 'default',
+        video: {
+          options: {
+            controls: true,
+            aspectRatio: '16:9',
+            poster: '/assets/images/16-9/business-02.jpg',
+            sources: [
+              { src: '/assets/video/afterglow.mp4', type: 'video/mp4' },
+            ],
+          },
+        },
+      },
+    ],
+  },
+};
+
+export const VideoPrimary = Template.bind({});
+VideoPrimary.storyName = '视频-主色';
+VideoPrimary.args = {
   content: {
     type: 'img',
     src: '/assets/images/showcase/7.jpg',

@@ -1,4 +1,11 @@
 @import "/src/theme/variable/breakpoint";
+@import "/src/theme/mixins/amixin";
+.img-wrapper {
+  position: static;
+  .actions {
+    @include middle-center();
+  }
+}
 
 img {
   position: relative;
