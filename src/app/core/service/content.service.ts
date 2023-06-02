@@ -57,12 +57,10 @@ export class ContentService {
     const searchParams = new URLSearchParams(queryString);
     const mode = searchParams.get('viewMode');
     if (mode === 'docs' || mode === 'story') {
-      const storyPath = searchParams.get('id');
-      return this.http.get<any>(`/assets/storybook/${storyPath}.json`).pipe(
-        tap((page) => {
-          this.updatePage(page);
-        })
-      );
+      return of({
+        title: 'story',
+        body: [],
+      });
     }
 
     if (environment.production) {

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { version } from '../../../../../../package.json';
-import { ILogo } from '@core/interface/branding/IBranding';
+import type { ILogo } from '@core/interface/branding/IBranding';
 @Component({
   selector: 'app-logo',
   templateUrl: './logo.component.html',

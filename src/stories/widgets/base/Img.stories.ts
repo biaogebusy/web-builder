@@ -69,3 +69,29 @@ Mover.args = {
     src: '/assets/images/illustration/12.png',
   },
 };
+
+export const Video = Template.bind({});
+Video.storyName = '视频';
+Video.args = {
+  content: {
+    type: 'img',
+    src: '/assets/images/showcase/7.jpg',
+    alt: '',
+    actions: [
+      {
+        type: 'btn-video',
+        color: 'primary',
+        video: {
+          options: {
+            controls: true,
+            aspectRatio: '16:9',
+            poster: '/assets/images/16-9/business-02.jpg',
+            sources: [
+              { src: '/assets/video/afterglow.mp4', type: 'video/mp4' },
+            ],
+          },
+        },
+      },
+    ],
+  },
+};

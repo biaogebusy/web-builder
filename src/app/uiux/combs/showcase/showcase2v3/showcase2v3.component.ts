@@ -4,7 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { IShowcase2v3 } from '@core/interface/combs/IShowcase';
+import type { IShowcase2v3 } from '@core/interface/combs/IShowcase';
 
 @Component({
   selector: 'app-showcase-2v3',
