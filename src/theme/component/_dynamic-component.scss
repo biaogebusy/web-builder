@@ -1,0 +1,33 @@
+@import "~@angular/material/theming";
+
+@mixin dynamic-component-color($config-or-theme) {
+  $config: mat-get-color-config($config-or-theme);
+  $foreground: map-get($config, foreground);
+  $background: map-get($config, background);
+  $primary: map-get($config, primary);
+  $accent: map-get($config, accent);
+  $warn: map-get($config, warn);
+
+  .sb-show-main {
+    app-dynamic-component {
+      display: block;
+      box-sizing: content-box;
+      transition: all 0.1s ease-in;
+      border: 2px dotted transparent;
+      &:hover {
+        border-color: mat-color($primary);
+        .component-meta {
+          display: block;
+        }
+      }
+      .component-meta {
+        position: absolute;
+        z-index: 100;
+        padding: 1rem;
+        line-height: 1;
+        background-color: mat-color($primary);
+        color: mat-color($primary, default-contrast);
+      }
+    }
+  }
+}

@@ -42,6 +42,7 @@ interface Left {
 
 export interface IHeaderParams {
   themeSwitch: boolean;
+  enableBuilder?: boolean;
   userInfo: boolean;
   isMegaMenu?: boolean;
   isCanvasMenu?: boolean;

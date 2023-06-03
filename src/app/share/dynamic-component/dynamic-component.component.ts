@@ -10,6 +10,7 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { ComponentService } from '@core/service/component.service';
+import { ContentState } from '@core/state/ContentState';
 export interface dynamicInputs {
   content?: any;
   [key: string]: any;
@@ -25,7 +26,10 @@ export class DynamicComponentComponent implements OnInit, OnChanges, OnDestroy {
   container: ViewContainerRef;
 
   public component: ComponentRef<unknown> | ComponentRef<any> | undefined | any;
-  constructor(private componentService: ComponentService) {}
+  constructor(
+    private componentService: ComponentService,
+    private contentState: ContentState
+  ) {}
 
   ngOnInit(): void {}
 
@@ -59,6 +63,10 @@ export class DynamicComponentComponent implements OnInit, OnChanges, OnDestroy {
     }
     this.container.insert(this.component.hostView);
     this.component.changeDetectorRef.markForCheck();
+  }
+
+  addComponent(content: any): any {
+    this.contentState.addComponent(content);
   }
 
   ngOnDestroy(): void {
