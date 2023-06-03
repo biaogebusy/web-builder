@@ -5,8 +5,9 @@ import {
   OnInit,
 } from '@angular/core';
 import type { IPage } from '@core/interface/IAppConfig';
+import { ScreenService } from '@core/service/screen.service';
 import { ContentState } from '@core/state/ContentState';
-import { LocalStorage, LocalStorageService } from 'ngx-webstorage';
+import { LocalStorage } from 'ngx-webstorage';
 
 @Component({
   selector: 'app-builder-menu',
@@ -19,15 +20,13 @@ export class BuilderMenuComponent implements OnInit {
   @LocalStorage('builder')
   builder: IPage;
   constructor(
-    private storage: LocalStorageService,
-    private contentState: ContentState
+    public contentState: ContentState,
+    private screenService: ScreenService
   ) {}
 
   ngOnInit(): void {
-    this.storage.observe('builder').subscribe((page) => {
-      console.log(page);
-      this.builder = page;
-    });
+    if (this.screenService.isPlatformBrowser()) {
+    }
   }
 
   openDrawer(): void {
