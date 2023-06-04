@@ -24,6 +24,7 @@ import { ManageSidebarComponent } from './manage-sidebar/manage-sidebar.componen
 import { LogoComponent } from './meta/logo/logo.component';
 import { NotifyComponent } from './header/menu/notify/notify.component';
 import { MatBadgeModule } from '@angular/material/badge';
+import { BuilderMenuComponent } from './header/menu/builder-menu/builder-menu.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { MatBadgeModule } from '@angular/material/badge';
     ManageSidebarComponent,
     LogoComponent,
     NotifyComponent,
+    BuilderMenuComponent,
   ],
   imports: [ShareModule, WidgetsModule, MatBadgeModule],
   exports: [

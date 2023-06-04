@@ -19,6 +19,7 @@ export class BuilderMenuComponent implements OnInit {
   @Input() content: any;
   @LocalStorage('builder')
   builder: IPage;
+  opened = false;
   constructor(
     public contentState: ContentState,
     private screenService: ScreenService
@@ -30,9 +31,14 @@ export class BuilderMenuComponent implements OnInit {
   }
 
   openDrawer(): void {
-    this.contentState.drawerOpened$.next(true);
-    this.contentState.drawerLoading$.next(true);
-    this.contentState.drawerContent$.next(this.builder);
-    this.contentState.drawerLoading$.next(false);
+    this.opened = !this.opened;
+    if (this.opened) {
+      this.contentState.drawerOpened$.next(true);
+      this.contentState.drawerLoading$.next(true);
+      this.contentState.drawerContent$.next(this.builder);
+      this.contentState.drawerLoading$.next(false);
+    } else {
+      this.contentState.drawerOpened$.next(false);
+    }
   }
 }
