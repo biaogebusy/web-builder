@@ -69,6 +69,10 @@ export class DynamicComponentComponent implements OnInit, OnChanges, OnDestroy {
     this.contentState.addComponent(content);
   }
 
+  onDelete(index: number): void {
+    this.contentState.deleteComponent(index);
+  }
+
   ngOnDestroy(): void {
     this.container.clear();
   }

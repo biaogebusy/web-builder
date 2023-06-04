@@ -15,7 +15,7 @@
 </div>
 
 <ng-template let-content="content" #block>
-  <ng-container *ngFor="let item of content;">
+  <ng-container *ngFor="let item of content;index as i">
     <app-dynamic-component [inputs]="item"></app-dynamic-component>
   </ng-container>
 </ng-template>

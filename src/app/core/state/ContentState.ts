@@ -20,8 +20,10 @@ export class ContentState {
     body: [],
   };
 
+  builderKey = 'builder';
+
   constructor(private storage: LocalStorageService) {
-    const localPage = this.storage.retrieve('builder');
+    const localPage = this.storage.retrieve(this.builderKey);
     if (localPage) {
       this.initPage = localPage;
       this.numbers$ = of(this.initPage.body.length);
@@ -31,7 +33,25 @@ export class ContentState {
   addComponent(content: any): void {
     this.initPage.body.push(content);
     this.builderContent$.next(this.initPage);
+    this.updatePage();
+  }
+
+  clearComponent(): void {
+    this.initPage = {
+      title: 'Builder Page',
+      body: [],
+    };
+    this.numbers$ = of(0);
+    this.storage.clear(this.builderKey);
+  }
+
+  deleteComponent(index: number): void {
+    this.initPage.body.splice(index, 1);
+    this.updatePage();
+  }
+
+  updatePage(): void {
     this.numbers$ = of(this.initPage.body.length);
-    this.storage.store('builder', Object.assign({}, this.initPage));
+    this.storage.store(this.builderKey, Object.assign({}, this.initPage));
   }
 }

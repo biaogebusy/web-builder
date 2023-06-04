@@ -1,2 +1,7 @@
-<div class="component-meta" hidden (click)="addComponent(inputs)">{{inputs.type}}</div>
+<div class="component-meta" hidden (click)="addComponent(inputs)">
+  {{inputs?.type || inputs.content.type}}
+  <div class="actions">
+    <div (click)="onDelete(inputs.index)">Delete</div>
+  </div>
+</div>
 <ng-template #componentContainer></ng-template>

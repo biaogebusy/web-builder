@@ -5,7 +5,6 @@ import {
   OnInit,
 } from '@angular/core';
 import type { IPage } from '@core/interface/IAppConfig';
-import { ScreenService } from '@core/service/screen.service';
 import { ContentState } from '@core/state/ContentState';
 import { LocalStorage } from 'ngx-webstorage';
 
@@ -20,15 +19,9 @@ export class BuilderMenuComponent implements OnInit {
   @LocalStorage('builder')
   builder: IPage;
   opened = false;
-  constructor(
-    public contentState: ContentState,
-    private screenService: ScreenService
-  ) {}
+  constructor(public contentState: ContentState) {}
 
-  ngOnInit(): void {
-    if (this.screenService.isPlatformBrowser()) {
-    }
-  }
+  ngOnInit(): void {}
 
   openDrawer(): void {
     this.opened = !this.opened;
@@ -40,5 +33,9 @@ export class BuilderMenuComponent implements OnInit {
     } else {
       this.contentState.drawerOpened$.next(false);
     }
+  }
+
+  onDelete(): void {
+    this.contentState.clearComponent();
   }
 }
