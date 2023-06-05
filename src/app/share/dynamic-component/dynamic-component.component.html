@@ -4,7 +4,7 @@
       {{inputs?.type || inputs.content.type}}
     </div>
     <div class="actions" fxLayout="row" fxLayoutGap="1rem">
-      <div class="item" (click)="addComponent(inputs)">添加</div>
+      <div class="item" (click)="addComponent(inputs)" *ngIf="!isBuilder">添加到预览</div>
       <div class="item" (click)="onCopy(inputs)">复制 JSON</div>
       <div class="item" (click)="onDelete(index)" *ngIf="isBuilder">移除</div>
     </div>

@@ -44,7 +44,7 @@ export class BuilderMenuComponent implements OnInit {
   }
 
   onCopy(): void {
-    this.util.copy(this.builder);
+    this.util.copy(JSON.stringify(this.builder));
     this.util.openSnackbar('已复制页面组件 JSON', 'ok');
   }
 
