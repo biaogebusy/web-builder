@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject, of } from 'rxjs';
 import { IPage } from '@core/interface/IAppConfig';
 import { LocalStorageService } from 'ngx-webstorage';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 @Injectable({
   providedIn: 'root',
 })
@@ -53,5 +54,14 @@ export class ContentState {
   updatePage(): void {
     this.numbers$ = of(this.initPage.body.length);
     this.storage.store(this.builderKey, Object.assign({}, this.initPage));
+  }
+
+  dropComponent(event: CdkDragDrop<string[]>): void {
+    moveItemInArray(
+      this.initPage.body,
+      event.previousIndex,
+      event.currentIndex
+    );
+    this.updatePage();
   }
 }

@@ -27,6 +27,7 @@ export interface ICoreConfig {
   commerce: Commerce;
   googleAnalytics: GoogleAnalytics;
   guard: Guard;
+  enableBuilder?: boolean;
   access: {
     check: true;
   };

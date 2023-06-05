@@ -25,7 +25,7 @@ export interface dynamicInputs {
 export class DynamicComponentComponent implements OnInit, OnChanges, OnDestroy {
   @Input() inputs: dynamicInputs;
   @Input() index: number;
-  @Input() isDrawer: boolean;
+  @Input() isBuilder: boolean;
   @ViewChild('componentContainer', { read: ViewContainerRef, static: true })
   container: ViewContainerRef;
 

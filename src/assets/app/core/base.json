@@ -315,6 +315,7 @@
     ]
   },
   "animate": true,
+  "enableBuilder": true,
   "checkIE": {
     "enable": true,
     "dialog": {

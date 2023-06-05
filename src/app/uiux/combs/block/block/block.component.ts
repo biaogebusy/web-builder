@@ -6,13 +6,14 @@ import {
   NgZone,
 } from '@angular/core';
 import { Observable } from 'rxjs';
-import type { IPage } from '@core/interface/IAppConfig';
-import { PAGE_CONTENT } from '@core/token/token-providers';
+import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
+import { CORE_CONFIG, PAGE_CONTENT } from '@core/token/token-providers';
 import { ActivatedRoute } from '@angular/router';
 import { ContentState } from '@core/state/ContentState';
 import { pageContentFactory } from '@core/factory/factory';
 import { ContentService } from '@core/service/content.service';
 import { DOCUMENT } from '@angular/common';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-block',
@@ -33,6 +34,7 @@ export class BlockComponent implements OnInit, AfterViewInit {
   constructor(
     @Inject(DOCUMENT) private doc: Document,
     @Inject(PAGE_CONTENT) public pageContent$: Observable<IPage>,
+    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
     private contentState: ContentState,
     private zone: NgZone
   ) {}
@@ -66,6 +68,9 @@ export class BlockComponent implements OnInit, AfterViewInit {
         .getElementById('transparent-mode')
         ?.classList.toggle('transparent-mode');
     });
+  }
+  drop(event: CdkDragDrop<string[]>) {
+    this.contentState.dropComponent(event);
   }
 
   trackByFn(index: number): number {

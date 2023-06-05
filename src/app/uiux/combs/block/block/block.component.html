@@ -8,14 +8,23 @@
         <mat-spinner diameter="50" color="accent"></mat-spinner>
       </div>
       <ng-container *ngIf="!drawerLoading && opened">
-        <div *ngTemplateOutlet="block; context: {content:drawerContent?.body,isDrawer:true}; "></div>
+        <div *ngTemplateOutlet="block; context: {content:drawerContent?.body,isBuilder:coreConfig?.enableBuilder}; ">
+        </div>
       </ng-container>
     </mat-drawer>
   </mat-drawer-container>
 </div>
 
-<ng-template let-content="content" let-isDrawer="isDrawer" #block>
-  <ng-container *ngFor="let item of content;index as i; trackBy: trackByFn">
-    <app-dynamic-component [inputs]="item" [index]="i" [isDrawer]="isDrawer"></app-dynamic-component>
+<ng-template let-content="content" let-isBuilder="isBuilder" #block>
+  <ng-container *ngIf="!isBuilder">
+    <app-dynamic-component *ngFor="let item of content;index as i; trackBy: trackByFn" [inputs]="item"
+      [index]="i"></app-dynamic-component>
+  </ng-container>
+
+  <ng-container *ngIf="isBuilder">
+    <div cdkDropList class="builder-list" (cdkDropListDropped)="drop($event)">
+      <app-dynamic-component cdkDrag *ngFor="let item of content;index as i; trackBy: trackByFn" [inputs]="item"
+        [index]="i" [isBuilder]="isBuilder"></app-dynamic-component>
+    </div>
   </ng-container>
 </ng-template>

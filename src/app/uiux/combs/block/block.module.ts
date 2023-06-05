@@ -8,9 +8,15 @@ import { ContentService } from '@core/service/content.service';
 import { ContentState } from '@core/state/ContentState';
 import { PAGE_CONTENT } from '@core/token/token-providers';
 import { ShareModule } from '@share/share.module';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 @NgModule({
   declarations: [BlockComponent],
-  imports: [ShareModule, MatSidenavModule, MatProgressSpinnerModule],
+  imports: [
+    ShareModule,
+    DragDropModule,
+    MatSidenavModule,
+    MatProgressSpinnerModule,
+  ],
   providers: [
     {
       provide: PAGE_CONTENT,
