@@ -17,7 +17,7 @@
       &:hover {
         border-color: mat-color($primary);
         .component-meta {
-          display: block;
+          display: block !important;
         }
       }
       .component-meta {
@@ -25,9 +25,20 @@
         z-index: 100;
         padding: 1rem;
         line-height: 1;
-        background-color: mat-color($primary);
-        color: mat-color($primary, default-contrast);
+        .title {
+          background-color: mat-color($primary);
+          color: mat-color($primary, default-contrast);
+        }
+        .actions {
+          .item {
+            background-color: mat-color($primary);
+            color: mat-color($primary, default-contrast);
+          }
+        }
       }
+    }
+    .drawer-right.mat-drawer-opened {
+      min-width: 85vw;
     }
   }
 }

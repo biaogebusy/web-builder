@@ -9,6 +9,8 @@ import { BlockModule } from '@uiux/combs/block/block.module';
 import { StorysModule } from '@core/module/storys.module';
 import { BrandingModule } from '@core/branding/branding.module';
 import { of } from 'rxjs';
+import { defaultHeader, footerInverse } from '../../branding/Branding.json';
+import { BRANDING } from '@core/token/token-providers';
 
 export default {
   title: '示例页面/产品介绍/02 滚动播放动画',
@@ -19,6 +21,15 @@ export default {
       declarations: [],
       entryComponents: [...StorysModule.forEntryComponents()],
       imports: [BlockModule, BrandingModule, StorysModule.forRoot()],
+      providers: [
+        {
+          provide: BRANDING,
+          useValue: of({
+            ...defaultHeader,
+            ...footerInverse,
+          }),
+        },
+      ],
     }),
     componentWrapperDecorator(
       (story) => `

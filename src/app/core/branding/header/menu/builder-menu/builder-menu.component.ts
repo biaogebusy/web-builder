@@ -5,6 +5,7 @@ import {
   OnInit,
 } from '@angular/core';
 import type { IPage } from '@core/interface/IAppConfig';
+import { UtilitiesService } from '@core/service/utilities.service';
 import { ContentState } from '@core/state/ContentState';
 import { LocalStorage } from 'ngx-webstorage';
 
@@ -19,11 +20,18 @@ export class BuilderMenuComponent implements OnInit {
   @LocalStorage('builder')
   builder: IPage;
   opened = false;
-  constructor(public contentState: ContentState) {}
+  constructor(
+    public contentState: ContentState,
+    private util: UtilitiesService
+  ) {}
 
   ngOnInit(): void {}
 
-  openDrawer(): void {
+  onPreview(): void {
+    if (!this.builder || this.builder.body.length === 0) {
+      this.util.openSnackbar('构建页面没有组件，请添加再预览', 'ok');
+      return;
+    }
     this.opened = !this.opened;
     if (this.opened) {
       this.contentState.drawerOpened$.next(true);
@@ -35,7 +43,18 @@ export class BuilderMenuComponent implements OnInit {
     }
   }
 
-  onDelete(): void {
+  onCopy(): void {
+    this.util.copy(this.builder);
+    this.util.openSnackbar('已复制页面组件 JSON', 'ok');
+  }
+
+  onClear(): void {
     this.contentState.clearComponent();
+    this.contentState.drawerOpened$.next(false);
+    this.util.openSnackbar('构建页面的组件已清空', 'ok');
+  }
+
+  onSubmit(): void {
+    this.util.openSnackbar('功能尚未开发，可以手动复制页面 JSON', 'ok');
   }
 }

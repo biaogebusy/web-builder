@@ -67,4 +67,8 @@ export class BlockComponent implements OnInit, AfterViewInit {
         ?.classList.toggle('transparent-mode');
     });
   }
+
+  trackByFn(index: number): number {
+    return index;
+  }
 }

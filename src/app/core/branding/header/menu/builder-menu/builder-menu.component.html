@@ -7,13 +7,21 @@
     </button>
 
     <mat-menu #menu="matMenu">
-      <button mat-menu-item (click)="openDrawer()">
+      <button mat-menu-item (click)="onPreview()">
         <app-icon [content]="{svg:'view-compact-outline'}"></app-icon>
         <span>预览页面</span>
       </button>
-      <button mat-menu-item (click)="onDelete()">
+      <button mat-menu-item (click)="onCopy()">
+        <app-icon [content]="{svg:'content-copy'}"></app-icon>
+        <span>复制JSON</span>
+      </button>
+      <button mat-menu-item (click)="onClear()">
         <app-icon [content]="{svg:'trash-can-outline'}"></app-icon>
-        <span>删除页面</span>
+        <span>清空组件</span>
+      </button>
+      <button mat-menu-item (click)="onSubmit()">
+        <app-icon [content]="{svg:'content-save-check'}"></app-icon>
+        <span>保存提交</span>
       </button>
     </mat-menu>
   </div>

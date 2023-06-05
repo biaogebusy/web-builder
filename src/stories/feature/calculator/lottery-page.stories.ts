@@ -11,7 +11,8 @@ import { sleep, StorysModule } from '@core/module/storys.module';
 import { BrandingModule } from '@core/branding/branding.module';
 import { CalculatorModule } from '@uiux/combs/calculator/calculator.module';
 import { of } from 'rxjs';
-
+import { BRANDING } from '@core/token/token-providers';
+import { defaultHeader, footerInverse } from '../../branding/Branding.json';
 export default {
   title: '特色组件/计算器',
   id: 'lottery-page',
@@ -25,6 +26,15 @@ export default {
         StorysModule.forRoot(),
         BrandingModule,
         CalculatorModule,
+      ],
+      providers: [
+        {
+          provide: BRANDING,
+          useValue: of({
+            ...defaultHeader,
+            ...footerInverse,
+          }),
+        },
       ],
     }),
     componentWrapperDecorator(

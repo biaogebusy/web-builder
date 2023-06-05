@@ -1,12 +1,14 @@
 import { DOCUMENT, formatDate } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { Clipboard } from '@angular/cdk/clipboard';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UtilitiesService {
   constructor(
+    private clipboard: Clipboard,
     private snackbar: MatSnackBar,
     @Inject(DOCUMENT) private document: Document
   ) {}
@@ -86,5 +88,9 @@ export class UtilitiesService {
     }
 
     return dates;
+  }
+
+  copy(content: any): void {
+    this.clipboard.copy(content);
   }
 }

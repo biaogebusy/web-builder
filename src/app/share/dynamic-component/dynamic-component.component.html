@@ -1,7 +1,13 @@
-<div class="component-meta" hidden (click)="addComponent(inputs)">
-  {{inputs?.type || inputs.content.type}}
-  <div class="actions">
-    <div (click)="onDelete(inputs.index)">Delete</div>
+<div class="component-meta">
+  <div class="wrapper" fxLayout="row" fxLayoutAlign="space-between center" fxFlex="100%">
+    <div class="title">
+      {{inputs?.type || inputs.content.type}}
+    </div>
+    <div class="actions" fxLayout="row" fxLayoutGap="1rem">
+      <div class="item" (click)="addComponent(inputs)">添加</div>
+      <div class="item" (click)="onCopy(inputs)">复制 JSON</div>
+      <div class="item" (click)="onDelete(index)" *ngIf="isDrawer">移除</div>
+    </div>
   </div>
 </div>
 <ng-template #componentContainer></ng-template>

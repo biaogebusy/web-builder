@@ -3,6 +3,7 @@ export const defaultHeader: IBranding = {
   header: {
     params: {
       themeSwitch: true,
+      enableBuilder: true,
       userInfo: true,
       isMegaMenu: false,
       menuHoverOpen: false,
@@ -487,6 +488,7 @@ export const manageHeader: IBranding = {
   header: {
     params: {
       themeSwitch: true,
+      enableBuilder: true,
       userInfo: true,
       isMegaMenu: true,
       menuHoverOpen: true,
@@ -1080,6 +1082,7 @@ export const HoverHeader: IBranding = {
   header: {
     params: {
       themeSwitch: true,
+      enableBuilder: true,
       userInfo: true,
       isMegaMenu: false,
       menuHoverOpen: true,
@@ -1097,6 +1100,7 @@ export const megaHeader: IBranding = {
   header: {
     params: {
       themeSwitch: true,
+      enableBuilder: true,
       userInfo: true,
       isMegaMenu: true,
       menuHoverOpen: true,
@@ -1114,6 +1118,7 @@ export const canvasHeader: IBranding = {
   header: {
     params: {
       themeSwitch: true,
+      enableBuilder: true,
       userInfo: true,
       isCanvasMenu: true,
       menuHoverOpen: true,
