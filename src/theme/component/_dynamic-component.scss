@@ -16,7 +16,7 @@
       border: 2px dotted transparent;
       &:hover {
         border-color: mat-color($primary);
-        .component-meta {
+        > .component-meta {
           display: block !important;
         }
       }
