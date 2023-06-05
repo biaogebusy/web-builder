@@ -62,7 +62,7 @@ export class BlockComponent implements OnInit, AfterViewInit {
   onDrawer(): void {
     this.zone.runOutsideAngular(() => {
       this.doc
-        .getElementsByTagName('body')[0]
+        .getElementsByTagName('html')[0]
         .classList.toggle('drawer-disable-scroll');
       this.doc
         .getElementById('transparent-mode')

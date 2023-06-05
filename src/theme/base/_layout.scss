@@ -35,6 +35,19 @@
   }
 }
 
+html.drawer-disable-scroll {
+  height: 100%;
+  overflow: hidden;
+  body {
+    height: 100%;
+    overflow: hidden;
+  }
+  .drawer-right {
+    height: 100vh;
+    overflow: auto;
+  }
+}
+
 @media #{$gt-sm} {
   .cdk-global-scrollblock {
     body > {

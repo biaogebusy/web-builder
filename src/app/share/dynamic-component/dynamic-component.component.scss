@@ -20,6 +20,7 @@
 }
 
 :host(.cdk-drag) {
+  position: relative;
   cursor: move;
 }
 
