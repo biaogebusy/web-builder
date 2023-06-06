@@ -4,7 +4,7 @@
   <app-bg-img [content]="content.bg" *ngIf="content.bg"></app-bg-img>
   <div class="container">
     <app-text *ngIf="text" [content]="text"></app-text>
-    <app-dynamic-widgets *ngFor="let item of content.elements" [content]="item"></app-dynamic-widgets>
+    <app-dynamic-component *ngFor="let item of content.elements" [inputs]="item"></app-dynamic-component>
     <div class="m-top" fxLayoutAlign="center center" fxLayoutGap="1rem" *ngIf="content.actions">
       <app-btn-animate [content]="btn" *ngFor="let btn of content.actions"></app-btn-animate>
     </div>

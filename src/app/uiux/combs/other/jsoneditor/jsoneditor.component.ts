@@ -25,7 +25,7 @@ export class JsoneditorComponent implements OnInit {
   constructor(private contentState: ContentState) {
     this.editorOptions = new JsonEditorOptions();
     this.editorOptions.modes = ['code', 'view']; // set all allowed modes
-    //this.options.mode = 'code'; //set only one mode
+    this.editorOptions.mode = 'code'; //set only one mode
   }
   ngOnInit(): void {
     this.data = this.content.data;

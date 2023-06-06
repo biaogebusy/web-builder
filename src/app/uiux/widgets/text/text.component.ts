@@ -3,10 +3,12 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
+  Host,
   Inject,
   Input,
   OnInit,
   ViewChild,
+  ViewContainerRef,
 } from '@angular/core';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -32,21 +34,27 @@ export class TextComponent implements OnInit, AfterViewInit {
   @ViewChild('bg', { read: ElementRef }) bg: ElementRef;
   constructor(
     private screenService: ScreenService,
-    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
+    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
+    private viewContainerRef: ViewContainerRef
   ) {}
 
   ngOnInit(): void {
+    console.log(this.viewContainerRef);
     if (this.screenService.isPlatformBrowser()) {
       gsap.registerPlugin(ScrollTrigger);
     }
   }
 
   ngAfterViewInit(): void {
+    const injector: any = this.viewContainerRef.injector;
+    const diasbleAnmate = !injector.view.component?.isPreview;
     if (
       this.screenService.isPlatformBrowser() &&
       this.coreConfig.animate &&
+      diasbleAnmate &&
       !this.content?.animate?.disable
     ) {
+      debugger;
       this.showAnimate();
     }
   }

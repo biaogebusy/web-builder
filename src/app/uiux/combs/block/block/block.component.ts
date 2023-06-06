@@ -42,7 +42,7 @@ export class BlockComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {}
 
   onBackdrop(): void {
-    this.opened = false;
+    this.contentState.drawerOpened$.next(false);
   }
 
   ngAfterViewInit(): void {
@@ -61,14 +61,24 @@ export class BlockComponent implements OnInit, AfterViewInit {
 
   onDrawer(): void {
     this.zone.runOutsideAngular(() => {
-      this.doc
-        .getElementsByTagName('html')[0]
-        .classList.toggle('drawer-disable-scroll');
-      this.doc
-        .getElementById('transparent-mode')
-        ?.classList.toggle('transparent-mode');
+      if (this.opened) {
+        this.doc
+          .getElementsByTagName('html')[0]
+          .classList.add('drawer-disable-scroll');
+        this.doc
+          .getElementById('transparent-mode')
+          ?.classList.add('transparent-mode');
+      } else {
+        this.doc
+          .getElementsByTagName('html')[0]
+          .classList.remove('drawer-disable-scroll');
+        this.doc
+          .getElementById('transparent-mode')
+          ?.classList.remove('transparent-mode');
+      }
     });
   }
+
   drop(event: CdkDragDrop<string[]>) {
     this.contentState.dropComponent(event);
   }

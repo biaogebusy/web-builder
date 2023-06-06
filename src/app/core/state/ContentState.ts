@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject, of } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { IPage } from '@core/interface/IAppConfig';
 import { LocalStorageService } from 'ngx-webstorage';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
@@ -14,7 +14,6 @@ export class ContentState {
   public drawerLoading$ = new BehaviorSubject<boolean>(false);
   public drawerContent$ = new Subject<IPage>();
   public builderContent$ = new Subject<IPage>();
-  // public jsoneditorContent$ = new Subject<object>();
   public numbers$ = new Subject<number>();
 
   public initPage: IPage = {

@@ -19,7 +19,6 @@ export class BuilderMenuComponent implements OnInit {
   @Input() content: any;
   @LocalStorage('builder')
   builder: IPage;
-  opened = false;
   constructor(
     public contentState: ContentState,
     private util: UtilitiesService
@@ -32,15 +31,8 @@ export class BuilderMenuComponent implements OnInit {
       this.util.openSnackbar('构建页面没有组件，请添加再预览', 'ok');
       return;
     }
-    this.opened = !this.opened;
-    if (this.opened) {
-      this.contentState.drawerOpened$.next(true);
-      this.contentState.drawerLoading$.next(true);
-      this.contentState.drawerContent$.next(this.builder);
-      this.contentState.drawerLoading$.next(false);
-    } else {
-      this.contentState.drawerOpened$.next(false);
-    }
+    this.contentState.drawerOpened$.next(true);
+    this.contentState.drawerContent$.next(this.builder);
   }
 
   onCopy(): void {

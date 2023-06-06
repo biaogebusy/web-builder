@@ -62,10 +62,12 @@ export class DynamicComponentComponent implements OnInit, OnChanges, OnDestroy {
         Object.keys(this.inputs).map((key) => {
           if (this.component) {
             this.component.instance[key] = this.inputs[key];
+            this.component.instance['isPreview'] = this.isPreview;
           }
         });
       } else {
         this.component.instance['content'] = this.inputs;
+        this.component.instance['isPreview'] = this.isPreview;
       }
     }
     this.container.insert(this.component.hostView);
