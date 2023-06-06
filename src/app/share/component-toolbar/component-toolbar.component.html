@@ -1,0 +1,10 @@
+<div class="wrapper" fxLayout="row" fxLayoutAlign="space-between center" fxFlex="100%">
+  <div class="title">
+    {{content.type}}
+  </div>
+  <div class="actions" fxLayout="row" fxLayoutGap="1rem">
+    <div class="item" (click)="addComponent(content)" *ngIf="!isBuilder">添加到预览</div>
+    <div class="item" (click)="onCopy(content)">复制 JSON</div>
+    <div class="item" (click)="onDelete(index)" *ngIf="isBuilder">移除</div>
+  </div>
+</div>

@@ -16,11 +16,11 @@
       border: 2px dotted transparent;
       &:hover {
         border-color: mat-color($primary);
-        > .component-meta {
+        > .component-toolbar {
           display: block !important;
         }
       }
-      > .component-meta {
+      > .component-toolbar {
         position: absolute;
         z-index: 100;
         padding: 1rem;

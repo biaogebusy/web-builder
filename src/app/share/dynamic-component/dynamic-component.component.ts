@@ -1,6 +1,7 @@
 import {
   Component,
   ComponentRef,
+  Inject,
   Input,
   OnChanges,
   OnDestroy,
@@ -9,9 +10,9 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
+import { ICoreConfig } from '@core/interface/IAppConfig';
 import { ComponentService } from '@core/service/component.service';
-import { ContentState } from '@core/state/ContentState';
-import { UtilitiesService } from '@core/service/utilities.service';
+import { CORE_CONFIG } from '@core/token/token-providers';
 
 export interface dynamicInputs {
   content?: any;
@@ -32,8 +33,7 @@ export class DynamicComponentComponent implements OnInit, OnChanges, OnDestroy {
   public component: ComponentRef<unknown> | ComponentRef<any> | undefined | any;
   constructor(
     private componentService: ComponentService,
-    private contentState: ContentState,
-    private util: UtilitiesService
+    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig
   ) {}
 
   ngOnInit(): void {}
@@ -68,21 +68,6 @@ export class DynamicComponentComponent implements OnInit, OnChanges, OnDestroy {
     }
     this.container.insert(this.component.hostView);
     this.component.changeDetectorRef.markForCheck();
-  }
-
-  addComponent(content: any): any {
-    this.contentState.addComponent(content);
-    this.util.openSnackbar(`已添加${content.type}到构建页面！`, 'ok');
-  }
-
-  onDelete(index: number): void {
-    this.contentState.deleteComponent(index);
-    this.util.openSnackbar(`已在构建页面移除组件！`, 'ok');
-  }
-
-  onCopy(content: any): void {
-    this.util.copy(JSON.stringify(content));
-    this.util.openSnackbar(`已复制${content.type}的JSON！`, 'ok');
   }
 
   ngOnDestroy(): void {

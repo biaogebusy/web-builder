@@ -1,13 +1,2 @@
-<div class="component-meta">
-  <div class="wrapper" fxLayout="row" fxLayoutAlign="space-between center" fxFlex="100%">
-    <div class="title">
-      {{inputs?.type || inputs.content.type}}
-    </div>
-    <div class="actions" fxLayout="row" fxLayoutGap="1rem">
-      <div class="item" (click)="addComponent(inputs)" *ngIf="!isBuilder">添加到预览</div>
-      <div class="item" (click)="onCopy(inputs)">复制 JSON</div>
-      <div class="item" (click)="onDelete(index)" *ngIf="isBuilder">移除</div>
-    </div>
-  </div>
-</div>
+<app-component-toolbar *ngIf="coreConfig.enableBuilder" [content]="inputs"></app-component-toolbar>
 <ng-template #componentContainer></ng-template>
