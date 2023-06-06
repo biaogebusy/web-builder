@@ -14,6 +14,7 @@ export class ContentState {
   public drawerLoading$ = new BehaviorSubject<boolean>(false);
   public drawerContent$ = new Subject<IPage>();
   public builderContent$ = new Subject<IPage>();
+  // public jsoneditorContent$ = new Subject<object>();
   public numbers$ = new Subject<number>();
 
   public initPage: IPage = {
@@ -50,6 +51,11 @@ export class ContentState {
 
   deleteComponent(index: number): void {
     this.initPage.body.splice(index, 1);
+    this.updatePage();
+  }
+
+  updateComponent(index: number, content: any): void {
+    this.initPage.body[index] = content;
     this.updatePage();
   }
 

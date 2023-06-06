@@ -1,3 +1,3 @@
-<app-component-toolbar *ngIf="coreConfig.enableBuilder" [content]="inputs" [isPreview]="isPreview"
-  [index]="index"></app-component-toolbar>
+<app-component-toolbar *ngIf="coreConfig.enableBuilder && inputs.disableToolbar !== true" [content]="inputs"
+  [isPreview]="isPreview" [index]="index"></app-component-toolbar>
 <ng-template #componentContainer></ng-template>

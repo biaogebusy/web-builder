@@ -5,6 +5,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { ContentState } from '@core/state/ContentState';
 import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
 
 @Component({
@@ -19,8 +20,9 @@ export class JsoneditorComponent implements OnInit {
   public data: any;
   @ViewChild(JsonEditorComponent, { static: false })
   editor: JsonEditorComponent;
+  value: any;
 
-  constructor() {
+  constructor(private contentState: ContentState) {
     this.editorOptions = new JsonEditorOptions();
     this.editorOptions.modes = ['code', 'view']; // set all allowed modes
     //this.options.mode = 'code'; //set only one mode
@@ -29,7 +31,19 @@ export class JsoneditorComponent implements OnInit {
     this.data = this.content.data;
   }
 
-  getData(event: any): void {
+  onChange(event: any): void {
     console.log(event);
+    if (event.timeStamp) {
+      return;
+    }
+    this.value = event;
+  }
+
+  onSave(): void {
+    if (this.value) {
+      // this.contentState.jsoneditorContent$.next(this.value);
+      console.log(this.value);
+      this.contentState.updateComponent(this.content.index, this.value);
+    }
   }
 }

@@ -28,6 +28,7 @@ export class DynamicComponentComponent implements OnInit, OnChanges, OnDestroy {
   @Input() inputs: dynamicInputs;
   @Input() index: number;
   @Input() isPreview: boolean;
+  @Input() disableToolbar: boolean;
   @ViewChild('componentContainer', { read: ViewContainerRef, static: true })
   container: ViewContainerRef;
 

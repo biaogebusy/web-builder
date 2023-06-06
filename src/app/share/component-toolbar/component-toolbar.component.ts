@@ -5,9 +5,11 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import type { IComponentToolbar } from '@core/interface/combs/IBuilder';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { ContentState } from '@core/state/ContentState';
+import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 
 @Component({
   selector: 'app-component-toolbar',
@@ -20,9 +22,12 @@ export class ComponentToolbarComponent implements OnInit {
   @Input() isPreview: boolean;
   @Input() index: number;
   @HostBinding('class.component-toolbar') hostClass = true;
+  dialogRef: any;
+
   constructor(
     private contentState: ContentState,
-    private util: UtilitiesService
+    private util: UtilitiesService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {}
@@ -35,6 +40,31 @@ export class ComponentToolbarComponent implements OnInit {
   onCopy(content: any): void {
     this.util.copy(JSON.stringify(content));
     this.util.openSnackbar(`已复制${content.type}的JSON！`, 'ok');
+  }
+
+  onEditor(content: any, index: number): void {
+    this.dialogRef = this.dialog.open(DialogComponent, {
+      width: '800px',
+      height: '500px',
+      data: {
+        inputData: [
+          {
+            disableToolbar: true,
+            content: {
+              type: 'jsoneditor',
+              index,
+              data: content,
+              actions: [
+                {
+                  type: 'closeDialog',
+                  label: '保存',
+                },
+              ],
+            },
+          },
+        ],
+      },
+    });
   }
 
   onDelete(index: number): void {
