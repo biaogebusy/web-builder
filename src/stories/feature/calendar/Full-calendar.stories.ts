@@ -35,6 +35,7 @@ export const Default = Template.bind({});
 
 Default.args = {
   content: {
+    type: 'full-calendar',
     spacer: 'xxl',
     sidebar: [
       {

@@ -32,6 +32,7 @@ export const Base = Template.bind({});
 
 Base.args = {
   content: {
+    type: 'progress-group',
     elements: [
       {
         label: 'HTML/CSS',

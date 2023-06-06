@@ -35,6 +35,7 @@ export const Base = Template.bind({});
 
 Base.args = {
   content: {
+    type: 'swiper',
     params: {
       slidesPerView: 1.2,
       spaceBetween: 20,

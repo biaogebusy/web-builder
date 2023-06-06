@@ -27,6 +27,7 @@ const swiper: any = SwiperStories.Base.args;
 Default.args = {
   content: {
     spacer: 'lg',
+    type: 'carousel-1v1',
     title: {
       label: '你将喜欢上 Drupal 的原因',
       icon: 'email',
@@ -44,6 +45,7 @@ export const TextHero = Template.bind({});
 TextHero.storyName = '图片带文本';
 TextHero.args = {
   content: {
+    type: 'carousel-1v1',
     spacer: 'none',
     disableContainer: true,
     sliders: {

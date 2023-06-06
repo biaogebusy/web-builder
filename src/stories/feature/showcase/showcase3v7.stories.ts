@@ -30,6 +30,7 @@ export const Default = Template.bind({});
 const showcase3v5: any = showcase3v5Stories.Default.args;
 Default.args = {
   content: {
+    type: 'showcase-3v7',
     title: {
       ...showcase3v5.content.title,
     },

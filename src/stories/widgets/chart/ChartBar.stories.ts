@@ -69,6 +69,7 @@ Bar.args = {
     ],
   },
   content: {
+    type: 'chart',
     title: {
       text: '年度活动金额预算',
       subtext: '南宁',

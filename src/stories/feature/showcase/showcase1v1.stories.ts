@@ -18,7 +18,9 @@ export default {
     }),
     componentWrapperDecorator(
       (story) =>
-        `<div class="position-relative p-top-xl m-top-xl" style="z-index:1">${story}</div>`
+        `<div class="position-relative p-top-xl m-top-xl" style="z-index:1">
+        ${story}
+        </div>`
     ),
   ],
 } as Meta;
@@ -32,6 +34,7 @@ export const Default = Template.bind({});
 
 Default.args = {
   content: {
+    type: 'showcase-1v1',
     classes: 'features-absolute',
     spacer: 'lg',
     bg: {
@@ -107,6 +110,7 @@ export const StyleV1 = Template.bind({});
 
 StyleV1.args = {
   content: {
+    type: 'showcase-1v1',
     title: {
       label: 'Showcase 1 v1 style v1',
       style: 'style-v1',

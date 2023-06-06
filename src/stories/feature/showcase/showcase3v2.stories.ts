@@ -29,6 +29,7 @@ export const Default = Template.bind({});
 
 Default.args = {
   content: {
+    type: 'showcase-3v2',
     title: {
       label: '- ALD R&D Team -',
       style: 'style-v1',
@@ -210,6 +211,7 @@ export const List = Template.bind({});
 
 List.args = {
   content: {
+    type: 'showcase-3v2',
     title: {
       '@label': '分类标题',
       label: '音乐',

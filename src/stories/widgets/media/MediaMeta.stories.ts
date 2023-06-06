@@ -32,6 +32,7 @@ export const Default = Template.bind({});
 
 Default.args = {
   content: {
+    type: 'media-meta',
     link: {
       href: '#',
       label: '使用 DEVTOOLS 对 ANGULAR 前端应用性能分析优化',

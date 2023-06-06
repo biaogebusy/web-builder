@@ -39,6 +39,7 @@ export const Default = Template.bind({});
 Default.storyName = '默认';
 Default.args = {
   content: {
+    type: 'iframe',
     url: '?path=/story/full-calendar--default',
   },
 };
@@ -47,6 +48,7 @@ export const CustomSize = Template.bind({});
 CustomSize.storyName = '自定义';
 CustomSize.args = {
   content: {
+    type: 'iframe',
     url: '?path=/story/full-calendar--default',
     width: '800',
     height: '800',
@@ -57,6 +59,7 @@ export const FullScreenHeight = Template.bind({});
 FullScreenHeight.storyName = '全屏高';
 FullScreenHeight.args = {
   content: {
+    type: 'iframe',
     url: '?path=/story/full-calendar--default',
     width: '100%',
     classes: 'height-100vh',

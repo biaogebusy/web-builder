@@ -34,6 +34,7 @@ const breadcrumb: any = Breadcrumb.Base.args;
 Default.args = {
   content: {
     style: 'no-bg',
+    type: 'banner-simple',
     title: '横幅',
     breadcrumb: breadcrumb.content,
   },
@@ -44,6 +45,7 @@ BannerWithBg.storyName = '横幅带背景图';
 BannerWithBg.args = {
   content: {
     style: 'normal',
+    type: 'banner-simple',
     bannerBg: {
       classes: 'bg-fill-width overlay',
       img: {
@@ -62,6 +64,7 @@ BannerOverlay.storyName = '背景图不透明度';
 BannerOverlay.args = {
   content: {
     style: 'normal',
+    type: 'banner-simple',
     bannerBg: {
       classes: 'bg-fill-width overlay overlay-80',
       img: {

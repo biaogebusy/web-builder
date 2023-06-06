@@ -5,6 +5,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import type { IComponentToolbar } from '@core/interface/combs/IBuilder';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { ContentState } from '@core/state/ContentState';
 
@@ -15,8 +16,8 @@ import { ContentState } from '@core/state/ContentState';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ComponentToolbarComponent implements OnInit {
-  @Input() content: any;
-  @Input() isBuilder: boolean;
+  @Input() content: IComponentToolbar;
+  @Input() isPreview: boolean;
   @Input() index: number;
   @HostBinding('class.component-toolbar') hostClass = true;
   constructor(

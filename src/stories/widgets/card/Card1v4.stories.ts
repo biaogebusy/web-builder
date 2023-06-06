@@ -32,6 +32,7 @@ const Template: Story = (args) => ({
 export const Base = Template.bind({});
 Base.args = {
   content: {
+    type: 'card-1v4',
     img: {
       classes: 'object-fit',
       src: '/assets/images/avatar/01.jpeg',

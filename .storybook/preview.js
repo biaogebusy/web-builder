@@ -1,6 +1,7 @@
 import { setCompodocJson } from "@storybook/addon-docs/angular";
 import docJson from "../documentation.json";
 import { withThemeByClassName } from "@storybook/addon-styling";
+import { componentWrapperDecorator } from "@storybook/angular";
 setCompodocJson(docJson);
 
 export const parameters = {
@@ -44,4 +45,12 @@ export const decorators = [
     },
     defaultTheme: "light",
   }),
+  componentWrapperDecorator(
+    (story) =>
+      `
+      <div class="builder-sb-wrapper">
+        <app-component-toolbar *ngIf="content?.type" [content]="content"></app-component-toolbar>
+        ${story}
+      </div>`
+  ),
 ];

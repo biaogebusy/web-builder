@@ -34,6 +34,7 @@ export const Default = Template.bind({});
 
 Default.args = {
   content: {
+    type: 'packery',
     config: {
       gutter: 0,
       imagesLoaded: true,
@@ -163,6 +164,7 @@ export const ContentBox = Template.bind({});
 
 ContentBox.args = {
   content: {
+    type: 'packery',
     config: {
       gutter: 0,
       imagesLoaded: true,

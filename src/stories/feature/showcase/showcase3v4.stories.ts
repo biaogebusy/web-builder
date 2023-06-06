@@ -30,6 +30,7 @@ export const Default = Template.bind({});
 const BoxStyleV7: any = BoxStories.StyleV7.args;
 Default.args = {
   content: {
+    type: 'showcase-3v4',
     title: {
       label: '为什么你将会喜欢信使？',
       style: 'style-v1',

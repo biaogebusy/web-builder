@@ -32,6 +32,7 @@ const Template: Story = (args) => ({
 export const StepFirst = Template.bind({});
 StepFirst.args = {
   content: {
+    type: 'card-1v5',
     title: 'Discuss The Project',
     body: "The most well-known dummy text is the 'Lorem Ipsum', which is said to have originated in the 16th century.",
     more: {
@@ -51,6 +52,7 @@ StepFirst.args = {
 export const StepEnd = Template.bind({});
 StepEnd.args = {
   content: {
+    type: 'card-1v5',
     title: 'Discuss The Project',
     body: "The most well-known dummy text is the 'Lorem Ipsum', which is said to have originated in the 16th century.",
     more: {

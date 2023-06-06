@@ -24,6 +24,7 @@ export const Default = Template.bind({});
 
 Default.args = {
   content: {
+    type: 'number-animate',
     value: 100,
     label: '+',
   },

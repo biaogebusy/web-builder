@@ -1,6 +1,10 @@
 import { HttpClientModule } from '@angular/common/http';
 import { ShareModule } from '@share/share.module';
-import { moduleMetadata, Meta } from '@storybook/angular';
+import {
+  moduleMetadata,
+  Meta,
+  componentWrapperDecorator,
+} from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { IconComponent } from '@uiux/widgets/icon/icon.component';
 
@@ -13,6 +17,9 @@ export default {
       declarations: [IconComponent],
       imports: [ShareModule, HttpClientModule],
     }),
+    componentWrapperDecorator(
+      (story) => `<div class="position-relative p-x-md p-y-md">${story}</div>`
+    ),
   ],
   parameters: {
     docs: {
@@ -35,6 +42,7 @@ export const Primary = Template.bind({});
 
 Primary.args = {
   content: {
+    type: 'icon',
     color: 'primary',
     name: 'format_color_fill',
   },
@@ -43,32 +51,24 @@ Primary.args = {
 export const Accent = Template.bind({});
 
 Accent.args = {
-  content: {
-    color: 'accent',
-    name: 'format_color_fill',
-  },
+  content: { type: 'icon', color: 'accent', name: 'format_color_fill' },
 };
 
 export const Warn = Template.bind({});
 
 Warn.args = {
-  content: {
-    color: 'warn',
-    name: 'format_color_fill',
-  },
+  content: { type: 'icon', color: 'warn', name: 'format_color_fill' },
 };
 
 export const svgIcon = Template.bind({});
 svgIcon.args = {
-  content: {
-    color: 'primary',
-    svg: 'credit-card-check',
-  },
+  content: { type: 'icon', color: 'primary', svg: 'credit-card-check' },
 };
 
 export const customStyle = Template.bind({});
 customStyle.args = {
   content: {
+    type: 'icon',
     color: 'primary',
     svg: 'credit-card-check',
     style: {

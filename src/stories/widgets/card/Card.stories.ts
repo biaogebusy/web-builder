@@ -31,6 +31,7 @@ export const Base = Template.bind({});
 Base.storyName = '无边框、无阴影';
 Base.args = {
   content: {
+    type: 'card',
     title: '高性能',
     subTitle: 'High Performance',
     classes: 'card-no-shadow',
@@ -53,6 +54,7 @@ export const Avatar = Template.bind({});
 Avatar.storyName = '头像及幻灯片';
 Avatar.args = {
   content: {
+    type: 'card',
     subTitle: '2022/03/04',
     avatar: {
       src: '/assets/images/showcase/weather.png',
@@ -107,6 +109,7 @@ export const BroderShadow = Template.bind({});
 BroderShadow.storyName = '带边框和阴影';
 BroderShadow.args = {
   content: {
+    type: 'card',
     header: {
       meta: [
         {

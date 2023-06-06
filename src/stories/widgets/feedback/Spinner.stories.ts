@@ -32,6 +32,7 @@ export const Default = Template.bind({});
 
 Default.args = {
   content: {
+    type: 'spinner',
     color: 'primary',
     size: '50',
   },

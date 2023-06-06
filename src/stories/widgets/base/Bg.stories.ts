@@ -32,6 +32,7 @@ export const BgPrimary = Template.bind({});
 BgPrimary.storyName = '主色背景';
 BgPrimary.args = {
   content: {
+    type: 'bg',
     classes: 'bg-fill-width bg-primary',
   },
 };
@@ -40,6 +41,7 @@ export const BgShadow = Template.bind({});
 BgShadow.storyName = '灰色背景';
 BgShadow.args = {
   content: {
+    type: 'bg',
     classes: 'bg-fill-width bg-shadow',
   },
 };

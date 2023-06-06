@@ -35,6 +35,7 @@ export const Base = Template.bind({});
 const card1v3: any = Card1v3Stories.Base.args;
 Base.args = {
   content: {
+    type: 'map-list-v1',
     title: {
       label: '南宁市创业孵化服务中心',
       style: 'style-v4',

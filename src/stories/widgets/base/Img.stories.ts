@@ -34,6 +34,7 @@ export const Default = Template.bind({});
 
 Default.args = {
   content: {
+    type: 'img',
     classes: '',
     src: '/assets/images/cases/porto2.jpg',
     alt: 'alt',

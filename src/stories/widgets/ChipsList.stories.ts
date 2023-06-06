@@ -29,6 +29,7 @@ export const Default = Template.bind({});
 
 Default.args = {
   content: {
+    type: 'chip-list',
     elements: [
       {
         label: 'Primary',

@@ -46,6 +46,7 @@ const MediaList: any = MediaListStories.Base.args;
 const MenuList: any = MeunListStories.Base.args;
 Default.args = {
   content: {
+    type: 'article',
     title: '使用 DevTools 对 Angular 前端应用性能分析优化',
     banner: {
       img: {

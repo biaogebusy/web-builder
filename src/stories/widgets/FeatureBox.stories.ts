@@ -31,6 +31,7 @@ export const Default = Template.bind({});
 
 Default.args = {
   content: {
+    type: 'feature-box',
     fullIcon: 'fullscreen',
     openIcon: 'open_in_new',
     link: '#',

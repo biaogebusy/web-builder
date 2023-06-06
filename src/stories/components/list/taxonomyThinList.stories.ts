@@ -31,6 +31,7 @@ export const Default = Template.bind({});
 
 Default.args = {
   content: {
+    type: 'taxonomy-thin-list',
     params: {
       type: 'article',
       taxonomy: 'search_category',

@@ -24,6 +24,7 @@ export const Base = Template.bind({});
 
 Base.args = {
   content: {
+    type: 'menu-list',
     title: '标签',
     elements: [
       {

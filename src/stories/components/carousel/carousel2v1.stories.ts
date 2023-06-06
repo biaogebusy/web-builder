@@ -25,6 +25,7 @@ export const Default = Template.bind({});
 
 Default.args = {
   content: {
+    type: 'carousel-2v1',
     title: {
       label: 'WHAT THEY SAY ABOUT ME',
       style: 'style-v1',

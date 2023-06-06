@@ -46,12 +46,14 @@ import { ReqRolesDirective } from '@core/directive/req-roles.directive';
 import { CheckChildMenuActiveDirective } from '@core/directive/check-child-menu-active.directive';
 import { DynamicComponentComponent } from './dynamic-component/dynamic-component.component';
 import { ComponentService } from '@core/service/component.service';
+import { ComponentToolbarComponent } from './component-toolbar/component-toolbar.component';
 
 @NgModule({
   declarations: [
     DynamicComponentComponent,
     ReqRolesDirective,
     CheckChildMenuActiveDirective,
+    ComponentToolbarComponent,
   ],
   imports: [
     CommonModule,
@@ -119,6 +121,7 @@ import { ComponentService } from '@core/service/component.service';
     ReqRolesDirective,
     CheckChildMenuActiveDirective,
     DynamicComponentComponent,
+    ComponentToolbarComponent,
   ],
   providers: [
     IconService,

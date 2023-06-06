@@ -30,6 +30,7 @@ export const Default = Template.bind({});
 
 Default.args = {
   content: {
+    type: 'showcase-2v2',
     text: {
       title: {
         label: 'Xinshi Product List',

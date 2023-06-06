@@ -29,6 +29,7 @@ BtnDefault.parameters = {
 };
 BtnDefault.args = {
   content: {
+    type: 'btn',
     color: 'primary',
     label: 'Primary Default',
     icon: {
@@ -41,17 +42,14 @@ BtnDefault.args = {
 export const BtnRaised = Template.bind({});
 
 BtnRaised.args = {
-  content: {
-    color: 'primary',
-    label: 'Primary',
-    mode: 'raised',
-  },
+  content: { type: 'btn', color: 'primary', label: 'Primary', mode: 'raised' },
 };
 
 export const Round = Template.bind({});
 
 Round.args = {
   content: {
+    type: 'btn',
     label: 'Round',
     color: 'primary',
     mode: 'raised',
@@ -63,6 +61,7 @@ export const BtnLink = Template.bind({});
 
 BtnLink.args = {
   content: {
+    type: 'btn',
     href: '/node/1',
     target: '_blank',
     label: 'Primary link',
@@ -75,6 +74,7 @@ export const BtnDrawer = Template.bind({});
 
 BtnDrawer.args = {
   content: {
+    type: 'btn',
     href: '/?path=/story/welcome--page',
     label: 'Drawer 预览',
     mode: 'raised',
@@ -85,11 +85,7 @@ BtnDrawer.args = {
 export const BtnStroked = Template.bind({});
 
 BtnStroked.args = {
-  content: {
-    label: 'stroked',
-    color: 'primary',
-    mode: 'stroked',
-  },
+  content: { type: 'btn', label: 'stroked', color: 'primary', mode: 'stroked' },
 };
 
 export const StrokedLink = Template.bind({});
@@ -107,6 +103,7 @@ export const StrokedLinkBorderPrimary = Template.bind({});
 
 StrokedLinkBorderPrimary.args = {
   content: {
+    type: 'btn',
     href: '#',
     target: '_blank',
     label: 'Stroked link',
@@ -118,17 +115,14 @@ StrokedLinkBorderPrimary.args = {
 export const BtnFlat = Template.bind({});
 
 BtnFlat.args = {
-  content: {
-    label: 'Flat',
-    color: 'primary',
-    mode: 'flat',
-  },
+  content: { type: 'btn', label: 'Flat', color: 'primary', mode: 'flat' },
 };
 
 export const BtnIcon = Template.bind({});
 
 BtnIcon.args = {
   content: {
+    type: 'btn',
     color: 'primary',
     mode: 'icon',
     icon: {
@@ -141,6 +135,7 @@ export const BtnFab = Template.bind({});
 
 BtnFab.args = {
   content: {
+    type: 'btn',
     color: 'primary',
     mode: 'fab',
     icon: {
@@ -153,6 +148,7 @@ export const BtnMiniFab = Template.bind({});
 
 BtnMiniFab.args = {
   content: {
+    type: 'btn',
     color: 'primary',
     mode: 'mini-fab',
     icon: {

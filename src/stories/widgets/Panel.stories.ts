@@ -24,6 +24,7 @@ export const Default = Template.bind({});
 
 Default.args = {
   content: {
+    type: 'panel',
     title: {
       label: 'About',
       style: 'style-v4',

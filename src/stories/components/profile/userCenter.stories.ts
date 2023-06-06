@@ -32,6 +32,7 @@ export const Default = Template.bind({});
 
 Default.args = {
   content: {
+    type: 'user-center',
     params: {
       showProfile: false,
       showDetails: false,

@@ -28,6 +28,7 @@ export const Default = Template.bind({});
 
 Default.args = {
   content: {
+    type: 'showcase-2v3',
     spacer: 'md',
     text: {
       title: {

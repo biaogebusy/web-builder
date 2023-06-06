@@ -30,6 +30,7 @@ const Template: Story = (args) => ({
 export const Default = Template.bind({});
 
 Default.args = {
+  type: 'calendar',
   options: {
     events: [
       {

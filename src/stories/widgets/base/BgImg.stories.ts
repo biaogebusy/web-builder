@@ -33,6 +33,7 @@ export const Base = Template.bind({});
 
 Base.args = {
   content: {
+    type: 'bg-img',
     img: {
       src: '/assets/images/bg/bg-03.jpeg',
       classes: 'object-fit',
@@ -44,6 +45,7 @@ export const Opacity = Template.bind({});
 Opacity.storyName = '不透明度';
 Opacity.args = {
   content: {
+    type: 'bg-img',
     classes: 'bg-fill-width overlay overlay-80',
     img: {
       src: '/assets/images/bg/bg-03.jpeg',

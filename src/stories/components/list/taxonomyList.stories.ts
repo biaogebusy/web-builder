@@ -38,6 +38,7 @@ export const Default = Template.bind({});
 
 Default.args = {
   content: {
+    type: 'taxonomy-list',
     pager: {
       itemsPerPage: 20,
     },

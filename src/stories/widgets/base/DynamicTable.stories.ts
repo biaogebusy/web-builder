@@ -36,6 +36,7 @@ Default.parameters = {
 };
 Default.args = {
   content: {
+    type: 'dynamic-table',
     header: [
       {
         label: '发票名称',
@@ -88,6 +89,7 @@ export const CustomStyle = Template.bind({});
 CustomStyle.storyName = '自定义列样式';
 CustomStyle.args = {
   content: {
+    type: 'dynamic-table',
     header: [
       {
         label: '发票名称',
@@ -122,6 +124,7 @@ export const DialogColumn = Template.bind({});
 DialogColumn.storyName = '支持弹窗';
 DialogColumn.args = {
   content: {
+    type: 'dynamic-table',
     header: [
       {
         label: '发票名称',
@@ -181,6 +184,7 @@ export const ExpandColumn = Template.bind({});
 ExpandColumn.storyName = '可折叠指定列';
 ExpandColumn.args = {
   content: {
+    type: 'dynamic-table',
     header: [
       {
         label: '还款次数',

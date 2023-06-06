@@ -44,6 +44,7 @@ export const Default = Template.bind({});
 const showcase1v3: any = showcase1v3Stories.Default.args;
 Default.args = {
   content: {
+    type: 'video-bg',
     source: {
       src: '/assets/video/afterglow.mp4',
       type: 'video/mp4',

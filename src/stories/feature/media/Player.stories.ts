@@ -32,6 +32,7 @@ export const Base = Template.bind({});
 
 Base.args = {
   content: {
+    type: 'player',
     options: {
       controls: true,
       aspectRatio: '16:9',

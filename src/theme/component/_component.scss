@@ -33,7 +33,7 @@
 @import "./view-map";
 @import "./dashboard";
 @import "./chart-box";
-@import "./dynamic-component";
+@import "./builder";
 
 // material custom
 @import "./mat/card";
@@ -76,7 +76,7 @@
   @include view-map-color($config-or-theme);
   @include dashboard-color($config-or-theme);
   @include chart-box-color($config-or-theme);
-  @include dynamic-component-color($config-or-theme);
+  @include builder-color($config-or-theme);
 
   // material custom ui
   @include card-color($config-or-theme);

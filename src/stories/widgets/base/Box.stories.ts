@@ -38,6 +38,7 @@ export const StyleV1 = Template.bind({});
 
 StyleV1.args = {
   content: {
+    type: 'box',
     style: 'style-v1',
     icon: {
       name: 'fingerprint',

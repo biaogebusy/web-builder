@@ -30,6 +30,7 @@ export const Default = Template.bind({});
 
 Default.args = {
   content: {
+    type: 'showcase-3v1',
     bg: {
       classes: 'bg-shadow bg-fill-width',
     },

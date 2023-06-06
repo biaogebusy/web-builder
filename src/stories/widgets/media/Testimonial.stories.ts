@@ -32,6 +32,7 @@ export const Default = Template.bind({});
 
 Default.args = {
   content: {
+    type: 'testimonial',
     style: 'style-v2',
     title: 'Johnson',
     subTitle: 'FrontEnd',

@@ -30,6 +30,7 @@ BtnDefault.parameters = {
 };
 BtnDefault.args = {
   content: {
+    type: 'btn-video',
     color: 'primary',
     video: {
       options: {

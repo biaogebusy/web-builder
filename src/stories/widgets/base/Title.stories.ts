@@ -26,6 +26,7 @@ export const TitleV1 = Template.bind({});
 TitleV1.storyName = 'Style V1';
 TitleV1.args = {
   content: {
+    type: 'title',
     label: '关于我们',
     style: 'style-v1',
     classes: 'mat-display-1',

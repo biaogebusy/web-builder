@@ -42,6 +42,7 @@ export const Indeterminate = Template.bind({});
 
 Indeterminate.args = {
   content: {
+    type: 'progress-bar',
     color: 'primary',
     mode: 'indeterminate',
     value: '40',
@@ -52,6 +53,7 @@ export const Buffer = Template.bind({});
 
 Buffer.args = {
   content: {
+    type: 'progress-bar',
     color: 'primary',
     mode: 'buffer',
     value: '40',
@@ -61,8 +63,5 @@ Buffer.args = {
 export const Query = Template.bind({});
 
 Query.args = {
-  content: {
-    color: 'primary',
-    mode: 'query',
-  },
+  content: { type: 'progress-bar', color: 'primary', mode: 'query' },
 };

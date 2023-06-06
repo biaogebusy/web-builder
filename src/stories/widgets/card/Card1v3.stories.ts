@@ -41,6 +41,7 @@ export const Base = Template.bind({});
 const text: any = TextStories.Title.args;
 Base.args = {
   content: {
+    type: 'card-1v3',
     elements: [
       {
         title: '创客城',

@@ -37,6 +37,7 @@ export const Default = Template.bind({});
 
 Default.args = {
   content: {
+    type: 'list-2v1',
     title: {
       label: 'Latest Articles',
       style: 'style-v4',

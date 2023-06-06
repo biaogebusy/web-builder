@@ -24,6 +24,7 @@ export const Base = Template.bind({});
 
 Base.args = {
   content: {
+    type: 'text-hero',
     theme: 'text-light',
     params: {
       height: '750px',

@@ -30,6 +30,7 @@ export const Default = Template.bind({});
 Default.storyName = 'Card';
 Default.args = {
   content: {
+    type: 'showcase-2v1',
     text: {
       title: {
         label: '国内 Drupal 优秀网站案例',
@@ -357,6 +358,7 @@ export const Card1v1 = Template.bind({});
 Card1v1.storyName = 'Card 1v1';
 Card1v1.args = {
   content: {
+    type: 'showcase-2v1',
     text: {
       title: {
         label: '最新活动',
@@ -438,6 +440,7 @@ export const Card1v1FromApi = Template.bind({});
 Card1v1FromApi.storyName = 'Card 1v1 From api';
 Card1v1FromApi.args = {
   content: {
+    type: 'showcase-2v1',
     text: {
       title: {
         label: '最新活动',

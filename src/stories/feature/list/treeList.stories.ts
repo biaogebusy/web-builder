@@ -39,6 +39,7 @@ export const Default = Template.bind({});
 const tree: any = TreeStories.Default.args;
 Default.args = {
   content: {
+    type: 'tree-list',
     tree: [
       {
         ...tree.content,

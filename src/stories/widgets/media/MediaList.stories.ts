@@ -32,6 +32,7 @@ export const Base = Template.bind({});
 
 Base.args = {
   content: {
+    type: 'media-list',
     title: '热门文章',
     elements: [
       {

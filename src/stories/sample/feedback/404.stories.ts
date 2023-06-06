@@ -45,6 +45,7 @@ export const Default = Template.bind({});
 
 Default.args = {
   content: {
+    type: '404',
     img: {
       src: '/assets/images/404.svg',
       alt: '404 not found!',

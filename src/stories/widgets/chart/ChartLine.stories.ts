@@ -67,6 +67,7 @@ Line.args = {
     ],
   },
   content: {
+    type: 'chart',
     title: {
       text: '年度活动金额预算',
       subtext: '南宁',
@@ -134,6 +135,7 @@ LineTime.args = {
     ],
   },
   content: {
+    type: 'chart',
     title: {
       text: '超市宣传上新红包抽奖趋势图',
       subtext: '万科金域缇香店',
@@ -237,6 +239,7 @@ MutipleLineTime.args = {
     ],
   },
   content: {
+    type: 'chart',
     title: {
       text: '超市宣传上新红包抽奖趋势图',
       subtext: '万科金域缇香店',

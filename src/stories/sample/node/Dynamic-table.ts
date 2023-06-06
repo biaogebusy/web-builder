@@ -13,7 +13,7 @@ import { of } from 'rxjs';
 
 export default {
   title: '示例页面/内容类型/数据表格',
-  id: 'data-table',
+  id: 'dynamic-table',
   component: LawCaseComponent,
   decorators: [
     moduleMetadata({
@@ -37,6 +37,7 @@ export const Default = Template.bind({});
 Default.storyName = '预览';
 Default.args = {
   content: {
+    type: 'law-case',
     title: '商业品牌LOGO归属权纠纷',
     date: [
       {
@@ -949,6 +950,7 @@ export const Meeting = Template.bind({});
 Meeting.storyName = 'v1';
 Meeting.args = {
   content: {
+    type: 'law-case',
     title: '两中心住房保障工作联席会议',
     date: [
       {
@@ -1716,6 +1718,7 @@ export const Project = Template.bind({});
 Project.storyName = 'v2';
 Project.args = {
   content: {
+    type: 'law-case',
     title: '人才公寓',
     date: [
       {

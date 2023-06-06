@@ -10,12 +10,13 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
-import { ICoreConfig } from '@core/interface/IAppConfig';
+import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { ComponentService } from '@core/service/component.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
 
 export interface dynamicInputs {
   content?: any;
+  type?: string;
   [key: string]: any;
 }
 @Component({
@@ -26,7 +27,7 @@ export interface dynamicInputs {
 export class DynamicComponentComponent implements OnInit, OnChanges, OnDestroy {
   @Input() inputs: dynamicInputs;
   @Input() index: number;
-  @Input() isBuilder: boolean;
+  @Input() isPreview: boolean;
   @ViewChild('componentContainer', { read: ViewContainerRef, static: true })
   container: ViewContainerRef;
 

@@ -34,6 +34,7 @@ export const Default = Template.bind({});
 
 Default.args = {
   content: {
+    type: 'shuffle',
     title: {
       label: 'Vue 开发',
       style: 'style-v1',

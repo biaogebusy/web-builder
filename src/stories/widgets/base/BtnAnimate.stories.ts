@@ -32,6 +32,7 @@ export const Default = Template.bind({});
 
 Default.args = {
   content: {
+    type: 'btn-animate',
     label: '查看更多',
     href: '#',
     style: 'style-v1',

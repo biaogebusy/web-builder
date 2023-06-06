@@ -37,6 +37,7 @@ const swiper: any = SwiperStories.Base.args;
 const medaiObjectGroup: any = MediaObjectGroupStories.Base.args;
 UserProfile.args = {
   content: {
+    type: 'profile-1v1',
     bannerBg: {
       classes: 'bg-fill-width overlay overlay-80',
       img: {

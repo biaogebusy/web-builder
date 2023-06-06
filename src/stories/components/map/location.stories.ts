@@ -31,6 +31,7 @@ export const Default = Template.bind({});
 
 Default.args = {
   content: {
+    type: 'location',
     title: {
       label: '我的位置',
       style: 'banner-title',

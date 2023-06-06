@@ -32,6 +32,7 @@ export const Base = Template.bind({});
 
 Base.args = {
   content: {
+    type: 'media-object',
     img: {
       src: '/assets/images/avatar/01.jpeg',
       style: {

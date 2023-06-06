@@ -31,6 +31,7 @@ export const Default = Template.bind({});
 
 Default.args = {
   content: {
+    type: 'dropdown-menu',
     btn: {
       label: '合同预览',
       color: 'primary',

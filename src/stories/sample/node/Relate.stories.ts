@@ -39,6 +39,7 @@ const Template: Story = (args) => ({
 export const Default = Template.bind({});
 Default.args = {
   content: {
+    type: 'relate',
     title: {
       label: '团队A中国移动中标发票',
       style: 'style-v4',

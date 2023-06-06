@@ -68,6 +68,7 @@ ITChart01.args = {
     ],
   },
   content: {
+    type: 'chart',
     title: [
       {
         text: '男女占比',
@@ -191,6 +192,7 @@ ITChart02.args = {
     ],
   },
   content: {
+    type: 'chart',
     title: [
       {
         text: '年龄分布',
@@ -361,6 +363,7 @@ ITChart03.args = {
     ],
   },
   content: {
+    type: 'chart',
     title: [
       {
         text: '办公所在地',
@@ -535,6 +538,7 @@ ITChart04.args = {
     ],
   },
   content: {
+    type: 'chart',
     title: [
       {
         text: '当前职位',
@@ -707,6 +711,7 @@ ITChart05.args = {
     ],
   },
   content: {
+    type: 'chart',
     title: [
       {
         text: '月薪收入',
@@ -897,6 +902,7 @@ ITChart06.args = {
     ],
   },
   content: {
+    type: 'chart',
     title: [
       {
         text: '周末双休',
@@ -1020,6 +1026,7 @@ ITChart07.args = {
     ],
   },
   content: {
+    type: 'chart',
     title: [
       {
         text: '是否加班',
@@ -1145,6 +1152,7 @@ ITChart09.args = {
     ],
   },
   content: {
+    type: 'chart',
     title: [
       {
         text: '五险一金缴纳',
@@ -1270,6 +1278,7 @@ ITChart08.args = {
     ],
   },
   content: {
+    type: 'chart',
     title: {
       text: '今年公司或团队扩招裁员情况',
       left: 'center',
@@ -1344,6 +1353,7 @@ ITChart10.args = {
     ],
   },
   content: {
+    type: 'chart',
     title: {
       text: '感情状况',
       left: 'center',

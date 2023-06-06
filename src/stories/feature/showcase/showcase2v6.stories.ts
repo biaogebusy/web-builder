@@ -30,6 +30,7 @@ export const Default = Template.bind({});
 const card1v2: any = Card1v2Stories.Base.args;
 Default.args = {
   content: {
+    type: 'showcase-2v6',
     text: {
       title: {
         label: '我们的产品',

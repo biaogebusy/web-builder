@@ -30,6 +30,7 @@ const Template: Story = (args) => ({
 export const Base = Template.bind({});
 Base.args = {
   content: {
+    type: 'card-1v1',
     link: {
       href: '#',
       label: 'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程',

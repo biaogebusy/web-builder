@@ -17,8 +17,7 @@ export default {
       imports: [StorysModule.forRoot()],
     }),
     componentWrapperDecorator(
-      (story) =>
-        `<div class="position-relative p-x p-y" style="height:300px;width:300px">${story}</@include mat-elevation(1, mat-color($background, tooltip), 0.4);div>`
+      (story) => `<div class="position-relative p-x p-y" >${story}</div>`
     ),
   ],
 } as Meta;
@@ -33,6 +32,7 @@ export const Default = Template.bind({});
 Default.storyName = '图表数据';
 Default.args = {
   content: {
+    type: 'chart',
     label: '广告发布量',
     count: '5,000',
     params: {

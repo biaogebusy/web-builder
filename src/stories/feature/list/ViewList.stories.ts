@@ -75,6 +75,7 @@ const header = [
 ];
 
 Default.args = {
+  type: 'view-list',
   canShow: true,
   content: {
     type: 'view-list',

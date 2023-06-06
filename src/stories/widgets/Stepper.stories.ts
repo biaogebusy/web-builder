@@ -32,6 +32,7 @@ export const Horizontal = Template.bind({});
 Horizontal.storyName = '水平方向';
 Horizontal.args = {
   content: {
+    type: 'stepper',
     params: {
       mode: 'horizontal',
       labelPosition: 'bottom',

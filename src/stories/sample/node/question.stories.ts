@@ -36,6 +36,7 @@ export const Default = Template.bind({});
 
 Default.args = {
   content: {
+    type: 'question',
     title: '在南宁你去面试过哪些坑人的公司?',
     body: '连续去面试两个公司都是打着其他职位招销售，心好累，好想类似坑人的公司都被爆出来。',
     topic: [],

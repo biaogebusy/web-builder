@@ -69,6 +69,7 @@ Pie.args = {
     ],
   },
   content: {
+    type: 'chart',
     title: {
       text: '金额预算占比',
       subtext: '2022年9月',

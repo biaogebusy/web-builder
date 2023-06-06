@@ -26,6 +26,7 @@ export const Default = Template.bind({});
 
 Default.args = {
   content: {
+    type: 'carousel-1v2',
     title: {
       label: 'Gallery',
       style: 'style-v6 line-full-width',

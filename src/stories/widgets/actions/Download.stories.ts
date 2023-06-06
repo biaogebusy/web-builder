@@ -16,7 +16,6 @@ export default {
       declarations: [],
       imports: [StorysModule.forRoot()],
     }),
-    componentWrapperDecorator((story) => `${story}`),
   ],
   parameters: {
     docs: {
