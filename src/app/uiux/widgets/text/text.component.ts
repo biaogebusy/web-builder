@@ -3,12 +3,10 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
-  Host,
   Inject,
   Input,
   OnInit,
   ViewChild,
-  ViewContainerRef,
 } from '@angular/core';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -17,6 +15,7 @@ import type { IText } from '@core/interface/widgets/IText';
 import { ScreenService } from '@core/service/screen.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
+import { ContentState } from '@core/state/ContentState';
 
 @Component({
   selector: 'app-text',
@@ -32,29 +31,29 @@ export class TextComponent implements OnInit, AfterViewInit {
   @ViewChild('list', { read: ElementRef }) list: ElementRef;
   @ViewChild('actions', { read: ElementRef }) actions: ElementRef;
   @ViewChild('bg', { read: ElementRef }) bg: ElementRef;
+  drawerDiasbleAnimate = false;
   constructor(
     private screenService: ScreenService,
-    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
-    private viewContainerRef: ViewContainerRef
+    private contentState: ContentState,
+    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
   ) {}
 
   ngOnInit(): void {
-    console.log(this.viewContainerRef);
     if (this.screenService.isPlatformBrowser()) {
       gsap.registerPlugin(ScrollTrigger);
+      this.contentState.drawerOpened$.subscribe((state) => {
+        this.drawerDiasbleAnimate = state;
+      });
     }
   }
 
   ngAfterViewInit(): void {
-    const injector: any = this.viewContainerRef.injector;
-    const diasbleAnmate = !injector.view.component?.isPreview;
     if (
       this.screenService.isPlatformBrowser() &&
       this.coreConfig.animate &&
-      diasbleAnmate &&
-      !this.content?.animate?.disable
+      !this.content?.animate?.disable &&
+      !this.drawerDiasbleAnimate
     ) {
-      debugger;
       this.showAnimate();
     }
   }

@@ -15,6 +15,7 @@ import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { ScreenService } from '@core/service/screen.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import type { IShowcase1v1 } from '@core/interface/combs/IShowcase';
+import { ContentState } from '@core/state/ContentState';
 
 @Component({
   selector: 'app-showcase-1v1',
@@ -28,9 +29,12 @@ export class Showcase1v1Component
 {
   @Input() content: IShowcase1v1;
   @ViewChild('title', { read: ElementRef }) title: ElementRef;
+  drawerDiasbleAnimate = false;
+
   constructor(
     private el: ElementRef,
     private screenService: ScreenService,
+    private contentState: ContentState,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
   ) {
     super();
@@ -39,11 +43,18 @@ export class Showcase1v1Component
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       gsap.registerPlugin(ScrollTrigger);
+      this.contentState.drawerOpened$.subscribe((state) => {
+        this.drawerDiasbleAnimate = state;
+      });
     }
   }
 
   ngAfterViewInit(): void {
-    if (this.screenService.isPlatformBrowser() && this.coreConfig.animate) {
+    if (
+      this.screenService.isPlatformBrowser() &&
+      this.coreConfig.animate &&
+      !this.drawerDiasbleAnimate
+    ) {
       this.animate();
     }
   }

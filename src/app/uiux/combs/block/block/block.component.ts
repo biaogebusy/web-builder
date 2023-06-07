@@ -46,8 +46,8 @@ export class BlockComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.contentState.drawerOpened$.subscribe((opened) => {
-      this.opened = opened;
+    this.contentState.drawerOpened$.subscribe((state) => {
+      this.opened = state;
     });
 
     this.contentState.drawerLoading$.subscribe((loading) => {
