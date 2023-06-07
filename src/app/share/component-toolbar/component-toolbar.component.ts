@@ -47,22 +47,20 @@ export class ComponentToolbarComponent implements OnInit {
       width: '800px',
       height: '500px',
       data: {
-        inputData: [
-          {
-            disableToolbar: true,
-            content: {
-              type: 'jsoneditor',
-              index,
-              data: content,
-              actions: [
-                {
-                  type: 'closeDialog',
-                  label: '保存',
-                },
-              ],
-            },
+        inputData: {
+          disableToolbar: true,
+          content: {
+            type: 'jsoneditor',
+            index,
+            data: content,
+            actions: [
+              {
+                type: 'closeDialog',
+                label: '保存',
+              },
+            ],
           },
-        ],
+        },
       },
     });
   }

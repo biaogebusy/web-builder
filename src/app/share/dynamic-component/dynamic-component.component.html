@@ -1,5 +1,6 @@
 <ng-container *reqRolesIf="coreConfig.builder">
-  <app-component-toolbar *ngIf="coreConfig.builder?.enable" [content]="inputs" [isPreview]="isPreview" [index]="index">
+  <app-component-toolbar *ngIf="coreConfig.builder?.enable && !inputs.disableToolbar" [content]="inputs"
+    [isPreview]="isPreview" [index]="index">
   </app-component-toolbar>
 </ng-container>
 

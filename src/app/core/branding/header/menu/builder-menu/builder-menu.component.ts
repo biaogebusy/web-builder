@@ -58,7 +58,7 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit {
 
   onPreview(): void {
     if (!this.builder || this.builder.body.length === 0) {
-      this.util.openSnackbar('构建页面没有组件，请添加再预览', 'ok');
+      this.util.openSnackbar('预览页面没有组件，请添加再预览', 'ok');
       return;
     }
     this.contentState.drawerOpened$.next(true);
@@ -73,7 +73,7 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit {
   onClear(): void {
     this.contentState.clearComponent();
     this.contentState.drawerOpened$.next(false);
-    this.util.openSnackbar('构建页面的组件已清空', 'ok');
+    this.util.openSnackbar('预览页面的组件已清空', 'ok');
   }
 
   onSubmit(): void {
