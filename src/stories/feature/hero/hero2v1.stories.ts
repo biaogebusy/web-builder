@@ -11,6 +11,7 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [],
+      entryComponents: [...StorysModule.forEntryComponents()],
       imports: [SwiperModule, StorysModule.forRoot()],
     }),
   ],

@@ -1,6 +1,7 @@
 import {
   Component,
   ComponentRef,
+  HostBinding,
   Inject,
   Input,
   OnChanges,
@@ -11,8 +12,10 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
+import type { IUser } from '@core/interface/IUser';
 import { ComponentService } from '@core/service/component.service';
-import { CORE_CONFIG } from '@core/token/token-providers';
+import { UserService } from '@core/service/user.service';
+import { CORE_CONFIG, USER } from '@core/token/token-providers';
 
 export interface dynamicInputs {
   content?: any;
@@ -29,13 +32,16 @@ export class DynamicComponentComponent implements OnInit, OnChanges, OnDestroy {
   @Input() index: number;
   @Input() isPreview: boolean;
   @Input() disableToolbar: boolean;
+  @HostBinding('class.builder-item') hostClass = false;
   @ViewChild('componentContainer', { read: ViewContainerRef, static: true })
   container: ViewContainerRef;
 
   public component: ComponentRef<unknown> | ComponentRef<any> | undefined | any;
   constructor(
     private componentService: ComponentService,
-    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig
+    private userService: UserService,
+    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
+    @Inject(USER) private user: IUser
   ) {}
 
   ngOnInit(): void {}
@@ -68,8 +74,18 @@ export class DynamicComponentComponent implements OnInit, OnChanges, OnDestroy {
         this.component.instance['content'] = this.inputs;
       }
     }
+    this.checkBuilder(this.component.instance['content']);
     this.container.insert(this.component.hostView);
     this.component.changeDetectorRef.markForCheck();
+  }
+
+  checkBuilder(content: any): void {
+    if (
+      this.coreConfig.builder?.enable &&
+      this.userService.checkShow(content, this.user)
+    ) {
+      this.hostClass = true;
+    }
   }
 
   ngOnDestroy(): void {

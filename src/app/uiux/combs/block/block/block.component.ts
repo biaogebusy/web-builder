@@ -67,14 +67,14 @@ export class BlockComponent implements OnInit, AfterViewInit {
           .classList.add('drawer-disable-scroll');
         this.doc
           .getElementById('transparent-mode')
-          ?.classList.add('transparent-mode');
+          ?.classList.remove('transparent-mode');
       } else {
         this.doc
           .getElementsByTagName('html')[0]
           .classList.remove('drawer-disable-scroll');
         this.doc
           .getElementById('transparent-mode')
-          ?.classList.remove('transparent-mode');
+          ?.classList.add('transparent-mode');
       }
     });
   }

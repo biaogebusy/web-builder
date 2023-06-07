@@ -14,6 +14,7 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [],
+      entryComponents: [...StorysModule.forEntryComponents()],
       imports: [StorysModule.forRoot()],
     }),
   ],

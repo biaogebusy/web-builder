@@ -18,6 +18,7 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [],
+      entryComponents: [...StorysModule.forEntryComponents()],
       imports: [NodeModule, StorysModule.forRoot()],
     }),
     componentWrapperDecorator((story) => `${story}`),

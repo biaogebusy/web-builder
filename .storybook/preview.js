@@ -48,7 +48,7 @@ export const decorators = [
   componentWrapperDecorator(
     (story) =>
       `
-      <div class="builder-sb-wrapper">
+      <div class="builder-item">
         <app-component-toolbar *ngIf="content?.type" [content]="content"></app-component-toolbar>
         ${story}
       </div>`

@@ -1,4 +1,4 @@
-import { ShareModule } from '../../../app/share/share.module';
+import { StorysModule } from '@core/module/storys.module';
 import {
   moduleMetadata,
   Meta,
@@ -14,7 +14,8 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [],
-      imports: [ShareModule],
+      entryComponents: [...StorysModule.forEntryComponents()],
+      imports: [StorysModule.forRoot()],
     }),
     componentWrapperDecorator(
       (story) =>

@@ -1,5 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
-import { ShareModule } from '@share/share.module';
+import { StorysModule } from '@core/module/storys.module';
 import {
   moduleMetadata,
   Meta,
@@ -14,8 +13,9 @@ export default {
   component: IconComponent,
   decorators: [
     moduleMetadata({
-      declarations: [IconComponent],
-      imports: [ShareModule, HttpClientModule],
+      declarations: [],
+      entryComponents: [...StorysModule.forEntryComponents()],
+      imports: [StorysModule.forRoot()],
     }),
     componentWrapperDecorator(
       (story) => `<div class="position-relative p-x-md p-y-md">${story}</div>`
