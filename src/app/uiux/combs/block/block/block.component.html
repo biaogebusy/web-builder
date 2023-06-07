@@ -8,7 +8,7 @@
         <mat-spinner diameter="50" color="accent"></mat-spinner>
       </div>
       <ng-container *ngIf="!drawerLoading && opened">
-        <div *ngTemplateOutlet="block; context: {content:drawerContent?.body,isPreview:coreConfig?.enableBuilder}; ">
+        <div *ngTemplateOutlet="block; context: {content:drawerContent?.body,isPreview:coreConfig?.builder?.enable}; ">
         </div>
       </ng-container>
     </mat-drawer>

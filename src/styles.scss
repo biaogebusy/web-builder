@@ -33,6 +33,12 @@ body {
   overflow: visible !important;
 }
 
+.mat-drawer-content {
+  > app-dynamic-component {
+    position: relative;
+  }
+}
+
 .mat-icon {
   display: swap;
 }
