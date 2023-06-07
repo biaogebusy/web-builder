@@ -34,7 +34,7 @@ export class ComponentToolbarComponent implements OnInit {
 
   addComponent(content: any): any {
     this.contentState.addComponent(content);
-    this.util.openSnackbar(`已添加${content.type}到构建页面！`, 'ok');
+    this.util.openSnackbar(`已添加${content.type}到预览页面！`, 'ok');
   }
 
   onCopy(content: any): void {
@@ -67,8 +67,8 @@ export class ComponentToolbarComponent implements OnInit {
     });
   }
 
-  onDelete(index: number): void {
+  onDelete(content: any, index: number): void {
     this.contentState.deleteComponent(index);
-    this.util.openSnackbar(`已在构建页面移除组件！`, 'ok');
+    this.util.openSnackbar(`已在移除${content.type}组件！`, 'ok');
   }
 }

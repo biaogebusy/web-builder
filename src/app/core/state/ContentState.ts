@@ -14,7 +14,6 @@ export class ContentState {
   public drawerLoading$ = new BehaviorSubject<boolean>(false);
   public drawerContent$ = new Subject<IPage>();
   public builderContent$ = new Subject<IPage>();
-  public numbers$ = new Subject<number>();
 
   public initPage: IPage = {
     title: 'Builder Page',
@@ -27,9 +26,6 @@ export class ContentState {
     const localPage = this.storage.retrieve(this.builderKey);
     if (localPage) {
       this.initPage = localPage;
-      setTimeout(() => {
-        this.numbers$.next(this.initPage.body.length);
-      }, 0);
     }
   }
 
@@ -44,7 +40,6 @@ export class ContentState {
       title: 'Builder Page',
       body: [],
     };
-    this.numbers$.next(0);
     this.storage.clear(this.builderKey);
   }
 
@@ -59,7 +54,6 @@ export class ContentState {
   }
 
   updatePage(): void {
-    this.numbers$.next(this.initPage.body.length);
     this.storage.store(this.builderKey, Object.assign({}, this.initPage));
   }
 

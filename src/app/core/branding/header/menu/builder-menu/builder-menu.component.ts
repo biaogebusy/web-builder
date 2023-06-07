@@ -1,13 +1,17 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   Input,
+  OnChanges,
   OnInit,
+  SimpleChanges,
 } from '@angular/core';
 import type { IPage } from '@core/interface/IAppConfig';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { ContentState } from '@core/state/ContentState';
-import { LocalStorage } from 'ngx-webstorage';
+import { LocalStorage, LocalStorageService } from 'ngx-webstorage';
 
 @Component({
   selector: 'app-builder-menu',
@@ -15,16 +19,42 @@ import { LocalStorage } from 'ngx-webstorage';
   styleUrls: ['./builder-menu.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BuilderMenuComponent implements OnInit {
+export class BuilderMenuComponent implements OnInit, AfterViewInit {
   @Input() content: any;
   @LocalStorage('builder')
   builder: IPage;
+  total: number;
+
   constructor(
     public contentState: ContentState,
-    private util: UtilitiesService
+    private util: UtilitiesService,
+    private cd: ChangeDetectorRef,
+    private storage: LocalStorageService
   ) {}
 
   ngOnInit(): void {}
+
+  ngAfterViewInit(): void {
+    this.getTotal();
+  }
+
+  getTotal(): void {
+    const localPage = this.storage.retrieve(this.contentState.builderKey);
+    if (localPage) {
+      this.total = localPage.body.length;
+    } else {
+      this.total = 0;
+    }
+    this.cd.detectChanges();
+    this.storage.observe(this.contentState.builderKey).subscribe((page) => {
+      if (page && page.body) {
+        this.total = page.body.length;
+      } else {
+        this.total = 0;
+      }
+      this.cd.detectChanges();
+    });
+  }
 
   onPreview(): void {
     if (!this.builder || this.builder.body.length === 0) {

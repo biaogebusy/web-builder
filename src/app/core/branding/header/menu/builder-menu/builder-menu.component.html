@@ -1,6 +1,6 @@
 <ng-container>
   <div class="builder-menu" [matTooltip]="'构建页面'" matTooltipPosition="above">
-    <button matBadge="{{contentState.numbers$ | async}}" matBadgeColor="warn" aria-label="builder page" mat-icon-button
+    <button matBadge="{{total}}" matBadgeColor="warn" aria-label="builder page" mat-icon-button
       [mat-menu-trigger-for]="menu">
       <app-icon fxLayoutAlign="center center"
         [content]="{svg:'microsoft-visual-studio-code', color:'primary',inline:true}"></app-icon>
