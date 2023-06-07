@@ -315,7 +315,14 @@
     ]
   },
   "animate": true,
-  "enableBuilder": true,
+  "builder": {
+    "enable": true,
+    "params": {
+      "reqRoles": [
+        "administrator"
+      ]
+    }
+  },
   "checkIE": {
     "enable": true,
     "dialog": {

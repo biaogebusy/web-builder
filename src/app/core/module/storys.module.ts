@@ -85,7 +85,7 @@ export class StorysModule {
             current_user: {
               uid: '1',
               name: 'Johnson',
-              roles: ['authenticated'],
+              roles: ['authenticated', 'administrator'],
             },
             id: '029f3488-92ed-4fb5-8fa2-62df6fdaf90bd9d5',
             display_name: '表歌',
