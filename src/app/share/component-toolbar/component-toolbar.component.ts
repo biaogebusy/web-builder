@@ -53,6 +53,7 @@ export class ComponentToolbarComponent implements OnInit {
             type: 'jsoneditor',
             index,
             data: content,
+            isPreview: this.isPreview,
             actions: [
               {
                 type: 'closeDialog',

@@ -41,9 +41,14 @@ export class JsoneditorComponent implements OnInit {
 
   onSave(): void {
     if (this.value) {
-      // this.contentState.jsoneditorContent$.next(this.value);
-      console.log(this.value);
-      this.contentState.updateComponent(this.content.index, this.value);
+      if (this.content.isPreview) {
+        this.contentState.updateComponent(this.content.index, this.value);
+      } else {
+        this.contentState.jsoneditorContent$.next({
+          content: this.value,
+          index: this.content.index,
+        });
+      }
     }
   }
 }

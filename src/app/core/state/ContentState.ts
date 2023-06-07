@@ -14,7 +14,7 @@ export class ContentState {
   public drawerLoading$ = new BehaviorSubject<boolean>(false);
   public drawerContent$ = new Subject<IPage>();
   public builderContent$ = new Subject<IPage>();
-
+  public jsoneditorContent$ = new Subject<{ content: IPage; index: number }>();
   public initPage: IPage = {
     title: 'Builder Page',
     body: [],
