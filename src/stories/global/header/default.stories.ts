@@ -4,17 +4,17 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { screen, userEvent } from '@storybook/testing-library';
+import { userEvent } from '@storybook/testing-library';
 import { BRANDING } from '@core/token/token-providers';
 import { of } from 'rxjs';
 import { HeaderComponent } from '@core/branding/header/header.component';
 import { BrandingModule } from '@core/branding/branding.module';
-import { footerInverse, megaHeader } from '../Branding.json';
+import { defaultHeader, footerInverse } from '../Branding.json';
 import { sleep, StorysModule } from '@core/module/storys.module';
 
 export default {
-  title: '页面布局/页头/Mage',
-  id: 'header-mega',
+  title: '全局配置/页头/经典',
+  id: 'header-default',
   component: HeaderComponent,
   decorators: [
     moduleMetadata({
@@ -23,14 +23,14 @@ export default {
       providers: [
         {
           provide: BRANDING,
-          useValue: of({ ...megaHeader, ...footerInverse }),
+          useValue: of({ ...defaultHeader, ...footerInverse }),
         },
       ],
     }),
     componentWrapperDecorator(
       (story) => `
       ${story}
-        <div style="min-height:50vh">
+        <div style="min-height:100vh">
         </div>
         <app-footer></app-footer>
     `
@@ -39,15 +39,7 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: `Mage 风格的页头，当鼠标经过时下拉显示该主菜单的所有子菜单，可以方便快速查看导航菜单的内容，适合菜单过多时使用。
-        ## 在params中定义显示
-        params: {
-          themeSwitch: true,
-          userInfo: true,
-          isMegaMenu: true,
-          menuHoverOpen: false,
-        }
-        `,
+        component: `Mage 风格的页头，当鼠标经过时下拉显示该主菜单的所有子菜单，可以方便快速查看导航菜单的内容，适合菜单过多时使用。`,
       },
     },
     layout: 'fullscreen',
@@ -64,7 +56,7 @@ Default.storyName = '预览';
 Default.parameters = {
   docs: {
     source: {
-      code: JSON.stringify(megaHeader),
+      code: JSON.stringify(defaultHeader),
       language: 'json',
       type: 'auto',
     },

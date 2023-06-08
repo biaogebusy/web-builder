@@ -1,6 +1,5 @@
 import { IText } from '../interface/widgets/IText';
 import { IAmap } from '../interface/IAmap';
-import { IndividualConfig } from 'ngx-toastr';
 import { IDownload } from './widgets/IDownload';
 import { IIcon } from './widgets/IIcon';
 export interface IAppConfig {
@@ -61,11 +60,9 @@ export interface ICoreConfig {
 export interface INotify {
   get: string;
   action: string;
-  title: string;
-  bodyField: string;
-  type: 'success' | 'warn' | 'info' | 'error';
-  options: IndividualConfig;
   reqRoles?: string[];
+  icon: string;
+  color: string;
 }
 export interface ITheme {
   name: string;

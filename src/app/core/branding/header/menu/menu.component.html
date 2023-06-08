@@ -6,7 +6,7 @@
           <app-logo [content]="content.logo"></app-logo>
         </div>
         <div class="header-right" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap.lt-lg="1rem"
-          fxLayoutGap.gt-md="3rem">
+          fxLayoutGap.gt-md="2rem">
           <div class="menu-inner" *ngIf="content.mainMenu">
             <div class="main-menu" fxLayout="row">
               <div class="item" *ngFor="let menu of content.mainMenu;trackBy:trackByFn">
@@ -21,8 +21,8 @@
             </button>
           </div>
           <app-builder-menu class="has-icon" *ngIf="coreConfig?.builder?.enable"></app-builder-menu>
+          <app-notify class="has-icon" *ngIf="coreConfig.notify?.enable"></app-notify>
           <app-switch-theme class="has-icon" *ngIf="content?.params?.themeSwitch"></app-switch-theme>
-          <app-notify *ngIf="coreConfig.notify?.enable"></app-notify>
           <app-user-menu *ngIf="content?.params?.userInfo" [content]="content.userMenu"></app-user-menu>
         </div>
       </div>

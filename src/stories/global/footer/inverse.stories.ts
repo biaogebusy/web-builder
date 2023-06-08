@@ -8,12 +8,12 @@ import { BRANDING } from '@core/token/token-providers';
 import { of } from 'rxjs';
 import { BrandingModule } from '@core/branding/branding.module';
 import { FooterComponent } from '@core/branding/footer/footer.component';
-import { defaultHeader, footerLight } from '../Branding.json';
+import { defaultHeader, footerInverse } from '../Branding.json';
 import { StorysModule } from '@core/module/storys.module';
 
 export default {
-  title: '页面布局/页脚/浅色',
-  id: 'footer-light',
+  title: '全局配置/页脚/反色',
+  id: 'footer-inverse',
   component: FooterComponent,
   decorators: [
     moduleMetadata({
@@ -22,16 +22,15 @@ export default {
       providers: [
         {
           provide: BRANDING,
-          useValue: of({ ...footerLight, ...defaultHeader }),
+          useValue: of({ ...footerInverse, ...defaultHeader }),
         },
       ],
     }),
     componentWrapperDecorator(
       (story) => `
         <app-header></app-header>
-        <div style="min-height:65vh">
+        <div style="min-height:50vh">
         </div>
-        <mat-divider></mat-divider>
         ${story}
     `
     ),
@@ -40,10 +39,11 @@ export default {
     docs: {
       description: {
         component: `
-        浅色风格
+        反色风格
         ##
         "params": {
-          "mode": "light"
+          "mode": "inverse",
+          "shape": true,
         }
         `,
       },
@@ -62,7 +62,7 @@ Default.storyName = '预览';
 Default.parameters = {
   docs: {
     source: {
-      code: JSON.stringify(footerLight),
+      code: JSON.stringify(footerInverse),
       language: 'json',
       type: 'auto',
     },

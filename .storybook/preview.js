@@ -1,5 +1,6 @@
 import { setCompodocJson } from "@storybook/addon-docs/angular";
 import docJson from "../documentation.json";
+import { builder } from "@assets/app/core/base.json";
 import { withThemeByClassName } from "@storybook/addon-styling";
 import { componentWrapperDecorator } from "@storybook/angular";
 setCompodocJson(docJson);
@@ -19,8 +20,8 @@ export const parameters = {
         "更新日志",
         "开发指南",
         "主题",
+        "全局配置",
         "示例页面",
-        "品牌布局",
         "特色组件",
         "复合组件",
         "*",
@@ -48,8 +49,10 @@ export const decorators = [
   componentWrapperDecorator(
     (story) =>
       `
-      <div class="builder-item">
-        <app-component-toolbar *ngIf="content?.type" [content]="content"></app-component-toolbar>
+      <div class="${builder.enable ? "builder-item" : ""}">
+        <app-component-toolbar *ngIf="content?.type && ${
+          builder.enable
+        }" [content]="content"></app-component-toolbar>
         ${story}
       </div>`
   ),

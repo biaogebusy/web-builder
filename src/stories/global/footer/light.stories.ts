@@ -4,18 +4,17 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { screen, userEvent } from '@storybook/testing-library';
 import { BRANDING } from '@core/token/token-providers';
 import { of } from 'rxjs';
-import { HeaderComponent } from '@core/branding/header/header.component';
 import { BrandingModule } from '@core/branding/branding.module';
-import { footerInverse, HoverHeader } from '../Branding.json';
-import { sleep, StorysModule } from '@core/module/storys.module';
+import { FooterComponent } from '@core/branding/footer/footer.component';
+import { defaultHeader, footerLight } from '../Branding.json';
+import { StorysModule } from '@core/module/storys.module';
 
 export default {
-  title: '页面布局/页头/Hover',
-  id: 'header-hover',
-  component: HeaderComponent,
+  title: '全局配置/页脚/浅色',
+  id: 'footer-light',
+  component: FooterComponent,
   decorators: [
     moduleMetadata({
       declarations: [],
@@ -23,29 +22,28 @@ export default {
       providers: [
         {
           provide: BRANDING,
-          useValue: of({ ...HoverHeader, ...footerInverse }),
+          useValue: of({ ...footerLight, ...defaultHeader }),
         },
       ],
     }),
     componentWrapperDecorator(
       (story) => `
-      ${story}
-        <div style="min-height:100vh">
+        <app-header></app-header>
+        <div style="min-height:65vh">
         </div>
-        <app-footer></app-footer>
+        <mat-divider></mat-divider>
+        ${story}
     `
     ),
   ],
   parameters: {
     docs: {
       description: {
-        component: `Hover 风格的菜单，当鼠标经过时下拉显示。
-        ## 在params中定义显示
-        params: {
-          themeSwitch: true,
-          userInfo: true,
-          isMegaMenu: false,
-          menuHoverOpen: true,
+        component: `
+        浅色风格
+        ##
+        "params": {
+          "mode": "light"
         }
         `,
       },
@@ -64,7 +62,7 @@ Default.storyName = '预览';
 Default.parameters = {
   docs: {
     source: {
-      code: JSON.stringify(HoverHeader),
+      code: JSON.stringify(footerLight),
       language: 'json',
       type: 'auto',
     },

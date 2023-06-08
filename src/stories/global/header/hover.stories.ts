@@ -4,17 +4,18 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
+import { screen, userEvent } from '@storybook/testing-library';
 import { BRANDING } from '@core/token/token-providers';
 import { of } from 'rxjs';
-import { defaultHeader, footerSimple } from '../Branding.json';
-import { StorysModule } from '@core/module/storys.module';
-import { FooterComponent } from '@core/branding/footer/footer.component';
+import { HeaderComponent } from '@core/branding/header/header.component';
 import { BrandingModule } from '@core/branding/branding.module';
+import { footerInverse, HoverHeader } from '../Branding.json';
+import { sleep, StorysModule } from '@core/module/storys.module';
 
 export default {
-  title: '页面布局/页脚/简单',
-  id: 'footer-simple',
-  component: FooterComponent,
+  title: '全局配置/页头/Hover',
+  id: 'header-hover',
+  component: HeaderComponent,
   decorators: [
     moduleMetadata({
       declarations: [],
@@ -22,27 +23,29 @@ export default {
       providers: [
         {
           provide: BRANDING,
-          useValue: of({ ...footerSimple, ...defaultHeader }),
+          useValue: of({ ...HoverHeader, ...footerInverse }),
         },
       ],
     }),
     componentWrapperDecorator(
       (story) => `
-      <app-header></app-header>
-       <div style="min-height:75vh">
+      ${story}
+        <div style="min-height:100vh">
         </div>
-          ${story}
+        <app-footer></app-footer>
     `
     ),
   ],
   parameters: {
     docs: {
       description: {
-        component: `
-        浅色风格
-        ##
-        "params": {
-          "mode": "light"
+        component: `Hover 风格的菜单，当鼠标经过时下拉显示。
+        ## 在params中定义显示
+        params: {
+          themeSwitch: true,
+          userInfo: true,
+          isMegaMenu: false,
+          menuHoverOpen: true,
         }
         `,
       },
@@ -61,7 +64,7 @@ Default.storyName = '预览';
 Default.parameters = {
   docs: {
     source: {
-      code: JSON.stringify(footerSimple),
+      code: JSON.stringify(HoverHeader),
       language: 'json',
       type: 'auto',
     },

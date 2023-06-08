@@ -9,12 +9,12 @@ import { BRANDING } from '@core/token/token-providers';
 import { of } from 'rxjs';
 import { HeaderComponent } from '@core/branding/header/header.component';
 import { BrandingModule } from '@core/branding/branding.module';
-import { canvasHeader, footerInverse, megaHeader } from '../Branding.json';
+import { footerInverse, megaHeader } from '../Branding.json';
 import { sleep, StorysModule } from '@core/module/storys.module';
 
 export default {
-  title: '页面布局/页头/Canvas',
-  id: 'header-canvas',
+  title: '全局配置/页头/Mage',
+  id: 'header-mega',
   component: HeaderComponent,
   decorators: [
     moduleMetadata({
@@ -23,7 +23,7 @@ export default {
       providers: [
         {
           provide: BRANDING,
-          useValue: of({ ...canvasHeader, ...footerInverse }),
+          useValue: of({ ...megaHeader, ...footerInverse }),
         },
       ],
     }),
@@ -37,6 +37,19 @@ export default {
     ),
   ],
   parameters: {
+    docs: {
+      description: {
+        component: `Mage 风格的页头，当鼠标经过时下拉显示该主菜单的所有子菜单，可以方便快速查看导航菜单的内容，适合菜单过多时使用。
+        ## 在params中定义显示
+        params: {
+          themeSwitch: true,
+          userInfo: true,
+          isMegaMenu: true,
+          menuHoverOpen: false,
+        }
+        `,
+      },
+    },
     layout: 'fullscreen',
   },
 } as Meta;
@@ -51,7 +64,7 @@ Default.storyName = '预览';
 Default.parameters = {
   docs: {
     source: {
-      code: JSON.stringify(canvasHeader),
+      code: JSON.stringify(megaHeader),
       language: 'json',
       type: 'auto',
     },

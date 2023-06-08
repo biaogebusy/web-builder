@@ -10,7 +10,7 @@ import { StorysModule } from '@core/module/storys.module';
 import { BrandingModule } from '@core/branding/branding.module';
 import { of } from 'rxjs';
 import { BRANDING } from '@core/token/token-providers';
-import { defaultHeader, footerInverse } from '../../branding/Branding.json';
+import { defaultHeader, footerInverse } from '../../global/Branding.json';
 export default {
   title: '基础组件/基本元素/按钮/预览',
   id: 'buttom-review',

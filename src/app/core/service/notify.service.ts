@@ -3,7 +3,6 @@ import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import { forkJoin, Observable } from 'rxjs';
 import { NodeService } from '@core/service/node.service';
-import { ToastrService } from 'ngx-toastr';
 import type { IUser } from '@core/interface/IUser';
 import { UserService } from '@core/service/user.service';
 
@@ -14,7 +13,6 @@ export class NotifyService {
   constructor(
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
     private nodeService: NodeService,
-    private toastr: ToastrService,
     private userService: UserService,
     @Inject(USER) private user: IUser
   ) {}
@@ -39,13 +37,5 @@ export class NotifyService {
     }
 
     return forkJoin(obj);
-  }
-
-  showSuccess(message: string, title: string): void {
-    this.toastr.show(message, title, undefined, 'success');
-  }
-
-  showError(message: string, title: string): void {
-    this.toastr.show(message, title, undefined, 'error');
   }
 }

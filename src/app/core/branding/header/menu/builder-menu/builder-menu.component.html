@@ -1,8 +1,8 @@
 <ng-container>
-  <div class="builder-menu" [matTooltip]="'构建页面'" matTooltipPosition="above">
-    <button matBadge="{{total}}" matBadgeColor="warn" aria-label="builder page" mat-icon-button
+  <div class="builder-menu">
+    <button aria-label="builder page" [matTooltip]="'构建页面'" matTooltipPosition="above" mat-icon-button
       [mat-menu-trigger-for]="menu">
-      <app-icon fxLayoutAlign="center center"
+      <app-icon [matBadge]="total" matBadgeSize="small" matBadgeColor="warn" fxLayoutAlign="center center"
         [content]="{svg:'microsoft-visual-studio-code', color:'primary',inline:true}"></app-icon>
     </button>
 

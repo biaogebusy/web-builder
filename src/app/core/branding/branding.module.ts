@@ -58,6 +58,7 @@ import { BuilderMenuComponent } from './header/menu/builder-menu/builder-menu.co
     FooterComponent,
     MenuComponent,
     ManageSidebarComponent,
+    NotifyComponent,
   ],
 })
 export class BrandingModule {}

@@ -3,7 +3,7 @@
     <button *ngIf="content.length === 0;else message" aria-label="show notify" mat-icon-button [matTooltip]="'当前没有信息'"
       matTooltipPosition="above">
       <app-icon [matBadge]="content.length" matBadgeSize="small" matBadgeColor="warn"
-        [content]="{svg:'bell-outline'}"></app-icon>
+        [content]="{svg:'bell-outline', color:'primary'}"></app-icon>
     </button>
     <ng-template #message>
       <button aria-label="show notify" mat-icon-button [mat-menu-trigger-for]="menu">
@@ -15,7 +15,7 @@
           <div mat-subheader>通知</div>
           <mat-divider></mat-divider>
           <mat-list-item *ngFor="let item of content">
-            <app-icon class="bg-{{item.color}}" mat-list-icon [content]="item.icon"></app-icon>
+            <app-icon mat-list-icon [content]="item.icon"></app-icon>
             <div mat-line>
               <app-link (click)="onRead(item)" [content]="item.link"></app-link>
             </div>

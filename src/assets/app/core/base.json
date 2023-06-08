@@ -217,7 +217,7 @@
     }
   },
   "dialog": {
-    "forceDialogBak": {
+    "forceDialog": {
       "params": {
         "width": "500px",
         "path": "home",
@@ -229,16 +229,16 @@
           "style": "style-v1"
         },
         "spacer": "none",
-        "body": "Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. ",
+        "body": "尊敬的访问者，欢迎来到我们的网站。为了保护您的健康和工作效率，我们建议您每天只在我们的网站上浏览一个小时。这样可以避免长时间的屏幕时间对您的眼睛和身体造成不必要的负担。同时，也可以让您更加专注地浏览我们的内容，获得更好的体验和收获。感谢您的理解和支持！ ",
         "actions": [
           {
             "type": "closeDialog",
-            "label": "21+",
+            "label": "好的",
             "color": "primary"
           },
           {
             "type": "link",
-            "label": "UNDER 21",
+            "label": "离开",
             "href": "http://www.google.com",
             "color": "warn"
           }
@@ -286,7 +286,7 @@
     "check": false
   },
   "notify": {
-    "enable": false,
+    "enable": true,
     "params": {
       "interval": 10000,
       "dateFormat": "YYYY-MM-dd"
@@ -300,7 +300,7 @@
           "assistant_lawyer"
         ],
         "icon": "clipboard-text-clock",
-        "color": "primay"
+        "color": "primary"
       },
       {
         "get": "/api/v1/filter/handler",

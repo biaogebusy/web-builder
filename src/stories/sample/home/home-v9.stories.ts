@@ -10,7 +10,7 @@ import { StorysModule } from '@core/module/storys.module';
 import { BrandingModule } from '@core/branding/branding.module';
 import { BRANDING } from '@core/token/token-providers';
 import { of } from 'rxjs';
-import { canvasHeader, medicalInverse } from '../../branding/Branding.json';
+import { canvasHeader, medicalInverse } from '../../global/Branding.json';
 
 export default {
   title: '示例页面/首页示例/09 疫苗科学',

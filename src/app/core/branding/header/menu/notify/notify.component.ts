@@ -52,10 +52,10 @@ export class NotifyComponent implements OnInit {
                 icon: {
                   svg: this.apis[item].icon,
                   inline: true,
+                  color: this.apis[item].color,
                 },
                 message: list.message,
                 date: list.date,
-                color: this.apis[item].color,
                 action: this.apis[item].action,
                 uuid: list.uuid,
               };

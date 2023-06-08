@@ -1,0 +1,540 @@
+import { Meta, Story } from "@storybook/addon-docs";
+
+<Meta title="全局配置/基础配置" id="base-config" />
+
+# 基础配置
+
+- [主题配置](#主题配置)
+- [默认配置](#默认配置)
+- [路由守卫配置](#路由守卫配置)
+- [组件市场](#builder)
+- [登录配置](#登录配置)
+- [加载状态的配置](#加载状态的配置)
+- [通知配置](#通知配置)
+- [文章配置](#文章配置)
+- [编辑器配置](#编辑器配置)
+- [动作配置](#动作配置)
+- [用户页配置](#用户页配置)
+- [弹窗配置](#弹窗配置)
+- [谷歌分析配置](#谷歌分析配置)
+- [高德地图](#高德地图)
+- [ApiPath](#apipath)
+
+应用在运行初始化的时候，首先会先加载基础的配置信息，当环境变量为开发环境时，加载位于：`/assets/app/core/base.json`的配置信息，当环境变量为生产环境时，请求`${bseUrl}/api/v1/config?content=/core/base`。
+
+## 主题配置
+
+页面初始化的主题，和可供切换的主题，切换主题的功能需要在 header 配置中开启。
+
+```json
+// branding.json
+{
+  //...
+  "header": {
+    "params": {
+      "themeSwitch": true
+    }
+  }
+}
+```
+
+```json
+// base.json
+{
+  //...
+  "defaultTheme": "light-theme",
+  "theme": [
+    {
+      "name": "默认主题",
+      "style": "light-theme",
+      "icon": "laptop_mac"
+    },
+    {
+      "name": "Pink 主题",
+      "style": "pink-theme",
+      "icon": "laptop_mac"
+    },
+    {
+      "name": "Blue 主题",
+      "style": "blue-theme",
+      "icon": "laptop_mac"
+    },
+    {
+      "name": "Green 主题",
+      "style": "green-theme",
+      "icon": "laptop_mac"
+    },
+    {
+      "name": "Red 主题",
+      "style": "red-theme",
+      "icon": "laptop_mac"
+    },
+    {
+      "name": "King 主题",
+      "style": "king-theme",
+      "icon": "laptop_mac"
+    },
+    {
+      "name": "暗黑主题",
+      "style": "dark-theme",
+      "svgIcon": "dark_mode"
+    }
+  ]
+}
+```
+
+主题根据自己的需要去新建配置，详见新建主题页面，每个主题都是独立去构建的，可以减少加载包的大小，见`angular.json`中：
+
+```json
+{
+  //..
+  "theme": [
+    {
+      "name": "默认主题",
+      "style": "light-theme",
+      "icon": "laptop_mac"
+    },
+    {
+      "name": "Pink 主题",
+      "style": "pink-theme",
+      "icon": "laptop_mac"
+    },
+    {
+      "name": "Blue 主题",
+      "style": "blue-theme",
+      "icon": "laptop_mac"
+    },
+    {
+      "name": "Green 主题",
+      "style": "green-theme",
+      "icon": "laptop_mac"
+    },
+    {
+      "name": "Red 主题",
+      "style": "red-theme",
+      "icon": "laptop_mac"
+    },
+    {
+      "name": "King 主题",
+      "style": "king-theme",
+      "icon": "laptop_mac"
+    },
+    {
+      "name": "暗黑主题",
+      "style": "dark-theme",
+      "svgIcon": "dark_mode"
+    }
+  ]
+}
+```
+
+## 默认配置
+
+有些组件和页面会需要用到默认图片。
+
+- 默认 logo
+- 默认头像
+- 默认图片封面
+- 是否开启组件动画
+
+```json
+{
+  // ...
+  "defaultLogo": "/assets/images/logo.png",
+  "defaultAvatar": "/assets/images/avatar/01.jpeg",
+  "defaultThumb": "/assets/images/default.png",
+  "animate": true
+}
+```
+
+## 路由守卫配置
+
+应用导航到一个路由会进行以下流程：
+
+- 读取 base 基础配置本地`src/assets/app/core/base.json` 或者生产 `/api/v1/config/core/base` 中的 guard 配置，`authGuard`开启则获取用户的 Drupal 登录状态，有效进而读取 Drupal 的用户信息；用户状态已过期则导航到以下默认的登录页面。
+
+需要注意的是，如果你的环境变量已经开启`drupalProxy`，意味着你需要通过 ngxin 或者 apache 配置应用的某些路由代理到 Drupal，比如/user/login，通过 cookie 实现前台和后台的状态共享。这里还涉及到应用和 Drupal 的架构问题：
+
+- defaultDrupalLoginPage：开启 drupalProxy 后，没有登录则调转到这个页面；
+- defaultFrontLoginPage：没有开启 drupalProxy 则应用导航到前台登录路由页面；
+  详细的守卫逻辑可详见：`src/app/core/guards/auth.guard.ts`
+
+```json
+{
+  //..
+  "guard": {
+    "authGuard": false,
+    "defaultDrupalLoginPage": "/user/login",
+    "defaultFrontLoginPage": "/me/login"
+  }
+}
+```
+
+## Builder
+
+组件市场，可在 Storybook 或者前台页面中选择组件添加到预览页面中，可拖拽上下顺序。
+
+- 添加到预览页面中；
+- 复制 JSON;
+- 编辑 JSON，保存所见即所得；
+- 复制整个页面的 JSON;
+
+```json
+{
+  //...
+  "builder": {
+    "enable": true,
+    "params": {
+      "reqRoles": ["administrator"]
+    }
+  }
+}
+```
+
+## 登录配置
+
+```json
+{
+  // ...
+  "login": {
+    "loginRedirect": "/",
+    "left": {
+      "type": "img",
+      "src": "/assets/images/login-second.png",
+      "alt": "登录"
+    },
+    "phoneLogin": {
+      "enable": true,
+      "tabLabel": "手机登录",
+      "leftTime": 59,
+      "submitLabel": "注册/登录",
+      "error": "请输入正确的手机号码"
+    },
+    "pswLogin": {
+      "enable": true,
+      "tabLabel": "密码登录",
+      "submitLabel": "登录"
+    }
+  }
+}
+```
+
+<Story id="login--page" />
+
+## 加载状态的配置
+
+- 全局页面的 load 效果
+- api 请求时顶部 loadingBar 的效果
+
+```json
+{
+  //..
+  "loading": true,
+  "loadingBar": true
+}
+```
+
+## 通知配置
+
+开启通知后，会根据以下配置轮询接口，点击具体的信息取消标记进而取消该条通知。
+
+<Story id="notify--default" />
+
+接口应按照以下返回：
+
+```
+[
+  {
+    url:"xxx",
+    title:"xxx",
+    message:"xxx",
+    date:"xxx",
+    uuid:"xxx"
+  },
+  {
+    ...
+  }
+]
+```
+
+```json
+{
+  //..
+  "notify": {
+    "enable": true,
+    "params": {
+      "interval": 10000,
+      "dateFormat": "YYYY-MM-dd"
+    },
+    "api": [
+      {
+        "get": "/api/v2/unread-message",
+        "action": "/api/v1/flagging/message_unread",
+        "reqRoles": ["lawyer", "assistant_lawyer"],
+        "icon": "clipboard-text-clock",
+        "color": "primay"
+      },
+      {
+        "get": "/api/v1/filter/handler",
+        "action": "/api/v3/private/read",
+        "reqRoles": ["lawyer", "assistant_lawyer"],
+        "icon": "chart-line",
+        "color": "warn"
+      }
+    ]
+  }
+}
+```
+
+## 文章配置
+
+- 是否开启字体大小控件
+- 是否开启评论功能
+
+```json
+{
+  //..
+  "article": {
+    "fontSize": {
+      "enable": true,
+      "form": [
+        {
+          "label": "字体大小",
+          "key": "font",
+          "value": 16,
+          "type": "input",
+          "placeholder": "Ex. 12",
+          "controlType": "number",
+          "appearance": "legacy",
+          "errorMes": "最小: 10px",
+          "tooltip": "通过键盘上下键可快速更改大小",
+          "matTooltipPosition": "above",
+          "suffix": "px"
+        }
+      ]
+    },
+    "login": {
+      "label": "登录"
+    },
+    "comment": {
+      "enable": true
+    }
+  }
+}
+```
+
+## 编辑器配置
+
+相关的配置可参考官网[quilljs](https://quilljs.com/)，另外组件的配置优于全局配置。
+
+```json
+{
+  //..
+  "editor": {
+    "modules": {
+      "toolbar": [
+        [
+          {
+            "header": [1, 2, 3, 4, 5, 6, false]
+          }
+        ],
+        ["bold", "italic", "underline", "strike"],
+        ["clean"],
+        [
+          {
+            "background": []
+          },
+          {
+            "color": []
+          }
+        ],
+        [
+          {
+            "align": []
+          }
+        ],
+        [
+          {
+            "list": "ordered"
+          },
+          {
+            "list": "bullet"
+          }
+        ],
+        [
+          {
+            "indent": "-1"
+          },
+          {
+            "indent": "+1"
+          }
+        ],
+        ["link"],
+        ["blockquote", "code-block"]
+      ]
+    }
+  }
+}
+```
+
+## 动作配置
+
+动作这里主要用在文章等页面，包含：
+
+- 标记：收藏，喜欢等等
+- 分享
+- 下载
+
+```json
+{
+  //..
+  "actions": {
+    "flag": {
+      "icon": {
+        "name": "star",
+        "inline": true
+      },
+      "enable": true
+    },
+    "share": {
+      "button": {
+        "icon": "share",
+        "label": "分享"
+      },
+      "enable": true
+    },
+    "download": {
+      "label": "下载",
+      "icon": {
+        "name": "file_download",
+        "inline": true
+      },
+      "enable": true
+    }
+  }
+}
+```
+
+<Story id="download--default" />
+
+<Story id="flag--default" />
+
+<Story id="share--default" />
+
+## 用户页配置
+
+可配置用户页面 Banner 默认图片。
+
+```json
+{
+  //..
+  "user": {
+    "banner": "/assets/images/16-9/business-14.jpeg"
+  }
+}
+```
+
+## 弹窗配置
+
+弹窗中有一个强制弹窗的配置，可配置只弹第一次。
+
+```json
+{
+  //..
+  "dialog": {
+    "forceDialog": {
+      "params": {
+        "width": "500px",
+        "path": "home",
+        "first": true
+      },
+      "text": {
+        "title": {
+          "label": "WARNING",
+          "style": "style-v1"
+        },
+        "spacer": "none",
+        "body": "尊敬的访问者，欢迎来到我们的网站。为了保护您的健康和工作效率，我们建议您每天只在我们的网站上浏览一个小时。这样可以避免长时间的屏幕时间对您的眼睛和身体造成不必要的负担。同时，也可以让您更加专注地浏览我们的内容，获得更好的体验和收获。感谢您的理解和支持！ ",
+        "actions": [
+          {
+            "type": "closeDialog",
+            "label": "好的",
+            "color": "primary"
+          },
+          {
+            "type": "link",
+            "label": "离开",
+            "href": "http://www.google.com",
+            "color": "warn"
+          }
+        ],
+        "actionsAlign": "center center"
+      }
+    }
+  }
+}
+```
+
+## 谷歌分析配置
+
+```json
+{
+  //..
+  "googleAnalytics": {
+    "id": "G-N7PGP9ND57"
+  }
+}
+```
+
+## 高德地图
+
+当你的项目需要用到相关的地图组件时，配置你的高德地图信息。
+
+```json
+{
+  //...
+  "amap": {
+    "key": "33877188af64f0213ff4fa259b1c14b8",
+    "version": "1.4.15",
+    "plugins": ["AMap.Geocoder"],
+    "city": "0771",
+    "zoom": 18,
+    "center": [108.32067, 22.817424],
+    "mapStyle": {
+      "light": "amap://styles/1421728e809147de8bfac4fd1abd2fb3",
+      "dark": "amap://styles/50fcdf3719b8cd479cd3017044e49c22"
+    },
+    "features": ["bg", "road", "point"]
+  }
+}
+```
+
+## ApiPath
+
+配置通用基础的 api
+
+这里的 api 大部分是 Drupal 的 api，和用户、节点、评论、分类、标记的 jsonapi。
+
+```json
+{
+  //..
+  "apiUrl": {
+    "loginPath": "/user/login",
+    "logoutPath": "/user/logout",
+    "userIdGetPath": "/api/v1",
+    "nodeGetPath": "/api/v1/node",
+    "commentGetPath": "/api/v1/comment",
+    "taxonomyGetPath": "/api/v1/taxonomy_term",
+    "flaggingGetPath": "/api/v1/flagging",
+    "userGetPath": "/api/v1/user/user",
+    "searchBak": {
+      "customer_staff": "/api/v1/customer-content",
+      "handler": "/api/v1/handler-content"
+    },
+    "github": {
+      "repos": "https://github.com/biaogebusy/xinshi-angular",
+      "api": "https://api.github.com/repos/biaogebusy/xinshi-angular"
+    }
+  }
+}
+```

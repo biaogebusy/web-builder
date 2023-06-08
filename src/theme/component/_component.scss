@@ -28,7 +28,6 @@
 @import "./media";
 @import "./user";
 @import "./node/comment";
-@import "./toastr";
 @import "./manage-sidebar";
 @import "./view-map";
 @import "./dashboard";
@@ -70,7 +69,6 @@
   @include user-color($config-or-theme);
   @include calendar-color($config-or-theme);
   @include comment-color($config-or-theme);
-  @include toastr-color($config-or-theme);
   @include calculator-color($config-or-theme);
   @include manage-sidebar-color($config-or-theme);
   @include view-map-color($config-or-theme);

@@ -19,7 +19,6 @@ import { BRANDING, CORE_CONFIG, USER } from '@core/token/token-providers';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { API_URL, THEME } from '@core/token/token-providers';
-import { ToastrModule } from 'ngx-toastr';
 import { BlockModule } from '@uiux/combs/block/block.module';
 import {
   apiUrlFactory,
@@ -46,12 +45,6 @@ import { UserService } from '@core/service/user.service';
     NgxWebstorageModule.forRoot(),
     Angulartics2Module.forRoot(),
     BlockModule,
-    ToastrModule.forRoot({
-      maxOpened: 6,
-      easeTime: 300,
-      newestOnTop: true,
-      preventDuplicates: true,
-    }),
     BrandingModule,
     LoadingBarHttpClientModule,
     LoadingBarModule,
