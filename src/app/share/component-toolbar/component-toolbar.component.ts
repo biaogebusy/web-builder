@@ -44,8 +44,8 @@ export class ComponentToolbarComponent implements OnInit {
 
   onEditor(content: any, index: number): void {
     this.dialogRef = this.dialog.open(DialogComponent, {
-      width: '800px',
-      height: '500px',
+      width: '1000px',
+      height: '650px',
       data: {
         inputData: {
           disableToolbar: true,
@@ -54,6 +54,7 @@ export class ComponentToolbarComponent implements OnInit {
             index,
             data: content,
             isPreview: this.isPreview,
+            actionsAlign: 'center center',
             actions: [
               {
                 type: 'closeDialog',
