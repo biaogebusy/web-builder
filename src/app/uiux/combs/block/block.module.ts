@@ -9,10 +9,12 @@ import { ContentState } from '@core/state/ContentState';
 import { PAGE_CONTENT } from '@core/token/token-providers';
 import { ShareModule } from '@share/share.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { WidgetsModule } from '@uiux/widgets/widgets.module';
 @NgModule({
   declarations: [BlockComponent],
   imports: [
     ShareModule,
+    WidgetsModule,
     DragDropModule,
     MatSidenavModule,
     MatProgressSpinnerModule,

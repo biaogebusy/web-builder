@@ -22,9 +22,6 @@ import { FixBarPopupComponent } from './footer/fix-bar/fix-bar-popup/fix-bar-pop
 import { HoverMenuComponent } from './header/menu/item-menu/hover-menu/hover-menu.component';
 import { ManageSidebarComponent } from './manage-sidebar/manage-sidebar.component';
 import { LogoComponent } from './meta/logo/logo.component';
-import { NotifyComponent } from './header/menu/notify/notify.component';
-import { MatBadgeModule } from '@angular/material/badge';
-import { BuilderMenuComponent } from './header/menu/builder-menu/builder-menu.component';
 
 @NgModule({
   declarations: [
@@ -49,16 +46,13 @@ import { BuilderMenuComponent } from './header/menu/builder-menu/builder-menu.co
     HoverMenuComponent,
     ManageSidebarComponent,
     LogoComponent,
-    NotifyComponent,
-    BuilderMenuComponent,
   ],
-  imports: [ShareModule, WidgetsModule, MatBadgeModule],
+  imports: [ShareModule, WidgetsModule],
   exports: [
     HeaderComponent,
     FooterComponent,
     MenuComponent,
     ManageSidebarComponent,
-    NotifyComponent,
   ],
 })
 export class BrandingModule {}

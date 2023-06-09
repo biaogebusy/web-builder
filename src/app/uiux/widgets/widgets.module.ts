@@ -117,6 +117,11 @@ import { DropdownMenuComponent } from './dropdown-menu/dropdown-menu.component';
 import { ChartBoxComponent } from './chart/chart-box/chart-box.component';
 import { Card1v5Component } from './card/card1v5/card1v5.component';
 import { Card1v6Component } from './card/card1v6/card1v6.component';
+import { DynamicComponentComponent } from './builder/dynamic-component/dynamic-component.component';
+import { ComponentToolbarComponent } from './builder/component-toolbar/component-toolbar.component';
+import { BuilderMenuComponent } from './builder/builder-menu/builder-menu.component';
+import { MatBadgeModule } from '@angular/material/badge';
+import { NotifyComponent } from './notify/notify.component';
 
 FullCalendarModule.registerPlugins([
   // register FullCalendar plugins
@@ -205,12 +210,17 @@ const components = [
   BtnVideoComponent,
   AccordionComponent,
   DropdownMenuComponent,
+  NotifyComponent,
+  DynamicComponentComponent,
+  ComponentToolbarComponent,
+  BuilderMenuComponent,
 ];
 
 @NgModule({
   declarations: [...components, SafeHtmlPipe, SafeUrlPipe, DataSourcePipe],
   imports: [
     MatChipsModule,
+    MatBadgeModule,
     ShareModule,
     TreeModule,
     LightboxModule,

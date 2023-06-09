@@ -2,7 +2,7 @@ import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { StorysModule } from '@core/module/storys.module';
 import { BrandingModule } from '@core/branding/branding.module';
-import { NotifyComponent } from '@core/branding/header/menu/notify/notify.component';
+import { NotifyComponent } from '@uiux/widgets/notify/notify.component';
 
 export default {
   title: '全局配置/页头/通知',
