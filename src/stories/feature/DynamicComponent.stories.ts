@@ -1,8 +1,8 @@
 import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { StorysModule } from '@core/module/storys.module';
-import { DynamicComponentComponent } from '@share/dynamic-component/dynamic-component.component';
 import * as action1v1 from '../components/action/Action1v1.stories';
+import { DynamicComponentComponent } from '@uiux/widgets/builder/dynamic-component/dynamic-component.component';
 
 export default {
   title: '特色组件/动态组件',
