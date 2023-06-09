@@ -35,6 +35,7 @@ export class DynamicComponentComponent implements OnInit, OnChanges, OnDestroy {
   @HostBinding('class.builder-item') hostClass = false;
   @ViewChild('componentContainer', { read: ViewContainerRef, static: true })
   container: ViewContainerRef;
+  uuid: number;
 
   public component: ComponentRef<unknown> | ComponentRef<any> | undefined | any;
   constructor(
@@ -47,8 +48,8 @@ export class DynamicComponentComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnInit(): void {
     this.contentState.jsoneditorContent$.subscribe((data) => {
-      const { index, content } = data;
-      if (this.index === index) {
+      const { index, content, uuid } = data;
+      if (this.uuid === uuid) {
         this.inputs = content;
         this.loadConponent();
       }
@@ -63,6 +64,10 @@ export class DynamicComponentComponent implements OnInit, OnChanges, OnDestroy {
 
   ngAfterViewInit(): void {
     this.loadConponent();
+  }
+
+  onUuid(uuid: number): void {
+    this.uuid = uuid;
   }
 
   async loadConponent(): Promise<void> {

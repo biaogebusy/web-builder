@@ -52,8 +52,9 @@ export const decorators = [
       <div class="${builder.enable ? "builder-item" : ""}">
         <app-component-toolbar *ngIf="content?.type && ${
           builder.enable
-        }" [content]="content"></app-component-toolbar>
+        }" [content]="content" [isStory]="true"></app-component-toolbar>
         ${story}
-      </div>`
+      </div>
+      `
   ),
 ];

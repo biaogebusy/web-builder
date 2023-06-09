@@ -5,7 +5,7 @@
   <div class="actions" fxLayout="row" fxLayoutGap="1rem">
     <div class="item" (click)="addComponent(content)" *ngIf="!isPreview">添加到预览</div>
     <div class="item" (click)="onCopy(content)">复制 JSON</div>
-    <div class="item" (click)="onEditor(content, index)">编辑 JSON</div>
+    <div class="item" (click)="onEditor(content, index)" *ngIf="!isStory">编辑 JSON</div>
     <div class="item" (click)="onDelete(content, index)" *ngIf="isPreview">移除</div>
   </div>
 </div>

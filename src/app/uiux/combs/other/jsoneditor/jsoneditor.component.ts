@@ -47,6 +47,7 @@ export class JsoneditorComponent implements OnInit {
         this.contentState.jsoneditorContent$.next({
           content: this.value,
           index: this.content.index,
+          uuid: this.content.uuid,
         });
       }
     }

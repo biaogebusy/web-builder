@@ -1,9 +1,11 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  EventEmitter,
   HostBinding,
   Input,
   OnInit,
+  Output,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import type { IComponentToolbar } from '@core/interface/combs/IBuilder';
@@ -19,8 +21,13 @@ import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 })
 export class ComponentToolbarComponent implements OnInit {
   @Input() content: IComponentToolbar;
+  // for builder preview page
   @Input() isPreview: boolean;
+
+  // for storybook story
+  @Input() isStory: boolean;
   @Input() index: number;
+  @Output() uuidChange: EventEmitter<number> = new EventEmitter();
   @HostBinding('class.component-toolbar') hostClass = true;
   dialogRef: any;
 
@@ -43,6 +50,8 @@ export class ComponentToolbarComponent implements OnInit {
   }
 
   onEditor(content: any, index: number): void {
+    const uuid = Date.now();
+    this.uuidChange.emit(uuid);
     this.dialogRef = this.dialog.open(DialogComponent, {
       width: '1000px',
       height: '650px',
@@ -52,6 +61,7 @@ export class ComponentToolbarComponent implements OnInit {
           content: {
             type: 'jsoneditor',
             index,
+            uuid,
             data: content,
             isPreview: this.isPreview,
             actionsAlign: 'center center',
