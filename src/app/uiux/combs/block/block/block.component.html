@@ -22,9 +22,6 @@
   </ng-container>
 
   <ng-container *ngIf="isPreview">
-    <div cdkDropList class="builder-list" (cdkDropListDropped)="drop($event)">
-      <app-dynamic-component cdkDrag *ngFor="let item of content;index as i; trackBy: trackByFn" [inputs]="item"
-        [index]="i" [isPreview]="isPreview"></app-dynamic-component>
-    </div>
+    <app-builder-list [content]="content" (dropChange)="drop($event)"></app-builder-list>
   </ng-container>
 </ng-template>

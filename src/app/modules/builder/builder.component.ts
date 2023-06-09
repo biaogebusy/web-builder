@@ -1,5 +1,7 @@
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Component, Input, OnInit } from '@angular/core';
-import { IPage } from '@core/interface/IAppConfig';
+import type { IPage } from '@core/interface/IAppConfig';
+import { ContentState } from '@core/state/ContentState';
 
 @Component({
   selector: 'app-builder',
@@ -8,7 +10,11 @@ import { IPage } from '@core/interface/IAppConfig';
 })
 export class BuilderComponent implements OnInit {
   @Input() content: IPage;
-  constructor() {}
+  constructor(private contentState: ContentState) {}
 
   ngOnInit(): void {}
+
+  drop(event: CdkDragDrop<string[]>): void {
+    this.contentState.dropComponent(event);
+  }
 }

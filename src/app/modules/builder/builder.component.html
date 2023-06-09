@@ -3,9 +3,8 @@
     <mat-drawer class="sidebar" mode="side" [opened]="true">
       边栏
     </mat-drawer>
-    <mat-drawer-content id="main-container">
-      text
-      <app-block [isPreview]="true"></app-block>
+    <mat-drawer-content>
+      <app-builder-list [content]="content.body" (dropChange)="drop($event)"></app-builder-list>
     </mat-drawer-content>
   </mat-drawer-container>
 </div>
