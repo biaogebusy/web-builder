@@ -4,10 +4,8 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { screen, userEvent } from '@storybook/testing-library';
-import { BlockComponent } from '@uiux/combs/block/block/block.component';
 import { BlockModule } from '@uiux/combs/block/block.module';
-import { sleep, StorysModule } from '@core/module/storys.module';
+import { StorysModule } from '@core/module/storys.module';
 import { BrandingModule } from '@core/branding/branding.module';
 import { CalculatorModule } from '@uiux/combs/calculator/calculator.module';
 import { of } from 'rxjs';

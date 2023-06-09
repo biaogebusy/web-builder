@@ -1,7 +1,7 @@
 <div class="block" *ngIf="pageContent$ | async as page">
   <mat-drawer-container (backdropClick)="onBackdrop()">
     <mat-drawer-content>
-      <div *ngTemplateOutlet="block; context: {content:page.body}"></div>
+      <div *ngTemplateOutlet="block; context: {content:page.body, isPreview: isPreview}"></div>
     </mat-drawer-content>
     <mat-drawer (openedChange)="onDrawer()" class="drawer-right" [mode]="'over'" [opened]="opened" position="end">
       <div class="drawer-loading" *ngIf="drawerLoading">

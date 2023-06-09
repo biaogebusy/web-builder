@@ -4,6 +4,7 @@ import {
   OnInit,
   AfterViewInit,
   NgZone,
+  Input,
 } from '@angular/core';
 import { Observable } from 'rxjs';
 import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
@@ -31,6 +32,7 @@ export class BlockComponent implements OnInit, AfterViewInit {
   drawerLoading: boolean;
   drawerContent: IPage;
   opened: boolean;
+  @Input() isPreview = false;
   constructor(
     @Inject(DOCUMENT) private doc: Document,
     @Inject(PAGE_CONTENT) public pageContent$: Observable<IPage>,
