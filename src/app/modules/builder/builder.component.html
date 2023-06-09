@@ -4,7 +4,9 @@
       边栏
     </mat-drawer>
     <mat-drawer-content>
-      <app-builder-list [content]="content.body" (dropChange)="drop($event)"></app-builder-list>
+      <ng-container *ngIf="content?.body?.length">
+        <app-builder-list [content]="content.body" (dropChange)="drop($event)"></app-builder-list>
+      </ng-container>
     </mat-drawer-content>
   </mat-drawer-container>
 </div>

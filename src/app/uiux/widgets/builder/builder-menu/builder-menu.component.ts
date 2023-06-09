@@ -19,8 +19,8 @@ import { LocalStorage, LocalStorageService } from 'ngx-webstorage';
 })
 export class BuilderMenuComponent implements OnInit, AfterViewInit {
   @Input() content: any;
-  @LocalStorage('builder')
-  builder: IPage;
+  @LocalStorage('page')
+  page: IPage;
   total: number;
 
   constructor(
@@ -37,14 +37,14 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit {
   }
 
   getTotal(): void {
-    const localPage = this.storage.retrieve(this.contentState.builderKey);
+    const localPage = this.storage.retrieve(this.contentState.pageKey);
     if (localPage) {
       this.total = localPage.body.length;
     } else {
       this.total = 0;
     }
     this.cd.detectChanges();
-    this.storage.observe(this.contentState.builderKey).subscribe((page) => {
+    this.storage.observe(this.contentState.pageKey).subscribe((page) => {
       if (page && page.body) {
         this.total = page.body.length;
       } else {
@@ -55,16 +55,16 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit {
   }
 
   onPreview(): void {
-    if (!this.builder || this.builder.body.length === 0) {
+    if (!this.page || this.page.body.length === 0) {
       this.util.openSnackbar('预览页面没有组件，请添加再预览', 'ok');
       return;
     }
     this.contentState.drawerOpened$.next(true);
-    this.contentState.drawerContent$.next(this.builder);
+    this.contentState.drawerContent$.next(this.page);
   }
 
   onCopy(): void {
-    this.util.copy(JSON.stringify(this.builder));
+    this.util.copy(JSON.stringify(this.page));
     this.util.openSnackbar('已复制页面组件 JSON', 'ok');
   }
 

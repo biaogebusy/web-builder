@@ -1,0 +1,17 @@
+.builder {
+  height: 90vh;
+  .sidebar {
+    width: 330px;
+    border-right: 0;
+  }
+  .mat-drawer-container {
+    height: 100%;
+  }
+  ::ng-deep {
+    .mat-drawer-content {
+      height: 100%;
+      display: block;
+      overflow-y: auto !important;
+    }
+  }
+}

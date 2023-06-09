@@ -31,7 +31,6 @@ export default {
           provide: BRANDING,
           useValue: of({
             ...defaultHeader,
-            ...footerInverse,
           }),
         },
       ],

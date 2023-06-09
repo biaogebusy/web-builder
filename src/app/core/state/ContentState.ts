@@ -24,10 +24,10 @@ export class ContentState {
     body: [],
   };
 
-  builderKey = 'builder';
+  pageKey = 'page';
 
   constructor(private storage: LocalStorageService) {
-    const localPage = this.storage.retrieve(this.builderKey);
+    const localPage = this.storage.retrieve(this.pageKey);
     if (localPage) {
       this.initPage = localPage;
     }
@@ -44,7 +44,7 @@ export class ContentState {
       title: 'Builder Page',
       body: [],
     };
-    this.storage.clear(this.builderKey);
+    this.storage.clear(this.pageKey);
   }
 
   deleteComponent(index: number): void {
@@ -58,7 +58,7 @@ export class ContentState {
   }
 
   updatePage(): void {
-    this.storage.store(this.builderKey, Object.assign({}, this.initPage));
+    this.storage.store(this.pageKey, Object.assign({}, this.initPage));
   }
 
   dropComponent(event: CdkDragDrop<string[]>): void {

@@ -1,5 +1,5 @@
 @import "~@angular/material/theming";
-
+@import "../mixins/amixin";
 @mixin builder-color($config-or-theme) {
   $config: mat-get-color-config($config-or-theme);
   $foreground: map-get($config, foreground);
@@ -8,6 +8,15 @@
   $accent: map-get($config, accent);
   $warn: map-get($config, warn);
 
+  .builder {
+    .sidebar {
+      box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.11);
+      background: #f6f6f6;
+    }
+    .mat-drawer-content {
+      @include scrollbar(mat-color($primary));
+    }
+  }
   .builder-item {
     display: block;
     box-sizing: content-box;
@@ -37,7 +46,9 @@
     }
   }
 
-  .builder-list {
-    min-width: 85vw;
+  .drawer-right {
+    .builder-list {
+      min-width: 85vw;
+    }
   }
 }

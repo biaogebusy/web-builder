@@ -5,12 +5,13 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { BuilderListComponent } from './builder-list/builder-list.component';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ShareModule } from '@share/share.module';
 
 const compoments = [BuilderComponent, BuilderListComponent];
 
 @NgModule({
   declarations: [...compoments],
-  imports: [CommonModule, MatSidenavModule, WidgetsModule, DragDropModule],
+  imports: [ShareModule, MatSidenavModule, WidgetsModule, DragDropModule],
   exports: [...compoments],
 })
 export class BuilderModule {}
