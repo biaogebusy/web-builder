@@ -3,6 +3,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
 import { IPage } from '@core/interface/IAppConfig';
 import { LocalStorageService } from 'ngx-webstorage';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { UtilitiesService } from '@core/service/utilities.service';
 @Injectable({
   providedIn: 'root',
 })
@@ -26,7 +27,10 @@ export class ContentState {
 
   pageKey = 'page';
 
-  constructor(private storage: LocalStorageService) {
+  constructor(
+    private storage: LocalStorageService,
+    private util: UtilitiesService
+  ) {
     const localPage = this.storage.retrieve(this.pageKey);
     if (localPage) {
       this.initPage = localPage;
@@ -34,9 +38,13 @@ export class ContentState {
   }
 
   addComponent(content: any): void {
-    this.initPage.body.push(content);
-    this.builderContent$.next(this.initPage);
-    this.updatePage();
+    if (content && content.type) {
+      this.initPage.body.push(content);
+      this.builderContent$.next(this.initPage);
+      this.updatePage();
+    } else {
+      this.util.openSnackbar('组件添加错误', 'ok');
+    }
   }
 
   clearComponent(): void {

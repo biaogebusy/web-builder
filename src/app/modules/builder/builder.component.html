@@ -11,9 +11,9 @@
             </mat-panel-title>
           </mat-expansion-panel-header>
           <mat-list>
-            <mat-selection-list #components [multiple]="false" cdkDropList (cdkDropListDropped)="addComponent($event)">
-              <mat-list-option cdkDrag (mouseenter)="onShowcase(component)" (mouseleave)="onShowcase()"
-                *ngFor="let component of item.elements">
+            <mat-selection-list #components [multiple]="false" cdkDropList>
+              <mat-list-option (cdkDragDropped)="addComponent(component)" cdkDrag (mouseenter)="onShowcase(component)"
+                (mouseleave)="onShowcase()" *ngFor="let component of item.elements">
                 {{component.type}}
                 <mat-divider></mat-divider>
               </mat-list-option>
@@ -25,8 +25,8 @@
     <mat-drawer-content>
       <app-icon *ngIf="!opened" [matTooltip]="'收起边栏'" matTooltipPosition="above" class="open-drawer"
         (click)="drawer.open()" [content]="{svg:'format-horizontal-align-right'}"></app-icon>
-      <div class="showcase">
-        <app-card-1v1 *ngIf="showcase" [content]="showcase"></app-card-1v1>
+      <div class="showcase" *ngIf="showcase">
+        <app-card-1v1 [content]="showcase"></app-card-1v1>
       </div>
       <ng-container *ngIf="content?.body?.length">
         <app-builder-list [content]="content.body" (dropChange)="drop($event)"></app-builder-list>

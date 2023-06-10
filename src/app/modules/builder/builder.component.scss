@@ -11,10 +11,11 @@
   .mat-drawer-container {
     height: 100%;
     .showcase {
-      position: absolute;
-      width: 80%;
+      position: fixed;
+      width: 50vw;
       margin: 40px;
       z-index: 9999;
+      left: 350px;
     }
   }
   ::ng-deep {
