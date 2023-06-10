@@ -1,20 +1,23 @@
-<div class="card-1-v1">
-  <app-feature-box [content]="content.feature"></app-feature-box>
+<div class="card-1v1">
+  <app-feature-box *ngIf="content.feature" [content]="content.feature"></app-feature-box>
+  <div class="components" *ngIf="content.components">
+    <app-dynamic-component *ngFor="let item of content.components" [inputs]="item"></app-dynamic-component>
+  </div>
   <div class="card-body p-y-sm p-x-sm">
     <div class="title mat-h2 two-line">
       <app-link [content]="content.link"></app-link>
     </div>
-    <div class="post-meta" fxLayoutAlign="space-between center">
+    <div class="post-meta" fxLayoutAlign="space-between center" *ngIf="content.moreLabel">
       <a [href]="content.link.href" class="text-muted readmore">{{content.moreLabel}}
         <mat-icon inline="true">navigate_next</mat-icon>
       </a>
     </div>
   </div>
   <div class="author" fxLayout="column">
-    <small class="user">
+    <small class="user" *ngIf="content.user">
       <mat-icon inline="true">person</mat-icon> {{content.user}}
     </small>
-    <small class="date">
+    <small class="date" *ngIf="content.time">
       <mat-icon inline="true">event</mat-icon> {{content.time}}
     </small>
   </div>

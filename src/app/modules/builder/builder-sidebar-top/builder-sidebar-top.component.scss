@@ -1,0 +1,9 @@
+.builder-sidebar-top {
+  .actions {
+    ::ng-deep {
+      .mat-icon {
+        cursor: pointer;
+      }
+    }
+  }
+}

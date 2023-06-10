@@ -15,6 +15,10 @@
     }
     .mat-drawer-content {
       @include scrollbar(mat-color($primary));
+      .open-drawer {
+        background-color: mat-color($primary);
+        color: mat-color($primary, default-contrast);
+      }
     }
   }
   .builder-item {
@@ -23,7 +27,9 @@
     transition: all 0.1s ease-in;
     border: 2px dotted transparent;
     &:hover {
-      border-color: mat-color($primary);
+      &.cdk-drag {
+        border-color: mat-color($primary);
+      }
       > .component-toolbar {
         display: block !important;
       }

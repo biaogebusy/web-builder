@@ -40,7 +40,7 @@
     color: mat-color($foreground, text, 0.6);
   }
 
-  .card-1-v1 {
+  .card-1v1 {
     @include mat-elevation(4, mat-color($foreground, text), 0.3);
     background-color: $bg-color;
     a {

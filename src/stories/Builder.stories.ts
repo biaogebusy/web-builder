@@ -49,6 +49,7 @@ export default {
         component: ``,
       },
     },
+    layout: 'fullscreen',
   },
 } as Meta;
 
@@ -808,4 +809,302 @@ Default.args = {
       },
     ],
   },
+  components: [
+    {
+      label: 'Hero',
+      elements: [
+        {
+          spacer: 'none',
+          type: 'hero-1v1',
+          classes: 'text-light text-center',
+          sliders: {
+            params: {
+              slidesPerView: 1,
+              spaceBetween: 0,
+              pagination: false,
+            },
+            elements: [
+              {
+                type: 'text',
+                spacer: 'xl',
+                title: {
+                  label: '开源',
+                  style: 'style-v1',
+                  classes: 'mat-display-3 bold',
+                },
+                classes: 'xy-center',
+                bg: {
+                  classes: 'bg-center overlay overlay-80',
+                  img: {
+                    src: '/assets/images/16-9/business-14.jpeg',
+                    mobile: '/assets/images/mobile/mobile-03.jpg',
+                  },
+                },
+                body: '<p style="font-size:18px">它是一个开放源代码软件，可以免费使用和修改</p>',
+                actionsAlign: 'center center',
+                actions: [
+                  {
+                    type: 'btn',
+                    mode: 'raised',
+                    color: 'primary',
+                    href: '#',
+                    label: '开始',
+                  },
+                ],
+              },
+              {
+                type: 'text',
+                title: {
+                  label: '强大的内容管理功能',
+                  style: 'style-v1',
+                  classes: 'mat-display-3 bold',
+                },
+                spacer: 'xl',
+                classes: 'xy-center text-light',
+                bg: {
+                  classes: 'bg-shadow  overlay overlay-80',
+                  img: {
+                    src: '/assets/images/16-9/business-15.jpeg',
+                    mobile: '/assets/images/mobile/mobile-04.jpg',
+                  },
+                },
+                body: 'Drupal 已经超越了传统的 Web概念，可以通过不同的渠道部署你的数据内容，从一个数据中心点到各个应用，从简单到复杂。',
+                actionsAlign: 'center center',
+                actions: [
+                  {
+                    type: 'btn',
+                    mode: 'raised',
+                    color: 'primary',
+                    href: '#',
+                    label: '开始',
+                  },
+                  {
+                    type: 'closeDialog',
+                    label: '前往',
+                  },
+                ],
+              },
+            ],
+          },
+        },
+        {
+          type: 'hero-1v2',
+          spacer: 'none',
+          classes: 'text-light text-center',
+          sliders: {
+            params: {
+              slidesPerView: 1,
+              spaceBetween: 0,
+              pagination: true,
+            },
+            elements: [
+              {
+                title: '使用 DEVTOOLS 对 ANGULAR 前端应用性能分析优化',
+                subTitle:
+                  '使用 lighthouse 评分 以南宁IT派[www.nnitpai.com]为例记录分析优化过程，使用 Devtools lighthouse 对首页进行综合的评分',
+                img: {
+                  src: '/assets/images/hero/hero-1-v2-4.jpeg',
+                  alt: '',
+                },
+                btn: {
+                  href: '#',
+                  mode: 'raised',
+                  label: '查看更多',
+                  classes: 'round-btn',
+                },
+              },
+              {
+                title: '使用 TAKEUNTIL 操作符管理 ANGULAR 组件的订阅',
+                subTitle:
+                  '在 Rxjs 中，可以使用 takeUntil 来控制另外一个 Observable 对象数据的产生。',
+                img: {
+                  src: '/assets/images/hero/hero-1-v2-3.jpeg',
+                  alt: '',
+                },
+                btn: {
+                  href: '#',
+                  mode: 'raised',
+                  label: '查看更多',
+                  classes: 'round-btn',
+                },
+              },
+              {
+                title: '你应该了解的 ANGULAR 最佳实践',
+                subTitle:
+                  '遵循最佳实践可以让你的 Angular 应用保持性能优越，使团队的代码风格一致，以下代码摘自南宁IT派官网项目。',
+                img: {
+                  src: '/assets/images/hero/hero-1-v2-2.jpeg',
+                  alt: '',
+                },
+                btn: {
+                  href: '#',
+                  mode: 'raised',
+                  label: '查看更多',
+                  classes: 'round-btn',
+                },
+              },
+              {
+                title: 'ANGULAR 5 RXJS 5.5.2 多个 HTTP 并行 FORKJOIN 请求',
+                subTitle:
+                  '在特定情况下，有些接口无法提供一次性的请求达到目的，需要并行的多次请求，当所有请求都完成时，才进行下一步的逻辑。',
+                img: {
+                  src: '/assets/images/hero/hero-1-v2-1.jpeg',
+                  alt: '',
+                },
+                btn: {
+                  href: '#',
+                  mode: 'raised',
+                  label: '查看更多',
+                  classes: 'round-btn',
+                },
+              },
+            ],
+          },
+          bg: {
+            classes: 'bg-center overlay overlay-80',
+            img: {
+              src: '/assets/images/hero/bg-pattern-hero.png',
+              mobile: '/assets/images/hero/bg-pattern-hero.png',
+            },
+          },
+        },
+      ],
+    },
+    {
+      label: 'Showcase',
+      elements: [
+        {
+          type: 'showcase-1v1',
+          title: {
+            label: '你将来喜欢 Drupal 的理由',
+            style: 'style-v2',
+          },
+          subTitle: {
+            spacer: 'none',
+            body: '<p class="text-center">Drupal 已经超越了传统的 Web概念，可以通过不同的渠道部署你的数据内容，从一个数据中心点到各个应用，从简单到复杂。</p><br>',
+          },
+          bg: {
+            classes: 'bg-shadow bg-fill-width',
+          },
+          row: '4',
+          elements: [
+            {
+              img: {
+                src: '/assets/images/svg/Asset187.svg',
+                alt: 'browser',
+              },
+              style: 'style-v3 use-image',
+              title: {
+                href: '#',
+                label: '高性能',
+              },
+              content:
+                '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
+              more: {
+                href: '#',
+                label: '+',
+              },
+            },
+            {
+              img: {
+                src: '/assets/images/svg/Asset189.svg',
+                alt: 'browser',
+              },
+              style: 'style-v3 use-image',
+              title: {
+                href: '#',
+                label: '易用的编辑器',
+              },
+              content:
+                '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作；',
+              more: {
+                href: '#',
+                label: '+',
+              },
+            },
+            {
+              img: {
+                src: '/assets/images/svg/Asset190.svg',
+                alt: 'browser',
+              },
+              style: 'style-v3 use-image',
+              title: {
+                href: '#',
+                label: '多语言',
+              },
+              content:
+                'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程； ',
+              more: {
+                href: '#',
+                label: '+',
+              },
+            },
+            {
+              img: {
+                src: '/assets/images/svg/Asset192.svg',
+                alt: 'browser',
+              },
+              style: 'style-v3 use-image',
+              title: {
+                href: '#',
+                label: '更有弹性',
+              },
+              content:
+                '无论是一个还是多个站点，Drupal 总是可以游刃有余的构建；',
+              more: {
+                href: '#',
+                label: '+',
+              },
+            },
+          ],
+        },
+        {
+          type: 'showcase-1v3',
+          title: {
+            label: '为什么你将会喜欢信使？',
+            style: 'style-v1',
+            classes: 'mat-display-1',
+          },
+          classes: 'text-light',
+          bg: {
+            classes: 'bg-fill-width overlay overlay-20',
+            img: {
+              hostClasses: 'bg-center',
+              src: '/assets/images/hero/bg-pattern-hero.png',
+              alt: 'page title',
+            },
+          },
+          elements: [
+            {
+              type: 'text',
+              spacer: 'none',
+              style: {
+                margin: '0 auto',
+                'text-align': 'center',
+                width: '600px',
+              },
+              body: 'Drupal 已经超越了传统的 Web概念，可以通过不同的渠道部署你的数据内容，从一个数据中心点到各个应用，从简单到复杂。',
+              actionsAlign: 'center center',
+              actions: [
+                {
+                  label: '了解更多',
+                  type: 'btn-animate',
+                  href: '#',
+                  style: 'style-v1',
+                  icon: 'verified_user',
+                },
+                {
+                  label: '回到官网',
+                  type: 'btn-animate',
+                  href: '#',
+                  style: 'style-v1',
+                  icon: 'fingerprint',
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  ],
 };

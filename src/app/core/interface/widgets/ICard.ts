@@ -51,11 +51,13 @@ export interface IMeta {
 }
 
 export interface ICard1v1 {
-  feature: IFeatureBox;
+  type?: string;
+  feature?: IFeatureBox;
+  components?: any;
   link: ILink;
-  moreLabel: string;
-  user: string;
-  time: string;
+  moreLabel?: string;
+  user?: string;
+  time?: string;
 }
 
 export interface ICard1v2 {

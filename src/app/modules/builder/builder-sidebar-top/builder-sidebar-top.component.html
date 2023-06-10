@@ -1,0 +1,7 @@
+<div class="builder-sidebar-top" fxLayout="row" fxLayoutAlign="space-between center">
+  <div class="title mat-h2 m-bottom-0">选择组件</div>
+  <div class="actions">
+    <app-icon [matTooltip]="'展开边栏'" matTooltipPosition="above" *ngIf="opened" (click)="drawer.close()"
+      [content]="{svg:'format-horizontal-align-left',inline: true}"></app-icon>
+  </div>
+</div>

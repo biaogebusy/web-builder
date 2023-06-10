@@ -1,7 +1,14 @@
-.card-1-v1 {
+.card-1v1 {
   overflow: hidden;
   border-radius: 6px;
   transition: all 0.3s ease;
+  .components,
+  ::ng-deep .builder-item {
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    overflow: hidden;
+  }
+
   &:hover {
     transform: translateY(-10px);
     .overlay {
