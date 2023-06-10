@@ -1,8 +1,4 @@
-import {
-  moduleMetadata,
-  Meta,
-  componentWrapperDecorator,
-} from '@storybook/angular';
+import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { StorysModule } from '@core/module/storys.module';
 import { Showcase1v4Component } from '@uiux/combs/showcase/showcase1v4/showcase1v4.component';

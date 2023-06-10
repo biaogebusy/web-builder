@@ -75,6 +75,7 @@ export const Order = Template.bind({});
 Order.args = {
   content: {
     spacer: 'xl',
+    type: 'hero-1v4',
     text: {
       title: {
         label: 'Conduct More Customer In A Better Way',
