@@ -7,7 +7,7 @@
     </button>
 
     <mat-menu #menu="matMenu">
-      <button mat-menu-item (click)="onPreview()">
+      <button mat-menu-item (click)="onPreview()" *ngIf="showPreview">
         <app-icon [content]="{svg:'view-compact-outline'}"></app-icon>
         <span>预览页面</span>
       </button>

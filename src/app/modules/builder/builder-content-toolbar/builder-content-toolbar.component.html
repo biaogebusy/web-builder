@@ -4,11 +4,14 @@
       <app-icon *ngIf="!opened" [matTooltip]="'收起边栏'" matTooltipPosition="above" class="open-drawer"
         (click)="drawer.open()" [content]="{svg:'format-horizontal-align-right'}"></app-icon>
     </div>
-    <div class="middle" fxFlex="33%" fxLayoutAlign="center center">{{page.title}}</div>
-    <div class="right" fxFlex="33%" fxLayoutAlign="end center">
+    <div class="middle" fxFlex="33%" fxLayoutAlign="center center">
+      <div class="title bold">{{page.title}}</div>
+    </div>
+    <div class="right" fxFlex="33%" fxLayoutAlign="end center" fxLayoutGap="2rem">
       <!-- <app-btn [matTooltip]="'加载动画效果'" matTooltipPosition="above" (click)="loadAnimate()"
         [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'autorenew' } }"></app-btn> -->
+      <app-builder-menu [showPreview]="false"></app-builder-menu>
     </div>
   </div>
-  <mat-divider></mat-divider>
 </div>
+<mat-divider></mat-divider>

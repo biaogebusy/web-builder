@@ -1,16 +1,9 @@
-import {
-  moduleMetadata,
-  Meta,
-  componentWrapperDecorator,
-} from '@storybook/angular';
+import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { BlockModule } from '@uiux/combs/block/block.module';
 import { StorysModule } from '@core/module/storys.module';
 import { BrandingModule } from '@core/branding/branding.module';
-import { of } from 'rxjs';
-import { BRANDING } from '@core/token/token-providers';
 import { BuilderComponent } from 'src/app/modules/builder/builder.component';
-import { defaultHeader } from '../global/Branding.json';
 import { BuilderModule } from 'src/app/modules/builder/builder.module';
 import { components } from './component-for-builder';
 export default {
@@ -27,22 +20,7 @@ export default {
         BrandingModule,
         BuilderModule,
       ],
-      providers: [
-        {
-          provide: BRANDING,
-          useValue: of({
-            ...defaultHeader,
-          }),
-        },
-      ],
     }),
-    componentWrapperDecorator(
-      (story) => `
-      <app-header></app-header>
-      ${story}
-      <app-footer></app-footer>
-    `
-    ),
   ],
   parameters: {
     docs: {

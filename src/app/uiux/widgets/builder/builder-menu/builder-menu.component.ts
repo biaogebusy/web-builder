@@ -19,6 +19,7 @@ import { LocalStorage, LocalStorageService } from 'ngx-webstorage';
 })
 export class BuilderMenuComponent implements OnInit, AfterViewInit {
   @Input() content: any;
+  @Input() showPreview = true;
   @LocalStorage('page')
   page: IPage;
   total: number;
