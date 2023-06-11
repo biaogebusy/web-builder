@@ -57,10 +57,12 @@ export class BuilderComponent implements OnInit, AfterViewInit {
   }
 
   drop(event: CdkDragDrop<string[]>): void {
-    this.contentState.dropComponent(event);
-  }
-
-  addComponent(content: any): void {
-    this.contentState.addComponent(content);
+    // 预览上下排序组件
+    if (event.previousContainer === event.container) {
+      this.contentState.dropComponent(event);
+    } else {
+      // 添加组件到指定位置
+      this.contentState.transferComponet(event);
+    }
   }
 }

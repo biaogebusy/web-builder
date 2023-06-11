@@ -40,7 +40,7 @@ export class ComponentToolbarComponent implements OnInit {
   ngOnInit(): void {}
 
   addComponent(content: any): any {
-    this.contentState.addComponent(content);
+    this.contentState.pushComponent(content);
     this.util.openSnackbar(`已添加${content.type}到预览页面！`, 'ok');
   }
 

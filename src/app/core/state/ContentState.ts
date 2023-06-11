@@ -2,7 +2,11 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { IPage } from '@core/interface/IAppConfig';
 import { LocalStorageService } from 'ngx-webstorage';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import {
+  CdkDragDrop,
+  moveItemInArray,
+  transferArrayItem,
+} from '@angular/cdk/drag-drop';
 import { UtilitiesService } from '@core/service/utilities.service';
 @Injectable({
   providedIn: 'root',
@@ -38,7 +42,7 @@ export class ContentState {
     }
   }
 
-  addComponent(content: any): void {
+  pushComponent(content: any): void {
     if (content && content.type) {
       this.initPage.body.push(content);
       this.builderContent$.next(this.initPage);
@@ -72,6 +76,17 @@ export class ContentState {
 
   dropComponent(event: CdkDragDrop<string[]>): void {
     moveItemInArray(
+      this.initPage.body,
+      event.previousIndex,
+      event.currentIndex
+    );
+    this.updatePage();
+  }
+
+  // 边栏拖动添加组件
+  transferComponet(event: CdkDragDrop<string[]>): void {
+    transferArrayItem(
+      event.previousContainer.data,
       this.initPage.body,
       event.previousIndex,
       event.currentIndex

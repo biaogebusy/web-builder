@@ -27,6 +27,14 @@
         background-color: mat-color($background, background, 0.5);
       }
     }
+    .placeholder {
+      background-color: mat-color($background, background);
+      border: 3px dotted mat-color($foreground, divider);
+      &:hover {
+        background-color: mat-color($primary, 200);
+        border-color: mat-color($primary);
+      }
+    }
   }
   .builder-list {
     > .component-item {
@@ -62,14 +70,6 @@
             }
           }
         }
-      }
-    }
-    .placeholder {
-      background-color: mat-color($background, background);
-      border: 3px dotted mat-color($foreground, divider);
-      &:hover {
-        background-color: mat-color($primary, 200);
-        border-color: mat-color($primary);
       }
     }
   }

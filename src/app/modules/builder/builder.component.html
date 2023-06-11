@@ -11,14 +11,22 @@
             </mat-panel-title>
           </mat-expansion-panel-header>
           <mat-list>
-            <mat-selection-list #components [multiple]="false" cdkDropList>
-              <mat-list-option (cdkDragDropped)="addComponent(component)" cdkDrag (mouseenter)="onShowcase(component)"
+            <mat-selection-list id="groups" #components [multiple]="false" cdkDropList [cdkDropListData]="item.elements"
+              cdkDropListConnectedTo="builder-list" (cdkDropListDropped)="drop($event)">
+              <mat-list-option [cdkDragData]="component" cdkDrag (mouseenter)="onShowcase(component)"
                 (mouseleave)="onShowcase()" *ngFor="let component of item.elements">
                 <div fxLayoutAlign="space-between center">
                   {{component.type}}
                   <span class="right" *ngIf="component.name">{{component.name}}</span>
                 </div>
                 <mat-divider></mat-divider>
+                <div class="placeholder" *cdkDragPlaceholder></div>
+                <app-card-1v1 style="width:800px" *cdkDragPreview [content]="{
+                      link:{
+                        href:'#',
+                        label: component.type
+                      },components:[component]
+                    }"></app-card-1v1>
               </mat-list-option>
             </mat-selection-list>
           </mat-list>
