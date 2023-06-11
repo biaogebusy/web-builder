@@ -30,7 +30,6 @@ const Template: Story = (args) => ({
   },
 });
 export const Default = Template.bind({});
-
 Default.args = {
   content: {
     spacer: 'none',

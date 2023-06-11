@@ -1,5 +1,8 @@
 .builder-list {
   cursor: move;
+  .component-item {
+    position: relative;
+  }
 }
 .placeholder {
   height: 80px;

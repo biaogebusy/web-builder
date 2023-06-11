@@ -5,33 +5,40 @@ const {
   },
   StyleV1: {
     args: { content: s1v1V1 },
+    storyName: s1v1V1Name,
   },
   StyleV2: {
     args: { content: s1v1V2 },
+    storyName: s1v1V2Name,
   },
   StyleV3: {
     args: { content: s1v1V3 },
+    storyName: s1v1V3Name,
   },
   StyleV4: {
     args: { content: s1v1V4 },
+    storyName: s1v1V4Name,
   },
   StyleV5: {
     args: { content: s1v1V5 },
+    storyName: s1v1V5Name,
   },
   StyleV6: {
     args: { content: s1v1V6 },
+    storyName: s1v1V6Name,
   },
   StyleV7: {
     args: { content: s1v1V7 },
+    storyName: s1v1V7Name,
   },
 } = s1v1 as any;
 export const showcase = [
   s1v1Default,
-  s1v1V1,
-  s1v1V2,
-  s1v1V3,
-  s1v1V4,
-  s1v1V5,
-  s1v1V6,
-  s1v1V7,
+  { ...s1v1V1, ...{ name: s1v1V1Name } },
+  { ...s1v1V2, ...{ name: s1v1V2Name } },
+  { ...s1v1V3, ...{ name: s1v1V3Name } },
+  { ...s1v1V4, ...{ name: s1v1V4Name } },
+  { ...s1v1V5, ...{ name: s1v1V5Name } },
+  { ...s1v1V6, ...{ name: s1v1V6Name } },
+  { ...s1v1V7, ...{ name: s1v1V7Name } },
 ];

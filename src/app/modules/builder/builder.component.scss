@@ -5,7 +5,10 @@
     padding: 20px;
     border-right: 0;
     .mat-list-item {
-      cursor: pointer;
+      cursor: move;
+      .right {
+        font-size: small;
+      }
     }
   }
   .mat-drawer-container {

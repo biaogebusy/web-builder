@@ -13,6 +13,9 @@
     .sidebar {
       box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.11);
       background: #f6f6f6;
+      .right {
+        color: mat-color($primary);
+      }
     }
     .mat-drawer-content {
       @include scrollbar(mat-color($primary));

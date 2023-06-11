@@ -29,7 +29,7 @@ const Template: Story = (args) => ({
   },
 });
 export const Default = Template.bind({});
-
+Default.storyName = 'V1';
 Default.args = {
   content: {
     type: 'hero-1v4',
@@ -71,7 +71,7 @@ Default.args = {
 };
 
 export const Order = Template.bind({});
-
+Order.storyName = 'V2';
 Order.args = {
   content: {
     spacer: 'xl',

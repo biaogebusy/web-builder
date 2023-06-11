@@ -29,7 +29,7 @@ const Template: Story = (args) => ({
   },
 });
 export const V1 = Template.bind({});
-
+V1.storyName = 'V1';
 V1.args = {
   content: {
     type: 'hero-1v3',
@@ -64,7 +64,7 @@ V1.args = {
 };
 
 export const V2 = Template.bind({});
-
+V2.storyName = 'v2';
 V2.args = {
   content: {
     type: 'hero-1v3',

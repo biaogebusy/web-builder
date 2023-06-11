@@ -108,7 +108,7 @@ Default.args = {
 };
 
 export const StyleV1 = Template.bind({});
-
+StyleV1.storyName = 'Style v1';
 StyleV1.args = {
   content: {
     type: 'showcase-1v1',
@@ -139,7 +139,7 @@ StyleV1.args = {
 };
 
 export const StyleV2 = Template.bind({});
-
+StyleV2.storyName = 'Style v2';
 StyleV2.args = {
   content: {
     type: 'showcase-1v1',
@@ -186,7 +186,7 @@ StyleV2.args = {
 };
 
 export const StyleV3 = Template.bind({});
-
+StyleV3.storyName = 'Style v3';
 StyleV3.args = {
   content: {
     type: 'showcase-1v1',
@@ -230,7 +230,7 @@ StyleV3.args = {
 };
 
 export const StyleV4 = Template.bind({});
-
+StyleV4.storyName = 'Style v4';
 StyleV4.args = {
   content: {
     type: 'showcase-1v1',
@@ -276,7 +276,7 @@ StyleV4.args = {
 };
 
 export const StyleV5 = Template.bind({});
-
+StyleV5.storyName = 'Style v5';
 StyleV5.args = {
   content: {
     type: 'showcase-1v1',
@@ -319,7 +319,7 @@ StyleV5.args = {
 };
 
 export const StyleV6 = Template.bind({});
-
+StyleV6.storyName = 'Style v6';
 StyleV6.args = {
   content: {
     type: 'showcase-1v1',
@@ -365,7 +365,7 @@ StyleV6.args = {
 };
 
 export const StyleV7 = Template.bind({});
-
+StyleV7.storyName = 'Style v7';
 StyleV7.args = {
   content: {
     type: 'showcase-1v1',

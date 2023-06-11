@@ -14,7 +14,10 @@
             <mat-selection-list #components [multiple]="false" cdkDropList>
               <mat-list-option (cdkDragDropped)="addComponent(component)" cdkDrag (mouseenter)="onShowcase(component)"
                 (mouseleave)="onShowcase()" *ngFor="let component of item.elements">
-                {{component.type}}
+                <div fxLayoutAlign="space-between center">
+                  {{component.type}}
+                  <span class="right" *ngIf="component.name">{{component.name}}</span>
+                </div>
                 <mat-divider></mat-divider>
               </mat-list-option>
             </mat-selection-list>
