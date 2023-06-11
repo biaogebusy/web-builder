@@ -1,5 +1,6 @@
 @import "~@angular/material/theming";
 @import "../mixins/amixin";
+
 @mixin builder-color($config-or-theme) {
   $config: mat-get-color-config($config-or-theme);
   $foreground: map-get($config, foreground);
@@ -21,7 +22,7 @@
     }
   }
   .builder-list {
-    .item {
+    > .component-item {
       display: block;
       box-sizing: content-box;
       transition: all 0.1s ease-in;
@@ -36,6 +37,7 @@
           }
         }
       }
+      // dynamic component host class
       .builder-item {
         > .component-toolbar {
           position: absolute;
@@ -53,10 +55,14 @@
             }
           }
         }
-        .placeholder {
-          background-color: mat-color($background, background);
-          border: 3px dotted mat-color($foreground, divider);
-        }
+      }
+    }
+    .placeholder {
+      background-color: mat-color($background, background);
+      border: 3px dotted mat-color($foreground, divider);
+      &:hover {
+        background-color: mat-color($primary, 200);
+        border-color: mat-color($primary);
       }
     }
   }

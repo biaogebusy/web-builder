@@ -50,14 +50,12 @@ export const decorators = [
   componentWrapperDecorator(
     (story) =>
       `
-      <div class="builder-list">
-        <div class="item">
-        <div class="${builder.enable ? "builder-item" : ""}">
+      <div class="${builder.enable ? "builder-item" : ""}">
+        <div class="component-item">
           <app-component-toolbar *ngIf="content?.type && ${
             builder.enable
           }" [content]="content" [isStory]="true"></app-component-toolbar>
           ${story}
-        </div>
         </div>
       </div>
       `

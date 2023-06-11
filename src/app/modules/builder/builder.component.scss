@@ -1,5 +1,5 @@
 .builder {
-  height: 100vh;
+  height: calc(100vh - 10px);
   .sidebar {
     width: 330px;
     padding: 20px;

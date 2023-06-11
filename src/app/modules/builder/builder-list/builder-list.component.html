@@ -1,7 +1,12 @@
 <div cdkDropList class="builder-list" (cdkDropListDropped)="drop($event)">
-  <div class="item" cdkDrag *ngFor="let item of content;index as i; trackBy: trackByFn">
+  <div class="component-item" cdkDrag *ngFor="let item of content;index as i; trackBy: trackByFn">
     <div class="placeholder" *cdkDragPlaceholder></div>
     <app-dynamic-component [inputs]="item" [index]="i" [isPreview]="isPreview"></app-dynamic-component>
-    <app-icon *cdkDragPreview [content]="{svg:'arrow-collapse-vertical'}"></app-icon>
+    <app-card-1v1 style="width:800px" *cdkDragPreview [content]="{
+      link:{
+        href:'#',
+        label: item.type
+      },components:[item]
+    }"></app-card-1v1>
   </div>
 </div>

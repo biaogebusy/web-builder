@@ -1,8 +1,10 @@
 <div class="builder-content-toolbar">
   <div class="wrapper" fxLayoutAlign="space-between center">
     <div class="left" fxFlex="33%">
-      <app-icon *ngIf="!opened" [matTooltip]="'收起边栏'" matTooltipPosition="above" class="open-drawer"
-        (click)="drawer.open()" [content]="{svg:'format-horizontal-align-right'}"></app-icon>
+      <!-- <app-icon *ngIf="!opened" [matTooltip]="'收起边栏'" matTooltipPosition="above" class="open-drawer"
+        (click)="drawer.open()" [content]="{svg:'format-horizontal-align-right'}"></app-icon> -->
+      <app-btn *ngIf="!opened" [matTooltip]="'收起边栏'" matTooltipPosition="above" (click)="drawer.open()"
+        [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'format-horizontal-align-right' } }"></app-btn>
     </div>
     <div class="middle" fxFlex="33%" fxLayoutAlign="center center">
       <div class="title bold">{{page.title}}</div>
