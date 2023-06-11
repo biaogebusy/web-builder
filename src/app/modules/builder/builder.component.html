@@ -28,6 +28,7 @@
     <mat-drawer-content>
       <app-builder-content-toolbar [drawer]="drawer" [opened]="opened" [page]="page"
         (animateChange)="onAnimate()"></app-builder-content-toolbar>
+      <div class="overlay" *ngIf="showcase"></div>
       <div class="showcase" *ngIf="showcase">
         <app-card-1v1 [content]="showcase"></app-card-1v1>
       </div>

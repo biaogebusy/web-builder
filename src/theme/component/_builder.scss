@@ -22,6 +22,9 @@
       .builder-content-toolbar {
         background-color: mat-color($background, card);
       }
+      .overlay {
+        background-color: mat-color($background, background, 0.5);
+      }
     }
   }
   .builder-list {

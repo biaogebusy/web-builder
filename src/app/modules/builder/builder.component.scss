@@ -13,6 +13,14 @@
   }
   .mat-drawer-container {
     height: 100%;
+    .overlay {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      left: 0;
+      top: 0;
+      z-index: 200;
+    }
     .showcase {
       position: fixed;
       width: 50vw;
