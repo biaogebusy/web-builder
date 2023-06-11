@@ -1,8 +1,10 @@
 .builder {
-  height: calc(100vh - 10px);
+  height: calc(100vh - 40px);
+  padding: 20px;
   .sidebar {
     width: 330px;
     padding: 20px;
+    margin: -20px;
     border-right: 0;
     .mat-list-item {
       cursor: move;
@@ -13,6 +15,7 @@
   }
   .mat-drawer-container {
     height: 100%;
+    background-color: transparent;
     .overlay {
       position: absolute;
       height: 100%;

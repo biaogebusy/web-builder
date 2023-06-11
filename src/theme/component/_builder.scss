@@ -10,14 +10,15 @@
   $warn: map-get($config, warn);
 
   .builder {
+    background-color: mat-color($background, background);
     .sidebar {
-      box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.11);
-      background: #f6f6f6;
+      background-color: transparent;
       .right {
         color: mat-color($primary);
       }
     }
     .mat-drawer-content {
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.11);
       @include scrollbar(mat-color($primary));
       .builder-content-toolbar {
         background-color: mat-color($background, card);
