@@ -24,7 +24,7 @@ import { ContentState } from '@core/state/ContentState';
 })
 export class Showcase3v2Component implements OnInit, AfterViewInit {
   @Input() content: IShowcase3v2;
-  drawerDiasbleAnimate = false;
+  disableAnimate = false;
   text: IText;
   constructor(
     private el: ElementRef,
@@ -37,7 +37,10 @@ export class Showcase3v2Component implements OnInit, AfterViewInit {
     if (this.screenService.isPlatformBrowser()) {
       gsap.registerPlugin(ScrollTrigger);
       this.contentState.drawerOpened$.subscribe((state) => {
-        this.drawerDiasbleAnimate = state;
+        this.disableAnimate = state;
+      });
+      this.contentState.animateDisable$.subscribe((state) => {
+        this.disableAnimate = state;
       });
     }
     this.text = {
@@ -52,7 +55,7 @@ export class Showcase3v2Component implements OnInit, AfterViewInit {
     if (
       this.screenService.isPlatformBrowser() &&
       this.coreConfig.animate &&
-      !this.drawerDiasbleAnimate
+      !this.disableAnimate
     ) {
       this.animate();
     }

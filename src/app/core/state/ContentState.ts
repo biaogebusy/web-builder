@@ -13,6 +13,7 @@ export class ContentState {
   public pageConfig$ = new BehaviorSubject<any | object | boolean>(false);
   public drawerOpened$ = new BehaviorSubject<boolean>(false);
   public drawerLoading$ = new BehaviorSubject<boolean>(false);
+  public animateDisable$ = new BehaviorSubject<boolean>(true);
   public drawerContent$ = new Subject<IPage>();
   public builderContent$ = new Subject<IPage>();
   public jsoneditorContent$ = new Subject<{

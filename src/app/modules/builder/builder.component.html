@@ -29,7 +29,7 @@
         <app-card-1v1 [content]="showcase"></app-card-1v1>
       </div>
       <ng-container *ngIf="content?.body?.length">
-        <app-builder-list [content]="content.body" (dropChange)="drop($event)"></app-builder-list>
+        <app-builder-list [isPreview]="true" [content]="content.body" (dropChange)="drop($event)"></app-builder-list>
       </ng-container>
     </mat-drawer-content>
   </mat-drawer-container>

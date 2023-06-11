@@ -28,6 +28,7 @@ export class BuilderComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.content = this.page;
+    this.contentState.animateDisable$.next(true);
   }
 
   ngAfterViewInit(): void {

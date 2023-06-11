@@ -29,7 +29,7 @@ export class Showcase1v1Component
 {
   @Input() content: IShowcase1v1;
   @ViewChild('title', { read: ElementRef }) title: ElementRef;
-  drawerDiasbleAnimate = false;
+  disableAnimate = false;
 
   constructor(
     private el: ElementRef,
@@ -44,7 +44,10 @@ export class Showcase1v1Component
     if (this.screenService.isPlatformBrowser()) {
       gsap.registerPlugin(ScrollTrigger);
       this.contentState.drawerOpened$.subscribe((state) => {
-        this.drawerDiasbleAnimate = state;
+        this.disableAnimate = state;
+      });
+      this.contentState.animateDisable$.subscribe((state) => {
+        this.disableAnimate = state;
       });
     }
   }
@@ -53,7 +56,7 @@ export class Showcase1v1Component
     if (
       this.screenService.isPlatformBrowser() &&
       this.coreConfig.animate &&
-      !this.drawerDiasbleAnimate
+      !this.disableAnimate
     ) {
       this.animate();
     }

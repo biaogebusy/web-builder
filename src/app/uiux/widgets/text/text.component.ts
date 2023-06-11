@@ -31,7 +31,7 @@ export class TextComponent implements OnInit, AfterViewInit {
   @ViewChild('list', { read: ElementRef }) list: ElementRef;
   @ViewChild('actions', { read: ElementRef }) actions: ElementRef;
   @ViewChild('bg', { read: ElementRef }) bg: ElementRef;
-  drawerDiasbleAnimate = false;
+  disableAnimate = false;
   constructor(
     private screenService: ScreenService,
     private contentState: ContentState,
@@ -42,7 +42,10 @@ export class TextComponent implements OnInit, AfterViewInit {
     if (this.screenService.isPlatformBrowser()) {
       gsap.registerPlugin(ScrollTrigger);
       this.contentState.drawerOpened$.subscribe((state) => {
-        this.drawerDiasbleAnimate = state;
+        this.disableAnimate = state;
+      });
+      this.contentState.animateDisable$.subscribe((state) => {
+        this.disableAnimate = state;
       });
     }
   }
@@ -52,7 +55,7 @@ export class TextComponent implements OnInit, AfterViewInit {
       this.screenService.isPlatformBrowser() &&
       this.coreConfig.animate &&
       !this.content?.animate?.disable &&
-      !this.drawerDiasbleAnimate
+      !this.disableAnimate
     ) {
       this.showAnimate();
     }
