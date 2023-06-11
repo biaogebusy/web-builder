@@ -1,0 +1,14 @@
+.builder-content-toolbar {
+  position: relative;
+  padding-left: 10px;
+  padding-right: 10px;
+  .wrapper {
+    height: 55px;
+  }
+  .open-drawer {
+    display: inline-block;
+    line-height: 1;
+    z-index: 99999;
+    cursor: pointer;
+  }
+}

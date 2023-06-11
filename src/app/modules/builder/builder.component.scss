@@ -22,18 +22,11 @@
     .mat-drawer-content {
       height: 100%;
       display: block;
-      overflow-y: auto !important;
-      .open-drawer {
+      overflow: hidden !important;
+      .builder-list {
         display: block;
-        position: absolute;
-        line-height: 1;
-        height: 24px;
-        z-index: 99999;
-        border-radius: 50%;
-        padding: 6px;
-        cursor: pointer;
-        margin: 15px;
-        top: 40px;
+        height: calc(100% - 55px);
+        overflow-y: auto;
       }
     }
   }

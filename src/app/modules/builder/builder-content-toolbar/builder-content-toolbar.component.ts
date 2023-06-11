@@ -1,0 +1,31 @@
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { MatDrawer } from '@angular/material/sidenav';
+import { IPage } from '@core/interface/IAppConfig';
+
+@Component({
+  selector: 'app-builder-content-toolbar',
+  templateUrl: './builder-content-toolbar.component.html',
+  styleUrls: ['./builder-content-toolbar.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class BuilderContentToolbarComponent implements OnInit {
+  @Input() drawer: MatDrawer;
+  @Input() opened: boolean;
+  @Input() page: IPage;
+
+  @Output() animateChange: EventEmitter<boolean> = new EventEmitter();
+  constructor() {}
+
+  ngOnInit(): void {}
+
+  loadAnimate(): void {
+    this.animateChange.emit(true);
+  }
+}

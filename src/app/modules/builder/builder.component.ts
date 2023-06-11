@@ -52,6 +52,10 @@ export class BuilderComponent implements OnInit, AfterViewInit {
     }
   }
 
+  onAnimate(): void {
+    this.contentState.animateDisable$.next(false);
+  }
+
   drop(event: CdkDragDrop<string[]>): void {
     this.contentState.dropComponent(event);
   }

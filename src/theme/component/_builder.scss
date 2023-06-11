@@ -15,9 +15,8 @@
     }
     .mat-drawer-content {
       @include scrollbar(mat-color($primary));
-      .open-drawer {
-        background-color: mat-color($primary);
-        color: mat-color($primary, default-contrast);
+      .builder-content-toolbar {
+        background-color: mat-color($background, card);
       }
     }
   }
