@@ -1,4 +1,8 @@
-import { moduleMetadata, Meta } from '@storybook/angular';
+import {
+  moduleMetadata,
+  Meta,
+  componentWrapperDecorator,
+} from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { StorysModule } from '@core/module/storys.module';
 import * as action1v1 from '../components/action/Action1v1.stories';
@@ -13,6 +17,9 @@ export default {
       declarations: [],
       entryComponents: [StorysModule.forEntryComponents()],
       imports: [StorysModule.forRoot()],
+    }),
+    componentWrapperDecorator((story) => {
+      return `<div classs="widget">${story}</div>`;
     }),
   ],
   parameters: {

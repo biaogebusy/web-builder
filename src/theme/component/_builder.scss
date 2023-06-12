@@ -42,10 +42,24 @@
     position: relative;
     display: block;
     box-sizing: content-box;
-    transition: all 0.1s ease-in;
-    border: 2px dotted transparent;
+
+    &:after {
+      content: "";
+      display: block;
+      position: absolute;
+      box-sizing: border-box;
+      z-index: 10;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+      transition: all 0.1s ease-in;
+      border: 2px dotted transparent;
+    }
     &:hover {
-      border-color: mat-color($primary);
+      &:after {
+        border-color: mat-color($primary);
+      }
       > .component-toolbar {
         display: block !important;
       }

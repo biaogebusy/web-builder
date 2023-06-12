@@ -9,6 +9,11 @@
       top: 0;
       width: 100%;
       height: 100%;
+      .swiper-slide {
+        .active-toolbar {
+          position: static;
+        }
+      }
     }
     .position-relative {
       position: static;
