@@ -58,6 +58,7 @@ export class ComponentToolbarComponent implements OnInit {
       data: {
         inputData: {
           disableToolbar: true,
+          activeToolBar: false,
           content: {
             type: 'jsoneditor',
             index,

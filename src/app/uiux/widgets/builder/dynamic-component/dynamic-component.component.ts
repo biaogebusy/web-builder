@@ -14,7 +14,6 @@ import {
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type { IUser } from '@core/interface/IUser';
 import { ComponentService } from '@core/service/component.service';
-import { UserService } from '@core/service/user.service';
 import { ContentState } from '@core/state/ContentState';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
 
@@ -32,7 +31,6 @@ export class DynamicComponentComponent implements OnInit, OnChanges, OnDestroy {
   @Input() inputs: dynamicInputs;
   @Input() index: number;
   @Input() isPreview: boolean;
-  @Input() activeToolBar = true;
   @HostBinding('class.active-toolbar') hostClass = false;
   @ViewChild('componentContainer', { read: ViewContainerRef, static: true })
   container: ViewContainerRef;
@@ -42,7 +40,6 @@ export class DynamicComponentComponent implements OnInit, OnChanges, OnDestroy {
   constructor(
     private componentService: ComponentService,
     private contentState: ContentState,
-    private userService: UserService,
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
     @Inject(USER) private user: IUser
   ) {}
@@ -95,7 +92,10 @@ export class DynamicComponentComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   checkBuilder(content: any): void {
-    if (this.coreConfig.builder?.enable && this.activeToolBar) {
+    if (
+      this.coreConfig.builder?.enable &&
+      this.inputs.activeToolBar !== false
+    ) {
       this.hostClass = true;
     }
   }
