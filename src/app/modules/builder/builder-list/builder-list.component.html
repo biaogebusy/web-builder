@@ -3,11 +3,6 @@
   <div class="component-item" cdkDrag [cdkDragData]="item" *ngFor="let item of content;index as i; trackBy: trackByFn">
     <div class="placeholder" *cdkDragPlaceholder></div>
     <app-dynamic-component [inputs]="item" [index]="i" [isPreview]="isPreview"></app-dynamic-component>
-    <app-card-1v1 style="width:800px" *cdkDragPreview [content]="{
-      link:{
-        href:'#',
-        label: item.type
-      },components:[item]
-    }"></app-card-1v1>
+    <!-- <app-drag-preview *ngIf="item" [content]="item"></app-drag-preview> -->
   </div>
 </div>
