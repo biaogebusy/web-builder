@@ -1,4 +1,5 @@
 import * as s1v1 from '../feature/showcase/showcase1v1.stories';
+import * as s1v2 from '../feature/showcase/showcase1v2.stories';
 const {
   Default: {
     args: { content: s1v1Default },
@@ -32,6 +33,16 @@ const {
     storyName: s1v1V7Name,
   },
 } = s1v1 as any;
+const {
+  Default: {
+    args: { content: s1v2Defult },
+    storyName: s1v2DefaultName,
+  },
+  Primary: {
+    args: { content: s1v2Primary },
+    storyName: s1v2PrimaryName,
+  },
+} = s1v2 as any;
 export const showcase = [
   s1v1Default,
   { ...s1v1V1, ...{ name: s1v1V1Name } },
@@ -41,4 +52,12 @@ export const showcase = [
   { ...s1v1V5, ...{ name: s1v1V5Name } },
   { ...s1v1V6, ...{ name: s1v1V6Name } },
   { ...s1v1V7, ...{ name: s1v1V7Name } },
+  {
+    ...s1v2Defult,
+    ...{ name: s1v2DefaultName },
+  },
+  {
+    ...s1v2Primary,
+    ...{ name: s1v2PrimaryName },
+  },
 ];

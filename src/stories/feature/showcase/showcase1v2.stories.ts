@@ -26,7 +26,7 @@ const Template: Story = (args) => ({
   },
 });
 export const Default = Template.bind({});
-
+Default.storyName = '1v2';
 Default.args = {
   content: {
     type: 'showcase-1v1',
@@ -113,7 +113,7 @@ Default.args = {
 };
 
 export const Primary = Template.bind({});
-
+Primary.storyName = 'Primay';
 Primary.args = {
   content: {
     type: 'showcase-1v1',
