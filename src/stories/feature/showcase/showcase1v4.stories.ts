@@ -22,7 +22,7 @@ const Template: Story = (args) => ({
   },
 });
 export const Default = Template.bind({});
-
+Default.storyName = '默认';
 Default.args = {
   content: {
     type: 'showcase-1v4',
@@ -213,7 +213,7 @@ Price.args = {
 };
 
 export const Dynamic = Template.bind({});
-
+Dynamic.storyName = '动态';
 Dynamic.args = {
   content: {
     type: 'showcase-1v4',

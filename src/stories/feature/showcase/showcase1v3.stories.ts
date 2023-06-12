@@ -28,7 +28,7 @@ const Template: Story = (args) => ({
   },
 });
 export const Default = Template.bind({});
-
+Default.storyName = '默认';
 Default.args = {
   content: {
     type: 'showcase-1v3',
@@ -102,6 +102,7 @@ Contact.args = {
 };
 
 export const Video = Template.bind({});
+Video.storyName = '视频';
 Video.args = {
   content: {
     type: 'showcase-1v3',

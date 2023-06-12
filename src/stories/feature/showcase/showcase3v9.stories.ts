@@ -132,6 +132,7 @@ Default.args = {
 };
 
 export const Reverse = Template.bind({});
+Reverse.storyName = '反向';
 Reverse.args = {
   content: {
     id: '',
@@ -210,6 +211,7 @@ Reverse.args = {
 };
 
 export const Video = Template.bind({});
+Video.storyName = '视频';
 Video.args = {
   content: {
     id: '',

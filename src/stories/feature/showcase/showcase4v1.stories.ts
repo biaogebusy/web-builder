@@ -31,7 +31,7 @@ export const Default = Template.bind({});
 
 Default.args = {
   content: {
-    type: 'showcase-1v4',
+    type: 'showcase-4v1',
     spacer: 'lg',
     text: {
       title: {
@@ -88,10 +88,10 @@ Default.args = {
 };
 
 export const Img = Template.bind({});
-
+Img.storyName = '图片';
 Img.args = {
   content: {
-    type: 'showcase-1v4',
+    type: 'showcase-4v1',
     spacer: 'lg',
     text: {
       title: {

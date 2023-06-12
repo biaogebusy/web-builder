@@ -209,7 +209,7 @@ Default.args = {
 };
 
 export const List = Template.bind({});
-
+List.storyName = '列表';
 List.args = {
   content: {
     type: 'showcase-3v2',

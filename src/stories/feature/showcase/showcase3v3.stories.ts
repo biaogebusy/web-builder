@@ -56,7 +56,7 @@ Default.args = {
 };
 
 export const Image = Template.bind({});
-
+Image.storyName = '图片';
 Image.args = {
   content: {
     ...Default.args.content,

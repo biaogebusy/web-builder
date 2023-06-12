@@ -437,7 +437,7 @@ Card1v1.args = {
 };
 
 export const Card1v1FromApi = Template.bind({});
-Card1v1FromApi.storyName = 'Card 1v1 From api';
+Card1v1FromApi.storyName = 'From api';
 Card1v1FromApi.args = {
   content: {
     type: 'showcase-2v1',

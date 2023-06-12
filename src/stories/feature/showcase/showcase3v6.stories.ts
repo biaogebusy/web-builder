@@ -126,6 +126,7 @@ Default.args = {
 };
 
 export const WithLink = Template.bind({});
+WithLink.storyName = '带连接';
 WithLink.args = {
   content: {
     type: 'showcase-3v6',
@@ -275,7 +276,7 @@ WithLink.args = {
 };
 
 export const Background = Template.bind({});
-
+Background.storyName = '带背景';
 Background.args = {
   content: {
     ...Default.args.content,

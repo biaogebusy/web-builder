@@ -4,7 +4,7 @@
     *ngFor="let component of content.elements">
     <div fxLayoutAlign="space-between center">
       {{component.type}}
-      <span class="right" *ngIf="component.name">{{component.name}}</span>
+      <span class="right" *ngIf="component.name">{{component?.name}}</span>
     </div>
     <mat-divider></mat-divider>
     <div class="placeholder" *cdkDragPlaceholder></div>

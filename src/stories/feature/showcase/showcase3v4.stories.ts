@@ -86,7 +86,7 @@ Default.args = {
 };
 
 export const Background = Template.bind({});
-
+Background.storyName = '背景色';
 Background.args = {
   content: {
     ...Default.args.content,
