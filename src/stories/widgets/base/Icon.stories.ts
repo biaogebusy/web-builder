@@ -18,7 +18,8 @@ export default {
       imports: [StorysModule.forRoot()],
     }),
     componentWrapperDecorator(
-      (story) => `<div class="position-relative p-x-md p-y-md">${story}</div>`
+      (story) =>
+        `<div class="widget position-relative p-x-md p-y-md">${story}</div>`
     ),
   ],
   parameters: {

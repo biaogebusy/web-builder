@@ -18,7 +18,8 @@ export default {
       imports: [StorysModule.forRoot()],
     }),
     componentWrapperDecorator(
-      (story) => `<div class="position-relative text-light">${story}</div>`
+      (story) =>
+        `<div class="widget position-relative text-light">${story}</div>`
     ),
   ],
 } as Meta;

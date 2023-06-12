@@ -24,7 +24,11 @@ export default {
       entryComponents: [...StorysModule.forEntryComponents()],
       imports: [StorysModule.forRoot(), UserModule, NodeModule],
     }),
-    componentWrapperDecorator((story) => `${story}`),
+    componentWrapperDecorator(
+      (story) => `
+      <app-dynamic-component [inputs]="content"></app-dynamic-component>
+    `
+    ),
   ],
   parameters: {
     docs: {

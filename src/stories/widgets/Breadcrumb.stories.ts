@@ -18,7 +18,8 @@ export default {
       imports: [StorysModule.forRoot()],
     }),
     componentWrapperDecorator(
-      (story) => `<div class="bg-primary bg-fill-width p-x p-y">${story}</div>`
+      (story) =>
+        `<div class="widget bg-primary bg-fill-width p-x p-y">${story}</div>`
     ),
   ],
 } as Meta;

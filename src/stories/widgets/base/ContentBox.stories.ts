@@ -19,7 +19,7 @@ export default {
     }),
     componentWrapperDecorator(
       (story) =>
-        `<div style="width:40%" class="position-relative">${story}</div>`
+        `<div style="width:40%" class="widget position-relative">${story}</div>`
     ),
   ],
 } as Meta;

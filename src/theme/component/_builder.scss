@@ -36,44 +36,37 @@
       }
     }
   }
-  .builder-list {
-    > .component-item {
-      display: block;
-      box-sizing: content-box;
-      transition: all 0.1s ease-in;
-      border: 2px dotted transparent;
-      &:hover {
-        &.cdk-drag {
-          border-color: mat-color($primary);
-        }
-        .builder-item {
-          > .component-toolbar {
-            display: block !important;
-          }
-        }
+
+  // for dynamic-component host class
+  .active-toolbar {
+    position: relative;
+    display: block;
+    box-sizing: content-box;
+    transition: all 0.1s ease-in;
+    border: 2px dotted transparent;
+    &:hover {
+      border-color: mat-color($primary);
+      > .component-toolbar {
+        display: block !important;
       }
-      // dynamic component host class
-      .builder-item {
-        > .component-toolbar {
-          position: absolute;
-          z-index: 999;
-          padding: 1rem;
-          line-height: 1;
-          .title {
-            background-color: mat-color($primary);
-            color: mat-color($primary, default-contrast);
-          }
-          .actions {
-            .item {
-              background-color: mat-color($primary);
-              color: mat-color($primary, default-contrast);
-            }
-          }
+    }
+    > .component-toolbar {
+      position: absolute;
+      z-index: 999;
+      padding: 1rem;
+      line-height: 1;
+      .title {
+        background-color: mat-color($primary);
+        color: mat-color($primary, default-contrast);
+      }
+      .actions {
+        .item {
+          background-color: mat-color($primary);
+          color: mat-color($primary, default-contrast);
         }
       }
     }
   }
-
   .drawer-right {
     .builder-list {
       min-width: 85vw;

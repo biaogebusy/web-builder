@@ -47,17 +47,18 @@ export const decorators = [
     },
     defaultTheme: "light",
   }),
-  componentWrapperDecorator(
-    (story) =>
-      `
-      <div class="${builder.enable ? "builder-item" : ""}">
-        <div class="component-item">
-          <app-component-toolbar *ngIf="content?.type && ${
-            builder.enable
-          }" [content]="content" [isStory]="true"></app-component-toolbar>
-          ${story}
-        </div>
-      </div>
-      `
-  ),
+  componentWrapperDecorator((story) => {
+    // console.log(story);
+    if (
+      story.includes("app-block") ||
+      story.includes("widget") ||
+      story.includes("app-header") ||
+      story.includes("app-footer") ||
+      story.includes("builder")
+    ) {
+      return story;
+    } else {
+      return `<app-dynamic-component [inputs]="content"></app-dynamic-component>`;
+    }
+  }),
 ];

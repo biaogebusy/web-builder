@@ -23,7 +23,7 @@ export default {
       (story) => `
       ${story}
       <mat-divider></mat-divider>
-      <p class="p-y-sm p-x-sm bg-shadow">
+      <p class="widget p-y-sm p-x-sm bg-shadow">
       {{model|json}}
       </p>
     `

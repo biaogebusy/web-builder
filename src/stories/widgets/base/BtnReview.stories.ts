@@ -33,7 +33,7 @@ export default {
     componentWrapperDecorator(
       (story) => `
       <app-header></app-header>
-      <div style="overflow:hidden">
+      <div class="widget" style="overflow:hidden">
       ${story}
       </div>
       <app-footer></app-footer>

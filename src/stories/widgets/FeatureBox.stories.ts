@@ -18,7 +18,7 @@ export default {
       imports: [StorysModule.forRoot()],
     }),
     componentWrapperDecorator(
-      (story) => `<div style="width:33%">${story}</div>`
+      (story) => `<div classs="widget" style="width:33%">${story}</div>`
     ),
   ],
 } as Meta;

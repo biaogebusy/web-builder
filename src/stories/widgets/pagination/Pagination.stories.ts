@@ -18,8 +18,8 @@ export default {
     }),
     componentWrapperDecorator(
       (story) => `
-    <div *ngFor="let item of [1,2,3,4,5,6,7,8,9,10] | paginate: {itemsPerPage: 2,currentPage: 0,totalItems: 100}"></div>
-     <app-pagination></app-pagination>
+     <div classs="widget"> <div *ngFor="let item of [1,2,3,4,5,6,7,8,9,10] | paginate: {itemsPerPage: 2,currentPage: 0,totalItems: 100}"></div>
+     <app-pagination></app-pagination></div>
     `
     ),
   ],

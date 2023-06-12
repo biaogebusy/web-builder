@@ -17,7 +17,8 @@ export default {
       imports: [StorysModule.forRoot()],
     }),
     componentWrapperDecorator(
-      (story) => `<div fxFlex="300px" class="position-relative">${story}</div>`
+      (story) =>
+        `<div fxFlex="300px" class="widget position-relative">${story}</div>`
     ),
   ],
 } as Meta;
@@ -29,6 +30,7 @@ const Template: Story = (args) => ({
 });
 export const Base = Template.bind({});
 Base.storyName = '无边框、无阴影';
+
 Base.args = {
   content: {
     type: 'card',

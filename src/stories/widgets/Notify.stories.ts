@@ -1,4 +1,8 @@
-import { moduleMetadata, Meta } from '@storybook/angular';
+import {
+  moduleMetadata,
+  Meta,
+  componentWrapperDecorator,
+} from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { StorysModule } from '@core/module/storys.module';
 import { BrandingModule } from '@core/branding/branding.module';
@@ -12,6 +16,9 @@ export default {
     moduleMetadata({
       declarations: [],
       imports: [BrandingModule, StorysModule.forRoot()],
+    }),
+    componentWrapperDecorator((story) => {
+      return `<div classs="widget">${story}</div>`;
     }),
   ],
 } as Meta;

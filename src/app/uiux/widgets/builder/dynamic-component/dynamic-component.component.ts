@@ -32,7 +32,7 @@ export class DynamicComponentComponent implements OnInit, OnChanges, OnDestroy {
   @Input() inputs: dynamicInputs;
   @Input() index: number;
   @Input() isPreview: boolean;
-  @HostBinding('class.builder-item') hostClass = false;
+  @HostBinding('class.active-toolbar') hostClass = false;
   @ViewChild('componentContainer', { read: ViewContainerRef, static: true })
   container: ViewContainerRef;
   uuid: number;

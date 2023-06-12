@@ -19,7 +19,7 @@ export default {
     }),
     componentWrapperDecorator(
       (story) =>
-        `<div class="position-relative" style="z-index:1;height:400px;overflow:hidden">
+        `<div class="widget position-relative" style="z-index:1;height:400px;overflow:hidden">
         ${story}</div>`
     ),
   ],

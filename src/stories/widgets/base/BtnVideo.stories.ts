@@ -1,5 +1,9 @@
 import { StorysModule } from '@core/module/storys.module';
-import { moduleMetadata, Meta } from '@storybook/angular';
+import {
+  moduleMetadata,
+  Meta,
+  componentWrapperDecorator,
+} from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { BtnVideoComponent } from '@uiux/widgets/actions/btn-video/btn-video.component';
 
@@ -12,6 +16,9 @@ export default {
       entryComponents: [...StorysModule.forEntryComponents()],
       declarations: [],
       imports: [StorysModule.forRoot()],
+    }),
+    componentWrapperDecorator((story) => {
+      return `<div classs="widget">${story}</div>`;
     }),
   ],
 } as Meta;

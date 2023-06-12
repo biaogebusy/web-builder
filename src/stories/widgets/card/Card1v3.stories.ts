@@ -20,7 +20,8 @@ export default {
       providers: [],
     }),
     componentWrapperDecorator(
-      (story) => `<div fxFlex="300px" class="position-relative">${story}</div>`
+      (story) =>
+        `<div fxFlex="300px" class="widget position-relative">${story}</div>`
     ),
   ],
   parameters: {

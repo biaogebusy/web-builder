@@ -19,7 +19,7 @@ export default {
     }),
     componentWrapperDecorator(
       (story) =>
-        `<div fxFlex="50" fxFlexOffset="25" class="position-relative bg-shadow p-y p-x" style="z-index:1;">
+        `<div fxFlex="50" fxFlexOffset="25" class="widget position-relative bg-shadow p-y p-x" style="z-index:1;">
 
           <app-title [content]="{ 'label': 'xs', 'style': 'style-v4', 'classes': 'mat-display-1' }"></app-title>
           <div class="bg-primary">

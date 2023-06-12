@@ -17,6 +17,9 @@ export default {
       entryComponents: [...StorysModule.forEntryComponents()],
       imports: [StorysModule.forRoot()],
     }),
+    componentWrapperDecorator((story) => {
+      return `<div classs="widget">${story}</div>`;
+    }),
   ],
   parameters: {
     docs: {
