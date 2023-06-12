@@ -49,3 +49,10 @@
     }
   }
 }
+
+::ng-deep {
+  app-header,
+  app-footer {
+    display: none;
+  }
+}

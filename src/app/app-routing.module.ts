@@ -22,6 +22,11 @@ const routes: Routes = [
       import('./modules/manage/manage.module').then((m) => m.ManageModule),
   },
   {
+    path: 'builder',
+    loadChildren: () =>
+      import('./modules/builder/builder.module').then((m) => m.BuilderModule),
+  },
+  {
     path: '**',
     component: BlockComponent,
     canActivate: [AuthGuard],

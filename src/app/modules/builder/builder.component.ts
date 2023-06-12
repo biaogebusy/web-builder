@@ -4,7 +4,7 @@ import type { IPage } from '@core/interface/IAppConfig';
 import { ICard1v1 } from '@core/interface/widgets/ICard';
 import { ContentState } from '@core/state/ContentState';
 import { LocalStorage, LocalStorageService } from 'ngx-webstorage';
-
+import components from './builder.json';
 @Component({
   selector: 'app-builder',
   templateUrl: './builder.component.html',
@@ -28,6 +28,7 @@ export class BuilderComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.content = this.page;
+    this.components = components.data;
     this.contentState.animateDisable$.next(true);
   }
 

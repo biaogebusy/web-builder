@@ -1,0 +1,1231 @@
+{
+  "data": [
+    {
+      "label": "Hero",
+      "elements": [
+        {
+          "spacer": "none",
+          "type": "hero-1v1",
+          "classes": "text-light text-center",
+          "sliders": {
+            "params": {
+              "slidesPerView": 1,
+              "spaceBetween": 0,
+              "pagination": false
+            },
+            "elements": [
+              {
+                "type": "text",
+                "spacer": "xl",
+                "title": {
+                  "label": "开源",
+                  "style": "style-v1",
+                  "classes": "mat-display-3 bold"
+                },
+                "classes": "xy-center",
+                "bg": {
+                  "classes": "bg-center overlay overlay-80",
+                  "img": {
+                    "src": "/assets/images/16-9/business-14.jpeg",
+                    "mobile": "/assets/images/mobile/mobile-03.jpg"
+                  }
+                },
+                "body": "<p style=\"font-size:18px\">它是一个开放源代码软件，可以免费使用和修改</p>",
+                "actionsAlign": "center center",
+                "actions": [
+                  {
+                    "type": "btn",
+                    "mode": "raised",
+                    "color": "primary",
+                    "href": "#",
+                    "label": "开始"
+                  }
+                ]
+              },
+              {
+                "type": "text",
+                "title": {
+                  "label": "强大的内容管理功能",
+                  "style": "style-v1",
+                  "classes": "mat-display-3 bold"
+                },
+                "spacer": "xl",
+                "classes": "xy-center text-light",
+                "bg": {
+                  "classes": "bg-shadow  overlay overlay-80",
+                  "img": {
+                    "src": "/assets/images/16-9/business-15.jpeg",
+                    "mobile": "/assets/images/mobile/mobile-04.jpg"
+                  }
+                },
+                "body": "Drupal 已经超越了传统的 Web概念，可以通过不同的渠道部署你的数据内容，从一个数据中心点到各个应用，从简单到复杂。",
+                "actionsAlign": "center center",
+                "actions": [
+                  {
+                    "type": "btn",
+                    "mode": "raised",
+                    "color": "primary",
+                    "href": "#",
+                    "label": "开始"
+                  },
+                  {
+                    "type": "closeDialog",
+                    "label": "前往"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "type": "hero-1v2",
+          "spacer": "none",
+          "classes": "text-light text-center",
+          "sliders": {
+            "params": {
+              "slidesPerView": 1,
+              "spaceBetween": 0,
+              "pagination": true
+            },
+            "elements": [
+              {
+                "title": "使用 DEVTOOLS 对 ANGULAR 前端应用性能分析优化",
+                "subTitle": "使用 lighthouse 评分 以南宁IT派[www.nnitpai.com]为例记录分析优化过程，使用 Devtools lighthouse 对首页进行综合的评分",
+                "img": {
+                  "src": "/assets/images/hero/hero-1-v2-4.jpeg",
+                  "alt": ""
+                },
+                "btn": {
+                  "href": "#",
+                  "mode": "raised",
+                  "label": "查看更多",
+                  "classes": "round-btn"
+                }
+              },
+              {
+                "title": "使用 TAKEUNTIL 操作符管理 ANGULAR 组件的订阅",
+                "subTitle": "在 Rxjs 中，可以使用 takeUntil 来控制另外一个 Observable 对象数据的产生。",
+                "img": {
+                  "src": "/assets/images/hero/hero-1-v2-3.jpeg",
+                  "alt": ""
+                },
+                "btn": {
+                  "href": "#",
+                  "mode": "raised",
+                  "label": "查看更多",
+                  "classes": "round-btn"
+                }
+              },
+              {
+                "title": "你应该了解的 ANGULAR 最佳实践",
+                "subTitle": "遵循最佳实践可以让你的 Angular 应用保持性能优越，使团队的代码风格一致，以下代码摘自南宁IT派官网项目。",
+                "img": {
+                  "src": "/assets/images/hero/hero-1-v2-2.jpeg",
+                  "alt": ""
+                },
+                "btn": {
+                  "href": "#",
+                  "mode": "raised",
+                  "label": "查看更多",
+                  "classes": "round-btn"
+                }
+              },
+              {
+                "title": "ANGULAR 5 RXJS 5.5.2 多个 HTTP 并行 FORKJOIN 请求",
+                "subTitle": "在特定情况下，有些接口无法提供一次性的请求达到目的，需要并行的多次请求，当所有请求都完成时，才进行下一步的逻辑。",
+                "img": {
+                  "src": "/assets/images/hero/hero-1-v2-1.jpeg",
+                  "alt": ""
+                },
+                "btn": {
+                  "href": "#",
+                  "mode": "raised",
+                  "label": "查看更多",
+                  "classes": "round-btn"
+                }
+              }
+            ]
+          },
+          "bg": {
+            "classes": "bg-center overlay overlay-80",
+            "img": {
+              "src": "/assets/images/hero/bg-pattern-hero.png",
+              "mobile": "/assets/images/hero/bg-pattern-hero.png"
+            }
+          }
+        },
+        {
+          "type": "hero-1v3",
+          "spacer": "xl",
+          "text": {
+            "title": {
+              "label": "使用信使构建你们的项目",
+              "classes": "mat-display-4 bold",
+              "style": "style-v4"
+            },
+            "classes": "p-x",
+            "body": "信使是基于 Material UI 的 Angular 前端框架，后端适配 Drupal，提供优秀的数字创新体验。",
+            "actions": [
+              {
+                "type": "btn",
+                "mode": "raised",
+                "color": "primary",
+                "href": "#",
+                "label": "立刻体验",
+                "target": "_blank"
+              }
+            ]
+          },
+          "right": [
+            {
+              "type": "img",
+              "hostClasses": "img-bg-shape",
+              "src": "/assets/images/illustration/29.png"
+            }
+          ],
+          "name": "V1"
+        },
+        {
+          "type": "hero-1v3",
+          "spacer": "xl",
+          "text": {
+            "title": {
+              "label": "信使是一款 Angular 前端框架",
+              "classes": "mat-display-4 bold",
+              "style": "style-v4"
+            },
+            "classes": "p-x text-light",
+            "body": "信使是一款高度定制的 Angular UI 组件库，拥有超过60个复合组件，多个主题，可以快速适配您的品牌做活动营销。",
+            "actions": [
+              {
+                "type": "btn",
+                "mode": "raised",
+                "color": "primary",
+                "href": "#",
+                "label": "立刻体验",
+                "target": "_blank"
+              },
+              {
+                "type": "btn",
+                "mode": "raised",
+                "color": "primary",
+                "href": "#",
+                "label": "Demo",
+                "target": "_blank"
+              },
+              {
+                "type": "btn",
+                "mode": "raised",
+                "color": "primary",
+                "href": "#",
+                "label": "下载",
+                "target": "_blank"
+              },
+              {
+                "type": "btn-video",
+                "color": "primary",
+                "video": {
+                  "options": {
+                    "controls": true,
+                    "aspectRatio": "16:9",
+                    "poster": "/assets/images/16-9/business-02.jpg",
+                    "sources": [
+                      {
+                        "src": "/assets/video/afterglow.mp4",
+                        "type": "video/mp4"
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          },
+          "right": [
+            {
+              "type": "img",
+              "hostClasses": "img-bg-shape",
+              "src": "/assets/images/hero/hero-component.svg"
+            }
+          ],
+          "bg": {
+            "classes": "bg-fill-width bg-primary bg-center",
+            "img": {
+              "src": "/assets/images/bg/bg-hero.svg",
+              "mobile": "/assets/images/bg/bg-hero.svg"
+            }
+          },
+          "name": "v2"
+        },
+        {
+          "type": "hero-1v4",
+          "spacer": "xl",
+          "text": {
+            "title": {
+              "label": "Conduct More Customer In A Better Way",
+              "classes": "mat-display-4 bold",
+              "style": "style-v1"
+            },
+            "classes": "p-x text-center",
+            "body": "Launch your campaign and benefit from our expertise on designing and managing conversion centered bootstrap4 html page.",
+            "actionsAlign": "center center",
+            "actions": [
+              {
+                "type": "btn",
+                "mode": "raised",
+                "color": "primary",
+                "href": "#",
+                "label": "立刻体验",
+                "target": "_blank"
+              }
+            ]
+          },
+          "bg": {
+            "classes": "bg-fill-width overlay overlay-",
+            "img": {
+              "src": "/assets/images/bg/home-shape.png",
+              "hostClasses": "bg-center"
+            }
+          },
+          "widget": [
+            {
+              "type": "img",
+              "src": "/assets/images/illustration/29.png"
+            }
+          ],
+          "name": "V1"
+        },
+        {
+          "spacer": "xl",
+          "type": "hero-1v4",
+          "text": {
+            "title": {
+              "label": "Conduct More Customer In A Better Way",
+              "classes": "mat-display-4 bold",
+              "style": "style-v1"
+            },
+            "classes": "p-x text-center",
+            "body": "Launch your campaign and benefit from our expertise on designing and managing conversion centered bootstrap4 html page.",
+            "actionsAlign": "center center",
+            "actions": [
+              {
+                "type": "btn",
+                "mode": "raised",
+                "color": "primary",
+                "href": "#",
+                "label": "立刻体验",
+                "target": "_blank"
+              },
+              {
+                "type": "btn",
+                "color": "primary",
+                "label": "联系我们",
+                "icon": {
+                  "inline": true,
+                  "name": "phone"
+                },
+                "mode": "stroked"
+              }
+            ]
+          },
+          "bg": {
+            "classes": "bg-fill-width overlay overlay-",
+            "img": {
+              "src": "/assets/images/bg/bg-02.png",
+              "hostClasses": "bg-center"
+            }
+          },
+          "order": -1,
+          "style": {
+            "maxWidth": "800px",
+            "margin": "0 auto"
+          },
+          "widget": [
+            {
+              "type": "img",
+              "style": {
+                "maxHeight": "400px"
+              },
+              "src": "/assets/images/illustration/30.png"
+            }
+          ],
+          "name": "V2"
+        },
+        {
+          "type": "hero-2v1",
+          "theme": "text-light",
+          "params": {
+            "height": "750px"
+          },
+          "text": {
+            "title": {
+              "label": "light text, and xy center",
+              "style": "style-v1",
+              "classes": "mat-display-4"
+            },
+            "spacer": "xl",
+            "classes": "xy-center",
+            "style-": {
+              "width": "50%",
+              "left": "0%",
+              "top": "5%"
+            },
+            "bg": {
+              "classes": "bg-shadow overlay overlay-80",
+              "img": {
+                "src": "/assets/images/hero/1-6.jpg",
+                "mobile": "/assets/images/mobile/mobile-03.jpg"
+              }
+            },
+            "body": "The Vabeen’PLUM is designed with a 12ml ultra-large capacity tank to provide more vaping enjoyment than similar products. Every drop of e-liquid maximizes its value. Approx. 3500puffs per pod, which can last a week, free you from frequently filling.The translucent tank allows you to clearly observe the capacity of e - liquid.&nbsp;",
+            "actionsAlign": "center center",
+            "actions": [
+              {
+                "type": "btn",
+                "mode": "raised",
+                "color": "primary",
+                "href": "#",
+                "label": "Get Started"
+              },
+              {
+                "type": "closeDialog",
+                "label": "Ok"
+              }
+            ]
+          }
+        },
+        {
+          "type": "hero-2v1",
+          "theme": "text-light",
+          "params": {
+            "height": "750px"
+          },
+          "text": {
+            "title": {
+              "label": "Light text, Y center, enable overlay",
+              "style": "style-v4",
+              "classes": "mat-display-1"
+            },
+            "spacer": "xl",
+            "style": {
+              "width": "50%"
+            },
+            "classes": "y-center",
+            "bg": {
+              "classes": "bg-shadow overlay overlay-80",
+              "img": {
+                "src": "/assets/images/hero/329.jpg",
+                "mobile": "/assets/images/mobile/mobile-04.jpg"
+              }
+            },
+            "body": "The Vabeen’PLUM is designed with a 12ml ultra-large capacity tank to provide more vaping enjoyment than similar products. Every drop of e-liquid maximizes its value. Approx. 3500puffs per pod, which can last a week, free you from frequently filling.The translucent tank allows you to clearly observe the capacity of e - liquid. <br> <br>*individual user experience may vary, depending on usage",
+            "actionsAlign": "start center",
+            "actions": [
+              {
+                "type": "btn",
+                "mode": "raised",
+                "color": "primary",
+                "href": "#",
+                "label": "Get Started"
+              },
+              {
+                "type": "closeDialog",
+                "label": "Ok"
+              }
+            ]
+          },
+          "name": "Y轴中心"
+        },
+        {
+          "type": "hero-2v1",
+          "theme": "",
+          "params": {
+            "height": "750px"
+          },
+          "text": {
+            "title": {
+              "label": "Base text, Y center, X custom, enable overlay",
+              "style": "style-v4",
+              "classes": "mat-display-1"
+            },
+            "spacer": "xl",
+            "style": {
+              "width": "50%",
+              "left": "50%"
+            },
+            "classes": "y-center",
+            "bg": {
+              "classes": "bg-shadow overlay overlay-20",
+              "img": {
+                "src": "/assets/images/hero/light-bg.jpeg",
+                "mobile": "/assets/images/mobile/follower-04.jpg"
+              }
+            },
+            "body": "The Vabeen’PLUM is designed with a 12ml ultra-large capacity tank to provide more vaping enjoyment than similar products. Every drop of e-liquid maximizes its value. Approx. 3500puffs per pod, which can last a week, free you from frequently filling.The translucent tank allows you to clearly observe the capacity of e - liquid. <br> <br>*individual user experience may vary, depending on usage",
+            "actionsAlign": "start center",
+            "actions": [
+              {
+                "type": "btn",
+                "mode": "raised",
+                "color": "primary",
+                "href": "#",
+                "label": "Get Started"
+              },
+              {
+                "type": "closeDialog",
+                "label": "Ok"
+              }
+            ]
+          },
+          "name": "Y 轴中心 X 轴自定义"
+        },
+        {
+          "type": "hero-2v1",
+          "theme": "text-light",
+          "params": {
+            "height": "750px"
+          },
+          "text": {
+            "title": {
+              "label": "Base text, XY custom, enable overlay",
+              "style": "style-v4",
+              "classes": "mat-h2"
+            },
+            "spacer": "xl",
+            "style": {
+              "width": "50%",
+              "left": "40%",
+              "top": "10%"
+            },
+            "classes": "position-absolute",
+            "bg": {
+              "classes": "bg-shadow overlay overlay-80",
+              "img": {
+                "src": "/assets/images/hero/light-bg.jpeg",
+                "mobile": "/assets/images/mobile/mobile-02.jpg"
+              }
+            },
+            "body": "The Vabeen’PLUM is designed with a 12ml ultra-large capacity tank to provide more vaping enjoyment than similar products. Every drop of e-liquid maximizes its value. Approx. 3500puffs per pod, which can last a week, free you from frequently filling.The translucent tank allows you to clearly observe the capacity of e - liquid. <br> <br>*individual user experience may vary, depending on usage",
+            "actionsAlign": "start center",
+            "actions": [
+              {
+                "type": "btn",
+                "mode": "raised",
+                "color": "primary",
+                "href": "#",
+                "label": "Get Started"
+              },
+              {
+                "type": "closeDialog",
+                "label": "Ok"
+              }
+            ]
+          },
+          "name": "XY 轴自定义"
+        },
+        {
+          "type": "hero-2v2",
+          "spacer": "lg",
+          "id": "xxx",
+          "bg": {
+            "classes": "bg-fill-width overlay",
+            "img": {
+              "classes": "object-fit",
+              "src": "/assets/images/16-9/business-16.jpeg"
+            }
+          },
+          "body": {
+            "type": "text",
+            "title": {
+              "label": "开源项目使用 Github actions 自动化",
+              "style": "style-v4",
+              "classes": "mat-display-1"
+            },
+            "body": "<p>Github actions 从2019年就免费开放给个人开源项目使用，对于自动化开放测试部署，开发者一定非常的熟悉，如果把中间这项流程做好，不仅节省了大量的人力也大大加快了开发效率，在配置完善的情况下可以提高代码质量。</p>",
+            "actions": [
+              {
+                "type": "btn",
+                "mode": "raised",
+                "color": "primary",
+                "href": "#",
+                "label": "了解更多",
+                "icon": {
+                  "name": "chat",
+                  "inline": true
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "hero-2v3",
+          "id": "xxx",
+          "spacer": "lg",
+          "shape": true,
+          "bg": {
+            "classes": "bg-center",
+            "img": {
+              "hostClasses": "bg-center",
+              "src": "/assets/images/bg/bg-04.png"
+            }
+          },
+          "text": {
+            "title": {
+              "label": "开源项目使用 Github actions 自动化",
+              "style": "none",
+              "classes": "mat-display-1"
+            },
+            "spacer": "none",
+            "body": "<p>Github actions 从2019年就免费开放给个人开源项目使用，对于自动化开放测试部署，开发者一定非常的熟悉，如果把中间这项流程做好，不仅节省了大量的人力也大大加快了开发效率，在配置完善的情况下可以提高代码质量。</p>"
+          },
+          "row": 6,
+          "elements": [
+            {
+              "img": {
+                "src": "/assets/images/svg/health.svg",
+                "href": "/"
+              },
+              "link": {
+                "href": "/",
+                "label": "高性能"
+              }
+            },
+            {
+              "img": {
+                "src": "/assets/images/svg/term-life.svg",
+                "href": "/"
+              },
+              "link": {
+                "href": "/",
+                "label": "易用的编辑器"
+              }
+            },
+            {
+              "img": {
+                "src": "/assets/images/svg/family-health.svg",
+                "href": "/"
+              },
+              "link": {
+                "href": "/",
+                "label": "多语言"
+              }
+            },
+            {
+              "img": {
+                "src": "/assets/images/svg/investment.svg",
+                "href": "/"
+              },
+              "link": {
+                "href": "/",
+                "label": "更有弹性"
+              }
+            },
+            {
+              "img": {
+                "src": "/assets/images/svg/car.svg",
+                "href": "/"
+              },
+              "link": {
+                "href": "/",
+                "label": "安全性"
+              }
+            },
+            {
+              "img": {
+                "src": "/assets/images/svg/bike.svg",
+                "href": "/"
+              },
+              "link": {
+                "href": "/",
+                "label": "无障碍访问"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Showcase",
+      "elements": [
+        {
+          "type": "showcase-1v1",
+          "classes": "features-absolute",
+          "spacer": "lg",
+          "bg": {
+            "classes": "bg-shadow bg-fill-width"
+          },
+          "row": 4,
+          "elements": [
+            {
+              "icon": {
+                "name": "verified_user"
+              },
+              "style": "style-v9",
+              "title": {
+                "href": "/?path=/story/guide--page",
+                "label": "开发指南"
+              },
+              "content": "开发前环境的设置，详细介绍应用参数的初始化配置",
+              "more": {
+                "href": "/?path=/story/guide--page",
+                "label": "更多"
+              }
+            },
+            {
+              "icon": {
+                "name": "fingerprint"
+              },
+              "style": "style-v9",
+              "title": {
+                "href": "/?path=/story/themeconfig--page",
+                "label": "主题定制"
+              },
+              "content": "详细介绍如何新建主题，通过色盘来构建UI颜色",
+              "more": {
+                "href": "/?path=/story/themeconfig--page",
+                "label": "更多"
+              }
+            },
+            {
+              "icon": {
+                "name": "favorite"
+              },
+              "style": "style-v9",
+              "title": {
+                "href": "/?path=/story/flexlayout--page",
+                "label": "FxLayout 布局"
+              },
+              "content": "在模板中使用动态响应式灵活 flex 快速布局",
+              "more": {
+                "href": "/?path=/story/flexlayout--page",
+                "label": "更多"
+              }
+            },
+            {
+              "icon": {
+                "name": "android"
+              },
+              "style": "style-v9",
+              "title": {
+                "href": "/?path=/story/home-v1--page",
+                "label": "页面示例"
+              },
+              "content": "我们构建了多个页面的示例，展示组件的灵活性",
+              "more": {
+                "href": "/?path=/story/home-v1--page",
+                "label": "更多"
+              }
+            }
+          ]
+        },
+        {
+          "type": "showcase-1v1",
+          "title": {
+            "label": "Showcase 1 v1 style v1",
+            "style": "style-v1"
+          },
+          "row": 4,
+          "elements": [
+            {
+              "icon": {
+                "name": "verified_user"
+              },
+              "style": "style-v1",
+              "title": {
+                "href": "/?path=/story/guide--page",
+                "label": "开发指南"
+              },
+              "content": "开发前环境的设置，详细介绍应用参数的初始化配置",
+              "more": {
+                "href": "/?path=/story/guide--page",
+                "label": "更多"
+              }
+            },
+            {
+              "icon": {
+                "name": "fingerprint"
+              },
+              "style": "style-v1",
+              "title": {
+                "href": "/?path=/story/themeconfig--page",
+                "label": "主题定制"
+              },
+              "content": "详细介绍如何新建主题，通过色盘来构建UI颜色",
+              "more": {
+                "href": "/?path=/story/themeconfig--page",
+                "label": "更多"
+              }
+            },
+            {
+              "icon": {
+                "name": "favorite"
+              },
+              "style": "style-v1",
+              "title": {
+                "href": "/?path=/story/flexlayout--page",
+                "label": "FxLayout 布局"
+              },
+              "content": "在模板中使用动态响应式灵活 flex 快速布局",
+              "more": {
+                "href": "/?path=/story/flexlayout--page",
+                "label": "更多"
+              }
+            },
+            {
+              "icon": {
+                "name": "android"
+              },
+              "style": "style-v1",
+              "title": {
+                "href": "/?path=/story/home-v1--page",
+                "label": "页面示例"
+              },
+              "content": "我们构建了多个页面的示例，展示组件的灵活性",
+              "more": {
+                "href": "/?path=/story/home-v1--page",
+                "label": "更多"
+              }
+            }
+          ],
+          "name": "Style v1"
+        },
+        {
+          "type": "showcase-1v1",
+          "title": {
+            "label": "Showcase 1 v1 style v2",
+            "style": "style-v2",
+            "icon": "mail"
+          },
+          "row": 4,
+          "bg": {
+            "classes": "bg-shadow bg-fill-width"
+          },
+          "elements": [
+            {
+              "icon": {
+                "name": "verified_user"
+              },
+              "style": "style-v2",
+              "title": {
+                "href": "/?path=/story/guide--page",
+                "label": "开发指南"
+              },
+              "content": "开发前环境的设置，详细介绍应用参数的初始化配置",
+              "more": {
+                "href": "/?path=/story/guide--page",
+                "label": "更多"
+              }
+            },
+            {
+              "icon": {
+                "name": "fingerprint"
+              },
+              "style": "style-v2",
+              "title": {
+                "href": "/?path=/story/themeconfig--page",
+                "label": "主题定制"
+              },
+              "content": "详细介绍如何新建主题，通过色盘来构建UI颜色",
+              "more": {
+                "href": "/?path=/story/themeconfig--page",
+                "label": "更多"
+              }
+            },
+            {
+              "icon": {
+                "name": "favorite"
+              },
+              "style": "style-v2",
+              "title": {
+                "href": "/?path=/story/flexlayout--page",
+                "label": "FxLayout 布局"
+              },
+              "content": "在模板中使用动态响应式灵活 flex 快速布局",
+              "more": {
+                "href": "/?path=/story/flexlayout--page",
+                "label": "更多"
+              }
+            },
+            {
+              "icon": {
+                "name": "android"
+              },
+              "style": "style-v2",
+              "title": {
+                "href": "/?path=/story/home-v1--page",
+                "label": "页面示例"
+              },
+              "content": "我们构建了多个页面的示例，展示组件的灵活性",
+              "more": {
+                "href": "/?path=/story/home-v1--page",
+                "label": "更多"
+              }
+            }
+          ],
+          "name": "Style v2"
+        },
+        {
+          "type": "showcase-1v1",
+          "title": {
+            "label": "Showcase 1 v1 style v3",
+            "style": "style-v3"
+          },
+          "row": 4,
+          "style": "style-v3",
+          "elements": [
+            {
+              "icon": {
+                "name": "verified_user"
+              },
+              "style": "style-v3",
+              "title": {
+                "href": "/?path=/story/guide--page",
+                "label": "开发指南"
+              },
+              "content": "开发前环境的设置，详细介绍应用参数的初始化配置",
+              "more": {
+                "href": "/?path=/story/guide--page",
+                "label": "更多"
+              }
+            },
+            {
+              "icon": {
+                "name": "fingerprint"
+              },
+              "style": "style-v3",
+              "title": {
+                "href": "/?path=/story/themeconfig--page",
+                "label": "主题定制"
+              },
+              "content": "详细介绍如何新建主题，通过色盘来构建UI颜色",
+              "more": {
+                "href": "/?path=/story/themeconfig--page",
+                "label": "更多"
+              }
+            },
+            {
+              "icon": {
+                "name": "favorite"
+              },
+              "style": "style-v3",
+              "title": {
+                "href": "/?path=/story/flexlayout--page",
+                "label": "FxLayout 布局"
+              },
+              "content": "在模板中使用动态响应式灵活 flex 快速布局",
+              "more": {
+                "href": "/?path=/story/flexlayout--page",
+                "label": "更多"
+              }
+            },
+            {
+              "icon": {
+                "name": "android"
+              },
+              "style": "style-v3",
+              "title": {
+                "href": "/?path=/story/home-v1--page",
+                "label": "页面示例"
+              },
+              "content": "我们构建了多个页面的示例，展示组件的灵活性",
+              "more": {
+                "href": "/?path=/story/home-v1--page",
+                "label": "更多"
+              }
+            }
+          ],
+          "name": "Style v3"
+        },
+        {
+          "type": "showcase-1v1",
+          "title": {
+            "label": "Showcase 1 v1 style v4",
+            "style": "style-v4"
+          },
+          "row": 4,
+          "bg": {
+            "classes": "bg-shadow bg-fill-width"
+          },
+          "elements": [
+            {
+              "icon": {
+                "name": "verified_user"
+              },
+              "style": "style-v4",
+              "title": {
+                "href": "/?path=/story/guide--page",
+                "label": "开发指南"
+              },
+              "content": "开发前环境的设置，详细介绍应用参数的初始化配置",
+              "more": {
+                "href": "/?path=/story/guide--page",
+                "label": "更多"
+              }
+            },
+            {
+              "icon": {
+                "name": "fingerprint"
+              },
+              "style": "style-v4",
+              "title": {
+                "href": "/?path=/story/themeconfig--page",
+                "label": "主题定制"
+              },
+              "content": "详细介绍如何新建主题，通过色盘来构建UI颜色",
+              "more": {
+                "href": "/?path=/story/themeconfig--page",
+                "label": "更多"
+              }
+            },
+            {
+              "icon": {
+                "name": "favorite"
+              },
+              "style": "style-v4",
+              "title": {
+                "href": "/?path=/story/flexlayout--page",
+                "label": "FxLayout 布局"
+              },
+              "content": "在模板中使用动态响应式灵活 flex 快速布局",
+              "more": {
+                "href": "/?path=/story/flexlayout--page",
+                "label": "更多"
+              }
+            },
+            {
+              "icon": {
+                "name": "android"
+              },
+              "style": "style-v4",
+              "title": {
+                "href": "/?path=/story/home-v1--page",
+                "label": "页面示例"
+              },
+              "content": "我们构建了多个页面的示例，展示组件的灵活性",
+              "more": {
+                "href": "/?path=/story/home-v1--page",
+                "label": "更多"
+              }
+            }
+          ],
+          "name": "Style v4"
+        },
+        {
+          "type": "showcase-1v1",
+          "title": {
+            "label": "Showcase 1 v1 style v5",
+            "style": "style-v5"
+          },
+          "row": 4,
+          "elements": [
+            {
+              "icon": {
+                "name": "verified_user"
+              },
+              "style": "style-v5",
+              "title": {
+                "href": "/?path=/story/guide--page",
+                "label": "开发指南"
+              },
+              "content": "开发前环境的设置，详细介绍应用参数的初始化配置",
+              "more": {
+                "href": "/?path=/story/guide--page",
+                "label": "更多"
+              }
+            },
+            {
+              "icon": {
+                "name": "fingerprint"
+              },
+              "style": "style-v5",
+              "title": {
+                "href": "/?path=/story/themeconfig--page",
+                "label": "主题定制"
+              },
+              "content": "详细介绍如何新建主题，通过色盘来构建UI颜色",
+              "more": {
+                "href": "/?path=/story/themeconfig--page",
+                "label": "更多"
+              }
+            },
+            {
+              "icon": {
+                "name": "favorite"
+              },
+              "style": "style-v5",
+              "title": {
+                "href": "/?path=/story/flexlayout--page",
+                "label": "FxLayout 布局"
+              },
+              "content": "在模板中使用动态响应式灵活 flex 快速布局",
+              "more": {
+                "href": "/?path=/story/flexlayout--page",
+                "label": "更多"
+              }
+            },
+            {
+              "icon": {
+                "name": "android"
+              },
+              "style": "style-v5",
+              "title": {
+                "href": "/?path=/story/home-v1--page",
+                "label": "页面示例"
+              },
+              "content": "我们构建了多个页面的示例，展示组件的灵活性",
+              "more": {
+                "href": "/?path=/story/home-v1--page",
+                "label": "更多"
+              }
+            }
+          ],
+          "name": "Style v5"
+        },
+        {
+          "type": "showcase-1v1",
+          "title": {
+            "label": "Showcase 1 v1 style v6",
+            "style": "style-v6"
+          },
+          "row": 4,
+          "bg": {
+            "classes": "bg-shadow bg-fill-width"
+          },
+          "elements": [
+            {
+              "icon": {
+                "name": "verified_user"
+              },
+              "style": "style-v6",
+              "title": {
+                "href": "/?path=/story/guide--page",
+                "label": "开发指南"
+              },
+              "content": "开发前环境的设置，详细介绍应用参数的初始化配置",
+              "more": {
+                "href": "/?path=/story/guide--page",
+                "label": "更多"
+              }
+            },
+            {
+              "icon": {
+                "name": "fingerprint"
+              },
+              "style": "style-v6",
+              "title": {
+                "href": "/?path=/story/themeconfig--page",
+                "label": "主题定制"
+              },
+              "content": "详细介绍如何新建主题，通过色盘来构建UI颜色",
+              "more": {
+                "href": "/?path=/story/themeconfig--page",
+                "label": "更多"
+              }
+            },
+            {
+              "icon": {
+                "name": "favorite"
+              },
+              "style": "style-v6",
+              "title": {
+                "href": "/?path=/story/flexlayout--page",
+                "label": "FxLayout 布局"
+              },
+              "content": "在模板中使用动态响应式灵活 flex 快速布局",
+              "more": {
+                "href": "/?path=/story/flexlayout--page",
+                "label": "更多"
+              }
+            },
+            {
+              "icon": {
+                "name": "android"
+              },
+              "style": "style-v6",
+              "title": {
+                "href": "/?path=/story/home-v1--page",
+                "label": "页面示例"
+              },
+              "content": "我们构建了多个页面的示例，展示组件的灵活性",
+              "more": {
+                "href": "/?path=/story/home-v1--page",
+                "label": "更多"
+              }
+            }
+          ],
+          "name": "Style v6"
+        },
+        {
+          "type": "showcase-1v1",
+          "title": {
+            "label": "Showcase 1 v1 style v7",
+            "style": "style-v7"
+          },
+          "row": 4,
+          "elements": [
+            {
+              "icon": {
+                "name": "verified_user"
+              },
+              "style": "style-v7",
+              "title": {
+                "href": "/?path=/story/guide--page",
+                "label": "开发指南"
+              },
+              "content": "开发前环境的设置，详细介绍应用参数的初始化配置",
+              "more": {
+                "href": "/?path=/story/guide--page",
+                "label": "更多"
+              }
+            },
+            {
+              "icon": {
+                "name": "fingerprint"
+              },
+              "style": "style-v7",
+              "title": {
+                "href": "/?path=/story/themeconfig--page",
+                "label": "主题定制"
+              },
+              "content": "详细介绍如何新建主题，通过色盘来构建UI颜色",
+              "more": {
+                "href": "/?path=/story/themeconfig--page",
+                "label": "更多"
+              }
+            },
+            {
+              "icon": {
+                "name": "favorite"
+              },
+              "style": "style-v7",
+              "title": {
+                "href": "/?path=/story/flexlayout--page",
+                "label": "FxLayout 布局"
+              },
+              "content": "在模板中使用动态响应式灵活 flex 快速布局",
+              "more": {
+                "href": "/?path=/story/flexlayout--page",
+                "label": "更多"
+              }
+            },
+            {
+              "icon": {
+                "name": "android"
+              },
+              "style": "style-v7",
+              "title": {
+                "href": "/?path=/story/home-v1--page",
+                "label": "页面示例"
+              },
+              "content": "我们构建了多个页面的示例，展示组件的灵活性",
+              "more": {
+                "href": "/?path=/story/home-v1--page",
+                "label": "更多"
+              }
+            }
+          ],
+          "name": "Style v7"
+        }
+      ]
+    }
+  ]
+}
