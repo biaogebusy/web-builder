@@ -7,7 +7,7 @@ import {
   Output,
 } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
-import { IPage } from '@core/interface/IAppConfig';
+import type { IPage } from '@core/interface/IAppConfig';
 
 @Component({
   selector: 'app-builder-content-toolbar',

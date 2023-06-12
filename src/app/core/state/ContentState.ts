@@ -25,7 +25,7 @@ export class ContentState {
     index: number;
     uuid: number;
   }>();
-  public initPage: IPage = {
+  public page: IPage = {
     title: '着陆页',
     body: [],
   };
@@ -38,48 +38,46 @@ export class ContentState {
   ) {
     const localPage = this.storage.retrieve(this.pageKey);
     if (localPage) {
-      this.initPage = localPage;
+      this.page = localPage;
+    } else {
+      this.initPage();
     }
   }
 
   pushComponent(content: any): void {
     if (content && content.type) {
-      this.initPage.body.push(content);
-      this.builderContent$.next(this.initPage);
+      this.page.body.push(content);
+      this.builderContent$.next(this.page);
       this.updatePage();
     } else {
       this.util.openSnackbar('组件添加错误', 'ok');
     }
   }
 
-  clearComponent(): void {
-    this.initPage = {
-      title: 'Builder Page',
+  initPage(): void {
+    this.page = {
+      title: '着陆页',
       body: [],
     };
-    this.storage.clear(this.pageKey);
+    this.updatePage();
   }
 
   deleteComponent(index: number): void {
-    this.initPage.body.splice(index, 1);
+    this.page.body.splice(index, 1);
     this.updatePage();
   }
 
   updateComponent(index: number, content: any): void {
-    this.initPage.body[index] = content;
+    this.page.body[index] = content;
     this.updatePage();
   }
 
   updatePage(): void {
-    this.storage.store(this.pageKey, Object.assign({}, this.initPage));
+    this.storage.store(this.pageKey, Object.assign({}, this.page));
   }
 
   dropComponent(event: CdkDragDrop<string[]>): void {
-    moveItemInArray(
-      this.initPage.body,
-      event.previousIndex,
-      event.currentIndex
-    );
+    moveItemInArray(this.page.body, event.previousIndex, event.currentIndex);
     this.updatePage();
   }
 
@@ -87,7 +85,7 @@ export class ContentState {
   transferComponet(event: CdkDragDrop<string[]>): void {
     transferArrayItem(
       event.previousContainer.data,
-      this.initPage.body,
+      this.page.body,
       event.previousIndex,
       event.currentIndex
     );
