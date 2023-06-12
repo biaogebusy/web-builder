@@ -43,6 +43,7 @@
         overflow-y: auto;
       }
     }
+    // don't move
     .placeholder {
       height: 80px;
       transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
