@@ -26,7 +26,7 @@ export class ContentState {
     uuid: number;
   }>();
   public initPage: IPage = {
-    title: 'Builder Page',
+    title: '着陆页',
     body: [],
   };
 

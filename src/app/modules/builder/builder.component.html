@@ -20,7 +20,13 @@
                   <span class="right" *ngIf="component.name">{{component.name}}</span>
                 </div>
                 <mat-divider></mat-divider>
-                <app-drag-preview [content]="component"></app-drag-preview>
+                <div class="placeholder" *cdkDragPlaceholder></div>
+                <app-card-1v1 style="width:800px" *cdkDragPreview [content]="{
+                      link:{
+                        href:'#',
+                        label: component.type
+                      },components:[component]
+                    }"></app-card-1v1>
               </mat-list-option>
             </mat-selection-list>
           </mat-list>
@@ -34,9 +40,7 @@
       <div class="showcase" *ngIf="showcase">
         <app-card-1v1 [content]="showcase"></app-card-1v1>
       </div>
-      <ng-container *ngIf="content?.body?.length">
-        <app-builder-list [isPreview]="true" [content]="content.body" (dropChange)="drop($event)"></app-builder-list>
-      </ng-container>
+      <app-builder-list [isPreview]="true" [content]="content.body" (dropChange)="drop($event)"></app-builder-list>
     </mat-drawer-content>
   </mat-drawer-container>
 </div>
