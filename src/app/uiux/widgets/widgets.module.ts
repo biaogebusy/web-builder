@@ -122,6 +122,7 @@ import { ComponentToolbarComponent } from './builder/component-toolbar/component
 import { BuilderMenuComponent } from './builder/builder-menu/builder-menu.component';
 import { MatBadgeModule } from '@angular/material/badge';
 import { NotifyComponent } from './notify/notify.component';
+import { LogoComponent } from './img/logo/logo.component';
 
 FullCalendarModule.registerPlugins([
   // register FullCalendar plugins
@@ -133,6 +134,7 @@ FullCalendarModule.registerPlugins([
 const components = [
   BgComponent,
   ImgComponent,
+  LogoComponent,
   MapComponent,
   BoxComponent,
   TextComponent,

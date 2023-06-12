@@ -21,7 +21,6 @@ import { FixBarComponent } from './footer/fix-bar/fix-bar.component';
 import { FixBarPopupComponent } from './footer/fix-bar/fix-bar-popup/fix-bar-popup.component';
 import { HoverMenuComponent } from './header/menu/item-menu/hover-menu/hover-menu.component';
 import { ManageSidebarComponent } from './manage-sidebar/manage-sidebar.component';
-import { LogoComponent } from './meta/logo/logo.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +44,6 @@ import { LogoComponent } from './meta/logo/logo.component';
     FixBarPopupComponent,
     HoverMenuComponent,
     ManageSidebarComponent,
-    LogoComponent,
   ],
   imports: [ShareModule, WidgetsModule],
   exports: [

@@ -9,6 +9,8 @@ import { BuilderSidebarTopComponent } from './builder-sidebar-top/builder-sideba
 import { BuilderContentToolbarComponent } from './builder-content-toolbar/builder-content-toolbar.component';
 import { BuilderRoutingModule } from './builder-routing.module';
 import { BuilderSidebarListComponent } from './builder-sidebar-list/builder-sidebar-list.component';
+import { BuilderEmptyComponent } from './builder-empty/builder-empty.component';
+import { BuilderShowcaseComponent } from './builder-showcase/builder-showcase.component';
 const compoments = [BuilderComponent, BuilderListComponent];
 
 @NgModule({
@@ -17,6 +19,8 @@ const compoments = [BuilderComponent, BuilderListComponent];
     BuilderSidebarTopComponent,
     BuilderContentToolbarComponent,
     BuilderSidebarListComponent,
+    BuilderEmptyComponent,
+    BuilderShowcaseComponent,
   ],
   imports: [
     ShareModule,

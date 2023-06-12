@@ -14,6 +14,9 @@ export class BuilderComponent implements OnInit, AfterViewInit {
   @Input() content: IPage;
   @LocalStorage('page')
   page: IPage;
+
+  @LocalStorage('builderFullSize')
+  builderFullSize: boolean;
   components: {
     label: string;
     elements: any[];
@@ -29,6 +32,9 @@ export class BuilderComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.content = this.page;
     this.components = components.data;
+    if (!this.builderFullSize) {
+      this.storage.store('builderFullSize', false);
+    }
     this.contentState.animateDisable$.next(true);
   }
 

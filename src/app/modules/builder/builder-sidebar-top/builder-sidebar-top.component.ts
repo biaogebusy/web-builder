@@ -1,4 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
+import { MatDrawer } from '@angular/material/sidenav';
+import { IBranding } from '@core/interface/branding/IBranding';
+import { BRANDING } from '@core/token/token-providers';
+import { LocalStorageService } from 'ngx-webstorage';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-builder-sidebar-top',
@@ -7,8 +12,16 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class BuilderSidebarTopComponent implements OnInit {
   @Input() opened: boolean;
-  @Input() drawer: any;
-  constructor() {}
+  @Input() drawer: MatDrawer;
+  constructor(
+    private storage: LocalStorageService,
+    @Inject(BRANDING) public branding$: Observable<IBranding>
+  ) {}
 
   ngOnInit(): void {}
+
+  onClose(): void {
+    this.drawer.close();
+    this.storage.store('builderFullSize', true);
+  }
 }

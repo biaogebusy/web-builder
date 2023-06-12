@@ -1,4 +1,4 @@
-<div class="builder">
+<div class="builder" [ngClass]="{'has-sidebar':!builderFullSize}">
   <mat-drawer-container>
     <mat-drawer #drawer class="sidebar" mode="side" [(opened)]="opened">
       <app-builder-sidebar-top [drawer]="drawer" [opened]="opened"></app-builder-sidebar-top>
@@ -19,10 +19,8 @@
     <mat-drawer-content>
       <app-builder-content-toolbar [drawer]="drawer" [opened]="opened" [page]="page"
         (animateChange)="onAnimate()"></app-builder-content-toolbar>
-      <div class="overlay" *ngIf="showcase"></div>
-      <div class="showcase" *ngIf="showcase">
-        <app-card-1v1 [content]="showcase"></app-card-1v1>
-      </div>
+      <app-builder-showcase *ngIf="showcase" [content]="showcase"></app-builder-showcase>
+      <app-builder-empty *ngIf="!content?.body?.length"></app-builder-empty>
       <app-builder-list [isPreview]="true" [content]="content.body" (dropChange)="drop($event)"></app-builder-list>
     </mat-drawer-content>
   </mat-drawer-container>

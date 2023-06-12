@@ -32,6 +32,7 @@ export class DynamicComponentComponent implements OnInit, OnChanges, OnDestroy {
   @Input() inputs: dynamicInputs;
   @Input() index: number;
   @Input() isPreview: boolean;
+  @Input() activeToolBar = true;
   @HostBinding('class.active-toolbar') hostClass = false;
   @ViewChild('componentContainer', { read: ViewContainerRef, static: true })
   container: ViewContainerRef;
@@ -94,10 +95,7 @@ export class DynamicComponentComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   checkBuilder(content: any): void {
-    if (
-      this.coreConfig.builder?.enable &&
-      this.userService.checkShow(content, this.user)
-    ) {
+    if (this.coreConfig.builder?.enable && this.activeToolBar) {
       this.hostClass = true;
     }
   }

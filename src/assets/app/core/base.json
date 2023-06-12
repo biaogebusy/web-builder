@@ -217,7 +217,7 @@
     }
   },
   "dialog": {
-    "forceDialog": {
+    "forceDialogBak": {
       "params": {
         "width": "500px",
         "path": "home",

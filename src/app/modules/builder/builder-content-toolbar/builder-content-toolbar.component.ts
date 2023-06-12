@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import type { IPage } from '@core/interface/IAppConfig';
+import { LocalStorageService } from 'ngx-webstorage';
 
 @Component({
   selector: 'app-builder-content-toolbar',
@@ -21,11 +22,15 @@ export class BuilderContentToolbarComponent implements OnInit {
   @Input() page: IPage;
 
   @Output() animateChange: EventEmitter<boolean> = new EventEmitter();
-  constructor() {}
+  constructor(private storage: LocalStorageService) {}
 
   ngOnInit(): void {}
 
   loadAnimate(): void {
     this.animateChange.emit(true);
+  }
+  onOpen(): void {
+    this.drawer.open();
+    this.storage.store('builderFullSize', false);
   }
 }

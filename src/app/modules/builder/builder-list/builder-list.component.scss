@@ -1,4 +1,7 @@
 .builder-list {
+  display: block;
+  height: calc(100% - 55px);
+  overflow-y: auto;
   cursor: move;
   .component-item {
     position: relative;

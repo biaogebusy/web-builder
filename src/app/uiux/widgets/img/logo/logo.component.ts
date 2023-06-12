@@ -7,7 +7,7 @@ import type { ILogo } from '@core/interface/branding/IBranding';
   styleUrls: ['./logo.component.scss'],
 })
 export class LogoComponent implements OnInit {
-  @Input() content: ILogo;
+  @Input() content: ILogo | undefined;
   constructor() {}
 
   ngOnInit(): void {}
