@@ -16,6 +16,7 @@ import { ScreenService } from '@core/service/screen.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import type { IShowcase1v1 } from '@core/interface/combs/IShowcase';
 import { ContentState } from '@core/state/ContentState';
+import { BuilderState } from '@core/state/BuilderState';
 
 @Component({
   selector: 'app-showcase-1v1',
@@ -35,6 +36,7 @@ export class Showcase1v1Component
     private el: ElementRef,
     private screenService: ScreenService,
     private contentState: ContentState,
+    private builder: BuilderState,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
   ) {
     super();
@@ -46,7 +48,7 @@ export class Showcase1v1Component
       this.contentState.drawerOpened$.subscribe((state) => {
         this.disableAnimate = state;
       });
-      this.contentState.animateDisable$.subscribe((state) => {
+      this.builder.animateDisable$.subscribe((state) => {
         this.disableAnimate = state;
       });
     }

@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import type { IPage } from '@core/interface/IAppConfig';
 import { UtilitiesService } from '@core/service/utilities.service';
+import { BuilderState } from '@core/state/BuilderState';
 import { ContentState } from '@core/state/ContentState';
 import { LocalStorage, LocalStorageService } from 'ngx-webstorage';
 
@@ -26,6 +27,7 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit {
 
   constructor(
     public contentState: ContentState,
+    private builder: BuilderState,
     private util: UtilitiesService,
     private cd: ChangeDetectorRef,
     private storage: LocalStorageService
@@ -38,14 +40,14 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit {
   }
 
   getTotal(): void {
-    const localPage = this.storage.retrieve(this.contentState.pageKey);
+    const localPage = this.storage.retrieve(this.builder.pageKey);
     if (localPage) {
       this.total = localPage.body.length;
     } else {
       this.total = 0;
     }
     this.cd.detectChanges();
-    this.storage.observe(this.contentState.pageKey).subscribe((page) => {
+    this.storage.observe(this.builder.pageKey).subscribe((page) => {
       if (page && page.body) {
         this.total = page.body.length;
       } else {
@@ -70,7 +72,7 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit {
   }
 
   onClear(): void {
-    this.contentState.initPage();
+    this.builder.initPage();
     this.contentState.drawerOpened$.next(false);
     this.util.openSnackbar('预览页面的组件已清空', 'ok');
   }

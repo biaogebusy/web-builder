@@ -10,7 +10,7 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import type { IComponentToolbar } from '@core/interface/combs/IBuilder';
 import { UtilitiesService } from '@core/service/utilities.service';
-import { ContentState } from '@core/state/ContentState';
+import { BuilderState } from '@core/state/BuilderState';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 
 @Component({
@@ -32,7 +32,7 @@ export class ComponentToolbarComponent implements OnInit {
   dialogRef: any;
 
   constructor(
-    private contentState: ContentState,
+    private builder: BuilderState,
     private util: UtilitiesService,
     private dialog: MatDialog
   ) {}
@@ -40,7 +40,7 @@ export class ComponentToolbarComponent implements OnInit {
   ngOnInit(): void {}
 
   addComponent(content: any): any {
-    this.contentState.pushComponent(content);
+    this.builder.pushComponent(content);
     this.util.openSnackbar(`已添加${content.type}到预览页面！`, 'ok');
   }
 
@@ -77,7 +77,7 @@ export class ComponentToolbarComponent implements OnInit {
   }
 
   onDelete(content: any, index: number): void {
-    this.contentState.deleteComponent(index);
+    this.builder.deleteComponent(index);
     this.util.openSnackbar(`已在移除${content.type}组件！`, 'ok');
   }
 }

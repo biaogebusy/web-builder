@@ -16,6 +16,7 @@ import { ScreenService } from '@core/service/screen.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { ContentState } from '@core/state/ContentState';
+import { BuilderState } from '@core/state/BuilderState';
 
 @Component({
   selector: 'app-text',
@@ -35,6 +36,7 @@ export class TextComponent implements OnInit, AfterViewInit {
   constructor(
     private screenService: ScreenService,
     private contentState: ContentState,
+    private builder: BuilderState,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
   ) {}
 
@@ -44,7 +46,7 @@ export class TextComponent implements OnInit, AfterViewInit {
       this.contentState.drawerOpened$.subscribe((state) => {
         this.disableAnimate = state;
       });
-      this.contentState.animateDisable$.subscribe((state) => {
+      this.builder.animateDisable$.subscribe((state) => {
         this.disableAnimate = state;
       });
     }

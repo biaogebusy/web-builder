@@ -14,7 +14,7 @@ import {
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type { IUser } from '@core/interface/IUser';
 import { ComponentService } from '@core/service/component.service';
-import { ContentState } from '@core/state/ContentState';
+import { BuilderState } from '@core/state/BuilderState';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
 
 export interface dynamicInputs {
@@ -39,13 +39,13 @@ export class DynamicComponentComponent implements OnInit, OnChanges, OnDestroy {
   public component: ComponentRef<unknown> | ComponentRef<any> | undefined | any;
   constructor(
     private componentService: ComponentService,
-    private contentState: ContentState,
+    private builder: BuilderState,
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
     @Inject(USER) private user: IUser
   ) {}
 
   ngOnInit(): void {
-    this.contentState.jsoneditorContent$.subscribe((data) => {
+    this.builder.jsoneditorContent$.subscribe((data) => {
       const { index, content, uuid } = data;
       if (this.uuid === uuid) {
         this.inputs = content;

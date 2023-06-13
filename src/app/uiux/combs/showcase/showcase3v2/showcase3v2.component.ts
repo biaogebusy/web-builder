@@ -15,6 +15,7 @@ import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ContentState } from '@core/state/ContentState';
+import { BuilderState } from '@core/state/BuilderState';
 
 @Component({
   selector: 'app-showcase-3v2',
@@ -30,6 +31,7 @@ export class Showcase3v2Component implements OnInit, AfterViewInit {
     private el: ElementRef,
     private screenService: ScreenService,
     private contentState: ContentState,
+    private builder: BuilderState,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
   ) {}
 
@@ -39,7 +41,7 @@ export class Showcase3v2Component implements OnInit, AfterViewInit {
       this.contentState.drawerOpened$.subscribe((state) => {
         this.disableAnimate = state;
       });
-      this.contentState.animateDisable$.subscribe((state) => {
+      this.builder.animateDisable$.subscribe((state) => {
         this.disableAnimate = state;
       });
     }
