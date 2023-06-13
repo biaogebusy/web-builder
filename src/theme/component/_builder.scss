@@ -16,6 +16,18 @@
       .right {
         color: mat-color($primary);
       }
+      .mat-tab-header {
+        background-color: mat-color($primary, 0.06);
+        .mat-tab-label-active {
+          .mat-tab-label-content {
+            background: mat-color($background, card);
+            color: mat-color($primary);
+          }
+        }
+        .mat-tab-label-content {
+          background-color: transparent;
+        }
+      }
     }
     .mat-drawer-content {
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.11);

@@ -33,4 +33,9 @@ export class BuilderContentToolbarComponent implements OnInit {
     this.drawer.open();
     this.storage.store('builderFullSize', false);
   }
+
+  onClose(): void {
+    this.drawer.close();
+    this.storage.store('builderFullSize', true);
+  }
 }

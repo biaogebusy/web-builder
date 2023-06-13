@@ -19,9 +19,4 @@ export class BuilderSidebarTopComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {}
-
-  onClose(): void {
-    this.drawer.close();
-    this.storage.store('builderFullSize', true);
-  }
 }

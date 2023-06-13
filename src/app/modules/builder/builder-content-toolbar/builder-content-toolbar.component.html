@@ -4,7 +4,9 @@
       <!-- <app-icon *ngIf="!opened" [matTooltip]="'收起边栏'" matTooltipPosition="above" class="open-drawer"
         (click)="drawer.open()" [content]="{svg:'format-horizontal-align-right'}"></app-icon> -->
       <app-btn *ngIf="!opened" [matTooltip]="'收起边栏'" matTooltipPosition="above" (click)="onOpen()"
-        [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'format-horizontal-align-right' } }"></app-btn>
+        [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'fullscreen' } }"></app-btn>
+      <app-btn *ngIf="opened" [matTooltip]="'展开边栏'" matTooltipPosition="above" (click)="onClose()"
+        [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'fullscreen-exit' } }"></app-btn>
     </div>
     <div class="middle" fxFlex="33%" fxLayoutAlign="center center">
       <div class="title bold">{{page?.title}}</div>

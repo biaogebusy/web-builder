@@ -4,11 +4,4 @@
       <app-logo [content]="branding.header?.logo"></app-logo>
     </div>
   </ng-container>
-  <div fxFlex="0 1 100%" fxLayoutAlign="space-between center">
-    <div class="title mat-h2 m-bottom-0">选择组件</div>
-    <div class="actions">
-      <app-icon [matTooltip]="'展开边栏'" matTooltipPosition="above" *ngIf="opened" (click)="onClose()"
-        [content]="{svg:'format-horizontal-align-left',inline: true}"></app-icon>
-    </div>
-  </div>
 </div>

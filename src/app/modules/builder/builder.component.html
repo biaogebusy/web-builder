@@ -3,18 +3,34 @@
     <mat-drawer #drawer class="sidebar" mode="side" [(opened)]="opened">
       <app-builder-sidebar-top [drawer]="drawer" [opened]="opened"></app-builder-sidebar-top>
       <mat-divider class="m-y-xs"></mat-divider>
-      <mat-accordion>
-        <mat-expansion-panel *ngFor="let item of components">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              {{item.label}}
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <mat-list>
-            <app-builder-sidebar-list [content]="item" (showChange)="onShowcase($event)"></app-builder-sidebar-list>
-          </mat-list>
-        </mat-expansion-panel>
-      </mat-accordion>
+      <mat-tab-group mat-stretch-tabs mat-align-tabs="center" disableRipple="true">
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <app-icon [content]="{svg:'format-list-bulleted',inline:true}"></app-icon>
+            组件
+          </ng-template>
+          <mat-accordion>
+            <mat-expansion-panel *ngFor="let item of components">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{item.label}}
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <mat-list>
+                <app-builder-sidebar-list [content]="item" (showChange)="onShowcase($event)"></app-builder-sidebar-list>
+              </mat-list>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <app-icon [content]="{svg:'view-grid-plus',inline:true}"></app-icon>
+            基础
+          </ng-template>
+          Content 2
+        </mat-tab>
+      </mat-tab-group>
+
     </mat-drawer>
     <mat-drawer-content>
       <app-builder-content-toolbar [drawer]="drawer" [opened]="opened" [page]="page"
