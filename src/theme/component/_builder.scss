@@ -40,6 +40,9 @@
         }
       }
     }
+    .mat-drawer-container {
+      background-color: mat-color($background, card);
+    }
     .mat-drawer-content {
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.11);
       @include scrollbar(mat-color($primary));
