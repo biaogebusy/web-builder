@@ -6,7 +6,6 @@ import { ScreenService } from './screen.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { Subject } from 'rxjs';
-import { NavigationService } from './navigation.service';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +17,6 @@ export class ConfigService {
     private qiDianService: QiDianService,
     private dialogService: DialogService,
     private screenService: ScreenService,
-    private navigationService: NavigationService,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
   ) {}
 
@@ -35,14 +33,6 @@ export class ConfigService {
         }
         if (this.coreConfig?.dialog?.forceDialog) {
           this.dialogService.forceDialog(this.coreConfig.dialog.forceDialog);
-        }
-        if (this.coreConfig?.checkIE?.enable) {
-          // console.log(this.navigationService.isIE);
-          if (this.navigationService.isIE) {
-            this.dialogService.openDynamicDialog(
-              this.coreConfig.checkIE.dialog
-            );
-          }
         }
       }
     }

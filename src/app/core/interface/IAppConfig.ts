@@ -49,13 +49,6 @@ export interface ICoreConfig {
     api: INotify[];
   };
   animate?: boolean;
-  checkIE?: {
-    enable: boolean;
-    dialog: {
-      params: any;
-      content: any;
-    };
-  };
 }
 
 export interface INotify {
