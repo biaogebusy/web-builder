@@ -2,8 +2,10 @@
   display: block;
   height: calc(100% - 55px);
   overflow-y: auto;
-  cursor: move;
   .component-item {
+    &.cdk-drag {
+      cursor: move;
+    }
     position: relative;
   }
 }

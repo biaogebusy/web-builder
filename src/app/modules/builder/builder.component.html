@@ -25,7 +25,6 @@
       <app-builder-content-toolbar [drawer]="drawer" [opened]="opened" [page]="page"
         (animateChange)="onAnimate()"></app-builder-content-toolbar>
       <app-builder-showcase *ngIf="builder.showcase$ | async as showcase" [content]="showcase"></app-builder-showcase>
-      <app-builder-empty *ngIf="!content?.body?.length"></app-builder-empty>
       <app-builder-list [isPreview]="true" [content]="content.body" (dropChange)="drop($event)"></app-builder-list>
     </mat-drawer-content>
   </mat-drawer-container>

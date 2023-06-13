@@ -4,8 +4,8 @@ import { IPage } from '@core/interface/IAppConfig';
 import { LocalStorageService } from 'ngx-webstorage';
 import {
   CdkDragDrop,
+  copyArrayItem,
   moveItemInArray,
-  transferArrayItem,
 } from '@angular/cdk/drag-drop';
 import { UtilitiesService } from '@core/service/utilities.service';
 @Injectable({
@@ -83,7 +83,7 @@ export class ContentState {
 
   // 边栏拖动添加组件
   transferComponet(event: CdkDragDrop<string[]>): void {
-    transferArrayItem(
+    copyArrayItem(
       event.previousContainer.data,
       this.page.body,
       event.previousIndex,

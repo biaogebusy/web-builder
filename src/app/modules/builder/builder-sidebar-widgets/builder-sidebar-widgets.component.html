@@ -7,13 +7,20 @@
     </mat-expansion-panel-header>
     <mat-list>
       <div class="widgets" id="widgets" fxLayout="row wrap" cdkDropList [cdkDropListData]="item.elements"
-        cdkDropListConnectedTo="builder-list" (cdkDropListDropped)="drop($event)">
+        cdkDropListConnectedTo="builder-list">
         <div class="item" *ngFor="let widget of item.elements" fxFlex="0 1 calc(100%/3)" [cdkDragData]="widget.content"
           cdkDrag (mouseenter)="onShowcase(widget.content)" (mouseleave)="onShowcase()">
           <div class="inner" fxLayout="column" fxLayoutAlign="center center">
             <app-icon [content]="widget.icon"></app-icon>
             <div class="title">{{widget.label}}</div>
           </div>
+          <!-- <div class="placeholder" fxFlex="0 1 calc(100%/3)" *cdkDragPlaceholder></div> -->
+          <app-card-1v1 style="width:500px" *cdkDragPreview [content]="{
+                                                      link:{
+                                                        href:'#',
+                                                        label: widget.content.type
+                                                      },components:[widget.content]
+                                                    }"></app-card-1v1>
         </div>
       </div>
     </mat-list>

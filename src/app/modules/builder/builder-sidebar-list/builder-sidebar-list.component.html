@@ -1,5 +1,5 @@
-<mat-selection-list id="groups" #components [multiple]="false" cdkDropList [cdkDropListData]="content.elements"
-  cdkDropListConnectedTo="builder-list" (cdkDropListDropped)="drop($event)">
+<mat-selection-list id="components" #components [multiple]="false" cdkDropList [cdkDropListData]="content.elements"
+  cdkDropListConnectedTo="builder-list">
   <mat-list-option [cdkDragData]="component" cdkDrag (mouseenter)="onShowcase(component)" (mouseleave)="onShowcase()"
     *ngFor="let component of content.elements">
     <div fxLayoutAlign="space-between center">

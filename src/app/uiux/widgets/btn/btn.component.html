@@ -42,7 +42,7 @@
     </ng-container>
     <ng-container *ngSwitchCase="'icon'">
       <button *ngIf="content.icon" [ngClass]="content.classes || ''" mat-icon-button [color]="content.color">
-        <app-icon [content]="content.icon"></app-icon>
+        <app-icon [ngClass]="'display-inline-flex'" [content]="content.icon"></app-icon>
       </button>
     </ng-container>
     <ng-container *ngSwitchCase="'fab'">

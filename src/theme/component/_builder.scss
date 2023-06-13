@@ -50,7 +50,7 @@
         background-color: mat-color($background, background, 0.5);
       }
     }
-    .placeholder {
+    .cdk-drag-placeholder {
       background-color: mat-color($background, background);
       border: 3px dotted mat-color($foreground, divider);
       &:hover {
