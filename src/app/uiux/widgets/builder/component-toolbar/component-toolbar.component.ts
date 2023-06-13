@@ -57,8 +57,6 @@ export class ComponentToolbarComponent implements OnInit {
       height: '650px',
       data: {
         inputData: {
-          disableToolbar: true,
-          activeToolBar: false,
           content: {
             type: 'jsoneditor',
             index,

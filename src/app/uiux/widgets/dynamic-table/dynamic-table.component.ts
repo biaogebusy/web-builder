@@ -87,13 +87,15 @@ export class DynamicTableComponent implements OnInit, OnChanges, AfterViewInit {
       width: '600px',
       data: {
         inputData: {
-          type: 'text',
-          spacer: 'none',
-          title: {
-            label,
-            style: 'style-v4',
+          content: {
+            type: 'text',
+            spacer: 'none',
+            title: {
+              label,
+              style: 'style-v4',
+            },
+            body: content,
           },
-          body: content,
         },
       },
     });

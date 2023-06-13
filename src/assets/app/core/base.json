@@ -321,6 +321,57 @@
       "reqRoles": [
         "administrator"
       ]
+    },
+    "empty": {
+      "type": "showcase-3v9",
+      "bg": {
+        "classes": "bg-fill-width",
+        "img": {
+          "src": "/assets/images/bg/bg-02.png"
+        }
+      },
+      "order": {
+        "left": 1,
+        "right": 0
+      },
+      "left": [
+        {
+          "type": "img",
+          "src": "/assets/images/showcase/7.jpg",
+          "hostClasses": "position-relative",
+          "actions": [
+            {
+              "type": "btn-video",
+              "color": "default",
+              "video": {
+                "options": {
+                  "controls": true,
+                  "aspectRatio": "16:9",
+                  "poster": "/assets/images/16-9/business-02.jpg",
+                  "sources": [
+                    {
+                      "src": "/assets/video/afterglow.mp4",
+                      "type": "video/mp4"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "right": [
+        {
+          "type": "text",
+          "spacer": "sm",
+          "title": {
+            "label": "欢迎使用 Builder 快速构建页面",
+            "style": "style-v4",
+            "classes": "mat-display-2"
+          },
+          "body": "启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 Storybook 页面时添加组件到预览页面，类似组件市场。<ul class=\"list-done\"><li>可以复制整个页面的 JSON；</li><li>可以复制具体组件的 JSON；</li><li>可以直接编辑组件的 JSON，所见即所得；</li></ul><br><p>拖动组件到以下区域预览！</p>"
+        }
+      ]
     }
   },
   "checkIE": {

@@ -15,6 +15,7 @@
     </a>
   </ng-template>
   <div class="actions" *ngIf="content.actions" fxLayoutAlign="center center" fxLayoutGap="1rem">
-    <app-dynamic-component [inputs]="{content: action}" *ngFor="let action of content.actions"></app-dynamic-component>
+    <app-dynamic-component [inputs]="{content: action,disableToolbar:true,activeToolBar:false}"
+      *ngFor="let action of content.actions"></app-dynamic-component>
   </div>
 </div>

@@ -31,6 +31,7 @@ export interface ICoreConfig {
     params: {
       reqRoles: string[];
     };
+    empty: any;
   };
   access: {
     check: true;
