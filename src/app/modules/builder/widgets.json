@@ -53,6 +53,30 @@
             "src": "/assets/images/cases/porto2.jpg",
             "alt": "alt"
           }
+        },
+        {
+          "label": "Image",
+          "icon": {
+            "svg": "image-outline"
+          },
+          "content": {
+            "type": "img",
+            "classes": "",
+            "src": "/assets/images/cases/porto2.jpg",
+            "alt": "alt"
+          }
+        },
+        {
+          "label": "Image",
+          "icon": {
+            "svg": "image-outline"
+          },
+          "content": {
+            "type": "img",
+            "classes": "",
+            "src": "/assets/images/cases/porto2.jpg",
+            "alt": "alt"
+          }
         }
       ]
     }

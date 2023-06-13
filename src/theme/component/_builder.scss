@@ -28,6 +28,17 @@
           background-color: transparent;
         }
       }
+
+      .widgets {
+        .item {
+          .inner {
+            background-color: mat-color($primary, 0.07);
+            &:hover {
+              @include mat-elevation(4, mat-color($foreground, text), 0.2);
+            }
+          }
+        }
+      }
     }
     .mat-drawer-content {
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.11);

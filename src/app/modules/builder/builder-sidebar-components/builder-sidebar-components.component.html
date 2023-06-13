@@ -2,7 +2,7 @@
   <mat-expansion-panel *ngFor="let item of content">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        {{item.label}}
+        {{item.label}} ({{item.elements.length}})
       </mat-panel-title>
     </mat-expansion-panel-header>
     <mat-list>

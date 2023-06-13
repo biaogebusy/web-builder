@@ -10,8 +10,16 @@
     width: 330px;
     padding: 20px;
     border-right: 0;
-    app-icon {
-      height: 24px;
+    ::ng-deep {
+      app-icon {
+        height: 18px;
+        margin-right: 4px;
+        .custom {
+          width: 18px !important;
+          height: 18px !important;
+          line-height: 18px !important;
+        }
+      }
     }
     ::ng-deep {
       .mat-tab-header {
@@ -26,6 +34,7 @@
         .mat-tab-label-content {
           padding: 4px 24px;
           border-radius: 6px;
+          font-size: small;
         }
       }
     }

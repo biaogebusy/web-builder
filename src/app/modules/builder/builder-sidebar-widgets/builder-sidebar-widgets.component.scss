@@ -1,0 +1,15 @@
+.widgets {
+  .item {
+    .title {
+      font-size: small;
+    }
+    .inner {
+      margin: 2px;
+      padding: 16px;
+      border-radius: 4px;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}

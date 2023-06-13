@@ -7,10 +7,10 @@ export interface IBuilderComponent {
 
 export interface IBuilderWidget {
   label: string;
-  elements: BuilderElement[];
+  elements: IBuilderElement[];
 }
 
-interface BuilderElement {
+export interface IBuilderElement {
   label: string;
   icon: IIcon;
   content: any;

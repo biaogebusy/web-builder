@@ -1,5 +1,5 @@
-<div id="builder-list" cdkDropList [cdkDropListData]="content" cdkDropListConnectedTo="groups" class="builder-list"
-  (cdkDropListDropped)="drop($event)">
+<div id="builder-list" cdkDropList [cdkDropListData]="content" cdkDropListConnectedTo="['groups','widgets']"
+  class="builder-list" (cdkDropListDropped)="drop($event)">
   <div class="component-item" cdkDrag [cdkDragData]="item" *ngFor="let item of content;index as i; trackBy: trackByFn">
     <app-dynamic-component [inputs]="item" [index]="i" [isPreview]="isPreview"></app-dynamic-component>
     <div class="placeholder" *cdkDragPlaceholder></div>

@@ -2,14 +2,18 @@
   <mat-expansion-panel *ngFor="let item of content">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        {{item.label}}
+        {{item.label}} ({{item.elements.length}})
       </mat-panel-title>
     </mat-expansion-panel-header>
     <mat-list>
-      <div class="wigets">
-        <div class="item" *ngFor="let widget of item.elements">
-          <app-icon [content]="widget.icon"></app-icon>
-          <div class="title">{{widget.label}}</div>
+      <div class="widgets" id="widgets" fxLayout="row wrap" cdkDropList [cdkDropListData]="item.elements"
+        cdkDropListConnectedTo="builder-list" (cdkDropListDropped)="drop($event)">
+        <div class="item" *ngFor="let widget of item.elements" fxFlex="0 1 calc(100%/3)" [cdkDragData]="widget.content"
+          cdkDrag (mouseenter)="onShowcase(widget.content)" (mouseleave)="onShowcase()">
+          <div class="inner" fxLayout="column" fxLayoutAlign="center center">
+            <app-icon [content]="widget.icon"></app-icon>
+            <div class="title">{{widget.label}}</div>
+          </div>
         </div>
       </div>
     </mat-list>
