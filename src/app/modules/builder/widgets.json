@@ -55,27 +55,95 @@
           }
         },
         {
-          "label": "Image",
+          "label": "Chart",
           "icon": {
-            "svg": "image-outline"
+            "svg": "chart-line"
           },
           "content": {
-            "type": "img",
-            "classes": "",
-            "src": "/assets/images/cases/porto2.jpg",
-            "alt": "alt"
-          }
-        },
-        {
-          "label": "Image",
-          "icon": {
-            "svg": "image-outline"
-          },
-          "content": {
-            "type": "img",
-            "classes": "",
-            "src": "/assets/images/cases/porto2.jpg",
-            "alt": "alt"
+            "data": {
+              "toggle": [
+                {
+                  "label": "饼图",
+                  "icon": {
+                    "name": "pie_chart",
+                    "inline": true
+                  },
+                  "value": "pie"
+                },
+                {
+                  "label": "柱状图",
+                  "icon": {
+                    "name": "equalizer",
+                    "inline": true
+                  },
+                  "value": "bar"
+                },
+                {
+                  "label": "折线图",
+                  "icon": {
+                    "name": "show_chart",
+                    "inline": true
+                  },
+                  "value": "line"
+                }
+              ]
+            },
+            "content": {
+              "type": "chart",
+              "title": {
+                "text": "年度活动金额预算",
+                "subtext": "南宁"
+              },
+              "legend": {
+                "bottom": "10px"
+              },
+              "tooltip": {
+                "trigger": "axis"
+              },
+              "dataset": {
+                "source": [
+                  [
+                    "红包预算",
+                    "2020",
+                    "2021",
+                    "2022"
+                  ],
+                  [
+                    "大额红包",
+                    5684,
+                    5512,
+                    7372
+                  ],
+                  [
+                    "小额红包",
+                    3124,
+                    7172,
+                    8150
+                  ],
+                  [
+                    "推广费用",
+                    8889,
+                    7093,
+                    7324
+                  ]
+                ]
+              },
+              "xAxis": {
+                "type": "category"
+              },
+              "yAxis": {},
+              "series": [
+                {
+                  "type": "bar"
+                },
+                {
+                  "type": "bar"
+                },
+                {
+                  "type": "bar"
+                }
+              ]
+            }
           }
         }
       ]

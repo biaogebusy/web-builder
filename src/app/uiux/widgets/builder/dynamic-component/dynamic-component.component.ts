@@ -46,7 +46,7 @@ export class DynamicComponentComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnInit(): void {
     this.builder.jsoneditorContent$.subscribe((data) => {
-      const { index, content, uuid } = data;
+      const { content, uuid } = data;
       if (this.uuid === uuid) {
         this.inputs = content;
         this.loadConponent();

@@ -1,6 +1,7 @@
 <div class="wrapper" fxLayout="row" fxLayoutAlign="space-between center" fxFlex="100%">
   <div class="title">
-    <i>{{index}}.</i> {{content.type}}
+    {{content|json}}
+    <i>{{index}}.</i> {{content?.type || content?.content?.type}}
   </div>
   <div class="actions" fxLayout="row" fxLayoutGap="1rem">
     <div class="item" (click)="addComponent(content)" *ngIf="!isPreview">添加到预览</div>
