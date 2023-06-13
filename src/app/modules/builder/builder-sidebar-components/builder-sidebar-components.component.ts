@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { IBuilderComponent } from '@core/interface/IBuilder';
 
 @Component({
   selector: 'app-builder-sidebar-components',
@@ -12,7 +13,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BuilderSidebarComponentsComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: IBuilderComponent[];
   constructor() {}
 
   ngOnInit(): void {}

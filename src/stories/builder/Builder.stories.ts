@@ -6,6 +6,7 @@ import { BrandingModule } from '@core/branding/branding.module';
 import { BuilderComponent } from 'src/app/modules/builder/builder.component';
 import { BuilderModule } from 'src/app/modules/builder/builder.module';
 import { components } from './component-for-builder';
+import { widgets } from './widgets-for-builder';
 export default {
   title: 'Builder',
   id: 'builder',
@@ -789,4 +790,8 @@ Default.args = {
     ],
   },
   components: components,
+  widgets: widgets,
 };
+
+console.log(components);
+console.log(widgets);

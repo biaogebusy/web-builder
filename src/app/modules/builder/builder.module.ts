@@ -12,6 +12,7 @@ import { BuilderSidebarListComponent } from './builder-sidebar-list/builder-side
 import { BuilderEmptyComponent } from './builder-empty/builder-empty.component';
 import { BuilderShowcaseComponent } from './builder-showcase/builder-showcase.component';
 import { BuilderSidebarComponentsComponent } from './builder-sidebar-components/builder-sidebar-components.component';
+import { BuilderSidebarWidgetsComponent } from './builder-sidebar-widgets/builder-sidebar-widgets.component';
 const compoments = [BuilderComponent, BuilderListComponent];
 
 @NgModule({
@@ -23,6 +24,7 @@ const compoments = [BuilderComponent, BuilderListComponent];
     BuilderEmptyComponent,
     BuilderShowcaseComponent,
     BuilderSidebarComponentsComponent,
+    BuilderSidebarWidgetsComponent,
   ],
   imports: [
     ShareModule,

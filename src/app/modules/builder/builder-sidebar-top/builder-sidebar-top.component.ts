@@ -2,7 +2,6 @@ import { Component, Inject, Input, OnInit } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { IBranding } from '@core/interface/branding/IBranding';
 import { BRANDING } from '@core/token/token-providers';
-import { LocalStorageService } from 'ngx-webstorage';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -13,10 +12,7 @@ import { Observable } from 'rxjs';
 export class BuilderSidebarTopComponent implements OnInit {
   @Input() opened: boolean;
   @Input() drawer: MatDrawer;
-  constructor(
-    private storage: LocalStorageService,
-    @Inject(BRANDING) public branding$: Observable<IBranding>
-  ) {}
+  constructor(@Inject(BRANDING) public branding$: Observable<IBranding>) {}
 
   ngOnInit(): void {}
 }

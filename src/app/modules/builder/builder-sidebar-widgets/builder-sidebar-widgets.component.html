@@ -1,0 +1,17 @@
+<mat-accordion>
+  <mat-expansion-panel *ngFor="let item of content">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{item.label}}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-list>
+      <div class="wigets">
+        <div class="item" *ngFor="let widget of item.elements">
+          <app-icon [content]="widget.icon"></app-icon>
+          <div class="title">{{widget.label}}</div>
+        </div>
+      </div>
+    </mat-list>
+  </mat-expansion-panel>
+</mat-accordion>

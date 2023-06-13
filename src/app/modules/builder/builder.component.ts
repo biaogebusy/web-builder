@@ -1,11 +1,12 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import type { IPage } from '@core/interface/IAppConfig';
-import { ICard1v1 } from '@core/interface/widgets/ICard';
 import { ContentState } from '@core/state/ContentState';
 import { LocalStorage, LocalStorageService } from 'ngx-webstorage';
-import components from './builder.json';
+import components from './components.json';
+import widgets from './widgets.json';
 import { BuilderState } from '@core/state/BuilderState';
+import { IBuilderComponent, IBuilderWidget } from '@core/interface/IBuilder';
 @Component({
   selector: 'app-builder',
   templateUrl: './builder.component.html',
@@ -18,10 +19,8 @@ export class BuilderComponent implements OnInit, AfterViewInit {
 
   @LocalStorage('builderFullSize')
   builderFullSize: boolean;
-  components: {
-    label: string;
-    elements: any[];
-  }[];
+  components: IBuilderComponent[];
+  widgets: IBuilderWidget[];
   opened = true;
   panelOpenState = false;
   constructor(
@@ -33,6 +32,7 @@ export class BuilderComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.content = this.page;
     this.components = components.data;
+    this.widgets = widgets.data;
     if (!this.builderFullSize) {
       this.storage.store('builderFullSize', false);
     }
