@@ -15,6 +15,7 @@ import { pageContentFactory } from '@core/factory/factory';
 import { ContentService } from '@core/service/content.service';
 import { DOCUMENT } from '@angular/common';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import { BuilderState } from '@core/state/BuilderState';
 
 @Component({
   selector: 'app-block',
@@ -38,6 +39,7 @@ export class BlockComponent implements OnInit, AfterViewInit {
     @Inject(PAGE_CONTENT) public pageContent$: Observable<IPage>,
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
     private contentState: ContentState,
+    private builder: BuilderState,
     private zone: NgZone
   ) {}
 
@@ -82,7 +84,7 @@ export class BlockComponent implements OnInit, AfterViewInit {
   }
 
   drop(event: CdkDragDrop<string[]>) {
-    this.contentState.dropComponent(event);
+    this.builder.dropComponent(event);
   }
 
   trackByFn(index: number): number {
