@@ -9,18 +9,7 @@
             <app-icon [content]="{svg:'format-list-bulleted',inline:true}"></app-icon>
             组件
           </ng-template>
-          <mat-accordion>
-            <mat-expansion-panel *ngFor="let item of components">
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  {{item.label}}
-                </mat-panel-title>
-              </mat-expansion-panel-header>
-              <mat-list>
-                <app-builder-sidebar-list [content]="item" (showChange)="onShowcase($event)"></app-builder-sidebar-list>
-              </mat-list>
-            </mat-expansion-panel>
-          </mat-accordion>
+          <app-builder-sidebar-components [content]="components"></app-builder-sidebar-components>
         </mat-tab>
         <mat-tab>
           <ng-template mat-tab-label>
@@ -35,7 +24,7 @@
     <mat-drawer-content>
       <app-builder-content-toolbar [drawer]="drawer" [opened]="opened" [page]="page"
         (animateChange)="onAnimate()"></app-builder-content-toolbar>
-      <app-builder-showcase *ngIf="showcase" [content]="showcase"></app-builder-showcase>
+      <app-builder-showcase *ngIf="builder.showcase$ | async as showcase" [content]="showcase"></app-builder-showcase>
       <app-builder-empty *ngIf="!content?.body?.length"></app-builder-empty>
       <app-builder-list [isPreview]="true" [content]="content.body" (dropChange)="drop($event)"></app-builder-list>
     </mat-drawer-content>

@@ -5,6 +5,7 @@ import { ICard1v1 } from '@core/interface/widgets/ICard';
 import { ContentState } from '@core/state/ContentState';
 import { LocalStorage, LocalStorageService } from 'ngx-webstorage';
 import components from './builder.json';
+import { BuilderState } from '@core/state/BuilderState';
 @Component({
   selector: 'app-builder',
   templateUrl: './builder.component.html',
@@ -23,10 +24,10 @@ export class BuilderComponent implements OnInit, AfterViewInit {
   }[];
   opened = true;
   panelOpenState = false;
-  showcase: ICard1v1 | null;
   constructor(
     private contentState: ContentState,
-    private storage: LocalStorageService
+    private storage: LocalStorageService,
+    public builder: BuilderState
   ) {}
 
   ngOnInit(): void {
@@ -42,21 +43,6 @@ export class BuilderComponent implements OnInit, AfterViewInit {
     this.storage.observe(this.contentState.pageKey).subscribe((page) => {
       this.content = page;
     });
-  }
-
-  onShowcase(content?: any): void {
-    if (content) {
-      this.showcase = {
-        type: 'card-1v1',
-        link: {
-          href: '#',
-          label: content.type,
-        },
-        components: [content],
-      };
-    } else {
-      this.showcase = null;
-    }
   }
 
   onAnimate(): void {

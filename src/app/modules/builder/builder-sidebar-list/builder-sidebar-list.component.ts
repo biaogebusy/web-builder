@@ -2,11 +2,10 @@ import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import {
   ChangeDetectionStrategy,
   Component,
-  EventEmitter,
   Input,
   OnInit,
-  Output,
 } from '@angular/core';
+import { BuilderState } from '@core/state/BuilderState';
 import { ContentState } from '@core/state/ContentState';
 
 @Component({
@@ -17,8 +16,10 @@ import { ContentState } from '@core/state/ContentState';
 })
 export class BuilderSidebarListComponent implements OnInit {
   @Input() content: any;
-  @Output() showChange: EventEmitter<any> = new EventEmitter();
-  constructor(private contentState: ContentState) {}
+  constructor(
+    private contentState: ContentState,
+    private builder: BuilderState
+  ) {}
 
   ngOnInit(): void {}
 
@@ -33,6 +34,17 @@ export class BuilderSidebarListComponent implements OnInit {
   }
 
   onShowcase(content?: any) {
-    this.showChange.emit(content);
+    if (content) {
+      this.builder.showcase$.next({
+        type: 'card-1v1',
+        link: {
+          href: '#',
+          label: content.type,
+        },
+        components: [content],
+      });
+    } else {
+      this.builder.showcase$.next(content);
+    }
   }
 }
