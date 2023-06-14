@@ -456,3 +456,52 @@ ExpressionProperties.args = {
     },
   ],
 };
+
+export const Style = Template.bind({});
+Style.storyName = '外观';
+Style.args = {
+  form,
+  model,
+  fields: [
+    {
+      key: 'name',
+      type: 'input',
+      className: 'm-right-sm m-bottom-sm',
+      templateOptions: {
+        label: '姓名',
+        appearance: 'legacy',
+        placeholder: '请输入您的姓名',
+      },
+    },
+    {
+      key: 'age',
+      type: 'input',
+      className: 'm-right-sm m-bottom-sm',
+      templateOptions: {
+        label: '年龄',
+        appearance: 'standard',
+        placeholder: '年龄',
+      },
+    },
+    {
+      key: 'where',
+      type: 'input',
+      className: 'm-right-sm m-bottom-sm',
+      templateOptions: {
+        label: '籍贯',
+        appearance: 'fill',
+        placeholder: '籍贯',
+      },
+    },
+    {
+      key: 'height',
+      type: 'input',
+      className: 'm-right-sm m-bottom-sm',
+      templateOptions: {
+        label: '身高',
+        appearance: 'outline',
+        placeholder: '身高',
+      },
+    },
+  ],
+};

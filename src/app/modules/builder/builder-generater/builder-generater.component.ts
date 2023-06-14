@@ -15,12 +15,13 @@ import { BuilderState } from '@core/state/BuilderState';
 })
 export class BuilderGeneraterComponent implements OnInit {
   @Input() content: any;
+  fields: any[];
   form = new FormGroup({});
   model: any = {};
   constructor(private builder: BuilderState) {}
 
   ngOnInit(): void {
-    this.content.form = [
+    this.fields = [
       {
         type: 'select',
         key: 'hero',
