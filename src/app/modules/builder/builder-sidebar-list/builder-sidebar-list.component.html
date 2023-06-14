@@ -1,9 +1,9 @@
 <mat-selection-list id="components" #components [multiple]="false" cdkDropList [cdkDropListData]="content.elements"
   cdkDropListConnectedTo="builder-list">
-  <mat-list-option [cdkDragData]="component" cdkDrag (mouseenter)="onShowcase(component)" (mouseleave)="onShowcase()"
-    *ngFor="let component of content.elements">
+  <mat-list-option *ngFor="let component of content.elements" [cdkDragData]="component" cdkDrag
+    (mouseenter)="onShowcase(component)" (mouseleave)="onShowcase()">
     <div fxLayoutAlign="space-between center">
-      {{component.type}}
+      {{component.content.type}}
       <span class="right" *ngIf="component.name">{{component?.name}}</span>
     </div>
     <mat-divider></mat-divider>
@@ -11,7 +11,7 @@
     <app-card-1v1 style="width:50vw" *cdkDragPreview [content]="{
                                             link:{
                                               href:'#',
-                                              label: component.type
+                                              label: component.content.type
                                             },components:[component]
                                           }"></app-card-1v1>
   </mat-list-option>

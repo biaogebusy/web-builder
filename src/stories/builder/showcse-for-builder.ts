@@ -1,228 +1,122 @@
-import * as s1v1 from '../feature/showcase/showcase1v1.stories';
-import * as s1v2 from '../feature/showcase/showcase1v2.stories';
-import * as s1v3 from '../feature/showcase/showcase1v3.stories';
-import * as s1v4 from '../feature/showcase/showcase1v4.stories';
-import * as s2v1 from '../feature/showcase/showcase2v1.stories';
-import * as s2v2 from '../feature/showcase/showcase2v2.stories';
-import * as s2v3 from '../feature/showcase/showcase2v3.stories';
-import * as s2v4 from '../feature/showcase/showcase2v4.stories';
-import * as s2v5 from '../feature/showcase/showcase2v5.stories';
-import * as s2v6 from '../feature/showcase/showcase2v5.stories';
-import * as s3v1 from '../feature/showcase/showcase3v1.stories';
-import * as s3v2 from '../feature/showcase/showcase3v2.stories';
-import * as s3v3 from '../feature/showcase/showcase3v3.stories';
-import * as s3v4 from '../feature/showcase/showcase3v4.stories';
-import * as s3v5 from '../feature/showcase/showcase3v5.stories';
-import * as s3v6 from '../feature/showcase/showcase3v6.stories';
-import * as s3v7 from '../feature/showcase/showcase3v7.stories';
-import * as s3v8 from '../feature/showcase/showcase3v8.stories';
-import * as s3v9 from '../feature/showcase/showcase3v9.stories';
-import * as s4v1 from '../feature/showcase/showcase4v1.stories';
+import { IBuilderComponent } from '@core/interface/IBuilder';
+import * as s1v1Story from '../feature/showcase/showcase1v1.stories';
+import * as s1v2Story from '../feature/showcase/showcase1v2.stories';
+import * as s1v3Story from '../feature/showcase/showcase1v3.stories';
+import * as s1v4Story from '../feature/showcase/showcase1v4.stories';
+import * as s2v1Story from '../feature/showcase/showcase2v1.stories';
+import * as s2v2Story from '../feature/showcase/showcase2v2.stories';
+import * as s2v3Story from '../feature/showcase/showcase2v3.stories';
+import * as s2v4Story from '../feature/showcase/showcase2v4.stories';
+import * as s2v5Story from '../feature/showcase/showcase2v5.stories';
+import * as s2v6Story from '../feature/showcase/showcase2v5.stories';
+import * as s3v1Story from '../feature/showcase/showcase3v1.stories';
+import * as s3v2Story from '../feature/showcase/showcase3v2.stories';
+import * as s3v3Story from '../feature/showcase/showcase3v3.stories';
+import * as s3v4Story from '../feature/showcase/showcase3v4.stories';
+import * as s3v5Story from '../feature/showcase/showcase3v5.stories';
+import * as s3v6Story from '../feature/showcase/showcase3v6.stories';
+import * as s3v7Story from '../feature/showcase/showcase3v7.stories';
+import * as s3v8Story from '../feature/showcase/showcase3v8.stories';
+import * as s3v9Story from '../feature/showcase/showcase3v9.stories';
+import * as s4v1Story from '../feature/showcase/showcase4v1.stories';
 
 const {
-  Default: {
-    args: { content: s1v1Default },
-  },
-  StyleV1: {
-    args: { content: s1v1V1 },
-    storyName: s1v1V1Name,
-  },
-  StyleV2: {
-    args: { content: s1v1V2 },
-    storyName: s1v1V2Name,
-  },
-  StyleV3: {
-    args: { content: s1v1V3 },
-    storyName: s1v1V3Name,
-  },
-  StyleV4: {
-    args: { content: s1v1V4 },
-    storyName: s1v1V4Name,
-  },
-  StyleV5: {
-    args: { content: s1v1V5 },
-    storyName: s1v1V5Name,
-  },
-  StyleV6: {
-    args: { content: s1v1V6 },
-    storyName: s1v1V6Name,
-  },
-  StyleV7: {
-    args: { content: s1v1V7 },
-    storyName: s1v1V7Name,
-  },
-} = s1v1 as any;
+  Default: { args: s1v1Default },
+  StyleV1: { args: s1v1V1, storyName: s1v1V1Name },
+  StyleV2: { args: s1v1V2, storyName: s1v1V2Name },
+  StyleV3: { args: s1v1V3, storyName: s1v1V3Name },
+  StyleV4: { args: s1v1V4, storyName: s1v1V4Name },
+  StyleV5: { args: s1v1V5, storyName: s1v1V5Name },
+  StyleV6: { args: s1v1V6, storyName: s1v1V6Name },
+  StyleV7: { args: s1v1V7, storyName: s1v1V7Name },
+} = s1v1Story as any;
 const {
-  Default: {
-    args: { content: s1v2Defult },
-    storyName: s1v2DefaultName,
-  },
-  Primary: {
-    args: { content: s1v2Primary },
-    storyName: s1v2PrimaryName,
-  },
-} = s1v2 as any;
+  Default: { args: s1v2Defult, storyName: s1v2DefaultName },
+  Primary: { args: s1v2Primary, storyName: s1v2PrimaryName },
+} = s1v2Story as any;
 const {
-  Default: {
-    args: { content: s1v3Default },
-    storyName: s1v3DefaultName,
-  },
-  Contact: {
-    args: { content: s1v3Contact },
-    storyName: sv1v3ContactName,
-  },
-  Video: {
-    args: { content: s1v3Video },
-    storyName: s1v3VideoName,
-  },
-} = s1v3 as any;
+  Default: { args: s1v3Default, storyName: s1v3DefaultName },
+  Contact: { args: s1v3Contact, storyName: sv1v3ContactName },
+  Video: { args: s1v3Video, storyName: s1v3VideoName },
+} = s1v3Story as any;
 
 const {
-  Default: {
-    args: { content: s1v4Default },
-    storyName: s1v4DefaultName,
-  },
-  Price: {
-    args: { content: s1v4Price },
-    storName: s1v4PriceName,
-  },
-  Dynamic: {
-    args: { content: s1v4Dynamic },
-    storyName: s1v4DynamciName,
-  },
-} = s1v4 as any;
+  Default: { args: s1v4Default, storyName: s1v4DefaultName },
+  Price: { args: s1v4Price, storName: s1v4PriceName },
+  Dynamic: { args: s1v4Dynamic, storyName: s1v4DynamciName },
+} = s1v4Story as any;
 
 const {
-  Default: {
-    args: { content: s2v1Default },
-    storyName: s2v1DefaultName,
-  },
-  Card1v1: {
-    args: { content: s2v1Card1v1 },
-    storyName: s2v1Card1v1Name,
-  },
+  Default: { args: s2v1Default, storyName: s2v1DefaultName },
+  Card1v1: { args: s2v1Card1v1, storyName: s2v1Card1v1Name },
   Card1v1FromApi: {
-    args: { content: s2v1Card1v1FromApi },
+    args: s2v1Card1v1FromApi,
     storyName: s2v1Card1v1FromApiName,
   },
-} = s2v1 as any;
+} = s2v1Story as any;
 
 const {
-  Default: {
-    args: { content: s2v2Default },
-  },
-} = s2v2 as any;
+  Default: { args: s2v2Default },
+} = s2v2Story as any;
 const {
-  Default: {
-    args: { content: s2v3Default },
-  },
-} = s2v3 as any;
+  Default: { args: s2v3Default },
+} = s2v3Story as any;
 const {
-  Default: {
-    args: { content: s2v4Default },
-  },
-} = s2v4 as any;
+  Default: { args: s2v4Default },
+} = s2v4Story as any;
 const {
-  Default: {
-    args: { content: s2v5Default },
-  },
-} = s2v5 as any;
+  Default: { args: s2v5Default },
+} = s2v5Story as any;
 const {
-  Default: {
-    args: { content: s2v6Default },
-  },
-} = s2v6 as any;
+  Default: { args: s2v6Default },
+} = s2v6Story as any;
 const {
-  Default: {
-    args: { content: s3v1Default },
-  },
-} = s3v1 as any;
+  Default: { args: s3v1Default },
+} = s3v1Story as any;
 const {
-  Default: {
-    args: { content: s3v2Default },
-  },
-  List: {
-    args: { content: s3v2List },
-    storyName: s3v2ListName,
-  },
-} = s3v2 as any;
+  Default: { args: s3v2Default },
+  List: { args: s3v2List, storyName: s3v2ListName },
+} = s3v2Story as any;
 
 const {
-  Default: {
-    args: { content: s3v3Default },
-  },
-  Image: {
-    args: { content: s3v3Image },
-    storyName: s3v3ImageName,
-  },
-} = s3v3 as any;
+  Default: { args: s3v3Default },
+  Image: { args: s3v3Image, storyName: s3v3ImageName },
+} = s3v3Story as any;
 
 const {
-  Default: {
-    args: { content: s3v4Default },
-  },
-  Background: {
-    args: { content: s3v4Background },
-    storyName: s3v4BackgroundName,
-  },
-} = s3v4 as any;
+  Default: { args: s3v4Default },
+  Background: { args: s3v4Background, storyName: s3v4BackgroundName },
+} = s3v4Story as any;
 
 const {
-  Default: {
-    args: { content: s3v5Default },
-  },
-} = s3v5 as any;
+  Default: { args: s3v5Default },
+} = s3v5Story as any;
 
 const {
-  Default: {
-    args: { content: s3v6Default },
-  },
-  WithLink: {
-    args: { content: s3v6WithLink },
-    storyName: s3v6WithLinkName,
-  },
-  Background: {
-    args: { content: s3v6Background },
-    storyName: s3v6BackgroundName,
-  },
-} = s3v6 as any;
+  Default: { args: s3v6Default },
+  WithLink: { args: s3v6WithLink, storyName: s3v6WithLinkName },
+  Background: { args: s3v6Background, storyName: s3v6BackgroundName },
+} = s3v6Story as any;
 
 const {
-  Default: {
-    args: { content: s3v7Default },
-  },
-} = s3v7 as any;
+  Default: { args: s3v7Default },
+} = s3v7Story as any;
 const {
-  Default: {
-    args: { content: s3v8Default },
-  },
-} = s3v8 as any;
+  Default: { args: s3v8Default },
+} = s3v8Story as any;
 
 const {
-  Default: {
-    args: { content: s3v9Default },
-  },
-  Reverse: {
-    args: { content: s3v9Reverse },
-    storyName: s3v9ReverseName,
-  },
-  Video: {
-    args: { content: s3v9Video },
-    storyName: s3v9VideoName,
-  },
-} = s3v9 as any;
+  Default: { args: s3v9Default },
+  Reverse: { args: s3v9Reverse, storyName: s3v9ReverseName },
+  Video: { args: s3v9Video, storyName: s3v9VideoName },
+} = s3v9Story as any;
 
 const {
-  Default: {
-    args: { content: s4v1Default },
-  },
-  Img: {
-    args: { content: s4v1Img },
-    storyName: s4v1ImgName,
-  },
-} = s4v1 as any;
+  Default: { args: s4v1Default },
+  Img: { args: s4v1Img, storyName: s4v1ImgName },
+} = s4v1Story as any;
 
-export const showcase = [
+export const showcase: IBuilderComponent[] = [
   s1v1Default,
   { ...s1v1V1, ...{ name: s1v1V1Name } },
   { ...s1v1V2, ...{ name: s1v1V2Name } },
@@ -295,6 +189,10 @@ export const showcase = [
   {
     ...s3v6WithLink,
     name: s3v6WithLinkName,
+  },
+  {
+    ...s3v6Background,
+    name: s3v6Background,
   },
   s3v7Default,
   s3v8Default,
