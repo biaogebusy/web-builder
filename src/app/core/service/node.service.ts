@@ -33,6 +33,9 @@ export class NodeService extends ApiService {
 
   search(type: string, params: string, token?: string): Observable<any> {
     let apiParams = '';
+    if (!type) {
+      return of(false);
+    }
     const hasApiParam = type.indexOf('?') > 0;
     if (type.startsWith('/api/')) {
       apiParams = hasApiParam

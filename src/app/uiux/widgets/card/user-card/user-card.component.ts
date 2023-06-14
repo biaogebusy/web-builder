@@ -64,10 +64,10 @@ export class UserCardComponent extends BaseComponent implements OnInit {
 
   getCount(): void {
     const api = this.getParams(this.content, 'api');
-    if (!api && this.content.count) {
+    if (this.content.count) {
       this.count = this.content.count;
       this.cd.detectChanges();
-    } else {
+    } else if (api) {
       this.getContentFormApi(api);
       this.handleDialogClosed(api);
     }

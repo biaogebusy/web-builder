@@ -11,7 +11,6 @@ import { isArray } from 'lodash-es';
 import { TagsService } from '@core/service/tags.service';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { ApiService } from '@core/service/api.service';
-import { LocalStorageService } from 'ngx-webstorage';
 import type { IBranding } from '@core/interface/branding/IBranding';
 @Injectable({
   providedIn: 'root',
