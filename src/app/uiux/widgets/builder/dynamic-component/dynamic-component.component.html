@@ -1,5 +1,6 @@
-<app-component-toolbar *ngIf="coreConfig.builder?.enable && !inputs?.disableToolbar" [content]="inputs"
-  [isPreview]="isPreview" [index]="index" (uuidChange)="onUuid($event)">
-</app-component-toolbar>
-
+<ng-container *ngIf="!(builder.toolbarDisable$ | async)">
+  <app-component-toolbar *ngIf="showToolbar" [content]="inputs" [isPreview]="isPreview" [index]="index"
+    (uuidChange)="onUuid($event)">
+  </app-component-toolbar>
+</ng-container>
 <ng-template #componentContainer></ng-template>

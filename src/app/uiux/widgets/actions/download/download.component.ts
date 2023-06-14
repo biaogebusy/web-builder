@@ -35,10 +35,7 @@ export class DownloadComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
   config: ICoreDownload;
   canAccess: boolean;
-  isPayed: boolean;
   isReqRoles: boolean;
-  payUrl: string;
-  reqMoney: number;
   constructor(
     private screenService: ScreenService,
     private dialog: MatDialog,
@@ -64,9 +61,6 @@ export class DownloadComponent implements OnInit, OnDestroy {
         .subscribe((access) => {
           this.canAccess = access.canAccess;
           this.isReqRoles = access.isReqRoles;
-          this.isPayed = access.isPayed;
-          this.payUrl = access.payUrl;
-          this.reqMoney = access.reqMoney;
           this.cd.detectChanges();
         });
     });

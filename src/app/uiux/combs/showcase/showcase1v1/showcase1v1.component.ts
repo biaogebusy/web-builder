@@ -60,11 +60,11 @@ export class Showcase1v1Component
       this.coreConfig.animate &&
       !this.disableAnimate
     ) {
-      this.animate();
+      this.showAnimate();
     }
   }
 
-  animate(): void {
+  showAnimate(): void {
     const title: Element = this.title?.nativeElement;
     const boxs = this.el.nativeElement.querySelectorAll('.box');
     let tl = gsap.timeline({

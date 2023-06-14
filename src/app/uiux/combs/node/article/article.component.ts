@@ -52,9 +52,6 @@ export class ArticleComponent
   htmlBody: any;
   isReqRoles = false;
   canAccess: boolean;
-  reqMoney: number;
-  payUrl: string;
-  isPayed = false;
   showNotXs: boolean;
 
   constructor(
@@ -99,9 +96,6 @@ export class ArticleComponent
         .subscribe((access) => {
           this.canAccess = access.canAccess;
           this.isReqRoles = access.isReqRoles;
-          this.isPayed = access.isPayed;
-          this.payUrl = access.payUrl;
-          this.reqMoney = access.reqMoney;
           this.cd.detectChanges();
         });
     });
@@ -157,47 +151,6 @@ export class ArticleComponent
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
         this.checkAccess();
-      });
-  }
-
-  upgrade(): void {
-    this.openPayMentDialog();
-    window.open(`${this.apiUrl}${this.coreConfig.commerce.vip}`, '_blank');
-  }
-
-  pay(): void {
-    this.openPayMentDialog();
-    window.open(this.payUrl);
-  }
-
-  openPayMentDialog(): void {
-    const dialogRef = this.dialog.open(DialogComponent, {
-      width: '500px',
-      disableClose: true,
-      data: {
-        renderInputComponent: TextComponent,
-        disableCloseButton: true,
-        inputData: {
-          content: this.coreConfig.commerce.dialog,
-        },
-      },
-    });
-    dialogRef
-      .afterClosed()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(() => {
-        this.userService.getCurrentUserProfile(this.user.csrf_token).subscribe(
-          (profile) => {
-            const user = {
-              current_user: profile,
-            };
-            this.userService.refreshLocalUser(Object.assign(this.user, user));
-            this.checkAccess();
-          },
-          (error) => {
-            console.log(error);
-          }
-        );
       });
   }
 

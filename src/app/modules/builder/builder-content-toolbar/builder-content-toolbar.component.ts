@@ -7,7 +7,9 @@ import {
   Output,
 } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import type { IPage } from '@core/interface/IAppConfig';
+import { BuilderState } from '@core/state/BuilderState';
 import { LocalStorageService } from 'ngx-webstorage';
 
 @Component({
@@ -23,7 +25,10 @@ export class BuilderContentToolbarComponent implements OnInit {
   @Input() page: IPage;
 
   @Output() animateChange: EventEmitter<boolean> = new EventEmitter();
-  constructor(private storage: LocalStorageService) {}
+  constructor(
+    private storage: LocalStorageService,
+    private builder: BuilderState
+  ) {}
 
   ngOnInit(): void {}
 
@@ -41,6 +46,10 @@ export class BuilderContentToolbarComponent implements OnInit {
   }
   onGenerate(): void {
     this.containerDrawer.toggle();
+    this.onClose();
+  }
+  onPreview(event: MatSlideToggleChange): void {
+    this.builder.toolbarDisable$.next(event.checked);
     this.onClose();
   }
 }

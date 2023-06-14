@@ -17,12 +17,6 @@
           <a href="javascript:vovid(0)" (click)="openLogin()">登录</a>
         </button>
       </ng-container>
-      <ng-container *ngIf="!isPayed">
-        <button mat-menu-item>
-          <app-icon [content]="{'name':'shopping_cart'}"></app-icon>
-          <a href="{{payUrl}}" target="_blank">支付购买下载</a>
-        </button>
-      </ng-container>
     </ng-template>
   </mat-menu>
 </ng-container>

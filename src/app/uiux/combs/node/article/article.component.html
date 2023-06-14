@@ -26,21 +26,6 @@
               fxLayoutAlign="center center">
               <a href="javascript:void(0)" (click)="openLogin()" [innerHTML]="loginConfig?.label|safeHtml"></a>
             </div>
-            <div *ngIf="user.authenticated" class="pay line p-y-sm p-x-sm width-100 text-center m-bottom"
-              fxLayoutAlign="center center">
-              <div>
-                <ng-container *ngIf="!isReqRoles">
-                  成为<a (click)="upgrade()" href="javascript:void(0)">【会员】</a>
-                </ng-container>
-                <ng-container *ngIf="reqMoney">
-                  或者<a (click)="pay()" href="javascript:void">【支付{{reqMoney}}元】</a>
-                </ng-container>
-                <ng-container *ngIf="isPayed">
-                  您已支付【{{reqMoney}}元】！
-                </ng-container>
-                可查看全文
-              </div>
-            </div>
           </ng-template>
         </div>
         <div class="article-bottom m-y" *ngIf="content.bottom">

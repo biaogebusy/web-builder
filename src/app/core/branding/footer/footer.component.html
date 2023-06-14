@@ -5,7 +5,5 @@
   <app-space-between *ngIf="branding.footer?.params?.mode === 'space-between' " [content]="branding.footer">
   </app-space-between>
   <app-fix-bar [content]="branding.footer?.fixBar" *ngIf="branding.footer?.fixBar"></app-fix-bar>
-  <div id="go-to-top" #goTop (click)="gotoTop()">
-    <mat-icon>expand_less</mat-icon>
-  </div>
+  <app-gotop></app-gotop>
 </div>

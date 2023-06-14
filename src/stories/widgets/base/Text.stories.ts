@@ -34,7 +34,7 @@ Base.storyName = '基础文本';
 Base.args = {
   content: {
     type: 'text',
-    body: '<p><strong>Github</strong> <a href="#">actions</a> 从2019年就<em>免费</em>开放给个人开源项目使用，对于自动化开放测试部署，开发者一定非常的熟悉，如果把中间这项流程做好，不仅节省了大量的人力也大大加快了开发效率，在配置完善的情况下可以提高代码质量。</p><p>查了些文档文章，Github Actions有几个重要的信息如下：</p><ul class="list-done"><li>通过 Docker 隔离</li><li>每个 workflow 独享1核虚拟CPU, 3.75GB内存，包括网络权限和100GB 磁盘</li><li>在 yml 配置文件中可以使用上下文环境变量，比如分支或者不公开变量</li><li>每个workflow 排队和执行时间最多 58 分钟，最多可以包含100个action，每个仓库同一时刻只能运行两个 workflow</li></ul>',
+    body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 Storybook 页面时添加组件到预览页面。<ul class="list-done"><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li><li>可以直接编辑组件的 JSON，所见即所得；</li></ul><p>Builder 与众不同的是它完全融入到了 Storybook 的测试框架当中，示例由 Storybook 导入并维护。</p>使用人员：<ul class="list-done"><li>前端开发：开发测试维护组件</li><li>产品经理：快速构建和预览页面</li><li>运维人员：构建页面和测试UI</li><li>市场营销人员：给客户演示数字创新能力</li></ul><br><p>拖动组件到这里进行创作，或者点击右上角智能生成。</p>',
   },
 };
 
@@ -45,8 +45,7 @@ Title.args = {
     ...Base.args.content,
     spacer: 'sm',
     title: {
-      label:
-        '开源项目使用 <span class="text-primary">Github actions</span> 自动化测试部署 Angular 应用到 ECS 服务器',
+      label: '欢迎使用 Builder 快速构建页面',
       style: 'style-v1',
     },
   },
@@ -56,13 +55,7 @@ export const Actions = Template.bind({});
 Actions.storyName = '带 Actions 风格';
 Actions.args = {
   content: {
-    ...Base.args.content,
-    spacer: 'lg',
-    title: {
-      label:
-        '开源项目使用 <span class="text-primary">Github actions</span> 自动化测试部署 Angular 应用到 ECS 服务器',
-      style: 'style-v1',
-    },
+    ...Title.args.content,
     bg: {
       classes: 'bg-shadow bg-fill-width',
     },
@@ -94,17 +87,10 @@ export const Center = Template.bind({});
 Center.storyName = '居中';
 Center.args = {
   content: {
-    ...Base.args.content,
-    spacer: 'lg',
-    title: {
-      label:
-        '开源项目使用 <span class="text-primary">Github actions</span> 自动化测试部署 Angular 应用到 ECS 服务器',
-      style: 'style-v1',
-    },
+    ...Title.args.content,
     bg: {
       classes: 'bg-shadow bg-fill-width',
     },
-    body: '<p class="text-center">Github actions 从2019年就免费开放给个人开源项目使用，对于自动化开放测试部署，开发者一定非常的熟悉，如果把中间这项流程做好，不仅节省了大量的人力也大大加快了开发效率，在配置完善的情况下可以提高代码质量。</p>',
     actionsAlign: 'center center',
     actions: [
       {
@@ -133,13 +119,7 @@ export const SearchAction = Template.bind({});
 SearchAction.storyName = '搜索';
 SearchAction.args = {
   content: {
-    ...Base.args.content,
-    spacer: 'lg',
-    title: {
-      label:
-        '开源项目使用 <span class="text-primary">Github actions</span> 自动化测试部署 Angular 应用到 ECS 服务器',
-      style: 'style-v1',
-    },
+    ...Title.args.content,
     bg: {
       classes: 'bg-shadow bg-fill-width',
     },
@@ -216,13 +196,8 @@ export const BtnVideoAction = Template.bind({});
 BtnVideoAction.storyName = '视频播放';
 BtnVideoAction.args = {
   content: {
-    ...Base.args.content,
+    ...Title.args.content,
     spacer: 'lg',
-    title: {
-      label:
-        '开源项目使用 <span class="text-primary">Github actions</span> 自动化测试部署 Angular 应用到 ECS 服务器',
-      style: 'style-v1',
-    },
     bg: {
       classes: 'bg-shadow bg-fill-width',
     },
@@ -250,13 +225,7 @@ export const List = Template.bind({});
 List.storyName = '带列表风格';
 List.args = {
   content: {
-    ...Base.args.content,
-    spacer: 'xl',
-    title: {
-      label:
-        '开源项目使用 <span class="text-primary">Github actions</span> 自动化测试部署 Angular 应用到 ECS 服务器',
-      style: 'style-v4',
-    },
+    ...Title.args.content,
     bg: {
       classes: 'bg-fill-width',
       img: {

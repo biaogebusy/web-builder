@@ -59,11 +59,11 @@ export class Showcase3v2Component implements OnInit, AfterViewInit {
       this.coreConfig.animate &&
       !this.disableAnimate
     ) {
-      this.animate();
+      this.showAnimate();
     }
   }
 
-  animate(): void {
+  showAnimate(): void {
     const items = this.el.nativeElement.querySelectorAll('.item');
     Array.from(items).forEach((item: any, index: number) => {
       let tl = gsap.timeline({

@@ -14,6 +14,8 @@
     <div class="right" fxFlex="33%" fxLayoutAlign="end center" fxLayoutGap="0.5rem">
       <!-- <app-btn [matTooltip]="'加载动画效果'" matTooltipPosition="above" (click)="loadAnimate()"
         [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'autorenew' } }"></app-btn> -->
+      <mat-slide-toggle (change)="onPreview($event)" [matTooltip]="'安静预览'"
+        matTooltipPosition="above"></mat-slide-toggle>
       <app-btn [matTooltip]="'智能生成'" matTooltipPosition="above" (click)="onGenerate()"
         [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'react' } }"></app-btn>
       <app-builder-menu [showPreview]="false"></app-builder-menu>

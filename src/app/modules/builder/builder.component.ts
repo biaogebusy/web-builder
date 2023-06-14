@@ -1,5 +1,12 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { AfterViewInit, Component, Inject, Input, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  Inject,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { LocalStorage, LocalStorageService } from 'ngx-webstorage';
 import components from './components.json';
@@ -8,6 +15,7 @@ import { BuilderState } from '@core/state/BuilderState';
 import { IBuilderComponent, IBuilderWidget } from '@core/interface/IBuilder';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import { UtilitiesService } from '@core/service/utilities.service';
+import { MatDrawer } from '@angular/material/sidenav';
 @Component({
   selector: 'app-builder',
   templateUrl: './builder.component.html',
@@ -17,6 +25,7 @@ export class BuilderComponent implements OnInit, AfterViewInit {
   @Input() content: IPage;
   @LocalStorage('page')
   page: IPage;
+  @ViewChild('containerDrawer', { static: false }) containerDrawer: MatDrawer;
 
   @LocalStorage('builderFullSize')
   builderFullSize: boolean;
@@ -48,6 +57,11 @@ export class BuilderComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.storage.observe(this.builder.pageKey).subscribe((page) => {
       this.content = page;
+    });
+    this.builder.toolbarDisable$.subscribe((state) => {
+      if (state) {
+        this.containerDrawer.close();
+      }
     });
   }
 

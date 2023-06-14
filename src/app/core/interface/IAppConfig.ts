@@ -23,7 +23,6 @@ export interface ICoreConfig {
   actions: IActions;
   dialog: IDialog;
   user: User;
-  commerce: Commerce;
   googleAnalytics: GoogleAnalytics;
   guard: Guard;
   builder?: {

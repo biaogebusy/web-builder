@@ -1,5 +1,6 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { BuilderState } from '@core/state/BuilderState';
 
 @Component({
   selector: 'app-builder-list',
@@ -11,7 +12,7 @@ export class BuilderListComponent implements OnInit {
   @Input() isPreview: boolean;
   @Output() dropChange: EventEmitter<CdkDragDrop<string[]>> =
     new EventEmitter();
-  constructor() {}
+  constructor(public builder: BuilderState) {}
 
   ngOnInit(): void {}
 

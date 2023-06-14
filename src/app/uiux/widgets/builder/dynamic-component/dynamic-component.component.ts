@@ -15,7 +15,9 @@ import {
 } from '@angular/core';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { ComponentService } from '@core/service/component.service';
+import { ScreenService } from '@core/service/screen.service';
 import { BuilderState } from '@core/state/BuilderState';
+import { ScreenState } from '@core/state/screen/ScreenState';
 import { CORE_CONFIG } from '@core/token/token-providers';
 
 export interface dynamicInputs {
@@ -40,8 +42,9 @@ export class DynamicComponentComponent implements OnInit, OnChanges, OnDestroy {
   public component: ComponentRef<unknown> | ComponentRef<any> | undefined | any;
   constructor(
     private componentService: ComponentService,
-    private builder: BuilderState,
+    public builder: BuilderState,
     private cd: ChangeDetectorRef,
+    private screenService: ScreenService,
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig
   ) {}
 
@@ -69,6 +72,10 @@ export class DynamicComponentComponent implements OnInit, OnChanges, OnDestroy {
     this.uuid = uuid;
   }
 
+  get showToolbar(): boolean {
+    return !!this.coreConfig.builder?.enable && !this.inputs?.disableToolbar;
+  }
+
   async loadConponent(): Promise<void> {
     const type = this.inputs.type ? this.inputs.type : this.inputs.content.type;
     this.container.clear();
@@ -88,6 +95,7 @@ export class DynamicComponentComponent implements OnInit, OnChanges, OnDestroy {
       }
     }
     this.checkBuilder(this.component.instance['content']);
+    this.showAnimate(this.component.instance);
     this.container.insert(this.component.hostView);
     this.component.changeDetectorRef.markForCheck();
   }
@@ -98,6 +106,18 @@ export class DynamicComponentComponent implements OnInit, OnChanges, OnDestroy {
       this.inputs.activeToolBar !== false
     ) {
       this.hostClass = true;
+    }
+  }
+
+  showAnimate(instance: any): void {
+    if (this.screenService.isPlatformBrowser()) {
+      this.builder.toolbarDisable$.subscribe((state) => {
+        if (state && instance.showAnimate) {
+          setTimeout(() => {
+            instance.showAnimate();
+          }, 1000);
+        }
+      });
     }
   }
 

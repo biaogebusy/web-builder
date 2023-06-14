@@ -250,30 +250,6 @@
   "user": {
     "banner": "/assets/images/16-9/business-14.jpeg"
   },
-  "commerce": {
-    "vip": "/pay/trade/create/1",
-    "payNode": "/pay/trade/node",
-    "dialog": {
-      "spacer": "node",
-      "title": {
-        "label": "支付过程有什么问题吗？",
-        "style": "style-v1"
-      },
-      "body": "<p class=\"text-center\">感谢您付费购买。</p>",
-      "actionsAlign": "center center",
-      "actions": [
-        {
-          "type": "closeDialog",
-          "label": "已成功支付！"
-        },
-        {
-          "href": "/contact",
-          "color": "warn",
-          "label": "支付遇到问题，请联系我们"
-        }
-      ]
-    }
-  },
   "googleAnalyticsBak": {
     "id": "G-N7PGP9ND57"
   },
@@ -365,11 +341,11 @@
           "type": "text",
           "spacer": "sm",
           "title": {
-            "label": "欢迎使用 Builder 快速构建页面",
+            "label": "欢迎使用 <strong class=\"text-primary\">Builder</strong> 快速构建页面",
             "style": "style-v4",
-            "classes": "mat-display-2"
+            "classes": "mat-display-1"
           },
-          "body": "启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 Storybook 页面时添加组件到预览页面，类似组件市场。<ul class=\"list-done\"><li>可以复制整个页面的 JSON；</li><li>可以复制具体组件的 JSON；</li><li>可以直接编辑组件的 JSON，所见即所得；</li></ul><br><p>拖动组件到这里进行创作，或者点击右上角智能生成。</p>",
+          "body": "开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 Storybook 页面时添加组件到预览页面。<ul class=\"list-done\"><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li><li>可以直接编辑组件的 JSON，所见即所得；</li></ul><p>Builder 与众不同的是它完全融入到了 Storybook 的测试框架当中，示例由 Storybook 导入并维护。</p>使用人员：<ul class=\"list-done\"><li><strong class=\"text-primary\">前端开发：</strong>开发测试维护组件</li><li><strong class=\"text-primary\">产品经理：</strong>快速构建和预览页面</li><li><strong class=\"text-primary\">运维人员：</strong>构建页面和测试UI</li><li><strong class=\"text-primary\">市场营销人员：</strong>给客户演示数字创新能力</li></ul><br><p>拖动组件到这里进行创作，或者点击右上角智能生成。</p>",
           "actions": [
             {
               "href": "#",

@@ -13,6 +13,9 @@
     background-color: mat-color($background, background);
     .sidebar {
       background-color: transparent;
+      .mat-drawer-inner-container {
+        @include scrollbar(mat-color($foreground, divider));
+      }
       .right {
         color: mat-color($primary);
       }
@@ -45,7 +48,7 @@
     }
     .mat-drawer-content {
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.11);
-      @include scrollbar(mat-color($primary));
+      @include scrollbar(mat-color($foreground, divider));
       .builder-content-toolbar {
         background-color: mat-color($background, card);
       }
@@ -78,6 +81,7 @@
       height: 100%;
       left: 0;
       top: 0;
+      opacity: 1;
       transition: all 0.1s ease-in;
       border: 2px dotted transparent;
     }

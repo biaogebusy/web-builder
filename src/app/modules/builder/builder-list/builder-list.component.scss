@@ -3,9 +3,19 @@
   height: calc(100% - 55px);
   overflow-y: auto;
   .component-item {
-    &.cdk-drag {
+    position: relative;
+    &.cdk-drag:not(.cdk-drag-disabled) {
       cursor: move;
     }
-    position: relative;
+    &.cdk-drag-disabled {
+      ::ng-deep {
+        .active-toolbar {
+          &:after {
+            opacity: 0;
+            display: none;
+          }
+        }
+      }
+    }
   }
 }

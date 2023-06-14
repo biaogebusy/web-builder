@@ -366,19 +366,13 @@ export class NodeService extends ApiService {
     );
   }
 
-  getPayUrl(entityId: string): string {
-    return `${this.apiUrl}${this.coreConfig?.commerce?.payNode}/${entityId}`;
-  }
-
   checkNodeAccess(
     params: any,
     entityId: string,
     user: IUser
   ): Observable<IArticleAccess> {
-    const reqPay = params?.pay;
     const reqRule = params?.require_rule;
-    const reqMoney = reqPay?.money;
-    if (!isEmpty(reqRule) || reqPay) {
+    if (!isEmpty(reqRule)) {
       // 非公开浏览
       const isReqRoles = this.checkReqRule(reqRule, user);
       // 是否可授权访问角色
@@ -386,58 +380,18 @@ export class NodeService extends ApiService {
         return of({
           canAccess: true,
           isReqRoles: true,
-          isPayed: false,
-          reqMoney,
-          payUrl: '',
         });
       } else {
-        // 是否已购买
-        if (reqPay && user.authenticated) {
-          return this.checkCurrentUserPayed(
-            user.id,
-            entityId,
-            user.csrf_token
-          ).pipe(
-            map((payed) => {
-              if (payed) {
-                // 已购买
-                return {
-                  canAccess: true,
-                  isReqRoles: false,
-                  isPayed: true,
-                  reqMoney,
-                  payUrl: this.getPayUrl(entityId),
-                };
-              } else {
-                // 未购买
-                return {
-                  canAccess: false,
-                  isReqRoles: false,
-                  isPayed: false,
-                  reqMoney,
-                  payUrl: this.getPayUrl(entityId),
-                };
-              }
-            })
-          );
-        } else {
-          return of({
-            canAccess: false,
-            isReqRoles: false,
-            isPayed: false,
-            reqMoney,
-            payUrl: this.getPayUrl(entityId),
-          });
-        }
+        return of({
+          canAccess: false,
+          isReqRoles: false,
+        });
       }
     } else {
       // 公开浏览
       return of({
         canAccess: true,
         isReqRoles: false,
-        isPayed: false,
-        reqMoney,
-        payUrl: '',
       });
     }
   }

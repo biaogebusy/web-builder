@@ -123,6 +123,7 @@ import { BuilderMenuComponent } from './builder/builder-menu/builder-menu.compon
 import { MatBadgeModule } from '@angular/material/badge';
 import { NotifyComponent } from './notify/notify.component';
 import { LogoComponent } from './img/logo/logo.component';
+import { GotopComponent } from './actions/gotop/gotop.component';
 
 FullCalendarModule.registerPlugins([
   // register FullCalendar plugins
@@ -216,6 +217,7 @@ const components = [
   DynamicComponentComponent,
   ComponentToolbarComponent,
   BuilderMenuComponent,
+  GotopComponent,
 ];
 
 @NgModule({

@@ -45,6 +45,7 @@ import { throwError } from 'rxjs';
 import { ReqRolesDirective } from '@core/directive/req-roles.directive';
 import { CheckChildMenuActiveDirective } from '@core/directive/check-child-menu-active.directive';
 import { ComponentService } from '@core/service/component.service';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [ReqRolesDirective, CheckChildMenuActiveDirective],
@@ -52,6 +53,7 @@ import { ComponentService } from '@core/service/component.service';
     CommonModule,
     MatToolbarModule,
     MatIconModule,
+    MatSlideToggleModule,
     MatButtonModule,
     MatButtonToggleModule,
     MatCardModule,
@@ -83,6 +85,7 @@ import { ComponentService } from '@core/service/component.service';
     RouterModule,
     MatToolbarModule,
     MatIconModule,
+    MatSlideToggleModule,
     MatButtonModule,
     MatButtonToggleModule,
     MatCardModule,
