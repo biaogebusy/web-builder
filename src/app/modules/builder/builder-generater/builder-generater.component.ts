@@ -99,7 +99,6 @@ export class BuilderGeneraterComponent implements OnInit {
 
   onGenerate(value: any): void {
     const items = [...this.content.components, ...this.content.widgets];
-    console.log(value);
     const heros = this.builder.getRandomElements(items, 'Hero', value.hero);
     const showcases = this.builder.getRandomElements(
       items,

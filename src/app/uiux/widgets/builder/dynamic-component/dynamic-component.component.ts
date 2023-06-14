@@ -1,4 +1,5 @@
 import {
+  ChangeDetectorRef,
   Component,
   ComponentRef,
   HostBinding,
@@ -10,6 +11,7 @@ import {
   SimpleChanges,
   ViewChild,
   ViewContainerRef,
+  ViewRef,
 } from '@angular/core';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { ComponentService } from '@core/service/component.service';
@@ -39,6 +41,7 @@ export class DynamicComponentComponent implements OnInit, OnChanges, OnDestroy {
   constructor(
     private componentService: ComponentService,
     private builder: BuilderState,
+    private cd: ChangeDetectorRef,
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig
   ) {}
 
@@ -100,5 +103,8 @@ export class DynamicComponentComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnDestroy(): void {
     this.container.clear();
+    if (this.cd && !(this.cd as ViewRef).destroyed) {
+      this.cd.detectChanges();
+    }
   }
 }
