@@ -272,7 +272,7 @@ export class ComponentService {
 
   async getModuleFactory(type: string) {
     if (!this.moduleLists[type]) {
-      throw new Error(`${type} 不存在！`);
+      throw new Error(`组件不存在！`);
     }
     const ngModuleOrNgModuleFactory = await this.moduleLists[type]();
     let factory = null;

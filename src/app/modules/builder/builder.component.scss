@@ -1,3 +1,4 @@
+@import "../../../theme/variable/breakpoint";
 .builder {
   &.has-sidebar {
     height: calc(100vh - 40px);
@@ -7,8 +8,8 @@
     }
   }
   .sidebar {
-    width: 330px;
-    padding: 20px;
+    width: 80%;
+    padding: 10px;
     border-right: 0;
     ::ng-deep {
       app-icon {
@@ -20,8 +21,9 @@
           line-height: 18px !important;
         }
       }
-    }
-    ::ng-deep {
+      .mat-list-text {
+        padding-right: 0 !important;
+      }
       .mat-tab-header {
         border-radius: 6px;
         border: 0;
@@ -37,6 +39,10 @@
           font-size: small;
         }
       }
+    }
+    @media #{$gt-sm} {
+      width: 330px;
+      padding: 20px;
     }
   }
   .mat-drawer-container {

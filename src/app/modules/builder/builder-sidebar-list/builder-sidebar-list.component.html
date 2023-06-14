@@ -4,7 +4,7 @@
     (mouseenter)="onShowcase(component)" (mouseleave)="onShowcase()">
     <div fxLayoutAlign="space-between center">
       {{component.content.type}}
-      <span class="right" *ngIf="component.name">{{component?.name}}</span>
+      <span class="right" *ngIf="component.name">{{component.name}}</span>
     </div>
     <mat-divider></mat-divider>
     <div class="placeholder" *cdkDragPlaceholder></div>

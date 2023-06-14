@@ -125,7 +125,7 @@ YCenter.args = {
 };
 
 export const YCenterXCustom = Template.bind({});
-YCenterXCustom.storyName = 'Y 轴中心 X 轴自定义';
+YCenterXCustom.storyName = 'Y轴中心 X轴自定义';
 YCenterXCustom.args = {
   content: {
     type: 'hero-2v1',
@@ -172,7 +172,7 @@ YCenterXCustom.args = {
 };
 
 export const XYCustom = Template.bind({});
-XYCustom.storyName = 'XY 轴自定义';
+XYCustom.storyName = 'XY轴自定义';
 XYCustom.args = {
   content: {
     type: 'hero-2v1',

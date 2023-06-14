@@ -192,7 +192,7 @@ export const showcase: IBuilderComponent[] = [
   },
   {
     ...s3v6Background,
-    name: s3v6Background,
+    name: s3v6BackgroundName,
   },
   s3v7Default,
   s3v8Default,

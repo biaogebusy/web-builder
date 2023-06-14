@@ -1,2 +1,2 @@
-<app-dynamic-component [inputs]="{content:coreConfig.builder?.empty, disableToolbar:true,activeToolBar:false}"
-  [isPreview]="true"></app-dynamic-component>
+<app-dynamic-component *ngFor="let item of coreConfig.builder?.empty"
+  [inputs]="{content:item, disableToolbar:true,activeToolBar:false}" [isPreview]="true"></app-dynamic-component>

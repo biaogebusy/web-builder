@@ -18,18 +18,18 @@ export class BuilderSidebarListComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onShowcase(content?: any) {
-    if (content) {
+  onShowcase(component?: any) {
+    if (component) {
       this.builder.showcase$.next({
         type: 'card-1v1',
         link: {
           href: '#',
-          label: content.type,
+          label: component.content.type,
         },
-        components: [content],
+        components: [component],
       });
     } else {
-      this.builder.showcase$.next(content);
+      this.builder.showcase$.next(component);
     }
   }
 }

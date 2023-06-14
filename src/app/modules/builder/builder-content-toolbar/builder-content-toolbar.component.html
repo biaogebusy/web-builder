@@ -1,19 +1,15 @@
 <div class="builder-content-toolbar">
   <div class="wrapper" fxLayoutAlign="space-between center">
-    <div class="left" fxFlex="33%">
-      <!-- <app-icon *ngIf="!opened" [matTooltip]="'收起边栏'" matTooltipPosition="above" class="open-drawer"
-        (click)="drawer.open()" [content]="{svg:'format-horizontal-align-right'}"></app-icon> -->
-      <app-btn *ngIf="!opened" [matTooltip]="'收起边栏'" matTooltipPosition="above" (click)="onOpen()"
+    <div class="left" fxFlex.lt-md="auto" fxFlex.gt-sm="33%">
+      <app-btn *ngIf="opened" [matTooltip]="'收起边栏'" matTooltipPosition="above" (click)="onClose()"
         [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'fullscreen' } }"></app-btn>
-      <app-btn *ngIf="opened" [matTooltip]="'展开边栏'" matTooltipPosition="above" (click)="onClose()"
+      <app-btn *ngIf="!opened" [matTooltip]="'展开边栏'" matTooltipPosition="above" (click)="onOpen()"
         [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'fullscreen-exit' } }"></app-btn>
     </div>
-    <div class="middle" fxFlex="33%" fxLayoutAlign="center center">
+    <div class="middle" fxFlex.lt-md="auto" fxFlex.gt-sm="33%" fxLayoutAlign="center center">
       <div class="title bold">{{page?.title}}</div>
     </div>
-    <div class="right" fxFlex="33%" fxLayoutAlign="end center" fxLayoutGap="0.5rem">
-      <!-- <app-btn [matTooltip]="'加载动画效果'" matTooltipPosition="above" (click)="loadAnimate()"
-        [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'autorenew' } }"></app-btn> -->
+    <div class="right" fxFlex.lt-md="auto" fxFlex.gt-sm="33%" fxLayoutAlign="end center" fxLayoutGap="0.5rem">
       <mat-slide-toggle (change)="onPreview($event)" [matTooltip]="'安静预览'"
         matTooltipPosition="above"></mat-slide-toggle>
       <app-btn [matTooltip]="'智能生成'" matTooltipPosition="above" (click)="onGenerate()"

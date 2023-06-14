@@ -17,7 +17,6 @@ import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { ComponentService } from '@core/service/component.service';
 import { ScreenService } from '@core/service/screen.service';
 import { BuilderState } from '@core/state/BuilderState';
-import { ScreenState } from '@core/state/screen/ScreenState';
 import { CORE_CONFIG } from '@core/token/token-providers';
 
 export interface dynamicInputs {
@@ -81,6 +80,7 @@ export class DynamicComponentComponent implements OnInit, OnChanges, OnDestroy {
     this.container.clear();
     this.component = await this.componentService.getComponent(type);
     if (!this.component) {
+      console.log('无法识别该组件：', this.inputs);
       return;
     }
     if (this.component.instance && this.inputs) {
