@@ -5,6 +5,7 @@ import {
 } from '@angular/cdk/drag-drop';
 import { Injectable } from '@angular/core';
 import { IPage } from '@core/interface/IAppConfig';
+import { IBuilderComponent } from '@core/interface/IBuilder';
 import { ICard1v1 } from '@core/interface/widgets/ICard';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { LocalStorageService } from 'ngx-webstorage';
@@ -88,4 +89,25 @@ export class BuilderState {
     );
     this.updatePage();
   }
+
+  getRandomElements = (
+    data: IBuilderComponent[],
+    label: string,
+    count: number
+  ) => {
+    const elements = data.find((item) => item.label === label)?.elements;
+
+    if (elements && elements.length > 0) {
+      const randomElements = [];
+
+      for (let i = 0; i < count; i++) {
+        const randomIndex = Math.floor(Math.random() * elements.length);
+        randomElements.push(elements[randomIndex]);
+      }
+
+      return randomElements;
+    } else {
+      return [];
+    }
+  };
 }

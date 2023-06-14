@@ -102,6 +102,15 @@ const content = of({
             name: 'delete',
           },
         },
+        {
+          type: 'btn',
+          color: 'primary',
+          label: 'MDI Icon',
+          icon: {
+            inline: true,
+            svg: 'delete',
+          },
+        },
       ],
     },
     {
@@ -156,6 +165,16 @@ const content = of({
           },
           mode: 'raised',
         },
+        {
+          type: 'btn',
+          color: 'primary',
+          label: 'MDI Icon',
+          icon: {
+            inline: true,
+            svg: 'progress-download',
+          },
+          mode: 'raised',
+        },
       ],
     },
     {
@@ -207,6 +226,16 @@ const content = of({
           icon: {
             inline: true,
             name: 'delete',
+          },
+          mode: 'stroked',
+        },
+        {
+          type: 'btn',
+          color: 'primary',
+          label: 'MDI Icon',
+          icon: {
+            inline: true,
+            svg: 'delete',
           },
           mode: 'stroked',
         },
@@ -273,6 +302,15 @@ const content = of({
             name: 'more_vert',
           },
         },
+        {
+          type: 'btn',
+          color: 'primary',
+          mode: 'mini-fab',
+          icon: {
+            inline: true,
+            svg: 'delete',
+          },
+        },
       ],
     },
     {
@@ -292,6 +330,14 @@ const content = of({
           mode: 'icon',
           icon: {
             name: 'more_vert',
+          },
+        },
+        {
+          type: 'btn',
+          color: 'primary',
+          mode: 'icon',
+          icon: {
+            svg: 'delete',
           },
         },
       ],

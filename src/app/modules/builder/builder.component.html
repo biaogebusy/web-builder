@@ -19,13 +19,20 @@
           <app-builder-sidebar-widgets *ngIf="widgets" [content]="widgets"></app-builder-sidebar-widgets>
         </mat-tab>
       </mat-tab-group>
-
     </mat-drawer>
     <mat-drawer-content>
-      <app-builder-content-toolbar [drawer]="drawer" [opened]="opened" [page]="page"
+      <app-builder-content-toolbar [drawer]="drawer" [containerDrawer]="containerDrawer" [opened]="opened" [page]="page"
         (animateChange)="onAnimate()"></app-builder-content-toolbar>
-      <app-builder-showcase *ngIf="builder.showcase$ | async as showcase" [content]="showcase"></app-builder-showcase>
-      <app-builder-list [isPreview]="true" [content]="content.body" (dropChange)="drop($event)"></app-builder-list>
+      <mat-drawer-container class="preview-container">
+        <mat-drawer #containerDrawer class="generater-drawer" mode="side" position="end">
+          <app-builder-generater [content]="{components:components,widgets:widgets}"></app-builder-generater>
+        </mat-drawer>
+        <mat-drawer-content>
+          <app-builder-showcase *ngIf="builder.showcase$ | async as showcase"
+            [content]="showcase"></app-builder-showcase>
+          <app-builder-list [isPreview]="true" [content]="content.body" (dropChange)="drop($event)"></app-builder-list>
+        </mat-drawer-content>
+      </mat-drawer-container>
     </mat-drawer-content>
   </mat-drawer-container>
 </div>

@@ -18,6 +18,7 @@ import { LocalStorageService } from 'ngx-webstorage';
 })
 export class BuilderContentToolbarComponent implements OnInit {
   @Input() drawer: MatDrawer;
+  @Input() containerDrawer: MatDrawer;
   @Input() opened: boolean;
   @Input() page: IPage;
 
@@ -37,5 +38,9 @@ export class BuilderContentToolbarComponent implements OnInit {
   onClose(): void {
     this.drawer.close();
     this.storage.store('builderFullSize', true);
+  }
+  onGenerate(): void {
+    this.containerDrawer.toggle();
+    this.onClose();
   }
 }

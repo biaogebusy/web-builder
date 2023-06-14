@@ -369,7 +369,7 @@
             "style": "style-v4",
             "classes": "mat-display-2"
           },
-          "body": "启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 Storybook 页面时添加组件到预览页面，类似组件市场。<ul class=\"list-done\"><li>可以复制整个页面的 JSON；</li><li>可以复制具体组件的 JSON；</li><li>可以直接编辑组件的 JSON，所见即所得；</li></ul><br><p>拖动组件到这里进行创作！</p>",
+          "body": "启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 Storybook 页面时添加组件到预览页面，类似组件市场。<ul class=\"list-done\"><li>可以复制整个页面的 JSON；</li><li>可以复制具体组件的 JSON；</li><li>可以直接编辑组件的 JSON，所见即所得；</li></ul><br><p>拖动组件到这里进行创作，或者点击右上角智能生成。</p>",
           "actions": [
             {
               "href": "#",

@@ -13,6 +13,7 @@ import { BuilderEmptyComponent } from './builder-empty/builder-empty.component';
 import { BuilderShowcaseComponent } from './builder-showcase/builder-showcase.component';
 import { BuilderSidebarComponentsComponent } from './builder-sidebar-components/builder-sidebar-components.component';
 import { BuilderSidebarWidgetsComponent } from './builder-sidebar-widgets/builder-sidebar-widgets.component';
+import { BuilderGeneraterComponent } from './builder-generater/builder-generater.component';
 const compoments = [BuilderComponent, BuilderListComponent];
 
 @NgModule({
@@ -25,6 +26,7 @@ const compoments = [BuilderComponent, BuilderListComponent];
     BuilderShowcaseComponent,
     BuilderSidebarComponentsComponent,
     BuilderSidebarWidgetsComponent,
+    BuilderGeneraterComponent,
   ],
   imports: [
     ShareModule,
