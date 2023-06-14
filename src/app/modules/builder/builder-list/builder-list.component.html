@@ -2,7 +2,7 @@
   class="builder-list" (cdkDropListDropped)="drop($event)">
   <app-builder-empty *ngIf="!content?.length"></app-builder-empty>
   <div class="component-item" cdkDrag [cdkDragData]="item" *ngFor="let item of content;index as i; trackBy: trackByFn">
-    <app-dynamic-component [inputs]="item.content" [index]="i" [isPreview]="isPreview"></app-dynamic-component>
+    <app-dynamic-component [inputs]="item" [index]="i" [isPreview]="isPreview"></app-dynamic-component>
     <app-card-1v1 style="width:800px" *cdkDragPreview [content]="{
       link:{
         href:'#',

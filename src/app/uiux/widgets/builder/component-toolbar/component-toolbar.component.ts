@@ -39,14 +39,18 @@ export class ComponentToolbarComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  get type(): string {
+    return this.content.type || this.content.content?.type || '';
+  }
+
   addComponent(content: any): any {
     this.builder.pushComponent(content);
-    this.util.openSnackbar(`已添加${content.type}到预览页面！`, 'ok');
+    this.util.openSnackbar(`已添加${this.type}到预览页面！`, 'ok');
   }
 
   onCopy(content: any): void {
     this.util.copy(JSON.stringify(content));
-    this.util.openSnackbar(`已复制${content.type}的JSON！`, 'ok');
+    this.util.openSnackbar(`已复制${this.type}的JSON！`, 'ok');
   }
 
   onEditor(content: any, index: number): void {
@@ -76,8 +80,8 @@ export class ComponentToolbarComponent implements OnInit {
     });
   }
 
-  onDelete(content: any, index: number): void {
+  onDelete(index: number): void {
     this.builder.deleteComponent(index);
-    this.util.openSnackbar(`已在移除${content.type}组件！`, 'ok');
+    this.util.openSnackbar(`已在移除${this.type}组件！`, 'ok');
   }
 }

@@ -22,7 +22,7 @@ const {
 } = hero1v4Story as any;
 
 const {
-  Default: { args: h2v1Default, storyName: h2v1DefaultName },
+  Default: { args: h2v1Default },
   YCenter: { args: yCenter, storyName: yCenterName },
   YCenterXCustom: { args: yCenterXCustom, storyName: yCenterXCustomName },
   XYCustom: { args: xyCustom, storyName: xyCustomName },
@@ -43,7 +43,7 @@ export const hero: IBuilderComponent[] = [
   { ...h1v3V2, ...{ name: h1v3V2Name } },
   { ...h1v4Default, ...{ name: h1v4DefaultName } },
   { ...h1v1Order, ...{ name: h1v1OrderName } },
-  { ...h2v1Default, ...{ name: h2v1DefaultName } },
+  h2v1Default,
   { ...yCenter, ...{ name: yCenterName } },
   { ...yCenterXCustom, ...{ name: yCenterXCustomName } },
   { ...xyCustom, ...{ name: xyCustomName } },

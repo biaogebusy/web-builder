@@ -1,4 +1,4 @@
-<div class="builder" [ngClass]="{'has-sidebar':!builderFullSize}">
+<div class="builder" [ngClass]="{'has-sidebar':!builderFullSize}" *ngIf="content">
   <mat-drawer-container>
     <mat-drawer #drawer class="sidebar" mode="side" [(opened)]="opened">
       <app-builder-sidebar-top [drawer]="drawer" [opened]="opened"></app-builder-sidebar-top>

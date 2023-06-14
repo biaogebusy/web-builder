@@ -5,7 +5,7 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { screen, userEvent } from '@storybook/testing-library';
+import { userEvent } from '@storybook/testing-library';
 import { TabComponent } from '@uiux/widgets/tab/tab.component';
 
 export default {

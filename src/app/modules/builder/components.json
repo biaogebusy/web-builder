@@ -4616,7 +4616,7 @@
                   "name": "fingerprint"
                 },
                 "digit": {
-                  "value": 834,
+                  "value": 300,
                   "label": "+"
                 },
                 "title": "日访问人数"
@@ -4626,7 +4626,7 @@
                   "name": "verified_user"
                 },
                 "digit": {
-                  "value": 230,
+                  "value": 246,
                   "label": "+"
                 },
                 "title": "日打开次数"
@@ -4636,7 +4636,7 @@
                   "name": "android"
                 },
                 "digit": {
-                  "value": 207,
+                  "value": 40,
                   "label": "人"
                 },
                 "title": "日新增人数"
@@ -4646,7 +4646,7 @@
                   "name": "mail"
                 },
                 "digit": {
-                  "value": 8153,
+                  "value": 5450,
                   "label": "万"
                 },
                 "title": "累计用户数"
@@ -4675,7 +4675,7 @@
                   "src": "/assets/images/svg/Asset187.svg"
                 },
                 "digit": {
-                  "value": 65,
+                  "value": 78,
                   "label": "%"
                 },
                 "title": "Happy Client"
@@ -4685,7 +4685,7 @@
                   "src": "/assets/images/svg/Asset189.svg"
                 },
                 "digit": {
-                  "value": 114,
+                  "value": 408,
                   "label": "+"
                 },
                 "title": "Awards"
@@ -4695,7 +4695,7 @@
                   "src": "/assets/images/svg/Asset190.svg"
                 },
                 "digit": {
-                  "value": 227,
+                  "value": 157,
                   "label": "K"
                 },
                 "title": "Job Placement"
@@ -4705,7 +4705,7 @@
                   "src": "/assets/images/svg/Asset192.svg"
                 },
                 "digit": {
-                  "value": 93,
+                  "value": 79,
                   "label": "%"
                 },
                 "title": "Project Complete"

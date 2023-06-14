@@ -9,39 +9,37 @@
             "svg": "format-size"
           },
           "content": {
-            "content": {
-              "type": "text",
-              "body": "<p class=\"text-center\">Github actions 从2019年就免费开放给个人开源项目使用，对于自动化开放测试部署，开发者一定非常的熟悉，如果把中间这项流程做好，不仅节省了大量的人力也大大加快了开发效率，在配置完善的情况下可以提高代码质量。</p>",
-              "spacer": "lg",
-              "title": {
-                "label": "开源项目使用 <span class=\"text-primary\">Github actions</span> 自动化测试部署 Angular 应用到 ECS 服务器",
-                "style": "style-v1"
+            "type": "text",
+            "body": "<p class=\"text-center\">Github actions 从2019年就免费开放给个人开源项目使用，对于自动化开放测试部署，开发者一定非常的熟悉，如果把中间这项流程做好，不仅节省了大量的人力也大大加快了开发效率，在配置完善的情况下可以提高代码质量。</p>",
+            "spacer": "lg",
+            "title": {
+              "label": "开源项目使用 <span class=\"text-primary\">Github actions</span> 自动化测试部署 Angular 应用到 ECS 服务器",
+              "style": "style-v1"
+            },
+            "bg": {
+              "classes": "bg-shadow bg-fill-width"
+            },
+            "actionsAlign": "center center",
+            "actions": [
+              {
+                "type": "btn",
+                "mode": "raised",
+                "color": "primary",
+                "href": "#",
+                "label": "开始"
               },
-              "bg": {
-                "classes": "bg-shadow bg-fill-width"
+              {
+                "type": "closeDialog",
+                "label": "Ok"
               },
-              "actionsAlign": "center center",
-              "actions": [
-                {
-                  "type": "btn",
-                  "mode": "raised",
-                  "color": "primary",
-                  "href": "#",
-                  "label": "开始"
-                },
-                {
-                  "type": "closeDialog",
-                  "label": "Ok"
-                },
-                {
-                  "type": "btn-animate",
-                  "label": "了解更多",
-                  "href": "#",
-                  "style": "style-v1",
-                  "icon": "open_in_new"
-                }
-              ]
-            }
+              {
+                "type": "btn-animate",
+                "label": "了解更多",
+                "href": "#",
+                "style": "style-v1",
+                "icon": "open_in_new"
+              }
+            ]
           }
         },
         {
@@ -50,12 +48,10 @@
             "svg": "image-outline"
           },
           "content": {
-            "content": {
-              "type": "img",
-              "classes": "",
-              "src": "/assets/images/cases/porto2.jpg",
-              "alt": "alt"
-            }
+            "type": "img",
+            "classes": "",
+            "src": "/assets/images/cases/porto2.jpg",
+            "alt": "alt"
           }
         },
         {
@@ -63,91 +59,99 @@
           "icon": {
             "svg": "chart-line"
           },
+          "data": {
+            "toggle": [
+              {
+                "label": "饼图",
+                "icon": {
+                  "name": "pie_chart",
+                  "inline": true
+                },
+                "value": "pie"
+              },
+              {
+                "label": "柱状图",
+                "icon": {
+                  "name": "equalizer",
+                  "inline": true
+                },
+                "value": "bar"
+              },
+              {
+                "label": "折线图",
+                "icon": {
+                  "name": "show_chart",
+                  "inline": true
+                },
+                "value": "line"
+              }
+            ]
+          },
           "content": {
-            "data": {
-              "toggle": [
-                {
-                  "label": "饼图",
-                  "icon": {
-                    "name": "pie_chart",
-                    "inline": true
-                  },
-                  "value": "pie"
-                },
-                {
-                  "label": "柱状图",
-                  "icon": {
-                    "name": "equalizer",
-                    "inline": true
-                  },
-                  "value": "bar"
-                },
-                {
-                  "label": "折线图",
-                  "icon": {
-                    "name": "show_chart",
-                    "inline": true
-                  },
-                  "value": "line"
-                }
+            "type": "chart",
+            "title": {
+              "text": "年度活动金额预算",
+              "subtext": "南宁"
+            },
+            "legend": {
+              "bottom": "10px"
+            },
+            "tooltip": {
+              "trigger": "axis"
+            },
+            "dataset": {
+              "source": [
+                [
+                  "红包预算",
+                  "2020",
+                  "2021",
+                  "2022"
+                ],
+                [
+                  "大额红包",
+                  9341,
+                  9582,
+                  6463
+                ],
+                [
+                  "小额红包",
+                  3598,
+                  3772,
+                  4355
+                ],
+                [
+                  "推广费用",
+                  8896,
+                  3431,
+                  6725
+                ]
               ]
             },
-            "content": {
-              "type": "chart",
-              "title": {
-                "text": "年度活动金额预算",
-                "subtext": "南宁"
+            "xAxis": {
+              "type": "category"
+            },
+            "yAxis": {},
+            "series": [
+              {
+                "type": "bar"
               },
-              "legend": {
-                "bottom": "10px"
+              {
+                "type": "bar"
               },
-              "tooltip": {
-                "trigger": "axis"
-              },
-              "dataset": {
-                "source": [
-                  [
-                    "红包预算",
-                    "2020",
-                    "2021",
-                    "2022"
-                  ],
-                  [
-                    "大额红包",
-                    3134,
-                    5825,
-                    9719
-                  ],
-                  [
-                    "小额红包",
-                    4362,
-                    6048,
-                    5127
-                  ],
-                  [
-                    "推广费用",
-                    3290,
-                    7284,
-                    5948
-                  ]
-                ]
-              },
-              "xAxis": {
-                "type": "category"
-              },
-              "yAxis": {},
-              "series": [
-                {
-                  "type": "bar"
-                },
-                {
-                  "type": "bar"
-                },
-                {
-                  "type": "bar"
-                }
-              ]
-            }
+              {
+                "type": "bar"
+              }
+            ]
+          }
+        },
+        {
+          "label": "Spacer",
+          "icon": {
+            "svg": "format-vertical-align-center"
+          },
+          "content": {
+            "type": "spacer",
+            "size": "md"
           }
         }
       ]

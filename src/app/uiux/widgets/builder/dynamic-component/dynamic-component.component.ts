@@ -12,10 +12,9 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
-import type { IUser } from '@core/interface/IUser';
 import { ComponentService } from '@core/service/component.service';
 import { BuilderState } from '@core/state/BuilderState';
-import { CORE_CONFIG, USER } from '@core/token/token-providers';
+import { CORE_CONFIG } from '@core/token/token-providers';
 
 export interface dynamicInputs {
   content?: any;
@@ -40,8 +39,7 @@ export class DynamicComponentComponent implements OnInit, OnChanges, OnDestroy {
   constructor(
     private componentService: ComponentService,
     private builder: BuilderState,
-    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
-    @Inject(USER) private user: IUser
+    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig
   ) {}
 
   ngOnInit(): void {

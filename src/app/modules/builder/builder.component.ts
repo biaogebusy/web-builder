@@ -1,11 +1,13 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
-import type { IPage } from '@core/interface/IAppConfig';
+import { AfterViewInit, Component, Inject, Input, OnInit } from '@angular/core';
+import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { LocalStorage, LocalStorageService } from 'ngx-webstorage';
 import components from './components.json';
 import widgets from './widgets.json';
 import { BuilderState } from '@core/state/BuilderState';
 import { IBuilderComponent, IBuilderWidget } from '@core/interface/IBuilder';
+import { CORE_CONFIG } from '@core/token/token-providers';
+import { UtilitiesService } from '@core/service/utilities.service';
 @Component({
   selector: 'app-builder',
   templateUrl: './builder.component.html',
@@ -24,17 +26,23 @@ export class BuilderComponent implements OnInit, AfterViewInit {
   panelOpenState = false;
   constructor(
     private storage: LocalStorageService,
-    public builder: BuilderState
+    public builder: BuilderState,
+    private utli: UtilitiesService,
+    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
   ) {}
 
   ngOnInit(): void {
-    this.content = this.page;
-    this.components = components.data;
-    this.widgets = widgets.data;
-    if (!this.builderFullSize) {
-      this.storage.store('builderFullSize', false);
+    if (this.coreConfig.builder?.enable) {
+      this.content = this.page;
+      this.components = components.data;
+      this.widgets = widgets.data;
+      if (!this.builderFullSize) {
+        this.storage.store('builderFullSize', false);
+      }
+      this.builder.animateDisable$.next(true);
+    } else {
+      this.utli.openSnackbar('请开启 Builder 功能！', 'ok');
     }
-    this.builder.animateDisable$.next(true);
   }
 
   ngAfterViewInit(): void {

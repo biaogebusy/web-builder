@@ -7,7 +7,6 @@ import { Story } from '@storybook/angular/types-6-0';
 import { SpacerComponent } from '@uiux/widgets/spacer/spacer.component';
 import { StorysModule } from '@core/module/storys.module';
 
-const sm = { label: 'sm', style: 'style-v4', classes: 'mat-display-1' };
 export default {
   title: '主题/间距大小',
   id: 'spacer',
@@ -65,3 +64,12 @@ const Template: Story = (args) => ({
 
 export const Default = Template.bind({});
 Default.storyName = '预览';
+
+export const Normal = Template.bind({});
+Normal.storyName = '正常';
+Normal.args = {
+  content: {
+    type: 'spacer',
+    size: 'md',
+  },
+};
