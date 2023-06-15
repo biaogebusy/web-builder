@@ -8,7 +8,7 @@ import { screen, userEvent } from '@storybook/testing-library';
 import { ContactUsComponent } from '@uiux/widgets/contact-us/contact-us.component';
 import { StorysModule } from '@core/module/storys.module';
 export default {
-  title: '基础组件/联系我们',
+  title: 'Drupal/联系我们',
   id: 'contact-us',
   component: ContactUsComponent,
   decorators: [
@@ -29,9 +29,9 @@ const Template: Story = (args) => ({
     ...args,
   },
 });
-export const Base = Template.bind({});
+export const Default = Template.bind({});
 
-Base.args = {
+Default.args = {
   content: {
     type: 'contact-us',
     params: {
@@ -54,7 +54,7 @@ Base.args = {
           name: 'location_on',
         },
         style: 'style-v7 small-box',
-        content: '广西南宁市创客城2栋',
+        content: '创客城2栋',
       },
       {
         title: {
@@ -74,7 +74,7 @@ Base.args = {
         icon: {
           name: 'mail',
         },
-        content: 'service@zhaobg.com',
+        content: 'service@example.com',
       },
       {
         title: {
@@ -126,14 +126,14 @@ Base.args = {
   },
 };
 
-Base.play = async () => {
+Default.play = async () => {
   const Name = screen.getByLabelText('姓名');
   await userEvent.type(Name, 'Johnson', {
     delay: 100,
   });
 
   const Email = screen.getByLabelText('邮箱');
-  await userEvent.type(Email, 'hi@zhaobg.com', {
+  await userEvent.type(Email, 'hi@example.com', {
     delay: 100,
   });
 

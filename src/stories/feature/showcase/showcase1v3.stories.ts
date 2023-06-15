@@ -5,7 +5,7 @@ import {
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { Showcase1v3Component } from '@uiux/combs/showcase/showcase1v3/showcase1v3.component';
-import * as ContactUs from 'src/stories/widgets/ContactUs.stories';
+import * as ContactUs from 'src/stories/drupal/ContactUs.stories';
 import { StorysModule } from '@core/module/storys.module';
 
 export default {
@@ -80,7 +80,7 @@ Default.args = {
 
 export const Contact = Template.bind({});
 Contact.storyName = 'Widgets';
-const contact: any = ContactUs.Base.args;
+const contact: any = ContactUs.Default.args;
 Contact.args = {
   content: {
     id: 'form',

@@ -55,6 +55,13 @@
       .overlay {
         background-color: mat-color($background, background, 0.5);
       }
+      .showcase {
+        .component-toolbar {
+          + app-spacer {
+            background-color: mat-color($primary, 0.25);
+          }
+        }
+      }
     }
     .cdk-drag-placeholder {
       background-color: mat-color($background, background);

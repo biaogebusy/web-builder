@@ -89,7 +89,7 @@ export class StorysModule {
             },
             id: '029f3488-92ed-4fb5-8fa2-62df6fdaf90bd9d5',
             display_name: '表歌',
-            mail: 'hi@zhaobg.com',
+            mail: 'hi@example.com',
             authenticated: true,
             picture: '/assets/images/avatar/01.jpeg',
             login: new Date(),

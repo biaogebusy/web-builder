@@ -25,7 +25,7 @@ export const defaultHeader: IBranding = {
           },
           {
             icon: 'email',
-            label: 'service@zhaobg.com',
+            label: 'service@example.com',
           },
         ],
         right: [

@@ -13,4 +13,11 @@
   margin: 40px;
   z-index: 9999;
   left: 350px;
+  ::ng-deep {
+    .component-toolbar {
+      + app-spacer {
+        display: block;
+      }
+    }
+  }
 }

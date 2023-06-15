@@ -54,6 +54,7 @@ export class ComponentService {
       'chip-list',
       'chart',
       'input',
+      'formly',
       'contact-us',
       'media-list',
       'select',

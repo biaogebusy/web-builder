@@ -3,6 +3,8 @@ import * as textStory from '../widgets/base/Text.stories';
 import * as imgStory from '../widgets/base/Img.stories';
 import * as chartStory from '../widgets/chart/ChartBar.stories';
 import * as spacerStory from '../theme/Spacer.stories';
+import * as formStory from '../widgets/Form.stories';
+
 const {
   Center: { args: text },
 } = textStory as any;
@@ -18,6 +20,10 @@ const {
 const {
   Normal: { args: spacer },
 } = spacerStory as any;
+
+const {
+  Default: { args: form },
+} = formStory as any;
 
 export const widgets: IBuilderWidget[] = [
   {
@@ -47,9 +53,19 @@ export const widgets: IBuilderWidget[] = [
       {
         label: 'Spacer',
         icon: {
-          svg: 'format-vertical-align-center',
+          svg: 'color-helper',
         },
         ...spacer,
+      },
+      {
+        label: 'Form',
+        icon: {
+          svg: 'form-select',
+        },
+        content: {
+          type: 'formly',
+          fields: form.fields,
+        },
       },
     ],
   },

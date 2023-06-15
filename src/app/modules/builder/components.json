@@ -1491,7 +1491,7 @@
                       "name": "location_on"
                     },
                     "style": "style-v7 small-box",
-                    "content": "广西南宁市创客城2栋"
+                    "content": "创客城2栋"
                   },
                   {
                     "title": {
@@ -1511,7 +1511,7 @@
                     "icon": {
                       "name": "mail"
                     },
-                    "content": "service@zhaobg.com"
+                    "content": "service@example.com"
                   },
                   {
                     "title": {

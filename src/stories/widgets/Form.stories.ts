@@ -49,6 +49,7 @@ const model: any = {};
 export const Default = Template.bind({});
 Default.storyName = '预览';
 Default.args = {
+  type: 'formly',
   form,
   model,
   fields: [
@@ -188,6 +189,7 @@ Default.args = {
 export const Group = Template.bind({});
 Group.storyName = '分组';
 Group.args = {
+  type: 'formly',
   form,
   model,
   fields: [
@@ -294,6 +296,7 @@ Group.args = {
 export let HideExpression = Template.bind({});
 HideExpression.storyName = '条件隐藏';
 HideExpression.args = {
+  type: 'formly',
   form,
   model,
   fields: [
@@ -432,6 +435,7 @@ HideExpression.args = {
 export const ExpressionProperties = Template.bind({});
 ExpressionProperties.storyName = '动态更新属性';
 ExpressionProperties.args = {
+  type: 'formly',
   form,
   model,
   fields: [
@@ -460,6 +464,7 @@ ExpressionProperties.args = {
 export const Style = Template.bind({});
 Style.storyName = '外观';
 Style.args = {
+  type: 'formly',
   form,
   model,
   fields: [
