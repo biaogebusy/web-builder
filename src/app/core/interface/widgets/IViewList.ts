@@ -14,6 +14,7 @@ export interface IViewList {
   id?: string;
   bg?: IBg;
   text?: IText;
+  data?: any;
 }
 
 export interface Params {

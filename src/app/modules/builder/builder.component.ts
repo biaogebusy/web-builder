@@ -4,6 +4,7 @@ import {
   Component,
   Inject,
   Input,
+  OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
@@ -16,12 +17,14 @@ import { IBuilderComponent, IBuilderWidget } from '@core/interface/IBuilder';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { MatDrawer } from '@angular/material/sidenav';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 @Component({
   selector: 'app-builder',
   templateUrl: './builder.component.html',
   styleUrls: ['./builder.component.scss'],
 })
-export class BuilderComponent implements OnInit, AfterViewInit {
+export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() content: IPage;
   @LocalStorage('page')
   page: IPage;
@@ -33,6 +36,7 @@ export class BuilderComponent implements OnInit, AfterViewInit {
   widgets: IBuilderWidget[];
   opened = true;
   panelOpenState = false;
+  destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     private storage: LocalStorageService,
     public builder: BuilderState,
@@ -55,14 +59,19 @@ export class BuilderComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.storage.observe(this.builder.pageKey).subscribe((page) => {
-      this.content = page;
-    });
-    this.builder.toolbarDisable$.subscribe((state) => {
-      if (state) {
-        this.containerDrawer.close();
-      }
-    });
+    this.storage
+      .observe(this.builder.pageKey)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((page) => {
+        this.content = page;
+      });
+    this.builder.toolbarDisable$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((state) => {
+        if (state) {
+          this.containerDrawer.close();
+        }
+      });
   }
 
   onAnimate(): void {
@@ -77,5 +86,10 @@ export class BuilderComponent implements OnInit, AfterViewInit {
       // 添加组件到指定位置
       this.builder.transferComponet(event);
     }
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

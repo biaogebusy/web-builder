@@ -54,6 +54,14 @@ export class TreeListComponent
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
+      if (this.content.data) {
+        const that: any = this;
+        Object.keys(this.content.data).map((key: string) => {
+          that[key] = this.content.data[key];
+        });
+        this.cd.detectChanges();
+        return;
+      }
       this.router.queryParams
         .pipe(distinctUntilChanged())
         .subscribe((query: any) => {

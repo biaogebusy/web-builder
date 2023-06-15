@@ -21,6 +21,8 @@ import { isArray } from 'lodash-es';
 import { ContentService } from '@core/service/content.service';
 import { ContentState } from '@core/state/ContentState';
 import { UtilitiesService } from '@core/service/utilities.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -37,6 +39,7 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
   center: any;
   mapLoading: boolean;
   currentInfoWindow: any;
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     private amapService: AmapService,
@@ -55,14 +58,16 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
     if (this.screenService.isPlatformBrowser()) {
       this.initMap();
       this.mapLoading = true;
-      this.amapService.mapLoading$.subscribe((state) => {
-        // init map, run once
-        if (state) {
-          this.mapLoading = false;
-          this.getPositionAndMarkers(this.content.elements);
-          this.cd.detectChanges();
-        }
-      });
+      this.amapService.mapLoading$
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((state) => {
+          // init map, run once
+          if (state) {
+            this.mapLoading = false;
+            this.getPositionAndMarkers(this.content.elements);
+            this.cd.detectChanges();
+          }
+        });
     }
   }
 
@@ -152,11 +157,13 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
       Object.assign({}, defaultOptions, options)
     );
     if (this.configService?.switchChange$) {
-      this.configService.switchChange$.subscribe((theme) => {
-        const newMapStyle =
-          theme === 'dark-theme' ? mapStyle.dark : mapStyle.light;
-        this.map.setMapStyle(newMapStyle);
-      });
+      this.configService.switchChange$
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((theme) => {
+          const newMapStyle =
+            theme === 'dark-theme' ? mapStyle.dark : mapStyle.light;
+          this.map.setMapStyle(newMapStyle);
+        });
     }
     this.map.on('click', (event: any) => {
       if (this.content?.model.enableCircle) {
@@ -218,28 +225,33 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
       const url = event.target.dataset.url;
       this.contentState.drawerOpened$.next(true);
       this.contentState.drawerLoading$.next(true);
-      this.contentService.loadPageContent(url).subscribe((content: IPage) => {
-        this.contentState.drawerLoading$.next(false);
-        this.contentState.drawerContent$.next(content);
-      });
+      this.contentService
+        .loadPageContent(url)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((content: IPage) => {
+          this.contentState.drawerLoading$.next(false);
+          this.contentState.drawerContent$.next(content);
+        });
     }
   }
 
   onMarkers(): void {
-    this.amapService.markers$.subscribe((marker: IMark) => {
-      const position = this.map
-        .getAllOverlays('marker')
-        [marker.index].getPosition();
-      this.currentInfoWindow = new this.AMap.InfoWindow({
-        content: marker.content,
-        isCustom: true,
-        offset: new this.AMap.Pixel(15, -2),
+    this.amapService.markers$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((marker: IMark) => {
+        const position = this.map
+          .getAllOverlays('marker')
+          [marker.index].getPosition();
+        this.currentInfoWindow = new this.AMap.InfoWindow({
+          content: marker.content,
+          isCustom: true,
+          offset: new this.AMap.Pixel(15, -2),
+        });
+        this.currentInfoWindow.open(this.map, position);
+        if (marker.setCenter) {
+          this.map.setCenter(position);
+        }
       });
-      this.currentInfoWindow.open(this.map, position);
-      if (marker.setCenter) {
-        this.map.setCenter(position);
-      }
-    });
   }
 
   setFitView(): void {
@@ -266,5 +278,8 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
 }

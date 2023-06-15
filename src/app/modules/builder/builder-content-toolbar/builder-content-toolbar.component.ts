@@ -4,6 +4,7 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnDestroy,
   OnInit,
   Output,
 } from '@angular/core';
@@ -15,6 +16,8 @@ import { BuilderState } from '@core/state/BuilderState';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { LocalStorageService } from 'ngx-webstorage';
 import { ScreenService } from '../../../core/service/screen.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-builder-content-toolbar',
@@ -22,12 +25,14 @@ import { ScreenService } from '../../../core/service/screen.service';
   styleUrls: ['./builder-content-toolbar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BuilderContentToolbarComponent implements OnInit, AfterViewInit {
+export class BuilderContentToolbarComponent
+  implements OnInit, AfterViewInit, OnDestroy
+{
   @Input() drawer: MatDrawer;
   @Input() containerDrawer: MatDrawer;
   @Input() opened: boolean;
   @Input() page: IPage;
-
+  destroy$: Subject<boolean> = new Subject<boolean>();
   @Output() animateChange: EventEmitter<boolean> = new EventEmitter();
   constructor(
     private storage: LocalStorageService,
@@ -41,15 +46,18 @@ export class BuilderContentToolbarComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.screenState.mqAlias$().subscribe((alia) => {
-        if (alia.includes('xs')) {
-          this.builder.toolbarDisable$.next(true);
-          this.onClose();
-          this.containerDrawer.close();
-        } else {
-          this.onOpen();
-        }
-      });
+      this.screenState
+        .mqAlias$()
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((alia) => {
+          if (alia.includes('xs')) {
+            this.builder.toolbarDisable$.next(true);
+            this.onClose();
+            this.containerDrawer.close();
+          } else {
+            this.onOpen();
+          }
+        });
     }
   }
 
@@ -77,5 +85,10 @@ export class BuilderContentToolbarComponent implements OnInit, AfterViewInit {
     this.onClose();
     this.containerDrawer.close();
     this.util.openSnackbar('已禁用编辑组件，可预览组件动画', 'ok');
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

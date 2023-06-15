@@ -6,6 +6,7 @@ import {
   Component,
   Inject,
   Input,
+  OnDestroy,
   OnInit,
 } from '@angular/core';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
@@ -17,6 +18,8 @@ import { ContentState } from '@core/state/ContentState';
 import { DEBUGANIMATE } from '@core/token/token-providers';
 import { map } from 'lodash-es';
 import { LocalStorage, LocalStorageService } from 'ngx-webstorage';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-builder-menu',
@@ -24,14 +27,14 @@ import { LocalStorage, LocalStorageService } from 'ngx-webstorage';
   styleUrls: ['./builder-menu.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BuilderMenuComponent implements OnInit, AfterViewInit {
+export class BuilderMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() content: any;
   @Input() showPreview = true;
   @LocalStorage('page')
   page: IPage;
   total: number;
   isDebugAnimate: boolean;
-
+  destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     public contentState: ContentState,
     private builder: BuilderState,
@@ -59,14 +62,17 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit {
       this.total = 0;
     }
     this.cd.detectChanges();
-    this.storage.observe(this.builder.pageKey).subscribe((page) => {
-      if (page && page.body) {
-        this.total = page.body.length;
-      } else {
-        this.total = 0;
-      }
-      this.cd.detectChanges();
-    });
+    this.storage
+      .observe(this.builder.pageKey)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((page) => {
+        if (page && page.body) {
+          this.total = page.body.length;
+        } else {
+          this.total = 0;
+        }
+        this.cd.detectChanges();
+      });
   }
 
   onPreview(): void {
@@ -113,5 +119,10 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit {
         });
       }
     }
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

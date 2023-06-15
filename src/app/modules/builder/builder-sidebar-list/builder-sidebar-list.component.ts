@@ -1,8 +1,11 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   Input,
+  OnDestroy,
   OnInit,
+  ViewRef,
 } from '@angular/core';
 import { BuilderState } from '@core/state/BuilderState';
 
@@ -12,9 +15,9 @@ import { BuilderState } from '@core/state/BuilderState';
   styleUrls: ['./builder-sidebar-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BuilderSidebarListComponent implements OnInit {
+export class BuilderSidebarListComponent implements OnInit, OnDestroy {
   @Input() content: any;
-  constructor(private builder: BuilderState) {}
+  constructor(private builder: BuilderState, private cd: ChangeDetectorRef) {}
 
   ngOnInit(): void {}
 
@@ -30,6 +33,12 @@ export class BuilderSidebarListComponent implements OnInit {
       });
     } else {
       this.builder.showcase$.next(component);
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.cd && !(this.cd as ViewRef).destroyed) {
+      this.cd.detectChanges();
     }
   }
 }

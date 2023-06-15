@@ -6,6 +6,7 @@ import {
   ChangeDetectorRef,
   AfterViewInit,
   Inject,
+  OnDestroy,
 } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import type { IUser } from '@core/interface/IUser';
@@ -20,7 +21,7 @@ import { USER } from '@core/token/token-providers';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { isEmpty, merge } from 'lodash-es';
 import { of, Subject } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-view-list',
@@ -30,7 +31,7 @@ import { catchError } from 'rxjs/operators';
 })
 export class ViewListComponent
   extends BaseComponent
-  implements OnInit, AfterViewInit
+  implements OnInit, AfterViewInit, OnDestroy
 {
   @Input() content: IViewList;
   form = new FormGroup({
@@ -65,6 +66,15 @@ export class ViewListComponent
   }
 
   ngAfterViewInit(): void {
+    const api = this.getParams(this.content, 'apiType');
+    if (!api) {
+      const that: any = this;
+      Object.keys(this.content.data).map((key: string) => {
+        that[key] = this.content.data[key];
+      });
+      this.cd.detectChanges();
+      return;
+    }
     const emptyHidden = this.getParams(this.content, 'emptyHidden');
     if (this.userSerivice.checkShow(this.content, this.user) && !emptyHidden) {
       this.canShow = true;
@@ -94,7 +104,8 @@ export class ViewListComponent
             return of(false);
           }
           return of(error.status);
-        })
+        }),
+        takeUntil(this.destroy$)
       )
       .subscribe((res) => {
         if (!res) {
@@ -127,11 +138,13 @@ export class ViewListComponent
 
   afterClosedDialog(): void {
     if (this.dialogService.dialogState$) {
-      this.dialogService.dialogState$.subscribe((state) => {
-        if (!state) {
-          this.getViews();
-        }
-      });
+      this.dialogService.dialogState$
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((state) => {
+          if (!state) {
+            this.getViews();
+          }
+        });
     }
   }
 
@@ -181,5 +194,10 @@ export class ViewListComponent
 
   trackByFn(index: number, item: any): number {
     return index;
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

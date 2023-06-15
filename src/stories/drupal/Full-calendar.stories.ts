@@ -4,10 +4,10 @@ import { FullCalendarComponent } from '@uiux/combs/calendar/full-calendar/full-c
 import { StorysModule } from '@core/module/storys.module';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { CalendarModule } from '@uiux/combs/calendar/calendar.module';
-import * as calendarStory from '../../widgets/Calendar.stories';
+import * as calendarStory from '../widgets/Calendar.stories';
 const calendar: any = calendarStory.Default.args;
 export default {
-  title: '特色组件/日历/Full calendar',
+  title: 'Drupal/日历',
   id: 'full-calendar',
   component: FullCalendarComponent,
   decorators: [

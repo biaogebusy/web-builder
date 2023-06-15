@@ -13,7 +13,7 @@ import { BRANDING } from '@core/token/token-providers';
 import { defaultHeader, footerInverse } from '../../global/Branding.json';
 import { JsoneditorComponent } from '@uiux/combs/other/jsoneditor/jsoneditor.component';
 export default {
-  title: '特色组件/构建器/JSON 编辑器',
+  title: '特色组件/编辑器/JSON 编辑器',
   id: 'jsoneditor',
   component: JsoneditorComponent,
   decorators: [

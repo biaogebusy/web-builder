@@ -19,6 +19,8 @@ import { ComponentService } from '@core/service/component.service';
 import { ScreenService } from '@core/service/screen.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { CORE_CONFIG } from '@core/token/token-providers';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 export interface dynamicInputs {
   content?: any;
@@ -40,6 +42,7 @@ export class DynamicComponentComponent
   @ViewChild('componentContainer', { read: ViewContainerRef, static: true })
   container: ViewContainerRef;
   uuid: number;
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   public component: ComponentRef<unknown> | ComponentRef<any> | undefined | any;
   constructor(
@@ -51,13 +54,15 @@ export class DynamicComponentComponent
   ) {}
 
   ngOnInit(): void {
-    this.builder.jsoneditorContent$.subscribe((data) => {
-      const { content, uuid } = data;
-      if (this.uuid === uuid) {
-        this.inputs = content;
-        this.loadConponent();
-      }
-    });
+    this.builder.jsoneditorContent$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((data) => {
+        const { content, uuid } = data;
+        if (this.uuid === uuid) {
+          this.inputs = content;
+          this.loadConponent();
+        }
+      });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -114,18 +119,22 @@ export class DynamicComponentComponent
 
   showAnimate(instance: any): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.builder.toolbarDisable$.subscribe((state) => {
-        if (state && instance.showAnimate) {
-          setTimeout(() => {
-            instance.showAnimate();
-          }, 1000);
-        }
-      });
-      this.builder.debugeAnimate$.subscribe((debug) => {
-        if (instance.showAnimate) {
-          this.showAnimate(debug);
-        }
-      });
+      this.builder.toolbarDisable$
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((state) => {
+          if (state && instance.showAnimate) {
+            setTimeout(() => {
+              instance.showAnimate();
+            }, 1000);
+          }
+        });
+      this.builder.debugeAnimate$
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((debug) => {
+          if (instance.showAnimate) {
+            this.showAnimate(debug);
+          }
+        });
     }
   }
 
@@ -134,5 +143,7 @@ export class DynamicComponentComponent
     if (this.cd && !(this.cd as ViewRef).destroyed) {
       this.cd.detectChanges();
     }
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }
