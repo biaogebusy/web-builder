@@ -1,5 +1,5 @@
 <ng-container *ngIf="!(builder.toolbarDisable$ | async)">
-  <app-component-toolbar *ngIf="showToolbar" [content]="inputs" [isPreview]="isPreview" [index]="index"
+  <app-component-toolbar #toolbar *ngIf="showToolbar" [content]="inputs" [isPreview]="isPreview" [index]="index"
     (uuidChange)="onUuid($event)">
   </app-component-toolbar>
 </ng-container>

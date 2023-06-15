@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   ChangeDetectorRef,
   Component,
   ComponentRef,
@@ -29,7 +30,9 @@ export interface dynamicInputs {
   templateUrl: './dynamic-component.component.html',
   styleUrls: ['./dynamic-component.component.scss'],
 })
-export class DynamicComponentComponent implements OnInit, OnChanges, OnDestroy {
+export class DynamicComponentComponent
+  implements OnInit, AfterViewInit, OnChanges, OnDestroy
+{
   @Input() inputs: dynamicInputs;
   @Input() index: number;
   @Input() isPreview: boolean;
