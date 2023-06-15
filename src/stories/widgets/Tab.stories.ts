@@ -221,17 +221,18 @@ Pills.args = {
     type: 'tab',
     text: {
       title: {
-        label: '为什么你将会喜欢信使？',
+        label:
+          '欢迎使用 <strong class="text-primary">Builder</strong> 页面构建器',
         style: 'style-v1',
       },
-      body: '<p>Github actions 从2019年就免费开放给个人开源项目使用，对于自动化开放测试部署，开发者一定非常的熟悉，如果把中间这项流程做好，不仅节省了大量的人力也大大加快了开发效率，在配置完善的情况下可以提高代码质量。</p>',
+      body: '<p class="text-center">使用页面构建器可以帮助用户快速创建具有吸引力、功能性和响应式设计的网页，无需专业技能和大量的时间和成本投入。</p>',
     },
     classes: 'bg-light',
     align: 'center',
     pills: true,
     elements: [
       {
-        label: '高性能',
+        label: '简便快捷',
         elements: [
           {
             id: '',
@@ -259,11 +260,11 @@ Pills.args = {
                 type: 'text',
                 spacer: 'sm',
                 title: {
-                  label: '使用信使构建你们的项目',
+                  label: '构建你们的项目',
                   style: 'style-v4',
                   classes: 'mat-display-2',
                 },
-                body: '信使是基于 Material UI 的 Angular 前端框架，后端适配 Drupal，提供优秀的数字创新体验。',
+                body: '允许用户通过拖放元素、调整布局和编辑内容来设计页面，而无需编写复杂的代码。这使得即使没有专业的编程知识，用户也能够创建出具有吸引力和功能性的网页',
               },
               {
                 type: 'swiper',
@@ -336,7 +337,7 @@ Pills.args = {
         ],
       },
       {
-        label: '创意设计',
+        label: '无需专业',
         elements: [
           {
             id: '',
@@ -362,7 +363,7 @@ Pills.args = {
                   style: 'style-v4',
                   classes: 'mat-display-2',
                 },
-                body: '信使是基于 Material UI 的 Angular 前端框架，后端适配 Drupal，提供优秀的数字创新体验。',
+                body: '页面构建器的设计初衷是让非技术人员也能够轻松创建网页。通过使用页面构建器，任何人都可以成为网页设计师。',
               },
               {
                 type: 'swiper',
@@ -435,7 +436,7 @@ Pills.args = {
         ],
       },
       {
-        label: '24小时支持',
+        label: '成本效益',
         elements: [
           {
             id: '',
@@ -461,7 +462,7 @@ Pills.args = {
                   style: 'style-v4',
                   classes: 'mat-display-2',
                 },
-                body: '信使是基于 Material UI 的 Angular 前端框架，后端适配 Drupal，提供优秀的数字创新体验。',
+                body: '相对于传统的自定义网页开发，使用页面构建器可以节省大量的时间和成本。它们提供了一系列预先设计好的模块和功能，用户只需根据自己的需求进行选择和调整即可。',
               },
               {
                 type: 'swiper',

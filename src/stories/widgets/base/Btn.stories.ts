@@ -72,7 +72,7 @@ BtnLink.args = {
     type: 'btn',
     href: '/node/1',
     target: '_blank',
-    label: 'Primary link',
+    label: '了解更多',
     mode: 'raised',
     color: 'primary',
   },

@@ -23,7 +23,7 @@ const Template: Story = (args) => ({
   },
 });
 export const Default = Template.bind({});
-const swiper: any = SwiperStories.Base.args;
+const swiper: any = SwiperStories.Default.args;
 Default.args = {
   content: {
     spacer: 'lg',

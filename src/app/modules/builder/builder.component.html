@@ -6,20 +6,20 @@
       <mat-tab-group mat-stretch-tabs mat-align-tabs="center" disableRipple="true">
         <mat-tab>
           <ng-template mat-tab-label>
-            <app-icon [content]="{svg:'format-list-bulleted',inline:true}"></app-icon>
-            组件
-          </ng-template>
-          <div class="p-x-xs p-y-xs"><app-builder-sidebar-components *ngIf="components"
-              [content]="components"></app-builder-sidebar-components></div>
-        </mat-tab>
-        <mat-tab>
-          <ng-template mat-tab-label>
             <app-icon [content]="{svg:'view-grid-plus',inline:true}"></app-icon>
             基础
           </ng-template>
           <div class="p-x-xs p-y-xs">
             <app-builder-sidebar-widgets *ngIf="widgets" [content]="widgets"></app-builder-sidebar-widgets>
           </div>
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <app-icon [content]="{svg:'format-list-bulleted',inline:true}"></app-icon>
+            组件
+          </ng-template>
+          <div class="p-x-xs p-y-xs"><app-builder-sidebar-components *ngIf="components"
+              [content]="components"></app-builder-sidebar-components></div>
         </mat-tab>
       </mat-tab-group>
     </mat-drawer>

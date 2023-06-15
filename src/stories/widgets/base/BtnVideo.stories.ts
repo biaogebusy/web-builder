@@ -29,13 +29,13 @@ const Template: Story = (args) => ({
   },
 });
 
-export const BtnDefault = Template.bind({});
-BtnDefault.parameters = {
+export const Default = Template.bind({});
+Default.parameters = {
   controls: {
     include: ['content'],
   },
 };
-BtnDefault.args = {
+Default.args = {
   content: {
     type: 'btn-video',
     color: 'primary',

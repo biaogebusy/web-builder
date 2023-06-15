@@ -1,7 +1,9 @@
 <div class="card-1v1">
   <app-feature-box *ngIf="content.feature" [content]="content.feature"></app-feature-box>
   <div class="components" *ngIf="content.components">
-    <app-dynamic-component *ngFor="let item of content.components" [inputs]="item"></app-dynamic-component>
+    <div class="p-x-sm p-y-sm">
+      <app-dynamic-component *ngFor="let item of content.components" [inputs]="item"></app-dynamic-component>
+    </div>
   </div>
   <div class="card-body p-y-sm p-x-sm">
     <div class="title mat-h2 two-line">

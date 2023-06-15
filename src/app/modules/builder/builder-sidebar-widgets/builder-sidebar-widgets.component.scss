@@ -2,6 +2,9 @@
   .item {
     .title {
       font-size: small;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .inner {
       margin: 2px;

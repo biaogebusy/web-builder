@@ -6,6 +6,7 @@ import {
 import { Story } from '@storybook/angular/types-6-0';
 import { DynamicTableComponent } from '@uiux/widgets/dynamic-table/dynamic-table.component';
 import { StorysModule } from '@core/module/storys.module';
+import { random } from 'lodash-es';
 
 export default {
   title: '基础组件/基本元素/表格',
@@ -134,54 +135,56 @@ DialogColumn.args = {
     type: 'dynamic-table',
     header: [
       {
-        label: '发票名称',
-        key: 'name',
+        label: '模块',
+        key: 'module',
       },
       {
-        label: '开票金额',
-        key: 'money',
+        label: '描述',
+        key: 'info',
       },
       {
-        label: '交票时间',
-        key: 'billingTime',
-      },
-      {
-        label: '发票时间',
-        key: 'deliveryTime',
+        label: '安装量',
+        key: 'tatol',
       },
       {
         label: '备注',
         key: 'remarks',
         dialog: {
-          shorten: 20,
+          shorten: 5,
           label: '更多',
         },
       },
     ],
     elements: [
       {
-        name: '经费',
-        money: '3679',
-        billingTime: '2022-03-03',
-        deliveryTime: '2022-03-04',
-        remarks:
-          'sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
+        module: 'Slick Carousel',
+        tatol: random(1000, 10000),
+        info: 'Slick 轮播，强大响应式且性能优异的图片轮播解决方案，有非常丰富的配置选项，slick 官网自己调侃这是你最后使用的图片轮播',
+        remarks: '查看',
       },
       {
-        name: '经费',
-        money: '3679',
-        billingTime: '2022-03-03',
-        deliveryTime: '2022-03-04',
-        remarks:
-          'consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr',
+        module: 'Views Slideshow',
+        tatol: random(1000, 10000),
+        info: '视图轮播模块，该模块是最受欢迎的幻灯片模块，可放任何内容，高度定制	',
+        remarks: '查看',
       },
       {
-        name: '经费',
-        money: '3679',
-        billingTime: '2022-03-03',
-        deliveryTime: '2022-03-04',
-        remarks:
-          'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet',
+        module: 'Colorbox',
+        tatol: random(1000, 10000),
+        info: '轻量级高可定制幻灯片模块，高度集成在 Drupal 中，可放图片，Iframed 或者在线内容等等	',
+        remarks: '查看',
+      },
+      {
+        module: 'Flex Slider',
+        tatol: random(1000, 10000),
+        info: '响应式、可调整大小、适配浏览器和移动设备，支持移动设备手势滑动	',
+        remarks: '查看',
+      },
+      {
+        module: 'Owl Carousel',
+        tatol: random(1000, 1000),
+        info: '提供视图样式，字段格式化和管理 UI，支持响应式、移动手势、高定制幻灯片，CSS3 动画，JSON，有可用的回调，自定义事件等	',
+        remarks: '查看',
       },
     ],
   },

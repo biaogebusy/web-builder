@@ -55,6 +55,118 @@
           }
         },
         {
+          "label": "Btn",
+          "icon": {
+            "svg": "button-cursor"
+          },
+          "content": {
+            "type": "btn",
+            "href": "/node/1",
+            "target": "_blank",
+            "label": "了解更多",
+            "mode": "raised",
+            "color": "primary"
+          }
+        },
+        {
+          "label": "Link",
+          "icon": {
+            "svg": "link"
+          },
+          "content": {
+            "type": "link",
+            "label": "内推",
+            "classes": "",
+            "href": "/lists/jobs"
+          }
+        },
+        {
+          "label": "Btn Video",
+          "icon": {
+            "svg": "play-circle-outline"
+          },
+          "content": {
+            "type": "btn-video",
+            "color": "primary",
+            "video": {
+              "options": {
+                "controls": true,
+                "aspectRatio": "16:9",
+                "poster": "/assets/images/16-9/business-02.jpg",
+                "sources": [
+                  {
+                    "src": "/assets/video/afterglow.mp4",
+                    "type": "video/mp4"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "label": "Tabel",
+          "icon": {
+            "svg": "table"
+          },
+          "content": {
+            "type": "dynamic-table",
+            "header": [
+              {
+                "label": "模块",
+                "key": "module"
+              },
+              {
+                "label": "描述",
+                "key": "info"
+              },
+              {
+                "label": "安装量",
+                "key": "tatol"
+              },
+              {
+                "label": "备注",
+                "key": "remarks",
+                "dialog": {
+                  "shorten": 5,
+                  "label": "更多"
+                }
+              }
+            ],
+            "elements": [
+              {
+                "module": "Slick Carousel",
+                "tatol": 7253,
+                "info": "Slick 轮播，强大响应式且性能优异的图片轮播解决方案，有非常丰富的配置选项，slick 官网自己调侃这是你最后使用的图片轮播",
+                "remarks": "查看"
+              },
+              {
+                "module": "Views Slideshow",
+                "tatol": 9974,
+                "info": "视图轮播模块，该模块是最受欢迎的幻灯片模块，可放任何内容，高度定制\t",
+                "remarks": "查看"
+              },
+              {
+                "module": "Colorbox",
+                "tatol": 9939,
+                "info": "轻量级高可定制幻灯片模块，高度集成在 Drupal 中，可放图片，Iframed 或者在线内容等等\t",
+                "remarks": "查看"
+              },
+              {
+                "module": "Flex Slider",
+                "tatol": 1489,
+                "info": "响应式、可调整大小、适配浏览器和移动设备，支持移动设备手势滑动\t",
+                "remarks": "查看"
+              },
+              {
+                "module": "Owl Carousel",
+                "tatol": 1000,
+                "info": "提供视图样式，字段格式化和管理 UI，支持响应式、移动手势、高定制幻灯片，CSS3 动画，JSON，有可用的回调，自定义事件等\t",
+                "remarks": "查看"
+              }
+            ]
+          }
+        },
+        {
           "label": "Chart",
           "icon": {
             "svg": "chart-line"
@@ -109,21 +221,21 @@
                 ],
                 [
                   "大额红包",
-                  7121,
-                  3107,
-                  3229
+                  3702,
+                  3159,
+                  3027
                 ],
                 [
                   "小额红包",
-                  7520,
-                  8557,
-                  7905
+                  4544,
+                  3204,
+                  8976
                 ],
                 [
                   "推广费用",
-                  7050,
-                  8200,
-                  6138
+                  8934,
+                  5291,
+                  8629
                 ]
               ]
             },
@@ -145,6 +257,17 @@
           }
         },
         {
+          "label": "Icon",
+          "icon": {
+            "svg": "svg"
+          },
+          "content": {
+            "type": "icon",
+            "color": "primary",
+            "name": "format_color_fill"
+          }
+        },
+        {
           "label": "Spacer",
           "icon": {
             "svg": "color-helper"
@@ -155,9 +278,333 @@
           }
         },
         {
+          "label": "Tab",
+          "icon": {
+            "svg": "tab"
+          },
+          "content": {
+            "type": "tab",
+            "text": {
+              "title": {
+                "label": "欢迎使用 <strong class=\"text-primary\">Builder</strong> 页面构建器",
+                "style": "style-v1"
+              },
+              "body": "<p class=\"text-center\">使用页面构建器可以帮助用户快速创建具有吸引力、功能性和响应式设计的网页，无需专业技能和大量的时间和成本投入。</p>"
+            },
+            "classes": "bg-light",
+            "align": "center",
+            "pills": true,
+            "elements": [
+              {
+                "label": "简便快捷",
+                "elements": [
+                  {
+                    "id": "",
+                    "type": "showcase-3v9",
+                    "spacer": "xl",
+                    "bg": {
+                      "classes": "bg-fill-width",
+                      "img": {
+                        "src": "/assets/images/bg/bg-01.png"
+                      }
+                    },
+                    "order": {
+                      "left": 0,
+                      "right": 1
+                    },
+                    "left": [
+                      {
+                        "type": "img",
+                        "src": "/assets/images/illustration/25.png",
+                        "alt": ""
+                      }
+                    ],
+                    "right": [
+                      {
+                        "type": "text",
+                        "spacer": "sm",
+                        "title": {
+                          "label": "构建你们的项目",
+                          "style": "style-v4",
+                          "classes": "mat-display-2"
+                        },
+                        "body": "允许用户通过拖放元素、调整布局和编辑内容来设计页面，而无需编写复杂的代码。这使得即使没有专业的编程知识，用户也能够创建出具有吸引力和功能性的网页"
+                      },
+                      {
+                        "type": "swiper",
+                        "params": {
+                          "slidesPerView": 1,
+                          "spaceBetween": 20,
+                          "navigation": false
+                        },
+                        "classes": "p-bottom",
+                        "elements": [
+                          {
+                            "type": "card",
+                            "title": "高性能",
+                            "subTitle": "High Performance",
+                            "avatar": {
+                              "src": "/assets/images/avatar/01.jpeg",
+                              "alt": ""
+                            },
+                            "classes": "card-no-shadow",
+                            "body": "默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；"
+                          },
+                          {
+                            "type": "card",
+                            "avatar": {
+                              "src": "/assets/images/avatar/02.jpeg",
+                              "alt": ""
+                            },
+                            "title": "易用的编辑器",
+                            "subTitle": "Simplicity for Editors",
+                            "classes": "card-no-shadow",
+                            "body": "通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作；"
+                          },
+                          {
+                            "type": "card",
+                            "avatar": {
+                              "src": "/assets/images/avatar/03.jpeg",
+                              "alt": ""
+                            },
+                            "title": "多语言",
+                            "subTitle": "Leader in Multilingual",
+                            "classes": "card-no-shadow",
+                            "body": "Drupal 100多种语言提供了无以伦比的支持和翻译工作流程；"
+                          },
+                          {
+                            "type": "card",
+                            "avatar": {
+                              "src": "/assets/images/avatar/04.jpeg",
+                              "alt": ""
+                            },
+                            "title": "更有弹性",
+                            "subTitle": "Flexibility",
+                            "classes": "card-no-shadow",
+                            "body": "无论是一个还是多个站点，Drupal 总是可以游刃有余的构建；"
+                          },
+                          {
+                            "type": "card",
+                            "avatar": {
+                              "src": "/assets/images/avatar/05.jpeg",
+                              "alt": ""
+                            },
+                            "title": "安全性",
+                            "subTitle": "Rigorous Security",
+                            "classes": "card-no-shadow",
+                            "body": "为了抵御安全漏洞，将有一组团队解决并发布安全修补程序，超过45000名贡献者使该平台成为市场上最安全、最稳定的平台之一；"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "label": "无需专业",
+                "elements": [
+                  {
+                    "id": "",
+                    "type": "showcase-3v9",
+                    "spacer": "xl",
+                    "order": {
+                      "left": 1,
+                      "right": 0
+                    },
+                    "left": [
+                      {
+                        "type": "img",
+                        "src": "/assets/images/illustration/25.png",
+                        "alt": ""
+                      }
+                    ],
+                    "right": [
+                      {
+                        "type": "text",
+                        "spacer": "sm",
+                        "title": {
+                          "label": "创意设计和干净整洁的代码",
+                          "style": "style-v4",
+                          "classes": "mat-display-2"
+                        },
+                        "body": "页面构建器的设计初衷是让非技术人员也能够轻松创建网页。通过使用页面构建器，任何人都可以成为网页设计师。"
+                      },
+                      {
+                        "type": "swiper",
+                        "params": {
+                          "slidesPerView": 1,
+                          "spaceBetween": 20,
+                          "navigation": false
+                        },
+                        "classes": "p-bottom",
+                        "elements": [
+                          {
+                            "type": "card",
+                            "title": "高性能",
+                            "subTitle": "High Performance",
+                            "avatar": {
+                              "src": "/assets/images/avatar/01.jpeg",
+                              "alt": ""
+                            },
+                            "classes": "card-no-shadow",
+                            "body": "默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；"
+                          },
+                          {
+                            "type": "card",
+                            "avatar": {
+                              "src": "/assets/images/avatar/02.jpeg",
+                              "alt": ""
+                            },
+                            "title": "易用的编辑器",
+                            "subTitle": "Simplicity for Editors",
+                            "classes": "card-no-shadow",
+                            "body": "通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作；"
+                          },
+                          {
+                            "type": "card",
+                            "avatar": {
+                              "src": "/assets/images/avatar/03.jpeg",
+                              "alt": ""
+                            },
+                            "title": "多语言",
+                            "subTitle": "Leader in Multilingual",
+                            "classes": "card-no-shadow",
+                            "body": "Drupal 100多种语言提供了无以伦比的支持和翻译工作流程；"
+                          },
+                          {
+                            "type": "card",
+                            "avatar": {
+                              "src": "/assets/images/avatar/04.jpeg",
+                              "alt": ""
+                            },
+                            "title": "更有弹性",
+                            "subTitle": "Flexibility",
+                            "classes": "card-no-shadow",
+                            "body": "无论是一个还是多个站点，Drupal 总是可以游刃有余的构建；"
+                          },
+                          {
+                            "type": "card",
+                            "avatar": {
+                              "src": "/assets/images/avatar/05.jpeg",
+                              "alt": ""
+                            },
+                            "title": "安全性",
+                            "subTitle": "Rigorous Security",
+                            "classes": "card-no-shadow",
+                            "body": "为了抵御安全漏洞，将有一组团队解决并发布安全修补程序，超过45000名贡献者使该平台成为市场上最安全、最稳定的平台之一；"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "label": "成本效益",
+                "elements": [
+                  {
+                    "id": "",
+                    "type": "showcase-3v9",
+                    "spacer": "xl",
+                    "order": {
+                      "left": 0,
+                      "right": 1
+                    },
+                    "left": [
+                      {
+                        "type": "img",
+                        "src": "/assets/images/illustration/29.png",
+                        "alt": ""
+                      }
+                    ],
+                    "right": [
+                      {
+                        "type": "text",
+                        "spacer": "sm",
+                        "title": {
+                          "label": "应用24小时支持和响应",
+                          "style": "style-v4",
+                          "classes": "mat-display-2"
+                        },
+                        "body": "相对于传统的自定义网页开发，使用页面构建器可以节省大量的时间和成本。它们提供了一系列预先设计好的模块和功能，用户只需根据自己的需求进行选择和调整即可。"
+                      },
+                      {
+                        "type": "swiper",
+                        "params": {
+                          "slidesPerView": 1,
+                          "spaceBetween": 20,
+                          "navigation": false
+                        },
+                        "classes": "p-bottom",
+                        "elements": [
+                          {
+                            "type": "card",
+                            "title": "高性能",
+                            "subTitle": "High Performance",
+                            "avatar": {
+                              "src": "/assets/images/avatar/01.jpeg",
+                              "alt": ""
+                            },
+                            "classes": "card-no-shadow",
+                            "body": "默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；"
+                          },
+                          {
+                            "type": "card",
+                            "avatar": {
+                              "src": "/assets/images/avatar/02.jpeg",
+                              "alt": ""
+                            },
+                            "title": "易用的编辑器",
+                            "subTitle": "Simplicity for Editors",
+                            "classes": "card-no-shadow",
+                            "body": "通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作；"
+                          },
+                          {
+                            "type": "card",
+                            "avatar": {
+                              "src": "/assets/images/avatar/03.jpeg",
+                              "alt": ""
+                            },
+                            "title": "多语言",
+                            "subTitle": "Leader in Multilingual",
+                            "classes": "card-no-shadow",
+                            "body": "Drupal 100多种语言提供了无以伦比的支持和翻译工作流程；"
+                          },
+                          {
+                            "type": "card",
+                            "avatar": {
+                              "src": "/assets/images/avatar/04.jpeg",
+                              "alt": ""
+                            },
+                            "title": "更有弹性",
+                            "subTitle": "Flexibility",
+                            "classes": "card-no-shadow",
+                            "body": "无论是一个还是多个站点，Drupal 总是可以游刃有余的构建；"
+                          },
+                          {
+                            "type": "card",
+                            "avatar": {
+                              "src": "/assets/images/avatar/05.jpeg",
+                              "alt": ""
+                            },
+                            "title": "安全性",
+                            "subTitle": "Rigorous Security",
+                            "classes": "card-no-shadow",
+                            "body": "为了抵御安全漏洞，将有一组团队解决并发布安全修补程序，超过45000名贡献者使该平台成为市场上最安全、最稳定的平台之一；"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
           "label": "Form",
           "icon": {
-            "svg": "form-select"
+            "svg": "checkbox-marked-outline"
           },
           "content": {
             "type": "formly",
@@ -173,13 +620,28 @@
                   "required": true,
                   "min": 10,
                   "max": 10000,
-                  "description": "最小10元，最大10000元"
+                  "description": "最小10元，最大10000元",
+                  "placeholder": "",
+                  "focus": false,
+                  "disabled": false
                 },
                 "validation": {
                   "messages": {
                     "min": "不能设置小于 10",
                     "max": "不能设置大于 10000"
                   }
+                },
+                "id": "formly_8_input_total_0",
+                "hooks": {},
+                "modelOptions": {},
+                "wrappers": [
+                  "form-field"
+                ],
+                "_keyPath": {
+                  "key": "total",
+                  "path": [
+                    "total"
+                  ]
                 }
               },
               {
@@ -190,7 +652,26 @@
                   "label": "文本域",
                   "placeholder": "Placeholder",
                   "description": "Description",
-                  "required": true
+                  "required": true,
+                  "focus": false,
+                  "disabled": false,
+                  "cols": 1,
+                  "rows": 1
+                },
+                "id": "formly_8_textarea_Textarea_1",
+                "hooks": {},
+                "modelOptions": {},
+                "validation": {
+                  "messages": {}
+                },
+                "wrappers": [
+                  "form-field"
+                ],
+                "_keyPath": {
+                  "key": "Textarea",
+                  "path": [
+                    "Textarea"
+                  ]
                 }
               },
               {
@@ -201,12 +682,33 @@
                   "label": "接受协议",
                   "description": "为了更好的服务，网站将收集用户的Cookies信息。",
                   "pattern": "true",
-                  "required": true
+                  "required": true,
+                  "placeholder": "",
+                  "focus": false,
+                  "disabled": false,
+                  "hideFieldUnderline": true,
+                  "indeterminate": true,
+                  "floatLabel": "always",
+                  "hideLabel": true,
+                  "align": "start",
+                  "color": "accent"
                 },
                 "validation": {
                   "messages": {
                     "pattern": "请勾选协议"
                   }
+                },
+                "id": "formly_8_checkbox_Checkbox_2",
+                "hooks": {},
+                "modelOptions": {},
+                "wrappers": [
+                  "form-field"
+                ],
+                "_keyPath": {
+                  "key": "Checkbox",
+                  "path": [
+                    "Checkbox"
+                  ]
                 }
               },
               {
@@ -236,6 +738,27 @@
                       "label": "Option 4",
                       "disabled": true
                     }
+                  ],
+                  "focus": false,
+                  "disabled": false,
+                  "hideFieldUnderline": true,
+                  "floatLabel": "always",
+                  "tabindex": -1,
+                  "_flatOptions": true
+                },
+                "id": "formly_8_radio_Radio_3",
+                "hooks": {},
+                "modelOptions": {},
+                "validation": {
+                  "messages": {}
+                },
+                "wrappers": [
+                  "form-field"
+                ],
+                "_keyPath": {
+                  "key": "Radio",
+                  "path": [
+                    "Radio"
                   ]
                 }
               },
@@ -256,6 +779,25 @@
                       "label": "比例",
                       "value": "prop"
                     }
+                  ],
+                  "placeholder": "",
+                  "focus": false,
+                  "disabled": false,
+                  "_flatOptions": true
+                },
+                "id": "formly_8_select_type_4",
+                "hooks": {},
+                "modelOptions": {},
+                "validation": {
+                  "messages": {}
+                },
+                "wrappers": [
+                  "form-field"
+                ],
+                "_keyPath": {
+                  "key": "type",
+                  "path": [
+                    "type"
                   ]
                 }
               },
@@ -286,6 +828,22 @@
                       "label": "Option 4",
                       "disabled": true
                     }
+                  ],
+                  "placeholder": "",
+                  "focus": false,
+                  "disabled": false
+                },
+                "id": "formly_8_mat-select_customer_5",
+                "hooks": {},
+                "modelOptions": {},
+                "validation": {
+                  "messages": {}
+                },
+                "wrappers": [],
+                "_keyPath": {
+                  "key": "customer",
+                  "path": [
+                    "customer"
                   ]
                 }
               },
@@ -295,19 +853,76 @@
                 "templateOptions": {
                   "label": "期间",
                   "value": "",
-                  "placeholder": "请选择日期"
+                  "placeholder": "请选择日期",
+                  "focus": false,
+                  "disabled": false
                 },
                 "className": "display-block m-bottom-sm",
                 "fieldGroup": [
                   {
                     "type": "input",
-                    "key": "start"
+                    "key": "start",
+                    "id": "formly_10_input_start_0",
+                    "hooks": {},
+                    "modelOptions": {},
+                    "validation": {
+                      "messages": {}
+                    },
+                    "templateOptions": {
+                      "label": "",
+                      "placeholder": "",
+                      "focus": false,
+                      "disabled": false
+                    },
+                    "wrappers": [
+                      "form-field"
+                    ],
+                    "_keyPath": {
+                      "key": "start",
+                      "path": [
+                        "start"
+                      ]
+                    }
                   },
                   {
                     "type": "input",
-                    "key": "end"
+                    "key": "end",
+                    "id": "formly_10_input_end_1",
+                    "hooks": {},
+                    "modelOptions": {},
+                    "validation": {
+                      "messages": {}
+                    },
+                    "templateOptions": {
+                      "label": "",
+                      "placeholder": "",
+                      "focus": false,
+                      "disabled": false
+                    },
+                    "wrappers": [
+                      "form-field"
+                    ],
+                    "_keyPath": {
+                      "key": "end",
+                      "path": [
+                        "end"
+                      ]
+                    }
                   }
-                ]
+                ],
+                "id": "formly_8_date-range_date_6",
+                "hooks": {},
+                "modelOptions": {},
+                "validation": {
+                  "messages": {}
+                },
+                "wrappers": [],
+                "_keyPath": {
+                  "key": "date",
+                  "path": [
+                    "date"
+                  ]
+                }
               },
               {
                 "key": "isPromote",
@@ -315,8 +930,154 @@
                 "className": "display-block m-bottom",
                 "templateOptions": {
                   "label": "开关",
-                  "description": "超过推广次数则推广结束"
+                  "description": "超过推广次数则推广结束",
+                  "placeholder": "",
+                  "focus": false,
+                  "disabled": false,
+                  "hideFieldUnderline": true,
+                  "floatLabel": "always",
+                  "hideLabel": true
+                },
+                "id": "formly_10_toggle_isPromote_7",
+                "hooks": {},
+                "modelOptions": {},
+                "validation": {
+                  "messages": {}
+                },
+                "wrappers": [
+                  "form-field"
+                ],
+                "_keyPath": {
+                  "key": "isPromote",
+                  "path": [
+                    "isPromote"
+                  ]
                 }
+              }
+            ]
+          }
+        },
+        {
+          "label": "Panel",
+          "icon": {
+            "svg": "format-line-weight"
+          },
+          "content": {
+            "type": "panel",
+            "title": {
+              "label": "About",
+              "style": "style-v4"
+            },
+            "elements": [
+              {
+                "title": "关于我们",
+                "icon": "person",
+                "params": {
+                  "expanded": true
+                },
+                "elements": [
+                  {
+                    "type": "text",
+                    "spacer": "none",
+                    "body": "远方信使（XINSHI）是一个使用 Drupal 提供 API 的 Angular 前端开发学习框架，拥有丰富的前端组件，通 过 Drupal Pannel 可快速构建 Landing 营销着陆页，常规的 Web 官网通过拖曳的方式即可创建。"
+                  }
+                ]
+              },
+              {
+                "title": "我们的故事",
+                "icon": "faviores",
+                "elements": [
+                  {
+                    "type": "text",
+                    "spacer": "none",
+                    "body": "我们是专业开发 Drupal 多年的前后端开发人员，热衷于分享 Drupal 相关的技术和资讯，创建维护微信公众号：  drupalstudy 从 Drupal 7开始，目前已发布了了四百多期，是国内为数不多的 Drupal 相关的微信公众号。"
+                  }
+                ]
+              },
+              {
+                "title": "技术分享",
+                "icon": "faviores",
+                "elements": [
+                  {
+                    "type": "text",
+                    "spacer": "none",
+                    "body": "我们也及时在知乎更新 Drupal 相关的技术文章，分享给更多感兴趣的人，愿你们能够享受 Drupal 带来的字数创新体验。"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "label": "常用",
+      "elements": [
+        {
+          "label": "SearchBar",
+          "icon": {
+            "svg": "magnify"
+          },
+          "content": {
+            "type": "search-action",
+            "button": {
+              "label": "搜索",
+              "color": "primary"
+            },
+            "form": [
+              {
+                "type": "select",
+                "key": "skill",
+                "label": "技能",
+                "options": [
+                  {
+                    "label": "无",
+                    "value": ""
+                  },
+                  {
+                    "label": "Angular",
+                    "value": "170"
+                  },
+                  {
+                    "label": "React",
+                    "value": "162"
+                  },
+                  {
+                    "label": "Vue",
+                    "value": "167"
+                  }
+                ]
+              },
+              {
+                "type": "select",
+                "key": "cms",
+                "label": "CMS",
+                "options": [
+                  {
+                    "label": "无",
+                    "value": ""
+                  },
+                  {
+                    "label": "Drupal",
+                    "value": "170"
+                  },
+                  {
+                    "label": "WP",
+                    "value": "162"
+                  },
+                  {
+                    "label": "Joomla",
+                    "value": "167"
+                  }
+                ]
+              },
+              {
+                "type": "input",
+                "key": "keys",
+                "placeholder": "请输入关键词搜索",
+                "controlType": "search",
+                "label": "关键词",
+                "appearance": "legacy"
               }
             ]
           }
@@ -363,6 +1124,123 @@
           }
         },
         {
+          "label": "Swiper",
+          "icon": {
+            "svg": "view-array-outline"
+          },
+          "content": {
+            "type": "swiper",
+            "params": {
+              "slidesPerView": 1.2,
+              "spaceBetween": 20,
+              "navigation": false,
+              "breakpoints": {
+                "600": {
+                  "slidesPerView": 3,
+                  "spaceBetween": 20
+                },
+                "960": {
+                  "slidesPerView": 3,
+                  "spaceBetween": 50
+                }
+              }
+            },
+            "classes": "p-bottom",
+            "elements": [
+              {
+                "type": "card",
+                "title": "高性能",
+                "subTitle": "High Performance",
+                "classes": "card-no-shadow",
+                "body": "默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；",
+                "feature": {
+                  "fullIcon": "fullscreen",
+                  "openIcon": "open_in_new",
+                  "link": "#",
+                  "ratios": "media-4-3",
+                  "img": {
+                    "classes": "object-fit",
+                    "src": "/assets/images/cases/porto1.jpg",
+                    "alt": "alt"
+                  }
+                }
+              },
+              {
+                "type": "card",
+                "feature": {
+                  "fullIcon": "fullscreen",
+                  "openIcon": "open_in_new",
+                  "link": "#",
+                  "ratios": "media-4-3",
+                  "img": {
+                    "classes": "object-fit",
+                    "src": "/assets/images/cases/porto7.jpg",
+                    "alt": "alt"
+                  }
+                },
+                "title": "易用的编辑器",
+                "subTitle": "Simplicity for Editors",
+                "classes": "card-no-shadow",
+                "body": "通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作；"
+              },
+              {
+                "type": "card",
+                "feature": {
+                  "fullIcon": "fullscreen",
+                  "openIcon": "open_in_new",
+                  "link": "#",
+                  "ratios": "media-4-3",
+                  "img": {
+                    "classes": "object-fit",
+                    "src": "/assets/images/cases/porto2.jpg",
+                    "alt": "alt"
+                  }
+                },
+                "title": "多语言",
+                "subTitle": "Leader in Multilingual",
+                "classes": "card-no-shadow",
+                "body": "Drupal 100多种语言提供了无以伦比的支持和翻译工作流程；"
+              },
+              {
+                "type": "card",
+                "feature": {
+                  "fullIcon": "fullscreen",
+                  "openIcon": "open_in_new",
+                  "link": "#",
+                  "ratios": "media-4-3",
+                  "img": {
+                    "classes": "object-fit",
+                    "src": "/assets/images/cases/porto3.jpg",
+                    "alt": "alt"
+                  }
+                },
+                "title": "更有弹性",
+                "subTitle": "Flexibility",
+                "classes": "card-no-shadow",
+                "body": "无论是一个还是多个站点，Drupal 总是可以游刃有余的构建；"
+              },
+              {
+                "type": "card",
+                "feature": {
+                  "fullIcon": "fullscreen",
+                  "openIcon": "open_in_new",
+                  "link": "#",
+                  "ratios": "media-4-3",
+                  "img": {
+                    "classes": "object-fit",
+                    "src": "/assets/images/cases/porto4.jpg",
+                    "alt": "alt"
+                  }
+                },
+                "title": "安全性",
+                "subTitle": "Rigorous Security",
+                "classes": "card-no-shadow",
+                "body": "为了抵御安全漏洞，将有一组团队解决并发布安全修补程序，超过45000名贡献者使该平台成为市场上最安全、最稳定的平台之一；"
+              }
+            ]
+          }
+        },
+        {
           "label": "Map",
           "icon": {
             "svg": "map-marker"
@@ -388,6 +1266,47 @@
                   "setCenter": true,
                   "address": "高新区8号创客城"
                 }
+              }
+            ]
+          }
+        },
+        {
+          "label": "形状",
+          "icon": {
+            "svg": "cosine-wave"
+          },
+          "content": {
+            "type": "shape"
+          }
+        },
+        {
+          "label": "Stepper",
+          "icon": {
+            "svg": "debug-step-over"
+          },
+          "content": {
+            "type": "stepper",
+            "params": {
+              "mode": "horizontal",
+              "labelPosition": "bottom",
+              "linear": true
+            },
+            "steps": [
+              {
+                "label": "指派中"
+              },
+              {
+                "label": "接受",
+                "completed": true
+              },
+              {
+                "label": "停止"
+              },
+              {
+                "label": "转移"
+              },
+              {
+                "label": "已完成"
               }
             ]
           }

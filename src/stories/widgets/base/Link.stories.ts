@@ -36,7 +36,7 @@ Default.args = {
   content: {
     type: 'link',
     label: '内推',
-    classes: 'bold',
+    classes: '',
     href: '/lists/jobs',
   },
 };
