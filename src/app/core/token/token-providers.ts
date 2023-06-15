@@ -10,6 +10,7 @@ export const PAGE_CONTENT = new InjectionToken<Observable<IPage | object>>(
   'page_content'
 );
 export const THEME = new InjectionToken<string>('current theme');
+export const DEBUGANIMATE = new InjectionToken<boolean>('debug animate');
 export const BRANDING = new InjectionToken<IBranding>('branding config');
 
 export const USER = new InjectionToken<IUser>('user');

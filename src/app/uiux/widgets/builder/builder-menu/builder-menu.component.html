@@ -15,6 +15,11 @@
         <app-icon [content]="{svg:'content-copy'}"></app-icon>
         <span>复制JSON</span>
       </button>
+      <button mat-menu-item>
+        <mat-slide-toggle [checked]="isDebugAnimate" (change)="onDebugAnimate($event)"
+          class="m-right-xs"></mat-slide-toggle>
+        <span>动画调式</span>
+      </button>
       <button mat-menu-item (click)="onClear()">
         <app-icon [content]="{svg:'trash-can-outline'}"></app-icon>
         <span>清空组件</span>

@@ -1,6 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable, Renderer2 } from '@angular/core';
-import { MODE } from '@core/factory/factory';
+import { THEMKEY } from '@core/factory/factory';
 import { ICoreConfig } from '@core/interface/IAppConfig';
 import { LocalStorageService } from 'ngx-webstorage';
 
@@ -17,8 +17,8 @@ export class ThemeService {
   ) {}
 
   initTheme(coreConfig: ICoreConfig, render2: Renderer2): void {
-    if (this.storage.retrieve(MODE)) {
-      const theme = this.storage.retrieve(MODE);
+    if (this.storage.retrieve(THEMKEY)) {
+      const theme = this.storage.retrieve(THEMKEY);
       this.setTheme(theme, render2);
     } else {
       const defTheme = coreConfig.defaultTheme || 'light-theme';

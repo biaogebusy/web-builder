@@ -10,7 +10,8 @@ import { CryptoJSService } from '@core/service/crypto-js.service';
 import { UserService } from '@core/service/user.service';
 import { IUser } from '@core/interface/IUser';
 
-export const MODE = 'themeMode';
+export const THEMKEY = 'themeMode';
+export const DEBUGANIMATEKEY = 'debugAnimate';
 
 export function pageContentFactory(
   activateRoute: ActivatedRoute,
@@ -42,11 +43,20 @@ export function themeFactory(
   coreConfig: ICoreConfig,
   storage: LocalStorageService
 ): string {
-  const localTheme = storage.retrieve(MODE);
+  const localTheme = storage.retrieve(THEMKEY);
   if (localTheme) {
     return localTheme;
   }
   return coreConfig.defaultTheme || 'light-theme';
+}
+
+export function debugAnimateFactory(storage: LocalStorageService): boolean {
+  const isDebugAnimate = storage.retrieve(DEBUGANIMATEKEY);
+  if (isDebugAnimate) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 export function brandingFactory(

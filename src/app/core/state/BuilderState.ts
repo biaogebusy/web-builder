@@ -19,6 +19,7 @@ export class BuilderState {
   public showcase$: Subject<ICard1v1> = new Subject();
   public animateDisable$ = new BehaviorSubject<boolean>(true);
   public toolbarDisable$ = new Subject<boolean>();
+  public debugeAnimate$ = new Subject<boolean>();
   public jsoneditorContent$ = new Subject<{
     content: IPage;
     index: number;

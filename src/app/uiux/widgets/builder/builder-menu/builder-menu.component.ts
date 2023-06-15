@@ -1,15 +1,21 @@
+import { DOCUMENT } from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  Inject,
   Input,
   OnInit,
 } from '@angular/core';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { DEBUGANIMATEKEY } from '@core/factory/factory';
 import type { IPage } from '@core/interface/IAppConfig';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { ContentState } from '@core/state/ContentState';
+import { DEBUGANIMATE } from '@core/token/token-providers';
+import { map } from 'lodash-es';
 import { LocalStorage, LocalStorageService } from 'ngx-webstorage';
 
 @Component({
@@ -24,16 +30,22 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit {
   @LocalStorage('page')
   page: IPage;
   total: number;
+  isDebugAnimate: boolean;
 
   constructor(
     public contentState: ContentState,
     private builder: BuilderState,
     private util: UtilitiesService,
     private cd: ChangeDetectorRef,
-    private storage: LocalStorageService
+    private storage: LocalStorageService,
+    @Inject(DEBUGANIMATE) private bebugAnimate: boolean,
+    @Inject(DOCUMENT) private doc: Document
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.isDebugAnimate = this.bebugAnimate;
+    this.cd.detectChanges();
+  }
 
   ngAfterViewInit(): void {
     this.getTotal();
@@ -79,5 +91,27 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit {
 
   onSubmit(): void {
     this.util.openSnackbar('功能尚未开发，可以手动复制页面 JSON', 'ok');
+  }
+
+  onDebugAnimate(event: MatSlideToggleChange): void {
+    this.isDebugAnimate = event.checked;
+    this.storage.store(DEBUGANIMATEKEY, this.isDebugAnimate);
+    this.builder.toolbarDisable$.next(this.isDebugAnimate);
+    this.builder.debugeAnimate$.next(this.isDebugAnimate);
+    const markers = this.doc.getElementsByClassName('marker-text');
+    if (!this.isDebugAnimate) {
+      // hidden marker
+      map(markers, (marker) => {
+        marker.classList.remove('display-block');
+        marker.classList.add('display-none');
+      });
+    } else {
+      if (markers.length) {
+        map(markers, (marker) => {
+          marker.classList.add('display-block');
+          marker.classList.remove('display-none');
+        });
+      }
+    }
   }
 }

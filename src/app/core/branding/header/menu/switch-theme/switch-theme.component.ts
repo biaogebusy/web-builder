@@ -9,7 +9,7 @@ import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { CORE_CONFIG, THEME } from '@core/token/token-providers';
 import { ConfigService } from '@core/service/config.service';
 import { LocalStorageService } from 'ngx-webstorage';
-import { MODE } from '@core/factory/factory';
+import { THEMKEY } from '@core/factory/factory';
 import { ThemeService } from '@core/service/theme.service';
 @Component({
   selector: 'app-switch-theme',
@@ -34,7 +34,7 @@ export class SwitchThemeComponent implements OnInit {
 
   onSwitchTheme(theme: string): void {
     this.configService.switchChange$.next(theme);
-    this.storage.store(MODE, theme);
+    this.storage.store(THEMKEY, theme);
     this.currentTheme = theme;
     this.themeService.setTheme(theme, this.render2);
   }
