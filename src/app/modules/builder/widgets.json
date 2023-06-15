@@ -1,7 +1,7 @@
 {
   "data": [
     {
-      "label": "Basic",
+      "label": "基础",
       "elements": [
         {
           "label": "Text",
@@ -81,6 +81,18 @@
           }
         },
         {
+          "label": "Title",
+          "icon": {
+            "svg": "format-header-2"
+          },
+          "content": {
+            "type": "title",
+            "label": "关于我们",
+            "style": "style-v1",
+            "classes": "mat-display-1"
+          }
+        },
+        {
           "label": "Btn Video",
           "icon": {
             "svg": "play-circle-outline"
@@ -135,25 +147,25 @@
             "elements": [
               {
                 "module": "Slick Carousel",
-                "tatol": 7253,
+                "tatol": 6517,
                 "info": "Slick 轮播，强大响应式且性能优异的图片轮播解决方案，有非常丰富的配置选项，slick 官网自己调侃这是你最后使用的图片轮播",
                 "remarks": "查看"
               },
               {
                 "module": "Views Slideshow",
-                "tatol": 9974,
+                "tatol": 2959,
                 "info": "视图轮播模块，该模块是最受欢迎的幻灯片模块，可放任何内容，高度定制\t",
                 "remarks": "查看"
               },
               {
                 "module": "Colorbox",
-                "tatol": 9939,
+                "tatol": 5747,
                 "info": "轻量级高可定制幻灯片模块，高度集成在 Drupal 中，可放图片，Iframed 或者在线内容等等\t",
                 "remarks": "查看"
               },
               {
                 "module": "Flex Slider",
-                "tatol": 1489,
+                "tatol": 9096,
                 "info": "响应式、可调整大小、适配浏览器和移动设备，支持移动设备手势滑动\t",
                 "remarks": "查看"
               },
@@ -221,21 +233,21 @@
                 ],
                 [
                   "大额红包",
-                  3702,
-                  3159,
-                  3027
+                  8309,
+                  4447,
+                  5244
                 ],
                 [
                   "小额红包",
-                  4544,
-                  3204,
-                  8976
+                  9384,
+                  9394,
+                  6695
                 ],
                 [
                   "推广费用",
-                  8934,
-                  5291,
-                  8629
+                  4570,
+                  9284,
+                  7851
                 ]
               ]
             },
@@ -620,28 +632,13 @@
                   "required": true,
                   "min": 10,
                   "max": 10000,
-                  "description": "最小10元，最大10000元",
-                  "placeholder": "",
-                  "focus": false,
-                  "disabled": false
+                  "description": "最小10元，最大10000元"
                 },
                 "validation": {
                   "messages": {
                     "min": "不能设置小于 10",
                     "max": "不能设置大于 10000"
                   }
-                },
-                "id": "formly_8_input_total_0",
-                "hooks": {},
-                "modelOptions": {},
-                "wrappers": [
-                  "form-field"
-                ],
-                "_keyPath": {
-                  "key": "total",
-                  "path": [
-                    "total"
-                  ]
                 }
               },
               {
@@ -652,26 +649,7 @@
                   "label": "文本域",
                   "placeholder": "Placeholder",
                   "description": "Description",
-                  "required": true,
-                  "focus": false,
-                  "disabled": false,
-                  "cols": 1,
-                  "rows": 1
-                },
-                "id": "formly_8_textarea_Textarea_1",
-                "hooks": {},
-                "modelOptions": {},
-                "validation": {
-                  "messages": {}
-                },
-                "wrappers": [
-                  "form-field"
-                ],
-                "_keyPath": {
-                  "key": "Textarea",
-                  "path": [
-                    "Textarea"
-                  ]
+                  "required": true
                 }
               },
               {
@@ -682,33 +660,12 @@
                   "label": "接受协议",
                   "description": "为了更好的服务，网站将收集用户的Cookies信息。",
                   "pattern": "true",
-                  "required": true,
-                  "placeholder": "",
-                  "focus": false,
-                  "disabled": false,
-                  "hideFieldUnderline": true,
-                  "indeterminate": true,
-                  "floatLabel": "always",
-                  "hideLabel": true,
-                  "align": "start",
-                  "color": "accent"
+                  "required": true
                 },
                 "validation": {
                   "messages": {
                     "pattern": "请勾选协议"
                   }
-                },
-                "id": "formly_8_checkbox_Checkbox_2",
-                "hooks": {},
-                "modelOptions": {},
-                "wrappers": [
-                  "form-field"
-                ],
-                "_keyPath": {
-                  "key": "Checkbox",
-                  "path": [
-                    "Checkbox"
-                  ]
                 }
               },
               {
@@ -738,27 +695,6 @@
                       "label": "Option 4",
                       "disabled": true
                     }
-                  ],
-                  "focus": false,
-                  "disabled": false,
-                  "hideFieldUnderline": true,
-                  "floatLabel": "always",
-                  "tabindex": -1,
-                  "_flatOptions": true
-                },
-                "id": "formly_8_radio_Radio_3",
-                "hooks": {},
-                "modelOptions": {},
-                "validation": {
-                  "messages": {}
-                },
-                "wrappers": [
-                  "form-field"
-                ],
-                "_keyPath": {
-                  "key": "Radio",
-                  "path": [
-                    "Radio"
                   ]
                 }
               },
@@ -779,25 +715,6 @@
                       "label": "比例",
                       "value": "prop"
                     }
-                  ],
-                  "placeholder": "",
-                  "focus": false,
-                  "disabled": false,
-                  "_flatOptions": true
-                },
-                "id": "formly_8_select_type_4",
-                "hooks": {},
-                "modelOptions": {},
-                "validation": {
-                  "messages": {}
-                },
-                "wrappers": [
-                  "form-field"
-                ],
-                "_keyPath": {
-                  "key": "type",
-                  "path": [
-                    "type"
                   ]
                 }
               },
@@ -828,22 +745,6 @@
                       "label": "Option 4",
                       "disabled": true
                     }
-                  ],
-                  "placeholder": "",
-                  "focus": false,
-                  "disabled": false
-                },
-                "id": "formly_8_mat-select_customer_5",
-                "hooks": {},
-                "modelOptions": {},
-                "validation": {
-                  "messages": {}
-                },
-                "wrappers": [],
-                "_keyPath": {
-                  "key": "customer",
-                  "path": [
-                    "customer"
                   ]
                 }
               },
@@ -853,76 +754,19 @@
                 "templateOptions": {
                   "label": "期间",
                   "value": "",
-                  "placeholder": "请选择日期",
-                  "focus": false,
-                  "disabled": false
+                  "placeholder": "请选择日期"
                 },
                 "className": "display-block m-bottom-sm",
                 "fieldGroup": [
                   {
                     "type": "input",
-                    "key": "start",
-                    "id": "formly_10_input_start_0",
-                    "hooks": {},
-                    "modelOptions": {},
-                    "validation": {
-                      "messages": {}
-                    },
-                    "templateOptions": {
-                      "label": "",
-                      "placeholder": "",
-                      "focus": false,
-                      "disabled": false
-                    },
-                    "wrappers": [
-                      "form-field"
-                    ],
-                    "_keyPath": {
-                      "key": "start",
-                      "path": [
-                        "start"
-                      ]
-                    }
+                    "key": "start"
                   },
                   {
                     "type": "input",
-                    "key": "end",
-                    "id": "formly_10_input_end_1",
-                    "hooks": {},
-                    "modelOptions": {},
-                    "validation": {
-                      "messages": {}
-                    },
-                    "templateOptions": {
-                      "label": "",
-                      "placeholder": "",
-                      "focus": false,
-                      "disabled": false
-                    },
-                    "wrappers": [
-                      "form-field"
-                    ],
-                    "_keyPath": {
-                      "key": "end",
-                      "path": [
-                        "end"
-                      ]
-                    }
+                    "key": "end"
                   }
-                ],
-                "id": "formly_8_date-range_date_6",
-                "hooks": {},
-                "modelOptions": {},
-                "validation": {
-                  "messages": {}
-                },
-                "wrappers": [],
-                "_keyPath": {
-                  "key": "date",
-                  "path": [
-                    "date"
-                  ]
-                }
+                ]
               },
               {
                 "key": "isPromote",
@@ -930,28 +774,7 @@
                 "className": "display-block m-bottom",
                 "templateOptions": {
                   "label": "开关",
-                  "description": "超过推广次数则推广结束",
-                  "placeholder": "",
-                  "focus": false,
-                  "disabled": false,
-                  "hideFieldUnderline": true,
-                  "floatLabel": "always",
-                  "hideLabel": true
-                },
-                "id": "formly_10_toggle_isPromote_7",
-                "hooks": {},
-                "modelOptions": {},
-                "validation": {
-                  "messages": {}
-                },
-                "wrappers": [
-                  "form-field"
-                ],
-                "_keyPath": {
-                  "key": "isPromote",
-                  "path": [
-                    "isPromote"
-                  ]
+                  "description": "超过推广次数则推广结束"
                 }
               }
             ]
@@ -1004,6 +827,132 @@
                     "body": "我们也及时在知乎更新 Drupal 相关的技术文章，分享给更多感兴趣的人，愿你们能够享受 Drupal 带来的字数创新体验。"
                   }
                 ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "label": "卡片",
+      "elements": [
+        {
+          "label": "Card",
+          "icon": {
+            "svg": "card-outline"
+          },
+          "content": {
+            "type": "card",
+            "title": "高性能",
+            "subTitle": "High Performance",
+            "classes": "card-no-shadow",
+            "body": "默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；",
+            "feature": {
+              "fullIcon": "fullscreen",
+              "openIcon": "open_in_new",
+              "link": "#",
+              "ratios": "media-4-3",
+              "img": {
+                "classes": "object-fit",
+                "src": "/assets/images/cases/porto1.jpg",
+                "alt": "alt"
+              }
+            }
+          }
+        },
+        {
+          "label": "Card v1",
+          "icon": {
+            "svg": "numeric-1"
+          },
+          "content": {
+            "type": "card-1v1",
+            "link": {
+              "href": "#",
+              "label": "Drupal 100多种语言提供了无以伦比的支持和翻译工作流程"
+            },
+            "user": "表歌",
+            "time": "2022/09/27",
+            "feature": {
+              "fullIcon": "fullscreen",
+              "openIcon": "open_in_new",
+              "link": "#",
+              "ratios": "media-4-3",
+              "img": {
+                "classes": "object-fit",
+                "src": "/assets/images/cases/porto1.jpg",
+                "alt": "alt"
+              }
+            },
+            "moreLabel": "查看更多"
+          }
+        },
+        {
+          "label": "Card 1v4",
+          "icon": {
+            "svg": "numeric-4"
+          },
+          "content": {
+            "type": "card-1v4",
+            "img": {
+              "classes": "object-fit",
+              "src": "/assets/images/avatar/01.jpeg"
+            },
+            "star": 5,
+            "title": "- Johnson",
+            "subTitle": "前端开发",
+            "body": "\" 信使是一个大而全的前端框架，这并不是一件好事，但是兴许能够有意义的思考和经验。 \""
+          }
+        },
+        {
+          "label": "Card 1v5",
+          "icon": {
+            "svg": "numeric-5"
+          },
+          "content": {
+            "type": "card-1v5",
+            "title": "Discuss The Project",
+            "body": "The most well-known dummy text is the 'Lorem Ipsum', which is said to have originated in the 16th century.",
+            "more": {
+              "href": "/node/1",
+              "target": "_blank",
+              "label": "Read more"
+            },
+            "footer": {
+              "label": "Step 01.",
+              "icon": {
+                "svg": "chevron-double-right"
+              }
+            }
+          }
+        },
+        {
+          "label": "Card 1v6",
+          "icon": {
+            "svg": "numeric-6"
+          },
+          "content": {
+            "title": {
+              "classes": "text-primary",
+              "label": "FREE"
+            },
+            "type": "card-1v6",
+            "prefix": "$",
+            "number": "79",
+            "suffix": "/mo",
+            "body": "<ul class=\"list-done\"><li>Full Access</li><li>Enhanced Security</li><li>Source Files</li><li>1 Domain Free</li><li>Free Installment</li></ul>",
+            "actionsAlign": "start center",
+            "actions": [
+              {
+                "href": "#",
+                "label": "开始"
+              },
+              {
+                "type": "btn-animate",
+                "label": "Buy Now",
+                "href": "#",
+                "style": "style-v1",
+                "icon": "open_in_new"
               }
             ]
           }
@@ -1309,6 +1258,199 @@
                 "label": "已完成"
               }
             ]
+          }
+        }
+      ]
+    },
+    {
+      "label": "媒体",
+      "elements": [
+        {
+          "label": "列表",
+          "icon": {
+            "svg": "format-list-checkbox"
+          },
+          "content": {
+            "type": "media-list",
+            "title": "热门文章",
+            "elements": [
+              {
+                "link": {
+                  "label": "使用 DevTools 对 Angular 前端应用性能分析优化",
+                  "href": "/node/417"
+                },
+                "img": {
+                  "src": "../assets/images/showcase/blog1-large.jpeg",
+                  "alt": ""
+                },
+                "changed": "2022/01/08"
+              },
+              {
+                "link": {
+                  "label": "使用 takeUntil 操作符管理 Angular 组件的订阅",
+                  "href": "/node/415"
+                },
+                "img": {
+                  "src": "../assets/images/showcase/blog2-large.jpeg",
+                  "alt": ""
+                },
+                "changed": "2022/01/03"
+              },
+              {
+                "link": {
+                  "label": "你应该了解的 Angular 最佳实践",
+                  "href": "/node/414"
+                },
+                "img": {
+                  "src": "../assets/images/showcase/blog3-large.jpeg",
+                  "alt": ""
+                },
+                "changed": "2022/01/03"
+              },
+              {
+                "link": {
+                  "label": "Angular 5 rxjs 5.5.2 多个 http 并行 forkJoin 请求",
+                  "href": "/node/387"
+                },
+                "img": {
+                  "src": "../assets/images/showcase/blog4-large.jpeg",
+                  "alt": ""
+                },
+                "changed": "2021/05/14"
+              }
+            ]
+          }
+        },
+        {
+          "label": "Meta",
+          "icon": {
+            "svg": "format-list-text"
+          },
+          "content": {
+            "type": "media-meta",
+            "link": {
+              "href": "#",
+              "label": "使用 DEVTOOLS 对 ANGULAR 前端应用性能分析优化"
+            },
+            "more": {
+              "href": "#",
+              "label": "更多"
+            },
+            "date": "2022-07-18",
+            "body": "使用 lighthouse 评分 以南宁IT派[www.nnitpai.com]为例记录分析优化过程，使用 Devtools lighthouse 对首页进行综合的评分： 性能评分勉强及格差强人意，切换到 performance 性能选项卡: 记录的同时，可以依次滚动页面到底部，暂..."
+          }
+        },
+        {
+          "label": "对象",
+          "icon": {
+            "svg": "format-list-bulleted-type"
+          },
+          "content": {
+            "type": "media-object",
+            "img": {
+              "src": "/assets/images/avatar/01.jpeg",
+              "style": {
+                "width": "45px",
+                "height": "45px"
+              },
+              "alt": "logo"
+            },
+            "meta": "2017/08",
+            "title": "前端开发工程师",
+            "subTitle": "Davyin",
+            "content": "专注于 Drupal 前端主题开发，目前主要从事于 Angular 前端开发，终身学习体验者，热衷于健身，希望明天比今天好一点。"
+          }
+        },
+        {
+          "label": "对象组",
+          "icon": {
+            "svg": "select-group"
+          },
+          "content": {
+            "label": "工作经历",
+            "type": "media-object-group",
+            "elements": [
+              {
+                "type": "media-object",
+                "img": {
+                  "src": "/assets/images/avatar/01.jpeg",
+                  "style": {
+                    "width": "45px",
+                    "height": "45px"
+                  },
+                  "alt": "logo"
+                },
+                "meta": "2017/08",
+                "title": "前端开发工程师",
+                "subTitle": "Davyin",
+                "content": "专注于 Drupal 前端主题开发，目前主要从事于 Angular 前端开发，终身学习体验者，热衷于健身，希望明天比今天好一点。"
+              },
+              {
+                "img": {
+                  "src": "/assets/images/avatar/03.jpeg",
+                  "style": {
+                    "width": "45px",
+                    "height": "45px"
+                  },
+                  "alt": "logo"
+                },
+                "meta": "2022/08",
+                "title": "前端架构师",
+                "subTitle": "阿里蚂蚁",
+                "content": "深入产品和行业场景，深入行业技术，分析影响稳定性和质量的潜在异常节点，把握蚂蚁金服强大的监控能力，设计和制定监控方案。"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "label": "反馈",
+      "elements": [
+        {
+          "label": "Progress",
+          "icon": {
+            "svg": "progress-helper"
+          },
+          "content": {
+            "type": "progress-bar",
+            "color": "primary",
+            "mode": "determinate",
+            "value": "40"
+          }
+        },
+        {
+          "label": "Prog Group",
+          "icon": {
+            "svg": "format-list-group"
+          },
+          "content": {
+            "type": "progress-group",
+            "elements": [
+              {
+                "label": "HTML/CSS",
+                "value": "95"
+              },
+              {
+                "label": "Angular/JavaScript",
+                "value": "79"
+              },
+              {
+                "label": "Drupal",
+                "value": "60"
+              }
+            ]
+          }
+        },
+        {
+          "label": "Loadding",
+          "icon": {
+            "svg": "reload"
+          },
+          "content": {
+            "type": "spinner",
+            "color": "primary",
+            "size": "50"
           }
         }
       ]

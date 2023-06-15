@@ -30,9 +30,9 @@ const Template: Story = (args) => ({
     ...args,
   },
 });
-export const Base = Template.bind({});
-const mediaObject: any = MediaObjectStories.Base.args;
-Base.args = {
+export const Default = Template.bind({});
+const mediaObject: any = MediaObjectStories.Default.args;
+Default.args = {
   content: {
     label: '工作经历',
     type: 'media-object-group',

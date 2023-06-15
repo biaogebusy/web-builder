@@ -33,6 +33,7 @@ export const Determinate = Template.bind({});
 
 Determinate.args = {
   content: {
+    type: 'progress-bar',
     color: 'primary',
     mode: 'determinate',
     value: '40',

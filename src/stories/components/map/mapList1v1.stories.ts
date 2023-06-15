@@ -71,7 +71,7 @@ Base.play = async () => {
 };
 
 export const Sidebar = Template.bind({});
-const mediaObject: any = MediaObjectStories.Base.args;
+const mediaObject: any = MediaObjectStories.Default.args;
 Sidebar.args = {
   content: {
     ...Base.args.content,

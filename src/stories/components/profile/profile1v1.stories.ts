@@ -34,7 +34,7 @@ const Template: Story = (args) => ({
 export const UserProfile = Template.bind({});
 UserProfile.storyName = '用户资料';
 const swiper: any = SwiperStories.Default.args;
-const medaiObjectGroup: any = MediaObjectGroupStories.Base.args;
+const medaiObjectGroup: any = MediaObjectGroupStories.Default.args;
 UserProfile.args = {
   content: {
     type: 'profile-1v1',

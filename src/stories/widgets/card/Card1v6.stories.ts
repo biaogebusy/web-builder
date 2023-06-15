@@ -33,7 +33,10 @@ const Template: Story = (args) => ({
 export const Default = Template.bind({});
 Default.args = {
   content: {
-    title: 'FREE',
+    title: {
+      classes: 'text-primary',
+      label: 'FREE',
+    },
     type: 'card-1v6',
     prefix: '$',
     number: '79',

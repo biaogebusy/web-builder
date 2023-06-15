@@ -1,24 +1,24 @@
 import { IBuilderComponent } from '@core/interface/IBuilder';
-import * as s1v1Story from '../feature/showcase/showcase1v1.stories';
-import * as s1v2Story from '../feature/showcase/showcase1v2.stories';
-import * as s1v3Story from '../feature/showcase/showcase1v3.stories';
-import * as s1v4Story from '../feature/showcase/showcase1v4.stories';
-import * as s2v1Story from '../feature/showcase/showcase2v1.stories';
-import * as s2v2Story from '../feature/showcase/showcase2v2.stories';
-import * as s2v3Story from '../feature/showcase/showcase2v3.stories';
-import * as s2v4Story from '../feature/showcase/showcase2v4.stories';
-import * as s2v5Story from '../feature/showcase/showcase2v5.stories';
-import * as s2v6Story from '../feature/showcase/showcase2v5.stories';
-import * as s3v1Story from '../feature/showcase/showcase3v1.stories';
-import * as s3v2Story from '../feature/showcase/showcase3v2.stories';
-import * as s3v3Story from '../feature/showcase/showcase3v3.stories';
-import * as s3v4Story from '../feature/showcase/showcase3v4.stories';
-import * as s3v5Story from '../feature/showcase/showcase3v5.stories';
-import * as s3v6Story from '../feature/showcase/showcase3v6.stories';
-import * as s3v7Story from '../feature/showcase/showcase3v7.stories';
-import * as s3v8Story from '../feature/showcase/showcase3v8.stories';
-import * as s3v9Story from '../feature/showcase/showcase3v9.stories';
-import * as s4v1Story from '../feature/showcase/showcase4v1.stories';
+import * as s1v1Story from '../../feature/showcase/showcase1v1.stories';
+import * as s1v2Story from '../../feature/showcase/showcase1v2.stories';
+import * as s1v3Story from '../../feature/showcase/showcase1v3.stories';
+import * as s1v4Story from '../../feature/showcase/showcase1v4.stories';
+import * as s2v1Story from '../../feature/showcase/showcase2v1.stories';
+import * as s2v2Story from '../../feature/showcase/showcase2v2.stories';
+import * as s2v3Story from '../../feature/showcase/showcase2v3.stories';
+import * as s2v4Story from '../../feature/showcase/showcase2v4.stories';
+import * as s2v5Story from '../../feature/showcase/showcase2v5.stories';
+import * as s2v6Story from '../../feature/showcase/showcase2v5.stories';
+import * as s3v1Story from '../../feature/showcase/showcase3v1.stories';
+import * as s3v2Story from '../../feature/showcase/showcase3v2.stories';
+import * as s3v3Story from '../../feature/showcase/showcase3v3.stories';
+import * as s3v4Story from '../../feature/showcase/showcase3v4.stories';
+import * as s3v5Story from '../../feature/showcase/showcase3v5.stories';
+import * as s3v6Story from '../../feature/showcase/showcase3v6.stories';
+import * as s3v7Story from '../../feature/showcase/showcase3v7.stories';
+import * as s3v8Story from '../../feature/showcase/showcase3v8.stories';
+import * as s3v9Story from '../../feature/showcase/showcase3v9.stories';
+import * as s4v1Story from '../../feature/showcase/showcase4v1.stories';
 
 const {
   Default: { args: s1v1Default },

@@ -46,7 +46,7 @@ const Template: Story = (args) => ({
   },
 });
 export const Default = Template.bind({});
-const MediaList: any = MediaListStories.Base.args;
+const MediaList: any = MediaListStories.Default.args;
 const MenuList: any = MeunListStories.Base.args;
 Default.args = {
   content: {
@@ -88,9 +88,6 @@ Comment.args = {
   content: {
     ...Default.args.content,
     params: {
-      pay: {
-        money: 10,
-      },
       require_rule: ['authenticated'],
       comment: {
         type: 'comment--comment',

@@ -19,7 +19,6 @@ import { takeUntil } from 'rxjs/operators';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { NodeService } from '@core/service/node.service';
-import { TextComponent } from '@uiux/widgets/text/text.component';
 import { UserService } from '@core/service/user.service';
 import { NodeComponent } from '@uiux/base/node.widget';
 import type { IBaseNode, IComment } from '@core/interface/node/INode';
@@ -27,7 +26,6 @@ import { ContentState } from '@core/state/ContentState';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import { API_URL, PAGE_CONTENT } from '@core/token/token-providers';
 import type { IArticle, ICoreConfig, IPage } from '@core/interface/IAppConfig';
-import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { LoginComponent } from 'src/app/modules/user/login/login.component';
 import type { IUser } from '@core/interface/IUser';
 

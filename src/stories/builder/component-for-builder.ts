@@ -1,6 +1,6 @@
-import { hero } from './hero-for-builder';
-import { showcase } from './showcse-for-builder';
-import { drupal } from './drupal-for-builder';
+import { hero } from './components/hero.builder';
+import { showcase } from './components/showcse.builder';
+import { drupal } from './components/drupal.builder';
 
 export const components: any[] = [
   {

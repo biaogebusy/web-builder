@@ -30,8 +30,8 @@ const Template: Story = (args) => ({
     ...args,
   },
 });
-export const Base = Template.bind({});
-Base.args = {
+export const Default = Template.bind({});
+Default.args = {
   content: {
     type: 'card-1v4',
     img: {
