@@ -63,7 +63,7 @@ export class Showcase3v2Component implements OnInit, AfterViewInit {
     }
   }
 
-  showAnimate(): void {
+  showAnimate(debug?: any): void {
     const items = this.el.nativeElement.querySelectorAll('.item');
     Array.from(items).forEach((item: any, index: number) => {
       let tl = gsap.timeline({
@@ -71,7 +71,7 @@ export class Showcase3v2Component implements OnInit, AfterViewInit {
           trigger: item,
           start: 'top 80%', // [触发元素开始的地方,视口开始的位置],
           end: 'bottom 30%',
-          markers: false,
+          markers: debug,
           scrub: false, // 滚动一次动画就对应更新，细粒度控制，适合根据鼠标滚动精细变化
           toggleActions: 'play pause resume reset', // onEnter, onLeave, onEnterBack, and onLeaveBack
         },
@@ -82,6 +82,10 @@ export class Showcase3v2Component implements OnInit, AfterViewInit {
         x: this.isEven(index) ? 500 : -500,
         duration: 1,
       });
+
+      if (debug === true) {
+        tl.restart();
+      }
     });
   }
 

@@ -118,6 +118,11 @@ export class DynamicComponentComponent implements OnInit, OnChanges, OnDestroy {
           }, 1000);
         }
       });
+      this.builder.debugeAnimate$.subscribe((debug) => {
+        if (instance.showAnimate) {
+          this.showAnimate(debug);
+        }
+      });
     }
   }
 

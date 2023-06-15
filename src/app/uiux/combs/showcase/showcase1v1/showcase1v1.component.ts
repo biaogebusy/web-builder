@@ -64,7 +64,7 @@ export class Showcase1v1Component
     }
   }
 
-  showAnimate(): void {
+  showAnimate(debug?: any): void {
     const title: Element = this.title?.nativeElement;
     const boxs = this.el.nativeElement.querySelectorAll('.box');
     let tl = gsap.timeline({
@@ -72,7 +72,7 @@ export class Showcase1v1Component
         trigger: this.el.nativeElement,
         start: 'top 85%', // [触发元素开始的地方,视口开始的位置],
         end: 'bottom 30%',
-        markers: false,
+        markers: debug,
         scrub: false, // 滚动一次动画就对应更新，细粒度控制，适合根据鼠标滚动精细变化
         toggleActions: 'play pause resume reset', // onEnter, onLeave, onEnterBack, and onLeaveBack
       },
@@ -92,6 +92,10 @@ export class Showcase1v1Component
           autoAlpha: 0,
         });
       });
+    }
+
+    if (debug === true) {
+      tl.restart();
     }
   }
 }
