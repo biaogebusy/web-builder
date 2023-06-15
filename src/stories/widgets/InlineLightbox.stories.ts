@@ -45,7 +45,7 @@ Default.args = {
     elements: [
       {
         src: '/assets/images/cases/porto1.jpg',
-        caption: '受理费第一次',
+        caption: '描述',
         thumb: '/assets/images/cases/porto1.jpg',
       },
       {

@@ -10,10 +10,10 @@
           },
           "content": {
             "type": "text",
-            "body": "<p class=\"text-center\">Github actions 从2019年就免费开放给个人开源项目使用，对于自动化开放测试部署，开发者一定非常的熟悉，如果把中间这项流程做好，不仅节省了大量的人力也大大加快了开发效率，在配置完善的情况下可以提高代码质量。</p>",
-            "spacer": "lg",
+            "body": "开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 Storybook 页面时添加组件到预览页面。<ul class=\"list-done\"><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li><li>可以直接编辑组件的 JSON，所见即所得；</li></ul><p>Builder 与众不同的是它完全融入到了 Storybook 的测试框架当中，示例由 Storybook 导入并维护。</p>使用人员：<ul class=\"list-done\"><li>前端开发：开发测试维护组件</li><li>产品经理：快速构建和预览页面</li><li>运维人员：构建页面和测试UI</li><li>市场营销人员：给客户演示数字创新能力</li></ul><br><p>拖动组件到这里进行创作，或者点击右上角智能生成。</p>",
+            "spacer": "sm",
             "title": {
-              "label": "开源项目使用 <span class=\"text-primary\">Github actions</span> 自动化测试部署 Angular 应用到 ECS 服务器",
+              "label": "欢迎使用 Builder 快速构建页面",
               "style": "style-v1"
             },
             "bg": {
@@ -109,21 +109,21 @@
                 ],
                 [
                   "大额红包",
-                  9341,
-                  9582,
-                  6463
+                  7121,
+                  3107,
+                  3229
                 ],
                 [
                   "小额红包",
-                  3598,
-                  3772,
-                  4355
+                  7520,
+                  8557,
+                  7905
                 ],
                 [
                   "推广费用",
-                  8896,
-                  3431,
-                  6725
+                  7050,
+                  8200,
+                  6138
                 ]
               ]
             },
@@ -147,11 +147,249 @@
         {
           "label": "Spacer",
           "icon": {
-            "svg": "format-vertical-align-center"
+            "svg": "color-helper"
           },
           "content": {
             "type": "spacer",
             "size": "md"
+          }
+        },
+        {
+          "label": "Form",
+          "icon": {
+            "svg": "form-select"
+          },
+          "content": {
+            "type": "formly",
+            "fields": [
+              {
+                "type": "input",
+                "key": "total",
+                "defaultValue": 300,
+                "className": "display-block m-bottom-sm",
+                "templateOptions": {
+                  "label": "大额红包总金额",
+                  "type": "number",
+                  "required": true,
+                  "min": 10,
+                  "max": 10000,
+                  "description": "最小10元，最大10000元"
+                },
+                "validation": {
+                  "messages": {
+                    "min": "不能设置小于 10",
+                    "max": "不能设置大于 10000"
+                  }
+                }
+              },
+              {
+                "key": "Textarea",
+                "type": "textarea",
+                "className": "display-block m-bottom-sm",
+                "templateOptions": {
+                  "label": "文本域",
+                  "placeholder": "Placeholder",
+                  "description": "Description",
+                  "required": true
+                }
+              },
+              {
+                "key": "Checkbox",
+                "type": "checkbox",
+                "className": "display-block m-bottom-sm",
+                "templateOptions": {
+                  "label": "接受协议",
+                  "description": "为了更好的服务，网站将收集用户的Cookies信息。",
+                  "pattern": "true",
+                  "required": true
+                },
+                "validation": {
+                  "messages": {
+                    "pattern": "请勾选协议"
+                  }
+                }
+              },
+              {
+                "key": "Radio",
+                "type": "radio",
+                "className": "display-block m-bottom-sm",
+                "templateOptions": {
+                  "label": "单选框",
+                  "placeholder": "Placeholder",
+                  "description": "Description",
+                  "required": true,
+                  "options": [
+                    {
+                      "value": 1,
+                      "label": "Option 1"
+                    },
+                    {
+                      "value": 2,
+                      "label": "Option 2"
+                    },
+                    {
+                      "value": 3,
+                      "label": "Option 3"
+                    },
+                    {
+                      "value": 4,
+                      "label": "Option 4",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "select",
+                "key": "type",
+                "defaultValue": "fixed",
+                "className": "display-block m-bottom-sm",
+                "templateOptions": {
+                  "label": "下拉单选",
+                  "description": "固定金额或者按比例",
+                  "options": [
+                    {
+                      "label": "固定金额",
+                      "value": "fixed"
+                    },
+                    {
+                      "label": "比例",
+                      "value": "prop"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "mat-select",
+                "key": "customer",
+                "className": "display-block m-bottom-sm",
+                "templateOptions": {
+                  "multiple": true,
+                  "search": true,
+                  "hideSelected": true,
+                  "label": "下拉多选",
+                  "options": [
+                    {
+                      "value": 1,
+                      "label": "Option 1"
+                    },
+                    {
+                      "value": 2,
+                      "label": "Option 2"
+                    },
+                    {
+                      "value": 3,
+                      "label": "Option 3"
+                    },
+                    {
+                      "value": 4,
+                      "label": "Option 4",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "date-range",
+                "key": "date",
+                "templateOptions": {
+                  "label": "期间",
+                  "value": "",
+                  "placeholder": "请选择日期"
+                },
+                "className": "display-block m-bottom-sm",
+                "fieldGroup": [
+                  {
+                    "type": "input",
+                    "key": "start"
+                  },
+                  {
+                    "type": "input",
+                    "key": "end"
+                  }
+                ]
+              },
+              {
+                "key": "isPromote",
+                "type": "toggle",
+                "className": "display-block m-bottom",
+                "templateOptions": {
+                  "label": "开关",
+                  "description": "超过推广次数则推广结束"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "label": "Iframe",
+          "icon": {
+            "svg": "application-array-outline"
+          },
+          "content": {
+            "type": "iframe",
+            "url": "?path=/story/spacer--default",
+            "width": "800",
+            "height": "800"
+          }
+        },
+        {
+          "label": "Lightbox",
+          "icon": {
+            "svg": "view-carousel-outline"
+          },
+          "content": {
+            "type": "inline-lightbox",
+            "label": [
+              "查看图片",
+              "Word 下载",
+              "PDF 预览"
+            ],
+            "elements": [
+              {
+                "src": "/assets/images/cases/porto1.jpg",
+                "caption": "描述",
+                "thumb": "/assets/images/cases/porto1.jpg"
+              },
+              {
+                "src": "/assets/images/cases/porto2.doc",
+                "preview": "/assets/images/cases/porto2.pdf"
+              },
+              {
+                "src": "/assets/images/cases/porto3.pdf",
+                "preview": "/assets/images/cases/porto3.pdf"
+              }
+            ]
+          }
+        },
+        {
+          "label": "Map",
+          "icon": {
+            "svg": "map-marker"
+          },
+          "content": {
+            "type": "location",
+            "title": {
+              "label": "我的位置",
+              "style": "banner-title",
+              "classes": "m-bottom-0"
+            },
+            "style": {
+              "height": "500px"
+            },
+            "city": "南宁市",
+            "params": {
+              "zoomEnable": false,
+              "draggable": false
+            },
+            "elements": [
+              {
+                "company": {
+                  "setCenter": true,
+                  "address": "高新区8号创客城"
+                }
+              }
+            ]
           }
         }
       ]

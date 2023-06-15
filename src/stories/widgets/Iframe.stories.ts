@@ -52,7 +52,7 @@ CustomSize.storyName = '自定义';
 CustomSize.args = {
   content: {
     type: 'iframe',
-    url: '?path=/story/full-calendar--default',
+    url: '?path=/story/spacer--default',
     width: '800',
     height: '800',
   },

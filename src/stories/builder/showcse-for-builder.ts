@@ -29,16 +29,16 @@ const {
   StyleV5: { args: s1v1V5, storyName: s1v1V5Name },
   StyleV6: { args: s1v1V6, storyName: s1v1V6Name },
   StyleV7: { args: s1v1V7, storyName: s1v1V7Name },
-} = s1v1Story as any;
+} = s1v1Story;
 const {
   Default: { args: s1v2Defult, storyName: s1v2DefaultName },
   Primary: { args: s1v2Primary, storyName: s1v2PrimaryName },
-} = s1v2Story as any;
+} = s1v2Story;
 const {
   Default: { args: s1v3Default, storyName: s1v3DefaultName },
   Contact: { args: s1v3Contact, storyName: sv1v3ContactName },
   Video: { args: s1v3Video, storyName: s1v3VideoName },
-} = s1v3Story as any;
+} = s1v3Story;
 
 const {
   Default: { args: s1v4Default, storyName: s1v4DefaultName },
@@ -53,68 +53,68 @@ const {
     args: s2v1Card1v1FromApi,
     storyName: s2v1Card1v1FromApiName,
   },
-} = s2v1Story as any;
+} = s2v1Story;
 
 const {
   Default: { args: s2v2Default },
-} = s2v2Story as any;
+} = s2v2Story;
 const {
   Default: { args: s2v3Default },
-} = s2v3Story as any;
+} = s2v3Story;
 const {
   Default: { args: s2v4Default },
-} = s2v4Story as any;
+} = s2v4Story;
 const {
   Default: { args: s2v5Default },
-} = s2v5Story as any;
+} = s2v5Story;
 const {
   Default: { args: s2v6Default },
-} = s2v6Story as any;
+} = s2v6Story;
 const {
   Default: { args: s3v1Default },
-} = s3v1Story as any;
+} = s3v1Story;
 const {
   Default: { args: s3v2Default },
   List: { args: s3v2List, storyName: s3v2ListName },
-} = s3v2Story as any;
+} = s3v2Story;
 
 const {
   Default: { args: s3v3Default },
   Image: { args: s3v3Image, storyName: s3v3ImageName },
-} = s3v3Story as any;
+} = s3v3Story;
 
 const {
   Default: { args: s3v4Default },
   Background: { args: s3v4Background, storyName: s3v4BackgroundName },
-} = s3v4Story as any;
+} = s3v4Story;
 
 const {
   Default: { args: s3v5Default },
-} = s3v5Story as any;
+} = s3v5Story;
 
 const {
   Default: { args: s3v6Default },
   WithLink: { args: s3v6WithLink, storyName: s3v6WithLinkName },
   Background: { args: s3v6Background, storyName: s3v6BackgroundName },
-} = s3v6Story as any;
+} = s3v6Story;
 
 const {
   Default: { args: s3v7Default },
-} = s3v7Story as any;
+} = s3v7Story;
 const {
   Default: { args: s3v8Default },
-} = s3v8Story as any;
+} = s3v8Story;
 
 const {
   Default: { args: s3v9Default },
   Reverse: { args: s3v9Reverse, storyName: s3v9ReverseName },
   Video: { args: s3v9Video, storyName: s3v9VideoName },
-} = s3v9Story as any;
+} = s3v9Story;
 
 const {
   Default: { args: s4v1Default },
   Img: { args: s4v1Img, storyName: s4v1ImgName },
-} = s4v1Story as any;
+} = s4v1Story;
 
 export const showcase: IBuilderComponent[] = [
   s1v1Default,

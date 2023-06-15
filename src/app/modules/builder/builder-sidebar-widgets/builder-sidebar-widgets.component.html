@@ -8,7 +8,7 @@
     <mat-list>
       <div class="widgets" id="widgets" fxLayout="row wrap" cdkDropList [cdkDropListData]="item.elements"
         cdkDropListConnectedTo="builder-list">
-        <div class="item" *ngFor="let widget of item.elements" fxFlex="0 1 calc(100%/3)" [cdkDragData]="widget.content"
+        <div class="item" *ngFor="let widget of item.elements" fxFlex="0 0 calc(100%/3)" [cdkDragData]="widget.content"
           cdkDrag (mouseenter)="onShowcase(widget.content)" (mouseleave)="onShowcase()">
           <div class="inner" fxLayout="column" fxLayoutAlign="center center">
             <app-icon [content]="widget.icon"></app-icon>

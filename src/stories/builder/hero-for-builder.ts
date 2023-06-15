@@ -8,29 +8,29 @@ import * as hero2v2Story from '../feature/hero/hero2v2.stories';
 import * as hero2v3Story from '../feature/hero/hero2v3.stories';
 const {
   Default: { args: hero1v1 },
-} = hero1v1Story as any;
+} = hero1v1Story
 const {
   Default: { args: hero1v2 },
-} = hero1v2Story as any;
+} = hero1v2Story
 const {
   V1: { args: h1v3V1, storyName: h1v3V1Name },
   V2: { args: h1v3V2, storyName: h1v3V2Name },
-} = hero1v3Story as any;
+} = hero1v3Story
 const {
   Default: { args: h1v4Default, storyName: h1v4DefaultName },
   Order: { args: h1v1Order, storyName: h1v1OrderName },
-} = hero1v4Story as any;
+} = hero1v4Story
 
 const {
   Default: { args: h2v1Default },
   YCenter: { args: yCenter, storyName: yCenterName },
   YCenterXCustom: { args: yCenterXCustom, storyName: yCenterXCustomName },
   XYCustom: { args: xyCustom, storyName: xyCustomName },
-} = hero2v1Story as any;
+} = hero2v1Story
 
 const {
   Default: { args: h2v2 },
-} = hero2v2Story as any;
+} = hero2v2Story
 
 const {
   Default: { args: h2v3 },

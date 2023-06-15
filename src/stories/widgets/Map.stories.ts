@@ -32,10 +32,11 @@ const Template: Story = (args) => ({
     ...args,
   },
 });
-export const Map = Template.bind({});
+export const Default = Template.bind({});
 
-Map.args = {
+Default.args = {
   content: {
+    type: 'map',
     citi: '南宁市',
     elements: [],
   },

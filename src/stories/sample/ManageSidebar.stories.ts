@@ -680,7 +680,7 @@ const content = of({
           ],
           elements: [
             {
-              name: '受理费',
+              name: '经费',
               money: '3679',
               billingTime: '2022-03-03',
               deliveryTime: '2022-03-04',
@@ -688,21 +688,21 @@ const content = of({
               expand: [
                 {
                   type: 'inline-lightbox',
-                  label: ['受理费第一次', '受理费-补交', '受理费第二次'],
+                  label: ['车费', '劳务费', '所得税'],
                   elements: [
                     {
                       src: '/assets/images/cases/porto1.jpg',
-                      caption: '受理费第一次',
+                      caption: '车费',
                       thumb: '/assets/images/cases/porto1.jpg',
                     },
                     {
                       src: '/assets/images/cases/porto2.jpg',
-                      caption: '受理费-补交',
+                      caption: '劳务费',
                       thumb: '/assets/images/cases/porto2.jpg',
                     },
                     {
                       src: '/assets/images/cases/porto3.jpg',
-                      caption: '受理费第二次',
+                      caption: '所得税',
                       thumb: '/assets/images/cases/porto3.jpg',
                     },
                   ],
@@ -732,7 +732,7 @@ const content = of({
               ],
             },
             {
-              name: '受理费',
+              name: '经费',
               money: '3679',
               billingTime: '2022-03-03',
               deliveryTime: '2022-03-04',
@@ -740,21 +740,21 @@ const content = of({
               expand: [
                 {
                   type: 'inline-lightbox',
-                  label: ['受理费第一次', '受理费-补交', '受理费第二次'],
+                  label: ['车费', '劳务费', '所得税'],
                   elements: [
                     {
                       src: '/assets/images/cases/porto1.jpg',
-                      caption: '受理费第一次',
+                      caption: '车费',
                       thumb: '/assets/images/cases/porto1.jpg',
                     },
                     {
                       src: '/assets/images/cases/porto2.jpg',
-                      caption: '受理费-补交',
+                      caption: '劳务费',
                       thumb: '/assets/images/cases/porto2.jpg',
                     },
                     {
                       src: '/assets/images/cases/porto3.jpg',
-                      caption: '受理费第二次',
+                      caption: '所得税',
                       thumb: '/assets/images/cases/porto3.jpg',
                     },
                   ],
@@ -784,7 +784,7 @@ const content = of({
               ],
             },
             {
-              name: '受理费',
+              name: '经费',
               money: '3679',
               billingTime: '2022-03-03',
               deliveryTime: '2022-03-04',
@@ -792,21 +792,21 @@ const content = of({
               expand: [
                 {
                   type: 'inline-lightbox',
-                  label: ['受理费第一次', '受理费-补交', '受理费第二次'],
+                  label: ['车费', '劳务费', '所得税'],
                   elements: [
                     {
                       src: '/assets/images/cases/porto1.jpg',
-                      caption: '受理费第一次',
+                      caption: '车费',
                       thumb: '/assets/images/cases/porto1.jpg',
                     },
                     {
                       src: '/assets/images/cases/porto2.jpg',
-                      caption: '受理费-补交',
+                      caption: '劳务费',
                       thumb: '/assets/images/cases/porto2.jpg',
                     },
                     {
                       src: '/assets/images/cases/porto3.jpg',
-                      caption: '受理费第二次',
+                      caption: '所得税',
                       thumb: '/assets/images/cases/porto3.jpg',
                     },
                   ],

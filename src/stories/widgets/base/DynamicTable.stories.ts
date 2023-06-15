@@ -68,7 +68,7 @@ Default.args = {
     ],
     elements: [
       {
-        name: '受理费',
+        name: '经费',
         money: '1000',
         billingTime: '2022-03-03',
         deliveryTime: '2022-03-04',
@@ -160,7 +160,7 @@ DialogColumn.args = {
     ],
     elements: [
       {
-        name: '受理费',
+        name: '经费',
         money: '3679',
         billingTime: '2022-03-03',
         deliveryTime: '2022-03-04',
@@ -168,7 +168,7 @@ DialogColumn.args = {
           'sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
       },
       {
-        name: '受理费',
+        name: '经费',
         money: '3679',
         billingTime: '2022-03-03',
         deliveryTime: '2022-03-04',
@@ -176,7 +176,7 @@ DialogColumn.args = {
           'consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr',
       },
       {
-        name: '受理费',
+        name: '经费',
         money: '3679',
         billingTime: '2022-03-03',
         deliveryTime: '2022-03-04',

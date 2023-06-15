@@ -422,7 +422,7 @@ Default.args = {
         ],
         elements: [
           {
-            name: '受理费',
+            name: '经费',
             money: '3679',
             billingTime: '2022-03-03',
             deliveryTime: '2022-03-04',
@@ -441,21 +441,21 @@ Default.args = {
             expand: [
               {
                 type: 'inline-lightbox',
-                label: ['受理费第一次', '受理费-补交', '受理费第二次'],
+                label: ['经费第一次', '劳务费', '经费第二次'],
                 elements: [
                   {
                     src: '/assets/images/cases/porto1.jpg',
-                    caption: '受理费第一次',
+                    caption: '经费第一次',
                     thumb: '/assets/images/cases/porto1.jpg',
                   },
                   {
                     src: '/assets/images/cases/porto2.jpg',
-                    caption: '受理费-补交',
+                    caption: '劳务费',
                     thumb: '/assets/images/cases/porto2.jpg',
                   },
                   {
                     src: '/assets/images/cases/porto3.jpg',
-                    caption: '受理费第二次',
+                    caption: '经费第二次',
                     thumb: '/assets/images/cases/porto3.jpg',
                   },
                 ],
@@ -485,7 +485,7 @@ Default.args = {
             ],
           },
           {
-            name: '受理费',
+            name: '经费',
             money: '3679',
             billingTime: '2022-03-03',
             deliveryTime: '2022-03-04',
@@ -504,21 +504,21 @@ Default.args = {
             expand: [
               {
                 type: 'inline-lightbox',
-                label: ['受理费第一次', '受理费-补交', '受理费第二次'],
+                label: ['经费第一次', '劳务费', '经费第二次'],
                 elements: [
                   {
                     src: '/assets/images/cases/porto1.jpg',
-                    caption: '受理费第一次',
+                    caption: '经费第一次',
                     thumb: '/assets/images/cases/porto1.jpg',
                   },
                   {
                     src: '/assets/images/cases/porto2.jpg',
-                    caption: '受理费-补交',
+                    caption: '劳务费',
                     thumb: '/assets/images/cases/porto2.jpg',
                   },
                   {
                     src: '/assets/images/cases/porto3.jpg',
-                    caption: '受理费第二次',
+                    caption: '经费第二次',
                     thumb: '/assets/images/cases/porto3.jpg',
                   },
                 ],
@@ -548,7 +548,7 @@ Default.args = {
             ],
           },
           {
-            name: '受理费',
+            name: '经费',
             money: '3679',
             billingTime: '2022-03-03',
             deliveryTime: '2022-03-04',
@@ -567,21 +567,21 @@ Default.args = {
             expand: [
               {
                 type: 'inline-lightbox',
-                label: ['受理费第一次', '受理费-补交', '受理费第二次'],
+                label: ['经费第一次', '劳务费', '经费第二次'],
                 elements: [
                   {
                     src: '/assets/images/cases/porto1.jpg',
-                    caption: '受理费第一次',
+                    caption: '经费第一次',
                     thumb: '/assets/images/cases/porto1.jpg',
                   },
                   {
                     src: '/assets/images/cases/porto2.jpg',
-                    caption: '受理费-补交',
+                    caption: '劳务费',
                     thumb: '/assets/images/cases/porto2.jpg',
                   },
                   {
                     src: '/assets/images/cases/porto3.jpg',
-                    caption: '受理费第二次',
+                    caption: '经费第二次',
                     thumb: '/assets/images/cases/porto3.jpg',
                   },
                 ],
