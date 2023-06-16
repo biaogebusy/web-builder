@@ -1,6 +1,11 @@
 import * as progressBarStory from '../../widgets/feedback/ProgressBar.stories';
 import * as progressGroupStory from '../../widgets/feedback/ProgressGroup.stories';
 import * as spinnerStory from '../../widgets/feedback/Spinner.stories';
+import * as notfoundStory from '../../sample/feedback/404.stories';
+
+const {
+  Default: { args: notfound },
+} = notfoundStory;
 
 const {
   Determinate: { args: progressbar },
@@ -29,5 +34,10 @@ export const feedback = [
     label: 'Loadding',
     icon: { svg: 'reload' },
     ...spinner,
+  },
+  {
+    label: '404',
+    icon: { svg: 'text-search-variant' },
+    ...notfound,
   },
 ];

@@ -30,7 +30,7 @@ const Template: Story = (args) => ({
   },
 });
 export const Default = Template.bind({});
-
+Default.storyName = '时间轴';
 Default.args = {
   content: {
     type: 'carousel-1v1',

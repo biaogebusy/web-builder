@@ -38,8 +38,8 @@ export const Default = Template.bind({});
 Default.args = {
   content: {
     type: 'question',
-    title: '在南宁你去面试过哪些坑人的公司?',
-    body: '连续去面试两个公司都是打着其他职位招销售，心好累，好想类似坑人的公司都被爆出来。',
+    title: '前端 Angular 应用中如何使用 Dialog 动态加载组件？',
+    body: '并且 Dialog 有 Actions,如何能在 action 触发时，其他组件能够订阅到数据。',
     topic: [],
     params: {
       comment: {

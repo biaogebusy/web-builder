@@ -6,6 +6,7 @@ import {
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { BtnVideoComponent } from '@uiux/widgets/actions/btn-video/btn-video.component';
+import * as playerStory from '../../feature/media/Player.stories';
 
 export default {
   title: '基础组件/基本元素/播放按钮',
@@ -35,17 +36,19 @@ Default.parameters = {
     include: ['content'],
   },
 };
+
+const {
+  Default: {
+    args: { content: play },
+  },
+} = playerStory as any;
+
 Default.args = {
   content: {
     type: 'btn-video',
     color: 'primary',
     video: {
-      options: {
-        controls: true,
-        aspectRatio: '16:9',
-        poster: '/assets/images/16-9/business-02.jpg',
-        sources: [{ src: '/assets/video/afterglow.mp4', type: 'video/mp4' }],
-      },
+      ...play,
     },
   },
 };

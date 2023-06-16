@@ -26,6 +26,7 @@ const {
   YCenter: { args: yCenter, storyName: yCenterName },
   YCenterXCustom: { args: yCenterXCustom, storyName: yCenterXCustomName },
   XYCustom: { args: xyCustom, storyName: xyCustomName },
+  Animate: { args: animate, storyName: animateName },
 } = hero2v1Story;
 
 const {
@@ -39,14 +40,18 @@ const {
 export const hero: IBuilderComponent[] = [
   hero1v1,
   hero1v2,
-  { ...h1v3V1, ...{ name: h1v3V1Name } },
-  { ...h1v3V2, ...{ name: h1v3V2Name } },
-  { ...h1v4Default, ...{ name: h1v4DefaultName } },
-  { ...h1v1Order, ...{ name: h1v1OrderName } },
+  { ...h1v3V1, name: h1v3V1Name },
+  { ...h1v3V2, name: h1v3V2Name },
+  { ...h1v4Default, name: h1v4DefaultName },
+  { ...h1v1Order, name: h1v1OrderName },
   h2v1Default,
-  { ...yCenter, ...{ name: yCenterName } },
-  { ...yCenterXCustom, ...{ name: yCenterXCustomName } },
-  { ...xyCustom, ...{ name: xyCustomName } },
+  { ...yCenter, name: yCenterName },
+  { ...yCenterXCustom, name: yCenterXCustomName },
+  { ...xyCustom, name: xyCustomName },
+  {
+    ...animate,
+    name: animateName,
+  },
   h2v2,
   h2v3,
 ];

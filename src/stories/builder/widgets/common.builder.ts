@@ -4,7 +4,12 @@ import * as locationStory from '../../components/map/location.stories';
 import * as shapeStory from '../../widgets/Shape.stories';
 import * as stepperStory from '../../widgets/Stepper.stories';
 import * as swiperStory from '../../widgets/Swiper.stories';
-import * as searchActionStory from '../../widgets/actions/SearchAction.stories';
+import * as action1v1Story from '../../components/action/Action1v1.stories';
+
+const {
+  Default: { args: action1v1 },
+} = action1v1Story;
+
 const {
   CustomSize: { args: iframe },
 } = iframeStory;
@@ -29,15 +34,11 @@ const {
   Default: { args: swiper },
 } = swiperStory;
 
-const {
-  Default: { args: searchAction },
-} = searchActionStory;
-
 export const common = [
   {
     label: 'SearchBar',
     icon: { svg: 'magnify' },
-    ...searchAction,
+    ...action1v1,
   },
   {
     label: 'Iframe',

@@ -65,7 +65,7 @@ TextHero.args = {
           },
           text: {
             title: {
-              label: '私募基金业务',
+              label: '高性能',
               style: 'style-v4',
               classes: 'mat-display-2 bold',
             },
@@ -78,7 +78,7 @@ TextHero.args = {
                 hostClasses: '',
               },
             },
-            body: '<p>精通私募股权投资和风险投资所涉诸多法律事务，并在该领域拥有广泛的客户群体</p>\r\n',
+            body: '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
             actionsAlign: 'start center',
             actions: [
               {
@@ -99,7 +99,7 @@ TextHero.args = {
           },
           text: {
             title: {
-              label: '风险投资、收购兼并',
+              label: '易用的编辑器',
               style: 'style-v4',
               classes: 'mat-display-2 bold',
             },
@@ -112,7 +112,7 @@ TextHero.args = {
                 hostClasses: '',
               },
             },
-            body: '<p>在并购与重组领域拥有丰富的经验，多年来处于市场领先地位并得到广泛认可，曾代表众多国内和跨境并购交易</p>\r\n',
+            body: '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作；',
             actionsAlign: 'start center',
             actions: [
               {
@@ -133,7 +133,7 @@ TextHero.args = {
           },
           text: {
             title: {
-              label: '新架构介绍，使用指南',
+              label: '多语言',
               style: 'style-v4',
               classes: 'mat-display-2 bold',
             },
@@ -146,7 +146,7 @@ TextHero.args = {
                 hostClasses: '',
               },
             },
-            body: '<p>全新的用户前台框架，体验更高效和流畅，为工作带来更多的效率</p>\r\n',
+            body: 'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程；',
             actionsAlign: 'start center',
             actions: [
               {

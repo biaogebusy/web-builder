@@ -11,6 +11,11 @@ import * as imgStory from '../../widgets/base/Img.stories';
 import * as chartStory from '../../widgets/chart/ChartBar.stories';
 import * as spacerStory from '../../theme/Spacer.stories';
 import * as formStory from '../../widgets/Form.stories';
+import * as playerStory from '../../feature/media/Player.stories';
+
+const {
+  Default: { args: player },
+} = playerStory;
 
 const {
   Center: { args: text },
@@ -98,6 +103,11 @@ export const base = [
     label: 'Btn Video',
     icon: { svg: 'play-circle-outline' },
     ...btnVideo,
+  },
+  {
+    label: 'Player',
+    icon: { svg: 'play-box' },
+    ...player,
   },
   {
     label: 'Tabel',

@@ -31,9 +31,9 @@ const Template: Story = (args) => ({
     ...args,
   },
 });
-export const Base = Template.bind({});
+export const Default = Template.bind({});
 const card1v3: any = Card1v3Stories.Base.args;
-Base.args = {
+Default.args = {
   content: {
     type: 'map-list-v1',
     title: {
@@ -57,7 +57,7 @@ Base.args = {
   },
 };
 
-Base.play = async () => {
+Default.play = async () => {
   await sleep(2000);
 
   const First = document.querySelectorAll('.list')[0];
@@ -72,9 +72,10 @@ Base.play = async () => {
 
 export const Sidebar = Template.bind({});
 const mediaObject: any = MediaObjectStories.Default.args;
+Sidebar.storyName = '带边栏';
 Sidebar.args = {
   content: {
-    ...Base.args.content,
+    ...Default.args.content,
     sidebarRight: [
       {
         type: 'title',

@@ -48,7 +48,7 @@ BannerWithBg.args = {
     style: 'normal',
     type: 'banner-simple',
     bannerBg: {
-      classes: 'bg-fill-width overlay',
+      classes: 'bg-fill-width overlay overlay-',
       img: {
         hostClasses: '',
         src: '/assets/images/16-9/nature-08.jpg',
@@ -67,7 +67,7 @@ BannerOverlay.args = {
     style: 'normal',
     type: 'banner-simple',
     bannerBg: {
-      classes: 'bg-fill-width overlay overlay-80',
+      classes: 'bg-fill-width overlay overlay-60',
       img: {
         hostClasses: '',
         src: '/assets/images/16-9/nature-08.jpg',

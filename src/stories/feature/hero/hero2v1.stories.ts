@@ -218,3 +218,39 @@ XYCustom.args = {
     },
   },
 };
+
+export const Animate = Template.bind({});
+Animate.storyName = '动画';
+Animate.args = {
+  content: {
+    type: 'hero-2v1',
+    theme: '',
+    params: {
+      height: '940px',
+    },
+    text: {
+      title: {
+        label: 'INTELLIGENT LED LIGHT',
+        style: 'style-v4',
+        classes: 'mat-display-1 bold',
+      },
+      animate: {
+        scrub: true,
+      },
+      spacer: 'md',
+      style: {
+        width: '25%',
+        left: '40%',
+      },
+      classes: 'xy-center',
+      bg: {
+        classes: 'bg-shadow bg-fill-width',
+        img: {
+          src: '/assets/images/products/TS97-Computer_08.jpg?itok=LdOsboTY',
+          mobile: '/assets/images/products/TS97-Phone_08.jpg?itok=VZueJbig',
+        },
+      },
+      body: '<p style="text-align:justify"><span style="font-size:18px;">Features a single LED light in its end to tell the working status of the vape device.</span></p>\r\n',
+    },
+  },
+};
