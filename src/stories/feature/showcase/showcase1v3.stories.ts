@@ -7,7 +7,7 @@ import { Story } from '@storybook/angular/types-6-0';
 import { Showcase1v3Component } from '@uiux/combs/showcase/showcase1v3/showcase1v3.component';
 import * as ContactUs from 'src/stories/drupal/ContactUs.stories';
 import { StorysModule } from '@core/module/storys.module';
-
+import * as btnVideoStory from '@stories/widgets/base/BtnVideo.stories';
 export default {
   title: '特色组件/展示 Showcase/1v3',
   id: 'showcase-1v3',
@@ -101,6 +101,12 @@ Contact.args = {
   },
 };
 
+const {
+  Default: {
+    args: { content: btnVideo },
+  },
+} = btnVideoStory as any;
+
 export const Video = Template.bind({});
 Video.storyName = '视频';
 Video.args = {
@@ -133,18 +139,7 @@ Video.args = {
         actionsAlign: 'center center',
         actions: [
           {
-            type: 'btn-video',
-            color: 'primary',
-            video: {
-              options: {
-                controls: true,
-                aspectRatio: '16:9',
-                poster: '/assets/images/16-9/business-02.jpg',
-                sources: [
-                  { src: '/assets/video/afterglow.mp4', type: 'video/mp4' },
-                ],
-              },
-            },
+            ...btnVideo,
           },
         ],
       },

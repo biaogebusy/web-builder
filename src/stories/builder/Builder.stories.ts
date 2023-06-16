@@ -24,10 +24,9 @@ export default {
     }),
   ],
   parameters: {
-    docs: {
-      description: {
-        component: ``,
-      },
+    viewMode: 'canvas',
+    previewTabs: {
+      docs: { hidden: true },
     },
     layout: 'fullscreen',
   },

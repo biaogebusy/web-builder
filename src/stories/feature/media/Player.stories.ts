@@ -37,8 +37,13 @@ Default.args = {
     options: {
       controls: true,
       aspectRatio: '16:9',
-      poster: '/assets/images/16-9/business-02.jpg',
-      sources: [{ src: '/assets/video/afterglow.mp4', type: 'video/mp4' }],
+      poster: '/assets/video/poster01.png',
+      sources: [
+        {
+          src: '/assets/video/storybook.mp4',
+          type: 'video/mp4',
+        },
+      ],
     },
   },
 };

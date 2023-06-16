@@ -316,6 +316,7 @@
           {
             "type": "img",
             "src": "/assets/images/illustration/13.png",
+            "classes": "mover",
             "hostClasses": "position-relative img-bg-shape",
             "actions": [
               {
@@ -325,10 +326,10 @@
                   "options": {
                     "controls": true,
                     "aspectRatio": "16:9",
-                    "poster": "/assets/images/16-9/business-02.jpg",
+                    "poster": "/assets/video/poster01.png",
                     "sources": [
                       {
-                        "src": "/assets/video/afterglow.mp4",
+                        "src": "/assets/video/storybook.mp4",
                         "type": "video/mp4"
                       }
                     ]
@@ -345,9 +346,9 @@
             "title": {
               "label": "欢迎使用 <strong class=\"text-primary\">Builder</strong> 快速构建页面",
               "style": "style-v4",
-              "classes": "mat-display-1"
+              "classes": "mat-display-4 bold"
             },
-            "body": "开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 Storybook 页面时添加组件到预览页面。<ul class=\"list-done\"><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li><li>可以直接编辑组件的 JSON，所见即所得；</li></ul><p>Builder 与众不同的是它完全融入到了 Storybook 的测试框架当中，示例由 Storybook 导入并维护。</p><br><p>马上拖动组件到这里进行创作，或者点击右上角智能生成。</p>",
+            "body": "开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class=\"text-primary\">Storybook</strong> 页面时添加组件到预览页面。<ul class=\"list-done\"><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li><li>可以直接编辑组件的 JSON，所见即所得；</li></ul><p>Builder 与众不同的是它完全融入到了 <strong class=\"text-primary\">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。</p><br><p>马上拖动组件到这里进行创作，或者点击右上角智能生成。</p>",
             "actions": [
               {
                 "href": "#",
@@ -358,9 +359,126 @@
         ]
       },
       {
+        "id": "",
+        "spacer": "xl",
+        "type": "showcase-3v9",
+        "bg": {
+          "classes": "bg-fill-width",
+          "img": {
+            "src": "/assets/images/bg/bg-01.png"
+          }
+        },
+        "order": {
+          "left": 0,
+          "right": 1
+        },
+        "left": [
+          {
+            "type": "img",
+            "src": "/assets/images/illustration/12.png"
+          }
+        ],
+        "right": [
+          {
+            "type": "text",
+            "spacer": "sm",
+            "title": {
+              "label": "组件驱动开发",
+              "style": "style-v4",
+              "classes": "mat-display-2"
+            },
+            "body": "<strong class=\"text-primary\">Storybook</strong> 采用了组件驱动开发的方法，即将UI组件作为开发的核心单元。<ul class=\"list-done\">\r\n\t<li>为每个UI组件创建\"stories\"</li>\r\n\t<li>描述组件在不同状态和交互方式下的行为和外观</li>\r\n\t<li>提高组件的可重用性和可测试性</li>\r\n</ul>\r\n",
+            "actions": [
+              {
+                "href": "#",
+                "label": "马上体验"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "",
+        "spacer": "xl",
+        "type": "showcase-3v9",
+        "bg": {
+          "classes": "bg-fill-width",
+          "img": {
+            "src": "/assets/images/bg/bg-02.png"
+          }
+        },
+        "order": {
+          "left": 1,
+          "right": 0
+        },
+        "left": [
+          {
+            "type": "img",
+            "src": "/assets/images/illustration/12.png"
+          }
+        ],
+        "right": [
+          {
+            "type": "text",
+            "spacer": "sm",
+            "title": {
+              "label": "组件展示和测试",
+              "style": "style-v4",
+              "classes": "mat-display-2"
+            },
+            "body": "<strong class=\"text-primary\">Storybook</strong> 提供了一个交互式的界面，用于展示和测试UI组件。开发人员可以在浏览器中浏览和交互组件，以便检查其外观和行为，并确保它们在各种条件下正常工作。这有助于加快开发迭代周期，提高组件的质量。",
+            "actions": [
+              {
+                "href": "#",
+                "label": "马上体验"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "",
+        "spacer": "xl",
+        "type": "showcase-3v9",
+        "bg": {
+          "classes": "bg-fill-width",
+          "img": {
+            "src": "/assets/images/bg/bg-01.png"
+          }
+        },
+        "order": {
+          "left": 0,
+          "right": 1
+        },
+        "left": [
+          {
+            "type": "img",
+            "src": "/assets/images/illustration/12.png"
+          }
+        ],
+        "right": [
+          {
+            "type": "text",
+            "spacer": "sm",
+            "title": {
+              "label": "文档化",
+              "style": "style-v4",
+              "classes": "mat-display-2"
+            },
+            "body": "<strong class=\"text-primary\">Storybook</strong> 不仅可以展示和测试组件，还可以自动生成组件的文档。<ul class=\"list-done\">\r\n\t<li>使用Markdown或其他文档格式编写组件文档，并将其与组件关联</li>\r\n\t<li>团队成员可以更好地理解和使用组件，减少了沟通成本</li></ul>\r\n",
+            "actions": [
+              {
+                "href": "#",
+                "label": "马上体验"
+              }
+            ]
+          }
+        ]
+      },
+      {
         "type": "showcase-1v1",
         "bg": {
-          "classes": "bg- bg-fill-width"
+          "classes": "bg-shadow bg-fill-width"
         },
         "title": {
           "label": "使用人员",
@@ -416,6 +534,26 @@
               "label": "市场营销人员"
             },
             "content": "给客户演示数字创新能力"
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "title": {
+          "label": "立刻使用 <strong class=\"text-primary\">Storybook</strong> 构建前端 UI",
+          "style": "style-v1",
+          "classes": "mat-display-2"
+        },
+        "spacer": "xxl",
+        "body": "<p class=\"text-center\"><strong class=\"text-primary\">Storybook</strong> 是一个面向UI组件开发的工具，它提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。<br>它的目标是提高开发效率、组件质量和团队协作，是一个广泛应用于前端开发的工具。</p>",
+        "actionsAlign": "center center",
+        "actions": [
+          {
+            "type": "btn-animate",
+            "label": "立刻开始",
+            "href": "#",
+            "style": "style-v1",
+            "icon": "open_in_new"
           }
         ]
       }

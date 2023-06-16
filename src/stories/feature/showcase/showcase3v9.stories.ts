@@ -6,6 +6,7 @@ import {
 import { Story } from '@storybook/angular/types-6-0';
 import { StorysModule } from '@core/module/storys.module';
 import { Showcase3v9Component } from '@uiux/combs/showcase/showcase3v9/showcase3v9.component';
+import * as btnVideoStory from '@stories/widgets/base/BtnVideo.stories';
 
 export default {
   title: '特色组件/展示 Showcase/3v9',
@@ -210,6 +211,12 @@ Reverse.args = {
   },
 };
 
+const {
+  Default: {
+    args: { content: btnVideo },
+  },
+} = btnVideoStory as any;
+
 export const Video = Template.bind({});
 Video.storyName = '视频';
 Video.args = {
@@ -234,18 +241,8 @@ Video.args = {
         hostClasses: 'position-relative',
         actions: [
           {
-            type: 'btn-video',
             color: 'default',
-            video: {
-              options: {
-                controls: true,
-                aspectRatio: '16:9',
-                poster: '/assets/images/16-9/business-02.jpg',
-                sources: [
-                  { src: '/assets/video/afterglow.mp4', type: 'video/mp4' },
-                ],
-              },
-            },
+            ...btnVideo,
           },
         ],
       },

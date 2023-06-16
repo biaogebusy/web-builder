@@ -103,7 +103,7 @@ const content = of({
                 poster: '/assets/images/16-9/business-02.jpg',
                 sources: [
                   {
-                    src: '/assets/video/afterglow.mp4',
+                    src: '/assets/video/storybook.mp4',
                     type: 'video/mp4',
                   },
                 ],
@@ -181,36 +181,21 @@ const content = of({
       type: 'showcase-3v9',
       bg: {
         classes: 'bg-fill-width',
-        img: {
-          src: '/assets/images/bg/bg-01.png',
-        },
+        img: { src: '/assets/images/bg/bg-01.png' },
       },
-      order: {
-        left: 0,
-        right: 1,
-      },
-      left: [
-        {
-          type: 'img',
-          src: '/assets/images/illustration/12.png',
-        },
-      ],
+      order: { left: 0, right: 1 },
+      left: [{ type: 'img', src: '/assets/images/illustration/12.png' }],
       right: [
         {
           type: 'text',
           spacer: 'sm',
           title: {
-            label: 'We Build High Performing Application',
+            label: '组件驱动开发',
             style: 'style-v4',
             classes: 'mat-display-2',
           },
-          body: 'Launch your campaign and benefit from our expertise on designing and managing conversion centered bootstrap4 html page.\r\n\r\n<ul class="list-done">\r\n\t<li>Digital Marketing Solutions for Tomorrow</li>\r\n\t<li>Our Talented & Experienced Marketing Agency</li>\r\n\t<li>Create your own skin to match your brand</li>\r\n</ul>\r\n',
-          actions: [
-            {
-              href: '#',
-              label: 'Find Out More',
-            },
-          ],
+          body: 'Storybook采用了组件驱动开发的方法，即将UI组件作为开发的核心单元。<ul class="list-done">\r\n\t<li>为每个UI组件创建"stories"</li>\r\n\t<li>描述组件在不同状态和交互方式下的行为和外观</li>\r\n\t<li>提高组件的可重用性和可测试性</li>\r\n</ul>\r\n',
+          actions: [{ href: '#', label: '马上体验' }],
         },
       ],
     },
@@ -239,17 +224,12 @@ const content = of({
           type: 'text',
           spacer: 'sm',
           title: {
-            label: 'Easy And Best Solution<br>For Your App',
+            label: '组件展示和测试',
             style: 'style-v4',
             classes: 'mat-display-2',
           },
-          body: 'Launch your Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eveniet eligendi expedita ducimus fuga sed possimus veritatis eum voluptates. Ab ex odio sed atque. Quam delectus, voluptatibus rem harum nihil minus. campaign and benefit from our expertise on designing and managing conversion centered bootstrap4 html page.',
-          actions: [
-            {
-              href: '#',
-              label: 'Find Out More',
-            },
-          ],
+          body: 'Storybook提供了一个交互式的界面，用于展示和测试UI组件。开发人员可以在浏览器中浏览和交互组件，以便检查其外观和行为，并确保它们在各种条件下正常工作。这有助于加快开发迭代周期，提高组件的质量。',
+          actions: [{ href: '#', label: '马上体验' }],
         },
       ],
     },
@@ -278,17 +258,12 @@ const content = of({
           type: 'text',
           spacer: 'sm',
           title: {
-            label: 'Beautiful, Simple & Easy to Use',
+            label: '文档化',
             style: 'style-v4',
             classes: 'mat-display-2',
           },
-          body: 'Launch your campaign and benefit from our expertise on designing and managing conversion centered bootstrap4 html page.\r\n\r\n<ul class="list-done">\r\n\t<li>Digital Marketing Solutions for Tomorrow</li>\r\n\t<li>Our Talented & Experienced Marketing Agency</li>\r\n\t<li>Create your own skin to match your brand</li>\r\n</ul>\r\n',
-          actions: [
-            {
-              href: '#',
-              label: 'Find Out More',
-            },
-          ],
+          body: 'Storybook不仅可以展示和测试组件，还可以自动生成组件的文档。<ul class="list-done">\r\n\t<li>使用Markdown或其他文档格式编写组件文档，并将其与组件关联</li>\r\n\t<li>团队成员可以更好地理解和使用组件，减少了沟通成本</li></ul>\r\n',
+          actions: [{ href: '#', label: '马上体验' }],
         },
       ],
     },
@@ -399,17 +374,18 @@ const content = of({
     {
       type: 'text',
       title: {
-        label: 'Get Started !',
+        label:
+          '立刻使用 <strong class="text-primary">Storybook</strong> 构建前端 UI',
         style: 'style-v1',
         classes: 'mat-display-2',
       },
       spacer: 'xxl',
-      body: '<p class="text-center">Start working with Landrick that can provide everything you need to generate awareness, drive traffic, connect.</p>',
+      body: '<p class="text-center">Storybook是一个面向UI组件开发的工具，它提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。<br>它的目标是提高开发效率、组件质量和团队协作，是一个广泛应用于前端开发的工具。</p>',
       actionsAlign: 'center center',
       actions: [
         {
           type: 'btn-animate',
-          label: 'Sign Up Now',
+          label: '立刻开始',
           href: '#',
           style: 'style-v1',
           icon: 'open_in_new',

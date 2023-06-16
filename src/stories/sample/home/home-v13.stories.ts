@@ -102,7 +102,7 @@ const content = of({
                 aspectRatio: '16:9',
                 poster: '/assets/images/16-9/business-02.jpg',
                 sources: [
-                  { src: '/assets/video/afterglow.mp4', type: 'video/mp4' },
+                  { src: '/assets/video/storybook.mp4', type: 'video/mp4' },
                 ],
               },
             },
@@ -307,7 +307,7 @@ const content = of({
                   aspectRatio: '16:9',
                   poster: '/assets/images/16-9/business-02.jpg',
                   sources: [
-                    { src: '/assets/video/afterglow.mp4', type: 'video/mp4' },
+                    { src: '/assets/video/storybook.mp4', type: 'video/mp4' },
                   ],
                 },
               },
@@ -530,7 +530,7 @@ const content = of({
                   poster: '/assets/images/16-9/business-02.jpg',
                   sources: [
                     {
-                      src: '/assets/video/afterglow.mp4',
+                      src: '/assets/video/storybook.mp4',
                       type: 'video/mp4',
                     },
                   ],
@@ -677,7 +677,7 @@ const content = of({
                   aspectRatio: '16:9',
                   poster: '/assets/images/16-9/business-02.jpg',
                   sources: [
-                    { src: '/assets/video/afterglow.mp4', type: 'video/mp4' },
+                    { src: '/assets/video/storybook.mp4', type: 'video/mp4' },
                   ],
                 },
               },

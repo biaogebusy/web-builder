@@ -6,6 +6,7 @@ import {
 } from '@storybook/angular';
 import { TextComponent } from '@uiux/widgets/text/text.component';
 import { StorysModule } from '@core/module/storys.module';
+import * as btnVideoStory from '@stories/widgets/base/BtnVideo.stories';
 
 export default {
   title: '基础组件/基本元素/富文本',
@@ -22,6 +23,10 @@ export default {
         `<div class="position-relative p-x p-y" style="z-index:1">${story}</div>`
     ),
   ],
+  parameters: {
+    viewMode: 'canvas',
+    layout: 'fullscreen',
+  },
 } as Meta;
 
 const Template: Story = (args) => ({
@@ -34,7 +39,7 @@ Base.storyName = '基础文本';
 Base.args = {
   content: {
     type: 'text',
-    body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 Storybook 页面时添加组件到预览页面。<ul class="list-done"><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li><li>可以直接编辑组件的 JSON，所见即所得；</li></ul><p>Builder 与众不同的是它完全融入到了 Storybook 的测试框架当中，示例由 Storybook 导入并维护。</p>使用人员：<ul class="list-done"><li>前端开发：开发测试维护组件</li><li>产品经理：快速构建和预览页面</li><li>运维人员：构建页面和测试UI</li><li>市场营销人员：给客户演示数字创新能力</li></ul><br><p>拖动组件到这里进行创作，或者点击右上角智能生成。</p>',
+    body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class="text-primary">Storybook</strong> 页面时添加组件到预览页面。<ul class="list-done"><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li><li>可以直接编辑组件的 JSON，所见即所得；</li></ul><p>Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。</p><br>',
   },
 };
 
@@ -45,8 +50,10 @@ Title.args = {
     ...Base.args.content,
     spacer: 'sm',
     title: {
-      label: '欢迎使用 Builder 快速构建页面',
+      label:
+        '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
       style: 'style-v1',
+      classes: 'mat-display-3 bold',
     },
   },
 };
@@ -192,6 +199,12 @@ SearchAction.args = {
   },
 };
 
+const {
+  Default: {
+    args: { content: btnVideo },
+  },
+} = btnVideoStory as any;
+
 export const BtnVideoAction = Template.bind({});
 BtnVideoAction.storyName = '视频播放';
 BtnVideoAction.args = {
@@ -204,18 +217,8 @@ BtnVideoAction.args = {
     actionsAlign: 'center center',
     actions: [
       {
-        type: 'btn-video',
+        ...btnVideo,
         color: 'primary',
-        video: {
-          options: {
-            controls: true,
-            aspectRatio: '16:9',
-            poster: '/assets/images/16-9/business-02.jpg',
-            sources: [
-              { src: '/assets/video/afterglow.mp4', type: 'video/mp4' },
-            ],
-          },
-        },
       },
     ],
   },

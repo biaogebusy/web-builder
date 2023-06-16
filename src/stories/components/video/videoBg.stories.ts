@@ -46,13 +46,15 @@ Default.args = {
   content: {
     type: 'video-bg',
     source: {
-      src: '/assets/video/afterglow.mp4',
+      src: '/assets/video/storybook.mp4',
       type: 'video/mp4',
     },
     widget: {
       ...showcase1v3.content,
       type: 'showcase-1v3',
-      bg: {},
+      bg: {
+        classes: 'bg-fill-width overlay overlay-80',
+      },
     },
   },
 };

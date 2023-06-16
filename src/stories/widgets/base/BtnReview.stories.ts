@@ -11,6 +11,8 @@ import { BrandingModule } from '@core/branding/branding.module';
 import { of } from 'rxjs';
 import { BRANDING } from '@core/token/token-providers';
 import { defaultHeader, footerInverse } from '../../global/Branding.json';
+import * as btnVideoStory from '@stories/widgets/base/BtnVideo.stories';
+
 export default {
   title: '基础组件/基本元素/按钮/预览',
   id: 'buttom-review',
@@ -50,6 +52,13 @@ const Template: Story = (args) => ({
     ...args,
   },
 });
+
+const {
+  Default: {
+    args: { content: btnVideo },
+  },
+} = btnVideoStory as any;
+
 export const Page = Template.bind({});
 // Raname Story
 Page.storyName = '预览';
@@ -362,21 +371,8 @@ const content = of({
           drawerIframe: true,
         },
         {
-          type: 'btn-video',
+          ...btnVideo,
           color: 'primary',
-          video: {
-            options: {
-              controls: true,
-              aspectRatio: '16:9',
-              poster: '/assets/images/16-9/business-02.jpg',
-              sources: [
-                {
-                  src: '/assets/video/afterglow.mp4',
-                  type: 'video/mp4',
-                },
-              ],
-            },
-          },
         },
         {
           type: 'btn-animate',

@@ -15,6 +15,9 @@
     width: 100% !important;
     height: 100% !important;
     max-width: none !important;
+    video {
+      object-fit: cover;
+    }
   }
 }
 
@@ -31,4 +34,17 @@
 
 .inner {
   z-index: 10;
+  width: 100%;
+  height: 100%;
+  > app-dynamic-component {
+    display: block;
+    height: 100%;
+    ::ng-deep {
+      &:last-child {
+        > * {
+          height: 100%;
+        }
+      }
+    }
+  }
 }

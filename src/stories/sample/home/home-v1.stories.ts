@@ -476,19 +476,16 @@ const content = of({
     },
     {
       type: 'video-bg',
-      spacer: 'sm',
-      source: {
-        src: '/assets/video/afterglow.mp4',
-        type: 'video/mp4',
-      },
+      source: { src: '/assets/video/storybook.mp4', type: 'video/mp4' },
       widget: {
         type: 'showcase-1v3',
         title: {
-          label: 'Drupal 自习室',
+          label: '为什么你将会喜欢信使？',
           style: 'style-v1',
-          classes: 'mat-display-1 bold',
+          classes: 'mat-display-1',
         },
         classes: 'text-light',
+        bg: { classes: 'bg-fill-width overlay overlay-80' },
         elements: [
           {
             type: 'text',
@@ -498,15 +495,24 @@ const content = of({
               'text-align': 'center',
               width: '600px',
             },
-            body: '<p class="text-align-center">欢迎加入 Drupal 自习室微信交流群，分享主题开发和模块设计，快来享受Drupal优秀的数字创新体验，滑到底部扫码加入：）</p>\r\n',
-          },
-        ],
-        actions: [
-          {
-            label: '关于我们',
-            href: '/about',
-            style: 'style-v1',
-            icon: 'favorite',
+            body: 'Drupal 已经超越了传统的 Web概念，可以通过不同的渠道部署你的数据内容，从一个数据中心点到各个应用，从简单到复杂。',
+            actionsAlign: 'center center',
+            actions: [
+              {
+                label: '了解更多',
+                type: 'btn-animate',
+                href: '#',
+                style: 'style-v1',
+                icon: 'verified_user',
+              },
+              {
+                label: '回到官网',
+                type: 'btn-animate',
+                href: '#',
+                style: 'style-v1',
+                icon: 'fingerprint',
+              },
+            ],
           },
         ],
       },

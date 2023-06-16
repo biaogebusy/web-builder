@@ -6,6 +6,7 @@ import {
 } from '@storybook/angular';
 import { ImgComponent } from '@uiux/widgets/img/img.component';
 import { StorysModule } from '@core/module/storys.module';
+import * as btnVideoStory from '@stories/widgets/base/BtnVideo.stories';
 
 export default {
   title: '基础组件/基本元素/图片',
@@ -72,6 +73,12 @@ Mover.args = {
   },
 };
 
+const {
+  Default: {
+    args: { content: btnVideo },
+  },
+} = btnVideoStory as any;
+
 export const VideoDefault = Template.bind({});
 VideoDefault.storyName = '视频-默认';
 VideoDefault.args = {
@@ -81,18 +88,8 @@ VideoDefault.args = {
     alt: '',
     actions: [
       {
-        type: 'btn-video',
+        ...btnVideo,
         color: 'default',
-        video: {
-          options: {
-            controls: true,
-            aspectRatio: '16:9',
-            poster: '/assets/images/16-9/business-02.jpg',
-            sources: [
-              { src: '/assets/video/afterglow.mp4', type: 'video/mp4' },
-            ],
-          },
-        },
       },
     ],
   },
@@ -108,18 +105,8 @@ VideoPrimary.args = {
     hostClass: 'position-relative',
     actions: [
       {
-        type: 'btn-video',
+        ...btnVideo,
         color: 'primary',
-        video: {
-          options: {
-            controls: true,
-            aspectRatio: '16:9',
-            poster: '/assets/images/16-9/business-02.jpg',
-            sources: [
-              { src: '/assets/video/afterglow.mp4', type: 'video/mp4' },
-            ],
-          },
-        },
       },
     ],
   },

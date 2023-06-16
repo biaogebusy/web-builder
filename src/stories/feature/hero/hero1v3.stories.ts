@@ -2,6 +2,8 @@ import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { StorysModule } from '@core/module/storys.module';
 import { Hero1v3Component } from '@uiux/combs/hero/hero1v3/hero1v3.component';
+import * as btnVideoStory from '@stories/widgets/base/BtnVideo.stories';
+
 export default {
   title: '特色组件/英雄区/1v3',
   id: 'hero-1v3',
@@ -63,6 +65,12 @@ V1.args = {
   },
 };
 
+const {
+  Default: {
+    args: { content: btnVideo },
+  },
+} = btnVideoStory as any;
+
 export const V2 = Template.bind({});
 V2.storyName = 'v2';
 V2.args = {
@@ -103,18 +111,7 @@ V2.args = {
           target: '_blank',
         },
         {
-          type: 'btn-video',
-          color: 'primary',
-          video: {
-            options: {
-              controls: true,
-              aspectRatio: '16:9',
-              poster: '/assets/images/16-9/business-02.jpg',
-              sources: [
-                { src: '/assets/video/afterglow.mp4', type: 'video/mp4' },
-              ],
-            },
-          },
+          ...btnVideo,
         },
       ],
     },
