@@ -19,6 +19,7 @@ import {
   THEME,
   PAGE_CONTENT,
   BRANDING,
+  NOTIFY_CONTENT,
 } from '@core/token/token-providers';
 import { of } from 'rxjs';
 import { ActionModule } from '@uiux/combs/action/action.module';
@@ -39,6 +40,7 @@ import { CombsModule } from '@uiux/combs/combs.module';
 import { CarouselModule } from '@uiux/combs/carousel/carousel.module';
 import { CalendarModule } from '@uiux/combs/calendar/calendar.module';
 import { DashboardModule } from '@uiux/combs/dashboard/dashboard.module';
+import { notify } from './data/notify';
 
 export function sleep(ms: number): Promise<any> {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -107,6 +109,10 @@ export class StorysModule {
         {
           provide: BRANDING,
           useValue: of(branding),
+        },
+        {
+          provide: NOTIFY_CONTENT,
+          useValue: of(notify),
         },
       ],
     };

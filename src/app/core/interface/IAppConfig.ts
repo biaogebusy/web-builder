@@ -45,12 +45,12 @@ export interface ICoreConfig {
       interval: number;
       dateFormat: string;
     };
-    api: INotify[];
+    api: INotifyConfig[];
   };
   animate?: boolean;
 }
 
-export interface INotify {
+export interface INotifyConfig {
   get: string;
   action: string;
   reqRoles?: string[];

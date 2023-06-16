@@ -3,6 +3,7 @@ import { ProgressBarMode } from '@angular/material/progress-bar';
 import { IImg } from './IImg';
 import { IIcon } from '@core/interface/widgets/IIcon';
 import { EChartsOption } from 'echarts';
+import { ILink } from './ILink';
 
 export interface IInlineLightbox {
   label: string[];
@@ -89,4 +90,13 @@ export interface IPager {
   itemsPerPage: number;
   currentPage: number;
   totalItems: number;
+}
+
+export interface INotify {
+  link: ILink;
+  icon: IIcon;
+  message: string;
+  date: string;
+  action: string;
+  uuid: string;
 }

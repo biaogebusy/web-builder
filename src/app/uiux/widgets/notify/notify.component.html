@@ -1,20 +1,20 @@
 <ng-container *ngIf="coreConfig?.notify?.enable">
   <div class="notify">
-    <button *ngIf="content.length === 0;else message" aria-label="show notify" mat-icon-button [matTooltip]="'当前没有信息'"
+    <button *ngIf="!(notify$ | async)" aria-label="show notify" mat-icon-button [matTooltip]="'当前没有信息'"
       matTooltipPosition="above">
-      <app-icon [matBadge]="content.length" matBadgeSize="small" matBadgeColor="warn"
+      <app-icon [matBadge]="0" matBadgeSize="small" matBadgeColor="warn"
         [content]="{svg:'bell-outline', color:'primary'}"></app-icon>
     </button>
-    <ng-template #message>
+    <ng-container *ngIf="notify$ | async as lists">
       <button aria-label="show notify" mat-icon-button [mat-menu-trigger-for]="menu">
-        <app-icon [matBadge]="content.length" matBadgeSize="small" matBadgeColor="warn"
-          [content]="{svg:'bell-outline'}"></app-icon>
+        <app-icon [matBadge]="lists.length" matBadgeSize="small" matBadgeColor="warn"
+          [content]="{svg:'bell-outline',color:'primary'}"></app-icon>
       </button>
       <mat-menu #menu="matMenu" [class]="'notify-menu'">
         <mat-list>
           <div mat-subheader>通知</div>
           <mat-divider></mat-divider>
-          <mat-list-item *ngFor="let item of content">
+          <mat-list-item *ngFor="let item of lists">
             <app-icon mat-list-icon [content]="item.icon"></app-icon>
             <div mat-line>
               <app-link (click)="onRead(item)" [content]="item.link"></app-link>
@@ -27,6 +27,6 @@
           </mat-list-item>
         </mat-list>
       </mat-menu>
-    </ng-template>
+    </ng-container>
   </div>
 </ng-container>

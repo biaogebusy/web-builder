@@ -31,7 +31,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   opened: boolean;
   loading = false;
   @LocalStorage('builderFullSize')
-  builderFullSize: boolean;
+  builderFullSize = false;
   constructor(
     public screen: ScreenState,
     private activateRouter: ActivatedRoute,
