@@ -32,7 +32,7 @@ export class SearchComponent
   searchEntry: any;
   page: number;
   pager: any;
-  form: FormGroup;
+  form: FormGroup = new FormGroup({});
   filterForm: any[];
   nodes: any[];
   loading = false;
@@ -52,6 +52,12 @@ export class SearchComponent
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
+      if (this.content.data) {
+        this.transferStoryData(this);
+        this.initFilterForm({}, this.content.sidebar);
+        this.cd.detectChanges();
+        return;
+      }
       this.router.queryParams.subscribe((query: any) => {
         this.page = query.page || 0;
         const querys = omitBy(
@@ -64,11 +70,7 @@ export class SearchComponent
           isEmpty
         );
         if (this.content.sidebar) {
-          this.filterForm = this.initFormValueWithUrlQuery(
-            querys,
-            this.content.sidebar
-          );
-          this.initForm(this.filterForm);
+          this.initFilterForm(querys, this.content.sidebar);
         }
         this.nodeSearch(querys);
       });
@@ -80,6 +82,11 @@ export class SearchComponent
     } else {
       this.form = new FormGroup({});
     }
+  }
+
+  initFilterForm(querys: any, sidebar: any[]): void {
+    this.filterForm = this.initFormValueWithUrlQuery(querys, sidebar);
+    this.initForm(this.filterForm);
   }
 
   initForm(items: any[]): void {

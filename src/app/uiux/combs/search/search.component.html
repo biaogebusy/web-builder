@@ -2,8 +2,6 @@
 </app-search-header>
 <div class="container">
   <div class="search-body" fxLayout="row wrap" fxFlex="100%">
-    <app-search-filter-dialog fxFlex="100%" [content]="content.filterDialog" *ngIf="content.filterDialog">
-    </app-search-filter-dialog>
     <app-search-sidebar *ngIf="filterForm" [searchEntry]="searchEntry" [label]="content.label"
       [content]="content.sidebar" [form]="form" fxFlex.lt-md="0 0 100" fxFlex.gt-sm="0 0 25%">
     </app-search-sidebar>

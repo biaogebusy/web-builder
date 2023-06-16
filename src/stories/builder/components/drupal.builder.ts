@@ -11,7 +11,11 @@ import * as taxonomyListStory from '@stories/components/list/taxonomyList.storie
 import * as taxonomyThinListStory from '@stories/components/list/taxonomyThinList.stories';
 import * as mapList1v1Story from '@stories/components/map/mapList1v1.stories';
 import * as userCenterStory from '@stories/components/profile/userCenter.stories';
+import * as searchStory from '@stories/components/search/search.stories';
 
+const {
+  Default: { args: search },
+} = searchStory;
 const {
   Default: { args: userCenter },
 } = userCenterStory;
@@ -63,6 +67,7 @@ const {
 } = calendarStory;
 
 export const drupal = [
+  search,
   article,
   question,
   contact,

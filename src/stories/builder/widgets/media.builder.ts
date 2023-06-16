@@ -3,6 +3,11 @@ import * as mediaMetaStory from '@stories/widgets/media/MediaMeta.stories';
 import * as mediaObjectStory from '@stories/widgets/media/MediaObject.stories';
 import * as mediaObjectGroupStory from '@stories/widgets/media/MediaObjectGroup.stories';
 import * as testimonialStory from '@stories/widgets/media/Testimonial.stories';
+import * as videoBgStory from '@stories/components/video/videoBg.stories';
+
+const {
+  Default: { args: videoBg },
+} = videoBgStory;
 
 const {
   Default: { args: testimonial },
@@ -48,5 +53,10 @@ export const medias = [
     label: '感言',
     icon: { svg: 'format-wrap-square' },
     ...testimonial,
+  },
+  {
+    label: '背景视频',
+    icon: { svg: 'movie-outline' },
+    ...videoBg,
   },
 ];

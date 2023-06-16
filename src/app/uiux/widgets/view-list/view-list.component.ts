@@ -68,10 +68,7 @@ export class ViewListComponent
   ngAfterViewInit(): void {
     const api = this.getParams(this.content, 'apiType');
     if (!api) {
-      const that: any = this;
-      Object.keys(this.content.data).map((key: string) => {
-        that[key] = this.content.data[key];
-      });
+      this.transferStoryData(this);
       this.cd.detectChanges();
       return;
     }

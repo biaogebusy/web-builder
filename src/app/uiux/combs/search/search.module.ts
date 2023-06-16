@@ -7,8 +7,6 @@ import { SearchHeaderComponent } from './search-header/search-header.component';
 import { SearchListComponent } from './search-list/search-list.component';
 import { SearchTopComponent } from './search-top/search-top.component';
 import { SearchStatusComponent } from './search-status/search-status.component';
-import { SearchFilterDialogComponent } from './search-filter-dialog/search-filter-dialog.component';
-import { SearchFilterItemComponent } from './search-filter-dialog/search-filter-item/search-filter-item.component';
 import { BaseModule } from '@uiux/base/base.module';
 
 const components = [
@@ -17,13 +15,7 @@ const components = [
   SearchHeaderComponent,
 ];
 @NgModule({
-  declarations: [
-    SearchTopComponent,
-    SearchStatusComponent,
-    SearchFilterDialogComponent,
-    SearchFilterItemComponent,
-    ...components,
-  ],
+  declarations: [SearchTopComponent, SearchStatusComponent, ...components],
   imports: [ShareModule, WidgetsModule, HeroModule],
   exports: [SearchComponent, SearchListComponent, SearchHeaderComponent],
 })

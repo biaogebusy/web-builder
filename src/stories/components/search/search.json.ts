@@ -10,21 +10,6 @@ export const nodes = [
     type: '博客',
     actions: [
       {
-        type: 'flag',
-        label: '收藏',
-        params: {
-          type: 'flagging--favorite',
-          entity_type: 'node',
-          entity_id: '452',
-          relationships: {
-            flagged_entity: {
-              type: 'node--blog',
-              id: '0236a3fc-2f19-40e9-825c-1c5eaa7fdd6c',
-            },
-          },
-        },
-      },
-      {
         type: 'share',
         params: {
           url: '/node/452',
@@ -64,21 +49,6 @@ export const nodes = [
     type: '博客',
     actions: [
       {
-        type: 'flag',
-        label: '收藏',
-        params: {
-          type: 'flagging--favorite',
-          entity_type: 'node',
-          entity_id: '451',
-          relationships: {
-            flagged_entity: {
-              type: 'node--blog',
-              id: '503d7919-d02f-4e22-b017-7d2e2e5808fa',
-            },
-          },
-        },
-      },
-      {
         type: 'share',
         params: {
           url: '/node/451',
@@ -117,21 +87,6 @@ export const nodes = [
     body: '遵循最佳实践可以让你的Angular应用保持性能优越，使团队的代码风格一致，以下代码摘自南宁IT派官网项目。把默认的变更检测设置为OnPushAngular默认变更检测是Defualt，只要在组件中有任意一个值发生改变或者Dom中有事件的更新都会触发整个应用自上而下的变更检测，使用OnPush的方式使大型的应用的性能得到很大的提升。导入ChangeDetectionStrategy之后，设置为OnPush@Component({selector:&#039;app-mega-menu&#039;,templateUrl:&#039;./mega-menu.component.html&#039;,styleUrls:[&#039;./mega-menu.component.scss&#039;],changeDetection:ChangeDetectionStrategy.OnPush,})如果你的组件中有值的更新则导入ChangeDetectorRefconstructor(privateeleRef:ElementRef,privatescreenState:',
     type: '博客',
     actions: [
-      {
-        type: 'flag',
-        label: '收藏',
-        params: {
-          type: 'flagging--favorite',
-          entity_type: 'node',
-          entity_id: '450',
-          relationships: {
-            flagged_entity: {
-              type: 'node--blog',
-              id: 'fd28422a-a18a-4d7b-b373-86069a672e15',
-            },
-          },
-        },
-      },
       {
         type: 'share',
         params: {
@@ -173,21 +128,6 @@ export const nodes = [
     type: '新闻',
     actions: [
       {
-        type: 'flag',
-        label: '收藏',
-        params: {
-          type: 'flagging--favorite',
-          entity_type: 'node',
-          entity_id: '399',
-          relationships: {
-            flagged_entity: {
-              type: 'node--news',
-              id: '0ed9b338-c10b-4fde-a35f-af24b2c6e906',
-            },
-          },
-        },
-      },
-      {
         type: 'share',
         params: {
           url: '/node/399',
@@ -226,21 +166,6 @@ export const nodes = [
     body: '本文经过作者的同意转载。两年前，写了一篇文章谈了下来南宁三年的感想，是我全部文章里点击量最好的，回复评论最多的。（当然其实整体的量都不大）一眨眼，来南宁5年了，生活工作的重心都放到了南宁。再去深圳，看看两个城市的对比，感慨还是很多。5年的时间，南宁的房价从我们来的时候普遍6、7千，升到现在一万以上。深圳的房价从我离开的2万左右升到普遍7万左右。房价大幅增长的背后，是深圳这座城市的活力。人口高度聚集在这里，工作、生活、娱乐。地铁里满满的人，大城市的感觉扑面而来。南宁的房价也在涨，但涨幅小的多。人口不增不减，还是那么多。周边城市如玉林、贵港、百色等地的人喜欢来南宁买房。但不一定居住，空置率较高，尤其是新城五象。漂亮的小区，晚上的亮灯率不太高，交房两年以上的亮灯率也就3层左右。整个城市发展，这五年2015-2020，南宁的重点发展是五象新区。整个片区从黄土纷飞到有模有样。宽敞的街道，美丽的绿化，总部基地站的高楼都在显示这座城市想要发展的决心和诚意。进入总部基地有种来到了广州、深圳大城市的味道。唯一遗憾的是，这里的人口还不多，高楼林立下商铺较少。除了写字楼在早晚高峰和中午吃饭有人员进出外。',
     type: '新闻',
     actions: [
-      {
-        type: 'flag',
-        label: '收藏',
-        params: {
-          type: 'flagging--favorite',
-          entity_type: 'node',
-          entity_id: '397',
-          relationships: {
-            flagged_entity: {
-              type: 'node--news',
-              id: '2a2881a9-0151-4336-8269-9c94d9289f0b',
-            },
-          },
-        },
-      },
       {
         type: 'share',
         params: {
@@ -281,21 +206,6 @@ export const nodes = [
     type: '新闻',
     actions: [
       {
-        type: 'flag',
-        label: '收藏',
-        params: {
-          type: 'flagging--favorite',
-          entity_type: 'node',
-          entity_id: '396',
-          relationships: {
-            flagged_entity: {
-              type: 'node--news',
-              id: '76777887-2dea-4265-a272-5378c4d942d2',
-            },
-          },
-        },
-      },
-      {
         type: 'share',
         params: {
           url: '/node/396',
@@ -334,21 +244,6 @@ export const nodes = [
     body: '双休毫无疑问在每个行业都是热门讨论的话题，在IT行业更是如此，常年的过度加班导致各种事件也是频繁上热搜。周末双休也成为了寻找一份工作不可忽视的环节。在应聘中，如果在同等条件下双休的工作制度给应聘者带来更大的吸引力，双休意味着有更多的个人时间安排给家人和自己。充分利用好周末不仅可以充实生活平衡工作，还可以提升技术水平和职业素养，为未来的自己提升更多的竞争优势。以下名单仅仅是交流群中调查填写的名单，数据未经考究不权威，仅供参考，提供给想了解更多IT公司相关双休背景的小伙伴，此数据会不断更新在这里。编号是否双休公司名称备注1是万兴科技2是南宁富桂精密工业有限公司（富士康）没事双休有事不违反六休一3是广投智能科技有限公司4是南宁太初5是PSAChina6是南宁市艾若思文化传播有限公司7是东信8是亚信9是与或非10是戴文信息科技11是中教教育12是壹智能13否帮帮信心14是西安点通15是上海观安16是云宝宝大数据有限责任公司17是超图有限责任公司',
     type: '新闻',
     actions: [
-      {
-        type: 'flag',
-        label: '收藏',
-        params: {
-          type: 'flagging--favorite',
-          entity_type: 'node',
-          entity_id: '394',
-          relationships: {
-            flagged_entity: {
-              type: 'node--news',
-              id: 'dafb0daa-abb2-4364-8f7a-73d65840322f',
-            },
-          },
-        },
-      },
       {
         type: 'share',
         params: {
@@ -389,21 +284,6 @@ export const nodes = [
     type: '博客',
     actions: [
       {
-        type: 'flag',
-        label: '收藏',
-        params: {
-          type: 'flagging--favorite',
-          entity_type: 'node',
-          entity_id: '387',
-          relationships: {
-            flagged_entity: {
-              type: 'node--blog',
-              id: 'f404b50e-5ead-4f57-b584-9dd61d1c07c1',
-            },
-          },
-        },
-      },
-      {
         type: 'share',
         params: {
           url: '/node/387',
@@ -442,21 +322,6 @@ export const nodes = [
     body: 'Drupal提供了一些自定义的Ajaxmodal弹出框事件，通过监听这些事件，可以做一些你想做的事情。这些事件包括：dialog:beforecreatedialog:aftercreatedialog:beforeclosedialog:afterclose这些自定义的event事件都绑定在window对象上，下面是示例的代码，可以使用在自定义的主题或者模块中：(function($,Drupal){Drupal.behaviors.sampleAction={attach:function(context){$(window).once().on(&#039;dialog:aftercreate&#039;,function(dialog,$element,settings){console.log(&#039;modalisopened!&#039;);});}};})(jQuery,Drupal);',
     type: '博客',
     actions: [
-      {
-        type: 'flag',
-        label: '收藏',
-        params: {
-          type: 'flagging--favorite',
-          entity_type: 'node',
-          entity_id: '386',
-          relationships: {
-            flagged_entity: {
-              type: 'node--blog',
-              id: 'fb594397-9dac-4078-93dc-00b289040899',
-            },
-          },
-        },
-      },
       {
         type: 'share',
         params: {
@@ -497,21 +362,6 @@ export const nodes = [
     type: '博客',
     actions: [
       {
-        type: 'flag',
-        label: '收藏',
-        params: {
-          type: 'flagging--favorite',
-          entity_type: 'node',
-          entity_id: '385',
-          relationships: {
-            flagged_entity: {
-              type: 'node--blog',
-              id: 'ba5a1476-1836-4827-9524-6d8b7f173e78',
-            },
-          },
-        },
-      },
-      {
         type: 'share',
         params: {
           url: '/node/385',
@@ -550,21 +400,6 @@ export const nodes = [
     body: '由于某种原因，需要更新历史提交的commit信息，如果想更新最新的提交，可以使用命令：gitcommit--amend比如想更新最后一个commit:updatezhihulink，输入命令之后输入i直接进入编辑模式：编辑好之后，退出编辑模式:wq保存想更新倒数的某条commit略微麻烦，需要几个步骤，使用的命令是，HEAD~x表示倒数第几条之后的commit需要编辑：gitrebase-iHEAD~2回车进入编辑模式，返回的信息显示倒数两条commit，这时我们只需要把想更新的commit前面的pick改为edit即可：回车会返回下一步的提示信息输入命令，重新编辑commitgitcommit--amend再输入gitrebase--continue',
     type: '博客',
     actions: [
-      {
-        type: 'flag',
-        label: '收藏',
-        params: {
-          type: 'flagging--favorite',
-          entity_type: 'node',
-          entity_id: '383',
-          relationships: {
-            flagged_entity: {
-              type: 'node--blog',
-              id: 'ca615945-c156-421b-9265-d169ebdd9b9c',
-            },
-          },
-        },
-      },
       {
         type: 'share',
         params: {
@@ -606,21 +441,6 @@ export const nodes = [
     type: '博客',
     actions: [
       {
-        type: 'flag',
-        label: '收藏',
-        params: {
-          type: 'flagging--favorite',
-          entity_type: 'node',
-          entity_id: '382',
-          relationships: {
-            flagged_entity: {
-              type: 'node--blog',
-              id: '01060eea-a178-40ad-98d4-1c7e5d4546e3',
-            },
-          },
-        },
-      },
-      {
         type: 'share',
         params: {
           url: '/node/382',
@@ -659,21 +479,6 @@ export const nodes = [
     body: '前期工作首先你得有一个Drupal站点进入JSON:API配置页面，选择【接受JSON:API的创建、读、更新和删除所有操作。】配置CORS复制sites/default/default.services.yml到sites/default/services.yml修改其中的配置cors.config:enabled:true#Specifyallowedheaders,like&#039;x-allowed-header&#039;.allowedHeaders:[&#039;x-csrf-token&#039;,&#039;authorization&#039;,&#039;content-type&#039;,&#039;accept&#039;,&#039;origin&#039;,&#039;x-requested-with&#039;]#Specifyallowedrequestmethods,specify[&#039;*&#039;]toallowallpossibleones.allowedMethods:[&#039;*&#039;]#',
     type: '博客',
     actions: [
-      {
-        type: 'flag',
-        label: '收藏',
-        params: {
-          type: 'flagging--favorite',
-          entity_type: 'node',
-          entity_id: '377',
-          relationships: {
-            flagged_entity: {
-              type: 'node--blog',
-              id: 'd4ad9c31-a7a7-4ded-a64e-555682d78c3a',
-            },
-          },
-        },
-      },
       {
         type: 'share',
         params: {
@@ -714,21 +519,6 @@ export const nodes = [
     type: '博客',
     actions: [
       {
-        type: 'flag',
-        label: '收藏',
-        params: {
-          type: 'flagging--favorite',
-          entity_type: 'node',
-          entity_id: '376',
-          relationships: {
-            flagged_entity: {
-              type: 'node--blog',
-              id: 'a1371d1d-99b8-4264-8a38-2369de060208',
-            },
-          },
-        },
-      },
-      {
         type: 'share',
         params: {
           url: '/node/376',
@@ -767,21 +557,6 @@ export const nodes = [
     body: 'Angular前端在本地开发的时候，时刻与Drupal后端请求数据，其中包括API和静态的图片文件资源，没有配置Proxy代理的情况下，你可能需要频繁的注释本地切换API地址调式：exportconstenvironment={//apiUrl:&#039;http://localhost:4200&#039;,apiUrl:&#039;https://api.zhaobg.com&#039;,production:false,};静态文件没有一个比较便捷的方式来显示，这在开发过程中带来一定的麻烦：通过angularwebpack内置代理，配置API代理和静态文件访问代理，免去来回切换注释代码调式的麻烦。目标ngserve启动应用后，自动开启proxy代理，api和静态文件能够读取线上服务器数据资源。第一步在应用根目录新建文件config/proxy.config.jsconstPROXY_CONFIG=[{context:[&quot;/user&quot;,&quot;/api&quot;,&quot;/sites&quot;,],target:&quot;https://api',
     type: '博客',
     actions: [
-      {
-        type: 'flag',
-        label: '收藏',
-        params: {
-          type: 'flagging--favorite',
-          entity_type: 'node',
-          entity_id: '375',
-          relationships: {
-            flagged_entity: {
-              type: 'node--blog',
-              id: '0519e6ca-237e-4192-b3cd-ade4daf9d6d4',
-            },
-          },
-        },
-      },
       {
         type: 'share',
         params: {
@@ -823,21 +598,6 @@ export const nodes = [
     type: '博客',
     actions: [
       {
-        type: 'flag',
-        label: '收藏',
-        params: {
-          type: 'flagging--favorite',
-          entity_type: 'node',
-          entity_id: '374',
-          relationships: {
-            flagged_entity: {
-              type: 'node--blog',
-              id: 'afd92b9d-d547-4ba4-b208-286343283528',
-            },
-          },
-        },
-      },
-      {
         type: 'share',
         params: {
           url: '/node/374',
@@ -876,21 +636,6 @@ export const nodes = [
     body: '这是Angular技术面试中经常问到的问题，简单回答就是constructor构造函数用来编写依赖项和初始化成员，而在ngOnInit中编写逻辑。为什么不能够将服务或者业务逻辑写在constructor构造函数中？这是因为我们的业务逻辑代码需要等待所有的依赖项和组件都被加载，不然会出现值找不到的情况。constructor(privatefb:FormBuilder,publicuserState:UserState,privaterouter:Router,privateapiService:ApiService,publicscreenState:ScreenState,privatetitleService:TitleService,privateappState:AppState,publicbranding:BrandingState){}ngOnInit():void{this.titleService.setTitle(&#039;欢迎登录！&#039;);this.userForm=this.fb.group({name:[&#039;&#039;,',
     type: '博客',
     actions: [
-      {
-        type: 'flag',
-        label: '收藏',
-        params: {
-          type: 'flagging--favorite',
-          entity_type: 'node',
-          entity_id: '373',
-          relationships: {
-            flagged_entity: {
-              type: 'node--blog',
-              id: 'c3003ac7-8184-4e9d-81da-5b352ccd8ec9',
-            },
-          },
-        },
-      },
       {
         type: 'share',
         params: {
@@ -931,21 +676,6 @@ export const nodes = [
     type: '博客',
     actions: [
       {
-        type: 'flag',
-        label: '收藏',
-        params: {
-          type: 'flagging--favorite',
-          entity_type: 'node',
-          entity_id: '372',
-          relationships: {
-            flagged_entity: {
-              type: 'node--blog',
-              id: '02b2f9da-a665-421b-977f-39825ff808cc',
-            },
-          },
-        },
-      },
-      {
         type: 'share',
         params: {
           url: '/node/372',
@@ -984,21 +714,6 @@ export const nodes = [
     body: 'Angular数据从父组件自上而下通过属性绑定流向子组件，而Event事件绑定刚好相反。单向数据绑定1、大胡子插值绑定通过使用大胡子{{}}表达式嵌入标记文本中，花括号之间的文本通常是组件属性的名字：&amp;lt;divclass=&quot;footer-bottomtext-centerp-y-sm&quot;&amp;gt;&amp;lt;divclass=&quot;container&quot;&amp;gt;&amp;lt;divclass=&quot;brand&quot;fxLayoutAlign=&quot;space-betweencenter&quot;&amp;gt;&amp;lt;h2class=&quot;mat-h2m-bottom-0&quot;&amp;gt;{{branding.footer.logo.label}}&amp;lt;/h2&amp;gt;&amp;lt;p&amp;gt;©{{utilities.fullYear}}{{branding.footer.copyRight}}&amp;lt;/p&amp;gt;&amp;lt;/',
     type: '博客',
     actions: [
-      {
-        type: 'flag',
-        label: '收藏',
-        params: {
-          type: 'flagging--favorite',
-          entity_type: 'node',
-          entity_id: '371',
-          relationships: {
-            flagged_entity: {
-              type: 'node--blog',
-              id: '88bde60d-caf8-4291-9a6a-3177af4913d4',
-            },
-          },
-        },
-      },
       {
         type: 'share',
         params: {
@@ -1039,21 +754,6 @@ export const nodes = [
     body: '有过DrupalJSONAPI使用经验的开发者来说，处理请求的json数据特别的繁琐，特别是有些实体字段多重依赖和嵌套，需要自定义的构建函数来提取组合数据。且看看JSONAPI返回的数据：https://api.zhaobg.com/api/v1/node/case?fields[node--case]=title,body,created,medias,field_tags,drupal_internal__nid,path&amp;amp;include=medias,medias.field_media_image,field_tags&amp;amp;fields[file--file]=uri&amp;amp;fields[taxonomy_term--industry]=name一个文章的内容类型，其中图片字段使用了媒体实体，其中有多层相关关联和嵌套，要想获取该内容的图片路径，需要经过复杂的映射匹配才能得到。或者你也遇到过，需要往JSONAPI请求接口提交数据时，必须符合JSONAPI的标准规范，而这个标准规范也比较繁琐，例如新增一个实体内容：{&quot;data',
     type: '博客',
     actions: [
-      {
-        type: 'flag',
-        label: '收藏',
-        params: {
-          type: 'flagging--favorite',
-          entity_type: 'node',
-          entity_id: '368',
-          relationships: {
-            flagged_entity: {
-              type: 'node--blog',
-              id: 'c2e33996-c69d-4a07-9d0c-99d567fe91db',
-            },
-          },
-        },
-      },
       {
         type: 'share',
         params: {

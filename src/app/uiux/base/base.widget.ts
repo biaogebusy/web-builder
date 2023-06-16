@@ -106,4 +106,10 @@ export abstract class BaseComponent {
       };
     }
   }
+
+  transferStoryData(instance: any): void {
+    Object.keys(instance.content.data).map((key: string) => {
+      instance[key] = instance.content.data[key];
+    });
+  }
 }

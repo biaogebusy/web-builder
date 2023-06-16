@@ -55,10 +55,7 @@ export class TreeListComponent
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       if (this.content.data) {
-        const that: any = this;
-        Object.keys(this.content.data).map((key: string) => {
-          that[key] = this.content.data[key];
-        });
+        this.transferStoryData(this);
         this.cd.detectChanges();
         return;
       }
