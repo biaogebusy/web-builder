@@ -19,6 +19,7 @@ import { UtilitiesService } from '@core/service/utilities.service';
 import { MatDrawer } from '@angular/material/sidenav';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+
 @Component({
   selector: 'app-builder',
   templateUrl: './builder.component.html',
@@ -89,7 +90,9 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.destroy$.next(true);
-    this.destroy$.unsubscribe();
+    if (this.destroy$.next) {
+      this.destroy$.next(true);
+      this.destroy$.unsubscribe();
+    }
   }
 }

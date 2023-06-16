@@ -47,6 +47,9 @@ Default.args = {
       {
         href: '#',
         label: '开始',
+        type: 'btn',
+        color: 'primary',
+        mode: 'raised',
       },
       {
         type: 'btn-animate',

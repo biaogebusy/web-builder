@@ -21,7 +21,7 @@ export const feedback = [
     ...progressbar,
   },
   {
-    label: 'Prog Group',
+    label: 'Group',
     icon: { svg: 'format-list-group' },
     ...progressGroup,
   },

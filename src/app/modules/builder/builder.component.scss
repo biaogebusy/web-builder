@@ -12,15 +12,6 @@
     padding: 10px;
     border-right: 0;
     ::ng-deep {
-      app-icon {
-        height: 18px;
-        margin-right: 4px;
-        .custom {
-          width: 18px !important;
-          height: 18px !important;
-          line-height: 18px !important;
-        }
-      }
       .mat-list-text {
         padding-right: 0 !important;
       }
