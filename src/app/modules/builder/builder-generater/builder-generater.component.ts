@@ -25,7 +25,7 @@ export class BuilderGeneraterComponent implements OnInit {
       {
         type: 'select',
         key: 'hero',
-        defaultValue: '1',
+        defaultValue: 1,
         className: 'display-block m-bottom-sm',
         templateOptions: {
           label: '选择 Hero 个数',
@@ -45,7 +45,7 @@ export class BuilderGeneraterComponent implements OnInit {
       {
         type: 'select',
         key: 'showcase',
-        defaultValue: '3',
+        defaultValue: 3,
         className: 'display-block m-bottom-sm',
         templateOptions: {
           label: '选择 Showcase 个数',
@@ -94,6 +94,58 @@ export class BuilderGeneraterComponent implements OnInit {
           ],
         },
       },
+      {
+        type: 'select',
+        key: 'carousel',
+        defaultValue: 1,
+        className: 'display-block m-bottom-sm',
+        templateOptions: {
+          label: '选择幻灯片个数',
+          description: '幻灯片不宜太多，生成后可拖动重排',
+          options: [
+            {
+              label: '1',
+              value: 1,
+            },
+            {
+              label: '2',
+              value: 2,
+            },
+            {
+              label: '3',
+              value: 3,
+            },
+          ],
+        },
+      },
+      {
+        type: 'select',
+        key: 'drupal',
+        defaultValue: 0,
+        className: 'display-block m-bottom-sm',
+        templateOptions: {
+          label: '使用Drupal API 组件个数',
+          description: '列表，分类，日历等等',
+          options: [
+            {
+              label: '0',
+              value: 0,
+            },
+            {
+              label: '1',
+              value: 1,
+            },
+            {
+              label: '2',
+              value: 2,
+            },
+            {
+              label: '3',
+              value: 3,
+            },
+          ],
+        },
+      },
     ];
   }
 
@@ -105,8 +157,18 @@ export class BuilderGeneraterComponent implements OnInit {
       'Showcase',
       value.showcase
     );
+    const carousel = this.builder.getRandomElements(
+      items,
+      'Carousel',
+      value.carousel
+    );
+    const drupal = this.builder.getRandomElements(
+      items,
+      'Drupal',
+      value.drupal
+    );
 
-    this.builder.page.body = [...heros, ...showcases];
+    this.builder.page.body = [...heros, ...showcases, ...carousel, ...drupal];
     this.builder.updatePage();
   }
 }
