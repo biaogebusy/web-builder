@@ -1,6 +1,6 @@
 import { IBuilderComponent } from '@core/interface/IBuilder';
-import * as profileStory from '../../components/profile/profile1v1.stories';
-import * as bannerStory from '../../components/banner/BannerSimple.stories';
+import * as profileStory from '@stories/components/profile/profile1v1.stories';
+import * as bannerStory from '@stories/components/banner/BannerSimple.stories';
 
 const {
   BannerOverlay: { args: banner },

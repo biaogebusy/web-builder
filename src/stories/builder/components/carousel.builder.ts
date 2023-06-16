@@ -1,10 +1,10 @@
-import * as c1v1Story from '../../components/carousel/carousel1v1.stories';
-import * as c1v2Story from '../../components/carousel/carousel1v2.stories';
-import * as c1v3Story from '../../components/carousel/carousel1v3.stories';
-import * as c1v4Story from '../../components/carousel/carousel1v4.stories';
-import * as c2v1Story from '../../components/carousel/carousel2v1.stories';
-import * as c2v2Story from '../../components/carousel/carousel2v2.stories';
-import * as lineyearStory from '../../components/carousel/lineyear.stories';
+import * as c1v1Story from '@stories/components/carousel/carousel1v1.stories';
+import * as c1v2Story from '@stories/components/carousel/carousel1v2.stories';
+import * as c1v3Story from '@stories/components/carousel/carousel1v3.stories';
+import * as c1v4Story from '@stories/components/carousel/carousel1v4.stories';
+import * as c2v1Story from '@stories/components/carousel/carousel2v1.stories';
+import * as c2v2Story from '@stories/components/carousel/carousel2v2.stories';
+import * as lineyearStory from '@stories/components/carousel/lineyear.stories';
 
 const {
   Default: { args: lineyear, storyName: lineyearName },

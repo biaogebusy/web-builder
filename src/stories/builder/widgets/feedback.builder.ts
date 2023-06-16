@@ -1,7 +1,7 @@
-import * as progressBarStory from '../../widgets/feedback/ProgressBar.stories';
-import * as progressGroupStory from '../../widgets/feedback/ProgressGroup.stories';
-import * as spinnerStory from '../../widgets/feedback/Spinner.stories';
-import * as notfoundStory from '../../sample/feedback/404.stories';
+import * as progressBarStory from '@stories/widgets/feedback/ProgressBar.stories';
+import * as progressGroupStory from '@stories/widgets/feedback/ProgressGroup.stories';
+import * as spinnerStory from '@stories/widgets/feedback/Spinner.stories';
+import * as notfoundStory from '@stories/sample/feedback/404.stories';
 
 const {
   Default: { args: notfound },

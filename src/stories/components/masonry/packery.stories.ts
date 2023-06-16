@@ -161,7 +161,7 @@ Default.args = {
 };
 
 export const ContentBox = Template.bind({});
-
+ContentBox.storyName = '内容盒子';
 ContentBox.args = {
   content: {
     type: 'packery',

@@ -1,8 +1,8 @@
-import * as cardBaseStory from '../../widgets/card/Card.stories';
-import * as card1v1Story from '../../widgets/card/Card1v1.stories';
-import * as card1v4Story from '../../widgets/card/Card1v4.stories';
-import * as card1v5Story from '../../widgets/card/Card1v5.stories';
-import * as card1v6Story from '../../widgets/card/Card1v6.stories';
+import * as cardBaseStory from '@stories/widgets/card/Card.stories';
+import * as card1v1Story from '@stories/widgets/card/Card1v1.stories';
+import * as card1v4Story from '@stories/widgets/card/Card1v4.stories';
+import * as card1v5Story from '@stories/widgets/card/Card1v5.stories';
+import * as card1v6Story from '@stories/widgets/card/Card1v6.stories';
 
 const {
   Base: { args: cardBase },

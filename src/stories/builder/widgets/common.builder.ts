@@ -1,10 +1,10 @@
-import * as iframeStory from '../../widgets/Iframe.stories';
-import * as lightboxStory from '../../widgets/InlineLightbox.stories';
-import * as locationStory from '../../components/map/location.stories';
-import * as shapeStory from '../../widgets/Shape.stories';
-import * as stepperStory from '../../widgets/Stepper.stories';
-import * as swiperStory from '../../widgets/Swiper.stories';
-import * as action1v1Story from '../../components/action/Action1v1.stories';
+import * as iframeStory from '@stories/widgets/Iframe.stories';
+import * as lightboxStory from '@stories/widgets/InlineLightbox.stories';
+import * as locationStory from '@stories/components/map/location.stories';
+import * as shapeStory from '@stories/widgets/Shape.stories';
+import * as stepperStory from '@stories/widgets/Stepper.stories';
+import * as swiperStory from '@stories/widgets/Swiper.stories';
+import * as action1v1Story from '@stories/components/action/Action1v1.stories';
 
 const {
   Default: { args: action1v1 },

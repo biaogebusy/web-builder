@@ -1,11 +1,11 @@
 import { IBuilderComponent } from '@core/interface/IBuilder';
-import * as hero1v1Story from '../../feature/hero/hero1v1.stories';
-import * as hero1v2Story from '../../feature/hero/hero1v2.stories';
-import * as hero1v3Story from '../../feature/hero/hero1v3.stories';
-import * as hero1v4Story from '../../feature/hero/hero1v4.stories';
-import * as hero2v1Story from '../../feature/hero/hero2v1.stories';
-import * as hero2v2Story from '../../feature/hero/hero2v2.stories';
-import * as hero2v3Story from '../../feature/hero/hero2v3.stories';
+import * as hero1v1Story from '@stories/feature/hero/hero1v1.stories';
+import * as hero1v2Story from '@stories/feature/hero/hero1v2.stories';
+import * as hero1v3Story from '@stories/feature/hero/hero1v3.stories';
+import * as hero1v4Story from '@stories/feature/hero/hero1v4.stories';
+import * as hero2v1Story from '@stories/feature/hero/hero2v1.stories';
+import * as hero2v2Story from '@stories/feature/hero/hero2v2.stories';
+import * as hero2v3Story from '@stories/feature/hero/hero2v3.stories';
 const {
   Default: { args: hero1v1 },
 } = hero1v1Story;

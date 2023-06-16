@@ -1,17 +1,17 @@
-import * as btnStory from '../../widgets/base/Btn.stories';
-import * as btnVideoStory from '../../widgets/base/BtnVideo.stories';
-import * as dynamicTableStory from '../../widgets/base/DynamicTable.stories';
-import * as iconStory from '../../widgets/base/Icon.stories';
-import * as linkStory from '../../widgets/base/Link.stories';
-import * as tabStory from '../../widgets/Tab.stories';
-import * as titleStory from '../../widgets/base/Title.stories';
-import * as panelStory from '../../widgets/Panel.stories';
-import * as textStory from '../../widgets/base/Text.stories';
-import * as imgStory from '../../widgets/base/Img.stories';
-import * as chartStory from '../../widgets/chart/ChartBar.stories';
-import * as spacerStory from '../../theme/Spacer.stories';
-import * as formStory from '../../widgets/Form.stories';
-import * as playerStory from '../../feature/media/Player.stories';
+import * as btnStory from '@stories/widgets/base/Btn.stories';
+import * as btnVideoStory from '@stories/widgets/base/BtnVideo.stories';
+import * as dynamicTableStory from '@stories/widgets/base/DynamicTable.stories';
+import * as iconStory from '@stories/widgets/base/Icon.stories';
+import * as linkStory from '@stories/widgets/base/Link.stories';
+import * as tabStory from '@stories/widgets/Tab.stories';
+import * as titleStory from '@stories/widgets/base/Title.stories';
+import * as panelStory from '@stories/widgets/Panel.stories';
+import * as textStory from '@stories/widgets/base/Text.stories';
+import * as imgStory from '@stories/widgets/base/Img.stories';
+import * as chartStory from '@stories/widgets/chart/ChartBar.stories';
+import * as spacerStory from '@stories/theme/Spacer.stories';
+import * as formStory from '@stories/widgets/Form.stories';
+import * as playerStory from '@stories/feature/media/Player.stories';
 
 const {
   Default: { args: player },

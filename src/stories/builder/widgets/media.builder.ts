@@ -1,8 +1,8 @@
-import * as mediaListStory from '../../widgets/media/MediaList.stories';
-import * as mediaMetaStory from '../../widgets/media/MediaMeta.stories';
-import * as mediaObjectStory from '../../widgets/media/MediaObject.stories';
-import * as mediaObjectGroupStory from '../../widgets/media/MediaObjectGroup.stories';
-import * as testimonialStory from '../../widgets/media/Testimonial.stories';
+import * as mediaListStory from '@stories/widgets/media/MediaList.stories';
+import * as mediaMetaStory from '@stories/widgets/media/MediaMeta.stories';
+import * as mediaObjectStory from '@stories/widgets/media/MediaObject.stories';
+import * as mediaObjectGroupStory from '@stories/widgets/media/MediaObjectGroup.stories';
+import * as testimonialStory from '@stories/widgets/media/Testimonial.stories';
 
 const {
   Default: { args: testimonial },

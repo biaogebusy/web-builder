@@ -1,15 +1,20 @@
-import * as contactStory from '../../drupal/ContactUs.stories';
-import * as calendarStory from '../../drupal/Full-calendar.stories';
-import * as viewListStory from '../../drupal/ViewList.stories';
-import * as treeListStory from '../../drupal/treeList.stories';
-import * as viewMapStory from '../../drupal/ViewMap.stories';
-import * as dashboardStory from '../../sample/dashboard/Dashboard.stories';
-import * as articleStory from '../../sample/node/article.stories';
-import * as questionStory from '../../sample/node/question.stories';
-import * as list2v1Story from '../../components/list/List2v1.stories';
-import * as taxonomyListStory from '../../components/list/taxonomyList.stories';
-import * as taxonomyThinListStory from '../../components/list/taxonomyThinList.stories';
-import * as mapList1v1Story from '../../components/map/mapList1v1.stories';
+import * as contactStory from '@stories/drupal/ContactUs.stories';
+import * as calendarStory from '@stories/drupal/Full-calendar.stories';
+import * as viewListStory from '@stories/drupal/ViewList.stories';
+import * as treeListStory from '@stories/drupal/treeList.stories';
+import * as viewMapStory from '@stories/drupal/ViewMap.stories';
+import * as dashboardStory from '@stories/sample/dashboard/Dashboard.stories';
+import * as articleStory from '@stories/sample/node/article.stories';
+import * as questionStory from '@stories/sample/node/question.stories';
+import * as list2v1Story from '@stories/components/list/List2v1.stories';
+import * as taxonomyListStory from '@stories/components/list/taxonomyList.stories';
+import * as taxonomyThinListStory from '@stories/components/list/taxonomyThinList.stories';
+import * as mapList1v1Story from '@stories/components/map/mapList1v1.stories';
+import * as userCenterStory from '@stories/components/profile/userCenter.stories';
+
+const {
+  Default: { args: userCenter },
+} = userCenterStory;
 
 const {
   Default: { args: mapList1v1 },
@@ -62,6 +67,7 @@ export const drupal = [
   question,
   contact,
   dashboard,
+  userCenter,
   calendar,
   list2v1,
   taxonomyList,

@@ -1,4 +1,4 @@
-import * as lotteryStory from '../../feature/calculator/Lottery.stories';
+import * as lotteryStory from '@stories/feature/calculator/Lottery.stories';
 
 const {
   Default: { args: lottery },
