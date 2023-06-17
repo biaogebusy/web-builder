@@ -1,6 +1,11 @@
 @import "../../../../../theme/variable/breakpoint";
 .swiper-media {
   width: 100%;
+  height: 30vh;
+  min-height: 350px;
+  .swiper-container {
+    height: 100%;
+  }
   .swiper-button-next,
   .swiper-button-prev {
     width: 40px;

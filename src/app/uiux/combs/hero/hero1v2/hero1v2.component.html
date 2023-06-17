@@ -4,7 +4,7 @@
     <div class="swiper-media">
       <swiper #media [config]="mediaConfig" [(index)]="index" (slideChange)="onSlideChange($event)">
         <ng-template swiperSlide *ngFor="let slide of content.sliders.elements">
-          <app-img [content]="slide.img"></app-img>
+          <app-bg-img [content]="slide.bg"></app-bg-img>
         </ng-template>
       </swiper>
     </div>
