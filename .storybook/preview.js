@@ -44,18 +44,4 @@ export const decorators = [
     },
     defaultTheme: "light",
   }),
-  componentWrapperDecorator((story) => {
-    // console.log(story);
-    if (
-      story.includes("app-block") ||
-      story.includes("widget") ||
-      story.includes("app-header") ||
-      story.includes("app-footer") ||
-      story.includes("builder")
-    ) {
-      return story;
-    } else {
-      return `<app-dynamic-component [inputs]="content"></app-dynamic-component>`;
-    }
-  }),
 ];

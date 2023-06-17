@@ -53,7 +53,7 @@
         background-color: mat-color($background, card);
       }
       .overlay {
-        background-color: mat-color($background, background, 0.5);
+        background-color: mat-color($foreground, slider-off-active);
       }
       .showcase {
         .component-toolbar {

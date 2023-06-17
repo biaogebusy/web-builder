@@ -24,10 +24,6 @@ export default {
     }),
   ],
   parameters: {
-    viewMode: 'canvas',
-    previewTabs: {
-      docs: { hidden: true },
-    },
     layout: 'fullscreen',
   },
 } as Meta;
