@@ -10,7 +10,7 @@ import { CryptoJSService } from '@core/service/crypto-js.service';
 import { UserService } from '@core/service/user.service';
 import { IUser } from '@core/interface/IUser';
 import { INotify } from '@core/interface/widgets/IWidgets';
-import { map, startWith } from 'rxjs/operators';
+import { map, startWith, switchMap } from 'rxjs/operators';
 import { NotifyService } from '@core/service/notify.service';
 
 export const THEMKEY = 'themeMode';
@@ -35,47 +35,46 @@ export function notifyFactory(
   notifyService: NotifyService
 ): Observable<INotify[] | object | boolean> {
   const $notify = new BehaviorSubject<INotify[] | object | boolean>(false);
-  const apis: any = coreConfig?.notify?.api;
+  const apis = coreConfig?.notify?.api;
+
   if (apis) {
-    const source = interval(
-      coreConfig?.notify?.params.interval || 2 * 60 * 1000
-    );
-    source.pipe(startWith(0)).subscribe((time) => {
-      notifyService
-        .getWatchList()
-        .pipe(
-          map((res) => {
-            let lists: INotify[] = [];
-            for (const item in res) {
-              const message = res[item].rows.map((list: any) => {
-                return {
-                  link: {
-                    href: list.url,
-                    label: list.title,
-                  },
-                  icon: {
-                    svg: apis[item].icon,
-                    inline: true,
-                    color: apis[item].color,
-                  },
-                  message: list.message,
-                  date: list.date,
-                  action: apis[item].action,
-                  uuid: list.uuid,
-                };
-              });
-              lists = [...message];
-            }
-            return lists;
-          })
-        )
-        .subscribe((res: INotify[]) => {
-          $notify.next(res);
-        });
-    });
+    const intervalTime = coreConfig?.notify?.params.interval || 2 * 60 * 1000;
+    const source = interval(intervalTime);
+
+    source
+      .pipe(
+        startWith(0),
+        switchMap(() => notifyService.getWatchList()),
+        map((res) => {
+          let lists: INotify[] = [];
+          Object.keys(res).map((item: any) => {
+            const message = res[item].rows.map((list: any) => ({
+              link: {
+                href: list.url,
+                label: list.title,
+              },
+              icon: {
+                svg: apis[item].icon,
+                inline: true,
+                color: apis[item].color,
+              },
+              message: list.message,
+              date: list.date,
+              action: apis[item].action,
+              uuid: list.uuid,
+            }));
+            lists = [...message];
+          });
+          return lists;
+        })
+      )
+      .subscribe((res: INotify[]) => {
+        $notify.next(res);
+      });
   } else {
     $notify.next(false);
   }
+
   return $notify;
 }
 

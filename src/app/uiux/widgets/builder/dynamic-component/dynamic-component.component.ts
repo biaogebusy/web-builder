@@ -143,7 +143,9 @@ export class DynamicComponentComponent
     if (this.cd && !(this.cd as ViewRef).destroyed) {
       this.cd.detectChanges();
     }
-    this.destroy$.next(true);
-    this.destroy$.unsubscribe();
+    if (this.destroy$.next) {
+      this.destroy$.next(true);
+      this.destroy$.unsubscribe();
+    }
   }
 }
