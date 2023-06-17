@@ -36,12 +36,13 @@ Default.args = {
     spacer: 'xl',
     text: {
       title: {
-        label: 'Conduct More Customer In A Better Way',
+        label:
+          '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
         classes: 'mat-display-4 bold',
         style: 'style-v1',
       },
       classes: 'p-x text-center',
-      body: 'Launch your campaign and benefit from our expertise on designing and managing conversion centered bootstrap4 html page.',
+      body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class="text-primary">Storybook</strong> 页面时添加组件到预览页面。',
       actionsAlign: 'center center',
       actions: [
         {
@@ -77,13 +78,7 @@ Order.args = {
     spacer: 'xl',
     type: 'hero-1v4',
     text: {
-      title: {
-        label: 'Conduct More Customer In A Better Way',
-        classes: 'mat-display-4 bold',
-        style: 'style-v1',
-      },
-      classes: 'p-x text-center',
-      body: 'Launch your campaign and benefit from our expertise on designing and managing conversion centered bootstrap4 html page.',
+      ...Default.args.content.text,
       actionsAlign: 'center center',
       actions: [
         {

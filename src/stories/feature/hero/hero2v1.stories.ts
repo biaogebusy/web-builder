@@ -41,7 +41,7 @@ Default.args = {
     },
     text: {
       title: {
-        label: 'light text, and xy center',
+        label: '欢迎使用 <strong class="text-">Builder</strong> 快速构建页面',
         style: 'style-v1',
         classes: 'mat-display-4',
       },
@@ -59,7 +59,7 @@ Default.args = {
           mobile: '/assets/images/mobile/mobile-03.jpg',
         },
       },
-      body: 'The Vabeen’PLUM is designed with a 12ml ultra-large capacity tank to provide more vaping enjoyment than similar products. Every drop of e-liquid maximizes its value. Approx. 3500puffs per pod, which can last a week, free you from frequently filling.The translucent tank allows you to clearly observe the capacity of e - liquid.&nbsp;',
+      body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class="text-">Storybook</strong> 页面时添加组件到预览页面。',
       actionsAlign: 'center center',
       actions: [
         {
@@ -67,7 +67,7 @@ Default.args = {
           mode: 'raised',
           color: 'primary',
           href: '#',
-          label: 'Get Started',
+          label: '立刻体验',
         },
         {
           type: 'closeDialog',
@@ -89,7 +89,7 @@ YCenter.args = {
     },
     text: {
       title: {
-        label: 'Light text, Y center, enable overlay',
+        label: '欢迎使用 <strong class="text-">Builder</strong> 快速构建页面',
         style: 'style-v4',
         classes: 'mat-display-1',
       },
@@ -105,7 +105,7 @@ YCenter.args = {
           mobile: '/assets/images/mobile/mobile-04.jpg',
         },
       },
-      body: 'The Vabeen’PLUM is designed with a 12ml ultra-large capacity tank to provide more vaping enjoyment than similar products. Every drop of e-liquid maximizes its value. Approx. 3500puffs per pod, which can last a week, free you from frequently filling.The translucent tank allows you to clearly observe the capacity of e - liquid. <br> <br>*individual user experience may vary, depending on usage',
+      body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class="text-">Storybook</strong> 页面时添加组件到预览页面。',
       actionsAlign: 'start center',
       actions: [
         {
@@ -135,7 +135,8 @@ YCenterXCustom.args = {
     },
     text: {
       title: {
-        label: 'Base text, Y center, X custom, enable overlay',
+        label:
+          '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
         style: 'style-v4',
         classes: 'mat-display-1',
       },
@@ -152,7 +153,7 @@ YCenterXCustom.args = {
           mobile: '/assets/images/mobile/follower-04.jpg',
         },
       },
-      body: 'The Vabeen’PLUM is designed with a 12ml ultra-large capacity tank to provide more vaping enjoyment than similar products. Every drop of e-liquid maximizes its value. Approx. 3500puffs per pod, which can last a week, free you from frequently filling.The translucent tank allows you to clearly observe the capacity of e - liquid. <br> <br>*individual user experience may vary, depending on usage',
+      body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class="text-primary">Storybook</strong> 页面时添加组件到预览页面。',
       actionsAlign: 'start center',
       actions: [
         {
@@ -182,7 +183,8 @@ XYCustom.args = {
     },
     text: {
       title: {
-        label: 'Base text, XY custom, enable overlay',
+        label:
+          '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
         style: 'style-v4',
         classes: 'mat-h2',
       },
@@ -200,7 +202,7 @@ XYCustom.args = {
           mobile: '/assets/images/mobile/mobile-02.jpg',
         },
       },
-      body: 'The Vabeen’PLUM is designed with a 12ml ultra-large capacity tank to provide more vaping enjoyment than similar products. Every drop of e-liquid maximizes its value. Approx. 3500puffs per pod, which can last a week, free you from frequently filling.The translucent tank allows you to clearly observe the capacity of e - liquid. <br> <br>*individual user experience may vary, depending on usage',
+      body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class="text-primary">Storybook</strong> 页面时添加组件到预览页面。',
       actionsAlign: 'start center',
       actions: [
         {
@@ -230,7 +232,8 @@ Animate.args = {
     },
     text: {
       title: {
-        label: 'INTELLIGENT LED LIGHT',
+        label:
+          '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
         style: 'style-v4',
         classes: 'mat-display-1 bold',
       },
@@ -250,7 +253,7 @@ Animate.args = {
           mobile: '/assets/images/products/TS97-Phone_08.jpg?itok=VZueJbig',
         },
       },
-      body: '<p style="text-align:justify"><span style="font-size:18px;">Features a single LED light in its end to tell the working status of the vape device.</span></p>\r\n',
+      body: '<p style="text-align:justify"><span style="font-size:18px;">开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class="text-primary">Storybook</strong> 页面时添加组件到预览页面。</span></p>\r\n',
     },
   },
 };

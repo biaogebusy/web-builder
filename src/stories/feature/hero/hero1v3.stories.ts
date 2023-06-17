@@ -38,12 +38,13 @@ V1.args = {
     spacer: 'xl',
     text: {
       title: {
-        label: '使用信使构建你们的项目',
+        label:
+          '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
         classes: 'mat-display-4 bold',
         style: 'style-v4',
       },
       classes: 'p-x',
-      body: '信使是基于 Material UI 的 Angular 前端框架，后端适配 Drupal，提供优秀的数字创新体验。',
+      body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class="text-primary">Storybook</strong> 页面时添加组件到预览页面。',
       actions: [
         {
           type: 'btn',
@@ -78,13 +79,8 @@ V2.args = {
     type: 'hero-1v3',
     spacer: 'xl',
     text: {
-      title: {
-        label: '信使是一款 Angular 前端框架',
-        classes: 'mat-display-4 bold',
-        style: 'style-v4',
-      },
-      classes: 'p-x text-light',
-      body: '信使是一款高度定制的 Angular UI 组件库，拥有超过60个复合组件，多个主题，可以快速适配您的品牌做活动营销。',
+      ...V1.args.content.text,
+      classes: 'text-light',
       actions: [
         {
           type: 'btn',
