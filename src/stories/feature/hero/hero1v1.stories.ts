@@ -46,7 +46,7 @@ Default.args = {
           type: 'text',
           spacer: 'xl',
           title: {
-            label: '开源',
+            label: '组件驱动开发',
             style: 'style-v1',
             classes: 'mat-display-3 bold',
           },
@@ -58,7 +58,7 @@ Default.args = {
               mobile: '/assets/images/mobile/mobile-03.jpg',
             },
           },
-          body: '<p style="font-size:18px">它是一个开放源代码软件，可以免费使用和修改</p>',
+          body: '<p style="font-size:18px">Storybook采用了组件驱动开发的方法，即将UI组件作为开发的核心单元。开发人员可以在Storybook中为每个UI组件创建"stories"</p>',
           actionsAlign: 'center center',
           actions: [
             {
@@ -66,14 +66,14 @@ Default.args = {
               mode: 'raised',
               color: 'primary',
               href: '#',
-              label: '开始',
+              label: '立刻体验',
             },
           ],
         },
         {
           type: 'text',
           title: {
-            label: '强大的内容管理功能',
+            label: '组件展示和测试',
             style: 'style-v1',
             classes: 'mat-display-3 bold',
           },
@@ -86,7 +86,7 @@ Default.args = {
               mobile: '/assets/images/mobile/mobile-04.jpg',
             },
           },
-          body: 'Drupal 已经超越了传统的 Web概念，可以通过不同的渠道部署你的数据内容，从一个数据中心点到各个应用，从简单到复杂。',
+          body: 'Storybook提供了一个交互式的界面，用于展示和测试UI组件。开发人员可以在浏览器中浏览和交互组件，以便检查其外观和行为，并确保它们在各种条件下正常工作。',
           actionsAlign: 'center center',
           actions: [
             {
@@ -94,11 +94,35 @@ Default.args = {
               mode: 'raised',
               color: 'primary',
               href: '#',
-              label: '开始',
+              label: '立刻体验',
             },
+          ],
+        },
+        {
+          type: 'text',
+          title: {
+            label: '文档化',
+            style: 'style-v1',
+            classes: 'mat-display-3 bold',
+          },
+          spacer: 'xl',
+          classes: 'xy-center text-light',
+          bg: {
+            classes: 'bg-shadow  overlay overlay-80',
+            img: {
+              src: '/assets/images/16-9/business-15.jpeg',
+              mobile: '/assets/images/mobile/mobile-04.jpg',
+            },
+          },
+          body: 'Storybook不仅可以展示和测试组件，还可以自动生成组件的文档。开发人员可以使用Markdown或其他文档格式编写组件文档，并将其与组件关联。',
+          actionsAlign: 'center center',
+          actions: [
             {
-              type: 'closeDialog',
-              label: '前往',
+              type: 'btn',
+              mode: 'raised',
+              color: 'primary',
+              href: '#',
+              label: '立刻体验',
             },
           ],
         },

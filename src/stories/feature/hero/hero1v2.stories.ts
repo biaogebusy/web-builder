@@ -45,11 +45,11 @@ Default.args = {
       },
       elements: [
         {
-          title: '使用 DEVTOOLS 对 ANGULAR 前端应用性能分析优化',
+          title: '使Storybook 是什么？',
           subTitle:
-            '使用 lighthouse 评分 以南宁IT派[www.nnitpai.com]为例记录分析优化过程，使用 Devtools lighthouse 对首页进行综合的评分',
+            'Storybook是一个开源的前端工具，用于开发、测试和文档化UI组件。它提供了一个独立的环境，开发人员可以在其中构建和展示单个UI组件，而无需依赖于整个应用程序的上下文。',
           img: {
-            src: '/assets/images/hero/hero-1-v2-4.jpeg',
+            src: '/assets/images/1-1/business-01.png',
             alt: '',
           },
           btn: {
@@ -60,11 +60,11 @@ Default.args = {
           },
         },
         {
-          title: '使用 TAKEUNTIL 操作符管理 ANGULAR 组件的订阅',
+          title: '组件驱动开发',
           subTitle:
-            '在 Rxjs 中，可以使用 takeUntil 来控制另外一个 Observable 对象数据的产生。',
+            'Storybook采用了组件驱动开发的方法，即将UI组件作为开发的核心单元。开发人员可以在Storybook中为每个UI组件创建"stories"，描述组件在不同状态和交互方式下的行为和外观。这种方法能够提高组件的可重用性和可测试性。',
           img: {
-            src: '/assets/images/hero/hero-1-v2-3.jpeg',
+            src: '/assets/images/1-1/business-02.png',
             alt: '',
           },
           btn: {
@@ -75,11 +75,11 @@ Default.args = {
           },
         },
         {
-          title: '你应该了解的 ANGULAR 最佳实践',
+          title: '组件展示和测试',
           subTitle:
-            '遵循最佳实践可以让你的 Angular 应用保持性能优越，使团队的代码风格一致，以下代码摘自南宁IT派官网项目。',
+            'Storybook提供了一个交互式的界面，用于展示和测试UI组件。开发人员可以在浏览器中浏览和交互组件，以便检查其外观和行为，并确保它们在各种条件下正常工作。这有助于加快开发迭代周期，提高组件的质量。',
           img: {
-            src: '/assets/images/hero/hero-1-v2-2.jpeg',
+            src: '/assets/images/1-1/business-03.png',
             alt: '',
           },
           btn: {
@@ -90,11 +90,11 @@ Default.args = {
           },
         },
         {
-          title: 'ANGULAR 5 RXJS 5.5.2 多个 HTTP 并行 FORKJOIN 请求',
+          title: '文档化',
           subTitle:
-            '在特定情况下，有些接口无法提供一次性的请求达到目的，需要并行的多次请求，当所有请求都完成时，才进行下一步的逻辑。',
+            'Storybook不仅可以展示和测试组件，还可以自动生成组件的文档。开发人员可以使用Markdown或其他文档格式编写组件文档，并将其与组件关联。这使得团队成员可以更好地理解和使用组件，减少了沟通成本。',
           img: {
-            src: '/assets/images/hero/hero-1-v2-1.jpeg',
+            src: '/assets/images/1-1/business-04.png',
             alt: '',
           },
           btn: {
