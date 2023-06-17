@@ -29,8 +29,8 @@ const Template: Story = (args) => ({
     ...args,
   },
 });
-export const Base = Template.bind({});
-Base.args = {
+export const Default = Template.bind({});
+Default.args = {
   content: {
     type: 'card-1v2',
     link: {
@@ -40,7 +40,7 @@ Base.args = {
     subTitle: '多语言',
     img: {
       href: '#',
-      src: '/assets/images/showcase/card-1v2-1.jpg',
+      src: '/assets/images/cases/porto3.jpg',
       alt: 'alt',
     },
     bg: {

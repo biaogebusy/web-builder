@@ -37,7 +37,7 @@ Default.args = {
   content: {
     type: 'img',
     classes: '',
-    src: '/assets/images/cases/porto2.jpg',
+    src: '/assets/images/cases/porto3.jpg',
     alt: 'alt',
   },
 };

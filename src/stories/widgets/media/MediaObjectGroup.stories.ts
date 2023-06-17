@@ -7,6 +7,7 @@ import { Story } from '@storybook/angular/types-6-0';
 import { MediaObjectGroupComponent } from '@uiux/widgets/media/media-object-group/media-object-group.component';
 import * as MediaObjectStories from './MediaObject.stories';
 import { StorysModule } from '@core/module/storys.module';
+import { formatDate } from '@angular/common';
 
 export default {
   title: '基础组件/媒体/媒体对象组',
@@ -49,7 +50,7 @@ Default.args = {
           },
           alt: 'logo',
         },
-        meta: '2022/08',
+        meta: formatDate(new Date(), 'yyyy-MM', 'en-US'),
         title: '前端架构师',
         subTitle: '阿里蚂蚁',
         content:

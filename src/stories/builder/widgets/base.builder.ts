@@ -131,7 +131,7 @@ export const base = [
   {
     label: 'Spacer',
     icon: {
-      svg: 'color-helper',
+      svg: 'border-horizontal',
     },
     ...spacer,
   },

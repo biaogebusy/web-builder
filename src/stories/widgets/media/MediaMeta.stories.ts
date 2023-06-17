@@ -6,6 +6,7 @@ import {
 import { Story } from '@storybook/angular/types-6-0';
 import { MediaMetaComponent } from '@uiux/widgets/media/media-meta/media-meta.component';
 import { StorysModule } from '@core/module/storys.module';
+import { formatDate } from '@angular/common';
 
 export default {
   title: '基础组件/媒体/媒体 meta',
@@ -36,13 +37,13 @@ Default.args = {
     type: 'media-meta',
     link: {
       href: '#',
-      label: '使用 DEVTOOLS 对 ANGULAR 前端应用性能分析优化',
+      label: 'Storybook 是什么？',
     },
     more: {
       href: '#',
       label: '更多',
     },
-    date: '2022-07-18',
-    body: '使用 lighthouse 评分 以南宁IT派[www.nnitpai.com]为例记录分析优化过程，使用 Devtools lighthouse 对首页进行综合的评分： 性能评分勉强及格差强人意，切换到 performance 性能选项卡: 记录的同时，可以依次滚动页面到底部，暂...',
+    date: formatDate(new Date(), 'yyyy-MM-dd', 'en-US'),
+    body: 'Storybook是一个用于开发和展示UI组件的工具。它提供了一个独立的环境，开发人员可以在其中构建、测试和文档化单个UI组件，而无需依赖于整个应用程序的上下文。Storybook是一个用于开发和展示UI组件的工具。它提供了一个独立的环境，开发人员可以在其中构建、测试和文档化单个UI组件，而无需依赖于整个应用程序的上下文。...',
   },
 };

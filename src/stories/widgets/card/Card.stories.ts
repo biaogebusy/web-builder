@@ -45,7 +45,7 @@ Base.args = {
       ratios: 'media-4-3',
       img: {
         classes: 'object-fit',
-        src: '/assets/images/cases/porto1.jpg',
+        src: '/assets/images/cases/porto3.jpg',
         alt: 'alt',
       },
     },

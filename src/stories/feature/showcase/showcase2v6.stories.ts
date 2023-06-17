@@ -28,7 +28,7 @@ const Template: Story = (args) => ({
   },
 });
 export const Default = Template.bind({});
-const card1v2: any = Card1v2Stories.Base.args;
+const card1v2: any = Card1v2Stories.Default.args;
 Default.args = {
   content: {
     type: 'showcase-2v6',

@@ -6,6 +6,7 @@ import {
 import { Story } from '@storybook/angular/types-6-0';
 import { MediaObjectComponent } from '@uiux/widgets/media/media-object/media-object.component';
 import { StorysModule } from '@core/module/storys.module';
+import { formatDate } from '@angular/common';
 
 export default {
   title: '基础组件/媒体/媒体对象',
@@ -42,7 +43,7 @@ Default.args = {
       },
       alt: 'logo',
     },
-    meta: '2017/08',
+    meta: formatDate(new Date(), 'yyyy-MM', 'en-US'),
     title: '前端开发工程师',
     subTitle: 'Davyin',
     content:

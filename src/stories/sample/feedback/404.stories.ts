@@ -58,18 +58,12 @@ Default.args = {
         style: 'style-v1',
         classes: 'mat-display-1',
       },
-      body: '信使是基于 Material UI 的 Angular 前端框架，后端适配 Drupal，提供优秀的数字创新体验。',
+      body: '很抱歉，您请求的页面可能已经被移除、更改名称或暂时无法使用。在查找更多信息之前，您可以尝试以下操作：<ul class="list-done"><li>检查您输入的URL是否正确</li><li>在浏览器中清除缓存和Cookie</li><li>尝试在不同的浏览器或设备上打开页面</li></ul><p>我们非常感谢您对我们的关注和理解，我们会尽快解决问题并让我们的页面再次正常工作。</p>',
     },
     actions: [
       {
-        label: '返回',
-        href: '/',
-        style: 'style-v1',
-        icon: 'open_in_new',
-      },
-      {
-        label: '回到主页',
-        href: '/',
+        label: '回到首页',
+        href: '/home',
         style: 'style-v1',
         icon: 'open_in_new',
       },

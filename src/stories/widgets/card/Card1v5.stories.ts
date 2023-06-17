@@ -34,12 +34,12 @@ export const StepFirst = Template.bind({});
 StepFirst.args = {
   content: {
     type: 'card-1v5',
-    title: 'Discuss The Project',
-    body: "The most well-known dummy text is the 'Lorem Ipsum', which is said to have originated in the 16th century.",
+    title: '讨论 Builder 架构',
+    body: '讨论未来的发展方向和基础架构，是否可以融入 AI 生成相应的内容，为用户提供优秀的数字创新体验。',
     more: {
       href: '/node/1',
       target: '_blank',
-      label: 'Read more',
+      label: '查看更多',
     },
     footer: {
       label: 'Step 01.',
@@ -54,12 +54,12 @@ export const StepEnd = Template.bind({});
 StepEnd.args = {
   content: {
     type: 'card-1v5',
-    title: 'Discuss The Project',
-    body: "The most well-known dummy text is the 'Lorem Ipsum', which is said to have originated in the 16th century.",
+    title: '讨论支持多语言',
+    body: '前端框架如何支持多语言，要同时考虑界面多语言的翻译和数据内容多语言的翻译问题。',
     more: {
       href: '/node/1',
       target: '_blank',
-      label: 'Read more',
+      label: '查看更多',
     },
     footer: {
       label: 'Step 03.',

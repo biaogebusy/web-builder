@@ -35,13 +35,13 @@ Default.args = {
   content: {
     title: {
       classes: 'text-primary',
-      label: 'FREE',
+      label: '免费',
     },
     type: 'card-1v6',
-    prefix: '$',
+    prefix: '¥',
     number: '79',
-    suffix: '/mo',
-    body: '<ul class="list-done"><li>Full Access</li><li>Enhanced Security</li><li>Source Files</li><li>1 Domain Free</li><li>Free Installment</li></ul>',
+    suffix: '/月',
+    body: '<ul class="list-done"><li>完全开放</li><li>安全检测机制</li><li>高质量交付源码文件</li><li>免费一个域名绑定</li><li>二十四小时免费技术支持</li></ul>',
     actionsAlign: 'start center',
     actions: [
       {
@@ -53,7 +53,7 @@ Default.args = {
       },
       {
         type: 'btn-animate',
-        label: 'Buy Now',
+        label: '立刻购买',
         href: '#',
         style: 'style-v1',
         icon: 'open_in_new',

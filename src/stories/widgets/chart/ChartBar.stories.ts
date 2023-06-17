@@ -86,19 +86,19 @@ Bar.args = {
       source: [
         ['红包预算', '2020', '2021', '2022'],
         [
-          '大额红包',
+          '第一季度',
           random(3000, 10000),
           random(3000, 10000),
           random(3000, 10000),
         ],
         [
-          '小额红包',
+          '第二季度',
           random(3000, 10000),
           random(3000, 10000),
           random(3000, 10000),
         ],
         [
-          '推广费用',
+          '第三季度',
           random(3000, 10000),
           random(3000, 10000),
           random(3000, 10000),
@@ -122,10 +122,10 @@ SingleSelected.args = {
     ...Bar.args.content,
     legend: {
       selected: {
-        红包预算: true,
-        大额红包: false,
-        小额红包: false,
-        推广费用: false,
+        预算: true,
+        第一季度: false,
+        第二季度: false,
+        第三季度: false,
       },
       selectedMode: 'single',
     },

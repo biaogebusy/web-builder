@@ -1,5 +1,5 @@
-<div class="not-found text-center p-y container" *ngIf="content">
-  <div fxLayout="row wrap" fxLayoutAlign="center center">
+<div class="not-found p-y container" *ngIf="content" fxLayoutAlign="center center">
+  <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex.lt-md="100%" fxFlex.gt-sm="800px">
     <app-img fxFlex="80" [content]="content.img" *ngIf="content.img"></app-img>
     <app-title fxFlex="100" [content]="content.title" *ngIf="content.title"></app-title>
     <app-text fxFlex="100" [content]="content.text" *ngIf="content.text"></app-text>
