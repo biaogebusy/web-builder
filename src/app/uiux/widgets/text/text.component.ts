@@ -8,8 +8,6 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import type { IBtn } from '@core/interface/widgets/IBtn';
 import type { IText } from '@core/interface/widgets/IText';
 import { ScreenService } from '@core/service/screen.service';
@@ -17,6 +15,8 @@ import { CORE_CONFIG } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { ContentState } from '@core/state/ContentState';
 import { BuilderState } from '@core/state/BuilderState';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 @Component({
   selector: 'app-text',
@@ -63,7 +63,7 @@ export class TextComponent implements OnInit, AfterViewInit {
     }
   }
 
-  showAnimate(debug?: any): void {
+  showAnimate(debug = false): void {
     const title: Element = this.title?.nativeElement;
     const body: Element = this.body?.nativeElement;
     const list: Element = this.list?.nativeElement;
@@ -75,7 +75,7 @@ export class TextComponent implements OnInit, AfterViewInit {
       scrollTrigger: {
         id: `text-${this.content.title?.label.slice(0, 4)}-${Date.now()}`,
         trigger: this.inner?.nativeElement,
-        markers: true,
+        markers: debug,
         scrub: this.content?.animate?.scrub || false, // 滚动一次动画就对应更新，细粒度控制，适合根据鼠标滚动精细变化
         toggleActions: 'play none none none', // onEnter, onLeave, onEnterBack, and onLeaveBack
       },

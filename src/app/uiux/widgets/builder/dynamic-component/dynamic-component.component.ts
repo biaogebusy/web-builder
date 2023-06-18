@@ -132,7 +132,7 @@ export class DynamicComponentComponent
         .pipe(takeUntil(this.destroy$))
         .subscribe((debug) => {
           if (instance.showAnimate) {
-            this.showAnimate(debug);
+            instance.showAnimate(debug);
           }
         });
     }

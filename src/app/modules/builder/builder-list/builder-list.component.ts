@@ -7,6 +7,7 @@ import {
   EventEmitter,
   Inject,
   Input,
+  OnDestroy,
   OnInit,
   Output,
   ViewChild,
@@ -19,12 +20,13 @@ import { map } from 'lodash-es';
   templateUrl: './builder-list.component.html',
   styleUrls: ['./builder-list.component.scss'],
 })
-export class BuilderListComponent implements OnInit, AfterViewInit {
+export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() content: any;
   @Input() isPreview: boolean;
   @Output() dropChange: EventEmitter<CdkDragDrop<string[]>> =
     new EventEmitter();
   @ViewChild('builderList', { static: false }) builderList: ElementRef;
+  markers: NodeListOf<Element>;
   constructor(
     public builder: BuilderState,
     @Inject(DOCUMENT) private doc: Document
@@ -42,9 +44,16 @@ export class BuilderListComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     setTimeout(() => {
-      map(this.doc.querySelectorAll('div[class^="gsap-marker"]'), (marker) => {
+      this.markers = this.doc.querySelectorAll('div[class^="gsap-marker"]');
+      map(this.markers, (marker) => {
         this.builderList.nativeElement.append(marker);
       });
     }, 0);
+  }
+
+  ngOnDestroy(): void {
+    map(this.markers, (marker) => {
+      marker.remove();
+    });
   }
 }
