@@ -1,5 +1,6 @@
 .builder-list {
   display: block;
+  position: relative;
   height: calc(100% - 55px);
   overflow-y: auto;
   .component-item {

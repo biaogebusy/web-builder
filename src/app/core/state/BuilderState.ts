@@ -17,7 +17,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
 export class BuilderState {
   public builderContent$ = new Subject<IPage>();
   public showcase$: Subject<ICard1v1> = new Subject();
-  public animateDisable$ = new BehaviorSubject<boolean>(true);
+  public animateDisable$ = new Subject<boolean>();
   public toolbarDisable$ = new Subject<boolean>();
   public debugeAnimate$ = new Subject<boolean>();
   public jsoneditorContent$ = new Subject<{

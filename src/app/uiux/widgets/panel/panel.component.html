@@ -21,7 +21,7 @@
             <mat-icon *ngIf="item.icon">{{item.icon}}</mat-icon>
           </mat-panel-description>
         </mat-expansion-panel-header>
-        <app-dynamic-widgets *ngFor="let item of item.elements" [content]="item"></app-dynamic-widgets>
+        <app-dynamic-component *ngFor="let item of item.elements" [inputs]="{content:item}"></app-dynamic-component>
       </mat-expansion-panel>
     </mat-accordion>
   </div>
