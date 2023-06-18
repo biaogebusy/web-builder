@@ -6,5 +6,5 @@ export const environment: IEnvironment = {
   site: 'nnit',
   port: 4201,
   cache: true,
-  ssr: true,
+  ssr: false,
 };
