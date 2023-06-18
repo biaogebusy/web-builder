@@ -38,14 +38,14 @@ Default.args = {
   content: {
     type: 'showcase-3v3',
     title: {
-      label: '使用 DEVTOOLS 对 ANGULAR 前端应用性能分析优化',
+      label: 'Storybook 是什么？',
       href: '#',
     },
     spacer: 'none',
     date: '12/09/2022',
     commentCount: '2',
     category: 'Angular',
-    body: '使用 lighthouse 评分 以南宁IT派[www.nnitpai.com]为例记录分析优化过程，使用 Devtools lighthouse 对首页进行综合的评分： 性能评分勉强及格差强人意，切换到 performance 性能选项卡: 记录的同时，可以依次滚动页面到底部，暂',
+    body: 'Storybook是一个用于开发和展示UI组件的工具。它提供了一个独立的环境，开发人员可以在其中构建、测试和文档化单个UI组件，而无需依赖于整个应用程序的上下文。Storybook是一个用于开发和展示UI组件的工具。它提供了一个独立的环境，开发人员可以在其中构建、测试和文档化单个UI组件，而无需依赖于整个应用程序的上下文。通过Storybook，您可以以交互的方式在浏览器中浏览和测试组件，以确保它们在各种条件下的正确工作。此外，您还可以使用Storybook提供的插件和工具来模拟数据、测试组件的不同状态和交互，并生成自动化测试报告。Storybook是一个用于构建、展示和文档化UI组件的工具。',
     details: {
       label: '查看更多',
       href: '#',

@@ -43,11 +43,11 @@ Default.args = {
     spacer: 'md',
     text: {
       title: {
-        label: 'Drupal 数字创新',
+        label: 'Drupal 是如何数字创新的？',
         style: 'style-v1',
         classes: 'mat-display-1 text-light',
       },
-      body: '<p class="text-light text-center">Drupal 已经超越了传统的 Web概念，可以通过不同的渠道部署你的数据内容，从一个数据中心点到各个应用，从简单到复杂。</p>',
+      body: '<p class="text-light text-center">Drupal通过其灵活性、多功能性和可扩展性，为数字创新提供了强大的基础。它能够满足不同规模和需求的组织和企业的数字化转型和创新需求，并提供可靠、安全、高效的数字解决方案。</p>',
     },
     bg: {
       classes: 'bg-fill-width bg-shadow overlay overlay-80',
@@ -180,14 +180,14 @@ ContentBox.args = {
         width: '33.33',
         ratios: 'media-4-3',
         subTitle: {
-          label: '音乐',
+          label: '灵活的架构',
           href: '/search',
           queryParams: {
             law_category: 25,
           },
         },
         title: {
-          label: '音乐版权发行代理顾问服务',
+          label: '能够构建各种类型的数字解决方案',
           href: '/search',
           queryParams: {
             law_category: 25,
@@ -204,14 +204,14 @@ ContentBox.args = {
         width: '33.33',
         ratios: 'media-4-3',
         subTitle: {
-          label: '影视',
+          label: '多站点管理',
           href: '/search',
           queryParams: {
             law_category: 27,
           },
         },
         title: {
-          label: '影视项目投融资法律顾问，影视电视拍摄全程法律顾问',
+          label: '简化了多个网站的运维和维护工作',
           href: '/search',
           queryParams: {
             law_category: 27,
@@ -228,14 +228,14 @@ ContentBox.args = {
         width: '33.33',
         ratios: 'media-4-3',
         subTitle: {
-          label: '商务代言',
+          label: '多语言支持',
           href: '/search',
           queryParams: {
             law_category: 13,
           },
         },
         title: {
-          label: '电视影视作品联合拍摄、外资引进专项法律顾问',
+          label: '企业能够更好地面向全球市场进行本地化和国际化',
           href: '/search',
           queryParams: {
             law_category: 13,
@@ -252,14 +252,14 @@ ContentBox.args = {
         width: '25',
         ratios: 'media-4-3',
         subTitle: {
-          label: '直播',
+          label: '社交媒体集成',
           href: '/search',
           queryParams: {
             law_category: 28,
           },
         },
         title: {
-          label: '直播平台、电视台等媒体法律风险防控',
+          label: '增强用户参与度、推广品牌和提高网站的可见性',
           href: '/search',
           queryParams: {
             law_category: 28,
@@ -276,14 +276,14 @@ ContentBox.args = {
         width: '25',
         ratios: 'media-4-3',
         subTitle: {
-          label: '综艺',
+          label: '移动友好性',
           href: '/search',
           queryParams: {
             law_category: 35,
           },
         },
         title: {
-          label: '综艺作品内容法律风险审查与规避',
+          label: '能够更好地适应移动化的用户行为和需求',
           href: '/search',
           queryParams: {
             law_category: 35,
@@ -300,14 +300,14 @@ ContentBox.args = {
         width: '25',
         ratios: 'media-4-3',
         subTitle: {
-          label: '经济合同',
+          label: '数据分析和个性化',
           href: '/search',
           queryParams: {
             law_category: 36,
           },
         },
         title: {
-          label: '项目投融资法律顾问',
+          label: '根据用户的兴趣和偏好提供个性化的内容和体验',
           href: '/search',
           queryParams: {
             law_category: 25,
@@ -324,14 +324,15 @@ ContentBox.args = {
         width: '25',
         ratios: 'media-4-3',
         subTitle: {
-          label: '维权与公关',
+          label: '安全和稳定性',
           href: '/search',
           queryParams: {
             law_category: 37,
           },
         },
         title: {
-          label: '明星艺人/演员/模特/网红经纪法律服务',
+          label:
+            '它的安全记录和稳定性得到了业界的认可，为企业提供了可信赖的数字平台',
           href: '/search',
           queryParams: {
             law_category: 37,

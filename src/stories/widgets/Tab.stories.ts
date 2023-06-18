@@ -37,7 +37,7 @@ Default.args = {
     type: 'tab',
     text: {
       title: {
-        label: '为什么你将会喜欢信使？',
+        label: '为什么你将会喜欢 Drupal？',
         style: 'style-v4',
       },
     },
@@ -138,7 +138,7 @@ Align.args = {
     type: 'tab',
     text: {
       title: {
-        label: '为什么你将会喜欢信使？',
+        label: '为什么你将会喜欢 Drupal？',
         style: 'style-v4',
       },
     },

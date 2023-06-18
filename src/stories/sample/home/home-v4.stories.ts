@@ -349,7 +349,7 @@ const content = of({
     {
       type: 'showcase-1v3',
       title: {
-        label: '为什么你将会喜欢信使？',
+        label: '为什么你将会喜欢 Drupal？',
         style: 'style-v1',
         classes: 'mat-display-1',
       },

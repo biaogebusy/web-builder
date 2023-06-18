@@ -79,7 +79,7 @@ Order.args = {
     elements: [
       {
         title: {
-          label: '订单数据',
+          label: '内容发布量',
         },
         row: '12',
         params: {
@@ -123,7 +123,7 @@ Order.args = {
           dataset: [
             {
               source: [
-                ['name', '用户'],
+                ['name', '内容'],
                 ['1月', random(10, 100)],
                 ['2月', random(10, 100)],
                 ['3月', random(10, 100)],
@@ -168,7 +168,7 @@ Order.args = {
         row: '3',
         widget: {
           type: 'chart-box',
-          label: '合同',
+          label: '文章数',
           count: '25',
           params: {
             api: '/api/v3/xxx',
@@ -191,7 +191,7 @@ Order.args = {
             dataset: [
               {
                 source: [
-                  ['name', '用户'],
+                  ['name', '文章数'],
                   ['1月', random(10, 100)],
                   ['2月', random(10, 100)],
                   ['3月', random(10, 100)],
@@ -232,7 +232,7 @@ Order.args = {
         row: '3',
         widget: {
           type: 'chart-box',
-          label: '咨询',
+          label: '审核数',
           count: '36',
           params: {
             api: '/api/v3/node/vote/report',
@@ -255,7 +255,7 @@ Order.args = {
             dataset: [
               {
                 source: [
-                  ['name', '用户'],
+                  ['name', '审核数'],
                   ['1月', random(10, 100)],
                   ['2月', random(10, 100)],
                   ['3月', random(10, 100)],
@@ -296,7 +296,7 @@ Order.args = {
         row: '3',
         widget: {
           type: 'chart-box',
-          label: '案件',
+          label: '用户数',
           count: '12',
           params: {
             api: '/api/v3/node/vote/report',
@@ -360,7 +360,7 @@ Order.args = {
         row: '3',
         widget: {
           type: 'chart-box',
-          label: '工时',
+          label: '评论数',
           count: '456',
           params: {
             api: '/api/v3/node/vote/report',
@@ -422,7 +422,7 @@ Order.args = {
       },
       {
         title: {
-          label: '最新案件',
+          label: '最新文章',
         },
         params: {
           api: '/api/v3/xxx',
@@ -436,64 +436,64 @@ Order.args = {
               key: 'title',
             },
             {
-              label: '客户',
+              label: '分类',
               key: 'custom',
             },
             {
-              label: '经办人',
+              label: '作者',
               key: 'hander',
             },
             {
-              label: '阶段',
+              label: '状态',
               key: 'type',
             },
             {
-              label: '业务时间',
+              label: '创建时间',
               key: 'date',
             },
           ],
           elements: [
             {
-              title: '<a href="#">质保金案件</a>',
-              custom: '新能源公司',
-              hander: '张三',
-              type: '一审立案完成',
-              date: '2023/03/29',
+              title: '<a href="#">探索机器学习的前沿技术</a>',
+              custom: '人工智能',
+              hander: '张华',
+              type: '已审核',
+              date: '2023/04/08',
             },
             {
-              title: '<a href="#">赠与合同纠纷</a>',
-              custom: '云城租赁',
-              hander: '李四',
-              type: '二审立案完成',
-              date: '2022/09/26',
+              title: '<a href="#">未来的可持续能源解决方案</a>',
+              custom: '环境科学',
+              hander: '李明',
+              type: '待审核',
+              date: '2023/04/7',
             },
             {
-              title: '<a href="#">仲裁案</a>',
-              custom: '建工集团',
-              hander: '王五',
-              type: '一审开庭确认',
-              date: '2023/03/12',
+              title: '<a href="#">瑜伽与身心健康的关系探究</a>',
+              custom: '健康与健身',
+              hander: '王琳',
+              type: '已审核',
+              date: '2023/04/7',
             },
             {
-              title: '<a href="#">执行异议</a>',
-              custom: '劳务租赁',
-              hander: '张三',
-              type: '一审立案准备',
-              date: '2023/02/21',
+              title: '<a href="#">最新的前端开发趋势与技术</a>',
+              custom: '技术与编程',
+              hander: '刘强',
+              type: '已审核',
+              date: '2023/04/03',
             },
             {
-              title: '<a href="#">工程施工合同</a>',
-              custom: '工程集团',
-              hander: '张三',
-              type: '一审判决完成',
-              date: '2023/02/17',
+              title: '<a href="#">未来智能家居的发展趋势与挑战</a>',
+              custom: '科技与创新',
+              hander: '陈晓阳',
+              type: '待审核',
+              date: '2023/04/03',
             },
           ],
         },
       },
       {
         title: {
-          label: '最新订单',
+          label: '最新审批',
         },
         params: {
           apiBak: '/api/v3/xxx',
@@ -507,7 +507,7 @@ Order.args = {
               key: 'title',
             },
             {
-              label: '客户',
+              label: '部门',
               key: 'custom',
             },
             {
@@ -525,38 +525,38 @@ Order.args = {
           ],
           elements: [
             {
-              title: '<a href="#">二日游合同</a>',
-              custom: '药审中心',
-              hander: '张三',
-              type: '合同审查',
+              title: '<a href="#">年度预算审批</a>',
+              custom: '财务部',
+              hander: '张华',
+              type: '财务审批',
               date: '2023/04/08',
             },
             {
-              title: '<a href="#">疗休养合同</a>',
-              custom: '检验研究院',
-              hander: '李四',
-              type: '合同审查',
+              title: '<a href="#">新员工入职申请</a>',
+              custom: '人力资源部',
+              hander: '李明',
+              type: '人事审批',
               date: '2023/04/7',
             },
             {
-              title: '<a href="#">保密协议</a>',
-              custom: '长三角分中心',
-              hander: '王五',
-              type: '法律咨询',
+              title: '<a href="#">项目变更申请</a>',
+              custom: '项目管理办公室',
+              hander: '王琳',
+              type: '项目审批',
               date: '2023/04/7',
             },
             {
-              title: '<a href="#">设备采购合同审批</a>',
-              custom: '检验研究院',
-              hander: '张三',
-              type: '合同审查',
+              title: '<a href="#">采购订单审批</a>',
+              custom: '采购部',
+              hander: '刘强',
+              type: '采购审批',
               date: '2023/04/03',
             },
             {
-              title: '<a href="#">封面设计合同</a>',
-              custom: '药检院',
-              hander: '张三',
-              type: '制度修改',
+              title: '<a href="#">请假申请</a>',
+              custom: '行政部',
+              hander: '陈晓阳',
+              type: '行政审批',
               date: '2023/04/03',
             },
           ],

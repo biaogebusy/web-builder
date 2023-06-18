@@ -95,11 +95,11 @@ Img.args = {
     spacer: 'lg',
     text: {
       title: {
-        label: 'See everything about your Landrick',
+        label: 'Storybook 是如何流行于前端开发测试的',
         style: 'style-v1',
         classes: 'mat-display-1',
       },
-      body: '<p class="text-center">Start working with Landrick that can provide everything you need to generate awareness, drive traffic, connect.</p>',
+      body: '<p class="text-center">通过Storybook，您可以以交互的方式在浏览器中浏览和测试组件，以确保它们在各种条件下的正确工作。</p>',
     },
     paramsBak: {
       api: 'api/v1/tab/order_process_statistics',
@@ -110,40 +110,40 @@ Img.args = {
           src: '/assets/images/svg/Asset187.svg',
         },
         digit: {
-          value: random(50, 100),
-          label: '%',
+          value: random(20, 60),
+          label: 'M',
         },
-        title: 'Happy Client',
+        title: 'Github Start',
       },
       {
         img: {
           src: '/assets/images/svg/Asset189.svg',
         },
         digit: {
-          value: random(100, 500),
+          value: random(10000, 50000),
           label: '+',
         },
-        title: 'Awards',
+        title: 'NPM 周下载量',
       },
       {
         img: {
           src: '/assets/images/svg/Asset190.svg',
         },
         digit: {
-          value: random(10, 300),
+          value: random(2000, 4300),
           label: 'K',
         },
-        title: 'Job Placement',
+        title: '社区活跃',
       },
       {
         img: {
           src: '/assets/images/svg/Asset192.svg',
         },
         digit: {
-          value: random(60, 100),
-          label: '%',
+          value: random(500, 1000),
+          label: '个',
         },
-        title: 'Project Complete',
+        title: '成功故事',
       },
     ],
   },

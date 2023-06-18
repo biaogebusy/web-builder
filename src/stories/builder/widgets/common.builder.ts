@@ -1,6 +1,5 @@
 import * as iframeStory from '@stories/widgets/Iframe.stories';
 import * as lightboxStory from '@stories/widgets/InlineLightbox.stories';
-import * as locationStory from '@stories/components/map/location.stories';
 import * as shapeStory from '@stories/widgets/Shape.stories';
 import * as stepperStory from '@stories/widgets/Stepper.stories';
 import * as swiperStory from '@stories/widgets/Swiper.stories';
@@ -17,10 +16,6 @@ const {
 const {
   Default: { args: lightbox },
 } = lightboxStory;
-
-const {
-  Default: { args: location },
-} = locationStory;
 
 const {
   Default: { args: shape },
@@ -60,13 +55,6 @@ export const common = [
       svg: 'view-array-outline',
     },
     ...swiper,
-  },
-  {
-    label: 'Map',
-    icon: {
-      svg: 'map-marker',
-    },
-    ...location,
   },
   {
     label: '形状',

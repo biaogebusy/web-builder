@@ -40,7 +40,7 @@ Default.args = {
   content: {
     type: 'list-2v1',
     title: {
-      label: 'Latest Articles',
+      label: '最新文章',
       style: 'style-v4',
       classes: 'mat-display-1',
     },
@@ -48,7 +48,7 @@ Default.args = {
       apiBak: '/api/v2/xxx',
     },
     more: {
-      label: 'More Articles',
+      label: '查看更多',
       href: '#',
       mode: 'raised',
       color: 'primary',
@@ -56,39 +56,37 @@ Default.args = {
     elements: [
       {
         link: {
-          label:
-            'Cancer Biomarkers: Paving the Way for Better Lung Cancer Treatment',
+          label: 'ChartGPT：开启自动生成数据可视化的新时代',
           href: '#',
         },
-        subTitle: 'Science & Innovation',
-        body: 'Advancements with cancer biomarkers are paving the way for better lung cancer treatments and personalization for patients.',
+        subTitle: '人工智能与数据科学',
+        body: '探索ChartGPT，一种基于生成模型的技术，它能够自动从数据中生成精美的数据可视化图表。本文介绍了ChartGPT的工作原理、应用场景和潜在的影响，展示了它在数据分析和可视化领域的巨大潜力。',
         img: {
-          src: '/assets/images/medical/showcase-03.jpg',
+          src: '/assets/images/16-9/business-06.jpg',
           alt: '',
         },
       },
       {
         link: {
-          label: 'Maternal Immunization: Protecting Children from RSV and GBS',
+          label: 'ChartGPT vs. 传统数据可视化工具：新老对决',
           href: '#',
         },
-        subTitle: 'Science & Innovation',
-        body: 'Scientists at the forefront of fetal health innovation are studying ways that vaccines given during pregnancy can continue to protect children in the months after birth.',
+        subTitle: '技术比较与评估',
+        body: 'ChartGPT作为一种新兴的数据可视化技术，与传统的数据可视化工具展开竞争。本文比较了ChartGPT与传统工具在可视化质量、自动化程度和用户体验等方面的异同，并探讨了它们在不同场景下的适用性和优劣势。',
         img: {
-          src: '/assets/images/medical/showcase-04.jpg',
+          src: '/assets/images/16-9/business-07.jpg',
           alt: '',
         },
       },
       {
         link: {
-          label:
-            'Pfizer’s Biopharma Global Chief Marketing Officer Drew Panayiotou is ‘Radically Obsessed’ with Listening to Patients',
+          label: 'ChartGPT应用实践：数据洞察的新探索',
           href: '#',
         },
-        subTitle: 'Real People',
-        body: "For Pfizer's Biopharma Global Chief Marketing Officer Drew Panayiotou, working at Pfizer comes with an enormous perk. The potential to change the world.",
+        subTitle: '数据分析与应用',
+        body: '通过实际案例，本文展示了ChartGPT在数据洞察和决策支持方面的应用实践。从金融、市场营销到医疗健康，ChartGPT为数据分析师和决策者提供了一种创新的工具，帮助他们从海量数据中发现有价值的见解，并做出更准确的决策。',
         img: {
-          src: '/assets/images/medical/showcase-05.jpg',
+          src: '/assets/images/16-9/business-13.jpg',
           alt: '',
         },
       },

@@ -33,7 +33,7 @@ Default.args = {
   content: {
     type: 'showcase-3v4',
     title: {
-      label: '为什么你将会喜欢信使？',
+      label: '为什么你将会喜欢这个前端框架？',
       style: 'style-v1',
     },
     bg: {

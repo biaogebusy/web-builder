@@ -35,7 +35,7 @@ const Template: Story = (args) => ({
   },
 });
 export const Default = Template.bind({});
-Default.storyName = '组件市场';
+Default.storyName = '页面构建器';
 Default.args = {
   components: components,
   widgets: widgets,

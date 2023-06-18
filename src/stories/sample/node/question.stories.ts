@@ -38,8 +38,8 @@ export const Default = Template.bind({});
 Default.args = {
   content: {
     type: 'question',
-    title: '前端 Angular 应用中如何使用 Dialog 动态加载组件？',
-    body: '并且 Dialog 有 Actions,如何能在 action 触发时，其他组件能够订阅到数据。',
+    title: '作为一个前端开发人员，如何让自己保持学习的热忱并坚持下去？',
+    body: '前端技术不断更迭，日新月异，如何保持学习的心态。',
     topic: [],
     params: {
       comment: {
@@ -81,13 +81,9 @@ Default.args = {
 Default.play = async () => {
   await sleep(2000);
   const Form = document.querySelectorAll('.ql-editor')[0];
-  await userEvent.type(
-    Form,
-    '面试官有时候往往就代表着这家公司或者这个技术团队的“氛围”，是不是坑人就多察言观色，面试的双方平等的。',
-    {
-      delay: 100,
-    }
-  );
+  await userEvent.type(Form, '找到自己的动力和目标', {
+    delay: 100,
+  });
 
   await sleep(2000);
   const Submit = screen.getByText('发布回答');

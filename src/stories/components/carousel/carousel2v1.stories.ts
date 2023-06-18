@@ -27,7 +27,7 @@ Default.args = {
   content: {
     type: 'carousel-2v1',
     title: {
-      label: 'WHAT THEY SAY ABOUT ME',
+      label: '用户是如何评价 Storybook',
       style: 'style-v1',
     },
     bg: {
@@ -56,7 +56,7 @@ Default.args = {
             src: '/assets/images/client1.jpeg',
             alt: '',
           },
-          body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. ',
+          body: 'Storybook是一个开发工具和UI组件库，用于构建、测试和文档化可复用的UI组件。它提供了一个独立于主应用程序的环境，让开发者能够以隔离的方式开发和调试组件。',
         },
         {
           type: 'testimonial',
@@ -67,7 +67,7 @@ Default.args = {
             src: '/assets/images/client2.jpeg',
             alt: '',
           },
-          body: 'Drupal 已经超越了传统的 Web概念，可以通过不同的渠道部署你的数据内容，从一个数据中心点到各个应用，从简单到复杂。 ',
+          body: 'Storybook是我们团队的救星！它使我们能够独立地开发、测试和文档化组件，大大提高了我们的工作效率。非常好用！',
         },
         {
           type: 'testimonial',
@@ -78,7 +78,7 @@ Default.args = {
             src: '/assets/images/client3.jpeg',
             alt: '',
           },
-          body: 'Sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. ',
+          body: '使用Storybook后，我们的组件开发变得更加高效和可靠。它帮助我们定义多个使用场景，清晰地展示组件在各种情景下的表现。我们团队对它赞不绝口！ ',
         },
         {
           type: 'testimonial',
@@ -89,7 +89,7 @@ Default.args = {
             src: '/assets/images/client4.jpeg',
             alt: '',
           },
-          body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. ',
+          body: 'Storybook为我们的团队带来了极大的协作效益。它提供了一个集中查看和交流的平台，团队成员可以轻松共享和讨论组件。无疑是一个必备工具！ ',
         },
       ],
     },

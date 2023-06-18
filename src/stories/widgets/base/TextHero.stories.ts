@@ -32,7 +32,7 @@ Base.args = {
     },
     text: {
       title: {
-        label: '为什么你将会喜欢信使？',
+        label: '为所有开发者、所有应用场景而设计',
         style: 'style-v4',
         classes: 'mat-display-2 bold',
       },
@@ -41,11 +41,11 @@ Base.args = {
       bg: {
         classes: 'bg-shadow overlay overlay-20',
         img: {
-          src: '/assets/images/hero/1-3.jpg',
+          src: '/assets/images/16-9/nature-08.jpg',
           hostClasses: '',
         },
       },
-      body: '<p>为了抵御安全漏洞，将有一组团队解决并发布安全修补程序，超过45000名贡献者使该平台成为市场上最安全、最稳定的平台之一</p>',
+      body: '<p>Storybook是一个面向UI组件开发的工具，它提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。它的目标是提高开发效率、组件质量和团队协作，是一个广泛应用于前端开发的工具。</p>',
       actionsAlign: 'start center',
       actions: [
         {
