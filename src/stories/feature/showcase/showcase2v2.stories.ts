@@ -33,11 +33,11 @@ Default.args = {
     type: 'showcase-2v2',
     text: {
       title: {
-        label: 'Xinshi Product List',
+        label: '本年度<strong class="text-primary">艺术作品</strong>代表作',
         style: 'style-v1',
-        classes: 'mat-display-0 bold',
+        classes: 'mat-display-3 bold',
       },
-      body: '<p class="text-center">Wlecome share your story!</p>',
+      body: '<p class="text-center">突破传统的艺术边界，展示前卫和创新的艺术作品</p>',
     },
     row: '4',
     elements: [
@@ -80,9 +80,9 @@ Default.args = {
         },
         link: {
           href: '/node/1',
-          label: 'FLAT LOGO DESIGN',
+          label: '《绝望之境》',
         },
-        body: '<ul><li>Stylish Desige</li><li>4 Airflow Options</li><li>Type-C Charging</li></ul>',
+        body: '展现了作者内心深处的黑暗情绪，让观者深陷其中，感受到无尽的绝望与孤独。',
       },
       {
         carousel: {
@@ -111,9 +111,9 @@ Default.args = {
         },
         link: {
           href: '/node/1',
-          label: 'FLAT LOGO DESIGN',
+          label: '《色彩之舞》',
         },
-        body: '<ul class="list-done"><li>Stylish Desige</li><li>4 Airflow Options</li><li>Type-C Charging</li></ul>',
+        body: '如同一幅绚丽的画卷，色彩的交织与流动呈现出动感和活力，令人心旷神怡。',
       },
       {
         carousel: {
@@ -142,9 +142,9 @@ Default.args = {
         },
         link: {
           href: '/node/1',
-          label: 'FLAT LOGO DESIGN',
+          label: '《时间的拥抱》',
         },
-        body: '<ul class="list-done"><li>Stylish Desige</li><li>4 Airflow Options</li><li>Type-C Charging</li></ul>',
+        body: '将时间的概念与人类情感相融合，通过流动的线条和温暖的色调传递出对美好回忆的珍视与怀念。',
       },
       {
         carousel: {
@@ -173,83 +173,9 @@ Default.args = {
         },
         link: {
           href: '/node/1',
-          label: 'FLAT LOGO DESIGN',
+          label: '《自由的翅膀》',
         },
-        body: '<ul class="list-done"><li>Stylish Desige</li><li>4 Airflow Options</li><li>Type-C Charging</li></ul>',
-      },
-      {
-        carousel: {
-          params: {
-            slidesPerView: 1,
-            navigation: false,
-            autoplay: {
-              delay: 5000,
-            },
-            breakpoints: null,
-          },
-          elements: [
-            {
-              type: 'feature-box',
-              fullIcon: 'fullscreen',
-              openIcon: 'open_in_new',
-              link: '#',
-              ratios: 'media-140',
-              img: {
-                classes: 'object-fit',
-                src: '/assets/images/cases/porto6.jpg',
-                alt: 'lazyload',
-              },
-            },
-            {
-              type: 'feature-box',
-              fullIcon: 'fullscreen',
-              openIcon: 'open_in_new',
-              link: '#',
-              ratios: 'media-140',
-              img: {
-                classes: 'object-fit',
-                src: '/assets/images/cases/porto7.jpg',
-                alt: 'lazyload',
-              },
-            },
-          ],
-        },
-        link: {
-          href: '/node/1',
-          label: 'FLAT LOGO DESIGN',
-        },
-        body: '<ul><li>Stylish Desige</li><li>4 Airflow Options</li><li>Type-C Charging</li></ul>',
-      },
-      {
-        carousel: {
-          params: {
-            slidesPerView: 1,
-            navigation: false,
-            autoplay: {
-              delay: 5000,
-            },
-            breakpoints: null,
-          },
-          elements: [
-            {
-              type: 'feature-box',
-              fullIcon: 'fullscreen',
-              openIcon: 'open_in_new',
-              link: '#',
-              ratios: 'media-140',
-              img: {
-                classes: 'object-fit',
-                src: '/assets/images/cases/porto8.jpg',
-                alt: 'lazyload',
-              },
-            },
-          ],
-        },
-        link: {
-          href: '/node/1',
-          label: 'FLAT LOGO DESIGN',
-        },
-        body: '<ul class="list-done"><li>Stylish Desige</li><li>4 Airflow Options</li><li>Type-C Charging</li></ul>',
+        body: '象征着无拘束和追求自由的欲望，作品中的动感线条和飞扬的形态让人感受到自由的力量与憧憬。',
       },
     ],
   },

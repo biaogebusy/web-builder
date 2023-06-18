@@ -359,119 +359,82 @@
         ]
       },
       {
-        "id": "",
-        "spacer": "xl",
-        "type": "showcase-3v9",
+        "type": "showcase-3v2",
+        "classes": "",
         "bg": {
           "classes": "bg-fill-width",
           "img": {
-            "src": "/assets/images/bg/bg-01.png"
+            "hostClasses": "",
+            "src": "/assets/images/bg/home-shape.png",
+            "mobile": "/assets/images/bg/home-shape.png"
           }
         },
-        "order": {
-          "left": 0,
-          "right": 1
-        },
-        "left": [
+        "elements": [
           {
-            "type": "img",
-            "src": "/assets/images/svg/vscode.svg"
-          }
-        ],
-        "right": [
-          {
-            "type": "text",
-            "spacer": "sm",
-            "title": {
-              "label": "组件驱动开发",
-              "style": "style-v4",
-              "classes": "mat-display-2"
+            "img": {
+              "src": "/assets/images/svg/vscode.svg",
+              "alt": ""
             },
-            "body": "<strong class=\"text-primary\">Storybook</strong> 采用了组件驱动开发的方法，即将UI组件作为开发的核心单元。<ul class=\"list-done\">\r\n\t<li>为每个UI组件创建\"stories\"</li>\r\n\t<li>描述组件在不同状态和交互方式下的行为和外观</li>\r\n\t<li>提高组件的可重用性和可测试性</li>\r\n</ul>\r\n",
-            "actions": [
-              {
-                "href": "#",
-                "label": "马上体验"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "id": "",
-        "spacer": "xl",
-        "type": "showcase-3v9",
-        "bg": {
-          "classes": "bg-fill-width",
-          "img": {
-            "src": "/assets/images/bg/bg-02.png"
-          }
-        },
-        "order": {
-          "left": 1,
-          "right": 0
-        },
-        "left": [
+            "content": {
+              "type": "text",
+              "spacer": "sm",
+              "title": {
+                "label": "组件驱动开发",
+                "style": "style-v4",
+                "classes": "mat-display-2"
+              },
+              "body": "<strong class=\"text-primary\">Storybook</strong> 采用了组件驱动开发的方法，即将UI组件作为开发的核心单元。<ul class=\"list-done\">\r\n\t<li>为每个UI组件创建\"stories\"</li>\r\n\t<li>描述组件在不同状态和交互方式下的行为和外观</li>\r\n\t<li>提高组件的可重用性和可测试性</li>\r\n</ul>\r\n",
+              "actions": [
+                {
+                  "href": "#",
+                  "label": "马上体验"
+                }
+              ]
+            }
+          },
           {
-            "type": "img",
-            "src": "/assets/images/svg/storybook-mock-ui.svg"
-          }
-        ],
-        "right": [
-          {
-            "type": "text",
-            "spacer": "sm",
-            "title": {
-              "label": "组件展示和测试",
-              "style": "style-v4",
-              "classes": "mat-display-2"
+            "img": {
+              "src": "/assets/images/svg/storybook-mock-ui.svg",
+              "alt": ""
             },
-            "body": "<strong class=\"text-primary\">Storybook</strong> 提供了一个交互式的界面，用于展示和测试UI组件。开发人员可以在浏览器中浏览和交互组件，以便检查其外观和行为，并确保它们在各种条件下正常工作。这有助于加快开发迭代周期，提高组件的质量。",
-            "actions": [
-              {
-                "href": "#",
-                "label": "马上体验"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "id": "",
-        "spacer": "xl",
-        "type": "showcase-3v9",
-        "bg": {
-          "classes": "bg-fill-width",
-          "img": {
-            "src": "/assets/images/bg/bg-01.png"
-          }
-        },
-        "order": {
-          "left": 0,
-          "right": 1
-        },
-        "left": [
+            "content": {
+              "type": "text",
+              "spacer": "sm",
+              "title": {
+                "label": "组件展示和测试",
+                "style": "style-v4",
+                "classes": "mat-display-2"
+              },
+              "body": "<strong class=\"text-primary\">Storybook</strong> 提供了一个交互式的界面，用于展示和测试UI组件。开发人员可以在浏览器中浏览和交互组件，以便检查其外观和行为，并确保它们在各种条件下正常工作。这有助于加快开发迭代周期，提高组件的质量。",
+              "actions": [
+                {
+                  "href": "#",
+                  "label": "马上体验"
+                }
+              ]
+            }
+          },
           {
-            "type": "img",
-            "src": "/assets/images/svg/monday-com.webp"
-          }
-        ],
-        "right": [
-          {
-            "type": "text",
-            "spacer": "sm",
-            "title": {
-              "label": "文档化",
-              "style": "style-v4",
-              "classes": "mat-display-2"
+            "img": {
+              "src": "/assets/images/svg/monday-com.webp",
+              "alt": ""
             },
-            "body": "<strong class=\"text-primary\">Storybook</strong> 不仅可以展示和测试组件，还可以自动生成组件的文档。<ul class=\"list-done\">\r\n\t<li>使用Markdown或其他文档格式编写组件文档，并将其与组件关联</li>\r\n\t<li>团队成员可以更好地理解和使用组件，减少了沟通成本</li></ul>\r\n",
-            "actions": [
-              {
-                "href": "#",
-                "label": "马上体验"
-              }
-            ]
+            "content": {
+              "type": "text",
+              "spacer": "sm",
+              "title": {
+                "label": "文档化",
+                "style": "style-v4",
+                "classes": "mat-display-2"
+              },
+              "body": "<strong class=\"text-primary\">Storybook</strong> 不仅可以展示和测试组件，还可以自动生成组件的文档。<ul class=\"list-done\">\r\n\t<li>使用Markdown或其他文档格式编写组件文档，并将其与组件关联</li>\r\n\t<li>团队成员可以更好地理解和使用组件，减少了沟通成本</li></ul>\r\n",
+              "actions": [
+                {
+                  "href": "#",
+                  "label": "马上体验"
+                }
+              ]
+            }
           }
         ]
       },

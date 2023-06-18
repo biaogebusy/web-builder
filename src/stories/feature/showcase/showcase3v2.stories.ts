@@ -32,12 +32,13 @@ Default.args = {
   content: {
     type: 'showcase-3v2',
     title: {
-      label: '- ALD R&D Team -',
+      label:
+        '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
       style: 'style-v1',
-      classes: 'mat-display-1 bold',
+      classes: 'mat-display-3 bold',
     },
     subTitle:
-      'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren. ',
+      '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class="text-primary">Storybook</strong> 页面时添加组件到预览页面。 ',
     classes: '',
     bg: {
       classes: 'bg-fill-width',
@@ -50,156 +51,66 @@ Default.args = {
     elements: [
       {
         img: {
-          src: '/assets/images/illustration/24.png',
+          src: '/assets/images/svg/vscode.svg',
           alt: '',
         },
         content: {
+          type: 'text',
+          spacer: 'sm',
           title: {
-            label: 'The independent R&D elite team',
+            label: '组件驱动开发',
             style: 'style-v4',
-            classes: 'mat-display-1 bold',
+            classes: 'mat-display-2',
           },
-          body: 'Since its establishment, ALD has been focusing on the innovation of electronic atomization technology and product research and development. <ul class="list-done"><li>Now it has formed an independent R&D</li><li>elite team of more than 200 people</li><li>accounting for more than 80%</li></ul>',
+          body: '<strong class="text-primary">Storybook</strong> 采用了组件驱动开发的方法，即将UI组件作为开发的核心单元。<ul class="list-done">\r\n\t<li>为每个UI组件创建"stories"</li>\r\n\t<li>描述组件在不同状态和交互方式下的行为和外观</li>\r\n\t<li>提高组件的可重用性和可测试性</li>\r\n</ul>\r\n',
           actions: [
             {
-              type: 'btn-animate',
-              label: 'Read more',
               href: '#',
-              style: 'style-v1',
-              icon: 'open_in_new',
+              label: '马上体验',
             },
           ],
         },
       },
       {
         img: {
-          src: '/assets/images/illustration/25.png',
+          src: '/assets/images/svg/storybook-mock-ui.svg',
           alt: '',
         },
         content: {
+          type: 'text',
+          spacer: 'sm',
           title: {
-            label: 'Cooperation with Domestic Famous Universities',
+            label: '组件展示和测试',
             style: 'style-v4',
-            classes: 'mat-display-1 bold',
+            classes: 'mat-display-2',
           },
-          body: 'ALD established postdoctoral workstations in 2012, and then successively established cooperative relations with well-known universities and research institutions in China.',
-          lists: {
-            params: {
-              icon: true,
-            },
-            elements: [
-              {
-                type: 'link',
-                label: '使用 DevTools 对 Angular 前端应用性能分析',
-                href: '#',
-              },
-              {
-                type: 'link',
-                label: '使用 takeUntil 操作符管理 Angular 组件的订阅',
-                href: '#',
-              },
-              {
-                type: 'link',
-                label: '你应该了解的 Angular 最佳实践',
-                href: '#',
-              },
-              {
-                type: 'link',
-                label:
-                  'Jsona 一款转换 jsonapi 数据的工具库，也算是解放 Drupal jsonapi 反序列化的利器',
-                href: '#',
-              },
-              {
-                type: 'link',
-                label: 'Angular 有哪几种不同类型的绑定',
-                href: '#',
-              },
-            ],
-          },
+          body: '<strong class="text-primary">Storybook</strong> 提供了一个交互式的界面，用于展示和测试UI组件。开发人员可以在浏览器中浏览和交互组件，以便检查其外观和行为，并确保它们在各种条件下正常工作。这有助于加快开发迭代周期，提高组件的质量。',
           actions: [
             {
-              type: 'btn-animate',
-              label: 'Read more',
               href: '#',
-              style: 'style-v1',
-              icon: 'open_in_new',
+              label: '马上体验',
             },
           ],
         },
       },
       {
         img: {
-          src: '/assets/images/illustration/25.png',
+          src: '/assets/images/svg/monday-com.webp',
           alt: '',
         },
         content: {
+          type: 'text',
+          spacer: 'sm',
           title: {
-            label: 'More than 200 technical patents at home and abroad',
+            label: '文档化',
             style: 'style-v4',
-            classes: 'mat-display-1 bold',
+            classes: 'mat-display-2',
           },
-          body: 'ALD has made extensive achievements in the core technology field of electronic atomization and forged strong technology brands-SILMO™ and MICROFEEL™. It is the first manufacturing enterprise to realize the batch automatic production of ceramic substrate thick film printing heater. Its research covers many fields such as polymer materials.',
-          actions: [
-            {
-              type: 'btn-animate',
-              label: 'Read more',
-              href: '#',
-              style: 'style-v1',
-              icon: 'open_in_new',
-            },
-          ],
-        },
-      },
-      {
-        img: {
-          src: '/assets/images/illustration/08.png',
-          alt: '',
-        },
-        content: {
-          title: {
-            label: 'Annual R&D Investment Accounts for More Than',
-            style: 'style-v4',
-            classes: 'mat-display-1 bold',
-          },
-          body: 'ALD attaches great importance to the R&D and innovation of technology, and the R&D investment accounts for more than 10% of the total revenue every year. Since the establishment, the R&D team has been actively innovating and exporting high-quality results. On the other hand, after years of hard study in the electronic atomization technology industry.',
-          actions: [
-            {
-              type: 'btn-animate',
-              label: 'Read more',
-              href: '#',
-              style: 'style-v1',
-              icon: 'open_in_new',
-            },
-          ],
-        },
-      },
-      {
-        img: {
-          src: '/assets/images/illustration/10.png',
-          alt: '',
-        },
-        content: {
-          title: {
-            label: 'Introduce IPD management system',
-            style: 'style-v4',
-            classes: 'mat-display-1 bold',
-          },
-          body: 'Pioneering in atomization area, ALD keeps enlarging its R&D team. In order to manage product planning, development and life cycle management more scientifically, ALD introduced IPD management system. Taking market demand as the driving force of product development, ALD converts customer requirements into product and service attributes.  ',
+          body: '<strong class="text-primary">Storybook</strong> 不仅可以展示和测试组件，还可以自动生成组件的文档。<ul class="list-done">\r\n\t<li>使用Markdown或其他文档格式编写组件文档，并将其与组件关联</li>\r\n\t<li>团队成员可以更好地理解和使用组件，减少了沟通成本</li></ul>\r\n',
           actions: [
             {
               href: '#',
-              label: 'Get Started',
-            },
-            {
-              type: 'closeDialog',
-              label: 'Ok',
-            },
-            {
-              type: 'btn-animate',
-              label: 'Read more',
-              href: '#',
-              style: 'style-v1',
-              icon: 'open_in_new',
+              label: '马上体验',
             },
           ],
         },

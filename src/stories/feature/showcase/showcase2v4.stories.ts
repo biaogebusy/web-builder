@@ -33,11 +33,11 @@ Default.args = {
     type: 'showcase-2v4',
     text: {
       title: {
-        label: '我们的产品',
+        label: '本年度<strong class="text-primary">艺术作品</strong>代表作',
         style: 'style-v1',
-        classes: 'mat-display-1',
+        classes: 'mat-display-3 bold',
       },
-      body: '<p class="text-center">Drupal 已经超越了传统的 Web概念，可以通过不同的渠道部署你的数据内容，从一个数据中心点到各个应用，从简单到复杂。</p>',
+      body: '<p class="text-center">突破传统的艺术边界，展示前卫和创新的艺术作品</p>',
     },
     spacer: 'md',
     fullWidth: true,
@@ -47,14 +47,15 @@ Default.args = {
         width: '33.33',
         ratios: 'media-140',
         subTitle: {
-          label: '音乐',
+          label: '《绝望之境》',
           href: '/search',
           queryParams: {
             law_category: 25,
           },
         },
         title: {
-          label: '音乐版权发行代理顾问服务',
+          label:
+            '展现了作者内心深处的黑暗情绪，让观者深陷其中，感受到无尽的绝望与孤独。',
           href: '/search',
           queryParams: {
             law_category: 25,
@@ -62,7 +63,7 @@ Default.args = {
         },
         img: {
           classes: 'object-fit',
-          src: '/assets/images/cases/porto1.jpg',
+          src: '/assets/images/hero/1-6.jpg',
           alt: 'alt',
         },
       },
@@ -71,14 +72,15 @@ Default.args = {
         width: '33.33',
         ratios: 'media-140',
         subTitle: {
-          label: '影视',
+          label: '《色彩之舞》',
           href: '/search',
           queryParams: {
             law_category: 27,
           },
         },
         title: {
-          label: '影视项目投融资法律顾问，影视电视拍摄全程法律顾问',
+          label:
+            '如同一幅绚丽的画卷，色彩的交织与流动呈现出动感和活力，令人心旷神怡。',
           href: '/search',
           queryParams: {
             law_category: 27,
@@ -86,7 +88,7 @@ Default.args = {
         },
         img: {
           classes: 'object-fit',
-          src: '/assets/images/cases/porto2.jpg',
+          src: '/assets/images/hero/182.jpg',
           alt: 'alt',
         },
       },
@@ -95,14 +97,15 @@ Default.args = {
         width: '33.33',
         ratios: 'media-140',
         subTitle: {
-          label: '商务代言',
+          label: '《时间的拥抱》',
           href: '/search',
           queryParams: {
             law_category: 13,
           },
         },
         title: {
-          label: '电视影视作品联合拍摄、外资引进专项法律顾问',
+          label:
+            '将时间的概念与人类情感相融合，通过流动的线条和温暖的色调传递出对美好回忆的珍视与怀念。',
           href: '/search',
           queryParams: {
             law_category: 13,
@@ -110,7 +113,7 @@ Default.args = {
         },
         img: {
           classes: 'object-fit',
-          src: '/assets/images/cases/porto3.jpg',
+          src: '/assets/images/hero/329.jpg',
           alt: 'alt',
         },
       },

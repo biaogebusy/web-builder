@@ -8,7 +8,7 @@ import * as s2v2Story from '@stories/feature/showcase/showcase2v2.stories';
 import * as s2v3Story from '@stories/feature/showcase/showcase2v3.stories';
 import * as s2v4Story from '@stories/feature/showcase/showcase2v4.stories';
 import * as s2v5Story from '@stories/feature/showcase/showcase2v5.stories';
-import * as s2v6Story from '@stories/feature/showcase/showcase2v5.stories';
+import * as s2v6Story from '@stories/feature/showcase/showcase2v6.stories';
 import * as s3v1Story from '@stories/feature/showcase/showcase3v1.stories';
 import * as s3v2Story from '@stories/feature/showcase/showcase3v2.stories';
 import * as s3v3Story from '@stories/feature/showcase/showcase3v3.stories';
@@ -42,17 +42,13 @@ const {
 
 const {
   Default: { args: s1v4Default, storyName: s1v4DefaultName },
-  Price: { args: s1v4Price, storName: s1v4PriceName },
+  Price: { args: s1v4Price, storyName: s1v4PriceName },
   Dynamic: { args: s1v4Dynamic, storyName: s1v4DynamciName },
 } = s1v4Story as any;
 
 const {
   Default: { args: s2v1Default, storyName: s2v1DefaultName },
   Card1v1: { args: s2v1Card1v1, storyName: s2v1Card1v1Name },
-  Card1v1FromApi: {
-    args: s2v1Card1v1FromApi,
-    storyName: s2v1Card1v1FromApiName,
-  },
 } = s2v1Story;
 
 const {
@@ -164,10 +160,6 @@ export const showcase: IBuilderComponent[] = [
   {
     ...s2v1Card1v1,
     name: s2v1Card1v1Name,
-  },
-  {
-    ...s2v1Card1v1FromApi,
-    name: s2v1Card1v1FromApiName,
   },
   s2v2Default,
   s2v3Default,

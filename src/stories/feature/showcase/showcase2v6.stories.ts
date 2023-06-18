@@ -34,11 +34,11 @@ Default.args = {
     type: 'showcase-2v6',
     text: {
       title: {
-        label: '我们的产品',
+        label: '<strong class="text-primary">Storybook</strong> 是什么？',
         style: 'style-v1',
-        classes: 'mat-display-1',
+        classes: 'mat-display-3 blod',
       },
-      body: '<p class="text-center">Drupal 已经超越了传统的 Web概念，可以通过不同的渠道部署你的数据内容，从一个数据中心点到各个应用，从简单到复杂。</p>',
+      body: '<p class="text-center">Storybook是一个用于开发和展示UI组件的工具。它提供了一个独立的环境，开发人员可以在其中构建、测试和文档化单个UI组件，而无需依赖于整个应用程序的上下文</p>',
     },
     spacer: 'md',
     row: '2',
@@ -46,19 +46,36 @@ Default.args = {
     elements: [
       {
         type: 'card-1v2',
-        ...card1v2.content,
+        link: {
+          href: '#',
+          label:
+            'Storybook采用了组件驱动开发的方法，即将UI组件作为开发的核心单元。开发人员可以在Storybook中为每个UI组件创建"stories"，描述组件在不同状态和交互方式下的行为和外观',
+        },
+        subTitle: '组件驱动开发',
+        img: {
+          href: '#',
+          src: '/assets/images/16-9/business-06.jpg',
+          alt: 'alt',
+        },
+        bg: {
+          classes: 'object-fit',
+          img: {
+            hostClasses: '',
+            src: '/assets/images/showcase/pattern-01.png',
+          },
+        },
       },
       {
         type: 'card-1v2',
         link: {
           href: '#',
           label:
-            '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快',
+            'Storybook提供了一个交互式的界面，用于展示和测试UI组件。开发人员可以在浏览器中浏览和交互组件，以便检查其外观和行为，并确保它们在各种条件下正常工作',
         },
-        subTitle: '高性能',
+        subTitle: '组件展示和测试',
         img: {
           href: '#',
-          src: '/assets/images/showcase/card-1v2-2.jpg',
+          src: '/assets/images/16-9/business-11.jpg',
           alt: 'alt',
         },
         bg: {

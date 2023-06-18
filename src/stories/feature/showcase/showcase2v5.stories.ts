@@ -34,7 +34,7 @@ Default.args = {
     type: 'showcase-2v5',
     text: {
       title: {
-        label: '我们的产品',
+        label: 'Drupal 数据统计报告',
         style: 'style-v1',
         classes: 'mat-display-1',
       },
@@ -51,7 +51,7 @@ Default.args = {
         type: 'content-text-center',
         width: '25',
         ratios: 'media-140',
-        text: '<p><span>1,300<sup>+</sup></span> Lawyers and advisors worldwide</p> Lawyers and advisors worldwide',
+        text: '<p>全球有超过100万个网站采用 Drupal 进行构建和管理</p>',
         img: {
           classes: 'object-fit',
           src: '/assets/images/showcase/info02.png',
@@ -62,7 +62,7 @@ Default.args = {
         type: 'content-text-center',
         width: '25',
         ratios: 'media-140',
-        text: '<p><span>20<sup>+</sup></span> Leading Regulatory Practices</p><p><span>120<sup>+</sup></span> Former Government Officials and Diplomats</p>',
+        text: '<p>全球约有200,000名活跃的 Drupal 开发者和贡献者</p>',
         img: {
           classes: 'object-fit',
           src: '/assets/images/showcase/info03.png',
@@ -73,7 +73,7 @@ Default.args = {
         type: 'content-text-center',
         width: '25',
         ratios: 'media-140',
-        text: '<p><span>550<sup>+</sup></span> M&amp;A Deals</p><p><span><sup>$</sup>750<sup>B</sup></span> Aggregate Value</p>',
+        text: '<p>Drupal 支持超过100种不同语言的本地化和翻译</p>',
         img: {
           classes: 'object-fit',
           src: '/assets/images/showcase/info04.png',
@@ -84,7 +84,7 @@ Default.args = {
         type: 'content-text-center',
         width: '25',
         ratios: 'media-140',
-        text: '<p><span>225,000<sup>+</sup></span> Pro Bono Hours Provided in 2021</p>',
+        text: '<p>超过50,000个可用模块和主题，可根据不同需求轻松扩展和定制网站功能</p>',
         img: {
           classes: 'object-fit',
           src: '/assets/images/showcase/info05.png',
@@ -95,7 +95,7 @@ Default.args = {
         type: 'content-text-center',
         width: '25',
         ratios: 'media-140',
-        text: '<p><span>50<sup>+</sup></span> Trial Wins</p><p><span>80<sup>+</sup></span> Appellate Victories</p><p><span>30<sup>+</sup></span> Government Declinations</p>',
+        text: '<p>全球一些知名的品牌和机构，如纽约时报、华盛顿邮报、红十字会等，都选择使用 Drupal 构建和管理其官方网站。</p>',
         img: {
           classes: 'object-fit',
           src: '/assets/images/showcase/info01.png',
@@ -106,7 +106,7 @@ Default.args = {
         type: 'content-text-center',
         width: '25',
         ratios: 'media-140',
-        text: '<p><span>1,300<sup>+</sup></span> Lawyers and advisors worldwide</p> Lawyers and advisors worldwide',
+        text: '<p>Drupal 社区每年都会举办全球各地的 DrupalCon 大会和其他相关活动，汇聚开发者、用户和专家，促进知识共享和交流。根据统计数据，DrupalCon 已在全球超过30个国家举办过。',
         img: {
           classes: 'object-fit',
           src: '/assets/images/showcase/info02.png',
@@ -117,7 +117,7 @@ Default.args = {
         type: 'content-text-center',
         width: '25',
         ratios: 'media-140',
-        text: '<p><span>225,000<sup>+</sup></span> Pro Bono Hours Provided in 2021</p>',
+        text: '<p>全球超过70%的 Drupal 网站具有响应式设计，能够适应不同设备和屏幕尺寸，提供优质的移动浏览体验</p>',
         img: {
           classes: 'object-fit',
           src: '/assets/images/showcase/info05.png',

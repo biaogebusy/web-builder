@@ -6,6 +6,7 @@ import {
 import { Story } from '@storybook/angular/types-6-0';
 import { Showcase2v1Component } from '@uiux/combs/showcase/showcase2v1/showcase2v1.component';
 import { StorysModule } from '@core/module/storys.module';
+import { formatDate } from '@angular/common';
 
 export default {
   title: '特色组件/展示 Showcase/2v1',
@@ -33,9 +34,9 @@ Default.args = {
     type: 'showcase-2v1',
     text: {
       title: {
-        label: '国内 Drupal 优秀网站案例',
+        label: 'Drupal 优秀案例',
         style: 'style-v1',
-        classes: 'mat-display-0 bold',
+        classes: 'mat-display-3 bold',
       },
       body: '<p class="text-center">欢迎分享 Drupal 优秀的数字创新体验</p>',
     },
@@ -43,7 +44,7 @@ Default.args = {
     elements: [
       {
         type: 'card',
-        subTitle: '2022/03/04',
+        subTitle: formatDate(new Date(), 'yyyy-MM-dd', 'en-US'),
         avatar: {
           src: '/assets/images/showcase/weather.png',
           alt: '',
@@ -88,12 +89,12 @@ Default.args = {
         },
         link: {
           href: '/node/1',
-          label: 'FLAT LOGO DESIGN',
+          label: '哈佛大学',
         },
       },
       {
         type: 'card',
-        subTitle: '2022/02/26',
+        subTitle: formatDate(new Date(), 'yyyy-MM-dd', 'en-US'),
         avatar: {
           src: '/assets/images/showcase/browser.png',
           alt: '',
@@ -125,12 +126,12 @@ Default.args = {
         },
         link: {
           href: '/node/1',
-          label: 'FLAT LOGO DESIGN',
+          label: '斯坦福大学',
         },
       },
       {
         type: 'card',
-        subTitle: '2022/02/26',
+        subTitle: formatDate(new Date(), 'yyyy-MM-dd', 'en-US'),
         avatar: {
           src: '/assets/images/showcase/clipboard.png',
           alt: '',
@@ -162,12 +163,12 @@ Default.args = {
         },
         link: {
           href: '/node/1',
-          label: 'FLAT LOGO DESIGN',
+          label: '牛津大学',
         },
       },
       {
         type: 'card',
-        subTitle: '2022/02/26',
+        subTitle: formatDate(new Date(), 'yyyy-MM-dd', 'en-US'),
         avatar: {
           src: '/assets/images/showcase/console.png',
           alt: '',
@@ -199,12 +200,12 @@ Default.args = {
         },
         link: {
           href: '/node/1',
-          label: 'FLAT LOGO DESIGN',
+          label: '麻省理工学院',
         },
       },
       {
         type: 'card',
-        subTitle: '2022/02/26',
+        subTitle: formatDate(new Date(), 'yyyy-MM-dd', 'en-US'),
         avatar: {
           src: '/assets/images/showcase/weather.png',
           alt: '',
@@ -236,12 +237,12 @@ Default.args = {
         },
         link: {
           href: '/node/1',
-          label: 'FLAT LOGO DESIGN',
+          label: '加州大学伯克利分校',
         },
       },
       {
         type: 'card',
-        subTitle: '2022/02/26',
+        subTitle: formatDate(new Date(), 'yyyy-MM-dd', 'en-US'),
         avatar: {
           src: '/assets/images/showcase/weather.png',
           alt: '',
@@ -273,12 +274,12 @@ Default.args = {
         },
         link: {
           href: '/node/1',
-          label: 'FLAT LOGO DESIGN',
+          label: '爱丁堡大学',
         },
       },
       {
         type: 'card',
-        subTitle: '2022/02/26',
+        subTitle: formatDate(new Date(), 'yyyy-MM-dd', 'en-US'),
         avatar: {
           src: '/assets/images/showcase/weather.png',
           alt: '',
@@ -310,12 +311,12 @@ Default.args = {
         },
         link: {
           href: '/node/1',
-          label: 'FLAT LOGO DESIGN',
+          label: '多伦多大学',
         },
       },
       {
         type: 'card',
-        subTitle: '2022/02/26',
+        subTitle: formatDate(new Date(), 'yyyy-MM-dd', 'en-US'),
         avatar: {
           src: '/assets/images/showcase/weather.png',
           alt: '',
@@ -347,7 +348,7 @@ Default.args = {
         },
         link: {
           href: '/node/1',
-          label: 'FLAT LOGO DESIGN',
+          label: '墨尔本大学',
         },
       },
     ],
@@ -368,6 +369,10 @@ Card1v1.args = {
       body: '<p class="text-center">欢迎分享 Drupal 优秀的数字创新体验，前端开发分享，欢迎交流！</p>',
     },
     row: 4,
+    params: {
+      apiBak: '/api/v1/blog',
+      widget: 'card-1v1',
+    },
     elements: [
       {
         type: 'card-1v1',
@@ -433,26 +438,5 @@ Card1v1.args = {
         moreLabel: '查看更多',
       },
     ],
-  },
-};
-
-export const Card1v1FromApi = Template.bind({});
-Card1v1FromApi.storyName = 'From api';
-Card1v1FromApi.args = {
-  content: {
-    type: 'showcase-2v1',
-    text: {
-      title: {
-        label: '最新活动',
-        style: 'style-v1',
-        classes: 'mat-display-0 bold',
-      },
-      body: '<p class="text-center">欢迎分享 Drupal 优秀的数字创新体验，前端开发分享，欢迎交流！</p>',
-    },
-    row: 4,
-    params: {
-      api: '/api/v1/blog',
-      widget: 'card-1v1',
-    },
   },
 };
