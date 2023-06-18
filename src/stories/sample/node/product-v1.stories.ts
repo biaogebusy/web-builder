@@ -340,28 +340,6 @@ const content = of({
         body: '<ul class="list-done">\r\n\t<li style="text-align: justify;"><span style="font-size:18px;">Dimension: 18.7*7.6*91.3mm</span></li>\r\n\t<li style="text-align: justify;"><span style="font-size:18px;">Weight:14.7g</span></li>\r\n\t<li style="text-align: justify;"><span style="font-size:18px;">Body Material: Aluminum alloy</span></li>\r\n\t<li style="text-align: justify;"><span style="font-size:18px;">Battery Capacity:&nbsp;280mAh</span></li>\r\n\t<li style="text-align: justify;"><span style="font-size:18px;">Output Wattage: 6-8.2W</span></li>\r\n\t<li style="text-align: justify;"><span style="font-size:18px;">E-liquid Capacity: 1.0ml</span></li>\r\n\t<li style="text-align: justify;"><span style="font-size:18px;">Resistance: 1.5Ω</span></li>\r\n\t<li style="text-align: justify;"><span style="font-size:18px;">Coil Material: ceramic</span></li>\r\n\t<li style="text-align: justify;"><span style="font-size:18px;">Suitable for:&nbsp;THC+CBD</span></li>\r\n</ul>\r\n',
       },
     },
-    {
-      type: 'hero-2v1',
-      theme: '',
-      params: {
-        height: '940px',
-      },
-      text: {
-        spacer: 'md',
-        style: {
-          width: '50%',
-        },
-        classes: 'y-center',
-        bg: {
-          classes: 'bg-shadow bg-fill-width',
-          img: {
-            src: '/assets/images/products/SY002_12.jpg?itok=nW4kkBAE',
-            mobile: '/assets/images/products/SY002-Phone_12.jpg?itok=npKdFhA1',
-          },
-        },
-        body: '',
-      },
-    },
   ],
 });
 Page.args = {

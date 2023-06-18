@@ -7,6 +7,7 @@ import { BuilderComponent } from 'src/app/modules/builder/builder.component';
 import { BuilderModule } from 'src/app/modules/builder/builder.module';
 import { components } from './component-for-builder';
 import { widgets } from './widgets-for-builder';
+import { environment } from 'src/environments/environment';
 export default {
   title: 'Builder',
   id: 'builder',
@@ -40,5 +41,7 @@ Default.args = {
   widgets: widgets,
 };
 
-console.log(components);
-console.log(widgets);
+if (!environment.production) {
+  console.log(components);
+  console.log(widgets);
+}
