@@ -375,7 +375,7 @@
         "left": [
           {
             "type": "img",
-            "src": "/assets/images/illustration/12.png"
+            "src": "/assets/images/svg/vscode.svg"
           }
         ],
         "right": [
@@ -414,7 +414,7 @@
         "left": [
           {
             "type": "img",
-            "src": "/assets/images/illustration/12.png"
+            "src": "/assets/images/svg/storybook-mock-ui.svg"
           }
         ],
         "right": [
@@ -453,7 +453,7 @@
         "left": [
           {
             "type": "img",
-            "src": "/assets/images/illustration/12.png"
+            "src": "/assets/images/svg/monday-com.webp"
           }
         ],
         "right": [
