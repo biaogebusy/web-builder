@@ -5,6 +5,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 
 @Component({
@@ -18,7 +19,7 @@ export class BuilderGeneraterComponent implements OnInit {
   fields: any[];
   form = new FormGroup({});
   model: any = {};
-  constructor(private builder: BuilderState) {}
+  constructor(private builder: BuilderState, private util: UtilitiesService) {}
 
   ngOnInit(): void {
     this.fields = [
@@ -169,6 +170,13 @@ export class BuilderGeneraterComponent implements OnInit {
     );
 
     this.builder.page.body = [...heros, ...showcases, ...carousel, ...drupal];
-    this.builder.updatePage();
+    this.util.openSnackbar('正在为您生成页面，加载中...', 'ok', {
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+      duration: 1000,
+    });
+    setTimeout(() => {
+      this.builder.updatePage();
+    }, 1200);
   }
 }
