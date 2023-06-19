@@ -40,6 +40,22 @@ export class BuilderGeneraterComponent implements OnInit {
               label: '2',
               value: 2,
             },
+            {
+              label: '3',
+              value: 3,
+            },
+            {
+              label: '4',
+              value: 4,
+            },
+            {
+              label: '5',
+              value: 5,
+            },
+            {
+              label: '6',
+              value: 6,
+            },
           ],
         },
       },
@@ -116,6 +132,18 @@ export class BuilderGeneraterComponent implements OnInit {
               label: '3',
               value: 3,
             },
+            {
+              label: '4',
+              value: 4,
+            },
+            {
+              label: '5',
+              value: 5,
+            },
+            {
+              label: '6',
+              value: 6,
+            },
           ],
         },
       },
@@ -144,6 +172,10 @@ export class BuilderGeneraterComponent implements OnInit {
               label: '3',
               value: 3,
             },
+            {
+              label: '4',
+              value: 4,
+            },
           ],
         },
       },
@@ -152,20 +184,20 @@ export class BuilderGeneraterComponent implements OnInit {
 
   onGenerate(value: any): void {
     const items = [...this.content.components, ...this.content.widgets];
-    const heros = this.builder.getRandomElements(items, 'Hero', value.hero);
+    const heros = this.builder.getRandomElements(items, 'hero', value.hero);
     const showcases = this.builder.getRandomElements(
       items,
-      'Showcase',
+      'showcase',
       value.showcase
     );
     const carousel = this.builder.getRandomElements(
       items,
-      'Carousel',
+      'carousel',
       value.carousel
     );
     const drupal = this.builder.getRandomElements(
       items,
-      'Drupal',
+      'drupal',
       value.drupal
     );
 

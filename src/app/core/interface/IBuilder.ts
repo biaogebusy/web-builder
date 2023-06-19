@@ -2,6 +2,7 @@ import { IIcon } from './widgets/IIcon';
 
 export interface IBuilderComponent {
   label: string;
+  id: string;
   elements: IBuilderComponentElement[];
 }
 

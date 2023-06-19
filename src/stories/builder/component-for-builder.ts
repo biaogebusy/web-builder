@@ -11,35 +11,43 @@ import { map } from './components/map.builder';
 export const components: any[] = [
   {
     label: 'Hero',
+    id: 'hero',
     elements: [...hero],
   },
   {
     label: 'Showcase',
+    id: 'showcase',
     elements: [...showcase],
   },
   {
     label: 'Carousel',
+    id: 'carousel',
     elements: [...carousels],
   },
-  { label: 'Masonry', elements: [...masonry] },
+  { label: 'Masonry', id: 'masonry', elements: [...masonry] },
   {
     label: 'Manage',
+    id: 'manage',
     elements: [...manage],
   },
   {
     label: 'Drupal',
+    id: 'drupal',
     elements: [...drupal],
   },
   {
     label: 'Map',
+    id: 'map',
     elements: [...map],
   },
   {
     label: 'Other',
+    id: 'other',
     elements: [...others],
   },
   {
     label: 'Tools',
+    id: 'tools',
     elements: [...tools],
   },
 ];

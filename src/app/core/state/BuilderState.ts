@@ -10,6 +10,7 @@ import { ICard1v1 } from '@core/interface/widgets/ICard';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { LocalStorageService } from 'ngx-webstorage';
 import { Subject } from 'rxjs';
+import { map } from 'lodash-es';
 
 @Injectable({
   providedIn: 'root',
@@ -100,17 +101,32 @@ export class BuilderState {
 
   getRandomElements = (
     data: IBuilderComponent[],
-    label: string,
+    id: string,
     count: number
   ) => {
-    const elements = data.find((item) => item.label === label)?.elements;
+    let elements = data.find((item) => item.id === id)?.elements || [];
+    // 如果元素中包含 content.child，则将其元素也添加到结果中
+    const result = elements.reduce((acc: any[], element: any) => {
+      if (
+        typeof element === 'object' &&
+        element.content &&
+        element.content.child
+      ) {
+        map(element.content.child, (item: any) => {
+          acc.push(...item.elements);
+        });
+      } else {
+        acc.push(element);
+      }
+      return acc;
+    }, []);
 
-    if (elements && elements.length > 0) {
+    if (result && result.length > 0) {
       const randomElements = [];
 
       for (let i = 0; i < count; i++) {
-        const randomIndex = Math.floor(Math.random() * elements.length);
-        randomElements.push(elements[randomIndex]);
+        const randomIndex = Math.floor(Math.random() * result.length);
+        randomElements.push(result[randomIndex]);
       }
 
       return randomElements;
