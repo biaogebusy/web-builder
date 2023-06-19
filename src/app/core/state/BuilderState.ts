@@ -53,7 +53,12 @@ export class BuilderState {
   }
 
   updatePage(): void {
-    this.storage.store(this.pageKey, Object.assign({}, this.page));
+    this.storage.store(
+      this.pageKey,
+      Object.assign({}, this.page, {
+        time: new Date(),
+      })
+    );
   }
 
   pushComponent(content: any): void {

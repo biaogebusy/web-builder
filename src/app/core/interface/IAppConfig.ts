@@ -244,6 +244,7 @@ export interface IPage {
   config?: any;
   title: string;
   body: any[];
+  time?: Date;
 }
 
 export interface ICommerce {

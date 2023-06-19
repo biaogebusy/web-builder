@@ -58,6 +58,11 @@
       @include scrollbar(mat-color($foreground, divider));
       .builder-content-toolbar {
         background-color: mat-color($background, card);
+        .middle {
+          .time {
+            color: mat-color($foreground, text, 0.45);
+          }
+        }
       }
       .overlay {
         background-color: mat-color($foreground, slider-off-active);

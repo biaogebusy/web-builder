@@ -11,4 +11,13 @@
     z-index: 99999;
     cursor: pointer;
   }
+
+  .middle {
+    .title {
+      font-size: 14px;
+    }
+    .time {
+      font-size: small;
+    }
+  }
 }

@@ -6,8 +6,9 @@
       <app-btn *ngIf="!opened" [matTooltip]="'展开边栏'" matTooltipPosition="above" (click)="onOpen()"
         [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'fullscreen-exit' } }"></app-btn>
     </div>
-    <div class="middle" fxFlex.lt-md="auto" fxFlex.gt-sm="33%" fxLayoutAlign="center center">
-      <div class="title bold">{{page?.title}}</div>
+    <div class="middle" fxFlex.lt-md="auto" fxFlex.gt-sm="33%" fxLayoutAlign="center center" fxLayout="column">
+      <div class="title bold">{{page.title}}</div>
+      <div class="time">{{page.time|date:"YYYY-MM-dd HH:mm"}}</div>
     </div>
     <div class="right" fxFlex.lt-md="auto" fxFlex.gt-sm="33%" fxLayoutAlign="end center" fxLayoutGap="0.5rem">
       <mat-slide-toggle (change)="onPreview($event)" [matTooltip]="'安静预览'"
