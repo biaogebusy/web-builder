@@ -308,6 +308,7 @@
             "src": "/assets/images/bg/bg-01.png"
           }
         },
+        "spacer": "lg",
         "order": {
           "left": 1,
           "right": 0
