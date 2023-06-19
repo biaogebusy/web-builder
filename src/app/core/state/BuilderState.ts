@@ -3,7 +3,7 @@ import {
   copyArrayItem,
   moveItemInArray,
 } from '@angular/cdk/drag-drop';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { IPage } from '@core/interface/IAppConfig';
 import { IBuilderComponent } from '@core/interface/IBuilder';
 import { ICard1v1 } from '@core/interface/widgets/ICard';
@@ -11,6 +11,7 @@ import { UtilitiesService } from '@core/service/utilities.service';
 import { LocalStorageService } from 'ngx-webstorage';
 import { Subject } from 'rxjs';
 import { map } from 'lodash-es';
+import { DOCUMENT } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
@@ -36,7 +37,8 @@ export class BuilderState {
 
   constructor(
     private storage: LocalStorageService,
-    private util: UtilitiesService
+    private util: UtilitiesService,
+    @Inject(DOCUMENT) private doc: Document
   ) {
     const localPage = this.storage.retrieve(this.pageKey);
     if (localPage) {
@@ -134,4 +136,22 @@ export class BuilderState {
       return [];
     }
   };
+
+  renderMarkers(isDebugAnimate: boolean): void {
+    const markers = this.doc.getElementsByClassName('marker-text');
+    if (!isDebugAnimate) {
+      // hidden marker
+      map(markers, (marker) => {
+        marker.classList.remove('display-block');
+        marker.classList.add('display-none');
+      });
+    } else {
+      if (markers.length) {
+        map(markers, (marker) => {
+          marker.classList.add('display-block');
+          marker.classList.remove('display-none');
+        });
+      }
+    }
+  }
 }

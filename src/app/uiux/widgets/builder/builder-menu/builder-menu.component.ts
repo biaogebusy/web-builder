@@ -39,14 +39,17 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     private util: UtilitiesService,
     private cd: ChangeDetectorRef,
     private storage: LocalStorageService,
-    @Inject(DEBUGANIMATE) public debugAnimate$: Observable<boolean>,
-    @Inject(DOCUMENT) private doc: Document
+    @Inject(DEBUGANIMATE) public debugAnimate$: Observable<boolean>
   ) {}
 
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     this.getTotal();
+    this.debugAnimate$.subscribe((state) => {
+      debugger;
+      this.builder.renderMarkers(state);
+    });
   }
 
   getTotal(): void {
@@ -98,21 +101,7 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     const isDebugAnimate = event.checked;
     this.builder.toolbarDisable$.next(isDebugAnimate);
     this.builder.debugeAnimate$.next(isDebugAnimate);
-    const markers = this.doc.getElementsByClassName('marker-text');
-    if (!isDebugAnimate) {
-      // hidden marker
-      map(markers, (marker) => {
-        marker.classList.remove('display-block');
-        marker.classList.add('display-none');
-      });
-    } else {
-      if (markers.length) {
-        map(markers, (marker) => {
-          marker.classList.add('display-block');
-          marker.classList.remove('display-none');
-        });
-      }
-    }
+    this.builder.renderMarkers(isDebugAnimate);
   }
 
   ngOnDestroy(): void {
