@@ -32,12 +32,31 @@ const {
 } = c1v1Story;
 
 export const carousels = [
-  c1v1,
-  { ...textHero, name: textHeroName },
-  { ...lineyear, name: lineyearName },
+  {
+    content: {
+      child: [
+        {
+          label: 'carousel-1v1',
+          elements: [
+            c1v1,
+            { ...textHero, name: textHeroName },
+            { ...lineyear, name: lineyearName },
+          ],
+        },
+      ],
+    },
+  },
   c1v2,
-  c1v3,
-  { ...client, name: clientName },
+  {
+    content: {
+      child: [
+        {
+          label: 'carousel-1v3',
+          elements: [c1v3, { ...client, name: clientName }],
+        },
+      ],
+    },
+  },
   c1v4,
   c2v1,
   c2v2,

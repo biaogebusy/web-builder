@@ -4,7 +4,7 @@ import * as bannerStory from '@stories/components/banner/BannerSimple.stories';
 
 const {
   BannerOverlay: { args: banner },
-} = bannerStory;
+} = bannerStory as any;
 
 const {
   UserProfile: { args: profile },
@@ -13,9 +13,20 @@ const {
 
 export const others: IBuilderComponent[] = [
   banner,
-  profile,
   {
-    ...componey,
-    name: componeyName,
+    content: {
+      child: [
+        {
+          label: 'profile',
+          elements: [
+            profile,
+            {
+              ...componey,
+              name: componeyName,
+            },
+          ],
+        },
+      ],
+    },
   },
 ];

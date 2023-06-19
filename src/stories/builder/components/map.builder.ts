@@ -17,12 +17,34 @@ const {
 } = locationStory;
 
 export const map = [
-  viewMapDefault,
   {
-    ...viewMapCircle,
-    name: viewMapCircleName,
+    content: {
+      child: [
+        {
+          label: 'view-map',
+          elements: [
+            viewMapDefault,
+            {
+              ...viewMapCircle,
+              name: viewMapCircleName,
+            },
+          ],
+        },
+      ],
+    },
   },
-  mapList1v1,
-  { ...mapList1v1Sidebar, name: mapList1v1SidebarName },
+  {
+    content: {
+      child: [
+        {
+          label: 'map-list',
+          elements: [
+            mapList1v1,
+            { ...mapList1v1Sidebar, name: mapList1v1SidebarName },
+          ],
+        },
+      ],
+    },
+  },
   location,
 ];

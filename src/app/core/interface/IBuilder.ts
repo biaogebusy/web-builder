@@ -6,7 +6,11 @@ export interface IBuilderComponent {
 }
 
 export interface IBuilderComponentElement {
-  content: any;
+  content: {
+    type: string;
+    name?: string;
+    child?: any[];
+  };
 }
 
 export interface IBuilderWidget {

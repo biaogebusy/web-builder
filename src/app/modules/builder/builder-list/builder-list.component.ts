@@ -34,8 +34,8 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit(): void {}
 
-  trackByFn(index: number, item: any): string {
-    return `${item.content.type}-${index}`;
+  trackByFn(index: number, item: any): number {
+    return index;
   }
 
   drop(event: CdkDragDrop<string[]>): void {

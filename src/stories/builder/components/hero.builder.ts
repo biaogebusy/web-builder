@@ -16,9 +16,10 @@ const {
   V1: { args: h1v3V1, storyName: h1v3V1Name },
   V2: { args: h1v3V2, storyName: h1v3V2Name },
 } = hero1v3Story;
+
 const {
   Default: { args: h1v4Default, storyName: h1v4DefaultName },
-  Order: { args: h1v1Order, storyName: h1v1OrderName },
+  Order: { args: h1v4Order, storyName: h1v4OrderName },
 } = hero1v4Story;
 
 const {
@@ -40,17 +41,50 @@ const {
 export const hero: IBuilderComponent[] = [
   hero1v1,
   hero1v2,
-  { ...h1v3V1, name: h1v3V1Name },
-  { ...h1v3V2, name: h1v3V2Name },
-  { ...h1v4Default, name: h1v4DefaultName },
-  { ...h1v1Order, name: h1v1OrderName },
-  h2v1Default,
-  { ...yCenter, name: yCenterName },
-  { ...yCenterXCustom, name: yCenterXCustomName },
-  { ...xyCustom, name: xyCustomName },
   {
-    ...animate,
-    name: animateName,
+    content: {
+      child: [
+        {
+          label: 'hero-1v3',
+          elements: [
+            { ...h1v3V1, name: h1v3V1Name },
+            { ...h1v3V2, name: h1v3V2Name },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    content: {
+      child: [
+        {
+          label: 'hero-1v4',
+          elements: [
+            { ...h1v4Default, name: h1v4DefaultName },
+            { ...h1v4Order, name: h1v4OrderName },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    content: {
+      child: [
+        {
+          label: 'hero-2v1',
+          elements: [
+            h2v1Default,
+            { ...yCenter, name: yCenterName },
+            { ...yCenterXCustom, name: yCenterXCustomName },
+            { ...xyCustom, name: xyCustomName },
+            {
+              ...animate,
+              name: animateName,
+            },
+          ],
+        },
+      ],
+    },
   },
   h2v2,
   h2v3,

@@ -53,7 +53,7 @@ const {
 
 const {
   Default: { args: s2v2Default },
-} = s2v2Story;
+} = s2v2Story as any;
 const {
   Default: { args: s2v3Default },
 } = s2v3Story;
@@ -113,53 +113,108 @@ const {
 } = s4v1Story;
 
 export const showcase: IBuilderComponent[] = [
-  s1v1Default,
-  { ...s1v1V1, ...{ name: s1v1V1Name } },
-  { ...s1v1V2, ...{ name: s1v1V2Name } },
-  { ...s1v1V3, ...{ name: s1v1V3Name } },
-  { ...s1v1V4, ...{ name: s1v1V4Name } },
-  { ...s1v1V5, ...{ name: s1v1V5Name } },
-  { ...s1v1V6, ...{ name: s1v1V6Name } },
-  { ...s1v1V7, ...{ name: s1v1V7Name } },
   {
-    ...s1v2Defult,
-    name: s1v2DefaultName,
+    content: {
+      child: [
+        {
+          label: 'showcase-1v1',
+          elements: [
+            s1v1Default,
+            { ...s1v1V1, ...{ name: s1v1V1Name } },
+            { ...s1v1V2, ...{ name: s1v1V2Name } },
+            { ...s1v1V3, ...{ name: s1v1V3Name } },
+            { ...s1v1V4, ...{ name: s1v1V4Name } },
+            { ...s1v1V5, ...{ name: s1v1V5Name } },
+            { ...s1v1V6, ...{ name: s1v1V6Name } },
+            { ...s1v1V7, ...{ name: s1v1V7Name } },
+          ],
+        },
+      ],
+    },
   },
   {
-    ...s1v2Primary,
-    name: s1v2PrimaryName,
+    content: {
+      child: [
+        {
+          label: 'showcase-1v2',
+          elements: [
+            {
+              ...s1v2Defult,
+              name: s1v2DefaultName,
+            },
+            {
+              ...s1v2Primary,
+              name: s1v2PrimaryName,
+            },
+          ],
+        },
+      ],
+    },
   },
   {
-    ...s1v3Default,
-    name: s1v3DefaultName,
+    content: {
+      child: [
+        {
+          label: 'showcase-1v3',
+          elements: [
+            {
+              ...s1v3Default,
+              name: s1v3DefaultName,
+            },
+            {
+              ...s1v3Contact,
+              name: sv1v3ContactName,
+            },
+            {
+              ...s1v3Video,
+              name: s1v3VideoName,
+            },
+          ],
+        },
+      ],
+    },
   },
   {
-    ...s1v3Contact,
-    name: sv1v3ContactName,
+    content: {
+      child: [
+        {
+          label: 'showcase-1v4',
+          elements: [
+            {
+              ...s1v4Default,
+              name: s1v4DefaultName,
+            },
+            {
+              ...s1v4Price,
+              name: s1v4PriceName,
+            },
+            {
+              ...s1v4Dynamic,
+              name: s1v4DynamciName,
+            },
+          ],
+        },
+      ],
+    },
   },
   {
-    ...s1v3Video,
-    name: s1v3VideoName,
-  },
-  {
-    ...s1v4Default,
-    name: s1v4DefaultName,
-  },
-  {
-    ...s1v4Price,
-    name: s1v4PriceName,
-  },
-  {
-    ...s1v4Dynamic,
-    name: s1v4DynamciName,
-  },
-  {
-    ...s2v1Default,
-    name: s2v1DefaultName,
-  },
-  {
-    ...s2v1Card1v1,
-    name: s2v1Card1v1Name,
+    content: {
+      child: [
+        {
+          label: 'showcase-2v1',
+          elements: [
+            {
+              ...s2v1Default,
+              name: s2v1DefaultName,
+            },
+            {
+              ...s2v1Card1v1,
+              name: s2v1Card1v1Name,
+            },
+          ],
+        },
+      ],
+    },
   },
   s2v2Default,
   s2v3Default,
@@ -167,36 +222,96 @@ export const showcase: IBuilderComponent[] = [
   s2v5Default,
   s2v6Default,
   s3v1Default,
-  s3v2Default,
   {
-    ...s3v2List,
-    name: s3v2ListName,
+    content: {
+      child: [
+        {
+          label: 'showcase-3v2',
+          elements: [
+            s3v2Default,
+            {
+              ...s3v2List,
+              name: s3v2ListName,
+            },
+          ],
+        },
+      ],
+    },
   },
-  s3v3Default,
-  { ...s3v3Image, name: s3v3ImageName },
-  s3v4Default,
-  { ...s3v4Background, name: s3v4BackgroundName },
+  {
+    content: {
+      child: [
+        {
+          label: 'showcase-3v3',
+          elements: [s3v3Default, { ...s3v3Image, name: s3v3ImageName }],
+        },
+      ],
+    },
+  },
+  {
+    content: {
+      child: [
+        {
+          label: 'showcase-3v3',
+          elements: [
+            s3v4Default,
+            { ...s3v4Background, name: s3v4BackgroundName },
+          ],
+        },
+      ],
+    },
+  },
   s3v5Default,
-  s3v6Default,
   {
-    ...s3v6WithLink,
-    name: s3v6WithLinkName,
+    content: {
+      child: [
+        {
+          label: 'showcase-3v6',
+          elements: [
+            s3v6Default,
+            {
+              ...s3v6WithLink,
+              name: s3v6WithLinkName,
+            },
+            {
+              ...s3v6Background,
+              name: s3v6BackgroundName,
+            },
+          ],
+        },
+      ],
+    },
   },
   {
-    ...s3v6Background,
-    name: s3v6BackgroundName,
+    content: {
+      child: [
+        {
+          label: 'showcase-3v9',
+          elements: [
+            s3v9Default,
+            {
+              ...s3v9Reverse,
+              name: s3v9ReverseName,
+            },
+            {
+              ...s3v9Video,
+              name: s3v9VideoName,
+            },
+          ],
+        },
+      ],
+    },
   },
   s3v7Default,
   s3v8Default,
-  s3v9Default,
   {
-    ...s3v9Reverse,
-    name: s3v9ReverseName,
+    content: {
+      child: [
+        {
+          label: 'showcase-4v1',
+          elements: [s4v1Default, { ...s4v1Img, name: s4v1ImgName }],
+        },
+      ],
+    },
   },
-  {
-    ...s3v9Video,
-    name: s3v9VideoName,
-  },
-  s4v1Default,
-  { ...s4v1Img, name: s4v1ImgName },
 ];

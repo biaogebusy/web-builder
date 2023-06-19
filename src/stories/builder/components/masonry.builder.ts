@@ -11,7 +11,15 @@ const {
 } = packeryStory;
 
 export const masonry = [
-  packery,
-  { ...contentBox, name: contentBoxName },
+  {
+    content: {
+      child: [
+        {
+          label: 'packery',
+          elements: [packery, { ...contentBox, name: contentBoxName }],
+        },
+      ],
+    },
+  },
   shuffle,
 ];
