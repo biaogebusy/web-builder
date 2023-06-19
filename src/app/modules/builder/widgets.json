@@ -10,11 +10,12 @@
           },
           "content": {
             "type": "text",
-            "body": "开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 Storybook 页面时添加组件到预览页面。<ul class=\"list-done\"><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li><li>可以直接编辑组件的 JSON，所见即所得；</li></ul><p>Builder 与众不同的是它完全融入到了 Storybook 的测试框架当中，示例由 Storybook 导入并维护。</p>使用人员：<ul class=\"list-done\"><li>前端开发：开发测试维护组件</li><li>产品经理：快速构建和预览页面</li><li>运维人员：构建页面和测试UI</li><li>市场营销人员：给客户演示数字创新能力</li></ul><br><p>拖动组件到这里进行创作，或者点击右上角智能生成。</p>",
+            "body": "开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class=\"text-primary\">Storybook</strong> 页面时添加组件到预览页面。<ul class=\"list-done\"><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li><li>可以直接编辑组件的 JSON，所见即所得；</li></ul><p>Builder 与众不同的是它完全融入到了 <strong class=\"text-primary\">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。</p><br>",
             "spacer": "sm",
             "title": {
-              "label": "欢迎使用 Builder 快速构建页面",
-              "style": "style-v1"
+              "label": "欢迎使用 <strong class=\"text-primary\">Builder</strong> 快速构建页面",
+              "style": "style-v1",
+              "classes": "mat-display-3 bold"
             },
             "bg": {
               "classes": "bg-shadow bg-fill-width"
@@ -50,7 +51,7 @@
           "content": {
             "type": "img",
             "classes": "",
-            "src": "/assets/images/cases/porto2.jpg",
+            "src": "/assets/images/cases/porto3.jpg",
             "alt": "alt"
           }
         },
@@ -101,17 +102,38 @@
             "type": "btn-video",
             "color": "primary",
             "video": {
+              "type": "player",
               "options": {
                 "controls": true,
                 "aspectRatio": "16:9",
-                "poster": "/assets/images/16-9/business-02.jpg",
+                "poster": "/assets/video/poster01.png",
                 "sources": [
                   {
-                    "src": "/assets/video/afterglow.mp4",
+                    "src": "/assets/video/storybook.mp4",
                     "type": "video/mp4"
                   }
                 ]
               }
+            }
+          }
+        },
+        {
+          "label": "Player",
+          "icon": {
+            "svg": "play-box"
+          },
+          "content": {
+            "type": "player",
+            "options": {
+              "controls": true,
+              "aspectRatio": "16:9",
+              "poster": "/assets/video/poster01.png",
+              "sources": [
+                {
+                  "src": "/assets/video/storybook.mp4",
+                  "type": "video/mp4"
+                }
+              ]
             }
           }
         },
@@ -147,25 +169,25 @@
             "elements": [
               {
                 "module": "Slick Carousel",
-                "tatol": 9192,
+                "tatol": 6490,
                 "info": "Slick 轮播，强大响应式且性能优异的图片轮播解决方案，有非常丰富的配置选项，slick 官网自己调侃这是你最后使用的图片轮播",
                 "remarks": "查看"
               },
               {
                 "module": "Views Slideshow",
-                "tatol": 2904,
+                "tatol": 1101,
                 "info": "视图轮播模块，该模块是最受欢迎的幻灯片模块，可放任何内容，高度定制\t",
                 "remarks": "查看"
               },
               {
                 "module": "Colorbox",
-                "tatol": 5356,
+                "tatol": 7578,
                 "info": "轻量级高可定制幻灯片模块，高度集成在 Drupal 中，可放图片，Iframed 或者在线内容等等\t",
                 "remarks": "查看"
               },
               {
                 "module": "Flex Slider",
-                "tatol": 6818,
+                "tatol": 4856,
                 "info": "响应式、可调整大小、适配浏览器和移动设备，支持移动设备手势滑动\t",
                 "remarks": "查看"
               },
@@ -232,22 +254,22 @@
                   "2022"
                 ],
                 [
-                  "大额红包",
-                  3515,
-                  5183,
-                  6139
+                  "第一季度",
+                  6475,
+                  6696,
+                  5846
                 ],
                 [
-                  "小额红包",
-                  3283,
-                  6348,
-                  4891
+                  "第二季度",
+                  5139,
+                  4303,
+                  7638
                 ],
                 [
-                  "推广费用",
-                  8632,
-                  3508,
-                  4737
+                  "第三季度",
+                  3751,
+                  9227,
+                  7793
                 ]
               ]
             },
@@ -282,7 +304,7 @@
         {
           "label": "Spacer",
           "icon": {
-            "svg": "color-helper"
+            "svg": "border-horizontal"
           },
           "content": {
             "type": "spacer",
@@ -787,13 +809,18 @@
           },
           "content": {
             "type": "panel",
-            "title": {
-              "label": "About",
-              "style": "style-v4"
+            "text": {
+              "title": {
+                "label": "欢迎使用 <strong class=\"text-primary\">Builder</strong> 快速构建页面",
+                "style": "style-v1",
+                "classes": "mat-display-3 bold"
+              },
+              "body": "开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class=\"text-primary\">Storybook</strong> 页面时添加组件到预览页面。<ul class=\"list-done\"><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li><li>可以直接编辑组件的 JSON，所见即所得；</li></ul><p>Builder 与众不同的是它完全融入到了 <strong class=\"text-primary\">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。</p><br>",
+              "spacer": "sm"
             },
             "elements": [
               {
-                "title": "关于我们",
+                "title": "组件驱动开发",
                 "icon": "person",
                 "params": {
                   "expanded": true
@@ -802,29 +829,40 @@
                   {
                     "type": "text",
                     "spacer": "none",
-                    "body": "远方信使（XINSHI）是一个使用 Drupal 提供 API 的 Angular 前端开发学习框架，拥有丰富的前端组件，通 过 Drupal Pannel 可快速构建 Landing 营销着陆页，常规的 Web 官网通过拖曳的方式即可创建。"
+                    "body": "Storybook采用了组件驱动开发的方法，即将UI组件作为开发的核心单元。开发人员可以在Storybook中为每个UI组件创建\"stories\"，描述组件在不同状态和交互方式下的行为和外观。这种方法能够提高组件的可重用性和可测试性。"
                   }
                 ]
               },
               {
-                "title": "我们的故事",
+                "title": "组件展示和测试",
                 "icon": "faviores",
                 "elements": [
                   {
                     "type": "text",
                     "spacer": "none",
-                    "body": "我们是专业开发 Drupal 多年的前后端开发人员，热衷于分享 Drupal 相关的技术和资讯，创建维护微信公众号：  drupalstudy 从 Drupal 7开始，目前已发布了了四百多期，是国内为数不多的 Drupal 相关的微信公众号。"
+                    "body": "Storybook提供了一个交互式的界面，用于展示和测试UI组件。开发人员可以在浏览器中浏览和交互组件，以便检查其外观和行为，并确保它们在各种条件下正常工作。这有助于加快开发迭代周期，提高组件的质量。"
                   }
                 ]
               },
               {
-                "title": "技术分享",
+                "title": "文档化",
                 "icon": "faviores",
                 "elements": [
                   {
                     "type": "text",
                     "spacer": "none",
-                    "body": "我们也及时在知乎更新 Drupal 相关的技术文章，分享给更多感兴趣的人，愿你们能够享受 Drupal 带来的字数创新体验。"
+                    "body": "Storybook不仅可以展示和测试组件，还可以自动生成组件的文档。开发人员可以使用Markdown或其他文档格式编写组件文档，并将其与组件关联。这使得团队成员可以更好地理解和使用组件，减少了沟通成本。"
+                  }
+                ]
+              },
+              {
+                "title": "插件和工具生态系统",
+                "icon": "faviores",
+                "elements": [
+                  {
+                    "type": "text",
+                    "spacer": "none",
+                    "body": "Storybook拥有丰富的插件和工具生态系统，可以扩展其功能。这些插件可以用于模拟数据、测试组件的不同状态和交互，并生成自动化测试报告。这样，开发人员可以根据自己的需求定制和扩展Storybook。"
                   }
                 ]
               }
@@ -854,7 +892,7 @@
               "ratios": "media-4-3",
               "img": {
                 "classes": "object-fit",
-                "src": "/assets/images/cases/porto1.jpg",
+                "src": "/assets/images/cases/porto3.jpg",
                 "alt": "alt"
               }
             }
@@ -880,11 +918,37 @@
               "ratios": "media-4-3",
               "img": {
                 "classes": "object-fit",
-                "src": "/assets/images/cases/porto1.jpg",
+                "src": "/assets/images/cases/porto3.jpg",
                 "alt": "alt"
               }
             },
             "moreLabel": "查看更多"
+          }
+        },
+        {
+          "label": "Card v2",
+          "icon": {
+            "svg": "numeric-2"
+          },
+          "content": {
+            "type": "card-1v2",
+            "link": {
+              "href": "#",
+              "label": "Drupal 100多种语言提供了无以伦比的支持和翻译工作流程"
+            },
+            "subTitle": "多语言",
+            "img": {
+              "href": "#",
+              "src": "/assets/images/cases/porto3.jpg",
+              "alt": "alt"
+            },
+            "bg": {
+              "classes": "object-fit",
+              "img": {
+                "hostClasses": "",
+                "src": "/assets/images/showcase/pattern-01.png"
+              }
+            }
           }
         },
         {
@@ -911,12 +975,12 @@
           },
           "content": {
             "type": "card-1v5",
-            "title": "Discuss The Project",
-            "body": "The most well-known dummy text is the 'Lorem Ipsum', which is said to have originated in the 16th century.",
+            "title": "讨论 Builder 架构",
+            "body": "讨论未来的发展方向和基础架构，是否可以融入 AI 生成相应的内容，为用户提供优秀的数字创新体验。",
             "more": {
               "href": "/node/1",
               "target": "_blank",
-              "label": "Read more"
+              "label": "查看更多"
             },
             "footer": {
               "label": "Step 01.",
@@ -934,22 +998,25 @@
           "content": {
             "title": {
               "classes": "text-primary",
-              "label": "FREE"
+              "label": "免费"
             },
             "type": "card-1v6",
-            "prefix": "$",
+            "prefix": "¥",
             "number": "79",
-            "suffix": "/mo",
-            "body": "<ul class=\"list-done\"><li>Full Access</li><li>Enhanced Security</li><li>Source Files</li><li>1 Domain Free</li><li>Free Installment</li></ul>",
+            "suffix": "/月",
+            "body": "<ul class=\"list-done\"><li>完全开放</li><li>安全检测机制</li><li>高质量交付源码文件</li><li>免费一个域名绑定</li><li>二十四小时免费技术支持</li></ul>",
             "actionsAlign": "start center",
             "actions": [
               {
                 "href": "#",
-                "label": "开始"
+                "label": "开始",
+                "type": "btn",
+                "color": "primary",
+                "mode": "raised"
               },
               {
                 "type": "btn-animate",
-                "label": "Buy Now",
+                "label": "立刻购买",
                 "href": "#",
                 "style": "style-v1",
                 "icon": "open_in_new"
@@ -968,67 +1035,88 @@
             "svg": "magnify"
           },
           "content": {
-            "type": "search-action",
-            "button": {
-              "label": "搜索",
-              "color": "primary"
+            "id": "xxx",
+            "type": "action-1v1",
+            "spacer": "xl",
+            "bg": {
+              "classes": "bg-shadow bg-fill-width"
             },
-            "form": [
-              {
-                "type": "select",
-                "key": "skill",
-                "label": "技能",
-                "options": [
-                  {
-                    "label": "无",
-                    "value": ""
-                  },
-                  {
-                    "label": "Angular",
-                    "value": "170"
-                  },
-                  {
-                    "label": "React",
-                    "value": "162"
-                  },
-                  {
-                    "label": "Vue",
-                    "value": "167"
-                  }
-                ]
+            "text": {
+              "title": {
+                "label": "如何才能帮助到您？",
+                "style": "none",
+                "classes": "mat-display-1"
               },
-              {
-                "type": "select",
-                "key": "cms",
-                "label": "CMS",
-                "options": [
-                  {
-                    "label": "无",
-                    "value": ""
+              "classes": "",
+              "spacer": "none",
+              "body": "<p>这里有你想要的答案，请根据以下筛选条件选择进行搜索。</p>",
+              "actions": [
+                {
+                  "type": "search-action",
+                  "button": {
+                    "label": "搜索",
+                    "color": "primary"
                   },
-                  {
-                    "label": "Drupal",
-                    "value": "170"
-                  },
-                  {
-                    "label": "WP",
-                    "value": "162"
-                  },
-                  {
-                    "label": "Joomla",
-                    "value": "167"
-                  }
-                ]
-              },
-              {
-                "type": "input",
-                "key": "keys",
-                "placeholder": "请输入关键词搜索",
-                "controlType": "search",
-                "label": "关键词",
-                "appearance": "legacy"
-              }
-            ]
+                  "form": [
+                    {
+                      "type": "select",
+                      "key": "skill",
+                      "label": "技能",
+                      "options": [
+                        {
+                          "label": "无",
+                          "value": ""
+                        },
+                        {
+                          "label": "Angular",
+                          "value": "angular"
+                        },
+                        {
+                          "label": "React",
+                          "value": "react"
+                        },
+                        {
+                          "label": "Vue",
+                          "value": "vue"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "select",
+                      "key": "cms",
+                      "label": "CMS",
+                      "options": [
+                        {
+                          "label": "无",
+                          "value": ""
+                        },
+                        {
+                          "label": "Drupal",
+                          "value": "drupal"
+                        },
+                        {
+                          "label": "WP",
+                          "value": "wp"
+                        },
+                        {
+                          "label": "Joomla",
+                          "value": "joomla"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "input",
+                      "key": "keys",
+                      "placeholder": "请输入关键词搜索",
+                      "controlType": "search",
+                      "label": "关键词",
+                      "appearance": "legacy"
+                    }
+                  ]
+                }
+              ]
+            },
+            "shape": true
           }
         },
         {
@@ -1190,36 +1278,6 @@
           }
         },
         {
-          "label": "Map",
-          "icon": {
-            "svg": "map-marker"
-          },
-          "content": {
-            "type": "location",
-            "title": {
-              "label": "我的位置",
-              "style": "banner-title",
-              "classes": "m-bottom-0"
-            },
-            "style": {
-              "height": "500px"
-            },
-            "city": "南宁市",
-            "params": {
-              "zoomEnable": false,
-              "draggable": false
-            },
-            "elements": [
-              {
-                "company": {
-                  "setCenter": true,
-                  "address": "高新区8号创客城"
-                }
-              }
-            ]
-          }
-        },
-        {
           "label": "形状",
           "icon": {
             "svg": "cosine-wave"
@@ -1283,7 +1341,7 @@
                   "src": "../assets/images/showcase/blog1-large.jpeg",
                   "alt": ""
                 },
-                "changed": "2022/01/08"
+                "changed": "2023-06-19"
               },
               {
                 "link": {
@@ -1294,29 +1352,29 @@
                   "src": "../assets/images/showcase/blog2-large.jpeg",
                   "alt": ""
                 },
-                "changed": "2022/01/03"
+                "changed": "2023-06-19"
               },
               {
                 "link": {
                   "label": "你应该了解的 Angular 最佳实践",
-                  "href": "/node/414"
+                  "href": "2023-06-19"
                 },
                 "img": {
                   "src": "../assets/images/showcase/blog3-large.jpeg",
                   "alt": ""
                 },
-                "changed": "2022/01/03"
+                "changed": "2023-06-19"
               },
               {
                 "link": {
                   "label": "Angular 5 rxjs 5.5.2 多个 http 并行 forkJoin 请求",
-                  "href": "/node/387"
+                  "href": "2023-06-19"
                 },
                 "img": {
                   "src": "../assets/images/showcase/blog4-large.jpeg",
                   "alt": ""
                 },
-                "changed": "2021/05/14"
+                "changed": "2023-06-19"
               }
             ]
           }
@@ -1330,14 +1388,14 @@
             "type": "media-meta",
             "link": {
               "href": "#",
-              "label": "使用 DEVTOOLS 对 ANGULAR 前端应用性能分析优化"
+              "label": "Storybook 是什么？"
             },
             "more": {
               "href": "#",
               "label": "更多"
             },
-            "date": "2022-07-18",
-            "body": "使用 lighthouse 评分 以南宁IT派[www.nnitpai.com]为例记录分析优化过程，使用 Devtools lighthouse 对首页进行综合的评分： 性能评分勉强及格差强人意，切换到 performance 性能选项卡: 记录的同时，可以依次滚动页面到底部，暂..."
+            "date": "2023-06-19",
+            "body": "Storybook是一个用于开发和展示UI组件的工具。它提供了一个独立的环境，开发人员可以在其中构建、测试和文档化单个UI组件，而无需依赖于整个应用程序的上下文。Storybook是一个用于开发和展示UI组件的工具。它提供了一个独立的环境，开发人员可以在其中构建、测试和文档化单个UI组件，而无需依赖于整个应用程序的上下文。..."
           }
         },
         {
@@ -1355,7 +1413,7 @@
               },
               "alt": "logo"
             },
-            "meta": "2017/08",
+            "meta": "2023-06",
             "title": "前端开发工程师",
             "subTitle": "Davyin",
             "content": "专注于 Drupal 前端主题开发，目前主要从事于 Angular 前端开发，终身学习体验者，热衷于健身，希望明天比今天好一点。"
@@ -1380,7 +1438,7 @@
                   },
                   "alt": "logo"
                 },
-                "meta": "2017/08",
+                "meta": "2023-06",
                 "title": "前端开发工程师",
                 "subTitle": "Davyin",
                 "content": "专注于 Drupal 前端主题开发，目前主要从事于 Angular 前端开发，终身学习体验者，热衷于健身，希望明天比今天好一点。"
@@ -1394,7 +1452,7 @@
                   },
                   "alt": "logo"
                 },
-                "meta": "2022/08",
+                "meta": "2023-06",
                 "title": "前端架构师",
                 "subTitle": "阿里蚂蚁",
                 "content": "深入产品和行业场景，深入行业技术，分析影响稳定性和质量的潜在异常节点，把握蚂蚁金服强大的监控能力，设计和制定监控方案。"
@@ -1413,10 +1471,64 @@
             "title": "Johnson",
             "subTitle": "FrontEnd",
             "img": {
-              "src": "/assets/images/client1.jpeg",
+              "src": "/assets/images/avatar/01.jpeg",
               "alt": ""
             },
-            "body": "我是一名充满热情和激情的程序员，对技术有着浓厚的兴趣。我通过不断学习和实践，已经具备了丰富的开发经验。我善于使用各种编程语言，能够快速高效地完成各类项目开发任务。我相信，通过我的技术实力，可以为公司和客户带来更大的价值，并不断推进技术的进步。"
+            "body": "作为一名非专业的Web开发者，我曾经因为缺乏编码和设计技能而感到十分困惑。然而自从我开始使用Builder构建页面后，我的许多顾虑就消失了。这个软件非常容易上手，它使我可以通过直观的拖放界面来制作精美的网站页面，我还可以轻松自定义并整合不同的组件。使用Builder让创建漂亮的页面变得简单，不再需要长时间坐在电脑前手动编写代码，让我可以更多地关注我的内容本身。"
+          }
+        },
+        {
+          "label": "背景视频",
+          "icon": {
+            "svg": "movie-outline"
+          },
+          "content": {
+            "type": "video-bg",
+            "source": {
+              "src": "/assets/video/storybook.mp4",
+              "type": "video/mp4"
+            },
+            "widget": {
+              "type": "showcase-1v3",
+              "title": {
+                "label": "Storybook 是什么？",
+                "style": "style-v1",
+                "classes": "mat-display-1"
+              },
+              "classes": "text-light",
+              "bg": {
+                "classes": "bg-fill-width overlay overlay-80"
+              },
+              "elements": [
+                {
+                  "type": "text",
+                  "spacer": "none",
+                  "style": {
+                    "margin": "0 auto",
+                    "text-align": "center",
+                    "width": "600px"
+                  },
+                  "body": "Storybook是一个用于开发和展示UI组件的工具。它提供了一个独立的环境，开发人员可以在其中构建、测试和文档化单个UI组件，而无需依赖于整个应用程序的上下文，Storybook是一个用于开发和展示UI组件的工具。",
+                  "actionsAlign": "center center",
+                  "actions": [
+                    {
+                      "label": "了解更多",
+                      "type": "btn-animate",
+                      "href": "#",
+                      "style": "style-v1",
+                      "icon": "verified_user"
+                    },
+                    {
+                      "label": "回到官网",
+                      "type": "btn-animate",
+                      "href": "#",
+                      "style": "style-v1",
+                      "icon": "fingerprint"
+                    }
+                  ]
+                }
+              ]
+            }
           }
         }
       ]
@@ -1437,7 +1549,7 @@
           }
         },
         {
-          "label": "Prog Group",
+          "label": "Group",
           "icon": {
             "svg": "format-list-group"
           },
@@ -1468,6 +1580,36 @@
             "type": "spinner",
             "color": "primary",
             "size": "50"
+          }
+        },
+        {
+          "label": "404",
+          "icon": {
+            "svg": "text-search-variant"
+          },
+          "content": {
+            "type": "404",
+            "img": {
+              "src": "/assets/images/404.svg",
+              "alt": "404 not found!"
+            },
+            "text": {
+              "spacer": "none",
+              "title": {
+                "label": "OH!NO <br>页面没有找到",
+                "style": "style-v1",
+                "classes": "mat-display-1"
+              },
+              "body": "很抱歉，您请求的页面可能已经被移除、更改名称或暂时无法使用。在查找更多信息之前，您可以尝试以下操作：<ul class=\"list-done\"><li>检查您输入的URL是否正确</li><li>在浏览器中清除缓存和Cookie</li><li>尝试在不同的浏览器或设备上打开页面</li></ul><p>我们非常感谢您对我们的关注和理解，我们会尽快解决问题并让我们的页面再次正常工作。</p>"
+            },
+            "actions": [
+              {
+                "label": "回到首页",
+                "href": "/home",
+                "style": "style-v1",
+                "icon": "open_in_new"
+              }
+            ]
           }
         }
       ]

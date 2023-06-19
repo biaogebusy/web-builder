@@ -42,6 +42,6 @@ Default.args = {
 };
 
 if (!environment.production) {
-  console.log(components);
-  console.log(widgets);
+  console.log('comps:', components);
+  console.log('widgets:', widgets);
 }
