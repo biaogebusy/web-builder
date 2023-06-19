@@ -17,7 +17,9 @@ import { httpInterceptorProviders } from '@core/interceptors';
 import { Angulartics2Module } from 'angulartics2';
 import {
   BRANDING,
+  BUILDERFULLSCREEN,
   CORE_CONFIG,
+  DISABLEFOOTER,
   NOTIFY_CONTENT,
   USER,
 } from '@core/token/token-providers';
@@ -28,7 +30,9 @@ import { BlockModule } from '@uiux/combs/block/block.module';
 import {
   apiUrlFactory,
   brandingFactory,
+  builderFullScreenFactory,
   coreConfigFactory,
+  disableFooterFactory,
   notifyFactory,
   themeFactory,
   userFactory,
@@ -38,6 +42,9 @@ import { ContentService } from '@core/service/content.service';
 import { CryptoJSService } from '@core/service/crypto-js.service';
 import { UserService } from '@core/service/user.service';
 import { NotifyService } from '@core/service/notify.service';
+import { Router } from '@angular/router';
+import { BuilderState } from '@core/state/BuilderState';
+import { of } from 'rxjs';
 
 @NgModule({
   declarations: [AppComponent],
@@ -93,6 +100,16 @@ import { NotifyService } from '@core/service/notify.service';
       provide: NOTIFY_CONTENT,
       useFactory: notifyFactory,
       deps: [[new Inject(CORE_CONFIG)], NotifyService],
+    },
+    {
+      provide: BUILDERFULLSCREEN,
+      useFactory: builderFullScreenFactory,
+      deps: [Router, LocalStorageService, BuilderState],
+    },
+    {
+      provide: DISABLEFOOTER,
+      useFactory: disableFooterFactory,
+      deps: [Router],
     },
   ],
   bootstrap: [AppComponent],

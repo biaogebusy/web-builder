@@ -9,7 +9,7 @@ import { IBuilderComponent } from '@core/interface/IBuilder';
 import { ICard1v1 } from '@core/interface/widgets/ICard';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { LocalStorageService } from 'ngx-webstorage';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -18,6 +18,7 @@ export class BuilderState {
   public builderContent$ = new Subject<IPage>();
   public showcase$: Subject<ICard1v1> = new Subject();
   public animateDisable$ = new Subject<boolean>();
+  public fullScreen$ = new Subject<boolean>();
   public toolbarDisable$ = new Subject<boolean>();
   public debugeAnimate$ = new Subject<boolean>();
   public jsoneditorContent$ = new Subject<{

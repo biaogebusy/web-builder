@@ -4,11 +4,14 @@ import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { NgxWebstorageModule } from 'ngx-webstorage';
+import { LocalStorageService, NgxWebstorageModule } from 'ngx-webstorage';
 import base from '@assets/app/core/base.json';
 import branding from '@assets/app/core/branding.json';
-import { ActivatedRoute } from '@angular/router';
-import { pageContentFactory } from '@core/factory/factory';
+import { ActivatedRoute, Router } from '@angular/router';
+import {
+  builderFullScreenFactory,
+  pageContentFactory,
+} from '@core/factory/factory';
 import { ContentState } from '@core/state/ContentState';
 import { SafeHtmlPipe } from '@core/pipe/safe-html.pipe';
 import { ContentService } from '@core/service/content.service';
@@ -20,6 +23,8 @@ import {
   PAGE_CONTENT,
   BRANDING,
   NOTIFY_CONTENT,
+  BUILDERFULLSCREEN,
+  DISABLEFOOTER,
 } from '@core/token/token-providers';
 import { of } from 'rxjs';
 import { ActionModule } from '@uiux/combs/action/action.module';
@@ -41,6 +46,7 @@ import { CarouselModule } from '@uiux/combs/carousel/carousel.module';
 import { CalendarModule } from '@uiux/combs/calendar/calendar.module';
 import { DashboardModule } from '@uiux/combs/dashboard/dashboard.module';
 import { notify } from './data/notify';
+import { BuilderState } from '@core/state/BuilderState';
 
 export function sleep(ms: number): Promise<any> {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -113,6 +119,15 @@ export class StorysModule {
         {
           provide: NOTIFY_CONTENT,
           useValue: of(notify),
+        },
+        {
+          provide: BUILDERFULLSCREEN,
+          useFactory: builderFullScreenFactory,
+          deps: [Router, LocalStorageService, BuilderState],
+        },
+        {
+          provide: DISABLEFOOTER,
+          useValue: of(true),
         },
       ],
     };

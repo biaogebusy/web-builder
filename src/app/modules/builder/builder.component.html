@@ -1,8 +1,6 @@
-<div class="builder" [ngClass]="{'has-sidebar':!builderFullSize}" *ngIf="content">
+<div class="builder" [ngClass]="{'has-sidebar':!(builderFullScreen$|async)}" *ngIf="content">
   <mat-drawer-container>
-    <mat-drawer #drawer class="sidebar" mode="side" [(opened)]="opened">
-      <app-builder-sidebar-top [drawer]="drawer" [opened]="opened"></app-builder-sidebar-top>
-      <mat-divider class="m-y-xs"></mat-divider>
+    <mat-drawer #drawer class="sidebar" [mode]="mode" [opened]="!(builderFullScreen$|async)">
       <mat-tab-group mat-stretch-tabs mat-align-tabs="center" disableRipple="true">
         <mat-tab>
           <ng-template mat-tab-label>
@@ -24,7 +22,7 @@
       </mat-tab-group>
     </mat-drawer>
     <mat-drawer-content>
-      <app-builder-content-toolbar [drawer]="drawer" [containerDrawer]="containerDrawer" [opened]="opened" [page]="page"
+      <app-builder-content-toolbar [containerDrawer]="containerDrawer" [page]="page"
         (animateChange)="onAnimate()"></app-builder-content-toolbar>
       <mat-drawer-container class="preview-container">
         <mat-drawer #containerDrawer class="generater-drawer" mode="side" position="end">

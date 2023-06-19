@@ -1,5 +1,4 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
-import { MatDrawer } from '@angular/material/sidenav';
+import { Component, Inject, OnInit } from '@angular/core';
 import { IBranding } from '@core/interface/branding/IBranding';
 import { BRANDING } from '@core/token/token-providers';
 import { Observable } from 'rxjs';
@@ -10,8 +9,6 @@ import { Observable } from 'rxjs';
   styleUrls: ['./builder-sidebar-top.component.scss'],
 })
 export class BuilderSidebarTopComponent implements OnInit {
-  @Input() opened: boolean;
-  @Input() drawer: MatDrawer;
   constructor(@Inject(BRANDING) public branding$: Observable<IBranding>) {}
 
   ngOnInit(): void {}

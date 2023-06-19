@@ -12,7 +12,7 @@
   .builder {
     background-color: mat-color($background, background);
     .sidebar {
-      background-color: transparent;
+      background-color: mat-color($background, card);
       .mat-drawer-inner-container {
         @include scrollbar(mat-color($foreground, divider));
       }
@@ -62,6 +62,9 @@
           .time {
             color: mat-color($foreground, text, 0.45);
           }
+        }
+        &.fixed {
+          @include mat-elevation(2, mat-color($background, tooltip), 0.25);
         }
       }
       .overlay {

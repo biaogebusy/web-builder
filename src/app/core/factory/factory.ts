@@ -1,7 +1,7 @@
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { ContentService } from '@core/service/content.service';
-import { Observable, BehaviorSubject, interval } from 'rxjs';
+import { Observable, BehaviorSubject, interval, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ContentState } from '@core/state/ContentState';
 import { LocalStorageService } from 'ngx-webstorage';
@@ -12,6 +12,7 @@ import { IUser } from '@core/interface/IUser';
 import { INotify } from '@core/interface/widgets/IWidgets';
 import { map, startWith, switchMap } from 'rxjs/operators';
 import { NotifyService } from '@core/service/notify.service';
+import { BuilderState } from '@core/state/BuilderState';
 
 export const THEMKEY = 'themeMode';
 export const DEBUGANIMATEKEY = 'debugAnimate';
@@ -28,6 +29,42 @@ export function pageContentFactory(
     contentState.pageConfig$.next(page.config);
   });
   return $pageContent;
+}
+
+export function builderFullScreenFactory(
+  router: Router,
+  storage: LocalStorageService,
+  builder: BuilderState
+): Observable<boolean> {
+  const isFull$ = new BehaviorSubject<boolean>(false);
+  router.events.subscribe((event) => {
+    if (event instanceof NavigationEnd) {
+      const isFull = storage.retrieve('builderFullScreen');
+      if (event.url.includes('/builder') && isFull !== false) {
+        isFull$.next(true);
+      } else {
+        isFull$.next(false);
+      }
+    }
+  });
+  builder.fullScreen$.subscribe((state) => {
+    isFull$.next(state);
+  });
+  return isFull$;
+}
+
+export function disableFooterFactory(roter: Router): Observable<boolean> {
+  const disableFooter$ = new BehaviorSubject<boolean>(false);
+  roter.events.subscribe((event) => {
+    if (event instanceof NavigationEnd) {
+      if (event.url.includes('/builder')) {
+        disableFooter$.next(true);
+      } else {
+        disableFooter$.next(false);
+      }
+    }
+  });
+  return disableFooter$;
 }
 
 export function notifyFactory(

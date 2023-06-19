@@ -1,22 +1,30 @@
-<div class="builder-content-toolbar">
-  <div class="wrapper" fxLayoutAlign="space-between center">
-    <div class="left" fxFlex.lt-md="auto" fxFlex.gt-sm="33%">
-      <app-btn *ngIf="opened" [matTooltip]="'收起边栏'" matTooltipPosition="above" (click)="onClose()"
-        [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'fullscreen' } }"></app-btn>
-      <app-btn *ngIf="!opened" [matTooltip]="'展开边栏'" matTooltipPosition="above" (click)="onOpen()"
-        [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'fullscreen-exit' } }"></app-btn>
+<ng-container *ngIf="builderFullScreen$|async">
+  <div *ngTemplateOutlet="toolbar;context:{isFull:builderFullScreen$|async}"></div>
+</ng-container>
+<div *ngTemplateOutlet="toolbar;context:{isFull:false}"></div>
+
+<ng-template #toolbar let-isFull="isFull">
+  <div class="builder-content-toolbar" [ngClass]="{'fixed':isFull}">
+    <div class="wrapper" fxLayoutAlign="space-between center">
+      <div class="left" fxFlex.lt-md="auto" fxFlex.gt-sm="33%">
+        <ng-container *ngIf="branding$ | async as branding">
+          <div class="branding m-y-sm" *ngIf="branding.header?.logo">
+            <app-logo [content]="branding.header?.logo"></app-logo>
+          </div>
+        </ng-container>
+      </div>
+      <div class="middle" fxFlex.lt-md="auto" fxFlex.gt-sm="33%" fxLayoutAlign="center center" fxLayout="column">
+        <div class="title bold">{{page.title}}</div>
+        <div class="time">{{page.time|date:"YYYY-MM-dd HH:mm"}}</div>
+      </div>
+      <div class="right" fxFlex.lt-md="auto" fxFlex.gt-sm="33%" fxLayoutAlign="end center" fxLayoutGap="0.5rem">
+        <mat-slide-toggle [checked]="builderFullScreen$|async" (change)="onFullScreen($event)" [matTooltip]="'切换全宽'"
+          matTooltipPosition="above"></mat-slide-toggle>
+        <app-btn [matTooltip]="'智能生成'" matTooltipPosition="above" (click)="onGenerate()"
+          [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'react' } }"></app-btn>
+        <app-builder-menu [showPreview]="false"></app-builder-menu>
+      </div>
     </div>
-    <div class="middle" fxFlex.lt-md="auto" fxFlex.gt-sm="33%" fxLayoutAlign="center center" fxLayout="column">
-      <div class="title bold">{{page.title}}</div>
-      <div class="time">{{page.time|date:"YYYY-MM-dd HH:mm"}}</div>
-    </div>
-    <div class="right" fxFlex.lt-md="auto" fxFlex.gt-sm="33%" fxLayoutAlign="end center" fxLayoutGap="0.5rem">
-      <mat-slide-toggle (change)="onPreview($event)" [matTooltip]="'安静预览'"
-        matTooltipPosition="above"></mat-slide-toggle>
-      <app-btn [matTooltip]="'智能生成'" matTooltipPosition="above" (click)="onGenerate()"
-        [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'react' } }"></app-btn>
-      <app-builder-menu [showPreview]="false"></app-builder-menu>
-    </div>
+    <mat-divider></mat-divider>
   </div>
-</div>
-<mat-divider></mat-divider>
+</ng-template>

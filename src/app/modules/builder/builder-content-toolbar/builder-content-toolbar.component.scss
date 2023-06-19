@@ -1,8 +1,8 @@
 .builder-content-toolbar {
   position: relative;
-  padding-left: 20px;
-  padding-right: 20px;
   .wrapper {
+    padding-left: 20px;
+    padding-right: 20px;
     height: 55px;
   }
   .open-drawer {
@@ -19,5 +19,12 @@
     .time {
       font-size: small;
     }
+  }
+  &.fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
   }
 }

@@ -9,13 +9,19 @@ import { ScreenState } from './core/state/screen/ScreenState';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { ScreenService } from '@core/service/screen.service';
 import { ConfigService } from '@core/service/config.service';
-import { CORE_CONFIG, BRANDING, USER } from '@core/token/token-providers';
+import {
+  CORE_CONFIG,
+  BRANDING,
+  USER,
+  BUILDERFULLSCREEN,
+  DISABLEFOOTER,
+} from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { IBranding } from './core/interface/branding/IBranding';
 import { Observable } from 'rxjs';
 import { UserService } from '@core/service/user.service';
 import { IUser } from '@core/interface/IUser';
-import { LocalStorageService, LocalStorage } from 'ngx-webstorage';
+import { LocalStorageService } from 'ngx-webstorage';
 import { DOCUMENT } from '@angular/common';
 import { ThemeService } from '@core/service/theme.service';
 @Component({
@@ -30,8 +36,6 @@ export class AppComponent implements OnInit, AfterViewInit {
   enableSidebar = false;
   opened: boolean;
   loading = false;
-  @LocalStorage('builderFullSize')
-  builderFullSize = false;
   constructor(
     public screen: ScreenState,
     private activateRouter: ActivatedRoute,
@@ -45,7 +49,9 @@ export class AppComponent implements OnInit, AfterViewInit {
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
     @Inject(BRANDING) public branding$: Observable<IBranding>,
     @Inject(USER) public user: IUser,
-    @Inject(DOCUMENT) private doc: Document
+    @Inject(DOCUMENT) private doc: Document,
+    @Inject(BUILDERFULLSCREEN) public builderFullScreen$: Observable<boolean>,
+    @Inject(DISABLEFOOTER) public disableFooter$: Observable<boolean>
   ) {}
 
   ngOnInit(): void {
@@ -92,10 +98,6 @@ export class AppComponent implements OnInit, AfterViewInit {
           this.sidebarOpened = false;
           this.enableSidebar = false;
         }
-      });
-
-      this.storage.observe('builderFullSize').subscribe((state) => {
-        this.builderFullSize = state;
       });
 
       this.activateRouter.fragment.subscribe((fragment) => {
