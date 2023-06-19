@@ -105,17 +105,10 @@
     > .component-toolbar {
       position: absolute;
       z-index: 999;
-      padding: 1rem;
       line-height: 1;
       .title {
         background-color: mat-color($primary);
         color: mat-color($primary, default-contrast);
-      }
-      .actions {
-        .item {
-          background-color: mat-color($primary);
-          color: mat-color($primary, default-contrast);
-        }
       }
     }
   }

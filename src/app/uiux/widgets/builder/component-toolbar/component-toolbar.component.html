@@ -2,10 +2,21 @@
   <div class="title">
     <i>{{ index !== undefined ? index+'.':''}}</i> {{type}}
   </div>
-  <div class="actions" fxLayout="row" fxLayoutGap="1rem">
-    <div class="item" (click)="addComponent(content)" *ngIf="!isPreview">添加到预览</div>
-    <div class="item" (click)="onCopy(content)">复制 JSON</div>
-    <div class="item" (click)="onEditor(content, index)" *ngIf="!isStory">编辑 JSON</div>
-    <div class="item" (click)="onDelete(index)" *ngIf="isPreview">移除</div>
+  <div class="actions m-right-xs" fxLayout="row" fxLayoutGap="1rem">
+    <div class="item" (click)="onDelete(index)" *ngIf="isPreview" [matTooltip]="'移除'" matTooltipPosition="above">
+      <app-btn [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'delete',inline:true } }"></app-btn>
+    </div>
+    <div class="item" (click)="addComponent(content)" *ngIf="!isPreview" [matTooltip]="'添加到预览'"
+      matTooltipPosition="above">
+      <app-btn
+        [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'playlist-check',inline:true } }"></app-btn>
+    </div>
+    <div class="item" (click)="onCopy(content)" [matTooltip]="'复制 JSON'" matTooltipPosition="above">
+      <app-btn [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'content-copy',inline:true } }"></app-btn>
+    </div>
+    <div class="item" (click)="onEditor(content, index)" *ngIf="!isStory" [matTooltip]="'编辑'"
+      matTooltipPosition="above">
+      <app-btn [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'pencil',inline:true } }"></app-btn>
+    </div>
   </div>
 </div>
