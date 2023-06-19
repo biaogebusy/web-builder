@@ -10,7 +10,6 @@ import {
   OnInit,
 } from '@angular/core';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { DEBUGANIMATEKEY } from '@core/factory/factory';
 import type { IPage } from '@core/interface/IAppConfig';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
@@ -18,7 +17,7 @@ import { ContentState } from '@core/state/ContentState';
 import { DEBUGANIMATE } from '@core/token/token-providers';
 import { map } from 'lodash-es';
 import { LocalStorage, LocalStorageService } from 'ngx-webstorage';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
@@ -33,7 +32,6 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   @LocalStorage('page')
   page: IPage;
   total: number;
-  isDebugAnimate: boolean;
   destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     public contentState: ContentState,
@@ -41,14 +39,11 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     private util: UtilitiesService,
     private cd: ChangeDetectorRef,
     private storage: LocalStorageService,
-    @Inject(DEBUGANIMATE) private bebugAnimate: boolean,
+    @Inject(DEBUGANIMATE) public debugAnimate$: Observable<boolean>,
     @Inject(DOCUMENT) private doc: Document
   ) {}
 
-  ngOnInit(): void {
-    this.isDebugAnimate = this.bebugAnimate;
-    this.cd.detectChanges();
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     this.getTotal();
@@ -100,12 +95,11 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onDebugAnimate(event: MatSlideToggleChange): void {
-    this.isDebugAnimate = event.checked;
-    this.storage.store(DEBUGANIMATEKEY, this.isDebugAnimate);
-    this.builder.toolbarDisable$.next(this.isDebugAnimate);
-    this.builder.debugeAnimate$.next(this.isDebugAnimate);
+    const isDebugAnimate = event.checked;
+    this.builder.toolbarDisable$.next(isDebugAnimate);
+    this.builder.debugeAnimate$.next(isDebugAnimate);
     const markers = this.doc.getElementsByClassName('marker-text');
-    if (!this.isDebugAnimate) {
+    if (!isDebugAnimate) {
       // hidden marker
       map(markers, (marker) => {
         marker.classList.remove('display-block');

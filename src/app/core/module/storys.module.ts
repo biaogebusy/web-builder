@@ -10,6 +10,7 @@ import branding from '@assets/app/core/branding.json';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
   builderFullScreenFactory,
+  debugAnimateFactory,
   pageContentFactory,
 } from '@core/factory/factory';
 import { ContentState } from '@core/state/ContentState';
@@ -25,6 +26,7 @@ import {
   NOTIFY_CONTENT,
   BUILDERFULLSCREEN,
   DISABLEFOOTER,
+  DEBUGANIMATE,
 } from '@core/token/token-providers';
 import { of } from 'rxjs';
 import { ActionModule } from '@uiux/combs/action/action.module';
@@ -128,6 +130,11 @@ export class StorysModule {
         {
           provide: DISABLEFOOTER,
           useValue: of(true),
+        },
+        {
+          provide: DEBUGANIMATE,
+          useFactory: debugAnimateFactory,
+          deps: [LocalStorageService, BuilderState],
         },
       ],
     };

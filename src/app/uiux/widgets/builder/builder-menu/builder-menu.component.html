@@ -16,9 +16,8 @@
         <span>复制JSON</span>
       </button>
       <button mat-menu-item>
-        <mat-slide-toggle [checked]="isDebugAnimate" (change)="onDebugAnimate($event)"
-          class="m-right-xs"></mat-slide-toggle>
-        <span>动画调式</span>
+        <mat-slide-toggle [checked]="debugAnimate$ | async" (change)="onDebugAnimate($event)">动画调式</mat-slide-toggle>
+
       </button>
       <button mat-menu-item (click)="onClear()">
         <app-icon [content]="{svg:'trash-can-outline'}"></app-icon>

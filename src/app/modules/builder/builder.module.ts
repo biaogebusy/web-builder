@@ -14,8 +14,6 @@ import { BuilderShowcaseComponent } from './builder-showcase/builder-showcase.co
 import { BuilderSidebarComponentsComponent } from './builder-sidebar-components/builder-sidebar-components.component';
 import { BuilderSidebarWidgetsComponent } from './builder-sidebar-widgets/builder-sidebar-widgets.component';
 import { BuilderGeneraterComponent } from './builder-generater/builder-generater.component';
-import { DEBUGANIMATE } from '@core/token/token-providers';
-import { debugAnimateFactory } from '@core/factory/factory';
 import { LocalStorageService } from 'ngx-webstorage';
 const compoments = [BuilderComponent, BuilderListComponent];
 
@@ -38,13 +36,7 @@ const compoments = [BuilderComponent, BuilderListComponent];
     DragDropModule,
     BuilderRoutingModule,
   ],
-  providers: [
-    {
-      provide: DEBUGANIMATE,
-      useFactory: debugAnimateFactory,
-      deps: [LocalStorageService],
-    },
-  ],
+  providers: [],
   exports: [...compoments],
 })
 export class BuilderModule {}

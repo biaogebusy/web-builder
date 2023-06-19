@@ -67,6 +67,26 @@ export function disableFooterFactory(roter: Router): Observable<boolean> {
   return disableFooter$;
 }
 
+export function debugAnimateFactory(
+  storage: LocalStorageService,
+  builder: BuilderState
+): Observable<boolean> {
+  const debugAnimate$ = new BehaviorSubject<boolean>(false);
+  const isDebugAnimate = storage.retrieve(DEBUGANIMATEKEY);
+  if (isDebugAnimate) {
+    debugAnimate$.next(true);
+  } else {
+    debugAnimate$.next(false);
+  }
+
+  builder.debugeAnimate$.subscribe((state) => {
+    storage.store(DEBUGANIMATEKEY, state);
+    debugAnimate$.next(state);
+  });
+
+  return debugAnimate$;
+}
+
 export function notifyFactory(
   coreConfig: ICoreConfig,
   notifyService: NotifyService
@@ -136,15 +156,6 @@ export function themeFactory(
     return localTheme;
   }
   return coreConfig.defaultTheme || 'light-theme';
-}
-
-export function debugAnimateFactory(storage: LocalStorageService): boolean {
-  const isDebugAnimate = storage.retrieve(DEBUGANIMATEKEY);
-  if (isDebugAnimate) {
-    return true;
-  } else {
-    return false;
-  }
 }
 
 export function brandingFactory(
