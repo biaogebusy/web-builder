@@ -120,17 +120,17 @@ Reverse.args = {
         type: 'text',
         spacer: 'sm',
         title: {
-          label: '为什么选择我们？',
+          label: 'Storybook 是什么？',
           style: 'style-v4',
           classes: 'mat-display-2',
         },
-        body: '为所有开发者、所有应用场景而设计，让前端开发更快速、简单。所有开发者都能快速上手、所有设备都可以适配、所有项目都适用。',
+        body: 'Storybook是一个用于开发和展示UI组件的工具。它提供了一个独立的环境，开发人员可以在其中构建、测试和文档化单个UI组件，而无需依赖于整个应用程序的上下文。',
       },
       {
         type: 'panel',
         elements: [
           {
-            title: '关于我们',
+            title: '组件驱动开发',
             icon: 'person',
             params: {
               expanded: true,
@@ -139,29 +139,29 @@ Reverse.args = {
               {
                 type: 'text',
                 spacer: 'none',
-                body: '远方信使（XINSHI）是一个使用 Drupal 提供 API 的 Angular 前端开发学习框架，拥有丰富的前端组件，通 过 Drupal Pannel 可快速构建 Landing 营销着陆页，常规的 Web 官网通过拖曳的方式即可创建。',
+                body: 'Storybook采用了组件驱动开发的方法，即将UI组件作为开发的核心单元。开发人员可以在Storybook中为每个UI组件创建"stories"，描述组件在不同状态和交互方式下的行为和外观。这种方法能够提高组件的可重用性和可测试性。',
               },
             ],
           },
           {
-            title: '我们的故事',
+            title: '组件展示和测试',
             icon: 'faviores',
             elements: [
               {
                 type: 'text',
                 spacer: 'none',
-                body: '我们是专业开发 Drupal 多年的前后端开发人员，热衷于分享 Drupal 相关的技术和资讯，创建维护微信公众号：  drupalstudy 从 Drupal 7开始，目前已发布了了四百多期，是国内为数不多的 Drupal 相关的微信公众号。',
+                body: 'Storybook提供了一个交互式的界面，用于展示和测试UI组件。开发人员可以在浏览器中浏览和交互组件，以便检查其外观和行为，并确保它们在各种条件下正常工作。这有助于加快开发迭代周期，提高组件的质量。',
               },
             ],
           },
           {
-            title: '技术分享',
+            title: '文档化',
             icon: 'faviores',
             elements: [
               {
                 type: 'text',
                 spacer: 'none',
-                body: '我们也及时在知乎更新 Drupal 相关的技术文章，分享给更多感兴趣的人，愿你们能够享受 Drupal 带来的字数创新体验。',
+                body: 'Storybook不仅可以展示和测试组件，还可以自动生成组件的文档。开发人员可以使用Markdown或其他文档格式编写组件文档，并将其与组件关联。这使得团队成员可以更好地理解和使用组件，减少了沟通成本。',
               },
             ],
           },

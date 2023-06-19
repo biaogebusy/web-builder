@@ -145,7 +145,7 @@ Default.play = async () => {
   const Content = screen.getByLabelText('内容');
   await userEvent.type(
     Content,
-    '信使前端框架可以快速的构建页面，我们很希望未来有更多的可能性。',
+    'Storybook是一个开源的前端工具，用于开发、测试和文档化UI组件。',
     {
       delay: 100,
     }

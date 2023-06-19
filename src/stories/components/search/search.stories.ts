@@ -48,7 +48,7 @@ Default.args = {
       },
       text: {
         title: {
-          label: '信使搜索',
+          label: '综合搜索',
           style: 'style-v1',
           classes: 'mat-display-1  text-light',
         },
