@@ -16,7 +16,7 @@ const {
   Default: { args: c2v1 },
 } = c2v1Story;
 const {
-  Default: { args: c1v4 },
+  Default: { args: c1v4, storyName: c1v4Name },
 } = c1v4Story;
 const {
   Default: { args: c1v2 },
@@ -41,6 +41,7 @@ export const carousels = [
             c1v1,
             { ...textHero, name: textHeroName },
             { ...lineyear, name: lineyearName },
+            { ...c1v4, name: c1v4Name },
           ],
         },
       ],
@@ -57,7 +58,6 @@ export const carousels = [
       ],
     },
   },
-  c1v4,
   c2v1,
   c2v2,
 ];
