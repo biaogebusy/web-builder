@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { Inject, Injectable, Injector } from '@angular/core';
 import { DialogService } from './dialog.service';
 import { GoogleAnalyticsService } from './ga.service';
 import { QiDianService } from './qidian.service';
@@ -13,26 +13,27 @@ import { Subject } from 'rxjs';
 export class ConfigService {
   public switchChange$ = new Subject();
   constructor(
-    private googleAnalyticsService: GoogleAnalyticsService,
-    private qiDianService: QiDianService,
-    private dialogService: DialogService,
-    private screenService: ScreenService,
-    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
+    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
+    protected injector: Injector
   ) {}
 
   init(): void {
-    if (this.screenService.isPlatformBrowser()) {
+    const screenService = this.injector.get(ScreenService);
+    const gaService = this.injector.get(GoogleAnalyticsService);
+    const qiDianService = this.injector.get(QiDianService);
+    const dialogService = this.injector.get(DialogService);
+    if (screenService.isPlatformBrowser()) {
       if (this.coreConfig) {
         if (this.coreConfig?.googleAnalytics) {
           const id = this.coreConfig.googleAnalytics.id;
-          this.googleAnalyticsService.loadGoogleAnalytics(id);
+          gaService.loadGoogleAnalytics(id);
         }
         if (this.coreConfig?.qidian) {
           const qdConfig = this.coreConfig.qidian;
-          this.qiDianService.loadQiDian(qdConfig);
+          qiDianService.loadQiDian(qdConfig);
         }
         if (this.coreConfig?.dialog?.forceDialog) {
-          this.dialogService.forceDialog(this.coreConfig.dialog.forceDialog);
+          dialogService.forceDialog(this.coreConfig.dialog.forceDialog);
         }
       }
     }
