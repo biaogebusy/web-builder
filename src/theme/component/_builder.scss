@@ -10,7 +10,7 @@
   $warn: map-get($config, warn);
 
   .builder {
-    background-color: mat-color($background, background);
+    background-color: mat-color($background, card);
     .sidebar {
       background-color: mat-color($background, card);
       .mat-drawer-inner-container {
@@ -23,8 +23,8 @@
         background-color: mat-color($primary, 0.06);
         .mat-tab-label-active {
           .mat-tab-label-content {
-            background: mat-color($background, card);
-            color: mat-color($primary);
+            background: mat-color($primary);
+            color: mat-color($primary, default-contrast);
           }
         }
         .mat-tab-label-content {
@@ -32,12 +32,22 @@
         }
       }
 
+      .mat-expansion-panel {
+        background-color: mat-color($background, background);
+      }
+
       .widgets {
         .item {
           .inner {
-            background-color: mat-color($primary, 0.07);
+            background-color: mat-color($background, card);
+            transition: background 0.1s ease-in-out;
+            @include mat-elevation(
+              1,
+              mat-color($background, focused-button),
+              0.1
+            );
             &:hover {
-              @include mat-elevation(4, mat-color($foreground, text), 0.2);
+              @include mat-elevation(1, mat-color($background, hover), 0.4);
             }
           }
         }

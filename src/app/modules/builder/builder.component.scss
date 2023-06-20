@@ -3,6 +3,7 @@
   &.has-sidebar {
     height: calc(100vh - 40px);
     padding: 20px;
+    box-sizing: content-box;
     .sidebar {
       margin: -20px;
     }
