@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   Inject,
+  Injector,
   OnInit,
   Renderer2,
 } from '@angular/core';
@@ -22,10 +23,8 @@ export class SwitchThemeComponent implements OnInit {
   constructor(
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
     @Inject(THEME) public theme: string,
-    private configService: ConfigService,
-    private storage: LocalStorageService,
-    private themeService: ThemeService,
-    private render2: Renderer2
+    private render2: Renderer2,
+    protected injector: Injector
   ) {}
 
   ngOnInit(): void {
@@ -33,9 +32,12 @@ export class SwitchThemeComponent implements OnInit {
   }
 
   onSwitchTheme(theme: string): void {
-    this.configService.switchChange$.next(theme);
-    this.storage.store(THEMKEY, theme);
+    let themeService = this.injector.get(ThemeService);
+    let configService = this.injector.get(ConfigService);
+    let storage = this.injector.get(LocalStorageService);
+    configService.switchChange$.next(theme);
+    storage.store(THEMKEY, theme);
     this.currentTheme = theme;
-    this.themeService.setTheme(theme, this.render2);
+    themeService.setTheme(theme, this.render2);
   }
 }

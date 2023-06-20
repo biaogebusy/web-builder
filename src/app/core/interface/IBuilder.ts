@@ -8,7 +8,7 @@ export interface IBuilderComponent {
 
 export interface IBuilderComponentElement {
   content: {
-    type: string;
+    type?: string;
     name?: string;
     child?: any[];
   };

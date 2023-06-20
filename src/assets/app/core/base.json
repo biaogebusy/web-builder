@@ -22,16 +22,6 @@
       "icon": "laptop_mac"
     },
     {
-      "name": "Red 主题",
-      "style": "red-theme",
-      "icon": "laptop_mac"
-    },
-    {
-      "name": "King 主题",
-      "style": "king-theme",
-      "icon": "laptop_mac"
-    },
-    {
       "name": "暗黑主题",
       "style": "dark-theme",
       "svgIcon": "dark_mode"
