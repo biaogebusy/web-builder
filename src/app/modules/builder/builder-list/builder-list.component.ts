@@ -12,6 +12,7 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
+import { ScreenService } from '@core/service/screen.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { map } from 'lodash-es';
 
@@ -30,7 +31,8 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   opened = false;
   constructor(
     public builder: BuilderState,
-    @Inject(DOCUMENT) private doc: Document
+    @Inject(DOCUMENT) private doc: Document,
+    private screenService: ScreenService
   ) {}
 
   ngOnInit(): void {}
@@ -50,6 +52,10 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
         this.builderList.nativeElement.append(marker);
       });
     }, 0);
+  }
+
+  onClickSidebar(i: number, item: any): void {
+    this.screenService.scrollToAnchor(`${item.type || item.content.type}-${i}`);
   }
 
   ngOnDestroy(): void {

@@ -3,7 +3,7 @@
     <div class="sidebar" id="builder-list-sideabr" fxLayout="column" cdkDropList
       [cdkDropListConnectedTo]="['widgets','components']" (cdkDropListDropped)="drop($event)">
       <div class="component-item" cdkDrag [cdkDragData]="item"
-        *ngFor="let item of content;index as i; trackBy: trackByFn">
+        *ngFor="let item of content;index as i; trackBy: trackByFn" (click)="onClickSidebar(i,item)">
         <div class="box" fxLayout="row" fxLayoutAlign="center center">
           <div class="p-x-xs">{{i}}</div>
           <div class="inner" fxLayout="column" fxLayoutAlign="center center">
@@ -25,7 +25,7 @@
       [cdkDropListData]="content" [cdkDropListDisabled]="builder.toolbarDisable$ | async"
       (cdkDropListDropped)="drop($event)">
       <app-builder-empty *ngIf="!content?.length"></app-builder-empty>
-      <div class="component-item" cdkDrag [cdkDragData]="item"
+      <div id="{{item.type||item.content.type}}-{{i}}" class="component-item" cdkDrag [cdkDragData]="item"
         *ngFor="let item of content;index as i; trackBy: trackByFn">
         <app-dynamic-component [inputs]="item" [index]="i" [isPreview]="isPreview"></app-dynamic-component>
         <app-card-1v1 style="width:800px" *cdkDragPreview [content]="{
