@@ -1,9 +1,15 @@
 @import "../../../theme/variable/breakpoint";
+:host {
+  display: block;
+  overflow: hidden;
+  box-sizing: border-box;
+}
 .builder {
-  height: calc(100vh - 40px);
+  height: 100%;
+  overflow: hidden;
   &.has-sidebar {
     padding: 20px;
-    box-sizing: content-box;
+    box-sizing: border-box;
     .sidebar {
       margin: -20px;
     }
@@ -39,12 +45,14 @@
   }
   .mat-drawer-container {
     height: 100%;
+    .preview-container {
+      height: calc(100% - 56px);
+    }
   }
   ::ng-deep {
-    .mat-drawer-content {
+    > .mat-drawer-content {
       height: 100%;
       display: block;
-      overflow: hidden !important;
     }
     .mat-tab-label {
       max-width: 100px;

@@ -2,6 +2,8 @@ import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import {
   AfterViewInit,
   Component,
+  ElementRef,
+  HostBinding,
   Inject,
   Input,
   OnDestroy,
@@ -18,8 +20,9 @@ import { BUILDERFULLSCREEN, CORE_CONFIG } from '@core/token/token-providers';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { MatDrawer } from '@angular/material/sidenav';
 import { Observable, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { ScreenState } from '@core/state/screen/ScreenState';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-builder',
@@ -31,7 +34,6 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
   @LocalStorage('page')
   page: IPage;
   @ViewChild('containerDrawer', { static: false }) containerDrawer: MatDrawer;
-
   @LocalStorage('builderFullScreen')
   builderFullScreen: boolean;
   components: IBuilderComponent[];
@@ -45,7 +47,9 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
     private utli: UtilitiesService,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
     @Inject(BUILDERFULLSCREEN) public builderFullScreen$: Observable<boolean>,
-    private screenState: ScreenState
+    private screenState: ScreenState,
+    @Inject(DOCUMENT) private doc: Document,
+    private ele: ElementRef
   ) {}
 
   ngOnInit(): void {
@@ -86,6 +90,13 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
           this.mode = 'side';
         }
       });
+    this.screenState.scroll$.pipe().subscribe(() => {
+      const header = this.doc.querySelector('app-header header');
+      if (header) {
+        console.log(header.clientHeight);
+        this.ele.nativeElement.style.height = `calc(100vh - ${header.clientHeight}px)`;
+      }
+    });
   }
 
   onAnimate(): void {

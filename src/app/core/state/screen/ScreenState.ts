@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject, Observable, fromEvent } from 'rxjs';
+import { Subject, Observable, fromEvent, BehaviorSubject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MediaObserver, MediaChange } from '@angular/flex-layout';
@@ -9,7 +9,7 @@ import { ScreenService } from '@core/service/screen.service';
   providedIn: 'root',
 })
 export class ScreenState {
-  public scroll$ = new Subject();
+  public scroll$ = new BehaviorSubject<boolean>(true);
   public drawer$ = new Subject();
   public sidebarDrawer$ = new Subject();
   public stickyMenu$ = new Subject();
@@ -66,7 +66,7 @@ export class ScreenState {
     const scroll = fromEvent(window, 'scroll')
       .pipe(debounceTime(200))
       .subscribe(() => {
-        this.scroll$.next();
+        this.scroll$.next(true);
       });
   }
 

@@ -2,7 +2,7 @@
 @import "/src/theme//mixins/amixin";
 
 .main {
-  min-height: calc(100vh - 76px);
+  min-height: calc(100vh - 110px);
   &.has-manage-sidebar {
     background-color: #f7f7f7;
   }

@@ -1,6 +1,7 @@
 .builder-list {
   height: 100%;
   .sidebar {
+    width: 190px;
     padding: 10px;
     .component-item {
       margin: 5px;
@@ -21,7 +22,7 @@
   .sidebar {
     display: block;
     position: relative;
-    height: calc(100vh - 80px);
+    height: 100%;
     overflow-y: auto;
   }
   .component-item {
@@ -39,5 +40,12 @@
         }
       }
     }
+  }
+
+  .actions {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 99999;
   }
 }

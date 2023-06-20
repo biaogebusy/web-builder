@@ -30,7 +30,7 @@ export class ContentService {
       return;
     }
     this.tagsService.updateTages(pageValue);
-    this.screenState.scroll$.next();
+    this.screenState.scroll$.next(true);
   }
 
   get pageUrl(): string {

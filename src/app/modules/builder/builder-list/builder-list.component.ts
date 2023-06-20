@@ -27,6 +27,7 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
     new EventEmitter();
   @ViewChild('builderList', { static: false }) builderList: ElementRef;
   markers: NodeListOf<Element>;
+  opened = false;
   constructor(
     public builder: BuilderState,
     @Inject(DOCUMENT) private doc: Document
