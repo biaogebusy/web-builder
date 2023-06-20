@@ -4,6 +4,7 @@ import {
   AfterViewInit,
   Inject,
   Renderer2,
+  Injector,
 } from '@angular/core';
 import { ScreenState } from './core/state/screen/ScreenState';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
@@ -37,36 +38,37 @@ export class AppComponent implements OnInit, AfterViewInit {
   opened: boolean;
   loading = false;
   constructor(
-    public screen: ScreenState,
     private activateRouter: ActivatedRoute,
     private router: Router,
-    private screenService: ScreenService,
-    private configService: ConfigService,
-    private userService: UserService,
-    private storage: LocalStorageService,
-    private themeService: ThemeService,
     private renderer2: Renderer2,
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
     @Inject(BRANDING) public branding$: Observable<IBranding>,
     @Inject(USER) public user: IUser,
     @Inject(DOCUMENT) private doc: Document,
     @Inject(BUILDERFULLSCREEN) public builderFullScreen$: Observable<boolean>,
-    @Inject(DISABLEFOOTER) public disableFooter$: Observable<boolean>
+    @Inject(DISABLEFOOTER) public disableFooter$: Observable<boolean>,
+    private injcetor: Injector
   ) {}
 
   ngOnInit(): void {
-    this.configService.init();
+    const configService = this.injcetor.get(ConfigService);
+    configService.init();
   }
 
   ngAfterViewInit(): void {
-    if (this.screenService.isPlatformBrowser()) {
-      this.themeService.initTheme(this.coreConfig, this.renderer2);
-      this.screen.drawer$.subscribe(() => {
+    const screenService = this.injcetor.get(ScreenService);
+    const screen = this.injcetor.get(ScreenState);
+    const themeService = this.injcetor.get(ThemeService);
+    const userService = this.injcetor.get(UserService);
+    const storage = this.injcetor.get(LocalStorageService);
+    if (screenService.isPlatformBrowser()) {
+      themeService.initTheme(this.coreConfig, this.renderer2);
+      screen.drawer$.subscribe(() => {
         this.mobileMenuOpened = !this.mobileMenuOpened;
       });
 
       this.branding$.subscribe((branding) => {
-        if (this.userService.checkShow(branding.header?.sidebar, this.user)) {
+        if (userService.checkShow(branding.header?.sidebar, this.user)) {
           // init manage sidebar
           if (this.doc.location.pathname.split('/').length === 2) {
             this.enableSidebar = false;
@@ -83,16 +85,16 @@ export class AppComponent implements OnInit, AfterViewInit {
                 if (this.enableSidebar) {
                   this.enableSidebar = false;
                   this.sidebarOpened = false;
-                  this.screenService.initSidebarStyle(true);
+                  screenService.initSidebarStyle(true);
                 }
               } else {
                 this.initSidebar();
               }
             }
           });
-          this.screen.sidebarDrawer$.subscribe(() => {
+          screen.sidebarDrawer$.subscribe(() => {
             this.sidebarOpened = !this.sidebarOpened;
-            this.storage.store('sidebarOpened', this.sidebarOpened);
+            storage.store('sidebarOpened', this.sidebarOpened);
           });
         } else {
           this.sidebarOpened = false;
@@ -102,20 +104,21 @@ export class AppComponent implements OnInit, AfterViewInit {
 
       this.activateRouter.fragment.subscribe((fragment) => {
         if (fragment) {
-          this.screenService.scrollToAnchor(fragment);
+          screenService.scrollToAnchor(fragment);
         }
       });
     }
   }
 
   initSidebar(): void {
+    const storage = this.injcetor.get(LocalStorageService);
     this.enableSidebar = true;
-    const openState = this.storage.retrieve('sidebarOpened');
+    const openState = storage.retrieve('sidebarOpened');
     if (openState === null) {
       this.sidebarOpened = true;
-      this.storage.store('sidebarOpened', true);
+      storage.store('sidebarOpened', true);
     } else {
-      this.sidebarOpened = this.storage.retrieve('sidebarOpened');
+      this.sidebarOpened = storage.retrieve('sidebarOpened');
     }
   }
 }
