@@ -13,7 +13,7 @@ export const PAGE_CONTENT = new InjectionToken<Observable<IPage | object>>(
 export const THEME = new InjectionToken<string>('current theme');
 export const DEBUGANIMATE = new InjectionToken<boolean>('debug animate');
 export const BRANDING = new InjectionToken<IBranding>('branding config');
-export const DISABLEFOOTER = new InjectionToken<boolean>('disable footer');
+export const DISABLEBRAND = new InjectionToken<boolean>('disable branding');
 
 export const USER = new InjectionToken<IUser>('user');
 export const NOTIFY_CONTENT = new InjectionToken<Observable<INotify>>(

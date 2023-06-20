@@ -14,8 +14,7 @@ import {
   CORE_CONFIG,
   BRANDING,
   USER,
-  BUILDERFULLSCREEN,
-  DISABLEFOOTER,
+  DISABLEBRAND,
 } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { IBranding } from './core/interface/branding/IBranding';
@@ -45,8 +44,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     @Inject(BRANDING) public branding$: Observable<IBranding>,
     @Inject(USER) public user: IUser,
     @Inject(DOCUMENT) private doc: Document,
-    @Inject(BUILDERFULLSCREEN) public builderFullScreen$: Observable<boolean>,
-    @Inject(DISABLEFOOTER) public disableFooter$: Observable<boolean>,
+    @Inject(DISABLEBRAND) public disableBrand$: Observable<boolean>,
     private injcetor: Injector
   ) {}
 

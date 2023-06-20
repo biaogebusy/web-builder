@@ -12,11 +12,11 @@
         <app-manage-sidebar [opened]="sidebarOpened"></app-manage-sidebar>
       </mat-drawer>
       <mat-drawer-content id="main-container">
-        <app-header [ngClass]="{'display-none':builderFullScreen$|async}"></app-header>
+        <app-header *ngIf="!(disableBrand$|async)"></app-header>
         <div class="main" [ngClass]="{'has-manage-sidebar': branding.header?.sidebar ? true : false }">
           <router-outlet></router-outlet>
         </div>
-        <app-footer [ngClass]="{'display-none':disableFooter$|async}"></app-footer>
+        <app-footer *ngIf="!(disableBrand$|async)"></app-footer>
       </mat-drawer-content>
     </mat-drawer-container>
   </mat-drawer-content>

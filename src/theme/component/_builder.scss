@@ -63,7 +63,7 @@
     .mat-drawer-container {
       background-color: mat-color($background, card);
       .builder-list {
-        .sidebar {
+        .sidebar-drawer {
           border-right: 1px solid mat-color($foreground, divider);
           @include scrollbar(mat-color($foreground, divider));
           .box {
@@ -76,6 +76,9 @@
               color: mat-color($primary);
             }
           }
+        }
+        .mat-drawer {
+          background-color: mat-color($background, background);
         }
       }
     }

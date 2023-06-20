@@ -25,7 +25,7 @@ import {
   BRANDING,
   NOTIFY_CONTENT,
   BUILDERFULLSCREEN,
-  DISABLEFOOTER,
+  DISABLEBRAND,
   DEBUGANIMATE,
 } from '@core/token/token-providers';
 import { of } from 'rxjs';
@@ -128,7 +128,7 @@ export class StorysModule {
           deps: [Router, LocalStorageService, BuilderState],
         },
         {
-          provide: DISABLEFOOTER,
+          provide: DISABLEBRAND,
           useValue: of(true),
         },
         {

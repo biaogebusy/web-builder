@@ -53,18 +53,18 @@ export function builderFullScreenFactory(
   return isFull$;
 }
 
-export function disableFooterFactory(roter: Router): Observable<boolean> {
-  const disableFooter$ = new BehaviorSubject<boolean>(false);
+export function disableBrandFactory(roter: Router): Observable<boolean> {
+  const disableBrand$ = new BehaviorSubject<boolean>(false);
   roter.events.subscribe((event) => {
     if (event instanceof NavigationEnd) {
       if (event.url.includes('/builder')) {
-        disableFooter$.next(true);
+        disableBrand$.next(true);
       } else {
-        disableFooter$.next(false);
+        disableBrand$.next(false);
       }
     }
   });
-  return disableFooter$;
+  return disableBrand$;
 }
 
 export function debugAnimateFactory(

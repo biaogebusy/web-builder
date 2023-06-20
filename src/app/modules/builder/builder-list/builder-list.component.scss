@@ -1,8 +1,8 @@
 .builder-list {
   height: 100%;
-  .sidebar {
+  .sidebar-drawer {
     width: 190px;
-    padding: 10px;
+    width: 190px;
     .component-item {
       margin: 5px;
     }
@@ -18,10 +18,13 @@
       }
     }
   }
-  .wrapper,
-  .sidebar {
-    display: block;
-    position: relative;
+  .sidebar-drawer,
+  .wrapper {
+    height: calc(100% - 55px);
+    overflow-y: auto !important;
+  }
+  .wrapper {
+    overflow-x: hidden !important;
   }
   .component-item {
     position: relative;

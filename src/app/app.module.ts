@@ -20,7 +20,7 @@ import {
   BUILDERFULLSCREEN,
   CORE_CONFIG,
   DEBUGANIMATE,
-  DISABLEFOOTER,
+  DISABLEBRAND,
   NOTIFY_CONTENT,
   USER,
 } from '@core/token/token-providers';
@@ -34,7 +34,7 @@ import {
   builderFullScreenFactory,
   coreConfigFactory,
   debugAnimateFactory,
-  disableFooterFactory,
+  disableBrandFactory,
   notifyFactory,
   themeFactory,
   userFactory,
@@ -109,8 +109,8 @@ import { of } from 'rxjs';
       deps: [Router, LocalStorageService, BuilderState],
     },
     {
-      provide: DISABLEFOOTER,
-      useFactory: disableFooterFactory,
+      provide: DISABLEBRAND,
+      useFactory: disableBrandFactory,
       deps: [Router],
     },
     {

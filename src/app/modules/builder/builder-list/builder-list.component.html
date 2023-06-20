@@ -1,7 +1,7 @@
 <mat-drawer-container class="builder-list">
-  <mat-drawer #drawer mode="side" [(opened)]="opened">
-    <div class="sidebar" id="builder-list-sideabr" fxLayout="column" cdkDropList
-      [cdkDropListConnectedTo]="['widgets','components']" (cdkDropListDropped)="drop($event)">
+  <mat-drawer class="sidebar-drawer" #drawer mode="side" [(opened)]="opened">
+    <div id="builder-list-sideabr" fxLayout="column" cdkDropList [cdkDropListConnectedTo]="['widgets','components']"
+      (cdkDropListDropped)="drop($event)">
       <div class="component-item" cdkDrag [cdkDragData]="item"
         *ngFor="let item of content;index as i; trackBy: trackByFn" (click)="onClickSidebar(i,item)">
         <div class="box" fxLayout="row" fxLayoutAlign="center center">
@@ -14,14 +14,14 @@
       </div>
     </div>
   </mat-drawer>
-  <mat-drawer-content>
+  <mat-drawer-content class="wrapper">
     <div class="actions" *ngIf="content?.length">
       <app-btn *ngIf="opened" [matTooltip]="'收起预览'" matTooltipPosition="above" (click)="drawer.close()"
         [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'arrow-expand-left' } }"></app-btn>
       <app-btn *ngIf="!opened" [matTooltip]="'展开预览'" matTooltipPosition="above" (click)="drawer.open()"
         [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'arrow-expand-right' } }"></app-btn>
     </div>
-    <div #builderList id="builder-list" class="wrapper" cdkDropList [cdkDropListConnectedTo]="['widgets','components']"
+    <div #builderList id="builder-list" cdkDropList [cdkDropListConnectedTo]="['widgets','components']"
       [cdkDropListData]="content" [cdkDropListDisabled]="builder.toolbarDisable$ | async"
       (cdkDropListDropped)="drop($event)">
       <app-builder-empty *ngIf="!content?.length"></app-builder-empty>

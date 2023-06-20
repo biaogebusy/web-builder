@@ -1,6 +1,8 @@
 @import "../../../theme/variable/breakpoint";
 
 .builder {
+  height: 100vh;
+  overflow: hidden;
   &.has-sidebar {
     padding: 20px;
     box-sizing: border-box;
