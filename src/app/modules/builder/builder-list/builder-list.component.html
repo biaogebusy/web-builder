@@ -15,7 +15,7 @@
     </div>
   </mat-drawer>
   <mat-drawer-content>
-    <div class="actions">
+    <div class="actions" *ngIf="content?.length">
       <app-btn *ngIf="opened" [matTooltip]="'收起预览'" matTooltipPosition="above" (click)="drawer.close()"
         [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'arrow-expand-left' } }"></app-btn>
       <app-btn *ngIf="!opened" [matTooltip]="'展开预览'" matTooltipPosition="above" (click)="drawer.open()"

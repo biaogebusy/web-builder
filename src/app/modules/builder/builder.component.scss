@@ -1,12 +1,6 @@
 @import "../../../theme/variable/breakpoint";
-:host {
-  display: block;
-  overflow: hidden;
-  box-sizing: border-box;
-}
+
 .builder {
-  height: 100%;
-  overflow: hidden;
   &.has-sidebar {
     padding: 20px;
     box-sizing: border-box;
@@ -45,13 +39,9 @@
   }
   .mat-drawer-container {
     height: 100%;
-    .preview-container {
-      height: calc(100% - 56px);
-    }
   }
   ::ng-deep {
     > .mat-drawer-content {
-      height: 100%;
       display: block;
     }
     .mat-tab-label {

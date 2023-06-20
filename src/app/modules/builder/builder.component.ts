@@ -90,13 +90,13 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
           this.mode = 'side';
         }
       });
-    this.screenState.scroll$.pipe().subscribe(() => {
-      const header = this.doc.querySelector('app-header header');
-      if (header) {
-        console.log(header.clientHeight);
-        this.ele.nativeElement.style.height = `calc(100vh - ${header.clientHeight}px)`;
-      }
-    });
+    // this.screenState.scroll$.pipe().subscribe(() => {
+    //   const header = this.doc.querySelector('app-header header');
+    //   if (header) {
+    //     console.log(header.clientHeight);
+    //     this.ele.nativeElement.style.height = `calc(100vh - ${header.clientHeight}px)`;
+    //   }
+    // });
   }
 
   onAnimate(): void {
