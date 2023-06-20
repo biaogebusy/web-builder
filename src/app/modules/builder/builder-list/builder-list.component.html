@@ -1,15 +1,31 @@
-<div #builderList id="builder-list" cdkDropList [cdkDropListConnectedTo]="['widgets','components']"
-  [cdkDropListData]="content" [cdkDropListDisabled]="builder.toolbarDisable$ | async" class="builder-list"
-  (cdkDropListDropped)="drop($event)">
-  <app-builder-empty *ngIf="!content?.length"></app-builder-empty>
-  <div class="component-item" cdkDrag [cdkDragData]="item" *ngFor="let item of content;index as i; trackBy: trackByFn">
-    <app-dynamic-component [inputs]="item" [index]="i" [isPreview]="isPreview"></app-dynamic-component>
-    <app-card-1v1 style="width:800px" *cdkDragPreview [content]="{
-      link:{
-        href:'#',
-        label: item.type
-      },components:[item]
-    }"></app-card-1v1>
+<div class="builder-list" fxLayout="row" fxFlex="0 1 100%">
+  <div class="sidebar" id="builder-list-sideabr" fxHide.lt-sm="true" fxFlex.gt-xs="0 0 190px" fxLayout="column"
+    cdkDropList [cdkDropListConnectedTo]="['widgets','components']" (cdkDropListDropped)="drop($event)">
+    <div class="component-item" cdkDrag [cdkDragData]="item"
+      *ngFor="let item of content;index as i; trackBy: trackByFn">
+      <div class="box" fxLayout="row" fxLayoutAlign="center center">
+        <div class="p-x-xs">{{i}}</div>
+        <div class="inner" fxLayout="column" fxLayoutAlign="center center">
+          <div class="one-line bold">{{item.type||item.content.type}}</div>
+          <div class="one-line">{{item.name}}</div>
+        </div>
+      </div>
+    </div>
   </div>
-  <app-gotop></app-gotop>
+  <div #builderList id="builder-list" class="wrapper" fxFlex.lt-sm="100%" fxFlex.gt-xs="0 0 calc(100% - 190px)"
+    cdkDropList [cdkDropListConnectedTo]="['widgets','components']" [cdkDropListData]="content"
+    [cdkDropListDisabled]="builder.toolbarDisable$ | async" (cdkDropListDropped)="drop($event)">
+    <app-builder-empty *ngIf="!content?.length"></app-builder-empty>
+    <div class="component-item" cdkDrag [cdkDragData]="item"
+      *ngFor="let item of content;index as i; trackBy: trackByFn">
+      <app-dynamic-component [inputs]="item" [index]="i" [isPreview]="isPreview"></app-dynamic-component>
+      <app-card-1v1 style="width:800px" *cdkDragPreview [content]="{
+        link:{
+          href:'#',
+          label: item.type
+        },components:[item]
+      }"></app-card-1v1>
+    </div>
+    <app-gotop></app-gotop>
+  </div>
 </div>

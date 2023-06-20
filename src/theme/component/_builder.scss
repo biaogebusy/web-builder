@@ -62,6 +62,22 @@
     }
     .mat-drawer-container {
       background-color: mat-color($background, card);
+      .builder-list {
+        .sidebar {
+          border-right: 1px solid mat-color($foreground, divider);
+          @include scrollbar(mat-color($foreground, divider));
+          .box {
+            .inner {
+              border: 1px solid mat-color($foreground, divider);
+              background-color: mat-color($background, card);
+            }
+            &:hover {
+              background-color: mat-color($primary, 0.25);
+              color: mat-color($primary);
+            }
+          }
+        }
+      }
     }
     .mat-drawer-content {
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.11);

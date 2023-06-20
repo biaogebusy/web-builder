@@ -138,7 +138,7 @@ export class BuilderState {
   };
 
   renderMarkers(isDebugAnimate: boolean): void {
-    const markers = this.doc.getElementsByClassName('marker-text');
+    const markers = this.doc.querySelectorAll('div[class^="gsap-marker"]');
     if (!isDebugAnimate) {
       // hidden marker
       map(markers, (marker) => {

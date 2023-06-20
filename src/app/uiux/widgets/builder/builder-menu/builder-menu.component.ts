@@ -47,7 +47,7 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     this.getTotal();
     this.debugAnimate$.subscribe((state) => {
-      debugger;
+      //TODO
       this.builder.renderMarkers(state);
     });
   }

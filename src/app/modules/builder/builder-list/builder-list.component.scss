@@ -1,8 +1,29 @@
 .builder-list {
-  display: block;
-  position: relative;
-  height: calc(100% - 55px);
-  overflow-y: auto;
+  height: 100%;
+  .sidebar {
+    padding: 10px;
+    .component-item {
+      margin: 5px;
+    }
+    .box {
+      border-radius: 8px;
+      padding: 4px;
+      .inner {
+        height: 70px;
+        width: 86%;
+        font-size: small;
+        border-radius: 6px;
+        padding: 10px;
+      }
+    }
+  }
+  .wrapper,
+  .sidebar {
+    display: block;
+    position: relative;
+    height: calc(100vh - 80px);
+    overflow-y: auto;
+  }
   .component-item {
     position: relative;
     &.cdk-drag:not(.cdk-drag-disabled) {

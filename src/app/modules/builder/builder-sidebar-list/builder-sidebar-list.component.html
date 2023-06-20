@@ -1,5 +1,5 @@
 <mat-selection-list id="components" #components [multiple]="false" cdkDropList [cdkDropListData]="content.elements"
-  cdkDropListConnectedTo="builder-list">
+  [cdkDropListConnectedTo]="['builder-list','builder-list-sideabr']">
   <ng-container *ngFor="let component of content.elements;last as last">
     <ng-container *ngIf="!component.content.child">
       <mat-list-option [cdkDragData]="component" cdkDrag (mouseenter)="onShowcase(component)"

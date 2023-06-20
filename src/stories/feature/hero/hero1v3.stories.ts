@@ -38,8 +38,7 @@ V1.args = {
     spacer: 'xl',
     text: {
       title: {
-        label:
-          '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
+        label: '欢迎使用 <strong class="text-">Builder</strong> 快速构建页面',
         classes: 'mat-display-4 bold',
         style: 'style-v4',
       },
