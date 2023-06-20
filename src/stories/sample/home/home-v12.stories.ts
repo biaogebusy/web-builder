@@ -216,7 +216,7 @@ const content = of({
           label: 'Work Process',
           style: 'style-v1',
         },
-        body: '<p class="text-center">Start working with Landrick that can provide everything you need to generate awareness, drive traffic, connect.</p>',
+        body: '<p class="text-center">可以通过不同的渠道部署你的数据内容，从一个数据中心点到各个应用，从简单到复杂。无论是一个还是多个站点，Drupal 总是可以游刃有余的构建。</p>',
       },
       elements: [
         {
@@ -281,7 +281,7 @@ const content = of({
           label: 'Our Latest Projects',
           style: 'style-v1',
         },
-        body: '<p class="text-center">Start working with Landrick that can provide everything you need to generate awareness, drive traffic, connect.</p>',
+        body: '<p class="text-center">可以通过不同的渠道部署你的数据内容，从一个数据中心点到各个应用，从简单到复杂。无论是一个还是多个站点，Drupal 总是可以游刃有余的构建。</p>',
       },
       elements: [
         {
@@ -388,7 +388,7 @@ const content = of({
       bg: {
         classes: 'bg-shadow bg-fill-width',
       },
-      body: '<p class="text-center">Start working with Landrick that can provide everything you need to generate awareness, drive traffic, connect.</p>',
+      body: '<p class="text-center">可以通过不同的渠道部署你的数据内容，从一个数据中心点到各个应用，从简单到复杂。无论是一个还是多个站点，Drupal 总是可以游刃有余的构建。</p>',
       spacer: 'lg',
       actionsAlign: 'center center',
       actions: [

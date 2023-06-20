@@ -55,6 +55,8 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onClickSidebar(i: number, item: any): void {
+    // TODO
+    return;
     this.screenService.scrollToAnchor(`${item.type || item.content.type}-${i}`);
   }
 

@@ -124,12 +124,12 @@ const content = of({
     {
       type: 'showcase-1v1',
       title: {
-        label: 'What We Do ?',
+        label: 'Drupal 已经超越了传统的 Web概念',
         style: 'style-v1',
       },
       subTitle: {
         spacer: 'none',
-        body: '<p class="text-center">Start working with Landrick that can provide everything you need to generate awareness, drive traffic, connect.</p><br>',
+        body: '<p class="text-center">可以通过不同的渠道部署你的数据内容，从一个数据中心点到各个应用，从简单到复杂。无论是一个还是多个站点，Drupal 总是可以游刃有余的构建。</p><br>',
       },
       bg: {
         classes: 'bg-shadow bg-fill-width',
@@ -278,7 +278,7 @@ const content = of({
           style: 'style-v1',
           classes: 'mat-display-1',
         },
-        body: '<p class="text-center">Start working with Landrick that can provide everything you need to generate awareness, drive traffic, connect.</p>',
+        body: '<p class="text-center">可以通过不同的渠道部署你的数据内容，从一个数据中心点到各个应用，从简单到复杂。无论是一个还是多个站点，Drupal 总是可以游刃有余的构建。</p>',
       },
       classes: '',
       bg: {

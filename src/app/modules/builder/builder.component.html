@@ -25,7 +25,7 @@
       <app-builder-content-toolbar [containerDrawer]="containerDrawer" [page]="page"
         (animateChange)="onAnimate()"></app-builder-content-toolbar>
       <mat-drawer-container class="preview-container">
-        <mat-drawer #containerDrawer class="generater-drawer" mode="side" position="end">
+        <mat-drawer #containerDrawer class="generater-drawer" mode="over" position="end">
           <app-builder-generater [content]="{components:components,widgets:widgets}"></app-builder-generater>
         </mat-drawer>
         <mat-drawer-content>

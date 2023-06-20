@@ -86,7 +86,7 @@
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.11);
       @include scrollbar(mat-color($foreground, divider));
       .builder-content-toolbar {
-        background-color: mat-color($background, card);
+        background-color: mat-color($background, background);
         .middle {
           .time {
             color: mat-color($foreground, text, 0.45);
