@@ -23,6 +23,7 @@ export class BuilderState {
   public fullScreen$ = new Subject<boolean>();
   public toolbarDisable$ = new Subject<boolean>();
   public debugeAnimate$ = new Subject<boolean>();
+  public builderContentDrawer$ = new Subject<boolean>();
   public jsoneditorContent$ = new Subject<{
     content: IPage;
     index: number;

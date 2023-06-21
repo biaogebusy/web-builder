@@ -79,6 +79,10 @@ export class BuilderContentToolbarComponent
     this.util.openSnackbar('已禁用编辑组件，可预览组件动画', 'ok');
   }
 
+  onCompnentNavigate(): void {
+    this.builder.builderContentDrawer$.next(true);
+  }
+
   ngOnDestroy(): void {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();

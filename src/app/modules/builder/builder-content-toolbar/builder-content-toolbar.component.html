@@ -21,6 +21,8 @@
       <div class="right" fxFlex.lt-md="auto" fxFlex.gt-sm="33%" fxLayoutAlign="end center" fxLayoutGap="0.5rem">
         <mat-slide-toggle [checked]="builderFullScreen$|async" (change)="onFullScreen($event)" [matTooltip]="'切换全宽'"
           matTooltipPosition="above"></mat-slide-toggle>
+        <app-btn [matTooltip]="'组件导航'" matTooltipPosition="above" (click)="onCompnentNavigate()"
+          [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'dock-left' } }"></app-btn>
         <app-switch-theme></app-switch-theme>
         <app-btn [matTooltip]="'智能生成'" matTooltipPosition="above" (click)="onGenerate()"
           [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'react' } }"></app-btn>

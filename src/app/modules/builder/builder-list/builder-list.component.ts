@@ -12,6 +12,7 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
+import { MatDrawer } from '@angular/material/sidenav';
 import { ScreenService } from '@core/service/screen.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { map } from 'lodash-es';
@@ -27,6 +28,7 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   @Output() dropChange: EventEmitter<CdkDragDrop<string[]>> =
     new EventEmitter();
   @ViewChild('builderList', { static: false }) builderList: ElementRef;
+  @ViewChild('drawer', { static: false }) drawer: MatDrawer;
   markers: NodeListOf<Element>;
   opened = false;
   constructor(
@@ -35,7 +37,11 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
     private screenService: ScreenService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.builder.builderContentDrawer$.subscribe(() => {
+      this.drawer.toggle();
+    });
+  }
 
   trackByFn(index: number, item: any): number {
     return index;
