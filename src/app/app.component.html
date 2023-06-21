@@ -8,8 +8,9 @@
   </mat-drawer>
   <mat-drawer-content>
     <mat-drawer-container>
-      <mat-drawer id="sidebar" class="sidebar" mode="side" [(opened)]="sidebarOpened" *ngIf="enableSidebar">
-        <app-manage-sidebar [opened]="sidebarOpened"></app-manage-sidebar>
+      <mat-drawer #manageDrawer id="sidebar" class="sidebar" mode="side" [(opened)]="sidebarOpened"
+        *ngIf="enableSidebar">
+        <app-manage-sidebar [drawer]="manageDrawer"></app-manage-sidebar>
       </mat-drawer>
       <mat-drawer-content id="main-container">
         <app-header *ngIf="!(disableBrand$|async)"></app-header>

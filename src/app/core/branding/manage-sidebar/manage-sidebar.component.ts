@@ -11,9 +11,9 @@ import type { IUser } from '@core/interface/IUser';
 import { UserService } from '@core/service/user.service';
 import type { IBranding } from '@core/interface/branding/IBranding';
 import { Observable } from 'rxjs';
-import { ScreenState } from '@core/state/screen/ScreenState';
 import { ScreenService } from '@core/service/screen.service';
 import { LocalStorageService } from 'ngx-webstorage';
+import { MatDrawer } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-manage-sidebar',
@@ -22,13 +22,12 @@ import { LocalStorageService } from 'ngx-webstorage';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ManageSidebarComponent implements OnInit {
-  @Input() opened: boolean;
+  @Input() drawer: MatDrawer;
   constructor(
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
     @Inject(USER) public user: IUser,
     @Inject(BRANDING) public branding$: Observable<IBranding>,
     public userService: UserService,
-    private screenState: ScreenState,
     private screenService: ScreenService,
     private storage: LocalStorageService
   ) {}
@@ -43,7 +42,9 @@ export class ManageSidebarComponent implements OnInit {
   }
 
   onToggle(): void {
-    this.screenState.toggleSidebarDrawer();
-    this.screenService.initSidebarStyle(!this.opened);
+    const opened = this.drawer.opened;
+    this.drawer.toggle();
+    this.screenService.initSidebarStyle(!opened);
+    this.storage.store('sidebarOpened', !opened);
   }
 }

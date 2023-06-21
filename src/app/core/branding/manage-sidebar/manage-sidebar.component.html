@@ -1,5 +1,5 @@
 <div class="height-100" *ngIf="branding$ | async as branding" [ngClass]="branding.header?.sidebar?.classes">
-  <div class="manage-sidebar {{opened?'opened':'expanded'}}" *reqRolesIf="branding.header?.sidebar">
+  <div class="manage-sidebar {{drawer.opened?'opened':'expanded'}}" *reqRolesIf="branding.header?.sidebar">
     <div class="manage-brand p-y-sm p-x-sm" *ngIf="branding.header?.sidebar as sidebar">
       <app-logo *ngIf="!sidebar?.params.showUser; else profile" [content]="sidebar.logo"></app-logo>
       <ng-template #profile>
@@ -7,7 +7,7 @@
           <a class="picture" [routerLink]="userService.userPage">
             <img [src]="user.picture || coreConfig.defaultAvatar" alt="">
           </a>
-          <ng-container *ngIf="opened">
+          <ng-container *ngIf="drawer.opened">
             <div class="name bold p-top-xs">
               <a class="one-line" [routerLink]="userService.userPage">{{user.display_name}}</a>
             </div>
@@ -19,9 +19,9 @@
       </ng-template>
     </div>
     <div class="manage-menu" *ngIf="branding.header?.sidebar?.menu as menu"
-      [ngStyle]="{'overflow': opened?'auto' : 'visible'}">
-      <app-accordion [hidden]="!opened" [content]="menu"></app-accordion>
-      <div class="icon-list" [hidden]="opened">
+      [ngStyle]="{'overflow': drawer.opened?'auto' : 'visible'}">
+      <app-accordion [hidden]="!drawer.opened" [content]="menu"></app-accordion>
+      <div class="icon-list" [hidden]="drawer.opened">
         <div class="item" *ngFor="let item of menu" checkChildMenuActive>
           <ng-container *reqRolesIf="item">
             <app-icon class="icon" *ngIf="item.icon" [content]="item.icon"></app-icon>
@@ -33,8 +33,10 @@
     <div class="manage-footer p-y-sm p-x-sm">
       <div class="toggle">
         <div class="wrapper" (click)="onToggle()">
-          <app-icon matTooltip="收起" matTooltipPosition="above" *ngIf="opened" [content]="{svg:'page-first'}"></app-icon>
-          <app-icon matTooltip="展开" matTooltipPosition="above" *ngIf="!opened" [content]="{svg:'page-last'}"></app-icon>
+          <app-icon matTooltip="收起" matTooltipPosition="above" *ngIf="drawer.opened"
+            [content]="{svg:'page-first'}"></app-icon>
+          <app-icon matTooltip="展开" matTooltipPosition="above" *ngIf="!drawer.opened"
+            [content]="{svg:'page-last'}"></app-icon>
         </div>
       </div>
     </div>

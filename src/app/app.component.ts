@@ -34,7 +34,6 @@ export class AppComponent implements OnInit, AfterViewInit {
   mobileMenuOpened: boolean;
   sidebarOpened: boolean;
   enableSidebar = false;
-  opened: boolean;
   loading = false;
   constructor(
     private activateRouter: ActivatedRoute,
@@ -58,7 +57,6 @@ export class AppComponent implements OnInit, AfterViewInit {
     const screen = this.injcetor.get(ScreenState);
     const themeService = this.injcetor.get(ThemeService);
     const userService = this.injcetor.get(UserService);
-    const storage = this.injcetor.get(LocalStorageService);
     if (screenService.isPlatformBrowser()) {
       themeService.initTheme(this.coreConfig, this.renderer2);
       screen.drawer$.subscribe(() => {
@@ -89,10 +87,6 @@ export class AppComponent implements OnInit, AfterViewInit {
                 this.initSidebar();
               }
             }
-          });
-          screen.sidebarDrawer$.subscribe(() => {
-            this.sidebarOpened = !this.sidebarOpened;
-            storage.store('sidebarOpened', this.sidebarOpened);
           });
         } else {
           this.sidebarOpened = false;

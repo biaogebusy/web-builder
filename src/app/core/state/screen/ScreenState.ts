@@ -11,7 +11,6 @@ import { ScreenService } from '@core/service/screen.service';
 export class ScreenState {
   public scroll$ = new BehaviorSubject<boolean>(true);
   public drawer$ = new Subject();
-  public sidebarDrawer$ = new Subject();
   public stickyMenu$ = new Subject();
 
   viewPort: string[];
@@ -72,9 +71,5 @@ export class ScreenState {
 
   toggleDrawer(): any {
     this.drawer$.next();
-  }
-
-  toggleSidebarDrawer(): any {
-    this.sidebarDrawer$.next();
   }
 }
