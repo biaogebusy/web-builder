@@ -7,11 +7,12 @@ import {
   Inject,
 } from '@angular/core';
 import { Event, NavigationStart, Router } from '@angular/router';
-import type { IHeader } from '@core/interface/branding/IBranding';
+import type { IBranding, IHeader } from '@core/interface/branding/IBranding';
 import { ScreenState } from '@core/state/screen/ScreenState';
-import { CORE_CONFIG } from '@core/token/token-providers';
+import { BRANDING, CORE_CONFIG } from '@core/token/token-providers';
 import { version } from '../../../../../../package.json';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
@@ -20,12 +21,12 @@ import type { ICoreConfig } from '@core/interface/IAppConfig';
 })
 export class MenuComponent implements OnInit {
   @Input() isDrawer: boolean;
-  @Input() content: IHeader | undefined;
   isOpened = false;
   show = true;
 
   constructor(
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
+    @Inject(BRANDING) public branding$: Observable<IBranding>,
     public screen: ScreenState,
     private router: Router,
     private cd: ChangeDetectorRef

@@ -25,7 +25,7 @@ export class ItemMenuComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.isMegaMenu = !!this.params.isMegaMenu;
+      this.isMegaMenu = !!this.params?.isMegaMenu;
     }
   }
 }

@@ -1,29 +1,31 @@
-<ng-container *ngIf="content">
+<ng-container *ngIf="branding$|async as branding">
   <header *ngIf="show" class="header">
     <div class="container">
-      <div class="header-container" fxLayout="row" fxLayoutAlign="{{content.logo?'space-between center':'end center'}}">
-        <div class="header-left one-line" *ngIf="content.logo">
-          <app-logo [content]="content.logo"></app-logo>
+      <div class="header-container" fxLayout="row"
+        fxLayoutAlign="{{branding.header.logo?'space-between center':'end center'}}">
+        <div class="header-left one-line" *ngIf="branding.header?.logo">
+          <app-logo [content]="branding.header.logo"></app-logo>
         </div>
         <div class="header-right" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap.lt-lg="1rem"
           fxLayoutGap.gt-md="2rem">
-          <div class="menu-inner" *ngIf="content.mainMenu">
+          <div class="menu-inner" *ngIf="branding.header?.mainMenu">
             <div class="main-menu" fxLayout="row">
-              <div class="item" *ngFor="let menu of content.mainMenu;trackBy:trackByFn">
-                <app-item-menu [params]="content.params" [content]="menu"></app-item-menu>
+              <div class="item" *ngFor="let menu of branding.header.mainMenu;trackBy:trackByFn">
+                <app-item-menu *ngIf="branding.header?.params" [params]="branding.header.params"
+                  [content]="menu"></app-item-menu>
               </div>
             </div>
           </div>
-          <app-search-box [content]="content.search" *ngIf="content?.search?.enable"></app-search-box>
-          <div class="actions" *ngIf="content.actions">
-            <button color="primary" mat-raised-button *ngFor="let action of content.actions">
+          <app-search-box [content]="branding.header.search" *ngIf="branding.header?.search?.enable"></app-search-box>
+          <div class="actions" *ngIf="branding.header.actions">
+            <button color="primary" mat-raised-button *ngFor="let action of branding.header.actions">
               <app-link [content]="action"></app-link>
             </button>
           </div>
           <app-builder-menu class="has-icon" *ngIf="coreConfig?.builder?.enable"></app-builder-menu>
           <app-notify class="has-icon" *ngIf="coreConfig.notify?.enable"></app-notify>
-          <app-switch-theme class="has-icon" *ngIf="content?.params?.themeSwitch"></app-switch-theme>
-          <app-user-menu *ngIf="content?.params?.userInfo" [content]="content.userMenu"></app-user-menu>
+          <app-switch-theme class="has-icon" *ngIf="branding.header?.params?.themeSwitch"></app-switch-theme>
+          <app-user-menu *ngIf="branding.header?.params?.userInfo" [content]="branding.header.userMenu"></app-user-menu>
         </div>
       </div>
     </div>
@@ -35,13 +37,13 @@
         <mat-icon *ngIf="isDrawer">close</mat-icon>
       </button>
       <span class="spacer"></span>
-      <span class="app-name">{{content.logo?.label}}</span>
+      <span class="app-name">{{branding.header.logo?.label}}</span>
       <span class="spacer"></span>
       <app-switch-theme></app-switch-theme>
       <app-user-menu class="m-left-xs"></app-user-menu>
     </mat-toolbar>
     <div [hidden]="!(!show && isDrawer)">
-      <app-accordion *ngIf="content.mainMenu" [content]="content.mainMenu"></app-accordion>
+      <app-accordion *ngIf="branding.header.mainMenu" [content]="branding.header.mainMenu"></app-accordion>
     </div>
   </div>
 </ng-container>

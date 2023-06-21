@@ -4,10 +4,10 @@
       <app-header-banner *ngIf="showBanner" [content]="branding?.header?.banner">
       </app-header-banner>
       <app-header-top *ngIf="branding?.header?.top" [content]="branding?.header?.top"></app-header-top>
-      <app-menu #menu *ngIf="branding?.header" [content]="branding.header"></app-menu>
+      <app-menu #menu *ngIf="branding?.header"></app-menu>
     </div>
-    <app-menu class="sticky" [class.sticking]="sticky" [class.header-inverse]="branding?.header?.params?.inverse"
-      [content]="branding.header"></app-menu>
+    <app-menu class="sticky" [class.sticking]="sticky"
+      [class.header-inverse]="branding?.header?.params?.inverse"></app-menu>
   </header>
   <ng-template #transparent>
     <header #header id="transparent-mode" class="transparent-mode"
@@ -15,7 +15,7 @@
       [ngClass]="(contentState.pageConfig$|async)?.headerMode?.style">
       <div class="static">
         <app-header-top *ngIf="branding.header?.top" [content]="branding.header?.top"></app-header-top>
-        <app-menu #menu [content]="branding.header"></app-menu>
+        <app-menu #menu></app-menu>
       </div>
     </header>
   </ng-template>

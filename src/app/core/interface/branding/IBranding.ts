@@ -2,7 +2,7 @@ import { ILink } from '@core/interface/widgets/ILink';
 import { IImg } from '@core/interface/widgets/IImg';
 import { IIcon } from '@core/interface/widgets/IIcon';
 export interface IBranding {
-  header?: IHeader;
+  header: IHeader;
   footer?: IFooter;
 }
 export interface IHeader {
