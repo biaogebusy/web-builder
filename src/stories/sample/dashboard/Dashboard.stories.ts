@@ -41,14 +41,14 @@ export default {
     }),
     componentWrapperDecorator(
       (story) => `
-    <mat-drawer-container>
-      <mat-drawer id="sidebar" mode="side" class="sidebar">
-        <app-manage-sidebar></app-manage-sidebar>
+      <mat-drawer-container>
+      <mat-drawer #manageDrawer id="sidebar" class="sidebar" mode="side" [opened]="true">
+        <app-manage-sidebar [drawer]="manageDrawer"></app-manage-sidebar>
       </mat-drawer>
       <mat-drawer-content id="main-container">
-        <app-header></app-header>
-        <div class="main has-manage-sidebar">
-              ${story}
+        <app-header *ngIf="!(disableBrand$|async)"></app-header>
+        <div class="main" [ngClass]="{'has-manage-sidebar': true}">
+          ${story}
         </div>
       </mat-drawer-content>
     </mat-drawer-container>

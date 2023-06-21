@@ -14,7 +14,7 @@
       </mat-drawer>
       <mat-drawer-content id="main-container">
         <app-header *ngIf="!(disableBrand$|async)"></app-header>
-        <div class="main" [ngClass]="{'has-manage-sidebar': branding.header?.sidebar ? true : false }">
+        <div class="main" [ngClass]="{'has-manage-sidebar': branding.header.sidebar ? true : false }">
           <router-outlet></router-outlet>
         </div>
         <app-footer *ngIf="!(disableBrand$|async)"></app-footer>

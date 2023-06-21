@@ -1,4 +1,4 @@
-import { ModuleWithProviders, NgModule } from '@angular/core';
+import { Inject, ModuleWithProviders, NgModule } from '@angular/core';
 import { ShareModule } from '@share/share.module';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { HttpClientModule } from '@angular/common/http';
@@ -11,6 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import {
   builderFullScreenFactory,
   debugAnimateFactory,
+  manageSidebarStateFactory,
   pageContentFactory,
 } from '@core/factory/factory';
 import { ContentState } from '@core/state/ContentState';
@@ -27,6 +28,7 @@ import {
   BUILDERFULLSCREEN,
   DISABLEBRAND,
   DEBUGANIMATE,
+  MANAGESIDEBARSTATE,
 } from '@core/token/token-providers';
 import { of } from 'rxjs';
 import { ActionModule } from '@uiux/combs/action/action.module';
@@ -49,6 +51,9 @@ import { CalendarModule } from '@uiux/combs/calendar/calendar.module';
 import { DashboardModule } from '@uiux/combs/dashboard/dashboard.module';
 import { notify } from './data/notify';
 import { BuilderState } from '@core/state/BuilderState';
+import { UserService } from '@core/service/user.service';
+import { ScreenService } from '@core/service/screen.service';
+import { DOCUMENT } from '@angular/common';
 
 export function sleep(ms: number): Promise<any> {
   return new Promise((resolve) => setTimeout(resolve, ms));
