@@ -10,12 +10,7 @@ import { StorysModule } from '@core/module/storys.module';
 import { BrandingModule } from '@core/branding/branding.module';
 import { BRANDING } from '@core/token/token-providers';
 import { of } from 'rxjs';
-import {
-  canvasHeader,
-  defaultHeader,
-  footerInverse,
-  medicalInverse,
-} from '../../global/Branding.json';
+import { defaultHeader, footerInverse } from '../../global/Branding.json';
 import { hero1v2 } from '@stories/builder/components/hero.builder';
 import { carousel1v2 } from '@stories/builder/components/carousel.builder';
 import { list2v1 } from '@stories/builder/components/drupal.builder';
