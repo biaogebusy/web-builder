@@ -122,7 +122,7 @@ Video.args = {
       classes: 'bg-fill-width overlay overlay-80',
       img: {
         hostClasses: 'bg-center',
-        src: '/assets/images/16-9/business-17.jpeg',
+        src: '/assets/images/showcase/8.jpg',
         alt: 'page title',
       },
     },

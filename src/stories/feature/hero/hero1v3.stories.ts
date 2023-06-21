@@ -30,6 +30,12 @@ const Template: Story = (args) => ({
     ...args,
   },
 });
+
+const {
+  Default: {
+    args: { content: btnVideo },
+  },
+} = btnVideoStory as any;
 export const V1 = Template.bind({});
 V1.storyName = 'V1';
 V1.args = {
@@ -53,6 +59,9 @@ V1.args = {
           label: '立刻体验',
           target: '_blank',
         },
+        {
+          ...btnVideo,
+        },
       ],
     },
     right: [
@@ -64,12 +73,6 @@ V1.args = {
     ],
   },
 };
-
-const {
-  Default: {
-    args: { content: btnVideo },
-  },
-} = btnVideoStory as any;
 
 export const V2 = Template.bind({});
 V2.storyName = 'v2';

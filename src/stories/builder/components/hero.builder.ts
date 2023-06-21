@@ -19,7 +19,7 @@ export const {
 
 export const {
   Default: { args: hero1v4Default, storyName: h1v4DefaultName },
-  Order: { args: hero1v4Order, storyName: h1v4OrderName },
+  Shape: { args: hero1v4Shape, storyName: h1v4ShapeName },
 } = hero1v4Story;
 
 export const {
@@ -61,7 +61,7 @@ export const hero: IBuilderComponent[] = [
           label: 'hero-1v4',
           elements: [
             { ...hero1v4Default, name: h1v4DefaultName },
-            { ...hero1v4Order, name: h1v4OrderName },
+            { ...hero1v4Shape, name: h1v4ShapeName },
           ],
         },
       ],

@@ -23,7 +23,7 @@ export const {
 } = c1v2Story;
 export const {
   Default: { args: carousel1v3 },
-  Client: { args: client, storyName: clientName },
+  Client: { args: carousel1v3_client, storyName: clientName },
 } = c1v3Story;
 
 export const {
@@ -53,7 +53,7 @@ export const carousels = [
       child: [
         {
           label: 'carousel-1v3',
-          elements: [carousel1v3, { ...client, name: clientName }],
+          elements: [carousel1v3, { ...carousel1v3_client, name: clientName }],
         },
       ],
     },

@@ -10,43 +10,43 @@ import * as taxonomyThinListStory from '@stories/components/list/taxonomyThinLis
 import * as userCenterStory from '@stories/components/profile/userCenter.stories';
 import * as searchStory from '@stories/components/search/search.stories';
 
-const {
+export const {
   Default: { args: search },
 } = searchStory;
-const {
+export const {
   Default: { args: userCenter },
 } = userCenterStory;
 
-const {
+export const {
   Default: { args: taxonomyThinList },
 } = taxonomyThinListStory;
-const {
+export const {
   Default: { args: taxonomyList },
 } = taxonomyListStory;
-const {
+export const {
   Default: { args: list2v1 },
 } = list2v1Story;
 
-const {
+export const {
   Default: { args: question },
 } = questionStory;
 
-const {
+export const {
   Comment: { args: article },
 } = articleStory;
 
-const {
+export const {
   Default: { args: treeList },
 } = treeListStory;
 
-const {
+export const {
   Default: { args: viewList },
 } = viewListStory;
-const {
+export const {
   Default: { args: contact },
 } = contactStory;
 
-const {
+export const {
   Default: { args: calendar },
 } = calendarStory;
 

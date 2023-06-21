@@ -71,9 +71,9 @@ Default.args = {
   },
 };
 
-export const Order = Template.bind({});
-Order.storyName = 'V2';
-Order.args = {
+export const Shape = Template.bind({});
+Shape.storyName = 'V2';
+Shape.args = {
   content: {
     spacer: 'xl',
     type: 'hero-1v4',

@@ -360,25 +360,21 @@ Card1v1.storyName = 'Card 1v1';
 Card1v1.args = {
   content: {
     type: 'showcase-2v1',
+    row: '4',
     text: {
       title: {
-        label: '最新活动',
+        label: '最新课程',
         style: 'style-v1',
         classes: 'mat-display-0 bold',
       },
-      body: '<p class="text-center">欢迎分享 Drupal 优秀的数字创新体验，前端开发分享，欢迎交流！</p>',
-    },
-    row: 4,
-    params: {
-      apiBak: '/api/v1/blog',
-      widget: 'card-1v1',
+      body: '<p class="text-center">欢迎分享 Drupal 优秀的数字创新体验，新上好课！</p>',
     },
     elements: [
       {
         type: 'card-1v1',
         link: {
           href: '#',
-          label: 'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程',
+          label: '自主搭建5个精品脚手架，助力前端研发全流程提效',
         },
         user: '表歌',
         time: '2022/09/27',
@@ -393,13 +389,13 @@ Card1v1.args = {
             alt: 'alt',
           },
         },
-        moreLabel: '查看更多',
+        moreLabel: '立即学习',
       },
       {
         type: 'card-1v1',
         link: {
           href: '#',
-          label: '使用 DEVTOOLS 对 ANGULAR 前端应用性能分析优化',
+          label: '2022全新 Node.js+Express+Koa2 开发Web Server博客',
         },
         user: '表歌',
         time: '2022/09/27',
@@ -414,13 +410,13 @@ Card1v1.args = {
             alt: 'alt',
           },
         },
-        moreLabel: '查看更多',
+        moreLabel: '立即学习',
       },
       {
         type: 'card-1v1',
         link: {
           href: '#',
-          label: '你应该了解的 ANGULAR 最佳实践',
+          label: '国家级认证-软考高级，一站式通关课程，全力备战2022',
         },
         user: '表歌',
         time: '2022/09/27',
@@ -435,7 +431,25 @@ Card1v1.args = {
             alt: 'alt',
           },
         },
-        moreLabel: '查看更多',
+        moreLabel: '立即学习',
+      },
+      {
+        type: 'card-1v1',
+        link: { href: '#', label: '基于 Vue3 ，打造前台+中台通用提效解决方案' },
+        user: '表歌',
+        time: '2022/09/27',
+        feature: {
+          fullIcon: 'fullscreen',
+          openIcon: 'open_in_new',
+          link: '#',
+          ratios: 'media-4-3',
+          img: {
+            classes: 'object-fit',
+            src: '/assets/images/16-9/business-04.jpg',
+            alt: 'alt',
+          },
+        },
+        moreLabel: '立即学习',
       },
     ],
   },

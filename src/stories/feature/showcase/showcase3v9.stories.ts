@@ -197,7 +197,7 @@ Video.args = {
     left: [
       {
         type: 'img',
-        src: '/assets/images/showcase/7.jpg',
+        src: '/assets/images/illustration/13.png',
         hostClasses: 'position-relative',
         actions: [
           {

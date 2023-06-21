@@ -229,6 +229,42 @@ StyleV3.args = {
   },
 };
 
+export const Primary = Template.bind({});
+Primary.storyName = 'Primary';
+Primary.args = {
+  content: {
+    type: 'showcase-1v1',
+    title: { label: 'Drupal 已经超越了传统的 Web概念', style: 'style-v1' },
+    subTitle: {
+      spacer: 'none',
+      body: '<p class="text-center">可以通过不同的渠道部署你的数据内容，从一个数据中心点到各个应用，从简单到复杂。无论是一个还是多个站点，Drupal 总是可以游刃有余的构建。</p><br>',
+    },
+    bg: { classes: 'bg-shadow bg-fill-width' },
+    row: '3',
+    elements: [
+      {
+        img: { src: '/assets/images/svg/Asset187.svg', alt: 'browser' },
+        style: 'style-v3 use-image',
+        title: { href: '#', label: '高性能' },
+        content:
+          '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
+      },
+      {
+        img: { src: '/assets/images/svg/Asset189.svg', alt: 'browser' },
+        style: 'style-v3 use-image primary',
+        title: { href: '#', label: '易用的编辑器' },
+        content: '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作；',
+      },
+      {
+        img: { src: '/assets/images/svg/Asset190.svg', alt: 'browser' },
+        style: 'style-v3 use-image',
+        title: { href: '#', label: '多语言' },
+        content: 'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程； ',
+      },
+    ],
+  },
+};
+
 export const StyleV4 = Template.bind({});
 StyleV4.storyName = 'Style v4';
 StyleV4.args = {
