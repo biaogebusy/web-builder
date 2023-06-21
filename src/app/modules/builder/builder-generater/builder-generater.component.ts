@@ -179,6 +179,18 @@ export class BuilderGeneraterComponent implements OnInit {
           ],
         },
       },
+      {
+        key: 'action',
+        type: 'checkbox',
+        className: 'display-block m-bottom-sm',
+        defaultValue: true,
+        templateOptions: {
+          label: '底部包含 Action',
+          description: '一般页面底部引导用户下一步要做的事情',
+          pattern: 'true',
+          required: true,
+        },
+      },
     ];
   }
 
@@ -200,8 +212,18 @@ export class BuilderGeneraterComponent implements OnInit {
       'drupal',
       value.drupal
     );
+    let action = [];
+    if (value.action) {
+      action.push(this.content.widgets[0].elements[0]);
+    }
 
-    this.builder.page.body = [...heros, ...showcases, ...carousel, ...drupal];
+    this.builder.page.body = [
+      ...heros,
+      ...showcases,
+      ...carousel,
+      ...drupal,
+      ...action,
+    ];
     this.util.openSnackbar('正在为您生成页面，加载中...', 'ok', {
       horizontalPosition: 'center',
       verticalPosition: 'top',

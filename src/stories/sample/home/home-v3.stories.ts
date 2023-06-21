@@ -11,6 +11,10 @@ import { BrandingModule } from '@core/branding/branding.module';
 import { defaultHeader, footerInverse } from '../../global/Branding.json';
 import { of } from 'rxjs';
 import { BRANDING } from '@core/token/token-providers';
+import { hero1v1 } from '@stories/builder/components/hero.builder';
+import { carousel2v2 } from '@stories/builder/components/carousel.builder';
+import { showcase3v9_video } from '@stories/builder/components/showcase.builder';
+import { text } from '@stories/builder/widgets/base.builder';
 
 export default {
   title: '示例页面/首页示例/03 应用推广',
@@ -66,130 +70,8 @@ const content = of({
     },
   ],
   body: [
-    {
-      type: 'hero-1v3',
-      spacer: 'xl',
-      text: {
-        title: {
-          label: '使用信使构建你们的项目',
-          classes: 'mat-display-4 bold',
-          style: 'style-v4',
-        },
-        classes: 'p-x',
-        body: '信使是基于 Material UI 的 Angular 前端框架，后端适配 Drupal，提供优秀的数字创新体验。',
-        actions: [
-          {
-            href: '#',
-            label: '立刻体验',
-            target: '_blank',
-          },
-        ],
-      },
-      right: [
-        {
-          type: 'img',
-          hostClasses: 'img-bg-shape',
-          src: '/assets/images/illustration/29.png',
-        },
-      ],
-    },
-    {
-      type: 'carousel-2v2',
-      id: '',
-      spacer: 'xl',
-      classes: 'bg-shadow',
-      sliders: {
-        params: {
-          slidesPerView: 1.2,
-          pagination: false,
-          autoplay: {
-            delay: 5000,
-          },
-          breakpoints: {
-            '600': {
-              slidesPerView: 3,
-              spaceBetween: 20,
-            },
-            '960': {
-              slidesPerView: 5,
-              spaceBetween: 20,
-            },
-          },
-        },
-        elements: [
-          {
-            type: 'img',
-            src: '/assets/images/logo/amazon.svg',
-            href: '#',
-            alt: '',
-            style: {
-              width: 'auto',
-              height: '40px',
-            },
-          },
-          {
-            type: 'img',
-            src: '/assets/images/logo/google.svg',
-            href: '#',
-            alt: '',
-            style: {
-              width: 'auto',
-              height: '40px',
-            },
-          },
-          {
-            type: 'img',
-            src: '/assets/images/logo/lenovo.svg',
-            href: '#',
-            alt: '',
-            style: {
-              width: 'auto',
-              height: '40px',
-            },
-          },
-          {
-            type: 'img',
-            src: '/assets/images/logo/paypal.svg',
-            href: '#',
-            alt: '',
-            style: {
-              width: 'auto',
-              height: '40px',
-            },
-          },
-          {
-            type: 'img',
-            src: '/assets/images/logo/shopify.svg',
-            href: '#',
-            alt: '',
-            style: {
-              width: 'auto',
-              height: '40px',
-            },
-          },
-          {
-            type: 'img',
-            src: '/assets/images/logo/spotify.svg',
-            href: '#',
-            alt: '',
-            style: {
-              width: 'auto',
-              height: '40px',
-            },
-          },
-          {
-            type: 'img',
-            src: '/assets/images/logo/logo10.png',
-            href: '#',
-            alt: '',
-            style: {
-              width: 'auto',
-              height: '40px',
-            },
-          },
-        ],
-      },
-    },
+    hero1v1,
+    carousel2v2,
     {
       type: 'showcase-1v1',
       bg: {
@@ -364,100 +246,8 @@ const content = of({
         },
       ],
     },
-    {
-      id: '',
-      type: 'showcase-3v9',
-      spacer: 'xl',
-      bg: {
-        classes: 'bg-fill-width',
-        img: {
-          src: '/assets/images/bg/bg-02.png',
-        },
-      },
-      order: {
-        left: 1,
-        right: 0,
-      },
-      left: [
-        {
-          type: 'img',
-          src: '/assets/images/illustration/29.png',
-          alt: '',
-        },
-      ],
-      right: [
-        {
-          type: 'text',
-          spacer: 'sm',
-          title: {
-            label: '为什么选择我们？',
-            style: 'style-v4',
-            classes: 'mat-display-2',
-          },
-          body: '为所有开发者、所有应用场景而设计，让前端开发更快速、简单。所有开发者都能快速上手、所有设备都可以适配、所有项目都适用。',
-        },
-        {
-          type: 'panel',
-          elements: [
-            {
-              title: '关于我们',
-              icon: 'person',
-              params: {
-                expanded: true,
-              },
-              elements: [
-                {
-                  type: 'text',
-                  spacer: 'none',
-                  body: '远方信使（XINSHI）是一个使用 Drupal 提供 API 的 Angular 前端开发学习框架，拥有丰富的前端组件，通 过 Drupal Pannel 可快速构建 Landing 营销着陆页，常规的 Web 官网通过拖曳的方式即可创建。',
-                },
-              ],
-            },
-            {
-              title: '我们的故事',
-              icon: 'faviores',
-              elements: [
-                {
-                  type: 'text',
-                  spacer: 'none',
-                  body: '我们是专业开发 Drupal 多年的前后端开发人员，热衷于分享 Drupal 相关的技术和资讯，创建维护微信公众号：  drupalstudy 从 Drupal 7开始，目前已发布了了四百多期，是国内为数不多的 Drupal 相关的微信公众号。',
-                },
-              ],
-            },
-            {
-              title: '技术分享',
-              icon: 'faviores',
-              elements: [
-                {
-                  type: 'text',
-                  spacer: 'none',
-                  body: '我们也及时在知乎更新 Drupal 相关的技术文章，分享给更多感兴趣的人，愿你们能够享受 Drupal 带来的字数创新体验。',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
-    {
-      type: 'text',
-      title: {
-        label: '超过 <span class="text-primary">1000</span> 多位用户在使用',
-        style: 'style-v1',
-        classes: 'mat-display-2',
-      },
-      body: '<p class="text-center">信使是基于 Material UI 的 Angular 前端框架，后端适配 Drupal，提供优秀的数字创新体验，快速构建响应式优先的 Web 项目。</p>',
-      actionsAlign: 'center center',
-      actions: [
-        {
-          type: 'btn-animate',
-          label: '开始部署',
-          href: '#',
-          style: 'style-v1',
-          icon: 'open_in_new',
-        },
-      ],
-    },
+    showcase3v9_video,
+    text,
   ],
 });
 Page.storyName = '预览';

@@ -6,28 +6,28 @@ import * as c2v1Story from '@stories/components/carousel/carousel2v1.stories';
 import * as c2v2Story from '@stories/components/carousel/carousel2v2.stories';
 import * as lineyearStory from '@stories/components/carousel/lineyear.stories';
 
-const {
+export const {
   Default: { args: lineyear, storyName: lineyearName },
 } = lineyearStory;
-const {
-  Default: { args: c2v2 },
+export const {
+  Default: { args: carousel2v2 },
 } = c2v2Story;
-const {
-  Default: { args: c2v1 },
+export const {
+  Default: { args: carousel2v1 },
 } = c2v1Story;
-const {
-  Default: { args: c1v4, storyName: c1v4Name },
+export const {
+  Default: { args: carousel1v4, storyName: carousel1v4Name },
 } = c1v4Story;
-const {
-  Default: { args: c1v2 },
+export const {
+  Default: { args: carousel1v2 },
 } = c1v2Story;
-const {
-  Default: { args: c1v3 },
+export const {
+  Default: { args: carousel1v3 },
   Client: { args: client, storyName: clientName },
 } = c1v3Story;
 
-const {
-  Default: { args: c1v1 },
+export const {
+  Default: { args: carousel1v1 },
   TextHero: { args: textHero, storyName: textHeroName },
 } = c1v1Story;
 
@@ -38,26 +38,26 @@ export const carousels = [
         {
           label: 'carousel-1v1',
           elements: [
-            c1v1,
+            carousel1v1,
             { ...textHero, name: textHeroName },
             { ...lineyear, name: lineyearName },
-            { ...c1v4, name: c1v4Name },
+            { ...carousel1v4, name: carousel1v4Name },
           ],
         },
       ],
     },
   },
-  c1v2,
+  carousel1v2,
   {
     content: {
       child: [
         {
           label: 'carousel-1v3',
-          elements: [c1v3, { ...client, name: clientName }],
+          elements: [carousel1v3, { ...client, name: clientName }],
         },
       ],
     },
   },
-  c2v1,
-  c2v2,
+  carousel2v1,
+  carousel2v2,
 ];

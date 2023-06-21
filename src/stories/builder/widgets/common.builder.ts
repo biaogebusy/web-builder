@@ -5,27 +5,27 @@ import * as stepperStory from '@stories/widgets/Stepper.stories';
 import * as swiperStory from '@stories/widgets/Swiper.stories';
 import * as action1v1Story from '@stories/components/action/Action1v1.stories';
 
-const {
+export const {
   Default: { args: action1v1 },
 } = action1v1Story;
 
-const {
+export const {
   CustomSize: { args: iframe },
 } = iframeStory;
 
-const {
+export const {
   Default: { args: lightbox },
 } = lightboxStory;
 
-const {
+export const {
   Default: { args: shape },
 } = shapeStory;
 
-const {
+export const {
   Horizontal: { args: stepper },
 } = stepperStory;
 
-const {
+export const {
   Default: { args: swiper },
 } = swiperStory;
 

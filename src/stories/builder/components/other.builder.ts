@@ -6,7 +6,7 @@ const {
   BannerOverlay: { args: banner },
 } = bannerStory as any;
 
-const {
+export const {
   UserProfile: { args: profile },
   Componey: { args: componey, storyName: componeyName },
 } = profileStory as any;

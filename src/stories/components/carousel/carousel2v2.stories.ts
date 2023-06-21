@@ -27,8 +27,7 @@ Default.args = {
     type: 'carousel-2v2',
     id: '',
     spacer: 'xl',
-    classes: 'bg-primary',
-    'classes-': 'bg-shadow',
+    classes: 'bg-shadow',
     sliders: {
       params: {
         slidesPerView: 1.2,
@@ -50,45 +49,73 @@ Default.args = {
       elements: [
         {
           type: 'img',
-          src: '/assets/images/logo/logo7.png',
+          src: '/assets/images/logo/amazon.svg',
           href: '#',
           alt: '',
+          style: {
+            width: 'auto',
+            height: '40px',
+          },
         },
         {
           type: 'img',
-          src: '/assets/images/logo/logo9.png',
+          src: '/assets/images/logo/google.svg',
           href: '#',
           alt: '',
+          style: {
+            width: 'auto',
+            height: '40px',
+          },
+        },
+        {
+          type: 'img',
+          src: '/assets/images/logo/lenovo.svg',
+          href: '#',
+          alt: '',
+          style: {
+            width: 'auto',
+            height: '40px',
+          },
+        },
+        {
+          type: 'img',
+          src: '/assets/images/logo/paypal.svg',
+          href: '#',
+          alt: '',
+          style: {
+            width: 'auto',
+            height: '40px',
+          },
+        },
+        {
+          type: 'img',
+          src: '/assets/images/logo/shopify.svg',
+          href: '#',
+          alt: '',
+          style: {
+            width: 'auto',
+            height: '40px',
+          },
+        },
+        {
+          type: 'img',
+          src: '/assets/images/logo/spotify.svg',
+          href: '#',
+          alt: '',
+          style: {
+            width: 'auto',
+            height: '40px',
+          },
         },
         {
           type: 'img',
           src: '/assets/images/logo/logo10.png',
           href: '#',
           alt: '',
-        },
-        {
-          type: 'img',
-          src: '/assets/images/logo/logo11.png',
-          href: '#',
-          alt: '',
-        },
-        {
-          type: 'img',
-          src: '/assets/images/logo/logo12.png',
-          href: '#',
-          alt: '',
-        },
-        {
-          type: 'img',
-          src: '/assets/images/logo/logo7.png',
-          href: '#',
-          alt: '',
-        },
-        {
-          type: 'img',
-          src: '/assets/images/logo/logo10.png',
-          href: '#',
-          alt: '',
+          style: {
+            width: 'auto',
+            height: '40px',
+          },
         },
       ],
     },

@@ -4,12 +4,12 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { screen, userEvent } from '@storybook/testing-library';
+import { userEvent } from '@storybook/testing-library';
 import { BRANDING } from '@core/token/token-providers';
 import { of } from 'rxjs';
 import { HeaderComponent } from '@core/branding/header/header.component';
 import { BrandingModule } from '@core/branding/branding.module';
-import { canvasHeader, footerInverse, megaHeader } from '../Branding.json';
+import { canvasHeader, footerInverse } from '../Branding.json';
 import { sleep, StorysModule } from '@core/module/storys.module';
 
 export default {

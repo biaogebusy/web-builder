@@ -868,6 +868,10 @@ export const manageHeader: IBranding = {
     sidebar: {
       params: {
         reqRoles: [],
+        showUser: true,
+      },
+      classes: {
+        inverse: true,
       },
       logo: {
         label: '信使',
@@ -886,39 +890,59 @@ export const manageHeader: IBranding = {
           },
           child: [
             {
-              label: '平台数据',
+              label: 'Dashboard',
               href: '#1',
             },
             {
-              label: '经营分析',
+              label: '文章数据',
               href: '#2',
             },
             {
-              label: '分析看板',
+              label: '用户数据',
               href: '#3',
+            },
+            {
+              label: '投票统计',
+              href: '#4',
             },
           ],
         },
         {
-          label: '数据管理',
+          label: '内容管理',
           icon: {
             svg: 'tune-vertical',
           },
           child: [
             {
-              label: '发布门店',
+              label: '着陆页',
               href: '#',
             },
             {
-              label: '门店管理',
+              label: '文章',
               href: '#',
             },
             {
-              label: '发布广告',
+              label: '评论',
               href: '#',
             },
             {
-              label: '广告管理',
+              label: '表单',
+              href: '#',
+            },
+          ],
+        },
+        {
+          label: '审核管理',
+          icon: {
+            svg: 'map-marker-path',
+          },
+          child: [
+            {
+              label: '文章审核',
+              href: '#',
+            },
+            {
+              label: '用户审核',
               href: '#',
             },
           ],
@@ -935,75 +959,6 @@ export const manageHeader: IBranding = {
             },
             {
               label: '路径分析',
-              href: '#',
-            },
-            {
-              label: '投票统计',
-              href: '#',
-            },
-          ],
-        },
-        {
-          label: '数据看板',
-          expanded: true,
-          icon: {
-            svg: 'poll',
-          },
-          child: [
-            {
-              label: '平台数据',
-              href: '#1',
-            },
-            {
-              label: '经营分析',
-              href: '#2',
-            },
-            {
-              label: '分析看板',
-              href: '#3',
-            },
-          ],
-        },
-        {
-          label: '数据管理',
-          icon: {
-            svg: 'tune-vertical',
-          },
-          child: [
-            {
-              label: '发布门店',
-              href: '#',
-            },
-            {
-              label: '门店管理',
-              href: '#',
-            },
-            {
-              label: '发布广告',
-              href: '#',
-            },
-            {
-              label: '广告管理',
-              href: '#',
-            },
-          ],
-        },
-        {
-          label: '行为分析',
-          icon: {
-            svg: 'map-marker-path',
-          },
-          child: [
-            {
-              label: '事件分析',
-              href: '#',
-            },
-            {
-              label: '路径分析',
-              href: '#',
-            },
-            {
-              label: '投票统计',
               href: '#',
             },
           ],

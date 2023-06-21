@@ -14,7 +14,7 @@ import * as calendarStory from '../../widgets/Calendar.stories';
 import { random } from 'lodash-es';
 import { BRANDING } from '@core/token/token-providers';
 import { of } from 'rxjs';
-import brandingSidebar from '@assets/app/core/branding-sidebar.json';
+import { manageHeader } from '@stories/global/Branding.json';
 const calendar: any = calendarStory.Default.args;
 
 export default {
@@ -35,7 +35,7 @@ export default {
       providers: [
         {
           provide: BRANDING,
-          useValue: of(brandingSidebar),
+          useValue: of({ ...manageHeader }),
         },
       ],
     }),

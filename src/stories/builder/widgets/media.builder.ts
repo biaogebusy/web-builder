@@ -5,27 +5,27 @@ import * as mediaObjectGroupStory from '@stories/widgets/media/MediaObjectGroup.
 import * as testimonialStory from '@stories/widgets/media/Testimonial.stories';
 import * as videoBgStory from '@stories/components/video/videoBg.stories';
 
-const {
+export const {
   Default: { args: videoBg },
 } = videoBgStory;
 
-const {
+export const {
   Default: { args: testimonial },
 } = testimonialStory;
 
-const {
+export const {
   Default: { args: mediaObject },
 } = mediaObjectStory;
 
-const {
+export const {
   Default: { args: mediaMeta },
 } = mediaMetaStory;
 
-const {
+export const {
   Default: { args: mediaObjectGroup },
 } = mediaObjectGroupStory;
 
-const {
+export const {
   Default: { args: mediaList },
 } = mediaListStory;
 export const medias = [

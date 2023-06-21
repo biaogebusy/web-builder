@@ -13,65 +13,66 @@ import * as spacerStory from '@stories/theme/Spacer.stories';
 import * as formStory from '@stories/widgets/Form.stories';
 import * as playerStory from '@stories/feature/media/Player.stories';
 
-const {
+export const {
   Default: { args: player },
 } = playerStory;
 
-const {
+export const {
   Center: { args: text },
 } = textStory;
 
-const {
+export const {
   Default: { args: img },
 } = imgStory;
 
-const {
+export const {
   Bar: { args: chart },
 } = chartStory;
 
-const {
+export const {
   Normal: { args: spacer },
 } = spacerStory as any;
 
-const {
+export const {
   Default: { args: form },
 } = formStory as any;
 
-const {
+export const {
   Default: { args: panel },
 } = panelStory;
 
-const {
+export const {
   Pills: { args: tab },
 } = tabStory;
 
-const {
+export const {
   BtnLink: { args: btn },
 } = btnStory;
 
-const {
+export const {
   Default: { args: btnVideo },
 } = btnVideoStory;
 
-const {
+export const {
   DialogColumn: { args: dynamicTable },
 } = dynamicTableStory;
 
-const {
+export const {
   Primary: { args: icon },
 } = iconStory;
 
-const {
+export const {
   Default: { args: link },
 } = linkStory;
 
-const {
+export const {
   TitleV1: { args: title },
 } = titleStory;
 
 export const base = [
   {
     label: 'Text',
+    id: 'text',
     icon: {
       svg: 'format-size',
     },
