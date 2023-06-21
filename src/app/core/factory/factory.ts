@@ -1,7 +1,7 @@
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { ContentService } from '@core/service/content.service';
-import { Observable, BehaviorSubject, interval, of } from 'rxjs';
+import { Observable, BehaviorSubject, interval, of, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ContentState } from '@core/state/ContentState';
 import { LocalStorageService } from 'ngx-webstorage';
@@ -13,6 +13,8 @@ import { INotify } from '@core/interface/widgets/IWidgets';
 import { map, startWith, switchMap } from 'rxjs/operators';
 import { NotifyService } from '@core/service/notify.service';
 import { BuilderState } from '@core/state/BuilderState';
+import { IManageSidebarState } from '@core/token/token-providers';
+import { ScreenService } from '@core/service/screen.service';
 
 export const THEMKEY = 'themeMode';
 export const DEBUGANIMATEKEY = 'debugAnimate';
@@ -85,6 +87,85 @@ export function debugAnimateFactory(
   });
 
   return debugAnimate$;
+}
+
+export function manageSidebarStateFactory(
+  router: Router,
+  branding$: Observable<IBranding>,
+  userService: UserService,
+  screenService: ScreenService,
+  storage: LocalStorageService,
+  user: IUser,
+  doc: Document
+): Observable<IManageSidebarState> {
+  const state$ = new BehaviorSubject<IManageSidebarState>({
+    enableSidebar: false,
+    sidebarOpened: false,
+  });
+  let enableSidebar = false;
+  const openState = storage.retrieve('sidebarOpened');
+  branding$.subscribe((branding) => {
+    console.log(branding);
+    if (userService.checkShow(branding.header?.sidebar, user)) {
+      // init manage sidebar
+      if (doc.location.pathname.split('/').length === 2) {
+        enableSidebar = false;
+        state$.next({
+          enableSidebar: enableSidebar,
+          sidebarOpened: false,
+        });
+      } else {
+        if (openState === null) {
+          state$.next({
+            enableSidebar: true,
+            sidebarOpened: true,
+          });
+          storage.store('sidebarOpened', true);
+        } else {
+          state$.next({
+            enableSidebar: true,
+            sidebarOpened: storage.retrieve('sidebarOpened'),
+          });
+        }
+      }
+
+      // subject manage sidebar
+      router.events.subscribe((event) => {
+        if (event instanceof NavigationEnd) {
+          const url = event.url;
+          if (url.split('/').length === 2) {
+            if (enableSidebar) {
+              state$.next({
+                enableSidebar: false,
+                sidebarOpened: false,
+              });
+              screenService.initSidebarStyle(true);
+            }
+          } else {
+            if (openState === null) {
+              state$.next({
+                enableSidebar: true,
+                sidebarOpened: true,
+              });
+              storage.store('sidebarOpened', true);
+            } else {
+              state$.next({
+                enableSidebar: true,
+                sidebarOpened: storage.retrieve('sidebarOpened'),
+              });
+            }
+          }
+        }
+      });
+    } else {
+      state$.next({
+        enableSidebar: false,
+        sidebarOpened: false,
+      });
+    }
+  });
+
+  return state$;
 }
 
 export function notifyFactory(

@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { APP_INITIALIZER, NgModule, Inject } from '@angular/core';
 import zhHans from '@angular/common/locales/zh-Hans';
 import { HttpClientModule } from '@angular/common/http';
-import { CommonModule, registerLocaleData } from '@angular/common';
+import { CommonModule, DOCUMENT, registerLocaleData } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { NgxWebstorageModule, LocalStorageService } from 'ngx-webstorage';
@@ -21,6 +21,7 @@ import {
   CORE_CONFIG,
   DEBUGANIMATE,
   DISABLEBRAND,
+  MANAGESIDEBARSTATE,
   NOTIFY_CONTENT,
   USER,
 } from '@core/token/token-providers';
@@ -35,6 +36,7 @@ import {
   coreConfigFactory,
   debugAnimateFactory,
   disableBrandFactory,
+  manageSidebarStateFactory,
   notifyFactory,
   themeFactory,
   userFactory,
@@ -47,6 +49,7 @@ import { NotifyService } from '@core/service/notify.service';
 import { Router } from '@angular/router';
 import { BuilderState } from '@core/state/BuilderState';
 import { of } from 'rxjs';
+import { ScreenService } from '@core/service/screen.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -117,6 +120,19 @@ import { of } from 'rxjs';
       provide: DEBUGANIMATE,
       useFactory: debugAnimateFactory,
       deps: [LocalStorageService, BuilderState],
+    },
+    {
+      provide: MANAGESIDEBARSTATE,
+      useFactory: manageSidebarStateFactory,
+      deps: [
+        Router,
+        BRANDING,
+        UserService,
+        ScreenService,
+        LocalStorageService,
+        [new Inject(USER)],
+        DOCUMENT,
+      ],
     },
   ],
   bootstrap: [AppComponent],

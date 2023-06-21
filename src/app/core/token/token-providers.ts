@@ -5,6 +5,11 @@ import { Observable } from 'rxjs';
 import { IBranding } from '../interface/branding/IBranding';
 import { INotify } from '@core/interface/widgets/IWidgets';
 
+export interface IManageSidebarState {
+  enableSidebar: boolean;
+  sidebarOpened: boolean;
+}
+
 export const API_URL = new InjectionToken<string>('api url');
 export const CORE_CONFIG = new InjectionToken<ICoreConfig>('core config');
 export const PAGE_CONTENT = new InjectionToken<Observable<IPage | object>>(
@@ -22,3 +27,6 @@ export const NOTIFY_CONTENT = new InjectionToken<Observable<INotify>>(
 export const BUILDERFULLSCREEN = new InjectionToken<Observable<boolean>>(
   'builder full screen'
 );
+export const MANAGESIDEBARSTATE = new InjectionToken<
+  Observable<IManageSidebarState>
+>('manage sidebar state');
