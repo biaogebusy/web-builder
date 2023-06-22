@@ -6,12 +6,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { LocalStorageService, NgxWebstorageModule } from 'ngx-webstorage';
 import base from '@assets/app/core/base.json';
-import branding from '@assets/app/core/branding.json';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
   builderFullScreenFactory,
   debugAnimateFactory,
-  manageSidebarStateFactory,
   pageContentFactory,
 } from '@core/factory/factory';
 import { ContentState } from '@core/state/ContentState';
@@ -28,7 +26,6 @@ import {
   BUILDERFULLSCREEN,
   DISABLEBRAND,
   DEBUGANIMATE,
-  MANAGESIDEBARSTATE,
 } from '@core/token/token-providers';
 import { of } from 'rxjs';
 import { ActionModule } from '@uiux/combs/action/action.module';
@@ -51,9 +48,7 @@ import { CalendarModule } from '@uiux/combs/calendar/calendar.module';
 import { DashboardModule } from '@uiux/combs/dashboard/dashboard.module';
 import { notify } from './data/notify';
 import { BuilderState } from '@core/state/BuilderState';
-import { UserService } from '@core/service/user.service';
-import { ScreenService } from '@core/service/screen.service';
-import { DOCUMENT } from '@angular/common';
+import { defaultHeader, footerInverse } from '@stories/global/Branding.json';
 
 export function sleep(ms: number): Promise<any> {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -121,7 +116,7 @@ export class StorysModule {
         },
         {
           provide: BRANDING,
-          useValue: of(branding),
+          useValue: of({ header: defaultHeader, footer: footerInverse }),
         },
         {
           provide: NOTIFY_CONTENT,
@@ -134,7 +129,7 @@ export class StorysModule {
         },
         {
           provide: DISABLEBRAND,
-          useValue: of(true),
+          useValue: of(false),
         },
         {
           provide: DEBUGANIMATE,

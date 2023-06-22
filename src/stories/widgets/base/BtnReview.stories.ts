@@ -26,8 +26,8 @@ export default {
         {
           provide: BRANDING,
           useValue: of({
-            ...defaultHeader,
-            ...footerInverse,
+            header: defaultHeader,
+            footer: footerInverse,
           }),
         },
       ],

@@ -5,8 +5,9 @@ import {
   AfterViewInit,
   NgZone,
   Input,
+  OnDestroy,
 } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { CORE_CONFIG, PAGE_CONTENT } from '@core/token/token-providers';
 import { ActivatedRoute } from '@angular/router';
@@ -16,6 +17,7 @@ import { ContentService } from '@core/service/content.service';
 import { DOCUMENT } from '@angular/common';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { BuilderState } from '@core/state/BuilderState';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-block',
@@ -29,11 +31,12 @@ import { BuilderState } from '@core/state/BuilderState';
     },
   ],
 })
-export class BlockComponent implements OnInit, AfterViewInit {
+export class BlockComponent implements OnInit, AfterViewInit, OnDestroy {
   drawerLoading: boolean;
   drawerContent: IPage;
   opened: boolean;
   @Input() isPreview = false;
+  destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     @Inject(DOCUMENT) private doc: Document,
     @Inject(PAGE_CONTENT) public pageContent$: Observable<IPage>,
@@ -50,17 +53,23 @@ export class BlockComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.contentState.drawerOpened$.subscribe((state) => {
-      this.opened = state;
-    });
+    this.contentState.drawerOpened$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((state) => {
+        this.opened = state;
+      });
 
-    this.contentState.drawerLoading$.subscribe((loading) => {
-      this.drawerLoading = loading;
-    });
+    this.contentState.drawerLoading$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((loading) => {
+        this.drawerLoading = loading;
+      });
 
-    this.contentState.drawerContent$.subscribe((content: IPage) => {
-      this.drawerContent = content;
-    });
+    this.contentState.drawerContent$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((content: IPage) => {
+        this.drawerContent = content;
+      });
   }
 
   onDrawer(): void {
@@ -89,5 +98,12 @@ export class BlockComponent implements OnInit, AfterViewInit {
 
   trackByFn(index: number): number {
     return index;
+  }
+
+  ngOnDestroy(): void {
+    if (this.destroy$.next) {
+      this.destroy$.next(true);
+      this.destroy$.unsubscribe();
+    }
   }
 }

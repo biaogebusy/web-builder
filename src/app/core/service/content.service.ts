@@ -12,6 +12,11 @@ import { TagsService } from '@core/service/tags.service';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { ApiService } from '@core/service/api.service';
 import type { IBranding } from '@core/interface/branding/IBranding';
+import {
+  defaultHeader,
+  footerInverse,
+  manageHeader,
+} from '@stories/global/Branding.json';
 @Injectable({
   providedIn: 'root',
 })
@@ -90,10 +95,17 @@ export class ContentService {
   }
 
   loadBranding(): Observable<IBranding> {
-    const brandingPath = environment.production
-      ? `${this.apiUrl}/api/v1/config?content=/core/branding`
-      : `${this.apiUrl}/assets/app/core/branding.json`;
-    return this.http.get<IBranding>(brandingPath);
+    const localBranding: IBranding = {
+      header: manageHeader,
+      footer: footerInverse,
+    };
+    if (environment.production) {
+      return this.http.get<IBranding>(
+        `${this.apiUrl}/api/v1/config?content=/core/branding`
+      );
+    } else {
+      return of(localBranding);
+    }
   }
 
   loadConfig(coreConfig: object): any {

@@ -22,7 +22,7 @@ export default {
       providers: [
         {
           provide: BRANDING,
-          useValue: of({ ...footerInverse, ...defaultHeader }),
+          useValue: of({ header: defaultHeader, footer: footerInverse }),
         },
       ],
     }),

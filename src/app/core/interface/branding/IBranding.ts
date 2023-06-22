@@ -44,7 +44,6 @@ export interface IHeaderParams {
   themeSwitch: boolean;
   userInfo: boolean;
   isMegaMenu?: boolean;
-  isCanvasMenu?: boolean;
   menuHoverOpen: boolean;
   inverse?: boolean;
 }
