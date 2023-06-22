@@ -3,14 +3,12 @@ import {
   Inject,
   OnInit,
   ViewChild,
-  ElementRef,
-  AfterViewInit,
   OnDestroy,
   ChangeDetectionStrategy,
 } from '@angular/core';
 import { MatAccordion } from '@angular/material/expansion';
 import { ScreenState } from '../../state/screen/ScreenState';
-import { BRANDING } from '@core/token/token-providers';
+import { BRANDING, DISABLEBRAND } from '@core/token/token-providers';
 import { Observable } from 'rxjs';
 import type { IBranding } from '@core/interface/branding/IBranding';
 @Component({
@@ -26,7 +24,8 @@ export class FooterComponent implements OnInit, OnDestroy {
 
   constructor(
     public screen: ScreenState,
-    @Inject(BRANDING) public branding$: Observable<IBranding>
+    @Inject(BRANDING) public branding$: Observable<IBranding>,
+    @Inject(DISABLEBRAND) public disableBrand$: Observable<boolean>
   ) {}
 
   ngOnInit(): void {}

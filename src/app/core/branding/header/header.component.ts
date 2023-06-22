@@ -12,7 +12,7 @@ import { ScreenService } from '../../service/screen.service';
 import { ScreenState } from '../../state/screen/ScreenState';
 import { DOCUMENT } from '@angular/common';
 import { ContentState } from '@core/state/ContentState';
-import { BRANDING } from '@core/token/token-providers';
+import { BRANDING, DISABLEBRAND } from '@core/token/token-providers';
 import { Observable } from 'rxjs';
 import type { IBranding } from '@core/interface/branding/IBranding';
 @Component({
@@ -35,7 +35,8 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     private cd: ChangeDetectorRef,
     public contentState: ContentState,
     @Inject(DOCUMENT) private doc: Document,
-    @Inject(BRANDING) public branding$: Observable<IBranding>
+    @Inject(BRANDING) public branding$: Observable<IBranding>,
+    @Inject(DISABLEBRAND) public disableBrand$: Observable<boolean>
   ) {}
 
   ngOnInit(): void {

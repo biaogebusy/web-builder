@@ -1,22 +1,24 @@
-<ng-container *ngIf="branding$ | async as branding">
-  <header *ngIf="!(contentState.pageConfig$|async)?.headerMode?.transparent;else transparent">
-    <div class="static" [class.header-inverse]="branding?.header?.params?.inverse">
-      <app-header-banner *ngIf="showBanner" [content]="branding?.header?.banner">
-      </app-header-banner>
-      <app-header-top *ngIf="branding?.header?.top" [content]="branding?.header?.top"></app-header-top>
-      <app-menu #menu *ngIf="branding?.header"></app-menu>
-    </div>
-    <app-menu class="sticky" [class.sticking]="sticky"
-      [class.header-inverse]="branding?.header?.params?.inverse"></app-menu>
-  </header>
-  <ng-template #transparent>
-    <header #header id="transparent-mode" class="transparent-mode"
-      [class.header-inverse]="branding.header?.params?.inverse"
-      [ngClass]="(contentState.pageConfig$|async)?.headerMode?.style">
-      <div class="static">
-        <app-header-top *ngIf="branding.header?.top" [content]="branding.header?.top"></app-header-top>
-        <app-menu #menu></app-menu>
+<ng-container *ngIf="!(disableBrand$ | async)">
+  <ng-container *ngIf="branding$ | async as branding">
+    <header *ngIf="!(contentState.pageConfig$|async)?.headerMode?.transparent;else transparent">
+      <div class="static" [class.header-inverse]="branding?.header?.params?.inverse">
+        <app-header-banner *ngIf="showBanner" [content]="branding?.header?.banner">
+        </app-header-banner>
+        <app-header-top *ngIf="branding?.header?.top" [content]="branding?.header?.top"></app-header-top>
+        <app-menu #menu *ngIf="branding?.header"></app-menu>
       </div>
+      <app-menu class="sticky" [class.sticking]="sticky"
+        [class.header-inverse]="branding?.header?.params?.inverse"></app-menu>
     </header>
-  </ng-template>
+    <ng-template #transparent>
+      <header #header id="transparent-mode" class="transparent-mode"
+        [class.header-inverse]="branding.header.params.inverse"
+        [ngClass]="(contentState.pageConfig$|async)?.headerMode?.style">
+        <div class="static">
+          <app-header-top *ngIf="branding.header?.top" [content]="branding.header.top"></app-header-top>
+          <app-menu #menu></app-menu>
+        </div>
+      </header>
+    </ng-template>
+  </ng-container>
 </ng-container>

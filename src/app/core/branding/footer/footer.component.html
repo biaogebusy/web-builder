@@ -1,9 +1,11 @@
-<div class="footer" *ngIf="branding$ | async as branding">
-  <app-light *ngIf="branding.footer?.params?.mode === 'light' " [content]="branding.footer"></app-light>
-  <app-inverse *ngIf="branding.footer?.params?.mode === 'inverse' " [content]="branding.footer">
-  </app-inverse>
-  <app-space-between *ngIf="branding.footer?.params?.mode === 'space-between' " [content]="branding.footer">
-  </app-space-between>
-  <app-fix-bar [content]="branding.footer?.fixBar" *ngIf="branding.footer?.fixBar"></app-fix-bar>
-  <app-gotop></app-gotop>
-</div>
+<ng-container *ngIf="!(disableBrand$|async)">
+  <div class="footer" *ngIf="branding$ | async as branding">
+    <app-light *ngIf="branding.footer?.params?.mode === 'light' " [content]="branding.footer"></app-light>
+    <app-inverse *ngIf="branding.footer?.params?.mode === 'inverse' " [content]="branding.footer">
+    </app-inverse>
+    <app-space-between *ngIf="branding.footer?.params?.mode === 'space-between' " [content]="branding.footer">
+    </app-space-between>
+    <app-fix-bar [content]="branding.footer?.fixBar" *ngIf="branding.footer?.fixBar"></app-fix-bar>
+    <app-gotop></app-gotop>
+  </div>
+</ng-container>
