@@ -12,9 +12,11 @@ import { UserService } from '@core/service/user.service';
 import { LoginComponent } from '../../app/modules/user/login/login.component';
 import { UserModule } from '../../app/modules/user/user.module';
 import { sleep, StorysModule } from '@core/module/storys.module';
-import { USER } from '@core/token/token-providers';
+import { NOTIFY_CONTENT, USER } from '@core/token/token-providers';
 import { userFactory } from '@core/factory/factory';
 import { BrandingModule } from '@core/branding/branding.module';
+import { of } from 'rxjs';
+import { notify } from '@core/module/data/notify';
 
 export default {
   title: '示例页面/登录页',
@@ -34,6 +36,10 @@ export default {
           provide: USER,
           useFactory: userFactory,
           deps: [LocalStorageService, CryptoJSService, UserService],
+        },
+        {
+          provide: NOTIFY_CONTENT,
+          useValue: of(notify),
         },
       ],
     }),

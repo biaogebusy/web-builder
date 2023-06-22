@@ -35,7 +35,7 @@ export default {
       providers: [
         {
           provide: BRANDING,
-          useValue: of({ ...manageHeader }),
+          useValue: of({ header: manageHeader }),
         },
       ],
     }),

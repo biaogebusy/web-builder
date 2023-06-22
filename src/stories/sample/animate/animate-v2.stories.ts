@@ -13,8 +13,8 @@ import { defaultHeader, footerInverse } from '../../global/Branding.json';
 import { BRANDING } from '@core/token/token-providers';
 
 export default {
-  title: '示例页面/产品介绍/02 滚动播放动画',
-  id: 'product-v2',
+  title: '示例页面/动画/02 滚动播放',
+  id: 'animate-v2',
   component: BlockComponent,
   decorators: [
     moduleMetadata({

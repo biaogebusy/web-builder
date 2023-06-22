@@ -280,7 +280,7 @@
       }
     ]
   },
-  "animate": false,
+  "animate": true,
   "builder": {
     "enable": true,
     "params": {
