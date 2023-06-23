@@ -64,3 +64,12 @@ const Template: Story = (args) => ({
 
 export const Default = Template.bind({});
 Default.storyName = '预览';
+
+export const Normal = Template.bind({});
+Normal.storyName = '正常';
+Normal.args = {
+  content: {
+    type: 'spacer',
+    size: 'md',
+  },
+};
