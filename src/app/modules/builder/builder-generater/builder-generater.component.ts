@@ -5,8 +5,10 @@ import {
   OnInit,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { IBuilderComponent, IBuilderTab } from '@core/interface/IBuilder';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
+import { forEach, map } from 'lodash-es';
 
 @Component({
   selector: 'app-builder-generater',
@@ -15,7 +17,7 @@ import { BuilderState } from '@core/state/BuilderState';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BuilderGeneraterComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: IBuilderTab[];
   fields: any[];
   form = new FormGroup({});
   model: any = {};
@@ -195,7 +197,11 @@ export class BuilderGeneraterComponent implements OnInit {
   }
 
   onGenerate(value: any): void {
-    const items = [...this.content.components, ...this.content.widgets];
+    let items: IBuilderComponent[] = [];
+    map(this.content, (item) => {
+      items.push(...item.elements);
+    });
+    console.log(items);
     const heros = this.builder.getRandomElements(items, 'hero', value.hero);
     const showcases = this.builder.getRandomElements(
       items,
@@ -214,7 +220,8 @@ export class BuilderGeneraterComponent implements OnInit {
     );
     let action = [];
     if (value.action) {
-      action.push(this.content.widgets[0].elements[0]);
+      let base = this.content.filter((item) => item.type === 'base')[0];
+      action.push(base.elements[0].elements[0]);
     }
 
     this.builder.page.body = [

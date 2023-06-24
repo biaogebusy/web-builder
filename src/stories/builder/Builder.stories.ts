@@ -5,9 +5,10 @@ import { StorysModule } from '@core/module/storys.module';
 import { BrandingModule } from '@core/branding/branding.module';
 import { BuilderComponent } from 'src/app/modules/builder/builder.component';
 import { BuilderModule } from 'src/app/modules/builder/builder.module';
-import { components } from './component-for-builder';
-import { widgets } from './widgets-for-builder';
+import { components } from './data/component-for-builder';
+import { widgets } from './data/widgets-for-builder';
 import { environment } from 'src/environments/environment';
+import { tabs } from './data/tabs.builder';
 export default {
   title: 'Builder',
   id: 'builder',
@@ -37,8 +38,7 @@ const Template: Story = (args) => ({
 export const Default = Template.bind({});
 Default.storyName = '页面构建器';
 Default.args = {
-  components: components,
-  widgets: widgets,
+  tabs: tabs,
 };
 
 if (!environment.production) {

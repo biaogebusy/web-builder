@@ -73,7 +73,7 @@ export class Showcase3v2Component implements OnInit, AfterViewInit {
           end: 'bottom 30%',
           markers: debug,
           scrub: false, // 滚动一次动画就对应更新，细粒度控制，适合根据鼠标滚动精细变化
-          toggleActions: 'play pause resume reset', // onEnter, onLeave, onEnterBack, and onLeaveBack
+          toggleActions: 'play none none none', // onEnter, onLeave, onEnterBack, and onLeaveBack
         },
       });
       const img = item.querySelector('img');

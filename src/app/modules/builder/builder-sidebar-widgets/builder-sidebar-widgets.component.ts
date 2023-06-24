@@ -4,7 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { IBuilderWidget } from '@core/interface/IBuilder';
+import { IBuilderComponent } from '@core/interface/IBuilder';
 import { BuilderState } from '@core/state/BuilderState';
 
 @Component({
@@ -14,7 +14,7 @@ import { BuilderState } from '@core/state/BuilderState';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BuilderSidebarWidgetsComponent implements OnInit {
-  @Input() content: IBuilderWidget[];
+  @Input() content: IBuilderComponent[];
   constructor(private builder: BuilderState) {}
 
   ngOnInit(): void {}

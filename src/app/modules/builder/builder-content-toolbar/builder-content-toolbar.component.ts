@@ -76,7 +76,6 @@ export class BuilderContentToolbarComponent
     this.builder.fullScreen$.next(event.checked);
     this.builder.toolbarDisable$.next(event.checked);
     this.containerDrawer.close();
-    this.util.openSnackbar('已禁用编辑组件，可预览组件动画', 'ok');
   }
 
   onCompnentNavigate(): void {

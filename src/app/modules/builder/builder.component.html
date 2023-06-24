@@ -2,22 +2,17 @@
   <mat-drawer-container>
     <mat-drawer #drawer class="sidebar" [mode]="mode" [opened]="!(builderFullScreen$|async)">
       <mat-tab-group mat-stretch-tabs mat-align-tabs="center" disableRipple="true">
-        <mat-tab>
+        <mat-tab *ngFor="let tab of tabs">
           <ng-template mat-tab-label>
-            <app-icon [content]="{svg:'view-grid-plus',inline:true}"></app-icon>
-            基础
+            <app-icon [content]="tab.icon"></app-icon>
+            {{tab.label}}
           </ng-template>
           <div class="p-x-xs p-y-xs">
-            <app-builder-sidebar-widgets *ngIf="widgets" [content]="widgets"></app-builder-sidebar-widgets>
+            <app-builder-sidebar-widgets *ngIf="tab.type === 'base'"
+              [content]="tab.elements"></app-builder-sidebar-widgets>
+            <app-builder-sidebar-components *ngIf="tab.type === 'component'"
+              [content]="tab.elements"></app-builder-sidebar-components>
           </div>
-        </mat-tab>
-        <mat-tab>
-          <ng-template mat-tab-label>
-            <app-icon [content]="{svg:'format-list-bulleted',inline:true}"></app-icon>
-            组件
-          </ng-template>
-          <div class="p-x-xs p-y-xs"><app-builder-sidebar-components *ngIf="components"
-              [content]="components"></app-builder-sidebar-components></div>
         </mat-tab>
       </mat-tab-group>
     </mat-drawer>
@@ -26,7 +21,7 @@
         (animateChange)="onAnimate()"></app-builder-content-toolbar>
       <mat-drawer-container class="preview-container">
         <mat-drawer #containerDrawer class="generater-drawer" mode="over" position="end">
-          <app-builder-generater [content]="{components:components,widgets:widgets}"></app-builder-generater>
+          <app-builder-generater [content]="tabs"></app-builder-generater>
         </mat-drawer>
         <mat-drawer-content>
           <app-builder-showcase *ngIf="builder.showcase$ | async as showcase"

@@ -11,7 +11,7 @@
         <div class="item" *ngFor="let widget of item.elements" fxFlex.lt-sm="50%" fxFlex.gt-xs="0 0 calc(100%/3)"
           [cdkDragData]="widget.content" cdkDrag (mouseenter)="onShowcase(widget.content)" (mouseleave)="onShowcase()">
           <div class="inner" fxLayout="column" fxLayoutAlign="center center">
-            <app-icon [content]="widget.icon"></app-icon>
+            <app-icon *ngIf="widget.icon" [content]="widget.icon"></app-icon>
             <div class="title">{{widget.label}}</div>
           </div>
           <app-card-1v1 style="min-width:300px" *cdkDragPreview [content]="{

@@ -10,16 +10,15 @@ import {
 } from '@angular/core';
 import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { LocalStorage, LocalStorageService } from 'ngx-webstorage';
-import components from './components.json';
-import widgets from './widgets.json';
 import { BuilderState } from '@core/state/BuilderState';
-import { IBuilderComponent, IBuilderWidget } from '@core/interface/IBuilder';
+import { IBuilderTab } from '@core/interface/IBuilder';
 import { BUILDERFULLSCREEN, CORE_CONFIG } from '@core/token/token-providers';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { MatDrawer } from '@angular/material/sidenav';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ScreenState } from '@core/state/screen/ScreenState';
+import { tabs } from './data/tabs.data';
 
 @Component({
   selector: 'app-builder',
@@ -33,8 +32,7 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('containerDrawer', { static: false }) containerDrawer: MatDrawer;
   @LocalStorage('builderFullScreen')
   builderFullScreen: boolean;
-  components: IBuilderComponent[];
-  widgets: IBuilderWidget[];
+  tabs: IBuilderTab[];
   panelOpenState = false;
   destroy$: Subject<boolean> = new Subject<boolean>();
   mode: 'side' | 'over' | 'push' = 'side';
@@ -50,8 +48,7 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit(): void {
     if (this.coreConfig.builder?.enable) {
       this.content = this.page;
-      this.components = components.data;
-      this.widgets = widgets.data;
+      this.tabs = tabs;
       if (!this.builderFullScreen) {
         this.storage.store('builderFullScreen', false);
       }
@@ -85,13 +82,6 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
           this.mode = 'side';
         }
       });
-    // this.screenState.scroll$.pipe().subscribe(() => {
-    //   const header = this.doc.querySelector('app-header header');
-    //   if (header) {
-    //     console.log(header.clientHeight);
-    //     this.ele.nativeElement.style.height = `calc(100vh - ${header.clientHeight}px)`;
-    //   }
-    // });
   }
 
   onAnimate(): void {

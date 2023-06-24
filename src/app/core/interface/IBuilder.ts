@@ -2,11 +2,13 @@ import { IIcon } from './widgets/IIcon';
 
 export interface IBuilderComponent {
   label: string;
-  id: string;
+  id?: string;
   elements: IBuilderComponentElement[];
 }
 
 export interface IBuilderComponentElement {
+  label?: string;
+  icon?: IIcon;
   content: {
     type?: string;
     name?: string;
@@ -14,13 +16,9 @@ export interface IBuilderComponentElement {
   };
 }
 
-export interface IBuilderWidget {
-  label: string;
-  elements: IBuilderElement[];
-}
-
-export interface IBuilderElement {
+export interface IBuilderTab {
   label: string;
   icon: IIcon;
-  content: any;
+  type: 'base' | 'component';
+  elements: IBuilderComponent[];
 }
