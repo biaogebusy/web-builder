@@ -80,6 +80,12 @@
         .mat-drawer {
           background-color: mat-color($background, background);
         }
+        .preview {
+          background-color: mat-color($foreground, slider-off);
+          .preview-wrapper {
+            background-color: mat-color($background, card);
+          }
+        }
       }
     }
     .mat-drawer-content {

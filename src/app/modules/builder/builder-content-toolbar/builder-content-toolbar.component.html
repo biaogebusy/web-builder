@@ -9,7 +9,7 @@
       <div class="left" fxFlex.lt-md="auto" fxFlex.gt-sm="33%">
         <ng-container *ngIf="branding$ | async as branding">
           <div class="branding m-y-sm" *ngIf="branding.header?.logo">
-            <app-logo [content]="branding.header?.logo"></app-logo>
+            <app-logo [content]="branding.header.logo"></app-logo>
           </div>
         </ng-container>
       </div>
@@ -21,6 +21,7 @@
       <div class="right" fxFlex.lt-md="auto" fxFlex.gt-sm="33%" fxLayoutAlign="end center" fxLayoutGap="0.5rem">
         <mat-slide-toggle [checked]="builderFullScreen$|async" (change)="onFullScreen($event)" [matTooltip]="'切换全宽'"
           matTooltipPosition="above"></mat-slide-toggle>
+        <!-- <app-switch-preview></app-switch-preview> -->
         <app-btn [matTooltip]="'组件导航'" matTooltipPosition="above" (click)="onCompnentNavigate()"
           [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'dock-left' } }"></app-btn>
         <app-switch-theme></app-switch-theme>

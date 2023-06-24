@@ -19,10 +19,10 @@
       </div>
     </div>
   </mat-drawer>
-  <mat-drawer-content class="wrapper">
-    <div #builderList id="builder-list" cdkDropList [cdkDropListConnectedTo]="['widgets','components']"
-      [cdkDropListData]="content" [cdkDropListDisabled]="builder.toolbarDisable$ | async"
-      (cdkDropListDropped)="drop($event)">
+  <mat-drawer-content class="wrapper" [ngClass]="previewClass$|async">
+    <div #builderList id="builder-list" class="preview-wrapper" cdkDropList
+      [cdkDropListConnectedTo]="['widgets','components']" [cdkDropListData]="content"
+      [cdkDropListDisabled]="builder.toolbarDisable$ | async" (cdkDropListDropped)="drop($event)">
       <app-builder-empty *ngIf="!content?.length"></app-builder-empty>
       <div id="{{item?.type||item?.content?.type}}-{{i}}" class="component-item" cdkDrag [cdkDragData]="item"
         *ngFor="let item of content;index as i; trackBy: trackByFn">

@@ -15,6 +15,7 @@ import { BuilderSidebarComponentsComponent } from './builder-sidebar-components/
 import { BuilderSidebarWidgetsComponent } from './builder-sidebar-widgets/builder-sidebar-widgets.component';
 import { BuilderGeneraterComponent } from './builder-generater/builder-generater.component';
 import { LocalStorageService } from 'ngx-webstorage';
+import { SwitchPreviewComponent } from './builder-content-toolbar/switch-preview/switch-preview.component';
 const compoments = [BuilderComponent, BuilderListComponent];
 
 @NgModule({
@@ -28,6 +29,7 @@ const compoments = [BuilderComponent, BuilderListComponent];
     BuilderSidebarComponentsComponent,
     BuilderSidebarWidgetsComponent,
     BuilderGeneraterComponent,
+    SwitchPreviewComponent,
   ],
   imports: [
     ShareModule,

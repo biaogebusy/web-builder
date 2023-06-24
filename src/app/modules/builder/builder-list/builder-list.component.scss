@@ -50,4 +50,27 @@
     left: 0;
     z-index: 99999;
   }
+
+  .preview-xs,
+  .preview-sm,
+  .preview-md {
+    .preview-wrapper {
+      margin: 0 auto;
+    }
+  }
+  .preview-xs {
+    .preview-wrapper {
+      width: 599px;
+    }
+  }
+  .preview-sm {
+    .preview-wrapper {
+      width: 959px;
+    }
+  }
+  .preview-md {
+    .preview-wrapper {
+      width: 1279px;
+    }
+  }
 }

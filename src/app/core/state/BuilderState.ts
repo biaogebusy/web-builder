@@ -24,6 +24,7 @@ export class BuilderState {
   public toolbarDisable$ = new Subject<boolean>();
   public debugeAnimate$ = new Subject<boolean>();
   public builderContentDrawer$ = new Subject<boolean>();
+  public switchPreivew$ = new Subject<'xs' | 'sm' | 'md' | 'none'>();
   public jsoneditorContent$ = new Subject<{
     content: IPage;
     index: number;

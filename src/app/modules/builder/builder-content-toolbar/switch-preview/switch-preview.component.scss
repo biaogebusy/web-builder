@@ -1,0 +1,10 @@
+.right-icon {
+  float: right;
+  margin-top: 12px;
+  margin-left: 16px;
+  ::ng-deep {
+    .mat-icon {
+      margin-right: 0 !important;
+    }
+  }
+}

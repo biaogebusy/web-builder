@@ -15,7 +15,9 @@ import {
 import { MatDrawer } from '@angular/material/sidenav';
 import { ScreenService } from '@core/service/screen.service';
 import { BuilderState } from '@core/state/BuilderState';
-import { map } from 'lodash-es';
+import { map as each } from 'lodash-es';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-builder-list',
@@ -31,6 +33,8 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('drawer', { static: false }) drawer: MatDrawer;
   markers: NodeListOf<Element>;
   opened = false;
+  previewClass$: Observable<any>;
+
   constructor(
     public builder: BuilderState,
     @Inject(DOCUMENT) private doc: Document,
@@ -54,10 +58,21 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     setTimeout(() => {
       this.markers = this.doc.querySelectorAll('div[class^="gsap-marker"]');
-      map(this.markers, (marker) => {
+      Array.from(this.markers).forEach((marker) => {
         this.builderList.nativeElement.append(marker);
       });
     }, 0);
+
+    this.previewClass$ = this.builder.switchPreivew$.pipe(
+      map((media) => {
+        return {
+          preview: media !== 'none' && media !== undefined,
+          'preview-xs': media === 'xs',
+          'preview-sm': media === 'sm',
+          'preview-md': media === 'md',
+        };
+      })
+    );
   }
 
   onClickSidebar(i: number, item: any): void {
@@ -67,7 +82,7 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    map(this.markers, (marker) => {
+    each(this.markers, (marker) => {
       marker.remove();
     });
   }
