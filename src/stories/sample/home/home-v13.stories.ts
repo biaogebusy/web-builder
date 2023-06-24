@@ -11,20 +11,7 @@ import { BrandingModule } from '@core/branding/branding.module';
 import { of } from 'rxjs';
 import { defaultHeader, footerInverse } from '../../global/Branding.json';
 import { BRANDING } from '@core/token/token-providers';
-import { hero1v3V1, hero1v3V2 } from '@stories/builder/components/hero.builder';
-import {
-  carousel1v3_client,
-  carousel2v2,
-} from '@stories/builder/components/carousel.builder';
-import {
-  showcase1v1_primary,
-  showcase1v3_video,
-  showcase1v4_price,
-  showcase3v6_background,
-  showcase3v9_video,
-  showcase4v1_img,
-} from '@stories/builder/components/showcase.builder';
-import { text } from '@stories/builder/widgets/base.builder';
+import { home_v13 } from '@stories/builder/data/sample/home-v13.builder';
 
 export default {
   title: '示例页面/首页示例/13 现代商业',
@@ -68,38 +55,7 @@ const Template: Story = (args) => ({
 export const Page = Template.bind({});
 // Raname Story
 Page.storyName = '预览';
-const content = of({
-  title: '现代商业',
-  configBak: {
-    headerMode: {
-      transparent: true,
-      style: 'light',
-    },
-  },
-  meta: [
-    {
-      name: 'description',
-      content: '',
-    },
-    {
-      name: 'keywords',
-      content: '',
-    },
-  ],
-  body: [
-    hero1v3V2,
-    carousel2v2,
-    showcase1v1_primary,
-    showcase3v9_video,
-    showcase3v6_background,
-    showcase4v1_img,
-    showcase1v3_video,
-    showcase1v4_price,
-    showcase3v9_video,
-    carousel1v3_client,
-    text,
-  ],
-});
+const content = of(home_v13);
 Page.args = {
   pageContent$: content,
 };

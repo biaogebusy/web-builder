@@ -11,13 +11,7 @@ import { BrandingModule } from '@core/branding/branding.module';
 import { of } from 'rxjs';
 import { BRANDING } from '@core/token/token-providers';
 import { defaultHeader, footerInverse } from '../../global/Branding.json';
-import { hero2v2 } from '@stories/builder/components/hero.builder';
-import { carousel2v2 } from '@stories/builder/components/carousel.builder';
-import {
-  showcase1v4_default,
-  showcase1v4_dynamic,
-} from '@stories/builder/components/showcase.builder';
-import { text } from '@stories/builder/widgets/base.builder';
+import { home_v12 } from '@stories/builder/data/sample/home-v12.builder';
 export default {
   title: '示例页面/首页示例/12 工作室',
   id: 'home-v12',
@@ -60,26 +54,7 @@ const Template: Story = (args) => ({
 export const Page = Template.bind({});
 // Raname Story
 Page.storyName = '预览';
-const content = of({
-  title: '工作室',
-  configBak: {
-    headerMode: {
-      transparent: true,
-      style: 'light',
-    },
-  },
-  meta: [
-    {
-      name: 'description',
-      content: '',
-    },
-    {
-      name: 'keywords',
-      content: '',
-    },
-  ],
-  body: [hero2v2, carousel2v2, showcase1v4_default, showcase1v4_dynamic, text],
-});
+const content = of(home_v12);
 Page.args = {
   pageContent$: content,
 };

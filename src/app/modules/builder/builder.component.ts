@@ -19,6 +19,7 @@ import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { tabs } from './data/tabs.data';
+import { samples } from './data/samples.data';
 
 @Component({
   selector: 'app-builder',
@@ -33,6 +34,7 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
   @LocalStorage('builderFullScreen')
   builderFullScreen: boolean;
   tabs: IBuilderTab[];
+  samples: any;
   panelOpenState = false;
   destroy$: Subject<boolean> = new Subject<boolean>();
   mode: 'side' | 'over' | 'push' = 'side';
@@ -49,6 +51,7 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.coreConfig.builder?.enable) {
       this.content = this.page;
       this.tabs = tabs;
+      this.samples = samples;
       if (!this.builderFullScreen) {
         this.storage.store('builderFullScreen', false);
       }

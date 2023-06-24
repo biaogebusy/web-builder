@@ -88,7 +88,10 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onClear(): void {
-    this.builder.initPage();
+    this.builder.initPage({
+      title: '着陆页',
+      body: [],
+    });
     this.contentState.drawerOpened$.next(false);
     this.util.openSnackbar('预览页面的组件已清空', 'ok');
   }

@@ -11,13 +11,7 @@ import { BrandingModule } from '@core/branding/branding.module';
 import { BRANDING } from '@core/token/token-providers';
 import { of } from 'rxjs';
 import { defaultHeader, footerInverse } from '../../global/Branding.json';
-import { hero2v1Default } from '@stories/builder/components/hero.builder';
-import {
-  showcase2v2_default,
-  showcase4v1_img,
-} from '@stories/builder/components/showcase.builder';
-import { carousel1v2 } from '@stories/builder/components/carousel.builder';
-import { list2v1 } from '@stories/builder/components/drupal.builder';
+import { home_v9 } from '@stories/builder/data/sample/home-v9.builder';
 
 export default {
   title: '示例页面/首页示例/09 艺术科学',
@@ -61,32 +55,7 @@ const Template: Story = (args) => ({
 export const Page = Template.bind({});
 // Raname Story
 Page.storyName = '预览';
-const content = of({
-  title: 'Science',
-  configBak: {
-    headerMode: {
-      transparent: true,
-      style: 'light',
-    },
-  },
-  meta: [
-    {
-      name: 'description',
-      content: '',
-    },
-    {
-      name: 'keywords',
-      content: '',
-    },
-  ],
-  body: [
-    hero2v1Default,
-    showcase2v2_default,
-    showcase4v1_img,
-    carousel1v2,
-    list2v1,
-  ],
-});
+const content = of(home_v9);
 Page.args = {
   pageContent$: content,
 };

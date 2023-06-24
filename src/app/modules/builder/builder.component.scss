@@ -33,6 +33,24 @@
           font-size: small;
         }
       }
+      .cards {
+        .item {
+          .title {
+            font-size: small;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+          .inner {
+            margin: 2px;
+            padding: 16px;
+            border-radius: 4px;
+            &:hover {
+              cursor: pointer;
+            }
+          }
+        }
+      }
     }
     @media #{$gt-sm} {
       width: 330px;

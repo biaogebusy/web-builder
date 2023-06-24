@@ -14,6 +14,7 @@ import { BuilderSidebarComponentsComponent } from './builder-sidebar-components/
 import { BuilderSidebarWidgetsComponent } from './builder-sidebar-widgets/builder-sidebar-widgets.component';
 import { BuilderGeneraterComponent } from './builder-generater/builder-generater.component';
 import { SwitchPreviewComponent } from './builder-content-toolbar/switch-preview/switch-preview.component';
+import { BuilderSampleComponent } from './builder-sample/builder-sample.component';
 const compoments = [BuilderComponent, BuilderListComponent];
 
 @NgModule({
@@ -27,6 +28,7 @@ const compoments = [BuilderComponent, BuilderListComponent];
     BuilderSidebarWidgetsComponent,
     BuilderGeneraterComponent,
     SwitchPreviewComponent,
+    BuilderSampleComponent,
   ],
   imports: [
     ShareModule,

@@ -46,15 +46,12 @@ export class BuilderState {
     if (localPage) {
       this.page = localPage;
     } else {
-      this.initPage();
+      this.initPage(this.page);
     }
   }
 
-  initPage(): void {
-    this.page = {
-      title: '着陆页',
-      body: [],
-    };
+  initPage(page: IPage): void {
+    this.page = page;
     this.updatePage();
   }
 

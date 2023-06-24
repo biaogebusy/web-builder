@@ -9,6 +9,7 @@ import { components } from './data/component-for-builder';
 import { widgets } from './data/widgets-for-builder';
 import { environment } from 'src/environments/environment';
 import { tabs } from './data/tabs.builder';
+import { samples } from './data/samples.builder';
 export default {
   title: 'Builder',
   id: 'builder',
@@ -39,9 +40,11 @@ export const Default = Template.bind({});
 Default.storyName = '页面构建器';
 Default.args = {
   tabs: tabs,
+  samples: samples,
 };
 
 if (!environment.production) {
   console.log('comps:', components);
   console.log('widgets:', widgets);
+  console.log('sample:', samples);
 }

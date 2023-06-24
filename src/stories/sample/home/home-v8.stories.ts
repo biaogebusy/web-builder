@@ -11,17 +11,7 @@ import { BrandingModule } from '@core/branding/branding.module';
 import { of } from 'rxjs';
 import { BRANDING } from '@core/token/token-providers';
 import { defaultHeader, footerInverse } from '../../global/Branding.json';
-import { hero1v4Shape } from '@stories/builder/components/hero.builder';
-import {
-  carousel1v3_client,
-  carousel2v2,
-} from '@stories/builder/components/carousel.builder';
-import {
-  showcase3v6_background,
-  showcase3v9_video,
-  showcase4v1_img,
-} from '@stories/builder/components/showcase.builder';
-import { text } from '@stories/builder/widgets/base.builder';
+import { home_v8 } from '@stories/builder/data/sample/home-v8.builder';
 export default {
   title: '示例页面/首页示例/08 应用市场',
   id: 'home-v8',
@@ -63,34 +53,7 @@ const Template: Story = (args) => ({
 });
 export const Page = Template.bind({});
 // Raname Story
-const content = of({
-  title: '首页 v8 Marketing',
-  configBak: {
-    headerMode: {
-      transparent: true,
-      style: 'light',
-    },
-  },
-  meta: [
-    {
-      name: 'description',
-      content: '',
-    },
-    {
-      name: 'keywords',
-      content: '',
-    },
-  ],
-  body: [
-    hero1v4Shape,
-    carousel2v2,
-    showcase3v6_background,
-    showcase3v9_video,
-    carousel1v3_client,
-    showcase4v1_img,
-    text,
-  ],
-});
+const content = of(home_v8);
 Page.storyName = '预览';
 Page.args = {
   pageContent$: content,

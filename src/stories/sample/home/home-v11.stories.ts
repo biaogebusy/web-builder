@@ -11,9 +11,7 @@ import { BrandingModule } from '@core/branding/branding.module';
 import { BRANDING } from '@core/token/token-providers';
 import { of } from 'rxjs';
 import { defaultHeader, footerInverse } from '../../global/Branding.json';
-import { hero1v2 } from '@stories/builder/components/hero.builder';
-import { carousel1v2 } from '@stories/builder/components/carousel.builder';
-import { list2v1 } from '@stories/builder/components/drupal.builder';
+import { home_v11 } from '@stories/builder/data/sample/home-v11.builder';
 
 export default {
   title: '示例页面/首页示例/11 客户故事',
@@ -57,26 +55,7 @@ const Template: Story = (args) => ({
 export const Page = Template.bind({});
 // Raname Story
 Page.storyName = '预览';
-const content = of({
-  title: 'Stories',
-  configBak: {
-    headerMode: {
-      transparent: true,
-      style: 'light',
-    },
-  },
-  meta: [
-    {
-      name: 'description',
-      content: '',
-    },
-    {
-      name: 'keywords',
-      content: '',
-    },
-  ],
-  body: [hero1v2, carousel1v2, list2v1],
-});
+const content = of(home_v11);
 Page.args = {
   pageContent$: content,
 };
