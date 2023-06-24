@@ -10,6 +10,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import {
   builderFullScreenFactory,
   debugAnimateFactory,
+  gsapScrollerFactory,
+  manageSidebarStateFactory,
   pageContentFactory,
 } from '@core/factory/factory';
 import { ContentState } from '@core/state/ContentState';
@@ -26,6 +28,8 @@ import {
   BUILDERFULLSCREEN,
   DISABLEBRAND,
   DEBUGANIMATE,
+  GSAPSCROLLER,
+  MANAGESIDEBARSTATE,
 } from '@core/token/token-providers';
 import { of } from 'rxjs';
 import { ActionModule } from '@uiux/combs/action/action.module';
@@ -49,6 +53,9 @@ import { DashboardModule } from '@uiux/combs/dashboard/dashboard.module';
 import { notify } from './data/notify';
 import { BuilderState } from '@core/state/BuilderState';
 import { defaultHeader, footerInverse } from '@stories/global/Branding.json';
+import { DOCUMENT } from '@angular/common';
+import { UserService } from '@core/service/user.service';
+import { ScreenService } from '@core/service/screen.service';
 
 export function sleep(ms: number): Promise<any> {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -135,6 +142,24 @@ export class StorysModule {
           provide: DEBUGANIMATE,
           useFactory: debugAnimateFactory,
           deps: [LocalStorageService, BuilderState],
+        },
+        {
+          provide: GSAPSCROLLER,
+          useFactory: gsapScrollerFactory,
+          deps: [DOCUMENT],
+        },
+        {
+          provide: MANAGESIDEBARSTATE,
+          useFactory: manageSidebarStateFactory,
+          deps: [
+            Router,
+            BRANDING,
+            UserService,
+            ScreenService,
+            LocalStorageService,
+            [new Inject(USER)],
+            DOCUMENT,
+          ],
         },
       ],
     };

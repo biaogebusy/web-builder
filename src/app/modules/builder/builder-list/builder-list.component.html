@@ -19,7 +19,7 @@
       </div>
     </div>
   </mat-drawer>
-  <mat-drawer-content class="wrapper" [ngClass]="previewClass$|async">
+  <mat-drawer-content id="gsap-scroller" class="wrapper" [ngClass]="previewClass$|async">
     <div #builderList id="builder-list" class="preview-wrapper" cdkDropList
       [cdkDropListConnectedTo]="['widgets','components']" [cdkDropListData]="content"
       [cdkDropListDisabled]="builder.toolbarDisable$ | async" (cdkDropListDropped)="drop($event)">

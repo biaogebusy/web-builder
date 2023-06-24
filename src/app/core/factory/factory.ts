@@ -81,12 +81,25 @@ export function debugAnimateFactory(
     debugAnimate$.next(false);
   }
 
+  setTimeout(() => {
+    builder.renderMarkers(isDebugAnimate);
+  }, 2000);
+
   builder.debugeAnimate$.subscribe((state) => {
     storage.store(DEBUGANIMATEKEY, state);
     debugAnimate$.next(state);
   });
 
   return debugAnimate$;
+}
+
+export function gsapScrollerFactory(doc: Document): any {
+  const scroller = doc.getElementById('gsap-scroller');
+  if (scroller) {
+    return '#gsap-scroller';
+  } else {
+    return window;
+  }
 }
 
 export function manageSidebarStateFactory(

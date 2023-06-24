@@ -30,3 +30,5 @@ export const BUILDERFULLSCREEN = new InjectionToken<Observable<boolean>>(
 export const MANAGESIDEBARSTATE = new InjectionToken<
   Observable<IManageSidebarState>
 >('manage sidebar state');
+
+export const GSAPSCROLLER = new InjectionToken<string>(' gsap scroller');

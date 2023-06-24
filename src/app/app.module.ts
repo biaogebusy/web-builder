@@ -21,6 +21,7 @@ import {
   CORE_CONFIG,
   DEBUGANIMATE,
   DISABLEBRAND,
+  GSAPSCROLLER,
   MANAGESIDEBARSTATE,
   NOTIFY_CONTENT,
   USER,
@@ -36,6 +37,7 @@ import {
   coreConfigFactory,
   debugAnimateFactory,
   disableBrandFactory,
+  gsapScrollerFactory,
   manageSidebarStateFactory,
   notifyFactory,
   themeFactory,
@@ -120,6 +122,11 @@ import { ScreenService } from '@core/service/screen.service';
       provide: DEBUGANIMATE,
       useFactory: debugAnimateFactory,
       deps: [LocalStorageService, BuilderState],
+    },
+    {
+      provide: GSAPSCROLLER,
+      useFactory: gsapScrollerFactory,
+      deps: [DOCUMENT],
     },
     {
       provide: MANAGESIDEBARSTATE,
