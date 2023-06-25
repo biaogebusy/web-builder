@@ -78,7 +78,7 @@ export class TextComponent implements OnInit, AfterViewInit {
     const list: Element = this.list?.nativeElement;
     const actions: Element = this.actions?.nativeElement;
     const bg: Element = this.bg?.nativeElement;
-    //https://greensock.com/st-demos/
+    // https://greensock.com/st-demos/
     // https://greensock.com/docs/v3/Plugins/ScrollTrigger
     const tl = gsap.timeline({
       scrollTrigger: {

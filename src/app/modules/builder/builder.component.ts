@@ -1,4 +1,3 @@
-import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import {
   AfterViewInit,
   Component,
@@ -78,20 +77,6 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
           this.mode = 'side';
         }
       });
-  }
-
-  onAnimate(): void {
-    this.builder.animateDisable$.next(false);
-  }
-
-  drop(event: CdkDragDrop<string[]>): void {
-    // 预览上下排序组件
-    if (event.previousContainer === event.container) {
-      this.builder.dropComponent(event);
-    } else {
-      // 添加组件到指定位置
-      this.builder.transferComponet(event);
-    }
   }
 
   ngOnDestroy(): void {

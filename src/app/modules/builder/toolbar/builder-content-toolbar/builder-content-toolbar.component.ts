@@ -12,7 +12,6 @@ import {
 import { MatDrawer } from '@angular/material/sidenav';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import type { IPage } from '@core/interface/IAppConfig';
-import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { LocalStorageService } from 'ngx-webstorage';
@@ -34,7 +33,7 @@ export class BuilderContentToolbarComponent
   @Input() containerDrawer: MatDrawer;
   @Input() page: IPage;
   destroy$: Subject<boolean> = new Subject<boolean>();
-  @Output() animateChange: EventEmitter<boolean> = new EventEmitter();
+
   constructor(
     private storage: LocalStorageService,
     private builder: BuilderState,
@@ -61,10 +60,6 @@ export class BuilderContentToolbarComponent
           }
         });
     }
-  }
-
-  loadAnimate(): void {
-    this.animateChange.emit(true);
   }
 
   onGenerate(): void {

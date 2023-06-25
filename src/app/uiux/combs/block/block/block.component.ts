@@ -15,8 +15,6 @@ import { ContentState } from '@core/state/ContentState';
 import { pageContentFactory } from '@core/factory/factory';
 import { ContentService } from '@core/service/content.service';
 import { DOCUMENT } from '@angular/common';
-import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { BuilderState } from '@core/state/BuilderState';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
@@ -42,7 +40,6 @@ export class BlockComponent implements OnInit, AfterViewInit, OnDestroy {
     @Inject(PAGE_CONTENT) public pageContent$: Observable<IPage>,
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
     private contentState: ContentState,
-    private builder: BuilderState,
     private zone: NgZone
   ) {}
 
@@ -90,10 +87,6 @@ export class BlockComponent implements OnInit, AfterViewInit, OnDestroy {
           ?.classList.add('transparent-mode');
       }
     });
-  }
-
-  drop(event: CdkDragDrop<string[]>) {
-    this.builder.dropComponent(event);
   }
 
   trackByFn(index: number): number {

@@ -6,7 +6,6 @@ import {
   ViewChild,
 } from '@angular/core';
 import { BuilderState } from '@core/state/BuilderState';
-import { ContentState } from '@core/state/ContentState';
 import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
 
 @Component({
@@ -23,10 +22,7 @@ export class JsoneditorComponent implements OnInit {
   editor: JsonEditorComponent;
   value: any;
 
-  constructor(
-    private contentState: ContentState,
-    private builder: BuilderState
-  ) {
+  constructor(private builder: BuilderState) {
     this.editorOptions = new JsonEditorOptions();
     this.editorOptions.modes = ['code', 'view']; // set all allowed modes
     this.editorOptions.mode = 'code'; //set only one mode
@@ -45,9 +41,12 @@ export class JsoneditorComponent implements OnInit {
 
   onSave(): void {
     if (this.value) {
+      // for builder
       if (this.content.isPreview) {
         this.builder.updateComponent(this.content.index, this.value);
       } else {
+        // for single component preview(storybook)
+        // reload component conent
         this.builder.jsoneditorContent$.next({
           content: this.value,
           index: this.content.index,

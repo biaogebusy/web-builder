@@ -18,8 +18,7 @@
       <app-builder-sample [content]="samples"></app-builder-sample>
     </mat-drawer>
     <mat-drawer-content>
-      <app-builder-content-toolbar [containerDrawer]="containerDrawer" [page]="page"
-        (animateChange)="onAnimate()"></app-builder-content-toolbar>
+      <app-builder-content-toolbar [containerDrawer]="containerDrawer" [page]="page"></app-builder-content-toolbar>
       <mat-drawer-container class="preview-container">
         <mat-drawer #containerDrawer class="generater-drawer" mode="over" position="end">
           <app-builder-generater [content]="tabs"></app-builder-generater>
@@ -27,7 +26,7 @@
         <mat-drawer-content>
           <app-builder-showcase *ngIf="builder.showcase$ | async as showcase"
             [content]="showcase"></app-builder-showcase>
-          <app-builder-list [isPreview]="true" [content]="content.body"></app-builder-list>
+          <app-builder-list [content]="content.body"></app-builder-list>
         </mat-drawer-content>
       </mat-drawer-container>
     </mat-drawer-content>

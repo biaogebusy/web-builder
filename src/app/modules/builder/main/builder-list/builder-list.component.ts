@@ -23,7 +23,6 @@ import { map } from 'rxjs/operators';
 })
 export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() content: any;
-  @Input() isPreview: boolean;
   @ViewChild('builderList', { static: false }) builderList: ElementRef;
   @ViewChild('drawer', { static: false }) drawer: MatDrawer;
   markers: NodeListOf<Element>;
