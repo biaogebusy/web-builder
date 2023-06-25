@@ -1,6 +1,7 @@
 <ng-container *ngIf="builderFullScreen$|async">
   <div *ngTemplateOutlet="toolbar;context:{isFull:builderFullScreen$|async}"></div>
 </ng-container>
+<!-- placeholder for fixed -->
 <div *ngTemplateOutlet="toolbar;context:{isFull:false}"></div>
 
 <ng-template #toolbar let-isFull="isFull">

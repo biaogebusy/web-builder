@@ -38,7 +38,6 @@ export class BuilderContentToolbarComponent
   constructor(
     private storage: LocalStorageService,
     private builder: BuilderState,
-    private util: UtilitiesService,
     private screenState: ScreenState,
     private screenService: ScreenService,
     @Inject(BUILDERFULLSCREEN) public builderFullScreen$: Observable<boolean>,
@@ -58,6 +57,7 @@ export class BuilderContentToolbarComponent
             this.builder.fullScreen$.next(true);
             this.containerDrawer.close();
           } else {
+            this.builder.toolbarDisable$.next(false);
           }
         });
     }
@@ -74,7 +74,6 @@ export class BuilderContentToolbarComponent
   onFullScreen(event: MatSlideToggleChange): void {
     this.storage.store('builderFullScreen', event.checked);
     this.builder.fullScreen$.next(event.checked);
-    this.builder.toolbarDisable$.next(event.checked);
     this.containerDrawer.close();
   }
 

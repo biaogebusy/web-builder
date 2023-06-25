@@ -1,4 +1,3 @@
-import { DOCUMENT } from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -15,7 +14,6 @@ import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { ContentState } from '@core/state/ContentState';
 import { DEBUGANIMATE } from '@core/token/token-providers';
-import { map } from 'lodash-es';
 import { LocalStorage, LocalStorageService } from 'ngx-webstorage';
 import { Subject, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -102,7 +100,6 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onDebugAnimate(event: MatSlideToggleChange): void {
     const isDebugAnimate = event.checked;
-    this.builder.toolbarDisable$.next(isDebugAnimate);
     this.builder.debugeAnimate$.next(isDebugAnimate);
     this.builder.renderMarkers(isDebugAnimate);
   }

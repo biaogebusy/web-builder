@@ -68,13 +68,6 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
       .subscribe((page) => {
         this.content = page;
       });
-    this.builder.toolbarDisable$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((state) => {
-        if (state) {
-          this.containerDrawer.close();
-        }
-      });
     this.screenState
       .mqAlias$()
       .pipe(takeUntil(this.destroy$))
