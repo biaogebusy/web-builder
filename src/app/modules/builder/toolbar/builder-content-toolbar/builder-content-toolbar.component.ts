@@ -16,7 +16,7 @@ import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { LocalStorageService } from 'ngx-webstorage';
-import { ScreenService } from '../../../core/service/screen.service';
+import { ScreenService } from '../../../../core/service/screen.service';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { BRANDING, BUILDERFULLSCREEN } from '@core/token/token-providers';
