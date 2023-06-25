@@ -67,13 +67,6 @@ export class ComponentToolbarComponent implements OnInit {
             uuid,
             data: content,
             isPreview: this.isPreview,
-            actionsAlign: 'center center',
-            actions: [
-              {
-                type: 'closeDialog',
-                label: '保存',
-              },
-            ],
           },
         },
       },

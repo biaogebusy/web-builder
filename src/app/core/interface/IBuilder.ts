@@ -25,5 +25,7 @@ export interface IBuilderTab {
 
 export interface IBuilderDynamicContent {
   mode?: 'push' | 'over' | 'side';
+  hasBackdrop?: any;
   elements: any[];
+  style?: any;
 }

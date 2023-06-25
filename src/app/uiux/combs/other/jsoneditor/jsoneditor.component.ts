@@ -37,6 +37,7 @@ export class JsoneditorComponent implements OnInit {
       return;
     }
     this.value = event;
+    this.onSave();
   }
 
   onSave(): void {

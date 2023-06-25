@@ -19,11 +19,11 @@
     </mat-drawer>
     <mat-drawer-content>
       <app-builder-content-toolbar [containerDrawer]="containerDrawer" [page]="page"></app-builder-content-toolbar>
-      <mat-drawer-container class="preview-container">
+      <mat-drawer-container class="preview-container" [hasBackdrop]="(builder.dynamicContent$ | async)?.hasBackdrop">
         <mat-drawer #containerDrawer [mode]="(builder.dynamicContent$ | async)?.mode ||'over'" position="end">
-          <ng-container *ngIf="builder.dynamicContent$ | async as dynamic">
+          <div *ngIf="builder.dynamicContent$ | async as dynamic" [ngStyle]="dynamic.style">
             <app-dynamic-component *ngFor="let item of dynamic.elements;" [inputs]="item"></app-dynamic-component>
-          </ng-container>
+          </div>
         </mat-drawer>
         <mat-drawer-content>
           <app-builder-showcase *ngIf="builder.showcase$ | async as showcase"
