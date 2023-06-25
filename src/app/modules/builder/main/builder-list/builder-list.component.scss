@@ -1,3 +1,4 @@
+@import "../../../../../theme//mixins/amixin";
 .builder-list {
   height: 100%;
   overflow-x: hidden !important;
@@ -26,6 +27,10 @@
   }
   .wrapper {
     overflow-x: hidden !important;
+    .load {
+      @include middle-center();
+      z-index: 9999;
+    }
   }
   .component-item {
     position: relative;

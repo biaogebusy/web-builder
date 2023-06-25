@@ -20,6 +20,9 @@
     </div>
   </mat-drawer>
   <mat-drawer-content id="gsap-scroller" class="wrapper" [ngClass]="previewClass$|async">
+    <div class="load" *ngIf="builder.loading$ | async">
+      <mat-spinner diameter="50" color="accent"></mat-spinner>
+    </div>
     <div #builderList id="builder-list" class="preview-wrapper" cdkDropList
       [cdkDropListConnectedTo]="['widgets','components']" [cdkDropListData]="content"
       [cdkDropListDisabled]="builder.toolbarDisable$ | async" (cdkDropListDropped)="drop($event)">

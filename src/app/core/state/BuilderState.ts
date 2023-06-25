@@ -9,7 +9,7 @@ import { IBuilderComponent } from '@core/interface/IBuilder';
 import { ICard1v1 } from '@core/interface/widgets/ICard';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { LocalStorageService } from 'ngx-webstorage';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { map } from 'lodash-es';
 import { DOCUMENT } from '@angular/common';
 
@@ -25,6 +25,7 @@ export class BuilderState {
   public debugeAnimate$ = new Subject<boolean>();
   public builderContentDrawer$ = new Subject<boolean>();
   public switchPreivew$ = new Subject<'xs' | 'sm' | 'md' | 'none'>();
+  public loading$ = new BehaviorSubject<boolean>(true);
   public jsoneditorContent$ = new Subject<{
     content: IPage;
     index: number;
@@ -44,24 +45,31 @@ export class BuilderState {
   ) {
     const localPage = this.storage.retrieve(this.pageKey);
     if (localPage) {
-      this.page = localPage;
+      setTimeout(() => {
+        this.page = localPage;
+        this.loading$.next(false);
+      }, 600);
     } else {
       this.initPage(this.page);
     }
   }
 
   initPage(page: IPage): void {
+    this.loading$.next(true);
     this.page = page;
     this.updatePage();
   }
 
   updatePage(): void {
-    this.storage.store(
-      this.pageKey,
-      Object.assign({}, this.page, {
-        time: new Date(),
-      })
-    );
+    setTimeout(() => {
+      this.storage.store(
+        this.pageKey,
+        Object.assign({}, this.page, {
+          time: new Date(),
+        })
+      );
+      this.loading$.next(false);
+    }, 600);
   }
 
   pushComponent(content: any): void {
