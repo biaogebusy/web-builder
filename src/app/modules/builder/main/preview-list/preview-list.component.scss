@@ -5,6 +5,8 @@
   border-radius: 8px;
   padding: 4px;
   .inner {
+    position: relative;
+    overflow: hidden;
     height: 70px;
     width: 86%;
     font-size: small;

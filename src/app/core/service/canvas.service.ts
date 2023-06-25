@@ -9,7 +9,7 @@ import { UtilitiesService } from './utilities.service';
 export class CanvasService {
   constructor(private injector: Injector) {}
 
-  openDialog(element: HTMLElement,options = {}): void {
+  openDialog(element: HTMLElement, options = {}): void {
     const util = this.injector.get(UtilitiesService);
     const dialogService = this.injector.get(DialogService);
     util.openSnackbar('切换全屏，浏览到底部再点击下载', 'ok');
