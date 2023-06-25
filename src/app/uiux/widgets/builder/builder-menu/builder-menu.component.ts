@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import type { IPage } from '@core/interface/IAppConfig';
+import { CanvasService } from '@core/service/canvas.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { ContentState } from '@core/state/ContentState';
@@ -37,6 +38,7 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     private util: UtilitiesService,
     private cd: ChangeDetectorRef,
     private storage: LocalStorageService,
+    private canvasService: CanvasService,
     @Inject(DEBUGANIMATE) public debugAnimate$: Observable<boolean>
   ) {}
 
@@ -102,6 +104,13 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     const isDebugAnimate = event.checked;
     this.builder.debugeAnimate$.next(isDebugAnimate);
     this.builder.renderMarkers(isDebugAnimate);
+  }
+
+  onDownload(): void {
+    const page = document.getElementById('builder-list');
+    if (page) {
+      this.canvasService.openDialog(page);
+    }
   }
 
   ngOnDestroy(): void {

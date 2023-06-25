@@ -41,18 +41,18 @@ export class AppComponent implements OnInit, AfterViewInit {
     @Inject(DISABLEBRAND) public disableBrand$: Observable<boolean>,
     @Inject(MANAGESIDEBARSTATE)
     public sidebarState$: Observable<IManageSidebarState>,
-    private injcetor: Injector
+    private injector: Injector
   ) {}
 
   ngOnInit(): void {
-    const configService = this.injcetor.get(ConfigService);
+    const configService = this.injector.get(ConfigService);
     configService.init();
   }
 
   ngAfterViewInit(): void {
-    const screenService = this.injcetor.get(ScreenService);
-    const screen = this.injcetor.get(ScreenState);
-    const themeService = this.injcetor.get(ThemeService);
+    const screenService = this.injector.get(ScreenService);
+    const screen = this.injector.get(ScreenState);
+    const themeService = this.injector.get(ThemeService);
     if (screenService.isPlatformBrowser()) {
       themeService.initTheme(this.coreConfig, this.renderer2);
       screen.drawer$.subscribe(() => {
