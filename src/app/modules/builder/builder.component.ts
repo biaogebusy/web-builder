@@ -21,19 +21,12 @@ import { MatDrawer } from '@angular/material/sidenav';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ScreenState } from '@core/state/screen/ScreenState';
-import { tabs } from './data/tabs.data';
 import { samples } from './data/samples.data';
 
 @Component({
   selector: 'app-builder',
   templateUrl: './builder.component.html',
   styleUrls: ['./builder.component.scss'],
-  providers: [
-    {
-      provide: BUILDERTABS,
-      useValue: tabs,
-    },
-  ],
 })
 export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() content: IPage;

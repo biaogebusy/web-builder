@@ -17,6 +17,8 @@ import { BuilderEmptyComponent } from './main/builder-empty/builder-empty.compon
 import { SwitchPreviewComponent } from './toolbar/switch-preview/switch-preview.component';
 import { PreviewListComponent } from './main/preview-list/preview-list.component';
 import { BaseModule } from '@uiux/base/base.module';
+import { BUILDERTABS } from '@core/token/token-providers';
+import { tabs } from './data/tabs.data';
 
 const components = [
   BuilderComponent,
@@ -44,7 +46,12 @@ const components = [
     DragDropModule,
     BuilderRoutingModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: BUILDERTABS,
+      useValue: tabs,
+    },
+  ],
   exports: [...components],
 })
 export class BuilderModule extends BaseModule {

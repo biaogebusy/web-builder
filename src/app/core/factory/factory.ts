@@ -118,7 +118,6 @@ export function manageSidebarStateFactory(
   let enableSidebar = false;
   const openState = storage.retrieve('sidebarOpened');
   branding$.subscribe((branding) => {
-    console.log(branding);
     if (userService.checkShow(branding.header?.sidebar, user)) {
       // init manage sidebar
       if (doc.location.pathname.split('/').length === 2) {
