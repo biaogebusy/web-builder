@@ -4,16 +4,13 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
-  EventEmitter,
   Inject,
   Input,
   OnDestroy,
   OnInit,
-  Output,
   ViewChild,
 } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
-import { ScreenService } from '@core/service/screen.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { map as each } from 'lodash-es';
 import { Observable } from 'rxjs';
@@ -27,8 +24,6 @@ import { map } from 'rxjs/operators';
 export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() content: any;
   @Input() isPreview: boolean;
-  @Output() dropChange: EventEmitter<CdkDragDrop<string[]>> =
-    new EventEmitter();
   @ViewChild('builderList', { static: false }) builderList: ElementRef;
   @ViewChild('drawer', { static: false }) drawer: MatDrawer;
   markers: NodeListOf<Element>;
@@ -37,8 +32,7 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(
     public builder: BuilderState,
-    @Inject(DOCUMENT) private doc: Document,
-    private screenService: ScreenService
+    @Inject(DOCUMENT) private doc: Document
   ) {}
 
   ngOnInit(): void {
@@ -52,7 +46,7 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   drop(event: CdkDragDrop<string[]>): void {
-    this.dropChange.emit(event);
+    this.builder.onDrop(event);
   }
 
   ngAfterViewInit(): void {
@@ -73,12 +67,6 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
         };
       })
     );
-  }
-
-  onClickSidebar(i: number, item: any): void {
-    // TODO
-    return;
-    this.screenService.scrollToAnchor(`${item.type || item.content.type}-${i}`);
   }
 
   ngOnDestroy(): void {

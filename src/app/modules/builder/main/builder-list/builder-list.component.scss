@@ -5,20 +5,6 @@
   .sidebar-drawer {
     width: 190px;
     width: 190px;
-    .component-item {
-      margin: 5px;
-    }
-    .box {
-      border-radius: 8px;
-      padding: 4px;
-      .inner {
-        height: 70px;
-        width: 86%;
-        font-size: small;
-        border-radius: 6px;
-        padding: 10px;
-      }
-    }
   }
   .sidebar-drawer,
   .wrapper {
@@ -32,7 +18,7 @@
       z-index: 9999;
     }
   }
-  .component-item {
+  ::ng-deep .component-item {
     position: relative;
     &.cdk-drag:not(.cdk-drag-disabled) {
       cursor: move;

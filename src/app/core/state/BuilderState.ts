@@ -92,6 +92,16 @@ export class BuilderState {
     this.updatePage();
   }
 
+  onDrop(event: CdkDragDrop<string[]>): void {
+    // 预览上下排序组件
+    if (event.previousContainer === event.container) {
+      this.dropComponent(event);
+    } else {
+      // 添加组件到指定位置
+      this.transferComponet(event);
+    }
+  }
+
   dropComponent(event: CdkDragDrop<string[]>): void {
     moveItemInArray(this.page.body, event.previousIndex, event.currentIndex);
     this.updatePage();

@@ -1,0 +1,14 @@
+.component-item {
+  margin: 5px;
+}
+.box {
+  border-radius: 8px;
+  padding: 4px;
+  .inner {
+    height: 70px;
+    width: 86%;
+    font-size: small;
+    border-radius: 6px;
+    padding: 10px;
+  }
+}

@@ -15,6 +15,7 @@ import { BuilderSampleComponent } from './sidebar/builder-sample/builder-sample.
 import { BuilderListComponent } from './main/builder-list/builder-list.component';
 import { BuilderEmptyComponent } from './main/builder-empty/builder-empty.component';
 import { SwitchPreviewComponent } from './toolbar/switch-preview/switch-preview.component';
+import { PreviewListComponent } from './main/preview-list/preview-list.component';
 const compoments = [BuilderComponent, BuilderListComponent];
 
 @NgModule({
@@ -29,6 +30,7 @@ const compoments = [BuilderComponent, BuilderListComponent];
     BuilderGeneraterComponent,
     SwitchPreviewComponent,
     BuilderSampleComponent,
+    PreviewListComponent,
   ],
   imports: [
     ShareModule,
