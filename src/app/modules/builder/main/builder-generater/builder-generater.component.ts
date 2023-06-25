@@ -205,7 +205,6 @@ export class BuilderGeneraterComponent implements OnInit {
     map(this.tabs, (item) => {
       items.push(...item.elements);
     });
-    console.log(items);
     const heros = this.builder.getRandomElements(items, 'hero', value.hero);
     const showcases = this.builder.getRandomElements(
       items,
