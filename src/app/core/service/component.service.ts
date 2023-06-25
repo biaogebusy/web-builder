@@ -251,6 +251,12 @@ export class ComponentService {
         )
       )
     );
+
+    ['builder-generater'].forEach((type) =>
+      this.setModule(type, () =>
+        import('@modules/builder/builder.module').then((m) => m.BuilderModule)
+      )
+    );
   }
 
   setModule(type: string, loadModule: () => Promise<any>) {

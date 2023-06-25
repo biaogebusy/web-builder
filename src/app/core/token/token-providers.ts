@@ -4,6 +4,7 @@ import { IUser } from '@core/interface/IUser';
 import { Observable } from 'rxjs';
 import { IBranding } from '../interface/branding/IBranding';
 import { INotify } from '@core/interface/widgets/IWidgets';
+import { IBuilderTab } from '@core/interface/IBuilder';
 
 export interface IManageSidebarState {
   enableSidebar: boolean;
@@ -32,3 +33,6 @@ export const MANAGESIDEBARSTATE = new InjectionToken<
 >('manage sidebar state');
 
 export const GSAPSCROLLER = new InjectionToken<string>(' gsap scroller');
+export const BUILDERTABS = new InjectionToken<IBuilderTab[]>(
+  'builder tabs data'
+);

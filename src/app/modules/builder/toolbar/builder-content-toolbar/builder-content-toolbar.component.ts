@@ -63,7 +63,13 @@ export class BuilderContentToolbarComponent
   }
 
   onGenerate(): void {
-    this.containerDrawer.toggle();
+    this.builder.dynamicContent$.next({
+      elements: [
+        {
+          type: 'builder-generater',
+        },
+      ],
+    });
   }
 
   onFullScreen(event: MatSlideToggleChange): void {

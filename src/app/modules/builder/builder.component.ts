@@ -11,7 +11,11 @@ import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { LocalStorage, LocalStorageService } from 'ngx-webstorage';
 import { BuilderState } from '@core/state/BuilderState';
 import { IBuilderTab } from '@core/interface/IBuilder';
-import { BUILDERFULLSCREEN, CORE_CONFIG } from '@core/token/token-providers';
+import {
+  BUILDERFULLSCREEN,
+  BUILDERTABS,
+  CORE_CONFIG,
+} from '@core/token/token-providers';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { MatDrawer } from '@angular/material/sidenav';
 import { Observable, Subject } from 'rxjs';
@@ -24,6 +28,12 @@ import { samples } from './data/samples.data';
   selector: 'app-builder',
   templateUrl: './builder.component.html',
   styleUrls: ['./builder.component.scss'],
+  providers: [
+    {
+      provide: BUILDERTABS,
+      useValue: tabs,
+    },
+  ],
 })
 export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() content: IPage;
@@ -32,7 +42,6 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('containerDrawer', { static: false }) containerDrawer: MatDrawer;
   @LocalStorage('builderFullScreen')
   builderFullScreen: boolean;
-  tabs: IBuilderTab[];
   samples: any;
   panelOpenState = false;
   destroy$: Subject<boolean> = new Subject<boolean>();
@@ -43,13 +52,13 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
     private utli: UtilitiesService,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
     @Inject(BUILDERFULLSCREEN) public builderFullScreen$: Observable<boolean>,
+    @Inject(BUILDERTABS) public tabs: IBuilderTab[],
     private screenState: ScreenState
   ) {}
 
   ngOnInit(): void {
     if (this.coreConfig.builder?.enable) {
       this.content = this.page;
-      this.tabs = tabs;
       this.samples = samples;
       if (!this.builderFullScreen) {
         this.storage.store('builderFullScreen', false);
@@ -58,6 +67,13 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
     } else {
       this.utli.openSnackbar('请开启 Builder 功能！', 'ok');
     }
+    this.builder.dynamicContent$.subscribe((content) => {
+      if (content) {
+        setTimeout(() => {
+          this.containerDrawer.open();
+        }, 100);
+      }
+    });
   }
 
   ngAfterViewInit(): void {

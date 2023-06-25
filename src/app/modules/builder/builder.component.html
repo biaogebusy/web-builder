@@ -20,8 +20,10 @@
     <mat-drawer-content>
       <app-builder-content-toolbar [containerDrawer]="containerDrawer" [page]="page"></app-builder-content-toolbar>
       <mat-drawer-container class="preview-container">
-        <mat-drawer #containerDrawer class="generater-drawer" mode="over" position="end">
-          <app-builder-generater [content]="tabs"></app-builder-generater>
+        <mat-drawer #containerDrawer [mode]="(builder.dynamicContent$ | async)?.mode ||'over'" position="end">
+          <ng-container *ngIf="builder.dynamicContent$ | async as dynamic">
+            <app-dynamic-component *ngFor="let item of dynamic.elements;" [inputs]="item"></app-dynamic-component>
+          </ng-container>
         </mat-drawer>
         <mat-drawer-content>
           <app-builder-showcase *ngIf="builder.showcase$ | async as showcase"

@@ -22,3 +22,8 @@ export interface IBuilderTab {
   type: 'base' | 'component';
   elements: IBuilderComponent[];
 }
+
+export interface IBuilderDynamicContent {
+  mode?: 'push' | 'over' | 'side';
+  elements: any[];
+}

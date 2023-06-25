@@ -30,6 +30,7 @@ import {
   DEBUGANIMATE,
   GSAPSCROLLER,
   MANAGESIDEBARSTATE,
+  BUILDERTABS,
 } from '@core/token/token-providers';
 import { of } from 'rxjs';
 import { ActionModule } from '@uiux/combs/action/action.module';
@@ -56,6 +57,8 @@ import { defaultHeader, footerInverse } from '@stories/global/Branding.json';
 import { DOCUMENT } from '@angular/common';
 import { UserService } from '@core/service/user.service';
 import { ScreenService } from '@core/service/screen.service';
+import { BuilderModule } from '@modules/builder/builder.module';
+import { tabs } from '@modules/builder/data/tabs.data';
 
 export function sleep(ms: number): Promise<any> {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -185,6 +188,7 @@ export class StorysModule {
       ...TabModule.forStorybook(),
       ...VideoModule.forStorybook(),
       ...DashboardModule.forStorybook(),
+      ...BuilderModule.forStorybook(),
     ];
   }
 

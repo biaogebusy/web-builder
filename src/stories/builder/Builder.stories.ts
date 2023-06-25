@@ -10,6 +10,7 @@ import { widgets } from './data/widgets-for-builder';
 import { environment } from 'src/environments/environment';
 import { tabs } from './data/tabs.builder';
 import { samples } from './data/samples.builder';
+import { BUILDERTABS } from '@core/token/token-providers';
 export default {
   title: 'Builder',
   id: 'builder',
@@ -23,6 +24,12 @@ export default {
         StorysModule.forRoot(),
         BrandingModule,
         BuilderModule,
+      ],
+      providers: [
+        {
+          provide: BUILDERTABS,
+          useValue: tabs,
+        },
       ],
     }),
   ],
@@ -39,7 +46,6 @@ const Template: Story = (args) => ({
 export const Default = Template.bind({});
 Default.storyName = '页面构建器';
 Default.args = {
-  tabs: tabs,
   samples: samples,
 };
 

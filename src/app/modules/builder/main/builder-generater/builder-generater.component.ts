@@ -1,14 +1,15 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
+  Inject,
   OnInit,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { IBuilderComponent, IBuilderTab } from '@core/interface/IBuilder';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
-import { forEach, map } from 'lodash-es';
+import { map } from 'lodash-es';
+import { BUILDERTABS } from '@core/token/token-providers';
 
 @Component({
   selector: 'app-builder-generater',
@@ -17,11 +18,14 @@ import { forEach, map } from 'lodash-es';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BuilderGeneraterComponent implements OnInit {
-  @Input() content: IBuilderTab[];
   fields: any[];
   form = new FormGroup({});
   model: any = {};
-  constructor(private builder: BuilderState, private util: UtilitiesService) {}
+  constructor(
+    private builder: BuilderState,
+    private util: UtilitiesService,
+    @Inject(BUILDERTABS) public tabs: IBuilderTab[]
+  ) {}
 
   ngOnInit(): void {
     this.fields = [
@@ -198,7 +202,7 @@ export class BuilderGeneraterComponent implements OnInit {
 
   onGenerate(value: any): void {
     let items: IBuilderComponent[] = [];
-    map(this.content, (item) => {
+    map(this.tabs, (item) => {
       items.push(...item.elements);
     });
     console.log(items);
@@ -220,7 +224,7 @@ export class BuilderGeneraterComponent implements OnInit {
     );
     let action = [];
     if (value.action) {
-      let base = this.content.filter((item) => item.type === 'base')[0];
+      let base = this.tabs.filter((item) => item.type === 'base')[0];
       action.push(base.elements[0].elements[0]);
     }
 

@@ -5,7 +5,10 @@ import {
 } from '@angular/cdk/drag-drop';
 import { Inject, Injectable } from '@angular/core';
 import { IPage } from '@core/interface/IAppConfig';
-import { IBuilderComponent } from '@core/interface/IBuilder';
+import {
+  IBuilderComponent,
+  IBuilderDynamicContent,
+} from '@core/interface/IBuilder';
 import { ICard1v1 } from '@core/interface/widgets/ICard';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { LocalStorageService } from 'ngx-webstorage';
@@ -26,6 +29,7 @@ export class BuilderState {
   public builderContentDrawer$ = new Subject<boolean>();
   public switchPreivew$ = new Subject<'xs' | 'sm' | 'md' | 'none'>();
   public loading$ = new BehaviorSubject<boolean>(true);
+  public dynamicContent$ = new Subject<IBuilderDynamicContent>();
   public jsoneditorContent$ = new Subject<{
     content: IPage;
     index: number;

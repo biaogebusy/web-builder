@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ComponentFactoryResolver } from '@angular/core';
 import { BuilderComponent } from './builder.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
@@ -16,19 +16,23 @@ import { BuilderListComponent } from './main/builder-list/builder-list.component
 import { BuilderEmptyComponent } from './main/builder-empty/builder-empty.component';
 import { SwitchPreviewComponent } from './toolbar/switch-preview/switch-preview.component';
 import { PreviewListComponent } from './main/preview-list/preview-list.component';
+import { BaseModule } from '@uiux/base/base.module';
 
-const compoments = [BuilderComponent, BuilderListComponent];
+const components = [
+  BuilderComponent,
+  BuilderListComponent,
+  BuilderGeneraterComponent,
+];
 
 @NgModule({
   declarations: [
-    ...compoments,
+    ...components,
     BuilderContentToolbarComponent,
     BuilderSidebarListComponent,
     BuilderEmptyComponent,
     BuilderShowcaseComponent,
     BuilderSidebarComponentsComponent,
     BuilderSidebarWidgetsComponent,
-    BuilderGeneraterComponent,
     SwitchPreviewComponent,
     BuilderSampleComponent,
     PreviewListComponent,
@@ -41,6 +45,15 @@ const compoments = [BuilderComponent, BuilderListComponent];
     BuilderRoutingModule,
   ],
   providers: [],
-  exports: [...compoments],
+  exports: [...components],
 })
-export class BuilderModule {}
+export class BuilderModule extends BaseModule {
+  dynamicComponents = [...components];
+  constructor(protected componentFactoryResolver: ComponentFactoryResolver) {
+    super(componentFactoryResolver);
+  }
+
+  static forStorybook(): any {
+    return [...components];
+  }
+}
