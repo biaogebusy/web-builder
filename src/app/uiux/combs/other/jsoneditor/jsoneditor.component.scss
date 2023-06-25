@@ -12,3 +12,14 @@
     }
   }
 }
+:host-context(.preview-container) {
+  ::ng-deep json-editor,
+  ::ng-deep json-editor .jsoneditor,
+  ::ng-deep json-editor > div,
+  ::ng-deep json-editor .jsoneditor-outer {
+    height: calc(100vh - 75px);
+    .ace_editor.ace-jsoneditor {
+      height: calc(100vh - 75px);
+    }
+  }
+}
