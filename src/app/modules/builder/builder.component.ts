@@ -12,8 +12,8 @@ import { LocalStorage, LocalStorageService } from 'ngx-webstorage';
 import { BuilderState } from '@core/state/BuilderState';
 import { IBuilderTab } from '@core/interface/IBuilder';
 import {
-  BUILDERFULLSCREEN,
-  BUILDERTABS,
+  BUILDER_FULL_SCREEN,
+  BUILDER_TABS,
   CORE_CONFIG,
 } from '@core/token/token-providers';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -44,8 +44,8 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
     public builder: BuilderState,
     private utli: UtilitiesService,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
-    @Inject(BUILDERFULLSCREEN) public builderFullScreen$: Observable<boolean>,
-    @Inject(BUILDERTABS) public tabs: IBuilderTab[],
+    @Inject(BUILDER_FULL_SCREEN) public builderFullScreen$: Observable<boolean>,
+    @Inject(BUILDER_TABS) public tabs: IBuilderTab[],
     private screenState: ScreenState
   ) {}
 

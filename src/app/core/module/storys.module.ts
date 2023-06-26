@@ -25,12 +25,11 @@ import {
   PAGE_CONTENT,
   BRANDING,
   NOTIFY_CONTENT,
-  BUILDERFULLSCREEN,
-  DISABLEBRAND,
-  DEBUGANIMATE,
-  GSAPSCROLLER,
-  MANAGESIDEBARSTATE,
-  BUILDERTABS,
+  BUILDER_FULL_SCREEN,
+  DISABLE_BRAND,
+  DEBUG_ANIMATE,
+  GSAP_SCROLLER,
+  MANAGE_SIDEBAR_STATE,
 } from '@core/token/token-providers';
 import { of } from 'rxjs';
 import { ActionModule } from '@uiux/combs/action/action.module';
@@ -58,7 +57,6 @@ import { DOCUMENT } from '@angular/common';
 import { UserService } from '@core/service/user.service';
 import { ScreenService } from '@core/service/screen.service';
 import { BuilderModule } from '@modules/builder/builder.module';
-import { tabs } from '@modules/builder/data/tabs.data';
 
 export function sleep(ms: number): Promise<any> {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -133,26 +131,26 @@ export class StorysModule {
           useValue: of(notify),
         },
         {
-          provide: BUILDERFULLSCREEN,
+          provide: BUILDER_FULL_SCREEN,
           useFactory: builderFullScreenFactory,
           deps: [Router, LocalStorageService, BuilderState],
         },
         {
-          provide: DISABLEBRAND,
+          provide: DISABLE_BRAND,
           useValue: of(false),
         },
         {
-          provide: DEBUGANIMATE,
+          provide: DEBUG_ANIMATE,
           useFactory: debugAnimateFactory,
           deps: [LocalStorageService, BuilderState],
         },
         {
-          provide: GSAPSCROLLER,
+          provide: GSAP_SCROLLER,
           useFactory: gsapScrollerFactory,
           deps: [DOCUMENT],
         },
         {
-          provide: MANAGESIDEBARSTATE,
+          provide: MANAGE_SIDEBAR_STATE,
           useFactory: manageSidebarStateFactory,
           deps: [
             Router,

@@ -18,7 +18,7 @@ import { LocalStorageService } from 'ngx-webstorage';
 import { ScreenService } from '../../../../core/service/screen.service';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { BRANDING, BUILDERFULLSCREEN } from '@core/token/token-providers';
+import { BRANDING, BUILDER_FULL_SCREEN } from '@core/token/token-providers';
 import { IBranding } from '@core/interface/branding/IBranding';
 
 @Component({
@@ -39,7 +39,7 @@ export class BuilderContentToolbarComponent
     private builder: BuilderState,
     private screenState: ScreenState,
     private screenService: ScreenService,
-    @Inject(BUILDERFULLSCREEN) public builderFullScreen$: Observable<boolean>,
+    @Inject(BUILDER_FULL_SCREEN) public builderFullScreen$: Observable<boolean>,
     @Inject(BRANDING) public branding$: Observable<IBranding>
   ) {}
 

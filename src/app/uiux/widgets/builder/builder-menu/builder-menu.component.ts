@@ -14,7 +14,7 @@ import { CanvasService } from '@core/service/canvas.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { ContentState } from '@core/state/ContentState';
-import { DEBUGANIMATE } from '@core/token/token-providers';
+import { DEBUG_ANIMATE } from '@core/token/token-providers';
 import { LocalStorage, LocalStorageService } from 'ngx-webstorage';
 import { Subject, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -39,7 +39,7 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     private cd: ChangeDetectorRef,
     private storage: LocalStorageService,
     private canvasService: CanvasService,
-    @Inject(DEBUGANIMATE) public debugAnimate$: Observable<boolean>
+    @Inject(DEBUG_ANIMATE) public debugAnimate$: Observable<boolean>
   ) {}
 
   ngOnInit(): void {}

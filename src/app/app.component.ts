@@ -14,9 +14,9 @@ import {
   CORE_CONFIG,
   BRANDING,
   USER,
-  DISABLEBRAND,
+  DISABLE_BRAND,
   IManageSidebarState,
-  MANAGESIDEBARSTATE,
+  MANAGE_SIDEBAR_STATE,
 } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { IBranding } from './core/interface/branding/IBranding';
@@ -38,8 +38,8 @@ export class AppComponent implements OnInit, AfterViewInit {
     private renderer2: Renderer2,
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
     @Inject(BRANDING) public branding$: Observable<IBranding>,
-    @Inject(DISABLEBRAND) public disableBrand$: Observable<boolean>,
-    @Inject(MANAGESIDEBARSTATE)
+    @Inject(DISABLE_BRAND) public disableBrand$: Observable<boolean>,
+    @Inject(MANAGE_SIDEBAR_STATE)
     public sidebarState$: Observable<IManageSidebarState>,
     private injector: Injector
   ) {}

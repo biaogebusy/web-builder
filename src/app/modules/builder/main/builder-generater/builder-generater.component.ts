@@ -9,7 +9,7 @@ import { IBuilderComponent, IBuilderTab } from '@core/interface/IBuilder';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { map } from 'lodash-es';
-import { BUILDERTABS } from '@core/token/token-providers';
+import { BUILDER_TABS } from '@core/token/token-providers';
 
 @Component({
   selector: 'app-builder-generater',
@@ -24,7 +24,7 @@ export class BuilderGeneraterComponent implements OnInit {
   constructor(
     private builder: BuilderState,
     private util: UtilitiesService,
-    @Inject(BUILDERTABS) public tabs: IBuilderTab[]
+    @Inject(BUILDER_TABS) public tabs: IBuilderTab[]
   ) {}
 
   ngOnInit(): void {

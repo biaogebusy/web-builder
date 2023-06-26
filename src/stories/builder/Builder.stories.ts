@@ -10,7 +10,7 @@ import { widgets } from './data/widgets-for-builder';
 import { environment } from 'src/environments/environment';
 import { tabs } from './data/tabs.builder';
 import { samples } from './data/samples.builder';
-import { BUILDERTABS } from '@core/token/token-providers';
+import { BUILDER_TABS } from '@core/token/token-providers';
 export default {
   title: 'Builder',
   id: 'builder',
@@ -27,7 +27,7 @@ export default {
       ],
       providers: [
         {
-          provide: BUILDERTABS,
+          provide: BUILDER_TABS,
           useValue: tabs,
         },
       ],

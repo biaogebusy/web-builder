@@ -13,7 +13,7 @@ import type { IMark } from '@core/interface/IAmap';
 import { AmapService } from '@core/service/amap.service';
 import { BaseComponent } from '@uiux/base/base.widget';
 import type { IViewMap, IViewMapItem } from '@core/interface/combs/IViewMap';
-import { Observable, Subject, of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Component({

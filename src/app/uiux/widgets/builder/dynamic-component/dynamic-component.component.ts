@@ -49,7 +49,6 @@ export class DynamicComponentComponent
     private componentService: ComponentService,
     public builder: BuilderState,
     private cd: ChangeDetectorRef,
-    private screenService: ScreenService,
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig
   ) {}
 
@@ -103,7 +102,6 @@ export class DynamicComponentComponent
       }
     }
     this.checkBuilder(this.component.instance['content']);
-    this.showAnimate(this.component.instance);
     this.container.insert(this.component.hostView);
     this.component.changeDetectorRef.markForCheck();
   }
@@ -114,27 +112,6 @@ export class DynamicComponentComponent
       this.inputs.activeToolBar !== false
     ) {
       this.hostClass = true;
-    }
-  }
-
-  showAnimate(instance: any): void {
-    if (this.screenService.isPlatformBrowser()) {
-      this.builder.toolbarDisable$
-        .pipe(takeUntil(this.destroy$))
-        .subscribe((state) => {
-          if (state && instance.showAnimate) {
-            setTimeout(() => {
-              instance.showAnimate();
-            }, 1000);
-          }
-        });
-      this.builder.debugeAnimate$
-        .pipe(takeUntil(this.destroy$))
-        .subscribe((debug) => {
-          if (instance.showAnimate) {
-            instance.showAnimate(debug);
-          }
-        });
     }
   }
 

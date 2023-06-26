@@ -17,22 +17,22 @@ export const PAGE_CONTENT = new InjectionToken<Observable<IPage | object>>(
   'page_content'
 );
 export const THEME = new InjectionToken<string>('current theme');
-export const DEBUGANIMATE = new InjectionToken<boolean>('debug animate');
+export const DEBUG_ANIMATE = new InjectionToken<boolean>('debug animate');
 export const BRANDING = new InjectionToken<IBranding>('branding config');
-export const DISABLEBRAND = new InjectionToken<boolean>('disable branding');
+export const DISABLE_BRAND = new InjectionToken<boolean>('disable branding');
 
 export const USER = new InjectionToken<IUser>('user');
 export const NOTIFY_CONTENT = new InjectionToken<Observable<INotify>>(
   'notify content'
 );
-export const BUILDERFULLSCREEN = new InjectionToken<Observable<boolean>>(
+export const BUILDER_FULL_SCREEN = new InjectionToken<Observable<boolean>>(
   'builder full screen'
 );
-export const MANAGESIDEBARSTATE = new InjectionToken<
+export const MANAGE_SIDEBAR_STATE = new InjectionToken<
   Observable<IManageSidebarState>
 >('manage sidebar state');
 
-export const GSAPSCROLLER = new InjectionToken<string>(' gsap scroller');
-export const BUILDERTABS = new InjectionToken<IBuilderTab[]>(
+export const GSAP_SCROLLER = new InjectionToken<string>(' gsap scroller');
+export const BUILDER_TABS = new InjectionToken<IBuilderTab[]>(
   'builder tabs data'
 );

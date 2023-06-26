@@ -13,7 +13,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { BaseComponent } from '@uiux/base/base.widget';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { ScreenService } from '@core/service/screen.service';
-import { CORE_CONFIG, GSAPSCROLLER } from '@core/token/token-providers';
+import { CORE_CONFIG, GSAP_SCROLLER } from '@core/token/token-providers';
 import type { IShowcase1v1 } from '@core/interface/combs/IShowcase';
 import { ContentState } from '@core/state/ContentState';
 import { BuilderState } from '@core/state/BuilderState';
@@ -38,7 +38,7 @@ export class Showcase1v1Component
     private contentState: ContentState,
     private builder: BuilderState,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
-    @Inject(GSAPSCROLLER) private scroller: string
+    @Inject(GSAP_SCROLLER) private scroller: string
   ) {
     super();
   }

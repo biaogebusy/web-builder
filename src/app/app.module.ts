@@ -17,12 +17,12 @@ import { httpInterceptorProviders } from '@core/interceptors';
 import { Angulartics2Module } from 'angulartics2';
 import {
   BRANDING,
-  BUILDERFULLSCREEN,
+  BUILDER_FULL_SCREEN,
   CORE_CONFIG,
-  DEBUGANIMATE,
-  DISABLEBRAND,
-  GSAPSCROLLER,
-  MANAGESIDEBARSTATE,
+  DEBUG_ANIMATE,
+  DISABLE_BRAND,
+  GSAP_SCROLLER,
+  MANAGE_SIDEBAR_STATE,
   NOTIFY_CONTENT,
   USER,
 } from '@core/token/token-providers';
@@ -109,27 +109,27 @@ import { ScreenService } from '@core/service/screen.service';
       deps: [[new Inject(CORE_CONFIG)], NotifyService],
     },
     {
-      provide: BUILDERFULLSCREEN,
+      provide: BUILDER_FULL_SCREEN,
       useFactory: builderFullScreenFactory,
       deps: [Router, LocalStorageService, BuilderState],
     },
     {
-      provide: DISABLEBRAND,
+      provide: DISABLE_BRAND,
       useFactory: disableBrandFactory,
       deps: [Router],
     },
     {
-      provide: DEBUGANIMATE,
+      provide: DEBUG_ANIMATE,
       useFactory: debugAnimateFactory,
       deps: [LocalStorageService, BuilderState],
     },
     {
-      provide: GSAPSCROLLER,
+      provide: GSAP_SCROLLER,
       useFactory: gsapScrollerFactory,
       deps: [DOCUMENT],
     },
     {
-      provide: MANAGESIDEBARSTATE,
+      provide: MANAGE_SIDEBAR_STATE,
       useFactory: manageSidebarStateFactory,
       deps: [
         Router,

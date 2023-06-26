@@ -13,8 +13,8 @@ import type { IText } from '@core/interface/widgets/IText';
 import { ScreenService } from '@core/service/screen.service';
 import {
   CORE_CONFIG,
-  DEBUGANIMATE,
-  GSAPSCROLLER,
+  DEBUG_ANIMATE,
+  GSAP_SCROLLER,
 } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { ContentState } from '@core/state/ContentState';
@@ -43,8 +43,8 @@ export class TextComponent implements OnInit, AfterViewInit {
     private contentState: ContentState,
     private builder: BuilderState,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
-    @Inject(DEBUGANIMATE) private debugeAnimate$: Observable<boolean>,
-    @Inject(GSAPSCROLLER) private scroller: string
+    @Inject(DEBUG_ANIMATE) private debugeAnimate$: Observable<boolean>,
+    @Inject(GSAP_SCROLLER) private scroller: string
   ) {}
 
   ngOnInit(): void {

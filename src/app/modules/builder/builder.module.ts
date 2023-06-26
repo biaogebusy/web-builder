@@ -17,7 +17,7 @@ import { BuilderEmptyComponent } from './main/builder-empty/builder-empty.compon
 import { SwitchPreviewComponent } from './toolbar/switch-preview/switch-preview.component';
 import { PreviewListComponent } from './main/preview-list/preview-list.component';
 import { BaseModule } from '@uiux/base/base.module';
-import { BUILDERTABS } from '@core/token/token-providers';
+import { BUILDER_TABS } from '@core/token/token-providers';
 import { tabs } from './data/tabs.data';
 
 const components = [
@@ -48,7 +48,7 @@ const components = [
   ],
   providers: [
     {
-      provide: BUILDERTABS,
+      provide: BUILDER_TABS,
       useValue: tabs,
     },
   ],

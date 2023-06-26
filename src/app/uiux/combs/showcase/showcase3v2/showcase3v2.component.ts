@@ -10,7 +10,7 @@ import {
 import type { IShowcase3v2 } from '@core/interface/combs/IShowcase';
 import type { IText } from '@core/interface/widgets/IText';
 import { ScreenService } from '@core/service/screen.service';
-import { CORE_CONFIG, GSAPSCROLLER } from '@core/token/token-providers';
+import { CORE_CONFIG, GSAP_SCROLLER } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -33,7 +33,7 @@ export class Showcase3v2Component implements OnInit, AfterViewInit {
     private contentState: ContentState,
     private builder: BuilderState,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
-    @Inject(GSAPSCROLLER) private scroller: string
+    @Inject(GSAP_SCROLLER) private scroller: string
   ) {}
 
   ngOnInit(): void {

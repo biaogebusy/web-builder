@@ -12,9 +12,10 @@ import { ScreenService } from '../../service/screen.service';
 import { ScreenState } from '../../state/screen/ScreenState';
 import { DOCUMENT } from '@angular/common';
 import { ContentState } from '@core/state/ContentState';
-import { BRANDING, DISABLEBRAND } from '@core/token/token-providers';
-import { Observable } from 'rxjs';
+import { BRANDING, DISABLE_BRAND } from '@core/token/token-providers';
+import { Observable, Subject } from 'rxjs';
 import type { IBranding } from '@core/interface/branding/IBranding';
+import { takeUntil } from 'rxjs/operators';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -27,32 +28,34 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   headerMode: any;
   @ViewChild('header', { read: ElementRef }) header: ElementRef;
   @ViewChild('menu', { read: ElementRef }) menu: ElementRef;
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     public screenService: ScreenService,
     public screenState: ScreenState,
-    public screen: ScreenState,
     private cd: ChangeDetectorRef,
     public contentState: ContentState,
     @Inject(DOCUMENT) private doc: Document,
     @Inject(BRANDING) public branding$: Observable<IBranding>,
-    @Inject(DISABLEBRAND) public disableBrand$: Observable<boolean>
+    @Inject(DISABLE_BRAND) public disableBrand$: Observable<boolean>
   ) {}
 
   ngOnInit(): void {
-    this.contentState.pageConfig$.subscribe((config) => {
-      this.headerMode = config?.headerMode;
-      if (this.headerMode?.transparent) {
-        this.doc
-          .getElementsByTagName('body')[0]
-          .classList.add('transparent-header');
-      }
-    });
+    this.contentState.pageConfig$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((config) => {
+        this.headerMode = config?.headerMode;
+        if (this.headerMode?.transparent) {
+          this.doc
+            .getElementsByTagName('body')[0]
+            .classList.add('transparent-header');
+        }
+      });
   }
 
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.screenState.scroll$.subscribe(() => {
+      this.screenState.scroll$.pipe(takeUntil(this.destroy$)).subscribe(() => {
         if (this.menu) {
           this.sticky = this.screenService.isElementOutTopViewport(
             this.menu.nativeElement
@@ -91,15 +94,18 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   }
 
   initBanner(): void {
-    this.branding$.subscribe((branding: any) => {
+    this.branding$.pipe(takeUntil(this.destroy$)).subscribe((branding: any) => {
       const banner = branding.header.banner;
       if (!banner) {
         this.showBanner = false;
       } else {
-        this.screenState.mqAlias$().subscribe((mq) => {
-          this.showBanner = mq.includes(banner.breakpoint || 'gt-md');
-          this.cd.detectChanges();
-        });
+        this.screenState
+          .mqAlias$()
+          .pipe(takeUntil(this.destroy$))
+          .subscribe((mq) => {
+            this.showBanner = mq.includes(banner.breakpoint || 'gt-md');
+            this.cd.detectChanges();
+          });
       }
     });
   }
