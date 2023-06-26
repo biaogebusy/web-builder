@@ -3,6 +3,7 @@ export const samples = {
   elements: [
     {
       label: 'V1',
+      id: 'home',
       icon: {
         svg: 'numeric-1',
       },
@@ -1238,6 +1239,7 @@ export const samples = {
     },
     {
       label: 'V2',
+      id: 'home-v2',
       icon: {
         svg: 'numeric-2',
       },
@@ -1879,6 +1881,7 @@ export const samples = {
     },
     {
       label: 'V3',
+      id: 'home-v3',
       icon: {
         svg: 'numeric-3',
       },
@@ -2435,6 +2438,7 @@ export const samples = {
     },
     {
       label: 'V4',
+      id: 'home-v4',
       icon: {
         svg: 'numeric-4',
       },
@@ -3198,6 +3202,7 @@ export const samples = {
     },
     {
       label: 'V5',
+      id: 'home-v5',
       icon: {
         svg: 'numeric-5',
       },
@@ -3845,6 +3850,7 @@ export const samples = {
     },
     {
       label: 'V6',
+      id: 'home-v6',
       icon: {
         svg: 'numeric-6',
       },
@@ -4672,6 +4678,7 @@ export const samples = {
     },
     {
       label: 'V7',
+      id: 'home-v7',
       icon: {
         svg: 'numeric-7',
       },
@@ -5165,6 +5172,7 @@ export const samples = {
     },
     {
       label: 'V8',
+      id: 'home-v8',
       icon: {
         svg: 'numeric-8',
       },
@@ -5772,6 +5780,7 @@ export const samples = {
     },
     {
       label: 'V9',
+      id: 'home-v9',
       icon: {
         svg: 'numeric-9',
       },
@@ -6268,6 +6277,7 @@ export const samples = {
     },
     {
       label: 'V10',
+      id: 'home-v10',
       icon: {
         svg: 'numeric-10',
       },
@@ -6747,6 +6757,7 @@ export const samples = {
     },
     {
       label: 'V11',
+      id: 'home-v11',
       icon: {
         svg: 'numeric-1',
       },
@@ -7084,6 +7095,7 @@ export const samples = {
     },
     {
       label: 'V12',
+      id: 'home-v12',
       icon: {
         svg: 'numeric-2',
       },
@@ -7474,6 +7486,7 @@ export const samples = {
     },
     {
       label: 'V13',
+      id: 'home-v13',
       icon: {
         svg: 'numeric-3',
       },

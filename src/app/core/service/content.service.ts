@@ -17,6 +17,7 @@ import {
   footerInverse,
   manageHeader,
 } from '@stories/global/Branding.json';
+import { samples } from '@modules/builder/data/samples.data';
 @Injectable({
   providedIn: 'root',
 })
@@ -69,17 +70,16 @@ export class ContentService {
         })
       );
     } else {
-      return this.http
-        .get<any>(`${this.apiUrl}/assets/app${pageUrl}.json`)
-        .pipe(
-          tap((page) => {
-            this.updatePage(page);
-          }),
-          catchError(() => {
-            this.tagsService.setTitle('404 not found!');
-            return this.http.get<any>(`${this.apiUrl}/assets/app/404.json`);
-          })
-        );
+      const sample = pageUrl.split('/')[1];
+      const samplePage = samples.elements.filter(
+        (item) => item.id === sample
+      )[0];
+      if (samplePage) {
+        this.updatePage(samplePage.page);
+        return of(samplePage.page);
+      } else {
+        return this.http.get<any>(`${this.apiUrl}/assets/app/404.json`);
+      }
     }
   }
 
