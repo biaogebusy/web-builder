@@ -1,4 +1,4 @@
-import { IBuilderComponent, IBuilderWidget } from '@core/interface/IBuilder';
+import { IBuilderComponent } from '@core/interface/IBuilder';
 import { card } from './widgets/card.builder';
 import { feedback } from './widgets/feedback.builder';
 import { base } from './widgets/base.builder';
