@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
-import { forkJoin, Observable } from 'rxjs';
+import { forkJoin, Observable, of } from 'rxjs';
 import { NodeService } from '@core/service/node.service';
 import type { IUser } from '@core/interface/IUser';
 import { UserService } from '@core/service/user.service';
@@ -18,6 +18,9 @@ export class NotifyService {
   ) {}
 
   getWatchList(): Observable<any> {
+    if (!this.user) {
+      return of(false);
+    }
     const obj: any = {};
     const params = `noCache=1`;
     const apiList = this.coreConfig?.notify?.api;

@@ -1,4 +1,5 @@
 import {
+  AfterContentInit,
   AfterViewInit,
   ChangeDetectorRef,
   Component,
@@ -32,12 +33,12 @@ export interface dynamicInputs {
   styleUrls: ['./dynamic-component.component.scss'],
 })
 export class DynamicComponentComponent
-  implements OnInit, AfterViewInit, OnChanges, OnDestroy
+  implements OnInit, AfterViewInit, OnChanges, OnDestroy, AfterContentInit
 {
   @Input() inputs: dynamicInputs;
   @Input() index: number;
   @Input() isPreview: boolean;
-  @HostBinding('class.active-toolbar') activeToolbarClass = false;
+  @HostBinding('class.active-toolbar') activeToolbarClass: boolean;
   @ViewChild('componentContainer', { read: ViewContainerRef, static: true })
   container: ViewContainerRef;
   uuid: number;
@@ -70,11 +71,14 @@ export class DynamicComponentComponent
     }
   }
 
-  ngAfterViewInit(): void {
-    this.loadConponent();
+  ngAfterContentInit(): void {
     this.enable_toolbar$.pipe(takeUntil(this.destroy$)).subscribe((state) => {
       this.activeToolbarClass = state;
     });
+  }
+
+  ngAfterViewInit(): void {
+    this.loadConponent();
   }
 
   onUuid(uuid: number): void {

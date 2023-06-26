@@ -11,17 +11,14 @@ import {
 import type { IBtn } from '@core/interface/widgets/IBtn';
 import type { IText } from '@core/interface/widgets/IText';
 import { ScreenService } from '@core/service/screen.service';
-import {
-  CORE_CONFIG,
-  DEBUG_ANIMATE,
-  GSAP_SCROLLER,
-} from '@core/token/token-providers';
+import { CORE_CONFIG, DEBUG_ANIMATE } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { ContentState } from '@core/state/ContentState';
 import { BuilderState } from '@core/state/BuilderState';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Observable } from 'rxjs';
+import { BaseComponent } from '@uiux/base/base.widget';
 
 @Component({
   selector: 'app-text',
@@ -29,7 +26,10 @@ import { Observable } from 'rxjs';
   styleUrls: ['./text.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TextComponent implements OnInit, AfterViewInit {
+export class TextComponent
+  extends BaseComponent
+  implements OnInit, AfterViewInit
+{
   @Input() content: IText;
   @ViewChild('inner', { read: ElementRef }) inner: ElementRef;
   @ViewChild('title', { read: ElementRef }) title: ElementRef;
@@ -42,10 +42,12 @@ export class TextComponent implements OnInit, AfterViewInit {
     private screenService: ScreenService,
     private contentState: ContentState,
     private builder: BuilderState,
+    private ele: ElementRef,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
-    @Inject(DEBUG_ANIMATE) private debugeAnimate$: Observable<boolean>,
-    @Inject(GSAP_SCROLLER) private scroller: string
-  ) {}
+    @Inject(DEBUG_ANIMATE) private debugeAnimate$: Observable<boolean>
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
@@ -82,8 +84,10 @@ export class TextComponent implements OnInit, AfterViewInit {
     // https://greensock.com/docs/v3/Plugins/ScrollTrigger
     const tl = gsap.timeline({
       scrollTrigger: {
-        trigger: this.inner?.nativeElement,
-        scroller: this.scroller,
+        trigger: this.ele.nativeElement,
+        start: 'top 85%', // [触发元素开始的地方,视口开始的位置],
+        end: 'bottom 30%',
+        scroller: this.getScroller(),
         markers: debug,
         scrub: this.content?.animate?.scrub || false, // 滚动一次动画就对应更新，细粒度控制，适合根据鼠标滚动精细变化
         toggleActions: 'play none none none', // onEnter, onLeave, onEnterBack, and onLeaveBack
@@ -92,14 +96,13 @@ export class TextComponent implements OnInit, AfterViewInit {
 
     if (bg) {
       const img = bg.querySelector('img');
-      if (!img) {
-        return;
+      if (img) {
+        tl.from(img, {
+          autoAlpha: 0,
+          scale: 1.5,
+          duration: 2,
+        });
       }
-      tl.from(img, {
-        autoAlpha: 0,
-        scale: 1.5,
-        duration: 2,
-      });
     }
 
     if (title) {

@@ -10,12 +10,13 @@ import {
 import type { IShowcase3v2 } from '@core/interface/combs/IShowcase';
 import type { IText } from '@core/interface/widgets/IText';
 import { ScreenService } from '@core/service/screen.service';
-import { CORE_CONFIG, GSAP_SCROLLER } from '@core/token/token-providers';
+import { CORE_CONFIG } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ContentState } from '@core/state/ContentState';
 import { BuilderState } from '@core/state/BuilderState';
+import { BaseComponent } from '@uiux/base/base.widget';
 
 @Component({
   selector: 'app-showcase-3v2',
@@ -23,7 +24,10 @@ import { BuilderState } from '@core/state/BuilderState';
   styleUrls: ['./showcase3v2.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Showcase3v2Component implements OnInit, AfterViewInit {
+export class Showcase3v2Component
+  extends BaseComponent
+  implements OnInit, AfterViewInit
+{
   @Input() content: IShowcase3v2;
   disableAnimate = false;
   text: IText;
@@ -32,9 +36,10 @@ export class Showcase3v2Component implements OnInit, AfterViewInit {
     private screenService: ScreenService,
     private contentState: ContentState,
     private builder: BuilderState,
-    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
-    @Inject(GSAP_SCROLLER) private scroller: string
-  ) {}
+    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
@@ -72,7 +77,7 @@ export class Showcase3v2Component implements OnInit, AfterViewInit {
           trigger: item,
           start: 'top 80%', // [触发元素开始的地方,视口开始的位置],
           end: 'bottom 30%',
-          scroller: this.scroller,
+          scroller: this.getScroller(),
           markers: debug,
           scrub: false, // 滚动一次动画就对应更新，细粒度控制，适合根据鼠标滚动精细变化
           toggleActions: 'play none none none', // onEnter, onLeave, onEnterBack, and onLeaveBack
@@ -84,10 +89,6 @@ export class Showcase3v2Component implements OnInit, AfterViewInit {
         x: this.isEven(index) ? 500 : -500,
         duration: 1,
       });
-
-      if (debug === true) {
-        tl.restart();
-      }
     });
   }
 

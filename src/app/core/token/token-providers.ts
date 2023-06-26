@@ -30,7 +30,6 @@ export const DEBUG_ANIMATE = new InjectionToken<boolean>('debug animate');
 export const BUILDER_FULL_SCREEN = new InjectionToken<Observable<boolean>>(
   'builder full screen'
 );
-export const GSAP_SCROLLER = new InjectionToken<string>('gsap scroller');
 export const BUILDER_TABS = new InjectionToken<IBuilderTab[]>(
   'builder tabs data'
 );

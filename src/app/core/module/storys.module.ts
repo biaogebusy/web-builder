@@ -10,7 +10,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import {
   builderFullScreenFactory,
   debugAnimateFactory,
-  gsapScrollerFactory,
   manageSidebarStateFactory,
   pageContentFactory,
 } from '@core/factory/factory';
@@ -144,11 +143,6 @@ export class StorysModule {
           provide: DEBUG_ANIMATE,
           useFactory: debugAnimateFactory,
           deps: [LocalStorageService, BuilderState],
-        },
-        {
-          provide: GSAP_SCROLLER,
-          useFactory: gsapScrollerFactory,
-          deps: [DOCUMENT],
         },
         {
           provide: MANAGE_SIDEBAR_STATE,

@@ -113,15 +113,6 @@ export function enableToolbarFactory(router: Router): Observable<boolean> {
   return enableToolbar$;
 }
 
-export function gsapScrollerFactory(doc: Document): any {
-  const scroller = doc.getElementById('gsap-scroller');
-  if (scroller) {
-    return '#gsap-scroller';
-  } else {
-    return window;
-  }
-}
-
 export function manageSidebarStateFactory(
   router: Router,
   branding$: Observable<IBranding>,

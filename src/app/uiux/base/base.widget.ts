@@ -112,4 +112,13 @@ export abstract class BaseComponent {
       instance[key] = instance.content.data[key];
     });
   }
+
+  getScroller(): HTMLElement | Window {
+    const scroller = document.getElementById('gsap-scroller');
+    if (scroller) {
+      return scroller;
+    } else {
+      return window;
+    }
+  }
 }

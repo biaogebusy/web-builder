@@ -22,7 +22,6 @@ import {
   DEBUG_ANIMATE,
   DISABLE_BRAND,
   ENABLE_TOOLBAR,
-  GSAP_SCROLLER,
   MANAGE_SIDEBAR_STATE,
   NOTIFY_CONTENT,
   USER,
@@ -39,7 +38,6 @@ import {
   debugAnimateFactory,
   disableBrandFactory,
   enableToolbarFactory,
-  gsapScrollerFactory,
   manageSidebarStateFactory,
   notifyFactory,
   themeFactory,
@@ -124,11 +122,6 @@ import { ScreenService } from '@core/service/screen.service';
       provide: DEBUG_ANIMATE,
       useFactory: debugAnimateFactory,
       deps: [LocalStorageService, BuilderState],
-    },
-    {
-      provide: GSAP_SCROLLER,
-      useFactory: gsapScrollerFactory,
-      deps: [DOCUMENT],
     },
     {
       provide: MANAGE_SIDEBAR_STATE,

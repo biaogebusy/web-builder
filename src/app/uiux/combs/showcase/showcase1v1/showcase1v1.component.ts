@@ -13,7 +13,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { BaseComponent } from '@uiux/base/base.widget';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { ScreenService } from '@core/service/screen.service';
-import { CORE_CONFIG, GSAP_SCROLLER } from '@core/token/token-providers';
+import { CORE_CONFIG } from '@core/token/token-providers';
 import type { IShowcase1v1 } from '@core/interface/combs/IShowcase';
 import { ContentState } from '@core/state/ContentState';
 import { BuilderState } from '@core/state/BuilderState';
@@ -37,8 +37,7 @@ export class Showcase1v1Component
     private screenService: ScreenService,
     private contentState: ContentState,
     private builder: BuilderState,
-    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
-    @Inject(GSAP_SCROLLER) private scroller: string
+    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
   ) {
     super();
   }
@@ -71,7 +70,7 @@ export class Showcase1v1Component
     let tl = gsap.timeline({
       scrollTrigger: {
         trigger: this.el.nativeElement,
-        scroller: this.scroller,
+        scroller: this.getScroller(),
         start: 'top 85%', // [触发元素开始的地方,视口开始的位置],
         end: 'bottom 30%',
         markers: debug,
@@ -95,9 +94,5 @@ export class Showcase1v1Component
         });
       });
     }
-
-    // if (debug === true) {
-    //   tl.restart();
-    // }
   }
 }
