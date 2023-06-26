@@ -16,10 +16,9 @@ import {
 } from '@angular/core';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { ComponentService } from '@core/service/component.service';
-import { ScreenService } from '@core/service/screen.service';
 import { BuilderState } from '@core/state/BuilderState';
-import { CORE_CONFIG } from '@core/token/token-providers';
-import { Subject } from 'rxjs';
+import { CORE_CONFIG, ENABLE_TOOLBAR } from '@core/token/token-providers';
+import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 export interface dynamicInputs {
@@ -38,7 +37,7 @@ export class DynamicComponentComponent
   @Input() inputs: dynamicInputs;
   @Input() index: number;
   @Input() isPreview: boolean;
-  @HostBinding('class.active-toolbar') hostClass = false;
+  @HostBinding('class.active-toolbar') activeToolbarClass = false;
   @ViewChild('componentContainer', { read: ViewContainerRef, static: true })
   container: ViewContainerRef;
   uuid: number;
@@ -49,7 +48,8 @@ export class DynamicComponentComponent
     private componentService: ComponentService,
     public builder: BuilderState,
     private cd: ChangeDetectorRef,
-    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig
+    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
+    @Inject(ENABLE_TOOLBAR) public enable_toolbar$: Observable<boolean>
   ) {}
 
   ngOnInit(): void {
@@ -72,6 +72,9 @@ export class DynamicComponentComponent
 
   ngAfterViewInit(): void {
     this.loadConponent();
+    this.enable_toolbar$.pipe(takeUntil(this.destroy$)).subscribe((state) => {
+      this.activeToolbarClass = state;
+    });
   }
 
   onUuid(uuid: number): void {
@@ -101,18 +104,8 @@ export class DynamicComponentComponent
         this.component.instance['content'] = this.inputs;
       }
     }
-    this.checkBuilder(this.component.instance['content']);
     this.container.insert(this.component.hostView);
     this.component.changeDetectorRef.markForCheck();
-  }
-
-  checkBuilder(content: any): void {
-    if (
-      this.coreConfig.builder?.enable &&
-      this.inputs.activeToolBar !== false
-    ) {
-      this.hostClass = true;
-    }
   }
 
   ngOnDestroy(): void {

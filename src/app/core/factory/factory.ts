@@ -17,7 +17,7 @@ import { IManageSidebarState } from '@core/token/token-providers';
 import { ScreenService } from '@core/service/screen.service';
 
 export const THEMKEY = 'themeMode';
-export const DEBUGANIMATEKEY = 'debugAnimate';
+export const DEBUG_ANIMATE_KEY = 'debugAnimate';
 
 export function pageContentFactory(
   activateRoute: ActivatedRoute,
@@ -74,7 +74,7 @@ export function debugAnimateFactory(
   builder: BuilderState
 ): Observable<boolean> {
   const debugAnimate$ = new BehaviorSubject<boolean>(false);
-  const isDebugAnimate = storage.retrieve(DEBUGANIMATEKEY);
+  const isDebugAnimate = storage.retrieve(DEBUG_ANIMATE_KEY);
   if (isDebugAnimate) {
     debugAnimate$.next(true);
   } else {
@@ -86,11 +86,31 @@ export function debugAnimateFactory(
   }, 2000);
 
   builder.debugeAnimate$.subscribe((state) => {
-    storage.store(DEBUGANIMATEKEY, state);
+    storage.store(DEBUG_ANIMATE_KEY, state);
     debugAnimate$.next(state);
   });
 
   return debugAnimate$;
+}
+
+export function enableToolbarFactory(router: Router): Observable<boolean> {
+  const enableToolbar$ = new BehaviorSubject<boolean>(false);
+  const BUILDERPATH = '/builder';
+  if (router.url.includes(BUILDERPATH)) {
+    enableToolbar$.next(true);
+  } else {
+    enableToolbar$.next(false);
+  }
+  router.events.subscribe((event) => {
+    if (event instanceof NavigationEnd) {
+      if (event.url.includes(BUILDERPATH)) {
+        enableToolbar$.next(true);
+      } else {
+        enableToolbar$.next(false);
+      }
+    }
+  });
+  return enableToolbar$;
 }
 
 export function gsapScrollerFactory(doc: Document): any {

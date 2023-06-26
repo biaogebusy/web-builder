@@ -24,7 +24,6 @@ export class BuilderState {
   public showcase$: Subject<ICard1v1> = new Subject();
   public animateDisable$ = new Subject<boolean>();
   public fullScreen$ = new Subject<boolean>();
-  public toolbarDisable$ = new Subject<boolean>();
   public debugeAnimate$ = new Subject<boolean>();
   public builderContentDrawer$ = new Subject<boolean>();
   public switchPreivew$ = new Subject<'xs' | 'sm' | 'md' | 'none'>();

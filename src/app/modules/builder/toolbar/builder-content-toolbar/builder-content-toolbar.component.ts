@@ -52,11 +52,8 @@ export class BuilderContentToolbarComponent
         .pipe(takeUntil(this.destroy$))
         .subscribe((alia) => {
           if (alia.includes('xs')) {
-            this.builder.toolbarDisable$.next(true);
             this.builder.fullScreen$.next(true);
             this.containerDrawer.close();
-          } else {
-            this.builder.toolbarDisable$.next(false);
           }
         });
     }

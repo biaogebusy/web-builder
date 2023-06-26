@@ -8,7 +8,7 @@
     </div>
     <div #builderList id="builder-list" class="preview-wrapper" cdkDropList
       [cdkDropListConnectedTo]="['widgets','components']" [cdkDropListData]="content"
-      [cdkDropListDisabled]="builder.toolbarDisable$ | async" (cdkDropListDropped)="drop($event)">
+      (cdkDropListDropped)="drop($event)">
       <app-builder-empty *ngIf="!content?.length"></app-builder-empty>
       <div id="{{item?.type||item?.content?.type}}-{{i}}" (dblclick)="onShowEditor(item, i)" class="component-item"
         cdkDrag [cdkDragData]="item" *ngFor="let item of content;index as i; trackBy: trackByFn">

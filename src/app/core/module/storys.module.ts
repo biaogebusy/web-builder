@@ -30,6 +30,7 @@ import {
   DEBUG_ANIMATE,
   GSAP_SCROLLER,
   MANAGE_SIDEBAR_STATE,
+  ENABLE_TOOLBAR,
 } from '@core/token/token-providers';
 import { of } from 'rxjs';
 import { ActionModule } from '@uiux/combs/action/action.module';
@@ -161,6 +162,10 @@ export class StorysModule {
             [new Inject(USER)],
             DOCUMENT,
           ],
+        },
+        {
+          provide: ENABLE_TOOLBAR,
+          useValue: of(true),
         },
       ],
     };
