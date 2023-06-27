@@ -5,7 +5,7 @@
 <div *ngTemplateOutlet="toolbar;context:{isFull:false}"></div>
 
 <ng-template #toolbar let-isFull="isFull">
-  <div class="builder-content-toolbar" [ngClass]="{'fixed':isFull}">
+  <div class="builder-toolbar" [ngClass]="{'fixed':isFull}">
     <div class="wrapper" fxLayoutAlign="space-between center">
       <div class="left" fxFlex.lt-md="auto" fxFlex.gt-sm="33%">
         <ng-container *ngIf="branding$ | async as branding">

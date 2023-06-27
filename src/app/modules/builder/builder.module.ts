@@ -4,7 +4,6 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ShareModule } from '@share/share.module';
-import { BuilderContentToolbarComponent } from './toolbar/builder-content-toolbar/builder-content-toolbar.component';
 import { BuilderRoutingModule } from './builder-routing.module';
 import { BuilderSidebarListComponent } from './sidebar/builder-sidebar-list/builder-sidebar-list.component';
 import { BuilderShowcaseComponent } from './main/builder-showcase/builder-showcase.component';
@@ -20,6 +19,7 @@ import { BaseModule } from '@uiux/base/base.module';
 import { BUILDER_TABS } from '@core/token/token-providers';
 import { tabs } from './data/tabs.data';
 import { PreviewComponent } from './preview/preview.component';
+import { BuilderToolbarComponent } from './toolbar/builder-toolbar/builder-toolbar.component';
 
 const components = [
   BuilderComponent,
@@ -30,7 +30,7 @@ const components = [
 @NgModule({
   declarations: [
     ...components,
-    BuilderContentToolbarComponent,
+    BuilderToolbarComponent,
     BuilderSidebarListComponent,
     BuilderEmptyComponent,
     BuilderShowcaseComponent,

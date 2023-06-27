@@ -21,12 +21,12 @@ import { ScreenService } from '@core/service/screen.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-builder-content-toolbar',
-  templateUrl: './builder-content-toolbar.component.html',
-  styleUrls: ['./builder-content-toolbar.component.scss'],
+  selector: 'app-builder-toolbar',
+  templateUrl: './builder-toolbar.component.html',
+  styleUrls: ['./builder-toolbar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BuilderContentToolbarComponent
+export class BuilderToolbarComponent
   implements OnInit, AfterViewInit, OnDestroy
 {
   @Input() containerDrawer: MatDrawer;
