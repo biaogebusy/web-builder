@@ -505,7 +505,7 @@
           {
             "type": "btn-animate",
             "label": "立刻开始",
-            "href": "#",
+            "href": "/builder",
             "style": "style-v1",
             "icon": "open_in_new"
           }

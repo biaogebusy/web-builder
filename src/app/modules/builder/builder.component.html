@@ -22,7 +22,7 @@
       <mat-drawer-container class="preview-container" [hasBackdrop]="(builder.dynamicContent$ | async)?.hasBackdrop">
         <mat-drawer #containerDrawer [ngStyle]="{overflow:containerDrawer.open?'visible' : 'auto'}"
           [mode]="(builder.dynamicContent$ | async)?.mode ||'over'" position="end">
-          <div class="actions">
+          <div class="actions expand">
             <app-btn [matTooltip]="'收起'" (click)="onExpand()"
               [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'chevron-right' } }"></app-btn>
           </div>

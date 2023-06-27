@@ -39,6 +39,7 @@ Base.storyName = '基础文本';
 Base.args = {
   content: {
     type: 'text',
+    spacer: 'md',
     body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class="text-primary">Storybook</strong> 页面时添加组件到预览页面。<ul class="list-done"><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li><li>可以直接编辑组件的 JSON，所见即所得；</li></ul><p>Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。</p><br>',
   },
 };
@@ -48,7 +49,6 @@ Title.storyName = '带标题风格';
 Title.args = {
   content: {
     ...Base.args.content,
-    spacer: 'sm',
     title: {
       label:
         '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
@@ -104,19 +104,8 @@ Center.args = {
         type: 'btn',
         mode: 'raised',
         color: 'primary',
-        href: '#',
-        label: '开始',
-      },
-      {
-        type: 'closeDialog',
-        label: 'Ok',
-      },
-      {
-        type: 'btn-animate',
-        label: '了解更多',
-        href: '#',
-        style: 'style-v1',
-        icon: 'open_in_new',
+        href: '/builder',
+        label: '开始体验',
       },
     ],
   },

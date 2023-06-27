@@ -29,3 +29,15 @@ export interface IBuilderDynamicContent {
   elements: any[];
   style?: any;
 }
+
+export interface IBuilderSample {
+  label: string;
+  elements: ISample[];
+}
+
+export interface ISample {
+  label: string;
+  id: string;
+  icon: IIcon;
+  page: any;
+}

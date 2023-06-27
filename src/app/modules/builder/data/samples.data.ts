@@ -292,7 +292,7 @@ export const samples = {
                     name: 'fingerprint',
                   },
                   digit: {
-                    value: 233,
+                    value: 863,
                     label: '+',
                   },
                   title: '日访问人数',
@@ -302,7 +302,7 @@ export const samples = {
                     name: 'verified_user',
                   },
                   digit: {
-                    value: 168,
+                    value: 379,
                     label: '+',
                   },
                   title: '日打开次数',
@@ -312,7 +312,7 @@ export const samples = {
                     name: 'android',
                   },
                   digit: {
-                    value: 292,
+                    value: 75,
                     label: '人',
                   },
                   title: '日新增人数',
@@ -322,7 +322,7 @@ export const samples = {
                     name: 'mail',
                   },
                   digit: {
-                    value: 9345,
+                    value: 5259,
                     label: '万',
                   },
                   title: '累计用户数',
@@ -417,7 +417,7 @@ export const samples = {
               elements: [
                 {
                   type: 'card',
-                  subTitle: '2023-06-24',
+                  subTitle: '2023-06-27',
                   avatar: {
                     src: '/assets/images/showcase/weather.png',
                     alt: '',
@@ -467,7 +467,7 @@ export const samples = {
                 },
                 {
                   type: 'card',
-                  subTitle: '2023-06-24',
+                  subTitle: '2023-06-27',
                   avatar: {
                     src: '/assets/images/showcase/browser.png',
                     alt: '',
@@ -504,7 +504,7 @@ export const samples = {
                 },
                 {
                   type: 'card',
-                  subTitle: '2023-06-24',
+                  subTitle: '2023-06-27',
                   avatar: {
                     src: '/assets/images/showcase/clipboard.png',
                     alt: '',
@@ -541,7 +541,7 @@ export const samples = {
                 },
                 {
                   type: 'card',
-                  subTitle: '2023-06-24',
+                  subTitle: '2023-06-27',
                   avatar: {
                     src: '/assets/images/showcase/console.png',
                     alt: '',
@@ -578,7 +578,7 @@ export const samples = {
                 },
                 {
                   type: 'card',
-                  subTitle: '2023-06-24',
+                  subTitle: '2023-06-27',
                   avatar: {
                     src: '/assets/images/showcase/weather.png',
                     alt: '',
@@ -615,7 +615,7 @@ export const samples = {
                 },
                 {
                   type: 'card',
-                  subTitle: '2023-06-24',
+                  subTitle: '2023-06-27',
                   avatar: {
                     src: '/assets/images/showcase/weather.png',
                     alt: '',
@@ -652,7 +652,7 @@ export const samples = {
                 },
                 {
                   type: 'card',
-                  subTitle: '2023-06-24',
+                  subTitle: '2023-06-27',
                   avatar: {
                     src: '/assets/images/showcase/weather.png',
                     alt: '',
@@ -689,7 +689,7 @@ export const samples = {
                 },
                 {
                   type: 'card',
-                  subTitle: '2023-06-24',
+                  subTitle: '2023-06-27',
                   avatar: {
                     src: '/assets/images/showcase/weather.png',
                     alt: '',
@@ -1200,8 +1200,8 @@ export const samples = {
           {
             content: {
               type: 'text',
+              spacer: 'md',
               body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class="text-primary">Storybook</strong> 页面时添加组件到预览页面。<ul class="list-done"><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li><li>可以直接编辑组件的 JSON，所见即所得；</li></ul><p>Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。</p><br>',
-              spacer: 'sm',
               title: {
                 label:
                   '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
@@ -1217,19 +1217,8 @@ export const samples = {
                   type: 'btn',
                   mode: 'raised',
                   color: 'primary',
-                  href: '#',
-                  label: '开始',
-                },
-                {
-                  type: 'closeDialog',
-                  label: 'Ok',
-                },
-                {
-                  type: 'btn-animate',
-                  label: '了解更多',
-                  href: '#',
-                  style: 'style-v1',
-                  icon: 'open_in_new',
+                  href: '/builder',
+                  label: '开始体验',
                 },
               ],
             },
@@ -1712,7 +1701,7 @@ export const samples = {
                     name: 'fingerprint',
                   },
                   digit: {
-                    value: 233,
+                    value: 863,
                     label: '+',
                   },
                   title: '日访问人数',
@@ -1722,7 +1711,7 @@ export const samples = {
                     name: 'verified_user',
                   },
                   digit: {
-                    value: 168,
+                    value: 379,
                     label: '+',
                   },
                   title: '日打开次数',
@@ -1732,7 +1721,7 @@ export const samples = {
                     name: 'android',
                   },
                   digit: {
-                    value: 292,
+                    value: 75,
                     label: '人',
                   },
                   title: '日新增人数',
@@ -1742,7 +1731,7 @@ export const samples = {
                     name: 'mail',
                   },
                   digit: {
-                    value: 9345,
+                    value: 5259,
                     label: '万',
                   },
                   title: '累计用户数',
@@ -2399,8 +2388,8 @@ export const samples = {
           {
             content: {
               type: 'text',
+              spacer: 'md',
               body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class="text-primary">Storybook</strong> 页面时添加组件到预览页面。<ul class="list-done"><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li><li>可以直接编辑组件的 JSON，所见即所得；</li></ul><p>Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。</p><br>',
-              spacer: 'sm',
               title: {
                 label:
                   '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
@@ -2416,19 +2405,8 @@ export const samples = {
                   type: 'btn',
                   mode: 'raised',
                   color: 'primary',
-                  href: '#',
-                  label: '开始',
-                },
-                {
-                  type: 'closeDialog',
-                  label: 'Ok',
-                },
-                {
-                  type: 'btn-animate',
-                  label: '了解更多',
-                  href: '#',
-                  style: 'style-v1',
-                  icon: 'open_in_new',
+                  href: '/builder',
+                  label: '开始体验',
                 },
               ],
             },
@@ -3163,8 +3141,8 @@ export const samples = {
           {
             content: {
               type: 'text',
+              spacer: 'md',
               body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class="text-primary">Storybook</strong> 页面时添加组件到预览页面。<ul class="list-done"><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li><li>可以直接编辑组件的 JSON，所见即所得；</li></ul><p>Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。</p><br>',
-              spacer: 'sm',
               title: {
                 label:
                   '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
@@ -3180,19 +3158,8 @@ export const samples = {
                   type: 'btn',
                   mode: 'raised',
                   color: 'primary',
-                  href: '#',
-                  label: '开始',
-                },
-                {
-                  type: 'closeDialog',
-                  label: 'Ok',
-                },
-                {
-                  type: 'btn-animate',
-                  label: '了解更多',
-                  href: '#',
-                  style: 'style-v1',
-                  icon: 'open_in_new',
+                  href: '/builder',
+                  label: '开始体验',
                 },
               ],
             },
@@ -3855,7 +3822,7 @@ export const samples = {
         svg: 'numeric-6',
       },
       page: {
-        title: '首页 v6',
+        title: '首页 v6 医疗科技',
         configBak: {
           headerMode: {
             transparent: true,
@@ -4639,8 +4606,8 @@ export const samples = {
           {
             content: {
               type: 'text',
+              spacer: 'md',
               body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class="text-primary">Storybook</strong> 页面时添加组件到预览页面。<ul class="list-done"><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li><li>可以直接编辑组件的 JSON，所见即所得；</li></ul><p>Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。</p><br>',
-              spacer: 'sm',
               title: {
                 label:
                   '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
@@ -4656,19 +4623,8 @@ export const samples = {
                   type: 'btn',
                   mode: 'raised',
                   color: 'primary',
-                  href: '#',
-                  label: '开始',
-                },
-                {
-                  type: 'closeDialog',
-                  label: 'Ok',
-                },
-                {
-                  type: 'btn-animate',
-                  label: '了解更多',
-                  href: '#',
-                  style: 'style-v1',
-                  icon: 'open_in_new',
+                  href: '/builder',
+                  label: '开始体验',
                 },
               ],
             },
@@ -4683,7 +4639,7 @@ export const samples = {
         svg: 'numeric-7',
       },
       page: {
-        title: '首页 v7',
+        title: '首页 v7 Sass',
         configBak: {
           headerMode: {
             transparent: true,
@@ -5133,8 +5089,8 @@ export const samples = {
           {
             content: {
               type: 'text',
+              spacer: 'md',
               body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class="text-primary">Storybook</strong> 页面时添加组件到预览页面。<ul class="list-done"><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li><li>可以直接编辑组件的 JSON，所见即所得；</li></ul><p>Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。</p><br>',
-              spacer: 'sm',
               title: {
                 label:
                   '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
@@ -5150,19 +5106,8 @@ export const samples = {
                   type: 'btn',
                   mode: 'raised',
                   color: 'primary',
-                  href: '#',
-                  label: '开始',
-                },
-                {
-                  type: 'closeDialog',
-                  label: 'Ok',
-                },
-                {
-                  type: 'btn-animate',
-                  label: '了解更多',
-                  href: '#',
-                  style: 'style-v1',
-                  icon: 'open_in_new',
+                  href: '/builder',
+                  label: '开始体验',
                 },
               ],
             },
@@ -5177,7 +5122,7 @@ export const samples = {
         svg: 'numeric-8',
       },
       page: {
-        title: '首页 v8',
+        title: '首页 v8 Marketing',
         configBak: {
           headerMode: {
             transparent: true,
@@ -5700,7 +5645,7 @@ export const samples = {
                     src: '/assets/images/svg/Asset187.svg',
                   },
                   digit: {
-                    value: 59,
+                    value: 21,
                     label: 'M',
                   },
                   title: 'Github Start',
@@ -5710,7 +5655,7 @@ export const samples = {
                     src: '/assets/images/svg/Asset189.svg',
                   },
                   digit: {
-                    value: 26424,
+                    value: 47368,
                     label: '+',
                   },
                   title: 'NPM 周下载量',
@@ -5720,7 +5665,7 @@ export const samples = {
                     src: '/assets/images/svg/Asset190.svg',
                   },
                   digit: {
-                    value: 2912,
+                    value: 4288,
                     label: 'K',
                   },
                   title: '社区活跃',
@@ -5730,7 +5675,7 @@ export const samples = {
                     src: '/assets/images/svg/Asset192.svg',
                   },
                   digit: {
-                    value: 671,
+                    value: 697,
                     label: '个',
                   },
                   title: '成功故事',
@@ -5741,8 +5686,8 @@ export const samples = {
           {
             content: {
               type: 'text',
+              spacer: 'md',
               body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class="text-primary">Storybook</strong> 页面时添加组件到预览页面。<ul class="list-done"><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li><li>可以直接编辑组件的 JSON，所见即所得；</li></ul><p>Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。</p><br>',
-              spacer: 'sm',
               title: {
                 label:
                   '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
@@ -5758,19 +5703,8 @@ export const samples = {
                   type: 'btn',
                   mode: 'raised',
                   color: 'primary',
-                  href: '#',
-                  label: '开始',
-                },
-                {
-                  type: 'closeDialog',
-                  label: 'Ok',
-                },
-                {
-                  type: 'btn-animate',
-                  label: '了解更多',
-                  href: '#',
-                  style: 'style-v1',
-                  icon: 'open_in_new',
+                  href: '/builder',
+                  label: '开始体验',
                 },
               ],
             },
@@ -5785,7 +5719,7 @@ export const samples = {
         svg: 'numeric-9',
       },
       page: {
-        title: '首页 | v9',
+        title: 'Science',
         configBak: {
           headerMode: {
             transparent: true,
@@ -6023,7 +5957,7 @@ export const samples = {
                     src: '/assets/images/svg/Asset187.svg',
                   },
                   digit: {
-                    value: 59,
+                    value: 21,
                     label: 'M',
                   },
                   title: 'Github Start',
@@ -6033,7 +5967,7 @@ export const samples = {
                     src: '/assets/images/svg/Asset189.svg',
                   },
                   digit: {
-                    value: 26424,
+                    value: 47368,
                     label: '+',
                   },
                   title: 'NPM 周下载量',
@@ -6043,7 +5977,7 @@ export const samples = {
                     src: '/assets/images/svg/Asset190.svg',
                   },
                   digit: {
-                    value: 2912,
+                    value: 4288,
                     label: 'K',
                   },
                   title: '社区活跃',
@@ -6053,7 +5987,7 @@ export const samples = {
                     src: '/assets/images/svg/Asset192.svg',
                   },
                   digit: {
-                    value: 671,
+                    value: 697,
                     label: '个',
                   },
                   title: '成功故事',
@@ -6282,7 +6216,7 @@ export const samples = {
         svg: 'numeric-10',
       },
       page: {
-        title: '首页 v10',
+        title: '首页 v6 App 应用',
         configBak: {
           headerMode: {
             transparent: true,
@@ -6718,8 +6652,8 @@ export const samples = {
           {
             content: {
               type: 'text',
+              spacer: 'md',
               body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class="text-primary">Storybook</strong> 页面时添加组件到预览页面。<ul class="list-done"><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li><li>可以直接编辑组件的 JSON，所见即所得；</li></ul><p>Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。</p><br>',
-              spacer: 'sm',
               title: {
                 label:
                   '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
@@ -6735,19 +6669,8 @@ export const samples = {
                   type: 'btn',
                   mode: 'raised',
                   color: 'primary',
-                  href: '#',
-                  label: '开始',
-                },
-                {
-                  type: 'closeDialog',
-                  label: 'Ok',
-                },
-                {
-                  type: 'btn-animate',
-                  label: '了解更多',
-                  href: '#',
-                  style: 'style-v1',
-                  icon: 'open_in_new',
+                  href: '/builder',
+                  label: '开始体验',
                 },
               ],
             },
@@ -6762,7 +6685,7 @@ export const samples = {
         svg: 'numeric-1',
       },
       page: {
-        title: '首页 | v11',
+        title: 'Stories',
         configBak: {
           headerMode: {
             transparent: true,
@@ -7100,7 +7023,7 @@ export const samples = {
         svg: 'numeric-2',
       },
       page: {
-        title: '首页 | v12',
+        title: '工作室',
         configBak: {
           headerMode: {
             transparent: true,
@@ -7447,8 +7370,8 @@ export const samples = {
           {
             content: {
               type: 'text',
+              spacer: 'md',
               body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class="text-primary">Storybook</strong> 页面时添加组件到预览页面。<ul class="list-done"><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li><li>可以直接编辑组件的 JSON，所见即所得；</li></ul><p>Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。</p><br>',
-              spacer: 'sm',
               title: {
                 label:
                   '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
@@ -7464,19 +7387,8 @@ export const samples = {
                   type: 'btn',
                   mode: 'raised',
                   color: 'primary',
-                  href: '#',
-                  label: '开始',
-                },
-                {
-                  type: 'closeDialog',
-                  label: 'Ok',
-                },
-                {
-                  type: 'btn-animate',
-                  label: '了解更多',
-                  href: '#',
-                  style: 'style-v1',
-                  icon: 'open_in_new',
+                  href: '/builder',
+                  label: '开始体验',
                 },
               ],
             },
@@ -7491,7 +7403,7 @@ export const samples = {
         svg: 'numeric-3',
       },
       page: {
-        title: '首页 | v13',
+        title: '现代商业',
         configBak: {
           headerMode: {
             transparent: true,
@@ -7982,7 +7894,7 @@ export const samples = {
                     src: '/assets/images/svg/Asset187.svg',
                   },
                   digit: {
-                    value: 59,
+                    value: 21,
                     label: 'M',
                   },
                   title: 'Github Start',
@@ -7992,7 +7904,7 @@ export const samples = {
                     src: '/assets/images/svg/Asset189.svg',
                   },
                   digit: {
-                    value: 26424,
+                    value: 47368,
                     label: '+',
                   },
                   title: 'NPM 周下载量',
@@ -8002,7 +7914,7 @@ export const samples = {
                     src: '/assets/images/svg/Asset190.svg',
                   },
                   digit: {
-                    value: 2912,
+                    value: 4288,
                     label: 'K',
                   },
                   title: '社区活跃',
@@ -8012,7 +7924,7 @@ export const samples = {
                     src: '/assets/images/svg/Asset192.svg',
                   },
                   digit: {
-                    value: 671,
+                    value: 697,
                     label: '个',
                   },
                   title: '成功故事',
@@ -8412,8 +8324,8 @@ export const samples = {
           {
             content: {
               type: 'text',
+              spacer: 'md',
               body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class="text-primary">Storybook</strong> 页面时添加组件到预览页面。<ul class="list-done"><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li><li>可以直接编辑组件的 JSON，所见即所得；</li></ul><p>Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。</p><br>',
-              spacer: 'sm',
               title: {
                 label:
                   '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
@@ -8429,19 +8341,8 @@ export const samples = {
                   type: 'btn',
                   mode: 'raised',
                   color: 'primary',
-                  href: '#',
-                  label: '开始',
-                },
-                {
-                  type: 'closeDialog',
-                  label: 'Ok',
-                },
-                {
-                  type: 'btn-animate',
-                  label: '了解更多',
-                  href: '#',
-                  style: 'style-v1',
-                  icon: 'open_in_new',
+                  href: '/builder',
+                  label: '开始体验',
                 },
               ],
             },

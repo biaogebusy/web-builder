@@ -115,8 +115,10 @@
       .preview-container {
         .mat-drawer {
           .actions {
-            background-color: mat-color($background, card);
-            @include mat-elevation(2, mat-color($background, hover), 0.4);
+            &.expand {
+              background-color: mat-color($background, card);
+              @include mat-elevation(2, mat-color($background, hover), 0.4);
+            }
           }
         }
       }
