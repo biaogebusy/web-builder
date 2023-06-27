@@ -10,6 +10,7 @@ export interface IBtn {
   label: string;
   target?: string;
   drawerIframe?: boolean;
+  disabled?: boolean;
 }
 
 export interface IBtnVideo {

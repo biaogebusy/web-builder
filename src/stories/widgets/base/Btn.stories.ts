@@ -35,6 +35,7 @@ BtnDefault.parameters = {
     include: ['content'],
   },
 };
+BtnDefault.storyName = '默认';
 BtnDefault.args = {
   content: {
     type: 'btn',
@@ -51,6 +52,18 @@ export const BtnRaised = Template.bind({});
 
 BtnRaised.args = {
   content: { type: 'btn', color: 'primary', label: 'Primary', mode: 'raised' },
+};
+
+export const BtnDisabled = Template.bind({});
+
+BtnDisabled.args = {
+  content: {
+    type: 'btn',
+    color: 'primary',
+    label: 'Disabled',
+    mode: 'raised',
+    disabled: true,
+  },
 };
 
 export const Round = Template.bind({});

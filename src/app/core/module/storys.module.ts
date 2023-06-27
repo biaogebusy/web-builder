@@ -27,7 +27,6 @@ import {
   BUILDER_FULL_SCREEN,
   DISABLE_BRAND,
   DEBUG_ANIMATE,
-  GSAP_SCROLLER,
   MANAGE_SIDEBAR_STATE,
   ENABLE_TOOLBAR,
 } from '@core/token/token-providers';

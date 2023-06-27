@@ -19,6 +19,7 @@ import { PreviewListComponent } from './main/preview-list/preview-list.component
 import { BaseModule } from '@uiux/base/base.module';
 import { BUILDER_TABS } from '@core/token/token-providers';
 import { tabs } from './data/tabs.data';
+import { PreviewComponent } from './preview/preview.component';
 
 const components = [
   BuilderComponent,
@@ -38,6 +39,7 @@ const components = [
     SwitchPreviewComponent,
     BuilderSampleComponent,
     PreviewListComponent,
+    PreviewComponent,
   ],
   imports: [
     ShareModule,

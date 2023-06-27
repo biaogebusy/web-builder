@@ -335,7 +335,7 @@
             "type": "text",
             "spacer": "sm",
             "title": {
-              "label": "欢迎使用 <strong class=\"text-primary\">Builder</strong> 快速构建页面",
+              "label": "欢迎使用 <strong class=\"text-primary\">Web Builder</strong> 快速构建页面",
               "style": "style-v4",
               "classes": "mat-display-4 bold"
             },
@@ -494,7 +494,7 @@
       {
         "type": "text",
         "title": {
-          "label": "立刻使用 <strong class=\"text-primary\">Storybook</strong> 构建前端 UI",
+          "label": "立刻使用 <strong class=\"text-primary\">Storybook</strong> 构建开发前端 UI",
           "style": "style-v1",
           "classes": "mat-display-2"
         },

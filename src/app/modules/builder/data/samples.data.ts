@@ -3855,7 +3855,7 @@ export const samples = {
         svg: 'numeric-6',
       },
       page: {
-        title: '首页 v6 医疗科技',
+        title: '首页 v6',
         configBak: {
           headerMode: {
             transparent: true,
@@ -4683,7 +4683,7 @@ export const samples = {
         svg: 'numeric-7',
       },
       page: {
-        title: '首页 v7 Sass',
+        title: '首页 v7',
         configBak: {
           headerMode: {
             transparent: true,
@@ -5177,7 +5177,7 @@ export const samples = {
         svg: 'numeric-8',
       },
       page: {
-        title: '首页 v8 Marketing',
+        title: '首页 v8',
         configBak: {
           headerMode: {
             transparent: true,
@@ -5785,7 +5785,7 @@ export const samples = {
         svg: 'numeric-9',
       },
       page: {
-        title: 'Science',
+        title: '首页 | v9',
         configBak: {
           headerMode: {
             transparent: true,
@@ -6282,7 +6282,7 @@ export const samples = {
         svg: 'numeric-10',
       },
       page: {
-        title: '首页 v6 App 应用',
+        title: '首页 v10',
         configBak: {
           headerMode: {
             transparent: true,
@@ -6762,7 +6762,7 @@ export const samples = {
         svg: 'numeric-1',
       },
       page: {
-        title: 'Stories',
+        title: '首页 | v11',
         configBak: {
           headerMode: {
             transparent: true,
@@ -7100,7 +7100,7 @@ export const samples = {
         svg: 'numeric-2',
       },
       page: {
-        title: '工作室',
+        title: '首页 | v12',
         configBak: {
           headerMode: {
             transparent: true,
@@ -7491,7 +7491,7 @@ export const samples = {
         svg: 'numeric-3',
       },
       page: {
-        title: '现代商业',
+        title: '首页 | v13',
         configBak: {
           headerMode: {
             transparent: true,
