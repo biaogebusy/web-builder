@@ -112,6 +112,14 @@
           }
         }
       }
+      .preview-container {
+        .mat-drawer {
+          .actions {
+            background-color: mat-color($background, card);
+            @include mat-elevation(2, mat-color($background, hover), 0.4);
+          }
+        }
+      }
     }
     .cdk-drag-placeholder {
       background-color: mat-color($background, background);

@@ -88,6 +88,10 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
       });
   }
 
+  onExpand(): void {
+    this.containerDrawer.close();
+  }
+
   ngOnDestroy(): void {
     if (this.destroy$.next) {
       this.destroy$.next(true);

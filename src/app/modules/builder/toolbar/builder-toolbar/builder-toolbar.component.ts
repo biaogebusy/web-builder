@@ -74,7 +74,6 @@ export class BuilderToolbarComponent
   onFullScreen(event: MatSlideToggleChange): void {
     this.storage.store('builderFullScreen', event.checked);
     this.builder.fullScreen$.next(event.checked);
-    this.containerDrawer.close();
   }
 
   onCompnentNavigate(): void {
