@@ -18,9 +18,14 @@
       <app-builder-sample [content]="samples"></app-builder-sample>
     </mat-drawer>
     <mat-drawer-content>
-      <app-builder-content-toolbar [containerDrawer]="containerDrawer" [page]="page"></app-builder-content-toolbar>
+      <app-builder-toolbar [containerDrawer]="containerDrawer" [page]="page"></app-builder-toolbar>
       <mat-drawer-container class="preview-container" [hasBackdrop]="(builder.dynamicContent$ | async)?.hasBackdrop">
-        <mat-drawer #containerDrawer [mode]="(builder.dynamicContent$ | async)?.mode ||'over'" position="end">
+        <mat-drawer #containerDrawer [ngStyle]="{overflow:containerDrawer.open?'visible' : 'auto'}"
+          [mode]="(builder.dynamicContent$ | async)?.mode ||'over'" position="end">
+          <div class="actions expand">
+            <app-btn [matTooltip]="'收起'" (click)="onExpand()"
+              [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'chevron-right' } }"></app-btn>
+          </div>
           <div *ngIf="builder.dynamicContent$ | async as dynamic" [ngStyle]="dynamic.style">
             <app-dynamic-component *ngFor="let item of dynamic.elements;" [inputs]="item"></app-dynamic-component>
           </div>

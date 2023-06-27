@@ -59,7 +59,7 @@ export function disableBrandFactory(roter: Router): Observable<boolean> {
   const disableBrand$ = new BehaviorSubject<boolean>(false);
   roter.events.subscribe((event) => {
     if (event instanceof NavigationEnd) {
-      if (event.url.includes('/builder')) {
+      if (event.url === '/builder') {
         disableBrand$.next(true);
       } else {
         disableBrand$.next(false);

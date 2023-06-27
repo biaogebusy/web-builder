@@ -10,7 +10,7 @@ import {
 import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { LocalStorage, LocalStorageService } from 'ngx-webstorage';
 import { BuilderState } from '@core/state/BuilderState';
-import { IBuilderTab } from '@core/interface/IBuilder';
+import { IBuilderSample, IBuilderTab } from '@core/interface/IBuilder';
 import {
   BUILDER_FULL_SCREEN,
   BUILDER_TABS,
@@ -35,7 +35,7 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('containerDrawer', { static: false }) containerDrawer: MatDrawer;
   @LocalStorage('builderFullScreen')
   builderFullScreen: boolean;
-  samples: any;
+  samples: IBuilderSample;
   panelOpenState = false;
   destroy$: Subject<boolean> = new Subject<boolean>();
   mode: 'side' | 'over' | 'push' = 'side';
@@ -86,6 +86,10 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
           this.mode = 'side';
         }
       });
+  }
+
+  onExpand(): void {
+    this.containerDrawer.close();
   }
 
   ngOnDestroy(): void {

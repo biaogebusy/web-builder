@@ -76,4 +76,25 @@
       transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
     }
   }
+
+  .actions {
+    &.expand {
+      position: absolute;
+      left: 0;
+      top: 35px;
+      width: 45px;
+      padding-left: 6px;
+      border-top-left-radius: 20px;
+      border-bottom-left-radius: 20px;
+      transition: left 0.6s ease-out;
+    }
+  }
+  .mat-drawer-opened {
+    .actions {
+      &.expand {
+        left: -50px;
+        transition: left 0.8s ease-in;
+      }
+    }
+  }
 }

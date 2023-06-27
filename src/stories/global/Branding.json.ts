@@ -50,6 +50,11 @@ export const defaultHeader: IHeader = {
   },
   mainMenu: [
     {
+      label: '首页',
+      classes: 'bold',
+      href: '/home',
+    },
+    {
       label: 'Builder',
       classes: 'bold',
       href: '/builder',

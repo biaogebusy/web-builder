@@ -91,7 +91,7 @@
     .mat-drawer-content {
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.11);
       @include scrollbar(mat-color($foreground, divider));
-      .builder-content-toolbar {
+      .builder-toolbar {
         background-color: mat-color($background, background);
         .middle {
           .time {
@@ -109,6 +109,16 @@
         .component-toolbar {
           + app-spacer {
             background-color: mat-color($primary, 0.25);
+          }
+        }
+      }
+      .preview-container {
+        .mat-drawer {
+          .actions {
+            &.expand {
+              background-color: mat-color($background, card);
+              @include mat-elevation(2, mat-color($background, hover), 0.4);
+            }
           }
         }
       }

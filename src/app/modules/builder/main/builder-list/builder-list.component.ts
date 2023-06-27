@@ -2,10 +2,12 @@ import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { DOCUMENT } from '@angular/common';
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   Inject,
   Input,
+  NgZone,
   OnDestroy,
   OnInit,
   ViewChild,
@@ -20,6 +22,7 @@ import { map } from 'rxjs/operators';
   selector: 'app-builder-list',
   templateUrl: './builder-list.component.html',
   styleUrls: ['./builder-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() content: any;
@@ -31,7 +34,8 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(
     public builder: BuilderState,
-    @Inject(DOCUMENT) private doc: Document
+    @Inject(DOCUMENT) private doc: Document,
+    private zone: NgZone
   ) {}
 
   ngOnInit(): void {
@@ -49,12 +53,14 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    setTimeout(() => {
-      this.markers = this.doc.querySelectorAll('div[class^="gsap-marker"]');
-      Array.from(this.markers).forEach((marker) => {
-        this.builderList.nativeElement.append(marker);
-      });
-    }, 0);
+    this.zone.runOutsideAngular(() => {
+      setTimeout(() => {
+        this.markers = this.doc.querySelectorAll('div[class^="gsap-marker"]');
+        Array.from(this.markers).forEach((marker) => {
+          this.builderList.nativeElement.append(marker);
+        });
+      }, 0);
+    });
 
     this.previewClass$ = this.builder.switchPreivew$.pipe(
       map((media) => {

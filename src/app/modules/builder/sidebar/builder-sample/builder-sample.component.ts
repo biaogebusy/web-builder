@@ -5,6 +5,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { IPage } from '@core/interface/IAppConfig';
+import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 
 @Component({
@@ -15,11 +16,12 @@ import { BuilderState } from '@core/state/BuilderState';
 })
 export class BuilderSampleComponent implements OnInit {
   @Input() content: any;
-  constructor(private builder: BuilderState) {}
+  constructor(private builder: BuilderState, private util: UtilitiesService) {}
 
   ngOnInit(): void {}
 
   onSample(page: IPage): void {
+    this.util.openSnackbar(`正在载入${page.title}示例...`, 'ok');
     this.builder.initPage(page);
   }
 }

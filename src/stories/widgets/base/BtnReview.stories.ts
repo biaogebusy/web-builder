@@ -120,6 +120,16 @@ const content = of({
             svg: 'delete',
           },
         },
+        {
+          type: 'btn',
+          color: 'primary',
+          label: 'disabled',
+          disabled: true,
+          icon: {
+            inline: true,
+            svg: 'delete',
+          },
+        },
       ],
     },
     {
@@ -184,6 +194,17 @@ const content = of({
           },
           mode: 'raised',
         },
+        {
+          type: 'btn',
+          color: 'primary',
+          label: 'disabled',
+          disabled: true,
+          icon: {
+            inline: true,
+            svg: 'progress-download',
+          },
+          mode: 'raised',
+        },
       ],
     },
     {
@@ -242,6 +263,17 @@ const content = of({
           type: 'btn',
           color: 'primary',
           label: 'MDI Icon',
+          icon: {
+            inline: true,
+            svg: 'delete',
+          },
+          mode: 'stroked',
+        },
+        {
+          type: 'btn',
+          color: 'primary',
+          label: 'disabled',
+          disabled: true,
           icon: {
             inline: true,
             svg: 'delete',
@@ -320,6 +352,16 @@ const content = of({
             svg: 'delete',
           },
         },
+        {
+          type: 'btn',
+          color: 'primary',
+          mode: 'mini-fab',
+          disabled: true,
+          icon: {
+            inline: true,
+            svg: 'delete',
+          },
+        },
       ],
     },
     {
@@ -338,7 +380,7 @@ const content = of({
           color: 'primary',
           mode: 'icon',
           icon: {
-            name: 'more_vert',
+            svg: 'react',
           },
         },
         {
@@ -347,6 +389,15 @@ const content = of({
           mode: 'icon',
           icon: {
             svg: 'delete',
+          },
+        },
+        {
+          type: 'btn',
+          color: 'primary',
+          mode: 'icon',
+          disabled: true,
+          icon: {
+            svg: 'eye-outline',
           },
         },
       ],
