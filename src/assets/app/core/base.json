@@ -84,11 +84,13 @@
     "searchBak": {
       "customer_staff": "/api/v1/customer-content",
       "handler": "/api/v1/handler-content"
-    },
-    "github": {
-      "repos": "https://github.com/biaogebusy/xinshi-angular",
-      "api": "https://api.github.com/repos/biaogebusy/xinshi-angular"
     }
+  },
+  "github": {
+    "enable": true,
+    "owner": "biaogebusy",
+    "repo": "xinshi-ui",
+    "token": "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"
   },
   "loading": true,
   "loadingBar": true,

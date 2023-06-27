@@ -48,6 +48,12 @@ export interface ICoreConfig {
     api: INotifyConfig[];
   };
   animate?: boolean;
+  github: {
+    enable: boolean;
+    owner: string;
+    repo: string;
+    token: string;
+  };
 }
 
 export interface INotifyConfig {
@@ -85,11 +91,6 @@ export interface ILogin {
   pswLogin: PswLogin;
 }
 
-export interface Github {
-  repos: string;
-  api: string;
-}
-
 export interface IApiUrl {
   loginPath: string;
   logoutPath: string;
@@ -102,7 +103,6 @@ export interface IApiUrl {
   userGetPath: string;
   yushan: string;
   search: any;
-  github: Github;
 }
 
 export interface Form {

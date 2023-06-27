@@ -10,7 +10,8 @@
             </div>
           </div>
         </div>
-        <div class="right">
+        <div class="right" fxLayoutAlign="center center">
+          <app-github-star class="m-right-xs"></app-github-star>
           <ng-container *ngFor="let item of content.banner?.right">
             <a class="inv-icon style-v1" *ngIf="item?.svg;else link" href="{{item.href}}" target="_blank">
               <span class="soc-name">{{item.label}}</span>
@@ -21,7 +22,6 @@
               <app-link class="link" [content]="item"></app-link>
             </ng-template>
           </ng-container>
-
         </div>
       </div>
     </div>

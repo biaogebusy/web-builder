@@ -1,0 +1,23 @@
+.github-star {
+  overflow: hidden;
+  font-size: 14px;
+  border-radius: 4px;
+  line-height: 1.2;
+  span {
+    font-size: small;
+  }
+  .item {
+    padding: 2px 5px;
+    &.right {
+      min-width: 20px;
+      text-align: center;
+    }
+  }
+  ::ng-deep {
+    .mat-icon {
+      width: 14px !important;
+      height: 14px !important;
+      line-height: 14px !important;
+    }
+  }
+}

@@ -41,7 +41,7 @@ export const defaultHeader: IHeader = {
           href: '/events',
         },
         {
-          label: 'nnitpay',
+          label: 'nnitpai',
           svg: 'wechat',
           href: '#',
         },

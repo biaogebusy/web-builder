@@ -125,6 +125,7 @@ import { NotifyComponent } from './notify/notify.component';
 import { LogoComponent } from './img/logo/logo.component';
 import { GotopComponent } from './actions/gotop/gotop.component';
 import { SwitchThemeComponent } from './switch-theme/switch-theme.component';
+import { GithubStarComponent } from './github-star/github-star.component';
 
 FullCalendarModule.registerPlugins([
   // register FullCalendar plugins
@@ -220,6 +221,7 @@ const components = [
   ComponentToolbarComponent,
   BuilderMenuComponent,
   GotopComponent,
+  GithubStarComponent,
 ];
 
 @NgModule({

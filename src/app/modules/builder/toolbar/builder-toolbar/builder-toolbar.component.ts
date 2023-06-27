@@ -18,7 +18,6 @@ import { takeUntil } from 'rxjs/operators';
 import { BRANDING, BUILDER_FULL_SCREEN } from '@core/token/token-providers';
 import { IBranding } from '@core/interface/branding/IBranding';
 import { ScreenService } from '@core/service/screen.service';
-import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-builder-toolbar',
@@ -38,8 +37,6 @@ export class BuilderToolbarComponent
     private builder: BuilderState,
     private screenState: ScreenState,
     private screenService: ScreenService,
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
     @Inject(BUILDER_FULL_SCREEN) public builderFullScreen$: Observable<boolean>,
     @Inject(BRANDING) public branding$: Observable<IBranding>
   ) {}

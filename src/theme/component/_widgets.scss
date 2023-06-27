@@ -303,4 +303,16 @@
       }
     }
   }
+
+  .github-star {
+    background-color: mat-color($foreground, background);
+    border: 1px solid mat-color($foreground, divider);
+    a {
+      color: mat-color($foreground, text, 0.75);
+    }
+    .right {
+      background-color: mat-color($background, card);
+      border-left: 1px solid mat-color($foreground, divider);
+    }
+  }
 }

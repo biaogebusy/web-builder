@@ -90,7 +90,7 @@
     }
     .mat-drawer-content {
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.11);
-      @include scrollbar(mat-color($foreground, divider));
+      @include scrollbar(mat-color($primary));
       .builder-toolbar {
         background-color: mat-color($background, background);
         .middle {

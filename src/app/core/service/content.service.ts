@@ -1,11 +1,11 @@
 import { DOCUMENT } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { API_URL } from '@core/token/token-providers';
 import { environment } from 'src/environments/environment';
 import { Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
 import { isArray } from 'lodash-es';
 import { TagsService } from '@core/service/tags.service';
@@ -123,5 +123,22 @@ export class ContentService {
   setBodyClasses(theme: string): void {
     const body = this.document.getElementsByTagName('body')[0];
     body.classList.add(theme);
+  }
+
+  getRepository(owner: string, repo: string, token: string): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    });
+
+    return this.http
+      .get(`https://api.github.com/repos/${owner}/${repo}`, {
+        headers,
+      })
+      .pipe(
+        map((rep: any) => {
+          return rep;
+        })
+      );
   }
 }
