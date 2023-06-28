@@ -3,6 +3,7 @@ import { DOCUMENT } from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   Inject,
@@ -35,12 +36,14 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     public builder: BuilderState,
     @Inject(DOCUMENT) private doc: Document,
-    private zone: NgZone
+    private zone: NgZone,
+    private cd: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
     this.builder.builderContentDrawer$.subscribe(() => {
       this.drawer.toggle();
+      this.cd.detectChanges();
     });
   }
 

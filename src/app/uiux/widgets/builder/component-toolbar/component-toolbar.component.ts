@@ -3,7 +3,6 @@ import {
   Component,
   EventEmitter,
   HostBinding,
-  Inject,
   Input,
   OnInit,
   Output,
@@ -12,9 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import type { IComponentToolbar } from '@core/interface/combs/IBuilder';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
-import { ENABLE_TOOLBAR } from '@core/token/token-providers';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-component-toolbar',
@@ -37,8 +34,7 @@ export class ComponentToolbarComponent implements OnInit {
   constructor(
     private builder: BuilderState,
     private util: UtilitiesService,
-    private dialog: MatDialog,
-    @Inject(ENABLE_TOOLBAR) private enabelToolbar$: Observable<boolean>
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {}

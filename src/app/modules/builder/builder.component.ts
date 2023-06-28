@@ -1,5 +1,6 @@
 import {
   AfterViewInit,
+  ChangeDetectorRef,
   Component,
   Inject,
   Injector,
@@ -42,6 +43,7 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private injector: Injector,
     public builder: BuilderState,
+    private cd: ChangeDetectorRef,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
     @Inject(BUILDER_FULL_SCREEN) public builderFullScreen$: Observable<boolean>,
     @Inject(UIUX) public tabs: IUiux[],
@@ -78,6 +80,7 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe((page) => {
         this.content = page;
+        this.cd.detectChanges();
       });
     screenState
       .mqAlias$()
