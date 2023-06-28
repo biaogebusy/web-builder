@@ -106,7 +106,7 @@ module.exports = PROXY_CONFIG;
 
 ## 交流学习
 
-| 联系                   | 二维码                                      |
-| ---------------------- | ------------------------------------------- |
-| 公众号：Drupal 自习室  | ![Drupal 自习室](/assets/images/qrcode.jpg) |
-| 入群加微信：biaogebusy | ![交流群](/assets/images/qrcode.png)        |
+| 联系                   | 二维码                                                                                                                             |
+| ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| 公众号：Drupal 自习室  | ![Drupal 自习室](https://github.com/biaogebusy/xinshi-angular/blob/master/src/assets/images/qrcode-official.jpg)                   |
+| 入群加微信：biaogebusy | ![交流群](https://github.com/biaogebusy/xinshi-angular/blob/62b74b2be7bff4279976a6cfe839c91e9db57c8e/src/assets/images/wechat.jpg) |
