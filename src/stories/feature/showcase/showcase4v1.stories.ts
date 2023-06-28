@@ -20,6 +20,9 @@ export default {
     }),
     componentWrapperDecorator((story) => `${story}`),
   ],
+  parameters: {
+    layout: 'fullscreen',
+  },
 } as Meta;
 
 const Template: Story = (args) => ({

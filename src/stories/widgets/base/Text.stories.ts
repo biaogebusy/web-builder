@@ -40,26 +40,26 @@ Base.args = {
   content: {
     type: 'text',
     spacer: 'md',
-    body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class="text-primary">Storybook</strong> 页面时添加组件到预览页面。<ul class="list-done"><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li><li>可以直接编辑组件的 JSON，所见即所得；</li></ul><p>Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。</p><br>',
+    body: '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。<ul class="list-done"><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li><li>可以直接编辑组件的 JSON，所见即所得；</li></ul>',
   },
 };
 
 export const Title = Template.bind({});
-Title.storyName = '带标题风格';
+Title.storyName = '带标题';
 Title.args = {
   content: {
     ...Base.args.content,
     title: {
       label:
-        '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
+        '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
       style: 'style-v1',
-      classes: 'mat-display-3 bold',
+      classes: 'mat-display-2 bold',
     },
   },
 };
 
 export const Actions = Template.bind({});
-Actions.storyName = '带 Actions 风格';
+Actions.storyName = '带 Actions';
 Actions.args = {
   content: {
     ...Title.args.content,
@@ -91,13 +91,16 @@ Actions.args = {
 };
 
 export const Center = Template.bind({});
+// for builder sample
 Center.storyName = '居中';
 Center.args = {
   content: {
     ...Title.args.content,
     bg: {
-      classes: 'bg-shadow bg-fill-width',
+      classes: 'bg- bg-fill-width',
     },
+    body: '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。',
+    classes: 'text-center',
     actionsAlign: 'center center',
     actions: [
       {
@@ -214,7 +217,7 @@ BtnVideoAction.args = {
 };
 
 export const List = Template.bind({});
-List.storyName = '带列表风格';
+List.storyName = '带列表';
 List.args = {
   content: {
     ...Title.args.content,

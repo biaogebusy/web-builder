@@ -14,6 +14,9 @@ export default {
       imports: [StorysModule.forRoot()],
     }),
   ],
+  parameters: {
+    layout: 'fullscreen',
+  },
 } as Meta;
 
 const Template: Story = (args) => ({

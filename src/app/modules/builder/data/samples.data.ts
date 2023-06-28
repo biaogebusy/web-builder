@@ -122,29 +122,29 @@ export const samples = {
               elements: [
                 {
                   icon: {
-                    name: 'verified_user',
+                    svg: 'palette-advanced',
                   },
                   style: 'style-v9',
                   title: {
                     href: '/?path=/story/guide--page',
-                    label: '开发指南',
+                    label: '丰富的组件库',
                   },
-                  content: '开发前环境的设置，详细介绍应用参数的初始化配置',
+                  content: '超过五十多个组件，和三十多个基组件',
                   more: {
-                    href: '/?path=/story/guide--page',
+                    href: '/?path=/story/builder--default',
                     label: '更多',
                   },
                 },
                 {
                   icon: {
-                    name: 'fingerprint',
+                    svg: 'palette',
                   },
                   style: 'style-v9',
                   title: {
                     href: '/?path=/story/themeconfig--page',
-                    label: '主题定制',
+                    label: '支持多主题',
                   },
-                  content: '详细介绍如何新建主题，通过色盘来构建UI颜色',
+                  content: '内置多个主题，Material 色彩生成，支持暗黑主题',
                   more: {
                     href: '/?path=/story/themeconfig--page',
                     label: '更多',
@@ -152,31 +152,31 @@ export const samples = {
                 },
                 {
                   icon: {
-                    name: 'favorite',
+                    svg: 'format-list-text',
                   },
                   style: 'style-v9',
                   title: {
                     href: '/?path=/story/flexlayout--page',
-                    label: 'FxLayout 布局',
+                    label: '示例页',
                   },
-                  content: '在模板中使用动态响应式灵活 flex 快速布局',
+                  content: '十多个经典示例页，展示组件的灵活性',
                   more: {
-                    href: '/?path=/story/flexlayout--page',
+                    href: '/?path=/story/builder--default',
                     label: '更多',
                   },
                 },
                 {
                   icon: {
-                    name: 'android',
+                    svg: 'microsoft-visual-studio-code',
                   },
                   style: 'style-v9',
                   title: {
                     href: '/?path=/story/home-v1--page',
-                    label: '页面示例',
+                    label: 'Web Builder',
                   },
-                  content: '我们构建了多个页面的示例，展示组件的灵活性',
+                  content: '从组件库中通过拖拽快速构建页面',
                   more: {
-                    href: '/?path=/story/home-v1--page',
+                    href: '/?path=/story/builder--default',
                     label: '更多',
                   },
                 },
@@ -292,7 +292,7 @@ export const samples = {
                     name: 'fingerprint',
                   },
                   digit: {
-                    value: 863,
+                    value: 585,
                     label: '+',
                   },
                   title: '日访问人数',
@@ -302,7 +302,7 @@ export const samples = {
                     name: 'verified_user',
                   },
                   digit: {
-                    value: 379,
+                    value: 455,
                     label: '+',
                   },
                   title: '日打开次数',
@@ -312,7 +312,7 @@ export const samples = {
                     name: 'android',
                   },
                   digit: {
-                    value: 75,
+                    value: 139,
                     label: '人',
                   },
                   title: '日新增人数',
@@ -322,7 +322,7 @@ export const samples = {
                     name: 'mail',
                   },
                   digit: {
-                    value: 5259,
+                    value: 8235,
                     label: '万',
                   },
                   title: '累计用户数',
@@ -417,7 +417,7 @@ export const samples = {
               elements: [
                 {
                   type: 'card',
-                  subTitle: '2023-06-27',
+                  subTitle: '2023-06-28',
                   avatar: {
                     src: '/assets/images/showcase/weather.png',
                     alt: '',
@@ -467,7 +467,7 @@ export const samples = {
                 },
                 {
                   type: 'card',
-                  subTitle: '2023-06-27',
+                  subTitle: '2023-06-28',
                   avatar: {
                     src: '/assets/images/showcase/browser.png',
                     alt: '',
@@ -504,7 +504,7 @@ export const samples = {
                 },
                 {
                   type: 'card',
-                  subTitle: '2023-06-27',
+                  subTitle: '2023-06-28',
                   avatar: {
                     src: '/assets/images/showcase/clipboard.png',
                     alt: '',
@@ -541,7 +541,7 @@ export const samples = {
                 },
                 {
                   type: 'card',
-                  subTitle: '2023-06-27',
+                  subTitle: '2023-06-28',
                   avatar: {
                     src: '/assets/images/showcase/console.png',
                     alt: '',
@@ -578,7 +578,7 @@ export const samples = {
                 },
                 {
                   type: 'card',
-                  subTitle: '2023-06-27',
+                  subTitle: '2023-06-28',
                   avatar: {
                     src: '/assets/images/showcase/weather.png',
                     alt: '',
@@ -615,7 +615,7 @@ export const samples = {
                 },
                 {
                   type: 'card',
-                  subTitle: '2023-06-27',
+                  subTitle: '2023-06-28',
                   avatar: {
                     src: '/assets/images/showcase/weather.png',
                     alt: '',
@@ -652,7 +652,7 @@ export const samples = {
                 },
                 {
                   type: 'card',
-                  subTitle: '2023-06-27',
+                  subTitle: '2023-06-28',
                   avatar: {
                     src: '/assets/images/showcase/weather.png',
                     alt: '',
@@ -689,7 +689,7 @@ export const samples = {
                 },
                 {
                   type: 'card',
-                  subTitle: '2023-06-27',
+                  subTitle: '2023-06-28',
                   avatar: {
                     src: '/assets/images/showcase/weather.png',
                     alt: '',
@@ -1201,16 +1201,17 @@ export const samples = {
             content: {
               type: 'text',
               spacer: 'md',
-              body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class="text-primary">Storybook</strong> 页面时添加组件到预览页面。<ul class="list-done"><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li><li>可以直接编辑组件的 JSON，所见即所得；</li></ul><p>Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。</p><br>',
+              body: '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。',
               title: {
                 label:
-                  '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
+                  '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
                 style: 'style-v1',
-                classes: 'mat-display-3 bold',
+                classes: 'mat-display-2 bold',
               },
               bg: {
-                classes: 'bg-shadow bg-fill-width',
+                classes: 'bg- bg-fill-width',
               },
+              classes: 'text-center',
               actionsAlign: 'center center',
               actions: [
                 {
@@ -1342,7 +1343,8 @@ export const samples = {
             content: {
               type: 'showcase-1v1',
               title: {
-                label: 'Showcase 1 v1 style v3',
+                label:
+                  '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
                 style: 'style-v3',
               },
               row: 4,
@@ -1355,11 +1357,11 @@ export const samples = {
                   style: 'style-v3',
                   title: {
                     href: '/?path=/story/guide--page',
-                    label: '开发指南',
+                    label: '丰富的组件库',
                   },
-                  content: '开发前环境的设置，详细介绍应用参数的初始化配置',
+                  content: '超过五十多个组件，和三十多个基组件',
                   more: {
-                    href: '/?path=/story/guide--page',
+                    href: '/?path=/story/builder--default',
                     label: '更多',
                   },
                 },
@@ -1370,9 +1372,9 @@ export const samples = {
                   style: 'style-v3',
                   title: {
                     href: '/?path=/story/themeconfig--page',
-                    label: '主题定制',
+                    label: '支持多主题',
                   },
-                  content: '详细介绍如何新建主题，通过色盘来构建UI颜色',
+                  content: '内置多个主题，Material 色彩生成，支持暗黑主题',
                   more: {
                     href: '/?path=/story/themeconfig--page',
                     label: '更多',
@@ -1385,11 +1387,11 @@ export const samples = {
                   style: 'style-v3',
                   title: {
                     href: '/?path=/story/flexlayout--page',
-                    label: 'FxLayout 布局',
+                    label: '示例页',
                   },
-                  content: '在模板中使用动态响应式灵活 flex 快速布局',
+                  content: '十多个经典示例页，展示组件的灵活性',
                   more: {
-                    href: '/?path=/story/flexlayout--page',
+                    href: '/?path=/story/builder--default',
                     label: '更多',
                   },
                 },
@@ -1400,11 +1402,11 @@ export const samples = {
                   style: 'style-v3',
                   title: {
                     href: '/?path=/story/home-v1--page',
-                    label: '页面示例',
+                    label: 'Web Builder',
                   },
-                  content: '我们构建了多个页面的示例，展示组件的灵活性',
+                  content: '从组件库中通过拖拽快速构建页面',
                   more: {
-                    href: '/?path=/story/home-v1--page',
+                    href: '/?path=/story/builder--default',
                     label: '更多',
                   },
                 },
@@ -1701,7 +1703,7 @@ export const samples = {
                     name: 'fingerprint',
                   },
                   digit: {
-                    value: 863,
+                    value: 585,
                     label: '+',
                   },
                   title: '日访问人数',
@@ -1711,7 +1713,7 @@ export const samples = {
                     name: 'verified_user',
                   },
                   digit: {
-                    value: 379,
+                    value: 455,
                     label: '+',
                   },
                   title: '日打开次数',
@@ -1721,7 +1723,7 @@ export const samples = {
                     name: 'android',
                   },
                   digit: {
-                    value: 75,
+                    value: 139,
                     label: '人',
                   },
                   title: '日新增人数',
@@ -1731,7 +1733,7 @@ export const samples = {
                     name: 'mail',
                   },
                   digit: {
-                    value: 5259,
+                    value: 8235,
                     label: '万',
                   },
                   title: '累计用户数',
@@ -2389,16 +2391,17 @@ export const samples = {
             content: {
               type: 'text',
               spacer: 'md',
-              body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class="text-primary">Storybook</strong> 页面时添加组件到预览页面。<ul class="list-done"><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li><li>可以直接编辑组件的 JSON，所见即所得；</li></ul><p>Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。</p><br>',
+              body: '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。',
               title: {
                 label:
-                  '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
+                  '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
                 style: 'style-v1',
-                classes: 'mat-display-3 bold',
+                classes: 'mat-display-2 bold',
               },
               bg: {
-                classes: 'bg-shadow bg-fill-width',
+                classes: 'bg- bg-fill-width',
               },
+              classes: 'text-center',
               actionsAlign: 'center center',
               actions: [
                 {
@@ -3142,16 +3145,17 @@ export const samples = {
             content: {
               type: 'text',
               spacer: 'md',
-              body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class="text-primary">Storybook</strong> 页面时添加组件到预览页面。<ul class="list-done"><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li><li>可以直接编辑组件的 JSON，所见即所得；</li></ul><p>Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。</p><br>',
+              body: '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。',
               title: {
                 label:
-                  '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
+                  '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
                 style: 'style-v1',
-                classes: 'mat-display-3 bold',
+                classes: 'mat-display-2 bold',
               },
               bg: {
-                classes: 'bg-shadow bg-fill-width',
+                classes: 'bg- bg-fill-width',
               },
+              classes: 'text-center',
               actionsAlign: 'center center',
               actions: [
                 {
@@ -4607,16 +4611,17 @@ export const samples = {
             content: {
               type: 'text',
               spacer: 'md',
-              body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class="text-primary">Storybook</strong> 页面时添加组件到预览页面。<ul class="list-done"><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li><li>可以直接编辑组件的 JSON，所见即所得；</li></ul><p>Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。</p><br>',
+              body: '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。',
               title: {
                 label:
-                  '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
+                  '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
                 style: 'style-v1',
-                classes: 'mat-display-3 bold',
+                classes: 'mat-display-2 bold',
               },
               bg: {
-                classes: 'bg-shadow bg-fill-width',
+                classes: 'bg- bg-fill-width',
               },
+              classes: 'text-center',
               actionsAlign: 'center center',
               actions: [
                 {
@@ -5090,16 +5095,17 @@ export const samples = {
             content: {
               type: 'text',
               spacer: 'md',
-              body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class="text-primary">Storybook</strong> 页面时添加组件到预览页面。<ul class="list-done"><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li><li>可以直接编辑组件的 JSON，所见即所得；</li></ul><p>Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。</p><br>',
+              body: '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。',
               title: {
                 label:
-                  '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
+                  '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
                 style: 'style-v1',
-                classes: 'mat-display-3 bold',
+                classes: 'mat-display-2 bold',
               },
               bg: {
-                classes: 'bg-shadow bg-fill-width',
+                classes: 'bg- bg-fill-width',
               },
+              classes: 'text-center',
               actionsAlign: 'center center',
               actions: [
                 {
@@ -5645,7 +5651,7 @@ export const samples = {
                     src: '/assets/images/svg/Asset187.svg',
                   },
                   digit: {
-                    value: 21,
+                    value: 48,
                     label: 'M',
                   },
                   title: 'Github Start',
@@ -5655,7 +5661,7 @@ export const samples = {
                     src: '/assets/images/svg/Asset189.svg',
                   },
                   digit: {
-                    value: 47368,
+                    value: 28913,
                     label: '+',
                   },
                   title: 'NPM 周下载量',
@@ -5665,7 +5671,7 @@ export const samples = {
                     src: '/assets/images/svg/Asset190.svg',
                   },
                   digit: {
-                    value: 4288,
+                    value: 3827,
                     label: 'K',
                   },
                   title: '社区活跃',
@@ -5675,7 +5681,7 @@ export const samples = {
                     src: '/assets/images/svg/Asset192.svg',
                   },
                   digit: {
-                    value: 697,
+                    value: 762,
                     label: '个',
                   },
                   title: '成功故事',
@@ -5687,16 +5693,17 @@ export const samples = {
             content: {
               type: 'text',
               spacer: 'md',
-              body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class="text-primary">Storybook</strong> 页面时添加组件到预览页面。<ul class="list-done"><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li><li>可以直接编辑组件的 JSON，所见即所得；</li></ul><p>Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。</p><br>',
+              body: '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。',
               title: {
                 label:
-                  '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
+                  '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
                 style: 'style-v1',
-                classes: 'mat-display-3 bold',
+                classes: 'mat-display-2 bold',
               },
               bg: {
-                classes: 'bg-shadow bg-fill-width',
+                classes: 'bg- bg-fill-width',
               },
+              classes: 'text-center',
               actionsAlign: 'center center',
               actions: [
                 {
@@ -5957,7 +5964,7 @@ export const samples = {
                     src: '/assets/images/svg/Asset187.svg',
                   },
                   digit: {
-                    value: 21,
+                    value: 48,
                     label: 'M',
                   },
                   title: 'Github Start',
@@ -5967,7 +5974,7 @@ export const samples = {
                     src: '/assets/images/svg/Asset189.svg',
                   },
                   digit: {
-                    value: 47368,
+                    value: 28913,
                     label: '+',
                   },
                   title: 'NPM 周下载量',
@@ -5977,7 +5984,7 @@ export const samples = {
                     src: '/assets/images/svg/Asset190.svg',
                   },
                   digit: {
-                    value: 4288,
+                    value: 3827,
                     label: 'K',
                   },
                   title: '社区活跃',
@@ -5987,7 +5994,7 @@ export const samples = {
                     src: '/assets/images/svg/Asset192.svg',
                   },
                   digit: {
-                    value: 697,
+                    value: 762,
                     label: '个',
                   },
                   title: '成功故事',
@@ -6653,16 +6660,17 @@ export const samples = {
             content: {
               type: 'text',
               spacer: 'md',
-              body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class="text-primary">Storybook</strong> 页面时添加组件到预览页面。<ul class="list-done"><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li><li>可以直接编辑组件的 JSON，所见即所得；</li></ul><p>Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。</p><br>',
+              body: '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。',
               title: {
                 label:
-                  '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
+                  '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
                 style: 'style-v1',
-                classes: 'mat-display-3 bold',
+                classes: 'mat-display-2 bold',
               },
               bg: {
-                classes: 'bg-shadow bg-fill-width',
+                classes: 'bg- bg-fill-width',
               },
+              classes: 'text-center',
               actionsAlign: 'center center',
               actions: [
                 {
@@ -7371,16 +7379,17 @@ export const samples = {
             content: {
               type: 'text',
               spacer: 'md',
-              body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class="text-primary">Storybook</strong> 页面时添加组件到预览页面。<ul class="list-done"><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li><li>可以直接编辑组件的 JSON，所见即所得；</li></ul><p>Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。</p><br>',
+              body: '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。',
               title: {
                 label:
-                  '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
+                  '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
                 style: 'style-v1',
-                classes: 'mat-display-3 bold',
+                classes: 'mat-display-2 bold',
               },
               bg: {
-                classes: 'bg-shadow bg-fill-width',
+                classes: 'bg- bg-fill-width',
               },
+              classes: 'text-center',
               actionsAlign: 'center center',
               actions: [
                 {
@@ -7894,7 +7903,7 @@ export const samples = {
                     src: '/assets/images/svg/Asset187.svg',
                   },
                   digit: {
-                    value: 21,
+                    value: 48,
                     label: 'M',
                   },
                   title: 'Github Start',
@@ -7904,7 +7913,7 @@ export const samples = {
                     src: '/assets/images/svg/Asset189.svg',
                   },
                   digit: {
-                    value: 47368,
+                    value: 28913,
                     label: '+',
                   },
                   title: 'NPM 周下载量',
@@ -7914,7 +7923,7 @@ export const samples = {
                     src: '/assets/images/svg/Asset190.svg',
                   },
                   digit: {
-                    value: 4288,
+                    value: 3827,
                     label: 'K',
                   },
                   title: '社区活跃',
@@ -7924,7 +7933,7 @@ export const samples = {
                     src: '/assets/images/svg/Asset192.svg',
                   },
                   digit: {
-                    value: 697,
+                    value: 762,
                     label: '个',
                   },
                   title: '成功故事',
@@ -8325,16 +8334,17 @@ export const samples = {
             content: {
               type: 'text',
               spacer: 'md',
-              body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class="text-primary">Storybook</strong> 页面时添加组件到预览页面。<ul class="list-done"><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li><li>可以直接编辑组件的 JSON，所见即所得；</li></ul><p>Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。</p><br>',
+              body: '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。',
               title: {
                 label:
-                  '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
+                  '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
                 style: 'style-v1',
-                classes: 'mat-display-3 bold',
+                classes: 'mat-display-2 bold',
               },
               bg: {
-                classes: 'bg-shadow bg-fill-width',
+                classes: 'bg- bg-fill-width',
               },
+              classes: 'text-center',
               actionsAlign: 'center center',
               actions: [
                 {

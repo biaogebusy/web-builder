@@ -25,6 +25,9 @@ export default {
     `
     ),
   ],
+  parameters: {
+    layout: 'fullscreen',
+  },
 } as Meta;
 
 const Template: Story = (args) => ({

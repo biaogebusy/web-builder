@@ -6,6 +6,7 @@ import {
   NgZone,
   Input,
   OnDestroy,
+  AfterContentInit,
 } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
@@ -29,7 +30,9 @@ import { takeUntil } from 'rxjs/operators';
     },
   ],
 })
-export class BlockComponent implements OnInit, AfterViewInit, OnDestroy {
+export class BlockComponent
+  implements OnInit, AfterViewInit, AfterContentInit, OnDestroy
+{
   drawerLoading: boolean;
   drawerContent: IPage;
   opened: boolean;
@@ -49,7 +52,7 @@ export class BlockComponent implements OnInit, AfterViewInit, OnDestroy {
     this.contentState.drawerOpened$.next(false);
   }
 
-  ngAfterViewInit(): void {
+  ngAfterContentInit(): void {
     this.contentState.drawerOpened$
       .pipe(takeUntil(this.destroy$))
       .subscribe((state) => {
@@ -68,6 +71,8 @@ export class BlockComponent implements OnInit, AfterViewInit, OnDestroy {
         this.drawerContent = content;
       });
   }
+
+  ngAfterViewInit(): void {}
 
   onDrawer(): void {
     this.zone.runOutsideAngular(() => {

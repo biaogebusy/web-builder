@@ -17,13 +17,10 @@ export default {
       entryComponents: [...StorysModule.forEntryComponents()],
       imports: [StorysModule.forRoot()],
     }),
-    componentWrapperDecorator(
-      (story) =>
-        `<div class="position-relative p-top-xl m-top-xl" style="z-index:1">
-        ${story}
-        </div>`
-    ),
   ],
+  parameters: {
+    layout: 'fullscreen',
+  },
 } as Meta;
 
 const Template: Story = (args) => ({
@@ -32,7 +29,14 @@ const Template: Story = (args) => ({
   },
 });
 export const Default = Template.bind({});
-
+Default.decorators = [
+  componentWrapperDecorator(
+    (story) =>
+      `<div class="position-relative p-top-xl m-top-xl" style="z-index:1">
+        ${story}
+        </div>`
+  ),
+];
 Default.args = {
   content: {
     type: 'showcase-1v1',
@@ -45,29 +49,29 @@ Default.args = {
     elements: [
       {
         icon: {
-          name: 'verified_user',
+          svg: 'palette-advanced',
         },
         style: 'style-v9',
         title: {
           href: '/?path=/story/guide--page',
-          label: '开发指南',
+          label: '丰富的组件库',
         },
-        content: '开发前环境的设置，详细介绍应用参数的初始化配置',
+        content: '超过五十多个组件，和三十多个基组件',
         more: {
-          href: '/?path=/story/guide--page',
+          href: '/?path=/story/builder--default',
           label: '更多',
         },
       },
       {
         icon: {
-          name: 'fingerprint',
+          svg: 'palette',
         },
         style: 'style-v9',
         title: {
           href: '/?path=/story/themeconfig--page',
-          label: '主题定制',
+          label: '支持多主题',
         },
-        content: '详细介绍如何新建主题，通过色盘来构建UI颜色',
+        content: '内置多个主题，Material 色彩生成，支持暗黑主题',
         more: {
           href: '/?path=/story/themeconfig--page',
           label: '更多',
@@ -75,31 +79,31 @@ Default.args = {
       },
       {
         icon: {
-          name: 'favorite',
+          svg: 'format-list-text',
         },
         style: 'style-v9',
         title: {
           href: '/?path=/story/flexlayout--page',
-          label: 'FxLayout 布局',
+          label: '示例页',
         },
-        content: '在模板中使用动态响应式灵活 flex 快速布局',
+        content: '十多个经典示例页，展示组件的灵活性',
         more: {
-          href: '/?path=/story/flexlayout--page',
+          href: '/?path=/story/builder--default',
           label: '更多',
         },
       },
       {
         icon: {
-          name: 'android',
+          svg: 'microsoft-visual-studio-code',
         },
         style: 'style-v9',
         title: {
           href: '/?path=/story/home-v1--page',
-          label: '页面示例',
+          label: 'Web Builder',
         },
-        content: '我们构建了多个页面的示例，展示组件的灵活性',
+        content: '从组件库中通过拖拽快速构建页面',
         more: {
-          href: '/?path=/story/home-v1--page',
+          href: '/?path=/story/builder--default',
           label: '更多',
         },
       },
@@ -113,7 +117,8 @@ StyleV1.args = {
   content: {
     type: 'showcase-1v1',
     title: {
-      label: 'Showcase 1 v1 style v1',
+      label:
+        '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
       style: 'style-v1',
     },
     row: 4,
@@ -144,13 +149,13 @@ StyleV2.args = {
   content: {
     type: 'showcase-1v1',
     title: {
-      label: 'Showcase 1 v1 style v2',
+      ...StyleV1.args.content.title,
       style: 'style-v2',
       icon: 'mail',
     },
     row: 4,
     bg: {
-      classes: 'bg-shadow bg-fill-width',
+      classes: 'bg- bg-fill-width',
     },
     elements: [
       {
@@ -191,7 +196,7 @@ StyleV3.args = {
   content: {
     type: 'showcase-1v1',
     title: {
-      label: 'Showcase 1 v1 style v3',
+      ...StyleV1.args.content.title,
       style: 'style-v3',
     },
     row: 4,
@@ -271,7 +276,7 @@ StyleV4.args = {
   content: {
     type: 'showcase-1v1',
     title: {
-      label: 'Showcase 1 v1 style v4',
+      ...StyleV1.args.content.title,
       style: 'style-v4',
     },
     row: 4,
@@ -317,7 +322,7 @@ StyleV5.args = {
   content: {
     type: 'showcase-1v1',
     title: {
-      label: 'Showcase 1 v1 style v5',
+      ...StyleV1.args.content.title,
       style: 'style-v5',
     },
     row: 4,
@@ -439,7 +444,7 @@ StyleV6.args = {
   content: {
     type: 'showcase-1v1',
     title: {
-      label: 'Showcase 1 v1 style v6',
+      ...StyleV1.args.content.title,
       style: 'style-v6',
     },
     row: 4,
@@ -485,7 +490,7 @@ StyleV7.args = {
   content: {
     type: 'showcase-1v1',
     title: {
-      label: 'Showcase 1 v1 style v7',
+      ...StyleV1.args.content.title,
       style: 'style-v7',
     },
     row: 4,

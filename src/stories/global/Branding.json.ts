@@ -1,3 +1,4 @@
+import { formatDate } from '@angular/common';
 import { IFooter, IHeader } from '../../app/core/interface/branding/IBranding';
 export const defaultHeader: IHeader = {
   params: {
@@ -41,7 +42,7 @@ export const defaultHeader: IHeader = {
           href: '/events',
         },
         {
-          label: 'nnitpai',
+          label: 'biaogebusy',
           svg: 'wechat',
           href: '#',
         },
@@ -116,12 +117,6 @@ export const defaultHeader: IHeader = {
           href: '/home-v13',
         },
       ],
-    },
-    {
-      label: '关于我们',
-      classes: 'bold',
-      href: '/sample/combs/other/contact',
-      fragment: 'form',
     },
   ],
   search: {
@@ -466,20 +461,11 @@ const footerMobileMenu = [
 
 const fixBar = [
   {
-    type: 'link',
-    href: '#',
-    target: '_blank',
-    icon: {
-      name: 'chat',
-    },
-    label: '在线客服',
-  },
-  {
     type: 'popup',
     icon: {
       svg: 'wechat',
     },
-    label: '咨询合作',
+    label: '学习交流',
     content: {
       spacer: 'none',
       body: '<p><img height="120" src="/assets/images/wechat.jpg" />',
@@ -525,7 +511,7 @@ const footerNewsletter = {
 };
 
 const footerBottom = {
-  left: '©2022 Copyright ❤️ XINSHI. ',
+  left: `©${formatDate(new Date(), 'yyyy', 'en-US')} Copyright XINSHI UI. `,
   right: [
     {
       label: '首页',
@@ -589,27 +575,22 @@ export const footerInverse: IFooter = {
   footerBrand: {
     logo: footerBrandLogo,
     summary:
-      '信使围绕 Drupal jsonapi 为核心的 Angular 前端框架，分享 Drupal 优秀的数字创新体验。',
+      '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。',
     social: [
       {
         label: 'zhihu',
         svg: 'zhihu',
-        href: 'https://www.zhihu.com/column/c_1331898788731375616',
+        href: 'https://www.zhihu.com/people/biaogebusy',
       },
       {
         label: '微博',
         svg: 'weibo',
-        href: '#',
-      },
-      {
-        label: 'nnitpay',
-        svg: 'wechat',
-        href: '#',
+        href: 'https://weibo.com/u/1671667514',
       },
       {
         label: 'Github',
         svg: 'github',
-        href: 'https://github.com/biaogebusy/xinshi-angular',
+        href: 'https://github.com/biaogebusy/xinshi-ui',
       },
     ],
   },
