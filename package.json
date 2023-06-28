@@ -1,17 +1,13 @@
 {
   "name": "xinshi",
   "version": "4.1.0",
-  "homepage": "https://biaogebusy.github.io/xinshi-angular",
+  "homepage": "https://biaogebusy.github.io/xinshi-ui",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "start:ssl": "ng serve --ssl",
     "start-hmr": "ng serve --hmr -o",
     "build": "ng build --prod",
-    "build:xinshi": "ng build --configuration=xinshi --output-path dist/xinshi/browser && ng run xinshi:server:xinshi --output-path dist/xinshi/server",
-    "build:nnit": "ng build --configuration=nnit --output-path dist/nnit/browser && ng run xinshi:server:nnit --output-path dist/nnit/server",
-    "build:sanziqi": "ng build --configuration=sanziqi --output-path dist/sanziqi/browser && ng run xinshi:server:sanziqi --output-path dist/sanziqi/server",
-    "build:master": "npm run build:xinshi && npm run build:nnit && npm run build:sanziqi",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
