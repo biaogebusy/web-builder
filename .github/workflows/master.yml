@@ -2,7 +2,7 @@ name: Build app and deploy to ECS
 
 on:
   push:
-    branches: [master]
+    branches: [if-you-need-actions]
 
 jobs:
   build:
