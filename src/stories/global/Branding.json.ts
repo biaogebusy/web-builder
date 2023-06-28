@@ -382,7 +382,8 @@ const footerMainMenu = [
       {
         label: 'Drupal 自习室',
         icon: 'offiaccount',
-        popup: '<img width="112px" src="./assets/images/qrcode.jpg" alt="">',
+        popup:
+          '<img width="112px" src="./assets/images/qrcode-official.jpg" alt="">',
       },
       {
         label: 'Drupal 主题开发',
