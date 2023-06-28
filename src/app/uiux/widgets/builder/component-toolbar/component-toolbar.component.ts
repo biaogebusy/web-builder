@@ -63,7 +63,6 @@ export class ComponentToolbarComponent implements OnInit {
     this.uuidChange.emit(uuid);
     this.dialogRef = this.dialog.open(DialogComponent, {
       width: '1000px',
-      height: '650px',
       data: {
         inputData: {
           content: {

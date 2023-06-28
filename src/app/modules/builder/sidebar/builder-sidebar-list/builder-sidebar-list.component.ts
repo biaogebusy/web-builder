@@ -29,6 +29,7 @@ export class BuilderSidebarListComponent implements OnInit, OnDestroy {
           href: '#',
           label: component.content.type,
         },
+        classes: component.classes || '',
         components: [component],
       });
     } else {

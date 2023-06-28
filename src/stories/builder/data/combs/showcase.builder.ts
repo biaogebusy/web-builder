@@ -121,7 +121,7 @@ export const showcase: IBuilderComponent[] = [
         {
           label: 'showcase-1v1',
           elements: [
-            showcase1v1Default,
+            { ...showcase1v1Default, classes: 'p-top-xxl' },
             { ...showcase1v1_v1, name: s1v1V1Name },
             { ...showcase1v1_v2, name: s1v1V2Name },
             { ...showcase1v1_v3, name: s1v1V3Name },

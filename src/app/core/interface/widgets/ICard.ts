@@ -58,6 +58,7 @@ export interface ICard1v1 {
   moreLabel?: string;
   user?: string;
   time?: string;
+  classes?: any;
 }
 
 export interface ICard1v2 {

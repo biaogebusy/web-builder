@@ -1,9 +1,6 @@
 <div class="dialog">
-  <button class="close" tabindex="-1" mat-icon-button [mat-dialog-close]="true" *ngIf="!data.disableCloseButton">
-    <mat-icon>close</mat-icon>
-  </button>
   <h2 mat-dialog-title *ngIf="data.title">{{data.title}}</h2>
-  <mat-dialog-content class="p-y-sm">
+  <mat-dialog-content>
     <ng-container *ngIf="data.inputData | isArray; else one">
       <app-dynamic-component *ngFor="let widget of data.inputData"
         [inputs]="{content:widget,disableToolbar:true,activeToolBar:false}"></app-dynamic-component>
@@ -13,4 +10,8 @@
         [inputs]="{content:data.inputData.content,disableToolbar:true,activeToolBar:false}"></app-dynamic-component>
     </ng-template>
   </mat-dialog-content>
+  <div mat-dialog-actions fxLayoutAlign="center center">
+    <button *ngIf="!data.disableCloseButton" mat-raised-button color="primary" [mat-dialog-close]="true"
+      cdkFocusInitial>关闭</button>
+  </div>
 </div>

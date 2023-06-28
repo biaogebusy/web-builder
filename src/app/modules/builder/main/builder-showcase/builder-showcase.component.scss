@@ -8,11 +8,11 @@
 }
 .showcase {
   position: fixed;
-  max-width: 50vw;
-  min-width: 600px;
-  margin: 40px;
+  width: 800px;
+  margin: 20px;
   z-index: 9999;
   left: 350px;
+  top: 75px;
   ::ng-deep {
     .component-toolbar {
       + app-spacer {

@@ -2,12 +2,6 @@
   overflow: hidden;
   border-radius: 6px;
   transition: all 0.3s ease;
-  .components,
-  ::ng-deep .builder-item {
-    border-top-left-radius: 6px;
-    border-top-right-radius: 6px;
-    overflow: hidden;
-  }
 
   &:hover {
     transform: translateY(-10px);
@@ -26,5 +20,11 @@
     transition: all 0.5s ease;
     top: 5%;
     left: 5%;
+  }
+}
+// builder
+:host-context(.showcase) {
+  .components {
+    padding: 20px;
   }
 }

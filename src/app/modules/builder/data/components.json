@@ -1,800 +1,6 @@
 {
   "data": [
     {
-      "label": "Hero",
-      "id": "hero",
-      "elements": [
-        {
-          "content": {
-            "spacer": "none",
-            "type": "hero-1v1",
-            "classes": "text-light text-center",
-            "sliders": {
-              "params": {
-                "slidesPerView": 1,
-                "spaceBetween": 0,
-                "pagination": false
-              },
-              "elements": [
-                {
-                  "type": "text",
-                  "spacer": "xl",
-                  "title": {
-                    "label": "组件驱动开发",
-                    "style": "style-v1",
-                    "classes": "mat-display-3 bold"
-                  },
-                  "classes": "xy-center",
-                  "bg": {
-                    "classes": "bg-center overlay overlay-80",
-                    "img": {
-                      "src": "/assets/images/16-9/business-14.jpeg",
-                      "mobile": "/assets/images/mobile/mobile-03.jpg"
-                    }
-                  },
-                  "body": "<p style=\"font-size:18px\">Storybook采用了组件驱动开发的方法，即将UI组件作为开发的核心单元。开发人员可以在Storybook中为每个UI组件创建\"stories\"</p>",
-                  "actionsAlign": "center center",
-                  "actions": [
-                    {
-                      "type": "btn",
-                      "mode": "raised",
-                      "color": "primary",
-                      "href": "#",
-                      "label": "立刻体验"
-                    }
-                  ]
-                },
-                {
-                  "type": "text",
-                  "title": {
-                    "label": "组件展示和测试",
-                    "style": "style-v1",
-                    "classes": "mat-display-3 bold"
-                  },
-                  "spacer": "xl",
-                  "classes": "xy-center text-light",
-                  "bg": {
-                    "classes": "bg-shadow  overlay overlay-80",
-                    "img": {
-                      "src": "/assets/images/16-9/business-15.jpeg",
-                      "mobile": "/assets/images/mobile/mobile-04.jpg"
-                    }
-                  },
-                  "body": "Storybook提供了一个交互式的界面，用于展示和测试UI组件。开发人员可以在浏览器中浏览和交互组件，以便检查其外观和行为，并确保它们在各种条件下正常工作。",
-                  "actionsAlign": "center center",
-                  "actions": [
-                    {
-                      "type": "btn",
-                      "mode": "raised",
-                      "color": "primary",
-                      "href": "#",
-                      "label": "立刻体验"
-                    }
-                  ]
-                },
-                {
-                  "type": "text",
-                  "title": {
-                    "label": "文档化",
-                    "style": "style-v1",
-                    "classes": "mat-display-3 bold"
-                  },
-                  "spacer": "xl",
-                  "classes": "xy-center text-light",
-                  "bg": {
-                    "classes": "bg-shadow  overlay overlay-80",
-                    "img": {
-                      "src": "/assets/images/16-9/business-15.jpeg",
-                      "mobile": "/assets/images/mobile/mobile-04.jpg"
-                    }
-                  },
-                  "body": "Storybook不仅可以展示和测试组件，还可以自动生成组件的文档。开发人员可以使用Markdown或其他文档格式编写组件文档，并将其与组件关联。",
-                  "actionsAlign": "center center",
-                  "actions": [
-                    {
-                      "type": "btn",
-                      "mode": "raised",
-                      "color": "primary",
-                      "href": "#",
-                      "label": "立刻体验"
-                    }
-                  ]
-                }
-              ]
-            }
-          }
-        },
-        {
-          "content": {
-            "type": "hero-1v2",
-            "spacer": "none",
-            "classes": "text-light text-center",
-            "sliders": {
-              "params": {
-                "slidesPerView": 1,
-                "spaceBetween": 0,
-                "pagination": true
-              },
-              "elements": [
-                {
-                  "title": "使Storybook 是什么？",
-                  "subTitle": "Storybook是一个开源的前端工具，用于开发、测试和文档化UI组件。它提供了一个独立的环境，开发人员可以在其中构建和展示单个UI组件，而无需依赖于整个应用程序的上下文。",
-                  "bg": {
-                    "type": "bg-img",
-                    "classes": "bg-fill-width overlay overlay-40",
-                    "img": {
-                      "src": "/assets/images/16-9/business-13.jpg",
-                      "classes": "object-fit"
-                    }
-                  },
-                  "btn": {
-                    "href": "#",
-                    "mode": "raised",
-                    "label": "查看更多",
-                    "classes": "round-btn"
-                  }
-                },
-                {
-                  "title": "组件驱动开发",
-                  "subTitle": "Storybook采用了组件驱动开发的方法，即将UI组件作为开发的核心单元。开发人员可以在Storybook中为每个UI组件创建\"stories\"，描述组件在不同状态和交互方式下的行为和外观。这种方法能够提高组件的可重用性和可测试性。",
-                  "bg": {
-                    "type": "bg-img",
-                    "classes": "bg-fill-width overlay overlay-40",
-                    "img": {
-                      "src": "/assets/images/16-9/business-14.jpeg",
-                      "classes": "object-fit"
-                    }
-                  },
-                  "btn": {
-                    "href": "#",
-                    "mode": "raised",
-                    "label": "查看更多",
-                    "classes": "round-btn"
-                  }
-                },
-                {
-                  "title": "组件展示和测试",
-                  "subTitle": "Storybook提供了一个交互式的界面，用于展示和测试UI组件。开发人员可以在浏览器中浏览和交互组件，以便检查其外观和行为，并确保它们在各种条件下正常工作。这有助于加快开发迭代周期，提高组件的质量。",
-                  "bg": {
-                    "type": "bg-img",
-                    "classes": "bg-fill-width overlay overlay-40",
-                    "img": {
-                      "src": "/assets/images/16-9/business-15.jpeg",
-                      "classes": "object-fit"
-                    }
-                  },
-                  "btn": {
-                    "href": "#",
-                    "mode": "raised",
-                    "label": "查看更多",
-                    "classes": "round-btn"
-                  }
-                },
-                {
-                  "title": "文档化",
-                  "subTitle": "Storybook不仅可以展示和测试组件，还可以自动生成组件的文档。开发人员可以使用Markdown或其他文档格式编写组件文档，并将其与组件关联。这使得团队成员可以更好地理解和使用组件，减少了沟通成本。",
-                  "bg": {
-                    "type": "bg-img",
-                    "classes": "bg-fill-width overlay overlay-40",
-                    "img": {
-                      "src": "/assets/images/16-9/business-16.jpeg",
-                      "classes": "object-fit"
-                    }
-                  },
-                  "btn": {
-                    "href": "#",
-                    "mode": "raised",
-                    "label": "查看更多",
-                    "classes": "round-btn"
-                  }
-                }
-              ]
-            },
-            "bg": {
-              "classes": "bg-center overlay overlay-80",
-              "img": {
-                "src": "/assets/images/hero/bg-pattern-hero.png",
-                "mobile": "/assets/images/hero/bg-pattern-hero.png"
-              }
-            }
-          }
-        },
-        {
-          "content": {
-            "child": [
-              {
-                "label": "hero-1v3",
-                "elements": [
-                  {
-                    "content": {
-                      "type": "hero-1v3",
-                      "spacer": "xl",
-                      "text": {
-                        "title": {
-                          "label": "欢迎使用 <strong class=\"text-\">Builder</strong> 快速构建页面",
-                          "classes": "mat-display-4 bold",
-                          "style": "style-v4"
-                        },
-                        "classes": "p-x",
-                        "body": "开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class=\"text-primary\">Storybook</strong> 页面时添加组件到预览页面。",
-                        "actions": [
-                          {
-                            "type": "btn",
-                            "mode": "raised",
-                            "color": "primary",
-                            "href": "#",
-                            "label": "立刻体验",
-                            "target": "_blank"
-                          },
-                          {
-                            "type": "btn-video",
-                            "color": "primary",
-                            "video": {
-                              "type": "player",
-                              "options": {
-                                "controls": true,
-                                "aspectRatio": "16:9",
-                                "poster": "/assets/video/poster01.png",
-                                "sources": [
-                                  {
-                                    "src": "/assets/video/storybook.mp4",
-                                    "type": "video/mp4"
-                                  }
-                                ]
-                              }
-                            }
-                          }
-                        ]
-                      },
-                      "right": [
-                        {
-                          "type": "img",
-                          "hostClasses": "img-bg-shape",
-                          "src": "/assets/images/illustration/29.png"
-                        }
-                      ]
-                    },
-                    "name": "V1"
-                  },
-                  {
-                    "content": {
-                      "type": "hero-1v3",
-                      "spacer": "xl",
-                      "text": {
-                        "title": {
-                          "label": "欢迎使用 <strong class=\"text-\">Builder</strong> 快速构建页面",
-                          "classes": "mat-display-4 bold",
-                          "style": "style-v4"
-                        },
-                        "classes": "text-light",
-                        "body": "开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class=\"text-primary\">Storybook</strong> 页面时添加组件到预览页面。",
-                        "actions": [
-                          {
-                            "type": "btn",
-                            "mode": "raised",
-                            "color": "primary",
-                            "href": "#",
-                            "label": "立刻体验",
-                            "target": "_blank"
-                          },
-                          {
-                            "type": "btn",
-                            "mode": "raised",
-                            "color": "primary",
-                            "href": "#",
-                            "label": "Demo",
-                            "target": "_blank"
-                          },
-                          {
-                            "type": "btn",
-                            "mode": "raised",
-                            "color": "primary",
-                            "href": "#",
-                            "label": "下载",
-                            "target": "_blank"
-                          },
-                          {
-                            "type": "btn-video",
-                            "color": "primary",
-                            "video": {
-                              "type": "player",
-                              "options": {
-                                "controls": true,
-                                "aspectRatio": "16:9",
-                                "poster": "/assets/video/poster01.png",
-                                "sources": [
-                                  {
-                                    "src": "/assets/video/storybook.mp4",
-                                    "type": "video/mp4"
-                                  }
-                                ]
-                              }
-                            }
-                          }
-                        ]
-                      },
-                      "right": [
-                        {
-                          "type": "img",
-                          "hostClasses": "img-bg-shape",
-                          "src": "/assets/images/hero/hero-component.svg"
-                        }
-                      ],
-                      "bg": {
-                        "classes": "bg-fill-width bg-primary bg-center",
-                        "img": {
-                          "src": "/assets/images/bg/bg-hero.svg",
-                          "mobile": "/assets/images/bg/bg-hero.svg"
-                        }
-                      }
-                    },
-                    "name": "v2"
-                  }
-                ]
-              }
-            ]
-          }
-        },
-        {
-          "content": {
-            "child": [
-              {
-                "label": "hero-1v4",
-                "elements": [
-                  {
-                    "content": {
-                      "type": "hero-1v4",
-                      "spacer": "xl",
-                      "text": {
-                        "title": {
-                          "label": "欢迎使用 <strong class=\"text-primary\">Builder</strong> 快速构建页面",
-                          "classes": "mat-display-4 bold",
-                          "style": "style-v1"
-                        },
-                        "classes": "p-x text-center",
-                        "body": "开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class=\"text-primary\">Storybook</strong> 页面时添加组件到预览页面。",
-                        "actionsAlign": "center center",
-                        "actions": [
-                          {
-                            "type": "btn",
-                            "mode": "raised",
-                            "color": "primary",
-                            "href": "#",
-                            "label": "立刻体验",
-                            "target": "_blank"
-                          }
-                        ]
-                      },
-                      "bg": {
-                        "classes": "bg-fill-width overlay overlay-",
-                        "img": {
-                          "src": "/assets/images/bg/home-shape.png",
-                          "hostClasses": "bg-center"
-                        }
-                      },
-                      "widget": [
-                        {
-                          "type": "img",
-                          "src": "/assets/images/illustration/29.png"
-                        }
-                      ]
-                    },
-                    "name": "V1"
-                  },
-                  {
-                    "content": {
-                      "spacer": "xl",
-                      "type": "hero-1v4",
-                      "text": {
-                        "title": {
-                          "label": "欢迎使用 <strong class=\"text-primary\">Builder</strong> 快速构建页面",
-                          "classes": "mat-display-4 bold",
-                          "style": "style-v1"
-                        },
-                        "classes": "p-x text-center",
-                        "body": "开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class=\"text-primary\">Storybook</strong> 页面时添加组件到预览页面。",
-                        "actionsAlign": "center center",
-                        "actions": [
-                          {
-                            "type": "btn",
-                            "mode": "raised",
-                            "color": "primary",
-                            "href": "#",
-                            "label": "立刻体验",
-                            "target": "_blank"
-                          },
-                          {
-                            "type": "btn",
-                            "color": "primary",
-                            "label": "联系我们",
-                            "icon": {
-                              "inline": true,
-                              "name": "phone"
-                            },
-                            "mode": "stroked"
-                          }
-                        ]
-                      },
-                      "bg": {
-                        "classes": "bg-fill-width overlay overlay-",
-                        "img": {
-                          "src": "/assets/images/bg/bg-02.png",
-                          "hostClasses": "bg-center"
-                        }
-                      },
-                      "order": -1,
-                      "style": {
-                        "maxWidth": "800px",
-                        "margin": "0 auto"
-                      },
-                      "widget": [
-                        {
-                          "type": "img",
-                          "style": {
-                            "maxHeight": "400px"
-                          },
-                          "src": "/assets/images/illustration/30.png"
-                        }
-                      ]
-                    },
-                    "name": "V2"
-                  }
-                ]
-              }
-            ]
-          }
-        },
-        {
-          "content": {
-            "child": [
-              {
-                "label": "hero-2v1",
-                "elements": [
-                  {
-                    "content": {
-                      "type": "hero-2v1",
-                      "theme": "text-light",
-                      "params": {
-                        "height": "750px"
-                      },
-                      "text": {
-                        "title": {
-                          "label": "欢迎使用 <strong class=\"text-\">Builder</strong> 快速构建页面",
-                          "style": "style-v1",
-                          "classes": "mat-display-4"
-                        },
-                        "spacer": "xl",
-                        "classes": "xy-center",
-                        "style-": {
-                          "width": "50%",
-                          "left": "0%",
-                          "top": "5%"
-                        },
-                        "bg": {
-                          "classes": "bg-shadow overlay overlay-80",
-                          "img": {
-                            "src": "/assets/images/hero/1-6.jpg",
-                            "mobile": "/assets/images/mobile/mobile-03.jpg"
-                          }
-                        },
-                        "body": "开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class=\"text-\">Storybook</strong> 页面时添加组件到预览页面。",
-                        "actionsAlign": "center center",
-                        "actions": [
-                          {
-                            "type": "btn",
-                            "mode": "raised",
-                            "color": "primary",
-                            "href": "#",
-                            "label": "立刻体验"
-                          },
-                          {
-                            "type": "closeDialog",
-                            "label": "Ok"
-                          }
-                        ]
-                      }
-                    }
-                  },
-                  {
-                    "content": {
-                      "type": "hero-2v1",
-                      "theme": "text-light",
-                      "params": {
-                        "height": "750px"
-                      },
-                      "text": {
-                        "title": {
-                          "label": "欢迎使用 <strong class=\"text-\">Builder</strong> 快速构建页面",
-                          "style": "style-v4",
-                          "classes": "mat-display-1"
-                        },
-                        "spacer": "xl",
-                        "style": {
-                          "width": "50%"
-                        },
-                        "classes": "y-center",
-                        "bg": {
-                          "classes": "bg-shadow overlay overlay-80",
-                          "img": {
-                            "src": "/assets/images/hero/329.jpg",
-                            "mobile": "/assets/images/mobile/mobile-04.jpg"
-                          }
-                        },
-                        "body": "开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class=\"text-\">Storybook</strong> 页面时添加组件到预览页面。",
-                        "actionsAlign": "start center",
-                        "actions": [
-                          {
-                            "type": "btn",
-                            "mode": "raised",
-                            "color": "primary",
-                            "href": "#",
-                            "label": "Get Started"
-                          },
-                          {
-                            "type": "closeDialog",
-                            "label": "Ok"
-                          }
-                        ]
-                      }
-                    },
-                    "name": "Y轴中心"
-                  },
-                  {
-                    "content": {
-                      "type": "hero-2v1",
-                      "theme": "",
-                      "params": {
-                        "height": "750px"
-                      },
-                      "text": {
-                        "title": {
-                          "label": "欢迎使用 <strong class=\"text-primary\">Builder</strong> 快速构建页面",
-                          "style": "style-v4",
-                          "classes": "mat-display-1"
-                        },
-                        "spacer": "xl",
-                        "style": {
-                          "width": "50%",
-                          "left": "50%"
-                        },
-                        "classes": "y-center",
-                        "bg": {
-                          "classes": "bg-shadow overlay overlay-20",
-                          "img": {
-                            "src": "/assets/images/hero/light-bg.jpeg",
-                            "mobile": "/assets/images/mobile/follower-04.jpg"
-                          }
-                        },
-                        "body": "开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class=\"text-primary\">Storybook</strong> 页面时添加组件到预览页面。",
-                        "actionsAlign": "start center",
-                        "actions": [
-                          {
-                            "type": "btn",
-                            "mode": "raised",
-                            "color": "primary",
-                            "href": "#",
-                            "label": "Get Started"
-                          },
-                          {
-                            "type": "closeDialog",
-                            "label": "Ok"
-                          }
-                        ]
-                      }
-                    },
-                    "name": "Y轴中心 X轴自定义"
-                  },
-                  {
-                    "content": {
-                      "type": "hero-2v1",
-                      "theme": "text-light",
-                      "params": {
-                        "height": "750px"
-                      },
-                      "text": {
-                        "title": {
-                          "label": "欢迎使用 <strong class=\"text-primary\">Builder</strong> 快速构建页面",
-                          "style": "style-v4",
-                          "classes": "mat-h2"
-                        },
-                        "spacer": "xl",
-                        "style": {
-                          "width": "50%",
-                          "left": "40%",
-                          "top": "10%"
-                        },
-                        "classes": "position-absolute",
-                        "bg": {
-                          "classes": "bg-shadow overlay overlay-80",
-                          "img": {
-                            "src": "/assets/images/hero/light-bg.jpeg",
-                            "mobile": "/assets/images/mobile/mobile-02.jpg"
-                          }
-                        },
-                        "body": "开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class=\"text-primary\">Storybook</strong> 页面时添加组件到预览页面。",
-                        "actionsAlign": "start center",
-                        "actions": [
-                          {
-                            "type": "btn",
-                            "mode": "raised",
-                            "color": "primary",
-                            "href": "#",
-                            "label": "Get Started"
-                          },
-                          {
-                            "type": "closeDialog",
-                            "label": "Ok"
-                          }
-                        ]
-                      }
-                    },
-                    "name": "XY轴自定义"
-                  },
-                  {
-                    "content": {
-                      "type": "hero-2v1",
-                      "theme": "",
-                      "params": {
-                        "height": "940px"
-                      },
-                      "text": {
-                        "title": {
-                          "label": "欢迎使用 <strong class=\"text-primary\">Builder</strong> 快速构建页面",
-                          "style": "style-v4",
-                          "classes": "mat-display-1 bold"
-                        },
-                        "animate": {
-                          "scrub": true
-                        },
-                        "spacer": "md",
-                        "style": {
-                          "width": "25%",
-                          "left": "40%"
-                        },
-                        "classes": "xy-center",
-                        "bg": {
-                          "classes": "bg-shadow bg-fill-width",
-                          "img": {
-                            "src": "/assets/images/products/TS97-Computer_08.jpg?itok=LdOsboTY",
-                            "mobile": "/assets/images/products/TS97-Phone_08.jpg?itok=VZueJbig"
-                          }
-                        },
-                        "body": "<p style=\"text-align:justify\"><span style=\"font-size:18px;\">开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class=\"text-primary\">Storybook</strong> 页面时添加组件到预览页面。</span></p>\r\n"
-                      }
-                    },
-                    "name": "动画"
-                  }
-                ]
-              }
-            ]
-          }
-        },
-        {
-          "content": {
-            "type": "hero-2v2",
-            "spacer": "lg",
-            "id": "xxx",
-            "bg": {
-              "classes": "bg-fill-width overlay",
-              "img": {
-                "classes": "object-fit",
-                "src": "/assets/images/16-9/business-16.jpeg"
-              }
-            },
-            "body": {
-              "type": "text",
-              "title": {
-                "label": "开源项目使用 Github actions 自动化",
-                "style": "style-v4",
-                "classes": "mat-display-1"
-              },
-              "body": "<p>Github actions 从2019年就免费开放给个人开源项目使用，对于自动化开放测试部署，开发者一定非常的熟悉，如果把中间这项流程做好，不仅节省了大量的人力也大大加快了开发效率，在配置完善的情况下可以提高代码质量。</p>",
-              "actions": [
-                {
-                  "type": "btn",
-                  "mode": "raised",
-                  "color": "primary",
-                  "href": "#",
-                  "label": "了解更多",
-                  "icon": {
-                    "name": "chat",
-                    "inline": true
-                  }
-                }
-              ]
-            }
-          }
-        },
-        {
-          "content": {
-            "type": "hero-2v3",
-            "id": "xxx",
-            "spacer": "lg",
-            "shape": true,
-            "bg": {
-              "classes": "bg-center",
-              "img": {
-                "hostClasses": "bg-center",
-                "src": "/assets/images/bg/bg-04.png"
-              }
-            },
-            "text": {
-              "title": {
-                "label": "开源项目使用 Github actions 自动化",
-                "style": "none",
-                "classes": "mat-display-1"
-              },
-              "spacer": "none",
-              "body": "<p>Github actions 从2019年就免费开放给个人开源项目使用，对于自动化开放测试部署，开发者一定非常的熟悉，如果把中间这项流程做好，不仅节省了大量的人力也大大加快了开发效率，在配置完善的情况下可以提高代码质量。</p>"
-            },
-            "row": 6,
-            "elements": [
-              {
-                "img": {
-                  "src": "/assets/images/svg/health.svg",
-                  "href": "/"
-                },
-                "link": {
-                  "href": "/",
-                  "label": "高性能"
-                }
-              },
-              {
-                "img": {
-                  "src": "/assets/images/svg/term-life.svg",
-                  "href": "/"
-                },
-                "link": {
-                  "href": "/",
-                  "label": "易用的编辑器"
-                }
-              },
-              {
-                "img": {
-                  "src": "/assets/images/svg/family-health.svg",
-                  "href": "/"
-                },
-                "link": {
-                  "href": "/",
-                  "label": "多语言"
-                }
-              },
-              {
-                "img": {
-                  "src": "/assets/images/svg/investment.svg",
-                  "href": "/"
-                },
-                "link": {
-                  "href": "/",
-                  "label": "更有弹性"
-                }
-              },
-              {
-                "img": {
-                  "src": "/assets/images/svg/car.svg",
-                  "href": "/"
-                },
-                "link": {
-                  "href": "/",
-                  "label": "安全性"
-                }
-              },
-              {
-                "img": {
-                  "src": "/assets/images/svg/bike.svg",
-                  "href": "/"
-                },
-                "link": {
-                  "href": "/",
-                  "label": "无障碍访问"
-                }
-              }
-            ]
-          }
-        }
-      ]
-    },
-    {
       "label": "Showcase",
       "id": "showcase",
       "elements": [
@@ -875,7 +81,8 @@
                           }
                         }
                       ]
-                    }
+                    },
+                    "classes": "p-top-xxl"
                   },
                   {
                     "content": {
@@ -4717,7 +3924,7 @@
                             "name": "fingerprint"
                           },
                           "digit": {
-                            "value": 585,
+                            "value": 235,
                             "label": "+"
                           },
                           "title": "日访问人数"
@@ -4727,7 +3934,7 @@
                             "name": "verified_user"
                           },
                           "digit": {
-                            "value": 455,
+                            "value": 192,
                             "label": "+"
                           },
                           "title": "日打开次数"
@@ -4737,7 +3944,7 @@
                             "name": "android"
                           },
                           "digit": {
-                            "value": 139,
+                            "value": 102,
                             "label": "人"
                           },
                           "title": "日新增人数"
@@ -4747,7 +3954,7 @@
                             "name": "mail"
                           },
                           "digit": {
-                            "value": 8235,
+                            "value": 3187,
                             "label": "万"
                           },
                           "title": "累计用户数"
@@ -4776,7 +3983,7 @@
                             "src": "/assets/images/svg/Asset187.svg"
                           },
                           "digit": {
-                            "value": 48,
+                            "value": 54,
                             "label": "M"
                           },
                           "title": "Github Start"
@@ -4786,7 +3993,7 @@
                             "src": "/assets/images/svg/Asset189.svg"
                           },
                           "digit": {
-                            "value": 28913,
+                            "value": 46239,
                             "label": "+"
                           },
                           "title": "NPM 周下载量"
@@ -4796,7 +4003,7 @@
                             "src": "/assets/images/svg/Asset190.svg"
                           },
                           "digit": {
-                            "value": 3827,
+                            "value": 3456,
                             "label": "K"
                           },
                           "title": "社区活跃"
@@ -4806,7 +4013,7 @@
                             "src": "/assets/images/svg/Asset192.svg"
                           },
                           "digit": {
-                            "value": 762,
+                            "value": 787,
                             "label": "个"
                           },
                           "title": "成功故事"
@@ -4816,6 +4023,800 @@
                     "name": "图片"
                   }
                 ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "label": "Hero",
+      "id": "hero",
+      "elements": [
+        {
+          "content": {
+            "spacer": "none",
+            "type": "hero-1v1",
+            "classes": "text-light text-center",
+            "sliders": {
+              "params": {
+                "slidesPerView": 1,
+                "spaceBetween": 0,
+                "pagination": false
+              },
+              "elements": [
+                {
+                  "type": "text",
+                  "spacer": "xl",
+                  "title": {
+                    "label": "组件驱动开发",
+                    "style": "style-v1",
+                    "classes": "mat-display-3 bold"
+                  },
+                  "classes": "xy-center",
+                  "bg": {
+                    "classes": "bg-center overlay overlay-80",
+                    "img": {
+                      "src": "/assets/images/16-9/business-14.jpeg",
+                      "mobile": "/assets/images/mobile/mobile-03.jpg"
+                    }
+                  },
+                  "body": "<p style=\"font-size:18px\">Storybook采用了组件驱动开发的方法，即将UI组件作为开发的核心单元。开发人员可以在Storybook中为每个UI组件创建\"stories\"</p>",
+                  "actionsAlign": "center center",
+                  "actions": [
+                    {
+                      "type": "btn",
+                      "mode": "raised",
+                      "color": "primary",
+                      "href": "#",
+                      "label": "立刻体验"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "title": {
+                    "label": "组件展示和测试",
+                    "style": "style-v1",
+                    "classes": "mat-display-3 bold"
+                  },
+                  "spacer": "xl",
+                  "classes": "xy-center text-light",
+                  "bg": {
+                    "classes": "bg-shadow  overlay overlay-80",
+                    "img": {
+                      "src": "/assets/images/16-9/business-15.jpeg",
+                      "mobile": "/assets/images/mobile/mobile-04.jpg"
+                    }
+                  },
+                  "body": "Storybook提供了一个交互式的界面，用于展示和测试UI组件。开发人员可以在浏览器中浏览和交互组件，以便检查其外观和行为，并确保它们在各种条件下正常工作。",
+                  "actionsAlign": "center center",
+                  "actions": [
+                    {
+                      "type": "btn",
+                      "mode": "raised",
+                      "color": "primary",
+                      "href": "#",
+                      "label": "立刻体验"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "title": {
+                    "label": "文档化",
+                    "style": "style-v1",
+                    "classes": "mat-display-3 bold"
+                  },
+                  "spacer": "xl",
+                  "classes": "xy-center text-light",
+                  "bg": {
+                    "classes": "bg-shadow  overlay overlay-80",
+                    "img": {
+                      "src": "/assets/images/16-9/business-15.jpeg",
+                      "mobile": "/assets/images/mobile/mobile-04.jpg"
+                    }
+                  },
+                  "body": "Storybook不仅可以展示和测试组件，还可以自动生成组件的文档。开发人员可以使用Markdown或其他文档格式编写组件文档，并将其与组件关联。",
+                  "actionsAlign": "center center",
+                  "actions": [
+                    {
+                      "type": "btn",
+                      "mode": "raised",
+                      "color": "primary",
+                      "href": "#",
+                      "label": "立刻体验"
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "content": {
+            "type": "hero-1v2",
+            "spacer": "none",
+            "classes": "text-light text-center",
+            "sliders": {
+              "params": {
+                "slidesPerView": 1,
+                "spaceBetween": 0,
+                "pagination": true
+              },
+              "elements": [
+                {
+                  "title": "使Storybook 是什么？",
+                  "subTitle": "Storybook是一个开源的前端工具，用于开发、测试和文档化UI组件。它提供了一个独立的环境，开发人员可以在其中构建和展示单个UI组件，而无需依赖于整个应用程序的上下文。",
+                  "bg": {
+                    "type": "bg-img",
+                    "classes": "bg-fill-width overlay overlay-40",
+                    "img": {
+                      "src": "/assets/images/16-9/business-13.jpg",
+                      "classes": "object-fit"
+                    }
+                  },
+                  "btn": {
+                    "href": "#",
+                    "mode": "raised",
+                    "label": "查看更多",
+                    "classes": "round-btn"
+                  }
+                },
+                {
+                  "title": "组件驱动开发",
+                  "subTitle": "Storybook采用了组件驱动开发的方法，即将UI组件作为开发的核心单元。开发人员可以在Storybook中为每个UI组件创建\"stories\"，描述组件在不同状态和交互方式下的行为和外观。这种方法能够提高组件的可重用性和可测试性。",
+                  "bg": {
+                    "type": "bg-img",
+                    "classes": "bg-fill-width overlay overlay-40",
+                    "img": {
+                      "src": "/assets/images/16-9/business-14.jpeg",
+                      "classes": "object-fit"
+                    }
+                  },
+                  "btn": {
+                    "href": "#",
+                    "mode": "raised",
+                    "label": "查看更多",
+                    "classes": "round-btn"
+                  }
+                },
+                {
+                  "title": "组件展示和测试",
+                  "subTitle": "Storybook提供了一个交互式的界面，用于展示和测试UI组件。开发人员可以在浏览器中浏览和交互组件，以便检查其外观和行为，并确保它们在各种条件下正常工作。这有助于加快开发迭代周期，提高组件的质量。",
+                  "bg": {
+                    "type": "bg-img",
+                    "classes": "bg-fill-width overlay overlay-40",
+                    "img": {
+                      "src": "/assets/images/16-9/business-15.jpeg",
+                      "classes": "object-fit"
+                    }
+                  },
+                  "btn": {
+                    "href": "#",
+                    "mode": "raised",
+                    "label": "查看更多",
+                    "classes": "round-btn"
+                  }
+                },
+                {
+                  "title": "文档化",
+                  "subTitle": "Storybook不仅可以展示和测试组件，还可以自动生成组件的文档。开发人员可以使用Markdown或其他文档格式编写组件文档，并将其与组件关联。这使得团队成员可以更好地理解和使用组件，减少了沟通成本。",
+                  "bg": {
+                    "type": "bg-img",
+                    "classes": "bg-fill-width overlay overlay-40",
+                    "img": {
+                      "src": "/assets/images/16-9/business-16.jpeg",
+                      "classes": "object-fit"
+                    }
+                  },
+                  "btn": {
+                    "href": "#",
+                    "mode": "raised",
+                    "label": "查看更多",
+                    "classes": "round-btn"
+                  }
+                }
+              ]
+            },
+            "bg": {
+              "classes": "bg-center overlay overlay-80",
+              "img": {
+                "src": "/assets/images/hero/bg-pattern-hero.png",
+                "mobile": "/assets/images/hero/bg-pattern-hero.png"
+              }
+            }
+          }
+        },
+        {
+          "content": {
+            "child": [
+              {
+                "label": "hero-1v3",
+                "elements": [
+                  {
+                    "content": {
+                      "type": "hero-1v3",
+                      "spacer": "xl",
+                      "text": {
+                        "title": {
+                          "label": "欢迎使用 <strong class=\"text-\">Builder</strong> 快速构建页面",
+                          "classes": "mat-display-4 bold",
+                          "style": "style-v4"
+                        },
+                        "classes": "p-x",
+                        "body": "开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class=\"text-primary\">Storybook</strong> 页面时添加组件到预览页面。",
+                        "actions": [
+                          {
+                            "type": "btn",
+                            "mode": "raised",
+                            "color": "primary",
+                            "href": "#",
+                            "label": "立刻体验",
+                            "target": "_blank"
+                          },
+                          {
+                            "type": "btn-video",
+                            "color": "primary",
+                            "video": {
+                              "type": "player",
+                              "options": {
+                                "controls": true,
+                                "aspectRatio": "16:9",
+                                "poster": "/assets/video/poster01.png",
+                                "sources": [
+                                  {
+                                    "src": "/assets/video/storybook.mp4",
+                                    "type": "video/mp4"
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        ]
+                      },
+                      "right": [
+                        {
+                          "type": "img",
+                          "hostClasses": "img-bg-shape",
+                          "src": "/assets/images/illustration/29.png"
+                        }
+                      ]
+                    },
+                    "name": "V1"
+                  },
+                  {
+                    "content": {
+                      "type": "hero-1v3",
+                      "spacer": "xl",
+                      "text": {
+                        "title": {
+                          "label": "欢迎使用 <strong class=\"text-\">Builder</strong> 快速构建页面",
+                          "classes": "mat-display-4 bold",
+                          "style": "style-v4"
+                        },
+                        "classes": "text-light",
+                        "body": "开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class=\"text-primary\">Storybook</strong> 页面时添加组件到预览页面。",
+                        "actions": [
+                          {
+                            "type": "btn",
+                            "mode": "raised",
+                            "color": "primary",
+                            "href": "#",
+                            "label": "立刻体验",
+                            "target": "_blank"
+                          },
+                          {
+                            "type": "btn",
+                            "mode": "raised",
+                            "color": "primary",
+                            "href": "#",
+                            "label": "Demo",
+                            "target": "_blank"
+                          },
+                          {
+                            "type": "btn",
+                            "mode": "raised",
+                            "color": "primary",
+                            "href": "#",
+                            "label": "下载",
+                            "target": "_blank"
+                          },
+                          {
+                            "type": "btn-video",
+                            "color": "primary",
+                            "video": {
+                              "type": "player",
+                              "options": {
+                                "controls": true,
+                                "aspectRatio": "16:9",
+                                "poster": "/assets/video/poster01.png",
+                                "sources": [
+                                  {
+                                    "src": "/assets/video/storybook.mp4",
+                                    "type": "video/mp4"
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        ]
+                      },
+                      "right": [
+                        {
+                          "type": "img",
+                          "hostClasses": "img-bg-shape",
+                          "src": "/assets/images/hero/hero-component.svg"
+                        }
+                      ],
+                      "bg": {
+                        "classes": "bg-fill-width bg-primary bg-center",
+                        "img": {
+                          "src": "/assets/images/bg/bg-hero.svg",
+                          "mobile": "/assets/images/bg/bg-hero.svg"
+                        }
+                      }
+                    },
+                    "name": "v2"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "content": {
+            "child": [
+              {
+                "label": "hero-1v4",
+                "elements": [
+                  {
+                    "content": {
+                      "type": "hero-1v4",
+                      "spacer": "xl",
+                      "text": {
+                        "title": {
+                          "label": "欢迎使用 <strong class=\"text-primary\">Builder</strong> 快速构建页面",
+                          "classes": "mat-display-4 bold",
+                          "style": "style-v1"
+                        },
+                        "classes": "p-x text-center",
+                        "body": "开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class=\"text-primary\">Storybook</strong> 页面时添加组件到预览页面。",
+                        "actionsAlign": "center center",
+                        "actions": [
+                          {
+                            "type": "btn",
+                            "mode": "raised",
+                            "color": "primary",
+                            "href": "#",
+                            "label": "立刻体验",
+                            "target": "_blank"
+                          }
+                        ]
+                      },
+                      "bg": {
+                        "classes": "bg-fill-width overlay overlay-",
+                        "img": {
+                          "src": "/assets/images/bg/home-shape.png",
+                          "hostClasses": "bg-center"
+                        }
+                      },
+                      "widget": [
+                        {
+                          "type": "img",
+                          "src": "/assets/images/illustration/29.png"
+                        }
+                      ]
+                    },
+                    "name": "V1"
+                  },
+                  {
+                    "content": {
+                      "spacer": "xl",
+                      "type": "hero-1v4",
+                      "text": {
+                        "title": {
+                          "label": "欢迎使用 <strong class=\"text-primary\">Builder</strong> 快速构建页面",
+                          "classes": "mat-display-4 bold",
+                          "style": "style-v1"
+                        },
+                        "classes": "p-x text-center",
+                        "body": "开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class=\"text-primary\">Storybook</strong> 页面时添加组件到预览页面。",
+                        "actionsAlign": "center center",
+                        "actions": [
+                          {
+                            "type": "btn",
+                            "mode": "raised",
+                            "color": "primary",
+                            "href": "#",
+                            "label": "立刻体验",
+                            "target": "_blank"
+                          },
+                          {
+                            "type": "btn",
+                            "color": "primary",
+                            "label": "联系我们",
+                            "icon": {
+                              "inline": true,
+                              "name": "phone"
+                            },
+                            "mode": "stroked"
+                          }
+                        ]
+                      },
+                      "bg": {
+                        "classes": "bg-fill-width overlay overlay-",
+                        "img": {
+                          "src": "/assets/images/bg/bg-02.png",
+                          "hostClasses": "bg-center"
+                        }
+                      },
+                      "order": -1,
+                      "style": {
+                        "maxWidth": "800px",
+                        "margin": "0 auto"
+                      },
+                      "widget": [
+                        {
+                          "type": "img",
+                          "style": {
+                            "maxHeight": "400px"
+                          },
+                          "src": "/assets/images/illustration/30.png"
+                        }
+                      ]
+                    },
+                    "name": "V2"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "content": {
+            "child": [
+              {
+                "label": "hero-2v1",
+                "elements": [
+                  {
+                    "content": {
+                      "type": "hero-2v1",
+                      "theme": "text-light",
+                      "params": {
+                        "height": "750px"
+                      },
+                      "text": {
+                        "title": {
+                          "label": "欢迎使用 <strong class=\"text-\">Builder</strong> 快速构建页面",
+                          "style": "style-v1",
+                          "classes": "mat-display-4"
+                        },
+                        "spacer": "xl",
+                        "classes": "xy-center",
+                        "style-": {
+                          "width": "50%",
+                          "left": "0%",
+                          "top": "5%"
+                        },
+                        "bg": {
+                          "classes": "bg-shadow overlay overlay-80",
+                          "img": {
+                            "src": "/assets/images/hero/1-6.jpg",
+                            "mobile": "/assets/images/mobile/mobile-03.jpg"
+                          }
+                        },
+                        "body": "开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class=\"text-\">Storybook</strong> 页面时添加组件到预览页面。",
+                        "actionsAlign": "center center",
+                        "actions": [
+                          {
+                            "type": "btn",
+                            "mode": "raised",
+                            "color": "primary",
+                            "href": "#",
+                            "label": "立刻体验"
+                          },
+                          {
+                            "type": "closeDialog",
+                            "label": "Ok"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "content": {
+                      "type": "hero-2v1",
+                      "theme": "text-light",
+                      "params": {
+                        "height": "750px"
+                      },
+                      "text": {
+                        "title": {
+                          "label": "欢迎使用 <strong class=\"text-\">Builder</strong> 快速构建页面",
+                          "style": "style-v4",
+                          "classes": "mat-display-1"
+                        },
+                        "spacer": "xl",
+                        "style": {
+                          "width": "50%"
+                        },
+                        "classes": "y-center",
+                        "bg": {
+                          "classes": "bg-shadow overlay overlay-80",
+                          "img": {
+                            "src": "/assets/images/hero/329.jpg",
+                            "mobile": "/assets/images/mobile/mobile-04.jpg"
+                          }
+                        },
+                        "body": "开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class=\"text-\">Storybook</strong> 页面时添加组件到预览页面。",
+                        "actionsAlign": "start center",
+                        "actions": [
+                          {
+                            "type": "btn",
+                            "mode": "raised",
+                            "color": "primary",
+                            "href": "#",
+                            "label": "Get Started"
+                          },
+                          {
+                            "type": "closeDialog",
+                            "label": "Ok"
+                          }
+                        ]
+                      }
+                    },
+                    "name": "Y轴中心"
+                  },
+                  {
+                    "content": {
+                      "type": "hero-2v1",
+                      "theme": "",
+                      "params": {
+                        "height": "750px"
+                      },
+                      "text": {
+                        "title": {
+                          "label": "欢迎使用 <strong class=\"text-primary\">Builder</strong> 快速构建页面",
+                          "style": "style-v4",
+                          "classes": "mat-display-1"
+                        },
+                        "spacer": "xl",
+                        "style": {
+                          "width": "50%",
+                          "left": "50%"
+                        },
+                        "classes": "y-center",
+                        "bg": {
+                          "classes": "bg-shadow overlay overlay-20",
+                          "img": {
+                            "src": "/assets/images/hero/light-bg.jpeg",
+                            "mobile": "/assets/images/mobile/follower-04.jpg"
+                          }
+                        },
+                        "body": "开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class=\"text-primary\">Storybook</strong> 页面时添加组件到预览页面。",
+                        "actionsAlign": "start center",
+                        "actions": [
+                          {
+                            "type": "btn",
+                            "mode": "raised",
+                            "color": "primary",
+                            "href": "#",
+                            "label": "Get Started"
+                          },
+                          {
+                            "type": "closeDialog",
+                            "label": "Ok"
+                          }
+                        ]
+                      }
+                    },
+                    "name": "Y轴中心 X轴自定义"
+                  },
+                  {
+                    "content": {
+                      "type": "hero-2v1",
+                      "theme": "text-light",
+                      "params": {
+                        "height": "750px"
+                      },
+                      "text": {
+                        "title": {
+                          "label": "欢迎使用 <strong class=\"text-primary\">Builder</strong> 快速构建页面",
+                          "style": "style-v4",
+                          "classes": "mat-h2"
+                        },
+                        "spacer": "xl",
+                        "style": {
+                          "width": "50%",
+                          "left": "40%",
+                          "top": "10%"
+                        },
+                        "classes": "position-absolute",
+                        "bg": {
+                          "classes": "bg-shadow overlay overlay-80",
+                          "img": {
+                            "src": "/assets/images/hero/light-bg.jpeg",
+                            "mobile": "/assets/images/mobile/mobile-02.jpg"
+                          }
+                        },
+                        "body": "开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class=\"text-primary\">Storybook</strong> 页面时添加组件到预览页面。",
+                        "actionsAlign": "start center",
+                        "actions": [
+                          {
+                            "type": "btn",
+                            "mode": "raised",
+                            "color": "primary",
+                            "href": "#",
+                            "label": "Get Started"
+                          },
+                          {
+                            "type": "closeDialog",
+                            "label": "Ok"
+                          }
+                        ]
+                      }
+                    },
+                    "name": "XY轴自定义"
+                  },
+                  {
+                    "content": {
+                      "type": "hero-2v1",
+                      "theme": "",
+                      "params": {
+                        "height": "940px"
+                      },
+                      "text": {
+                        "title": {
+                          "label": "欢迎使用 <strong class=\"text-primary\">Builder</strong> 快速构建页面",
+                          "style": "style-v4",
+                          "classes": "mat-display-1 bold"
+                        },
+                        "animate": {
+                          "scrub": true
+                        },
+                        "spacer": "md",
+                        "style": {
+                          "width": "25%",
+                          "left": "40%"
+                        },
+                        "classes": "xy-center",
+                        "bg": {
+                          "classes": "bg-shadow bg-fill-width",
+                          "img": {
+                            "src": "/assets/images/products/TS97-Computer_08.jpg?itok=LdOsboTY",
+                            "mobile": "/assets/images/products/TS97-Phone_08.jpg?itok=VZueJbig"
+                          }
+                        },
+                        "body": "<p style=\"text-align:justify\"><span style=\"font-size:18px;\">开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class=\"text-primary\">Storybook</strong> 页面时添加组件到预览页面。</span></p>\r\n"
+                      }
+                    },
+                    "name": "动画"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "content": {
+            "type": "hero-2v2",
+            "spacer": "lg",
+            "id": "xxx",
+            "bg": {
+              "classes": "bg-fill-width overlay",
+              "img": {
+                "classes": "object-fit",
+                "src": "/assets/images/16-9/business-16.jpeg"
+              }
+            },
+            "body": {
+              "type": "text",
+              "title": {
+                "label": "开源项目使用 Github actions 自动化",
+                "style": "style-v4",
+                "classes": "mat-display-1"
+              },
+              "body": "<p>Github actions 从2019年就免费开放给个人开源项目使用，对于自动化开放测试部署，开发者一定非常的熟悉，如果把中间这项流程做好，不仅节省了大量的人力也大大加快了开发效率，在配置完善的情况下可以提高代码质量。</p>",
+              "actions": [
+                {
+                  "type": "btn",
+                  "mode": "raised",
+                  "color": "primary",
+                  "href": "#",
+                  "label": "了解更多",
+                  "icon": {
+                    "name": "chat",
+                    "inline": true
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "content": {
+            "type": "hero-2v3",
+            "id": "xxx",
+            "spacer": "lg",
+            "shape": true,
+            "bg": {
+              "classes": "bg-center",
+              "img": {
+                "hostClasses": "bg-center",
+                "src": "/assets/images/bg/bg-04.png"
+              }
+            },
+            "text": {
+              "title": {
+                "label": "开源项目使用 Github actions 自动化",
+                "style": "none",
+                "classes": "mat-display-1"
+              },
+              "spacer": "none",
+              "body": "<p>Github actions 从2019年就免费开放给个人开源项目使用，对于自动化开放测试部署，开发者一定非常的熟悉，如果把中间这项流程做好，不仅节省了大量的人力也大大加快了开发效率，在配置完善的情况下可以提高代码质量。</p>"
+            },
+            "row": 6,
+            "elements": [
+              {
+                "img": {
+                  "src": "/assets/images/svg/health.svg",
+                  "href": "/"
+                },
+                "link": {
+                  "href": "/",
+                  "label": "高性能"
+                }
+              },
+              {
+                "img": {
+                  "src": "/assets/images/svg/term-life.svg",
+                  "href": "/"
+                },
+                "link": {
+                  "href": "/",
+                  "label": "易用的编辑器"
+                }
+              },
+              {
+                "img": {
+                  "src": "/assets/images/svg/family-health.svg",
+                  "href": "/"
+                },
+                "link": {
+                  "href": "/",
+                  "label": "多语言"
+                }
+              },
+              {
+                "img": {
+                  "src": "/assets/images/svg/investment.svg",
+                  "href": "/"
+                },
+                "link": {
+                  "href": "/",
+                  "label": "更有弹性"
+                }
+              },
+              {
+                "img": {
+                  "src": "/assets/images/svg/car.svg",
+                  "href": "/"
+                },
+                "link": {
+                  "href": "/",
+                  "label": "安全性"
+                }
+              },
+              {
+                "img": {
+                  "src": "/assets/images/svg/bike.svg",
+                  "href": "/"
+                },
+                "link": {
+                  "href": "/",
+                  "label": "无障碍访问"
+                }
               }
             ]
           }
@@ -6607,39 +6608,39 @@
                         ],
                         [
                           "1月",
-                          27
+                          34
                         ],
                         [
                           "2月",
-                          11
+                          49
                         ],
                         [
                           "3月",
-                          64
+                          37
                         ],
                         [
                           "4月",
-                          18
+                          88
                         ],
                         [
                           "5月",
-                          87
+                          85
                         ],
                         [
                           "6月",
-                          18
+                          77
                         ],
                         [
                           "7月",
-                          84
+                          37
                         ],
                         [
                           "8月",
-                          52
+                          36
                         ],
                         [
                           "9月",
-                          64
+                          46
                         ],
                         [
                           "10月",
@@ -6647,11 +6648,11 @@
                         ],
                         [
                           "11月",
-                          14
+                          32
                         ],
                         [
                           "12月",
-                          35
+                          28
                         ]
                       ]
                     }
@@ -6714,51 +6715,51 @@
                           ],
                           [
                             "1月",
-                            71
+                            78
                           ],
                           [
                             "2月",
-                            72
+                            45
                           ],
                           [
                             "3月",
-                            100
+                            38
                           ],
                           [
                             "4月",
-                            32
+                            20
                           ],
                           [
                             "5月",
-                            30
+                            31
                           ],
                           [
                             "6月",
-                            72
+                            23
                           ],
                           [
                             "7月",
-                            53
+                            14
                           ],
                           [
                             "8月",
-                            70
+                            96
                           ],
                           [
                             "9月",
-                            39
+                            74
                           ],
                           [
                             "10月",
-                            25
+                            62
                           ],
                           [
                             "11月",
-                            53
+                            91
                           ],
                           [
                             "12月",
-                            74
+                            65
                           ]
                         ]
                       }
@@ -6817,35 +6818,35 @@
                           ],
                           [
                             "1月",
-                            57
+                            68
                           ],
                           [
                             "2月",
-                            32
+                            49
                           ],
                           [
                             "3月",
-                            65
+                            10
                           ],
                           [
                             "4月",
-                            34
+                            22
                           ],
                           [
                             "5月",
-                            56
+                            57
                           ],
                           [
                             "6月",
-                            27
+                            82
                           ],
                           [
                             "7月",
-                            70
+                            45
                           ],
                           [
                             "8月",
-                            99
+                            57
                           ],
                           [
                             "9月",
@@ -6853,15 +6854,15 @@
                           ],
                           [
                             "10月",
-                            99
+                            33
                           ],
                           [
                             "11月",
-                            29
+                            57
                           ],
                           [
                             "12月",
-                            67
+                            65
                           ]
                         ]
                       }
@@ -6920,15 +6921,15 @@
                           ],
                           [
                             "1月",
-                            10
+                            3
                           ],
                           [
                             "2月",
-                            2
+                            9
                           ],
                           [
                             "3月",
-                            10
+                            4
                           ],
                           [
                             "4月",
@@ -6940,7 +6941,7 @@
                           ],
                           [
                             "6月",
-                            8
+                            7
                           ],
                           [
                             "7月",
@@ -6948,23 +6949,23 @@
                           ],
                           [
                             "8月",
-                            4
+                            5
                           ],
                           [
                             "9月",
-                            5
+                            4
                           ],
                           [
                             "10月",
-                            3
+                            9
                           ],
                           [
                             "11月",
-                            5
+                            7
                           ],
                           [
                             "12月",
-                            10
+                            2
                           ]
                         ]
                       }
@@ -7023,19 +7024,19 @@
                           ],
                           [
                             "1月",
-                            1
+                            6
                           ],
                           [
                             "2月",
-                            8
+                            6
                           ],
                           [
                             "3月",
-                            10
+                            7
                           ],
                           [
                             "4月",
-                            10
+                            2
                           ],
                           [
                             "5月",
@@ -7043,7 +7044,7 @@
                           ],
                           [
                             "6月",
-                            5
+                            6
                           ],
                           [
                             "7月",
@@ -7051,23 +7052,23 @@
                           ],
                           [
                             "8月",
-                            4
+                            3
                           ],
                           [
                             "9月",
-                            8
+                            2
                           ],
                           [
                             "10月",
-                            6
+                            1
                           ],
                           [
                             "11月",
-                            6
+                            1
                           ],
                           [
                             "12月",
-                            9
+                            6
                           ]
                         ]
                       }
@@ -7251,119 +7252,119 @@
                         {
                           "title": "使用 DEVTOOLS 对 ANGULAR 前端应用性能分析优化",
                           "event": "meeting",
-                          "start": "2023-06-28T06:10:30.459Z",
+                          "start": "2023-06-28T08:23:22.353Z",
                           "user": "Johnson",
                           "className": "bg-primary"
                         },
                         {
                           "title": "使用 TAKEUNTIL 操作符管理 ANGULAR 组件的订阅",
                           "event": "drupal",
-                          "start": 1688019030459,
+                          "start": 1688027002353,
                           "user": "Johnson",
                           "className": "bg-accent"
                         },
                         {
                           "title": "你应该了解的 ANGULAR 最佳实践",
                           "event": "drupal",
-                          "start": 1688710230459,
+                          "start": 1688286202353,
                           "user": "Johnson",
                           "className": "bg-warn"
                         },
                         {
                           "title": "ANGULAR 5 RXJS 5.5.2 多个 HTTP 并行 FORKJOIN 请求",
                           "event": "drupal",
-                          "start": 1688019030459,
+                          "start": 1688631802353,
                           "user": "Johnson",
                           "className": "bg-warn"
                         },
                         {
                           "title": "DRUPAL 8 AJAX 弹出框可监听利用的 EVENT 事件",
                           "event": "drupal",
-                          "start": 1688451030459,
+                          "start": 1688199802353,
                           "user": "Johnson",
                           "className": "bg-pink"
                         },
                         {
                           "title": "DRUPAL8 用户登录后自定义重定向",
                           "event": "drupal",
-                          "start": 1688796630459,
+                          "start": 1688372602353,
                           "user": "Johnson",
                           "className": "bg-orange"
                         },
                         {
                           "title": "如何更改 GIT COMMIT 某个历史提交信息",
                           "event": "drupal",
-                          "start": 1688537430459,
+                          "start": 1688631802353,
                           "user": "Johnson",
                           "className": "bg-yellow"
                         },
                         {
                           "title": "开源项目使用 GITHUB ACTIONS 自动化测试部署 ANGULAR 应用到 ECS 服务器",
                           "event": "drupal",
-                          "start": 1688364630459,
+                          "start": 1688372602353,
                           "user": "Johnson",
                           "className": "bg-red"
                         },
                         {
                           "title": "DRUPAL JSONAPI 初级入门实践",
                           "event": "drupal",
-                          "start": 1688796630459,
+                          "start": 1688113402353,
                           "user": "Johnson",
                           "className": "bg-purple"
                         },
                         {
                           "title": "RXJS SWITCHMAP 在 DRUPAL API中的应用",
                           "event": "drupal",
-                          "start": 1688796630459,
+                          "start": 1688199802353,
                           "user": "Johnson",
                           "className": "bg-indigo"
                         },
                         {
                           "title": "五年了，再谈南宁和深圳的差距",
                           "event": "drupal",
-                          "start": 1688105430459,
+                          "start": 1688027002353,
                           "user": "Johnson",
                           "className": "bg-blue"
                         },
                         {
                           "title": "没想到吧？2021年南宁IT互联网相关工作者最近一份工作求职渠道最受欢迎的竟然是它",
                           "event": "drupal",
-                          "start": 1687155030459,
+                          "start": 1687595002353,
                           "user": "Johnson",
                           "className": "bg-cyan"
                         },
                         {
                           "title": "南宁IT互联网行业薪资福利待遇如何？",
                           "event": "drupal",
-                          "start": 1687587030459,
+                          "start": 1687854202353,
                           "user": "Johnson",
                           "className": "bg-teal"
                         },
                         {
                           "title": "南宁IT互联网公司，有哪些是双休？",
                           "event": "drupal",
-                          "start": 1687587030459,
+                          "start": 1687508602353,
                           "user": "Johnson",
                           "className": "bg-green"
                         },
                         {
                           "title": "JSONA 一款转换 JSONAPI 数据的工具库，也算是解放 DRUPAL JSONAPI 反序列化的利器",
                           "event": "drupal",
-                          "start": 1687846230459,
+                          "start": 1687508602353,
                           "user": "Johnson",
                           "className": "bg-light-green"
                         },
                         {
                           "title": "ANGULAR 有哪几种不同类型的绑定",
                           "event": "drupal",
-                          "start": 1687846230459,
+                          "start": 1687422202353,
                           "user": "Johnson",
                           "className": "bg-brown"
                         },
                         {
                           "title": "ANGULAR NG-CONTENT、NG-TEMPLATE、NG-CONTAINER 之间的区别",
                           "event": "drupal",
-                          "start": 1687414230459,
+                          "start": 1687249402353,
                           "user": "Johnson",
                           "className": "bg-grey"
                         }
@@ -7437,7 +7438,7 @@
                         ],
                         [
                           "1月",
-                          57
+                          55
                         ],
                         [
                           "2月",
@@ -7445,11 +7446,11 @@
                         ],
                         [
                           "3月",
-                          98
+                          65
                         ],
                         [
                           "4月",
-                          85
+                          10
                         ],
                         [
                           "5月",
@@ -7457,31 +7458,31 @@
                         ],
                         [
                           "6月",
-                          71
+                          80
                         ],
                         [
                           "7月",
-                          26
+                          30
                         ],
                         [
                           "8月",
-                          85
+                          79
                         ],
                         [
                           "9月",
-                          93
+                          76
                         ],
                         [
                           "10月",
-                          68
+                          76
                         ],
                         [
                           "11月",
-                          27
+                          30
                         ],
                         [
                           "12月",
-                          44
+                          43
                         ]
                       ]
                     }
@@ -7544,51 +7545,51 @@
                           ],
                           [
                             "1月",
-                            41
+                            61
                           ],
                           [
                             "2月",
-                            63
+                            93
                           ],
                           [
                             "3月",
-                            57
+                            62
                           ],
                           [
                             "4月",
-                            86
+                            56
                           ],
                           [
                             "5月",
-                            11
+                            35
                           ],
                           [
                             "6月",
-                            79
+                            49
                           ],
                           [
                             "7月",
-                            13
+                            57
                           ],
                           [
                             "8月",
-                            37
+                            24
                           ],
                           [
                             "9月",
-                            52
+                            54
                           ],
                           [
                             "10月",
-                            50
+                            25
                           ],
                           [
                             "11月",
-                            31
+                            66
                           ],
                           [
                             "12月",
-                            32
+                            33
                           ]
                         ]
                       }
@@ -7647,51 +7648,51 @@
                           ],
                           [
                             "1月",
-                            76
+                            90
                           ],
                           [
                             "2月",
-                            84
+                            54
                           ],
                           [
                             "3月",
-                            48
+                            33
                           ],
                           [
                             "4月",
-                            25
+                            84
                           ],
                           [
                             "5月",
-                            96
+                            19
                           ],
                           [
                             "6月",
-                            50
+                            24
                           ],
                           [
                             "7月",
-                            29
+                            91
                           ],
                           [
                             "8月",
-                            57
+                            19
                           ],
                           [
                             "9月",
-                            35
+                            71
                           ],
                           [
                             "10月",
-                            16
+                            18
                           ],
                           [
                             "11月",
-                            46
+                            83
                           ],
                           [
                             "12月",
-                            14
+                            28
                           ]
                         ]
                       }
@@ -7750,7 +7751,7 @@
                           ],
                           [
                             "1月",
-                            2
+                            10
                           ],
                           [
                             "2月",
@@ -7758,23 +7759,23 @@
                           ],
                           [
                             "3月",
-                            5
-                          ],
-                          [
-                            "4月",
                             4
                           ],
                           [
+                            "4月",
+                            10
+                          ],
+                          [
                             "5月",
-                            3
+                            8
                           ],
                           [
                             "6月",
-                            2
+                            4
                           ],
                           [
                             "7月",
-                            6
+                            7
                           ],
                           [
                             "8月",
@@ -7782,19 +7783,19 @@
                           ],
                           [
                             "9月",
-                            5
+                            10
                           ],
                           [
                             "10月",
-                            9
-                          ],
-                          [
-                            "11月",
                             3
                           ],
                           [
+                            "11月",
+                            9
+                          ],
+                          [
                             "12月",
-                            4
+                            2
                           ]
                         ]
                       }
@@ -7853,51 +7854,51 @@
                           ],
                           [
                             "1月",
-                            38
+                            44
                           ],
                           [
                             "2月",
-                            95
+                            73
                           ],
                           [
                             "3月",
-                            80
+                            32
                           ],
                           [
                             "4月",
-                            13
+                            49
                           ],
                           [
                             "5月",
-                            83
+                            20
                           ],
                           [
                             "6月",
-                            16
+                            65
                           ],
                           [
                             "7月",
-                            11
+                            25
                           ],
                           [
                             "8月",
-                            39
+                            71
                           ],
                           [
                             "9月",
-                            33
+                            64
                           ],
                           [
                             "10月",
-                            59
-                          ],
-                          [
-                            "11月",
                             77
                           ],
                           [
+                            "11月",
+                            11
+                          ],
+                          [
                             "12月",
-                            40
+                            75
                           ]
                         ]
                       }
@@ -7946,63 +7947,63 @@
                         ],
                         [
                           "1月",
-                          35,
-                          94
+                          15,
+                          25
                         ],
                         [
                           "2月",
-                          70,
-                          82
+                          20,
+                          74
                         ],
                         [
                           "3月",
-                          18,
-                          34
+                          69,
+                          81
                         ],
                         [
                           "4月",
-                          22,
-                          76
+                          30,
+                          70
                         ],
                         [
                           "5月",
-                          61,
-                          44
+                          71,
+                          22
                         ],
                         [
                           "6月",
-                          42,
-                          98
+                          66,
+                          29
                         ],
                         [
                           "7月",
-                          79,
-                          79
+                          85,
+                          59
                         ],
                         [
                           "8月",
-                          84,
-                          58
+                          91,
+                          23
                         ],
                         [
                           "9月",
-                          45,
-                          61
+                          12,
+                          74
                         ],
                         [
                           "10月",
-                          36,
-                          61
+                          86,
+                          47
                         ],
                         [
                           "11月",
-                          94,
-                          85
+                          11,
+                          59
                         ],
                         [
                           "12月",
-                          65,
-                          50
+                          11,
+                          82
                         ]
                       ]
                     }
@@ -8177,119 +8178,119 @@
                         {
                           "title": "使用 DEVTOOLS 对 ANGULAR 前端应用性能分析优化",
                           "event": "meeting",
-                          "start": "2023-06-28T06:10:30.459Z",
+                          "start": "2023-06-28T08:23:22.353Z",
                           "user": "Johnson",
                           "className": "bg-primary"
                         },
                         {
                           "title": "使用 TAKEUNTIL 操作符管理 ANGULAR 组件的订阅",
                           "event": "drupal",
-                          "start": 1688019030459,
+                          "start": 1688027002353,
                           "user": "Johnson",
                           "className": "bg-accent"
                         },
                         {
                           "title": "你应该了解的 ANGULAR 最佳实践",
                           "event": "drupal",
-                          "start": 1688710230459,
+                          "start": 1688286202353,
                           "user": "Johnson",
                           "className": "bg-warn"
                         },
                         {
                           "title": "ANGULAR 5 RXJS 5.5.2 多个 HTTP 并行 FORKJOIN 请求",
                           "event": "drupal",
-                          "start": 1688019030459,
+                          "start": 1688631802353,
                           "user": "Johnson",
                           "className": "bg-warn"
                         },
                         {
                           "title": "DRUPAL 8 AJAX 弹出框可监听利用的 EVENT 事件",
                           "event": "drupal",
-                          "start": 1688451030459,
+                          "start": 1688199802353,
                           "user": "Johnson",
                           "className": "bg-pink"
                         },
                         {
                           "title": "DRUPAL8 用户登录后自定义重定向",
                           "event": "drupal",
-                          "start": 1688796630459,
+                          "start": 1688372602353,
                           "user": "Johnson",
                           "className": "bg-orange"
                         },
                         {
                           "title": "如何更改 GIT COMMIT 某个历史提交信息",
                           "event": "drupal",
-                          "start": 1688537430459,
+                          "start": 1688631802353,
                           "user": "Johnson",
                           "className": "bg-yellow"
                         },
                         {
                           "title": "开源项目使用 GITHUB ACTIONS 自动化测试部署 ANGULAR 应用到 ECS 服务器",
                           "event": "drupal",
-                          "start": 1688364630459,
+                          "start": 1688372602353,
                           "user": "Johnson",
                           "className": "bg-red"
                         },
                         {
                           "title": "DRUPAL JSONAPI 初级入门实践",
                           "event": "drupal",
-                          "start": 1688796630459,
+                          "start": 1688113402353,
                           "user": "Johnson",
                           "className": "bg-purple"
                         },
                         {
                           "title": "RXJS SWITCHMAP 在 DRUPAL API中的应用",
                           "event": "drupal",
-                          "start": 1688796630459,
+                          "start": 1688199802353,
                           "user": "Johnson",
                           "className": "bg-indigo"
                         },
                         {
                           "title": "五年了，再谈南宁和深圳的差距",
                           "event": "drupal",
-                          "start": 1688105430459,
+                          "start": 1688027002353,
                           "user": "Johnson",
                           "className": "bg-blue"
                         },
                         {
                           "title": "没想到吧？2021年南宁IT互联网相关工作者最近一份工作求职渠道最受欢迎的竟然是它",
                           "event": "drupal",
-                          "start": 1687155030459,
+                          "start": 1687595002353,
                           "user": "Johnson",
                           "className": "bg-cyan"
                         },
                         {
                           "title": "南宁IT互联网行业薪资福利待遇如何？",
                           "event": "drupal",
-                          "start": 1687587030459,
+                          "start": 1687854202353,
                           "user": "Johnson",
                           "className": "bg-teal"
                         },
                         {
                           "title": "南宁IT互联网公司，有哪些是双休？",
                           "event": "drupal",
-                          "start": 1687587030459,
+                          "start": 1687508602353,
                           "user": "Johnson",
                           "className": "bg-green"
                         },
                         {
                           "title": "JSONA 一款转换 JSONAPI 数据的工具库，也算是解放 DRUPAL JSONAPI 反序列化的利器",
                           "event": "drupal",
-                          "start": 1687846230459,
+                          "start": 1687508602353,
                           "user": "Johnson",
                           "className": "bg-light-green"
                         },
                         {
                           "title": "ANGULAR 有哪几种不同类型的绑定",
                           "event": "drupal",
-                          "start": 1687846230459,
+                          "start": 1687422202353,
                           "user": "Johnson",
                           "className": "bg-brown"
                         },
                         {
                           "title": "ANGULAR NG-CONTENT、NG-TEMPLATE、NG-CONTAINER 之间的区别",
                           "event": "drupal",
-                          "start": 1687414230459,
+                          "start": 1687249402353,
                           "user": "Johnson",
                           "className": "bg-grey"
                         }
@@ -10015,119 +10016,119 @@
                   {
                     "title": "使用 DEVTOOLS 对 ANGULAR 前端应用性能分析优化",
                     "event": "meeting",
-                    "start": "2023-06-28T06:10:30.459Z",
+                    "start": "2023-06-28T08:23:22.353Z",
                     "user": "Johnson",
                     "className": "bg-primary"
                   },
                   {
                     "title": "使用 TAKEUNTIL 操作符管理 ANGULAR 组件的订阅",
                     "event": "drupal",
-                    "start": 1688019030459,
+                    "start": 1688027002353,
                     "user": "Johnson",
                     "className": "bg-accent"
                   },
                   {
                     "title": "你应该了解的 ANGULAR 最佳实践",
                     "event": "drupal",
-                    "start": 1688710230459,
+                    "start": 1688286202353,
                     "user": "Johnson",
                     "className": "bg-warn"
                   },
                   {
                     "title": "ANGULAR 5 RXJS 5.5.2 多个 HTTP 并行 FORKJOIN 请求",
                     "event": "drupal",
-                    "start": 1688019030459,
+                    "start": 1688631802353,
                     "user": "Johnson",
                     "className": "bg-warn"
                   },
                   {
                     "title": "DRUPAL 8 AJAX 弹出框可监听利用的 EVENT 事件",
                     "event": "drupal",
-                    "start": 1688451030459,
+                    "start": 1688199802353,
                     "user": "Johnson",
                     "className": "bg-pink"
                   },
                   {
                     "title": "DRUPAL8 用户登录后自定义重定向",
                     "event": "drupal",
-                    "start": 1688796630459,
+                    "start": 1688372602353,
                     "user": "Johnson",
                     "className": "bg-orange"
                   },
                   {
                     "title": "如何更改 GIT COMMIT 某个历史提交信息",
                     "event": "drupal",
-                    "start": 1688537430459,
+                    "start": 1688631802353,
                     "user": "Johnson",
                     "className": "bg-yellow"
                   },
                   {
                     "title": "开源项目使用 GITHUB ACTIONS 自动化测试部署 ANGULAR 应用到 ECS 服务器",
                     "event": "drupal",
-                    "start": 1688364630459,
+                    "start": 1688372602353,
                     "user": "Johnson",
                     "className": "bg-red"
                   },
                   {
                     "title": "DRUPAL JSONAPI 初级入门实践",
                     "event": "drupal",
-                    "start": 1688796630459,
+                    "start": 1688113402353,
                     "user": "Johnson",
                     "className": "bg-purple"
                   },
                   {
                     "title": "RXJS SWITCHMAP 在 DRUPAL API中的应用",
                     "event": "drupal",
-                    "start": 1688796630459,
+                    "start": 1688199802353,
                     "user": "Johnson",
                     "className": "bg-indigo"
                   },
                   {
                     "title": "五年了，再谈南宁和深圳的差距",
                     "event": "drupal",
-                    "start": 1688105430459,
+                    "start": 1688027002353,
                     "user": "Johnson",
                     "className": "bg-blue"
                   },
                   {
                     "title": "没想到吧？2021年南宁IT互联网相关工作者最近一份工作求职渠道最受欢迎的竟然是它",
                     "event": "drupal",
-                    "start": 1687155030459,
+                    "start": 1687595002353,
                     "user": "Johnson",
                     "className": "bg-cyan"
                   },
                   {
                     "title": "南宁IT互联网行业薪资福利待遇如何？",
                     "event": "drupal",
-                    "start": 1687587030459,
+                    "start": 1687854202353,
                     "user": "Johnson",
                     "className": "bg-teal"
                   },
                   {
                     "title": "南宁IT互联网公司，有哪些是双休？",
                     "event": "drupal",
-                    "start": 1687587030459,
+                    "start": 1687508602353,
                     "user": "Johnson",
                     "className": "bg-green"
                   },
                   {
                     "title": "JSONA 一款转换 JSONAPI 数据的工具库，也算是解放 DRUPAL JSONAPI 反序列化的利器",
                     "event": "drupal",
-                    "start": 1687846230459,
+                    "start": 1687508602353,
                     "user": "Johnson",
                     "className": "bg-light-green"
                   },
                   {
                     "title": "ANGULAR 有哪几种不同类型的绑定",
                     "event": "drupal",
-                    "start": 1687846230459,
+                    "start": 1687422202353,
                     "user": "Johnson",
                     "className": "bg-brown"
                   },
                   {
                     "title": "ANGULAR NG-CONTENT、NG-TEMPLATE、NG-CONTAINER 之间的区别",
                     "event": "drupal",
-                    "start": 1687414230459,
+                    "start": 1687249402353,
                     "user": "Johnson",
                     "className": "bg-grey"
                   }

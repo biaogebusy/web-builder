@@ -10,14 +10,14 @@ import { map } from './map.builder';
 
 export const components: any[] = [
   {
-    label: 'Hero',
-    id: 'hero',
-    elements: [...hero],
-  },
-  {
     label: 'Showcase',
     id: 'showcase',
     elements: [...showcase],
+  },
+  {
+    label: 'Hero',
+    id: 'hero',
+    elements: [...hero],
   },
   {
     label: 'Carousel',
