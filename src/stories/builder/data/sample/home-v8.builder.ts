@@ -10,7 +10,7 @@ import {
 } from '@stories/builder/data/combs/showcase.builder';
 import { text } from '@stories/builder/data/widgets/base.builder';
 export const home_v8 = {
-  title: '首页 v8 Marketing',
+  title: '首页 v8',
   configBak: {
     headerMode: {
       transparent: true,

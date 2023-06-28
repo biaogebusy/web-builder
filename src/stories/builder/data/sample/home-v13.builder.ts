@@ -13,7 +13,7 @@ import {
 } from '@stories/builder/data/combs/showcase.builder';
 import { text } from '@stories/builder/data/widgets/base.builder';
 export const home_v13 = {
-  title: '现代商业',
+  title: '首页 v13',
   configBak: {
     headerMode: {
       transparent: true,

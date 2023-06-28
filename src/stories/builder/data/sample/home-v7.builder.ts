@@ -7,7 +7,7 @@ import { carousel1v3_client } from '@stories/builder/data/combs/carousel.builder
 import { text } from '@stories/builder/data/widgets/base.builder';
 
 export const home_v7 = {
-  title: '首页 v7 Sass',
+  title: '首页 v7',
   configBak: {
     headerMode: {
       transparent: true,

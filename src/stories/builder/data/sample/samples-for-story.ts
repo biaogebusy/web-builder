@@ -1,4 +1,4 @@
-import { IBuilderSample } from '@core/interface/IBuilder';
+import { IBuilderSamplePage } from '@core/interface/IBuilder';
 import { home_v1 } from './home-v1.builder';
 import { home_v10 } from './home-v10.builder';
 import { home_v11 } from './home-v11.builder';
@@ -13,7 +13,7 @@ import { home_v7 } from './home-v7.builder';
 import { home_v8 } from './home-v8.builder';
 import { home_v9 } from './home-v9.builder';
 
-export const samples: IBuilderSample = {
+export const samples: IBuilderSamplePage = {
   label: '示例',
   elements: [
     {

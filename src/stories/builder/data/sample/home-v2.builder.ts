@@ -16,7 +16,7 @@ export const home_v2 = {
     },
     {
       name: 'keywords',
-      content: '法律科技',
+      content: '',
     },
   ],
   config: {

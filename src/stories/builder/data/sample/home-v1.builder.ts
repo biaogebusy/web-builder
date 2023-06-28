@@ -12,7 +12,7 @@ import { shuffle } from '@stories/builder/data/combs/masonry.builder';
 import { text } from '@stories/builder/data/widgets/base.builder';
 
 export const home_v1 = {
-  title: '首页 | v1',
+  title: '首页 v1',
   body: [
     hero1v1,
     showcase1v1Default,

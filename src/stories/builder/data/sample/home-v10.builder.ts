@@ -9,7 +9,7 @@ import {
 } from '@stories/builder/data/combs/carousel.builder';
 import { text } from '@stories/builder/data/widgets/base.builder';
 export const home_v10 = {
-  title: '首页 v6 App 应用',
+  title: '首页 v10',
   configBak: {
     headerMode: {
       transparent: true,

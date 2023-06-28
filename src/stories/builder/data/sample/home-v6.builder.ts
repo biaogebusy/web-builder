@@ -13,7 +13,7 @@ import { action1v1 } from '@stories/builder/data/widgets/common.builder';
 import { text } from '@stories/builder/data/widgets/base.builder';
 
 export const home_v6 = {
-  title: '首页 v6 医疗科技',
+  title: '首页 v6',
   configBak: {
     headerMode: {
       transparent: true,

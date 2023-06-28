@@ -8,7 +8,7 @@ import { BuilderModule } from 'src/app/modules/builder/builder.module';
 import { components } from './data/combs/export-for-story';
 import { widgets } from './data/widgets/export-for-story';
 import { environment } from 'src/environments/environment';
-import { samples } from './data/sample/export-for-story';
+import { samples } from './data/sample/samples-for-story';
 import { BUILDER_SAMPLE_PAGE, UIUX } from '@core/token/token-providers';
 import { uiux } from './data/uiux-for-story';
 export default {
