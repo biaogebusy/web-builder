@@ -1,14 +1,14 @@
-import { carousel2v1 } from '@stories/builder/data/components/carousel.builder';
-import { hero1v1 } from '@stories/builder/data/components/hero.builder';
+import { carousel2v1 } from '@stories/builder/data/combs/carousel.builder';
+import { hero1v1 } from '@stories/builder/data/combs/hero.builder';
 import {
   showcase1v1Default,
   showcase2v1_default,
   showcase3v2_default,
   showcase3v6_default,
   showcase4v1_default,
-} from '@stories/builder/data/components/showcase.builder';
+} from '@stories/builder/data/combs/showcase.builder';
 import { videoBg } from '@stories/builder/data/widgets/media.builder';
-import { shuffle } from '@stories/builder/data/components/masonry.builder';
+import { shuffle } from '@stories/builder/data/combs/masonry.builder';
 import { text } from '@stories/builder/data/widgets/base.builder';
 
 export const home_v1 = {

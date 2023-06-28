@@ -1,9 +1,9 @@
-import { hero2v2 } from '@stories/builder/data/components/hero.builder';
-import { carousel2v2 } from '@stories/builder/data/components/carousel.builder';
+import { hero2v2 } from '@stories/builder/data/combs/hero.builder';
+import { carousel2v2 } from '@stories/builder/data/combs/carousel.builder';
 import {
   showcase1v4_default,
   showcase1v4_dynamic,
-} from '@stories/builder/data/components/showcase.builder';
+} from '@stories/builder/data/combs/showcase.builder';
 import { text } from '@stories/builder/data/widgets/base.builder';
 export const home_v12 = {
   title: '工作室',

@@ -1,12 +1,12 @@
-import { hero } from './components/hero.builder';
-import { showcase } from './components/showcase.builder';
-import { drupal } from './components/drupal.builder';
-import { others } from './components/other.builder';
-import { tools } from './components/tools.builder';
-import { carousels } from './components/carousel.builder';
-import { masonry } from './components/masonry.builder';
-import { manage } from './components/manage.builder';
-import { map } from './components/map.builder';
+import { hero } from './hero.builder';
+import { showcase } from './showcase.builder';
+import { drupal } from './drupal.builder';
+import { others } from './other.builder';
+import { tools } from './tools.builder';
+import { carousels } from './carousel.builder';
+import { masonry } from './masonry.builder';
+import { manage } from './manage.builder';
+import { map } from './map.builder';
 
 export const components: any[] = [
   {

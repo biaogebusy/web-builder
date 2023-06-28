@@ -5,12 +5,12 @@ import { StorysModule } from '@core/module/storys.module';
 import { BrandingModule } from '@core/branding/branding.module';
 import { BuilderComponent } from 'src/app/modules/builder/builder.component';
 import { BuilderModule } from 'src/app/modules/builder/builder.module';
-import { components } from './data/component-for-builder';
-import { widgets } from './data/widgets-for-builder';
+import { components } from './data/combs/export-for-story';
+import { widgets } from './data/widgets/export-for-story';
 import { environment } from 'src/environments/environment';
-import { tabs } from './data/tabs.builder';
-import { samples } from './data/samples.builder';
-import { BUILDER_TABS } from '@core/token/token-providers';
+import { samples } from './data/sample/export-for-story';
+import { BUILDER_SAMPLE_PAGE, UIUX } from '@core/token/token-providers';
+import { uiux } from './data/uiux-for-story';
 export default {
   title: 'Builder',
   id: 'builder',
@@ -27,8 +27,12 @@ export default {
       ],
       providers: [
         {
-          provide: BUILDER_TABS,
-          useValue: tabs,
+          provide: UIUX,
+          useValue: uiux,
+        },
+        {
+          provide: BUILDER_SAMPLE_PAGE,
+          useValue: samples,
         },
       ],
     }),
@@ -45,9 +49,6 @@ const Template: Story = (args) => ({
 });
 export const Default = Template.bind({});
 Default.storyName = '页面构建器';
-Default.args = {
-  samples: samples,
-};
 
 if (!environment.production) {
   console.log('comps:', components);

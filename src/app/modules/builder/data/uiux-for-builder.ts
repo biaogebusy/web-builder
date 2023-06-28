@@ -1,8 +1,8 @@
-import { IBuilderTab } from '@core/interface/IBuilder';
+import { IUiux } from '@core/interface/IBuilder';
 import components from './components.json';
 import widgets from './widgets.json';
 
-export const tabs: IBuilderTab[] = [
+export const uiux: IUiux[] = [
   {
     label: '基础',
     type: 'base',

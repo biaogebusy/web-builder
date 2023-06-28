@@ -16,7 +16,7 @@ export interface IBuilderComponentElement {
   };
 }
 
-export interface IBuilderTab {
+export interface IUiux {
   label: string;
   icon: IIcon;
   type: 'base' | 'component';
@@ -30,7 +30,7 @@ export interface IBuilderDynamicContent {
   style?: any;
 }
 
-export interface IBuilderSample {
+export interface IBuilderSamplePage {
   label: string;
   elements: ISample[];
 }

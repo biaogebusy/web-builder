@@ -5,11 +5,11 @@ import {
   OnInit,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { IBuilderComponent, IBuilderTab } from '@core/interface/IBuilder';
+import type { IBuilderComponent, IUiux } from '@core/interface/IBuilder';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
+import { UIUX } from '@core/token/token-providers';
 import { map } from 'lodash-es';
-import { BUILDER_TABS } from '@core/token/token-providers';
 
 @Component({
   selector: 'app-builder-generater',
@@ -24,7 +24,7 @@ export class BuilderGeneraterComponent implements OnInit {
   constructor(
     private builder: BuilderState,
     private util: UtilitiesService,
-    @Inject(BUILDER_TABS) public tabs: IBuilderTab[]
+    @Inject(UIUX) public tabs: IUiux[]
   ) {}
 
   ngOnInit(): void {

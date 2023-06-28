@@ -1,12 +1,12 @@
-import { hero2v3 } from '@stories/builder/data/components/hero.builder';
+import { hero2v3 } from '@stories/builder/data/combs/hero.builder';
 import {
   showcase1v1_v3,
   showcase2v1_card1v1,
   showcase3v4_background,
   showcase4v1_default,
-} from '@stories/builder/data/components/showcase.builder';
+} from '@stories/builder/data/combs/showcase.builder';
 import { action1v1 } from '@stories/builder/data/widgets/common.builder';
-import { carousel1v1 } from '@stories/builder/data/components/carousel.builder';
+import { carousel1v1 } from '@stories/builder/data/combs/carousel.builder';
 export const home_v2 = {
   title: '首页 v2',
   meta: [

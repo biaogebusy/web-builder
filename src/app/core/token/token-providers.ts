@@ -4,7 +4,7 @@ import { IUser } from '@core/interface/IUser';
 import { Observable } from 'rxjs';
 import { IBranding } from '../interface/branding/IBranding';
 import { INotify } from '@core/interface/widgets/IWidgets';
-import { IBuilderTab } from '@core/interface/IBuilder';
+import { IBuilderSamplePage, IUiux } from '@core/interface/IBuilder';
 
 export interface IManageSidebarState {
   enableSidebar: boolean;
@@ -30,9 +30,10 @@ export const DEBUG_ANIMATE = new InjectionToken<boolean>('debug animate');
 export const BUILDER_FULL_SCREEN = new InjectionToken<Observable<boolean>>(
   'builder full screen'
 );
-export const BUILDER_TABS = new InjectionToken<IBuilderTab[]>(
-  'builder tabs data'
+export const BUILDER_SAMPLE_PAGE = new InjectionToken<IBuilderSamplePage>(
+  'Builder sample page'
 );
+export const UIUX = new InjectionToken<IUiux[]>('builder uiux data');
 export const ENABLE_TOOLBAR = new InjectionToken<Observable<boolean>>(
   'enable builder toolbar'
 );

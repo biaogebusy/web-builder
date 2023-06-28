@@ -2,6 +2,7 @@ import {
   AfterViewInit,
   Component,
   Inject,
+  Injector,
   Input,
   OnDestroy,
   OnInit,
@@ -10,18 +11,18 @@ import {
 import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { LocalStorage, LocalStorageService } from 'ngx-webstorage';
 import { BuilderState } from '@core/state/BuilderState';
-import { IBuilderSample, IBuilderTab } from '@core/interface/IBuilder';
+import type { IBuilderSamplePage, IUiux } from '@core/interface/IBuilder';
 import {
   BUILDER_FULL_SCREEN,
-  BUILDER_TABS,
+  BUILDER_SAMPLE_PAGE,
   CORE_CONFIG,
+  UIUX,
 } from '@core/token/token-providers';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { MatDrawer } from '@angular/material/sidenav';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ScreenState } from '@core/state/screen/ScreenState';
-import { samples } from './data/samples.data';
 
 @Component({
   selector: 'app-builder',
@@ -35,30 +36,29 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('containerDrawer', { static: false }) containerDrawer: MatDrawer;
   @LocalStorage('builderFullScreen')
   builderFullScreen: boolean;
-  samples: IBuilderSample;
   panelOpenState = false;
   destroy$: Subject<boolean> = new Subject<boolean>();
   mode: 'side' | 'over' | 'push' = 'side';
   constructor(
-    private storage: LocalStorageService,
+    private injector: Injector,
     public builder: BuilderState,
-    private utli: UtilitiesService,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
     @Inject(BUILDER_FULL_SCREEN) public builderFullScreen$: Observable<boolean>,
-    @Inject(BUILDER_TABS) public tabs: IBuilderTab[],
-    private screenState: ScreenState
+    @Inject(UIUX) public tabs: IUiux[],
+    @Inject(BUILDER_SAMPLE_PAGE) public samples: IBuilderSamplePage
   ) {}
 
   ngOnInit(): void {
+    const storage = this.injector.get(LocalStorageService);
+    const utli = this.injector.get(UtilitiesService);
     if (this.coreConfig.builder?.enable) {
       this.content = this.page;
-      this.samples = samples;
       if (!this.builderFullScreen) {
-        this.storage.store('builderFullScreen', false);
+        storage.store('builderFullScreen', false);
       }
       this.builder.animateDisable$.next(true);
     } else {
-      this.utli.openSnackbar('请开启 Builder 功能！', 'ok');
+      utli.openSnackbar('请开启 Builder 功能！', 'ok');
     }
     this.builder.dynamicContent$.subscribe((content) => {
       if (content) {
@@ -70,13 +70,16 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    this.storage
-      .observe(this.builder.pageKey)
+    const builder = this.injector.get(BuilderState);
+    const storage = this.injector.get(LocalStorageService);
+    const screenState = this.injector.get(ScreenState);
+    storage
+      .observe(builder.pageKey)
       .pipe(takeUntil(this.destroy$))
       .subscribe((page) => {
         this.content = page;
       });
-    this.screenState
+    screenState
       .mqAlias$()
       .pipe(takeUntil(this.destroy$))
       .subscribe((alia) => {

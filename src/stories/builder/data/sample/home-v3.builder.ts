@@ -1,6 +1,6 @@
-import { hero1v1 } from '@stories/builder/data/components/hero.builder';
-import { carousel2v2 } from '@stories/builder/data/components/carousel.builder';
-import { showcase3v9_video } from '@stories/builder/data/components/showcase.builder';
+import { hero1v1 } from '@stories/builder/data/combs/hero.builder';
+import { carousel2v2 } from '@stories/builder/data/combs/carousel.builder';
+import { showcase3v9_video } from '@stories/builder/data/combs/showcase.builder';
 import { text } from '@stories/builder/data/widgets/base.builder';
 
 export const home_v3 = {

@@ -1,10 +1,10 @@
-import { hero2v1Default } from '@stories/builder/data/components/hero.builder';
+import { hero2v1Default } from '@stories/builder/data/combs/hero.builder';
 import {
   showcase2v2_default,
   showcase4v1_img,
-} from '@stories/builder/data/components/showcase.builder';
-import { carousel1v2 } from '@stories/builder/data/components/carousel.builder';
-import { list2v1 } from '@stories/builder/data/components/drupal.builder';
+} from '@stories/builder/data/combs/showcase.builder';
+import { carousel1v2 } from '@stories/builder/data/combs/carousel.builder';
+import { list2v1 } from '@stories/builder/data/combs/drupal.builder';
 export const home_v9 = {
   title: 'Science',
   configBak: {

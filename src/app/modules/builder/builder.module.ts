@@ -16,10 +16,11 @@ import { BuilderEmptyComponent } from './main/builder-empty/builder-empty.compon
 import { SwitchPreviewComponent } from './toolbar/switch-preview/switch-preview.component';
 import { PreviewListComponent } from './main/preview-list/preview-list.component';
 import { BaseModule } from '@uiux/base/base.module';
-import { BUILDER_TABS } from '@core/token/token-providers';
-import { tabs } from './data/tabs.data';
+import { BUILDER_SAMPLE_PAGE, UIUX } from '@core/token/token-providers';
+import { uiux } from './data/uiux-for-builder';
 import { PreviewComponent } from './preview/preview.component';
 import { BuilderToolbarComponent } from './toolbar/builder-toolbar/builder-toolbar.component';
+import { samples } from './data/samples-for-builder';
 
 const components = [
   BuilderComponent,
@@ -50,8 +51,12 @@ const components = [
   ],
   providers: [
     {
-      provide: BUILDER_TABS,
-      useValue: tabs,
+      provide: UIUX,
+      useValue: uiux,
+    },
+    {
+      provide: BUILDER_SAMPLE_PAGE,
+      useValue: samples,
     },
   ],
   exports: [...components],

@@ -1,9 +1,9 @@
-import { hero1v4Default } from '@stories/builder/data/components/hero.builder';
+import { hero1v4Default } from '@stories/builder/data/combs/hero.builder';
 import {
   showcase3v9_reverse,
   showcase3v9_video,
-} from '@stories/builder/data/components/showcase.builder';
-import { carousel1v3_client } from '@stories/builder/data/components/carousel.builder';
+} from '@stories/builder/data/combs/showcase.builder';
+import { carousel1v3_client } from '@stories/builder/data/combs/carousel.builder';
 import { text } from '@stories/builder/data/widgets/base.builder';
 
 export const home_v7 = {

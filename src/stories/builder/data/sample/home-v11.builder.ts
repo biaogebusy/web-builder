@@ -1,6 +1,6 @@
-import { hero1v2 } from '@stories/builder/data/components/hero.builder';
-import { carousel1v2 } from '@stories/builder/data/components/carousel.builder';
-import { list2v1 } from '@stories/builder/data/components/drupal.builder';
+import { hero1v2 } from '@stories/builder/data/combs/hero.builder';
+import { carousel1v2 } from '@stories/builder/data/combs/carousel.builder';
+import { list2v1 } from '@stories/builder/data/combs/drupal.builder';
 export const home_v11 = {
   title: 'Stories',
   configBak: {

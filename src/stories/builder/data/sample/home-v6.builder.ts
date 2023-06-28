@@ -1,14 +1,14 @@
-import { hero1v3V2 } from '@stories/builder/data/components/hero.builder';
+import { hero1v3V2 } from '@stories/builder/data/combs/hero.builder';
 import {
   showcase1v3_video,
   showcase2v1_card1v1,
   showcase3v9_reverse,
   showcase3v9_video,
-} from '@stories/builder/data/components/showcase.builder';
+} from '@stories/builder/data/combs/showcase.builder';
 import {
   carousel1v2,
   carousel2v2,
-} from '@stories/builder/data/components/carousel.builder';
+} from '@stories/builder/data/combs/carousel.builder';
 import { action1v1 } from '@stories/builder/data/widgets/common.builder';
 import { text } from '@stories/builder/data/widgets/base.builder';
 

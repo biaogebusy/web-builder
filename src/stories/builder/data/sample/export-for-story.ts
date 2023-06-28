@@ -1,17 +1,17 @@
 import { IBuilderSample } from '@core/interface/IBuilder';
-import { home_v1 } from './sample/home-v1.builder';
-import { home_v10 } from './sample/home-v10.builder';
-import { home_v11 } from './sample/home-v11.builder';
-import { home_v12 } from './sample/home-v12.builder';
-import { home_v13 } from './sample/home-v13.builder';
-import { home_v2 } from './sample/home-v2.builder';
-import { home_v3 } from './sample/home-v3.builder';
-import { home_v4 } from './sample/home-v4.builder';
-import { home_v5 } from './sample/home-v5.builder';
-import { home_v6 } from './sample/home-v6.builder';
-import { home_v7 } from './sample/home-v7.builder';
-import { home_v8 } from './sample/home-v8.builder';
-import { home_v9 } from './sample/home-v9.builder';
+import { home_v1 } from './home-v1.builder';
+import { home_v10 } from './home-v10.builder';
+import { home_v11 } from './home-v11.builder';
+import { home_v12 } from './home-v12.builder';
+import { home_v13 } from './home-v13.builder';
+import { home_v2 } from './home-v2.builder';
+import { home_v3 } from './home-v3.builder';
+import { home_v4 } from './home-v4.builder';
+import { home_v5 } from './home-v5.builder';
+import { home_v6 } from './home-v6.builder';
+import { home_v7 } from './home-v7.builder';
+import { home_v8 } from './home-v8.builder';
+import { home_v9 } from './home-v9.builder';
 
 export const samples: IBuilderSample = {
   label: '示例',

@@ -1,13 +1,13 @@
-import { hero1v4Shape } from '@stories/builder/data/components/hero.builder';
+import { hero1v4Shape } from '@stories/builder/data/combs/hero.builder';
 import {
   carousel1v3_client,
   carousel2v2,
-} from '@stories/builder/data/components/carousel.builder';
+} from '@stories/builder/data/combs/carousel.builder';
 import {
   showcase3v6_background,
   showcase3v9_video,
   showcase4v1_img,
-} from '@stories/builder/data/components/showcase.builder';
+} from '@stories/builder/data/combs/showcase.builder';
 import { text } from '@stories/builder/data/widgets/base.builder';
 export const home_v8 = {
   title: '首页 v8 Marketing',

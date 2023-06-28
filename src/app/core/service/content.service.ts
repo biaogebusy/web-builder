@@ -17,7 +17,7 @@ import {
   footerInverse,
   manageHeader,
 } from '@stories/global/Branding.json';
-import { samples } from '@modules/builder/data/samples.data';
+import { samples } from '@modules/builder/data/samples-for-builder';
 @Injectable({
   providedIn: 'root',
 })
