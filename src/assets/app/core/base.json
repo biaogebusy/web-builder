@@ -90,7 +90,7 @@
     "enable": true,
     "owner": "biaogebusy",
     "repo": "xinshi-ui",
-    "token": "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"
+    "token": "{{token}}"
   },
   "loading": true,
   "loadingBar": true,
