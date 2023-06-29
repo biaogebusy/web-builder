@@ -25,6 +25,11 @@
   <br>
 </p>
 
+<p align="center">
+  <img src="src/assets/storybook/assets/builder.png" alt="logo" width="80%"/>
+  <br>
+  <br>
+</p>
 #### Open Source Purpose
 
 This project is the result of continuous accumulation, reflection, and improvement during my learning process with Angular. From the initial Angular 9 to the current Angular 11, from a single component to a rich component library, from a cumbersome page component traversal approach to dynamic components, it has undergone numerous iterations, refactoring, and upgrades. This open-source project is very suitable for beginners to learn or advance their skills. It covers most of the Angular technical knowledge points but is not limited to the following:
