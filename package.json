@@ -1,7 +1,7 @@
 {
   "name": "xinshi",
   "version": "4.1.0",
-  "homepage": "https://biaogebusy.github.io/xinshi-ui",
+  "homepage": "https://github.com/biaogebusy/xinshi-ui",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
