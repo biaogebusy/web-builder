@@ -14,7 +14,7 @@ export class GithubStarComponent implements OnInit {
 
   constructor(
     private contentService: ContentService,
-    @Inject(CORE_CONFIG) private core_config: ICoreConfig
+    @Inject(CORE_CONFIG) public core_config: ICoreConfig
   ) {}
 
   ngOnInit(): void {
