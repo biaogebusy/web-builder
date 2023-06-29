@@ -56,7 +56,7 @@ Default.args = {
           href: '/?path=/story/guide--page',
           label: '丰富的组件库',
         },
-        content: '超过五十多个组件，和三十多个基组件',
+        content: '常用的组件库，和三十多个基组件',
         more: {
           href: '/?path=/story/builder--default',
           label: '更多',

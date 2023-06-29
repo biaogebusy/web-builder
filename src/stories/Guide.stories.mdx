@@ -48,7 +48,7 @@ export const environment: IEnvironment = {
 const PROXY_CONFIG = [
   {
     context: ["/api", "/user", "/sites"],
-    target: "https://api.zhaobg.com",
+    target: "https://yourdomain.com",
     secure: false,
     changeOrigin: true,
   },
@@ -61,6 +61,47 @@ module.exports = PROXY_CONFIG;
 
 `npm start`
 
+#### 路由页面
+
+- 默认首页：[http://localhost:4200/home](http://localhost:4200/home)
+- 用户登录：[http://localhost:4200/me/login](http://localhost:4200/me/login)
+- Web builder: [http://localhost:4200/builder](http://localhost:4200/builder)
+- Drupal 媒体：[http://localhost:4200/media](http://localhost:4200/media)
+- Drupal 区块：[http://localhost:4200/block](http://localhost:4200/block)
+
+#### 其他页面
+
+除了以上路由页面，其他页面在访问时，会获取`url`进行接口的数据读取，进而渲染页面，本地环境和生产环境返回会了方便测试做了判断：
+
+```javascript
+loadPageContent(pageUrl = this.pageUrl): Observable<IPage> {
+    if (environment.production) {
+      const landingPath = '/api/v1/landingPage?content=';
+      const pageUrlParams = `${this.apiUrl}${landingPath}${pageUrl}`;
+
+      return this.http.get<any>(pageUrlParams).pipe(
+        tap((page) => {
+          this.updatePage(page);
+        }),
+        catchError(() => {
+          return this.http.get<any>(`${this.apiUrl}${landingPath}404`);
+        })
+      );
+    } else {
+      const sample = pageUrl.split('/')[1];
+      const samplePage = samples.elements.filter(
+        (item) => item.id === sample
+      )[0];
+      if (samplePage) {
+        this.updatePage(samplePage.page);
+        return of(samplePage.page);
+      } else {
+        return this.http.get<any>(`${this.apiUrl}/assets/app/404.json`);
+      }
+    }
+  }
+```
+
 ## 为生产环境打包
 
 `npm run build:ssr`
@@ -68,37 +109,8 @@ module.exports = PROXY_CONFIG;
 ## 运行 Storybook
 
 `npm run storybook`
+[Storybook 官网](https://storybook.js.org)
 
 如果有提示内存不足的报错，执行以下命令，然后重新运行:
 
 `export NODE_OPTIONS="--max-old-space-size=8192"`
-
-## 为项目运行指定不同的 NODE 版本
-
-有时候，前端会有不同的项目，有些项目依赖的 node 版本不一致，可以使用[nvm 版本管理器](https://github.com/nvm-sh/nvm)切换。
-
-- 安装脚本
-  `curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash`
-  或者
-  `wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash`
-  会自动下载并执行脚本：
-
-  - 克隆一个版本库到`~/.nvm`
-  - 在添加(~/.bash_profile, ~/.zshrc, ~/.profile, or ~/.bashrc)添加环境变量
-    `export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")" [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm`
-
-- 关闭命令行窗口，重新打开，如果遇到报错，输入：`command -v nvm`
-- 确定好你的环境变量的文件位置：`source ~/.baserc`
-
-### nvm 使用
-
-- nvm install node # 安装最新版 node
-- nvm install 14.7.0 # 安装指定版本 NODE
-- nvm ls-remote # 列出有效的可用版本
-- nvm use 12.22 # 切换版本
-
-## 相关资源
-
-- [Storybook 官网](https://storybook.js.org)
-- [play test query](https://testing-library.com/docs/queries/about)
-- [10 项最严重的开放 web 应用程序安全风险](https://owasp.org/www-project-top-ten)

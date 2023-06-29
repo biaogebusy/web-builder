@@ -1,28 +1,36 @@
 # 信使前端 UI 框架
 
-信使 UI 是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。
+信使 UI 是基于 Material 的 Angular 前端框架， 丰富的组件库可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。
+
+#### 立即体验：
 
 - [信使 UI](https://www.zhaobg.com)
 - [Web Builder](https://www.zhaobg.com/builder)
 - [信使 Storybook](https://ui.zhaobg.com)
 
-## 主要功能
+#### 开源目的
 
-- Builder 着陆页构建器，拖动组件快速构建页面，可从组件库中抽选随机生成页面；
-- Manage sidebar 边栏，类似前台管理主题，可嵌入 Drupal 后台 View iframe；
-- Dashboard 数据面板；
-- 列表可通过 Drupal view REST api 适配；
-- 动态组件，动态表单；
-- 链接或者组件可根据角色显示；
-- 支持 SSR；
-- 登录页支持手机号和用户名密码登录方式；
-- 地图使用高德地图，切换主题时支持匹配暗黑和浅色风格；
-- 可以设置强制弹窗提示信息；
-- 支持谷歌 Analytics 分析，腾讯企点；
-- 支持开启或者禁用全站权限访问；
-- 支持站点消息推送；
-- 页头和页脚根据 JSON 构建，菜单支持角色显示；
-- link 组件、View list 组件设置`rel="drawer"`可以调用 drawer 切出`href`的接口数据并显示对应组件；
+这个项目是我在学习 Angular 过程中不断积累、思考完善的成果。从最初的 Angular 9 到目前的 Angular 11，从一开始的一个组件到丰富的组件库，从臃肿的页面组件遍历方式到动态组件，经历了很多次推到和重构、升级。这个开源项目非常适合初学者学习或者进阶。它涵盖了绝大部分 Angular 技术知识点，但并不仅限于以下内容。
+
+- SSR 服务端渲染
+- 懒加载
+- 路由守卫
+- 请求拦截缓存
+- 动态组件
+- 动态表单
+- 动态表格
+- 多主题
+- 自定义指令
+- 自定义管道 pipe
+- 自定义 icon
+- 数据图表
+- Rxjs
+- flex layout
+- Storybook
+- Typescript
+- Provider
+- 地图应用
+- 信使 UI 在 Drupal 前后端分离中的应用
 
 ## 技术选型
 
@@ -79,7 +87,7 @@ export const environment: IEnvironment = {
 const PROXY_CONFIG = [
   {
     context: ["/api", "/user", "/sites"],
-    target: "https://api.zhaobg.com",
+    target: "https://yourdomain.com",
     secure: false,
     changeOrigin: true,
   },
@@ -91,6 +99,47 @@ module.exports = PROXY_CONFIG;
 ## 运行
 
 `npm start`
+
+## 路由页面
+
+- 默认首页：[http://localhost:4200/home](http://localhost:4200/home)
+- 用户登录：[http://localhost:4200/me/login](http://localhost:4200/me/login)
+- Web builder: [http://localhost:4200/builder](http://localhost:4200/builder)
+- Drupal 媒体：[http://localhost:4200/media](http://localhost:4200/media)
+- Drupal 区块：[http://localhost:4200/block](http://localhost:4200/block)
+
+## 其他页面
+
+除了以上路由页面，其他页面在访问时，会获取`url`进行接口的数据读取，进而渲染页面，本地环境和生产环境返回会了方便测试做了判断：
+
+```javascript
+loadPageContent(pageUrl = this.pageUrl): Observable<IPage> {
+    if (environment.production) {
+      const landingPath = '/api/v1/landingPage?content=';
+      const pageUrlParams = `${this.apiUrl}${landingPath}${pageUrl}`;
+
+      return this.http.get<any>(pageUrlParams).pipe(
+        tap((page) => {
+          this.updatePage(page);
+        }),
+        catchError(() => {
+          return this.http.get<any>(`${this.apiUrl}${landingPath}404`);
+        })
+      );
+    } else {
+      const sample = pageUrl.split('/')[1];
+      const samplePage = samples.elements.filter(
+        (item) => item.id === sample
+      )[0];
+      if (samplePage) {
+        this.updatePage(samplePage.page);
+        return of(samplePage.page);
+      } else {
+        return this.http.get<any>(`${this.apiUrl}/assets/app/404.json`);
+      }
+    }
+  }
+```
 
 ## 为生产环境打包
 
