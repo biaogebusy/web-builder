@@ -1,0 +1,34 @@
+<div class="profile p-y-sm p-x-sm" fxLayoutAlign.gt-sm="space-between center" fxLayout="row wrap" *ngIf="content">
+  <div class="avatar" fxFlex.lt-md="0 0 100" fxFlex.gt-sm="0 1 16" fxLayoutAlign="center center">
+    <app-img [content]="content.avatar"></app-img>
+  </div>
+  <div class="details" fxFlex.lt-md="0 0 100" fxFlex.gt-sm="0 1 84" fxLayout="row wrap"
+    fxLayoutAlign.gt-sm="space-between end" fxLayoutAlign.lt-md="center center">
+    <div class="left" fxFlex="auto" fxFlex.lt-md="100" fxLayoutAlign.lt-md="center center" fxLayout.lt-md="column">
+      <h1 class="mat-h1 m-bottom-0">{{content.name}}</h1>
+      <div class="subTitle">{{content.subTitle}}</div>
+      <div class="meta m-top-sm" *ngIf="content?.details">
+        <div class="list" fxLayout="row wrap" fxLayoutAlign.lt-md="center center">
+          <div fxLayoutAlign="start start" class="m-right-xs" fxFlex.lt-md="100" fxFlex.gt-sm="0 1 auto"
+            *ngFor="let item of content.details.elements">
+            <div class="label m-right-xs bold">{{item.label}}:</div>
+            <div>{{item.content}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="right">
+      <div class="user-menu" *ngIf="userConfig$ | async as config" fxLayout="row">
+        <div *ngFor="let menu of config.menu" class="item" fxFlex.lt-md="100" fxFlex.gt-sm="48">
+          <app-btn [content]="menu"></app-btn>
+        </div>
+        <div class="item" fxFlex.lt-md="100" fxFlex.gt-sm="48">
+          <a mat-button (click)="logout()">
+            <mat-icon inline="true">exit_to_app</mat-icon>
+            <span>退出</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

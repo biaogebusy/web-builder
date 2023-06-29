@@ -1,0 +1,51 @@
+@import "../../../../../theme/mixins/amixin";
+@import "../../../../../theme/variable/breakpoint";
+
+.card-content {
+  position: relative;
+  z-index: 10;
+  .media {
+    box-shadow: 0 3px 4px 0 rgb(0 0 0 / 50%);
+    overflow: hidden;
+    top: -20px;
+
+    ::ng-deep {
+      img {
+        transform: scale(1);
+        transition: transform 0.25s ease-in-out;
+      }
+    }
+  }
+  &:hover {
+    .media {
+      ::ng-deep {
+        img {
+          transform: scale(1.05);
+        }
+      }
+    }
+  }
+  .title {
+    font-size: 16px;
+    ::ng-deep a {
+      @include line-clamp(2);
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+@media #{$gt-sm} {
+  .card-1-v2 {
+    height: calc(100% - 54px);
+    .card-content {
+      .media {
+        top: -54px;
+      }
+      .title {
+        font-size: 20px;
+      }
+    }
+  }
+}

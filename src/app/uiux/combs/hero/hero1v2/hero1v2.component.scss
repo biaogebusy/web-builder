@@ -1,0 +1,55 @@
+@import "../../../../../theme/variable/breakpoint";
+.swiper-media {
+  width: 100%;
+  height: 30vh;
+  min-height: 450px;
+  .swiper-container {
+    height: 100%;
+  }
+  .swiper-button-next,
+  .swiper-button-prev {
+    width: 40px;
+    height: 40px;
+    box-sizing: border-box;
+    &:after {
+      font-size: 16px;
+    }
+  }
+  .swiper-button-next {
+    left: 80px;
+    bottom: 20px;
+    top: auto;
+  }
+  .swiper-button-prev {
+    left: 20px;
+    bottom: 20px;
+    top: auto;
+  }
+  .swiper-pagination {
+    text-align: right;
+    padding-right: 20px;
+    box-sizing: border-box;
+  }
+}
+
+@media #{$gt-xs} {
+  .swiper-media {
+    position: relative;
+    top: 75px;
+    width: 66%;
+    margin: 0 0 0 34%;
+  }
+  .swiper-text {
+    position: absolute;
+    z-index: 2;
+    width: 50%;
+    bottom: 0;
+    .title {
+      font-size: 36px;
+      line-height: 42px;
+    }
+    .sub-title {
+      font-size: 20px;
+    }
+  }
+}

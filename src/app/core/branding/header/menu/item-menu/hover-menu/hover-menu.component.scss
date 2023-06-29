@@ -1,0 +1,70 @@
+:host {
+  position: relative;
+}
+.hover-menu {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  display: none;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  border-radius: 4px;
+  outline: 0;
+  &.active {
+    display: block;
+  }
+  .sub-menu {
+    position: relative;
+    min-width: 180px;
+    .has-child {
+      &:after {
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 5px 0 5px 5px;
+        border-color: transparent transparent transparent currentColor;
+        content: "";
+        display: inline-block;
+        position: absolute;
+        top: 50%;
+        right: 16px;
+        transform: translateY(-50%);
+        color: rgba(0, 0, 0, 0.54);
+      }
+    }
+    &:hover {
+      > .child {
+        display: block;
+      }
+    }
+    .mat-button {
+      width: 100%;
+      display: block;
+      text-align: left;
+      overflow: hidden;
+      line-height: 48px;
+      height: 48px;
+      border-radius: 0;
+      font-weight: 400;
+      font-size: 16px;
+      ::ng-deep {
+        a {
+          display: block;
+        }
+      }
+    }
+    .child {
+      position: absolute;
+      min-width: 180px;
+      // max-height: 580px;
+      // overflow-y: auto;
+      left: 100%;
+      top: 0;
+      display: none;
+      padding-top: 8px;
+      padding-bottom: 8px;
+      border-radius: 4px;
+      outline: 0;
+    }
+  }
+}

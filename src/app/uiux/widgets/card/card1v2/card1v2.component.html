@@ -1,0 +1,11 @@
+<div class="card-1-v2 position-relative" ngClass.lt-md="p-bottom p-x" ngClass.gt-sm="p-bottom-lg p-x-lg"
+  *ngIf="content">
+  <app-bg-img [content]="content.bg"></app-bg-img>
+  <div class="card-content">
+    <app-img class="media" [content]="content.img" *ngIf="content.img"></app-img>
+    <div class="card-bottom m-top-xs">
+      <p [innerHTML]="content.subTitle|safeHtml" *ngIf="content.subTitle"></p>
+      <app-link class="title" [content]="content.link" *ngIf="content.link"></app-link>
+    </div>
+  </div>
+</div>

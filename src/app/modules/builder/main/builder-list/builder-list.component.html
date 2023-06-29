@@ -1,0 +1,26 @@
+<mat-drawer-container class="builder-list">
+  <mat-drawer class="sidebar-drawer" #drawer mode="side" [opened]="opened">
+    <app-preview-list [content]="content"></app-preview-list>
+  </mat-drawer>
+  <mat-drawer-content id="gsap-scroller" class="wrapper" [ngClass]="previewClass$|async">
+    <div class="load" *ngIf="builder.loading$ | async">
+      <mat-spinner diameter="50" color="accent"></mat-spinner>
+    </div>
+    <div #builderList id="builder-list" class="preview-wrapper" cdkDropList
+      [cdkDropListConnectedTo]="['widgets','components']" [cdkDropListData]="content"
+      (cdkDropListDropped)="drop($event)">
+      <app-builder-empty *ngIf="!content?.length"></app-builder-empty>
+      <div id="{{item?.type||item?.content?.type}}-{{i}}" (dblclick)="onShowEditor(item, i)" class="component-item"
+        cdkDrag [cdkDragData]="item" *ngFor="let item of content;index as i; trackBy: trackByFn">
+        <app-dynamic-component *ngIf="item" [inputs]="item" [index]="i" [isPreview]="true"></app-dynamic-component>
+        <app-card-1v1 style="width:800px" *cdkDragPreview [content]="{
+            link:{
+              href:'#',
+              label: item.type
+            },components:[item]
+          }"></app-card-1v1>
+      </div>
+      <app-gotop></app-gotop>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

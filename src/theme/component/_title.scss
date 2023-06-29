@@ -1,0 +1,57 @@
+@import "~@angular/material/theming";
+
+@mixin title-color($config-or-theme) {
+  $config: mat-get-color-config($config-or-theme);
+  $foreground: map-get($config, foreground);
+  $background: map-get($config, background);
+  $primary: map-get($config, primary);
+  $accent: map-get($config, accent);
+  $warn: map-get($config, warn);
+
+  .title {
+    &.style-v1,
+    &.style-v2,
+    &.style-v3,
+    &.style-v4,
+    &.style-v5,
+    &.style-v6 {
+      .line-style {
+        background: mat-color($foreground, divider);
+        &:before {
+          background: mat-color($primary);
+        }
+        .mat-icon {
+          background: mat-color($primary, default-contrast);
+          color: mat-color($primary);
+        }
+      }
+    }
+    &.style-v1 {
+      .line-style {
+        span {
+          background: mat-color($background, card);
+          border: 1px solid mat-color($primary);
+        }
+      }
+    }
+    &.style-v4 {
+      .line-style {
+        span {
+          background: mat-color($background, card);
+          border: 1px solid mat-color($primary);
+        }
+      }
+    }
+    &.style-v7 {
+      .title-header {
+        color: mat-color($primary);
+      }
+    }
+    &.banner-title {
+      .title-header {
+        background-color: mat-color($primary);
+        color: mat-color($primary, default-contrast);
+      }
+    }
+  }
+}

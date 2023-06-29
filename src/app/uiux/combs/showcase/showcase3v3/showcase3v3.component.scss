@@ -1,0 +1,48 @@
+@import "/src/theme/mixins/amixin";
+@import "/src/theme/variable/breakpoint";
+.showcase-inner {
+  ul,
+  li {
+    margin: 0;
+    padding: 0;
+  }
+  ul.post-meta-info {
+    font-size: 13px;
+    margin-bottom: 13px;
+    li {
+      margin-bottom: 7px;
+      margin-right: 6px;
+    }
+    .mat-icon {
+      margin-right: 5px;
+    }
+  }
+
+  .shortdesc {
+    overflow: hidden;
+  }
+
+  &.teaser {
+    padding-bottom: 40px;
+    margin-bottom: 40px;
+    img {
+      width: 100%;
+      height: auto;
+    }
+    .title {
+      text-transform: uppercase;
+      margin: 0 0 15px 0;
+    }
+    .post-meta-info {
+      margin-bottom: 17px;
+      padding-bottom: 11px;
+    }
+  }
+  @media #{$lt-md} {
+    &.teaser {
+      .title {
+        margin-top: 15px;
+      }
+    }
+  }
+}

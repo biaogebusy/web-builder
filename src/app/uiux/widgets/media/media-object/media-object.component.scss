@@ -1,0 +1,41 @@
+.title {
+  font-size: 14px;
+}
+.sub-title {
+  font-size: 12px;
+  line-height: 1;
+}
+
+.media-body {
+  > div:only-child {
+    margin-bottom: 0 !important;
+  }
+}
+
+.box-animate {
+  padding: 10px;
+  transition: all 0.3s ease;
+  border-radius: 6px;
+  ::ng-deep .mat-icon {
+    height: 45px;
+    width: 45px;
+    line-height: 45px;
+    border-radius: 50%;
+  }
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.media-left {
+  app-icon {
+    padding: 10px;
+    border-radius: 5px;
+    width: 50px;
+    display: inline-block;
+    font-size: 24px;
+    height: 50px;
+    box-sizing: border-box;
+  }
+}

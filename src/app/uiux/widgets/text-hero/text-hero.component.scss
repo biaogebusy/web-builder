@@ -1,0 +1,41 @@
+@import "/src/theme/variable/breakpoint";
+.text-hero {
+  overflow: hidden;
+  ::ng-deep {
+    .container {
+      position: inherit;
+    }
+    .base-text {
+      overflow: visible;
+      position: static;
+    }
+  }
+  @media #{$lt-md} {
+    min-height: 600px;
+    height: 80vh;
+    ::ng-deep {
+      .base-text {
+        .inner {
+          .title {
+            .title-header {
+              font-size: 22px !important;
+            }
+          }
+        }
+      }
+    }
+  }
+  @media #{$lt-sm} {
+    ::ng-deep {
+      .base-text {
+        .inner {
+          .title {
+            .title-header {
+              font-size: 18px !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}

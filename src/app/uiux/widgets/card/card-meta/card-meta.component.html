@@ -1,0 +1,28 @@
+<div class="meta" *ngIf="content">
+  <div class="item" *ngFor="let meta of content" fxLayout fxLayoutAlign="start start">
+    <span fxFlex="0 0 auto" class="bold m-right-xs" *ngIf="meta.label">{{meta.label}}: </span>
+    <!-- params -->
+    <div class="right width-100" fxLayoutAlign="start end" *ngIf="meta?.params">
+
+      <!-- dialog -->
+      <ng-container *ngIf="meta?.params?.dialog">
+        <span class="{{meta?.params?.line || 'two'}}-line p-right-xs"
+          [innerHTML]="meta.value | stripTags | shorten:meta.params?.shorten||200"></span>
+        <button class="custom-btn" mat-icon-button (click)="onDialog(meta)">
+          <span [innerHTML]="meta.params?.dialog?.label|safeHtml"></span>
+        </button>
+      </ng-container>
+
+      <!-- dynamic component -->
+      <ng-container *ngIf="meta?.params?.dynamic">
+        <div class="inner width-100" fxLayout="column">
+          <div class="li" *ngFor="let items of meta.value" fxLayout="row" fxLayoutAlign="space-between center">
+            <app-dynamic-widgets *ngFor="let widget of items.elements" [content]="widget"></app-dynamic-widgets>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    <!-- no params, just label, value -->
+    <span class="normal" *ngIf="!meta?.params" [innerHTML]="meta.value|safeHtml"></span>
+  </div>
+</div>

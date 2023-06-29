@@ -1,0 +1,33 @@
+<div class="search-sidebar m-y" *ngIf="content">
+  <div class="sidebar-header">
+    <div class="key m-y-xs m-x-xs" fxFlex="0 1 100">
+      <mat-chip-list>
+        <mat-chip *ngIf="form.controls['title']?.value" color="primary" selected>{{form.controls['title'].value}}
+        </mat-chip>
+        <mat-chip *ngIf="form.controls['keys']?.value" color="primary" selected>{{form.controls['keys'].value}}
+        </mat-chip>
+      </mat-chip-list>
+    </div>
+    <div class="item m-y-xs m-x-xs" fxFlex="0 1 100" fxLayoutAlign="end center">
+      <button mat-button (click)="clear()">
+        <mat-icon>clear</mat-icon>{{label?.clear||'清空'}}
+      </button>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+  <form [formGroup]="form">
+    <mat-accordion>
+      <mat-expansion-panel expanded=true (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <strong>{{label?.filter||'过滤条件'}}</strong>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <ng-container *ngFor="let item of content">
+          <app-dynamic-widgets [content]="item" [form]="form">
+          </app-dynamic-widgets>
+        </ng-container>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </form>
+</div>

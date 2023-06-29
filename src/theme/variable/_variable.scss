@@ -1,0 +1,64 @@
+@import "~@angular/material/theming";
+@import "./breakpoint";
+
+$color-theme: (
+  success: (
+    text: #3c763d,
+    border: #b2dba1,
+    bg: #dff0d8,
+  ),
+  shadow: (
+    text: mat-color($mat-grey, 700),
+    border: mat-color($mat-grey, 400),
+    bg: mat-color($mat-grey, 100),
+  ),
+  light: (
+    text: #fff,
+    border: #fff,
+    bg: #fff,
+  ),
+);
+
+$font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
+  "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+
+// custom typography
+// https://material.angular.io/guide/typography
+$custom-typography: mat-typography-config(
+  $font-family: $font-family,
+  $display-4: mat-typography-level(48px, 1.618, 300, $font-family: $font-family),
+  $display-3: mat-typography-level(40px, 1.618, 400, $font-family: $font-family),
+  $display-2: mat-typography-level(32px, 1.618, 400, $font-family: $font-family),
+  $display-1: mat-typography-level(28px, 1.618, 400, $font-family: $font-family),
+  $headline: mat-typography-level(24px, 1.618, 400, $font-family: $font-family),
+  $title: mat-typography-level(20px, 1.618, 500, $font-family: $font-family),
+  $body-1: mat-typography-level(16px, 1.618, 400),
+);
+
+$spacer: 4rem;
+$font-size: 1.6rem;
+$font-size-sm: 1.4rem;
+$line-height: 1.618;
+
+@media #{$lt-md} {
+  .mat-display-1 {
+    font-size: 20px !important;
+    line-height: 1.2 !important;
+    margin-bottom: 20px !important;
+  }
+  .mat-display-2 {
+    font-size: 24px !important;
+    line-height: 1.2 !important;
+    margin-bottom: 20px !important;
+  }
+  .mat-display-3 {
+    font-size: 32px !important;
+    line-height: 1.2 !important;
+    margin-bottom: 20px !important;
+  }
+  .mat-display-4 {
+    font-size: 40px !important;
+    line-height: 1.2 !important;
+    margin-bottom: 20px !important;
+  }
+}

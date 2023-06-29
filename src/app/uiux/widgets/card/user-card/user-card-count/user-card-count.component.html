@@ -1,0 +1,10 @@
+<div class="user-card-count position-relative" *ngIf="content">
+  <div class="innner" fxLayout="row wrap">
+    <div class="item" fxFlex="33.33" fxLayout="row" *ngFor="let item of content">
+      <span>{{item.title}}</span>
+      <span class="m-left-xs">
+        <app-number-animate [content]="item.digit"></app-number-animate>
+      </span>
+    </div>
+  </div>
+</div>

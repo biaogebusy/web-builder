@@ -1,0 +1,16 @@
+.block {
+  position: relative;
+}
+
+.drawer-right.mat-drawer-opened {
+  max-width: 85vw;
+  min-width: 200px;
+}
+
+.drawer-loading {
+  height: 50vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -1,0 +1,30 @@
+::ng-deep {
+  .notify-menu.mat-menu-panel {
+    min-width: 330px;
+    .mat-menu-content {
+      .mat-list-item {
+        .mat-line:nth-child(n + 2) {
+          font-size: 12px;
+          line-height: 16px;
+        }
+      }
+      .mat-list-icon {
+        display: flex;
+        opacity: 0.85;
+        .mat-icon {
+          transform: scale(0.8);
+        }
+      }
+    }
+  }
+}
+
+.notify {
+  ::ng-deep {
+    .mat-badge {
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+    }
+  }
+}

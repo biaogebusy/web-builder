@@ -1,0 +1,63 @@
+@import "~@angular/material/theming";
+
+@mixin dropdown-menu-color($config-or-theme) {
+  $config: mat-get-color-config($config-or-theme);
+  $foreground: map-get($config, foreground);
+  $background: map-get($config, background);
+  $primary: map-get($config, primary);
+  $accent: map-get($config, accent);
+  $warn: map-get($config, warn);
+
+  $text-color: mat-color($foreground, text, 0.75);
+  .mat-accordion {
+    .mat-expansion-panel-header,
+    .mat-list {
+      border-color: mat-color($foreground, divider) !important;
+    }
+    .mat-expansion-panel-header-title {
+      color: $text-color;
+    }
+    .mat-list {
+      a {
+        color: $text-color;
+        &.active {
+          color: mat-color($primary);
+        }
+      }
+    }
+  }
+
+  .user-dropdown {
+    .mat-menu-item {
+      a {
+        color: $text-color;
+        &.active {
+          color: mat-color($primary);
+        }
+      }
+    }
+  }
+
+  .notify-menu {
+    @include scrollbar(mat-color($foreground, divider, 0.2));
+
+    .mat-menu-content {
+      .mat-list-item {
+        &:hover {
+          background-color: mat-color($background, background);
+        }
+        .mat-line:nth-child(n + 2) {
+          color: mat-color($foreground, text, 0.5);
+        }
+      }
+      .mat-line {
+        a {
+          color: $text-color;
+          &:hover {
+            color: mat-color($primary);
+          }
+        }
+      }
+    }
+  }
+}

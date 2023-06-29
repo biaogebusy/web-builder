@@ -1,0 +1,13 @@
+.showcase-1-v1 {
+  z-index: 1;
+  ::ng-deep {
+    .title {
+      &.style-v1,
+      &.style-v2 {
+        .title-header {
+          margin-bottom: 80px;
+        }
+      }
+    }
+  }
+}

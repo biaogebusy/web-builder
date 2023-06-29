@@ -1,0 +1,41 @@
+@import "~@angular/material/theming";
+
+@mixin relate-color($config-or-theme) {
+  $config: mat-get-color-config($config-or-theme);
+  $foreground: map-get($config, foreground);
+  $background: map-get($config, background);
+  $primary: map-get($config, primary);
+  $accent: map-get($config, accent);
+  $warn: map-get($config, warn);
+
+  $text-color: mat-color($foreground, text, 0.75);
+
+  .node-summary {
+    @include mat-elevation(3, mat-color($foreground, divider), 0.6);
+    .left {
+      background-color: mat-color($primary, 0.08);
+    }
+    .summary-item {
+      .list {
+        border-top: 1px solid mat-color($foreground, divider);
+        .item {
+          .label {
+            color: mat-color($foreground, base, 0.4);
+          }
+        }
+        .mat-header-cell {
+          color: mat-color($foreground, base, 0.4);
+        }
+      }
+    }
+  }
+
+  .relate-showcase {
+    @include mat-elevation(3, mat-color($foreground, divider), 0.6);
+    .meta {
+      .label {
+        color: mat-color($foreground, base, 0.4);
+      }
+    }
+  }
+}

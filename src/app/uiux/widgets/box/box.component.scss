@@ -1,0 +1,537 @@
+@import "/src/theme/mixins/amixin";
+@import "/src/theme/variable/breakpoint";
+.inv-builder-box {
+  position: relative;
+  .box-icon {
+    text-align: center;
+    width: 88px;
+    height: 88px;
+    @include transform(0deg, 1, 0, 0);
+    @include transition(all, 0.3s, ease-out);
+    @include border-radius(4px, 4px, 4px, 4px);
+    ::ng-deep .mat-icon {
+      @include transition(all, 0.3s, ease-out);
+      font-size: 30px;
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+  .box-title {
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 1.2;
+    margin: 0 0 10px;
+  }
+  .box-content {
+    display: block;
+    padding-bottom: 40px;
+    font-size: 14px;
+  }
+
+  &.small-box {
+    .box-icon {
+      width: 50px;
+      height: 50px;
+    }
+    &.style-v7 {
+      .box-icon {
+        ::ng-deep .mat-icon {
+          font-size: 20px;
+          height: 36px;
+          width: 36px;
+          line-height: 36px;
+        }
+      }
+      ::ng-deep .box-image {
+        img {
+          max-width: 52px;
+          margin: 0px 25px 25px 0px;
+        }
+      }
+    }
+  }
+  &.medium-box {
+    .box-icon {
+      width: 70px;
+      height: 70px;
+    }
+  }
+
+  // Box square & circle
+  &.box-square,
+  &.box-circle {
+    .box-icon {
+      ::ng-deep .mat-icon,
+      img {
+        @include middle-center();
+        z-index: 1;
+      }
+    }
+    &.box-image {
+      .box-icon {
+        border: 0;
+      }
+    }
+  }
+
+  &.box-circle {
+    .box-icon {
+      @include border-radius(50%, 50%, 50%, 50%);
+    }
+  }
+  &.box-square {
+    .box-icon {
+      @include border-radius(3px, 3px, 3px, 3px);
+    }
+  }
+
+  &.box-center {
+    .box-icon {
+      margin: 0 auto;
+      margin-bottom: 35px;
+    }
+    .box-title {
+      position: relative;
+      text-align: center;
+      margin-top: 10px;
+    }
+    .box-content {
+      text-align: center;
+      margin-top: 25px;
+    }
+    &.text-left {
+      .box-icon {
+        margin: 0;
+      }
+      .box-title {
+        text-align: left;
+        &:after {
+          left: 0;
+          margin-left: 0;
+        }
+      }
+      .box-content {
+        text-align: left;
+      }
+    }
+    &.text-right {
+      .box-icon {
+        margin: 0 100%;
+      }
+      .box-title {
+        text-align: right;
+        &:after {
+          left: auto;
+          right: 0;
+          margin-left: 0;
+        }
+      }
+    }
+  }
+
+  &.style-v1,
+  &.style-v2 {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    .box-icon {
+      position: absolute;
+      left: 50%;
+      top: -34px;
+      border: 0;
+      z-index: 100;
+      @include translateX(-50%);
+      ::ng-deep .mat-icon {
+        height: 60px;
+        line-height: 60px;
+        width: 60px;
+      }
+    }
+    .box-content-wrapper {
+      @include border-radius(3px, 3px, 3px, 3px);
+      padding: 55px 15px 45px;
+      position: relative;
+      &:before {
+        content: "";
+        display: block;
+        height: 80px;
+        position: absolute;
+        top: -37px;
+        width: 80px;
+        z-index: -1;
+        left: 50%;
+        @include translateX(-50%);
+      }
+      .box-content {
+        padding-bottom: 0;
+      }
+    }
+  }
+
+  &.circle-readmore,
+  &.style-v1,
+  &.style-v2,
+  &.style-v3,
+  &.style-v4,
+  &.style-v5 {
+    text-align: center;
+    .box-icon {
+      margin: 0 auto;
+      margin-bottom: 35px;
+      ::ng-deep .mat-icon {
+        position: absolute;
+        left: 50%;
+        @include middle-center();
+        z-index: 1;
+      }
+    }
+    .read-more {
+      bottom: -17px;
+      color: transparent;
+      display: block;
+      font-size: 0;
+      height: 35px;
+      position: absolute;
+      width: 35px;
+      left: 50%;
+      box-sizing: border-box;
+      @include translateX(-50%);
+      @include border-radius(100%, 100%, 100%, 100%);
+      span {
+        display: block;
+        height: 11px;
+        left: 16px;
+        position: absolute;
+        top: 11px;
+        width: 1px;
+        &:after {
+          content: "";
+          display: block;
+          height: 1px;
+          left: -5px;
+          position: absolute;
+          top: 5px;
+          width: 11px;
+        }
+      }
+      &:hover {
+        cursor: pointer;
+      }
+    }
+    .box-content-wrapper {
+      .box-title {
+        text-align: center;
+        margin-top: 10px;
+      }
+    }
+  }
+  &.style-v6 {
+    .box-icon {
+      margin: 0 auto;
+      margin-bottom: 35px;
+      ::ng-deep .mat-icon {
+        position: absolute;
+        left: 50%;
+        width: 30px;
+        height: 30px;
+        @include middle-center();
+        z-index: 1;
+      }
+    }
+  }
+  &.style-v1 {
+    .box-icon {
+      width: 78px;
+      height: 78px;
+      ::ng-deep .mat-icon {
+        @include border-radius(3px, 3px, 3px, 3px);
+        @include middle-center();
+      }
+    }
+    .box-content-wrapper {
+      &:before {
+        @include border-radius(5px, 5px, 5px, 5px);
+      }
+      .box-title {
+        text-align: center;
+        margin-top: 10px;
+      }
+      .box-content {
+        margin-top: 25px;
+      }
+    }
+    &:hover {
+      .box-icon {
+        @include translateXAndRotate(-50%, 45deg);
+      }
+      .box-content-wrapper {
+        &:before {
+          @include translateXAndRotate(-50%, 45deg);
+        }
+      }
+    }
+  }
+
+  &.style-v2 {
+    .box-icon {
+      top: -40px;
+      @include border-radius(100%, 100%, 100%, 100%);
+      ::ng-deep .mat-icon,
+      img {
+        height: 70px;
+        line-height: 70px;
+        width: 70px;
+        @include border-radius(100%, 100%, 100%, 100%);
+        @include middle-center();
+        z-index: 1;
+      }
+    }
+    .box-content-wrapper {
+      &:before {
+        height: 90px;
+        top: -42px;
+        width: 90px;
+        @include border-radius(100%, 100%, 100%, 100%);
+      }
+      .box-title {
+        text-align: center;
+        margin-top: 10px;
+      }
+    }
+    &:hover {
+      .box-icon {
+        ::ng-deep .mat-icon {
+          width: 88px;
+          height: 88px;
+        }
+      }
+    }
+  }
+
+  &.style-v3,
+  &.style-v6 {
+    .box-icon {
+      @include border-radius(50%, 50%, 50%, 50%);
+
+      ::ng-deep .mat-icon {
+        width: 30px;
+        height: 30px;
+      }
+      &:before {
+        content: "";
+        display: block;
+        margin: 0 auto;
+        height: 100%;
+        left: 50%;
+        top: 50%;
+        position: absolute;
+        width: 100%;
+        z-index: 1;
+        opacity: 0;
+        @include translateAndScale(-50%, -50%, 1.2);
+        @include border-radius(100%, 100%, 100%, 100%);
+        transition: all 0.4s ease;
+      }
+    }
+    .box-image {
+      margin-bottom: 35px;
+    }
+    &:hover {
+      .box-icon {
+        &:before {
+          @include translateAndScale(-50%, -50%, 1);
+          @include transition(all, 0.4, ease);
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  &.style-v3 {
+    &.use-image {
+      ::ng-deep img {
+        width: 10rem;
+        height: 10rem;
+      }
+    }
+  }
+
+  &.style-v4,
+  &.style-v7 {
+    .box-icon {
+      @include border-radius(100%, 100%, 100%, 100%);
+      ::ng-deep .mat-icon,
+      img {
+        @include middle-center();
+        z-index: 1;
+        height: 74px;
+        line-height: 70px;
+        width: 74px;
+        &:after {
+          content: "";
+          display: block;
+          height: 100%;
+          left: 50%;
+          position: absolute;
+          top: 50%;
+          width: 100%;
+          z-index: -1;
+          @include translateAndScale(-50%, -50%, 1);
+          transition: all 0.4s ease;
+          @include border-radius(100%, 100%, 100%, 100%);
+        }
+      }
+    }
+    &:hover {
+      .box-icon {
+        ::ng-deep .mat-icon {
+          &:after {
+            opacity: 0;
+            @include translateAndScale(-50%, -50%, 0);
+          }
+        }
+      }
+    }
+  }
+  &.style-v6,
+  &.style-v7 {
+    .box-icon {
+      margin-bottom: 25px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .box-content-wrapper {
+      text-align: center;
+      &:after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+    }
+    @media #{$gt-sm} {
+      display: flex;
+      align-items: flex-start;
+      .box-icon {
+        margin: 0px 25px 25px 0px;
+        flex: 0 0 auto;
+      }
+      .box-content-wrapper {
+        text-align: left;
+      }
+    }
+  }
+
+  &.style-v5 {
+    .box-icon {
+      @include border-radius(3px, 3px, 3px, 3px);
+    }
+    &.box-left {
+      .box-content-wrapper {
+        margin-left: 75px;
+      }
+    }
+    &.box-right {
+      .box-content-wrapper {
+        margin-right: 75px;
+      }
+    }
+  }
+
+  &.style-v6,
+  &.style-v7,
+  &.style-v9 {
+    .box-content {
+      padding-bottom: 0;
+    }
+    .read-more {
+      a {
+        display: inline-block;
+        font-size: 14px;
+        margin-top: 14px;
+        position: relative;
+        padding-left: 14px;
+        span {
+          &:before,
+          &:after {
+            content: "";
+            display: block;
+            height: 6px;
+            left: 0;
+            position: absolute;
+            top: 7px;
+            @include transform-rotate(45deg);
+            width: 2px;
+          }
+          &:after {
+            @include transform-rotate(-45deg);
+            top: 10px;
+          }
+        }
+      }
+    }
+  }
+
+  &.style-v8,
+  &.style-v10 {
+    display: flex;
+    padding-bottom: 20px;
+    .box-icon {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      margin-right: 1rem;
+      margin-bottom: 1rem;
+      ::ng-deep {
+        ::ng-deep .mat-icon {
+          font-size: 24px;
+        }
+      }
+    }
+    .box-content {
+      padding-bottom: 0;
+    }
+  }
+
+  &.style-v10 {
+    @media #{$gt-sm} {
+      text-align: right;
+      .box-icon {
+        margin-left: 1rem;
+        order: 2;
+      }
+    }
+  }
+
+  // feature absolute
+  &.style-v9 {
+    border-radius: 10px;
+    text-align: center;
+    padding: 1.5rem;
+    transition: all 0.5s ease;
+    .box-icon {
+      height: 80px;
+      margin: 0 auto;
+      border-radius: 6px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      ::ng-deep .mat-icon {
+        font-size: 24px;
+      }
+    }
+    .box-content-wrapper {
+      margin-top: 2rem;
+    }
+  }
+
+  &.use-image {
+    padding: 2rem;
+    &.primary {
+      border-radius: 6px;
+    }
+  }
+}

@@ -1,0 +1,11 @@
+<ng-container *ngIf="content && config?.enable">
+  <button mat-button [matMenuTriggerFor]="menu" #menuTriggercv (menuOpened)="open()">
+    <mat-icon inline="true">{{config.button.icon}}</mat-icon>
+    <span>{{config.button.label}}</span>
+  </button>
+  <mat-menu #menu="matMenu" class="social-menu">
+    <div class="share-components" [attr.data-url]="url"
+      data-disabled="qzone,tencent,douban,linkedin,diandian,google,twitter,facebook">
+    </div>
+  </mat-menu>
+</ng-container>

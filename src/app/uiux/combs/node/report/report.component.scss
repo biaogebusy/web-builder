@@ -1,0 +1,23 @@
+.report {
+  min-height: 100vh;
+  padding-bottom: 4rem;
+  ::ng-deep {
+    .dynamic-table {
+      padding: 2rem;
+    }
+  }
+}
+
+.box {
+  border-radius: 4px;
+  .item {
+    height: 650px;
+    overflow: auto;
+    &:nth-child(2n) {
+      border-radius: 10px;
+    }
+  }
+  ::ng-deep .chart {
+    height: calc(650px - 60px);
+  }
+}

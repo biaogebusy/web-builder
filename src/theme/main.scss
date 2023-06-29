@@ -1,0 +1,14 @@
+@import "~@angular/material/theming";
+@import "./variable/variable";
+@import "./mixins/base-color";
+@import "./base/base";
+@import "./drupal";
+
+@include reset-styles();
+// override typography
+@include mat-core($custom-typography);
+
+@include branding(map-get($color-theme, shadow), "shadow");
+@include branding(map-get($color-theme, light), "light");
+
+@include custom-overide();

@@ -1,0 +1,42 @@
+<div class="lottery position-relative">
+  <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
+  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
+  <app-bg [content]="content.bg" *ngIf="content.bg">
+  </app-bg>
+  <div class="container">
+    <app-text *ngIf="content.text" [content]="content.text"></app-text>
+    <div class="inner" fxLayout="row wrap" fxLayoutAlign="center center">
+      <app-formly [ngClass]="'m-y p-x-sm'" fxFlex.lt-md="100" fxFlex.gt-sm="40%" [fields]="content.form" [form]="form"
+        [model]="model" (modelChange)="onFormlyChange($event)">
+      </app-formly>
+      <div fxFlex.lt-md="100" fxFlex.gt-sm="60%" fxLayout="column">
+        <div class="result p-x-sm p-y" fxLayout="row wrap" fxLayoutAlign="space-between center">
+          <div class="left" fxFlex.lt-md="100" fxFlex.gt-sm="50" fxLayoutAlign="center center" fxLayout="column">
+            <h2>红包大约需要总预算</h2>
+            <h1 class="total p-y-sm">¥<span>{{total}}</span></h1>
+            <div class="result-footer text-center" fxLayout="row wrap" fxLayoutGap="2rem">
+              <div class="item" fxLayout="column" *ngIf="model?.max?.total_number">
+                <span class="label">大额红包可发</span>
+                <span class="value">{{model.max.total_number}}个</span>
+              </div>
+              <div class="item" fxLayout="column" *ngIf="model?.min?.total_number">
+                <span class="label">小额红包可发</span>
+                <span class="value">{{model.min.total_number}}个</span>
+              </div>
+              <div *ngIf="model.isPromote" class="item" fxLayout="column">
+                <span class="label">推广占用金额</span>
+                <span class="value">{{promoteMoney}}元</span>
+              </div>
+            </div>
+          </div>
+          <div class="right" fxFlex.lt-md="100" fxFlex.gt-sm="50%">
+            <app-chart *ngIf="chart" [content]="chart" [data]="content.data"></app-chart>
+          </div>
+        </div>
+        <div *ngIf="content.description" fxFlex="100%" class="description m-y-sm"
+          [innerHTML]="content.description|safeHtml"></div>
+      </div>
+    </div>
+  </div>
+  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
+</div>

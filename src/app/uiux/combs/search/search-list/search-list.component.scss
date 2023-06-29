@@ -1,0 +1,19 @@
+.search-list {
+  margin: 0 auto;
+  max-width: 800px;
+  min-height: 100vh;
+  .list {
+    overflow: hidden;
+    .bottom {
+      font-size: 14px;
+    }
+  }
+}
+
+.title {
+  ::ng-deep {
+    em {
+      font-style: normal;
+    }
+  }
+}

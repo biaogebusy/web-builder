@@ -1,0 +1,17 @@
+@import "../common.scss";
+.footer-inverse {
+  z-index: 2;
+}
+
+.item-header {
+  height: 48px;
+  line-height: 16px;
+  font-size: 14px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+
+.left {
+  font-size: 14px;
+}

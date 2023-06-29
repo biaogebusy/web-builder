@@ -1,0 +1,15 @@
+<div class="comment-list m-y-sm position-relative">
+  <ng-container *ngIf="comments?.length;else empty">
+    <div class="comment-count p-y-xs p-x-sm" fxLayoutAlign="space-between center">
+      <span *ngIf="content.comment?.title" class="bold" fxFlex="100">{{content.title}}</span>
+      <span class="bold {{content.comment?.title?'text-right':''}}" fxFlex="100">{{comments?.length}}个回复</span>
+    </div>
+    <app-comment-item *ngIf="comments" [comments]="comments" [content]="content"></app-comment-item>
+  </ng-container>
+  <ng-template #empty>
+    <div class="empty p-y" fxLayout="column" fxLayoutAlign="center center">
+      <app-icon [content]="{'name':'create','inline':true}"></app-icon>
+      <p [innerHTML]="content.editor?.empty?.label || '暂时没有人回复!'|safeHtml"></p>
+    </div>
+  </ng-template>
+</div>

@@ -1,0 +1,29 @@
+<ng-container *ngIf="showNoXs">
+  <div class="header-top" *ngIf="content">
+    <div class="container">
+      <div fxLayoutAlign="space-between center">
+        <div class="left">
+          <div class="hotline" fxLayout fxLayoutGap="2rem">
+            <div class="item" fxLayout *ngFor="let item of content.banner?.left">
+              <mat-icon [inline]="true">{{item.icon}}</mat-icon>
+              <div>{{item.label}}</div>
+            </div>
+          </div>
+        </div>
+        <div class="right" fxLayoutAlign="center center">
+          <app-github-star class="github"></app-github-star>
+          <ng-container *ngFor="let item of content.banner?.right">
+            <a class="inv-icon style-v1" *ngIf="item?.svg;else link" href="{{item.href}}" target="_blank">
+              <span class="soc-name">{{item.label}}</span>
+              <span class="soc-icon-bg"></span>
+              <mat-icon *ngIf="item.svg" [inline]="true" [svgIcon]="item.svg"></mat-icon>
+            </a>
+            <ng-template #link>
+              <app-link class="link" [content]="item"></app-link>
+            </ng-template>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

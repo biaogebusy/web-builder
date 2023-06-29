@@ -1,0 +1,25 @@
+::ng-deep json-editor,
+::ng-deep json-editor .jsoneditor,
+::ng-deep json-editor > div,
+::ng-deep json-editor .jsoneditor-outer {
+  min-height: 400px;
+  .ace_editor.ace-jsoneditor {
+    min-height: 400px;
+  }
+  ::ng-deep {
+    .jsoneditor-poweredBy {
+      display: none;
+    }
+  }
+}
+:host-context(.preview-container) {
+  ::ng-deep json-editor,
+  ::ng-deep json-editor .jsoneditor,
+  ::ng-deep json-editor > div,
+  ::ng-deep json-editor .jsoneditor-outer {
+    height: calc(100vh - 75px);
+    .ace_editor.ace-jsoneditor {
+      height: calc(100vh - 75px);
+    }
+  }
+}

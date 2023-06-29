@@ -1,0 +1,99 @@
+@import "~@angular/material/theming";
+
+@mixin article-color($config-or-theme) {
+  $config: mat-get-color-config($config-or-theme);
+  $foreground: map-get($config, foreground);
+  $background: map-get($config, background);
+  $primary: map-get($config, primary);
+  $accent: map-get($config, accent);
+  $warn: map-get($config, warn);
+
+  $text-color: mat-color($foreground, text, 0.75);
+  .article {
+    .article-meta {
+      color: $text-color;
+    }
+    .article-body {
+      pre {
+        code {
+          background-color: mat-color($background);
+        }
+      }
+    }
+    .shadow {
+      background: linear-gradient(
+        0deg,
+        mat-color($background, card),
+        transparent
+      );
+    }
+    .line {
+      border: 1px dashed mat-color($warn);
+      border-radius: 4px;
+      &:hover {
+        a {
+          color: mat-color($primary);
+        }
+      }
+    }
+    .comment-list {
+      background-color: mat-color($background, card);
+      @include mat-elevation(3, mat-color($foreground, divider), 0.6);
+      .empty {
+        .mat-icon {
+          font-size: 60px;
+          color: mat-color($primary, 200);
+        }
+      }
+      .comment-box {
+        .time {
+          color: mat-color($foreground, text, 0.4);
+        }
+      }
+    }
+  }
+  .menu-list {
+    .list {
+      .item {
+        border-bottom: 1px dotted mat-color($foreground, divider);
+        .num-posts {
+          color: $text-color;
+        }
+        a {
+          color: mat-color($foreground, text, 0.6);
+          &.active {
+            color: mat-color($primary);
+          }
+          &:hover {
+            color: mat-color($primary);
+          }
+        }
+      }
+    }
+    .action {
+      color: mat-color($primary);
+    }
+  }
+  .recent-posts {
+    .list {
+      .item {
+        .post-img {
+          &:before {
+            background-color: mat-color($primary);
+          }
+          .mat-icon {
+            color: mat-color($primary, default-contrast);
+          }
+        }
+        .blog-title {
+          a {
+            color: $text-color;
+            &:hover {
+              color: mat-color($primary);
+            }
+          }
+        }
+      }
+    }
+  }
+}

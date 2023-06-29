@@ -1,0 +1,36 @@
+@import "/src/theme/variable/breakpoint";
+
+.user-center {
+  position: relative;
+  z-index: 100;
+  .inner {
+    margin: 4rem 0;
+    @media #{$gt-sm} {
+      margin: 0;
+      height: 8rem;
+      ::ng-deep .profile {
+        top: -74px;
+      }
+    }
+  }
+}
+
+.label {
+  white-space: nowrap;
+}
+
+.main {
+  .box {
+    position: relative;
+    display: block;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border-radius: 4px;
+  }
+  .left,
+  .right {
+    .box:first-child {
+      min-height: 282px;
+    }
+  }
+}

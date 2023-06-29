@@ -1,0 +1,21 @@
+@import "/src/theme/variable/breakpoint";
+.showcase-3-v2 {
+  overflow: hidden;
+}
+.image-container {
+  ::ng-deep img {
+    max-width: 100%;
+  }
+}
+@media #{$gt-xs} {
+  .image-container {
+    overflow: hidden;
+  }
+  .item {
+    &:nth-child(2n) {
+      .module-content {
+        order: -1;
+      }
+    }
+  }
+}

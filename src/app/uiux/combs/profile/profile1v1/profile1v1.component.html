@@ -1,0 +1,69 @@
+<div class="profile-banner position-relative">
+  <app-bg-img *ngIf="content.bannerBg" [content]="content.bannerBg"></app-bg-img>
+</div>
+<div class="profile-1v1 position-relative m-y">
+  <div class="container">
+    <div class="profile" fxLayoutAlign="space-between start" fxLayout="row wrap">
+      <div class="left m-bottom" fxFlex.lt-md="0 0 100" fxFlex.gt-sm="0 0 280px">
+        <div class="box p-y-sm p-x text-center">
+          <app-img [content]="avatar"></app-img>
+          <h2 class="mat-h2 m-bottom-0 m-top-xs two-line">{{content.name}}</h2>
+          <div class="subTitle">{{content.subTitle}}</div>
+          <div class="actions" *ngIf="content.actions">
+            <button mat-icon-button aria-label="menu" [matMenuTriggerFor]="menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" class="actions-menu">
+              <button mat-menu-item *ngFor="let action of content.actions">
+                <app-dynamic-widgets [content]="action">
+                </app-dynamic-widgets>
+              </button>
+            </mat-menu>
+          </div>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="left-item p-y-sm p-x-xs" *ngIf="content?.details">
+          <app-title [content]="{
+            'label':content.details.label,
+            'style':'style-v4'
+          }"></app-title>
+          <div class="list">
+            <div fxLayoutAlign="start start" *ngFor="let item of content.details.elements">
+              <app-icon [content]="item.icon"></app-icon>
+              <div class="label m-right-xs bold">{{item.label}}:</div>
+              <div class="one-line">{{item.content}}</div>
+            </div>
+          </div>
+        </div>
+        <div class="left-bottom p-y-sm p-x-sm" *ngIf="content?.leftBottom">
+          <div class="content">
+            <div class="item m-bottom" *ngFor="let item of content.leftBottom">
+              <app-title [content]="item.title"></app-title>
+              <app-dynamic-widgets [content]="item"></app-dynamic-widgets>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="right" fxFlex.lt-md="0 0 100" fxFlex.gt-sm="0 0 calc(100% - 280px - 4rem)">
+        <div class="content">
+          <div class="item m-bottom" *ngFor="let item of content.content">
+            <ng-container *ngIf="!(item.empty && item.empty === true)">
+              <app-title [content]="{
+                'label':item.label,
+                'style':'style-v4'
+              }"></app-title>
+              <app-dynamic-component [inputs]="item"></app-dynamic-component>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="comment-wrapper" *ngIf="content?.params?.comment" ngClass.gt-sm="m-y-sm p-y p-x"
+      ngClass.lt-md="m-y-xs p-y-xs p-x-xs">
+      <app-comment-form *ngIf="content?.params?.comment" [content]="content" [type]="'add'">
+      </app-comment-form>
+      <app-comment-list [comments]="comments$ | async" [content]="content">
+      </app-comment-list>
+    </div>
+  </div>
+</div>

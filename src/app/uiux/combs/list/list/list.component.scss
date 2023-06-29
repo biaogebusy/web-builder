@@ -1,0 +1,11 @@
+@import "/src/theme/variable/breakpoint";
+.list {
+  @media #{$lt-md} {
+    ::ng-deep {
+      .feature-inner {
+        margin-left: -20px;
+        margin-right: -20px;
+      }
+    }
+  }
+}

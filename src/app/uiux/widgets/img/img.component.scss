@@ -1,0 +1,70 @@
+@import "/src/theme/variable/breakpoint";
+@import "/src/theme/mixins/amixin";
+.img-wrapper {
+  position: static;
+  .actions {
+    @include middle-center();
+  }
+}
+
+img {
+  position: relative;
+  max-width: 100%;
+}
+
+:host(.img-bg-shape) {
+  display: block;
+  position: relative;
+  @media #{$gt-sm} {
+    img {
+      max-width: none;
+      margin-left: 8rem;
+    }
+  }
+  &:after {
+    content: " ";
+    position: absolute;
+    z-index: -1;
+    bottom: 5rem;
+    left: 8rem;
+    width: 70rem;
+    height: 50rem;
+    border-radius: 25rem;
+    opacity: 0.9;
+    transform: rotate(130deg);
+  }
+}
+
+// will deprecated, user .object-fit
+:host(.bg-center) {
+  @media #{$lt-md} {
+    img {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      object-fit: cover;
+      width: 100vw;
+      height: 100%;
+    }
+  }
+  @media #{$gt-sm} {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200% !important;
+    height: 200% !important;
+    max-width: none !important;
+    img {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      margin: auto;
+      min-height: 50%;
+      min-width: 50%;
+    }
+  }
+}

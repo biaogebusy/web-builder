@@ -1,0 +1,27 @@
+<div class="block" *ngIf="pageContent$ | async as page">
+  <mat-drawer-container (backdropClick)="onBackdrop()">
+    <mat-drawer-content>
+      <div *ngTemplateOutlet="block; context: {content:page.body, isPreview: isPreview}"></div>
+    </mat-drawer-content>
+    <mat-drawer (openedChange)="onDrawer()" class="drawer-right" [mode]="'over'" [opened]="opened" position="end">
+      <div class="drawer-loading" *ngIf="drawerLoading">
+        <mat-spinner diameter="50" color="accent"></mat-spinner>
+      </div>
+      <ng-container *ngIf="!drawerLoading && opened">
+        <div *ngTemplateOutlet="block; context: {content:drawerContent?.body,isPreview:coreConfig?.builder?.enable}; ">
+        </div>
+      </ng-container>
+    </mat-drawer>
+  </mat-drawer-container>
+</div>
+
+<ng-template let-content="content" let-isPreview="isPreview" #block>
+  <ng-container *ngIf="!isPreview">
+    <app-dynamic-component *ngFor="let item of content;index as i; trackBy: trackByFn" [inputs]="item"
+      [index]="i"></app-dynamic-component>
+  </ng-container>
+
+  <ng-container *ngIf="isPreview">
+    <app-builder-list [content]="content"></app-builder-list>
+  </ng-container>
+</ng-template>

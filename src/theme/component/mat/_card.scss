@@ -1,0 +1,138 @@
+@import "~@angular/material/theming";
+
+@mixin card-color($config-or-theme) {
+  $config: mat-get-color-config($config-or-theme);
+  $foreground: map-get($config, foreground);
+  $background: map-get($config, background);
+  $primary: map-get($config, primary);
+  $accent: map-get($config, accent);
+  $warn: map-get($config, warn);
+  $text-color: mat-color($foreground, text, 0.75);
+  $bg-color: mat-color($background, card);
+  .mat-card {
+    color: inherit;
+    background-color: $bg-color;
+    &:hover {
+      cursor: pointer;
+      background-color: mat-color($background, background, 0.85);
+    }
+    .meta {
+      .badge {
+        background-color: mat-color($primary, 400, 0.8);
+        color: mat-color($primary, default-contrast);
+      }
+    }
+  }
+  .mat-card-title {
+    a {
+      color: $text-color;
+      &:hover {
+        color: mat-color($primary);
+      }
+    }
+  }
+  .mat-card-subtitle {
+    color: inherit;
+  }
+
+  .mat-card-subtitle,
+  .card-body {
+    color: mat-color($foreground, text, 0.6);
+  }
+
+  .card-1v1 {
+    @include mat-elevation(4, mat-color($foreground, text), 0.3);
+    background-color: $bg-color;
+    a {
+      color: $text-color;
+      &:hover {
+        color: mat-color($primary);
+      }
+    }
+    .author {
+      color: $bg-color;
+    }
+  }
+
+  .card-1-v2 {
+    color: mat-color($primary, default-contrast);
+    a {
+      color: mat-color($primary, default-contrast);
+    }
+  }
+
+  .card-1-v3 {
+    .viewport {
+      @include scrollbar(mat-color($foreground, divider, 0.2));
+    }
+    .item {
+      @include mat-elevation(4, #000, 0.35);
+      background-color: mat-color($background, card, 0.85);
+
+      .media {
+        img {
+          box-shadow: 0 4px 10px 1px rgb(0 0 0 / 7%);
+        }
+      }
+    }
+    .selected {
+      &:after,
+      &:before {
+        background: mat-color($primary);
+      }
+    }
+  }
+
+  .law-card {
+    .mat-card {
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 6px 16px 0 rgb(0 0 0 / 10%);
+    }
+  }
+
+  .card-1-v4 {
+    .left {
+      img {
+        @include mat-elevation(4, mat-color($foreground, text), 0.3);
+      }
+    }
+    .mat-icon {
+      color: mat-color($warn, text);
+    }
+    .title {
+      color: mat-color($primary);
+    }
+
+    .inner {
+      @include mat-elevation(4, mat-color($foreground, text), 0.3);
+      color: mat-color($foreground, text, 0.5);
+      background-color: mat-color($background, card);
+    }
+  }
+
+  .card-1v5 {
+    @include mat-elevation(3, mat-color($foreground, divider), 0.3);
+    background-color: #fff;
+    .more {
+      color: mat-color($primary);
+      .mat-icon {
+        color: inherit;
+      }
+    }
+  }
+
+  .card-1v6 {
+    @include mat-elevation(3, mat-color($foreground, divider), 0.3);
+    background-color: mat-color($primary, 0.07);
+    border-bottom: 3px solid mat-color($foreground, divider, 0.2);
+    &:hover {
+      border-color: mat-color($primary);
+      background-color: #ffffff !important;
+      @include mat-elevation(5, mat-color($foreground, divider), 0.7);
+      .title {
+        color: mat-color($primary);
+      }
+    }
+  }
+}

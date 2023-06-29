@@ -1,0 +1,24 @@
+<div class="dynamic-card-list m-y" *ngIf="content">
+  <div class="container">
+    <div class="inner" fxLayout="row wrap" fxFlex="100%">
+      <app-search-sidebar *ngIf="content.sidebar" [content]="content.sidebar" [form]="form" fxFlex.lt-md="0 0 100"
+        fxFlex.gt-sm="0 0 25">
+      </app-search-sidebar>
+      <div *ngIf="nodes" class="card-list m-y" fxLayout.lt-md="column" fxLayout.gt-sm="row wrap"
+        fxLayoutAlign="start start" fxFlex.lt-md="0 0 100" fxFlex.gt-sm="0 0 {{content.sidebar ? '75%':'100%'}}">
+        <app-card class="m-x-xs m-bottom-sm" fxFlex.gt-sm="{{row(content.row, '2rem')}}" fxFlex.lt-md="100%"
+          [content]="card" *ngFor="let card of nodes | paginate: { itemsPerPage: pager.itemsPerPage, currentPage:
+          pager.currentPage, totalItems: pager.totalItems}; trackBy: trackByFn">
+        </app-card>
+        <div class="list-bottom width-100">
+          <app-pagination *ngIf="nodes?.length;else empty" (pageChange)="onPageChange($event)"></app-pagination>
+          <ng-template #empty>
+            <div class="text-center p-y-xl">
+              <p>没有数据。</p>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

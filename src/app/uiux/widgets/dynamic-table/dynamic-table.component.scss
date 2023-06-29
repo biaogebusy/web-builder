@@ -1,0 +1,68 @@
+.dynamic-table {
+  overflow-x: auto;
+  box-sizing: border-box;
+  &.nowrap {
+    word-break: normal;
+    white-space: nowrap;
+  }
+  &.wrap {
+    white-space: normal;
+  }
+  &.fixed {
+    table {
+      table-layout: fixed;
+      word-break: break-word;
+    }
+  }
+  .mat-header-cell {
+    font-size: 15px;
+    word-break: keep-all;
+  }
+
+  tr.detail-row {
+    height: 0;
+  }
+
+  .element-row td {
+    border-bottom-width: 0;
+  }
+
+  .element-detail {
+    overflow: hidden;
+    display: flex;
+  }
+
+  .mat-cell {
+    ::ng-deep {
+      ol,
+      ul {
+        margin-left: 0;
+      }
+      li {
+        list-style-type: none;
+      }
+    }
+  }
+  ::ng-deep {
+    .sub {
+      font-size: small;
+      opacity: 0.6;
+    }
+    .cell {
+      padding: 0 4px;
+      display: inline-block;
+    }
+    a {
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    .text-cell {
+      > * {
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}

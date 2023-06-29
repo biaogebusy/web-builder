@@ -1,0 +1,16 @@
+.search-sidebar {
+  position: sticky;
+  position: -webkit-sticky;
+  top: 80px;
+  ::ng-deep .mat-form-field-infix {
+    width: 100%;
+  }
+}
+
+.mat-expansion-panel-spacing {
+  margin: 0;
+}
+
+.mat-expansion-panel:not([class*="mat-elevation-z"]) {
+  box-shadow: none;
+}

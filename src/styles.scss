@@ -1,0 +1,52 @@
+/* You can add global styles to this file, and also import other style files */
+@import "./theme/mixins/reset";
+@import "./theme/main.scss";
+@import "~material-design-icons/iconfont/material-icons.css";
+@import "~@circlon/angular-tree-component/css/angular-tree-component.css";
+@import "~quill/dist/quill.core.css";
+@import "~quill/dist/quill.snow.css";
+@import "~jsoneditor/dist/jsoneditor.min.css";
+
+html {
+  font-size: 10px;
+}
+
+body {
+  width: 100vw;
+  max-width: 100%;
+  display: block;
+  font-size: 1.4rem;
+  line-height: 1.618;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+// fix sidebar position sticky
+.mat-drawer-content,
+.mat-drawer-container {
+  overflow: visible !important;
+}
+
+.mat-drawer-content {
+  > app-dynamic-component {
+    position: relative;
+  }
+}
+
+.mat-icon {
+  display: swap;
+}
+
+pre {
+  font-size: 0.9em;
+  background: #f6f6f6 !important;
+  padding: calc(0.8em / 0.9);
+  word-break: initial;
+  word-wrap: initial;
+  white-space: pre;
+  overflow: auto;
+  border-radius: 4px;
+  .hljs {
+    background-color: transparent;
+  }
+}

@@ -1,0 +1,47 @@
+import { Meta } from "@storybook/addon-docs";
+
+<Meta
+  title="Drupal/相关资料/REST/Webform"
+  id="webform"
+  parameters={{
+    viewMode: "docs",
+    previewTabs: {
+      canvas: { hidden: true },
+    },
+    layout: "fullscreen",
+  }}
+/>
+
+## 使用 Drupal Webform REST 提交表单
+
+- 已经安装开启了 Webform 模块；
+- 开启了 Webform REST 模块；
+
+### 开启相关的 web 服务
+
+进入：`/admin/config/services/rest` 开启 webform submit，并配置好参数：
+![webformRest](/assets/storybook/assets/drupal/webform-rest.png)
+如果允许匿名用户提交，检查并允许匿名用户提交的权限：`/admin/people/permissions#module-rest`
+
+![webformRestPer](/assets/storybook/assets/drupal/webform-per.png)
+
+### webform api 请求
+
+![webformOption](/assets/storybook/assets/drupal/webform-api-option.png)
+在具体的 web 表单页面可以看到具体的请求需要的信息：
+webform_id 和表单字段
+
+```
+POST {{apiUrl}}/webform_rest/submit
+Accept: 'application/json'
+'Content-Type': 'application/json'
+```
+
+```json
+{
+  "webform_id": "complaint",
+  "message": "Hello webfomr!",
+  "name": "Johnson",
+  "phone": "xxxxxx"
+}
+```

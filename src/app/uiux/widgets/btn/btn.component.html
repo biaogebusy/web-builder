@@ -1,0 +1,80 @@
+<ng-container *ngIf="content">
+  <ng-container [ngSwitch]="content.mode">
+    <ng-container *ngSwitchCase="'raised'">
+      <button [ngClass]="content.classes || ''" [disabled]="content.disabled" mat-raised-button
+        *ngIf="!content.href;else link" [color]="content.color">
+        <app-icon *ngIf="content.icon" [content]="content.icon"></app-icon>
+        <span [innerHTML]="content.label|safeHtml"></span>
+      </button>
+      <ng-template #link>
+        <a [ngClass]="content.classes || ''" [disabled]="content.disabled" mat-raised-button
+          (click)="onNav($event, content)" [href]="content.href" [target]="content?.target || ''"
+          [color]="content?.color">
+          <app-icon *ngIf="content.icon" [content]="content.icon"></app-icon>
+          <span [innerHTML]="content.label|safeHtml"></span>
+        </a>
+      </ng-template>
+    </ng-container>
+    <ng-container *ngSwitchCase="'stroked'">
+      <button [ngClass]="content.classes || ''" [disabled]="content.disabled" mat-stroked-button
+        *ngIf="!content.href;else link" [color]="content.color">
+        <app-icon *ngIf="content.icon" [content]="content.icon"></app-icon>
+        <span [innerHTML]="content.label|safeHtml"></span>
+      </button>
+      <ng-template #link>
+        <a [ngClass]="content.classes || ''" [disabled]="content.disabled" mat-stroked-button
+          (click)="onNav($event, content)" [href]="content.href" [target]="content?.target || ''"
+          [innerHTML]="content.label|safeHtml" [color]="content?.color">
+          <app-icon *ngIf="content.icon" [content]="content.icon"></app-icon>
+          <span [innerHTML]="content.label|safeHtml"></span>
+        </a>
+      </ng-template>
+    </ng-container>
+    <ng-container *ngSwitchCase="'flat'">
+      <button [ngClass]="content.classes || ''" [disabled]="content.disabled" mat-flat-button
+        *ngIf="!content.href;else link" [color]="content.color">
+        <app-icon *ngIf="content.icon" [content]="content.icon"></app-icon>
+        <span [innerHTML]="content.label|safeHtml"></span></button>
+      <ng-template #link>
+        <a [ngClass]="content.classes || ''" [disabled]="content.disabled" mat-flat-button
+          (click)="onNav($event, content)" [href]="content.href" [target]="content?.target || ''"
+          [color]="content?.color">
+          <app-icon *ngIf="content.icon" [content]="content.icon"></app-icon>
+          <span [innerHTML]="content.label|safeHtml"></span>
+        </a>
+      </ng-template>
+    </ng-container>
+    <ng-container *ngSwitchCase="'icon'">
+      <button *ngIf="content.icon" [ngClass]="content.classes || ''" [disabled]="content.disabled" mat-icon-button
+        [color]="content.color">
+        <app-icon [content]="content.icon"></app-icon>
+      </button>
+    </ng-container>
+    <ng-container *ngSwitchCase="'fab'">
+      <button *ngIf="content.icon" [ngClass]="content.classes || ''" [disabled]="content.disabled" mat-fab
+        [color]="content.color">
+        <app-icon [content]="content.icon"></app-icon>
+      </button>
+    </ng-container>
+    <ng-container *ngSwitchCase="'mini-fab'">
+      <button *ngIf="content.icon" [ngClass]="content.classes || ''" [disabled]="content.disabled" mat-mini-fab
+        [color]="content.color">
+        <app-icon [content]="content.icon"></app-icon>
+      </button>
+    </ng-container>
+    <ng-container *ngSwitchDefault>
+      <button [ngClass]="content.classes || ''" [disabled]="content.disabled" mat-button *ngIf="!content.href;else link"
+        [color]="content.color">
+        <app-icon *ngIf="content.icon" [content]="content.icon"></app-icon>
+        <span [innerHTML]="content.label|safeHtml"></span>
+      </button>
+      <ng-template #link>
+        <a [ngClass]="content.classes || ''" [disabled]="content.disabled" mat-button (click)="onNav($event, content)"
+          [href]="content.href" [target]="content?.target || ''" [color]="content?.color">
+          <app-icon *ngIf="content.icon" [content]="content.icon"></app-icon>
+          <span [innerHTML]="content.label|safeHtml"></span>
+        </a>
+      </ng-template>
+    </ng-container>
+  </ng-container>
+</ng-container>

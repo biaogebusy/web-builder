@@ -1,0 +1,17 @@
+// import all css on anuglar.json
+// https://swiperjs.com/angular
+:host ::ng-deep {
+  .swiper-button-next,
+  .swiper-button-prev {
+    margin-top: calc(12px - (var(--swiper-navigation-size) / 2));
+    width: 40px;
+    height: 40px;
+    box-sizing: border-box;
+    &:after {
+      font-size: 16px;
+    }
+  }
+}
+.swiper-slide {
+  overflow: hidden;
+}

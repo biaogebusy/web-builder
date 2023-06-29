@@ -1,0 +1,10 @@
+<div class="carousel-1-v1 position-relative" [ngClass]="content.classes" *ngIf="content">
+  <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
+  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
+  <app-bg-img [content]="content.bg"></app-bg-img>
+  <div class="{{content?.disableContainer?'':'container'}}">
+    <app-title [content]="content.title"></app-title>
+    <app-swiper [content]="content.sliders"></app-swiper>
+  </div>
+  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
+</div>

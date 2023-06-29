@@ -1,0 +1,30 @@
+.card-1v1 {
+  overflow: hidden;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-10px);
+    .overlay {
+      opacity: 0.4;
+    }
+    .author {
+      opacity: 1;
+    }
+  }
+
+  .author {
+    position: absolute;
+    z-index: 1;
+    opacity: 0;
+    transition: all 0.5s ease;
+    top: 5%;
+    left: 5%;
+  }
+}
+// builder
+:host-context(.showcase) {
+  .components {
+    padding: 20px;
+  }
+}

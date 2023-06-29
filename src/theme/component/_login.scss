@@ -1,0 +1,29 @@
+@import "~@angular/material/theming";
+
+@mixin login-color($config-or-theme) {
+  $config: mat-get-color-config($config-or-theme);
+  $foreground: map-get($config, foreground);
+  $background: map-get($config, background);
+  $primary: map-get($config, primary);
+  $accent: map-get($config, accent);
+  $warn: map-get($config, warn);
+
+  .login-wrapper {
+    background-color: map-get($background, card);
+    border: 1px solid mat-color($foreground, divider, 0.06);
+    @include mat-elevation(4, mat-color($foreground, text), 0.3);
+
+    .login-second {
+      background-color: mat-color($background, background);
+    }
+
+    .error {
+      background-color: mat-color($warn);
+      color: mat-color($warn, "500-contrast");
+    }
+  }
+
+  .mark-bg {
+    background-color: map-get($background, card);
+  }
+}

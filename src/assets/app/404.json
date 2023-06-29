@@ -1,0 +1,30 @@
+{
+  "title": "404 not found!",
+  "body": [{
+    "type": "404",
+    "img": {
+      "src": "/assets/images/404.svg",
+      "alt": "404 not found!"
+    },
+    "text": {
+      "spacer": "none",
+      "title": {
+        "label": "OH!NO <br>页面没有找到",
+        "style": "style-v1",
+        "classes": "mat-display-1"
+      },
+      "body": "信使是基于 Material UI 的 Angular 前端框架，后端适配 Drupal，提供优秀的数字创新体验。"
+    },
+    "actions": [{
+      "label": "Go Back",
+      "href": "/",
+      "style": "style-v1",
+      "icon": "open_in_new"
+    }, {
+      "label": "Go To Home",
+      "href": "/",
+      "style": "style-v1",
+      "icon": "open_in_new"
+    }]
+  }]
+}

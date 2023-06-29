@@ -1,0 +1,35 @@
+@import "/src/theme/variable/breakpoint";
+@import "/src/theme//mixins/amixin";
+
+.main {
+  min-height: calc(100vh - 110px);
+  &.has-manage-sidebar {
+    background-color: #f7f7f7;
+  }
+}
+
+.mobile-menu {
+  @media #{$xs} {
+    position: fixed !important;
+    width: 80vw;
+  }
+}
+
+.loading-container {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 1);
+  z-index: 5;
+}
+
+.drawer-loading {
+  height: 50vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

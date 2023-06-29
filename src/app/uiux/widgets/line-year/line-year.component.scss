@@ -1,0 +1,28 @@
+@import "/src/theme/variable/breakpoint";
+
+.line-year {
+  margin-bottom: 10px;
+  padding: 10px 0;
+  font-size: 18px;
+  line-height: 1.333;
+  margin-top: 20px;
+  &:before {
+    content: "";
+    width: 18px;
+    height: 18px;
+    display: block;
+    z-index: 3;
+    position: relative;
+
+    left: 5px;
+    top: -20px;
+    border-radius: 65px;
+  }
+}
+
+@media #{$gt-md} {
+  .line-year {
+    font-size: 30px;
+    margin-bottom: 0;
+  }
+}

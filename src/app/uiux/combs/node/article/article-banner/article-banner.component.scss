@@ -1,0 +1,13 @@
+.article-banner {
+  width: 100%;
+  padding-bottom: 33.3%;
+  background-size: cover;
+  background-position: 50%;
+  margin-top: 0;
+}
+
+:host {
+  display: block;
+  max-height: 300px;
+  overflow: hidden;
+}

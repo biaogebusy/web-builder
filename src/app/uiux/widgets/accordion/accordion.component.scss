@@ -1,0 +1,45 @@
+:host ::ng-deep {
+  .mat-expansion-panel-header {
+    border-bottom: 1px solid;
+    border-radius: 0;
+  }
+}
+.mat-accordion {
+  .mat-expansion-panel-header {
+    padding: 0 16px;
+    height: 48px;
+  }
+  .mat-expansion-panel {
+    box-shadow: none;
+    .mat-expansion-panel {
+      .mat-expansion-panel-header {
+        border: 0;
+        ::ng-deep {
+          a {
+            color: inherit;
+          }
+        }
+      }
+    }
+  }
+  ::ng-deep {
+    .mat-expansion-panel-body {
+      padding: 0 16px 0;
+    }
+    .mat-list-item-content {
+      app-link {
+        flex: 1;
+        padding: 10px 0;
+        a {
+          display: block;
+        }
+      }
+    }
+  }
+  .mat-expansion-panel-spacing {
+    margin: 0;
+  }
+  .mat-list {
+    border-bottom: 1px solid;
+  }
+}

@@ -1,0 +1,21 @@
+<div class="showcase-3-v2 position-relative" *ngIf="content">
+  <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
+  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
+  <app-bg-img [content]="content.bg"></app-bg-img>
+  <div class="container position-relative">
+    <div class="title" fxLayoutAlign="center center">
+      <app-text fxFlex.lt-md="100" fxFlex.gt-sm="50" [content]="text" *ngIf="text"></app-text>
+    </div>
+    <div class="item m-y-sm" fxLayout="row wrap" fxLayoutAlign="center center" [ngClass]="content.classes"
+      *ngFor="let item of content.elements">
+      <div class="image-container p-sm" fxFlex.lt-md="100" fxFlex.gt-sm="0 0 50" fxLayoutAlign="center center">
+        <app-img [content]="item.img" *ngIf="item.img"></app-img>
+      </div>
+      <div class="module-content" fxFlex.lt-md="100" fxFlex.gt-sm="0 0 50" [ngClass.lt-md]="'p-sm'"
+        [ngClass.gt-sm]="'p-md'">
+        <app-text [content]="item.content"></app-text>
+      </div>
+    </div>
+  </div>
+  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
+</div>

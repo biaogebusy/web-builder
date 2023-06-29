@@ -1,0 +1,23 @@
+.user {
+  ::ng-deep {
+    .mat-button-wrapper {
+      padding: 0;
+
+      .name {
+        font-size: 2rem;
+        line-height: 4rem;
+        padding: 0;
+        margin: 0;
+        text-transform: uppercase;
+        font-weight: normal;
+      }
+    }
+  }
+}
+.user-picture {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  object-fit: contain;
+}

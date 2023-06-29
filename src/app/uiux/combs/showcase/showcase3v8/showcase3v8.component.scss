@@ -1,0 +1,17 @@
+.showcase-3-v8 {
+  overflow: hidden;
+}
+
+.middle {
+  ::ng-deep .media {
+    border-radius: 80px;
+    padding: 40px;
+  }
+}
+.top,
+.bottom {
+  ::ng-deep .media {
+    border-radius: 40px;
+    padding: 2rem;
+  }
+}

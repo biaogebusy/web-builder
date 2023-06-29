@@ -1,0 +1,143 @@
+@import "/src/theme/variable/variable";
+
+:host ::ng-deep {
+  .amap-marker-content {
+    line-height: 1;
+  }
+  .mark-card {
+    padding: $spacer / 4;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    white-space: normal;
+    word-break: keep-all;
+    position: relative;
+    border-radius: 6px;
+    min-width: 200px;
+    font-size: 14px;
+
+    .media {
+      width: 8rem;
+      height: 8rem;
+      padding: 4px;
+      border-radius: 6px;
+      flex: 0 0 80px;
+      box-sizing: border-box;
+      img {
+        width: 7rem;
+        height: auto;
+        object-fit: contain;
+        padding: 4px;
+      }
+    }
+
+    .media-body {
+      min-width: 200px;
+      .drawer {
+        cursor: pointer;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    li {
+      list-style: none;
+      display: inline-block;
+      margin-right: 6px;
+    }
+    .arrow {
+      position: absolute;
+      display: block;
+      width: 0;
+      height: 0;
+      border-color: transparent;
+      border-style: solid;
+      border-width: 11px;
+
+      &.top {
+        bottom: -11px;
+        left: 50%;
+        border-width: 11px;
+        margin-left: -11px;
+
+        border-bottom-width: 0;
+
+        &:after {
+          bottom: 1px;
+          margin-left: -10px;
+          content: " ";
+          border-bottom-width: 0;
+        }
+      }
+
+      &:after {
+        position: absolute;
+        display: block;
+        width: 0;
+        height: 0;
+        border-color: transparent;
+        border-style: solid;
+        border-width: 10px;
+      }
+    }
+
+    .media-body {
+      width: 100%;
+
+      div[class^="mat-h"] {
+        line-height: 1;
+      }
+
+      .title {
+        white-space: nowrap;
+      }
+
+      .meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      ol,
+      ul {
+        margin-left: 0;
+      }
+    }
+
+    @media #{$xs} {
+      min-width: 150px;
+
+      .media {
+        img {
+          width: 4rem;
+        }
+      }
+    }
+  }
+  .mark {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    position: relative;
+
+    &:after {
+      content: "";
+      display: block;
+      width: 13px;
+      height: 13px;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+}
+
+.set-fit-view {
+  position: absolute;
+  right: 2rem;
+  bottom: 4rem;
+  z-index: 2;
+}

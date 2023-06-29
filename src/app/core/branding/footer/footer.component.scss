@@ -1,0 +1,12 @@
+@import "/src/theme/variable/variable";
+
+.footer {
+  position: relative;
+
+  a {
+    &:hover,
+    &:focus {
+      text-decoration: none;
+    }
+  }
+}

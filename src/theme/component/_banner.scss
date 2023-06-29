@@ -1,0 +1,34 @@
+@import "~@angular/material/theming";
+
+@mixin banner-color($config-or-theme) {
+  $config: mat-get-color-config($config-or-theme);
+  $foreground: map-get($config, foreground);
+  $background: map-get($config, background);
+  $primary: map-get($config, primary);
+  $accent: map-get($config, accent);
+  $warn: map-get($config, warn);
+
+  .banner-simple {
+    @include mat-elevation(1, mat-color($accent), 0.25);
+    &.no-bg {
+      background-color: mat-color($background, "app-bar", 0.8);
+      color: mat-color($foreground, text, 0.75);
+      a {
+        color: mat-color($foreground, text, 0.75);
+        &:hover {
+          color: mat-color($primary);
+        }
+      }
+      &.page-title {
+        color: mat-color($foreground, text);
+      }
+    }
+    &:not(.no-bg) {
+      color: mat-color($foreground, text, 0.5);
+      .page-title,
+      .breadcrumb {
+        color: mat-color($primary, default-contrast);
+      }
+    }
+  }
+}

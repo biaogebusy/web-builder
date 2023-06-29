@@ -1,0 +1,18 @@
+<div id="builder-list-sideabr" fxLayout="column" fxLayoutAlign="center center" cdkDropList
+  [cdkDropListConnectedTo]="['widgets','components']" (cdkDropListDropped)="drop($event)">
+  <div class="component-item empty" *ngIf="!content.length">
+    <div class="box">
+      没有组件
+    </div>
+  </div>
+  <div class="component-item width-100" cdkDrag [cdkDragData]=" item"
+    *ngFor="let item of content;index as i; trackBy: trackByFn" (click)="onClickSidebar(i,item)">
+    <div *ngIf="item" class="box" fxLayout="row" fxLayoutAlign="center center">
+      <div class="p-x-xs">{{i}}</div>
+      <div class="inner" fxLayout="column" fxLayoutAlign="center center">
+        <div class="one-line bold">{{item.type||item.content.type}}</div>
+        <div class="one-line">{{item.name}}</div>
+      </div>
+    </div>
+  </div>
+</div>

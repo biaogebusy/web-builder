@@ -1,0 +1,14 @@
+:host(.child) {
+  .mat-expansion-panel {
+    box-shadow: none;
+    .mat-expansion-panel-header {
+      padding-left: 16px;
+      padding-right: 16px;
+      font-size: inherit;
+    }
+    ::ng-deep .mat-expansion-panel-body {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+}

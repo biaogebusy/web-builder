@@ -1,0 +1,24 @@
+<div class="report" [ngStyle]="content.style">
+  <div class="container">
+    <app-header-meta [content]="content.header"></app-header-meta>
+    <div class="box filter p-x-sm p-y-sm m-bottom-sm" fxLayout="row wrap" fxLayoutAlign="space-between center">
+      <app-formly [form]="form" [model]="model" [fields]="content.form"
+        (modelChange)="onModelChange($event)"></app-formly>
+      <div class="actions">
+        <button mat-raised-button color="primary" (click)="clear()">
+          <mat-icon>clear</mat-icon>重置
+        </button>
+      </div>
+    </div>
+    <div class="box details p-x-sm p-y-sm position-relative" fxLayout="row wrap" fxLayoutAlign="space-between start">
+      <div class="loading-inner position-absolute" fxFlexFill fxLayoutAlign="center center" *ngIf="loading">
+        <mat-spinner diameter="50"></mat-spinner>
+      </div>
+      <ng-container *ngIf="box$|async as box">
+        <app-dynamic-component fxFlex.lt-md="100" [fxFlex.gt-sm]="row(content.row,'2rem')"
+          class="item display-block m-bottom m-x-xs" [inputs]="{content:item.content}"
+          *ngFor="let item of box"></app-dynamic-component>
+      </ng-container>
+    </div>
+  </div>
+</div>

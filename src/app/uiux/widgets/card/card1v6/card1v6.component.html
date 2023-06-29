@@ -1,0 +1,16 @@
+<div class="card-1v6" *ngIf="content" [ngClass]="content.classes">
+  <div class="card-inner" fxLayout="column">
+    <h2 class="title bold" [ngClass]="content.title.classes" [innerHTML]="content.title.label|safeHtml"></h2>
+    <div class="meta bold m-y-sm" fxLayout="row">
+      <div class="mat-display-1 m-bottom-0">{{content.prefix}}</div>
+      <div class="mat-display-3 m-bottom-0">{{content.number}}</div>
+      <div class="mat-display-1 m-bottom-0" fxFlexAlign="end">{{content.suffix}}</div>
+    </div>
+    <div class="content m-bottom-sm" [innerHTML]="content.body|safeHtml"></div>
+    <div class="actions" *ngIf="content.actions" fxLayoutGap="1rem"
+      fxLayoutAlign="{{content.actionsAlign || 'start center'}}">
+      <app-dynamic-component [inputs]="{content: action}"
+        *ngFor="let action of content.actions"></app-dynamic-component>
+    </div>
+  </div>
+</div>

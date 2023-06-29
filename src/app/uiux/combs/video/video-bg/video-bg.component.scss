@@ -1,0 +1,50 @@
+@import "/src/theme/variable/breakpoint";
+.video-bg {
+  overflow: hidden;
+  min-height: 280px;
+  @media #{$gt-md} {
+    min-height: 400px;
+  }
+}
+
+:host ::ng-deep {
+  .video-js {
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    video {
+      object-fit: cover;
+    }
+  }
+}
+
+.layer {
+  z-index: 1;
+  background: #000;
+  opacity: 0.1;
+  position: absolute;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  top: 0;
+}
+
+.inner {
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  > app-dynamic-component {
+    display: block;
+    height: 100%;
+    ::ng-deep {
+      &:last-child {
+        > * {
+          height: 100%;
+        }
+      }
+    }
+  }
+}

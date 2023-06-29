@@ -1,0 +1,29 @@
+@import "~@angular/material/theming";
+@import "../../mixins/amixin";
+
+@mixin report-color($config-or-theme) {
+  $config: mat-get-color-config($config-or-theme);
+  $foreground: map-get($config, foreground);
+  $background: map-get($config, background);
+  $primary: map-get($config, primary);
+  $accent: map-get($config, accent);
+  $warn: map-get($config, warn);
+
+  $text-color: mat-color($foreground, text, 0.75);
+  .report {
+    background-color: mat-color($primary, 0.07);
+    .box {
+      background-color: mat-color($background, card);
+      @include mat-elevation(3, mat-color($foreground, divider), 0.4);
+      .item {
+        @include scrollbar(mat-color($primary));
+        &:nth-child(2) {
+          border: 10px solid mat-color($primary, 0.1);
+        }
+      }
+    }
+    .dynamic-table {
+      @include mat-elevation(3, mat-color($foreground, divider), 0.4);
+    }
+  }
+}

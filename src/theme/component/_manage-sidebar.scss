@@ -1,0 +1,155 @@
+@import "~@angular/material/theming";
+@import "../mixins/amixin";
+
+@mixin manage-sidebar-color($config-or-theme) {
+  $config: mat-get-color-config($config-or-theme);
+  $foreground: map-get($config, foreground);
+  $background: map-get($config, background);
+  $primary: map-get($config, primary);
+  $accent: map-get($config, accent);
+  $warn: map-get($config, warn);
+
+  $text-color: mat-color($foreground, text, 0.75);
+
+  .manage-sidebar {
+    a {
+      color: mat-color($foreground, text, 0.75);
+      &:hover {
+        color: mat-color($primary);
+      }
+    }
+    .manage-brand {
+      border-bottom: 1px solid mat-color($foreground, divider);
+      .name {
+        a {
+          color: mat-color($foreground, text, 0.75);
+        }
+      }
+      .email {
+        color: mat-color($foreground, text, 0.3);
+      }
+    }
+    .manage-menu {
+      @include scrollbar(mat-color($foreground, divider, 0.2));
+      .icon {
+        color: mat-color($foreground, text, 0.7);
+      }
+      a {
+        &.active {
+          color: mat-color($primary);
+          &:after {
+            background-color: mat-color($primary, 0.05);
+          }
+        }
+      }
+      .mat-list {
+        .mat-list-item {
+          color: mat-color($foreground, text, 0.5);
+          &:hover {
+            a {
+              &:after {
+                background-color: mat-color($foreground, text, 0.05);
+              }
+            }
+          }
+        }
+      }
+      .icon-list {
+        .item {
+          &.active,
+          &:hover {
+            background-color: mat-color($foreground, text, 0.05);
+          }
+          &.active {
+            &::before {
+              background-color: mat-color($primary, default-contrast);
+            }
+          }
+          app-hover-menu {
+            background-color: mat-color($background, card);
+            @include mat-elevation(3, mat-color($foreground, divider, 0.7));
+            .top {
+              border-bottom: 1px solid mat-color($foreground, divider);
+              &.not-link {
+                color: mat-color($foreground, text, 0.75);
+                background-color: mat-color($foreground, text, 0.02);
+                a,
+                a:hover {
+                  color: mat-color($foreground, text, 0.75);
+                }
+              }
+            }
+            .hover-menu {
+              background-color: mat-color($background, card);
+              @include scrollbar(mat-color($foreground, divider));
+            }
+          }
+        }
+      }
+      .mat-accordion {
+        > .mat-list {
+          &.active {
+            &::before {
+              background-color: mat-color($primary);
+            }
+          }
+        }
+        .mat-expansion-panel {
+          &.active {
+            .mat-expansion-panel-header {
+              &::before {
+                background-color: mat-color($primary);
+              }
+            }
+          }
+        }
+      }
+      .mat-expansion-panel-body {
+        a {
+          color: mat-color($foreground, text, 0.6);
+        }
+      }
+    }
+    .manage-footer {
+      border-top: 1px solid mat-color($foreground, divider);
+      .toggle {
+        .wrapper {
+          @include mat-elevation(4, mat-color($foreground, text), 0.3);
+        }
+      }
+    }
+    &.expanded {
+      .manage-brand {
+        .profile {
+          .picture {
+            background-color: mat-color($primary, 0.5);
+            border: 4px solid mat-color($primary, 0.5);
+          }
+        }
+      }
+
+      > .mat-divider {
+        border-top-color: mat-color($background, card, 0.12);
+      }
+    }
+  }
+
+  .inverse {
+    .expanded {
+      background-color: mat-color($primary, 0.85);
+      color: mat-color($primary, default-contrast);
+      .manage-menu {
+        .icon {
+          color: mat-color($primary, default-contrast);
+        }
+      }
+      .manage-footer {
+        .toggle {
+          .wrapper {
+            @include mat-elevation(4, mat-color($primary), 0.3);
+          }
+        }
+      }
+    }
+  }
+}

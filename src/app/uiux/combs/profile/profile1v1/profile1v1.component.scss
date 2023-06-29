@@ -1,0 +1,55 @@
+@import "/src/theme/mixins/amixin";
+@import "/src/theme/variable/breakpoint";
+
+.actions {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 4px;
+  button {
+    opacity: 0.75;
+  }
+}
+
+::ng-deep .actions-menu {
+  .mat-button {
+    width: 100%;
+    .mat-button-focus-overlay {
+      background-color: transparent !important;
+    }
+  }
+}
+
+.box {
+  ::ng-deep {
+    img {
+      width: 80px;
+      height: 80px;
+      @include border-radius(50%, 50%, 50%, 50%);
+    }
+  }
+}
+
+.profile-banner {
+  overflow: hidden;
+  padding: 80px 0;
+  @media #{$gt-sm} {
+    padding: 180px 0;
+  }
+}
+
+.left {
+  @media #{$gt-sm} {
+    position: relative;
+    top: -245px;
+    border-radius: 4px;
+    .box {
+      height: 205px;
+      box-sizing: border-box;
+    }
+  }
+}
+
+.label {
+  white-space: nowrap;
+}

@@ -1,0 +1,10 @@
+<div *ngIf="content" class="header-meta position-relative" fxLayout="row wrap" fxLayoutAlign="space-between	center">
+  <app-text fxFlex.lt-md="100" fxFlex.gt-sm="70" [content]="content.text"></app-text>
+  <div fxLayoutAlign.lt-md="center center" fxLayoutAlign.gt-sm="end center" fxFlex.lt-md="100" fxFlex.gt-sm="30"
+    class="meta" fxLayout="row">
+    <div class="item" *ngFor="let item of content.meta" fxLayout="column" fxLayoutAlign="center center">
+      <span class="label">{{item.label}}</span>
+      <span class="value mat-display-2 m-bottom-0">{{item.value}}</span>
+    </div>
+  </div>
+</div>

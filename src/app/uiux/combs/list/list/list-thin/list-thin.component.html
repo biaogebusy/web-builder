@@ -1,0 +1,28 @@
+<div class="list-thin" *ngIf="content">
+  <div *ngIf="loading" class="m-y" fxLayoutAlign="center center">
+    <app-spinner [content]="{color:'primary', size:40}"></app-spinner>
+  </div>
+  <ng-container *ngIf="content?.length;else empty">
+    <div fxLayout="column" class="item m-bottom-sm p-y-xs p-x-xs"
+      *ngFor="let item of content | paginate: { itemsPerPage: pager.itemsPerPage || 20, currentPage: p }; trackBy: trackByFn">
+      <app-link [content]="item.link"></app-link>
+      <div class="item-bottom" fxLayout="row wrap" fxLayoutAlign="start center">
+        <div class="meta m-right-sm" fxLayoutGap="1rem" fxLayout>
+          <div *ngFor="let item of item.meta">
+            {{item.label | ucfirst}}
+          </div>
+        </div>
+        <div class="actions" *ngIf="item?.actions?.length">
+          <app-dynamic-widgets [data]="action?.params" [content]="action" *ngFor="let action of item.actions">
+          </app-dynamic-widgets>
+        </div>
+      </div>
+    </div>
+    <app-pagination (pageChange)="p = $event"></app-pagination>
+  </ng-container>
+  <ng-template #empty>
+    <div fxLayoutAlign="center center" class="p-y m-y">
+      没有数据
+    </div>
+  </ng-template>
+</div>

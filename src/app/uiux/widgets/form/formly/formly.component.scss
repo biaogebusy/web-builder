@@ -1,0 +1,18 @@
+formly-form {
+  ::ng-deep {
+    formly-field {
+      display: inline-block;
+      input[type="color"] {
+        height: 19px;
+      }
+    }
+  }
+
+  &.form-field-width-auto {
+    ::ng-deep {
+      .mat-form-field-infix {
+        width: auto;
+      }
+    }
+  }
+}

@@ -1,0 +1,41 @@
+<div class="builder" [ngClass]="{'has-sidebar':!(builderFullScreen$|async)}" *ngIf="content">
+  <mat-drawer-container>
+    <mat-drawer #drawer class="sidebar" [mode]="mode" [opened]="!(builderFullScreen$|async)">
+      <mat-tab-group mat-stretch-tabs mat-align-tabs="center" disableRipple="true">
+        <mat-tab *ngFor="let tab of tabs">
+          <ng-template mat-tab-label>
+            <app-icon [content]="tab.icon"></app-icon>
+            {{tab.label}}
+          </ng-template>
+          <div class="p-x-xs p-y-xs">
+            <app-builder-sidebar-widgets *ngIf="tab.type === 'base'"
+              [content]="tab.elements"></app-builder-sidebar-widgets>
+            <app-builder-sidebar-components *ngIf="tab.type === 'component'"
+              [content]="tab.elements"></app-builder-sidebar-components>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+      <app-builder-sample [content]="samples"></app-builder-sample>
+    </mat-drawer>
+    <mat-drawer-content>
+      <app-builder-toolbar [containerDrawer]="containerDrawer" [page]="page"></app-builder-toolbar>
+      <mat-drawer-container class="preview-container" [hasBackdrop]="(builder.dynamicContent$ | async)?.hasBackdrop">
+        <mat-drawer #containerDrawer [ngStyle]="{overflow:containerDrawer.open?'visible' : 'auto'}"
+          [mode]="(builder.dynamicContent$ | async)?.mode ||'over'" position="end">
+          <div class="actions expand">
+            <app-btn [matTooltip]="'收起'" (click)="onExpand()"
+              [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'chevron-right' } }"></app-btn>
+          </div>
+          <div *ngIf="builder.dynamicContent$ | async as dynamic" [ngStyle]="dynamic.style">
+            <app-dynamic-component *ngFor="let item of dynamic.elements;" [inputs]="item"></app-dynamic-component>
+          </div>
+        </mat-drawer>
+        <mat-drawer-content>
+          <app-builder-showcase *ngIf="builder.showcase$ | async as showcase"
+            [content]="showcase"></app-builder-showcase>
+          <app-builder-list [content]="content.body"></app-builder-list>
+        </mat-drawer-content>
+      </mat-drawer-container>
+    </mat-drawer-content>
+  </mat-drawer-container>
+</div>

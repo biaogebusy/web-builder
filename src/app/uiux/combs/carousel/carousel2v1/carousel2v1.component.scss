@@ -1,0 +1,28 @@
+@import "/src/theme/variable/breakpoint";
+.carousel-2-v1 {
+  overflow: hidden;
+}
+:host ::ng-deep {
+  .swiper-container {
+    .swiper-button-prev {
+      left: 5%;
+    }
+    .swiper-button-next {
+      right: 5%;
+    }
+    .swiper-button-next,
+    .swiper-button-prev {
+      top: 100px;
+      // width: 44px;
+      // height: 44px;
+    }
+    @media #{$gt-sm} {
+      .swiper-button-prev {
+        left: 30%;
+      }
+      .swiper-button-next {
+        right: 30%;
+      }
+    }
+  }
+}

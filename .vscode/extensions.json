@@ -1,0 +1,21 @@
+{
+  "recommendations": [
+    "angular.ng-template",
+    "steoates.autoimport",
+    "nucllear.vscode-extension-auto-import",
+    "editorconfig.editorconfig",
+    "eamodio.gitlens",
+    "azemoh.one-monokai",
+    "syler.sass-indented",
+    "gruntfuggly.todo-tree",
+    "eg2.tslint",
+    "esbenp.prettier-vscode",
+    "xabikos.javascriptsnippets",
+    "shanoor.vscode-nginx",
+    "infinity1207.angular2-switcher",
+    "Angular.ng-template",
+    "MariusAlchimavicius.json-to-ts",
+    "formulahendry.auto-rename-tag",
+    "lukasz-wronski.ftp-sync"
+  ]
+}

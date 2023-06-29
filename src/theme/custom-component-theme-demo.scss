@@ -1,0 +1,77 @@
+// 第一步
+// 引入 Material 的 函数来创建主题
+@import "~@angular/material/theming";
+
+@mixin example-color($config-or-theme) {
+  // mat-get-color-config 可以自动判断，参数传主题对象，或者颜色配置对象都可以
+  $config: mat-get-color-config($config-or-theme);
+  // 从配置对象中提取颜色
+  $background: map-get($config, background);
+  $foreground: map-get($config, foreground);
+  $primary: map-get($config, primary);
+  $accent: map-get($config, accent);
+
+  // 组件具体的样式类
+  .example-color {
+    // 使用 mat-color 从调色盘提取特定色调的颜色值。
+    background-color: map-get($background, card);
+    border-color: mat-color($foreground, divider);
+    color: mat-color($foreground, text);
+    // base color: mat-color($foreground, base, 0.25)
+    header {
+      color: mat-color($foreground, secondary-text);
+    }
+  }
+}
+
+// 背景和文字的应用，背景用主色，文字用主色对应的对比色
+// color: mat-color($primary, default-contrast);
+// background: mat-color($primary);
+// .mat-badge-accent {
+//     .mat-badge-content {
+//       background: mat-color($accent);
+//       color: mat-color($accent, default-contrast);
+//     }
+//   }
+
+// 第二步 创建另一个 mixin，接收 “文字排版配置对象”，输出文字样式。
+@mixin example-typography($config-or-theme) {
+  // 和颜色方法类似，参数传主题对象，或者文字排版配置对象都可以
+  $config: mat-get-typography-config($config-or-theme);
+
+  .example-typography {
+    font: {
+      family: mat-font-family($config, body-1);
+      size: mat-font-size($config, body-1);
+      weight: mat-font-weight($config, body-1);
+    }
+  }
+}
+
+// 第三步 把这前两个 mixin 整合在其中。所有其他和主题无关的样式，放入这个组件独立的样式文件中，由组件的 styleUrl 直接引入。
+// 将业务组件的主题定义文件，引入根主题文件中
+// 引入 Material 的 函数s 来创建主题
+@import "~@angular/material/theming";
+// 引入 Material 通用样式.
+@include mat-core();
+// 定义应用程序的自定义主题
+$primary: mat-palette($mat-indigo);
+$accent: mat-palette($mat-pink, A200, A100, A400);
+$theme: mat-light-theme(
+  (
+    color: (
+      primary: $primary,
+      accent: $accent,
+    ),
+  )
+);
+// 生成 Material 组件的主题样式
+@include angular-material-theme($theme);
+// 生成业务组件的主题样式
+@include example-carousel-theme($theme);
+
+// 用 mat-palette 创建 “调色盘”，使用 mat-light-theme 或 mat-dark-theme 创建颜色配置对象。
+// 用 mat-typography-config 创建字体定义，以及各个层级的文字排版配置。
+// 文字配置传给 mat-core，颜色配置传给 angular-material-theme，生成最终的主题样式。
+// 可以单独给指定的 Material 组件定义主题。
+// 使用 Material 提供的工具集，让自己开发的业务组件，也能和主题风格保持一致。

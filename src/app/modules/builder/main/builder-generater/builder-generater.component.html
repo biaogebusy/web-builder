@@ -1,0 +1,9 @@
+<div class="builder-generater" *ngIf="tabs" fxLayout="column">
+  <app-formly [classes]="'form-field-width-auto'" [form]="form" [fields]="fields" [model]="model">
+  </app-formly>
+  <mat-divider class="m-y-xs"></mat-divider>
+  <div class="actions m-top-sm" fxFlex="100" fxLayoutAlign="center center">
+    <app-btn (click)="onGenerate(model)"
+      [content]="{color:'primary',mode:'raised',label:'生成',icon:{svg:'progress-download',inline:true}}"></app-btn>
+  </div>
+</div>

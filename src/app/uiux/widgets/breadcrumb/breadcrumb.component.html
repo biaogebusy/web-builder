@@ -1,0 +1,7 @@
+<div class="breadcrumb" *ngIf="content">
+  <ul fxLayout="row">
+    <li *ngFor="let link of content">
+      <app-link [content]="link"></app-link>
+    </li>
+  </ul>
+</div>

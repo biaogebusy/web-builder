@@ -1,0 +1,40 @@
+.menu-list {
+  .block-title {
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    word-spacing: 1px;
+  }
+  .list {
+    padding: 0;
+    .item {
+      list-style: none;
+      padding: 10px 0;
+      &:last-child {
+        border-bottom: none;
+      }
+      .num-posts {
+        font-size: 14px;
+      }
+      ::ng-deep a {
+        display: inline-block;
+        margin-right: 10px;
+        font-size: 15px;
+      }
+    }
+  }
+  .action {
+    cursor: pointer;
+    .mat-icon {
+      transition: all 0.4s ease;
+    }
+    &:hover {
+      .mat-icon {
+        transform: rotate(180deg);
+      }
+    }
+  }
+}

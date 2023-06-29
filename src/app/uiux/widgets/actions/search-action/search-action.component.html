@@ -1,0 +1,10 @@
+<div class="search-action m-y-sm" *ngIf="content">
+  <form [formGroup]="form" class="position-relative" (ngSubmit)="onSubmit()">
+    <div class="form-group" fxLayoutAlign.lt-md="center center" fxLayoutAlign.gt-sm="start center"
+      fxLayoutGap.gt-sm="2rem" fxLayout.lt-md="column" fxLayout.gt-sm="row" *ngIf="content.form">
+      <app-dynamic-form-control class="control" *ngFor="let item of content.form" [control]="item" [form]="form">
+      </app-dynamic-form-control>
+    </div>
+    <button mat-raised-button type="submit" color="{{content.button?.color}}">{{content.button?.label}}</button>
+  </form>
+</div>

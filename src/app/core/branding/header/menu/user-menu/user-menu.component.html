@@ -1,0 +1,33 @@
+<div class="user">
+  <ng-container *ngIf="!currentUser.authenticated">
+    <button aria-label="user login" color="primary" [routerLink]="userService.userLink" mat-mini-fab mat-button>
+      <mat-icon>person</mat-icon>
+    </button>
+  </ng-container>
+  <ng-container *ngIf="currentUser.authenticated">
+    <button aria-label="user name" *ngIf="!currentUser.picture; else picture" mat-mini-fab color="primary" mat-button
+      [matMenuTriggerFor]="menu">
+      <h3 class="name">
+        {{utilities.getIndexTitle(currentUser.display_name || 'N')}}
+      </h3>
+    </button>
+    <ng-template #picture>
+      <img class="user-picture" [matMenuTriggerFor]="menu" [src]="currentUser.picture"
+        alt="{{currentUser.display_name}}">
+    </ng-template>
+    <mat-menu #menu="matMenu" class="user-dropdown">
+      <a mat-menu-item [routerLink]="userService.userPage">
+        <mat-icon>account_circle</mat-icon>{{currentUser.display_name}}
+      </a>
+      <ng-container *ngFor="let item of content;">
+        <button aria-label="user link" mat-menu-item *reqRolesIf="item">
+          <app-icon [content]="item.icon"></app-icon>
+          <app-link [content]="item"></app-link>
+        </button>
+      </ng-container>
+      <button aria-label="logout" mat-menu-item (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon>退出
+      </button>
+    </mat-menu>
+  </ng-container>
+</div>

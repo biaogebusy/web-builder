@@ -1,0 +1,38 @@
+@import "~@angular/material/theming";
+
+@mixin comment-color($config-or-theme) {
+  $config: mat-get-color-config($config-or-theme);
+  $foreground: map-get($config, foreground);
+  $background: map-get($config, background);
+  $primary: map-get($config, primary);
+  $accent: map-get($config, accent);
+  $warn: map-get($config, warn);
+
+  $text-color: mat-color($foreground, text, 0.75);
+  .comment-list {
+    .comment-count {
+      border-bottom: 1px solid mat-color($foreground, divider);
+    }
+    .item {
+      &:after {
+        border-bottom: 1px solid mat-color($foreground, divider, 0.08);
+      }
+      &:last-child:after {
+        border-bottom: 0;
+      }
+      .item-child {
+        background-color: mat-color($background, app-bar);
+      }
+    }
+    .inline-editor {
+      background-color: mat-color($background, background);
+    }
+    .actions {
+      .mat-primary {
+        .mat-spinner circle {
+          stroke: mat-color($primary, default-contrast);
+        }
+      }
+    }
+  }
+}

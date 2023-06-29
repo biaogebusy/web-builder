@@ -1,0 +1,49 @@
+@import "~@angular/material/theming";
+@import "../mixins/base-color";
+@import "../component/component";
+$blue-color: (
+  //
+  50: #e7e9ff,
+  100: #c2c8fe,
+  200: #96a4fe,
+  300: #6280ff,
+  400: #2962ff,
+  500: #0044fc,
+  600: #003bf0,
+  700: #002fe3,
+  800: #0022d9,
+  900: #0001c0,
+  A100: #c2c8fe,
+  A200: #96a4fe,
+  A400: #2962ff,
+  A700: #002fe3,
+  contrast: (
+    //
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $light-primary-text,
+    400: $light-primary-text,
+    500: $light-primary-text,
+    600: $light-primary-text,
+    700: $light-primary-text,
+    800: $light-primary-text,
+    900: $light-primary-text,
+    A100: $dark-primary-text,
+    A200: $light-primary-text,
+    A400: $light-primary-text,
+    A700: $light-primary-text
+  )
+);
+
+// user material mat blue
+$blue-primary: mat-palette($blue-color, 400);
+$blue-accent: mat-palette($blue-color, A400);
+$blue-warn: mat-palette($mat-red, A200, A100, A400);
+$blue-theme: mat-light-theme($blue-primary, $blue-accent, $blue-warn);
+
+.blue-theme {
+  @include angular-material-theme($blue-theme);
+  @include base-colors($blue-theme);
+  @include component-theme($blue-theme);
+}

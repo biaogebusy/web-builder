@@ -1,0 +1,105 @@
+@import "~@angular/material/theming";
+
+@mixin showcase-color($config-or-theme) {
+  $config: mat-get-color-config($config-or-theme);
+  $foreground: map-get($config, foreground);
+  $background: map-get($config, background);
+  $primary: map-get($config, primary);
+  $accent: map-get($config, accent);
+  $warn: map-get($config, warn);
+
+  $text-base: mat-color($foreground, text);
+
+  .showcase-2v1 {
+    .mat-card {
+      transition: all 0.4s ease;
+      border-bottom-color: mat-color($foreground, divider);
+      a {
+        color: inherit;
+      }
+      &:hover {
+        a {
+          color: mat-color($primary);
+        }
+        border-bottom-color: mat-color($primary);
+      }
+    }
+  }
+
+  .showcase-2v2 {
+    .mat-card-content {
+      .mat-card-title {
+        border-bottom: 1px solid mat-color($foreground, divider, 0.1);
+      }
+    }
+  }
+
+  .showcase-2v5 {
+    .content-text-center {
+      color: mat-color($primary, default-contrast);
+    }
+  }
+
+  .showcase-3-v3 {
+    .showcase-inner {
+      ul.post-meta-info {
+        color: mat-color($foreground, text, 0.5);
+      }
+      .shortdesc {
+        color: mat-color($foreground, text);
+      }
+      &.teaser {
+        border-bottom: 1px dotted mat-color($foreground, divider);
+        .title {
+          a {
+            color: mat-color($foreground, text, 0.75);
+            &:hover {
+              color: mat-color($primary);
+            }
+          }
+        }
+        .post-meta-info {
+          border-bottom: 1px dotted mat-color($foreground, divider);
+        }
+      }
+    }
+  }
+
+  .showcase-4v1 {
+    .inv-stats {
+      .mat-icon {
+        color: mat-color($primary);
+      }
+    }
+  }
+
+  .showcase-3-v7 {
+    .box-title {
+      a {
+        color: mat-color($primary);
+      }
+    }
+  }
+
+  .showcase-3-v8 {
+    .media {
+      background-color: mat-color($background, card);
+    }
+    .middle {
+      .media {
+        background-color: mat-color($primary, 400);
+        color: mat-color($primary, default-contrast);
+        .sub-title {
+          color: mat-color($primary, default-contrast);
+        }
+        a {
+          color: mat-color($primary, default-contrast);
+          &:hover {
+            color: mat-color($primary, default-contrast);
+            opacity: 0.85;
+          }
+        }
+      }
+    }
+  }
+}

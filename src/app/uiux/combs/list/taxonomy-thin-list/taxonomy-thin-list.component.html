@@ -1,0 +1,15 @@
+<app-bg [content]="{'classes':'bg-fill-width bg-shadow'}"></app-bg>
+<div class="taxonomy-thin-list position-relative" *ngIf="content">
+  <div class="container">
+    <div class="p-y-md" fxLayout.lt-md="column" fxLayout.gt-sm="row" fxLayoutAlign="center start">
+      <div class="thin-sidebar p-x-xs p-y-xs" [ngClass.gt-sm]="'m-right-sm'" *ngIf="content.sidebar" fxFlex.lt-md="100"
+        fxFlex.gt-sm="25">
+        <app-dynamic-component [inputs]="{content:item}" *ngFor="let item of content.sidebar;">
+        </app-dynamic-component>
+      </div>
+      <div class="list" fxFlex.lt-md="100" fxFlex.gt-sm="{{content.sidebar?'75':'100'}}">
+        <app-list-thin [content]="content.elements" [pager]="content.pager"></app-list-thin>
+      </div>
+    </div>
+  </div>
+</div>

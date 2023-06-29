@@ -1,0 +1,36 @@
+@import "../../../../theme/mixins/amixin";
+:host {
+  display: block;
+  width: 100%;
+}
+
+.base-text {
+  overflow: hidden;
+}
+
+.inner {
+  position: relative;
+  z-index: 2;
+}
+
+.actions {
+  > *:not(:only-child) {
+    margin-right: 2rem;
+  }
+}
+
+.text-body {
+  ::ng-deep {
+    img {
+      max-width: 100%;
+    }
+  }
+}
+
+.lists {
+  ::ng-deep {
+    a {
+      @include line-clamp(1);
+    }
+  }
+}

@@ -1,0 +1,54 @@
+<mat-card *ngIf="content" class="card {{content?.header?.meta ? 'has-header':''}}" [ngClass]="content.classes">
+  <mat-card-content *ngIf="content.header?.meta">
+    <app-card-meta [content]="content.header?.meta"></app-card-meta>
+  </mat-card-content>
+  <mat-card-header class="m-bottom-xs" *ngIf="content?.header">
+    <div mat-card-avatar *ngIf="content.header?.avatar">
+      <app-img [content]="content.header?.avatar || {src:''}"></app-img>
+    </div>
+    <mat-card-title *ngIf="content.header?.title" [innerHTML]="content.header?.title || ''|safeHtml"></mat-card-title>
+    <mat-card-subtitle *ngIf="content.header?.subTitle" [innerHTML]="content.header?.subTitle || ''|safeHtml">
+    </mat-card-subtitle>
+  </mat-card-header>
+  <div class="card-header">
+    <ng-container *ngIf="content.carousel">
+      <app-swiper *ngIf="content?.carousel?.elements.length >1;else feature" [content]="content.carousel">
+      </app-swiper>
+      <ng-template #feature>
+        <app-feature-box [content]="content.carousel.elements[0]"></app-feature-box>
+      </ng-template>
+    </ng-container>
+    <ng-container *ngIf="!content.carousel && content.feature">
+      <app-feature-box [content]="content.feature"></app-feature-box>
+    </ng-container>
+  </div>
+  <mat-card-content>
+    <div fxLayout>
+      <div *ngIf="content.avatar" mat-card-avatar class="m-right-xs">
+        <app-img [content]="content.avatar"></app-img>
+      </div>
+      <div fxLayout="row wrap" fxFlex="100">
+        <mat-card-title fxFlex="100" *ngIf="content?.title;else link">{{content.title}}</mat-card-title>
+        <ng-template #link>
+          <mat-card-title fxFlex="100" *ngIf="content.link">
+            <app-link [content]="content.link"></app-link>
+          </mat-card-title>
+        </ng-template>
+        <mat-card-subtitle fxFlex="100" *ngIf="content?.subTitle">
+          {{content.subTitle}}
+        </mat-card-subtitle>
+      </div>
+    </div>
+    <div *ngIf="content.body" class="card-body" [innerHTML]="content.body | safeHtml">
+    </div>
+  </mat-card-content>
+  <mat-card-actions *ngIf="content?.actions">
+    <button mat-button *ngFor="let action of content.actions">{{action.label}}</button>
+  </mat-card-actions>
+  <mat-card-footer>
+    <div class="footer" *ngIf="content.footer">
+      <app-card-meta [content]="content.footer.meta"></app-card-meta>
+    </div>
+    <app-progress-bar *ngIf="content.progressBar" [content]="content.progressBar"></app-progress-bar>
+  </mat-card-footer>
+</mat-card>

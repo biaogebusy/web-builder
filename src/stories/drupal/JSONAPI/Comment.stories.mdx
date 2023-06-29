@@ -1,0 +1,173 @@
+import { Meta } from "@storybook/addon-docs";
+
+<Meta
+  title="Drupal/相关资料/JSONAPI/评论"
+  id="jsonapi-comment"
+  parameters={{
+    viewMode: "docs",
+    previewTabs: {
+      canvas: { hidden: true },
+    },
+    layout: "fullscreen",
+  }}
+/>
+
+## 使用 Drupal JSONAPI 添加评论
+
+```
+POST {{apiUrl}}/api/v1/comment/comment
+Accept: application/vnd.api+json
+Content-Type: application/vnd.api+json
+X-CSRF-Token: {{csrfToken}}
+```
+
+```json
+{
+  "data": {
+    "type": "comment--comment",
+    "attributes": {
+      "entity_type": "node",
+      "field_name": "comment",
+      "comment_body": {
+        "value": "New comment by johnson!",
+        "format": "plain_text"
+      }
+    },
+    "relationships": {
+      "comment_type": {
+        "data": {
+          "type": "comment_type--comment_type",
+          "id": "19c33b19-bfdc-4a26-9c64-af6171b123cb"
+        }
+      },
+      "entity_id": {
+        "data": {
+          "type": "node--article",
+          "id": "702d126f-b9d2-4a57-b157-6ccf416fcd62"
+        }
+      }
+    }
+  }
+}
+```
+
+## 回复评论
+
+```
+POST {{apiUrl}}/api/v1/comment/comment
+Accept: application/vnd.api+json
+Content-Type: application/vnd.api+json
+X-CSRF-Token: {{csrfToken}}
+```
+
+```json
+{
+  "data": {
+    "type": "comment--comment",
+    "attributes": {
+      "entity_type": "node",
+      "field_name": "comment",
+      "comment_body": {
+        "value": "<p>回复测试001</p >\r\n",
+        "format": "full_html"
+      }
+    },
+    "relationships": {
+      "comment_type": {
+        "data": {
+          "type": "comment_type--comment_type",
+          "id": "19c33b19-bfdc-4a26-9c64-af6171b123cb"
+        }
+      },
+      "pid": {
+        "data": {
+          "type": "comment--comment",
+          "id": "12f18dad-179f-4f7d-9322-1c2db0cc4bca"
+        }
+      },
+      "entity_id": {
+        "data": {
+          "type": "node--article",
+          "id": "deef4a32-fcb3-48aa-8e4e-0a6bd0302f05"
+        }
+      }
+    }
+  }
+}
+```
+
+## 更新评论
+
+```
+PATCH {{apiUrl}}/api/v1/comment/answer/92e32979-ebbd-494c-aabe-6a1f9a6b505d
+Accept: application/vnd.api+json
+Content-Type: application/vnd.api+json
+X-CSRF-Token: {{csrfToken}}
+```
+
+```json
+{
+  "data": {
+    "type": "comment--answer",
+    "id": "92e32979-ebbd-494c-aabe-6a1f9a6b505d",
+    "attributes": {
+      "content": {
+        "value": "Updated body text",
+        "format": "full_html"
+      }
+    },
+    "relationships": {
+      "uid": {
+        "data": {
+          "type": "user--user",
+          "id": "d5fb03cb-abca-43ba-baa5-a162a576e67a"
+        }
+      }
+    }
+  }
+}
+```
+
+## 问答示例
+
+注意：以下请求默认加头部信息：
+
+```
+Accept: application/vnd.api+json
+Content-Type: application/vnd.api+json
+X-CSRF-Token: {{csrfToken}}
+```
+
+使用 JSONAPI 获取问答内容类型的列表，如图：
+![questionList](/assets/storybook/assets/drupal/question-list.png)
+
+```
+GET {{apiUrl}}/api/v1/node/question?fields[node--question]=title,changed,path,drupal_internal__nid,answer,uid&include=uid,uid.user_picture&fields[user--user]=name,user_picture&fields[file--file]=uri&jsonapi_include=1
+```
+
+![questionNode](/assets/storybook/assets/drupal/question-node.png)
+获取具体用户对问答的评论，以判断是否有回答:
+
+```
+GET {{apiUrl}}/api/v1/comment/answer?filter[uid.id]=d5fb03cb-abca-43ba-baa5-a162a576e67a&filter[entity_id.id]=18dac740-1d11-43c0-a431-d2b9e402fe6b&sort=-created&page[limit]=1
+```
+
+获取具体的问答的所有评论：
+
+```
+GET {{apiUrl}}/api/v1/comment/comment?filter[entity_id.id]=deef4a32-fcb3-48aa-8e4e-0a6bd0302f05&include=uid,uid.user_picture,pid&fields[user--user]=name,user_picture&fields[file--file]=uri,url&sort=-created&filter[status]=1&jsonapi_include=1&timeStamp=1&[limit]=10
+```
+
+获取具体评论的子评论：
+
+```
+GET {{apiUrl}}/api/v1/comment/answer?filter[pid.id]=b3765d39-6397-4e96-96c0-00e73972bbab&include=uid,uid.user_picture,pid&fields[user--user]=name,user_picture&fields[file--file]=uri,url&sort=-created&filter[status]=1&jsonapi_include=1
+```
+
+## 自定义获取评论
+
+JSONAPI 在获取评论时，如果关联数据过多，会有性能问题，建议可自定义 api.
+
+```
+GET {{apiUrl}}/api/v3/comment/comment/{uuid}
+```

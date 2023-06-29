@@ -1,0 +1,23 @@
+@import "~@angular/material/theming";
+@import "../../mixins/amixin";
+
+@mixin map-list-color($config-or-theme) {
+  $config: mat-get-color-config($config-or-theme);
+  $foreground: map-get($config, foreground);
+  $background: map-get($config, background);
+  $primary: map-get($config, primary);
+  $accent: map-get($config, accent);
+  $warn: map-get($config, warn);
+
+  .map-list-common {
+    background-color: mat-color($background, background);
+    @include mat-elevation(4, #000, 0.35);
+    .sidebar {
+      background-color: mat-color($background, background);
+    }
+    .sidebar-right {
+      @include mat-elevation(4, #000, 0.35);
+      background-color: mat-color($background, background);
+    }
+  }
+}

@@ -1,0 +1,22 @@
+<ng-container *ngIf="content && config?.enable">
+  <button mat-button [mat-menu-trigger-for]="menu">
+    <app-icon [content]="config.icon"></app-icon>
+    <span>{{config.label}}</span>
+  </button>
+  <mat-menu #menu="matMenu">
+    <ng-container *ngIf="canAccess;else canotAccess">
+      <button *ngFor="let item of content.elements" mat-menu-item>
+        <app-icon [content]="item.icon"></app-icon>
+        <a target="_blank" href="{{item.href}}">{{item.label}}</a>
+      </button>
+    </ng-container>
+    <ng-template #canotAccess>
+      <ng-container *ngIf="!user.authenticated">
+        <button mat-menu-item>
+          <app-icon [content]="{'name':'person'}"></app-icon>
+          <a href="javascript:vovid(0)" (click)="openLogin()">登录</a>
+        </button>
+      </ng-container>
+    </ng-template>
+  </mat-menu>
+</ng-container>

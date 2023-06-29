@@ -1,0 +1,79 @@
+@import "./header";
+@import "./footer";
+@import "./login";
+@import "./map";
+@import "./widgets";
+@import "./showcase";
+@import "./box";
+@import "./img";
+@import "./list";
+@import "./title";
+@import "./btn-animate";
+@import "./carousel";
+@import "./banner";
+@import "./node/article";
+@import "./node/relate";
+@import "./node/report";
+@import "./node/map-list-common";
+@import "./node/quesion";
+@import "./node/profile";
+@import "./dynamic-list";
+@import "./calendar";
+@import "./calculator";
+@import "./form";
+@import "./hero";
+@import "./search";
+@import "./media";
+@import "./user";
+@import "./node/comment";
+@import "./manage-sidebar";
+@import "./view-map";
+@import "./dashboard";
+@import "./chart-box";
+@import "./builder";
+
+// material custom
+@import "./mat/card";
+@import "./mat/chip-list";
+@import "./mat/dropdown-menu";
+
+@mixin component-theme($config-or-theme) {
+  @include header-color($config-or-theme);
+  @include footer-color($config-or-theme);
+  @include login-color($config-or-theme);
+  @include map-color($config-or-theme);
+  @include widgets-color($config-or-theme);
+  @include box-color($config-or-theme);
+  @include showcase-color($config-or-theme);
+  @include img-color($config-or-theme);
+  @include list-color($config-or-theme);
+  @include title-color($config-or-theme);
+  @include btn-animate-color($config-or-theme);
+  @include carousel-color($config-or-theme);
+  @include banner-color($config-or-theme);
+  @include article-color($config-or-theme);
+  @include relate-color($config-or-theme);
+  @include report-color($config-or-theme);
+  @include map-list-color($config-or-theme);
+  @include question-color($config-or-theme);
+  @include form-color($config-or-theme);
+  @include hero-color($config-or-theme);
+  @include search-color($config-or-theme);
+  @include media-color($config-or-theme);
+  @include profile-color($config-or-theme);
+  @include dynamic-list-color($config-or-theme);
+  @include user-color($config-or-theme);
+  @include calendar-color($config-or-theme);
+  @include comment-color($config-or-theme);
+  @include calculator-color($config-or-theme);
+  @include manage-sidebar-color($config-or-theme);
+  @include view-map-color($config-or-theme);
+  @include dashboard-color($config-or-theme);
+  @include chart-box-color($config-or-theme);
+  @include builder-color($config-or-theme);
+
+  // material custom ui
+  @include card-color($config-or-theme);
+  @include chip-list-color($config-or-theme);
+  @include dropdown-menu-color($config-or-theme);
+}

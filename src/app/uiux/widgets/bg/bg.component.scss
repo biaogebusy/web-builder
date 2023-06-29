@@ -1,0 +1,57 @@
+@import "/src/theme/variable/breakpoint";
+.bg-fill-width {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 100vw;
+  max-width: 100%;
+  transform: translateX(-50%);
+  z-index: -1;
+}
+
+.overlay {
+  &:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    z-index: 1;
+    content: "";
+  }
+  &.overlay-20 {
+    &:before {
+      opacity: 0.2;
+    }
+  }
+  &.overlay-40 {
+    &:before {
+      opacity: 0.4;
+    }
+  }
+  &.overlay-60 {
+    &:before {
+      opacity: 0.6;
+    }
+  }
+  &.overlay-80 {
+    &:before {
+      opacity: 0.8;
+    }
+  }
+}
+
+::ng-deep .wave-wrapper {
+  .wave {
+    width: 100%;
+    height: 200px;
+  }
+
+  @media #{$gt-sm} {
+    .wave {
+      height: 500px;
+    }
+  }
+}

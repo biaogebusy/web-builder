@@ -1,0 +1,13 @@
+.chart {
+  min-height: 400px;
+  padding: 2rem;
+  box-sizing: border-box;
+  border-radius: 4px;
+}
+:host ::ng-deep {
+  .mat-button-toggle {
+    .mat-button-toggle-label-content {
+      line-height: 32px;
+    }
+  }
+}

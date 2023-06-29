@@ -1,0 +1,43 @@
+.meta {
+  overflow: hidden;
+  ::ng-deep {
+    a {
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    .inner {
+      .li {
+        position: relative;
+        ::ng-deep {
+          a.one-line {
+            margin-right: 70px;
+          }
+          .mat-button-base {
+            position: absolute;
+            right: 0;
+            top: -9px;
+            opacity: 0;
+            transition: all 0.1s ease;
+          }
+        }
+        &:hover {
+          ::ng-deep {
+            .mat-button-base {
+              opacity: 1;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.custom-btn {
+  width: auto;
+  height: 20px;
+  line-height: 16px;
+  ::ng-deep .mat-button-wrapper {
+    line-height: 16px;
+  }
+}

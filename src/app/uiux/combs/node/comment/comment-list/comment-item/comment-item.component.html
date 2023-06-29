@@ -1,0 +1,24 @@
+<div class="item p-y-sm p-x-sm" *ngFor="let item of comments;index as i;last as isLast; trackBy: trackByFn">
+  <a class="anchor" [id]="'q-'+item.id"></a>
+  <div class="comment-box">
+    <app-media-object [content]="item.author"></app-media-object>
+    <ng-container *ngIf="onShow(item)">
+      <div class="comment-body m-top-xs" [innerHTML]="item.content |safeHtml">
+      </div>
+      <ng-container *ngIf="content.comment">
+        <app-comment-actions *ngIf="showActions && item.level === 1" [config]="content.comment" [item]="item" [i]="i"
+          [currentId]="currentId" [loading]="loading" (update)="onUpdate($event)" (delete)="onDelete($event)"
+          (reply)="onReply($event)">
+        </app-comment-actions>
+      </ng-container>
+    </ng-container>
+  </div>
+  <div class="inline-editor p-y-sm p-x-sm m-bottom" *ngIf="item.id === currentId">
+    <app-comment-form [content]="content" (cancel)="onCancel()" [commentContent]="currentData" [commentId]="item.id"
+      [type]="type">
+    </app-comment-form>
+  </div>
+  <div class="item-child m-y-xs" *ngIf="item?.child && item?.child?.length">
+    <app-comment-item [comments]="item.child" [content]="content"></app-comment-item>
+  </div>
+</div>

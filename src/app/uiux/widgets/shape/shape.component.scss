@@ -1,0 +1,23 @@
+.shape {
+  position: absolute;
+  pointer-events: none;
+  right: 0;
+  bottom: -2px;
+  left: 0;
+  ::ng-deep {
+    svg {
+      transform: scale(2);
+      width: 100%;
+      height: 100%;
+      transform-origin: top center;
+    }
+    .custom-icon {
+      display: block;
+      transform: none;
+    }
+    .mat-icon {
+      width: 100% !important;
+      height: 100% !important;
+    }
+  }
+}

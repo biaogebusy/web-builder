@@ -1,0 +1,141 @@
+@import "/src/theme/mixins/amixin";
+.card-body {
+  min-height: 4rem;
+  @include line-clamp(2);
+}
+.mat-card-title {
+  @include line-clamp(1);
+}
+.card-header {
+  position: relative;
+  margin-top: -16px !important;
+
+  ::ng-deep {
+    .swiper-container,
+    .feature-inner {
+      border-top-left-radius: inherit;
+      border-top-right-radius: inherit;
+      width: calc(100% + 32px);
+      margin: 0 -16px 16px -16px;
+      &:after,
+      &:before {
+        right: 0 !important;
+      }
+    }
+    .feature-cover {
+      &:after,
+      &:before {
+        left: 0;
+      }
+    }
+    .swiper-container {
+      .feature-inner {
+        width: 100%;
+        margin: 0;
+      }
+    }
+    .swiper-container {
+      .mat-card-image {
+        margin: 0 0 16px 0px;
+      }
+    }
+  }
+  .overlay-details {
+    position: absolute;
+    z-index: 99;
+    width: 100%;
+    text-align: center;
+    @include middle-center();
+    ::ng-deep a {
+      opacity: 0;
+      @include transform(20deg, 0, 0, 0);
+      display: inline-block;
+      position: relative;
+      z-index: 1;
+      font-size: 13px;
+      padding: 9px 13px;
+      margin-right: 10px;
+      @include transition(all, 0.4s, ease);
+    }
+  }
+  &:hover {
+    .overlay-details {
+      ::ng-deep a {
+        @include transform(0deg, 1, 0, 0);
+        opacity: 1;
+        @include transition(all, 0.4s, ease);
+      }
+    }
+  }
+}
+
+.mat-card-subtitle,
+.card-body {
+  font-size: 14px;
+  word-break: break-word;
+}
+
+.mat-card-content {
+  ::ng-deep {
+    .mat-card-avatar {
+      position: relative;
+      img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+      }
+    }
+    .mat-card-title {
+      font-size: 16px;
+      font-weight: bold;
+    }
+  }
+}
+
+// style
+.card {
+  &.card-no-shadow {
+    box-shadow: none;
+    background-color: transparent;
+  }
+  ::ng-deep .meta {
+    font-size: small;
+    .item {
+      margin-bottom: 2px;
+      .inline-lightbox {
+        .inline {
+          display: block;
+          @include line-clamp();
+          padding-left: 0 !important;
+          padding-right: 0 !important;
+        }
+      }
+    }
+    .badge {
+      padding: 4px 10px;
+      border-radius: 15px;
+      margin-bottom: 8px;
+      display: inline-block;
+      @include line-clamp();
+      &:empty {
+        display: none !important;
+        opacity: 0;
+      }
+    }
+  }
+  ::ng-deep .mat-card-footer {
+    .mat-progress-bar .mat-progress-bar-fill::after {
+      border-radius: 0 0 4px 4px;
+    }
+  }
+  .footer {
+    padding: 0 16px 16px;
+    ::ng-deep {
+      .meta {
+        .item {
+          margin-bottom: 10px;
+        }
+      }
+    }
+  }
+}

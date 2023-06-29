@@ -1,0 +1,80 @@
+@import "~@angular/material/theming";
+
+@mixin carousel-color($config-or-theme) {
+  $config: mat-get-color-config($config-or-theme);
+  $foreground: map-get($config, foreground);
+  $background: map-get($config, background);
+  $primary: map-get($config, primary);
+  $accent: map-get($config, accent);
+  $warn: map-get($config, warn);
+
+  $light: map-get($background, card);
+  .carousel-1-v2 {
+    .actions {
+      color: mat-color($primary);
+    }
+  }
+  .carousel-2-v1 {
+    &.section-light {
+      color: $light;
+      .line-style {
+        &:before {
+          background: $light;
+        }
+        .mat-icon {
+          background: mat-color($primary);
+          color: $light;
+        }
+      }
+      .swiper-container {
+        .swiper-button-next,
+        .swiper-button-prev {
+          color: $light;
+        }
+      }
+      .testimonial {
+        &.style-v2 {
+          .bx-wrapper {
+            img {
+              border-color: $light !important;
+            }
+          }
+          .testimonial-detail {
+            .info {
+              color: $light;
+            }
+            .sub-title {
+              color: $light;
+            }
+            .desc {
+              color: $light;
+            }
+          }
+        }
+      }
+    }
+  }
+  .carousel-2-v2 {
+    &.bg-primary {
+      background-color: mat-color($primary);
+      .swiper-container {
+        .swiper-button-prev,
+        .swiper-button-next {
+          color: mat-color($primary, default-contrast);
+        }
+      }
+    }
+  }
+  .swiper-container {
+    .swiper-pagination-bullet-active {
+      background-color: mat-color($primary);
+    }
+    .swiper-button-next,
+    .swiper-button-prev {
+      color: mat-color($primary, default-contrast);
+      background-color: mat-color($primary, 0.5);
+      border-radius: 50%;
+      padding: 6px;
+    }
+  }
+}

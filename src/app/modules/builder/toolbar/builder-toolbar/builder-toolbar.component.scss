@@ -1,0 +1,30 @@
+.builder-toolbar {
+  position: relative;
+  .wrapper {
+    padding-left: 20px;
+    padding-right: 20px;
+    height: 55px;
+  }
+  .open-drawer {
+    display: inline-block;
+    line-height: 1;
+    z-index: 99999;
+    cursor: pointer;
+  }
+
+  .middle {
+    .title {
+      font-size: 14px;
+    }
+    .time {
+      font-size: small;
+    }
+  }
+  &.fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+  }
+}

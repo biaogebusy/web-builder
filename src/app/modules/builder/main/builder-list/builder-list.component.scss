@@ -1,0 +1,67 @@
+@import "../../../../../theme//mixins/amixin";
+.builder-list {
+  height: 100%;
+  overflow-x: hidden !important;
+  .sidebar-drawer {
+    width: 190px;
+    width: 190px;
+  }
+  .sidebar-drawer,
+  .wrapper {
+    height: calc(100% - 55px);
+    overflow-y: auto !important;
+  }
+  .wrapper {
+    overflow-x: hidden !important;
+    .load {
+      @include middle-center();
+      z-index: 9999;
+    }
+  }
+  ::ng-deep .component-item {
+    position: relative;
+    &.cdk-drag:not(.cdk-drag-disabled) {
+      cursor: move;
+    }
+    &.cdk-drag-disabled {
+      ::ng-deep {
+        .active-toolbar {
+          &:after {
+            opacity: 0;
+            display: none;
+          }
+        }
+      }
+    }
+  }
+
+  .actions {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 99999;
+  }
+
+  .preview-xs,
+  .preview-sm,
+  .preview-md {
+    .preview-wrapper {
+      margin: 0 auto;
+    }
+  }
+  .preview-xs {
+    .preview-wrapper {
+      width: 599px;
+    }
+  }
+  .preview-sm {
+    .preview-wrapper {
+      width: 959px;
+    }
+  }
+  .preview-md {
+    .preview-wrapper {
+      width: 1279px;
+    }
+  }
+}

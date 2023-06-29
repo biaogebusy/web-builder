@@ -1,0 +1,21 @@
+<!-- https://github.com/angular/flex-layout/wiki/imgSrc-API -->
+
+<div class="img-wrapper" *ngIf="content">
+  <ng-container *ngIf="!content.href;else withLink">
+    <img loading="lazy" [ngStyle]="content.style" [ngClass]="content?.classes"
+      [src]="content.src || coreConfig.defaultThumb"
+      [src.lt-md]="content.mobile ? content.mobile : content.src || coreConfig.defaultThumb"
+      [alt]="content.alt || ''" />
+  </ng-container>
+  <ng-template #withLink>
+    <a href="{{content.href}}" target="{{content.target}}">
+      <img loading="lazy" [ngClass]="content?.classes" [src]="content.src || coreConfig.defaultThumb"
+        [src.lt-md]="content.mobile ? content.mobile : content.src || coreConfig.defaultThumb" [ngStyle]="content.style"
+        [alt]="content.alt || ''" />
+    </a>
+  </ng-template>
+  <div class="actions" *ngIf="content.actions" fxLayoutAlign="center center" fxLayoutGap="1rem">
+    <app-dynamic-component [inputs]="{content: action,disableToolbar:true,activeToolBar:false}"
+      *ngFor="let action of content.actions"></app-dynamic-component>
+  </div>
+</div>

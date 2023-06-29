@@ -1,0 +1,15 @@
+:host {
+  display: none !important;
+  width: 100%;
+  .title {
+    padding: 10px;
+  }
+
+  .actions {
+    .item {
+      cursor: pointer;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+  }
+}

@@ -1,0 +1,37 @@
+@import "/src/theme/variable/breakpoint";
+.hero-1-v1 {
+  height: calc(100vh - 50px);
+  overflow: hidden;
+  ::ng-deep {
+    .swiper-container {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      .swiper-slide {
+        .active-toolbar {
+          position: static;
+        }
+      }
+    }
+    .position-relative {
+      position: static;
+    }
+    .base-text {
+      padding: 0 2rem;
+      img {
+        transform: translate(0px, 0px) !important;
+      }
+    }
+  }
+  @media #{$gt-sm} {
+    height: calc(100vh - 110px);
+    min-height: 700px;
+    ::ng-deep {
+      .base-text {
+        overflow: visible;
+      }
+    }
+  }
+}

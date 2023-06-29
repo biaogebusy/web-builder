@@ -1,0 +1,14 @@
+<div class="hero-1v4 position-relative">
+  <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
+  <app-bg-img [content]="content.bg"></app-bg-img>
+  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
+  <div class="container" [ngStyle]="content.style">
+    <div class="inner" fxLayout="row wrap" fxLayoutAlign="center center">
+      <app-text fxFlex="100%" [content]="content.text" *ngIf="content.text"></app-text>
+      <div fxFlex="100%" fxFlexOrder="{{content.order || 0}}" *ngIf="content.widget" fxLayoutAlign="center center">
+        <app-dynamic-component *ngFor="let item of content.widget" [inputs]="{content:item}"></app-dynamic-component>
+      </div>
+    </div>
+  </div>
+  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
+</div>

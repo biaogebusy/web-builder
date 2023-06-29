@@ -1,0 +1,76 @@
+import { Meta } from "@storybook/addon-docs";
+
+<Meta
+  title="更新日志"
+  id="changelog"
+  parameters={{
+    viewMode: "docs",
+    previewTabs: {
+      canvas: { hidden: true },
+    },
+    layout: "fullscreen",
+  }}
+/>
+
+# 更新日志
+
+## 4.2.0(2023-06-24)
+
+- Builder: Storybook 中或者开启了 Builder 的站点可以从页面中选组件添加到预览页面，可复制单个组件或者整个页面的 JSON；
+- 导入组件和 widgets 到 Builder 中，对需要用到 API 的组件进行了测试数据的转换；
+- 添加了 jsoneditor 组件，可以预览和编辑 json;
+- Builder 的各类状态使用 Inject 注入，方便测试和维护；
+- Buidler 在移动端的优化；
+- 优化了 Builder 的暗黑主题；
+- 修复了 gsap 在 overflow auto 容器中的显示问题；
+- story 中的 home 实例，统一在 builder stories 中维护；
+- Builder 构建的预览可下载图片到本地；
+- Builder 添加了页面预览；
+
+## 4.1.0(2023-04-27)
+
+- 主题运行时动态加入，大量减少了多主题时打包的样式文件大小；
+- quill 编辑器支持使用 drupal jsonapi 上传图片；
+- 新增了 Dashboard 组件，完善了中台页面；
+
+## 4.0.0(2022-12-27)
+
+- 动态导入模块组件；
+- 添加了 Manage sidebar 管理边栏，[示例](?path=/story/manage-sidebar--page)；
+- 添加了 View Map 通用型地图映射组件，通过 Drupal view 即可配置出数据来源，[示例](?path=/story/viewmap--default)；
+
+## 3.0.5(2022-11-11)
+
+- 表格默认可以单元格 Sort 排序；
+- 应用可通过 Drawer 参数开启点击链接内容从右侧切出；
+- link 组件、View list 组件设置`rel="drawer"`可以调用 drawer 切出`href`的数据；
+
+## 3.0.4(2022-10-31)
+
+- 使用 MDI 扩展了 icons 库；
+- 添加了 gsap 动画库，[示例](?path=/story/product-v2--page)；
+
+## 3.0.3(2022-10-25)
+
+- 添加了视频播放组件，基于 Video.js；
+- 添加了 btn-video widget，点击弹窗播放视频；
+- Storybook 升级到 6.5.13;
+- 移除了分散在各处的 api 请求缓存，统一在请求拦截处处理请求缓存；
+
+## 3.0.2(2022-10-19)
+
+- 添加了 Storybook 的 play function，定义 action 更好的做演示；
+
+## 3.0.1(2022-10-13)
+
+- 优化了 Storybook import 和 provider，新建了 StoryModule 统一处理；
+
+## 3.0.0(2022-10-09)
+
+- 移除 mobx-angular；
+- 移除了 ngx-swiper-wrapper 模块依赖；
+- coreConfig, branding, theme, apiUrl, user 通过 useFactory provider 注入；
+- 更新了 storybook 文档；
+- 添加`"@types/express-serve-static-core": "^4.17.21"` 修复打包报错的问题；
+- 升级 angular 至 11.2.14 版本；
+- 降级 storybook 版本为 6.5.10，修复最新版无法 build 的问题；

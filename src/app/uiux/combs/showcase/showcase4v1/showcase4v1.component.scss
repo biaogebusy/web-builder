@@ -1,0 +1,37 @@
+@import "/src/theme/mixins/amixin";
+.inv-stats {
+  text-align: center;
+  .stats-icon {
+    font-size: 32px;
+    margin: 0 auto;
+    position: relative;
+    .mat-icon {
+      position: relative;
+      z-index: 1;
+    }
+    ::ng-deep {
+      img {
+        width: 65px;
+        height: 65px;
+      }
+    }
+  }
+  .stats-count {
+    font-size: 32px;
+    font-weight: 700;
+    margin-top: 30px;
+  }
+  .stats-title {
+    font-size: 18px;
+    letter-spacing: 1px;
+    padding-top: 15px;
+    margin-top: 15px;
+    text-transform: capitalize;
+    position: relative;
+  }
+
+  .stats-title,
+  .stats-desc {
+    opacity: 0.6;
+  }
+}

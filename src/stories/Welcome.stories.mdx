@@ -1,0 +1,87 @@
+import { Meta, Story } from "@storybook/addon-docs";
+
+<Meta
+  title="介绍"
+  id="welcome"
+  parameters={{
+    viewMode: "docs",
+    previewTabs: {
+      canvas: { hidden: true },
+    },
+    layout: "fullscreen",
+  }}
+/>
+
+# 信使前端 UI 框架
+
+信使 UI 是基于 Material 的 Angular 前端框架， 丰富的组件库可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。
+
+#### 立即体验：
+
+- [信使 UI](https://www.zhaobg.com)
+- [Web Builder](https://www.zhaobg.com/builder)
+
+#### 开源目的
+
+这个项目是我在学习 Angular 过程中不断积累、思考完善的成果。从最初的 Angular 9 到目前的 Angular 11，从一开始的一个组件到丰富的组件库，从臃肿的页面组件遍历方式到动态组件，经历了很多次推到和重构、升级。这个开源项目非常适合初学者学习或者进阶。它涵盖了绝大部分 Angular 技术知识点，但并不仅限于以下内容。
+
+- SSR 服务端渲染
+- 懒加载
+- 路由守卫
+- 请求拦截缓存
+- 动态组件
+- 动态表单
+- 动态表格
+- 多主题
+- 自定义指令
+- 自定义管道 pipe
+- 自定义 icon
+- 数据图表
+- Rxjs
+- flex layout
+- Storybook
+- Typescript
+- Provider
+- 地图应用
+- 信使 UI 在 Drupal 前后端分离中的应用
+
+<Story id="showcase-1v1--default" />
+
+# 技术选型
+
+- 前端：Angular + Material + FlexLayout
+- 动态表单：ngx-formly
+- web 动画：gsap
+- 图表：Echarts
+- 视频：Video.js
+- 文件生成：jspdf 生成 pdf，html2canvas 生成图像
+- 编辑器：quill, ang-jsoneditor
+- 幻灯片：swiper
+- 字体图标：material design icons + 自定义 svg icon
+- 加密：crypto-js
+- 工具函数：lodash-es
+- 测试预览：storybook
+- web 服务：Nginx
+- 后端：Drupal(推荐)，通过 Drupal 的 views 视图可灵活配置动态组件、动态 api；
+
+## 缓存方案
+
+用户访问数据会经过多层缓存：
+
+1. ngxin proxy 反向代理缓存，有缓存直接返回，通过 url 参数或者清空缓存文件夹可查看最新；
+2. app 程序内请求拦截，对 get 请求进行缓存，刷新页面或者重新加载则清除缓存，对`/user`,`preview`,`noCache`,`/session/`忽略；
+3. api 后端缓存，清空后台缓存；
+
+## 下一步的规划
+
+- [ ] 多语言
+- [ ] AI 生成文字和图片
+- [ ] Builder 加入拾色器，媒体选择器，搜索组件
+- [x] Builder 预览页面可点击下载
+
+## 交流学习
+
+| 联系                   | 二维码                                               |
+| ---------------------- | ---------------------------------------------------- |
+| 公众号：Drupal 自习室  | ![Drupal 自习室](/assets/images/qrcode-official.jpg) |
+| 入群加微信：biaogebusy | ![交流群](/assets/images/wechat.jpg)                 |

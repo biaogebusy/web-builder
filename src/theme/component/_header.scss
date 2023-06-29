@@ -1,0 +1,236 @@
+@import "~@angular/material/theming";
+@import "../../theme/mixins/amixin";
+
+@mixin header-color($config-or-theme) {
+  $config: mat-get-color-config($config-or-theme);
+  $foreground: map-get($config, foreground);
+  $background: map-get($config, background);
+  $primary: map-get($config, primary);
+  $accent: map-get($config, accent);
+  $warn: map-get($config, warn);
+
+  $primary-contrast: mat-color($primary, default-contrast);
+  $second: mat-color($foreground, "secondary-text");
+  $bg-card-color: mat-color($background, card);
+  .app-name {
+    color: mat-color($primary);
+  }
+
+  .header-top {
+    background-color: mat-color($background, status-bar, 0.4);
+    @include mat-elevation(1, mat-color($background, tooltip), 0.4);
+    color: $second;
+    .inv-icon {
+      &.style-v1 {
+        color: $second;
+        .soc-name {
+          background: mat-color($primary);
+          color: $primary-contrast;
+          &:after,
+          &:before {
+            background: mat-color($primary);
+            color: $primary-contrast;
+          }
+        }
+        .soc-icon-bg {
+          background: rgba(0, 0, 0, 0.15);
+        }
+        .mat-icon {
+          color: $second;
+        }
+        &:hover {
+          color: $primary-contrast;
+          .mat-icon {
+            color: $primary-contrast;
+          }
+        }
+      }
+    }
+    .right {
+      .link {
+        a {
+          color: $second;
+          &:hover {
+            color: mat-color($primary);
+          }
+        }
+      }
+    }
+  }
+  .static {
+    background-color: $bg-card-color;
+  }
+  .header {
+    border-top: 1px solid mat-color($foreground, divider);
+    background-color: $bg-card-color;
+    @include mat-elevation(2, mat-color($background, tooltip), 0.25);
+    .logo {
+      color: mat-color($primary);
+    }
+    .main-menu {
+      .item {
+        a {
+          color: mat-color($foreground, text, 0.75);
+
+          &:hover,
+          &:focus,
+          &.active {
+            color: mat-color($primary);
+          }
+          &.active {
+            &:after {
+              background-color: mat-color($primary);
+            }
+          }
+        }
+      }
+      .mega-menu {
+        background-color: $bg-card-color;
+        @include mat-elevation(3, mat-color($foreground, divider, 0.7));
+        @include scrollbar(mat-color($foreground, divider, 0.2));
+      }
+    }
+
+    .actions {
+      a {
+        color: $primary-contrast;
+      }
+    }
+  }
+
+  .hover-menu,
+  .hover-menu .child {
+    background-color: mat-color($primary, default-contrast);
+    @include mat-elevation(3, mat-color($foreground, divider, 0.7));
+  }
+
+  // user dropdown menu
+  .user {
+    .mat-button-wrapper {
+      .mat-icon {
+        color: $primary-contrast;
+      }
+    }
+
+    .name {
+      color: $primary-contrast;
+    }
+  }
+
+  .transparent-mode {
+    background-color: transparent;
+    .static,
+    .header-top,
+    .header {
+      background-color: transparent;
+      box-shadow: none;
+    }
+    &.header-sticky {
+      background: $bg-card-color;
+      @include mat-elevation(2, mat-color($background, tooltip), 0.25);
+    }
+    &.light {
+      .header,
+      .header-top,
+      .header a,
+      .header-top .inv-icon.style-v1,
+      .header-top .inv-icon.style-v1 .mat-icon,
+      .header-top .right a {
+        color: $primary-contrast !important;
+        transition: color 0.2s ease-in;
+      }
+      .search-box .mat-icon {
+        color: mat-color($primary);
+      }
+      .has-icon {
+        .mat-icon {
+          color: mat-color($primary, default-contrast);
+        }
+      }
+      .header {
+        .main-menu {
+          .item {
+            a {
+              &.active {
+                &:after {
+                  background-color: $primary-contrast !important;
+                }
+              }
+            }
+            .sub-menu {
+              color: mat-color($foreground, text, 0.75) !important;
+              a {
+                color: mat-color($foreground, text, 0.75) !important;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // sub menu
+  .mat-menu-panel {
+    .mat-menu-item {
+      min-width: 180px;
+    }
+    &.sub-menu {
+      a {
+        color: mat-color($foreground, text, 0.75);
+        &:hover,
+        &:focus,
+        &.active {
+          color: mat-color($primary) !important;
+        }
+      }
+    }
+  }
+
+  .search-box {
+    form {
+      border: 1px solid mat-color($foreground, divider);
+    }
+    input[type="search"] {
+      color: mat-color($foreground, text);
+      caret-color: mat-color($foreground, text, 0.5);
+      background-color: $bg-card-color;
+    }
+    .mat-icon {
+      color: mat-color($primary);
+    }
+  }
+  .header-inverse {
+    .header {
+      background-color: mat-color($primary);
+      .site-name {
+        color: $primary-contrast;
+      }
+      .main-menu {
+        .item {
+          .top {
+            a {
+              color: $primary-contrast;
+
+              &:hover,
+              &:focus {
+                color: $primary-contrast;
+              }
+              &.active {
+                color: mat-color($primary);
+                background-color: $primary-contrast;
+                &:after {
+                  display: none;
+                }
+              }
+            }
+          }
+        }
+      }
+      .switch-theme {
+        .mat-icon {
+          color: $primary-contrast;
+        }
+      }
+    }
+  }
+}

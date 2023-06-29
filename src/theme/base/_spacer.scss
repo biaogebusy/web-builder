@@ -1,0 +1,59 @@
+@import "../variable/variable";
+@mixin spacer($pre, $region, $sizes, $pos, $axis, $spacer) {
+  @each $p in $pos {
+    .#{$pre}-#{$p}-0 {
+      #{$region}-#{$p}: 0 !important;
+    }
+  }
+  @each $size, $value in $sizes {
+    $spacing: $spacer * $value;
+    .#{$pre}-#{$size} {
+      #{$region}: $spacing !important;
+    }
+    @if ($size == md) {
+      .#{$pre} {
+        #{$region}: $spacing !important;
+      }
+    }
+    @each $p in $pos {
+      .#{$pre}-#{$p}-#{$size} {
+        #{$region}-#{$p}: $spacing !important;
+      }
+      @if ($size == md) {
+        .#{$pre}-#{$p} {
+          #{$region}-#{$p}: $spacing !important;
+        }
+      }
+    }
+    @each $a, $a1, $a2 in $axis {
+      .#{$pre}-#{$a}-#{$size} {
+        #{$region}-#{$a1}: $spacing !important;
+        #{$region}-#{$a2}: $spacing !important;
+      }
+      @if ($size == md) {
+        .#{$pre}-#{$a} {
+          #{$region}-#{$a1}: $spacing !important;
+          #{$region}-#{$a2}: $spacing !important;
+        }
+      }
+    }
+  }
+}
+
+$sizes: (
+  xs: 0.25,
+  // 10px
+  sm: 0.5,
+  // 20px
+  md: 1,
+  // 40px
+  lg: 1.5,
+  // 60px
+  xl: 2,
+  //80px
+  xxl: 2.5,
+);
+$pos: left, top, right, bottom;
+$axis: x left right, y top bottom;
+@include spacer(p, padding, $sizes, $pos, $axis, $spacer);
+@include spacer(m, margin, $sizes, $pos, $axis, $spacer);

@@ -1,0 +1,16 @@
+<div class="why-choose-us" *ngIf="content">
+  <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
+  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
+  <div class="container">
+    <app-title [content]="content.title" *ngIf="content.title"></app-title>
+    <app-bg [content]="content.bg" *ngIf="content.bg">
+      <app-img [content]="content.bg.img" *ngIf="content.bg.img"></app-img>
+    </app-bg>
+    <div class="inner" fxLayout.lt-md="column" fxLayout.gt-sm="row" fxLayoutAlign="space-between start">
+      <app-dynamic-component fxFlex.lt-md="100" fxFlex.gt-sm="48" [inputs]="{content:item}"
+        *ngFor="let item of content.elements">
+      </app-dynamic-component>
+    </div>
+  </div>
+  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
+</div>

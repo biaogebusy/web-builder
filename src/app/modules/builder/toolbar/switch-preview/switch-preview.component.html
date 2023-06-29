@@ -1,0 +1,14 @@
+<div class="switch-preview" [matTooltip]="'切换设备'">
+  <button aria-label="switch preview" mat-icon-button [mat-menu-trigger-for]="menu">
+    <app-icon [content]="{svg:currentIcon,color:'primary'}"></app-icon>
+  </button>
+
+  <mat-menu #menu="matMenu" aria-label="switch theme item">
+    <button mat-menu-item (click)="onSwitch(item)" *ngFor="let item of previews">
+      <mat-icon *ngIf="currentPreview !== item.value">radio_button_unchecked</mat-icon>
+      <mat-icon color="primary" *ngIf="currentPreview === item.value"> radio_button_checked </mat-icon>
+      <span>{{item.label}}</span>
+      <app-icon class="right-icon" [content]="item.icon"></app-icon>
+    </button>
+  </mat-menu>
+</div>

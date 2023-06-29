@@ -1,0 +1,164 @@
+@import "./amixin";
+@mixin branding($colors, $suffix) {
+  .text-#{$suffix} {
+    color: map-get($colors, text) !important;
+  }
+
+  .border-#{$suffix} {
+    border-color: map-get($colors, border) !important;
+  }
+
+  .bg-#{$suffix} {
+    background-color: map-get($colors, bg) !important;
+  }
+}
+
+@mixin base-colors($config-or-theme) {
+  $config: mat-get-color-config($config-or-theme);
+  $primary: map-get($config, primary);
+  $accent: map-get($config, accent);
+  $warn: map-get($config, warn);
+  $foreground: map-get($config, foreground);
+  $background: map-get($config, background);
+
+  $contrast: mat-color($primary, default-contrast);
+
+  .loading {
+    background-color: mat-color($primary);
+  }
+
+  a {
+    color: mat-color($accent);
+
+    &:hover,
+    &:focus,
+    &.active {
+      color: mat-color($accent);
+    }
+  }
+
+  blockquote {
+    color: mat-color($foreground, text, 0.45);
+    border-left: 3px solid mat-color($foreground, divider);
+  }
+
+  .mat-drawer-container {
+    color: mat-color($foreground, text, 0.75);
+    background-color: mat-color($background, card);
+    .mat-drawer-inner-container {
+      @include scrollbar(mat-color($primary));
+    }
+  }
+
+  .text-primary {
+    color: mat-color($primary);
+  }
+
+  .text-accent {
+    color: mat-color($accent);
+  }
+
+  .text-warn {
+    color: mat-color($warn);
+  }
+
+  .bg-primary {
+    background-color: mat-color($primary);
+    color: $contrast;
+  }
+
+  .bg-accent {
+    background-color: mat-color($accent);
+    color: $contrast;
+  }
+
+  .bg-warn {
+    background-color: mat-color($warn);
+    color: $contrast;
+  }
+
+  // theme color from material theme config
+  .bg-pink {
+    background-color: #c2185b;
+    color: $contrast;
+  }
+
+  .bg-orange {
+    background-color: #e65100;
+    color: $contrast;
+  }
+
+  .bg-yellow {
+    background-color: #f57f17;
+    color: $contrast;
+  }
+
+  .bg-red {
+    background-color: #d32f2f;
+    color: $contrast;
+  }
+
+  .bg-purple {
+    background-color: #512da8;
+    color: $contrast;
+  }
+
+  .bg-indigo {
+    background-color: #303f9f;
+    color: $contrast;
+  }
+
+  .bg-blue {
+    background-color: #1976d2;
+    color: $contrast;
+  }
+
+  .bg-cyan {
+    background-color: #006064;
+    color: $contrast;
+  }
+
+  .bg-teal {
+    background-color: #004d40;
+    color: $contrast;
+  }
+
+  .bg-green {
+    background-color: #1b5e20;
+    color: $contrast;
+  }
+
+  .bg-light-green {
+    background-color: #4caf50;
+    color: $contrast;
+  }
+
+  .bg-brown {
+    background-color: #5d4037;
+    color: $contrast;
+  }
+
+  .bg-grey {
+    background-color: #9e9e9e;
+    color: $contrast;
+  }
+
+  .ngx-bar {
+    background-color: mat-color($primary) !important;
+  }
+
+  hr {
+    background: mat-color($foreground, divider);
+  }
+}
+
+@mixin custom-overide() {
+  .dark-theme {
+    .bg-shadow {
+      background-color: rgba(66, 66, 66, 0.85) !important;
+    }
+    .bg-light {
+      background-color: rgba(66, 66, 66, 0.5) !important;
+    }
+  }
+}

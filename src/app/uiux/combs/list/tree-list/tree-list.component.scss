@@ -1,0 +1,36 @@
+@import "../../../../../theme/variable/_breakpoint.scss";
+
+.filter {
+  border: 1px solid #ddd;
+}
+.tree-list {
+  mat-selection-list {
+    padding: 8px;
+  }
+  mat-list-option {
+    display: inline-block;
+    width: auto;
+    &:first-child {
+      width: 100% !important;
+    }
+    @media #{$gt-sm} {
+      text-align: center;
+      width: 20%;
+    }
+  }
+  ::ng-deep {
+    .search-list {
+      max-width: none;
+    }
+  }
+
+  .sticky {
+    position: relative;
+    @media #{$gt-sm} {
+      position: sticky;
+      position: -webkit-sticky;
+      top: 70px;
+      z-index: 10;
+    }
+  }
+}

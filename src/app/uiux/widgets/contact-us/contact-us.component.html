@@ -1,0 +1,34 @@
+<div class="contact-us positive-relative" *ngIf="content">
+  <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
+  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
+  <app-bg [content]="content.bg" *ngIf="content.bg">
+    <mat-icon class="wave" svgIcon="{{content.bg.icon}}" *ngIf="content.bg.icon"></mat-icon>
+  </app-bg>
+  <div class="container">
+    <form fxLayout="row wrap" fxFlex="100" (ngSubmit)="onSubmit()" fxLayoutAlign="center center" [formGroup]="form">
+      <div class="inner" fxFlex="0 0 100" fxLayoutAlign="center center" fxLayout="row wrap">
+        <div fxFlex.lt-md="100" fxFlex.gt-sm="40" fxLayout="column">
+          <div class="p-x-sm">
+            <app-box *ngFor="let item of content.contact" [content]="item"></app-box>
+          </div>
+        </div>
+        <div fxFlexOrder="{{content.formOrder || 10}}" fxFlex.lt-md="100" fxFlex.gt-sm="40" fxLayout="column">
+          <div class="p-x-sm" fxLayoutAlign="start center" fxLayout="row wrap" fxFlex="100">
+            <app-dynamic-form-control *ngFor="let item of content.forms" [control]="item" [form]="form">
+            </app-dynamic-form-control>
+          </div>
+        </div>
+      </div>
+
+      <button *ngIf="content.action" class="m-top" type="submit" mat-raised-button color="primary" fxFlex="0 1 auto">
+        <div fxLayoutAlign="center center">
+          <div class="p-x-xs">{{content.action.label}}</div>
+        </div>
+      </button>
+      <div fxFlex="100" fxLayoutAlign="center center">
+        <app-spinner [content]="{color:'primary', size:40}" *ngIf="submited"></app-spinner>
+      </div>
+    </form>
+  </div>
+  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
+</div>

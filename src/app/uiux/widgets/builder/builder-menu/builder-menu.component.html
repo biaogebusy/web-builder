@@ -1,0 +1,35 @@
+<ng-container>
+  <div class="builder-menu">
+    <button aria-label="builder page" [matTooltip]="'构建页面'" mat-icon-button [mat-menu-trigger-for]="menu">
+      <app-icon [matBadge]="total" matBadgeSize="small" matBadgeColor="warn" fxLayoutAlign="center center"
+        [content]="{svg:'microsoft-visual-studio-code', color:'primary',inline:true}"></app-icon>
+    </button>
+
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="onPreview()" *ngIf="showPreview">
+        <app-icon [content]="{svg:'view-compact-outline'}"></app-icon>
+        <span>预览页面</span>
+      </button>
+      <button mat-menu-item (click)="onCopy()">
+        <app-icon [content]="{svg:'content-copy'}"></app-icon>
+        <span>复制JSON</span>
+      </button>
+      <button mat-menu-item>
+        <mat-slide-toggle [checked]="debugAnimate$ | async" (change)="onDebugAnimate($event)">动画调式</mat-slide-toggle>
+
+      </button>
+      <button mat-menu-item (click)="onClear()">
+        <app-icon [content]="{svg:'trash-can-outline'}"></app-icon>
+        <span>清空组件</span>
+      </button>
+      <button mat-menu-item (click)="onDownload()">
+        <app-icon [content]="{svg:'download'}"></app-icon>
+        <span>下载设计</span>
+      </button>
+      <button mat-menu-item (click)="onSubmit()">
+        <app-icon [content]="{svg:'content-save-check'}"></app-icon>
+        <span>保存提交</span>
+      </button>
+    </mat-menu>
+  </div>
+</ng-container>

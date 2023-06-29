@@ -1,0 +1,46 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "strictPropertyInitialization": false,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2018", "dom"],
+    "paths": {
+      "@angular/*": ["./node_modules/@angular/*"],
+      "@uiux/": ["./src/app/uiux"],
+      "@uiux/*": ["./src/app/uiux/*"],
+      "@share": ["./src/app/share"],
+      "@share/*": ["./src/app/share/*"],
+      "@core/": ["./src/app/core"],
+      "@core/*": ["./src/app/core/*"],
+      "@modules/": ["./src/app/modules"],
+      "@modules/*": ["./src/app/modules/*"],
+      "@assets/": ["./src/assets"],
+      "@assets/*": ["./src/assets/*"],
+      "@stories/": ["./src/stories"],
+      "@stories/*": ["./src/stories/*"]
+    }
+  },
+  "angularCompilerOptions": {
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true,
+    "preserveWhitespaces": false,
+    "noImplicitReturns": false
+  }
+}

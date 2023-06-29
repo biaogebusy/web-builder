@@ -1,0 +1,7 @@
+<ng-container *ngIf="content && content.elements.length > 0">
+  <swiper #swiper [config]="config" (swiper)="onSwiper($event)" (slideChange)="onSlideChange()">
+    <ng-template swiperSlide *ngFor="let slide of content.elements">
+      <app-dynamic-component [inputs]="{content:slide}"></app-dynamic-component>
+    </ng-template>
+  </swiper>
+</ng-container>

@@ -1,0 +1,23 @@
+<div class="relate-showcase p-x-sm p-y-sm" *ngIf="content" fxLayout="row wrap">
+  <div class="media p-x-sm p-y-sm" fxFlex.lt-md="100" fxFlex.gt-sm="140px">
+    <app-img [content]="content.img"></app-img>
+  </div>
+  <div class="right" fxFlex.lt-md="100" fxFlex.gt-sm="calc(100% - 140px)">
+    <div class="meta p-x-sm p-y-sm">
+      <app-text [content]="content.text"></app-text>
+      <div class="list m-y-xs" fxLayout="row" *ngFor="let list of content.meta">
+        <ng-container *ngFor="let item of list">
+          <div class="item" fxFlex="100">
+            <span class="label m-right-xs">{{item.label}}:</span>
+            <span class="value" [innerHTML]="item.value|safeHtml"></span>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <div class="bottom" fxFlex="100">
+    <ng-container *ngFor="let item of content.content">
+      <app-dynamic-component [inputs]="item"></app-dynamic-component>
+    </ng-container>
+  </div>
+</div>

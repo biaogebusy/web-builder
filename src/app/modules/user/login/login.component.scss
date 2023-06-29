@@ -1,0 +1,98 @@
+@import "/src/theme/variable/breakpoint";
+
+.login-container {
+  max-height: 500px;
+  min-height: calc(100vh - 76px);
+
+  ::ng-deep .mat-tab-label {
+    min-width: auto !important;
+  }
+}
+
+:host-context(.mat-dialog-container) {
+  .login-container {
+    max-height: none;
+    min-height: auto;
+    padding: 4rem 0;
+  }
+}
+
+.login-wrapper {
+  max-width: 800px;
+  max-height: 600px;
+  border-radius: 10px;
+
+  .login-form {
+    padding: 2rem;
+    z-index: 2;
+    overflow: hidden;
+    .form-scroll {
+      // top: 500px;
+      position: relative;
+    }
+    &.is-login {
+      .form-scroll {
+        top: 0;
+      }
+    }
+  }
+
+  @media #{$xs} {
+    .login-form {
+      width: 80vw;
+    }
+  }
+
+  @media #{$gt-xs} {
+    .login-form {
+      padding: 6rem 4rem;
+      min-width: 400px;
+      min-height: 400px;
+    }
+
+    border-radius: 20px;
+    overflow: hidden;
+  }
+}
+
+.login-second {
+  min-width: 300px;
+
+  img {
+    max-width: 100%;
+    max-height: 100%;
+    width: 100%;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+  }
+}
+
+input.example-right-align::-webkit-outer-spin-button,
+input.example-right-align::-webkit-inner-spin-button {
+  display: none;
+}
+
+input.example-right-align {
+  -moz-appearance: textfield;
+}
+
+.error {
+  border-radius: 4px;
+}
+
+.mark-bg {
+  width: 0;
+  height: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: auto;
+  z-index: 1;
+}
+
+.code {
+  padding: 0px 10px;
+  position: absolute;
+  top: -33px;
+  right: 0;
+}

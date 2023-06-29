@@ -1,0 +1,32 @@
+<ng-container *ngIf="coreConfig?.notify?.enable">
+  <div class="notify">
+    <button *ngIf="!(notify$ | async)" aria-label="show notify" mat-icon-button [matTooltip]="'当前没有信息'"
+      matTooltipPosition="above">
+      <app-icon [matBadge]="0" matBadgeSize="small" matBadgeColor="warn"
+        [content]="{svg:'bell-outline', color:'primary'}"></app-icon>
+    </button>
+    <ng-container *ngIf="notify$ | async as lists">
+      <button aria-label="show notify" mat-icon-button [mat-menu-trigger-for]="menu">
+        <app-icon [matBadge]="lists.length" matBadgeSize="small" matBadgeColor="warn"
+          [content]="{svg:'bell-outline',color:'primary'}"></app-icon>
+      </button>
+      <mat-menu #menu="matMenu" [class]="'notify-menu'">
+        <mat-list>
+          <div mat-subheader>通知</div>
+          <mat-divider></mat-divider>
+          <mat-list-item *ngFor="let item of lists">
+            <app-icon mat-list-icon [content]="item.icon"></app-icon>
+            <div mat-line>
+              <app-link (click)="onRead(item)" [content]="item.link"></app-link>
+            </div>
+            <div mat-line *ngIf="item.message" [innerHTML]="item.message|stripTags">
+            </div>
+            <div mat-line *ngIf="item.date">
+              {{item.date | date:coreConfig.notify?.params?.dateFormat || "YYYY-MM-dd"}}
+            </div>
+          </mat-list-item>
+        </mat-list>
+      </mat-menu>
+    </ng-container>
+  </div>
+</ng-container>

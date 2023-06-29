@@ -1,0 +1,24 @@
+:host ::ng-deep .mat-card {
+  border-radius: 0;
+  &:not([class*="mat-elevation-z"]) {
+    box-shadow: none;
+  }
+  &:hover {
+    background-color: transparent;
+  }
+  .mat-card-content {
+    margin-left: -16px;
+    margin-right: -16px;
+    .mat-card-title {
+      padding: 0 0 1rem 0;
+      text-align: center;
+    }
+    .card-body {
+      min-height: auto;
+      overflow: visible;
+      text-overflow: inherit;
+      display: block !important;
+      padding: 1rem 0;
+    }
+  }
+}

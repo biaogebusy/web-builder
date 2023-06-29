@@ -1,0 +1,118 @@
+import { Meta } from "@storybook/addon-docs";
+
+<Meta
+  title="开发指南"
+  id="guide"
+  parameters={{
+    viewMode: "docs",
+    previewTabs: {
+      canvas: { hidden: true },
+    },
+    layout: "fullscreen",
+  }}
+/>
+
+# 开发指南
+
+## environment 开发环境设置
+
+```javascript
+export const environment: IEnvironment = {
+  apiUrl: "http://localhost:4200",
+  production: false,
+  site: "dist",
+  port: 4200,
+  cache: false,
+  ssr: false,
+  drupalProxy: false,
+};
+```
+
+- apiUrl: 是整个应用的 Base api 参数；
+- production: 为 false 时，页面的内容 api 将调用本地 json 文件，true 时将会调用`${this.apiUrl}/api/v1/landingPage?content=${this.pageUrl}`接口；
+- site: prod 打包时生成的文件夹名称，此设置是为了生存多个站点项目；
+- port: 自定义应用端口；
+- cache: 是否开启 api 请求缓存；
+- ssr: 是否使用 SSR 服务端渲染方式；
+- drupalProxy: 对应后端为 drupal，统一使用 Drupal 来登录登出；
+
+## 路由守卫配置
+
+默认会读取 `/api/v1/config` 的全局配置/信息，这里主要是查看该站点是否是开放还是需要登录的，文件路径`src/app/core/guards/auth.guard.ts`，本地开发时可注释掉大概 35 行`reture true；`；
+
+## 代理
+
+配置文件`config/proxy.config.js`，本地开发时，会根据对应的 api url 前缀进行代理转发，根据实际情况进行配置；
+
+```javascript
+const PROXY_CONFIG = [
+  {
+    context: ["/api", "/user", "/sites"],
+    target: "https://yourdomain.com",
+    secure: false,
+    changeOrigin: true,
+  },
+];
+
+module.exports = PROXY_CONFIG;
+```
+
+## 运行
+
+`npm start`
+
+#### 路由页面
+
+- 默认首页：[http://localhost:4200/home](http://localhost:4200/home)
+- 用户登录：[http://localhost:4200/me/login](http://localhost:4200/me/login)
+- Web builder: [http://localhost:4200/builder](http://localhost:4200/builder)
+- Drupal 媒体：[http://localhost:4200/media](http://localhost:4200/media)
+- Drupal 区块：[http://localhost:4200/block](http://localhost:4200/block)
+
+#### 其他页面
+
+除了以上路由页面，其他页面在访问时，会获取`url`进行接口的数据读取，进而渲染页面，本地环境和生产环境返回会了方便测试做了判断：
+
+```javascript
+loadPageContent(pageUrl = this.pageUrl): Observable<IPage> {
+    if (environment.production) {
+      const landingPath = '/api/v1/landingPage?content=';
+      const pageUrlParams = `${this.apiUrl}${landingPath}${pageUrl}`;
+
+      return this.http.get<any>(pageUrlParams).pipe(
+        tap((page) => {
+          this.updatePage(page);
+        }),
+        catchError(() => {
+          return this.http.get<any>(`${this.apiUrl}${landingPath}404`);
+        })
+      );
+    } else {
+      const sample = pageUrl.split('/')[1];
+      const samplePage = samples.elements.filter(
+        (item) => item.id === sample
+      )[0];
+      if (samplePage) {
+        this.updatePage(samplePage.page);
+        return of(samplePage.page);
+      } else {
+        return this.http.get<any>(`${this.apiUrl}/assets/app/404.json`);
+      }
+    }
+  }
+```
+
+Base 的基础配置可查阅[信使 storybook 全局配置](https://ui.zhaobg.com/?path=/docs/base-config--page)
+
+## 为生产环境打包
+
+`npm run build:ssr`
+
+## 运行 Storybook
+
+`npm run storybook`
+[Storybook 官网](https://storybook.js.org)
+
+如果有提示内存不足的报错，执行以下命令，然后重新运行:
+
+`export NODE_OPTIONS="--max-old-space-size=8192"`

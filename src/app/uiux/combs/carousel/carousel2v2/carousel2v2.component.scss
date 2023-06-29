@@ -1,0 +1,7 @@
+:host ::ng-deep {
+  .swiper-button-next,
+  .swiper-button-prev {
+    top: 0;
+    margin-top: 0 !important;
+  }
+}

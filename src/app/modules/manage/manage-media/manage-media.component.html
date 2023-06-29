@@ -1,0 +1,9 @@
+<div class="manage-media position-relative m-y" *ngIf="content">
+  <div class="container">
+    <div class="inner" fxLayout="row wrap">
+      <div class="masonry-item" *ngFor="let item of content" fxFlex="0 0 25">
+        <app-dynamic-component class="display-block" [inputs]="{content:item}"></app-dynamic-component>
+      </div>
+    </div>
+  </div>
+</div>

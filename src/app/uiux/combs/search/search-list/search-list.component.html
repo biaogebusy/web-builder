@@ -1,0 +1,43 @@
+<div class="m-y" *ngIf="loading" fxLayoutAlign="center center">
+  <app-spinner class="m-y" [content]="{color:'primary', size:40}"></app-spinner>
+</div>
+<div class="search-list" [ngClass.gt-sm]="'p-x-sm m-y'" *ngIf="content && pager">
+  <div class="container">
+    <div class="results m-bottom-sm">
+      找到 {{pager?.totalItems}} 个结果
+    </div>
+    <mat-divider></mat-divider>
+    <div class="list p-y-sm p-x-sm m-y-sm" fxLayout.xs="column" fxLayout.gt-xs="row"
+      *ngFor="let item of content | paginate: pager; trackBy: trackByFn">
+      <div *ngIf="item?.img?.src" class="object-left position-relative m-right-sm" fxFlex.xs="100"
+        fxFlex.gt-xs="0 0 30">
+        <app-img [content]="item.img"></app-img>
+      </div>
+      <div class="content width-100">
+        <h2 class="title">
+          <app-link [content]="item.link"></app-link>
+        </h2>
+        <div class="content" *ngIf="item.body"
+          [innerHTML]="item.body | stripTags:'strong':'a':'em' | shorten: 150: '...'|safeHtml "></div>
+        <div class="bottom m-y-sm" fxLayoutAlign="space-between center">
+          <div fxLayoutGap="1rem" fxLayout fxLayoutAlign="start center">
+            <div>{{item.user | ucfirst}}</div>
+            <div>{{item?.type}}</div>
+            <div [innerHTML]="item?.category|safeHtml" *ngIf="item.category"></div>
+            <div [innerHTML]="item?.tags|safeHtml" *ngIf="item.tags"></div>
+            <div class="actions">
+              <app-dynamic-widgets [content]="action" *ngFor="let action of item.actions"></app-dynamic-widgets>
+            </div>
+          </div>
+          <div>{{item.created}}</div>
+        </div>
+      </div>
+    </div>
+    <app-pagination *ngIf="content?.length > 0;else empty" (pageChange)="onPageChange($event)"></app-pagination>
+    <ng-template #empty>
+      <div class="text-center p-y-xl">
+        <p>没有数据。</p>
+      </div>
+    </ng-template>
+  </div>
+</div>

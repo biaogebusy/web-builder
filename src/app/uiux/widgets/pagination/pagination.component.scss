@@ -1,0 +1,15 @@
+.disabled {
+  pointer-events: none;
+  cursor: default;
+  opacity: 0.6;
+  color: #666;
+}
+
+.current {
+  border-radius: 4px;
+}
+
+.pagination-previous,
+.pagination-next {
+  font-size: 24px;
+}

@@ -1,0 +1,16 @@
+<div class="carousel-1-v2 position-relative" *ngIf="content">
+  <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
+  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
+  <app-bg *ngIf="content.bg" [content]="content.bg"></app-bg>
+  <div class="container">
+    <div class="head position-relative">
+      <app-title [content]="content.title"></app-title>
+      <div class="actions">
+        <mat-icon data-testid="prev" (click)="onPrev()">keyboard_arrow_left</mat-icon>
+        <mat-icon data-testid="next" (click)="onNext()">keyboard_arrow_right</mat-icon>
+      </div>
+    </div>
+    <app-swiper [content]="content.sliders" [navigationSub]="navigation$"></app-swiper>
+  </div>
+  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
+</div>

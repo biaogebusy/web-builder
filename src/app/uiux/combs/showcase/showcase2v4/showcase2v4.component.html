@@ -1,0 +1,13 @@
+<div class="showcase-2v4 position-relative">
+  <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
+  <app-bg-img [content]="content.bg"></app-bg-img>
+  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
+  <app-text [content]="content.text" *ngIf="content.text"></app-text>
+  <div class="{{content.fullWidth?'':'container'}}">
+    <div class="inner" fxLayout="row wrap">
+      <app-dynamic-widgets class="item" fxFlex.lt-md="0 0 100" fxFlex.gt-sm="0 0 {{item.width || 20}}" [content]="item"
+        *ngFor="let item of content.elements"></app-dynamic-widgets>
+    </div>
+  </div>
+  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
+</div>

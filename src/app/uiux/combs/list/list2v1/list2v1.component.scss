@@ -1,0 +1,23 @@
+@import "../../../../../theme/variable/breakpoint";
+.list-2v1 {
+  font-size: larger;
+  .title {
+    font-size: 28px;
+  }
+
+  ::ng-deep img {
+    border-radius: 10px;
+  }
+  @media #{$lt-md} {
+    font-size: initial;
+    .title {
+      font-size: 18px;
+      margin: 10px 0;
+      display: block;
+    }
+    .media {
+      order: -1;
+      margin-bottom: 10px;
+    }
+  }
+}

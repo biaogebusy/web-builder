@@ -1,0 +1,25 @@
+<div class="search-header position-relative bg-shadow p-y-xl" *ngIf="content">
+  <app-bg [content]="content.bg" *ngIf="content.bg">
+    <app-img [content]="content.bg.img"></app-img>
+  </app-bg>
+  <div class="container position-relative">
+    <app-text [content]="content.text"></app-text>
+    <app-spacer [size]="'sm'"></app-spacer>
+    <div class="width-100">
+      <form [formGroup]="form">
+        <div class="search-input">
+          <ng-container *ngFor="let item of filterForm">
+            <ng-container [ngSwitch]="item.key">
+              <input *ngSwitchCase="'keys'" formControlName="{{item.key}}" matInput
+                placeholder="{{content.input.placeholder}}" type="search" size="15" maxlength="128"
+                [value]="item.value || ''" class="form-search">
+              <input *ngSwitchCase="'title'" formControlName="{{item.key}}" matInput
+                placeholder="{{content.input.placeholder}}" type="search" size="15" maxlength="128"
+                [value]="item.value || ''" class="form-search">
+            </ng-container>
+          </ng-container>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

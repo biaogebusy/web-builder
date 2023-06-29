@@ -1,0 +1,4 @@
+<button *ngIf="config?.enable" (click)="onFlag()" mat-button color="{{flagging?'primary':'default'}}">
+  <app-icon [content]="config.icon"></app-icon>
+  <span>{{flagging?'取消':''}}{{content.label}}</span>
+</button>

@@ -1,0 +1,7 @@
+<mat-form-field class="width-100" [formGroup]="form" *ngIf="content" [appearance]="content.appearance || 'fill'">
+  <mat-label>{{content.label}}</mat-label>
+  <textarea [mat-autosize]="true" [matAutosizeMinRows]="content.params?.matAutosizeMinRows" matInput
+    formControlName="{{content.key}}" placeholder="{{content.placeholder}}" [id]="content.key"
+    [rows]="content.rows||1"></textarea>
+  <mat-error *ngIf="isValid">{{content.errorMes}}</mat-error>
+</mat-form-field>

@@ -1,0 +1,34 @@
+@import "/src/theme/variable/variable";
+@import "/src/theme//mixins/amixin";
+
+@media #{$gt-xs} {
+  .sidebar {
+    z-index: 112;
+  }
+}
+.map-list-common {
+  position: relative;
+}
+
+.map-wrapper {
+  height: calc(100vh - 60px);
+
+  @media #{$xs} {
+    height: 60vh;
+    width: 100%;
+    padding: 1rem;
+  }
+}
+
+.sidebar-right {
+  z-index: 10;
+  right: 0;
+  top: 0;
+  height: 100%;
+  overflow: auto;
+  ::ng-deep .media {
+    .media-content {
+      @include line-clamp(3);
+    }
+  }
+}

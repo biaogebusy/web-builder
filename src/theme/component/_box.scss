@@ -1,0 +1,306 @@
+@import "~@angular/material/theming";
+
+@mixin box-color($config-or-theme) {
+  $config: mat-get-color-config($config-or-theme);
+  $foreground: map-get($config, foreground);
+  $background: map-get($config, background);
+  $primary: map-get($config, primary);
+  $accent: map-get($config, accent);
+  $warn: map-get($config, warn);
+
+  $text-base: mat-color($foreground, text, 0.75);
+  $text-primary: mat-color($primary);
+  $bg-card-color: mat-color($background, card);
+  .inv-builder-box {
+    .box-icon {
+      .mat-icon {
+        color: $text-base;
+      }
+    }
+    a {
+      color: $text-base;
+      &:hover {
+        color: $text-primary;
+      }
+    }
+    .box-content {
+      color: mat-color($foreground, text, 0.6);
+    }
+    &:hover {
+      .box-title {
+        color: $text-primary;
+      }
+    }
+    &.title-color {
+      .box-title {
+        color: $text-primary;
+      }
+    }
+    &.box-square,
+    &.box-circle {
+      .box-icon {
+        border: solid 1px $text-primary;
+        .mat-icon {
+          color: $text-primary;
+        }
+      }
+    }
+    // Box background icon
+    &.box-background {
+      .box-icon {
+        background-color: $text-primary;
+        .mat-icon {
+          color: $bg-card-color;
+        }
+      }
+      &:hover {
+        .box-title {
+          color: $text-primary;
+        }
+      }
+    }
+    &.hover-bg-color {
+      &:hover {
+        .box-icon {
+          background-color: $text-primary;
+          .mat-icon {
+            color: $bg-card-color;
+          }
+        }
+      }
+    }
+    &.bg-dark-overlay {
+      .box-icon {
+        background: rgba(0, 0, 0, 0.4);
+      }
+    }
+    &.bg-box-gray {
+      .box-icon {
+        background: #576162; //Corduroy
+        border: 0 none;
+      }
+    }
+    &.style-v1,
+    &.style-v2 {
+      .box-icon {
+        background: mat-color($background, background);
+        .mat-icon {
+          background: $text-primary;
+          color: mat-color($primary, default-contrast);
+        }
+      }
+      .box-content-wrapper {
+        border: 1px solid mat-color($foreground, divider);
+        background: mat-color($background, background);
+        color: mat-color($foreground, text);
+        &:before {
+          border: 1px solid mat-color($foreground, divider);
+        }
+      }
+    }
+    &.circle-readmore,
+    &.style-v1,
+    &.style-v2,
+    &.style-v3,
+    &.style-v4,
+    &.style-v5 {
+      .read-more {
+        background: $bg-card-color;
+        border: 1px solid mat-color($foreground, divider);
+
+        span {
+          background: #c4c2c2;
+
+          &:after {
+            background: #c4c2c2;
+          }
+        }
+        &:hover {
+          border: solid 1px $text-primary;
+          span,
+          span::after {
+            background: $text-primary;
+          }
+        }
+      }
+    }
+    &.style-v1 {
+      &:hover {
+        .box-title {
+          color: $text-primary;
+          a {
+            color: $text-primary;
+          }
+        }
+      }
+    }
+    &.style-v3,
+    &.style-v6 {
+      .box-icon {
+        border: solid 1px $text-primary;
+
+        .mat-icon {
+          color: $text-primary;
+        }
+        &:before {
+          background: $text-primary;
+        }
+      }
+      &:hover {
+        .box-icon {
+          &:before {
+            background-color: $text-primary;
+            color: $bg-card-color;
+          }
+          .mat-icon {
+            color: $bg-card-color;
+          }
+        }
+      }
+    }
+    &.style-v4,
+    &.style-v7 {
+      .box-icon {
+        border: solid 1px $text-primary;
+        .mat-icon,
+        img {
+          color: $bg-card-color;
+          &:after {
+            background: $text-primary;
+          }
+        }
+      }
+      &:hover {
+        .box-icon {
+          background-color: transparent;
+          .mat-icon {
+            color: $text-primary;
+          }
+        }
+      }
+    }
+    &.style-v9 {
+      .box-icon {
+        background: rgba(0, 0, 0, 0.4);
+        .mat-icon {
+          color: $bg-card-color;
+        }
+      }
+      &:hover {
+        .box-icon {
+          background: $text-primary;
+        }
+        .box-title {
+          color: $text-primary;
+        }
+      }
+    }
+    &.style-v5 {
+      .box-icon {
+        border: solid 1px $text-primary;
+        .mat-icon {
+          color: $text-primary;
+        }
+      }
+      .box-content-wrapper {
+        .box-title {
+          color: $bg-card-color;
+        }
+      }
+
+      &:hover {
+        .box-icon {
+          background: $text-primary;
+          .mat-icon {
+            color: $bg-card-color;
+          }
+        }
+        .box-title {
+          color: $text-primary;
+        }
+      }
+    }
+    // Border color hover
+    &.border-color:hover {
+      .box-icon {
+        border-color: $text-primary;
+      }
+    }
+    &.style-v6,
+    &.style-v7,
+    &.box-left,
+    &.box-right,
+    &.style-v9 {
+      .read-more {
+        a {
+          color: $text-primary;
+          span {
+            &:before,
+            &:after {
+              background: $text-primary;
+            }
+          }
+        }
+      }
+    }
+    &.style-v8,
+    &.style-v10 {
+      .box-icon {
+        background-color: mat-color($primary, 0.1);
+        .mat-icon {
+          color: $text-primary;
+        }
+      }
+      .box-title {
+        a {
+        }
+      }
+      .box-content {
+        color: mat-color($foreground, text, 0.5);
+      }
+    }
+    &.style-v9 {
+      background-color: $bg-card-color;
+      box-shadow: 0 0 3px mat-color($foreground, divider, 0.1);
+      .box-icon {
+        background: mat-color($primary, 0.1);
+        color: $text-primary;
+        .mat-icon {
+          color: $text-primary;
+        }
+      }
+      .read-more {
+        a {
+          color: $text-primary;
+        }
+      }
+      &:hover {
+        box-shadow: 0 10px 25px mat-color($foreground, divider, 0.1);
+        .box-icon {
+          .mat-icon {
+            color: #fff;
+          }
+        }
+      }
+    }
+
+    &.use-image {
+      &.primary {
+        background-color: mat-color($primary);
+        color: mat-color($primary, default-contrast);
+        a,
+        .box-content {
+          color: mat-color($primary, default-contrast);
+        }
+        .box-content {
+          opacity: 0.7;
+        }
+        img {
+          background-color: #fff;
+          padding: 1rem;
+          border-radius: 6px;
+        }
+      }
+    }
+  }
+}

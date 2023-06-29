@@ -1,0 +1,7 @@
+<div class="auto-close position-relative">
+  <div class="container">
+    <ng-container *ngFor="let block of content.elements">
+      <app-dynamic-component [inputs]="{content:block}"></app-dynamic-component>
+    </ng-container>
+  </div>
+</div>

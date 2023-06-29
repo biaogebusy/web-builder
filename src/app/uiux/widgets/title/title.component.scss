@@ -1,0 +1,141 @@
+@import "/src/theme/mixins/amixin";
+:host {
+  display: block;
+}
+.title {
+  text-align: center;
+  &.style-v1,
+  &.style-v2,
+  &.style-v3,
+  &.style-v4,
+  &.style-v5,
+  &.style-v6 {
+    position: relative;
+    .title-header {
+      position: relative;
+      padding-bottom: 20px;
+      margin-bottom: 40px;
+    }
+    .line-style {
+      bottom: 0;
+      height: 1px;
+      position: absolute;
+      width: 33%;
+
+      &:before {
+        content: "";
+        display: block;
+        height: 1px;
+        position: absolute;
+        width: 100px;
+        @include transition(all, 0.4s, ease);
+      }
+      .mat-icon {
+        display: block;
+        font-size: 20px;
+        height: 40px;
+        line-height: 40px;
+        position: absolute;
+        text-align: center;
+        top: -20px;
+        width: 40px;
+      }
+    }
+    &:hover {
+      .line-style {
+        &:before {
+          width: 75%;
+        }
+      }
+    }
+    &.small {
+      .title-header {
+        font-size: 22px;
+      }
+    }
+  }
+  &.style-v1,
+  &.style-v2,
+  &.style-v3 {
+    // Center title
+    text-align: center;
+    .line-style {
+      left: 50%;
+      @include translateX(-50%);
+      &:before {
+        left: 50%;
+        @include translateX(-50%);
+      }
+    }
+    .mat-icon {
+      left: 50%;
+      @include translateX(-50%);
+    }
+  }
+  &.style-v1 {
+    // Dot between line bottom
+    .line-style {
+      span {
+        display: block;
+        height: 10px;
+        position: absolute;
+        top: -5px;
+        width: 10px;
+        -webkit-border-radius: 100% 100% 100% 100%;
+        -moz-border-radius: 100% 100% 100% 100%;
+        border-radius: 100% 100% 100% 100%;
+        left: 50%;
+        @include translateX(-50%);
+      }
+    }
+  }
+
+  &.style-v4,
+  &.style-v5,
+  &.style-v6,
+  &.style-v7 {
+    text-align: left;
+  }
+
+  &.style-v4 {
+    // Dot left line bottom
+    .line-style {
+      span {
+        display: block;
+
+        height: 10px;
+        position: absolute;
+        top: -5px;
+        width: 10px;
+        -webkit-border-radius: 100% 100% 100% 100%;
+        -moz-border-radius: 100% 100% 100% 100%;
+        border-radius: 100% 100% 100% 100%;
+      }
+    }
+  }
+
+  &.line-full-width {
+    .line-style {
+      width: 100% !important;
+    }
+    &:hover {
+      .line-style {
+        &:before {
+          width: 30%;
+        }
+      }
+    }
+  }
+  &.banner-title {
+    .title-header {
+      font-weight: 400;
+      font-size: 24px;
+      line-height: 33px;
+      text-align: center;
+      padding: 20px;
+    }
+    .line-style {
+      display: none;
+    }
+  }
+}

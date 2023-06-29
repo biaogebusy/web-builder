@@ -1,0 +1,46 @@
+@import "../../../../../../../theme/variable/breakpoint";
+.item {
+  &:after {
+    content: "";
+    display: block;
+    width: 100%;
+    position: relative;
+    bottom: -20px;
+  }
+  ::ng-deep .media-object {
+    background-color: transparent;
+  }
+}
+.item-child {
+  border-radius: 4px;
+}
+
+.time {
+  font-size: small;
+  margin: 1rem 0;
+}
+
+.comment-body {
+  > ::ng-deep *:last-child {
+    margin-bottom: 0;
+  }
+  ::ng-deep {
+    img {
+      max-width: 100%;
+    }
+  }
+}
+
+.actions {
+  button + button {
+    margin-left: 1rem;
+  }
+}
+
+@media #{$gt-sm} {
+  .comment-body,
+  .item-child,
+  .item:after {
+    margin-left: 50px;
+  }
+}

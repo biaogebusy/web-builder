@@ -1,0 +1,15 @@
+<div class="tree-inner p-y-sm" *ngIf="content">
+  <label class="mat-h3 p-x-sm">{{content.label}}</label>
+  <div class="actions">
+    <button mat-button (click)="tree.treeModel.expandAll()">
+      展开
+    </button>
+    <button mat-button (click)="tree.treeModel.collapseAll()">
+      折叠
+    </button>
+  </div>
+  <div class="tree" *ngIf="content.nodes.length">
+    <tree-root #tree [nodes]="content.nodes" [options]="options" (activate)="onActivate($event)">
+    </tree-root>
+  </div>
+</div>

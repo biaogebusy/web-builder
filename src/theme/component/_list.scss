@@ -1,0 +1,31 @@
+@import "~@angular/material/theming";
+@import "../mixins/amixin";
+
+@mixin list-color($config-or-theme) {
+  $config: mat-get-color-config($config-or-theme);
+  $foreground: map-get($config, foreground);
+  $background: map-get($config, background);
+  $primary: map-get($config, primary);
+  $accent: map-get($config, accent);
+  $warn: map-get($config, warn);
+
+  .taxonomy-thin-list {
+    .thin-sidebar {
+      background-color: mat-color($background, card);
+      @include mat-elevation(4, mat-color($foreground, text), 0.1);
+      @include scrollbar(mat-color($foreground, divider, 0.2));
+    }
+  }
+  .list-thin {
+    .item {
+      background-color: mat-color($background, card);
+      @include mat-elevation(4, mat-color($foreground, text), 0.1);
+    }
+  }
+
+  .list-2v1 {
+    .item {
+      border-bottom: 1px solid mat-color($foreground, divider);
+    }
+  }
+}
