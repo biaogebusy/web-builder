@@ -21,7 +21,7 @@ export class BuilderSampleComponent implements OnInit {
   ngOnInit(): void {}
 
   onSample(page: IPage): void {
-    this.util.openSnackbar(`正在载入${page.title}示例...`, 'ok');
+    this.util.openSnackbar(`正在载入${page.title} 示例...`, 'ok');
     this.builder.initPage(page);
   }
 }

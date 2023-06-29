@@ -1,18 +1,35 @@
-# 信使前端 UI 框架
+<h1 align="center">信使前端 UI 框架</h1>
 
-信使 UI 是基于 Material 的 Angular 前端框架， 丰富的组件库可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。
+<p align="center">
+  <img src="src/assets/images/logo/logo-white.png" alt="logo" width="100px"/>
+  <br>
+  <i>信使 UI 是基于 Material 的 Angular 前端框架， 丰富的组件库可提供优秀的数字创新体验，<br>使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。
+    </i>
+  <br>
+</p>
 
-#### 立即体验：
+<p align="center">
+  <a href="https://www.zhaobg.com"><strong>https://www.zhaobg.com</strong></a>
+  <br>
+</p>
 
-- [信使 UI](https://www.zhaobg.com)
-- [Web Builder](https://www.zhaobg.com/builder)
-- [信使 Storybook](https://ui.zhaobg.com)
+<p align="center">
+  <a href="https://www.zhaobg.com/builder">Web Builder</a>
+  ·
+  <a href="https://ui.zhaobg.com">UI Storybook</a>
+  ·
+  <a href="https://www.zhihu.com/people/biaogebusy">知乎</a>
+   ·
+  <a href="./README-EN.md">English</a>
+  <br>
+  <br>
+</p>
 
 #### 开源目的
 
-这个项目是我在学习 Angular 过程中不断积累、思考完善的成果。从最初的 Angular 9 到目前的 Angular 11，从一开始的一个组件到丰富的组件库，从臃肿的页面组件遍历方式到动态组件，经历了很多次推到和重构、升级。这个开源项目非常适合初学者学习或者进阶。它涵盖了绝大部分 Angular 技术知识点，但并不仅限于以下内容。
+这个项目是在学习 Angular 过程中不断积累、思考完善的成果，从最初的 Angular 9 到目前的 Angular 11，从一开始的一个组件到丰富的组件库，从臃肿的页面组件遍历方式到动态组件，经历了很多次推到和重构、升级。这个开源项目非常适合初学者学习或者进阶，它涵盖了绝大部分 Angular 技术知识点，但并不仅限于以下内容。
 
-- SSR 服务端渲染
+- 服务端渲染（SSR）
 - 懒加载
 - 路由守卫
 - 请求拦截缓存
@@ -53,7 +70,7 @@
 
 详情可查阅[开发指南](https://ui.zhaobg.com/?path=/docs/guide--page)
 
-## environment 开发环境设置
+## 开发环境设置
 
 ```javascript
 export const environment: IEnvironment = {
@@ -77,7 +94,7 @@ export const environment: IEnvironment = {
 
 ## 路由守卫配置
 
-默认会读取 `/api/v1/config` 的全局配置/信息，这里主要是查看该站点是否是开放还是需要登录的，文件路径`src/app/core/guards/auth.guard.ts`，本地开发时可注释掉大概 35 行`reture true；`；
+默认会读取 `/api/v1/config` 的全局配置信息，这里主要是查看该站点是否是开放还是需要登录的，文件路径`src/app/core/guards/auth.guard.ts`，本地开发时可注释掉大概 35 行`reture true；`；
 
 ## 代理
 
@@ -157,7 +174,7 @@ Base 的基础配置可查阅[信使 storybook 全局配置](https://ui.zhaobg.c
 
 ## 交流学习
 
-| 联系                   | 二维码                                                                                                                             |
-| ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| 公众号：Drupal 自习室  | ![Drupal 自习室](https://github.com/biaogebusy/xinshi-angular/blob/master/src/assets/images/qrcode-official.jpg)                   |
-| 入群加微信：biaogebusy | ![交流群](https://github.com/biaogebusy/xinshi-angular/blob/62b74b2be7bff4279976a6cfe839c91e9db57c8e/src/assets/images/wechat.jpg) |
+| 联系                   | 二维码                                               |
+| ---------------------- | ---------------------------------------------------- |
+| 公众号：Drupal 自习室  | <img src="src/assets/images/qrcode-official.jpg"/>   |
+| 交流加微信：biaogebusy | <img src="src/assets/images/wechat.jpg" alt="logo"/> |

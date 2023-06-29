@@ -574,7 +574,7 @@ export const footerInverse: IFooter = {
   footerBrand: {
     logo: footerBrandLogo,
     summary:
-      '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。',
+      '信使 UI 是基于 Material 的 Angular 前端框架， 丰富的组件库可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。',
     social: [
       {
         label: 'zhihu',
