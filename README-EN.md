@@ -73,6 +73,7 @@ For more details, please refer to the[Development Guide](https://ui.zhaobg.com/?
 ## Development Environment Setup
 
 ```javascript
+// src/environments/environment.ts
 export const environment: IEnvironment = {
   apiUrl: "http://localhost:4200",
   production: false,

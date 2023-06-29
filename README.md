@@ -73,6 +73,7 @@
 ## 开发环境设置
 
 ```javascript
+// src/environments/environment.ts
 export const environment: IEnvironment = {
   apiUrl: "http://localhost:4200",
   production: false,
