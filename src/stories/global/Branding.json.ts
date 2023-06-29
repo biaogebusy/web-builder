@@ -30,16 +30,14 @@ export const defaultHeader: IHeader = {
       ],
       right: [
         {
-          label: '关于',
-          href: '/about',
+          label: 'zhihu',
+          svg: 'zhihu',
+          href: 'https://www.zhihu.com/column/c_1331898788731375616',
         },
         {
-          label: '公益',
-          href: '/',
-        },
-        {
-          label: '活动',
-          href: '/events',
+          label: '微博',
+          svg: 'weibo',
+          href: 'https://weibo.com/u/1671667514',
         },
         {
           label: 'biaogebusy',
