@@ -32,7 +32,7 @@ export const home_v13 = {
   ],
   body: [
     hero1v3V2,
-    carousel2v2,
+    { ...carousel2v2?.content, bg: { classes: 'bg-fill-width bg-' } },
     showcase1v1_primary,
     showcase3v9_video,
     showcase3v6_background,

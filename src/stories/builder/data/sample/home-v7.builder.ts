@@ -29,7 +29,7 @@ export const home_v7 = {
     {
       type: 'showcase-1v1',
       title: {
-        label: 'Our Trusted Clients',
+        label: '忠实的客户',
         style: 'style-v2',
       },
       subTitle: {
