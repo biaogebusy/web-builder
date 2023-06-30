@@ -21,7 +21,6 @@ import { Observable } from 'rxjs';
 })
 export class MenuComponent implements OnInit {
   @Input() isDrawer: boolean;
-  isOpened = false;
   show = true;
 
   constructor(
@@ -46,7 +45,6 @@ export class MenuComponent implements OnInit {
   }
 
   onToggle(): void {
-    this.isOpened = !this.isOpened;
     this.screen.toggleDrawer();
     this.cd.detectChanges();
   }

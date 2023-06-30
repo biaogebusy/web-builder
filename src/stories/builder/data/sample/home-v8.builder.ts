@@ -30,10 +30,13 @@ export const home_v8 = {
   body: [
     hero1v4Shape,
     carousel2v2,
-    showcase3v6_background,
+    {
+      ...showcase3v6_background?.content,
+      bg: { classes: 'bg-fill-width bg-' },
+    },
     showcase3v9_video,
     carousel1v3_client,
-    showcase4v1_img,
+    { ...showcase4v1_img?.content, bg: { classes: 'bg-fill-width bg-shadow' } },
     text,
   ],
 };

@@ -1,6 +1,6 @@
 import { IUiux } from '@core/interface/IBuilder';
-import components from './components.json';
-import widgets from './widgets.json';
+import components from './components-for-builder.json';
+import widgets from './widgets-for-builder.json';
 
 export const uiux: IUiux[] = [
   {
