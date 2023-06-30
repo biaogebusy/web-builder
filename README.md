@@ -1,4 +1,4 @@
-<h1 align="center">信使前端 UI 框架</h1>
+<h1 align="center">信使 UI 框架</h1>
 
 <p align="center">
   <img src="src/assets/images/logo/logo-white.png" alt="logo" width="100px"/>
@@ -30,6 +30,10 @@
   <br>
   <br>
 </p>
+
+#### 为何起名信使
+
+奥陌陌是已知的第一颗经过太阳系的星际天体，意为"远方信使"。
 
 #### 开源目的
 
