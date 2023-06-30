@@ -12,7 +12,7 @@ import { samples } from './data/sample/samples-for-story';
 import { BUILDER_SAMPLE_PAGE, UIUX } from '@core/token/token-providers';
 import { uiux } from './data/uiux-for-story';
 export default {
-  title: 'Builder',
+  title: 'Web Builder',
   id: 'builder',
   component: BuilderComponent,
   decorators: [
