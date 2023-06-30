@@ -17,6 +17,7 @@ import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { ScreenService } from '@core/service/screen.service';
 import { Subject } from 'rxjs';
 import { LocalStorageService } from 'ngx-webstorage';
+import type { ISearch } from '@core/interface/combs/ISearch';
 
 @Component({
   selector: 'app-search',
@@ -28,7 +29,7 @@ export class SearchComponent
   extends BaseComponent
   implements OnInit, OnDestroy
 {
-  @Input() content: any;
+  @Input() content: ISearch;
   searchEntry: any;
   page: number;
   pager: any;
@@ -74,11 +75,6 @@ export class SearchComponent
         }
         this.nodeSearch(querys);
       });
-      if (this.content.filterDialog) {
-        this.storage.observe('filterDate').subscribe((filterData: any) => {
-          this.nodeSearch(filterData);
-        });
-      }
     } else {
       this.form = new FormGroup({});
     }

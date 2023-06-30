@@ -613,287 +613,9 @@ Default.args = {
         ],
       },
       {
-        type: 'table',
-        title: {
-          label: '诉讼金额',
-          style: 'style-v4',
-        },
-        header: [
-          {
-            label: '诉讼标的',
-            key: 'name',
-          },
-          {
-            label: '本金',
-            key: 'principal',
-          },
-          {
-            label: '利息期间',
-            key: 'InterestPeriod',
-          },
-          {
-            label: '利息',
-            key: 'interest',
-          },
-          {
-            label: '违约期间',
-            key: 'defaultPeriod',
-          },
-          {
-            label: '违约金',
-            key: 'damages',
-          },
-          {
-            label: '分项合计',
-            key: 'total',
-          },
-        ],
-        elements: [
-          {
-            name: '租金',
-            principal: '12323.00元',
-            InterestPeriod: '2022/03/05-2022/05/01',
-            interest: '5000.00元',
-            defaultPeriod: '2022/03/05-2022/05/01',
-            damages: '5089.00元',
-            total: '4846.00元',
-            expand: [
-              {
-                type: 'text',
-                spacer: 'none',
-                title: {
-                  label: '其他本金',
-                  style: 'style-v4',
-                },
-                body: '律师费 2000.00元<br>担保费 5000.00元</br>赔偿金 55.00元',
-              },
-            ],
-          },
-          {
-            name: '工程款',
-            principal: '12323.00元',
-            InterestPeriod: '2022/03/05-2022/05/01',
-            interest: '5000.00元',
-            defaultPeriod: '',
-            damages: '',
-            total: '4845.00元',
-            expand: [
-              {
-                type: 'text',
-                spacer: 'none',
-                title: {
-                  label: '其他本金',
-                  style: 'style-v4',
-                },
-                body: '律师费 2000.00元<br>担保费 5000.00元</br>赔偿金 55.00元',
-              },
-            ],
-          },
-          {
-            name: '劳务费',
-            principal: '12323.00元',
-            InterestPeriod: '2022/03/05-2022/05/01',
-            interest: '5000.00元',
-            defaultPeriod: '',
-            damages: '',
-            total: '4845.00元',
-            expand: [
-              {
-                type: 'text',
-                spacer: 'none',
-                title: {
-                  label: '其他本金',
-                  style: 'style-v4',
-                },
-                body: '律师费 2000.00元<br>担保费 5000.00元</br>赔偿金 55.00元',
-              },
-            ],
-          },
-          {
-            name: '合计',
-            principal: '68751.00元',
-            InterestPeriod: '',
-            interest: '9000.00元',
-            defaultPeriod: '',
-            damages: '8455.00元',
-            total: '48456.00元',
-            expand: [
-              {
-                type: 'text',
-                spacer: 'none',
-                title: {
-                  label: '其他本金',
-                  style: 'style-v4',
-                },
-                body: '律师费 2000.00元<br>担保费 5000.00元</br>赔偿金 55.00元',
-              },
-            ],
-          },
-        ],
-      },
-      {
-        type: 'table',
-        title: {
-          label: '案件执行',
-          style: 'style-v4',
-        },
-        header: [
-          {
-            label: '还款次数',
-            key: 'no',
-          },
-          {
-            label: '执行款',
-            key: 'paymentOne',
-          },
-          {
-            label: '执行款二',
-            key: 'paymentTwo',
-          },
-          {
-            label: '执行款二',
-            key: 'paymentThree',
-          },
-          {
-            label: '利息',
-            key: 'interest',
-          },
-          {
-            label: '总合计',
-            key: 'total',
-          },
-          {
-            label: '还款日期',
-            key: 'date',
-          },
-        ],
-        elements: [
-          {
-            no: '1',
-            paymentOne: '12000.00元',
-            paymentTwo: '13000.00元',
-            paymentThree: '13520.00元',
-            interest:
-              '5000.00元<br><span class="sub">2022/02/01-2023/01/03</span>',
-            total: '17658.00元',
-            date: '2022/03/06',
-            expand: [
-              {
-                type: 'text',
-                spacer: 'none',
-                title: {
-                  label: '违约金',
-                  style: 'style-v4',
-                },
-                body: '5000.00元<br><span class="sub">2022/02/01-2023/01/03</span>',
-              },
-              {
-                type: 'text',
-                spacer: 'none',
-                title: {
-                  label: '逾期罚息',
-                  style: 'style-v4',
-                },
-                body: '5000.00元<br><span class="sub">2022/02/01-2023/01/03</span>',
-              },
-            ],
-          },
-          {
-            no: '2',
-            paymentOne: '12000.00元',
-            paymentTwo: '13000.00元',
-            paymentThree: '13520.00元',
-            interest:
-              '5000.00元<br><span class="sub">2022/02/01-2023/01/03</span>',
-            total: '17658.00元',
-            date: '2022/03/06',
-            expand: [
-              {
-                type: 'text',
-                spacer: 'none',
-                title: {
-                  label: '违约金',
-                  style: 'style-v4',
-                },
-                body: '5000.00元<br><span class="sub">2022/02/01-2023/01/03</span>',
-              },
-              {
-                type: 'text',
-                spacer: 'none',
-                title: {
-                  label: '逾期罚息',
-                  style: 'style-v4',
-                },
-                body: '5000.00元<br><span class="sub">2022/02/01-2023/01/03</span>',
-              },
-            ],
-          },
-          {
-            no: '3',
-            paymentOne: '12000.00元',
-            paymentTwo: '13000.00元',
-            paymentThree: '13520.00元',
-            interest:
-              '5000.00元<br><span class="sub">2022/02/01-2023/01/03</span>',
-            total: '17658.00元',
-            date: '2022/03/06',
-            expand: [
-              {
-                type: 'text',
-                spacer: 'none',
-                title: {
-                  label: '违约金',
-                  style: 'style-v4',
-                },
-                body: '5000.00元<br><span class="sub">2022/02/01-2023/01/03</span>',
-              },
-              {
-                type: 'text',
-                spacer: 'none',
-                title: {
-                  label: '逾期罚息',
-                  style: 'style-v4',
-                },
-                body: '5000.00元<br><span class="sub">2022/02/01-2023/01/03</span>',
-              },
-            ],
-          },
-          {
-            no: '合计',
-            paymentOne: '32000.00元',
-            paymentTwo: '33000.00元',
-            paymentThree: '33520.00元',
-            interest:
-              '8000.00元<br><span class="sub">2022/02/01-2023/01/03</span>',
-            total: '57658.00元',
-            date: '',
-            expand: [
-              {
-                type: 'text',
-                spacer: 'none',
-                title: {
-                  label: '违约金',
-                  style: 'style-v4',
-                },
-                body: '5000.00元<br><span class="sub">2022/02/01-2023/01/03</span>',
-              },
-              {
-                type: 'text',
-                spacer: 'none',
-                title: {
-                  label: '逾期罚息',
-                  style: 'style-v4',
-                },
-                body: '5000.00元<br><span class="sub">2022/02/01-2023/01/03</span>',
-              },
-            ],
-          },
-        ],
-      },
-      {
         type: 'text',
         title: {
-          label: '案件说明',
+          label: '备注说明',
           style: 'style-v4',
         },
         spacer: 'none',
@@ -925,7 +647,7 @@ Default.args = {
     },
     editor: {
       title: {
-        label: '添加工作跟踪',
+        label: '添加评论',
         style: 'style-v4',
       },
       action: {
@@ -935,7 +657,7 @@ Default.args = {
         label: '成功发布！',
       },
       empty: {
-        label: '暂时还没有工作日志。',
+        label: '暂时还没有评论',
       },
     },
     comment: {
@@ -951,7 +673,7 @@ Meeting.storyName = 'v1';
 Meeting.args = {
   content: {
     type: 'law-case',
-    title: '两中心住房保障工作联席会议',
+    title: '住房保障工作联席会议',
     date: [
       {
         label: '更新',
@@ -970,7 +692,7 @@ Meeting.args = {
           name: 'editor',
           inline: true,
         },
-        href: 'https://admin.zhaobg.com/manage/content/50/edit',
+        href: '#',
         target: '_blank',
       },
       {
@@ -1065,7 +787,7 @@ Meeting.args = {
                 },
                 {
                   label: '会议地址',
-                  value: '中国上海市浦东新区 线上会议',
+                  value: '线上会议',
                 },
                 {
                   label: '参会人员',
@@ -1094,7 +816,7 @@ Meeting.args = {
               meta: [
                 {
                   label: '相关项目',
-                  value: '<a href="/node/1">创客城制度修改</a>',
+                  value: '<a href="/node/1">制度修改</a>',
                 },
                 {
                   label: '会议文件',
@@ -1187,7 +909,7 @@ Meeting.args = {
                 },
                 {
                   label: '会议地址',
-                  value: '中国上海市浦东新区 线上会议',
+                  value: '线上会议',
                 },
                 {
                   label: '参会人员',
@@ -1217,7 +939,7 @@ Meeting.args = {
               meta: [
                 {
                   label: '相关项目',
-                  value: '<a href="/node/1">创客城制度修改</a>',
+                  value: '<a href="/node/1">制度修改</a>',
                 },
                 {
                   label: '会议文件',
@@ -1294,366 +1016,6 @@ Meeting.args = {
             progressBar: {
               mode: 'determinate',
               value: 66,
-            },
-          },
-          {
-            header: {
-              meta: [
-                {
-                  label: '',
-                  value: '<span class="badge">第三次会议</span>',
-                },
-                {
-                  label: '会议期间',
-                  value: '周一，04/11/2022 11:30<br>周一，04/11/2022 16:30',
-                },
-                {
-                  label: '会议地址',
-                  value: '中国上海市浦东新区 线上会议',
-                },
-                {
-                  label: '参会人员',
-                  value: '<a href="/node/1">张三</a>',
-                },
-                {
-                  label: '工作工时',
-                  value: 1,
-                },
-              ],
-            },
-            feature: {
-              type: 'feature-box',
-              mode: 'float',
-              hoverIcon: true,
-              fullIcon: 'fullscreen',
-              ratios: 'media-16-9',
-              img: {
-                classes: 'object-fit',
-                src: '/assets/images/cases/porto3.jpg',
-                alt: 'lazyload',
-              },
-            },
-            footer: {
-              meta: [
-                {
-                  label: '相关项目',
-                  value: '<a href="/node/1">创客城制度修改</a>',
-                },
-                {
-                  label: '会议文件',
-                  value: [
-                    {
-                      elements: [
-                        {
-                          type: 'link',
-                          label: '第二次起诉签字.docx',
-                          href: 'xxx.docx',
-                          target: '_blank',
-                          classes: 'file one-line',
-                        },
-                        {
-                          type: 'btn',
-                          href: '#',
-                          mode: 'stroked',
-                          label: 'PDF',
-                          color: 'warn',
-                          target: '_blank',
-                          classes: 'border-warn',
-                        },
-                      ],
-                    },
-                    {
-                      elements: [
-                        {
-                          type: 'link',
-                          label: '第二次起诉签字.docx',
-                          href: 'xxx.docx',
-                          target: '_blank',
-                          classes: 'file one-line',
-                        },
-                        {
-                          type: 'btn',
-                          href: '#',
-                          mode: 'stroked',
-                          label: 'PDF',
-                          color: 'warn',
-                          target: '_blank',
-                          classes: 'border-warn',
-                        },
-                      ],
-                    },
-                  ],
-                  params: {
-                    dynamic: true,
-                  },
-                },
-                {
-                  label: '会议内容',
-                  value:
-                    'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. ',
-                  params: {
-                    shorten: 100,
-                    dialog: {
-                      label: '更多',
-                    },
-                  },
-                },
-                {
-                  label: '信息备注',
-                  value:
-                    'sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat ',
-                  params: {
-                    shorten: 100,
-                    dialog: {
-                      label: '更多',
-                    },
-                  },
-                },
-              ],
-            },
-            progressBar: {
-              mode: 'determinate',
-              value: 100,
-            },
-          },
-          {
-            header: {
-              meta: [
-                {
-                  label: '',
-                  value: '<span class="badge">第三次会议</span>',
-                },
-                {
-                  label: '会议期间',
-                  value: '周一，04/11/2022 11:30<br>周一，04/11/2022 16:30',
-                },
-                {
-                  label: '会议地址',
-                  value: '中国上海市浦东新区 线上会议',
-                },
-                {
-                  label: '参会人员',
-                  value: '<a href="/node/1">张三</a>',
-                },
-                {
-                  label: '工作工时',
-                  value: 1,
-                },
-              ],
-            },
-            feature: {
-              type: 'feature-box',
-              mode: 'float',
-              hoverIcon: true,
-              fullIcon: 'fullscreen',
-              ratios: 'media-16-9',
-              img: {
-                classes: 'object-fit',
-                src: '/assets/images/cases/porto3.jpg',
-                alt: 'lazyload',
-              },
-            },
-            footer: {
-              meta: [
-                {
-                  label: '相关项目',
-                  value: '<a href="/node/1">创客城制度修改</a>',
-                },
-                {
-                  label: '会议文件',
-                  value: [
-                    {
-                      elements: [
-                        {
-                          type: 'link',
-                          label: '第二次起诉签字.docx',
-                          href: 'xxx.docx',
-                          target: '_blank',
-                          classes: 'file one-line',
-                        },
-                        {
-                          type: 'btn',
-                          href: '#',
-                          mode: 'stroked',
-                          label: 'PDF',
-                          color: 'warn',
-                          target: '_blank',
-                          classes: 'border-warn',
-                        },
-                      ],
-                    },
-                    {
-                      elements: [
-                        {
-                          type: 'link',
-                          label: '第二次起诉签字.docx',
-                          href: 'xxx.docx',
-                          target: '_blank',
-                          classes: 'file one-line',
-                        },
-                        {
-                          type: 'btn',
-                          href: '#',
-                          mode: 'stroked',
-                          label: 'PDF',
-                          color: 'warn',
-                          target: '_blank',
-                          classes: 'border-warn',
-                        },
-                      ],
-                    },
-                  ],
-                  params: {
-                    dynamic: true,
-                  },
-                },
-                {
-                  label: '会议内容',
-                  value:
-                    'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. ',
-                  params: {
-                    shorten: 100,
-                    dialog: {
-                      label: '更多',
-                    },
-                  },
-                },
-                {
-                  label: '信息备注',
-                  value:
-                    'sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat ',
-                  params: {
-                    shorten: 100,
-                    dialog: {
-                      label: '更多',
-                    },
-                  },
-                },
-              ],
-            },
-            progressBar: {
-              mode: 'determinate',
-              value: 100,
-            },
-          },
-          {
-            header: {
-              meta: [
-                {
-                  label: '',
-                  value: '<span class="badge">第三次会议</span>',
-                },
-                {
-                  label: '会议期间',
-                  value: '周一，04/11/2022 11:30<br>周一，04/11/2022 16:30',
-                },
-                {
-                  label: '会议地址',
-                  value: '中国上海市浦东新区 线上会议',
-                },
-                {
-                  label: '参会人员',
-                  value: '<a href="/node/1">张三</a>',
-                },
-                {
-                  label: '工作工时',
-                  value: 1,
-                },
-              ],
-            },
-            feature: {
-              type: 'feature-box',
-              mode: 'float',
-              hoverIcon: true,
-              fullIcon: 'fullscreen',
-              ratios: 'media-16-9',
-              img: {
-                classes: 'object-fit',
-                src: '/assets/images/cases/porto3.jpg',
-                alt: 'lazyload',
-              },
-            },
-            footer: {
-              meta: [
-                {
-                  label: '相关项目',
-                  value: '<a href="/node/1">创客城制度修改</a>',
-                },
-                {
-                  label: '会议文件',
-                  value: [
-                    {
-                      elements: [
-                        {
-                          type: 'link',
-                          label: '第二次起诉签字.docx',
-                          href: 'xxx.docx',
-                          target: '_blank',
-                          classes: 'file one-line',
-                        },
-                        {
-                          type: 'btn',
-                          href: '#',
-                          mode: 'stroked',
-                          label: 'PDF',
-                          color: 'warn',
-                          target: '_blank',
-                          classes: 'border-warn',
-                        },
-                      ],
-                    },
-                    {
-                      elements: [
-                        {
-                          type: 'link',
-                          label: '第二次起诉签字.docx',
-                          href: 'xxx.docx',
-                          target: '_blank',
-                          classes: 'file one-line',
-                        },
-                        {
-                          type: 'btn',
-                          href: '#',
-                          mode: 'stroked',
-                          label: 'PDF',
-                          color: 'warn',
-                          target: '_blank',
-                          classes: 'border-warn',
-                        },
-                      ],
-                    },
-                  ],
-                  params: {
-                    dynamic: true,
-                  },
-                },
-                {
-                  label: '会议内容',
-                  value:
-                    'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. ',
-                  params: {
-                    shorten: 100,
-                    dialog: {
-                      label: '更多',
-                    },
-                  },
-                },
-                {
-                  label: '信息备注',
-                  value:
-                    'sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat ',
-                  params: {
-                    shorten: 100,
-                    dialog: {
-                      label: '更多',
-                    },
-                  },
-                },
-              ],
-            },
-            progressBar: {
-              mode: 'determinate',
-              value: 100,
             },
           },
         ],
@@ -2072,7 +1434,7 @@ Project.args = {
       {
         type: 'card',
         title: {
-          label: '完工内容',
+          label: '已完成',
           style: 'style-v4',
         },
         elements: [
@@ -2081,7 +1443,7 @@ Project.args = {
               meta: [
                 {
                   label: '',
-                  value: '<span class="badge">{分标标题}</span>',
+                  value: '<span class="badge">第一次会议</span>',
                 },
                 {
                   label: '完工时间',
@@ -2093,7 +1455,7 @@ Project.args = {
                 },
                 {
                   label: '相关项目',
-                  value: '<a href="/node/1">创客城制度修改</a>',
+                  value: '<a href="/node/1">制度修改</a>',
                 },
                 {
                   label: '项目文件',
@@ -2166,7 +1528,7 @@ Project.args = {
               meta: [
                 {
                   label: '',
-                  value: '<span class="badge">{分标标题}</span>',
+                  value: '<span class="badge">第二次会议</span>',
                 },
                 {
                   label: '完工时间',
@@ -2178,7 +1540,7 @@ Project.args = {
                 },
                 {
                   label: '相关项目',
-                  value: '<a href="/node/1">创客城制度修改</a>',
+                  value: '<a href="/node/1">制度修改</a>',
                 },
                 {
                   label: '项目文件',
@@ -2190,14 +1552,6 @@ Project.args = {
                           label: '第二次起诉签字.docx',
                           href: 'xxx.docx',
                           classes: 'file one-line',
-                        },
-                        {
-                          type: 'btn',
-                          href: '#',
-                          mode: 'stroked',
-                          label: 'PDF',
-                          color: 'warn',
-                          classes: 'border-warn',
                         },
                       ],
                     },
@@ -2281,76 +1635,6 @@ Project.args = {
                             },
                           ],
                         },
-                        {
-                          elements: [
-                            {
-                              type: 'link',
-                              label: '第二次起诉签字.docx',
-                              href: 'xxx.docx',
-                              classes: 'file one-line',
-                            },
-                            {
-                              type: 'btn',
-                              href: '#',
-                              mode: 'stroked',
-                              label: 'PDF',
-                              color: 'warn',
-                              classes: 'border-warn',
-                            },
-                          ],
-                        },
-                        {
-                          elements: [
-                            {
-                              type: 'link',
-                              label: '第二次起诉签字.docx',
-                              href: 'xxx.docx',
-                              classes: 'file one-line',
-                            },
-                            {
-                              type: 'btn',
-                              href: '#',
-                              mode: 'stroked',
-                              label: 'PDF',
-                              color: 'warn',
-                              classes: 'border-accent',
-                            },
-                          ],
-                        },
-                        {
-                          elements: [
-                            {
-                              type: 'link',
-                              label: '第二次起诉签字.docx',
-                              href: 'xxx.docx',
-                              classes: 'file one-line',
-                            },
-                            {
-                              type: 'btn',
-                              href: '#',
-                              mode: 'raised',
-                              label: '预览',
-                              color: 'primary',
-                            },
-                          ],
-                        },
-                        {
-                          elements: [
-                            {
-                              type: 'link',
-                              label: '第二次起诉签字.docx',
-                              href: 'xxx.docx',
-                              classes: 'file one-line',
-                            },
-                            {
-                              type: 'btn',
-                              href: '#',
-                              mode: 'raised',
-                              label: '预览',
-                              color: 'primary',
-                            },
-                          ],
-                        },
                       ],
                       params: {
                         dynamic: true,
@@ -2408,76 +1692,6 @@ Project.args = {
                               label: 'PDF',
                               color: 'warn',
                               classes: 'border-primary',
-                            },
-                          ],
-                        },
-                        {
-                          elements: [
-                            {
-                              type: 'link',
-                              label: '第二次起诉签字.docx',
-                              href: 'xxx.docx',
-                              classes: 'file one-line',
-                            },
-                            {
-                              type: 'btn',
-                              href: '#',
-                              mode: 'stroked',
-                              label: 'PDF',
-                              color: 'warn',
-                              classes: 'border-warn',
-                            },
-                          ],
-                        },
-                        {
-                          elements: [
-                            {
-                              type: 'link',
-                              label: '第二次起诉签字.docx',
-                              href: 'xxx.docx',
-                              classes: 'file one-line',
-                            },
-                            {
-                              type: 'btn',
-                              href: '#',
-                              mode: 'stroked',
-                              label: 'PDF',
-                              color: 'warn',
-                              classes: 'border-accent',
-                            },
-                          ],
-                        },
-                        {
-                          elements: [
-                            {
-                              type: 'link',
-                              label: '第二次起诉签字.docx',
-                              href: 'xxx.docx',
-                              classes: 'file one-line',
-                            },
-                            {
-                              type: 'btn',
-                              href: '#',
-                              mode: 'raised',
-                              label: '预览',
-                              color: 'primary',
-                            },
-                          ],
-                        },
-                        {
-                          elements: [
-                            {
-                              type: 'link',
-                              label: '第二次起诉签字.docx',
-                              href: 'xxx.docx',
-                              classes: 'file one-line',
-                            },
-                            {
-                              type: 'btn',
-                              href: '#',
-                              mode: 'raised',
-                              label: '预览',
-                              color: 'primary',
                             },
                           ],
                         },

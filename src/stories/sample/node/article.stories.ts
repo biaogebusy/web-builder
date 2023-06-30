@@ -13,6 +13,7 @@ import { UserModule } from 'src/app/modules/user/user.module';
 import { StorysModule, sleep } from '@core/module/storys.module';
 import { comments } from './comments.json';
 import { of } from 'rxjs';
+import { formatDate } from '@angular/common';
 
 export default {
   title: '示例页面/内容类型/普通文章',
@@ -60,7 +61,7 @@ Default.args = {
     meta: [
       {
         icon: 'schedule',
-        label: '08/01/2022',
+        label: formatDate(new Date(), 'yyyy/MM/dd', 'en-US'),
       },
       {
         icon: 'folder',
