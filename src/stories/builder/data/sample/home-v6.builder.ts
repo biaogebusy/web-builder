@@ -37,7 +37,7 @@ export const home_v6 = {
     showcase2v1_card1v1,
     carousel1v2,
     action1v1,
-    carousel2v2,
+    { ...carousel2v2?.content, bg: { classes: 'bg-fill-width bg-' } },
     showcase1v3_video,
     text,
   ],

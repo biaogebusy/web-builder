@@ -129,7 +129,7 @@ export const samples = {
                     href: '/?path=/story/guide--page',
                     label: '丰富的组件库',
                   },
-                  content: '超过五十多个组件，和三十多个基组件',
+                  content: '常用的组件库，和三十多个基组件',
                   more: {
                     href: '/?path=/story/builder--default',
                     label: '更多',
@@ -274,60 +274,61 @@ export const samples = {
             },
           },
           {
-            content: {
-              type: 'showcase-4v1',
-              spacer: 'lg',
-              text: {
-                title: {
-                  label: '平台实时数据',
-                  style: 'style-v1',
-                },
+            type: 'showcase-4v1',
+            spacer: 'lg',
+            text: {
+              title: {
+                label: '平台实时数据',
+                style: 'style-v1',
               },
-              paramsBak: {
-                api: 'api/v1/tab/order_process_statistics',
+            },
+            paramsBak: {
+              api: 'api/v1/tab/order_process_statistics',
+            },
+            elements: [
+              {
+                icon: {
+                  name: 'fingerprint',
+                },
+                digit: {
+                  value: 385,
+                  label: '+',
+                },
+                title: '日访问人数',
               },
-              elements: [
-                {
-                  icon: {
-                    name: 'fingerprint',
-                  },
-                  digit: {
-                    value: 235,
-                    label: '+',
-                  },
-                  title: '日访问人数',
+              {
+                icon: {
+                  name: 'verified_user',
                 },
-                {
-                  icon: {
-                    name: 'verified_user',
-                  },
-                  digit: {
-                    value: 192,
-                    label: '+',
-                  },
-                  title: '日打开次数',
+                digit: {
+                  value: 277,
+                  label: '+',
                 },
-                {
-                  icon: {
-                    name: 'android',
-                  },
-                  digit: {
-                    value: 102,
-                    label: '人',
-                  },
-                  title: '日新增人数',
+                title: '日打开次数',
+              },
+              {
+                icon: {
+                  name: 'android',
                 },
-                {
-                  icon: {
-                    name: 'mail',
-                  },
-                  digit: {
-                    value: 3187,
-                    label: '万',
-                  },
-                  title: '累计用户数',
+                digit: {
+                  value: 203,
+                  label: '人',
                 },
-              ],
+                title: '日新增人数',
+              },
+              {
+                icon: {
+                  name: 'mail',
+                },
+                digit: {
+                  value: 7238,
+                  label: '万',
+                },
+                title: '累计用户数',
+              },
+            ],
+            bg: {
+              classes: 'bg-fill-width bg-shadow',
             },
           },
           {
@@ -417,7 +418,7 @@ export const samples = {
               elements: [
                 {
                   type: 'card',
-                  subTitle: '2023-06-28',
+                  subTitle: '2023-06-29',
                   avatar: {
                     src: '/assets/images/showcase/weather.png',
                     alt: '',
@@ -467,7 +468,7 @@ export const samples = {
                 },
                 {
                   type: 'card',
-                  subTitle: '2023-06-28',
+                  subTitle: '2023-06-29',
                   avatar: {
                     src: '/assets/images/showcase/browser.png',
                     alt: '',
@@ -504,7 +505,7 @@ export const samples = {
                 },
                 {
                   type: 'card',
-                  subTitle: '2023-06-28',
+                  subTitle: '2023-06-29',
                   avatar: {
                     src: '/assets/images/showcase/clipboard.png',
                     alt: '',
@@ -541,7 +542,7 @@ export const samples = {
                 },
                 {
                   type: 'card',
-                  subTitle: '2023-06-28',
+                  subTitle: '2023-06-29',
                   avatar: {
                     src: '/assets/images/showcase/console.png',
                     alt: '',
@@ -578,7 +579,7 @@ export const samples = {
                 },
                 {
                   type: 'card',
-                  subTitle: '2023-06-28',
+                  subTitle: '2023-06-29',
                   avatar: {
                     src: '/assets/images/showcase/weather.png',
                     alt: '',
@@ -615,7 +616,7 @@ export const samples = {
                 },
                 {
                   type: 'card',
-                  subTitle: '2023-06-28',
+                  subTitle: '2023-06-29',
                   avatar: {
                     src: '/assets/images/showcase/weather.png',
                     alt: '',
@@ -652,7 +653,7 @@ export const samples = {
                 },
                 {
                   type: 'card',
-                  subTitle: '2023-06-28',
+                  subTitle: '2023-06-29',
                   avatar: {
                     src: '/assets/images/showcase/weather.png',
                     alt: '',
@@ -689,7 +690,7 @@ export const samples = {
                 },
                 {
                   type: 'card',
-                  subTitle: '2023-06-28',
+                  subTitle: '2023-06-29',
                   avatar: {
                     src: '/assets/images/showcase/weather.png',
                     alt: '',
@@ -1359,7 +1360,7 @@ export const samples = {
                     href: '/?path=/story/guide--page',
                     label: '丰富的组件库',
                   },
-                  content: '超过五十多个组件，和三十多个基组件',
+                  content: '常用的组件库，和三十多个基组件',
                   more: {
                     href: '/?path=/story/builder--default',
                     label: '更多',
@@ -1600,145 +1601,143 @@ export const samples = {
             },
           },
           {
-            content: {
-              type: 'showcase-3v4',
-              title: {
-                label: '为什么你将会喜欢这个前端框架？',
-                style: 'style-v1',
-              },
-              bg: {
-                classes: 'bg-shadow bg-fill-width',
-              },
-              img: {
-                src: '/assets/images/1-1/business-02.png',
-                alt: 'OUR FEATURES',
-              },
-              elements: [
-                {
-                  type: 'box',
-                  style: 'style-v7',
-                  icon: {
-                    name: 'verified_user',
-                  },
-                  title: {
-                    href: '/',
-                    label: '组件编辑',
-                  },
-                  content: '通过简单的管理界面对复杂的可视化编辑',
-                  more: {
-                    href: '#',
-                    label: '更多',
-                  },
-                },
-                {
-                  type: 'box',
-                  style: 'style-v7',
-                  icon: {
-                    name: 'fingerprint',
-                  },
-                  title: {
-                    href: '/',
-                    label: '多语言',
-                  },
-                  content:
-                    'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程',
-                  more: {
-                    href: '#',
-                    label: '更多',
-                  },
-                },
-                {
-                  type: 'box',
-                  style: 'style-v7',
-                  icon: {
-                    name: 'favorite',
-                  },
-                  title: {
-                    href: '/',
-                    label: '高性能',
-                  },
-                  content:
-                    '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快',
-                  more: {
-                    href: '#',
-                    label: '更多',
-                  },
-                },
-                {
-                  type: 'box',
-                  style: 'style-v7',
-                  icon: {
-                    name: 'android',
-                  },
-                  title: {
-                    href: '/',
-                    label: '易用的编辑器',
-                  },
-                  content:
-                    '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作',
-                  more: {
-                    href: '#',
-                    label: '更多',
-                  },
-                },
-              ],
+            type: 'showcase-3v4',
+            title: {
+              label: '为什么你将会喜欢这个前端框架？',
+              style: 'style-v1',
             },
+            bg: {
+              classes: 'bg-fill-width bg-',
+            },
+            img: {
+              src: '/assets/images/1-1/business-02.png',
+              alt: 'OUR FEATURES',
+            },
+            elements: [
+              {
+                type: 'box',
+                style: 'style-v7',
+                icon: {
+                  name: 'verified_user',
+                },
+                title: {
+                  href: '/',
+                  label: '组件编辑',
+                },
+                content: '通过简单的管理界面对复杂的可视化编辑',
+                more: {
+                  href: '#',
+                  label: '更多',
+                },
+              },
+              {
+                type: 'box',
+                style: 'style-v7',
+                icon: {
+                  name: 'fingerprint',
+                },
+                title: {
+                  href: '/',
+                  label: '多语言',
+                },
+                content: 'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程',
+                more: {
+                  href: '#',
+                  label: '更多',
+                },
+              },
+              {
+                type: 'box',
+                style: 'style-v7',
+                icon: {
+                  name: 'favorite',
+                },
+                title: {
+                  href: '/',
+                  label: '高性能',
+                },
+                content:
+                  '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快',
+                more: {
+                  href: '#',
+                  label: '更多',
+                },
+              },
+              {
+                type: 'box',
+                style: 'style-v7',
+                icon: {
+                  name: 'android',
+                },
+                title: {
+                  href: '/',
+                  label: '易用的编辑器',
+                },
+                content:
+                  '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作',
+                more: {
+                  href: '#',
+                  label: '更多',
+                },
+              },
+            ],
           },
           {
-            content: {
-              type: 'showcase-4v1',
-              spacer: 'lg',
-              text: {
-                title: {
-                  label: '平台实时数据',
-                  style: 'style-v1',
-                },
+            type: 'showcase-4v1',
+            spacer: 'lg',
+            text: {
+              title: {
+                label: '平台实时数据',
+                style: 'style-v1',
               },
-              paramsBak: {
-                api: 'api/v1/tab/order_process_statistics',
+            },
+            paramsBak: {
+              api: 'api/v1/tab/order_process_statistics',
+            },
+            elements: [
+              {
+                icon: {
+                  name: 'fingerprint',
+                },
+                digit: {
+                  value: 385,
+                  label: '+',
+                },
+                title: '日访问人数',
               },
-              elements: [
-                {
-                  icon: {
-                    name: 'fingerprint',
-                  },
-                  digit: {
-                    value: 235,
-                    label: '+',
-                  },
-                  title: '日访问人数',
+              {
+                icon: {
+                  name: 'verified_user',
                 },
-                {
-                  icon: {
-                    name: 'verified_user',
-                  },
-                  digit: {
-                    value: 192,
-                    label: '+',
-                  },
-                  title: '日打开次数',
+                digit: {
+                  value: 277,
+                  label: '+',
                 },
-                {
-                  icon: {
-                    name: 'android',
-                  },
-                  digit: {
-                    value: 102,
-                    label: '人',
-                  },
-                  title: '日新增人数',
+                title: '日打开次数',
+              },
+              {
+                icon: {
+                  name: 'android',
                 },
-                {
-                  icon: {
-                    name: 'mail',
-                  },
-                  digit: {
-                    value: 3187,
-                    label: '万',
-                  },
-                  title: '累计用户数',
+                digit: {
+                  value: 203,
+                  label: '人',
                 },
-              ],
+                title: '日新增人数',
+              },
+              {
+                icon: {
+                  name: 'mail',
+                },
+                digit: {
+                  value: 7238,
+                  label: '万',
+                },
+                title: '累计用户数',
+              },
+            ],
+            bg: {
+              classes: 'bg-fill-width bg-shadow',
             },
           },
           {
@@ -1994,7 +1993,9 @@ export const samples = {
               type: 'carousel-2v2',
               id: '',
               spacer: 'xl',
-              classes: 'bg-shadow',
+              bg: {
+                classes: 'bg-fill-width bg-shadow',
+              },
               sliders: {
                 params: {
                   slidesPerView: 1.2,
@@ -4457,102 +4458,102 @@ export const samples = {
             },
           },
           {
-            content: {
-              type: 'carousel-2v2',
-              id: '',
-              spacer: 'xl',
-              classes: 'bg-shadow',
-              sliders: {
-                params: {
-                  slidesPerView: 1.2,
-                  pagination: false,
-                  autoplay: {
-                    delay: 5000,
+            type: 'carousel-2v2',
+            id: '',
+            spacer: 'xl',
+            bg: {
+              classes: 'bg-fill-width bg-',
+            },
+            sliders: {
+              params: {
+                slidesPerView: 1.2,
+                pagination: false,
+                autoplay: {
+                  delay: 5000,
+                },
+                breakpoints: {
+                  '600': {
+                    slidesPerView: 3,
+                    spaceBetween: 20,
                   },
-                  breakpoints: {
-                    '600': {
-                      slidesPerView: 3,
-                      spaceBetween: 20,
-                    },
-                    '960': {
-                      slidesPerView: 5,
-                      spaceBetween: 20,
-                    },
+                  '960': {
+                    slidesPerView: 5,
+                    spaceBetween: 20,
                   },
                 },
-                elements: [
-                  {
-                    type: 'img',
-                    src: '/assets/images/logo/amazon.svg',
-                    href: '#',
-                    alt: '',
-                    style: {
-                      width: 'auto',
-                      height: '40px',
-                    },
-                  },
-                  {
-                    type: 'img',
-                    src: '/assets/images/logo/google.svg',
-                    href: '#',
-                    alt: '',
-                    style: {
-                      width: 'auto',
-                      height: '40px',
-                    },
-                  },
-                  {
-                    type: 'img',
-                    src: '/assets/images/logo/lenovo.svg',
-                    href: '#',
-                    alt: '',
-                    style: {
-                      width: 'auto',
-                      height: '40px',
-                    },
-                  },
-                  {
-                    type: 'img',
-                    src: '/assets/images/logo/paypal.svg',
-                    href: '#',
-                    alt: '',
-                    style: {
-                      width: 'auto',
-                      height: '40px',
-                    },
-                  },
-                  {
-                    type: 'img',
-                    src: '/assets/images/logo/shopify.svg',
-                    href: '#',
-                    alt: '',
-                    style: {
-                      width: 'auto',
-                      height: '40px',
-                    },
-                  },
-                  {
-                    type: 'img',
-                    src: '/assets/images/logo/spotify.svg',
-                    href: '#',
-                    alt: '',
-                    style: {
-                      width: 'auto',
-                      height: '40px',
-                    },
-                  },
-                  {
-                    type: 'img',
-                    src: '/assets/images/logo/logo10.png',
-                    href: '#',
-                    alt: '',
-                    style: {
-                      width: 'auto',
-                      height: '40px',
-                    },
-                  },
-                ],
               },
+              elements: [
+                {
+                  type: 'img',
+                  src: '/assets/images/logo/amazon.svg',
+                  href: '#',
+                  alt: '',
+                  style: {
+                    width: 'auto',
+                    height: '40px',
+                  },
+                },
+                {
+                  type: 'img',
+                  src: '/assets/images/logo/google.svg',
+                  href: '#',
+                  alt: '',
+                  style: {
+                    width: 'auto',
+                    height: '40px',
+                  },
+                },
+                {
+                  type: 'img',
+                  src: '/assets/images/logo/lenovo.svg',
+                  href: '#',
+                  alt: '',
+                  style: {
+                    width: 'auto',
+                    height: '40px',
+                  },
+                },
+                {
+                  type: 'img',
+                  src: '/assets/images/logo/paypal.svg',
+                  href: '#',
+                  alt: '',
+                  style: {
+                    width: 'auto',
+                    height: '40px',
+                  },
+                },
+                {
+                  type: 'img',
+                  src: '/assets/images/logo/shopify.svg',
+                  href: '#',
+                  alt: '',
+                  style: {
+                    width: 'auto',
+                    height: '40px',
+                  },
+                },
+                {
+                  type: 'img',
+                  src: '/assets/images/logo/spotify.svg',
+                  href: '#',
+                  alt: '',
+                  style: {
+                    width: 'auto',
+                    height: '40px',
+                  },
+                },
+                {
+                  type: 'img',
+                  src: '/assets/images/logo/logo10.png',
+                  href: '#',
+                  alt: '',
+                  style: {
+                    width: 'auto',
+                    height: '40px',
+                  },
+                },
+              ],
             },
           },
           {
@@ -4705,7 +4706,7 @@ export const samples = {
           {
             type: 'showcase-1v1',
             title: {
-              label: 'Our Trusted Clients',
+              label: '忠实的客户',
               style: 'style-v2',
             },
             subTitle: {
@@ -5209,7 +5210,9 @@ export const samples = {
               type: 'carousel-2v2',
               id: '',
               spacer: 'xl',
-              classes: 'bg-shadow',
+              bg: {
+                classes: 'bg-fill-width bg-shadow',
+              },
               sliders: {
                 params: {
                   slidesPerView: 1.2,
@@ -5304,102 +5307,100 @@ export const samples = {
             },
           },
           {
-            content: {
-              type: 'showcase-3v6',
-              id: '',
+            type: 'showcase-3v6',
+            id: '',
+            title: {
+              type: 'text',
+              spacer: 'sm',
               title: {
-                type: 'text',
-                spacer: 'sm',
-                title: {
-                  label: '为所有开发者、所有应用场景而设计',
-                  style: 'style-v1',
-                },
-                body: '<p class="text-center">让前端开发更快速、简单。所有开发者都能快速上手、所有设备都可以适配、所有项目都适用。</p>',
-              },
-              bg: {
-                classes: 'bg-shadow bg-fill-width',
-              },
-              row: '3',
-              elements: [
-                {
-                  img: {
-                    src: '/assets/images/logo/codepen.svg',
-                    style: {
-                      width: '45px',
-                      height: '45px',
-                    },
-                    alt: 'logo',
-                  },
-                  css3: true,
-                  title: '响应式设计',
-                },
-                {
-                  img: {
-                    src: '/assets/images/logo/codepen.svg',
-                    style: {
-                      width: '45px',
-                      height: '45px',
-                    },
-                    alt: 'logo',
-                  },
-                  css3: true,
-                  title: '支持 SSR 服务端渲染',
-                },
-                {
-                  img: {
-                    src: '/assets/images/logo/codepen.svg',
-                    style: {
-                      width: '45px',
-                      height: '45px',
-                    },
-                    alt: 'logo',
-                  },
-                  css3: true,
-                  title: '支持多主题、暗黑模式',
-                },
-                {
-                  img: {
-                    src: '/assets/images/logo/codepen.svg',
-                    style: {
-                      width: '45px',
-                      height: '45px',
-                    },
-                    alt: 'logo',
-                  },
-                  css3: true,
-                  title: 'MDI 6000多个icons',
-                },
-                {
-                  img: {
-                    src: '/assets/images/logo/codepen.svg',
-                    style: {
-                      width: '45px',
-                      height: '45px',
-                    },
-                    alt: 'logo',
-                  },
-                  css3: true,
-                  title: 'Storybook 全覆盖测试',
-                },
-                {
-                  img: {
-                    src: '/assets/images/logo/codepen.svg',
-                    style: {
-                      width: '45px',
-                      height: '45px',
-                    },
-                    alt: 'logo',
-                  },
-                  css3: true,
-                  title: '动态组件动态表单',
-                },
-              ],
-              action: {
-                label: '查看更多',
-                href: '#',
+                label: '为所有开发者、所有应用场景而设计',
                 style: 'style-v1',
-                icon: 'open_in_new',
               },
+              body: '<p class="text-center">让前端开发更快速、简单。所有开发者都能快速上手、所有设备都可以适配、所有项目都适用。</p>',
+            },
+            bg: {
+              classes: 'bg-fill-width bg-',
+            },
+            row: '3',
+            elements: [
+              {
+                img: {
+                  src: '/assets/images/logo/codepen.svg',
+                  style: {
+                    width: '45px',
+                    height: '45px',
+                  },
+                  alt: 'logo',
+                },
+                css3: true,
+                title: '响应式设计',
+              },
+              {
+                img: {
+                  src: '/assets/images/logo/codepen.svg',
+                  style: {
+                    width: '45px',
+                    height: '45px',
+                  },
+                  alt: 'logo',
+                },
+                css3: true,
+                title: '支持 SSR 服务端渲染',
+              },
+              {
+                img: {
+                  src: '/assets/images/logo/codepen.svg',
+                  style: {
+                    width: '45px',
+                    height: '45px',
+                  },
+                  alt: 'logo',
+                },
+                css3: true,
+                title: '支持多主题、暗黑模式',
+              },
+              {
+                img: {
+                  src: '/assets/images/logo/codepen.svg',
+                  style: {
+                    width: '45px',
+                    height: '45px',
+                  },
+                  alt: 'logo',
+                },
+                css3: true,
+                title: 'MDI 6000多个icons',
+              },
+              {
+                img: {
+                  src: '/assets/images/logo/codepen.svg',
+                  style: {
+                    width: '45px',
+                    height: '45px',
+                  },
+                  alt: 'logo',
+                },
+                css3: true,
+                title: 'Storybook 全覆盖测试',
+              },
+              {
+                img: {
+                  src: '/assets/images/logo/codepen.svg',
+                  style: {
+                    width: '45px',
+                    height: '45px',
+                  },
+                  alt: 'logo',
+                },
+                css3: true,
+                title: '动态组件动态表单',
+              },
+            ],
+            action: {
+              label: '查看更多',
+              href: '#',
+              style: 'style-v1',
+              icon: 'open_in_new',
             },
           },
           {
@@ -5631,62 +5632,63 @@ export const samples = {
             },
           },
           {
-            content: {
-              type: 'showcase-4v1',
-              spacer: 'lg',
-              text: {
-                title: {
-                  label: 'Storybook 是如何流行于前端开发测试的',
-                  style: 'style-v1',
-                  classes: 'mat-display-1',
-                },
-                body: '<p class="text-center">通过Storybook，您可以以交互的方式在浏览器中浏览和测试组件，以确保它们在各种条件下的正确工作。</p>',
+            type: 'showcase-4v1',
+            spacer: 'lg',
+            text: {
+              title: {
+                label: 'Storybook 是如何流行于前端开发测试的',
+                style: 'style-v1',
+                classes: 'mat-display-1',
               },
-              paramsBak: {
-                api: 'api/v1/tab/order_process_statistics',
+              body: '<p class="text-center">通过Storybook，您可以以交互的方式在浏览器中浏览和测试组件，以确保它们在各种条件下的正确工作。</p>',
+            },
+            paramsBak: {
+              api: 'api/v1/tab/order_process_statistics',
+            },
+            elements: [
+              {
+                img: {
+                  src: '/assets/images/svg/Asset187.svg',
+                },
+                digit: {
+                  value: 47,
+                  label: 'M',
+                },
+                title: 'Github Start',
               },
-              elements: [
-                {
-                  img: {
-                    src: '/assets/images/svg/Asset187.svg',
-                  },
-                  digit: {
-                    value: 54,
-                    label: 'M',
-                  },
-                  title: 'Github Start',
+              {
+                img: {
+                  src: '/assets/images/svg/Asset189.svg',
                 },
-                {
-                  img: {
-                    src: '/assets/images/svg/Asset189.svg',
-                  },
-                  digit: {
-                    value: 46239,
-                    label: '+',
-                  },
-                  title: 'NPM 周下载量',
+                digit: {
+                  value: 38844,
+                  label: '+',
                 },
-                {
-                  img: {
-                    src: '/assets/images/svg/Asset190.svg',
-                  },
-                  digit: {
-                    value: 3456,
-                    label: 'K',
-                  },
-                  title: '社区活跃',
+                title: 'NPM 周下载量',
+              },
+              {
+                img: {
+                  src: '/assets/images/svg/Asset190.svg',
                 },
-                {
-                  img: {
-                    src: '/assets/images/svg/Asset192.svg',
-                  },
-                  digit: {
-                    value: 787,
-                    label: '个',
-                  },
-                  title: '成功故事',
+                digit: {
+                  value: 3763,
+                  label: 'K',
                 },
-              ],
+                title: '社区活跃',
+              },
+              {
+                img: {
+                  src: '/assets/images/svg/Asset192.svg',
+                },
+                digit: {
+                  value: 935,
+                  label: '个',
+                },
+                title: '成功故事',
+              },
+            ],
+            bg: {
+              classes: 'bg-fill-width bg-shadow',
             },
           },
           {
@@ -5944,62 +5946,63 @@ export const samples = {
             },
           },
           {
-            content: {
-              type: 'showcase-4v1',
-              spacer: 'lg',
-              text: {
-                title: {
-                  label: 'Storybook 是如何流行于前端开发测试的',
-                  style: 'style-v1',
-                  classes: 'mat-display-1',
-                },
-                body: '<p class="text-center">通过Storybook，您可以以交互的方式在浏览器中浏览和测试组件，以确保它们在各种条件下的正确工作。</p>',
+            type: 'showcase-4v1',
+            spacer: 'lg',
+            text: {
+              title: {
+                label: 'Storybook 是如何流行于前端开发测试的',
+                style: 'style-v1',
+                classes: 'mat-display-1',
               },
-              paramsBak: {
-                api: 'api/v1/tab/order_process_statistics',
+              body: '<p class="text-center">通过Storybook，您可以以交互的方式在浏览器中浏览和测试组件，以确保它们在各种条件下的正确工作。</p>',
+            },
+            paramsBak: {
+              api: 'api/v1/tab/order_process_statistics',
+            },
+            elements: [
+              {
+                img: {
+                  src: '/assets/images/svg/Asset187.svg',
+                },
+                digit: {
+                  value: 47,
+                  label: 'M',
+                },
+                title: 'Github Start',
               },
-              elements: [
-                {
-                  img: {
-                    src: '/assets/images/svg/Asset187.svg',
-                  },
-                  digit: {
-                    value: 54,
-                    label: 'M',
-                  },
-                  title: 'Github Start',
+              {
+                img: {
+                  src: '/assets/images/svg/Asset189.svg',
                 },
-                {
-                  img: {
-                    src: '/assets/images/svg/Asset189.svg',
-                  },
-                  digit: {
-                    value: 46239,
-                    label: '+',
-                  },
-                  title: 'NPM 周下载量',
+                digit: {
+                  value: 38844,
+                  label: '+',
                 },
-                {
-                  img: {
-                    src: '/assets/images/svg/Asset190.svg',
-                  },
-                  digit: {
-                    value: 3456,
-                    label: 'K',
-                  },
-                  title: '社区活跃',
+                title: 'NPM 周下载量',
+              },
+              {
+                img: {
+                  src: '/assets/images/svg/Asset190.svg',
                 },
-                {
-                  img: {
-                    src: '/assets/images/svg/Asset192.svg',
-                  },
-                  digit: {
-                    value: 787,
-                    label: '个',
-                  },
-                  title: '成功故事',
+                digit: {
+                  value: 3763,
+                  label: 'K',
                 },
-              ],
+                title: '社区活跃',
+              },
+              {
+                img: {
+                  src: '/assets/images/svg/Asset192.svg',
+                },
+                digit: {
+                  value: 935,
+                  label: '个',
+                },
+                title: '成功故事',
+              },
+            ],
+            bg: {
+              classes: 'bg-fill-width bg-shadow',
             },
           },
           {
@@ -7090,7 +7093,9 @@ export const samples = {
               type: 'carousel-2v2',
               id: '',
               spacer: 'xl',
-              classes: 'bg-shadow',
+              bg: {
+                classes: 'bg-fill-width bg-shadow',
+              },
               sliders: {
                 params: {
                   slidesPerView: 1.2,
@@ -7505,102 +7510,102 @@ export const samples = {
             },
           },
           {
-            content: {
-              type: 'carousel-2v2',
-              id: '',
-              spacer: 'xl',
-              classes: 'bg-shadow',
-              sliders: {
-                params: {
-                  slidesPerView: 1.2,
-                  pagination: false,
-                  autoplay: {
-                    delay: 5000,
+            type: 'carousel-2v2',
+            id: '',
+            spacer: 'xl',
+            bg: {
+              classes: 'bg-fill-width bg-',
+            },
+            sliders: {
+              params: {
+                slidesPerView: 1.2,
+                pagination: false,
+                autoplay: {
+                  delay: 5000,
+                },
+                breakpoints: {
+                  '600': {
+                    slidesPerView: 3,
+                    spaceBetween: 20,
                   },
-                  breakpoints: {
-                    '600': {
-                      slidesPerView: 3,
-                      spaceBetween: 20,
-                    },
-                    '960': {
-                      slidesPerView: 5,
-                      spaceBetween: 20,
-                    },
+                  '960': {
+                    slidesPerView: 5,
+                    spaceBetween: 20,
                   },
                 },
-                elements: [
-                  {
-                    type: 'img',
-                    src: '/assets/images/logo/amazon.svg',
-                    href: '#',
-                    alt: '',
-                    style: {
-                      width: 'auto',
-                      height: '40px',
-                    },
-                  },
-                  {
-                    type: 'img',
-                    src: '/assets/images/logo/google.svg',
-                    href: '#',
-                    alt: '',
-                    style: {
-                      width: 'auto',
-                      height: '40px',
-                    },
-                  },
-                  {
-                    type: 'img',
-                    src: '/assets/images/logo/lenovo.svg',
-                    href: '#',
-                    alt: '',
-                    style: {
-                      width: 'auto',
-                      height: '40px',
-                    },
-                  },
-                  {
-                    type: 'img',
-                    src: '/assets/images/logo/paypal.svg',
-                    href: '#',
-                    alt: '',
-                    style: {
-                      width: 'auto',
-                      height: '40px',
-                    },
-                  },
-                  {
-                    type: 'img',
-                    src: '/assets/images/logo/shopify.svg',
-                    href: '#',
-                    alt: '',
-                    style: {
-                      width: 'auto',
-                      height: '40px',
-                    },
-                  },
-                  {
-                    type: 'img',
-                    src: '/assets/images/logo/spotify.svg',
-                    href: '#',
-                    alt: '',
-                    style: {
-                      width: 'auto',
-                      height: '40px',
-                    },
-                  },
-                  {
-                    type: 'img',
-                    src: '/assets/images/logo/logo10.png',
-                    href: '#',
-                    alt: '',
-                    style: {
-                      width: 'auto',
-                      height: '40px',
-                    },
-                  },
-                ],
               },
+              elements: [
+                {
+                  type: 'img',
+                  src: '/assets/images/logo/amazon.svg',
+                  href: '#',
+                  alt: '',
+                  style: {
+                    width: 'auto',
+                    height: '40px',
+                  },
+                },
+                {
+                  type: 'img',
+                  src: '/assets/images/logo/google.svg',
+                  href: '#',
+                  alt: '',
+                  style: {
+                    width: 'auto',
+                    height: '40px',
+                  },
+                },
+                {
+                  type: 'img',
+                  src: '/assets/images/logo/lenovo.svg',
+                  href: '#',
+                  alt: '',
+                  style: {
+                    width: 'auto',
+                    height: '40px',
+                  },
+                },
+                {
+                  type: 'img',
+                  src: '/assets/images/logo/paypal.svg',
+                  href: '#',
+                  alt: '',
+                  style: {
+                    width: 'auto',
+                    height: '40px',
+                  },
+                },
+                {
+                  type: 'img',
+                  src: '/assets/images/logo/shopify.svg',
+                  href: '#',
+                  alt: '',
+                  style: {
+                    width: 'auto',
+                    height: '40px',
+                  },
+                },
+                {
+                  type: 'img',
+                  src: '/assets/images/logo/spotify.svg',
+                  href: '#',
+                  alt: '',
+                  style: {
+                    width: 'auto',
+                    height: '40px',
+                  },
+                },
+                {
+                  type: 'img',
+                  src: '/assets/images/logo/logo10.png',
+                  href: '#',
+                  alt: '',
+                  style: {
+                    width: 'auto',
+                    height: '40px',
+                  },
+                },
+              ],
             },
           },
           {
@@ -7903,7 +7908,7 @@ export const samples = {
                     src: '/assets/images/svg/Asset187.svg',
                   },
                   digit: {
-                    value: 54,
+                    value: 47,
                     label: 'M',
                   },
                   title: 'Github Start',
@@ -7913,7 +7918,7 @@ export const samples = {
                     src: '/assets/images/svg/Asset189.svg',
                   },
                   digit: {
-                    value: 46239,
+                    value: 38844,
                     label: '+',
                   },
                   title: 'NPM 周下载量',
@@ -7923,7 +7928,7 @@ export const samples = {
                     src: '/assets/images/svg/Asset190.svg',
                   },
                   digit: {
-                    value: 3456,
+                    value: 3763,
                     label: 'K',
                   },
                   title: '社区活跃',
@@ -7933,7 +7938,7 @@ export const samples = {
                     src: '/assets/images/svg/Asset192.svg',
                   },
                   digit: {
-                    value: 787,
+                    value: 935,
                     label: '个',
                   },
                   title: '成功故事',

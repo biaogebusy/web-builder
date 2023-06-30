@@ -30,8 +30,14 @@ export const home_v2 = {
     showcase1v1_v3,
     showcase2v1_card1v1,
     action1v1,
-    showcase3v4_background,
-    showcase4v1_default,
+    {
+      ...showcase3v4_background?.content,
+      bg: { classes: 'bg-fill-width bg-' },
+    },
+    {
+      ...showcase4v1_default?.content,
+      bg: { classes: 'bg-fill-width bg-shadow' },
+    },
     carousel1v1,
   ],
 };

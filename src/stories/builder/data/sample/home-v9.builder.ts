@@ -26,7 +26,7 @@ export const home_v9 = {
   body: [
     hero2v1Default,
     showcase2v2_default,
-    showcase4v1_img,
+    { ...showcase4v1_img?.content, bg: { classes: 'bg-fill-width bg-shadow' } },
     carousel1v2,
     list2v1,
   ],

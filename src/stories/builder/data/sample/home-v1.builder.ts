@@ -17,7 +17,10 @@ export const home_v1 = {
     hero1v1,
     showcase1v1Default,
     showcase3v2_default,
-    showcase4v1_default,
+    {
+      ...showcase4v1_default?.content,
+      bg: { classes: 'bg-fill-width bg-shadow' },
+    },
     carousel2v1,
     showcase2v1_default,
     videoBg,

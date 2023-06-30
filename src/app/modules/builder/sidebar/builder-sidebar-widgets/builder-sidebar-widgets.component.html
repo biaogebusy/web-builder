@@ -14,12 +14,8 @@
             <app-icon *ngIf="widget.icon" [content]="widget.icon"></app-icon>
             <div class="title">{{widget.label}}</div>
           </div>
-          <app-card-1v1 style="min-width:300px" *cdkDragPreview [content]="{
-                                                      link:{
-                                                        href:'#',
-                                                        label: widget.content.type
-                                                      },components:[widget.content]
-                                                    }"></app-card-1v1>
+          <app-card-1v1 style="min-width:300px" *cdkDragPreview
+            [content]="{link:{href:'#',label: widget.content.type},components:[widget.content]}"></app-card-1v1>
         </div>
       </div>
     </mat-list>

@@ -27,7 +27,7 @@ Default.args = {
     type: 'carousel-2v2',
     id: '',
     spacer: 'xl',
-    classes: 'bg-shadow',
+    bg: { classes: 'bg-fill-width bg-shadow' },
     sliders: {
       params: {
         slidesPerView: 1.2,
