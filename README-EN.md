@@ -31,9 +31,7 @@
   <br>
 </p>
 
-#### Why name xinshi
-
-Oumuamua is the first known interstellar object passing through the solar system, which means "distant messenger(信使)".
+> Oumuamua is the first known interstellar object passing through the solar system, which means "distant messenger(信使)".
 
 #### Open Source Purpose
 
