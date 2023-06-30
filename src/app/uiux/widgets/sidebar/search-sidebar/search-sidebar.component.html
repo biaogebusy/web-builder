@@ -10,7 +10,7 @@
     </div>
     <div class="item m-y-xs m-x-xs" fxFlex="0 1 100" fxLayoutAlign="end center">
       <button mat-button (click)="clear()">
-        <mat-icon>clear</mat-icon>{{label?.clear||'清空'}}
+        <mat-icon>clear</mat-icon>{{label.clear||'清空'}}
       </button>
     </div>
   </div>
@@ -20,7 +20,7 @@
       <mat-expansion-panel expanded=true (opened)="panelOpenState = true" (closed)="panelOpenState = false">
         <mat-expansion-panel-header>
           <mat-panel-title>
-            <strong>{{label?.filter||'过滤条件'}}</strong>
+            <strong>{{label.filter||'过滤条件'}}</strong>
           </mat-panel-title>
         </mat-expansion-panel-header>
         <ng-container *ngFor="let item of content">

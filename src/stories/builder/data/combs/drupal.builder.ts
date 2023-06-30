@@ -8,7 +8,7 @@ import * as list2v1Story from '@stories/components/list/List2v1.stories';
 import * as taxonomyListStory from '@stories/components/list/taxonomyList.stories';
 import * as taxonomyThinListStory from '@stories/components/list/taxonomyThinList.stories';
 import * as userCenterStory from '@stories/components/profile/userCenter.stories';
-import * as searchStory from '@stories/components/search/search.stories';
+import * as searchStory from '@stories/components/search/Search.stories';
 
 export const {
   Default: { args: search },
