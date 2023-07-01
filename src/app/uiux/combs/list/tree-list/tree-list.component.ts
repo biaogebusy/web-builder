@@ -97,7 +97,7 @@ export class TreeListComponent
   nodeSearch(params: any): void {
     this.loading = true;
     this.nodeService
-      .search('content', this.getApiParams(params))
+      .fetch('content', this.getApiParams(params))
       .pipe(takeUntil(this.destroy$))
       .subscribe(
         (data) => {

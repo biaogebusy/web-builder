@@ -127,7 +127,7 @@ export class FullCalendarComponent
       return;
     }
     if (api || params || this.options?.events) {
-      this.nodeService.search(api, params).subscribe((data) => {
+      this.nodeService.fetch(api, params).subscribe((data) => {
         if (this.options) {
           let events = [];
           if (data.rows && data.pager) {

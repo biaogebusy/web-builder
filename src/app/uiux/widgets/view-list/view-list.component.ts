@@ -94,7 +94,7 @@ export class ViewListComponent
     const emptyHidden = this.getParams(this.content, 'emptyHidden');
     this.loading = true;
     this.nodeService
-      .search(this.content.params.apiType, params, this.user.csrf_token)
+      .fetch(this.content.params.apiType, params, this.user.csrf_token)
       .pipe(
         catchError((error: any) => {
           if (error.status === 403) {

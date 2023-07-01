@@ -24,7 +24,7 @@ export class List2v1Component implements OnInit {
 
   getContent(): void {
     const api = this.content.params.api;
-    this.lists$ = this.nodeService.search(api, '').pipe(
+    this.lists$ = this.nodeService.fetch(api, '').pipe(
       catchError(() => {
         return of({
           rows: [

@@ -54,7 +54,7 @@ export class DashboardBoxComponent extends BaseComponent implements OnInit {
     const params = this.getApiParams(options);
     const type = this.content.widget.type;
     this.loading = true;
-    this.widget$ = this.nodeService.search(api, params).pipe(
+    this.widget$ = this.nodeService.fetch(api, params).pipe(
       catchError(() => {
         let data: any[] = [];
         switch (type) {

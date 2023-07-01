@@ -113,7 +113,7 @@ export class SearchComponent
     const state = this.getParamsState(formValue, options);
     const params = this.getApiParams(state);
     this.nodeService
-      .search(type, params)
+      .fetch(type, params)
       .pipe(takeUntil(this.destroy$))
       .subscribe(
         (data) => {
