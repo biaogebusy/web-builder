@@ -60,7 +60,7 @@ export class SearchBoxComponent extends BaseComponent implements OnInit {
         );
 
         this.nodeService
-          .search('content', this.getApiParams(params))
+          .fetch('content', this.getApiParams(params))
           .subscribe((data) => {
             this.options = data.rows.map((item: any) => {
               return {

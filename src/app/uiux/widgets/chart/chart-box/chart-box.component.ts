@@ -35,7 +35,7 @@ export class ChartBoxComponent implements OnInit {
 
   getContent(): void {
     const api = this.content.params.api;
-    this.data$ = this.nodeService.search(api, '').pipe(
+    this.data$ = this.nodeService.fetch(api, '').pipe(
       catchError(() => {
         return of({
           count: random(1, 100),

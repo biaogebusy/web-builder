@@ -52,7 +52,7 @@ export class MatSelectComponent
 
   getOptionsFromApi(): void {
     this.nodeService
-      .search(this.fieldConfig.api || '', '')
+      .fetch(this.fieldConfig.api || '', '')
       .pipe(
         catchError(() => {
           return of({

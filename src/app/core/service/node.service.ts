@@ -31,7 +31,7 @@ export class NodeService extends ApiService {
     return this.coreConfig.apiUrl;
   }
 
-  search(type: string, params: string, token?: string): Observable<any> {
+  fetch(type: string, params: string, token?: string): Observable<any> {
     let apiParams = '';
     if (!type) {
       return of(false);
