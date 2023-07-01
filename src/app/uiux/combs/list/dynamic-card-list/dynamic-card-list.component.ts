@@ -85,7 +85,7 @@ export class DynamicCardListComponent extends BaseComponent implements OnInit {
     const state = this.getParamsState(this.form?.value, options);
     const params = this.getApiParams(state);
     this.nodeService
-      .search(this.getParams(this.content, 'type'), params)
+      .fetch(this.getParams(this.content, 'type'), params)
       .subscribe(
         (data) => {
           this.updateList(data, this.form.value, options);

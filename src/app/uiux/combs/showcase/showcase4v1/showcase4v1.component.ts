@@ -42,7 +42,7 @@ export class Showcase4v1Component extends BaseComponent implements OnInit {
 
   getContentFormApi(api: string): void {
     this.nodeService
-      .search(api, '')
+      .fetch(api, '')
       .pipe(
         catchError(() => {
           return of({

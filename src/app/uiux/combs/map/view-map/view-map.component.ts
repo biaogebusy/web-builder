@@ -55,7 +55,7 @@ export class ViewMapComponent extends BaseComponent implements OnInit {
     const params = this.getApiParams(options);
     const urlApi = this.content.params.api || '';
     this.loading = true;
-    this.lists$ = this.nodeService.search(urlApi, params).pipe(
+    this.lists$ = this.nodeService.fetch(urlApi, params).pipe(
       map(({ rows, pager }) => {
         rows.forEach((item: any) => {
           // 文字地址形式

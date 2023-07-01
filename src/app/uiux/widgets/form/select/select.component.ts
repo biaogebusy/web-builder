@@ -60,7 +60,7 @@ export class SelectComponent implements OnInit, AfterViewInit {
 
   getOptionsFromApi(): void {
     this.nodeService
-      .search(this.content.api || '', '')
+      .fetch(this.content.api || '', '')
       .pipe(
         catchError(() => {
           return of({
