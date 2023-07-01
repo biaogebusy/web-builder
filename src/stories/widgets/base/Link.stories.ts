@@ -35,9 +35,9 @@ export const Default = Template.bind({});
 Default.args = {
   content: {
     type: 'link',
-    label: '内推',
+    label: '链接',
     classes: '',
-    href: '/lists/jobs',
+    href: '/manage',
   },
 };
 
@@ -87,5 +87,16 @@ Drawer.args = {
   content: {
     ...Default.args.content,
     rel: 'drawer',
+  },
+};
+
+export const ReqRoles = Template.bind({});
+ReqRoles.storyName = '根据权限显示';
+ReqRoles.args = {
+  content: {
+    ...Default.args.content,
+    params: {
+      reqRoles: ['administrator'],
+    },
   },
 };
