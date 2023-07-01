@@ -34,53 +34,59 @@ export class AuthGuard implements CanActivate {
     | boolean
     | UrlTree {
     // return true;
-    return this.nodeService.search(`/api/v1/config`, 'content=/core/base').pipe(
-      switchMap((config: ICoreConfig) => {
-        const guardConfig = config.guard;
-        if (state.url.startsWith('/my') || guardConfig?.authGuard) {
-          return this.userService.getLoginState().pipe(
-            map((status) => {
-              // console.log('userState:', status);
-              if (status) {
-                if (environment?.drupalProxy) {
-                  if (!this.user.csrf_token) {
-                    this.userService.updateUserBySession();
-                  }
-                }
-                return true;
-              } else {
-                this.userService.logouLocalUser();
-                if (environment?.drupalProxy) {
-                  window.location.href =
-                    guardConfig.defaultDrupalLoginPage || '/user/login';
-                  return false;
-                } else {
-                  this.router.navigate(
-                    [guardConfig.defaultFrontLoginPage || '/me/login'],
-                    {
-                      queryParams: { returnUrl: state.url },
+    if (environment.production) {
+      return this.nodeService
+        .fetch(`/api/v1/config`, 'content=/core/base')
+        .pipe(
+          switchMap((config: ICoreConfig) => {
+            const guardConfig = config.guard;
+            if (state.url.startsWith('/my') || guardConfig?.authGuard) {
+              return this.userService.getLoginState().pipe(
+                map((status) => {
+                  // console.log('userState:', status);
+                  if (status) {
+                    if (environment?.drupalProxy) {
+                      if (!this.user.csrf_token) {
+                        this.userService.updateUserBySession();
+                      }
                     }
-                  );
-                  return false;
-                }
-              }
-            }),
-            catchError(() => {
-              if (environment?.drupalProxy) {
-                window.location.href =
-                  guardConfig.defaultDrupalLoginPage || '/user/login';
-                return of(false);
-              } else {
-                this.router.navigate([
-                  guardConfig.defaultFrontLoginPage || '/me/login',
-                ]);
-                return of(false);
-              }
-            })
-          );
-        }
-        return of(true);
-      })
-    );
+                    return true;
+                  } else {
+                    this.userService.logouLocalUser();
+                    if (environment?.drupalProxy) {
+                      window.location.href =
+                        guardConfig.defaultDrupalLoginPage || '/user/login';
+                      return false;
+                    } else {
+                      this.router.navigate(
+                        [guardConfig.defaultFrontLoginPage || '/me/login'],
+                        {
+                          queryParams: { returnUrl: state.url },
+                        }
+                      );
+                      return false;
+                    }
+                  }
+                }),
+                catchError(() => {
+                  if (environment?.drupalProxy) {
+                    window.location.href =
+                      guardConfig.defaultDrupalLoginPage || '/user/login';
+                    return of(false);
+                  } else {
+                    this.router.navigate([
+                      guardConfig.defaultFrontLoginPage || '/me/login',
+                    ]);
+                    return of(false);
+                  }
+                })
+              );
+            }
+            return of(true);
+          })
+        );
+    } else {
+      return of(true);
+    }
   }
 }
