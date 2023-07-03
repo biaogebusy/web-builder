@@ -57,28 +57,23 @@
               "node_modules/video.js/dist/video-js.css",
               {
                 "input": "src/theme/theme-config/blue-config.scss",
-                "bundleName": "blue-theme",
-                "inject": false
+                "bundleName": "blue-theme"
               },
               {
                 "input": "src/theme/theme-config/dark-config.scss",
-                "bundleName": "dark-theme",
-                "inject": false
+                "bundleName": "dark-theme"
               },
               {
                 "input": "src/theme/theme-config/green-config.scss",
-                "bundleName": "green-theme",
-                "inject": false
+                "bundleName": "green-theme"
               },
               {
                 "input": "src/theme/theme-config/light-config.scss",
-                "bundleName": "light-theme",
-                "inject": false
+                "bundleName": "light-theme"
               },
               {
                 "input": "src/theme/theme-config/pink-config.scss",
-                "bundleName": "pink-theme",
-                "inject": false
+                "bundleName": "pink-theme"
               }
             ],
             "scripts": [
