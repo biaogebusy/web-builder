@@ -32,22 +32,36 @@ export class RouteService {
 
   toNavigate(event: any, link: any): void {
     const href = link.href;
+    if (event) {
+      event.preventDefault();
+    }
     if (link.drawerIframe) {
       this.contentState.drawerOpened$.next(true);
       this.contentState.drawerLoading$.next(true);
+      let widget = {};
+      if (this.util.getFileType(href) === 'picture') {
+        widget = {
+          type: 'img',
+          classes: '',
+          src: link.href,
+          style: {
+            maxWidth: '100%',
+            height: 'auto',
+          },
+        };
+      } else {
+        widget = {
+          type: 'iframe',
+          url: link.href,
+          width: '800px',
+          classes: 'p-x-xs',
+        };
+      }
       this.contentState.drawerContent$.next({
         title: link.label,
-        body: [
-          {
-            type: 'iframe',
-            url: link.href,
-            width: '800px',
-            classes: 'p-x-xs',
-          },
-        ],
+        body: [widget],
       });
       this.contentState.drawerLoading$.next(false);
-      event.preventDefault();
       return;
     }
     if (!this.util.getFileType(href)) {
@@ -56,15 +70,12 @@ export class RouteService {
         href.startsWith('/export') ||
         href.startsWith('/manage')
       ) {
-        event.preventDefault();
         window.open(href, link.target || '_self');
         return;
       }
       if (this.isAbsolute(href)) {
-        event.preventDefault();
         window.open(href, link.target || '_self');
       } else {
-        event.preventDefault();
         this.router.navigate([href]);
       }
     }

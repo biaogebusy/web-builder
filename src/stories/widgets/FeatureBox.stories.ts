@@ -65,12 +65,12 @@ Float.args = {
 };
 
 export const NotMedia = Template.bind({});
-NotMedia.storyName = '非图片';
+NotMedia.storyName = '非图片/边栏切出';
 NotMedia.parameters = {
   docs: {
     description: {
       story:
-        '非图片类例如doc,pdf等文档，则显示对于的文档图标，并提供预览或者下载的按钮，可开启Iframe侧边栏切出。',
+        '非图片类例如doc,pdf等文档，则显示对于的文档图标，并提供预览或者下载的按钮，可开启Iframe侧边栏切出，演示需要在page级别才会生效',
     },
   },
 };

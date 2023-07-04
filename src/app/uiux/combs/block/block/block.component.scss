@@ -3,8 +3,12 @@
 }
 
 .drawer-right.mat-drawer-opened {
+  position: absolute;
+  bottom: 0;
   max-width: 85vw;
   min-width: 200px;
+  height: 100%;
+  top: 0;
 }
 
 .drawer-loading {
