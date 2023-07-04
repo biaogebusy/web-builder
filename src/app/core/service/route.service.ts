@@ -42,7 +42,7 @@ export class RouteService {
       if (this.util.getFileType(href) === 'picture') {
         widget = {
           type: 'img',
-          classes: '',
+          classes: 'object-fit',
           src: link.href,
           style: {
             maxWidth: '100%',
