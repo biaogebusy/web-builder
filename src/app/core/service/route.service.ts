@@ -32,9 +32,6 @@ export class RouteService {
 
   toNavigate(event: any, link: any): void {
     const href = link.href;
-    if (event) {
-      event.preventDefault();
-    }
     if (link.drawerIframe) {
       this.contentState.drawerOpened$.next(true);
       this.contentState.drawerLoading$.next(true);
@@ -62,6 +59,10 @@ export class RouteService {
         body: [widget],
       });
       this.contentState.drawerLoading$.next(false);
+      if (event) {
+        event.preventDefault();
+      }
+      console.log(widget);
       return;
     }
     if (!this.util.getFileType(href)) {
@@ -76,6 +77,9 @@ export class RouteService {
       if (this.isAbsolute(href)) {
         window.open(href, link.target || '_self');
       } else {
+        if (event) {
+          event.preventDefault();
+        }
         this.router.navigate([href]);
       }
     }

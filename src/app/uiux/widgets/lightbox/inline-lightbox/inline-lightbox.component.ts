@@ -34,9 +34,8 @@ export class InlineLightboxComponent implements OnInit {
       this.lightbox.open(this.content.elements, i);
     } else {
       this.dialogRef = this.dialog.open(DialogComponent, {
-        width: '300px',
+        width: '600px',
         data: {
-          renderInputComponent: DynamicWidgetsComponent,
           inputData: {
             content: {
               type: 'text',
@@ -45,16 +44,25 @@ export class InlineLightboxComponent implements OnInit {
                 label: this.content.label[i],
                 style: 'style-v4',
               },
+              animate: {
+                disable: true,
+              },
               actions: [
                 {
                   href: this.content.elements[i].src,
                   label: '下载',
                   target: '_blank',
+                  type: 'btn',
+                  mode: 'raised',
+                  color: 'primary',
                 },
                 {
                   href: this.content.elements[i].preview,
                   label: 'PDF 预览',
                   target: '_blank',
+                  type: 'btn',
+                  mode: 'raised',
+                  color: 'primary',
                 },
               ],
             },
