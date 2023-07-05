@@ -4,7 +4,6 @@ import {
   Inject,
   Injector,
   OnInit,
-  Renderer2,
 } from '@angular/core';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { CORE_CONFIG, THEME } from '@core/token/token-providers';
@@ -23,7 +22,6 @@ export class SwitchThemeComponent implements OnInit {
   constructor(
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
     @Inject(THEME) public theme: string,
-    private render2: Renderer2,
     protected injector: Injector
   ) {}
 
@@ -38,6 +36,6 @@ export class SwitchThemeComponent implements OnInit {
     configService.switchChange$.next(theme);
     storage.store(THEMKEY, theme);
     this.currentTheme = theme;
-    themeService.setTheme(theme, this.render2);
+    themeService.setTheme(theme);
   }
 }

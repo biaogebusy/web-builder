@@ -10,7 +10,7 @@
       </ng-container>
     </ng-container>
     <ng-template #widgets>
-      <app-dynamic-widgets class="width-100" [content]="list"></app-dynamic-widgets>
+      <app-dynamic-component class="width-100" [inputs]="{content:list,disableToolbar:true}"></app-dynamic-component>
     </ng-template>
   </div>
 </div>

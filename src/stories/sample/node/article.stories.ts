@@ -14,6 +14,7 @@ import { StorysModule, sleep } from '@core/module/storys.module';
 import { comments } from './comments.json';
 import { of } from 'rxjs';
 import { formatDate } from '@angular/common';
+import { swiper } from '@stories/builder/data/widgets/common.builder';
 
 export default {
   title: '示例页面/内容类型/普通文章',
@@ -218,4 +219,13 @@ Comment.play = async () => {
   await sleep(2000);
   const Submit = screen.getByText('提交');
   await userEvent.click(Submit);
+};
+
+export const Relate = Template.bind({});
+Relate.storyName = '相关文章';
+Relate.args = {
+  content: {
+    ...Default.args.content,
+    bottom: [swiper],
+  },
 };

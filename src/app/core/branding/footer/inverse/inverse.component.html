@@ -29,8 +29,8 @@
               {{content.footerNewsletter.label}}
             </div>
             <p fxFlex="100" class="m-y-xs" [innerHTML]="content.footerNewsletter.summary|safeHtml"></p>
-            <app-dynamic-widgets *ngFor="let item of content.footerNewsletter.forms" [content]="item" [form]="form">
-            </app-dynamic-widgets>
+            <app-dynamic-component *ngFor="let item of content.footerNewsletter.forms"
+              [inputs]="{content:item,form: form}"></app-dynamic-component>
             <div fxFlex.lt-md="100" fxFlex.gt-sm="50" fxLayout="row wrap">
               <button fxFlex="100" *ngIf="content.footerNewsletter.action" class="m-top-xs" type="submit"
                 mat-raised-button color="primary">

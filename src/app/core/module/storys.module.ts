@@ -158,7 +158,7 @@ export class StorysModule {
         },
         {
           provide: ENABLE_TOOLBAR,
-          useValue: of(true),
+          useValue: of(false),
         },
       ],
     };
