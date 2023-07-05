@@ -7,7 +7,7 @@
         <button (click)="onSave()" *ngSwitchCase="'closeDialog'" mat-raised-button mat-dialog-close
           color="{{action.color||'primary'}}">{{action.label}}</button>
         <ng-container *ngSwitchDefault>
-          <app-dynamic-widgets [content]="action"></app-dynamic-widgets>
+          <app-dynamic-component [inputs]="action"></app-dynamic-component>
         </ng-container>
       </ng-container>
     </ng-container>

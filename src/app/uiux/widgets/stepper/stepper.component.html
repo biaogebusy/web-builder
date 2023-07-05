@@ -4,7 +4,7 @@
     <ng-template matStepLabel>{{step.label}}</ng-template>
     <ng-container *ngIf="step.elements">
       <ng-container *ngFor="let item of step.elements">
-        <app-dynamic-widgets [content]="item"></app-dynamic-widgets>
+        <app-dynamic-component [inputs]="item"></app-dynamic-component>
       </ng-container>
     </ng-container>
   </mat-step>
@@ -15,7 +15,7 @@
     <ng-template matStepLabel>{{step.label}}</ng-template>
     <ng-container *ngIf="step.elements">
       <ng-container *ngFor="let item of step.elements">
-        <app-dynamic-widgets [content]="item"></app-dynamic-widgets>
+        <app-dynamic-component [inputs]="item"></app-dynamic-component>
       </ng-container>
     </ng-container>
   </mat-step>

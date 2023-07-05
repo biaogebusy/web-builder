@@ -8,15 +8,15 @@
         <ng-container *ngFor="let file of box.elements">
           <div class="li" *ngIf="file.elements.length > 2;else fullWidth" fxLayout="row wrap"
             fxLayoutAlign="space-between center">
-            <app-dynamic-widgets class="m-y-xs" fxFlex.md="100" fxFlex.gt-sm="auto" *ngFor="let link of file.elements;"
-              [content]="link">
-            </app-dynamic-widgets>
+            <app-dynamic-component class="m-y-xs" fxFlex.md="100" fxFlex.gt-sm="auto"
+              *ngFor="let link of file.elements;" [inputs]="link">
+            </app-dynamic-component>
             <mat-divider fxFlex="100"></mat-divider>
           </div>
           <ng-template #fullWidth>
             <div class="li" fxLayoutAlign="space-between center">
-              <app-dynamic-widgets *ngFor="let link of file.elements;" [content]="link">
-              </app-dynamic-widgets>
+              <app-dynamic-component *ngFor="let link of file.elements;" [inputs]="link">
+              </app-dynamic-component>
             </div>
           </ng-template>
         </ng-container>

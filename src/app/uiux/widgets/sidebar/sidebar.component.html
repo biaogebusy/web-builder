@@ -1,5 +1,5 @@
 <div *ngIf="content" class="sidebar">
   <ng-container *ngFor="let item of content">
-    <app-dynamic-widgets [content]="item"></app-dynamic-widgets>
+    <app-dynamic-component [inputs]="item"></app-dynamic-component>
   </ng-container>
 </div>

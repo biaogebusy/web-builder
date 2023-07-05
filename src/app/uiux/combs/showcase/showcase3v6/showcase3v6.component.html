@@ -14,7 +14,7 @@
       <div class="m-y">
         <app-btn-animate *ngIf="!content.action.type;else widgets" [content]="content.action"></app-btn-animate>
         <ng-template #widgets>
-          <app-dynamic-widgets [content]="content.action"></app-dynamic-widgets>
+          <app-dynamic-component [inputs]="content.action"></app-dynamic-component>
         </ng-template>
       </div>
     </div>

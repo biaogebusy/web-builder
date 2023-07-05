@@ -9,7 +9,6 @@ import { UtilitiesService } from '@core/service/utilities.service';
 import type { IInlineLightbox } from '@core/interface/widgets/IWidgets';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
-import { DynamicWidgetsComponent } from '@uiux/widgets/dynamic-widgets/dynamic-widgets.component';
 
 @Component({
   selector: 'app-inline-lightbox',

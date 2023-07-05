@@ -8,7 +8,7 @@
         <app-law-table *ngSwitchCase="'table'" [content]="item">
         </app-law-table>
         <app-law-card *ngSwitchCase="'card'" [content]="item"></app-law-card>
-        <app-dynamic-widgets *ngSwitchDefault [content]="item"></app-dynamic-widgets>
+        <app-dynamic-component *ngSwitchDefault [inputs]="item"></app-dynamic-component>
       </ng-container>
     </div>
   </mat-tab>

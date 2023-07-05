@@ -1,6 +1,6 @@
 import * as btnStory from '@stories/widgets/base/Btn.stories';
 import * as btnVideoStory from '@stories/widgets/base/BtnVideo.stories';
-import * as dynamicTableStory from '@stories/widgets/base/DynamicTable.stories';
+import * as dynamicTableStory from '@stories/widgets/base/Table.stories';
 import * as iconStory from '@stories/widgets/base/Icon.stories';
 import * as linkStory from '@stories/widgets/base/Link.stories';
 import * as tabStory from '@stories/widgets/Tab.stories';
