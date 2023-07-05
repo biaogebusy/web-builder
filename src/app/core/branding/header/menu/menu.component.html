@@ -22,7 +22,9 @@
               <app-link [content]="action"></app-link>
             </button>
           </div>
-          <app-builder-menu class="has-icon" *ngIf="coreConfig?.builder?.enable"></app-builder-menu>
+          <ng-container *ngIf="coreConfig?.builder?.enable">
+            <app-builder-menu class="has-icon" *reqRolesIf="coreConfig?.builder"></app-builder-menu>
+          </ng-container>
           <app-notify class="has-icon" *ngIf="coreConfig.notify?.enable"></app-notify>
           <app-switch-theme class="has-icon" *ngIf="branding.header?.params?.themeSwitch"></app-switch-theme>
           <app-user-menu *ngIf="branding.header?.params?.userInfo" [content]="branding.header.userMenu"></app-user-menu>

@@ -52,7 +52,7 @@ export class ReportComponent extends BaseComponent implements OnInit {
     this.loading = true;
     const params = this.getApiParams(options);
     const api = this.content.params.api;
-    this.box$ = this.nodeService.search(api, params).pipe(
+    this.box$ = this.nodeService.fetch(api, params).pipe(
       map(({ chart, table }) => {
         let box = [];
         if (isArray(chart)) {

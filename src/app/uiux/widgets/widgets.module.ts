@@ -60,8 +60,6 @@ import { FeatureBoxComponent } from './feature-box/feature-box.component';
 import { TestimonialComponent } from './testimonial/testimonial.component';
 import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 import { NumberAnimateComponent } from './number-animate/number-animate.component';
-import { DynamicWidgetsComponent } from './dynamic-widgets/dynamic-widgets.component';
-
 import { IconComponent } from './icon/icon.component';
 import { ProgressGroupComponent } from './progress-group/progress-group.component';
 import { MediaListComponent } from './media/media-list/media-list.component';
@@ -97,7 +95,6 @@ import { DatepickerComponent } from './form/datepicker/datepicker.component'; //
 import { ViewListComponent } from './view-list/view-list.component';
 import { SearchActionComponent } from './actions/search-action/search-action.component';
 import { SearchSidebarComponent } from './sidebar/search-sidebar/search-sidebar.component';
-import { LoopWidgetsComponent } from './loop-widgets/loop-widgets.component';
 import { IframeComponent } from './iframe/iframe.component';
 import { UserCardComponent } from './card/user-card/user-card.component';
 import { UserCardCountComponent } from './card/user-card/user-card-count/user-card-count.component';
@@ -141,7 +138,6 @@ const components = [
   MapComponent,
   BoxComponent,
   TextComponent,
-  TextHeroComponent,
   LinkComponent,
   BtnComponent,
   TabComponent,
@@ -161,6 +157,7 @@ const components = [
   Card1v5Component,
   Card1v6Component,
   UserCardComponent,
+  TextHeroComponent,
   CheckboxComponent,
   ChipListComponent,
   TextareaComponent,
@@ -174,7 +171,6 @@ const components = [
   TestimonialComponent,
   UserCardCountComponent,
   NumberAnimateComponent,
-  DynamicWidgetsComponent,
   SidebarComponent,
   MediaListComponent,
   MediaMetaComponent,
@@ -197,7 +193,6 @@ const components = [
   ViewListComponent,
   DatepickerComponent,
   FontChangeComponent,
-  LoopWidgetsComponent,
   TermsServiceComponent,
   DynamicTableComponent,
   SearchActionComponent,

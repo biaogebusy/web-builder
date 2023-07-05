@@ -48,7 +48,7 @@ export class DynamicCardList1v1Component
     const state = this.getParamsState({}, options);
     const params = this.getApiParams(state);
     this.nodeService
-      .search(this.getParams(this.content, 'type'), params)
+      .fetch(this.getParams(this.content, 'type'), params)
       .subscribe(
         (data) => {
           this.updateList(data);

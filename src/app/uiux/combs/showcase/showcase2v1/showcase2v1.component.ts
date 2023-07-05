@@ -35,7 +35,7 @@ export class Showcase2v1Component
     const type = this.getParams(this.content, 'widget');
     if (api) {
       this.nodeService
-        .search(api, '')
+        .fetch(api, '')
         .pipe(
           catchError(() => {
             return of([

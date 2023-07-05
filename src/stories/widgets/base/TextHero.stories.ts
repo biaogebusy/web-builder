@@ -21,9 +21,9 @@ const Template: Story = (args) => ({
     ...args,
   },
 });
-export const Base = Template.bind({});
+export const Default = Template.bind({});
 
-Base.args = {
+Default.args = {
   content: {
     type: 'text-hero',
     theme: 'text-light',

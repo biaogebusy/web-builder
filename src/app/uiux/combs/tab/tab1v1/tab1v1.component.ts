@@ -76,7 +76,7 @@ export class Tab1v1Component
       const state = this.getParamsState({}, apiQuery);
       const params = this.getApiParams(state);
       this.nodeService
-        .search(type, params)
+        .fetch(type, params)
         .pipe(takeUntil(this.destroy$))
         .subscribe((res) => {
           this.pager = this.handlerPager(res.pager);
