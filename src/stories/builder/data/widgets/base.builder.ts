@@ -12,6 +12,11 @@ import * as chartStory from '@stories/widgets/chart/ChartBar.stories';
 import * as spacerStory from '@stories/theme/Spacer.stories';
 import * as formStory from '@stories/widgets/Form.stories';
 import * as playerStory from '@stories/feature/media/Player.stories';
+import * as textHeroStory from '@stories/widgets/base/TextHero.stories';
+
+export const {
+  Default: { args: textHero },
+} = textHeroStory;
 
 export const {
   Default: { args: player },
@@ -99,6 +104,11 @@ export const base = [
     label: 'Title',
     icon: { svg: 'format-header-2' },
     ...title,
+  },
+  {
+    label: 'Text Hero',
+    icon: { svg: 'image-text' },
+    ...textHero,
   },
   {
     label: 'Btn Video',
