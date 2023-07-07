@@ -1,4 +1,8 @@
 <div class="manage-media position-relative" *ngIf="content">
+  <div class="toolbar" fxLayoutAlign="end center">
+    <mat-slider [(ngModel)]="row" max="10" min="1" step="1" [thumbLabel]="true" [invert]="true">
+    </mat-slider>
+  </div>
   <mat-drawer-container>
     <mat-drawer mode="side" [opened]="true">
       <div class="sidebar" fxLayout="column">
@@ -14,8 +18,9 @@
     </mat-drawer>
     <mat-drawer-content>
       <div class="inner" fxLayout="row wrap">
-        <div class="masonry-item" *ngFor="let item of content" fxFlex="0 0 calc(100% / 9)">
-          <app-dynamic-component class="display-block" [inputs]="{content:item}"></app-dynamic-component>
+        <div class="masonry-item" *ngFor="let item of content" fxFlex="0 0 calc(100% / {{row}})">
+          <app-dynamic-component class="display-block"
+            [inputs]="{content:item,disableToolbar:true}"></app-dynamic-component>
         </div>
       </div>
       <div class="page m-y">

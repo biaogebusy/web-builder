@@ -27,6 +27,7 @@ export class ManageMediaComponent implements OnInit {
     page: new FormControl(),
   });
   model: any = {};
+  row = 4;
   destory$: Subject<boolean> = new Subject<boolean>();
   filters = [
     {
@@ -161,7 +162,9 @@ export class ManageMediaComponent implements OnInit {
         type: 'feature-box',
         width: '20',
         fullIcon: 'fullscreen',
+        copyIcon: 'content-copy',
         ratios: 'media-4-3',
+        mode: 'float',
         hoverIcon: true,
       };
       if (type === 'picture') {
