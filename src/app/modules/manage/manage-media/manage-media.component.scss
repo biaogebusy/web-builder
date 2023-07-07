@@ -1,16 +1,26 @@
+@import "../../../../theme//mixins/amixin";
 .manage-media {
   min-height: 50vh;
   padding-top: 20px;
 }
+
 .sidebar {
   width: 220px;
+  padding: 20px;
 }
 
-.sidebar,
 .inner {
-  padding: 20px;
+  padding-left: 20px;
 }
 
 .masonry-item {
   border: 1px solid transparent;
+}
+
+.load {
+  position: absolute;
+  z-index: 10;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
 }

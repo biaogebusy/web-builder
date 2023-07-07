@@ -28,6 +28,7 @@ export class ManageMediaComponent implements OnInit {
   });
   model: any = {};
   row = 4;
+  loading = true;
   destory$: Subject<boolean> = new Subject<boolean>();
   filters = [
     {
@@ -116,11 +117,11 @@ export class ManageMediaComponent implements OnInit {
             label: '排序',
             options: [
               {
-                label: '降序',
+                label: '最新发布的',
                 value: 'DESC',
               },
               {
-                label: '升序',
+                label: '最旧发布的',
                 value: 'ASC',
               },
             ],
@@ -195,11 +196,13 @@ export class ManageMediaComponent implements OnInit {
       }
     });
     this.links = links;
+    this.loading = false;
     this.cd.detectChanges();
   }
 
   onPageChange(link: string): void {
     this.screenService.gotoTop();
+    this.loading = true;
     this.nodeService
       .getNodeByLink(link)
       .pipe(takeUntil(this.destory$))
@@ -231,6 +234,7 @@ export class ManageMediaComponent implements OnInit {
     }
     const params = apiParams.getQueryString();
     console.log(params);
+    this.loading = true;
     this.getFiles(params);
   }
 

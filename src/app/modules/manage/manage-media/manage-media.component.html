@@ -10,7 +10,6 @@
         <app-formly [classes]="'form-field-width-auto'" [form]="form" [fields]="filters" [model]="model"
           (modelChange)="onModelChange($event)">
         </app-formly>
-        <mat-divider class="m-y-xs"></mat-divider>
         <div class="actions m-top-sm" fxFlex="100" fxLayoutAlign="center center">
           <app-btn (click)="onSearch(model)" [content]="{color:'primary',mode:'raised',label:'确定'}"></app-btn>
         </div>
@@ -18,6 +17,9 @@
     </mat-drawer>
     <mat-drawer-content>
       <div class="inner" fxLayout="row wrap">
+        <div class="load" *ngIf="loading">
+          <mat-spinner diameter="50" color="accent"></mat-spinner>
+        </div>
         <div class="masonry-item" *ngFor="let item of content" fxFlex="0 0 calc(100% / {{row}})">
           <app-dynamic-component class="display-block"
             [inputs]="{content:item,disableToolbar:true}"></app-dynamic-component>
