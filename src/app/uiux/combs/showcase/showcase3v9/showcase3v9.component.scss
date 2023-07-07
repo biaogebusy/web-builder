@@ -1,4 +1,9 @@
 .showcase-3-v9 {
   width: 100%;
   overflow: hidden;
+  .left,
+  .right {
+    position: relative;
+    overflow: hidden;
+  }
 }

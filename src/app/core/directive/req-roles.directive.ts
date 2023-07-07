@@ -13,8 +13,6 @@ import type { IUser } from '@core/interface/IUser';
   selector: '[reqRolesIf]',
 })
 export class ReqRolesDirective {
-  private hasView = false;
-
   constructor(
     private userService: UserService,
     @Inject(USER) private user: IUser,
@@ -24,11 +22,10 @@ export class ReqRolesDirective {
 
   @Input() set reqRolesIf(content: any) {
     if (content && this.userService.checkShow(content, this.user)) {
+      this.viewContainer.clear();
       this.viewContainer.createEmbeddedView(this.templateRef);
-      this.hasView = true;
     } else if (content && !this.userService.checkShow(content, this.user)) {
       this.viewContainer.clear();
-      this.hasView = false;
     }
   }
 }
