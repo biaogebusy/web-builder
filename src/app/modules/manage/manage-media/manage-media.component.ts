@@ -4,6 +4,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
 } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { IPaginationLinks } from '@core/interface/widgets/IPaginationLinks';
 import { ManageService } from '@core/service/manage.service';
 import { NodeService } from '@core/service/node.service';
@@ -11,6 +12,7 @@ import { ScreenService } from '@core/service/screen.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { DrupalJsonApiParams } from 'drupal-jsonapi-params';
 
 @Component({
   selector: 'app-manage-media',
@@ -21,7 +23,111 @@ import { takeUntil } from 'rxjs/operators';
 export class ManageMediaComponent implements OnInit {
   content: any;
   links: IPaginationLinks;
+  form = new FormGroup({
+    page: new FormControl(),
+  });
+  model: any = {};
   destory$: Subject<boolean> = new Subject<boolean>();
+  filters = [
+    {
+      type: 'select',
+      key: 'limit',
+      defaultValue: 20,
+      className: 'display-block m-bottom-sm',
+      templateOptions: {
+        label: '每页显示个数',
+        options: [
+          {
+            label: '10',
+            value: 10,
+          },
+          {
+            label: '20',
+            value: 20,
+          },
+          {
+            label: '30',
+            value: 30,
+          },
+          {
+            label: '40',
+            value: 40,
+          },
+          {
+            label: '50',
+            value: 50,
+          },
+        ],
+      },
+    },
+    {
+      type: 'select',
+      key: 'filter',
+      defaultValue: 1,
+      className: 'display-block m-bottom-sm',
+      templateOptions: {
+        label: '发布状态',
+        options: [
+          {
+            label: '已发布',
+            value: 1,
+          },
+          {
+            label: '未发布',
+            value: 0,
+          },
+        ],
+      },
+    },
+    {
+      key: 'sort',
+      className: 'm-bottom-sm width-100',
+      fieldGroup: [
+        {
+          type: 'select',
+          key: 'field',
+          defaultValue: 'created',
+          className: 'display-block m-bottom-sm',
+          templateOptions: {
+            label: '排序',
+            options: [
+              {
+                label: '创建时间',
+                value: 'created',
+              },
+              {
+                label: '用户ID',
+                value: 'uid',
+              },
+              {
+                label: '发布状态',
+                value: 'status',
+              },
+            ],
+          },
+        },
+        {
+          type: 'select',
+          key: 'direction',
+          defaultValue: 'DESC',
+          className: 'display-block m-bottom-sm',
+          templateOptions: {
+            label: '排序',
+            options: [
+              {
+                label: '降序',
+                value: 'DESC',
+              },
+              {
+                label: '升序',
+                value: 'ASC',
+              },
+            ],
+          },
+        },
+      ],
+    },
+  ];
   constructor(
     private manageService: ManageService,
     private cd: ChangeDetectorRef,
@@ -31,12 +137,12 @@ export class ManageMediaComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getFiles();
+    this.getFiles('sort=-created&page[limit]=45');
   }
 
-  getFiles(): void {
+  getFiles(params = ''): void {
     this.manageService
-      .getFiles()
+      .getFiles(params)
       .pipe(takeUntil(this.destory$))
       .subscribe((res) => {
         console.log(res);
@@ -97,6 +203,32 @@ export class ManageMediaComponent implements OnInit {
       .subscribe((res) => {
         this.updateList(res);
       });
+  }
+
+  onModelChange(value: any): void {
+    console.log(value);
+  }
+
+  onSearch(value: any): void {
+    console.log(value);
+    const apiParams = new DrupalJsonApiParams();
+    const { limit, filter, sort } = value;
+
+    if (limit !== undefined) {
+      apiParams.addPageLimit(limit);
+    }
+
+    if (filter !== undefined) {
+      apiParams.addFilter('status', filter);
+    }
+
+    if (sort !== undefined) {
+      const { field, direction } = sort;
+      apiParams.addSort(field, direction);
+    }
+    const params = apiParams.getQueryString();
+    console.log(params);
+    this.getFiles(params);
   }
 
   trackByFn(index: number, item: any): number {

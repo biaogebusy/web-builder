@@ -17,8 +17,8 @@ export class ManageService extends ApiService {
     super(apiBaseUrl);
   }
 
-  getFiles(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/api/v1/file/file`);
+  getFiles(params = ''): Observable<any> {
+    return this.http.get(`${this.apiUrl}/api/v1/file/file?${params}`);
   }
 
   getBlock(): Observable<any> {

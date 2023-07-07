@@ -1,12 +1,26 @@
-<div class="manage-media position-relative m-y" *ngIf="content">
-  <div class="container">
-    <div class="inner" fxLayout="row wrap">
-      <div class="masonry-item" *ngFor="let item of content" fxFlex="0 0 25">
-        <app-dynamic-component class="display-block" [inputs]="{content:item}"></app-dynamic-component>
+<div class="manage-media position-relative" *ngIf="content">
+  <mat-drawer-container>
+    <mat-drawer mode="side" [opened]="true">
+      <div class="sidebar" fxLayout="column">
+        <app-title [content]="{label: '搜索',style: 'style-v4',classes: 'mat-display-1'}"></app-title>
+        <app-formly [classes]="'form-field-width-auto'" [form]="form" [fields]="filters" [model]="model"
+          (modelChange)="onModelChange($event)">
+        </app-formly>
+        <mat-divider class="m-y-xs"></mat-divider>
+        <div class="actions m-top-sm" fxFlex="100" fxLayoutAlign="center center">
+          <app-btn (click)="onSearch(model)" [content]="{color:'primary',mode:'raised',label:'确定'}"></app-btn>
+        </div>
       </div>
-    </div>
-    <div class="page m-y">
-      <app-pagination-links (pageChange)="onPageChange($event)" [links]="links"></app-pagination-links>
-    </div>
-  </div>
+    </mat-drawer>
+    <mat-drawer-content>
+      <div class="inner" fxLayout="row wrap">
+        <div class="masonry-item" *ngFor="let item of content" fxFlex="0 0 calc(100% / 9)">
+          <app-dynamic-component class="display-block" [inputs]="{content:item}"></app-dynamic-component>
+        </div>
+      </div>
+      <div class="page m-y">
+        <app-pagination-links (pageChange)="onPageChange($event)" [links]="links"></app-pagination-links>
+      </div>
+    </mat-drawer-content>
+  </mat-drawer-container>
 </div>
