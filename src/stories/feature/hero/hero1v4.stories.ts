@@ -56,10 +56,10 @@ Default.args = {
       ],
     },
     bg: {
-      classes: 'bg-fill-width overlay overlay-',
+      classes: 'bg-fill-width overlay- overlay-',
       img: {
         src: '/assets/images/bg/home-shape.png',
-        hostClasses: 'bg-center',
+        hostClasses: '',
       },
     },
     widget: [
