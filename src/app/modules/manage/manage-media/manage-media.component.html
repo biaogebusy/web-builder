@@ -5,5 +5,8 @@
         <app-dynamic-component class="display-block" [inputs]="{content:item}"></app-dynamic-component>
       </div>
     </div>
+    <div class="page m-y">
+      <app-pagination-links (pageChange)="onPageChange($event)" [links]="links"></app-pagination-links>
+    </div>
   </div>
 </div>
