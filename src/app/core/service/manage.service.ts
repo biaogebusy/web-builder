@@ -52,12 +52,19 @@ export class ManageService extends ApiService {
       mode: 'float',
       hoverIcon: true,
     };
-    // file
-    const {
-      uri: { url },
-      filename,
-    } = item.attributes;
+    let url = '';
+    let fileName = '';
 
+    if (!included) {
+      url = item.attributes.uri.url;
+      fileName = item.attributes.filename;
+    }
+    // media image
+    if (included) {
+      fileName = item.attributes.name;
+      url = this.getUrlIncluded(item, included);
+    }
+    console.log(url);
     const type = this.util.getFileType(url);
     if (type === 'picture') {
       return {
@@ -65,7 +72,7 @@ export class ManageService extends ApiService {
         img: {
           classes: 'object-fit',
           src: url,
-          alt: filename,
+          alt: fileName,
         },
       };
     } else {
@@ -81,10 +88,17 @@ export class ManageService extends ApiService {
               : type === 'excel'
               ? `${iconPath}/file-excel.svg`
               : `${iconPath}/file-word.svg`,
-          alt: filename,
+          alt: fileName,
         },
       };
     }
+  }
+
+  getUrlIncluded(item: any, included: any[]): string {
+    const id = item.relationships.field_media_image.data.id;
+    const obj = included.find((media) => media.id === id);
+
+    return obj.attributes.uri.url;
   }
 
   handlerJsonApiParams(value: any): { type: string; params: string } {

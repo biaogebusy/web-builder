@@ -299,8 +299,10 @@ export function mediaAssetsFactory(
   const assets$ = new BehaviorSubject<IManageAssets | boolean>(false);
 
   // use default params init content
-  const type = '/api/v1/file/file';
-  const params = 'sort=-created&page[limit]=45';
+  const { type, params } = manageService.handlerJsonApiParams({
+    type: '/api/v1/media/image',
+    params: 'sort=created&page[limit]=45',
+  });
   nodeService.fetch(type, params).subscribe((res) => {
     assets$.next(manageService.getFilesToFeatureBox(res));
   });

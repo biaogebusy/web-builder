@@ -300,7 +300,7 @@
         {
           "type": "select",
           "key": "type",
-          "defaultValue": "/api/v1/file/file",
+          "defaultValue": "/api/v1/media/image",
           "className": "display-block m-bottom-sm",
           "templateOptions": {
             "label": "选择资源类型",
