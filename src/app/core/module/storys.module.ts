@@ -56,6 +56,7 @@ import { DOCUMENT } from '@angular/common';
 import { UserService } from '@core/service/user.service';
 import { ScreenService } from '@core/service/screen.service';
 import { BuilderModule } from '@modules/builder/builder.module';
+import { ManageModule } from '@modules/manage/manage.module';
 
 export function sleep(ms: number): Promise<any> {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -158,7 +159,7 @@ export class StorysModule {
         },
         {
           provide: ENABLE_TOOLBAR,
-          useValue: of(true),
+          useValue: of(false),
         },
       ],
     };
@@ -185,6 +186,7 @@ export class StorysModule {
       ...VideoModule.forStorybook(),
       ...DashboardModule.forStorybook(),
       ...BuilderModule.forStorybook(),
+      ...ManageModule.forStorybook(),
     ];
   }
 

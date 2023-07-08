@@ -29,11 +29,12 @@
           </ng-template>
         </div>
         <div class="article-bottom m-y" *ngIf="content.bottom">
-          <app-dynamic-widgets [content]="action" *ngFor="let action of content.bottom"></app-dynamic-widgets>
+          <app-dynamic-component [inputs]="action" *ngFor="let action of content.bottom"></app-dynamic-component>
         </div>
         <div class="ations m-y" *ngIf="content.actions">
-          <app-dynamic-widgets [data]="content.params" [content]="action" *ngFor="let action of content.actions">
-          </app-dynamic-widgets>
+          <app-dynamic-component [inputs]="{content:action, data:content.params}"
+            *ngFor="let action of content.actions">
+          </app-dynamic-component>
         </div>
         <app-comment-form *ngIf="user.authenticated && coreConfig.article?.comment?.enable && content?.params?.comment"
           [content]="content" [type]="'add'">

@@ -256,6 +256,12 @@ export class ComponentService {
         import('@modules/builder/builder.module').then((m) => m.BuilderModule)
       )
     );
+
+    ['manage-media', 'manage-block'].forEach((type) =>
+      this.setModule(type, () =>
+        import('@modules/manage/manage.module').then((m) => m.ManageModule)
+      )
+    );
   }
 
   setModule(type: string, loadModule: () => Promise<any>) {

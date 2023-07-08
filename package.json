@@ -52,6 +52,7 @@
     "angulartics2": "^10.0.0",
     "core-js": "^3.24.1",
     "crypto-js": "^4.1.1",
+    "drupal-jsonapi-params": "^2.2.0",
     "echarts": "^5.0.2",
     "gsap": "^3.11.3",
     "hammerjs": "^2.0.8",

@@ -2,10 +2,13 @@
   <div class="feature-inner">
     <div class="btns" *ngIf="isHoverIcon;else noIcon">
       <a href="javascript:void(0)" (click)="open(box.img)" class="btn expand-image btn-full" *ngIf="box.fullIcon">
-        <mat-icon>{{box.fullIcon}}</mat-icon>
+        <app-icon [content]="{svg:box.fullIcon}"></app-icon>
+      </a>
+      <a href="javascript:void(0)" (click)="copy(box.img)" class="btn btn-full" *ngIf="box.copyIcon">
+        <app-icon [content]="{svg:box.copyIcon}"></app-icon>
       </a>
       <a href="{{box.link}}" class="btn icon-link btn-open icon-{{box.openIcon}}" *ngIf="box.openIcon">
-        <mat-icon>{{box.openIcon}}</mat-icon>
+        <app-icon [content]="{svg:'file-download'}"></app-icon>
       </a>
     </div>
     <ng-template #noIcon>

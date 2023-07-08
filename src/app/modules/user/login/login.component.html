@@ -2,12 +2,9 @@
   <div class="login-wrapper m-x position-relative" fxLayout>
     <div *ngIf="!screenState.eq('xs')" class="login-second position-relative p-x-sm p-y-sm" fxFlex.xs="100"
       fxFlex.gt-xs="50" fxLayoutAlign="center center">
-      <app-dynamic-widgets *ngIf="coreConfig.login.left;else default" [content]="coreConfig.login.left">
-      </app-dynamic-widgets>
+      <app-dynamic-component *ngIf="coreConfig.login.left" [inputs]="coreConfig.login.left">
+      </app-dynamic-component>
     </div>
-    <ng-template #default>
-      <app-dynamic-widgets [content]="config.login.left"></app-dynamic-widgets>
-    </ng-template>
     <div class="login-form position-relative" [class.is-login]="currentUser.authenticated" fxFlex.xs="100"
       fxFlex.gt-xs="50" fxLayout="column" fxLayoutAlign="center center">
       <div class="width-100 form-scroll" *ngIf="!loading">

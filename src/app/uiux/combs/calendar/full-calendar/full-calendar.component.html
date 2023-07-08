@@ -5,8 +5,8 @@
   <div class="container">
     <div class="inner p-y" fxLayout="row wrap">
       <div *ngIf="content.sidebar" class="sidebar p-x-sm" fxFlex.gt-sm="25" fxFlex.lt-md="100">
-        <app-dynamic-widgets [content]="item" [form]="form" *ngFor="let item of content.sidebar;">
-        </app-dynamic-widgets>
+        <app-dynamic-component [inputs]="{content:item, form:form}" *ngFor="let item of content.sidebar;">
+        </app-dynamic-component>
       </div>
       <div class="main p-x-sm p-y-sm" [fxFlex.gt-sm]="content.sidebar ? '75' : '100'" fxFlex.lt-md="100">
         <div class="calendar width-100">

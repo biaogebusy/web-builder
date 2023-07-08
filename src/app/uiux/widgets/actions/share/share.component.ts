@@ -4,6 +4,7 @@ import {
   Input,
   ChangeDetectionStrategy,
   Inject,
+  ChangeDetectorRef,
 } from '@angular/core';
 import type { IShare } from '@core/interface/widgets/IActions';
 import type { ICoreConfig, ICoreShare } from '@core/interface/IAppConfig';
@@ -26,13 +27,15 @@ export class ShareComponent implements OnInit {
   constructor(
     private screenService: ScreenService,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
-    @Inject(DOCUMENT) private doc: Document
+    @Inject(DOCUMENT) private doc: Document,
+    private cd: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
       this.config = this.coreConfig.actions?.share;
       this.url = `${this.doc.location.origin}${this.content.params.url}`;
+      this.cd.detectChanges();
     }
   }
 

@@ -17,7 +17,7 @@
       <ng-container *ngIf="meta?.params?.dynamic">
         <div class="inner width-100" fxLayout="column">
           <div class="li" *ngFor="let items of meta.value" fxLayout="row" fxLayoutAlign="space-between center">
-            <app-dynamic-widgets *ngFor="let widget of items.elements" [content]="widget"></app-dynamic-widgets>
+            <app-dynamic-component *ngFor="let widget of items.elements" [inputs]="widget"></app-dynamic-component>
           </div>
         </div>
       </ng-container>

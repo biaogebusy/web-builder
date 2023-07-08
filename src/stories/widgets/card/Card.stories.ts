@@ -155,23 +155,50 @@ BroderShadow.args = {
         },
         {
           label: '会议文件',
-          value: {
-            label: ['文件名1', '文件名2'],
-            elements: [
-              {
-                src: '/assets/images/cases/porto1.jpg',
-                caption: '文件名1',
-                thumb: '/assets/images/cases/porto1.jpg',
-              },
-              {
-                src: '/assets/images/cases/porto2.jpg',
-                caption: '文件名2',
-                thumb: '/assets/images/cases/porto2.jpg',
-              },
-            ],
-          },
+          value: [
+            {
+              elements: [
+                {
+                  type: 'link',
+                  label: '第二次签字.docx',
+                  href: 'xxx.docx',
+                  target: '_blank',
+                  classes: 'file one-line',
+                },
+                {
+                  type: 'btn',
+                  href: '#',
+                  mode: 'stroked',
+                  label: 'PDF',
+                  color: 'warn',
+                  target: '_blank',
+                  classes: 'border-warn',
+                },
+              ],
+            },
+            {
+              elements: [
+                {
+                  type: 'link',
+                  label: '第一次签字.docx',
+                  href: 'xxx.docx',
+                  target: '_blank',
+                  classes: 'file one-line',
+                },
+                {
+                  type: 'btn',
+                  href: '#',
+                  mode: 'stroked',
+                  label: 'PDF',
+                  color: 'warn',
+                  target: '_blank',
+                  classes: 'border-warn',
+                },
+              ],
+            },
+          ],
           params: {
-            lightbox: true,
+            dynamic: true,
           },
         },
         {

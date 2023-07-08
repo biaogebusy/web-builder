@@ -30,7 +30,7 @@
     </div>
     <div class="sidebar-right  p-x-sm p-y-sm" *ngIf="content.sidebarRight" fxFlex.gt-sm="400px" fxFlex.gt-md="600px"
       ngClass.gt-sm="position-absolute">
-      <app-dynamic-widgets [content]="item" *ngFor="let item of content.sidebarRight"></app-dynamic-widgets>
+      <app-dynamic-component [inputs]="item" *ngFor="let item of content.sidebarRight"></app-dynamic-component>
     </div>
   </div>
 </div>

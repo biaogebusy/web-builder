@@ -24,6 +24,8 @@
           [matTooltip]="'切换全宽'"></mat-slide-toggle>
         <app-btn [matTooltip]="'组件导航'" (click)="onCompnentNavigate()"
           [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'dock-left' } }"></app-btn>
+        <app-btn [matTooltip]="'媒体库'" (click)="onSelectAssets()"
+          [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'image-search-outline' } }"></app-btn>
         <app-btn [matTooltip]="'页面预览'" (click)="onPreview()"
           [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'eye-outline' },disabled:page.body.length?false : true }"></app-btn>
         <app-btn [matTooltip]="'智能生成'" (click)="onGenerate()"

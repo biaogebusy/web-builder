@@ -9,8 +9,14 @@ import { components } from './data/combs/export-for-story';
 import { widgets } from './data/widgets/export-for-story';
 import { environment } from 'src/environments/environment';
 import { samples } from './data/sample/samples-for-story';
-import { BUILDER_SAMPLE_PAGE, UIUX } from '@core/token/token-providers';
+import {
+  BUILDER_SAMPLE_PAGE,
+  ENABLE_TOOLBAR,
+  UIUX,
+} from '@core/token/token-providers';
 import { uiux } from './data/uiux-for-story';
+import { of } from 'rxjs';
+import { ManageModule } from '@modules/manage/manage.module';
 export default {
   title: 'Web Builder',
   id: 'builder',
@@ -24,6 +30,7 @@ export default {
         StorysModule.forRoot(),
         BrandingModule,
         BuilderModule,
+        ManageModule,
       ],
       providers: [
         {
@@ -33,6 +40,10 @@ export default {
         {
           provide: BUILDER_SAMPLE_PAGE,
           useValue: samples,
+        },
+        {
+          provide: ENABLE_TOOLBAR,
+          useValue: of(true),
         },
       ],
     }),

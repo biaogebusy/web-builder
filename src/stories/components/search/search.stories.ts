@@ -5,6 +5,7 @@ import { SearchModule } from '@uiux/combs/search/search.module';
 import { SearchComponent } from '@uiux/combs/search/search.component';
 import { sleep, StorysModule } from '@core/module/storys.module';
 import { nodes } from './search.json';
+import { FormGroup } from '@angular/forms';
 
 export default {
   title: '复合组件/搜索/默认',
@@ -140,6 +141,7 @@ Default.args = {
       pager: { itemsPerPage: 20, currentPage: 1, totalItems: 22 },
     },
   },
+  form: new FormGroup({}),
 };
 Default.play = async () => {
   const Keys = screen.getByPlaceholderText('请输入你的关键词');

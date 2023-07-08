@@ -27,17 +27,18 @@ export class ShuffleComponent implements OnInit, AfterViewInit {
       const sizer = this.el.nativeElement.querySelectorAll('.sizer')[0];
       const shuffleEl =
         this.el.nativeElement.querySelectorAll('.shuffle-inner')[0];
-      this.shuffle = new Shuffle(shuffleEl, {
-        itemSelector: '.item',
-        sizer,
-        speed: 500,
-        easing: 'ease-out',
-        delimiter: ',',
-      });
+      setTimeout(() => {
+        this.shuffle = new Shuffle(shuffleEl, {
+          itemSelector: '.item',
+          sizer,
+          speed: 500,
+          easing: 'ease-out',
+          delimiter: ',',
+        });
+      }, 0);
     }
   }
   onChange(category: any): void {
-    console.log(category);
     this.shuffle.filter(category.value);
   }
 }

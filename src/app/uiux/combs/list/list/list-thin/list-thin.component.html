@@ -12,9 +12,10 @@
             {{item.label | ucfirst}}
           </div>
         </div>
-        <div class="actions" *ngIf="item?.actions?.length">
-          <app-dynamic-widgets [data]="action?.params" [content]="action" *ngFor="let action of item.actions">
-          </app-dynamic-widgets>
+        <div class="actions" *ngIf="item?.actions?.length" fxLayout="row">
+          <app-dynamic-component [inputs]="{content:action, data:action?.params,disableToolbar:true}"
+            *ngFor="let action of item.actions">
+          </app-dynamic-component>
         </div>
       </div>
     </div>

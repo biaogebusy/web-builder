@@ -12,7 +12,7 @@
       </div>
       <div class="actions m-top p-bottom-xs" *ngIf="content.actions" fxLayoutAlign="center center">
         <ng-container *ngFor="let action of content.actions">
-          <app-dynamic-widgets [content]="action"></app-dynamic-widgets>
+          <app-dynamic-component [inputs]="action"></app-dynamic-component>
         </ng-container>
       </div>
     </div>

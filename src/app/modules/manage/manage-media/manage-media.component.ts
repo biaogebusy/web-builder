@@ -2,10 +2,17 @@ import {
   Component,
   OnInit,
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
+  Inject,
 } from '@angular/core';
-import { ManageService } from '@core/service/manage.service';
-import { UtilitiesService } from '@core/service/utilities.service';
+import { FormGroup } from '@angular/forms';
+import { NodeService } from '@core/service/node.service';
+import { ScreenService } from '@core/service/screen.service';
+import { Observable, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { CORE_CONFIG, MEDIA_ASSETS } from '@core/token/token-providers';
+import { ICoreConfig } from '@core/interface/IAppConfig';
+import { IManageAssets } from '@core/interface/manage/IManage';
+import { ContentState } from '@core/state/ContentState';
 
 @Component({
   selector: 'app-manage-media',
@@ -14,64 +21,39 @@ import { UtilitiesService } from '@core/service/utilities.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ManageMediaComponent implements OnInit {
-  content: any;
+  form = new FormGroup({});
+  model: any = {};
+  loading = true;
+  destory$: Subject<boolean> = new Subject<boolean>();
   constructor(
-    private manageService: ManageService,
-    private cd: ChangeDetectorRef,
-    private utli: UtilitiesService
+    private screenService: ScreenService,
+    private nodeService: NodeService,
+    private contentState: ContentState,
+    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
+    @Inject(MEDIA_ASSETS) public mediaAssets$: Observable<IManageAssets>
   ) {}
 
-  ngOnInit(): void {
-    this.getFiles();
+  ngOnInit(): void {}
+
+  getFiles(type = '', params = ''): void {
+    this.nodeService
+      .fetch(type, params)
+      .pipe(takeUntil(this.destory$))
+      .subscribe((res) => {
+        console.log(res);
+      });
   }
 
-  getFiles(): void {
-    this.manageService.getFiles().subscribe((files) => {
-      console.log(files);
-      const iconPath = '/assets/icons';
-      this.content = files.data.map((item: any) => {
-        const attr = item.attributes;
-        const type = this.utli.getFileType(attr.uri.url);
-        if (type === 'picture') {
-          return {
-            type: 'feature-box',
-            width: '20',
-            fullIcon: 'fullscreen',
-            ratios: 'media-4-3',
-            hoverIcon: true,
-            img: {
-              classes: 'object-fit',
-              src: attr.uri.url,
-              alt: attr.filename,
-            },
-          };
-        } else {
-          return {
-            type: 'feature-box',
-            width: '20',
-            fullIcon: 'fullscreen',
-            ratios: 'media-4-3',
-            hoverIcon: true,
-            openIcon: 'file_download',
-            link: attr.uri.url,
-            img: {
-              classes: 'object-fill p-x-lg p-y-lg',
-              src:
-                type === 'pdf'
-                  ? `${iconPath}/file-pdf.svg`
-                  : type === 'excel'
-                  ? `${iconPath}/file-excel.svg`
-                  : `${iconPath}/file-word.svg`,
-              alt: attr.filename,
-            },
-          };
-        }
-      });
-      this.cd.detectChanges();
-    });
+  onPageChange(link: string): void {
+    this.screenService.gotoTop();
+    this.contentState.pageChange$.next(link);
+  }
+
+  onSearch(value: any): void {
+    this.contentState.mediaAssetsFormChange$.next(value);
   }
 
   trackByFn(index: number, item: any): number {
-    return index;
+    return item.id;
   }
 }
