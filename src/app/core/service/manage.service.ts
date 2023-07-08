@@ -30,54 +30,61 @@ export class ManageService extends ApiService {
   }
 
   getFilesToFeatureBox(res: any): IManageAssets {
-    let content: any;
-    const { data, links } = res;
-    const iconPath = '/assets/icons';
-    content = {
-      links,
-      elements: data.map((item: any) => {
-        const attr = item.attributes;
-        const type = this.util.getFileType(attr.uri.url);
-        const widget = {
-          id: item.id,
-          type: 'feature-box',
-          width: '20',
-          fullIcon: 'fullscreen',
-          copyIcon: 'content-copy',
-          ratios: 'media-4-3',
-          mode: 'float',
-          hoverIcon: true,
-        };
-        if (type === 'picture') {
-          return {
-            ...widget,
-            img: {
-              classes: 'object-fit',
-              src: attr.uri.url,
-              alt: attr.filename,
-            },
-          };
-        } else {
-          return {
-            ...widget,
-            openIcon: 'file_download',
-            link: attr.uri.url,
-            img: {
-              classes: 'object-fill p-x-lg p-y-lg',
-              src:
-                type === 'pdf'
-                  ? `${iconPath}/file-pdf.svg`
-                  : type === 'excel'
-                  ? `${iconPath}/file-excel.svg`
-                  : `${iconPath}/file-word.svg`,
-              alt: attr.filename,
-            },
-          };
-        }
-      }),
-    };
+    let elements;
+    const { data, links, included } = res;
+    elements = data.map((item: any) => this.getFeatureBox(item, included));
 
-    return content;
+    return {
+      links,
+      elements,
+    };
+  }
+
+  getFeatureBox(item: any, included: any[]): any {
+    const iconPath = '/assets/icons';
+    const widget = {
+      id: item.id,
+      type: 'feature-box',
+      width: '20',
+      fullIcon: 'fullscreen',
+      copyIcon: 'content-copy',
+      ratios: 'media-4-3',
+      mode: 'float',
+      hoverIcon: true,
+    };
+    // file
+    const {
+      uri: { url },
+      filename,
+    } = item.attributes;
+
+    const type = this.util.getFileType(url);
+    if (type === 'picture') {
+      return {
+        ...widget,
+        img: {
+          classes: 'object-fit',
+          src: url,
+          alt: filename,
+        },
+      };
+    } else {
+      return {
+        ...widget,
+        openIcon: 'file_download',
+        link: url,
+        img: {
+          classes: 'object-fill p-x-lg p-y-lg',
+          src:
+            type === 'pdf'
+              ? `${iconPath}/file-pdf.svg`
+              : type === 'excel'
+              ? `${iconPath}/file-excel.svg`
+              : `${iconPath}/file-word.svg`,
+          alt: filename,
+        },
+      };
+    }
   }
 
   handlerJsonApiParams(value: any): { type: string; params: string } {

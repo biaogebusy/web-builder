@@ -297,23 +297,28 @@ export function mediaAssetsFactory(
   contentState: ContentState
 ): Observable<IManageAssets | boolean> {
   const assets$ = new BehaviorSubject<IManageAssets | boolean>(false);
+
+  // use default params init content
   const type = '/api/v1/file/file';
   const params = 'sort=-created&page[limit]=45';
   nodeService.fetch(type, params).subscribe((res) => {
     assets$.next(manageService.getFilesToFeatureBox(res));
   });
 
+  // on page change
   contentState.pageChange$.subscribe((link) => {
     nodeService.getNodeByLink(link).subscribe((res) => {
       assets$.next(manageService.getFilesToFeatureBox(res));
     });
   });
 
+  // on form search change
   contentState.mediaAssetsFormChange$.subscribe((value) => {
     const { type, params } = manageService.handlerJsonApiParams(value);
     nodeService.fetch(type, params).subscribe((res) => {
-      assets$.next(res);
+      assets$.next(manageService.getFilesToFeatureBox(res));
     });
   });
+
   return assets$;
 }
