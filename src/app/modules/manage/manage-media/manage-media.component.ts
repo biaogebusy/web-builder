@@ -6,7 +6,6 @@ import {
 } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { IPaginationLinks } from '@core/interface/widgets/IPaginationLinks';
-import { ManageService } from '@core/service/manage.service';
 import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -31,6 +30,33 @@ export class ManageMediaComponent implements OnInit {
   loading = true;
   destory$: Subject<boolean> = new Subject<boolean>();
   filters = [
+    {
+      type: 'select',
+      key: 'type',
+      defaultValue: '/api/v1/file/file',
+      className: 'display-block m-bottom-sm',
+      templateOptions: {
+        label: '选择资源类型',
+        options: [
+          {
+            label: '所有文件',
+            value: '/api/v1/file/file',
+          },
+          {
+            label: '图片库',
+            value: '/api/v1/media/image',
+          },
+          {
+            label: '文档库',
+            value: '/api/v1/media/document',
+          },
+          {
+            label: '视频库',
+            value: '/api/v1/media/video',
+          },
+        ],
+      },
+    },
     {
       type: 'select',
       key: 'limit',
@@ -131,7 +157,6 @@ export class ManageMediaComponent implements OnInit {
     },
   ];
   constructor(
-    private manageService: ManageService,
     private cd: ChangeDetectorRef,
     private utli: UtilitiesService,
     private screenService: ScreenService,
@@ -139,12 +164,12 @@ export class ManageMediaComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getFiles('sort=-created&page[limit]=45');
+    this.getFiles('/api/v1/file/file', 'sort=-created&page[limit]=45');
   }
 
-  getFiles(params = ''): void {
-    this.manageService
-      .getFiles(params)
+  getFiles(type = '', params = ''): void {
+    this.nodeService
+      .fetch(type, params)
       .pipe(takeUntil(this.destory$))
       .subscribe((res) => {
         console.log(res);
@@ -218,7 +243,7 @@ export class ManageMediaComponent implements OnInit {
   onSearch(value: any): void {
     console.log(value);
     const apiParams = new DrupalJsonApiParams();
-    const { limit, filter, sort } = value;
+    const { type, limit, filter, sort } = value;
 
     if (limit !== undefined) {
       apiParams.addPageLimit(limit);
@@ -232,10 +257,22 @@ export class ManageMediaComponent implements OnInit {
       const { field, direction } = sort;
       apiParams.addSort(field, direction);
     }
-    const params = apiParams.getQueryString();
+
+    // 图片库
+    if (type.includes('image')) {
+      apiParams.addFields('file--file', ['uri']);
+      apiParams.addInclude(['field_media_image']);
+    }
+
+    // 文档库 or 视频库
+    if (type.includes('document') || type.includes('video')) {
+      this.utli.openSnackbar('文档库和视频库功能未完善！', 'Ok');
+      return;
+    }
+    const params = apiParams.getQueryString({ encode: false });
     console.log(params);
     this.loading = true;
-    this.getFiles(params);
+    this.getFiles(type, params);
   }
 
   trackByFn(index: number, item: any): number {
