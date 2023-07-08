@@ -26,7 +26,8 @@ export class FeatureBoxComponent implements OnInit {
     private lightboxConfig: LightboxConfig,
     private utli: UtilitiesService,
     private cd: ChangeDetectorRef,
-    private routerService: RouteService
+    private routerService: RouteService,
+    private util: UtilitiesService
   ) {
     this.lightboxConfig.disableScrolling = true;
     this.lightboxConfig.centerVertically = true;
@@ -98,5 +99,10 @@ export class FeatureBoxComponent implements OnInit {
         downloadUrl: img.src,
       },
     ]);
+  }
+
+  copy(img: IImg): void {
+    this.util.openSnackbar('已复制图片地址到粘贴板', 'ok');
+    this.util.copy(img.src);
   }
 }

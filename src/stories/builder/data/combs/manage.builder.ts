@@ -1,4 +1,4 @@
-import * as dashboardStory from '@stories/sample/dashboard/Dashboard.stories';
+import * as dashboardStory from '@stories/sample/manage/dashboard/Dashboard.stories';
 
 const {
   Order: { args: dashboard },

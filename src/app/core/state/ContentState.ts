@@ -11,6 +11,8 @@ export class ContentState {
   public drawerOpened$ = new BehaviorSubject<boolean>(false);
   public drawerLoading$ = new BehaviorSubject<boolean>(false);
   public drawerContent$ = new Subject<IPage>();
+  public pageChange$ = new Subject<string>();
+  public mediaAssetsFormChange$ = new Subject<object>();
 
   constructor() {}
 }

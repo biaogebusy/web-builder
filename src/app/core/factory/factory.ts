@@ -15,6 +15,9 @@ import { NotifyService } from '@core/service/notify.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { IManageSidebarState } from '@core/token/token-providers';
 import { ScreenService } from '@core/service/screen.service';
+import { NodeService } from '@core/service/node.service';
+import { ManageService } from '@core/service/manage.service';
+import { IManageAssets } from '@core/interface/manage/IManage';
 
 export const THEMKEY = 'themeMode';
 export const DEBUG_ANIMATE_KEY = 'debugAnimate';
@@ -286,4 +289,38 @@ export function userFactory(
     });
   }
   return false;
+}
+
+export function mediaAssetsFactory(
+  nodeService: NodeService,
+  manageService: ManageService,
+  contentState: ContentState
+): Observable<IManageAssets | boolean> {
+  const assets$ = new BehaviorSubject<IManageAssets | boolean>(false);
+
+  // use default params init content
+  const { type, params } = manageService.handlerJsonApiParams({
+    type: '/api/v1/media/image',
+    params: 'sort=created&page[limit]=45',
+  });
+  nodeService.fetch(type, params).subscribe((res) => {
+    assets$.next(manageService.getFilesToFeatureBox(res));
+  });
+
+  // on page change
+  contentState.pageChange$.subscribe((link) => {
+    nodeService.getNodeByLink(link).subscribe((res) => {
+      assets$.next(manageService.getFilesToFeatureBox(res));
+    });
+  });
+
+  // on form search change
+  contentState.mediaAssetsFormChange$.subscribe((value) => {
+    const { type, params } = manageService.handlerJsonApiParams(value);
+    nodeService.fetch(type, params).subscribe((res) => {
+      assets$.next(manageService.getFilesToFeatureBox(res));
+    });
+  });
+
+  return assets$;
 }
