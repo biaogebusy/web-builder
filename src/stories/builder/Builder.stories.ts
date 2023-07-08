@@ -16,6 +16,7 @@ import {
 } from '@core/token/token-providers';
 import { uiux } from './data/uiux-for-story';
 import { of } from 'rxjs';
+import { ManageModule } from '@modules/manage/manage.module';
 export default {
   title: 'Web Builder',
   id: 'builder',
@@ -29,6 +30,7 @@ export default {
         StorysModule.forRoot(),
         BrandingModule,
         BuilderModule,
+        ManageModule,
       ],
       providers: [
         {

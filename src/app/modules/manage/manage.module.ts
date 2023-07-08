@@ -8,6 +8,10 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSliderModule } from '@angular/material/slider';
 
 import { BaseModule } from '@uiux/base/base.module';
+import { MEDIA_ASSETS } from '@core/token/token-providers';
+import { mediaAssetsFactory } from '@core/factory/factory';
+import { NodeService } from '@core/service/node.service';
+import { ManageService } from '@core/service/manage.service';
 const components = [ManageMediaComponent, ManageBlockComponent];
 
 @NgModule({
@@ -18,6 +22,13 @@ const components = [ManageMediaComponent, ManageBlockComponent];
     ShareModule,
     WidgetsModule,
     ManageRoutingModule,
+  ],
+  providers: [
+    {
+      provide: MEDIA_ASSETS,
+      useFactory: mediaAssetsFactory,
+      deps: [NodeService, ManageService],
+    },
   ],
   exports: [...components],
 })

@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { IBranding } from '../interface/branding/IBranding';
 import { INotify } from '@core/interface/widgets/IWidgets';
 import { IBuilderSamplePage, IUiux } from '@core/interface/IBuilder';
+import { FormlyFieldConfig } from '@ngx-formly/core';
 
 export interface IManageSidebarState {
   enableSidebar: boolean;
@@ -41,6 +42,10 @@ export const UIUX = new InjectionToken<IUiux[]>('builder uiux data');
 export const ENABLE_TOOLBAR = new InjectionToken<Observable<boolean>>(
   'enable builder toolbar'
 );
+
+export const BUILDER_MEDIA_ASSETS_FORM = new InjectionToken<
+  FormlyFieldConfig[]
+>('builder media assets form');
 
 export const MANAGE_SIDEBAR_STATE = new InjectionToken<
   Observable<IManageSidebarState>

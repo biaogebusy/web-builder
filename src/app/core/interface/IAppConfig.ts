@@ -2,6 +2,7 @@ import { IText } from '../interface/widgets/IText';
 import { IAmap } from '../interface/IAmap';
 import { IDownload } from './widgets/IDownload';
 import { IIcon } from './widgets/IIcon';
+import { FormlyFieldConfig } from '@ngx-formly/core';
 export interface IAppConfig {
   defTheme: string;
   config?: ICoreConfig | null;
@@ -25,11 +26,12 @@ export interface ICoreConfig {
   user: User;
   googleAnalytics: GoogleAnalytics;
   guard: Guard;
-  builder?: {
+  builder: {
     enable: boolean;
     params: {
       reqRoles: string[];
     };
+    generater: FormlyFieldConfig[];
     empty: any;
   };
   access: {
