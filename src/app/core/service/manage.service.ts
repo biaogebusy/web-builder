@@ -7,6 +7,7 @@ import type { IUser } from '@core/interface/IUser';
 import { UtilitiesService } from './utilities.service';
 import { IFeatureBox } from '@core/interface/widgets/IFeatureBox';
 import { IManageAssets } from '@core/interface/manage/IManage';
+import { DrupalJsonApiParams } from 'drupal-jsonapi-params';
 
 @Injectable({
   providedIn: 'root',
@@ -77,5 +78,38 @@ export class ManageService extends ApiService {
     };
 
     return content;
+  }
+
+  handlerJsonApiParams(value: any): { type: string; params: string } {
+    const apiParams = new DrupalJsonApiParams();
+    const { type, limit, filter, sort } = value;
+
+    if (limit !== undefined) {
+      apiParams.addPageLimit(limit);
+    }
+
+    if (filter !== undefined) {
+      apiParams.addFilter('status', filter);
+    }
+
+    if (sort !== undefined) {
+      const { field, direction } = sort;
+      apiParams.addSort(field, direction);
+    }
+
+    // 图片库
+    if (type.includes('image')) {
+      apiParams.addFields('file--file', ['uri']);
+      apiParams.addInclude(['field_media_image']);
+    }
+
+    // 文档库 or 视频库
+    if (type.includes('document') || type.includes('video')) {
+      this.util.openSnackbar('文档库和视频库功能未完善！', 'Ok');
+    }
+    return {
+      type,
+      params: apiParams.getQueryString({ encode: false }),
+    };
   }
 }

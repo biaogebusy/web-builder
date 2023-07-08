@@ -12,6 +12,7 @@ import { MEDIA_ASSETS } from '@core/token/token-providers';
 import { mediaAssetsFactory } from '@core/factory/factory';
 import { NodeService } from '@core/service/node.service';
 import { ManageService } from '@core/service/manage.service';
+import { ContentState } from '@core/state/ContentState';
 const components = [ManageMediaComponent, ManageBlockComponent];
 
 @NgModule({
@@ -27,7 +28,7 @@ const components = [ManageMediaComponent, ManageBlockComponent];
     {
       provide: MEDIA_ASSETS,
       useFactory: mediaAssetsFactory,
-      deps: [NodeService, ManageService],
+      deps: [NodeService, ManageService, ContentState],
     },
   ],
   exports: [...components],

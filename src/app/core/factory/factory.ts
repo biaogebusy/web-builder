@@ -293,7 +293,8 @@ export function userFactory(
 
 export function mediaAssetsFactory(
   nodeService: NodeService,
-  manageService: ManageService
+  manageService: ManageService,
+  contentState: ContentState
 ): Observable<IManageAssets | boolean> {
   const assets$ = new BehaviorSubject<IManageAssets | boolean>(false);
   const type = '/api/v1/file/file';
@@ -302,5 +303,17 @@ export function mediaAssetsFactory(
     assets$.next(manageService.getFilesToFeatureBox(res));
   });
 
+  contentState.pageChange$.subscribe((link) => {
+    nodeService.getNodeByLink(link).subscribe((res) => {
+      assets$.next(manageService.getFilesToFeatureBox(res));
+    });
+  });
+
+  contentState.mediaAssetsFormChange$.subscribe((value) => {
+    const { type, params } = manageService.handlerJsonApiParams(value);
+    nodeService.fetch(type, params).subscribe((res) => {
+      assets$.next(res);
+    });
+  });
   return assets$;
 }
