@@ -1,31 +1,38 @@
 <div class="manage-media position-relative" *ngIf="content">
   <div class="toolbar" fxLayoutAlign="end center">
-    <mat-slider [(ngModel)]="row" max="10" min="1" step="1" [thumbLabel]="true" [invert]="true">
+    <mat-slider [(ngModel)]="content.row" max="10" min="1" step="1" [thumbLabel]="true" [invert]="true">
     </mat-slider>
   </div>
   <mat-drawer-container>
     <mat-drawer mode="side" [opened]="true">
       <div class="sidebar" fxLayout="column">
-        <app-title [content]="{label: '搜索',style: 'style-v4',classes: 'mat-display-1'}"></app-title>
-        <app-formly [classes]="'form-field-width-auto'" [form]="form" [fields]="filters" [model]="model"
-          (modelChange)="onModelChange($event)">
+        <app-title [content]="content.sidebar.title"></app-title>
+        <app-formly *ngIf="content.sidebar.form" [classes]="'form-field-width-auto'" [form]="form"
+          [fields]="content.sidebar.form" [model]="model">
         </app-formly>
         <div class="actions m-top-sm" fxFlex="100" fxLayoutAlign="center center">
-          <app-btn (click)="onSearch(model)" [content]="{color:'primary',mode:'raised',label:'确定'}"></app-btn>
+          <app-btn (click)="onSearch(model)" [content]="content.sidebar.action"></app-btn>
         </div>
       </div>
     </mat-drawer>
     <mat-drawer-content>
       <div class="inner" fxLayout="row wrap">
-        <div class="load" *ngIf="loading">
+        <div class="load" *ngIf="false">
           <mat-spinner diameter="50" color="accent"></mat-spinner>
         </div>
-        <div class="masonry-item" *ngFor="let item of content" fxFlex="0 0 calc(100% / {{row}})">
-          <app-dynamic-component class="display-block"
-            [inputs]="{content:item,disableToolbar:true}"></app-dynamic-component>
-        </div>
+        <ng-container *ngIf="mediaAssets$ | async as lists">
+          <ng-container *ngIf="lists.length;else empty">
+            <div class="masonry-item" *ngFor="let item of lists" fxFlex="0 0 calc(100% / {{content.row}})">
+              <app-dynamic-component class="display-block"
+                [inputs]="{content:item,disableToolbar:true}"></app-dynamic-component>
+            </div>
+          </ng-container>
+          <ng-template #empty>
+            <div>无数据</div>
+          </ng-template>
+        </ng-container>
       </div>
-      <div class="page m-y">
+      <div class="page m-y" *ngIf="links">
         <app-pagination-links (pageChange)="onPageChange($event)" [links]="links"></app-pagination-links>
       </div>
     </mat-drawer-content>

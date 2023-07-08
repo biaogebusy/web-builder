@@ -1,7 +1,10 @@
 @import "../../../../theme//mixins/amixin";
 .manage-media {
-  min-height: 50vh;
+  height: 90vh;
   padding-top: 20px;
+  .mat-drawer-container {
+    height: 100%;
+  }
 }
 
 .sidebar {

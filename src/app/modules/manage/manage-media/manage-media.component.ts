@@ -3,15 +3,18 @@ import {
   OnInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
+  Inject,
 } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { IPaginationLinks } from '@core/interface/widgets/IPaginationLinks';
 import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
 import { UtilitiesService } from '@core/service/utilities.service';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { DrupalJsonApiParams } from 'drupal-jsonapi-params';
+import { IManageMedia } from '@core/interface/manage/IManageMedia';
+import { MEDIA_ASSETS } from '@core/token/token-providers';
 
 @Component({
   selector: 'app-manage-media',
@@ -20,151 +23,22 @@ import { DrupalJsonApiParams } from 'drupal-jsonapi-params';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ManageMediaComponent implements OnInit {
-  content: any;
+  content: IManageMedia;
   links: IPaginationLinks;
-  form = new FormGroup({
-    page: new FormControl(),
-  });
+  form = new FormGroup({});
   model: any = {};
-  row = 4;
   loading = true;
   destory$: Subject<boolean> = new Subject<boolean>();
-  filters = [
-    {
-      type: 'select',
-      key: 'type',
-      defaultValue: '/api/v1/file/file',
-      className: 'display-block m-bottom-sm',
-      templateOptions: {
-        label: '选择资源类型',
-        options: [
-          {
-            label: '所有文件',
-            value: '/api/v1/file/file',
-          },
-          {
-            label: '图片库',
-            value: '/api/v1/media/image',
-          },
-          {
-            label: '文档库',
-            value: '/api/v1/media/document',
-          },
-          {
-            label: '视频库',
-            value: '/api/v1/media/video',
-          },
-        ],
-      },
-    },
-    {
-      type: 'select',
-      key: 'limit',
-      defaultValue: 20,
-      className: 'display-block m-bottom-sm',
-      templateOptions: {
-        label: '每页显示个数',
-        options: [
-          {
-            label: '10',
-            value: 10,
-          },
-          {
-            label: '20',
-            value: 20,
-          },
-          {
-            label: '30',
-            value: 30,
-          },
-          {
-            label: '40',
-            value: 40,
-          },
-          {
-            label: '50',
-            value: 50,
-          },
-        ],
-      },
-    },
-    {
-      type: 'select',
-      key: 'filter',
-      defaultValue: 1,
-      className: 'display-block m-bottom-sm',
-      templateOptions: {
-        label: '发布状态',
-        options: [
-          {
-            label: '已发布',
-            value: 1,
-          },
-          {
-            label: '未发布',
-            value: 0,
-          },
-        ],
-      },
-    },
-    {
-      key: 'sort',
-      className: 'm-bottom-sm width-100',
-      fieldGroup: [
-        {
-          type: 'select',
-          key: 'field',
-          defaultValue: 'created',
-          className: 'display-block m-bottom-sm',
-          templateOptions: {
-            label: '排序',
-            options: [
-              {
-                label: '创建时间',
-                value: 'created',
-              },
-              {
-                label: '用户ID',
-                value: 'uid',
-              },
-              {
-                label: '发布状态',
-                value: 'status',
-              },
-            ],
-          },
-        },
-        {
-          type: 'select',
-          key: 'direction',
-          defaultValue: 'DESC',
-          className: 'display-block m-bottom-sm',
-          templateOptions: {
-            label: '排序',
-            options: [
-              {
-                label: '最新发布的',
-                value: 'DESC',
-              },
-              {
-                label: '最旧发布的',
-                value: 'ASC',
-              },
-            ],
-          },
-        },
-      ],
-    },
-  ];
   constructor(
     private cd: ChangeDetectorRef,
     private utli: UtilitiesService,
     private screenService: ScreenService,
-    private nodeService: NodeService
+    private nodeService: NodeService,
+    @Inject(MEDIA_ASSETS) public mediaAssets$: Observable<any[]>
   ) {}
 
   ngOnInit(): void {
-    this.getFiles('/api/v1/file/file', 'sort=-created&page[limit]=45');
+    // this.getFiles('/api/v1/file/file', 'sort=-created&page[limit]=45');
   }
 
   getFiles(type = '', params = ''): void {

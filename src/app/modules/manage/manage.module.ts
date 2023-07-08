@@ -19,6 +19,7 @@ const components = [ManageMediaComponent, ManageBlockComponent];
     WidgetsModule,
     ManageRoutingModule,
   ],
+  exports: [...components],
 })
 export class ManageModule extends BaseModule {
   dynamicComponents = [...components];

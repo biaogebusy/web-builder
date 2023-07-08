@@ -24,6 +24,10 @@ export const NOTIFY_CONTENT = new InjectionToken<Observable<INotify>>(
   'notify content'
 );
 
+export const MEDIA_ASSETS = new InjectionToken<Observable<any[]>>(
+  'media assets'
+);
+
 // builder
 export const DISABLE_BRAND = new InjectionToken<boolean>('disable branding');
 export const DEBUG_ANIMATE = new InjectionToken<boolean>('debug animate');
