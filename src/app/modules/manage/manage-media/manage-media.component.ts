@@ -15,6 +15,7 @@ import { takeUntil } from 'rxjs/operators';
 import { DrupalJsonApiParams } from 'drupal-jsonapi-params';
 import { CORE_CONFIG, MEDIA_ASSETS } from '@core/token/token-providers';
 import { ICoreConfig } from '@core/interface/IAppConfig';
+import { IManageAssets } from '@core/interface/manage/IManage';
 
 @Component({
   selector: 'app-manage-media',
@@ -23,7 +24,6 @@ import { ICoreConfig } from '@core/interface/IAppConfig';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ManageMediaComponent implements OnInit {
-  links: IPaginationLinks;
   form = new FormGroup({});
   model: any = {};
   loading = true;
@@ -34,12 +34,10 @@ export class ManageMediaComponent implements OnInit {
     private screenService: ScreenService,
     private nodeService: NodeService,
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
-    @Inject(MEDIA_ASSETS) public mediaAssets$: Observable<any[]>
+    @Inject(MEDIA_ASSETS) public mediaAssets$: Observable<IManageAssets>
   ) {}
 
-  ngOnInit(): void {
-    // this.getFiles('/api/v1/file/file', 'sort=-created&page[limit]=45');
-  }
+  ngOnInit(): void {}
 
   getFiles(type = '', params = ''): void {
     this.nodeService
@@ -47,56 +45,7 @@ export class ManageMediaComponent implements OnInit {
       .pipe(takeUntil(this.destory$))
       .subscribe((res) => {
         console.log(res);
-        this.updateList(res);
       });
-  }
-
-  updateList(res: any): void {
-    const { data, links } = res;
-    const iconPath = '/assets/icons';
-    // this.content = data.map((item: any) => {
-    //   const attr = item.attributes;
-    //   const type = this.utli.getFileType(attr.uri.url);
-    //   const widget = {
-    //     id: item.id,
-    //     type: 'feature-box',
-    //     width: '20',
-    //     fullIcon: 'fullscreen',
-    //     copyIcon: 'content-copy',
-    //     ratios: 'media-4-3',
-    //     mode: 'float',
-    //     hoverIcon: true,
-    //   };
-    //   if (type === 'picture') {
-    //     return {
-    //       ...widget,
-    //       img: {
-    //         classes: 'object-fit',
-    //         src: attr.uri.url,
-    //         alt: attr.filename,
-    //       },
-    //     };
-    //   } else {
-    //     return {
-    //       ...widget,
-    //       openIcon: 'file_download',
-    //       link: attr.uri.url,
-    //       img: {
-    //         classes: 'object-fill p-x-lg p-y-lg',
-    //         src:
-    //           type === 'pdf'
-    //             ? `${iconPath}/file-pdf.svg`
-    //             : type === 'excel'
-    //             ? `${iconPath}/file-excel.svg`
-    //             : `${iconPath}/file-word.svg`,
-    //         alt: attr.filename,
-    //       },
-    //     };
-    //   }
-    // });
-    this.links = links;
-    this.loading = false;
-    this.cd.detectChanges();
   }
 
   onPageChange(link: string): void {
@@ -106,7 +55,7 @@ export class ManageMediaComponent implements OnInit {
       .getNodeByLink(link)
       .pipe(takeUntil(this.destory$))
       .subscribe((res) => {
-        this.updateList(res);
+        // this.updateList(res);
       });
   }
 

@@ -1,7 +1,8 @@
 @import "../../../../theme//mixins/amixin";
 .manage-media {
-  height: 90vh;
+  height: 100%;
   padding-top: 20px;
+  overflow: hidden;
   .mat-drawer-container {
     height: 100%;
   }
@@ -13,6 +14,8 @@
 }
 
 .inner {
+  height: 80%;
+  overflow: auto;
   padding-left: 20px;
 }
 

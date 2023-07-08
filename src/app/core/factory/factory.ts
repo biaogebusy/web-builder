@@ -17,6 +17,7 @@ import { IManageSidebarState } from '@core/token/token-providers';
 import { ScreenService } from '@core/service/screen.service';
 import { NodeService } from '@core/service/node.service';
 import { ManageService } from '@core/service/manage.service';
+import { IManageAssets } from '@core/interface/manage/IManage';
 
 export const THEMKEY = 'themeMode';
 export const DEBUG_ANIMATE_KEY = 'debugAnimate';
@@ -293,8 +294,8 @@ export function userFactory(
 export function mediaAssetsFactory(
   nodeService: NodeService,
   manageService: ManageService
-): Observable<any[] | boolean> {
-  const assets$ = new BehaviorSubject<any[] | boolean>(false);
+): Observable<IManageAssets | boolean> {
+  const assets$ = new BehaviorSubject<IManageAssets | boolean>(false);
   const type = '/api/v1/file/file';
   const params = 'sort=-created&page[limit]=45';
   nodeService.fetch(type, params).subscribe((res) => {

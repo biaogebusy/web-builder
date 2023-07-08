@@ -20,9 +20,9 @@
         <div class="load" *ngIf="false">
           <mat-spinner diameter="50" color="accent"></mat-spinner>
         </div>
-        <ng-container *ngIf="mediaAssets$ | async as lists">
-          <ng-container *ngIf="lists.length;else empty">
-            <div class="masonry-item" *ngFor="let item of lists"
+        <ng-container *ngIf="mediaAssets$ | async as assets">
+          <ng-container *ngIf="assets.elements.length;else empty">
+            <div class="masonry-item" *ngFor="let item of assets.elements"
               fxFlex="0 0 calc(100% / {{coreConfig.manageMedia.row}})">
               <app-dynamic-component class="display-block"
                 [inputs]="{content:item,disableToolbar:true}"></app-dynamic-component>
@@ -33,8 +33,8 @@
           </ng-template>
         </ng-container>
       </div>
-      <div class="page m-y" *ngIf="links">
-        <app-pagination-links (pageChange)="onPageChange($event)" [links]="links"></app-pagination-links>
+      <div class="page m-y" *ngIf="mediaAssets$ | async as assets">
+        <app-pagination-links (pageChange)="onPageChange($event)" [links]="assets.links"></app-pagination-links>
       </div>
     </mat-drawer-content>
   </mat-drawer-container>
