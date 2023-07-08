@@ -1,17 +1,17 @@
-<div class="manage-media position-relative" *ngIf="content">
+<div class="manage-media position-relative" *ngIf="coreConfig?.manageMedia">
   <div class="toolbar" fxLayoutAlign="end center">
-    <mat-slider [(ngModel)]="content.row" max="10" min="1" step="1" [thumbLabel]="true" [invert]="true">
+    <mat-slider [(ngModel)]="coreConfig.manageMedia.row" max="10" min="1" step="1" [thumbLabel]="true" [invert]="true">
     </mat-slider>
   </div>
   <mat-drawer-container>
     <mat-drawer mode="side" [opened]="true">
       <div class="sidebar" fxLayout="column">
-        <app-title [content]="content.sidebar.title"></app-title>
-        <app-formly *ngIf="content.sidebar.form" [classes]="'form-field-width-auto'" [form]="form"
-          [fields]="content.sidebar.form" [model]="model">
+        <app-title [content]="coreConfig.manageMedia.sidebar.title"></app-title>
+        <app-formly *ngIf="coreConfig.manageMedia.sidebar.form" [classes]="'form-field-width-auto'" [form]="form"
+          [fields]="coreConfig.manageMedia.sidebar.form" [model]="model">
         </app-formly>
         <div class="actions m-top-sm" fxFlex="100" fxLayoutAlign="center center">
-          <app-btn (click)="onSearch(model)" [content]="content.sidebar.action"></app-btn>
+          <app-btn (click)="onSearch(model)" [content]="coreConfig.manageMedia.sidebar.action"></app-btn>
         </div>
       </div>
     </mat-drawer>
@@ -22,7 +22,8 @@
         </div>
         <ng-container *ngIf="mediaAssets$ | async as lists">
           <ng-container *ngIf="lists.length;else empty">
-            <div class="masonry-item" *ngFor="let item of lists" fxFlex="0 0 calc(100% / {{content.row}})">
+            <div class="masonry-item" *ngFor="let item of lists"
+              fxFlex="0 0 calc(100% / {{coreConfig.manageMedia.row}})">
               <app-dynamic-component class="display-block"
                 [inputs]="{content:item,disableToolbar:true}"></app-dynamic-component>
             </div>

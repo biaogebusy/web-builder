@@ -43,10 +43,6 @@ export const ENABLE_TOOLBAR = new InjectionToken<Observable<boolean>>(
   'enable builder toolbar'
 );
 
-export const BUILDER_MEDIA_ASSETS_FORM = new InjectionToken<
-  FormlyFieldConfig[]
->('builder media assets form');
-
 export const MANAGE_SIDEBAR_STATE = new InjectionToken<
   Observable<IManageSidebarState>
 >('manage sidebar state');

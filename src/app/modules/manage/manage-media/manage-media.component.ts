@@ -13,8 +13,8 @@ import { UtilitiesService } from '@core/service/utilities.service';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { DrupalJsonApiParams } from 'drupal-jsonapi-params';
-import { IManageMedia } from '@core/interface/manage/IManageMedia';
-import { MEDIA_ASSETS } from '@core/token/token-providers';
+import { CORE_CONFIG, MEDIA_ASSETS } from '@core/token/token-providers';
+import { ICoreConfig } from '@core/interface/IAppConfig';
 
 @Component({
   selector: 'app-manage-media',
@@ -23,7 +23,6 @@ import { MEDIA_ASSETS } from '@core/token/token-providers';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ManageMediaComponent implements OnInit {
-  content: IManageMedia;
   links: IPaginationLinks;
   form = new FormGroup({});
   model: any = {};
@@ -34,6 +33,7 @@ export class ManageMediaComponent implements OnInit {
     private utli: UtilitiesService,
     private screenService: ScreenService,
     private nodeService: NodeService,
+    @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
     @Inject(MEDIA_ASSETS) public mediaAssets$: Observable<any[]>
   ) {}
 
@@ -54,46 +54,46 @@ export class ManageMediaComponent implements OnInit {
   updateList(res: any): void {
     const { data, links } = res;
     const iconPath = '/assets/icons';
-    this.content = data.map((item: any) => {
-      const attr = item.attributes;
-      const type = this.utli.getFileType(attr.uri.url);
-      const widget = {
-        id: item.id,
-        type: 'feature-box',
-        width: '20',
-        fullIcon: 'fullscreen',
-        copyIcon: 'content-copy',
-        ratios: 'media-4-3',
-        mode: 'float',
-        hoverIcon: true,
-      };
-      if (type === 'picture') {
-        return {
-          ...widget,
-          img: {
-            classes: 'object-fit',
-            src: attr.uri.url,
-            alt: attr.filename,
-          },
-        };
-      } else {
-        return {
-          ...widget,
-          openIcon: 'file_download',
-          link: attr.uri.url,
-          img: {
-            classes: 'object-fill p-x-lg p-y-lg',
-            src:
-              type === 'pdf'
-                ? `${iconPath}/file-pdf.svg`
-                : type === 'excel'
-                ? `${iconPath}/file-excel.svg`
-                : `${iconPath}/file-word.svg`,
-            alt: attr.filename,
-          },
-        };
-      }
-    });
+    // this.content = data.map((item: any) => {
+    //   const attr = item.attributes;
+    //   const type = this.utli.getFileType(attr.uri.url);
+    //   const widget = {
+    //     id: item.id,
+    //     type: 'feature-box',
+    //     width: '20',
+    //     fullIcon: 'fullscreen',
+    //     copyIcon: 'content-copy',
+    //     ratios: 'media-4-3',
+    //     mode: 'float',
+    //     hoverIcon: true,
+    //   };
+    //   if (type === 'picture') {
+    //     return {
+    //       ...widget,
+    //       img: {
+    //         classes: 'object-fit',
+    //         src: attr.uri.url,
+    //         alt: attr.filename,
+    //       },
+    //     };
+    //   } else {
+    //     return {
+    //       ...widget,
+    //       openIcon: 'file_download',
+    //       link: attr.uri.url,
+    //       img: {
+    //         classes: 'object-fill p-x-lg p-y-lg',
+    //         src:
+    //           type === 'pdf'
+    //             ? `${iconPath}/file-pdf.svg`
+    //             : type === 'excel'
+    //             ? `${iconPath}/file-excel.svg`
+    //             : `${iconPath}/file-word.svg`,
+    //         alt: attr.filename,
+    //       },
+    //     };
+    //   }
+    // });
     this.links = links;
     this.loading = false;
     this.cd.detectChanges();

@@ -3,6 +3,8 @@ import { IAmap } from '../interface/IAmap';
 import { IDownload } from './widgets/IDownload';
 import { IIcon } from './widgets/IIcon';
 import { FormlyFieldConfig } from '@ngx-formly/core';
+import { ITitle } from './widgets/ITitle';
+import { IBtn } from './widgets/IBtn';
 export interface IAppConfig {
   defTheme: string;
   config?: ICoreConfig | null;
@@ -26,6 +28,7 @@ export interface ICoreConfig {
   user: User;
   googleAnalytics: GoogleAnalytics;
   guard: Guard;
+  manageMedia: IManageMedia;
   builder: {
     enable: boolean;
     params: {
@@ -55,6 +58,15 @@ export interface ICoreConfig {
     owner: string;
     repo: string;
     token: string;
+  };
+}
+
+export interface IManageMedia {
+  row: number;
+  sidebar: {
+    title: ITitle;
+    form: FormlyFieldConfig[];
+    action: IBtn;
   };
 }
 
