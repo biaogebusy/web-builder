@@ -4,15 +4,14 @@ import {
   ChangeDetectionStrategy,
   Inject,
 } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { NodeService } from '@core/service/node.service';
+import { FormControl, FormGroup } from '@angular/forms';
 import { ScreenService } from '@core/service/screen.service';
 import { Observable, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 import { CORE_CONFIG, MEDIA_ASSETS } from '@core/token/token-providers';
 import { ICoreConfig } from '@core/interface/IAppConfig';
 import { IManageAssets } from '@core/interface/manage/IManage';
 import { ContentState } from '@core/state/ContentState';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
   selector: 'app-manage-media',
@@ -27,20 +26,16 @@ export class ManageMediaComponent implements OnInit {
   destory$: Subject<boolean> = new Subject<boolean>();
   constructor(
     private screenService: ScreenService,
-    private nodeService: NodeService,
     private contentState: ContentState,
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
     @Inject(MEDIA_ASSETS) public mediaAssets$: Observable<IManageAssets>
   ) {}
 
-  ngOnInit(): void {}
-
-  getFiles(type = '', params = ''): void {
-    this.nodeService
-      .fetch(type, params)
-      .pipe(takeUntil(this.destory$))
-      .subscribe((res) => {
-        console.log(res);
+  ngOnInit(): void {
+    this.form.valueChanges
+      .pipe(debounceTime(1000), distinctUntilChanged())
+      .subscribe((value) => {
+        this.onSearch(value);
       });
   }
 

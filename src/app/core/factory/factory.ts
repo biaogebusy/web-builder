@@ -298,15 +298,6 @@ export function mediaAssetsFactory(
 ): Observable<IManageAssets | boolean> {
   const assets$ = new BehaviorSubject<IManageAssets | boolean>(false);
 
-  // use default params init content
-  const { type, params } = manageService.handlerJsonApiParams({
-    type: '/api/v1/media/image',
-    params: 'sort=created&page[limit]=45',
-  });
-  nodeService.fetch(type, params).subscribe((res) => {
-    assets$.next(manageService.getFilesToFeatureBox(res));
-  });
-
   // on page change
   contentState.pageChange$.subscribe((link) => {
     nodeService.getNodeByLink(link).subscribe((res) => {
