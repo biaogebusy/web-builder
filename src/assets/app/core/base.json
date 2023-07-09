@@ -90,7 +90,7 @@
     "enable": true,
     "owner": "biaogebusy",
     "repo": "xinshi-ui",
-    "token": "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"
+    "token": ""
   },
   "loading": true,
   "loadingBar": true,
@@ -289,7 +289,7 @@
       "title": {
         "label": "搜索",
         "style": "style-v4",
-        "classes": "mat-display-1"
+        "classes": ""
       },
       "action": {
         "color": "primary",
@@ -297,6 +297,16 @@
         "label": "确定"
       },
       "form": [
+        {
+          "type": "input",
+          "key": "key",
+          "className": "display-block m-bottom-sm",
+          "templateOptions": {
+            "type": "string",
+            "appearance": "legacy",
+            "label": "请输入关键词"
+          }
+        },
         {
           "type": "select",
           "key": "type",
@@ -378,29 +388,6 @@
           "key": "sort",
           "className": "m-bottom-sm width-100",
           "fieldGroup": [
-            {
-              "type": "select",
-              "key": "field",
-              "defaultValue": "created",
-              "className": "display-block m-bottom-sm",
-              "templateOptions": {
-                "label": "排序",
-                "options": [
-                  {
-                    "label": "创建时间",
-                    "value": "created"
-                  },
-                  {
-                    "label": "用户ID",
-                    "value": "uid"
-                  },
-                  {
-                    "label": "发布状态",
-                    "value": "status"
-                  }
-                ]
-              }
-            },
             {
               "type": "select",
               "key": "direction",

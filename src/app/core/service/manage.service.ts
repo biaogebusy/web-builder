@@ -64,7 +64,6 @@ export class ManageService extends ApiService {
       fileName = item.attributes.name;
       url = this.getUrlIncluded(item, included);
     }
-    console.log(url);
     const type = this.util.getFileType(url);
     if (type === 'picture') {
       return {
@@ -103,7 +102,7 @@ export class ManageService extends ApiService {
 
   handlerJsonApiParams(value: any): { type: string; params: string } {
     const apiParams = new DrupalJsonApiParams();
-    const { type, limit, filter, sort } = value;
+    const { key, type, limit, filter, sort } = value;
 
     if (limit !== undefined) {
       apiParams.addPageLimit(limit);
@@ -114,14 +113,24 @@ export class ManageService extends ApiService {
     }
 
     if (sort !== undefined) {
-      const { field, direction } = sort;
-      apiParams.addSort(field, direction);
+      const { direction } = sort;
+      apiParams.addSort('created', direction);
+    }
+
+    // 所有文件
+    if (type.includes('file')) {
+      if (key) {
+        apiParams.addFilter('filename', key, 'CONTAINS');
+      }
     }
 
     // 图片库
     if (type.includes('image')) {
       apiParams.addFields('file--file', ['uri']);
       apiParams.addInclude(['field_media_image']);
+      if (key) {
+        apiParams.addFilter('name', key, 'CONTAINS');
+      }
     }
 
     // 文档库 or 视频库
