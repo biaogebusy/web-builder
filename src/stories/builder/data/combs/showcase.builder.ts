@@ -289,6 +289,8 @@ export const showcase: IBuilderComponent[] = [
       ],
     },
   },
+  showcase3v7_default,
+  showcase3v8_default,
   {
     content: {
       child: [
@@ -309,8 +311,6 @@ export const showcase: IBuilderComponent[] = [
       ],
     },
   },
-  showcase3v7_default,
-  showcase3v8_default,
   {
     content: {
       child: [
