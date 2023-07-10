@@ -4,12 +4,12 @@ import {
   ChangeDetectionStrategy,
   Inject,
 } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { ScreenService } from '@core/service/screen.service';
 import { Observable, Subject } from 'rxjs';
 import { CORE_CONFIG, MEDIA_ASSETS } from '@core/token/token-providers';
-import { ICoreConfig } from '@core/interface/IAppConfig';
-import { IManageAssets } from '@core/interface/manage/IManage';
+import type { ICoreConfig } from '@core/interface/IAppConfig';
+import type { IManageAssets } from '@core/interface/manage/IManage';
 import { ContentState } from '@core/state/ContentState';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
