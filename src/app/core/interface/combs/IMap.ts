@@ -6,7 +6,7 @@ export interface ILocation extends ICombsBase {
   type: string;
   style: object;
   title: ITitle;
-  city: string;
+  city?: string;
   elements: {
     params?: any;
     company?: any;
