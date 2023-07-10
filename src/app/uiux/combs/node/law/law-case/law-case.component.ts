@@ -93,11 +93,15 @@ export class LawCaseComponent
   }
 
   updateNode(apiParams: any): void {
-    this.nodeService
-      .updateLawCase(apiParams, this.content.uuid, this.user.csrf_token)
-      .subscribe(() => {
-        this.uti.openSnackbar('已更新！', '✓');
-      });
+    if (this.content.uuid) {
+      this.nodeService
+        .updateLawCase(apiParams, this.content.uuid, this.user.csrf_token)
+        .subscribe(() => {
+          this.uti.openSnackbar('已更新！', '✓');
+        });
+    } else {
+      console.log('please check content uuid!');
+    }
   }
 
   getComments(timeStamp = 1): void {

@@ -6,6 +6,7 @@ import {
 import { Story } from '@storybook/angular/types-6-0';
 import { ContentTextCenterComponent } from '@uiux/widgets/content-text-center/content-text-center.component';
 import { StorysModule } from '@core/module/storys.module';
+import { IContentTextCenter } from '@core/interface/widgets/IContentWidget';
 
 export default {
   title: '基础组件/基本元素/内容居中块',
@@ -30,17 +31,16 @@ const Template: Story = (args) => ({
   },
 });
 export const Base = Template.bind({});
-
-Base.args = {
-  content: {
-    type: 'content-text-center',
-    width: '25',
-    ratios: 'media-140',
-    text: '<p style="font-size:45px">118k</p><p>活跃的模块</p><p style="font-size:45px">46k<sup>+</sup></p><p>开发者</p><p style="font-size:45px">1.4M<sup></sup></p><p>使用</p><p>Drupal 统计</p>',
-    img: {
-      classes: 'object-fit',
-      src: '/assets/images/showcase/info01.png',
-      alt: 'alt',
-    },
+const content: IContentTextCenter = {
+  type: 'content-text-center',
+  ratios: 'media-140',
+  text: '<p style="font-size:45px">118k</p><p>活跃的模块</p><p style="font-size:45px">46k<sup>+</sup></p><p>开发者</p><p style="font-size:45px">1.4M<sup></sup></p><p>使用</p><p>Drupal 统计</p>',
+  img: {
+    classes: 'object-fit',
+    src: '/assets/images/showcase/info01.png',
+    alt: 'alt',
   },
+};
+Base.args = {
+  content,
 };

@@ -3,13 +3,14 @@ import { ITitle } from '../widgets/ITitle';
 import { IImg } from '@core/interface/widgets/IImg';
 import { IText } from '@core/interface/widgets/IText';
 import { ISummaryItem } from './ISummaryItem';
-export interface IRlate {
+export interface IRelate {
+  type: string;
   bg?: IBg;
-  title: ITitle;
+  title?: ITitle;
   actions: any[];
   summary: ISummary;
   showcase: IRelateShowcase;
-  spacer: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'none';
+  spacer?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'none';
 }
 
 export interface ISummary {

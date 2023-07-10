@@ -77,6 +77,7 @@ export function sleep(ms: number): Promise<any> {
     ShareModule,
     WidgetsModule,
     CombsModule,
+    ManageModule,
     HttpClientModule,
     RouterTestingModule,
     BrowserAnimationsModule,

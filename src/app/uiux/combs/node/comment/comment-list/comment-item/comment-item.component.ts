@@ -101,25 +101,27 @@ export class CommentItemComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onDelete(id: string): void {
-    this.loading = true;
-    this.nodeService
-      .deleteEntity(
-        `${this.coreConfig.apiUrl.commentGetPath}/${this.content.params.comment.attributes.field_name}`,
-        id,
-        this.user.csrf_token
-      )
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(
-        () => {
-          this.loading = false;
-          this.utilitiesService.openSnackbar('您的回答已删除！', '√');
-        },
-        () => {
-          this.loading = false;
-          this.utilitiesService.openSnackbar('Please check user state.', '√');
-        }
-      );
-    this.cd.detectChanges();
+    if (this.content.params) {
+      this.loading = true;
+      this.nodeService
+        .deleteEntity(
+          `${this.coreConfig.apiUrl.commentGetPath}/${this.content.params.comment.attributes.field_name}`,
+          id,
+          this.user.csrf_token
+        )
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(
+          () => {
+            this.loading = false;
+            this.utilitiesService.openSnackbar('您的回答已删除！', '√');
+          },
+          () => {
+            this.loading = false;
+            this.utilitiesService.openSnackbar('Please check user state.', '√');
+          }
+        );
+      this.cd.detectChanges();
+    }
   }
 
   trackByFn(index: number, item: any): number {

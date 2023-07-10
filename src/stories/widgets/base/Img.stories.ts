@@ -7,6 +7,7 @@ import {
 import { ImgComponent } from '@uiux/widgets/img/img.component';
 import { StorysModule } from '@core/module/storys.module';
 import * as btnVideoStory from '@stories/widgets/base/BtnVideo.stories';
+import { IImg } from '@core/interface/widgets/IImg';
 
 export default {
   title: '基础组件/基本元素/图片',
@@ -32,45 +33,48 @@ const Template: Story = (args) => ({
 });
 
 export const Default = Template.bind({});
-
+const content: IImg = {
+  type: 'img',
+  classes: '',
+  src: '/assets/images/cases/porto3.jpg',
+  alt: 'alt',
+};
 Default.args = {
-  content: {
-    type: 'img',
-    classes: '',
-    src: '/assets/images/cases/porto3.jpg',
-    alt: 'alt',
-  },
+  content,
 };
 
 export const ImgWithLink = Template.bind({});
 ImgWithLink.storyName = '带链接';
+const link: IImg = {
+  ...Default.args.content,
+  href: '#',
+  target: '_blank',
+};
 ImgWithLink.args = {
-  content: {
-    ...Default.args.content,
-    href: '#',
-    target: '_blank',
-  },
+  content: link,
 };
 
 export const Shape = Template.bind({});
 Shape.storyName = '带背景形状';
+const shape: IImg = {
+  type: 'img',
+  hostClasses: 'img-bg-shape',
+  src: '/assets/images/illustration/29.png',
+};
 Shape.args = {
-  content: {
-    type: 'img',
-    hostClasses: 'img-bg-shape',
-    src: '/assets/images/illustration/29.png',
-  },
+  content: shape,
 };
 
 export const Mover = Template.bind({});
 Mover.storyName = '动起来';
+const mover: IImg = {
+  type: 'img',
+  hostClasses: 'img-bg-shape',
+  classes: 'mover',
+  src: '/assets/images/illustration/12.png',
+};
 Mover.args = {
-  content: {
-    type: 'img',
-    hostClasses: 'img-bg-shape',
-    classes: 'mover',
-    src: '/assets/images/illustration/12.png',
-  },
+  content: mover,
 };
 
 const {
@@ -81,33 +85,35 @@ const {
 
 export const VideoDefault = Template.bind({});
 VideoDefault.storyName = '视频-默认';
+const video: IImg = {
+  type: 'img',
+  src: '/assets/images/showcase/7.jpg',
+  alt: '',
+  actions: [
+    {
+      ...btnVideo,
+      color: 'default',
+    },
+  ],
+};
 VideoDefault.args = {
-  content: {
-    type: 'img',
-    src: '/assets/images/showcase/7.jpg',
-    alt: '',
-    actions: [
-      {
-        ...btnVideo,
-        color: 'default',
-      },
-    ],
-  },
+  content: video,
 };
 
 export const VideoPrimary = Template.bind({});
 VideoPrimary.storyName = '视频-主色';
+const videoPrimary: IImg = {
+  type: 'img',
+  src: '/assets/images/showcase/7.jpg',
+  alt: '',
+  hostClasses: 'position-relative',
+  actions: [
+    {
+      ...btnVideo,
+      color: 'primary',
+    },
+  ],
+};
 VideoPrimary.args = {
-  content: {
-    type: 'img',
-    src: '/assets/images/showcase/7.jpg',
-    alt: '',
-    hostClass: 'position-relative',
-    actions: [
-      {
-        ...btnVideo,
-        color: 'primary',
-      },
-    ],
-  },
+  content: videoPrimary,
 };

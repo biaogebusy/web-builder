@@ -1100,7 +1100,7 @@ Project.args = {
           name: 'editor',
           inline: true,
         },
-        href: 'https://admin.zhaobg.com/manage/content/50/edit',
+        href: '#',
         target: '_blank',
       },
       {

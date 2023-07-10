@@ -47,7 +47,7 @@ export class AdvertComponent implements OnInit, AfterViewInit {
       text: {
         spacer: 'md',
         title: {
-          label: this.content.title,
+          label: this.content.title || '',
           style: 'style-v4',
           classes: 'mat-display-1 m-bottom-0',
         },

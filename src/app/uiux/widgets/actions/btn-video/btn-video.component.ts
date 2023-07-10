@@ -22,7 +22,6 @@ export class BtnVideoComponent implements OnInit {
       data: {
         inputData: {
           content: {
-            type: 'player',
             ...video,
           },
         },

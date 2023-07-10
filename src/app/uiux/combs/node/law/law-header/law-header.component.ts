@@ -162,10 +162,12 @@ export class LawHeaderComponent implements OnInit, AfterViewInit {
       });
     }
     this.saveDocLoading = false;
-    const title = this.content.title.replace(/#/i, '');
-    doc.output('dataurlnewwindow', {
-      filename: `${title || 'doc'}.pdf`,
-    });
+    if (this.content.title) {
+      const title = this.content.title.replace(/#/i, '');
+      doc.output('dataurlnewwindow', {
+        filename: `${title || 'doc'}.pdf`,
+      });
+    }
     this.cd.detectChanges();
     // doc.save('sample.pdf');
   }

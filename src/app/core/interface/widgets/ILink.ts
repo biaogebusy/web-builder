@@ -16,7 +16,7 @@ export interface ILink {
     params: MatDialogConfig;
     data: any[];
     afterClosed?: {
-      sucess: {
+      success: {
         label: string;
       };
       emit: boolean;

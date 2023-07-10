@@ -4,7 +4,7 @@
   <app-text [content]="content.text" *ngIf="content.text"></app-text>
   <div class="m-y" fxLayout="row wrap" fxLayoutAlign="center start" fxFlex="100%">
     <app-card class="m-x-sm m-bottom-sm" fxFlex.xs="100" fxFlex.sm="calc(50% - 30px)"
-      fxFlex.gt-sm="0 0 calc({{100/content.row}}% - 40px)" *ngFor="let case of content.elements" [content]="case">
+      fxFlex.gt-sm="0 0 calc({{100/(content.row||4)}}% - 40px)" *ngFor="let case of content.elements" [content]="case">
     </app-card>
   </div>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>

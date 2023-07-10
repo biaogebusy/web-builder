@@ -1,4 +1,5 @@
 export interface IDashboard {
+  type: string;
   elements: IDashboardBox[];
 }
 
@@ -8,7 +9,7 @@ export interface IDashboardBox {
   };
   row: number;
   params?: {
-    api: string;
+    [key: string]: string;
   };
   form?: any[];
   widget: any;

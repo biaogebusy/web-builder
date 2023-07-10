@@ -2,18 +2,20 @@ import { ThemePalette } from '@angular/material/core';
 import { IIcon } from './IIcon';
 import { IPlayer } from '@core/interface/widgets/IPlayer';
 export interface IBtn {
+  type?: string;
   mode?: 'raised' | 'stroked' | 'flat' | 'icon' | 'fab' | 'mini-fab';
   classes?: object | string;
   href?: string;
   color?: ThemePalette;
   icon?: IIcon;
-  label: string;
+  label?: string;
   target?: string;
   drawerIframe?: boolean;
   disabled?: boolean;
 }
 
 export interface IBtnVideo {
+  type: 'btn-video';
   color: 'primary' | 'accent' | 'warn';
   video: IPlayer;
 }

@@ -6,6 +6,7 @@ import {
 import { Story } from '@storybook/angular/types-6-0';
 import { BoxComponent } from '@uiux/widgets/box/box.component';
 import { StorysModule } from '@core/module/storys.module';
+import { IBox } from '@core/interface/widgets/IBox';
 export default {
   title: '基础组件/基本元素/内容盒子',
   id: 'box',
@@ -36,97 +37,102 @@ const Template: Story = (args) => ({
   },
 });
 export const StyleV1 = Template.bind({});
+const v1: IBox = {
+  type: 'box',
+  style: 'style-v1',
+  icon: {
+    name: 'fingerprint',
+  },
+  title: {
+    href: '/',
+    label: '组件编辑',
+  },
+  content: '通过简单的管理界面对复杂的可视化编辑',
+  more: {
+    href: '#',
+    label: '更多',
+  },
+};
 
 StyleV1.args = {
-  content: {
-    type: 'box',
-    style: 'style-v1',
-    icon: {
-      name: 'fingerprint',
-    },
-    title: {
-      href: '/',
-      label: '组件编辑',
-    },
-    content: '通过简单的管理界面对复杂的可视化编辑',
-    more: {
-      href: '#',
-      label: '更多',
-    },
-  },
+  content: v1,
 };
 
 export const StyleV2 = Template.bind({});
+const v2: IBox = {
+  ...StyleV1.args.content,
+  style: 'style-v2',
+  icon: {
+    name: 'verified_user',
+  },
+};
 
 StyleV2.args = {
-  content: {
-    ...StyleV1.args.content,
-    style: 'style-v2',
-    icon: {
-      name: 'verified_user',
-    },
-  },
+  content: v2,
 };
 
 export const StyleV3 = Template.bind({});
+const v3: IBox = {
+  ...StyleV2.args.content,
+  style: 'style-v3',
+};
 
 StyleV3.args = {
-  content: {
-    ...StyleV2.args.content,
-    style: 'style-v3',
-  },
+  content: v3,
 };
 
 export const StyleV4 = Template.bind({});
+const v4: IBox = {
+  ...StyleV2.args.content,
+  style: 'style-v4',
+};
 
 StyleV4.args = {
-  content: {
-    ...StyleV2.args.content,
-    style: 'style-v4',
-  },
+  content: v4,
 };
 
 export const StyleV5 = Template.bind({});
+const v5: IBox = {
+  ...StyleV2.args.content,
+  style: 'style-v5',
+};
 
 StyleV5.args = {
-  content: {
-    ...StyleV2.args.content,
-    style: 'style-v5',
-  },
+  content: v5,
 };
 
 export const StyleV6 = Template.bind({});
-
+const v6: IBox = {
+  ...StyleV2.args.content,
+  style: 'style-v6',
+};
 StyleV6.args = {
-  content: {
-    ...StyleV2.args.content,
-    style: 'style-v6',
-  },
+  content: v6,
 };
 
 export const StyleV7 = Template.bind({});
-
+const v7: IBox = {
+  ...StyleV2.args.content,
+  style: 'style-v7',
+};
 StyleV7.args = {
-  content: {
-    ...StyleV2.args.content,
-    style: 'style-v7',
-  },
+  content: v7,
 };
 
 export const StyleV9 = Template.bind({});
-
+const v9: IBox = {
+  ...StyleV1.args.content,
+  style: 'style-v9',
+};
 StyleV9.args = {
-  content: {
-    ...StyleV1.args.content,
-    style: 'style-v9',
-  },
+  content: v9,
 };
 
 export const StyleV10 = Template.bind({});
-
+const v10: IBox = {
+  ...StyleV1.args.content,
+  style: 'style-v10',
+};
 StyleV10.args = {
-  content: {
-    ...StyleV1.args.content,
-    style: 'style-v10',
-  },
+  content: v10,
 };

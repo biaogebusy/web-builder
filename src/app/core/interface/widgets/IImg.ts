@@ -1,4 +1,5 @@
 export interface IImg {
+  type: 'img';
   src: string;
   preview?: string;
   target?: string;

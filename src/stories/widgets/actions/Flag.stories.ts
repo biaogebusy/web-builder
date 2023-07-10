@@ -6,6 +6,7 @@ import {
 import { Story } from '@storybook/angular/types-6-0';
 import { FlagComponent } from '@uiux/widgets/actions/flag/flag.component';
 import { StorysModule } from '@core/module/storys.module';
+import { IFlag } from '@core/interface/widgets/IFlag';
 
 export default {
   title: '基础组件/Actions/收藏',
@@ -38,24 +39,26 @@ const Template: Story = (args) => ({
 export const Default = Template.bind({});
 // Raname Story
 Default.storyName = '预览';
-Default.args = {
-  content: {
-    type: 'flag',
-    label: '收藏',
-    icon: {
-      name: 'star',
-      inline: true,
-    },
-    params: {
-      type: 'flagging--favorite',
-      entity_type: 'node',
-      entity_id: '1312',
-      relationships: {
-        flagged_entity: {
-          type: 'node--article',
-          id: 'cb31d69f-a95e-4c91-97d1-1169f82a10a5',
-        },
+const content: IFlag = {
+  type: 'flag',
+  label: '收藏',
+  icon: {
+    name: 'star',
+    inline: true,
+  },
+  params: {
+    type: 'flagging--favorite',
+    entity_type: 'node',
+    entity_id: '1312',
+    relationships: {
+      flagged_entity: {
+        type: 'node--article',
+        id: 'cb31d69f-a95e-4c91-97d1-1169f82a10a5',
       },
     },
   },
+};
+
+Default.args = {
+  content,
 };

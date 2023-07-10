@@ -4,8 +4,10 @@
   <div class="container">
     <div class="showcase-inner teaser" fxLayout.lt-md="column" fxLayout.gt-sm="row" fxFlex="100" fxLayoutGap.lt-md="0"
       fxLayoutGap.gt-xs="3rem">
-      <app-feature-box fxFlex.lt-md="100" fxFlex.gt-sm="40" [content]="content.feature" *ngIf="isShow">
-      </app-feature-box>
+      <ng-container *ngIf="content.feature">
+        <app-feature-box fxFlex.lt-md="100" fxFlex.gt-sm="40" [content]="content.feature" *ngIf="isShow">
+        </app-feature-box>
+      </ng-container>
       <div [ngClass]="isShow ? 'm-left-sm' : ''" fxFlex.lt-md="100"
         fxFlex.gt-sm="{{content.showImage && content.feature?'60':'100'}}">
         <h2 class="title">

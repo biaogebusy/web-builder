@@ -1,3 +1,4 @@
+import { IIcon } from '@core/interface/widgets/IIcon';
 import { StorysModule } from '@core/module/storys.module';
 import {
   moduleMetadata,
@@ -40,40 +41,46 @@ const Template: Story = (args) => ({
   template: `<app-icon [content]="content"></app-icon>`,
 });
 export const Primary = Template.bind({});
-
+const primary: IIcon = {
+  type: 'icon',
+  color: 'primary',
+  name: 'format_color_fill',
+};
 Primary.args = {
-  content: {
-    type: 'icon',
-    color: 'primary',
-    name: 'format_color_fill',
-  },
+  content: primary,
 };
 
 export const Accent = Template.bind({});
-
+const accent: IIcon = {
+  type: 'icon',
+  color: 'accent',
+  name: 'format_color_fill',
+};
 Accent.args = {
-  content: { type: 'icon', color: 'accent', name: 'format_color_fill' },
+  content: accent,
 };
 
 export const Warn = Template.bind({});
-
+const warn: IIcon = { type: 'icon', color: 'warn', name: 'format_color_fill' };
 Warn.args = {
-  content: { type: 'icon', color: 'warn', name: 'format_color_fill' },
+  content: warn,
 };
 
 export const svgIcon = Template.bind({});
+const svg: IIcon = { type: 'icon', color: 'primary', svg: 'credit-card-check' };
 svgIcon.args = {
-  content: { type: 'icon', color: 'primary', svg: 'credit-card-check' },
+  content: svg,
 };
 
 export const customStyle = Template.bind({});
-customStyle.args = {
-  content: {
-    type: 'icon',
-    color: 'primary',
-    svg: 'credit-card-check',
-    style: {
-      color: 'red',
-    },
+const custom: IIcon = {
+  type: 'icon',
+  color: 'primary',
+  svg: 'credit-card-check',
+  style: {
+    color: 'red',
   },
+};
+customStyle.args = {
+  content: custom,
 };

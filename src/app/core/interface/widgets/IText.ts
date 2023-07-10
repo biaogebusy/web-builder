@@ -2,6 +2,7 @@ import { IBgImg } from './IBgImg';
 import { ITitle } from './ITitle';
 
 export interface IText {
+  type?: string;
   id?: string;
   spacer?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'none';
   bg?: IBgImg;
@@ -24,6 +25,7 @@ export interface IText {
 }
 
 export interface ITextHero {
+  type: string;
   params: object;
   theme: string;
   id?: string;

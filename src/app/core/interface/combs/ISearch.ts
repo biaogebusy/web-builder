@@ -1,4 +1,5 @@
 export interface ISearch {
+  type: string;
   header: any;
   label: ISearchLabel;
   sidebar: any[];
