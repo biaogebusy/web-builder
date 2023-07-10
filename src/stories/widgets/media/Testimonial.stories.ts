@@ -1,3 +1,4 @@
+import { ITestimonial } from '@core/interface/widgets/IWidgets';
 import { StorysModule } from '@core/module/storys.module';
 import {
   moduleMetadata,
@@ -30,17 +31,17 @@ const Template: Story = (args) => ({
   },
 });
 export const Default = Template.bind({});
-
-Default.args = {
-  content: {
-    type: 'testimonial',
-    style: 'style-v2',
-    title: 'Johnson',
-    subTitle: 'FrontEnd',
-    img: {
-      src: '/assets/images/avatar/01.jpeg',
-      alt: '',
-    },
-    body: '作为一名非专业的Web开发者，我曾经因为缺乏编码和设计技能而感到十分困惑。然而自从我开始使用Builder构建页面后，我的许多顾虑就消失了。',
+const content: ITestimonial = {
+  type: 'testimonial',
+  style: 'style-v2',
+  title: 'Johnson',
+  subTitle: 'FrontEnd',
+  img: {
+    src: '/assets/images/avatar/01.jpeg',
+    alt: '',
   },
+  body: '作为一名非专业的Web开发者，我曾经因为缺乏编码和设计技能而感到十分困惑。然而自从我开始使用Builder构建页面后，我的许多顾虑就消失了。',
+};
+Default.args = {
+  content,
 };

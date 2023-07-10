@@ -1,5 +1,5 @@
 export interface IIcon {
-  type: 'icon';
+  type?: 'icon';
   color?: string;
   name?: string;
   svg?: string;

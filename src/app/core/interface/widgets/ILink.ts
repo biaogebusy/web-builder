@@ -2,6 +2,7 @@ import { MatDialogConfig } from '@angular/material/dialog';
 import { Params } from '@angular/router';
 
 export interface ILink {
+  type?: 'link';
   href?: string;
   classes?: any;
   target?: string;

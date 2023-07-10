@@ -7,6 +7,7 @@ import {
 } from '@storybook/angular';
 import { ChartComponent } from '@uiux/widgets/chart/chart.component';
 import { Bar } from './ChartBar.stories';
+import { EChartsOption } from 'echarts';
 export default {
   title: '基础组件/图表/折线图',
   id: 'chart-line',
@@ -38,6 +39,41 @@ const Template: Story = (args) => ({
 });
 export const Line = Template.bind({});
 const barArgs: any = Bar.args;
+const line: EChartsOption = {
+  type: 'chart',
+  title: {
+    text: '年度活动金额预算',
+    subtext: '南宁',
+  },
+  legend: {
+    bottom: '10px',
+  },
+  tooltip: {
+    trigger: 'axis',
+  },
+  dataset: {
+    // 提供一份数据
+    source: barArgs.content.dataset.source,
+  },
+  // 声明x轴，类目轴（category），默认情况下类目轴对应到 dataset 第一列
+  xAxis: {
+    type: 'category',
+  },
+  // 声明一个 y 轴，数值轴
+  yAxis: {},
+  // 声明对应的数据使用系列，默认情况下每个系列自动对应到 dataset 的每一列
+  series: [
+    {
+      type: 'line',
+    },
+    {
+      type: 'line',
+    },
+    {
+      type: 'line',
+    },
+  ],
+};
 Line.args = {
   data: {
     toggle: [
@@ -67,41 +103,7 @@ Line.args = {
       },
     ],
   },
-  content: {
-    type: 'chart',
-    title: {
-      text: '年度活动金额预算',
-      subtext: '南宁',
-    },
-    legend: {
-      bottom: '10px',
-    },
-    tooltip: {
-      trigger: 'axis',
-    },
-    dataset: {
-      // 提供一份数据
-      source: barArgs.content.dataset.source,
-    },
-    // 声明x轴，类目轴（category），默认情况下类目轴对应到 dataset 第一列
-    xAxis: {
-      type: 'category',
-    },
-    // 声明一个 y 轴，数值轴
-    yAxis: {},
-    // 声明对应的数据使用系列，默认情况下每个系列自动对应到 dataset 的每一列
-    series: [
-      {
-        type: 'line',
-      },
-      {
-        type: 'line',
-      },
-      {
-        type: 'line',
-      },
-    ],
-  },
+  content: line,
 };
 
 export const LineTime = Template.bind({});

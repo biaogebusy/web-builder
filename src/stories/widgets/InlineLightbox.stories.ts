@@ -7,6 +7,7 @@ import { Story } from '@storybook/angular/types-6-0';
 
 import { InlineLightboxComponent } from '@uiux/widgets/lightbox/inline-lightbox/inline-lightbox.component';
 import { StorysModule } from '@core/module/storys.module';
+import { IInlineLightbox } from '@core/interface/widgets/IWidgets';
 export default {
   title: '基础组件/Lightbox',
   id: 'inline-lightbox',
@@ -38,24 +39,27 @@ const Template: Story = (args) => ({
 export const Default = Template.bind({});
 // Raname Story
 Default.storyName = '预览';
+const content: IInlineLightbox = {
+  type: 'inline-lightbox',
+  label: ['查看图片', 'Word 下载', 'PDF 预览'],
+  elements: [
+    {
+      src: '/assets/images/cases/porto1.jpg',
+      caption: '描述',
+      thumb: '/assets/images/cases/porto1.jpg',
+    },
+    {
+      src: '/assets/images/cases/porto2.doc',
+      preview: '/assets/images/cases/porto2.pdf',
+      thumb: '',
+    },
+    {
+      src: '/assets/images/cases/porto3.pdf',
+      preview: '/assets/images/cases/porto3.pdf',
+      thumb: '',
+    },
+  ],
+};
 Default.args = {
-  content: {
-    type: 'inline-lightbox',
-    label: ['查看图片', 'Word 下载', 'PDF 预览'],
-    elements: [
-      {
-        src: '/assets/images/cases/porto1.jpg',
-        caption: '描述',
-        thumb: '/assets/images/cases/porto1.jpg',
-      },
-      {
-        src: '/assets/images/cases/porto2.doc',
-        preview: '/assets/images/cases/porto2.pdf',
-      },
-      {
-        src: '/assets/images/cases/porto3.pdf',
-        preview: '/assets/images/cases/porto3.pdf',
-      },
-    ],
-  },
+  content,
 };

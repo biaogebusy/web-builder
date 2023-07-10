@@ -1,5 +1,5 @@
 export interface IBtnAnimate {
-  type: 'btn-animate';
+  type?: 'btn-animate';
   style: any;
   href: string;
   icon: string;

@@ -2,11 +2,12 @@ import { IIcon } from './IIcon';
 import { IImg } from './IImg';
 import { ILink } from './ILink';
 import { IFeatureBox } from './IFeatureBox';
-import { IBg } from './IBg';
 import { INumberAnimate } from './INumberAnimate';
 import { IProgressBar } from './IWidgets';
+import { IBgImg } from './IBgImg';
 
 export interface ICard {
+  type?: 'card';
   title?: string;
   subTitle?: string;
   avatar?: IImg;
@@ -51,7 +52,7 @@ export interface IMeta {
 }
 
 export interface ICard1v1 {
-  type?: string;
+  type?: 'card-1v1';
   feature?: IFeatureBox;
   components?: any;
   link: ILink;
@@ -62,18 +63,21 @@ export interface ICard1v1 {
 }
 
 export interface ICard1v2 {
-  bg: IBg;
+  type?: 'card-1v2';
+  bg: IBgImg;
   img: IImg;
   subTitle: string;
   link: ILink;
 }
 
 export interface ICard1v3 {
+  type?: 'card-1v3';
   city?: string;
   elements: Card1v3Item[];
 }
 
 export interface ICard1v4 {
+  type?: 'card-1v4';
   img: IImg;
   star?: number;
   title: string;
@@ -97,6 +101,7 @@ export interface Card1v3Item {
 }
 
 export interface IUserCard {
+  type?: 'user-card';
   menu: any[];
   count?: IUserCount[];
   content?: any[];
@@ -108,6 +113,7 @@ export interface IUserCount {
 }
 
 export interface ICard1v5 {
+  type?: 'card-1v5';
   title: string;
   body: string;
   more: ILink;
@@ -118,6 +124,7 @@ export interface ICard1v5 {
 }
 
 export interface ICard1v6 {
+  type?: 'card-1v6';
   title: {
     label: string;
     classes: any;

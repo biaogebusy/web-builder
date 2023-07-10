@@ -85,9 +85,6 @@ V2.storyName = 'v2';
 const v2: IHero1v3 = {
   type: 'hero-1v3',
   spacer: 'xl',
-  bg: {
-    classes: '',
-  },
   classes: '',
   text: {
     ...V1.args.content.text,

@@ -1,5 +1,5 @@
 export interface IBg {
-  type: string;
+  type?: string;
   classes: string;
   style?: object;
 }

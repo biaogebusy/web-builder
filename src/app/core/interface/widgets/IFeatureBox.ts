@@ -1,6 +1,7 @@
 import { IImg } from './IImg';
 
 export interface IFeatureBox {
+  type?: 'feature-box';
   hoverIcon?: boolean;
   fullIcon?: string;
   copyIcon?: string;

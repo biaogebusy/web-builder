@@ -1,3 +1,4 @@
+import { IProgressBar } from '@core/interface/widgets/IWidgets';
 import { StorysModule } from '@core/module/storys.module';
 import {
   moduleMetadata,
@@ -30,40 +31,44 @@ const Template: Story = (args) => ({
   },
 });
 export const Determinate = Template.bind({});
-
+const deter: IProgressBar = {
+  type: 'progress-bar',
+  color: 'primary',
+  mode: 'determinate',
+  value: 40,
+};
 Determinate.args = {
-  content: {
-    type: 'progress-bar',
-    color: 'primary',
-    mode: 'determinate',
-    value: '40',
-  },
+  content: deter,
 };
 
 export const Indeterminate = Template.bind({});
-
+const indeter: IProgressBar = {
+  type: 'progress-bar',
+  color: 'primary',
+  mode: 'indeterminate',
+  value: 40,
+};
 Indeterminate.args = {
-  content: {
-    type: 'progress-bar',
-    color: 'primary',
-    mode: 'indeterminate',
-    value: '40',
-  },
+  content: indeter,
 };
 
 export const Buffer = Template.bind({});
-
+const buffer: IProgressBar = {
+  type: 'progress-bar',
+  color: 'primary',
+  mode: 'buffer',
+  value: 40,
+};
 Buffer.args = {
-  content: {
-    type: 'progress-bar',
-    color: 'primary',
-    mode: 'buffer',
-    value: '40',
-  },
+  content: buffer,
 };
 
 export const Query = Template.bind({});
-
+const query: IProgressBar = {
+  type: 'progress-bar',
+  color: 'primary',
+  mode: 'query',
+};
 Query.args = {
-  content: { type: 'progress-bar', color: 'primary', mode: 'query' },
+  content: query,
 };

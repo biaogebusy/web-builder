@@ -7,6 +7,7 @@ import { Story } from '@storybook/angular/types-6-0';
 import { PaginationLinksComponent } from '@uiux/widgets/pagination/pagination-links/pagination-links.component';
 import { environment } from 'src/environments/environment';
 import { StorysModule } from '@core/module/storys.module';
+import { IPaginationLinks } from '@core/interface/widgets/IPaginationLinks';
 
 export default {
   title: '基础组件/分页/JSONAPI 分页',
@@ -38,10 +39,17 @@ const Template: Story = (args) => ({
 export const Default = Template.bind({});
 // Raname Story
 Default.storyName = '预览';
-Default.args = {
-  links: {
-    self: `${environment.apiUrl}?page[offset]=3&page[limit]=3`,
-    next: `${environment.apiUrl}?page[offset]=3&page[limit]=6`,
-    prev: `${environment.apiUrl}?page[offset]=3&page[limit]=9`,
+const content: IPaginationLinks = {
+  self: {
+    href: `${environment.apiUrl}?page[offset]=3&page[limit]=3`,
   },
+  next: {
+    href: `${environment.apiUrl}?page[offset]=3&page[limit]=6`,
+  },
+  prev: {
+    href: `${environment.apiUrl}?page[offset]=3&page[limit]=9`,
+  },
+};
+Default.args = {
+  links: content,
 };

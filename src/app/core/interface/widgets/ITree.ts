@@ -1,4 +1,5 @@
 export interface ITree {
+  type?: 'tree';
   label: string;
   nodes: any[];
   options?: any;

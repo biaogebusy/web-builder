@@ -4,8 +4,10 @@ import { IImg } from './IImg';
 import { IIcon } from '@core/interface/widgets/IIcon';
 import { EChartsOption } from 'echarts';
 import { ILink } from './ILink';
+import { IBtn } from './IBtn';
 
 export interface IInlineLightbox {
+  type?: 'inline-lightbox';
   label: string[];
   elements: ILightboxElement[];
 }
@@ -13,12 +15,13 @@ export interface IInlineLightbox {
 export interface ILightboxElement {
   src: string;
   preview?: string;
-  caption: string;
+  caption?: string;
   thumb: string;
-  downloadUrl: string;
+  downloadUrl?: string;
 }
 
 export interface IDynamicTable {
+  type?: 'dynamic-table';
   params?: {
     sticky: boolean;
     style: object;
@@ -48,6 +51,7 @@ export interface IRatios {
 }
 
 export interface IIframe {
+  type?: 'iframe';
   height?: string;
   width?: string;
   classes?: string | string[] | Set<string> | { [klass: string]: any };
@@ -58,18 +62,21 @@ export interface IIframe {
 }
 
 export interface IProgressBar {
+  type?: 'progress-bar';
   label?: string;
-  color: ThemePalette;
-  mode: ProgressBarMode;
-  value: number;
-  bufferValue: number;
+  color?: ThemePalette;
+  mode?: ProgressBarMode;
+  value?: number;
+  bufferValue?: number;
 }
 
 export interface IProgressGroup {
+  type?: 'progress-group';
   elements: IProgressBar[];
 }
 
 export interface ITestimonial {
+  type?: 'testimonial';
   style: object | string;
   img: IImg;
   title: string;
@@ -77,13 +84,14 @@ export interface ITestimonial {
   body: string;
 }
 
-export interface IChart {
-  toggle?: {
-    label: string;
-    icon?: IIcon;
-    value: string;
-  }[];
-  options: EChartsOption;
+export interface IChartBox {
+  type?: 'chart';
+  label: string;
+  count: string;
+  params: {
+    [key: string]: string;
+  };
+  chart: EChartsOption;
 }
 
 export interface IPager {
@@ -99,4 +107,10 @@ export interface INotify {
   date: string;
   action: string;
   uuid: string;
+}
+
+export interface IDropdowMenu {
+  type?: 'dropdown-menu';
+  btn: IBtn;
+  child: any[];
 }

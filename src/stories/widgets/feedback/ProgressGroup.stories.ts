@@ -1,3 +1,4 @@
+import { IProgressGroup } from '@core/interface/widgets/IWidgets';
 import { StorysModule } from '@core/module/storys.module';
 import {
   moduleMetadata,
@@ -30,23 +31,23 @@ const Template: Story = (args) => ({
   },
 });
 export const Default = Template.bind({});
-
+const content: IProgressGroup = {
+  type: 'progress-group',
+  elements: [
+    {
+      label: 'HTML/CSS',
+      value: 95,
+    },
+    {
+      label: 'Angular/JavaScript',
+      value: 79,
+    },
+    {
+      label: 'Drupal',
+      value: 60,
+    },
+  ],
+};
 Default.args = {
-  content: {
-    type: 'progress-group',
-    elements: [
-      {
-        label: 'HTML/CSS',
-        value: '95',
-      },
-      {
-        label: 'Angular/JavaScript',
-        value: '79',
-      },
-      {
-        label: 'Drupal',
-        value: '60',
-      },
-    ],
-  },
+  content,
 };

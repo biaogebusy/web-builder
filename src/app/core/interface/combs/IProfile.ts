@@ -16,7 +16,7 @@ export interface IProfile1v1 {
     label: string;
     elements: item[];
   };
-  leftBottom: {
+  leftBottom?: {
     title: ITitle;
     [key: string]: any;
   }[];

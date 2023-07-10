@@ -7,6 +7,7 @@ import { Story } from '@storybook/angular/types-6-0';
 import * as TextStories from './Text.stories';
 import { StorysModule } from '@core/module/storys.module';
 import { LinkComponent } from '@uiux/widgets/link/link.component';
+import { ILink } from '@core/interface/widgets/ILink';
 
 export default {
   title: '基础组件/基本元素/链接',
@@ -31,72 +32,77 @@ const Template: Story = (args) => ({
   },
 });
 export const Default = Template.bind({});
-
+const content: ILink = {
+  type: 'link',
+  label: '链接',
+  classes: '',
+  href: '/manage',
+};
 Default.args = {
-  content: {
-    type: 'link',
-    label: '链接',
-    classes: '',
-    href: '/manage',
-  },
+  content,
 };
 
-export const queryParams = Template.bind({});
-queryParams.storyName = 'QueryParams 参数';
-queryParams.args = {
-  content: {
-    ...Default.args.content,
-    queryParams: {
-      demo: '466',
-    },
-    fragment: 'title',
+export const QueryParams = Template.bind({});
+QueryParams.storyName = 'QueryParams 参数';
+const query: ILink = {
+  ...Default.args.content,
+  queryParams: {
+    demo: '466',
   },
+  fragment: 'title',
+};
+QueryParams.args = {
+  content: query,
 };
 
-export const fragment = Template.bind({});
-fragment.storyName = 'Fragment 片段';
-fragment.args = {
-  content: {
-    ...Default.args.content,
-    fragment: 'title',
-  },
+export const Fragment = Template.bind({});
+Fragment.storyName = 'Fragment 片段';
+const fragment: ILink = {
+  ...Default.args.content,
+  fragment: 'title',
+};
+Fragment.args = {
+  content: fragment,
 };
 
-export const dialog = Template.bind({});
-dialog.storyName = 'Dialog';
+export const Dialog = Template.bind({});
+Dialog.storyName = 'Dialog';
 const textContent: any = TextStories.List.args;
-dialog.args = {
-  content: {
-    ...Default.args.content,
-    dialog: {
-      params: {
-        width: '800px',
-      },
-      data: [
-        {
-          type: 'text',
-          ...textContent.content,
-        },
-      ],
+const dialog: ILink = {
+  ...Default.args.content,
+  dialog: {
+    params: {
+      width: '800px',
     },
+    data: [
+      {
+        type: 'text',
+        ...textContent.content,
+      },
+    ],
   },
+};
+Dialog.args = {
+  content: dialog,
 };
 
 export const Drawer = Template.bind({});
+const drawer: ILink = {
+  ...Default.args.content,
+  rel: 'drawer',
+};
 Drawer.args = {
-  content: {
-    ...Default.args.content,
-    rel: 'drawer',
-  },
+  content: drawer,
 };
 
 export const ReqRoles = Template.bind({});
 ReqRoles.storyName = '根据权限显示';
-ReqRoles.args = {
-  content: {
-    ...Default.args.content,
-    params: {
-      reqRoles: ['administrator'],
-    },
+const roles: ILink = {
+  ...Default.args.content,
+  params: {
+    reqRoles: ['administrator'],
   },
+};
+ReqRoles.args = {
+  content: roles,
 };
