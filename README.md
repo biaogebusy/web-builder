@@ -23,6 +23,7 @@
   <a href="./README-EN.md">English</a>
   <br>
   <br>
+  Angular 交流学习群：1176468251
 </p>
 
 <p align="center">
@@ -32,6 +33,8 @@
 </p>
 
 > 奥陌陌是已知的第一颗经过太阳系的星际天体，意为"远方信使"。
+
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=biaogebusy_xinshi-ui&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=biaogebusy_xinshi-ui)
 
 #### 开源目的
 
