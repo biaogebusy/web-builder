@@ -32,7 +32,7 @@ export class BuilderState {
   public jsoneditorContent$ = new Subject<{
     content: IPage;
     index: number;
-    uuid: number;
+    uuid: string;
   }>();
   public page: IPage = {
     title: '着陆页',

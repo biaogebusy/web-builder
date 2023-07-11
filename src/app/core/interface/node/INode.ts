@@ -3,12 +3,13 @@ import { QuillModule } from 'ngx-quill';
 import { IChipList } from '../widgets/IChipList';
 import { IText } from '../widgets/IText';
 export interface IBaseNode {
-  title: string;
-  uuid: string;
+  type: string;
+  title?: string;
+  uuid?: string;
   body?: string;
   banner?: any;
   meta?: any[];
-  params: {
+  params?: {
     pay?: {
       money: number;
     };

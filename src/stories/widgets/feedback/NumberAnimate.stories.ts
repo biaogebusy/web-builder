@@ -1,3 +1,4 @@
+import { INumberAnimate } from '@core/interface/widgets/INumberAnimate';
 import { StorysModule } from '@core/module/storys.module';
 import {
   moduleMetadata,
@@ -29,11 +30,11 @@ const Template: Story = (args) => ({
   },
 });
 export const Default = Template.bind({});
-
+const content: INumberAnimate = {
+  type: 'number-animate',
+  value: 100,
+  label: '+',
+};
 Default.args = {
-  content: {
-    type: 'number-animate',
-    value: 100,
-    label: '+',
-  },
+  content,
 };

@@ -6,6 +6,7 @@ import {
 import { Story } from '@storybook/angular/types-6-0';
 import { ShareComponent } from '@uiux/widgets/actions/share/share.component';
 import { StorysModule } from '@core/module/storys.module';
+import { IShare } from '@core/interface/widgets/IActions';
 
 export default {
   title: '基础组件/Actions/分享',
@@ -38,15 +39,16 @@ const Template: Story = (args) => ({
 export const Default = Template.bind({});
 // Raname Story
 Default.storyName = '预览';
-Default.args = {
-  content: {
-    type: 'share',
-    button: {
-      icon: 'share',
-      label: '分享',
-    },
-    params: {
-      url: '/',
-    },
+const content: IShare = {
+  type: 'share',
+  button: {
+    icon: 'share',
+    label: '分享',
   },
+  params: {
+    url: '/',
+  },
+};
+Default.args = {
+  content,
 };

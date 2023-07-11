@@ -8,6 +8,7 @@ import { AmapService } from '@core/service/amap.service';
 import { MapComponent } from '@uiux/widgets/map/map.component';
 import { ConfigService } from '@core/service/config.service';
 import { StorysModule } from '@core/module/storys.module';
+import { IMap } from '@core/interface/IAmap';
 
 export default {
   title: '基础组件/地图',
@@ -33,11 +34,11 @@ const Template: Story = (args) => ({
   },
 });
 export const Default = Template.bind({});
-
+const content: IMap = {
+  type: 'map',
+  city: '南宁市',
+  elements: [],
+};
 Default.args = {
-  content: {
-    type: 'map',
-    citi: '南宁市',
-    elements: [],
-  },
+  content,
 };

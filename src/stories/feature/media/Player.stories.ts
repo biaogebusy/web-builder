@@ -6,6 +6,7 @@ import {
 import { Story } from '@storybook/angular/types-6-0';
 import { StorysModule } from '@core/module/storys.module';
 import { PlayerComponent } from '@uiux/widgets/media/player/player.component';
+import { IPlayer } from '@core/interface/widgets/IPlayer';
 
 export default {
   title: '特色组件/媒体/播放器',
@@ -30,20 +31,20 @@ const Template: Story = (args) => ({
   },
 });
 export const Default = Template.bind({});
-
-Default.args = {
-  content: {
-    type: 'player',
-    options: {
-      controls: true,
-      aspectRatio: '16:9',
-      poster: '/assets/video/poster01.png',
-      sources: [
-        {
-          src: '/assets/video/storybook.mp4',
-          type: 'video/mp4',
-        },
-      ],
-    },
+const content: IPlayer = {
+  type: 'player',
+  options: {
+    controls: true,
+    aspectRatio: '16:9',
+    poster: '/assets/video/poster01.png',
+    sources: [
+      {
+        src: '/assets/video/storybook.mp4',
+        type: 'video/mp4',
+      },
+    ],
   },
+};
+Default.args = {
+  content,
 };

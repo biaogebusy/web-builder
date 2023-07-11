@@ -1,3 +1,4 @@
+import { IBtn } from './IBtn';
 import { IControl } from './IControl';
 
 export interface ISearchAction {
@@ -13,7 +14,10 @@ export interface Button {
 
 export interface IShare {
   type: string;
-  button: Button;
+  button: {
+    icon: string;
+    label: string;
+  };
   params: {
     url: string;
   };

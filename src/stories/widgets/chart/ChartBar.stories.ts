@@ -6,6 +6,7 @@ import {
   Story,
 } from '@storybook/angular';
 import { ChartComponent } from '@uiux/widgets/chart/chart.component';
+import { EChartsOption } from 'echarts';
 import { random } from 'lodash-es';
 
 export default {
@@ -40,6 +41,49 @@ const Template: Story = (args) => ({
 
 export const Bar = Template.bind({});
 Bar.storyName = '柱状图';
+const bar: EChartsOption = {
+  type: 'chart',
+  title: {
+    text: '年度活动金额预算',
+    subtext: '南宁',
+  },
+  legend: {
+    bottom: '10px',
+  },
+  tooltip: {
+    trigger: 'axis',
+  },
+  dataset: {
+    // 提供一份数据。
+    source: [
+      ['红包预算', '2020', '2021', '2022'],
+      [
+        '第一季度',
+        random(3000, 10000),
+        random(3000, 10000),
+        random(3000, 10000),
+      ],
+      [
+        '第二季度',
+        random(3000, 10000),
+        random(3000, 10000),
+        random(3000, 10000),
+      ],
+      [
+        '第三季度',
+        random(3000, 10000),
+        random(3000, 10000),
+        random(3000, 10000),
+      ],
+    ],
+  },
+  // 声明一个 X 轴，类目轴（category）。默认情况下，类目轴对应到 dataset 第一列。
+  xAxis: { type: 'category' },
+  // 声明一个 Y 轴，数值轴。
+  yAxis: {},
+  // 声明多个 bar 系列，默认情况下，每个系列会自动对应到 dataset 的每一列。
+  series: [{ type: 'bar' }, { type: 'bar' }, { type: 'bar' }],
+};
 Bar.args = {
   data: {
     toggle: [
@@ -69,65 +113,24 @@ Bar.args = {
       },
     ],
   },
-  content: {
-    type: 'chart',
-    title: {
-      text: '年度活动金额预算',
-      subtext: '南宁',
-    },
-    legend: {
-      bottom: '10px',
-    },
-    tooltip: {
-      trigger: 'axis',
-    },
-    dataset: {
-      // 提供一份数据。
-      source: [
-        ['红包预算', '2020', '2021', '2022'],
-        [
-          '第一季度',
-          random(3000, 10000),
-          random(3000, 10000),
-          random(3000, 10000),
-        ],
-        [
-          '第二季度',
-          random(3000, 10000),
-          random(3000, 10000),
-          random(3000, 10000),
-        ],
-        [
-          '第三季度',
-          random(3000, 10000),
-          random(3000, 10000),
-          random(3000, 10000),
-        ],
-      ],
-    },
-    // 声明一个 X 轴，类目轴（category）。默认情况下，类目轴对应到 dataset 第一列。
-    xAxis: { type: 'category' },
-    // 声明一个 Y 轴，数值轴。
-    yAxis: {},
-    // 声明多个 bar 系列，默认情况下，每个系列会自动对应到 dataset 的每一列。
-    series: [{ type: 'bar' }, { type: 'bar' }, { type: 'bar' }],
-  },
+  content: bar,
 };
 
 export const SingleSelected = Template.bind({});
 SingleSelected.storyName = '单选图例';
+const single: EChartsOption = {
+  ...Bar.args.content,
+  legend: {
+    selected: {
+      预算: true,
+      第一季度: false,
+      第二季度: false,
+      第三季度: false,
+    },
+    selectedMode: 'single',
+  },
+};
 SingleSelected.args = {
   ...Bar.args.data,
-  content: {
-    ...Bar.args.content,
-    legend: {
-      selected: {
-        预算: true,
-        第一季度: false,
-        第二季度: false,
-        第三季度: false,
-      },
-      selectedMode: 'single',
-    },
-  },
+  content: single,
 };

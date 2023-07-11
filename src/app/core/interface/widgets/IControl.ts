@@ -5,7 +5,7 @@ export interface IControl {
   type: string;
   key: string;
   label: string;
-  value: any;
+  value?: any;
   params?: any;
   icon?: string;
   multiple?: boolean;

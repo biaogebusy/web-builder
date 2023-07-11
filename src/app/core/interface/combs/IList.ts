@@ -74,18 +74,21 @@ export interface IListThin {
 }
 
 export interface ITaxonomyList {
+  type: string;
   pager: any;
   elements: IShowcase3v3[];
   sidebar: any;
 }
 
 export interface ITaxonomyThinList {
+  type: string;
   elements: any[];
   sidebar: any;
   pager: any;
 }
 
 export interface IList2v1 extends ICombsBase {
+  type: string;
   params: any;
   elements: any[];
   title: ITitle;

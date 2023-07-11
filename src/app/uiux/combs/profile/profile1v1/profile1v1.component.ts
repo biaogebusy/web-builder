@@ -17,6 +17,7 @@ import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
 import { takeUntil } from 'rxjs/operators';
 import { ContentState } from '@core/state/ContentState';
+import { IProfile1v1 } from '@core/interface/combs/IProfile';
 
 @Component({
   selector: 'app-profile-1v1',
@@ -25,7 +26,7 @@ import { ContentState } from '@core/state/ContentState';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Profile1v1Component implements OnInit, AfterViewInit {
-  @Input() content: any;
+  @Input() content: IProfile1v1;
   comments$: Observable<IComment[]>;
   destroy$: Subject<boolean> = new Subject<boolean>();
   avatar: IImg;

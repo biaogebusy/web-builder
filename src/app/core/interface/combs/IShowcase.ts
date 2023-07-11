@@ -13,21 +13,23 @@ import { IBg } from '../widgets/IBg';
 import { IBgImg } from '../widgets/IBgImg';
 
 export interface IShowcase1v1 extends ICombsBase {
-  title: ITitle;
-  subTitle: IText;
+  title?: ITitle;
+  subTitle?: IText;
+  style?: string;
+  row?: number;
   elements: any[];
 }
 
 export interface IShowcase1v3 extends ICombsBase {
   title: ITitle;
-  subTitle: IText;
+  subTitle?: IText;
   elements: any[];
-  actions: any[];
+  actions?: any[];
 }
 
 export interface IShowcase1v4 extends ICombsBase {
   elements: any[];
-  actions: any[];
+  actions?: any[];
 }
 
 export interface IShowcase2v1 extends ICombsBase {
@@ -85,11 +87,12 @@ export interface IShowcase3v2 extends ICombsBase {
 }
 
 export interface IShowcase3v3 extends ICombsBase {
-  feature: IFeatureBox;
-  showImage: boolean;
+  type: string;
+  feature?: IFeatureBox;
+  showImage?: boolean;
   title: ILink;
   date: string;
-  commentCount: string;
+  commentCount?: string;
   category: string;
   body: string;
   details: IBtnAnimate;
@@ -102,7 +105,7 @@ export interface IShowcase3v4 extends ICombsBase {
 }
 
 export interface IShowcase3v5 extends ICombsBase {
-  title: ITitle;
+  title: IText;
   elements: IBox[];
   img: IImg;
 }
@@ -110,7 +113,7 @@ export interface IShowcase3v5 extends ICombsBase {
 export interface IShowcase3v6 extends ICombsBase {
   title: IText;
   elements: IMediaObject[];
-  action: any;
+  action?: any;
 }
 
 export interface IShowcase3v7 extends ICombsBase {
@@ -144,7 +147,10 @@ export interface IShowcase4v1 extends ICombsBase {
 export interface IShowcase4v1Element {
   icon?: IIcon;
   img?: IImg;
-  digit: number;
+  digit: {
+    value: number;
+    label: string;
+  };
   title: string;
   desc?: string;
 }

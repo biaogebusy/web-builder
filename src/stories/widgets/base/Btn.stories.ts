@@ -1,3 +1,4 @@
+import { IBtn } from '@core/interface/widgets/IBtn';
 import { StorysModule } from '@core/module/storys.module';
 import {
   moduleMetadata,
@@ -36,144 +37,162 @@ BtnDefault.parameters = {
   },
 };
 BtnDefault.storyName = '默认';
-BtnDefault.args = {
-  content: {
-    type: 'btn',
-    color: 'primary',
-    label: 'Primary Default',
-    icon: {
-      inline: true,
-      name: 'delete',
-    },
+const content: IBtn = {
+  type: 'btn',
+  color: 'primary',
+  label: 'Primary Default',
+  icon: {
+    inline: true,
+    name: 'delete',
   },
+};
+BtnDefault.args = {
+  content,
 };
 
 export const BtnRaised = Template.bind({});
-
+const raised: IBtn = {
+  type: 'btn',
+  color: 'primary',
+  label: 'Primary',
+  mode: 'raised',
+};
 BtnRaised.args = {
-  content: { type: 'btn', color: 'primary', label: 'Primary', mode: 'raised' },
+  content: raised,
 };
 
 export const BtnDisabled = Template.bind({});
-
+const disabled: IBtn = {
+  type: 'btn',
+  color: 'primary',
+  label: 'Disabled',
+  mode: 'raised',
+  disabled: true,
+};
 BtnDisabled.args = {
-  content: {
-    type: 'btn',
-    color: 'primary',
-    label: 'Disabled',
-    mode: 'raised',
-    disabled: true,
-  },
+  content: disabled,
 };
 
 export const Round = Template.bind({});
+const round: IBtn = {
+  type: 'btn',
+  label: 'Round',
+  color: 'primary',
+  mode: 'raised',
+  classes: 'round-btn',
+};
 
 Round.args = {
-  content: {
-    type: 'btn',
-    label: 'Round',
-    color: 'primary',
-    mode: 'raised',
-    classes: 'round-btn',
-  },
+  content: round,
 };
 
 export const BtnLink = Template.bind({});
-
+const btnLink: IBtn = {
+  type: 'btn',
+  href: '/node/1',
+  target: '_blank',
+  label: '了解更多',
+  mode: 'raised',
+  color: 'primary',
+};
 BtnLink.args = {
-  content: {
-    type: 'btn',
-    href: '/node/1',
-    target: '_blank',
-    label: '了解更多',
-    mode: 'raised',
-    color: 'primary',
-  },
+  content: btnLink,
 };
 
 export const BtnDrawer = Template.bind({});
-
+const drawer: IBtn = {
+  type: 'btn',
+  href: '/?path=/story/welcome--page',
+  label: 'Drawer 预览',
+  mode: 'raised',
+  drawerIframe: true,
+};
 BtnDrawer.args = {
-  content: {
-    type: 'btn',
-    href: '/?path=/story/welcome--page',
-    label: 'Drawer 预览',
-    mode: 'raised',
-    drawerIframe: true,
-  },
+  content: drawer,
 };
 
 export const BtnStroked = Template.bind({});
-
+const stroked: IBtn = {
+  type: 'btn',
+  label: 'stroked',
+  color: 'primary',
+  mode: 'stroked',
+};
 BtnStroked.args = {
-  content: { type: 'btn', label: 'stroked', color: 'primary', mode: 'stroked' },
+  content: stroked,
 };
 
 export const StrokedLink = Template.bind({});
+const strokedLink: IBtn = {
+  href: '#',
+  target: '_blank',
+  label: 'Stroked link',
+  mode: 'stroked',
+};
 
 StrokedLink.args = {
-  content: {
-    href: '#',
-    target: '_blank',
-    label: 'Stroked link',
-    mode: 'stroked',
-  },
+  content: strokedLink,
 };
 
 export const StrokedLinkBorderPrimary = Template.bind({});
-
+const slbp: IBtn = {
+  type: 'btn',
+  href: '#',
+  target: '_blank',
+  label: 'Stroked link',
+  mode: 'stroked',
+  classes: 'border-primary',
+};
 StrokedLinkBorderPrimary.args = {
-  content: {
-    type: 'btn',
-    href: '#',
-    target: '_blank',
-    label: 'Stroked link',
-    mode: 'stroked',
-    classes: 'border-primary',
-  },
+  content: slbp,
 };
 
 export const BtnFlat = Template.bind({});
-
+const flat: IBtn = {
+  type: 'btn',
+  label: 'Flat',
+  color: 'primary',
+  mode: 'flat',
+};
 BtnFlat.args = {
-  content: { type: 'btn', label: 'Flat', color: 'primary', mode: 'flat' },
+  content: flat,
 };
 
 export const BtnIcon = Template.bind({});
-
-BtnIcon.args = {
-  content: {
-    type: 'btn',
-    color: 'primary',
-    mode: 'icon',
-    icon: {
-      name: 'more_vert',
-    },
+const icon: IBtn = {
+  type: 'btn',
+  color: 'primary',
+  mode: 'icon',
+  icon: {
+    name: 'more_vert',
   },
+};
+BtnIcon.args = {
+  content: icon,
 };
 
 export const BtnFab = Template.bind({});
-
-BtnFab.args = {
-  content: {
-    type: 'btn',
-    color: 'primary',
-    mode: 'fab',
-    icon: {
-      name: 'more_vert',
-    },
+const fab: IBtn = {
+  type: 'btn',
+  color: 'primary',
+  mode: 'fab',
+  icon: {
+    name: 'more_vert',
   },
+};
+BtnFab.args = {
+  content: fab,
 };
 
 export const BtnMiniFab = Template.bind({});
-
-BtnMiniFab.args = {
-  content: {
-    type: 'btn',
-    color: 'primary',
-    mode: 'mini-fab',
-    icon: {
-      name: 'more_vert',
-    },
+const mini: IBtn = {
+  type: 'btn',
+  color: 'primary',
+  mode: 'mini-fab',
+  icon: {
+    name: 'more_vert',
   },
+};
+BtnMiniFab.args = {
+  content: mini,
 };

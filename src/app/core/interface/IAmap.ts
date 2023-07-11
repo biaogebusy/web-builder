@@ -28,6 +28,7 @@ export interface IMarkInfo {
 }
 
 export interface IMap {
+  type?: string;
   city?: string;
   elements: any[];
   params?: any;

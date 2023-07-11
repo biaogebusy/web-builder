@@ -5,6 +5,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
 import { BuilderState } from '@core/state/BuilderState';
 import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
 
@@ -15,7 +16,7 @@ import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class JsoneditorComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: IJsoneditor;
   public editorOptions: JsonEditorOptions;
   public data: any;
   @ViewChild(JsonEditorComponent, { static: false })

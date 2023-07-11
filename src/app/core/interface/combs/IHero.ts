@@ -18,8 +18,8 @@ export interface IHero1v3 extends ICombsBase {
 }
 
 export interface IHero1v4 extends ICombsBase {
-  style: any;
-  order: number;
+  style?: any;
+  order?: number;
   widget: any[];
 }
 
@@ -28,7 +28,6 @@ export interface IHero2v2 extends ICombsBase {
 }
 
 export interface IHero2v3 extends ICombsBase {
-  body: IText;
   row: number;
   elements: {
     img: IImg;

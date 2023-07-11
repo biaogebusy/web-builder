@@ -1,13 +1,14 @@
 import { IBgImg } from './IBgImg';
 import { IText } from './IText';
 export interface ITab {
+  type?: 'tab';
   id?: string;
   spacer?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'none';
-  fullWidth: boolean;
+  fullWidth?: boolean;
   text: IText;
   classes: object | string;
   elements: any[];
-  bg: IBgImg;
-  align: 'start' | 'center' | 'end';
+  bg?: IBgImg;
+  align?: 'start' | 'center' | 'end';
   pills?: boolean;
 }
