@@ -7,8 +7,8 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
 } from '@angular/core';
-import { IVideoBg } from '@core/interface/combs/IVideoBg';
-import { IPlayer } from '@core/interface/widgets/IPlayer';
+import type { IVideoBg } from '@core/interface/combs/IVideoBg';
+import type { IPlayer } from '@core/interface/widgets/IPlayer';
 import { ScreenService } from '@core/service/screen.service';
 @Component({
   selector: 'app-video-bg',

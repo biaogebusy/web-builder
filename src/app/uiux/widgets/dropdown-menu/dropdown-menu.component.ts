@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IDropdowMenu } from '@core/interface/widgets/IWidgets';
+import type { IDropdowMenu } from '@core/interface/widgets/IWidgets';
 
 @Component({
   selector: 'app-dropdown-menu',

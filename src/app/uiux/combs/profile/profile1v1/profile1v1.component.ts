@@ -12,12 +12,12 @@ import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type { IUser } from '@core/interface/IUser';
 import type { IComment } from '@core/interface/node/INode';
+import type { IProfile1v1 } from '@core/interface/combs/IProfile';
 import { Observable, Subject } from 'rxjs';
 import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
 import { takeUntil } from 'rxjs/operators';
 import { ContentState } from '@core/state/ContentState';
-import { IProfile1v1 } from '@core/interface/combs/IProfile';
 
 @Component({
   selector: 'app-profile-1v1',
