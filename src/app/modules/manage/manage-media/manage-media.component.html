@@ -1,9 +1,41 @@
-<div class="manage-media position-relative m-y" *ngIf="content">
-  <div class="container">
-    <div class="inner" fxLayout="row wrap">
-      <div class="masonry-item" *ngFor="let item of content" fxFlex="0 0 25">
-        <app-dynamic-component class="display-block" [inputs]="{content:item}"></app-dynamic-component>
-      </div>
-    </div>
+<div class="manage-media position-relative" *ngIf="coreConfig?.manageMedia">
+  <div class="toolbar" fxLayoutAlign="end center">
+    <mat-slider [(ngModel)]="coreConfig.manageMedia.row" max="10" min="1" step="1" [thumbLabel]="true" [invert]="true">
+    </mat-slider>
   </div>
+  <mat-drawer-container>
+    <mat-drawer mode="side" [opened]="true">
+      <div class="sidebar" fxLayout="column">
+        <app-title [content]="coreConfig.manageMedia.sidebar.title"></app-title>
+        <app-formly *ngIf="coreConfig.manageMedia.sidebar.form" [classes]="'form-field-width-auto'" [form]="form"
+          [fields]="coreConfig.manageMedia.sidebar.form" [model]="model">
+        </app-formly>
+        <div class="actions m-top-sm" fxFlex="100" fxLayoutAlign="center center">
+          <app-btn (click)="onSearch(model)" [content]="coreConfig.manageMedia.sidebar.action"></app-btn>
+        </div>
+      </div>
+    </mat-drawer>
+    <mat-drawer-content>
+      <div class="inner" fxLayout="row wrap">
+        <div class="load" *ngIf="false">
+          <mat-spinner diameter="50" color="accent"></mat-spinner>
+        </div>
+        <ng-container *ngIf="mediaAssets$ | async as assets">
+          <ng-container *ngIf="assets.elements.length;else empty">
+            <div class="masonry-item" *ngFor="let item of assets.elements"
+              fxFlex="0 0 calc(100% / {{coreConfig.manageMedia.row}})">
+              <app-dynamic-component class="display-block"
+                [inputs]="{content:item,disableToolbar:true}"></app-dynamic-component>
+            </div>
+          </ng-container>
+          <ng-template #empty>
+            <div>无数据</div>
+          </ng-template>
+        </ng-container>
+      </div>
+      <div class="page m-y" *ngIf="mediaAssets$ | async as assets">
+        <app-pagination-links (pageChange)="onPageChange($event)" [links]="assets.links"></app-pagination-links>
+      </div>
+    </mat-drawer-content>
+  </mat-drawer-container>
 </div>

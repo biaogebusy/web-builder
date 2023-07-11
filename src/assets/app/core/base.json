@@ -90,7 +90,7 @@
     "enable": true,
     "owner": "biaogebusy",
     "repo": "xinshi-ui",
-    "token": "{{token}}"
+    "token": ""
   },
   "loading": true,
   "loadingBar": true,
@@ -283,6 +283,135 @@
     ]
   },
   "animate": true,
+  "manageMedia": {
+    "row": 4,
+    "sidebar": {
+      "title": {
+        "label": "搜索",
+        "style": "style-v4",
+        "classes": ""
+      },
+      "action": {
+        "color": "primary",
+        "mode": "raised",
+        "label": "确定"
+      },
+      "form": [
+        {
+          "type": "input",
+          "key": "key",
+          "className": "display-block m-bottom-sm",
+          "templateOptions": {
+            "type": "string",
+            "appearance": "legacy",
+            "label": "请输入关键词"
+          }
+        },
+        {
+          "type": "select",
+          "key": "type",
+          "defaultValue": "/api/v1/media/image",
+          "className": "display-block m-bottom-sm",
+          "templateOptions": {
+            "label": "选择资源类型",
+            "options": [
+              {
+                "label": "所有文件",
+                "value": "/api/v1/file/file"
+              },
+              {
+                "label": "图片库",
+                "value": "/api/v1/media/image"
+              },
+              {
+                "label": "文档库",
+                "value": "/api/v1/media/document"
+              },
+              {
+                "label": "视频库",
+                "value": "/api/v1/media/video"
+              }
+            ]
+          }
+        },
+        {
+          "type": "select",
+          "key": "limit",
+          "defaultValue": 20,
+          "className": "display-block m-bottom-sm",
+          "templateOptions": {
+            "label": "每页显示个数",
+            "options": [
+              {
+                "label": "10",
+                "value": 10
+              },
+              {
+                "label": "20",
+                "value": 20
+              },
+              {
+                "label": "30",
+                "value": 30
+              },
+              {
+                "label": "40",
+                "value": 40
+              },
+              {
+                "label": "50",
+                "value": 50
+              }
+            ]
+          }
+        },
+        {
+          "type": "select",
+          "key": "filter",
+          "defaultValue": 1,
+          "className": "display-block m-bottom-sm",
+          "templateOptions": {
+            "label": "发布状态",
+            "options": [
+              {
+                "label": "已发布",
+                "value": 1
+              },
+              {
+                "label": "未发布",
+                "value": 0
+              }
+            ]
+          }
+        },
+        {
+          "key": "sort",
+          "className": "m-bottom-sm width-100",
+          "fieldGroup": [
+            {
+              "type": "select",
+              "key": "direction",
+              "defaultValue": "DESC",
+              "className": "display-block m-bottom-sm",
+              "templateOptions": {
+                "label": "排序",
+                "options": [
+                  {
+                    "label": "最新发布的",
+                    "value": "DESC"
+                  },
+                  {
+                    "label": "最旧发布的",
+                    "value": "ASC"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
   "builder": {
     "enable": true,
     "params": {
@@ -290,6 +419,176 @@
         "administrator"
       ]
     },
+    "generater": [
+      {
+        "type": "select",
+        "key": "hero",
+        "defaultValue": 1,
+        "className": "display-block m-bottom-sm",
+        "templateOptions": {
+          "label": "选择 Hero 个数",
+          "description": "一般一个页面只需要一个 Hero",
+          "options": [
+            {
+              "label": "1",
+              "value": 1
+            },
+            {
+              "label": "2",
+              "value": 2
+            },
+            {
+              "label": "3",
+              "value": 3
+            },
+            {
+              "label": "4",
+              "value": 4
+            },
+            {
+              "label": "5",
+              "value": 5
+            },
+            {
+              "label": "6",
+              "value": 6
+            }
+          ]
+        }
+      },
+      {
+        "type": "select",
+        "key": "showcase",
+        "defaultValue": 3,
+        "className": "display-block m-bottom-sm",
+        "templateOptions": {
+          "label": "选择 Showcase 个数",
+          "description": "一般一个页面会有多个 Showcase 组件",
+          "options": [
+            {
+              "label": "1",
+              "value": 1
+            },
+            {
+              "label": "2",
+              "value": 2
+            },
+            {
+              "label": "3",
+              "value": 3
+            },
+            {
+              "label": "4",
+              "value": 4
+            },
+            {
+              "label": "5",
+              "value": 5
+            },
+            {
+              "label": "6",
+              "value": 6
+            },
+            {
+              "label": "7",
+              "value": 7
+            },
+            {
+              "label": "8",
+              "value": 8
+            },
+            {
+              "label": "9",
+              "value": 9
+            },
+            {
+              "label": "10",
+              "value": 10
+            }
+          ]
+        }
+      },
+      {
+        "type": "select",
+        "key": "carousel",
+        "defaultValue": 1,
+        "className": "display-block m-bottom-sm",
+        "templateOptions": {
+          "label": "选择幻灯片个数",
+          "description": "幻灯片不宜太多，生成后可拖动重排",
+          "options": [
+            {
+              "label": "1",
+              "value": 1
+            },
+            {
+              "label": "2",
+              "value": 2
+            },
+            {
+              "label": "3",
+              "value": 3
+            },
+            {
+              "label": "4",
+              "value": 4
+            },
+            {
+              "label": "5",
+              "value": 5
+            },
+            {
+              "label": "6",
+              "value": 6
+            }
+          ]
+        }
+      },
+      {
+        "type": "select",
+        "key": "drupal",
+        "defaultValue": 0,
+        "className": "display-block m-bottom-sm",
+        "templateOptions": {
+          "label": "使用Drupal API 组件个数",
+          "description": "列表，分类，日历等等",
+          "options": [
+            {
+              "label": "0",
+              "value": 0
+            },
+            {
+              "label": "1",
+              "value": 1
+            },
+            {
+              "label": "2",
+              "value": 2
+            },
+            {
+              "label": "3",
+              "value": 3
+            },
+            {
+              "label": "4",
+              "value": 4
+            }
+          ]
+        }
+      },
+      {
+        "key": "action",
+        "type": "checkbox",
+        "className": "display-block m-bottom-sm",
+        "defaultValue": true,
+        "templateOptions": {
+          "label": "底部包含 Action",
+          "description": "一般页面底部引导用户下一步要做的事情",
+          "pattern": "true",
+          "required": true
+        }
+      }
+    ],
     "empty": [
       {
         "type": "showcase-3v9",

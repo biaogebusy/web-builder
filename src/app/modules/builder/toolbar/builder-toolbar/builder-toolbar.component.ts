@@ -18,6 +18,8 @@ import { takeUntil } from 'rxjs/operators';
 import { BRANDING, BUILDER_FULL_SCREEN } from '@core/token/token-providers';
 import { IBranding } from '@core/interface/branding/IBranding';
 import { ScreenService } from '@core/service/screen.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 
 @Component({
   selector: 'app-builder-toolbar',
@@ -37,6 +39,7 @@ export class BuilderToolbarComponent
     private builder: BuilderState,
     private screenState: ScreenState,
     private screenService: ScreenService,
+    private dialog: MatDialog,
     @Inject(BUILDER_FULL_SCREEN) public builderFullScreen$: Observable<boolean>,
     @Inject(BRANDING) public branding$: Observable<IBranding>
   ) {}
@@ -80,6 +83,19 @@ export class BuilderToolbarComponent
   onPreview(): void {
     const url = window.location.origin;
     window.open(`${url}/builder/preview`, '_blank');
+  }
+
+  onSelectAssets(): void {
+    this.dialog.open(DialogComponent, {
+      width: '100%',
+      data: {
+        inputData: {
+          content: {
+            type: 'manage-media',
+          },
+        },
+      },
+    });
   }
 
   ngOnDestroy(): void {

@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { IBranding } from '../interface/branding/IBranding';
 import { INotify } from '@core/interface/widgets/IWidgets';
 import { IBuilderSamplePage, IUiux } from '@core/interface/IBuilder';
+import { FormlyFieldConfig } from '@ngx-formly/core';
 
 export interface IManageSidebarState {
   enableSidebar: boolean;
@@ -22,6 +23,10 @@ export const THEME = new InjectionToken<string>('current theme');
 export const USER = new InjectionToken<IUser>('user');
 export const NOTIFY_CONTENT = new InjectionToken<Observable<INotify>>(
   'notify content'
+);
+
+export const MEDIA_ASSETS = new InjectionToken<Observable<any[]>>(
+  'media assets'
 );
 
 // builder

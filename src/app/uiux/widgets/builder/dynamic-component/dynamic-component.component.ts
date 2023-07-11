@@ -73,6 +73,10 @@ export class DynamicComponentComponent
 
   ngAfterContentInit(): void {
     this.enable_toolbar$.pipe(takeUntil(this.destroy$)).subscribe((state) => {
+      if (this.inputs?.disableToolbar) {
+        this.activeToolbarClass = false;
+        return;
+      }
       this.activeToolbarClass = state;
     });
   }
