@@ -33,6 +33,8 @@
 
 > 奥陌陌是已知的第一颗经过太阳系的星际天体，意为"远方信使"。
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=biaogebusy_xinshi-ui&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=biaogebusy_xinshi-ui)
+
 #### 开源目的
 
 这个项目是在学习 Angular 过程中不断积累、思考完善的成果，从最初的 Angular 9 到目前的 Angular 11，从一开始的一个组件到丰富的组件库，从臃肿的页面组件遍历方式到动态组件，经历了很多次推到和重构、升级。这个开源项目非常适合初学者学习或者进阶，它涵盖了绝大部分 Angular 技术知识点，但并不仅限于以下内容。
