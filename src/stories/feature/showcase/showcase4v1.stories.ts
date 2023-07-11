@@ -46,7 +46,7 @@ const content: IShowcase4v1 = {
   },
   classes: '',
   params: {
-    api: 'api/v1/tab/order_process_statistics',
+    apiBak: 'api/v1/xxx',
   },
   elements: [
     {

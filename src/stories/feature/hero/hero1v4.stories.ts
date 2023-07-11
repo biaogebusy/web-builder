@@ -105,7 +105,7 @@ const shape: IHero1v4 = {
     ],
   },
   bg: {
-    classes: 'bg-fill-width overlay overlay-',
+    classes: 'bg-fill-width overlay- overlay-',
     img: {
       src: '/assets/images/bg/bg-02.png',
       hostClasses: 'bg-center',
