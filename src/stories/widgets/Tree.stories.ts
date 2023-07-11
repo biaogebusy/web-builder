@@ -1,3 +1,4 @@
+import { ITree } from '@core/interface/widgets/ITree';
 import { StorysModule } from '@core/module/storys.module';
 import {
   moduleMetadata,
@@ -30,54 +31,55 @@ const Template: Story = (args) => ({
   },
 });
 export const Default = Template.bind({});
-
+const content: ITree = {
+  type: 'tree',
+  label: '开发语言',
+  key: 'type',
+  expandAll: false,
+  value: 245,
+  nodes: [
+    {
+      label: '全部',
+      value: '',
+    },
+    {
+      value: 861,
+      label: 'CMS 内容管理系统',
+      elements: [
+        {
+          value: 1164,
+          label: 'Drupal',
+        },
+        {
+          value: 1165,
+          label: 'Joomla',
+        },
+        {
+          value: 875,
+          label: 'WordPress',
+        },
+      ],
+    },
+    {
+      value: 1006,
+      label: '前端框架',
+      elements: [
+        {
+          value: 1030,
+          label: 'Angular',
+        },
+        {
+          value: 1018,
+          label: 'React',
+        },
+        {
+          value: 1018,
+          label: 'VUE',
+        },
+      ],
+    },
+  ],
+};
 Default.args = {
-  content: {
-    label: '开发语言',
-    key: 'type',
-    expandAll: false,
-    value: 245,
-    nodes: [
-      {
-        label: '全部',
-        value: '',
-      },
-      {
-        value: 861,
-        label: 'CMS 内容管理系统',
-        elements: [
-          {
-            value: 1164,
-            label: 'Drupal',
-          },
-          {
-            value: 1165,
-            label: 'Joomla',
-          },
-          {
-            value: 875,
-            label: 'WordPress',
-          },
-        ],
-      },
-      {
-        value: 1006,
-        label: '前端框架',
-        elements: [
-          {
-            value: 1030,
-            label: 'Angular',
-          },
-          {
-            value: 1018,
-            label: 'React',
-          },
-          {
-            value: 1018,
-            label: 'VUE',
-          },
-        ],
-      },
-    ],
-  },
+  content,
 };

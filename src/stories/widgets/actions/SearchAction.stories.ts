@@ -7,6 +7,7 @@ import { Story } from '@storybook/angular/types-6-0';
 import { screen, userEvent } from '@storybook/testing-library';
 import { SearchActionComponent } from '@uiux/widgets/actions/search-action/search-action.component';
 import { StorysModule } from '@core/module/storys.module';
+import { ISearchAction } from '@core/interface/widgets/IActions';
 
 export default {
   title: '基础组件/Actions/搜索控件',
@@ -39,70 +40,72 @@ const Template: Story = (args) => ({
 export const Default = Template.bind({});
 // Raname Story
 Default.storyName = '预览';
-Default.args = {
-  content: {
-    type: 'search-action',
-    button: {
-      label: '搜索',
-      color: 'primary',
-    },
-    form: [
-      {
-        type: 'select',
-        key: 'skill',
-        label: '技能',
-        options: [
-          {
-            label: '无',
-            value: '',
-          },
-          {
-            label: 'Angular',
-            value: '170',
-          },
-          {
-            label: 'React',
-            value: '162',
-          },
-          {
-            label: 'Vue',
-            value: '167',
-          },
-        ],
-      },
-      {
-        type: 'select',
-        key: 'cms',
-        label: 'CMS',
-        options: [
-          {
-            label: '无',
-            value: '',
-          },
-          {
-            label: 'Drupal',
-            value: '170',
-          },
-          {
-            label: 'WP',
-            value: '162',
-          },
-          {
-            label: 'Joomla',
-            value: '167',
-          },
-        ],
-      },
-      {
-        type: 'input',
-        key: 'keys',
-        placeholder: '请输入关键词搜索',
-        controlType: 'search',
-        label: '关键词',
-        appearance: 'legacy',
-      },
-    ],
+const content: ISearchAction = {
+  type: 'search-action',
+  button: {
+    label: '搜索',
+    color: 'primary',
   },
+  form: [
+    {
+      type: 'select',
+      key: 'skill',
+      label: '技能',
+      options: [
+        {
+          label: '无',
+          value: '',
+        },
+        {
+          label: 'Angular',
+          value: '170',
+        },
+        {
+          label: 'React',
+          value: '162',
+        },
+        {
+          label: 'Vue',
+          value: '167',
+        },
+      ],
+    },
+    {
+      type: 'select',
+      key: 'cms',
+      label: 'CMS',
+      options: [
+        {
+          label: '无',
+          value: '',
+        },
+        {
+          label: 'Drupal',
+          value: '170',
+        },
+        {
+          label: 'WP',
+          value: '162',
+        },
+        {
+          label: 'Joomla',
+          value: '167',
+        },
+      ],
+    },
+    {
+      type: 'input',
+      key: 'keys',
+      placeholder: '请输入关键词搜索',
+      controlType: 'search',
+      label: '关键词',
+      appearance: 'legacy',
+    },
+  ],
+};
+
+Default.args = {
+  content,
 };
 
 Default.play = async () => {

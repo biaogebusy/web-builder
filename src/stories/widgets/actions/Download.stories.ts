@@ -1,3 +1,4 @@
+import { IDownload } from '@core/interface/widgets/IDownload';
 import { StorysModule } from '@core/module/storys.module';
 import {
   moduleMetadata,
@@ -38,31 +39,32 @@ const Template: Story = (args) => ({
 export const Default = Template.bind({});
 // Raname Story
 Default.storyName = '预览';
-Default.args = {
-  content: {
-    type: 'download',
-    label: '下载',
-    icon: {
-      name: 'file_download',
-      inline: true,
-    },
-    elements: [
-      {
-        type: 'link',
-        label: 'Doc',
-        icon: {
-          name: 'description',
-        },
-        href: '#',
-      },
-      {
-        type: 'link',
-        label: 'Pdf',
-        icon: {
-          name: 'picture_as_pdf',
-        },
-        href: '#',
-      },
-    ],
+const content: IDownload = {
+  type: 'download',
+  label: '下载',
+  icon: {
+    name: 'file_download',
+    inline: true,
   },
+  elements: [
+    {
+      type: 'link',
+      label: 'Doc',
+      icon: {
+        name: 'description',
+      },
+      href: '#',
+    },
+    {
+      type: 'link',
+      label: 'Pdf',
+      icon: {
+        name: 'picture_as_pdf',
+      },
+      href: '#',
+    },
+  ],
+};
+Default.args = {
+  content,
 };

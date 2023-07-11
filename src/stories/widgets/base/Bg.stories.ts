@@ -1,3 +1,4 @@
+import { IBg } from '@core/interface/widgets/IBg';
 import { StorysModule } from '@core/module/storys.module';
 import { ShareModule } from '@share/share.module';
 import {
@@ -32,18 +33,20 @@ const Template: Story = (args) => ({
 });
 export const BgPrimary = Template.bind({});
 BgPrimary.storyName = '主色背景';
+const content: IBg = {
+  type: 'bg',
+  classes: 'bg-fill-width bg-primary',
+};
 BgPrimary.args = {
-  content: {
-    type: 'bg',
-    classes: 'bg-fill-width bg-primary',
-  },
+  content,
 };
 
 export const BgShadow = Template.bind({});
 BgShadow.storyName = '灰色背景';
+const shadow: IBg = {
+  type: 'bg',
+  classes: 'bg-fill-width bg-shadow',
+};
 BgShadow.args = {
-  content: {
-    type: 'bg',
-    classes: 'bg-fill-width bg-shadow',
-  },
+  content: shadow,
 };

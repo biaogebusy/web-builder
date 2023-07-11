@@ -2,6 +2,7 @@ import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { LocationComponent } from '@uiux/combs/map/location/location.component';
 import { StorysModule } from '@core/module/storys.module';
+import { ILocation } from '@core/interface/combs/IMap';
 
 export default {
   title: '复合组件/地图/位置',
@@ -29,30 +30,30 @@ const Template: Story = (args) => ({
   },
 });
 export const Default = Template.bind({});
-
-Default.args = {
-  content: {
-    type: 'location',
-    title: {
-      label: '我的位置',
-      style: 'banner-title',
-      classes: 'm-bottom-0',
-    },
-    style: {
-      height: '500px',
-    },
-    city: '南宁市',
-    params: {
-      zoomEnable: false,
-      draggable: false,
-    },
-    elements: [
-      {
-        company: {
-          setCenter: true,
-          address: '高新区8号创客城',
-        },
-      },
-    ],
+const content: ILocation = {
+  type: 'location',
+  title: {
+    label: '我的位置',
+    style: 'banner-title',
+    classes: 'm-bottom-0',
   },
+  style: {
+    height: '500px',
+  },
+  bg: {
+    classes: '',
+  },
+  classes: '',
+  city: '南宁市',
+  elements: [
+    {
+      company: {
+        setCenter: true,
+        address: '高新区8号创客城',
+      },
+    },
+  ],
+};
+Default.args = {
+  content,
 };

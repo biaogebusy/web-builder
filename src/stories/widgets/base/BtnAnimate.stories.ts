@@ -1,3 +1,4 @@
+import { IBtnAnimate } from '@core/interface/widgets/IBtnAnimate';
 import { StorysModule } from '@core/module/storys.module';
 import {
   moduleMetadata,
@@ -30,13 +31,13 @@ const Template: Story = (args) => ({
   },
 });
 export const Default = Template.bind({});
-
+const content: IBtnAnimate = {
+  type: 'btn-animate',
+  label: '查看更多',
+  href: '#',
+  style: 'style-v1',
+  icon: 'open_in_new',
+};
 Default.args = {
-  content: {
-    type: 'btn-animate',
-    label: '查看更多',
-    href: '#',
-    style: 'style-v1',
-    icon: 'open_in_new',
-  },
+  content: content,
 };

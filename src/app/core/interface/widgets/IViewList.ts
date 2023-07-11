@@ -1,6 +1,6 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
-import { IBg } from './IBg';
 import { IText } from './IText';
+import { IBgImg } from './IBgImg';
 
 export interface IViewList {
   type: string;
@@ -12,7 +12,7 @@ export interface IViewList {
   tableParams?: any;
   fullWidth?: boolean;
   id?: string;
-  bg?: IBg;
+  bg?: IBgImg;
   text?: IText;
   data?: any;
 }

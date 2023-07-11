@@ -7,7 +7,7 @@
       <mat-tab-group *ngSwitchCase="'center'" mat-align-tabs="center" [ngClass]="content.classes">
         <mat-tab *ngFor="let item of content.elements" label="{{item.label}}">
           <div class="p-y-sm p-x-sm">
-            <app-bg-img [content]="content.bg"></app-bg-img>
+            <app-bg-img *ngIf="content.bg" [content]="content.bg"></app-bg-img>
             <app-dynamic-component *ngFor="let item of item.elements" [inputs]="{content:item}"></app-dynamic-component>
           </div>
         </mat-tab>
@@ -15,7 +15,7 @@
       <mat-tab-group *ngSwitchCase="'end'" mat-align-tabs="center" [ngClass]="content.classes">
         <mat-tab *ngFor="let item of content.elements" label="{{item.label}}">
           <div class="p-y-sm p-x-sm">
-            <app-bg-img [content]="content.bg"></app-bg-img>
+            <app-bg-img *ngIf="content.bg" [content]="content.bg"></app-bg-img>
             <app-dynamic-component *ngFor="let item of item.elements" [inputs]="{content:item}"></app-dynamic-component>
           </div>
         </mat-tab>
@@ -23,7 +23,7 @@
       <mat-tab-group *ngSwitchDefault mat-align-tabs="start" [ngClass]="content.classes">
         <mat-tab *ngFor="let item of content.elements" label="{{item.label}}">
           <div class="p-y-sm p-x-sm">
-            <app-bg-img [content]="content.bg"></app-bg-img>
+            <app-bg-img *ngIf="content.bg" [content]="content.bg"></app-bg-img>
             <app-dynamic-component *ngFor="let item of item.elements" [inputs]="{content:item}"></app-dynamic-component>
           </div>
         </mat-tab>

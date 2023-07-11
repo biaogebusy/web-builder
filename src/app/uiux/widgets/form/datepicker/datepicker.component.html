@@ -3,8 +3,8 @@
   <mat-form-field class="width-100" [appearance]="content.appearance || 'fill'" *ngIf="content" [formGroup]="form">
     <mat-label *ngIf="content.label">{{content.label}}</mat-label>
     <mat-date-range-input [rangePicker]="pickerRange">
-      <input matStartDate formControlName="start" [placeholder]="content?.placeholder?.start || '开始'">
-      <input matEndDate formControlName="end" [placeholder]="content?.placeholder?.end || '结束'">
+      <input matStartDate formControlName="start" [placeholder]="content.templateOptions?.placeholder?.start || '开始'">
+      <input matEndDate formControlName="end" [placeholder]="content?.templateOptions?.placeholder?.end || '结束'">
     </mat-date-range-input>
     <mat-datepicker-toggle matSuffix [for]="pickerRange"></mat-datepicker-toggle>
     <mat-date-range-picker [dateClass]="content?.classes" [opened]="content?.opened" #pickerRange>

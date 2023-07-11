@@ -4,7 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import type { IRlate } from '@core/interface/node/IRelate';
+import type { IRelate } from '@core/interface/node/IRelate';
 
 @Component({
   selector: 'app-relate',
@@ -13,7 +13,7 @@ import type { IRlate } from '@core/interface/node/IRelate';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RelateComponent implements OnInit {
-  @Input() content: IRlate;
+  @Input() content: IRelate;
   constructor() {}
 
   ngOnInit(): void {}

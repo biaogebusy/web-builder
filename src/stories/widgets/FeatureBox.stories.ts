@@ -1,3 +1,4 @@
+import { IFeatureBox } from '@core/interface/widgets/IFeatureBox';
 import { StorysModule } from '@core/module/storys.module';
 import {
   moduleMetadata,
@@ -29,39 +30,41 @@ const Template: Story = (args) => ({
   },
 });
 export const Default = Template.bind({});
-
-Default.args = {
-  content: {
-    type: 'feature-box',
-    fullIcon: 'fullscreen',
-    openIcon: 'open_in_new',
-    link: '#',
-    ratios: 'media-4-3',
-    img: {
-      classes: 'object-fit',
-      src: '/assets/images/cases/porto1.jpg',
-      alt: 'Feature box',
-    },
+const content: IFeatureBox = {
+  type: 'feature-box',
+  fullIcon: 'fullscreen',
+  openIcon: 'open_in_new',
+  link: '#',
+  ratios: 'media-4-3',
+  img: {
+    classes: 'object-fit',
+    src: '/assets/images/cases/porto1.jpg',
+    alt: 'Feature box',
   },
+};
+Default.args = {
+  content,
 };
 
 export const HoverIcon = Template.bind({});
 HoverIcon.storyName = 'Icon 经过';
+const hover: IFeatureBox = {
+  ...Default.args.content,
+  hoverIcon: true,
+};
 HoverIcon.args = {
-  content: {
-    ...Default.args.content,
-    hoverIcon: true,
-  },
+  content: hover,
 };
 
 export const Float = Template.bind({});
 Float.storyName = 'Icon 浮出';
+const float: IFeatureBox = {
+  ...Default.args.content,
+  mode: 'float',
+  hoverIcon: true,
+};
 Float.args = {
-  content: {
-    ...Default.args.content,
-    mode: 'float',
-    hoverIcon: true,
-  },
+  content: float,
 };
 
 export const NotMedia = Template.bind({});
@@ -74,18 +77,20 @@ NotMedia.parameters = {
     },
   },
 };
-NotMedia.args = {
-  content: {
-    ...Default.args.content,
-    mode: 'float',
-    hoverIcon: true,
-    openIcon: 'file_download',
-    openIframe: true,
-    img: {
-      class: 'object-fit',
-      src: '/xxx.doc',
-      preview: '/xxx.doc',
-      alt: '说明文档v1.doc',
-    },
+const notMedia: IFeatureBox = {
+  ...Default.args.content,
+  mode: 'float',
+  hoverIcon: true,
+  openIcon: 'file_download',
+  openIframe: true,
+  img: {
+    class: 'object-fit',
+    src: '/xxx.doc',
+    preview: '/xxx.doc',
+    alt: '说明文档v1.doc',
   },
+};
+
+NotMedia.args = {
+  content: notMedia,
 };

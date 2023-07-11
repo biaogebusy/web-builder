@@ -7,6 +7,7 @@ import { Story } from '@storybook/angular/types-6-0';
 import { Showcase4v1Component } from '@uiux/combs/showcase/showcase4v1/showcase4v1.component';
 import { StorysModule } from '@core/module/storys.module';
 import { random } from 'lodash-es';
+import { IShowcase4v1 } from '@core/interface/combs/IShowcase';
 
 export default {
   title: '特色组件/展示 Showcase/4v1',
@@ -31,63 +32,68 @@ const Template: Story = (args) => ({
   },
 });
 export const Default = Template.bind({});
+const content: IShowcase4v1 = {
+  type: 'showcase-4v1',
+  spacer: 'lg',
+  text: {
+    title: {
+      label: '平台实时数据',
+      style: 'style-v1',
+    },
+  },
+  bg: {
+    classes: '',
+  },
+  classes: '',
+  params: {
+    api: 'api/v1/tab/order_process_statistics',
+  },
+  elements: [
+    {
+      icon: {
+        name: 'fingerprint',
+      },
+      digit: {
+        value: random(100, 1000),
+        label: '+',
+      },
+      title: '日访问人数',
+    },
+    {
+      icon: {
+        name: 'verified_user',
+      },
+      digit: {
+        value: random(100, 500),
+        label: '+',
+      },
+      title: '日打开次数',
+    },
+    {
+      icon: {
+        name: 'android',
+      },
+      digit: {
+        value: random(10, 300),
+        label: '人',
+      },
+      title: '日新增人数',
+    },
+    {
+      icon: {
+        name: 'mail',
+      },
+      digit: {
+        value: random(3000, 10000),
+        label: '万',
+      },
+      title: '累计用户数',
+    },
+  ],
+};
 
 Default.args = {
-  content: {
-    type: 'showcase-4v1',
-    spacer: 'lg',
-    text: {
-      title: {
-        label: '平台实时数据',
-        style: 'style-v1',
-      },
-    },
-    paramsBak: {
-      api: 'api/v1/tab/order_process_statistics',
-    },
-    elements: [
-      {
-        icon: {
-          name: 'fingerprint',
-        },
-        digit: {
-          value: random(100, 1000),
-          label: '+',
-        },
-        title: '日访问人数',
-      },
-      {
-        icon: {
-          name: 'verified_user',
-        },
-        digit: {
-          value: random(100, 500),
-          label: '+',
-        },
-        title: '日打开次数',
-      },
-      {
-        icon: {
-          name: 'android',
-        },
-        digit: {
-          value: random(10, 300),
-          label: '人',
-        },
-        title: '日新增人数',
-      },
-      {
-        icon: {
-          name: 'mail',
-        },
-        digit: {
-          value: random(3000, 10000),
-          label: '万',
-        },
-        title: '累计用户数',
-      },
-    ],
-  },
+  content,
 };
 
 export const Img = Template.bind({});

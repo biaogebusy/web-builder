@@ -5,6 +5,7 @@ import { MapListV1Component } from '@uiux/combs/map/map-list-v1/map-list-v1.comp
 import * as Card1v3Stories from 'src/stories/widgets/card/Card1v3.stories';
 import * as MediaObjectStories from 'src/stories/widgets/media/MediaObject.stories';
 import { sleep, StorysModule } from '@core/module/storys.module';
+import { IMapListv1 } from '@core/interface/combs/IMap';
 
 export default {
   title: '复合组件/地图/位置列表 1v1',
@@ -33,28 +34,29 @@ const Template: Story = (args) => ({
 });
 export const Default = Template.bind({});
 const card1v3: any = Card1v3Stories.Base.args;
-Default.args = {
-  content: {
-    type: 'map-list-v1',
-    title: {
-      label: '南宁市创业孵化服务中心',
-      style: 'style-v4',
-    },
-    meta: [
-      {
-        label: '地址',
-        value: '良庆区玉洞街道玉洞大道x号',
-      },
-      {
-        label: '电话',
-        value: '0771-xxxxxx',
-      },
-    ],
-    map: {
-      citi: '南宁市',
-      elements: card1v3.content.elements,
-    },
+const content: IMapListv1 = {
+  type: 'map-list-v1',
+  title: {
+    label: '南宁市创业孵化服务中心',
+    style: 'style-v4',
   },
+  meta: [
+    {
+      label: '地址',
+      value: '良庆区玉洞街道玉洞大道x号',
+    },
+    {
+      label: '电话',
+      value: '0771-xxxxxx',
+    },
+  ],
+  map: {
+    city: '南宁市',
+    elements: card1v3.content.elements,
+  },
+};
+Default.args = {
+  content,
 };
 
 Default.play = async () => {
@@ -73,19 +75,20 @@ Default.play = async () => {
 export const Sidebar = Template.bind({});
 const mediaObject: any = MediaObjectStories.Default.args;
 Sidebar.storyName = '带边栏';
+const sidebar: IMapListv1 = {
+  ...Default.args.content,
+  sidebarRight: [
+    {
+      type: 'title',
+      label: '相关信息',
+      style: 'style-v4',
+    },
+    {
+      type: 'media-object-group',
+      elements: [mediaObject.content],
+    },
+  ],
+};
 Sidebar.args = {
-  content: {
-    ...Default.args.content,
-    sidebarRight: [
-      {
-        type: 'title',
-        label: '相关信息',
-        style: 'style-v4',
-      },
-      {
-        type: 'media-object-group',
-        elements: [mediaObject.content],
-      },
-    ],
-  },
+  content: sidebar,
 };

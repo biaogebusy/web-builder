@@ -1,4 +1,5 @@
 export interface IUserCenter {
+  type: string;
   params: {
     showProfile: boolean;
     showDetails: boolean;

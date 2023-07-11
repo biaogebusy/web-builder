@@ -1,6 +1,7 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
 
 export interface IReport {
+  type: string;
   style?: any;
   header?: any;
   form: FormlyFieldConfig[];
@@ -8,4 +9,5 @@ export interface IReport {
   params?: any;
   box: any[];
   customDataset?: any;
+  datasetIndex?: number;
 }

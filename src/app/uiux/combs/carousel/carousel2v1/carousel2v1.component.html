@@ -3,7 +3,7 @@
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <app-bg-img [content]="content.bg" *ngIf="content.bg"></app-bg-img>
   <div class="container">
-    <app-title [content]="content.title"></app-title>
+    <app-title *ngIf="content.title" [content]="content.title"></app-title>
     <app-swiper [content]="content.sliders"></app-swiper>
   </div>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>

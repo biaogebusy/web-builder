@@ -1,3 +1,4 @@
+import { IChipList } from '@core/interface/widgets/IChipList';
 import { StorysModule } from '@core/module/storys.module';
 import {
   moduleMetadata,
@@ -27,40 +28,42 @@ const Template: Story = (args) => ({
   },
 });
 export const Default = Template.bind({});
-
+const content: IChipList = {
+  type: 'chip-list',
+  elements: [
+    {
+      label: 'Primary',
+    },
+    {
+      label: 'Warn',
+      color: 'warn',
+    },
+    {
+      label: 'Accent',
+      color: 'accent',
+    },
+    {
+      label: 'Selected',
+      selected: true,
+    },
+    {
+      color: 'accent',
+      link: {
+        label: 'link',
+        href: '#',
+      },
+    },
+  ],
+};
 Default.args = {
-  content: {
-    type: 'chip-list',
-    elements: [
-      {
-        label: 'Primary',
-      },
-      {
-        label: 'Warn',
-        color: 'warn',
-      },
-      {
-        label: 'Accent',
-        color: 'accent',
-      },
-      {
-        label: 'Selected',
-        selected: true,
-      },
-      {
-        color: 'accent',
-        link: {
-          label: 'link',
-          href: '#',
-        },
-      },
-    ],
-  },
+  content,
 };
 
 export const Mini = Template.bind({});
-
+const mini: IChipList = {
+  ...Default.args.content,
+};
 Mini.args = {
   classes: 'mini',
-  ...Default.args,
+  content: mini,
 };

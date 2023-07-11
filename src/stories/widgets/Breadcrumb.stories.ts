@@ -1,3 +1,4 @@
+import { ILink } from '@core/interface/widgets/ILink';
 import { StorysModule } from '@core/module/storys.module';
 import {
   moduleMetadata,
@@ -30,20 +31,20 @@ const Template: Story = (args) => ({
   },
 });
 export const Base = Template.bind({});
-
+const base: ILink[] = [
+  {
+    label: '首页',
+    href: '#',
+  },
+  {
+    label: '组件',
+    href: '#',
+  },
+  {
+    label: '横幅',
+    href: '#',
+  },
+];
 Base.args = {
-  content: [
-    {
-      label: '首页',
-      href: '#',
-    },
-    {
-      label: '组件',
-      href: '#',
-    },
-    {
-      label: '横幅',
-      href: '#',
-    },
-  ],
+  content: base,
 };

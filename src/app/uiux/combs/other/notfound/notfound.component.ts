@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { INotfound } from '@core/interface/combs/INotfound';
 
 @Component({
   selector: 'app-404',
@@ -12,7 +13,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NotfoundComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: INotfound;
   constructor() {}
 
   ngOnInit(): void {}
