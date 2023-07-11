@@ -55,13 +55,6 @@ export const images_avatar = [
     ...featureBox,
     img: {
       classes: 'object-fit',
-      src: '/assets/images/avatar/07.jpeg',
-    },
-  },
-  {
-    ...featureBox,
-    img: {
-      classes: 'object-fit',
       src: '/assets/images/avatar/default.png',
     },
   },

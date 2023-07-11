@@ -27,13 +27,6 @@ export const images_others = [
     ...featureBox,
     img: {
       classes: 'object-fit',
-      src: '/assets/images/banner-01.jpeg',
-    },
-  },
-  {
-    ...featureBox,
-    img: {
-      classes: 'object-fit',
       src: '/assets/images/button.scene.png',
     },
   },

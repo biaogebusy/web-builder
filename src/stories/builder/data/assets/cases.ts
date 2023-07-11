@@ -79,11 +79,4 @@ export const images_cases = [
       src: '/assets/images/cases/porto10.jpg',
     },
   },
-  {
-    ...featureBox,
-    img: {
-      classes: 'object-fit',
-      src: '/assets/images/cases/porto13.jpg',
-    },
-  },
 ];

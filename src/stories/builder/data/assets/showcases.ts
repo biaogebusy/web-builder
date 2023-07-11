@@ -132,13 +132,6 @@ export const images_showcases = [
     ...featureBox,
     img: {
       classes: 'object-fit',
-      src: '/assets/images/showcase/browser1.png',
-    },
-  },
-  {
-    ...featureBox,
-    img: {
-      classes: 'object-fit',
       src: '/assets/images/showcase/clipboard.png',
     },
   },
@@ -153,7 +146,7 @@ export const images_showcases = [
     ...featureBox,
     img: {
       classes: 'object-fit',
-      src: '/assets/images/showcase/education.jpe',
+      src: '/assets/images/showcase/education.jpg',
     },
   },
   {
