@@ -31,7 +31,7 @@
     "loginRedirect": "/",
     "left": {
       "type": "img",
-      "src": "/assets/images/login-second.png",
+      "src": "/assets/images/logo/login-second.png",
       "alt": "登录"
     },
     "phoneLogin": {
@@ -47,7 +47,7 @@
       "submitLabel": "登录"
     }
   },
-  "defaultLogo": "/assets/images/logo.png",
+  "defaultLogo": "/assets/images/logo/logo.png",
   "defaultAvatar": "/assets/images/avatar/01.jpeg",
   "defaultThumb": "/assets/images/default.png",
   "amap": {
