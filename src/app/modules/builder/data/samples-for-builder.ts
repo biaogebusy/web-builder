@@ -15,12 +15,16 @@ export const samples = {
               spacer: 'none',
               type: 'hero-1v1',
               classes: 'text-light text-center',
+              bg: {
+                classes: '',
+              },
               sliders: {
                 params: {
                   slidesPerView: 1,
                   spaceBetween: 0,
                   pagination: false,
                 },
+                classes: '',
                 elements: [
                   {
                     type: 'text',
@@ -282,7 +286,11 @@ export const samples = {
                 style: 'style-v1',
               },
             },
-            paramsBak: {
+            bg: {
+              classes: 'bg-fill-width bg-shadow',
+            },
+            classes: '',
+            params: {
               api: 'api/v1/tab/order_process_statistics',
             },
             elements: [
@@ -291,7 +299,7 @@ export const samples = {
                   name: 'fingerprint',
                 },
                 digit: {
-                  value: 233,
+                  value: 449,
                   label: '+',
                 },
                 title: '日访问人数',
@@ -301,7 +309,7 @@ export const samples = {
                   name: 'verified_user',
                 },
                 digit: {
-                  value: 249,
+                  value: 341,
                   label: '+',
                 },
                 title: '日打开次数',
@@ -311,7 +319,7 @@ export const samples = {
                   name: 'android',
                 },
                 digit: {
-                  value: 87,
+                  value: 144,
                   label: '人',
                 },
                 title: '日新增人数',
@@ -321,15 +329,12 @@ export const samples = {
                   name: 'mail',
                 },
                 digit: {
-                  value: 3309,
+                  value: 6251,
                   label: '万',
                 },
                 title: '累计用户数',
               },
             ],
-            bg: {
-              classes: 'bg-fill-width bg-shadow',
-            },
           },
           {
             content: {
@@ -345,6 +350,7 @@ export const samples = {
                   hostClasses: 'bg-center',
                 },
               },
+              classes: '',
               sliders: {
                 params: {
                   slidesPerView: 1,
@@ -414,11 +420,15 @@ export const samples = {
                 },
                 body: '<p class="text-center">欢迎分享 Drupal 优秀的数字创新体验</p>',
               },
+              bg: {
+                classes: '',
+              },
+              classes: '',
               row: 5,
               elements: [
                 {
                   type: 'card',
-                  subTitle: '2023-07-09',
+                  subTitle: '2023-07-11',
                   avatar: {
                     src: '/assets/images/showcase/weather.png',
                     alt: '',
@@ -468,7 +478,7 @@ export const samples = {
                 },
                 {
                   type: 'card',
-                  subTitle: '2023-07-09',
+                  subTitle: '2023-07-11',
                   avatar: {
                     src: '/assets/images/showcase/browser.png',
                     alt: '',
@@ -505,7 +515,7 @@ export const samples = {
                 },
                 {
                   type: 'card',
-                  subTitle: '2023-07-09',
+                  subTitle: '2023-07-11',
                   avatar: {
                     src: '/assets/images/showcase/clipboard.png',
                     alt: '',
@@ -542,7 +552,7 @@ export const samples = {
                 },
                 {
                   type: 'card',
-                  subTitle: '2023-07-09',
+                  subTitle: '2023-07-11',
                   avatar: {
                     src: '/assets/images/showcase/console.png',
                     alt: '',
@@ -579,7 +589,7 @@ export const samples = {
                 },
                 {
                   type: 'card',
-                  subTitle: '2023-07-09',
+                  subTitle: '2023-07-11',
                   avatar: {
                     src: '/assets/images/showcase/weather.png',
                     alt: '',
@@ -616,7 +626,7 @@ export const samples = {
                 },
                 {
                   type: 'card',
-                  subTitle: '2023-07-09',
+                  subTitle: '2023-07-11',
                   avatar: {
                     src: '/assets/images/showcase/weather.png',
                     alt: '',
@@ -653,7 +663,7 @@ export const samples = {
                 },
                 {
                   type: 'card',
-                  subTitle: '2023-07-09',
+                  subTitle: '2023-07-11',
                   avatar: {
                     src: '/assets/images/showcase/weather.png',
                     alt: '',
@@ -690,7 +700,7 @@ export const samples = {
                 },
                 {
                   type: 'card',
-                  subTitle: '2023-07-09',
+                  subTitle: '2023-07-11',
                   avatar: {
                     src: '/assets/images/showcase/weather.png',
                     alt: '',
@@ -735,6 +745,10 @@ export const samples = {
                 src: '/assets/video/storybook.mp4',
                 type: 'video/mp4',
               },
+              bg: {
+                classes: '',
+              },
+              classes: '',
               widget: {
                 type: 'showcase-1v3',
                 title: {
@@ -794,7 +808,8 @@ export const samples = {
               bg: {
                 classes: 'bg-light bg-fill-width',
               },
-              row: '4',
+              classes: '',
+              row: 4,
               elements: [
                 {
                   img: {
@@ -878,6 +893,10 @@ export const samples = {
                 label: 'Vue 开发',
                 style: 'style-v1',
               },
+              bg: {
+                classes: '',
+              },
+              classes: '',
               filter: [
                 {
                   label: '全部',
@@ -897,7 +916,7 @@ export const samples = {
                   value: 'frontEnd',
                 },
               ],
-              row: '4',
+              row: 4,
               elements: [
                 {
                   type: 'card',
@@ -1266,6 +1285,7 @@ export const samples = {
                   src: '/assets/images/bg/bg-04.png',
                 },
               },
+              classes: '',
               text: {
                 title: {
                   label: '开源项目使用 Github actions 自动化',
@@ -1349,6 +1369,10 @@ export const samples = {
                 style: 'style-v3',
               },
               row: 4,
+              bg: {
+                classes: 'bg- bg-fill-width',
+              },
+              classes: '',
               style: 'style-v3',
               elements: [
                 {
@@ -1417,7 +1441,11 @@ export const samples = {
           {
             content: {
               type: 'showcase-2v1',
-              row: '4',
+              row: 4,
+              bg: {
+                classes: '',
+              },
+              classes: '',
               text: {
                 title: {
                   label: '最新课程',
@@ -1522,6 +1550,7 @@ export const samples = {
               bg: {
                 classes: 'bg-shadow bg-fill-width',
               },
+              classes: '',
               text: {
                 title: {
                   label: '如何才能帮助到您？',
@@ -1609,6 +1638,7 @@ export const samples = {
             bg: {
               classes: 'bg-fill-width bg-',
             },
+            classes: '',
             img: {
               src: '/assets/images/1-1/business-02.png',
               alt: 'OUR FEATURES',
@@ -1691,7 +1721,11 @@ export const samples = {
                 style: 'style-v1',
               },
             },
-            paramsBak: {
+            bg: {
+              classes: 'bg-fill-width bg-shadow',
+            },
+            classes: '',
+            params: {
               api: 'api/v1/tab/order_process_statistics',
             },
             elements: [
@@ -1700,7 +1734,7 @@ export const samples = {
                   name: 'fingerprint',
                 },
                 digit: {
-                  value: 233,
+                  value: 449,
                   label: '+',
                 },
                 title: '日访问人数',
@@ -1710,7 +1744,7 @@ export const samples = {
                   name: 'verified_user',
                 },
                 digit: {
-                  value: 249,
+                  value: 341,
                   label: '+',
                 },
                 title: '日打开次数',
@@ -1720,7 +1754,7 @@ export const samples = {
                   name: 'android',
                 },
                 digit: {
-                  value: 87,
+                  value: 144,
                   label: '人',
                 },
                 title: '日新增人数',
@@ -1730,15 +1764,12 @@ export const samples = {
                   name: 'mail',
                 },
                 digit: {
-                  value: 3309,
+                  value: 6251,
                   label: '万',
                 },
                 title: '累计用户数',
               },
             ],
-            bg: {
-              classes: 'bg-fill-width bg-shadow',
-            },
           },
           {
             content: {
@@ -1750,6 +1781,7 @@ export const samples = {
                 style: 'style-v2',
                 classes: 'mat-display-1',
               },
+              classes: '',
               bg: {
                 classes: 'bg-white bg-fill-width',
               },
@@ -1893,12 +1925,16 @@ export const samples = {
               spacer: 'none',
               type: 'hero-1v1',
               classes: 'text-light text-center',
+              bg: {
+                classes: '',
+              },
               sliders: {
                 params: {
                   slidesPerView: 1,
                   spaceBetween: 0,
                   pagination: false,
                 },
+                classes: '',
                 elements: [
                   {
                     type: 'text',
@@ -1996,6 +2032,7 @@ export const samples = {
               bg: {
                 classes: 'bg-fill-width bg-shadow',
               },
+              classes: '',
               sliders: {
                 params: {
                   slidesPerView: 1.2,
@@ -2014,6 +2051,7 @@ export const samples = {
                     },
                   },
                 },
+                classes: '',
                 elements: [
                   {
                     type: 'img',
@@ -2441,6 +2479,10 @@ export const samples = {
             content: {
               type: 'hero-1v3',
               spacer: 'xl',
+              bg: {
+                classes: '',
+              },
+              classes: '',
               text: {
                 title: {
                   label:
@@ -2494,7 +2536,8 @@ export const samples = {
               bg: {
                 classes: 'bg-none bg-fill-width',
               },
-              row: '4',
+              row: 4,
+              classes: '',
               elements: [
                 {
                   img: {
@@ -2700,6 +2743,7 @@ export const samples = {
                   src: '/assets/images/bg/bg-02.png',
                 },
               },
+              classes: '',
               order: {
                 left: 1,
                 right: 0,
@@ -2833,6 +2877,7 @@ export const samples = {
               bg: {
                 classes: 'bg-shadow bg-fill-width',
               },
+              classes: '',
               row: '3',
               elements: [
                 {
@@ -2926,6 +2971,7 @@ export const samples = {
                 style: 'style-v2',
                 classes: 'mat-display-1',
               },
+              classes: '',
               bg: {
                 classes: 'bg-white bg-fill-width',
               },
@@ -3045,7 +3091,11 @@ export const samples = {
           {
             content: {
               type: 'showcase-2v1',
-              row: '4',
+              row: 4,
+              bg: {
+                classes: '',
+              },
+              classes: '',
               text: {
                 title: {
                   label: '最新课程',
@@ -3849,6 +3899,7 @@ export const samples = {
             content: {
               type: 'hero-1v3',
               spacer: 'xl',
+              classes: '',
               text: {
                 title: {
                   label:
@@ -4052,6 +4103,7 @@ export const samples = {
                   src: '/assets/images/bg/bg-02.png',
                 },
               },
+              classes: '',
               order: {
                 left: 1,
                 right: 0,
@@ -4120,7 +4172,11 @@ export const samples = {
           {
             content: {
               type: 'showcase-2v1',
-              row: '4',
+              row: 4,
+              bg: {
+                classes: '',
+              },
+              classes: '',
               text: {
                 title: {
                   label: '最新课程',
@@ -4224,6 +4280,7 @@ export const samples = {
                 label: '近期作品',
                 style: 'style-v6 line-full-width',
               },
+              classes: '',
               bg: {
                 classes: 'bg-white bg-fill-width',
               },
@@ -4379,6 +4436,7 @@ export const samples = {
               bg: {
                 classes: 'bg-shadow bg-fill-width',
               },
+              classes: '',
               text: {
                 title: {
                   label: '如何才能帮助到您？',
@@ -4464,6 +4522,7 @@ export const samples = {
             bg: {
               classes: 'bg-fill-width bg-',
             },
+            classes: '',
             sliders: {
               params: {
                 slidesPerView: 1.2,
@@ -4482,6 +4541,7 @@ export const samples = {
                   },
                 },
               },
+              classes: '',
               elements: [
                 {
                   type: 'img',
@@ -4667,6 +4727,7 @@ export const samples = {
             content: {
               type: 'hero-1v4',
               spacer: 'xl',
+              classes: '',
               text: {
                 title: {
                   label:
@@ -4921,6 +4982,7 @@ export const samples = {
                   src: '/assets/images/bg/bg-02.png',
                 },
               },
+              classes: '',
               order: {
                 left: 1,
                 right: 0,
@@ -5151,6 +5213,7 @@ export const samples = {
             content: {
               spacer: 'xl',
               type: 'hero-1v4',
+              classes: '',
               text: {
                 title: {
                   label:
@@ -5213,6 +5276,7 @@ export const samples = {
               bg: {
                 classes: 'bg-fill-width bg-shadow',
               },
+              classes: '',
               sliders: {
                 params: {
                   slidesPerView: 1.2,
@@ -5231,6 +5295,7 @@ export const samples = {
                     },
                   },
                 },
+                classes: '',
                 elements: [
                   {
                     type: 'img',
@@ -5321,6 +5386,7 @@ export const samples = {
             bg: {
               classes: 'bg-fill-width bg-',
             },
+            classes: '',
             row: '3',
             elements: [
               {
@@ -5651,7 +5717,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset187.svg',
                 },
                 digit: {
-                  value: 55,
+                  value: 32,
                   label: 'M',
                 },
                 title: 'Github Start',
@@ -5661,7 +5727,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset189.svg',
                 },
                 digit: {
-                  value: 18926,
+                  value: 16823,
                   label: '+',
                 },
                 title: 'NPM 周下载量',
@@ -5671,7 +5737,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset190.svg',
                 },
                 digit: {
-                  value: 3373,
+                  value: 3339,
                   label: 'K',
                 },
                 title: '社区活跃',
@@ -5681,7 +5747,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset192.svg',
                 },
                 digit: {
-                  value: 643,
+                  value: 961,
                   label: '个',
                 },
                 title: '成功故事',
@@ -5762,11 +5828,6 @@ export const samples = {
                 },
                 spacer: 'xl',
                 classes: 'xy-center',
-                'style-': {
-                  width: '50%',
-                  left: '0%',
-                  top: '5%',
-                },
                 bg: {
                   classes: 'bg-shadow overlay overlay-80',
                   img: {
@@ -5804,7 +5865,11 @@ export const samples = {
                 },
                 body: '<p class="text-center">突破传统的艺术边界，展示前卫和创新的艺术作品</p>',
               },
-              row: '4',
+              row: 4,
+              bg: {
+                classes: '',
+              },
+              classes: '',
               elements: [
                 {
                   carousel: {
@@ -5965,7 +6030,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset187.svg',
                 },
                 digit: {
-                  value: 55,
+                  value: 32,
                   label: 'M',
                 },
                 title: 'Github Start',
@@ -5975,7 +6040,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset189.svg',
                 },
                 digit: {
-                  value: 18926,
+                  value: 16823,
                   label: '+',
                 },
                 title: 'NPM 周下载量',
@@ -5985,7 +6050,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset190.svg',
                 },
                 digit: {
-                  value: 3373,
+                  value: 3339,
                   label: 'K',
                 },
                 title: '社区活跃',
@@ -5995,7 +6060,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset192.svg',
                 },
                 digit: {
-                  value: 643,
+                  value: 961,
                   label: '个',
                 },
                 title: '成功故事',
@@ -6012,6 +6077,7 @@ export const samples = {
                 label: '近期作品',
                 style: 'style-v6 line-full-width',
               },
+              classes: '',
               bg: {
                 classes: 'bg-white bg-fill-width',
               },
@@ -6170,6 +6236,10 @@ export const samples = {
               params: {
                 apiBak: '/api/v2/xxx',
               },
+              bg: {
+                classes: '',
+              },
+              classes: '',
               more: {
                 label: '查看更多',
                 href: '#',
@@ -6248,6 +6318,10 @@ export const samples = {
             content: {
               type: 'hero-1v3',
               spacer: 'xl',
+              bg: {
+                classes: '',
+              },
+              classes: '',
               text: {
                 title: {
                   label:
@@ -6309,7 +6383,8 @@ export const samples = {
               bg: {
                 classes: 'bg-shadow bg-fill-width',
               },
-              row: '3',
+              row: 3,
+              classes: '',
               elements: [
                 {
                   img: {
@@ -6725,6 +6800,7 @@ export const samples = {
                   spaceBetween: 0,
                   pagination: true,
                 },
+                classes: '',
                 elements: [
                   {
                     title: '使Storybook 是什么？',
@@ -6820,6 +6896,7 @@ export const samples = {
                 label: '近期作品',
                 style: 'style-v6 line-full-width',
               },
+              classes: '',
               bg: {
                 classes: 'bg-white bg-fill-width',
               },
@@ -6978,6 +7055,10 @@ export const samples = {
               params: {
                 apiBak: '/api/v2/xxx',
               },
+              bg: {
+                classes: '',
+              },
+              classes: '',
               more: {
                 label: '查看更多',
                 href: '#',
@@ -7064,6 +7145,7 @@ export const samples = {
                   src: '/assets/images/16-9/business-16.jpeg',
                 },
               },
+              classes: '',
               body: {
                 type: 'text',
                 title: {
@@ -7096,6 +7178,7 @@ export const samples = {
               bg: {
                 classes: 'bg-fill-width bg-shadow',
               },
+              classes: '',
               sliders: {
                 params: {
                   slidesPerView: 1.2,
@@ -7114,6 +7197,7 @@ export const samples = {
                     },
                   },
                 },
+                classes: '',
                 elements: [
                   {
                     type: 'img',
@@ -7197,6 +7281,7 @@ export const samples = {
                 classes: 'bg- bg-fill-width',
               },
               row: 3,
+              classes: '',
               text: {
                 title: {
                   label:
@@ -7275,6 +7360,7 @@ export const samples = {
                 classes: 'bg- bg-fill-width',
               },
               row: 2,
+              classes: '',
               text: {
                 title: {
                   label: '艺术设计之旅：探索创意与美学的奇妙世界',
@@ -7439,6 +7525,7 @@ export const samples = {
             content: {
               type: 'hero-1v3',
               spacer: 'xl',
+              classes: '',
               text: {
                 title: {
                   label:
@@ -7516,6 +7603,7 @@ export const samples = {
             bg: {
               classes: 'bg-fill-width bg-',
             },
+            classes: '',
             sliders: {
               params: {
                 slidesPerView: 1.2,
@@ -7534,6 +7622,7 @@ export const samples = {
                   },
                 },
               },
+              classes: '',
               elements: [
                 {
                   type: 'img',
@@ -7622,7 +7711,8 @@ export const samples = {
               bg: {
                 classes: 'bg-shadow bg-fill-width',
               },
-              row: '3',
+              row: 3,
+              classes: '',
               elements: [
                 {
                   img: {
@@ -7804,6 +7894,7 @@ export const samples = {
               bg: {
                 classes: 'bg-shadow bg-fill-width',
               },
+              classes: '',
               row: '3',
               elements: [
                 {
@@ -7908,7 +7999,7 @@ export const samples = {
                     src: '/assets/images/svg/Asset187.svg',
                   },
                   digit: {
-                    value: 55,
+                    value: 32,
                     label: 'M',
                   },
                   title: 'Github Start',
@@ -7918,7 +8009,7 @@ export const samples = {
                     src: '/assets/images/svg/Asset189.svg',
                   },
                   digit: {
-                    value: 18926,
+                    value: 16823,
                     label: '+',
                   },
                   title: 'NPM 周下载量',
@@ -7928,7 +8019,7 @@ export const samples = {
                     src: '/assets/images/svg/Asset190.svg',
                   },
                   digit: {
-                    value: 3373,
+                    value: 3339,
                     label: 'K',
                   },
                   title: '社区活跃',
@@ -7938,7 +8029,7 @@ export const samples = {
                     src: '/assets/images/svg/Asset192.svg',
                   },
                   digit: {
-                    value: 643,
+                    value: 961,
                     label: '个',
                   },
                   title: '成功故事',
@@ -8006,6 +8097,7 @@ export const samples = {
                 classes: 'bg- bg-fill-width',
               },
               row: 4,
+              classes: '',
               text: {
                 title: {
                   label: '会员等级与专属服务',
@@ -8317,6 +8409,7 @@ export const samples = {
                     },
                     star: 5,
                     title: '- 王刚',
+
                     subTitle: '前端开发',
                     body: 'Storybook让我们的前端开发更加流畅。它与我们的主应用程序分离，使我们能够更好地进行单独测试和调试。我们强烈推荐它给其他团队！',
                   },

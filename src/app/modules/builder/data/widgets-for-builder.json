@@ -200,25 +200,25 @@
             "elements": [
               {
                 "module": "Slick Carousel",
-                "tatol": 6286,
+                "tatol": 4893,
                 "info": "Slick 轮播，强大响应式且性能优异的图片轮播解决方案，有非常丰富的配置选项，slick 官网自己调侃这是你最后使用的图片轮播",
                 "remarks": "查看"
               },
               {
                 "module": "Views Slideshow",
-                "tatol": 3052,
+                "tatol": 6505,
                 "info": "视图轮播模块，该模块是最受欢迎的幻灯片模块，可放任何内容，高度定制\t",
                 "remarks": "查看"
               },
               {
                 "module": "Colorbox",
-                "tatol": 2692,
+                "tatol": 5360,
                 "info": "轻量级高可定制幻灯片模块，高度集成在 Drupal 中，可放图片，Iframed 或者在线内容等等\t",
                 "remarks": "查看"
               },
               {
                 "module": "Flex Slider",
-                "tatol": 5104,
+                "tatol": 9894,
                 "info": "响应式、可调整大小、适配浏览器和移动设备，支持移动设备手势滑动\t",
                 "remarks": "查看"
               },
@@ -286,21 +286,21 @@
                 ],
                 [
                   "第一季度",
-                  4755,
-                  8233,
-                  9564
+                  6260,
+                  3020,
+                  5166
                 ],
                 [
                   "第二季度",
-                  3224,
-                  4926,
-                  7731
+                  6843,
+                  6205,
+                  8078
                 ],
                 [
                   "第三季度",
-                  4916,
-                  5164,
-                  9311
+                  4393,
+                  4449,
+                  8152
                 ]
               ]
             },
@@ -1036,6 +1036,7 @@
             "number": "79",
             "suffix": "/月",
             "body": "<ul class=\"list-done\"><li>完全开放</li><li>安全检测机制</li><li>高质量交付源码文件</li><li>免费一个域名绑定</li><li>二十四小时免费技术支持</li></ul>",
+            "classes": "",
             "actionsAlign": "start center",
             "actions": [
               {
@@ -1072,6 +1073,7 @@
             "bg": {
               "classes": "bg-shadow bg-fill-width"
             },
+            "classes": "",
             "text": {
               "title": {
                 "label": "如何才能帮助到您？",
@@ -1182,11 +1184,13 @@
               },
               {
                 "src": "/assets/images/cases/porto2.doc",
-                "preview": "/assets/images/cases/porto2.pdf"
+                "preview": "/assets/images/cases/porto2.pdf",
+                "thumb": ""
               },
               {
                 "src": "/assets/images/cases/porto3.pdf",
-                "preview": "/assets/images/cases/porto3.pdf"
+                "preview": "/assets/images/cases/porto3.pdf",
+                "thumb": ""
               }
             ]
           }
@@ -1372,7 +1376,7 @@
                   "src": "../assets/images/showcase/blog1-large.jpeg",
                   "alt": ""
                 },
-                "changed": "2023-07-09"
+                "changed": "2023-07-11"
               },
               {
                 "link": {
@@ -1383,29 +1387,29 @@
                   "src": "../assets/images/showcase/blog2-large.jpeg",
                   "alt": ""
                 },
-                "changed": "2023-07-09"
+                "changed": "2023-07-11"
               },
               {
                 "link": {
                   "label": "你应该了解的 Angular 最佳实践",
-                  "href": "2023-07-09"
+                  "href": "2023-07-11"
                 },
                 "img": {
                   "src": "../assets/images/showcase/blog3-large.jpeg",
                   "alt": ""
                 },
-                "changed": "2023-07-09"
+                "changed": "2023-07-11"
               },
               {
                 "link": {
                   "label": "Angular 5 rxjs 5.5.2 多个 http 并行 forkJoin 请求",
-                  "href": "2023-07-09"
+                  "href": "2023-07-11"
                 },
                 "img": {
                   "src": "../assets/images/showcase/blog4-large.jpeg",
                   "alt": ""
                 },
-                "changed": "2023-07-09"
+                "changed": "2023-07-11"
               }
             ]
           }
@@ -1425,7 +1429,7 @@
               "href": "#",
               "label": "更多"
             },
-            "date": "2023-07-09",
+            "date": "2023-07-11",
             "body": "Storybook是一个用于开发和展示UI组件的工具。它提供了一个独立的环境，开发人员可以在其中构建、测试和文档化单个UI组件，而无需依赖于整个应用程序的上下文。Storybook是一个用于开发和展示UI组件的工具。它提供了一个独立的环境，开发人员可以在其中构建、测试和文档化单个UI组件，而无需依赖于整个应用程序的上下文。..."
           }
         },
@@ -1519,6 +1523,10 @@
               "src": "/assets/video/storybook.mp4",
               "type": "video/mp4"
             },
+            "bg": {
+              "classes": ""
+            },
+            "classes": "",
             "widget": {
               "type": "showcase-1v3",
               "title": {
@@ -1576,7 +1584,7 @@
             "type": "progress-bar",
             "color": "primary",
             "mode": "determinate",
-            "value": "40"
+            "value": 40
           }
         },
         {
@@ -1589,15 +1597,15 @@
             "elements": [
               {
                 "label": "HTML/CSS",
-                "value": "95"
+                "value": 95
               },
               {
                 "label": "Angular/JavaScript",
-                "value": "79"
+                "value": 79
               },
               {
                 "label": "Drupal",
-                "value": "60"
+                "value": 60
               }
             ]
           }
@@ -1624,6 +1632,10 @@
               "src": "/assets/images/404.svg",
               "alt": "404 not found!"
             },
+            "bg": {
+              "classes": ""
+            },
+            "classes": "",
             "text": {
               "spacer": "none",
               "title": {
