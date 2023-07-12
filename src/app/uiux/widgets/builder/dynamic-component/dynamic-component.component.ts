@@ -103,7 +103,7 @@ export class DynamicComponentComponent
     }
     if (this.component.instance && this.inputs) {
       if (!this.inputs.type && this.inputs.content) {
-        Object.keys(this.inputs).map((key) => {
+        Object.keys(this.inputs).forEach((key) => {
           if (this.component) {
             this.component.instance[key] = this.inputs[key];
           }

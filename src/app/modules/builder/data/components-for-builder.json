@@ -92,6 +92,10 @@
                         "style": "style-v1"
                       },
                       "row": 4,
+                      "bg": {
+                        "classes": ""
+                      },
+                      "classes": "",
                       "elements": [
                         {
                           "icon": {
@@ -169,6 +173,7 @@
                       "bg": {
                         "classes": "bg- bg-fill-width"
                       },
+                      "classes": "",
                       "elements": [
                         {
                           "icon": {
@@ -242,6 +247,10 @@
                         "style": "style-v3"
                       },
                       "row": 4,
+                      "bg": {
+                        "classes": "bg- bg-fill-width"
+                      },
+                      "classes": "",
                       "style": "style-v3",
                       "elements": [
                         {
@@ -322,7 +331,8 @@
                       "bg": {
                         "classes": "bg-shadow bg-fill-width"
                       },
-                      "row": "3",
+                      "row": 3,
+                      "classes": "",
                       "elements": [
                         {
                           "img": {
@@ -375,6 +385,7 @@
                       "bg": {
                         "classes": "bg-shadow bg-fill-width"
                       },
+                      "classes": "",
                       "elements": [
                         {
                           "icon": {
@@ -448,6 +459,10 @@
                         "style": "style-v5"
                       },
                       "row": 4,
+                      "bg": {
+                        "classes": ""
+                      },
+                      "classes": "",
                       "elements": [
                         {
                           "icon": {
@@ -519,7 +534,8 @@
                       "bg": {
                         "classes": "bg-none bg-fill-width"
                       },
-                      "row": "4",
+                      "row": 4,
+                      "classes": "",
                       "elements": [
                         {
                           "img": {
@@ -600,6 +616,7 @@
                       "bg": {
                         "classes": "bg-shadow bg-fill-width"
                       },
+                      "classes": "",
                       "elements": [
                         {
                           "icon": {
@@ -673,6 +690,10 @@
                         "style": "style-v7"
                       },
                       "row": 4,
+                      "bg": {
+                        "classes": ""
+                      },
+                      "classes": "",
                       "elements": [
                         {
                           "icon": {
@@ -763,7 +784,8 @@
                       "bg": {
                         "classes": "bg-shadow bg-fill-width"
                       },
-                      "row": "4",
+                      "row": 4,
+                      "classes": "",
                       "elements": [
                         {
                           "img": {
@@ -847,7 +869,8 @@
                       "bg": {
                         "classes": "bg-shadow bg-fill-width"
                       },
-                      "row": "3",
+                      "classes": "",
+                      "row": 3,
                       "elements": [
                         {
                           "img": {
@@ -956,6 +979,10 @@
                       "title": {
                         "label": "联系我们",
                         "style": "style-v1"
+                      },
+                      "classes": "",
+                      "bg": {
+                        "classes": ""
                       },
                       "elements": [
                         {
@@ -1132,6 +1159,7 @@
                         "classes": "bg- bg-fill-width"
                       },
                       "row": 3,
+                      "classes": "",
                       "text": {
                         "title": {
                           "label": "使用 <strong class=\"text-primary\">Storybook</strong> 开发组件",
@@ -1210,6 +1238,7 @@
                         "classes": "bg- bg-fill-width"
                       },
                       "row": 4,
+                      "classes": "",
                       "text": {
                         "title": {
                           "label": "会员等级与专属服务",
@@ -1320,6 +1349,7 @@
                         "classes": "bg- bg-fill-width"
                       },
                       "row": 2,
+                      "classes": "",
                       "text": {
                         "title": {
                           "label": "艺术设计之旅：探索创意与美学的奇妙世界",
@@ -1448,11 +1478,15 @@
                         },
                         "body": "<p class=\"text-center\">欢迎分享 Drupal 优秀的数字创新体验</p>"
                       },
+                      "bg": {
+                        "classes": ""
+                      },
+                      "classes": "",
                       "row": 5,
                       "elements": [
                         {
                           "type": "card",
-                          "subTitle": "2023-07-09",
+                          "subTitle": "2023-07-11",
                           "avatar": {
                             "src": "/assets/images/showcase/weather.png",
                             "alt": ""
@@ -1502,7 +1536,7 @@
                         },
                         {
                           "type": "card",
-                          "subTitle": "2023-07-09",
+                          "subTitle": "2023-07-11",
                           "avatar": {
                             "src": "/assets/images/showcase/browser.png",
                             "alt": ""
@@ -1539,7 +1573,7 @@
                         },
                         {
                           "type": "card",
-                          "subTitle": "2023-07-09",
+                          "subTitle": "2023-07-11",
                           "avatar": {
                             "src": "/assets/images/showcase/clipboard.png",
                             "alt": ""
@@ -1576,7 +1610,7 @@
                         },
                         {
                           "type": "card",
-                          "subTitle": "2023-07-09",
+                          "subTitle": "2023-07-11",
                           "avatar": {
                             "src": "/assets/images/showcase/console.png",
                             "alt": ""
@@ -1613,7 +1647,7 @@
                         },
                         {
                           "type": "card",
-                          "subTitle": "2023-07-09",
+                          "subTitle": "2023-07-11",
                           "avatar": {
                             "src": "/assets/images/showcase/weather.png",
                             "alt": ""
@@ -1650,7 +1684,7 @@
                         },
                         {
                           "type": "card",
-                          "subTitle": "2023-07-09",
+                          "subTitle": "2023-07-11",
                           "avatar": {
                             "src": "/assets/images/showcase/weather.png",
                             "alt": ""
@@ -1687,7 +1721,7 @@
                         },
                         {
                           "type": "card",
-                          "subTitle": "2023-07-09",
+                          "subTitle": "2023-07-11",
                           "avatar": {
                             "src": "/assets/images/showcase/weather.png",
                             "alt": ""
@@ -1724,7 +1758,7 @@
                         },
                         {
                           "type": "card",
-                          "subTitle": "2023-07-09",
+                          "subTitle": "2023-07-11",
                           "avatar": {
                             "src": "/assets/images/showcase/weather.png",
                             "alt": ""
@@ -1766,7 +1800,11 @@
                   {
                     "content": {
                       "type": "showcase-2v1",
-                      "row": "4",
+                      "row": 4,
+                      "bg": {
+                        "classes": ""
+                      },
+                      "classes": "",
                       "text": {
                         "title": {
                           "label": "最新课程",
@@ -1880,7 +1918,11 @@
               },
               "body": "<p class=\"text-center\">突破传统的艺术边界，展示前卫和创新的艺术作品</p>"
             },
-            "row": "4",
+            "row": 4,
+            "bg": {
+              "classes": ""
+            },
+            "classes": "",
             "elements": [
               {
                 "carousel": {
@@ -2040,7 +2082,8 @@
                 "mobile": "/assets/images/bg/home-shape.png"
               }
             },
-            "row": "3",
+            "classes": "",
+            "row": 3,
             "elements": [
               {
                 "title": "PUFF<br>BAR",
@@ -2099,6 +2142,10 @@
               "body": "<p class=\"text-center\">突破传统的艺术边界，展示前卫和创新的艺术作品</p>"
             },
             "spacer": "md",
+            "bg": {
+              "classes": ""
+            },
+            "classes": "",
             "fullWidth": true,
             "elements": [
               {
@@ -2189,10 +2236,13 @@
             },
             "spacer": "md",
             "fullWidth": true,
+            "bg": {
+              "classes": ""
+            },
+            "classes": "",
             "elements": [
               {
                 "type": "content-text-center",
-                "width": "25",
                 "ratios": "media-140",
                 "text": "<p style=\"font-size:45px\">118k</p><p>活跃的模块</p><p style=\"font-size:45px\">46k<sup>+</sup></p><p>开发者</p><p style=\"font-size:45px\">1.4M<sup></sup></p><p>使用</p><p>Drupal 统计</p>",
                 "img": {
@@ -2293,7 +2343,11 @@
               "body": "<p class=\"text-center\">Storybook是一个用于开发和展示UI组件的工具。它提供了一个独立的环境，开发人员可以在其中构建、测试和文档化单个UI组件，而无需依赖于整个应用程序的上下文</p>"
             },
             "spacer": "md",
-            "row": "2",
+            "bg": {
+              "classes": ""
+            },
+            "classes": "",
+            "row": 2,
             "fullWidth": true,
             "elements": [
               {
@@ -2478,7 +2532,6 @@
                     "content": {
                       "type": "showcase-3v2",
                       "title": {
-                        "@label": "分类标题",
                         "label": "音乐",
                         "style": "style-v1",
                         "classes": "mat-display-1 bold"
@@ -2488,13 +2541,12 @@
                         "classes": "bg-fill-width",
                         "img": {
                           "hostClasses": "",
-                          "@src": "先固定写死",
                           "src": "/assets/images/bg/home-shape.png"
                         }
                       },
+                      "classes": "",
                       "elements": [
                         {
-                          "@img": "分类图片",
                           "img": {
                             "src": "/assets/images/illustration/24.png",
                             "alt": ""
@@ -2505,7 +2557,6 @@
                               "style": "style-v4",
                               "classes": "bold"
                             },
-                            "@lists": "分类对应的文章列表",
                             "lists": {
                               "params": {
                                 "icon": true
@@ -2550,7 +2601,6 @@
                           }
                         },
                         {
-                          "@img": "分类图片",
                           "img": {
                             "src": "/assets/images/illustration/24.png",
                             "alt": ""
@@ -2561,7 +2611,6 @@
                               "style": "style-v4",
                               "classes": "bold"
                             },
-                            "@lists": "分类对应的文章列表",
                             "lists": {
                               "params": {
                                 "icon": true
@@ -2606,7 +2655,6 @@
                           }
                         },
                         {
-                          "@img": "分类图片",
                           "img": {
                             "src": "/assets/images/illustration/24.png",
                             "alt": ""
@@ -2617,7 +2665,6 @@
                               "style": "style-v4",
                               "classes": "bold"
                             },
-                            "@lists": "分类对应的文章列表",
                             "lists": {
                               "params": {
                                 "icon": true
@@ -2662,7 +2709,6 @@
                           }
                         },
                         {
-                          "@img": "分类图片",
                           "img": {
                             "src": "/assets/images/illustration/24.png",
                             "alt": ""
@@ -2673,7 +2719,6 @@
                               "style": "style-v4",
                               "classes": "bold"
                             },
-                            "@lists": "分类对应的文章列表",
                             "lists": {
                               "params": {
                                 "icon": true
@@ -2740,6 +2785,10 @@
                         "href": "#"
                       },
                       "spacer": "none",
+                      "bg": {
+                        "classes": ""
+                      },
+                      "classes": "",
                       "date": "12/09/2022",
                       "commentCount": "2",
                       "category": "Angular",
@@ -2760,6 +2809,10 @@
                         "href": "#"
                       },
                       "spacer": "none",
+                      "bg": {
+                        "classes": ""
+                      },
+                      "classes": "",
                       "date": "12/09/2022",
                       "commentCount": "2",
                       "category": "Angular",
@@ -2806,6 +2859,7 @@
                       "bg": {
                         "classes": "bg-light bg-fill-width"
                       },
+                      "classes": "",
                       "img": {
                         "src": "/assets/images/1-1/business-02.png",
                         "alt": "OUR FEATURES"
@@ -2888,6 +2942,7 @@
                       "bg": {
                         "classes": "bg-shadow bg-fill-width"
                       },
+                      "classes": "",
                       "img": {
                         "src": "/assets/images/1-1/business-02.png",
                         "alt": "OUR FEATURES"
@@ -2982,6 +3037,7 @@
             "bg": {
               "classes": "bg-shadow bg-fill-width"
             },
+            "classes": "",
             "img": {
               "src": "/assets/images/illustration/27.png",
               "alt": "OUR FEATURES"
@@ -3086,7 +3142,8 @@
                       "bg": {
                         "classes": "bg-light bg-fill-width"
                       },
-                      "row": "4",
+                      "classes": "",
+                      "row": 4,
                       "elements": [
                         {
                           "img": {
@@ -3179,7 +3236,8 @@
                       "bg": {
                         "classes": "bg-shadow bg-fill-width"
                       },
-                      "row": "3",
+                      "classes": "",
+                      "row": 3,
                       "elements": [
                         {
                           "img": {
@@ -3327,6 +3385,7 @@
                       "bg": {
                         "classes": "bg-shadow bg-fill-width"
                       },
+                      "classes": "",
                       "row": "3",
                       "elements": [
                         {
@@ -3431,6 +3490,7 @@
             "bg": {
               "classes": "bg-shadow bg-fill-width"
             },
+            "classes": "",
             "img": {
               "src": "/assets/images/illustration/27.png",
               "alt": "OUR FEATURES"
@@ -3536,6 +3596,7 @@
                 "mobile": "/assets/images/bg/home-shape.png"
               }
             },
+            "classes": "",
             "main": {
               "img": {
                 "src": "/assets/images/logo/codepen.svg",
@@ -3643,6 +3704,7 @@
                           "src": "/assets/images/bg/bg-01.png"
                         }
                       },
+                      "classes": "",
                       "order": {
                         "left": 1,
                         "right": 0
@@ -3705,6 +3767,7 @@
                           "src": "/assets/images/bg/bg-02.png"
                         }
                       },
+                      "classes": "",
                       "order": {
                         "left": 1,
                         "right": 0
@@ -3915,8 +3978,12 @@
                           "style": "style-v1"
                         }
                       },
-                      "paramsBak": {
-                        "api": "api/v1/tab/order_process_statistics"
+                      "bg": {
+                        "classes": ""
+                      },
+                      "classes": "",
+                      "params": {
+                        "apiBak": "api/v1/xxx"
                       },
                       "elements": [
                         {
@@ -3924,7 +3991,7 @@
                             "name": "fingerprint"
                           },
                           "digit": {
-                            "value": 233,
+                            "value": 512,
                             "label": "+"
                           },
                           "title": "日访问人数"
@@ -3934,7 +4001,7 @@
                             "name": "verified_user"
                           },
                           "digit": {
-                            "value": 249,
+                            "value": 451,
                             "label": "+"
                           },
                           "title": "日打开次数"
@@ -3944,7 +4011,7 @@
                             "name": "android"
                           },
                           "digit": {
-                            "value": 87,
+                            "value": 177,
                             "label": "人"
                           },
                           "title": "日新增人数"
@@ -3954,7 +4021,7 @@
                             "name": "mail"
                           },
                           "digit": {
-                            "value": 3309,
+                            "value": 3030,
                             "label": "万"
                           },
                           "title": "累计用户数"
@@ -3983,7 +4050,7 @@
                             "src": "/assets/images/svg/Asset187.svg"
                           },
                           "digit": {
-                            "value": 55,
+                            "value": 47,
                             "label": "M"
                           },
                           "title": "Github Start"
@@ -3993,7 +4060,7 @@
                             "src": "/assets/images/svg/Asset189.svg"
                           },
                           "digit": {
-                            "value": 18926,
+                            "value": 29672,
                             "label": "+"
                           },
                           "title": "NPM 周下载量"
@@ -4003,7 +4070,7 @@
                             "src": "/assets/images/svg/Asset190.svg"
                           },
                           "digit": {
-                            "value": 3373,
+                            "value": 3657,
                             "label": "K"
                           },
                           "title": "社区活跃"
@@ -4013,7 +4080,7 @@
                             "src": "/assets/images/svg/Asset192.svg"
                           },
                           "digit": {
-                            "value": 643,
+                            "value": 507,
                             "label": "个"
                           },
                           "title": "成功故事"
@@ -4038,12 +4105,16 @@
             "spacer": "none",
             "type": "hero-1v1",
             "classes": "text-light text-center",
+            "bg": {
+              "classes": ""
+            },
             "sliders": {
               "params": {
                 "slidesPerView": 1,
                 "spaceBetween": 0,
                 "pagination": false
               },
+              "classes": "",
               "elements": [
                 {
                   "type": "text",
@@ -4144,6 +4215,7 @@
                 "spaceBetween": 0,
                 "pagination": true
               },
+              "classes": "",
               "elements": [
                 {
                   "title": "使Storybook 是什么？",
@@ -4238,6 +4310,10 @@
                     "content": {
                       "type": "hero-1v3",
                       "spacer": "xl",
+                      "bg": {
+                        "classes": ""
+                      },
+                      "classes": "",
                       "text": {
                         "title": {
                           "label": "欢迎使用 <strong class=\"text-\">Builder</strong> 快速构建页面",
@@ -4289,6 +4365,7 @@
                     "content": {
                       "type": "hero-1v3",
                       "spacer": "xl",
+                      "classes": "",
                       "text": {
                         "title": {
                           "label": "欢迎使用 <strong class=\"text-\">Builder</strong> 快速构建页面",
@@ -4374,6 +4451,7 @@
                     "content": {
                       "type": "hero-1v4",
                       "spacer": "xl",
+                      "classes": "",
                       "text": {
                         "title": {
                           "label": "欢迎使用 <strong class=\"text-primary\">Builder</strong> 快速构建页面",
@@ -4414,6 +4492,7 @@
                     "content": {
                       "spacer": "xl",
                       "type": "hero-1v4",
+                      "classes": "",
                       "text": {
                         "title": {
                           "label": "欢迎使用 <strong class=\"text-primary\">Builder</strong> 快速构建页面",
@@ -4445,7 +4524,7 @@
                         ]
                       },
                       "bg": {
-                        "classes": "bg-fill-width overlay overlay-",
+                        "classes": "bg-fill-width overlay- overlay-",
                         "img": {
                           "src": "/assets/images/bg/bg-02.png",
                           "hostClasses": "bg-center"
@@ -4494,11 +4573,6 @@
                         },
                         "spacer": "xl",
                         "classes": "xy-center",
-                        "style-": {
-                          "width": "50%",
-                          "left": "0%",
-                          "top": "5%"
-                        },
                         "bg": {
                           "classes": "bg-shadow overlay overlay-80",
                           "img": {
@@ -4673,6 +4747,7 @@
                           "classes": "mat-display-1 bold"
                         },
                         "animate": {
+                          "disable": false,
                           "scrub": true
                         },
                         "spacer": "md",
@@ -4710,6 +4785,7 @@
                 "src": "/assets/images/16-9/business-16.jpeg"
               }
             },
+            "classes": "",
             "body": {
               "type": "text",
               "title": {
@@ -4747,6 +4823,7 @@
                 "src": "/assets/images/bg/bg-04.png"
               }
             },
+            "classes": "",
             "text": {
               "title": {
                 "label": "开源项目使用 Github actions 自动化",
@@ -4843,6 +4920,7 @@
                         "style": "style-v2",
                         "classes": "mat-display-1"
                       },
+                      "classes": "",
                       "bg": {
                         "classes": "bg-white bg-fill-width"
                       },
@@ -4964,6 +5042,10 @@
                       "type": "carousel-1v1",
                       "spacer": "none",
                       "disableContainer": true,
+                      "bg": {
+                        "classes": ""
+                      },
+                      "classes": "",
                       "sliders": {
                         "params": {
                           "slidesPerView": 1,
@@ -5088,6 +5170,7 @@
                         "style": "style-v1"
                       },
                       "style": "text-dark",
+                      "classes": "",
                       "bg": {
                         "classes": "bg-white bg-fill-width",
                         "img": {
@@ -5153,6 +5236,10 @@
                         "style": "style-v2",
                         "classes": "mat-display-3"
                       },
+                      "bg": {
+                        "classes": ""
+                      },
+                      "classes": "",
                       "disableContainer": true,
                       "sliders": {
                         "params": {
@@ -5322,6 +5409,7 @@
               "label": "近期作品",
               "style": "style-v6 line-full-width"
             },
+            "classes": "",
             "bg": {
               "classes": "bg-white bg-fill-width"
             },
@@ -5514,7 +5602,7 @@
                           {
                             "type": "box",
                             "img": {
-                              "src": "/assets/images/amazon.svg",
+                              "src": "/assets/images/logo/amazon.svg",
                               "alt": "browser"
                             },
                             "style": "style-v8",
@@ -5540,7 +5628,7 @@
                           {
                             "type": "box",
                             "img": {
-                              "src": "/assets/images/shopify.svg",
+                              "src": "/assets/images/logo/shopify.svg",
                               "alt": "browser"
                             },
                             "style": "style-v8",
@@ -5553,7 +5641,7 @@
                           {
                             "type": "box",
                             "img": {
-                              "src": "/assets/images/paypal.svg",
+                              "src": "/assets/images/logo/paypal.svg",
                               "alt": "browser"
                             },
                             "style": "style-v8",
@@ -5566,7 +5654,7 @@
                           {
                             "type": "box",
                             "img": {
-                              "src": "/assets/images/amazon.svg",
+                              "src": "/assets/images/logo/amazon.svg",
                               "alt": "browser"
                             },
                             "style": "style-v8",
@@ -5719,6 +5807,7 @@
                 "hostClasses": "bg-center"
               }
             },
+            "classes": "",
             "sliders": {
               "params": {
                 "slidesPerView": 1,
@@ -5785,6 +5874,7 @@
             "bg": {
               "classes": "bg-fill-width bg-shadow"
             },
+            "classes": "",
             "sliders": {
               "params": {
                 "slidesPerView": 1.2,
@@ -5803,6 +5893,7 @@
                   }
                 }
               },
+              "classes": "",
               "elements": [
                 {
                   "type": "img",
@@ -5907,6 +5998,7 @@
                         },
                         "body": "<p class=\"text-light text-center\">Drupal通过其灵活性、多功能性和可扩展性，为数字创新提供了强大的基础。它能够满足不同规模和需求的组织和企业的数字化转型和创新需求，并提供可靠、安全、高效的数字解决方案。</p>"
                       },
+                      "classes": "",
                       "bg": {
                         "classes": "bg-fill-width bg-shadow overlay overlay-80",
                         "img": {
@@ -6043,6 +6135,7 @@
                         }
                       },
                       "fullWidth": true,
+                      "classes": "",
                       "elements": [
                         {
                           "type": "content-box",
@@ -6228,6 +6321,10 @@
               "label": "Vue 开发",
               "style": "style-v1"
             },
+            "bg": {
+              "classes": ""
+            },
+            "classes": "",
             "filter": [
               {
                 "label": "全部",
@@ -6247,7 +6344,7 @@
                 "value": "frontEnd"
               }
             ],
-            "row": "4",
+            "row": 4,
             "elements": [
               {
                 "type": "card",
@@ -6562,7 +6659,7 @@
                 "title": {
                   "label": "内容发布量"
                 },
-                "row": "12",
+                "row": 12,
                 "params": {
                   "api": "/api/v3/xxx"
                 },
@@ -6610,51 +6707,51 @@
                         ],
                         [
                           "1月",
-                          49
+                          70
                         ],
                         [
                           "2月",
-                          68
+                          88
                         ],
                         [
                           "3月",
-                          74
+                          13
                         ],
                         [
                           "4月",
-                          52
+                          13
                         ],
                         [
                           "5月",
-                          32
+                          66
                         ],
                         [
                           "6月",
-                          20
+                          30
                         ],
                         [
                           "7月",
-                          80
+                          37
                         ],
                         [
                           "8月",
-                          24
+                          87
                         ],
                         [
                           "9月",
-                          85
+                          99
                         ],
                         [
                           "10月",
-                          61
+                          32
                         ],
                         [
                           "11月",
-                          17
+                          93
                         ],
                         [
                           "12月",
-                          61
+                          89
                         ]
                       ]
                     }
@@ -6685,7 +6782,7 @@
                 }
               },
               {
-                "row": "3",
+                "row": 3,
                 "widget": {
                   "type": "chart-box",
                   "label": "文章数",
@@ -6717,51 +6814,51 @@
                           ],
                           [
                             "1月",
-                            100
+                            57
                           ],
                           [
                             "2月",
-                            35
+                            34
                           ],
                           [
                             "3月",
-                            85
+                            75
                           ],
                           [
                             "4月",
-                            80
+                            58
                           ],
                           [
                             "5月",
-                            85
-                          ],
-                          [
-                            "6月",
-                            85
-                          ],
-                          [
-                            "7月",
-                            18
-                          ],
-                          [
-                            "8月",
-                            47
-                          ],
-                          [
-                            "9月",
-                            68
-                          ],
-                          [
-                            "10月",
-                            31
-                          ],
-                          [
-                            "11月",
                             84
                           ],
                           [
+                            "6月",
+                            27
+                          ],
+                          [
+                            "7月",
+                            27
+                          ],
+                          [
+                            "8月",
+                            46
+                          ],
+                          [
+                            "9月",
+                            53
+                          ],
+                          [
+                            "10月",
+                            19
+                          ],
+                          [
+                            "11月",
+                            64
+                          ],
+                          [
                             "12月",
-                            13
+                            77
                           ]
                         ]
                       }
@@ -6788,7 +6885,7 @@
                 }
               },
               {
-                "row": "3",
+                "row": 3,
                 "widget": {
                   "type": "chart-box",
                   "label": "审核数",
@@ -6820,51 +6917,51 @@
                           ],
                           [
                             "1月",
-                            22
+                            27
                           ],
                           [
                             "2月",
-                            78
+                            96
                           ],
                           [
                             "3月",
-                            76
-                          ],
-                          [
-                            "4月",
-                            80
-                          ],
-                          [
-                            "5月",
                             93
                           ],
                           [
+                            "4月",
+                            66
+                          ],
+                          [
+                            "5月",
+                            28
+                          ],
+                          [
                             "6月",
-                            30
+                            26
                           ],
                           [
                             "7月",
-                            92
+                            42
                           ],
                           [
                             "8月",
-                            68
+                            79
                           ],
                           [
                             "9月",
-                            11
+                            17
                           ],
                           [
                             "10月",
-                            16
+                            69
                           ],
                           [
                             "11月",
-                            78
+                            32
                           ],
                           [
                             "12月",
-                            30
+                            80
                           ]
                         ]
                       }
@@ -6891,7 +6988,7 @@
                 }
               },
               {
-                "row": "3",
+                "row": 3,
                 "widget": {
                   "type": "chart-box",
                   "label": "用户数",
@@ -6923,7 +7020,7 @@
                           ],
                           [
                             "1月",
-                            5
+                            4
                           ],
                           [
                             "2月",
@@ -6931,7 +7028,7 @@
                           ],
                           [
                             "3月",
-                            5
+                            6
                           ],
                           [
                             "4月",
@@ -6939,35 +7036,35 @@
                           ],
                           [
                             "5月",
-                            5
-                          ],
-                          [
-                            "6月",
-                            5
-                          ],
-                          [
-                            "7月",
-                            3
-                          ],
-                          [
-                            "8月",
                             6
                           ],
                           [
-                            "9月",
+                            "6月",
+                            4
+                          ],
+                          [
+                            "7月",
                             2
                           ],
                           [
-                            "10月",
-                            7
-                          ],
-                          [
-                            "11月",
+                            "8月",
                             3
                           ],
                           [
+                            "9月",
+                            6
+                          ],
+                          [
+                            "10月",
+                            3
+                          ],
+                          [
+                            "11月",
+                            9
+                          ],
+                          [
                             "12月",
-                            7
+                            3
                           ]
                         ]
                       }
@@ -6994,7 +7091,7 @@
                 }
               },
               {
-                "row": "3",
+                "row": 3,
                 "widget": {
                   "type": "chart-box",
                   "label": "评论数",
@@ -7026,43 +7123,43 @@
                           ],
                           [
                             "1月",
-                            5
-                          ],
-                          [
-                            "2月",
-                            9
-                          ],
-                          [
-                            "3月",
-                            7
-                          ],
-                          [
-                            "4月",
-                            3
-                          ],
-                          [
-                            "5月",
-                            8
-                          ],
-                          [
-                            "6月",
-                            10
-                          ],
-                          [
-                            "7月",
                             4
                           ],
                           [
-                            "8月",
+                            "2月",
+                            3
+                          ],
+                          [
+                            "3月",
+                            2
+                          ],
+                          [
+                            "4月",
+                            7
+                          ],
+                          [
+                            "5月",
+                            4
+                          ],
+                          [
+                            "6月",
+                            8
+                          ],
+                          [
+                            "7月",
                             10
                           ],
                           [
+                            "8月",
+                            3
+                          ],
+                          [
                             "9月",
-                            6
+                            8
                           ],
                           [
                             "10月",
-                            2
+                            4
                           ],
                           [
                             "11月",
@@ -7070,7 +7167,7 @@
                           ],
                           [
                             "12月",
-                            1
+                            6
                           ]
                         ]
                       }
@@ -7103,7 +7200,7 @@
                 "params": {
                   "api": "/api/v3/xxx"
                 },
-                "row": "6",
+                "row": 6,
                 "widget": {
                   "type": "dynamic-table",
                   "header": [
@@ -7174,7 +7271,7 @@
                 "params": {
                   "apiBak": "/api/v3/xxx"
                 },
-                "row": "6",
+                "row": 6,
                 "widget": {
                   "type": "dynamic-table",
                   "header": [
@@ -7242,7 +7339,7 @@
                 "title": {
                   "label": "工作日历"
                 },
-                "row": "12",
+                "row": 12,
                 "widget": {
                   "type": "full-calendar",
                   "spacer": "none",
@@ -7254,119 +7351,119 @@
                         {
                           "title": "使用 DEVTOOLS 对 ANGULAR 前端应用性能分析优化",
                           "event": "meeting",
-                          "start": "2023-07-09T04:33:59.649Z",
+                          "start": "2023-07-11T15:40:49.736Z",
                           "user": "Johnson",
                           "className": "bg-primary"
                         },
                         {
                           "title": "使用 TAKEUNTIL 操作符管理 ANGULAR 组件的订阅",
                           "event": "drupal",
-                          "start": 1689654839649,
+                          "start": 1689781249736,
                           "user": "Johnson",
                           "className": "bg-accent"
                         },
                         {
                           "title": "你应该了解的 ANGULAR 最佳实践",
                           "event": "drupal",
-                          "start": 1689136439649,
+                          "start": 1689608449736,
                           "user": "Johnson",
                           "className": "bg-warn"
                         },
                         {
                           "title": "ANGULAR 5 RXJS 5.5.2 多个 HTTP 并行 FORKJOIN 请求",
                           "event": "drupal",
-                          "start": 1689654839649,
+                          "start": 1689522049736,
                           "user": "Johnson",
                           "className": "bg-warn"
                         },
                         {
                           "title": "DRUPAL 8 AJAX 弹出框可监听利用的 EVENT 事件",
                           "event": "drupal",
-                          "start": 1689654839649,
+                          "start": 1689781249736,
                           "user": "Johnson",
                           "className": "bg-pink"
                         },
                         {
                           "title": "DRUPAL8 用户登录后自定义重定向",
                           "event": "drupal",
-                          "start": 1689482039649,
+                          "start": 1689694849736,
                           "user": "Johnson",
                           "className": "bg-orange"
                         },
                         {
                           "title": "如何更改 GIT COMMIT 某个历史提交信息",
                           "event": "drupal",
-                          "start": 1689309239649,
+                          "start": 1689435649736,
                           "user": "Johnson",
                           "className": "bg-yellow"
                         },
                         {
                           "title": "开源项目使用 GITHUB ACTIONS 自动化测试部署 ANGULAR 应用到 ECS 服务器",
                           "event": "drupal",
-                          "start": 1689136439649,
+                          "start": 1689522049736,
                           "user": "Johnson",
                           "className": "bg-red"
                         },
                         {
                           "title": "DRUPAL JSONAPI 初级入门实践",
                           "event": "drupal",
-                          "start": 1689568439649,
+                          "start": 1689608449736,
                           "user": "Johnson",
                           "className": "bg-purple"
                         },
                         {
                           "title": "RXJS SWITCHMAP 在 DRUPAL API中的应用",
                           "event": "drupal",
-                          "start": 1689309239649,
+                          "start": 1689867649736,
                           "user": "Johnson",
                           "className": "bg-indigo"
                         },
                         {
                           "title": "五年了，再谈南宁和深圳的差距",
                           "event": "drupal",
-                          "start": 1689050039649,
+                          "start": 1689954049736,
                           "user": "Johnson",
                           "className": "bg-blue"
                         },
                         {
                           "title": "没想到吧？2021年南宁IT互联网相关工作者最近一份工作求职渠道最受欢迎的竟然是它",
                           "event": "drupal",
-                          "start": 1688704439649,
+                          "start": 1688917249736,
                           "user": "Johnson",
                           "className": "bg-cyan"
                         },
                         {
                           "title": "南宁IT互联网行业薪资福利待遇如何？",
                           "event": "drupal",
-                          "start": 1688618039649,
+                          "start": 1688226049736,
                           "user": "Johnson",
                           "className": "bg-teal"
                         },
                         {
                           "title": "南宁IT互联网公司，有哪些是双休？",
                           "event": "drupal",
-                          "start": 1688531639649,
+                          "start": 1688744449736,
                           "user": "Johnson",
                           "className": "bg-green"
                         },
                         {
                           "title": "JSONA 一款转换 JSONAPI 数据的工具库，也算是解放 DRUPAL JSONAPI 反序列化的利器",
                           "event": "drupal",
-                          "start": 1688013239649,
+                          "start": 1688312449736,
                           "user": "Johnson",
                           "className": "bg-light-green"
                         },
                         {
                           "title": "ANGULAR 有哪几种不同类型的绑定",
                           "event": "drupal",
-                          "start": 1688099639649,
+                          "start": 1688312449736,
                           "user": "Johnson",
                           "className": "bg-brown"
                         },
                         {
                           "title": "ANGULAR NG-CONTENT、NG-TEMPLATE、NG-CONTAINER 之间的区别",
                           "event": "drupal",
-                          "start": 1688358839649,
+                          "start": 1688571649736,
                           "user": "Johnson",
                           "className": "bg-grey"
                         }
@@ -7395,7 +7492,7 @@
                 "params": {
                   "api": "/api/v3/xxx"
                 },
-                "row": "12",
+                "row": 12,
                 "form": [
                   {
                     "type": "mat-select",
@@ -7440,51 +7537,51 @@
                         ],
                         [
                           "1月",
-                          38
+                          91
                         ],
                         [
                           "2月",
-                          100
+                          97
                         ],
                         [
                           "3月",
-                          23
+                          79
                         ],
                         [
                           "4月",
-                          70
+                          80
                         ],
                         [
                           "5月",
-                          85
+                          21
                         ],
                         [
                           "6月",
-                          74
+                          55
                         ],
                         [
                           "7月",
-                          46
+                          31
                         ],
                         [
                           "8月",
-                          43
+                          36
                         ],
                         [
                           "9月",
-                          26
+                          18
                         ],
                         [
                           "10月",
-                          29
+                          43
                         ],
                         [
                           "11月",
-                          25
+                          45
                         ],
                         [
                           "12月",
-                          78
+                          54
                         ]
                       ]
                     }
@@ -7515,7 +7612,7 @@
                 }
               },
               {
-                "row": "3",
+                "row": 3,
                 "widget": {
                   "type": "chart-box",
                   "label": "广告发布量",
@@ -7547,51 +7644,51 @@
                           ],
                           [
                             "1月",
-                            75
+                            95
                           ],
                           [
                             "2月",
-                            20
+                            22
                           ],
                           [
                             "3月",
-                            42
-                          ],
-                          [
-                            "4月",
-                            100
-                          ],
-                          [
-                            "5月",
-                            43
-                          ],
-                          [
-                            "6月",
-                            82
-                          ],
-                          [
-                            "7月",
-                            53
-                          ],
-                          [
-                            "8月",
-                            41
-                          ],
-                          [
-                            "9月",
                             75
                           ],
                           [
-                            "10月",
+                            "4月",
+                            65
+                          ],
+                          [
+                            "5月",
+                            92
+                          ],
+                          [
+                            "6月",
+                            46
+                          ],
+                          [
+                            "7月",
+                            90
+                          ],
+                          [
+                            "8月",
                             64
                           ],
                           [
+                            "9月",
+                            77
+                          ],
+                          [
+                            "10月",
+                            97
+                          ],
+                          [
                             "11月",
-                            11
+                            23
                           ],
                           [
                             "12月",
-                            78
+                            95
                           ]
                         ]
                       }
@@ -7618,7 +7715,7 @@
                 }
               },
               {
-                "row": "3",
+                "row": 3,
                 "widget": {
                   "type": "chart-box",
                   "label": "消费者增长",
@@ -7650,23 +7747,23 @@
                           ],
                           [
                             "1月",
-                            64
+                            84
                           ],
                           [
                             "2月",
-                            56
+                            49
                           ],
                           [
                             "3月",
-                            29
+                            57
                           ],
                           [
                             "4月",
-                            77
+                            93
                           ],
                           [
                             "5月",
-                            38
+                            72
                           ],
                           [
                             "6月",
@@ -7674,27 +7771,27 @@
                           ],
                           [
                             "7月",
-                            22
+                            20
                           ],
                           [
                             "8月",
-                            99
+                            39
                           ],
                           [
                             "9月",
-                            87
+                            89
                           ],
                           [
                             "10月",
-                            10
+                            54
                           ],
                           [
                             "11月",
-                            31
+                            22
                           ],
                           [
                             "12月",
-                            11
+                            34
                           ]
                         ]
                       }
@@ -7721,7 +7818,7 @@
                 }
               },
               {
-                "row": "3",
+                "row": 3,
                 "widget": {
                   "type": "chart-box",
                   "label": "门店增长",
@@ -7753,51 +7850,51 @@
                           ],
                           [
                             "1月",
-                            2
+                            5
                           ],
                           [
                             "2月",
-                            8
-                          ],
-                          [
-                            "3月",
-                            2
-                          ],
-                          [
-                            "4月",
-                            6
-                          ],
-                          [
-                            "5月",
                             3
                           ],
                           [
-                            "6月",
+                            "3月",
+                            5
+                          ],
+                          [
+                            "4月",
                             2
                           ],
                           [
-                            "7月",
-                            2
-                          ],
-                          [
-                            "8月",
-                            8
-                          ],
-                          [
-                            "9月",
-                            7
-                          ],
-                          [
-                            "10月",
+                            "5月",
                             4
                           ],
                           [
+                            "6月",
+                            1
+                          ],
+                          [
+                            "7月",
+                            4
+                          ],
+                          [
+                            "8月",
+                            3
+                          ],
+                          [
+                            "9月",
+                            2
+                          ],
+                          [
+                            "10月",
+                            3
+                          ],
+                          [
                             "11月",
-                            7
+                            6
                           ],
                           [
                             "12月",
-                            9
+                            10
                           ]
                         ]
                       }
@@ -7824,7 +7921,7 @@
                 }
               },
               {
-                "row": "3",
+                "row": 3,
                 "widget": {
                   "type": "chart-box",
                   "label": "评论量",
@@ -7856,51 +7953,51 @@
                           ],
                           [
                             "1月",
-                            82
+                            68
                           ],
                           [
                             "2月",
-                            38
+                            58
                           ],
                           [
                             "3月",
-                            36
+                            58
                           ],
                           [
                             "4月",
-                            25
+                            85
                           ],
                           [
                             "5月",
-                            45
+                            85
                           ],
                           [
                             "6月",
-                            21
+                            66
                           ],
                           [
                             "7月",
-                            16
+                            13
                           ],
                           [
                             "8月",
-                            72
+                            58
                           ],
                           [
                             "9月",
-                            81
+                            65
                           ],
                           [
                             "10月",
-                            92
+                            95
                           ],
                           [
                             "11月",
-                            29
+                            16
                           ],
                           [
                             "12月",
-                            30
+                            25
                           ]
                         ]
                       }
@@ -7930,7 +8027,7 @@
                 "title": {
                   "label": "抽奖数据"
                 },
-                "row": "12",
+                "row": 12,
                 "widget": {
                   "type": "chart",
                   "tooltip": {
@@ -7949,63 +8046,63 @@
                         ],
                         [
                           "1月",
-                          74,
-                          85
+                          15,
+                          17
                         ],
                         [
                           "2月",
-                          54,
-                          16
+                          75,
+                          28
                         ],
                         [
                           "3月",
-                          56,
-                          99
-                        ],
-                        [
-                          "4月",
-                          90,
-                          31
-                        ],
-                        [
-                          "5月",
-                          23,
-                          54
-                        ],
-                        [
-                          "6月",
-                          19,
-                          58
-                        ],
-                        [
-                          "7月",
-                          34,
+                          43,
                           51
                         ],
                         [
+                          "4月",
+                          34,
+                          97
+                        ],
+                        [
+                          "5月",
+                          29,
+                          37
+                        ],
+                        [
+                          "6月",
+                          17,
+                          79
+                        ],
+                        [
+                          "7月",
+                          52,
+                          67
+                        ],
+                        [
                           "8月",
-                          93,
-                          77
+                          96,
+                          79
                         ],
                         [
                           "9月",
-                          80,
-                          71
+                          27,
+                          29
                         ],
                         [
                           "10月",
-                          31,
-                          24
+                          65,
+                          56
                         ],
                         [
                           "11月",
-                          94,
-                          10
+                          57,
+                          80
                         ],
                         [
                           "12月",
-                          25,
-                          64
+                          35,
+                          38
                         ]
                       ]
                     }
@@ -8048,7 +8145,7 @@
                 "title": {
                   "label": "最新广告"
                 },
-                "row": "6",
+                "row": 6,
                 "params": {
                   "api": "/api/v3/xxx"
                 },
@@ -8112,7 +8209,7 @@
                 "title": {
                   "label": "最新评论"
                 },
-                "row": "6",
+                "row": 6,
                 "params": {
                   "api": "/api/v3/xxx"
                 },
@@ -8168,7 +8265,7 @@
                 "title": {
                   "label": "活动日历"
                 },
-                "row": "12",
+                "row": 12,
                 "widget": {
                   "type": "full-calendar",
                   "spacer": "none",
@@ -8180,119 +8277,119 @@
                         {
                           "title": "使用 DEVTOOLS 对 ANGULAR 前端应用性能分析优化",
                           "event": "meeting",
-                          "start": "2023-07-09T04:33:59.649Z",
+                          "start": "2023-07-11T15:40:49.736Z",
                           "user": "Johnson",
                           "className": "bg-primary"
                         },
                         {
                           "title": "使用 TAKEUNTIL 操作符管理 ANGULAR 组件的订阅",
                           "event": "drupal",
-                          "start": 1689654839649,
+                          "start": 1689781249736,
                           "user": "Johnson",
                           "className": "bg-accent"
                         },
                         {
                           "title": "你应该了解的 ANGULAR 最佳实践",
                           "event": "drupal",
-                          "start": 1689136439649,
+                          "start": 1689608449736,
                           "user": "Johnson",
                           "className": "bg-warn"
                         },
                         {
                           "title": "ANGULAR 5 RXJS 5.5.2 多个 HTTP 并行 FORKJOIN 请求",
                           "event": "drupal",
-                          "start": 1689654839649,
+                          "start": 1689522049736,
                           "user": "Johnson",
                           "className": "bg-warn"
                         },
                         {
                           "title": "DRUPAL 8 AJAX 弹出框可监听利用的 EVENT 事件",
                           "event": "drupal",
-                          "start": 1689654839649,
+                          "start": 1689781249736,
                           "user": "Johnson",
                           "className": "bg-pink"
                         },
                         {
                           "title": "DRUPAL8 用户登录后自定义重定向",
                           "event": "drupal",
-                          "start": 1689482039649,
+                          "start": 1689694849736,
                           "user": "Johnson",
                           "className": "bg-orange"
                         },
                         {
                           "title": "如何更改 GIT COMMIT 某个历史提交信息",
                           "event": "drupal",
-                          "start": 1689309239649,
+                          "start": 1689435649736,
                           "user": "Johnson",
                           "className": "bg-yellow"
                         },
                         {
                           "title": "开源项目使用 GITHUB ACTIONS 自动化测试部署 ANGULAR 应用到 ECS 服务器",
                           "event": "drupal",
-                          "start": 1689136439649,
+                          "start": 1689522049736,
                           "user": "Johnson",
                           "className": "bg-red"
                         },
                         {
                           "title": "DRUPAL JSONAPI 初级入门实践",
                           "event": "drupal",
-                          "start": 1689568439649,
+                          "start": 1689608449736,
                           "user": "Johnson",
                           "className": "bg-purple"
                         },
                         {
                           "title": "RXJS SWITCHMAP 在 DRUPAL API中的应用",
                           "event": "drupal",
-                          "start": 1689309239649,
+                          "start": 1689867649736,
                           "user": "Johnson",
                           "className": "bg-indigo"
                         },
                         {
                           "title": "五年了，再谈南宁和深圳的差距",
                           "event": "drupal",
-                          "start": 1689050039649,
+                          "start": 1689954049736,
                           "user": "Johnson",
                           "className": "bg-blue"
                         },
                         {
                           "title": "没想到吧？2021年南宁IT互联网相关工作者最近一份工作求职渠道最受欢迎的竟然是它",
                           "event": "drupal",
-                          "start": 1688704439649,
+                          "start": 1688917249736,
                           "user": "Johnson",
                           "className": "bg-cyan"
                         },
                         {
                           "title": "南宁IT互联网行业薪资福利待遇如何？",
                           "event": "drupal",
-                          "start": 1688618039649,
+                          "start": 1688226049736,
                           "user": "Johnson",
                           "className": "bg-teal"
                         },
                         {
                           "title": "南宁IT互联网公司，有哪些是双休？",
                           "event": "drupal",
-                          "start": 1688531639649,
+                          "start": 1688744449736,
                           "user": "Johnson",
                           "className": "bg-green"
                         },
                         {
                           "title": "JSONA 一款转换 JSONAPI 数据的工具库，也算是解放 DRUPAL JSONAPI 反序列化的利器",
                           "event": "drupal",
-                          "start": 1688013239649,
+                          "start": 1688312449736,
                           "user": "Johnson",
                           "className": "bg-light-green"
                         },
                         {
                           "title": "ANGULAR 有哪几种不同类型的绑定",
                           "event": "drupal",
-                          "start": 1688099639649,
+                          "start": 1688312449736,
                           "user": "Johnson",
                           "className": "bg-brown"
                         },
                         {
                           "title": "ANGULAR NG-CONTENT、NG-TEMPLATE、NG-CONTAINER 之间的区别",
                           "event": "drupal",
-                          "start": 1688358839649,
+                          "start": 1688571649736,
                           "user": "Johnson",
                           "className": "bg-grey"
                         }
@@ -9256,7 +9353,7 @@
             "meta": [
               {
                 "icon": "schedule",
-                "label": "2023/07/09"
+                "label": "2023/07/11"
               },
               {
                 "icon": "folder",
@@ -9278,7 +9375,7 @@
                       "src": "../assets/images/showcase/blog1-large.jpeg",
                       "alt": ""
                     },
-                    "changed": "2023-07-09"
+                    "changed": "2023-07-11"
                   },
                   {
                     "link": {
@@ -9289,29 +9386,29 @@
                       "src": "../assets/images/showcase/blog2-large.jpeg",
                       "alt": ""
                     },
-                    "changed": "2023-07-09"
+                    "changed": "2023-07-11"
                   },
                   {
                     "link": {
                       "label": "你应该了解的 Angular 最佳实践",
-                      "href": "2023-07-09"
+                      "href": "2023-07-11"
                     },
                     "img": {
                       "src": "../assets/images/showcase/blog3-large.jpeg",
                       "alt": ""
                     },
-                    "changed": "2023-07-09"
+                    "changed": "2023-07-11"
                   },
                   {
                     "link": {
                       "label": "Angular 5 rxjs 5.5.2 多个 http 并行 forkJoin 请求",
-                      "href": "2023-07-09"
+                      "href": "2023-07-11"
                     },
                     "img": {
                       "src": "../assets/images/showcase/blog4-large.jpeg",
                       "alt": ""
                     },
-                    "changed": "2023-07-09"
+                    "changed": "2023-07-11"
                   }
                 ]
               },
@@ -9342,110 +9439,7 @@
                   }
                 ]
               }
-            ],
-            "params": {
-              "require_rule": [
-                "authenticated"
-              ],
-              "comment": {
-                "type": "comment--comment",
-                "attributes": {
-                  "entity_type": "node",
-                  "field_name": "comment",
-                  "comment_body": {
-                    "format": "full_html"
-                  }
-                },
-                "relationships": {
-                  "comment_type": {
-                    "data": {
-                      "type": "comment_type--comment_type",
-                      "id": "19c33b19-bfdc-4a26-9c64-af6171b123cb"
-                    }
-                  },
-                  "entity_id": {
-                    "data": {
-                      "type": "node--article",
-                      "id": "{{entity_uuid}}"
-                    }
-                  }
-                }
-              }
-            },
-            "editor": {
-              "action": {
-                "label": "提交"
-              },
-              "succes": {
-                "label": "成功发布！"
-              }
-            },
-            "actions": [
-              {
-                "type": "flag",
-                "label": "收藏",
-                "icon": {
-                  "name": "star",
-                  "inline": true
-                },
-                "params": {
-                  "type": "flagging--favorite",
-                  "entity_type": "node",
-                  "entity_id": "1312",
-                  "relationships": {
-                    "flagged_entity": {
-                      "type": "node--article",
-                      "id": "cb31d69f-a95e-4c91-97d1-1169f82a10a5"
-                    }
-                  }
-                }
-              },
-              {
-                "type": "share",
-                "button": {
-                  "icon": "share",
-                  "label": "分享"
-                },
-                "params": {
-                  "url": "/"
-                }
-              },
-              {
-                "type": "download",
-                "label": "下载",
-                "icon": {
-                  "name": "file_download",
-                  "inline": true
-                },
-                "elements": [
-                  {
-                    "type": "link",
-                    "label": "Doc",
-                    "icon": {
-                      "name": "description"
-                    },
-                    "href": "#"
-                  },
-                  {
-                    "type": "link",
-                    "label": "Pdf",
-                    "icon": {
-                      "name": "picture_as_pdf"
-                    },
-                    "href": "#"
-                  }
-                ]
-              }
-            ],
-            "comment": {
-              "actions": [
-                "update",
-                "delete",
-                "reply",
-                "quote"
-              ],
-              "title": true
-            }
+            ]
           },
           "canAccess": true,
           "comments$": {
@@ -9458,7 +9452,16 @@
             "type": "question",
             "title": "作为一个前端开发人员，如何让自己保持学习的热忱并坚持下去？",
             "body": "前端技术不断更迭，日新月异，如何保持学习的心态。",
-            "topic": [],
+            "topic": {
+              "elements": [
+                {
+                  "label": "前端"
+                },
+                {
+                  "label": "Angular"
+                }
+              ]
+            },
             "params": {
               "comment": {
                 "type": "comment--answer",
@@ -9952,119 +9955,119 @@
                   {
                     "title": "使用 DEVTOOLS 对 ANGULAR 前端应用性能分析优化",
                     "event": "meeting",
-                    "start": "2023-07-09T04:33:59.649Z",
+                    "start": "2023-07-11T15:40:49.736Z",
                     "user": "Johnson",
                     "className": "bg-primary"
                   },
                   {
                     "title": "使用 TAKEUNTIL 操作符管理 ANGULAR 组件的订阅",
                     "event": "drupal",
-                    "start": 1689654839649,
+                    "start": 1689781249736,
                     "user": "Johnson",
                     "className": "bg-accent"
                   },
                   {
                     "title": "你应该了解的 ANGULAR 最佳实践",
                     "event": "drupal",
-                    "start": 1689136439649,
+                    "start": 1689608449736,
                     "user": "Johnson",
                     "className": "bg-warn"
                   },
                   {
                     "title": "ANGULAR 5 RXJS 5.5.2 多个 HTTP 并行 FORKJOIN 请求",
                     "event": "drupal",
-                    "start": 1689654839649,
+                    "start": 1689522049736,
                     "user": "Johnson",
                     "className": "bg-warn"
                   },
                   {
                     "title": "DRUPAL 8 AJAX 弹出框可监听利用的 EVENT 事件",
                     "event": "drupal",
-                    "start": 1689654839649,
+                    "start": 1689781249736,
                     "user": "Johnson",
                     "className": "bg-pink"
                   },
                   {
                     "title": "DRUPAL8 用户登录后自定义重定向",
                     "event": "drupal",
-                    "start": 1689482039649,
+                    "start": 1689694849736,
                     "user": "Johnson",
                     "className": "bg-orange"
                   },
                   {
                     "title": "如何更改 GIT COMMIT 某个历史提交信息",
                     "event": "drupal",
-                    "start": 1689309239649,
+                    "start": 1689435649736,
                     "user": "Johnson",
                     "className": "bg-yellow"
                   },
                   {
                     "title": "开源项目使用 GITHUB ACTIONS 自动化测试部署 ANGULAR 应用到 ECS 服务器",
                     "event": "drupal",
-                    "start": 1689136439649,
+                    "start": 1689522049736,
                     "user": "Johnson",
                     "className": "bg-red"
                   },
                   {
                     "title": "DRUPAL JSONAPI 初级入门实践",
                     "event": "drupal",
-                    "start": 1689568439649,
+                    "start": 1689608449736,
                     "user": "Johnson",
                     "className": "bg-purple"
                   },
                   {
                     "title": "RXJS SWITCHMAP 在 DRUPAL API中的应用",
                     "event": "drupal",
-                    "start": 1689309239649,
+                    "start": 1689867649736,
                     "user": "Johnson",
                     "className": "bg-indigo"
                   },
                   {
                     "title": "五年了，再谈南宁和深圳的差距",
                     "event": "drupal",
-                    "start": 1689050039649,
+                    "start": 1689954049736,
                     "user": "Johnson",
                     "className": "bg-blue"
                   },
                   {
                     "title": "没想到吧？2021年南宁IT互联网相关工作者最近一份工作求职渠道最受欢迎的竟然是它",
                     "event": "drupal",
-                    "start": 1688704439649,
+                    "start": 1688917249736,
                     "user": "Johnson",
                     "className": "bg-cyan"
                   },
                   {
                     "title": "南宁IT互联网行业薪资福利待遇如何？",
                     "event": "drupal",
-                    "start": 1688618039649,
+                    "start": 1688226049736,
                     "user": "Johnson",
                     "className": "bg-teal"
                   },
                   {
                     "title": "南宁IT互联网公司，有哪些是双休？",
                     "event": "drupal",
-                    "start": 1688531639649,
+                    "start": 1688744449736,
                     "user": "Johnson",
                     "className": "bg-green"
                   },
                   {
                     "title": "JSONA 一款转换 JSONAPI 数据的工具库，也算是解放 DRUPAL JSONAPI 反序列化的利器",
                     "event": "drupal",
-                    "start": 1688013239649,
+                    "start": 1688312449736,
                     "user": "Johnson",
                     "className": "bg-light-green"
                   },
                   {
                     "title": "ANGULAR 有哪几种不同类型的绑定",
                     "event": "drupal",
-                    "start": 1688099639649,
+                    "start": 1688312449736,
                     "user": "Johnson",
                     "className": "bg-brown"
                   },
                   {
                     "title": "ANGULAR NG-CONTENT、NG-TEMPLATE、NG-CONTAINER 之间的区别",
                     "event": "drupal",
-                    "start": 1688358839649,
+                    "start": 1688571649736,
                     "user": "Johnson",
                     "className": "bg-grey"
                   }
@@ -10090,6 +10093,10 @@
             "params": {
               "apiBak": "/api/v2/xxx"
             },
+            "bg": {
+              "classes": ""
+            },
+            "classes": "",
             "more": {
               "label": "查看更多",
               "href": "#",
@@ -10149,6 +10156,10 @@
                   "label": "使用 DevTools 对 Angular 前端应用性能分析优化",
                   "href": "/node/417"
                 },
+                "bg": {
+                  "classes": ""
+                },
+                "classes": "",
                 "spacer": "none",
                 "showImage": true,
                 "feature": {
@@ -10178,6 +10189,10 @@
                   "label": "使用 takeUntil 操作符管理 Angular 组件的订阅",
                   "href": "/node/415"
                 },
+                "bg": {
+                  "classes": ""
+                },
+                "classes": "",
                 "spacer": "none",
                 "showImage": true,
                 "feature": {
@@ -10209,6 +10224,10 @@
                 },
                 "spacer": "none",
                 "showImage": true,
+                "bg": {
+                  "classes": ""
+                },
+                "classes": "",
                 "feature": {
                   "fullIcon": "fullscreen",
                   "openIcon": "open_in_new",
@@ -10238,6 +10257,10 @@
                 },
                 "spacer": "none",
                 "showImage": true,
+                "bg": {
+                  "classes": ""
+                },
+                "classes": "",
                 "feature": {
                   "fullIcon": "fullscreen",
                   "openIcon": "open_in_new",
@@ -10267,6 +10290,10 @@
                 },
                 "spacer": "none",
                 "showImage": true,
+                "bg": {
+                  "classes": ""
+                },
+                "classes": "",
                 "feature": {
                   "fullIcon": "fullscreen",
                   "openIcon": "open_in_new",
@@ -10296,6 +10323,10 @@
                 },
                 "spacer": "none",
                 "showImage": true,
+                "bg": {
+                  "classes": ""
+                },
+                "classes": "",
                 "feature": {
                   "fullIcon": "fullscreen",
                   "openIcon": "open_in_new",
@@ -10325,6 +10356,10 @@
                 },
                 "spacer": "none",
                 "showImage": true,
+                "bg": {
+                  "classes": ""
+                },
+                "classes": "",
                 "feature": {
                   "fullIcon": "fullscreen",
                   "openIcon": "open_in_new",
@@ -10354,6 +10389,10 @@
                 },
                 "spacer": "none",
                 "showImage": true,
+                "bg": {
+                  "classes": ""
+                },
+                "classes": "",
                 "feature": {
                   "fullIcon": "fullscreen",
                   "openIcon": "open_in_new",
@@ -10383,6 +10422,10 @@
                 },
                 "spacer": "none",
                 "showImage": true,
+                "bg": {
+                  "classes": ""
+                },
+                "classes": "",
                 "feature": {
                   "fullIcon": "fullscreen",
                   "openIcon": "open_in_new",
@@ -10412,6 +10455,10 @@
                 },
                 "spacer": "none",
                 "showImage": true,
+                "bg": {
+                  "classes": ""
+                },
+                "classes": "",
                 "feature": {
                   "fullIcon": "fullscreen",
                   "openIcon": "open_in_new",
@@ -10511,11 +10558,6 @@
         {
           "content": {
             "type": "taxonomy-thin-list",
-            "params": {
-              "type": "article",
-              "taxonomy": "search_category",
-              "page": "20"
-            },
             "sidebar": [
               {
                 "type": "menu-list",
@@ -11639,6 +11681,7 @@
             "type": "tree-list",
             "tree": [
               {
+                "type": "tree",
                 "label": "开发语言",
                 "key": "type",
                 "expandAll": false,
@@ -11696,7 +11739,7 @@
                     "href": "/node/417",
                     "target": "_blank"
                   },
-                  "created": "2023-07-09",
+                  "created": "2023-07-11",
                   "body": "<h4 id=\"%E4%BD%BF%E7%94%A8-lighthouse-%E8%AF%84%E5%88%86\">使用 lighthouse 评分</h4><p>以南宁IT派[www.nnitpai.com]为例记录分析优化过程，使用 Devtools lighthouse 对首页进行综合的评分：<br /><img alt=\"image 0\" data-entity-type=\"file\" data-entity-uuid=\"c397a1f3-b764-4fd2-ab09-98d61f2a4dbd\" height=\"603\" src=\"/sites/default/files/inline-images/image_0.png\" width=\"940\" /><br />性能评分勉强及格差强人意，切换到 performance 性能选项卡:<br /><img alt=\"image 1\" data-entity-type=\"file\" data-entity-uuid=\"17526354-c3f6-45ab-8d28-8100cd1d10e8\" height=\"506\" src=\"/sites/default/files/inline-images/image_1.png\" width=\"951\" /><br />记录的同时，可以依次滚动页面到底部，暂停看看分析结果：<br /><img alt=\"image 2\" data-entity-type=\"file\" data-entity-uuid=\"2349f2bb-d08a-4e5e-a6fa-8ca891b91022\" height=\"422\" src=\"/sites/default/files/inline-images/image_2.png\" width=\"949\" /><br />发现一推很深的函数调用，放大具体看看：（记得要用本地开发环境来查看，这样可以方便看未编译版本中具体的组件或者函数）<br /></p>",
                   "user": "Johnson",
                   "type": "博客",
@@ -11715,7 +11758,7 @@
                     "href": "/node/414",
                     "target": "_blank"
                   },
-                  "created": "2023-07-09",
+                  "created": "2023-07-11",
                   "body": "<p>遵循最佳实践可以让你的 Angular 应用保持性能优越，使团队的代码风格一致，以下代码摘自南宁IT派官网项目。</p><h3 id=\"%E6%8A%8A%E9%BB%98%E8%AE%A4%E7%9A%84%E5%8F%98%E6%9B%B4%E6%A3%80%E6%B5%8B%E8%AE%BE%E7%BD%AE%E4%B8%BA-onpush\">把默认的变更检测设置为 OnPush</h3><p>Angular 默认变更检测是 Defualt，只要在组件中有任意一个值发生改变或者 Dom中有事件的更新都会触发整个应用自上而下的变更检测，使用&nbsp;<code data-backticks=\"1\">OnPush</code>&nbsp;的方式使大型的应用的性能得到很大的提升。<br />导入 ChangeDetectionStrategy 之后，设置为OnPush</p></p>",
                   "user": "表歌",
                   "type": "博客",
@@ -12210,7 +12253,7 @@
                         }
                       ],
                       "map": {
-                        "citi": "南宁市",
+                        "city": "南宁市",
                         "elements": [
                           {
                             "title": "创客城",
@@ -12358,7 +12401,7 @@
                         }
                       ],
                       "map": {
-                        "citi": "南宁市",
+                        "city": "南宁市",
                         "elements": [
                           {
                             "title": "创客城",
@@ -12532,11 +12575,11 @@
             "style": {
               "height": "500px"
             },
-            "city": "南宁市",
-            "params": {
-              "zoomEnable": false,
-              "draggable": false
+            "bg": {
+              "classes": ""
             },
+            "classes": "",
+            "city": "南宁市",
             "elements": [
               {
                 "company": {
@@ -12663,7 +12706,7 @@
                             "name": "editor",
                             "inline": true
                           },
-                          "href": "https://admin.zhaobg.com/manage/content/50/edit",
+                          "href": "#",
                           "target": "_blank"
                         }
                       ],
@@ -12858,6 +12901,18 @@
                         "alt": "联想集团"
                       },
                       "name": "联想集团",
+                      "actions": [
+                        {
+                          "type": "btn",
+                          "label": "编辑",
+                          "icon": {
+                            "name": "editor",
+                            "inline": true
+                          },
+                          "href": "#",
+                          "target": "_blank"
+                        }
+                      ],
                       "details": {
                         "label": "公司资料",
                         "elements": [
@@ -13101,6 +13156,10 @@
               "classes": "text-center",
               "body": "输入指标，自动计算出预算，指导市场营销计划。"
             },
+            "bg": {
+              "classes": ""
+            },
+            "classes": "",
             "form": [
               {
                 "key": "max",

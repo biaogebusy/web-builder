@@ -4,7 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { INotfound } from '@core/interface/combs/INotfound';
+import type { INotfound } from '@core/interface/combs/INotfound';
 
 @Component({
   selector: 'app-404',
