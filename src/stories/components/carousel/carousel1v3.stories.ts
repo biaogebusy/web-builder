@@ -61,7 +61,7 @@ const content: ICarouselBase = {
       {
         type: 'box',
         img: {
-          src: '/assets/images/amazon.svg',
+          src: '/assets/images/logo/amazon.svg',
           alt: 'browser',
         },
         style: 'style-v8',
@@ -87,7 +87,7 @@ const content: ICarouselBase = {
       {
         type: 'box',
         img: {
-          src: '/assets/images/shopify.svg',
+          src: '/assets/images/logo/shopify.svg',
           alt: 'browser',
         },
         style: 'style-v8',
@@ -100,7 +100,7 @@ const content: ICarouselBase = {
       {
         type: 'box',
         img: {
-          src: '/assets/images/paypal.svg',
+          src: '/assets/images/logo/paypal.svg',
           alt: 'browser',
         },
         style: 'style-v8',
@@ -113,7 +113,7 @@ const content: ICarouselBase = {
       {
         type: 'box',
         img: {
-          src: '/assets/images/amazon.svg',
+          src: '/assets/images/logo/amazon.svg',
           alt: 'browser',
         },
         style: 'style-v8',

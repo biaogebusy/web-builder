@@ -29,6 +29,7 @@ import {
   DEBUG_ANIMATE,
   MANAGE_SIDEBAR_STATE,
   ENABLE_TOOLBAR,
+  MEDIA_ASSETS,
 } from '@core/token/token-providers';
 import { of } from 'rxjs';
 import { ActionModule } from '@uiux/combs/action/action.module';
@@ -57,6 +58,7 @@ import { UserService } from '@core/service/user.service';
 import { ScreenService } from '@core/service/screen.service';
 import { BuilderModule } from '@modules/builder/builder.module';
 import { ManageModule } from '@modules/manage/manage.module';
+import { mediaAssets } from '@stories/builder/data/assets/media-assets-for-story';
 
 export function sleep(ms: number): Promise<any> {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -161,6 +163,10 @@ export class StorysModule {
         {
           provide: ENABLE_TOOLBAR,
           useValue: of(false),
+        },
+        {
+          provide: MEDIA_ASSETS,
+          useValue: of(mediaAssets),
         },
       ],
     };

@@ -5,7 +5,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
+import type { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
 import { BuilderState } from '@core/state/BuilderState';
 import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
 

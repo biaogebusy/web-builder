@@ -19,7 +19,7 @@ export class FormlyComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.content) {
-      Object.keys(this.content).map((key: string) => {
+      Object.keys(this.content).forEach((key: string) => {
         const that: any = this;
         that[key] = this.content[key];
       });

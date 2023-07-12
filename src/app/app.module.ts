@@ -23,6 +23,7 @@ import {
   DISABLE_BRAND,
   ENABLE_TOOLBAR,
   MANAGE_SIDEBAR_STATE,
+  MEDIA_ASSETS,
   NOTIFY_CONTENT,
   USER,
 } from '@core/token/token-providers';
@@ -39,6 +40,7 @@ import {
   disableBrandFactory,
   enableToolbarFactory,
   manageSidebarStateFactory,
+  mediaAssetsFactory,
   notifyFactory,
   themeFactory,
   userFactory,
@@ -52,6 +54,9 @@ import { Router } from '@angular/router';
 import { BuilderState } from '@core/state/BuilderState';
 import { of } from 'rxjs';
 import { ScreenService } from '@core/service/screen.service';
+import { ManageService } from '@core/service/manage.service';
+import { NodeService } from '@core/service/node.service';
+import { ContentState } from '@core/state/ContentState';
 
 @NgModule({
   declarations: [AppComponent],
@@ -140,6 +145,11 @@ import { ScreenService } from '@core/service/screen.service';
       provide: ENABLE_TOOLBAR,
       useFactory: enableToolbarFactory,
       deps: [Router],
+    },
+    {
+      provide: MEDIA_ASSETS,
+      useFactory: mediaAssetsFactory,
+      deps: [NodeService, ManageService, ContentState],
     },
   ],
   bootstrap: [AppComponent],

@@ -211,7 +211,7 @@ export function notifyFactory(
         switchMap(() => notifyService.getWatchList()),
         map((res) => {
           let lists: INotify[] = [];
-          Object.keys(res).map((item: any) => {
+          Object.keys(res).forEach((item: any) => {
             const message = res[item].rows.map((list: any) => ({
               link: {
                 href: list.url,
