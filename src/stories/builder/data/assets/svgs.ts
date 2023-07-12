@@ -125,7 +125,7 @@ export const images_svgs = [
     ...featureBox,
     img: {
       classes: 'object-fit',
-      src: '/assets/images/svg/mondy-com.webp',
+      src: '/assets/images/svg/monday-com.webp',
     },
   },
   {

@@ -76,13 +76,6 @@ export const images_heros = [
     ...featureBox,
     img: {
       classes: 'object-fit',
-      src: '/assets/images/hero/bg04.jpg',
-    },
-  },
-  {
-    ...featureBox,
-    img: {
-      classes: 'object-fit',
       src: '/assets/images/hero/bg05.jpg',
     },
   },

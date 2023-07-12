@@ -60,7 +60,7 @@ const content: IShowcase2v3 = {
         color: 'primary',
       },
       img: {
-        src: '/assets/images/showcase/arc.png',
+        src: '/assets/images/svg/bike.png',
         alt: 'arcvap',
         href: '#',
       },
@@ -74,7 +74,7 @@ const content: IShowcase2v3 = {
         color: 'primary',
       },
       img: {
-        src: '/assets/images/showcase/arc.png',
+        src: '/assets/images/svg/car.png',
         alt: 'arcvap',
         href: '#',
       },
@@ -88,7 +88,7 @@ const content: IShowcase2v3 = {
         color: 'primary',
       },
       img: {
-        src: '/assets/images/showcase/arc.png',
+        src: '/assets/images/svg/term-life.png',
         alt: 'arcvap',
         href: '#',
       },

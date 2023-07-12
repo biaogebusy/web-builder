@@ -13,13 +13,6 @@ export const images_1_1 = [
     ...featureBox,
     img: {
       classes: 'object-fit',
-      src: '/assets/images/1-1/animal-01.jpg',
-    },
-  },
-  {
-    ...featureBox,
-    img: {
-      classes: 'object-fit',
       src: '/assets/images/1-1/business-01.png',
     },
   },
@@ -42,13 +35,6 @@ export const images_1_1 = [
     img: {
       classes: 'object-fit',
       src: '/assets/images/1-1/business-04.png',
-    },
-  },
-  {
-    ...featureBox,
-    img: {
-      classes: 'object-fit',
-      src: '/assets/images/1-1/natural-01.jpg',
     },
   },
 ];

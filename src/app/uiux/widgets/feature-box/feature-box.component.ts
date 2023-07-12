@@ -21,6 +21,7 @@ export class FeatureBoxComponent implements OnInit {
   box: IFeatureBox;
   type: string;
   isHoverIcon = true;
+  title: string;
   constructor(
     private lightbox: Lightbox,
     private lightboxConfig: LightboxConfig,
@@ -37,6 +38,7 @@ export class FeatureBoxComponent implements OnInit {
   ngOnInit(): void {
     this.type = this.utli.getFileType(this.content.img.src);
     const iconPath = '/assets/icons';
+    this.title = this.content.img.alt || this.getFileName(this.content.img.src);
     this.cd.detectChanges();
     if (this.type === 'picture') {
       this.box = this.content;
@@ -57,12 +59,15 @@ export class FeatureBoxComponent implements OnInit {
               ? `${iconPath}/file-excel.svg`
               : `${iconPath}/file-word.svg`,
           preview: this.content.img?.preview,
-          alt: this.content.img.alt,
         },
       };
     }
     this.getHoverIcon();
     this.cd.detectChanges();
+  }
+
+  getFileName(src: string): string {
+    return src.substring(src.lastIndexOf('/') + 1);
   }
 
   getHoverIcon(): void {

@@ -48,20 +48,6 @@ export const images_illustration = [
     ...featureBox,
     img: {
       classes: 'object-fit',
-      src: '/assets/images/illustration/05.png',
-    },
-  },
-  {
-    ...featureBox,
-    img: {
-      classes: 'object-fit',
-      src: '/assets/images/illustration/06.png',
-    },
-  },
-  {
-    ...featureBox,
-    img: {
-      classes: 'object-fit',
       src: '/assets/images/illustration/07.png',
     },
   },

@@ -69,13 +69,6 @@ export const images_showcases = [
     ...featureBox,
     img: {
       classes: 'object-fit',
-      src: '/assets/images/showcase/arc.png',
-    },
-  },
-  {
-    ...featureBox,
-    img: {
-      classes: 'object-fit',
       src: '/assets/images/showcase/bg2.jpeg',
     },
   },
