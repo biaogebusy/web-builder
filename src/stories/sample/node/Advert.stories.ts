@@ -10,7 +10,6 @@ import { StorysModule } from '@core/module/storys.module';
 import { AdvertComponent } from '@uiux/combs/node/advert/advert.component';
 import { comments } from './comments.json';
 import { of } from 'rxjs';
-import { IAdvert } from '@core/interface/node/INode';
 
 export default {
   title: '示例页面/内容类型/小程序预览',
@@ -51,7 +50,7 @@ const content = {
     start: '2022/09/11',
     end: '2022/10/01',
   },
-  body: '<img alt="1" data-align="center" src="/stories/sample/node/Advert.stories.ts" /><img alt="1" data-align="center" src="/assets/images/1-1/business-02.png" /><img alt="1" data-align="center" src="/assets/images/1-1/business-03.png" />',
+  body: '<img alt="1" data-align="center" src="/assets/images/1-1/business-01.png" /><img alt="1" data-align="center" src="/assets/images/1-1/business-02.png" /><img alt="1" data-align="center" src="/assets/images/1-1/business-03.png" />',
   view: '50',
   params: {
     comment: {
