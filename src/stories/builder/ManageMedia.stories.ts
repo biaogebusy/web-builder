@@ -32,10 +32,9 @@ const Template: Story = (args) => ({
     ...args,
   },
 });
-
-export const Default = {
-  args: {
-    form: new FormGroup({}),
-    model: {},
-  },
+export const Default = Template.bind({});
+Default.storyName = '预览';
+Default.args = {
+  form: new FormGroup({}),
+  model: {},
 };

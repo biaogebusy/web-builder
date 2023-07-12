@@ -9,6 +9,7 @@ import { TaxonomyListComponent } from '@uiux/combs/list/taxonomy-list/taxonomy-l
 import { ListModule } from '@uiux/combs/list/list.module';
 import { StorysModule } from '@core/module/storys.module';
 import { ITaxonomyList } from '@core/interface/combs/IList';
+import { mediaList } from '@stories/builder/data/widgets/media.builder';
 
 export default {
   title: '复合组件/列表/分类列表',
@@ -367,56 +368,7 @@ const content: ITaxonomyList = {
     },
   ],
   sidebar: [
-    {
-      type: 'media-list',
-      title: '热门文章',
-      elements: [
-        {
-          link: {
-            label: '使用 DevTools 对 Angular 前端应用性能分析优化',
-            href: '#',
-          },
-          img: {
-            src: '../assets/images/showcase/blog1-large.jpeg',
-            alt: '',
-          },
-          changed: '2021/02/07',
-        },
-        {
-          link: {
-            label: '使用 takeUntil 操作符管理 Angular 组件的订阅',
-            href: '#',
-          },
-          img: {
-            src: '../assets/images/showcase/blog2-large.jpeg',
-            alt: '',
-          },
-          changed: '2021/02/07',
-        },
-        {
-          link: {
-            label: '你应该了解的 Angular 最佳实践',
-            href: '#',
-          },
-          img: {
-            src: '../assets/images/showcase/blog3-large.jpeg',
-            alt: '',
-          },
-          changed: '2021/02/07',
-        },
-        {
-          link: {
-            label: 'Angular 5 rxjs 5.5.2 多个 http 并行 forkJoin 请求',
-            href: '#',
-          },
-          img: {
-            src: '../assets/images/showcase/blog4-large.jpeg',
-            alt: '',
-          },
-          changed: '2021/02/07',
-        },
-      ],
-    },
+    mediaList,
     {
       type: 'menu-list',
       title: '\u5206\u7c7b',

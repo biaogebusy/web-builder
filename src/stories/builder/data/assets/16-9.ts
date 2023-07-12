@@ -132,20 +132,6 @@ export const images_16_9 = [
     ...featureBox,
     img: {
       classes: 'object-fit',
-      src: '/assets/images/16-9/code-01.jpg',
-    },
-  },
-  {
-    ...featureBox,
-    img: {
-      classes: 'object-fit',
-      src: '/assets/images/16-9/education-01.jpg',
-    },
-  },
-  {
-    ...featureBox,
-    img: {
-      classes: 'object-fit',
       src: '/assets/images/16-9/f-01.png',
     },
   },

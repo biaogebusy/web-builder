@@ -13,17 +13,17 @@ import { images_svgs } from './svgs';
 
 export const mediaAssets = {
   elements: [
-    ...images_1_1,
-    ...images_16_9,
-    ...images_avatar,
-    ...images_bg,
-    ...images_cases,
     ...images_heros,
     ...images_illustration,
+    ...images_showcases,
+    ...images_cases,
+    ...images_avatar,
+    ...images_1_1,
+    ...images_16_9,
+    ...images_bg,
+    ...images_svgs,
     ...images_logos,
     ...images_mobiles,
-    ...images_showcases,
-    ...images_svgs,
     ...images_others,
   ],
   links: {

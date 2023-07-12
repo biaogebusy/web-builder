@@ -212,11 +212,4 @@ export const images_showcases = [
       src: '/assets/images/showcase/weather.png',
     },
   },
-  {
-    ...featureBox,
-    img: {
-      classes: 'object-fit',
-      src: '/assets/images/showcase/work.jpeg',
-    },
-  },
 ];

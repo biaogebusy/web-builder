@@ -86,18 +86,4 @@ export const images_mobiles = [
       src: '/assets/images/mobile/mobile-04.jpg',
     },
   },
-  {
-    ...featureBox,
-    img: {
-      classes: 'object-fit',
-      src: '/assets/images/mobile/mobile-05.jpg',
-    },
-  },
-  {
-    ...featureBox,
-    img: {
-      classes: 'object-fit',
-      src: '/assets/images/mobile/mobile-06.jpg',
-    },
-  },
 ];

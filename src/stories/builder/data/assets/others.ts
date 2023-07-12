@@ -34,34 +34,6 @@ export const images_others = [
     ...featureBox,
     img: {
       classes: 'object-fit',
-      src: '/assets/images/client1.jpeg',
-    },
-  },
-  {
-    ...featureBox,
-    img: {
-      classes: 'object-fit',
-      src: '/assets/images/client2.jpeg',
-    },
-  },
-  {
-    ...featureBox,
-    img: {
-      classes: 'object-fit',
-      src: '/assets/images/client3.jpeg',
-    },
-  },
-  {
-    ...featureBox,
-    img: {
-      classes: 'object-fit',
-      src: '/assets/images/client4.jpeg',
-    },
-  },
-  {
-    ...featureBox,
-    img: {
-      classes: 'object-fit',
       src: '/assets/images/default.png',
     },
   },
