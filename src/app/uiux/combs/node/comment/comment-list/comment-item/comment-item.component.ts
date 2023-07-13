@@ -48,15 +48,17 @@ export class CommentItemComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit(): void {
     if (this.screenService.isPlatformBrowser()) {
-      this.contentState.commentChange$.subscribe((state) => {
-        if (state) {
-          this.showComment = true;
-          this.showActions = true;
-          this.currentId = '';
-          this.screenService.scrollToAnchor(`q-${this.currentId}`);
-          this.cd.detectChanges();
-        }
-      });
+      this.contentState.commentChange$
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((state) => {
+          if (state) {
+            this.showComment = true;
+            this.showActions = true;
+            this.currentId = '';
+            this.screenService.scrollToAnchor(`q-${this.currentId}`);
+            this.cd.detectChanges();
+          }
+        });
     }
   }
 

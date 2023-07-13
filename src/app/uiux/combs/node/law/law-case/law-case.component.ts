@@ -21,6 +21,7 @@ import {
   debounceTime,
   distinctUntilChanged,
   startWith,
+  tap,
 } from 'rxjs/operators';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
@@ -107,11 +108,13 @@ export class LawCaseComponent
     if (!this.coreConfig?.article?.comment?.enable || !uuid) {
       return;
     }
-    this.comments$ = this.nodeService.getCustomApiComment(
-      uuid,
-      timeStamp,
-      this.user.csrf_token
-    );
+    this.comments$ = this.nodeService
+      .getCustomApiComment(uuid, timeStamp, this.user.csrf_token)
+      .pipe(
+        tap((res) => {
+          console.log(res);
+        })
+      );
   }
 
   getCaseParams(value: ICasePrams): any {
