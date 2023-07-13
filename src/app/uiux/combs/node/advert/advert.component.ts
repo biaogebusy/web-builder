@@ -62,7 +62,6 @@ export class AdvertComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.getComments();
     if (this.screenService.isPlatformBrowser()) {
       this.contentState.commentChange$
         .pipe(takeUntil(this.destroy$))
@@ -82,7 +81,6 @@ export class AdvertComponent implements OnInit, AfterViewInit {
     this.comments$ = this.nodeService
       .getCustomApiComment(uuid, timeStamp, this.user.csrf_token)
       .pipe(takeUntil(this.destroy$));
-    this.cd.detectChanges();
   }
 
   ngOnDestroy(): void {

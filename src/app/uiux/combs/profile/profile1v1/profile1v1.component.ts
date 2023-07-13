@@ -51,7 +51,6 @@ export class Profile1v1Component implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.getComments();
     if (this.screenService.isPlatformBrowser()) {
       this.contentState.commentChange$
         .pipe(takeUntil(this.destroy$))

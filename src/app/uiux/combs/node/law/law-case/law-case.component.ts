@@ -2,7 +2,6 @@ import {
   Component,
   Input,
   OnInit,
-  ChangeDetectorRef,
   ChangeDetectionStrategy,
   AfterViewInit,
   Inject,
@@ -45,7 +44,6 @@ export class LawCaseComponent
   destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     public nodeService: NodeService,
-    private cd: ChangeDetectorRef,
     private formService: FormService,
     private uti: UtilitiesService,
     private screenService: ScreenService,
@@ -62,11 +60,11 @@ export class LawCaseComponent
     if (this.content?.form?.length) {
       this.initForm(this.content.form);
     }
-    this.getComments();
     if (this.screenService.isPlatformBrowser()) {
       this.contentState.commentChange$
         .pipe(takeUntil(this.destroy$))
         .subscribe((state) => {
+          console.log(state);
           if (state) {
             this.getComments(+new Date());
           }

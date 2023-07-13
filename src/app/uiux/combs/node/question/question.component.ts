@@ -54,8 +54,6 @@ export class QuestionComponent
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    this.checkIsAsked();
-    this.getComments();
     if (this.screenService.isPlatformBrowser()) {
       this.contentState.commentChange$
         .pipe(takeUntil(this.destroy$))

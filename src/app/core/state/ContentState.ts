@@ -5,7 +5,7 @@ import { IPage } from '@core/interface/IAppConfig';
   providedIn: 'root',
 })
 export class ContentState {
-  public commentChange$ = new Subject();
+  public commentChange$ = new BehaviorSubject<boolean>(true);
   public commentQuote$ = new Subject();
   public pageConfig$ = new BehaviorSubject<any | object | boolean>(false);
   public drawerOpened$ = new BehaviorSubject<boolean>(false);

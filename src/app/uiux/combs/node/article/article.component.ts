@@ -119,7 +119,6 @@ export class ArticleComponent
       });
     }
     if (this.coreConfig.article?.comment?.enable) {
-      this.getComments();
       if (this.screenService.isPlatformBrowser()) {
         this.contentState.commentChange$
           .pipe(takeUntil(this.destroy$))
