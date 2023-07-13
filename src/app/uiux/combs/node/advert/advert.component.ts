@@ -31,7 +31,7 @@ export class AdvertComponent implements OnInit, AfterViewInit {
   @Input() content: IAdvert;
   headerMeta: IHeaderMeta;
   uuid: string;
-  comments$: Observable<IComment[]>;
+  comments: IComment[];
   destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
@@ -78,9 +78,13 @@ export class AdvertComponent implements OnInit, AfterViewInit {
     if (!uuid) {
       return;
     }
-    this.comments$ = this.nodeService
+    this.nodeService
       .getCustomApiComment(uuid, timeStamp, this.user.csrf_token)
-      .pipe(takeUntil(this.destroy$));
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((res) => {
+        this.comments = res;
+        this.cd.detectChanges();
+      });
   }
 
   ngOnDestroy(): void {

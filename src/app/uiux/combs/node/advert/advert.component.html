@@ -27,7 +27,7 @@
       <div class="right-content m-left p-y-xs p-x-xs" fxFlex="auto">
         <app-comment-form *ngIf="user.authenticated && content?.params?.comment" [content]="content" [type]="'add'">
         </app-comment-form>
-        <app-comment-list *ngIf="user.authenticated" [comments]="comments$ | async" [content]="content">
+        <app-comment-list *ngIf="user.authenticated" [comments]="comments" [content]="content">
         </app-comment-list>
       </div>
     </div>

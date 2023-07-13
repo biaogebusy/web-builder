@@ -207,10 +207,10 @@ export class CommentFormComponent implements OnInit, OnDestroy {
   done(snack: string): void {
     this.loading = false;
     this.cd.detectChanges();
+    this.contentState.commentChange$.next(true);
     this.utilitiesService.openSnackbar(
       snack || this.content?.editor?.succes?.label
     );
-    this.contentState.commentChange$.next(true);
   }
 
   ngOnDestroy(): void {

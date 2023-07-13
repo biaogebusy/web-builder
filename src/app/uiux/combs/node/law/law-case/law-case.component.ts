@@ -6,6 +6,7 @@ import {
   AfterViewInit,
   Inject,
   OnDestroy,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import type { ICase, ICasePrams, IComment } from '@core/interface/node/INode';
@@ -13,7 +14,7 @@ import { FormService } from '@core/service/form.service';
 import { NodeService } from '@core/service/node.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { NodeComponent } from '@uiux/base/node.widget';
-import { Subject, Observable } from 'rxjs';
+import { Subject } from 'rxjs';
 import { ScreenService } from '@core/service/screen.service';
 import { ContentState } from '@core/state/ContentState';
 import {
@@ -38,7 +39,7 @@ export class LawCaseComponent
   implements OnInit, AfterViewInit, OnDestroy
 {
   @Input() content: ICase;
-  comments$: Observable<IComment[]>;
+  comments: IComment[];
   initCommentContent: string;
   form: FormGroup;
   first = true;
@@ -49,6 +50,7 @@ export class LawCaseComponent
     private uti: UtilitiesService,
     private screenService: ScreenService,
     public contentState: ContentState,
+    private cd: ChangeDetectorRef,
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
     @Inject(USER) private user: IUser
   ) {
@@ -62,14 +64,11 @@ export class LawCaseComponent
       this.initForm(this.content.form);
     }
     if (this.screenService.isPlatformBrowser()) {
-      this.contentState.commentChange$
-        .pipe(takeUntil(this.destroy$))
-        .subscribe((state) => {
-          console.log(state);
-          if (state) {
-            this.getComments(+new Date());
-          }
-        });
+      this.contentState.commentChange$.subscribe((state) => {
+        if (state) {
+          this.getComments(+new Date());
+        }
+      });
     }
   }
 
@@ -108,13 +107,13 @@ export class LawCaseComponent
     if (!this.coreConfig?.article?.comment?.enable || !uuid) {
       return;
     }
-    this.comments$ = this.nodeService
+    this.nodeService
       .getCustomApiComment(uuid, timeStamp, this.user.csrf_token)
-      .pipe(
-        tap((res) => {
-          console.log(res);
-        })
-      );
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((res) => {
+        this.comments = res;
+        this.cd.detectChanges();
+      });
   }
 
   getCaseParams(value: ICasePrams): any {

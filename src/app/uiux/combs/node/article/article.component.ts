@@ -24,7 +24,7 @@ import { NodeComponent } from '@uiux/base/node.widget';
 import type { IBaseNode, IComment } from '@core/interface/node/INode';
 import { ContentState } from '@core/state/ContentState';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
-import { API_URL, PAGE_CONTENT } from '@core/token/token-providers';
+import { PAGE_CONTENT } from '@core/token/token-providers';
 import type { IArticle, ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { LoginComponent } from 'src/app/modules/user/login/login.component';
 import type { IUser } from '@core/interface/IUser';
@@ -42,7 +42,7 @@ export class ArticleComponent
   @Input() content: IBaseNode;
   currentUserRule: string[];
   commentForm: FormGroup;
-  comments$: Observable<IComment[]>;
+  comments: IComment[];
   destroy$: Subject<boolean> = new Subject<boolean>();
   dialogRef: MatDialogRef<any>;
   fontSize: number;
@@ -63,9 +63,7 @@ export class ArticleComponent
     private tagsService: TagsService,
     private userService: UserService,
     public contentState: ContentState,
-    @Inject(DOCUMENT) private document: Document,
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
-    @Inject(API_URL) private apiUrl: string,
     @Inject(PAGE_CONTENT) private pageContent$: Observable<IPage>,
     @Inject(USER) public user: IUser
   ) {
@@ -132,9 +130,13 @@ export class ArticleComponent
   }
 
   getComments(timeStamp = 1): void {
-    this.comments$ = this.nodeService
+    this.nodeService
       .getCommentsWitchChild(this.content, this.user.csrf_token, timeStamp)
-      .pipe(takeUntil(this.destroy$));
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((res) => {
+        this.comments = res;
+        this.cd.detectChanges;
+      });
   }
 
   openLogin(): void {
