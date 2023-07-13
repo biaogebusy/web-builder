@@ -57,11 +57,12 @@
     }
     @include middle-center();
     > a {
-      display: inline-block;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       height: 40px;
       width: 40px;
       line-height: 40px;
-      text-align: center;
       font-size: 16px;
       @include scale(0);
       @include transition(all, 0.4s, ease);
@@ -134,7 +135,7 @@
         @include transition(all, 0.4s, ease);
         &:not([class*="download"]):hover {
           z-index: 1;
-          @include transform(45deg, 1.3, 0, 0);
+          @include transform(45deg, 1.2, 0, 0);
           @include transition(all, 0.4s, ease);
         }
       }
