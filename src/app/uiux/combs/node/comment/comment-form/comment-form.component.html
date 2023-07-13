@@ -3,7 +3,7 @@
   <a class="anchor" id="comment"></a>
   <app-title [content]="content.editor?.title"></app-title>
   <div class="editor">
-    <quill-editor [modules]="modules" [placeholder]=" content.editor?.placeholder || placeholder"
+    <quill-editor [modules]="modules" [placeholder]="content.editor?.placeholder || placeholder"
       *ngIf="screenService.isPlatformBrowser()" [(ngModel)]="commentContent"
       [styles]="{height:content.editor?.height || '250px'}">
     </quill-editor>

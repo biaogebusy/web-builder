@@ -32,7 +32,7 @@ export class QuestionComponent
   implements OnInit, AfterViewInit, OnDestroy
 {
   @Input() content: IQuestion;
-  comments$: Observable<IComment[]>;
+  comments: IComment[];
   showEditor = false;
   isAsked = false;
   myCommentId = '';
@@ -54,17 +54,13 @@ export class QuestionComponent
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    this.checkIsAsked();
-    this.getComments();
     if (this.screenService.isPlatformBrowser()) {
-      this.contentState.commentChange$
-        .pipe(takeUntil(this.destroy$))
-        .subscribe((state) => {
-          if (state) {
-            this.checkIsAsked();
-            this.getComments(+new Date());
-          }
-        });
+      this.contentState.commentChange$.subscribe((state) => {
+        if (state) {
+          this.checkIsAsked();
+          this.getComments(+new Date());
+        }
+      });
     }
   }
 
@@ -115,9 +111,13 @@ export class QuestionComponent
   }
 
   getComments(timeStamp = 1): void {
-    this.comments$ = this.nodeService
+    this.nodeService
       .getCommentsWitchChild(this.content, this.user.csrf_token, timeStamp)
-      .pipe(takeUntil(this.destroy$));
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((res) => {
+        this.comments = res;
+        this.cd.detectChanges();
+      });
   }
 
   openLogin(): void {
