@@ -196,10 +196,8 @@ export class CommentFormComponent implements OnInit, OnDestroy {
       .subscribe(
         () => {
           this.done('更新成功！');
-          this.cd.detectChanges();
         },
         (error) => {
-          this.loading = false;
           console.log(error);
           this.done('更新失败！');
         }
@@ -208,11 +206,11 @@ export class CommentFormComponent implements OnInit, OnDestroy {
 
   done(snack: string): void {
     this.loading = false;
+    this.cd.detectChanges();
+    this.contentState.commentChange$.next(true);
     this.utilitiesService.openSnackbar(
       snack || this.content?.editor?.succes?.label
     );
-    this.contentState.commentChange$.next(true);
-    this.cd.detectChanges();
   }
 
   ngOnDestroy(): void {

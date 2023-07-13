@@ -164,6 +164,8 @@
     }
     > .component-toolbar {
       position: absolute;
+      left: 0;
+      width: 100%;
       z-index: 999;
       line-height: 1;
       .title {

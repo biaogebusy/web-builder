@@ -289,19 +289,13 @@ export class NodeService extends ApiService {
     uuid: string,
     timeStamp = 1,
     token?: string
-  ): Observable<IComment[]> {
+  ): Observable<any> {
     const params = [`timeStamp=${timeStamp}`].join('&');
 
-    return this.http
-      .get(
-        `${this.apiUrl}/api/v3/comment/comment/${uuid}?${params}`,
-        token ? this.optionsWithCookieAndToken : this.httpOptionsOfCommon
-      )
-      .pipe(
-        switchMap((res: any) => {
-          return of(res);
-        })
-      );
+    return this.http.get<IComment[]>(
+      `${this.apiUrl}/api/v3/comment/comment/${uuid}?${params}`,
+      token ? this.optionsWithCookieAndToken : this.httpOptionsOfCommon
+    );
   }
 
   getFlaging(path: string, params: string, token: string): Observable<any> {

@@ -27,7 +27,7 @@ import { ContentState } from '@core/state/ContentState';
 })
 export class Profile1v1Component implements OnInit, AfterViewInit {
   @Input() content: IProfile1v1;
-  comments$: Observable<IComment[]>;
+  comments: IComment[];
   destroy$: Subject<boolean> = new Subject<boolean>();
   avatar: IImg;
   constructor(
@@ -51,15 +51,12 @@ export class Profile1v1Component implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.getComments();
     if (this.screenService.isPlatformBrowser()) {
-      this.contentState.commentChange$
-        .pipe(takeUntil(this.destroy$))
-        .subscribe((state) => {
-          if (state) {
-            this.getComments(+new Date());
-          }
-        });
+      this.contentState.commentChange$.subscribe((state) => {
+        if (state) {
+          this.getComments(+new Date());
+        }
+      });
     }
   }
 
@@ -68,11 +65,12 @@ export class Profile1v1Component implements OnInit, AfterViewInit {
     if (!uuid) {
       return;
     }
-    this.comments$ = this.nodeService.getCustomApiComment(
-      uuid,
-      timeStamp,
-      this.user.csrf_token
-    );
-    this.cd.detectChanges();
+    this.nodeService
+      .getCustomApiComment(uuid, timeStamp, this.user.csrf_token)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((res) => {
+        this.comments = res;
+        this.cd.detectChanges();
+      });
   }
 }

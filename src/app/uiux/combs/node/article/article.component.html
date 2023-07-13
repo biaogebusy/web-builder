@@ -39,7 +39,7 @@
         <app-comment-form *ngIf="user.authenticated && coreConfig.article?.comment?.enable && content?.params?.comment"
           [content]="content" [type]="'add'">
         </app-comment-form>
-        <app-comment-list *ngIf="user.authenticated" [comments]="comments$|async" [content]="content">
+        <app-comment-list *ngIf="user.authenticated" [comments]="comments" [content]="content">
         </app-comment-list>
       </div>
       <app-sidebar [ngClass.gt-sm]="'m-left-sm'" *ngIf="content.sidebar" fxFlex.lt-md="100" fxFlex.gt-sm="25"
