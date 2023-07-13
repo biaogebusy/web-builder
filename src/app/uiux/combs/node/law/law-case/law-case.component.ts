@@ -114,7 +114,6 @@ export class LawCaseComponent
       timeStamp,
       this.user.csrf_token
     );
-    this.cd.detectChanges();
   }
 
   getCaseParams(value: ICasePrams): any {

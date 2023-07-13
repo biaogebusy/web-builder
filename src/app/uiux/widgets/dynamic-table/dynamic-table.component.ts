@@ -63,9 +63,11 @@ export class DynamicTableComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.dataSource = new MatTableDataSource(
-      changes.content.currentValue.elements
-    );
+    if (changes.content?.currentValue) {
+      this.dataSource = new MatTableDataSource(
+        changes.content.currentValue.elements
+      );
+    }
   }
 
   ngAfterViewInit(): void {
