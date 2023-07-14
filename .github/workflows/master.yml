@@ -40,7 +40,7 @@ jobs:
           DEPLOY_KEY: ${{ secrets.KEY }}
           ARGS: -avz --delete
           SERVER_PORT: "22"
-          FOLDER: "dist"
+          FOLDER: "dist/xinshi"
           SERVER_IP: ${{ secrets.HOST }}
           USERNAME: ${{ secrets.SSH_USER }}
-          SERVER_DESTINATION: ${{ secrets.APP_PATH }}
+          SERVER_DESTINATION: "/sdc/www/app/dist/xinshi"
