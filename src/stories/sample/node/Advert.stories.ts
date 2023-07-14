@@ -10,6 +10,7 @@ import { StorysModule } from '@core/module/storys.module';
 import { AdvertComponent } from '@uiux/combs/node/advert/advert.component';
 import { comments } from './comments.json';
 import { of } from 'rxjs';
+import { IAdvert } from '@core/interface/node/INode';
 
 export default {
   title: '示例页面/内容类型/小程序预览',
@@ -39,7 +40,7 @@ const Template: Story = (args) => ({
   },
 });
 export const Default = Template.bind({});
-const content = {
+const content: IAdvert = {
   type: 'advert',
   title: '金秋丰收季，爆款惠不停',
   store: {
@@ -133,5 +134,5 @@ const content = {
 };
 Default.args = {
   content,
-  comments$: of(comments),
+  comments: comments,
 };

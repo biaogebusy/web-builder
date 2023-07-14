@@ -18,7 +18,7 @@ import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
 import { ContentState } from '@core/state/ContentState';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({

@@ -4,12 +4,10 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-
 import { NodeModule } from '@uiux/combs/node/node.module';
 import { LawCaseComponent } from '@uiux/combs/node/law/law-case/law-case.component';
 import { StorysModule } from '@core/module/storys.module';
 import { comments } from './comments.json';
-import { of } from 'rxjs';
 
 export default {
   title: '示例页面/内容类型/数据表格',
@@ -665,7 +663,7 @@ Default.args = {
       title: true,
     },
   },
-  comments$: of(comments),
+  comments: comments,
 };
 
 export const Meeting = Template.bind({});
@@ -1073,7 +1071,7 @@ Meeting.args = {
       title: true,
     },
   },
-  comments$: of(comments),
+  comments: comments,
 };
 
 export const Project = Template.bind({});
@@ -1776,5 +1774,5 @@ Project.args = {
       title: true,
     },
   },
-  comments$: of(comments),
+  comments: comments,
 };

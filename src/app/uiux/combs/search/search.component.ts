@@ -16,7 +16,6 @@ import { FormService } from '@core/service/form.service';
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { ScreenService } from '@core/service/screen.service';
 import { Subject } from 'rxjs';
-import { LocalStorageService } from 'ngx-webstorage';
 import type { ISearch } from '@core/interface/combs/ISearch';
 
 @Component({
@@ -45,8 +44,7 @@ export class SearchComponent
     public routerService: RouteService,
     private formService: FormService,
     private screenService: ScreenService,
-    private cd: ChangeDetectorRef,
-    private storage: LocalStorageService
+    private cd: ChangeDetectorRef
   ) {
     super();
   }

@@ -12,10 +12,10 @@ import * as MeunListStories from 'src/stories/widgets/MeunList.stories';
 import { UserModule } from 'src/app/modules/user/user.module';
 import { StorysModule, sleep } from '@core/module/storys.module';
 import { comments } from './comments.json';
-import { of } from 'rxjs';
 import { formatDate } from '@angular/common';
 import { swiper } from '@stories/builder/data/widgets/common.builder';
 import { IBaseNode } from '@core/interface/node/INode';
+import { FormGroup } from '@angular/forms';
 
 export default {
   title: '示例页面/内容类型/普通文章',
@@ -188,9 +188,9 @@ const comment: IBaseNode = {
   },
 };
 Comment.args = {
-  content,
+  content: comment,
   canAccess: true,
-  comments$: of(comments),
+  comments: comments,
 };
 
 Comment.play = async () => {
