@@ -93,6 +93,10 @@ export class SearchComponent
       });
   }
 
+  onSearch(value: any): void {
+    this.onSelectChange(value);
+  }
+
   onPageChange(page: any): void {
     this.page = page;
     this.nodeSearch({ page: this.page });
@@ -104,6 +108,7 @@ export class SearchComponent
   }
 
   nodeSearch(options: any): void {
+    console.log(options);
     this.loading = true;
     this.searchEntry = omitBy(options, isEmpty);
     const formValue = this.form?.value || {};

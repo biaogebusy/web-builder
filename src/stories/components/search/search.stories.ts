@@ -70,69 +70,82 @@ const content: ISearch = {
   },
   sidebar: [
     {
-      appearance: 'legacy',
-      controlType: 'search',
       key: 'keys',
-      label: '关键词',
       type: 'input',
+      className: 'display-block',
+      templateOptions: {
+        label: '关键词',
+        appearance: 'legacy',
+        type: 'search',
+      },
     },
     {
       type: 'select',
       key: 'skill',
-      label: '技能',
-      options: [
-        {
-          label: '无',
-          value: '',
-        },
-        {
-          label: 'Angular',
-          value: 'angular',
-        },
-        {
-          label: 'React',
-          value: 'react',
-        },
-        {
-          label: 'Vue',
-          value: 'vue',
-        },
-      ],
+      className: 'display-block',
+      templateOptions: {
+        label: '技能',
+        options: [
+          {
+            label: '无',
+            value: '',
+          },
+          {
+            label: 'Angular',
+            value: 'angular',
+          },
+          {
+            label: 'React',
+            value: 'react',
+          },
+          {
+            label: 'Vue',
+            value: 'vue',
+          },
+        ],
+      },
     },
     {
       type: 'select',
       key: 'cms',
-      label: 'CMS',
-      options: [
-        {
-          label: '无',
-          value: '',
-        },
-        {
-          label: 'Drupal',
-          value: 'drupal',
-        },
-        {
-          label: 'WP',
-          value: 'wp',
-        },
-        {
-          label: 'Joomla',
-          value: 'joomla',
-        },
-      ],
+      className: 'display-block',
+      templateOptions: {
+        label: 'CMS',
+        options: [
+          {
+            label: '无',
+            value: '',
+          },
+          {
+            label: 'Drupal',
+            value: 'drupal',
+          },
+          {
+            label: 'WP',
+            value: 'wp',
+          },
+          {
+            label: 'Joomla',
+            value: 'joomla',
+          },
+        ],
+      },
     },
     {
       type: 'checkbox',
-      label: '文章<span>50</span>',
       key: 'article',
-      value: true,
+      className: 'display-block',
+      templateOptions: {
+        label: '文章<span>50</span>',
+      },
     },
     {
       type: 'checkbox',
-      label: '博客<span>20</span>',
       key: 'blog',
-      value: true,
+      className: 'display-block',
+      templateOptions: {
+        label: '博客<span>20</span>',
+      },
     },
   ],
   data: {

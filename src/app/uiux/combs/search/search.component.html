@@ -3,7 +3,8 @@
 <div class="container">
   <div class="search-body" fxLayout="row wrap" fxFlex="100%">
     <app-search-sidebar *ngIf="filterForm" [searchEntry]="searchEntry" [label]="content.label"
-      [content]="content.sidebar" [form]="form" fxFlex.lt-md="0 0 100" fxFlex.gt-sm="0 0 25%">
+      [content]="content.sidebar" [form]="form" fxFlex.lt-md="0 0 100" fxFlex.gt-sm="0 0 25%"
+      (modelChange)="onSearch($event)">
     </app-search-sidebar>
     <app-search-list fxFlex.lt-md="0 0 100" fxFlex.gt-sm="0 0 {{content.sidebar ? '75%':'100%'}}" [content]="nodes"
       [loading]="loading" [pager]="pager" (pageChange)="onPageChange($event)">
