@@ -31,7 +31,7 @@ export class SearchComponent
   @Input() content: ISearch;
   page: number;
   pager: any;
-  form: FormGroup;
+  form: FormGroup = new FormGroup({});
   filterForm: any[];
   nodes: any[];
   loading = false;
@@ -71,6 +71,7 @@ export class SearchComponent
         if (this.content.sidebar) {
           this.initFilterForm(querys, this.content.sidebar);
         }
+        this.form.patchValue({ ...querys });
         this.nodeSearch(querys);
       });
     } else {
@@ -98,6 +99,10 @@ export class SearchComponent
   }
 
   onSearch(value: any): void {
+    const { keys } = value;
+    if (keys) {
+      this.form.patchValue({ keys });
+    }
     this.vauleChange$.next(value);
   }
 
