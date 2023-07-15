@@ -29,14 +29,14 @@ export class SearchComponent
   implements OnInit, OnDestroy
 {
   @Input() content: ISearch;
-  searchEntry: any;
   page: number;
   pager: any;
-  form: FormGroup = new FormGroup({});
+  form: FormGroup;
   filterForm: any[];
   nodes: any[];
   loading = false;
   destroy$: Subject<boolean> = new Subject<boolean>();
+  vauleChange$: Subject<any> = new Subject<any>();
 
   constructor(
     public nodeService: NodeService,
@@ -85,16 +85,20 @@ export class SearchComponent
 
   initForm(items: any[]): void {
     this.form = this.formService.toFormGroup(items);
-    this.form.valueChanges
-      .pipe(debounceTime(500), distinctUntilChanged(), takeUntil(this.destroy$))
-      .subscribe((value: any) => {
-        const params = Object.assign({ page: 0 }, value);
-        this.onSelectChange(params);
+    this.cd.detectChanges();
+    this.vauleChange$
+      .pipe(
+        debounceTime(1000),
+        distinctUntilChanged(),
+        takeUntil(this.destroy$)
+      )
+      .subscribe((value) => {
+        this.onSelectChange(value);
       });
   }
 
   onSearch(value: any): void {
-    this.onSelectChange(value);
+    this.vauleChange$.next(value);
   }
 
   onPageChange(page: any): void {
@@ -110,7 +114,6 @@ export class SearchComponent
   nodeSearch(options: any): void {
     console.log(options);
     this.loading = true;
-    this.searchEntry = omitBy(options, isEmpty);
     const formValue = this.form?.value || {};
     const type = this.getParams(this.content, 'type') || 'content';
     const state = this.getParamsState(formValue, options);
