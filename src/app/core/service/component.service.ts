@@ -57,7 +57,6 @@ export class ComponentService {
       'chart',
       'input',
       'formly',
-      'contact-us',
       'media-list',
       'select',
       'feature-box',
@@ -177,11 +176,16 @@ export class ComponentService {
       )
     );
 
-    ['autoclose', 'dynamic-form', '404', 'whychooseus', 'jsoneditor'].forEach(
-      (type) =>
-        this.setModule(type, () =>
-          import('@uiux/combs/other/other.module').then((m) => m.OtherModule)
-        )
+    ['contact-us', 'contact-us-1v1'].forEach((type) =>
+      this.setModule(type, () =>
+        import('@uiux/combs/form/form.module').then((m) => m.FormModule)
+      )
+    );
+
+    ['autoclose', 'dynamic-form', '404', 'jsoneditor'].forEach((type) =>
+      this.setModule(type, () =>
+        import('@uiux/combs/other/other.module').then((m) => m.OtherModule)
+      )
     );
 
     [

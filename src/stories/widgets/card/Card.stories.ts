@@ -7,6 +7,7 @@ import { Story } from '@storybook/angular/types-6-0';
 import { CardComponent } from '@uiux/widgets/card/card.component';
 import { StorysModule } from '@core/module/storys.module';
 import { ICard } from '@core/interface/widgets/ICard';
+import { formatDate } from '@angular/common';
 export default {
   title: '基础组件/卡片/基础',
   id: 'card',
@@ -57,9 +58,9 @@ export const Avatar = Template.bind({});
 Avatar.storyName = '头像及幻灯片';
 const avatar: ICard = {
   type: 'card',
-  subTitle: '2022/03/04',
+  subTitle: formatDate(new Date(), 'yyyy/MM/dd', 'en-US'),
   avatar: {
-    src: '/assets/images/showcase/weather.png',
+    src: '/assets/images/avatar/01.jpeg',
     alt: '',
   },
   carousel: {

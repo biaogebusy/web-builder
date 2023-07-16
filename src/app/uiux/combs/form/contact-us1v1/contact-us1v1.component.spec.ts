@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WhychooseusComponent } from './whychooseus.component';
+import { ContactUs1v1Component } from './contact-us1v1.component';
 
-describe('WhychooseusComponent', () => {
-  let component: WhychooseusComponent;
-  let fixture: ComponentFixture<WhychooseusComponent>;
+describe('ContactUs1v1Component', () => {
+  let component: ContactUs1v1Component;
+  let fixture: ComponentFixture<ContactUs1v1Component>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ WhychooseusComponent ]
+      declarations: [ ContactUs1v1Component ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(WhychooseusComponent);
+    fixture = TestBed.createComponent(ContactUs1v1Component);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

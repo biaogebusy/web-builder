@@ -52,7 +52,6 @@ import { SpinnerComponent } from './spinner/spinner.component';
 import { TextareaComponent } from './form/textarea/textarea.component';
 import { ChipListComponent } from './chip-list/chip-list.component';
 import { LineYearComponent } from './line-year/line-year.component';
-import { ContactUsComponent } from './contact-us/contact-us.component';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { BtnAnimateComponent } from './btn-animate/btn-animate.component';
@@ -162,7 +161,6 @@ const components = [
   ChipListComponent,
   TextareaComponent,
   LineYearComponent,
-  ContactUsComponent,
   ContentBoxComponent,
   BtnAnimateComponent,
   FeatureBoxComponent,

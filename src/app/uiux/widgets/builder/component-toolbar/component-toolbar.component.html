@@ -3,6 +3,15 @@
     <i>{{ index !== undefined ? index+'.':''}}</i> {{type}}
   </div>
   <div class="actions m-right-xs" fxLayout="row" fxLayoutGap="1rem">
+    <div *ngIf="index >0 && isPreview" class="item" (click)="onUpdown(index,'up')" [matTooltip]="'上移'"
+      matTooltipPosition="above">
+      <app-btn
+        [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'arrow-collapse-up',inline:true } }"></app-btn>
+    </div>
+    <div *ngIf="isPreview" class="item" (click)="onUpdown(index,'down')" [matTooltip]="'下移'" matTooltipPosition="above">
+      <app-btn
+        [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'arrow-collapse-down',inline:true } }"></app-btn>
+    </div>
     <div class="item" (click)="onDelete(index)" *ngIf="isPreview" [matTooltip]="'移除'" matTooltipPosition="above">
       <app-btn [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'delete',inline:true } }"></app-btn>
     </div>

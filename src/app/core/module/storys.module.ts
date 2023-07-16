@@ -61,6 +61,7 @@ import { ManageModule } from '@modules/manage/manage.module';
 import { mediaAssets } from '@stories/builder/data/assets/media-assets-for-story';
 import { ThemeService } from '@core/service/theme.service';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
+import { FormModule } from '@uiux/combs/form/form.module';
 
 export function sleep(ms: number): Promise<any> {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -196,6 +197,7 @@ export class StorysModule {
       ...DashboardModule.forStorybook(),
       ...BuilderModule.forStorybook(),
       ...ManageModule.forStorybook(),
+      ...FormModule.forStorybook(),
     ];
   }
 

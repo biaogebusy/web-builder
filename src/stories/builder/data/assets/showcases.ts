@@ -118,34 +118,6 @@ export const images_showcases = [
     ...featureBox,
     img: {
       classes: 'object-fit',
-      src: '/assets/images/showcase/browser.png',
-    },
-  },
-  {
-    ...featureBox,
-    img: {
-      classes: 'object-fit',
-      src: '/assets/images/showcase/clipboard.png',
-    },
-  },
-  {
-    ...featureBox,
-    img: {
-      classes: 'object-fit',
-      src: '/assets/images/showcase/console.png',
-    },
-  },
-  {
-    ...featureBox,
-    img: {
-      classes: 'object-fit',
-      src: '/assets/images/showcase/education.jpg',
-    },
-  },
-  {
-    ...featureBox,
-    img: {
-      classes: 'object-fit',
       src: '/assets/images/showcase/info01.png',
     },
   },
@@ -203,13 +175,6 @@ export const images_showcases = [
     img: {
       classes: 'object-fit',
       src: '/assets/images/showcase/wave.jpg',
-    },
-  },
-  {
-    ...featureBox,
-    img: {
-      classes: 'object-fit',
-      src: '/assets/images/showcase/weather.png',
     },
   },
 ];

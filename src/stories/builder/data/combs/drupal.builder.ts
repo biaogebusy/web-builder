@@ -1,4 +1,4 @@
-import * as contactStory from '@stories/drupal/ContactUs.stories';
+import * as contactStory from '@stories/drupal/form/ContactUs.stories';
 import * as calendarStory from '@stories/drupal/Full-calendar.stories';
 import * as viewListStory from '@stories/drupal/ViewList.stories';
 import * as treeListStory from '@stories/drupal/treeList.stories';
@@ -9,6 +9,7 @@ import * as taxonomyListStory from '@stories/components/list/taxonomyList.storie
 import * as taxonomyThinListStory from '@stories/components/list/taxonomyThinList.stories';
 import * as userCenterStory from '@stories/components/profile/userCenter.stories';
 import * as searchStory from '@stories/components/search/search.stories';
+import * as contact1v1Story from '@stories/drupal/form/ContactUs1v1.stories';
 
 export const {
   Default: { args: search },
@@ -42,9 +43,14 @@ export const {
 export const {
   Default: { args: viewList },
 } = viewListStory;
+
 export const {
   Default: { args: contact },
 } = contactStory;
+
+export const {
+  Default: { args: contact1v1 },
+} = contact1v1Story;
 
 export const {
   Default: { args: calendar },
@@ -55,6 +61,7 @@ export const drupal = [
   article,
   question,
   contact,
+  contact1v1,
   userCenter,
   calendar,
   list2v1,

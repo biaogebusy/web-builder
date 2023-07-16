@@ -75,6 +75,17 @@ export class BuilderState {
     }, 600);
   }
 
+  upDownComponent(index: number, direction: string) {
+    const { body } = this.page;
+    if (direction === 'up') {
+      [body[index - 1], body[index]] = [body[index], body[index - 1]];
+    }
+
+    if (direction === 'down' && index < body.length - 1) {
+      [body[index], body[index + 1]] = [body[index + 1], body[index]];
+    }
+  }
+
   pushComponent(content: any): void {
     if (content && content.type) {
       this.page.body.push(content);

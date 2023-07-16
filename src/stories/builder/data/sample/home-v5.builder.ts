@@ -367,7 +367,7 @@ export const home_v5 = {
       right: [
         {
           type: 'img',
-          src: '/assets/images/showcase/education.jpg',
+          src: '/assets/images/illustration/12.png',
           alt: '',
         },
       ],

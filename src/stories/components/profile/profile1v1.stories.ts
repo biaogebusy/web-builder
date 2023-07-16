@@ -5,6 +5,7 @@ import * as SwiperStories from 'src/stories/widgets/Swiper.stories';
 import * as MediaObjectGroupStories from 'src/stories/widgets/media/MediaObjectGroup.stories';
 import { StorysModule } from '@core/module/storys.module';
 import { IProfile1v1 } from '@core/interface/combs/IProfile';
+import { comments } from '@stories/sample/node/comments.json';
 
 export default {
   title: '示例页面/资料简介',
@@ -441,4 +442,5 @@ const comment: IProfile1v1 = {
 };
 Comments.args = {
   content: comment,
+  comments: comments,
 };

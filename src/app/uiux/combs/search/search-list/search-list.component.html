@@ -25,8 +25,9 @@
             <div>{{item?.type}}</div>
             <div [innerHTML]="item?.category|safeHtml" *ngIf="item.category"></div>
             <div [innerHTML]="item?.tags|safeHtml" *ngIf="item.tags"></div>
-            <div class="actions">
-              <app-dynamic-component [inputs]="action" *ngFor="let action of item.actions"></app-dynamic-component>
+            <div class="actions" fxLayout>
+              <app-dynamic-component [inputs]="{content:action,disableToolbar:true}"
+                *ngFor="let action of item.actions"></app-dynamic-component>
             </div>
           </div>
           <div>{{item.created}}</div>
