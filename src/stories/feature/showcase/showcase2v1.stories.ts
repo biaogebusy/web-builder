@@ -51,7 +51,7 @@ const content: IShowcase2v1 = {
       type: 'card',
       subTitle: formatDate(new Date(), 'yyyy-MM-dd', 'en-US'),
       avatar: {
-        src: '/assets/images/showcase/weather.png',
+        src: '/assets/images/avatar/01.jpeg',
         alt: '',
       },
       carousel: {
@@ -101,7 +101,7 @@ const content: IShowcase2v1 = {
       type: 'card',
       subTitle: formatDate(new Date(), 'yyyy-MM-dd', 'en-US'),
       avatar: {
-        src: '/assets/images/showcase/browser.png',
+        src: '/assets/images/avatar/02.jpeg',
         alt: '',
       },
       carousel: {
@@ -138,7 +138,7 @@ const content: IShowcase2v1 = {
       type: 'card',
       subTitle: formatDate(new Date(), 'yyyy-MM-dd', 'en-US'),
       avatar: {
-        src: '/assets/images/showcase/clipboard.png',
+        src: '/assets/images/avatar/03.jpeg',
         alt: '',
       },
       carousel: {
@@ -175,7 +175,7 @@ const content: IShowcase2v1 = {
       type: 'card',
       subTitle: formatDate(new Date(), 'yyyy-MM-dd', 'en-US'),
       avatar: {
-        src: '/assets/images/showcase/console.png',
+        src: '/assets/images/avatar/04.jpeg',
         alt: '',
       },
       carousel: {
@@ -212,7 +212,7 @@ const content: IShowcase2v1 = {
       type: 'card',
       subTitle: formatDate(new Date(), 'yyyy-MM-dd', 'en-US'),
       avatar: {
-        src: '/assets/images/showcase/weather.png',
+        src: '/assets/images/avatar/05.jpeg',
         alt: '',
       },
       carousel: {
@@ -249,7 +249,7 @@ const content: IShowcase2v1 = {
       type: 'card',
       subTitle: formatDate(new Date(), 'yyyy-MM-dd', 'en-US'),
       avatar: {
-        src: '/assets/images/showcase/weather.png',
+        src: '/assets/images/avatar/06.jpeg',
         alt: '',
       },
       carousel: {
@@ -286,7 +286,7 @@ const content: IShowcase2v1 = {
       type: 'card',
       subTitle: formatDate(new Date(), 'yyyy-MM-dd', 'en-US'),
       avatar: {
-        src: '/assets/images/showcase/weather.png',
+        src: '/assets/images/avatar/01.jpeg',
         alt: '',
       },
       carousel: {
@@ -323,7 +323,7 @@ const content: IShowcase2v1 = {
       type: 'card',
       subTitle: formatDate(new Date(), 'yyyy-MM-dd', 'en-US'),
       avatar: {
-        src: '/assets/images/showcase/weather.png',
+        src: '/assets/images/avatar/02.jpeg',
         alt: '',
       },
       carousel: {

@@ -35,7 +35,7 @@ export class InverseComponent implements OnInit {
     this.submited = true;
     const data = this.formService.getwebFormData(
       this.content.footerNewsletter.params,
-      this.form
+      this.form.value
     );
     this.formService.submitWebForm(data).subscribe(
       () => {

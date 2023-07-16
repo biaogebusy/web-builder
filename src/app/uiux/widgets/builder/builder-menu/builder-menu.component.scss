@@ -1,3 +1,11 @@
 .mat-slide-toggle {
   margin-right: 5px;
 }
+
+:host {
+  ::ng-deep {
+    .mat-badge-content {
+      font-weight: normal;
+    }
+  }
+}

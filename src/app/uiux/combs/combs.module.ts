@@ -18,6 +18,7 @@ import { CalendarModule } from './calendar/calendar.module';
 import { CalculatorModule } from './calculator/calculator.module';
 import { BlockModule } from './block/block.module';
 import { DashboardModule } from './dashboard/dashboard.module';
+import { FormModule } from './form/form.module';
 
 const modules = [
   ActionModule,
@@ -38,6 +39,7 @@ const modules = [
   CalculatorModule,
   BlockModule,
   DashboardModule,
+  FormModule,
 ];
 
 @NgModule({

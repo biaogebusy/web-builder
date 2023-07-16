@@ -5,10 +5,11 @@ import {
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { Showcase1v3Component } from '@uiux/combs/showcase/showcase1v3/showcase1v3.component';
-import * as ContactUs from 'src/stories/drupal/ContactUs.stories';
+import * as ContactUs from '@stories/drupal/form/ContactUs.stories';
 import { StorysModule } from '@core/module/storys.module';
 import * as btnVideoStory from '@stories/widgets/base/BtnVideo.stories';
 import { IShowcase1v3 } from '@core/interface/combs/IShowcase';
+
 export default {
   title: '特色组件/展示 Showcase/1v3',
   id: 'showcase-1v3',
@@ -84,7 +85,7 @@ Default.args = {
 };
 
 export const Contact = Template.bind({});
-Contact.storyName = 'Widgets';
+Contact.storyName = '动态组件/联系我们';
 const contact: any = ContactUs.Default.args;
 const contactContent: IShowcase1v3 = {
   id: 'form',

@@ -7,6 +7,7 @@ import { sleep, StorysModule } from '@core/module/storys.module';
 import { nodes } from './search.json';
 import { FormGroup } from '@angular/forms';
 import { ISearch } from '@core/interface/combs/ISearch';
+import { Subject } from 'rxjs';
 
 export default {
   title: '复合组件/搜索/默认',
@@ -136,7 +137,7 @@ const content: ISearch = {
       key: 'article',
       className: 'display-block',
       templateOptions: {
-        label: '文章<span>50</span>',
+        label: '文章',
       },
     },
     {
@@ -144,7 +145,7 @@ const content: ISearch = {
       key: 'blog',
       className: 'display-block',
       templateOptions: {
-        label: '博客<span>20</span>',
+        label: '博客',
       },
     },
   ],
@@ -156,6 +157,7 @@ const content: ISearch = {
 Default.args = {
   content,
   form: new FormGroup({}),
+  vauleChange$: new Subject<any>(),
 };
 Default.play = async () => {
   const Keys = screen.getByPlaceholderText('请输入你的关键词');

@@ -39,7 +39,7 @@ export class ContactUsComponent implements OnInit {
     this.submited = true;
     const data = this.formService.getwebFormData(
       this.content.params,
-      this.form
+      this.form.value
     );
     this.formService.submitWebForm(data).subscribe(
       (res) => {
