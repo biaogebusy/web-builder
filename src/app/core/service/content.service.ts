@@ -138,6 +138,12 @@ export class ContentService {
       .pipe(
         map((rep: any) => {
           return rep;
+        }),
+        catchError((err) => {
+          return of({
+            html_url: '',
+            stargazers_count: 0,
+          });
         })
       );
   }

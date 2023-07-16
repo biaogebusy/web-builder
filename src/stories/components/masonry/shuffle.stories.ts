@@ -68,7 +68,7 @@ const content: IShuffle = {
       category: 'design',
       subTitle: '2022/12/08',
       avatar: {
-        src: '/assets/images/showcase/weather.png',
+        src: '/assets/images/avatar/01.jpeg',
         alt: '',
       },
       carousel: {
@@ -105,7 +105,7 @@ const content: IShuffle = {
       category: 'design',
       subTitle: '2022/11/23',
       avatar: {
-        src: '/assets/images/showcase/browser.png',
+        src: '/assets/images/avatar/02.jpeg',
         alt: '',
       },
       carousel: {
@@ -142,7 +142,7 @@ const content: IShuffle = {
       category: 'cms,design',
       subTitle: '2022/10/15',
       avatar: {
-        src: '/assets/images/showcase/clipboard.png',
+        src: '/assets/images/avatar/03.jpeg',
         alt: '',
       },
       carousel: {
@@ -179,7 +179,7 @@ const content: IShuffle = {
       category: 'frontEnd,drupal',
       subTitle: '2022/09/05',
       avatar: {
-        src: '/assets/images/showcase/console.png',
+        src: '/assets/images/avatar/04.jpeg',
         alt: '',
       },
       carousel: {
@@ -216,7 +216,7 @@ const content: IShuffle = {
       category: 'design,cms',
       subTitle: '2022/08/20',
       avatar: {
-        src: '/assets/images/showcase/weather.png',
+        src: '/assets/images/avatar/05.jpeg',
         alt: '',
       },
       carousel: {
@@ -253,7 +253,7 @@ const content: IShuffle = {
       category: 'cms',
       subTitle: '2022/07/10',
       avatar: {
-        src: '/assets/images/showcase/weather.png',
+        src: '/assets/images/avatar/06.jpeg',
         alt: '',
       },
       carousel: {
@@ -290,7 +290,7 @@ const content: IShuffle = {
       category: 'design,frontEnd',
       subTitle: '2022/06/05',
       avatar: {
-        src: '/assets/images/showcase/weather.png',
+        src: '/assets/images/avatar/01.jpeg',
         alt: '',
       },
       carousel: {
@@ -327,7 +327,7 @@ const content: IShuffle = {
       category: 'drupal,frontEnd',
       subTitle: '2022/05/15',
       avatar: {
-        src: '/assets/images/showcase/weather.png',
+        src: '/assets/images/avatar/02.jpeg',
         alt: '',
       },
       carousel: {

@@ -3,6 +3,7 @@ import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { ContentService } from '@core/service/content.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-github-star',
