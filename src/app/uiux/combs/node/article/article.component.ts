@@ -28,6 +28,7 @@ import { PAGE_CONTENT } from '@core/token/token-providers';
 import type { IArticle, ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { LoginComponent } from 'src/app/modules/user/login/login.component';
 import type { IUser } from '@core/interface/IUser';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-article',
@@ -41,7 +42,6 @@ export class ArticleComponent
 {
   @Input() content: IBaseNode;
   currentUserRule: string[];
-  commentForm: FormGroup;
   comments: IComment[];
   destroy$: Subject<boolean> = new Subject<boolean>();
   dialogRef: MatDialogRef<any>;
@@ -85,6 +85,9 @@ export class ArticleComponent
   }
 
   checkAccess(): void {
+    if (!environment.production) {
+      return;
+    }
     this.pageContent$.subscribe((page) => {
       const entityId = page.config?.node?.entityId || '';
       this.nodeService
@@ -130,6 +133,9 @@ export class ArticleComponent
   }
 
   getComments(timeStamp = 1): void {
+    if (!environment.production) {
+      return;
+    }
     this.nodeService
       .getCommentsWitchChild(this.content, this.user.csrf_token, timeStamp)
       .pipe(takeUntil(this.destroy$))

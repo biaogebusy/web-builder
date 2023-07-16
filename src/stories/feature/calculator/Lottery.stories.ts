@@ -4,6 +4,7 @@ import { SwiperModule } from 'swiper/angular';
 import { StorysModule } from '@core/module/storys.module';
 import { LotteryComponent } from '@uiux/combs/calculator/lottery/lottery.component';
 import { ILottery } from '@core/interface/combs/ICalculator';
+import { FormGroup } from '@angular/forms';
 
 export default {
   title: '特色组件/计算器',
@@ -320,4 +321,6 @@ const content: ILottery = {
 };
 Default.args = {
   content,
+  form: new FormGroup({}),
+  model: {},
 };

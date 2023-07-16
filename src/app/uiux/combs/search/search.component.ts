@@ -16,7 +16,6 @@ import { FormService } from '@core/service/form.service';
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { ScreenService } from '@core/service/screen.service';
 import { Subject } from 'rxjs';
-import { LocalStorageService } from 'ngx-webstorage';
 import type { ISearch } from '@core/interface/combs/ISearch';
 
 @Component({
@@ -30,7 +29,6 @@ export class SearchComponent
   implements OnInit, OnDestroy
 {
   @Input() content: ISearch;
-  searchEntry: any;
   page: number;
   pager: any;
   form: FormGroup = new FormGroup({});
@@ -38,6 +36,7 @@ export class SearchComponent
   nodes: any[];
   loading = false;
   destroy$: Subject<boolean> = new Subject<boolean>();
+  vauleChange$: Subject<any> = new Subject<any>();
 
   constructor(
     public nodeService: NodeService,
@@ -45,8 +44,7 @@ export class SearchComponent
     public routerService: RouteService,
     private formService: FormService,
     private screenService: ScreenService,
-    private cd: ChangeDetectorRef,
-    private storage: LocalStorageService
+    private cd: ChangeDetectorRef
   ) {
     super();
   }
@@ -73,6 +71,7 @@ export class SearchComponent
         if (this.content.sidebar) {
           this.initFilterForm(querys, this.content.sidebar);
         }
+        this.form.patchValue({ ...querys });
         this.nodeSearch(querys);
       });
     } else {
@@ -87,12 +86,24 @@ export class SearchComponent
 
   initForm(items: any[]): void {
     this.form = this.formService.toFormGroup(items);
-    this.form.valueChanges
-      .pipe(debounceTime(500), distinctUntilChanged(), takeUntil(this.destroy$))
-      .subscribe((value: any) => {
-        const params = Object.assign({ page: 0 }, value);
-        this.onSelectChange(params);
+    this.cd.detectChanges();
+    this.vauleChange$
+      .pipe(
+        debounceTime(1000),
+        distinctUntilChanged(),
+        takeUntil(this.destroy$)
+      )
+      .subscribe((value) => {
+        this.onSelectChange(value);
       });
+  }
+
+  onSearch(value: any): void {
+    const { keys } = value;
+    if (keys) {
+      this.form.patchValue({ keys });
+    }
+    this.vauleChange$.next(value);
   }
 
   onPageChange(page: any): void {
@@ -106,8 +117,8 @@ export class SearchComponent
   }
 
   nodeSearch(options: any): void {
+    console.log(options);
     this.loading = true;
-    this.searchEntry = omitBy(options, isEmpty);
     const formValue = this.form?.value || {};
     const type = this.getParams(this.content, 'type') || 'content';
     const state = this.getParamsState(formValue, options);

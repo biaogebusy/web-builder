@@ -18,16 +18,18 @@ export interface IBaseNode {
   };
   editor?: {
     title?: any;
+    label?: string;
     height?: string;
     modules?: QuillModule;
     placeholder?: string;
-    action: {
+    action?: {
       label: string;
     };
-    succes: any;
+    succes?: any;
     empty?: {
       label: string;
     };
+    dialog?: any;
   };
   comment?: ICommentConfig;
   actions?: any[];
@@ -109,7 +111,7 @@ export interface ICasePrams {
 }
 
 export interface IAdvert extends IBaseNode {
-  spacer: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'none';
+  spacer?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'none';
   store: {
     logo: string;
     name: string;
@@ -119,7 +121,9 @@ export interface IAdvert extends IBaseNode {
     end: string;
   };
   view: string;
-  header: IHeaderMeta;
+  succes: {
+    label: string;
+  };
 }
 
 export interface IHeaderMeta {

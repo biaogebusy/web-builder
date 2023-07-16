@@ -14,12 +14,13 @@ import type { IComment, IQuestion } from '@core/interface/node/INode';
 import { NodeService } from '@core/service/node.service';
 import { ScreenService } from '@core/service/screen.service';
 import { NodeComponent } from '@uiux/base/node.widget';
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { LoginComponent } from 'src/app/modules/user/login/login.component';
 import { ContentState } from '@core/state/ContentState';
 import type { IUser } from '@core/interface/IUser';
 import { USER } from '@core/token/token-providers';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-question',
@@ -79,6 +80,9 @@ export class QuestionComponent
 
   checkIsAsked(): void {
     // TODO: 使用node查询是否有评论即可
+    if (!environment.production) {
+      return;
+    }
     const entityId = this.nodeService.getCommentRelEntityId(this.content);
     const entityType = this.nodeService.getCommentType(this.content);
     const params = [
@@ -111,6 +115,9 @@ export class QuestionComponent
   }
 
   getComments(timeStamp = 1): void {
+    if (!environment.production) {
+      return;
+    }
     this.nodeService
       .getCommentsWitchChild(this.content, this.user.csrf_token, timeStamp)
       .pipe(takeUntil(this.destroy$))
