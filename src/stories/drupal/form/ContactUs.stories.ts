@@ -5,10 +5,10 @@ import {
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { screen, userEvent } from '@storybook/testing-library';
-import { ContactUsComponent } from '@uiux/widgets/contact-us/contact-us.component';
+import { ContactUsComponent } from '@uiux/combs/form/contact-us/contact-us.component';
 import { StorysModule } from '@core/module/storys.module';
 export default {
-  title: 'Drupal/联系我们',
+  title: 'Drupal/表单/联系我们',
   id: 'contact-us',
   component: ContactUsComponent,
   decorators: [

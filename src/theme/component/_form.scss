@@ -16,4 +16,20 @@
       color: mat-color($primary);
     }
   }
+
+  .contact-us-1v1 {
+    &:after {
+      background-color: mat-color($primary);
+    }
+    .box {
+      @include mat-elevation(4, mat-color($foreground, text), 0.5);
+      background-color: mat-color($background, card);
+    }
+    .form {
+      background-color: mat-color($background, card);
+    }
+    .content {
+      color: mat-color($primary, default-contrast);
+    }
+  }
 }
