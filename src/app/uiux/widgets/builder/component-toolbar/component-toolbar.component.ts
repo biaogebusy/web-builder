@@ -48,6 +48,10 @@ export class ComponentToolbarComponent implements OnInit {
     this.util.openSnackbar(`已添加${this.type}到预览页面！`, 'ok');
   }
 
+  onUpdown(index: number, direction: string): void {
+    this.builder.upDownComponent(index, direction);
+  }
+
   onCopy(content: any): void {
     this.util.copy(JSON.stringify(content));
     this.util.openSnackbar(`已复制${this.type}的JSON！`, 'ok');
