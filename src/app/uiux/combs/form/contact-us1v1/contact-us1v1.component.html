@@ -6,8 +6,10 @@
     <app-text *ngIf="content.text" [content]="content.text"></app-text>
     <div class="box" fxLayout="row wrap">
       <div class="form p-x-md p-y-md" fxFlex.lt-md="100" fxFlex.gt-sm="70">
-        <app-formly [fields]="content.form" [model]="model"></app-formly>
-        <app-btn [content]="content.action"></app-btn>
+        <form [formGroup]="form">
+          <app-formly [fields]="content.form" [model]="model"></app-formly>
+        </form>
+        <app-btn [content]="content.action" (click)="onSubmit(model)"></app-btn>
       </div>
       <div class="content p-x-md p-y-md" fxFlex.lt-md="100" fxFlex.gt-sm="30" [ngStyle]="content.contentStyle">
         <app-dynamic-component [inputs]="item" *ngFor="let item of content.content"></app-dynamic-component>

@@ -5,6 +5,9 @@ import {
   OnInit,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import type { IContactUs1v1 } from '@core/interface/combs/IForm';
+import { FormService } from '@core/service/form.service';
+import { UtilitiesService } from '@core/service/utilities.service';
 import { BaseComponent } from '@uiux/base/base.widget';
 
 @Component({
@@ -14,12 +17,35 @@ import { BaseComponent } from '@uiux/base/base.widget';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ContactUs1v1Component extends BaseComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: IContactUs1v1;
   form: FormGroup = new FormGroup({});
   model: any = {};
-  constructor() {
+  constructor(
+    private formService: FormService,
+    private util: UtilitiesService
+  ) {
     super();
   }
 
   ngOnInit(): void {}
+
+  onSubmit(value: any): void {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+    const data = this.formService.getwebFormData(
+      this.content.params,
+      value.form
+    );
+    this.formService.submitWebForm(data).subscribe(
+      (res) => {
+        this.util.openSnackbar('成功提交！');
+        this.form.reset();
+      },
+      (error) => {
+        this.util.openSnackbar(`提交失败！`);
+      }
+    );
+  }
 }

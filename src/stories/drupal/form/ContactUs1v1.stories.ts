@@ -6,6 +6,7 @@ import {
 import { Story } from '@storybook/angular/types-6-0';
 import { StorysModule } from '@core/module/storys.module';
 import { ContactUs1v1Component } from '@uiux/combs/form/contact-us1v1/contact-us1v1.component';
+import { IContactUs1v1 } from '@core/interface/combs/IForm';
 
 export default {
   title: 'Drupal/表单/联系我们 1v1',
@@ -31,7 +32,7 @@ const Template: Story = (args) => ({
 });
 export const Default = Template.bind({});
 Default.storyName = '默认';
-export const content = {
+const content: IContactUs1v1 = {
   type: 'contact-us-1v1',
   text: {
     title: {
@@ -39,13 +40,16 @@ export const content = {
       style: 'style-v1',
       classes: 'mat-display-1',
     },
+    classes: 'text-light',
     body: '如果您有任何需要帮助，请联系我们！',
   },
-  classes: 'text-light text-center',
+  classes: 'text-center',
   bg: {
     classes: '',
   },
-  order: 0,
+  params: {
+    webform_id: 'contact',
+  },
   form: [
     {
       key: 'form',
@@ -87,7 +91,6 @@ export const content = {
             label: '内容',
             rows: 8,
             required: true,
-            placeholder: 'Message',
           },
         },
       ],

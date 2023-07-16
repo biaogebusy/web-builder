@@ -54,15 +54,11 @@ export class FormService {
     return new FormGroup(group);
   }
 
-  handleDatePicker(group: any): any {
-    return {};
-  }
-
-  getwebFormData(params: any, form: any): any {
+  getwebFormData(params: any, value: any): any {
     const id = {
       webform_id: params.webform_id,
     };
-    return Object.assign({}, id, form.value);
+    return Object.assign({}, id, value);
   }
 
   submitWebForm(data: any): Observable<any> {

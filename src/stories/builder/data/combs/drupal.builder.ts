@@ -48,7 +48,9 @@ export const {
   Default: { args: contact },
 } = contactStory;
 
-export const { content: contact1v1 } = contact1v1Story;
+export const {
+  Default: { args: contact1v1 },
+} = contact1v1Story;
 
 export const {
   Default: { args: calendar },
@@ -59,9 +61,7 @@ export const drupal = [
   article,
   question,
   contact,
-  {
-    content: contact1v1,
-  },
+  contact1v1,
   userCenter,
   calendar,
   list2v1,
