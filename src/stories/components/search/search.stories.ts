@@ -137,7 +137,7 @@ const content: ISearch = {
       key: 'article',
       className: 'display-block',
       templateOptions: {
-        label: '文章<span>50</span>',
+        label: '文章',
       },
     },
     {
@@ -145,7 +145,7 @@ const content: ISearch = {
       key: 'blog',
       className: 'display-block',
       templateOptions: {
-        label: '博客<span>20</span>',
+        label: '博客',
       },
     },
   ],
