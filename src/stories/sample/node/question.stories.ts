@@ -77,7 +77,7 @@ Default.args = {
   content,
   isAsked: false,
   showEditor: true,
-  comments$: of(comments),
+  comments: comments,
 };
 
 Default.play = async () => {

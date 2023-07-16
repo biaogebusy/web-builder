@@ -11,11 +11,7 @@
           <ng-container *ngFor="let item of filterForm">
             <ng-container [ngSwitch]="item.key">
               <input *ngSwitchCase="'keys'" formControlName="{{item.key}}" matInput
-                placeholder="{{content.input.placeholder}}" type="search" size="15" maxlength="128"
-                [value]="item.value || ''" class="form-search">
-              <input *ngSwitchCase="'title'" formControlName="{{item.key}}" matInput
-                placeholder="{{content.input.placeholder}}" type="search" size="15" maxlength="128"
-                [value]="item.value || ''" class="form-search">
+                placeholder="{{content.input.placeholder}}" type="search" size="15" maxlength="128" class="form-search">
             </ng-container>
           </ng-container>
         </div>

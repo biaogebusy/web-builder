@@ -17,6 +17,7 @@ import { UtilitiesService } from '../../../../core/service/utilities.service';
 import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import type { ICoreConfig, ICoreFlag } from '@core/interface/IAppConfig';
 import type { IUser } from '@core/interface/IUser';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-flag',
@@ -62,6 +63,9 @@ export class FlagComponent extends BaseComponent implements OnInit, OnDestroy {
   }
 
   getFlagging(): void {
+    if (!environment.production) {
+      return;
+    }
     this.nodeService
       .getNodes(
         this.coreConfig.apiUrl.flaggingGetPath,

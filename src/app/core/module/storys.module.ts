@@ -59,6 +59,8 @@ import { ScreenService } from '@core/service/screen.service';
 import { BuilderModule } from '@modules/builder/builder.module';
 import { ManageModule } from '@modules/manage/manage.module';
 import { mediaAssets } from '@stories/builder/data/assets/media-assets-for-story';
+import { ThemeService } from '@core/service/theme.service';
+import type { ICoreConfig } from '@core/interface/IAppConfig';
 
 export function sleep(ms: number): Promise<any> {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -197,5 +199,10 @@ export class StorysModule {
     ];
   }
 
-  constructor() {}
+  constructor(
+    private themeService: ThemeService,
+    @Inject(CORE_CONFIG) private core_config: ICoreConfig
+  ) {
+    this.themeService.initTheme(this.core_config);
+  }
 }

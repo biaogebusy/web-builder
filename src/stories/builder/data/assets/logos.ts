@@ -20,13 +20,6 @@ export const images_logos = [
     ...featureBox,
     img: {
       classes: 'object-fit',
-      src: '/assets/images/logo/login-second.png',
-    },
-  },
-  {
-    ...featureBox,
-    img: {
-      classes: 'object-fit',
       src: '/assets/images/logo/amazon.svg',
     },
   },

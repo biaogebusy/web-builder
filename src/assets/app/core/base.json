@@ -31,8 +31,9 @@
     "loginRedirect": "/",
     "left": {
       "type": "img",
-      "src": "/assets/images/logo/login-second.png",
-      "alt": "登录"
+      "src": "/assets/images/16-9/nature-08.jpg",
+      "alt": "登录",
+      "classes": "object-fit"
     },
     "phoneLogin": {
       "enable": true,

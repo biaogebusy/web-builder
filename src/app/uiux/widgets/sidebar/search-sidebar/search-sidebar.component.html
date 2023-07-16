@@ -23,10 +23,7 @@
             <strong>{{label?.filter||'过滤条件'}}</strong>
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <ng-container *ngFor="let item of content">
-          <app-dynamic-component [inputs]="{content:item,form:form}">
-          </app-dynamic-component>
-        </ng-container>
+        <app-formly [form]="form" [fields]="content" (modelChange)="onModelChange($event)"></app-formly>
       </mat-expansion-panel>
     </mat-accordion>
   </form>
