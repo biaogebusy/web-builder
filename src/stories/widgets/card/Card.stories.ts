@@ -210,9 +210,6 @@ const shadow: ICard = {
         params: {
           line: 'two',
           shorten: 100,
-          dialog: {
-            label: '更多',
-          },
         },
       },
       {
@@ -225,6 +222,14 @@ const shadow: ICard = {
           dialog: {
             label: '更多',
           },
+        },
+      },
+      {
+        label: '其他意见',
+        value:
+          'sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. ',
+        params: {
+          line: 'two',
         },
       },
     ],
