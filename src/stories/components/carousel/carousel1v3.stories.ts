@@ -61,8 +61,12 @@ const content: ICarouselBase = {
       {
         type: 'box',
         img: {
-          src: '/assets/images/logo/amazon.svg',
+          src: '/assets/images/svg/Asset187.svg',
           alt: 'browser',
+          style: {
+            width: '80px',
+            marginRight: '10px',
+          },
         },
         style: 'style-v8',
         title: {
@@ -74,8 +78,12 @@ const content: ICarouselBase = {
       {
         type: 'box',
         img: {
-          src: '/assets/images/google.svg',
+          src: '/assets/images/svg/Asset189.svg',
           alt: 'browser',
+          style: {
+            width: '80px',
+            marginRight: '10px',
+          },
         },
         style: 'style-v8',
         title: {
@@ -87,8 +95,12 @@ const content: ICarouselBase = {
       {
         type: 'box',
         img: {
-          src: '/assets/images/logo/shopify.svg',
+          src: '/assets/images/svg/Asset190.svg',
           alt: 'browser',
+          style: {
+            width: '80px',
+            marginRight: '10px',
+          },
         },
         style: 'style-v8',
         title: {
@@ -100,8 +112,12 @@ const content: ICarouselBase = {
       {
         type: 'box',
         img: {
-          src: '/assets/images/logo/paypal.svg',
+          src: '/assets/images/svg/Asset192.svg',
           alt: 'browser',
+          style: {
+            width: '80px',
+            marginRight: '10px',
+          },
         },
         style: 'style-v8',
         title: {
@@ -113,8 +129,12 @@ const content: ICarouselBase = {
       {
         type: 'box',
         img: {
-          src: '/assets/images/logo/amazon.svg',
+          src: '/assets/images/svg/bike.svg',
           alt: 'browser',
+          style: {
+            width: '80px',
+            marginRight: '10px',
+          },
         },
         style: 'style-v8',
         title: {
@@ -126,8 +146,12 @@ const content: ICarouselBase = {
       {
         type: 'box',
         img: {
-          src: '/assets/images/google.svg',
+          src: '/assets/images/svg/calendar.png',
           alt: 'browser',
+          style: {
+            width: '80px',
+            marginRight: '10px',
+          },
         },
         style: 'style-v8',
         title: {
