@@ -43,4 +43,4 @@ jobs:
           FOLDER: "dist/xinshi"
           SERVER_IP: ${{ secrets.HOST }}
           USERNAME: ${{ secrets.SSH_USER }}
-          SERVER_DESTINATION: "/sdc/www/app/dist/xinshi"
+          SERVER_DESTINATION: "/sdc/www/app/dist/"
