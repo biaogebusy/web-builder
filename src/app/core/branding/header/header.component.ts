@@ -12,7 +12,7 @@ import { ScreenService } from '../../service/screen.service';
 import { ScreenState } from '../../state/screen/ScreenState';
 import { DOCUMENT } from '@angular/common';
 import { ContentState } from '@core/state/ContentState';
-import { BRANDING, DISABLE_BRAND } from '@core/token/token-providers';
+import { BRANDING, IS_BUILDER_PAGE } from '@core/token/token-providers';
 import { Observable, Subject } from 'rxjs';
 import type { IBranding } from '@core/interface/branding/IBranding';
 import { takeUntil } from 'rxjs/operators';
@@ -37,7 +37,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     public contentState: ContentState,
     @Inject(DOCUMENT) private doc: Document,
     @Inject(BRANDING) public branding$: Observable<IBranding>,
-    @Inject(DISABLE_BRAND) public disableBrand$: Observable<boolean>
+    @Inject(IS_BUILDER_PAGE) public isBuilderPage$: Observable<boolean>
   ) {}
 
   ngOnInit(): void {

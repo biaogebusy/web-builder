@@ -20,7 +20,7 @@ import {
   BUILDER_FULL_SCREEN,
   CORE_CONFIG,
   DEBUG_ANIMATE,
-  DISABLE_BRAND,
+  IS_BUILDER_PAGE,
   ENABLE_TOOLBAR,
   MANAGE_SIDEBAR_STATE,
   MEDIA_ASSETS,
@@ -37,7 +37,7 @@ import {
   builderFullScreenFactory,
   coreConfigFactory,
   debugAnimateFactory,
-  disableBrandFactory,
+  isBuilderFactory,
   enableToolbarFactory,
   manageSidebarStateFactory,
   mediaAssetsFactory,
@@ -119,8 +119,8 @@ import { ContentState } from '@core/state/ContentState';
       deps: [Router, LocalStorageService, BuilderState],
     },
     {
-      provide: DISABLE_BRAND,
-      useFactory: disableBrandFactory,
+      provide: IS_BUILDER_PAGE,
+      useFactory: isBuilderFactory,
       deps: [Router],
     },
     {

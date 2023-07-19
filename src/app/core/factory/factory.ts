@@ -58,18 +58,18 @@ export function builderFullScreenFactory(
   return isFull$;
 }
 
-export function disableBrandFactory(roter: Router): Observable<boolean> {
-  const disableBrand$ = new BehaviorSubject<boolean>(false);
+export function isBuilderFactory(roter: Router): Observable<boolean> {
+  const isBuilderPage$ = new BehaviorSubject<boolean>(false);
   roter.events.subscribe((event) => {
     if (event instanceof NavigationEnd) {
       if (event.url === '/builder') {
-        disableBrand$.next(true);
+        isBuilderPage$.next(true);
       } else {
-        disableBrand$.next(false);
+        isBuilderPage$.next(false);
       }
     }
   });
-  return disableBrand$;
+  return isBuilderPage$;
 }
 
 export function debugAnimateFactory(

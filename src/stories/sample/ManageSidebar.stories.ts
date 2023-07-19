@@ -43,7 +43,7 @@ export default {
         <app-manage-sidebar [drawer]="manageDrawer"></app-manage-sidebar>
       </mat-drawer>
       <mat-drawer-content id="main-container">
-        <app-header *ngIf="!(disableBrand$|async)"></app-header>
+        <app-header *ngIf="!(isBuilderPage$|async)"></app-header>
         <div class="main" [ngClass]="{'has-manage-sidebar': true}">
           ${story}
         </div>

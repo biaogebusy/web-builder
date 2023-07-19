@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 import { IBranding } from '../interface/branding/IBranding';
 import { INotify } from '@core/interface/widgets/IWidgets';
 import { IBuilderSamplePage, IUiux } from '@core/interface/IBuilder';
-import { FormlyFieldConfig } from '@ngx-formly/core';
 
 export interface IManageSidebarState {
   enableSidebar: boolean;
@@ -30,7 +29,9 @@ export const MEDIA_ASSETS = new InjectionToken<Observable<any[]>>(
 );
 
 // builder
-export const DISABLE_BRAND = new InjectionToken<boolean>('disable branding');
+export const IS_BUILDER_PAGE = new InjectionToken<Observable<boolean>>(
+  'disable branding'
+);
 export const DEBUG_ANIMATE = new InjectionToken<boolean>('debug animate');
 export const BUILDER_FULL_SCREEN = new InjectionToken<Observable<boolean>>(
   'builder full screen'

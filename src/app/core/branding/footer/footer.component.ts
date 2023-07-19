@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { MatAccordion } from '@angular/material/expansion';
 import { ScreenState } from '../../state/screen/ScreenState';
-import { BRANDING, DISABLE_BRAND } from '@core/token/token-providers';
+import { BRANDING, IS_BUILDER_PAGE } from '@core/token/token-providers';
 import { Observable } from 'rxjs';
 import type { IBranding } from '@core/interface/branding/IBranding';
 @Component({
@@ -25,7 +25,7 @@ export class FooterComponent implements OnInit, OnDestroy {
   constructor(
     public screen: ScreenState,
     @Inject(BRANDING) public branding$: Observable<IBranding>,
-    @Inject(DISABLE_BRAND) public disableBrand$: Observable<boolean>
+    @Inject(IS_BUILDER_PAGE) public isBuilderPage$: Observable<boolean>
   ) {}
 
   ngOnInit(): void {}

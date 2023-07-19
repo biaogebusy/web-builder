@@ -3,6 +3,7 @@ import {
   Component,
   EventEmitter,
   HostBinding,
+  Inject,
   Input,
   OnInit,
   Output,
@@ -11,7 +12,9 @@ import { MatDialog } from '@angular/material/dialog';
 import type { IComponentToolbar } from '@core/interface/combs/IBuilder';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
+import { IS_BUILDER_PAGE } from '@core/token/token-providers';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-component-toolbar',
@@ -30,14 +33,20 @@ export class ComponentToolbarComponent implements OnInit {
   @Output() uuidChange: EventEmitter<string> = new EventEmitter();
   @HostBinding('class.component-toolbar') hostClass = true;
   dialogRef: any;
+  isBuilderPage: boolean;
 
   constructor(
     private builder: BuilderState,
     private util: UtilitiesService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    @Inject(IS_BUILDER_PAGE) public isBuilderPage$: Observable<boolean>
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.isBuilderPage$.subscribe((state) => {
+      this.isBuilderPage = state;
+    });
+  }
 
   get type(): string {
     return this.content.type || this.content.content?.type || '';
@@ -58,23 +67,43 @@ export class ComponentToolbarComponent implements OnInit {
   }
 
   onEditor(content: any, index: number): void {
-    // uuid for update not builder page
-    const uuid = Date.now().toString();
-    this.uuidChange.emit(uuid);
-    this.dialogRef = this.dialog.open(DialogComponent, {
-      width: '1000px',
-      data: {
-        inputData: {
-          content: {
-            type: 'jsoneditor',
-            index,
-            uuid,
-            data: content,
-            isPreview: this.isPreview,
+    console.log(this.isBuilderPage);
+    if (!this.isBuilderPage) {
+      // uuid for update not builder page
+      const uuid = Date.now().toString();
+      this.uuidChange.emit(uuid);
+      this.dialogRef = this.dialog.open(DialogComponent, {
+        width: '1000px',
+        data: {
+          inputData: {
+            content: {
+              type: 'jsoneditor',
+              index,
+              uuid,
+              data: content,
+              isPreview: this.isPreview,
+            },
           },
         },
-      },
-    });
+      });
+    } else {
+      this.builder.dynamicContent$.next({
+        mode: 'side',
+        hasBackdrop: false,
+        style: {
+          width: '450px',
+        },
+        elements: [
+          {
+            type: 'jsoneditor',
+            index,
+            isPreview: true,
+            data: content,
+            disableToolbar: true,
+          },
+        ],
+      });
+    }
   }
 
   onDelete(index: number): void {
