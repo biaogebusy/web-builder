@@ -27,7 +27,6 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class BuilderMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() content: any;
-  @Input() showPreview = true;
   @LocalStorage('page')
   page: IPage;
   total: number;
@@ -82,9 +81,22 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     this.contentState.drawerContent$.next(this.page);
   }
 
-  onCopy(): void {
-    this.util.copy(JSON.stringify(this.page));
-    this.util.openSnackbar('已复制页面组件 JSON', 'ok');
+  onPageJson(): void {
+    this.builder.dynamicContent$.next({
+      mode: 'side',
+      hasBackdrop: true,
+      style: {
+        width: '800px',
+      },
+      elements: [
+        {
+          type: 'jsoneditor',
+          isPreview: true,
+          data: this.page,
+          disableToolbar: true,
+        },
+      ],
+    });
   }
 
   onClear(): void {

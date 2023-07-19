@@ -54,6 +54,17 @@ ImgWithLink.args = {
   content: link,
 };
 
+export const Mobile = Template.bind({});
+Mobile.storyName = '移动端';
+const mobile: IImg = {
+  ...Default.args.content,
+  mobile: '/assets/images/mobile/follower-01.jpg',
+};
+
+Mobile.args = {
+  content: mobile,
+};
+
 export const Shape = Template.bind({});
 Shape.storyName = '带背景形状';
 const shape: IImg = {

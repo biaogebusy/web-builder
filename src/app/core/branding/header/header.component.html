@@ -1,4 +1,4 @@
-<ng-container *ngIf="!(disableBrand$ | async)">
+<ng-container *ngIf="!(isBuilderPage$ | async)">
   <ng-container *ngIf="branding$ | async as branding">
     <header *ngIf="!(contentState.pageConfig$|async)?.headerMode?.transparent;else transparent">
       <div class="static" [class.header-inverse]="branding?.header?.params?.inverse">
