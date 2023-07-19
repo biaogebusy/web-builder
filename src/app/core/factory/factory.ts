@@ -21,6 +21,7 @@ import { IManageAssets } from '@core/interface/manage/IManage';
 
 export const THEMKEY = 'themeMode';
 export const DEBUG_ANIMATE_KEY = 'debugAnimate';
+const BUILDERPATH = '/builder';
 
 export function pageContentFactory(
   activateRoute: ActivatedRoute,
@@ -42,10 +43,15 @@ export function builderFullScreenFactory(
   builder: BuilderState
 ): Observable<boolean> {
   const isFull$ = new BehaviorSubject<boolean>(false);
+  const isFull = storage.retrieve('builderFullScreen');
+  if (router.url.includes(BUILDERPATH) && isFull !== false) {
+    isFull$.next(true);
+  } else {
+    isFull$.next(false);
+  }
   router.events.subscribe((event) => {
     if (event instanceof NavigationEnd) {
-      const isFull = storage.retrieve('builderFullScreen');
-      if (event.url.includes('/builder') && isFull !== false) {
+      if (event.url.includes(BUILDERPATH) && isFull !== false) {
         isFull$.next(true);
       } else {
         isFull$.next(false);
@@ -58,11 +64,17 @@ export function builderFullScreenFactory(
   return isFull$;
 }
 
-export function isBuilderFactory(roter: Router): Observable<boolean> {
+export function isBuilderFactory(router: Router): Observable<boolean> {
   const isBuilderPage$ = new BehaviorSubject<boolean>(false);
-  roter.events.subscribe((event) => {
+
+  if (router.url.includes(BUILDERPATH)) {
+    isBuilderPage$.next(true);
+  } else {
+    isBuilderPage$.next(false);
+  }
+  router.events.subscribe((event) => {
     if (event instanceof NavigationEnd) {
-      if (event.url === '/builder') {
+      if (event.url === BUILDERPATH) {
         isBuilderPage$.next(true);
       } else {
         isBuilderPage$.next(false);
@@ -98,7 +110,6 @@ export function debugAnimateFactory(
 
 export function enableToolbarFactory(router: Router): Observable<boolean> {
   const enableToolbar$ = new BehaviorSubject<boolean>(false);
-  const BUILDERPATH = '/builder';
   if (router.url.includes(BUILDERPATH)) {
     enableToolbar$.next(true);
   } else {

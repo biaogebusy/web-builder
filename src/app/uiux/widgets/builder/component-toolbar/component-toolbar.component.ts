@@ -67,7 +67,6 @@ export class ComponentToolbarComponent implements OnInit {
   }
 
   onEditor(content: any, index: number): void {
-    console.log(this.isBuilderPage);
     if (!this.isBuilderPage) {
       // uuid for update not builder page
       const uuid = Date.now().toString();
