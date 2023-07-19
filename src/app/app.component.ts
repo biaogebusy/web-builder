@@ -12,7 +12,6 @@ import { ConfigService } from '@core/service/config.service';
 import {
   CORE_CONFIG,
   BRANDING,
-  DISABLE_BRAND,
   IManageSidebarState,
   MANAGE_SIDEBAR_STATE,
 } from '@core/token/token-providers';
@@ -35,7 +34,6 @@ export class AppComponent implements OnInit, AfterViewInit {
     private activateRouter: ActivatedRoute,
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
     @Inject(BRANDING) public branding$: Observable<IBranding>,
-    @Inject(DISABLE_BRAND) public disableBrand$: Observable<boolean>,
     @Inject(MANAGE_SIDEBAR_STATE)
     public sidebarState$: Observable<IManageSidebarState>,
     private injector: Injector

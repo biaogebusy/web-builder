@@ -25,7 +25,7 @@ import {
   BRANDING,
   NOTIFY_CONTENT,
   BUILDER_FULL_SCREEN,
-  DISABLE_BRAND,
+  IS_BUILDER_PAGE,
   DEBUG_ANIMATE,
   MANAGE_SIDEBAR_STATE,
   ENABLE_TOOLBAR,
@@ -142,7 +142,7 @@ export class StorysModule {
           deps: [Router, LocalStorageService, BuilderState],
         },
         {
-          provide: DISABLE_BRAND,
+          provide: IS_BUILDER_PAGE,
           useValue: of(false),
         },
         {
