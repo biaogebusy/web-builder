@@ -299,7 +299,7 @@ export const samples = {
                   name: 'fingerprint',
                 },
                 digit: {
-                  value: 732,
+                  value: 291,
                   label: '+',
                 },
                 title: '日访问人数',
@@ -309,7 +309,7 @@ export const samples = {
                   name: 'verified_user',
                 },
                 digit: {
-                  value: 456,
+                  value: 188,
                   label: '+',
                 },
                 title: '日打开次数',
@@ -319,7 +319,7 @@ export const samples = {
                   name: 'android',
                 },
                 digit: {
-                  value: 137,
+                  value: 123,
                   label: '人',
                 },
                 title: '日新增人数',
@@ -329,7 +329,7 @@ export const samples = {
                   name: 'mail',
                 },
                 digit: {
-                  value: 9104,
+                  value: 4435,
                   label: '万',
                 },
                 title: '累计用户数',
@@ -1734,7 +1734,7 @@ export const samples = {
                   name: 'fingerprint',
                 },
                 digit: {
-                  value: 732,
+                  value: 291,
                   label: '+',
                 },
                 title: '日访问人数',
@@ -1744,7 +1744,7 @@ export const samples = {
                   name: 'verified_user',
                 },
                 digit: {
-                  value: 456,
+                  value: 188,
                   label: '+',
                 },
                 title: '日打开次数',
@@ -1754,7 +1754,7 @@ export const samples = {
                   name: 'android',
                 },
                 digit: {
-                  value: 137,
+                  value: 123,
                   label: '人',
                 },
                 title: '日新增人数',
@@ -1764,7 +1764,7 @@ export const samples = {
                   name: 'mail',
                 },
                 digit: {
-                  value: 9104,
+                  value: 4435,
                   label: '万',
                 },
                 title: '累计用户数',
@@ -5711,7 +5711,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset187.svg',
                 },
                 digit: {
-                  value: 38,
+                  value: 52,
                   label: 'M',
                 },
                 title: 'Github Start',
@@ -5721,7 +5721,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset189.svg',
                 },
                 digit: {
-                  value: 34039,
+                  value: 15128,
                   label: '+',
                 },
                 title: 'NPM 周下载量',
@@ -5731,7 +5731,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset190.svg',
                 },
                 digit: {
-                  value: 3804,
+                  value: 2856,
                   label: 'K',
                 },
                 title: '社区活跃',
@@ -5741,7 +5741,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset192.svg',
                 },
                 digit: {
-                  value: 980,
+                  value: 500,
                   label: '个',
                 },
                 title: '成功故事',
@@ -6024,7 +6024,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset187.svg',
                 },
                 digit: {
-                  value: 38,
+                  value: 52,
                   label: 'M',
                 },
                 title: 'Github Start',
@@ -6034,7 +6034,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset189.svg',
                 },
                 digit: {
-                  value: 34039,
+                  value: 15128,
                   label: '+',
                 },
                 title: 'NPM 周下载量',
@@ -6044,7 +6044,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset190.svg',
                 },
                 digit: {
-                  value: 3804,
+                  value: 2856,
                   label: 'K',
                 },
                 title: '社区活跃',
@@ -6054,7 +6054,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset192.svg',
                 },
                 digit: {
-                  value: 980,
+                  value: 500,
                   label: '个',
                 },
                 title: '成功故事',
@@ -7993,7 +7993,7 @@ export const samples = {
                     src: '/assets/images/svg/Asset187.svg',
                   },
                   digit: {
-                    value: 38,
+                    value: 52,
                     label: 'M',
                   },
                   title: 'Github Start',
@@ -8003,7 +8003,7 @@ export const samples = {
                     src: '/assets/images/svg/Asset189.svg',
                   },
                   digit: {
-                    value: 34039,
+                    value: 15128,
                     label: '+',
                   },
                   title: 'NPM 周下载量',
@@ -8013,7 +8013,7 @@ export const samples = {
                     src: '/assets/images/svg/Asset190.svg',
                   },
                   digit: {
-                    value: 3804,
+                    value: 2856,
                     label: 'K',
                   },
                   title: '社区活跃',
@@ -8023,7 +8023,7 @@ export const samples = {
                     src: '/assets/images/svg/Asset192.svg',
                   },
                   digit: {
-                    value: 980,
+                    value: 500,
                     label: '个',
                   },
                   title: '成功故事',
@@ -8403,7 +8403,6 @@ export const samples = {
                     },
                     star: 5,
                     title: '- 王刚',
-
                     subTitle: '前端开发',
                     body: 'Storybook让我们的前端开发更加流畅。它与我们的主应用程序分离，使我们能够更好地进行单独测试和调试。我们强烈推荐它给其他团队！',
                   },
