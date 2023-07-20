@@ -454,7 +454,7 @@ const card1v1: IShowcase2v1 = {
         ratios: 'media-4-3',
         img: {
           classes: 'object-fit',
-          src: '/assets/images/16-9/business-04.jpg',
+          src: '/assets/images/hero/bg01.jpg',
           alt: 'alt',
         },
       },
