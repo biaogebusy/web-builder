@@ -9,7 +9,6 @@ import {
   SimpleChanges,
   ChangeDetectorRef,
 } from '@angular/core';
-import { Clipboard } from '@angular/cdk/clipboard';
 import type { IAmap, IMap, IMark } from '@core/interface/IAmap';
 import { AmapService } from '@core/service/amap.service';
 import { CORE_CONFIG } from '@core/token/token-providers';
@@ -49,7 +48,6 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
     private contentService: ContentService,
     private utilService: UtilitiesService,
     private cd: ChangeDetectorRef,
-    private clipboard: Clipboard,
     @Inject(THEME) private theme: string,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig
   ) {}
@@ -170,8 +168,11 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
         const {
           lnglat: { lng, lat },
         } = event;
-        this.clipboard.copy(`${lng},${lat}`);
-        this.utilService.openSnackbar('经纬度已复制', 'ok');
+        const form = this.content?.form;
+        if (form) {
+          form.controls['circle'].patchValue({ lnglat: `${lng},${lat}` });
+        }
+        this.utilService.openSnackbar('已设置中心点', 'ok');
       }
     });
     this.amapService.mapLoading$.next(true);
