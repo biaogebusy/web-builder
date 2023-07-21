@@ -1,9 +1,9 @@
-<h1 align="center">信使 UI 框架</h1>
+<h1 align="center">信使 UI 低代码前端框架</h1>
 
 <p align="center">
   <img src="src/assets/images/logo/logo-white.png" alt="logo" width="100px"/>
   <br>
-  <i>信使 UI 是基于 Material 的 Angular 前端框架， 丰富的组件库可提供优秀的数字创新体验，<br>使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。
+  <i>信使 UI 是基于 Material 的 Angular 低代码前端框架，丰富的组件库可提供优秀的数字创新体验，<br>使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。
     </i>
   <br>
 </p>
