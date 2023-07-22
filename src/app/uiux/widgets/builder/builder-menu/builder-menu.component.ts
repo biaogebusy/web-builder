@@ -94,6 +94,7 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit, OnDestroy {
           isPreview: true,
           data: this.page,
           disableToolbar: true,
+          isPage: true,
         },
       ],
     });

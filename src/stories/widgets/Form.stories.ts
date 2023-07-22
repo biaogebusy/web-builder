@@ -71,6 +71,9 @@ const base: FormlyFieldConfig[] = [
     },
   },
   {
+    template: '<div><strong>地址:</strong></div>',
+  },
+  {
     key: 'Textarea',
     type: 'textarea',
     className: 'display-block m-bottom-sm',
