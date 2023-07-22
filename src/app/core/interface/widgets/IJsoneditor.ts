@@ -6,4 +6,5 @@ export interface IJsoneditor {
   uuid: string;
   actions?: any[];
   actionsAlign?: string;
+  isPage?: boolean;
 }
