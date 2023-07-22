@@ -1,3 +1,5 @@
+import { FormGroup } from '@angular/forms';
+
 export interface IAmap {
   key: string;
   version: string;
@@ -33,4 +35,5 @@ export interface IMap {
   elements: any[];
   params?: any;
   model?: any;
+  form?: FormGroup;
 }
