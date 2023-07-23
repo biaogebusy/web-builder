@@ -1,8 +1,4 @@
-import {
-  CdkDragDrop,
-  copyArrayItem,
-  moveItemInArray,
-} from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Inject, Injectable } from '@angular/core';
 import { IPage } from '@core/interface/IAppConfig';
 import {
@@ -123,12 +119,11 @@ export class BuilderState {
 
   // 边栏拖动添加组件
   transferComponet(event: CdkDragDrop<string[]>): void {
-    copyArrayItem(
-      event.previousContainer.data,
-      this.page.body,
-      event.previousIndex,
-      event.currentIndex
-    );
+    // base 和 component的数据结构不同，需要做判断
+    const component = event.item.data.type
+      ? event.item.data
+      : event.item.data.content;
+    this.page.body.splice(event.currentIndex, 0, component);
     this.updatePage();
   }
 
