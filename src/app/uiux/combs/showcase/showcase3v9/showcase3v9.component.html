@@ -6,14 +6,14 @@
     <div class="inner" fxLayout="row wrap" fxLayoutAlign="center center">
       <div class="left" [fxFlexOrder]="content.order.left" fxFlex.lt-md="100%" fxFlex.gt-sm="58%"
         fxLayoutAlign="center center" fxLayout="row wrap">
-        <app-dynamic-component class="p-x-sm width-100" *ngFor="let item of content.left" [inputs]="item"
-          fxLayoutAlign="center center">
+        <app-dynamic-component class="p-x-sm width-100" *ngFor="let item of content.left"
+          [inputs]="{content:item,disableToolbar:true}" fxLayoutAlign="center center">
         </app-dynamic-component>
       </div>
       <div class="right" [fxFlexOrder]="content.order.right" fxFlex.lt-md="100%" fxFlex.gt-sm="42%" fxLayout="row wrap"
         fxLayoutAlign="center center">
         <app-dynamic-component class="display-block p-x-sm width-100" *ngFor="let item of content.right"
-          [inputs]="item">
+          [inputs]="{content:item,disableToolbar:true}">
         </app-dynamic-component>
       </div>
     </div>
