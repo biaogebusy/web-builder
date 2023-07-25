@@ -64,24 +64,25 @@ export function builderFullScreenFactory(
   return isFull$;
 }
 
-export function isBuilderFactory(router: Router): Observable<boolean> {
-  const isBuilderPage$ = new BehaviorSubject<boolean>(false);
-
-  if (router.url.includes(BUILDERPATH)) {
-    isBuilderPage$.next(true);
+export function enableBuilderToolbarFactory(
+  router: Router
+): Observable<boolean> {
+  const enableToolbar$ = new BehaviorSubject<boolean>(false);
+  if (router.url === BUILDERPATH) {
+    enableToolbar$.next(true);
   } else {
-    isBuilderPage$.next(false);
+    enableToolbar$.next(false);
   }
   router.events.subscribe((event) => {
     if (event instanceof NavigationEnd) {
-      if (event.url === BUILDERPATH) {
-        isBuilderPage$.next(true);
+      if (router.url === BUILDERPATH) {
+        enableToolbar$.next(true);
       } else {
-        isBuilderPage$.next(false);
+        enableToolbar$.next(false);
       }
     }
   });
-  return isBuilderPage$;
+  return enableToolbar$;
 }
 
 export function debugAnimateFactory(
@@ -106,25 +107,6 @@ export function debugAnimateFactory(
   });
 
   return debugAnimate$;
-}
-
-export function enableToolbarFactory(router: Router): Observable<boolean> {
-  const enableToolbar$ = new BehaviorSubject<boolean>(false);
-  if (router.url.includes(BUILDERPATH)) {
-    enableToolbar$.next(true);
-  } else {
-    enableToolbar$.next(false);
-  }
-  router.events.subscribe((event) => {
-    if (event instanceof NavigationEnd) {
-      if (event.url.includes(BUILDERPATH)) {
-        enableToolbar$.next(true);
-      } else {
-        enableToolbar$.next(false);
-      }
-    }
-  });
-  return enableToolbar$;
 }
 
 export function manageSidebarStateFactory(

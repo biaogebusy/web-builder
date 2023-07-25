@@ -18,7 +18,10 @@ import {
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { ComponentService } from '@core/service/component.service';
 import { BuilderState } from '@core/state/BuilderState';
-import { CORE_CONFIG, ENABLE_TOOLBAR } from '@core/token/token-providers';
+import {
+  CORE_CONFIG,
+  ENABLE_BUILDER_TOOLBAR,
+} from '@core/token/token-providers';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -50,7 +53,7 @@ export class DynamicComponentComponent
     public builder: BuilderState,
     private cd: ChangeDetectorRef,
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
-    @Inject(ENABLE_TOOLBAR) public enable_toolbar$: Observable<boolean>
+    @Inject(ENABLE_BUILDER_TOOLBAR) public enable_toolbar$: Observable<boolean>
   ) {}
 
   ngOnInit(): void {

@@ -29,9 +29,6 @@ export const MEDIA_ASSETS = new InjectionToken<Observable<any[]>>(
 );
 
 // builder
-export const IS_BUILDER_PAGE = new InjectionToken<Observable<boolean>>(
-  'disable branding'
-);
 export const DEBUG_ANIMATE = new InjectionToken<boolean>('debug animate');
 export const BUILDER_FULL_SCREEN = new InjectionToken<Observable<boolean>>(
   'builder full screen'
@@ -40,7 +37,7 @@ export const BUILDER_SAMPLE_PAGE = new InjectionToken<IBuilderSamplePage>(
   'Builder sample page'
 );
 export const UIUX = new InjectionToken<IUiux[]>('builder uiux data');
-export const ENABLE_TOOLBAR = new InjectionToken<Observable<boolean>>(
+export const ENABLE_BUILDER_TOOLBAR = new InjectionToken<Observable<boolean>>(
   'enable builder toolbar'
 );
 
