@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import type { IPage } from '@core/interface/IAppConfig';
+import { ContentState } from '@core/state/ContentState';
 import { LocalStorage } from 'ngx-webstorage';
 
 @Component({
@@ -11,9 +12,11 @@ import { LocalStorage } from 'ngx-webstorage';
 export class PreviewComponent implements OnInit {
   @LocalStorage('page')
   page: IPage;
-  constructor() {}
+  constructor(private contentState: ContentState) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.contentState.pageConfig$.next(this.page.config);
+  }
 
   trackByFn(index: number): number {
     return index;

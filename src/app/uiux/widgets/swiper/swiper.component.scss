@@ -1,5 +1,6 @@
 // import all css on anuglar.json
 // https://swiperjs.com/angular
+@import "../../../../theme/mixins/amixin";
 :host ::ng-deep {
   .swiper-button-next,
   .swiper-button-prev {
@@ -14,4 +15,33 @@
 }
 .swiper-slide {
   overflow: hidden;
+}
+
+.swiper-container {
+  &.full-screen {
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    ::ng-deep {
+      > .swiper-wrapper {
+        > .swiper-slide {
+          > * {
+            @include middle-center();
+            width: 100%;
+          }
+        }
+      }
+      > .swiper-button-prev,
+      > .swiper-button-next {
+        left: 50%;
+        top: auto;
+        right: auto;
+        bottom: 20px;
+        transform: translateX(-50%) rotate(270deg);
+      }
+      > .swiper-button-next {
+        display: none;
+      }
+    }
+  }
 }
