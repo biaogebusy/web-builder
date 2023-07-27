@@ -4,6 +4,7 @@ import { home_v10 } from './home-v10.builder';
 import { home_v11 } from './home-v11.builder';
 import { home_v12 } from './home-v12.builder';
 import { home_v13 } from './home-v13.builder';
+import { home_v14 } from './home-v14.builder';
 import { home_v2 } from './home-v2.builder';
 import { home_v3 } from './home-v3.builder';
 import { home_v4 } from './home-v4.builder';
@@ -100,7 +101,7 @@ export const samples: IBuilderSamplePage = {
       label: 'V11',
       id: 'home-v11',
       icon: {
-        svg: 'numeric-1',
+        svg: 'roman-numeral-1',
       },
       page: home_v11,
     },
@@ -108,7 +109,7 @@ export const samples: IBuilderSamplePage = {
       label: 'V12',
       id: 'home-v12',
       icon: {
-        svg: 'numeric-2',
+        svg: 'roman-numeral-2',
       },
       page: home_v12,
     },
@@ -116,9 +117,17 @@ export const samples: IBuilderSamplePage = {
       label: 'V13',
       id: 'home-v13',
       icon: {
-        svg: 'numeric-3',
+        svg: 'roman-numeral-3',
       },
       page: home_v13,
+    },
+    {
+      label: 'V14',
+      id: 'home-v14',
+      icon: {
+        svg: 'roman-numeral-4',
+      },
+      page: home_v14,
     },
   ],
 };

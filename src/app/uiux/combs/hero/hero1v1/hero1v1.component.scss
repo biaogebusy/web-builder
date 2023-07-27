@@ -35,3 +35,9 @@
     }
   }
 }
+
+:host-context(.full-screen) {
+  .hero-1-v1 {
+    height: 100vh;
+  }
+}

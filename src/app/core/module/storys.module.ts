@@ -25,10 +25,9 @@ import {
   BRANDING,
   NOTIFY_CONTENT,
   BUILDER_FULL_SCREEN,
-  IS_BUILDER_PAGE,
   DEBUG_ANIMATE,
   MANAGE_SIDEBAR_STATE,
-  ENABLE_TOOLBAR,
+  ENABLE_BUILDER_TOOLBAR,
   MEDIA_ASSETS,
 } from '@core/token/token-providers';
 import { of } from 'rxjs';
@@ -142,10 +141,6 @@ export class StorysModule {
           deps: [Router, LocalStorageService, BuilderState],
         },
         {
-          provide: IS_BUILDER_PAGE,
-          useValue: of(false),
-        },
-        {
           provide: DEBUG_ANIMATE,
           useFactory: debugAnimateFactory,
           deps: [LocalStorageService, BuilderState],
@@ -164,7 +159,7 @@ export class StorysModule {
           ],
         },
         {
-          provide: ENABLE_TOOLBAR,
+          provide: ENABLE_BUILDER_TOOLBAR,
           useValue: of(false),
         },
         {

@@ -29,6 +29,7 @@ export const {
 export const {
   Default: { args: carousel1v1 },
   TextHero: { args: textHero, storyName: textHeroName },
+  FullScreen: { args: fullscreen, storyName: fullscreenName },
 } = c1v1Story;
 
 export const carousels = [
@@ -42,6 +43,7 @@ export const carousels = [
             { ...textHero, name: textHeroName },
             { ...lineyear, name: lineyearName },
             { ...carousel1v4, name: carousel1v4Name },
+            { ...fullscreen, name: fullscreenName },
           ],
         },
       ],

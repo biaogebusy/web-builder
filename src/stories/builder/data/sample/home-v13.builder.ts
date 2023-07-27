@@ -1,4 +1,4 @@
-import { hero1v3V1, hero1v3V2 } from '@stories/builder/data/combs/hero.builder';
+import { hero1v3V2 } from '@stories/builder/data/combs/hero.builder';
 import {
   carousel1v3_client,
   carousel2v2,
@@ -31,16 +31,16 @@ export const home_v13 = {
     },
   ],
   body: [
-    hero1v3V2,
+    { ...hero1v3V2?.content },
     { ...carousel2v2?.content, bg: { classes: 'bg-fill-width bg-' } },
-    showcase1v1_primary,
-    showcase3v9_video,
-    showcase3v6_background,
-    showcase4v1_img,
-    showcase1v3_video,
-    showcase1v4_price,
-    showcase3v9_video,
-    carousel1v3_client,
-    text,
+    { ...showcase1v1_primary?.content },
+    { ...showcase3v9_video?.content },
+    { ...showcase3v6_background?.content },
+    { ...showcase4v1_img?.content },
+    { ...showcase1v3_video?.content },
+    { ...showcase1v4_price?.content },
+    { ...showcase3v9_video?.content },
+    { ...carousel1v3_client?.content },
+    { ...text?.content },
   ],
 };

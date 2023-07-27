@@ -27,9 +27,9 @@ export const home_v10 = {
     },
   ],
   body: [
-    hero1v3V1,
-    showcase1v1_primary,
-    showcase3v9_video,
+    { ...hero1v3V1?.content },
+    { ...showcase1v1_primary?.content },
+    { ...showcase3v9_video?.content },
     {
       id: '',
       spacer: 'xl',
@@ -98,7 +98,7 @@ export const home_v10 = {
         },
       ],
     },
-    carousel1v3_client,
-    text,
+    { ...carousel1v3_client?.content },
+    { ...text?.content },
   ],
 };

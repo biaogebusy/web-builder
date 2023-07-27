@@ -26,10 +26,10 @@ export const home_v2 = {
     },
   },
   body: [
-    hero2v3,
-    showcase1v1_v3,
-    showcase2v1_card1v1,
-    action1v1,
+    { ...hero2v3?.content },
+    { ...showcase1v1_v3?.content },
+    { ...showcase2v1_card1v1?.content },
+    { ...action1v1?.content },
     {
       ...showcase3v4_background?.content,
       bg: { classes: 'bg-fill-width bg-' },
@@ -38,6 +38,6 @@ export const home_v2 = {
       ...showcase4v1_default?.content,
       bg: { classes: 'bg-fill-width bg-shadow' },
     },
-    carousel1v1,
+    { ...carousel1v1?.content },
   ],
 };

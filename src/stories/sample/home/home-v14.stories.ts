@@ -8,19 +8,19 @@ import { BlockComponent } from '@uiux/combs/block/block/block.component';
 import { BlockModule } from '@uiux/combs/block/block.module';
 import { StorysModule } from '@core/module/storys.module';
 import { BrandingModule } from '@core/branding/branding.module';
-import { defaultHeader, footerInverse } from '../../global/Branding.json';
 import { of } from 'rxjs';
+import { defaultHeader, footerInverse } from '../../global/Branding.json';
 import { BRANDING, ENABLE_BUILDER_TOOLBAR } from '@core/token/token-providers';
-import { home_v2 } from '@stories/builder/data/sample/home-v2.builder';
+import { home_v13 } from '@stories/builder/data/sample/home-v13.builder';
 
 export default {
-  title: '示例页面/首页示例/02 服务介绍',
-  id: 'home-v2',
+  title: '示例页面/首页示例/14 满屏',
+  id: 'home-v14',
   component: BlockComponent,
   decorators: [
     moduleMetadata({
-      declarations: [],
       entryComponents: [...StorysModule.forEntryComponents()],
+      declarations: [],
       imports: [StorysModule.forRoot(), BlockModule, BrandingModule],
       providers: [
         {
@@ -39,7 +39,9 @@ export default {
     componentWrapperDecorator(
       (story) => `
       <app-header></app-header>
+      <div style="overflow:hidden">
       ${story}
+      </div>
       <app-footer></app-footer>
     `
     ),
@@ -54,11 +56,10 @@ const Template: Story = (args) => ({
     ...args,
   },
 });
-
-const content = of(home_v2);
 export const Page = Template.bind({});
 // Raname Story
 Page.storyName = '预览';
+const content = of(home_v13);
 Page.args = {
   pageContent$: content,
 };
