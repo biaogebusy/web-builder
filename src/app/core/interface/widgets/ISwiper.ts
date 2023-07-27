@@ -5,4 +5,5 @@ export interface ISwiper {
   params: SwiperOptions;
   elements: any[];
   classes: string;
+  sliderClasses?: any;
 }

@@ -19,5 +19,9 @@ export const home_v11 = {
       content: '',
     },
   ],
-  body: [hero1v2, carousel1v2, list2v1],
+  body: [
+    { ...hero1v2?.content },
+    { ...carousel1v2?.content },
+    { ...list2v1?.content },
+  ],
 };

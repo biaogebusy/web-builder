@@ -20,8 +20,7 @@ import {
   BUILDER_FULL_SCREEN,
   CORE_CONFIG,
   DEBUG_ANIMATE,
-  IS_BUILDER_PAGE,
-  ENABLE_TOOLBAR,
+  ENABLE_BUILDER_TOOLBAR,
   MANAGE_SIDEBAR_STATE,
   MEDIA_ASSETS,
   NOTIFY_CONTENT,
@@ -37,8 +36,7 @@ import {
   builderFullScreenFactory,
   coreConfigFactory,
   debugAnimateFactory,
-  isBuilderFactory,
-  enableToolbarFactory,
+  enableBuilderToolbarFactory,
   manageSidebarStateFactory,
   mediaAssetsFactory,
   notifyFactory,
@@ -119,11 +117,6 @@ import { ContentState } from '@core/state/ContentState';
       deps: [Router, LocalStorageService, BuilderState],
     },
     {
-      provide: IS_BUILDER_PAGE,
-      useFactory: isBuilderFactory,
-      deps: [Router],
-    },
-    {
       provide: DEBUG_ANIMATE,
       useFactory: debugAnimateFactory,
       deps: [LocalStorageService, BuilderState],
@@ -142,8 +135,8 @@ import { ContentState } from '@core/state/ContentState';
       ],
     },
     {
-      provide: ENABLE_TOOLBAR,
-      useFactory: enableToolbarFactory,
+      provide: ENABLE_BUILDER_TOOLBAR,
+      useFactory: enableBuilderToolbarFactory,
       deps: [Router],
     },
     {

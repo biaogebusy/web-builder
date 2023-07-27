@@ -11,7 +11,7 @@ import { environment } from 'src/environments/environment';
 import { samples } from './data/sample/samples-for-story';
 import {
   BUILDER_SAMPLE_PAGE,
-  ENABLE_TOOLBAR,
+  ENABLE_BUILDER_TOOLBAR,
   UIUX,
 } from '@core/token/token-providers';
 import { uiux } from './data/uiux-for-story';
@@ -42,7 +42,7 @@ export default {
           useValue: samples,
         },
         {
-          provide: ENABLE_TOOLBAR,
+          provide: ENABLE_BUILDER_TOOLBAR,
           useValue: of(true),
         },
       ],

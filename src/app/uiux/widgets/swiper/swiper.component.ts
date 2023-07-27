@@ -16,6 +16,8 @@ import SwiperCore, {
   Autoplay,
   Keyboard,
   Mousewheel,
+  EffectCoverflow,
+  EffectFlip,
 } from 'swiper';
 import { SwiperComponent as SwiperCom } from 'swiper/angular';
 
@@ -39,6 +41,8 @@ SwiperCore.use([
   Autoplay,
   Keyboard,
   Mousewheel,
+  EffectCoverflow,
+  EffectFlip,
 ]);
 
 @Component({

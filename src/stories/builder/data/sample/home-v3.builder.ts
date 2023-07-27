@@ -16,8 +16,8 @@ export const home_v3 = {
     },
   ],
   body: [
-    hero1v1,
-    carousel2v2,
+    { ...hero1v1?.content },
+    { ...carousel2v2?.content },
     {
       type: 'showcase-1v1',
       bg: {
@@ -192,7 +192,7 @@ export const home_v3 = {
         },
       ],
     },
-    showcase3v9_video,
-    text,
+    { ...showcase3v9_video?.content },
+    { ...text?.content },
   ],
 };

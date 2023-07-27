@@ -10,7 +10,7 @@ import { StorysModule } from '@core/module/storys.module';
 import { BrandingModule } from '@core/branding/branding.module';
 import { defaultHeader, footerInverse } from '../../global/Branding.json';
 import { of } from 'rxjs';
-import { BRANDING, ENABLE_TOOLBAR } from '@core/token/token-providers';
+import { BRANDING, ENABLE_BUILDER_TOOLBAR } from '@core/token/token-providers';
 import { home_v7 } from '@stories/builder/data/sample/home-v7.builder';
 export default {
   title: '示例页面/首页示例/07 Sass 服务',
@@ -30,7 +30,7 @@ export default {
           }),
         },
         {
-          provide: ENABLE_TOOLBAR,
+          provide: ENABLE_BUILDER_TOOLBAR,
           useValue: of(true),
         },
       ],

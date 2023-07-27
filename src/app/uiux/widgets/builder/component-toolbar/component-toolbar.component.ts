@@ -12,7 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
 import type { IComponentToolbar } from '@core/interface/combs/IBuilder';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
-import { IS_BUILDER_PAGE } from '@core/token/token-providers';
+import { ENABLE_BUILDER_TOOLBAR } from '@core/token/token-providers';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { Observable } from 'rxjs';
 
@@ -33,18 +33,19 @@ export class ComponentToolbarComponent implements OnInit {
   @Output() uuidChange: EventEmitter<string> = new EventEmitter();
   @HostBinding('class.component-toolbar') hostClass = true;
   dialogRef: any;
-  isBuilderPage: boolean;
+  enableBuilderToolbar: boolean;
 
   constructor(
     private builder: BuilderState,
     private util: UtilitiesService,
     private dialog: MatDialog,
-    @Inject(IS_BUILDER_PAGE) public isBuilderPage$: Observable<boolean>
+    @Inject(ENABLE_BUILDER_TOOLBAR)
+    public enabelBuilderToolbar$: Observable<boolean>
   ) {}
 
   ngOnInit(): void {
-    this.isBuilderPage$.subscribe((state) => {
-      this.isBuilderPage = state;
+    this.enabelBuilderToolbar$.subscribe((state) => {
+      this.enableBuilderToolbar = state;
     });
   }
 
@@ -67,7 +68,7 @@ export class ComponentToolbarComponent implements OnInit {
   }
 
   onEditor(content: any, index: number): void {
-    if (!this.isBuilderPage) {
+    if (!this.enableBuilderToolbar) {
       // uuid for update not builder page
       const uuid = Date.now().toString();
       this.uuidChange.emit(uuid);
