@@ -24,10 +24,10 @@ export const home_v9 = {
     },
   ],
   body: [
-    hero2v1Default,
-    showcase2v2_default,
+    { ...hero2v1Default?.content },
+    { ...showcase2v2_default?.content },
     { ...showcase4v1_img?.content, bg: { classes: 'bg-fill-width bg-shadow' } },
-    carousel1v2,
-    list2v1,
+    { ...carousel1v2?.content },
+    { ...list2v1?.content },
   ],
 };

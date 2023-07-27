@@ -200,25 +200,25 @@
             "elements": [
               {
                 "module": "Slick Carousel",
-                "tatol": 1872,
+                "tatol": 1266,
                 "info": "Slick 轮播，强大响应式且性能优异的图片轮播解决方案，有非常丰富的配置选项，slick 官网自己调侃这是你最后使用的图片轮播",
                 "remarks": "查看"
               },
               {
                 "module": "Views Slideshow",
-                "tatol": 9368,
+                "tatol": 7002,
                 "info": "视图轮播模块，该模块是最受欢迎的幻灯片模块，可放任何内容，高度定制\t",
                 "remarks": "查看"
               },
               {
                 "module": "Colorbox",
-                "tatol": 7745,
+                "tatol": 8580,
                 "info": "轻量级高可定制幻灯片模块，高度集成在 Drupal 中，可放图片，Iframed 或者在线内容等等\t",
                 "remarks": "查看"
               },
               {
                 "module": "Flex Slider",
-                "tatol": 3267,
+                "tatol": 7723,
                 "info": "响应式、可调整大小、适配浏览器和移动设备，支持移动设备手势滑动\t",
                 "remarks": "查看"
               },
@@ -286,21 +286,21 @@
                 ],
                 [
                   "第一季度",
-                  6723,
-                  9737,
-                  6458
+                  6153,
+                  7773,
+                  4400
                 ],
                 [
                   "第二季度",
-                  4540,
-                  5223,
-                  4962
+                  8396,
+                  3895,
+                  7747
                 ],
                 [
                   "第三季度",
-                  9241,
-                  4153,
-                  3995
+                  9093,
+                  6511,
+                  3176
                 ]
               ]
             },
@@ -1379,7 +1379,7 @@
                   "src": "../assets/images/showcase/blog1-large.jpeg",
                   "alt": ""
                 },
-                "changed": "2023-07-23"
+                "changed": "2023-07-27"
               },
               {
                 "link": {
@@ -1390,29 +1390,29 @@
                   "src": "../assets/images/showcase/blog2-large.jpeg",
                   "alt": ""
                 },
-                "changed": "2023-07-23"
+                "changed": "2023-07-27"
               },
               {
                 "link": {
                   "label": "你应该了解的 Angular 最佳实践",
-                  "href": "2023-07-23"
+                  "href": "2023-07-27"
                 },
                 "img": {
                   "src": "../assets/images/showcase/blog3-large.jpeg",
                   "alt": ""
                 },
-                "changed": "2023-07-23"
+                "changed": "2023-07-27"
               },
               {
                 "link": {
                   "label": "Angular 5 rxjs 5.5.2 多个 http 并行 forkJoin 请求",
-                  "href": "2023-07-23"
+                  "href": "2023-07-27"
                 },
                 "img": {
                   "src": "../assets/images/showcase/blog4-large.jpeg",
                   "alt": ""
                 },
-                "changed": "2023-07-23"
+                "changed": "2023-07-27"
               }
             ]
           }
@@ -1432,7 +1432,7 @@
               "href": "#",
               "label": "更多"
             },
-            "date": "2023-07-23",
+            "date": "2023-07-27",
             "body": "Storybook是一个用于开发和展示UI组件的工具。它提供了一个独立的环境，开发人员可以在其中构建、测试和文档化单个UI组件，而无需依赖于整个应用程序的上下文。Storybook是一个用于开发和展示UI组件的工具。它提供了一个独立的环境，开发人员可以在其中构建、测试和文档化单个UI组件，而无需依赖于整个应用程序的上下文。..."
           }
         },

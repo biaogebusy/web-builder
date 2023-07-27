@@ -23,5 +23,11 @@ export const home_v12 = {
       content: '',
     },
   ],
-  body: [hero2v2, carousel2v2, showcase1v4_default, showcase1v4_dynamic, text],
+  body: [
+    { ...hero2v2?.content },
+    { ...carousel2v2?.content },
+    { ...showcase1v4_default?.content },
+    { ...showcase1v4_dynamic?.content },
+    { ...text?.content },
+  ],
 };

@@ -315,6 +315,7 @@ FullScreen.args = {
           },
         },
         {
+          sliderClasses: 'slider-center',
           type: 'showcase-1v4',
           spacer: 'lg',
           bg: {
@@ -328,6 +329,9 @@ FullScreen.args = {
                 '使用 <strong class="text-primary">Storybook</strong> 开发组件',
               style: 'style-v1',
               classes: 'mat-display-3 bold',
+            },
+            animate: {
+              disable: true,
             },
             body: '<p class="text-center">Storybook是一个面向UI组件开发的工具，它提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。</p>',
           },
@@ -479,15 +483,6 @@ FullScreen.args = {
           sliderClasses: 'slider-center',
           type: 'showcase-3v5',
           id: '',
-          title: {
-            type: 'text',
-            spacer: 'sm',
-            title: {
-              label: '为什么你将会喜欢这个前端框架？',
-              style: 'style-v1',
-            },
-            body: '<p class="text-center">信使是基于 Material UI 的 Angular 前端框架，后端适配 Drupal，提供优秀的数字创新体验。</p>',
-          },
           bg: {
             classes: 'bg-shadow bg-fill-width',
           },
@@ -579,15 +574,6 @@ FullScreen.args = {
         {
           sliderClasses: 'slider-center',
           type: 'showcase-3v7',
-          title: {
-            type: 'text',
-            spacer: 'sm',
-            title: {
-              label: '为什么你将会喜欢这个前端框架？',
-              style: 'style-v1',
-            },
-            body: '<p class="text-center">信使是基于 Material UI 的 Angular 前端框架，后端适配 Drupal，提供优秀的数字创新体验。</p>',
-          },
           bg: {
             classes: 'bg-shadow bg-fill-width',
           },
@@ -681,6 +667,9 @@ FullScreen.args = {
         {
           type: 'text',
           spacer: 'md',
+          animate: {
+            disable: true,
+          },
           body: '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。<ul class="list-done"><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li><li>可以直接编辑组件的 JSON，所见即所得；</li></ul>',
           title: {
             label:
@@ -689,7 +678,7 @@ FullScreen.args = {
             classes: 'mat-display-2 bold',
           },
           bg: {
-            classes: 'bg-shadow bg-fill-width',
+            classes: 'bg- bg-fill-width',
           },
           actionsAlign: 'center center',
           actions: [

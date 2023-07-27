@@ -28,15 +28,15 @@ export const home_v8 = {
     },
   ],
   body: [
-    hero1v4Shape,
-    carousel2v2,
+    { ...hero1v4Shape?.content },
+    { ...carousel2v2?.content },
     {
       ...showcase3v6_background?.content,
       bg: { classes: 'bg-fill-width bg-' },
     },
-    showcase3v9_video,
-    carousel1v3_client,
+    { ...showcase3v9_video?.content },
+    { ...carousel1v3_client?.content },
     { ...showcase4v1_img?.content, bg: { classes: 'bg-fill-width bg-shadow' } },
-    text,
+    { ...text?.content },
   ],
 };

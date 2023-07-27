@@ -14,18 +14,18 @@ import { text } from '@stories/builder/data/widgets/base.builder';
 export const home_v1 = {
   title: '首页 v1',
   body: [
-    hero1v1,
-    showcase1v1Default,
-    showcase3v2_default,
+    { ...hero1v1?.content },
+    { ...showcase1v1Default?.content },
+    { ...showcase3v2_default?.content },
     {
       ...showcase4v1_default?.content,
       bg: { classes: 'bg-fill-width bg-shadow' },
     },
-    carousel2v1,
-    showcase2v1_default,
-    videoBg,
-    showcase3v6_default,
-    shuffle,
-    text,
+    { ...carousel2v1?.content },
+    { ...showcase2v1_default?.content },
+    { ...videoBg?.content },
+    { ...showcase3v6_default?.content },
+    { ...shuffle?.content },
+    { ...text?.content },
   ],
 };
