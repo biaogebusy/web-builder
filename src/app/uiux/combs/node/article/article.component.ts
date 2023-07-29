@@ -141,7 +141,7 @@ export class ArticleComponent
       .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {
         this.comments = res;
-        this.cd.detectChanges;
+        this.cd.detectChanges();
       });
   }
 
