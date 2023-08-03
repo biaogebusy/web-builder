@@ -1,5 +1,5 @@
 <div class="switch-preview" [matTooltip]="'切换设备'">
-  <button aria-label="switch preview" mat-icon-button [mat-menu-trigger-for]="menu">
+  <button [ngClass]="currentPreview" aria-label="switch preview" mat-icon-button [mat-menu-trigger-for]="menu">
     <app-icon [content]="{svg:currentIcon,color:'primary'}"></app-icon>
   </button>
 

@@ -104,6 +104,16 @@
         &.fixed {
           @include mat-elevation(2, mat-color($background, tooltip), 0.25);
         }
+
+        .switch-preview {
+          button {
+            &.none {
+              .mat-icon {
+                color: mat-color($foreground, slider-off);
+              }
+            }
+          }
+        }
       }
       .overlay {
         background-color: mat-color($foreground, slider-off-active);
@@ -129,6 +139,7 @@
     .cdk-drag-placeholder {
       background-color: mat-color($background, background);
       border: 3px dotted mat-color($foreground, divider);
+      width: 100%;
       &:hover {
         background-color: mat-color($primary, 200);
         border-color: mat-color($primary);
