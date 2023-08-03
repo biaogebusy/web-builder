@@ -1,8 +1,7 @@
 @import "~@angular/material/theming";
 @import "../mixins/amixin";
-// @import "../theme-config/dark-config.scss";
 
-$dark-primary: mat-palette($mat-blue, 300, 50, 500);
+$dark-primary: mat-palette($mat-gray, 300, 50, 500);
 $dark-accent: mat-palette($mat-teal, A200, A100, A400);
 $dark-warn: mat-palette($mat-deep-orange);
 $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
@@ -36,6 +35,11 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
       .mat-expansion-panel-header-title,
       .mat-expansion-indicator::after {
         color: mat-color($foreground, text, 0.75);
+      }
+      .mat-list-base {
+        .mat-list-option {
+          color: mat-color($foreground, text, 0.75);
+        }
       }
     }
 
@@ -71,6 +75,7 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
         border-right: 1px solid mat-color($foreground, divider);
         @include scrollbar(mat-color($foreground, divider));
         .box {
+          color: mat-color($foreground, text, 0.75);
           .inner {
             border: 1px solid mat-color($foreground, divider);
             background-color: mat-color($background, card);
