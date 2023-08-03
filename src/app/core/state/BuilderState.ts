@@ -22,7 +22,7 @@ export class BuilderState {
   public fullScreen$ = new Subject<boolean>();
   public debugeAnimate$ = new Subject<boolean>();
   public builderContentDrawer$ = new Subject<boolean>();
-  public switchPreivew$ = new Subject<'xs' | 'sm' | 'md' | 'none'>();
+  public switchPreivew$ = new Subject<'xs' | 'sm' | 'md' | 'lg' | 'none'>();
   public loading$ = new BehaviorSubject<boolean>(true);
   public dynamicContent$ = new Subject<IBuilderDynamicContent>();
   public jsoneditorContent$ = new Subject<{

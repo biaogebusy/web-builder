@@ -20,6 +20,7 @@
         <div class="time">{{page.time|date:"YYYY-MM-dd HH:mm"}}</div>
       </div>
       <div class="right" fxFlex.lt-md="auto" fxFlex.gt-sm="33%" fxLayoutAlign="end center" fxLayoutGap="0.5rem">
+        <app-switch-preview></app-switch-preview>
         <mat-slide-toggle [checked]="builderFullScreen$|async" (change)="onFullScreen($event)"
           [matTooltip]="'切换全宽'"></mat-slide-toggle>
         <app-btn [matTooltip]="'组件导航'" (click)="onCompnentNavigate()"

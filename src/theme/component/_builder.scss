@@ -81,9 +81,12 @@
           background-color: mat-color($background, background);
         }
         .preview {
-          background-color: mat-color($foreground, slider-off);
-          .preview-wrapper {
-            background-color: mat-color($background, card);
+          background-color: mat-color($foreground, elevation, 0.85);
+          .preview-iframe {
+            &:after {
+              background-color: mat-color($foreground, elevation, 0.95);
+              @include mat-elevation(2, mat-color($foreground, elevation), 0.5);
+            }
           }
         }
       }

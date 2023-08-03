@@ -24,21 +24,28 @@ export class SwitchPreviewComponent implements OnInit {
         svg: 'cellphone',
       },
       value: 'xs',
-      label: 'xs',
+      label: '手机',
     },
     {
       icon: {
         svg: 'tablet',
       },
       value: 'sm',
-      label: 'sm',
+      label: '平板',
+    },
+    {
+      icon: {
+        svg: 'laptop',
+      },
+      value: 'md',
+      label: '笔记本',
     },
     {
       icon: {
         svg: 'monitor',
       },
-      value: 'md',
-      label: 'md',
+      value: 'lg',
+      label: '桌面',
     },
   ];
   ngOnInit(): void {}
