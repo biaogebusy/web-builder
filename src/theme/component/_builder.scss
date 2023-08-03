@@ -2,7 +2,7 @@
 @import "../mixins/amixin";
 // @import "../theme-config/dark-config.scss";
 
-$dark-primary: mat-palette($mat-grey, 300, 50, 500);
+$dark-primary: mat-palette($mat-blue, 300, 50, 500);
 $dark-accent: mat-palette($mat-teal, A200, A100, A400);
 $dark-warn: mat-palette($mat-deep-orange);
 $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
@@ -32,6 +32,11 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 
     .mat-expansion-panel {
       background-color: mat-color($background, background);
+      color: mat-color($foreground, text);
+      .mat-expansion-panel-header-title,
+      .mat-expansion-indicator::after {
+        color: mat-color($foreground, text, 0.75);
+      }
     }
 
     .cards {
@@ -59,7 +64,7 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
     }
   }
   > .mat-drawer-container {
-    background-color: #fafafa;
+    background-color: transparent;
     .builder-list {
       background-color: mat-color($background, card);
       .sidebar-drawer {
@@ -95,6 +100,7 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
     @include scrollbar(mat-color($primary));
     .builder-toolbar {
       background-color: mat-color($background, background);
+      color: mat-color($foreground, text, 0.75);
       .middle {
         .time {
           color: mat-color($foreground, text, 0.45);
@@ -170,6 +176,9 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 
     &.dark {
       @include theme($darkBg, $darkFore, $darkPrimary);
+      .builder-list {
+        background-color: #fafafa !important;
+      }
     }
   }
 
