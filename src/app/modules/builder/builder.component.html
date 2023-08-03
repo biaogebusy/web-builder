@@ -1,4 +1,6 @@
-<div class="builder" [ngClass]="{'has-sidebar':!(builderFullScreen$|async)}" *ngIf="content">
+<div class="builder"
+  [ngClass]="{'has-sidebar':!(builderFullScreen$|async),'dark':(builder.builderThemeMode|async) ==='dark'}"
+  *ngIf="content">
   <mat-drawer-container>
     <mat-drawer #drawer class="sidebar" [mode]="mode" [opened]="!(builderFullScreen$|async)">
       <mat-tab-group mat-stretch-tabs mat-align-tabs="center" disableRipple="true">
