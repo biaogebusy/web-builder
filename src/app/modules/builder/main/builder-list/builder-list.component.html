@@ -21,7 +21,7 @@
       </div>
       <app-gotop></app-gotop>
     </div>
-    <div class="preview-wrapper">
+    <div class="preview-wrapper" *ngIf="builder.switchPreivew$|async">
       <app-iframe class="preview-iframe" [content]="{url:'/builder/preview'}"></app-iframe>
     </div>
   </mat-drawer-content>

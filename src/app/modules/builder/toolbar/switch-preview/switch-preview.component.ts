@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+} from '@angular/core';
 import { BuilderState } from '@core/state/BuilderState';
 
 @Component({
@@ -8,7 +13,10 @@ import { BuilderState } from '@core/state/BuilderState';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SwitchPreviewComponent implements OnInit {
-  constructor(private builderState: BuilderState) {}
+  constructor(
+    private builderState: BuilderState,
+    private cd: ChangeDetectorRef
+  ) {}
   currentPreview = 'none';
   currentIcon = 'cellphone-link';
   previews = [
@@ -57,6 +65,7 @@ export class SwitchPreviewComponent implements OnInit {
     } else {
       this.currentIcon = preview.icon.svg;
     }
+    this.cd.detectChanges();
     this.builderState.switchPreivew$.next(preview.value);
   }
 }

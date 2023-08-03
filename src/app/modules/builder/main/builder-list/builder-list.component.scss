@@ -40,9 +40,16 @@
     left: 0;
     z-index: 99999;
   }
+
   .preview-wrapper {
     display: none;
+    width: 100%;
+    height: 100%;
+    .preview-iframe {
+      max-height: 94%;
+    }
   }
+
   .preview {
     #builder-list {
       display: none;
@@ -70,14 +77,6 @@
     }
   }
 
-  .preview-wrapper {
-    width: 100%;
-    height: 100%;
-    .preview-iframe {
-      max-height: 94vh;
-    }
-  }
-
   .preview-xs {
     .preview-iframe {
       width: 375px;
@@ -97,17 +96,11 @@
     }
   }
 
-  .preview-md {
-    .preview-iframe {
-      width: 1280px;
-      height: 800px;
-    }
-  }
-
   .preview-lg {
     .preview-iframe {
       width: 1920px;
       height: 1080px;
+      max-height: 100%;
     }
   }
 
