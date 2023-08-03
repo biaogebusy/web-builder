@@ -1,6 +1,161 @@
 @import "~@angular/material/theming";
 @import "../mixins/amixin";
 
+$dark-primary: mat-palette($mat-gray, 300, 50, 500);
+$dark-accent: mat-palette($mat-teal, A200, A100, A400);
+$dark-warn: mat-palette($mat-deep-orange);
+$dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
+
+@mixin theme($background, $foreground, $primary) {
+  background-color: mat-color($background, card);
+  .sidebar {
+    background-color: mat-color($background, card);
+    .mat-drawer-inner-container {
+      @include scrollbar(mat-color($foreground, divider));
+    }
+    .right {
+      color: mat-color($primary);
+    }
+    .mat-tab-header {
+      background-color: mat-color($primary, 0.06);
+      .mat-tab-label-active {
+        .mat-tab-label-content {
+          background: mat-color($primary);
+          color: mat-color($primary, default-contrast);
+        }
+      }
+      .mat-tab-label-content {
+        background-color: transparent;
+      }
+    }
+
+    .mat-expansion-panel {
+      background-color: mat-color($background, background);
+      color: mat-color($foreground, text);
+      .mat-expansion-panel-header-title,
+      .mat-expansion-indicator::after {
+        color: mat-color($foreground, text, 0.75);
+      }
+      .mat-list-base {
+        .mat-list-option {
+          color: mat-color($foreground, text, 0.75);
+        }
+      }
+    }
+
+    .cards {
+      .item {
+        .inner {
+          background-color: mat-color($background, card);
+          transition: background 0.1s ease-in-out;
+          @include mat-elevation(
+            1,
+            mat-color($background, focused-button),
+            0.1
+          );
+          &:hover {
+            @include mat-elevation(1, mat-color($background, hover), 0.4);
+          }
+        }
+      }
+    }
+    .child {
+      .mat-expansion-panel {
+        .mat-expansion-panel-body {
+          background-color: mat-color($primary, 0.07);
+        }
+      }
+    }
+  }
+  > .mat-drawer-container {
+    background-color: transparent;
+    .builder-list {
+      background-color: mat-color($background, card);
+      .sidebar-drawer {
+        border-right: 1px solid mat-color($foreground, divider);
+        @include scrollbar(mat-color($foreground, divider));
+        .box {
+          color: mat-color($foreground, text, 0.75);
+          .inner {
+            border: 1px solid mat-color($foreground, divider);
+            background-color: mat-color($background, card);
+          }
+          &:hover {
+            background-color: mat-color($primary, 0.25);
+            color: mat-color($primary);
+          }
+        }
+      }
+      .mat-drawer {
+        background-color: mat-color($background, background);
+      }
+      .preview {
+        background-color: mat-color($foreground, elevation, 0.85);
+        .preview-iframe {
+          &:after {
+            background-color: mat-color($foreground, elevation, 0.95);
+            @include mat-elevation(2, mat-color($foreground, elevation), 0.5);
+          }
+        }
+      }
+    }
+  }
+  .mat-drawer-content {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.11);
+    @include scrollbar(mat-color($primary));
+    .builder-toolbar {
+      background-color: mat-color($background, background);
+      color: mat-color($foreground, text, 0.75);
+      .middle {
+        .time {
+          color: mat-color($foreground, text, 0.45);
+        }
+      }
+      &.fixed {
+        @include mat-elevation(2, mat-color($background, tooltip), 0.25);
+      }
+
+      .switch-preview {
+        button {
+          &.none {
+            .mat-icon {
+              color: mat-color($foreground, slider-off);
+            }
+          }
+        }
+      }
+    }
+    .overlay {
+      background-color: mat-color($foreground, slider-off-active);
+    }
+    .showcase {
+      .component-toolbar {
+        + app-spacer {
+          background-color: mat-color($primary, 0.25);
+        }
+      }
+    }
+    .preview-container {
+      .mat-drawer {
+        .actions {
+          &.expand {
+            background-color: mat-color($background, card);
+            @include mat-elevation(2, mat-color($background, hover), 0.4);
+          }
+        }
+      }
+    }
+  }
+  .cdk-drag-placeholder {
+    background-color: mat-color($background, background);
+    border: 3px dotted mat-color($foreground, divider);
+    width: 100%;
+    &:hover {
+      background-color: mat-color($primary, 200);
+      border-color: mat-color($primary);
+    }
+  }
+}
 @mixin builder-color($config-or-theme) {
   $config: mat-get-color-config($config-or-theme);
   $foreground: map-get($config, foreground);
@@ -9,126 +164,25 @@
   $accent: map-get($config, accent);
   $warn: map-get($config, warn);
 
+  $darkBg: map-get(
+    $map: $dark-theme,
+    $key: background,
+  );
+  $darkFore: map-get(
+    $map: $dark-theme,
+    $key: foreground,
+  );
+  $darkPrimary: map-get(
+    $map: $dark-theme,
+    $key: primary,
+  );
   .builder {
-    background-color: mat-color($background, card);
-    .sidebar {
-      background-color: mat-color($background, card);
-      .mat-drawer-inner-container {
-        @include scrollbar(mat-color($foreground, divider));
-      }
-      .right {
-        color: mat-color($primary);
-      }
-      .mat-tab-header {
-        background-color: mat-color($primary, 0.06);
-        .mat-tab-label-active {
-          .mat-tab-label-content {
-            background: mat-color($primary);
-            color: mat-color($primary, default-contrast);
-          }
-        }
-        .mat-tab-label-content {
-          background-color: transparent;
-        }
-      }
+    @include theme($background, $foreground, $primary);
 
-      .mat-expansion-panel {
-        background-color: mat-color($background, background);
-      }
-
-      .cards {
-        .item {
-          .inner {
-            background-color: mat-color($background, card);
-            transition: background 0.1s ease-in-out;
-            @include mat-elevation(
-              1,
-              mat-color($background, focused-button),
-              0.1
-            );
-            &:hover {
-              @include mat-elevation(1, mat-color($background, hover), 0.4);
-            }
-          }
-        }
-      }
-      .child {
-        .mat-expansion-panel {
-          .mat-expansion-panel-body {
-            background-color: mat-color($primary, 0.07);
-          }
-        }
-      }
-    }
-    .mat-drawer-container {
-      background-color: mat-color($background, card);
+    &.dark {
+      @include theme($darkBg, $darkFore, $darkPrimary);
       .builder-list {
-        .sidebar-drawer {
-          border-right: 1px solid mat-color($foreground, divider);
-          @include scrollbar(mat-color($foreground, divider));
-          .box {
-            .inner {
-              border: 1px solid mat-color($foreground, divider);
-              background-color: mat-color($background, card);
-            }
-            &:hover {
-              background-color: mat-color($primary, 0.25);
-              color: mat-color($primary);
-            }
-          }
-        }
-        .mat-drawer {
-          background-color: mat-color($background, background);
-        }
-        .preview {
-          background-color: mat-color($foreground, slider-off);
-          .preview-wrapper {
-            background-color: mat-color($background, card);
-          }
-        }
-      }
-    }
-    .mat-drawer-content {
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.11);
-      @include scrollbar(mat-color($primary));
-      .builder-toolbar {
-        background-color: mat-color($background, background);
-        .middle {
-          .time {
-            color: mat-color($foreground, text, 0.45);
-          }
-        }
-        &.fixed {
-          @include mat-elevation(2, mat-color($background, tooltip), 0.25);
-        }
-      }
-      .overlay {
-        background-color: mat-color($foreground, slider-off-active);
-      }
-      .showcase {
-        .component-toolbar {
-          + app-spacer {
-            background-color: mat-color($primary, 0.25);
-          }
-        }
-      }
-      .preview-container {
-        .mat-drawer {
-          .actions {
-            &.expand {
-              background-color: mat-color($background, card);
-              @include mat-elevation(2, mat-color($background, hover), 0.4);
-            }
-          }
-        }
-      }
-    }
-    .cdk-drag-placeholder {
-      background-color: mat-color($background, background);
-      border: 3px dotted mat-color($foreground, divider);
-      &:hover {
-        background-color: mat-color($primary, 200);
-        border-color: mat-color($primary);
+        background-color: #fafafa !important;
       }
     }
   }

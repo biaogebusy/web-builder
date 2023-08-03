@@ -36,7 +36,7 @@ export class BuilderToolbarComponent
 
   constructor(
     private storage: LocalStorageService,
-    private builder: BuilderState,
+    public builder: BuilderState,
     private screenState: ScreenState,
     private screenService: ScreenService,
     private dialog: MatDialog,
@@ -58,6 +58,16 @@ export class BuilderToolbarComponent
           }
         });
     }
+  }
+
+  onToggleBuilderTheme(mode: 'light' | 'dark'): void {
+    let style: 'light' | 'dark';
+    if (mode === 'light') {
+      style = 'dark';
+    } else {
+      style = 'light';
+    }
+    this.builder.builderThemeMode.next(style);
   }
 
   onGenerate(): void {

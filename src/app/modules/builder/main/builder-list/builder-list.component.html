@@ -6,9 +6,8 @@
     <div class="load" *ngIf="builder.loading$ | async">
       <mat-spinner diameter="50" color="accent"></mat-spinner>
     </div>
-    <div #builderList id="builder-list" class="preview-wrapper" cdkDropList
-      [cdkDropListConnectedTo]="['widgets','components']" [cdkDropListData]="content"
-      (cdkDropListDropped)="drop($event)">
+    <div #builderList id="builder-list" cdkDropList [cdkDropListConnectedTo]="['widgets','components']"
+      [cdkDropListData]="content" (cdkDropListDropped)="drop($event)">
       <app-builder-empty *ngIf="!content?.length"></app-builder-empty>
       <div id="{{item?.type||item?.content?.type}}-{{i}}" (dblclick)="onShowEditor(item, i)" class="component-item"
         cdkDrag [cdkDragData]="item" *ngFor="let item of content;index as i; trackBy: trackByFn">
@@ -21,6 +20,9 @@
           }"></app-card-1v1>
       </div>
       <app-gotop></app-gotop>
+    </div>
+    <div class="preview-wrapper" *ngIf="builder.switchPreivew$|async">
+      <app-iframe class="preview-iframe" [content]="{url:'/builder/preview'}"></app-iframe>
     </div>
   </mat-drawer-content>
 </mat-drawer-container>
