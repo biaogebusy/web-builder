@@ -22,6 +22,7 @@ export class LotteryComponent implements OnInit, AfterViewInit {
   @Input() model: any = {};
   total = 0;
   promoteMoney = '0';
+  minTotalMoney = 0;
   chart: EChartsOption;
 
   constructor(private cd: ChangeDetectorRef) {}
@@ -41,6 +42,14 @@ export class LotteryComponent implements OnInit, AfterViewInit {
     }
     // max: 大额红包 min: 小额红包 promote: 提成
     const { max, min, promote, isPromote } = value;
+    const {
+      per_max: min_per_max,
+      per_min: min_per_min,
+      total_number: min_total_number,
+    } = min;
+    this.minTotalMoney = Number(
+      (((min_per_max + min_per_min) / 2) * min_total_number).toFixed(2)
+    );
     if (isPromote) {
       // 固定金额
       if (promote.type === 'fixed') {
@@ -53,7 +62,7 @@ export class LotteryComponent implements OnInit, AfterViewInit {
       if (promote.type === 'percent') {
         const percent = promote.percent / 100;
         this.promoteMoney = (
-          (max.total_money + min.total_money) *
+          (max.total_money + this.minTotalMoney) *
           percent
         ).toFixed(0);
       }
@@ -61,7 +70,7 @@ export class LotteryComponent implements OnInit, AfterViewInit {
       this.promoteMoney = '0';
     }
     this.total = Math.round(
-      max.total_money + min.total_money + Number(this.promoteMoney)
+      max.total_money + this.minTotalMoney + Number(this.promoteMoney)
     );
     // this.maxTimes = (max.total / max.per).toFixed(0);
     // this.minTimes = (min.total / min.per).toFixed(0);
@@ -71,7 +80,7 @@ export class LotteryComponent implements OnInit, AfterViewInit {
         source: [
           ['预算', '费用'],
           ['大额红包总金额', max.total_money],
-          ['小额红包总金额', min.total_money],
+          ['小额红包总金额', this.minTotalMoney],
           ['提成总额', Number(this.promoteMoney)],
         ],
       },

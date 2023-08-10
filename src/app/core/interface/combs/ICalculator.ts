@@ -14,8 +14,8 @@ export interface ILotteryForm {
     total_number: number;
   };
   min: {
-    total_money: number;
     total_number: number;
+    per_min: number;
     per_max: number;
   };
   promote: {
