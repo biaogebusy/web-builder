@@ -16,12 +16,12 @@
             <h1 class="total p-y-sm">¥<span>{{total}}</span></h1>
             <div class="result-footer text-center" fxLayout="row wrap" fxLayoutGap="2rem">
               <div class="item" fxLayout="column" *ngIf="model?.max?.total_number">
-                <span class="label">大额红包可发</span>
-                <span class="value">{{model.max.total_number}}个</span>
+                <span class="label">大额红包预算</span>
+                <span class="value">{{model.max.total_money}}元</span>
               </div>
               <div class="item" fxLayout="column" *ngIf="model?.min?.total_number">
-                <span class="label">小额红包可发</span>
-                <span class="value">{{model.min.total_number}}个</span>
+                <span class="label">小额红包预算</span>
+                <span class="value">{{minTotalMoney}}元</span>
               </div>
               <div *ngIf="model.isPromote" class="item" fxLayout="column">
                 <span class="label">推广占用金额</span>
