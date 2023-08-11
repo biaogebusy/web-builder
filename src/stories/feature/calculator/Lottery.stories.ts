@@ -146,7 +146,7 @@ const content: ILottery = {
         {
           type: 'input',
           key: 'per_max',
-          defaultValue: 0.8,
+          defaultValue: 1,
           className: 'm-right-sm',
           templateOptions: {
             label: '小额红包单次最大额',
@@ -154,19 +154,19 @@ const content: ILottery = {
             type: 'number',
             required: true,
             min: 0.3,
-            max: 2,
-            description: '最小0.3元，最大2元',
+            max: 200,
+            description: '最小1元，最大200元',
           },
           validation: {
             messages: {
-              min: '不能设置小于 0.3',
-              max: '不能设置大于 2',
+              min: '不能设置小于 1',
+              max: '不能设置大于 200',
             },
           },
         },
         {
           type: 'input',
-          key: 'per_max',
+          key: 'per_min',
           defaultValue: 0.3,
           templateOptions: {
             label: '小额红包单次最小额',
@@ -174,13 +174,13 @@ const content: ILottery = {
             type: 'number',
             required: true,
             min: 0.3,
-            max: 1,
-            description: '最小0.3元，最大1元',
+            max: 10,
+            description: '最小0.3元，最大10元',
           },
           validation: {
             messages: {
               min: '不能设置小于 0.3',
-              max: '不能设置大于 1',
+              max: '不能设置大于 10',
             },
           },
         },
