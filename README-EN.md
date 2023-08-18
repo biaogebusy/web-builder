@@ -23,6 +23,7 @@
   <a href="./README.md">中文</a>
   <br>
   <br>
+  <a href="https://www.bilibili.com/video/BV1ux4y197kc/?vd_source=f65b4e2d70ecc450290b6b1710c0ada5#reply998790468">Watch Demo Video</a>
 </p>
 
 <p align="center">
