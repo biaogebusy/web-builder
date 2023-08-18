@@ -23,7 +23,7 @@
   <a href="./README-EN.md">English</a>
   <br>
   <br>
-  Angular 交流学习群：1176468251
+  <a href="https://www.bilibili.com/video/BV1ux4y197kc/?vd_source=f65b4e2d70ecc450290b6b1710c0ada5#reply998790468">观看演示视频</a>
 </p>
 
 <p align="center">
