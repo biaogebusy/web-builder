@@ -200,25 +200,25 @@
             "elements": [
               {
                 "module": "Slick Carousel",
-                "tatol": 1266,
+                "tatol": 3549,
                 "info": "Slick 轮播，强大响应式且性能优异的图片轮播解决方案，有非常丰富的配置选项，slick 官网自己调侃这是你最后使用的图片轮播",
                 "remarks": "查看"
               },
               {
                 "module": "Views Slideshow",
-                "tatol": 7002,
+                "tatol": 2644,
                 "info": "视图轮播模块，该模块是最受欢迎的幻灯片模块，可放任何内容，高度定制\t",
                 "remarks": "查看"
               },
               {
                 "module": "Colorbox",
-                "tatol": 8580,
+                "tatol": 9407,
                 "info": "轻量级高可定制幻灯片模块，高度集成在 Drupal 中，可放图片，Iframed 或者在线内容等等\t",
                 "remarks": "查看"
               },
               {
                 "module": "Flex Slider",
-                "tatol": 7723,
+                "tatol": 1878,
                 "info": "响应式、可调整大小、适配浏览器和移动设备，支持移动设备手势滑动\t",
                 "remarks": "查看"
               },
@@ -286,21 +286,21 @@
                 ],
                 [
                   "第一季度",
-                  6153,
-                  7773,
-                  4400
+                  8997,
+                  5064,
+                  7899
                 ],
                 [
                   "第二季度",
-                  8396,
-                  3895,
-                  7747
+                  8142,
+                  7618,
+                  4462
                 ],
                 [
                   "第三季度",
-                  9093,
-                  6511,
-                  3176
+                  5286,
+                  9176,
+                  3316
                 ]
               ]
             },
@@ -1379,7 +1379,7 @@
                   "src": "../assets/images/showcase/blog1-large.jpeg",
                   "alt": ""
                 },
-                "changed": "2023-07-27"
+                "changed": "2023-08-18"
               },
               {
                 "link": {
@@ -1390,29 +1390,29 @@
                   "src": "../assets/images/showcase/blog2-large.jpeg",
                   "alt": ""
                 },
-                "changed": "2023-07-27"
+                "changed": "2023-08-18"
               },
               {
                 "link": {
                   "label": "你应该了解的 Angular 最佳实践",
-                  "href": "2023-07-27"
+                  "href": "2023-08-18"
                 },
                 "img": {
                   "src": "../assets/images/showcase/blog3-large.jpeg",
                   "alt": ""
                 },
-                "changed": "2023-07-27"
+                "changed": "2023-08-18"
               },
               {
                 "link": {
                   "label": "Angular 5 rxjs 5.5.2 多个 http 并行 forkJoin 请求",
-                  "href": "2023-07-27"
+                  "href": "2023-08-18"
                 },
                 "img": {
                   "src": "../assets/images/showcase/blog4-large.jpeg",
                   "alt": ""
                 },
-                "changed": "2023-07-27"
+                "changed": "2023-08-18"
               }
             ]
           }
@@ -1432,7 +1432,7 @@
               "href": "#",
               "label": "更多"
             },
-            "date": "2023-07-27",
+            "date": "2023-08-18",
             "body": "Storybook是一个用于开发和展示UI组件的工具。它提供了一个独立的环境，开发人员可以在其中构建、测试和文档化单个UI组件，而无需依赖于整个应用程序的上下文。Storybook是一个用于开发和展示UI组件的工具。它提供了一个独立的环境，开发人员可以在其中构建、测试和文档化单个UI组件，而无需依赖于整个应用程序的上下文。..."
           }
         },
@@ -1451,7 +1451,7 @@
               },
               "alt": "logo"
             },
-            "meta": "2023-07",
+            "meta": "2023-08",
             "title": "前端开发工程师",
             "subTitle": "Davyin",
             "content": "专注于 Drupal 前端主题开发，目前主要从事于 Angular 前端开发，终身学习体验者，热衷于健身，希望明天比今天好一点。"
@@ -1476,7 +1476,7 @@
                   },
                   "alt": "logo"
                 },
-                "meta": "2023-07",
+                "meta": "2023-08",
                 "title": "前端开发工程师",
                 "subTitle": "Davyin",
                 "content": "专注于 Drupal 前端主题开发，目前主要从事于 Angular 前端开发，终身学习体验者，热衷于健身，希望明天比今天好一点。"
@@ -1490,7 +1490,7 @@
                   },
                   "alt": "logo"
                 },
-                "meta": "2023-07",
+                "meta": "2023-08",
                 "title": "前端架构师",
                 "subTitle": "阿里蚂蚁",
                 "content": "深入产品和行业场景，深入行业技术，分析影响稳定性和质量的潜在异常节点，把握蚂蚁金服强大的监控能力，设计和制定监控方案。"
