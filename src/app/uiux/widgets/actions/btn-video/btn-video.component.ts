@@ -16,15 +16,13 @@ export class BtnVideoComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  openVideo(video: IPlayer): void {
+  openVideo(): void {
     this.dialogRef = this.dialog.open(DialogComponent, {
-      width: '800px',
+      width: this.content.dialog?.width || '800px',
+      height: this.content.dialog?.height || 'auto',
       data: {
         inputData: {
-          content: {
-            ...video,
-            type: 'player',
-          },
+          content: this.content.video,
         },
       },
     });
