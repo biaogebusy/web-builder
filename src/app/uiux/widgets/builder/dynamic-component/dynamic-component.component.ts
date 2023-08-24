@@ -63,14 +63,14 @@ export class DynamicComponentComponent
         const { content, uuid } = data;
         if (this.uuid === uuid) {
           this.inputs = content;
-          this.loadConponent();
+          this.loadComponent();
         }
       });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (!changes.inputs.firstChange) {
-      this.loadConponent();
+      this.loadComponent();
     }
   }
 
@@ -85,7 +85,7 @@ export class DynamicComponentComponent
   }
 
   ngAfterViewInit(): void {
-    this.loadConponent();
+    this.loadComponent();
   }
 
   onUuid(uuid: string): void {
@@ -96,7 +96,7 @@ export class DynamicComponentComponent
     return !!this.coreConfig.builder?.enable && !this.inputs?.disableToolbar;
   }
 
-  async loadConponent(): Promise<void> {
+  async loadComponent(): Promise<void> {
     const type = this.inputs.type ? this.inputs.type : this.inputs.content.type;
     this.container.clear();
     this.component = await this.componentService.getComponent(type);
