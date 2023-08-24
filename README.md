@@ -23,11 +23,19 @@
   <a href="./README-EN.md">English</a>
   <br>
   <br>
-  <a href="https://www.bilibili.com/video/BV1ux4y197kc/?vd_source=f65b4e2d70ecc450290b6b1710c0ada5#reply998790468">观看演示视频</a>
+    <iframe
+    src="//player.bilibili.com/player.html?aid=998790468&bvid=BV1ux4y197kc&cid=1207367269&page=1"
+    scrolling="no"
+    border="0"
+    frameborder="no"
+    framespacing="0"
+    allowfullscreen="true"
+    width="100%"
+    height="600px"
+  ></iframe>
 </p>
 
 <p align="center">
-  <img src="src/assets/storybook/assets/builder.png" alt="logo" width="80%"/>
   <br>
   <br>
 </p>

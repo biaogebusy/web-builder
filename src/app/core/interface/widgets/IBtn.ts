@@ -1,6 +1,8 @@
 import { ThemePalette } from '@angular/material/core';
 import { IIcon } from './IIcon';
 import { IPlayer } from '@core/interface/widgets/IPlayer';
+import { IIframe } from './IWidgets';
+import { MatDialogConfig } from '@angular/material/dialog';
 export interface IBtn {
   type?: string;
   mode?: 'raised' | 'stroked' | 'flat' | 'icon' | 'fab' | 'mini-fab';
@@ -17,5 +19,6 @@ export interface IBtn {
 export interface IBtnVideo {
   type: 'btn-video';
   color: 'primary' | 'accent' | 'warn';
-  video: IPlayer;
+  dialog?: MatDialogConfig;
+  video: IPlayer | IIframe;
 }

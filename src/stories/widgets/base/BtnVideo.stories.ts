@@ -53,3 +53,22 @@ const content: IBtnVideo = {
 Default.args = {
   content,
 };
+
+export const Iframe = Template.bind({});
+const iframeContent: IBtnVideo = {
+  type: 'btn-video',
+  color: 'primary',
+  dialog: {
+    width: '900',
+    height: '800',
+  },
+  video: {
+    type: 'iframe',
+    url: '//player.bilibili.com/player.html?aid=998790468&bvid=BV1ux4y197kc&cid=1207367269&page=1',
+    width: '900',
+    height: '700',
+  },
+};
+Iframe.args = {
+  content: iframeContent,
+};
