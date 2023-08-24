@@ -615,18 +615,15 @@
               {
                 "type": "btn-video",
                 "color": "default",
+                "dialog": {
+                  "width": "900",
+                  "height": "800"
+                },
                 "video": {
-                  "options": {
-                    "controls": true,
-                    "aspectRatio": "16:9",
-                    "poster": "/assets/video/poster01.png",
-                    "sources": [
-                      {
-                        "src": "/assets/video/storybook.mp4",
-                        "type": "video/mp4"
-                      }
-                    ]
-                  }
+                  "type": "iframe",
+                  "url": "//player.bilibili.com/player.html?aid=998790468&bvid=BV1ux4y197kc&cid=1207367269&page=1",
+                  "width": "900",
+                  "height": "700"
                 }
               }
             ]
