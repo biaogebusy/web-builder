@@ -86,10 +86,6 @@ export class BuilderToolbarComponent
     this.builder.fullScreen$.next(event.checked);
   }
 
-  onCompnentNavigate(): void {
-    this.builder.builderContentDrawer$.next(true);
-  }
-
   onPreview(): void {
     const url = window.location.origin;
     window.open(`${url}/builder/preview`, '_blank');
