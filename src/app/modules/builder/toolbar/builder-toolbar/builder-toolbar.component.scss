@@ -12,12 +12,13 @@
     cursor: pointer;
   }
 
-  .middle {
-    .title {
+  .left {
+    .page-title {
       font-size: 14px;
     }
     .time {
-      font-size: small;
+      font-size: smaller;
+      opacity: 0.5;
     }
   }
   &.fixed {
