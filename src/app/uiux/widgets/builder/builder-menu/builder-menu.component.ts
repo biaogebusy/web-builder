@@ -119,6 +119,10 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     this.builder.renderMarkers(isDebugAnimate);
   }
 
+  onCompnentNavigate(): void {
+    this.builder.builderContentDrawer$.next(true);
+  }
+
   onDownload(): void {
     const page = document.getElementById('builder-list');
     if (page) {

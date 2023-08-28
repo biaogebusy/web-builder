@@ -7,27 +7,20 @@
 <ng-template #toolbar let-isFull="isFull">
   <div class="builder-toolbar" [ngClass]="{'fixed':isFull}">
     <div class="wrapper" fxLayoutAlign="space-between center">
-      <div class="left" fxFlex.lt-md="auto" fxFlex.gt-sm="33%">
-        <ng-container *ngIf="branding$ | async as branding">
-          <div class="branding m-y-sm" *ngIf="branding.header?.logo">
-            <app-logo [content]="branding.header.logo"></app-logo>
-          </div>
-        </ng-container>
+      <div class="left" fxFlex.lt-md="auto" fxFlex.gt-sm="33%" fxLayoutAlign="center start" fxLayout="column">
+        <div class="page-title">{{page.title}}</div>
+        <div class="time">{{page.time|date:"YYYY-MM-dd HH:mm"}}</div>
       </div>
       <div class="middle" fxHide.lt-sm="true" fxFlex.lt-md="auto" fxFlex.gt-sm="33%" fxLayoutAlign="center center"
         fxLayout="column">
-        <div class="title bold">{{page.title}}</div>
-        <div class="time">{{page.time|date:"YYYY-MM-dd HH:mm"}}</div>
+        <app-switch-preview></app-switch-preview>
       </div>
       <div class="right" fxFlex.lt-md="auto" fxFlex.gt-sm="33%" fxLayoutAlign="end center" fxLayoutGap="0.5rem">
-        <app-btn *ngIf="builder.builderThemeMode|async as mode" [matTooltip]="'切换模式'"
+        <app-btn *ngIf="builder.builderThemeMode|async as mode" [matTooltip]="mode === 'light'?'切换暗黑风格' : '切换浅色风格'"
           (click)="onToggleBuilderTheme(mode)"
           [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:mode ==='light' ? 'white-balance-sunny' : 'moon-waning-crescent' } }"></app-btn>
-        <app-switch-preview></app-switch-preview>
         <mat-slide-toggle [checked]="builderFullScreen$|async" (change)="onFullScreen($event)"
-          [matTooltip]="'切换全宽'"></mat-slide-toggle>
-        <app-btn [matTooltip]="'组件导航'" (click)="onCompnentNavigate()"
-          [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'dock-left' } }"></app-btn>
+          [matTooltip]="(builderFullScreen$|async) ? '显示边栏' : '切换全宽'"></mat-slide-toggle>
         <app-btn [matTooltip]="'媒体库'" (click)="onSelectAssets()"
           [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'image-search-outline' } }"></app-btn>
         <app-btn [matTooltip]="'页面预览'" (click)="onPreview()"
