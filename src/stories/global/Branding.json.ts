@@ -252,7 +252,24 @@ export const manageHeader: IHeader = {
               },
               {
                 label: '活动',
-                href: '#4',
+                child: [
+                  {
+                    label: '技术',
+                    href: '#1',
+                  },
+                  {
+                    label: '论坛',
+                    href: '#2',
+                  },
+                  {
+                    label: '线下',
+                    href: '#3',
+                  },
+                  {
+                    label: '合作',
+                    href: '#4',
+                  },
+                ],
               },
             ],
           },
