@@ -114,7 +114,9 @@
       border-top: 1px solid mat-color($foreground, divider);
       .toggle {
         .wrapper {
-          @include mat-elevation(4, mat-color($foreground, text), 0.3);
+          .mat-icon {
+            @include mat-elevation(4, mat-color($foreground, text), 0.3);
+          }
         }
       }
     }

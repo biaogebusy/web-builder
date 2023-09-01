@@ -143,17 +143,25 @@
     flex: none;
     .toggle {
       display: flex;
-      justify-content: center;
       .wrapper {
         cursor: pointer;
-        width: 30px;
-        height: 30px;
         display: flex;
         justify-content: center;
         align-items: center;
-        border-radius: 50%;
-        app-icon {
-          display: inherit;
+        ::ng-deep {
+          .custom-icon {
+            align-items: center;
+          }
+          .mat-icon {
+            border-radius: 50%;
+            width: 30px !important;
+            height: 30px !important;
+            display: inherit;
+          }
+          .text {
+            margin-left: 10px;
+            font-size: small;
+          }
         }
       }
     }
