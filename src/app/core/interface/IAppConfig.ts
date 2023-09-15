@@ -29,6 +29,12 @@ export interface ICoreConfig {
   googleAnalytics: GoogleAnalytics;
   guard: Guard;
   manageMedia: IManageMedia;
+  log: {
+    content: {
+      enabel: boolean;
+      api: string;
+    };
+  };
   builder: {
     enable: boolean;
     params: {
