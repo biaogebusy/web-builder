@@ -283,6 +283,12 @@
       }
     ]
   },
+  "log": {
+    "content": {
+      "enabel": true,
+      "api": "/api/v3/message/content/content"
+    }
+  },
   "animate": true,
   "manageMedia": {
     "row": 4,

@@ -3,13 +3,7 @@
 .builder {
   height: 100vh;
   overflow: hidden;
-  &.has-sidebar {
-    padding: 20px;
-    box-sizing: border-box;
-    .sidebar {
-      margin: -20px;
-    }
-  }
+
   .sidebar {
     width: 260px;
     padding: 10px;
@@ -56,7 +50,6 @@
     }
     @media #{$gt-sm} {
       width: 330px;
-      padding: 20px;
     }
   }
   .mat-drawer-container {

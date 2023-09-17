@@ -7,14 +7,17 @@
   }
   .sidebar-drawer,
   .wrapper {
+    display: flex;
     height: calc(100% - 55px);
     overflow-y: auto !important;
-  }
-  .wrapper {
     overflow-x: hidden !important;
     .load {
       @include middle-center();
       z-index: 9999;
+    }
+    #builder-list {
+      flex: 0 0 100%;
+      overflow: auto;
     }
   }
   ::ng-deep .component-item {
@@ -41,7 +44,7 @@
     z-index: 99999;
   }
 
-  .preview-wrapper {
+  .iframe-wrapper {
     display: none;
     width: 100%;
     height: 100%;
@@ -53,9 +56,11 @@
   .preview {
     #builder-list {
       display: none;
+      flex: 0 0 auto;
     }
-    .preview-wrapper {
+    .iframe-wrapper {
       display: block;
+      position: relative;
     }
     .preview-iframe {
       &:after {
@@ -77,7 +82,8 @@
     }
   }
 
-  .preview-xs {
+  .preview-xs,
+  .preview-xs-md {
     .preview-iframe {
       width: 375px;
       height: 812px;
@@ -104,9 +110,22 @@
     }
   }
 
+  .preview-xs-md {
+    #builder-list {
+      display: block;
+      flex: 0 0 70%;
+      overflow-x: auto;
+    }
+    .iframe-wrapper {
+      flex: 0 0 30%;
+    }
+  }
+
   .preview-iframe {
     display: block;
     position: absolute;
+    width: 100%;
+    height: 100%;
     left: 50%;
     top: 50%;
     z-index: 10;
