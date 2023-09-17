@@ -19,6 +19,9 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
     &.fixed {
       @include mat-elevation(2, mat-color($background, tooltip), 0.25);
     }
+    .right {
+      color: mat-color($foreground, text, 0.5);
+    }
 
     .switch-preview {
       button {
