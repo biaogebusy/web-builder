@@ -8,6 +8,28 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 
 @mixin theme($background, $foreground, $primary) {
   background-color: mat-color($background, card);
+  .builder-toolbar {
+    background-color: mat-color($background, background);
+    color: mat-color($foreground, text, 0.75);
+    .middle {
+      .time {
+        color: mat-color($foreground, text, 0.45);
+      }
+    }
+    &.fixed {
+      @include mat-elevation(2, mat-color($background, tooltip), 0.25);
+    }
+
+    .switch-preview {
+      button {
+        &.none {
+          .mat-icon {
+            color: mat-color($foreground, slider-off);
+          }
+        }
+      }
+    }
+  }
   .sidebar {
     background-color: mat-color($background, card);
     .mat-drawer-inner-container {
@@ -103,28 +125,7 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
   .mat-drawer-content {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.11);
     @include scrollbar(mat-color($primary));
-    .builder-toolbar {
-      background-color: mat-color($background, background);
-      color: mat-color($foreground, text, 0.75);
-      .middle {
-        .time {
-          color: mat-color($foreground, text, 0.45);
-        }
-      }
-      &.fixed {
-        @include mat-elevation(2, mat-color($background, tooltip), 0.25);
-      }
 
-      .switch-preview {
-        button {
-          &.none {
-            .mat-icon {
-              color: mat-color($foreground, slider-off);
-            }
-          }
-        }
-      }
-    }
     .overlay {
       background-color: mat-color($foreground, slider-off-active);
     }
