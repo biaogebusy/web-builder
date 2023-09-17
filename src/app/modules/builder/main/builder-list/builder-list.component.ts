@@ -73,6 +73,7 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
           'preview-sm': media === 'sm',
           'preview-md': media === 'md',
           'preview-lg': media === 'lg',
+          'preview-xs-md': media === 'xs-md',
         };
       })
     );

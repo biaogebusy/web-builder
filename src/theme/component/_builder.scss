@@ -113,6 +113,9 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
       }
       .preview {
         background-color: mat-color($foreground, elevation, 0.85);
+        #builder-list {
+          background-color: mat-color($background, card);
+        }
         .preview-iframe {
           &:after {
             background-color: mat-color($foreground, elevation, 0.95);

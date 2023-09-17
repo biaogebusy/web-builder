@@ -114,7 +114,7 @@ export abstract class BaseComponent {
   }
 
   getScroller(): HTMLElement | Window {
-    const scroller = document.getElementById('gsap-scroller');
+    const scroller = document.getElementById('builder-list');
     if (scroller) {
       return scroller;
     } else {
