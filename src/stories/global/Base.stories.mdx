@@ -23,6 +23,7 @@ import { Meta, Story } from "@storybook/addon-docs";
 - [登录配置](#登录配置)
 - [加载状态的配置](#加载状态的配置)
 - [通知配置](#通知配置)
+- [访问日志](#访问日志)
 - [文章配置](#文章配置)
 - [编辑器配置](#编辑器配置)
 - [动作配置](#动作配置)
@@ -428,6 +429,30 @@ import { Meta, Story } from "@storybook/addon-docs";
     ]
   }
 }
+```
+
+## 访问日志
+
+开启内容访问统计后，每当浏览一个页面，会提交对应的访问 `url`到接口：
+
+```json
+ "log": {
+    "content": {
+      "enabel": true,
+      "api": "/api/v3/message/content/content"
+    }
+  }
+```
+
+相关逻辑：
+
+```ts
+ logContent(url: string): void {
+    if (this.coreConfig?.log?.content?.enabel) {
+      const { api } = this.coreConfig.log.content;
+      this.http.get(`${api}?location=${url}`).subscribe();
+    }
+  }
 ```
 
 ## 文章配置

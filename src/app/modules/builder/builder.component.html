@@ -1,6 +1,7 @@
 <div class="builder"
   [ngClass]="{'has-sidebar':!(builderFullScreen$|async),'dark':(builder.builderThemeMode|async) ==='dark'}"
   *ngIf="content">
+  <app-builder-toolbar [containerDrawer]="containerDrawer" [page]="page"></app-builder-toolbar>
   <mat-drawer-container>
     <mat-drawer #drawer class="sidebar" [mode]="mode" [opened]="!(builderFullScreen$|async)">
       <mat-tab-group mat-stretch-tabs mat-align-tabs="center" disableRipple="true">
@@ -20,7 +21,6 @@
       <app-builder-sample [content]="samples"></app-builder-sample>
     </mat-drawer>
     <mat-drawer-content>
-      <app-builder-toolbar [containerDrawer]="containerDrawer" [page]="page"></app-builder-toolbar>
       <mat-drawer-container class="preview-container" [hasBackdrop]="(builder.dynamicContent$ | async)?.hasBackdrop">
         <mat-drawer #containerDrawer [ngStyle]="{overflow:containerDrawer.open?'visible' : 'auto'}"
           [mode]="(builder.dynamicContent$ | async)?.mode ||'over'" position="end">

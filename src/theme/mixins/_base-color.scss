@@ -42,6 +42,7 @@
     border-left: 3px solid mat-color($foreground, divider);
   }
 
+  body,
   .mat-drawer-container {
     color: mat-color($foreground, text, 0.75);
     background-color: mat-color($background, card);
@@ -83,9 +84,17 @@
     color: $contrast;
   }
 
+  .text-pink {
+    color: #c2185b;
+  }
+
   .bg-orange {
     background-color: #e65100;
     color: $contrast;
+  }
+
+  .text-orange {
+    color: #e65100;
   }
 
   .bg-yellow {
@@ -93,9 +102,17 @@
     color: $contrast;
   }
 
+  .text-yellow {
+    color: #f57f17;
+  }
+
   .bg-red {
     background-color: #d32f2f;
     color: $contrast;
+  }
+
+  .text-red {
+    color: #d32f2f;
   }
 
   .bg-purple {
@@ -103,9 +120,17 @@
     color: $contrast;
   }
 
+  .text-purple {
+    color: #512da8;
+  }
+
   .bg-indigo {
     background-color: #303f9f;
     color: $contrast;
+  }
+
+  .text-indigo {
+    color: #303f9f;
   }
 
   .bg-blue {
@@ -113,9 +138,17 @@
     color: $contrast;
   }
 
+  .text-blue {
+    color: #1976d2;
+  }
+
   .bg-cyan {
     background-color: #006064;
     color: $contrast;
+  }
+
+  .text-cyan {
+    color: #006064;
   }
 
   .bg-teal {
@@ -123,9 +156,17 @@
     color: $contrast;
   }
 
+  .text-teal {
+    color: #004d40;
+  }
+
   .bg-green {
     background-color: #1b5e20;
     color: $contrast;
+  }
+
+  .text-green {
+    color: #1b5e20;
   }
 
   .bg-light-green {
@@ -133,14 +174,26 @@
     color: $contrast;
   }
 
+  .text-light-green {
+    color: #4caf50;
+  }
+
   .bg-brown {
     background-color: #5d4037;
     color: $contrast;
   }
 
+  .text-brown {
+    color: #5d4037;
+  }
+
   .bg-grey {
     background-color: #9e9e9e;
     color: $contrast;
+  }
+
+  .text-grey {
+    color: #9e9e9e;
   }
 
   .ngx-bar {

@@ -44,6 +44,7 @@ export class BrowserStateInterceptor implements HttpInterceptor {
         return of(response);
       }
 
+      // http cache
       if (cache && environment.cache) {
         const response = new HttpResponse({
           body: cache,

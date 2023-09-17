@@ -69,10 +69,8 @@
             background-color: mat-color($background, card);
             @include mat-elevation(3, mat-color($foreground, divider, 0.7));
             .top {
-              border-bottom: 1px solid mat-color($foreground, divider);
               &.not-link {
                 color: mat-color($foreground, text, 0.75);
-                background-color: mat-color($foreground, text, 0.02);
                 a,
                 a:hover {
                   color: mat-color($foreground, text, 0.75);
@@ -82,6 +80,30 @@
             .hover-menu {
               background-color: mat-color($background, card);
               @include scrollbar(mat-color($foreground, divider));
+              .sub-menu {
+                .mat-button {
+                  &:hover {
+                    &::before {
+                      background-color: mat-color($primary, 0.1);
+                    }
+                    a {
+                      color: mat-color($primary);
+                    }
+                  }
+                }
+                .child {
+                  background-color: mat-color($background, card);
+                  border-left: 1px solid mat-color($foreground, divider);
+                  border-right: 1px solid rgba(0, 0, 0, 0.075);
+                  box-shadow: 7px 0 16px rgba(0, 0, 0, 0.075),
+                    -12px 0 0 0 mat-color($background, card);
+                }
+                .has-child {
+                  &:after {
+                    color: mat-color($foreground, text, 0.75);
+                  }
+                }
+              }
             }
           }
         }
@@ -114,7 +136,16 @@
       border-top: 1px solid mat-color($foreground, divider);
       .toggle {
         .wrapper {
-          @include mat-elevation(4, mat-color($foreground, text), 0.3);
+          .mat-icon {
+            @include mat-elevation(4, mat-color($foreground, text), 0.3);
+            transition: all 0.1s ease;
+          }
+          &:hover {
+            .mat-icon {
+              background-color: mat-color($foreground, base, 0.85);
+              color: mat-color($primary, 50);
+            }
+          }
         }
       }
     }

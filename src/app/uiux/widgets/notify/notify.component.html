@@ -2,8 +2,7 @@
   <div class="notify">
     <button *ngIf="!(notify$ | async)" aria-label="show notify" mat-icon-button [matTooltip]="'当前没有信息'"
       matTooltipPosition="above">
-      <app-icon [matBadge]="0" matBadgeSize="small" matBadgeColor="warn"
-        [content]="{svg:'bell-outline', color:'primary'}"></app-icon>
+      <app-icon [matBadge]="0" matBadgeSize="small" matBadgeColor="warn" [content]="{svg:'bell-outline'}"></app-icon>
     </button>
     <ng-container *ngIf="notify$ | async as lists">
       <button aria-label="show notify" mat-icon-button [mat-menu-trigger-for]="menu">
