@@ -27,14 +27,12 @@
 </p>
 
 <p align="center">
-  <img src="src/assets/storybook/assets/builder.png" alt="logo" width="80%"/>
+  <img style="border-radius:10px" src="src/assets/storybook/assets/builder.png" alt="logo" width="80%"/>
   <br>
   <br>
 </p>
 
 > 奥陌陌是已知的第一颗经过太阳系的星际天体，意为"远方信使"。
-
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=biaogebusy_xinshi-ui&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=biaogebusy_xinshi-ui)
 
 #### 开源目的
 
