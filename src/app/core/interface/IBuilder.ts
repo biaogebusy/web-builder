@@ -19,8 +19,8 @@ export interface IBuilderComponentElement {
 export interface IUiux {
   label: string;
   icon: IIcon;
-  type: 'base' | 'component';
-  elements: IBuilderComponent[];
+  type: 'base' | 'component' | 'sample';
+  elements: IBuilderComponent[] | IBuilderSamplePage | any;
 }
 
 export interface IBuilderDynamicContent {
