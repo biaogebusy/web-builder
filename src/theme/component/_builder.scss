@@ -42,12 +42,9 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
       color: mat-color($primary);
     }
     .mat-tab-header {
-      background-color: mat-color($primary, 0.06);
       .mat-tab-label-active {
-        .mat-tab-label-content {
-          background: mat-color($primary);
-          color: mat-color($primary, default-contrast);
-        }
+        color: mat-color($primary, text);
+        opacity: 1;
       }
       .mat-tab-label-content {
         background-color: transparent;
@@ -188,7 +185,8 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 
     &.dark {
       @include theme($darkBg, $darkFore, $darkPrimary);
-      .builder-list {
+      .builder-list,
+      #builder-list {
         background-color: #fafafa !important;
       }
     }

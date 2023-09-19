@@ -6,23 +6,11 @@
 
   .sidebar {
     width: 260px;
-    padding: 10px;
-    border-right: 0;
     ::ng-deep {
       .mat-list-text {
         padding-right: 0 !important;
       }
       .mat-tab-header {
-        border-radius: 6px;
-        border: 0;
-        margin-left: 10px;
-        margin-right: 10px;
-        .mat-ink-bar {
-          display: none;
-        }
-        .mat-tab-label-active {
-          opacity: 1;
-        }
         .mat-tab-label-content {
           padding: 4px 24px;
           border-radius: 6px;
