@@ -266,7 +266,34 @@ $yourTheme-theme: mat-light-theme($yourTheme-primary, $yourTheme-accent, $yourTh
 
 使用 mat-color(palette,hue: default, $opacity: null) :从调色盘获取特定的颜色，可以指定色调和透明度。
 
-#### 前景色调色盘
+```
+@import "~@angular/material/theming";
+
+@mixin hero-color($config-or-theme) {
+  $config: mat-get-color-config($config-or-theme);
+  $foreground: map-get($config, foreground);
+  $background: map-get($config, background);
+  $primary: map-get($config, primary);
+  $accent: map-get($config, accent);
+  $warn: map-get($config, warn);
+
+  .hero-1-v2 {
+  // 获取默认色调
+  color: mat-color($primary);
+
+  // 获取指定色调
+  background-color: mat-color($accent, 300);
+
+  // 获取相对色调 ('lighter' or 'darker')
+  outline-color: mat-color($accent, lighter);
+
+  // 添加 `-contrast` 获取指定色盘的对比度颜色
+  border-color: mat-color($primary, '100-contrast');
+  }
+}
+```
+
+### 前景色调色盘
 
 ```scss
 $mat-light-theme-foreground: (
@@ -306,7 +333,7 @@ $mat-dark-theme-foreground: (
 );
 ```
 
-#### 背景色调色盘
+### 背景色调色盘
 
 ```scss
 $mat-light-theme-background: (

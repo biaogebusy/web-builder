@@ -29,9 +29,9 @@ export class SwitchPreviewComponent implements OnInit {
     },
     {
       icon: {
-        svg: 'cellphone',
+        svg: 'tablet-cellphone',
       },
-      value: 'xs',
+      value: 'xs-md',
       label: '手机',
     },
     {
