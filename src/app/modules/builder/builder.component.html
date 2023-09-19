@@ -7,18 +7,17 @@
       <mat-tab-group mat-stretch-tabs mat-align-tabs="center" disableRipple="true">
         <mat-tab *ngFor="let tab of tabs">
           <ng-template mat-tab-label>
-            <app-icon [content]="tab.icon"></app-icon>
-            {{tab.label}}
+            <app-icon [matTooltip]="tab.label" [content]="tab.icon"></app-icon>
           </ng-template>
           <div class="p-x-xs p-y-xs">
             <app-builder-sidebar-widgets *ngIf="tab.type === 'base'"
               [content]="tab.elements"></app-builder-sidebar-widgets>
             <app-builder-sidebar-components *ngIf="tab.type === 'component'"
               [content]="tab.elements"></app-builder-sidebar-components>
+            <app-builder-sample *ngIf="tab.type ==='sample'" [content]="tab.elements"></app-builder-sample>
           </div>
         </mat-tab>
       </mat-tab-group>
-      <app-builder-sample [content]="samples"></app-builder-sample>
     </mat-drawer>
     <mat-drawer-content>
       <mat-drawer-container class="preview-container" [hasBackdrop]="(builder.dynamicContent$ | async)?.hasBackdrop">

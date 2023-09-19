@@ -7,7 +7,7 @@ export const uiux: IUiux[] = [
     label: '基础',
     type: 'base',
     icon: {
-      svg: 'view-grid-plus',
+      svg: 'plus-circle-outline',
       inline: true,
     },
     elements: widgets.data,
