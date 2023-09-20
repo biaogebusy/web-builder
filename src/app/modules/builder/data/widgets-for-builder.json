@@ -200,25 +200,25 @@
             "elements": [
               {
                 "module": "Slick Carousel",
-                "tatol": 6882,
+                "tatol": 4841,
                 "info": "Slick 轮播，强大响应式且性能优异的图片轮播解决方案，有非常丰富的配置选项，slick 官网自己调侃这是你最后使用的图片轮播",
                 "remarks": "查看"
               },
               {
                 "module": "Views Slideshow",
-                "tatol": 3457,
+                "tatol": 9540,
                 "info": "视图轮播模块，该模块是最受欢迎的幻灯片模块，可放任何内容，高度定制\t",
                 "remarks": "查看"
               },
               {
                 "module": "Colorbox",
-                "tatol": 3880,
+                "tatol": 9305,
                 "info": "轻量级高可定制幻灯片模块，高度集成在 Drupal 中，可放图片，Iframed 或者在线内容等等\t",
                 "remarks": "查看"
               },
               {
                 "module": "Flex Slider",
-                "tatol": 3369,
+                "tatol": 9547,
                 "info": "响应式、可调整大小、适配浏览器和移动设备，支持移动设备手势滑动\t",
                 "remarks": "查看"
               },
@@ -286,21 +286,21 @@
                 ],
                 [
                   "第一季度",
-                  8552,
-                  4726,
-                  5831
+                  7829,
+                  6489,
+                  6903
                 ],
                 [
                   "第二季度",
-                  3089,
-                  4450,
-                  6584
+                  5109,
+                  7007,
+                  4397
                 ],
                 [
                   "第三季度",
-                  4334,
-                  6400,
-                  3100
+                  4994,
+                  4529,
+                  3298
                 ]
               ]
             },
@@ -1379,7 +1379,7 @@
                   "src": "../assets/images/showcase/blog1-large.jpeg",
                   "alt": ""
                 },
-                "changed": "2023-09-19"
+                "changed": "2023-09-20"
               },
               {
                 "link": {
@@ -1390,29 +1390,29 @@
                   "src": "../assets/images/showcase/blog2-large.jpeg",
                   "alt": ""
                 },
-                "changed": "2023-09-19"
+                "changed": "2023-09-20"
               },
               {
                 "link": {
                   "label": "你应该了解的 Angular 最佳实践",
-                  "href": "2023-09-19"
+                  "href": "2023-09-20"
                 },
                 "img": {
                   "src": "../assets/images/showcase/blog3-large.jpeg",
                   "alt": ""
                 },
-                "changed": "2023-09-19"
+                "changed": "2023-09-20"
               },
               {
                 "link": {
                   "label": "Angular 5 rxjs 5.5.2 多个 http 并行 forkJoin 请求",
-                  "href": "2023-09-19"
+                  "href": "2023-09-20"
                 },
                 "img": {
                   "src": "../assets/images/showcase/blog4-large.jpeg",
                   "alt": ""
                 },
-                "changed": "2023-09-19"
+                "changed": "2023-09-20"
               }
             ]
           }
@@ -1432,7 +1432,7 @@
               "href": "#",
               "label": "更多"
             },
-            "date": "2023-09-19",
+            "date": "2023-09-20",
             "body": "Storybook是一个用于开发和展示UI组件的工具。它提供了一个独立的环境，开发人员可以在其中构建、测试和文档化单个UI组件，而无需依赖于整个应用程序的上下文。Storybook是一个用于开发和展示UI组件的工具。它提供了一个独立的环境，开发人员可以在其中构建、测试和文档化单个UI组件，而无需依赖于整个应用程序的上下文。..."
           }
         },
@@ -1622,40 +1622,6 @@
             "type": "spinner",
             "color": "primary",
             "size": "50"
-          }
-        },
-        {
-          "label": "404",
-          "icon": {
-            "svg": "text-search-variant"
-          },
-          "content": {
-            "type": "404",
-            "img": {
-              "src": "/assets/images/404.svg",
-              "alt": "404 not found!"
-            },
-            "bg": {
-              "classes": ""
-            },
-            "classes": "",
-            "text": {
-              "spacer": "none",
-              "title": {
-                "label": "OH!NO <br>页面没有找到",
-                "style": "style-v1",
-                "classes": "mat-display-1"
-              },
-              "body": "很抱歉，您请求的页面可能已经被移除、更改名称或暂时无法使用。在查找更多信息之前，您可以尝试以下操作：<ul class=\"list-done\"><li>检查您输入的URL是否正确</li><li>在浏览器中清除缓存和Cookie</li><li>尝试在不同的浏览器或设备上打开页面</li></ul><p>我们非常感谢您对我们的关注和理解，我们会尽快解决问题并让我们的页面再次正常工作。</p>"
-            },
-            "actions": [
-              {
-                "label": "回到首页",
-                "href": "/home",
-                "style": "style-v1",
-                "icon": "open_in_new"
-              }
-            ]
           }
         }
       ]

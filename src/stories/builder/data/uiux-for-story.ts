@@ -2,6 +2,7 @@ import { IUiux } from '@core/interface/IBuilder';
 import { components } from './combs/export-for-story';
 import { widgets } from './widgets/export-for-story';
 import { samples } from './sample/samples-for-story';
+import { systems } from './system/system-fot-story';
 
 export const uiux: IUiux[] = [
   {
@@ -30,5 +31,14 @@ export const uiux: IUiux[] = [
     },
     type: 'sample',
     elements: samples,
+  },
+  {
+    label: '系统页面',
+    type: 'system',
+    icon: {
+      svg: 'tune-variant',
+      inline: true,
+    },
+    elements: systems,
   },
 ];
