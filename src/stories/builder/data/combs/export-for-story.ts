@@ -5,7 +5,6 @@ import { others } from './other.builder';
 import { tools } from './tools.builder';
 import { carousels } from './carousel.builder';
 import { masonry } from './masonry.builder';
-import { manage } from './manage.builder';
 import { map } from './map.builder';
 
 export const components: any[] = [
@@ -25,11 +24,6 @@ export const components: any[] = [
     elements: [...carousels],
   },
   { label: 'Masonry', id: 'masonry', elements: [...masonry] },
-  {
-    label: 'Manage',
-    id: 'manage',
-    elements: [...manage],
-  },
   {
     label: 'Drupal',
     id: 'drupal',

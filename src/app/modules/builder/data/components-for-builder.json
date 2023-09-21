@@ -3991,7 +3991,7 @@
                             "name": "fingerprint"
                           },
                           "digit": {
-                            "value": 123,
+                            "value": 749,
                             "label": "+"
                           },
                           "title": "日访问人数"
@@ -4001,7 +4001,7 @@
                             "name": "verified_user"
                           },
                           "digit": {
-                            "value": 239,
+                            "value": 137,
                             "label": "+"
                           },
                           "title": "日打开次数"
@@ -4011,7 +4011,7 @@
                             "name": "android"
                           },
                           "digit": {
-                            "value": 193,
+                            "value": 15,
                             "label": "人"
                           },
                           "title": "日新增人数"
@@ -4021,7 +4021,7 @@
                             "name": "mail"
                           },
                           "digit": {
-                            "value": 7272,
+                            "value": 6828,
                             "label": "万"
                           },
                           "title": "累计用户数"
@@ -4050,7 +4050,7 @@
                             "src": "/assets/images/svg/Asset187.svg"
                           },
                           "digit": {
-                            "value": 37,
+                            "value": 43,
                             "label": "M"
                           },
                           "title": "Github Start"
@@ -4060,7 +4060,7 @@
                             "src": "/assets/images/svg/Asset189.svg"
                           },
                           "digit": {
-                            "value": 42683,
+                            "value": 16564,
                             "label": "+"
                           },
                           "title": "NPM 周下载量"
@@ -4070,7 +4070,7 @@
                             "src": "/assets/images/svg/Asset190.svg"
                           },
                           "digit": {
-                            "value": 3330,
+                            "value": 2831,
                             "label": "K"
                           },
                           "title": "社区活跃"
@@ -4080,7 +4080,7 @@
                             "src": "/assets/images/svg/Asset192.svg"
                           },
                           "digit": {
-                            "value": 736,
+                            "value": 685,
                             "label": "个"
                           },
                           "title": "成功故事"
@@ -7181,1768 +7181,6 @@
       ]
     },
     {
-      "label": "Manage",
-      "id": "manage",
-      "elements": [
-        {
-          "content": {
-            "type": "dashboard",
-            "elements": [
-              {
-                "title": {
-                  "label": "内容发布量"
-                },
-                "row": 12,
-                "params": {
-                  "api": "/api/v3/xxx"
-                },
-                "form": [
-                  {
-                    "type": "mat-select",
-                    "key": "position",
-                    "defaultValue": 2023,
-                    "className": "display-block",
-                    "templateOptions": {
-                      "label": "年份",
-                      "description": "请选择年份",
-                      "options": [
-                        {
-                          "label": "2023年",
-                          "value": 2023
-                        },
-                        {
-                          "label": "2022年",
-                          "value": 2022
-                        },
-                        {
-                          "label": "2021年",
-                          "value": 2021
-                        },
-                        {
-                          "label": "2020年",
-                          "value": 2020
-                        }
-                      ]
-                    }
-                  }
-                ],
-                "widget": {
-                  "type": "chart",
-                  "tooltip": {
-                    "trigger": "axis"
-                  },
-                  "dataset": [
-                    {
-                      "source": [
-                        [
-                          "name",
-                          "内容"
-                        ],
-                        [
-                          "1月",
-                          78
-                        ],
-                        [
-                          "2月",
-                          36
-                        ],
-                        [
-                          "3月",
-                          90
-                        ],
-                        [
-                          "4月",
-                          45
-                        ],
-                        [
-                          "5月",
-                          94
-                        ],
-                        [
-                          "6月",
-                          75
-                        ],
-                        [
-                          "7月",
-                          98
-                        ],
-                        [
-                          "8月",
-                          36
-                        ],
-                        [
-                          "9月",
-                          43
-                        ],
-                        [
-                          "10月",
-                          94
-                        ],
-                        [
-                          "11月",
-                          67
-                        ],
-                        [
-                          "12月",
-                          10
-                        ]
-                      ]
-                    }
-                  ],
-                  "grid": {
-                    "left": "40px",
-                    "right": "40px",
-                    "top": "30px",
-                    "bottom": "30px"
-                  },
-                  "xAxis": {
-                    "type": "category"
-                  },
-                  "yAxis": {
-                    "type": "value"
-                  },
-                  "series": [
-                    {
-                      "type": "bar",
-                      "label": {
-                        "position": "top",
-                        "show": true
-                      },
-                      "barMaxWidth": "30px",
-                      "datasetIndex": 0
-                    }
-                  ]
-                }
-              },
-              {
-                "row": 3,
-                "widget": {
-                  "type": "chart-box",
-                  "label": "文章数",
-                  "count": "25",
-                  "params": {
-                    "api": "/api/v3/xxx"
-                  },
-                  "chart": {
-                    "grid": {
-                      "left": "0",
-                      "right": "0",
-                      "top": "0",
-                      "bottom": "0"
-                    },
-                    "xAxis": {
-                      "show": false,
-                      "type": "category"
-                    },
-                    "yAxis": {
-                      "show": false,
-                      "type": "value"
-                    },
-                    "dataset": [
-                      {
-                        "source": [
-                          [
-                            "name",
-                            "文章数"
-                          ],
-                          [
-                            "1月",
-                            12
-                          ],
-                          [
-                            "2月",
-                            12
-                          ],
-                          [
-                            "3月",
-                            11
-                          ],
-                          [
-                            "4月",
-                            90
-                          ],
-                          [
-                            "5月",
-                            58
-                          ],
-                          [
-                            "6月",
-                            60
-                          ],
-                          [
-                            "7月",
-                            79
-                          ],
-                          [
-                            "8月",
-                            45
-                          ],
-                          [
-                            "9月",
-                            97
-                          ],
-                          [
-                            "10月",
-                            27
-                          ],
-                          [
-                            "11月",
-                            73
-                          ],
-                          [
-                            "12月",
-                            40
-                          ]
-                        ]
-                      }
-                    ],
-                    "series": [
-                      {
-                        "type": "line",
-                        "symbol": "none",
-                        "areaStyle": {
-                          "opacity": 0.1,
-                          "color": "#1976d2"
-                        },
-                        "lineStyle": {
-                          "color": "#1976d2"
-                        },
-                        "label": {
-                          "position": "top",
-                          "show": true
-                        },
-                        "datasetIndex": 0
-                      }
-                    ]
-                  }
-                }
-              },
-              {
-                "row": 3,
-                "widget": {
-                  "type": "chart-box",
-                  "label": "审核数",
-                  "count": "36",
-                  "params": {
-                    "api": "/api/v3/node/vote/report"
-                  },
-                  "chart": {
-                    "grid": {
-                      "left": "0",
-                      "right": "0",
-                      "top": "0",
-                      "bottom": "0"
-                    },
-                    "xAxis": {
-                      "show": false,
-                      "type": "category"
-                    },
-                    "yAxis": {
-                      "show": false,
-                      "type": "value"
-                    },
-                    "dataset": [
-                      {
-                        "source": [
-                          [
-                            "name",
-                            "审核数"
-                          ],
-                          [
-                            "1月",
-                            56
-                          ],
-                          [
-                            "2月",
-                            60
-                          ],
-                          [
-                            "3月",
-                            30
-                          ],
-                          [
-                            "4月",
-                            66
-                          ],
-                          [
-                            "5月",
-                            73
-                          ],
-                          [
-                            "6月",
-                            18
-                          ],
-                          [
-                            "7月",
-                            55
-                          ],
-                          [
-                            "8月",
-                            64
-                          ],
-                          [
-                            "9月",
-                            63
-                          ],
-                          [
-                            "10月",
-                            66
-                          ],
-                          [
-                            "11月",
-                            24
-                          ],
-                          [
-                            "12月",
-                            74
-                          ]
-                        ]
-                      }
-                    ],
-                    "series": [
-                      {
-                        "type": "line",
-                        "symbol": "none",
-                        "areaStyle": {
-                          "opacity": 0.1,
-                          "color": "#512da8"
-                        },
-                        "lineStyle": {
-                          "color": "#512da8"
-                        },
-                        "label": {
-                          "position": "top",
-                          "show": true
-                        },
-                        "datasetIndex": 0
-                      }
-                    ]
-                  }
-                }
-              },
-              {
-                "row": 3,
-                "widget": {
-                  "type": "chart-box",
-                  "label": "用户数",
-                  "count": "12",
-                  "params": {
-                    "api": "/api/v3/node/vote/report"
-                  },
-                  "chart": {
-                    "grid": {
-                      "left": "0",
-                      "right": "0",
-                      "top": "0",
-                      "bottom": "0"
-                    },
-                    "xAxis": {
-                      "show": false,
-                      "type": "category"
-                    },
-                    "yAxis": {
-                      "show": false,
-                      "type": "value"
-                    },
-                    "dataset": [
-                      {
-                        "source": [
-                          [
-                            "name",
-                            "用户"
-                          ],
-                          [
-                            "1月",
-                            8
-                          ],
-                          [
-                            "2月",
-                            6
-                          ],
-                          [
-                            "3月",
-                            3
-                          ],
-                          [
-                            "4月",
-                            1
-                          ],
-                          [
-                            "5月",
-                            4
-                          ],
-                          [
-                            "6月",
-                            3
-                          ],
-                          [
-                            "7月",
-                            4
-                          ],
-                          [
-                            "8月",
-                            1
-                          ],
-                          [
-                            "9月",
-                            10
-                          ],
-                          [
-                            "10月",
-                            2
-                          ],
-                          [
-                            "11月",
-                            8
-                          ],
-                          [
-                            "12月",
-                            3
-                          ]
-                        ]
-                      }
-                    ],
-                    "series": [
-                      {
-                        "type": "line",
-                        "symbol": "none",
-                        "areaStyle": {
-                          "opacity": 0.1,
-                          "color": "#f57f17"
-                        },
-                        "lineStyle": {
-                          "color": "#f57f17"
-                        },
-                        "label": {
-                          "position": "top",
-                          "show": true
-                        },
-                        "datasetIndex": 0
-                      }
-                    ]
-                  }
-                }
-              },
-              {
-                "row": 3,
-                "widget": {
-                  "type": "chart-box",
-                  "label": "评论数",
-                  "count": "456",
-                  "params": {
-                    "api": "/api/v3/node/vote/report"
-                  },
-                  "chart": {
-                    "grid": {
-                      "left": "0",
-                      "right": "0",
-                      "top": "0",
-                      "bottom": "0"
-                    },
-                    "xAxis": {
-                      "show": false,
-                      "type": "category"
-                    },
-                    "yAxis": {
-                      "show": false,
-                      "type": "value"
-                    },
-                    "dataset": [
-                      {
-                        "source": [
-                          [
-                            "name",
-                            "用户"
-                          ],
-                          [
-                            "1月",
-                            4
-                          ],
-                          [
-                            "2月",
-                            9
-                          ],
-                          [
-                            "3月",
-                            1
-                          ],
-                          [
-                            "4月",
-                            7
-                          ],
-                          [
-                            "5月",
-                            10
-                          ],
-                          [
-                            "6月",
-                            10
-                          ],
-                          [
-                            "7月",
-                            3
-                          ],
-                          [
-                            "8月",
-                            5
-                          ],
-                          [
-                            "9月",
-                            2
-                          ],
-                          [
-                            "10月",
-                            5
-                          ],
-                          [
-                            "11月",
-                            8
-                          ],
-                          [
-                            "12月",
-                            5
-                          ]
-                        ]
-                      }
-                    ],
-                    "series": [
-                      {
-                        "type": "line",
-                        "symbol": "none",
-                        "areaStyle": {
-                          "opacity": 0.1,
-                          "color": "#c2185b"
-                        },
-                        "lineStyle": {
-                          "color": "#c2185b"
-                        },
-                        "label": {
-                          "position": "top",
-                          "show": true
-                        },
-                        "datasetIndex": 0
-                      }
-                    ]
-                  }
-                }
-              },
-              {
-                "title": {
-                  "label": "最新文章"
-                },
-                "params": {
-                  "api": "/api/v3/xxx"
-                },
-                "row": 6,
-                "widget": {
-                  "type": "dynamic-table",
-                  "header": [
-                    {
-                      "label": "标题",
-                      "key": "title"
-                    },
-                    {
-                      "label": "分类",
-                      "key": "custom"
-                    },
-                    {
-                      "label": "作者",
-                      "key": "hander"
-                    },
-                    {
-                      "label": "状态",
-                      "key": "type"
-                    },
-                    {
-                      "label": "创建时间",
-                      "key": "date"
-                    }
-                  ],
-                  "elements": [
-                    {
-                      "title": "<a href=\"#\">探索机器学习的前沿技术</a>",
-                      "custom": "人工智能",
-                      "hander": "张华",
-                      "type": "已审核",
-                      "date": "2023/04/08"
-                    },
-                    {
-                      "title": "<a href=\"#\">未来的可持续能源解决方案</a>",
-                      "custom": "环境科学",
-                      "hander": "李明",
-                      "type": "待审核",
-                      "date": "2023/04/7"
-                    },
-                    {
-                      "title": "<a href=\"#\">瑜伽与身心健康的关系探究</a>",
-                      "custom": "健康与健身",
-                      "hander": "王琳",
-                      "type": "已审核",
-                      "date": "2023/04/7"
-                    },
-                    {
-                      "title": "<a href=\"#\">最新的前端开发趋势与技术</a>",
-                      "custom": "技术与编程",
-                      "hander": "刘强",
-                      "type": "已审核",
-                      "date": "2023/04/03"
-                    },
-                    {
-                      "title": "<a href=\"#\">未来智能家居的发展趋势与挑战</a>",
-                      "custom": "科技与创新",
-                      "hander": "陈晓阳",
-                      "type": "待审核",
-                      "date": "2023/04/03"
-                    }
-                  ]
-                }
-              },
-              {
-                "title": {
-                  "label": "最新审批"
-                },
-                "params": {
-                  "apiBak": "/api/v3/xxx"
-                },
-                "row": 6,
-                "widget": {
-                  "type": "dynamic-table",
-                  "header": [
-                    {
-                      "label": "标题",
-                      "key": "title"
-                    },
-                    {
-                      "label": "部门",
-                      "key": "custom"
-                    },
-                    {
-                      "label": "经办人",
-                      "key": "hander"
-                    },
-                    {
-                      "label": "类型",
-                      "key": "type"
-                    },
-                    {
-                      "label": "创建时间",
-                      "key": "date"
-                    }
-                  ],
-                  "elements": [
-                    {
-                      "title": "<a href=\"#\">年度预算审批</a>",
-                      "custom": "财务部",
-                      "hander": "张华",
-                      "type": "财务审批",
-                      "date": "2023/04/08"
-                    },
-                    {
-                      "title": "<a href=\"#\">新员工入职申请</a>",
-                      "custom": "人力资源部",
-                      "hander": "李明",
-                      "type": "人事审批",
-                      "date": "2023/04/7"
-                    },
-                    {
-                      "title": "<a href=\"#\">项目变更申请</a>",
-                      "custom": "项目管理办公室",
-                      "hander": "王琳",
-                      "type": "项目审批",
-                      "date": "2023/04/7"
-                    },
-                    {
-                      "title": "<a href=\"#\">采购订单审批</a>",
-                      "custom": "采购部",
-                      "hander": "刘强",
-                      "type": "采购审批",
-                      "date": "2023/04/03"
-                    },
-                    {
-                      "title": "<a href=\"#\">请假申请</a>",
-                      "custom": "行政部",
-                      "hander": "陈晓阳",
-                      "type": "行政审批",
-                      "date": "2023/04/03"
-                    }
-                  ]
-                }
-              },
-              {
-                "title": {
-                  "label": "工作日历"
-                },
-                "row": 12,
-                "widget": {
-                  "type": "full-calendar",
-                  "spacer": "none",
-                  "calendar": {
-                    "drawer": true,
-                    "apiBak": "/api/v1/demo",
-                    "options": {
-                      "events": [
-                        {
-                          "title": "使用 DEVTOOLS 对 ANGULAR 前端应用性能分析优化",
-                          "event": "meeting",
-                          "start": "2023-09-21T04:12:31.101Z",
-                          "user": "Johnson",
-                          "className": "bg-primary"
-                        },
-                        {
-                          "title": "使用 TAKEUNTIL 操作符管理 ANGULAR 组件的订阅",
-                          "event": "drupal",
-                          "start": 1696047151101,
-                          "user": "Johnson",
-                          "className": "bg-accent"
-                        },
-                        {
-                          "title": "你应该了解的 ANGULAR 最佳实践",
-                          "event": "drupal",
-                          "start": 1696047151101,
-                          "user": "Johnson",
-                          "className": "bg-warn"
-                        },
-                        {
-                          "title": "ANGULAR 5 RXJS 5.5.2 多个 HTTP 并行 FORKJOIN 请求",
-                          "event": "drupal",
-                          "start": 1695528751101,
-                          "user": "Johnson",
-                          "className": "bg-warn"
-                        },
-                        {
-                          "title": "DRUPAL 8 AJAX 弹出框可监听利用的 EVENT 事件",
-                          "event": "drupal",
-                          "start": 1695528751101,
-                          "user": "Johnson",
-                          "className": "bg-pink"
-                        },
-                        {
-                          "title": "DRUPAL8 用户登录后自定义重定向",
-                          "event": "drupal",
-                          "start": 1696133551101,
-                          "user": "Johnson",
-                          "className": "bg-orange"
-                        },
-                        {
-                          "title": "如何更改 GIT COMMIT 某个历史提交信息",
-                          "event": "drupal",
-                          "start": 1695442351101,
-                          "user": "Johnson",
-                          "className": "bg-yellow"
-                        },
-                        {
-                          "title": "开源项目使用 GITHUB ACTIONS 自动化测试部署 ANGULAR 应用到 ECS 服务器",
-                          "event": "drupal",
-                          "start": 1696047151101,
-                          "user": "Johnson",
-                          "className": "bg-red"
-                        },
-                        {
-                          "title": "DRUPAL JSONAPI 初级入门实践",
-                          "event": "drupal",
-                          "start": 1695874351101,
-                          "user": "Johnson",
-                          "className": "bg-purple"
-                        },
-                        {
-                          "title": "RXJS SWITCHMAP 在 DRUPAL API中的应用",
-                          "event": "drupal",
-                          "start": 1695615151101,
-                          "user": "Johnson",
-                          "className": "bg-indigo"
-                        },
-                        {
-                          "title": "五年了，再谈南宁和深圳的差距",
-                          "event": "drupal",
-                          "start": 1695701551101,
-                          "user": "Johnson",
-                          "className": "bg-blue"
-                        },
-                        {
-                          "title": "没想到吧？2021年南宁IT互联网相关工作者最近一份工作求职渠道最受欢迎的竟然是它",
-                          "event": "drupal",
-                          "start": 1695096751101,
-                          "user": "Johnson",
-                          "className": "bg-cyan"
-                        },
-                        {
-                          "title": "南宁IT互联网行业薪资福利待遇如何？",
-                          "event": "drupal",
-                          "start": 1694751151101,
-                          "user": "Johnson",
-                          "className": "bg-teal"
-                        },
-                        {
-                          "title": "南宁IT互联网公司，有哪些是双休？",
-                          "event": "drupal",
-                          "start": 1694405551101,
-                          "user": "Johnson",
-                          "className": "bg-green"
-                        },
-                        {
-                          "title": "JSONA 一款转换 JSONAPI 数据的工具库，也算是解放 DRUPAL JSONAPI 反序列化的利器",
-                          "event": "drupal",
-                          "start": 1694923951101,
-                          "user": "Johnson",
-                          "className": "bg-light-green"
-                        },
-                        {
-                          "title": "ANGULAR 有哪几种不同类型的绑定",
-                          "event": "drupal",
-                          "start": 1694578351101,
-                          "user": "Johnson",
-                          "className": "bg-brown"
-                        },
-                        {
-                          "title": "ANGULAR NG-CONTENT、NG-TEMPLATE、NG-CONTAINER 之间的区别",
-                          "event": "drupal",
-                          "start": 1695096751101,
-                          "user": "Johnson",
-                          "className": "bg-grey"
-                        }
-                      ]
-                    },
-                    "theme": {
-                      "meeting": "bg-warn",
-                      "case": "bg-primary",
-                      "project": "bg-accent",
-                      "event": "bg-red"
-                    }
-                  }
-                }
-              }
-            ]
-          }
-        },
-        {
-          "content": {
-            "type": "dashboard",
-            "elements": [
-              {
-                "title": {
-                  "label": "消费者注册数据"
-                },
-                "params": {
-                  "api": "/api/v3/xxx"
-                },
-                "row": 12,
-                "form": [
-                  {
-                    "type": "mat-select",
-                    "key": "position",
-                    "defaultValue": 2023,
-                    "className": "display-block",
-                    "templateOptions": {
-                      "label": "年份",
-                      "description": "请选择年份",
-                      "options": [
-                        {
-                          "label": "2023年",
-                          "value": 2023
-                        },
-                        {
-                          "label": "2022年",
-                          "value": 2022
-                        },
-                        {
-                          "label": "2021年",
-                          "value": 2021
-                        },
-                        {
-                          "label": "2020年",
-                          "value": 2020
-                        }
-                      ]
-                    }
-                  }
-                ],
-                "widget": {
-                  "type": "chart",
-                  "tooltip": {
-                    "trigger": "axis"
-                  },
-                  "dataset": [
-                    {
-                      "source": [
-                        [
-                          "name",
-                          "用户"
-                        ],
-                        [
-                          "1月",
-                          41
-                        ],
-                        [
-                          "2月",
-                          54
-                        ],
-                        [
-                          "3月",
-                          96
-                        ],
-                        [
-                          "4月",
-                          34
-                        ],
-                        [
-                          "5月",
-                          25
-                        ],
-                        [
-                          "6月",
-                          40
-                        ],
-                        [
-                          "7月",
-                          53
-                        ],
-                        [
-                          "8月",
-                          14
-                        ],
-                        [
-                          "9月",
-                          88
-                        ],
-                        [
-                          "10月",
-                          37
-                        ],
-                        [
-                          "11月",
-                          69
-                        ],
-                        [
-                          "12月",
-                          13
-                        ]
-                      ]
-                    }
-                  ],
-                  "grid": {
-                    "left": "40px",
-                    "right": "40px",
-                    "top": "30px",
-                    "bottom": "30px"
-                  },
-                  "xAxis": {
-                    "type": "category"
-                  },
-                  "yAxis": {
-                    "type": "value"
-                  },
-                  "series": [
-                    {
-                      "type": "bar",
-                      "label": {
-                        "position": "top",
-                        "show": true
-                      },
-                      "barMaxWidth": "30px",
-                      "datasetIndex": 0
-                    }
-                  ]
-                }
-              },
-              {
-                "row": 3,
-                "widget": {
-                  "type": "chart-box",
-                  "label": "广告发布量",
-                  "count": "5",
-                  "params": {
-                    "api": "/api/v3/node/vote/report"
-                  },
-                  "chart": {
-                    "grid": {
-                      "left": "0",
-                      "right": "0",
-                      "top": "0",
-                      "bottom": "0"
-                    },
-                    "xAxis": {
-                      "show": false,
-                      "type": "category"
-                    },
-                    "yAxis": {
-                      "show": false,
-                      "type": "value"
-                    },
-                    "dataset": [
-                      {
-                        "source": [
-                          [
-                            "name",
-                            "广告"
-                          ],
-                          [
-                            "1月",
-                            80
-                          ],
-                          [
-                            "2月",
-                            69
-                          ],
-                          [
-                            "3月",
-                            98
-                          ],
-                          [
-                            "4月",
-                            68
-                          ],
-                          [
-                            "5月",
-                            96
-                          ],
-                          [
-                            "6月",
-                            15
-                          ],
-                          [
-                            "7月",
-                            99
-                          ],
-                          [
-                            "8月",
-                            22
-                          ],
-                          [
-                            "9月",
-                            94
-                          ],
-                          [
-                            "10月",
-                            62
-                          ],
-                          [
-                            "11月",
-                            85
-                          ],
-                          [
-                            "12月",
-                            94
-                          ]
-                        ]
-                      }
-                    ],
-                    "series": [
-                      {
-                        "type": "line",
-                        "symbol": "none",
-                        "areaStyle": {
-                          "opacity": 0.1,
-                          "color": "#1976d2"
-                        },
-                        "lineStyle": {
-                          "color": "#1976d2"
-                        },
-                        "label": {
-                          "position": "top",
-                          "show": true
-                        },
-                        "datasetIndex": 0
-                      }
-                    ]
-                  }
-                }
-              },
-              {
-                "row": 3,
-                "widget": {
-                  "type": "chart-box",
-                  "label": "消费者增长",
-                  "count": "1,156",
-                  "params": {
-                    "api": "/api/v3/node/vote/report"
-                  },
-                  "chart": {
-                    "grid": {
-                      "left": "0",
-                      "right": "0",
-                      "top": "0",
-                      "bottom": "0"
-                    },
-                    "xAxis": {
-                      "show": false,
-                      "type": "category"
-                    },
-                    "yAxis": {
-                      "show": false,
-                      "type": "value"
-                    },
-                    "dataset": [
-                      {
-                        "source": [
-                          [
-                            "name",
-                            "用户"
-                          ],
-                          [
-                            "1月",
-                            97
-                          ],
-                          [
-                            "2月",
-                            89
-                          ],
-                          [
-                            "3月",
-                            45
-                          ],
-                          [
-                            "4月",
-                            15
-                          ],
-                          [
-                            "5月",
-                            28
-                          ],
-                          [
-                            "6月",
-                            29
-                          ],
-                          [
-                            "7月",
-                            78
-                          ],
-                          [
-                            "8月",
-                            17
-                          ],
-                          [
-                            "9月",
-                            30
-                          ],
-                          [
-                            "10月",
-                            70
-                          ],
-                          [
-                            "11月",
-                            15
-                          ],
-                          [
-                            "12月",
-                            64
-                          ]
-                        ]
-                      }
-                    ],
-                    "series": [
-                      {
-                        "type": "line",
-                        "symbol": "none",
-                        "areaStyle": {
-                          "opacity": 0.1,
-                          "color": "#512da8"
-                        },
-                        "lineStyle": {
-                          "color": "#512da8"
-                        },
-                        "label": {
-                          "position": "top",
-                          "show": true
-                        },
-                        "datasetIndex": 0
-                      }
-                    ]
-                  }
-                }
-              },
-              {
-                "row": 3,
-                "widget": {
-                  "type": "chart-box",
-                  "label": "门店增长",
-                  "count": "50%",
-                  "params": {
-                    "api": "/api/v3/node/vote/report"
-                  },
-                  "chart": {
-                    "grid": {
-                      "left": "0",
-                      "right": "0",
-                      "top": "0",
-                      "bottom": "0"
-                    },
-                    "xAxis": {
-                      "show": false,
-                      "type": "category"
-                    },
-                    "yAxis": {
-                      "show": false,
-                      "type": "value"
-                    },
-                    "dataset": [
-                      {
-                        "source": [
-                          [
-                            "name",
-                            "门店"
-                          ],
-                          [
-                            "1月",
-                            6
-                          ],
-                          [
-                            "2月",
-                            10
-                          ],
-                          [
-                            "3月",
-                            9
-                          ],
-                          [
-                            "4月",
-                            6
-                          ],
-                          [
-                            "5月",
-                            6
-                          ],
-                          [
-                            "6月",
-                            3
-                          ],
-                          [
-                            "7月",
-                            10
-                          ],
-                          [
-                            "8月",
-                            10
-                          ],
-                          [
-                            "9月",
-                            7
-                          ],
-                          [
-                            "10月",
-                            4
-                          ],
-                          [
-                            "11月",
-                            7
-                          ],
-                          [
-                            "12月",
-                            6
-                          ]
-                        ]
-                      }
-                    ],
-                    "series": [
-                      {
-                        "type": "line",
-                        "symbol": "none",
-                        "areaStyle": {
-                          "opacity": 0.1,
-                          "color": "#f57f17"
-                        },
-                        "lineStyle": {
-                          "color": "#f57f17"
-                        },
-                        "label": {
-                          "position": "top",
-                          "show": true
-                        },
-                        "datasetIndex": 0
-                      }
-                    ]
-                  }
-                }
-              },
-              {
-                "row": 3,
-                "widget": {
-                  "type": "chart-box",
-                  "label": "评论量",
-                  "count": "28",
-                  "params": {
-                    "api": "/api/v3/node/vote/report"
-                  },
-                  "chart": {
-                    "grid": {
-                      "left": "0",
-                      "right": "0",
-                      "top": "0",
-                      "bottom": "0"
-                    },
-                    "xAxis": {
-                      "show": false,
-                      "type": "category"
-                    },
-                    "yAxis": {
-                      "show": false,
-                      "type": "value"
-                    },
-                    "dataset": [
-                      {
-                        "source": [
-                          [
-                            "name",
-                            "评论"
-                          ],
-                          [
-                            "1月",
-                            83
-                          ],
-                          [
-                            "2月",
-                            85
-                          ],
-                          [
-                            "3月",
-                            28
-                          ],
-                          [
-                            "4月",
-                            76
-                          ],
-                          [
-                            "5月",
-                            95
-                          ],
-                          [
-                            "6月",
-                            100
-                          ],
-                          [
-                            "7月",
-                            21
-                          ],
-                          [
-                            "8月",
-                            75
-                          ],
-                          [
-                            "9月",
-                            26
-                          ],
-                          [
-                            "10月",
-                            10
-                          ],
-                          [
-                            "11月",
-                            81
-                          ],
-                          [
-                            "12月",
-                            91
-                          ]
-                        ]
-                      }
-                    ],
-                    "series": [
-                      {
-                        "type": "line",
-                        "symbol": "none",
-                        "areaStyle": {
-                          "opacity": 0.1,
-                          "color": "#c2185b"
-                        },
-                        "lineStyle": {
-                          "color": "#c2185b"
-                        },
-                        "label": {
-                          "position": "top",
-                          "show": true
-                        },
-                        "datasetIndex": 0
-                      }
-                    ]
-                  }
-                }
-              },
-              {
-                "title": {
-                  "label": "抽奖数据"
-                },
-                "row": 12,
-                "widget": {
-                  "type": "chart",
-                  "tooltip": {
-                    "trigger": "axis"
-                  },
-                  "legend": {
-                    "bottom": "10px"
-                  },
-                  "dataset": [
-                    {
-                      "source": [
-                        [
-                          "type",
-                          "红包",
-                          "推广"
-                        ],
-                        [
-                          "1月",
-                          87,
-                          27
-                        ],
-                        [
-                          "2月",
-                          88,
-                          62
-                        ],
-                        [
-                          "3月",
-                          75,
-                          57
-                        ],
-                        [
-                          "4月",
-                          46,
-                          32
-                        ],
-                        [
-                          "5月",
-                          23,
-                          66
-                        ],
-                        [
-                          "6月",
-                          67,
-                          73
-                        ],
-                        [
-                          "7月",
-                          94,
-                          31
-                        ],
-                        [
-                          "8月",
-                          79,
-                          14
-                        ],
-                        [
-                          "9月",
-                          92,
-                          71
-                        ],
-                        [
-                          "10月",
-                          90,
-                          67
-                        ],
-                        [
-                          "11月",
-                          83,
-                          82
-                        ],
-                        [
-                          "12月",
-                          27,
-                          82
-                        ]
-                      ]
-                    }
-                  ],
-                  "grid": {
-                    "left": "40px",
-                    "right": "40px",
-                    "top": "30px",
-                    "bottom": "60px"
-                  },
-                  "xAxis": {
-                    "type": "category"
-                  },
-                  "yAxis": {
-                    "type": "value"
-                  },
-                  "series": [
-                    {
-                      "name": "红包",
-                      "type": "bar",
-                      "label": {
-                        "position": "top",
-                        "show": true
-                      },
-                      "barMaxWidth": "30px"
-                    },
-                    {
-                      "name": "推广",
-                      "type": "bar",
-                      "label": {
-                        "position": "top",
-                        "show": true
-                      },
-                      "barMaxWidth": "30px"
-                    }
-                  ]
-                }
-              },
-              {
-                "title": {
-                  "label": "最新广告"
-                },
-                "row": 6,
-                "params": {
-                  "api": "/api/v3/xxx"
-                },
-                "widget": {
-                  "type": "dynamic-table",
-                  "header": [
-                    {
-                      "label": "标题",
-                      "key": "title"
-                    },
-                    {
-                      "label": "中奖",
-                      "key": "lottery"
-                    },
-                    {
-                      "label": "访问",
-                      "key": "visitor"
-                    },
-                    {
-                      "label": "评论",
-                      "key": "comment"
-                    },
-                    {
-                      "label": "结束",
-                      "key": "end"
-                    }
-                  ],
-                  "elements": [
-                    {
-                      "title": "<a href=\"#\">清明特惠，赢面单啦</a>",
-                      "lottery": "110",
-                      "visitor": "620",
-                      "comment": "0",
-                      "end": "2023/04/11 23:59:59"
-                    },
-                    {
-                      "title": "<a href=\"#\">城盛百汇周末特惠 会员1元换购大米/面粉</a>",
-                      "lottery": "66",
-                      "visitor": "415",
-                      "comment": "1",
-                      "end": "2023/03/29 23:59:59"
-                    },
-                    {
-                      "title": "<a href=\"#\">九要“拾”惠 精品汇选 养生开始 每日10款限时秒杀</a>",
-                      "lottery": "7",
-                      "visitor": "181",
-                      "comment": "0",
-                      "end": "2022/12/30 23:59:59"
-                    },
-                    {
-                      "title": "<a href=\"#\">金秋丰收季，爆款惠不停（文末福利持续加码中）</a>",
-                      "lottery": "4",
-                      "visitor": "365",
-                      "comment": "0",
-                      "end": "2022/11/30 23:59:59"
-                    }
-                  ]
-                }
-              },
-              {
-                "title": {
-                  "label": "最新评论"
-                },
-                "row": 6,
-                "params": {
-                  "api": "/api/v3/xxx"
-                },
-                "widget": {
-                  "type": "dynamic-table",
-                  "header": [
-                    {
-                      "label": "内容",
-                      "key": "body"
-                    },
-                    {
-                      "label": "评论人",
-                      "key": "user"
-                    },
-                    {
-                      "label": "标题",
-                      "key": "title"
-                    },
-                    {
-                      "label": "时间",
-                      "key": "date"
-                    }
-                  ],
-                  "elements": [
-                    {
-                      "title": "<a href=\"#\">九要“拾”惠 精品汇选 养生开始 每日10款限时秒杀</a>",
-                      "user": "用户ERSyAUCP",
-                      "body": "看起来不错！",
-                      "date": "2023/04/01"
-                    },
-                    {
-                      "title": "<a href=\"#\">城盛百汇周末特惠 会员1元换购大米/面粉</a>",
-                      "user": "用户FGDDDES",
-                      "body": "为什么超出范围？",
-                      "date": "2023/03/28"
-                    },
-                    {
-                      "title": "<a href=\"#\">金秋丰收季，爆款惠不停（文末福利持续加码中）</a>",
-                      "user": "用户PIJFN",
-                      "body": "可以多一些这样的好物！",
-                      "date": "2023/02/18"
-                    },
-                    {
-                      "title": "<a href=\"#\">清明特惠，赢面单啦</a>",
-                      "user": "用户WQUDJD",
-                      "body": "这个超市挺实惠，活动挺多！",
-                      "date": "2023/02/01"
-                    }
-                  ]
-                }
-              },
-              {
-                "title": {
-                  "label": "活动日历"
-                },
-                "row": 12,
-                "widget": {
-                  "type": "full-calendar",
-                  "spacer": "none",
-                  "calendar": {
-                    "drawer": true,
-                    "apiBak": "/api/v1/demo",
-                    "options": {
-                      "events": [
-                        {
-                          "title": "使用 DEVTOOLS 对 ANGULAR 前端应用性能分析优化",
-                          "event": "meeting",
-                          "start": "2023-09-21T04:12:31.101Z",
-                          "user": "Johnson",
-                          "className": "bg-primary"
-                        },
-                        {
-                          "title": "使用 TAKEUNTIL 操作符管理 ANGULAR 组件的订阅",
-                          "event": "drupal",
-                          "start": 1696047151101,
-                          "user": "Johnson",
-                          "className": "bg-accent"
-                        },
-                        {
-                          "title": "你应该了解的 ANGULAR 最佳实践",
-                          "event": "drupal",
-                          "start": 1696047151101,
-                          "user": "Johnson",
-                          "className": "bg-warn"
-                        },
-                        {
-                          "title": "ANGULAR 5 RXJS 5.5.2 多个 HTTP 并行 FORKJOIN 请求",
-                          "event": "drupal",
-                          "start": 1695528751101,
-                          "user": "Johnson",
-                          "className": "bg-warn"
-                        },
-                        {
-                          "title": "DRUPAL 8 AJAX 弹出框可监听利用的 EVENT 事件",
-                          "event": "drupal",
-                          "start": 1695528751101,
-                          "user": "Johnson",
-                          "className": "bg-pink"
-                        },
-                        {
-                          "title": "DRUPAL8 用户登录后自定义重定向",
-                          "event": "drupal",
-                          "start": 1696133551101,
-                          "user": "Johnson",
-                          "className": "bg-orange"
-                        },
-                        {
-                          "title": "如何更改 GIT COMMIT 某个历史提交信息",
-                          "event": "drupal",
-                          "start": 1695442351101,
-                          "user": "Johnson",
-                          "className": "bg-yellow"
-                        },
-                        {
-                          "title": "开源项目使用 GITHUB ACTIONS 自动化测试部署 ANGULAR 应用到 ECS 服务器",
-                          "event": "drupal",
-                          "start": 1696047151101,
-                          "user": "Johnson",
-                          "className": "bg-red"
-                        },
-                        {
-                          "title": "DRUPAL JSONAPI 初级入门实践",
-                          "event": "drupal",
-                          "start": 1695874351101,
-                          "user": "Johnson",
-                          "className": "bg-purple"
-                        },
-                        {
-                          "title": "RXJS SWITCHMAP 在 DRUPAL API中的应用",
-                          "event": "drupal",
-                          "start": 1695615151101,
-                          "user": "Johnson",
-                          "className": "bg-indigo"
-                        },
-                        {
-                          "title": "五年了，再谈南宁和深圳的差距",
-                          "event": "drupal",
-                          "start": 1695701551101,
-                          "user": "Johnson",
-                          "className": "bg-blue"
-                        },
-                        {
-                          "title": "没想到吧？2021年南宁IT互联网相关工作者最近一份工作求职渠道最受欢迎的竟然是它",
-                          "event": "drupal",
-                          "start": 1695096751101,
-                          "user": "Johnson",
-                          "className": "bg-cyan"
-                        },
-                        {
-                          "title": "南宁IT互联网行业薪资福利待遇如何？",
-                          "event": "drupal",
-                          "start": 1694751151101,
-                          "user": "Johnson",
-                          "className": "bg-teal"
-                        },
-                        {
-                          "title": "南宁IT互联网公司，有哪些是双休？",
-                          "event": "drupal",
-                          "start": 1694405551101,
-                          "user": "Johnson",
-                          "className": "bg-green"
-                        },
-                        {
-                          "title": "JSONA 一款转换 JSONAPI 数据的工具库，也算是解放 DRUPAL JSONAPI 反序列化的利器",
-                          "event": "drupal",
-                          "start": 1694923951101,
-                          "user": "Johnson",
-                          "className": "bg-light-green"
-                        },
-                        {
-                          "title": "ANGULAR 有哪几种不同类型的绑定",
-                          "event": "drupal",
-                          "start": 1694578351101,
-                          "user": "Johnson",
-                          "className": "bg-brown"
-                        },
-                        {
-                          "title": "ANGULAR NG-CONTENT、NG-TEMPLATE、NG-CONTAINER 之间的区别",
-                          "event": "drupal",
-                          "start": 1695096751101,
-                          "user": "Johnson",
-                          "className": "bg-grey"
-                        }
-                      ]
-                    },
-                    "theme": {
-                      "meeting": "bg-warn",
-                      "case": "bg-primary",
-                      "project": "bg-accent",
-                      "event": "bg-red"
-                    }
-                  }
-                }
-              }
-            ]
-          }
-        }
-      ]
-    },
-    {
       "label": "Drupal",
       "id": "drupal",
       "elements": [
@@ -9165,9 +7403,9 @@
                 "align": "center start",
                 "id": "b5f0ed94-2ebe-40e9-be07-f480efb50994",
                 "title": "小南",
-                "subTitle": "2023-09-21 12:12:31"
+                "subTitle": "2023-09-21 23:02:37"
               },
-              "time": "2023-09-21 12:12:31",
+              "time": "2023-09-21 23:02:37",
               "id": "24213e00-d4b8-4ece-bbea-a588efcc7d8d",
               "content": "<p>设定具体的学习目标：将学习分解为小而可管理的目标，并为每个目标设定明确的时间表和标准。这样，你可以看到自己的进展，并感到满足和激励。寻找灵感和挑战：保持对前端技术的好奇心，主动寻找新的灵感和挑战。参加技术交流会议、阅读相关的博客和文章，或加入社区讨论可以帮助你保持兴趣和动力。关注个人发展：思考自己的职业发展和长期目标，明确你希望在前端领域取得的成就。将学习看作是实现这些目标的关键步骤，这种意识将激励你持续学习和进步。</p>",
               "child": [
@@ -9185,9 +7423,9 @@
                     "align": "center start",
                     "id": "15765815-07f2-4d7d-8142-cb598f82af2e",
                     "title": "root",
-                    "subTitle": "2023-09-21 12:12:31"
+                    "subTitle": "2023-09-21 23:02:37"
                   },
-                  "time": "2023-09-21 12:12:31",
+                  "time": "2023-09-21 23:02:37",
                   "id": "bbbe5e9f-9b85-421e-a839-7d50be0eb7ed",
                   "content": "<p><ul class=\"list-done\"><li>探索不同的学习资源：尝试不同的学习资源，如在线教程、视频教程、书籍、实践项目等。不同的学习方法可以帮助你从不同的角度理解和应用前端技术，保持学习的新鲜感。</li><li>参与开源项目和社区：积极参与开源项目和社区，与其他开发者互动和合作。这样你可以学习到新的技术和最佳实践，同时拓展人脉和交流经验，激发学习的热情。</li><li>持续实践和项目驱动：通过实际项目的开发和实践，将学到的知识应用到实际场景中。实践中的挑战和解决方案将帮助你不断提升技能，并加深对前端开发的理解和热爱。</li></ul></p>",
                   "child": [],
@@ -9210,9 +7448,9 @@
                 "align": "center start",
                 "id": "d5fb03cb-abca-43ba-baa5-a162a576e67a",
                 "title": "表歌",
-                "subTitle": "2023-09-21 12:12:31"
+                "subTitle": "2023-09-21 23:02:37"
               },
-              "time": "2023-09-21 12:12:31",
+              "time": "2023-09-21 23:02:37",
               "id": "2582f1b8-d91b-4a73-86ac-050fda0b10d1",
               "content": "<p>定期回顾和评估：定期回顾自己的学习进展和成果，对已经学到的知识和技能进行评估。这样可以看到自己的进步，并找出需要改进的领域，保持学习的动力。设定奖励机制：为自己设定奖励机制，当达到一定的学习目标或突破难题时给予自己奖励。这可以是一次小型庆祝、购买一本新书或者做一些自己喜欢的事情，让学习变得有趣和值得期待。寻找学习伙伴：与其他</p>",
               "child": [],
@@ -9284,9 +7522,9 @@
                 "align": "center start",
                 "id": "b5f0ed94-2ebe-40e9-be07-f480efb50994",
                 "title": "小南",
-                "subTitle": "2023-09-21 12:12:31"
+                "subTitle": "2023-09-21 23:02:37"
               },
-              "time": "2023-09-21 12:12:31",
+              "time": "2023-09-21 23:02:37",
               "id": "24213e00-d4b8-4ece-bbea-a588efcc7d8d",
               "content": "<p>设定具体的学习目标：将学习分解为小而可管理的目标，并为每个目标设定明确的时间表和标准。这样，你可以看到自己的进展，并感到满足和激励。寻找灵感和挑战：保持对前端技术的好奇心，主动寻找新的灵感和挑战。参加技术交流会议、阅读相关的博客和文章，或加入社区讨论可以帮助你保持兴趣和动力。关注个人发展：思考自己的职业发展和长期目标，明确你希望在前端领域取得的成就。将学习看作是实现这些目标的关键步骤，这种意识将激励你持续学习和进步。</p>",
               "child": [
@@ -9304,9 +7542,9 @@
                     "align": "center start",
                     "id": "15765815-07f2-4d7d-8142-cb598f82af2e",
                     "title": "root",
-                    "subTitle": "2023-09-21 12:12:31"
+                    "subTitle": "2023-09-21 23:02:37"
                   },
-                  "time": "2023-09-21 12:12:31",
+                  "time": "2023-09-21 23:02:37",
                   "id": "bbbe5e9f-9b85-421e-a839-7d50be0eb7ed",
                   "content": "<p><ul class=\"list-done\"><li>探索不同的学习资源：尝试不同的学习资源，如在线教程、视频教程、书籍、实践项目等。不同的学习方法可以帮助你从不同的角度理解和应用前端技术，保持学习的新鲜感。</li><li>参与开源项目和社区：积极参与开源项目和社区，与其他开发者互动和合作。这样你可以学习到新的技术和最佳实践，同时拓展人脉和交流经验，激发学习的热情。</li><li>持续实践和项目驱动：通过实际项目的开发和实践，将学到的知识应用到实际场景中。实践中的挑战和解决方案将帮助你不断提升技能，并加深对前端开发的理解和热爱。</li></ul></p>",
                   "child": [],
@@ -9329,9 +7567,9 @@
                 "align": "center start",
                 "id": "d5fb03cb-abca-43ba-baa5-a162a576e67a",
                 "title": "表歌",
-                "subTitle": "2023-09-21 12:12:31"
+                "subTitle": "2023-09-21 23:02:37"
               },
-              "time": "2023-09-21 12:12:31",
+              "time": "2023-09-21 23:02:37",
               "id": "2582f1b8-d91b-4a73-86ac-050fda0b10d1",
               "content": "<p>定期回顾和评估：定期回顾自己的学习进展和成果，对已经学到的知识和技能进行评估。这样可以看到自己的进步，并找出需要改进的领域，保持学习的动力。设定奖励机制：为自己设定奖励机制，当达到一定的学习目标或突破难题时给予自己奖励。这可以是一次小型庆祝、购买一本新书或者做一些自己喜欢的事情，让学习变得有趣和值得期待。寻找学习伙伴：与其他</p>",
               "child": [],
@@ -9783,119 +8021,119 @@
                   {
                     "title": "使用 DEVTOOLS 对 ANGULAR 前端应用性能分析优化",
                     "event": "meeting",
-                    "start": "2023-09-21T04:12:31.101Z",
+                    "start": "2023-09-21T15:02:37.821Z",
                     "user": "Johnson",
                     "className": "bg-primary"
                   },
                   {
                     "title": "使用 TAKEUNTIL 操作符管理 ANGULAR 组件的订阅",
                     "event": "drupal",
-                    "start": 1696047151101,
+                    "start": 1695740557821,
                     "user": "Johnson",
                     "className": "bg-accent"
                   },
                   {
                     "title": "你应该了解的 ANGULAR 最佳实践",
                     "event": "drupal",
-                    "start": 1696047151101,
+                    "start": 1695826957821,
                     "user": "Johnson",
                     "className": "bg-warn"
                   },
                   {
                     "title": "ANGULAR 5 RXJS 5.5.2 多个 HTTP 并行 FORKJOIN 请求",
                     "event": "drupal",
-                    "start": 1695528751101,
+                    "start": 1695567757821,
                     "user": "Johnson",
                     "className": "bg-warn"
                   },
                   {
                     "title": "DRUPAL 8 AJAX 弹出框可监听利用的 EVENT 事件",
                     "event": "drupal",
-                    "start": 1695528751101,
+                    "start": 1695481357821,
                     "user": "Johnson",
                     "className": "bg-pink"
                   },
                   {
                     "title": "DRUPAL8 用户登录后自定义重定向",
                     "event": "drupal",
-                    "start": 1696133551101,
+                    "start": 1695394957821,
                     "user": "Johnson",
                     "className": "bg-orange"
                   },
                   {
                     "title": "如何更改 GIT COMMIT 某个历史提交信息",
                     "event": "drupal",
-                    "start": 1695442351101,
+                    "start": 1695481357821,
                     "user": "Johnson",
                     "className": "bg-yellow"
                   },
                   {
                     "title": "开源项目使用 GITHUB ACTIONS 自动化测试部署 ANGULAR 应用到 ECS 服务器",
                     "event": "drupal",
-                    "start": 1696047151101,
+                    "start": 1695826957821,
                     "user": "Johnson",
                     "className": "bg-red"
                   },
                   {
                     "title": "DRUPAL JSONAPI 初级入门实践",
                     "event": "drupal",
-                    "start": 1695874351101,
+                    "start": 1695567757821,
                     "user": "Johnson",
                     "className": "bg-purple"
                   },
                   {
                     "title": "RXJS SWITCHMAP 在 DRUPAL API中的应用",
                     "event": "drupal",
-                    "start": 1695615151101,
+                    "start": 1696086157821,
                     "user": "Johnson",
                     "className": "bg-indigo"
                   },
                   {
                     "title": "五年了，再谈南宁和深圳的差距",
                     "event": "drupal",
-                    "start": 1695701551101,
+                    "start": 1696172557821,
                     "user": "Johnson",
                     "className": "bg-blue"
                   },
                   {
                     "title": "没想到吧？2021年南宁IT互联网相关工作者最近一份工作求职渠道最受欢迎的竟然是它",
                     "event": "drupal",
-                    "start": 1695096751101,
+                    "start": 1694876557821,
                     "user": "Johnson",
                     "className": "bg-cyan"
                   },
                   {
                     "title": "南宁IT互联网行业薪资福利待遇如何？",
                     "event": "drupal",
-                    "start": 1694751151101,
+                    "start": 1695135757821,
                     "user": "Johnson",
                     "className": "bg-teal"
                   },
                   {
                     "title": "南宁IT互联网公司，有哪些是双休？",
                     "event": "drupal",
-                    "start": 1694405551101,
+                    "start": 1694703757821,
                     "user": "Johnson",
                     "className": "bg-green"
                   },
                   {
                     "title": "JSONA 一款转换 JSONAPI 数据的工具库，也算是解放 DRUPAL JSONAPI 反序列化的利器",
                     "event": "drupal",
-                    "start": 1694923951101,
+                    "start": 1695222157821,
                     "user": "Johnson",
                     "className": "bg-light-green"
                   },
                   {
                     "title": "ANGULAR 有哪几种不同类型的绑定",
                     "event": "drupal",
-                    "start": 1694578351101,
+                    "start": 1694962957821,
                     "user": "Johnson",
                     "className": "bg-brown"
                   },
                   {
                     "title": "ANGULAR NG-CONTENT、NG-TEMPLATE、NG-CONTAINER 之间的区别",
                     "event": "drupal",
-                    "start": 1695096751101,
+                    "start": 1694530957821,
                     "user": "Johnson",
                     "className": "bg-grey"
                   }
