@@ -35,9 +35,4 @@ export const feedback = [
     icon: { svg: 'reload' },
     ...spinner,
   },
-  {
-    label: '404',
-    icon: { svg: 'text-search-variant' },
-    ...notfound,
-  },
 ];

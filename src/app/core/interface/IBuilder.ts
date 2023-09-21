@@ -19,7 +19,7 @@ export interface IBuilderComponentElement {
 export interface IUiux {
   label: string;
   icon: IIcon;
-  type: 'base' | 'component' | 'sample';
+  type: 'base' | 'component' | 'sample' | 'system';
   elements: IBuilderComponent[] | IBuilderSamplePage | any;
 }
 

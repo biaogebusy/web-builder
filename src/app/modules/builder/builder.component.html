@@ -10,7 +10,7 @@
             <app-icon [matTooltip]="tab.label" [content]="tab.icon"></app-icon>
           </ng-template>
           <div class="p-x-xs p-y-xs">
-            <app-builder-sidebar-widgets *ngIf="tab.type === 'base'"
+            <app-builder-sidebar-widgets *ngIf="tab.type === 'base' || tab.type === 'system'"
               [content]="tab.elements"></app-builder-sidebar-widgets>
             <app-builder-sidebar-components *ngIf="tab.type === 'component'"
               [content]="tab.elements"></app-builder-sidebar-components>
