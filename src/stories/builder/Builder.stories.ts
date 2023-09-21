@@ -9,6 +9,7 @@ import { components } from './data/combs/export-for-story';
 import { widgets } from './data/widgets/export-for-story';
 import { environment } from 'src/environments/environment';
 import { samples } from './data/sample/samples-for-story';
+import { systems } from './data/system/system-fot-story';
 import {
   BUILDER_SAMPLE_PAGE,
   ENABLE_BUILDER_TOOLBAR,
@@ -65,4 +66,5 @@ if (!environment.production) {
   console.log('comps:', components);
   console.log('widgets:', widgets);
   console.log('sample:', samples);
+  console.log('system:', systems);
 }
