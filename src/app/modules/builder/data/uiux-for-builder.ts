@@ -39,6 +39,6 @@ export const uiux: IUiux[] = [
       svg: 'tune-variant',
       inline: true,
     },
-    elements: systems,
+    elements: systems.data,
   },
 ];

@@ -267,6 +267,11 @@ export class ComponentService {
         import('@modules/manage/manage.module').then((m) => m.ManageModule)
       )
     );
+    ['login'].forEach((type) =>
+      this.setModule(type, () =>
+        import('@modules/user/user.module').then((m) => m.UserModule)
+      )
+    );
   }
 
   setModule(type: string, loadModule: () => Promise<any>) {
