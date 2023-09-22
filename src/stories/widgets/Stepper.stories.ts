@@ -70,3 +70,37 @@ Vertical.args = {
     },
   },
 };
+
+export const ForStory = Template.bind({});
+ForStory.args = {
+  content: {
+    type: 'stepper',
+    params: {
+      mode: 'horizontal',
+      labelPosition: 'bottom',
+      linear: true,
+    },
+    steps: [
+      {
+        label: '多语言',
+        completed: false,
+      },
+      {
+        label: ' AI 生成',
+        completed: false,
+      },
+      {
+        label: 'Builder 拾色器',
+        completed: false,
+      },
+      {
+        label: 'Builder 媒体库',
+        completed: true,
+      },
+      {
+        label: 'Builder 预览可下载',
+        completed: true,
+      },
+    ],
+  },
+};
