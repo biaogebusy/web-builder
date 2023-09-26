@@ -26,6 +26,7 @@
     }
   }
   @media #{$lt-md} {
+    height: 60vh;
     ::ng-deep {
       .swiper-slide {
         > * {
