@@ -4,6 +4,284 @@
       "label": "通用",
       "elements": [
         {
+          "label": "文章",
+          "icon": {
+            "svg": "translate"
+          },
+          "content": {
+            "type": "article",
+            "title": "使用 DevTools 对 Angular 前端应用性能分析优化",
+            "banner": {
+              "img": {
+                "src": "../assets/images/16-9/nature-08.jpg"
+              }
+            },
+            "meta": [
+              {
+                "icon": "schedule",
+                "label": "2023/09/27"
+              },
+              {
+                "icon": "folder",
+                "label": "前端茶馆"
+              }
+            ],
+            "body": "<p>在上一篇文章中，有个知友评论说是要 takeUntil 来管理订阅更加清晰明了，那我们就探探究竟。</p><p>在 Rxjs 中，可以使用 takeUntil 来控制另外一个 Observable 对象数据的产生。使用 takeUntil，上游的数据直接转手给下游，直到takeUntil的参数吐出一个数据或者完结。</p><p>就像一个水龙头开关，一开始是打开的状态，上游的数据一开始直接流到下游，只要 takeUntil 一旦触发吐出数据，水龙头立刻关闭。</p><p>利用这点，可以在订阅时时，在管道中添加 takeUntil，在组件销毁时吐出数据，这样这些订阅就会立刻关闭，也就达到回收内存的作用。</p><p>多理解熟悉 Angular 的内部运行机制，为项目开发带来更好的效益。</p><img src=\"/assets/images/1-1/business-02.png\" /><ul class=\"list-done\"><li>要善于使用 lighthouse 进行检测评分，针对不同问题具体分析；</li><li>多使用 Devtools 分析，查找问题的入口；</li><li>不要在模板中使用函数或者getter，当有大量变更时，会存在很多的性能隐患；</li><p>接下来，会继续针对这个案例继续分析，使项目的 lighthouse 评分更加友好，提供给各位前端开发一些借鉴和交流。</p></ul>",
+            "sidebar": [
+              {
+                "type": "media-list",
+                "title": "热门文章",
+                "elements": [
+                  {
+                    "link": {
+                      "label": "使用 DevTools 对 Angular 前端应用性能分析优化",
+                      "href": "/node/417"
+                    },
+                    "img": {
+                      "src": "../assets/images/showcase/blog1-large.jpeg",
+                      "alt": ""
+                    },
+                    "changed": "2023-09-27"
+                  },
+                  {
+                    "link": {
+                      "label": "使用 takeUntil 操作符管理 Angular 组件的订阅",
+                      "href": "/node/415"
+                    },
+                    "img": {
+                      "src": "../assets/images/showcase/blog2-large.jpeg",
+                      "alt": ""
+                    },
+                    "changed": "2023-09-27"
+                  },
+                  {
+                    "link": {
+                      "label": "你应该了解的 Angular 最佳实践",
+                      "href": "2023-09-27"
+                    },
+                    "img": {
+                      "src": "../assets/images/showcase/blog3-large.jpeg",
+                      "alt": ""
+                    },
+                    "changed": "2023-09-27"
+                  },
+                  {
+                    "link": {
+                      "label": "Angular 5 rxjs 5.5.2 多个 http 并行 forkJoin 请求",
+                      "href": "2023-09-27"
+                    },
+                    "img": {
+                      "src": "../assets/images/showcase/blog4-large.jpeg",
+                      "alt": ""
+                    },
+                    "changed": "2023-09-27"
+                  }
+                ]
+              },
+              {
+                "type": "menu-list",
+                "title": "标签",
+                "elements": [
+                  {
+                    "link": {
+                      "href": "#",
+                      "label": "Angular"
+                    },
+                    "label": "3"
+                  },
+                  {
+                    "link": {
+                      "href": "#",
+                      "label": "Drupal"
+                    },
+                    "label": "3"
+                  },
+                  {
+                    "link": {
+                      "href": "#",
+                      "label": "Jsonapi"
+                    },
+                    "label": "2"
+                  }
+                ]
+              }
+            ],
+            "params": {
+              "require_rule": [
+                "authenticated"
+              ],
+              "comment": {
+                "type": "comment--comment",
+                "attributes": {
+                  "entity_type": "node",
+                  "field_name": "comment",
+                  "comment_body": {
+                    "format": "full_html"
+                  }
+                },
+                "relationships": {
+                  "comment_type": {
+                    "data": {
+                      "type": "comment_type--comment_type",
+                      "id": "19c33b19-bfdc-4a26-9c64-af6171b123cb"
+                    }
+                  },
+                  "entity_id": {
+                    "data": {
+                      "type": "node--article",
+                      "id": "{{entity_uuid}}"
+                    }
+                  }
+                }
+              }
+            },
+            "editor": {
+              "action": {
+                "label": "提交"
+              },
+              "succes": {
+                "label": "成功发布！"
+              }
+            },
+            "actions": [
+              {
+                "type": "flag",
+                "label": "收藏",
+                "icon": {
+                  "name": "star",
+                  "inline": true
+                },
+                "params": {
+                  "type": "flagging--favorite",
+                  "entity_type": "node",
+                  "entity_id": "1312",
+                  "relationships": {
+                    "flagged_entity": {
+                      "type": "node--article",
+                      "id": "cb31d69f-a95e-4c91-97d1-1169f82a10a5"
+                    }
+                  }
+                }
+              },
+              {
+                "type": "share",
+                "button": {
+                  "icon": "share",
+                  "label": "分享"
+                },
+                "params": {
+                  "url": "/"
+                }
+              },
+              {
+                "type": "download",
+                "label": "下载",
+                "icon": {
+                  "name": "file_download",
+                  "inline": true
+                },
+                "elements": [
+                  {
+                    "type": "link",
+                    "label": "Doc",
+                    "icon": {
+                      "name": "description"
+                    },
+                    "href": "#"
+                  },
+                  {
+                    "type": "link",
+                    "label": "Pdf",
+                    "icon": {
+                      "name": "picture_as_pdf"
+                    },
+                    "href": "#"
+                  }
+                ]
+              }
+            ],
+            "comment": {
+              "actions": [
+                "update",
+                "delete",
+                "reply",
+                "quote"
+              ],
+              "title": true
+            }
+          },
+          "canAccess": true,
+          "comments": [
+            {
+              "author": {
+                "img": {
+                  "src": "/assets/images/avatar/01.jpeg",
+                  "style": {
+                    "width": "40px",
+                    "height": "40px",
+                    "borderRadius": "50%"
+                  },
+                  "alt": "小南"
+                },
+                "align": "center start",
+                "id": "b5f0ed94-2ebe-40e9-be07-f480efb50994",
+                "title": "小南",
+                "subTitle": "2023-09-27 23:39:08"
+              },
+              "time": "2023-09-27 23:39:08",
+              "id": "24213e00-d4b8-4ece-bbea-a588efcc7d8d",
+              "content": "<p>设定具体的学习目标：将学习分解为小而可管理的目标，并为每个目标设定明确的时间表和标准。这样，你可以看到自己的进展，并感到满足和激励。寻找灵感和挑战：保持对前端技术的好奇心，主动寻找新的灵感和挑战。参加技术交流会议、阅读相关的博客和文章，或加入社区讨论可以帮助你保持兴趣和动力。关注个人发展：思考自己的职业发展和长期目标，明确你希望在前端领域取得的成就。将学习看作是实现这些目标的关键步骤，这种意识将激励你持续学习和进步。</p>",
+              "child": [
+                {
+                  "author": {
+                    "img": {
+                      "src": "/assets/images/avatar/02.jpeg",
+                      "style": {
+                        "width": "40px",
+                        "height": "40px",
+                        "borderRadius": "50%"
+                      },
+                      "alt": "root"
+                    },
+                    "align": "center start",
+                    "id": "15765815-07f2-4d7d-8142-cb598f82af2e",
+                    "title": "root",
+                    "subTitle": "2023-09-27 23:39:08"
+                  },
+                  "time": "2023-09-27 23:39:08",
+                  "id": "bbbe5e9f-9b85-421e-a839-7d50be0eb7ed",
+                  "content": "<p><ul class=\"list-done\"><li>探索不同的学习资源：尝试不同的学习资源，如在线教程、视频教程、书籍、实践项目等。不同的学习方法可以帮助你从不同的角度理解和应用前端技术，保持学习的新鲜感。</li><li>参与开源项目和社区：积极参与开源项目和社区，与其他开发者互动和合作。这样你可以学习到新的技术和最佳实践，同时拓展人脉和交流经验，激发学习的热情。</li><li>持续实践和项目驱动：通过实际项目的开发和实践，将学到的知识应用到实际场景中。实践中的挑战和解决方案将帮助你不断提升技能，并加深对前端开发的理解和热爱。</li></ul></p>",
+                  "child": [],
+                  "level": 2
+                }
+              ],
+              "level": 1
+            },
+            {
+              "author": {
+                "img": {
+                  "src": "/assets/images/avatar/03.jpeg",
+                  "style": {
+                    "width": "40px",
+                    "height": "40px",
+                    "borderRadius": "50%"
+                  },
+                  "alt": "表歌"
+                },
+                "align": "center start",
+                "id": "d5fb03cb-abca-43ba-baa5-a162a576e67a",
+                "title": "表歌",
+                "subTitle": "2023-09-27 23:39:08"
+              },
+              "time": "2023-09-27 23:39:08",
+              "id": "2582f1b8-d91b-4a73-86ac-050fda0b10d1",
+              "content": "<p>定期回顾和评估：定期回顾自己的学习进展和成果，对已经学到的知识和技能进行评估。这样可以看到自己的进步，并找出需要改进的领域，保持学习的动力。设定奖励机制：为自己设定奖励机制，当达到一定的学习目标或突破难题时给予自己奖励。这可以是一次小型庆祝、购买一本新书或者做一些自己喜欢的事情，让学习变得有趣和值得期待。寻找学习伙伴：与其他</p>",
+              "child": [],
+              "level": 1
+            }
+          ]
+        },
+        {
           "label": "面板 v1",
           "icon": {
             "svg": "view-dashboard-outline"
@@ -63,51 +341,51 @@
                         ],
                         [
                           "1月",
-                          98
+                          49
                         ],
                         [
                           "2月",
-                          51
+                          45
                         ],
                         [
                           "3月",
-                          76
+                          57
                         ],
                         [
                           "4月",
-                          93
-                        ],
-                        [
-                          "5月",
-                          39
-                        ],
-                        [
-                          "6月",
-                          56
-                        ],
-                        [
-                          "7月",
-                          43
-                        ],
-                        [
-                          "8月",
-                          98
-                        ],
-                        [
-                          "9月",
-                          71
-                        ],
-                        [
-                          "10月",
-                          62
-                        ],
-                        [
-                          "11月",
                           61
                         ],
                         [
+                          "5月",
+                          71
+                        ],
+                        [
+                          "6月",
+                          70
+                        ],
+                        [
+                          "7月",
+                          37
+                        ],
+                        [
+                          "8月",
+                          34
+                        ],
+                        [
+                          "9月",
+                          12
+                        ],
+                        [
+                          "10月",
+                          61
+                        ],
+                        [
+                          "11月",
+                          84
+                        ],
+                        [
                           "12月",
-                          56
+                          68
                         ]
                       ]
                     }
@@ -170,51 +448,51 @@
                           ],
                           [
                             "1月",
-                            41
-                          ],
-                          [
-                            "2月",
-                            74
-                          ],
-                          [
-                            "3月",
-                            45
-                          ],
-                          [
-                            "4月",
-                            68
-                          ],
-                          [
-                            "5月",
-                            35
-                          ],
-                          [
-                            "6月",
-                            59
-                          ],
-                          [
-                            "7月",
-                            77
-                          ],
-                          [
-                            "8月",
-                            55
-                          ],
-                          [
-                            "9月",
-                            68
-                          ],
-                          [
-                            "10月",
-                            91
-                          ],
-                          [
-                            "11月",
                             12
                           ],
                           [
-                            "12月",
+                            "2月",
+                            84
+                          ],
+                          [
+                            "3月",
+                            50
+                          ],
+                          [
+                            "4月",
+                            62
+                          ],
+                          [
+                            "5月",
+                            76
+                          ],
+                          [
+                            "6月",
+                            46
+                          ],
+                          [
+                            "7月",
+                            60
+                          ],
+                          [
+                            "8月",
+                            65
+                          ],
+                          [
+                            "9月",
+                            36
+                          ],
+                          [
+                            "10月",
+                            92
+                          ],
+                          [
+                            "11月",
                             19
+                          ],
+                          [
+                            "12月",
+                            84
                           ]
                         ]
                       }
@@ -273,51 +551,51 @@
                           ],
                           [
                             "1月",
-                            83
+                            57
                           ],
                           [
                             "2月",
-                            51
+                            86
                           ],
                           [
                             "3月",
-                            83
+                            35
                           ],
                           [
                             "4月",
-                            22
+                            40
                           ],
                           [
                             "5月",
-                            83
+                            17
                           ],
                           [
                             "6月",
-                            79
+                            51
                           ],
                           [
                             "7月",
-                            95
+                            58
                           ],
                           [
                             "8月",
-                            97
+                            33
                           ],
                           [
                             "9月",
-                            71
+                            49
                           ],
                           [
                             "10月",
-                            61
+                            36
                           ],
                           [
                             "11月",
-                            27
+                            11
                           ],
                           [
                             "12月",
-                            99
+                            80
                           ]
                         ]
                       }
@@ -376,7 +654,7 @@
                           ],
                           [
                             "1月",
-                            2
+                            9
                           ],
                           [
                             "2月",
@@ -384,27 +662,27 @@
                           ],
                           [
                             "3月",
-                            4
+                            1
                           ],
                           [
                             "4月",
-                            6
+                            4
                           ],
                           [
                             "5月",
-                            9
+                            3
                           ],
                           [
                             "6月",
-                            2
+                            5
                           ],
                           [
                             "7月",
-                            6
+                            8
                           ],
                           [
                             "8月",
-                            3
+                            9
                           ],
                           [
                             "9月",
@@ -412,15 +690,15 @@
                           ],
                           [
                             "10月",
-                            8
+                            9
                           ],
                           [
                             "11月",
-                            5
+                            1
                           ],
                           [
                             "12月",
-                            1
+                            2
                           ]
                         ]
                       }
@@ -479,11 +757,11 @@
                           ],
                           [
                             "1月",
-                            2
+                            10
                           ],
                           [
                             "2月",
-                            7
+                            3
                           ],
                           [
                             "3月",
@@ -491,39 +769,39 @@
                           ],
                           [
                             "4月",
-                            10
-                          ],
-                          [
-                            "5月",
-                            4
-                          ],
-                          [
-                            "6月",
-                            3
-                          ],
-                          [
-                            "7月",
                             7
                           ],
                           [
-                            "8月",
-                            2
+                            "5月",
+                            6
                           ],
                           [
-                            "9月",
+                            "6月",
                             10
                           ],
                           [
-                            "10月",
-                            5
+                            "7月",
+                            4
                           ],
                           [
-                            "11月",
+                            "8月",
                             9
                           ],
                           [
+                            "9月",
+                            1
+                          ],
+                          [
+                            "10月",
+                            3
+                          ],
+                          [
+                            "11月",
+                            3
+                          ],
+                          [
                             "12月",
-                            6
+                            7
                           ]
                         ]
                       }
@@ -707,119 +985,119 @@
                         {
                           "title": "使用 DEVTOOLS 对 ANGULAR 前端应用性能分析优化",
                           "event": "meeting",
-                          "start": "2023-09-21T15:03:48.213Z",
+                          "start": "2023-09-27T15:39:08.162Z",
                           "user": "Johnson",
                           "className": "bg-primary"
                         },
                         {
                           "title": "使用 TAKEUNTIL 操作符管理 ANGULAR 组件的订阅",
                           "event": "drupal",
-                          "start": 1695567828213,
+                          "start": 1696001948162,
                           "user": "Johnson",
                           "className": "bg-accent"
                         },
                         {
                           "title": "你应该了解的 ANGULAR 最佳实践",
                           "event": "drupal",
-                          "start": 1695654228213,
+                          "start": 1696001948162,
                           "user": "Johnson",
                           "className": "bg-warn"
                         },
                         {
                           "title": "ANGULAR 5 RXJS 5.5.2 多个 HTTP 并行 FORKJOIN 请求",
                           "event": "drupal",
-                          "start": 1695395028213,
+                          "start": 1695915548162,
                           "user": "Johnson",
                           "className": "bg-warn"
                         },
                         {
                           "title": "DRUPAL 8 AJAX 弹出框可监听利用的 EVENT 事件",
                           "event": "drupal",
-                          "start": 1695827028213,
+                          "start": 1696001948162,
                           "user": "Johnson",
                           "className": "bg-pink"
                         },
                         {
                           "title": "DRUPAL8 用户登录后自定义重定向",
                           "event": "drupal",
-                          "start": 1696172628213,
+                          "start": 1696001948162,
                           "user": "Johnson",
                           "className": "bg-orange"
                         },
                         {
                           "title": "如何更改 GIT COMMIT 某个历史提交信息",
                           "event": "drupal",
-                          "start": 1695913428213,
+                          "start": 1696001948162,
                           "user": "Johnson",
                           "className": "bg-yellow"
                         },
                         {
                           "title": "开源项目使用 GITHUB ACTIONS 自动化测试部署 ANGULAR 应用到 ECS 服务器",
                           "event": "drupal",
-                          "start": 1695827028213,
+                          "start": 1696088348162,
                           "user": "Johnson",
                           "className": "bg-red"
                         },
                         {
                           "title": "DRUPAL JSONAPI 初级入门实践",
                           "event": "drupal",
-                          "start": 1696172628213,
+                          "start": 1696520348162,
                           "user": "Johnson",
                           "className": "bg-purple"
                         },
                         {
                           "title": "RXJS SWITCHMAP 在 DRUPAL API中的应用",
                           "event": "drupal",
-                          "start": 1695654228213,
+                          "start": 1696261148162,
                           "user": "Johnson",
                           "className": "bg-indigo"
                         },
                         {
                           "title": "五年了，再谈南宁和深圳的差距",
                           "event": "drupal",
-                          "start": 1695481428213,
+                          "start": 1696261148162,
                           "user": "Johnson",
                           "className": "bg-blue"
                         },
                         {
                           "title": "没想到吧？2021年南宁IT互联网相关工作者最近一份工作求职渠道最受欢迎的竟然是它",
                           "event": "drupal",
-                          "start": 1694790228213,
+                          "start": 1695656348162,
                           "user": "Johnson",
                           "className": "bg-cyan"
                         },
                         {
                           "title": "南宁IT互联网行业薪资福利待遇如何？",
                           "event": "drupal",
-                          "start": 1694703828213,
+                          "start": 1695051548162,
                           "user": "Johnson",
                           "className": "bg-teal"
                         },
                         {
                           "title": "南宁IT互联网公司，有哪些是双休？",
                           "event": "drupal",
-                          "start": 1695222228213,
+                          "start": 1695310748162,
                           "user": "Johnson",
                           "className": "bg-green"
                         },
                         {
                           "title": "JSONA 一款转换 JSONAPI 数据的工具库，也算是解放 DRUPAL JSONAPI 反序列化的利器",
                           "event": "drupal",
-                          "start": 1694531028213,
+                          "start": 1695397148162,
                           "user": "Johnson",
                           "className": "bg-light-green"
                         },
                         {
                           "title": "ANGULAR 有哪几种不同类型的绑定",
                           "event": "drupal",
-                          "start": 1694444628213,
+                          "start": 1695224348162,
                           "user": "Johnson",
                           "className": "bg-brown"
                         },
                         {
                           "title": "ANGULAR NG-CONTENT、NG-TEMPLATE、NG-CONTAINER 之间的区别",
                           "event": "drupal",
-                          "start": 1695049428213,
+                          "start": 1695224348162,
                           "user": "Johnson",
                           "className": "bg-grey"
                         }
@@ -897,51 +1175,51 @@
                         ],
                         [
                           "1月",
-                          55
+                          41
                         ],
                         [
                           "2月",
-                          76
+                          36
                         ],
                         [
                           "3月",
-                          50
+                          65
                         ],
                         [
                           "4月",
-                          76
+                          71
                         ],
                         [
                           "5月",
-                          17
+                          12
                         ],
                         [
                           "6月",
-                          13
+                          78
                         ],
                         [
                           "7月",
-                          48
+                          45
                         ],
                         [
                           "8月",
-                          58
+                          97
                         ],
                         [
                           "9月",
-                          13
+                          99
                         ],
                         [
                           "10月",
-                          68
+                          66
                         ],
                         [
                           "11月",
-                          75
+                          37
                         ],
                         [
                           "12月",
-                          54
+                          32
                         ]
                       ]
                     }
@@ -1004,51 +1282,51 @@
                           ],
                           [
                             "1月",
-                            53
+                            97
                           ],
                           [
                             "2月",
-                            78
+                            69
                           ],
                           [
                             "3月",
-                            89
+                            64
                           ],
                           [
                             "4月",
-                            72
+                            70
                           ],
                           [
                             "5月",
-                            35
-                          ],
-                          [
-                            "6月",
                             98
                           ],
                           [
+                            "6月",
+                            48
+                          ],
+                          [
                             "7月",
-                            23
+                            65
                           ],
                           [
                             "8月",
-                            67
+                            16
                           ],
                           [
                             "9月",
-                            38
+                            55
                           ],
                           [
                             "10月",
-                            47
+                            100
                           ],
                           [
                             "11月",
-                            84
+                            94
                           ],
                           [
                             "12月",
-                            83
+                            23
                           ]
                         ]
                       }
@@ -1107,51 +1385,51 @@
                           ],
                           [
                             "1月",
-                            20
+                            82
                           ],
                           [
                             "2月",
-                            99
-                          ],
-                          [
-                            "3月",
-                            30
-                          ],
-                          [
-                            "4月",
-                            23
-                          ],
-                          [
-                            "5月",
-                            90
-                          ],
-                          [
-                            "6月",
-                            15
-                          ],
-                          [
-                            "7月",
                             19
                           ],
                           [
+                            "3月",
+                            53
+                          ],
+                          [
+                            "4月",
+                            10
+                          ],
+                          [
+                            "5月",
+                            18
+                          ],
+                          [
+                            "6月",
+                            62
+                          ],
+                          [
+                            "7月",
+                            27
+                          ],
+                          [
                             "8月",
-                            72
+                            96
                           ],
                           [
                             "9月",
-                            37
+                            100
                           ],
                           [
                             "10月",
-                            66
+                            45
                           ],
                           [
                             "11月",
-                            52
+                            64
                           ],
                           [
                             "12月",
-                            64
+                            95
                           ]
                         ]
                       }
@@ -1210,19 +1488,19 @@
                           ],
                           [
                             "1月",
-                            9
+                            2
                           ],
                           [
                             "2月",
-                            4
+                            10
                           ],
                           [
                             "3月",
-                            4
+                            6
                           ],
                           [
                             "4月",
-                            10
+                            4
                           ],
                           [
                             "5月",
@@ -1230,7 +1508,7 @@
                           ],
                           [
                             "6月",
-                            9
+                            5
                           ],
                           [
                             "7月",
@@ -1238,23 +1516,23 @@
                           ],
                           [
                             "8月",
-                            2
-                          ],
-                          [
-                            "9月",
-                            4
-                          ],
-                          [
-                            "10月",
                             10
                           ],
                           [
+                            "9月",
+                            9
+                          ],
+                          [
+                            "10月",
+                            9
+                          ],
+                          [
                             "11月",
-                            3
+                            4
                           ],
                           [
                             "12月",
-                            4
+                            7
                           ]
                         ]
                       }
@@ -1313,51 +1591,51 @@
                           ],
                           [
                             "1月",
-                            23
+                            84
                           ],
                           [
                             "2月",
-                            32
+                            16
                           ],
                           [
                             "3月",
-                            80
+                            86
                           ],
                           [
                             "4月",
-                            58
+                            82
                           ],
                           [
                             "5月",
-                            96
+                            39
                           ],
                           [
                             "6月",
-                            32
+                            35
                           ],
                           [
                             "7月",
-                            44
+                            39
                           ],
                           [
                             "8月",
-                            54
+                            49
                           ],
                           [
                             "9月",
-                            62
+                            34
                           ],
                           [
                             "10月",
-                            100
+                            36
                           ],
                           [
                             "11月",
-                            23
+                            96
                           ],
                           [
                             "12月",
-                            41
+                            49
                           ]
                         ]
                       }
@@ -1406,63 +1684,63 @@
                         ],
                         [
                           "1月",
-                          33,
-                          63
-                        ],
-                        [
-                          "2月",
-                          20,
+                          12,
                           71
                         ],
                         [
+                          "2月",
+                          38,
+                          57
+                        ],
+                        [
                           "3月",
-                          54,
-                          18
+                          57,
+                          99
                         ],
                         [
                           "4月",
-                          42,
-                          21
+                          31,
+                          87
                         ],
                         [
                           "5月",
-                          80,
-                          14
+                          59,
+                          69
                         ],
                         [
                           "6月",
-                          64,
-                          80
+                          66,
+                          69
                         ],
                         [
                           "7月",
-                          89,
-                          93
+                          48,
+                          82
                         ],
                         [
                           "8月",
-                          54,
-                          28
+                          38,
+                          11
                         ],
                         [
                           "9月",
-                          69,
-                          98
+                          72,
+                          93
                         ],
                         [
                           "10月",
-                          10,
-                          61
+                          37,
+                          56
                         ],
                         [
                           "11月",
-                          32,
-                          59
+                          72,
+                          76
                         ],
                         [
                           "12月",
-                          36,
-                          54
+                          93,
+                          35
                         ]
                       ]
                     }
@@ -1637,119 +1915,119 @@
                         {
                           "title": "使用 DEVTOOLS 对 ANGULAR 前端应用性能分析优化",
                           "event": "meeting",
-                          "start": "2023-09-21T15:03:48.213Z",
+                          "start": "2023-09-27T15:39:08.162Z",
                           "user": "Johnson",
                           "className": "bg-primary"
                         },
                         {
                           "title": "使用 TAKEUNTIL 操作符管理 ANGULAR 组件的订阅",
                           "event": "drupal",
-                          "start": 1695567828213,
+                          "start": 1696001948162,
                           "user": "Johnson",
                           "className": "bg-accent"
                         },
                         {
                           "title": "你应该了解的 ANGULAR 最佳实践",
                           "event": "drupal",
-                          "start": 1695654228213,
+                          "start": 1696001948162,
                           "user": "Johnson",
                           "className": "bg-warn"
                         },
                         {
                           "title": "ANGULAR 5 RXJS 5.5.2 多个 HTTP 并行 FORKJOIN 请求",
                           "event": "drupal",
-                          "start": 1695395028213,
+                          "start": 1695915548162,
                           "user": "Johnson",
                           "className": "bg-warn"
                         },
                         {
                           "title": "DRUPAL 8 AJAX 弹出框可监听利用的 EVENT 事件",
                           "event": "drupal",
-                          "start": 1695827028213,
+                          "start": 1696001948162,
                           "user": "Johnson",
                           "className": "bg-pink"
                         },
                         {
                           "title": "DRUPAL8 用户登录后自定义重定向",
                           "event": "drupal",
-                          "start": 1696172628213,
+                          "start": 1696001948162,
                           "user": "Johnson",
                           "className": "bg-orange"
                         },
                         {
                           "title": "如何更改 GIT COMMIT 某个历史提交信息",
                           "event": "drupal",
-                          "start": 1695913428213,
+                          "start": 1696001948162,
                           "user": "Johnson",
                           "className": "bg-yellow"
                         },
                         {
                           "title": "开源项目使用 GITHUB ACTIONS 自动化测试部署 ANGULAR 应用到 ECS 服务器",
                           "event": "drupal",
-                          "start": 1695827028213,
+                          "start": 1696088348162,
                           "user": "Johnson",
                           "className": "bg-red"
                         },
                         {
                           "title": "DRUPAL JSONAPI 初级入门实践",
                           "event": "drupal",
-                          "start": 1696172628213,
+                          "start": 1696520348162,
                           "user": "Johnson",
                           "className": "bg-purple"
                         },
                         {
                           "title": "RXJS SWITCHMAP 在 DRUPAL API中的应用",
                           "event": "drupal",
-                          "start": 1695654228213,
+                          "start": 1696261148162,
                           "user": "Johnson",
                           "className": "bg-indigo"
                         },
                         {
                           "title": "五年了，再谈南宁和深圳的差距",
                           "event": "drupal",
-                          "start": 1695481428213,
+                          "start": 1696261148162,
                           "user": "Johnson",
                           "className": "bg-blue"
                         },
                         {
                           "title": "没想到吧？2021年南宁IT互联网相关工作者最近一份工作求职渠道最受欢迎的竟然是它",
                           "event": "drupal",
-                          "start": 1694790228213,
+                          "start": 1695656348162,
                           "user": "Johnson",
                           "className": "bg-cyan"
                         },
                         {
                           "title": "南宁IT互联网行业薪资福利待遇如何？",
                           "event": "drupal",
-                          "start": 1694703828213,
+                          "start": 1695051548162,
                           "user": "Johnson",
                           "className": "bg-teal"
                         },
                         {
                           "title": "南宁IT互联网公司，有哪些是双休？",
                           "event": "drupal",
-                          "start": 1695222228213,
+                          "start": 1695310748162,
                           "user": "Johnson",
                           "className": "bg-green"
                         },
                         {
                           "title": "JSONA 一款转换 JSONAPI 数据的工具库，也算是解放 DRUPAL JSONAPI 反序列化的利器",
                           "event": "drupal",
-                          "start": 1694531028213,
+                          "start": 1695397148162,
                           "user": "Johnson",
                           "className": "bg-light-green"
                         },
                         {
                           "title": "ANGULAR 有哪几种不同类型的绑定",
                           "event": "drupal",
-                          "start": 1694444628213,
+                          "start": 1695224348162,
                           "user": "Johnson",
                           "className": "bg-brown"
                         },
                         {
                           "title": "ANGULAR NG-CONTENT、NG-TEMPLATE、NG-CONTAINER 之间的区别",
                           "event": "drupal",
-                          "start": 1695049428213,
+                          "start": 1695224348162,
                           "user": "Johnson",
                           "className": "bg-grey"
                         }
@@ -1763,6 +2041,287 @@
                     }
                   }
                 }
+              }
+            ]
+          }
+        },
+        {
+          "label": "用户中心",
+          "icon": {
+            "svg": "account-box-outline"
+          },
+          "content": {
+            "type": "user-center",
+            "params": {
+              "showProfile": false,
+              "showDetails": false
+            },
+            "main": {
+              "spacer": "sm",
+              "bg": {
+                "classes": "bg-fill-width bg-shadow"
+              }
+            },
+            "left": [
+              {
+                "type": "user-card",
+                "menu": [
+                  {
+                    "type": "link",
+                    "label": "资料更新",
+                    "dialog": {
+                      "params": {
+                        "width": "1200px",
+                        "disableClose": true
+                      },
+                      "afterClosed": {
+                        "success": {
+                          "label": "更新资料成功！"
+                        },
+                        "emit": true
+                      },
+                      "data": [
+                        {
+                          "type": "iframe",
+                          "url": "/?path=/story/full-calendar--default",
+                          "height": "900"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            ],
+            "right": [
+              {
+                "type": "showcase-3v6",
+                "title": {
+                  "type": "text",
+                  "spacer": "xs",
+                  "title": {
+                    "label": "快捷入口",
+                    "style": "style-v4"
+                  }
+                },
+                "params": {},
+                "spacer": "xs",
+                "row": "4",
+                "elements": [
+                  {
+                    "img": {
+                      "src": "/assets/images/logo/codepen.svg",
+                      "style": {
+                        "width": "45px",
+                        "height": "45px"
+                      },
+                      "alt": "logo"
+                    },
+                    "css3": true,
+                    "link": {
+                      "label": "发布文章",
+                      "classes": "bold",
+                      "dialog": {
+                        "params": {
+                          "width": "1200px",
+                          "disableClose": true
+                        },
+                        "afterClosed": {
+                          "success": {
+                            "label": "请检查是否发布成功！"
+                          },
+                          "emit": true
+                        },
+                        "data": [
+                          {
+                            "type": "iframe",
+                            "url": "/",
+                            "height": "1000"
+                          }
+                        ]
+                      }
+                    },
+                    "subTitle": "发布内容到文章"
+                  },
+                  {
+                    "img": {
+                      "src": "/assets/images/logo/codepen.svg",
+                      "style": {
+                        "width": "45px",
+                        "height": "45px"
+                      },
+                      "alt": "logo"
+                    },
+                    "css3": true,
+                    "link": {
+                      "label": "发布博客",
+                      "classes": "bold",
+                      "dialog": {
+                        "params": {
+                          "width": "1200px",
+                          "disableClose": true
+                        },
+                        "afterClosed": {
+                          "success": {
+                            "label": "请检查是否发布成功！"
+                          },
+                          "emit": true
+                        },
+                        "data": [
+                          {
+                            "type": "iframe",
+                            "url": "/",
+                            "height": "1200"
+                          }
+                        ]
+                      }
+                    },
+                    "subTitle": "发布内容到博客"
+                  },
+                  {
+                    "img": {
+                      "src": "/assets/images/logo/codepen.svg",
+                      "style": {
+                        "width": "45px",
+                        "height": "45px"
+                      },
+                      "alt": "logo"
+                    },
+                    "css3": true,
+                    "link": {
+                      "label": "我的收藏",
+                      "classes": "bold",
+                      "href": "#"
+                    },
+                    "subTitle": "查看收藏的内容"
+                  }
+                ]
+              },
+              {
+                "type": "showcase-3v6",
+                "row": "3",
+                "spacer": "xs",
+                "title": {
+                  "type": "text",
+                  "spacer": "xs",
+                  "title": {
+                    "label": "快捷入口",
+                    "style": "style-v4"
+                  }
+                },
+                "params": {
+                  "reqRoles": []
+                },
+                "action": {
+                  "label": "管理更多",
+                  "href": "/",
+                  "style": "style-v1",
+                  "icon": "open_in_new"
+                },
+                "elements": [
+                  {
+                    "img": {
+                      "src": "/assets/images/logo/codepen.svg",
+                      "style": {
+                        "width": "45px",
+                        "height": "45px"
+                      },
+                      "alt": "logo"
+                    },
+                    "css3": true,
+                    "link": {
+                      "label": "填写订单",
+                      "classes": "bold",
+                      "dialog": {
+                        "params": {
+                          "width": "1200px",
+                          "disableClose": true
+                        },
+                        "afterClosed": {
+                          "success": {
+                            "label": "请检查是否发布成功！"
+                          },
+                          "emit": true
+                        },
+                        "data": [
+                          {
+                            "type": "iframe",
+                            "url": "/",
+                            "height": "1000"
+                          }
+                        ]
+                      }
+                    },
+                    "subTitle": "发布工作需求"
+                  },
+                  {
+                    "img": {
+                      "src": "/assets/images/logo/codepen.svg",
+                      "style": {
+                        "width": "45px",
+                        "height": "45px"
+                      },
+                      "alt": "project.png"
+                    },
+                    "css3": true,
+                    "subTitle": "发布项目内容",
+                    "link": {
+                      "href": "/",
+                      "label": "项目",
+                      "classes": "bold"
+                    }
+                  },
+                  {
+                    "img": {
+                      "src": "/assets/images/logo/codepen.svg",
+                      "style": {
+                        "width": "45px",
+                        "height": "45px"
+                      },
+                      "alt": "meeting.png"
+                    },
+                    "css3": true,
+                    "subTitle": "发布会议",
+                    "link": {
+                      "href": "/",
+                      "label": "会议",
+                      "classes": "bold"
+                    }
+                  },
+                  {
+                    "img": {
+                      "src": "/assets/images/logo/codepen.svg",
+                      "style": {
+                        "width": "45px",
+                        "height": "45px"
+                      },
+                      "alt": "doc.png"
+                    },
+                    "css3": true,
+                    "subTitle": "发布资料",
+                    "link": {
+                      "href": "/",
+                      "label": "文库资料",
+                      "classes": "bold"
+                    }
+                  },
+                  {
+                    "img": {
+                      "src": "/assets/images/logo/codepen.svg",
+                      "style": {
+                        "width": "45px",
+                        "height": "45px"
+                      },
+                      "alt": "customer.png"
+                    },
+                    "css3": true,
+                    "subTitle": "创建新客户",
+                    "link": {
+                      "href": "/",
+                      "label": "客户",
+                      "classes": "bold"
+                    }
+                  }
+                ]
               }
             ]
           }
@@ -2722,12 +3281,256 @@
           }
         },
         {
+          "label": "日历",
+          "icon": {
+            "svg": "calendar-month-outline"
+          },
+          "content": {
+            "type": "full-calendar",
+            "spacer": "xxl",
+            "sidebar": [
+              {
+                "type": "text",
+                "title": {
+                  "label": "筛选",
+                  "style": "style-v4",
+                  "classes": "m-bottom-xs"
+                },
+                "spacer": "sm"
+              },
+              {
+                "appearance": "legacy",
+                "controlType": "search",
+                "key": "keys",
+                "label": "关键词",
+                "type": "input"
+              },
+              {
+                "type": "select",
+                "key": "type",
+                "mutiple": false,
+                "label": "内容来源",
+                "options": [
+                  {
+                    "label": "文章",
+                    "value": "article"
+                  },
+                  {
+                    "label": "博客",
+                    "value": "blog"
+                  },
+                  {
+                    "label": "会议",
+                    "value": "metting"
+                  }
+                ]
+              },
+              {
+                "type": "select",
+                "key": "changed",
+                "mutiple": false,
+                "label": "最新更新",
+                "options": [
+                  {
+                    "label": "文章",
+                    "value": "article"
+                  },
+                  {
+                    "label": "博客",
+                    "value": "blog"
+                  },
+                  {
+                    "label": "会议",
+                    "value": "metting"
+                  }
+                ]
+              },
+              {
+                "type": "datepicker",
+                "label": "日历",
+                "hint": "MM/DD/YYYY – MM/DD/YYYY",
+                "key": "datepicker",
+                "key-": "固定值",
+                "value": "",
+                "inline": true,
+                "placeholder": "请选择日期",
+                "params": {
+                  "required": true
+                }
+              }
+            ],
+            "calendar": {
+              "drawer": true,
+              "apiBak": "/api/v1/demo",
+              "options": {
+                "events": [
+                  {
+                    "title": "使用 DEVTOOLS 对 ANGULAR 前端应用性能分析优化",
+                    "event": "meeting",
+                    "start": "2023-09-27T15:39:08.162Z",
+                    "user": "Johnson",
+                    "className": "bg-primary"
+                  },
+                  {
+                    "title": "使用 TAKEUNTIL 操作符管理 ANGULAR 组件的订阅",
+                    "event": "drupal",
+                    "start": 1696001948162,
+                    "user": "Johnson",
+                    "className": "bg-accent"
+                  },
+                  {
+                    "title": "你应该了解的 ANGULAR 最佳实践",
+                    "event": "drupal",
+                    "start": 1696001948162,
+                    "user": "Johnson",
+                    "className": "bg-warn"
+                  },
+                  {
+                    "title": "ANGULAR 5 RXJS 5.5.2 多个 HTTP 并行 FORKJOIN 请求",
+                    "event": "drupal",
+                    "start": 1695915548162,
+                    "user": "Johnson",
+                    "className": "bg-warn"
+                  },
+                  {
+                    "title": "DRUPAL 8 AJAX 弹出框可监听利用的 EVENT 事件",
+                    "event": "drupal",
+                    "start": 1696001948162,
+                    "user": "Johnson",
+                    "className": "bg-pink"
+                  },
+                  {
+                    "title": "DRUPAL8 用户登录后自定义重定向",
+                    "event": "drupal",
+                    "start": 1696001948162,
+                    "user": "Johnson",
+                    "className": "bg-orange"
+                  },
+                  {
+                    "title": "如何更改 GIT COMMIT 某个历史提交信息",
+                    "event": "drupal",
+                    "start": 1696001948162,
+                    "user": "Johnson",
+                    "className": "bg-yellow"
+                  },
+                  {
+                    "title": "开源项目使用 GITHUB ACTIONS 自动化测试部署 ANGULAR 应用到 ECS 服务器",
+                    "event": "drupal",
+                    "start": 1696088348162,
+                    "user": "Johnson",
+                    "className": "bg-red"
+                  },
+                  {
+                    "title": "DRUPAL JSONAPI 初级入门实践",
+                    "event": "drupal",
+                    "start": 1696520348162,
+                    "user": "Johnson",
+                    "className": "bg-purple"
+                  },
+                  {
+                    "title": "RXJS SWITCHMAP 在 DRUPAL API中的应用",
+                    "event": "drupal",
+                    "start": 1696261148162,
+                    "user": "Johnson",
+                    "className": "bg-indigo"
+                  },
+                  {
+                    "title": "五年了，再谈南宁和深圳的差距",
+                    "event": "drupal",
+                    "start": 1696261148162,
+                    "user": "Johnson",
+                    "className": "bg-blue"
+                  },
+                  {
+                    "title": "没想到吧？2021年南宁IT互联网相关工作者最近一份工作求职渠道最受欢迎的竟然是它",
+                    "event": "drupal",
+                    "start": 1695656348162,
+                    "user": "Johnson",
+                    "className": "bg-cyan"
+                  },
+                  {
+                    "title": "南宁IT互联网行业薪资福利待遇如何？",
+                    "event": "drupal",
+                    "start": 1695051548162,
+                    "user": "Johnson",
+                    "className": "bg-teal"
+                  },
+                  {
+                    "title": "南宁IT互联网公司，有哪些是双休？",
+                    "event": "drupal",
+                    "start": 1695310748162,
+                    "user": "Johnson",
+                    "className": "bg-green"
+                  },
+                  {
+                    "title": "JSONA 一款转换 JSONAPI 数据的工具库，也算是解放 DRUPAL JSONAPI 反序列化的利器",
+                    "event": "drupal",
+                    "start": 1695397148162,
+                    "user": "Johnson",
+                    "className": "bg-light-green"
+                  },
+                  {
+                    "title": "ANGULAR 有哪几种不同类型的绑定",
+                    "event": "drupal",
+                    "start": 1695224348162,
+                    "user": "Johnson",
+                    "className": "bg-brown"
+                  },
+                  {
+                    "title": "ANGULAR NG-CONTENT、NG-TEMPLATE、NG-CONTAINER 之间的区别",
+                    "event": "drupal",
+                    "start": 1695224348162,
+                    "user": "Johnson",
+                    "className": "bg-grey"
+                  }
+                ]
+              },
+              "theme": {
+                "meeting": "bg-warn",
+                "case": "bg-primary",
+                "project": "bg-accent",
+                "event": "bg-red"
+              }
+            }
+          }
+        },
+        {
           "label": "用户登录",
           "icon": {
             "svg": "login"
           },
           "content": {
             "type": "login"
+          }
+        },
+        {
+          "label": "位置",
+          "icon": {
+            "svg": "map-marker-outline"
+          },
+          "content": {
+            "type": "location",
+            "title": {
+              "label": "我的位置",
+              "style": "banner-title",
+              "classes": "m-bottom-0"
+            },
+            "style": {
+              "height": "500px"
+            },
+            "bg": {
+              "classes": ""
+            },
+            "classes": "",
+            "city": "南宁市",
+            "elements": [
+              {
+                "company": {
+                  "setCenter": true,
+                  "address": "高新区8号创客城"
+                }
+              }
+            ]
           }
         },
         {

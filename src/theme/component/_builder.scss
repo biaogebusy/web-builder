@@ -73,10 +73,10 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
           @include mat-elevation(
             1,
             mat-color($background, focused-button),
-            0.1
+            0.2
           );
           &:hover {
-            @include mat-elevation(1, mat-color($background, hover), 0.4);
+            @include mat-elevation(1, mat-color($background, hover), 0.6);
           }
         }
       }

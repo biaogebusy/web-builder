@@ -18,7 +18,7 @@ export const parameters = {
         "介绍",
         "更新日志",
         "开发指南",
-        "Web Builder",
+        "低代码",
         "主题",
         "全局配置",
         "示例页面",
