@@ -6,7 +6,7 @@ import { ManageMediaComponent } from '@modules/manage/manage-media/manage-media.
 import { FormGroup } from '@angular/forms';
 
 export default {
-  title: 'Web Builder/媒体库',
+  title: '低代码/媒体库',
   id: 'manage-media',
   component: ManageMediaComponent,
   decorators: [
