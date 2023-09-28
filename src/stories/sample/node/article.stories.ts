@@ -15,7 +15,6 @@ import { comments } from './comments.json';
 import { formatDate } from '@angular/common';
 import { swiper } from '@stories/builder/data/widgets/common.builder';
 import { IBaseNode } from '@core/interface/node/INode';
-import { FormGroup } from '@angular/forms';
 
 export default {
   title: '示例页面/内容类型/普通文章',

@@ -9,7 +9,7 @@ import { Story } from '@storybook/angular/types-6-0';
 import { BtnAnimateComponent } from '@uiux/widgets/btn-animate/btn-animate.component';
 
 export default {
-  title: '基础组件/基本元素/动态按钮',
+  title: '基本元素/动态按钮',
   id: 'btn-animate',
   component: BtnAnimateComponent,
   decorators: [

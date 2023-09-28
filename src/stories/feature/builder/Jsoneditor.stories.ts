@@ -10,7 +10,7 @@ import { BrandingModule } from '@core/branding/branding.module';
 import { CalculatorModule } from '@uiux/combs/calculator/calculator.module';
 import { of } from 'rxjs';
 import { BRANDING } from '@core/token/token-providers';
-import { defaultHeader, footerInverse } from '../../global/Branding.json';
+import { defaultHeader, footerInverse } from '@stories/global/Branding.json';
 import { JsoneditorComponent } from '@uiux/combs/other/jsoneditor/jsoneditor.component';
 import { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
 export default {

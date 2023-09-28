@@ -10,7 +10,7 @@ import { LinkComponent } from '@uiux/widgets/link/link.component';
 import { ILink } from '@core/interface/widgets/ILink';
 
 export default {
-  title: '基础组件/基本元素/链接',
+  title: '基本元素/链接',
   id: 'link',
   component: LinkComponent,
   decorators: [

@@ -9,7 +9,7 @@ import { StorysModule } from '@core/module/storys.module';
 import { IBgImg } from '@core/interface/widgets/IBgImg';
 
 export default {
-  title: '基础组件/基本元素/背景图',
+  title: '基本元素/背景图',
   id: 'bg-img',
   component: BgImgComponent,
   decorators: [

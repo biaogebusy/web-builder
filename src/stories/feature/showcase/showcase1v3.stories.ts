@@ -7,7 +7,7 @@ import { Story } from '@storybook/angular/types-6-0';
 import { Showcase1v3Component } from '@uiux/combs/showcase/showcase1v3/showcase1v3.component';
 import * as ContactUs from '@stories/drupal/form/ContactUs.stories';
 import { StorysModule } from '@core/module/storys.module';
-import * as btnVideoStory from '@stories/widgets/base/BtnVideo.stories';
+import * as btnVideoStory from '@stories/base/BtnVideo.stories';
 import { IShowcase1v3 } from '@core/interface/combs/IShowcase';
 
 export default {

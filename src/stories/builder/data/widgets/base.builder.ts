@@ -1,18 +1,18 @@
-import * as btnStory from '@stories/widgets/base/Btn.stories';
-import * as btnVideoStory from '@stories/widgets/base/BtnVideo.stories';
-import * as dynamicTableStory from '@stories/widgets/base/Table.stories';
-import * as iconStory from '@stories/widgets/base/Icon.stories';
-import * as linkStory from '@stories/widgets/base/Link.stories';
+import * as btnStory from '@stories/base/Btn.stories';
+import * as btnVideoStory from '@stories/base/BtnVideo.stories';
+import * as dynamicTableStory from '@stories/base/Table.stories';
+import * as iconStory from '@stories/base/Icon.stories';
+import * as linkStory from '@stories/base/Link.stories';
 import * as tabStory from '@stories/widgets/Tab.stories';
-import * as titleStory from '@stories/widgets/base/Title.stories';
+import * as titleStory from '@stories/base/Title.stories';
 import * as panelStory from '@stories/widgets/Panel.stories';
-import * as textStory from '@stories/widgets/base/Text.stories';
-import * as imgStory from '@stories/widgets/base/Img.stories';
+import * as textStory from '@stories/base/Text.stories';
+import * as imgStory from '@stories/base/Img.stories';
 import * as chartStory from '@stories/widgets/chart/ChartBar.stories';
 import * as spacerStory from '@stories/theme/Spacer.stories';
 import * as formStory from '@stories/widgets/Form.stories';
 import * as playerStory from '@stories/feature/media/Player.stories';
-import * as textHeroStory from '@stories/widgets/base/TextHero.stories';
+import * as textHeroStory from '@stories/base/TextHero.stories';
 
 export const {
   Default: { args: textHero },

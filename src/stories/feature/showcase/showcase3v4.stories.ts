@@ -5,7 +5,7 @@ import {
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { Showcase3v4Component } from '@uiux/combs/showcase/showcase3v4/showcase3v4.component';
-import * as BoxStories from 'src/stories/widgets/base/Box.stories';
+import * as BoxStories from '@stories/base/Box.stories';
 import { StorysModule } from '@core/module/storys.module';
 import { IShowcase3v4 } from '@core/interface/combs/IShowcase';
 

@@ -10,7 +10,7 @@ import { random } from 'lodash-es';
 import { IDynamicTable } from '@core/interface/widgets/IWidgets';
 
 export default {
-  title: '基础组件/基本元素/表格',
+  title: '基本元素/表格',
   id: 'table',
   component: DynamicTableComponent,
   decorators: [

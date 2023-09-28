@@ -8,7 +8,7 @@ import { BoxComponent } from '@uiux/widgets/box/box.component';
 import { StorysModule } from '@core/module/storys.module';
 import { IBox } from '@core/interface/widgets/IBox';
 export default {
-  title: '基础组件/基本元素/内容盒子',
+  title: '基本元素/内容盒子',
   id: 'box',
   component: BoxComponent,
   decorators: [
