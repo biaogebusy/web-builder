@@ -19,7 +19,7 @@ import { uiux } from './data/uiux-for-story';
 import { of } from 'rxjs';
 import { ManageModule } from '@modules/manage/manage.module';
 export default {
-  title: 'Web Builder',
+  title: '低代码/Web builder',
   id: 'builder',
   component: BuilderComponent,
   decorators: [
@@ -60,7 +60,6 @@ const Template: Story = (args) => ({
   },
 });
 export const Default = Template.bind({});
-Default.storyName = '页面构建器';
 
 if (!environment.production) {
   console.log('comps:', components);
