@@ -2,7 +2,6 @@ import * as iframeStory from '@stories/widgets/Iframe.stories';
 import * as lightboxStory from '@stories/widgets/InlineLightbox.stories';
 import * as shapeStory from '@stories/widgets/Shape.stories';
 import * as stepperStory from '@stories/widgets/Stepper.stories';
-import * as swiperStory from '@stories/widgets/Swiper.stories';
 import * as action1v1Story from '@stories/components/action/Action1v1.stories';
 
 export const {
@@ -25,13 +24,9 @@ export const {
   Horizontal: { args: stepper },
 } = stepperStory;
 
-export const {
-  Default: { args: swiper },
-} = swiperStory;
-
 export const common = [
   {
-    label: 'SearchBar',
+    label: '搜索框',
     icon: { svg: 'magnify' },
     ...action1v1,
   },
@@ -50,13 +45,6 @@ export const common = [
     ...lightbox,
   },
   {
-    label: 'Swiper',
-    icon: {
-      svg: 'view-array-outline',
-    },
-    ...swiper,
-  },
-  {
     label: '形状',
     icon: {
       svg: 'cosine-wave',
@@ -64,7 +52,7 @@ export const common = [
     ...shape,
   },
   {
-    label: 'Stepper',
+    label: '进步器',
     icon: {
       svg: 'debug-step-over',
     },

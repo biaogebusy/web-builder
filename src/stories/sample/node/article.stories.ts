@@ -13,7 +13,7 @@ import { UserModule } from 'src/app/modules/user/user.module';
 import { StorysModule, sleep } from '@core/module/storys.module';
 import { comments } from './comments.json';
 import { formatDate } from '@angular/common';
-import { swiper } from '@stories/builder/data/widgets/common.builder';
+import { swiper } from '@stories/builder/data/widgets/base.builder';
 import { IBaseNode } from '@core/interface/node/INode';
 
 export default {

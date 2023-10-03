@@ -13,6 +13,7 @@ import * as spacerStory from '@stories/theme/Spacer.stories';
 import * as formStory from '@stories/widgets/Form.stories';
 import * as playerStory from '@stories/feature/media/Player.stories';
 import * as textHeroStory from '@stories/base/TextHero.stories';
+import * as swiperStory from '@stories/widgets/Swiper.stories';
 
 export const {
   Default: { args: textHero },
@@ -74,9 +75,13 @@ export const {
   TitleV1: { args: title },
 } = titleStory;
 
+export const {
+  Default: { args: swiper },
+} = swiperStory;
+
 export const base = [
   {
-    label: 'Text',
+    label: '富文本',
     id: 'text',
     icon: {
       svg: 'format-size',
@@ -84,70 +89,70 @@ export const base = [
     ...text,
   },
   {
-    label: 'Image',
+    label: '图片',
     icon: {
       svg: 'image-outline',
     },
     ...img,
   },
   {
-    label: 'Btn',
+    label: '按钮',
     icon: { svg: 'button-cursor' },
     ...btn,
   },
   {
-    label: 'Link',
+    label: '链接',
     icon: { svg: 'link' },
     ...link,
   },
   {
-    label: 'Title',
+    label: '标题',
     icon: { svg: 'format-header-2' },
     ...title,
   },
   {
-    label: 'Text Hero',
+    label: '图文',
     icon: { svg: 'image-text' },
     ...textHero,
   },
   {
-    label: 'Btn Video',
+    label: '播放按钮',
     icon: { svg: 'play-circle-outline' },
     ...btnVideo,
   },
   {
-    label: 'Player',
+    label: '视频',
     icon: { svg: 'play-box' },
     ...player,
   },
   {
-    label: 'Tabel',
+    label: '表格',
     icon: { svg: 'table' },
     ...dynamicTable,
   },
   {
-    label: 'Chart',
+    label: '图表',
     icon: {
       svg: 'chart-line',
     },
     ...chart,
   },
   {
-    label: 'Icon',
+    label: '图标',
     icon: {
       svg: 'svg',
     },
     ...icon,
   },
   {
-    label: 'Spacer',
+    label: '间距',
     icon: {
       svg: 'border-horizontal',
     },
     ...spacer,
   },
   {
-    label: 'Tab',
+    label: '选项卡',
     icon: {
       svg: 'tab',
     },
@@ -155,7 +160,7 @@ export const base = [
   },
 
   {
-    label: 'Form',
+    label: '表单',
     icon: {
       svg: 'checkbox-marked-outline',
     },
@@ -165,10 +170,17 @@ export const base = [
     },
   },
   {
-    label: 'Panel',
+    label: '面板',
     icon: {
       svg: 'format-line-weight',
     },
     ...panel,
+  },
+  {
+    label: '幻灯片',
+    icon: {
+      svg: 'view-array-outline',
+    },
+    ...swiper,
   },
 ];

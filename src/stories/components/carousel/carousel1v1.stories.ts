@@ -2,7 +2,7 @@ import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { Carousel1v1Component } from '@uiux/combs/carousel/carousel1v1/carousel1v1.component';
 import { StorysModule } from '@core/module/storys.module';
-import { swiper } from '@stories/builder/data/widgets/common.builder';
+import { swiper } from '@stories/builder/data/widgets/base.builder';
 import { ICarouselBase } from '@core/interface/combs/ICarousel';
 import * as c1v1Story from '@stories/components/carousel/carousel1v1.stories';
 import * as c2v1Story from '@stories/components/carousel/carousel2v1.stories';
