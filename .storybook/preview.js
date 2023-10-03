@@ -1,7 +1,6 @@
 import { setCompodocJson } from "@storybook/addon-docs/angular";
 import docJson from "../documentation.json";
 import { withThemeByClassName } from "@storybook/addon-styling";
-import { componentWrapperDecorator } from "@storybook/angular";
 setCompodocJson(docJson);
 
 export const parameters = {
@@ -25,6 +24,8 @@ export const parameters = {
         "特色组件",
         "复合组件",
         "Drupal",
+        "基本元素",
+        "基础组件",
         "*",
         "编程指南",
       ],

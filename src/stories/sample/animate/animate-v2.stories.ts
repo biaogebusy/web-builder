@@ -9,7 +9,7 @@ import { BlockModule } from '@uiux/combs/block/block.module';
 import { StorysModule } from '@core/module/storys.module';
 import { BrandingModule } from '@core/branding/branding.module';
 import { of } from 'rxjs';
-import { defaultHeader, footerInverse } from '../../global/Branding.json';
+import { defaultHeader, footerInverse } from '@stories/global/Branding.json';
 import { BRANDING } from '@core/token/token-providers';
 
 export default {

@@ -10,7 +10,7 @@ import { BrandingModule } from '@core/branding/branding.module';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { NodeModule } from '@uiux/combs/node/node.module';
 import { DashboardComponent } from '@uiux/combs/dashboard/dashboard.component';
-import * as calendarStory from '../../../widgets/Calendar.stories';
+import * as calendarStory from '@stories/widgets/Calendar.stories';
 import { random } from 'lodash-es';
 import { BRANDING } from '@core/token/token-providers';
 import { of } from 'rxjs';

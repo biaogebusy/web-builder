@@ -6,11 +6,11 @@ import {
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { BtnVideoComponent } from '@uiux/widgets/actions/btn-video/btn-video.component';
-import * as playerStory from '../../feature/media/Player.stories';
+import * as playerStory from '../feature/media/Player.stories';
 import { IBtnVideo } from '@core/interface/widgets/IBtn';
 
 export default {
-  title: '基础组件/基本元素/播放按钮',
+  title: '基本元素/播放按钮',
   id: 'btn-video',
   component: BtnVideoComponent,
   decorators: [

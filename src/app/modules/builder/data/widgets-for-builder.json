@@ -4,7 +4,7 @@
       "label": "基础",
       "elements": [
         {
-          "label": "Text",
+          "label": "富文本",
           "id": "text",
           "icon": {
             "svg": "format-size"
@@ -35,7 +35,7 @@
           }
         },
         {
-          "label": "Image",
+          "label": "图片",
           "icon": {
             "svg": "image-outline"
           },
@@ -47,7 +47,7 @@
           }
         },
         {
-          "label": "Btn",
+          "label": "按钮",
           "icon": {
             "svg": "button-cursor"
           },
@@ -61,7 +61,7 @@
           }
         },
         {
-          "label": "Link",
+          "label": "链接",
           "icon": {
             "svg": "link"
           },
@@ -73,7 +73,7 @@
           }
         },
         {
-          "label": "Title",
+          "label": "标题",
           "icon": {
             "svg": "format-header-2"
           },
@@ -85,7 +85,7 @@
           }
         },
         {
-          "label": "Text Hero",
+          "label": "图文",
           "icon": {
             "svg": "image-text"
           },
@@ -125,7 +125,7 @@
           }
         },
         {
-          "label": "Btn Video",
+          "label": "播放按钮",
           "icon": {
             "svg": "play-circle-outline"
           },
@@ -149,7 +149,7 @@
           }
         },
         {
-          "label": "Player",
+          "label": "视频",
           "icon": {
             "svg": "play-box"
           },
@@ -169,7 +169,7 @@
           }
         },
         {
-          "label": "Tabel",
+          "label": "表格",
           "icon": {
             "svg": "table"
           },
@@ -200,25 +200,25 @@
             "elements": [
               {
                 "module": "Slick Carousel",
-                "tatol": 9010,
+                "tatol": 3479,
                 "info": "Slick 轮播，强大响应式且性能优异的图片轮播解决方案，有非常丰富的配置选项，slick 官网自己调侃这是你最后使用的图片轮播",
                 "remarks": "查看"
               },
               {
                 "module": "Views Slideshow",
-                "tatol": 7425,
+                "tatol": 8062,
                 "info": "视图轮播模块，该模块是最受欢迎的幻灯片模块，可放任何内容，高度定制\t",
                 "remarks": "查看"
               },
               {
                 "module": "Colorbox",
-                "tatol": 5120,
+                "tatol": 8436,
                 "info": "轻量级高可定制幻灯片模块，高度集成在 Drupal 中，可放图片，Iframed 或者在线内容等等\t",
                 "remarks": "查看"
               },
               {
                 "module": "Flex Slider",
-                "tatol": 5669,
+                "tatol": 9861,
                 "info": "响应式、可调整大小、适配浏览器和移动设备，支持移动设备手势滑动\t",
                 "remarks": "查看"
               },
@@ -232,7 +232,7 @@
           }
         },
         {
-          "label": "Chart",
+          "label": "图表",
           "icon": {
             "svg": "chart-line"
           },
@@ -286,21 +286,21 @@
                 ],
                 [
                   "第一季度",
-                  3762,
-                  4664,
-                  8296
+                  7765,
+                  5278,
+                  4891
                 ],
                 [
                   "第二季度",
-                  9243,
-                  8053,
-                  6926
+                  4398,
+                  6722,
+                  6218
                 ],
                 [
                   "第三季度",
-                  8407,
-                  8585,
-                  4873
+                  9022,
+                  7901,
+                  5671
                 ]
               ]
             },
@@ -322,7 +322,7 @@
           }
         },
         {
-          "label": "Icon",
+          "label": "图标",
           "icon": {
             "svg": "svg"
           },
@@ -333,7 +333,7 @@
           }
         },
         {
-          "label": "Spacer",
+          "label": "间距",
           "icon": {
             "svg": "border-horizontal"
           },
@@ -343,7 +343,7 @@
           }
         },
         {
-          "label": "Tab",
+          "label": "选项卡",
           "icon": {
             "svg": "tab"
           },
@@ -667,7 +667,7 @@
           }
         },
         {
-          "label": "Form",
+          "label": "表单",
           "icon": {
             "svg": "checkbox-marked-outline"
           },
@@ -837,7 +837,7 @@
           }
         },
         {
-          "label": "Panel",
+          "label": "面板",
           "icon": {
             "svg": "format-line-weight"
           },
@@ -902,6 +902,123 @@
               }
             ]
           }
+        },
+        {
+          "label": "幻灯片",
+          "icon": {
+            "svg": "view-array-outline"
+          },
+          "content": {
+            "type": "swiper",
+            "params": {
+              "slidesPerView": 1.2,
+              "spaceBetween": 20,
+              "navigation": false,
+              "breakpoints": {
+                "600": {
+                  "slidesPerView": 3,
+                  "spaceBetween": 20
+                },
+                "960": {
+                  "slidesPerView": 3,
+                  "spaceBetween": 50
+                }
+              }
+            },
+            "classes": "p-bottom",
+            "elements": [
+              {
+                "type": "card",
+                "title": "高性能",
+                "subTitle": "High Performance",
+                "classes": "card-no-shadow",
+                "body": "默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；",
+                "feature": {
+                  "fullIcon": "fullscreen",
+                  "openIcon": "open_in_new",
+                  "link": "#",
+                  "ratios": "media-4-3",
+                  "img": {
+                    "classes": "object-fit",
+                    "src": "/assets/images/cases/porto1.jpg",
+                    "alt": "alt"
+                  }
+                }
+              },
+              {
+                "type": "card",
+                "feature": {
+                  "fullIcon": "fullscreen",
+                  "openIcon": "open_in_new",
+                  "link": "#",
+                  "ratios": "media-4-3",
+                  "img": {
+                    "classes": "object-fit",
+                    "src": "/assets/images/cases/porto7.jpg",
+                    "alt": "alt"
+                  }
+                },
+                "title": "易用的编辑器",
+                "subTitle": "Simplicity for Editors",
+                "classes": "card-no-shadow",
+                "body": "通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作；"
+              },
+              {
+                "type": "card",
+                "feature": {
+                  "fullIcon": "fullscreen",
+                  "openIcon": "open_in_new",
+                  "link": "#",
+                  "ratios": "media-4-3",
+                  "img": {
+                    "classes": "object-fit",
+                    "src": "/assets/images/cases/porto2.jpg",
+                    "alt": "alt"
+                  }
+                },
+                "title": "多语言",
+                "subTitle": "Leader in Multilingual",
+                "classes": "card-no-shadow",
+                "body": "Drupal 100多种语言提供了无以伦比的支持和翻译工作流程；"
+              },
+              {
+                "type": "card",
+                "feature": {
+                  "fullIcon": "fullscreen",
+                  "openIcon": "open_in_new",
+                  "link": "#",
+                  "ratios": "media-4-3",
+                  "img": {
+                    "classes": "object-fit",
+                    "src": "/assets/images/cases/porto3.jpg",
+                    "alt": "alt"
+                  }
+                },
+                "title": "更有弹性",
+                "subTitle": "Flexibility",
+                "classes": "card-no-shadow",
+                "body": "无论是一个还是多个站点，Drupal 总是可以游刃有余的构建；"
+              },
+              {
+                "type": "card",
+                "feature": {
+                  "fullIcon": "fullscreen",
+                  "openIcon": "open_in_new",
+                  "link": "#",
+                  "ratios": "media-4-3",
+                  "img": {
+                    "classes": "object-fit",
+                    "src": "/assets/images/cases/porto4.jpg",
+                    "alt": "alt"
+                  }
+                },
+                "title": "安全性",
+                "subTitle": "Rigorous Security",
+                "classes": "card-no-shadow",
+                "body": "为了抵御安全漏洞，将有一组团队解决并发布安全修补程序，超过45000名贡献者使该平台成为市场上最安全、最稳定的平台之一；"
+              }
+            ]
+          }
         }
       ]
     },
@@ -909,7 +1026,7 @@
       "label": "卡片",
       "elements": [
         {
-          "label": "Card",
+          "label": "卡片",
           "icon": {
             "svg": "card-outline"
           },
@@ -933,7 +1050,7 @@
           }
         },
         {
-          "label": "Card v1",
+          "label": "v1",
           "icon": {
             "svg": "numeric-1"
           },
@@ -960,7 +1077,7 @@
           }
         },
         {
-          "label": "Card v2",
+          "label": "v2",
           "icon": {
             "svg": "numeric-2"
           },
@@ -986,7 +1103,7 @@
           }
         },
         {
-          "label": "Card 1v4",
+          "label": "1v4",
           "icon": {
             "svg": "numeric-4"
           },
@@ -1003,7 +1120,7 @@
           }
         },
         {
-          "label": "Card 1v5",
+          "label": "1v5",
           "icon": {
             "svg": "numeric-5"
           },
@@ -1025,7 +1142,7 @@
           }
         },
         {
-          "label": "Card 1v6",
+          "label": "1v6",
           "icon": {
             "svg": "numeric-6"
           },
@@ -1065,7 +1182,7 @@
       "label": "常用",
       "elements": [
         {
-          "label": "SearchBar",
+          "label": "搜索框",
           "icon": {
             "svg": "magnify"
           },
@@ -1199,123 +1316,6 @@
           }
         },
         {
-          "label": "Swiper",
-          "icon": {
-            "svg": "view-array-outline"
-          },
-          "content": {
-            "type": "swiper",
-            "params": {
-              "slidesPerView": 1.2,
-              "spaceBetween": 20,
-              "navigation": false,
-              "breakpoints": {
-                "600": {
-                  "slidesPerView": 3,
-                  "spaceBetween": 20
-                },
-                "960": {
-                  "slidesPerView": 3,
-                  "spaceBetween": 50
-                }
-              }
-            },
-            "classes": "p-bottom",
-            "elements": [
-              {
-                "type": "card",
-                "title": "高性能",
-                "subTitle": "High Performance",
-                "classes": "card-no-shadow",
-                "body": "默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；",
-                "feature": {
-                  "fullIcon": "fullscreen",
-                  "openIcon": "open_in_new",
-                  "link": "#",
-                  "ratios": "media-4-3",
-                  "img": {
-                    "classes": "object-fit",
-                    "src": "/assets/images/cases/porto1.jpg",
-                    "alt": "alt"
-                  }
-                }
-              },
-              {
-                "type": "card",
-                "feature": {
-                  "fullIcon": "fullscreen",
-                  "openIcon": "open_in_new",
-                  "link": "#",
-                  "ratios": "media-4-3",
-                  "img": {
-                    "classes": "object-fit",
-                    "src": "/assets/images/cases/porto7.jpg",
-                    "alt": "alt"
-                  }
-                },
-                "title": "易用的编辑器",
-                "subTitle": "Simplicity for Editors",
-                "classes": "card-no-shadow",
-                "body": "通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作；"
-              },
-              {
-                "type": "card",
-                "feature": {
-                  "fullIcon": "fullscreen",
-                  "openIcon": "open_in_new",
-                  "link": "#",
-                  "ratios": "media-4-3",
-                  "img": {
-                    "classes": "object-fit",
-                    "src": "/assets/images/cases/porto2.jpg",
-                    "alt": "alt"
-                  }
-                },
-                "title": "多语言",
-                "subTitle": "Leader in Multilingual",
-                "classes": "card-no-shadow",
-                "body": "Drupal 100多种语言提供了无以伦比的支持和翻译工作流程；"
-              },
-              {
-                "type": "card",
-                "feature": {
-                  "fullIcon": "fullscreen",
-                  "openIcon": "open_in_new",
-                  "link": "#",
-                  "ratios": "media-4-3",
-                  "img": {
-                    "classes": "object-fit",
-                    "src": "/assets/images/cases/porto3.jpg",
-                    "alt": "alt"
-                  }
-                },
-                "title": "更有弹性",
-                "subTitle": "Flexibility",
-                "classes": "card-no-shadow",
-                "body": "无论是一个还是多个站点，Drupal 总是可以游刃有余的构建；"
-              },
-              {
-                "type": "card",
-                "feature": {
-                  "fullIcon": "fullscreen",
-                  "openIcon": "open_in_new",
-                  "link": "#",
-                  "ratios": "media-4-3",
-                  "img": {
-                    "classes": "object-fit",
-                    "src": "/assets/images/cases/porto4.jpg",
-                    "alt": "alt"
-                  }
-                },
-                "title": "安全性",
-                "subTitle": "Rigorous Security",
-                "classes": "card-no-shadow",
-                "body": "为了抵御安全漏洞，将有一组团队解决并发布安全修补程序，超过45000名贡献者使该平台成为市场上最安全、最稳定的平台之一；"
-              }
-            ]
-          }
-        },
-        {
           "label": "形状",
           "icon": {
             "svg": "cosine-wave"
@@ -1325,7 +1325,7 @@
           }
         },
         {
-          "label": "Stepper",
+          "label": "进步器",
           "icon": {
             "svg": "debug-step-over"
           },
@@ -1379,7 +1379,7 @@
                   "src": "../assets/images/showcase/blog1-large.jpeg",
                   "alt": ""
                 },
-                "changed": "2023-09-27"
+                "changed": "2023-10-03"
               },
               {
                 "link": {
@@ -1390,29 +1390,29 @@
                   "src": "../assets/images/showcase/blog2-large.jpeg",
                   "alt": ""
                 },
-                "changed": "2023-09-27"
+                "changed": "2023-10-03"
               },
               {
                 "link": {
                   "label": "你应该了解的 Angular 最佳实践",
-                  "href": "2023-09-27"
+                  "href": "2023-10-03"
                 },
                 "img": {
                   "src": "../assets/images/showcase/blog3-large.jpeg",
                   "alt": ""
                 },
-                "changed": "2023-09-27"
+                "changed": "2023-10-03"
               },
               {
                 "link": {
                   "label": "Angular 5 rxjs 5.5.2 多个 http 并行 forkJoin 请求",
-                  "href": "2023-09-27"
+                  "href": "2023-10-03"
                 },
                 "img": {
                   "src": "../assets/images/showcase/blog4-large.jpeg",
                   "alt": ""
                 },
-                "changed": "2023-09-27"
+                "changed": "2023-10-03"
               }
             ]
           }
@@ -1432,7 +1432,7 @@
               "href": "#",
               "label": "更多"
             },
-            "date": "2023-09-27",
+            "date": "2023-10-03",
             "body": "Storybook是一个用于开发和展示UI组件的工具。它提供了一个独立的环境，开发人员可以在其中构建、测试和文档化单个UI组件，而无需依赖于整个应用程序的上下文。Storybook是一个用于开发和展示UI组件的工具。它提供了一个独立的环境，开发人员可以在其中构建、测试和文档化单个UI组件，而无需依赖于整个应用程序的上下文。..."
           }
         },
@@ -1451,7 +1451,7 @@
               },
               "alt": "logo"
             },
-            "meta": "2023-09",
+            "meta": "2023-10",
             "title": "前端开发工程师",
             "subTitle": "Davyin",
             "content": "专注于 Drupal 前端主题开发，目前主要从事于 Angular 前端开发，终身学习体验者，热衷于健身，希望明天比今天好一点。"
@@ -1476,7 +1476,7 @@
                   },
                   "alt": "logo"
                 },
-                "meta": "2023-09",
+                "meta": "2023-10",
                 "title": "前端开发工程师",
                 "subTitle": "Davyin",
                 "content": "专注于 Drupal 前端主题开发，目前主要从事于 Angular 前端开发，终身学习体验者，热衷于健身，希望明天比今天好一点。"
@@ -1490,7 +1490,7 @@
                   },
                   "alt": "logo"
                 },
-                "meta": "2023-09",
+                "meta": "2023-10",
                 "title": "前端架构师",
                 "subTitle": "阿里蚂蚁",
                 "content": "深入产品和行业场景，深入行业技术，分析影响稳定性和质量的潜在异常节点，把握蚂蚁金服强大的监控能力，设计和制定监控方案。"
@@ -1579,7 +1579,7 @@
       "label": "反馈",
       "elements": [
         {
-          "label": "Progress",
+          "label": "进度条",
           "icon": {
             "svg": "progress-helper"
           },
@@ -1591,7 +1591,7 @@
           }
         },
         {
-          "label": "Group",
+          "label": "进度组",
           "icon": {
             "svg": "format-list-group"
           },
@@ -1614,7 +1614,7 @@
           }
         },
         {
-          "label": "Loadding",
+          "label": "加载",
           "icon": {
             "svg": "reload"
           },

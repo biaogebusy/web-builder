@@ -6,6 +6,14 @@ import * as calendarStory from '@stories/drupal/Full-calendar.stories';
 import * as articleStory from '@stories/sample/node/article.stories';
 import * as locationStory from '@stories/components/map/location.stories';
 import * as userCenterStory from '@stories/components/profile/userCenter.stories';
+import * as bannerStory from '@stories/components/banner/BannerSimple.stories';
+import * as profileStory from '@stories/components/profile/profile1v1.stories';
+
+export const {
+  UserProfile: { args: profile },
+  Componey: { args: componey },
+} = profileStory as any;
+
 export const {
   Default: { args: userCenter },
 } = userCenterStory;
@@ -30,12 +38,23 @@ export const {
 } = articleStory;
 
 const {
+  BannerOverlay: { args: banner },
+} = bannerStory as any;
+
+const {
   Default: { args: location },
 } = locationStory;
 export const systems: any[] = [
   {
     label: '通用',
     elements: [
+      {
+        label: '横幅',
+        icon: {
+          svg: 'page-layout-header',
+        },
+        ...banner,
+      },
       {
         label: '文章',
         icon: {
@@ -63,6 +82,20 @@ export const systems: any[] = [
           svg: 'account-box-outline',
         },
         ...userCenter,
+      },
+      {
+        label: '用户资料',
+        icon: {
+          svg: 'account-outline',
+        },
+        ...profile,
+      },
+      {
+        label: '企业资料',
+        icon: {
+          svg: 'home-variant-outline',
+        },
+        ...componey,
       },
       {
         label: '搜索',

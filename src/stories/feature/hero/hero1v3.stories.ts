@@ -2,7 +2,7 @@ import { moduleMetadata, Meta } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { StorysModule } from '@core/module/storys.module';
 import { Hero1v3Component } from '@uiux/combs/hero/hero1v3/hero1v3.component';
-import * as btnVideoStory from '@stories/widgets/base/BtnVideo.stories';
+import * as btnVideoStory from '@stories/base/BtnVideo.stories';
 import { IHero1v3 } from '@core/interface/combs/IHero';
 
 export default {

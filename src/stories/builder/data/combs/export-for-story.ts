@@ -1,7 +1,6 @@
 import { hero } from './hero.builder';
 import { showcase } from './showcase.builder';
 import { drupal } from './drupal.builder';
-import { others } from './other.builder';
 import { tools } from './tools.builder';
 import { carousels } from './carousel.builder';
 import { masonry } from './masonry.builder';
@@ -19,28 +18,23 @@ export const components: any[] = [
     elements: [...hero],
   },
   {
-    label: 'Carousel',
+    label: '轮播图',
     id: 'carousel',
     elements: [...carousels],
   },
-  { label: 'Masonry', id: 'masonry', elements: [...masonry] },
+  { label: '瀑布流', id: 'masonry', elements: [...masonry] },
   {
     label: 'Drupal',
     id: 'drupal',
     elements: [...drupal],
   },
   {
-    label: 'Map',
+    label: '地图应用',
     id: 'map',
     elements: [...map],
   },
   {
-    label: 'Other',
-    id: 'other',
-    elements: [...others],
-  },
-  {
-    label: 'Tools',
+    label: '工具',
     id: 'tools',
     elements: [...tools],
   },

@@ -1,6 +1,5 @@
 import { IBg } from '@core/interface/widgets/IBg';
 import { StorysModule } from '@core/module/storys.module';
-import { ShareModule } from '@share/share.module';
 import {
   moduleMetadata,
   Meta,
@@ -10,7 +9,7 @@ import { Story } from '@storybook/angular/types-6-0';
 import { BgComponent } from '@uiux/widgets/bg/bg.component';
 
 export default {
-  title: '基础组件/基本元素/背景色',
+  title: '基本元素/背景色',
   id: 'bg',
   component: BgComponent,
   decorators: [

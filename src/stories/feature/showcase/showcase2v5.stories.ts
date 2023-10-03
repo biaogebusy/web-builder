@@ -5,7 +5,7 @@ import {
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { Showcase2v5Component } from '@uiux/combs/showcase/showcase2v5/showcase2v5.component';
-import * as ContentTextCenterStories from 'src/stories/widgets/base/ContentTextCenter.stories';
+import * as ContentTextCenterStories from '@stories/base/ContentTextCenter.stories';
 import { StorysModule } from '@core/module/storys.module';
 import { IShowcase2v5 } from '@core/interface/combs/IShowcase';
 

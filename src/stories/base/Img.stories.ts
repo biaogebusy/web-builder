@@ -6,11 +6,11 @@ import {
 } from '@storybook/angular';
 import { ImgComponent } from '@uiux/widgets/img/img.component';
 import { StorysModule } from '@core/module/storys.module';
-import * as btnVideoStory from '@stories/widgets/base/BtnVideo.stories';
+import * as btnVideoStory from '@stories/base/BtnVideo.stories';
 import { IImg } from '@core/interface/widgets/IImg';
 
 export default {
-  title: '基础组件/基本元素/图片',
+  title: '基本元素/图片',
   id: 'img',
   component: ImgComponent,
   decorators: [

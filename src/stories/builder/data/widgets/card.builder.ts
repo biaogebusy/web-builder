@@ -29,36 +29,36 @@ const {
 
 export const card = [
   {
-    label: 'Card',
+    label: '卡片',
     icon: { svg: 'card-outline' },
     ...cardBase,
   },
   {
-    label: 'Card v1',
+    label: 'v1',
     icon: {
       svg: 'numeric-1',
     },
     ...v1,
   },
   {
-    label: 'Card v2',
+    label: 'v2',
     icon: {
       svg: 'numeric-2',
     },
     ...v2,
   },
   {
-    label: 'Card 1v4',
+    label: '1v4',
     icon: { svg: 'numeric-4' },
     ...v4,
   },
   {
-    label: 'Card 1v5',
+    label: '1v5',
     icon: { svg: 'numeric-5' },
     ...v5,
   },
   {
-    label: 'Card 1v6',
+    label: '1v6',
     icon: { svg: 'numeric-6' },
     ...v6,
   },

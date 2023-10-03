@@ -5,7 +5,7 @@ import {
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
 import { Card1v3Component } from '@uiux/widgets/card/card1v3/card1v3.component';
-import * as TextStories from '../base/Text.stories';
+import * as TextStories from '@stories/base/Text.stories';
 import { StorysModule } from '@core/module/storys.module';
 import { ICard1v3 } from '@core/interface/widgets/ICard';
 
