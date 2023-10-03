@@ -21,17 +21,17 @@ const {
 
 export const feedback = [
   {
-    label: 'Progress',
+    label: '进度条',
     icon: { svg: 'progress-helper' },
     ...progressbar,
   },
   {
-    label: 'Group',
+    label: '进度组',
     icon: { svg: 'format-list-group' },
     ...progressGroup,
   },
   {
-    label: 'Loadding',
+    label: '加载',
     icon: { svg: 'reload' },
     ...spinner,
   },

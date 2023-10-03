@@ -6,11 +6,11 @@ import {
 } from '@storybook/angular';
 import { TextComponent } from '@uiux/widgets/text/text.component';
 import { StorysModule } from '@core/module/storys.module';
-import * as btnVideoStory from '@stories/widgets/base/BtnVideo.stories';
+import * as btnVideoStory from '@stories/base/BtnVideo.stories';
 import { IText } from '@core/interface/widgets/IText';
 
 export default {
-  title: '基础组件/基本元素/富文本',
+  title: '基本元素/富文本',
   id: 'text',
   component: TextComponent,
   decorators: [

@@ -87,6 +87,7 @@
     .preview-iframe {
       width: 375px;
       height: 812px;
+      max-width: calc(100% - 24px);
     }
   }
   .preview-sm {

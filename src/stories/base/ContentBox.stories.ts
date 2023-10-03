@@ -9,7 +9,7 @@ import { StorysModule } from '@core/module/storys.module';
 import { IContentBox } from '@core/interface/widgets/IContentWidget';
 
 export default {
-  title: '基础组件/基本元素/内容块',
+  title: '基本元素/内容块',
   id: 'content-box',
   component: ContentBoxComponent,
   decorators: [

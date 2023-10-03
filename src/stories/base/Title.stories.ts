@@ -5,7 +5,7 @@ import { StorysModule } from '@core/module/storys.module';
 import { ITitle } from '@core/interface/widgets/ITitle';
 
 export default {
-  title: '基础组件/基本元素/标题',
+  title: '基本元素/标题',
   id: 'title',
   component: TitleComponent,
   decorators: [

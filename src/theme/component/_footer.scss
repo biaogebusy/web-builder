@@ -40,6 +40,9 @@
     color: $contrast;
   }
   .mat-form-field-appearance-fill {
+    .mat-form-field-label {
+      color: mat-color($primary, default-contrast, 0.5);
+    }
     .mat-form-field-flex {
       background-color: $form;
       &:hover {
