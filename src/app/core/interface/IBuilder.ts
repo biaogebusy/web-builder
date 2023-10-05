@@ -9,6 +9,8 @@ export interface IBuilderComponent {
 export interface IBuilderComponentElement {
   label?: string;
   icon?: IIcon;
+  type?: string;
+  provide?: 'CORE_CONFIG' | 'BRANDING';
   content: {
     type?: string;
     name?: string;

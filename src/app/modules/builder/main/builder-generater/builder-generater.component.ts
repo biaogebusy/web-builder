@@ -33,7 +33,9 @@ export class BuilderGeneraterComponent implements OnInit {
   onGenerate(value: any): void {
     let items: IBuilderComponent[] = [];
     map(this.uiux, (item) => {
-      items.push(...item.elements);
+      if (item.type === 'base' || item.type === 'component') {
+        items.push(...item.elements);
+      }
     });
     const heros = this.builder.getRandomElements(items, 'hero', value.hero);
     const showcases = this.builder.getRandomElements(
