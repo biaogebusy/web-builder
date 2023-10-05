@@ -1,11 +1,17 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
+  Inject,
   Input,
   OnInit,
 } from '@angular/core';
-import { IBuilderComponent } from '@core/interface/IBuilder';
+import type { ICoreConfig } from '@core/interface/IAppConfig';
+import type { IBuilderComponent } from '@core/interface/IBuilder';
+import type { IBranding } from '@core/interface/branding/IBranding';
+import { ContentService } from '@core/service/content.service';
 import { BuilderState } from '@core/state/BuilderState';
+import { CORE_CONFIG } from '@core/token/token-providers';
 
 @Component({
   selector: 'app-builder-sidebar-widgets',
@@ -13,11 +19,21 @@ import { BuilderState } from '@core/state/BuilderState';
   styleUrls: ['./builder-sidebar-widgets.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BuilderSidebarWidgetsComponent implements OnInit {
+export class BuilderSidebarWidgetsComponent implements OnInit, AfterViewInit {
   @Input() content: IBuilderComponent[];
-  constructor(private builder: BuilderState) {}
+  branding: IBranding;
+  constructor(
+    private builder: BuilderState,
+    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
+    private contentService: ContentService
+  ) {}
 
   ngOnInit(): void {}
+  ngAfterViewInit(): void {
+    this.contentService.loadBranding().subscribe((res) => {
+      this.branding = res;
+    });
+  }
 
   onShowcase(content?: any) {
     if (content) {
@@ -32,5 +48,36 @@ export class BuilderSidebarWidgetsComponent implements OnInit {
     } else {
       this.builder.showcase$.next(content);
     }
+  }
+
+  onJson(content: any) {
+    const { provide } = content;
+    let data = {};
+    switch (provide) {
+      case 'CORE_CONFIG':
+        data = this.coreConfig;
+        break;
+      case 'BRANDING':
+        data = this.branding;
+        break;
+      default:
+        data = {};
+    }
+    this.builder.dynamicContent$.next({
+      mode: 'push',
+      hasBackdrop: true,
+      style: {
+        width: '800px',
+      },
+      elements: [
+        {
+          type: 'jsoneditor',
+          isPreview: true,
+          data,
+          disableToolbar: true,
+          isPage: false,
+        },
+      ],
+    });
   }
 }
