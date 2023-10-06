@@ -2,6 +2,8 @@
 
 .builder {
   height: 100vh;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
 
   .sidebar {
@@ -39,6 +41,9 @@
     @media #{$gt-sm} {
       width: 330px;
     }
+  }
+  .builder-main {
+    height: calc(100% - 56px) !important;
   }
   .mat-drawer-container {
     height: 100%;
