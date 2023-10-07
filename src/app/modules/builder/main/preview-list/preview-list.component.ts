@@ -49,8 +49,6 @@ export class PreviewListComponent implements OnInit, OnDestroy {
   }
 
   onClickSidebar(i: number, item: any): void {
-    // TODO
-    return;
     this.screenService.scrollToAnchor(`${item.type || item.content.type}-${i}`);
   }
 
