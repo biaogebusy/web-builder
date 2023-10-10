@@ -1,0 +1,25 @@
+.cards {
+  .item {
+    .title {
+      font-size: small;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .inner {
+      margin: 2px;
+      padding: 16px;
+      border-radius: 4px;
+      &.move {
+        &:hover {
+          cursor: move;
+        }
+      }
+      &.show {
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
