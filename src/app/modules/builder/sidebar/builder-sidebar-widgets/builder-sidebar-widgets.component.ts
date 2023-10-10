@@ -64,7 +64,7 @@ export class BuilderSidebarWidgetsComponent implements OnInit, AfterViewInit {
         data = {};
     }
     this.builder.dynamicContent$.next({
-      mode: 'push',
+      mode: 'over',
       hasBackdrop: true,
       style: {
         width: '800px',
