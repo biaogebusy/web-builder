@@ -10,7 +10,8 @@
       [cdkDropListData]="content" (cdkDropListDropped)="drop($event)">
       <app-builder-empty *ngIf="!content?.length"></app-builder-empty>
       <div id="{{item?.type||item?.content?.type}}-{{i}}" (dblclick)="onShowEditor(item, i)" class="component-item"
-        cdkDrag [cdkDragData]="item" *ngFor="let item of content;index as i; trackBy: trackByFn">
+        cdkDrag [cdkDragDisabled]="screenState.eq('xs')" [cdkDragData]="item"
+        *ngFor="let item of content;index as i; trackBy: trackByFn">
         <app-dynamic-component *ngIf="item" [inputs]="item" [index]="i" [isPreview]="true"></app-dynamic-component>
         <app-card-1v1 style="width:800px" *cdkDragPreview [content]="{
             link:{

@@ -15,6 +15,7 @@ import {
 } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { BuilderState } from '@core/state/BuilderState';
+import { ScreenState } from '@core/state/screen/ScreenState';
 import { map as each } from 'lodash-es';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -37,7 +38,8 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
     public builder: BuilderState,
     @Inject(DOCUMENT) private doc: Document,
     private zone: NgZone,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    public screenState: ScreenState
   ) {}
 
   ngOnInit(): void {
@@ -85,6 +87,7 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
       hasBackdrop: false,
       style: {
         width: '450px',
+        'max-width': 'calc(100vw - 50px)',
       },
       elements: [
         {

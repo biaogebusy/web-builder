@@ -88,10 +88,11 @@ export class ComponentToolbarComponent implements OnInit {
       });
     } else {
       this.builder.dynamicContent$.next({
-        mode: 'side',
+        mode: 'over',
         hasBackdrop: false,
         style: {
           width: '450px',
+          'max-width': 'calc(100vw - 50px)',
         },
         elements: [
           {

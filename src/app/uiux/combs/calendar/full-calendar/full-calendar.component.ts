@@ -25,7 +25,7 @@ import { RouteService } from '@core/service/route.service';
 import type { IFullCalendar } from '@core/interface/combs/ICalendar';
 import { ContentService } from '@core/service/content.service';
 import { ContentState } from '@core/state/ContentState';
-import { IPage } from '@core/interface/IAppConfig';
+import type { IPage } from '@core/interface/IAppConfig';
 
 @Component({
   selector: 'app-full-calendar',
