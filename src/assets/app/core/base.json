@@ -246,6 +246,9 @@
   "googleAnalyticsBak": {
     "id": "G-N7PGP9ND57"
   },
+  "clarity": {
+    "id": "j9gy21q9e9"
+  },
   "guard": {
     "authGuard": false,
     "defaultDrupalLoginPage": "/user/login",
