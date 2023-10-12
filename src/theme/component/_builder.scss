@@ -38,13 +38,13 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
     .mat-drawer-inner-container {
       @include scrollbar(mat-color($foreground, divider));
     }
-    .right {
-      color: mat-color($primary);
-    }
     .mat-tab-header {
       .mat-tab-label-active {
         color: mat-color($primary, text);
         opacity: 1;
+      }
+      .mat-tab-label {
+        color: mat-color($foreground, text, 0.75);
       }
       .mat-tab-label-content {
         background-color: transparent;
