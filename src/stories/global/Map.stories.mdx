@@ -1,0 +1,36 @@
+import { Meta, Story } from "@storybook/addon-docs";
+
+<Meta
+  title="全局配置/地图"
+  id="map-config"
+  parameters={{
+    viewMode: "docs",
+    previewTabs: {
+      canvas: { hidden: true },
+    },
+    layout: "fullscreen",
+  }}
+/>
+
+## 高德地图
+
+当你的项目需要用到相关的地图组件时，配置你的高德地图信息。
+
+```json
+{
+  //...
+  "amap": {
+    "key": "33877188af64f0213ff4fa259b1c14b8",
+    "version": "1.4.15",
+    "plugins": ["AMap.Geocoder"],
+    "city": "0771",
+    "zoom": 18,
+    "center": [108.32067, 22.817424],
+    "mapStyle": {
+      "light": "amap://styles/1421728e809147de8bfac4fd1abd2fb3",
+      "dark": "amap://styles/50fcdf3719b8cd479cd3017044e49c22"
+    },
+    "features": ["bg", "road", "point"]
+  }
+}
+```
