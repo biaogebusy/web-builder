@@ -4,7 +4,10 @@ import {
   Component,
   OnInit,
 } from '@angular/core';
+import { IPage } from '@core/interface/IAppConfig';
+import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
+import { LocalStorage } from 'ngx-webstorage';
 
 @Component({
   selector: 'app-switch-preview',
@@ -13,9 +16,12 @@ import { BuilderState } from '@core/state/BuilderState';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SwitchPreviewComponent implements OnInit {
+  @LocalStorage('page')
+  page: IPage;
   constructor(
     private builderState: BuilderState,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private util: UtilitiesService
   ) {}
   currentPreview = 'none';
   currentIcon = 'cellphone-link';
@@ -59,6 +65,10 @@ export class SwitchPreviewComponent implements OnInit {
   ngOnInit(): void {}
 
   onSwitch(preview: any): void {
+    if (!this.page.body.length) {
+      this.util.openSnackbar('当前页面没有内容，请先拖动组件到编辑区创作');
+      return;
+    }
     this.currentPreview = preview.value;
     if (preview.value === 'none') {
       this.currentIcon = 'cellphone-link';
