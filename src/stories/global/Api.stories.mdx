@@ -1,0 +1,39 @@
+import { Meta, Story } from "@storybook/addon-docs";
+
+<Meta
+  title="全局配置/通用接口"
+  id="api-config"
+  parameters={{
+    viewMode: "docs",
+    previewTabs: {
+      canvas: { hidden: true },
+    },
+    layout: "fullscreen",
+  }}
+/>
+
+## ApiPath
+
+配置通用基础的 api
+
+这里的 api 大部分是 Drupal 的 api，和用户、节点、评论、分类、标记的 jsonapi。
+
+```json
+{
+  //..
+  "apiUrl": {
+    "loginPath": "/user/login",
+    "logoutPath": "/user/logout",
+    "userIdGetPath": "/api/v1",
+    "nodeGetPath": "/api/v1/node",
+    "commentGetPath": "/api/v1/comment",
+    "taxonomyGetPath": "/api/v1/taxonomy_term",
+    "flaggingGetPath": "/api/v1/flagging",
+    "userGetPath": "/api/v1/user/user",
+    "searchBak": {
+      "customer_staff": "/api/v1/customer-content",
+      "handler": "/api/v1/handler-content"
+    }
+  }
+}
+```

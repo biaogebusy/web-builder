@@ -56,6 +56,7 @@ This open-source project is very suitable for beginners to learn or advance thei
 - TypeScript
 - Provider
 - Map Applications
+- Analytics: Google Analytics\Microsoft Clarity
 - Applications of Messenger UI in Drupal Headless
 
 ## Technology Stack

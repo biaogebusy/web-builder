@@ -1,0 +1,31 @@
+import { Meta, Story } from "@storybook/addon-docs";
+
+<Meta
+  title="全局配置/默认图片"
+  id="default-image-config"
+  parameters={{
+    viewMode: "docs",
+    previewTabs: {
+      canvas: { hidden: true },
+    },
+    layout: "fullscreen",
+  }}
+/>
+
+## 默认配置
+
+有些组件和页面会需要用到默认图片。
+
+- 默认 logo
+- 默认头像
+- 默认图片封面
+- 是否开启组件动画
+
+```json
+{
+  // ...
+  "defaultLogo": "/assets/images/logo/logo.png",
+  "defaultAvatar": "/assets/images/avatar/01.jpeg",
+  "defaultThumb": "/assets/images/default.png"
+}
+```

@@ -56,6 +56,7 @@
 - Typescript
 - Provider
 - 地图应用
+- 分析：谷歌分析、微软 Clarity
 - 信使 UI 在 Drupal 前后端分离中的应用
 
 ## 技术选型

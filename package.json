@@ -17,8 +17,8 @@
     "prerender": "ng run xinshi:prerender",
     "bundle-report": "ng build --prod --stats-json && webpack-bundle-analyzer dist/browser/stats.json",
     "docs:json": "compodoc -p ./tsconfig.json -e json -d .",
-    "storybook": "export NODE_OPTIONS=--max-old-space-size=8192 && npm run docs:json && start-storybook -p 6006",
-    "build-storybook": "export NODE_OPTIONS=--max-old-space-size=8192 && npm run docs:json && build-storybook",
+    "storybook": "export NODE_OPTIONS=--max-old-space-size=10177 && npm run docs:json && start-storybook -p 6006",
+    "build-storybook": "export NODE_OPTIONS=--max-old-space-size=10177 && npm run docs:json && build-storybook",
     "test-storybook": "test-storybook"
   },
   "dependencies": {
