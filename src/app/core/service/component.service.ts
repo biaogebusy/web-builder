@@ -256,7 +256,7 @@ export class ComponentService {
       )
     );
 
-    ['builder-generater'].forEach((type) =>
+    ['builder-generater', 'btn-generater'].forEach((type) =>
       this.setModule(type, () =>
         import('@modules/builder/builder.module').then((m) => m.BuilderModule)
       )
