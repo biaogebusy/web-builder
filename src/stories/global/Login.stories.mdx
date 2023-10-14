@@ -1,0 +1,57 @@
+import { Meta, Story } from "@storybook/addon-docs";
+
+<Meta
+  title="全局配置/用户页面"
+  id="user-config"
+  parameters={{
+    viewMode: "docs",
+    previewTabs: {
+      canvas: { hidden: true },
+    },
+    layout: "fullscreen",
+  }}
+/>
+
+## 登录配置
+
+```json
+{
+  // ...
+  "login": {
+    "loginRedirect": "/",
+    "left": {
+      "type": "img",
+      "src": "/assets/images/16-9/nature-08.jpg",
+      "alt": "登录",
+      "classes": "object-fit"
+    },
+    "phoneLogin": {
+      "enable": true,
+      "tabLabel": "手机登录",
+      "leftTime": 59,
+      "submitLabel": "注册/登录",
+      "error": "请输入正确的手机号码"
+    },
+    "pswLogin": {
+      "enable": true,
+      "tabLabel": "密码登录",
+      "submitLabel": "登录"
+    }
+  }
+}
+```
+
+<Story id="login--page" />
+
+## 用户页配置
+
+可配置用户页面 Banner 默认图片。
+
+```json
+{
+  //..
+  "user": {
+    "banner": "/assets/images/16-9/business-14.jpeg"
+  }
+}
+```

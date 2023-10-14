@@ -27,6 +27,9 @@ export interface ICoreConfig {
   dialog: IDialog;
   user: User;
   googleAnalytics: GoogleAnalytics;
+  clarity: {
+    id: string;
+  };
   guard: Guard;
   manageMedia: IManageMedia;
   log: {

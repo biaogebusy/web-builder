@@ -1,0 +1,37 @@
+import { Meta, Story } from "@storybook/addon-docs";
+
+<Meta
+  title="全局配置/web builder"
+  id="web-builder-config"
+  parameters={{
+    viewMode: "docs",
+    previewTabs: {
+      canvas: { hidden: true },
+    },
+    layout: "fullscreen",
+  }}
+/>
+
+## Builder
+
+组件市场，可在 Storybook 或者前台页面中选择组件添加到预览页面中，可拖拽上下顺序。
+
+- 添加到预览页面中；
+- 复制 JSON;
+- 编辑 JSON，保存所见即所得；
+- 复制整个页面的 JSON;
+
+```json
+{
+  //...
+  "builder": {
+    "enable": true,
+    "params": {
+      "reqRoles": ["administrator"]
+    },
+    "empty": [
+      // 当builder为空显示的数据，可多个组件
+    ]
+  }
+}
+```
