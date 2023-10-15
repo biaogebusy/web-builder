@@ -25,7 +25,7 @@
         <ng-template #link>
           <a [ngClass]="content.classes || ''" [disabled]="content.disabled" mat-stroked-button
             (click)="onNav($event, content)" [href]="content.href" [target]="content?.target || ''"
-            [innerHTML]="content.label|safeHtml" [color]="content?.color">
+            [color]="content?.color">
             <app-icon *ngIf="content.icon" [content]="content.icon"></app-icon>
             <span [innerHTML]="content.label|safeHtml"></span>
           </a>

@@ -82,23 +82,7 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onShowEditor(content: any, index: number): void {
-    this.builder.dynamicContent$.next({
-      mode: 'side',
-      hasBackdrop: false,
-      style: {
-        width: '450px',
-        'max-width': 'calc(100vw - 50px)',
-      },
-      elements: [
-        {
-          type: 'jsoneditor',
-          index,
-          isPreview: true,
-          data: content,
-          disableToolbar: true,
-        },
-      ],
-    });
+    this.builder.showEditor(content, index);
   }
 
   ngOnDestroy(): void {

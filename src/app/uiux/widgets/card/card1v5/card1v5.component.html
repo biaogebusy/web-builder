@@ -2,7 +2,7 @@
   <div class="card-inner p-x-sm p-y-sm" fxLayout="column">
     <div class="title mat-h2" [innerHTML]="content.title"></div>
     <div class="content" [innerHTML]="content.body"></div>
-    <div class="more m-y-sm" fxLayoutAlign="start center">
+    <div class="more m-y-sm" fxLayoutAlign="start center" *ngIf="content.more">
       <app-link [content]="content.more"></app-link>
       <app-icon [content]="{svg:'chevron-right',inline:true}"></app-icon>
     </div>

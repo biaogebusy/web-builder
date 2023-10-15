@@ -68,17 +68,6 @@ export class BuilderToolbarComponent
     this.builder.builderThemeMode.next(style);
   }
 
-  onGenerate(): void {
-    this.builder.dynamicContent$.next({
-      elements: [
-        {
-          type: 'builder-generater',
-          disableToolbar: true,
-        },
-      ],
-    });
-  }
-
   onFullScreen(event: MatSlideToggleChange): void {
     this.storage.store('builderFullScreen', event.checked);
     this.builder.fullScreen$.next(event.checked);

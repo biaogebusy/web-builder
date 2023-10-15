@@ -77,6 +77,7 @@ export class ComponentService {
       'inline-lightbox',
       'media-object-group',
       'content-text-center',
+      'github-star',
     ].forEach((type) =>
       this.setModule(type, () =>
         import('@uiux/widgets/widgets.module').then((m) => m.WidgetsModule)
@@ -255,7 +256,7 @@ export class ComponentService {
       )
     );
 
-    ['builder-generater'].forEach((type) =>
+    ['builder-generater', 'btn-generater'].forEach((type) =>
       this.setModule(type, () =>
         import('@modules/builder/builder.module').then((m) => m.BuilderModule)
       )

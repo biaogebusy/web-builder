@@ -26,7 +26,7 @@
         <app-btn fxHide.xs="true" [matTooltip]="'页面预览'" (click)="onPreview()"
           [content]="{label:'', mode: 'icon' ,icon:{svg:'eye-outline' },disabled:page.body.length?false : true }"></app-btn>
         <app-switch-theme></app-switch-theme>
-        <app-btn (click)="onGenerate()" [content]="{label:'智能生成',color:'primary', mode: 'raised' }"></app-btn>
+        <app-btn-generater [content]="{label:'智能生成',color:'primary', mode: 'raised' }"></app-btn-generater>
         <app-builder-menu></app-builder-menu>
 
       </div>

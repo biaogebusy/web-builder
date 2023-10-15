@@ -157,12 +157,4 @@ export class TextComponent
       );
     }
   }
-
-  getBtnLink(content: any): IBtn {
-    return {
-      mode: 'raised',
-      color: 'primary',
-      ...content,
-    };
-  }
 }
