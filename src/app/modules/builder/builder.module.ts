@@ -21,11 +21,13 @@ import { uiux } from './data/uiux-for-builder';
 import { PreviewComponent } from './preview/preview.component';
 import { BuilderToolbarComponent } from './toolbar/builder-toolbar/builder-toolbar.component';
 import { samples } from './data/samples-for-builder';
+import { BtnGeneraterComponent } from './toolbar/btn-generater/btn-generater.component';
 
 const components = [
   BuilderComponent,
   BuilderListComponent,
   BuilderGeneraterComponent,
+  BtnGeneraterComponent,
 ];
 
 @NgModule({

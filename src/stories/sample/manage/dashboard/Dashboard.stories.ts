@@ -83,7 +83,7 @@ const oreder: IDashboard = {
       },
       row: 12,
       params: {
-        api: '/api/v3/xxx',
+        apiBak: '/api/v3/xxx',
       },
       form: [
         {
@@ -171,7 +171,7 @@ const oreder: IDashboard = {
         label: '文章数',
         count: '25',
         params: {
-          api: '/api/v3/xxx',
+          apiBak: '/api/v3/xxx',
         },
         chart: {
           grid: {
@@ -235,7 +235,7 @@ const oreder: IDashboard = {
         label: '审核数',
         count: '36',
         params: {
-          api: '/api/v3/node/vote/report',
+          apiBak: '/api/v3/node/vote/report',
         },
         chart: {
           grid: {
@@ -299,7 +299,7 @@ const oreder: IDashboard = {
         label: '用户数',
         count: '12',
         params: {
-          api: '/api/v3/node/vote/report',
+          apiBak: '/api/v3/node/vote/report',
         },
         chart: {
           grid: {
@@ -363,7 +363,7 @@ const oreder: IDashboard = {
         label: '评论数',
         count: '456',
         params: {
-          api: '/api/v3/node/vote/report',
+          apiBak: '/api/v3/node/vote/report',
         },
         chart: {
           grid: {
@@ -425,7 +425,7 @@ const oreder: IDashboard = {
         label: '最新文章',
       },
       params: {
-        api: '/api/v3/xxx',
+        apiBak: '/api/v3/xxx',
       },
       row: 6,
       widget: {
@@ -602,7 +602,7 @@ const advert: IDashboard = {
         label: '消费者注册数据',
       },
       params: {
-        api: '/api/v3/xxx',
+        apiBak: '/api/v3/xxx',
       },
       row: 12,
       form: [
@@ -691,7 +691,7 @@ const advert: IDashboard = {
         label: '广告发布量',
         count: '5',
         params: {
-          api: '/api/v3/node/vote/report',
+          apiBak: '/api/v3/node/vote/report',
         },
         chart: {
           grid: {
@@ -755,7 +755,7 @@ const advert: IDashboard = {
         label: '消费者增长',
         count: '1,156',
         params: {
-          api: '/api/v3/node/vote/report',
+          apiBak: '/api/v3/node/vote/report',
         },
         chart: {
           grid: {
@@ -819,7 +819,7 @@ const advert: IDashboard = {
         label: '门店增长',
         count: '50%',
         params: {
-          api: '/api/v3/node/vote/report',
+          apiBak: '/api/v3/node/vote/report',
         },
         chart: {
           grid: {
@@ -883,7 +883,7 @@ const advert: IDashboard = {
         label: '评论量',
         count: '28',
         params: {
-          api: '/api/v3/node/vote/report',
+          apiBak: '/api/v3/node/vote/report',
         },
         chart: {
           grid: {
@@ -1012,7 +1012,7 @@ const advert: IDashboard = {
       },
       row: 6,
       params: {
-        api: '/api/v3/xxx',
+        apiBak: '/api/v3/xxx',
       },
       widget: {
         type: 'dynamic-table',
@@ -1078,7 +1078,7 @@ const advert: IDashboard = {
       },
       row: 6,
       params: {
-        api: '/api/v3/xxx',
+        apiBak: '/api/v3/xxx',
       },
       widget: {
         type: 'dynamic-table',

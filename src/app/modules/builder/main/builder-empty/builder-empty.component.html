@@ -1,2 +1,4 @@
-<app-dynamic-component *ngFor="let item of coreConfig.builder?.empty"
-  [inputs]="{content:item, disableToolbar:true,activeToolBar:false}" [isPreview]="true"></app-dynamic-component>
+<div class="builder-empty" matTooltip="从边栏拖动组件到编辑区">
+  <app-dynamic-component *ngFor="let item of coreConfig.builder?.empty"
+    [inputs]="{content:item, disableToolbar:true,activeToolBar:false}" [isPreview]="true"></app-dynamic-component>
+</div>

@@ -88,7 +88,7 @@
     }
   },
   "github": {
-    "enable": false,
+    "enable": true,
     "owner": "biaogebusy",
     "repo": "xinshi-ui",
     "token": ""
@@ -643,183 +643,114 @@
             "type": "text",
             "spacer": "sm",
             "title": {
-              "label": "欢迎使用 <strong class=\"text-primary\">Web Builder</strong> 快速构建页面",
+              "label": "试试从边栏<strong class=\"text-primary\">拖动</strong>组件到这里开始创作吧",
               "style": "style-v4",
-              "classes": "mat-display-4 bold"
+              "classes": "mat-display-3 bold"
             },
-            "body": "开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class=\"text-primary\">Storybook</strong> 页面时添加组件到预览页面。<ul class=\"list-done\"><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li><li>可以直接编辑组件的 JSON，所见即所得；</li></ul><p>Builder 与众不同的是它完全融入到了 <strong class=\"text-primary\">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。</p><br><p><strong class=\"text-primary\">马上拖动组件到这里进行创作，或者点击右上角智能生成。</strong></p>",
+            "body": "从左侧选择组件拖动到想要的位置：<ul class=\"list-done\"><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li><li>双击可以直接编辑组件的 JSON，所见即所得；</li></ul><p>Web Builder 目前只是一个Base版本，相关的功能看时间和精力慢慢优化完善，交流学习可加微信：<span class=\"text-primary\">biaogebusy</span></p>",
             "actions": [
               {
-                "href": "#",
-                "label": "立即体验"
+                "disableToolbar": true,
+                "content": {
+                  "type": "btn-generater",
+                  "label": "体验生成页面",
+                  "color": "primary",
+                  "mode": "raised"
+                }
+              },
+              {
+                "disableToolbar": true,
+                "content": {
+                  "type": "btn",
+                  "color": "primary",
+                  "mode": "stroked",
+                  "label": "演示视频",
+                  "href": "https://www.bilibili.com/video/BV1ux4y197kc/?spm_id_from=333.999.0.0&vd_source=f65b4e2d70ecc450290b6b1710c0ada5",
+                  "target": "_blank",
+                  "icon": {
+                    "inline": true,
+                    "svg": "play-circle-outline"
+                  }
+                }
+              },
+              {
+                "disableToolbar": true,
+                "content": {
+                  "type": "github-star"
+                }
               }
             ]
           }
         ]
       },
       {
-        "type": "showcase-3v2",
-        "classes": "",
-        "bg": {
-          "classes": "bg-fill-width",
-          "img": {
-            "hostClasses": "",
-            "src": "/assets/images/bg/home-shape.png",
-            "mobile": "/assets/images/bg/home-shape.png"
-          }
-        },
-        "elements": [
-          {
-            "img": {
-              "src": "/assets/images/svg/vscode.svg",
-              "alt": ""
-            },
-            "content": {
-              "type": "text",
-              "spacer": "sm",
-              "title": {
-                "label": "组件驱动开发",
-                "style": "style-v4",
-                "classes": "mat-display-2"
-              },
-              "body": "<strong class=\"text-primary\">Storybook</strong> 采用了组件驱动开发的方法，即将UI组件作为开发的核心单元。<ul class=\"list-done\">\r\n\t<li>为每个UI组件创建\"stories\"</li>\r\n\t<li>描述组件在不同状态和交互方式下的行为和外观</li>\r\n\t<li>提高组件的可重用性和可测试性</li>\r\n</ul>\r\n",
-              "actions": [
-                {
-                  "href": "#",
-                  "label": "马上体验"
-                }
-              ]
-            }
-          },
-          {
-            "img": {
-              "src": "/assets/images/svg/storybook-mock-ui.svg",
-              "alt": ""
-            },
-            "content": {
-              "type": "text",
-              "spacer": "sm",
-              "title": {
-                "label": "组件展示和测试",
-                "style": "style-v4",
-                "classes": "mat-display-2"
-              },
-              "body": "<strong class=\"text-primary\">Storybook</strong> 提供了一个交互式的界面，用于展示和测试UI组件。开发人员可以在浏览器中浏览和交互组件，以便检查其外观和行为，并确保它们在各种条件下正常工作。这有助于加快开发迭代周期，提高组件的质量。",
-              "actions": [
-                {
-                  "href": "#",
-                  "label": "马上体验"
-                }
-              ]
-            }
-          },
-          {
-            "img": {
-              "src": "/assets/images/svg/monday-com.webp",
-              "alt": ""
-            },
-            "content": {
-              "type": "text",
-              "spacer": "sm",
-              "title": {
-                "label": "文档化",
-                "style": "style-v4",
-                "classes": "mat-display-2"
-              },
-              "body": "<strong class=\"text-primary\">Storybook</strong> 不仅可以展示和测试组件，还可以自动生成组件的文档。<ul class=\"list-done\">\r\n\t<li>使用Markdown或其他文档格式编写组件文档，并将其与组件关联</li>\r\n\t<li>团队成员可以更好地理解和使用组件，减少了沟通成本</li></ul>\r\n",
-              "actions": [
-                {
-                  "href": "#",
-                  "label": "马上体验"
-                }
-              ]
-            }
-          }
-        ]
-      },
-      {
-        "type": "showcase-1v1",
+        "type": "showcase-1v4",
+        "spacer": "lg",
         "bg": {
           "classes": "bg-shadow bg-fill-width"
         },
-        "title": {
-          "label": "使用人员",
-          "style": "style-v1",
-          "classes": "mat-display-1"
+        "row": 3,
+        "classes": "",
+        "text": {
+          "title": {
+            "label": "页面是如何创建的",
+            "style": "style-v1",
+            "classes": "mat-display-3 bold"
+          }
         },
-        "row": "4",
         "elements": [
           {
-            "img": {
-              "src": "/assets/images/svg/Asset187.svg",
-              "alt": "browser"
-            },
-            "style": "style-v3 use-image",
-            "title": {
-              "href": "#",
-              "label": "前端开发"
-            },
-            "content": "在Storybook中开发测试维护组件"
+            "disableToolbar": true,
+            "content": {
+              "type": "card-1v5",
+              "title": "拖拽组件",
+              "body": "从左侧边栏拖动组件到编辑区构建页面，或者直接修改示例页",
+              "footer": {
+                "label": "Step 01.",
+                "icon": {
+                  "svg": "chevron-double-right"
+                }
+              }
+            }
           },
           {
-            "img": {
-              "src": "/assets/images/svg/Asset189.svg",
-              "alt": "browser"
-            },
-            "style": "style-v3 use-image",
-            "title": {
-              "href": "#",
-              "label": "产品经理"
-            },
-            "content": "快速构建和预览页面"
+            "disableToolbar": true,
+            "content": {
+              "type": "card-1v5",
+              "title": "更新组件",
+              "body": "通过JSON编辑组件数据，通过媒体库复制媒体文件路径应用在你的组件上",
+              "footer": {
+                "label": "Step 02.",
+                "icon": {
+                  "svg": "chevron-double-right"
+                }
+              }
+            }
           },
           {
-            "img": {
-              "src": "/assets/images/svg/Asset190.svg",
-              "alt": "browser"
-            },
-            "style": "style-v3 use-image",
-            "title": {
-              "href": "#",
-              "label": "运维人员"
-            },
-            "content": "构建页面和测试UI"
-          },
-          {
-            "img": {
-              "src": "/assets/images/svg/Asset192.svg",
-              "alt": "browser"
-            },
-            "style": "style-v3 use-image",
-            "title": {
-              "href": "#",
-              "label": "市场营销人员"
-            },
-            "content": "给客户演示数字创新能力"
+            "disableToolbar": true,
+            "content": {
+              "type": "card-1v5",
+              "title": "发布页面",
+              "body": "根据你的后台，手动复制组件的JSON或者整个页面的JSON到后台发布",
+              "footer": {
+                "label": "Step 03.",
+                "icon": {
+                  "svg": "check-all"
+                }
+              }
+            }
           }
-        ]
-      },
-      {
-        "type": "text",
-        "spacer": "md",
-        "body": "信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class=\"text-primary\">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。",
-        "title": {
-          "label": "欢迎使用 <strong class=\"text-primary\">Web Builder</strong> 快速构建页面",
-          "style": "style-v1",
-          "classes": "mat-display-2 bold"
-        },
-        "bg": {
-          "classes": "bg- bg-fill-width"
-        },
-        "classes": "text-center",
-        "actionsAlign": "center center",
+        ],
         "actions": [
           {
-            "type": "btn",
-            "mode": "raised",
-            "color": "primary",
-            "href": "/builder",
-            "label": "开始体验"
+            "disableToolbar": true,
+            "content": {
+              "type": "btn-generater",
+              "label": "生成页面",
+              "color": "primary",
+              "mode": "raised"
+            }
           }
         ]
       }

@@ -130,6 +130,26 @@ export class BuilderState {
     this.updatePage();
   }
 
+  showEditor(content: any, index: number): void {
+    this.dynamicContent$.next({
+      mode: 'over',
+      hasBackdrop: false,
+      style: {
+        width: '500px',
+        'max-width': 'calc(100vw - 50px)',
+      },
+      elements: [
+        {
+          type: 'jsoneditor',
+          index,
+          isPreview: true,
+          data: content,
+          disableToolbar: true,
+        },
+      ],
+    });
+  }
+
   getRandomElements = (
     data: IBuilderComponent[],
     id: string,

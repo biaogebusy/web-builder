@@ -1,5 +1,6 @@
 <div class="positon-relative">
-  <json-editor [options]="editorOptions" [data]="data" (change)="onChange($event)"></json-editor>
+  <json-editor matTooltip="直接修改JSON，更新组件的数据" [options]="editorOptions" [data]="data"
+    (change)="onChange($event)"></json-editor>
   <div #actions class="actions m-top p-bottom-xs" *ngIf="content.actions"
     fxLayoutAlign="{{content.actionsAlign || 'start center'}}">
     <ng-container *ngFor="let action of content.actions">
