@@ -88,7 +88,7 @@
     }
   },
   "github": {
-    "enable": false,
+    "enable": true,
     "owner": "biaogebusy",
     "repo": "xinshi-ui",
     "token": ""
@@ -645,16 +645,41 @@
             "title": {
               "label": "试试从边栏<strong class=\"text-primary\">拖动</strong>组件到这里开始创作吧",
               "style": "style-v4",
-              "classes": "mat-display-4 bold"
+              "classes": "mat-display-3 bold"
             },
-            "body": "从左侧选择组件拖动到想要的位置<ul class=\"list-done\"><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li><li>双击可以直接编辑组件的 JSON，所见即所得；</li></ul><p>Builder 与众不同的是它完全融入到了 <strong class=\"text-primary\">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。</p><br><p><strong class=\"text-primary\">马上拖动组件到这里进行创作，或者点击右上角智能生成。</strong></p>",
-            "actions": []
-          },
-          {
-            "type": "btn-generater",
-            "label": "体验生成页面",
-            "color": "primary",
-            "mode": "raised"
+            "body": "从左侧选择组件拖动到想要的位置：<ul class=\"list-done\"><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li><li>双击可以直接编辑组件的 JSON，所见即所得；</li></ul><p>Web Builder 目前只是一个Base版本，相关的功能看时间和精力慢慢优化完善，交流学习可加微信：<span class=\"text-primary\">biaogebusy</span></p>",
+            "actions": [
+              {
+                "disableToolbar": true,
+                "content": {
+                  "type": "btn-generater",
+                  "label": "体验生成页面",
+                  "color": "primary",
+                  "mode": "raised"
+                }
+              },
+              {
+                "disableToolbar": true,
+                "content": {
+                  "type": "btn",
+                  "color": "primary",
+                  "mode": "stroked",
+                  "label": "演示视频",
+                  "href": "https://www.bilibili.com/video/BV1ux4y197kc/?spm_id_from=333.999.0.0&vd_source=f65b4e2d70ecc450290b6b1710c0ada5",
+                  "target": "_blank",
+                  "icon": {
+                    "inline": true,
+                    "svg": "play-circle-outline"
+                  }
+                }
+              },
+              {
+                "disableToolbar": true,
+                "content": {
+                  "type": "github-star"
+                }
+              }
+            ]
           }
         ]
       },

@@ -315,4 +315,7 @@
       border-left: 1px solid mat-color($foreground, divider);
     }
   }
+  .mat-stroked-button:not(.mat-button-disabled) {
+    border-color: mat-color($primary);
+  }
 }
