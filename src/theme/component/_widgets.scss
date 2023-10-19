@@ -318,4 +318,12 @@
   .mat-stroked-button:not(.mat-button-disabled) {
     border-color: mat-color($primary);
   }
+
+  .jsoneditor {
+    border-color: mat-color($primary);
+    .jsoneditor-menu {
+      background-color: mat-color($primary);
+      border-bottom-color: mat-color($primary);
+    }
+  }
 }

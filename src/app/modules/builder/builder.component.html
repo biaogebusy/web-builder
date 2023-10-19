@@ -25,7 +25,7 @@
           [mode]="(builder.dynamicContent$ | async)?.mode ||'over'" position="end">
           <div class="actions expand">
             <app-btn [matTooltip]="'收起'" (click)="onExpand()"
-              [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'chevron-right' } }"></app-btn>
+              [content]="{label:'',color:'primary', mode: 'mini-fab' ,icon:{svg:'chevron-right' } }"></app-btn>
           </div>
           <div *ngIf="builder.dynamicContent$ | async as dynamic" [ngStyle]="dynamic.style">
             <app-dynamic-component *ngFor="let item of dynamic.elements;" [inputs]="item"></app-dynamic-component>
