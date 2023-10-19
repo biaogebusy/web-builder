@@ -44,16 +44,10 @@ export function builderFullScreenFactory(
 ): Observable<boolean> {
   const isFull$ = new BehaviorSubject<boolean>(false);
   const isFull = storage.retrieve('builderFullScreen');
-  if (router.url.includes(BUILDERPATH) && isFull !== false) {
-    isFull$.next(true);
-  } else {
-    isFull$.next(false);
-  }
+
   router.events.subscribe((event) => {
     if (event instanceof NavigationEnd) {
       if (event.url.includes(BUILDERPATH) && isFull !== false) {
-        isFull$.next(true);
-      } else {
         isFull$.next(false);
       }
     }

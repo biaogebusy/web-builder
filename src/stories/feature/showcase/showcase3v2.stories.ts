@@ -67,6 +67,9 @@ const content: IShowcase3v2 = {
         body: '<strong class="text-primary">Storybook</strong> 采用了组件驱动开发的方法，即将UI组件作为开发的核心单元。<ul class="list-done">\r\n\t<li>为每个UI组件创建"stories"</li>\r\n\t<li>描述组件在不同状态和交互方式下的行为和外观</li>\r\n\t<li>提高组件的可重用性和可测试性</li>\r\n</ul>\r\n',
         actions: [
           {
+            type: 'btn',
+            color: 'primary',
+            mode: 'raised',
             href: '#',
             label: '马上体验',
           },
@@ -89,6 +92,9 @@ const content: IShowcase3v2 = {
         body: '<strong class="text-primary">Storybook</strong> 提供了一个交互式的界面，用于展示和测试UI组件。开发人员可以在浏览器中浏览和交互组件，以便检查其外观和行为，并确保它们在各种条件下正常工作。这有助于加快开发迭代周期，提高组件的质量。',
         actions: [
           {
+            type: 'btn',
+            color: 'primary',
+            mode: 'raised',
             href: '#',
             label: '马上体验',
           },
@@ -111,6 +117,9 @@ const content: IShowcase3v2 = {
         body: '<strong class="text-primary">Storybook</strong> 不仅可以展示和测试组件，还可以自动生成组件的文档。<ul class="list-done">\r\n\t<li>使用Markdown或其他文档格式编写组件文档，并将其与组件关联</li>\r\n\t<li>团队成员可以更好地理解和使用组件，减少了沟通成本</li></ul>\r\n',
         actions: [
           {
+            type: 'btn',
+            color: 'primary',
+            mode: 'raised',
             href: '#',
             label: '马上体验',
           },

@@ -61,7 +61,6 @@ export class ContentService {
     if (environment.production) {
       const landingPath = '/api/v1/landingPage?content=';
       const pageUrlParams = `${this.apiUrl}${landingPath}${pageUrl}`;
-      console.log(this.coreConfig);
       return this.http.get<any>(pageUrlParams).pipe(
         tap((page) => {
           this.updatePage(page);
