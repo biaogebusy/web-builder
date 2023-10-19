@@ -37,13 +37,14 @@ import { Meta, Typeset } from "@storybook/addon-docs";
 ```ts
 $custom-typography: mat-typography-config(
   $font-family: $font-family,
-  $display-4: mat-typography-level(48px, 1.618, 300, $font-family: $font-family),
-  $display-3: mat-typography-level(40px, 1.618, 400, $font-family: $font-family),
-  $display-2: mat-typography-level(32px, 1.618, 400, $font-family: $font-family),
-  $display-1: mat-typography-level(28px, 1.618, 400, $font-family: $font-family),
-  $headline: mat-typography-level(24px, 1.618, 400, $font-family: $font-family),
+  $display-4: mat-typography-level(61px, 1.5, 300, $font-family: $font-family),
+  $display-3: mat-typography-level(48px, 1.5, 400, $font-family: $font-family),
+  $display-2: mat-typography-level(39px, 1.5, 400, $font-family: $font-family),
+  $display-1: mat-typography-level(31px, 1.5, 400, $font-family: $font-family),
+  $headline: mat-typography-level(25px, 1.618, 400, $font-family: $font-family),
   $title: mat-typography-level(20px, 1.618, 500, $font-family: $font-family),
   $body-1: mat-typography-level(16px, 1.618, 400),
+  $body-2: mat-typography-level(16px, 1.618, 500),
 );
 ```
 
@@ -59,15 +60,15 @@ export const typography = {
     black: "900",
   },
   size: {
-    h1: 24,
+    h1: 25,
     h2: 20,
     body: 16,
   },
   display: {
-    d1: 28,
-    d2: 32,
-    d3: 40,
-    d4: 48,
+    d1: 31,
+    d2: 39,
+    d3: 48,
+    d4: 61,
   },
 };
 
