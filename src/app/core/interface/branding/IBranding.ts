@@ -36,7 +36,7 @@ interface Right {
 }
 
 interface Left {
-  icon: string;
+  icon: IIcon;
   label: string;
 }
 
