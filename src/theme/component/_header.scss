@@ -139,6 +139,11 @@
         color: $primary-contrast !important;
         transition: color 0.2s ease-in;
       }
+      .github-star {
+        .right {
+          background-color: transparent;
+        }
+      }
       .search-box .mat-icon {
         color: mat-color($primary);
       }

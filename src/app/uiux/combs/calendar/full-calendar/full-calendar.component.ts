@@ -142,10 +142,10 @@ export class FullCalendarComponent
             const type = item.type;
             const event = item.event;
             return {
-              title: item.label,
+              title: item.label || item.title,
               event,
               type,
-              start: item.date,
+              start: item.date || item.created,
               url: item.url,
               end: item.end || null,
               user: item.user,
