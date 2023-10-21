@@ -5,7 +5,7 @@
         <div class="left">
           <div class="hotline" fxLayout fxLayoutGap="2rem">
             <div class="item" fxLayout *ngFor="let item of content.banner?.left">
-              <mat-icon [inline]="true">{{item.icon}}</mat-icon>
+              <app-icon *ngIf="item.icon" [content]="item.icon"></app-icon>
               <div>{{item.label}}</div>
             </div>
           </div>
