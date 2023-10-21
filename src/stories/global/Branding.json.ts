@@ -20,12 +20,18 @@ export const defaultHeader: IHeader = {
     banner: {
       left: [
         {
-          icon: 'call',
-          label: '(123)456-7890',
+          icon: {
+            svg: 'tooltip-check-outline',
+            inline: true,
+          },
+          label: 'v4.2.1',
         },
         {
-          icon: 'email',
-          label: 'service@example.com',
+          icon: {
+            svg: 'email-outline',
+            inline: true,
+          },
+          label: '349255833@qq.com',
         },
       ],
       right: [
