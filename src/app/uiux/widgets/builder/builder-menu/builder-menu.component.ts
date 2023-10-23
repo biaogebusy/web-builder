@@ -46,7 +46,6 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     this.getTotal();
     this.debugAnimate$.subscribe((state) => {
-      //TODO
       this.builder.renderMarkers(state);
     });
   }
@@ -70,15 +69,6 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit, OnDestroy {
         }
         this.cd.detectChanges();
       });
-  }
-
-  onPreview(): void {
-    if (!this.page || this.page.body.length === 0) {
-      this.util.openSnackbar('预览页面没有组件，请添加再预览', 'ok');
-      return;
-    }
-    this.contentState.drawerOpened$.next(true);
-    this.contentState.drawerContent$.next(this.page);
   }
 
   onPageJson(): void {
@@ -119,15 +109,20 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     this.builder.renderMarkers(isDebugAnimate);
   }
 
-  onCompnentNavigate(): void {
-    this.builder.builderContentDrawer$.next(true);
-  }
-
   onDownload(): void {
     const page = document.getElementById('builder-list');
     if (page) {
       this.canvasService.openDialog(page);
     }
+  }
+
+  onPreview(): void {
+    if (!this.page || this.page.body.length === 0) {
+      this.util.openSnackbar('预览页面没有组件，请添加再预览', 'ok');
+      return;
+    }
+    const url = window.location.origin;
+    window.open(`${url}/builder/preview`, '_blank');
   }
 
   ngOnDestroy(): void {
