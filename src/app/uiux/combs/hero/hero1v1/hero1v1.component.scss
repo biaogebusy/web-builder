@@ -23,6 +23,9 @@
       img {
         transform: translate(0px, 0px) !important;
       }
+      .text-body {
+        max-width: 800px;
+      }
     }
   }
   @media #{$lt-md} {

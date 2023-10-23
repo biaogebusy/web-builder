@@ -1,9 +1,13 @@
 .component-item {
   margin: 5px;
+  width: calc(100% - 10px);
+  &.cdk-drag:not(.cdk-drag-disabled) {
+    cursor: ns-resize !important;
+  }
 }
 .box {
   border-radius: 8px;
-  padding: 4px;
+  padding: 4px 10px;
   .inner {
     position: relative;
     overflow: hidden;
