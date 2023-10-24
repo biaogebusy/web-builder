@@ -11,6 +11,7 @@ import { LocalStorageService } from 'ngx-webstorage';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { map } from 'lodash-es';
 import { DOCUMENT } from '@angular/common';
+import { ScreenService } from '@core/service/screen.service';
 
 @Injectable({
   providedIn: 'root',
@@ -43,6 +44,7 @@ export class BuilderState {
   constructor(
     private storage: LocalStorageService,
     private util: UtilitiesService,
+    private sreenService: ScreenService,
     @Inject(DOCUMENT) private doc: Document
   ) {
     const localPage = this.storage.retrieve(this.pageKey);
@@ -62,7 +64,7 @@ export class BuilderState {
     this.updatePage();
   }
 
-  updatePage(): void {
+  updatePage(index: number = 0): void {
     setTimeout(() => {
       this.storage.store(
         this.pageKey,
@@ -70,6 +72,10 @@ export class BuilderState {
           time: new Date(),
         })
       );
+
+      if (index) {
+        this.sreenService.scrollToAnchor(`item-${index}`);
+      }
       this.loading$.next(false);
     }, 600);
   }
@@ -117,7 +123,7 @@ export class BuilderState {
 
   dropComponent(event: CdkDragDrop<string[]>): void {
     moveItemInArray(this.page.body, event.previousIndex, event.currentIndex);
-    this.updatePage();
+    this.updatePage(event.currentIndex);
   }
 
   // 边栏拖动添加组件
@@ -127,7 +133,7 @@ export class BuilderState {
       ? event.item.data
       : event.item.data.content;
     this.page.body.splice(event.currentIndex, 0, component);
-    this.updatePage();
+    this.updatePage(event.currentIndex);
   }
 
   showEditor(content: any, index: number): void {
