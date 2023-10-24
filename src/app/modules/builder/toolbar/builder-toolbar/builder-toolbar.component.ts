@@ -73,9 +73,8 @@ export class BuilderToolbarComponent
     this.builder.fullScreen$.next(event.checked);
   }
 
-  onPreview(): void {
-    const url = window.location.origin;
-    window.open(`${url}/builder/preview`, '_blank');
+  onCompnentNavigate(): void {
+    this.builder.builderContentDrawer$.next(true);
   }
 
   onSelectAssets(): void {

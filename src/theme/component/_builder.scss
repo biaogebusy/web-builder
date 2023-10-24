@@ -22,16 +22,6 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
     .right {
       color: mat-color($foreground, text, 0.5);
     }
-
-    .switch-preview {
-      button {
-        &.none {
-          .mat-icon {
-            color: mat-color($foreground, slider-off);
-          }
-        }
-      }
-    }
   }
   .sidebar {
     background-color: mat-color($background, card);
