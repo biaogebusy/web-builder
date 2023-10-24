@@ -49,7 +49,7 @@ export class PreviewListComponent implements OnInit, OnDestroy {
   }
 
   onClickSidebar(i: number, item: any): void {
-    this.screenService.scrollToAnchor(`${item.type || item.content.type}-${i}`);
+    this.screenService.scrollToAnchor(`item-${i}`);
   }
 
   ngOnDestroy(): void {
