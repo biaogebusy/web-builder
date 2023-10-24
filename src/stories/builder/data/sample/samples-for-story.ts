@@ -15,7 +15,7 @@ import { home_v8 } from './home-v8.builder';
 import { home_v9 } from './home-v9.builder';
 
 export const samples: IBuilderSamplePage = {
-  label: '示例',
+  label: '构建示例',
   elements: [
     {
       label: 'V1',
