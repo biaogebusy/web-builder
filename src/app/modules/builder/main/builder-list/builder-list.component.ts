@@ -28,6 +28,7 @@ import { map } from 'rxjs/operators';
 })
 export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() content: any;
+  @Input() drawerCode: MatDrawer;
   @ViewChild('builderList', { static: false }) builderList: ElementRef;
   @ViewChild('drawer', { static: false }) drawer: MatDrawer;
   markers: NodeListOf<Element>;
@@ -82,7 +83,11 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onShowEditor(content: any, index: number): void {
-    this.builder.showEditor(content, index);
+    if (this.drawerCode.opened) {
+      this.drawerCode.close();
+    } else {
+      this.builder.showEditor(content, index);
+    }
   }
 
   ngOnDestroy(): void {

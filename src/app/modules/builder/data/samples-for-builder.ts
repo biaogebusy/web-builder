@@ -1,5 +1,5 @@
 export const samples = {
-  label: '示例',
+  label: '构建示例',
   elements: [
     {
       label: 'V1',
