@@ -134,7 +134,6 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
         .actions {
           &.expand {
             background-color: mat-color($background, card);
-            @include mat-elevation(2, mat-color($background, hover), 0.4);
           }
         }
       }
