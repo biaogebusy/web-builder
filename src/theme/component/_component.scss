@@ -33,6 +33,7 @@
 @import "./dashboard";
 @import "./chart-box";
 @import "./builder";
+@import "./theme-preview";
 
 // material custom
 @import "./mat/card";
@@ -75,6 +76,7 @@
   @include dashboard-color($config-or-theme);
   @include chart-box-color($config-or-theme);
   @include builder-color($config-or-theme);
+  @include theme-preview-color($config-or-theme);
 
   // material custom ui
   @include card-color($config-or-theme);

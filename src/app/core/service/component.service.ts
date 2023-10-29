@@ -184,10 +184,11 @@ export class ComponentService {
       )
     );
 
-    ['autoclose', 'dynamic-form', '404', 'jsoneditor'].forEach((type) =>
-      this.setModule(type, () =>
-        import('@uiux/combs/other/other.module').then((m) => m.OtherModule)
-      )
+    ['autoclose', 'dynamic-form', '404', 'jsoneditor', 'theme-preview'].forEach(
+      (type) =>
+        this.setModule(type, () =>
+          import('@uiux/combs/other/other.module').then((m) => m.OtherModule)
+        )
     );
 
     [
