@@ -13,6 +13,7 @@ import { Default as Card1v4 } from '@stories/widgets/card/Card1v4.stories';
 import { Default as Card1v2 } from '@stories/widgets/card/Card1v2.stories';
 import { Default as test } from '@stories/widgets/media/Testimonial.stories';
 import { random } from 'lodash-es';
+import { environment } from 'src/environments/environment';
 export default {
   title: '主题/主题预览',
   id: 'theme-preview',
@@ -39,6 +40,7 @@ export const Default = Template.bind({});
 
 Default.args = {
   content: {
+    type: 'theme-preview',
     top: [
       {
         ...BannerWithBg.args?.content,
@@ -395,3 +397,7 @@ Default.args = {
     ],
   },
 };
+
+if (!environment.production) {
+  console.log(Default.args.content);
+}
