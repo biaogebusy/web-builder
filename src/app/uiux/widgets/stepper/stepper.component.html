@@ -1,6 +1,6 @@
 <mat-horizontal-stepper [linear]="getParams(content,'linear')" [labelPosition]="getParams(content, 'labelPosition')"
   #stepper *ngIf="getParams(content, 'mode') === 'horizontal'">
-  <mat-step *ngFor="let step of content.steps" [completed]="step.completed">
+  <mat-step [color]="step.color" *ngFor="let step of content.steps" [completed]="step.completed">
     <ng-template matStepLabel>{{step.label}}</ng-template>
     <ng-container *ngIf="step.elements">
       <ng-container *ngFor="let item of step.elements">
@@ -11,7 +11,7 @@
 </mat-horizontal-stepper>
 
 <mat-vertical-stepper [linear]="getParams(content,'linear')" #stepper *ngIf="getParams(content, 'mode') === 'vertical'">
-  <mat-step *ngFor="let step of content.steps" [completed]="step.completed">
+  <mat-step [color]="step.color" *ngFor="let step of content.steps" [completed]="step.completed">
     <ng-template matStepLabel>{{step.label}}</ng-template>
     <ng-container *ngIf="step.elements">
       <ng-container *ngFor="let item of step.elements">
