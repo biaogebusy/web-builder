@@ -13,6 +13,10 @@
         padding-right: 0 !important;
       }
       .mat-tab-header {
+        .mat-tab-label {
+          max-width: 66px;
+          min-width: 66px;
+        }
         .mat-tab-label-content {
           padding: 4px 24px;
           border-radius: 6px;
@@ -34,10 +38,7 @@
     > .mat-drawer-content {
       display: block;
     }
-    .mat-tab-label {
-      max-width: 66px;
-      min-width: 66px;
-    }
+
     // don't move
     .cdk-drag-placeholder {
       height: 60px;

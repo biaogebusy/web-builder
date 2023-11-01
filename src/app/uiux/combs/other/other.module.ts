@@ -8,12 +8,14 @@ import { DynamicFormComponent } from './dynamic-form/dynamic-form.component';
 import { AutocloseComponent } from './autoclose/autoclose.component';
 import { BaseModule } from '@uiux/base/base.module';
 import { JsoneditorComponent } from './jsoneditor/jsoneditor.component';
+import { ThemePreviewComponent } from './theme-preview/theme-preview.component';
 
 const components = [
   NotfoundComponent,
   DynamicFormComponent,
   AutocloseComponent,
   JsoneditorComponent,
+  ThemePreviewComponent,
 ];
 
 @NgModule({
