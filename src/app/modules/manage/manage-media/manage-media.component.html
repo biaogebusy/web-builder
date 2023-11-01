@@ -24,8 +24,7 @@
           <ng-container *ngIf="assets.elements.length;else empty">
             <div class="masonry-item" *ngFor="let item of assets.elements"
               fxFlex="0 0 calc(100% / {{coreConfig.manageMedia.row}})">
-              <app-dynamic-component class="display-block"
-                [inputs]="{content:item,disableToolbar:true}"></app-dynamic-component>
+              <app-dynamic-component class="display-block" [inputs]="{content:item}"></app-dynamic-component>
             </div>
           </ng-container>
           <ng-template #empty>

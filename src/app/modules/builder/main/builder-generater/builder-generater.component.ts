@@ -59,13 +59,15 @@ export class BuilderGeneraterComponent implements OnInit {
       action.push(base.elements[0].elements[0]);
     }
 
-    this.builder.page.body = [
-      ...heros,
-      ...showcases,
-      ...carousel,
-      ...drupal,
-      ...action,
-    ];
+    const blocks = [...heros, ...showcases, ...carousel, ...drupal, ...action];
+
+    this.builder.page.body = blocks.map((item) => {
+      if (item.type) {
+        return item;
+      } else {
+        return item.content;
+      }
+    });
     this.util.openSnackbar('正在为您生成页面，加载中...', 'ok', {
       horizontalPosition: 'center',
       verticalPosition: 'top',

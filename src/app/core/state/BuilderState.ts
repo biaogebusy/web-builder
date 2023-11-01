@@ -150,7 +150,6 @@ export class BuilderState {
           index,
           isPreview: true,
           data: content,
-          disableToolbar: true,
         },
       ],
     });

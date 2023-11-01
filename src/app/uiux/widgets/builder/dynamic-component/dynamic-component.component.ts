@@ -76,7 +76,7 @@ export class DynamicComponentComponent
 
   ngAfterContentInit(): void {
     this.enable_toolbar$.pipe(takeUntil(this.destroy$)).subscribe((state) => {
-      if (this.inputs?.disableToolbar) {
+      if (!this.inputs?.showToolbar) {
         this.activeToolbarClass = false;
         return;
       }
@@ -93,7 +93,7 @@ export class DynamicComponentComponent
   }
 
   get showToolbar(): boolean {
-    return !!this.coreConfig.builder?.enable && !this.inputs?.disableToolbar;
+    return !!this.coreConfig.builder?.enable && this.inputs?.showToolbar;
   }
 
   async loadComponent(): Promise<void> {

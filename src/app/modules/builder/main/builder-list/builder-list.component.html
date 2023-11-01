@@ -12,7 +12,8 @@
       <div id="item-{{i}}" (click)="onShowEditor(item, i)" class="component-item" cdkDrag
         [cdkDragDisabled]="screenState.eq('xs')" [cdkDragData]="item"
         *ngFor="let item of content;index as i; trackBy: trackByFn">
-        <app-dynamic-component *ngIf="item" [inputs]="item" [index]="i" [isPreview]="true"></app-dynamic-component>
+        <app-dynamic-component *ngIf="item" [inputs]="{content:item,showToolbar:true}" [index]="i"
+          [isPreview]="true"></app-dynamic-component>
         <app-card-1v1 style="width:800px" *cdkDragPreview [content]="{
             link:{
               href:'#',

@@ -13,8 +13,7 @@
           </div>
         </div>
         <div class="actions" *ngIf="item?.actions?.length" fxLayout="row">
-          <app-dynamic-component [inputs]="{content:action, data:action?.params,disableToolbar:true}"
-            *ngFor="let action of item.actions">
+          <app-dynamic-component [inputs]="{content:action, data:action?.params}" *ngFor="let action of item.actions">
           </app-dynamic-component>
         </div>
       </div>
