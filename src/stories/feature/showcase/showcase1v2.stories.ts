@@ -123,7 +123,7 @@ Primary.storyName = 'Primay';
 const primary: IShowcase1v1 = {
   type: 'showcase-1v1',
   title: {
-    label: 'What We Do ?',
+    label: '使用 Drupal 作为你的低代码后台',
     style: 'style-v1',
   },
   subTitle: {
