@@ -74,7 +74,6 @@ export class BuilderSidebarWidgetsComponent implements OnInit, AfterViewInit {
           type: 'jsoneditor',
           isPreview: true,
           data,
-          disableToolbar: true,
           isPage: false,
         },
       ],

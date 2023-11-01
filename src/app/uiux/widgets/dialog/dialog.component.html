@@ -2,12 +2,10 @@
   <h2 mat-dialog-title *ngIf="data.title">{{data.title}}</h2>
   <mat-dialog-content>
     <ng-container *ngIf="data.inputData | isArray; else one">
-      <app-dynamic-component *ngFor="let widget of data.inputData"
-        [inputs]="{content:widget,disableToolbar:true,activeToolBar:false}"></app-dynamic-component>
+      <app-dynamic-component *ngFor="let widget of data.inputData" [inputs]="{content:widget}"></app-dynamic-component>
     </ng-container>
     <ng-template #one>
-      <app-dynamic-component
-        [inputs]="{content:data.inputData.content,disableToolbar:true,activeToolBar:false}"></app-dynamic-component>
+      <app-dynamic-component [inputs]="{content:data.inputData.content}"></app-dynamic-component>
     </ng-template>
   </mat-dialog-content>
   <div mat-dialog-actions fxLayoutAlign="center center">

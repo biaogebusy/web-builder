@@ -83,7 +83,6 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit, OnDestroy {
           type: 'jsoneditor',
           isPreview: true,
           data: this.page,
-          disableToolbar: true,
           isPage: true,
         },
       ],
