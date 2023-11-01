@@ -23,7 +23,6 @@ export class BtnGeneraterComponent implements OnInit {
       elements: [
         {
           type: 'builder-generater',
-          disableToolbar: true,
         },
       ],
     });

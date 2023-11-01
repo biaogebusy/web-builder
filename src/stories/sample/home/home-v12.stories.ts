@@ -9,7 +9,7 @@ import { BlockModule } from '@uiux/combs/block/block.module';
 import { StorysModule } from '@core/module/storys.module';
 import { BrandingModule } from '@core/branding/branding.module';
 import { of } from 'rxjs';
-import { BRANDING, ENABLE_BUILDER_TOOLBAR } from '@core/token/token-providers';
+import { BRANDING } from '@core/token/token-providers';
 import { defaultHeader, footerInverse } from '@stories/global/Branding.json';
 import { home_v12 } from '@stories/builder/data/sample/home-v12.builder';
 export default {
@@ -28,10 +28,6 @@ export default {
             header: defaultHeader,
             footer: footerInverse,
           }),
-        },
-        {
-          provide: ENABLE_BUILDER_TOOLBAR,
-          useValue: of(true),
         },
       ],
     }),
