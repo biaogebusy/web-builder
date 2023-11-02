@@ -1486,7 +1486,7 @@
                       "elements": [
                         {
                           "type": "card",
-                          "subTitle": "2023-10-05",
+                          "subTitle": "2023-11-02",
                           "avatar": {
                             "src": "/assets/images/avatar/01.jpeg",
                             "alt": ""
@@ -1536,7 +1536,7 @@
                         },
                         {
                           "type": "card",
-                          "subTitle": "2023-10-05",
+                          "subTitle": "2023-11-02",
                           "avatar": {
                             "src": "/assets/images/avatar/02.jpeg",
                             "alt": ""
@@ -1573,7 +1573,7 @@
                         },
                         {
                           "type": "card",
-                          "subTitle": "2023-10-05",
+                          "subTitle": "2023-11-02",
                           "avatar": {
                             "src": "/assets/images/avatar/03.jpeg",
                             "alt": ""
@@ -1610,7 +1610,7 @@
                         },
                         {
                           "type": "card",
-                          "subTitle": "2023-10-05",
+                          "subTitle": "2023-11-02",
                           "avatar": {
                             "src": "/assets/images/avatar/04.jpeg",
                             "alt": ""
@@ -1647,7 +1647,7 @@
                         },
                         {
                           "type": "card",
-                          "subTitle": "2023-10-05",
+                          "subTitle": "2023-11-02",
                           "avatar": {
                             "src": "/assets/images/avatar/05.jpeg",
                             "alt": ""
@@ -1684,7 +1684,7 @@
                         },
                         {
                           "type": "card",
-                          "subTitle": "2023-10-05",
+                          "subTitle": "2023-11-02",
                           "avatar": {
                             "src": "/assets/images/avatar/06.jpeg",
                             "alt": ""
@@ -1721,7 +1721,7 @@
                         },
                         {
                           "type": "card",
-                          "subTitle": "2023-10-05",
+                          "subTitle": "2023-11-02",
                           "avatar": {
                             "src": "/assets/images/avatar/01.jpeg",
                             "alt": ""
@@ -1758,7 +1758,7 @@
                         },
                         {
                           "type": "card",
-                          "subTitle": "2023-10-05",
+                          "subTitle": "2023-11-02",
                           "avatar": {
                             "src": "/assets/images/avatar/02.jpeg",
                             "alt": ""
@@ -2475,6 +2475,9 @@
                             "body": "<strong class=\"text-primary\">Storybook</strong> 采用了组件驱动开发的方法，即将UI组件作为开发的核心单元。<ul class=\"list-done\">\r\n\t<li>为每个UI组件创建\"stories\"</li>\r\n\t<li>描述组件在不同状态和交互方式下的行为和外观</li>\r\n\t<li>提高组件的可重用性和可测试性</li>\r\n</ul>\r\n",
                             "actions": [
                               {
+                                "type": "btn",
+                                "color": "primary",
+                                "mode": "raised",
                                 "href": "#",
                                 "label": "马上体验"
                               }
@@ -2497,6 +2500,9 @@
                             "body": "<strong class=\"text-primary\">Storybook</strong> 提供了一个交互式的界面，用于展示和测试UI组件。开发人员可以在浏览器中浏览和交互组件，以便检查其外观和行为，并确保它们在各种条件下正常工作。这有助于加快开发迭代周期，提高组件的质量。",
                             "actions": [
                               {
+                                "type": "btn",
+                                "color": "primary",
+                                "mode": "raised",
                                 "href": "#",
                                 "label": "马上体验"
                               }
@@ -2519,6 +2525,9 @@
                             "body": "<strong class=\"text-primary\">Storybook</strong> 不仅可以展示和测试组件，还可以自动生成组件的文档。<ul class=\"list-done\">\r\n\t<li>使用Markdown或其他文档格式编写组件文档，并将其与组件关联</li>\r\n\t<li>团队成员可以更好地理解和使用组件，减少了沟通成本</li></ul>\r\n",
                             "actions": [
                               {
+                                "type": "btn",
+                                "color": "primary",
+                                "mode": "raised",
                                 "href": "#",
                                 "label": "马上体验"
                               }
@@ -3989,7 +3998,7 @@
                             "name": "fingerprint"
                           },
                           "digit": {
-                            "value": 644,
+                            "value": 314,
                             "label": "+"
                           },
                           "title": "日访问人数"
@@ -3999,7 +4008,7 @@
                             "name": "verified_user"
                           },
                           "digit": {
-                            "value": 352,
+                            "value": 468,
                             "label": "+"
                           },
                           "title": "日打开次数"
@@ -4009,7 +4018,7 @@
                             "name": "android"
                           },
                           "digit": {
-                            "value": 163,
+                            "value": 86,
                             "label": "人"
                           },
                           "title": "日新增人数"
@@ -4019,7 +4028,7 @@
                             "name": "mail"
                           },
                           "digit": {
-                            "value": 9687,
+                            "value": 7809,
                             "label": "万"
                           },
                           "title": "累计用户数"
@@ -4048,7 +4057,7 @@
                             "src": "/assets/images/svg/Asset187.svg"
                           },
                           "digit": {
-                            "value": 44,
+                            "value": 48,
                             "label": "M"
                           },
                           "title": "Github Start"
@@ -4058,7 +4067,7 @@
                             "src": "/assets/images/svg/Asset189.svg"
                           },
                           "digit": {
-                            "value": 45496,
+                            "value": 39385,
                             "label": "+"
                           },
                           "title": "NPM 周下载量"
@@ -4068,7 +4077,7 @@
                             "src": "/assets/images/svg/Asset190.svg"
                           },
                           "digit": {
-                            "value": 4285,
+                            "value": 2444,
                             "label": "K"
                           },
                           "title": "社区活跃"
@@ -4078,7 +4087,7 @@
                             "src": "/assets/images/svg/Asset192.svg"
                           },
                           "digit": {
-                            "value": 556,
+                            "value": 662,
                             "label": "个"
                           },
                           "title": "成功故事"
@@ -5159,6 +5168,135 @@
                       }
                     },
                     "name": "图片带文本"
+                  },
+                  {
+                    "content": {
+                      "spacer": "lg",
+                      "type": "carousel-1v1",
+                      "title": {
+                        "label": "你将喜欢上 Drupal 的原因",
+                        "icon": "email",
+                        "style": "style-v2",
+                        "classes": "mat-display-1"
+                      },
+                      "classes": "",
+                      "bg": {
+                        "classes": "bg-white bg-fill-width"
+                      },
+                      "sliders": {
+                        "params": {
+                          "slidesPerView": 1,
+                          "spaceBetween": 0,
+                          "navigation": true,
+                          "pagination": true,
+                          "autoplay": false
+                        },
+                        "classes": "p-bottom",
+                        "elements": [
+                          {
+                            "type": "img",
+                            "src": "/assets/images/illustration/09.png",
+                            "hostClasses": "position-relative text-center",
+                            "actions": [
+                              {
+                                "color": "primary",
+                                "type": "btn-video",
+                                "video": {
+                                  "type": "player",
+                                  "options": {
+                                    "controls": true,
+                                    "aspectRatio": "16:9",
+                                    "poster": "/assets/video/poster01.png",
+                                    "sources": [
+                                      {
+                                        "src": "/assets/video/storybook.mp4",
+                                        "type": "video/mp4"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "img",
+                            "src": "/assets/images/illustration/10.png",
+                            "hostClasses": "position-relative text-center",
+                            "actions": [
+                              {
+                                "color": "primary",
+                                "type": "btn-video",
+                                "video": {
+                                  "type": "player",
+                                  "options": {
+                                    "controls": true,
+                                    "aspectRatio": "16:9",
+                                    "poster": "/assets/video/poster01.png",
+                                    "sources": [
+                                      {
+                                        "src": "/assets/video/storybook.mp4",
+                                        "type": "video/mp4"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "img",
+                            "src": "/assets/images/illustration/11.png",
+                            "hostClasses": "position-relative text-center",
+                            "actions": [
+                              {
+                                "color": "primary",
+                                "type": "btn-video",
+                                "video": {
+                                  "type": "player",
+                                  "options": {
+                                    "controls": true,
+                                    "aspectRatio": "16:9",
+                                    "poster": "/assets/video/poster01.png",
+                                    "sources": [
+                                      {
+                                        "src": "/assets/video/storybook.mp4",
+                                        "type": "video/mp4"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "img",
+                            "src": "/assets/images/illustration/12.png",
+                            "hostClasses": "position-relative text-center",
+                            "actions": [
+                              {
+                                "color": "primary",
+                                "type": "btn-video",
+                                "video": {
+                                  "type": "player",
+                                  "options": {
+                                    "controls": true,
+                                    "aspectRatio": "16:9",
+                                    "poster": "/assets/video/poster01.png",
+                                    "sources": [
+                                      {
+                                        "src": "/assets/video/storybook.mp4",
+                                        "type": "video/mp4"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "name": "视频"
                   },
                   {
                     "content": {
@@ -7246,9 +7384,9 @@
                 "align": "center start",
                 "id": "b5f0ed94-2ebe-40e9-be07-f480efb50994",
                 "title": "小南",
-                "subTitle": "2023-10-05 11:10:05"
+                "subTitle": "2023-11-02 17:58:48"
               },
-              "time": "2023-10-05 11:10:05",
+              "time": "2023-11-02 17:58:48",
               "id": "24213e00-d4b8-4ece-bbea-a588efcc7d8d",
               "content": "<p>设定具体的学习目标：将学习分解为小而可管理的目标，并为每个目标设定明确的时间表和标准。这样，你可以看到自己的进展，并感到满足和激励。寻找灵感和挑战：保持对前端技术的好奇心，主动寻找新的灵感和挑战。参加技术交流会议、阅读相关的博客和文章，或加入社区讨论可以帮助你保持兴趣和动力。关注个人发展：思考自己的职业发展和长期目标，明确你希望在前端领域取得的成就。将学习看作是实现这些目标的关键步骤，这种意识将激励你持续学习和进步。</p>",
               "child": [
@@ -7266,9 +7404,9 @@
                     "align": "center start",
                     "id": "15765815-07f2-4d7d-8142-cb598f82af2e",
                     "title": "root",
-                    "subTitle": "2023-10-05 11:10:05"
+                    "subTitle": "2023-11-02 17:58:48"
                   },
-                  "time": "2023-10-05 11:10:05",
+                  "time": "2023-11-02 17:58:48",
                   "id": "bbbe5e9f-9b85-421e-a839-7d50be0eb7ed",
                   "content": "<p><ul class=\"list-done\"><li>探索不同的学习资源：尝试不同的学习资源，如在线教程、视频教程、书籍、实践项目等。不同的学习方法可以帮助你从不同的角度理解和应用前端技术，保持学习的新鲜感。</li><li>参与开源项目和社区：积极参与开源项目和社区，与其他开发者互动和合作。这样你可以学习到新的技术和最佳实践，同时拓展人脉和交流经验，激发学习的热情。</li><li>持续实践和项目驱动：通过实际项目的开发和实践，将学到的知识应用到实际场景中。实践中的挑战和解决方案将帮助你不断提升技能，并加深对前端开发的理解和热爱。</li></ul></p>",
                   "child": [],
@@ -7291,9 +7429,9 @@
                 "align": "center start",
                 "id": "d5fb03cb-abca-43ba-baa5-a162a576e67a",
                 "title": "表歌",
-                "subTitle": "2023-10-05 11:10:05"
+                "subTitle": "2023-11-02 17:58:48"
               },
-              "time": "2023-10-05 11:10:05",
+              "time": "2023-11-02 17:58:48",
               "id": "2582f1b8-d91b-4a73-86ac-050fda0b10d1",
               "content": "<p>定期回顾和评估：定期回顾自己的学习进展和成果，对已经学到的知识和技能进行评估。这样可以看到自己的进步，并找出需要改进的领域，保持学习的动力。设定奖励机制：为自己设定奖励机制，当达到一定的学习目标或突破难题时给予自己奖励。这可以是一次小型庆祝、购买一本新书或者做一些自己喜欢的事情，让学习变得有趣和值得期待。寻找学习伙伴：与其他</p>",
               "child": [],
@@ -7799,7 +7937,7 @@
                         "src": "../assets/images/showcase/blog1-large.jpeg",
                         "alt": ""
                       },
-                      "changed": "2023-10-05"
+                      "changed": "2023-11-02"
                     },
                     {
                       "link": {
@@ -7810,29 +7948,29 @@
                         "src": "../assets/images/showcase/blog2-large.jpeg",
                         "alt": ""
                       },
-                      "changed": "2023-10-05"
+                      "changed": "2023-11-02"
                     },
                     {
                       "link": {
                         "label": "你应该了解的 Angular 最佳实践",
-                        "href": "2023-10-05"
+                        "href": "2023-11-02"
                       },
                       "img": {
                         "src": "../assets/images/showcase/blog3-large.jpeg",
                         "alt": ""
                       },
-                      "changed": "2023-10-05"
+                      "changed": "2023-11-02"
                     },
                     {
                       "link": {
                         "label": "Angular 5 rxjs 5.5.2 多个 http 并行 forkJoin 请求",
-                        "href": "2023-10-05"
+                        "href": "2023-11-02"
                       },
                       "img": {
                         "src": "../assets/images/showcase/blog4-large.jpeg",
                         "alt": ""
                       },
-                      "changed": "2023-10-05"
+                      "changed": "2023-11-02"
                     }
                   ]
                 }
@@ -9044,7 +9182,7 @@
                     "href": "/node/417",
                     "target": "_blank"
                   },
-                  "created": "2023-10-05",
+                  "created": "2023-11-02",
                   "body": "<h4 id=\"%E4%BD%BF%E7%94%A8-lighthouse-%E8%AF%84%E5%88%86\">使用 lighthouse 评分</h4><p>以南宁IT派[www.nnitpai.com]为例记录分析优化过程，使用 Devtools lighthouse 对首页进行综合的评分：<br /><img alt=\"image 0\" data-entity-type=\"file\" data-entity-uuid=\"c397a1f3-b764-4fd2-ab09-98d61f2a4dbd\" height=\"603\" src=\"/sites/default/files/inline-images/image_0.png\" width=\"940\" /><br />性能评分勉强及格差强人意，切换到 performance 性能选项卡:<br /><img alt=\"image 1\" data-entity-type=\"file\" data-entity-uuid=\"17526354-c3f6-45ab-8d28-8100cd1d10e8\" height=\"506\" src=\"/sites/default/files/inline-images/image_1.png\" width=\"951\" /><br />记录的同时，可以依次滚动页面到底部，暂停看看分析结果：<br /><img alt=\"image 2\" data-entity-type=\"file\" data-entity-uuid=\"2349f2bb-d08a-4e5e-a6fa-8ca891b91022\" height=\"422\" src=\"/sites/default/files/inline-images/image_2.png\" width=\"949\" /><br />发现一推很深的函数调用，放大具体看看：（记得要用本地开发环境来查看，这样可以方便看未编译版本中具体的组件或者函数）<br /></p>",
                   "user": "Johnson",
                   "type": "博客",
@@ -9063,7 +9201,7 @@
                     "href": "/node/414",
                     "target": "_blank"
                   },
-                  "created": "2023-10-05",
+                  "created": "2023-11-02",
                   "body": "<p>遵循最佳实践可以让你的 Angular 应用保持性能优越，使团队的代码风格一致，以下代码摘自南宁IT派官网项目。</p><h3 id=\"%E6%8A%8A%E9%BB%98%E8%AE%A4%E7%9A%84%E5%8F%98%E6%9B%B4%E6%A3%80%E6%B5%8B%E8%AE%BE%E7%BD%AE%E4%B8%BA-onpush\">把默认的变更检测设置为 OnPush</h3><p>Angular 默认变更检测是 Defualt，只要在组件中有任意一个值发生改变或者 Dom中有事件的更新都会触发整个应用自上而下的变更检测，使用&nbsp;<code data-backticks=\"1\">OnPush</code>&nbsp;的方式使大型的应用的性能得到很大的提升。<br />导入 ChangeDetectionStrategy 之后，设置为OnPush</p></p>",
                   "user": "表歌",
                   "type": "博客",
@@ -9853,7 +9991,7 @@
                                 },
                                 "alt": "logo"
                               },
-                              "meta": "2023-10",
+                              "meta": "2023-11",
                               "title": "前端开发工程师",
                               "subTitle": "Davyin",
                               "content": "专注于 Drupal 前端主题开发，目前主要从事于 Angular 前端开发，终身学习体验者，热衷于健身，希望明天比今天好一点。"

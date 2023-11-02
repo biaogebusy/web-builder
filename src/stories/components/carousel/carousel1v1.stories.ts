@@ -174,6 +174,126 @@ TextHero.args = {
   content: textHeroContent,
 };
 
+export const Video = Template.bind({});
+Video.storyName = '视频';
+Video.args = {
+  content: {
+    ...Default.args?.content,
+    sliders: {
+      params: {
+        slidesPerView: 1,
+        spaceBetween: 0,
+        navigation: true,
+        pagination: true,
+        autoplay: false,
+      },
+      classes: 'p-bottom',
+      elements: [
+        {
+          type: 'img',
+          src: '/assets/images/illustration/09.png',
+          hostClasses: 'position-relative text-center',
+          actions: [
+            {
+              color: 'primary',
+              type: 'btn-video',
+              video: {
+                type: 'player',
+                options: {
+                  controls: true,
+                  aspectRatio: '16:9',
+                  poster: '/assets/video/poster01.png',
+                  sources: [
+                    {
+                      src: '/assets/video/storybook.mp4',
+                      type: 'video/mp4',
+                    },
+                  ],
+                },
+              },
+            },
+          ],
+        },
+        {
+          type: 'img',
+          src: '/assets/images/illustration/10.png',
+          hostClasses: 'position-relative text-center',
+          actions: [
+            {
+              color: 'primary',
+              type: 'btn-video',
+              video: {
+                type: 'player',
+                options: {
+                  controls: true,
+                  aspectRatio: '16:9',
+                  poster: '/assets/video/poster01.png',
+                  sources: [
+                    {
+                      src: '/assets/video/storybook.mp4',
+                      type: 'video/mp4',
+                    },
+                  ],
+                },
+              },
+            },
+          ],
+        },
+        {
+          type: 'img',
+          src: '/assets/images/illustration/11.png',
+          hostClasses: 'position-relative text-center',
+          actions: [
+            {
+              color: 'primary',
+              type: 'btn-video',
+              video: {
+                type: 'player',
+                options: {
+                  controls: true,
+                  aspectRatio: '16:9',
+                  poster: '/assets/video/poster01.png',
+                  sources: [
+                    {
+                      src: '/assets/video/storybook.mp4',
+                      type: 'video/mp4',
+                    },
+                  ],
+                },
+              },
+            },
+          ],
+        },
+        {
+          type: 'img',
+          src: '/assets/images/illustration/12.png',
+          hostClasses: 'position-relative text-center',
+          actions: [
+            {
+              color: 'primary',
+              type: 'btn-video',
+              video: {
+                type: 'player',
+                options: {
+                  controls: true,
+                  aspectRatio: '16:9',
+                  poster: '/assets/video/poster01.png',
+                  sources: [
+                    {
+                      src: '/assets/video/storybook.mp4',
+                      type: 'video/mp4',
+                    },
+                  ],
+                },
+              },
+            },
+          ],
+        },
+      ],
+    },
+  },
+};
+
 export const {
   Default: { args: carousel1v1 },
 } = c1v1Story;
