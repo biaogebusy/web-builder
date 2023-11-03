@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { BuilderState } from '@core/state/BuilderState';
 
 @Component({
   selector: 'app-builder-showcase',
@@ -13,7 +14,11 @@ import {
 })
 export class BuilderShowcaseComponent implements OnInit {
   @Input() content: any;
-  constructor() {}
+  constructor(private builder: BuilderState) {}
 
   ngOnInit(): void {}
+
+  onClose(): void {
+    this.builder.showcase$.next(false);
+  }
 }

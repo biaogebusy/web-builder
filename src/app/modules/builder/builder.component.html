@@ -5,9 +5,9 @@
   <mat-drawer-container class="builder-main">
     <mat-drawer #drawer class="sidebar" [mode]="mode" [opened]="!(builderFullScreen$|async)">
       <mat-tab-group mat-stretch-tabs mat-align-tabs="center" disableRipple="true">
-        <mat-tab *ngFor="let tab of tabs">
+        <mat-tab *ngFor="let tab of uiux">
           <ng-template mat-tab-label>
-            <app-icon [matTooltip]="tab.label" [content]="tab.icon"></app-icon>
+            <app-icon [content]="tab.icon" [matTooltip]="tab.label"></app-icon>
           </ng-template>
           <div class="p-x-xs p-y-xs">
             <app-builder-sidebar-widgets *ngIf="tab.type === 'base' || tab.type === 'system'"

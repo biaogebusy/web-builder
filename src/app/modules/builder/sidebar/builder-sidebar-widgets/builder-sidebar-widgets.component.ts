@@ -9,6 +9,7 @@ import {
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type { IBuilderComponent } from '@core/interface/IBuilder';
 import type { IBranding } from '@core/interface/branding/IBranding';
+import { ICard } from '@core/interface/widgets/ICard';
 import { ContentService } from '@core/service/content.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { CORE_CONFIG } from '@core/token/token-providers';
@@ -35,9 +36,33 @@ export class BuilderSidebarWidgetsComponent implements OnInit, AfterViewInit {
     });
   }
 
-  onShowcase(content?: any) {
-    if (content) {
-      this.builder.showcase$.next({
+  onShowcase(content: any) {
+    this.builder.showcase({
+      type: 'card-1v1',
+      link: {
+        href: '#',
+        label: content.type,
+      },
+      components: [content],
+    });
+    // if (content) {
+    //   this.builder.showcase$.next({
+    //     type: 'card-1v1',
+    //     link: {
+    //       href: '#',
+    //       label: content.type,
+    //     },
+    //     components: [content],
+    //   });
+    // } else {
+    //   this.builder.showcase$.next(false);
+    // }
+  }
+
+  onFixed(content: any): void {
+    this.builder.fixedShowcase = !this.builder.fixedShowcase;
+    if (this.builder.fixedShowcase) {
+      this.builder.showcase({
         type: 'card-1v1',
         link: {
           href: '#',
@@ -45,8 +70,6 @@ export class BuilderSidebarWidgetsComponent implements OnInit, AfterViewInit {
         },
         components: [content],
       });
-    } else {
-      this.builder.showcase$.next(content);
     }
   }
 

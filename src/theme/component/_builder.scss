@@ -29,12 +29,12 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
       @include scrollbar(mat-color($foreground, divider));
     }
     .mat-tab-header {
-      .mat-tab-label-active {
-        color: mat-color($primary, text);
-        opacity: 1;
-      }
       .mat-tab-label {
         color: mat-color($foreground, text, 0.75);
+        &.mat-tab-label-active {
+          color: mat-color($primary, text);
+          opacity: 1;
+        }
       }
       .mat-tab-label-content {
         background-color: transparent;
