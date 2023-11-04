@@ -59,6 +59,10 @@ export class BuilderSidebarWidgetsComponent implements OnInit, AfterViewInit {
     }
   }
 
+  onMoved(): void {
+    this.builder.showcase$.next(false);
+  }
+
   onJson(content: any) {
     const { provide } = content;
     let data = {};
