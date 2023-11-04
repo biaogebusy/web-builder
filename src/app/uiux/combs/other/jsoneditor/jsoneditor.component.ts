@@ -31,7 +31,6 @@ export class JsoneditorComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(private builder: BuilderState) {
     this.editorOptions = new JsonEditorOptions();
-    this.editorOptions.modes = ['code', 'view']; // set all allowed modes
     this.editorOptions.mode = 'code'; //set only one mode
   }
   ngOnInit(): void {

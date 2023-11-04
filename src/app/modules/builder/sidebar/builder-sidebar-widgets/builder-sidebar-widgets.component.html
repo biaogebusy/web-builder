@@ -11,7 +11,7 @@
         <div class="item" *ngFor="let widget of item.elements" fxFlex.lt-sm="50%" fxFlex.gt-xs="0 0 calc(100%/3)">
           <div *ngIf="widget.type !== 'json'" [cdkDragData]="widget.content" cdkDrag
             (mouseenter)="onShowcase(widget.content)" (click)="onFixed(widget.content)">
-            <div class="inner move" [ngClass]="builder.fixedContent == widget.content?'active':''" fxLayout="column"
+            <div class="inner move" [ngClass]="builder.fixedContent == widget.content ? 'active' : ''" fxLayout="column"
               fxLayoutAlign="center center">
               <app-icon *ngIf="widget.icon" [content]="widget.icon"></app-icon>
               <div class="title">{{widget.label}}</div>

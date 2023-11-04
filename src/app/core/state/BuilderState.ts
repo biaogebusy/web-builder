@@ -61,7 +61,6 @@ export class BuilderState {
   }
 
   showcase(content: any): void {
-    console.log(this.fixedShowcase);
     if (this.fixedShowcase) {
       this.fixedContent = content;
       this.showcase$.next({
@@ -177,6 +176,7 @@ export class BuilderState {
           index,
           isPreview: true,
           data: content,
+          tooltip: '直接修改JSON，更新组件的数据',
         },
       ],
     });
