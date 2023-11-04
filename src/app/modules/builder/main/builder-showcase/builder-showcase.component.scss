@@ -14,10 +14,25 @@
   left: 350px;
   top: 75px;
   ::ng-deep {
+    .card-1v1 {
+      transform: none !important;
+      .components {
+        max-height: 80vh;
+        overflow: auto;
+      }
+      .title {
+        margin-bottom: 0;
+      }
+    }
     .component-toolbar {
       + app-spacer {
         display: block;
       }
     }
+  }
+  .actions {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
   }
 }

@@ -20,7 +20,7 @@ export class BuilderState {
   public builderContent$ = new Subject<IPage>();
   public showcase$: Subject<ICard1v1 | boolean> = new Subject();
   public fixedShowcase = false;
-  public fixedContent: ICard1v1;
+  public fixedContent: ICard1v1 | null;
   public animateDisable$ = new Subject<boolean>();
   public fullScreen$ = new Subject<boolean>();
   public debugeAnimate$ = new Subject<boolean>();
@@ -64,9 +64,24 @@ export class BuilderState {
     console.log(this.fixedShowcase);
     if (this.fixedShowcase) {
       this.fixedContent = content;
-      this.showcase$.next(this.fixedContent);
+      this.showcase$.next({
+        type: 'card-1v1',
+        link: {
+          href: '#',
+          label: content.type,
+        },
+        components: [content],
+      });
     } else {
-      this.showcase$.next(content);
+      this.fixedContent = null;
+      this.showcase$.next({
+        type: 'card-1v1',
+        link: {
+          href: '#',
+          label: content.type,
+        },
+        components: [content],
+      });
     }
   }
 

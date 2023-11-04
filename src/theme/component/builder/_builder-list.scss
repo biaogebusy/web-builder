@@ -1,0 +1,33 @@
+@mixin builder-list($background, $foreground, $primary) {
+  background-color: mat-color($background, card);
+  .sidebar-drawer {
+    border-right: 1px solid mat-color($foreground, divider);
+    @include scrollbar(mat-color($foreground, divider));
+    .box {
+      color: mat-color($foreground, text, 0.75);
+      .inner {
+        border: 1px solid mat-color($foreground, divider);
+        background-color: mat-color($background, card);
+      }
+      &:hover {
+        background-color: mat-color($primary, 0.25);
+        color: mat-color($primary);
+      }
+    }
+  }
+  .mat-drawer {
+    background-color: mat-color($background, background);
+  }
+  .preview {
+    background-color: mat-color($foreground, elevation, 0.85);
+    #builder-list {
+      background-color: mat-color($background, card);
+    }
+    .preview-iframe {
+      &:after {
+        background-color: mat-color($foreground, elevation, 0.95);
+        @include mat-elevation(2, mat-color($foreground, elevation), 0.5);
+      }
+    }
+  }
+}

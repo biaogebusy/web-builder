@@ -1,4 +1,9 @@
 <div class="overlay" (click)="onClose()"></div>
 <div class="showcase">
   <app-card-1v1 [content]="content"></app-card-1v1>
+  <div class="actions">
+    <div class="item" (click)="onCopy(content)" [matTooltip]="'复制 JSON'" matTooltipPosition="above">
+      <app-btn [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'content-copy',inline:true } }"></app-btn>
+    </div>
+  </div>
 </div>

@@ -1,5 +1,7 @@
 @import "~@angular/material/theming";
 @import "../mixins/amixin";
+@import "./builder/sidebar";
+@import "./builder/builder-list";
 
 $dark-primary: mat-palette($mat-gray, 300, 50, 500);
 $dark-accent: mat-palette($mat-teal, A200, A100, A400);
@@ -24,95 +26,12 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
     }
   }
   .sidebar {
-    background-color: mat-color($background, card);
-    .mat-drawer-inner-container {
-      @include scrollbar(mat-color($foreground, divider));
-    }
-    .mat-tab-header {
-      .mat-tab-label {
-        color: mat-color($foreground, text, 0.75);
-        &.mat-tab-label-active {
-          color: mat-color($primary, text);
-          opacity: 1;
-        }
-      }
-      .mat-tab-label-content {
-        background-color: transparent;
-      }
-    }
-
-    .mat-expansion-panel {
-      background-color: mat-color($background, background);
-      color: mat-color($foreground, text);
-      .mat-expansion-panel-header-title,
-      .mat-expansion-indicator::after {
-        color: mat-color($foreground, text, 0.75);
-      }
-      .mat-list-base {
-        .mat-list-option {
-          color: mat-color($foreground, text, 0.75);
-        }
-      }
-    }
-
-    .cards {
-      .item {
-        .inner {
-          background-color: mat-color($background, card);
-          transition: background 0.1s ease-in-out;
-          @include mat-elevation(
-            1,
-            mat-color($background, focused-button),
-            0.2
-          );
-          &:hover {
-            @include mat-elevation(1, mat-color($background, hover), 0.6);
-          }
-        }
-      }
-    }
-    .child {
-      .mat-expansion-panel {
-        .mat-expansion-panel-body {
-          background-color: mat-color($primary, 0.07);
-        }
-      }
-    }
+    @include sidebar($background, $foreground, $primary);
   }
   > .mat-drawer-container {
     background-color: transparent;
     .builder-list {
-      background-color: mat-color($background, card);
-      .sidebar-drawer {
-        border-right: 1px solid mat-color($foreground, divider);
-        @include scrollbar(mat-color($foreground, divider));
-        .box {
-          color: mat-color($foreground, text, 0.75);
-          .inner {
-            border: 1px solid mat-color($foreground, divider);
-            background-color: mat-color($background, card);
-          }
-          &:hover {
-            background-color: mat-color($primary, 0.25);
-            color: mat-color($primary);
-          }
-        }
-      }
-      .mat-drawer {
-        background-color: mat-color($background, background);
-      }
-      .preview {
-        background-color: mat-color($foreground, elevation, 0.85);
-        #builder-list {
-          background-color: mat-color($background, card);
-        }
-        .preview-iframe {
-          &:after {
-            background-color: mat-color($foreground, elevation, 0.95);
-            @include mat-elevation(2, mat-color($foreground, elevation), 0.5);
-          }
-        }
-      }
+      @include builder-list($background, $foreground, $primary);
     }
   }
   .mat-drawer-content {
@@ -123,6 +42,10 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
       background-color: mat-color($foreground, slider-off-active);
     }
     .showcase {
+      .card-body {
+        border-top: 1px solid mat-color($foreground, divider);
+        background: mat-color($background, background);
+      }
       .component-toolbar {
         + app-spacer {
           background-color: mat-color($primary, 0.25);

@@ -24,7 +24,7 @@ export class BuilderSidebarWidgetsComponent implements OnInit, AfterViewInit {
   @Input() content: IBuilderComponent[];
   branding: IBranding;
   constructor(
-    private builder: BuilderState,
+    public builder: BuilderState,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
     private contentService: ContentService
   ) {}
@@ -37,39 +37,25 @@ export class BuilderSidebarWidgetsComponent implements OnInit, AfterViewInit {
   }
 
   onShowcase(content: any) {
-    this.builder.showcase({
-      type: 'card-1v1',
-      link: {
-        href: '#',
-        label: content.type,
-      },
-      components: [content],
-    });
-    // if (content) {
-    //   this.builder.showcase$.next({
-    //     type: 'card-1v1',
-    //     link: {
-    //       href: '#',
-    //       label: content.type,
-    //     },
-    //     components: [content],
-    //   });
-    // } else {
-    //   this.builder.showcase$.next(false);
-    // }
+    if (this.builder.fixedShowcase) {
+      return;
+    }
+    this.builder.showcase(content);
   }
 
   onFixed(content: any): void {
-    this.builder.fixedShowcase = !this.builder.fixedShowcase;
-    if (this.builder.fixedShowcase) {
-      this.builder.showcase({
-        type: 'card-1v1',
-        link: {
-          href: '#',
-          label: content.type,
-        },
-        components: [content],
-      });
+    if (content === this.builder.fixedContent) {
+      this.builder.showcase$.next(false);
+    }
+    if (content !== this.builder.fixedContent && this.builder.fixedShowcase) {
+      this.builder.showcase(content);
+    } else {
+      this.builder.fixedShowcase = !this.builder.fixedShowcase;
+      if (this.builder.fixedShowcase) {
+        this.builder.showcase(content);
+      } else {
+        this.builder.showcase$.next(false);
+      }
     }
   }
 

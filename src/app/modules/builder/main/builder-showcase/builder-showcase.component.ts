@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 
 @Component({
@@ -14,11 +15,15 @@ import { BuilderState } from '@core/state/BuilderState';
 })
 export class BuilderShowcaseComponent implements OnInit {
   @Input() content: any;
-  constructor(private builder: BuilderState) {}
+  constructor(private builder: BuilderState, private util: UtilitiesService) {}
 
   ngOnInit(): void {}
 
   onClose(): void {
     this.builder.showcase$.next(false);
+  }
+  onCopy(content: any): void {
+    this.util.copy(JSON.stringify(content));
+    this.util.openSnackbar(`已复制${this.content.type}的JSON！`, 'ok');
   }
 }
