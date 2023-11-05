@@ -10,8 +10,7 @@
             <app-icon [content]="tab.icon" [matTooltip]="tab.label"></app-icon>
           </ng-template>
           <div class="p-x-xs p-y-xs">
-            <app-builder-sidebar-widgets *ngIf="tab.type !== 'sample'"
-              [content]="tab.elements"></app-builder-sidebar-widgets>
+            <app-builder-panel *ngIf="tab.type !== 'sample'" [content]="tab.elements"></app-builder-panel>
             <app-builder-sample *ngIf="tab.type ==='sample'" [content]="tab.elements"></app-builder-sample>
           </div>
         </mat-tab>
