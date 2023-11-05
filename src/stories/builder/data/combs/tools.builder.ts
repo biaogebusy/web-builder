@@ -6,9 +6,6 @@ const {
 export const tools = [
   {
     label: '红包预算器',
-    icon: {
-      svg: 'format-size',
-    },
     ...lottery,
   },
 ];

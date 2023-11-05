@@ -29,8 +29,7 @@
               </div>
             </div>
           </ng-container>
-          <ng-container *ngIf="widget.child">
-            <div class="label">{{widget.label}}</div>
+          <div class="group width-100 m-bttom-md" fxLayout="row wrap" *ngIf="widget.child">
             <ng-container *ngFor="let item of widget.child">
               <div class="item" fxFlex.lt-sm="50%" fxFlex.gt-xs="0 0 calc(100%/3)">
                 <div *ngIf="item.type !== 'json'" [cdkDragData]="item.content" cdkDrag (cdkDragStarted)="onMoved()"
@@ -41,9 +40,9 @@
                     <div class="title">{{item.label}}</div>
                   </div>
                   <app-card-1v1 style="min-width:300px" *cdkDragPreview
-                    [content]="{link:{href:'#',label: item.content.type},components:[widget.content]}"></app-card-1v1>
+                    [content]="{link:{href:'#',label: item.content.type},components:[item.content]}"></app-card-1v1>
                 </div>
-                <div *ngIf="item.type === 'json'" (click)="onJson(widget)">
+                <div *ngIf="item.type === 'json'" (click)="onJson(item)">
                   <div class="inner show" fxLayout="column" fxLayoutAlign="center center">
                     <app-icon *ngIf="item.icon" [content]="item.icon"></app-icon>
                     <div class="title">{{item.label}}</div>
@@ -51,7 +50,7 @@
                 </div>
               </div>
             </ng-container>
-          </ng-container>
+          </div>
         </ng-container>
       </div>
     </mat-list>

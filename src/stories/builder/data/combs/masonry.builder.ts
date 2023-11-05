@@ -13,23 +13,14 @@ export const {
 export const masonry = [
   {
     label: 'packery',
-    icon: {
-      svg: 'format-size',
-    },
     ...packery,
   },
   {
     label: contentBoxName,
-    icon: {
-      svg: 'format-size',
-    },
     ...contentBox,
   },
   {
     label: '洗牌',
-    icon: {
-      svg: 'format-size',
-    },
     ...shuffle,
   },
 ];

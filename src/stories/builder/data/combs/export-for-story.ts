@@ -8,14 +8,14 @@ import { map } from './map.builder';
 
 export const components: any[] = [
   {
-    label: '图文',
-    id: 'showcase',
-    elements: [...showcase],
-  },
-  {
     label: 'Hero',
     id: 'hero',
     elements: [...hero],
+  },
+  {
+    label: '图文',
+    id: 'showcase',
+    elements: [...showcase],
   },
   {
     label: '幻灯片',

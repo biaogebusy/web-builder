@@ -18,7 +18,7 @@ export class ThemeService {
       const theme = this.storage.retrieve(THEMKEY);
       this.setTheme(theme);
     } else {
-      const defTheme = coreConfig.defaultTheme || 'light-theme';
+      const defTheme = coreConfig.defaultTheme || 'blue-theme';
       this.setTheme(defTheme);
     }
   }

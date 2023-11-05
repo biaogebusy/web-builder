@@ -38,66 +38,39 @@ export const carousels = [
     label: 'V1',
     child: [
       {
-        label: 'default',
-        icon: {
-          svg: 'format-size',
-        },
+        label: '1v1',
         ...carousel1v1,
       },
       {
-        label: textHeroName,
-        icon: {
-          svg: 'format-size',
-        },
+        label: '图文',
         ...textHero,
       },
       {
-        label: videoStoryName,
-        icon: {
-          svg: 'format-size',
-        },
+        label: '视频',
         ...video,
       },
       {
-        label: lineyearName,
-        icon: {
-          svg: 'format-size',
-        },
+        label: '时间轴',
         ...lineyear,
       },
       {
-        label: carousel1v4Name,
-        icon: {
-          svg: 'format-size',
-        },
+        label: '1v4',
         ...carousel1v4,
       },
       {
-        label: fullscreenName,
-        icon: {
-          svg: 'format-size',
-        },
+        label: '全屏',
         ...fullscreen,
       },
       {
-        label: 'default',
-        icon: {
-          svg: 'format-size',
-        },
+        label: '1v2',
         ...carousel1v2,
       },
       {
-        label: 'default',
-        icon: {
-          svg: 'format-size',
-        },
+        label: '1v3',
         ...carousel1v3,
       },
       {
-        label: clientName,
-        icon: {
-          svg: 'format-size',
-        },
+        label: '客户评价',
         ...carousel1v3_client,
       },
     ],
@@ -106,17 +79,11 @@ export const carousels = [
     label: 'V2',
     child: [
       {
-        label: 'default',
-        icon: {
-          svg: 'format-size',
-        },
+        label: '2v1',
         ...carousel2v1,
       },
       {
-        label: 'default',
-        icon: {
-          svg: 'format-size',
-        },
+        label: '2v2',
         ...carousel2v2,
       },
     ],

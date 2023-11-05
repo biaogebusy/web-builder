@@ -1,6 +1,6 @@
 @import "~@angular/material/theming";
 @import "../mixins/amixin";
-@import "./builder/sidebar";
+@import "./builder/builder-sidebar";
 @import "./builder/builder-list";
 
 $dark-primary: mat-palette($mat-gray, 300, 50, 500);

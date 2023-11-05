@@ -5,7 +5,7 @@
   }
   .mat-tab-header {
     .mat-tab-label {
-      color: mat-color($foreground, text, 0.75);
+      color: mat-color($foreground, text);
       &.mat-tab-label-active {
         color: mat-color($primary, text);
         opacity: 1;
@@ -42,9 +42,15 @@
         &:hover {
           @include mat-elevation(1, mat-color($background, hover), 0.6);
         }
+        .custom-icon {
+          color: mat-color($foreground, text, 0.7);
+        }
         &.active {
           background-color: mat-color($primary);
           color: mat-color($primary, default-contrast);
+          .custom-icon {
+            color: mat-color($primary, default-contrast);
+          }
         }
       }
     }

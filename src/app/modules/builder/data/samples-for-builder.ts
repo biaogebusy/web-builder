@@ -302,7 +302,7 @@ export const samples = {
                   name: 'fingerprint',
                 },
                 digit: {
-                  value: 314,
+                  value: 102,
                   label: '+',
                 },
                 title: '日访问人数',
@@ -312,7 +312,7 @@ export const samples = {
                   name: 'verified_user',
                 },
                 digit: {
-                  value: 468,
+                  value: 291,
                   label: '+',
                 },
                 title: '日打开次数',
@@ -322,7 +322,7 @@ export const samples = {
                   name: 'android',
                 },
                 digit: {
-                  value: 86,
+                  value: 189,
                   label: '人',
                 },
                 title: '日新增人数',
@@ -332,7 +332,7 @@ export const samples = {
                   name: 'mail',
                 },
                 digit: {
-                  value: 7809,
+                  value: 8067,
                   label: '万',
                 },
                 title: '累计用户数',
@@ -428,7 +428,7 @@ export const samples = {
             elements: [
               {
                 type: 'card',
-                subTitle: '2023-11-02',
+                subTitle: '2023-11-05',
                 avatar: {
                   src: '/assets/images/avatar/01.jpeg',
                   alt: '',
@@ -478,7 +478,7 @@ export const samples = {
               },
               {
                 type: 'card',
-                subTitle: '2023-11-02',
+                subTitle: '2023-11-05',
                 avatar: {
                   src: '/assets/images/avatar/02.jpeg',
                   alt: '',
@@ -515,7 +515,7 @@ export const samples = {
               },
               {
                 type: 'card',
-                subTitle: '2023-11-02',
+                subTitle: '2023-11-05',
                 avatar: {
                   src: '/assets/images/avatar/03.jpeg',
                   alt: '',
@@ -552,7 +552,7 @@ export const samples = {
               },
               {
                 type: 'card',
-                subTitle: '2023-11-02',
+                subTitle: '2023-11-05',
                 avatar: {
                   src: '/assets/images/avatar/04.jpeg',
                   alt: '',
@@ -589,7 +589,7 @@ export const samples = {
               },
               {
                 type: 'card',
-                subTitle: '2023-11-02',
+                subTitle: '2023-11-05',
                 avatar: {
                   src: '/assets/images/avatar/05.jpeg',
                   alt: '',
@@ -626,7 +626,7 @@ export const samples = {
               },
               {
                 type: 'card',
-                subTitle: '2023-11-02',
+                subTitle: '2023-11-05',
                 avatar: {
                   src: '/assets/images/avatar/06.jpeg',
                   alt: '',
@@ -663,7 +663,7 @@ export const samples = {
               },
               {
                 type: 'card',
-                subTitle: '2023-11-02',
+                subTitle: '2023-11-05',
                 avatar: {
                   src: '/assets/images/avatar/01.jpeg',
                   alt: '',
@@ -700,7 +700,7 @@ export const samples = {
               },
               {
                 type: 'card',
-                subTitle: '2023-11-02',
+                subTitle: '2023-11-05',
                 avatar: {
                   src: '/assets/images/avatar/02.jpeg',
                   alt: '',
@@ -1717,7 +1717,7 @@ export const samples = {
                   name: 'fingerprint',
                 },
                 digit: {
-                  value: 314,
+                  value: 102,
                   label: '+',
                 },
                 title: '日访问人数',
@@ -1727,7 +1727,7 @@ export const samples = {
                   name: 'verified_user',
                 },
                 digit: {
-                  value: 468,
+                  value: 291,
                   label: '+',
                 },
                 title: '日打开次数',
@@ -1737,7 +1737,7 @@ export const samples = {
                   name: 'android',
                 },
                 digit: {
-                  value: 86,
+                  value: 189,
                   label: '人',
                 },
                 title: '日新增人数',
@@ -1747,7 +1747,7 @@ export const samples = {
                   name: 'mail',
                 },
                 digit: {
-                  value: 7809,
+                  value: 8067,
                   label: '万',
                 },
                 title: '累计用户数',
@@ -2463,7 +2463,7 @@ export const samples = {
                 style: 'style-v4',
               },
               classes: 'p-x',
-              body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class="text-primary">Storybook</strong> 页面时添加组件到预览页面。',
+              body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong >Storybook</strong> 页面时添加组件到预览页面。',
               actions: [
                 {
                   type: 'btn',
@@ -3844,7 +3844,7 @@ export const samples = {
                 style: 'style-v4',
               },
               classes: 'text-light',
-              body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class="text-primary">Storybook</strong> 页面时添加组件到预览页面。',
+              body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong >Storybook</strong> 页面时添加组件到预览页面。',
               actions: [
                 {
                   type: 'btn',
@@ -5620,7 +5620,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset187.svg',
                 },
                 digit: {
-                  value: 48,
+                  value: 30,
                   label: 'M',
                 },
                 title: 'Github Start',
@@ -5630,7 +5630,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset189.svg',
                 },
                 digit: {
-                  value: 39385,
+                  value: 33440,
                   label: '+',
                 },
                 title: 'NPM 周下载量',
@@ -5640,7 +5640,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset190.svg',
                 },
                 digit: {
-                  value: 2444,
+                  value: 2026,
                   label: 'K',
                 },
                 title: '社区活跃',
@@ -5650,7 +5650,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset192.svg',
                 },
                 digit: {
-                  value: 662,
+                  value: 870,
                   label: '个',
                 },
                 title: '成功故事',
@@ -5927,7 +5927,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset187.svg',
                 },
                 digit: {
-                  value: 48,
+                  value: 30,
                   label: 'M',
                 },
                 title: 'Github Start',
@@ -5937,7 +5937,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset189.svg',
                 },
                 digit: {
-                  value: 39385,
+                  value: 33440,
                   label: '+',
                 },
                 title: 'NPM 周下载量',
@@ -5947,7 +5947,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset190.svg',
                 },
                 digit: {
-                  value: 2444,
+                  value: 2026,
                   label: 'K',
                 },
                 title: '社区活跃',
@@ -5957,7 +5957,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset192.svg',
                 },
                 digit: {
-                  value: 662,
+                  value: 870,
                   label: '个',
                 },
                 title: '成功故事',
@@ -6222,7 +6222,7 @@ export const samples = {
                 style: 'style-v4',
               },
               classes: 'p-x',
-              body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class="text-primary">Storybook</strong> 页面时添加组件到预览页面。',
+              body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong >Storybook</strong> 页面时添加组件到预览页面。',
               actions: [
                 {
                   type: 'btn',
@@ -7400,7 +7400,7 @@ export const samples = {
                 style: 'style-v4',
               },
               classes: 'text-light',
-              body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class="text-primary">Storybook</strong> 页面时添加组件到预览页面。',
+              body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong >Storybook</strong> 页面时添加组件到预览页面。',
               actions: [
                 {
                   type: 'btn',
@@ -7857,7 +7857,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset187.svg',
                 },
                 digit: {
-                  value: 48,
+                  value: 30,
                   label: 'M',
                 },
                 title: 'Github Start',
@@ -7867,7 +7867,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset189.svg',
                 },
                 digit: {
-                  value: 39385,
+                  value: 33440,
                   label: '+',
                 },
                 title: 'NPM 周下载量',
@@ -7877,7 +7877,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset190.svg',
                 },
                 digit: {
-                  value: 2444,
+                  value: 2026,
                   label: 'K',
                 },
                 title: '社区活跃',
@@ -7887,7 +7887,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset192.svg',
                 },
                 digit: {
-                  value: 662,
+                  value: 870,
                   label: '个',
                 },
                 title: '成功故事',

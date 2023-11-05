@@ -120,7 +120,7 @@ export class StorysModule {
         },
         {
           provide: THEME,
-          useValue: 'light-theme',
+          useValue: 'blue-theme',
         },
         {
           provide: PAGE_CONTENT,

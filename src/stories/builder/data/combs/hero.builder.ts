@@ -46,45 +46,27 @@ export const hero = [
     label: 'V1',
     child: [
       {
-        label: 'default',
-        icon: {
-          svg: 'format-size',
-        },
+        label: '1v1',
         ...hero1v1,
       },
       {
-        label: 'default',
-        icon: {
-          svg: 'format-size',
-        },
+        label: '1v2',
         ...hero1v2,
       },
       {
-        label: h1v3V1Name,
-        icon: {
-          svg: 'format-size',
-        },
+        label: '1v3-1',
         ...hero1v3V1,
       },
       {
-        label: h1v3V2Name,
-        icon: {
-          svg: 'format-size',
-        },
+        label: '1v3-2',
         ...hero1v3V2,
       },
       {
-        label: h1v4DefaultName,
-        icon: {
-          svg: 'format-size',
-        },
+        label: '1v4',
         ...hero1v4Default,
       },
       {
-        label: h1v4ShapeName,
-        icon: {
-          svg: 'format-size',
-        },
+        label: '1v4 Shape',
         ...hero1v4Shape,
       },
     ],
@@ -94,44 +76,26 @@ export const hero = [
     child: [
       {
         label: '默认',
-        icon: {
-          svg: 'format-size',
-        },
         ...hero2v1Default,
       },
       {
         label: yCenterXCustomName,
-        icon: {
-          svg: 'format-size',
-        },
         ...yCenterXCustom,
       },
       {
         label: xyCustomName,
-        icon: {
-          svg: 'format-size',
-        },
         ...xyCustom,
       },
       {
         label: animateName,
-        icon: {
-          svg: 'format-size',
-        },
         ...animate,
       },
       {
-        label: 'default',
-        icon: {
-          svg: 'format-size',
-        },
+        label: '2v2',
         ...hero2v2,
       },
       {
-        label: 'default',
-        icon: {
-          svg: 'format-size',
-        },
+        label: '2v3',
         ...hero2v3,
       },
     ],
