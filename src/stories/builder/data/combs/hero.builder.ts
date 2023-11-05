@@ -75,15 +75,15 @@ export const hero = [
     label: 'V2',
     child: [
       {
-        label: '默认',
+        label: '2v1',
         ...hero2v1Default,
       },
       {
-        label: yCenterXCustomName,
+        label: 'Y中心 X自定义',
         ...yCenterXCustom,
       },
       {
-        label: xyCustomName,
+        label: 'XY自定义',
         ...xyCustom,
       },
       {

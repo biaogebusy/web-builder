@@ -122,7 +122,7 @@ YCenter.args = {
 };
 
 export const YCenterXCustom = Template.bind({});
-YCenterXCustom.storyName = 'Y轴中心 X轴自定义';
+YCenterXCustom.storyName = 'Y中心 X自定义';
 const yCxCustom: ITextHero = {
   type: 'hero-2v1',
   theme: '',
@@ -171,7 +171,7 @@ YCenterXCustom.args = {
 };
 
 export const XYCustom = Template.bind({});
-XYCustom.storyName = 'XY轴自定义';
+XYCustom.storyName = 'XY自定义';
 const xyCustom: ITextHero = {
   type: 'hero-2v1',
   theme: 'text-light',

@@ -190,13 +190,9 @@ export class BuilderState {
     let elements = data.find((item) => item.id === id)?.elements || [];
     // 如果元素中包含 content.child，则将其元素也添加到结果中
     const result = elements.reduce((acc: any[], element: any) => {
-      if (
-        typeof element === 'object' &&
-        element.content &&
-        element.content.child
-      ) {
-        map(element.content.child, (item: any) => {
-          acc.push(...item.elements);
+      if (typeof element === 'object' && element.child) {
+        map(element.child, (item: any) => {
+          acc.push(item.content);
         });
       } else {
         acc.push(element);

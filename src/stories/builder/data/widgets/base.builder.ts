@@ -14,10 +14,15 @@ import * as formStory from '@stories/widgets/Form.stories';
 import * as playerStory from '@stories/feature/media/Player.stories';
 import * as textHeroStory from '@stories/base/TextHero.stories';
 import * as swiperStory from '@stories/widgets/Swiper.stories';
+import * as bgImg from '@stories/base/BgImg.stories';
 
 export const {
   Default: { args: textHero },
 } = textHeroStory;
+
+export const {
+  Opacity: { args: bg },
+} = bgImg;
 
 export const {
   Default: { args: player },
@@ -109,6 +114,11 @@ export const base = [
     label: '标题',
     icon: { svg: 'format-header-2' },
     ...title,
+  },
+  {
+    label: '背景',
+    icon: { svg: 'format-color-fill' },
+    ...bg,
   },
   {
     label: '图文',

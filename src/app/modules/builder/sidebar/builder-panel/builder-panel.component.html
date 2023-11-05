@@ -27,7 +27,7 @@
               </div>
             </div>
           </ng-container>
-          <div class="group width-100 m-bttom-md" fxLayout="row wrap" *ngIf="widget.child">
+          <div class="group width-100" matTooltipPosition="above" fxLayout="row wrap" *ngIf="widget.child">
             <ng-container *ngFor="let item of widget.child">
               <div class="item" fxFlex.lt-sm="50%" fxFlex.gt-xs="0 0 calc(100%/3)">
                 <div *ngIf="item.type !== 'json'" [cdkDragData]="item.content" cdkDrag (cdkDragMoved)="onMoved()"
