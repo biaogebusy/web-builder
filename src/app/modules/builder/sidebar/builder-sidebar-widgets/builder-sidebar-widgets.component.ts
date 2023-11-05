@@ -55,6 +55,7 @@ export class BuilderSidebarWidgetsComponent implements OnInit, AfterViewInit {
         this.builder.showcase(content);
       } else {
         this.builder.showcase$.next(false);
+        this.builder.fixedContent = null;
       }
     }
   }

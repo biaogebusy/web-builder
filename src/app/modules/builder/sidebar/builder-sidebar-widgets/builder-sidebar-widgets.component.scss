@@ -1,4 +1,11 @@
 .cards {
+  .label {
+    flex: 0 0 100%;
+    padding: 10px 0;
+    margin-bottom: 10px;
+    opacity: 0.75;
+    font-size: small;
+  }
   .item {
     .title {
       font-size: small;

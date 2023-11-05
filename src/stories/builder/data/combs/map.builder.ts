@@ -14,32 +14,31 @@ const {
 
 export const map = [
   {
-    content: {
-      child: [
-        {
-          label: 'view-map',
-          elements: [
-            viewMapDefault,
-            {
-              ...viewMapCircle,
-              name: viewMapCircleName,
-            },
-          ],
-        },
-      ],
+    label: '地图应用',
+    icon: {
+      svg: 'format-size',
     },
+    ...viewMapDefault,
   },
   {
-    content: {
-      child: [
-        {
-          label: 'map-list',
-          elements: [
-            mapList1v1,
-            { ...mapList1v1Sidebar, name: mapList1v1SidebarName },
-          ],
-        },
-      ],
+    label: viewMapCircleName,
+    icon: {
+      svg: 'format-size',
     },
+    ...viewMapCircle,
+  },
+  {
+    label: '位置列表',
+    icon: {
+      svg: 'format-size',
+    },
+    ...mapList1v1,
+  },
+  {
+    label: mapList1v1SidebarName,
+    icon: {
+      svg: 'format-size',
+    },
+    ...mapList1v1Sidebar,
   },
 ];

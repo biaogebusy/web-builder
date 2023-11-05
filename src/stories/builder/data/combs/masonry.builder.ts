@@ -12,14 +12,24 @@ export const {
 
 export const masonry = [
   {
-    content: {
-      child: [
-        {
-          label: 'packery',
-          elements: [packery, { ...contentBox, name: contentBoxName }],
-        },
-      ],
+    label: 'packery',
+    icon: {
+      svg: 'format-size',
     },
+    ...packery,
   },
-  shuffle,
+  {
+    label: contentBoxName,
+    icon: {
+      svg: 'format-size',
+    },
+    ...contentBox,
+  },
+  {
+    label: '洗牌',
+    icon: {
+      svg: 'format-size',
+    },
+    ...shuffle,
+  },
 ];

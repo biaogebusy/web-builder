@@ -31,6 +31,9 @@
   }
 
   .cards {
+    > .label {
+      border-bottom: 1px solid mat-color($foreground, divider);
+    }
     .item {
       .inner {
         background-color: mat-color($background, card);

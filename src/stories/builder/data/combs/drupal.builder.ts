@@ -35,11 +35,53 @@ export const {
 } = contact1v1Story;
 
 export const drupal = [
-  question,
-  contact1v1,
-  list2v1,
-  taxonomyList,
-  taxonomyThinList,
-  viewList,
-  treeList,
+  {
+    label: '问答',
+    icon: {
+      svg: 'format-size',
+    },
+    ...question,
+  },
+  {
+    label: '联系表单',
+    icon: {
+      svg: 'format-size',
+    },
+    ...contact1v1,
+  },
+  {
+    label: '普通列表',
+    icon: {
+      svg: 'format-size',
+    },
+    ...list2v1,
+  },
+  {
+    label: '分类列表',
+    icon: {
+      svg: 'format-size',
+    },
+    ...taxonomyList,
+  },
+  {
+    label: '分类列表 Thin',
+    icon: {
+      svg: 'format-size',
+    },
+    ...taxonomyThinList,
+  },
+  {
+    label: '视图列表',
+    icon: {
+      svg: 'format-size',
+    },
+    ...viewList,
+  },
+  {
+    label: '树形列表',
+    icon: {
+      svg: 'format-size',
+    },
+    ...treeList,
+  },
 ];

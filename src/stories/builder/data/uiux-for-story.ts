@@ -34,11 +34,11 @@ export const uiux: IUiux[] = [
   },
   {
     label: '系统页面',
-    svg: 'tune',
     icon: {
       svg: 'tune-variant',
       inline: true,
     },
+    type: 'system',
     elements: systems,
   },
 ];

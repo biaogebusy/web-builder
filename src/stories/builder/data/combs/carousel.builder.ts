@@ -35,33 +35,90 @@ export const {
 
 export const carousels = [
   {
-    content: {
-      child: [
-        {
-          label: 'carousel-1v1',
-          elements: [
-            carousel1v1,
-            { ...textHero, name: textHeroName },
-            { ...video, name: videoStoryName },
-            { ...lineyear, name: lineyearName },
-            { ...carousel1v4, name: carousel1v4Name },
-            { ...fullscreen, name: fullscreenName },
-          ],
+    label: 'V1',
+    child: [
+      {
+        label: 'default',
+        icon: {
+          svg: 'format-size',
         },
-      ],
-    },
+        ...carousel1v1,
+      },
+      {
+        label: textHeroName,
+        icon: {
+          svg: 'format-size',
+        },
+        ...textHero,
+      },
+      {
+        label: videoStoryName,
+        icon: {
+          svg: 'format-size',
+        },
+        ...video,
+      },
+      {
+        label: lineyearName,
+        icon: {
+          svg: 'format-size',
+        },
+        ...lineyear,
+      },
+      {
+        label: carousel1v4Name,
+        icon: {
+          svg: 'format-size',
+        },
+        ...carousel1v4,
+      },
+      {
+        label: fullscreenName,
+        icon: {
+          svg: 'format-size',
+        },
+        ...fullscreen,
+      },
+      {
+        label: 'default',
+        icon: {
+          svg: 'format-size',
+        },
+        ...carousel1v2,
+      },
+      {
+        label: 'default',
+        icon: {
+          svg: 'format-size',
+        },
+        ...carousel1v3,
+      },
+      {
+        label: clientName,
+        icon: {
+          svg: 'format-size',
+        },
+        ...carousel1v3_client,
+      },
+    ],
   },
-  carousel1v2,
   {
-    content: {
-      child: [
-        {
-          label: 'carousel-1v3',
-          elements: [carousel1v3, { ...carousel1v3_client, name: clientName }],
+    label: 'V2',
+    child: [
+      {
+        label: 'default',
+        icon: {
+          svg: 'format-size',
         },
-      ],
-    },
+        ...carousel2v1,
+      },
+      {
+        label: 'default',
+        icon: {
+          svg: 'format-size',
+        },
+        ...carousel2v2,
+      },
+    ],
   },
-  carousel2v1,
-  carousel2v2,
 ];

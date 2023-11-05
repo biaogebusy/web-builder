@@ -18,11 +18,15 @@ export const components: any[] = [
     elements: [...hero],
   },
   {
-    label: '轮播图',
+    label: '幻灯片',
     id: 'carousel',
     elements: [...carousels],
   },
-  { label: '瀑布流', id: 'masonry', elements: [...masonry] },
+  {
+    label: '瀑布流',
+    id: 'masonry',
+    elements: [...masonry],
+  },
   {
     label: 'Drupal',
     id: 'drupal',
