@@ -8,7 +8,7 @@ import { map } from './map.builder';
 
 export const components: any[] = [
   {
-    label: 'Showcase',
+    label: '图文',
     id: 'showcase',
     elements: [...showcase],
   },
