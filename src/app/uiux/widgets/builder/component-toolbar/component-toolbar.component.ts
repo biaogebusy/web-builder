@@ -68,6 +68,8 @@ export class ComponentToolbarComponent implements OnInit {
   }
 
   onEditor(content: any, index: number): void {
+    const { type } = content;
+    const component = type ? content : content.content;
     if (!this.enableBuilderToolbar) {
       // uuid for update not builder page
       const uuid = Date.now().toString();
@@ -80,14 +82,14 @@ export class ComponentToolbarComponent implements OnInit {
               type: 'jsoneditor',
               index,
               uuid,
-              data: content,
+              data: component,
               isPreview: this.isPreview,
             },
           },
         },
       });
     } else {
-      this.builder.showEditor(content, index);
+      this.builder.showEditor(component, index);
     }
   }
 

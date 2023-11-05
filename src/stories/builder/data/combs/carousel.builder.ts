@@ -30,36 +30,62 @@ export const {
   Default: { args: carousel1v1 },
   TextHero: { args: textHero, storyName: textHeroName },
   FullScreen: { args: fullscreen, storyName: fullscreenName },
+  Video: { args: video, storyName: videoStoryName },
 } = c1v1Story;
 
 export const carousels = [
   {
-    content: {
-      child: [
-        {
-          label: 'carousel-1v1',
-          elements: [
-            carousel1v1,
-            { ...textHero, name: textHeroName },
-            { ...lineyear, name: lineyearName },
-            { ...carousel1v4, name: carousel1v4Name },
-            { ...fullscreen, name: fullscreenName },
-          ],
-        },
-      ],
-    },
+    label: 'V1',
+    child: [
+      {
+        label: '1v1',
+        ...carousel1v1,
+      },
+      {
+        label: '图文',
+        ...textHero,
+      },
+      {
+        label: '视频',
+        ...video,
+      },
+      {
+        label: '时间轴',
+        ...lineyear,
+      },
+      {
+        label: '1v4',
+        ...carousel1v4,
+      },
+      {
+        label: '全屏',
+        ...fullscreen,
+      },
+      {
+        label: '1v2',
+        ...carousel1v2,
+      },
+      {
+        label: '1v3',
+        ...carousel1v3,
+      },
+      {
+        label: '客户评价',
+        ...carousel1v3_client,
+      },
+    ],
   },
-  carousel1v2,
   {
-    content: {
-      child: [
-        {
-          label: 'carousel-1v3',
-          elements: [carousel1v3, { ...carousel1v3_client, name: clientName }],
-        },
-      ],
-    },
+    label: 'V2',
+    child: [
+      {
+        label: '2v1',
+        ...carousel2v1,
+      },
+      {
+        label: '2v2',
+        ...carousel2v2,
+      },
+    ],
   },
-  carousel2v1,
-  carousel2v2,
 ];

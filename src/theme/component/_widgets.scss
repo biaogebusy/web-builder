@@ -162,7 +162,7 @@
     li {
       &:before {
         color: mat-color($primary);
-        background-color: mat-color($primary, 0.25);
+        background-color: mat-color($primary, text, 0.6);
       }
     }
   }

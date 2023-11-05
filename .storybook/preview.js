@@ -40,9 +40,8 @@ export const decorators = [
       blue: "blue-theme",
       dark: "dark-theme",
       green: "green-theme",
-      light: "light-theme",
       pink: "pink-theme",
     },
-    defaultTheme: "light",
+    defaultTheme: "blue",
   }),
 ];

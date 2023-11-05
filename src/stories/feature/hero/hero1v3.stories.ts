@@ -53,7 +53,7 @@ const v1: IHero1v3 = {
       style: 'style-v4',
     },
     classes: 'p-x',
-    body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class="text-primary">Storybook</strong> 页面时添加组件到预览页面。',
+    body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong >Storybook</strong> 页面时添加组件到预览页面。',
     actions: [
       {
         type: 'btn',

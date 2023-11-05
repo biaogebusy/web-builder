@@ -5,9 +5,7 @@ import { WidgetsModule } from '@uiux/widgets/widgets.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ShareModule } from '@share/share.module';
 import { BuilderRoutingModule } from './builder-routing.module';
-import { BuilderSidebarListComponent } from './sidebar/builder-sidebar-list/builder-sidebar-list.component';
 import { BuilderShowcaseComponent } from './main/builder-showcase/builder-showcase.component';
-import { BuilderSidebarComponentsComponent } from './sidebar/builder-sidebar-components/builder-sidebar-components.component';
 import { BuilderSidebarWidgetsComponent } from './sidebar/builder-sidebar-widgets/builder-sidebar-widgets.component';
 import { BuilderGeneraterComponent } from './main/builder-generater/builder-generater.component';
 import { BuilderSampleComponent } from './sidebar/builder-sample/builder-sample.component';
@@ -34,10 +32,8 @@ const components = [
   declarations: [
     ...components,
     BuilderToolbarComponent,
-    BuilderSidebarListComponent,
     BuilderEmptyComponent,
     BuilderShowcaseComponent,
-    BuilderSidebarComponentsComponent,
     BuilderSidebarWidgetsComponent,
     SwitchPreviewComponent,
     BuilderSampleComponent,

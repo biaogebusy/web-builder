@@ -16,6 +16,9 @@
         .mat-tab-label {
           max-width: 66px;
           min-width: 66px;
+          .custom-icon {
+            padding: 8px;
+          }
         }
         .mat-tab-label-content {
           padding: 4px 24px;

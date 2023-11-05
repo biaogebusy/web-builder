@@ -18,7 +18,9 @@ import { ScreenService } from '@core/service/screen.service';
 })
 export class BuilderState {
   public builderContent$ = new Subject<IPage>();
-  public showcase$: Subject<ICard1v1> = new Subject();
+  public showcase$: Subject<ICard1v1 | boolean> = new Subject();
+  public fixedShowcase = false;
+  public fixedContent: ICard1v1 | null;
   public animateDisable$ = new Subject<boolean>();
   public fullScreen$ = new Subject<boolean>();
   public debugeAnimate$ = new Subject<boolean>();
@@ -55,6 +57,30 @@ export class BuilderState {
       }, 600);
     } else {
       this.initPage(this.page);
+    }
+  }
+
+  showcase(content: any): void {
+    if (this.fixedShowcase) {
+      this.fixedContent = content;
+      this.showcase$.next({
+        type: 'card-1v1',
+        link: {
+          href: '#',
+          label: content.type,
+        },
+        components: [content],
+      });
+    } else {
+      this.fixedContent = null;
+      this.showcase$.next({
+        type: 'card-1v1',
+        link: {
+          href: '#',
+          label: content.type,
+        },
+        components: [content],
+      });
     }
   }
 
@@ -150,6 +176,7 @@ export class BuilderState {
           index,
           isPreview: true,
           data: content,
+          tooltip: '直接修改JSON，更新组件的数据',
         },
       ],
     });

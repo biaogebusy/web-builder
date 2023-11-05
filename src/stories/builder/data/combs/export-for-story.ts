@@ -8,21 +8,25 @@ import { map } from './map.builder';
 
 export const components: any[] = [
   {
-    label: 'Showcase',
-    id: 'showcase',
-    elements: [...showcase],
-  },
-  {
     label: 'Hero',
     id: 'hero',
     elements: [...hero],
   },
   {
-    label: '轮播图',
+    label: '图文',
+    id: 'showcase',
+    elements: [...showcase],
+  },
+  {
+    label: '幻灯片',
     id: 'carousel',
     elements: [...carousels],
   },
-  { label: '瀑布流', id: 'masonry', elements: [...masonry] },
+  {
+    label: '瀑布流',
+    id: 'masonry',
+    elements: [...masonry],
+  },
   {
     label: 'Drupal',
     id: 'drupal',
