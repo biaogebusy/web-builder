@@ -8,6 +8,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import type { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
+import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
 import { Subject } from 'rxjs';
@@ -29,9 +30,8 @@ export class JsoneditorComponent implements OnInit, AfterViewInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
   valueChange$: Subject<any> = new Subject<any>();
 
-  constructor(private builder: BuilderState) {
+  constructor(private builder: BuilderState, private util: UtilitiesService) {
     this.editorOptions = new JsonEditorOptions();
-    this.editorOptions.modes = ['code', 'view']; // set all allowed modes
     this.editorOptions.mode = 'code'; //set only one mode
   }
   ngOnInit(): void {
@@ -59,6 +59,11 @@ export class JsoneditorComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onSave(): void {
+    const { type, content } = this.value;
+    if (!type) {
+      this.util.openSnackbar('组件格式错误，请检查！', 'ok');
+      return;
+    }
     if (this.value) {
       // for page json
       if (this.content.isPage) {

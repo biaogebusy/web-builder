@@ -9,6 +9,7 @@ import {
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type { IBuilderComponent } from '@core/interface/IBuilder';
 import type { IBranding } from '@core/interface/branding/IBranding';
+import { ICard } from '@core/interface/widgets/ICard';
 import { ContentService } from '@core/service/content.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { CORE_CONFIG } from '@core/token/token-providers';
@@ -23,7 +24,7 @@ export class BuilderSidebarWidgetsComponent implements OnInit, AfterViewInit {
   @Input() content: IBuilderComponent[];
   branding: IBranding;
   constructor(
-    private builder: BuilderState,
+    public builder: BuilderState,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
     private contentService: ContentService
   ) {}
@@ -35,19 +36,32 @@ export class BuilderSidebarWidgetsComponent implements OnInit, AfterViewInit {
     });
   }
 
-  onShowcase(content?: any) {
-    if (content) {
-      this.builder.showcase$.next({
-        type: 'card-1v1',
-        link: {
-          href: '#',
-          label: content.type,
-        },
-        components: [content],
-      });
-    } else {
-      this.builder.showcase$.next(content);
+  onShowcase(content: any) {
+    if (this.builder.fixedShowcase) {
+      return;
     }
+    this.builder.showcase(content);
+  }
+
+  onFixed(content: any): void {
+    if (content === this.builder.fixedContent) {
+      this.builder.showcase$.next(false);
+    }
+    if (content !== this.builder.fixedContent && this.builder.fixedShowcase) {
+      this.builder.showcase(content);
+    } else {
+      this.builder.fixedShowcase = !this.builder.fixedShowcase;
+      if (this.builder.fixedShowcase) {
+        this.builder.showcase(content);
+      } else {
+        this.builder.showcase$.next(false);
+        this.builder.fixedContent = null;
+      }
+    }
+  }
+
+  onMoved(): void {
+    this.builder.showcase$.next(false);
   }
 
   onJson(content: any) {

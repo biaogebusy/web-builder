@@ -9,7 +9,7 @@ export const uiux: IUiux[] = [
     label: '基础组件',
     type: 'base',
     icon: {
-      svg: 'plus-circle-outline',
+      svg: 'youtube-subscription',
       inline: true,
     },
     elements: widgets,
@@ -17,7 +17,7 @@ export const uiux: IUiux[] = [
   {
     label: '复合组件',
     icon: {
-      svg: 'tune',
+      svg: 'land-plots',
       inline: true,
     },
     type: 'component',
@@ -26,7 +26,7 @@ export const uiux: IUiux[] = [
   {
     label: '示例页面',
     icon: {
-      svg: 'folder-multiple-outline',
+      svg: 'lightbulb-on-30',
       inline: true,
     },
     type: 'sample',
@@ -34,11 +34,11 @@ export const uiux: IUiux[] = [
   },
   {
     label: '系统页面',
-    type: 'system',
     icon: {
       svg: 'tune-variant',
       inline: true,
     },
+    type: 'system',
     elements: systems,
   },
 ];

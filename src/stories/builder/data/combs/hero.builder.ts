@@ -1,4 +1,7 @@
-import { IBuilderComponent } from '@core/interface/IBuilder';
+import {
+  IBuilderComponent,
+  IBuilderComponentElement,
+} from '@core/interface/IBuilder';
 import * as hero1v1Story from '@stories/feature/hero/hero1v1.stories';
 import * as hero1v2Story from '@stories/feature/hero/hero1v2.stories';
 import * as hero1v3Story from '@stories/feature/hero/hero1v3.stories';
@@ -38,54 +41,63 @@ export const {
   Default: { args: hero2v3 },
 } = hero2v3Story as any;
 
-export const hero: IBuilderComponent[] = [
-  hero1v1,
-  hero1v2,
+export const hero = [
   {
-    content: {
-      child: [
-        {
-          label: 'hero-1v3',
-          elements: [
-            { ...hero1v3V1, name: h1v3V1Name },
-            { ...hero1v3V2, name: h1v3V2Name },
-          ],
-        },
-      ],
-    },
+    label: 'V1',
+    child: [
+      {
+        label: '1v1',
+        ...hero1v1,
+      },
+      {
+        label: '1v2',
+        ...hero1v2,
+      },
+      {
+        label: '1v3-1',
+        ...hero1v3V1,
+      },
+      {
+        label: '1v3-2',
+        ...hero1v3V2,
+      },
+      {
+        label: '1v4',
+        ...hero1v4Default,
+      },
+      {
+        label: '1v4 Shape',
+        ...hero1v4Shape,
+      },
+    ],
   },
   {
-    content: {
-      child: [
-        {
-          label: 'hero-1v4',
-          elements: [
-            { ...hero1v4Default, name: h1v4DefaultName },
-            { ...hero1v4Shape, name: h1v4ShapeName },
-          ],
-        },
-      ],
-    },
+    label: 'V2',
+    child: [
+      {
+        label: '默认',
+        ...hero2v1Default,
+      },
+      {
+        label: yCenterXCustomName,
+        ...yCenterXCustom,
+      },
+      {
+        label: xyCustomName,
+        ...xyCustom,
+      },
+      {
+        label: animateName,
+        ...animate,
+      },
+      {
+        label: '2v2',
+        ...hero2v2,
+      },
+      {
+        label: '2v3',
+        ...hero2v3,
+      },
+    ],
   },
-  {
-    content: {
-      child: [
-        {
-          label: 'hero-2v1',
-          elements: [
-            hero2v1Default,
-            { ...yCenter, name: yCenterName },
-            { ...yCenterXCustom, name: yCenterXCustomName },
-            { ...xyCustom, name: xyCustomName },
-            {
-              ...animate,
-              name: animateName,
-            },
-          ],
-        },
-      ],
-    },
-  },
-  hero2v2,
-  hero2v3,
 ];

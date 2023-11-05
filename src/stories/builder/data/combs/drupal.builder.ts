@@ -35,11 +35,32 @@ export const {
 } = contact1v1Story;
 
 export const drupal = [
-  question,
-  contact1v1,
-  list2v1,
-  taxonomyList,
-  taxonomyThinList,
-  viewList,
-  treeList,
+  {
+    label: '问答',
+    ...question,
+  },
+  {
+    label: '联系表单',
+    ...contact1v1,
+  },
+  {
+    label: '普通列表',
+    ...list2v1,
+  },
+  {
+    label: '分类列表',
+    ...taxonomyList,
+  },
+  {
+    label: '分类列表 Thin',
+    ...taxonomyThinList,
+  },
+  {
+    label: '视图列表',
+    ...viewList,
+  },
+  {
+    label: '树形列表',
+    ...treeList,
+  },
 ];

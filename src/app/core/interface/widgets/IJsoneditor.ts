@@ -7,4 +7,5 @@ export interface IJsoneditor {
   actions?: any[];
   actionsAlign?: string;
   isPage?: boolean;
+  tooltip?: string;
 }

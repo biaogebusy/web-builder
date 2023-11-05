@@ -1,0 +1,65 @@
+@mixin sidebar($background, $foreground, $primary) {
+  background-color: mat-color($background, card);
+  .mat-drawer-inner-container {
+    @include scrollbar(mat-color($foreground, divider));
+  }
+  .mat-tab-header {
+    .mat-tab-label {
+      color: mat-color($foreground, text);
+      &.mat-tab-label-active {
+        color: mat-color($primary, text);
+        opacity: 1;
+      }
+    }
+    .mat-tab-label-content {
+      background-color: transparent;
+    }
+  }
+
+  .mat-expansion-panel {
+    background-color: mat-color($background, background);
+    color: mat-color($foreground, text);
+    .mat-expansion-panel-header-title,
+    .mat-expansion-indicator::after {
+      color: mat-color($foreground, text, 0.75);
+    }
+    .mat-list-base {
+      .mat-list-option {
+        color: mat-color($foreground, text, 0.75);
+      }
+    }
+  }
+
+  .cards {
+    > .label {
+      border-bottom: 1px solid mat-color($foreground, divider);
+    }
+    .item {
+      .inner {
+        background-color: mat-color($background, card);
+        transition: background 0.1s ease-in-out;
+        @include mat-elevation(1, mat-color($background, focused-button), 0.2);
+        &:hover {
+          @include mat-elevation(1, mat-color($background, hover), 0.6);
+        }
+        .custom-icon {
+          color: mat-color($foreground, text, 0.7);
+        }
+        &.active {
+          background-color: mat-color($primary);
+          color: mat-color($primary, default-contrast);
+          .custom-icon {
+            color: mat-color($primary, default-contrast);
+          }
+        }
+      }
+    }
+  }
+  .child {
+    .mat-expansion-panel {
+      .mat-expansion-panel-body {
+        background-color: mat-color($primary, 0.07);
+      }
+    }
+  }
+}

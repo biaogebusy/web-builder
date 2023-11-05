@@ -1,14 +1,23 @@
 .cards {
+  .label {
+    flex: 0 0 100%;
+    padding: 10px 0;
+    margin-bottom: 10px;
+    opacity: 0.75;
+    font-size: small;
+  }
   .item {
     .title {
       font-size: small;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      width: 100%;
+      text-align: center;
     }
     .inner {
       margin: 2px;
-      padding: 16px;
+      padding: 16px 6px;
       border-radius: 4px;
       &.move {
         &:hover {

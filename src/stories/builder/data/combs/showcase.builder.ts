@@ -114,214 +114,197 @@ export const {
   Img: { args: showcase4v1_img, storyName: s4v1ImgName },
 } = s4v1Story;
 
-export const showcase: IBuilderComponent[] = [
+export const showcase = [
   {
-    content: {
-      child: [
-        {
-          label: 'showcase-1v1',
-          elements: [
-            { ...showcase1v1Default, classes: 'p-top-xxl' },
-            { ...showcase1v1_v1, name: s1v1V1Name },
-            { ...showcase1v1_v2, name: s1v1V2Name },
-            { ...showcase1v1_v3, name: s1v1V3Name },
-            { ...showcase1v1_primary, name: s1v1PrimaryName },
-            { ...showcase1v1_v4, name: s1v1V4Name },
-            { ...showcase1v1_v5, name: s1v1V5Name },
-            { ...shwocase1v1_image, name: s1v1ImageName },
-            { ...showcase1v1_v6, name: s1v1V6Name },
-            { ...showcase1v1_v7, name: s1v1V7Name },
-          ],
-        },
-      ],
-    },
+    label: 'V1',
+    child: [
+      {
+        label: '1v1',
+        ...showcase1v1Default,
+      },
+      {
+        label: '1v1-1',
+        ...showcase1v1_v1,
+      },
+      {
+        label: '1v1-2',
+        ...showcase1v1_v2,
+      },
+      {
+        label: '1v1-3',
+        ...showcase1v1_v3,
+      },
+      {
+        label: '1v1 Primary',
+        ...showcase1v1_primary,
+      },
+      {
+        label: '1v1-4',
+        ...showcase1v1_v4,
+      },
+      {
+        label: '1v1-5',
+        ...showcase1v1_v5,
+      },
+      {
+        label: '1v1 Image',
+        ...shwocase1v1_image,
+      },
+      {
+        label: '1v1-6',
+        ...showcase1v1_v6,
+      },
+      {
+        label: '1v1-7',
+        ...showcase1v1_v7,
+      },
+      {
+        label: '1v2',
+        ...showcase1v2_default,
+      },
+      {
+        label: '1v2 Primary',
+        ...showcase1v2_primary,
+      },
+      {
+        label: '1v3',
+        ...showcase1v3_default,
+      },
+      {
+        label: '1v3 表单',
+        ...showcase1v3_contact,
+      },
+      {
+        label: '1v3 视频',
+        ...showcase1v3_video,
+      },
+      {
+        label: '1v4',
+        ...showcase1v4_default,
+      },
+      {
+        label: '1v4 价格',
+        ...showcase1v4_price,
+      },
+      {
+        label: '1v4 动态',
+        ...showcase1v4_dynamic,
+      },
+    ],
   },
   {
-    content: {
-      child: [
-        {
-          label: 'showcase-1v2',
-          elements: [
-            {
-              ...showcase1v2_default,
-              name: s1v2DefaultName,
-            },
-            {
-              ...showcase1v2_primary,
-              name: s1v2PrimaryName,
-            },
-          ],
-        },
-      ],
-    },
+    label: 'V2',
+    child: [
+      {
+        label: '2v1',
+        ...showcase2v1_default,
+      },
+      {
+        label: '2v1 Card',
+        ...showcase2v1_card1v1,
+      },
+      {
+        label: '2v2',
+        ...showcase2v2_default,
+      },
+      {
+        label: '2v3',
+        ...showcase2v3_default,
+      },
+      {
+        label: '2v4',
+        ...showcase2v4_default,
+      },
+      {
+        label: '2v5',
+        ...showcase2v5_default,
+      },
+      {
+        label: '2v6',
+        ...showcase2v6_default,
+      },
+    ],
   },
   {
-    content: {
-      child: [
-        {
-          label: 'showcase-1v3',
-          elements: [
-            {
-              ...showcase1v3_default,
-              name: s1v3DefaultName,
-            },
-            {
-              ...showcase1v3_contact,
-              name: sv1v3ContactName,
-            },
-            {
-              ...showcase1v3_video,
-              name: s1v3VideoName,
-            },
-          ],
-        },
-      ],
-    },
+    label: 'V3',
+    child: [
+      {
+        label: '3v1',
+        ...showcase3v1_default,
+      },
+      {
+        label: '3v2',
+        ...showcase3v2_default,
+      },
+      {
+        label: '3v2 列表',
+        ...showcase3v2_list,
+      },
+      {
+        label: '3v3',
+        ...showcase3v3_default,
+      },
+      {
+        label: '3v3 图片',
+        ...showcase3v3_image,
+      },
+      {
+        label: '3v4',
+        ...showcase3v4_default,
+      },
+      {
+        label: '3v4 背景',
+        ...showcase3v4_background,
+      },
+      {
+        label: '3v5',
+        ...showcase3v5_default,
+      },
+      {
+        label: '3v6',
+        ...showcase3v6_default,
+      },
+      {
+        label: '3v6 链接',
+        ...showcase3v6_withLink,
+      },
+      {
+        label: '3v6 背景',
+        ...showcase3v6_background,
+      },
+      {
+        label: '3v7',
+        ...showcase3v7_default,
+      },
+      {
+        label: '3v8',
+        ...showcase3v8_default,
+      },
+      {
+        label: '3v9',
+        ...showcase3v9_default,
+      },
+      {
+        label: '3v9 反向',
+        ...showcase3v9_reverse,
+      },
+      {
+        label: '3v9 视频',
+        ...showcase3v9_video,
+      },
+    ],
   },
   {
-    content: {
-      child: [
-        {
-          label: 'showcase-1v4',
-          elements: [
-            {
-              ...showcase1v4_default,
-              name: s1v4DefaultName,
-            },
-            {
-              ...showcase1v4_price,
-              name: s1v4PriceName,
-            },
-            {
-              ...showcase1v4_dynamic,
-              name: s1v4DynamciName,
-            },
-          ],
-        },
-      ],
-    },
-  },
-  {
-    content: {
-      child: [
-        {
-          label: 'showcase-2v1',
-          elements: [
-            {
-              ...showcase2v1_default,
-              name: s2v1DefaultName,
-            },
-            {
-              ...showcase2v1_card1v1,
-              name: s2v1Card1v1Name,
-            },
-          ],
-        },
-      ],
-    },
-  },
-  showcase2v2_default,
-  showcase2v3_default,
-  showcase2v4_default,
-  showcase2v5_default,
-  showcase2v6_default,
-  showcase3v1_default,
-  {
-    content: {
-      child: [
-        {
-          label: 'showcase-3v2',
-          elements: [
-            showcase3v2_default,
-            {
-              ...showcase3v2_list,
-              name: s3v2ListName,
-            },
-          ],
-        },
-      ],
-    },
-  },
-  {
-    content: {
-      child: [
-        {
-          label: 'showcase-3v3',
-          elements: [
-            showcase3v3_default,
-            { ...showcase3v3_image, name: s3v3ImageName },
-          ],
-        },
-      ],
-    },
-  },
-  {
-    content: {
-      child: [
-        {
-          label: 'showcase-3v4',
-          elements: [
-            showcase3v4_default,
-            { ...showcase3v4_background, name: s3v4BackgroundName },
-          ],
-        },
-      ],
-    },
-  },
-  showcase3v5_default,
-  {
-    content: {
-      child: [
-        {
-          label: 'showcase-3v6',
-          elements: [
-            showcase3v6_default,
-            {
-              ...showcase3v6_withLink,
-              name: s3v6WithLinkName,
-            },
-            {
-              ...showcase3v6_background,
-              name: s3v6BackgroundName,
-            },
-          ],
-        },
-      ],
-    },
-  },
-  showcase3v7_default,
-  showcase3v8_default,
-  {
-    content: {
-      child: [
-        {
-          label: 'showcase-3v9',
-          elements: [
-            showcase3v9_default,
-            {
-              ...showcase3v9_reverse,
-              name: s3v9ReverseName,
-            },
-            {
-              ...showcase3v9_video,
-              name: s3v9VideoName,
-            },
-          ],
-        },
-      ],
-    },
-  },
-  {
-    content: {
-      child: [
-        {
-          label: 'showcase-4v1',
-          elements: [
-            showcase4v1_default,
-            { ...showcase4v1_img, name: s4v1ImgName },
-          ],
-        },
-      ],
-    },
+    label: 'V4',
+    child: [
+      {
+        label: '4v1',
+        ...showcase4v1_default,
+      },
+      {
+        label: '4v1 图片',
+        ...showcase4v1_img,
+      },
+    ],
   },
 ];

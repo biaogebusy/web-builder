@@ -41,6 +41,7 @@ const content: ITab = {
     },
   },
   classes: 'bg-light',
+  fullWidth: false,
   elements: [
     {
       label: '高性能',
@@ -143,6 +144,7 @@ const align: ITab = {
   },
   classes: 'bg-light',
   align: 'center',
+  fullWidth: false,
   elements: [
     {
       label: '高性能',
@@ -229,6 +231,7 @@ const pills: ITab = {
   classes: 'bg-light',
   align: 'center',
   pills: true,
+  fullWidth: false,
   elements: [
     {
       label: '简便快捷',

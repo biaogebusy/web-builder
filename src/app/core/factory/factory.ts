@@ -249,7 +249,7 @@ export function themeFactory(
   if (localTheme) {
     return localTheme;
   }
-  return coreConfig.defaultTheme || 'light-theme';
+  return coreConfig.defaultTheme || 'blue-theme';
 }
 
 export function brandingFactory(

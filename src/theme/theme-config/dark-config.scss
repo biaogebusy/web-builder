@@ -1,9 +1,9 @@
 @import "~@angular/material/theming";
-@import "./light-config";
+@import "./blue-config";
 @import "../mixins/base-color";
 @import "../component/component";
 
-$dark-primary: mat-palette($light-color, 300, 50, 500);
+$dark-primary: mat-palette($blue-color, 400, 50, 500);
 $dark-accent: mat-palette($mat-teal, A200, A100, A400);
 $dark-warn: mat-palette($mat-deep-orange);
 $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);

@@ -11,6 +11,7 @@ export interface IBuilderComponentElement {
   icon?: IIcon;
   type?: string;
   provide?: 'CORE_CONFIG' | 'BRANDING';
+  child: IBuilderComponentElement[];
   content: {
     type?: string;
     name?: string;

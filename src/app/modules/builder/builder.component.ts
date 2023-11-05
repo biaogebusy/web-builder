@@ -46,7 +46,7 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
     private cd: ChangeDetectorRef,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
     @Inject(BUILDER_FULL_SCREEN) public builderFullScreen$: Observable<boolean>,
-    @Inject(UIUX) public tabs: IUiux[],
+    @Inject(UIUX) public uiux: IUiux[],
     @Inject(BUILDER_SAMPLE_PAGE) public samples: IBuilderSamplePage
   ) {}
 

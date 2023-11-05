@@ -14,32 +14,19 @@ const {
 
 export const map = [
   {
-    content: {
-      child: [
-        {
-          label: 'view-map',
-          elements: [
-            viewMapDefault,
-            {
-              ...viewMapCircle,
-              name: viewMapCircleName,
-            },
-          ],
-        },
-      ],
-    },
+    label: '地图应用',
+    ...viewMapDefault,
   },
   {
-    content: {
-      child: [
-        {
-          label: 'map-list',
-          elements: [
-            mapList1v1,
-            { ...mapList1v1Sidebar, name: mapList1v1SidebarName },
-          ],
-        },
-      ],
-    },
+    label: viewMapCircleName,
+    ...viewMapCircle,
+  },
+  {
+    label: '位置列表',
+    ...mapList1v1,
+  },
+  {
+    label: mapList1v1SidebarName,
+    ...mapList1v1Sidebar,
   },
 ];

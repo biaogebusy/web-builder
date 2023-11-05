@@ -68,10 +68,6 @@
                 "bundleName": "green-theme"
               },
               {
-                "input": "src/theme/theme-config/light-config.scss",
-                "bundleName": "light-theme"
-              },
-              {
                 "input": "src/theme/theme-config/pink-config.scss",
                 "bundleName": "pink-theme"
               }
