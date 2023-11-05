@@ -37,7 +37,7 @@ export class ConfigService {
         if (this.coreConfig?.dialog?.forceDialog) {
           dialogService.forceDialog(this.coreConfig.dialog.forceDialog);
         }
-        if (this.coreConfig?.clarity.id) {
+        if (this.coreConfig?.clarity?.id) {
           clarityService.init(this.coreConfig.clarity.id);
         }
       }

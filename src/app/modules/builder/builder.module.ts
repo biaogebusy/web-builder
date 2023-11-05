@@ -6,7 +6,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ShareModule } from '@share/share.module';
 import { BuilderRoutingModule } from './builder-routing.module';
 import { BuilderShowcaseComponent } from './main/builder-showcase/builder-showcase.component';
-import { BuilderSidebarWidgetsComponent } from './sidebar/builder-sidebar-widgets/builder-sidebar-widgets.component';
+import { BuilderPanelComponent } from './sidebar/builder-panel/builder-panel.component';
 import { BuilderGeneraterComponent } from './main/builder-generater/builder-generater.component';
 import { BuilderSampleComponent } from './sidebar/builder-sample/builder-sample.component';
 import { BuilderListComponent } from './main/builder-list/builder-list.component';
@@ -34,7 +34,7 @@ const components = [
     BuilderToolbarComponent,
     BuilderEmptyComponent,
     BuilderShowcaseComponent,
-    BuilderSidebarWidgetsComponent,
+    BuilderPanelComponent,
     SwitchPreviewComponent,
     BuilderSampleComponent,
     PreviewListComponent,

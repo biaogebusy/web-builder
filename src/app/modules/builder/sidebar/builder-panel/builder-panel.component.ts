@@ -9,18 +9,17 @@ import {
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type { IBuilderComponent } from '@core/interface/IBuilder';
 import type { IBranding } from '@core/interface/branding/IBranding';
-import { ICard } from '@core/interface/widgets/ICard';
 import { ContentService } from '@core/service/content.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { CORE_CONFIG } from '@core/token/token-providers';
 
 @Component({
-  selector: 'app-builder-sidebar-widgets',
-  templateUrl: './builder-sidebar-widgets.component.html',
-  styleUrls: ['./builder-sidebar-widgets.component.scss'],
+  selector: 'app-builder-panel',
+  templateUrl: './builder-panel.component.html',
+  styleUrls: ['./builder-panel.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BuilderSidebarWidgetsComponent implements OnInit, AfterViewInit {
+export class BuilderPanelComponent implements OnInit, AfterViewInit {
   @Input() content: IBuilderComponent[];
   branding: IBranding;
   constructor(
