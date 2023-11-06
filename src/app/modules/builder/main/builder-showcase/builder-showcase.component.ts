@@ -8,7 +8,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
-import { components } from '../../../../../stories/builder/data/combs/export-for-story';
 
 @Component({
   selector: 'app-builder-showcase',
