@@ -70,21 +70,6 @@ export class BuilderPanelComponent implements OnInit, AfterViewInit {
       this.builder.showcase(content);
       return;
     }
-
-    return;
-    if (content !== this.builder.fixedContent && this.builder.fixedShowcase) {
-      this.builder.showcase(content);
-    } else {
-      this.builder.fixedShowcase = !this.builder.fixedShowcase;
-
-      // set one to fixed
-      if (this.builder.fixedShowcase) {
-        this.builder.showcase(content);
-      } else {
-        this.builder.showcase$.next(false);
-        this.builder.fixedContent = null;
-      }
-    }
   }
 
   onMoved(): void {
