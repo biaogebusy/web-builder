@@ -55,7 +55,7 @@ export interface ICard1v1 {
   type?: 'card-1v1';
   feature?: IFeatureBox;
   components?: any;
-  link: ILink;
+  link?: ILink;
   moreLabel?: string;
   user?: string;
   time?: string;

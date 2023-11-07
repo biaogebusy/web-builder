@@ -98,6 +98,12 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
     this.containerDrawer.close();
   }
 
+  onTabChange(): void {
+    this.builder.showcase$.next(false);
+    this.builder.fixedContent = null;
+    this.builder.fixedChange$.next(true);
+  }
+
   ngOnDestroy(): void {
     if (this.destroy$.next) {
       this.destroy$.next(true);

@@ -1,6 +1,7 @@
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   Inject,
   Input,
@@ -25,10 +26,15 @@ export class BuilderPanelComponent implements OnInit, AfterViewInit {
   constructor(
     public builder: BuilderState,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
-    private contentService: ContentService
+    private contentService: ContentService,
+    private cd: ChangeDetectorRef
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.builder.fixedChange$.subscribe(() => {
+      this.cd.detectChanges();
+    });
+  }
   ngAfterViewInit(): void {
     this.contentService.loadBranding().subscribe((res) => {
       this.branding = res;

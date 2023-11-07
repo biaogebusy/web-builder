@@ -4,6 +4,7 @@ import { IPage } from '@core/interface/IAppConfig';
 import {
   IBuilderComponent,
   IBuilderDynamicContent,
+  IBuilderShowcase,
 } from '@core/interface/IBuilder';
 import { ICard1v1 } from '@core/interface/widgets/ICard';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -18,9 +19,10 @@ import { ScreenService } from '@core/service/screen.service';
 })
 export class BuilderState {
   public builderContent$ = new Subject<IPage>();
-  public showcase$: Subject<ICard1v1 | boolean> = new Subject();
+  public showcase$: Subject<IBuilderShowcase | false> = new Subject();
   public fixedShowcase = false;
   public fixedContent: ICard1v1 | null;
+  public fixedChange$ = new Subject<boolean>();
   public animateDisable$ = new Subject<boolean>();
   public fullScreen$ = new Subject<boolean>();
   public debugeAnimate$ = new Subject<boolean>();
@@ -63,25 +65,17 @@ export class BuilderState {
   showcase(content: any): void {
     if (this.fixedShowcase) {
       this.fixedContent = content;
-      this.showcase$.next({
-        type: 'card-1v1',
-        link: {
-          href: '#',
-          label: content.type,
-        },
-        components: [content],
-      });
     } else {
       this.fixedContent = null;
-      this.showcase$.next({
-        type: 'card-1v1',
-        link: {
-          href: '#',
-          label: content.type,
-        },
-        components: [content],
-      });
     }
+    this.showcase$.next({
+      title: content.type,
+      card: {
+        type: 'card-1v1',
+        components: [content],
+      },
+    });
+    this.fixedChange$.next(true);
   }
 
   initPage(page: IPage): void {

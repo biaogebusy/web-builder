@@ -5,6 +5,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { IBuilderShowcase } from '@core/interface/IBuilder';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
@@ -16,7 +17,7 @@ import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BuilderShowcaseComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: IBuilderShowcase;
   constructor(
     private builder: BuilderState,
     private util: UtilitiesService,
