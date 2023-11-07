@@ -306,7 +306,7 @@
       },
       {
         "element": ".preview-content",
-        "intro": "页面编辑区，从边栏选择组件拖拽到这里。"
+        "intro": "页面编辑区，从边栏选择组件拖拽到这里，目前组件只支持上下拖拽。"
       },
       {
         "element": ".switch-preview",

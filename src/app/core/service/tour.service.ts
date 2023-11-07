@@ -15,7 +15,7 @@ export class TourService {
     const { path, steps, delay } = config;
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        if (event.url.includes(path)) {
+        if (event.url === path) {
           setTimeout(() => {
             const stepsConfig = steps.map((item: any) => {
               if (item.element) {
