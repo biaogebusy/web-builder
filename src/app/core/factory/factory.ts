@@ -245,11 +245,20 @@ export function themeFactory(
   coreConfig: ICoreConfig,
   storage: LocalStorageService
 ): string {
+  const defaultTheme = coreConfig.defaultTheme || 'blue-theme';
   const localTheme = storage.retrieve(THEMKEY);
   if (localTheme) {
-    return localTheme;
+    // checkout the theme is removed
+    const isInThemeList = coreConfig.theme.filter(
+      (item) => item.style === localTheme
+    );
+    if (isInThemeList.length) {
+      return localTheme;
+    } else {
+      return defaultTheme;
+    }
   }
-  return coreConfig.defaultTheme || 'blue-theme';
+  return defaultTheme;
 }
 
 export function brandingFactory(

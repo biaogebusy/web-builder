@@ -1,6 +1,7 @@
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   Inject,
   Input,
@@ -25,10 +26,15 @@ export class BuilderPanelComponent implements OnInit, AfterViewInit {
   constructor(
     public builder: BuilderState,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
-    private contentService: ContentService
+    private contentService: ContentService,
+    private cd: ChangeDetectorRef
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.builder.fixedChange$.subscribe(() => {
+      this.cd.detectChanges();
+    });
+  }
   ngAfterViewInit(): void {
     this.contentService.loadBranding().subscribe((res) => {
       this.branding = res;
@@ -43,19 +49,26 @@ export class BuilderPanelComponent implements OnInit, AfterViewInit {
   }
 
   onFixed(content: any): void {
-    if (content === this.builder.fixedContent) {
-      this.builder.showcase$.next(false);
-    }
-    if (content !== this.builder.fixedContent && this.builder.fixedShowcase) {
-      this.builder.showcase(content);
-    } else {
-      this.builder.fixedShowcase = !this.builder.fixedShowcase;
-      if (this.builder.fixedShowcase) {
-        this.builder.showcase(content);
-      } else {
+    if (this.builder.fixedShowcase) {
+      // click active
+      if (content === this.builder.fixedContent) {
+        this.builder.fixedShowcase = false;
         this.builder.showcase$.next(false);
-        this.builder.fixedContent = null;
+        return;
       }
+
+      // switch to other
+      if (content !== this.builder.fixedContent) {
+        this.builder.showcase(content);
+        return;
+      }
+    }
+
+    // set new active
+    if (!this.builder.fixedShowcase) {
+      this.builder.fixedShowcase = true;
+      this.builder.showcase(content);
+      return;
     }
   }
 

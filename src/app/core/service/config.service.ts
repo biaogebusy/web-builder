@@ -7,6 +7,7 @@ import { CORE_CONFIG } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
 import { Subject } from 'rxjs';
 import { ClarityService } from './clarity.service';
+import { TourService } from './tour.service';
 
 @Injectable({
   providedIn: 'root',
@@ -24,6 +25,7 @@ export class ConfigService {
     const qiDianService = this.injector.get(QiDianService);
     const dialogService = this.injector.get(DialogService);
     const clarityService = this.injector.get(ClarityService);
+    const tourService = this.injector.get(TourService);
     if (screenService.isPlatformBrowser()) {
       if (this.coreConfig) {
         if (this.coreConfig?.googleAnalytics) {
@@ -39,6 +41,9 @@ export class ConfigService {
         }
         if (this.coreConfig?.clarity?.id) {
           clarityService.init(this.coreConfig.clarity.id);
+        }
+        if (this.coreConfig?.tour.enable) {
+          tourService.init(this.coreConfig.tour);
         }
       }
     }

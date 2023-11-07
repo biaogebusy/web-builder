@@ -10,13 +10,15 @@
         [cdkDropListData]="item.elements" [cdkDropListConnectedTo]="['builder-list','builder-list-sideabr']">
         <ng-container *ngFor="let widget of item.elements">
           <ng-container *ngIf="!widget.child">
-            <div class="item" fxFlex.lt-sm="50%" fxFlex.gt-xs="0 0 calc(100%/3)">
+            <div class="item" matRipple fxFlex.lt-sm="50%" fxFlex.gt-xs="0 0 calc(100%/3)"
+              [matTooltip]="builder.fixedContent  === widget.content ?'已锁定预览，可查看复制组件JSON' : ''"
+              matTooltipPosition='above'>
               <div *ngIf="widget.type !== 'json'" [cdkDragData]="widget.content" cdkDrag (cdkDragMoved)="onMoved()"
                 (mouseenter)="onShowcase(widget.content)" (click)="onFixed(widget.content)">
                 <div class="inner move" [ngClass]="builder.fixedContent === widget.content ? 'active' : ''"
                   fxLayout="column" fxLayoutAlign="center center">
                   <app-icon *ngIf="widget.icon" [content]="widget.icon"></app-icon>
-                  <div class="title">{{widget.label}}</div>
+                  <div class="title" title="{{widget.label}}">{{widget.label}}</div>
                 </div>
               </div>
               <div *ngIf="widget.type === 'json'" (click)="onJson(widget)">
@@ -27,15 +29,17 @@
               </div>
             </div>
           </ng-container>
-          <div class="group width-100 m-bttom-md" fxLayout="row wrap" *ngIf="widget.child">
+          <div class="group width-100" matTooltipPosition="above" fxLayout="row wrap" *ngIf="widget.child">
             <ng-container *ngFor="let item of widget.child">
-              <div class="item" fxFlex.lt-sm="50%" fxFlex.gt-xs="0 0 calc(100%/3)">
+              <div class="item" matRipple fxFlex.lt-sm="50%" fxFlex.gt-xs="0 0 calc(100%/3)"
+                [matTooltip]="builder.fixedContent === item.content ?'已锁定预览，可查看复制组件JSON' : ''"
+                matTooltipPosition='above'>
                 <div *ngIf="item.type !== 'json'" [cdkDragData]="item.content" cdkDrag (cdkDragMoved)="onMoved()"
                   (mouseenter)="onShowcase(item.content)" (click)="onFixed(item.content)">
                   <div class="inner move" [ngClass]="builder.fixedContent === item.content ? 'active' : ''"
                     fxLayout="column" fxLayoutAlign="center center">
                     <app-icon *ngIf="item.icon" [content]="item.icon"></app-icon>
-                    <div class="title">{{item.label}}</div>
+                    <div class="title" title="{{item.label}}">{{item.label}}</div>
                   </div>
                 </div>
                 <div *ngIf="item.type === 'json'" (click)="onJson(item)">

@@ -1,3 +1,4 @@
+import { ICard1v1 } from './widgets/ICard';
 import { IIcon } from './widgets/IIcon';
 
 export interface IBuilderComponent {
@@ -43,4 +44,9 @@ export interface ISample {
   id: string;
   icon: IIcon;
   page: any;
+}
+
+export interface IBuilderShowcase {
+  title: string;
+  card: ICard1v1;
 }

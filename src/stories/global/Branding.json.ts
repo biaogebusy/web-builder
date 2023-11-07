@@ -60,13 +60,17 @@ export const defaultHeader: IHeader = {
       href: '/home',
     },
     {
-      label: 'Builder',
+      label: 'Wbe Builder',
       classes: 'bold',
       href: '/builder',
     },
     {
-      label: '示例页',
+      label: '模板',
       classes: 'bold',
+      tooltip: {
+        message: '使用web builder构建出的示例',
+        position: 'above',
+      },
       child: [
         {
           label: 'Home v1',

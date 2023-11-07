@@ -4,6 +4,7 @@
     @include scrollbar(mat-color($foreground, divider));
   }
   .mat-tab-header {
+    background-color: mat-color($background, background);
     .mat-tab-label {
       color: mat-color($foreground, text);
       &.mat-tab-label-active {
@@ -31,8 +32,11 @@
   }
 
   .cards {
-    > .label {
-      border-bottom: 1px solid mat-color($foreground, divider);
+    .group {
+      &:hover {
+        background-color: mat-color($primary, 0.07);
+        transition: all 0.2s ease;
+      }
     }
     .item {
       .inner {
@@ -41,6 +45,7 @@
         @include mat-elevation(1, mat-color($background, focused-button), 0.2);
         &:hover {
           @include mat-elevation(1, mat-color($background, hover), 0.6);
+          background: mat-color($primary, 0.08);
         }
         .custom-icon {
           color: mat-color($foreground, text, 0.7);
