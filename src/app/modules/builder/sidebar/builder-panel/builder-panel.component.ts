@@ -49,13 +49,35 @@ export class BuilderPanelComponent implements OnInit, AfterViewInit {
   }
 
   onFixed(content: any): void {
-    if (content === this.builder.fixedContent) {
-      this.builder.showcase$.next(false);
+    if (this.builder.fixedShowcase) {
+      // click active
+      if (content === this.builder.fixedContent) {
+        this.builder.fixedShowcase = false;
+        this.builder.showcase$.next(false);
+        return;
+      }
+
+      // switch to other
+      if (content !== this.builder.fixedContent) {
+        this.builder.showcase(content);
+        return;
+      }
     }
+
+    // set new active
+    if (!this.builder.fixedShowcase) {
+      this.builder.fixedShowcase = true;
+      this.builder.showcase(content);
+      return;
+    }
+
+    return;
     if (content !== this.builder.fixedContent && this.builder.fixedShowcase) {
       this.builder.showcase(content);
     } else {
       this.builder.fixedShowcase = !this.builder.fixedShowcase;
+
+      // set one to fixed
       if (this.builder.fixedShowcase) {
         this.builder.showcase(content);
       } else {
