@@ -41,6 +41,7 @@
           },
           "content": {
             "type": "img",
+            "hostClasses": "text-center",
             "classes": "",
             "src": "/assets/images/cases/porto3.jpg",
             "alt": "alt"
@@ -82,6 +83,20 @@
             "label": "关于我们",
             "style": "style-v1",
             "classes": "mat-display-1"
+          }
+        },
+        {
+          "label": "背景",
+          "icon": {
+            "svg": "format-color-fill"
+          },
+          "content": {
+            "type": "bg-img",
+            "classes": "bg-fill-width overlay overlay-80",
+            "img": {
+              "src": "/assets/images/bg/bg-03.jpeg",
+              "classes": "object-fit"
+            }
           }
         },
         {
@@ -200,25 +215,25 @@
             "elements": [
               {
                 "module": "Slick Carousel",
-                "tatol": 1356,
+                "tatol": 8632,
                 "info": "Slick 轮播，强大响应式且性能优异的图片轮播解决方案，有非常丰富的配置选项，slick 官网自己调侃这是你最后使用的图片轮播",
                 "remarks": "查看"
               },
               {
                 "module": "Views Slideshow",
-                "tatol": 5506,
+                "tatol": 8264,
                 "info": "视图轮播模块，该模块是最受欢迎的幻灯片模块，可放任何内容，高度定制\t",
                 "remarks": "查看"
               },
               {
                 "module": "Colorbox",
-                "tatol": 7587,
+                "tatol": 4528,
                 "info": "轻量级高可定制幻灯片模块，高度集成在 Drupal 中，可放图片，Iframed 或者在线内容等等\t",
                 "remarks": "查看"
               },
               {
                 "module": "Flex Slider",
-                "tatol": 5481,
+                "tatol": 3796,
                 "info": "响应式、可调整大小、适配浏览器和移动设备，支持移动设备手势滑动\t",
                 "remarks": "查看"
               },
@@ -286,21 +301,21 @@
                 ],
                 [
                   "第一季度",
-                  7597,
-                  7676,
-                  3252
+                  4734,
+                  8798,
+                  7090
                 ],
                 [
                   "第二季度",
-                  8957,
-                  8658,
-                  3258
+                  7813,
+                  4879,
+                  4259
                 ],
                 [
                   "第三季度",
-                  6145,
-                  5003,
-                  9990
+                  5520,
+                  5437,
+                  7724
                 ]
               ]
             },

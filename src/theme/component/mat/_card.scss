@@ -48,6 +48,11 @@
       &:hover {
         color: mat-color($primary);
       }
+      &.mat-primary {
+        &:hover {
+          color: mat-color($primary, default-contrast);
+        }
+      }
     }
     .author {
       color: $bg-color;
@@ -101,7 +106,7 @@
       color: mat-color($warn, text);
     }
     .title {
-      color: mat-color($primary);
+      color: mat-color($foreground, text, 0.75);
     }
 
     .inner {

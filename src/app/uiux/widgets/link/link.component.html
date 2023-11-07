@@ -7,6 +7,7 @@
   <ng-template #link>
     <!-- absolute link -->
     <a *ngIf="isAbsolute(content.href||''); else relative" [ngClass]="classes"
+      [matTooltip]="content.tooltip?.message||''" [matTooltipPosition]="content.tooltip?.position||'above'"
       [href]="content.href || 'javascript:void(0);'" [target]="content.target || '_self'"
       [innerHTML]="content.label | safeHtml" title="{{content.label}}" rel="noopener" (click)="nav($event)"></a>
 
@@ -19,7 +20,8 @@
         </ng-container>
         <!-- router link -->
         <ng-template #default>
-          <a [routerLink]="[content.href]" [routerLinkActive]="['active']" [target]="content.target || '_self'"
+          <a [matTooltip]="content.tooltip?.message||''" [matTooltipPosition]="content.tooltip?.position||'above'"
+            [routerLink]="[content.href]" [routerLinkActive]="['active']" [target]="content.target || '_self'"
             [routerLinkActiveOptions]="{exact: true}" [queryParams]="content.queryParams" [fragment]="content.fragment"
             [ngClass]="classes" [innerHTML]="content.label | safeHtml" title="{{content.label}}" (click)="nav($event)">
           </a>
@@ -33,7 +35,7 @@
 </ng-container>
 
 <ng-template let-link="link" #action>
-  <a [ngClass]="classes" href="javascript:void(0);" [target]="link.target || '_self'"
-    [innerHTML]="link.label | safeHtml" title="{{link.label}}" rel="{{link.rel}}" [attr.data-href]="link.href"
-    (click)="nav($event)"></a>
+  <a [matTooltip]="content.tooltip?.message||''" [matTooltipPosition]="content.tooltip?.position||'above'"
+    [ngClass]="classes" href="javascript:void(0);" [target]="link.target || '_self'" [innerHTML]="link.label | safeHtml"
+    title="{{link.label}}" rel="{{link.rel}}" [attr.data-href]="link.href" (click)="nav($event)"></a>
 </ng-template>

@@ -2,6 +2,7 @@ import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
 import { THEMKEY } from '@core/factory/factory';
 import { ICoreConfig } from '@core/interface/IAppConfig';
+import { THEME } from '@core/token/token-providers';
 import { LocalStorageService } from 'ngx-webstorage';
 
 @Injectable({
@@ -10,17 +11,12 @@ import { LocalStorageService } from 'ngx-webstorage';
 export class ThemeService {
   constructor(
     @Inject(DOCUMENT) private document: Document,
+    @Inject(THEME) private theme: string,
     private storage: LocalStorageService
   ) {}
 
   initTheme(coreConfig: ICoreConfig): void {
-    if (this.storage.retrieve(THEMKEY)) {
-      const theme = this.storage.retrieve(THEMKEY);
-      this.setTheme(theme);
-    } else {
-      const defTheme = coreConfig.defaultTheme || 'blue-theme';
-      this.setTheme(defTheme);
-    }
+    this.setTheme(this.theme);
   }
 
   setTheme(theme: string) {

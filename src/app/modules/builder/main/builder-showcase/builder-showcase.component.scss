@@ -13,15 +13,19 @@
   z-index: 9999;
   left: 350px;
   top: 75px;
+  padding-bottom: 60px;
+  border-radius: 4px;
+  overflow: hidden;
   ::ng-deep {
     .card-1v1 {
       transform: none !important;
-      .components {
-        max-height: 80vh;
-        overflow: auto;
-      }
+      max-height: 75vh;
+      overflow: auto;
       .title {
         margin-bottom: 0;
+      }
+      > .card-body {
+        display: none;
       }
     }
     .component-toolbar {
@@ -30,9 +34,16 @@
       }
     }
   }
-  .actions {
+  .showcase-footer {
     position: absolute;
-    right: 20px;
-    bottom: 20px;
+    z-index: 10;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 10px 20px;
+    .actions {
+      right: 20px;
+      bottom: 20px;
+    }
   }
 }

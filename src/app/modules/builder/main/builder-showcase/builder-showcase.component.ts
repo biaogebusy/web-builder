@@ -5,6 +5,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import type { IBuilderShowcase } from '@core/interface/IBuilder';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
@@ -16,7 +17,7 @@ import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BuilderShowcaseComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: IBuilderShowcase;
   constructor(
     private builder: BuilderState,
     private util: UtilitiesService,
@@ -28,19 +29,19 @@ export class BuilderShowcaseComponent implements OnInit {
   onClose(): void {
     this.builder.showcase$.next(false);
   }
-  onCopy(content: any): void {
-    this.util.copy(JSON.stringify(content));
-    this.util.openSnackbar(`已复制${this.content.type}的JSON！`, 'ok');
+  onCopy(component: any): void {
+    this.util.copy(JSON.stringify(component));
+    this.util.openSnackbar(`已复制${component.type}的JSON！`, 'ok');
   }
 
-  showCode(content: any): void {
+  showCode(component: any): void {
     this.dialog.open(DialogComponent, {
       width: '800px',
       data: {
         inputData: {
           content: {
             type: 'jsoneditor',
-            data: content,
+            data: component,
             isPreview: true,
           },
         },

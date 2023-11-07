@@ -41,7 +41,7 @@ export class JsoneditorComponent implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     this.valueChange$
       .pipe(
-        debounceTime(1000),
+        debounceTime(1500),
         distinctUntilChanged(),
         takeUntil(this.destroy$)
       )
@@ -59,11 +59,6 @@ export class JsoneditorComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onSave(): void {
-    const { type, content } = this.value;
-    if (!type) {
-      this.util.openSnackbar('组件格式错误，请检查！', 'ok');
-      return;
-    }
     if (this.value) {
       // for page json
       if (this.content.isPage) {

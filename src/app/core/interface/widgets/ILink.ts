@@ -13,6 +13,10 @@ export interface ILink {
   rel?: string;
   params?: any;
   color?: string;
+  tooltip?: {
+    message: string;
+    position?: 'above' | 'below' | 'left' | 'right' | 'before' | 'after';
+  };
   dialog?: {
     params: MatDialogConfig;
     data: any[];

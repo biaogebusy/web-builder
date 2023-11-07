@@ -42,13 +42,15 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
       background-color: mat-color($foreground, slider-off-active);
     }
     .showcase {
+      background-color: mat-color($background, card);
       > app-card-1v1 {
         > .card-1v1 {
-          > .card-body {
-            border-top: 1px solid mat-color($foreground, divider);
-            background: mat-color($background, background);
-          }
+          @include scrollbar(mat-color($primary));
         }
+      }
+      .showcase-footer {
+        border-top: 1px solid mat-color($foreground, divider);
+        background: mat-color($background, background);
       }
       .component-toolbar {
         + app-spacer {

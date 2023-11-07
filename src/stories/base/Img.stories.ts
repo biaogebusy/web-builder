@@ -35,6 +35,7 @@ const Template: Story = (args) => ({
 export const Default = Template.bind({});
 const content: IImg = {
   type: 'img',
+  hostClasses: 'text-center',
   classes: '',
   src: '/assets/images/cases/porto3.jpg',
   alt: 'alt',
