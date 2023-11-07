@@ -21,5 +21,5 @@ export interface IBtnVideo {
   color: 'primary' | 'accent' | 'warn';
   dialog?: MatDialogConfig;
   video: IPlayer | IIframe;
-  classes: string | object;
+  classes?: string | object;
 }
