@@ -1,11 +1,4 @@
 .cards {
-  .label {
-    flex: 0 0 100%;
-    padding: 10px 0;
-    margin-bottom: 10px;
-    opacity: 0.75;
-    font-size: small;
-  }
   .group {
     border-radius: 6px;
     padding: 6px;
@@ -13,7 +6,7 @@
   .item {
     position: relative;
     .title {
-      font-size: small;
+      font-size: 14px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;

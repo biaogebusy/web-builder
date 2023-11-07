@@ -171,7 +171,7 @@
     box-sizing: content-box;
     position: absolute;
     visibility: visible;
-    background-color: $white;
+    background-color: mat-color($background, card);
     min-width: 250px;
     max-width: 300px;
     border-radius: 5px;
@@ -181,6 +181,7 @@
 
   .introjs-tooltiptext {
     padding: 20px;
+    color: mat-color($foreground, text, 0.75);
   }
 
   .introjs-dontShowAgain {

@@ -18,7 +18,7 @@
                 <div class="inner move" [ngClass]="builder.fixedContent === widget.content ? 'active' : ''"
                   fxLayout="column" fxLayoutAlign="center center">
                   <app-icon *ngIf="widget.icon" [content]="widget.icon"></app-icon>
-                  <div class="title">{{widget.label}}</div>
+                  <div class="title" title="{{widget.label}}">{{widget.label}}</div>
                 </div>
               </div>
               <div *ngIf="widget.type === 'json'" (click)="onJson(widget)">
@@ -39,7 +39,7 @@
                   <div class="inner move" [ngClass]="builder.fixedContent === item.content ? 'active' : ''"
                     fxLayout="column" fxLayoutAlign="center center">
                     <app-icon *ngIf="item.icon" [content]="item.icon"></app-icon>
-                    <div class="title">{{item.label}}</div>
+                    <div class="title" title="{{item.label}}">{{item.label}}</div>
                   </div>
                 </div>
                 <div *ngIf="item.type === 'json'" (click)="onJson(item)">
