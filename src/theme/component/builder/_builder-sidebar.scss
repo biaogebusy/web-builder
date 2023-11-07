@@ -4,6 +4,7 @@
     @include scrollbar(mat-color($foreground, divider));
   }
   .mat-tab-header {
+    background-color: mat-color($background, background);
     .mat-tab-label {
       color: mat-color($foreground, text);
       &.mat-tab-label-active {

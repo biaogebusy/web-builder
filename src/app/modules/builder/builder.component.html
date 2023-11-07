@@ -4,7 +4,7 @@
   <app-builder-toolbar [containerDrawer]="containerDrawer" [page]="page"></app-builder-toolbar>
   <mat-drawer-container class="builder-main">
     <mat-drawer #drawer class="sidebar" [mode]="mode" [opened]="!(builderFullScreen$|async)">
-      <mat-tab-group (selectedTabChange)="onTabChange()" mat-stretch-tabs mat-align-tabs="center" disableRipple="true">
+      <mat-tab-group (selectedTabChange)="onTabChange()" mat-stretch-tabs mat-align-tabs="center">
         <mat-tab *ngFor="let tab of uiux">
           <ng-template mat-tab-label>
             <app-icon [content]="tab.icon" [matTooltip]="tab.label"></app-icon>

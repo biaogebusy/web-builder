@@ -10,7 +10,7 @@
         [cdkDropListData]="item.elements" [cdkDropListConnectedTo]="['builder-list','builder-list-sideabr']">
         <ng-container *ngFor="let widget of item.elements">
           <ng-container *ngIf="!widget.child">
-            <div class="item" fxFlex.lt-sm="50%" fxFlex.gt-xs="0 0 calc(100%/3)"
+            <div class="item" matRipple fxFlex.lt-sm="50%" fxFlex.gt-xs="0 0 calc(100%/3)"
               [matTooltip]="builder.fixedContent  === widget.content ?'已锁定预览，可查看复制组件JSON' : ''"
               matTooltipPosition='above'>
               <div *ngIf="widget.type !== 'json'" [cdkDragData]="widget.content" cdkDrag (cdkDragMoved)="onMoved()"
@@ -31,7 +31,7 @@
           </ng-container>
           <div class="group width-100" matTooltipPosition="above" fxLayout="row wrap" *ngIf="widget.child">
             <ng-container *ngFor="let item of widget.child">
-              <div class="item" fxFlex.lt-sm="50%" fxFlex.gt-xs="0 0 calc(100%/3)"
+              <div class="item" matRipple fxFlex.lt-sm="50%" fxFlex.gt-xs="0 0 calc(100%/3)"
                 [matTooltip]="builder.fixedContent === item.content ?'已锁定预览，可查看复制组件JSON' : ''"
                 matTooltipPosition='above'>
                 <div *ngIf="item.type !== 'json'" [cdkDragData]="item.content" cdkDrag (cdkDragMoved)="onMoved()"
