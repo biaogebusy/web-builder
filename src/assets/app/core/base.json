@@ -584,12 +584,36 @@
         }
       },
       {
+        "type": "select",
+        "key": "masonry",
+        "defaultValue": 0,
+        "className": "display-block m-bottom-sm",
+        "templateOptions": {
+          "label": "选择瀑布流组件个数",
+          "description": "瀑布流组件一般只需要一个",
+          "options": [
+            {
+              "label": "0",
+              "value": 0
+            },
+            {
+              "label": "1",
+              "value": 1
+            },
+            {
+              "label": "2",
+              "value": 2
+            }
+          ]
+        }
+      },
+      {
         "key": "action",
         "type": "checkbox",
         "className": "display-block m-bottom-sm",
         "defaultValue": true,
         "templateOptions": {
-          "label": "底部包含 Action",
+          "label": "页面 Action",
           "description": "一般页面底部引导用户下一步要做的事情",
           "pattern": "true",
           "required": true
