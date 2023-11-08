@@ -10,7 +10,7 @@ import type { IBuilderComponent, IUiux } from '@core/interface/IBuilder';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { CORE_CONFIG, UIUX } from '@core/token/token-providers';
-import { map } from 'lodash-es';
+import { map, shuffle } from 'lodash-es';
 
 @Component({
   selector: 'app-builder-generater',
@@ -33,7 +33,7 @@ export class BuilderGeneraterComponent implements OnInit {
   onGenerate(value: any): void {
     let items: IBuilderComponent[] = [];
     map(this.uiux, (item) => {
-      if (item.type === 'base' || item.type === 'component') {
+      if (item.type === 'component') {
         items.push(...item.elements);
       }
     });
@@ -48,18 +48,24 @@ export class BuilderGeneraterComponent implements OnInit {
       'carousel',
       value.carousel
     );
-    const drupal = this.builder.getRandomElements(
+    const masonry = this.builder.getRandomElements(
       items,
-      'drupal',
-      value.drupal
+      'masonry',
+      value.masonry
     );
+    const shuffleShowcaseCarousel = shuffle([...showcases, ...carousel]);
     let action = [];
     if (value.action) {
-      let base = this.uiux.filter((item) => item.type === 'base')[0];
-      action.push(base.elements[0].elements[0]);
+      let text = items.filter((item) => item.id === 'base')[0].elements[0];
+      action.push(text);
     }
 
-    const blocks = [...heros, ...showcases, ...carousel, ...drupal, ...action];
+    const blocks = [
+      ...heros,
+      ...shuffleShowcaseCarousel,
+      ...masonry,
+      ...action,
+    ];
 
     this.builder.page.body = blocks.map((item) => {
       if (item.type) {

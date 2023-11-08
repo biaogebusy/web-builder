@@ -5,7 +5,7 @@ import { base } from './base.builder';
 import { common } from './common.builder';
 import { medias } from './media.builder';
 
-export const widgets: IBuilderComponent[] = [
+export const widgets: any[] = [
   {
     label: '基础',
     elements: [...base],

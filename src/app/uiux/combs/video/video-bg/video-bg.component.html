@@ -1,10 +1,12 @@
 <div class="video-bg position-relative" *ngIf="content">
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
-  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
-  <div class="layer"></div>
+  <app-spacer [size]="content.spacer || 'md'"></app-spacer>
+  <app-bg [content]="content.bg"></app-bg>
   <app-player *ngIf="video" [content]="video"></app-player>
   <div class="inner position-relative" ngClass.gt-sm="xy-center" ngClass.lt-md="y-center">
-    <app-dynamic-component [inputs]="{content:content.widget}"></app-dynamic-component>
+    <div class="wrapper">
+      <app-dynamic-component *ngFor="let item of content.elements" [inputs]="item"></app-dynamic-component>
+    </div>
   </div>
-  <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
+  <app-spacer [size]="content.spacer || 'md'"></app-spacer>
 </div>
