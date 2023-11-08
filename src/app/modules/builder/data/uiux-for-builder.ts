@@ -6,22 +6,22 @@ import { samples } from './samples-for-builder';
 
 export const uiux: IUiux[] = [
   {
-    label: '基础组件',
-    type: 'base',
-    icon: {
-      svg: 'youtube-subscription',
-      inline: true,
-    },
-    elements: widgets.data,
-  },
-  {
-    label: '复合组件',
+    label: '页面组件',
     icon: {
       svg: 'land-plots',
       inline: true,
     },
     type: 'component',
     elements: components.data,
+  },
+  {
+    label: '基础组件',
+    type: 'component',
+    icon: {
+      svg: 'youtube-subscription',
+      inline: true,
+    },
+    elements: widgets.data,
   },
   {
     label: '示例页面',

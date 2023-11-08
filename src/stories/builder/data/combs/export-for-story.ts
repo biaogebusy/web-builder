@@ -1,12 +1,16 @@
 import { hero } from './hero.builder';
 import { showcase } from './showcase.builder';
-import { drupal } from './drupal.builder';
 import { tools } from './tools.builder';
 import { carousels } from './carousel.builder';
 import { masonry } from './masonry.builder';
-import { map } from './map.builder';
+import { base } from './base.builder';
 
 export const components: any[] = [
+  {
+    label: '基础',
+    id: 'base',
+    elements: base,
+  },
   {
     label: 'Hero',
     id: 'hero',
@@ -27,16 +31,7 @@ export const components: any[] = [
     id: 'masonry',
     elements: [...masonry],
   },
-  {
-    label: 'Drupal',
-    id: 'drupal',
-    elements: [...drupal],
-  },
-  {
-    label: '地图应用',
-    id: 'map',
-    elements: [...map],
-  },
+
   {
     label: '工具',
     id: 'tools',

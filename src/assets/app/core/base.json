@@ -584,38 +584,6 @@
         }
       },
       {
-        "type": "select",
-        "key": "drupal",
-        "defaultValue": 0,
-        "className": "display-block m-bottom-sm",
-        "templateOptions": {
-          "label": "使用Drupal API 组件个数",
-          "description": "列表，分类，日历等等",
-          "options": [
-            {
-              "label": "0",
-              "value": 0
-            },
-            {
-              "label": "1",
-              "value": 1
-            },
-            {
-              "label": "2",
-              "value": 2
-            },
-            {
-              "label": "3",
-              "value": 3
-            },
-            {
-              "label": "4",
-              "value": 4
-            }
-          ]
-        }
-      },
-      {
         "key": "action",
         "type": "checkbox",
         "className": "display-block m-bottom-sm",
@@ -680,27 +648,21 @@
             "body": "从左侧选择组件拖动到想要的位置：<ul class=\"list-done\"><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li><li>双击可以直接编辑组件的 JSON，所见即所得；</li></ul><p>Web Builder 目前只是一个Base版本，相关的功能看时间和精力慢慢优化完善，交流学习可加微信：<span class=\"text-primary\">biaogebusy</span></p>",
             "actions": [
               {
-                "disableToolbar": true,
-                "content": {
-                  "type": "btn-generater",
-                  "label": "体验生成页面",
-                  "color": "primary",
-                  "mode": "raised"
-                }
+                "type": "btn-generater",
+                "label": "体验生成页面",
+                "color": "primary",
+                "mode": "raised"
               },
               {
-                "disableToolbar": true,
-                "content": {
-                  "type": "btn",
-                  "color": "primary",
-                  "mode": "stroked",
-                  "label": "演示视频",
-                  "href": "https://www.bilibili.com/video/BV1ux4y197kc/?spm_id_from=333.999.0.0&vd_source=f65b4e2d70ecc450290b6b1710c0ada5",
-                  "target": "_blank",
-                  "icon": {
-                    "inline": true,
-                    "svg": "play-circle-outline"
-                  }
+                "type": "btn",
+                "color": "primary",
+                "mode": "stroked",
+                "label": "演示视频",
+                "href": "https://www.bilibili.com/video/BV1ux4y197kc/?spm_id_from=333.999.0.0&vd_source=f65b4e2d70ecc450290b6b1710c0ada5",
+                "target": "_blank",
+                "icon": {
+                  "inline": true,
+                  "svg": "play-circle-outline"
                 }
               },
               {
@@ -708,6 +670,52 @@
                 "content": {
                   "type": "github-star"
                 }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "video-bg",
+        "source": {
+          "src": "/assets/video/start-video.webm",
+          "type": "video/mp4"
+        },
+        "bg": {
+          "classes": "bg-fill-width overlay overlay-80"
+        },
+        "classes": "",
+        "elements": [
+          {
+            "type": "spacer"
+          },
+          {
+            "type": "showcase-1v3",
+            "title": {
+              "label": "快速了解 web builder 的使用",
+              "style": "style-v1",
+              "classes": "mat-display-1"
+            },
+            "classes": "text-light",
+            "elements": [
+              {
+                "type": "text",
+                "spacer": "none",
+                "style": {
+                  "margin": "0 auto",
+                  "text-align": "center",
+                  "width": "600px"
+                },
+                "body": "在边栏，鼠标移到组件名称会显示组件预览，点击可固定预览，对预览的组件可复制或者查看JSON，再点击可取消固定，编辑区目前只支持上下排列，动态Layout后续看时间和精力开发，敬请期待！",
+                "actionsAlign": "center center",
+                "actions": [
+                  {
+                    "type": "btn-generater",
+                    "label": "体验生成页面",
+                    "color": "primary",
+                    "mode": "raised"
+                  }
+                ]
               }
             ]
           }

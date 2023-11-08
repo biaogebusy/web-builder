@@ -33,7 +33,7 @@ export class BuilderGeneraterComponent implements OnInit {
   onGenerate(value: any): void {
     let items: IBuilderComponent[] = [];
     map(this.uiux, (item) => {
-      if (item.type === 'base' || item.type === 'component') {
+      if (item.type === 'component') {
         items.push(...item.elements);
       }
     });
@@ -48,18 +48,13 @@ export class BuilderGeneraterComponent implements OnInit {
       'carousel',
       value.carousel
     );
-    const drupal = this.builder.getRandomElements(
-      items,
-      'drupal',
-      value.drupal
-    );
     let action = [];
     if (value.action) {
       let base = this.uiux.filter((item) => item.type === 'base')[0];
       action.push(base.elements[0].elements[0]);
     }
 
-    const blocks = [...heros, ...showcases, ...carousel, ...drupal, ...action];
+    const blocks = [...heros, ...showcases, ...carousel, ...action];
 
     this.builder.page.body = blocks.map((item) => {
       if (item.type) {

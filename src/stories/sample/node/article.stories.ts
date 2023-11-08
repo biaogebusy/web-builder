@@ -13,8 +13,8 @@ import { UserModule } from 'src/app/modules/user/user.module';
 import { StorysModule, sleep } from '@core/module/storys.module';
 import { comments } from './comments.json';
 import { formatDate } from '@angular/common';
-import { swiper } from '@stories/builder/data/widgets/base.builder';
 import { IBaseNode } from '@core/interface/node/INode';
+import { swiper } from '@stories/builder/data/combs/base.builder';
 
 export default {
   title: '示例页面/内容类型/普通文章',

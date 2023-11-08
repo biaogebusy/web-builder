@@ -5,8 +5,9 @@ import {
   showcase3v4_background,
   showcase4v1_default,
 } from '@stories/builder/data/combs/showcase.builder';
-import { action1v1 } from '@stories/builder/data/widgets/common.builder';
+
 import { carousel1v1 } from '@stories/builder/data/combs/carousel.builder';
+import { action1v1 } from '../combs/base.builder';
 export const home_v2 = {
   title: '首页 v2',
   meta: [

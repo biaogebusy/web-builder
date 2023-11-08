@@ -6,22 +6,22 @@ import { systems } from './system/system-fot-story';
 
 export const uiux: IUiux[] = [
   {
-    label: '基础组件',
-    type: 'base',
-    icon: {
-      svg: 'youtube-subscription',
-      inline: true,
-    },
-    elements: widgets,
-  },
-  {
-    label: '复合组件',
+    label: '页面组件',
     icon: {
       svg: 'land-plots',
       inline: true,
     },
     type: 'component',
     elements: components,
+  },
+  {
+    label: '基础组件',
+    type: 'component',
+    icon: {
+      svg: 'youtube-subscription',
+      inline: true,
+    },
+    elements: widgets,
   },
   {
     label: '示例页面',

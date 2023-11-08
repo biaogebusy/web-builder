@@ -1,3 +1,4 @@
+import { text } from '../combs/base.builder';
 import { carousel2v2 } from '../combs/carousel.builder';
 import {
   showcase1v3_video,
@@ -5,7 +6,6 @@ import {
   showcase3v6_default,
   showcase3v9_reverse,
 } from '../combs/showcase.builder';
-import { text } from '../widgets/base.builder';
 
 export const home_v5 = {
   title: '首页 v5',

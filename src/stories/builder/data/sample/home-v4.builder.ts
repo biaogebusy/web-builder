@@ -9,7 +9,7 @@ import {
   shwocase1v1_image,
 } from '@stories/builder/data/combs/showcase.builder';
 import { carousel1v1 } from '@stories/builder/data/combs/carousel.builder';
-import { text } from '@stories/builder/data/widgets/base.builder';
+import { text } from '@stories/builder/data/combs/base.builder';
 
 export const home_v4 = {
   title: '首页 v4',
