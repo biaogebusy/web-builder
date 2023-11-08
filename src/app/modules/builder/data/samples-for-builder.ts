@@ -302,7 +302,7 @@ export const samples = {
                   name: 'fingerprint',
                 },
                 digit: {
-                  value: 607,
+                  value: 979,
                   label: '+',
                 },
                 title: '日访问人数',
@@ -312,7 +312,7 @@ export const samples = {
                   name: 'verified_user',
                 },
                 digit: {
-                  value: 268,
+                  value: 346,
                   label: '+',
                 },
                 title: '日打开次数',
@@ -322,7 +322,7 @@ export const samples = {
                   name: 'android',
                 },
                 digit: {
-                  value: 111,
+                  value: 297,
                   label: '人',
                 },
                 title: '日新增人数',
@@ -332,7 +332,7 @@ export const samples = {
                   name: 'mail',
                 },
                 digit: {
-                  value: 5075,
+                  value: 9149,
                   label: '万',
                 },
                 title: '累计用户数',
@@ -428,7 +428,7 @@ export const samples = {
             elements: [
               {
                 type: 'card',
-                subTitle: '2023-11-05',
+                subTitle: '2023-11-08',
                 avatar: {
                   src: '/assets/images/avatar/01.jpeg',
                   alt: '',
@@ -478,7 +478,7 @@ export const samples = {
               },
               {
                 type: 'card',
-                subTitle: '2023-11-05',
+                subTitle: '2023-11-08',
                 avatar: {
                   src: '/assets/images/avatar/02.jpeg',
                   alt: '',
@@ -515,7 +515,7 @@ export const samples = {
               },
               {
                 type: 'card',
-                subTitle: '2023-11-05',
+                subTitle: '2023-11-08',
                 avatar: {
                   src: '/assets/images/avatar/03.jpeg',
                   alt: '',
@@ -552,7 +552,7 @@ export const samples = {
               },
               {
                 type: 'card',
-                subTitle: '2023-11-05',
+                subTitle: '2023-11-08',
                 avatar: {
                   src: '/assets/images/avatar/04.jpeg',
                   alt: '',
@@ -589,7 +589,7 @@ export const samples = {
               },
               {
                 type: 'card',
-                subTitle: '2023-11-05',
+                subTitle: '2023-11-08',
                 avatar: {
                   src: '/assets/images/avatar/05.jpeg',
                   alt: '',
@@ -626,7 +626,7 @@ export const samples = {
               },
               {
                 type: 'card',
-                subTitle: '2023-11-05',
+                subTitle: '2023-11-08',
                 avatar: {
                   src: '/assets/images/avatar/06.jpeg',
                   alt: '',
@@ -663,7 +663,7 @@ export const samples = {
               },
               {
                 type: 'card',
-                subTitle: '2023-11-05',
+                subTitle: '2023-11-08',
                 avatar: {
                   src: '/assets/images/avatar/01.jpeg',
                   alt: '',
@@ -700,7 +700,7 @@ export const samples = {
               },
               {
                 type: 'card',
-                subTitle: '2023-11-05',
+                subTitle: '2023-11-08',
                 avatar: {
                   src: '/assets/images/avatar/02.jpeg',
                   alt: '',
@@ -744,50 +744,49 @@ export const samples = {
               type: 'video/mp4',
             },
             bg: {
-              classes: '',
+              classes: 'bg-fill-width overlay overlay-80',
             },
             classes: '',
-            widget: {
-              type: 'showcase-1v3',
-              title: {
-                label: 'Storybook 是什么？',
-                style: 'style-v1',
-                classes: 'mat-display-1',
-              },
-              classes: 'text-light',
-              bg: {
-                classes: 'bg-fill-width overlay overlay-80',
-              },
-              elements: [
-                {
-                  type: 'text',
-                  spacer: 'none',
-                  style: {
-                    margin: '0 auto',
-                    'text-align': 'center',
-                    width: '600px',
-                  },
-                  body: 'Storybook是一个用于开发和展示UI组件的工具。它提供了一个独立的环境，开发人员可以在其中构建、测试和文档化单个UI组件，而无需依赖于整个应用程序的上下文，Storybook是一个用于开发和展示UI组件的工具。',
-                  actionsAlign: 'center center',
-                  actions: [
-                    {
-                      label: '了解更多',
-                      type: 'btn-animate',
-                      href: '#',
-                      style: 'style-v1',
-                      icon: 'verified_user',
-                    },
-                    {
-                      label: '回到官网',
-                      type: 'btn-animate',
-                      href: '#',
-                      style: 'style-v1',
-                      icon: 'fingerprint',
-                    },
-                  ],
+            elements: [
+              {
+                type: 'showcase-1v3',
+                title: {
+                  label: 'Storybook 是什么？',
+                  style: 'style-v1',
+                  classes: 'mat-display-1',
                 },
-              ],
-            },
+                classes: 'text-light',
+                elements: [
+                  {
+                    type: 'text',
+                    spacer: 'none',
+                    style: {
+                      margin: '0 auto',
+                      'text-align': 'center',
+                      width: '600px',
+                    },
+                    body: 'Storybook是一个用于开发和展示UI组件的工具。它提供了一个独立的环境，开发人员可以在其中构建、测试和文档化单个UI组件，而无需依赖于整个应用程序的上下文，Storybook是一个用于开发和展示UI组件的工具。',
+                    actionsAlign: 'center center',
+                    actions: [
+                      {
+                        label: '了解更多',
+                        type: 'btn-animate',
+                        href: '#',
+                        style: 'style-v1',
+                        icon: 'verified_user',
+                      },
+                      {
+                        label: '回到官网',
+                        type: 'btn-animate',
+                        href: '#',
+                        style: 'style-v1',
+                        icon: 'fingerprint',
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
           },
           {
             type: 'showcase-3v6',
@@ -1717,7 +1716,7 @@ export const samples = {
                   name: 'fingerprint',
                 },
                 digit: {
-                  value: 607,
+                  value: 979,
                   label: '+',
                 },
                 title: '日访问人数',
@@ -1727,7 +1726,7 @@ export const samples = {
                   name: 'verified_user',
                 },
                 digit: {
-                  value: 268,
+                  value: 346,
                   label: '+',
                 },
                 title: '日打开次数',
@@ -1737,7 +1736,7 @@ export const samples = {
                   name: 'android',
                 },
                 digit: {
-                  value: 111,
+                  value: 297,
                   label: '人',
                 },
                 title: '日新增人数',
@@ -1747,7 +1746,7 @@ export const samples = {
                   name: 'mail',
                 },
                 digit: {
-                  value: 5075,
+                  value: 9149,
                   label: '万',
                 },
                 title: '累计用户数',
@@ -5620,7 +5619,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset187.svg',
                 },
                 digit: {
-                  value: 33,
+                  value: 30,
                   label: 'M',
                 },
                 title: 'Github Start',
@@ -5630,7 +5629,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset189.svg',
                 },
                 digit: {
-                  value: 37790,
+                  value: 44929,
                   label: '+',
                 },
                 title: 'NPM 周下载量',
@@ -5640,7 +5639,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset190.svg',
                 },
                 digit: {
-                  value: 2893,
+                  value: 3800,
                   label: 'K',
                 },
                 title: '社区活跃',
@@ -5650,7 +5649,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset192.svg',
                 },
                 digit: {
-                  value: 938,
+                  value: 900,
                   label: '个',
                 },
                 title: '成功故事',
@@ -5927,7 +5926,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset187.svg',
                 },
                 digit: {
-                  value: 33,
+                  value: 30,
                   label: 'M',
                 },
                 title: 'Github Start',
@@ -5937,7 +5936,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset189.svg',
                 },
                 digit: {
-                  value: 37790,
+                  value: 44929,
                   label: '+',
                 },
                 title: 'NPM 周下载量',
@@ -5947,7 +5946,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset190.svg',
                 },
                 digit: {
-                  value: 2893,
+                  value: 3800,
                   label: 'K',
                 },
                 title: '社区活跃',
@@ -5957,7 +5956,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset192.svg',
                 },
                 digit: {
-                  value: 938,
+                  value: 900,
                   label: '个',
                 },
                 title: '成功故事',
@@ -7857,7 +7856,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset187.svg',
                 },
                 digit: {
-                  value: 33,
+                  value: 30,
                   label: 'M',
                 },
                 title: 'Github Start',
@@ -7867,7 +7866,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset189.svg',
                 },
                 digit: {
-                  value: 37790,
+                  value: 44929,
                   label: '+',
                 },
                 title: 'NPM 周下载量',
@@ -7877,7 +7876,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset190.svg',
                 },
                 digit: {
-                  value: 2893,
+                  value: 3800,
                   label: 'K',
                 },
                 title: '社区活跃',
@@ -7887,7 +7886,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset192.svg',
                 },
                 digit: {
-                  value: 938,
+                  value: 900,
                   label: '个',
                 },
                 title: '成功故事',
@@ -8790,6 +8789,7 @@ export const samples = {
                       style: 'style-v8',
                       title: {
                         href: '#',
+
                         label: '更有弹性',
                       },
                       content:

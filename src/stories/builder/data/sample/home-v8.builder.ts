@@ -8,7 +8,8 @@ import {
   showcase3v9_video,
   showcase4v1_img,
 } from '@stories/builder/data/combs/showcase.builder';
-import { text } from '@stories/builder/data/widgets/base.builder';
+import { text } from '@stories/builder/data/combs/base.builder';
+
 export const home_v8 = {
   title: '首页 v8',
   configBak: {

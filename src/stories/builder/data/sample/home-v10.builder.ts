@@ -7,7 +7,7 @@ import {
   carousel1v3,
   carousel1v3_client,
 } from '@stories/builder/data/combs/carousel.builder';
-import { text } from '@stories/builder/data/widgets/base.builder';
+import { text } from '@stories/builder/data/combs/base.builder';
 export const home_v10 = {
   title: '首页 v10',
   configBak: {
