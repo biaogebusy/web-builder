@@ -453,6 +453,9 @@
   },
   "builder": {
     "enable": true,
+    "api": {
+      "create": "/api/v3/landingPage/builder"
+    },
     "params": {
       "reqRoles": [
         "administrator"
