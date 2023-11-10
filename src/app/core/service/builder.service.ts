@@ -27,7 +27,7 @@ export class BuilderService extends ApiService {
     } = this.coreConfig;
     const { csrf_token } = this.user;
     return this.http.post(
-      create,
+      `${this.apiUrl}${create}`,
       page,
       this.optionsWithCookieAndToken(csrf_token)
     );
