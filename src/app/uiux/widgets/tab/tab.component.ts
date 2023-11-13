@@ -22,6 +22,9 @@ export class TabComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams.subscribe((qp) => {
       const { activeTabId } = qp;
+      if (!activeTabId) {
+        return;
+      }
       this.content.elements.forEach((tab, index) => {
         if (tab.id === activeTabId) {
           this.selectedIndex = index;
