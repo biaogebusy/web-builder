@@ -622,17 +622,23 @@ export const footerInverse: IFooter = {
     social: [
       {
         label: 'zhihu',
-        svg: 'zhihu',
+        icon: {
+          svg: 'zhihu',
+        },
         href: 'https://www.zhihu.com/people/biaogebusy',
       },
       {
         label: '微博',
-        svg: 'weibo',
+        icon: {
+          svg: 'weibo',
+        },
         href: 'https://weibo.com/u/1671667514',
       },
       {
         label: 'Github',
-        svg: 'github',
+        icon: {
+          svg: 'github',
+        },
         href: 'https://github.com/biaogebusy/xinshi-ui',
       },
     ],
