@@ -1,9 +1,11 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   Input,
   OnInit,
 } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import type { ITab } from '@core/interface/widgets/ITab';
 
 @Component({
@@ -14,7 +16,18 @@ import type { ITab } from '@core/interface/widgets/ITab';
 })
 export class TabComponent implements OnInit {
   @Input() content: ITab;
-  constructor() {}
+  selectedIndex: number | null;
+  constructor(private route: ActivatedRoute, private cd: ChangeDetectorRef) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.route.queryParams.subscribe((qp) => {
+      const { activeTabId } = qp;
+      this.content.elements.forEach((tab, index) => {
+        if (tab.id === activeTabId) {
+          this.selectedIndex = index;
+          this.cd.detectChanges();
+        }
+      });
+    });
+  }
 }

@@ -115,7 +115,7 @@ interface FooterBrand {
 
 interface Social {
   label: string;
-  svg: string;
+  icon: IIcon;
   href: string;
 }
 
