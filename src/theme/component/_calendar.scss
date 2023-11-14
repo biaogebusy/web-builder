@@ -33,7 +33,7 @@
     }
     .fc-theme-standard td,
     .fc-scrollgrid th {
-      border-color: mat-color($foreground, divider);
+      border-color: mat-color($foreground, divider, 0.4);
     }
     .fc {
       .fc-header-toolbar {
@@ -46,6 +46,11 @@
               transform: scale(0.8);
             }
           }
+        }
+      }
+      .fc-daygrid-day-top {
+        a {
+          color: mat-color($foreground, text, 0.75);
         }
       }
       .fc-button-primary {
