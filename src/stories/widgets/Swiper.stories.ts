@@ -50,7 +50,7 @@ const content: ISwiper = {
       },
     },
   },
-  classes: 'p-bottom',
+  classes: '',
   elements: [
     {
       type: 'card',

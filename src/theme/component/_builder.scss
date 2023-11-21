@@ -25,8 +25,10 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
       color: mat-color($foreground, text, 0.5);
     }
   }
-  .sidebar {
-    @include sidebar($background, $foreground, $primary);
+  .builder-main {
+    > .sidebar {
+      @include sidebar($background, $foreground, $primary);
+    }
   }
   > .mat-drawer-container {
     background-color: transparent;

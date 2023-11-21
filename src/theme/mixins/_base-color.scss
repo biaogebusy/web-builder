@@ -45,7 +45,7 @@
   body,
   .mat-drawer-container {
     color: mat-color($foreground, text, 0.75);
-    background-color: mat-color($background, card);
+    background-color: mat-color($background, background);
     .mat-drawer-inner-container {
       @include scrollbar(mat-color($primary));
     }

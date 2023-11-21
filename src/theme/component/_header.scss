@@ -17,7 +17,7 @@
   }
 
   .header-top {
-    background-color: mat-color($background, status-bar, 0.4);
+    background-color: mat-color($background, status-bar, 0.75);
     @include mat-elevation(1, mat-color($background, tooltip), 0.4);
     color: $second;
     .inv-icon {
@@ -59,10 +59,13 @@
   }
   .static {
     background-color: $bg-card-color;
+    .header-banner {
+      background-color: mat-color($background, status-bar);
+    }
   }
   .header {
     border-top: 1px solid mat-color($foreground, divider);
-    background-color: $bg-card-color;
+    background-color: mat-color($background, app-bar);
     @include mat-elevation(2, mat-color($background, tooltip), 0.25);
     .logo {
       color: mat-color($primary);
@@ -98,10 +101,21 @@
     }
   }
 
-  .hover-menu,
-  .hover-menu .child {
+  .hover-menu {
     background-color: mat-color($background, card);
     @include mat-elevation(3, mat-color($foreground, divider, 0.7));
+    .child {
+      background-color: mat-color($background, card);
+      @include mat-elevation(3, mat-color($foreground, divider, 0.7));
+    }
+
+    .sub-menu {
+      .has-child {
+        &:after {
+          color: mat-color($foreground, divider);
+        }
+      }
+    }
   }
 
   // user dropdown menu
