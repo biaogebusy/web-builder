@@ -53,6 +53,9 @@ export class DialogService {
     this.dialogRef = this.dialog.open(DialogComponent, {
       width: config.params.width,
       disableClose: true,
+      hasBackdrop: true,
+      panelClass: 'force-dialog',
+      backdropClass: 'force-backdrop',
       data: {
         renderInputComponent: TextComponent,
         disableCloseButton: true,
