@@ -14,7 +14,8 @@
               [matTooltip]="builder.fixedContent  === widget.content ?'已锁定预览，可查看复制组件JSON' : ''"
               matTooltipPosition='above'>
               <div *ngIf="widget.type !== 'json'" [cdkDragData]="widget.content" cdkDrag (cdkDragMoved)="onMoved()"
-                (mouseenter)="onShowcase(widget.content)" (click)="onFixed(widget.content)">
+                (mouseenter)="onShowcase(widget.content)" (mouseleave)="hideShowcase()"
+                (click)="onFixed(widget.content)">
                 <div class="inner move" [ngClass]="builder.fixedContent === widget.content ? 'active' : ''"
                   fxLayout="column" fxLayoutAlign="center center">
                   <app-icon *ngIf="widget.icon" [content]="widget.icon"></app-icon>
@@ -35,7 +36,7 @@
                 [matTooltip]="builder.fixedContent === item.content ?'已锁定预览，可查看复制组件JSON' : ''"
                 matTooltipPosition='above'>
                 <div *ngIf="item.type !== 'json'" [cdkDragData]="item.content" cdkDrag (cdkDragMoved)="onMoved()"
-                  (mouseenter)="onShowcase(item.content)" (click)="onFixed(item.content)">
+                  (mouseenter)="onShowcase(item.content)" (mouseleave)="hideShowcase()" (click)="onFixed(item.content)">
                   <div class="inner move" [ngClass]="builder.fixedContent === item.content ? 'active' : ''"
                     fxLayout="column" fxLayoutAlign="center center">
                     <app-icon *ngIf="item.icon" [content]="item.icon"></app-icon>

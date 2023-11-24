@@ -72,6 +72,12 @@ export class BuilderPanelComponent implements OnInit, AfterViewInit {
     }
   }
 
+  hideShowcase(): void {
+    if (!this.builder.fixedShowcase) {
+      this.builder.showcase$.next(false);
+    }
+  }
+
   onMoved(): void {
     this.builder.showcase$.next(false);
   }
