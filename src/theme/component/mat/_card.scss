@@ -118,7 +118,7 @@
 
   .card-1v5 {
     @include mat-elevation(3, mat-color($foreground, divider), 0.3);
-    background-color: #fff;
+    background-color: mat-color($background, card);
     .more {
       color: mat-color($primary);
       .mat-icon {
@@ -133,7 +133,7 @@
     border-bottom: 3px solid mat-color($foreground, divider, 0.2);
     &:hover {
       border-color: mat-color($primary);
-      background-color: #ffffff !important;
+      background-color: mat-color($background, card) !important;
       @include mat-elevation(5, mat-color($foreground, divider), 0.7);
       .title {
         color: mat-color($primary);
