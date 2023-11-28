@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import type { IPage } from '@core/interface/IAppConfig';
-import { IUser } from '@core/interface/IUser';
+import type { IUser } from '@core/interface/IUser';
 import { BuilderService } from '@core/service/builder.service';
 import { CanvasService } from '@core/service/canvas.service';
 import { UtilitiesService } from '@core/service/utilities.service';

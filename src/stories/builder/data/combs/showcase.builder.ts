@@ -1,4 +1,3 @@
-import { IBuilderComponent } from '@core/interface/IBuilder';
 import * as s1v1Story from '@stories/feature/showcase/showcase1v1.stories';
 import * as s1v2Story from '@stories/feature/showcase/showcase1v2.stories';
 import * as s1v3Story from '@stories/feature/showcase/showcase1v3.stories';
@@ -29,8 +28,6 @@ export const {
   StyleV4: { args: showcase1v1_v4, storyName: s1v1V4Name },
   StyleV5: { args: showcase1v1_v5, storyName: s1v1V5Name },
   Image: { args: shwocase1v1_image, storyName: s1v1ImageName },
-  StyleV6: { args: showcase1v1_v6, storyName: s1v1V6Name },
-  StyleV7: { args: showcase1v1_v7, storyName: s1v1V7Name },
 } = s1v1Story;
 export const {
   Default: { args: showcase1v2_default, storyName: s1v2DefaultName },
@@ -149,14 +146,6 @@ export const showcase = [
       {
         label: '1v1 Image',
         ...shwocase1v1_image,
-      },
-      {
-        label: '1v1-6',
-        ...showcase1v1_v6,
-      },
-      {
-        label: '1v1-7',
-        ...showcase1v1_v7,
       },
       {
         label: '1v2',
