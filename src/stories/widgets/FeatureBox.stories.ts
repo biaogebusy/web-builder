@@ -30,6 +30,7 @@ const Template: Story = (args) => ({
   },
 });
 export const Default = Template.bind({});
+Default.storyName = '4:3';
 const content: IFeatureBox = {
   type: 'feature-box',
   fullIcon: 'fullscreen',
@@ -44,6 +45,19 @@ const content: IFeatureBox = {
 };
 Default.args = {
   content,
+};
+
+export const CustomContain = Template.bind({});
+CustomContain.storyName = '图片不裁切';
+CustomContain.args = {
+  content: {
+    ...content,
+    img: {
+      classes: 'object-contain',
+      src: '/assets/images/cases/porto1.jpg',
+      alt: 'Feature box',
+    },
+  },
 };
 
 export const HoverIcon = Template.bind({});
