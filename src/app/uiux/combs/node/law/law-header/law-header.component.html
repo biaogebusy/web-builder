@@ -11,9 +11,16 @@
     </div>
     <div class="actions p-y-sm" *ngIf="content.actions">
       <div class="inner" fxLayout="row" fxLayoutGap="1rem">
-        <button [disabled]="disabled" *ngIf="content?.pdf" (click)="onSavePdf()" mat-button>
+        <button [disabled]="disabled" *ngIf="content?.pdf" (click)="onDownFiles()" mat-button>
           <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="1rem">
-            <mat-icon *ngIf="!saveDocLoading">print</mat-icon>
+            <app-icon *ngIf="!saveDocLoading" [content]="{svg:'download-multiple'}"></app-icon>
+            <mat-spinner diameter="16" *ngIf="saveDocLoading"></mat-spinner>
+            <span>一键下载</span>
+          </div>
+        </button>
+        <button [disabled]="disabled" *ngIf="content?.pdf" (click)="onPreviewPdf()" mat-button>
+          <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="1rem">
+            <app-icon *ngIf="!saveDocLoading" [content]="{svg:'printer'}"></app-icon>
             <mat-spinner diameter="16" *ngIf="saveDocLoading"></mat-spinner>
             <span>法律意见</span>
           </div>
