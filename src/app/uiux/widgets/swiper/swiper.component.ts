@@ -85,8 +85,25 @@ export class SwiperComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     }
   }
+
   onSwiper(swiper: any): void {}
+
   onSlideChange(): void {}
+
+  onAfterInitSwiper(swiper: any): void {
+    if (this.content?.custom?.pagination?.bulletsStyle) {
+      const {
+        pagination: { bullets },
+      } = swiper;
+      this.content.custom.pagination.bulletsStyle.forEach((item, index) => {
+        Object.keys(item).forEach((key) => {
+          bullets[index].style[key] =
+            typeof item[key] === 'string' ? item[key] : item[key].toString();
+        });
+      });
+    }
+  }
+
   ngOnDestroy(): void {
     if (this.navigationSub && this.navigationSub.unsubscribe) {
       this.navigationSub?.unsubscribe();

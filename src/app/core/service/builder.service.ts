@@ -1,10 +1,10 @@
 import { Inject, Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 import { API_URL, CORE_CONFIG, USER } from '@core/token/token-providers';
-import { ICoreConfig, IPage } from '@core/interface/IAppConfig';
+import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { IUser } from '@core/interface/IUser';
+import type { IUser } from '@core/interface/IUser';
 
 @Injectable({
   providedIn: 'root',

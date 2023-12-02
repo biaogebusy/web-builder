@@ -181,8 +181,10 @@ Video.args = {
     ...Default.args?.content,
     sliders: {
       params: {
-        slidesPerView: 1,
-        spaceBetween: 0,
+        slidesPerView: 1.5,
+        spaceBetween: 40,
+        centeredSlides: true,
+        loop: true,
         navigation: true,
         pagination: true,
         autoplay: false,
@@ -191,8 +193,9 @@ Video.args = {
       elements: [
         {
           type: 'img',
-          src: '/assets/images/illustration/09.png',
+          src: '/assets/images/16-9/business-02.jpg',
           hostClasses: 'position-relative text-center',
+          classes: 'width-100 height-100',
           actions: [
             {
               color: 'primary',
@@ -202,7 +205,7 @@ Video.args = {
                 options: {
                   controls: true,
                   aspectRatio: '16:9',
-                  poster: '/assets/video/poster01.png',
+                  poster: '/assets/images/16-9/business-02.jpg',
                   sources: [
                     {
                       src: '/assets/video/storybook.mp4',
@@ -216,8 +219,9 @@ Video.args = {
         },
         {
           type: 'img',
-          src: '/assets/images/illustration/10.png',
+          src: '/assets/images/16-9/business-03.jpg',
           hostClasses: 'position-relative text-center',
+          classes: 'width-100 height-100',
           actions: [
             {
               color: 'primary',
@@ -227,7 +231,7 @@ Video.args = {
                 options: {
                   controls: true,
                   aspectRatio: '16:9',
-                  poster: '/assets/video/poster01.png',
+                  poster: '/assets/images/16-9/business-03.jpg',
                   sources: [
                     {
                       src: '/assets/video/storybook.mp4',
@@ -241,8 +245,9 @@ Video.args = {
         },
         {
           type: 'img',
-          src: '/assets/images/illustration/11.png',
+          src: '/assets/images/16-9/business-06.jpg',
           hostClasses: 'position-relative text-center',
+          classes: 'width-100 height-100',
           actions: [
             {
               color: 'primary',
@@ -252,7 +257,7 @@ Video.args = {
                 options: {
                   controls: true,
                   aspectRatio: '16:9',
-                  poster: '/assets/video/poster01.png',
+                  poster: '/assets/images/16-9/business-06.jpg',
                   sources: [
                     {
                       src: '/assets/video/storybook.mp4',
@@ -266,8 +271,9 @@ Video.args = {
         },
         {
           type: 'img',
-          src: '/assets/images/illustration/12.png',
+          src: '/assets/images/16-9/business-08.jpg',
           hostClasses: 'position-relative text-center',
+          classes: 'width-100 height-100',
           actions: [
             {
               color: 'primary',
@@ -277,7 +283,7 @@ Video.args = {
                 options: {
                   controls: true,
                   aspectRatio: '16:9',
-                  poster: '/assets/video/poster01.png',
+                  poster: '/assets/images/16-9/business-08.jpg',
                   sources: [
                     {
                       src: '/assets/video/storybook.mp4',
