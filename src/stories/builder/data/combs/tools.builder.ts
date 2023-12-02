@@ -7,5 +7,7 @@ export const tools = [
   {
     label: '红包预算器',
     ...lottery,
+    form: {},
+    model: {},
   },
 ];

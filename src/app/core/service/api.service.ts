@@ -2,7 +2,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { API_URL } from '@core/token/token-providers';
 import { camelCase, result } from 'lodash-es';
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',

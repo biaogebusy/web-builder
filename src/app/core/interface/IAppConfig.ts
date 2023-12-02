@@ -49,6 +49,9 @@ export interface ICoreConfig {
     params: {
       reqRoles: string[];
     };
+    api: {
+      [key: string]: string;
+    };
     generater: FormlyFieldConfig[];
     empty: any;
   };

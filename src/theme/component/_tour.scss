@@ -262,26 +262,14 @@
     padding: 0 16px;
     text-align: center;
 
-    &:hover {
-      outline: none;
-      text-decoration: none;
-      border-color: $black500;
-      background-color: $black300;
-      color: $black900;
-    }
-
+    &:hover,
+    &:active,
     &:focus {
       outline: none;
       text-decoration: none;
+      border-color: mat-color($primary);
+      background-color: mat-color($primary);
       color: mat-color($primary, default-contrast);
-    }
-
-    &:active {
-      outline: none;
-      text-decoration: none;
-      background-color: $black300;
-      border-color: $black500;
-      color: $black900;
     }
 
     &::-moz-focus-inner {

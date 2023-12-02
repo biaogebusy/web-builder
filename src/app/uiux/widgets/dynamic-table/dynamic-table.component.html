@@ -3,7 +3,7 @@
   <table matSort mat-table [dataSource]="dataSource" multiTemplateDataRows [ngClass]="'width-100'"
     aria-describedby="dynamic table">
     <ng-container [matColumnDef]="item.key" *ngFor="let item of content.header">
-      <th mat-header-cell *cdkHeaderCellDef mat-sort-header [ngClass]="item.classes||''" [ngStyle]="item.style || {}">
+      <th mat-header-cell *cdkHeaderCellDef mat-sort-header [ngClass]="item.classes||''">
         <span class="p-x-xs" [innerHTML]="item.label|safeHtml"></span>
       </th>
       <td mat-cell *cdkCellDef="let element" [ngClass]="item.classes||''" [ngStyle]="item.style || {}">

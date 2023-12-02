@@ -102,6 +102,8 @@ export const systems: any[] = [
           svg: 'magnify',
         },
         ...search,
+        form: {},
+        vauleChange$: {},
       },
       {
         label: '日历',

@@ -1,1 +1,3 @@
-<div class="article-banner" *ngIf="content" style="background-image: url({{content.img.src}});"></div>
+<div class="article-banner" *ngIf="content.img">
+  <app-bg-img [content]="{classes:'bg-fill-width',img: content.img}"></app-bg-img>
+</div>

@@ -292,6 +292,8 @@
     "enable": true,
     "path": "/builder",
     "delay": 2000,
+    "dontShowAgain": true,
+    "dontShowAgainLabel": "不再显示此引导",
     "steps": [
       {
         "intro": "欢迎来到信使 Web builder!"
@@ -453,6 +455,9 @@
   },
   "builder": {
     "enable": true,
+    "api": {
+      "create": "/api/v3/landingPage/builder"
+    },
     "params": {
       "reqRoles": [
         "administrator"
@@ -669,7 +674,7 @@
               "style": "style-v4",
               "classes": "mat-display-3 bold"
             },
-            "body": "从左侧选择组件拖动到想要的位置：<ul class=\"list-done\"><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li><li>双击可以直接编辑组件的 JSON，所见即所得；</li></ul><p>Web Builder 目前只是一个Base版本，相关的功能看时间和精力慢慢优化完善，交流学习可加微信：<span class=\"text-primary\">biaogebusy</span></p>",
+            "body": "从左侧选择组件拖动到想要的位置：<ul class=\"list-done\"><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li><li>双击可以直接编辑组件的 JSON，所见即所得；</li></ul><p>Web Builder 目前只是一个Base版本，相关的功能看时间和精力慢慢优化完善，交流学习可加微信：<span class=\"text-primary\">biaogebusy</span></p><p style=\"display:flex\"><img width=\"120px\" src=\"/assets/icons/large-left-arrow.svg\" /><video  muted  autoplay loop width=\"120px\" src=\"/assets/video/drag-drop.mp4\"></video></p>",
             "actions": [
               {
                 "type": "btn-generater",

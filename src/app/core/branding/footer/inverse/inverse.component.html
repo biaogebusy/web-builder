@@ -16,7 +16,7 @@
           <div class="social" fxLayout="row" *ngIf="content?.footerBrand?.social">
             <a class="item" fxLayoutAlign="center center" *ngFor="let item of content.footerBrand.social"
               href="{{item.href}}" target="_blank" title="{{item.label}}">
-              <mat-icon [inline]="true" [svgIcon]="item.svg"></mat-icon>
+              <app-icon [content]="item.icon"></app-icon>
             </a>
           </div>
         </div>

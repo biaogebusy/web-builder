@@ -10,11 +10,13 @@ import {
 } from '@angular/core';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import type { IPage } from '@core/interface/IAppConfig';
+import type { IUser } from '@core/interface/IUser';
+import { BuilderService } from '@core/service/builder.service';
 import { CanvasService } from '@core/service/canvas.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { ContentState } from '@core/state/ContentState';
-import { DEBUG_ANIMATE } from '@core/token/token-providers';
+import { DEBUG_ANIMATE, USER } from '@core/token/token-providers';
 import { LocalStorage, LocalStorageService } from 'ngx-webstorage';
 import { Subject, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -38,7 +40,9 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     private cd: ChangeDetectorRef,
     private storage: LocalStorageService,
     private canvasService: CanvasService,
-    @Inject(DEBUG_ANIMATE) public debugAnimate$: Observable<boolean>
+    private builderService: BuilderService,
+    @Inject(DEBUG_ANIMATE) public debugAnimate$: Observable<boolean>,
+    @Inject(USER) private user: IUser
   ) {}
 
   ngOnInit(): void {}
@@ -99,7 +103,16 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onSubmit(): void {
-    this.util.openSnackbar('功能尚未开发，可以手动复制页面 JSON', 'ok');
+    if (!this.user) {
+      this.util.openSnackbar('请登录后提交！', 'ok');
+    }
+    this.util.openSnackbar('正在提交！', 'ok');
+    this.builderService
+      .createLandingPage(this.builder.page)
+      .subscribe((res) => {
+        console.log(res);
+        this.util.openSnackbar('提交成功！', 'ok');
+      });
   }
 
   onDebugAnimate(event: MatSlideToggleChange): void {
