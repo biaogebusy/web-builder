@@ -11,7 +11,10 @@ import autoTable from 'jspdf-autotable';
 import { jsPDF } from 'jspdf';
 import { ScreenService } from '@core/service/screen.service';
 import type { ICase } from '@core/interface/node/INode';
+import { saveAs } from 'file-saver';
 import { environment } from '../../../../../../environments/environment';
+import JSZip from 'jszip';
+
 @Component({
   selector: 'app-law-header',
   templateUrl: './law-header.component.html',
@@ -185,13 +188,47 @@ export class LawHeaderComponent implements OnInit, AfterViewInit {
   onDownFiles(): void {
     const today = new Date();
     this.buildPdf().then((doc) => {
-      doc.save(
-        `${this.content.pdf.fileName}-${formatDate(
-          today,
-          'yyyy-MM-dd',
-          'zh-Hans'
-        )}.pdf`
-      );
+      if (this.content.download) {
+        const zip = new JSZip();
+        const zipFoler: any = zip.folder(
+          formatDate(today, 'yyyy-MM-dd', 'zh-Hans')
+        );
+        Promise.all(
+          this.content.download.map((url) => {
+            return new Promise(function (resolve, reject) {
+              var xhr = new XMLHttpRequest();
+              xhr.open('GET', url);
+              xhr.responseType = 'arraybuffer';
+              xhr.onload = function () {
+                if (xhr.status === 200) {
+                  const uri = decodeURIComponent(url);
+                  const fileName = uri.split('/').pop();
+                  zipFoler.file(fileName || '', xhr.response);
+                  resolve(true);
+                } else {
+                  reject(new Error('Failed to load ' + url));
+                }
+              };
+              xhr.onerror = function () {
+                reject(new Error('Request failed'));
+              };
+              xhr.send();
+            });
+          })
+        ).then(() => {
+          zipFoler.file(
+            `${this.content.pdf.fileName}-${formatDate(
+              today,
+              'yyyy-MM-dd',
+              'zh-Hans'
+            )}.pdf`,
+            doc.output('arraybuffer')
+          );
+          zip.generateAsync({ type: 'blob' }).then((content) => {
+            saveAs(content, `${this.content.pdf.fileName}.zip`);
+          });
+        });
+      }
     });
   }
 }
