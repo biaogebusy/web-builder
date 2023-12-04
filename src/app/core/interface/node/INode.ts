@@ -103,6 +103,7 @@ export interface ICase extends IBaseNode {
   block: any[];
   form?: any[];
   pdf?: any;
+  download?: any[];
 }
 
 export interface ICasePrams {

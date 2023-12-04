@@ -110,6 +110,15 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
       #builder-list {
         background-color: #fafafa !important;
       }
+      .preview-container {
+        .mat-drawer {
+          .actions {
+            &.expand {
+              color: #fafafa;
+            }
+          }
+        }
+      }
     }
   }
 
