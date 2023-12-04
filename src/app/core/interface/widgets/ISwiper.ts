@@ -6,4 +6,9 @@ export interface ISwiper {
   elements: any[];
   classes: string;
   sliderClasses?: any;
+  custom?: {
+    pagination: {
+      bulletsStyle: any[];
+    };
+  };
 }

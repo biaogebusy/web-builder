@@ -12,7 +12,7 @@ export class TourService {
   ) {}
 
   init(config: any): void {
-    const { path, steps, delay } = config;
+    const { path, steps, delay, ...args } = config;
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         if (event.url === path) {
@@ -30,6 +30,7 @@ export class TourService {
             introJs()
               .setOptions({
                 steps: stepsConfig,
+                ...args,
               })
               .start();
           }, delay);

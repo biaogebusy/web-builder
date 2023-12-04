@@ -147,3 +147,36 @@ const content: ISwiper = {
 Default.args = {
   content,
 };
+
+export const CustomPagination = Template.bind({});
+CustomPagination.args = {
+  content: {
+    ...content,
+    custom: {
+      pagination: {
+        bulletsStyle: [
+          {
+            backgroundColor: '#497261',
+            width: '12px',
+            height: '12px',
+          },
+          {
+            backgroundColor: '#deca94',
+            width: '12px',
+            height: '12px',
+          },
+          {
+            backgroundColor: '#2f3c41',
+            width: '12px',
+            height: '12px',
+          },
+          {
+            backgroundColor: '#393939',
+            width: '12px',
+            height: '12px',
+          },
+        ],
+      },
+    },
+  },
+};
