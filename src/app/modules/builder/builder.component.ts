@@ -24,6 +24,7 @@ import { MatDrawer } from '@angular/material/sidenav';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ScreenState } from '@core/state/screen/ScreenState';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-builder',
@@ -44,10 +45,12 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
     private injector: Injector,
     public builder: BuilderState,
     private cd: ChangeDetectorRef,
+    private storage: LocalStorageService,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
     @Inject(BUILDER_FULL_SCREEN) public builderFullScreen$: Observable<boolean>,
     @Inject(UIUX) public uiux: IUiux[],
-    @Inject(BUILDER_SAMPLE_PAGE) public samples: IBuilderSamplePage
+    @Inject(BUILDER_SAMPLE_PAGE) public samples: IBuilderSamplePage,
+    @Inject(DOCUMENT) private doc: Document
   ) {}
 
   ngOnInit(): void {
@@ -92,6 +95,21 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
           this.mode = 'side';
         }
       });
+
+    this.doc.addEventListener('keydown', (event: any) => {
+      const isFull = this.storage.retrieve('builderFullScreen');
+      const {
+        code,
+        target: { localName },
+      } = event;
+      if (
+        (code === 'KeyS' && localName === 'body') ||
+        localName === 'mat-drawer'
+      ) {
+        this.storage.store('builderFullScreen', !isFull);
+        this.builder.fullScreen$.next(!isFull);
+      }
+    });
   }
 
   onExpand(): void {

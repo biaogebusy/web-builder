@@ -15,7 +15,7 @@ import { ScreenState } from '@core/state/screen/ScreenState';
 import { LocalStorageService } from 'ngx-webstorage';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { BRANDING, BUILDER_FULL_SCREEN } from '@core/token/token-providers';
+import { BUILDER_FULL_SCREEN } from '@core/token/token-providers';
 import { ScreenService } from '@core/service/screen.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
