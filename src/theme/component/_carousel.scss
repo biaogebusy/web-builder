@@ -76,5 +76,21 @@
       border-radius: 50%;
       padding: 6px;
     }
+
+    .bullets-custom-style-active {
+      position: relative;
+      &::after {
+        content: "";
+        width: calc(100% + 4px);
+        height: calc(100% + 4px);
+        display: block;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        border: 2px solid mat-color($foreground, elevation, 0.4);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
   }
 }
