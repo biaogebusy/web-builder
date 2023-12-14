@@ -274,6 +274,8 @@ const pills: ITab = {
                 slidesPerView: 1,
                 spaceBetween: 20,
                 navigation: false,
+                observer: true,
+                observeParents: true,
               },
               classes: 'p-bottom',
               elements: [
@@ -373,6 +375,8 @@ const pills: ITab = {
                 slidesPerView: 1,
                 spaceBetween: 20,
                 navigation: false,
+                observer: true,
+                observeParents: true,
               },
               classes: 'p-bottom',
               elements: [
@@ -472,6 +476,8 @@ const pills: ITab = {
                 slidesPerView: 1,
                 spaceBetween: 20,
                 navigation: false,
+                observer: true,
+                observeParents: true,
               },
               classes: 'p-bottom',
               elements: [
