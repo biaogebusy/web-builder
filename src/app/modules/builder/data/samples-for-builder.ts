@@ -22,6 +22,8 @@ export const samples = {
                 slidesPerView: 1,
                 spaceBetween: 0,
                 pagination: false,
+                observer: true,
+                observeParents: true,
               },
               classes: '',
               elements: [
@@ -302,7 +304,7 @@ export const samples = {
                   name: 'fingerprint',
                 },
                 digit: {
-                  value: 201,
+                  value: 200,
                   label: '+',
                 },
                 title: '日访问人数',
@@ -312,7 +314,7 @@ export const samples = {
                   name: 'verified_user',
                 },
                 digit: {
-                  value: 311,
+                  value: 269,
                   label: '+',
                 },
                 title: '日打开次数',
@@ -322,7 +324,7 @@ export const samples = {
                   name: 'android',
                 },
                 digit: {
-                  value: 146,
+                  value: 219,
                   label: '人',
                 },
                 title: '日新增人数',
@@ -332,7 +334,7 @@ export const samples = {
                   name: 'mail',
                 },
                 digit: {
-                  value: 5683,
+                  value: 8085,
                   label: '万',
                 },
                 title: '累计用户数',
@@ -428,7 +430,7 @@ export const samples = {
             elements: [
               {
                 type: 'card',
-                subTitle: '2023-11-28',
+                subTitle: '2023-12-14',
                 avatar: {
                   src: '/assets/images/avatar/01.jpeg',
                   alt: '',
@@ -478,7 +480,7 @@ export const samples = {
               },
               {
                 type: 'card',
-                subTitle: '2023-11-28',
+                subTitle: '2023-12-14',
                 avatar: {
                   src: '/assets/images/avatar/02.jpeg',
                   alt: '',
@@ -515,7 +517,7 @@ export const samples = {
               },
               {
                 type: 'card',
-                subTitle: '2023-11-28',
+                subTitle: '2023-12-14',
                 avatar: {
                   src: '/assets/images/avatar/03.jpeg',
                   alt: '',
@@ -552,7 +554,7 @@ export const samples = {
               },
               {
                 type: 'card',
-                subTitle: '2023-11-28',
+                subTitle: '2023-12-14',
                 avatar: {
                   src: '/assets/images/avatar/04.jpeg',
                   alt: '',
@@ -589,7 +591,7 @@ export const samples = {
               },
               {
                 type: 'card',
-                subTitle: '2023-11-28',
+                subTitle: '2023-12-14',
                 avatar: {
                   src: '/assets/images/avatar/05.jpeg',
                   alt: '',
@@ -626,7 +628,7 @@ export const samples = {
               },
               {
                 type: 'card',
-                subTitle: '2023-11-28',
+                subTitle: '2023-12-14',
                 avatar: {
                   src: '/assets/images/avatar/06.jpeg',
                   alt: '',
@@ -663,7 +665,7 @@ export const samples = {
               },
               {
                 type: 'card',
-                subTitle: '2023-11-28',
+                subTitle: '2023-12-14',
                 avatar: {
                   src: '/assets/images/avatar/01.jpeg',
                   alt: '',
@@ -700,7 +702,7 @@ export const samples = {
               },
               {
                 type: 'card',
-                subTitle: '2023-11-28',
+                subTitle: '2023-12-14',
                 avatar: {
                   src: '/assets/images/avatar/02.jpeg',
                   alt: '',
@@ -1716,7 +1718,7 @@ export const samples = {
                   name: 'fingerprint',
                 },
                 digit: {
-                  value: 201,
+                  value: 200,
                   label: '+',
                 },
                 title: '日访问人数',
@@ -1726,7 +1728,7 @@ export const samples = {
                   name: 'verified_user',
                 },
                 digit: {
-                  value: 311,
+                  value: 269,
                   label: '+',
                 },
                 title: '日打开次数',
@@ -1736,7 +1738,7 @@ export const samples = {
                   name: 'android',
                 },
                 digit: {
-                  value: 146,
+                  value: 219,
                   label: '人',
                 },
                 title: '日新增人数',
@@ -1746,7 +1748,7 @@ export const samples = {
                   name: 'mail',
                 },
                 digit: {
-                  value: 5683,
+                  value: 8085,
                   label: '万',
                 },
                 title: '累计用户数',
@@ -1912,6 +1914,8 @@ export const samples = {
                 slidesPerView: 1,
                 spaceBetween: 0,
                 pagination: false,
+                observer: true,
+                observeParents: true,
               },
               classes: '',
               elements: [
@@ -5629,7 +5633,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset189.svg',
                 },
                 digit: {
-                  value: 25669,
+                  value: 37777,
                   label: '+',
                 },
                 title: 'NPM 周下载量',
@@ -5639,7 +5643,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset190.svg',
                 },
                 digit: {
-                  value: 4155,
+                  value: 3644,
                   label: 'K',
                 },
                 title: '社区活跃',
@@ -5649,7 +5653,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset192.svg',
                 },
                 digit: {
-                  value: 641,
+                  value: 649,
                   label: '个',
                 },
                 title: '成功故事',
@@ -5936,7 +5940,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset189.svg',
                 },
                 digit: {
-                  value: 25669,
+                  value: 37777,
                   label: '+',
                 },
                 title: 'NPM 周下载量',
@@ -5946,7 +5950,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset190.svg',
                 },
                 digit: {
-                  value: 4155,
+                  value: 3644,
                   label: 'K',
                 },
                 title: '社区活跃',
@@ -5956,7 +5960,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset192.svg',
                 },
                 digit: {
-                  value: 641,
+                  value: 649,
                   label: '个',
                 },
                 title: '成功故事',
@@ -7866,7 +7870,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset189.svg',
                 },
                 digit: {
-                  value: 25669,
+                  value: 37777,
                   label: '+',
                 },
                 title: 'NPM 周下载量',
@@ -7876,7 +7880,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset190.svg',
                 },
                 digit: {
-                  value: 4155,
+                  value: 3644,
                   label: 'K',
                 },
                 title: '社区活跃',
@@ -7886,7 +7890,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset192.svg',
                 },
                 digit: {
-                  value: 641,
+                  value: 649,
                   label: '个',
                 },
                 title: '成功故事',
