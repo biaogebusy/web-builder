@@ -304,7 +304,7 @@
       },
       {
         "element": ".mat-tab-body-wrapper",
-        "intro": "鼠标经过可预览组件，点击可固定预览，方便查看预览组件的JSON。"
+        "intro": "鼠标经过可预览组件，点击可固定预览，方便查看预览组件的JSON，快捷键s可收起边栏。"
       },
       {
         "element": ".preview-content",

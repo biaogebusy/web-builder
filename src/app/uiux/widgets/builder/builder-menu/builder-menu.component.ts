@@ -94,6 +94,7 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onClear(): void {
+    this.builder.updateVersion(this.page);
     this.builder.initPage({
       title: '着陆页',
       body: [],
@@ -111,6 +112,7 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit, OnDestroy {
       .createLandingPage(this.builder.page)
       .subscribe((res) => {
         console.log(res);
+        this.builder.updateVersion(this.page);
         this.util.openSnackbar('提交成功！', 'ok');
       });
   }

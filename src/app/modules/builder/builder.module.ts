@@ -20,6 +20,7 @@ import { PreviewComponent } from './preview/preview.component';
 import { BuilderToolbarComponent } from './toolbar/builder-toolbar/builder-toolbar.component';
 import { samples } from './data/samples-for-builder';
 import { BtnGeneraterComponent } from './toolbar/btn-generater/btn-generater.component';
+import { BuilderVersionComponent } from './sidebar/builder-version/builder-version.component';
 
 const components = [
   BuilderComponent,
@@ -39,6 +40,7 @@ const components = [
     BuilderSampleComponent,
     PreviewListComponent,
     PreviewComponent,
+    BuilderVersionComponent,
   ],
   imports: [
     ShareModule,

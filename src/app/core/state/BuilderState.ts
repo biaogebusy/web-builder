@@ -43,7 +43,10 @@ export class BuilderState {
     body: [],
   };
 
+  public version: IPage[] = [];
+
   pageKey = 'page';
+  versionKey = 'version';
 
   constructor(
     private storage: LocalStorageService,
@@ -52,6 +55,7 @@ export class BuilderState {
     @Inject(DOCUMENT) private doc: Document
   ) {
     const localPage = this.storage.retrieve(this.pageKey);
+    const localVersion = this.storage.retrieve(this.versionKey);
     if (localPage) {
       setTimeout(() => {
         this.page = localPage;
@@ -59,6 +63,10 @@ export class BuilderState {
       }, 600);
     } else {
       this.initPage(this.page);
+    }
+
+    if (localVersion) {
+      this.version = localVersion;
     }
   }
 
@@ -78,10 +86,23 @@ export class BuilderState {
     this.fixedChange$.next(true);
   }
 
+  updateVersion(page: IPage): void {
+    this.version.unshift(page);
+    this.storage.store(this.versionKey, this.version);
+  }
+
   initPage(page: IPage): void {
     this.loading$.next(true);
     this.page = page;
     this.updatePage();
+  }
+
+  showVersionPage(page: IPage): void {
+    this.loading$.next(true);
+    setTimeout(() => {
+      this.storage.store(this.pageKey, Object.assign({}, page));
+      this.loading$.next(false);
+    }, 600);
   }
 
   updatePage(index: number = 0): void {

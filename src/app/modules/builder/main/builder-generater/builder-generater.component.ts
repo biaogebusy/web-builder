@@ -67,6 +67,7 @@ export class BuilderGeneraterComponent implements OnInit {
       ...action,
     ];
 
+    this.builder.updateVersion(this.builder.page);
     this.builder.page.body = blocks.map((item) => {
       if (item.type) {
         return item;
