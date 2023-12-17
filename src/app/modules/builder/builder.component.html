@@ -1,7 +1,7 @@
 <div class="builder"
   [ngClass]="{'has-sidebar':!(builderFullScreen$|async),'dark':(builder.builderThemeMode|async) ==='dark'}"
   *ngIf="content">
-  <app-builder-toolbar [containerDrawer]="containerDrawer" [page]="page"></app-builder-toolbar>
+  <app-builder-toolbar [containerDrawer]="containerDrawer"></app-builder-toolbar>
   <mat-drawer-container class="builder-main">
     <mat-drawer #drawer class="sidebar" [mode]="mode" [opened]="!(builderFullScreen$|async)">
       <mat-tab-group (selectedTabChange)="onTabChange()" mat-stretch-tabs mat-align-tabs="center">

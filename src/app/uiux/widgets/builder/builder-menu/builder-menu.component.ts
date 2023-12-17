@@ -94,11 +94,14 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onClear(): void {
-    this.builder.updateVersion(this.page);
-    this.builder.initPage({
+    this.builder.version.forEach((page) => (page.current = false));
+    this.builder.version.unshift({
       title: '着陆页',
       body: [],
+      current: true,
+      time: new Date(),
     });
+    this.builder.saveLocalVersions();
     this.contentState.drawerOpened$.next(false);
     this.util.openSnackbar('预览页面的组件已清空', 'ok');
   }
@@ -109,7 +112,7 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     this.util.openSnackbar('正在提交！', 'ok');
     this.builderService
-      .createLandingPage(this.builder.page)
+      .createLandingPage(this.builder.currentPage)
       .subscribe((res) => {
         console.log(res);
         this.builder.updateVersion(this.page);

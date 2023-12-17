@@ -17,8 +17,6 @@ import { LocalStorage, LocalStorageService } from 'ngx-webstorage';
 })
 export class BuilderVersionComponent implements OnInit {
   @Input() content: any;
-  @LocalStorage('page')
-  page: IPage;
 
   @LocalStorage('version')
   version: IPage[];
@@ -29,9 +27,6 @@ export class BuilderVersionComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.storage.observe('page').subscribe(() => {
-      this.cd.detectChanges();
-    });
     this.storage.observe('version').subscribe(() => {
       this.cd.detectChanges();
     });

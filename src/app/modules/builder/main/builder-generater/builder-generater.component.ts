@@ -5,7 +5,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import type { ICoreConfig } from '@core/interface/IAppConfig';
+import type { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import type { IBuilderComponent, IUiux } from '@core/interface/IBuilder';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
@@ -67,21 +67,30 @@ export class BuilderGeneraterComponent implements OnInit {
       ...action,
     ];
 
-    this.builder.updateVersion(this.builder.page);
-    this.builder.page.body = blocks.map((item) => {
+    this.builder.version.forEach((page) => (page.current = false));
+    const page: IPage = {
+      title: '快速生成',
+      body: [],
+      current: true,
+      time: new Date(),
+    };
+    page.body = blocks.map((item) => {
       if (item.type) {
         return item;
       } else {
         return item.content;
       }
     });
+
+    this.builder.version.unshift(page);
+
     this.util.openSnackbar('正在为您生成页面，加载中...', 'ok', {
       horizontalPosition: 'center',
       verticalPosition: 'top',
       duration: 1000,
     });
     setTimeout(() => {
-      this.builder.updatePage();
+      this.builder.saveLocalVersions();
     }, 1200);
   }
 }

@@ -33,8 +33,8 @@ import { DOCUMENT } from '@angular/common';
 })
 export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() content: IPage;
-  @LocalStorage('page')
-  page: IPage;
+  @LocalStorage('version')
+  version: IPage[];
   @ViewChild('containerDrawer', { static: false }) containerDrawer: MatDrawer;
   @LocalStorage('builderFullScreen')
   builderFullScreen: boolean;
@@ -57,7 +57,7 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
     const storage = this.injector.get(LocalStorageService);
     const utli = this.injector.get(UtilitiesService);
     if (this.coreConfig.builder?.enable) {
-      this.content = this.page;
+      this.content = this.builder.currentPage;
       if (!this.builderFullScreen) {
         storage.store('builderFullScreen', false);
       }
@@ -79,10 +79,10 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
     const storage = this.injector.get(LocalStorageService);
     const screenState = this.injector.get(ScreenState);
     storage
-      .observe(builder.pageKey)
+      .observe(builder.versionKey)
       .pipe(takeUntil(this.destroy$))
       .subscribe((page) => {
-        this.content = page;
+        this.content = this.builder.currentPage;
         this.cd.detectChanges();
       });
     screenState

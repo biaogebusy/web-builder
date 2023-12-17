@@ -38,7 +38,8 @@ export class BuilderState {
     index: number;
     uuid: string;
   }>();
-  public page: IPage = {
+
+  private page: IPage = {
     title: '着陆页',
     body: [],
   };
@@ -54,19 +55,12 @@ export class BuilderState {
     private sreenService: ScreenService,
     @Inject(DOCUMENT) private doc: Document
   ) {
-    const localPage = this.storage.retrieve(this.pageKey);
     const localVersion = this.storage.retrieve(this.versionKey);
-    if (localPage) {
-      setTimeout(() => {
-        this.page = localPage;
-        this.loading$.next(false);
-      }, 600);
-    } else {
-      this.initPage(this.page);
-    }
-
     if (localVersion) {
       this.version = localVersion;
+      this.loading$.next(false);
+    } else {
+      this.initPage([{ ...this.page, current: true, time: new Date() }]);
     }
   }
 
@@ -88,12 +82,16 @@ export class BuilderState {
 
   updateVersion(page: IPage): void {
     this.version.unshift(page);
+    this.saveLocalVersions();
+  }
+
+  saveLocalVersions(): void {
     this.storage.store(this.versionKey, this.version);
   }
 
-  initPage(page: IPage): void {
+  initPage(version: IPage[]): void {
     this.loading$.next(true);
-    this.page = page;
+    this.version = version;
     this.updatePage();
   }
 
@@ -101,31 +99,17 @@ export class BuilderState {
     this.loading$.next(true);
     setTimeout(() => {
       // reset current
-      this.page.current = false;
       this.version.forEach((item) => (item.current = false));
-
-      if (index === -1) {
-        this.page = { ...this.page, current: true };
-      } else {
-        // active version current
-        this.page = { ...this.page, current: false };
-        this.version[index].current = true;
-      }
+      this.version[index].current = true;
 
       this.storage.store(this.versionKey, Object.assign([], this.version));
-      this.storage.store(this.pageKey, Object.assign({}, this.page));
       this.loading$.next(false);
     }, 600);
   }
 
   updatePage(index: number = 0): void {
     setTimeout(() => {
-      this.storage.store(
-        this.pageKey,
-        Object.assign({}, this.page, {
-          time: new Date(),
-        })
-      );
+      this.storage.store(this.versionKey, Object.assign([], this.version));
 
       if (index) {
         this.sreenService.scrollToAnchor(`item-${index}`);
@@ -134,8 +118,15 @@ export class BuilderState {
     }, 600);
   }
 
+  get currentPage(): IPage {
+    const currentIndex = this.version.findIndex(
+      (page) => page.current === true
+    );
+    return this.version[currentIndex] || this.version[0];
+  }
+
   upDownComponent(index: number, direction: string) {
-    const { body } = this.page;
+    const { body } = this.currentPage;
     if (direction === 'up') {
       [body[index - 1], body[index]] = [body[index], body[index - 1]];
     }
@@ -143,25 +134,30 @@ export class BuilderState {
     if (direction === 'down' && index < body.length - 1) {
       [body[index], body[index + 1]] = [body[index + 1], body[index]];
     }
+
+    this.saveLocalVersions();
   }
 
   pushComponent(content: any): void {
+    const { body } = this.currentPage;
     if (content && content.type) {
-      this.page.body.push(content);
+      body.push(content);
       this.builderContent$.next(this.page);
-      this.updatePage();
+      this.saveLocalVersions();
     } else {
       this.util.openSnackbar('组件添加错误', 'ok');
     }
   }
 
   deleteComponent(index: number): void {
-    this.page.body.splice(index, 1);
+    const { body } = this.currentPage;
+    body.splice(index, 1);
     this.updatePage();
   }
 
   updateComponent(index: number, content: any): void {
-    this.page.body[index] = content;
+    const { body } = this.currentPage;
+    body[index] = content;
     this.updatePage();
   }
 
@@ -176,17 +172,19 @@ export class BuilderState {
   }
 
   dropComponent(event: CdkDragDrop<string[]>): void {
-    moveItemInArray(this.page.body, event.previousIndex, event.currentIndex);
+    const { body } = this.currentPage;
+    moveItemInArray(body, event.previousIndex, event.currentIndex);
     this.updatePage(event.currentIndex);
   }
 
   // 边栏拖动添加组件
   transferComponet(event: CdkDragDrop<string[]>): void {
+    const { body } = this.currentPage;
     // base 和 component的数据结构不同，需要做判断
     const component = event.item.data.type
       ? event.item.data
       : event.item.data.content;
-    this.page.body.splice(event.currentIndex, 0, component);
+    body.splice(event.currentIndex, 0, component);
     this.updatePage(event.currentIndex);
   }
 
