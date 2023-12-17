@@ -7,16 +7,18 @@
         </mat-panel-title>
       </mat-expansion-panel-header>
       <mat-list>
-        <mat-list-item matRipple (click)="onVersion(builderState.page)" *ngIf="builderState.page.body.length">
-          <mat-icon mat-list-icon>folder</mat-icon>
-          <div mat-line>{{builderState.page.title}}当前版本</div>
-          <div mat-line> {{builderState.page.time | date:'yyyy-MM-dd HH:mm:ss'}} </div>
+        <mat-list-item matRipple (click)="onVersion(page,-1)" *ngIf="page.body.length">
+          <mat-icon mat-list-icon *ngIf="!page.current">radio_button_unchecked</mat-icon>
+          <mat-icon mat-list-icon color="primary" *ngIf="page.current"> radio_button_checked </mat-icon>
+          <div mat-line>{{page.title}}<span class="current">[当前版本]</span></div>
+          <div class="time" mat-line> {{page.time | date:'yyyy-MM-dd HH:mm:ss'}} </div>
         </mat-list-item>
         <ng-container *ngIf="version?.length">
-          <mat-list-item matRipple (click)="onVersion(version)" *ngFor="let version of version">
-            <mat-icon mat-list-icon>folder</mat-icon>
+          <mat-list-item matRipple (click)="onVersion(version,i)" *ngFor="let version of version; index as i">
+            <mat-icon mat-list-icon *ngIf="!version.current">radio_button_unchecked</mat-icon>
+            <mat-icon mat-list-icon color="primary" *ngIf="version.current"> radio_button_checked </mat-icon>
             <div mat-line>{{version.title}}</div>
-            <div mat-line> {{version.time | date:'yyyy-MM-dd HH:mm:ss'}} </div>
+            <div class="time" mat-line> {{version.time | date:'yyyy-MM-dd HH:mm:ss'}} </div>
           </mat-list-item>
         </ng-container>
       </mat-list>

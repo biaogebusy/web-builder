@@ -97,10 +97,23 @@ export class BuilderState {
     this.updatePage();
   }
 
-  showVersionPage(page: IPage): void {
+  showVersionPage(page: IPage, index: number): void {
     this.loading$.next(true);
     setTimeout(() => {
-      this.storage.store(this.pageKey, Object.assign({}, page));
+      // reset current
+      this.page.current = false;
+      this.version.forEach((item) => (item.current = false));
+
+      if (index === -1) {
+        this.page = { ...this.page, current: true };
+      } else {
+        // active version current
+        this.page = { ...this.page, current: false };
+        this.version[index].current = true;
+      }
+
+      this.storage.store(this.versionKey, Object.assign([], this.version));
+      this.storage.store(this.pageKey, Object.assign({}, this.page));
       this.loading$.next(false);
     }, 600);
   }
