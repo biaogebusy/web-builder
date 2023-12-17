@@ -33,12 +33,15 @@
 
   .builder-version {
     .mat-list-item-content {
-      .current {
-        color: mat-color($primary);
+      .mat-icon:not(.mat-primary) {
+        color: mat-color($foreground, text, 0.5);
       }
       .time {
         color: mat-color($foreground, text, 0.5);
       }
+    }
+    .mat-expansion-panel-body {
+      @include scrollbar(mat-color($primary));
     }
   }
 

@@ -1,3 +1,26 @@
-.mat-list-item {
-  cursor: pointer;
+.builder-version {
+  .mat-list-item {
+    cursor: pointer;
+    &:hover {
+      .delete,
+      .update-title {
+        display: block;
+      }
+    }
+    .update-title {
+      display: none;
+    }
+    .delete {
+      position: absolute;
+      display: none;
+      right: 0;
+      top: -10px;
+    }
+  }
+  ::ng-deep {
+    .mat-expansion-panel-body {
+      max-height: 360px;
+      overflow: auto;
+    }
+  }
 }
