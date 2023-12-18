@@ -16,10 +16,12 @@ import { CanvasService } from '@core/service/canvas.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { ContentState } from '@core/state/ContentState';
-import { DEBUG_ANIMATE, USER } from '@core/token/token-providers';
-import { LocalStorage, LocalStorageService } from 'ngx-webstorage';
+import {
+  BUILDER_CURRENT_PAGE,
+  DEBUG_ANIMATE,
+  USER,
+} from '@core/token/token-providers';
 import { Subject, Observable } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-builder-menu',
@@ -30,18 +32,17 @@ import { takeUntil } from 'rxjs/operators';
 export class BuilderMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() content: any;
   page: IPage;
-  total: number;
   destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     public contentState: ContentState,
     private builder: BuilderState,
     private util: UtilitiesService,
     private cd: ChangeDetectorRef,
-    private storage: LocalStorageService,
     private canvasService: CanvasService,
     private builderService: BuilderService,
     @Inject(DEBUG_ANIMATE) public debugAnimate$: Observable<boolean>,
-    @Inject(USER) private user: IUser
+    @Inject(USER) private user: IUser,
+    @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>
   ) {}
 
   ngOnInit(): void {}
@@ -50,18 +51,10 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     this.debugAnimate$.subscribe((state) => {
       this.builder.renderMarkers(state);
     });
-    this.page = this.builder.currentPage;
-    this.total = this.page.body.length;
-    this.cd.detectChanges();
-
-    this.storage
-      .observe(this.builder.versionKey)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((version) => {
-        this.page = version.find((page: IPage) => page.current === true);
-        this.total = this.page.body.length;
-        this.cd.detectChanges();
-      });
+    this.currentPage$.subscribe((page) => {
+      this.page = page;
+      this.cd.detectChanges();
+    });
   }
 
   onPageJson(): void {

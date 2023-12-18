@@ -14,6 +14,7 @@ import { LocalStorage, LocalStorageService } from 'ngx-webstorage';
 import { BuilderState } from '@core/state/BuilderState';
 import type { IBuilderSamplePage, IUiux } from '@core/interface/IBuilder';
 import {
+  BUILDER_CURRENT_PAGE,
   BUILDER_FULL_SCREEN,
   BUILDER_SAMPLE_PAGE,
   CORE_CONFIG,
@@ -50,7 +51,8 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
     @Inject(BUILDER_FULL_SCREEN) public builderFullScreen$: Observable<boolean>,
     @Inject(UIUX) public uiux: IUiux[],
     @Inject(BUILDER_SAMPLE_PAGE) public samples: IBuilderSamplePage,
-    @Inject(DOCUMENT) private doc: Document
+    @Inject(DOCUMENT) private doc: Document,
+    @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>
   ) {}
 
   ngOnInit(): void {

@@ -29,6 +29,7 @@ export const MEDIA_ASSETS = new InjectionToken<Observable<any[]>>(
 );
 
 // builder
+export const BUILDER_CURRENT_PAGE = new InjectionToken<IPage>('builder page');
 export const DEBUG_ANIMATE = new InjectionToken<boolean>('debug animate');
 export const BUILDER_FULL_SCREEN = new InjectionToken<Observable<boolean>>(
   'builder full screen'

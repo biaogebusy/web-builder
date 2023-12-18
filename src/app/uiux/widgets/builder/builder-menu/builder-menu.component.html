@@ -1,8 +1,8 @@
 <ng-container>
   <div class="builder-menu">
     <button aria-label="builder page" [matTooltip]="'更多'" mat-icon-button [mat-menu-trigger-for]="menu">
-      <app-icon [matBadge]="total" matBadgeSize="small" matBadgeColor="primary" fxLayoutAlign="center center"
-        [content]="{svg:'dots-vertical',inline:true}"></app-icon>
+      <app-icon [matBadge]="page?.body?.length" matBadgeSize="small" matBadgeColor="primary"
+        fxLayoutAlign="center center" [content]="{svg:'dots-vertical',inline:true}"></app-icon>
     </button>
 
     <mat-menu #menu="matMenu">

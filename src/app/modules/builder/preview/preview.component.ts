@@ -2,15 +2,16 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  Inject,
   OnDestroy,
   OnInit,
 } from '@angular/core';
 import { IPage } from '@core/interface/IAppConfig';
 import { BuilderState } from '@core/state/BuilderState';
 import { ContentState } from '@core/state/ContentState';
+import { BUILDER_CURRENT_PAGE } from '@core/token/token-providers';
 import { LocalStorageService } from 'ngx-webstorage';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-preview',
@@ -19,25 +20,17 @@ import { takeUntil } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PreviewComponent implements OnInit, OnDestroy {
-  page: IPage;
   destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     private contentState: ContentState,
     private storage: LocalStorageService,
     private cd: ChangeDetectorRef,
-    public builderState: BuilderState
+    public builderState: BuilderState,
+    @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>
   ) {}
 
   ngOnInit(): void {
     this.contentState.pageConfig$.next(this.builderState.currentPage.config);
-    this.page = this.builderState.currentPage;
-    this.storage
-      .observe(this.builderState.versionKey)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((page) => {
-        this.page = page.find((version: IPage) => version.current === true);
-        this.cd.detectChanges();
-      });
   }
 
   trackByFn(index: number): number {

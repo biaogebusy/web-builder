@@ -1,6 +1,5 @@
 <div class="builder"
-  [ngClass]="{'has-sidebar':!(builderFullScreen$|async),'dark':(builder.builderThemeMode|async) ==='dark'}"
-  *ngIf="content">
+  [ngClass]="{'has-sidebar':!(builderFullScreen$|async),'dark':(builder.builderThemeMode|async) ==='dark'}">
   <app-builder-toolbar [containerDrawer]="containerDrawer"></app-builder-toolbar>
   <mat-drawer-container class="builder-main">
     <mat-drawer #drawer class="sidebar" [mode]="mode" [opened]="!(builderFullScreen$|async)">
@@ -33,7 +32,8 @@
           <ng-container *ngIf="builder.showcase$ | async as showcase">
             <app-builder-showcase [content]="showcase"></app-builder-showcase>
           </ng-container>
-          <app-builder-list [content]="content.body" [drawerCode]="containerDrawer"></app-builder-list>
+          <app-builder-list *ngIf="currentPage$ | async as page" [content]="page.body"
+            [drawerCode]="containerDrawer"></app-builder-list>
         </mat-drawer-content>
       </mat-drawer-container>
     </mat-drawer-content>
