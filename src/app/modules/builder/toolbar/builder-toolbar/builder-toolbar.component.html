@@ -7,7 +7,8 @@
 <ng-template #toolbar let-isFull="isFull">
   <div class="builder-toolbar" [ngClass]="{'fixed':isFull}">
     <div class="wrapper" fxLayoutAlign="space-between center">
-      <div class="left" fxFlex.lt-md="auto" fxFlex.gt-sm="33%" fxLayoutAlign="center start" fxLayout="column">
+      <div *ngIf="currentPage$ | async as page" class="left" fxFlex.lt-md="auto" fxFlex.gt-sm="33%"
+        fxLayoutAlign="center start" fxLayout="column">
         <div class="page-title">{{page.title}}</div>
         <div class="time">{{page.time|date:"YYYY-MM-dd HH:mm"}}</div>
       </div>

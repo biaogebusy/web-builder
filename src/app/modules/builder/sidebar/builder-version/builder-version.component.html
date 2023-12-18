@@ -1,0 +1,27 @@
+<div class="builder-version p-x-xs p-y-xs">
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <span>历史版本 ({{version?.length}})</span>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-list>
+        <ng-container *ngIf="version?.length">
+          <mat-list-item matRipple (click)="onVersion(version,i)" *ngFor="let version of version; index as i">
+            <mat-icon mat-list-icon *ngIf="!version.current">radio_button_unchecked</mat-icon>
+            <mat-icon mat-list-icon color="primary" *ngIf="version.current"> radio_button_checked </mat-icon>
+            <div mat-line>{{version.title}}</div>
+            <div class="time" mat-line> {{version.time | date:'yyyy-MM-dd HH:mm:ss'}} </div>
+            <app-btn (click)="onDelete(i)" class="delete" [matTooltip]="'删除'"
+              [content]="{mode:'icon',color:'warn',icon:{svg:'trash-can-outline'}}"></app-btn>
+          </mat-list-item>
+        </ng-container>
+      </mat-list>
+      <mat-action-row>
+        <app-btn (click)="onDeleteAll()" [matTooltip]="'清空历史版本'"
+          [content]="{mode:'icon',color:'warn',icon:{svg:'delete-empty-outline'}}"></app-btn>
+      </mat-action-row>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
