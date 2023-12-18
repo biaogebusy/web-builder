@@ -9,7 +9,6 @@ import {
 } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import type { IPage } from '@core/interface/IAppConfig';
 import { BuilderState } from '@core/state/BuilderState';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { LocalStorageService } from 'ngx-webstorage';

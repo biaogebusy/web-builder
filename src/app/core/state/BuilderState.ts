@@ -86,7 +86,7 @@ export class BuilderState {
   }
 
   saveLocalVersions(): void {
-    this.storage.store(this.versionKey, this.version);
+    this.storage.store(this.versionKey, Object.assign([], this.version));
   }
 
   initPage(version: IPage[]): void {

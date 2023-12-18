@@ -29,7 +29,6 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class BuilderMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() content: any;
-  @LocalStorage('page')
   page: IPage;
   total: number;
   destroy$: Subject<boolean> = new Subject<boolean>();
@@ -48,29 +47,19 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    this.getTotal();
     this.debugAnimate$.subscribe((state) => {
       this.builder.renderMarkers(state);
     });
-  }
-
-  getTotal(): void {
-    const localPage = this.storage.retrieve(this.builder.pageKey);
-    if (localPage) {
-      this.total = localPage.body.length;
-    } else {
-      this.total = 0;
-    }
+    this.page = this.builder.currentPage;
+    this.total = this.page.body.length;
     this.cd.detectChanges();
+
     this.storage
-      .observe(this.builder.pageKey)
+      .observe(this.builder.versionKey)
       .pipe(takeUntil(this.destroy$))
-      .subscribe((page) => {
-        if (page && page.body) {
-          this.total = page.body.length;
-        } else {
-          this.total = 0;
-        }
+      .subscribe((version) => {
+        this.page = version.find((page: IPage) => page.current === true);
+        this.total = this.page.body.length;
         this.cd.detectChanges();
       });
   }

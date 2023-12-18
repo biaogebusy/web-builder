@@ -4,10 +4,8 @@ import {
   Component,
   OnInit,
 } from '@angular/core';
-import type { IPage } from '@core/interface/IAppConfig';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
-import { LocalStorage } from 'ngx-webstorage';
 
 @Component({
   selector: 'app-switch-preview',
@@ -16,8 +14,6 @@ import { LocalStorage } from 'ngx-webstorage';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SwitchPreviewComponent implements OnInit {
-  @LocalStorage('page')
-  page: IPage;
   constructor(
     private builderState: BuilderState,
     private cd: ChangeDetectorRef,
@@ -65,7 +61,7 @@ export class SwitchPreviewComponent implements OnInit {
   ngOnInit(): void {}
 
   onSwitch(preview: any): void {
-    if (!this.page.body.length) {
+    if (!this.builderState.currentPage.body.length) {
       this.util.openSnackbar('当前页面没有内容，请先拖动组件到编辑区创作');
       return;
     }
