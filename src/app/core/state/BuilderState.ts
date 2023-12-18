@@ -13,14 +13,12 @@ import { BehaviorSubject, Subject } from 'rxjs';
 import { map } from 'lodash-es';
 import { DOCUMENT } from '@angular/common';
 import { ScreenService } from '@core/service/screen.service';
-import { ApiService } from '@core/service/api.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BuilderState {
   public builderContent$ = new Subject<IPage>();
-  public currentPage$: Subject<IPage> = new Subject();
   public showcase$: Subject<IBuilderShowcase | false> = new Subject();
   public fixedShowcase = false;
   public fixedContent: ICard1v1 | null;
@@ -55,26 +53,15 @@ export class BuilderState {
     private storage: LocalStorageService,
     private util: UtilitiesService,
     private sreenService: ScreenService,
-    private apiService: ApiService,
     @Inject(DOCUMENT) private doc: Document
   ) {
     const localVersion = this.storage.retrieve(this.versionKey);
     if (localVersion) {
       this.version = localVersion;
-      const currentPage = localVersion.find(
-        (page: IPage) => page.current === true
-      );
-      this.currentPage$.next(currentPage);
       this.loading$.next(false);
     } else {
       this.initPage([{ ...this.page, current: true, time: new Date() }]);
     }
-
-    this.storage.observe(this.versionKey).subscribe((version) => {
-      const currentPage = version.find((page: IPage) => page.current === true);
-
-      this.currentPage$.next(currentPage);
-    });
   }
 
   showcase(content: any): void {
@@ -105,8 +92,6 @@ export class BuilderState {
   initPage(version: IPage[]): void {
     this.loading$.next(true);
     this.version = version;
-    const currentPage = version.find((page: IPage) => page.current === true);
-    this.currentPage$.next(currentPage);
     this.updatePage();
   }
 

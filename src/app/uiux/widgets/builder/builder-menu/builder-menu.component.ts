@@ -96,7 +96,6 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     this.builderService
       .createLandingPage(this.builder.currentPage)
       .subscribe((res) => {
-        console.log(res);
         this.builder.updateVersion(this.page);
         this.util.openSnackbar('提交成功！', 'ok');
       });
