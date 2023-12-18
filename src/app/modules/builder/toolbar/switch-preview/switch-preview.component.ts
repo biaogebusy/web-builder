@@ -2,12 +2,14 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  Inject,
   OnInit,
 } from '@angular/core';
-import type { IPage } from '@core/interface/IAppConfig';
+import { IPage } from '@core/interface/IAppConfig';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
-import { LocalStorage } from 'ngx-webstorage';
+import { BUILDER_CURRENT_PAGE } from '@core/token/token-providers';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-switch-preview',
@@ -16,12 +18,12 @@ import { LocalStorage } from 'ngx-webstorage';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SwitchPreviewComponent implements OnInit {
-  @LocalStorage('page')
-  page: IPage;
+  currentPage: IPage;
   constructor(
     private builderState: BuilderState,
     private cd: ChangeDetectorRef,
-    private util: UtilitiesService
+    private util: UtilitiesService,
+    @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>
   ) {}
   currentPreview = 'none';
   currentIcon = 'cellphone-link';
@@ -62,10 +64,14 @@ export class SwitchPreviewComponent implements OnInit {
       label: '桌面',
     },
   ];
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.currentPage$.subscribe((page) => {
+      this.currentPage = page;
+    });
+  }
 
   onSwitch(preview: any): void {
-    if (!this.page.body.length) {
+    if (!this.currentPage.body.length) {
       this.util.openSnackbar('当前页面没有内容，请先拖动组件到编辑区创作');
       return;
     }

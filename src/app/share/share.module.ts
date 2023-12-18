@@ -22,6 +22,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatBadgeModule } from '@angular/material/badge';
 
 // Form
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -89,6 +90,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatButtonModule,
     MatButtonToggleModule,
     MatCardModule,
+    MatBadgeModule,
     MatAutocompleteModule,
     MatInputModule,
     MatDividerModule,

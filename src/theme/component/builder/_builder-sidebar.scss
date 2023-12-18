@@ -31,6 +31,20 @@
     }
   }
 
+  .builder-version {
+    .mat-list-item-content {
+      .mat-icon:not(.mat-primary) {
+        color: mat-color($foreground, text, 0.5);
+      }
+      .time {
+        color: mat-color($foreground, text, 0.5);
+      }
+    }
+    .mat-expansion-panel-body {
+      @include scrollbar(mat-color($primary));
+    }
+  }
+
   .cards {
     .group {
       &:hover {

@@ -14,6 +14,7 @@ import { LocalStorage, LocalStorageService } from 'ngx-webstorage';
 import { BuilderState } from '@core/state/BuilderState';
 import type { IBuilderSamplePage, IUiux } from '@core/interface/IBuilder';
 import {
+  BUILDER_CURRENT_PAGE,
   BUILDER_FULL_SCREEN,
   BUILDER_SAMPLE_PAGE,
   CORE_CONFIG,
@@ -24,6 +25,7 @@ import { MatDrawer } from '@angular/material/sidenav';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ScreenState } from '@core/state/screen/ScreenState';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-builder',
@@ -32,8 +34,8 @@ import { ScreenState } from '@core/state/screen/ScreenState';
 })
 export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() content: IPage;
-  @LocalStorage('page')
-  page: IPage;
+  @LocalStorage('version')
+  version: IPage[];
   @ViewChild('containerDrawer', { static: false }) containerDrawer: MatDrawer;
   @LocalStorage('builderFullScreen')
   builderFullScreen: boolean;
@@ -44,17 +46,20 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
     private injector: Injector,
     public builder: BuilderState,
     private cd: ChangeDetectorRef,
+    private storage: LocalStorageService,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
     @Inject(BUILDER_FULL_SCREEN) public builderFullScreen$: Observable<boolean>,
     @Inject(UIUX) public uiux: IUiux[],
-    @Inject(BUILDER_SAMPLE_PAGE) public samples: IBuilderSamplePage
+    @Inject(BUILDER_SAMPLE_PAGE) public samples: IBuilderSamplePage,
+    @Inject(DOCUMENT) private doc: Document,
+    @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>
   ) {}
 
   ngOnInit(): void {
     const storage = this.injector.get(LocalStorageService);
     const utli = this.injector.get(UtilitiesService);
     if (this.coreConfig.builder?.enable) {
-      this.content = this.page;
+      this.content = this.builder.currentPage;
       if (!this.builderFullScreen) {
         storage.store('builderFullScreen', false);
       }
@@ -76,10 +81,10 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
     const storage = this.injector.get(LocalStorageService);
     const screenState = this.injector.get(ScreenState);
     storage
-      .observe(builder.pageKey)
+      .observe(builder.versionKey)
       .pipe(takeUntil(this.destroy$))
       .subscribe((page) => {
-        this.content = page;
+        this.content = this.builder.currentPage;
         this.cd.detectChanges();
       });
     screenState
@@ -92,6 +97,21 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
           this.mode = 'side';
         }
       });
+
+    this.doc.addEventListener('keydown', (event: any) => {
+      const isFull = this.storage.retrieve('builderFullScreen');
+      const {
+        code,
+        target: { localName },
+      } = event;
+      if (
+        (code === 'KeyS' && localName === 'body') ||
+        localName === 'mat-drawer'
+      ) {
+        this.storage.store('builderFullScreen', !isFull);
+        this.builder.fullScreen$.next(!isFull);
+      }
+    });
   }
 
   onExpand(): void {

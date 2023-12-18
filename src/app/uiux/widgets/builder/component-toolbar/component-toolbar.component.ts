@@ -53,11 +53,6 @@ export class ComponentToolbarComponent implements OnInit {
     return this.content.type || this.content.content?.type || '';
   }
 
-  addComponent(content: any): any {
-    this.builder.pushComponent(content);
-    this.util.openSnackbar(`已添加${this.type}到预览页面！`, 'ok');
-  }
-
   onUpdown(index: number, direction: string): void {
     this.builder.upDownComponent(index, direction);
   }
