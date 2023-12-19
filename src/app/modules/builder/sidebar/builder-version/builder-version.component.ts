@@ -53,4 +53,18 @@ export class BuilderVersionComponent implements OnInit {
   onVersion(page: IPage, index: number): void {
     this.builderState.showVersionPage(page, index);
   }
+
+  onClickTitle(event: MouseEvent): any {
+    event.stopPropagation();
+  }
+
+  onUpdateTitle(event: any, index: number): void {
+    const {
+      target: { textContent },
+    } = event;
+    if (textContent) {
+      this.builderState.version[index].title = textContent;
+      this.builderState.saveLocalVersions();
+    }
+  }
 }
