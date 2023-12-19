@@ -3,8 +3,10 @@
   <app-bg-img #bg [content]="content.bg" *ngIf="content.bg"></app-bg-img>
   <div class="container">
     <div #inner class="inner" [ngClass.gt-sm]="content.classes" [ngStyle.gt-sm]="content.style">
-      <app-title #title [content]="content.title" *ngIf="content.title"></app-title>
-      <div #body class="text-body" [innerHTML]="content.body | safeHtml" *ngIf="content.body"></div>
+      <app-title [attr.data-path]="'title'" #title [content]="content.title" *ngIf="content.title"></app-title>
+      <div #body class="text-body" [attr.data-path]="'body'" contenteditable="false" contentedit
+        [innerHTML]="content.body | safeHtml" *ngIf="content.body">
+      </div>
       <ul #list class="lists m-y-sm" [class.list-done]="content.lists?.params?.icon" *ngIf="content.lists?.elements"
         fxLayout="column">
         <li *ngFor="let list of content.lists?.elements" fxLayout="row" fxLayoutAlign="start center">
@@ -14,14 +16,14 @@
           </ng-template>
         </li>
       </ul>
-      <div #actions class="actions m-top p-bottom-xs" *ngIf="content.actions"
+      <div [attr.data-path]="'actions'" #actions class="actions m-top p-bottom-xs" *ngIf="content.actions"
         fxLayoutAlign="{{content.actionsAlign || 'start center'}}">
-        <ng-container *ngFor="let action of content.actions">
+        <ng-container *ngFor="let action of content.actions; index as i">
           <ng-container [ngSwitch]="action.type">
-            <button *ngSwitchCase="'closeDialog'" mat-raised-button mat-dialog-close
+            <button [attr.data-path]="i" *ngSwitchCase="'closeDialog'" mat-raised-button mat-dialog-close
               color="{{action.color||'primary'}}">{{action.label}}</button>
             <ng-container *ngSwitchDefault>
-              <app-dynamic-component [inputs]="action"></app-dynamic-component>
+              <app-dynamic-component [attr.data-path]="i" [inputs]="action"></app-dynamic-component>
             </ng-container>
           </ng-container>
         </ng-container>

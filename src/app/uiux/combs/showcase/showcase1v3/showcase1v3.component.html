@@ -3,10 +3,12 @@
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <app-bg-img [content]="content.bg" *ngIf="content.bg"></app-bg-img>
   <div class="container">
-    <app-text *ngIf="text" [content]="text"></app-text>
-    <app-dynamic-component *ngFor="let item of content.elements" [inputs]="item"></app-dynamic-component>
+    <app-text [attr.data-path]="'text'" *ngIf="content.text" [content]="content.text"></app-text>
+    <app-dynamic-component [attr.data-path]="'elements.'+i" *ngFor="let item of content.elements;index as i"
+      [inputs]="item"></app-dynamic-component>
     <div class="m-top" fxLayoutAlign="center center" fxLayoutGap="1rem" *ngIf="content.actions">
-      <app-btn-animate [content]="btn" *ngFor="let btn of content.actions"></app-btn-animate>
+      <app-btn-animate [attr.data-path]="'actions'+i" [content]="btn"
+        *ngFor="let btn of content.actions;index as i"></app-btn-animate>
     </div>
   </div>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
