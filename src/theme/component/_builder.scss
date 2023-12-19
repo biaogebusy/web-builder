@@ -43,6 +43,37 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
     background-color: transparent;
     .builder-list {
       @include builder-list($background, $foreground, $primary);
+      [contenteditable] {
+        position: relative;
+        outline: none;
+        &:after {
+          display: none;
+          content: "";
+          pointer-events: none;
+          z-index: 99999;
+          position: absolute;
+          top: 0;
+          left: 2px;
+          bottom: 0;
+          right: 2px;
+        }
+      }
+      [contenteditable="false"] {
+        &:hover {
+          &:after {
+            display: block;
+            border: 2px dashed #5dce91;
+          }
+        }
+      }
+      [contenteditable="true"] {
+        cursor: text;
+        &:after {
+          display: block;
+          border: 0;
+          outline: 2px solid mat-color($primary);
+        }
+      }
     }
   }
   .mat-drawer-content {
