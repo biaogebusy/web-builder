@@ -18,7 +18,7 @@
     <div class="item" (click)="onCopy(content)" [matTooltip]="'复制 JSON'" matTooltipPosition="above">
       <app-btn [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'content-copy',inline:true } }"></app-btn>
     </div>
-    <div class="item" (click)="onEditor(content, index)" *ngIf="!isStory" [matTooltip]="'编辑'"
+    <div class="item" (click)="onEditor(content, index)" *ngIf="!isStory" [matTooltip]="'编辑组件JSON'"
       matTooltipPosition="above">
       <app-btn [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'pencil',inline:true } }"></app-btn>
     </div>

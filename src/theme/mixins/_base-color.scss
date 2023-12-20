@@ -206,6 +206,9 @@
 }
 
 @mixin custom-overide() {
+  .mat-tooltip {
+    font-size: 12px;
+  }
   .dark-theme {
     .bg-shadow {
       background-color: rgba(66, 66, 66, 0.85) !important;

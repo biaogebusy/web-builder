@@ -12,7 +12,7 @@
     <div *ngIf="content.content" contentedit="content" class="box-content" [innerHTML]="content.content | safeHtml">
     </div>
     <div class="read-more" *ngIf="content.more">
-      <a href="{{content.more.href}}"
+      <a contentedit="more.label" href="{{content.more.href}}"
         target="${{content.more.target||'_blank'}}"><span>{{content.more.label}}</span></a>
     </div>
   </div>

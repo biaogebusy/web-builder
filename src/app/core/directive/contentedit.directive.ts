@@ -19,7 +19,7 @@ export class ContenteditDirective implements AfterViewInit {
       ele.contentEditable = 'false';
 
       const path = this.generatePath(ele);
-      set(this.builder.currentPage.body, path, ele.innerText);
+      set(this.builder.currentPage.body, path, ele.innerHTML);
       this.builder.saveLocalVersions();
     }
   }
@@ -28,6 +28,15 @@ export class ContenteditDirective implements AfterViewInit {
     const ele = this.el.nativeElement;
     if (ele.closest('.component-item')) {
       ele.contentEditable = 'true';
+    }
+  }
+
+  @HostListener('click', ['$event']) onClick(event: Event) {
+    const ele = this.el.nativeElement;
+    if (ele.closest('.component-item')) {
+      event.preventDefault();
+      event.stopPropagation();
+      return false;
     }
   }
 
@@ -44,7 +53,6 @@ export class ContenteditDirective implements AfterViewInit {
   }
 
   generatePath(contenteditableElement: any): string {
-    // 生成 path 字符串并输出
     let path = contenteditableElement.getAttribute('data-path');
     let element = contenteditableElement;
     while (

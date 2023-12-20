@@ -4,8 +4,7 @@
   <div class="container">
     <div #inner class="inner" [ngClass.gt-sm]="content.classes" [ngStyle.gt-sm]="content.style">
       <app-title [attr.data-path]="'title'" #title [content]="content.title" *ngIf="content.title"></app-title>
-      <div #body class="text-body" [attr.data-path]="'body'" contenteditable="false" contentedit
-        [innerHTML]="content.body | safeHtml" *ngIf="content.body">
+      <div #body class="text-body" contentedit="body" [innerHTML]="content.body | safeHtml" *ngIf="content.body">
       </div>
       <ul #list class="lists m-y-sm" [class.list-done]="content.lists?.params?.icon" *ngIf="content.lists?.elements"
         fxLayout="column">

@@ -200,6 +200,7 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
       .title {
         background-color: mat-color($primary);
         color: mat-color($primary, default-contrast);
+        @include mat-elevation(2, mat-color($background, hover), 0.4);
       }
     }
   }

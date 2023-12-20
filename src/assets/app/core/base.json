@@ -709,52 +709,6 @@
         ]
       },
       {
-        "type": "video-bg",
-        "source": {
-          "src": "/assets/video/start-video.webm",
-          "type": "video/mp4"
-        },
-        "bg": {
-          "classes": "bg-fill-width overlay overlay-80"
-        },
-        "classes": "",
-        "elements": [
-          {
-            "type": "spacer"
-          },
-          {
-            "type": "showcase-1v3",
-            "title": {
-              "label": "快速了解 web builder 的使用",
-              "style": "style-v1",
-              "classes": "mat-display-1"
-            },
-            "classes": "text-light",
-            "elements": [
-              {
-                "type": "text",
-                "spacer": "none",
-                "style": {
-                  "margin": "0 auto",
-                  "text-align": "center",
-                  "width": "600px"
-                },
-                "body": "在边栏，鼠标移到组件名称会显示组件预览，点击可固定预览，对预览的组件可复制或者查看JSON，再点击可取消固定，编辑区目前只支持上下排列，动态Layout后续看时间和精力开发，敬请期待！",
-                "actionsAlign": "center center",
-                "actions": [
-                  {
-                    "type": "btn-generater",
-                    "label": "体验生成页面",
-                    "color": "primary",
-                    "mode": "raised"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
         "type": "showcase-1v4",
         "spacer": "lg",
         "bg": {
