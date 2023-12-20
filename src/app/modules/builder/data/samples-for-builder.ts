@@ -304,7 +304,7 @@ export const samples = {
                   name: 'fingerprint',
                 },
                 digit: {
-                  value: 200,
+                  value: 457,
                   label: '+',
                 },
                 title: '日访问人数',
@@ -314,7 +314,7 @@ export const samples = {
                   name: 'verified_user',
                 },
                 digit: {
-                  value: 269,
+                  value: 407,
                   label: '+',
                 },
                 title: '日打开次数',
@@ -324,7 +324,7 @@ export const samples = {
                   name: 'android',
                 },
                 digit: {
-                  value: 219,
+                  value: 296,
                   label: '人',
                 },
                 title: '日新增人数',
@@ -334,7 +334,7 @@ export const samples = {
                   name: 'mail',
                 },
                 digit: {
-                  value: 8085,
+                  value: 9045,
                   label: '万',
                 },
                 title: '累计用户数',
@@ -430,7 +430,7 @@ export const samples = {
             elements: [
               {
                 type: 'card',
-                subTitle: '2023-12-14',
+                subTitle: '2023-12-20',
                 avatar: {
                   src: '/assets/images/avatar/01.jpeg',
                   alt: '',
@@ -480,7 +480,7 @@ export const samples = {
               },
               {
                 type: 'card',
-                subTitle: '2023-12-14',
+                subTitle: '2023-12-20',
                 avatar: {
                   src: '/assets/images/avatar/02.jpeg',
                   alt: '',
@@ -517,7 +517,7 @@ export const samples = {
               },
               {
                 type: 'card',
-                subTitle: '2023-12-14',
+                subTitle: '2023-12-20',
                 avatar: {
                   src: '/assets/images/avatar/03.jpeg',
                   alt: '',
@@ -554,7 +554,7 @@ export const samples = {
               },
               {
                 type: 'card',
-                subTitle: '2023-12-14',
+                subTitle: '2023-12-20',
                 avatar: {
                   src: '/assets/images/avatar/04.jpeg',
                   alt: '',
@@ -591,7 +591,7 @@ export const samples = {
               },
               {
                 type: 'card',
-                subTitle: '2023-12-14',
+                subTitle: '2023-12-20',
                 avatar: {
                   src: '/assets/images/avatar/05.jpeg',
                   alt: '',
@@ -628,7 +628,7 @@ export const samples = {
               },
               {
                 type: 'card',
-                subTitle: '2023-12-14',
+                subTitle: '2023-12-20',
                 avatar: {
                   src: '/assets/images/avatar/06.jpeg',
                   alt: '',
@@ -665,7 +665,7 @@ export const samples = {
               },
               {
                 type: 'card',
-                subTitle: '2023-12-14',
+                subTitle: '2023-12-20',
                 avatar: {
                   src: '/assets/images/avatar/01.jpeg',
                   alt: '',
@@ -702,7 +702,7 @@ export const samples = {
               },
               {
                 type: 'card',
-                subTitle: '2023-12-14',
+                subTitle: '2023-12-20',
                 avatar: {
                   src: '/assets/images/avatar/02.jpeg',
                   alt: '',
@@ -1718,7 +1718,7 @@ export const samples = {
                   name: 'fingerprint',
                 },
                 digit: {
-                  value: 200,
+                  value: 457,
                   label: '+',
                 },
                 title: '日访问人数',
@@ -1728,7 +1728,7 @@ export const samples = {
                   name: 'verified_user',
                 },
                 digit: {
-                  value: 269,
+                  value: 407,
                   label: '+',
                 },
                 title: '日打开次数',
@@ -1738,7 +1738,7 @@ export const samples = {
                   name: 'android',
                 },
                 digit: {
-                  value: 219,
+                  value: 296,
                   label: '人',
                 },
                 title: '日新增人数',
@@ -1748,7 +1748,7 @@ export const samples = {
                   name: 'mail',
                 },
                 digit: {
-                  value: 8085,
+                  value: 9045,
                   label: '万',
                 },
                 title: '累计用户数',
@@ -2779,10 +2779,12 @@ export const samples = {
           },
           {
             type: 'showcase-1v3',
-            title: {
-              label: 'Storybook 是什么？',
-              style: 'style-v1',
-              classes: 'mat-display-1',
+            text: {
+              title: {
+                label: 'Storybook 是什么？',
+                style: 'style-v1',
+                classes: 'mat-display-1',
+              },
             },
             classes: 'text-light',
             bg: {
@@ -3540,10 +3542,12 @@ export const samples = {
           },
           {
             type: 'showcase-1v3',
-            title: {
-              label: 'Storybook 是什么？',
-              style: 'style-v1',
-              classes: 'mat-display-1',
+            text: {
+              title: {
+                label: 'Storybook 是什么？',
+                style: 'style-v1',
+                classes: 'mat-display-1',
+              },
             },
             classes: 'text-light',
             bg: {
@@ -4546,10 +4550,12 @@ export const samples = {
           },
           {
             type: 'showcase-1v3',
-            title: {
-              label: 'Storybook 是什么？',
-              style: 'style-v1',
-              classes: 'mat-display-1',
+            text: {
+              title: {
+                label: 'Storybook 是什么？',
+                style: 'style-v1',
+                classes: 'mat-display-1',
+              },
             },
             classes: 'text-light',
             bg: {
@@ -5623,7 +5629,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset187.svg',
                 },
                 digit: {
-                  value: 45,
+                  value: 49,
                   label: 'M',
                 },
                 title: 'Github Start',
@@ -5633,7 +5639,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset189.svg',
                 },
                 digit: {
-                  value: 37777,
+                  value: 13770,
                   label: '+',
                 },
                 title: 'NPM 周下载量',
@@ -5643,7 +5649,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset190.svg',
                 },
                 digit: {
-                  value: 3644,
+                  value: 3935,
                   label: 'K',
                 },
                 title: '社区活跃',
@@ -5653,7 +5659,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset192.svg',
                 },
                 digit: {
-                  value: 649,
+                  value: 757,
                   label: '个',
                 },
                 title: '成功故事',
@@ -5930,7 +5936,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset187.svg',
                 },
                 digit: {
-                  value: 45,
+                  value: 49,
                   label: 'M',
                 },
                 title: 'Github Start',
@@ -5940,7 +5946,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset189.svg',
                 },
                 digit: {
-                  value: 37777,
+                  value: 13770,
                   label: '+',
                 },
                 title: 'NPM 周下载量',
@@ -5950,7 +5956,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset190.svg',
                 },
                 digit: {
-                  value: 3644,
+                  value: 3935,
                   label: 'K',
                 },
                 title: '社区活跃',
@@ -5960,7 +5966,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset192.svg',
                 },
                 digit: {
-                  value: 649,
+                  value: 757,
                   label: '个',
                 },
                 title: '成功故事',
@@ -7860,7 +7866,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset187.svg',
                 },
                 digit: {
-                  value: 45,
+                  value: 49,
                   label: 'M',
                 },
                 title: 'Github Start',
@@ -7870,7 +7876,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset189.svg',
                 },
                 digit: {
-                  value: 37777,
+                  value: 13770,
                   label: '+',
                 },
                 title: 'NPM 周下载量',
@@ -7880,7 +7886,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset190.svg',
                 },
                 digit: {
-                  value: 3644,
+                  value: 3935,
                   label: 'K',
                 },
                 title: '社区活跃',
@@ -7890,7 +7896,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset192.svg',
                 },
                 digit: {
-                  value: 649,
+                  value: 757,
                   label: '个',
                 },
                 title: '成功故事',
@@ -7899,10 +7905,12 @@ export const samples = {
           },
           {
             type: 'showcase-1v3',
-            title: {
-              label: 'Storybook 是什么？',
-              style: 'style-v1',
-              classes: 'mat-display-1',
+            text: {
+              title: {
+                label: 'Storybook 是什么？',
+                style: 'style-v1',
+                classes: 'mat-display-1',
+              },
             },
             classes: 'text-light',
             bg: {

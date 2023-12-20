@@ -143,25 +143,25 @@
             "elements": [
               {
                 "module": "Slick Carousel",
-                "tatol": 1413,
+                "tatol": 2381,
                 "info": "Slick 轮播，强大响应式且性能优异的图片轮播解决方案，有非常丰富的配置选项，slick 官网自己调侃这是你最后使用的图片轮播",
                 "remarks": "查看"
               },
               {
                 "module": "Views Slideshow",
-                "tatol": 1448,
+                "tatol": 5517,
                 "info": "视图轮播模块，该模块是最受欢迎的幻灯片模块，可放任何内容，高度定制\t",
                 "remarks": "查看"
               },
               {
                 "module": "Colorbox",
-                "tatol": 7333,
+                "tatol": 3832,
                 "info": "轻量级高可定制幻灯片模块，高度集成在 Drupal 中，可放图片，Iframed 或者在线内容等等\t",
                 "remarks": "查看"
               },
               {
                 "module": "Flex Slider",
-                "tatol": 2631,
+                "tatol": 1128,
                 "info": "响应式、可调整大小、适配浏览器和移动设备，支持移动设备手势滑动\t",
                 "remarks": "查看"
               },
@@ -229,21 +229,21 @@
                 ],
                 [
                   "第一季度",
-                  5548,
-                  5281,
-                  6309
+                  4629,
+                  9554,
+                  5969
                 ],
                 [
                   "第二季度",
-                  9553,
-                  9881,
-                  7764
+                  6968,
+                  4944,
+                  9264
                 ],
                 [
                   "第三季度",
-                  3366,
-                  5032,
-                  4901
+                  5123,
+                  6736,
+                  8292
                 ]
               ]
             },
@@ -334,6 +334,7 @@
                           "slidesPerView": 1,
                           "spaceBetween": 20,
                           "navigation": false,
+                          "observer": true,
                           "observeParents": true
                         },
                         "classes": "p-bottom",
@@ -434,6 +435,7 @@
                           "slidesPerView": 1,
                           "spaceBetween": 20,
                           "navigation": false,
+                          "observer": true,
                           "observeParents": true
                         },
                         "classes": "p-bottom",
@@ -534,6 +536,7 @@
                           "slidesPerView": 1,
                           "spaceBetween": 20,
                           "navigation": false,
+                          "observer": true,
                           "observeParents": true
                         },
                         "classes": "p-bottom",
@@ -2526,10 +2529,12 @@
               "label": "1v3",
               "content": {
                 "type": "showcase-1v3",
-                "title": {
-                  "label": "Storybook 是什么？",
-                  "style": "style-v1",
-                  "classes": "mat-display-1"
+                "text": {
+                  "title": {
+                    "label": "Storybook 是什么？",
+                    "style": "style-v1",
+                    "classes": "mat-display-1"
+                  }
                 },
                 "classes": "text-light",
                 "bg": {
@@ -2576,9 +2581,11 @@
               "content": {
                 "id": "form",
                 "type": "showcase-1v3",
-                "title": {
-                  "label": "联系我们",
-                  "style": "style-v1"
+                "text": {
+                  "title": {
+                    "label": "联系我们",
+                    "style": "style-v1"
+                  }
                 },
                 "classes": "",
                 "bg": {
@@ -2690,10 +2697,12 @@
               "label": "1v3 视频",
               "content": {
                 "type": "showcase-1v3",
-                "title": {
-                  "label": "Storybook 是什么？",
-                  "style": "style-v1",
-                  "classes": "mat-display-1"
+                "text": {
+                  "title": {
+                    "label": "Storybook 是什么？",
+                    "style": "style-v1",
+                    "classes": "mat-display-1"
+                  }
                 },
                 "classes": "text-light",
                 "bg": {
@@ -3069,7 +3078,7 @@
                 "elements": [
                   {
                     "type": "card",
-                    "subTitle": "2023-12-14",
+                    "subTitle": "2023-12-20",
                     "avatar": {
                       "src": "/assets/images/avatar/01.jpeg",
                       "alt": ""
@@ -3119,7 +3128,7 @@
                   },
                   {
                     "type": "card",
-                    "subTitle": "2023-12-14",
+                    "subTitle": "2023-12-20",
                     "avatar": {
                       "src": "/assets/images/avatar/02.jpeg",
                       "alt": ""
@@ -3156,7 +3165,7 @@
                   },
                   {
                     "type": "card",
-                    "subTitle": "2023-12-14",
+                    "subTitle": "2023-12-20",
                     "avatar": {
                       "src": "/assets/images/avatar/03.jpeg",
                       "alt": ""
@@ -3193,7 +3202,7 @@
                   },
                   {
                     "type": "card",
-                    "subTitle": "2023-12-14",
+                    "subTitle": "2023-12-20",
                     "avatar": {
                       "src": "/assets/images/avatar/04.jpeg",
                       "alt": ""
@@ -3230,7 +3239,7 @@
                   },
                   {
                     "type": "card",
-                    "subTitle": "2023-12-14",
+                    "subTitle": "2023-12-20",
                     "avatar": {
                       "src": "/assets/images/avatar/05.jpeg",
                       "alt": ""
@@ -3267,7 +3276,7 @@
                   },
                   {
                     "type": "card",
-                    "subTitle": "2023-12-14",
+                    "subTitle": "2023-12-20",
                     "avatar": {
                       "src": "/assets/images/avatar/06.jpeg",
                       "alt": ""
@@ -3304,7 +3313,7 @@
                   },
                   {
                     "type": "card",
-                    "subTitle": "2023-12-14",
+                    "subTitle": "2023-12-20",
                     "avatar": {
                       "src": "/assets/images/avatar/01.jpeg",
                       "alt": ""
@@ -3341,7 +3350,7 @@
                   },
                   {
                     "type": "card",
-                    "subTitle": "2023-12-14",
+                    "subTitle": "2023-12-20",
                     "avatar": {
                       "src": "/assets/images/avatar/02.jpeg",
                       "alt": ""
@@ -3734,17 +3743,11 @@
                     "ratios": "media-140",
                     "subTitle": {
                       "label": "《绝望之境》",
-                      "href": "/search",
-                      "queryParams": {
-                        "law_category": 25
-                      }
+                      "href": "/search"
                     },
                     "title": {
                       "label": "展现了作者内心深处的黑暗情绪，让观者深陷其中，感受到无尽的绝望与孤独。",
-                      "href": "/search",
-                      "queryParams": {
-                        "law_category": 25
-                      }
+                      "href": "/search"
                     },
                     "img": {
                       "classes": "object-fit",
@@ -3758,17 +3761,11 @@
                     "ratios": "media-140",
                     "subTitle": {
                       "label": "《色彩之舞》",
-                      "href": "/search",
-                      "queryParams": {
-                        "law_category": 27
-                      }
+                      "href": "/search"
                     },
                     "title": {
                       "label": "如同一幅绚丽的画卷，色彩的交织与流动呈现出动感和活力，令人心旷神怡。",
-                      "href": "/search",
-                      "queryParams": {
-                        "law_category": 27
-                      }
+                      "href": "/search"
                     },
                     "img": {
                       "classes": "object-fit",
@@ -3782,17 +3779,11 @@
                     "ratios": "media-140",
                     "subTitle": {
                       "label": "《时间的拥抱》",
-                      "href": "/search",
-                      "queryParams": {
-                        "law_category": 13
-                      }
+                      "href": "/search"
                     },
                     "title": {
                       "label": "将时间的概念与人类情感相融合，通过流动的线条和温暖的色调传递出对美好回忆的珍视与怀念。",
-                      "href": "/search",
-                      "queryParams": {
-                        "law_category": 13
-                      }
+                      "href": "/search"
                     },
                     "img": {
                       "classes": "object-fit",
@@ -5539,7 +5530,7 @@
                       "name": "fingerprint"
                     },
                     "digit": {
-                      "value": 200,
+                      "value": 457,
                       "label": "+"
                     },
                     "title": "日访问人数"
@@ -5549,7 +5540,7 @@
                       "name": "verified_user"
                     },
                     "digit": {
-                      "value": 269,
+                      "value": 407,
                       "label": "+"
                     },
                     "title": "日打开次数"
@@ -5559,7 +5550,7 @@
                       "name": "android"
                     },
                     "digit": {
-                      "value": 219,
+                      "value": 296,
                       "label": "人"
                     },
                     "title": "日新增人数"
@@ -5569,7 +5560,7 @@
                       "name": "mail"
                     },
                     "digit": {
-                      "value": 8085,
+                      "value": 9045,
                       "label": "万"
                     },
                     "title": "累计用户数"
@@ -5599,7 +5590,7 @@
                       "src": "/assets/images/svg/Asset187.svg"
                     },
                     "digit": {
-                      "value": 45,
+                      "value": 49,
                       "label": "M"
                     },
                     "title": "Github Start"
@@ -5609,7 +5600,7 @@
                       "src": "/assets/images/svg/Asset189.svg"
                     },
                     "digit": {
-                      "value": 37777,
+                      "value": 13770,
                       "label": "+"
                     },
                     "title": "NPM 周下载量"
@@ -5619,7 +5610,7 @@
                       "src": "/assets/images/svg/Asset190.svg"
                     },
                     "digit": {
-                      "value": 3644,
+                      "value": 3935,
                       "label": "K"
                     },
                     "title": "社区活跃"
@@ -5629,7 +5620,7 @@
                       "src": "/assets/images/svg/Asset192.svg"
                     },
                     "digit": {
-                      "value": 649,
+                      "value": 757,
                       "label": "个"
                     },
                     "title": "成功故事"
@@ -7541,17 +7532,11 @@
                 "ratios": "media-4-3",
                 "subTitle": {
                   "label": "灵活的架构",
-                  "href": "/search",
-                  "queryParams": {
-                    "law_category": 25
-                  }
+                  "href": "/search"
                 },
                 "title": {
                   "label": "能够构建各种类型的数字解决方案",
-                  "href": "/search",
-                  "queryParams": {
-                    "law_category": 25
-                  }
+                  "href": "/search"
                 },
                 "img": {
                   "classes": "object-fit",
@@ -7565,17 +7550,11 @@
                 "ratios": "media-4-3",
                 "subTitle": {
                   "label": "多站点管理",
-                  "href": "/search",
-                  "queryParams": {
-                    "law_category": 27
-                  }
+                  "href": "/search"
                 },
                 "title": {
                   "label": "简化了多个网站的运维和维护工作",
-                  "href": "/search",
-                  "queryParams": {
-                    "law_category": 27
-                  }
+                  "href": "/search"
                 },
                 "img": {
                   "classes": "object-fit",
@@ -7589,17 +7568,11 @@
                 "ratios": "media-4-3",
                 "subTitle": {
                   "label": "多语言支持",
-                  "href": "/search",
-                  "queryParams": {
-                    "law_category": 13
-                  }
+                  "href": "/search"
                 },
                 "title": {
                   "label": "企业能够更好地面向全球市场进行本地化和国际化",
-                  "href": "/search",
-                  "queryParams": {
-                    "law_category": 13
-                  }
+                  "href": "/search"
                 },
                 "img": {
                   "classes": "object-fit",
@@ -7613,17 +7586,11 @@
                 "ratios": "media-4-3",
                 "subTitle": {
                   "label": "社交媒体集成",
-                  "href": "/search",
-                  "queryParams": {
-                    "law_category": 28
-                  }
+                  "href": "/search"
                 },
                 "title": {
                   "label": "增强用户参与度、推广品牌和提高网站的可见性",
-                  "href": "/search",
-                  "queryParams": {
-                    "law_category": 28
-                  }
+                  "href": "/search"
                 },
                 "img": {
                   "classes": "object-fit",
@@ -7637,17 +7604,11 @@
                 "ratios": "media-4-3",
                 "subTitle": {
                   "label": "移动友好性",
-                  "href": "/search",
-                  "queryParams": {
-                    "law_category": 35
-                  }
+                  "href": "/search"
                 },
                 "title": {
                   "label": "能够更好地适应移动化的用户行为和需求",
-                  "href": "/search",
-                  "queryParams": {
-                    "law_category": 35
-                  }
+                  "href": "/search"
                 },
                 "img": {
                   "classes": "object-fit",
@@ -7661,17 +7622,11 @@
                 "ratios": "media-4-3",
                 "subTitle": {
                   "label": "数据分析和个性化",
-                  "href": "/search",
-                  "queryParams": {
-                    "law_category": 36
-                  }
+                  "href": "/search"
                 },
                 "title": {
                   "label": "根据用户的兴趣和偏好提供个性化的内容和体验",
-                  "href": "/search",
-                  "queryParams": {
-                    "law_category": 25
-                  }
+                  "href": "/search"
                 },
                 "img": {
                   "classes": "object-fit",
@@ -7685,17 +7640,11 @@
                 "ratios": "media-4-3",
                 "subTitle": {
                   "label": "安全和稳定性",
-                  "href": "/search",
-                  "queryParams": {
-                    "law_category": 37
-                  }
+                  "href": "/search"
                 },
                 "title": {
                   "label": "它的安全记录和稳定性得到了业界的认可，为企业提供了可信赖的数字平台",
-                  "href": "/search",
-                  "queryParams": {
-                    "law_category": 37
-                  }
+                  "href": "/search"
                 },
                 "img": {
                   "classes": "object-fit",
