@@ -37,16 +37,10 @@ const content: IContentBox = {
   subTitle: {
     label: '信使',
     href: '/search',
-    queryParams: {
-      law_category: 25,
-    },
   },
   title: {
     label: '基于 Drupal 的 Angular 前端框架',
     href: '/search',
-    queryParams: {
-      law_category: 25,
-    },
   },
   img: {
     classes: 'object-fit',

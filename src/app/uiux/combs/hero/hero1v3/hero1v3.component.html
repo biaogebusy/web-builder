@@ -4,9 +4,10 @@
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <div class="container">
     <div class="inner" fxLayout="row wrap" fxLayoutAlign="center center">
-      <app-text fxFlex.gt-sm="58%" [content]="content.text" *ngIf="content.text"></app-text>
+      <app-text [attr.data-path]="'text'" fxFlex.gt-sm="58%" [content]="content.text" *ngIf="content.text"></app-text>
       <div fxFlex.gt-sm="42%" *ngIf="content.right">
-        <app-dynamic-component *ngFor="let item of content.right" [inputs]="{content:item}"></app-dynamic-component>
+        <app-dynamic-component [attr.data-path]="'right.'+i" *ngFor="let item of content.right;index as i"
+          [inputs]="{content:item}"></app-dynamic-component>
       </div>
     </div>
   </div>

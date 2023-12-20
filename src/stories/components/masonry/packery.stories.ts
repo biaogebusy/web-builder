@@ -184,16 +184,10 @@ const box: IPackery = {
       subTitle: {
         label: '灵活的架构',
         href: '/search',
-        queryParams: {
-          law_category: 25,
-        },
       },
       title: {
         label: '能够构建各种类型的数字解决方案',
         href: '/search',
-        queryParams: {
-          law_category: 25,
-        },
       },
       img: {
         classes: 'object-fit',
@@ -208,16 +202,10 @@ const box: IPackery = {
       subTitle: {
         label: '多站点管理',
         href: '/search',
-        queryParams: {
-          law_category: 27,
-        },
       },
       title: {
         label: '简化了多个网站的运维和维护工作',
         href: '/search',
-        queryParams: {
-          law_category: 27,
-        },
       },
       img: {
         classes: 'object-fit',
@@ -232,16 +220,10 @@ const box: IPackery = {
       subTitle: {
         label: '多语言支持',
         href: '/search',
-        queryParams: {
-          law_category: 13,
-        },
       },
       title: {
         label: '企业能够更好地面向全球市场进行本地化和国际化',
         href: '/search',
-        queryParams: {
-          law_category: 13,
-        },
       },
       img: {
         classes: 'object-fit',
@@ -256,16 +238,10 @@ const box: IPackery = {
       subTitle: {
         label: '社交媒体集成',
         href: '/search',
-        queryParams: {
-          law_category: 28,
-        },
       },
       title: {
         label: '增强用户参与度、推广品牌和提高网站的可见性',
         href: '/search',
-        queryParams: {
-          law_category: 28,
-        },
       },
       img: {
         classes: 'object-fit',
@@ -280,16 +256,10 @@ const box: IPackery = {
       subTitle: {
         label: '移动友好性',
         href: '/search',
-        queryParams: {
-          law_category: 35,
-        },
       },
       title: {
         label: '能够更好地适应移动化的用户行为和需求',
         href: '/search',
-        queryParams: {
-          law_category: 35,
-        },
       },
       img: {
         classes: 'object-fit',
@@ -304,16 +274,10 @@ const box: IPackery = {
       subTitle: {
         label: '数据分析和个性化',
         href: '/search',
-        queryParams: {
-          law_category: 36,
-        },
       },
       title: {
         label: '根据用户的兴趣和偏好提供个性化的内容和体验',
         href: '/search',
-        queryParams: {
-          law_category: 25,
-        },
       },
       img: {
         classes: 'object-fit',
@@ -328,17 +292,11 @@ const box: IPackery = {
       subTitle: {
         label: '安全和稳定性',
         href: '/search',
-        queryParams: {
-          law_category: 37,
-        },
       },
       title: {
         label:
           '它的安全记录和稳定性得到了业界的认可，为企业提供了可信赖的数字平台',
         href: '/search',
-        queryParams: {
-          law_category: 37,
-        },
       },
       img: {
         classes: 'object-fit',
