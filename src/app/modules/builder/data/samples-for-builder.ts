@@ -187,14 +187,15 @@ export const samples = {
           },
           {
             type: 'showcase-3v2',
-            title: {
-              label:
-                '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
-              style: 'style-v1',
-              classes: 'mat-display-3 bold',
+            text: {
+              title: {
+                label:
+                  '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
+                style: 'style-v1',
+                classes: 'mat-display-3 bold',
+              },
+              body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class="text-primary">Storybook</strong> 页面时添加组件到预览页面。 ',
             },
-            subTitle:
-              '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class="text-primary">Storybook</strong> 页面时添加组件到预览页面。 ',
             classes: '',
             bg: {
               classes: 'bg-fill-width',
@@ -304,7 +305,7 @@ export const samples = {
                   name: 'fingerprint',
                 },
                 digit: {
-                  value: 457,
+                  value: 902,
                   label: '+',
                 },
                 title: '日访问人数',
@@ -314,7 +315,7 @@ export const samples = {
                   name: 'verified_user',
                 },
                 digit: {
-                  value: 407,
+                  value: 160,
                   label: '+',
                 },
                 title: '日打开次数',
@@ -324,7 +325,7 @@ export const samples = {
                   name: 'android',
                 },
                 digit: {
-                  value: 296,
+                  value: 28,
                   label: '人',
                 },
                 title: '日新增人数',
@@ -334,7 +335,7 @@ export const samples = {
                   name: 'mail',
                 },
                 digit: {
-                  value: 9045,
+                  value: 6845,
                   label: '万',
                 },
                 title: '累计用户数',
@@ -430,7 +431,7 @@ export const samples = {
             elements: [
               {
                 type: 'card',
-                subTitle: '2023-12-20',
+                subTitle: '2023-12-21',
                 avatar: {
                   src: '/assets/images/avatar/01.jpeg',
                   alt: '',
@@ -480,7 +481,7 @@ export const samples = {
               },
               {
                 type: 'card',
-                subTitle: '2023-12-20',
+                subTitle: '2023-12-21',
                 avatar: {
                   src: '/assets/images/avatar/02.jpeg',
                   alt: '',
@@ -517,7 +518,7 @@ export const samples = {
               },
               {
                 type: 'card',
-                subTitle: '2023-12-20',
+                subTitle: '2023-12-21',
                 avatar: {
                   src: '/assets/images/avatar/03.jpeg',
                   alt: '',
@@ -554,7 +555,7 @@ export const samples = {
               },
               {
                 type: 'card',
-                subTitle: '2023-12-20',
+                subTitle: '2023-12-21',
                 avatar: {
                   src: '/assets/images/avatar/04.jpeg',
                   alt: '',
@@ -591,7 +592,7 @@ export const samples = {
               },
               {
                 type: 'card',
-                subTitle: '2023-12-20',
+                subTitle: '2023-12-21',
                 avatar: {
                   src: '/assets/images/avatar/05.jpeg',
                   alt: '',
@@ -628,7 +629,7 @@ export const samples = {
               },
               {
                 type: 'card',
-                subTitle: '2023-12-20',
+                subTitle: '2023-12-21',
                 avatar: {
                   src: '/assets/images/avatar/06.jpeg',
                   alt: '',
@@ -665,7 +666,7 @@ export const samples = {
               },
               {
                 type: 'card',
-                subTitle: '2023-12-20',
+                subTitle: '2023-12-21',
                 avatar: {
                   src: '/assets/images/avatar/01.jpeg',
                   alt: '',
@@ -702,7 +703,7 @@ export const samples = {
               },
               {
                 type: 'card',
-                subTitle: '2023-12-20',
+                subTitle: '2023-12-21',
                 avatar: {
                   src: '/assets/images/avatar/02.jpeg',
                   alt: '',
@@ -1718,7 +1719,7 @@ export const samples = {
                   name: 'fingerprint',
                 },
                 digit: {
-                  value: 457,
+                  value: 902,
                   label: '+',
                 },
                 title: '日访问人数',
@@ -1728,7 +1729,7 @@ export const samples = {
                   name: 'verified_user',
                 },
                 digit: {
-                  value: 407,
+                  value: 160,
                   label: '+',
                 },
                 title: '日打开次数',
@@ -1738,7 +1739,7 @@ export const samples = {
                   name: 'android',
                 },
                 digit: {
-                  value: 296,
+                  value: 28,
                   label: '人',
                 },
                 title: '日新增人数',
@@ -1748,7 +1749,7 @@ export const samples = {
                   name: 'mail',
                 },
                 digit: {
-                  value: 9045,
+                  value: 6845,
                   label: '万',
                 },
                 title: '累计用户数',
@@ -5013,7 +5014,7 @@ export const samples = {
                     classes: 'object-fit',
                     src: '/assets/images/avatar/01.jpeg',
                   },
-                  star: 5,
+                  star: 4,
                   title: '- 张明',
                   subTitle: '前端开发',
                   body: 'Storybook是我们团队的救星！它使我们能够独立地开发、测试和文档化组件，大大提高了我们的工作效率。非常好用！',
@@ -5046,7 +5047,7 @@ export const samples = {
                     classes: 'object-fit',
                     src: '/assets/images/avatar/04.jpeg',
                   },
-                  star: 5,
+                  star: 4,
                   title: '- 张燕',
                   subTitle: '前端开发',
                   body: '我们喜欢Storybook的文档化功能。它帮助我们详细记录和展示每个组件的使用方法和属性，使其他团队成员更容易理解和使用。真的很赞！',
@@ -5546,7 +5547,7 @@ export const samples = {
                     classes: 'object-fit',
                     src: '/assets/images/avatar/01.jpeg',
                   },
-                  star: 5,
+                  star: 4,
                   title: '- 张明',
                   subTitle: '前端开发',
                   body: 'Storybook是我们团队的救星！它使我们能够独立地开发、测试和文档化组件，大大提高了我们的工作效率。非常好用！',
@@ -5579,7 +5580,7 @@ export const samples = {
                     classes: 'object-fit',
                     src: '/assets/images/avatar/04.jpeg',
                   },
-                  star: 5,
+                  star: 4,
                   title: '- 张燕',
                   subTitle: '前端开发',
                   body: '我们喜欢Storybook的文档化功能。它帮助我们详细记录和展示每个组件的使用方法和属性，使其他团队成员更容易理解和使用。真的很赞！',
@@ -5629,7 +5630,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset187.svg',
                 },
                 digit: {
-                  value: 49,
+                  value: 39,
                   label: 'M',
                 },
                 title: 'Github Start',
@@ -5639,7 +5640,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset189.svg',
                 },
                 digit: {
-                  value: 13770,
+                  value: 13501,
                   label: '+',
                 },
                 title: 'NPM 周下载量',
@@ -5649,7 +5650,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset190.svg',
                 },
                 digit: {
-                  value: 3935,
+                  value: 3633,
                   label: 'K',
                 },
                 title: '社区活跃',
@@ -5659,7 +5660,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset192.svg',
                 },
                 digit: {
-                  value: 757,
+                  value: 544,
                   label: '个',
                 },
                 title: '成功故事',
@@ -5936,7 +5937,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset187.svg',
                 },
                 digit: {
-                  value: 49,
+                  value: 39,
                   label: 'M',
                 },
                 title: 'Github Start',
@@ -5946,7 +5947,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset189.svg',
                 },
                 digit: {
-                  value: 13770,
+                  value: 13501,
                   label: '+',
                 },
                 title: 'NPM 周下载量',
@@ -5956,7 +5957,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset190.svg',
                 },
                 digit: {
-                  value: 3935,
+                  value: 3633,
                   label: 'K',
                 },
                 title: '社区活跃',
@@ -5966,7 +5967,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset192.svg',
                 },
                 digit: {
-                  value: 757,
+                  value: 544,
                   label: '个',
                 },
                 title: '成功故事',
@@ -6565,7 +6566,7 @@ export const samples = {
                     classes: 'object-fit',
                     src: '/assets/images/avatar/01.jpeg',
                   },
-                  star: 5,
+                  star: 4,
                   title: '- 张明',
                   subTitle: '前端开发',
                   body: 'Storybook是我们团队的救星！它使我们能够独立地开发、测试和文档化组件，大大提高了我们的工作效率。非常好用！',
@@ -6598,7 +6599,7 @@ export const samples = {
                     classes: 'object-fit',
                     src: '/assets/images/avatar/04.jpeg',
                   },
-                  star: 5,
+                  star: 4,
                   title: '- 张燕',
                   subTitle: '前端开发',
                   body: '我们喜欢Storybook的文档化功能。它帮助我们详细记录和展示每个组件的使用方法和属性，使其他团队成员更容易理解和使用。真的很赞！',
@@ -7866,7 +7867,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset187.svg',
                 },
                 digit: {
-                  value: 49,
+                  value: 39,
                   label: 'M',
                 },
                 title: 'Github Start',
@@ -7876,7 +7877,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset189.svg',
                 },
                 digit: {
-                  value: 13770,
+                  value: 13501,
                   label: '+',
                 },
                 title: 'NPM 周下载量',
@@ -7886,7 +7887,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset190.svg',
                 },
                 digit: {
-                  value: 3935,
+                  value: 3633,
                   label: 'K',
                 },
                 title: '社区活跃',
@@ -7896,7 +7897,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset192.svg',
                 },
                 digit: {
-                  value: 757,
+                  value: 544,
                   label: '个',
                 },
                 title: '成功故事',
@@ -8224,7 +8225,7 @@ export const samples = {
                     classes: 'object-fit',
                     src: '/assets/images/avatar/01.jpeg',
                   },
-                  star: 5,
+                  star: 4,
                   title: '- 张明',
                   subTitle: '前端开发',
                   body: 'Storybook是我们团队的救星！它使我们能够独立地开发、测试和文档化组件，大大提高了我们的工作效率。非常好用！',
@@ -8257,7 +8258,7 @@ export const samples = {
                     classes: 'object-fit',
                     src: '/assets/images/avatar/04.jpeg',
                   },
-                  star: 5,
+                  star: 4,
                   title: '- 张燕',
                   subTitle: '前端开发',
                   body: '我们喜欢Storybook的文档化功能。它帮助我们详细记录和展示每个组件的使用方法和属性，使其他团队成员更容易理解和使用。真的很赞！',

@@ -6,10 +6,10 @@
     <div class="star">
       <app-icon [content]="{svg:'star'}" *ngFor="let item of star"></app-icon>
     </div>
-    <div class="content m-y-xs" [innerHTML]="content.body|safeHtml"></div>
+    <div contentedit="body" class="content m-y-xs" [innerHTML]="content.body|safeHtml"></div>
     <div fxLayout="row">
-      <div class="title m-right-xs">{{content.title}}</div>
-      <div class="sub-title" *ngIf="content.subTitle">{{content.subTitle}}</div>
+      <div contentedit="title" class="title m-right-xs">{{content.title}}</div>
+      <div contentedit="subTitle" class="sub-title" *ngIf="content.subTitle">{{content.subTitle}}</div>
     </div>
   </div>
 </div>

@@ -5,8 +5,8 @@
   </app-bg>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <div class="container">
-    <app-title *ngIf="content.title" [content]="content.title"></app-title>
-    <app-swiper [content]="content.sliders"></app-swiper>
+    <app-title [attr.data-path]="'title'" *ngIf="content.title" [content]="content.title"></app-title>
+    <app-swiper [attr.data-path]="'sliders'" [content]="content.sliders"></app-swiper>
   </div>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
 </div>

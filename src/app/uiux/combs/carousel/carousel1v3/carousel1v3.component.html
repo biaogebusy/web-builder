@@ -5,9 +5,9 @@
     <app-img *ngIf="content.bg?.img" [content]="content.bg.img"></app-img>
   </app-bg>
   <div class="container ">
-    <app-text *ngIf="content.text" [content]="content.text"></app-text>
+    <app-text [attr.data-path]="'text'" *ngIf="content.text" [content]="content.text"></app-text>
     <app-spacer [size]="'sm'"></app-spacer>
-    <app-swiper [content]="content.sliders"></app-swiper>
+    <app-swiper [attr.data-path]="'sliders'" [content]="content.sliders"></app-swiper>
   </div>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
 </div>

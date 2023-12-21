@@ -3,19 +3,19 @@
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <app-bg *ngIf="content.bg" [content]="content.bg"></app-bg>
   <div class="container">
-    <app-text [content]="content.text" *ngIf="content.text"></app-text>
+    <app-text [attr.data-path]="'text'" [content]="content.text" *ngIf="content.text"></app-text>
     <div class="inner" fxLayout.xs="column" fxLayout.gt-xs="row">
-      <div fxFlex *ngFor="let item of elements">
+      <div fxFlex *ngFor="let item of elements;index as i">
         <div class="style04 inv-stats">
           <div class="stats-icon">
             <app-icon *ngIf="item.icon" [content]="item.icon"></app-icon>
             <app-img *ngIf="item.img" [content]="item.img"></app-img>
           </div>
           <div class="stats-count">
-            <app-number-animate [content]="item.digit"></app-number-animate>
+            <app-number-animate [attr.data-path]="'elements.'+i+'.digit'" [content]="item.digit"></app-number-animate>
           </div>
-          <div class="stats-title" *ngIf="item.title">{{item.title}}</div>
-          <div class="stats-desc" *ngIf="item.desc">{{item.desc}}</div>
+          <div class="stats-title" [contentedit]="'elements.'+i+'.title'" *ngIf="item.title">{{item.title}}</div>
+          <div class="stats-desc" [contentedit]="'elements.'+i+'.desc'" *ngIf="item.desc">{{item.desc}}</div>
         </div>
       </div>
     </div>

@@ -78,8 +78,7 @@ export interface IShowcase3v1 extends ICombsBase {
 }
 
 export interface IShowcase3v2 extends ICombsBase {
-  title: ITitle;
-  subTitle: string;
+  text: IText;
   elements: {
     img: IImg;
     content: IText;
