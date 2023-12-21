@@ -47,9 +47,14 @@ import { ReqRolesDirective } from '@core/directive/req-roles.directive';
 import { CheckChildMenuActiveDirective } from '@core/directive/check-child-menu-active.directive';
 import { ComponentService } from '@core/service/component.service';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { ContenteditDirective } from '@core/directive/contentedit.directive';
 
 @NgModule({
-  declarations: [ReqRolesDirective, CheckChildMenuActiveDirective],
+  declarations: [
+    ReqRolesDirective,
+    CheckChildMenuActiveDirective,
+    ContenteditDirective,
+  ],
   imports: [
     CommonModule,
     MatToolbarModule,
@@ -118,6 +123,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatStepperModule,
     ReqRolesDirective,
     CheckChildMenuActiveDirective,
+    ContenteditDirective,
   ],
   providers: [
     IconService,

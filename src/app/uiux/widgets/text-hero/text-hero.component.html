@@ -1,4 +1,4 @@
 <div *ngIf="content" class="text-hero position-relative" [ngStyle.gt-sm]="content.params" [ngClass]="content.theme">
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
-  <app-text [content]="content.text"></app-text>
+  <app-text [attr.data-path]="'text'" [content]="content.text"></app-text>
 </div>

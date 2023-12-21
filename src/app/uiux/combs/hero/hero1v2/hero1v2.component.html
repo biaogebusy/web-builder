@@ -10,9 +10,10 @@
     </div>
     <div class="swiper-text p-y-sm p-x-sm">
       <swiper #text [config]="textConfig" [(index)]="index" (slideChange)="onSlideChange($event)">
-        <ng-template swiperSlide *ngFor="let slide of content.sliders.elements">
-          <h2 class="title" [innerHTML]="slide.title|safeHtml"></h2>
-          <div *ngIf="slide.subTitle" class="sub-title m-y-sm" [innerHTML]="slide.subTitle|safeHtml"></div>
+        <ng-template swiperSlide *ngFor="let slide of content.sliders.elements;index as i">
+          <h2 [contentedit]="'sliders.elements.'+i+'.title'" class="title" [innerHTML]="slide.title|safeHtml"></h2>
+          <div [contentedit]="'sliders.elements.'+i+'.subTitle'" *ngIf="slide.subTitle" class="sub-title m-y-sm"
+            [innerHTML]="slide.subTitle|safeHtml"></div>
           <app-btn [content]="slide.btn"></app-btn>
         </ng-template>
       </swiper>

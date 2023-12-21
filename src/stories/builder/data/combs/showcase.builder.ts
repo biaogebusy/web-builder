@@ -15,7 +15,6 @@ import * as s3v4Story from '@stories/feature/showcase/showcase3v4.stories';
 import * as s3v5Story from '@stories/feature/showcase/showcase3v5.stories';
 import * as s3v6Story from '@stories/feature/showcase/showcase3v6.stories';
 import * as s3v7Story from '@stories/feature/showcase/showcase3v7.stories';
-import * as s3v8Story from '@stories/feature/showcase/showcase3v8.stories';
 import * as s3v9Story from '@stories/feature/showcase/showcase3v9.stories';
 import * as s4v1Story from '@stories/feature/showcase/showcase4v1.stories';
 
@@ -96,9 +95,6 @@ export const {
 export const {
   Default: { args: showcase3v7_default },
 } = s3v7Story;
-export const {
-  Default: { args: showcase3v8_default },
-} = s3v8Story;
 
 export const {
   Default: { args: showcase3v9_default },
@@ -264,10 +260,6 @@ export const showcase = [
       {
         label: '3v7',
         ...showcase3v7_default,
-      },
-      {
-        label: '3v8',
-        ...showcase3v8_default,
       },
       {
         label: '3v9',

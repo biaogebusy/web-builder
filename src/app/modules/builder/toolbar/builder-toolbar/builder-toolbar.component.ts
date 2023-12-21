@@ -61,6 +61,16 @@ export class BuilderToolbarComponent
     }
   }
 
+  onTitle(event: any): void {
+    const {
+      target: { textContent },
+    } = event;
+    if (textContent) {
+      this.builder.currentPage.title = textContent;
+      this.builder.saveLocalVersions();
+    }
+  }
+
   onToggleBuilderTheme(mode: 'light' | 'dark'): void {
     let style: 'light' | 'dark';
     if (mode === 'light') {

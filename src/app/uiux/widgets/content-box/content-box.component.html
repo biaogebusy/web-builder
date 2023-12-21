@@ -4,10 +4,10 @@
   </div>
   <div class="inner p-x-sm p-y-sm">
     <div class="sub-title" *ngIf="content.subTitle">
-      <app-link [content]="content.subTitle"></app-link>
+      <app-link [attr.data-path]="'subTitle'" [content]="content.subTitle"></app-link>
     </div>
     <h2 class="title two-line m-bottom-0">
-      <app-link [content]="content.title"></app-link>
+      <app-link [attr.data-path]="'title'" [content]="content.title"></app-link>
     </h2>
   </div>
 </div>

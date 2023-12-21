@@ -7,8 +7,14 @@
         display: block;
       }
     }
-    .update-title {
-      display: none;
+    .title {
+      border-bottom: 1px solid transparent;
+      &:focus-visible {
+        outline: none;
+      }
+      &:hover {
+        cursor: text;
+      }
     }
     .delete {
       position: absolute;

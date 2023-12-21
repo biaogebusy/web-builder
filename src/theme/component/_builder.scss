@@ -13,6 +13,15 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
   .builder-toolbar {
     background-color: mat-color($background, background);
     color: mat-color($foreground, text, 0.75);
+    .left {
+      .page-title {
+        border-bottom: 1px solid transparent;
+        &:focus-visible {
+          outline: none;
+          border-bottom-color: mat-color($primary);
+        }
+      }
+    }
     .middle {
       .time {
         color: mat-color($foreground, text, 0.45);
@@ -160,6 +169,7 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
       .title {
         background-color: mat-color($primary);
         color: mat-color($primary, default-contrast);
+        @include mat-elevation(2, mat-color($background, hover), 0.4);
       }
     }
   }

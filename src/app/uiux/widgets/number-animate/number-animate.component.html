@@ -1,5 +1,5 @@
 <div #animatedDigit class="animated-digit">
-  <span [ngStyle]="content.style || null" [CountTo]="content.value" [from]="content.from||0"
+  <span [contentedit]="'value'" [ngStyle]="content.style || null" [CountTo]="content.value" [from]="content.from||0"
     [duration]="content.duration||4"></span>
-  <span class="p-left-xs suffix" *ngIf="content.label">{{content.label}}</span>
+  <span [contentedit]="'label'" class="p-left-xs suffix" *ngIf="content.label">{{content.label}}</span>
 </div>

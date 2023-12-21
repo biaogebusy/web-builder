@@ -5,7 +5,8 @@
   <app-player *ngIf="video" [content]="video"></app-player>
   <div class="inner position-relative" ngClass.gt-sm="xy-center" ngClass.lt-md="y-center">
     <div class="wrapper">
-      <app-dynamic-component *ngFor="let item of content.elements" [inputs]="item"></app-dynamic-component>
+      <app-dynamic-component [attr.data-path]="'elements.'+i" *ngFor="let item of content.elements;index as i"
+        [inputs]="item"></app-dynamic-component>
     </div>
   </div>
   <app-spacer [size]="content.spacer || 'md'"></app-spacer>

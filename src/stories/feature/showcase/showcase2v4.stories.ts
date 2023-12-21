@@ -53,17 +53,11 @@ const content: IShowcase2v4 = {
       subTitle: {
         label: '《绝望之境》',
         href: '/search',
-        queryParams: {
-          law_category: 25,
-        },
       },
       title: {
         label:
           '展现了作者内心深处的黑暗情绪，让观者深陷其中，感受到无尽的绝望与孤独。',
         href: '/search',
-        queryParams: {
-          law_category: 25,
-        },
       },
       img: {
         classes: 'object-fit',
@@ -78,17 +72,11 @@ const content: IShowcase2v4 = {
       subTitle: {
         label: '《色彩之舞》',
         href: '/search',
-        queryParams: {
-          law_category: 27,
-        },
       },
       title: {
         label:
           '如同一幅绚丽的画卷，色彩的交织与流动呈现出动感和活力，令人心旷神怡。',
         href: '/search',
-        queryParams: {
-          law_category: 27,
-        },
       },
       img: {
         classes: 'object-fit',
@@ -103,17 +91,11 @@ const content: IShowcase2v4 = {
       subTitle: {
         label: '《时间的拥抱》',
         href: '/search',
-        queryParams: {
-          law_category: 13,
-        },
       },
       title: {
         label:
           '将时间的概念与人类情感相融合，通过流动的线条和温暖的色调传递出对美好回忆的珍视与怀念。',
         href: '/search',
-        queryParams: {
-          law_category: 13,
-        },
       },
       img: {
         classes: 'object-fit',

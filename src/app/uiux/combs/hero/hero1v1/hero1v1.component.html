@@ -2,7 +2,7 @@
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <div class="container">
-    <app-swiper [content]="content.sliders"></app-swiper>
+    <app-swiper [attr.data-path]="'sliders'" [content]="content.sliders"></app-swiper>
   </div>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
 </div>

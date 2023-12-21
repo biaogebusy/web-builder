@@ -4,11 +4,11 @@
   </div>
   <div class="testimonial-detail">
     <div class="info">
-      <span class="title" *ngIf="content.title">{{content.title}}</span> / <span class="sub-title"
-        *ngIf="content.subTitle">{{content.subTitle}}</span>
+      <span contentedit="title" class="title" *ngIf="content.title">{{content.title}}</span> / <span
+        contentedit="subTitle" class="sub-title" *ngIf="content.subTitle">{{content.subTitle}}</span>
     </div>
     <div class="desc">
-      <p *ngIf="content.body" [innerHTML]="content.body | safeHtml"></p>
+      <p contentedit="body" *ngIf="content.body" [innerHTML]="content.body | safeHtml"></p>
     </div>
   </div>
 </div>
