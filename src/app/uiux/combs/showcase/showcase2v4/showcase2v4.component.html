@@ -2,11 +2,12 @@
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
   <app-bg-img [content]="content.bg"></app-bg-img>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
-  <app-text [content]="content.text" *ngIf="content.text"></app-text>
+  <app-text [attr.data-path]="'text'" [content]="content.text" *ngIf="content.text"></app-text>
   <div class="{{content.fullWidth?'':'container'}}">
     <div class="inner" fxLayout="row wrap">
-      <app-dynamic-component class="item" fxFlex.lt-md="0 0 100" fxFlex.gt-sm="0 0 {{item.width || 20}}" [inputs]="item"
-        *ngFor="let item of content.elements"></app-dynamic-component>
+      <app-dynamic-component [attr.data-path]="'elements.'+i" class="item" fxFlex.lt-md="0 0 100"
+        fxFlex.gt-sm="0 0 {{item.width || 20}}" [inputs]="item"
+        *ngFor="let item of content.elements;index as i"></app-dynamic-component>
     </div>
   </div>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>

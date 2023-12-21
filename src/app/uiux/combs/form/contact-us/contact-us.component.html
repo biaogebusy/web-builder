@@ -9,7 +9,8 @@
       <div class="inner" fxFlex="0 0 100" fxLayoutAlign="center center" fxLayout="row wrap">
         <div fxFlex.lt-md="100" fxFlex.gt-sm="40" fxLayout="column">
           <div class="p-x-sm">
-            <app-box *ngFor="let item of content.contact" [content]="item"></app-box>
+            <app-box [attr.data-path]="'contact.'+i" *ngFor="let item of content.contact;index as i"
+              [content]="item"></app-box>
           </div>
         </div>
         <div fxFlexOrder="{{content.formOrder || 10}}" fxFlex.lt-md="100" fxFlex.gt-sm="40" fxLayout="column">

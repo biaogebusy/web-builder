@@ -14,7 +14,6 @@ import { Showcase3v4Component } from './showcase3v4/showcase3v4.component';
 import { Showcase3v5Component } from './showcase3v5/showcase3v5.component';
 import { Showcase3v6Component } from './showcase3v6/showcase3v6.component';
 import { Showcase3v7Component } from './showcase3v7/showcase3v7.component';
-import { Showcase3v8Component } from './showcase3v8/showcase3v8.component';
 import { Showcase4v1Component } from './showcase4v1/showcase4v1.component';
 import { Showcase2v5Component } from './showcase2v5/showcase2v5.component';
 import { Showcase2v6Component } from './showcase2v6/showcase2v6.component';
@@ -39,7 +38,6 @@ const components = [
   Showcase3v5Component,
   Showcase3v6Component,
   Showcase3v7Component,
-  Showcase3v8Component,
   Showcase3v9Component,
   Showcase4v1Component,
 ];

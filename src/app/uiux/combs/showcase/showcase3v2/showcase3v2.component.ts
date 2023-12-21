@@ -30,7 +30,6 @@ export class Showcase3v2Component
 {
   @Input() content: IShowcase3v2;
   disableAnimate = false;
-  text: IText;
   constructor(
     private el: ElementRef,
     private screenService: ScreenService,
@@ -51,12 +50,6 @@ export class Showcase3v2Component
         this.disableAnimate = state;
       });
     }
-    this.text = {
-      title: this.content.title,
-      spacer: 'none',
-      body: this.content.subTitle,
-      classes: 'text-center',
-    };
   }
 
   ngAfterViewInit(): void {

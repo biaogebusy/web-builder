@@ -4,15 +4,16 @@
   <app-bg [content]="content.bg" *ngIf="content.bg"></app-bg>
   <div class="container">
     <div [ngClass]="content.classes">
-      <app-text *ngIf="content.text" [content]="content.text"></app-text>
+      <app-text [attr.data-path]="'text'" *ngIf="content.text" [content]="content.text"></app-text>
       <div fxLayout="row wrap" fxLayoutGap.xs="0rem" fxLayoutAlign.gt-sm="center start"
         fxLayoutAlign.lt-md="center center">
-        <app-dynamic-component class="box p-x-sm p-y-sm" [inputs]="item" *ngFor="let item of content.elements"
-          fxFlex.xs="100%" fxFlex.sm="50%" [fxFlex.gt-sm]="row(content.row, '0rem')"></app-dynamic-component>
+        <app-dynamic-component [attr.data-path]="'elements.'+i" class="box p-x-sm p-y-sm" [inputs]="item"
+          *ngFor="let item of content.elements;index as i" fxFlex.xs="100%" fxFlex.sm="50%"
+          [fxFlex.gt-sm]="row(content.row, '0rem')"></app-dynamic-component>
       </div>
       <div class="actions m-top p-bottom-xs" *ngIf="content.actions" fxLayoutAlign="center center">
-        <ng-container *ngFor="let action of content.actions">
-          <app-dynamic-component [inputs]="action"></app-dynamic-component>
+        <ng-container *ngFor="let action of content.actions;index as i">
+          <app-dynamic-component [attr.data-path]="'actions.'+i" [inputs]="action"></app-dynamic-component>
         </ng-container>
       </div>
     </div>

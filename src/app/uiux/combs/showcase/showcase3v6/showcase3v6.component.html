@@ -3,18 +3,20 @@
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <app-bg [content]="content.bg" *ngIf="content.bg"></app-bg>
   <div class="container" *ngIf="content">
-    <app-text [content]="content.title"></app-text>
+    <app-text [attr.data-path]="'title'" [content]="content.title"></app-text>
     <div class="showcase-inner" fxLayout="row wrap" fxLayoutAlign="center center">
       <div fxLayout="row wrap" fxFlex.lt-md="100" [fxFlex.gt-sm]="row(content.row, '0px')"
-        *ngFor="let item of content.elements">
-        <app-media-object fxFlex="100" class="p-x-xs p-y-xs" [content]="item"></app-media-object>
+        *ngFor="let item of content.elements;index as i">
+        <app-media-object [attr.data-path]="'elements.'+i" fxFlex="100" class="p-x-xs p-y-xs"
+          [content]="item"></app-media-object>
       </div>
     </div>
     <div class="actions" *ngIf="content.action" fxLayoutAlign="center center">
       <div class="m-y">
-        <app-btn-animate *ngIf="!content.action.type;else widgets" [content]="content.action"></app-btn-animate>
+        <app-btn-animate [attr.data-path]="'action'" *ngIf="!content.action.type;else widgets"
+          [content]="content.action"></app-btn-animate>
         <ng-template #widgets>
-          <app-dynamic-component [inputs]="content.action"></app-dynamic-component>
+          <app-dynamic-component [attr.data-path]="'action'" [inputs]="content.action"></app-dynamic-component>
         </ng-template>
       </div>
     </div>

@@ -226,7 +226,6 @@ export class ComponentService {
       'showcase-3v5',
       'showcase-3v6',
       'showcase-3v7',
-      'showcase-3v8',
       'showcase-3v9',
       'showcase-4v1',
     ].forEach((type) =>
