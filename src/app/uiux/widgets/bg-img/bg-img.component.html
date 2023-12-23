@@ -1,3 +1,3 @@
 <app-bg [content]="content" *ngIf="content">
-  <app-img [content]="img" *ngIf="content.img && content.img.src"></app-img>
+  <app-img [attr.data-path]="'img'" [content]="img" *ngIf="content.img && content.img.src"></app-img>
 </app-bg>

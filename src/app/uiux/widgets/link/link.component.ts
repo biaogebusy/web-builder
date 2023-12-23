@@ -54,7 +54,7 @@ export class LinkComponent extends BaseComponent implements OnInit {
     return this.routeService.isAbsolute(href);
   }
 
-  nav(event: MouseEvent): any {
+  nav(event: any): any {
     if (this.content.dialog) {
       event.preventDefault();
       event.stopPropagation();
@@ -80,6 +80,12 @@ export class LinkComponent extends BaseComponent implements OnInit {
         const url = this.content.href.replace(':id', id);
         this.router.navigate([url]);
         return;
+      }
+    }
+    if (this.router.url === '/builder') {
+      // builder contenteditable link
+      if (event.target && event.target.closest('.component-item')) {
+        this.router.navigateByUrl(this.router.url);
       }
     }
   }

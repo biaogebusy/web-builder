@@ -27,12 +27,14 @@ import { BtnGeneraterComponent } from './toolbar/btn-generater/btn-generater.com
 import { BuilderVersionComponent } from './sidebar/builder-version/builder-version.component';
 import { builderCurrentPageFactory } from '@core/factory/factory';
 import { LocalStorageService } from 'ngx-webstorage';
+import { MetaEditComponent } from './main/meta-edit/meta-edit.component';
 
 const components = [
   BuilderComponent,
   BuilderListComponent,
   BuilderGeneraterComponent,
   BtnGeneraterComponent,
+  MetaEditComponent,
 ];
 
 @NgModule({
@@ -47,6 +49,7 @@ const components = [
     PreviewListComponent,
     PreviewComponent,
     BuilderVersionComponent,
+    MetaEditComponent,
   ],
   imports: [
     ShareModule,

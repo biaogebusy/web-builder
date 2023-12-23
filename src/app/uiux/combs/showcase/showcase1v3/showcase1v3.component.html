@@ -1,7 +1,7 @@
 <div class="showcase-1-v3 position-relative" [ngClass]="content.classes" *ngIf="content">
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
-  <app-bg-img [content]="content.bg" *ngIf="content.bg"></app-bg-img>
+  <app-bg-img [attr.data-path]="'bg'" [content]="content.bg" *ngIf="content.bg"></app-bg-img>
   <div class="container">
     <app-text [attr.data-path]="'text'" *ngIf="content.text" [content]="content.text"></app-text>
     <app-dynamic-component [attr.data-path]="'elements.'+i" *ngFor="let item of content.elements;index as i"
