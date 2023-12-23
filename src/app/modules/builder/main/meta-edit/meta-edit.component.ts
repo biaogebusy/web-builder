@@ -3,12 +3,15 @@ import {
   ChangeDetectorRef,
   Component,
   Input,
+  OnDestroy,
   OnInit,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { BuilderState } from '@core/state/BuilderState';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { set } from 'lodash-es';
+import { Subject } from 'rxjs/internal/Subject';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-meta-edit',
@@ -16,8 +19,9 @@ import { set } from 'lodash-es';
   styleUrls: ['./meta-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MetaEditComponent implements OnInit {
+export class MetaEditComponent implements OnInit, OnDestroy {
   @Input() content: any;
+  destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     private dialog: MatDialog,
     private builder: BuilderState,
@@ -25,17 +29,19 @@ export class MetaEditComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.builder.metaEditImaPath$.subscribe((img: any) => {
-      const { src } = img;
-      this.dialog.closeAll();
-      this.content.data = img;
-      set(this.builder.currentPage.body, this.content.path, src);
-      this.content.ele.setAttribute('src', src);
-      setTimeout(() => {
-        this.builder.saveLocalVersions();
-      }, 600);
-      this.cd.detectChanges();
-    });
+    this.builder.metaEditImaPath$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((img: any) => {
+        const { src } = img;
+        this.dialog.closeAll();
+        this.content.data = img;
+        set(this.builder.currentPage.body, this.content.path, src);
+        this.content.ele.setAttribute('src', src);
+        setTimeout(() => {
+          this.builder.saveLocalVersions();
+        }, 600);
+        this.cd.detectChanges();
+      });
   }
 
   openMedias(): void {
@@ -50,5 +56,10 @@ export class MetaEditComponent implements OnInit {
         },
       },
     });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }
