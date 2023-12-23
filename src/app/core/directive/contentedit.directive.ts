@@ -49,6 +49,7 @@ export class ContenteditDirective implements AfterViewInit {
               type: 'meta-edit',
               mode: 'img',
               path: this.generatePath(ele),
+              ele,
               data: {
                 src: ele.getAttribute('src'),
                 fileName: ele.getAttribute('src').split('/').pop(),

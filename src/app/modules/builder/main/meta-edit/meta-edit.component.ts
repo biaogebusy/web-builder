@@ -26,9 +26,11 @@ export class MetaEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.builder.metaEditImaPath$.subscribe((img: any) => {
+      const { src } = img;
       this.dialog.closeAll();
       this.content.data = img;
-      set(this.builder.currentPage.body, this.content.path, img.src);
+      set(this.builder.currentPage.body, this.content.path, src);
+      this.content.ele.setAttribute('src', src);
       setTimeout(() => {
         this.builder.saveLocalVersions();
       }, 600);

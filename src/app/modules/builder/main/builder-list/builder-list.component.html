@@ -1,16 +1,16 @@
-<mat-drawer-container class="builder-list">
+<mat-drawer-container class="builder-list" *ngIf="currentPage$ | async as page">
   <mat-drawer class="sidebar-drawer" #drawer mode="side" [opened]="opened">
-    <app-preview-list [content]="content"></app-preview-list>
+    <app-preview-list [content]="page.body"></app-preview-list>
   </mat-drawer>
   <mat-drawer-content id="gsap-scroller" class="wrapper" [ngClass]="previewClass$|async">
     <div class="load" *ngIf="builder.loading$ | async">
       <mat-spinner diameter="50" color="accent"></mat-spinner>
     </div>
-    <div #builderList id="builder-list" cdkDropList [cdkDropListConnectedTo]="['widgets']" [cdkDropListData]="content"
+    <div #builderList id="builder-list" cdkDropList [cdkDropListConnectedTo]="['widgets']" [cdkDropListData]="page.body"
       (cdkDropListDropped)="drop($event)">
-      <app-builder-empty *ngIf="!content?.length"></app-builder-empty>
+      <app-builder-empty *ngIf="!page.body?.length"></app-builder-empty>
       <div id="item-{{i}}" class="component-item" cdkDrag [cdkDragDisabled]="true" [cdkDragData]="item"
-        *ngFor="let item of content;index as i; trackBy: trackByFn">
+        *ngFor="let item of page.body;index as i; trackBy: trackByFn">
         <app-dynamic-component [attr.data-path]="i" *ngIf="item" [inputs]="{content:item,showToolbar:true}" [index]="i"
           [isPreview]="true"></app-dynamic-component>
         <app-card-1v1 style="width:800px" *cdkDragPreview [content]="{

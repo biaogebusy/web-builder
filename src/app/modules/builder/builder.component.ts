@@ -44,7 +44,6 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private injector: Injector,
     public builder: BuilderState,
-    private cd: ChangeDetectorRef,
     private storage: LocalStorageService,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
     @Inject(BUILDER_FULL_SCREEN) public builderFullScreen$: Observable<boolean>,
