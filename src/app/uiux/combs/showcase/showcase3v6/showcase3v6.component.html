@@ -1,7 +1,7 @@
 <div class="showcase-3-v6 position-relative" *reqRolesIf="content">
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
-  <app-bg [content]="content.bg" *ngIf="content.bg"></app-bg>
+  <app-bg [attr.data-path]="'bg'" [content]="content.bg" *ngIf="content.bg"></app-bg>
   <div class="container" *ngIf="content">
     <app-text [attr.data-path]="'title'" [content]="content.title"></app-text>
     <div class="showcase-inner" fxLayout="row wrap" fxLayoutAlign="center center">

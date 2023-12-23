@@ -33,7 +33,6 @@ import { DOCUMENT } from '@angular/common';
   styleUrls: ['./builder.component.scss'],
 })
 export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
-  @Input() content: IPage;
   @LocalStorage('version')
   version: IPage[];
   @ViewChild('containerDrawer', { static: false }) containerDrawer: MatDrawer;
@@ -45,7 +44,6 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private injector: Injector,
     public builder: BuilderState,
-    private cd: ChangeDetectorRef,
     private storage: LocalStorageService,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
     @Inject(BUILDER_FULL_SCREEN) public builderFullScreen$: Observable<boolean>,
@@ -59,7 +57,6 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
     const storage = this.injector.get(LocalStorageService);
     const utli = this.injector.get(UtilitiesService);
     if (this.coreConfig.builder?.enable) {
-      this.content = this.builder.currentPage;
       if (!this.builderFullScreen) {
         storage.store('builderFullScreen', false);
       }
@@ -67,7 +64,7 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
     } else {
       utli.openSnackbar('请开启 Builder 功能！', 'ok');
     }
-    this.builder.dynamicContent$.subscribe((content) => {
+    this.builder.rightDrawerContent$.subscribe((content) => {
       if (content) {
         setTimeout(() => {
           this.containerDrawer.open();
@@ -80,13 +77,7 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
     const builder = this.injector.get(BuilderState);
     const storage = this.injector.get(LocalStorageService);
     const screenState = this.injector.get(ScreenState);
-    storage
-      .observe(builder.versionKey)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((page) => {
-        this.content = this.builder.currentPage;
-        this.cd.detectChanges();
-      });
+
     screenState
       .mqAlias$()
       .pipe(takeUntil(this.destroy$))

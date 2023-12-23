@@ -27,12 +27,13 @@ export class BuilderState {
   public fullScreen$ = new Subject<boolean>();
   public debugeAnimate$ = new Subject<boolean>();
   public builderContentDrawer$ = new Subject<boolean>();
+  public metaEditImaPath$ = new Subject<object>();
   public switchPreivew$ = new Subject<
     'xs' | 'sm' | 'md' | 'lg' | 'xs-md' | 'none'
   >();
   public builderThemeMode = new BehaviorSubject<'light' | 'dark'>('light');
   public loading$ = new BehaviorSubject<boolean>(true);
-  public dynamicContent$ = new Subject<IBuilderDynamicContent>();
+  public rightDrawerContent$ = new Subject<IBuilderDynamicContent>();
   public jsoneditorContent$ = new Subject<{
     content: IPage;
     index: number;
@@ -189,7 +190,7 @@ export class BuilderState {
   }
 
   showEditor(content: any, index: number): void {
-    this.dynamicContent$.next({
+    this.rightDrawerContent$.next({
       mode: 'over',
       hasBackdrop: false,
       style: {

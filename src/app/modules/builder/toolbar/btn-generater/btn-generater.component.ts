@@ -19,7 +19,7 @@ export class BtnGeneraterComponent implements OnInit {
   ngOnInit(): void {}
 
   onGenerate(): void {
-    this.builder.dynamicContent$.next({
+    this.builder.rightDrawerContent$.next({
       elements: [
         {
           type: 'builder-generater',

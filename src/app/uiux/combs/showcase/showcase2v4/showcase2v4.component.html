@@ -1,6 +1,6 @@
 <div class="showcase-2v4 position-relative">
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
-  <app-bg-img [content]="content.bg"></app-bg-img>
+  <app-bg-img [attr.data-path]="'bg'" [content]="content.bg"></app-bg-img>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <app-text [attr.data-path]="'text'" [content]="content.text" *ngIf="content.text"></app-text>
   <div class="{{content.fullWidth?'':'container'}}">

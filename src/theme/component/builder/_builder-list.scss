@@ -59,6 +59,15 @@
       }
     }
   }
+  img {
+    &[contenteditable="false"] {
+      &:hover {
+        outline: 2px dashed #5dce91;
+        cursor: pointer;
+        opacity: 0.85;
+      }
+    }
+  }
   [contenteditable="true"] {
     cursor: text;
     &:after {
