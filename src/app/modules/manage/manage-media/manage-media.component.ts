@@ -12,6 +12,7 @@ import type { ICoreConfig } from '@core/interface/IAppConfig';
 import type { IManageAssets } from '@core/interface/manage/IManage';
 import { ContentState } from '@core/state/ContentState';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { BuilderState } from '@core/state/BuilderState';
 
 @Component({
   selector: 'app-manage-media',
@@ -24,9 +25,11 @@ export class ManageMediaComponent implements OnInit {
   model: any = {};
   loading = true;
   destory$: Subject<boolean> = new Subject<boolean>();
+  selectedId: string;
   constructor(
     private screenService: ScreenService,
     private contentState: ContentState,
+    private builder: BuilderState,
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
     @Inject(MEDIA_ASSETS) public mediaAssets$: Observable<IManageAssets>
   ) {}
@@ -46,6 +49,19 @@ export class ManageMediaComponent implements OnInit {
 
   onSearch(value: any): void {
     this.contentState.mediaAssetsFormChange$.next(value);
+  }
+
+  isSelected(item: any): boolean {
+    return item.id === this.selectedId;
+  }
+
+  onSelect(item: any): void {
+    this.selectedId = item.id;
+    this.builder.metaEditImaPath$.next({
+      src: item.img.src,
+      alt: item.img.alt,
+      fileName: item.img.src.split('/').pop(),
+    });
   }
 
   trackByFn(index: number, item: any): number {

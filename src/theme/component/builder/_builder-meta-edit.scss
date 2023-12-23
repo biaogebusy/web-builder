@@ -1,0 +1,7 @@
+@mixin meta-edit($background, $foreground, $primary) {
+  .img-section {
+    .meta {
+      background-color: mat-color($primary, 0.2);
+    }
+  }
+}
