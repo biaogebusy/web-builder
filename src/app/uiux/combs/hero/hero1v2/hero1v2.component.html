@@ -1,10 +1,10 @@
 <div class="hero-1-v2 position-relative p-top-xl" [ngClass.gt-sm]="'m-bottom-xl'" *ngIf="content">
-  <app-bg-img [content]="content.bg"></app-bg-img>
+  <app-bg-img [attr.data-path]="'bg'" [content]="content.bg"></app-bg-img>
   <div class="container position-relative" *ngIf="mediaConfig">
     <div class="swiper-media">
       <swiper #media [config]="mediaConfig" [(index)]="index" (slideChange)="onSlideChange($event)">
-        <ng-template swiperSlide *ngFor="let slide of content.sliders.elements">
-          <app-bg-img [content]="slide.bg"></app-bg-img>
+        <ng-template swiperSlide *ngFor="let slide of content.sliders.elements;index as i">
+          <app-bg-img [attr.data-path]="'sliders.elements.'+i+'.bg'" [content]="slide.bg"></app-bg-img>
         </ng-template>
       </swiper>
     </div>

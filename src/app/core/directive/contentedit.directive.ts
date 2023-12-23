@@ -34,7 +34,6 @@ export class ContenteditDirective implements AfterViewInit {
 
   @HostListener('click', ['$event']) onClick(event: Event) {
     const ele = this.el.nativeElement;
-
     if (ele.closest('.component-item')) {
       if (ele.tagName === 'IMG') {
         this.builder.rightDrawerContent$.next({
@@ -49,7 +48,7 @@ export class ContenteditDirective implements AfterViewInit {
               type: 'meta-edit',
               mode: 'img',
               path: this.generatePath(ele),
-              ele,
+              ele: event.target,
               data: {
                 src: ele.getAttribute('src'),
                 fileName: ele.getAttribute('src').split('/').pop(),

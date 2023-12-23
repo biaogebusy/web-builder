@@ -20,6 +20,7 @@
     opacity: 0;
     z-index: 1;
     content: "";
+    pointer-events: none;
   }
   &.overlay-20 {
     &:before {

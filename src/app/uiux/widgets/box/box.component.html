@@ -3,7 +3,7 @@
     <app-icon [content]="content.icon"></app-icon>
   </div>
   <div *ngIf="content.img" class="box-image">
-    <app-img [content]="content.img"></app-img>
+    <app-img [attr.data-path]="'img'" [content]="content.img"></app-img>
   </div>
   <div class="box-content-wrapper">
     <h3 class="box-title one-line" *ngIf="content.title.label">

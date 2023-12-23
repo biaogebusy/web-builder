@@ -1,6 +1,6 @@
 <div class="showcase-2v3 position-relative" *ngIf="content">
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
-  <app-bg-img [content]="content.bg"></app-bg-img>
+  <app-bg-img [attr.data-path]="'bg'" [content]="content.bg"></app-bg-img>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <app-text [attr.data-path]="'text'" [content]="content.text" *ngIf="content.text"></app-text>
   <div class="container">
@@ -13,7 +13,7 @@
           <a [contentedit]="'link.label'" mat-raised-button color="{{item.link.color}}" [href]="item.link.href"
             target="_blank">{{item.link.label}}</a>
         </div>
-        <app-img class="p-left" [content]="item.img"></app-img>
+        <app-img [attr.data-path]="'elements.'+i+'.img'" class="p-left" [content]="item.img"></app-img>
       </div>
     </div>
   </div>
