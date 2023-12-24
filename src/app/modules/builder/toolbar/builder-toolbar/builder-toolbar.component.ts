@@ -94,6 +94,7 @@ export class BuilderToolbarComponent
     this.dialog.open(DialogComponent, {
       width: '100%',
       data: {
+        title: '媒体库',
         inputData: {
           content: {
             type: 'manage-media',
