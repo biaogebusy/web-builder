@@ -1,4 +1,5 @@
 <div class="meta-edit">
+  <app-title [content]="{label:content.data.tag,style:'style-v4'}"></app-title>
   <div class="img-section" *ngIf="content.mode === 'img'">
     <div class="meta" fxLayout="row" fxLayoutAlign="start center">
       <img src="{{content.data.src}}" alt="">
@@ -8,5 +9,11 @@
       </div>
     </div>
     <app-btn (click)="openMedias()" [content]="{label:'更新图片',color:'primary',mode:'raised'}"></app-btn>
+  </div>
+  <div class="text-section" *ngIf="content.mode === 'text'">
+    <mat-form-field appearance="fill">
+      <mat-label>内容</mat-label>
+      <textarea rows="5" matInput #text (change)="onTextChange(text.value)" [value]="content.data.innerText"></textarea>
+    </mat-form-field>
   </div>
 </div>

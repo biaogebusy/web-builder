@@ -62,6 +62,7 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
         }
       }
       .showcase-footer {
+        color: mat-color($foreground, text);
         border-top: 1px solid mat-color($foreground, divider);
         background: mat-color($background, background);
       }

@@ -1,15 +1,14 @@
 <div class="manage-media position-relative" *ngIf="coreConfig?.manageMedia">
-  <div class="toolbar" fxLayoutAlign="end center">
-    <mat-slider [(ngModel)]="coreConfig.manageMedia.row" max="10" min="1" step="1" [thumbLabel]="true" [invert]="true">
-    </mat-slider>
-  </div>
   <mat-drawer-container>
     <mat-drawer mode="side" [opened]="true">
       <div class="sidebar" fxLayout="column">
-        <app-title [content]="coreConfig.manageMedia.sidebar.title"></app-title>
+        <mat-slider [(ngModel)]="coreConfig.manageMedia.row" max="10" min="1" step="1" [thumbLabel]="true"
+          [invert]="true">
+        </mat-slider>
         <app-formly *ngIf="coreConfig.manageMedia.sidebar.form" [classes]="'form-field-width-auto'" [form]="form"
           [fields]="coreConfig.manageMedia.sidebar.form" [model]="model">
         </app-formly>
+
         <div class="actions m-top-sm" fxFlex="100" fxLayoutAlign="center center">
           <app-btn (click)="onSearch(model)" [content]="coreConfig.manageMedia.sidebar.action"></app-btn>
         </div>

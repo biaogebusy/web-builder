@@ -53,6 +53,28 @@ export class ContenteditDirective implements AfterViewInit {
                 src: ele.getAttribute('src'),
                 fileName: ele.getAttribute('src').split('/').pop(),
                 alt: ele.getAttribute('alt'),
+                tag: ele.tagName,
+              },
+            },
+          ],
+        });
+      } else {
+        this.builder.rightDrawerContent$.next({
+          mode: 'over',
+          hasBackdrop: false,
+          style: {
+            width: '260px',
+            'max-width': 'calc(100vw - 50px)',
+          },
+          elements: [
+            {
+              type: 'meta-edit',
+              mode: 'text',
+              path: this.generatePath(ele),
+              ele: event.target,
+              data: {
+                innerText: ele.innerText,
+                tag: ele.tagName,
               },
             },
           ],
