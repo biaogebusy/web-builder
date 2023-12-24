@@ -44,6 +44,15 @@ export class MetaEditComponent implements OnInit, OnDestroy {
       });
   }
 
+  onTextChange(value: any): void {
+    set(this.builder.currentPage.body, this.content.path, value);
+    this.content.ele.innerText = value;
+    setTimeout(() => {
+      this.builder.saveLocalVersions();
+    }, 600);
+    this.cd.detectChanges();
+  }
+
   openMedias(): void {
     this.dialog.open(DialogComponent, {
       width: '100%',
