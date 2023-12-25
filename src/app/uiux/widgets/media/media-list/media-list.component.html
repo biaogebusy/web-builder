@@ -1,9 +1,9 @@
 <div class="recent-posts" *ngIf="content">
   <h2 class="block-title">{{content.title}}</h2>
   <div class="list">
-    <div class="item {{item.img?.src ? '':'no-img'}}" *ngFor="let item of content.elements">
+    <div class="item {{item.img?.src ? '':'no-img'}}" *ngFor="let item of content.elements;index as i">
       <a *ngIf="item.img?.src" [href]="item.link.href" class="post-img">
-        <app-img [content]="item.img"></app-img>
+        <app-img [attr.data-path]="'elements.'+i+'.img'" [content]="item.img"></app-img>
         <mat-icon>open_in_new</mat-icon>
       </a>
       <div class="blog-title">

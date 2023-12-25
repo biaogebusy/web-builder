@@ -1,6 +1,6 @@
 <div class="card-1-v4 p-y-sm" fxLayout="row" fxLayoutAlign="start start" *ngIf="content">
   <div class="left m-right-sm" fxFlex="65px">
-    <app-img [content]="content.img"></app-img>
+    <app-img [attr.data-path]="'img'" [content]="content.img"></app-img>
   </div>
   <div class="inner p-x-sm p-y-sm" fxLayout="column">
     <div class="star">

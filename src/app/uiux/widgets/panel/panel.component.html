@@ -1,7 +1,7 @@
 <div class="panel" *ngIf="content">
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
-  <app-bg-img [content]="content.bg"></app-bg-img>
+  <app-bg-img [attr.data-path]="'bg'" [content]="content.bg"></app-bg-img>
   <div class="container">
     <app-text [attr.data-path]="'text'" *ngIf="content.text" [content]="content.text"></app-text>
     <div class="actions m-y-xs" fxLayout="row" fxLayoutAlign="end center" *ngIf="content?.params?.enableActions">
