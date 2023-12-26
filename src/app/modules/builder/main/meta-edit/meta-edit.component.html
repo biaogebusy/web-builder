@@ -8,12 +8,11 @@
         <div class="desc">{{content.data.alt}}</div>
       </div>
     </div>
-    <app-btn (click)="openMedias()" [content]="{label:'更新图片',color:'primary',mode:'raised'}"></app-btn>
+    <app-btn class="action" (click)="openMedias()" [content]="{label:'更新图片',color:'primary',mode:'raised'}"></app-btn>
   </div>
   <div class="text-section" *ngIf="content.mode === 'text'">
-    <mat-form-field appearance="fill">
-      <mat-label>内容</mat-label>
-      <textarea rows="5" matInput #text (change)="onTextChange(text.value)" [value]="content.data.innerText"></textarea>
-    </mat-form-field>
+    <quill-editor [modules]="modules" [ngModel]="content.data.innerHTML" (onContentChanged)="contentChanged($event)"
+      [styles]="{height:'180px'}">
+    </quill-editor>
   </div>
 </div>
