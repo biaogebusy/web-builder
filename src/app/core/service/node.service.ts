@@ -412,12 +412,45 @@ export class NodeService extends ApiService {
               attributes: { uri },
             },
           } = res;
+          this.createMediaImage(res.data);
           return uri.url;
         }),
         catchError(() => {
           return '';
         })
       );
+  }
+
+  createMediaImage(data: any): void {
+    const {
+      id,
+      attributes: { filename },
+    } = data;
+    const mediaData = {
+      data: {
+        type: 'media--image',
+        attributes: {
+          name: filename,
+        },
+        relationships: {
+          field_media_image: {
+            data: {
+              type: 'file--file',
+              id,
+            },
+          },
+        },
+      },
+    };
+    this.http
+      .post(
+        `/api/v1/media/image`,
+        mediaData,
+        this.optionsWithCookieAndToken(this.user.csrf_token)
+      )
+      .subscribe((res) => {
+        console.log('image upload done.');
+      });
   }
 
   imageHandler(editor: any) {
