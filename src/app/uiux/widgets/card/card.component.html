@@ -4,7 +4,7 @@
   </mat-card-content>
   <mat-card-header class="m-bottom-xs" *ngIf="content?.header">
     <div mat-card-avatar *ngIf="content.header?.avatar">
-      <app-img [content]="content.header?.avatar || {src:''}"></app-img>
+      <app-img [attr.data-path]="'header.avatar'" [content]="content.header?.avatar || {src:''}"></app-img>
     </div>
     <mat-card-title contentedit="header.title" contentedit="title" *ngIf="content.header?.title"
       [innerHTML]="content.header?.title || ''|safeHtml"></mat-card-title>
@@ -28,7 +28,7 @@
   <mat-card-content>
     <div fxLayout>
       <div *ngIf="content.avatar" mat-card-avatar class="m-right-xs">
-        <app-img [content]="content.avatar"></app-img>
+        <app-img [attr.data-path]="'img'" [content]="content.avatar"></app-img>
       </div>
       <div fxLayout="row wrap" fxFlex="100">
         <mat-card-title contentedit="title" fxFlex="100"

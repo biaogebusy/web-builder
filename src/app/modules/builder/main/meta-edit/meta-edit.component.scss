@@ -1,11 +1,14 @@
 .meta-edit {
   padding: 20px;
-  ::ng-deep {
-    button {
-      width: 100%;
-      margin: 10px 0;
+  .action {
+    ::ng-deep {
+      button {
+        width: 100%;
+        margin: 10px 0;
+      }
     }
   }
+
   .meta {
     gap: 10px;
     padding: 10px;

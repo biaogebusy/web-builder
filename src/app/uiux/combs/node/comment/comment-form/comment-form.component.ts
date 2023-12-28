@@ -213,6 +213,14 @@ export class CommentFormComponent implements OnInit, OnDestroy {
     );
   }
 
+  editorCreated(quill: any) {
+    const toolbar = quill.getModule('toolbar');
+    toolbar.addHandler(
+      'image',
+      this.nodeService.imageHandler.bind(this.nodeService, quill)
+    );
+  }
+
   ngOnDestroy(): void {
     this.destroy$.next(true);
     this.destroy$.complete();

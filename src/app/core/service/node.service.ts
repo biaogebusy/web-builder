@@ -390,14 +390,17 @@ export class NodeService extends ApiService {
     }
   }
 
-  uploadImage(imageData: any, csrfToken: string): Observable<any> {
-    console.log(imageData);
+  uploadImage(
+    fileName: string,
+    imageData: any,
+    csrfToken: string
+  ): Observable<any> {
     return this.http
       .post('/api/v1/media/image/field_media_image', imageData, {
         headers: new HttpHeaders({
           Accept: 'application/vnd.api+json',
           'Content-Type': 'application/octet-stream',
-          'Content-Disposition': 'file; filename="user.jpg"',
+          'Content-Disposition': `file; filename="${fileName}"`,
           'X-CSRF-Token': csrfToken,
         }),
         withCredentials: true,
@@ -409,11 +412,73 @@ export class NodeService extends ApiService {
               attributes: { uri },
             },
           } = res;
+          this.createMediaImage(res.data);
           return uri.url;
         }),
         catchError(() => {
           return '';
         })
       );
+  }
+
+  createMediaImage(data: any): void {
+    const {
+      id,
+      attributes: { filename },
+    } = data;
+    const mediaData = {
+      data: {
+        type: 'media--image',
+        attributes: {
+          name: filename,
+        },
+        relationships: {
+          field_media_image: {
+            data: {
+              type: 'file--file',
+              id,
+            },
+          },
+        },
+      },
+    };
+    this.http
+      .post(
+        `/api/v1/media/image`,
+        mediaData,
+        this.optionsWithCookieAndToken(this.user.csrf_token)
+      )
+      .subscribe((res) => {
+        console.log('image upload done.');
+      });
+  }
+
+  imageHandler(editor: any) {
+    const Imageinput: any = document.createElement('input');
+    Imageinput.setAttribute('type', 'file');
+    Imageinput.setAttribute(
+      'accept',
+      'image/png, image/gif, image/jpeg, image/bmp, image/x-icon'
+    );
+    Imageinput.classList.add('ql-image');
+    if (Imageinput.files) {
+      Imageinput.addEventListener('change', () => {
+        const file = Imageinput.files[0];
+        if (file) {
+          let reader = new FileReader();
+          reader.onload = (e: any) => {
+            const data = e.target.result;
+            this.uploadImage(file.name, data, this.user.csrf_token).subscribe(
+              (img) => {
+                const range = editor.getSelection(true);
+                editor.insertEmbed(range.index, 'image', img);
+              }
+            );
+          };
+          reader.readAsArrayBuffer(file);
+        }
+      });
+      Imageinput.click();
+    }
   }
 }

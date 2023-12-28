@@ -5,7 +5,7 @@
       没有组件
     </div>
   </div>
-  <div class="component-item" cdkDrag [cdkDragData]=" item" *ngFor="let item of content;index as i; trackBy: trackByFn"
+  <div class="component-item" cdkDrag [cdkDragData]="item" *ngFor="let item of content;index as i; trackBy: trackByFn"
     (click)="onClickSidebar(i,item)">
     <div *ngIf="item" class="box" fxLayout="row" fxLayoutAlign="center center">
       <div class="p-right-xs">{{i}}</div>

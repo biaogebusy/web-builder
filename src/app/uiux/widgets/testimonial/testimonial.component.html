@@ -1,6 +1,6 @@
 <div class="testimonial" [ngClass]="content.style" *ngIf="content">
   <div class="bx-wrapper">
-    <app-img [content]="content.img"></app-img>
+    <app-img [attr.data-path]="'img'" [content]="content.img"></app-img>
   </div>
   <div class="testimonial-detail">
     <div class="info">

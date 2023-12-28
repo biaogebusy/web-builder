@@ -1,6 +1,6 @@
 <div class="content-text-center position-relative">
   <div class="media" [ngClass]="content.ratios || 'media-4-3'">
-    <app-img *ngIf="content.img" [content]="content.img"></app-img>
+    <app-img [attr.data-path]="'img'" *ngIf="content.img" [content]="content.img"></app-img>
   </div>
   <div class="inner p-x-sm p-y-sm" fxLayoutAlign="center center">
     <div contentedit="text" class="content" [innerHTML]="content.text | safeHtml" fxLayoutAlign="center center"

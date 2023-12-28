@@ -28,6 +28,8 @@ import { BuilderVersionComponent } from './sidebar/builder-version/builder-versi
 import { builderCurrentPageFactory } from '@core/factory/factory';
 import { LocalStorageService } from 'ngx-webstorage';
 import { MetaEditComponent } from './main/meta-edit/meta-edit.component';
+import { LayoutBuilderComponent } from './layout-builder/layout-builder.component';
+import { QuillModule } from 'ngx-quill';
 
 const components = [
   BuilderComponent,
@@ -35,6 +37,7 @@ const components = [
   BuilderGeneraterComponent,
   BtnGeneraterComponent,
   MetaEditComponent,
+  LayoutBuilderComponent,
 ];
 
 @NgModule({
@@ -57,6 +60,7 @@ const components = [
     WidgetsModule,
     DragDropModule,
     BuilderRoutingModule,
+    QuillModule.forRoot(),
   ],
   providers: [
     {

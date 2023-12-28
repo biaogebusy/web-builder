@@ -1,9 +1,9 @@
 <div class="view-list" *ngIf="content && canShow">
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
-  <app-bg-img [content]="content.bg" *ngIf="content.bg"></app-bg-img>
+  <app-bg-img [attr.data-path]="'bg'" [content]="content.bg" *ngIf="content.bg"></app-bg-img>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <div [ngClass]="containerClass" fxLayout="row wrap">
-    <app-text [content]="content.text" *ngIf="content.text"></app-text>
+    <app-text [attr.data-path]="'text'" [content]="content.text" *ngIf="content.text"></app-text>
     <div class="filter" *ngIf="content.form" fxFlex.gt-sm="0 0 100" fxFlex.lt-md="100" fxLayout.gt-sm="row"
       fxLayout.lt-md="column" fxLayoutAlign="space-between center">
       <div class="filter-item" fxLayout.gt-sm="row wrap" fxLayout.lt-md="column" fxLayoutGap.gt-sm="1rem">

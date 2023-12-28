@@ -1,9 +1,9 @@
 <div class="contact-us-1v1" *ngIf="content" [ngClass]="content.classes">
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
-  <app-bg-img [content]="content.bg" *ngIf="content.bg"></app-bg-img>
+  <app-bg-img [attr.data-path]="'bg'" [content]="content.bg" *ngIf="content.bg"></app-bg-img>
   <div class="container">
-    <app-text *ngIf="content.text" [content]="content.text"></app-text>
+    <app-text [attr.data-path]="'text'" *ngIf="content.text" [content]="content.text"></app-text>
     <div class="box" fxLayout="row wrap">
       <div class="form p-x-md p-y-md" fxFlex.lt-md="100" fxFlex.gt-sm="70">
         <form [formGroup]="form">
@@ -12,7 +12,8 @@
         <app-btn [content]="content.action" (click)="onSubmit(model)"></app-btn>
       </div>
       <div class="content p-x-md p-y-md" fxFlex.lt-md="100" fxFlex.gt-sm="30" [ngStyle]="content.contentStyle">
-        <app-dynamic-component [inputs]="item" *ngFor="let item of content.content"></app-dynamic-component>
+        <app-dynamic-component [attr.data-path]="'content.'+i" [inputs]="item"
+          *ngFor="let item of content.content;index as i"></app-dynamic-component>
       </div>
     </div>
   </div>
