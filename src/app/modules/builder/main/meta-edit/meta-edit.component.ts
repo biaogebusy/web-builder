@@ -2,12 +2,16 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  Inject,
   Input,
   OnDestroy,
   OnInit,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { IUser } from '@core/interface/IUser';
+import { NodeService } from '@core/service/node.service';
 import { BuilderState } from '@core/state/BuilderState';
+import { USER } from '@core/token/token-providers';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { set } from 'lodash-es';
 import { QuillModule } from 'ngx-quill';
@@ -22,6 +26,7 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class MetaEditComponent implements OnInit, OnDestroy {
   @Input() content: any;
+  editor: any;
   modules: QuillModule = {
     toolbar: [
       [
@@ -60,7 +65,7 @@ export class MetaEditComponent implements OnInit, OnDestroy {
           indent: '+1',
         },
       ],
-      ['link'],
+      ['link', 'image'],
       ['blockquote', 'code-block'],
     ],
   };
@@ -68,7 +73,9 @@ export class MetaEditComponent implements OnInit, OnDestroy {
   constructor(
     private dialog: MatDialog,
     private builder: BuilderState,
-    private cd: ChangeDetectorRef
+    private nodeService: NodeService,
+    private cd: ChangeDetectorRef,
+    @Inject(USER) private user: IUser
   ) {}
 
   ngOnInit(): void {
@@ -99,6 +106,42 @@ export class MetaEditComponent implements OnInit, OnDestroy {
         },
       },
     });
+  }
+
+  editorCreated(quill: any) {
+    const toolbar = quill.getModule('toolbar');
+    toolbar.addHandler('image', this.imageHandler.bind(this));
+    this.editor = quill;
+  }
+
+  imageHandler() {
+    const Imageinput: any = document.createElement('input');
+    Imageinput.setAttribute('type', 'file');
+    Imageinput.setAttribute(
+      'accept',
+      'image/png, image/gif, image/jpeg, image/bmp, image/x-icon'
+    );
+    Imageinput.classList.add('ql-image');
+    if (Imageinput.files) {
+      Imageinput.addEventListener('change', () => {
+        const file = Imageinput.files[0];
+        if (file) {
+          let reader = new FileReader();
+          reader.onload = (e: any) => {
+            const data = e.target.result;
+            this.nodeService
+              .uploadImage(file.name, data, this.user.csrf_token)
+              .pipe(takeUntil(this.destroy$))
+              .subscribe((img) => {
+                const range = this.editor.getSelection(true);
+                this.editor.insertEmbed(range.index, 'image', img);
+              });
+          };
+          reader.readAsArrayBuffer(file);
+        }
+      });
+      Imageinput.click();
+    }
   }
 
   contentChanged(event: any): void {

@@ -395,7 +395,6 @@ export class NodeService extends ApiService {
     imageData: any,
     csrfToken: string
   ): Observable<any> {
-    console.log(imageData);
     return this.http
       .post('/api/v1/media/image/field_media_image', imageData, {
         headers: new HttpHeaders({
@@ -419,5 +418,34 @@ export class NodeService extends ApiService {
           return '';
         })
       );
+  }
+
+  imageHandler(editor: any) {
+    const Imageinput: any = document.createElement('input');
+    Imageinput.setAttribute('type', 'file');
+    Imageinput.setAttribute(
+      'accept',
+      'image/png, image/gif, image/jpeg, image/bmp, image/x-icon'
+    );
+    Imageinput.classList.add('ql-image');
+    if (Imageinput.files) {
+      Imageinput.addEventListener('change', () => {
+        const file = Imageinput.files[0];
+        if (file) {
+          let reader = new FileReader();
+          reader.onload = (e: any) => {
+            const data = e.target.result;
+            this.uploadImage(file.name, data, this.user.csrf_token).subscribe(
+              (img) => {
+                const range = editor.getSelection(true);
+                editor.insertEmbed(range.index, 'image', img);
+              }
+            );
+          };
+          reader.readAsArrayBuffer(file);
+        }
+      });
+      Imageinput.click();
+    }
   }
 }
