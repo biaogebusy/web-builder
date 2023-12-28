@@ -4,4 +4,9 @@ export interface ITitle {
   classes?: string;
   label: string;
   icon?: string;
+  typed?: {
+    enable: boolean;
+    string: string[];
+    config: any;
+  };
 }

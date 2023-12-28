@@ -9,6 +9,9 @@
   $warn: map-get($config, warn);
 
   .title {
+    .typed-cursor {
+      color: mat-color($primary);
+    }
     &.style-v1,
     &.style-v2,
     &.style-v3,
