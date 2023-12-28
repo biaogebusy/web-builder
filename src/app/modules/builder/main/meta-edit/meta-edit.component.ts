@@ -110,38 +110,10 @@ export class MetaEditComponent implements OnInit, OnDestroy {
 
   editorCreated(quill: any) {
     const toolbar = quill.getModule('toolbar');
-    toolbar.addHandler('image', this.imageHandler.bind(this));
-    this.editor = quill;
-  }
-
-  imageHandler() {
-    const Imageinput: any = document.createElement('input');
-    Imageinput.setAttribute('type', 'file');
-    Imageinput.setAttribute(
-      'accept',
-      'image/png, image/gif, image/jpeg, image/bmp, image/x-icon'
+    toolbar.addHandler(
+      'image',
+      this.nodeService.imageHandler.bind(this.nodeService, quill)
     );
-    Imageinput.classList.add('ql-image');
-    if (Imageinput.files) {
-      Imageinput.addEventListener('change', () => {
-        const file = Imageinput.files[0];
-        if (file) {
-          let reader = new FileReader();
-          reader.onload = (e: any) => {
-            const data = e.target.result;
-            this.nodeService
-              .uploadImage(file.name, data, this.user.csrf_token)
-              .pipe(takeUntil(this.destroy$))
-              .subscribe((img) => {
-                const range = this.editor.getSelection(true);
-                this.editor.insertEmbed(range.index, 'image', img);
-              });
-          };
-          reader.readAsArrayBuffer(file);
-        }
-      });
-      Imageinput.click();
-    }
   }
 
   contentChanged(event: any): void {
