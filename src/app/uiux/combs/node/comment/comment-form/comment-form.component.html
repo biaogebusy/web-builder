@@ -3,9 +3,9 @@
   <a class="anchor" id="comment"></a>
   <app-title [content]="content.editor?.title"></app-title>
   <div class="editor">
-    <quill-editor [modules]="modules" [placeholder]="content.editor?.placeholder || placeholder"
-      *ngIf="screenService.isPlatformBrowser()" [(ngModel)]="commentContent"
-      [styles]="{height:content.editor?.height || '250px'}">
+    <quill-editor (onEditorCreated)="editorCreated($event)" [modules]="modules"
+      [placeholder]="content.editor?.placeholder || placeholder" *ngIf="screenService.isPlatformBrowser()"
+      [(ngModel)]="commentContent" [styles]="{height:content.editor?.height || '250px'}">
     </quill-editor>
   </div>
   <div class="actions p-y-sm p-x-sm">

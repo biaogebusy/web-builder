@@ -390,14 +390,18 @@ export class NodeService extends ApiService {
     }
   }
 
-  uploadImage(imageData: any, csrfToken: string): Observable<any> {
+  uploadImage(
+    fileName: string,
+    imageData: any,
+    csrfToken: string
+  ): Observable<any> {
     console.log(imageData);
     return this.http
       .post('/api/v1/media/image/field_media_image', imageData, {
         headers: new HttpHeaders({
           Accept: 'application/vnd.api+json',
           'Content-Type': 'application/octet-stream',
-          'Content-Disposition': 'file; filename="user.jpg"',
+          'Content-Disposition': `file; filename="${fileName}"`,
           'X-CSRF-Token': csrfToken,
         }),
         withCredentials: true,
