@@ -107,13 +107,6 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     this.builder.renderMarkers(isDebugAnimate);
   }
 
-  onDownload(): void {
-    const page = document.getElementById('builder-list');
-    if (page) {
-      this.canvasService.openDialog(page);
-    }
-  }
-
   onPreview(): void {
     if (!this.page || this.page.body.length === 0) {
       this.util.openSnackbar('预览页面没有组件，请添加再预览', 'ok');

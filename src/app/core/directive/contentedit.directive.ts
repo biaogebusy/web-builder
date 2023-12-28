@@ -63,7 +63,7 @@ export class ContenteditDirective implements AfterViewInit {
           mode: 'over',
           hasBackdrop: false,
           style: {
-            width: '260px',
+            width: '400px',
             'max-width': 'calc(100vw - 50px)',
           },
           elements: [
@@ -71,9 +71,9 @@ export class ContenteditDirective implements AfterViewInit {
               type: 'meta-edit',
               mode: 'text',
               path: this.generatePath(ele),
-              ele: event.target,
+              ele,
               data: {
-                innerText: ele.innerText,
+                innerHTML: ele.innerHTML,
                 tag: ele.tagName,
               },
             },

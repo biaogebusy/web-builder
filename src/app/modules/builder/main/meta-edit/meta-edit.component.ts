@@ -2,14 +2,19 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  Inject,
   Input,
   OnDestroy,
   OnInit,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { IUser } from '@core/interface/IUser';
+import { NodeService } from '@core/service/node.service';
 import { BuilderState } from '@core/state/BuilderState';
+import { USER } from '@core/token/token-providers';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { set } from 'lodash-es';
+import { QuillModule } from 'ngx-quill';
 import { Subject } from 'rxjs/internal/Subject';
 import { takeUntil } from 'rxjs/operators';
 
@@ -21,11 +26,56 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class MetaEditComponent implements OnInit, OnDestroy {
   @Input() content: any;
+  editor: any;
+  modules: QuillModule = {
+    toolbar: [
+      [
+        {
+          header: [1, 2, 3, 4, 5, 6, false],
+        },
+      ],
+      ['bold', 'italic', 'underline', 'strike'],
+      ['clean'],
+      [
+        {
+          background: [],
+        },
+        {
+          color: [],
+        },
+      ],
+      [
+        {
+          align: [],
+        },
+      ],
+      [
+        {
+          list: 'ordered',
+        },
+        {
+          list: 'bullet',
+        },
+      ],
+      [
+        {
+          indent: '-1',
+        },
+        {
+          indent: '+1',
+        },
+      ],
+      ['link', 'image'],
+      ['blockquote', 'code-block'],
+    ],
+  };
   destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     private dialog: MatDialog,
     private builder: BuilderState,
-    private cd: ChangeDetectorRef
+    private nodeService: NodeService,
+    private cd: ChangeDetectorRef,
+    @Inject(USER) private user: IUser
   ) {}
 
   ngOnInit(): void {
@@ -44,15 +94,6 @@ export class MetaEditComponent implements OnInit, OnDestroy {
       });
   }
 
-  onTextChange(value: any): void {
-    set(this.builder.currentPage.body, this.content.path, value);
-    this.content.ele.innerText = value;
-    setTimeout(() => {
-      this.builder.saveLocalVersions();
-    }, 600);
-    this.cd.detectChanges();
-  }
-
   openMedias(): void {
     this.dialog.open(DialogComponent, {
       width: '100%',
@@ -65,6 +106,23 @@ export class MetaEditComponent implements OnInit, OnDestroy {
         },
       },
     });
+  }
+
+  editorCreated(quill: any) {
+    const toolbar = quill.getModule('toolbar');
+    toolbar.addHandler(
+      'image',
+      this.nodeService.imageHandler.bind(this.nodeService, quill)
+    );
+  }
+
+  contentChanged(event: any): void {
+    set(this.builder.currentPage.body, this.content.path, event.html);
+    this.content.ele.innerHTML = event.html;
+    setTimeout(() => {
+      this.builder.saveLocalVersions();
+    }, 600);
+    this.cd.detectChanges();
   }
 
   ngOnDestroy(): void {

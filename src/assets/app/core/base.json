@@ -171,7 +171,8 @@
           }
         ],
         [
-          "link"
+          "link",
+          "image"
         ],
         [
           "blockquote",
@@ -300,7 +301,7 @@
       },
       {
         "element": ".mat-tab-labels",
-        "intro": "切换选项，查看组件、配置或者加载示例。"
+        "intro": "切换选项、预览组件、查看配置或者加载示例。"
       },
       {
         "element": ".mat-tab-body-wrapper",
@@ -316,11 +317,11 @@
       },
       {
         "element": ".switch-preview",
-        "intro": "切换不同设备媒体下页面响应式预览。"
+        "intro": "切换设备，查看响应式预览。"
       },
       {
         "element": "#toolbar-right",
-        "intro": "Builder界面主题、选择媒体、生成页面等主要操作功能。"
+        "intro": "切换界面风格、选择媒体、生成页面等主要操作功能。"
       },
       {
         "element": ".play-video",
