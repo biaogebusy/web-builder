@@ -4,4 +4,39 @@
       background-color: mat-color($primary, 0.2);
     }
   }
+  .text-section {
+    .dg.main {
+      background-color: mat-color($background, background);
+      @include mat-elevation(3, mat-color($background, focused-button), 0.5);
+      ul {
+        li {
+          &.folder {
+            .dg {
+              color: mat-color($foreground, text, 0.75);
+            }
+          }
+          &:not(.folder) {
+            border-bottom: 1px solid mat-color($foreground, divider);
+          }
+        }
+      }
+      .c {
+        .slider {
+          background: mat-color($foreground, slider-min);
+        }
+        .slider-fg {
+          background: mat-color($primary);
+        }
+      }
+      .cr {
+        &.number {
+          input {
+            &[type="text"] {
+              color: mat-color($primary);
+            }
+          }
+        }
+      }
+    }
+  }
 }
