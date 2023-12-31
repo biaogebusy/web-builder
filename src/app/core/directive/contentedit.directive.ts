@@ -63,7 +63,7 @@ export class ContenteditDirective implements AfterViewInit {
           mode: 'over',
           hasBackdrop: false,
           style: {
-            width: '400px',
+            width: '300px',
             'max-width': 'calc(100vw - 50px)',
           },
           elements: [

@@ -1,6 +1,6 @@
 <mat-drawer-container class="builder-list" *ngIf="currentPage$ | async as page">
   <mat-drawer class="sidebar-drawer" #drawer mode="side" [opened]="opened">
-    <app-preview-list [content]="page.body"></app-preview-list>
+    <app-preview-list></app-preview-list>
   </mat-drawer>
   <mat-drawer-content id="gsap-scroller" class="wrapper" [ngClass]="previewClass$|async">
     <div class="load" *ngIf="builder.loading$ | async">
