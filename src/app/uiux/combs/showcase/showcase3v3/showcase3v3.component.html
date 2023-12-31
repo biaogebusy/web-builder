@@ -30,7 +30,7 @@
         <div class="shortdesc" [innerHTML]="content.body |stripTags|trim|shorten:150:'...'">
         </div>
         <div class="m-top-sm" *ngIf="content.details">
-          <app-btn-animate [content]="content.details"></app-btn-animate>
+          <app-btn [content]="content.details"></app-btn>
         </div>
       </div>
     </div>

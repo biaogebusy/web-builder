@@ -53,8 +53,9 @@ const content: IShowcase3v3 = {
   details: {
     label: '查看更多',
     href: '#',
-    style: 'style-v1',
-    icon: 'open_in_new',
+    type: 'btn',
+    mode: 'raised',
+    color: 'primary',
   },
 };
 

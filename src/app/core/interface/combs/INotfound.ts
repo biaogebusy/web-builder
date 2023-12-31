@@ -5,5 +5,4 @@ import { ICombsBase } from './ICombsBase';
 export interface INotfound extends ICombsBase {
   img: IImg;
   title?: ITitle;
-  actions: any[];
 }

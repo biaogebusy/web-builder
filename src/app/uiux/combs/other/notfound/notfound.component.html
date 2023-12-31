@@ -5,8 +5,8 @@
     <app-text [attr.data-path]="'text'" fxFlex="100" [content]="content.text" *ngIf="content.text"></app-text>
     <div fxFlex="100" class="actions m-y-sm" *ngIf="content.actions" fxLayout="row" fxLayoutAlign="center center"
       fxLayoutGap="1rem">
-      <app-btn-animate [content]="item" [attr.data-path]="'actions.'+i"
-        *ngFor="let item of content.actions;index as i"></app-btn-animate>
+      <app-dynamic-component [attr.data-path]="'actions.'+i" [inputs]="item"
+        *ngFor="let item of content.actions;index as i"></app-dynamic-component>
     </div>
   </div>
 </div>

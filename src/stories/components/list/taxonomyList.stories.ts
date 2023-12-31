@@ -396,6 +396,6 @@ Default.args = {
 };
 
 Default.play = async () => {
-  const Btn = document.querySelectorAll('.btn-animate')[0];
+  const Btn = document.querySelectorAll('.mat-btn')[0];
   await userEvent.hover(Btn);
 };

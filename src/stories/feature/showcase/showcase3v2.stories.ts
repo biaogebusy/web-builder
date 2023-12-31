@@ -199,11 +199,11 @@ const list: IShowcase3v2 = {
         },
         actions: [
           {
-            type: 'btn-animate',
+            type: 'btn',
             label: '更多',
             href: '#',
-            style: 'style-v1',
-            icon: 'open_in_new',
+            mode: 'raised',
+            color: 'primary',
           },
         ],
       },
@@ -254,11 +254,11 @@ const list: IShowcase3v2 = {
         },
         actions: [
           {
-            type: 'btn-animate',
+            type: 'btn',
             label: '更多',
             href: '#',
-            style: 'style-v1',
-            icon: 'open_in_new',
+            mode: 'raised',
+            color: 'primary',
           },
         ],
       },
@@ -309,11 +309,11 @@ const list: IShowcase3v2 = {
         },
         actions: [
           {
-            type: 'btn-animate',
+            type: 'btn',
             label: '更多',
             href: '#',
-            style: 'style-v1',
-            icon: 'open_in_new',
+            mode: 'raised',
+            color: 'primary',
           },
         ],
       },
@@ -364,11 +364,11 @@ const list: IShowcase3v2 = {
         },
         actions: [
           {
-            type: 'btn-animate',
+            type: 'btn',
             label: '更多',
             href: '#',
-            style: 'style-v1',
-            icon: 'open_in_new',
+            mode: 'raised',
+            color: 'primary',
           },
         ],
       },
