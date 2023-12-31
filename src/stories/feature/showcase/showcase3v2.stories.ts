@@ -137,12 +137,13 @@ export const List = Template.bind({});
 List.storyName = '列表';
 const list: IShowcase3v2 = {
   type: 'showcase-3v2',
-  title: {
-    label: '音乐',
-    style: 'style-v1',
-    classes: 'mat-display-1 bold',
+  text: {
+    title: {
+      label: '音乐',
+      style: 'style-v1',
+      classes: 'mat-display-1 bold',
+    },
   },
-  subTitle: '音乐分类描述信息',
   bg: {
     classes: 'bg-fill-width',
     img: {
