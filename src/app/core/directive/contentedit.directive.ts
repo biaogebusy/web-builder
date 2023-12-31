@@ -32,7 +32,7 @@ export class ContenteditDirective implements AfterViewInit {
     }
   }
 
-  @HostListener('click', ['$event']) onClick(event: Event) {
+  @HostListener('click', ['$event']) onClick(event: Event): void {
     const ele = this.el.nativeElement;
     if (ele.closest('.component-item')) {
       if (ele.tagName === 'IMG') {
@@ -82,7 +82,6 @@ export class ContenteditDirective implements AfterViewInit {
       }
       event.preventDefault();
       event.stopPropagation();
-      return false;
     }
   }
 
