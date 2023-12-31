@@ -96,3 +96,23 @@ const v7: ITitle = {
 TitleV7.args = {
   content: v7,
 };
+
+export const TitleType = Template.bind({});
+TitleType.storyName = '打字效果';
+const type: ITitle = {
+  label: '欢迎使用 <strong class="text-primary"></strong> <br>快速构建页面',
+  style: 'style-v4',
+  classes: 'mat-display-3 bold',
+  typed: {
+    enable: true,
+    string: ['信使 UI', 'Web builder'],
+    config: {
+      typeSpeed: 120,
+      loop: true,
+    },
+  },
+};
+
+TitleType.args = {
+  content: type,
+};

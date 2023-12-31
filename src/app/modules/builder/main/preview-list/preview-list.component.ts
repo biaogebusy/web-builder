@@ -1,18 +1,15 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
-  Injector,
-  Input,
-  OnDestroy,
+  Inject,
   OnInit,
 } from '@angular/core';
+import { IPage } from '@core/interface/IAppConfig';
 import { ScreenService } from '@core/service/screen.service';
 import { BuilderState } from '@core/state/BuilderState';
-import { LocalStorageService } from 'ngx-webstorage';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { BUILDER_CURRENT_PAGE } from '@core/token/token-providers';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-preview-list',
@@ -20,25 +17,14 @@ import { takeUntil } from 'rxjs/operators';
   styleUrls: ['./preview-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PreviewListComponent implements OnInit, OnDestroy {
-  @Input() content: any;
-  destroy$: Subject<boolean> = new Subject<boolean>();
+export class PreviewListComponent implements OnInit {
   constructor(
     private builder: BuilderState,
     private screenService: ScreenService,
-    private injector: Injector,
-    private cd: ChangeDetectorRef
+    @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>
   ) {}
 
-  ngOnInit(): void {
-    const storage = this.injector.get(LocalStorageService);
-    storage
-      .observe(this.builder.pageKey)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(() => {
-        this.cd.detectChanges();
-      });
-  }
+  ngOnInit(): void {}
 
   drop(event: CdkDragDrop<string[]>): void {
     this.builder.onDrop(event);
@@ -50,12 +36,5 @@ export class PreviewListComponent implements OnInit, OnDestroy {
 
   onClickSidebar(i: number, item: any): void {
     this.screenService.scrollToAnchor(`item-${i}`);
-  }
-
-  ngOnDestroy(): void {
-    if (this.destroy$.next) {
-      this.destroy$.next(true);
-      this.destroy$.unsubscribe();
-    }
   }
 }

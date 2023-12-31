@@ -25,4 +25,59 @@
       opacity: 0.85;
     }
   }
+
+  .text-section {
+    ::ng-deep {
+      .dg.main {
+        width: 100% !important;
+        margin: 20px 0 0 0;
+        border-radius: 4px;
+        overflow: hidden;
+        .dg {
+          text-shadow: none;
+          font: inherit;
+          font-size: 14px;
+          .slider {
+            height: 20px;
+            margin-top: 0;
+            margin-left: 0;
+          }
+          .c {
+            input {
+              &[type="text"] {
+                margin-top: 0;
+                height: 20px;
+                box-sizing: border-box;
+              }
+            }
+          }
+        }
+        .close-button {
+          display: none;
+        }
+        li {
+          &:not(.folder) {
+            height: 40px;
+            line-height: 40px;
+            border-left: 0;
+            background: transparent;
+          }
+          &.folder {
+            border-left: 0;
+          }
+          &.title {
+            margin-left: 0;
+            padding-left: 5px;
+          }
+          &.cr {
+            > div {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            }
+          }
+        }
+      }
+    }
+  }
 }

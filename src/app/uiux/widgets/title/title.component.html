@@ -1,6 +1,6 @@
 <ng-container *ngIf="content">
   <div class="title" [ngClass]="content.style">
-    <h2 contentedit="label" class="title-header" [ngClass]="content.classes || 'mat-h2'"
+    <h2 #title contentedit="label" class="title-header" [ngClass]="content.classes || 'mat-h2'"
       [innerHTML]="content.label|safeHtml" [class.m-bottom-sm]="content.style === 'none'"></h2>
     <div class="line-style" [class.m-top-sm]="content.icon">
       <mat-icon *ngIf="content.icon && content.style">{{content.icon}}</mat-icon>

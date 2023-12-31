@@ -14,5 +14,6 @@
     <quill-editor (onEditorCreated)="editorCreated($event)" [modules]="modules" [ngModel]="content.data.innerHTML"
       (onContentChanged)="contentChanged($event)" [styles]="{height:'180px'}">
     </quill-editor>
+    <div #gui></div>
   </div>
 </div>
