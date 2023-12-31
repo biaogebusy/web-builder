@@ -41,14 +41,14 @@
           }
           input {
             &[type="text"] {
-              color: mat-color($foreground, text, 0.75);
+              color: #fff;
             }
           }
         }
         &.number {
           input {
             &[type="text"] {
-              color: mat-color($primary);
+              color: mat-color($foreground, text, 0.75);
               background: mat-color($primary, default-contrast);
             }
           }
