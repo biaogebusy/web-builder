@@ -72,7 +72,7 @@ export class MetaEditComponent implements OnInit, OnDestroy, AfterViewInit {
         },
       ],
       ['link', 'image'],
-      ['blockquote', 'code-block'],
+      ['blockquote'],
     ],
   };
   destroy$: Subject<boolean> = new Subject<boolean>();
@@ -123,6 +123,7 @@ export class MetaEditComponent implements OnInit, OnDestroy, AfterViewInit {
 
     const styleParams = {
       不透明度: parseFloat(guiSpan.style.opacity) || 1,
+      大小: parseFloat(guiSpan.style.fontSize) || 16,
       颜色: guiSpan.style.color || '#222',
       可见性: guiSpan.style.visibility || 'visible',
       旋转: 0,
@@ -135,6 +136,18 @@ export class MetaEditComponent implements OnInit, OnDestroy, AfterViewInit {
       (value: any) => {
         viewSpan.style.opacity = value;
         guiSpan.style.opacity = value;
+        set(
+          this.builder.currentPage.body,
+          this.content.path,
+          guiSpan.outerHTML
+        );
+        this.builder.saveLocalVersions();
+      }
+    );
+    this.StyleFolder.add(styleParams, '大小', 10, 60, 1).onChange(
+      (value: any) => {
+        viewSpan.style.fontSize = `${value}px`;
+        guiSpan.style.fontSize = `${value}px`;
         set(
           this.builder.currentPage.body,
           this.content.path,

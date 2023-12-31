@@ -14,6 +14,20 @@
     <quill-editor (onEditorCreated)="editorCreated($event)" [modules]="modules" [ngModel]="content.data.innerHTML"
       (onContentChanged)="contentChanged($event)" [styles]="{height:'180px'}">
     </quill-editor>
-    <div #gui></div>
+
+    <div class="gui-ui m-top-sm">
+      <mat-accordion>
+        <mat-expansion-panel [expanded]="true">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              样式
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-list>
+            <div #gui></div>
+          </mat-list>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
   </div>
 </div>
