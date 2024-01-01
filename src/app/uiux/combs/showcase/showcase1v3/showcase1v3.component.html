@@ -7,8 +7,8 @@
     <app-dynamic-component [attr.data-path]="'elements.'+i" *ngFor="let item of content.elements;index as i"
       [inputs]="item"></app-dynamic-component>
     <div class="m-top" fxLayoutAlign="center center" fxLayoutGap="1rem" *ngIf="content.actions">
-      <app-btn-animate [attr.data-path]="'actions'+i" [content]="btn"
-        *ngFor="let btn of content.actions;index as i"></app-btn-animate>
+      <app-dynamic-component [attr.data-path]="'actions.'+i" [inputs]="item"
+        *ngFor="let item of content.actions;index as i"></app-dynamic-component>
     </div>
   </div>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>

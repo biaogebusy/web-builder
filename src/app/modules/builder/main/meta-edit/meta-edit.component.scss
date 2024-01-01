@@ -26,11 +26,11 @@
     }
   }
 
-  .text-section {
+  .gui-ui {
     ::ng-deep {
       .dg.main {
         width: 100% !important;
-        margin: 20px 0 0 0;
+        margin: 0;
         border-radius: 4px;
         overflow: hidden;
         .dg {
@@ -38,16 +38,39 @@
           font: inherit;
           font-size: 14px;
           .slider {
-            height: 20px;
+            height: 8px;
             margin-top: 0;
             margin-left: 0;
+            border-radius: 8px;
+            order: -1;
+            flex: 0 0 auto;
           }
           .c {
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            .slider-fg {
+              border-radius: 8px;
+            }
+
             input {
               &[type="text"] {
                 margin-top: 0;
                 height: 20px;
                 box-sizing: border-box;
+                text-shadow: none !important;
+                font-weight: normal !important;
+                font-size: small;
+                text-align: center;
+                padding: 0 2px;
+                width: 48px;
+              }
+            }
+            > input {
+              &[type="text"] {
+                flex: 1 1 auto;
+                border-radius: 20px;
+                font-size: 12px;
               }
             }
           }

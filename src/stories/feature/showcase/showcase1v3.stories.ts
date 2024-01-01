@@ -66,17 +66,19 @@ const content: IShowcase1v3 = {
       actions: [
         {
           label: '了解更多',
-          type: 'btn-animate',
+          type: 'btn',
+          mode: 'raised',
           href: '#',
-          style: 'style-v1',
-          icon: 'verified_user',
+          color: 'primary',
         },
         {
           label: '回到官网',
-          type: 'btn-animate',
+          type: 'btn',
           href: '#',
-          style: 'style-v1',
-          icon: 'fingerprint',
+          icon: {
+            inline: true,
+            svg: 'home',
+          },
         },
       ],
     },

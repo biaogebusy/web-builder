@@ -2,6 +2,12 @@
   .mat-icon.mat-icon-inline {
     width: 24px;
   }
+  .mat-button-wrapper {
+    // fix web builder editor
+    p {
+      margin: 0;
+    }
+  }
 }
 
 ::ng-deep {

@@ -4,12 +4,13 @@
       background-color: mat-color($primary, 0.2);
     }
   }
-  .text-section {
+  .gui-ui {
     .dg.main {
-      background-color: mat-color($background, background);
-      @include mat-elevation(3, mat-color($background, focused-button), 0.5);
       ul {
         li {
+          .title {
+            display: none;
+          }
           &.folder {
             .dg {
               color: mat-color($foreground, text, 0.75);
@@ -17,22 +18,38 @@
           }
           &:not(.folder) {
             border-bottom: 1px solid mat-color($foreground, divider);
+            &:last-child {
+              border-bottom: 0;
+            }
           }
         }
       }
-      .c {
-        .slider {
-          background: mat-color($foreground, slider-min);
-        }
-        .slider-fg {
-          background: mat-color($primary);
-        }
-      }
       .cr {
+        .c {
+          .slider {
+            background: mat-color($foreground, slider-min, 0.4);
+          }
+          .slider-fg {
+            background: mat-color($foreground, slider-min, 0.6);
+          }
+          select {
+            border: 1px solid mat-color($foreground, divider);
+            color: mat-color($foreground, text, 0.75);
+            &:focus-visible {
+              border: 1px solid mat-color($primary);
+            }
+          }
+          input {
+            &[type="text"] {
+              color: #fff;
+            }
+          }
+        }
         &.number {
           input {
             &[type="text"] {
-              color: mat-color($primary);
+              color: mat-color($foreground, text, 0.75);
+              background: mat-color($primary, default-contrast);
             }
           }
         }

@@ -53,11 +53,11 @@ const content: ICard1v6 = {
       mode: 'raised',
     },
     {
-      type: 'btn-animate',
-      label: '立刻购买',
+      type: 'btn',
+      label: '立即购买',
       href: '#',
-      style: 'style-v1',
-      icon: 'open_in_new',
+      mode: 'raised',
+      color: 'primary',
     },
   ],
 };

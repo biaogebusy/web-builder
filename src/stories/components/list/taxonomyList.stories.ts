@@ -73,8 +73,8 @@ const content: ITaxonomyList = {
       details: {
         label: '查看更多',
         href: '/node/417',
-        style: 'style-v1',
-        icon: 'open_in_new',
+        mode: 'raised',
+        color: 'primary',
       },
     },
     {
@@ -106,8 +106,8 @@ const content: ITaxonomyList = {
       details: {
         label: '查看更多',
         href: '/node/415',
-        style: 'style-v1',
-        icon: 'open_in_new',
+        mode: 'raised',
+        color: 'primary',
       },
     },
     {
@@ -136,8 +136,8 @@ const content: ITaxonomyList = {
       details: {
         label: '查看更多',
         href: '/node/414',
-        style: 'style-v1',
-        icon: 'open_in_new',
+        mode: 'raised',
+        color: 'primary',
       },
     },
     {
@@ -169,8 +169,8 @@ const content: ITaxonomyList = {
       details: {
         label: '查看更多',
         href: '/node/387',
-        style: 'style-v1',
-        icon: 'open_in_new',
+        mode: 'raised',
+        color: 'primary',
       },
     },
     {
@@ -202,8 +202,8 @@ const content: ITaxonomyList = {
       details: {
         label: '查看更多',
         href: '/node/386',
-        style: 'style-v1',
-        icon: 'open_in_new',
+        mode: 'raised',
+        color: 'primary',
       },
     },
     {
@@ -232,8 +232,8 @@ const content: ITaxonomyList = {
       details: {
         label: '查看更多',
         href: '/node/385',
-        style: 'style-v1',
-        icon: 'open_in_new',
+        mode: 'raised',
+        color: 'primary',
       },
     },
     {
@@ -265,8 +265,8 @@ const content: ITaxonomyList = {
       details: {
         label: '查看更多',
         href: '/node/383',
-        style: 'style-v1',
-        icon: 'open_in_new',
+        mode: 'raised',
+        color: 'primary',
       },
     },
     {
@@ -299,8 +299,8 @@ const content: ITaxonomyList = {
       details: {
         label: '查看更多',
         href: '/node/382',
-        style: 'style-v1',
-        icon: 'open_in_new',
+        mode: 'raised',
+        color: 'primary',
       },
     },
     {
@@ -329,8 +329,8 @@ const content: ITaxonomyList = {
       details: {
         label: '查看更多',
         href: '/node/377',
-        style: 'style-v1',
-        icon: 'open_in_new',
+        mode: 'raised',
+        color: 'primary',
       },
     },
     {
@@ -362,8 +362,8 @@ const content: ITaxonomyList = {
       details: {
         label: '查看更多',
         href: '/node/376',
-        style: 'style-v1',
-        icon: 'open_in_new',
+        mode: 'raised',
+        color: 'primary',
       },
     },
   ],
@@ -396,6 +396,6 @@ Default.args = {
 };
 
 Default.play = async () => {
-  const Btn = document.querySelectorAll('.btn-animate')[0];
+  const Btn = document.querySelectorAll('.mat-btn')[0];
   await userEvent.hover(Btn);
 };
