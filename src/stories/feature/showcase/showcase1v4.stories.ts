@@ -95,11 +95,11 @@ const content: IShowcase1v4 = {
   ],
   actions: [
     {
-      type: 'btn-animate',
+      type: 'btn',
       label: '了解更多',
+      mode: 'raised',
+      color: 'primary',
       href: '#',
-      style: 'style-v1',
-      icon: 'open_in_new',
     },
   ],
 };
@@ -327,11 +327,11 @@ const dynamic: IShowcase1v4 = {
   ],
   actions: [
     {
-      type: 'btn-animate',
+      type: 'btn',
       label: '了解更多',
+      mode: 'raised',
+      color: 'primary',
       href: '#',
-      style: 'style-v1',
-      icon: 'open_in_new',
     },
   ],
 };

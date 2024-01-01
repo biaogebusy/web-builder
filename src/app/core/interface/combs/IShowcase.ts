@@ -1,7 +1,6 @@
 import { ICombsBase } from './ICombsBase';
 import { IFeatureBox } from '../widgets/IFeatureBox';
 import { ILink } from '../widgets/ILink';
-import { IBtnAnimate } from '../widgets/IBtnAnimate';
 import { IText } from '../widgets/IText';
 import { IMediaObject } from '../widgets/IMediaObject';
 import { ITitle } from '../widgets/ITitle';
@@ -11,6 +10,7 @@ import { ICard } from '../widgets/ICard';
 import { IBox } from '../widgets/IBox';
 import { IBg } from '../widgets/IBg';
 import { IBgImg } from '../widgets/IBgImg';
+import { IBtn } from '../widgets/IBtn';
 
 export interface IShowcase1v1 extends ICombsBase {
   title?: ITitle;
@@ -94,7 +94,7 @@ export interface IShowcase3v3 extends ICombsBase {
   commentCount?: string;
   category: string;
   body: string;
-  details: IBtnAnimate;
+  details: IBtn;
 }
 
 export interface IShowcase3v4 extends ICombsBase {

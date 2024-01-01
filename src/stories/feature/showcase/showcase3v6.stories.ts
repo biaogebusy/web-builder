@@ -275,8 +275,9 @@ const link: IShowcase3v6 = {
   action: {
     label: '查看更多',
     href: '#',
-    style: 'style-v1',
-    icon: 'open_in_new',
+    type: 'btn',
+    mode: 'raised',
+    color: 'primary',
   },
 };
 WithLink.args = {

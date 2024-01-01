@@ -11,9 +11,36 @@
     <app-btn class="action" (click)="openMedias()" [content]="{label:'更新图片',color:'primary',mode:'raised'}"></app-btn>
   </div>
   <div class="text-section" *ngIf="content.mode === 'text'">
-    <quill-editor (onEditorCreated)="editorCreated($event)" [modules]="modules" [ngModel]="content.data.innerHTML"
-      (onContentChanged)="contentChanged($event)" [styles]="{height:'180px'}">
+    <quill-editor #quill (onEditorCreated)="editorCreated($event)" [modules]="modules"
+      [ngModel]="content.data.innerHTML" (onContentChanged)="contentChanged($event)" [styles]="{height:'180px'}">
     </quill-editor>
-    <div #gui></div>
+
+    <div class="gui-ui m-top-sm">
+      <mat-accordion>
+        <mat-expansion-panel [expanded]="true">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              样式
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-list>
+            <div #guiStyle></div>
+          </mat-list>
+        </mat-expansion-panel>
+        <mat-expansion-panel [expanded]="false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              尺寸
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-list>
+            <div #guiSize></div>
+          </mat-list>
+        </mat-expansion-panel>
+      </mat-accordion>
+      <div class="actions m-y-md" fxLayoutAlign="center center">
+        <app-btn (click)="onClear()" [content]="{label:'清空',color:'primary',icon:{svg:'format-clear'}}"></app-btn>
+      </div>
+    </div>
   </div>
 </div>

@@ -54,7 +54,6 @@ import { ChipListComponent } from './chip-list/chip-list.component';
 import { LineYearComponent } from './line-year/line-year.component';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { PaginationComponent } from './pagination/pagination.component';
-import { BtnAnimateComponent } from './btn-animate/btn-animate.component';
 import { FeatureBoxComponent } from './feature-box/feature-box.component';
 import { TestimonialComponent } from './testimonial/testimonial.component';
 import { ProgressBarComponent } from './progress-bar/progress-bar.component';
@@ -162,7 +161,6 @@ const components = [
   TextareaComponent,
   LineYearComponent,
   ContentBoxComponent,
-  BtnAnimateComponent,
   FeatureBoxComponent,
   BreadcrumbComponent,
   SwitchThemeComponent,

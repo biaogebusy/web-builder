@@ -48,7 +48,6 @@ export class ComponentService {
       'accordion',
       'user-card',
       'btn-video',
-      'btn-animate',
       'view-list',
       'text-hero',
       'menu-list',
