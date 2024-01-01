@@ -109,7 +109,16 @@ export class MetaEditComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     const guiSpan = div.querySelector('span');
-    this.viewSpan = this.content.ele.querySelector('span') || this.content.ele;
+    if (this.content.ele.querySelector('span')) {
+      this.viewSpan = this.content.ele.querySelector('span');
+    } else {
+      const text = this.content.ele.innerHTML;
+      const span = document.createElement('span');
+      span.innerHTML = text;
+      span.style.display = 'inline-block';
+      this.content.ele.innerHTML = span.outerHTML;
+      this.viewSpan = this.content.ele.querySelector('span');
+    }
     if (!guiSpan) {
       return;
     }
@@ -209,12 +218,13 @@ export class MetaEditComponent implements OnInit, OnDestroy, AfterViewInit {
 
   onClear(): void {
     const span = this.viewSpan.outerHTML;
-    var spanContent = span.match(/<span[^>]*>([\s\S]+)<\/span>/i);
-    if (spanContent) {
-      this.viewSpan.removeAttribute('style');
-      set(this.builder.currentPage.body, this.content.path, spanContent[1]);
-      this.builder.saveLocalVersions();
-    }
+    this.viewSpan.removeAttribute('style');
+    set(
+      this.builder.currentPage.body,
+      this.content.path,
+      this.viewSpan.outerHTML
+    );
+    this.builder.saveLocalVersions();
     this.cd.detectChanges();
   }
 
