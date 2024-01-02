@@ -7,7 +7,7 @@
       [cdkDropListData]="content.elements" (cdkDropListDropped)="drop($event)" fxLayout="row wrap"
       fxLayoutAlign="center center">
       <div class="layout" cdkDrag [cdkDragData]="layout" fxFlex.lt-md="100%"
-        fxFlex.gt-sm="calc(100% / {{12 / content.row}})" [ngClass]="layout.classes"
+        fxFlex.gt-sm="calc(100% / {{12 / layout.row}})" [ngClass]="layout.classes"
         *ngFor="let layout of content.elements;index as i">
         <div class="block">
           <app-dynamic-component [attr.data-path]="i" class="p-x-sm width-100"
