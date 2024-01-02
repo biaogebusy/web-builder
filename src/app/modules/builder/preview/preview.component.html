@@ -1,2 +1,4 @@
-<app-dynamic-component *ngFor="let item of page.body;index as i; trackBy: trackByFn" [inputs]="item"
-  [index]="i"></app-dynamic-component>
+<ng-container *ngIf="currentPage$ | async as page">
+  <app-dynamic-component *ngFor="let item of page.body;index as i; trackBy: trackByFn" [inputs]="item"
+    [index]="i"></app-dynamic-component>
+</ng-container>

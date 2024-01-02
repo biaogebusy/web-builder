@@ -58,6 +58,24 @@ export function builderFullScreenFactory(
   return isFull$;
 }
 
+export function builderCurrentPageFactory(
+  storage: LocalStorageService
+): Observable<IPage | object | boolean> {
+  const versionKey = 'version';
+  const currentPage$ = new BehaviorSubject<IPage | object | boolean>(false);
+  const localVersion = storage.retrieve(versionKey);
+  const currentPage = localVersion.find((page: IPage) => page.current === true);
+  currentPage$.next(currentPage);
+
+  storage.observe(versionKey).subscribe((version: IPage[]) => {
+    const currentPage =
+      version.find((page: IPage) => page.current === true) || version[0];
+    currentPage$.next(currentPage);
+  });
+
+  return currentPage$;
+}
+
 export function enableBuilderToolbarFactory(
   router: Router
 ): Observable<boolean> {

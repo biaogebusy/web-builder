@@ -171,7 +171,8 @@
           }
         ],
         [
-          "link"
+          "link",
+          "image"
         ],
         [
           "blockquote",
@@ -300,11 +301,15 @@
       },
       {
         "element": ".mat-tab-labels",
-        "intro": "切换选项，查看组件、配置或者加载示例。"
+        "intro": "切换选项、预览组件、查看配置或者加载示例。"
       },
       {
         "element": ".mat-tab-body-wrapper",
-        "intro": "鼠标经过可预览组件，点击可固定预览，方便查看预览组件的JSON。"
+        "intro": "鼠标经过可预览组件，点击可固定预览，方便查看预览组件的JSON，快捷键s可收起边栏。"
+      },
+      {
+        "element": ".builder-version",
+        "intro": "清空、提交、加载示例等覆盖当前页面的操作会生成历史版本。"
       },
       {
         "element": ".preview-content",
@@ -312,11 +317,11 @@
       },
       {
         "element": ".switch-preview",
-        "intro": "切换不同设备媒体下页面响应式预览。"
+        "intro": "切换设备，查看响应式预览。"
       },
       {
         "element": "#toolbar-right",
-        "intro": "Builder界面主题、选择媒体、生成页面等主要操作功能。"
+        "intro": "切换界面风格、选择媒体、生成页面等主要操作功能。"
       },
       {
         "element": ".play-video",
@@ -670,7 +675,7 @@
             "type": "text",
             "spacer": "sm",
             "title": {
-              "label": "试试从边栏<strong class=\"text-primary\">拖动</strong>组件到这里开始创作吧",
+              "label": "欢迎使用 <strong class=\"text-primary\">Web builder </strong> <br>快速构建页面",
               "style": "style-v4",
               "classes": "mat-display-3 bold"
             },
@@ -699,52 +704,6 @@
                 "content": {
                   "type": "github-star"
                 }
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "type": "video-bg",
-        "source": {
-          "src": "/assets/video/start-video.webm",
-          "type": "video/mp4"
-        },
-        "bg": {
-          "classes": "bg-fill-width overlay overlay-80"
-        },
-        "classes": "",
-        "elements": [
-          {
-            "type": "spacer"
-          },
-          {
-            "type": "showcase-1v3",
-            "title": {
-              "label": "快速了解 web builder 的使用",
-              "style": "style-v1",
-              "classes": "mat-display-1"
-            },
-            "classes": "text-light",
-            "elements": [
-              {
-                "type": "text",
-                "spacer": "none",
-                "style": {
-                  "margin": "0 auto",
-                  "text-align": "center",
-                  "width": "600px"
-                },
-                "body": "在边栏，鼠标移到组件名称会显示组件预览，点击可固定预览，对预览的组件可复制或者查看JSON，再点击可取消固定，编辑区目前只支持上下排列，动态Layout后续看时间和精力开发，敬请期待！",
-                "actionsAlign": "center center",
-                "actions": [
-                  {
-                    "type": "btn-generater",
-                    "label": "体验生成页面",
-                    "color": "primary",
-                    "mode": "raised"
-                  }
-                ]
               }
             ]
           }

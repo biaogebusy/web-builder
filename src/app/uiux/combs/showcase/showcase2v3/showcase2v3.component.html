@@ -1,19 +1,19 @@
 <div class="showcase-2v3 position-relative" *ngIf="content">
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
-  <app-bg-img [content]="content.bg"></app-bg-img>
+  <app-bg-img [attr.data-path]="'bg'" [content]="content.bg"></app-bg-img>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
-  <app-text [content]="content.text" *ngIf="content.text"></app-text>
+  <app-text [attr.data-path]="'text'" [content]="content.text" *ngIf="content.text"></app-text>
   <div class="container">
     <div class="inner" fxLayout="row wrap" fxFlex="100" fxLayoutAlign="space-between start">
       <div class="item p-x-xs m-bottom-sm" fxFlex.xs="100" fxFlex.gt-xs="0 0 calc(100% / {{content.row}} - 2rem)"
-        *ngFor="let item of content.elements" fxLayoutAlign="space-between center">
-        <div fxLayout="column" fxFlex="0 1 130px">
-          <h2 class="bold" [innerHTML]="item.title|safeHtml"></h2>
-          <p [innerHTML]="item.subTitle|safeHtml"></p>
-          <a mat-raised-button color="{{item.link.color}}" [href]="item.link.href"
+        *ngFor="let item of content.elements;index as i" fxLayoutAlign="space-between center">
+        <div fxLayout="column" fxFlex="0 1 130px" [attr.data-path]="'elements.'+i">
+          <h2 [contentedit]="'title'" class="bold" [innerHTML]="item.title|safeHtml"></h2>
+          <p [contentedit]="'subTitle'" [innerHTML]="item.subTitle|safeHtml"></p>
+          <a [contentedit]="'link.label'" mat-raised-button color="{{item.link.color}}" [href]="item.link.href"
             target="_blank">{{item.link.label}}</a>
         </div>
-        <app-img class="p-left" [content]="item.img"></app-img>
+        <app-img [attr.data-path]="'elements.'+i+'.img'" class="p-left" [content]="item.img"></app-img>
       </div>
     </div>
   </div>

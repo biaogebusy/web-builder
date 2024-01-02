@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Showcase3v8Component } from './showcase3v8.component';
+import { BuilderVersionComponent } from './builder-version.component';
 
-describe('Showcase3v8Component', () => {
-  let component: Showcase3v8Component;
-  let fixture: ComponentFixture<Showcase3v8Component>;
+describe('BuilderVersionComponent', () => {
+  let component: BuilderVersionComponent;
+  let fixture: ComponentFixture<BuilderVersionComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ Showcase3v8Component ]
+      declarations: [ BuilderVersionComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(Showcase3v8Component);
+    fixture = TestBed.createComponent(BuilderVersionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

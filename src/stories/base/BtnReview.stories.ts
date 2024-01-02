@@ -425,13 +425,6 @@ const content = of({
           ...btnVideo,
           color: 'primary',
         },
-        {
-          type: 'btn-animate',
-          label: '查看更多',
-          href: '#',
-          style: 'style-v1',
-          icon: 'open_in_new',
-        },
       ],
     },
   ],

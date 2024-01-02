@@ -22,6 +22,8 @@ export class BuilderSampleComponent implements OnInit {
 
   onSample(page: IPage): void {
     this.util.openSnackbar(`正在载入${page.title} 示例...`, 'ok');
-    this.builder.initPage(page);
+    this.builder.version.forEach((version) => (version.current = false));
+    this.builder.version.unshift({ ...page, current: true, time: new Date() });
+    this.builder.saveLocalVersions();
   }
 }

@@ -404,11 +404,11 @@
                 "mode": "raised"
               },
               {
-                "type": "btn-animate",
-                "label": "立刻购买",
+                "type": "btn",
+                "label": "立即购买",
                 "href": "#",
-                "style": "style-v1",
-                "icon": "open_in_new"
+                "mode": "raised",
+                "color": "primary"
               }
             ]
           }
@@ -525,7 +525,7 @@
                   "src": "../assets/images/showcase/blog1-large.jpeg",
                   "alt": ""
                 },
-                "changed": "2023-11-28"
+                "changed": "2023-12-31"
               },
               {
                 "link": {
@@ -536,29 +536,29 @@
                   "src": "../assets/images/showcase/blog2-large.jpeg",
                   "alt": ""
                 },
-                "changed": "2023-11-28"
+                "changed": "2023-12-31"
               },
               {
                 "link": {
                   "label": "你应该了解的 Angular 最佳实践",
-                  "href": "2023-11-28"
+                  "href": "2023-12-31"
                 },
                 "img": {
                   "src": "../assets/images/showcase/blog3-large.jpeg",
                   "alt": ""
                 },
-                "changed": "2023-11-28"
+                "changed": "2023-12-31"
               },
               {
                 "link": {
                   "label": "Angular 5 rxjs 5.5.2 多个 http 并行 forkJoin 请求",
-                  "href": "2023-11-28"
+                  "href": "2023-12-31"
                 },
                 "img": {
                   "src": "../assets/images/showcase/blog4-large.jpeg",
                   "alt": ""
                 },
-                "changed": "2023-11-28"
+                "changed": "2023-12-31"
               }
             ]
           }
@@ -578,7 +578,7 @@
               "href": "#",
               "label": "更多"
             },
-            "date": "2023-11-28",
+            "date": "2023-12-31",
             "body": "Storybook是一个用于开发和展示UI组件的工具。它提供了一个独立的环境，开发人员可以在其中构建、测试和文档化单个UI组件，而无需依赖于整个应用程序的上下文。Storybook是一个用于开发和展示UI组件的工具。它提供了一个独立的环境，开发人员可以在其中构建、测试和文档化单个UI组件，而无需依赖于整个应用程序的上下文。..."
           }
         },
@@ -597,7 +597,7 @@
               },
               "alt": "logo"
             },
-            "meta": "2023-11",
+            "meta": "2023-12",
             "title": "前端开发工程师",
             "subTitle": "Davyin",
             "content": "专注于 Drupal 前端主题开发，目前主要从事于 Angular 前端开发，终身学习体验者，热衷于健身，希望明天比今天好一点。"
@@ -622,7 +622,7 @@
                   },
                   "alt": "logo"
                 },
-                "meta": "2023-11",
+                "meta": "2023-12",
                 "title": "前端开发工程师",
                 "subTitle": "Davyin",
                 "content": "专注于 Drupal 前端主题开发，目前主要从事于 Angular 前端开发，终身学习体验者，热衷于健身，希望明天比今天好一点。"
@@ -636,7 +636,7 @@
                   },
                   "alt": "logo"
                 },
-                "meta": "2023-11",
+                "meta": "2023-12",
                 "title": "前端架构师",
                 "subTitle": "阿里蚂蚁",
                 "content": "深入产品和行业场景，深入行业技术，分析影响稳定性和质量的潜在异常节点，把握蚂蚁金服强大的监控能力，设计和制定监控方案。"

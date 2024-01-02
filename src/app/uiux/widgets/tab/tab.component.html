@@ -2,32 +2,35 @@
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
   <app-spacer [size]="content.spacer || 'md'"></app-spacer>
   <div class="{{content.fullWidth?'':'container'}}">
-    <app-text *ngIf="content.text" [content]="content.text"></app-text>
+    <app-text [attr.data-path]="'text'" *ngIf="content.text" [content]="content.text"></app-text>
     <ng-container [ngSwitch]="content.align">
-      <mat-tab-group [selectedIndex]="selectedIndex" *ngSwitchCase="'center'" mat-align-tabs="center"
-        [ngClass]="content.classes">
-        <mat-tab *ngFor="let item of content.elements" label="{{item.label}}">
-          <div class="{{content.fullWidth?'p-y-sm':'p-y-sm p-x-sm'}}">
+      <mat-tab-group [attr.data-path]="'elements'" [selectedIndex]="selectedIndex" *ngSwitchCase="'center'"
+        mat-align-tabs="center" [ngClass]="content.classes">
+        <mat-tab *ngFor="let item of content.elements;index as i" label="{{item.label}}">
+          <div [attr.data-path]="i" class="{{content.fullWidth?'p-y-sm':'p-y-sm p-x-sm'}}">
             <app-bg-img *ngIf="content.bg" [content]="content.bg"></app-bg-img>
-            <app-dynamic-component *ngFor="let item of item.elements" [inputs]="{content:item}"></app-dynamic-component>
+            <app-dynamic-component [attr.data-path]="'elements.'+i" *ngFor="let item of item.elements;index as i"
+              [inputs]="{content:item}"></app-dynamic-component>
           </div>
         </mat-tab>
       </mat-tab-group>
-      <mat-tab-group [selectedIndex]="selectedIndex" *ngSwitchCase="'end'" mat-align-tabs="end"
-        [ngClass]="content.classes">
-        <mat-tab *ngFor="let item of content.elements" label="{{item.label}}">
-          <div class="{{content.fullWidth?'p-y-sm':'p-y-sm p-x-sm'}}">
+      <mat-tab-group [attr.data-path]="'elements'" [selectedIndex]="selectedIndex" *ngSwitchCase="'end'"
+        mat-align-tabs="end" [ngClass]="content.classes">
+        <mat-tab *ngFor="let item of content.elements;index as i" label="{{item.label}}">
+          <div [attr.data-path]="i" class="{{content.fullWidth?'p-y-sm':'p-y-sm p-x-sm'}}">
             <app-bg-img *ngIf="content.bg" [content]="content.bg"></app-bg-img>
-            <app-dynamic-component *ngFor="let item of item.elements" [inputs]="{content:item}"></app-dynamic-component>
+            <app-dynamic-component [attr.data-path]="'elements.'+i" *ngFor="let item of item.elements;index as i"
+              [inputs]="{content:item}"></app-dynamic-component>
           </div>
         </mat-tab>
       </mat-tab-group>
-      <mat-tab-group [selectedIndex]="selectedIndex" *ngSwitchDefault mat-align-tabs="start"
-        [ngClass]="content.classes">
-        <mat-tab *ngFor="let item of content.elements" label="{{item.label}}">
-          <div class="{{content.fullWidth?'p-y-sm':'p-y-sm p-x-sm'}}">
+      <mat-tab-group [attr.data-path]="'elements'" [selectedIndex]="selectedIndex" *ngSwitchDefault
+        mat-align-tabs="start" [ngClass]="content.classes">
+        <mat-tab *ngFor="let item of content.elements;index as i" label="{{item.label}}">
+          <div [attr.data-path]="i" class="{{content.fullWidth?'p-y-sm':'p-y-sm p-x-sm'}}">
             <app-bg-img *ngIf="content.bg" [content]="content.bg"></app-bg-img>
-            <app-dynamic-component *ngFor="let item of item.elements" [inputs]="{content:item}"></app-dynamic-component>
+            <app-dynamic-component [attr.data-path]="'elements.'+i" *ngFor="let item of item.elements;index as i"
+              [inputs]="{content:item}"></app-dynamic-component>
           </div>
         </mat-tab>
       </mat-tab-group>

@@ -3,16 +3,16 @@
     <app-icon [content]="content.icon"></app-icon>
   </div>
   <div *ngIf="content.img" class="box-image">
-    <app-img [content]="content.img"></app-img>
+    <app-img [attr.data-path]="'img'" [content]="content.img"></app-img>
   </div>
   <div class="box-content-wrapper">
     <h3 class="box-title one-line" *ngIf="content.title.label">
-      <app-link [content]="content.title"></app-link>
+      <app-link [attr.data-path]="'title'" [content]="content.title"></app-link>
     </h3>
-    <div *ngIf="content.content" class="box-content" [innerHTML]="content.content | safeHtml">
+    <div *ngIf="content.content" contentedit="content" class="box-content" [innerHTML]="content.content | safeHtml">
     </div>
     <div class="read-more" *ngIf="content.more">
-      <a href="{{content.more.href}}"
+      <a contentedit="more.label" href="{{content.more.href}}"
         target="${{content.more.target||'_blank'}}"><span>{{content.more.label}}</span></a>
     </div>
   </div>

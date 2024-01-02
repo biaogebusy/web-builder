@@ -81,13 +81,6 @@ const action: IText = {
       type: 'closeDialog',
       label: 'Ok',
     },
-    {
-      type: 'btn-animate',
-      label: '了解更多',
-      href: '#',
-      style: 'style-v1',
-      icon: 'open_in_new',
-    },
   ],
 };
 Actions.args = {
@@ -266,14 +259,14 @@ const list: IText = {
       },
     ],
   },
-  actionsAlign: 'start center',
+  actionsAlign: 'center center',
   actions: [
     {
-      type: 'btn-animate',
-      label: '了解更多',
-      href: '#',
-      style: 'style-v1',
-      icon: 'open_in_new',
+      type: 'btn',
+      mode: 'raised',
+      color: 'primary',
+      href: '/builder',
+      label: '开始体验',
     },
   ],
 };

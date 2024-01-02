@@ -27,23 +27,28 @@ export class BuilderState {
   public fullScreen$ = new Subject<boolean>();
   public debugeAnimate$ = new Subject<boolean>();
   public builderContentDrawer$ = new Subject<boolean>();
+  public metaEditImaPath$ = new Subject<object>();
   public switchPreivew$ = new Subject<
     'xs' | 'sm' | 'md' | 'lg' | 'xs-md' | 'none'
   >();
   public builderThemeMode = new BehaviorSubject<'light' | 'dark'>('light');
   public loading$ = new BehaviorSubject<boolean>(true);
-  public dynamicContent$ = new Subject<IBuilderDynamicContent>();
+  public rightDrawerContent$ = new Subject<IBuilderDynamicContent>();
   public jsoneditorContent$ = new Subject<{
     content: IPage;
     index: number;
     uuid: string;
   }>();
-  public page: IPage = {
+
+  private page: IPage = {
     title: '着陆页',
     body: [],
   };
 
+  public version: IPage[] = [];
+
   pageKey = 'page';
+  versionKey = 'version';
 
   constructor(
     private storage: LocalStorageService,
@@ -51,14 +56,12 @@ export class BuilderState {
     private sreenService: ScreenService,
     @Inject(DOCUMENT) private doc: Document
   ) {
-    const localPage = this.storage.retrieve(this.pageKey);
-    if (localPage) {
-      setTimeout(() => {
-        this.page = localPage;
-        this.loading$.next(false);
-      }, 600);
+    const localVersion = this.storage.retrieve(this.versionKey);
+    if (localVersion) {
+      this.version = localVersion;
+      this.loading$.next(false);
     } else {
-      this.initPage(this.page);
+      this.initPage([{ ...this.page, current: true, time: new Date() }]);
     }
   }
 
@@ -78,20 +81,36 @@ export class BuilderState {
     this.fixedChange$.next(true);
   }
 
-  initPage(page: IPage): void {
+  updateVersion(page: IPage): void {
+    this.version.unshift(page);
+    this.saveLocalVersions();
+  }
+
+  saveLocalVersions(): void {
+    this.storage.store(this.versionKey, Object.assign([], this.version));
+  }
+
+  initPage(version: IPage[]): void {
     this.loading$.next(true);
-    this.page = page;
+    this.version = version;
     this.updatePage();
+  }
+
+  showVersionPage(page: IPage, index: number): void {
+    this.loading$.next(true);
+    setTimeout(() => {
+      // reset current
+      this.version.forEach((item) => (item.current = false));
+      this.version[index].current = true;
+
+      this.storage.store(this.versionKey, Object.assign([], this.version));
+      this.loading$.next(false);
+    }, 600);
   }
 
   updatePage(index: number = 0): void {
     setTimeout(() => {
-      this.storage.store(
-        this.pageKey,
-        Object.assign({}, this.page, {
-          time: new Date(),
-        })
-      );
+      this.storage.store(this.versionKey, Object.assign([], this.version));
 
       if (index) {
         this.sreenService.scrollToAnchor(`item-${index}`);
@@ -100,8 +119,15 @@ export class BuilderState {
     }, 600);
   }
 
+  get currentPage(): IPage {
+    const currentIndex = this.version.findIndex(
+      (page) => page.current === true
+    );
+    return this.version[currentIndex] || this.version[0];
+  }
+
   upDownComponent(index: number, direction: string) {
-    const { body } = this.page;
+    const { body } = this.currentPage;
     if (direction === 'up') {
       [body[index - 1], body[index]] = [body[index], body[index - 1]];
     }
@@ -109,25 +135,30 @@ export class BuilderState {
     if (direction === 'down' && index < body.length - 1) {
       [body[index], body[index + 1]] = [body[index + 1], body[index]];
     }
+
+    this.saveLocalVersions();
   }
 
   pushComponent(content: any): void {
+    const { body } = this.currentPage;
     if (content && content.type) {
-      this.page.body.push(content);
+      body.push(content);
       this.builderContent$.next(this.page);
-      this.updatePage();
+      this.saveLocalVersions();
     } else {
       this.util.openSnackbar('组件添加错误', 'ok');
     }
   }
 
   deleteComponent(index: number): void {
-    this.page.body.splice(index, 1);
+    const { body } = this.currentPage;
+    body.splice(index, 1);
     this.updatePage();
   }
 
   updateComponent(index: number, content: any): void {
-    this.page.body[index] = content;
+    const { body } = this.currentPage;
+    body[index] = content;
     this.updatePage();
   }
 
@@ -142,22 +173,24 @@ export class BuilderState {
   }
 
   dropComponent(event: CdkDragDrop<string[]>): void {
-    moveItemInArray(this.page.body, event.previousIndex, event.currentIndex);
+    const { body } = this.currentPage;
+    moveItemInArray(body, event.previousIndex, event.currentIndex);
     this.updatePage(event.currentIndex);
   }
 
   // 边栏拖动添加组件
   transferComponet(event: CdkDragDrop<string[]>): void {
+    const { body } = this.currentPage;
     // base 和 component的数据结构不同，需要做判断
     const component = event.item.data.type
       ? event.item.data
       : event.item.data.content;
-    this.page.body.splice(event.currentIndex, 0, component);
+    body.splice(event.currentIndex, 0, component);
     this.updatePage(event.currentIndex);
   }
 
   showEditor(content: any, index: number): void {
-    this.dynamicContent$.next({
+    this.rightDrawerContent$.next({
       mode: 'over',
       hasBackdrop: false,
       style: {

@@ -36,10 +36,12 @@ export const Default = Template.bind({});
 Default.storyName = '默认';
 const content: IShowcase1v3 = {
   type: 'showcase-1v3',
-  title: {
-    label: 'Storybook 是什么？',
-    style: 'style-v1',
-    classes: 'mat-display-1',
+  text: {
+    title: {
+      label: 'Storybook 是什么？',
+      style: 'style-v1',
+      classes: 'mat-display-1',
+    },
   },
   classes: 'text-light',
   bg: {
@@ -64,17 +66,19 @@ const content: IShowcase1v3 = {
       actions: [
         {
           label: '了解更多',
-          type: 'btn-animate',
+          type: 'btn',
+          mode: 'raised',
           href: '#',
-          style: 'style-v1',
-          icon: 'verified_user',
+          color: 'primary',
         },
         {
           label: '回到官网',
-          type: 'btn-animate',
+          type: 'btn',
           href: '#',
-          style: 'style-v1',
-          icon: 'fingerprint',
+          icon: {
+            inline: true,
+            svg: 'home',
+          },
         },
       ],
     },
@@ -90,9 +94,11 @@ const contact: any = ContactUs.Default.args;
 const contactContent: IShowcase1v3 = {
   id: 'form',
   type: 'showcase-1v3',
-  title: {
-    label: '联系我们',
-    style: 'style-v1',
+  text: {
+    title: {
+      label: '联系我们',
+      style: 'style-v1',
+    },
   },
   classes: '',
   bg: {
@@ -122,10 +128,12 @@ export const Video = Template.bind({});
 Video.storyName = '视频';
 const video: IShowcase1v3 = {
   type: 'showcase-1v3',
-  title: {
-    label: 'Storybook 是什么？',
-    style: 'style-v1',
-    classes: 'mat-display-1',
+  text: {
+    title: {
+      label: 'Storybook 是什么？',
+      style: 'style-v1',
+      classes: 'mat-display-1',
+    },
   },
   classes: 'text-light',
   bg: {

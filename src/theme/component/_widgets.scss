@@ -212,16 +212,14 @@
     }
   }
 
-  .editor {
+  quill-editor {
     background-color: mat-color($background, background);
-    quill-editor {
-      .ql-toolbar,
-      .ql-container {
-        border-color: mat-color($foreground, divider);
-      }
-      .ql-container {
-        background-color: mat-color($background, card);
-      }
+    .ql-toolbar,
+    .ql-container {
+      border-color: mat-color($foreground, divider);
+    }
+    .ql-container {
+      background-color: mat-color($background, card);
     }
   }
 

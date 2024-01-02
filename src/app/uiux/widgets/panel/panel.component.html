@@ -1,27 +1,29 @@
 <div class="panel" *ngIf="content">
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
-  <app-bg-img [content]="content.bg"></app-bg-img>
+  <app-bg-img [attr.data-path]="'bg'" [content]="content.bg"></app-bg-img>
   <div class="container">
-    <app-text *ngIf="content.text" [content]="content.text"></app-text>
+    <app-text [attr.data-path]="'text'" *ngIf="content.text" [content]="content.text"></app-text>
     <div class="actions m-y-xs" fxLayout="row" fxLayoutAlign="end center" *ngIf="content?.params?.enableActions">
       <button mat-button *ngIf="!isAll"
         (click)="accordion.openAll(); isAll =!isAll">{{content.params?.actions?.openAll||'全部展开'}}</button>
       <button mat-button *ngIf="isAll"
         (click)="accordion.closeAll(); isAll =!isAll">{{content.params?.actions?.closeAll||'全部收起'}}</button>
     </div>
-    <mat-accordion multi>
-      <mat-expansion-panel [expanded]="item?.params?.expanded" *ngFor="let item of content.elements">
+    <mat-accordion multi [attr.data-path]="'elements'">
+      <mat-expansion-panel [attr.data-path]="i" [expanded]="item?.params?.expanded"
+        *ngFor="let item of content.elements;index as i">
         <mat-expansion-panel-header>
           <mat-panel-title *ngIf="item.title">
-            <span [innerHTML]="item.title|safeHtml"></span>
+            <span contentedit="title" [innerHTML]="item.title|safeHtml"></span>
           </mat-panel-title>
-          <mat-panel-description *ngIf="item.description">
+          <mat-panel-description contentedit="description" *ngIf="item.description">
             {{item.description}}
             <mat-icon *ngIf="item.icon">{{item.icon}}</mat-icon>
           </mat-panel-description>
         </mat-expansion-panel-header>
-        <app-dynamic-component *ngFor="let item of item.elements" [inputs]="{content:item}"></app-dynamic-component>
+        <app-dynamic-component [attr.data-path]="'elements.'+i" *ngFor="let item of item.elements;index as i"
+          [inputs]="{content:item}"></app-dynamic-component>
       </mat-expansion-panel>
     </mat-accordion>
   </div>

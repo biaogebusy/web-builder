@@ -1,9 +1,9 @@
 <div class="banner-simple position-relative" [ngClass]="content.style" *ngIf="content">
-  <app-bg-img *ngIf="content.bannerBg" [content]="content.bannerBg"></app-bg-img>
+  <app-bg-img [attr.data-path]="'bannerBg'" *ngIf="content.bannerBg" [content]="content.bannerBg"></app-bg-img>
   <div class="container">
     <div class="banner-inner position-relative" fxLayout.lt-md="column" fxLayout.gt-sm="row"
       fxLayoutAlign.gt-sm="space-between center" fxLayoutAlign.lt-md="start start">
-      <h2 class="page-title" *ngIf="content.title">{{content.title}}</h2>
+      <h2 class="page-title" contentedit="title" *ngIf="content.title">{{content.title}}</h2>
       <app-breadcrumb [content]="content.breadcrumb" *ngIf="content.breadcrumb"></app-breadcrumb>
     </div>
   </div>

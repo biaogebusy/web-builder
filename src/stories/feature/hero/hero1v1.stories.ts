@@ -43,6 +43,8 @@ const content: IHero1v1 = {
       slidesPerView: 1,
       spaceBetween: 0,
       pagination: false,
+      observer: true,
+      observeParents: true,
     },
     classes: '',
     elements: [

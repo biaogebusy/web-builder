@@ -33,14 +33,15 @@ const Template: Story = (args) => ({
 export const Default = Template.bind({});
 const content: IShowcase3v2 = {
   type: 'showcase-3v2',
-  title: {
-    label:
-      '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
-    style: 'style-v1',
-    classes: 'mat-display-3 bold',
+  text: {
+    title: {
+      label:
+        '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
+      style: 'style-v1',
+      classes: 'mat-display-3 bold',
+    },
+    body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class="text-primary">Storybook</strong> 页面时添加组件到预览页面。 ',
   },
-  subTitle:
-    '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class="text-primary">Storybook</strong> 页面时添加组件到预览页面。 ',
   classes: '',
   bg: {
     classes: 'bg-fill-width',
@@ -136,12 +137,13 @@ export const List = Template.bind({});
 List.storyName = '列表';
 const list: IShowcase3v2 = {
   type: 'showcase-3v2',
-  title: {
-    label: '音乐',
-    style: 'style-v1',
-    classes: 'mat-display-1 bold',
+  text: {
+    title: {
+      label: '音乐',
+      style: 'style-v1',
+      classes: 'mat-display-1 bold',
+    },
   },
-  subTitle: '音乐分类描述信息',
   bg: {
     classes: 'bg-fill-width',
     img: {
@@ -197,11 +199,11 @@ const list: IShowcase3v2 = {
         },
         actions: [
           {
-            type: 'btn-animate',
+            type: 'btn',
             label: '更多',
             href: '#',
-            style: 'style-v1',
-            icon: 'open_in_new',
+            mode: 'raised',
+            color: 'primary',
           },
         ],
       },
@@ -252,11 +254,11 @@ const list: IShowcase3v2 = {
         },
         actions: [
           {
-            type: 'btn-animate',
+            type: 'btn',
             label: '更多',
             href: '#',
-            style: 'style-v1',
-            icon: 'open_in_new',
+            mode: 'raised',
+            color: 'primary',
           },
         ],
       },
@@ -307,11 +309,11 @@ const list: IShowcase3v2 = {
         },
         actions: [
           {
-            type: 'btn-animate',
+            type: 'btn',
             label: '更多',
             href: '#',
-            style: 'style-v1',
-            icon: 'open_in_new',
+            mode: 'raised',
+            color: 'primary',
           },
         ],
       },
@@ -362,11 +364,11 @@ const list: IShowcase3v2 = {
         },
         actions: [
           {
-            type: 'btn-animate',
+            type: 'btn',
             label: '更多',
             href: '#',
-            style: 'style-v1',
-            icon: 'open_in_new',
+            mode: 'raised',
+            color: 'primary',
           },
         ],
       },

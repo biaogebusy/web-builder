@@ -277,6 +277,7 @@ export interface IPage {
   title: string;
   body: any[];
   time?: Date;
+  current?: boolean;
 }
 
 export interface ICommerce {

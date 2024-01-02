@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BtnAnimateComponent } from './btn-animate.component';
+import { LayoutBuilderComponent } from './layout-builder.component';
 
-describe('BtnAnimateComponent', () => {
-  let component: BtnAnimateComponent;
-  let fixture: ComponentFixture<BtnAnimateComponent>;
+describe('LayoutBuilderComponent', () => {
+  let component: LayoutBuilderComponent;
+  let fixture: ComponentFixture<LayoutBuilderComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BtnAnimateComponent ]
+      declarations: [ LayoutBuilderComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BtnAnimateComponent);
+    fixture = TestBed.createComponent(LayoutBuilderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

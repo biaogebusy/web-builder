@@ -14,8 +14,10 @@ import {
   ViewChild,
 } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
+import { IPage } from '@core/interface/IAppConfig';
 import { BuilderState } from '@core/state/BuilderState';
 import { ScreenState } from '@core/state/screen/ScreenState';
+import { BUILDER_CURRENT_PAGE } from '@core/token/token-providers';
 import { map as each } from 'lodash-es';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -27,7 +29,6 @@ import { map } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
-  @Input() content: any;
   @Input() drawerCode: MatDrawer;
   @ViewChild('builderList', { static: false }) builderList: ElementRef;
   @ViewChild('drawer', { static: false }) drawer: MatDrawer;
@@ -37,10 +38,11 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(
     public builder: BuilderState,
-    @Inject(DOCUMENT) private doc: Document,
     private zone: NgZone,
     private cd: ChangeDetectorRef,
-    public screenState: ScreenState
+    public screenState: ScreenState,
+    @Inject(DOCUMENT) private doc: Document,
+    @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>
   ) {}
 
   ngOnInit(): void {

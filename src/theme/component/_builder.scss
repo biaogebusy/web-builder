@@ -2,6 +2,7 @@
 @import "../mixins/amixin";
 @import "./builder/builder-sidebar";
 @import "./builder/builder-list";
+@import "./builder/builder-meta-edit";
 
 $dark-primary: mat-palette($mat-gray, 300, 50, 500);
 $dark-accent: mat-palette($mat-teal, A200, A100, A400);
@@ -13,6 +14,15 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
   .builder-toolbar {
     background-color: mat-color($background, background);
     color: mat-color($foreground, text, 0.75);
+    .left {
+      .page-title {
+        border-bottom: 1px solid transparent;
+        &:focus-visible {
+          outline: none;
+          border-bottom-color: mat-color($primary);
+        }
+      }
+    }
     .middle {
       .time {
         color: mat-color($foreground, text, 0.45);
@@ -38,6 +48,7 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
   }
   .mat-drawer-content {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.11);
+    @include meta-edit($background, $foreground, $primary);
     @include scrollbar(mat-color($primary));
 
     .overlay {
@@ -51,6 +62,7 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
         }
       }
       .showcase-footer {
+        color: mat-color($foreground, text);
         border-top: 1px solid mat-color($foreground, divider);
         background: mat-color($background, background);
       }
@@ -160,6 +172,7 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
       .title {
         background-color: mat-color($primary);
         color: mat-color($primary, default-contrast);
+        @include mat-elevation(2, mat-color($background, hover), 0.4);
       }
     }
   }

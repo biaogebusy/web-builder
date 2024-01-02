@@ -1,0 +1,32 @@
+.builder-version {
+  .mat-list-item {
+    cursor: pointer;
+    &:hover {
+      .delete,
+      .update-title {
+        display: block;
+      }
+    }
+    .title {
+      border-bottom: 1px solid transparent;
+      &:focus-visible {
+        outline: none;
+      }
+      &:hover {
+        cursor: text;
+      }
+    }
+    .delete {
+      position: absolute;
+      display: none;
+      right: 0;
+      top: -10px;
+    }
+  }
+  ::ng-deep {
+    .mat-expansion-panel-body {
+      max-height: 360px;
+      overflow: auto;
+    }
+  }
+}

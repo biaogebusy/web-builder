@@ -3,7 +3,9 @@
   width: 100%;
   .title {
     padding: 10px;
+    font-size: 12px;
     white-space: nowrap;
+    border-radius: 4px;
   }
 
   .actions {
@@ -11,6 +13,13 @@
       cursor: pointer;
       border-radius: 6px;
       white-space: nowrap;
+      ::ng-deep {
+        .custom {
+          width: 20px !important;
+          height: 20px !important;
+          line-height: 20px !important;
+        }
+      }
     }
   }
 }

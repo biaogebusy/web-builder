@@ -16,15 +16,8 @@ import type { IText } from '@core/interface/widgets/IText';
 })
 export class Showcase1v3Component implements OnInit {
   @Input() content: IShowcase1v3;
-  text: IText;
 
   constructor(private cd: ChangeDetectorRef) {}
 
-  ngOnInit(): void {
-    this.text = {
-      title: this.content.title,
-      spacer: 'none',
-    };
-    this.cd.detectChanges();
-  }
+  ngOnInit(): void {}
 }

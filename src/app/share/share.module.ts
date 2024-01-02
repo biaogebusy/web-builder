@@ -22,6 +22,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatBadgeModule } from '@angular/material/badge';
 
 // Form
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -46,9 +47,14 @@ import { ReqRolesDirective } from '@core/directive/req-roles.directive';
 import { CheckChildMenuActiveDirective } from '@core/directive/check-child-menu-active.directive';
 import { ComponentService } from '@core/service/component.service';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { ContenteditDirective } from '@core/directive/contentedit.directive';
 
 @NgModule({
-  declarations: [ReqRolesDirective, CheckChildMenuActiveDirective],
+  declarations: [
+    ReqRolesDirective,
+    CheckChildMenuActiveDirective,
+    ContenteditDirective,
+  ],
   imports: [
     CommonModule,
     MatToolbarModule,
@@ -89,6 +95,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatButtonModule,
     MatButtonToggleModule,
     MatCardModule,
+    MatBadgeModule,
     MatAutocompleteModule,
     MatInputModule,
     MatDividerModule,
@@ -116,6 +123,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatStepperModule,
     ReqRolesDirective,
     CheckChildMenuActiveDirective,
+    ContenteditDirective,
   ],
   providers: [
     IconService,

@@ -8,7 +8,6 @@
 @import "./img";
 @import "./list";
 @import "./title";
-@import "./btn-animate";
 @import "./carousel";
 @import "./banner";
 @import "./node/article";
@@ -33,6 +32,7 @@
 @import "./builder";
 @import "./theme-preview";
 @import "./tour";
+@import "./manage-media";
 
 // material custom
 @import "./mat/card";
@@ -50,7 +50,6 @@
   @include img-color($config-or-theme);
   @include list-color($config-or-theme);
   @include title-color($config-or-theme);
-  @include btn-animate-color($config-or-theme);
   @include carousel-color($config-or-theme);
   @include banner-color($config-or-theme);
   @include article-color($config-or-theme);
@@ -75,6 +74,7 @@
   @include builder-color($config-or-theme);
   @include theme-preview-color($config-or-theme);
   @include tour-color($config-or-theme);
+  @include manage-media-color($config-or-theme);
 
   // material custom ui
   @include card-color($config-or-theme);

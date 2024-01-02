@@ -70,7 +70,21 @@ export class SwiperComponent implements OnInit, AfterViewInit, OnDestroy {
   };
   config: SwiperOptions;
   ngOnInit(): void {
-    this.config = Object.assign(this.defaultConfig, this.content.params);
+    let customPagination = {};
+    if (this.content?.custom?.pagination?.bulletsStyle) {
+      customPagination = {
+        pagination: {
+          type: 'bullets',
+          bulletActiveClass: 'bullets-custom-style-active',
+          clickable: true,
+        },
+      };
+    }
+    this.config = Object.assign(
+      this.defaultConfig,
+      this.content.params,
+      customPagination
+    );
   }
   ngAfterViewInit(): void {
     if (this.screenService.isPlatformBrowser()) {
@@ -90,15 +104,17 @@ export class SwiperComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onSlideChange(): void {}
 
-  onAfterInitSwiper(swiper: any): void {
+  onpaginationRender(swiper: any): void {
     if (this.content?.custom?.pagination?.bulletsStyle) {
       const {
         pagination: { bullets },
       } = swiper;
       this.content.custom.pagination.bulletsStyle.forEach((item, index) => {
         Object.keys(item).forEach((key) => {
-          bullets[index].style[key] =
-            typeof item[key] === 'string' ? item[key] : item[key].toString();
+          if (bullets[index]) {
+            bullets[index].style[key] =
+              typeof item[key] === 'string' ? item[key] : item[key].toString();
+          }
         });
       });
     }

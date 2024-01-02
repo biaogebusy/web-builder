@@ -1,11 +1,11 @@
-<div id="builder-list-sideabr" fxLayout="column" fxLayoutAlign="center center" cdkDropList
-  [cdkDropListConnectedTo]="['widgets','components']" (cdkDropListDropped)="drop($event)">
-  <div class="component-item empty" *ngIf="!content.length">
+<div id="builder-list-sideabr" *ngIf="currentPage$|async as page" fxLayout="column" fxLayoutAlign="center center"
+  cdkDropList [cdkDropListConnectedTo]="['widgets','components']" (cdkDropListDropped)="drop($event)">
+  <div class="component-item empty" *ngIf="!page.body.length">
     <div class="box">
       没有组件
     </div>
   </div>
-  <div class="component-item" cdkDrag [cdkDragData]=" item" *ngFor="let item of content;index as i; trackBy: trackByFn"
+  <div class="component-item" cdkDrag [cdkDragData]="item" *ngFor="let item of page.body;index as i; trackBy: trackByFn"
     (click)="onClickSidebar(i,item)">
     <div *ngIf="item" class="box" fxLayout="row" fxLayoutAlign="center center">
       <div class="p-right-xs">{{i}}</div>

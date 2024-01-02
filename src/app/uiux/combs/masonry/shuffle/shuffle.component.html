@@ -2,7 +2,7 @@
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <div class="container">
-    <app-title *ngIf="content.title" [content]="content.title"></app-title>
+    <app-title [attr.data-path]="'title'" *ngIf="content.title" [content]="content.title"></app-title>
     <div class="filter" *ngIf="content.filter">
       <mat-button-toggle-group name="toggle group" aria-label="toggle group" (change)="onChange($event)">
         <ng-container *ngFor="let item of content.filter">

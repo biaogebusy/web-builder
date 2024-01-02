@@ -48,7 +48,6 @@ export class ComponentService {
       'accordion',
       'user-card',
       'btn-video',
-      'btn-animate',
       'view-list',
       'text-hero',
       'menu-list',
@@ -226,7 +225,6 @@ export class ComponentService {
       'showcase-3v5',
       'showcase-3v6',
       'showcase-3v7',
-      'showcase-3v8',
       'showcase-3v9',
       'showcase-4v1',
     ].forEach((type) =>
@@ -257,7 +255,12 @@ export class ComponentService {
       )
     );
 
-    ['builder-generater', 'btn-generater'].forEach((type) =>
+    [
+      'layout-builder',
+      'builder-generater',
+      'btn-generater',
+      'meta-edit',
+    ].forEach((type) =>
       this.setModule(type, () =>
         import('@modules/builder/builder.module').then((m) => m.BuilderModule)
       )
