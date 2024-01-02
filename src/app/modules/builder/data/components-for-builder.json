@@ -8187,7 +8187,7 @@
           "content": {
             "type": "layout-builder",
             "spacer": "md",
-            "fullWidth": true,
+            "fullWidth": false,
             "elements": [
               {
                 "classes": "",
