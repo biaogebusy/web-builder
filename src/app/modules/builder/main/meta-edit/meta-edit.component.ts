@@ -44,7 +44,7 @@ export class MetaEditComponent implements OnInit, OnDestroy, AfterViewInit {
           header: [1, 2, 3, 4, 5, 6, false],
         },
       ],
-      ['bold', 'italic', 'underline'],
+      ['bold', 'italic'],
       [
         {
           align: [],
@@ -56,14 +56,6 @@ export class MetaEditComponent implements OnInit, OnDestroy, AfterViewInit {
         },
         {
           list: 'bullet',
-        },
-      ],
-      [
-        {
-          indent: '-1',
-        },
-        {
-          indent: '+1',
         },
       ],
       ['link', 'image'],
