@@ -36,9 +36,9 @@ const content: IShowcase3v2 = {
   text: {
     title: {
       label:
-        '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
+        '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
       style: 'style-v1',
-      classes: 'mat-display-3 bold',
+      classes: 'mat-display-2 bold',
     },
     body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class="text-primary">Storybook</strong> 页面时添加组件到预览页面。 ',
   },

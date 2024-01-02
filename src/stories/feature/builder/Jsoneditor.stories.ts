@@ -14,7 +14,7 @@ import { defaultHeader, footerInverse } from '@stories/global/Branding.json';
 import { JsoneditorComponent } from '@uiux/combs/other/jsoneditor/jsoneditor.component';
 import { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
 export default {
-  title: '特色组件/编辑器/JSON 编辑器',
+  title: '特色组件/编辑器/JSON',
   id: 'jsoneditor',
   component: JsoneditorComponent,
   decorators: [
