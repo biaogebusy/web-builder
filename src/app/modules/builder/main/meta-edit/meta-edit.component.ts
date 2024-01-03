@@ -35,7 +35,7 @@ export class MetaEditComponent implements OnInit, OnDestroy, AfterViewInit {
   sizeGuiUI: any;
   styleFolder: any;
   sizeFolder: any;
-  viewSpan: any;
+  viewHTML: any;
   editor: any;
   modules: QuillModule = {
     toolbar: [
@@ -92,140 +92,140 @@ export class MetaEditComponent implements OnInit, OnDestroy, AfterViewInit {
       return;
     }
     const currentValue = get(this.builder.currentPage.body, this.content.path);
-    const isSpanWrapper = this.isSpanFormatted(currentValue);
+    const isSpanWrapper = this.isHTMLWrapper(currentValue);
     const div = document.createElement('div');
-    const span = document.createElement('span');
-    div.appendChild(span);
+    const p = document.createElement('p');
+    div.appendChild(p);
 
     if (isSpanWrapper) {
-      span.outerHTML = currentValue;
+      p.outerHTML = currentValue;
     } else {
-      span.innerHTML = currentValue;
+      p.innerHTML = currentValue;
     }
 
-    const guiSpan = div.querySelector('span');
-    if (this.content.ele.querySelector('span')) {
-      this.viewSpan = this.content.ele.querySelector('span');
+    const guiHTML = div.querySelector('p');
+    if (this.content.ele.querySelector('p')) {
+      this.viewHTML = this.content.ele.querySelector('p');
     } else {
       const text = this.content.ele.innerHTML;
-      const span = document.createElement('span');
-      span.innerHTML = text;
-      span.style.display = 'inline-block';
-      span.style.width = '100%';
-      this.content.ele.innerHTML = span.outerHTML;
-      this.viewSpan = this.content.ele.querySelector('span');
+      const p = document.createElement('p');
+      p.innerHTML = text;
+      p.style.display = 'inline-block';
+      p.style.width = '100%';
+      this.content.ele.innerHTML = p.outerHTML;
+      this.viewHTML = this.content.ele.querySelector('p');
     }
-    if (!guiSpan) {
+    if (!guiHTML) {
       return;
     }
-    guiSpan.style.display = 'inline-block';
-    guiSpan.style.width = '100%';
-    this.initGuiStyle(guiSpan, this.viewSpan);
-    this.initGuiSize(guiSpan, this.viewSpan);
+    guiHTML.style.display = 'inline-block';
+    guiHTML.style.width = '100%';
+    this.initGuiStyle(guiHTML, this.viewHTML);
+    this.initGuiSize(guiHTML, this.viewHTML);
   }
 
-  initGuiStyle(guiSpan: HTMLSpanElement, viewSpan: HTMLSpanElement): void {
+  initGuiStyle(guiHTML: HTMLSpanElement, viewHTML: HTMLSpanElement): void {
     // 创建 dat.GUI 实例
     this.styleGuiUI = new dat.GUI();
 
     const styleParams = {
-      颜色: guiSpan.style.color || '#222',
-      背景色: guiSpan.style.backgroundColor || '#fff',
-      透明度: parseFloat(guiSpan.style.opacity) || 1,
-      字号: parseFloat(guiSpan.style.fontSize) || 16,
+      颜色: guiHTML.style.color || '#222',
+      背景色: guiHTML.style.backgroundColor || '#fff',
+      透明度: parseFloat(guiHTML.style.opacity) || 1,
+      字号: parseFloat(guiHTML.style.fontSize) || 16,
       旋转: 0,
     };
 
     this.styleFolder = this.styleGuiUI.addFolder('样式');
     this.styleFolder.open();
     this.styleFolder.addColor(styleParams, '颜色').onChange((value: any) => {
-      viewSpan.style.color = value;
-      guiSpan.style.color = value;
-      this.setGuiSpan(guiSpan);
+      viewHTML.style.color = value;
+      guiHTML.style.color = value;
+      this.setGuiSpan(guiHTML);
     });
     this.styleFolder.addColor(styleParams, '背景色').onChange((value: any) => {
-      viewSpan.style.backgroundColor = value;
-      guiSpan.style.backgroundColor = value;
-      this.setGuiSpan(guiSpan);
+      viewHTML.style.backgroundColor = value;
+      guiHTML.style.backgroundColor = value;
+      this.setGuiSpan(guiHTML);
     });
     this.styleFolder
       .add(styleParams, '透明度', 0, 1, 0.1)
       .onChange((value: any) => {
-        viewSpan.style.opacity = value;
-        guiSpan.style.opacity = value;
-        this.setGuiSpan(guiSpan);
+        viewHTML.style.opacity = value;
+        guiHTML.style.opacity = value;
+        this.setGuiSpan(guiHTML);
       });
     this.styleFolder
       .add(styleParams, '字号', 10, 60, 1)
       .onChange((value: any) => {
-        viewSpan.style.fontSize = `${value}px`;
-        guiSpan.style.fontSize = `${value}px`;
-        this.setGuiSpan(guiSpan);
+        viewHTML.style.fontSize = `${value}px`;
+        guiHTML.style.fontSize = `${value}px`;
+        this.setGuiSpan(guiHTML);
       });
     this.styleFolder
       .add(styleParams, '旋转', 0, 360, 1)
       .onChange((value: any) => {
-        viewSpan.style.transform = `rotate(${value}deg)`;
-        guiSpan.style.transform = `rotate(${value}deg)`;
-        this.setGuiSpan(guiSpan);
+        viewHTML.style.transform = `rotate(${value}deg)`;
+        guiHTML.style.transform = `rotate(${value}deg)`;
+        this.setGuiSpan(guiHTML);
       });
 
     this.guiStyle.nativeElement.appendChild(this.styleGuiUI.domElement);
   }
 
-  initGuiSize(guiSpan: HTMLSpanElement, viewSpan: HTMLSpanElement): void {
+  initGuiSize(guiHTML: HTMLSpanElement, viewHTML: HTMLSpanElement): void {
     this.sizeGuiUI = new dat.GUI();
     const sizeParams = {
-      宽度: guiSpan.style.width || 'auto',
-      高度: guiSpan.style.height || 'auto',
-      行高: guiSpan.style.lineHeight || '1.5',
-      字间距: guiSpan.style.letterSpacing || '0',
+      宽度: guiHTML.style.width || 'auto',
+      高度: guiHTML.style.height || 'auto',
+      行高: guiHTML.style.lineHeight || '1.5',
+      字间距: guiHTML.style.letterSpacing || '0',
     };
     this.sizeFolder = this.sizeGuiUI.addFolder('尺寸');
     this.sizeFolder.open();
     this.sizeFolder.add(sizeParams, '宽度').onChange((value: any) => {
-      viewSpan.style.width = value;
-      guiSpan.style.width = value;
-      this.setGuiSpan(guiSpan);
+      viewHTML.style.width = value;
+      guiHTML.style.width = value;
+      this.setGuiSpan(guiHTML);
     });
     this.sizeFolder.add(sizeParams, '高度').onChange((value: any) => {
-      viewSpan.style.height = value;
-      guiSpan.style.height = value;
-      this.setGuiSpan(guiSpan);
+      viewHTML.style.height = value;
+      guiHTML.style.height = value;
+      this.setGuiSpan(guiHTML);
     });
     this.sizeFolder.add(sizeParams, '行高').onChange((value: any) => {
-      viewSpan.style.lineHeight = value;
-      guiSpan.style.lineHeight = value;
-      this.setGuiSpan(guiSpan);
+      viewHTML.style.lineHeight = value;
+      guiHTML.style.lineHeight = value;
+      this.setGuiSpan(guiHTML);
     });
     this.sizeFolder.add(sizeParams, '字间距').onChange((value: any) => {
-      viewSpan.style.letterSpacing = value;
-      guiSpan.style.letterSpacing = value;
-      this.setGuiSpan(guiSpan);
+      viewHTML.style.letterSpacing = value;
+      guiHTML.style.letterSpacing = value;
+      this.setGuiSpan(guiHTML);
     });
 
     this.guiSize.nativeElement.appendChild(this.sizeGuiUI.domElement);
   }
 
-  setGuiSpan(guiSpan: any): void {
-    set(this.builder.currentPage.body, this.content.path, guiSpan.outerHTML);
+  setGuiSpan(guiHTML: any): void {
+    set(this.builder.currentPage.body, this.content.path, guiHTML.outerHTML);
     this.builder.saveLocalVersions();
     this.cd.detectChanges();
   }
 
   onClear(): void {
-    this.viewSpan.removeAttribute('style');
+    this.viewHTML.removeAttribute('style');
     set(
       this.builder.currentPage.body,
       this.content.path,
-      this.viewSpan.outerHTML
+      this.viewHTML.outerHTML
     );
     this.builder.saveLocalVersions();
     this.cd.detectChanges();
   }
 
-  isSpanFormatted(str: string): boolean {
-    var pattern = /^<span[\s\S]*<\/span>$/;
+  isHTMLWrapper(str: string): boolean {
+    var pattern = /^<p[\s\S]*<\/p>$/;
     return pattern.test(str);
   }
 
