@@ -111,7 +111,7 @@ export class MetaEditComponent implements OnInit, OnDestroy, AfterViewInit {
       const p = document.createElement('p');
       p.innerHTML = text;
       p.style.display = 'inline-block';
-      p.style.width = '100%';
+      p.style.marginBottom = '0px';
       this.content.ele.innerHTML = p.outerHTML;
       this.viewHTML = this.content.ele.querySelector('p');
     }
@@ -119,7 +119,7 @@ export class MetaEditComponent implements OnInit, OnDestroy, AfterViewInit {
       return;
     }
     guiHTML.style.display = 'inline-block';
-    guiHTML.style.width = '100%';
+    p.style.marginBottom = '0px';
     this.initGuiStyle(guiHTML, this.viewHTML);
     this.initGuiSize(guiHTML, this.viewHTML);
   }
