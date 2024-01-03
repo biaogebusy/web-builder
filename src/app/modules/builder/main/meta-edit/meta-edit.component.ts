@@ -4,7 +4,6 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
-  Inject,
   Input,
   OnDestroy,
   OnInit,
@@ -13,7 +12,6 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { NodeService } from '@core/service/node.service';
 import { BuilderState } from '@core/state/BuilderState';
-import { USER } from '@core/token/token-providers';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { get, set } from 'lodash-es';
 import { QuillModule } from 'ngx-quill';

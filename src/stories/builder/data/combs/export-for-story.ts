@@ -12,7 +12,7 @@ export const components: any[] = [
     elements: base,
   },
   {
-    label: 'Hero',
+    label: '首屏',
     id: 'hero',
     elements: [...hero],
   },

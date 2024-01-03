@@ -1,4 +1,4 @@
-<div class="meta-edit">
+<div class="meta-edit" *ngIf="content">
   <app-title [content]="{label:content.data.tag,style:'style-v4'}"></app-title>
   <div class="img-section" *ngIf="content.mode === 'img'">
     <div class="meta" fxLayout="row" fxLayoutAlign="start center">

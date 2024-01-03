@@ -61,6 +61,7 @@ export class ManageMediaComponent implements OnInit {
       src: item.img.src,
       alt: item.img.alt,
       fileName: item.img.src.split('/').pop(),
+      tag: 'img',
     });
   }
 
