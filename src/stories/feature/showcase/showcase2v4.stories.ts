@@ -37,7 +37,7 @@ const content: IShowcase2v4 = {
     title: {
       label: '本年度<strong class="text-primary">艺术作品</strong>代表作',
       style: 'style-v1',
-      classes: 'mat-display-3 bold',
+      classes: 'mat-display-2 bold',
     },
     body: '<p class="text-center">突破传统的艺术边界，展示前卫和创新的艺术作品</p>',
   },

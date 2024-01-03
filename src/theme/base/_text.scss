@@ -2,16 +2,23 @@
   font-weight: bold !important;
 }
 
-.text-left {
+.text-left,
+.ql-align-left {
   text-align: left !important;
 }
 
-.text-right {
+.text-right,
+.ql-align-right {
   text-align: right !important;
 }
 
-.text-center {
+.text-center,
+.ql-align-center {
   text-align: center !important;
+}
+
+.ql-align-justify {
+  text-align: justify !important;
 }
 
 .font-weight-normal {

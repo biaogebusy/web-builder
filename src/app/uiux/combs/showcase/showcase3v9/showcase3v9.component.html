@@ -4,15 +4,15 @@
   <app-bg-img [attr.data-path]="'bg'" [content]="content.bg" *ngIf="content.bg"></app-bg-img>
   <div class="container" *ngIf="content">
     <div class="inner" fxLayout="row wrap" fxLayoutAlign="center center">
-      <div class="left" [attr.data-path]="'left'" [fxFlexOrder]="content.order.left" fxFlex.lt-md="100%"
-        fxFlex.gt-sm="58%" fxLayoutAlign="center center" fxLayout="row wrap">
-        <app-dynamic-component [attr.data-path]="i" class="p-x-sm width-100"
+      <div class="left" [fxFlexOrder]="content.order.left" fxFlex.lt-md="100%" fxFlex.gt-sm="58%"
+        fxLayoutAlign="center center" fxLayout="row wrap">
+        <app-dynamic-component [attr.data-path]="'left.'+i" class="p-x-sm width-100"
           *ngFor="let item of content.left;index as i" [inputs]="{content:item}" fxLayoutAlign="center center">
         </app-dynamic-component>
       </div>
-      <div class="right" [attr.data-path]="'right'" [fxFlexOrder]="content.order.right" fxFlex.lt-md="100%"
-        fxFlex.gt-sm="42%" fxLayout="row wrap" fxLayoutAlign="center center">
-        <app-dynamic-component [attr.data-path]="i" class="display-block p-x-sm width-100"
+      <div class="right" [fxFlexOrder]="content.order.right" fxFlex.lt-md="100%" fxFlex.gt-sm="42%" fxLayout="row wrap"
+        fxLayoutAlign="center center">
+        <app-dynamic-component [attr.data-path]="'right.'+i" class="display-block p-x-sm width-100"
           *ngFor="let item of content.right;index as i" [inputs]="{content:item}">
         </app-dynamic-component>
       </div>

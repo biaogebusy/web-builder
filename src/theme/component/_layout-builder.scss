@@ -1,0 +1,25 @@
+@import "~@angular/material/theming";
+
+@mixin layout-builder-color($config-or-theme) {
+  $config: mat-get-color-config($config-or-theme);
+  $foreground: map-get($config, foreground);
+  $background: map-get($config, background);
+  $primary: map-get($config, primary);
+  $accent: map-get($config, accent);
+  $warn: map-get($config, warn);
+
+  .builder-list {
+    .layout-builder {
+      .layout-inner {
+        &:hover {
+          outline: 1px solid mat-color($foreground, divider);
+        }
+        > .layout {
+          &:hover {
+            outline: 1px dashed mat-color($primary);
+          }
+        }
+      }
+    }
+  }
+}

@@ -102,7 +102,7 @@ TitleType.storyName = '打字效果';
 const type: ITitle = {
   label: '欢迎使用 <strong class="text-primary"></strong> <br>快速构建页面',
   style: 'style-v4',
-  classes: 'mat-display-3 bold',
+  classes: 'mat-display-2 bold',
   typed: {
     enable: true,
     string: ['信使 UI', 'Web builder'],
