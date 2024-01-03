@@ -35,7 +35,6 @@ export class ContenteditDirective implements AfterViewInit {
   @HostListener('click', ['$event']) onClick(event: Event): void {
     const ele = this.el.nativeElement;
     if (ele.closest('.component-item')) {
-      ele.contentEditable = 'true';
       if (ele.tagName === 'IMG') {
         this.builder.rightDrawerContent$.next({
           mode: 'over',
@@ -60,6 +59,7 @@ export class ContenteditDirective implements AfterViewInit {
           ],
         });
       } else {
+        ele.contentEditable = 'true';
         this.builder.rightDrawerContent$.next({
           mode: 'over',
           hasBackdrop: false,

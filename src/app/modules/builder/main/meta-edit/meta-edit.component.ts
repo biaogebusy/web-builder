@@ -88,6 +88,9 @@ export class MetaEditComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    if (this.content.mode === 'img') {
+      return;
+    }
     const currentValue = get(this.builder.currentPage.body, this.content.path);
     const isSpanWrapper = this.isSpanFormatted(currentValue);
     const div = document.createElement('div');
@@ -108,6 +111,7 @@ export class MetaEditComponent implements OnInit, OnDestroy, AfterViewInit {
       const span = document.createElement('span');
       span.innerHTML = text;
       span.style.display = 'inline-block';
+      span.style.width = '100%';
       this.content.ele.innerHTML = span.outerHTML;
       this.viewSpan = this.content.ele.querySelector('span');
     }
@@ -115,6 +119,7 @@ export class MetaEditComponent implements OnInit, OnDestroy, AfterViewInit {
       return;
     }
     guiSpan.style.display = 'inline-block';
+    guiSpan.style.width = '100%';
     this.initGuiStyle(guiSpan, this.viewSpan);
     this.initGuiSize(guiSpan, this.viewSpan);
   }
@@ -209,7 +214,6 @@ export class MetaEditComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onClear(): void {
-    const span = this.viewSpan.outerHTML;
     this.viewSpan.removeAttribute('style');
     set(
       this.builder.currentPage.body,
@@ -257,7 +261,9 @@ export class MetaEditComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy(): void {
-    this.styleGuiUI.removeFolder(this.styleFolder);
+    if (this.styleGuiUI) {
+      this.styleGuiUI.removeFolder(this.styleFolder);
+    }
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
   }

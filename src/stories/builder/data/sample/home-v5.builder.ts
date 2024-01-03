@@ -116,7 +116,7 @@ export const home_v5 = {
             actionsAlign: 'center center',
             actions: [
               {
-                href: 'https://jsonapi.org/format/',
+                href: '#',
                 label: '了解更多',
               },
             ],
@@ -177,7 +177,7 @@ export const home_v5 = {
           content:
             '<p>所有的老师都是层层筛选和把关，为学员提供真实有效的技能和经验</p>\r\n',
           more: {
-            href: 'https://jsonapi.org/format/',
+            href: '#',
             label: '成为老师',
           },
         },
