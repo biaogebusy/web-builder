@@ -39,7 +39,7 @@ const content: IShowcase2v1 = {
     title: {
       label: 'Drupal 优秀案例',
       style: 'style-v1',
-      classes: 'mat-display-3 bold',
+      classes: 'mat-display-2 bold',
     },
     body: '<p class="text-center">欢迎分享 Drupal 优秀的数字创新体验</p>',
   },

@@ -1,6 +1,5 @@
 import {
   AfterViewInit,
-  ChangeDetectorRef,
   Component,
   Inject,
   Injector,
@@ -74,8 +73,6 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    const builder = this.injector.get(BuilderState);
-    const storage = this.injector.get(LocalStorageService);
     const screenState = this.injector.get(ScreenState);
 
     screenState

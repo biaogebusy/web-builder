@@ -59,7 +59,7 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onPageJson(): void {
     this.builder.rightDrawerContent$.next({
-      mode: 'side',
+      mode: 'over',
       hasBackdrop: true,
       style: {
         width: '800px',
@@ -78,7 +78,7 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   onClear(): void {
     this.builder.version.forEach((page) => (page.current = false));
     this.builder.version.unshift({
-      title: '着陆页',
+      title: '初始页面',
       body: [],
       current: true,
       time: new Date(),

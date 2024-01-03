@@ -3,14 +3,14 @@
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <app-bg-img [attr.data-path]="'bg'" [content]="content.bg" *ngIf="content.bg"></app-bg-img>
   <div class="{{content.fullWidth?'':'container'}}" *ngIf="content">
-    <div class="inner" id="layout" cdkDropList [cdkDropListConnectedTo]="['widgets','builder-list']"
+    <div class="inner layout-inner" id="layout" cdkDropList [cdkDropListConnectedTo]="['widgets','builder-list']"
       [cdkDropListData]="content.elements" (cdkDropListDropped)="drop($event)" fxLayout="row wrap"
       fxLayoutAlign="center center">
-      <div class="layout" cdkDrag [cdkDragData]="layout" fxFlex.lt-md="100%"
-        fxFlex.gt-sm="calc(100% / {{12 / content.row}})" [ngClass]="layout.classes"
-        *ngFor="let layout of content.elements;index as i">
+      <div class="layout" cdkDrag [cdkDragDisabled]="true" [cdkDragData]="layout" fxFlex.lt-md="100%"
+        fxFlex.gt-sm="calc(100% / {{12 / layout.row}})" [ngClass]="layout.classes"
+        *ngFor="let layout of content.elements;index as i" [attr.data-path]="'elements.'+i">
         <div class="block">
-          <app-dynamic-component [attr.data-path]="i" class="p-x-sm width-100"
+          <app-dynamic-component [attr.data-path]="'elements.'+i" class="p-x-sm width-100"
             *ngFor="let item of layout.elements;index as i" [inputs]="{content:item}" fxLayoutAlign="center center">
           </app-dynamic-component>
         </div>

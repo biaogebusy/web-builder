@@ -33,7 +33,7 @@ export const samples = {
                   title: {
                     label: '组件驱动开发',
                     style: 'style-v1',
-                    classes: 'mat-display-3 bold',
+                    classes: 'mat-display-2 bold',
                   },
                   classes: 'xy-center',
                   bg: {
@@ -60,7 +60,7 @@ export const samples = {
                   title: {
                     label: '组件展示和测试',
                     style: 'style-v1',
-                    classes: 'mat-display-3 bold',
+                    classes: 'mat-display-2 bold',
                   },
                   spacer: 'xl',
                   classes: 'xy-center text-light',
@@ -88,7 +88,7 @@ export const samples = {
                   title: {
                     label: '文档化',
                     style: 'style-v1',
-                    classes: 'mat-display-3 bold',
+                    classes: 'mat-display-2 bold',
                   },
                   spacer: 'xl',
                   classes: 'xy-center text-light',
@@ -190,9 +190,9 @@ export const samples = {
             text: {
               title: {
                 label:
-                  '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
+                  '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
                 style: 'style-v1',
-                classes: 'mat-display-3 bold',
+                classes: 'mat-display-2 bold',
               },
               body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class="text-primary">Storybook</strong> 页面时添加组件到预览页面。 ',
             },
@@ -305,7 +305,7 @@ export const samples = {
                   name: 'fingerprint',
                 },
                 digit: {
-                  value: 427,
+                  value: 310,
                   label: '+',
                 },
                 title: '日访问人数',
@@ -315,7 +315,7 @@ export const samples = {
                   name: 'verified_user',
                 },
                 digit: {
-                  value: 235,
+                  value: 292,
                   label: '+',
                 },
                 title: '日打开次数',
@@ -325,7 +325,7 @@ export const samples = {
                   name: 'android',
                 },
                 digit: {
-                  value: 215,
+                  value: 252,
                   label: '人',
                 },
                 title: '日新增人数',
@@ -335,7 +335,7 @@ export const samples = {
                   name: 'mail',
                 },
                 digit: {
-                  value: 8192,
+                  value: 9461,
                   label: '万',
                 },
                 title: '累计用户数',
@@ -419,7 +419,7 @@ export const samples = {
               title: {
                 label: 'Drupal 优秀案例',
                 style: 'style-v1',
-                classes: 'mat-display-3 bold',
+                classes: 'mat-display-2 bold',
               },
               body: '<p class="text-center">欢迎分享 Drupal 优秀的数字创新体验</p>',
             },
@@ -431,7 +431,7 @@ export const samples = {
             elements: [
               {
                 type: 'card',
-                subTitle: '2023-12-31',
+                subTitle: '2024-01-02',
                 avatar: {
                   src: '/assets/images/avatar/01.jpeg',
                   alt: '',
@@ -481,7 +481,7 @@ export const samples = {
               },
               {
                 type: 'card',
-                subTitle: '2023-12-31',
+                subTitle: '2024-01-02',
                 avatar: {
                   src: '/assets/images/avatar/02.jpeg',
                   alt: '',
@@ -518,7 +518,7 @@ export const samples = {
               },
               {
                 type: 'card',
-                subTitle: '2023-12-31',
+                subTitle: '2024-01-02',
                 avatar: {
                   src: '/assets/images/avatar/03.jpeg',
                   alt: '',
@@ -555,7 +555,7 @@ export const samples = {
               },
               {
                 type: 'card',
-                subTitle: '2023-12-31',
+                subTitle: '2024-01-02',
                 avatar: {
                   src: '/assets/images/avatar/04.jpeg',
                   alt: '',
@@ -592,7 +592,7 @@ export const samples = {
               },
               {
                 type: 'card',
-                subTitle: '2023-12-31',
+                subTitle: '2024-01-02',
                 avatar: {
                   src: '/assets/images/avatar/05.jpeg',
                   alt: '',
@@ -629,7 +629,7 @@ export const samples = {
               },
               {
                 type: 'card',
-                subTitle: '2023-12-31',
+                subTitle: '2024-01-02',
                 avatar: {
                   src: '/assets/images/avatar/06.jpeg',
                   alt: '',
@@ -666,7 +666,7 @@ export const samples = {
               },
               {
                 type: 'card',
-                subTitle: '2023-12-31',
+                subTitle: '2024-01-02',
                 avatar: {
                   src: '/assets/images/avatar/01.jpeg',
                   alt: '',
@@ -703,7 +703,7 @@ export const samples = {
               },
               {
                 type: 'card',
-                subTitle: '2023-12-31',
+                subTitle: '2024-01-02',
                 avatar: {
                   src: '/assets/images/avatar/02.jpeg',
                   alt: '',
@@ -1721,7 +1721,7 @@ export const samples = {
                   name: 'fingerprint',
                 },
                 digit: {
-                  value: 427,
+                  value: 310,
                   label: '+',
                 },
                 title: '日访问人数',
@@ -1731,7 +1731,7 @@ export const samples = {
                   name: 'verified_user',
                 },
                 digit: {
-                  value: 235,
+                  value: 292,
                   label: '+',
                 },
                 title: '日打开次数',
@@ -1741,7 +1741,7 @@ export const samples = {
                   name: 'android',
                 },
                 digit: {
-                  value: 215,
+                  value: 252,
                   label: '人',
                 },
                 title: '日新增人数',
@@ -1751,7 +1751,7 @@ export const samples = {
                   name: 'mail',
                 },
                 digit: {
-                  value: 8192,
+                  value: 9461,
                   label: '万',
                 },
                 title: '累计用户数',
@@ -1928,7 +1928,7 @@ export const samples = {
                   title: {
                     label: '组件驱动开发',
                     style: 'style-v1',
-                    classes: 'mat-display-3 bold',
+                    classes: 'mat-display-2 bold',
                   },
                   classes: 'xy-center',
                   bg: {
@@ -1955,7 +1955,7 @@ export const samples = {
                   title: {
                     label: '组件展示和测试',
                     style: 'style-v1',
-                    classes: 'mat-display-3 bold',
+                    classes: 'mat-display-2 bold',
                   },
                   spacer: 'xl',
                   classes: 'xy-center text-light',
@@ -1983,7 +1983,7 @@ export const samples = {
                   title: {
                     label: '文档化',
                     style: 'style-v1',
-                    classes: 'mat-display-3 bold',
+                    classes: 'mat-display-2 bold',
                   },
                   spacer: 'xl',
                   classes: 'xy-center text-light',
@@ -3227,7 +3227,7 @@ export const samples = {
                   title: {
                     label: '前端面试全家桶',
                     style: 'style-v1',
-                    classes: 'mat-display-3',
+                    classes: 'mat-display-2',
                   },
                   classes: 'xy-center',
                   style: {
@@ -3255,7 +3255,7 @@ export const samples = {
                   title: {
                     label: 'Java 亿级项目架构设计的落地和应用',
                     style: 'style-v1',
-                    classes: 'mat-display-3',
+                    classes: 'mat-display-2',
                   },
                   classes: 'xy-center',
                   style: {
@@ -3283,7 +3283,7 @@ export const samples = {
                   title: {
                     label: '产品经理电商系统实践',
                     style: 'style-v1',
-                    classes: 'mat-display-3',
+                    classes: 'mat-display-2',
                   },
                   classes: 'xy-center',
                   style: {
@@ -3300,7 +3300,7 @@ export const samples = {
                   actionsAlign: 'center center',
                   actions: [
                     {
-                      href: 'https://jsonapi.org/format/',
+                      href: '#',
                       label: '了解更多',
                     },
                   ],
@@ -3361,7 +3361,7 @@ export const samples = {
                 content:
                   '<p>所有的老师都是层层筛选和把关，为学员提供真实有效的技能和经验</p>\r\n',
                 more: {
-                  href: 'https://jsonapi.org/format/',
+                  href: '#',
                   label: '成为老师',
                 },
               },
@@ -5632,7 +5632,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset187.svg',
                 },
                 digit: {
-                  value: 36,
+                  value: 25,
                   label: 'M',
                 },
                 title: 'Github Start',
@@ -5642,7 +5642,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset189.svg',
                 },
                 digit: {
-                  value: 45392,
+                  value: 22372,
                   label: '+',
                 },
                 title: 'NPM 周下载量',
@@ -5652,7 +5652,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset190.svg',
                 },
                 digit: {
-                  value: 3334,
+                  value: 2070,
                   label: 'K',
                 },
                 title: '社区活跃',
@@ -5662,7 +5662,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset192.svg',
                 },
                 digit: {
-                  value: 872,
+                  value: 611,
                   label: '个',
                 },
                 title: '成功故事',
@@ -5771,7 +5771,7 @@ export const samples = {
                 label:
                   '本年度<strong class="text-primary">艺术作品</strong>代表作',
                 style: 'style-v1',
-                classes: 'mat-display-3 bold',
+                classes: 'mat-display-2 bold',
               },
               body: '<p class="text-center">突破传统的艺术边界，展示前卫和创新的艺术作品</p>',
             },
@@ -5939,7 +5939,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset187.svg',
                 },
                 digit: {
-                  value: 36,
+                  value: 25,
                   label: 'M',
                 },
                 title: 'Github Start',
@@ -5949,7 +5949,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset189.svg',
                 },
                 digit: {
-                  value: 45392,
+                  value: 22372,
                   label: '+',
                 },
                 title: 'NPM 周下载量',
@@ -5959,7 +5959,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset190.svg',
                 },
                 digit: {
-                  value: 3334,
+                  value: 2070,
                   label: 'K',
                 },
                 title: '社区活跃',
@@ -5969,7 +5969,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset192.svg',
                 },
                 digit: {
-                  value: 872,
+                  value: 611,
                   label: '个',
                 },
                 title: '成功故事',
@@ -7171,7 +7171,7 @@ export const samples = {
                 label:
                   '使用 <strong class="text-primary">Storybook</strong> 开发组件',
                 style: 'style-v1',
-                classes: 'mat-display-3 bold',
+                classes: 'mat-display-2 bold',
               },
               body: '<p class="text-center">Storybook是一个面向UI组件开发的工具，它提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。</p>',
             },
@@ -7247,7 +7247,7 @@ export const samples = {
               title: {
                 label: '艺术设计之旅：探索创意与美学的奇妙世界',
                 style: 'style-v1',
-                classes: 'mat-display-3 bold',
+                classes: 'mat-display-2 bold',
               },
               body: '<p class="text-center">这次艺术设计之旅不仅仅是一次观赏和欣赏的体验，更是一个与艺术创造亲密接触的机会。参与者们通过参观展览、讲座和工作坊，自己动手创作和表达，发掘了自己内在的艺术潜能和表达能力。</p>',
             },
@@ -7869,7 +7869,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset187.svg',
                 },
                 digit: {
-                  value: 36,
+                  value: 25,
                   label: 'M',
                 },
                 title: 'Github Start',
@@ -7879,7 +7879,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset189.svg',
                 },
                 digit: {
-                  value: 45392,
+                  value: 22372,
                   label: '+',
                 },
                 title: 'NPM 周下载量',
@@ -7889,7 +7889,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset190.svg',
                 },
                 digit: {
-                  value: 3334,
+                  value: 2070,
                   label: 'K',
                 },
                 title: '社区活跃',
@@ -7899,7 +7899,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset192.svg',
                 },
                 digit: {
-                  value: 872,
+                  value: 611,
                   label: '个',
                 },
                 title: '成功故事',
@@ -7970,7 +7970,7 @@ export const samples = {
               title: {
                 label: '会员等级与专属服务',
                 style: 'style-v1',
-                classes: 'mat-display-3 bold',
+                classes: 'mat-display-2 bold',
               },
               body: '<p class="text-center">我们为您提供了一系列多样化的会员等级和相应的专属服务，旨在打造个性化的艺术设计体验。无论您是刚起步的爱好者还是专业设计师，我们的会员计划将满足您不同层次和需求。</p>',
             },
@@ -8387,7 +8387,7 @@ export const samples = {
                         title: {
                           label: '组件驱动开发',
                           style: 'style-v1',
-                          classes: 'mat-display-3 bold',
+                          classes: 'mat-display-2 bold',
                         },
                         classes: 'xy-center',
                         bg: {
@@ -8414,7 +8414,7 @@ export const samples = {
                         title: {
                           label: '组件展示和测试',
                           style: 'style-v1',
-                          classes: 'mat-display-3 bold',
+                          classes: 'mat-display-2 bold',
                         },
                         spacer: 'xl',
                         classes: 'xy-center text-light',
@@ -8442,7 +8442,7 @@ export const samples = {
                         title: {
                           label: '文档化',
                           style: 'style-v1',
-                          classes: 'mat-display-3 bold',
+                          classes: 'mat-display-2 bold',
                         },
                         spacer: 'xl',
                         classes: 'xy-center text-light',
@@ -8482,7 +8482,7 @@ export const samples = {
                       label:
                         '使用 <strong class="text-primary">Storybook</strong> 开发组件',
                       style: 'style-v1',
-                      classes: 'mat-display-3 bold',
+                      classes: 'mat-display-2 bold',
                     },
                     animate: {
                       disable: true,

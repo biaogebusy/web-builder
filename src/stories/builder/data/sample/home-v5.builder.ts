@@ -43,7 +43,7 @@ export const home_v5 = {
             title: {
               label: '前端面试全家桶',
               style: 'style-v1',
-              classes: 'mat-display-3',
+              classes: 'mat-display-2',
             },
             classes: 'xy-center',
             style: {
@@ -71,7 +71,7 @@ export const home_v5 = {
             title: {
               label: 'Java 亿级项目架构设计的落地和应用',
               style: 'style-v1',
-              classes: 'mat-display-3',
+              classes: 'mat-display-2',
             },
             classes: 'xy-center',
             style: {
@@ -99,7 +99,7 @@ export const home_v5 = {
             title: {
               label: '产品经理电商系统实践',
               style: 'style-v1',
-              classes: 'mat-display-3',
+              classes: 'mat-display-2',
             },
             classes: 'xy-center',
             style: {
@@ -116,7 +116,7 @@ export const home_v5 = {
             actionsAlign: 'center center',
             actions: [
               {
-                href: 'https://jsonapi.org/format/',
+                href: '#',
                 label: '了解更多',
               },
             ],
@@ -177,7 +177,7 @@ export const home_v5 = {
           content:
             '<p>所有的老师都是层层筛选和把关，为学员提供真实有效的技能和经验</p>\r\n',
           more: {
-            href: 'https://jsonapi.org/format/',
+            href: '#',
             label: '成为老师',
           },
         },

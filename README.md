@@ -5,6 +5,8 @@
   <br>
   <i>信使 UI 是基于 Material 的 Angular 低代码前端框架，丰富的组件库可提供优秀的数字创新体验，<br>使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。
     </i>
+    <br>
+    QQ交流群：1176468251
   <br>
 </p>
 
@@ -201,10 +203,3 @@ Base 的基础配置可查阅[信使 storybook 全局配置](https://ui.zhaobg.c
 如果有提示内存不足的报错，执行以下命令，然后重新运行:
 
 `export NODE_OPTIONS="--max-old-space-size=8192"`
-
-## 交流学习
-
-| 联系                   | 二维码                                               |
-| ---------------------- | ---------------------------------------------------- |
-| 公众号：Drupal 自习室  | <img src="src/assets/images/qrcode-official.jpg"/>   |
-| 交流加微信：biaogebusy | <img src="src/assets/images/wechat.jpg" alt="logo"/> |

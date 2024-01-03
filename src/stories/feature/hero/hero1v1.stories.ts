@@ -54,7 +54,7 @@ const content: IHero1v1 = {
         title: {
           label: '组件驱动开发',
           style: 'style-v1',
-          classes: 'mat-display-3 bold',
+          classes: 'mat-display-2 bold',
         },
         classes: 'xy-center',
         bg: {
@@ -81,7 +81,7 @@ const content: IHero1v1 = {
         title: {
           label: '组件展示和测试',
           style: 'style-v1',
-          classes: 'mat-display-3 bold',
+          classes: 'mat-display-2 bold',
         },
         spacer: 'xl',
         classes: 'xy-center text-light',
@@ -109,7 +109,7 @@ const content: IHero1v1 = {
         title: {
           label: '文档化',
           style: 'style-v1',
-          classes: 'mat-display-3 bold',
+          classes: 'mat-display-2 bold',
         },
         spacer: 'xl',
         classes: 'xy-center text-light',

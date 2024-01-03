@@ -59,6 +59,7 @@ export class ContenteditDirective implements AfterViewInit {
           ],
         });
       } else {
+        ele.contentEditable = 'true';
         this.builder.rightDrawerContent$.next({
           mode: 'over',
           hasBackdrop: false,
