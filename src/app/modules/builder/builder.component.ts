@@ -64,7 +64,7 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
     } else {
       utli.openSnackbar('请开启 Builder 功能！', 'ok');
     }
-    this.builder.rightDrawerContent$.subscribe((content) => {
+    this.builder.builderRightContent$.subscribe((content) => {
       if (content) {
         setTimeout(() => {
           this.builderRightDrawer.open();
@@ -86,6 +86,10 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
           this.mode = 'side';
         }
       });
+
+    this.builder.closeBuilderRightDrawer$.subscribe(() => {
+      this.onClose();
+    });
 
     this.doc.addEventListener('keydown', (event: any) => {
       const isFull = this.storage.retrieve('builderFullScreen');

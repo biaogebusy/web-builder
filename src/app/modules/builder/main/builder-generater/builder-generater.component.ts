@@ -90,6 +90,7 @@ export class BuilderGeneraterComponent implements OnInit {
       duration: 1000,
     });
     setTimeout(() => {
+      this.builder.closeBuilderRightDrawer$.next(true);
       this.builder.saveLocalVersions();
     }, 1200);
   }

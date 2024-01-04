@@ -18,14 +18,14 @@
     </mat-drawer>
     <mat-drawer-content>
       <mat-drawer-container class="preview-container"
-        [hasBackdrop]="(builder.rightDrawerContent$ | async)?.hasBackdrop">
+        [hasBackdrop]="(builder.builderRightContent$ | async)?.hasBackdrop">
         <mat-drawer #builderRightDrawer [ngStyle]="{overflow:builderRightDrawer.opened?'visible' : 'auto'}"
-          [mode]="(builder.rightDrawerContent$ | async)?.mode ||'over'" position="end">
+          [mode]="(builder.builderRightContent$ | async)?.mode ||'over'" position="end">
           <div class="actions expand">
             <app-btn [matTooltip]="'收起'" (click)="onClose()"
               [content]="{label:'', mode: 'icon' ,icon:{svg:'chevron-right' } }"></app-btn>
           </div>
-          <div *ngIf="builder.rightDrawerContent$ | async as dynamic" [ngStyle]="dynamic.style">
+          <div *ngIf="builder.builderRightContent$ | async as dynamic" [ngStyle]="dynamic.style">
             <app-dynamic-component *ngFor="let item of dynamic.elements;" [inputs]="item"></app-dynamic-component>
           </div>
         </mat-drawer>

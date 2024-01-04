@@ -25,19 +25,12 @@ export class ContenteditDirective implements AfterViewInit {
     }
   }
 
-  @HostListener('dblclick') onDbClick(event: Event) {
-    const ele = this.el.nativeElement;
-    if (ele.closest('.component-item')) {
-      ele.contentEditable = 'true';
-    }
-  }
-
   @HostListener('click', ['$event']) onClick(event: Event): void {
     const ele = this.el.nativeElement;
     if (ele.closest('.component-item')) {
       if (ele.tagName === 'IMG') {
-        this.builder.rightDrawerContent$.next({
-          mode: 'over',
+        this.builder.builderRightContent$.next({
+          mode: 'push',
           hasBackdrop: false,
           style: {
             width: '260px',
@@ -60,8 +53,8 @@ export class ContenteditDirective implements AfterViewInit {
         });
       } else {
         ele.contentEditable = 'true';
-        this.builder.rightDrawerContent$.next({
-          mode: 'over',
+        this.builder.builderRightContent$.next({
+          mode: 'push',
           hasBackdrop: false,
           style: {
             width: '300px',
