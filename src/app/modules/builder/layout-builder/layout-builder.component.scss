@@ -1,0 +1,32 @@
+.layout-builder {
+  .layout {
+    position: relative;
+    .block {
+      position: relative;
+      .add-down,
+      .add-next {
+        display: none;
+        position: absolute;
+        z-index: 100;
+        left: 50%;
+        bottom: 0;
+        top: auto;
+        transform: translateX(-50%);
+      }
+
+      .add-next {
+        left: auto;
+        right: 0;
+        bottom: auto;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      &:hover {
+        .add-down,
+        .add-next {
+          display: block;
+        }
+      }
+    }
+  }
+}

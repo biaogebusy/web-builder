@@ -10,6 +10,10 @@
         fxFlex.gt-sm="calc(100% / {{12 / layout.row}})" [ngClass]="layout.classes"
         *ngFor="let layout of content.elements;index as i" [attr.data-path]="'elements.'+i">
         <div class="block">
+          <app-btn class="add-down" (click)="addBlock('down',i,content)"
+            [content]="{label:'', mode: 'icon',icon:{svg:'plus' } }"></app-btn>
+          <app-btn class="add-next" (click)="addBlock('next',i,content)"
+            [content]="{label:'', mode: 'icon',icon:{svg:'plus' } }"></app-btn>
           <app-dynamic-component [attr.data-path]="'elements.'+i" class="p-x-sm width-100"
             *ngFor="let item of layout.elements;index as i" [inputs]="{content:item}" fxLayoutAlign="center center">
           </app-dynamic-component>

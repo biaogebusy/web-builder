@@ -1,0 +1,19 @@
+.popup-select {
+  .item {
+    position: relative;
+    .title {
+      font-size: 14px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+      text-align: center;
+    }
+    .inner {
+      margin: 2px;
+      padding: 16px 6px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  }
+}

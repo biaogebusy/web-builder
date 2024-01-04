@@ -1,0 +1,9 @@
+<div class="popup-select" *ngIf="widgets$ | async as widgets" fxLayout="row wrap">
+  <div class="item" (click)="onSelect(widget)" matRipple fxFlex.lt-sm="33%" fxFlex.gt-xs="0 0 calc(100%/4)"
+    *ngFor="let widget of widgets">
+    <div class="inner" fxLayout="column" fxLayoutAlign="center center">
+      <app-icon *ngIf="widget.icon" [content]="widget.icon"></app-icon>
+      <div class="title" title="{{widget.label}}">{{widget.label}}</div>
+    </div>
+  </div>
+</div>
