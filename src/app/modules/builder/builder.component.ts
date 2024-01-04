@@ -34,7 +34,8 @@ import { DOCUMENT } from '@angular/common';
 export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
   @LocalStorage('version')
   version: IPage[];
-  @ViewChild('containerDrawer', { static: false }) containerDrawer: MatDrawer;
+  @ViewChild('builderRightDrawer', { static: false })
+  builderRightDrawer: MatDrawer;
   @LocalStorage('builderFullScreen')
   builderFullScreen: boolean;
   panelOpenState = false;
@@ -66,7 +67,7 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
     this.builder.rightDrawerContent$.subscribe((content) => {
       if (content) {
         setTimeout(() => {
-          this.containerDrawer.open();
+          this.builderRightDrawer.open();
         }, 100);
       }
     });
@@ -102,8 +103,8 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  onExpand(): void {
-    this.containerDrawer.close();
+  onClose(): void {
+    this.builderRightDrawer.close();
   }
 
   onTabChange(): void {

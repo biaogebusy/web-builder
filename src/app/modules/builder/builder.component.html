@@ -1,6 +1,6 @@
 <div class="builder"
   [ngClass]="{'has-sidebar':!(builderFullScreen$|async),'dark':(builder.builderThemeMode|async) ==='dark'}">
-  <app-builder-toolbar [containerDrawer]="containerDrawer"></app-builder-toolbar>
+  <app-builder-toolbar [builderRightDrawer]="builderRightDrawer"></app-builder-toolbar>
   <mat-drawer-container class="builder-main">
     <mat-drawer #drawer class="sidebar" [mode]="mode" [opened]="!(builderFullScreen$|async)">
       <mat-tab-group (selectedTabChange)="onTabChange()" mat-stretch-tabs mat-align-tabs="center">
@@ -19,10 +19,10 @@
     <mat-drawer-content>
       <mat-drawer-container class="preview-container"
         [hasBackdrop]="(builder.rightDrawerContent$ | async)?.hasBackdrop">
-        <mat-drawer #containerDrawer [ngStyle]="{overflow:containerDrawer.open?'visible' : 'auto'}"
+        <mat-drawer #builderRightDrawer [ngStyle]="{overflow:builderRightDrawer.opened?'visible' : 'auto'}"
           [mode]="(builder.rightDrawerContent$ | async)?.mode ||'over'" position="end">
           <div class="actions expand">
-            <app-btn [matTooltip]="'收起'" (click)="onExpand()"
+            <app-btn [matTooltip]="'收起'" (click)="onClose()"
               [content]="{label:'', mode: 'icon' ,icon:{svg:'chevron-right' } }"></app-btn>
           </div>
           <div *ngIf="builder.rightDrawerContent$ | async as dynamic" [ngStyle]="dynamic.style">
@@ -33,7 +33,7 @@
           <ng-container *ngIf="builder.showcase$ | async as showcase">
             <app-builder-showcase [content]="showcase"></app-builder-showcase>
           </ng-container>
-          <app-builder-list [drawerCode]="containerDrawer"></app-builder-list>
+          <app-builder-list [builderRightDrawer]="builderRightDrawer"></app-builder-list>
         </mat-drawer-content>
       </mat-drawer-container>
     </mat-drawer-content>

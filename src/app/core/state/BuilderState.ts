@@ -18,22 +18,23 @@ import { ScreenService } from '@core/service/screen.service';
   providedIn: 'root',
 })
 export class BuilderState {
-  public builderContent$ = new Subject<IPage>();
-  public showcase$: Subject<IBuilderShowcase | false> = new Subject();
   public fixedShowcase = false;
   public fixedContent: ICard1v1 | null;
+  public showcase$: Subject<IBuilderShowcase | false> = new Subject();
+  public builderContent$ = new Subject<IPage>();
+  public builderContentDrawer$ = new Subject<boolean>();
+  public builderThemeMode = new BehaviorSubject<'light' | 'dark'>('light');
+  public rightDrawerContent$ = new Subject<IBuilderDynamicContent>();
   public fixedChange$ = new Subject<boolean>();
   public animateDisable$ = new Subject<boolean>();
   public fullScreen$ = new Subject<boolean>();
   public debugeAnimate$ = new Subject<boolean>();
-  public builderContentDrawer$ = new Subject<boolean>();
   public metaEditImaPath$ = new Subject<object>();
   public switchPreivew$ = new Subject<
     'xs' | 'sm' | 'md' | 'lg' | 'xs-md' | 'none'
   >();
-  public builderThemeMode = new BehaviorSubject<'light' | 'dark'>('light');
+
   public loading$ = new BehaviorSubject<boolean>(true);
-  public rightDrawerContent$ = new Subject<IBuilderDynamicContent>();
   public jsoneditorContent$ = new Subject<{
     content: IPage;
     index: number;
