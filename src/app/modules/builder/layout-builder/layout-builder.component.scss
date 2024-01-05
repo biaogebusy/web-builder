@@ -1,8 +1,25 @@
 .layout-builder {
   .layout {
     position: relative;
+    padding: 10px;
     .block {
       position: relative;
+      .item {
+        position: relative;
+        padding: 10px;
+        .actions {
+          display: none;
+          position: absolute;
+          right: 0;
+          top: 0;
+          z-index: 10;
+        }
+        &:hover {
+          .actions {
+            display: block;
+          }
+        }
+      }
       .add-down,
       .add-next {
         display: none;

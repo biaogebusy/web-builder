@@ -13,6 +13,14 @@
           <app-btn class="add-next" (click)="addBlock('next',i,content)"
             [content]="{label:'', mode: 'icon',icon:{svg:'plus' } }"></app-btn>
           <div class="item" *ngFor="let item of layout.elements;index as i">
+            <div class="actions">
+              <app-btn *ngIf="i > 0 && i < layout.elements.length"
+                [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'arrow-collapse-up',inline:true } }"></app-btn>
+              <app-btn *ngIf="i > -1 && i < layout.elements.length -1"
+                [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'arrow-collapse-down',inline:true } }"></app-btn>
+              <app-btn
+                [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'delete',inline:true } }"></app-btn>
+            </div>
             <app-dynamic-component [attr.data-path]="'elements.'+i" [inputs]="{content:item}">
             </app-dynamic-component>
           </div>
