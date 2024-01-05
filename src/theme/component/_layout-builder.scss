@@ -18,6 +18,13 @@
           &:hover {
             outline: 1px dashed mat-color($primary);
           }
+          > .block {
+            > .item {
+              &:hover {
+                outline: 1px solid mat-color($primary);
+              }
+            }
+          }
         }
       }
     }

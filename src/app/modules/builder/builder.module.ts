@@ -102,6 +102,16 @@ const components = [
           },
         },
         {
+          label: '间距',
+          icon: {
+            svg: 'border-horizontal',
+          },
+          content: {
+            type: 'spacer',
+            size: 'md',
+          },
+        },
+        {
           label: '链接',
           icon: {
             svg: 'link',
