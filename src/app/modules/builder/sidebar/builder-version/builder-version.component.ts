@@ -35,6 +35,7 @@ export class BuilderVersionComponent implements OnInit {
   onDelete(index: number): void {
     this.builderState.version.splice(index, 1);
     this.builderState.version[0].current = true;
+    this.builderState.closeBuilderRightDrawer$.next(true);
     this.builderState.saveLocalVersions();
   }
 
@@ -47,11 +48,13 @@ export class BuilderVersionComponent implements OnInit {
         time: new Date(),
       },
     ];
+    this.builderState.closeBuilderRightDrawer$.next(true);
     this.builderState.saveLocalVersions();
   }
 
   onVersion(page: IPage, index: number): void {
     this.builderState.showVersionPage(page, index);
+    this.builderState.closeBuilderRightDrawer$.next(true);
   }
 
   onClickTitle(event: MouseEvent): any {

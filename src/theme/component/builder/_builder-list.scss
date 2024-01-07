@@ -45,4 +45,11 @@
     cursor: text;
     background-color: mat-color($primary, 0.1);
   }
+  .component-toolbar {
+    .actions {
+      button {
+        background-color: mat-color($background, status-bar, 0.2);
+      }
+    }
+  }
 }

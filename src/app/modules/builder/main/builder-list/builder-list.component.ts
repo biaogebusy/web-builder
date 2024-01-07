@@ -29,7 +29,7 @@ import { map } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
-  @Input() drawerCode: MatDrawer;
+  @Input() builderRightDrawer: MatDrawer;
   @ViewChild('builderList', { static: false }) builderList: ElementRef;
   @ViewChild('drawer', { static: false }) drawer: MatDrawer;
   markers: NodeListOf<Element>;
@@ -85,8 +85,8 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onShowEditor(content: any, index: number): void {
-    if (this.drawerCode.opened) {
-      this.drawerCode.close();
+    if (this.builderRightDrawer.opened) {
+      this.builderRightDrawer.close();
     } else {
       this.builder.showEditor(content, index);
     }

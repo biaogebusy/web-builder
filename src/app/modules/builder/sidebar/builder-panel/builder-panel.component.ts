@@ -95,7 +95,7 @@ export class BuilderPanelComponent implements OnInit, AfterViewInit {
       default:
         data = {};
     }
-    this.builder.rightDrawerContent$.next({
+    this.builder.builderRightContent$.next({
       mode: 'over',
       hasBackdrop: true,
       style: {

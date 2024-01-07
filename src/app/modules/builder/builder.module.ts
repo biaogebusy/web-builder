@@ -17,6 +17,7 @@ import { BaseModule } from '@uiux/base/base.module';
 import {
   BUILDER_CURRENT_PAGE,
   BUILDER_SAMPLE_PAGE,
+  POPUP_SELECT,
   UIUX,
 } from '@core/token/token-providers';
 import { uiux } from './data/uiux-for-builder';
@@ -30,6 +31,8 @@ import { LocalStorageService } from 'ngx-webstorage';
 import { MetaEditComponent } from './main/meta-edit/meta-edit.component';
 import { LayoutBuilderComponent } from './layout-builder/layout-builder.component';
 import { QuillModule } from 'ngx-quill';
+import { PopupSelectComponent } from './main/popup-select/popup-select.component';
+import { of } from 'rxjs';
 
 const components = [
   BuilderComponent,
@@ -38,6 +41,7 @@ const components = [
   BtnGeneraterComponent,
   MetaEditComponent,
   LayoutBuilderComponent,
+  PopupSelectComponent,
 ];
 
 @NgModule({
@@ -66,6 +70,275 @@ const components = [
     {
       provide: UIUX,
       useValue: uiux,
+    },
+    {
+      provide: POPUP_SELECT,
+      useValue: of([
+        {
+          label: '图片',
+          icon: {
+            svg: 'image-outline',
+          },
+          content: {
+            type: 'img',
+            hostClasses: 'text-center',
+            classes: '',
+            src: '/assets/images/cases/porto3.jpg',
+            alt: 'alt',
+          },
+        },
+        {
+          label: '按钮',
+          icon: {
+            svg: 'button-cursor',
+          },
+          content: {
+            type: 'btn',
+            href: '/node/1',
+            target: '_blank',
+            label: '了解更多',
+            mode: 'raised',
+            color: 'primary',
+          },
+        },
+        {
+          label: '间距',
+          icon: {
+            svg: 'border-horizontal',
+          },
+          content: {
+            type: 'spacer',
+            size: 'md',
+          },
+        },
+        {
+          label: '链接',
+          icon: {
+            svg: 'link',
+          },
+          content: {
+            type: 'link',
+            label: '链接',
+            classes: '',
+            href: '/manage',
+          },
+        },
+        {
+          label: '背景',
+          icon: {
+            svg: 'format-color-fill',
+          },
+          content: {
+            type: 'bg-img',
+            classes: 'bg-fill-width overlay overlay-80',
+            img: {
+              src: '/assets/images/bg/bg-03.jpeg',
+              classes: 'object-fit',
+            },
+          },
+        },
+        {
+          label: '视频',
+          icon: {
+            svg: 'play-box',
+          },
+          content: {
+            type: 'player',
+            options: {
+              controls: true,
+              aspectRatio: '16:9',
+              poster: '/assets/video/poster01.png',
+              sources: [
+                {
+                  src: '/assets/video/storybook.mp4',
+                  type: 'video/mp4',
+                },
+              ],
+            },
+          },
+        },
+        {
+          label: '图标',
+          icon: {
+            svg: 'svg',
+          },
+          content: {
+            type: 'icon',
+            color: 'primary',
+            name: 'format_color_fill',
+          },
+        },
+        {
+          label: '表单',
+          icon: {
+            svg: 'checkbox-marked-outline',
+          },
+          content: {
+            type: 'formly',
+            fields: [
+              {
+                type: 'input',
+                key: 'total',
+                defaultValue: 300,
+                className: 'display-block m-bottom-sm',
+                templateOptions: {
+                  label: '大额红包总金额',
+                  type: 'number',
+                  required: true,
+                  min: 10,
+                  max: 10000,
+                  description: '最小10元，最大10000元',
+                },
+                validation: {
+                  messages: {
+                    min: '不能设置小于 10',
+                    max: '不能设置大于 10000',
+                  },
+                },
+              },
+              {
+                template: '<div><strong>地址:</strong></div>',
+              },
+              {
+                key: 'Textarea',
+                type: 'textarea',
+                className: 'display-block m-bottom-sm',
+                templateOptions: {
+                  label: '文本域',
+                  placeholder: 'Placeholder',
+                  description: 'Description',
+                  required: true,
+                },
+              },
+              {
+                key: 'Checkbox',
+                type: 'checkbox',
+                className: 'display-block m-bottom-sm',
+                templateOptions: {
+                  label: '接受协议',
+                  description: '为了更好的服务，网站将收集用户的Cookies信息。',
+                  pattern: 'true',
+                  required: true,
+                },
+                validation: {
+                  messages: {
+                    pattern: '请勾选协议',
+                  },
+                },
+              },
+              {
+                key: 'Radio',
+                type: 'radio',
+                className: 'display-block m-bottom-sm',
+                templateOptions: {
+                  label: '单选框',
+                  placeholder: 'Placeholder',
+                  description: 'Description',
+                  required: true,
+                  options: [
+                    {
+                      value: 1,
+                      label: 'Option 1',
+                    },
+                    {
+                      value: 2,
+                      label: 'Option 2',
+                    },
+                    {
+                      value: 3,
+                      label: 'Option 3',
+                    },
+                    {
+                      value: 4,
+                      label: 'Option 4',
+                      disabled: true,
+                    },
+                  ],
+                },
+              },
+              {
+                type: 'select',
+                key: 'type',
+                defaultValue: 'fixed',
+                className: 'display-block m-bottom-sm',
+                templateOptions: {
+                  label: '下拉单选',
+                  description: '固定金额或者按比例',
+                  options: [
+                    {
+                      label: '固定金额',
+                      value: 'fixed',
+                    },
+                    {
+                      label: '比例',
+                      value: 'prop',
+                    },
+                  ],
+                },
+              },
+              {
+                type: 'mat-select',
+                key: 'customer',
+                className: 'display-block m-bottom-sm',
+                templateOptions: {
+                  multiple: true,
+                  search: true,
+                  hideSelected: true,
+                  label: '下拉多选',
+                  options: [
+                    {
+                      value: 1,
+                      label: 'Option 1',
+                    },
+                    {
+                      value: 2,
+                      label: 'Option 2',
+                    },
+                    {
+                      value: 3,
+                      label: 'Option 3',
+                    },
+                    {
+                      value: 4,
+                      label: 'Option 4',
+                      disabled: true,
+                    },
+                  ],
+                },
+              },
+              {
+                type: 'date-range',
+                key: 'date',
+                templateOptions: {
+                  label: '期间',
+                  value: '',
+                  placeholder: '请选择日期',
+                },
+                className: 'display-block m-bottom-sm',
+                fieldGroup: [
+                  {
+                    type: 'input',
+                    key: 'start',
+                  },
+                  {
+                    type: 'input',
+                    key: 'end',
+                  },
+                ],
+              },
+              {
+                key: 'isPromote',
+                type: 'toggle',
+                className: 'display-block m-bottom',
+                templateOptions: {
+                  label: '开关',
+                  description: '超过推广次数则推广结束',
+                },
+              },
+            ],
+          },
+        },
+      ]),
     },
     {
       provide: BUILDER_SAMPLE_PAGE,

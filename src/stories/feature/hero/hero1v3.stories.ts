@@ -49,7 +49,7 @@ const v1: IHero1v3 = {
   text: {
     title: {
       label: '欢迎使用 <strong class="text-">Builder</strong> 快速构建页面',
-      classes: 'mat-display-4 bold',
+      classes: 'mat-display-2 bold',
       style: 'style-v4',
     },
     classes: 'p-x',
