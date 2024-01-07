@@ -12,16 +12,16 @@
             [content]="{label:'', mode: 'icon',icon:{svg:'plus' } }"></app-btn>
           <app-btn class="add-next" (click)="addBlock('next',i,content)"
             [content]="{label:'', mode: 'icon',icon:{svg:'plus' } }"></app-btn>
-          <div class="item" *ngFor="let item of layout.elements;index as i">
+          <div class="item" *ngFor="let item of layout.elements;index as index">
             <div class="actions">
-              <app-btn *ngIf="i > 0 && i < layout.elements.length"
+              <app-btn *ngIf="index > 0 && index < layout.elements.length" (click)="onMove('up',i,index)"
                 [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'arrow-collapse-up',inline:true } }"></app-btn>
-              <app-btn *ngIf="i > -1 && i < layout.elements.length -1"
+              <app-btn *ngIf="index > -1 && index < layout.elements.length -1" (click)="onMove('down',i,index)"
                 [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'arrow-collapse-down',inline:true } }"></app-btn>
-              <app-btn
+              <app-btn (click)="onDelete(i,index)"
                 [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'delete',inline:true } }"></app-btn>
             </div>
-            <app-dynamic-component [attr.data-path]="'elements.'+i" [inputs]="{content:item}">
+            <app-dynamic-component [attr.data-path]="'elements.'+index" [inputs]="{content:item}">
             </app-dynamic-component>
           </div>
         </div>

@@ -1,5 +1,6 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   Input,
   OnInit,
@@ -18,7 +19,7 @@ export class LayoutBuilderComponent implements OnInit {
   @Input() content: ILayoutBuilder;
   @Input() pageIndex: number;
   @Input() uuid: string;
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, private cd: ChangeDetectorRef) {}
 
   ngOnInit(): void {}
 
@@ -39,6 +40,32 @@ export class LayoutBuilderComponent implements OnInit {
       },
     });
   }
+
+  onMove(de: string, i: number, index: number): void {
+    const { elements } = this.content;
+    if (de === 'up') {
+      [elements[i].elements[index - 1], elements[i].elements[index]] = [
+        elements[i].elements[index],
+        elements[i].elements[index - 1],
+      ];
+    } else {
+      [elements[i].elements[index], elements[i].elements[index + 1]] = [
+        elements[i].elements[index + 1],
+        elements[i].elements[index],
+      ];
+    }
+    this.cd.detectChanges();
+  }
+
+  onDelete(i: number, index: number): void {
+    console.log(i);
+    console.log(index);
+    const { elements } = this.content;
+    let component: any = {};
+    elements[i].elements.splice(index, 1);
+    this.cd.detectChanges();
+  }
+
   drop(event: any): void {
     console.log(event);
   }
