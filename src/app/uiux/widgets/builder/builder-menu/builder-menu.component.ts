@@ -58,7 +58,7 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onPageJson(): void {
-    this.builder.rightDrawerContent$.next({
+    this.builder.builderRightContent$.next({
       mode: 'over',
       hasBackdrop: true,
       style: {

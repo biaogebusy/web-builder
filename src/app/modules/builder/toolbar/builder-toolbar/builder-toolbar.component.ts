@@ -32,7 +32,7 @@ import type { IPage } from '@core/interface/IAppConfig';
 export class BuilderToolbarComponent
   implements OnInit, AfterViewInit, OnDestroy
 {
-  @Input() containerDrawer: MatDrawer;
+  @Input() builderRightDrawer: MatDrawer;
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
@@ -55,7 +55,7 @@ export class BuilderToolbarComponent
         .subscribe((alia) => {
           if (alia.includes('xs')) {
             this.builder.fullScreen$.next(true);
-            this.containerDrawer.close();
+            this.builderRightDrawer.close();
           }
         });
     }

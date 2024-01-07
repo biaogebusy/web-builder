@@ -1,3 +1,4 @@
+import { ICombsBase } from './combs/ICombsBase';
 import { ICard1v1 } from './widgets/ICard';
 import { IIcon } from './widgets/IIcon';
 
@@ -49,4 +50,13 @@ export interface ISample {
 export interface IBuilderShowcase {
   title: string;
   card: ICard1v1;
+}
+
+export interface ILayoutBuilder extends ICombsBase {
+  fullWidth: boolean;
+  elements: {
+    classes: any;
+    row: number;
+    elements: any[];
+  }[];
 }

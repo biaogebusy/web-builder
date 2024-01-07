@@ -42,6 +42,8 @@ export const ENABLE_BUILDER_TOOLBAR = new InjectionToken<Observable<boolean>>(
   'enable builder toolbar'
 );
 
+export const POPUP_SELECT = new InjectionToken<any[]>('builder popup select');
+
 export const MANAGE_SIDEBAR_STATE = new InjectionToken<
   Observable<IManageSidebarState>
 >('manage sidebar state');

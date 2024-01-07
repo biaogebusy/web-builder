@@ -104,7 +104,7 @@ const center: IText = {
       mode: 'raised',
       color: 'primary',
       href: '/builder',
-      label: '开始体验',
+      label: '了解更多',
     },
   ],
 };
@@ -266,7 +266,7 @@ const list: IText = {
       mode: 'raised',
       color: 'primary',
       href: '/builder',
-      label: '开始体验',
+      label: '了解更多',
     },
   ],
 };

@@ -42,7 +42,7 @@ const content: ITextHero = {
     title: {
       label: '欢迎使用 <strong class="text-">Builder</strong> 快速构建页面',
       style: 'style-v1',
-      classes: 'mat-display-4',
+      classes: 'mat-display-2',
     },
     spacer: 'xl',
     classes: 'xy-center',

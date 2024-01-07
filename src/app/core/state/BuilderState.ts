@@ -18,22 +18,25 @@ import { ScreenService } from '@core/service/screen.service';
   providedIn: 'root',
 })
 export class BuilderState {
-  public builderContent$ = new Subject<IPage>();
-  public showcase$: Subject<IBuilderShowcase | false> = new Subject();
   public fixedShowcase = false;
   public fixedContent: ICard1v1 | null;
+  public showcase$: Subject<IBuilderShowcase | false> = new Subject();
+  public builderContent$ = new Subject<IPage>();
+  public builderContentDrawer$ = new Subject<boolean>();
+  public builderThemeMode = new BehaviorSubject<'light' | 'dark'>('light');
+  public builderRightContent$ = new Subject<IBuilderDynamicContent>();
+  public builderPopupSelect$ = new Subject<any>();
+  public closeBuilderRightDrawer$ = new Subject<boolean>();
   public fixedChange$ = new Subject<boolean>();
   public animateDisable$ = new Subject<boolean>();
   public fullScreen$ = new Subject<boolean>();
   public debugeAnimate$ = new Subject<boolean>();
-  public builderContentDrawer$ = new Subject<boolean>();
   public metaEditImaPath$ = new Subject<object>();
   public switchPreivew$ = new Subject<
     'xs' | 'sm' | 'md' | 'lg' | 'xs-md' | 'none'
   >();
-  public builderThemeMode = new BehaviorSubject<'light' | 'dark'>('light');
+
   public loading$ = new BehaviorSubject<boolean>(true);
-  public rightDrawerContent$ = new Subject<IBuilderDynamicContent>();
   public jsoneditorContent$ = new Subject<{
     content: IPage;
     index: number;
@@ -135,7 +138,7 @@ export class BuilderState {
     if (direction === 'down' && index < body.length - 1) {
       [body[index], body[index + 1]] = [body[index + 1], body[index]];
     }
-
+    this.closeBuilderRightDrawer$.next(true);
     this.saveLocalVersions();
   }
 
@@ -170,6 +173,7 @@ export class BuilderState {
       // 添加组件到指定位置
       this.transferComponet(event);
     }
+    this.closeBuilderRightDrawer$.next(true);
   }
 
   dropComponent(event: CdkDragDrop<string[]>): void {
@@ -190,7 +194,7 @@ export class BuilderState {
   }
 
   showEditor(content: any, index: number): void {
-    this.rightDrawerContent$.next({
+    this.builderRightContent$.next({
       mode: 'over',
       hasBackdrop: false,
       style: {

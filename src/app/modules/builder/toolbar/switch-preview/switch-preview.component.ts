@@ -82,6 +82,7 @@ export class SwitchPreviewComponent implements OnInit {
       this.currentIcon = preview.icon.svg;
     }
     this.cd.detectChanges();
+    this.builderState.closeBuilderRightDrawer$.next(true);
     this.builderState.switchPreivew$.next(preview.value);
   }
 }
