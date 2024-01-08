@@ -261,6 +261,7 @@ export class ComponentService {
       'btn-generater',
       'meta-edit',
       'popup-select',
+      'layout-setting',
     ].forEach((type) =>
       this.setModule(type, () =>
         import('@modules/builder/builder.module').then((m) => m.BuilderModule)

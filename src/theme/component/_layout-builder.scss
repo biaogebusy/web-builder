@@ -11,14 +11,15 @@
   .builder-list {
     .layout-builder {
       .layout-inner {
-        &:hover {
-          outline: 1px solid mat-color($foreground, divider);
-        }
         > .layout {
           &:hover {
             outline: 1px dashed mat-color($primary);
           }
           > .block {
+            .block-toolbar {
+              border: 1px solid mat-color($foreground, divider);
+              background: mat-color($background, card);
+            }
             > .item {
               &:hover {
                 outline: 1px solid mat-color($primary);
