@@ -91,4 +91,8 @@ export class LayoutBuilderComponent implements OnInit {
     this.builder.updateComponent(this.pageIndex, this.content);
     this.cd.detectChanges();
   }
+
+  onResponsive(i: number): void {
+    console.log(i);
+  }
 }

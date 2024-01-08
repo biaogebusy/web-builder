@@ -25,7 +25,13 @@ export const tools = [
       elements: [
         {
           classes: '',
-          row: '8',
+          row: {
+            xs: 12,
+            sm: 6,
+            md: 6,
+            lg: 6,
+            xl: 6,
+          },
           align: 'start stretch',
           elements: [
             {
@@ -57,7 +63,13 @@ export const tools = [
         },
         {
           classes: '',
-          row: '4',
+          row: {
+            xs: 12,
+            sm: 6,
+            md: 6,
+            lg: 6,
+            xl: 6,
+          },
           align: 'start stretch',
           elements: [
             {
