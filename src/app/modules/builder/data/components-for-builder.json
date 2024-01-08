@@ -8192,6 +8192,7 @@
               {
                 "classes": "",
                 "row": "8",
+                "align": "start stretch",
                 "elements": [
                   {
                     "type": "text",
@@ -8222,6 +8223,7 @@
               {
                 "classes": "",
                 "row": "4",
+                "align": "start stretch",
                 "elements": [
                   {
                     "type": "img",

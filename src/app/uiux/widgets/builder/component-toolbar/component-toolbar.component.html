@@ -1,7 +1,7 @@
 <div class="wrapper" fxLayout="row" fxLayoutAlign="space-between center" fxFlex="100%">
-  <div class="title">
+  <!-- <div class="title">
     <i>{{ index !== undefined ? index+'.':''}}</i> {{type}}
-  </div>
+  </div> -->
   <div class="actions m-right-xs" fxLayout="row" fxLayoutGap="1rem">
     <div *ngIf="index >0 && isPreview" class="item" (click)="onUpdown(index,'up')" [matTooltip]="'上移'"
       matTooltipPosition="above">

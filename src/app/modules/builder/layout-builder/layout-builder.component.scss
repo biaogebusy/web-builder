@@ -2,8 +2,21 @@
   .layout {
     position: relative;
     padding: 10px;
+    ::ng-deep {
+      .mat-icon-button {
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        .custom.mat-icon {
+          width: 16px !important;
+          height: 16px !important;
+          line-height: 16px !important;
+        }
+      }
+    }
     .block {
       position: relative;
+      width: 100%;
       .item {
         position: relative;
         padding: 10px;
@@ -20,29 +33,20 @@
           }
         }
       }
-      .add-down,
-      .add-next {
-        display: none;
-        position: absolute;
-        z-index: 100;
-        left: 50%;
-        bottom: 0;
-        top: auto;
-        transform: translateX(-50%);
-      }
-
-      .add-next {
-        left: auto;
-        right: 0;
-        bottom: auto;
-        top: 50%;
-        transform: translateY(-50%);
-      }
-      &:hover {
-        .add-down,
-        .add-next {
-          display: block;
-        }
+    }
+    .block-toolbar {
+      display: none;
+      position: absolute;
+      border-radius: 4px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      top: -36px;
+      white-space: nowrap;
+    }
+    &:hover {
+      .block-toolbar {
+        display: block;
       }
     }
   }

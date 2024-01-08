@@ -18,6 +18,11 @@
   .mat-drawer {
     background-color: mat-color($background, background);
   }
+  .component-item {
+    &:hover {
+      outline: 1px dashed mat-color($primary);
+    }
+  }
   .preview {
     background-color: mat-color($foreground, elevation, 0.85);
     #builder-list {

@@ -26,6 +26,7 @@ export const tools = [
         {
           classes: '',
           row: '8',
+          align: 'start stretch',
           elements: [
             {
               type: 'text',
@@ -57,6 +58,7 @@ export const tools = [
         {
           classes: '',
           row: '4',
+          align: 'start stretch',
           elements: [
             {
               type: 'img',

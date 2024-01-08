@@ -9,15 +9,23 @@
   }
 
   .actions {
+    position: absolute;
+    right: 0;
+    top: -2px;
     .item {
       cursor: pointer;
       border-radius: 6px;
       white-space: nowrap;
       ::ng-deep {
-        .custom {
-          width: 20px !important;
-          height: 20px !important;
-          line-height: 20px !important;
+        .mat-icon-button {
+          width: 30px;
+          height: 30px;
+          line-height: 30px;
+          .custom {
+            width: 16px !important;
+            height: 16px !important;
+            line-height: 16px !important;
+          }
         }
       }
     }

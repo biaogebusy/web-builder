@@ -17,10 +17,12 @@
     #builder-list {
       flex: 1 1 auto;
       overflow: auto;
+      padding: 1px;
     }
   }
   ::ng-deep .component-item {
     position: relative;
+    padding: 1px;
     &.cdk-drag:not(.cdk-drag-disabled) {
       cursor: move;
     }
