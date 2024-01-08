@@ -56,7 +56,10 @@ export interface ILayoutBuilder extends ICombsBase {
   fullWidth: boolean;
   elements: {
     classes: any;
-    row: number;
+    row: {
+      [key: string]: number;
+    };
     elements: any[];
+    align: string;
   }[];
 }

@@ -25,7 +25,13 @@ export const tools = [
       elements: [
         {
           classes: '',
-          row: '8',
+          row: {
+            xs: 12,
+            sm: 6,
+            md: 6,
+            lg: 6,
+          },
+          align: 'start stretch',
           elements: [
             {
               type: 'text',
@@ -56,13 +62,19 @@ export const tools = [
         },
         {
           classes: '',
-          row: '4',
+          row: {
+            xs: 12,
+            sm: 6,
+            md: 6,
+            lg: 6,
+          },
+          align: 'start stretch',
           elements: [
             {
               type: 'img',
               hostClasses: 'text-center',
               classes: '',
-              src: '/assets/images/cases/porto3.jpg',
+              src: '/assets/images/logo/logo-blue.png',
               alt: 'alt',
             },
           ],

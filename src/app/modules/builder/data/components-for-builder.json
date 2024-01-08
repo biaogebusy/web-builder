@@ -8191,7 +8191,13 @@
             "elements": [
               {
                 "classes": "",
-                "row": "8",
+                "row": {
+                  "xs": 12,
+                  "sm": 6,
+                  "md": 6,
+                  "lg": 6
+                },
+                "align": "start stretch",
                 "elements": [
                   {
                     "type": "text",
@@ -8205,29 +8211,25 @@
                     "bg": {
                       "classes": "bg- bg-fill-width"
                     },
-                    "classes": "",
-                    "actionsAlign": "start center",
-                    "actions": [
-                      {
-                        "type": "btn",
-                        "mode": "raised",
-                        "color": "primary",
-                        "href": "/builder",
-                        "label": "开始体验"
-                      }
-                    ]
+                    "classes": ""
                   }
                 ]
               },
               {
                 "classes": "",
-                "row": "4",
+                "row": {
+                  "xs": 12,
+                  "sm": 6,
+                  "md": 6,
+                  "lg": 6
+                },
+                "align": "center stretch",
                 "elements": [
                   {
                     "type": "img",
                     "hostClasses": "text-center",
                     "classes": "",
-                    "src": "/assets/images/cases/porto3.jpg",
+                    "src": "/assets/images/logo/logo-blue.png",
                     "alt": "alt"
                   }
                 ]
