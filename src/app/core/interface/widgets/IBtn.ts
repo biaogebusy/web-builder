@@ -10,7 +10,7 @@ export interface IBtn {
   href?: string;
   color?: ThemePalette;
   icon?: IIcon;
-  label?: string;
+  label?: string | number;
   target?: string;
   drawerIframe?: boolean;
   disabled?: boolean;

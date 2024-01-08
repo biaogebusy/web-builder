@@ -30,7 +30,6 @@ export const tools = [
             sm: 6,
             md: 6,
             lg: 6,
-            xl: 6,
           },
           align: 'start stretch',
           elements: [
@@ -68,7 +67,6 @@ export const tools = [
             sm: 6,
             md: 6,
             lg: 6,
-            xl: 6,
           },
           align: 'start stretch',
           elements: [
@@ -76,7 +74,7 @@ export const tools = [
               type: 'img',
               hostClasses: 'text-center',
               classes: '',
-              src: '/assets/images/cases/porto3.jpg',
+              src: '/assets/images/logo/logo-blue.png',
               alt: 'alt',
             },
           ],

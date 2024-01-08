@@ -4,6 +4,7 @@ import {
   Component,
   Inject,
   Input,
+  OnDestroy,
   OnInit,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -11,7 +12,9 @@ import { ILayoutBuilder } from '@core/interface/IBuilder';
 import { BuilderState } from '@core/state/BuilderState';
 import { ENABLE_BUILDER_TOOLBAR } from '@core/token/token-providers';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
+import { Subject } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-layout-builder',
@@ -19,10 +22,11 @@ import { Observable } from 'rxjs/internal/Observable';
   styleUrls: ['./layout-builder.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LayoutBuilderComponent implements OnInit {
+export class LayoutBuilderComponent implements OnInit, OnDestroy {
   @Input() content: ILayoutBuilder;
   @Input() pageIndex: number;
   @Input() uuid: string;
+  destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     private dialog: MatDialog,
     private cd: ChangeDetectorRef,
@@ -30,7 +34,19 @@ export class LayoutBuilderComponent implements OnInit {
     @Inject(ENABLE_BUILDER_TOOLBAR) public enable_toolbar$: Observable<boolean>
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.builder.builderLayoutSetting$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((value) => {
+        const { index, row, uuid } = value;
+        if (uuid === this.uuid) {
+          const { elements } = this.content;
+          elements[index].row = row;
+          this.builder.updateComponent(this.pageIndex, this.content);
+          this.cd.detectChanges();
+        }
+      });
+  }
 
   addBlock(row: string, index: number, content: any): void {
     this.dialog.open(DialogComponent, {
@@ -92,7 +108,26 @@ export class LayoutBuilderComponent implements OnInit {
     this.cd.detectChanges();
   }
 
-  onResponsive(i: number): void {
-    console.log(i);
+  onSettings(i: number, layout: any): void {
+    this.uuid = Date.now().toString();
+    this.builder.builderRightContent$.next({
+      mode: 'push',
+      hasBackdrop: false,
+      style: {
+        width: '260px',
+      },
+      elements: [
+        {
+          type: 'layout-setting',
+          index: i,
+          layout,
+          uuid: this.uuid,
+        },
+      ],
+    });
+  }
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

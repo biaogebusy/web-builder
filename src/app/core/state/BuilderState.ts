@@ -26,6 +26,7 @@ export class BuilderState {
   public builderThemeMode = new BehaviorSubject<'light' | 'dark'>('light');
   public builderRightContent$ = new Subject<IBuilderDynamicContent>();
   public builderPopupSelect$ = new Subject<any>();
+  public builderLayoutSetting$ = new Subject<any>();
   public closeBuilderRightDrawer$ = new Subject<boolean>();
   public fixedChange$ = new Subject<boolean>();
   public animateDisable$ = new Subject<boolean>();
