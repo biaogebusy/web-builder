@@ -18,71 +18,14 @@ export class LayoutSettingComponent implements OnInit {
   @Input() content: any;
   form = new FormGroup({});
   model: any = {};
-  fields: FormlyFieldConfig[] = [];
-  settings: FormlyFieldConfig[] = [
-    {
-      type: 'slider',
-      key: 'xs',
-      defaultValue: 4,
-      className: 'width-100',
-      templateOptions: {
-        label: '移动端',
-        min: 1,
-        max: 12,
-        thumbLabel: true,
-      },
-    },
-    {
-      type: 'slider',
-      key: 'sm',
-      defaultValue: 4,
-      className: 'width-100',
-      templateOptions: {
-        label: '平板电脑',
-        min: 1,
-        max: 12,
-        thumbLabel: true,
-      },
-    },
-    {
-      type: 'slider',
-      key: 'md',
-      defaultValue: 4,
-      className: 'width-100',
-      templateOptions: {
-        label: '桌面电脑',
-        min: 1,
-        max: 12,
-        thumbLabel: true,
-      },
-    },
-    {
-      type: 'slider',
-      key: 'lg',
-      defaultValue: 4,
-      className: 'width-100',
-      templateOptions: {
-        label: '超大桌面',
-        min: 1,
-        max: 12,
-        thumbLabel: true,
-      },
-    },
-  ];
+
   constructor(private builder: BuilderState) {}
 
-  ngOnInit(): void {
-    this.fields = this.settings.map((field: any) => {
-      return {
-        ...field,
-        defaultValue: this.content.layout.row[field.key],
-      };
-    });
-  }
+  ngOnInit(): void {}
 
   onModelChange(value: any) {
     this.builder.builderLayoutSetting$.next({
-      row: value,
+      value,
       index: this.content.index,
       uuid: this.content.uuid,
     });

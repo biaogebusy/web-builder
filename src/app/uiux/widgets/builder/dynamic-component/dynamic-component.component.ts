@@ -66,6 +66,17 @@ export class DynamicComponentComponent
           this.loadComponent();
         }
       });
+
+    this.builder.builderLayoutSetting$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((data) => {
+        const { value, uuid, index } = data;
+        if (this.uuid === uuid) {
+          this.inputs = { ...this.inputs.content, ...value };
+          this.loadComponent();
+          this.builder.updateComponent(index, this.inputs);
+        }
+      });
   }
 
   ngOnChanges(changes: SimpleChanges): void {

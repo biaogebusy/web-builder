@@ -65,10 +65,10 @@ export class ComponentToolbarComponent implements OnInit {
   onEditor(content: any, index: number): void {
     const { type } = content;
     const component = type ? content : content.content;
+    const uuid = Date.now().toString();
+    this.uuidChange.emit(uuid);
     if (!this.enableBuilderToolbar) {
       // uuid for update not builder page
-      const uuid = Date.now().toString();
-      this.uuidChange.emit(uuid);
       this.dialogRef = this.dialog.open(DialogComponent, {
         width: '1000px',
         data: {
@@ -84,7 +84,7 @@ export class ComponentToolbarComponent implements OnInit {
         },
       });
     } else {
-      this.builder.showEditor(component, index);
+      this.builder.showEditor(component, index, uuid);
     }
   }
 

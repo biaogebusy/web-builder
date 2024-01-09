@@ -1,4 +1,7 @@
 <div class="layout-setting">
-  <app-title [content]="{label:'响应式配置',style:'style-v4'}"></app-title>
-  <app-formly [fields]="fields" [model]="model" (modelChange)="onModelChange($event)"></app-formly>
+  <app-title [content]="content.title"></app-title>
+  <app-formly [fields]="content.fields" [model]="model" (modelChange)="onModelChange($event)"></app-formly>
+  <ng-container *ngIf="content.elements">
+    <app-dynamic-component *ngFor="let item of content.elements;" [inputs]="item"></app-dynamic-component>
+  </ng-container>
 </div>

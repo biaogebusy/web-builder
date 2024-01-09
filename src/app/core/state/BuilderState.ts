@@ -13,6 +13,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
 import { map } from 'lodash-es';
 import { DOCUMENT } from '@angular/common';
 import { ScreenService } from '@core/service/screen.service';
+import { FormlyFieldConfig } from '@ngx-formly/core';
 
 @Injectable({
   providedIn: 'root',
@@ -194,21 +195,75 @@ export class BuilderState {
     this.updatePage(event.currentIndex);
   }
 
-  showEditor(content: any, index: number): void {
+  showEditor(content: any, index: number, uuid: string): void {
+    let fields: FormlyFieldConfig[] = [
+      {
+        type: 'checkbox',
+        key: 'fullWidth',
+        className: 'width-100',
+        defaultValue: content.fullWidth,
+        templateOptions: {
+          label: '全屏宽',
+        },
+      },
+      {
+        type: 'select',
+        key: 'spacer',
+        defaultValue: content.spacer || 'md',
+        className: 'width-100',
+        templateOptions: {
+          label: '上下间距',
+          options: [
+            {
+              label: '超小',
+              value: 'xs',
+            },
+            {
+              label: '小',
+              value: 'sm',
+            },
+            {
+              label: '正常',
+              value: 'md',
+            },
+            {
+              label: '大',
+              value: 'lg',
+            },
+            {
+              label: '超大',
+              value: 'xl',
+            },
+          ],
+        },
+      },
+    ];
     this.builderRightContent$.next({
       mode: 'over',
       hasBackdrop: false,
       style: {
-        width: '500px',
+        width: '260px',
         'max-width': 'calc(100vw - 50px)',
       },
       elements: [
         {
-          type: 'jsoneditor',
+          type: 'layout-setting',
+          title: {
+            label: '组件配置',
+            style: 'style-v4',
+          },
+          fields,
+          uuid,
           index,
-          isPreview: true,
-          data: content,
-          tooltip: '直接修改JSON，更新组件的数据',
+          elements: [
+            {
+              type: 'jsoneditor',
+              index,
+              isPreview: true,
+              data: content,
+              tooltip: '直接修改JSON，更新组件的数据',
+            },
+          ],
         },
       ],
     });
