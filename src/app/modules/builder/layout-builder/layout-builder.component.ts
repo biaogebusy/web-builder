@@ -8,7 +8,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ILayoutBuilder } from '@core/interface/IBuilder';
+import type { ILayoutBuilder } from '@core/interface/IBuilder';
 import { BuilderState } from '@core/state/BuilderState';
 import { ENABLE_BUILDER_TOOLBAR } from '@core/token/token-providers';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
