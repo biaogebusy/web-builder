@@ -5,8 +5,10 @@ import {
   OnInit,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { ILayoutSetting } from '@core/interface/IBuilder';
 import { BuilderState } from '@core/state/BuilderState';
-import { FormlyFieldConfig } from '@ngx-formly/core';
+import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 
 @Component({
   selector: 'app-layout-setting',
@@ -15,11 +17,11 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LayoutSettingComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: ILayoutSetting;
   form = new FormGroup({});
   model: any = {};
 
-  constructor(private builder: BuilderState) {}
+  constructor(private builder: BuilderState, private dialog: MatDialog) {}
 
   ngOnInit(): void {}
 
@@ -28,6 +30,22 @@ export class LayoutSettingComponent implements OnInit {
       value,
       index: this.content.index,
       uuid: this.content.uuid,
+    });
+  }
+
+  showCode(): void {
+    this.dialog.open(DialogComponent, {
+      width: '1000px',
+      data: {
+        inputData: {
+          content: {
+            type: 'jsoneditor',
+            index: this.content.index,
+            isPreview: true,
+            data: this.content.content,
+          },
+        },
+      },
     });
   }
 }

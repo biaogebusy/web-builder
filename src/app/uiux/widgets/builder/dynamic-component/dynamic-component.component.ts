@@ -72,7 +72,17 @@ export class DynamicComponentComponent
       .subscribe((data) => {
         const { value, uuid, index } = data;
         if (this.uuid === uuid) {
-          this.inputs = { ...this.inputs.content, ...value };
+          console.log(data);
+          let bgColor = {};
+          if (value.bgColor) {
+            bgColor = {
+              bg: {
+                classes: value.bgColor,
+              },
+            };
+            delete value.bgColor;
+          }
+          this.inputs = { ...this.inputs.content, ...value, ...bgColor };
           this.loadComponent();
           this.builder.updateComponent(index, this.inputs);
         }

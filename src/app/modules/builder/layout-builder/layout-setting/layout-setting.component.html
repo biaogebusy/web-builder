@@ -1,7 +1,9 @@
 <div class="layout-setting">
   <app-title [content]="content.title"></app-title>
   <app-formly [fields]="content.fields" [model]="model" (modelChange)="onModelChange($event)"></app-formly>
-  <ng-container *ngIf="content.elements">
-    <app-dynamic-component *ngFor="let item of content.elements;" [inputs]="item"></app-dynamic-component>
-  </ng-container>
+
+  <div class="actions m-y-md" fxLayoutAlign="center center">
+    <app-btn (click)="showCode()" [matTooltip]="'编辑 JSON'" matTooltipPosition="above"
+      [content]="{label:'编辑 JSON',color:'primary', mode: 'raised' ,icon:{svg:'pencil',inline:true } }"></app-btn>
+  </div>
 </div>

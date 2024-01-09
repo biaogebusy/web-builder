@@ -204,6 +204,7 @@ export class BuilderState {
         defaultValue: content.fullWidth,
         templateOptions: {
           label: '全屏宽',
+          description: '组件占据页面的宽度',
         },
       },
       {
@@ -212,7 +213,7 @@ export class BuilderState {
         defaultValue: content.spacer || 'md',
         className: 'width-100',
         templateOptions: {
-          label: '上下间距',
+          description: '上下间距',
           options: [
             {
               label: '超小',
@@ -237,6 +238,70 @@ export class BuilderState {
           ],
         },
       },
+      {
+        type: 'select',
+        key: 'bgColor',
+        className: 'width-100',
+        defaultValue: 'bg- bg-fill-width',
+        templateOptions: {
+          description: '背景色',
+          options: [
+            {
+              label: '无',
+              value: 'bg- bg-fill-width',
+            },
+            {
+              label: '品牌色',
+              value: 'bg-primary bg-fill-width',
+            },
+            {
+              label: '灰色',
+              value: 'bg-shadow bg-fill-width',
+            },
+            {
+              label: '蓝色',
+              value: 'bg-blue bg-fill-width',
+            },
+            {
+              label: '绿色',
+              value: 'bg-green bg-fill-width',
+            },
+            {
+              label: '黄色',
+              value: 'bg-yellow bg-fill-width',
+            },
+            {
+              label: '红色',
+              value: 'bg-red bg-fill-width',
+            },
+            {
+              label: '警告色',
+              value: 'bg-warn bg-fill-width',
+            },
+            {
+              label: '粉色',
+              value: 'bg-pink bg-fill-width',
+            },
+            {
+              label: '橙色',
+              value: 'bg-orange bg-fill-width',
+            },
+            {
+              label: '紫色',
+              value: 'bg-purple bg-fill-width',
+            },
+          ],
+        },
+      },
+      {
+        type: 'input',
+        key: 'id',
+        className: 'width-100',
+        templateOptions: {
+          label: 'ID',
+          description: '一般用于页面锚点定位',
+        },
+      },
     ];
     this.builderRightContent$.next({
       mode: 'over',
@@ -249,21 +314,13 @@ export class BuilderState {
         {
           type: 'layout-setting',
           title: {
-            label: '组件配置',
+            label: '组件通用配置',
             style: 'style-v4',
           },
           fields,
           uuid,
           index,
-          elements: [
-            {
-              type: 'jsoneditor',
-              index,
-              isPreview: true,
-              data: content,
-              tooltip: '直接修改JSON，更新组件的数据',
-            },
-          ],
+          content,
         },
       ],
     });
