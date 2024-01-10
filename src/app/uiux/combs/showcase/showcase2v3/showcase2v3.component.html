@@ -3,7 +3,7 @@
   <app-bg-img [attr.data-path]="'bg'" [content]="content.bg"></app-bg-img>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <app-text [attr.data-path]="'text'" [content]="content.text" *ngIf="content.text"></app-text>
-  <div class="container">
+  <div class="{{content.fullWidth?'':'container'}}">
     <div class="inner" fxLayout="row wrap" fxFlex="100" fxLayoutAlign="space-between start">
       <div class="item p-x-xs m-bottom-sm" fxFlex.xs="100" fxFlex.gt-xs="0 0 calc(100% / {{content.row}} - 2rem)"
         *ngFor="let item of content.elements;index as i" fxLayoutAlign="space-between center">

@@ -1,5 +1,6 @@
 export interface IBg {
   type?: string;
-  classes: string;
+  classes?: string;
+  overlay?: string;
   style?: object;
 }

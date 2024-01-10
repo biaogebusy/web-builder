@@ -1,8 +1,8 @@
 <div class="showcase-4v1 position-relative" *reqRolesIf="content">
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
-  <app-bg [attr.data-path]="'bg'" *ngIf="content.bg" [content]="content.bg"></app-bg>
-  <div class="container">
+  <app-bg-img [attr.data-path]="'bg'" *ngIf="content.bg" [content]="content.bg"></app-bg-img>
+  <div class="{{content.fullWidth?'':'container'}}">
     <app-text [attr.data-path]="'text'" [content]="content.text" *ngIf="content.text"></app-text>
     <div class="inner" fxLayout.xs="column" fxLayout.gt-xs="row">
       <div fxFlex *ngFor="let item of elements;index as i">

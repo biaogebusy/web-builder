@@ -4,6 +4,13 @@
       background-color: mat-color($primary, 0.2);
     }
   }
+
+  .bg-img-section {
+    .box {
+      background-color: mat-color($background, 0.2);
+    }
+  }
+
   .gui-ui {
     .dg.main {
       ul {

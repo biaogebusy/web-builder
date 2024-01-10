@@ -2,12 +2,12 @@
   <mat-expansion-panel *ngFor="let item of content;index as i" [expanded]="i == 0">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        {{item.label}} ({{item.elements.length}})
+        {{item.label}}
       </mat-panel-title>
     </mat-expansion-panel-header>
     <mat-list>
       <div class="cards" id="widgets" fxLayout="row wrap" cdkDropList cdkDropListSortingDisabled="true"
-        [cdkDropListData]="item.elements" [cdkDropListConnectedTo]="['builder-list','builder-list-sideabr','layout']">
+        [cdkDropListData]="item.elements" [cdkDropListConnectedTo]="['builder-list','builder-list-sideabr']">
         <ng-container *ngFor="let widget of item.elements">
           <ng-container *ngIf="!widget.child">
             <div class="item" matRipple fxFlex.lt-sm="50%" fxFlex.gt-xs="0 0 calc(100%/3)"

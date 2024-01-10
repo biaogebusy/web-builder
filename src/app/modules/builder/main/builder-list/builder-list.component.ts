@@ -84,14 +84,6 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
     );
   }
 
-  onShowEditor(content: any, index: number): void {
-    if (this.builderRightDrawer.opened) {
-      this.builderRightDrawer.close();
-    } else {
-      this.builder.showEditor(content, index);
-    }
-  }
-
   ngOnDestroy(): void {
     each(this.markers, (marker) => {
       marker.remove();

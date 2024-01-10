@@ -2,7 +2,7 @@
   <a class="anchor" [id]="content.id||''"></a>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <app-bg-img [attr.data-path]="'bg'" [content]="content.bg"></app-bg-img>
-  <div class="container position-relative">
+  <div class="{{content.fullWidth?'position-relative':'container position-relative'}}">
     <div class="inner" fxFlex.lt-md="100" fxFlex.gt-sm="58" fxFlexOffset.gt-sm="42">
       <div class="box p-x">
         <app-text [attr.data-path]="'body'" [content]="content.body"></app-text>

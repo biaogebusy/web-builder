@@ -1,6 +1,8 @@
+import { FormlyFieldConfig } from '@ngx-formly/core';
 import { ICombsBase } from './combs/ICombsBase';
 import { ICard1v1 } from './widgets/ICard';
 import { IIcon } from './widgets/IIcon';
+import { ITitle } from './widgets/ITitle';
 
 export interface IBuilderComponent {
   label: string;
@@ -13,6 +15,7 @@ export interface IBuilderComponentElement {
   icon?: IIcon;
   type?: string;
   provide?: 'CORE_CONFIG' | 'BRANDING';
+  forLayout?: boolean;
   child: IBuilderComponentElement[];
   content: {
     type?: string;
@@ -62,4 +65,12 @@ export interface ILayoutBuilder extends ICombsBase {
     elements: any[];
     align: string;
   }[];
+}
+
+export interface ILayoutSetting {
+  title: ITitle;
+  fields: FormlyFieldConfig[];
+  index: number;
+  uuid: string;
+  content: any;
 }

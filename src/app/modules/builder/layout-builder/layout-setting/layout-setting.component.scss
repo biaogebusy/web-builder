@@ -1,3 +1,21 @@
 .layout-setting {
   padding: 20px;
+  .bg-img-section {
+    .box {
+      gap: 10px;
+      padding: 10px;
+      border-radius: 4px;
+      font-size: 14px;
+
+      img {
+        width: 40px;
+        height: 40px;
+        object-fit: cover;
+        border-radius: 4px;
+      }
+      .desc {
+        opacity: 0.85;
+      }
+    }
+  }
 }

@@ -43,6 +43,7 @@ export const common = [
   },
   {
     label: '进步器',
+    forLayout: true,
     icon: {
       svg: 'debug-step-over',
     },

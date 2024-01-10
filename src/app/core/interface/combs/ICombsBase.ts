@@ -11,4 +11,5 @@ export interface ICombsBase {
   classes: object | string;
   row?: number;
   params?: any;
+  fullWidth?: boolean;
 }

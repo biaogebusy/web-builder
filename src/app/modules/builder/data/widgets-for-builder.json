@@ -4,7 +4,137 @@
       "label": "基础",
       "elements": [
         {
+          "label": "标题",
+          "forLayout": true,
+          "icon": {
+            "svg": "format-header-2"
+          },
+          "content": {
+            "type": "title",
+            "label": "欢迎使用 <strong class=\"text-primary\">Web Builder</strong> 快速构建响应式页面",
+            "style": "style-v4",
+            "classes": "mat-display-2 bold"
+          }
+        },
+        {
+          "label": "播放按钮",
+          "forLayout": true,
+          "icon": {
+            "svg": "play-circle-outline"
+          },
+          "content": {
+            "type": "btn-video",
+            "color": "primary",
+            "video": {
+              "type": "player",
+              "options": {
+                "controls": true,
+                "aspectRatio": "16:9",
+                "poster": "/assets/video/poster01.png",
+                "sources": [
+                  {
+                    "src": "/assets/video/storybook.mp4",
+                    "type": "video/mp4"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "label": "图表",
+          "forLayout": true,
+          "icon": {
+            "svg": "chart-line"
+          },
+          "data": {
+            "toggle": [
+              {
+                "label": "饼图",
+                "icon": {
+                  "name": "pie_chart",
+                  "inline": true
+                },
+                "value": "pie"
+              },
+              {
+                "label": "柱状图",
+                "icon": {
+                  "name": "equalizer",
+                  "inline": true
+                },
+                "value": "bar"
+              },
+              {
+                "label": "折线图",
+                "icon": {
+                  "name": "show_chart",
+                  "inline": true
+                },
+                "value": "line"
+              }
+            ]
+          },
+          "content": {
+            "type": "chart",
+            "title": {
+              "text": "年度活动金额预算",
+              "subtext": "南宁"
+            },
+            "legend": {
+              "bottom": "10px"
+            },
+            "tooltip": {
+              "trigger": "axis"
+            },
+            "dataset": {
+              "source": [
+                [
+                  "红包预算",
+                  "2020",
+                  "2021",
+                  "2022"
+                ],
+                [
+                  "第一季度",
+                  7791,
+                  9180,
+                  3135
+                ],
+                [
+                  "第二季度",
+                  9205,
+                  4095,
+                  5184
+                ],
+                [
+                  "第三季度",
+                  7653,
+                  9433,
+                  5393
+                ]
+              ]
+            },
+            "xAxis": {
+              "type": "category"
+            },
+            "yAxis": {},
+            "series": [
+              {
+                "type": "bar"
+              },
+              {
+                "type": "bar"
+              },
+              {
+                "type": "bar"
+              }
+            ]
+          }
+        },
+        {
           "label": "图片",
+          "forLayout": true,
           "icon": {
             "svg": "image-outline"
           },
@@ -18,6 +148,7 @@
         },
         {
           "label": "按钮",
+          "forLayout": true,
           "icon": {
             "svg": "button-cursor"
           },
@@ -32,6 +163,7 @@
         },
         {
           "label": "链接",
+          "forLayout": true,
           "icon": {
             "svg": "link"
           },
@@ -44,6 +176,7 @@
         },
         {
           "label": "背景",
+          "forLayout": true,
           "icon": {
             "svg": "format-color-fill"
           },
@@ -58,6 +191,7 @@
         },
         {
           "label": "视频",
+          "forLayout": true,
           "icon": {
             "svg": "play-box"
           },
@@ -78,6 +212,7 @@
         },
         {
           "label": "图标",
+          "forLayout": true,
           "icon": {
             "svg": "svg"
           },
@@ -89,6 +224,7 @@
         },
         {
           "label": "表单",
+          "forLayout": true,
           "icon": {
             "svg": "checkbox-marked-outline"
           },
@@ -264,6 +400,7 @@
       "elements": [
         {
           "label": "卡片",
+          "forLayout": true,
           "icon": {
             "svg": "card-outline"
           },
@@ -288,6 +425,7 @@
         },
         {
           "label": "v1",
+          "forLayout": true,
           "icon": {
             "svg": "numeric-1"
           },
@@ -315,6 +453,7 @@
         },
         {
           "label": "v2",
+          "forLayout": true,
           "icon": {
             "svg": "numeric-2"
           },
@@ -341,6 +480,7 @@
         },
         {
           "label": "1v4",
+          "forLayout": true,
           "icon": {
             "svg": "numeric-4"
           },
@@ -358,6 +498,7 @@
         },
         {
           "label": "1v5",
+          "forLayout": true,
           "icon": {
             "svg": "numeric-5"
           },
@@ -380,6 +521,7 @@
         },
         {
           "label": "1v6",
+          "forLayout": true,
           "icon": {
             "svg": "numeric-6"
           },
@@ -472,6 +614,7 @@
         },
         {
           "label": "进步器",
+          "forLayout": true,
           "icon": {
             "svg": "debug-step-over"
           },
@@ -509,6 +652,7 @@
       "elements": [
         {
           "label": "列表",
+          "forLayout": true,
           "icon": {
             "svg": "format-list-checkbox"
           },
@@ -525,7 +669,7 @@
                   "src": "../assets/images/showcase/blog1-large.jpeg",
                   "alt": ""
                 },
-                "changed": "2024-01-04"
+                "changed": "2024-01-10"
               },
               {
                 "link": {
@@ -536,29 +680,29 @@
                   "src": "../assets/images/showcase/blog2-large.jpeg",
                   "alt": ""
                 },
-                "changed": "2024-01-04"
+                "changed": "2024-01-10"
               },
               {
                 "link": {
                   "label": "你应该了解的 Angular 最佳实践",
-                  "href": "2024-01-04"
+                  "href": "2024-01-10"
                 },
                 "img": {
                   "src": "../assets/images/showcase/blog3-large.jpeg",
                   "alt": ""
                 },
-                "changed": "2024-01-04"
+                "changed": "2024-01-10"
               },
               {
                 "link": {
                   "label": "Angular 5 rxjs 5.5.2 多个 http 并行 forkJoin 请求",
-                  "href": "2024-01-04"
+                  "href": "2024-01-10"
                 },
                 "img": {
                   "src": "../assets/images/showcase/blog4-large.jpeg",
                   "alt": ""
                 },
-                "changed": "2024-01-04"
+                "changed": "2024-01-10"
               }
             ]
           }
@@ -578,12 +722,13 @@
               "href": "#",
               "label": "更多"
             },
-            "date": "2024-01-04",
+            "date": "2024-01-10",
             "body": "Storybook是一个用于开发和展示UI组件的工具。它提供了一个独立的环境，开发人员可以在其中构建、测试和文档化单个UI组件，而无需依赖于整个应用程序的上下文。Storybook是一个用于开发和展示UI组件的工具。它提供了一个独立的环境，开发人员可以在其中构建、测试和文档化单个UI组件，而无需依赖于整个应用程序的上下文。..."
           }
         },
         {
           "label": "对象",
+          "forLayout": true,
           "icon": {
             "svg": "format-list-bulleted-type"
           },
@@ -605,6 +750,7 @@
         },
         {
           "label": "对象组",
+          "forLayout": true,
           "icon": {
             "svg": "select-group"
           },
@@ -646,6 +792,7 @@
         },
         {
           "label": "感言",
+          "forLayout": true,
           "icon": {
             "svg": "format-wrap-square"
           },
@@ -680,6 +827,7 @@
         },
         {
           "label": "进度组",
+          "forLayout": true,
           "icon": {
             "svg": "format-list-group"
           },
