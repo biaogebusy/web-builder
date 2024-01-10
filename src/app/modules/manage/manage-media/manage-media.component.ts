@@ -57,7 +57,7 @@ export class ManageMediaComponent implements OnInit {
 
   onSelect(item: any): void {
     this.selectedId = item.id;
-    this.builder.metaEditImaPath$.next({
+    this.builder.selectedMedia$.next({
       src: item.img.src,
       alt: item.img.alt,
       fileName: item.img.src.split('/').pop(),

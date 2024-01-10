@@ -57,11 +57,6 @@ export class ComponentToolbarComponent implements OnInit {
     this.builder.upDownComponent(index, direction);
   }
 
-  onCopy(content: any): void {
-    this.util.copy(JSON.stringify(content));
-    this.util.openSnackbar(`已复制${this.type}的JSON！`, 'ok');
-  }
-
   onEditor(content: any, index: number): void {
     const { type } = content;
     const component = type ? content : content.content;

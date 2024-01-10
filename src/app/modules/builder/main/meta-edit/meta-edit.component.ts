@@ -70,7 +70,7 @@ export class MetaEditComponent implements OnInit, OnDestroy, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
-    this.builder.metaEditImaPath$
+    this.builder.selectedMedia$
       .pipe(takeUntil(this.destroy$))
       .subscribe((img: any) => {
         const { src } = img;

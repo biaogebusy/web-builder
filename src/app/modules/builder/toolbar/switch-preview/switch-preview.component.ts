@@ -20,7 +20,7 @@ import { Observable } from 'rxjs';
 export class SwitchPreviewComponent implements OnInit {
   currentPage: IPage;
   constructor(
-    private builderState: BuilderState,
+    private builder: BuilderState,
     private cd: ChangeDetectorRef,
     private util: UtilitiesService,
     @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>
@@ -82,7 +82,7 @@ export class SwitchPreviewComponent implements OnInit {
       this.currentIcon = preview.icon.svg;
     }
     this.cd.detectChanges();
-    this.builderState.closeBuilderRightDrawer$.next(true);
-    this.builderState.switchPreivew$.next(preview.value);
+    this.builder.closeBuilderRightDrawer$.next(true);
+    this.builder.switchPreivew$.next(preview.value);
   }
 }

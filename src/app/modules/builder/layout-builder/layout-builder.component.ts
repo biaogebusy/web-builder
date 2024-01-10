@@ -53,6 +53,7 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
     this.dialog.open(DialogComponent, {
       width: '500px',
       data: {
+        disableCloseButton: true,
         inputData: {
           content: {
             type: 'popup-select',

@@ -2,8 +2,9 @@
   <app-title [content]="content.title"></app-title>
   <app-formly [fields]="content.fields" [model]="model" (modelChange)="onModelChange($event)"></app-formly>
 
-  <div class="actions m-y-md" fxLayoutAlign="center center">
+  <div class="actions m-y-md" fxLayoutAlign="center center" fxLayoutGap="10px">
+    <app-btn class="action" (click)="openMedias()" [content]="{label:'更新背景图',color:'primary',mode:'raised'}"></app-btn>
     <app-btn (click)="showCode()" [matTooltip]="'编辑 JSON'" matTooltipPosition="above"
-      [content]="{label:'编辑 JSON',color:'primary', mode: 'raised' ,icon:{svg:'pencil',inline:true } }"></app-btn>
+      [content]="{label:'编辑 JSON',color:'primary', mode: 'stroked' }"></app-btn>
   </div>
 </div>

@@ -33,7 +33,7 @@ export class BuilderState {
   public animateDisable$ = new Subject<boolean>();
   public fullScreen$ = new Subject<boolean>();
   public debugeAnimate$ = new Subject<boolean>();
-  public metaEditImaPath$ = new Subject<object>();
+  public selectedMedia$ = new Subject<object>();
   public switchPreivew$ = new Subject<
     'xs' | 'sm' | 'md' | 'lg' | 'xs-md' | 'none'
   >();
@@ -203,8 +203,7 @@ export class BuilderState {
         className: 'width-100',
         defaultValue: content.fullWidth,
         templateOptions: {
-          label: '全屏宽',
-          description: '组件占据页面的宽度',
+          label: '组件全屏宽',
         },
       },
       {
@@ -213,7 +212,7 @@ export class BuilderState {
         defaultValue: content.spacer || 'md',
         className: 'width-100',
         templateOptions: {
-          description: '上下间距',
+          label: '上下留白',
           options: [
             {
               label: '超小',
@@ -244,7 +243,7 @@ export class BuilderState {
         className: 'width-100',
         defaultValue: 'bg- bg-fill-width',
         templateOptions: {
-          description: '背景色',
+          label: '背景色',
           options: [
             {
               label: '无',

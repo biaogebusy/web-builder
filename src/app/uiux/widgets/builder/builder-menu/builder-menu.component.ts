@@ -12,7 +12,6 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import type { IPage } from '@core/interface/IAppConfig';
 import type { IUser } from '@core/interface/IUser';
 import { BuilderService } from '@core/service/builder.service';
-import { CanvasService } from '@core/service/canvas.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { ContentState } from '@core/state/ContentState';
@@ -22,6 +21,7 @@ import {
   USER,
 } from '@core/token/token-providers';
 import { Subject, Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-builder-menu',
@@ -30,7 +30,6 @@ import { Subject, Observable } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BuilderMenuComponent implements OnInit, AfterViewInit, OnDestroy {
-  @Input() content: any;
   page: IPage;
   destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
@@ -38,7 +37,6 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     private builder: BuilderState,
     private util: UtilitiesService,
     private cd: ChangeDetectorRef,
-    private canvasService: CanvasService,
     private builderService: BuilderService,
     @Inject(DEBUG_ANIMATE) public debugAnimate$: Observable<boolean>,
     @Inject(USER) private user: IUser,
@@ -99,6 +97,10 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit, OnDestroy {
         this.builder.updateVersion(this.page);
         this.util.openSnackbar('提交成功！', 'ok');
       });
+  }
+
+  get canShow(): boolean {
+    return !environment.production;
   }
 
   onDebugAnimate(event: MatSlideToggleChange): void {

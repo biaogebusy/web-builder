@@ -21,7 +21,7 @@ export class BuilderVersionComponent implements OnInit {
   version: IPage[];
 
   constructor(
-    public builderState: BuilderState,
+    public builder: BuilderState,
     private storage: LocalStorageService,
     private cd: ChangeDetectorRef
   ) {}
@@ -33,14 +33,14 @@ export class BuilderVersionComponent implements OnInit {
   }
 
   onDelete(index: number): void {
-    this.builderState.version.splice(index, 1);
-    this.builderState.version[0].current = true;
-    this.builderState.closeBuilderRightDrawer$.next(true);
-    this.builderState.saveLocalVersions();
+    this.builder.version.splice(index, 1);
+    this.builder.version[0].current = true;
+    this.builder.closeBuilderRightDrawer$.next(true);
+    this.builder.saveLocalVersions();
   }
 
   onDeleteAll(): void {
-    this.builderState.version = [
+    this.builder.version = [
       {
         title: '着陆页',
         body: [],
@@ -48,13 +48,15 @@ export class BuilderVersionComponent implements OnInit {
         time: new Date(),
       },
     ];
-    this.builderState.closeBuilderRightDrawer$.next(true);
-    this.builderState.saveLocalVersions();
+    this.builder.closeBuilderRightDrawer$.next(true);
+    this.builder.saveLocalVersions();
   }
 
   onVersion(page: IPage, index: number): void {
-    this.builderState.showVersionPage(page, index);
-    this.builderState.closeBuilderRightDrawer$.next(true);
+    this.builder.showVersionPage(page, index);
+    this.builder.closeBuilderRightDrawer$.next(true);
+    this.builder.fixedShowcase = false;
+    this.builder.showcase$.next(false);
   }
 
   onClickTitle(event: MouseEvent): any {
@@ -66,8 +68,8 @@ export class BuilderVersionComponent implements OnInit {
       target: { textContent },
     } = event;
     if (textContent) {
-      this.builderState.version[index].title = textContent;
-      this.builderState.saveLocalVersions();
+      this.builder.version[index].title = textContent;
+      this.builder.saveLocalVersions();
     }
   }
 }
