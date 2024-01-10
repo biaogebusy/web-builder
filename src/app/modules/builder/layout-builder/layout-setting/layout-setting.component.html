@@ -1,4 +1,23 @@
 <div class="layout-setting">
-  <app-title [content]="{label:'响应式配置',style:'style-v4'}"></app-title>
-  <app-formly [fields]="fields" [model]="model" (modelChange)="onModelChange($event)"></app-formly>
+  <app-title [content]="content.title"></app-title>
+  <app-formly [fields]="content.fields" [model]="model" (modelChange)="onModelChange($event)"></app-formly>
+
+  <div class="bg-img-section m-y-md">
+    <div class="box" fxLayout="row" fxLayoutAlign="start center" *ngIf="content.content?.bg?.img">
+      <img src="{{content.content.bg.img.src}}" alt="">
+      <div class="box-content">
+        <div class="title">{{content.content.bg.img.alt}}</div>
+      </div>
+    </div>
+    <div class="actions m-y-md" fxLayoutAlign="center center" fxLayoutGap="10px">
+      <app-btn class="action" (click)="openMedias()"
+        [content]="{label:'更新背景图',color:'primary',mode:'raised'}"></app-btn>
+      <app-btn (click)="onDeleteBgImg()" [content]="{label:'删除背景图',color:'primary', mode: 'stroked' }"></app-btn>
+    </div>
+  </div>
+
+  <div class="actions m-y-md" fxLayoutAlign="center center" fxLayoutGap="10px">
+
+    <app-btn (click)="showCode()" [content]="{label:'编辑 JSON',color:'primary', mode: 'stroked' }"></app-btn>
+  </div>
 </div>

@@ -519,3 +519,59 @@ Style.args = {
   model,
   fields: style,
 };
+
+export const Responsive = Template.bind({});
+Responsive.storyName = '响应式';
+const responsive: FormlyFieldConfig[] = [
+  {
+    type: 'slider',
+    key: 'xs',
+    className: 'width-100',
+    templateOptions: {
+      label: '移动端',
+      min: 1,
+      max: 12,
+      thumbLabel: true,
+    },
+  },
+  {
+    type: 'slider',
+    key: 'sm',
+    className: 'width-100',
+    templateOptions: {
+      label: '平板电脑',
+      min: 1,
+      max: 12,
+      thumbLabel: true,
+    },
+  },
+  {
+    type: 'slider',
+    key: 'md',
+    className: 'width-100',
+    templateOptions: {
+      label: '桌面电脑',
+      min: 1,
+      max: 12,
+      thumbLabel: true,
+    },
+  },
+  {
+    type: 'slider',
+    key: 'lg',
+    className: 'width-100',
+    templateOptions: {
+      label: '超大桌面',
+      min: 1,
+      max: 12,
+      thumbLabel: true,
+    },
+  },
+];
+
+Responsive.args = {
+  type: 'formly',
+  form,
+  model,
+  fields: responsive,
+};

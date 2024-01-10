@@ -182,4 +182,12 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
       min-width: 85vw;
     }
   }
+
+  .popup-select {
+    .inner {
+      &:hover {
+        background-color: mat-color($background, background);
+      }
+    }
+  }
 }

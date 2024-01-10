@@ -57,18 +57,13 @@ export class ComponentToolbarComponent implements OnInit {
     this.builder.upDownComponent(index, direction);
   }
 
-  onCopy(content: any): void {
-    this.util.copy(JSON.stringify(content));
-    this.util.openSnackbar(`已复制${this.type}的JSON！`, 'ok');
-  }
-
   onEditor(content: any, index: number): void {
     const { type } = content;
     const component = type ? content : content.content;
+    const uuid = Date.now().toString();
+    this.uuidChange.emit(uuid);
     if (!this.enableBuilderToolbar) {
       // uuid for update not builder page
-      const uuid = Date.now().toString();
-      this.uuidChange.emit(uuid);
       this.dialogRef = this.dialog.open(DialogComponent, {
         width: '1000px',
         data: {
@@ -84,7 +79,7 @@ export class ComponentToolbarComponent implements OnInit {
         },
       });
     } else {
-      this.builder.showEditor(component, index);
+      this.builder.showEditor(component, index, uuid);
     }
   }
 

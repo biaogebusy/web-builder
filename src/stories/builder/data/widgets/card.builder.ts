@@ -30,11 +30,13 @@ const {
 export const card = [
   {
     label: '卡片',
+    forLayout: true,
     icon: { svg: 'card-outline' },
     ...cardBase,
   },
   {
     label: 'v1',
+    forLayout: true,
     icon: {
       svg: 'numeric-1',
     },
@@ -42,6 +44,7 @@ export const card = [
   },
   {
     label: 'v2',
+    forLayout: true,
     icon: {
       svg: 'numeric-2',
     },
@@ -49,16 +52,19 @@ export const card = [
   },
   {
     label: '1v4',
+    forLayout: true,
     icon: { svg: 'numeric-4' },
     ...v4,
   },
   {
     label: '1v5',
+    forLayout: true,
     icon: { svg: 'numeric-5' },
     ...v5,
   },
   {
     label: '1v6',
+    forLayout: true,
     icon: { svg: 'numeric-6' },
     ...v6,
   },

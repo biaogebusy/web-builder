@@ -43,10 +43,5 @@ export class PopupSelectComponent implements OnInit {
 
     this.builder.updateComponent(pageIndex, content);
     this.dialog.closeAll();
-    // this.builder.builderPopupSelect$.next({
-    //   content,
-    //   pageIndex,
-    //   uuid,
-    // });
   }
 }

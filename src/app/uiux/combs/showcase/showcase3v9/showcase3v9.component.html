@@ -2,7 +2,7 @@
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <app-bg-img [attr.data-path]="'bg'" [content]="content.bg" *ngIf="content.bg"></app-bg-img>
-  <div class="container" *ngIf="content">
+  <div class="{{content.fullWidth?'':'container'}}" *ngIf="content">
     <div class="inner" fxLayout="row wrap" fxLayoutAlign="center center">
       <div class="left" [fxFlexOrder]="content.order.left" fxFlex.lt-md="100%" fxFlex.gt-sm="58%"
         fxLayoutAlign="center center" fxLayout="row wrap">

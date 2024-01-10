@@ -3,7 +3,7 @@
   <app-spacer *ngIf="(pageContent$|async)?.config?.headerMode?.transparent && showGtXs" [size]="'xl'"></app-spacer>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <app-bg-img [attr.data-path]="'bg'" [content]="content.bg"></app-bg-img>
-  <div class="container position-relative">
+  <div class="{{content.fullWidth?'position-relative':'container position-relative'}}">
     <div class="hero-body text-center" fxLayout="row wrap" fxLayoutAlign="center center">
       <app-text [attr.data-path]="'text'" *ngIf="content.text" [content]="content.text"></app-text>
       <div fxFlex="100" class="box m-top-md" fxLayout="row wrap" fxLayoutAlign="center center">

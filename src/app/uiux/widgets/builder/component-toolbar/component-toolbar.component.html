@@ -1,7 +1,4 @@
 <div class="wrapper" fxLayout="row" fxLayoutAlign="space-between center" fxFlex="100%">
-  <!-- <div class="title">
-    <i>{{ index !== undefined ? index+'.':''}}</i> {{type}}
-  </div> -->
   <div class="actions m-right-xs" fxLayout="row" fxLayoutGap="1rem">
     <div *ngIf="index >0 && isPreview" class="item" (click)="onUpdown(index,'up')" [matTooltip]="'上移'"
       matTooltipPosition="above">
@@ -15,12 +12,9 @@
     <div class="item" (click)="onDelete(index)" *ngIf="isPreview" [matTooltip]="'移除'" matTooltipPosition="above">
       <app-btn [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'delete',inline:true } }"></app-btn>
     </div>
-    <div class="item" (click)="onCopy(content)" [matTooltip]="'复制 JSON'" matTooltipPosition="above">
-      <app-btn [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'content-copy',inline:true } }"></app-btn>
-    </div>
-    <div class="item" (click)="onEditor(content, index)" *ngIf="!isStory" [matTooltip]="'编辑组件JSON'"
+    <div class="item" (click)="onEditor(content, index)" *ngIf="!isStory" [matTooltip]="'编辑组件通用配置'"
       matTooltipPosition="above">
-      <app-btn [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'pencil',inline:true } }"></app-btn>
+      <app-btn [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'tune-vertical',inline:true } }"></app-btn>
     </div>
   </div>
 </div>

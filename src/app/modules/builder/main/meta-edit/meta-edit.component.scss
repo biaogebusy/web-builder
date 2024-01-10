@@ -21,6 +21,10 @@
       object-fit: contain;
       border-radius: 4px;
     }
+    .content {
+      white-space: nowrap;
+      overflow: hidden;
+    }
     .desc {
       opacity: 0.85;
     }
@@ -47,7 +51,7 @@
           }
           .c {
             display: flex;
-            justify-content: start;
+            justify-content: flex-start;
             align-items: center;
             .slider-fg {
               border-radius: 8px;

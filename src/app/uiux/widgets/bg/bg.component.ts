@@ -17,4 +17,8 @@ export class BgComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
+  get classes(): string {
+    return `${this.content.classes} ${this.content.overlay}`;
+  }
 }

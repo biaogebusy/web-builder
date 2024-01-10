@@ -10,7 +10,7 @@
         <app-icon [content]="{svg:'code-json'}"></app-icon>
         <span>页面 JSON</span>
       </button>
-      <button mat-menu-item>
+      <button mat-menu-item *ngIf="canShow">
         <mat-slide-toggle [checked]="debugAnimate$ | async" (change)="onDebugAnimate($event)">动画调式</mat-slide-toggle>
       </button>
       <button mat-menu-item (click)="onClear()">

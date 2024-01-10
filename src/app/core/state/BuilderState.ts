@@ -13,6 +13,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
 import { map } from 'lodash-es';
 import { DOCUMENT } from '@angular/common';
 import { ScreenService } from '@core/service/screen.service';
+import { FormlyFieldConfig } from '@ngx-formly/core';
 
 @Injectable({
   providedIn: 'root',
@@ -32,7 +33,7 @@ export class BuilderState {
   public animateDisable$ = new Subject<boolean>();
   public fullScreen$ = new Subject<boolean>();
   public debugeAnimate$ = new Subject<boolean>();
-  public metaEditImaPath$ = new Subject<object>();
+  public selectedMedia$ = new Subject<object>();
   public switchPreivew$ = new Subject<
     'xs' | 'sm' | 'md' | 'lg' | 'xs-md' | 'none'
   >();
@@ -194,21 +195,172 @@ export class BuilderState {
     this.updatePage(event.currentIndex);
   }
 
-  showEditor(content: any, index: number): void {
+  showEditor(content: any, index: number, uuid: string): void {
+    let fields: FormlyFieldConfig[] = [
+      {
+        type: 'select',
+        key: 'fullWidth',
+        className: 'width-100',
+        defaultValue: content.fullWidth,
+        templateOptions: {
+          label: '组件全屏宽',
+          options: [
+            {
+              label: '全屏宽',
+              value: true,
+            },
+            {
+              label: '非全屏宽',
+              value: false,
+            },
+          ],
+        },
+      },
+      {
+        type: 'select',
+        key: 'spacer',
+        defaultValue: content.spacer || 'md',
+        className: 'width-100',
+        templateOptions: {
+          label: '上下留白',
+          options: [
+            {
+              label: '超小',
+              value: 'xs',
+            },
+            {
+              label: '小',
+              value: 'sm',
+            },
+            {
+              label: '正常',
+              value: 'md',
+            },
+            {
+              label: '大',
+              value: 'lg',
+            },
+            {
+              label: '超大',
+              value: 'xl',
+            },
+          ],
+        },
+      },
+      {
+        type: 'select',
+        key: 'bgColor',
+        className: 'width-100',
+        defaultValue: content?.bg?.classes || 'bg- bg-fill-width',
+        templateOptions: {
+          label: '背景色',
+          options: [
+            {
+              label: '无',
+              value: 'bg- bg-fill-width',
+            },
+            {
+              label: '品牌色',
+              value: 'bg-primary bg-fill-width',
+            },
+            {
+              label: '灰色',
+              value: 'bg-shadow bg-fill-width',
+            },
+            {
+              label: '蓝色',
+              value: 'bg-blue bg-fill-width',
+            },
+            {
+              label: '绿色',
+              value: 'bg-green bg-fill-width',
+            },
+            {
+              label: '黄色',
+              value: 'bg-yellow bg-fill-width',
+            },
+            {
+              label: '红色',
+              value: 'bg-red bg-fill-width',
+            },
+            {
+              label: '警告色',
+              value: 'bg-warn bg-fill-width',
+            },
+            {
+              label: '粉色',
+              value: 'bg-pink bg-fill-width',
+            },
+            {
+              label: '橙色',
+              value: 'bg-orange bg-fill-width',
+            },
+            {
+              label: '紫色',
+              value: 'bg-purple bg-fill-width',
+            },
+          ],
+        },
+      },
+      {
+        type: 'select',
+        key: 'overlay',
+        className: 'width-100',
+        defaultValue: content?.bg?.overlay || '',
+        templateOptions: {
+          label: '背景不透明度',
+          options: [
+            {
+              label: '无',
+              value: '',
+            },
+            {
+              label: '0.8',
+              value: 'overlay overlay-80',
+            },
+            {
+              label: '0.6',
+              value: 'overlay overlay-60',
+            },
+            {
+              label: '0.4',
+              value: 'overlay overlay-40',
+            },
+            {
+              label: '0.2',
+              value: 'overlay overlay-20',
+            },
+          ],
+        },
+      },
+      {
+        type: 'input',
+        key: 'id',
+        className: 'width-100',
+        templateOptions: {
+          label: 'ID',
+          description: '一般用于页面锚点定位',
+        },
+      },
+    ];
     this.builderRightContent$.next({
       mode: 'over',
       hasBackdrop: false,
       style: {
-        width: '500px',
+        width: '260px',
         'max-width': 'calc(100vw - 50px)',
       },
       elements: [
         {
-          type: 'jsoneditor',
+          type: 'layout-setting',
+          title: {
+            label: '组件通用配置',
+            style: 'style-v4',
+          },
+          fields,
+          uuid,
           index,
-          isPreview: true,
-          data: content,
-          tooltip: '直接修改JSON，更新组件的数据',
+          content,
         },
       ],
     });
