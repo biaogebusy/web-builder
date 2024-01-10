@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { ILayoutSetting } from '@core/interface/IBuilder';
+import type { ILayoutSetting } from '@core/interface/IBuilder';
 import { BuilderState } from '@core/state/BuilderState';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { Subject } from 'rxjs';

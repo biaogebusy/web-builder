@@ -29,7 +29,7 @@ TitleV1.storyName = 'Style V1';
 const v1: ITitle = {
   type: 'title',
   label:
-    '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
+    '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建响应式页面',
   style: 'style-v4',
   classes: 'mat-display-2 bold',
 };

@@ -51,7 +51,7 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
 
   addBlock(row: string, index: number, content: any): void {
     this.dialog.open(DialogComponent, {
-      width: '500px',
+      width: '800px',
       data: {
         disableCloseButton: true,
         inputData: {

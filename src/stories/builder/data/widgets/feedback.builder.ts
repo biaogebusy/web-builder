@@ -27,6 +27,7 @@ export const feedback = [
   },
   {
     label: '进度组',
+    forLayout: true,
     icon: { svg: 'format-list-group' },
     ...progressGroup,
   },

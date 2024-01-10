@@ -26,6 +26,7 @@ export const {
 export const medias = [
   {
     label: '列表',
+    forLayout: true,
     icon: { svg: 'format-list-checkbox' },
     ...mediaList,
   },
@@ -36,16 +37,19 @@ export const medias = [
   },
   {
     label: '对象',
+    forLayout: true,
     icon: { svg: 'format-list-bulleted-type' },
     ...mediaObject,
   },
   {
     label: '对象组',
+    forLayout: true,
     icon: { svg: 'select-group' },
     ...mediaObjectGroup,
   },
   {
     label: '感言',
+    forLayout: true,
     icon: { svg: 'format-wrap-square' },
     ...testimonial,
   },
