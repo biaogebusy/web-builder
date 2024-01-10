@@ -22,6 +22,7 @@ import {
   CORE_CONFIG,
   ENABLE_BUILDER_TOOLBAR,
 } from '@core/token/token-providers';
+import { defaultsDeep } from 'lodash-es';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -73,16 +74,30 @@ export class DynamicComponentComponent
         const { value, uuid, index } = data;
         if (this.uuid === uuid) {
           console.log(data);
-          let bgColor = {};
+          let content: any = {};
           if (value.bgColor) {
-            bgColor = {
-              bg: {
-                classes: value.bgColor,
+            content = defaultsDeep(
+              {
+                bg: {
+                  classes: value.bgColor,
+                },
               },
-            };
+              this.inputs.content
+            );
             delete value.bgColor;
           }
-          this.inputs = { ...this.inputs.content, ...value, ...bgColor };
+          if (value.overlay) {
+            content = defaultsDeep(
+              {
+                bg: {
+                  overlay: value.overlay,
+                },
+              },
+              this.inputs.content
+            );
+            delete value.overlay;
+          }
+          this.inputs = { ...this.inputs.content, ...content, ...value };
           this.loadComponent();
           this.builder.updateComponent(index, this.inputs);
         }

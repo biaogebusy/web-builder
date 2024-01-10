@@ -251,7 +251,7 @@ export class BuilderState {
         type: 'select',
         key: 'bgColor',
         className: 'width-100',
-        defaultValue: 'bg- bg-fill-width',
+        defaultValue: content?.bg?.classes || 'bg- bg-fill-width',
         templateOptions: {
           label: '背景色',
           options: [
@@ -298,6 +298,37 @@ export class BuilderState {
             {
               label: '紫色',
               value: 'bg-purple bg-fill-width',
+            },
+          ],
+        },
+      },
+      {
+        type: 'select',
+        key: 'overlay',
+        className: 'width-100',
+        defaultValue: content?.bg?.overlay || 'overlay ',
+        templateOptions: {
+          label: '背景不透明度',
+          options: [
+            {
+              label: '无',
+              value: 'overlay ',
+            },
+            {
+              label: '0.8',
+              value: 'overlay overlay-80',
+            },
+            {
+              label: '0.6',
+              value: 'overlay overlay-60',
+            },
+            {
+              label: '0.4',
+              value: 'overlay overlay-40',
+            },
+            {
+              label: '0.2',
+              value: 'overlay overlay-20',
             },
           ],
         },
