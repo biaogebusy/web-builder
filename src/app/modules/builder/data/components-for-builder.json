@@ -27,7 +27,7 @@
                   {
                     "type": "title",
                     "label": "欢迎使用 <strong class=\"text-primary\">Web Builder</strong> 快速构建响应式页面",
-                    "style": "style-v1",
+                    "style": "style-v4",
                     "classes": "mat-display-2 bold"
                   },
                   {
