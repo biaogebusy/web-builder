@@ -198,12 +198,22 @@ export class BuilderState {
   showEditor(content: any, index: number, uuid: string): void {
     let fields: FormlyFieldConfig[] = [
       {
-        type: 'checkbox',
+        type: 'select',
         key: 'fullWidth',
         className: 'width-100',
         defaultValue: content.fullWidth,
         templateOptions: {
           label: '组件全屏宽',
+          options: [
+            {
+              label: '全屏宽',
+              value: true,
+            },
+            {
+              label: '非全屏宽',
+              value: false,
+            },
+          ],
         },
       },
       {

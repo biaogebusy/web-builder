@@ -36,6 +36,7 @@
 @import "./tour";
 @import "./manage-media";
 @import "./layout-builder";
+@import "./builder/layout-setting";
 
 // material custom
 @import "./mat/card";
@@ -81,6 +82,7 @@
   @include tour-color($config-or-theme);
   @include manage-media-color($config-or-theme);
   @include layout-builder-color($config-or-theme);
+  @include layout-setting($config-or-theme);
 
   // material custom ui
   @include card-color($config-or-theme);

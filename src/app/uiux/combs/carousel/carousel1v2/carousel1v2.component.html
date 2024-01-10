@@ -1,8 +1,8 @@
 <div class="carousel-1-v2 position-relative" *ngIf="content">
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
   <app-spacer [size]="content.spacer || 'md'"></app-spacer>
-  <app-bg *ngIf="content.bg" [content]="content.bg"></app-bg>
-  <div class="container">
+  <app-bg-img *ngIf="content.bg" [content]="content.bg"></app-bg-img>
+  <div class="{{content.fullWidth?'':'container'}}">
     <div class="head position-relative">
       <app-title [attr.data-path]="'title'" *ngIf="content.title" [content]="content.title"></app-title>
       <div class="actions">

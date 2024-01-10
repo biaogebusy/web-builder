@@ -2,7 +2,7 @@
   <app-bg-img [content]="content.bg" *ngIf="content.bg"></app-bg-img>
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
   <app-spacer [size]="content.spacer || 'md'"></app-spacer>
-  <div class="container" fxLayout="column">
+  <div class="{{content.fullWidth?'':'container'}}" fxLayout="column">
     <app-text [attr.data-path]="'text'" [content]="content.text" *ngIf="content.text"></app-text>
     <div class="m-y" fxLayout="row wrap" fxLayoutAlign="center start" fxFlex="100%">
       <app-dynamic-component [attr.data-path]="'elements.'+i" class="m-x-sm m-bottom-sm" fxFlex.xs="100"

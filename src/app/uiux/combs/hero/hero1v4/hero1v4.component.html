@@ -2,7 +2,7 @@
   <a class="anchor" *ngIf="content.id" [id]="content.id"></a>
   <app-bg-img [attr.data-path]="'bg'" [content]="content.bg"></app-bg-img>
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
-  <div class="container" [ngStyle]="content.style">
+  <div class="{{content.fullWidth?'':'container'}}" [ngStyle]="content.style">
     <div class="inner" fxLayout="row wrap" fxLayoutAlign="center center">
       <app-text [attr.data-path]="'text'" fxFlex="100%" [content]="content.text" *ngIf="content.text"></app-text>
       <div fxFlex="100%" fxFlexOrder="{{content.order || 0}}" *ngIf="content.widget" fxLayoutAlign="center center">

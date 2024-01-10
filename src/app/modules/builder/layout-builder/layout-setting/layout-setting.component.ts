@@ -1,5 +1,6 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   Input,
   OnDestroy,
@@ -25,29 +26,52 @@ export class LayoutSettingComponent implements OnInit, OnDestroy {
   model: any = {};
   destroy$: Subject<boolean> = new Subject<boolean>();
 
-  constructor(private builder: BuilderState, private dialog: MatDialog) {}
+  constructor(
+    private builder: BuilderState,
+    private dialog: MatDialog,
+    private cd: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.builder.selectedMedia$
       .pipe(takeUntil(this.destroy$))
       .subscribe((img: any) => {
         const { src, fileName } = img;
+        const bg = {
+          classes: 'bg-fill-width',
+          img: {
+            src,
+            alt: fileName,
+            classes: 'object-fit',
+          },
+        };
+        this.content.content.bg = bg;
         this.dialog.closeAll();
         this.builder.builderLayoutSetting$.next({
           value: {
-            bg: {
-              classes: 'bg-fill-width',
-              img: {
-                src,
-                alt: fileName,
-                classes: 'object-fit',
-              },
-            },
+            bg,
           },
           index: this.content.index,
           uuid: this.content.uuid,
         });
+        this.cd.detectChanges();
       });
+  }
+
+  onDeleteBgImg(): void {
+    this.content.content.bg = {
+      classes: 'bg-fill-width',
+    };
+    this.cd.detectChanges();
+    this.builder.builderLayoutSetting$.next({
+      value: {
+        bg: {
+          classes: 'bg-fill-width',
+        },
+      },
+      index: this.content.index,
+      uuid: this.content.uuid,
+    });
   }
 
   onModelChange(value: any) {
