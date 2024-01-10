@@ -12,7 +12,7 @@
           "content": {
             "type": "title",
             "label": "欢迎使用 <strong class=\"text-primary\">Web Builder</strong> 快速构建响应式页面",
-            "style": "style-v1",
+            "style": "style-v4",
             "classes": "mat-display-2 bold"
           }
         },
@@ -97,21 +97,21 @@
                 ],
                 [
                   "第一季度",
-                  6344,
-                  7483,
-                  3802
+                  7791,
+                  9180,
+                  3135
                 ],
                 [
                   "第二季度",
-                  5259,
-                  3008,
-                  5689
+                  9205,
+                  4095,
+                  5184
                 ],
                 [
                   "第三季度",
-                  4627,
-                  3823,
-                  4274
+                  7653,
+                  9433,
+                  5393
                 ]
               ]
             },

@@ -35,7 +35,7 @@
               <app-btn (click)="onDeleteCol(i,index)"
                 [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'delete',inline:true } }"></app-btn>
             </div>
-            <app-dynamic-component [attr.data-path]="'elements.'+index" [inputs]="{content:item}">
+            <app-dynamic-component [attr.data-path]="'elements.'+index" [inputs]="item">
             </app-dynamic-component>
           </div>
         </div>

@@ -306,13 +306,13 @@ export class BuilderState {
         type: 'select',
         key: 'overlay',
         className: 'width-100',
-        defaultValue: content?.bg?.overlay || 'overlay ',
+        defaultValue: content?.bg?.overlay || '',
         templateOptions: {
           label: '背景不透明度',
           options: [
             {
               label: '无',
-              value: 'overlay ',
+              value: '',
             },
             {
               label: '0.8',

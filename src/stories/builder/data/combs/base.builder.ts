@@ -61,7 +61,7 @@ export const {
 
 export const base = [
   {
-    label: '自建布局',
+    label: '动态布局',
     icon: {
       svg: 'view-week-outline',
     },
@@ -69,6 +69,14 @@ export const base = [
       type: 'layout-builder',
       spacer: 'md',
       fullWidth: false,
+      bg: {
+        classes: 'bg-fill-width',
+        img: {
+          src: '/assets/images/bg/home-shape.png',
+          alt: 'home-shape.png',
+          classes: 'object-fit',
+        },
+      },
       elements: [
         {
           classes: '',
@@ -76,7 +84,7 @@ export const base = [
             xs: 12,
             sm: 6,
             md: 6,
-            lg: 6,
+            lg: 7,
           },
           align: 'start stretch',
           elements: [
@@ -93,6 +101,9 @@ export const base = [
               classes: '',
             },
             {
+              ...swiper?.content,
+            },
+            {
               ...btn?.content,
             },
           ],
@@ -103,7 +114,7 @@ export const base = [
             xs: 12,
             sm: 6,
             md: 6,
-            lg: 6,
+            lg: 5,
           },
           align: 'center stretch',
           elements: [
@@ -111,8 +122,8 @@ export const base = [
               type: 'img',
               hostClasses: 'text-center',
               classes: '',
-              src: '/assets/images/logo/logo-blue.png',
-              alt: 'logo',
+              src: '/assets/images/illustration/11.png',
+              alt: 'alt',
             },
           ],
         },

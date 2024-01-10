@@ -32,10 +32,6 @@
           top: 0;
           z-index: 10;
         }
-        > app-dynamic-component {
-          display: block;
-          width: 100%;
-        }
         &:hover {
           .actions {
             display: block;
