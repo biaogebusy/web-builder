@@ -41,19 +41,22 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
       .subscribe((data) => {
         const {
           index,
-          value: {
-            row,
-            layoutAlign: { horizontal, vertical },
-          },
+          value: { row, layoutAlign },
           uuid,
         } = data;
         if (uuid === this.uuid) {
-          const { elements } = this.content;
-          elements[index].row = row;
-          this.content.layoutAlign = `${horizontal.replace(
-            'flex-',
-            ''
-          )} ${vertical.replace('flex-', '')}`;
+          console.log(data);
+          if (row) {
+            const { elements } = this.content;
+            elements[index].row = row;
+          }
+          if (layoutAlign) {
+            const { horizontal, vertical } = layoutAlign;
+            this.content.layoutAlign = `${horizontal.replace(
+              'flex-',
+              ''
+            )} ${vertical.replace('flex-', '')}`;
+          }
           this.builder.updateComponent(this.pageIndex, this.content);
           this.cd.detectChanges();
         }

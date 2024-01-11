@@ -51,7 +51,7 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
     @include meta-edit($background, $foreground, $primary);
     @include scrollbar(mat-color($primary));
 
-    .overlay {
+    .backdrop {
       background-color: mat-color($foreground, slider-off-active);
     }
     .showcase {
