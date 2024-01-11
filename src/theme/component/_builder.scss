@@ -139,26 +139,7 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
     position: relative;
     display: block;
     box-sizing: content-box;
-
-    &:after {
-      content: "";
-      display: block;
-      position: absolute;
-      box-sizing: border-box;
-      width: 100%;
-      height: 100%;
-      z-index: 10;
-      left: 0;
-      top: 0;
-      pointer-events: none;
-      opacity: 1;
-      transition: all 0.1s ease-in;
-      border: 2px dotted transparent;
-    }
     &:hover {
-      &:after {
-        border-color: mat-color($primary);
-      }
       > .component-toolbar {
         display: block !important;
       }

@@ -69,6 +69,7 @@ export const base = [
       type: 'layout-builder',
       spacer: 'md',
       fullWidth: false,
+      layoutAlign: 'center center',
       bg: {
         classes: 'bg-fill-width',
         img: {
@@ -84,7 +85,7 @@ export const base = [
             xs: 12,
             sm: 6,
             md: 6,
-            lg: 7,
+            lg: 6,
           },
           align: 'start stretch',
           elements: [
@@ -114,7 +115,7 @@ export const base = [
             xs: 12,
             sm: 6,
             md: 6,
-            lg: 5,
+            lg: 4,
           },
           align: 'center stretch',
           elements: [
@@ -124,6 +125,9 @@ export const base = [
               classes: '',
               src: '/assets/images/illustration/11.png',
               alt: 'alt',
+              style: {
+                'max-width': '60%',
+              },
             },
           ],
         },

@@ -57,6 +57,7 @@ export interface IBuilderShowcase {
 
 export interface ILayoutBuilder extends ICombsBase {
   fullWidth: boolean;
+  layoutAlign: string;
   elements: {
     classes: any;
     row: {

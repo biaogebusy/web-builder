@@ -10,7 +10,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { BaseComponent } from '@uiux/base/base.widget';
 import { NodeService } from '@core/service/node.service';
 import { RouteService } from '@core/service/route.service';
-import { isEmpty, omitBy } from 'lodash';
+import { isEmpty, omitBy } from 'lodash-es';
 import { ScreenService } from '@core/service/screen.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';

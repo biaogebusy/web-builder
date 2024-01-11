@@ -23,19 +23,6 @@
   ::ng-deep .component-item {
     position: relative;
     padding: 1px;
-    &.cdk-drag:not(.cdk-drag-disabled) {
-      cursor: move;
-    }
-    &.cdk-drag-disabled {
-      ::ng-deep {
-        .active-toolbar {
-          &:after {
-            opacity: 0;
-            display: none;
-          }
-        }
-      }
-    }
   }
 
   .actions {
