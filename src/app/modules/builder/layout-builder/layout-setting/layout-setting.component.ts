@@ -105,7 +105,7 @@ export class LayoutSettingComponent implements OnInit, OnDestroy {
             type: 'jsoneditor',
             index: this.content.index,
             isPreview: true,
-            data: this.content.content,
+            data: this.builder.currentPage.body[this.content.index],
           },
         },
       },
