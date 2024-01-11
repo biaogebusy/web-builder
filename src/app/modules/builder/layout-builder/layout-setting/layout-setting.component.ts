@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  ElementRef,
   Input,
   OnDestroy,
   OnInit,
@@ -29,7 +30,8 @@ export class LayoutSettingComponent implements OnInit, OnDestroy {
   constructor(
     private builder: BuilderState,
     private dialog: MatDialog,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private el: ElementRef
   ) {}
 
   ngOnInit(): void {
@@ -75,11 +77,21 @@ export class LayoutSettingComponent implements OnInit, OnDestroy {
   }
 
   onModelChange(value: any) {
+    const { layoutAlign } = value;
+    this.renderLayoutPreview(layoutAlign);
     this.builder.builderLayoutSetting$.next({
       value,
       index: this.content.index,
       uuid: this.content.uuid,
     });
+  }
+
+  renderLayoutPreview(layoutAlign: any): void {
+    const { horizontal, vertical } = layoutAlign;
+    const box = this.el.nativeElement.querySelector('.wrapper');
+    box.style.justifyContent = horizontal;
+    box.style.alignItems = vertical;
+    box.style.alignContent = vertical;
   }
 
   openMedias(): void {

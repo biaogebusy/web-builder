@@ -3,13 +3,12 @@
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <app-bg-img [attr.data-path]="'bg'" [content]="content.bg" *ngIf="content.bg"></app-bg-img>
   <div class="{{content.fullWidth?'':'container'}}" *ngIf="content">
-    <div class="inner layout-inner" id="layout" fxLayout="row wrap" fxLayoutAlign="stretch stretch">
+    <div class="inner layout-inner" id="layout" fxLayout="row wrap" [fxLayoutAlign]="content.layoutAlign">
       <div class="layout" fxFlex.xs="calc(100% / {{12 / layout.row.xs}})"
-        fxFlex.sm="calc(100% / {{12 / layout.row.sm}})" fxFlex.md="calc(100% / {{12 / layout.row.md}})"
-        fxFlex.lg="calc(100% / {{12 / layout.row.lg}})" fxFlex.gt-lg="calc(100% / {{12 / layout.row.lg}})"
-        fxLayoutAlign="center center" [ngClass]="layout.classes" *ngFor="let layout of content.elements;index as i"
-        [attr.data-path]="'elements.'+i">
-        <div class="block">
+        fxFlex.sm="calc(100% / {{12 / layout.row.sm}})" fxFlex.md="0 0 calc(100% / {{12 / layout.row.md}})"
+        fxFlex.lg="0 0 calc(100% / {{12 / layout.row.lg}})" fxFlex.gt-lg="0 0 calc(100% / {{12 / layout.row.lg}})"
+        [ngClass]="layout.classes" *ngFor="let layout of content.elements;index as i" [attr.data-path]="'elements.'+i">
+        <div class="block" fxLayout="column">
           <div class="block-toolbar" *ngIf="enable_toolbar$ | async">
             <app-btn matTooltip="左对齐" (click)="onAlign(i,'start stretch')"
               [content]="{label:'', mode: 'icon',icon:{svg:'format-align-left' } }"></app-btn>
@@ -26,7 +25,7 @@
             <app-btn matTooltip="更多设置" (click)="onSettings(i,layout)"
               [content]="{label:'', mode: 'icon' ,icon:{svg:'responsive',inline:true } }"></app-btn>
           </div>
-          <div class="item" *ngFor="let item of layout.elements;index as index" [fxLayoutAlign]="layout.align">
+          <div class="item" *ngFor="let item of layout.elements;index as index" [fxFlexAlign]="layout.align">
             <div class="actions" *ngIf="enable_toolbar$ | async">
               <app-btn *ngIf="index > 0 && index < layout.elements.length" (click)="onMove('up',i,index)"
                 [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'arrow-collapse-up',inline:true } }"></app-btn>
