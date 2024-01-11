@@ -44,7 +44,7 @@ const content: ICarouselBase = {
     classes: '',
   },
   classes: '',
-  disableContainer: true,
+  fullWidth: true,
   sliders: {
     params: {
       slidesPerView: 1,
