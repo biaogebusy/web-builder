@@ -1,9 +1,0 @@
-<div class="law-card">
-  <app-bg-img [attr.data-path]="'bg'" [content]="content.bg"></app-bg-img>
-  <app-title [attr.data-path]="'title'" [content]="content.title"></app-title>
-  <div class="wrapper" fxLayout="row wrap">
-    <app-card class="card-item m-y-sm" fxFlex.xs="0 0 calc(100% - 2rem)" fxFlex.sm="0 0 calc(50% - 2rem)"
-      fxFlex.gt-sm="0 0 calc(50% - 2rem)" *ngFor="let card of content.elements;trackBy:trackByFn" [content]="card">
-    </app-card>
-  </div>
-</div>

@@ -170,11 +170,10 @@ export class ComponentService {
       )
     );
 
-    ['article', 'advert', 'question', 'report', 'law-case', 'relate'].forEach(
-      (type) =>
-        this.setModule(type, () =>
-          import('@uiux/combs/node/node.module').then((m) => m.NodeModule)
-        )
+    ['article', 'advert', 'question', 'report', 'relate'].forEach((type) =>
+      this.setModule(type, () =>
+        import('@uiux/combs/node/node.module').then((m) => m.NodeModule)
+      )
     );
 
     ['contact-us', 'contact-us-1v1'].forEach((type) =>
