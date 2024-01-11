@@ -18,4 +18,35 @@
       }
     }
   }
+  ::ng-deep {
+    .mat-form-field-appearance-legacy .mat-form-field-wrapper {
+      margin-bottom: 0;
+    }
+    .layout-preview {
+      height: 100px;
+      .wrapper {
+        height: 100%;
+        flex-direction: row;
+        box-sizing: border-box;
+        display: flex;
+        place-content: center;
+        align-items: center;
+        .block {
+          padding: 8px;
+          opacity: 0.9;
+          color: #fff;
+          text-align: center;
+          border-radius: 3px;
+          min-width: 16px;
+          min-height: 30px;
+          &:nth-child(2) {
+            min-height: 50px;
+          }
+          &:nth-child(4) {
+            min-height: 40px;
+          }
+        }
+      }
+    }
+  }
 }

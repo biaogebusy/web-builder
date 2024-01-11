@@ -39,10 +39,21 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
     this.builder.builderLayoutSetting$
       .pipe(takeUntil(this.destroy$))
       .subscribe((data) => {
-        const { index, value, uuid } = data;
+        const {
+          index,
+          value: {
+            row,
+            layoutAlign: { horizontal, vertical },
+          },
+          uuid,
+        } = data;
         if (uuid === this.uuid) {
           const { elements } = this.content;
-          elements[index].row = value;
+          elements[index].row = row;
+          this.content.layoutAlign = `${horizontal.replace(
+            'flex-',
+            ''
+          )} ${vertical.replace('flex-', '')}`;
           this.builder.updateComponent(this.pageIndex, this.content);
           this.cd.detectChanges();
         }
@@ -112,12 +123,12 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
 
   onSettings(i: number, layout: any): void {
     this.uuid = Date.now().toString();
-    let fields: FormlyFieldConfig[] = [];
-    let settings: FormlyFieldConfig[] = [
+    let responsive: FormlyFieldConfig[] = [
       {
         type: 'slider',
         key: 'xs',
         className: 'width-100',
+        defaultValue: layout.row.xs,
         templateOptions: {
           label: '移动端',
           min: 1,
@@ -129,6 +140,7 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
         type: 'slider',
         key: 'sm',
         className: 'width-100',
+        defaultValue: layout.row.sm,
         templateOptions: {
           label: '平板电脑',
           min: 1,
@@ -140,6 +152,7 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
         type: 'slider',
         key: 'md',
         className: 'width-100',
+        defaultValue: layout.row.md,
         templateOptions: {
           label: '桌面电脑',
           min: 1,
@@ -151,6 +164,7 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
         type: 'slider',
         key: 'lg',
         className: 'width-100',
+        defaultValue: layout.row.lg,
         templateOptions: {
           label: '超大桌面',
           min: 1,
@@ -159,13 +173,91 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
         },
       },
     ];
-
-    fields = settings.map((field: any) => {
-      return {
-        ...field,
-        defaultValue: layout.row[field.key],
-      };
-    });
+    let fields: FormlyFieldConfig[] = [
+      {
+        key: 'row',
+        fieldGroup: responsive,
+      },
+      {
+        key: 'layoutAlign',
+        fieldGroup: [
+          {
+            className: 'width-100 m-bottom-md',
+            template: `<div class="layout-preview" style="height:200px"><div class="wrapper" layoutpreview><div class="block bg-primary">1</div><div  class="block bg-orange">2</div><div class="block bg-green">3</div><div class="block bg-blue">4</div><div  class="block bg-cyan">5</div></div></div>`,
+          },
+          {
+            type: 'select',
+            key: 'horizontal',
+            className: 'width-100',
+            defaultValue: 'start',
+            templateOptions: {
+              label: '水平对齐',
+              options: [
+                {
+                  label: 'None',
+                  value: 'none',
+                },
+                {
+                  label: 'start',
+                  value: 'flex-start',
+                },
+                {
+                  label: 'center',
+                  value: 'center',
+                },
+                {
+                  label: 'end',
+                  value: 'flex-end',
+                },
+                {
+                  label: 'space-around',
+                  value: 'space-around',
+                },
+                {
+                  label: 'space-between',
+                  value: 'space-between',
+                },
+                {
+                  label: 'space-evenly',
+                  value: 'space-evenly',
+                },
+              ],
+            },
+          },
+          {
+            type: 'select',
+            key: 'vertical',
+            className: 'width-100',
+            defaultValue: 'stretch',
+            templateOptions: {
+              label: '垂直对齐',
+              options: [
+                {
+                  label: 'None',
+                  value: 'none',
+                },
+                {
+                  label: 'start',
+                  value: 'flex-start',
+                },
+                {
+                  label: 'center',
+                  value: 'center',
+                },
+                {
+                  label: 'end',
+                  value: 'flex-end',
+                },
+                {
+                  label: 'stretch',
+                  value: 'stretch',
+                },
+              ],
+            },
+          },
+        ],
+      },
+    ];
 
     this.builder.builderRightContent$.next({
       mode: 'push',

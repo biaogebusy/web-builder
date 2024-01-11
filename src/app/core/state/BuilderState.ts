@@ -195,7 +195,7 @@ export class BuilderState {
     this.updatePage(event.currentIndex);
   }
 
-  showEditor(content: any, index: number, uuid: string): void {
+  onLayoutSetting(content: any, index: number, uuid: string): void {
     let fields: FormlyFieldConfig[] = [
       {
         type: 'select',

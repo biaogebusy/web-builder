@@ -9,16 +9,15 @@
     <div #builderList id="builder-list" cdkDropList [cdkDropListConnectedTo]="['widgets']" [cdkDropListData]="page.body"
       (cdkDropListDropped)="drop($event)">
       <app-builder-empty *ngIf="!page.body?.length"></app-builder-empty>
-      <div id="item-{{i}}" class="component-item" cdkDrag [cdkDragDisabled]="true" [cdkDragData]="item"
-        *ngFor="let item of page.body;index as i; trackBy: trackByFn">
+      <div id="item-{{i}}" class="component-item" *ngFor="let item of page.body;index as i; trackBy: trackByFn">
         <app-dynamic-component [attr.data-path]="i" *ngIf="item" [inputs]="{content:item,showToolbar:true}" [index]="i"
           [isPreview]="true"></app-dynamic-component>
         <app-card-1v1 style="width:800px" *cdkDragPreview [content]="{
-            link:{
-              href:'#',
-              label: item.type
-            },components:[item]
-          }"></app-card-1v1>
+              link:{
+                href:'#',
+                label: item.type
+              },components:[item]
+            }"></app-card-1v1>
       </div>
       <app-gotop></app-gotop>
     </div>

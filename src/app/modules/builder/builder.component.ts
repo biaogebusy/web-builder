@@ -47,7 +47,7 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
     private storage: LocalStorageService,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
     @Inject(BUILDER_FULL_SCREEN) public builderFullScreen$: Observable<boolean>,
-    @Inject(UIUX) public uiux: IUiux[],
+    @Inject(UIUX) readonly uiux: IUiux[],
     @Inject(BUILDER_SAMPLE_PAGE) public samples: IBuilderSamplePage,
     @Inject(DOCUMENT) private doc: Document,
     @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>

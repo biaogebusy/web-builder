@@ -38,7 +38,7 @@ const content: ITextHero = {
     classes: 'y-center',
     style: [],
     bg: {
-      classes: 'bg-shadow overlay overlay-20',
+      classes: '',
       img: {
         src: '/assets/images/16-9/nature-08.jpg',
         hostClasses: '',

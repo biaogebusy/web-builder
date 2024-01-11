@@ -4,13 +4,13 @@
   <mat-drawer-container class="builder-main">
     <mat-drawer #drawer class="sidebar" [mode]="mode" [opened]="!(builderFullScreen$|async)">
       <mat-tab-group (selectedTabChange)="onTabChange()" mat-stretch-tabs mat-align-tabs="center">
-        <mat-tab *ngFor="let tab of uiux">
+        <mat-tab *ngFor="let widget of uiux">
           <ng-template mat-tab-label>
-            <app-icon [content]="tab.icon" [matTooltip]="tab.label"></app-icon>
+            <app-icon [content]="widget.icon" [matTooltip]="widget.label"></app-icon>
           </ng-template>
           <div class="p-x-xs p-y-xs">
-            <app-builder-panel *ngIf="tab.type !== 'sample'" [content]="tab.elements"></app-builder-panel>
-            <app-builder-sample *ngIf="tab.type === 'sample'" [content]="tab.elements"></app-builder-sample>
+            <app-builder-panel *ngIf="widget.type !== 'sample'" [content]="widget.elements"></app-builder-panel>
+            <app-builder-sample *ngIf="widget.type === 'sample'" [content]="widget.elements"></app-builder-sample>
           </div>
         </mat-tab>
       </mat-tab-group>

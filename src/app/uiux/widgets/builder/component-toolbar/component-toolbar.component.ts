@@ -79,7 +79,7 @@ export class ComponentToolbarComponent implements OnInit {
         },
       });
     } else {
-      this.builder.showEditor(component, index, uuid);
+      this.builder.onLayoutSetting(component, index, uuid);
     }
   }
 

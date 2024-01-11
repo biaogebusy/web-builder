@@ -51,7 +51,7 @@ TextHero.storyName = '图片带文本';
 const textHeroContent: ICarouselBase = {
   type: 'carousel-1v1',
   spacer: 'none',
-  disableContainer: true,
+  fullWidth: true,
   bg: {
     classes: '',
   },
@@ -80,7 +80,7 @@ const textHeroContent: ICarouselBase = {
           classes: 'y-center',
           style: [],
           bg: {
-            classes: 'bg-shadow overlay overlay-20',
+            classes: '',
             img: {
               src: '/assets/images/hero/1-3.jpg',
               hostClasses: '',

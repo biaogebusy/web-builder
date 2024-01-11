@@ -10,7 +10,7 @@ import {
 import { Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 import { FormService } from '@core/service/form.service';
-import { isEmpty, omitBy } from 'lodash';
+import { isEmpty, omitBy } from 'lodash-es';
 import { fromEvent, Subject } from 'rxjs';
 import { ScreenService } from '@core/service/screen.service';
 import { takeUntil } from 'rxjs/operators';
