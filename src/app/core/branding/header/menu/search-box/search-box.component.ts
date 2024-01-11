@@ -10,7 +10,7 @@ import { NodeService } from '@core/service/node.service';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { FormService } from '@core/service/form.service';
-import { isEmpty, omitBy } from 'lodash';
+import { isEmpty, omitBy } from 'lodash-es';
 import { BaseComponent } from '@uiux/base/base.widget';
 import type { IHeaderSearch } from '@core/interface/branding/IBranding';
 
