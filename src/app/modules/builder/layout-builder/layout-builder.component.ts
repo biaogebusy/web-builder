@@ -192,7 +192,7 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
             type: 'select',
             key: 'horizontal',
             className: 'width-100',
-            defaultValue: this.getLayoutAlign('x', this.content.layoutAlign),
+            defaultValue: this.getLayoutAlign(0, this.content.layoutAlign),
             templateOptions: {
               label: '水平对齐',
               options: [
@@ -231,7 +231,7 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
             type: 'select',
             key: 'vertical',
             className: 'width-100',
-            defaultValue: this.getLayoutAlign('y', this.content.layoutAlign),
+            defaultValue: this.getLayoutAlign(1, this.content.layoutAlign),
             templateOptions: {
               label: '垂直对齐',
               options: [
@@ -283,27 +283,15 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
     });
   }
 
-  getLayoutAlign(axis: string, layoutAlign: string): string {
-    if (axis === 'x') {
-      const align = layoutAlign.split(' ')[0];
-      switch (align) {
-        case 'start':
-          return 'flex-start';
-        case 'end':
-          return 'flex-end';
-        default:
-          return align;
-      }
-    } else {
-      const align = layoutAlign.split(' ')[1];
-      switch (align) {
-        case 'start':
-          return 'flex-start';
-        case 'end':
-          return 'flex-end';
-        default:
-          return align;
-      }
+  getLayoutAlign(index: number, layoutAlign: string): string {
+    const align = layoutAlign.split(' ')[index];
+    switch (align) {
+      case 'start':
+        return 'flex-start';
+      case 'end':
+        return 'flex-end';
+      default:
+        return align;
     }
   }
   ngOnDestroy(): void {
