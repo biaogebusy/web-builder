@@ -289,32 +289,20 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
       switch (align) {
         case 'start':
           return 'flex-start';
-        case 'center':
-          return 'center';
         case 'end':
           return 'flex-end';
-        case 'space-around':
-          return 'space-around';
-        case 'space-between':
-          return 'space-between';
-        case 'space-evenly':
-          return 'space-evenly';
         default:
-          return 'none';
+          return align;
       }
     } else {
       const align = layoutAlign.split(' ')[1];
       switch (align) {
         case 'start':
           return 'flex-start';
-        case 'center':
-          return 'center';
         case 'end':
           return 'flex-end';
-        case 'stretch':
-          return 'stretch';
         default:
-          return 'stretch';
+          return align;
       }
     }
   }
