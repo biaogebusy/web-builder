@@ -28,7 +28,6 @@ export class PopupSelectComponent implements OnInit {
   ngOnInit(): void {}
 
   onSelect(widget: any): void {
-    console.log(widget);
     const { row, index, pageIndex, uuid, content } = this.content;
     if (row === 'down') {
       content.elements[index].elements.push(widget.content);
@@ -36,7 +35,13 @@ export class PopupSelectComponent implements OnInit {
 
     if (row === 'next') {
       content.elements.splice(index + 1, 0, {
-        row: 4,
+        row: {
+          xs: 12,
+          sm: 6,
+          md: 6,
+          lg: 4,
+        },
+        align: 'center center',
         elements: [widget.content],
       });
     }

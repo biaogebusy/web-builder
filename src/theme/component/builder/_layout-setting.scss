@@ -16,6 +16,7 @@
       .wrapper {
         .block {
           @include mat-elevation(3, mat-color($foreground, divider), 0.4);
+          color: mat-color($primary, default-contrast);
         }
       }
     }

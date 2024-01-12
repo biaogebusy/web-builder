@@ -41,19 +41,22 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
       .subscribe((data) => {
         const {
           index,
-          value: {
-            row,
-            layoutAlign: { horizontal, vertical },
-          },
+          value: { row, layoutAlign },
           uuid,
         } = data;
         if (uuid === this.uuid) {
-          const { elements } = this.content;
-          elements[index].row = row;
-          this.content.layoutAlign = `${horizontal.replace(
-            'flex-',
-            ''
-          )} ${vertical.replace('flex-', '')}`;
+          console.log(data);
+          if (row) {
+            const { elements } = this.content;
+            elements[index].row = row;
+          }
+          if (layoutAlign) {
+            const { horizontal, vertical } = layoutAlign;
+            this.content.layoutAlign = `${horizontal.replace(
+              'flex-',
+              ''
+            )} ${vertical.replace('flex-', '')}`;
+          }
           this.builder.updateComponent(this.pageIndex, this.content);
           this.cd.detectChanges();
         }
@@ -183,13 +186,13 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
         fieldGroup: [
           {
             className: 'width-100 m-bottom-md',
-            template: `<div class="layout-preview" style="height:200px"><div class="wrapper" layoutpreview><div class="block bg-primary">1</div><div  class="block bg-orange">2</div><div class="block bg-green">3</div><div class="block bg-blue">4</div><div  class="block bg-cyan">5</div></div></div>`,
+            template: `<div class="layout-preview"><div class="wrapper" layoutpreview><div class="block bg-primary">1</div><div  class="block bg-orange">2</div><div class="block bg-green">3</div><div class="block bg-blue">4</div><div  class="block bg-cyan">5</div></div></div>`,
           },
           {
             type: 'select',
             key: 'horizontal',
             className: 'width-100',
-            defaultValue: 'start',
+            defaultValue: this.getLayoutAlign(0, this.content.layoutAlign),
             templateOptions: {
               label: '水平对齐',
               options: [
@@ -228,7 +231,7 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
             type: 'select',
             key: 'vertical',
             className: 'width-100',
-            defaultValue: 'stretch',
+            defaultValue: this.getLayoutAlign(1, this.content.layoutAlign),
             templateOptions: {
               label: '垂直对齐',
               options: [
@@ -278,6 +281,18 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
         },
       ],
     });
+  }
+
+  getLayoutAlign(index: number, layoutAlign: string): string {
+    const align = layoutAlign.split(' ')[index];
+    switch (align) {
+      case 'start':
+        return 'flex-start';
+      case 'end':
+        return 'flex-end';
+      default:
+        return align;
+    }
   }
   ngOnDestroy(): void {
     this.destroy$.next(true);

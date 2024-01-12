@@ -330,7 +330,7 @@
     ]
   },
   "manageMedia": {
-    "row": 4,
+    "row": 5,
     "sidebar": {
       "title": {
         "label": "搜索",
@@ -343,6 +343,16 @@
         "label": "确定"
       },
       "form": [
+        {
+          "type": "toggle",
+          "key": "fromStatic",
+          "className": "static-item",
+          "defaultValue": true,
+          "templateOptions": {
+            "label": "切换资源库",
+            "description": "静态资源/后台媒体库"
+          }
+        },
         {
           "type": "input",
           "key": "key",
@@ -432,7 +442,7 @@
         },
         {
           "key": "sort",
-          "className": "m-bottom-sm width-100",
+          "className": "width-100",
           "fieldGroup": [
             {
               "type": "select",
@@ -475,8 +485,8 @@
         "defaultValue": 1,
         "className": "display-block m-bottom-sm",
         "templateOptions": {
-          "label": "选择 Hero 个数",
-          "description": "一般一个页面只需要一个 Hero",
+          "label": "选择首屏个数",
+          "description": "页面菜单下的第一个首屏组件",
           "options": [
             {
               "label": "1",
@@ -564,7 +574,7 @@
         "className": "display-block m-bottom-sm",
         "templateOptions": {
           "label": "选择幻灯片个数",
-          "description": "幻灯片不宜太多，生成后可拖动重排",
+          "description": "幻灯片不宜太多，生成后可重排",
           "options": [
             {
               "label": "1",
@@ -619,11 +629,11 @@
       },
       {
         "key": "action",
-        "type": "checkbox",
+        "type": "toggle",
         "className": "display-block m-bottom-sm",
         "defaultValue": true,
         "templateOptions": {
-          "label": "页面 Action",
+          "label": "行动组件",
           "description": "一般页面底部引导用户下一步要做的事情",
           "pattern": "true",
           "required": true

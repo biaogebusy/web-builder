@@ -72,8 +72,6 @@ export class LotteryComponent implements OnInit, AfterViewInit {
     this.total = Math.round(
       max.total_money + this.minTotalMoney + Number(this.promoteMoney)
     );
-    // this.maxTimes = (max.total / max.per).toFixed(0);
-    // this.minTimes = (min.total / min.per).toFixed(0);
 
     const data = {
       dataset: {
