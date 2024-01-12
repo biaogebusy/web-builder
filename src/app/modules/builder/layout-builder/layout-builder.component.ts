@@ -186,13 +186,13 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
         fieldGroup: [
           {
             className: 'width-100 m-bottom-md',
-            template: `<div class="layout-preview" style="height:200px"><div class="wrapper" layoutpreview><div class="block bg-primary">1</div><div  class="block bg-orange">2</div><div class="block bg-green">3</div><div class="block bg-blue">4</div><div  class="block bg-cyan">5</div></div></div>`,
+            template: `<div class="layout-preview"><div class="wrapper" layoutpreview><div class="block bg-primary">1</div><div  class="block bg-orange">2</div><div class="block bg-green">3</div><div class="block bg-blue">4</div><div  class="block bg-cyan">5</div></div></div>`,
           },
           {
             type: 'select',
             key: 'horizontal',
             className: 'width-100',
-            defaultValue: 'start',
+            defaultValue: this.getLayoutAlign('x', this.content.layoutAlign),
             templateOptions: {
               label: '水平对齐',
               options: [
@@ -231,7 +231,7 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
             type: 'select',
             key: 'vertical',
             className: 'width-100',
-            defaultValue: 'stretch',
+            defaultValue: this.getLayoutAlign('y', this.content.layoutAlign),
             templateOptions: {
               label: '垂直对齐',
               options: [
@@ -281,6 +281,42 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
         },
       ],
     });
+  }
+
+  getLayoutAlign(axis: string, layoutAlign: string): string {
+    if (axis === 'x') {
+      const align = layoutAlign.split(' ')[0];
+      switch (align) {
+        case 'start':
+          return 'flex-start';
+        case 'center':
+          return 'center';
+        case 'end':
+          return 'flex-end';
+        case 'space-around':
+          return 'space-around';
+        case 'space-between':
+          return 'space-between';
+        case 'space-evenly':
+          return 'space-evenly';
+        default:
+          return 'none';
+      }
+    } else {
+      const align = layoutAlign.split(' ')[1];
+      switch (align) {
+        case 'start':
+          return 'flex-start';
+        case 'center':
+          return 'center';
+        case 'end':
+          return 'flex-end';
+        case 'stretch':
+          return 'stretch';
+        default:
+          return 'stretch';
+      }
+    }
   }
   ngOnDestroy(): void {
     this.destroy$.next(true);
