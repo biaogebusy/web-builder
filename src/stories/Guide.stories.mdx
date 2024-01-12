@@ -2,7 +2,7 @@ import { Meta } from "@storybook/addon-docs";
 
 <Meta
   title="开发指南"
-  id="guide"
+  id="start-guide"
   parameters={{
     viewMode: "docs",
     previewTabs: {
@@ -13,6 +13,11 @@ import { Meta } from "@storybook/addon-docs";
 />
 
 # 开发指南
+
+## 安装 npm install
+
+1. 代码下载或者 clone 项目到本地：https://github.com/biaogebusy/xinshi-ui
+2. 因为当前 angular 版本为 v11 请使用 npm install 安装，严格安装 package-lock.json 锁版本安装，依赖较多，请多等待，使用 yarn 或者 pnpm 会有报错；
 
 ## environment 开发环境设置
 
@@ -61,17 +66,9 @@ module.exports = PROXY_CONFIG;
 
 `npm start`
 
-#### 路由页面
+#### 页面数据的加载
 
-- 默认首页：[http://localhost:4200/home](http://localhost:4200/home)
-- 用户登录：[http://localhost:4200/me/login](http://localhost:4200/me/login)
-- Web builder: [http://localhost:4200/builder](http://localhost:4200/builder)
-- Drupal 媒体：[http://localhost:4200/media](http://localhost:4200/media)
-- Drupal 区块：[http://localhost:4200/block](http://localhost:4200/block)
-
-#### 其他页面
-
-除了以上路由页面，其他页面在访问时，会获取`url`进行接口的数据读取，进而渲染页面，本地环境和生产环境返回会了方便测试做了判断：
+页面在访问时，会获取`url`进行接口的数据读取，进而渲染页面，本地环境和生产环境返回会了方便测试做了判断：
 
 ```javascript
 loadPageContent(pageUrl = this.pageUrl): Observable<IPage> {
