@@ -107,6 +107,10 @@
 
 详情可查阅[开发指南](https://ui.zhaobg.com/?path=/docs/guide--page)
 
+## 本地开发
+
+`npm start`
+
 ## 开发环境设置
 
 ```javascript
@@ -134,9 +138,9 @@ export const environment: IEnvironment = {
 
 默认会读取 `/api/v1/config` 的全局配置信息，这里主要是查看该站点是否是开放还是需要登录的，文件路径`src/app/core/guards/auth.guard.ts`，本地开发时可注释掉大概 35 行`reture true；`；
 
-## 代理
+## 配置代理
 
-配置文件`config/proxy.config.js`，本地开发时，会根据对应的 api url 前缀进行代理转发，根据实际情况进行配置；
+如果你的应用需要调用后台接口，可以配置代理访问，配置文件`config/proxy.config.js`，本地开发时，会根据对应的 api url 前缀进行代理转发，根据实际情况进行配置；
 
 ```javascript
 const PROXY_CONFIG = [
@@ -150,10 +154,6 @@ const PROXY_CONFIG = [
 
 module.exports = PROXY_CONFIG;
 ```
-
-## 运行
-
-`npm start`
 
 ## 页面数据加载
 
