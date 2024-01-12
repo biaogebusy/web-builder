@@ -95,6 +95,7 @@ export class BuilderToolbarComponent
       width: '100%',
       data: {
         title: '媒体库',
+        disableCloseButton: true,
         inputData: {
           content: {
             type: 'manage-media',

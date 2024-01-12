@@ -8,7 +8,7 @@
       <app-dynamic-component [inputs]="{content:data.inputData.content}"></app-dynamic-component>
     </ng-template>
   </mat-dialog-content>
-  <div mat-dialog-actions fxLayoutAlign="center center">
-    <button *ngIf="!data.disableCloseButton" mat-raised-button color="primary" [mat-dialog-close]="true">关闭</button>
+  <div mat-dialog-actions fxLayoutAlign="center center" *ngIf="!data.disableCloseButton">
+    <button mat-raised-button color="primary" [mat-dialog-close]="true">关闭</button>
   </div>
 </div>

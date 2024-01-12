@@ -18,6 +18,7 @@ import { ScreenService } from '@core/service/screen.service';
 import { NodeService } from '@core/service/node.service';
 import { ManageService } from '@core/service/manage.service';
 import { IManageAssets } from '@core/interface/manage/IManage';
+import { mediaAssets } from '@stories/builder/data/assets/media-assets-for-story';
 
 export const THEMKEY = 'themeMode';
 export const DEBUG_ANIMATE_KEY = 'debugAnimate';
@@ -320,7 +321,12 @@ export function mediaAssetsFactory(
   });
 
   // on form search change
-  contentState.mediaAssetsFormChange$.subscribe((value) => {
+  contentState.mediaAssetsFormChange$.subscribe((value: any) => {
+    const { fromStatic } = value;
+    if (fromStatic) {
+      assets$.next(mediaAssets);
+      return;
+    }
     const { type, params } = manageService.handlerJsonApiParams(value);
     nodeService.fetch(type, params).subscribe((res) => {
       assets$.next(manageService.getFilesToFeatureBox(res));

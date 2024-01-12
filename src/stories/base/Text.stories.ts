@@ -40,7 +40,7 @@ Base.storyName = '基础文本';
 const base: IText = {
   type: 'text',
   spacer: 'md',
-  body: '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。<ul class="list-done"><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li><li>可以直接编辑组件的 JSON，所见即所得；</li></ul>',
+  body: '信使UI是基于 Material 的 Angular 前端框架， 丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。选择组件拖动到想要的位置：<ul class="list-done"><li>可视化编辑组件图文数据，所见即所得；</li><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li></ul><p>欢迎入群一起探索更多的可能性和数字创新体验，QQ 交流群：<span class="text-primary">1176468251</span></p><p style="display:flex"><img width="120px" src="/assets/icons/large-left-arrow.svg" /><video  muted  autoplay loop width="120px" src="/assets/video/drag-drop.mp4"></video></p>',
 };
 Base.args = {
   content: base,
@@ -53,7 +53,7 @@ const title: IText = {
   title: {
     label:
       '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
-    style: 'style-v1',
+    style: 'style-v4',
     classes: 'mat-display-2 bold',
   },
 };
@@ -66,20 +66,33 @@ Actions.storyName = '带 Actions';
 const action: IText = {
   ...Title.args.content,
   bg: {
-    classes: 'bg-shadow bg-fill-width',
+    classes: '',
   },
-  actionsAlign: 'center center',
+  actionsAlign: 'start center',
   actions: [
     {
-      type: 'btn',
-      mode: 'raised',
+      type: 'btn-generater',
+      label: '体验生成页面',
       color: 'primary',
-      href: '#',
-      label: '开始',
+      mode: 'raised',
     },
     {
-      type: 'closeDialog',
-      label: 'Ok',
+      type: 'btn',
+      color: 'primary',
+      mode: 'stroked',
+      label: '演示视频',
+      href: 'https://www.bilibili.com/video/BV1ux4y197kc/?spm_id_from=333.999.0.0&vd_source=f65b4e2d70ecc450290b6b1710c0ada5',
+      target: '_blank',
+      icon: {
+        inline: true,
+        svg: 'play-circle-outline',
+      },
+    },
+    {
+      disableToolbar: true,
+      content: {
+        type: 'github-star',
+      },
     },
   ],
 };
@@ -91,22 +104,17 @@ export const Center = Template.bind({});
 // for builder sample
 Center.storyName = '居中';
 const center: IText = {
-  ...Title.args.content,
+  title: {
+    ...Title.args.content.title,
+    style: 'style-v1',
+  },
   bg: {
     classes: 'bg- bg-fill-width',
   },
   body: '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。',
   classes: 'text-center',
   actionsAlign: 'center center',
-  actions: [
-    {
-      type: 'btn',
-      mode: 'raised',
-      color: 'primary',
-      href: '/builder',
-      label: '了解更多',
-    },
-  ],
+  actions: [...Actions.args.content.actions],
 };
 Center.args = {
   content: center,

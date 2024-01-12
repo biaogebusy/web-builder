@@ -8,6 +8,7 @@ import { StorysModule } from '@core/module/storys.module';
 import { Showcase3v9Component } from '@uiux/combs/showcase/showcase3v9/showcase3v9.component';
 import * as btnVideoStory from '@stories/base/BtnVideo.stories';
 import { IShowcase3v9 } from '@core/interface/combs/IShowcase';
+import { Title } from '@stories/base/Text.stories';
 
 export default {
   title: '特色组件/展示 Showcase/3v9',
@@ -72,22 +73,7 @@ const content: IShowcase3v9 = {
   ],
   right: [
     {
-      type: 'text',
-      spacer: 'sm',
-      title: {
-        label:
-          '欢迎使用 <strong class="text-primary">Builder</strong> 快速构建页面',
-        style: 'style-v4',
-        classes: 'mat-display-2 bold',
-      },
-      body: '开启 Builder 后，可以从左侧选择组件拖动到想要的位置，甚至你可以在浏览前台任何页面时或者浏览 <strong class="text-primary">Storybook</strong> 页面时添加组件到预览页面。<ul class="list-done"><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li><li>可以直接编辑组件的 JSON，所见即所得；</li></ul><p>Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。</p><br>',
-      actions: [
-        {
-          href: 'https://www.zhaobg.com/builder',
-          label: '立即体验',
-          target: '_blank',
-        },
-      ],
+      ...Title.args?.content,
     },
   ],
 };

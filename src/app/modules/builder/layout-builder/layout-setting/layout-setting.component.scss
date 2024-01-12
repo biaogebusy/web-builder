@@ -19,11 +19,16 @@
     }
   }
   ::ng-deep {
-    .mat-form-field-appearance-legacy .mat-form-field-wrapper {
-      margin-bottom: 0;
+    .mat-form-field-appearance-legacy {
+      &.mat-form-field-type-slider {
+        .mat-form-field-wrapper {
+          margin-bottom: 0;
+          padding-bottom: 0;
+        }
+      }
     }
     .layout-preview {
-      height: 100px;
+      height: 80px;
       .wrapper {
         height: 100%;
         flex-direction: row;
@@ -33,8 +38,7 @@
         align-items: center;
         .block {
           padding: 8px;
-          opacity: 0.9;
-          color: #fff;
+          opacity: 0.8;
           text-align: center;
           border-radius: 3px;
           min-width: 16px;
