@@ -305,7 +305,7 @@ export const samples = {
                   name: 'fingerprint',
                 },
                 digit: {
-                  value: 732,
+                  value: 785,
                   label: '+',
                 },
                 title: '日访问人数',
@@ -315,7 +315,7 @@ export const samples = {
                   name: 'verified_user',
                 },
                 digit: {
-                  value: 290,
+                  value: 345,
                   label: '+',
                 },
                 title: '日打开次数',
@@ -325,7 +325,7 @@ export const samples = {
                   name: 'android',
                 },
                 digit: {
-                  value: 31,
+                  value: 168,
                   label: '人',
                 },
                 title: '日新增人数',
@@ -335,7 +335,7 @@ export const samples = {
                   name: 'mail',
                 },
                 digit: {
-                  value: 8330,
+                  value: 3401,
                   label: '万',
                 },
                 title: '累计用户数',
@@ -431,7 +431,7 @@ export const samples = {
             elements: [
               {
                 type: 'card',
-                subTitle: '2024-01-11',
+                subTitle: '2024-01-13',
                 avatar: {
                   src: '/assets/images/avatar/01.jpeg',
                   alt: '',
@@ -481,7 +481,7 @@ export const samples = {
               },
               {
                 type: 'card',
-                subTitle: '2024-01-11',
+                subTitle: '2024-01-13',
                 avatar: {
                   src: '/assets/images/avatar/02.jpeg',
                   alt: '',
@@ -518,7 +518,7 @@ export const samples = {
               },
               {
                 type: 'card',
-                subTitle: '2024-01-11',
+                subTitle: '2024-01-13',
                 avatar: {
                   src: '/assets/images/avatar/03.jpeg',
                   alt: '',
@@ -555,7 +555,7 @@ export const samples = {
               },
               {
                 type: 'card',
-                subTitle: '2024-01-11',
+                subTitle: '2024-01-13',
                 avatar: {
                   src: '/assets/images/avatar/04.jpeg',
                   alt: '',
@@ -592,7 +592,7 @@ export const samples = {
               },
               {
                 type: 'card',
-                subTitle: '2024-01-11',
+                subTitle: '2024-01-13',
                 avatar: {
                   src: '/assets/images/avatar/05.jpeg',
                   alt: '',
@@ -629,7 +629,7 @@ export const samples = {
               },
               {
                 type: 'card',
-                subTitle: '2024-01-11',
+                subTitle: '2024-01-13',
                 avatar: {
                   src: '/assets/images/avatar/06.jpeg',
                   alt: '',
@@ -666,7 +666,7 @@ export const samples = {
               },
               {
                 type: 'card',
-                subTitle: '2024-01-11',
+                subTitle: '2024-01-13',
                 avatar: {
                   src: '/assets/images/avatar/01.jpeg',
                   alt: '',
@@ -703,7 +703,7 @@ export const samples = {
               },
               {
                 type: 'card',
-                subTitle: '2024-01-11',
+                subTitle: '2024-01-13',
                 avatar: {
                   src: '/assets/images/avatar/02.jpeg',
                   alt: '',
@@ -1215,9 +1215,6 @@ export const samples = {
             ],
           },
           {
-            type: 'text',
-            spacer: 'md',
-            body: '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。',
             title: {
               label:
                 '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
@@ -1227,15 +1224,33 @@ export const samples = {
             bg: {
               classes: 'bg- bg-fill-width',
             },
+            body: '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。',
             classes: 'text-center',
             actionsAlign: 'center center',
             actions: [
               {
-                type: 'btn',
-                mode: 'raised',
+                type: 'btn-generater',
+                label: '体验生成页面',
                 color: 'primary',
-                href: '/builder',
-                label: '了解更多',
+                mode: 'raised',
+              },
+              {
+                type: 'btn',
+                color: 'primary',
+                mode: 'stroked',
+                label: '演示视频',
+                href: 'https://www.bilibili.com/video/BV1ux4y197kc/?spm_id_from=333.999.0.0&vd_source=f65b4e2d70ecc450290b6b1710c0ada5',
+                target: '_blank',
+                icon: {
+                  inline: true,
+                  svg: 'play-circle-outline',
+                },
+              },
+              {
+                disableToolbar: true,
+                content: {
+                  type: 'github-star',
+                },
               },
             ],
           },
@@ -1721,7 +1736,7 @@ export const samples = {
                   name: 'fingerprint',
                 },
                 digit: {
-                  value: 732,
+                  value: 785,
                   label: '+',
                 },
                 title: '日访问人数',
@@ -1731,7 +1746,7 @@ export const samples = {
                   name: 'verified_user',
                 },
                 digit: {
-                  value: 290,
+                  value: 345,
                   label: '+',
                 },
                 title: '日打开次数',
@@ -1741,7 +1756,7 @@ export const samples = {
                   name: 'android',
                 },
                 digit: {
-                  value: 31,
+                  value: 168,
                   label: '人',
                 },
                 title: '日新增人数',
@@ -1751,7 +1766,7 @@ export const samples = {
                   name: 'mail',
                 },
                 digit: {
-                  value: 8330,
+                  value: 3401,
                   label: '万',
                 },
                 title: '累计用户数',
@@ -2408,9 +2423,6 @@ export const samples = {
             ],
           },
           {
-            type: 'text',
-            spacer: 'md',
-            body: '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。',
             title: {
               label:
                 '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
@@ -2420,15 +2432,33 @@ export const samples = {
             bg: {
               classes: 'bg- bg-fill-width',
             },
+            body: '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。',
             classes: 'text-center',
             actionsAlign: 'center center',
             actions: [
               {
-                type: 'btn',
-                mode: 'raised',
+                type: 'btn-generater',
+                label: '体验生成页面',
                 color: 'primary',
-                href: '/builder',
-                label: '了解更多',
+                mode: 'raised',
+              },
+              {
+                type: 'btn',
+                color: 'primary',
+                mode: 'stroked',
+                label: '演示视频',
+                href: 'https://www.bilibili.com/video/BV1ux4y197kc/?spm_id_from=333.999.0.0&vd_source=f65b4e2d70ecc450290b6b1710c0ada5',
+                target: '_blank',
+                icon: {
+                  inline: true,
+                  svg: 'play-circle-outline',
+                },
+              },
+              {
+                disableToolbar: true,
+                content: {
+                  type: 'github-star',
+                },
               },
             ],
           },
@@ -3158,9 +3188,6 @@ export const samples = {
             ],
           },
           {
-            type: 'text',
-            spacer: 'md',
-            body: '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。',
             title: {
               label:
                 '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
@@ -3170,15 +3197,33 @@ export const samples = {
             bg: {
               classes: 'bg- bg-fill-width',
             },
+            body: '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。',
             classes: 'text-center',
             actionsAlign: 'center center',
             actions: [
               {
-                type: 'btn',
-                mode: 'raised',
+                type: 'btn-generater',
+                label: '体验生成页面',
                 color: 'primary',
-                href: '/builder',
-                label: '了解更多',
+                mode: 'raised',
+              },
+              {
+                type: 'btn',
+                color: 'primary',
+                mode: 'stroked',
+                label: '演示视频',
+                href: 'https://www.bilibili.com/video/BV1ux4y197kc/?spm_id_from=333.999.0.0&vd_source=f65b4e2d70ecc450290b6b1710c0ada5',
+                target: '_blank',
+                icon: {
+                  inline: true,
+                  svg: 'play-circle-outline',
+                },
+              },
+              {
+                disableToolbar: true,
+                content: {
+                  type: 'github-star',
+                },
               },
             ],
           },
@@ -3790,9 +3835,6 @@ export const samples = {
             ],
           },
           {
-            type: 'text',
-            spacer: 'md',
-            body: '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。',
             title: {
               label:
                 '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
@@ -3802,15 +3844,33 @@ export const samples = {
             bg: {
               classes: 'bg- bg-fill-width',
             },
+            body: '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。',
             classes: 'text-center',
             actionsAlign: 'center center',
             actions: [
               {
-                type: 'btn',
-                mode: 'raised',
+                type: 'btn-generater',
+                label: '体验生成页面',
                 color: 'primary',
-                href: '/builder',
-                label: '了解更多',
+                mode: 'raised',
+              },
+              {
+                type: 'btn',
+                color: 'primary',
+                mode: 'stroked',
+                label: '演示视频',
+                href: 'https://www.bilibili.com/video/BV1ux4y197kc/?spm_id_from=333.999.0.0&vd_source=f65b4e2d70ecc450290b6b1710c0ada5',
+                target: '_blank',
+                icon: {
+                  inline: true,
+                  svg: 'play-circle-outline',
+                },
+              },
+              {
+                disableToolbar: true,
+                content: {
+                  type: 'github-star',
+                },
               },
             ],
           },
@@ -4604,9 +4664,6 @@ export const samples = {
             ],
           },
           {
-            type: 'text',
-            spacer: 'md',
-            body: '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。',
             title: {
               label:
                 '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
@@ -4616,15 +4673,33 @@ export const samples = {
             bg: {
               classes: 'bg- bg-fill-width',
             },
+            body: '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。',
             classes: 'text-center',
             actionsAlign: 'center center',
             actions: [
               {
-                type: 'btn',
-                mode: 'raised',
+                type: 'btn-generater',
+                label: '体验生成页面',
                 color: 'primary',
-                href: '/builder',
-                label: '了解更多',
+                mode: 'raised',
+              },
+              {
+                type: 'btn',
+                color: 'primary',
+                mode: 'stroked',
+                label: '演示视频',
+                href: 'https://www.bilibili.com/video/BV1ux4y197kc/?spm_id_from=333.999.0.0&vd_source=f65b4e2d70ecc450290b6b1710c0ada5',
+                target: '_blank',
+                icon: {
+                  inline: true,
+                  svg: 'play-circle-outline',
+                },
+              },
+              {
+                disableToolbar: true,
+                content: {
+                  type: 'github-star',
+                },
               },
             ],
           },
@@ -5080,9 +5155,6 @@ export const samples = {
             },
           },
           {
-            type: 'text',
-            spacer: 'md',
-            body: '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。',
             title: {
               label:
                 '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
@@ -5092,15 +5164,33 @@ export const samples = {
             bg: {
               classes: 'bg- bg-fill-width',
             },
+            body: '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。',
             classes: 'text-center',
             actionsAlign: 'center center',
             actions: [
               {
-                type: 'btn',
-                mode: 'raised',
+                type: 'btn-generater',
+                label: '体验生成页面',
                 color: 'primary',
-                href: '/builder',
-                label: '了解更多',
+                mode: 'raised',
+              },
+              {
+                type: 'btn',
+                color: 'primary',
+                mode: 'stroked',
+                label: '演示视频',
+                href: 'https://www.bilibili.com/video/BV1ux4y197kc/?spm_id_from=333.999.0.0&vd_source=f65b4e2d70ecc450290b6b1710c0ada5',
+                target: '_blank',
+                icon: {
+                  inline: true,
+                  svg: 'play-circle-outline',
+                },
+              },
+              {
+                disableToolbar: true,
+                content: {
+                  type: 'github-star',
+                },
               },
             ],
           },
@@ -5632,7 +5722,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset187.svg',
                 },
                 digit: {
-                  value: 23,
+                  value: 20,
                   label: 'M',
                 },
                 title: 'Github Start',
@@ -5642,7 +5732,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset189.svg',
                 },
                 digit: {
-                  value: 31873,
+                  value: 36198,
                   label: '+',
                 },
                 title: 'NPM 周下载量',
@@ -5652,7 +5742,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset190.svg',
                 },
                 digit: {
-                  value: 2517,
+                  value: 3810,
                   label: 'K',
                 },
                 title: '社区活跃',
@@ -5662,7 +5752,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset192.svg',
                 },
                 digit: {
-                  value: 554,
+                  value: 648,
                   label: '个',
                 },
                 title: '成功故事',
@@ -5673,9 +5763,6 @@ export const samples = {
             },
           },
           {
-            type: 'text',
-            spacer: 'md',
-            body: '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。',
             title: {
               label:
                 '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
@@ -5685,15 +5772,33 @@ export const samples = {
             bg: {
               classes: 'bg- bg-fill-width',
             },
+            body: '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。',
             classes: 'text-center',
             actionsAlign: 'center center',
             actions: [
               {
-                type: 'btn',
-                mode: 'raised',
+                type: 'btn-generater',
+                label: '体验生成页面',
                 color: 'primary',
-                href: '/builder',
-                label: '了解更多',
+                mode: 'raised',
+              },
+              {
+                type: 'btn',
+                color: 'primary',
+                mode: 'stroked',
+                label: '演示视频',
+                href: 'https://www.bilibili.com/video/BV1ux4y197kc/?spm_id_from=333.999.0.0&vd_source=f65b4e2d70ecc450290b6b1710c0ada5',
+                target: '_blank',
+                icon: {
+                  inline: true,
+                  svg: 'play-circle-outline',
+                },
+              },
+              {
+                disableToolbar: true,
+                content: {
+                  type: 'github-star',
+                },
               },
             ],
           },
@@ -5939,7 +6044,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset187.svg',
                 },
                 digit: {
-                  value: 23,
+                  value: 20,
                   label: 'M',
                 },
                 title: 'Github Start',
@@ -5949,7 +6054,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset189.svg',
                 },
                 digit: {
-                  value: 31873,
+                  value: 36198,
                   label: '+',
                 },
                 title: 'NPM 周下载量',
@@ -5959,7 +6064,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset190.svg',
                 },
                 digit: {
-                  value: 2517,
+                  value: 3810,
                   label: 'K',
                 },
                 title: '社区活跃',
@@ -5969,7 +6074,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset192.svg',
                 },
                 digit: {
-                  value: 554,
+                  value: 648,
                   label: '个',
                 },
                 title: '成功故事',
@@ -6632,9 +6737,6 @@ export const samples = {
             },
           },
           {
-            type: 'text',
-            spacer: 'md',
-            body: '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。',
             title: {
               label:
                 '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
@@ -6644,15 +6746,33 @@ export const samples = {
             bg: {
               classes: 'bg- bg-fill-width',
             },
+            body: '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。',
             classes: 'text-center',
             actionsAlign: 'center center',
             actions: [
               {
-                type: 'btn',
-                mode: 'raised',
+                type: 'btn-generater',
+                label: '体验生成页面',
                 color: 'primary',
-                href: '/builder',
-                label: '了解更多',
+                mode: 'raised',
+              },
+              {
+                type: 'btn',
+                color: 'primary',
+                mode: 'stroked',
+                label: '演示视频',
+                href: 'https://www.bilibili.com/video/BV1ux4y197kc/?spm_id_from=333.999.0.0&vd_source=f65b4e2d70ecc450290b6b1710c0ada5',
+                target: '_blank',
+                icon: {
+                  inline: true,
+                  svg: 'play-circle-outline',
+                },
+              },
+              {
+                disableToolbar: true,
+                content: {
+                  type: 'github-star',
+                },
               },
             ],
           },
@@ -7348,9 +7468,6 @@ export const samples = {
             ],
           },
           {
-            type: 'text',
-            spacer: 'md',
-            body: '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。',
             title: {
               label:
                 '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
@@ -7360,15 +7477,33 @@ export const samples = {
             bg: {
               classes: 'bg- bg-fill-width',
             },
+            body: '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。',
             classes: 'text-center',
             actionsAlign: 'center center',
             actions: [
               {
-                type: 'btn',
-                mode: 'raised',
+                type: 'btn-generater',
+                label: '体验生成页面',
                 color: 'primary',
-                href: '/builder',
-                label: '了解更多',
+                mode: 'raised',
+              },
+              {
+                type: 'btn',
+                color: 'primary',
+                mode: 'stroked',
+                label: '演示视频',
+                href: 'https://www.bilibili.com/video/BV1ux4y197kc/?spm_id_from=333.999.0.0&vd_source=f65b4e2d70ecc450290b6b1710c0ada5',
+                target: '_blank',
+                icon: {
+                  inline: true,
+                  svg: 'play-circle-outline',
+                },
+              },
+              {
+                disableToolbar: true,
+                content: {
+                  type: 'github-star',
+                },
               },
             ],
           },
@@ -7869,7 +8004,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset187.svg',
                 },
                 digit: {
-                  value: 23,
+                  value: 20,
                   label: 'M',
                 },
                 title: 'Github Start',
@@ -7879,7 +8014,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset189.svg',
                 },
                 digit: {
-                  value: 31873,
+                  value: 36198,
                   label: '+',
                 },
                 title: 'NPM 周下载量',
@@ -7889,7 +8024,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset190.svg',
                 },
                 digit: {
-                  value: 2517,
+                  value: 3810,
                   label: 'K',
                 },
                 title: '社区活跃',
@@ -7899,7 +8034,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset192.svg',
                 },
                 digit: {
-                  value: 554,
+                  value: 648,
                   label: '个',
                 },
                 title: '成功故事',
@@ -8291,9 +8426,6 @@ export const samples = {
             },
           },
           {
-            type: 'text',
-            spacer: 'md',
-            body: '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。',
             title: {
               label:
                 '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
@@ -8303,15 +8435,33 @@ export const samples = {
             bg: {
               classes: 'bg- bg-fill-width',
             },
+            body: '信使UI是基于 Material 的 Angular 前端框架， 五十多个丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。Builder 与众不同的是它完全融入到了 <strong class="text-primary">Storybook</strong> 当中，它是一个面向UI组件开发的工具，提供了组件驱动的开发方式、交互式展示和测试界面，以及文档化功能。',
             classes: 'text-center',
             actionsAlign: 'center center',
             actions: [
               {
-                type: 'btn',
-                mode: 'raised',
+                type: 'btn-generater',
+                label: '体验生成页面',
                 color: 'primary',
-                href: '/builder',
-                label: '了解更多',
+                mode: 'raised',
+              },
+              {
+                type: 'btn',
+                color: 'primary',
+                mode: 'stroked',
+                label: '演示视频',
+                href: 'https://www.bilibili.com/video/BV1ux4y197kc/?spm_id_from=333.999.0.0&vd_source=f65b4e2d70ecc450290b6b1710c0ada5',
+                target: '_blank',
+                icon: {
+                  inline: true,
+                  svg: 'play-circle-outline',
+                },
+              },
+              {
+                disableToolbar: true,
+                content: {
+                  type: 'github-star',
+                },
               },
             ],
           },

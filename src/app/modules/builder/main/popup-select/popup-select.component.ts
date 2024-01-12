@@ -9,7 +9,7 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { BuilderState } from '@core/state/BuilderState';
 import { POPUP_SELECT } from '@core/token/token-providers';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-popup-select',
@@ -19,6 +19,7 @@ import { Observable } from 'rxjs';
 })
 export class PopupSelectComponent implements OnInit {
   @Input() content: any;
+  public widget$: Subject<any> = new Subject();
   constructor(
     private builder: BuilderState,
     @Inject(POPUP_SELECT) public widgets$: Observable<any[]>,
@@ -48,5 +49,9 @@ export class PopupSelectComponent implements OnInit {
 
     this.builder.updateComponent(pageIndex, content);
     this.dialog.closeAll();
+  }
+
+  onHover(widget: any): void {
+    this.widget$.next(widget.content);
   }
 }
