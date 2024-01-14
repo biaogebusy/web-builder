@@ -305,7 +305,7 @@ export const samples = {
                   name: 'fingerprint',
                 },
                 digit: {
-                  value: 785,
+                  value: 663,
                   label: '+',
                 },
                 title: '日访问人数',
@@ -315,7 +315,7 @@ export const samples = {
                   name: 'verified_user',
                 },
                 digit: {
-                  value: 345,
+                  value: 379,
                   label: '+',
                 },
                 title: '日打开次数',
@@ -325,7 +325,7 @@ export const samples = {
                   name: 'android',
                 },
                 digit: {
-                  value: 168,
+                  value: 17,
                   label: '人',
                 },
                 title: '日新增人数',
@@ -335,7 +335,7 @@ export const samples = {
                   name: 'mail',
                 },
                 digit: {
-                  value: 3401,
+                  value: 6723,
                   label: '万',
                 },
                 title: '累计用户数',
@@ -431,7 +431,7 @@ export const samples = {
             elements: [
               {
                 type: 'card',
-                subTitle: '2024-01-13',
+                subTitle: '2024-01-14',
                 avatar: {
                   src: '/assets/images/avatar/01.jpeg',
                   alt: '',
@@ -481,7 +481,7 @@ export const samples = {
               },
               {
                 type: 'card',
-                subTitle: '2024-01-13',
+                subTitle: '2024-01-14',
                 avatar: {
                   src: '/assets/images/avatar/02.jpeg',
                   alt: '',
@@ -518,7 +518,7 @@ export const samples = {
               },
               {
                 type: 'card',
-                subTitle: '2024-01-13',
+                subTitle: '2024-01-14',
                 avatar: {
                   src: '/assets/images/avatar/03.jpeg',
                   alt: '',
@@ -555,7 +555,7 @@ export const samples = {
               },
               {
                 type: 'card',
-                subTitle: '2024-01-13',
+                subTitle: '2024-01-14',
                 avatar: {
                   src: '/assets/images/avatar/04.jpeg',
                   alt: '',
@@ -592,7 +592,7 @@ export const samples = {
               },
               {
                 type: 'card',
-                subTitle: '2024-01-13',
+                subTitle: '2024-01-14',
                 avatar: {
                   src: '/assets/images/avatar/05.jpeg',
                   alt: '',
@@ -629,7 +629,7 @@ export const samples = {
               },
               {
                 type: 'card',
-                subTitle: '2024-01-13',
+                subTitle: '2024-01-14',
                 avatar: {
                   src: '/assets/images/avatar/06.jpeg',
                   alt: '',
@@ -666,7 +666,7 @@ export const samples = {
               },
               {
                 type: 'card',
-                subTitle: '2024-01-13',
+                subTitle: '2024-01-14',
                 avatar: {
                   src: '/assets/images/avatar/01.jpeg',
                   alt: '',
@@ -703,7 +703,7 @@ export const samples = {
               },
               {
                 type: 'card',
-                subTitle: '2024-01-13',
+                subTitle: '2024-01-14',
                 avatar: {
                   src: '/assets/images/avatar/02.jpeg',
                   alt: '',
@@ -1215,6 +1215,7 @@ export const samples = {
             ],
           },
           {
+            type: 'text',
             title: {
               label:
                 '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
@@ -1736,7 +1737,7 @@ export const samples = {
                   name: 'fingerprint',
                 },
                 digit: {
-                  value: 785,
+                  value: 663,
                   label: '+',
                 },
                 title: '日访问人数',
@@ -1746,7 +1747,7 @@ export const samples = {
                   name: 'verified_user',
                 },
                 digit: {
-                  value: 345,
+                  value: 379,
                   label: '+',
                 },
                 title: '日打开次数',
@@ -1756,7 +1757,7 @@ export const samples = {
                   name: 'android',
                 },
                 digit: {
-                  value: 168,
+                  value: 17,
                   label: '人',
                 },
                 title: '日新增人数',
@@ -1766,7 +1767,7 @@ export const samples = {
                   name: 'mail',
                 },
                 digit: {
-                  value: 3401,
+                  value: 6723,
                   label: '万',
                 },
                 title: '累计用户数',
@@ -2423,6 +2424,7 @@ export const samples = {
             ],
           },
           {
+            type: 'text',
             title: {
               label:
                 '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
@@ -3188,6 +3190,7 @@ export const samples = {
             ],
           },
           {
+            type: 'text',
             title: {
               label:
                 '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
@@ -3835,6 +3838,7 @@ export const samples = {
             ],
           },
           {
+            type: 'text',
             title: {
               label:
                 '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
@@ -4664,6 +4668,7 @@ export const samples = {
             ],
           },
           {
+            type: 'text',
             title: {
               label:
                 '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
@@ -5155,6 +5160,7 @@ export const samples = {
             },
           },
           {
+            type: 'text',
             title: {
               label:
                 '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
@@ -5722,7 +5728,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset187.svg',
                 },
                 digit: {
-                  value: 20,
+                  value: 45,
                   label: 'M',
                 },
                 title: 'Github Start',
@@ -5732,7 +5738,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset189.svg',
                 },
                 digit: {
-                  value: 36198,
+                  value: 26597,
                   label: '+',
                 },
                 title: 'NPM 周下载量',
@@ -5742,7 +5748,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset190.svg',
                 },
                 digit: {
-                  value: 3810,
+                  value: 2268,
                   label: 'K',
                 },
                 title: '社区活跃',
@@ -5752,7 +5758,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset192.svg',
                 },
                 digit: {
-                  value: 648,
+                  value: 540,
                   label: '个',
                 },
                 title: '成功故事',
@@ -5763,6 +5769,7 @@ export const samples = {
             },
           },
           {
+            type: 'text',
             title: {
               label:
                 '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
@@ -6044,7 +6051,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset187.svg',
                 },
                 digit: {
-                  value: 20,
+                  value: 45,
                   label: 'M',
                 },
                 title: 'Github Start',
@@ -6054,7 +6061,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset189.svg',
                 },
                 digit: {
-                  value: 36198,
+                  value: 26597,
                   label: '+',
                 },
                 title: 'NPM 周下载量',
@@ -6064,7 +6071,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset190.svg',
                 },
                 digit: {
-                  value: 3810,
+                  value: 2268,
                   label: 'K',
                 },
                 title: '社区活跃',
@@ -6074,7 +6081,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset192.svg',
                 },
                 digit: {
-                  value: 648,
+                  value: 540,
                   label: '个',
                 },
                 title: '成功故事',
@@ -6737,6 +6744,7 @@ export const samples = {
             },
           },
           {
+            type: 'text',
             title: {
               label:
                 '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
@@ -7468,6 +7476,7 @@ export const samples = {
             ],
           },
           {
+            type: 'text',
             title: {
               label:
                 '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',
@@ -8004,7 +8013,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset187.svg',
                 },
                 digit: {
-                  value: 20,
+                  value: 45,
                   label: 'M',
                 },
                 title: 'Github Start',
@@ -8014,7 +8023,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset189.svg',
                 },
                 digit: {
-                  value: 36198,
+                  value: 26597,
                   label: '+',
                 },
                 title: 'NPM 周下载量',
@@ -8024,7 +8033,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset190.svg',
                 },
                 digit: {
-                  value: 3810,
+                  value: 2268,
                   label: 'K',
                 },
                 title: '社区活跃',
@@ -8034,7 +8043,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset192.svg',
                 },
                 digit: {
-                  value: 648,
+                  value: 540,
                   label: '个',
                 },
                 title: '成功故事',
@@ -8426,6 +8435,7 @@ export const samples = {
             },
           },
           {
+            type: 'text',
             title: {
               label:
                 '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建页面',

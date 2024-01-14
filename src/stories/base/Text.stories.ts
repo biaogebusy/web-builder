@@ -104,6 +104,7 @@ export const Center = Template.bind({});
 // for builder sample
 Center.storyName = '居中';
 const center: IText = {
+  type: 'text',
   title: {
     ...Title.args.content.title,
     style: 'style-v1',
