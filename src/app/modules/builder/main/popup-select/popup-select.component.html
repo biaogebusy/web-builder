@@ -1,9 +1,15 @@
-<div class="popup-select" *ngIf="widgets$ | async as widgets" fxLayout="row wrap">
-  <div class="item" (click)="onSelect(widget)" matRipple fxFlex.lt-sm="33%" fxFlex.gt-xs="0 0 calc(100%/4)"
-    *ngFor="let widget of widgets">
-    <div class="inner" fxLayout="column" fxLayoutAlign="center center">
-      <app-icon *ngIf="widget.icon" [content]="widget.icon"></app-icon>
-      <div class="title" title="{{widget.label}}">{{widget.label}}</div>
+<div class="popup-select" fxLayout>
+  <div class="hover-show" fxFlex="0 0 40%" *ngIf="widget$ | async as widget" fxLayoutAlign="center stretch"
+    fxLayout="column">
+    <app-dynamic-component [inputs]="widget"></app-dynamic-component>
+  </div>
+  <div class="box" *ngIf="widgets$ | async as widgets" fxLayout="row wrap">
+    <div class="item" (mouseenter)="onHover(widget)" (click)="onSelect(widget)" matRipple fxFlex.lt-sm="33%"
+      fxFlex.gt-xs="0 0 calc(100%/4)" *ngFor="let widget of widgets">
+      <div class="inner" fxLayout="column" fxLayoutAlign="center center">
+        <app-icon *ngIf="widget.icon" [content]="widget.icon"></app-icon>
+        <div class="title" title="{{widget.label}}">{{widget.label}}</div>
+      </div>
     </div>
   </div>
 </div>

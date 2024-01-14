@@ -165,9 +165,16 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
   }
 
   .popup-select {
-    .inner {
-      &:hover {
-        background-color: mat-color($background, background);
+    .hover-show {
+      @include mat-elevation(2, mat-color($background, hover), 0.4);
+      @include scrollbar(mat-color($primary));
+      background-color: mat-color($background, background);
+    }
+    .item {
+      .inner {
+        &:hover {
+          background-color: mat-color($primary, 0.1);
+        }
       }
     }
   }
