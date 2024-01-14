@@ -55,4 +55,35 @@
       }
     }
   }
+  .layout-inner {
+    position: relative;
+    .layout-preview {
+      display: flex;
+      gap: 10px;
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      z-index: -10;
+      .col-item {
+        width: calc(1 / 12 * 100%);
+        height: 100%;
+        .span {
+          opacity: 0;
+          text-align: center;
+          padding: 6px;
+        }
+      }
+    }
+    &:hover {
+      .layout-preview {
+        .col-item {
+          .span {
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
 }
