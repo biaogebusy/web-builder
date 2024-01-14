@@ -7,7 +7,7 @@ import { base } from './base.builder';
 
 export const components: any[] = [
   {
-    label: '基础',
+    label: '常用',
     id: 'base',
     elements: base,
   },

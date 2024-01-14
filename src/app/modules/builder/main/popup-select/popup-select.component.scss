@@ -1,4 +1,10 @@
 .popup-select {
+  .hover-show {
+    height: 500px;
+    padding: 10px;
+    margin: 10px;
+    overflow: auto;
+  }
   .item {
     position: relative;
     .title {

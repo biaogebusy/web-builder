@@ -10,8 +10,9 @@
 
   .actions {
     position: absolute;
-    right: 0;
-    top: -2px;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
     .item {
       cursor: pointer;
       border-radius: 6px;

@@ -20,9 +20,14 @@
       padding: 1px;
     }
   }
-  ::ng-deep .component-item {
-    position: relative;
-    padding: 1px;
+  ::ng-deep {
+    .component-item {
+      position: relative;
+      padding: 1px;
+    }
+    .layout-builder {
+      padding-top: 20px;
+    }
   }
 
   .actions {

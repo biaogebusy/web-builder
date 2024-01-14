@@ -28,6 +28,7 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
   @Input() pageIndex: number;
   @Input() uuid: string;
   destroy$: Subject<boolean> = new Subject<boolean>();
+  showGrid: boolean = false;
   constructor(
     private dialog: MatDialog,
     private cd: ChangeDetectorRef,
@@ -65,7 +66,7 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
 
   addBlock(row: string, index: number, content: any): void {
     this.dialog.open(DialogComponent, {
-      width: '800px',
+      width: '100vw',
       data: {
         disableCloseButton: true,
         inputData: {
@@ -281,6 +282,10 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
         },
       ],
     });
+  }
+
+  onShowGrid(): void {
+    this.showGrid = !this.showGrid;
   }
 
   getLayoutAlign(index: number, layoutAlign: string): string {
