@@ -19,6 +19,7 @@
             .block-toolbar {
               border: 1px solid mat-color($foreground, divider);
               background: mat-color($background, card);
+              color: mat-color($foreground, text, 0.7);
             }
             > .item {
               &:hover {

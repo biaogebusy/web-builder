@@ -121,13 +121,6 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
     this.cd.detectChanges();
   }
 
-  onAlign(i: number, align: string): void {
-    const { elements } = this.content;
-    elements[i].layoutAlign = align;
-    this.builder.updateComponent(this.pageIndex, this.content);
-    this.cd.detectChanges();
-  }
-
   onSettings(i: number, layout: any): void {
     this.uuid = Date.now().toString();
     let responsive: FormlyFieldConfig[] = [
@@ -191,7 +184,7 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
         fieldGroup: [
           {
             className: 'width-100 m-bottom-md',
-            template: `<div class="layout-preview"><div class="wrapper" layoutpreview><div class="block bg-primary">1</div><div  class="block bg-orange">2</div><div class="block bg-green">3</div><div class="block bg-blue">4</div><div  class="block bg-cyan">5</div></div></div>`,
+            template: `<div class="layout-preview"><div class="wrapper ${layout.direction}" layoutpreview><div class="block bg-primary">1</div><div class="block bg-orange">2</div><div class="block bg-green">3</div></div></div>`,
           },
           {
             type: 'select',

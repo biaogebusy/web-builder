@@ -14,16 +14,10 @@
               [content]="{label:'', mode: 'icon',icon:{svg:'image-multiple' } }"></app-btn>
             <app-btn matTooltip="新增栏" (click)="addBlock('next',i,content)"
               [content]="{label:'', mode: 'icon',icon:{svg:'view-grid-plus' } }"></app-btn>
-            <app-btn matTooltip="左对齐" (click)="onAlign(i,'start stretch')"
-              [content]="{label:'', mode: 'icon',icon:{svg:'format-align-left' } }"></app-btn>
-            <app-btn matTooltip="居中对齐" (click)="onAlign(i,'center stretch')"
-              [content]="{label:'', mode: 'icon',icon:{svg:'format-align-center' } }"></app-btn>
-            <app-btn matTooltip="右对齐" (click)="onAlign(i,'end stretch')"
-              [content]="{label:'', mode: 'icon',icon:{svg:'format-align-right' } }"></app-btn>
             <app-btn matTooltip="移除当前栏" (click)="onDeleteRow(i)"
-              [content]="{label:'', mode: 'icon',icon:{svg:'trash-can-outline',inline:true } }"></app-btn>
+              [content]="{label:'', mode: 'icon',icon:{svg:'delete-sweep',inline:true } }"></app-btn>
             <app-btn matTooltip="显示网格" (click)="onShowGrid()"
-              [content]="{label:'',color:showGrid?'primary' : undefined, mode: 'icon',icon:{svg:'view-column',inline:true } }"></app-btn>
+              [content]="{label:'',color:showGrid?'primary' : undefined, mode: 'icon',icon:{svg:'eye',inline:true } }"></app-btn>
             <app-btn matTooltip="更多设置" (click)="onSettings(i,layout)"
               [content]="{label:'', mode: 'icon',icon:{svg:'responsive',inline:true } }"></app-btn>
           </div>

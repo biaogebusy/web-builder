@@ -417,9 +417,9 @@ export const widgets = [
       dataset: {
         source: [
           ['红包预算', '2020', '2021', '2022'],
-          ['第一季度', 6615, 6373, 4908],
-          ['第二季度', 9060, 3774, 9984],
-          ['第三季度', 6851, 9442, 4573],
+          ['第一季度', 7962, 4928, 8169],
+          ['第二季度', 5709, 4156, 5620],
+          ['第三季度', 4728, 7023, 9595],
         ],
       },
       xAxis: {
@@ -471,25 +471,25 @@ export const widgets = [
       elements: [
         {
           module: 'Slick Carousel',
-          tatol: 9426,
+          tatol: 8899,
           info: 'Slick 轮播，强大响应式且性能优异的图片轮播解决方案，有非常丰富的配置选项，slick 官网自己调侃这是你最后使用的图片轮播',
           remarks: '查看',
         },
         {
           module: 'Views Slideshow',
-          tatol: 1848,
+          tatol: 4169,
           info: '视图轮播模块，该模块是最受欢迎的幻灯片模块，可放任何内容，高度定制\t',
           remarks: '查看',
         },
         {
           module: 'Colorbox',
-          tatol: 1042,
+          tatol: 1968,
           info: '轻量级高可定制幻灯片模块，高度集成在 Drupal 中，可放图片，Iframed 或者在线内容等等\t',
           remarks: '查看',
         },
         {
           module: 'Flex Slider',
-          tatol: 1958,
+          tatol: 6779,
           info: '响应式、可调整大小、适配浏览器和移动设备，支持移动设备手势滑动\t',
           remarks: '查看',
         },

@@ -4443,7 +4443,7 @@ export const components: any[] = [
                     name: 'fingerprint',
                   },
                   digit: {
-                    value: 326,
+                    value: 295,
                     label: '+',
                   },
                   title: '日访问人数',
@@ -4453,7 +4453,7 @@ export const components: any[] = [
                     name: 'verified_user',
                   },
                   digit: {
-                    value: 141,
+                    value: 283,
                     label: '+',
                   },
                   title: '日打开次数',
@@ -4463,7 +4463,7 @@ export const components: any[] = [
                     name: 'android',
                   },
                   digit: {
-                    value: 131,
+                    value: 245,
                     label: '人',
                   },
                   title: '日新增人数',
@@ -4473,7 +4473,7 @@ export const components: any[] = [
                     name: 'mail',
                   },
                   digit: {
-                    value: 7987,
+                    value: 8700,
                     label: '万',
                   },
                   title: '累计用户数',
@@ -4503,7 +4503,7 @@ export const components: any[] = [
                     src: '/assets/images/svg/Asset187.svg',
                   },
                   digit: {
-                    value: 45,
+                    value: 51,
                     label: 'M',
                   },
                   title: 'Github Start',
@@ -4513,7 +4513,7 @@ export const components: any[] = [
                     src: '/assets/images/svg/Asset189.svg',
                   },
                   digit: {
-                    value: 35854,
+                    value: 45373,
                     label: '+',
                   },
                   title: 'NPM 周下载量',
@@ -4523,7 +4523,7 @@ export const components: any[] = [
                     src: '/assets/images/svg/Asset190.svg',
                   },
                   digit: {
-                    value: 3368,
+                    value: 3899,
                     label: 'K',
                   },
                   title: '社区活跃',
@@ -4533,7 +4533,7 @@ export const components: any[] = [
                     src: '/assets/images/svg/Asset192.svg',
                   },
                   digit: {
-                    value: 915,
+                    value: 756,
                     label: '个',
                   },
                   title: '成功故事',
