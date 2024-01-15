@@ -6,7 +6,6 @@ import { BrandingModule } from '@core/branding/branding.module';
 import { BuilderComponent } from 'src/app/modules/builder/builder.component';
 import { BuilderModule } from 'src/app/modules/builder/builder.module';
 import { components } from './data/combs/export-for-story';
-import { widgets } from './data/widgets/export-for-story';
 import { environment } from 'src/environments/environment';
 import { samples } from './data/sample/samples-for-story';
 import { systems } from './data/system/system-fot-story';
@@ -18,6 +17,7 @@ import {
 import { uiux } from './data/uiux-for-story';
 import { of } from 'rxjs';
 import { ManageModule } from '@modules/manage/manage.module';
+import { popup } from './data/widget-for-popup';
 export default {
   title: '低代码/Web builder',
   id: 'builder',
@@ -63,7 +63,7 @@ export const Default = Template.bind({});
 
 if (!environment.production) {
   console.log('comps:', components);
-  console.log('widgets:', widgets);
+  console.log('popup:', popup);
   console.log('sample:', samples);
   console.log('system:', systems);
 }

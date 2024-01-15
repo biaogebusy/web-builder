@@ -1,6 +1,5 @@
 import { IUiux } from '@core/interface/IBuilder';
 import components from './components-for-builder.json';
-import widgets from './widgets-for-builder.json';
 import systems from './system-for-builder.json';
 import { samples } from './samples-for-builder';
 
@@ -13,15 +12,6 @@ export const uiux: IUiux[] = [
     },
     type: 'component',
     elements: components.data,
-  },
-  {
-    label: '基础组件',
-    type: 'component',
-    icon: {
-      svg: 'youtube-subscription',
-      inline: true,
-    },
-    elements: widgets.data,
   },
   {
     label: '示例页面',

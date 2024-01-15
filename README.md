@@ -105,8 +105,6 @@
 1. 代码下载或者 clone 项目到本地：`git clone git@github.com:biaogebusy/xinshi-ui.git`
 2. 因为当前 angular 版本为 v11 请使用 npm install 安装，严格安装 package-lock.json 锁版本安装，依赖较多，请多等待，使用 yarn 或者 pnpm 会有报错；
 
-详情可查阅[开发指南](https://ui.zhaobg.com/?path=/docs/guide--page)
-
 ## 本地开发
 
 `npm start`
@@ -214,3 +212,5 @@ Base 的基础配置可查阅[信使 storybook 全局配置](https://ui.zhaobg.c
 ## 运行 Storybook
 
 `npm run storybook`
+
+更多开发移步[开发指南](https://ui.zhaobg.com/?path=/docs/guide--page)

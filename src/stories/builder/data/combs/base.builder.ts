@@ -1,7 +1,6 @@
 import * as textStory from '@stories/base/Text.stories';
 import * as titleStory from '@stories/base/Title.stories';
 import * as textHeroStory from '@stories/base/TextHero.stories';
-import * as dynamicTableStory from '@stories/base/Table.stories';
 import * as spacerStory from '@stories/theme/Spacer.stories';
 import * as tabStory from '@stories/widgets/Tab.stories';
 import * as panelStory from '@stories/widgets/Panel.stories';
@@ -42,10 +41,6 @@ export const {
 export const {
   Normal: { args: spacer },
 } = spacerStory as any;
-
-export const {
-  DialogColumn: { args: dynamicTable },
-} = dynamicTableStory;
 
 export const {
   Default: { args: textHero },
@@ -148,12 +143,6 @@ export const base = [
     ...textHero,
   },
   {
-    label: '表格',
-    forLayout: true,
-    icon: { svg: 'table' },
-    ...dynamicTable,
-  },
-  {
     label: '间距',
     icon: {
       svg: 'border-horizontal',
@@ -176,7 +165,6 @@ export const base = [
   },
   {
     label: '幻灯片',
-    forLayout: true,
     icon: {
       svg: 'view-array-outline',
     },

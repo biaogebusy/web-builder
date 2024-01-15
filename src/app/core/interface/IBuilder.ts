@@ -16,7 +16,6 @@ export interface IBuilderComponentElement {
   icon?: IIcon;
   type?: string;
   provide?: 'CORE_CONFIG' | 'BRANDING';
-  forLayout?: boolean;
   child: IBuilderComponentElement[];
   content: {
     type?: string;

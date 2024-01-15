@@ -4,12 +4,12 @@ import {
   componentWrapperDecorator,
 } from '@storybook/angular';
 import { Story } from '@storybook/angular/types-6-0';
-import { screen, userEvent } from '@storybook/testing-library';
+import { userEvent } from '@storybook/testing-library';
 import { TaxonomyListComponent } from '@uiux/combs/list/taxonomy-list/taxonomy-list.component';
 import { ListModule } from '@uiux/combs/list/list.module';
 import { StorysModule } from '@core/module/storys.module';
 import { ITaxonomyList } from '@core/interface/combs/IList';
-import { mediaList } from '@stories/builder/data/widgets/media.builder';
+import { mediaList } from '@stories/builder/data/widget-for-popup';
 
 export default {
   title: '复合组件/列表/分类列表',
