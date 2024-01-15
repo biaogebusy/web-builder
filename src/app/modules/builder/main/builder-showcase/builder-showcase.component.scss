@@ -33,6 +33,12 @@
         display: block;
       }
     }
+    .layout-builder {
+      .block-toolbar,
+      .actions {
+        display: none !important;
+      }
+    }
   }
   .showcase-footer {
     position: absolute;

@@ -1,27 +1,27 @@
 import { IUiux } from '@core/interface/IBuilder';
-import components from './components-for-builder.json';
-import widgets from './widgets-for-builder.json';
-import systems from './system-for-builder.json';
+import { system } from './system-for-builder';
 import { samples } from './samples-for-builder';
+import { base } from './base-for-builder';
+import { components } from './components-for-builder';
 
 export const uiux: IUiux[] = [
   {
-    label: '页面组件',
+    label: '基础组件',
+    icon: {
+      svg: 'youtube-subscription',
+      inline: true,
+    },
+    type: 'component',
+    elements: base,
+  },
+  {
+    label: '复合组件',
     icon: {
       svg: 'land-plots',
       inline: true,
     },
     type: 'component',
-    elements: components.data,
-  },
-  {
-    label: '基础组件',
-    type: 'component',
-    icon: {
-      svg: 'youtube-subscription',
-      inline: true,
-    },
-    elements: widgets.data,
+    elements: components,
   },
   {
     label: '示例页面',
@@ -39,6 +39,6 @@ export const uiux: IUiux[] = [
       svg: 'tune',
       inline: true,
     },
-    elements: systems.data,
+    elements: system,
   },
 ];

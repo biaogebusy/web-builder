@@ -1,27 +1,27 @@
 import { IUiux } from '@core/interface/IBuilder';
 import { components } from './combs/export-for-story';
-import { widgets } from './widgets/export-for-story';
 import { samples } from './sample/samples-for-story';
 import { systems } from './system/system-fot-story';
+import { base } from './base/export-for-story';
 
 export const uiux: IUiux[] = [
   {
-    label: '页面组件',
-    icon: {
-      svg: 'land-plots',
-      inline: true,
-    },
-    type: 'component',
-    elements: components,
-  },
-  {
     label: '基础组件',
-    type: 'component',
     icon: {
       svg: 'youtube-subscription',
       inline: true,
     },
-    elements: widgets,
+    type: 'component',
+    elements: base,
+  },
+  {
+    label: '复合组件',
+    type: 'component',
+    icon: {
+      svg: 'land-plots',
+      inline: true,
+    },
+    elements: components,
   },
   {
     label: '示例页面',

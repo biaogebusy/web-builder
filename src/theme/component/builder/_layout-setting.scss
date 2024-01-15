@@ -11,12 +11,15 @@
         background-color: mat-color($primary, 0.2);
       }
     }
-    .layout-preview {
-      border: 1px solid mat-color($foreground, divider);
-      .wrapper {
-        .block {
-          @include mat-elevation(3, mat-color($foreground, divider), 0.4);
-          color: mat-color($primary, default-contrast);
+    .layout-setting {
+      background-color: mat-color($background, status-bar, 0.4);
+      .layout-preview {
+        border: 1px solid mat-color($foreground, divider);
+        .wrapper {
+          .block {
+            @include mat-elevation(3, mat-color($foreground, divider), 0.4);
+            color: mat-color($primary, default-contrast);
+          }
         }
       }
     }

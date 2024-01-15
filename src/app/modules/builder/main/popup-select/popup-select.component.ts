@@ -1,6 +1,5 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   Inject,
   Input,
@@ -8,7 +7,7 @@ import {
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { BuilderState } from '@core/state/BuilderState';
-import { POPUP_SELECT } from '@core/token/token-providers';
+import { WIDGETS } from '@core/token/token-providers';
 import { Observable, Subject } from 'rxjs';
 
 @Component({
@@ -22,7 +21,7 @@ export class PopupSelectComponent implements OnInit {
   public widget$: Subject<any> = new Subject();
   constructor(
     private builder: BuilderState,
-    @Inject(POPUP_SELECT) public widgets$: Observable<any[]>,
+    @Inject(WIDGETS) public widgets$: Observable<any[]>,
     private dialog: MatDialog
   ) {}
 

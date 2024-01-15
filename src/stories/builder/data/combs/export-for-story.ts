@@ -3,14 +3,9 @@ import { showcase } from './showcase.builder';
 import { tools } from './tools.builder';
 import { carousels } from './carousel.builder';
 import { masonry } from './masonry.builder';
-import { base } from './base.builder';
+import { IBuilderComponent } from '@core/interface/IBuilder';
 
-export const components: any[] = [
-  {
-    label: '常用',
-    id: 'base',
-    elements: base,
-  },
+export const components: IBuilderComponent[] = [
   {
     label: '首屏',
     id: 'hero',

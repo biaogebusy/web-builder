@@ -88,12 +88,6 @@ const action: IText = {
         svg: 'play-circle-outline',
       },
     },
-    {
-      disableToolbar: true,
-      content: {
-        type: 'github-star',
-      },
-    },
   ],
 };
 Actions.args = {

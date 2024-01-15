@@ -335,30 +335,3 @@ export function mediaAssetsFactory(
 
   return assets$;
 }
-
-export function popupSelectFactory(uiux: any): Observable<any[]> {
-  const result$ = new BehaviorSubject<any[]>([]);
-  let result: any[] = [];
-  function traverse(elements: any[]) {
-    for (const element of elements) {
-      if (element.forLayout) {
-        result.push(element);
-      }
-
-      if (element.elements) {
-        if (Array.isArray(element.elements)) {
-          traverse(element.elements);
-        }
-      }
-
-      if (element.child) {
-        traverse(element.child);
-      }
-    }
-  }
-
-  traverse(uiux);
-  result$.next(result);
-
-  return result$;
-}

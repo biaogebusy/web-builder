@@ -1,7 +1,7 @@
 import { hero1v1 } from '@stories/builder/data/combs/hero.builder';
 import { carousel2v2 } from '@stories/builder/data/combs/carousel.builder';
 import { showcase3v9_video } from '@stories/builder/data/combs/showcase.builder';
-import { text } from '@stories/builder/data/combs/base.builder';
+import { text } from '@stories/builder/data/base/common.builder';
 
 export const home_v3 = {
   title: '首页 v3',
