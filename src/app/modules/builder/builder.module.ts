@@ -17,7 +17,7 @@ import { BaseModule } from '@uiux/base/base.module';
 import {
   BUILDER_CURRENT_PAGE,
   BUILDER_SAMPLE_PAGE,
-  POPUP_SELECT,
+  WIDGETS,
   UIUX,
 } from '@core/token/token-providers';
 import { uiux } from './data/uiux-for-builder';
@@ -26,16 +26,15 @@ import { BuilderToolbarComponent } from './toolbar/builder-toolbar/builder-toolb
 import { samples } from './data/samples-for-builder';
 import { BtnGeneraterComponent } from './toolbar/btn-generater/btn-generater.component';
 import { BuilderVersionComponent } from './sidebar/builder-version/builder-version.component';
-import {
-  builderCurrentPageFactory,
-  popupSelectFactory,
-} from '@core/factory/factory';
+import { builderCurrentPageFactory } from '@core/factory/factory';
 import { LocalStorageService } from 'ngx-webstorage';
 import { MetaEditComponent } from './main/meta-edit/meta-edit.component';
 import { LayoutBuilderComponent } from './layout-builder/layout-builder.component';
 import { QuillModule } from 'ngx-quill';
 import { PopupSelectComponent } from './main/popup-select/popup-select.component';
 import { LayoutSettingComponent } from './layout-builder/layout-setting/layout-setting.component';
+import { widgets } from './data/widgets-for-builder';
+import { of } from 'rxjs';
 
 const components = [
   BuilderComponent,
@@ -76,9 +75,8 @@ const components = [
       useValue: uiux,
     },
     {
-      provide: POPUP_SELECT,
-      useFactory: popupSelectFactory,
-      deps: [UIUX],
+      provide: WIDGETS,
+      useValue: of(widgets),
     },
     {
       provide: BUILDER_SAMPLE_PAGE,

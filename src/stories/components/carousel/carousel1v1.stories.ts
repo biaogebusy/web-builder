@@ -7,7 +7,7 @@ import * as c1v1Story from '@stories/components/carousel/carousel1v1.stories';
 import * as c2v1Story from '@stories/components/carousel/carousel2v1.stories';
 import * as hero1v1Story from '@stories/feature/hero/hero1v1.stories';
 import * as hero1v2Story from '@stories/feature/hero/hero1v2.stories';
-import { swiper } from '@stories/builder/data/combs/base.builder';
+import { swiper } from '@stories/builder/data/base/common.builder';
 export default {
   title: '复合组件/幻灯片/1v1',
   id: 'carousel-1v1',

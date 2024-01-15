@@ -51,9 +51,12 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
             const { elements } = this.content;
             elements[index].row = row;
           }
+
           if (layoutAlign) {
-            const { horizontal, vertical } = layoutAlign;
-            this.content.layoutAlign = `${horizontal.replace(
+            const { elements } = this.content;
+            const { direction, horizontal, vertical } = layoutAlign;
+            elements[index].direction = direction;
+            elements[index].layoutAlign = `${horizontal.replace(
               'flex-',
               ''
             )} ${vertical.replace('flex-', '')}`;
@@ -120,7 +123,7 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
 
   onAlign(i: number, align: string): void {
     const { elements } = this.content;
-    elements[i].align = align;
+    elements[i].layoutAlign = align;
     this.builder.updateComponent(this.pageIndex, this.content);
     this.cd.detectChanges();
   }
@@ -184,6 +187,7 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
       },
       {
         key: 'layoutAlign',
+        className: 'layout-setting',
         fieldGroup: [
           {
             className: 'width-100 m-bottom-md',
@@ -191,9 +195,28 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
           },
           {
             type: 'select',
+            key: 'direction',
+            className: 'width-100',
+            defaultValue: layout.direction,
+            templateOptions: {
+              label: '当前列布局方向',
+              options: [
+                {
+                  label: 'Column',
+                  value: 'column',
+                },
+                {
+                  label: 'Row',
+                  value: 'row',
+                },
+              ],
+            },
+          },
+          {
+            type: 'select',
             key: 'horizontal',
             className: 'width-100',
-            defaultValue: this.getLayoutAlign(0, this.content.layoutAlign),
+            defaultValue: this.getLayoutAlign(0, layout.layoutAlign),
             templateOptions: {
               label: '水平对齐',
               options: [
@@ -232,7 +255,7 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
             type: 'select',
             key: 'vertical',
             className: 'width-100',
-            defaultValue: this.getLayoutAlign(1, this.content.layoutAlign),
+            defaultValue: this.getLayoutAlign(1, layout.layoutAlign),
             templateOptions: {
               label: '垂直对齐',
               options: [

@@ -1,0 +1,307 @@
+import { IBuilderComponentElement } from '@core/interface/IBuilder';
+import * as dynamicTableStory from '@stories/base/Table.stories';
+import * as swiperStory from '@stories/widgets/Swiper.stories';
+import * as titleStory from '@stories/base/Title.stories';
+import * as btnVideoStory from '@stories/base/BtnVideo.stories';
+import * as chartStory from '@stories/widgets/chart/ChartBar.stories';
+import * as btnStory from '@stories/base/Btn.stories';
+import * as linkStory from '@stories/base/Link.stories';
+import * as bgImg from '@stories/base/BgImg.stories';
+import * as playerStory from '@stories/feature/media/Player.stories';
+import * as iconStory from '@stories/base/Icon.stories';
+import * as formStory from '@stories/widgets/Form.stories';
+import * as imgStory from '@stories/base/Img.stories';
+import * as cardBaseStory from '@stories/widgets/card/Card.stories';
+import * as card1v1Story from '@stories/widgets/card/Card1v1.stories';
+import * as card1v2Story from '@stories/widgets/card/Card1v2.stories';
+import * as card1v4Story from '@stories/widgets/card/Card1v4.stories';
+import * as card1v5Story from '@stories/widgets/card/Card1v5.stories';
+import * as card1v6Story from '@stories/widgets/card/Card1v6.stories';
+import * as stepperStory from '@stories/widgets/Stepper.stories';
+import * as progressGroupStory from '@stories/widgets/feedback/ProgressGroup.stories';
+import * as mediaObjectStory from '@stories/widgets/media/MediaObject.stories';
+import * as testimonialStory from '@stories/widgets/media/Testimonial.stories';
+import * as mediaListStory from '@stories/widgets/media/MediaList.stories';
+import * as progressBarStory from '@stories/widgets/feedback/ProgressBar.stories';
+import * as iframeStory from '@stories/widgets/Iframe.stories';
+import * as lightboxStory from '@stories/widgets/InlineLightbox.stories';
+import * as shapeStory from '@stories/widgets/Shape.stories';
+import * as BoxStories from '@stories/base/Box.stories';
+
+export const {
+  Horizontal: { args: stepper },
+} = stepperStory;
+
+export const {
+  Default: { args: player },
+} = playerStory;
+
+export const {
+  Default: { args: img },
+} = imgStory;
+
+export const {
+  TitleV1: { args: title },
+} = titleStory;
+
+export const {
+  Primary: { args: icon },
+} = iconStory;
+
+export const {
+  Default: { args: link },
+} = linkStory;
+
+export const {
+  Default: { args: swiper },
+} = swiperStory;
+
+export const {
+  Default: { args: form },
+} = formStory as any;
+
+export const {
+  DialogColumn: { args: dynamicTable },
+} = dynamicTableStory;
+
+export const {
+  Default: { args: btnVideo },
+} = btnVideoStory;
+
+export const {
+  Bar: { args: chart },
+} = chartStory;
+
+export const {
+  BtnLink: { args: btn },
+} = btnStory;
+
+export const {
+  Opacity: { args: bg },
+} = bgImg;
+
+export const {
+  Default: { args: mediaList },
+} = mediaListStory;
+
+export const {
+  Default: { args: testimonial },
+} = testimonialStory;
+
+export const {
+  Default: { args: mediaObject },
+} = mediaObjectStory;
+
+const {
+  Base: { args: cardBase },
+} = cardBaseStory;
+
+const {
+  Default: { args: v1 },
+} = card1v1Story;
+const {
+  Default: { args: v2 },
+} = card1v2Story;
+const {
+  Default: { args: v4 },
+} = card1v4Story;
+
+const {
+  StepFirst: { args: v5 },
+} = card1v5Story;
+
+const {
+  Default: { args: v6 },
+} = card1v6Story;
+
+const {
+  Default: { args: progressGroup },
+} = progressGroupStory;
+
+const {
+  Determinate: { args: progressbar },
+} = progressBarStory;
+
+export const {
+  CustomSize: { args: iframe },
+} = iframeStory;
+
+export const {
+  Default: { args: lightbox },
+} = lightboxStory;
+
+export const {
+  Default: { args: shape },
+} = shapeStory;
+
+export const {
+  Primary: { args: box },
+} = BoxStories;
+
+export const widgets: any[] = [
+  {
+    label: '标题',
+    icon: { svg: 'format-header-2' },
+    ...title,
+  },
+  {
+    label: '图片',
+    icon: {
+      svg: 'image-outline',
+    },
+    ...img,
+  },
+  {
+    label: '链接',
+    icon: { svg: 'link' },
+    ...link,
+  },
+  {
+    label: '按钮',
+    icon: { svg: 'button-cursor' },
+    ...btn,
+  },
+  {
+    label: '图标',
+    icon: {
+      svg: 'svg',
+    },
+    ...icon,
+  },
+  {
+    label: '幻灯片',
+    icon: {
+      svg: 'view-array-outline',
+    },
+    ...swiper,
+  },
+  {
+    label: '视频',
+    icon: { svg: 'play-box' },
+    ...player,
+  },
+  {
+    label: '表单',
+    icon: {
+      svg: 'checkbox-marked-outline',
+    },
+    content: {
+      type: 'formly',
+      fields: form.fields,
+    },
+  },
+  {
+    label: '图表',
+    icon: {
+      svg: 'chart-line',
+    },
+    ...chart,
+  },
+  {
+    label: '表格',
+    icon: { svg: 'table' },
+    ...dynamicTable,
+  },
+  {
+    label: '播放按钮',
+    icon: { svg: 'play-circle-outline' },
+    ...btnVideo,
+  },
+  {
+    label: '背景',
+    icon: { svg: 'format-color-fill' },
+    ...bg,
+  },
+  {
+    label: 'Box',
+    icon: { svg: 'box' },
+    ...box,
+  },
+  {
+    label: '卡片',
+    icon: { svg: 'card-outline' },
+    ...cardBase,
+  },
+  {
+    label: 'v1',
+    icon: {
+      svg: 'numeric-1',
+    },
+    ...v1,
+  },
+  {
+    label: 'v2',
+    icon: {
+      svg: 'numeric-2',
+    },
+    ...v2,
+  },
+  {
+    label: '1v4',
+    icon: { svg: 'numeric-4' },
+    ...v4,
+  },
+  {
+    label: '1v5',
+    icon: { svg: 'numeric-5' },
+    ...v5,
+  },
+  {
+    label: '1v6',
+    icon: { svg: 'numeric-6' },
+    ...v6,
+  },
+  {
+    label: '进步器',
+    icon: {
+      svg: 'debug-step-over',
+    },
+    ...stepper,
+  },
+  {
+    label: '进度组',
+    icon: { svg: 'format-list-group' },
+    ...progressGroup,
+  },
+  {
+    label: '列表',
+    icon: { svg: 'format-list-checkbox' },
+    ...mediaList,
+  },
+  {
+    label: '对象',
+    icon: { svg: 'format-list-bulleted-type' },
+    ...mediaObject,
+  },
+  {
+    label: '感言',
+    icon: { svg: 'format-wrap-square' },
+    ...testimonial,
+  },
+  {
+    label: '进度条',
+    icon: { svg: 'progress-helper' },
+    ...progressbar,
+  },
+  {
+    label: 'Iframe',
+    icon: {
+      svg: 'application-array-outline',
+    },
+    ...iframe,
+  },
+  {
+    label: 'Lightbox',
+    icon: {
+      svg: 'view-carousel-outline',
+    },
+    ...lightbox,
+  },
+  {
+    label: '形状',
+    icon: {
+      svg: 'cosine-wave',
+    },
+    ...shape,
+  },
+];

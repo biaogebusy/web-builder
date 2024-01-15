@@ -136,3 +136,16 @@ const v10: IBox = {
 StyleV10.args = {
   content: v10,
 };
+
+export const Primary = Template.bind({});
+const primary: IBox = {
+  type: 'box',
+  img: { src: '/assets/images/svg/Asset187.svg', alt: 'browser' },
+  style: 'style-v3 use-image',
+  title: { href: '#', label: '高性能' },
+  content: '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
+};
+
+Primary.args = {
+  content: primary,
+};

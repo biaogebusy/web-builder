@@ -1,4 +1,4 @@
-import { text } from '../combs/base.builder';
+import { text } from '../base/common.builder';
 import { carousel2v2 } from '../combs/carousel.builder';
 import {
   showcase1v3_video,

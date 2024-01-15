@@ -9,7 +9,7 @@ import {
   carousel1v2,
   carousel2v2,
 } from '@stories/builder/data/combs/carousel.builder';
-import { action1v1, text } from '@stories/builder/data/combs/base.builder';
+import { action1v1, text } from '@stories/builder/data/base/common.builder';
 
 export const home_v6 = {
   title: '首页 v6',

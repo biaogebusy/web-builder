@@ -7,7 +7,7 @@ import {
 } from '@stories/builder/data/combs/showcase.builder';
 
 import { carousel1v1 } from '@stories/builder/data/combs/carousel.builder';
-import { action1v1 } from '../combs/base.builder';
+import { action1v1 } from '../base/common.builder';
 export const home_v2 = {
   title: '首页 v2',
   meta: [

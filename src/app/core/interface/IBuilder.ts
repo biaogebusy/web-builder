@@ -6,6 +6,7 @@ import { ITitle } from './widgets/ITitle';
 
 export interface IBuilderComponent {
   label: string;
+  description?: string;
   id?: string;
   elements: IBuilderComponentElement[];
 }
@@ -16,9 +17,8 @@ export interface IBuilderComponentElement {
   icon?: IIcon;
   type?: string;
   provide?: 'CORE_CONFIG' | 'BRANDING';
-  forLayout?: boolean;
-  child: IBuilderComponentElement[];
-  content: {
+  child?: IBuilderComponentElement[];
+  content?: {
     type?: string;
     name?: string;
     child?: any[];
@@ -58,14 +58,14 @@ export interface IBuilderShowcase {
 
 export interface ILayoutBuilder extends ICombsBase {
   fullWidth: boolean;
-  layoutAlign: string;
   elements: {
     classes: any;
     row: {
       [key: string]: number;
     };
     elements: any[];
-    align: string;
+    direction: string;
+    layoutAlign: string;
   }[];
 }
 
