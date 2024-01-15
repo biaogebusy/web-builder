@@ -26,6 +26,7 @@ import * as progressBarStory from '@stories/widgets/feedback/ProgressBar.stories
 import * as iframeStory from '@stories/widgets/Iframe.stories';
 import * as lightboxStory from '@stories/widgets/InlineLightbox.stories';
 import * as shapeStory from '@stories/widgets/Shape.stories';
+import * as BoxStories from '@stories/base/Box.stories';
 
 export const {
   Horizontal: { args: stepper },
@@ -133,6 +134,10 @@ export const {
   Default: { args: shape },
 } = shapeStory;
 
+export const {
+  Primary: { args: box },
+} = BoxStories;
+
 export const widgets: any[] = [
   {
     label: '标题',
@@ -206,6 +211,11 @@ export const widgets: any[] = [
     label: '背景',
     icon: { svg: 'format-color-fill' },
     ...bg,
+  },
+  {
+    label: 'Box',
+    icon: { svg: 'box' },
+    ...box,
   },
   {
     label: '卡片',

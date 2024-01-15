@@ -417,9 +417,9 @@ export const widgets = [
       dataset: {
         source: [
           ['红包预算', '2020', '2021', '2022'],
-          ['第一季度', 8451, 6927, 8170],
-          ['第二季度', 6793, 7254, 7774],
-          ['第三季度', 5422, 9282, 7863],
+          ['第一季度', 6615, 6373, 4908],
+          ['第二季度', 9060, 3774, 9984],
+          ['第三季度', 6851, 9442, 4573],
         ],
       },
       xAxis: {
@@ -471,25 +471,25 @@ export const widgets = [
       elements: [
         {
           module: 'Slick Carousel',
-          tatol: 5733,
+          tatol: 9426,
           info: 'Slick 轮播，强大响应式且性能优异的图片轮播解决方案，有非常丰富的配置选项，slick 官网自己调侃这是你最后使用的图片轮播',
           remarks: '查看',
         },
         {
           module: 'Views Slideshow',
-          tatol: 2193,
+          tatol: 1848,
           info: '视图轮播模块，该模块是最受欢迎的幻灯片模块，可放任何内容，高度定制\t',
           remarks: '查看',
         },
         {
           module: 'Colorbox',
-          tatol: 2668,
+          tatol: 1042,
           info: '轻量级高可定制幻灯片模块，高度集成在 Drupal 中，可放图片，Iframed 或者在线内容等等\t',
           remarks: '查看',
         },
         {
           module: 'Flex Slider',
-          tatol: 5125,
+          tatol: 1958,
           info: '响应式、可调整大小、适配浏览器和移动设备，支持移动设备手势滑动\t',
           remarks: '查看',
         },
@@ -538,6 +538,26 @@ export const widgets = [
         src: '/assets/images/bg/bg-03.jpeg',
         classes: 'object-fit',
       },
+    },
+  },
+  {
+    label: 'Box',
+    icon: {
+      svg: 'box',
+    },
+    content: {
+      type: 'box',
+      img: {
+        src: '/assets/images/svg/Asset187.svg',
+        alt: 'browser',
+      },
+      style: 'style-v3 use-image',
+      title: {
+        href: '#',
+        label: '高性能',
+      },
+      content:
+        '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
     },
   },
   {
