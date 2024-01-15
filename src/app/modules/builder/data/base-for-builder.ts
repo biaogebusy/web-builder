@@ -88,7 +88,7 @@ export const base = [
       {
         label: '两栏',
         icon: {
-          svg: 'view-week-outline',
+          svg: 'view-grid',
         },
         content: {
           type: 'layout-builder',
@@ -240,7 +240,7 @@ export const base = [
       {
         label: '四栏',
         icon: {
-          svg: 'view-week-outline',
+          svg: 'land-rows-vertical',
         },
         content: {
           type: 'layout-builder',
@@ -361,9 +361,9 @@ export const base = [
         },
       },
       {
-        label: '左右图文',
+        label: '图文',
         icon: {
-          svg: 'view-week-outline',
+          svg: 'image-text',
         },
         content: {
           type: 'layout-builder',
@@ -458,6 +458,31 @@ export const base = [
                   src: '/assets/images/illustration/12.png',
                 },
               ],
+            },
+          ],
+        },
+      },
+      {
+        label: '空白',
+        icon: {
+          svg: 'border-none-variant',
+        },
+        content: {
+          type: 'layout-builder',
+          spacer: 'md',
+          fullWidth: false,
+          elements: [
+            {
+              classes: '',
+              row: {
+                xs: 12,
+                sm: 6,
+                md: 6,
+                lg: 7,
+              },
+              direction: 'column',
+              layoutAlign: 'start start',
+              elements: [],
             },
           ],
         },
