@@ -102,7 +102,7 @@
 
 ## 安装 npm install
 
-1. 代码下载或者 clone 项目到本地：https://github.com/biaogebusy/xinshi-ui
+1. 代码下载或者 clone 项目到本地：`git clone git@github.com:biaogebusy/xinshi-ui.git`
 2. 因为当前 angular 版本为 v11 请使用 npm install 安装，严格安装 package-lock.json 锁版本安装，依赖较多，请多等待，使用 yarn 或者 pnpm 会有报错；
 
 详情可查阅[开发指南](https://ui.zhaobg.com/?path=/docs/guide--page)
@@ -128,7 +128,7 @@ export const environment: IEnvironment = {
 
 - apiUrl: 是整个应用的 Base api 参数；
 - production: 为 false 时，页面的内容 api 将调用本地 json 文件，true 时将会调用`${this.apiUrl}/api/v1/landingPage?content=${this.pageUrl}`接口；
-- site: prod 打包时生成的文件夹名称，此设置是为了生存多个站点项目；
+- site: prod 打包时生成的文件夹名称，此设置是为了区分多个 app 项目；
 - port: 自定义应用端口；
 - cache: 是否开启 api 请求缓存；
 - ssr: 是否使用 SSR 服务端渲染方式；
@@ -136,7 +136,7 @@ export const environment: IEnvironment = {
 
 ## 路由守卫配置
 
-默认会读取 `/api/v1/config` 的全局配置信息，这里主要是查看该站点是否是开放还是需要登录的，文件路径`src/app/core/guards/auth.guard.ts`，本地开发时可注释掉大概 35 行`reture true；`；
+默认会读取 `/api/v1/config` 的全局配置信息，这里主要是查看该站点是否是开放还是需要登录的，文件路径`src/app/core/guards/auth.guard.ts`，本地开发时可注释掉大概 35 行`reture true;`；
 
 ## 配置代理
 
@@ -155,19 +155,36 @@ const PROXY_CONFIG = [
 module.exports = PROXY_CONFIG;
 ```
 
-## 页面数据加载
+## 页面数据加载逻辑
 
-页面在访问时，会获取`url`进行接口的数据读取，进而渲染页面，本地环境和生产环境返回会了方便测试做了判断：
+页面在浏览器打开访问时，应用会订阅 url 的变化，根据`url`进行接口的数据读取，根据接口返回的数据渲染页面组件，本地环境和生产环境返回做了判断：
 
-```javascript
+```js
+export function pageContentFactory(
+  activateRoute: ActivatedRoute,
+  contentService: ContentService,
+  contentState: ContentState
+): Observable<IPage | object | boolean> {
+  const $pageContent =
+    (new BehaviorSubject() < IPage) | object | (boolean > false);
+  activateRoute.url.subscribe(async (url) => {
+    const page = await contentService.loadPageContent().toPromise();
+    $pageContent.next(page);
+    contentState.pageConfig$.next(page.config);
+  });
+  return $pageContent;
+}
+```
+
+```js
 loadPageContent(pageUrl = this.pageUrl): Observable<IPage> {
     if (environment.production) {
       const landingPath = '/api/v1/landingPage?content=';
       const pageUrlParams = `${this.apiUrl}${landingPath}${pageUrl}`;
-
       return this.http.get<any>(pageUrlParams).pipe(
         tap((page) => {
           this.updatePage(page);
+          this.logContent(pageUrl);
         }),
         catchError(() => {
           return this.http.get<any>(`${this.apiUrl}${landingPath}404`);
@@ -197,7 +214,3 @@ Base 的基础配置可查阅[信使 storybook 全局配置](https://ui.zhaobg.c
 ## 运行 Storybook
 
 `npm run storybook`
-
-如果有提示内存不足的报错，执行以下命令，然后重新运行:
-
-`export NODE_OPTIONS="--max-old-space-size=8192"`
