@@ -18,6 +18,7 @@ import { uiux } from './data/uiux-for-story';
 import { of } from 'rxjs';
 import { ManageModule } from '@modules/manage/manage.module';
 import { widgets } from './data/widgets-for-story';
+import { base } from './data/base/export-for-story';
 export default {
   title: '低代码/Web builder',
   id: 'builder',
@@ -62,6 +63,7 @@ const Template: Story = (args) => ({
 export const Default = Template.bind({});
 
 if (!environment.production) {
+  console.log('base:', base);
   console.log('comps:', components);
   console.log('widgets:', widgets);
   console.log('sample:', samples);

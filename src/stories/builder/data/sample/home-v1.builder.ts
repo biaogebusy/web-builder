@@ -9,7 +9,7 @@ import {
 } from '@stories/builder/data/combs/showcase.builder';
 
 import { shuffle } from '@stories/builder/data/combs/masonry.builder';
-import { text, videoBg } from '@stories/builder/data/combs/base.builder';
+import { text, videoBg } from '@stories/builder/data/base/common.builder';
 
 export const home_v1 = {
   title: '首页 v1',

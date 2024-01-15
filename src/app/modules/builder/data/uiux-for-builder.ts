@@ -2,10 +2,20 @@ import { IUiux } from '@core/interface/IBuilder';
 import components from './components-for-builder.json';
 import systems from './system-for-builder.json';
 import { samples } from './samples-for-builder';
+import { base } from './base-for-builder';
 
 export const uiux: IUiux[] = [
   {
-    label: '页面组件',
+    label: '基础组件',
+    icon: {
+      svg: 'youtube-subscription',
+      inline: true,
+    },
+    type: 'component',
+    elements: base,
+  },
+  {
+    label: '复合组件',
     icon: {
       svg: 'land-plots',
       inline: true,

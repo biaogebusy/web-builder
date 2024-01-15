@@ -4,6 +4,9 @@
       <mat-panel-title>
         {{item.label}}
       </mat-panel-title>
+      <mat-panel-description *ngIf="item.description">
+        {{item.description}}
+      </mat-panel-description>
     </mat-expansion-panel-header>
     <mat-list>
       <div class="cards" id="widgets" fxLayout="row wrap" cdkDropList cdkDropListSortingDisabled="true"

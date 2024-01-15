@@ -14,7 +14,7 @@ import { StorysModule, sleep } from '@core/module/storys.module';
 import { comments } from './comments.json';
 import { formatDate } from '@angular/common';
 import { IBaseNode } from '@core/interface/node/INode';
-import { swiper } from '@stories/builder/data/combs/base.builder';
+import { swiper } from '@stories/builder/data/base/common.builder';
 
 export default {
   title: '示例页面/内容类型/普通文章',

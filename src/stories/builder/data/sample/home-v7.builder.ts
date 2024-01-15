@@ -4,7 +4,7 @@ import {
   showcase3v9_video,
 } from '@stories/builder/data/combs/showcase.builder';
 import { carousel1v3_client } from '@stories/builder/data/combs/carousel.builder';
-import { text } from '@stories/builder/data/combs/base.builder';
+import { text } from '@stories/builder/data/base/common.builder';
 
 export const home_v7 = {
   title: '首页 v7',

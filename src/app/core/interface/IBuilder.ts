@@ -6,6 +6,7 @@ import { ITitle } from './widgets/ITitle';
 
 export interface IBuilderComponent {
   label: string;
+  description?: string;
   id?: string;
   elements: IBuilderComponentElement[];
 }
@@ -16,8 +17,8 @@ export interface IBuilderComponentElement {
   icon?: IIcon;
   type?: string;
   provide?: 'CORE_CONFIG' | 'BRANDING';
-  child: IBuilderComponentElement[];
-  content: {
+  child?: IBuilderComponentElement[];
+  content?: {
     type?: string;
     name?: string;
     child?: any[];
