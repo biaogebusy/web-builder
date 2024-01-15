@@ -17,7 +17,7 @@ import { BaseModule } from '@uiux/base/base.module';
 import {
   BUILDER_CURRENT_PAGE,
   BUILDER_SAMPLE_PAGE,
-  POPUP_SELECT,
+  WIDGETS,
   UIUX,
 } from '@core/token/token-providers';
 import { uiux } from './data/uiux-for-builder';
@@ -33,7 +33,7 @@ import { LayoutBuilderComponent } from './layout-builder/layout-builder.componen
 import { QuillModule } from 'ngx-quill';
 import { PopupSelectComponent } from './main/popup-select/popup-select.component';
 import { LayoutSettingComponent } from './layout-builder/layout-setting/layout-setting.component';
-import { popupSelect } from './data/popup-for-builder';
+import { widgets } from './data/widgets-for-builder';
 import { of } from 'rxjs';
 
 const components = [
@@ -75,8 +75,8 @@ const components = [
       useValue: uiux,
     },
     {
-      provide: POPUP_SELECT,
-      useValue: of(popupSelect),
+      provide: WIDGETS,
+      useValue: of(widgets),
     },
     {
       provide: BUILDER_SAMPLE_PAGE,

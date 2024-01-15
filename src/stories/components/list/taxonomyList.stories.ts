@@ -9,7 +9,7 @@ import { TaxonomyListComponent } from '@uiux/combs/list/taxonomy-list/taxonomy-l
 import { ListModule } from '@uiux/combs/list/list.module';
 import { StorysModule } from '@core/module/storys.module';
 import { ITaxonomyList } from '@core/interface/combs/IList';
-import { mediaList } from '@stories/builder/data/widget-for-popup';
+import { mediaList } from '@stories/builder/data/widgets-for-story';
 
 export default {
   title: '复合组件/列表/分类列表',

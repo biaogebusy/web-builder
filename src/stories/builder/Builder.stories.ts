@@ -17,7 +17,7 @@ import {
 import { uiux } from './data/uiux-for-story';
 import { of } from 'rxjs';
 import { ManageModule } from '@modules/manage/manage.module';
-import { popup } from './data/widget-for-popup';
+import { widgets } from './data/widgets-for-story';
 export default {
   title: '低代码/Web builder',
   id: 'builder',
@@ -63,7 +63,7 @@ export const Default = Template.bind({});
 
 if (!environment.production) {
   console.log('comps:', components);
-  console.log('popup:', popup);
+  console.log('widgets:', widgets);
   console.log('sample:', samples);
   console.log('system:', systems);
 }

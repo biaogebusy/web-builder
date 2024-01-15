@@ -1,4 +1,4 @@
-export const popupSelect = [
+export const widgets = [
   {
     label: '标题',
     icon: {

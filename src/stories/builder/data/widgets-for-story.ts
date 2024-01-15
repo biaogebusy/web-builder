@@ -133,7 +133,7 @@ export const {
   Default: { args: shape },
 } = shapeStory;
 
-export const popup: any[] = [
+export const widgets: any[] = [
   {
     label: '标题',
     icon: { svg: 'format-header-2' },
