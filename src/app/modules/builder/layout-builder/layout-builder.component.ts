@@ -184,7 +184,15 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
         fieldGroup: [
           {
             className: 'width-100 m-bottom-md',
-            template: `<div class="layout-preview"><div class="wrapper ${layout.direction}" layoutpreview><div class="block bg-primary">1</div><div class="block bg-orange">2</div><div class="block bg-green">3</div></div></div>`,
+            template: `<div class="layout-preview"><div class="wrapper ${
+              layout.direction
+            } horizontal-${this.getLayoutAlign(
+              0,
+              layout.layoutAlign
+            )} vertical-${this.getLayoutAlign(
+              1,
+              layout.layoutAlign
+            )}" layoutpreview><div class="block bg-primary">1</div><div class="block bg-orange">2</div><div class="block bg-green">3</div></div></div>`,
           },
           {
             type: 'select',
@@ -215,7 +223,7 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
               options: [
                 {
                   label: 'None',
-                  value: 'none',
+                  value: 'flex-start',
                 },
                 {
                   label: 'start',
@@ -254,7 +262,7 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
               options: [
                 {
                   label: 'None',
-                  value: 'none',
+                  value: 'stretch',
                 },
                 {
                   label: 'start',

@@ -27,7 +27,7 @@
           (click)="toggleNavigate()"
           [content]="{label:'', color:(builder.previewListDrawer$|async)?'primary' : undefined, mode: 'icon' ,icon:{svg:'dock-left' } }"></app-btn>
         <app-btn fxHide.xs="true" [matTooltip]="builder.showRightDrawer?'禁用右边栏' : '显示右边栏'" (click)="showRightDrawer()"
-          [content]="{label:'', color:builder.showRightDrawer?'primary' : undefined, mode: 'icon' ,icon:{svg:'dock-right' } }"></app-btn>
+          [content]="{label:'', color:builder.showRightDrawer?'primary' : 'warn', mode: 'icon' ,icon:{svg:'dock-right' } }"></app-btn>
         <app-btn fxHide.xs="true" [matTooltip]="'媒体库'" (click)="onSelectAssets()"
           [content]="{label:'', mode: 'icon' ,icon:{svg:'image-search-outline' } }"></app-btn>
         <app-switch-theme></app-switch-theme>
