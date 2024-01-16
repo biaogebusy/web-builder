@@ -207,11 +207,11 @@ export class BuilderState {
           label: '组件全屏宽',
           options: [
             {
-              label: '全屏宽',
+              label: '全屏',
               value: true,
             },
             {
-              label: '非全屏宽',
+              label: '非全屏',
               value: false,
             },
           ],
@@ -313,7 +313,7 @@ export class BuilderState {
           options: [
             {
               label: '无',
-              value: '',
+              value: ' ',
             },
             {
               label: '0.8',

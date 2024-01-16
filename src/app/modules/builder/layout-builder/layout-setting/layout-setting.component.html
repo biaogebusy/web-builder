@@ -2,8 +2,8 @@
   <app-title [content]="content.title"></app-title>
   <app-formly [fields]="content.fields" [model]="model" (modelChange)="onModelChange($event)"></app-formly>
 
-  <div class="bg-img-section m-y-md" *ngIf="content.content?.bg?.img">
-    <div class="box" fxLayout="row" fxLayoutAlign="start center">
+  <div class="bg-img-section m-y-md" *ngIf="content.content?.bg">
+    <div class="box" fxLayout="row" fxLayoutAlign="start center" *ngIf="content.content?.bg?.img">
       <img src="{{content.content.bg.img.src}}" alt="">
       <div class="box-content">
         <div class="title">{{content.content.bg.img.alt}}</div>
