@@ -88,3 +88,11 @@ export interface IPopupSelect {
   uuid: string;
   content: any;
 }
+
+export interface IMetaEdit {
+  type: string;
+  data: any;
+  path: string;
+  ele: HTMLElement | EventTarget | any | null;
+  mode: 'img' | 'text';
+}

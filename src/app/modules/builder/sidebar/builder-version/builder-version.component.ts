@@ -16,7 +16,6 @@ import { LocalStorage, LocalStorageService } from 'ngx-webstorage';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BuilderVersionComponent implements OnInit {
-  @Input() content: any;
   @LocalStorage('version')
   version: IPage[];
 

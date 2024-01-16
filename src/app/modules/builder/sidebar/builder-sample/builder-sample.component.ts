@@ -5,6 +5,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { IPage } from '@core/interface/IAppConfig';
+import { IBuilderSamplePage } from '@core/interface/IBuilder';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 
@@ -15,7 +16,7 @@ import { BuilderState } from '@core/state/BuilderState';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BuilderSampleComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: IBuilderSamplePage;
   constructor(private builder: BuilderState, private util: UtilitiesService) {}
 
   ngOnInit(): void {}

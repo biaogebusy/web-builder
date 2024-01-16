@@ -18,6 +18,7 @@ import { QuillModule } from 'ngx-quill';
 import { Subject } from 'rxjs/internal/Subject';
 import { takeUntil } from 'rxjs/operators';
 import * as dat from 'dat.gui';
+import { IMetaEdit } from '@core/interface/IBuilder';
 
 @Component({
   selector: 'app-meta-edit',
@@ -26,7 +27,7 @@ import * as dat from 'dat.gui';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MetaEditComponent implements OnInit, OnDestroy, AfterViewInit {
-  @Input() content: any;
+  @Input() content: IMetaEdit;
   @ViewChild('guiStyle', { static: false }) guiStyle: ElementRef;
   @ViewChild('guiSize', { static: false }) guiSize: ElementRef;
   styleGuiUI: any;
