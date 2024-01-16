@@ -74,6 +74,7 @@ export interface ILayoutBlock {
 export interface ILayoutSetting {
   title: ITitle;
   fields: FormlyFieldConfig[];
+  i?: number;
   index: number;
   uuid: string;
   content: any;

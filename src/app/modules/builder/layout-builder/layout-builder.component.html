@@ -25,7 +25,7 @@
             <app-btn matTooltip="新增组件" (click)="addBlock('down',i,content)"
               [content]="{label:'', mode: 'icon',icon:{svg:'playlist-plus' } }"></app-btn>
           </div>
-          <div class="item" *ngFor="let item of layout.elements;index as index">
+          <div class="item" (click)="onWidgetSetting(i,index,item)" *ngFor="let item of layout.elements;index as index">
             <div class="actions" *ngIf="enable_toolbar$ | async">
               <app-btn *ngIf="index > 0 && index < layout.elements.length" (click)="onMove('up',i,index)"
                 [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'arrow-collapse-up',inline:true } }"></app-btn>

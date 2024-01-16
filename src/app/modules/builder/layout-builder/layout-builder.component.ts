@@ -41,22 +41,31 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe((data) => {
         const {
+          i,
           index,
-          value: { row, layoutAlign },
+          value: { row, layoutAlign, title },
           uuid,
         } = data;
         if (uuid === this.uuid) {
           console.log(data);
           if (row) {
             const { elements } = this.content;
-            elements[index].row = row;
+            elements[i].row = row;
+          }
+
+          if (title) {
+            const { elements } = this.content;
+            elements[i].elements[index] = {
+              ...elements[i].elements[index],
+              ...title,
+            };
           }
 
           if (layoutAlign) {
             const { elements } = this.content;
             const { direction, horizontal, vertical } = layoutAlign;
-            elements[index].direction = direction;
-            elements[index].layoutAlign = `${horizontal.replace(
+            elements[i].direction = direction;
+            elements[i].layoutAlign = `${horizontal.replace(
               'flex-',
               ''
             )} ${vertical.replace('flex-', '')}`;
@@ -88,6 +97,101 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
     this.dialog.afterAllClosed.subscribe(() => {
       this.cd.detectChanges();
     });
+  }
+
+  onWidgetSetting(i: number, index: number, widget: any): void {
+    this.uuid = Date.now().toString();
+    if (widget.type === 'title') {
+      let fields: FormlyFieldConfig[] = [
+        {
+          key: 'title',
+          fieldGroup: [
+            {
+              type: 'select',
+              key: 'style',
+              className: 'width-100',
+              defaultValue: widget.style,
+              templateOptions: {
+                label: '风格',
+                options: [
+                  {
+                    label: '无',
+                    value: 'none',
+                  },
+                  {
+                    label: 'V1',
+                    value: 'style-v1',
+                  },
+                  {
+                    label: 'V3',
+                    value: 'style-v3',
+                  },
+                  {
+                    label: 'V4',
+                    value: 'style-v4',
+                  },
+                  {
+                    label: 'V5',
+                    value: 'style-v5',
+                  },
+                ],
+              },
+            },
+            {
+              type: 'select',
+              key: 'classes',
+              className: 'width-100',
+              defaultValue: widget.classes,
+              templateOptions: {
+                label: '大小',
+                options: [
+                  {
+                    label: '无',
+                    value: '',
+                  },
+                  {
+                    label: '1级',
+                    value: 'mat-display-1 bold',
+                  },
+                  {
+                    label: '2级',
+                    value: 'mat-display-2 bold',
+                  },
+                  {
+                    label: '3级',
+                    value: 'mat-display-3 bold',
+                  },
+                  {
+                    label: '4级',
+                    value: 'mat-display-4 bold',
+                  },
+                ],
+              },
+            },
+          ],
+        },
+      ];
+      this.builder.builderRightContent$.next({
+        mode: 'push',
+        hasBackdrop: false,
+        style: {
+          width: '260px',
+        },
+        elements: [
+          {
+            type: 'layout-setting',
+            i,
+            index,
+            title: {
+              label: '标题配置',
+              style: 'style-v4',
+            },
+            fields,
+            uuid: this.uuid,
+          },
+        ],
+      });
+    }
   }
 
   onMove(de: string, i: number, index: number): void {
@@ -296,7 +400,7 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
       elements: [
         {
           type: 'layout-setting',
-          index: i,
+          i,
           title: {
             label: '响应式配置',
             style: 'style-v4',

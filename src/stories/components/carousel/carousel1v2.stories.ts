@@ -28,7 +28,7 @@ const content: ICarouselBase = {
   type: 'carousel-1v2',
   title: {
     label: '近期作品',
-    style: 'style-v6 line-full-width',
+    style: 'style-v5',
   },
   classes: '',
   bg: {

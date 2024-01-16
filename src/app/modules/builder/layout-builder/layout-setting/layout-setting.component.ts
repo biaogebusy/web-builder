@@ -81,6 +81,7 @@ export class LayoutSettingComponent implements OnInit, OnDestroy {
     this.renderLayoutPreview(layoutAlign);
     this.builder.builderLayoutSetting$.next({
       value,
+      i: this.content.i,
       index: this.content.index,
       uuid: this.content.uuid,
     });

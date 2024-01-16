@@ -16,8 +16,7 @@
     &.style-v2,
     &.style-v3,
     &.style-v4,
-    &.style-v5,
-    &.style-v6 {
+    &.style-v5 {
       .line-style {
         background: mat-color($foreground, divider);
         &:before {
@@ -43,11 +42,6 @@
           background: mat-color($background, card);
           border: 1px solid mat-color($primary);
         }
-      }
-    }
-    &.style-v7 {
-      .title-header {
-        color: mat-color($primary);
       }
     }
     &.banner-title {

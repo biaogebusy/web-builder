@@ -78,26 +78,6 @@ TitleV5.args = {
   content: v5,
 };
 
-export const TitleV6 = Template.bind({});
-TitleV6.storyName = 'Style V6';
-const v6: ITitle = {
-  ...TitleV1.args.content,
-  style: 'style-v6',
-};
-TitleV6.args = {
-  content: v6,
-};
-
-export const TitleV7 = Template.bind({});
-TitleV7.storyName = 'Style V7';
-const v7: ITitle = {
-  ...TitleV1.args.content,
-  style: 'style-v7',
-};
-TitleV7.args = {
-  content: v7,
-};
-
 export const TitleType = Template.bind({});
 TitleType.storyName = '打字效果';
 const type: ITitle = {
