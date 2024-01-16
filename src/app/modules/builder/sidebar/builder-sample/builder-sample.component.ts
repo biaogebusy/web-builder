@@ -4,8 +4,8 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { IPage } from '@core/interface/IAppConfig';
-import { IBuilderSamplePage } from '@core/interface/IBuilder';
+import type { IPage } from '@core/interface/IAppConfig';
+import type { IBuilderSamplePage } from '@core/interface/IBuilder';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 

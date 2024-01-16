@@ -70,6 +70,6 @@ Normal.storyName = '正常';
 Normal.args = {
   content: {
     type: 'spacer',
-    size: 'md',
+    size: 'sm',
   },
 };

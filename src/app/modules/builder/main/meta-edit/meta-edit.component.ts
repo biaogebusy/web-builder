@@ -18,7 +18,7 @@ import { QuillModule } from 'ngx-quill';
 import { Subject } from 'rxjs/internal/Subject';
 import { takeUntil } from 'rxjs/operators';
 import * as dat from 'dat.gui';
-import { IMetaEdit } from '@core/interface/IBuilder';
+import type { IMetaEdit } from '@core/interface/IBuilder';
 
 @Component({
   selector: 'app-meta-edit',

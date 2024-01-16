@@ -9,7 +9,8 @@ import { MatDialog } from '@angular/material/dialog';
 import type { ILayoutBlock, IPopupSelect } from '@core/interface/IBuilder';
 import { BuilderState } from '@core/state/BuilderState';
 import { WIDGETS } from '@core/token/token-providers';
-import { Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { widgets } from '../../data/widgets-for-builder';
 
 @Component({
   selector: 'app-popup-select',
@@ -19,7 +20,9 @@ import { Observable, Subject } from 'rxjs';
 })
 export class PopupSelectComponent implements OnInit {
   @Input() content: IPopupSelect;
-  public widget$: Subject<any> = new Subject();
+  public widget$: Subject<any> = new BehaviorSubject({
+    ...widgets[0].content,
+  });
   constructor(
     private builder: BuilderState,
     @Inject(WIDGETS) public widgets$: Observable<any[]>,

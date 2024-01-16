@@ -84,6 +84,7 @@ const textHeroContent: ICarouselBase = {
             img: {
               src: '/assets/images/hero/1-3.jpg',
               hostClasses: '',
+              alt: '地图',
             },
           },
           body: '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
