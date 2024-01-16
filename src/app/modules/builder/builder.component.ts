@@ -65,7 +65,7 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
       utli.openSnackbar('请开启 Builder 功能！', 'ok');
     }
     this.builder.builderRightContent$.subscribe((content) => {
-      if (content) {
+      if (content && this.builder.showRightDrawer) {
         setTimeout(() => {
           this.builderRightDrawer.open();
         }, 100);

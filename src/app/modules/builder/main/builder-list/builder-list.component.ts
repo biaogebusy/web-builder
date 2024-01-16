@@ -46,8 +46,12 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.builder.builderContentDrawer$.subscribe(() => {
-      this.drawer.toggle();
+    this.builder.previewListDrawer$.subscribe((statue) => {
+      if (statue) {
+        this.drawer.open();
+      } else {
+        this.drawer.close();
+      }
       this.cd.detectChanges();
     });
   }

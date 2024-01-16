@@ -86,8 +86,8 @@ export class BuilderToolbarComponent
     this.builder.fullScreen$.next(event.checked);
   }
 
-  onCompnentNavigate(): void {
-    this.builder.builderContentDrawer$.next(true);
+  onCompnentNavigate(statue: boolean): void {
+    this.builder.previewListDrawer$.next(statue);
   }
 
   onSelectAssets(): void {
@@ -103,6 +103,13 @@ export class BuilderToolbarComponent
         },
       },
     });
+  }
+
+  showRightDrawer(): void {
+    this.builder.showRightDrawer = !this.builder.showRightDrawer;
+    if (!this.builder.showRightDrawer) {
+      this.builderRightDrawer.close();
+    }
   }
 
   ngOnDestroy(): void {
