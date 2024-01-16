@@ -43,11 +43,10 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
         const {
           i,
           index,
-          value: { row, layoutAlign, title },
+          value: { row, flex, title },
           uuid,
         } = data;
         if (uuid === this.uuid) {
-          console.log(data);
           if (row) {
             const { elements } = this.content;
             elements[i].row = row;
@@ -61,9 +60,9 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
             };
           }
 
-          if (layoutAlign) {
+          if (flex) {
             const { elements } = this.content;
-            const { direction, horizontal, vertical } = layoutAlign;
+            const { direction, horizontal, vertical } = flex;
             elements[i].direction = direction;
             elements[i].layoutAlign = `${horizontal.replace(
               'flex-',
@@ -283,7 +282,7 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
         fieldGroup: responsive,
       },
       {
-        key: 'layoutAlign',
+        key: 'flex',
         className: 'layout-setting',
         fieldGroup: [
           {
