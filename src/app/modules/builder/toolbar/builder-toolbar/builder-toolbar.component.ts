@@ -34,6 +34,7 @@ export class BuilderToolbarComponent
 {
   @Input() builderRightDrawer: MatDrawer;
   destroy$: Subject<boolean> = new Subject<boolean>();
+  showNavigate: boolean = false;
 
   constructor(
     private storage: LocalStorageService,
@@ -86,8 +87,9 @@ export class BuilderToolbarComponent
     this.builder.fullScreen$.next(event.checked);
   }
 
-  onCompnentNavigate(statue: boolean): void {
-    this.builder.previewListDrawer$.next(statue);
+  toggleNavigate(): void {
+    this.showNavigate = !this.showNavigate;
+    this.builder.previewListDrawer$.next(this.showNavigate);
   }
 
   onSelectAssets(): void {
