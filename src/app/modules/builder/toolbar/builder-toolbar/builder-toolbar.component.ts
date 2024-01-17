@@ -15,6 +15,7 @@ import { LocalStorageService } from 'ngx-webstorage';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import {
+  BRANDING,
   BUILDER_CURRENT_PAGE,
   BUILDER_FULL_SCREEN,
 } from '@core/token/token-providers';
@@ -22,6 +23,7 @@ import { ScreenService } from '@core/service/screen.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import type { IPage } from '@core/interface/IAppConfig';
+import { IBranding } from '@core/interface/branding/IBranding';
 
 @Component({
   selector: 'app-builder-toolbar',
@@ -42,6 +44,7 @@ export class BuilderToolbarComponent
     private screenState: ScreenState,
     private screenService: ScreenService,
     private dialog: MatDialog,
+    @Inject(BRANDING) public branding$: Observable<IBranding>,
     @Inject(BUILDER_FULL_SCREEN) public builderFullScreen$: Observable<boolean>,
     @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>
   ) {}
