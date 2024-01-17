@@ -58,21 +58,41 @@ export interface IBuilderShowcase {
 
 export interface ILayoutBuilder extends ICombsBase {
   fullWidth: boolean;
-  elements: {
-    classes: any;
-    row: {
-      [key: string]: number;
-    };
-    elements: any[];
-    direction: string;
-    layoutAlign: string;
-  }[];
+  elements: ILayoutBlock[];
+}
+
+export interface ILayoutBlock {
+  classes: any;
+  row: {
+    [key: string]: number;
+  };
+  elements: any[];
+  direction: string;
+  layoutAlign: string;
 }
 
 export interface ILayoutSetting {
   title: ITitle;
   fields: FormlyFieldConfig[];
+  i?: number;
   index: number;
   uuid: string;
   content: any;
+}
+
+export interface IPopupSelect {
+  type: 'string';
+  row: 'down' | 'next';
+  index: number;
+  pageIndex: number;
+  uuid: string;
+  content: any;
+}
+
+export interface IMetaEdit {
+  type: string;
+  data: any;
+  path: string;
+  ele: HTMLElement | EventTarget | any | null;
+  mode: 'img' | 'text';
 }

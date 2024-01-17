@@ -1,4 +1,3 @@
-import { IBuilderComponentElement } from '@core/interface/IBuilder';
 import * as dynamicTableStory from '@stories/base/Table.stories';
 import * as swiperStory from '@stories/widgets/Swiper.stories';
 import * as titleStory from '@stories/base/Title.stories';
@@ -27,10 +26,16 @@ import * as iframeStory from '@stories/widgets/Iframe.stories';
 import * as lightboxStory from '@stories/widgets/InlineLightbox.stories';
 import * as shapeStory from '@stories/widgets/Shape.stories';
 import * as BoxStories from '@stories/base/Box.stories';
+import * as TextStories from '@stories/base/Text.stories';
+import * as spacerStory from '@stories/theme/Spacer.stories';
 
 export const {
   Horizontal: { args: stepper },
 } = stepperStory;
+
+export const {
+  Base: { args: text },
+} = TextStories;
 
 export const {
   Default: { args: player },
@@ -138,11 +143,24 @@ export const {
   Primary: { args: box },
 } = BoxStories;
 
+export const {
+  Normal: { args: spacer },
+} = spacerStory as any;
+
 export const widgets: any[] = [
   {
     label: '标题',
     icon: { svg: 'format-header-2' },
     ...title,
+  },
+  {
+    label: '富文本',
+    icon: { svg: 'format-text' },
+    content: {
+      type: 'text',
+      spacer: 'none',
+      body: '信使UI是基于 Material 的 Angular 前端框架， 丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。基于Angular Material UI，支持SSR，多应用，后端可根据实际情况自由配置，可自定义开发、新增组件库。',
+    },
   },
   {
     label: '图片',
@@ -160,6 +178,13 @@ export const widgets: any[] = [
     label: '按钮',
     icon: { svg: 'button-cursor' },
     ...btn,
+  },
+  {
+    label: '间距',
+    icon: {
+      svg: 'border-horizontal',
+    },
+    ...spacer,
   },
   {
     label: '图标',

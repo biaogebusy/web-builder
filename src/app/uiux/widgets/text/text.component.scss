@@ -13,14 +13,18 @@
   z-index: 2;
   &.text-center {
     .text-body {
-      max-width: 800px;
       margin: 0 auto;
     }
   }
   .text-body {
-    ::ng-deep .text-center {
-      max-width: 800px;
-      margin: 0 auto;
+    max-width: 800px;
+    ::ng-deep {
+      .text-center {
+        margin: 0 auto;
+      }
+      img {
+        max-width: 100%;
+      }
     }
   }
 }
@@ -28,14 +32,6 @@
 .actions {
   > *:not(:only-child) {
     margin-right: 2rem;
-  }
-}
-
-.text-body {
-  ::ng-deep {
-    img {
-      max-width: 100%;
-    }
   }
 }
 

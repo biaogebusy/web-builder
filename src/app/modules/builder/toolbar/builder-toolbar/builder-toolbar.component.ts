@@ -34,6 +34,7 @@ export class BuilderToolbarComponent
 {
   @Input() builderRightDrawer: MatDrawer;
   destroy$: Subject<boolean> = new Subject<boolean>();
+  showNavigate: boolean = false;
 
   constructor(
     private storage: LocalStorageService,
@@ -86,8 +87,9 @@ export class BuilderToolbarComponent
     this.builder.fullScreen$.next(event.checked);
   }
 
-  onCompnentNavigate(): void {
-    this.builder.builderContentDrawer$.next(true);
+  toggleNavigate(): void {
+    this.showNavigate = !this.showNavigate;
+    this.builder.previewListDrawer$.next(this.showNavigate);
   }
 
   onSelectAssets(): void {
@@ -103,6 +105,13 @@ export class BuilderToolbarComponent
         },
       },
     });
+  }
+
+  showRightDrawer(): void {
+    this.builder.showRightDrawer = !this.builder.showRightDrawer;
+    if (!this.builder.showRightDrawer) {
+      this.builderRightDrawer.close();
+    }
   }
 
   ngOnDestroy(): void {

@@ -13,7 +13,7 @@
         <div class="time">{{page.time|date:"YYYY-MM-dd HH:mm"}}</div>
       </div>
       <div class="middle" fxHide.lt-sm="true" fxFlex.lt-md="auto" fxFlex.gt-sm="33%" fxLayoutAlign="center center"
-        fxLayout="column">
+        fxLayout="row">
         <app-switch-preview></app-switch-preview>
       </div>
       <div id="toolbar-right" class="right" fxFlex.lt-md="auto" fxFlex.gt-sm="33%" fxLayoutAlign="end center"
@@ -23,8 +23,11 @@
           [content]="{label:'', mode: 'icon' ,icon:{svg:mode ==='light' ? 'white-balance-sunny' : 'moon-waning-crescent' } }"></app-btn>
         <mat-slide-toggle [checked]="builderFullScreen$|async" (change)="onFullScreen($event)"
           [matTooltip]="(builderFullScreen$|async) ? '显示边栏' : '切换全宽'"></mat-slide-toggle>
-        <app-btn fxHide.xs="true" [matTooltip]="'组件导航'" (click)="onCompnentNavigate()"
-          [content]="{label:'', mode: 'icon' ,icon:{svg:'dock-left' } }"></app-btn>
+        <app-btn fxHide.xs="true" [matTooltip]="(builder.previewListDrawer$|async)?'展开组件导航' : '收起组件导航'"
+          (click)="toggleNavigate()"
+          [content]="{label:'', color:(builder.previewListDrawer$|async)?'primary' : undefined, mode: 'icon' ,icon:{svg:'dock-left' } }"></app-btn>
+        <app-btn fxHide.xs="true" [matTooltip]="builder.showRightDrawer?'禁用右边栏' : '显示右边栏'" (click)="showRightDrawer()"
+          [content]="{label:'', color:builder.showRightDrawer?'primary' : 'warn', mode: 'icon' ,icon:{svg:'dock-right' } }"></app-btn>
         <app-btn fxHide.xs="true" [matTooltip]="'媒体库'" (click)="onSelectAssets()"
           [content]="{label:'', mode: 'icon' ,icon:{svg:'image-search-outline' } }"></app-btn>
         <app-switch-theme></app-switch-theme>

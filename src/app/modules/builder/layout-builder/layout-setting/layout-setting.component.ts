@@ -77,22 +77,24 @@ export class LayoutSettingComponent implements OnInit, OnDestroy {
   }
 
   onModelChange(value: any) {
-    const { layoutAlign } = value;
-    this.renderLayoutPreview(layoutAlign);
+    const { flex } = value;
+    this.renderLayoutPreview(flex);
     this.builder.builderLayoutSetting$.next({
       value,
+      i: this.content.i,
       index: this.content.index,
       uuid: this.content.uuid,
     });
   }
 
-  renderLayoutPreview(layoutAlign: any): void {
-    if (layoutAlign) {
-      const { horizontal, vertical } = layoutAlign;
+  renderLayoutPreview(flex: any): void {
+    if (flex) {
+      const { direction, horizontal, vertical } = flex;
       const box = this.el.nativeElement.querySelector('.wrapper');
       box.style.justifyContent = horizontal;
       box.style.alignItems = vertical;
       box.style.alignContent = vertical;
+      box.style.flexDirection = direction;
     }
   }
 

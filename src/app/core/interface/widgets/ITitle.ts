@@ -1,6 +1,12 @@
 export interface ITitle {
   type?: 'title';
-  style: string;
+  style:
+    | 'style-v1'
+    | 'style-v2'
+    | 'style-v3'
+    | 'style-v4'
+    | 'style-v5'
+    | 'none';
   classes?: string;
   label: string;
   icon?: string;

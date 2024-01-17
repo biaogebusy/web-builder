@@ -23,9 +23,10 @@ export class BuilderState {
   public fixedContent: ICard1v1 | null;
   public showcase$: Subject<IBuilderShowcase | false> = new Subject();
   public builderContent$ = new Subject<IPage>();
-  public builderContentDrawer$ = new Subject<boolean>();
+  public previewListDrawer$ = new Subject<boolean>();
   public builderThemeMode = new BehaviorSubject<'light' | 'dark'>('light');
   public builderRightContent$ = new Subject<IBuilderDynamicContent>();
+  public showRightDrawer: boolean = true;
   public builderPopupSelect$ = new Subject<any>();
   public builderLayoutSetting$ = new Subject<any>();
   public closeBuilderRightDrawer$ = new Subject<boolean>();
@@ -206,11 +207,11 @@ export class BuilderState {
           label: '组件全屏宽',
           options: [
             {
-              label: '全屏宽',
+              label: '全屏',
               value: true,
             },
             {
-              label: '非全屏宽',
+              label: '非全屏',
               value: false,
             },
           ],
@@ -312,7 +313,7 @@ export class BuilderState {
           options: [
             {
               label: '无',
-              value: '',
+              value: ' ',
             },
             {
               label: '0.8',

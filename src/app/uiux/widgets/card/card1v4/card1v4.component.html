@@ -8,8 +8,9 @@
     </div>
     <div contentedit="body" class="content m-y-xs" [innerHTML]="content.body|safeHtml"></div>
     <div fxLayout="row">
-      <div contentedit="title" class="title m-right-xs">{{content.title}}</div>
-      <div contentedit="subTitle" class="sub-title" *ngIf="content.subTitle">{{content.subTitle}}</div>
+      <div contentedit="title" class="title m-right-xs" [innerHTML]="content.title|safeHtml"></div>
+      <div contentedit="subTitle" class="sub-title" *ngIf="content.subTitle" [innerHTML]="content.subTitle|safeHtml">
+      </div>
     </div>
   </div>
 </div>

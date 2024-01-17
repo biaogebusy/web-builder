@@ -6,9 +6,11 @@ import {
   OnInit,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import type { ILayoutBlock, IPopupSelect } from '@core/interface/IBuilder';
 import { BuilderState } from '@core/state/BuilderState';
 import { WIDGETS } from '@core/token/token-providers';
-import { Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { widgets } from '../../data/widgets-for-builder';
 
 @Component({
   selector: 'app-popup-select',
@@ -17,8 +19,10 @@ import { Observable, Subject } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PopupSelectComponent implements OnInit {
-  @Input() content: any;
-  public widget$: Subject<any> = new Subject();
+  @Input() content: IPopupSelect;
+  public widget$: Subject<any> = new BehaviorSubject({
+    ...widgets[0].content,
+  });
   constructor(
     private builder: BuilderState,
     @Inject(WIDGETS) public widgets$: Observable<any[]>,
@@ -28,22 +32,25 @@ export class PopupSelectComponent implements OnInit {
   ngOnInit(): void {}
 
   onSelect(widget: any): void {
-    const { row, index, pageIndex, uuid, content } = this.content;
+    const { row, index, pageIndex, content } = this.content;
     if (row === 'down') {
       content.elements[index].elements.push(widget.content);
     }
 
     if (row === 'next') {
-      content.elements.splice(index + 1, 0, {
+      const block: ILayoutBlock = {
         row: {
           xs: 12,
           sm: 6,
           md: 6,
           lg: 4,
         },
-        align: 'center center',
+        classes: '',
+        direction: 'column',
+        layoutAlign: 'center center',
         elements: [widget.content],
-      });
+      };
+      content.elements.splice(index + 1, 0, block);
     }
 
     this.builder.updateComponent(pageIndex, content);

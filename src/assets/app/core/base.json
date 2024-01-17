@@ -626,18 +626,6 @@
             }
           ]
         }
-      },
-      {
-        "key": "action",
-        "type": "toggle",
-        "className": "display-block m-bottom-sm",
-        "defaultValue": true,
-        "templateOptions": {
-          "label": "行动组件",
-          "description": "一般页面底部引导用户下一步要做的事情",
-          "pattern": "true",
-          "required": true
-        }
       }
     ],
     "empty": [
