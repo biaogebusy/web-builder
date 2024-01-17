@@ -95,4 +95,5 @@ export interface IMetaEdit {
   path: string;
   ele: HTMLElement | EventTarget | any | null;
   mode: 'img' | 'text';
+  fields?: FormlyFieldConfig[];
 }

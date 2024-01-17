@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { IMetaEdit } from '@core/interface/IBuilder';
 import { BuilderState } from '@core/state/BuilderState';
+import { FormlyFieldConfig } from '@ngx-formly/core';
 import { set } from 'lodash-es';
 @Directive({
   selector: '[contentedit]',
@@ -30,11 +31,76 @@ export class ContenteditDirective implements AfterViewInit {
     const ele = this.el.nativeElement;
     if (ele.closest('.component-item')) {
       if (ele.tagName === 'IMG') {
+        const fields: FormlyFieldConfig[] = [
+          {
+            key: 'style',
+            fieldGroup: [
+              {
+                type: 'input',
+                key: 'width',
+                defaultValue: 'auto',
+                className: 'width-100',
+                templateOptions: {
+                  label: '宽度',
+                  placeholder: 'auto或者有效的值px,vw等等',
+                },
+              },
+              {
+                type: 'input',
+                key: 'height',
+                className: 'width-100',
+                defaultValue: 'auto',
+                templateOptions: {
+                  label: '高度',
+                  placeholder: 'auto或者有效的值px,vw等等',
+                },
+              },
+              {
+                type: 'slider',
+                key: 'maxWidth',
+                className: 'width-100',
+                defaultValue: 'none',
+                templateOptions: {
+                  label: '最大宽度',
+                  min: 10,
+                  max: 2000,
+                  thumbLabel: true,
+                },
+              },
+              {
+                type: 'slider',
+                key: 'maxHeight',
+                className: 'width-100',
+                defaultValue: 'none',
+                templateOptions: {
+                  label: '最大高度',
+                  min: 10,
+                  max: 2000,
+                  thumbLabel: true,
+                },
+              },
+              {
+                type: 'slider',
+                key: 'opacity',
+                className: 'width-100',
+                defaultValue: 'none',
+                templateOptions: {
+                  label: '不透明度',
+                  min: 0,
+                  max: 1,
+                  thumbLabel: true,
+                  step: 0.1,
+                },
+              },
+            ],
+          },
+        ];
         const meta: IMetaEdit = {
           type: 'meta-edit',
           mode: 'img',
           path: this.generatePath(ele),
           ele: event.target,
+          fields,
           data: {
             src: ele.getAttribute('src'),
             fileName: ele.getAttribute('src').split('/').pop(),

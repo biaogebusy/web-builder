@@ -19,6 +19,7 @@ import { Subject } from 'rxjs/internal/Subject';
 import { takeUntil } from 'rxjs/operators';
 import * as dat from 'dat.gui';
 import type { IMetaEdit } from '@core/interface/IBuilder';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-meta-edit',
@@ -27,6 +28,8 @@ import type { IMetaEdit } from '@core/interface/IBuilder';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MetaEditComponent implements OnInit, OnDestroy, AfterViewInit {
+  form = new FormGroup({});
+  model: any = {};
   @Input() content: IMetaEdit;
   @ViewChild('guiStyle', { static: false }) guiStyle: ElementRef;
   @ViewChild('guiSize', { static: false }) guiSize: ElementRef;
@@ -258,6 +261,29 @@ export class MetaEditComponent implements OnInit, OnDestroy, AfterViewInit {
       this.builder.saveLocalVersions();
     }, 600);
     this.cd.detectChanges();
+  }
+
+  onModelChange(value: any) {
+    if (this.content.mode === 'img') {
+      const src = this.content.path;
+      const { style } = value;
+      const imgPath = src.substring(0, src.lastIndexOf('.'));
+      for (let key of Object.keys(style)) {
+        if (key === 'maxHeight') {
+          style[key] =
+            style.maxHeight === 'none' ? 'none' : style.maxHeight + 'px';
+        }
+        if (key === 'maxWidth') {
+          style[key] =
+            style.maxWidth === 'none' ? 'none' : style.maxWidth + 'px';
+        }
+      }
+      set(this.builder.currentPage.body, `${imgPath}.style`, style);
+      this.builder.saveLocalVersions();
+      setTimeout(() => {
+        this.cd.detectChanges();
+      }, 600);
+    }
   }
 
   ngOnDestroy(): void {
