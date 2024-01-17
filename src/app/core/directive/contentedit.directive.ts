@@ -5,6 +5,7 @@ import {
   HostListener,
   Input,
 } from '@angular/core';
+import { IMetaEdit } from '@core/interface/IBuilder';
 import { BuilderState } from '@core/state/BuilderState';
 import { set } from 'lodash-es';
 @Directive({
@@ -29,6 +30,18 @@ export class ContenteditDirective implements AfterViewInit {
     const ele = this.el.nativeElement;
     if (ele.closest('.component-item')) {
       if (ele.tagName === 'IMG') {
+        const meta: IMetaEdit = {
+          type: 'meta-edit',
+          mode: 'img',
+          path: this.generatePath(ele),
+          ele: event.target,
+          data: {
+            src: ele.getAttribute('src'),
+            fileName: ele.getAttribute('src').split('/').pop(),
+            alt: ele.getAttribute('alt'),
+            tag: ele.tagName,
+          },
+        };
         this.builder.builderRightContent$.next({
           mode: 'push',
           hasBackdrop: false,
@@ -36,23 +49,20 @@ export class ContenteditDirective implements AfterViewInit {
             width: '260px',
             'max-width': 'calc(100vw - 50px)',
           },
-          elements: [
-            {
-              type: 'meta-edit',
-              mode: 'img',
-              path: this.generatePath(ele),
-              ele: event.target,
-              data: {
-                src: ele.getAttribute('src'),
-                fileName: ele.getAttribute('src').split('/').pop(),
-                alt: ele.getAttribute('alt'),
-                tag: ele.tagName,
-              },
-            },
-          ],
+          elements: [meta],
         });
       } else {
         ele.contentEditable = 'true';
+        const meta: IMetaEdit = {
+          type: 'meta-edit',
+          mode: 'text',
+          path: this.generatePath(ele),
+          ele,
+          data: {
+            innerHTML: ele.innerHTML,
+            tag: ele.tagName,
+          },
+        };
         this.builder.builderRightContent$.next({
           mode: 'push',
           hasBackdrop: false,
@@ -60,18 +70,7 @@ export class ContenteditDirective implements AfterViewInit {
             width: '300px',
             'max-width': 'calc(100vw - 50px)',
           },
-          elements: [
-            {
-              type: 'meta-edit',
-              mode: 'text',
-              path: this.generatePath(ele),
-              ele,
-              data: {
-                innerHTML: ele.innerHTML,
-                tag: ele.tagName,
-              },
-            },
-          ],
+          elements: [meta],
         });
       }
       event.preventDefault();

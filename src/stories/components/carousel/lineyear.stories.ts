@@ -45,6 +45,7 @@ const content: ICarouselBase = {
     img: {
       src: '/assets/images/map.png',
       hostClasses: 'bg-center',
+      alt: '地图',
     },
   },
   sliders: {

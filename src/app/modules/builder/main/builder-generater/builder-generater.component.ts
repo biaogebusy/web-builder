@@ -55,12 +55,10 @@ export class BuilderGeneraterComponent implements OnInit {
     );
     const shuffleShowcaseCarousel = shuffle([...showcases, ...carousel]);
     let action = [];
-    if (value.action) {
-      let text = items
-        .filter((item) => item.id === 'base')[0]
-        .elements.find((item) => item.id === 'text');
-      action.push(text);
-    }
+    let text = items
+      .filter((item) => item.id === 'base')[0]
+      .elements.find((item) => item.id === 'text');
+    action.push(text);
 
     const blocks = [
       ...heros,

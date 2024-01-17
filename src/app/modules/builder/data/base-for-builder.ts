@@ -31,7 +31,7 @@ export const base = [
                 lg: 7,
               },
               direction: 'column',
-              layoutAlign: 'start start',
+              layoutAlign: 'center start',
               elements: [
                 {
                   type: 'title',
@@ -48,6 +48,17 @@ export const base = [
                     classes: 'bg- bg-fill-width',
                   },
                   classes: '',
+                },
+                {
+                  type: 'card-1v4',
+                  img: {
+                    classes: 'object-fit',
+                    src: '/assets/images/avatar/01.jpeg',
+                  },
+                  star: 5,
+                  title: '- Johnson',
+                  subTitle: '前端开发',
+                  body: '信使是一个灵活可扩展性高的前端Anuglar框架，动态组件可以使得组件之间变得更加灵活，但是依赖循环也变得复杂。',
                 },
                 {
                   type: 'btn',
@@ -88,7 +99,7 @@ export const base = [
       {
         label: '两栏',
         icon: {
-          svg: 'view-week-outline',
+          svg: 'view-grid',
         },
         content: {
           type: 'layout-builder',
@@ -207,30 +218,30 @@ export const base = [
                 {
                   type: 'box',
                   img: {
-                    src: '/assets/images/svg/Asset187.svg',
+                    src: '/assets/images/svg/Asset189.svg',
                     alt: 'browser',
                   },
-                  style: 'style-v3 use-image',
+                  style: 'style-v3 use-image primary',
                   title: {
                     href: '#',
-                    label: '高性能',
+                    label: '易用的编辑器',
                   },
                   content:
-                    '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
+                    '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作；',
                 },
                 {
                   type: 'box',
                   img: {
-                    src: '/assets/images/svg/Asset187.svg',
+                    src: '/assets/images/svg/Asset190.svg',
                     alt: 'browser',
                   },
                   style: 'style-v3 use-image',
                   title: {
                     href: '#',
-                    label: '高性能',
+                    label: '多语言',
                   },
                   content:
-                    '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
+                    'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程； ',
                 },
               ],
             },
@@ -240,7 +251,7 @@ export const base = [
       {
         label: '四栏',
         icon: {
-          svg: 'view-week-outline',
+          svg: 'land-rows-vertical',
         },
         content: {
           type: 'layout-builder',
@@ -361,9 +372,9 @@ export const base = [
         },
       },
       {
-        label: '左右图文',
+        label: '图文',
         icon: {
-          svg: 'view-week-outline',
+          svg: 'image-text',
         },
         content: {
           type: 'layout-builder',
@@ -458,6 +469,99 @@ export const base = [
                   src: '/assets/images/illustration/12.png',
                 },
               ],
+            },
+          ],
+        },
+      },
+      {
+        label: '竖排',
+        icon: {
+          svg: 'format-align-center',
+        },
+        content: {
+          type: 'layout-builder',
+          spacer: 'md',
+          fullWidth: false,
+          bg: {
+            classes: 'bg-fill-width',
+            img: {
+              src: '/assets/images/bg/bg-01.png',
+              alt: 'bg-01.png',
+              classes: 'object-fit',
+            },
+          },
+          elements: [
+            {
+              classes: '',
+              row: {
+                xs: 12,
+                sm: 12,
+                md: 12,
+                lg: 12,
+              },
+              direction: 'column',
+              layoutAlign: 'center center',
+              elements: [
+                {
+                  type: 'title',
+                  label:
+                    '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建响应式页面',
+                  style: 'style-v1',
+                  classes: 'mat-display-3 bold',
+                },
+                {
+                  type: 'text',
+                  spacer: 'none',
+                  body: '<p class="ql-align-center">信使UI是基于 Material 的 Angular 前端框架， 丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。基于Angular Material UI，支持SSR，多应用，后端可根据实际情况自由配置，可自定义开发、新增组件库。</p>',
+                },
+                {
+                  type: 'btn',
+                  href: '/node/1',
+                  target: '_blank',
+                  label: '了解更多',
+                  mode: 'raised',
+                  color: 'primary',
+                },
+                {
+                  type: 'spacer',
+                  size: 'sm',
+                },
+                {
+                  type: 'img',
+                  hostClasses: 'text-center',
+                  classes: '',
+                  src: '/assets/images/illustration/08.png',
+                  alt: 'alt',
+                },
+              ],
+            },
+          ],
+        },
+      },
+      {
+        label: '空白',
+        icon: {
+          svg: 'border-none-variant',
+        },
+        content: {
+          type: 'layout-builder',
+          spacer: 'md',
+          fullWidth: false,
+          bg: {
+            classes: 'bg-fill-width',
+          },
+          elements: [
+            {
+              classes: '',
+              row: {
+                xs: 12,
+                sm: 12,
+                md: 12,
+                lg: 12,
+              },
+              direction: 'column',
+              layoutAlign: 'start start',
+              elements: [],
             },
           ],
         },
@@ -557,7 +661,7 @@ export const base = [
         },
         content: {
           type: 'spacer',
-          size: 'md',
+          size: 'sm',
         },
       },
       {
