@@ -478,6 +478,174 @@
         "administrator"
       ]
     },
+    "empty": [
+      {
+        "type": "showcase-3v9",
+        "bg": {
+          "classes": "bg-fill-width",
+          "img": {
+            "classes": "object-fit",
+            "src": "/assets/images/bg/bg-01.png"
+          }
+        },
+        "spacer": "lg",
+        "order": {
+          "left": 1,
+          "right": 0
+        },
+        "left": [
+          {
+            "type": "img",
+            "src": "/assets/images/illustration/13.png",
+            "classes": "mover",
+            "hostClasses": "position-relative img-bg-shape",
+            "actions": [
+              {
+                "type": "btn-video",
+                "color": "default",
+                "classes": "play-video",
+                "dialog": {
+                  "width": "80vw"
+                },
+                "video": {
+                  "type": "player",
+                  "options": {
+                    "controls": true,
+                    "aspectRatio": "16:9",
+                    "poster": "/assets/storybook/assets/builder.png",
+                    "sources": [
+                      {
+                        "src": "/assets/video/layout-builder-hero-demo.mp4",
+                        "type:": "video/mp4"
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "right": [
+          {
+            "type": "text",
+            "spacer": "sm",
+            "title": {
+              "label": "欢迎使用 <strong class=\"text-primary\">Web builder </strong> <br>快速构建页面",
+              "style": "style-v4",
+              "classes": "mat-display-2 bold"
+            },
+            "body": "从左侧选择组件拖动到想要的位置：<ul class=\"list-done\"><li>可视化编辑组件图文数据，所见即所得；</li><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li></ul><p>欢迎入群一起探索更多的可能性和数字创新体验，QQ 交流群：<span class=\"text-primary\">1176468251</span></p><p style=\"display:flex\"><img width=\"120px\" src=\"/assets/icons/large-left-arrow.svg\" /><video  muted  autoplay loop width=\"120px\" src=\"/assets/video/drag-drop.mp4\"></video></p>",
+            "actions": [
+              {
+                "type": "btn-generater",
+                "label": "体验生成页面",
+                "color": "primary",
+                "mode": "raised"
+              },
+              {
+                "type": "btn-video",
+                "color": "default",
+                "classes": "play-video",
+                "dialog": {
+                  "width": "80vw"
+                },
+                "video": {
+                  "type": "player",
+                  "options": {
+                    "controls": true,
+                    "aspectRatio": "16:9",
+                    "poster": "/assets/storybook/assets/builder.png",
+                    "sources": [
+                      {
+                        "src": "/assets/video/layout-builder-hero-demo.mp4",
+                        "type:": "video/mp4"
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "disableToolbar": true,
+                "content": {
+                  "type": "github-star"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "showcase-1v4",
+        "spacer": "lg",
+        "bg": {
+          "classes": "bg-shadow bg-fill-width"
+        },
+        "row": 3,
+        "classes": "",
+        "text": {
+          "title": {
+            "label": "页面是如何创建的",
+            "style": "style-v1",
+            "classes": "mat-display-2 bold"
+          }
+        },
+        "elements": [
+          {
+            "disableToolbar": true,
+            "content": {
+              "type": "card-1v5",
+              "title": "拖拽组件",
+              "body": "从左侧边栏拖动组件到编辑区构建页面，或者直接修改示例页",
+              "footer": {
+                "label": "Step 01.",
+                "icon": {
+                  "svg": "chevron-double-right"
+                }
+              }
+            }
+          },
+          {
+            "disableToolbar": true,
+            "content": {
+              "type": "card-1v5",
+              "title": "更新组件",
+              "body": "编辑组件数据，点击文字或者图片修改，或者通过JSON修改数据",
+              "footer": {
+                "label": "Step 02.",
+                "icon": {
+                  "svg": "chevron-double-right"
+                }
+              }
+            }
+          },
+          {
+            "disableToolbar": true,
+            "content": {
+              "type": "card-1v5",
+              "title": "发布页面",
+              "body": "提交页面到后台，或者复制JSON到后台自定义更新",
+              "footer": {
+                "label": "Step 03.",
+                "icon": {
+                  "svg": "check-all"
+                }
+              }
+            }
+          }
+        ],
+        "actions": [
+          {
+            "disableToolbar": true,
+            "content": {
+              "type": "btn-generater",
+              "label": "生成页面",
+              "color": "primary",
+              "mode": "raised"
+            }
+          }
+        ]
+      }
+    ],
     "generater": [
       {
         "type": "select",
@@ -626,157 +794,6 @@
             }
           ]
         }
-      }
-    ],
-    "empty": [
-      {
-        "type": "showcase-3v9",
-        "bg": {
-          "classes": "bg-fill-width",
-          "img": {
-            "classes": "object-fit",
-            "src": "/assets/images/bg/bg-01.png"
-          }
-        },
-        "spacer": "lg",
-        "order": {
-          "left": 1,
-          "right": 0
-        },
-        "left": [
-          {
-            "type": "img",
-            "src": "/assets/images/illustration/13.png",
-            "classes": "mover",
-            "hostClasses": "position-relative img-bg-shape",
-            "actions": [
-              {
-                "type": "btn-video",
-                "color": "default",
-                "classes": "play-video",
-                "dialog": {
-                  "width": "900",
-                  "height": "800"
-                },
-                "video": {
-                  "type": "iframe",
-                  "url": "//player.bilibili.com/player.html?aid=998790468&bvid=BV1ux4y197kc&cid=1207367269&page=1",
-                  "width": "900",
-                  "height": "700"
-                }
-              }
-            ]
-          }
-        ],
-        "right": [
-          {
-            "type": "text",
-            "spacer": "sm",
-            "title": {
-              "label": "欢迎使用 <strong class=\"text-primary\">Web builder </strong> <br>快速构建页面",
-              "style": "style-v4",
-              "classes": "mat-display-2 bold"
-            },
-            "body": "从左侧选择组件拖动到想要的位置：<ul class=\"list-done\"><li>可视化编辑组件图文数据，所见即所得；</li><li>可以复制整个页面的 JSON 或者单个组件的 JSON；</li></ul><p>欢迎入群一起探索更多的可能性和数字创新体验，QQ 交流群：<span class=\"text-primary\">1176468251</span></p><p style=\"display:flex\"><img width=\"120px\" src=\"/assets/icons/large-left-arrow.svg\" /><video  muted  autoplay loop width=\"120px\" src=\"/assets/video/drag-drop.mp4\"></video></p>",
-            "actions": [
-              {
-                "type": "btn-generater",
-                "label": "体验生成页面",
-                "color": "primary",
-                "mode": "raised"
-              },
-              {
-                "type": "btn",
-                "color": "primary",
-                "mode": "stroked",
-                "label": "演示视频",
-                "href": "https://www.bilibili.com/video/BV1ux4y197kc/?spm_id_from=333.999.0.0&vd_source=f65b4e2d70ecc450290b6b1710c0ada5",
-                "target": "_blank",
-                "icon": {
-                  "inline": true,
-                  "svg": "play-circle-outline"
-                }
-              },
-              {
-                "disableToolbar": true,
-                "content": {
-                  "type": "github-star"
-                }
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "type": "showcase-1v4",
-        "spacer": "lg",
-        "bg": {
-          "classes": "bg-shadow bg-fill-width"
-        },
-        "row": 3,
-        "classes": "",
-        "text": {
-          "title": {
-            "label": "页面是如何创建的",
-            "style": "style-v1",
-            "classes": "mat-display-2 bold"
-          }
-        },
-        "elements": [
-          {
-            "disableToolbar": true,
-            "content": {
-              "type": "card-1v5",
-              "title": "拖拽组件",
-              "body": "从左侧边栏拖动组件到编辑区构建页面，或者直接修改示例页",
-              "footer": {
-                "label": "Step 01.",
-                "icon": {
-                  "svg": "chevron-double-right"
-                }
-              }
-            }
-          },
-          {
-            "disableToolbar": true,
-            "content": {
-              "type": "card-1v5",
-              "title": "更新组件",
-              "body": "编辑组件数据，点击文字或者图片修改，或者通过JSON修改数据",
-              "footer": {
-                "label": "Step 02.",
-                "icon": {
-                  "svg": "chevron-double-right"
-                }
-              }
-            }
-          },
-          {
-            "disableToolbar": true,
-            "content": {
-              "type": "card-1v5",
-              "title": "发布页面",
-              "body": "提交页面到后台，或者复制JSON到后台自定义更新",
-              "footer": {
-                "label": "Step 03.",
-                "icon": {
-                  "svg": "check-all"
-                }
-              }
-            }
-          }
-        ],
-        "actions": [
-          {
-            "disableToolbar": true,
-            "content": {
-              "type": "btn-generater",
-              "label": "生成页面",
-              "color": "primary",
-              "mode": "raised"
-            }
-          }
-        ]
       }
     ]
   }
