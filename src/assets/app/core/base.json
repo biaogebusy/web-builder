@@ -504,9 +504,6 @@
                 "type": "btn-video",
                 "color": "default",
                 "classes": "play-video",
-                "dialog": {
-                  "width": "80vw"
-                },
                 "video": {
                   "type": "player",
                   "options": {
@@ -543,25 +540,25 @@
                 "mode": "raised"
               },
               {
-                "type": "btn-video",
-                "color": "default",
-                "classes": "play-video",
+                "type": "link",
+                "label": "演示视频",
                 "dialog": {
-                  "width": "80vw"
-                },
-                "video": {
-                  "type": "player",
-                  "options": {
-                    "controls": true,
-                    "aspectRatio": "16:9",
-                    "poster": "/assets/storybook/assets/builder.png",
-                    "sources": [
-                      {
-                        "src": "/assets/video/layout-builder-hero-demo.mp4",
-                        "type:": "video/mp4"
+                  "data": [
+                    {
+                      "type": "player",
+                      "options": {
+                        "controls": true,
+                        "aspectRatio": "16:9",
+                        "poster": "/assets/storybook/assets/builder.png",
+                        "sources": [
+                          {
+                            "src": "/assets/video/layout-builder-hero-demo.mp4",
+                            "type:": "video/mp4"
+                          }
+                        ]
                       }
-                    ]
-                  }
+                    }
+                  ]
                 }
               },
               {
