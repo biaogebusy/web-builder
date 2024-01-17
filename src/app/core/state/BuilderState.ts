@@ -250,11 +250,11 @@ export class BuilderState {
       },
       {
         type: 'select',
-        key: 'bgColor',
+        key: 'bgClasses',
         className: 'width-100',
         defaultValue: content?.bg?.classes || 'bg- bg-fill-width',
         templateOptions: {
-          label: '背景色',
+          label: '预设背景色',
           options: [
             {
               label: '无',

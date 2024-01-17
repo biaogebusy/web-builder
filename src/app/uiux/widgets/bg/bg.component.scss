@@ -23,6 +23,7 @@
     pointer-events: none;
   }
   &.overlay-20 {
+    opacity: 0.2;
     &:before {
       opacity: 0.2;
     }
@@ -33,6 +34,7 @@
     }
   }
   &.overlay-40 {
+    opacity: 0.4;
     &:before {
       opacity: 0.4;
     }
@@ -43,6 +45,7 @@
     }
   }
   &.overlay-60 {
+    opacity: 0.6;
     &:before {
       opacity: 0.6;
     }
@@ -53,6 +56,7 @@
     }
   }
   &.overlay-80 {
+    opacity: 0.8;
     &:before {
       opacity: 0.8;
     }

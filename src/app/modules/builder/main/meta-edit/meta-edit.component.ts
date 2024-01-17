@@ -269,13 +269,38 @@ export class MetaEditComponent implements OnInit, OnDestroy, AfterViewInit {
       const { style } = value;
       const imgPath = src.substring(0, src.lastIndexOf('.'));
       for (let key of Object.keys(style)) {
-        if (key === 'maxHeight') {
-          style[key] =
-            style.maxHeight === 'none' ? 'none' : style.maxHeight + 'px';
-        }
-        if (key === 'maxWidth') {
-          style[key] =
-            style.maxWidth === 'none' ? 'none' : style.maxWidth + 'px';
+        switch (key) {
+          case 'height':
+            const height = style.height === 0 ? 'auto' : style.height + 'px';
+            style[key] = height;
+            this.content.ele.style.height = height;
+            break;
+          case 'width':
+            const width = style.width === 0 ? 'auto' : style.width + 'px';
+            style[key] = width;
+            this.content.ele.style.width = width;
+            break;
+          case 'maxHeight':
+            const maxHeight =
+              style.maxHeight === 0 ? 'none' : style.maxHeight + 'px';
+            style[key] = maxHeight;
+            this.content.ele.style.maxHeight = maxHeight;
+            break;
+          case 'maxWidth':
+            const maxWidth =
+              style.maxWidth === 0 ? 'none' : style.maxWidth + 'px';
+            style[key] = maxWidth;
+            this.content.ele.style.maxWidth = maxWidth;
+            break;
+          case 'borderRadius':
+            const borderRadius =
+              style.borderRadius === 0 ? 0 : style.borderRadius + 'px';
+            style[key] = borderRadius;
+            this.content.ele.style.borderRadius = borderRadius;
+            break;
+          default:
+            this.content.ele.style[key] = style[key];
+            break;
         }
       }
       set(this.builder.currentPage.body, `${imgPath}.style`, style);
