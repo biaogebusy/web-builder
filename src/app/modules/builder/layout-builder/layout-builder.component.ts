@@ -182,7 +182,7 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
             i,
             index,
             title: {
-              label: '标题配置',
+              label: '标题',
               style: 'style-v4',
             },
             fields,
