@@ -109,6 +109,7 @@ export class ManageService extends ApiService {
 
   handlerJsonApiParams(value: any): { type: string; params: string } {
     const apiParams = new DrupalJsonApiParams();
+    apiParams.addCustomParam({ noCache: true });
     const { key, type, limit, filter, sort } = value;
 
     if (limit !== undefined) {

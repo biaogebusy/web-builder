@@ -60,6 +60,7 @@ export class ManageMediaComponent implements OnInit {
       this.loading = true;
       this.manageService.deleteMedia(type, id).subscribe((res) => {
         this.loading = false;
+        this.onSearch(this.form.value);
         this.cd.detectChanges();
       });
     }
