@@ -2,7 +2,7 @@
   <mat-drawer-container>
     <mat-drawer mode="side" [opened]="true">
       <div class="sidebar" fxLayout="column" [ngClass]='{"from-static":model.fromStatic}'>
-        <mat-slider [(ngModel)]="coreConfig.manageMedia.row" max="10" min="1" step="1" [thumbLabel]="true"
+        <mat-slider [(ngModel)]="coreConfig.manageMedia.row" max="7" min="4" step="1" [thumbLabel]="true"
           [invert]="true">
         </mat-slider>
         <app-formly *ngIf="coreConfig.manageMedia.sidebar.form" [classes]="'form-field-width-auto'" [form]="form"
