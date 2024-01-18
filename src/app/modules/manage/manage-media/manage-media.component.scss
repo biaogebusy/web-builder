@@ -22,12 +22,27 @@
 }
 
 .inner {
-  height: 80%;
-  overflow: auto;
   padding-left: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  height: 100%;
+  .viewport {
+    width: 100%;
+    flex: 0 1 auto;
+    height: 80%;
+    ::ng-deep {
+      .cdk-virtual-scroll-content-wrapper {
+        flex-wrap: wrap;
+      }
+    }
+  }
 }
 
 .masonry-item {
+  position: relative;
   border: 1px solid transparent;
   cursor: pointer;
   .selected {
@@ -41,6 +56,18 @@
       height: 100%;
       box-sizing: border-box;
       z-index: 2;
+    }
+  }
+  .actions {
+    display: none;
+    position: absolute;
+    left: 4px;
+    top: 4px;
+    z-index: 10;
+  }
+  &:hover {
+    .actions {
+      display: block;
     }
   }
 }

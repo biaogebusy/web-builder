@@ -40,6 +40,13 @@ export class ManageService extends ApiService {
     };
   }
 
+  deleteMedia(path: string, id: string): Observable<any> {
+    return this.http.delete<any>(
+      `${this.apiUrl}${path}/${id}`,
+      this.optionsWithCookieAndToken(this.user.csrf_token)
+    );
+  }
+
   getFeatureBox(item: any, included: any[]): any {
     const iconPath = '/assets/icons';
     const widget = {
