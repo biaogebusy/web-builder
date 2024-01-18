@@ -282,13 +282,13 @@ export class MetaEditComponent implements OnInit, OnDestroy, AfterViewInit {
             break;
           case 'maxHeight':
             const maxHeight =
-              style.maxHeight === 0 ? 'none' : style.maxHeight + 'px';
+              style.maxHeight === 0 ? '100%' : style.maxHeight + 'px';
             style[key] = maxHeight;
             this.content.ele.style.maxHeight = maxHeight;
             break;
           case 'maxWidth':
             const maxWidth =
-              style.maxWidth === 0 ? 'none' : style.maxWidth + 'px';
+              style.maxWidth === 0 ? '100%' : style.maxWidth + 'px';
             style[key] = maxWidth;
             this.content.ele.style.maxWidth = maxWidth;
             break;

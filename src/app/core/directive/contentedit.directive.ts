@@ -44,6 +44,7 @@ export class ContenteditDirective implements AfterViewInit {
                   label: '宽度',
                   min: 0,
                   max: 2000,
+                  step: 2,
                   thumbLabel: true,
                 },
               },
@@ -57,6 +58,7 @@ export class ContenteditDirective implements AfterViewInit {
                   label: '高度',
                   min: 0,
                   max: 2000,
+                  step: 2,
                   thumbLabel: true,
                 },
               },
@@ -65,11 +67,12 @@ export class ContenteditDirective implements AfterViewInit {
                 key: 'maxWidth',
                 className: 'width-100',
                 defaultValue:
-                  parseFloat(ele.style.maxWidth.replace('px', '')) || 'none',
+                  parseFloat(ele.style.maxWidth.replace('px', '')) || '100%',
                 templateOptions: {
                   label: '最大宽度',
                   min: 0,
                   max: 2000,
+                  step: 2,
                   thumbLabel: true,
                 },
               },
@@ -78,11 +81,12 @@ export class ContenteditDirective implements AfterViewInit {
                 key: 'maxHeight',
                 className: 'width-100',
                 defaultValue:
-                  parseFloat(ele.style.maxHeight.replace('px', '')) || 'none',
+                  parseFloat(ele.style.maxHeight.replace('px', '')) || '100%',
                 templateOptions: {
                   label: '最大高度',
                   min: 0,
                   max: 2000,
+                  step: 2,
                   thumbLabel: true,
                 },
               },
@@ -109,8 +113,8 @@ export class ContenteditDirective implements AfterViewInit {
                   label: '圆角',
                   min: 0,
                   max: 500,
+                  step: 2,
                   thumbLabel: true,
-                  step: 1,
                 },
               },
               {

@@ -21,6 +21,7 @@
     background-color: mat-color($background, background);
     color: mat-color($foreground, text);
     .mat-expansion-panel-header-title,
+    .mat-expansion-panel-header-description,
     .mat-expansion-indicator::after {
       color: mat-color($foreground, text, 0.75);
     }
