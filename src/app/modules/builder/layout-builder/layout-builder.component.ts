@@ -62,7 +62,7 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
 
           Object.keys(widget).forEach((config) => {
             if (config) {
-              if (i && index) {
+              if (i >= 0 && index >= 0) {
                 elements[i].elements[index] = defaultsDeep(
                   widget[config],
                   elements[i].elements[index]
