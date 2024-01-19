@@ -339,7 +339,7 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
                             label: '电脑端显示个数',
                             min: 1,
                             max: 10,
-                            step: 1,
+                            step: 0.2,
                             thumbLabel: true,
                           },
                         },
