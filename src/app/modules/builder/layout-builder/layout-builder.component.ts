@@ -13,6 +13,7 @@ import { BuilderState } from '@core/state/BuilderState';
 import { ENABLE_BUILDER_TOOLBAR } from '@core/token/token-providers';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
+import { defaultsDeep } from 'lodash-es';
 import { Subject } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 import { takeUntil } from 'rxjs/operators';
@@ -40,28 +41,17 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
     this.builder.builderLayoutSetting$
       .pipe(takeUntil(this.destroy$))
       .subscribe((data) => {
+        console.log(data);
         const {
           i,
           index,
-          value: { row, flex, title },
+          value: { flex, ...widget },
           uuid,
         } = data;
         if (uuid === this.uuid) {
-          if (row) {
-            const { elements } = this.content;
-            elements[i].row = row;
-          }
-
-          if (title) {
-            const { elements } = this.content;
-            elements[i].elements[index] = {
-              ...elements[i].elements[index],
-              ...title,
-            };
-          }
+          const { elements } = this.content;
 
           if (flex) {
-            const { elements } = this.content;
             const { direction, horizontal, vertical } = flex;
             elements[i].direction = direction;
             elements[i].layoutAlign = `${horizontal.replace(
@@ -69,6 +59,22 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
               ''
             )} ${vertical.replace('flex-', '')}`;
           }
+
+          Object.keys(widget).forEach((config) => {
+            if (config) {
+              if (i && index) {
+                elements[i].elements[index] = defaultsDeep(
+                  widget[config],
+                  elements[i].elements[index]
+                );
+              }
+
+              if (i !== undefined && index === undefined) {
+                elements[i] = defaultsDeep(widget[config], elements[i]);
+              }
+            }
+          });
+
           this.builder.updateComponent(this.pageIndex, this.content);
           this.cd.detectChanges();
         }
@@ -101,8 +107,9 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
 
   onWidgetSetting(i: number, index: number, widget: any): void {
     this.uuid = Date.now().toString();
+    let fields: FormlyFieldConfig[] = [];
     if (widget.type === 'title') {
-      let fields: FormlyFieldConfig[] = [
+      fields = [
         {
           key: 'title',
           fieldGroup: [
@@ -171,27 +178,131 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
           ],
         },
       ];
-      this.builder.builderRightContent$.next({
-        mode: 'push',
-        hasBackdrop: false,
-        style: {
-          width: '260px',
-        },
-        elements: [
-          {
-            type: 'layout-setting',
-            i,
-            index,
-            title: {
-              label: '标题',
-              style: 'style-v4',
-            },
-            fields,
-            uuid: this.uuid,
-          },
-        ],
-      });
+      this.showDrawer(i, index, widget.type, fields);
     }
+    if (widget.type === 'btn-video') {
+      fields = [
+        {
+          key: 'btnVideo',
+          fieldGroup: [
+            {
+              type: 'select',
+              key: 'color',
+              className: 'width-100',
+              defaultValue: widget.color,
+              templateOptions: {
+                label: '颜色',
+                options: [
+                  {
+                    label: '无',
+                    value: undefined,
+                  },
+                  {
+                    label: 'Primary',
+                    value: 'primary',
+                  },
+                  {
+                    label: 'Accent',
+                    value: 'accent',
+                  },
+                  {
+                    label: 'Warn',
+                    value: 'warn',
+                  },
+                ],
+              },
+            },
+            {
+              key: 'video',
+              fieldGroup: [
+                {
+                  key: 'options',
+                  fieldGroup: [
+                    {
+                      type: 'select',
+                      key: 'aspectRatio',
+                      className: 'width-100',
+                      defaultValue: widget.video.options.aspectRatio,
+                      templateOptions: {
+                        label: '播放比例',
+                        options: [
+                          {
+                            label: '16:9',
+                            value: '16:9',
+                          },
+                          {
+                            label: '6:19',
+                            value: '6:19',
+                          },
+                          {
+                            label: '4:3',
+                            value: '4:3',
+                          },
+                          {
+                            label: '1:1',
+                            value: '1:1',
+                          },
+                        ],
+                      },
+                    },
+                    {
+                      key: 'sources',
+                      type: 'repeat',
+                      className: 'width-100',
+                      templateOptions: {
+                        addText: '新增',
+                      },
+                      fieldArray: {
+                        fieldGroup: [
+                          {
+                            key: 'src',
+                            type: 'input',
+                            className: 'width-100',
+                            defaultValue: widget.video.options.sources[0].src,
+                            templateOptions: {
+                              label: '视频地址',
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ];
+      this.showDrawer(i, index, widget.type, fields);
+    }
+  }
+
+  showDrawer(
+    i: number,
+    index: number,
+    label: string,
+    fields: FormlyFieldConfig[]
+  ): void {
+    this.builder.builderRightContent$.next({
+      mode: 'push',
+      hasBackdrop: false,
+      style: {
+        width: '260px',
+      },
+      elements: [
+        {
+          type: 'layout-setting',
+          i,
+          index,
+          title: {
+            label: label,
+            style: 'style-v4',
+          },
+          fields,
+          uuid: this.uuid,
+        },
+      ],
+    });
   }
 
   onMove(de: string, i: number, index: number): void {
@@ -279,8 +390,13 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
     ];
     let fields: FormlyFieldConfig[] = [
       {
-        key: 'row',
-        fieldGroup: responsive,
+        key: 'responsive',
+        fieldGroup: [
+          {
+            key: 'row',
+            fieldGroup: responsive,
+          },
+        ],
       },
       {
         key: 'flex',

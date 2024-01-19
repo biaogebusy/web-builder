@@ -6,7 +6,6 @@ import * as chartStory from '@stories/widgets/chart/ChartBar.stories';
 import * as btnStory from '@stories/base/Btn.stories';
 import * as linkStory from '@stories/base/Link.stories';
 import * as bgImg from '@stories/base/BgImg.stories';
-import * as playerStory from '@stories/feature/media/Player.stories';
 import * as iconStory from '@stories/base/Icon.stories';
 import * as formStory from '@stories/widgets/Form.stories';
 import * as imgStory from '@stories/base/Img.stories';
@@ -31,10 +30,6 @@ import * as spacerStory from '@stories/theme/Spacer.stories';
 export const {
   Horizontal: { args: stepper },
 } = stepperStory;
-
-export const {
-  Default: { args: player },
-} = playerStory;
 
 export const {
   Default: { args: img },
@@ -197,11 +192,6 @@ export const widgets: any[] = [
       svg: 'view-array-outline',
     },
     ...swiper,
-  },
-  {
-    label: '视频',
-    icon: { svg: 'play-box' },
-    ...player,
   },
   {
     label: '表单',

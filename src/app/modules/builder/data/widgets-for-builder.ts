@@ -204,26 +204,6 @@ export const widgets = [
     },
   },
   {
-    label: '视频',
-    icon: {
-      svg: 'play-box',
-    },
-    content: {
-      type: 'player',
-      options: {
-        controls: true,
-        aspectRatio: '16:9',
-        poster: '/assets/video/poster01.png',
-        sources: [
-          {
-            src: '/assets/video/storybook.mp4',
-            type: 'video/mp4',
-          },
-        ],
-      },
-    },
-  },
-  {
     label: '表单',
     icon: {
       svg: 'checkbox-marked-outline',
