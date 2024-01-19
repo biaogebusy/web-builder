@@ -309,7 +309,7 @@ export class BuilderState {
         className: 'width-100',
         defaultValue: content?.bg?.overlay || '',
         templateOptions: {
-          label: '背景不透明度',
+          label: '蒙版不透明度',
           options: [
             {
               label: '无',

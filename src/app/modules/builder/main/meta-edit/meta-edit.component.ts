@@ -270,27 +270,27 @@ export class MetaEditComponent implements OnInit, OnDestroy, AfterViewInit {
       const imgPath = src.substring(0, src.lastIndexOf('.'));
       for (let key of Object.keys(style)) {
         switch (key) {
-          case 'height':
-            const height = style.height === 0 ? 'auto' : style.height + 'px';
-            style[key] = height;
-            this.content.ele.style.height = height;
-            break;
           case 'width':
             const width = style.width === 0 ? 'auto' : style.width + 'px';
             style[key] = width;
             this.content.ele.style.width = width;
             break;
-          case 'maxHeight':
-            const maxHeight =
-              style.maxHeight === 0 ? '100%' : style.maxHeight + 'px';
-            style[key] = maxHeight;
-            this.content.ele.style.maxHeight = maxHeight;
+          case 'height':
+            const height = style.height === 0 ? 'auto' : style.height + 'px';
+            style[key] = height;
+            this.content.ele.style.height = height;
             break;
           case 'maxWidth':
             const maxWidth =
               style.maxWidth === 0 ? '100%' : style.maxWidth + 'px';
             style[key] = maxWidth;
             this.content.ele.style.maxWidth = maxWidth;
+            break;
+          case 'maxHeight':
+            const maxHeight =
+              style.maxHeight === 0 ? '100%' : style.maxHeight + 'px';
+            style[key] = maxHeight;
+            this.content.ele.style.maxHeight = maxHeight;
             break;
           case 'borderRadius':
             const borderRadius =

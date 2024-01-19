@@ -30,4 +30,5 @@ export interface ITextHero {
   theme: string;
   id?: string;
   text: IText;
+  bg?: IBgImg;
 }

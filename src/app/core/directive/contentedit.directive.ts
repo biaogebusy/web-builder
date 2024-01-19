@@ -67,7 +67,7 @@ export class ContenteditDirective implements AfterViewInit {
                 key: 'maxWidth',
                 className: 'width-100',
                 defaultValue:
-                  parseFloat(ele.style.maxWidth.replace('px', '')) || '100%',
+                  parseFloat(ele.style.maxWidth.replace('px', '')) || 0,
                 templateOptions: {
                   label: '最大宽度',
                   min: 0,
@@ -81,7 +81,7 @@ export class ContenteditDirective implements AfterViewInit {
                 key: 'maxHeight',
                 className: 'width-100',
                 defaultValue:
-                  parseFloat(ele.style.maxHeight.replace('px', '')) || '100%',
+                  parseFloat(ele.style.maxHeight.replace('px', '')) || 0,
                 templateOptions: {
                   label: '最大高度',
                   min: 0,
