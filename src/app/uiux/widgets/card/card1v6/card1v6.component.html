@@ -3,9 +3,10 @@
     <h2 class="title bold" [contentedit]="'title.label'" [ngClass]="content.title.classes"
       [innerHTML]="content.title.label|safeHtml"></h2>
     <div class="meta bold m-y-sm" fxLayout="row">
-      <div [contentedit]="'prefix'" class="mat-display-1 m-bottom-0">{{content.prefix}}</div>
-      <div [contentedit]="'number'" class="mat-display-3 m-bottom-0">{{content.number}}</div>
-      <div [contentedit]="'suffix'" class="mat-display-1 m-bottom-0" fxFlexAlign="end">{{content.suffix}}</div>
+      <div [contentedit]="'prefix'" class="mat-display-1 m-bottom-0" [innerHTML]="content.prefix|safeHtml"></div>
+      <div [contentedit]="'number'" class="mat-display-3 m-bottom-0" [innerHTML]="content.number|safeHtml"></div>
+      <div [contentedit]="'suffix'" class="mat-display-1 m-bottom-0" fxFlexAlign="end"
+        [innerHTML]="content.suffix|safeHtml"></div>
     </div>
     <div [contentedit]="'body'" class="content m-bottom-sm" [innerHTML]="content.body|safeHtml"></div>
     <div class="actions" *ngIf="content.actions" fxLayoutGap="1rem"

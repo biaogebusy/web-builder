@@ -59,8 +59,7 @@ const iframeContent: IBtnVideo = {
   type: 'btn-video',
   color: 'primary',
   dialog: {
-    width: '900',
-    height: '800',
+    width: '800px',
   },
   video: {
     type: 'iframe',

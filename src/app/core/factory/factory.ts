@@ -1,7 +1,7 @@
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { ICoreConfig, IPage } from '@core/interface/IAppConfig';
 import { ContentService } from '@core/service/content.service';
-import { Observable, BehaviorSubject, interval, of, Subject } from 'rxjs';
+import { Observable, BehaviorSubject, interval } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ContentState } from '@core/state/ContentState';
 import { LocalStorageService } from 'ngx-webstorage';
@@ -329,7 +329,10 @@ export function mediaAssetsFactory(
     }
     const { type, params } = manageService.handlerJsonApiParams(value);
     nodeService.fetch(type, params).subscribe((res) => {
-      assets$.next(manageService.getFilesToFeatureBox(res));
+      assets$.next({
+        ...manageService.getFilesToFeatureBox(res),
+        type,
+      });
     });
   });
 

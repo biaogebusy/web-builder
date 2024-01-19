@@ -40,6 +40,13 @@ export class ManageService extends ApiService {
     };
   }
 
+  deleteMedia(path: string, id: string): Observable<any> {
+    return this.http.delete<any>(
+      `${this.apiUrl}${path}/${id}`,
+      this.optionsWithCookieAndToken(this.user.csrf_token)
+    );
+  }
+
   getFeatureBox(item: any, included: any[]): any {
     const iconPath = '/assets/icons';
     const widget = {
@@ -102,6 +109,7 @@ export class ManageService extends ApiService {
 
   handlerJsonApiParams(value: any): { type: string; params: string } {
     const apiParams = new DrupalJsonApiParams();
+    apiParams.addCustomParam({ noCache: true });
     const { key, type, limit, filter, sort } = value;
 
     if (limit !== undefined) {

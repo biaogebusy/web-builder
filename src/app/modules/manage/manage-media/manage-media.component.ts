@@ -3,6 +3,7 @@ import {
   OnInit,
   ChangeDetectionStrategy,
   Inject,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ScreenService } from '@core/service/screen.service';
@@ -13,6 +14,7 @@ import type { IManageAssets } from '@core/interface/manage/IManage';
 import { ContentState } from '@core/state/ContentState';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { BuilderState } from '@core/state/BuilderState';
+import { ManageService } from '@core/service/manage.service';
 
 @Component({
   selector: 'app-manage-media',
@@ -23,13 +25,15 @@ import { BuilderState } from '@core/state/BuilderState';
 export class ManageMediaComponent implements OnInit {
   form = new FormGroup({});
   model: any = {};
-  loading = true;
+  loading = false;
   destory$: Subject<boolean> = new Subject<boolean>();
   selectedId: string;
   constructor(
     private screenService: ScreenService,
     private contentState: ContentState,
     private builder: BuilderState,
+    private manageService: ManageService,
+    private cd: ChangeDetectorRef,
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
     @Inject(MEDIA_ASSETS) public mediaAssets$: Observable<IManageAssets>
   ) {}
@@ -49,6 +53,17 @@ export class ManageMediaComponent implements OnInit {
 
   onSearch(value: any): void {
     this.contentState.mediaAssetsFormChange$.next(value);
+  }
+
+  onDelete(id: string, type?: string): void {
+    if (type) {
+      this.loading = true;
+      this.manageService.deleteMedia(type, id).subscribe((res) => {
+        this.loading = false;
+        this.onSearch(this.form.value);
+        this.cd.detectChanges();
+      });
+    }
   }
 
   isSelected(item: any): boolean {

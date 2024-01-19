@@ -13,6 +13,7 @@ import { CORE_CONFIG, USER } from '@core/token/token-providers';
 import type { IApiUrl, ICoreConfig } from '@core/interface/IAppConfig';
 import { API_URL } from '@core/token/token-providers';
 import type { IUser } from '@core/interface/IUser';
+import { UtilitiesService } from './utilities.service';
 @Injectable({
   providedIn: 'root',
 })
@@ -20,6 +21,7 @@ export class NodeService extends ApiService {
   constructor(
     public http: HttpClient,
     public storage: LocalStorageService,
+    private util: UtilitiesService,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
     @Inject(API_URL) public apiBaseUrl: string,
     @Inject(USER) private user: IUser
@@ -454,6 +456,10 @@ export class NodeService extends ApiService {
   }
 
   imageHandler(editor: any) {
+    if (!this.user.authenticated) {
+      this.util.openSnackbar('请登录后上传图片！', 'ok');
+      return;
+    }
     const Imageinput: any = document.createElement('input');
     Imageinput.setAttribute('type', 'file');
     Imageinput.setAttribute(
