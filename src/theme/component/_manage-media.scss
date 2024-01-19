@@ -15,6 +15,9 @@
           border: 3px solid mat-color($primary);
         }
       }
+      .actions {
+        color: mat-color($warn);
+      }
     }
   }
 }

@@ -35,6 +35,7 @@ import { PopupSelectComponent } from './main/popup-select/popup-select.component
 import { LayoutSettingComponent } from './layout-builder/layout-setting/layout-setting.component';
 import { widgets } from './data/widgets-for-builder';
 import { of } from 'rxjs';
+import { BrandingModule } from '@core/branding/branding.module';
 
 const components = [
   BuilderComponent,
@@ -65,6 +66,7 @@ const components = [
     ShareModule,
     MatSidenavModule,
     WidgetsModule,
+    BrandingModule,
     DragDropModule,
     BuilderRoutingModule,
     QuillModule.forRoot(),

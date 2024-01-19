@@ -77,7 +77,8 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
 
   addBlock(row: string, index: number, content: any): void {
     this.dialog.open(DialogComponent, {
-      width: '100vw',
+      width: '700px',
+      position: { bottom: '20px' },
       data: {
         disableCloseButton: true,
         inputData: {
@@ -182,7 +183,7 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
             i,
             index,
             title: {
-              label: '标题配置',
+              label: '标题',
               style: 'style-v4',
             },
             fields,

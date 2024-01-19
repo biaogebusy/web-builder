@@ -1,10 +1,4 @@
 .popup-select {
-  .hover-show {
-    height: 500px;
-    padding: 10px;
-    margin: 10px;
-    overflow: auto;
-  }
   .item {
     position: relative;
     .title {
@@ -17,9 +11,30 @@
     }
     .inner {
       margin: 2px;
-      padding: 16px 6px;
+      padding: 10px 6px;
       border-radius: 4px;
       cursor: pointer;
     }
+  }
+}
+
+.popup {
+  display: none;
+  position: fixed;
+  padding: 15px;
+  border-radius: 4px;
+  width: 460px;
+  height: 380px;
+  overflow: auto;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  box-sizing: border-box;
+  &[data-popper-placement] {
+    display: flex;
+  }
+  .hover-show {
+    width: 100%;
+    transform: scale(0.8);
   }
 }

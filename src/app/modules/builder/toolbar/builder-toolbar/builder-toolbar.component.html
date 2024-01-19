@@ -12,9 +12,10 @@
         <div class="page-title" contenteditable="true" (blur)="onTitle($event)">{{page.title}}</div>
         <div class="time">{{page.time|date:"YYYY-MM-dd HH:mm"}}</div>
       </div>
-      <div class="middle" fxHide.lt-sm="true" fxFlex.lt-md="auto" fxFlex.gt-sm="33%" fxLayoutAlign="center center"
-        fxLayout="row">
+      <div class="middle text-primary" fxHide.lt-sm="true" fxFlex.lt-md="auto" fxFlex.gt-sm="33%"
+        fxLayoutAlign="center center" fxLayout="row">
         <app-switch-preview></app-switch-preview>
+        <app-switch-theme></app-switch-theme>
       </div>
       <div id="toolbar-right" class="right" fxFlex.lt-md="auto" fxFlex.gt-sm="33%" fxLayoutAlign="end center"
         fxLayoutGap="0.5rem">
@@ -30,10 +31,11 @@
           [content]="{label:'', color:builder.showRightDrawer?'primary' : 'warn', mode: 'icon' ,icon:{svg:'dock-right' } }"></app-btn>
         <app-btn fxHide.xs="true" [matTooltip]="'媒体库'" (click)="onSelectAssets()"
           [content]="{label:'', mode: 'icon' ,icon:{svg:'image-search-outline' } }"></app-btn>
-        <app-switch-theme></app-switch-theme>
         <app-btn-generater [content]="{label:'快速生成',color:'primary', mode: 'raised' }"></app-btn-generater>
+        <ng-container *ngIf="branding$|async as branding">
+          <app-user-menu *ngIf="branding.header?.params?.userInfo" [content]="branding.header.userMenu"></app-user-menu>
+        </ng-container>
         <app-builder-menu></app-builder-menu>
-
       </div>
     </div>
     <mat-divider></mat-divider>

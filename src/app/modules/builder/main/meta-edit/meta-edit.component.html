@@ -1,7 +1,9 @@
 <div class="meta-edit" *ngIf="content">
   <app-title [content]="{label:content.data.tag,style:'style-v4'}"></app-title>
   <div class="img-section" *ngIf="content.mode === 'img'">
-    <div class="meta" fxLayout="row" fxLayoutAlign="start center">
+    <app-formly *ngIf="content.fields" [fields]="content.fields" [model]="model"
+      (modelChange)="onModelChange($event)"></app-formly>
+    <div class="meta m-top-sm" fxLayout="row" fxLayoutAlign="start center">
       <img src="{{content.data.src}}" alt="">
       <div class="content" fxLayout="column">
         <div class="title">{{content.data.fileName}}</div>

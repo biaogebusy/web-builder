@@ -75,16 +75,16 @@ export class DynamicComponentComponent
         if (this.uuid === uuid) {
           console.log(data);
           let content: any = {};
-          if (value.bgColor) {
+          if (value.bgClasses) {
             content = defaultsDeep(
               {
                 bg: {
-                  classes: value.bgColor,
+                  classes: value.bgClasses,
                 },
               },
               this.inputs.content
             );
-            delete value.bgColor;
+            delete value.bgClasses;
           }
           if (value.overlay) {
             content = defaultsDeep(
@@ -93,7 +93,7 @@ export class DynamicComponentComponent
                   overlay: value.overlay,
                 },
               },
-              this.inputs.content
+              content
             );
             delete value.overlay;
           }
