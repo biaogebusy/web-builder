@@ -178,7 +178,6 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
           ],
         },
       ];
-      this.showDrawer(i, index, widget.type, fields);
     }
     if (widget.type === 'btn-video') {
       fields = [
@@ -273,8 +272,122 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
           ],
         },
       ];
-      this.showDrawer(i, index, widget.type, fields);
     }
+    if (widget.type === 'swiper') {
+      fields = [
+        {
+          key: 'swiper',
+          fieldGroup: [
+            {
+              key: 'params',
+              fieldGroup: [
+                {
+                  key: 'slidesPerView',
+                  type: 'slider',
+                  defaultValue: widget.params.slidesPerView,
+                  templateOptions: {
+                    label: '默认显示个数',
+                    min: 1,
+                    max: 10,
+                    step: 1,
+                    thumbLabel: true,
+                  },
+                },
+                {
+                  key: 'breakpoints',
+                  fieldGroup: [
+                    {
+                      key: '600',
+                      fieldGroup: [
+                        {
+                          key: 'slidesPerView',
+                          type: 'slider',
+                          defaultValue:
+                            widget.params.breakpoints[600].slidesPerView,
+                          templateOptions: {
+                            label: '移动端显示个数',
+                            min: 1,
+                            max: 10,
+                            step: 0.2,
+                            thumbLabel: true,
+                          },
+                        },
+                        {
+                          key: 'spaceBetween',
+                          type: 'slider',
+                          defaultValue:
+                            widget.params.breakpoints[600].spaceBetween || 0,
+                          templateOptions: {
+                            label: '移动端间隔',
+                            min: 1,
+                            max: 100,
+                            step: 1,
+                            thumbLabel: true,
+                          },
+                        },
+                      ],
+                    },
+                    {
+                      key: '960',
+                      fieldGroup: [
+                        {
+                          key: 'slidesPerView',
+                          type: 'slider',
+                          defaultValue:
+                            widget.params.breakpoints[960].slidesPerView,
+                          templateOptions: {
+                            label: '电脑端显示个数',
+                            min: 1,
+                            max: 10,
+                            step: 1,
+                            thumbLabel: true,
+                          },
+                        },
+                        {
+                          key: 'spaceBetween',
+                          type: 'slider',
+                          defaultValue:
+                            widget.params.breakpoints[960].spaceBetween || 0,
+                          templateOptions: {
+                            label: '电脑端间隔',
+                            min: 1,
+                            max: 100,
+                            step: 1,
+                            thumbLabel: true,
+                          },
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  key: 'spaceBetween',
+                  type: 'slider',
+                  defaultValue: widget.params.spaceBetween || 0,
+                  templateOptions: {
+                    label: '间隔',
+                    min: 1,
+                    max: 100,
+                    step: 1,
+                    thumbLabel: true,
+                  },
+                },
+                {
+                  key: 'navigation',
+                  type: 'toggle',
+                  defaultValue: widget.params.navigation || false,
+                  templateOptions: {
+                    label: '导航',
+                  },
+                },
+              ],
+            },
+          ],
+        },
+      ];
+    }
+
+    this.showDrawer(i, index, widget.type, fields);
   }
 
   showDrawer(
