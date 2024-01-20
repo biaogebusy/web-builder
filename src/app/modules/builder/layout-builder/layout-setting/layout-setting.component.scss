@@ -109,5 +109,22 @@
         }
       }
     }
+    .section-group {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 10px;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+    .mat-form-field-infix {
+      width: auto;
+      .mat-slider-horizontal {
+        min-width: 90px;
+      }
+    }
+    formly-field {
+      width: 100%;
+    }
   }
 }

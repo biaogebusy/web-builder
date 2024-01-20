@@ -71,6 +71,7 @@ const base: FormlyFieldConfig[] = [
     },
   },
   {
+    className: 'width-100 m-bottom-md',
     template: '<div><strong>地址:</strong></div>',
   },
   {

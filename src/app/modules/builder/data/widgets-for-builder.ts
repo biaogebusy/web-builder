@@ -94,8 +94,6 @@ export const widgets = [
     content: {
       type: 'swiper',
       params: {
-        slidesPerView: 3,
-        spaceBetween: 20,
         navigation: false,
         breakpoints: {
           '600': {
