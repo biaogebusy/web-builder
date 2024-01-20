@@ -177,6 +177,71 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
                 ],
               },
             },
+            {
+              key: 'typed',
+              fieldGroup: [
+                {
+                  key: 'enable',
+                  type: 'toggle',
+                  defaultValue: widget?.typed?.enable || false,
+                  templateOptions: {
+                    label: '开启打字效果',
+                  },
+                },
+                {
+                  key: 'config',
+                  fieldGroup: [
+                    {
+                      key: 'loop',
+                      type: 'toggle',
+                      defaultValue: widget?.typed?.config?.loop,
+                      templateOptions: {
+                        label: '循环',
+                      },
+                    },
+                    {
+                      key: 'typeSpeed',
+                      type: 'slider',
+                      defaultValue: widget?.typed?.config?.typeSpeed || 120,
+                      templateOptions: {
+                        label: '速度',
+                        min: 10,
+                        max: 1000,
+                        step: 2,
+                      },
+                      expressionProperties: {
+                        'templateOptions.label': '"速度: " + model.typeSpeed',
+                      },
+                    },
+                  ],
+                },
+                {
+                  key: 'strings',
+                  type: 'repeat',
+                  defaultValue: widget?.typed?.strings || [
+                    { label: 'web builder' },
+                  ],
+                  fieldArray: {
+                    fieldGroup: [
+                      {
+                        key: 'label',
+                        type: 'input',
+                        defaultValue:
+                          widget?.typed?.strings[0]['label'] || 'web builder',
+                        modelOptions: {
+                          debounce: {
+                            default: 2000,
+                          },
+                        },
+                        templateOptions: {
+                          label: '文字',
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
           ],
         },
       ];
@@ -247,8 +312,21 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
                       },
                     },
                     {
+                      template: `<img class="m-bottom-sm" src="${widget.video.options.poster}" height="50" width="auto" >`,
+                    },
+                    {
+                      key: 'poster',
+                      type: 'input',
+                      className: 'width-100',
+                      defaultValue: widget.video.options.poster,
+                      templateOptions: {
+                        label: '视频封面',
+                      },
+                    },
+                    {
                       key: 'sources',
                       type: 'repeat',
+                      defaultValue: widget.video.options.sources,
                       className: 'width-100',
                       templateOptions: {
                         addText: '新增',

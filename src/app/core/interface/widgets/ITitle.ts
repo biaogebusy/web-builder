@@ -12,7 +12,7 @@ export interface ITitle {
   icon?: string;
   typed?: {
     enable: boolean;
-    string: string[];
+    strings: { label: string }[];
     config: any;
   };
 }

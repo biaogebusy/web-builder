@@ -86,7 +86,7 @@ const type: ITitle = {
   classes: 'mat-display-2 bold',
   typed: {
     enable: true,
-    string: ['信使 UI', 'Web builder'],
+    strings: [{ label: '信使 UI' }, { label: 'Web builder' }],
     config: {
       typeSpeed: 120,
       loop: true,
