@@ -41,11 +41,13 @@ export class ContenteditDirective implements AfterViewInit {
                 defaultValue: parseFloat(ele.style.width.replace('px')) || 0,
                 className: 'width-100',
                 templateOptions: {
-                  label: '宽度',
                   min: 0,
                   max: 2000,
                   step: 2,
                   thumbLabel: true,
+                },
+                expressionProperties: {
+                  'templateOptions.label': '"宽度: " + model.width + "px"',
                 },
               },
               {
@@ -55,11 +57,13 @@ export class ContenteditDirective implements AfterViewInit {
                 defaultValue:
                   parseFloat(ele.style.height.replace('px', '')) || 0,
                 templateOptions: {
-                  label: '高度',
                   min: 0,
                   max: 2000,
                   step: 2,
                   thumbLabel: true,
+                },
+                expressionProperties: {
+                  'templateOptions.label': '"高度: " + model.height + "px"',
                 },
               },
               {
@@ -69,11 +73,14 @@ export class ContenteditDirective implements AfterViewInit {
                 defaultValue:
                   parseFloat(ele.style.maxWidth.replace('px', '')) || 0,
                 templateOptions: {
-                  label: '最大宽度',
                   min: 0,
                   max: 2000,
                   step: 2,
                   thumbLabel: true,
+                },
+                expressionProperties: {
+                  'templateOptions.label':
+                    '"最大宽度: " + model.maxWidth + "px"',
                 },
               },
               {
@@ -89,6 +96,10 @@ export class ContenteditDirective implements AfterViewInit {
                   step: 2,
                   thumbLabel: true,
                 },
+                expressionProperties: {
+                  'templateOptions.label':
+                    '"最大高度: " + model.maxHeight + "px"',
+                },
               },
               {
                 type: 'slider',
@@ -96,11 +107,14 @@ export class ContenteditDirective implements AfterViewInit {
                 className: 'width-100',
                 defaultValue: ele.style.opacity || 1,
                 templateOptions: {
-                  label: '不透明度',
                   min: 0,
                   max: 1,
                   thumbLabel: true,
                   step: 0.1,
+                },
+                expressionProperties: {
+                  'templateOptions.label':
+                    '"不透明度: " + model.opacity + "px"',
                 },
               },
               {
@@ -110,11 +124,14 @@ export class ContenteditDirective implements AfterViewInit {
                 defaultValue:
                   parseFloat(ele.style.borderRadius.replace('px', '')) || 0,
                 templateOptions: {
-                  label: '圆角',
                   min: 0,
                   max: 500,
                   step: 2,
                   thumbLabel: true,
+                },
+                expressionProperties: {
+                  'templateOptions.label':
+                    '"圆角: " + model.borderRadius + "px"',
                 },
               },
               {

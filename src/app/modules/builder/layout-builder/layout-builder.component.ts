@@ -581,10 +581,12 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
         className: 'width-100',
         defaultValue: layout.row.xs,
         templateOptions: {
-          label: '移动端',
           min: 1,
           max: 12,
           thumbLabel: true,
+        },
+        expressionProperties: {
+          'templateOptions.label': '"移动端: " + model.xs + " 栏"',
         },
       },
       {
@@ -593,10 +595,12 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
         className: 'width-100',
         defaultValue: layout.row.sm,
         templateOptions: {
-          label: '平板电脑',
           min: 1,
           max: 12,
           thumbLabel: true,
+        },
+        expressionProperties: {
+          'templateOptions.label': '"平板电脑: " + model.sm + " 栏"',
         },
       },
       {
@@ -605,10 +609,12 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
         className: 'width-100',
         defaultValue: layout.row.md,
         templateOptions: {
-          label: '桌面电脑',
           min: 1,
           max: 12,
           thumbLabel: true,
+        },
+        expressionProperties: {
+          'templateOptions.label': '"桌面电脑: " + model.md + " 栏"',
         },
       },
       {
@@ -617,10 +623,12 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
         className: 'width-100',
         defaultValue: layout.row.lg,
         templateOptions: {
-          label: '超大桌面',
           min: 1,
           max: 12,
           thumbLabel: true,
+        },
+        expressionProperties: {
+          'templateOptions.label': '"超大桌面: " + model.lg + " 栏"',
         },
       },
     ];
@@ -754,7 +762,7 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
           type: 'layout-setting',
           i,
           title: {
-            label: '响应式配置',
+            label: `第${i + 1}列响应式配置`,
             style: 'style-v4',
           },
           fields,
