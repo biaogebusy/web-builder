@@ -767,7 +767,8 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
       },
       {
         key: 'flex',
-        className: 'layout-setting',
+        className: 'layout-setting width-100',
+        fieldGroupClassName: 'display-flex flex-wrap width-100',
         fieldGroup: [
           {
             className: 'width-100 m-bottom-md',
