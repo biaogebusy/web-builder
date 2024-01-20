@@ -366,17 +366,37 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
                   template: '<h2>参数</h2>',
                 },
                 {
+                  type: 'select',
+                  key: 'direction',
+                  className: 'width-100',
+                  defaultValue: widget.params?.direction || 'horizontal',
+                  templateOptions: {
+                    label: '方向',
+                    options: [
+                      {
+                        label: '水平方向',
+                        value: 'horizontal',
+                      },
+                      {
+                        label: '垂直方向',
+                        value: 'vertical',
+                      },
+                    ],
+                  },
+                },
+                {
                   key: 'breakpoints',
                   className: 'width-100',
                   fieldGroup: [
                     {
                       key: '600',
+                      className: 'width-100',
                       fieldGroupClassName: 'section-group',
                       fieldGroup: [
                         {
                           key: 'slidesPerView',
                           type: 'slider',
-                          className: 'width-100',
+                          className: 'width-40',
                           defaultValue:
                             widget.params.breakpoints[600].slidesPerView,
                           templateOptions: {
@@ -393,7 +413,7 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
                         {
                           key: 'spaceBetween',
                           type: 'slider',
-                          className: 'width-100',
+                          className: 'width-40',
                           defaultValue:
                             widget.params.breakpoints[600].spaceBetween || 0,
                           templateOptions: {
@@ -412,12 +432,13 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
                     },
                     {
                       key: '960',
+                      className: 'width-100',
                       fieldGroupClassName: 'section-group',
                       fieldGroup: [
                         {
                           key: 'slidesPerView',
                           type: 'slider',
-                          className: 'width-100',
+                          className: 'width-40',
                           defaultValue:
                             widget.params.breakpoints[960].slidesPerView,
                           templateOptions: {
@@ -434,7 +455,7 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
                         {
                           key: 'spaceBetween',
                           type: 'slider',
-                          className: 'width-100',
+                          className: 'width-40',
                           defaultValue:
                             widget.params.breakpoints[960].spaceBetween || 0,
                           templateOptions: {
@@ -510,22 +531,63 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
                   template: '<h2>功能</h2>',
                 },
                 {
-                  type: 'select',
-                  key: 'direction',
+                  key: 'pagination',
+                  defaultValue: widget.params.pagination,
+                  fieldGroupClassName: 'section-group',
+                  fieldGroup: [
+                    {
+                      key: 'paginationEnable',
+                      type: 'toggle',
+                      className: 'width-100',
+                      defaultValue: widget.params.pagination || false,
+                      templateOptions: {
+                        label: '页码',
+                      },
+                    },
+                    {
+                      key: 'type',
+                      type: 'select',
+                      className: 'width-40',
+                      templateOptions: {
+                        label: '类型',
+                        options: [
+                          {
+                            label: 'bullets',
+                            value: 'bullets',
+                          },
+                          {
+                            label: 'progressbar',
+                            value: 'progressbar',
+                          },
+                          {
+                            label: 'fraction',
+                            value: 'fraction',
+                          },
+                        ],
+                      },
+                      hideExpression: '!model.paginationEnable',
+                    },
+                    {
+                      key: 'clickable',
+                      type: 'toggle',
+                      templateOptions: {
+                        className: 'width-40',
+                        label: '可点击',
+                      },
+                      expressionProperties: {
+                        'templateOptions.disabled': 'model.type !== "bullets"',
+                      },
+                      hideExpression: '!model.paginationEnable',
+                    },
+                  ],
+                },
+                {
+                  key: 'navigation',
+                  type: 'toggle',
                   className: 'width-100',
-                  defaultValue: widget.params?.direction || 'horizontal',
+                  defaultValue: widget.params.navigation || false,
                   templateOptions: {
-                    label: '方向',
-                    options: [
-                      {
-                        label: '水平方向',
-                        value: 'horizontal',
-                      },
-                      {
-                        label: '垂直方向',
-                        value: 'vertical',
-                      },
-                    ],
+                    label: '左右箭头',
                   },
                 },
                 {
@@ -544,23 +606,6 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
                   defaultValue: widget.params.loop || false,
                   templateOptions: {
                     label: '循环',
-                  },
-                },
-                {
-                  key: 'navigation',
-                  type: 'toggle',
-                  className: 'width-100',
-                  defaultValue: widget.params.navigation || false,
-                  templateOptions: {
-                    label: '导航',
-                  },
-                },
-                {
-                  key: 'pagination',
-                  type: 'toggle',
-                  defaultValue: widget.params.pagination || false,
-                  templateOptions: {
-                    label: '页码',
                   },
                 },
                 {

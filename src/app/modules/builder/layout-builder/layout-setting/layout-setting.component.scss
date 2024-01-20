@@ -111,6 +111,7 @@
     }
     .section-group {
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-between;
       gap: 14px;
       padding: 10px;
@@ -120,11 +121,8 @@
     .mat-form-field-infix {
       width: auto;
       .mat-slider-horizontal {
-        min-width: 90px;
+        min-width: 80px;
       }
-    }
-    formly-field {
-      width: 100%;
     }
   }
 }
