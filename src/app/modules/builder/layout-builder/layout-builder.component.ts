@@ -112,132 +112,148 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
       fields = [
         {
           key: 'title',
-          fieldGroupClassName: 'width-100',
+          type: 'tabs',
           fieldGroup: [
             {
-              type: 'select',
-              key: 'style',
-              className: 'width-100',
-              defaultValue: widget.style,
               templateOptions: {
-                label: '风格',
-                options: [
-                  {
-                    label: '无',
-                    value: 'none',
-                  },
-                  {
-                    label: 'V1',
-                    value: 'style-v1',
-                  },
-                  {
-                    label: 'V3',
-                    value: 'style-v3',
-                  },
-                  {
-                    label: 'V4',
-                    value: 'style-v4',
-                  },
-                  {
-                    label: 'V5',
-                    value: 'style-v5',
-                  },
-                ],
+                label: '样式',
               },
-            },
-            {
-              type: 'select',
-              key: 'classes',
-              className: 'width-100',
-              defaultValue: widget.classes,
-              templateOptions: {
-                label: '大小',
-                options: [
-                  {
-                    label: '无',
-                    value: '',
-                  },
-                  {
-                    label: '1级',
-                    value: 'mat-display-1 bold',
-                  },
-                  {
-                    label: '2级',
-                    value: 'mat-display-2 bold',
-                  },
-                  {
-                    label: '3级',
-                    value: 'mat-display-3 bold',
-                  },
-                  {
-                    label: '4级',
-                    value: 'mat-display-4 bold',
-                  },
-                ],
-              },
-            },
-            {
-              key: 'typed',
               fieldGroup: [
                 {
-                  key: 'enable',
-                  type: 'toggle',
-                  defaultValue: widget?.typed?.enable || false,
+                  type: 'select',
+                  key: 'style',
+                  className: 'width-100',
+                  defaultValue: widget.style,
                   templateOptions: {
-                    label: '开启打字效果',
-                  },
-                },
-                {
-                  key: 'config',
-                  fieldGroup: [
-                    {
-                      key: 'loop',
-                      type: 'toggle',
-                      defaultValue: widget?.typed?.config?.loop,
-                      templateOptions: {
-                        label: '循环',
-                      },
-                    },
-                    {
-                      key: 'typeSpeed',
-                      type: 'slider',
-                      defaultValue: widget?.typed?.config?.typeSpeed || 120,
-                      templateOptions: {
-                        label: '速度',
-                        min: 10,
-                        max: 1000,
-                        step: 2,
-                      },
-                      expressionProperties: {
-                        'templateOptions.label': '"速度: " + model.typeSpeed',
-                      },
-                    },
-                  ],
-                },
-                {
-                  key: 'strings',
-                  type: 'repeat',
-                  defaultValue: widget?.typed?.strings || [
-                    { label: 'web builder' },
-                  ],
-                  fieldArray: {
-                    fieldGroup: [
+                    label: '风格',
+                    options: [
                       {
-                        key: 'label',
-                        type: 'input',
-                        defaultValue:
-                          widget?.typed?.strings[0]['label'] || 'web builder',
-                        modelOptions: {
-                          debounce: {
-                            default: 2000,
-                          },
-                        },
-                        templateOptions: {
-                          label: '文字',
-                        },
+                        label: '无',
+                        value: 'none',
+                      },
+                      {
+                        label: 'V1',
+                        value: 'style-v1',
+                      },
+                      {
+                        label: 'V3',
+                        value: 'style-v3',
+                      },
+                      {
+                        label: 'V4',
+                        value: 'style-v4',
+                      },
+                      {
+                        label: 'V5',
+                        value: 'style-v5',
                       },
                     ],
                   },
+                },
+                {
+                  type: 'select',
+                  key: 'classes',
+                  className: 'width-100',
+                  defaultValue: widget.classes,
+                  templateOptions: {
+                    label: '大小',
+                    options: [
+                      {
+                        label: '无',
+                        value: '',
+                      },
+                      {
+                        label: '1级',
+                        value: 'mat-display-1 bold',
+                      },
+                      {
+                        label: '2级',
+                        value: 'mat-display-2 bold',
+                      },
+                      {
+                        label: '3级',
+                        value: 'mat-display-3 bold',
+                      },
+                      {
+                        label: '4级',
+                        value: 'mat-display-4 bold',
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+            {
+              templateOptions: {
+                label: '打字效果',
+              },
+              fieldGroup: [
+                {
+                  key: 'typed',
+                  fieldGroup: [
+                    {
+                      key: 'enable',
+                      type: 'toggle',
+                      defaultValue: widget?.typed?.enable || false,
+                      templateOptions: {
+                        label: '开启打字效果',
+                      },
+                    },
+                    {
+                      key: 'config',
+                      fieldGroup: [
+                        {
+                          key: 'loop',
+                          type: 'toggle',
+                          defaultValue: widget?.typed?.config?.loop,
+                          templateOptions: {
+                            label: '循环',
+                          },
+                        },
+                        {
+                          key: 'typeSpeed',
+                          type: 'slider',
+                          defaultValue: widget?.typed?.config?.typeSpeed || 120,
+                          templateOptions: {
+                            label: '速度',
+                            min: 10,
+                            max: 1000,
+                            step: 2,
+                          },
+                          expressionProperties: {
+                            'templateOptions.label':
+                              '"速度: " + model.typeSpeed',
+                          },
+                        },
+                      ],
+                    },
+                    {
+                      key: 'strings',
+                      type: 'repeat',
+                      defaultValue: widget?.typed?.strings || [
+                        { label: 'web builder' },
+                      ],
+                      fieldArray: {
+                        fieldGroup: [
+                          {
+                            key: 'label',
+                            type: 'input',
+                            defaultValue:
+                              widget?.typed?.strings[0]['label'] ||
+                              'web builder',
+                            modelOptions: {
+                              debounce: {
+                                default: 2000,
+                              },
+                            },
+                            templateOptions: {
+                              label: '文字',
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  ],
                 },
               ],
             },
@@ -356,14 +372,14 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
       fields = [
         {
           key: 'swiper',
+          type: 'tabs',
           fieldGroup: [
             {
               key: 'params',
+              templateOptions: {
+                label: '参数',
+              },
               fieldGroup: [
-                {
-                  className: 'width-100 m-bottom-mmd',
-                  template: '<h2>参数</h2>',
-                },
                 {
                   type: 'select',
                   key: 'direction',
@@ -473,10 +489,14 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
                     },
                   ],
                 },
-                {
-                  className: 'width-100 m-bottom-mmd',
-                  template: '<h2>特效</h2>',
-                },
+              ],
+            },
+            {
+              key: 'params',
+              templateOptions: {
+                label: '特效',
+              },
+              fieldGroup: [
                 {
                   key: 'effect',
                   type: 'select',
@@ -525,10 +545,14 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
                       '"转场时长: " + model.speed + " 毫秒"',
                   },
                 },
-                {
-                  className: 'width-100 m-bottom-mmd',
-                  template: '<h2>功能</h2>',
-                },
+              ],
+            },
+            {
+              key: 'params',
+              templateOptions: {
+                label: '功能',
+              },
+              fieldGroup: [
                 {
                   key: 'pagination',
                   defaultValue: widget.params.pagination,
