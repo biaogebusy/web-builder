@@ -132,6 +132,14 @@ export class BuilderState {
     return this.version[currentIndex] || this.version[0];
   }
 
+  setCurrentPage(page: IPage): void {
+    const currentIndex = this.version.findIndex(
+      (page) => page.current === true
+    );
+    this.version[currentIndex] = page;
+    this.storage.store(this.versionKey, Object.assign([], this.version));
+  }
+
   upDownComponent(index: number, direction: string) {
     const { body } = this.currentPage;
     if (direction === 'up') {

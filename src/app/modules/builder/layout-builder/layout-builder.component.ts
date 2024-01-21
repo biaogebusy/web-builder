@@ -633,7 +633,9 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
       ];
     }
 
-    this.showDrawer(i, index, widget.type, fields);
+    if (fields.length > 0) {
+      this.showDrawer(i, index, widget.type, fields);
+    }
   }
 
   showDrawer(

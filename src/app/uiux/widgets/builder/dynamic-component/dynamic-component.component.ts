@@ -58,16 +58,6 @@ export class DynamicComponentComponent
   ) {}
 
   ngOnInit(): void {
-    this.builder.jsoneditorContent$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((data) => {
-        const { content, uuid } = data;
-        if (this.uuid === uuid) {
-          this.inputs = content;
-          this.loadComponent();
-        }
-      });
-
     this.builder.builderLayoutSetting$
       .pipe(takeUntil(this.destroy$))
       .subscribe((data) => {
