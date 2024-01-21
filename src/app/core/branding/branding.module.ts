@@ -49,6 +49,7 @@ import { ManageSidebarComponent } from './manage-sidebar/manage-sidebar.componen
     FooterComponent,
     MenuComponent,
     ManageSidebarComponent,
+    UserMenuComponent,
   ],
 })
 export class BrandingModule {}

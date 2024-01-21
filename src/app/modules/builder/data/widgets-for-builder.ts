@@ -20,7 +20,10 @@ export const widgets = [
     content: {
       type: 'text',
       spacer: 'none',
-      body: '信使UI是基于 Material 的 Angular 前端框架， 丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。基于Angular Material UI，支持SSR，多应用，后端可根据实际情况自由配置，可自定义开发、新增组件库。',
+      animate: {
+        disable: true,
+      },
+      body: '信使UI是基于 Material 的 Angular 前端框架，丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。',
     },
   },
   {
@@ -69,7 +72,7 @@ export const widgets = [
     },
     content: {
       type: 'spacer',
-      size: 'md',
+      size: 'sm',
     },
   },
   {
@@ -91,8 +94,6 @@ export const widgets = [
     content: {
       type: 'swiper',
       params: {
-        slidesPerView: 3,
-        spaceBetween: 20,
         navigation: false,
         breakpoints: {
           '600': {
@@ -201,26 +202,6 @@ export const widgets = [
     },
   },
   {
-    label: '视频',
-    icon: {
-      svg: 'play-box',
-    },
-    content: {
-      type: 'player',
-      options: {
-        controls: true,
-        aspectRatio: '16:9',
-        poster: '/assets/video/poster01.png',
-        sources: [
-          {
-            src: '/assets/video/storybook.mp4',
-            type: 'video/mp4',
-          },
-        ],
-      },
-    },
-  },
-  {
     label: '表单',
     icon: {
       svg: 'checkbox-marked-outline',
@@ -249,6 +230,7 @@ export const widgets = [
           },
         },
         {
+          className: 'width-100 m-bottom-md',
           template: '<div><strong>地址:</strong></div>',
         },
         {
@@ -438,9 +420,9 @@ export const widgets = [
       dataset: {
         source: [
           ['红包预算', '2020', '2021', '2022'],
-          ['第一季度', 4746, 8913, 7970],
-          ['第二季度', 7047, 9336, 3099],
-          ['第三季度', 4325, 3673, 9082],
+          ['第一季度', 5744, 5266, 9896],
+          ['第二季度', 8526, 7716, 7606],
+          ['第三季度', 9541, 8074, 9796],
         ],
       },
       xAxis: {
@@ -492,25 +474,25 @@ export const widgets = [
       elements: [
         {
           module: 'Slick Carousel',
-          tatol: 7106,
+          tatol: 2369,
           info: 'Slick 轮播，强大响应式且性能优异的图片轮播解决方案，有非常丰富的配置选项，slick 官网自己调侃这是你最后使用的图片轮播',
           remarks: '查看',
         },
         {
           module: 'Views Slideshow',
-          tatol: 3607,
+          tatol: 2066,
           info: '视图轮播模块，该模块是最受欢迎的幻灯片模块，可放任何内容，高度定制\t',
           remarks: '查看',
         },
         {
           module: 'Colorbox',
-          tatol: 3401,
+          tatol: 2630,
           info: '轻量级高可定制幻灯片模块，高度集成在 Drupal 中，可放图片，Iframed 或者在线内容等等\t',
           remarks: '查看',
         },
         {
           module: 'Flex Slider',
-          tatol: 6756,
+          tatol: 6101,
           info: '响应式、可调整大小、适配浏览器和移动设备，支持移动设备手势滑动\t',
           remarks: '查看',
         },
@@ -805,7 +787,7 @@ export const widgets = [
             src: '../assets/images/showcase/blog1-large.jpeg',
             alt: '',
           },
-          changed: '2024-01-16',
+          changed: '2024-01-21',
         },
         {
           link: {
@@ -816,29 +798,29 @@ export const widgets = [
             src: '../assets/images/showcase/blog2-large.jpeg',
             alt: '',
           },
-          changed: '2024-01-16',
+          changed: '2024-01-21',
         },
         {
           link: {
             label: '你应该了解的 Angular 最佳实践',
-            href: '2024-01-16',
+            href: '2024-01-21',
           },
           img: {
             src: '../assets/images/showcase/blog3-large.jpeg',
             alt: '',
           },
-          changed: '2024-01-16',
+          changed: '2024-01-21',
         },
         {
           link: {
             label: 'Angular 5 rxjs 5.5.2 多个 http 并行 forkJoin 请求',
-            href: '2024-01-16',
+            href: '2024-01-21',
           },
           img: {
             src: '../assets/images/showcase/blog4-large.jpeg',
             alt: '',
           },
-          changed: '2024-01-16',
+          changed: '2024-01-21',
         },
       ],
     },

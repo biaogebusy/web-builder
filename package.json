@@ -1,6 +1,6 @@
 {
   "name": "xinshi",
-  "version": "4.2.3",
+  "version": "4.2.4",
   "homepage": "https://github.com/biaogebusy/xinshi-ui",
   "scripts": {
     "ng": "ng",
@@ -47,6 +47,7 @@
     "@ngx-loading-bar/core": "5.1.2",
     "@ngx-loading-bar/http-client": "5.1.2",
     "@ngx-loading-bar/router": "5.1.2",
+    "@popperjs/core": "^2.11.8",
     "ang-jsoneditor": "1.10.5",
     "angular-count-to": "^0.0.3",
     "angulartics2": "^10.0.0",

@@ -15,10 +15,11 @@ import { BuilderState } from '@core/state/BuilderState';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { get, set } from 'lodash-es';
 import { QuillModule } from 'ngx-quill';
-import { Subject } from 'rxjs/internal/Subject';
 import { takeUntil } from 'rxjs/operators';
 import * as dat from 'dat.gui';
 import type { IMetaEdit } from '@core/interface/IBuilder';
+import { FormGroup } from '@angular/forms';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-meta-edit',
@@ -27,6 +28,8 @@ import type { IMetaEdit } from '@core/interface/IBuilder';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MetaEditComponent implements OnInit, OnDestroy, AfterViewInit {
+  form = new FormGroup({});
+  model: any = {};
   @Input() content: IMetaEdit;
   @ViewChild('guiStyle', { static: false }) guiStyle: ElementRef;
   @ViewChild('guiSize', { static: false }) guiSize: ElementRef;
@@ -258,6 +261,54 @@ export class MetaEditComponent implements OnInit, OnDestroy, AfterViewInit {
       this.builder.saveLocalVersions();
     }, 600);
     this.cd.detectChanges();
+  }
+
+  onModelChange(value: any) {
+    if (this.content.mode === 'img') {
+      const src = this.content.path;
+      const { style } = value;
+      const imgPath = src.substring(0, src.lastIndexOf('.'));
+      for (let key of Object.keys(style)) {
+        switch (key) {
+          case 'width':
+            const width = style.width === 0 ? 'auto' : style.width + 'px';
+            style[key] = width;
+            this.content.ele.style.width = width;
+            break;
+          case 'height':
+            const height = style.height === 0 ? 'auto' : style.height + 'px';
+            style[key] = height;
+            this.content.ele.style.height = height;
+            break;
+          case 'maxWidth':
+            const maxWidth =
+              style.maxWidth === 0 ? '100%' : style.maxWidth + 'px';
+            style[key] = maxWidth;
+            this.content.ele.style.maxWidth = maxWidth;
+            break;
+          case 'maxHeight':
+            const maxHeight =
+              style.maxHeight === 0 ? '100%' : style.maxHeight + 'px';
+            style[key] = maxHeight;
+            this.content.ele.style.maxHeight = maxHeight;
+            break;
+          case 'borderRadius':
+            const borderRadius =
+              style.borderRadius === 0 ? 0 : style.borderRadius + 'px';
+            style[key] = borderRadius;
+            this.content.ele.style.borderRadius = borderRadius;
+            break;
+          default:
+            this.content.ele.style[key] = style[key];
+            break;
+        }
+      }
+      set(this.builder.currentPage.body, `${imgPath}.style`, style);
+      this.builder.saveLocalVersions();
+      setTimeout(() => {
+        this.cd.detectChanges();
+      }, 600);
+    }
   }
 
   ngOnDestroy(): void {

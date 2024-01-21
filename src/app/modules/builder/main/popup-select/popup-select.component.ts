@@ -4,14 +4,14 @@ import {
   Inject,
   Input,
   OnInit,
+  ViewChild,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import type { ILayoutBlock, IPopupSelect } from '@core/interface/IBuilder';
 import { BuilderState } from '@core/state/BuilderState';
 import { WIDGETS } from '@core/token/token-providers';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { widgets } from '../../data/widgets-for-builder';
-
+import { Observable, Subject } from 'rxjs';
+import { createPopper } from '@popperjs/core';
 @Component({
   selector: 'app-popup-select',
   templateUrl: './popup-select.component.html',
@@ -20,9 +20,8 @@ import { widgets } from '../../data/widgets-for-builder';
 })
 export class PopupSelectComponent implements OnInit {
   @Input() content: IPopupSelect;
-  public widget$: Subject<any> = new BehaviorSubject({
-    ...widgets[0].content,
-  });
+  @ViewChild('popup') popup: any;
+  public widget$: Subject<any> = new Subject();
   constructor(
     private builder: BuilderState,
     @Inject(WIDGETS) public widgets$: Observable<any[]>,
@@ -46,6 +45,7 @@ export class PopupSelectComponent implements OnInit {
           lg: 4,
         },
         classes: '',
+        style: '',
         direction: 'column',
         layoutAlign: 'center center',
         elements: [widget.content],
@@ -57,7 +57,19 @@ export class PopupSelectComponent implements OnInit {
     this.dialog.closeAll();
   }
 
-  onHover(widget: any): void {
+  onHover(widget: any, ele: any): void {
     this.widget$.next(widget.content);
+    createPopper(ele, this.popup.nativeElement, {
+      placement: 'top',
+      strategy: 'fixed',
+      modifiers: [
+        {
+          name: 'offset',
+          options: {
+            offset: [0, 20],
+          },
+        },
+      ],
+    });
   }
 }

@@ -132,6 +132,14 @@ export class BuilderState {
     return this.version[currentIndex] || this.version[0];
   }
 
+  setCurrentPage(page: IPage): void {
+    const currentIndex = this.version.findIndex(
+      (page) => page.current === true
+    );
+    this.version[currentIndex] = page;
+    this.storage.store(this.versionKey, Object.assign([], this.version));
+  }
+
   upDownComponent(index: number, direction: string) {
     const { body } = this.currentPage;
     if (direction === 'up') {
@@ -250,11 +258,11 @@ export class BuilderState {
       },
       {
         type: 'select',
-        key: 'bgColor',
+        key: 'bgClasses',
         className: 'width-100',
         defaultValue: content?.bg?.classes || 'bg- bg-fill-width',
         templateOptions: {
-          label: '背景色',
+          label: '预设背景色',
           options: [
             {
               label: '无',
@@ -309,7 +317,7 @@ export class BuilderState {
         className: 'width-100',
         defaultValue: content?.bg?.overlay || '',
         templateOptions: {
-          label: '背景不透明度',
+          label: '蒙版不透明度',
           options: [
             {
               label: '无',

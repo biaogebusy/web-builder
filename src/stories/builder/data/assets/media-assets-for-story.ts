@@ -8,6 +8,7 @@ import { images_illustration } from './illustration';
 import { images_logos } from './logos';
 import { images_mobiles } from './mobiles';
 import { images_others } from './others';
+import { images_products } from './products';
 import { images_showcases } from './showcases';
 import { images_svgs } from './svgs';
 
@@ -21,6 +22,7 @@ export const mediaAssets = {
     ...images_1_1,
     ...images_16_9,
     ...images_bg,
+    ...images_products,
     ...images_svgs,
     ...images_logos,
     ...images_mobiles,

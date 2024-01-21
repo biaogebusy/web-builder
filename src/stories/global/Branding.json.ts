@@ -24,7 +24,7 @@ export const defaultHeader: IHeader = {
             svg: 'tooltip-check-outline',
             inline: true,
           },
-          label: 'v4.2.1',
+          label: 'v4.2.3',
         },
         {
           icon: {
@@ -136,45 +136,6 @@ export const defaultHeader: IHeader = {
     key: 'title',
   },
   userMenu: [
-    {
-      label: '发布问题',
-      icon: {
-        name: 'edit',
-      },
-      dialog: {
-        content: {
-          type: 'dynamic-form',
-          form: [
-            {
-              type: 'input',
-              key: 'title',
-              label: '标题',
-              placeholder: '请输入问题',
-              params: {
-                required: true,
-              },
-              errorMes: '问题必填',
-            },
-            {
-              type: 'textarea',
-              key: 'body',
-              label: '问题描述',
-              placeholder: '请输入问题描述（可选）',
-            },
-          ],
-        },
-        actions: [
-          {
-            label: '发布问题',
-            color: 'primary',
-            params: {
-              type: 'question',
-              snackMes: '您的问题已经发布',
-            },
-          },
-        ],
-      },
-    },
     {
       label: '问题列表',
       href: '/questions',

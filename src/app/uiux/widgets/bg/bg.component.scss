@@ -26,40 +26,20 @@
     &:before {
       opacity: 0.2;
     }
-    ::ng-deep {
-      .img-wrapper {
-        opacity: 0.2;
-      }
-    }
   }
   &.overlay-40 {
     &:before {
       opacity: 0.4;
-    }
-    ::ng-deep {
-      .img-wrapper {
-        opacity: 0.4;
-      }
     }
   }
   &.overlay-60 {
     &:before {
       opacity: 0.6;
     }
-    ::ng-deep {
-      .img-wrapper {
-        opacity: 0.6;
-      }
-    }
   }
   &.overlay-80 {
     &:before {
       opacity: 0.8;
-    }
-    ::ng-deep {
-      .img-wrapper {
-        opacity: 0.8;
-      }
     }
   }
 }

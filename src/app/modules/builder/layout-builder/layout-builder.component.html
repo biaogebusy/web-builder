@@ -8,7 +8,7 @@
         fxFlex.sm="0 0 calc(100% / {{12 / layout.row.sm}})" fxFlex.md="0 0 calc(100% / {{12 / layout.row.md}})"
         fxFlex.lg="0 0 calc(100% / {{12 / layout.row.lg}})" fxFlex.gt-lg="0 0 calc(100% / {{12 / layout.row.lg}})"
         [ngClass]="layout.classes" *ngFor="let layout of content.elements;index as i" [attr.data-path]="'elements.'+i">
-        <div class="block" [fxLayout]="layout.direction" [fxLayoutAlign]="layout.layoutAlign">
+        <div class="block" [fxLayout]="layout.direction" [fxLayoutAlign]="layout.layoutAlign" [ngStyle]="layout.style">
           <div class="block-toolbar" *ngIf="enable_toolbar$ | async">
             <app-btn matTooltip="新增组件到当前列" (click)="addBlock('down',i,content)"
               [content]="{label:'', mode: 'icon',icon:{svg:'image-plus' } }"></app-btn>

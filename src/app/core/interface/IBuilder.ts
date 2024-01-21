@@ -63,6 +63,7 @@ export interface ILayoutBuilder extends ICombsBase {
 
 export interface ILayoutBlock {
   classes: any;
+  style: any;
   row: {
     [key: string]: number;
   };
@@ -95,4 +96,5 @@ export interface IMetaEdit {
   path: string;
   ele: HTMLElement | EventTarget | any | null;
   mode: 'img' | 'text';
+  fields?: FormlyFieldConfig[];
 }
