@@ -902,6 +902,9 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
                 },
               },
               {
+                template: `<div class="section-divider"></div>`,
+              },
+              {
                 type: 'slider',
                 key: 'paddingTop',
                 className: 'width-100',
@@ -967,6 +970,73 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
                     '"Padding left: " + model.paddingLeft',
                 },
               },
+              {
+                template: `<div class="section-divider"></div>`,
+              },
+              {
+                type: 'slider',
+                key: 'marginTop',
+                className: 'width-100',
+                defaultValue: layout?.style?.marginTop?.replace('px', '') || 0,
+                templateOptions: {
+                  min: -200,
+                  max: 100,
+                  step: 5,
+                  thumbLabel: true,
+                },
+                expressionProperties: {
+                  'templateOptions.label': '"Margin top: " + model.marginTop',
+                },
+              },
+              {
+                type: 'slider',
+                key: 'marginRight',
+                className: 'width-100',
+                defaultValue:
+                  layout?.style?.marginRight?.replace('px', '') || 0,
+                templateOptions: {
+                  min: -200,
+                  max: 100,
+                  step: 5,
+                  thumbLabel: true,
+                },
+                expressionProperties: {
+                  'templateOptions.label':
+                    '"Margin right: " + model.marginRight',
+                },
+              },
+              {
+                type: 'slider',
+                key: 'marginBottom',
+                className: 'width-100',
+                defaultValue:
+                  layout?.style?.marginBottom?.replace('px', '') || 0,
+                templateOptions: {
+                  min: -200,
+                  max: 100,
+                  step: 5,
+                  thumbLabel: true,
+                },
+                expressionProperties: {
+                  'templateOptions.label':
+                    '"Margin bottom: " + model.marginBottom',
+                },
+              },
+              {
+                type: 'slider',
+                key: 'marginLeft',
+                className: 'width-100',
+                defaultValue: layout?.style?.marginLeft?.replace('px', '') || 0,
+                templateOptions: {
+                  min: -200,
+                  max: 100,
+                  step: 5,
+                  thumbLabel: true,
+                },
+                expressionProperties: {
+                  'templateOptions.label': '"Margin left: " + model.marginLeft',
+                },
+              },
             ],
           },
         ],
@@ -981,6 +1051,10 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
                 paddingRight: styles.style['paddingRight'] + 'px',
                 paddingBottom: styles.style['paddingBottom'] + 'px',
                 paddingLeft: styles.style['paddingLeft'] + 'px',
+                marginTop: styles.style['marginTop'] + 'px',
+                marginRight: styles.style['marginRight'] + 'px',
+                marginBottom: styles.style['marginBottom'] + 'px',
+                marginLeft: styles.style['marginLeft'] + 'px',
               };
             });
           },
