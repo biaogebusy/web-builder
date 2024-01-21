@@ -45,6 +45,7 @@ export class PopupSelectComponent implements OnInit {
           lg: 4,
         },
         classes: '',
+        style: '',
         direction: 'column',
         layoutAlign: 'center center',
         elements: [widget.content],

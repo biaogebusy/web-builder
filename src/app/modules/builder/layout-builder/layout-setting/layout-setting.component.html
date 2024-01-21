@@ -1,5 +1,5 @@
 <div class="layout-setting">
-  <app-title [content]="content.title"></app-title>
+  <app-title *ngIf="content.title" [content]="content.title"></app-title>
   <app-formly [fields]="content.fields" [model]="model" (modelChange)="onModelChange($event)"></app-formly>
 
   <div class="bg-img-section m-y-md" *ngIf="content.content?.bg">

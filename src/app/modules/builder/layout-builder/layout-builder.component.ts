@@ -41,7 +41,6 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
     this.builder.builderLayoutSetting$
       .pipe(takeUntil(this.destroy$))
       .subscribe((data) => {
-        console.log(data);
         const {
           i,
           index,
@@ -69,7 +68,7 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
                 );
               }
 
-              if (i !== undefined && index === undefined) {
+              if (i >= 0 && index === undefined) {
                 elements[i] = defaultsDeep(widget[config], elements[i]);
               }
             }
@@ -701,72 +700,73 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
     this.uuid = Date.now().toString();
     let responsive: FormlyFieldConfig[] = [
       {
-        type: 'slider',
-        key: 'xs',
-        className: 'width-100',
-        defaultValue: layout.row.xs,
-        templateOptions: {
-          min: 1,
-          max: 12,
-          thumbLabel: true,
-        },
-        expressionProperties: {
-          'templateOptions.label': '"移动端: " + model.xs + " 栏"',
-        },
-      },
-      {
-        type: 'slider',
-        key: 'sm',
-        className: 'width-100',
-        defaultValue: layout.row.sm,
-        templateOptions: {
-          min: 1,
-          max: 12,
-          thumbLabel: true,
-        },
-        expressionProperties: {
-          'templateOptions.label': '"平板电脑: " + model.sm + " 栏"',
-        },
-      },
-      {
-        type: 'slider',
-        key: 'md',
-        className: 'width-100',
-        defaultValue: layout.row.md,
-        templateOptions: {
-          min: 1,
-          max: 12,
-          thumbLabel: true,
-        },
-        expressionProperties: {
-          'templateOptions.label': '"桌面电脑: " + model.md + " 栏"',
-        },
-      },
-      {
-        type: 'slider',
-        key: 'lg',
-        className: 'width-100',
-        defaultValue: layout.row.lg,
-        templateOptions: {
-          min: 1,
-          max: 12,
-          thumbLabel: true,
-        },
-        expressionProperties: {
-          'templateOptions.label': '"超大桌面: " + model.lg + " 栏"',
-        },
-      },
-    ];
-    let fields: FormlyFieldConfig[] = [
-      {
         key: 'responsive',
         fieldGroup: [
           {
             key: 'row',
-            fieldGroup: responsive,
+            fieldGroup: [
+              {
+                type: 'slider',
+                key: 'xs',
+                className: 'width-100',
+                defaultValue: layout.row.xs,
+                templateOptions: {
+                  min: 1,
+                  max: 12,
+                  thumbLabel: true,
+                },
+                expressionProperties: {
+                  'templateOptions.label': '"移动端: " + model.xs + " 栏"',
+                },
+              },
+              {
+                type: 'slider',
+                key: 'sm',
+                className: 'width-100',
+                defaultValue: layout.row.sm,
+                templateOptions: {
+                  min: 1,
+                  max: 12,
+                  thumbLabel: true,
+                },
+                expressionProperties: {
+                  'templateOptions.label': '"平板电脑: " + model.sm + " 栏"',
+                },
+              },
+              {
+                type: 'slider',
+                key: 'md',
+                className: 'width-100',
+                defaultValue: layout.row.md,
+                templateOptions: {
+                  min: 1,
+                  max: 12,
+                  thumbLabel: true,
+                },
+                expressionProperties: {
+                  'templateOptions.label': '"桌面电脑: " + model.md + " 栏"',
+                },
+              },
+              {
+                type: 'slider',
+                key: 'lg',
+                className: 'width-100',
+                defaultValue: layout.row.lg,
+                templateOptions: {
+                  min: 1,
+                  max: 12,
+                  thumbLabel: true,
+                },
+                expressionProperties: {
+                  'templateOptions.label': '"超大桌面: " + model.lg + " 栏"',
+                },
+              },
+            ],
           },
         ],
       },
+    ];
+    let flexLayout: FormlyFieldConfig[] = [
       {
         key: 'flex',
         className: 'layout-setting width-100',
@@ -876,6 +876,136 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
         ],
       },
     ];
+    let styles: FormlyFieldConfig[] = [
+      {
+        key: 'styles',
+        className: 'width-100',
+        fieldGroup: [
+          {
+            key: 'style',
+            className: 'width-100',
+            fieldGroupClassName: 'display-flex flex-wrap width-100',
+            fieldGroup: [
+              {
+                key: 'backgroundColor',
+                className: 'width-100',
+                type: 'input',
+                defaultValue: layout?.style?.backgroundColor || '#ffffff',
+                templateOptions: {
+                  type: 'color',
+                  label: '背景色',
+                },
+                modelOptions: {
+                  debounce: {
+                    default: 500,
+                  },
+                },
+              },
+              {
+                type: 'slider',
+                key: 'paddingTop',
+                className: 'width-100',
+                defaultValue: layout?.style?.paddingTop?.replace('px', '') || 0,
+                templateOptions: {
+                  min: 5,
+                  max: 100,
+                  step: 5,
+                  thumbLabel: true,
+                },
+                expressionProperties: {
+                  'templateOptions.label': '"Padding top: " + model.paddingTop',
+                },
+              },
+              {
+                type: 'slider',
+                key: 'paddingRight',
+                className: 'width-100',
+                defaultValue:
+                  layout?.style?.paddingRight?.replace('px', '') || 0,
+                templateOptions: {
+                  min: 5,
+                  max: 100,
+                  step: 5,
+                  thumbLabel: true,
+                },
+                expressionProperties: {
+                  'templateOptions.label':
+                    '"Padding right: " + model.paddingRight',
+                },
+              },
+              {
+                type: 'slider',
+                key: 'paddingBottom',
+                className: 'width-100',
+                defaultValue:
+                  layout?.style?.paddingBottom?.replace('px', '') || 0,
+                templateOptions: {
+                  min: 5,
+                  max: 100,
+                  step: 5,
+                  thumbLabel: true,
+                },
+                expressionProperties: {
+                  'templateOptions.label':
+                    '"Padding bottom: " + model.paddingBottom',
+                },
+              },
+              {
+                type: 'slider',
+                key: 'paddingLeft',
+                className: 'width-100',
+                defaultValue:
+                  layout?.style?.paddingLeft?.replace('px', '') || 0,
+                templateOptions: {
+                  min: 5,
+                  max: 100,
+                  step: 5,
+                  thumbLabel: true,
+                },
+                expressionProperties: {
+                  'templateOptions.label':
+                    '"Padding left: " + model.paddingLeft',
+                },
+              },
+            ],
+          },
+        ],
+        hooks: {
+          onInit: (formGroup: any) => {
+            const { form, model } = formGroup;
+            form.valueChanges.subscribe((value: any) => {
+              const { styles } = value;
+              model.style = {
+                ...model.style,
+                paddingTop: styles.style['paddingTop'] + 'px',
+                paddingRight: styles.style['paddingRight'] + 'px',
+                paddingBottom: styles.style['paddingBottom'] + 'px',
+                paddingLeft: styles.style['paddingLeft'] + 'px',
+              };
+            });
+          },
+        },
+      },
+    ];
+    let fields: FormlyFieldConfig[] = [
+      {
+        type: 'tabs',
+        fieldGroup: [
+          {
+            templateOptions: {
+              label: '基础配置',
+            },
+            fieldGroup: [...responsive, ...flexLayout],
+          },
+          {
+            templateOptions: {
+              label: '样式',
+            },
+            fieldGroup: [...styles],
+          },
+        ],
+      },
+    ];
 
     this.builder.builderRightContent$.next({
       mode: 'push',
@@ -887,10 +1017,6 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
         {
           type: 'layout-setting',
           i,
-          title: {
-            label: `第${i + 1}列响应式配置`,
-            style: 'style-v4',
-          },
           fields,
           uuid: this.uuid,
         },

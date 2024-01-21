@@ -170,9 +170,9 @@ const componey: IProfile1v1 = {
   },
   avatar: {
     src: '/assets/images/logo/lenovo.svg',
-    alt: '联想集团',
+    alt: '才华有限公司',
   },
-  name: '联想集团',
+  name: '才华有限公司',
   actions: [
     {
       type: 'btn',
@@ -222,7 +222,7 @@ const componey: IProfile1v1 = {
       label: '简介',
       type: 'text',
       spacer: 'none',
-      body: '<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. </p>At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
+      body: '<p>才华有限公司，宛如一座汇聚智慧星光的灯塔，我们秉持“人尽其才，文以载道”的信念，悠游于浩瀚的人才海洋。公司专注于挖掘并点亮个体的内在光芒，精心编织了一张横跨各行业的文艺经纬，为每一颗璀璨的才华之星提供翱翔的舞台。我们凭借深厚的艺术底蕴和敏锐的时代洞察力，倾心打造定制化的培养方案，旨在让每一份独特的才华在此诗意绽放，共同谱绘一幅生机盎然的职场画卷。</p>',
     },
     {
       type: 'showcase-2v1',
