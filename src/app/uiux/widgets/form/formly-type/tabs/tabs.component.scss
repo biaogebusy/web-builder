@@ -1,0 +1,10 @@
+.tabs-type {
+  ::ng-deep {
+    .mat-tab-labels {
+      .mat-tab-label {
+        min-width: auto;
+        width: 100%;
+      }
+    }
+  }
+}

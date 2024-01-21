@@ -63,6 +63,7 @@ export interface ILayoutBuilder extends ICombsBase {
 
 export interface ILayoutBlock {
   classes: any;
+  style: any;
   row: {
     [key: string]: number;
   };

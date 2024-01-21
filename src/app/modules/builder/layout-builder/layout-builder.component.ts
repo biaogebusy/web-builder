@@ -13,6 +13,7 @@ import { BuilderState } from '@core/state/BuilderState';
 import { ENABLE_BUILDER_TOOLBAR } from '@core/token/token-providers';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
+import { defaultsDeep } from 'lodash-es';
 import { Subject } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 import { takeUntil } from 'rxjs/operators';
@@ -43,25 +44,13 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
         const {
           i,
           index,
-          value: { row, flex, title },
+          value: { flex, ...widget },
           uuid,
         } = data;
         if (uuid === this.uuid) {
-          if (row) {
-            const { elements } = this.content;
-            elements[i].row = row;
-          }
-
-          if (title) {
-            const { elements } = this.content;
-            elements[i].elements[index] = {
-              ...elements[i].elements[index],
-              ...title,
-            };
-          }
+          const { elements } = this.content;
 
           if (flex) {
-            const { elements } = this.content;
             const { direction, horizontal, vertical } = flex;
             elements[i].direction = direction;
             elements[i].layoutAlign = `${horizontal.replace(
@@ -69,6 +58,22 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
               ''
             )} ${vertical.replace('flex-', '')}`;
           }
+
+          Object.keys(widget).forEach((config) => {
+            if (config) {
+              if (i >= 0 && index >= 0) {
+                elements[i].elements[index] = defaultsDeep(
+                  widget[config],
+                  elements[i].elements[index]
+                );
+              }
+
+              if (i >= 0 && index === undefined) {
+                elements[i] = defaultsDeep(widget[config], elements[i]);
+              }
+            }
+          });
+
           this.builder.updateComponent(this.pageIndex, this.content);
           this.cd.detectChanges();
         }
@@ -101,97 +106,587 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
 
   onWidgetSetting(i: number, index: number, widget: any): void {
     this.uuid = Date.now().toString();
+    let fields: FormlyFieldConfig[] = [];
+    // TODO: 函数统一处理
     if (widget.type === 'title') {
-      let fields: FormlyFieldConfig[] = [
+      fields = [
         {
           key: 'title',
+          type: 'tabs',
           fieldGroup: [
             {
-              type: 'select',
-              key: 'style',
-              className: 'width-100',
-              defaultValue: widget.style,
               templateOptions: {
-                label: '风格',
-                options: [
-                  {
-                    label: '无',
-                    value: 'none',
-                  },
-                  {
-                    label: 'V1',
-                    value: 'style-v1',
-                  },
-                  {
-                    label: 'V3',
-                    value: 'style-v3',
-                  },
-                  {
-                    label: 'V4',
-                    value: 'style-v4',
-                  },
-                  {
-                    label: 'V5',
-                    value: 'style-v5',
-                  },
-                ],
+                label: '样式',
               },
+              fieldGroup: [
+                {
+                  type: 'select',
+                  key: 'style',
+                  className: 'width-100',
+                  defaultValue: widget.style,
+                  templateOptions: {
+                    label: '风格',
+                    options: [
+                      {
+                        label: '无',
+                        value: 'none',
+                      },
+                      {
+                        label: 'V1',
+                        value: 'style-v1',
+                      },
+                      {
+                        label: 'V3',
+                        value: 'style-v3',
+                      },
+                      {
+                        label: 'V4',
+                        value: 'style-v4',
+                      },
+                      {
+                        label: 'V5',
+                        value: 'style-v5',
+                      },
+                    ],
+                  },
+                },
+                {
+                  type: 'select',
+                  key: 'classes',
+                  className: 'width-100',
+                  defaultValue: widget.classes,
+                  templateOptions: {
+                    label: '大小',
+                    options: [
+                      {
+                        label: '无',
+                        value: '',
+                      },
+                      {
+                        label: '1级',
+                        value: 'mat-display-1 bold',
+                      },
+                      {
+                        label: '2级',
+                        value: 'mat-display-2 bold',
+                      },
+                      {
+                        label: '3级',
+                        value: 'mat-display-3 bold',
+                      },
+                      {
+                        label: '4级',
+                        value: 'mat-display-4 bold',
+                      },
+                    ],
+                  },
+                },
+              ],
             },
             {
-              type: 'select',
-              key: 'classes',
-              className: 'width-100',
-              defaultValue: widget.classes,
               templateOptions: {
-                label: '大小',
-                options: [
-                  {
-                    label: '无',
-                    value: '',
-                  },
-                  {
-                    label: '1级',
-                    value: 'mat-display-1 bold',
-                  },
-                  {
-                    label: '2级',
-                    value: 'mat-display-2 bold',
-                  },
-                  {
-                    label: '3级',
-                    value: 'mat-display-3 bold',
-                  },
-                  {
-                    label: '4级',
-                    value: 'mat-display-4 bold',
-                  },
-                ],
+                label: '打字效果',
               },
+              fieldGroup: [
+                {
+                  key: 'typed',
+                  fieldGroup: [
+                    {
+                      key: 'enable',
+                      type: 'toggle',
+                      defaultValue: widget?.typed?.enable || false,
+                      templateOptions: {
+                        label: '开启打字效果',
+                      },
+                    },
+                    {
+                      key: 'config',
+                      fieldGroup: [
+                        {
+                          key: 'loop',
+                          type: 'toggle',
+                          defaultValue: widget?.typed?.config?.loop,
+                          templateOptions: {
+                            label: '循环',
+                          },
+                        },
+                        {
+                          key: 'typeSpeed',
+                          type: 'slider',
+                          defaultValue: widget?.typed?.config?.typeSpeed || 120,
+                          templateOptions: {
+                            label: '速度',
+                            min: 10,
+                            max: 1000,
+                            step: 2,
+                          },
+                          expressionProperties: {
+                            'templateOptions.label':
+                              '"速度: " + model.typeSpeed',
+                          },
+                        },
+                      ],
+                    },
+                    {
+                      key: 'strings',
+                      type: 'repeat',
+                      defaultValue: widget?.typed?.strings || [
+                        { label: 'web builder' },
+                      ],
+                      fieldArray: {
+                        fieldGroup: [
+                          {
+                            key: 'label',
+                            type: 'input',
+                            defaultValue:
+                              widget?.typed?.strings[0]['label'] ||
+                              'web builder',
+                            modelOptions: {
+                              debounce: {
+                                default: 2000,
+                              },
+                            },
+                            templateOptions: {
+                              label: '文字',
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              ],
             },
           ],
         },
       ];
-      this.builder.builderRightContent$.next({
-        mode: 'push',
-        hasBackdrop: false,
-        style: {
-          width: '260px',
-        },
-        elements: [
-          {
-            type: 'layout-setting',
-            i,
-            index,
-            title: {
-              label: '标题',
-              style: 'style-v4',
-            },
-            fields,
-            uuid: this.uuid,
-          },
-        ],
-      });
     }
+    if (widget.type === 'btn-video') {
+      fields = [
+        {
+          key: 'btnVideo',
+          fieldGroup: [
+            {
+              type: 'select',
+              key: 'color',
+              className: 'width-100',
+              defaultValue: widget.color,
+              templateOptions: {
+                label: '颜色',
+                options: [
+                  {
+                    label: '无',
+                    value: undefined,
+                  },
+                  {
+                    label: 'Primary',
+                    value: 'primary',
+                  },
+                  {
+                    label: 'Accent',
+                    value: 'accent',
+                  },
+                  {
+                    label: 'Warn',
+                    value: 'warn',
+                  },
+                ],
+              },
+            },
+            {
+              key: 'video',
+              fieldGroup: [
+                {
+                  key: 'options',
+                  fieldGroup: [
+                    {
+                      type: 'select',
+                      key: 'aspectRatio',
+                      className: 'width-100',
+                      defaultValue: widget.video.options.aspectRatio,
+                      templateOptions: {
+                        label: '播放比例',
+                        options: [
+                          {
+                            label: '16:9',
+                            value: '16:9',
+                          },
+                          {
+                            label: '6:19',
+                            value: '6:19',
+                          },
+                          {
+                            label: '4:3',
+                            value: '4:3',
+                          },
+                          {
+                            label: '1:1',
+                            value: '1:1',
+                          },
+                        ],
+                      },
+                    },
+                    {
+                      template: `<img class="m-bottom-sm" src="${widget.video.options.poster}" height="50" width="auto" >`,
+                    },
+                    {
+                      key: 'poster',
+                      type: 'input',
+                      className: 'width-100',
+                      defaultValue: widget.video.options.poster,
+                      templateOptions: {
+                        label: '视频封面',
+                      },
+                    },
+                    {
+                      key: 'sources',
+                      type: 'repeat',
+                      defaultValue: widget.video.options.sources,
+                      className: 'width-100',
+                      templateOptions: {
+                        addText: '新增',
+                      },
+                      fieldArray: {
+                        fieldGroup: [
+                          {
+                            key: 'src',
+                            type: 'input',
+                            className: 'width-100',
+                            defaultValue: widget.video.options.sources[0].src,
+                            templateOptions: {
+                              label: '视频地址',
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ];
+    }
+    if (widget.type === 'swiper') {
+      fields = [
+        {
+          key: 'swiper',
+          type: 'tabs',
+          fieldGroup: [
+            {
+              key: 'params',
+              templateOptions: {
+                label: '参数',
+              },
+              fieldGroup: [
+                {
+                  type: 'select',
+                  key: 'direction',
+                  className: 'width-100',
+                  defaultValue: widget.params?.direction || 'horizontal',
+                  templateOptions: {
+                    label: '方向',
+                    options: [
+                      {
+                        label: '水平方向',
+                        value: 'horizontal',
+                      },
+                      {
+                        label: '垂直方向',
+                        value: 'vertical',
+                      },
+                    ],
+                  },
+                },
+                {
+                  key: 'breakpoints',
+                  className: 'width-100',
+                  fieldGroup: [
+                    {
+                      key: '600',
+                      className: 'width-100',
+                      fieldGroupClassName: 'section-group',
+                      fieldGroup: [
+                        {
+                          key: 'slidesPerView',
+                          type: 'slider',
+                          className: 'width-40',
+                          defaultValue:
+                            widget.params.breakpoints[600].slidesPerView,
+                          templateOptions: {
+                            min: 1,
+                            max: 10,
+                            step: 0.2,
+                            thumbLabel: true,
+                          },
+                          expressionProperties: {
+                            'templateOptions.label':
+                              '"移动端显示: " + model.slidesPerView',
+                          },
+                        },
+                        {
+                          key: 'spaceBetween',
+                          type: 'slider',
+                          className: 'width-40',
+                          defaultValue:
+                            widget.params.breakpoints[600].spaceBetween || 0,
+                          templateOptions: {
+                            min: 1,
+                            max: 100,
+                            step: 1,
+                            thumbLabel: true,
+                          },
+                          hideExpression: 'model.slidesPerView <= 1',
+                          expressionProperties: {
+                            'templateOptions.label':
+                              '"间隔: " + model.spaceBetween + "px"',
+                          },
+                        },
+                      ],
+                    },
+                    {
+                      key: '960',
+                      className: 'width-100',
+                      fieldGroupClassName: 'section-group',
+                      fieldGroup: [
+                        {
+                          key: 'slidesPerView',
+                          type: 'slider',
+                          className: 'width-40',
+                          defaultValue:
+                            widget.params.breakpoints[960].slidesPerView,
+                          templateOptions: {
+                            min: 1,
+                            max: 10,
+                            step: 0.2,
+                            thumbLabel: true,
+                          },
+                          expressionProperties: {
+                            'templateOptions.label':
+                              '"电脑端显示: " + model.slidesPerView',
+                          },
+                        },
+                        {
+                          key: 'spaceBetween',
+                          type: 'slider',
+                          className: 'width-40',
+                          defaultValue:
+                            widget.params.breakpoints[960].spaceBetween || 0,
+                          templateOptions: {
+                            min: 1,
+                            max: 100,
+                            step: 1,
+                            thumbLabel: true,
+                          },
+                          hideExpression: 'model.slidesPerView <= 1',
+                          expressionProperties: {
+                            'templateOptions.label':
+                              '"间隔: " + model.spaceBetween + "px"',
+                          },
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              key: 'params',
+              templateOptions: {
+                label: '特效',
+              },
+              fieldGroup: [
+                {
+                  key: 'effect',
+                  type: 'select',
+                  className: 'width-100',
+                  defaultValue: widget.params.effect || 'slide',
+                  templateOptions: {
+                    label: `特效`,
+                    options: [
+                      {
+                        label: '默认',
+                        value: 'slide',
+                      },
+                      {
+                        label: 'Fade',
+                        value: 'fade',
+                      },
+                      {
+                        label: 'Cube',
+                        value: 'cube',
+                      },
+                      {
+                        label: 'Coverflow',
+                        value: 'coverflow',
+                      },
+                      {
+                        label: 'Fip',
+                        value: 'flip',
+                      },
+                    ],
+                  },
+                },
+                {
+                  key: 'speed',
+                  type: 'slider',
+                  className: 'width-100',
+                  defaultValue: widget.params.speed || 300,
+                  templateOptions: {
+                    description: '',
+                    min: 0,
+                    max: 10000,
+                    step: 100,
+                    thumbLabel: true,
+                  },
+                  expressionProperties: {
+                    'templateOptions.label':
+                      '"转场时长: " + model.speed + " 毫秒"',
+                  },
+                },
+              ],
+            },
+            {
+              key: 'params',
+              templateOptions: {
+                label: '功能',
+              },
+              fieldGroup: [
+                {
+                  key: 'pagination',
+                  defaultValue: widget.params.pagination,
+                  fieldGroupClassName: 'section-group',
+                  fieldGroup: [
+                    {
+                      key: 'paginationEnable',
+                      type: 'toggle',
+                      className: 'width-100',
+                      defaultValue: widget.params.pagination || false,
+                      templateOptions: {
+                        label: '页码',
+                      },
+                    },
+                    {
+                      key: 'type',
+                      type: 'select',
+                      className: 'width-40',
+                      templateOptions: {
+                        label: '类型',
+                        options: [
+                          {
+                            label: 'bullets',
+                            value: 'bullets',
+                          },
+                          {
+                            label: 'progressbar',
+                            value: 'progressbar',
+                          },
+                          {
+                            label: 'fraction',
+                            value: 'fraction',
+                          },
+                        ],
+                      },
+                      hideExpression: '!model.paginationEnable',
+                    },
+                    {
+                      key: 'clickable',
+                      type: 'toggle',
+                      templateOptions: {
+                        className: 'width-40',
+                        label: '可点击',
+                      },
+                      expressionProperties: {
+                        'templateOptions.disabled': 'model.type !== "bullets"',
+                      },
+                      hideExpression: '!model.paginationEnable',
+                    },
+                  ],
+                },
+                {
+                  key: 'navigation',
+                  type: 'toggle',
+                  className: 'width-100',
+                  defaultValue: widget.params.navigation || false,
+                  templateOptions: {
+                    label: '左右箭头',
+                  },
+                },
+                {
+                  key: 'centeredSlides',
+                  type: 'toggle',
+                  className: 'width-100',
+                  defaultValue: widget.params.centeredSlides || false,
+                  templateOptions: {
+                    label: '居中',
+                  },
+                },
+                {
+                  key: 'loop',
+                  type: 'toggle',
+                  className: 'width-100',
+                  defaultValue: widget.params.loop || false,
+                  templateOptions: {
+                    label: '循环',
+                  },
+                },
+                {
+                  key: 'autoplay',
+                  type: 'toggle',
+                  className: 'width-100',
+                  defaultValue: widget.params.autoplay || false,
+                  templateOptions: {
+                    label: '自动播放',
+                  },
+                },
+                {
+                  key: 'mousewheel',
+                  type: 'toggle',
+                  className: 'width-100',
+                  defaultValue: widget.params.mousewheel || false,
+                  templateOptions: {
+                    label: '鼠标控制',
+                  },
+                },
+              ],
+            },
+          ],
+        },
+      ];
+    }
+
+    if (fields.length > 0) {
+      this.showDrawer(i, index, widget.type, fields);
+    }
+  }
+
+  showDrawer(
+    i: number,
+    index: number,
+    label: string,
+    fields: FormlyFieldConfig[]
+  ): void {
+    this.builder.builderRightContent$.next({
+      mode: 'push',
+      hasBackdrop: false,
+      style: {
+        width: '260px',
+      },
+      elements: [
+        {
+          type: 'layout-setting',
+          i,
+          index,
+          title: {
+            label: label,
+            style: 'style-v4',
+          },
+          fields,
+          uuid: this.uuid,
+        },
+      ],
+    });
   }
 
   onMove(de: string, i: number, index: number): void {
@@ -229,62 +724,77 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
     this.uuid = Date.now().toString();
     let responsive: FormlyFieldConfig[] = [
       {
-        type: 'slider',
-        key: 'xs',
-        className: 'width-100',
-        defaultValue: layout.row.xs,
-        templateOptions: {
-          label: '移动端',
-          min: 1,
-          max: 12,
-          thumbLabel: true,
-        },
-      },
-      {
-        type: 'slider',
-        key: 'sm',
-        className: 'width-100',
-        defaultValue: layout.row.sm,
-        templateOptions: {
-          label: '平板电脑',
-          min: 1,
-          max: 12,
-          thumbLabel: true,
-        },
-      },
-      {
-        type: 'slider',
-        key: 'md',
-        className: 'width-100',
-        defaultValue: layout.row.md,
-        templateOptions: {
-          label: '桌面电脑',
-          min: 1,
-          max: 12,
-          thumbLabel: true,
-        },
-      },
-      {
-        type: 'slider',
-        key: 'lg',
-        className: 'width-100',
-        defaultValue: layout.row.lg,
-        templateOptions: {
-          label: '超大桌面',
-          min: 1,
-          max: 12,
-          thumbLabel: true,
-        },
+        key: 'responsive',
+        fieldGroup: [
+          {
+            key: 'row',
+            fieldGroup: [
+              {
+                type: 'slider',
+                key: 'xs',
+                className: 'width-100',
+                defaultValue: layout.row.xs,
+                templateOptions: {
+                  min: 1,
+                  max: 12,
+                  thumbLabel: true,
+                },
+                expressionProperties: {
+                  'templateOptions.label': '"移动端: " + model.xs + " 栏"',
+                },
+              },
+              {
+                type: 'slider',
+                key: 'sm',
+                className: 'width-100',
+                defaultValue: layout.row.sm,
+                templateOptions: {
+                  min: 1,
+                  max: 12,
+                  thumbLabel: true,
+                },
+                expressionProperties: {
+                  'templateOptions.label': '"平板电脑: " + model.sm + " 栏"',
+                },
+              },
+              {
+                type: 'slider',
+                key: 'md',
+                className: 'width-100',
+                defaultValue: layout.row.md,
+                templateOptions: {
+                  min: 1,
+                  max: 12,
+                  thumbLabel: true,
+                },
+                expressionProperties: {
+                  'templateOptions.label': '"桌面电脑: " + model.md + " 栏"',
+                },
+              },
+              {
+                type: 'slider',
+                key: 'lg',
+                className: 'width-100',
+                defaultValue: layout.row.lg,
+                templateOptions: {
+                  min: 1,
+                  max: 12,
+                  thumbLabel: true,
+                },
+                expressionProperties: {
+                  'templateOptions.label': '"超大桌面: " + model.lg + " 栏"',
+                },
+              },
+            ],
+          },
+        ],
       },
     ];
-    let fields: FormlyFieldConfig[] = [
-      {
-        key: 'row',
-        fieldGroup: responsive,
-      },
+    let flexLayout: FormlyFieldConfig[] = [
       {
         key: 'flex',
-        className: 'layout-setting',
+        className: 'layout-setting width-100',
+        fieldGroupClassName: 'display-flex flex-wrap width-100',
         fieldGroup: [
           {
             className: 'width-100 m-bottom-md',
@@ -390,6 +900,210 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
         ],
       },
     ];
+    let styles: FormlyFieldConfig[] = [
+      {
+        key: 'styles',
+        className: 'width-100',
+        fieldGroup: [
+          {
+            key: 'style',
+            className: 'width-100',
+            fieldGroupClassName: 'display-flex flex-wrap width-100',
+            fieldGroup: [
+              {
+                key: 'backgroundColor',
+                className: 'width-100',
+                type: 'input',
+                defaultValue: layout?.style?.backgroundColor || '#ffffff',
+                templateOptions: {
+                  type: 'color',
+                  label: '背景色',
+                },
+                modelOptions: {
+                  debounce: {
+                    default: 500,
+                  },
+                },
+              },
+              {
+                template: `<div class="section-divider"></div>`,
+              },
+              {
+                type: 'slider',
+                key: 'paddingTop',
+                className: 'width-100',
+                defaultValue: layout?.style?.paddingTop?.replace('px', '') || 0,
+                templateOptions: {
+                  min: 5,
+                  max: 100,
+                  step: 5,
+                  thumbLabel: true,
+                },
+                expressionProperties: {
+                  'templateOptions.label': '"Padding top: " + model.paddingTop',
+                },
+              },
+              {
+                type: 'slider',
+                key: 'paddingRight',
+                className: 'width-100',
+                defaultValue:
+                  layout?.style?.paddingRight?.replace('px', '') || 0,
+                templateOptions: {
+                  min: 5,
+                  max: 100,
+                  step: 5,
+                  thumbLabel: true,
+                },
+                expressionProperties: {
+                  'templateOptions.label':
+                    '"Padding right: " + model.paddingRight',
+                },
+              },
+              {
+                type: 'slider',
+                key: 'paddingBottom',
+                className: 'width-100',
+                defaultValue:
+                  layout?.style?.paddingBottom?.replace('px', '') || 0,
+                templateOptions: {
+                  min: 5,
+                  max: 100,
+                  step: 5,
+                  thumbLabel: true,
+                },
+                expressionProperties: {
+                  'templateOptions.label':
+                    '"Padding bottom: " + model.paddingBottom',
+                },
+              },
+              {
+                type: 'slider',
+                key: 'paddingLeft',
+                className: 'width-100',
+                defaultValue:
+                  layout?.style?.paddingLeft?.replace('px', '') || 0,
+                templateOptions: {
+                  min: 5,
+                  max: 100,
+                  step: 5,
+                  thumbLabel: true,
+                },
+                expressionProperties: {
+                  'templateOptions.label':
+                    '"Padding left: " + model.paddingLeft',
+                },
+              },
+              {
+                template: `<div class="section-divider"></div>`,
+              },
+              {
+                type: 'slider',
+                key: 'marginTop',
+                className: 'width-100',
+                defaultValue: layout?.style?.marginTop?.replace('px', '') || 0,
+                templateOptions: {
+                  min: -200,
+                  max: 100,
+                  step: 5,
+                  thumbLabel: true,
+                },
+                expressionProperties: {
+                  'templateOptions.label': '"Margin top: " + model.marginTop',
+                },
+              },
+              {
+                type: 'slider',
+                key: 'marginRight',
+                className: 'width-100',
+                defaultValue:
+                  layout?.style?.marginRight?.replace('px', '') || 0,
+                templateOptions: {
+                  min: -200,
+                  max: 100,
+                  step: 5,
+                  thumbLabel: true,
+                },
+                expressionProperties: {
+                  'templateOptions.label':
+                    '"Margin right: " + model.marginRight',
+                },
+              },
+              {
+                type: 'slider',
+                key: 'marginBottom',
+                className: 'width-100',
+                defaultValue:
+                  layout?.style?.marginBottom?.replace('px', '') || 0,
+                templateOptions: {
+                  min: -200,
+                  max: 100,
+                  step: 5,
+                  thumbLabel: true,
+                },
+                expressionProperties: {
+                  'templateOptions.label':
+                    '"Margin bottom: " + model.marginBottom',
+                },
+              },
+              {
+                type: 'slider',
+                key: 'marginLeft',
+                className: 'width-100',
+                defaultValue: layout?.style?.marginLeft?.replace('px', '') || 0,
+                templateOptions: {
+                  min: -200,
+                  max: 100,
+                  step: 5,
+                  thumbLabel: true,
+                },
+                expressionProperties: {
+                  'templateOptions.label': '"Margin left: " + model.marginLeft',
+                },
+              },
+            ],
+          },
+        ],
+        hooks: {
+          onInit: (formGroup: any) => {
+            const { form, model } = formGroup;
+            form.valueChanges.subscribe((value: any) => {
+              const { styles } = value;
+              model.style = {
+                ...model.style,
+                paddingTop: styles.style['paddingTop'] + 'px',
+                paddingRight: styles.style['paddingRight'] + 'px',
+                paddingBottom: styles.style['paddingBottom'] + 'px',
+                paddingLeft: styles.style['paddingLeft'] + 'px',
+                marginTop: styles.style['marginTop'] + 'px',
+                marginRight: styles.style['marginRight'] + 'px',
+                marginBottom: styles.style['marginBottom'] + 'px',
+                marginLeft: styles.style['marginLeft'] + 'px',
+              };
+            });
+          },
+        },
+      },
+    ];
+    let fields: FormlyFieldConfig[] = [
+      {
+        type: 'tabs',
+        fieldGroup: [
+          {
+            templateOptions: {
+              label: '基础配置',
+            },
+            fieldGroup: [...responsive, ...flexLayout],
+          },
+          {
+            templateOptions: {
+              label: '样式',
+            },
+            fieldGroup: [...styles],
+          },
+        ],
+      },
+    ];
 
     this.builder.builderRightContent$.next({
       mode: 'push',
@@ -401,10 +1115,6 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
         {
           type: 'layout-setting',
           i,
-          title: {
-            label: '响应式配置',
-            style: 'style-v4',
-          },
           fields,
           uuid: this.uuid,
         },

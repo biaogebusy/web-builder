@@ -6,7 +6,6 @@ import * as chartStory from '@stories/widgets/chart/ChartBar.stories';
 import * as btnStory from '@stories/base/Btn.stories';
 import * as linkStory from '@stories/base/Link.stories';
 import * as bgImg from '@stories/base/BgImg.stories';
-import * as playerStory from '@stories/feature/media/Player.stories';
 import * as iconStory from '@stories/base/Icon.stories';
 import * as formStory from '@stories/widgets/Form.stories';
 import * as imgStory from '@stories/base/Img.stories';
@@ -26,20 +25,11 @@ import * as iframeStory from '@stories/widgets/Iframe.stories';
 import * as lightboxStory from '@stories/widgets/InlineLightbox.stories';
 import * as shapeStory from '@stories/widgets/Shape.stories';
 import * as BoxStories from '@stories/base/Box.stories';
-import * as TextStories from '@stories/base/Text.stories';
 import * as spacerStory from '@stories/theme/Spacer.stories';
 
 export const {
   Horizontal: { args: stepper },
 } = stepperStory;
-
-export const {
-  Base: { args: text },
-} = TextStories;
-
-export const {
-  Default: { args: player },
-} = playerStory;
 
 export const {
   Default: { args: img },
@@ -159,7 +149,10 @@ export const widgets: any[] = [
     content: {
       type: 'text',
       spacer: 'none',
-      body: '信使UI是基于 Material 的 Angular 前端框架， 丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。基于Angular Material UI，支持SSR，多应用，后端可根据实际情况自由配置，可自定义开发、新增组件库。',
+      animate: {
+        disable: true,
+      },
+      body: '信使UI是基于 Material 的 Angular 前端框架，丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。',
     },
   },
   {
@@ -199,11 +192,6 @@ export const widgets: any[] = [
       svg: 'view-array-outline',
     },
     ...swiper,
-  },
-  {
-    label: '视频',
-    icon: { svg: 'play-box' },
-    ...player,
   },
   {
     label: '表单',

@@ -1,7 +1,7 @@
 <ng-container *ngIf="coreConfig?.theme">
   <div class="switch-theme" [matTooltip]="'切换主题'">
     <button aria-label="switch theme" mat-icon-button [mat-menu-trigger-for]="menu">
-      <mat-icon>format_color_fill</mat-icon>
+      <app-icon [content]="{svg:'palette',inline:true}"></app-icon>
     </button>
 
     <mat-menu #menu="matMenu">

@@ -106,73 +106,113 @@ export const layoutBuilder: any[] = [
   {
     label: '两栏',
     icon: {
-      svg: 'view-grid',
+      svg: 'image-text',
     },
     content: {
       type: 'layout-builder',
       spacer: 'md',
       fullWidth: false,
       bg: {
-        classes: 'bg-shadow bg-fill-width',
-        img: {
-          src: '/assets/images/bg/home-shape.png',
-          alt: 'home-shape.png',
-          classes: 'object-fit',
-        },
+        classes: 'bg-fill-width',
       },
       elements: [
         {
-          classes: '',
+          style: {
+            backgroundColor: '#f0f0f0',
+            paddingTop: '30px',
+            paddingRight: '30px',
+            paddingBottom: '30px',
+            paddingLeft: '30px',
+          },
           row: {
             xs: 12,
             sm: 12,
             md: 12,
-            lg: 12,
+            lg: 6,
           },
-          direction: 'row',
-          layoutAlign: 'center stretch',
+          classes: '',
+          direction: 'column',
+          layoutAlign: 'center center',
           elements: [
             {
-              type: 'card-1v2',
-              link: {
-                href: '#',
-                label:
-                  'Storybook采用了组件驱动开发的方法，即将UI组件作为开发的核心单元。开发人员可以在Storybook中为每个UI组件创建"stories"，描述组件在不同状态和交互方式下的行为和外观',
-              },
-              subTitle: '组件驱动开发',
-              img: {
-                href: '#',
-                src: '/assets/images/16-9/business-06.jpg',
-                alt: 'alt',
-              },
-              bg: {
-                classes: 'object-fit',
-                img: {
-                  hostClasses: '',
-                  src: '/assets/images/showcase/pattern-01.png',
+              style: 'none',
+              classes: 'mat-display-2 bold',
+              typed: {
+                enable: false,
+                config: {
+                  typeSpeed: 120,
                 },
+                strings: [
+                  {
+                    label: 'web builder',
+                  },
+                ],
               },
+              type: 'title',
+              label: '自由搭配，玩出新意',
             },
             {
-              type: 'card-1v2',
-              link: {
-                href: '#',
-                label:
-                  'Storybook提供了一个交互式的界面，用于展示和测试UI组件。开发人员可以在浏览器中浏览和交互组件，以便检查其外观和行为，并确保它们在各种条件下正常工作',
-              },
-              subTitle: '组件展示和测试',
-              img: {
-                href: '#',
-                src: '/assets/images/16-9/business-11.jpg',
-                alt: 'alt',
-              },
-              bg: {
-                classes: 'object-fit',
-                img: {
-                  hostClasses: '',
-                  src: '/assets/images/showcase/pattern-02.png',
+              type: 'link',
+              label: '<h2>链接搭配你的风格</h2><p></p>',
+              classes: '',
+              href: '/manage',
+            },
+            {
+              type: 'img',
+              hostClasses: 'text-center',
+              classes: '',
+              src: 'assets/images/products/huawei-watch-gt4-select-strap.webp',
+              alt: 'alt',
+            },
+          ],
+        },
+        {
+          style: {
+            backgroundColor: '#f0f0f0',
+            paddingTop: '30px',
+            paddingRight: '30px',
+            paddingBottom: '30px',
+            paddingLeft: '30px',
+          },
+          row: {
+            xs: 12,
+            sm: 12,
+            md: 12,
+            lg: 6,
+          },
+          classes: '',
+          direction: 'column',
+          layoutAlign: 'center center',
+          elements: [
+            {
+              style: 'none',
+              classes: 'mat-display-2 bold',
+              typed: {
+                enable: false,
+                config: {
+                  typeSpeed: 120,
                 },
+                strings: [
+                  {
+                    label: 'web builder',
+                  },
+                ],
               },
+              type: 'title',
+              label: '款款亮眼，爱不释手',
+            },
+            {
+              type: 'link',
+              label: '<h2>探索更多</h2>',
+              classes: '',
+              href: '/manage',
+            },
+            {
+              type: 'img',
+              hostClasses: 'text-center',
+              classes: '',
+              src: 'assets/images/products/huawei-watch-gt4-Huawei-wearables.webp',
+              alt: 'alt',
             },
           ],
         },
@@ -360,108 +400,7 @@ export const layoutBuilder: any[] = [
       ],
     },
   },
-  {
-    label: '图文',
-    icon: {
-      svg: 'image-text',
-    },
-    content: {
-      type: 'layout-builder',
-      spacer: 'md',
-      fullWidth: false,
-      bg: {
-        classes: 'bg-fill-width',
-        img: {
-          src: '/assets/images/bg/home-shape.png',
-          alt: 'home-shape.png',
-          classes: 'object-fit',
-        },
-      },
-      elements: [
-        {
-          classes: '',
-          row: {
-            xs: 12,
-            sm: 6,
-            md: 6,
-            lg: 5,
-          },
-          direction: 'column',
-          layoutAlign: 'start stretch',
-          elements: [
-            {
-              type: 'text',
-              spacer: 'sm',
-              title: {
-                label: 'Storybook 是什么？',
-                style: 'style-v4',
-                classes: 'mat-display-2',
-              },
-              body: 'Storybook是一个用于开发和展示UI组件的工具。它提供了一个独立的环境，开发人员可以在其中构建、测试和文档化单个UI组件，而无需依赖于整个应用程序的上下文。',
-            },
-            {
-              type: 'panel',
-              elements: [
-                {
-                  title: '组件驱动开发',
-                  icon: 'person',
-                  params: {
-                    expanded: true,
-                  },
-                  elements: [
-                    {
-                      type: 'text',
-                      spacer: 'none',
-                      body: 'Storybook采用了组件驱动开发的方法，即将UI组件作为开发的核心单元。开发人员可以在Storybook中为每个UI组件创建"stories"，描述组件在不同状态和交互方式下的行为和外观。这种方法能够提高组件的可重用性和可测试性。',
-                    },
-                  ],
-                },
-                {
-                  title: '组件展示和测试',
-                  icon: 'faviores',
-                  elements: [
-                    {
-                      type: 'text',
-                      spacer: 'none',
-                      body: 'Storybook提供了一个交互式的界面，用于展示和测试UI组件。开发人员可以在浏览器中浏览和交互组件，以便检查其外观和行为，并确保它们在各种条件下正常工作。这有助于加快开发迭代周期，提高组件的质量。',
-                    },
-                  ],
-                },
-                {
-                  title: '文档化',
-                  icon: 'faviores',
-                  elements: [
-                    {
-                      type: 'text',
-                      spacer: 'none',
-                      body: 'Storybook不仅可以展示和测试组件，还可以自动生成组件的文档。开发人员可以使用Markdown或其他文档格式编写组件文档，并将其与组件关联。这使得团队成员可以更好地理解和使用组件，减少了沟通成本。',
-                    },
-                  ],
-                },
-              ],
-            },
-          ],
-        },
-        {
-          classes: '',
-          row: {
-            xs: 12,
-            sm: 6,
-            md: 6,
-            lg: 7,
-          },
-          direction: 'column',
-          layoutAlign: 'center center',
-          elements: [
-            {
-              type: 'img',
-              src: '/assets/images/illustration/12.png',
-            },
-          ],
-        },
-      ],
-    },
-  },
+
   {
     label: '竖排',
     icon: {

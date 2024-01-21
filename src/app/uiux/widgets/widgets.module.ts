@@ -121,6 +121,8 @@ import { LogoComponent } from './img/logo/logo.component';
 import { GotopComponent } from './actions/gotop/gotop.component';
 import { SwitchThemeComponent } from './switch-theme/switch-theme.component';
 import { GithubStarComponent } from './github-star/github-star.component';
+import { RepeatTypeComponent } from './form/formly-type/repeat.type';
+import { TabsTypeComponent } from './form/formly-type/tabs/tabs.component';
 
 FullCalendarModule.registerPlugins([
   // register FullCalendar plugins
@@ -203,6 +205,8 @@ const components = [
   ChartBoxComponent,
   StepperComponent,
   FormlyComponent,
+  RepeatTypeComponent,
+  TabsTypeComponent,
   PlayerComponent,
   BtnVideoComponent,
   AccordionComponent,
@@ -251,6 +255,8 @@ const components = [
           name: 'date-range',
           component: DateRangeComponent,
         },
+        { name: 'repeat', component: RepeatTypeComponent },
+        { name: 'tabs', component: TabsTypeComponent },
       ],
       validationMessages: [
         { name: 'required', message: '该字段必填' },

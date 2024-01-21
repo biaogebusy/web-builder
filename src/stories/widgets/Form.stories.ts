@@ -7,7 +7,7 @@ import { Story } from '@storybook/angular/types-6-0';
 import { FormlyComponent } from '@uiux/widgets/form/formly/formly.component';
 import { FormGroup } from '@angular/forms';
 import { StorysModule } from '@core/module/storys.module';
-import { FormlyFieldConfig } from '@ngx-formly/core';
+import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 
 export default {
   title: '基础组件/表单',
@@ -71,6 +71,7 @@ const base: FormlyFieldConfig[] = [
     },
   },
   {
+    className: 'width-100 m-bottom-md',
     template: '<div><strong>地址:</strong></div>',
   },
   {
@@ -574,4 +575,183 @@ Responsive.args = {
   form,
   model,
   fields: responsive,
+};
+
+export const Pattern = Template.bind({});
+Pattern.storyName = '模式匹配';
+const use: FormlyFieldConfig[] = [
+  {
+    key: 'firstName',
+    type: 'input',
+    templateOptions: {
+      label: '姓',
+    },
+  },
+  {
+    key: 'lastName',
+    type: 'input',
+    templateOptions: {
+      label: '名',
+    },
+  },
+  {
+    key: 'mac',
+    type: 'input',
+    templateOptions: {
+      label: '电脑 Mac 地址',
+      pattern: '([0-9A-F]{2}[:-]){5}([0-9A-F]{2})',
+    },
+  },
+  {
+    key: 'color',
+    type: 'input',
+    templateOptions: {
+      label: '颜色偏爱',
+    },
+  },
+  {
+    key: 'reason',
+    type: 'textarea',
+    templateOptions: {
+      label: '理由?',
+    },
+    expressionProperties: {
+      'templateOptions.label': "'为什么选择 ' + model.color + '?'",
+    },
+    hideExpression: '!model.color',
+  },
+];
+
+Pattern.args = {
+  type: 'formly',
+  form,
+  model,
+  fields: use,
+};
+
+export const CascadedSelect = Template.bind({});
+CascadedSelect.storyName = '级联选择';
+const cascadedSelectOption: FormlyFormOptions = {
+  formState: {
+    selectOptionsData: {
+      teams: [
+        { id: '1', name: 'Bayern Munich', sportId: '1' },
+        { id: '2', name: 'Real Madrid', sportId: '1' },
+        { id: '3', name: 'Cleveland', sportId: '2' },
+        { id: '4', name: 'Miami', sportId: '2' },
+      ],
+      players: [
+        { id: '1', name: 'Bayern Munich (Player 1)', teamId: '1' },
+        { id: '2', name: 'Bayern Munich (Player 2)', teamId: '1' },
+        { id: '3', name: 'Real Madrid (Player 1)', teamId: '2' },
+        { id: '4', name: 'Real Madrid (Player 2)', teamId: '2' },
+        { id: '5', name: 'Cleveland (Player 1)', teamId: '3' },
+        { id: '6', name: 'Cleveland (Player 2)', teamId: '3' },
+        { id: '7', name: 'Miami (Player 1)', teamId: '4' },
+        { id: '8', name: 'Miami (Player 2)', teamId: '4' },
+      ],
+    },
+  },
+};
+
+const cascadedSelectFields: FormlyFieldConfig[] = [
+  {
+    key: 'sport',
+    type: 'select',
+    templateOptions: {
+      label: 'Sport',
+      options: [
+        { id: '1', name: 'Soccer' },
+        { id: '2', name: 'Basketball' },
+      ],
+      valueProp: 'id',
+      labelProp: 'name',
+    },
+  },
+  {
+    key: 'team',
+    type: 'select',
+    templateOptions: {
+      label: 'Team',
+      options: [],
+      valueProp: 'id',
+      labelProp: 'name',
+    },
+    expressionProperties: {
+      'templateOptions.options':
+        'formState.selectOptionsData.teams.filter(team => team.sportId === model.sport)',
+      // reset model when updating select options
+      'model.team': `field.templateOptions.options.find(o => o.id === model.team) ? model.team:null`,
+    },
+  },
+  {
+    key: 'player',
+    type: 'select',
+    templateOptions: {
+      label: 'Player',
+      options: [],
+      valueProp: 'id',
+      labelProp: 'name',
+    },
+    expressionProperties: {
+      'templateOptions.options':
+        'formState.selectOptionsData.players.filter(player => player.teamId === model.team)',
+      // reset model when updating select options
+      'model.player': `field.templateOptions.options.find(o => o.id === model.player) ? model.player:null`,
+    },
+  },
+];
+
+CascadedSelect.args = {
+  type: 'formly',
+  form,
+  model,
+  fields: cascadedSelectFields,
+  options: cascadedSelectOption,
+};
+
+export const ModelOption = Template.bind({});
+ModelOption.storyName = 'Model 选项';
+const modelOptionFields: FormlyFieldConfig[] = [
+  {
+    key: 'text',
+    type: 'input',
+    modelOptions: {
+      debounce: {
+        default: 2000,
+      },
+    },
+    templateOptions: {
+      label: 'Debounce',
+    },
+  },
+  {
+    key: 'updateOnBlur',
+    type: 'input',
+    modelOptions: {
+      updateOn: 'blur',
+    },
+    templateOptions: {
+      label: '`updateOn` on Blur',
+      required: true,
+    },
+  },
+  {
+    key: 'updateOnSubmit',
+    type: 'input',
+    modelOptions: {
+      updateOn: 'submit',
+    },
+    templateOptions: {
+      label: '`updateOn` on Submit',
+      required: true,
+    },
+  },
+];
+
+ModelOption.args = {
+  type: 'formly',
+  form,
+  model,
+  fields: modelOptionFields,
 };
