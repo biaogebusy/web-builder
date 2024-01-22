@@ -17,9 +17,9 @@ import { defaultsDeep } from 'lodash-es';
 import { Subject } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 import { takeUntil } from 'rxjs/operators';
-import { getTitleField } from './factory/getTitleField';
-import { getBtnVideo } from './factory/getBtnVideo';
-import { getSwiper } from './factory/getSwiper';
+import { getTitleField } from '../factory/getTitleField';
+import { getBtnVideo } from '../factory/getBtnVideo';
+import { getSwiper } from '../factory/getSwiper';
 
 @Component({
   selector: 'app-layout-builder',
