@@ -67,7 +67,11 @@ export class ManageMediaComponent implements OnInit {
   }
 
   isSelected(item: any): boolean {
-    return item.id === this.selectedId;
+    if (item.id) {
+      return item.id === this.selectedId;
+    } else {
+      return false;
+    }
   }
 
   onSelect(item: any): void {
@@ -81,6 +85,6 @@ export class ManageMediaComponent implements OnInit {
   }
 
   trackByFn(index: number, item: any): number {
-    return item.id;
+    return item.id || index;
   }
 }
