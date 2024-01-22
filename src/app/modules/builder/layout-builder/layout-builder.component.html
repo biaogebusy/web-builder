@@ -8,23 +8,23 @@
         fxFlex.sm="0 0 calc(100% / {{12 / layout.row.sm}})" fxFlex.md="0 0 calc(100% / {{12 / layout.row.md}})"
         fxFlex.lg="0 0 calc(100% / {{12 / layout.row.lg}})" fxFlex.gt-lg="0 0 calc(100% / {{12 / layout.row.lg}})"
         [ngClass]="layout.classes" *ngFor="let layout of content.elements;index as i" [attr.data-path]="'elements.'+i">
+        <div class="block-toolbar" *ngIf="enable_toolbar$ | async">
+          <app-btn matTooltip="新增组件到当前列" (click)="addBlock('down',i,content)"
+            [content]="{label:'', mode: 'icon',icon:{svg:'image-plus' } }"></app-btn>
+          <app-btn matTooltip="新增一栏" (click)="addBlock('next',i,content)"
+            [content]="{label:'', mode: 'icon',icon:{svg:'view-grid-plus' } }"></app-btn>
+          <app-btn matTooltip="移除当前栏" (click)="onDeleteRow(i)"
+            [content]="{label:'', mode: 'icon',icon:{svg:'delete',inline:true } }"></app-btn>
+          <app-btn matTooltip="显示网格" (click)="onShowGrid()"
+            [content]="{label:'',color:showGrid?'primary' : undefined, mode: 'icon',icon:{svg:'eye',inline:true } }"></app-btn>
+          <app-btn matTooltip="更多设置" (click)="onSettings(i,layout)"
+            [content]="{label:'', mode: 'icon',icon:{svg:'responsive',inline:true } }"></app-btn>
+        </div>
+        <div class="placeholder" fxFill fxLayoutAlign="center center" *ngIf="layout.elements.length === 0">
+          <app-btn matTooltip="新增组件" (click)="addBlock('down',i,content)"
+            [content]="{label:'', mode: 'icon',icon:{svg:'playlist-plus' } }"></app-btn>
+        </div>
         <div class="block" [fxLayout]="layout.direction" [fxLayoutAlign]="layout.layoutAlign" [ngStyle]="layout.style">
-          <div class="block-toolbar" *ngIf="enable_toolbar$ | async">
-            <app-btn matTooltip="新增组件到当前列" (click)="addBlock('down',i,content)"
-              [content]="{label:'', mode: 'icon',icon:{svg:'image-plus' } }"></app-btn>
-            <app-btn matTooltip="新增一栏" (click)="addBlock('next',i,content)"
-              [content]="{label:'', mode: 'icon',icon:{svg:'view-grid-plus' } }"></app-btn>
-            <app-btn matTooltip="移除当前栏" (click)="onDeleteRow(i)"
-              [content]="{label:'', mode: 'icon',icon:{svg:'delete',inline:true } }"></app-btn>
-            <app-btn matTooltip="显示网格" (click)="onShowGrid()"
-              [content]="{label:'',color:showGrid?'primary' : undefined, mode: 'icon',icon:{svg:'eye',inline:true } }"></app-btn>
-            <app-btn matTooltip="更多设置" (click)="onSettings(i,layout)"
-              [content]="{label:'', mode: 'icon',icon:{svg:'responsive',inline:true } }"></app-btn>
-          </div>
-          <div class="placeholder" fxFill fxLayoutAlign="center center" *ngIf="layout.elements.length === 0">
-            <app-btn matTooltip="新增组件" (click)="addBlock('down',i,content)"
-              [content]="{label:'', mode: 'icon',icon:{svg:'playlist-plus' } }"></app-btn>
-          </div>
           <div class="item" (click)="onWidgetSetting(i,index,item)" *ngFor="let item of layout.elements;index as index">
             <div class="actions" *ngIf="enable_toolbar$ | async">
               <app-btn *ngIf="index > 0 && index < layout.elements.length" (click)="onMove('up',i,index)"
