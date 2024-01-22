@@ -15,6 +15,8 @@
             [content]="{label:'', mode: 'icon',icon:{svg:'view-grid-plus' } }"></app-btn>
           <app-btn matTooltip="移除当前栏" (click)="onDeleteRow(i)"
             [content]="{label:'', mode: 'icon',icon:{svg:'delete',inline:true } }"></app-btn>
+          <app-btn matTooltip="查看组件视觉层次" (click)="onHierarchy(i)"
+            [content]="{label:'', mode: 'icon',icon:{svg:'focus-field',inline:true } }"></app-btn>
           <app-btn matTooltip="显示网格" (click)="onShowGrid()"
             [content]="{label:'',color:showGrid?'primary' : undefined, mode: 'icon',icon:{svg:'eye',inline:true } }"></app-btn>
           <app-btn matTooltip="更多设置" (click)="onSettings(i,layout)"

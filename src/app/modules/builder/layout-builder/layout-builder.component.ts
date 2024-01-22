@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  ElementRef,
   Inject,
   Input,
   OnDestroy,
@@ -33,8 +34,10 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
   @Input() uuid: string;
   destroy$: Subject<boolean> = new Subject<boolean>();
   showGrid: boolean = false;
+  showHierarchy: boolean = false;
   constructor(
     private dialog: MatDialog,
+    private ele: ElementRef,
     private cd: ChangeDetectorRef,
     private builder: BuilderState,
     @Inject(ENABLE_BUILDER_TOOLBAR) public enable_toolbar$: Observable<boolean>
@@ -592,6 +595,15 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
     this.showGrid = !this.showGrid;
   }
 
+  onHierarchy(i: number): void {
+    const blocks = this.ele.nativeElement.querySelectorAll('.block');
+    if (blocks[i].style.filter) {
+      blocks[i].style.filter = '';
+    } else {
+      blocks[i].style.filter = `blur(8px)`;
+    }
+  }
+
   getLayoutAlign(index: number, layoutAlign: string): string {
     const align = layoutAlign.split(' ')[index];
     switch (align) {
@@ -603,6 +615,7 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
         return align;
     }
   }
+
   ngOnDestroy(): void {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
