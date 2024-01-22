@@ -489,14 +489,6 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
                     },
                   ],
                 },
-              ],
-            },
-            {
-              key: 'params',
-              templateOptions: {
-                label: '特效',
-              },
-              fieldGroup: [
                 {
                   key: 'effect',
                   type: 'select',
@@ -914,7 +906,7 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
                 key: 'backgroundColor',
                 className: 'width-100',
                 type: 'input',
-                defaultValue: layout?.style?.backgroundColor || '#ffffff',
+                defaultValue: layout?.style?.backgroundColor || 'initial',
                 templateOptions: {
                   type: 'color',
                   label: '背景色',
@@ -926,7 +918,8 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
                 },
               },
               {
-                template: `<div class="section-divider"></div>`,
+                template: `<div class="p-y-xs bg-shadow m-bottom-sm"></div>`,
+                className: 'width-100',
               },
               {
                 type: 'slider',
@@ -995,7 +988,8 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
                 },
               },
               {
-                template: `<div class="section-divider"></div>`,
+                template: `<div class="p-y-xs bg-shadow m-bottom-sm"></div>`,
+                className: 'width-100',
               },
               {
                 type: 'slider',
