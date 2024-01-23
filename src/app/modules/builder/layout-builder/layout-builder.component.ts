@@ -34,7 +34,6 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
   @Input() uuid: string;
   destroy$: Subject<boolean> = new Subject<boolean>();
   showGrid: boolean = false;
-  showHierarchy: boolean = false;
   constructor(
     private dialog: MatDialog,
     private ele: ElementRef,
@@ -593,15 +592,6 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
 
   onShowGrid(): void {
     this.showGrid = !this.showGrid;
-  }
-
-  onHierarchy(i: number): void {
-    const blocks = this.ele.nativeElement.querySelectorAll('.block');
-    if (blocks[i].style.filter) {
-      blocks[i].style.filter = '';
-    } else {
-      blocks[i].style.filter = `blur(8px)`;
-    }
   }
 
   getLayoutAlign(index: number, layoutAlign: string): string {

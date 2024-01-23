@@ -4,6 +4,7 @@ import {
   ChangeDetectorRef,
   Component,
   ComponentRef,
+  ElementRef,
   HostBinding,
   Inject,
   Input,
@@ -53,6 +54,7 @@ export class DynamicComponentComponent
     private componentService: ComponentService,
     public builder: BuilderState,
     private cd: ChangeDetectorRef,
+    private ele: ElementRef,
     @Inject(CORE_CONFIG) public coreConfig: ICoreConfig,
     @Inject(ENABLE_BUILDER_TOOLBAR) public enable_toolbar$: Observable<boolean>
   ) {}
@@ -145,6 +147,16 @@ export class DynamicComponentComponent
     }
     this.container.insert(this.component.hostView);
     this.component.changeDetectorRef.markForCheck();
+  }
+
+  onFilterChange(state: boolean): void {
+    const { children } = this.ele.nativeElement;
+    const coponentEle = children[children.length - 1];
+    if (state) {
+      coponentEle.style.filter = 'blur(8px)';
+    } else {
+      coponentEle.style.filter = '';
+    }
   }
 
   ngOnDestroy(): void {

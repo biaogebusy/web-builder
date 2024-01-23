@@ -9,6 +9,9 @@
       <app-btn
         [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'arrow-collapse-down',inline:true } }"></app-btn>
     </div>
+    <div class="item" matTooltip="查看组件视觉层次" (click)="onHierarchy()">
+      <app-btn [content]="{label:'', color:'primary',mode: 'icon',icon:{svg:'focus-field',inline:true } }"></app-btn>
+    </div>
     <div class="item" (click)="onDelete(index)" *ngIf="isPreview" [matTooltip]="'移除'" matTooltipPosition="above">
       <app-btn [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'delete',inline:true } }"></app-btn>
     </div>
