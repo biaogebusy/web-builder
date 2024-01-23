@@ -52,9 +52,7 @@
   }
   .component-toolbar {
     .actions {
-      button {
-        background-color: mat-color($background, status-bar, 0.2);
-      }
+      background-color: mat-color($primary, 0.1);
     }
   }
 }

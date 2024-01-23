@@ -15,17 +15,15 @@
           &:hover {
             outline: 1px dashed mat-color($primary);
           }
+          .block-toolbar {
+            background-color: mat-color($primary, 0.1);
+          }
+          > .placeholder {
+            &:hover {
+              color: mat-color($primary);
+            }
+          }
           > .block {
-            .block-toolbar {
-              border: 1px solid mat-color($foreground, divider);
-              background: mat-color($background, card);
-              color: mat-color($foreground, text, 0.7);
-            }
-            > .placeholder {
-              &:hover {
-                color: mat-color($primary);
-              }
-            }
             > .item {
               &:hover {
                 outline: 1px solid mat-color($primary);

@@ -84,6 +84,7 @@ export interface ILayoutSetting {
 export interface IPopupSelect {
   type: 'string';
   row: 'down' | 'next';
+  i: number;
   index: number;
   pageIndex: number;
   uuid: string;

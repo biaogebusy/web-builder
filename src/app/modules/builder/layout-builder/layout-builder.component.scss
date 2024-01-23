@@ -65,7 +65,7 @@
     .block-toolbar {
       display: none;
       position: absolute;
-      border-radius: 4px;
+      border-radius: 0 0 4px 4px;
       left: 50%;
       transform: translateX(-50%);
       z-index: 10;
@@ -73,7 +73,8 @@
       white-space: nowrap;
     }
     &:hover {
-      .block-toolbar {
+      .block-toolbar,
+      .add-block {
         display: block;
       }
     }
@@ -114,7 +115,7 @@
 :host-context(.builder-list) {
   .layout-builder {
     .layout {
-      padding: 36px 10px;
+      padding: 60px 10px;
     }
   }
 }

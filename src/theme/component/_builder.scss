@@ -147,15 +147,10 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
     > .component-toolbar {
       position: absolute;
       left: 0;
-      top: 6px;
+      top: 0px;
       width: 100%;
       z-index: 999;
       line-height: 1;
-      .title {
-        background-color: mat-color($primary);
-        color: mat-color($primary, default-contrast);
-        @include mat-elevation(2, mat-color($background, hover), 0.4);
-      }
     }
   }
   .drawer-right {

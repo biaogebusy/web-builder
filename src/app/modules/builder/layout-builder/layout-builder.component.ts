@@ -85,7 +85,7 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
       });
   }
 
-  addBlock(row: string, index: number, content: any): void {
+  addBlock(row: string, i: number, content: any, index?: number): void {
     this.dialog.open(DialogComponent, {
       width: '700px',
       position: { bottom: '20px' },
@@ -95,6 +95,7 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
           content: {
             type: 'popup-select',
             row,
+            i,
             index,
             pageIndex: this.pageIndex,
             uuid: this.uuid,
@@ -155,9 +156,21 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
     });
   }
 
-  onMove(de: string, i: number, index: number): void {
+  onMoveCol(i: number, direction: string): void {
     const { elements } = this.content;
-    if (de === 'up') {
+    if (direction === 'left') {
+      [elements[i - 1], elements[i]] = [elements[i], elements[i - 1]];
+    }
+    if (direction === 'right') {
+      [elements[i], elements[i + 1]] = [elements[i + 1], elements[i]];
+    }
+    this.builder.updateComponent(this.pageIndex, this.content);
+    this.cd.detectChanges();
+  }
+
+  onUpDown(direction: string, i: number, index: number): void {
+    const { elements } = this.content;
+    if (direction === 'up') {
       [elements[i].elements[index - 1], elements[i].elements[index]] = [
         elements[i].elements[index],
         elements[i].elements[index - 1],
