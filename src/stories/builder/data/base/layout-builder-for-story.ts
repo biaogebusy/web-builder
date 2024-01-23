@@ -37,6 +37,13 @@ export const layoutBuilder: any[] = [
           classes: 'object-fit',
         },
       },
+      layoutAlign: 'center center',
+      gap: {
+        xs: 8,
+        sm: 16,
+        md: 32,
+        lg: 48,
+      },
       elements: [
         {
           classes: '',
@@ -114,6 +121,13 @@ export const layoutBuilder: any[] = [
       fullWidth: false,
       bg: {
         classes: 'bg-fill-width',
+      },
+      layoutAlign: 'center center',
+      gap: {
+        xs: 8,
+        sm: 16,
+        md: 32,
+        lg: 48,
       },
       elements: [
         {
@@ -224,6 +238,13 @@ export const layoutBuilder: any[] = [
     icon: {
       svg: 'view-week-outline',
     },
+    layoutAlign: 'center center',
+    gap: {
+      xs: 8,
+      sm: 16,
+      md: 32,
+      lg: 48,
+    },
     content: {
       type: 'layout-builder',
       spacer: 'md',
@@ -293,6 +314,13 @@ export const layoutBuilder: any[] = [
           alt: 'home-shape.png',
           classes: 'object-fit',
         },
+      },
+      layoutAlign: 'center center',
+      gap: {
+        xs: 8,
+        sm: 16,
+        md: 32,
+        lg: 48,
       },
       elements: [
         {
@@ -400,7 +428,6 @@ export const layoutBuilder: any[] = [
       ],
     },
   },
-
   {
     label: '竖排',
     icon: {
@@ -477,6 +504,13 @@ export const layoutBuilder: any[] = [
       fullWidth: false,
       bg: {
         classes: 'bg-fill-width',
+      },
+      layoutAlign: 'center center',
+      gap: {
+        xs: 8,
+        sm: 16,
+        md: 32,
+        lg: 48,
       },
       elements: [
         {

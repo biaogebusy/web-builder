@@ -173,9 +173,9 @@ export function getLayoutSetting(content: any): FormlyFieldConfig[] {
             type: 'select',
             key: 'direction',
             className: 'width-100',
-            defaultValue: content.direction,
+            defaultValue: content.direction || 'row',
             templateOptions: {
-              label: '当前列布局方向',
+              label: '组件布局方向',
               options: [
                 {
                   label: 'Column',
@@ -191,6 +191,67 @@ export function getLayoutSetting(content: any): FormlyFieldConfig[] {
                 },
               ],
             },
+          },
+          {
+            key: 'gap',
+            fieldGroup: [
+              {
+                key: 'xs',
+                type: 'slider',
+                defaultValue: content.gap?.xs || 0,
+                templateOptions: {
+                  min: 0,
+                  max: 80,
+                  step: 2,
+                  thumbLabel: true,
+                },
+                expressionProperties: {
+                  'templateOptions.label': '"xs gap: " + model.xs + " px"',
+                },
+              },
+              {
+                key: 'sm',
+                type: 'slider',
+                defaultValue: content.gap?.sm || 0,
+                templateOptions: {
+                  min: 0,
+                  max: 80,
+                  step: 2,
+                  thumbLabel: true,
+                },
+                expressionProperties: {
+                  'templateOptions.label': '"sm gap: " + model.sm + " px"',
+                },
+              },
+              {
+                key: 'md',
+                type: 'slider',
+                defaultValue: content.gap?.md || 0,
+                templateOptions: {
+                  min: 0,
+                  max: 80,
+                  step: 2,
+                  thumbLabel: true,
+                },
+                expressionProperties: {
+                  'templateOptions.label': '"md gap: " + model.md + " px"',
+                },
+              },
+              {
+                key: 'lg',
+                type: 'slider',
+                defaultValue: content.gap?.lg || 0,
+                templateOptions: {
+                  min: 0,
+                  max: 80,
+                  step: 2,
+                  thumbLabel: true,
+                },
+                expressionProperties: {
+                  'templateOptions.label': '"lg gap: " + model.lg + " px"',
+                },
+              },
+            ],
           },
         ],
       },

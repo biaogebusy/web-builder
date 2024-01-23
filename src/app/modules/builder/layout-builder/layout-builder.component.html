@@ -3,10 +3,15 @@
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <app-bg-img [attr.data-path]="'bg'" [content]="content.bg" *ngIf="content.bg"></app-bg-img>
   <div class="{{content.fullWidth?'':'container'}}" *ngIf="content">
-    <div class="inner layout-inner" id="layout" [fxLayout]="content.direction" [fxLayoutAlign]="content.layoutAlign">
-      <div class="layout" fxFlex.xs="0 0 calc(100% / {{12 / layout.row.xs}})"
-        fxFlex.sm="0 0 calc(100% / {{12 / layout.row.sm}})" fxFlex.md="0 0 calc(100% / {{12 / layout.row.md}})"
-        fxFlex.lg="0 0 calc(100% / {{12 / layout.row.lg}})" fxFlex.gt-lg="0 0 calc(100% / {{12 / layout.row.lg}})"
+    <div class="inner layout-inner" id="layout" [fxLayout]="content.direction" [fxLayoutAlign]="content.layoutAlign"
+      [fxLayoutGap.xs]="content.gap?.xs+'px'" [fxLayoutGap.sm]="content.gap?.sm+'px'"
+      [fxLayoutGap.md]="content.gap?.md+'px'" [fxLayoutGap.lg]="content.gap?.lg+'px'"
+      [fxLayoutGap.gt-lg]="content.gap?.lg+'px'">
+      <div class="layout" fxFlex.xs="0 0 calc(100% / {{12 / layout.row.xs}} - {{content.gap?.xs+'px'||'0px'}})"
+        fxFlex.sm="0 0 calc(100% / {{12 / layout.row.sm}} - {{content.gap?.sm+'px'||'0px'}})"
+        fxFlex.md="0 0 calc(100% / {{12 / layout.row.md}} - {{content.gap?.md+'px'||'0px'}})"
+        fxFlex.lg="0 0 calc(100% / {{12 / layout.row.lg}} - {{content.gap?.lg+'px'||'0px'}})"
+        fxFlex.gt-lg="0 0 calc(100% / {{12 / layout.row.lg}} - {{content.gap?.lg+'px'||'0px'}})"
         [ngClass]="layout.classes" *ngFor="let layout of content.elements;index as i" [attr.data-path]="'elements.'+i">
         <ng-container *ngIf="enable_toolbar$ | async">
           <div class="block-toolbar">

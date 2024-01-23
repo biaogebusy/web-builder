@@ -3,6 +3,14 @@ export const base = [
     label: '动态构建',
     id: 'layout',
     description: '任意组合组件',
+    direction: 'row',
+    layoutAlign: 'center center',
+    gap: {
+      xs: 8,
+      sm: 16,
+      md: 32,
+      lg: 48,
+    },
     elements: [
       {
         label: '默认',

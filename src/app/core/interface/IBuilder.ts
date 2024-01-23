@@ -60,6 +60,12 @@ export interface ILayoutBuilder extends ICombsBase {
   fullWidth: boolean;
   direction: 'column' | 'row' | 'row wrap';
   layoutAlign: string;
+  gap?: {
+    xs?: number;
+    sm?: number;
+    md?: number;
+    lg?: number;
+  };
   elements: ILayoutBlock[];
 }
 
