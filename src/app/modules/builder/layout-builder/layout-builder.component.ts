@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  ElementRef,
   Inject,
   Input,
   OnDestroy,
@@ -37,7 +36,6 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
   showGrid: boolean = false;
   constructor(
     private dialog: MatDialog,
-    private ele: ElementRef,
     private cd: ChangeDetectorRef,
     private builder: BuilderState,
     @Inject(ENABLE_BUILDER_TOOLBAR) public enable_toolbar$: Observable<boolean>
