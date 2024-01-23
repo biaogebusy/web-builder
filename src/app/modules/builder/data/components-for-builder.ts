@@ -2075,7 +2075,7 @@ export const components: any[] = [
               elements: [
                 {
                   type: 'card',
-                  subTitle: '2024-01-21',
+                  subTitle: '2024-01-23',
                   avatar: {
                     src: '/assets/images/avatar/01.jpeg',
                     alt: '',
@@ -2125,7 +2125,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-01-21',
+                  subTitle: '2024-01-23',
                   avatar: {
                     src: '/assets/images/avatar/02.jpeg',
                     alt: '',
@@ -2162,7 +2162,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-01-21',
+                  subTitle: '2024-01-23',
                   avatar: {
                     src: '/assets/images/avatar/03.jpeg',
                     alt: '',
@@ -2199,7 +2199,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-01-21',
+                  subTitle: '2024-01-23',
                   avatar: {
                     src: '/assets/images/avatar/04.jpeg',
                     alt: '',
@@ -2236,7 +2236,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-01-21',
+                  subTitle: '2024-01-23',
                   avatar: {
                     src: '/assets/images/avatar/05.jpeg',
                     alt: '',
@@ -2273,7 +2273,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-01-21',
+                  subTitle: '2024-01-23',
                   avatar: {
                     src: '/assets/images/avatar/06.jpeg',
                     alt: '',
@@ -2310,7 +2310,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-01-21',
+                  subTitle: '2024-01-23',
                   avatar: {
                     src: '/assets/images/avatar/01.jpeg',
                     alt: '',
@@ -2347,7 +2347,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-01-21',
+                  subTitle: '2024-01-23',
                   avatar: {
                     src: '/assets/images/avatar/02.jpeg',
                     alt: '',
@@ -3567,7 +3567,7 @@ export const components: any[] = [
                     label: '组件编辑',
                   },
                   content: '通过简单的管理界面对复杂的可视化编辑',
-                  more: {},
+                  more: null,
                 },
                 {
                   type: 'box',
@@ -3581,7 +3581,7 @@ export const components: any[] = [
                   },
                   content:
                     'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程',
-                  more: {},
+                  more: null,
                 },
                 {
                   type: 'box',
@@ -3595,7 +3595,7 @@ export const components: any[] = [
                   },
                   content:
                     '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快',
-                  more: {},
+                  more: null,
                 },
                 {
                   type: 'box',
@@ -3609,7 +3609,7 @@ export const components: any[] = [
                   },
                   content:
                     '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作',
-                  more: {},
+                  more: null,
                 },
                 {
                   icon: {
@@ -4017,7 +4017,7 @@ export const components: any[] = [
                     label: '组件编辑',
                   },
                   content: '通过简单的管理界面对复杂的可视化编辑',
-                  more: {},
+                  more: null,
                 },
                 {
                   type: 'box',
@@ -4031,7 +4031,7 @@ export const components: any[] = [
                   },
                   content:
                     'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程',
-                  more: {},
+                  more: null,
                 },
                 {
                   type: 'box',
@@ -4045,7 +4045,7 @@ export const components: any[] = [
                   },
                   content:
                     '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快',
-                  more: {},
+                  more: null,
                 },
               ],
               right: [
@@ -4061,7 +4061,7 @@ export const components: any[] = [
                   },
                   content:
                     '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作',
-                  more: {},
+                  more: null,
                 },
                 {
                   icon: {
@@ -4375,7 +4375,7 @@ export const components: any[] = [
                     name: 'fingerprint',
                   },
                   digit: {
-                    value: 675,
+                    value: 294,
                     label: '+',
                   },
                   title: '日访问人数',
@@ -4385,7 +4385,7 @@ export const components: any[] = [
                     name: 'verified_user',
                   },
                   digit: {
-                    value: 404,
+                    value: 224,
                     label: '+',
                   },
                   title: '日打开次数',
@@ -4395,7 +4395,7 @@ export const components: any[] = [
                     name: 'android',
                   },
                   digit: {
-                    value: 252,
+                    value: 49,
                     label: '人',
                   },
                   title: '日新增人数',
@@ -4405,7 +4405,7 @@ export const components: any[] = [
                     name: 'mail',
                   },
                   digit: {
-                    value: 3265,
+                    value: 7944,
                     label: '万',
                   },
                   title: '累计用户数',
@@ -4435,7 +4435,7 @@ export const components: any[] = [
                     src: '/assets/images/svg/Asset187.svg',
                   },
                   digit: {
-                    value: 46,
+                    value: 31,
                     label: 'M',
                   },
                   title: 'Github Start',
@@ -4445,7 +4445,7 @@ export const components: any[] = [
                     src: '/assets/images/svg/Asset189.svg',
                   },
                   digit: {
-                    value: 12743,
+                    value: 17426,
                     label: '+',
                   },
                   title: 'NPM 周下载量',
@@ -4455,7 +4455,7 @@ export const components: any[] = [
                     src: '/assets/images/svg/Asset190.svg',
                   },
                   digit: {
-                    value: 3180,
+                    value: 2422,
                     label: 'K',
                   },
                   title: '社区活跃',
@@ -4465,7 +4465,7 @@ export const components: any[] = [
                     src: '/assets/images/svg/Asset192.svg',
                   },
                   digit: {
-                    value: 555,
+                    value: 522,
                     label: '个',
                   },
                   title: '成功故事',
