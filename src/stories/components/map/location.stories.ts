@@ -34,7 +34,7 @@ const content: ILocation = {
   type: 'location',
   title: {
     label: '我的位置',
-    style: 'banner-title',
+    style: 'style-v1',
     classes: 'm-bottom-0',
   },
   style: {
