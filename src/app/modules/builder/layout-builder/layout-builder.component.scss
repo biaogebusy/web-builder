@@ -47,8 +47,9 @@
         .actions {
           display: none;
           position: absolute;
-          right: -1px;
           top: auto;
+          left: 50%;
+          transform: translateX(-50%);
           bottom: 100%;
           z-index: 10;
           white-space: nowrap;
@@ -65,12 +66,13 @@
     .block-toolbar {
       display: none;
       position: absolute;
-      border-radius: 0 0 4px 4px;
+      border-radius: 4px 4px 0 0;
       left: 50%;
       transform: translateX(-50%);
       z-index: 10;
-      top: 0;
       white-space: nowrap;
+      top: auto;
+      bottom: 100%;
     }
     &:hover {
       .block-toolbar,
@@ -115,7 +117,7 @@
 :host-context(.builder-list) {
   .layout-builder {
     .layout {
-      padding: 60px 10px;
+      padding: 0;
     }
   }
 }

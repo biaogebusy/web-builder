@@ -3,7 +3,6 @@ import {
   Component,
   Inject,
   Injector,
-  Input,
   OnDestroy,
   OnInit,
   ViewChild,
