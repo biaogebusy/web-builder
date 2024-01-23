@@ -3,7 +3,7 @@
   <app-spacer [size]="content?.spacer || 'md'"></app-spacer>
   <app-bg-img [attr.data-path]="'bg'" [content]="content.bg" *ngIf="content.bg"></app-bg-img>
   <div class="{{content.fullWidth?'':'container'}}" *ngIf="content">
-    <div class="inner layout-inner" id="layout" fxLayout="row wrap">
+    <div class="inner layout-inner" id="layout" [fxLayout]="content.direction" [fxLayoutAlign]="content.layoutAlign">
       <div class="layout" fxFlex.xs="0 0 calc(100% / {{12 / layout.row.xs}})"
         fxFlex.sm="0 0 calc(100% / {{12 / layout.row.sm}})" fxFlex.md="0 0 calc(100% / {{12 / layout.row.md}})"
         fxFlex.lg="0 0 calc(100% / {{12 / layout.row.lg}})" fxFlex.gt-lg="0 0 calc(100% / {{12 / layout.row.lg}})"

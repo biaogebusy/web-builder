@@ -103,6 +103,10 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
                 label: 'Row',
                 value: 'row',
               },
+              {
+                label: 'Row Wrap',
+                value: 'row wrap',
+              },
             ],
           },
         },

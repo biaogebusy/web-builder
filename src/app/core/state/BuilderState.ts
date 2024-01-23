@@ -215,10 +215,6 @@ export class BuilderState {
       elements: [
         {
           type: 'layout-setting',
-          title: {
-            label: '组件通用配置',
-            style: 'style-v4',
-          },
           fields: getLayoutSetting(content),
           uuid,
           index,

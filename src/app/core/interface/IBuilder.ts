@@ -58,6 +58,8 @@ export interface IBuilderShowcase {
 
 export interface ILayoutBuilder extends ICombsBase {
   fullWidth: boolean;
+  direction: 'column' | 'row' | 'row wrap';
+  layoutAlign: string;
   elements: ILayoutBlock[];
 }
 
