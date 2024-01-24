@@ -69,7 +69,6 @@
       right: 0;
       bottom: 100%;
       z-index: 100;
-      margin-top: -35px;
       .block-toolbar {
         display: none;
         position: absolute;
@@ -87,9 +86,13 @@
       }
     }
     &:hover {
-      .block-menu,
       .add-block {
         display: block;
+      }
+      .block-menu {
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
     }
   }

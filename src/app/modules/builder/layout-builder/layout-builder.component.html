@@ -15,8 +15,8 @@
         [ngClass]="layout.classes" *ngFor="let layout of content.elements;index as i" [attr.data-path]="'elements.'+i">
         <ng-container *ngIf="enable_toolbar$ | async">
           <div class="block-menu">
-            <app-btn class="toggle" matTooltip="当前栏配置"
-              [content]="{label:'',mode:'icon',color:'primary',icon:{svg:'dots-horizontal',inline:true } }"></app-btn>
+            <app-icon class="toggle" matTooltip="当前栏配置"
+              [content]="{svg:'dots-horizontal',inline:true,color:'primary' }"></app-icon>
             <div class="block-toolbar">
               <app-btn matTooltip="左移" *ngIf="i > 0 && i < content.elements.length" (click)="onMoveCol(i,'left')"
                 [content]="{label:'',mode:'icon',color:'primary',icon:{svg:'chevron-left',inline:true } }"></app-btn>
