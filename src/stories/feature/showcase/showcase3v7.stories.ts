@@ -113,7 +113,7 @@ ForStory.args = {
           label: '性能优化',
         },
         content: 'SSR 服务端渲染，模块懒加载，请求拦截缓存等',
-        more: {},
+        more: null,
       },
       {
         type: 'box',
@@ -126,7 +126,7 @@ ForStory.args = {
           label: '动态数据',
         },
         content: '动态组件、JSON驱动的动态表单、动态表格',
-        more: {},
+        more: null,
       },
       {
         type: 'box',
@@ -139,7 +139,7 @@ ForStory.args = {
           label: '自定义',
         },
         content: '自定义指令、自定义管道、自定义 Icon',
-        more: {},
+        more: null,
       },
     ],
     right: [
@@ -154,7 +154,7 @@ ForStory.args = {
           label: '状态管理',
         },
         content: 'Rxjs',
-        more: {},
+        more: null,
       },
       {
         icon: {

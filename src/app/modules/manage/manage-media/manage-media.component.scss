@@ -33,11 +33,8 @@
     width: 100%;
     flex: 0 1 auto;
     height: 80%;
-    ::ng-deep {
-      .cdk-virtual-scroll-content-wrapper {
-        flex-wrap: wrap;
-      }
-    }
+    overflow: auto;
+    flex-wrap: wrap;
   }
 }
 

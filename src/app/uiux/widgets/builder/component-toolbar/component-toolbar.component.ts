@@ -30,9 +30,11 @@ export class ComponentToolbarComponent implements OnInit {
   @Input() isStory: boolean;
   @Input() index: number;
   @Output() uuidChange: EventEmitter<string> = new EventEmitter();
+  @Output() filterChange: EventEmitter<boolean> = new EventEmitter();
   @HostBinding('class.component-toolbar') hostClass = true;
   dialogRef: any;
   enableBuilderToolbar: boolean;
+  showHierarchy: boolean = false;
 
   constructor(
     private builder: BuilderState,
@@ -79,6 +81,11 @@ export class ComponentToolbarComponent implements OnInit {
     } else {
       this.builder.onLayoutSetting(component, index, uuid);
     }
+  }
+
+  onHierarchy(): void {
+    this.showHierarchy = !this.showHierarchy;
+    this.filterChange.emit(this.showHierarchy);
   }
 
   onDelete(index: number): void {

@@ -21,6 +21,12 @@
   .component-item {
     &:hover {
       outline: 1px dashed mat-color($primary);
+      z-index: 10;
+    }
+  }
+  .wrapper {
+    #builder-list {
+      @include scrollbar(mat-color($primary));
     }
   }
   .preview {
@@ -52,9 +58,7 @@
   }
   .component-toolbar {
     .actions {
-      button {
-        background-color: mat-color($background, status-bar, 0.2);
-      }
+      background-color: mat-color($primary, 0.1);
     }
   }
 }

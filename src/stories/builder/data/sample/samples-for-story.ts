@@ -18,7 +18,7 @@ export const samples: IBuilderSamplePage = {
   label: '构建示例',
   elements: [
     {
-      label: 'V1',
+      label: '经典布局',
       id: 'home',
       icon: {
         svg: 'numeric-1',
@@ -26,7 +26,7 @@ export const samples: IBuilderSamplePage = {
       page: home_v1,
     },
     {
-      label: 'V2',
+      label: '服务介绍',
       id: 'home-v2',
       icon: {
         svg: 'numeric-2',
@@ -34,7 +34,7 @@ export const samples: IBuilderSamplePage = {
       page: home_v2,
     },
     {
-      label: 'V3',
+      label: '应用推广',
       id: 'home-v3',
       icon: {
         svg: 'numeric-3',
@@ -42,7 +42,7 @@ export const samples: IBuilderSamplePage = {
       page: home_v3,
     },
     {
-      label: 'V4',
+      label: '应用介绍',
       id: 'home-v4',
       icon: {
         svg: 'numeric-4',
@@ -50,7 +50,7 @@ export const samples: IBuilderSamplePage = {
       page: home_v4,
     },
     {
-      label: 'V5',
+      label: '在线课程',
       id: 'home-v5',
       icon: {
         svg: 'numeric-5',
@@ -58,7 +58,7 @@ export const samples: IBuilderSamplePage = {
       page: home_v5,
     },
     {
-      label: 'V6',
+      label: '医疗科技',
       id: 'home-v6',
       icon: {
         svg: 'numeric-6',
@@ -66,7 +66,7 @@ export const samples: IBuilderSamplePage = {
       page: home_v6,
     },
     {
-      label: 'V7',
+      label: 'Sass 服务',
       id: 'home-v7',
       icon: {
         svg: 'numeric-7',
@@ -74,7 +74,7 @@ export const samples: IBuilderSamplePage = {
       page: home_v7,
     },
     {
-      label: 'V8',
+      label: '应用市场',
       id: 'home-v8',
       icon: {
         svg: 'numeric-8',
@@ -82,7 +82,7 @@ export const samples: IBuilderSamplePage = {
       page: home_v8,
     },
     {
-      label: 'V9',
+      label: '艺术科学',
       id: 'home-v9',
       icon: {
         svg: 'numeric-9',
@@ -90,7 +90,7 @@ export const samples: IBuilderSamplePage = {
       page: home_v9,
     },
     {
-      label: 'V10',
+      label: 'App 应用',
       id: 'home-v10',
       icon: {
         svg: 'numeric-10',
@@ -98,7 +98,7 @@ export const samples: IBuilderSamplePage = {
       page: home_v10,
     },
     {
-      label: 'V11',
+      label: '客户故事',
       id: 'home-v11',
       icon: {
         svg: 'roman-numeral-1',
@@ -106,7 +106,7 @@ export const samples: IBuilderSamplePage = {
       page: home_v11,
     },
     {
-      label: 'V12',
+      label: '工作室',
       id: 'home-v12',
       icon: {
         svg: 'roman-numeral-2',
@@ -114,7 +114,7 @@ export const samples: IBuilderSamplePage = {
       page: home_v12,
     },
     {
-      label: 'V13',
+      label: '现代商业',
       id: 'home-v13',
       icon: {
         svg: 'roman-numeral-3',
@@ -122,7 +122,7 @@ export const samples: IBuilderSamplePage = {
       page: home_v13,
     },
     {
-      label: 'V14',
+      label: '满屏',
       id: 'home-v14',
       icon: {
         svg: 'roman-numeral-4',

@@ -214,7 +214,6 @@ export class ComponentService {
       'showcase-1v4',
       'showcase-2v1',
       'showcase-2v2',
-      'showcase-2v3',
       'showcase-2v4',
       'showcase-2v5',
       'showcase-2v6',

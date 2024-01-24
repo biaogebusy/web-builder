@@ -6,6 +6,7 @@ module.exports = {
     "@storybook/addon-interactions",
     "@storybook/addon-a11y",
     "@storybook/addon-styling",
+    "@storybook/addon-postcss",
   ],
   framework: "@storybook/angular",
   // core: {

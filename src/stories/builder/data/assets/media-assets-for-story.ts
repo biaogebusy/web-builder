@@ -15,13 +15,13 @@ import { images_svgs } from './svgs';
 export const mediaAssets = {
   elements: [
     ...images_heros,
+    ...images_bg,
     ...images_illustration,
     ...images_showcases,
     ...images_cases,
     ...images_avatar,
     ...images_1_1,
     ...images_16_9,
-    ...images_bg,
     ...images_products,
     ...images_svgs,
     ...images_logos,

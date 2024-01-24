@@ -1,7 +1,6 @@
 .layout-builder {
   .layout {
     position: relative;
-    padding: 10px;
     .block-toolbar,
     .actions {
       ::ng-deep {
@@ -23,23 +22,23 @@
         padding: 0;
       }
     }
+    .placeholder {
+      opacity: 0.5;
+      &:hover {
+        opacity: 1;
+      }
+      ::ng-deep {
+        .custom.mat-icon {
+          width: 40px !important;
+          height: 40px !important;
+          line-height: 16px !important;
+        }
+      }
+    }
     .block {
       position: relative;
       width: 100%;
       height: 100%;
-      .placeholder {
-        opacity: 0.5;
-        &:hover {
-          opacity: 1;
-        }
-        ::ng-deep {
-          .custom.mat-icon {
-            width: 40px !important;
-            height: 40px !important;
-            line-height: 16px !important;
-          }
-        }
-      }
       .item {
         position: relative;
         max-width: 100%;
@@ -48,8 +47,9 @@
         .actions {
           display: none;
           position: absolute;
-          right: -1px;
           top: auto;
+          left: 50%;
+          transform: translateX(-50%);
           bottom: 100%;
           z-index: 10;
           white-space: nowrap;
@@ -63,51 +63,75 @@
         }
       }
     }
-    .block-toolbar {
+    .block-menu {
       display: none;
       position: absolute;
-      border-radius: 4px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 10;
-      top: -36px;
-      white-space: nowrap;
+      right: 0;
+      bottom: 100%;
+      z-index: 100;
+      .block-toolbar {
+        display: none;
+        position: absolute;
+        border-radius: 4px 4px 0 0;
+        z-index: 10;
+        white-space: nowrap;
+        right: 100%;
+        top: auto;
+        bottom: 0;
+      }
+      &:hover {
+        .block-toolbar {
+          display: block;
+        }
+      }
     }
     &:hover {
-      .block-toolbar {
+      .add-block {
         display: block;
+      }
+      .block-menu {
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
     }
   }
-  .layout-inner {
-    position: relative;
-    .layout-preview {
-      display: flex;
-      gap: 10px;
-      position: absolute;
-      left: 0;
-      width: 100%;
+  position: relative;
+  .layout-preview {
+    display: flex;
+    gap: 10px;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    z-index: -1;
+    .col-item {
+      width: calc(1 / 12 * 100%);
       height: 100%;
-      top: 0;
-      z-index: -1;
+      .span {
+        opacity: 0;
+        text-align: center;
+        padding: 30px 6px 0 6px;
+      }
+    }
+  }
+  &:hover {
+    .layout-preview {
       .col-item {
-        width: calc(1 / 12 * 100%);
-        height: 100%;
         .span {
-          opacity: 0;
-          text-align: center;
-          padding: 6px;
+          opacity: 1;
         }
       }
     }
-    &:hover {
-      .layout-preview {
-        .col-item {
-          .span {
-            opacity: 1;
-          }
-        }
-      }
+  }
+}
+
+:host-context(.builder-list) {
+  .layout-builder {
+    padding-top: 30px;
+    .layout {
+      padding: 0;
     }
   }
 }
