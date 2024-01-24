@@ -21,6 +21,7 @@ import { getTitleField } from '../factory/getTitleField';
 import { getBtnVideo } from '../factory/getBtnVideo';
 import { getSwiper } from '../factory/getSwiper';
 import { getBlockSetting } from '../factory/getBlockSetting';
+import { getLink } from '../factory/getLink';
 
 @Component({
   selector: 'app-layout-builder',
@@ -104,6 +105,10 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
     }
     if (widget.type === 'swiper') {
       fields = getSwiper(widget);
+    }
+
+    if (widget.type === 'link') {
+      fields = getLink(widget);
     }
 
     if (fields.length > 0) {

@@ -24,6 +24,11 @@
       z-index: 10;
     }
   }
+  .wrapper {
+    #builder-list {
+      @include scrollbar(mat-color($primary));
+    }
+  }
   .preview {
     background-color: mat-color($foreground, elevation, 0.85);
     #builder-list {
