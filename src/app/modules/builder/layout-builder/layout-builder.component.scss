@@ -63,19 +63,31 @@
         }
       }
     }
-    .block-toolbar {
+    .block-menu {
       display: none;
       position: absolute;
-      border-radius: 4px 4px 0 0;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 10;
-      white-space: nowrap;
-      top: auto;
+      right: 0;
       bottom: 100%;
+      z-index: 100;
+      margin-top: -35px;
+      .block-toolbar {
+        display: none;
+        position: absolute;
+        border-radius: 4px 4px 0 0;
+        z-index: 10;
+        white-space: nowrap;
+        right: 100%;
+        top: auto;
+        bottom: 0;
+      }
+      &:hover {
+        .block-toolbar {
+          display: block;
+        }
+      }
     }
     &:hover {
-      .block-toolbar,
+      .block-menu,
       .add-block {
         display: block;
       }
@@ -114,6 +126,7 @@
 
 :host-context(.builder-list) {
   .layout-builder {
+    padding-top: 30px;
     .layout {
       padding: 0;
     }
