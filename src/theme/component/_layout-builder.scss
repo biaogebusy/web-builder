@@ -35,12 +35,12 @@
             }
           }
         }
-        .layout-preview {
-          .col-item {
-            background-color: mat-color($warn, 0.2);
-            .span {
-              color: mat-color($foreground, disabled);
-            }
+      }
+      .layout-preview {
+        .col-item {
+          background-color: mat-color($warn, 0.2);
+          .span {
+            color: mat-color($foreground, disabled);
           }
         }
       }
