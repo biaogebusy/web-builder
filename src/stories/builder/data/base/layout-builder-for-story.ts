@@ -37,6 +37,13 @@ export const layoutBuilder: any[] = [
           classes: 'object-fit',
         },
       },
+      layoutAlign: 'center center',
+      gap: {
+        xs: 8,
+        sm: 16,
+        md: 32,
+        lg: 48,
+      },
       elements: [
         {
           classes: '',
@@ -114,6 +121,13 @@ export const layoutBuilder: any[] = [
       fullWidth: false,
       bg: {
         classes: 'bg-fill-width',
+      },
+      layoutAlign: 'center center',
+      gap: {
+        xs: 8,
+        sm: 16,
+        md: 32,
+        lg: 48,
       },
       elements: [
         {
@@ -236,14 +250,21 @@ export const layoutBuilder: any[] = [
           classes: 'object-fit',
         },
       },
+      layoutAlign: 'center center',
+      gap: {
+        xs: 8,
+        sm: 16,
+        md: 32,
+        lg: 48,
+      },
       elements: [
         {
           classes: '',
           row: {
             xs: 12,
-            sm: 12,
-            md: 12,
-            lg: 12,
+            sm: 4,
+            md: 4,
+            lg: 4,
           },
           direction: 'row',
           layoutAlign: 'center stretch',
@@ -256,6 +277,19 @@ export const layoutBuilder: any[] = [
               content:
                 '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快；',
             },
+          ],
+        },
+        {
+          classes: '',
+          row: {
+            xs: 12,
+            sm: 4,
+            md: 4,
+            lg: 4,
+          },
+          direction: 'row',
+          layoutAlign: 'center stretch',
+          elements: [
             {
               type: 'box',
               img: { src: '/assets/images/svg/Asset189.svg', alt: 'browser' },
@@ -264,6 +298,19 @@ export const layoutBuilder: any[] = [
               content:
                 '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作；',
             },
+          ],
+        },
+        {
+          classes: '',
+          row: {
+            xs: 12,
+            sm: 4,
+            md: 4,
+            lg: 4,
+          },
+          direction: 'row',
+          layoutAlign: 'center stretch',
+          elements: [
             {
               type: 'box',
               img: { src: '/assets/images/svg/Asset190.svg', alt: 'browser' },
@@ -294,14 +341,21 @@ export const layoutBuilder: any[] = [
           classes: 'object-fit',
         },
       },
+      layoutAlign: 'center center',
+      gap: {
+        xs: 8,
+        sm: 16,
+        md: 32,
+        lg: 48,
+      },
       elements: [
         {
           classes: '',
           row: {
             xs: 12,
-            sm: 12,
-            md: 12,
-            lg: 12,
+            sm: 6,
+            md: 3,
+            lg: 3,
           },
           direction: 'row',
           layoutAlign: 'center stretch',
@@ -328,6 +382,19 @@ export const layoutBuilder: any[] = [
                 },
               ],
             },
+          ],
+        },
+        {
+          classes: '',
+          row: {
+            xs: 12,
+            sm: 6,
+            md: 3,
+            lg: 3,
+          },
+          direction: 'row',
+          layoutAlign: 'center stretch',
+          elements: [
             {
               title: {
                 label: '初级会员',
@@ -351,6 +418,19 @@ export const layoutBuilder: any[] = [
                 },
               ],
             },
+          ],
+        },
+        {
+          classes: '',
+          row: {
+            xs: 12,
+            sm: 6,
+            md: 3,
+            lg: 3,
+          },
+          direction: 'row',
+          layoutAlign: 'center stretch',
+          elements: [
             {
               title: {
                 label: '高级会员',
@@ -373,6 +453,19 @@ export const layoutBuilder: any[] = [
                 },
               ],
             },
+          ],
+        },
+        {
+          classes: '',
+          row: {
+            xs: 12,
+            sm: 6,
+            md: 3,
+            lg: 3,
+          },
+          direction: 'row',
+          layoutAlign: 'center stretch',
+          elements: [
             {
               title: {
                 label: '白金会员',
@@ -400,7 +493,6 @@ export const layoutBuilder: any[] = [
       ],
     },
   },
-
   {
     label: '竖排',
     icon: {
@@ -410,6 +502,7 @@ export const layoutBuilder: any[] = [
       type: 'layout-builder',
       spacer: 'md',
       fullWidth: false,
+      direction: 'column',
       bg: {
         classes: 'bg-fill-width',
         img: {
@@ -417,6 +510,13 @@ export const layoutBuilder: any[] = [
           alt: 'bg-01.png',
           classes: 'object-fit',
         },
+      },
+      layoutAlign: 'center center',
+      gap: {
+        xs: 0,
+        sm: 0,
+        md: 0,
+        lg: 0,
       },
       elements: [
         {
@@ -437,11 +537,37 @@ export const layoutBuilder: any[] = [
               style: 'style-v1',
               classes: 'mat-display-3 bold',
             },
+          ],
+        },
+        {
+          classes: '',
+          row: {
+            xs: 12,
+            sm: 12,
+            md: 12,
+            lg: 12,
+          },
+          direction: 'column',
+          layoutAlign: 'center center',
+          elements: [
             {
               type: 'text',
               spacer: 'none',
               body: '<p class="ql-align-center">信使UI是基于 Material 的 Angular 前端框架， 丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。基于Angular Material UI，支持SSR，多应用，后端可根据实际情况自由配置，可自定义开发、新增组件库。</p>',
             },
+          ],
+        },
+        {
+          classes: '',
+          row: {
+            xs: 12,
+            sm: 12,
+            md: 12,
+            lg: 12,
+          },
+          direction: 'column',
+          layoutAlign: 'center center',
+          elements: [
             {
               type: 'btn',
               href: '/node/1',
@@ -450,10 +576,19 @@ export const layoutBuilder: any[] = [
               mode: 'raised',
               color: 'primary',
             },
-            {
-              type: 'spacer',
-              size: 'sm',
-            },
+          ],
+        },
+        {
+          classes: '',
+          row: {
+            xs: 12,
+            sm: 12,
+            md: 12,
+            lg: 12,
+          },
+          direction: 'column',
+          layoutAlign: 'center center',
+          elements: [
             {
               type: 'img',
               hostClasses: 'text-center',
@@ -478,14 +613,33 @@ export const layoutBuilder: any[] = [
       bg: {
         classes: 'bg-fill-width',
       },
+      layoutAlign: 'center center',
+      gap: {
+        xs: 8,
+        sm: 16,
+        md: 32,
+        lg: 48,
+      },
       elements: [
         {
           classes: '',
           row: {
             xs: 12,
             sm: 12,
-            md: 12,
-            lg: 12,
+            md: 6,
+            lg: 6,
+          },
+          direction: 'column',
+          layoutAlign: 'start start',
+          elements: [],
+        },
+        {
+          classes: '',
+          row: {
+            xs: 12,
+            sm: 12,
+            md: 6,
+            lg: 6,
           },
           direction: 'column',
           layoutAlign: 'start start',
