@@ -22,6 +22,8 @@ import { getBtnVideo } from '../factory/getBtnVideo';
 import { getSwiper } from '../factory/getSwiper';
 import { getBlockSetting } from '../factory/getBlockSetting';
 import { getLink } from '../factory/getLink';
+import { getBtn } from '../factory/getBtn';
+import { getSpacer } from '../factory/getSpacer';
 
 @Component({
   selector: 'app-layout-builder',
@@ -97,18 +99,25 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
   onWidgetSetting(i: number, index: number, widget: any): void {
     this.uuid = Date.now().toString();
     let fields: FormlyFieldConfig[] = [];
-    if (widget.type === 'title') {
-      fields = getTitleField(widget);
-    }
-    if (widget.type === 'btn-video') {
-      fields = getBtnVideo(widget);
-    }
-    if (widget.type === 'swiper') {
-      fields = getSwiper(widget);
-    }
-
-    if (widget.type === 'link') {
-      fields = getLink(widget);
+    switch (widget.type) {
+      case 'title':
+        fields = getTitleField(widget);
+        break;
+      case 'btn-video':
+        fields = getBtnVideo(widget);
+        break;
+      case 'swiper':
+        fields = getSwiper(widget);
+        break;
+      case 'link':
+        fields = getLink(widget);
+        break;
+      case 'btn':
+        fields = getBtn(widget);
+        break;
+      case 'spacer':
+        fields = getSpacer(widget);
+        break;
     }
 
     if (fields.length > 0) {
