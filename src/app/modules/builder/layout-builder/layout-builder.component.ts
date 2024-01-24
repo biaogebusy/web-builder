@@ -45,35 +45,19 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
     this.builder.builderLayoutSetting$
       .pipe(takeUntil(this.destroy$))
       .subscribe((data) => {
-        const {
-          i,
-          index,
-          value: { flex, ...widget },
-          uuid,
-        } = data;
+        const { i, index, value, uuid } = data;
         if (uuid === this.uuid) {
           const { elements } = this.content;
-
-          if (flex) {
-            const { direction, horizontal, vertical } = flex;
-            elements[i].direction = direction;
-            elements[i].layoutAlign = `${horizontal.replace(
-              'flex-',
-              ''
-            )} ${vertical.replace('flex-', '')}`;
-          }
-
-          Object.keys(widget).forEach((config) => {
+          Object.keys(value).forEach((config) => {
             if (config) {
               if (i >= 0 && index >= 0) {
                 elements[i].elements[index] = defaultsDeep(
-                  widget[config],
+                  value[config],
                   elements[i].elements[index]
                 );
               }
-
               if (i >= 0 && index === undefined) {
-                elements[i] = defaultsDeep(widget[config], elements[i]);
+                elements[i] = defaultsDeep(value[config], elements[i]);
               }
             }
           });

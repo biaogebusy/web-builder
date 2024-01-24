@@ -1,4 +1,5 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
+import { getLayoutAlign } from './getBlockSetting';
 
 export function getLayoutSetting(content: any): FormlyFieldConfig[] {
   console.log(content);
@@ -193,6 +194,96 @@ export function getLayoutSetting(content: any): FormlyFieldConfig[] {
             },
           },
           {
+            type: 'select',
+            key: 'horizontal',
+            className: 'width-100',
+            defaultValue: getLayoutAlign(0, content.layoutAlign),
+            templateOptions: {
+              label: '水平对齐',
+              options: [
+                {
+                  label: 'None',
+                  value: 'flex-start',
+                },
+                {
+                  label: 'start',
+                  value: 'flex-start',
+                },
+                {
+                  label: 'center',
+                  value: 'center',
+                },
+                {
+                  label: 'end',
+                  value: 'flex-end',
+                },
+                {
+                  label: 'space-around',
+                  value: 'space-around',
+                },
+                {
+                  label: 'space-between',
+                  value: 'space-between',
+                },
+                {
+                  label: 'space-evenly',
+                  value: 'space-evenly',
+                },
+              ],
+            },
+          },
+          {
+            type: 'select',
+            key: 'vertical',
+            className: 'width-100',
+            defaultValue: getLayoutAlign(1, content.layoutAlign),
+            templateOptions: {
+              label: '垂直对齐',
+              options: [
+                {
+                  label: 'None',
+                  value: 'stretch',
+                },
+                {
+                  label: 'start',
+                  value: 'flex-start',
+                },
+                {
+                  label: 'center',
+                  value: 'center',
+                },
+                {
+                  label: 'end',
+                  value: 'flex-end',
+                },
+                {
+                  label: 'stretch',
+                  value: 'stretch',
+                },
+              ],
+            },
+          },
+          {
+            type: 'input',
+            key: 'layoutAlign',
+            className: 'width-100 display-none',
+            defaultValue: content.layoutAlign || 'center center',
+            templateOptions: {
+              label: '布局对齐',
+            },
+            hooks: {
+              onInit: (formGroup: any) => {
+                const { form, model } = formGroup;
+                form.valueChanges.subscribe((value: any) => {
+                  model.layoutAlign = `${value.horizontal.replace(
+                    'flex-',
+                    ''
+                  )} ${value.vertical.replace('flex-', '')}`;
+                });
+              },
+            },
+          },
+          {
             key: 'gap',
             fieldGroup: [
               {
@@ -206,7 +297,7 @@ export function getLayoutSetting(content: any): FormlyFieldConfig[] {
                   thumbLabel: true,
                 },
                 expressionProperties: {
-                  'templateOptions.label': '"xs gap: " + model.xs + " px"',
+                  'templateOptions.label': '"移动端间距: " + model.xs + "px"',
                 },
               },
               {
@@ -220,7 +311,7 @@ export function getLayoutSetting(content: any): FormlyFieldConfig[] {
                   thumbLabel: true,
                 },
                 expressionProperties: {
-                  'templateOptions.label': '"sm gap: " + model.sm + " px"',
+                  'templateOptions.label': '"平板电脑间距: " + model.sm + "px"',
                 },
               },
               {
@@ -234,7 +325,7 @@ export function getLayoutSetting(content: any): FormlyFieldConfig[] {
                   thumbLabel: true,
                 },
                 expressionProperties: {
-                  'templateOptions.label': '"md gap: " + model.md + " px"',
+                  'templateOptions.label': '"桌面电脑间距: " + model.md + "px"',
                 },
               },
               {
@@ -248,7 +339,7 @@ export function getLayoutSetting(content: any): FormlyFieldConfig[] {
                   thumbLabel: true,
                 },
                 expressionProperties: {
-                  'templateOptions.label': '"lg gap: " + model.lg + " px"',
+                  'templateOptions.label': '"超大桌面间距: " + model.lg + "px"',
                 },
               },
             ],

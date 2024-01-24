@@ -180,6 +180,26 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
             ],
           },
         },
+        {
+          type: 'input',
+          key: 'layoutAlign',
+          className: 'width-100 display-none',
+          defaultValue: layout.layoutAlign || 'center center',
+          templateOptions: {
+            label: '布局对齐',
+          },
+          hooks: {
+            onInit: (formGroup: any) => {
+              const { form, model } = formGroup;
+              form.valueChanges.subscribe((value: any) => {
+                model.layoutAlign = `${value.horizontal.replace(
+                  'flex-',
+                  ''
+                )} ${value.vertical.replace('flex-', '')}`;
+              });
+            },
+          },
+        },
       ],
     },
   ];
@@ -386,7 +406,7 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
   return fields;
 }
 
-function getLayoutAlign(index: number, layoutAlign: string): string {
+export function getLayoutAlign(index: number, layoutAlign: string): string {
   const align = layoutAlign.split(' ')[index];
   switch (align) {
     case 'start':
