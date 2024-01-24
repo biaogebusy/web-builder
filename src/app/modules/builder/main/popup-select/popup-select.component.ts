@@ -31,9 +31,9 @@ export class PopupSelectComponent implements OnInit {
   ngOnInit(): void {}
 
   onSelect(widget: any): void {
-    const { row, index, pageIndex, content } = this.content;
+    const { row, i, index, pageIndex, content } = this.content;
     if (row === 'down') {
-      content.elements[index].elements.push(widget.content);
+      content.elements[i].elements.splice(index + 1, 0, widget.content);
     }
 
     if (row === 'next') {
@@ -50,7 +50,7 @@ export class PopupSelectComponent implements OnInit {
         layoutAlign: 'center center',
         elements: [widget.content],
       };
-      content.elements.splice(index + 1, 0, block);
+      content.elements.splice(i + 1, 0, block);
     }
 
     this.builder.updateComponent(pageIndex, content);
