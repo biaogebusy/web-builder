@@ -37,7 +37,7 @@ export function getLayoutSetting(content: any): FormlyFieldConfig[] {
               defaultValue: content.spacer || 'md',
               className: 'width-100',
               templateOptions: {
-                label: '上下留白',
+                label: '上下间距',
                 options: [
                   {
                     label: '超小',

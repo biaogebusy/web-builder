@@ -67,6 +67,7 @@
       display: none;
       position: absolute;
       right: 0;
+      width: 70px;
       bottom: 100%;
       z-index: 100;
       .block-toolbar {
@@ -75,7 +76,7 @@
         border-radius: 4px 4px 0 0;
         z-index: 10;
         white-space: nowrap;
-        right: 100%;
+        right: 30px;
         top: auto;
         bottom: 0;
       }
@@ -91,7 +92,7 @@
       }
       .block-menu {
         display: flex;
-        justify-content: center;
+        justify-content: end;
         align-items: center;
       }
     }
