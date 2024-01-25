@@ -115,7 +115,7 @@ export class LayoutSettingComponent implements OnInit, OnDestroy {
 
   showCode(): void {
     console.log(this.content);
-    const { i, index } = this.content;
+    const { i, index, pageIndex } = this.content;
     // builder list 一级组件
     if (index >= 0 && i === undefined) {
       const json: IJsoneditor = {
@@ -141,7 +141,8 @@ export class LayoutSettingComponent implements OnInit, OnDestroy {
         i,
         index: this.content.index,
         isLayoutWidget: true,
-        data: this.content.content,
+        data: this.builder.currentPage.body[pageIndex || 0].elements[i]
+          .elements[index],
       };
       this.dialog.open(DialogComponent, {
         width: '1000px',

@@ -23,6 +23,12 @@
       }
     }
 
+    .none-description {
+      background-color: mat-color($warn, 0.1);
+      border-left: 4px solid mat-color($warn);
+      @include mat-elevation(3, mat-color($background, tooltip), 0.4);
+    }
+
     .section-group {
       background-color: mat-color($primary, 0.1);
     }

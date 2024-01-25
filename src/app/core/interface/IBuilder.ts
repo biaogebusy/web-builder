@@ -86,6 +86,7 @@ export interface ILayoutSetting {
   fields: FormlyFieldConfig[];
   i?: number;
   index: number;
+  pageIndex?: number;
   uuid: string;
   content: any;
 }

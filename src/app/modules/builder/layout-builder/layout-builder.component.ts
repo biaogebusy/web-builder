@@ -79,6 +79,7 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
           data,
           elements[i].elements[index]
         );
+        this.cd.detectChanges();
       }
     });
   }
@@ -148,6 +149,7 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
     const data: ILayoutSetting = {
       type: 'layout-setting',
       i,
+      pageIndex: this.pageIndex,
       index,
       uuid: this.uuid,
       title: {
@@ -158,7 +160,7 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
       content: widget,
     };
     this.builder.builderRightContent$.next({
-      mode: 'push',
+      mode: 'over',
       hasBackdrop: false,
       style: {
         width: '260px',
