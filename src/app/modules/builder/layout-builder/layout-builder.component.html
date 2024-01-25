@@ -38,7 +38,7 @@
           </div>
         </ng-container>
         <div class="block" [fxLayout]="layout.direction" [fxLayoutAlign]="layout.layoutAlign" [ngStyle]="layout.style">
-          <div class="item" (click)="onWidgetSetting(i,index,item)" *ngFor="let item of layout.elements;index as index">
+          <div class="item" *ngFor="let item of layout.elements;index as index">
             <div class="actions" *ngIf="enable_toolbar$ | async">
               <app-btn matTooltip="上移" *ngIf="index > 0 && index < layout.elements.length"
                 (click)="onUpDown('up',i,index)"
@@ -50,6 +50,8 @@
                 [content]="{label:'',color:'primary',mode:'icon',icon:{svg:'plus' } }"></app-btn>
               <app-btn matTooltip="删除" (click)="onDeleteCol(i,index)"
                 [content]="{label:'',color:'primary',mode:'icon',icon:{svg:'close',inline:true } }"></app-btn>
+              <app-btn matTooltip="组件配置" (click)="onWidgetSetting(i,index,item)"
+                [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'tune-vertical',inline:true } }"></app-btn>
             </div>
             <app-dynamic-component [attr.data-path]="'elements.'+index" [inputs]="item">
             </app-dynamic-component>

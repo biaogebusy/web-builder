@@ -5,6 +5,7 @@ import {
   IBuilderComponent,
   IBuilderDynamicContent,
   IBuilderShowcase,
+  ILayoutSetting,
 } from '@core/interface/IBuilder';
 import { ICard1v1 } from '@core/interface/widgets/ICard';
 import { UtilitiesService } from '@core/service/utilities.service';
@@ -40,11 +41,7 @@ export class BuilderState {
   >();
 
   public loading$ = new BehaviorSubject<boolean>(true);
-  public jsoneditorContent$ = new Subject<{
-    content: IPage;
-    index: number;
-    uuid: string;
-  }>();
+  public jsoneditorContent$ = new Subject<any>();
 
   private page: IPage = {
     title: '着陆页',
@@ -205,6 +202,13 @@ export class BuilderState {
   }
 
   onLayoutSetting(content: any, index: number, uuid: string): void {
+    const data: ILayoutSetting = {
+      type: 'layout-setting',
+      fields: getLayoutSetting(content),
+      uuid,
+      index,
+      content,
+    };
     this.builderRightContent$.next({
       mode: 'over',
       hasBackdrop: false,
@@ -212,15 +216,7 @@ export class BuilderState {
         width: '260px',
         'max-width': 'calc(100vw - 50px)',
       },
-      elements: [
-        {
-          type: 'layout-setting',
-          fields: getLayoutSetting(content),
-          uuid,
-          index,
-          content,
-        },
-      ],
+      elements: [data],
     });
   }
 

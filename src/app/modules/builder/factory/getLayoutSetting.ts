@@ -2,7 +2,6 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
 import { getLayoutAlign } from './getBlockSetting';
 
 export function getLayoutSetting(content: any): FormlyFieldConfig[] {
-  console.log(content);
   const fields: FormlyFieldConfig[] = [
     {
       type: 'tabs',

@@ -66,9 +66,20 @@ export class JsoneditorComponent implements OnInit, AfterViewInit, OnDestroy {
         const page: IPage = this.value;
         this.builder.setCurrentPage(page);
       }
-      // for builder
+      // for web builder 一级组件
       if (this.content.isPreview) {
         this.builder.updateComponent(this.content.index, this.value);
+      }
+
+      // for layout buider json way update
+      if (this.content.isLayoutWidget) {
+        console.log(this.content);
+        this.builder.jsoneditorContent$.next({
+          isLayoutWidget: true,
+          i: this.content.i,
+          index: this.content.index,
+          data: this.value,
+        });
       }
     }
   }
