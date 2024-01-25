@@ -17,7 +17,11 @@
             z-index: 10;
           }
           .block-toolbar {
-            background-color: mat-color($primary, 0.1);
+            background-color: mat-color($background, tooltip, 0.5);
+            @include mat-elevation(2, mat-color($background, tooltip), 0.25);
+            .mat-button-base {
+              color: mat-color($primary, default-contrast);
+            }
           }
           > .placeholder {
             &:hover {
@@ -30,7 +34,15 @@
                 outline: 1px solid mat-color($primary);
               }
               > .actions {
-                background-color: mat-color($primary, 0.1);
+                background-color: mat-color($background, tooltip, 0.5);
+                @include mat-elevation(
+                  2,
+                  mat-color($background, tooltip),
+                  0.25
+                );
+                .mat-button-base {
+                  color: mat-color($primary, default-contrast);
+                }
               }
             }
           }
