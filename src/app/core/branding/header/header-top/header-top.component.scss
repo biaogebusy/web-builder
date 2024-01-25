@@ -36,6 +36,7 @@
       z-index: 0;
       white-space: nowrap;
       font-style: italic;
+      pointer-events: none;
       @include transition(all, 0.4s, ease);
       @include border-radius(5px, 5px, 5px, 5px);
       &:before,
