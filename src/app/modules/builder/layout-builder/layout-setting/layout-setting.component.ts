@@ -13,6 +13,7 @@ import type { ILayoutSetting } from '@core/interface/IBuilder';
 import { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
 import { BuilderState } from '@core/state/BuilderState';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
+import { isNumber } from 'lodash-es';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -117,7 +118,7 @@ export class LayoutSettingComponent implements OnInit, OnDestroy {
     console.log(this.content);
     const { i, index, pageIndex } = this.content;
     // builder list 一级组件
-    if (index >= 0 && i === undefined) {
+    if (!this.isLayoutWidget(i, index)) {
       const json: IJsoneditor = {
         type: 'jsoneditor',
         index: this.content.index,
@@ -135,24 +136,31 @@ export class LayoutSettingComponent implements OnInit, OnDestroy {
     }
 
     // layout builder widget
-    if (i !== undefined && i >= 0 && index >= 0) {
-      const json: IJsoneditor = {
-        type: 'jsoneditor',
-        i,
-        index: this.content.index,
-        isLayoutWidget: true,
-        data: this.builder.currentPage.body[pageIndex || 0].elements[i]
-          .elements[index],
-      };
-      this.dialog.open(DialogComponent, {
-        width: '1000px',
-        data: {
-          inputData: {
-            content: json,
+    if (this.isLayoutWidget(i, index)) {
+      if (isNumber(pageIndex) && isNumber(i)) {
+        const json: IJsoneditor = {
+          type: 'jsoneditor',
+          i,
+          index: this.content.index,
+          isLayoutWidget: true,
+          data: this.builder.currentPage.body[pageIndex].elements[i].elements[
+            index
+          ],
+        };
+        this.dialog.open(DialogComponent, {
+          width: '1000px',
+          data: {
+            inputData: {
+              content: json,
+            },
           },
-        },
-      });
+        });
+      }
     }
+  }
+
+  isLayoutWidget(i: number | undefined, index: number): boolean {
+    return i !== undefined && i >= 0 && index >= 0;
   }
 
   ngOnDestroy(): void {
