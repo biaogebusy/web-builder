@@ -60,7 +60,7 @@ const content: IShowcase3v5 = {
         name: 'verified_user',
       },
       style: 'style-v8',
-      more: {},
+      more: null,
     },
     {
       ...Showcase3v4.content.elements[1],
@@ -68,7 +68,7 @@ const content: IShowcase3v5 = {
         name: 'favorite',
       },
       style: 'style-v8',
-      more: {},
+      more: null,
     },
     {
       ...Showcase3v4.content.elements[2],
@@ -76,7 +76,7 @@ const content: IShowcase3v5 = {
         name: 'android',
       },
       style: 'style-v8',
-      more: {},
+      more: null,
     },
     {
       ...Showcase3v4.content.elements[3],
@@ -84,7 +84,7 @@ const content: IShowcase3v5 = {
         name: 'devices',
       },
       style: 'style-v8',
-      more: {},
+      more: null,
     },
     {
       icon: {

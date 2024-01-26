@@ -18,6 +18,7 @@ import SwiperCore, {
   Mousewheel,
   EffectCoverflow,
   EffectFlip,
+  EffectCube,
 } from 'swiper';
 import { SwiperComponent as SwiperCom } from 'swiper/angular';
 
@@ -43,6 +44,8 @@ SwiperCore.use([
   Mousewheel,
   EffectCoverflow,
   EffectFlip,
+  EffectFade,
+  EffectCube,
 ]);
 
 @Component({

@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Showcase2v3Component } from './showcase2v3.component';
+import { TabsComponent } from './tabs.component';
 
-describe('Showcase2v3Component', () => {
-  let component: Showcase2v3Component;
-  let fixture: ComponentFixture<Showcase2v3Component>;
+describe('TabsComponent', () => {
+  let component: TabsComponent;
+  let fixture: ComponentFixture<TabsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ Showcase2v3Component ]
+      declarations: [ TabsComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(Showcase2v3Component);
+    fixture = TestBed.createComponent(TabsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

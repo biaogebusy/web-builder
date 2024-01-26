@@ -1,5 +1,4 @@
 const featureBox = {
-  id: 1,
   type: 'feature-box',
   width: '20',
   fullIcon: 'fullscreen',

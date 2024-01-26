@@ -10,7 +10,6 @@ import {
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import type { IComponentToolbar } from '@core/interface/combs/IBuilder';
-import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { ENABLE_BUILDER_TOOLBAR } from '@core/token/token-providers';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
@@ -31,13 +30,14 @@ export class ComponentToolbarComponent implements OnInit {
   @Input() isStory: boolean;
   @Input() index: number;
   @Output() uuidChange: EventEmitter<string> = new EventEmitter();
+  @Output() filterChange: EventEmitter<boolean> = new EventEmitter();
   @HostBinding('class.component-toolbar') hostClass = true;
   dialogRef: any;
   enableBuilderToolbar: boolean;
+  showHierarchy: boolean = false;
 
   constructor(
     private builder: BuilderState,
-    private util: UtilitiesService,
     private dialog: MatDialog,
     @Inject(ENABLE_BUILDER_TOOLBAR)
     public enabelBuilderToolbar$: Observable<boolean>
@@ -83,8 +83,12 @@ export class ComponentToolbarComponent implements OnInit {
     }
   }
 
+  onHierarchy(): void {
+    this.showHierarchy = !this.showHierarchy;
+    this.filterChange.emit(this.showHierarchy);
+  }
+
   onDelete(index: number): void {
     this.builder.deleteComponent(index);
-    this.util.openSnackbar(`已在移除${this.type}组件！`, 'ok');
   }
 }

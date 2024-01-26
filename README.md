@@ -214,3 +214,9 @@ Base 的基础配置可查阅[信使 storybook 全局配置](https://ui.zhaobg.c
 `npm run storybook`
 
 更多开发移步[开发指南](https://ui.zhaobg.com/?path=/docs/guide--page)
+
+## 最后
+
+如果觉得这个项目对您有所助益，请帮忙点个 star
+
+[![Star History Chart](https://api.star-history.com/svg?repos=biaogebusy/xinshi-ui&type=Date)](https://star-history.com/#biaogebusy/xinshi-ui&Date)

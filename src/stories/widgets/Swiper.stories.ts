@@ -36,8 +36,6 @@ export const Default = Template.bind({});
 const content: ISwiper = {
   type: 'swiper',
   params: {
-    slidesPerView: 3,
-    spaceBetween: 20,
     navigation: false,
     breakpoints: {
       600: {

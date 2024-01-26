@@ -7,6 +7,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { IPage } from '@core/interface/IAppConfig';
 import type { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
@@ -62,20 +63,12 @@ export class JsoneditorComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.value) {
       // for page json
       if (this.content.isPage) {
-        this.builder.initPage(this.value);
-        return;
+        const page: IPage = this.value;
+        this.builder.setCurrentPage(page);
       }
       // for builder
       if (this.content.isPreview) {
         this.builder.updateComponent(this.content.index, this.value);
-      } else {
-        // for single component preview(storybook)
-        // reload component conent
-        this.builder.jsoneditorContent$.next({
-          content: this.value,
-          index: this.content.index,
-          uuid: this.content.uuid,
-        });
       }
     }
   }

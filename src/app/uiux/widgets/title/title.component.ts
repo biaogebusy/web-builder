@@ -27,7 +27,7 @@ export class TitleComponent implements OnInit, AfterViewInit {
     if (this.content.typed?.enable) {
       const typedEle = this.title.nativeElement.querySelectorAll('strong')[0];
       new Typed(typedEle, {
-        strings: this.content.typed.string,
+        strings: this.content.typed.strings.map((item) => item.label),
         ...this.content.typed.config,
       });
     }

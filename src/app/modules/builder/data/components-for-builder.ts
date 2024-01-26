@@ -2075,7 +2075,7 @@ export const components: any[] = [
               elements: [
                 {
                   type: 'card',
-                  subTitle: '2024-01-16',
+                  subTitle: '2024-01-24',
                   avatar: {
                     src: '/assets/images/avatar/01.jpeg',
                     alt: '',
@@ -2125,7 +2125,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-01-16',
+                  subTitle: '2024-01-24',
                   avatar: {
                     src: '/assets/images/avatar/02.jpeg',
                     alt: '',
@@ -2162,7 +2162,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-01-16',
+                  subTitle: '2024-01-24',
                   avatar: {
                     src: '/assets/images/avatar/03.jpeg',
                     alt: '',
@@ -2199,7 +2199,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-01-16',
+                  subTitle: '2024-01-24',
                   avatar: {
                     src: '/assets/images/avatar/04.jpeg',
                     alt: '',
@@ -2236,7 +2236,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-01-16',
+                  subTitle: '2024-01-24',
                   avatar: {
                     src: '/assets/images/avatar/05.jpeg',
                     alt: '',
@@ -2273,7 +2273,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-01-16',
+                  subTitle: '2024-01-24',
                   avatar: {
                     src: '/assets/images/avatar/06.jpeg',
                     alt: '',
@@ -2310,7 +2310,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-01-16',
+                  subTitle: '2024-01-24',
                   avatar: {
                     src: '/assets/images/avatar/01.jpeg',
                     alt: '',
@@ -2347,7 +2347,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-01-16',
+                  subTitle: '2024-01-24',
                   avatar: {
                     src: '/assets/images/avatar/02.jpeg',
                     alt: '',
@@ -2644,74 +2644,6 @@ export const components: any[] = [
                     label: '《自由的翅膀》',
                   },
                   body: '象征着无拘束和追求自由的欲望，作品中的动感线条和飞扬的形态让人感受到自由的力量与憧憬。',
-                },
-              ],
-            },
-          },
-          {
-            label: '2v3',
-            content: {
-              type: 'showcase-2v3',
-              spacer: 'md',
-              text: {
-                title: {
-                  label: '我们的产品',
-                  style: 'style-v1',
-                  classes: 'display-v2',
-                },
-              },
-              bg: {
-                classes: 'bg-fill-width',
-                img: {
-                  hostClasses: '',
-                  src: '/assets/images/bg/home-shape.png',
-                  mobile: '/assets/images/bg/home-shape.png',
-                },
-              },
-              classes: '',
-              row: 3,
-              elements: [
-                {
-                  title: 'PUFF<br>BAR',
-                  subTitle: '400 puffs<br>17 Flavors',
-                  link: {
-                    label: 'More',
-                    href: '#',
-                    color: 'primary',
-                  },
-                  img: {
-                    src: '/assets/images/svg/bike.png',
-                    alt: 'arcvap',
-                    href: '#',
-                  },
-                },
-                {
-                  title: 'PUFF<br>BAR',
-                  subTitle: '400 puffs<br>17 Flavors',
-                  link: {
-                    label: 'More',
-                    href: '#',
-                    color: 'primary',
-                  },
-                  img: {
-                    src: '/assets/images/svg/car.png',
-                    alt: 'arcvap',
-                    href: '#',
-                  },
-                },
-                {
-                  title: 'PUFF<br>BAR',
-                  subTitle: '400 puffs<br>17 Flavors',
-                  link: {
-                    label: 'More',
-                    href: '#',
-                    color: 'primary',
-                  },
-                  img: {
-                    src: '/assets/images/svg/term-life.png',
-                    alt: 'arcvap',
-                    href: '#',
-                  },
                 },
               ],
             },
@@ -3635,7 +3567,7 @@ export const components: any[] = [
                     label: '组件编辑',
                   },
                   content: '通过简单的管理界面对复杂的可视化编辑',
-                  more: {},
+                  more: null,
                 },
                 {
                   type: 'box',
@@ -3649,7 +3581,7 @@ export const components: any[] = [
                   },
                   content:
                     'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程',
-                  more: {},
+                  more: null,
                 },
                 {
                   type: 'box',
@@ -3663,7 +3595,7 @@ export const components: any[] = [
                   },
                   content:
                     '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快',
-                  more: {},
+                  more: null,
                 },
                 {
                   type: 'box',
@@ -3677,7 +3609,7 @@ export const components: any[] = [
                   },
                   content:
                     '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作',
-                  more: {},
+                  more: null,
                 },
                 {
                   icon: {
@@ -4085,7 +4017,7 @@ export const components: any[] = [
                     label: '组件编辑',
                   },
                   content: '通过简单的管理界面对复杂的可视化编辑',
-                  more: {},
+                  more: null,
                 },
                 {
                   type: 'box',
@@ -4099,7 +4031,7 @@ export const components: any[] = [
                   },
                   content:
                     'Drupal 100多种语言提供了无以伦比的支持和翻译工作流程',
-                  more: {},
+                  more: null,
                 },
                 {
                   type: 'box',
@@ -4113,7 +4045,7 @@ export const components: any[] = [
                   },
                   content:
                     '默认情况下，Drupal 运行速度很快，您可以优化部署，使其运行得更快',
-                  more: {},
+                  more: null,
                 },
               ],
               right: [
@@ -4129,7 +4061,7 @@ export const components: any[] = [
                   },
                   content:
                     '通过友好的预览、拖放媒体提高内容编辑的易用性，高效的工作',
-                  more: {},
+                  more: null,
                 },
                 {
                   icon: {
@@ -4443,7 +4375,7 @@ export const components: any[] = [
                     name: 'fingerprint',
                   },
                   digit: {
-                    value: 908,
+                    value: 707,
                     label: '+',
                   },
                   title: '日访问人数',
@@ -4453,7 +4385,7 @@ export const components: any[] = [
                     name: 'verified_user',
                   },
                   digit: {
-                    value: 455,
+                    value: 297,
                     label: '+',
                   },
                   title: '日打开次数',
@@ -4463,7 +4395,7 @@ export const components: any[] = [
                     name: 'android',
                   },
                   digit: {
-                    value: 207,
+                    value: 281,
                     label: '人',
                   },
                   title: '日新增人数',
@@ -4473,7 +4405,7 @@ export const components: any[] = [
                     name: 'mail',
                   },
                   digit: {
-                    value: 3192,
+                    value: 5839,
                     label: '万',
                   },
                   title: '累计用户数',
@@ -4503,7 +4435,7 @@ export const components: any[] = [
                     src: '/assets/images/svg/Asset187.svg',
                   },
                   digit: {
-                    value: 20,
+                    value: 48,
                     label: 'M',
                   },
                   title: 'Github Start',
@@ -4513,7 +4445,7 @@ export const components: any[] = [
                     src: '/assets/images/svg/Asset189.svg',
                   },
                   digit: {
-                    value: 49929,
+                    value: 14099,
                     label: '+',
                   },
                   title: 'NPM 周下载量',
@@ -4523,7 +4455,7 @@ export const components: any[] = [
                     src: '/assets/images/svg/Asset190.svg',
                   },
                   digit: {
-                    value: 3971,
+                    value: 3352,
                     label: 'K',
                   },
                   title: '社区活跃',
@@ -4533,7 +4465,7 @@ export const components: any[] = [
                     src: '/assets/images/svg/Asset192.svg',
                   },
                   digit: {
-                    value: 698,
+                    value: 865,
                     label: '个',
                   },
                   title: '成功故事',
@@ -4570,8 +4502,6 @@ export const components: any[] = [
               sliders: {
                 type: 'swiper',
                 params: {
-                  slidesPerView: 3,
-                  spaceBetween: 20,
                   navigation: false,
                   breakpoints: {
                     '600': {

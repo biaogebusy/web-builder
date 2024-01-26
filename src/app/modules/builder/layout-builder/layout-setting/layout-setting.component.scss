@@ -19,6 +19,9 @@
     }
   }
   ::ng-deep {
+    h2.title-header {
+      text-transform: capitalize;
+    }
     .mat-form-field-appearance-legacy {
       &.mat-form-field-type-slider {
         .mat-form-field-wrapper {
@@ -26,10 +29,6 @@
           padding-bottom: 0;
         }
       }
-    }
-    .mat-slider-horizontal .mat-slider-wrapper {
-      left: 0;
-      right: 0;
     }
     .layout-setting {
       .layout-preview {
@@ -104,6 +103,21 @@
             }
           }
         }
+      }
+    }
+    .section-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 10px;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+    .mat-form-field-infix {
+      width: auto;
+      .mat-slider-horizontal {
+        min-width: 80px;
       }
     }
   }

@@ -190,7 +190,7 @@ const content: IRelate = {
       spacer: 'none',
       title: {
         label: '中国移动A团队',
-        style: 'style-v7',
+        style: 'style-v5',
         classes: 'm-bottom-0 m-top-0',
       },
     },
@@ -209,7 +209,7 @@ const content: IRelate = {
         {
           label: '备注',
           value:
-            '<strong>Lorem ipsum</strong> dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.',
+            '中国移动通信集团有限公司（简称“中国移动”），成立于2000年，是一家根据中国国家电信体制改革的总体部署而组建的中央企业。作为全球最大的移动通信运营商之一，中国移动在移动语音、数据和增值业务等方面提供全面服务，并且拥有庞大的用户基础和广泛的网络覆盖。',
         },
       ],
     ],
@@ -586,7 +586,7 @@ const v3: IRelate = {
       spacer: 'none',
       title: {
         label: '南宁三四柒文化传播有限公司',
-        style: 'style-v7',
+        style: 'style-v5',
         classes: 'm-bottom-0 m-top-0',
       },
     },
