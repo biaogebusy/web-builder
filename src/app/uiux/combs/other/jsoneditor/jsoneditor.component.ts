@@ -73,7 +73,6 @@ export class JsoneditorComponent implements OnInit, AfterViewInit, OnDestroy {
 
       // for layout buider json way update
       if (this.content.isLayoutWidget) {
-        console.log(this.content);
         this.builder.jsoneditorContent$.next({
           isLayoutWidget: true,
           i: this.content.i,

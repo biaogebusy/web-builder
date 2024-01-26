@@ -10,10 +10,11 @@ import {
 import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import type { ILayoutSetting } from '@core/interface/IBuilder';
+import { IManageMedia } from '@core/interface/manage/IManage';
 import { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
 import { BuilderState } from '@core/state/BuilderState';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
-import { isNumber } from 'lodash-es';
+import { defaultsDeep, isNumber } from 'lodash-es';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -39,25 +40,44 @@ export class LayoutSettingComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.builder.selectedMedia$
       .pipe(takeUntil(this.destroy$))
-      .subscribe((img: any) => {
+      .subscribe(({ img, value }) => {
+        console.log(value);
         const { src, fileName } = img;
-        const bg = {
-          classes: 'bg-fill-width',
-          img: {
-            src,
-            alt: fileName,
-            classes: 'object-fit',
+        const { level } = value;
+        const bgImg = {
+          bg: {
+            classes: 'bg-fill-width',
+            img: {
+              src,
+              alt: fileName,
+              classes: 'object-fit',
+            },
           },
         };
-        this.content.content.bg = bg;
+        // show the img
+        this.content.content = defaultsDeep(bgImg, this.content.content);
         this.dialog.closeAll();
-        this.builder.builderLayoutSetting$.next({
-          value: {
-            bg,
-          },
-          index: this.content.index,
-          uuid: this.content.uuid,
-        });
+
+        // emit value to dynamic component
+        if (level === 'block') {
+          this.builder.builderLayoutSetting$.next({
+            value: {
+              bgImg,
+            },
+            pageIndex: this.content.pageIndex,
+            uuid: this.content.uuid,
+          });
+        }
+
+        if (level === 'layout') {
+          this.builder.builderLayoutSetting$.next({
+            value: {
+              bgImg,
+            },
+            i: this.content.i,
+            uuid: this.content.uuid,
+          });
+        }
         this.cd.detectChanges();
       });
   }
@@ -85,6 +105,7 @@ export class LayoutSettingComponent implements OnInit, OnDestroy {
       value,
       i: this.content.i,
       index: this.content.index,
+      pageIndex: this.content.pageIndex,
       uuid: this.content.uuid,
     });
   }
@@ -101,43 +122,55 @@ export class LayoutSettingComponent implements OnInit, OnDestroy {
   }
 
   openMedias(): void {
+    const manageMedia: IManageMedia = {
+      type: 'manage-media',
+      uuid: this.content.uuid,
+      pageIndex: this.content.pageIndex,
+      i: this.content.i,
+      index: this.content.index,
+      level: this.content.level,
+    };
     this.dialog.open(DialogComponent, {
       width: '100%',
       data: {
         title: '媒体库',
         inputData: {
-          content: {
-            type: 'manage-media',
-          },
+          content: manageMedia,
         },
       },
     });
   }
 
   showCode(): void {
-    console.log(this.content);
     const { i, index, pageIndex } = this.content;
     // builder list 一级组件
-    if (!this.isLayoutWidget(i, index)) {
-      const json: IJsoneditor = {
-        type: 'jsoneditor',
-        index: this.content.index,
-        isPreview: true,
-        data: this.builder.currentPage.body[this.content.index],
-      };
-      this.dialog.open(DialogComponent, {
-        width: '1000px',
-        data: {
-          inputData: {
-            content: json,
+    if (!this.isLayoutWidget(i, pageIndex)) {
+      if (isNumber(this.content.pageIndex)) {
+        const json: IJsoneditor = {
+          type: 'jsoneditor',
+          index: this.content.pageIndex,
+          isPreview: true,
+          data: this.builder.currentPage.body[this.content.pageIndex],
+        };
+        this.dialog.open(DialogComponent, {
+          width: '1000px',
+          data: {
+            inputData: {
+              content: json,
+            },
           },
-        },
-      });
+        });
+      }
     }
 
     // layout builder widget
     if (this.isLayoutWidget(i, index)) {
-      if (isNumber(pageIndex) && isNumber(i)) {
+      if (
+        isNumber(pageIndex) &&
+        isNumber(i) &&
+        isNumber(this.content.index) &&
+        isNumber(index)
+      ) {
         const json: IJsoneditor = {
           type: 'jsoneditor',
           i,
@@ -159,8 +192,8 @@ export class LayoutSettingComponent implements OnInit, OnDestroy {
     }
   }
 
-  isLayoutWidget(i: number | undefined, index: number): boolean {
-    return i !== undefined && i >= 0 && index >= 0;
+  isLayoutWidget(i: number | undefined, index: number | undefined): boolean {
+    return i !== undefined && i >= 0 && index !== undefined && index >= 0;
   }
 
   ngOnDestroy(): void {
