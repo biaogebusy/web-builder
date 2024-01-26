@@ -407,6 +407,9 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
 }
 
 export function getLayoutAlign(index: number, layoutAlign: string): string {
+  if (!layoutAlign) {
+    return 'flex-start';
+  }
   const align = layoutAlign.split(' ')[index];
   switch (align) {
     case 'start':

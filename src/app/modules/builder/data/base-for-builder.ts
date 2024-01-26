@@ -115,7 +115,7 @@ export const base = [
           bg: {
             classes: 'bg-fill-width',
           },
-          layoutAlign: 'center center',
+          layoutAlign: 'center stretch',
           gap: {
             xs: 8,
             sm: 16,
@@ -764,14 +764,6 @@ export const base = [
         },
         content: {
           type: 'tab',
-          text: {
-            title: {
-              label:
-                '欢迎使用 <strong class="text-primary">Builder</strong> 页面构建器',
-              style: 'style-v1',
-            },
-            body: '<p class="text-center">使用页面构建器可以帮助用户快速创建具有吸引力、功能性和响应式设计的网页，无需专业技能和大量的时间和成本投入。</p>',
-          },
           classes: 'bg-light',
           align: 'center',
           pills: true,
@@ -1514,7 +1506,6 @@ export const base = [
                 required: true,
                 matAutosizeMinRows: 5,
               },
-
               key: 'message',
               placeholder: 'Message',
             },

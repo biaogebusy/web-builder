@@ -1,9 +1,10 @@
 export interface IJsoneditor {
   type: string;
   data: any;
-  isPreview: boolean;
+  isPreview?: boolean;
+  isLayoutWidget?: boolean;
+  i?: number;
   index: number;
-  uuid: string;
   actions?: any[];
   actionsAlign?: string;
   isPage?: boolean;

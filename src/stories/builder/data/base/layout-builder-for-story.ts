@@ -122,7 +122,7 @@ export const layoutBuilder: any[] = [
       bg: {
         classes: 'bg-fill-width',
       },
-      layoutAlign: 'center center',
+      layoutAlign: 'center stretch',
       gap: {
         xs: 8,
         sm: 16,

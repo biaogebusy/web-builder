@@ -8,7 +8,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import type { ILayoutBuilder } from '@core/interface/IBuilder';
+import type { ILayoutBuilder, ILayoutSetting } from '@core/interface/IBuilder';
 import { BuilderState } from '@core/state/BuilderState';
 import { ENABLE_BUILDER_TOOLBAR } from '@core/token/token-providers';
 import { FormlyFieldConfig } from '@ngx-formly/core';
@@ -22,6 +22,9 @@ import { getBtnVideo } from '../factory/getBtnVideo';
 import { getSwiper } from '../factory/getSwiper';
 import { getBlockSetting } from '../factory/getBlockSetting';
 import { getLink } from '../factory/getLink';
+import { getBtn } from '../factory/getBtn';
+import { getSpacer } from '../factory/getSpacer';
+import { getNone } from '../factory/getNone';
 
 @Component({
   selector: 'app-layout-builder',
@@ -67,6 +70,18 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
           this.cd.detectChanges();
         }
       });
+
+    this.builder.jsoneditorContent$.subscribe((value) => {
+      const { isLayoutWidget, i, index, data } = value;
+      if (isLayoutWidget) {
+        const { elements } = this.content;
+        elements[i].elements[index] = defaultsDeep(
+          data,
+          elements[i].elements[index]
+        );
+        this.cd.detectChanges();
+      }
+    });
   }
 
   addBlock(row: string, i: number, content: any, index?: number): void {
@@ -97,50 +112,60 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
   onWidgetSetting(i: number, index: number, widget: any): void {
     this.uuid = Date.now().toString();
     let fields: FormlyFieldConfig[] = [];
-    if (widget.type === 'title') {
-      fields = getTitleField(widget);
-    }
-    if (widget.type === 'btn-video') {
-      fields = getBtnVideo(widget);
-    }
-    if (widget.type === 'swiper') {
-      fields = getSwiper(widget);
-    }
-
-    if (widget.type === 'link') {
-      fields = getLink(widget);
+    switch (widget.type) {
+      case 'title':
+        fields = getTitleField(widget);
+        break;
+      case 'btn-video':
+        fields = getBtnVideo(widget);
+        break;
+      case 'swiper':
+        fields = getSwiper(widget);
+        break;
+      case 'link':
+        fields = getLink(widget);
+        break;
+      case 'btn':
+        fields = getBtn(widget);
+        break;
+      case 'spacer':
+        fields = getSpacer(widget);
+        break;
+      default:
+        fields = getNone(widget);
     }
 
     if (fields.length > 0) {
-      this.showDrawer(i, index, widget.type, fields);
+      this.showDrawer(i, index, widget, fields);
     }
   }
 
   showDrawer(
     i: number,
     index: number,
-    label: string,
+    widget: any,
     fields: FormlyFieldConfig[]
   ): void {
+    const data: ILayoutSetting = {
+      type: 'layout-setting',
+      i,
+      pageIndex: this.pageIndex,
+      index,
+      uuid: this.uuid,
+      title: {
+        label: widget.type,
+        style: 'style-v4',
+      },
+      fields,
+      content: widget,
+    };
     this.builder.builderRightContent$.next({
-      mode: 'push',
+      mode: 'over',
       hasBackdrop: false,
       style: {
         width: '260px',
       },
-      elements: [
-        {
-          type: 'layout-setting',
-          i,
-          index,
-          title: {
-            label: label,
-            style: 'style-v4',
-          },
-          fields,
-          uuid: this.uuid,
-        },
-      ],
+      elements: [data],
     });
   }
 

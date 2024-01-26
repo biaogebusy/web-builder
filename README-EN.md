@@ -1,9 +1,9 @@
-<h1 align="center">XINSHI Front-end UI low code framework</h1>
+<h1 align="center">XINSHI Web builder low code framework</h1>
 
 <p align="center">
   <img src="src/assets/images/logo/logo-white.png" alt="logo" width="100px"/>
   <br>
-  <i>Xinshi UI is an Angular front-end low code framework based on Material. With its rich component library, it provides an excellent digital innovation experience. <br>The Web Builder allows for quick construction of responsive, multi-themed web pages through drag-and-drop.
+  <i>Xinshi Web builder is an Angular front-end low code framework based on Material. With its rich component library, it provides an excellent digital innovation experience. <br>The Web Builder allows for quick construction of responsive, multi-themed web pages through drag-and-drop.
     </i>
   <br>
 </p>

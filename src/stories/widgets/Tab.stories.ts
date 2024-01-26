@@ -34,12 +34,6 @@ const Template: Story = (args) => ({
 export const Default = Template.bind({});
 const content: ITab = {
   type: 'tab',
-  text: {
-    title: {
-      label: '为什么你将会喜欢 Drupal？',
-      style: 'style-v4',
-    },
-  },
   classes: 'bg-light',
   fullWidth: false,
   elements: [
@@ -136,12 +130,6 @@ Default.play = async () => {
 export const Align = Template.bind({});
 const align: ITab = {
   type: 'tab',
-  text: {
-    title: {
-      label: '为什么你将会喜欢 Drupal？',
-      style: 'style-v4',
-    },
-  },
   classes: 'bg-light',
   align: 'center',
   fullWidth: false,
@@ -220,14 +208,6 @@ Align.args = {
 export const Pills = Template.bind({});
 const pills: ITab = {
   type: 'tab',
-  text: {
-    title: {
-      label:
-        '欢迎使用 <strong class="text-primary">Builder</strong> 页面构建器',
-      style: 'style-v1',
-    },
-    body: '<p class="text-center">使用页面构建器可以帮助用户快速创建具有吸引力、功能性和响应式设计的网页，无需专业技能和大量的时间和成本投入。</p>',
-  },
   classes: 'bg-light',
   align: 'center',
   pills: true,
