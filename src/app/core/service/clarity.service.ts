@@ -1,5 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +9,9 @@ export class ClarityService {
   constructor(@Inject(DOCUMENT) private document: Document) {}
 
   init(id: string): void {
-    this.clarity(window, this.document, 'clarity', 'script', id);
+    if (environment.production) {
+      this.clarity(window, this.document, 'clarity', 'script', id);
+    }
   }
 
   clarity(c: any, l: any, a: any, r: any, i: any): void {
