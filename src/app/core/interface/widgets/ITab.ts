@@ -5,7 +5,7 @@ export interface ITab {
   id?: string;
   spacer?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'none';
   fullWidth?: boolean;
-  text: IText;
+  text?: IText;
   classes: object | string;
   elements: any[];
   bg?: IBgImg;

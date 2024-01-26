@@ -10,6 +10,7 @@ import {
 import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import type { ILayoutSetting } from '@core/interface/IBuilder';
+import { IJsoneditor } from '@core/interface/widgets/IJsoneditor';
 import { BuilderState } from '@core/state/BuilderState';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import { Subject } from 'rxjs';
@@ -113,19 +114,45 @@ export class LayoutSettingComponent implements OnInit, OnDestroy {
   }
 
   showCode(): void {
-    this.dialog.open(DialogComponent, {
-      width: '1000px',
-      data: {
-        inputData: {
-          content: {
-            type: 'jsoneditor',
-            index: this.content.index,
-            isPreview: true,
-            data: this.builder.currentPage.body[this.content.index],
+    console.log(this.content);
+    const { i, index, pageIndex } = this.content;
+    // builder list 一级组件
+    if (index >= 0 && i === undefined) {
+      const json: IJsoneditor = {
+        type: 'jsoneditor',
+        index: this.content.index,
+        isPreview: true,
+        data: this.builder.currentPage.body[this.content.index],
+      };
+      this.dialog.open(DialogComponent, {
+        width: '1000px',
+        data: {
+          inputData: {
+            content: json,
           },
         },
-      },
-    });
+      });
+    }
+
+    // layout builder widget
+    if (i !== undefined && i >= 0 && index >= 0) {
+      const json: IJsoneditor = {
+        type: 'jsoneditor',
+        i,
+        index: this.content.index,
+        isLayoutWidget: true,
+        data: this.builder.currentPage.body[pageIndex || 0].elements[i]
+          .elements[index],
+      };
+      this.dialog.open(DialogComponent, {
+        width: '1000px',
+        data: {
+          inputData: {
+            content: json,
+          },
+        },
+      });
+    }
   }
 
   ngOnDestroy(): void {
