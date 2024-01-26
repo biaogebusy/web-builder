@@ -25,6 +25,7 @@ import { getLink } from '../factory/getLink';
 import { getBtn } from '../factory/getBtn';
 import { getSpacer } from '../factory/getSpacer';
 import { getNone } from '../factory/getNone';
+import { getChart } from '../factory/getChart';
 
 @Component({
   selector: 'app-layout-builder',
@@ -158,6 +159,9 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
         break;
       case 'spacer':
         fields = getSpacer(widget);
+        break;
+      case 'chart':
+        fields = getChart(widget);
         break;
       default:
         fields = getNone(widget);

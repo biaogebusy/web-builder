@@ -202,172 +202,99 @@ export const widgets = [
     },
   },
   {
-    label: '表单',
+    label: '联系我们',
     icon: {
-      svg: 'checkbox-marked-outline',
+      svg: 'account-box-outline',
     },
     content: {
-      type: 'formly',
-      fields: [
+      type: 'contact-us',
+      params: {
+        webform_id: 'contact',
+      },
+      bg: {
+        classes: 'bg-fill-width wave-wrapper',
+        icon: 'wave',
+      },
+      action: {
+        label: '提交',
+      },
+      formOrder: '1',
+      contact: [
+        {
+          title: {
+            label: '地址',
+          },
+          icon: {
+            name: 'location_on',
+          },
+          style: 'style-v7 small-box',
+          content: '创客城2栋',
+        },
+        {
+          title: {
+            label: '电话号码',
+          },
+          style: 'style-v7 small-box',
+          icon: {
+            name: 'phone',
+          },
+          content: '+086 0771xxxx',
+        },
+        {
+          title: {
+            label: '邮件',
+          },
+          style: 'style-v7 small-box',
+          icon: {
+            name: 'mail',
+          },
+          content: 'service@example.com',
+        },
+        {
+          title: {
+            label: '微信',
+          },
+          style: 'style-v7 small-box',
+          icon: {
+            name: 'chat_bubble',
+          },
+          content: 'biaogebusy',
+        },
+      ],
+      forms: [
         {
           type: 'input',
-          key: 'total',
-          defaultValue: 300,
-          className: 'display-block m-bottom-sm',
-          templateOptions: {
-            label: '大额红包总金额',
-            type: 'number',
+          label: '姓名',
+          key: 'name',
+          params: {
             required: true,
-            min: 10,
-            max: 10000,
-            description: '最小10元，最大10000元',
-          },
-          validation: {
-            messages: {
-              min: '不能设置小于 10',
-              max: '不能设置大于 10000',
-            },
           },
         },
         {
-          className: 'width-100 m-bottom-md',
-          template: '<div><strong>地址:</strong></div>',
+          type: 'input',
+          label: '邮箱',
+          key: 'email',
+          params: {
+            required: true,
+          },
         },
         {
-          key: 'Textarea',
+          type: 'input',
+          label: '主题',
+          key: 'subject',
+          params: {
+            required: true,
+          },
+        },
+        {
           type: 'textarea',
-          className: 'display-block m-bottom-sm',
-          templateOptions: {
-            label: '文本域',
-            placeholder: 'Placeholder',
-            description: 'Description',
+          label: '内容',
+          params: {
             required: true,
+            matAutosizeMinRows: 5,
           },
-        },
-        {
-          key: 'Checkbox',
-          type: 'checkbox',
-          className: 'display-block m-bottom-sm',
-          templateOptions: {
-            label: '接受协议',
-            description: '为了更好的服务，网站将收集用户的Cookies信息。',
-            pattern: 'true',
-            required: true,
-          },
-          validation: {
-            messages: {
-              pattern: '请勾选协议',
-            },
-          },
-        },
-        {
-          key: 'Radio',
-          type: 'radio',
-          className: 'display-block m-bottom-sm',
-          templateOptions: {
-            label: '单选框',
-            placeholder: 'Placeholder',
-            description: 'Description',
-            required: true,
-            options: [
-              {
-                value: 1,
-                label: 'Option 1',
-              },
-              {
-                value: 2,
-                label: 'Option 2',
-              },
-              {
-                value: 3,
-                label: 'Option 3',
-              },
-              {
-                value: 4,
-                label: 'Option 4',
-                disabled: true,
-              },
-            ],
-          },
-        },
-        {
-          type: 'select',
-          key: 'type',
-          defaultValue: 'fixed',
-          className: 'display-block m-bottom-sm',
-          templateOptions: {
-            label: '下拉单选',
-            description: '固定金额或者按比例',
-            options: [
-              {
-                label: '固定金额',
-                value: 'fixed',
-              },
-              {
-                label: '比例',
-                value: 'prop',
-              },
-            ],
-          },
-        },
-        {
-          type: 'mat-select',
-          key: 'customer',
-          className: 'display-block m-bottom-sm',
-          templateOptions: {
-            multiple: true,
-            search: true,
-            hideSelected: true,
-            label: '下拉多选',
-            options: [
-              {
-                value: 1,
-                label: 'Option 1',
-              },
-              {
-                value: 2,
-                label: 'Option 2',
-              },
-              {
-                value: 3,
-                label: 'Option 3',
-              },
-              {
-                value: 4,
-                label: 'Option 4',
-                disabled: true,
-              },
-            ],
-          },
-        },
-        {
-          type: 'date-range',
-          key: 'date',
-          templateOptions: {
-            label: '期间',
-            value: '',
-            placeholder: '请选择日期',
-          },
-          className: 'display-block m-bottom-sm',
-          fieldGroup: [
-            {
-              type: 'input',
-              key: 'start',
-            },
-            {
-              type: 'input',
-              key: 'end',
-            },
-          ],
-        },
-        {
-          key: 'isPromote',
-          type: 'toggle',
-          className: 'display-block m-bottom',
-          templateOptions: {
-            label: '开关',
-            description: '超过推广次数则推广结束',
-          },
+          key: 'message',
+          placeholder: 'Message',
         },
       ],
     },
@@ -420,9 +347,9 @@ export const widgets = [
       dataset: {
         source: [
           ['红包预算', '2020', '2021', '2022'],
-          ['第一季度', 8818, 4258, 4165],
-          ['第二季度', 3848, 4031, 4491],
-          ['第三季度', 5608, 9862, 5516],
+          ['第一季度', 8389, 9096, 7385],
+          ['第二季度', 8340, 4598, 6969],
+          ['第三季度', 7853, 7267, 6596],
         ],
       },
       xAxis: {
@@ -474,25 +401,25 @@ export const widgets = [
       elements: [
         {
           module: 'Slick Carousel',
-          tatol: 9431,
+          tatol: 7441,
           info: 'Slick 轮播，强大响应式且性能优异的图片轮播解决方案，有非常丰富的配置选项，slick 官网自己调侃这是你最后使用的图片轮播',
           remarks: '查看',
         },
         {
           module: 'Views Slideshow',
-          tatol: 1137,
+          tatol: 4328,
           info: '视图轮播模块，该模块是最受欢迎的幻灯片模块，可放任何内容，高度定制\t',
           remarks: '查看',
         },
         {
           module: 'Colorbox',
-          tatol: 1809,
+          tatol: 3350,
           info: '轻量级高可定制幻灯片模块，高度集成在 Drupal 中，可放图片，Iframed 或者在线内容等等\t',
           remarks: '查看',
         },
         {
           module: 'Flex Slider',
-          tatol: 5292,
+          tatol: 1594,
           info: '响应式、可调整大小、适配浏览器和移动设备，支持移动设备手势滑动\t',
           remarks: '查看',
         },
@@ -787,7 +714,7 @@ export const widgets = [
             src: '../assets/images/showcase/blog1-large.jpeg',
             alt: '',
           },
-          changed: '2024-01-24',
+          changed: '2024-01-26',
         },
         {
           link: {
@@ -798,29 +725,29 @@ export const widgets = [
             src: '../assets/images/showcase/blog2-large.jpeg',
             alt: '',
           },
-          changed: '2024-01-24',
+          changed: '2024-01-26',
         },
         {
           link: {
             label: '你应该了解的 Angular 最佳实践',
-            href: '2024-01-24',
+            href: '2024-01-26',
           },
           img: {
             src: '../assets/images/showcase/blog3-large.jpeg',
             alt: '',
           },
-          changed: '2024-01-24',
+          changed: '2024-01-26',
         },
         {
           link: {
             label: 'Angular 5 rxjs 5.5.2 多个 http 并行 forkJoin 请求',
-            href: '2024-01-24',
+            href: '2024-01-26',
           },
           img: {
             src: '../assets/images/showcase/blog4-large.jpeg',
             alt: '',
           },
-          changed: '2024-01-24',
+          changed: '2024-01-26',
         },
       ],
     },
