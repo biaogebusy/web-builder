@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { IBranding } from '../interface/branding/IBranding';
 import { INotify } from '@core/interface/widgets/IWidgets';
 import { IBuilderSamplePage, IUiux } from '@core/interface/IBuilder';
+import { IThemePreview } from '@core/interface/combs/IThemePreview';
 
 export interface IManageSidebarState {
   enableSidebar: boolean;
@@ -49,3 +50,5 @@ export const WIDGETS = new InjectionToken<any[]>(
 export const MANAGE_SIDEBAR_STATE = new InjectionToken<
   Observable<IManageSidebarState>
 >('manage sidebar state');
+
+export const COLOR_TEST = new InjectionToken<IThemePreview>('color test');

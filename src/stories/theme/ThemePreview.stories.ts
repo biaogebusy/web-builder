@@ -14,6 +14,7 @@ import { Default as Card1v2 } from '@stories/widgets/card/Card1v2.stories';
 import { Default as test } from '@stories/widgets/media/Testimonial.stories';
 import { random } from 'lodash-es';
 import { environment } from 'src/environments/environment';
+import { IThemePreview } from '@core/interface/combs/IThemePreview';
 export default {
   title: '主题/主题预览',
   id: 'theme-preview',
@@ -38,366 +39,374 @@ const Template: Story = (args) => ({
 
 export const Default = Template.bind({});
 
-Default.args = {
-  content: {
-    type: 'theme-preview',
-    top: [
-      {
-        ...BannerWithBg.args?.content,
-        title: '主题颜色预览',
-      },
-    ],
-    bgColors: {
-      row: 10,
-      lists: [
-        {
-          label: 'primary',
-          classes: 'bg-primary',
-        },
-        {
-          label: 'accent',
-          classes: 'bg-accent',
-        },
-        {
-          label: 'warn',
-          classes: 'bg-warn',
-        },
-        {
-          label: 'pink',
-          classes: 'bg-pink',
-        },
-        {
-          label: 'orange',
-          classes: 'bg-orange',
-        },
-        {
-          label: 'yellow',
-          classes: 'bg-yellow',
-        },
-        {
-          label: 'red',
-          classes: 'bg-red',
-        },
-        {
-          label: 'purple',
-          classes: 'bg-purple',
-        },
-        {
-          label: 'indigo',
-          classes: 'bg-indigo',
-        },
-        {
-          label: 'blue',
-          classes: 'bg-blue',
-        },
-        {
-          label: 'cyan',
-          classes: 'bg-cyan',
-        },
-        {
-          label: 'teal',
-          classes: 'bg-teal',
-        },
-        {
-          label: 'green',
-          classes: 'bg-green',
-        },
-        {
-          label: 'light-green',
-          classes: 'bg-light-green',
-        },
-        {
-          label: 'brown',
-          classes: 'bg-brown',
-        },
-        {
-          label: 'grey',
-          classes: 'bg-grey',
-        },
-      ],
+const content: IThemePreview = {
+  type: 'theme-preview',
+  top: [
+    {
+      ...BannerWithBg.args?.content,
+      title: '色彩检查',
+      breadcrumb: null,
     },
-    row: [
+  ],
+  bgColors: {
+    row: 10,
+    lists: [
       {
-        type: 'chart-box',
-        label: '广告发布量',
-        count: '5',
-        params: {
-          apiBak: '/api/v3/node/vote/report',
-        },
-        chart: {
-          grid: {
-            left: '0',
-            right: '0',
-            top: '0',
-            bottom: '0',
-          },
-          xAxis: {
-            show: false,
-            type: 'category',
-          },
-          yAxis: {
-            show: false,
-            type: 'value',
-          },
-          dataset: [
-            {
-              source: [
-                ['name', '广告'],
-                ['1月', random(10, 100)],
-                ['2月', random(10, 100)],
-                ['3月', random(10, 100)],
-                ['4月', random(10, 100)],
-                ['5月', random(10, 100)],
-                ['6月', random(10, 100)],
-                ['7月', random(10, 100)],
-                ['8月', random(10, 100)],
-                ['9月', random(10, 100)],
-                ['10月', random(10, 100)],
-                ['11月', random(10, 100)],
-                ['12月', random(10, 100)],
-              ],
-            },
-          ],
-          series: [
-            {
-              type: 'line',
-              symbol: 'none',
-              areaStyle: {
-                opacity: 0.1,
-                color: '#1976d2',
-              },
-              lineStyle: {
-                color: '#1976d2',
-              },
-              label: {
-                position: 'top',
-                show: true,
-              },
-              datasetIndex: 0,
-            },
-          ],
-        },
+        label: 'primary',
+        classes: 'bg-primary',
       },
       {
-        type: 'chart-box',
-        label: '消费者增长',
-        count: '1,156',
-        params: {
-          apiBak: '/api/v3/node/vote/report',
-        },
-        chart: {
-          grid: {
-            left: '0',
-            right: '0',
-            top: '0',
-            bottom: '0',
-          },
-          xAxis: {
-            show: false,
-            type: 'category',
-          },
-          yAxis: {
-            show: false,
-            type: 'value',
-          },
-          dataset: [
-            {
-              source: [
-                ['name', '用户'],
-                ['1月', random(10, 100)],
-                ['2月', random(10, 100)],
-                ['3月', random(10, 100)],
-                ['4月', random(10, 100)],
-                ['5月', random(10, 100)],
-                ['6月', random(10, 100)],
-                ['7月', random(10, 100)],
-                ['8月', random(10, 100)],
-                ['9月', random(10, 100)],
-                ['10月', random(10, 100)],
-                ['11月', random(10, 100)],
-                ['12月', random(10, 100)],
-              ],
-            },
-          ],
-          series: [
-            {
-              type: 'line',
-              symbol: 'none',
-              areaStyle: {
-                opacity: 0.1,
-                color: '#512da8',
-              },
-              lineStyle: {
-                color: '#512da8',
-              },
-              label: {
-                position: 'top',
-                show: true,
-              },
-              datasetIndex: 0,
-            },
-          ],
-        },
+        label: 'accent',
+        classes: 'bg-accent',
       },
       {
-        type: 'chart-box',
-        label: '门店增长',
-        count: '50%',
-        params: {
-          apiBak: '/api/v3/node/vote/report',
-        },
-        chart: {
-          grid: {
-            left: '0',
-            right: '0',
-            top: '0',
-            bottom: '0',
-          },
-          xAxis: {
-            show: false,
-            type: 'category',
-          },
-          yAxis: {
-            show: false,
-            type: 'value',
-          },
-          dataset: [
-            {
-              source: [
-                ['name', '门店'],
-                ['1月', random(1, 10)],
-                ['2月', random(1, 10)],
-                ['3月', random(1, 10)],
-                ['4月', random(1, 10)],
-                ['5月', random(1, 10)],
-                ['6月', random(1, 10)],
-                ['7月', random(1, 10)],
-                ['8月', random(1, 10)],
-                ['9月', random(1, 10)],
-                ['10月', random(1, 10)],
-                ['11月', random(1, 10)],
-                ['12月', random(1, 10)],
-              ],
-            },
-          ],
-          series: [
-            {
-              type: 'line',
-              symbol: 'none',
-              areaStyle: {
-                opacity: 0.1,
-                color: '#f57f17',
-              },
-              lineStyle: {
-                color: '#f57f17',
-              },
-              label: {
-                position: 'top',
-                show: true,
-              },
-              datasetIndex: 0,
-            },
-          ],
-        },
+        label: 'warn',
+        classes: 'bg-warn',
+      },
+      {
+        label: 'pink',
+        classes: 'bg-pink',
+      },
+      {
+        label: 'orange',
+        classes: 'bg-orange',
+      },
+      {
+        label: 'yellow',
+        classes: 'bg-yellow',
+      },
+      {
+        label: 'red',
+        classes: 'bg-red',
+      },
+      {
+        label: 'purple',
+        classes: 'bg-purple',
+      },
+      {
+        label: 'indigo',
+        classes: 'bg-indigo',
+      },
+      {
+        label: 'blue',
+        classes: 'bg-blue',
+      },
+      {
+        label: 'cyan',
+        classes: 'bg-cyan',
+      },
+      {
+        label: 'teal',
+        classes: 'bg-teal',
+      },
+      {
+        label: 'green',
+        classes: 'bg-green',
+      },
+      {
+        label: 'light-green',
+        classes: 'bg-light-green',
+      },
+      {
+        label: 'brown',
+        classes: 'bg-brown',
+      },
+      {
+        label: 'grey',
+        classes: 'bg-grey',
       },
     ],
-    columns: [
-      [
-        {
-          ...BaseCard.args?.content,
+  },
+  row: [
+    {
+      type: 'chart-box',
+      label: '广告发布量',
+      count: '5',
+      params: {
+        apiBak: '/api/v3/node/vote/report',
+      },
+      chart: {
+        grid: {
+          left: '0',
+          right: '0',
+          top: '0',
+          bottom: '0',
         },
-        {
-          ...StepFirst.args?.content,
+        xAxis: {
+          show: false,
+          type: 'category',
         },
-        {
-          ...Card1v6.args?.content,
+        yAxis: {
+          show: false,
+          type: 'value',
         },
-        {
-          type: 'chart',
-          title: {
-            text: '年度活动金额预算',
-            subtext: '南宁',
-          },
-          legend: {
-            bottom: '10px',
-          },
-          tooltip: {
-            trigger: 'axis',
-          },
-          dataset: {
+        dataset: [
+          {
             source: [
-              ['红包预算', '2020', '2021', '2022'],
-              ['第一季度', 4875, 4670, 7742],
-              ['第二季度', 7746, 5029, 9867],
-              ['第三季度', 5997, 5979, 3590],
+              ['name', '广告'],
+              ['1月', random(10, 100)],
+              ['2月', random(10, 100)],
+              ['3月', random(10, 100)],
+              ['4月', random(10, 100)],
+              ['5月', random(10, 100)],
+              ['6月', random(10, 100)],
+              ['7月', random(10, 100)],
+              ['8月', random(10, 100)],
+              ['9月', random(10, 100)],
+              ['10月', random(10, 100)],
+              ['11月', random(10, 100)],
+              ['12月', random(10, 100)],
             ],
           },
-          xAxis: {
-            type: 'category',
+        ],
+        series: [
+          {
+            type: 'line',
+            symbol: 'none',
+            areaStyle: {
+              opacity: 0.1,
+              color: '#1976d2',
+            },
+            lineStyle: {
+              color: '#1976d2',
+            },
+            label: {
+              position: 'top',
+              show: true,
+            },
+            datasetIndex: 0,
           },
-          yAxis: {},
-          series: [
-            {
-              type: 'line',
+        ],
+      },
+    },
+    {
+      type: 'chart-box',
+      label: '消费者增长',
+      count: '1,156',
+      params: {
+        apiBak: '/api/v3/node/vote/report',
+      },
+      chart: {
+        grid: {
+          left: '0',
+          right: '0',
+          top: '0',
+          bottom: '0',
+        },
+        xAxis: {
+          show: false,
+          type: 'category',
+        },
+        yAxis: {
+          show: false,
+          type: 'value',
+        },
+        dataset: [
+          {
+            source: [
+              ['name', '用户'],
+              ['1月', random(10, 100)],
+              ['2月', random(10, 100)],
+              ['3月', random(10, 100)],
+              ['4月', random(10, 100)],
+              ['5月', random(10, 100)],
+              ['6月', random(10, 100)],
+              ['7月', random(10, 100)],
+              ['8月', random(10, 100)],
+              ['9月', random(10, 100)],
+              ['10月', random(10, 100)],
+              ['11月', random(10, 100)],
+              ['12月', random(10, 100)],
+            ],
+          },
+        ],
+        series: [
+          {
+            type: 'line',
+            symbol: 'none',
+            areaStyle: {
+              opacity: 0.1,
+              color: '#512da8',
             },
-            {
-              type: 'line',
+            lineStyle: {
+              color: '#512da8',
             },
-            {
-              type: 'line',
+            label: {
+              position: 'top',
+              show: true,
             },
+            datasetIndex: 0,
+          },
+        ],
+      },
+    },
+    {
+      type: 'chart-box',
+      label: '门店增长',
+      count: '50%',
+      params: {
+        apiBak: '/api/v3/node/vote/report',
+      },
+      chart: {
+        grid: {
+          left: '0',
+          right: '0',
+          top: '0',
+          bottom: '0',
+        },
+        xAxis: {
+          show: false,
+          type: 'category',
+        },
+        yAxis: {
+          show: false,
+          type: 'value',
+        },
+        dataset: [
+          {
+            source: [
+              ['name', '门店'],
+              ['1月', random(1, 10)],
+              ['2月', random(1, 10)],
+              ['3月', random(1, 10)],
+              ['4月', random(1, 10)],
+              ['5月', random(1, 10)],
+              ['6月', random(1, 10)],
+              ['7月', random(1, 10)],
+              ['8月', random(1, 10)],
+              ['9月', random(1, 10)],
+              ['10月', random(1, 10)],
+              ['11月', random(1, 10)],
+              ['12月', random(1, 10)],
+            ],
+          },
+        ],
+        series: [
+          {
+            type: 'line',
+            symbol: 'none',
+            areaStyle: {
+              opacity: 0.1,
+              color: '#f57f17',
+            },
+            lineStyle: {
+              color: '#f57f17',
+            },
+            label: {
+              position: 'top',
+              show: true,
+            },
+            datasetIndex: 0,
+          },
+        ],
+      },
+    },
+  ],
+  columns: [
+    [
+      {
+        ...BaseCard.args?.content,
+      },
+      {
+        ...StepFirst.args?.content,
+      },
+      {
+        ...Card1v6.args?.content,
+      },
+      {
+        type: 'chart',
+        title: {
+          text: '年度活动金额预算',
+          subtext: '南宁',
+        },
+        legend: {
+          bottom: '10px',
+        },
+        tooltip: {
+          trigger: 'axis',
+        },
+        dataset: {
+          source: [
+            ['红包预算', '2020', '2021', '2022'],
+            ['第一季度', 4875, 4670, 7742],
+            ['第二季度', 7746, 5029, 9867],
+            ['第三季度', 5997, 5979, 3590],
           ],
         },
-      ],
-      [
-        {
-          ...Avatar.args?.content,
+        xAxis: {
+          type: 'category',
         },
-        {
-          ...Card1v2.args?.content,
-        },
-        {
-          type: 'stepper',
-          params: {
-            mode: 'vertical',
-            linear: true,
+        yAxis: {},
+        series: [
+          {
+            type: 'line',
           },
-          steps: [
-            {
-              label: '指派中',
-              color: 'primary',
-            },
-            {
-              label: '接受',
-              color: 'accent',
-              completed: true,
-            },
-            {
-              label: '停止',
-              completed: true,
-              color: 'warn',
-            },
-            {
-              label: '已完成',
-            },
-          ],
-        },
-      ],
-      [
-        {
-          ...BroderShadow.args?.content,
-        },
-        {
-          ...Card1v4.args?.content,
-        },
-        {
-          ...test.args?.content,
-        },
-      ],
+          {
+            type: 'line',
+          },
+          {
+            type: 'line',
+          },
+        ],
+      },
     ],
+    [
+      {
+        ...Avatar.args?.content,
+      },
+      {
+        ...Card1v2.args?.content,
+      },
+      {
+        type: 'stepper',
+        params: {
+          mode: 'vertical',
+          linear: true,
+        },
+        steps: [
+          {
+            label: '指派中',
+            color: 'primary',
+          },
+          {
+            label: '接受',
+            color: 'accent',
+            completed: true,
+          },
+          {
+            label: '停止',
+            completed: true,
+            color: 'warn',
+          },
+          {
+            label: '已完成',
+          },
+        ],
+      },
+    ],
+    [
+      {
+        ...BroderShadow.args?.content,
+      },
+      {
+        ...Card1v4.args?.content,
+      },
+      {
+        ...test.args?.content,
+      },
+    ],
+  ],
+};
+
+Default.args = {
+  content: {
+    ...content,
   },
 };
 
 if (!environment.production) {
-  console.log(Default.args.content);
+  console.log('Color Test:', {
+    title: '色彩检查',
+    body: [Default.args.content],
+  });
 }

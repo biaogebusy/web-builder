@@ -19,6 +19,7 @@ import {
   BUILDER_SAMPLE_PAGE,
   WIDGETS,
   UIUX,
+  COLOR_TEST,
 } from '@core/token/token-providers';
 import { uiux } from './data/uiux-for-builder';
 import { PreviewComponent } from './preview/preview.component';
@@ -36,6 +37,7 @@ import { LayoutSettingComponent } from './layout-builder/layout-setting/layout-s
 import { widgets } from './data/widgets-for-builder';
 import { of } from 'rxjs';
 import { BrandingModule } from '@core/branding/branding.module';
+import { colorTest } from './data/theme-preview-for-builder';
 
 const components = [
   BuilderComponent,
@@ -88,6 +90,10 @@ const components = [
       provide: BUILDER_CURRENT_PAGE,
       useFactory: builderCurrentPageFactory,
       deps: [LocalStorageService],
+    },
+    {
+      provide: COLOR_TEST,
+      useValue: colorTest,
     },
   ],
   exports: [...components],

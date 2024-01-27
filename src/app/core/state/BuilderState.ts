@@ -213,6 +213,13 @@ export class BuilderState {
     this.updatePage(event.currentIndex);
   }
 
+  loadNewPage(page: IPage): void {
+    this.version.forEach((version) => (version.current = false));
+    this.version.unshift({ ...page, current: true, time: new Date() });
+    this.closeBuilderRightDrawer$.next(true);
+    this.saveLocalVersions();
+  }
+
   onLayoutSetting(content: any, pageIndex: number, uuid: string): void {
     const data: ILayoutSetting = {
       type: 'layout-setting',

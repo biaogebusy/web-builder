@@ -4,7 +4,6 @@ import {
   ChangeDetectorRef,
   Component,
   Inject,
-  Input,
   OnDestroy,
   OnInit,
 } from '@angular/core';
@@ -17,6 +16,7 @@ import { BuilderState } from '@core/state/BuilderState';
 import { ContentState } from '@core/state/ContentState';
 import {
   BUILDER_CURRENT_PAGE,
+  COLOR_TEST,
   DEBUG_ANIMATE,
   USER,
 } from '@core/token/token-providers';
@@ -40,7 +40,8 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     private builderService: BuilderService,
     @Inject(DEBUG_ANIMATE) public debugAnimate$: Observable<boolean>,
     @Inject(USER) private user: IUser,
-    @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>
+    @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>,
+    @Inject(COLOR_TEST) private colorTestPage: IPage
   ) {}
 
   ngOnInit(): void {}
@@ -73,19 +74,6 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  onClear(): void {
-    this.builder.version.forEach((page) => (page.current = false));
-    this.builder.version.unshift({
-      title: '初始页面',
-      body: [],
-      current: true,
-      time: new Date(),
-    });
-    this.builder.saveLocalVersions();
-    this.contentState.drawerOpened$.next(false);
-    this.util.openSnackbar('预览页面的组件已清空', 'ok');
-  }
-
   onSubmit(): void {
     if (!this.user) {
       this.util.openSnackbar('请登录后提交！', 'ok');
@@ -116,6 +104,11 @@ export class BuilderMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     const url = window.location.origin;
     window.open(`${url}/builder/preview`, '_blank');
+  }
+
+  onColorTest(): void {
+    this.util.openSnackbar(`正在载入${this.colorTestPage.title}...`, 'ok');
+    this.builder.loadNewPage(this.colorTestPage);
   }
 
   ngOnDestroy(): void {
