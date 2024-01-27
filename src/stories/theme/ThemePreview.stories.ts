@@ -8,10 +8,12 @@ import {
   BroderShadow,
 } from '@stories/widgets/card/Card.stories';
 import { StepFirst } from '@stories/widgets/card/Card1v5.stories';
-import { Default as Card1v6 } from '@stories/widgets/card/Card1v6.stories';
+import { Default as Card1v1 } from '@stories/widgets/card/Card1v1.stories';
 import { Default as Card1v4 } from '@stories/widgets/card/Card1v4.stories';
-import { Default as Card1v2 } from '@stories/widgets/card/Card1v2.stories';
+import { Default as Card1v6 } from '@stories/widgets/card/Card1v6.stories';
 import { Default as test } from '@stories/widgets/media/Testimonial.stories';
+import { Primary as Box } from '@stories/base/Box.stories';
+import { Default as MediaObject } from '@stories/widgets/media/MediaObject.stories';
 import { random } from 'lodash-es';
 import { environment } from 'src/environments/environment';
 import { IThemePreview } from '@core/interface/combs/IThemePreview';
@@ -45,6 +47,8 @@ const content: IThemePreview = {
     {
       ...BannerWithBg.args?.content,
       title: '色彩检查',
+      subTitle:
+        '使用包含所有颜色变化的界面示例测试您的主题颜色，确保它们能够搭配协调并有清晰的视觉层次。',
       breadcrumb: null,
     },
   ],
@@ -355,12 +359,18 @@ const content: IThemePreview = {
         ...Avatar.args?.content,
       },
       {
-        ...Card1v2.args?.content,
+        ...Card1v1.args?.content,
+      },
+      {
+        ...Box.args?.content,
+      },
+      {
+        ...MediaObject.args?.content,
       },
       {
         type: 'stepper',
         params: {
-          mode: 'vertical',
+          mode: 'horizontal',
           linear: true,
         },
         steps: [
@@ -395,6 +405,31 @@ const content: IThemePreview = {
         ...test.args?.content,
       },
     ],
+  ],
+  bottom: [
+    {
+      type: 'text',
+      spacer: 'md',
+      title: {
+        label:
+          '欢迎使用 <strong class="text-primary">Web Builder</strong> 快速构建响应式页面',
+        style: 'style-v1',
+        classes: 'mat-display-3 bold',
+      },
+      body: '<p class="ql-align-center">信使UI是基于 Material 的 Angular 前端框架， 丰富的组件可提供优秀的数字创新体验，使用 Web Builder 可以通过拖拽快速构建响应式、多主题的 Web 页面。基于Angular Material UI，支持SSR，多应用，后端可根据实际情况自由配置，可自定义开发、新增组件库。</p>',
+      classes: 'text-center',
+      actionsAlign: 'center center',
+      actions: [
+        {
+          type: 'btn',
+          href: '/node/1',
+          target: '_blank',
+          label: '了解更多',
+          mode: 'raised',
+          color: 'primary',
+        },
+      ],
+    },
   ],
 };
 

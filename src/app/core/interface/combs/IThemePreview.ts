@@ -1,6 +1,7 @@
 export interface IThemePreview {
   type: 'theme-preview';
   top: any[];
+  bottom: any[];
   bgColors: {
     row: number;
     lists: {

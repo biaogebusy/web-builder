@@ -20,5 +20,6 @@
         </div>
       </div>
     </div>
+    <app-dynamic-component *ngFor="let item of content.bottom" [inputs]="item"></app-dynamic-component>
   </div>
 </div>
