@@ -240,6 +240,13 @@ export class BuilderState {
     });
   }
 
+  cancelFixedShowcase(): void {
+    this.showcase$.next(false);
+    this.fixedContent = null;
+    this.fixedShowcase = false;
+    this.fixedChange$.next(true);
+  }
+
   getRandomElements = (
     data: IBuilderComponent[],
     id: string,
