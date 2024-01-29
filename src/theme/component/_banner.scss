@@ -19,13 +19,15 @@
           color: mat-color($primary);
         }
       }
-      &.page-title {
+      .page-title,
+      .sub-title {
         color: mat-color($foreground, text);
       }
     }
     &:not(.no-bg) {
       color: mat-color($foreground, text, 0.5);
       .page-title,
+      .sub-title,
       .breadcrumb {
         color: mat-color($primary, default-contrast);
       }

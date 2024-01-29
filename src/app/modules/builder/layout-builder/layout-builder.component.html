@@ -27,7 +27,7 @@
                 [content]="{label:'', mode:'icon',color:'primary',icon:{svg:'close',inline:true } }"></app-btn>
               <app-btn matTooltip="显示网格" (click)="onShowGrid()"
                 [content]="{label:'',color:showGrid?'warn' : 'primary', mode: 'icon',icon:{svg:'eye',inline:true } }"></app-btn>
-              <app-btn matTooltip="更多设置" (click)="onSettings(i,layout)"
+              <app-btn matTooltip="更多设置" (click)="onLayoutSettings(i,layout)"
                 [content]="{label:'', mode:'icon',color:'primary',icon:{svg:'responsive',inline:true } }"></app-btn>
             </div>
           </div>
@@ -36,6 +36,7 @@
               [content]="{label:'', mode: 'icon',icon:{svg:'plus' } }"></app-btn>
           </div>
         </ng-container>
+        <app-bg-img [attr.data-path]="'bg'" [content]="layout.bg" *ngIf="layout.bg"></app-bg-img>
         <div class="block" [fxLayout]="layout.direction" [fxLayoutAlign]="layout.layoutAlign" [ngStyle]="layout.style">
           <div class="item" *ngFor="let item of layout.elements;index as index">
             <div class="actions" *ngIf="enable_toolbar$ | async">

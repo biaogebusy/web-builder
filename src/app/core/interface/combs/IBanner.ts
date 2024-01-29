@@ -5,5 +5,6 @@ export interface IBannerSimple {
   style: object | string;
   bannerBg?: IBgImg;
   title?: string;
+  subTitle?: string;
   breadcrumb?: ILink[];
 }

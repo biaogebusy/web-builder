@@ -3,6 +3,7 @@ import { ICombsBase } from './combs/ICombsBase';
 import { ICard1v1 } from './widgets/ICard';
 import { IIcon } from './widgets/IIcon';
 import { ITitle } from './widgets/ITitle';
+import { IBgImg } from './widgets/IBgImg';
 
 export interface IBuilderComponent {
   label: string;
@@ -75,6 +76,7 @@ export interface ILayoutBlock {
   row: {
     [key: string]: number;
   };
+  bg?: IBgImg;
   elements: any[];
   direction: string;
   layoutAlign: string;
@@ -85,10 +87,11 @@ export interface ILayoutSetting {
   title?: ITitle;
   fields: FormlyFieldConfig[];
   i?: number;
-  index: number;
+  index?: number;
   pageIndex?: number;
   uuid: string;
-  content: any;
+  content?: any;
+  level: 'block' | 'layout' | 'widget';
 }
 
 export interface IPopupSelect {

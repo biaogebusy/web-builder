@@ -41,7 +41,7 @@ export class BuilderVersionComponent implements OnInit {
   onDeleteAll(): void {
     this.builder.version = [
       {
-        title: '着陆页',
+        title: '欢迎页',
         body: [],
         current: true,
         time: new Date(),
@@ -49,6 +49,59 @@ export class BuilderVersionComponent implements OnInit {
     ];
     this.builder.closeBuilderRightDrawer$.next(true);
     this.builder.saveLocalVersions();
+  }
+
+  onNewPage(): void {
+    const newPage: IPage = {
+      title: '新页面',
+      current: true,
+      time: new Date(),
+      body: [
+        {
+          type: 'layout-builder',
+          spacer: 'md',
+          fullWidth: false,
+          bg: {
+            classes: 'bg-fill-width',
+          },
+          layoutAlign: 'center center',
+          gap: {
+            xs: 8,
+            sm: 16,
+            md: 32,
+            lg: 48,
+          },
+          elements: [
+            {
+              classes: '',
+              row: {
+                xs: 12,
+                sm: 12,
+                md: 6,
+                lg: 6,
+              },
+              direction: 'column',
+              layoutAlign: 'start start',
+              elements: [],
+            },
+            {
+              classes: '',
+              row: {
+                xs: 12,
+                sm: 12,
+                md: 6,
+                lg: 6,
+              },
+              direction: 'column',
+              layoutAlign: 'start start',
+              elements: [],
+            },
+          ],
+        },
+      ],
+    };
+
+    this.builder.loadNewPage(newPage);
   }
 
   onVersion(page: IPage, index: number): void {

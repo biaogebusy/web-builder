@@ -211,7 +211,7 @@ const content = of({
       type: 'text',
       spacer: 'sm',
       title: {
-        label: 'Stroke',
+        label: 'Stroked',
         style: 'style-v4',
       },
       animate: {

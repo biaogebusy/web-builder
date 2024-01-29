@@ -57,7 +57,7 @@ export class ComponentToolbarComponent implements OnInit {
     this.builder.upDownComponent(index, direction);
   }
 
-  onEditor(content: any, index: number): void {
+  onEditor(content: any, pageIndex: number): void {
     const { type } = content;
     const component = type ? content : content.content;
     const uuid = Date.now().toString();
@@ -70,7 +70,7 @@ export class ComponentToolbarComponent implements OnInit {
           inputData: {
             content: {
               type: 'jsoneditor',
-              index,
+              index: pageIndex,
               uuid,
               data: component,
               isPreview: this.isPreview,
@@ -79,7 +79,7 @@ export class ComponentToolbarComponent implements OnInit {
         },
       });
     } else {
-      this.builder.onLayoutSetting(component, index, uuid);
+      this.builder.onLayoutSetting(component, pageIndex, uuid);
     }
   }
 

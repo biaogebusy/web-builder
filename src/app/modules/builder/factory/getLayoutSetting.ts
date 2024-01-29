@@ -5,6 +5,7 @@ export function getLayoutSetting(content: any): FormlyFieldConfig[] {
   const fields: FormlyFieldConfig[] = [
     {
       type: 'tabs',
+      key: 'component',
       fieldGroup: [
         {
           templateOptions: {
@@ -159,6 +160,18 @@ export function getLayoutSetting(content: any): FormlyFieldConfig[] {
           ],
         },
       ],
+      hooks: {
+        onInit: (formGroup: any) => {
+          const { form, model } = formGroup;
+          form.valueChanges.subscribe((value: any) => {
+            const { component } = value;
+            model.bg = {
+              classes: component.bgClasses,
+              overlay: component.overlay,
+            };
+          });
+        },
+      },
     },
   ];
 
