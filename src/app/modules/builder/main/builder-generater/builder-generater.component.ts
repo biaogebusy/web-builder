@@ -92,6 +92,7 @@ export class BuilderGeneraterComponent implements OnInit {
     setTimeout(() => {
       this.builder.closeBuilderRightDrawer$.next(true);
       this.builder.saveLocalVersions();
+      this.builder.cancelFixedShowcase();
     }, 1200);
   }
 }

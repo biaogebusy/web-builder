@@ -9,6 +9,8 @@
           [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'content-copy',inline:true } }"></app-btn>
         <app-btn (click)="showCode(content.card.components[0])" [matTooltip]="'查看 JSON'" matTooltipPosition="above"
           [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'code-json',inline:true } }"></app-btn>
+        <app-btn (click)="insert(content.card.components[0])" [matTooltip]="'插入组件到编辑区'" matTooltipPosition="above"
+          [content]="{label:'',color:'primary', mode: 'icon' ,icon:{svg:'arrow-right',inline:true } }"></app-btn>
       </div>
     </div>
   </div>

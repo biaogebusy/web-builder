@@ -111,4 +111,8 @@ export class BuilderPanelComponent implements OnInit, AfterViewInit {
       ],
     });
   }
+
+  onAfterExpand(): void {
+    this.builder.cancelFixedShowcase();
+  }
 }

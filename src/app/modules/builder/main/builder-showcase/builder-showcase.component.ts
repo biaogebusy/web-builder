@@ -6,6 +6,7 @@ import {
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import type { IBuilderShowcase } from '@core/interface/IBuilder';
+import { ScreenService } from '@core/service/screen.service';
 import { UtilitiesService } from '@core/service/utilities.service';
 import { BuilderState } from '@core/state/BuilderState';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
@@ -21,7 +22,8 @@ export class BuilderShowcaseComponent implements OnInit {
   constructor(
     private builder: BuilderState,
     private util: UtilitiesService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private screenService: ScreenService
   ) {}
 
   ngOnInit(): void {}
@@ -47,5 +49,16 @@ export class BuilderShowcaseComponent implements OnInit {
         },
       },
     });
+  }
+
+  insert(widget: any): void {
+    console.log(widget);
+    this.builder.pushComponent(widget);
+    setTimeout(() => {
+      const length = this.builder.currentPage.body.length;
+      this.screenService.scrollToAnchor(`item-${length - 1}`);
+      this.builder.cancelFixedShowcase();
+      this.onClose();
+    }, 500);
   }
 }

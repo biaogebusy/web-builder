@@ -15,6 +15,7 @@ import { map } from 'lodash-es';
 import { DOCUMENT } from '@angular/common';
 import { ScreenService } from '@core/service/screen.service';
 import { getLayoutSetting } from '@modules/builder/factory/getLayoutSetting';
+import { IManageMedia, IMediaSelect } from '@core/interface/manage/IManage';
 
 @Injectable({
   providedIn: 'root',
@@ -29,13 +30,24 @@ export class BuilderState {
   public builderRightContent$ = new Subject<IBuilderDynamicContent>();
   public showRightDrawer: boolean = true;
   public builderPopupSelect$ = new Subject<any>();
-  public builderLayoutSetting$ = new Subject<any>();
+  public builderLayoutSetting$ = new Subject<{
+    value: {
+      [key: string]: any;
+    };
+    index?: number | undefined;
+    uuid: string;
+    i?: number | undefined;
+    pageIndex?: number;
+  }>();
   public closeBuilderRightDrawer$ = new Subject<boolean>();
   public fixedChange$ = new Subject<boolean>();
   public animateDisable$ = new Subject<boolean>();
   public fullScreen$ = new Subject<boolean>();
   public debugeAnimate$ = new Subject<boolean>();
-  public selectedMedia$ = new Subject<object>();
+  public selectedMedia$ = new Subject<{
+    img: IMediaSelect;
+    value: IManageMedia;
+  }>();
   public switchPreivew$ = new Subject<
     'xs' | 'sm' | 'md' | 'lg' | 'xs-md' | 'none'
   >();
@@ -201,13 +213,21 @@ export class BuilderState {
     this.updatePage(event.currentIndex);
   }
 
-  onLayoutSetting(content: any, index: number, uuid: string): void {
+  loadNewPage(page: IPage): void {
+    this.version.forEach((version) => (version.current = false));
+    this.version.unshift({ ...page, current: true, time: new Date() });
+    this.closeBuilderRightDrawer$.next(true);
+    this.saveLocalVersions();
+  }
+
+  onLayoutSetting(content: any, pageIndex: number, uuid: string): void {
     const data: ILayoutSetting = {
       type: 'layout-setting',
       fields: getLayoutSetting(content),
       uuid,
-      index,
+      pageIndex,
       content,
+      level: 'block',
     };
     this.builderRightContent$.next({
       mode: 'over',
@@ -218,6 +238,13 @@ export class BuilderState {
       },
       elements: [data],
     });
+  }
+
+  cancelFixedShowcase(): void {
+    this.showcase$.next(false);
+    this.fixedContent = null;
+    this.fixedShowcase = false;
+    this.fixedChange$.next(true);
   }
 
   getRandomElements = (
