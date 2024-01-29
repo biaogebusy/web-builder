@@ -13,9 +13,9 @@
       <button mat-menu-item *ngIf="canShow">
         <mat-slide-toggle [checked]="debugAnimate$ | async" (change)="onDebugAnimate($event)">动画调式</mat-slide-toggle>
       </button>
-      <button mat-menu-item (click)="onClear()">
-        <app-icon [content]="{svg:'trash-can-outline'}"></app-icon>
-        <span>清空页面</span>
+      <button mat-menu-item (click)="onColorTest()">
+        <app-icon [content]="{svg:'marker-check'}"></app-icon>
+        <span>颜色检查</span>
       </button>
       <button mat-menu-item (click)="onPreview()">
         <app-icon [content]="{svg:'eye-outline'}"></app-icon>

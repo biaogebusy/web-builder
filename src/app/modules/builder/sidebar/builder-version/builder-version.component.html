@@ -21,7 +21,9 @@
       </mat-list>
       <mat-action-row>
         <app-btn (click)="onDeleteAll()"
-          [content]="{label:'清空',color:'warn',icon:{svg:'delete-empty-outline'}}"></app-btn>
+          [content]="{label:'清空所有',color:'warn',icon:{svg:'delete-empty-outline'}}"></app-btn>
+        <app-btn (click)="onNewPage()"
+          [content]="{label:'新建页面',color:'primary',icon:{svg:'pencil-plus','inline':true}}"></app-btn>
       </mat-action-row>
     </mat-expansion-panel>
   </mat-accordion>

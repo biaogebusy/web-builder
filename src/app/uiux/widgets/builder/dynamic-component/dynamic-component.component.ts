@@ -23,7 +23,7 @@ import {
   CORE_CONFIG,
   ENABLE_BUILDER_TOOLBAR,
 } from '@core/token/token-providers';
-import { defaultsDeep } from 'lodash-es';
+import { defaultsDeep, isNumber } from 'lodash-es';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -63,35 +63,17 @@ export class DynamicComponentComponent
     this.builder.builderLayoutSetting$
       .pipe(takeUntil(this.destroy$))
       .subscribe((data) => {
-        const { value, uuid, index } = data;
+        const { value, uuid, pageIndex } = data;
         if (this.uuid === uuid) {
-          console.log(data);
           let content: any = {};
-          if (value.bgClasses) {
-            content = defaultsDeep(
-              {
-                bg: {
-                  classes: value.bgClasses,
-                },
-              },
-              this.inputs.content
-            );
-            delete value.bgClasses;
-          }
-          if (value.overlay) {
-            content = defaultsDeep(
-              {
-                bg: {
-                  overlay: value.overlay,
-                },
-              },
-              content
-            );
-            delete value.overlay;
-          }
-          this.inputs = { ...this.inputs.content, ...content, ...value };
+          Object.keys(value).forEach((config) => {
+            content = defaultsDeep(value[config], content);
+          });
+          this.inputs = { ...this.inputs.content, ...content };
           this.loadComponent();
-          this.builder.updateComponent(index, this.inputs);
+          if (isNumber(pageIndex)) {
+            this.builder.updateComponent(pageIndex, this.inputs);
+          }
         }
       });
   }

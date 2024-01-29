@@ -111,10 +111,7 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onTabChange(): void {
-    this.builder.showcase$.next(false);
-    this.builder.fixedContent = null;
-    this.builder.fixedShowcase = false;
-    this.builder.fixedChange$.next(true);
+    this.builder.cancelFixedShowcase();
   }
 
   ngOnDestroy(): void {

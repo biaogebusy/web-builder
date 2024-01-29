@@ -26,6 +26,7 @@ import * as lightboxStory from '@stories/widgets/InlineLightbox.stories';
 import * as shapeStory from '@stories/widgets/Shape.stories';
 import * as BoxStories from '@stories/base/Box.stories';
 import * as spacerStory from '@stories/theme/Spacer.stories';
+import * as contactStory from '@stories/drupal/form/ContactUs.stories';
 
 export const {
   Horizontal: { args: stepper },
@@ -137,6 +138,10 @@ export const {
   Normal: { args: spacer },
 } = spacerStory as any;
 
+export const {
+  Default: { args: contact },
+} = contactStory;
+
 export const widgets: any[] = [
   {
     label: '标题',
@@ -194,14 +199,11 @@ export const widgets: any[] = [
     ...swiper,
   },
   {
-    label: '表单',
+    label: '联系我们',
     icon: {
-      svg: 'checkbox-marked-outline',
+      svg: 'account-box-outline',
     },
-    content: {
-      type: 'formly',
-      fields: form.fields,
-    },
+    ...contact,
   },
   {
     label: '图表',

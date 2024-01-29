@@ -13,7 +13,7 @@ import { BuilderState } from '@core/state/BuilderState';
 import { ENABLE_BUILDER_TOOLBAR } from '@core/token/token-providers';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
-import { defaultsDeep } from 'lodash-es';
+import { defaultsDeep, isNumber } from 'lodash-es';
 import { Subject } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 import { takeUntil } from 'rxjs/operators';
@@ -25,6 +25,7 @@ import { getLink } from '../factory/getLink';
 import { getBtn } from '../factory/getBtn';
 import { getSpacer } from '../factory/getSpacer';
 import { getNone } from '../factory/getNone';
+import { getChart } from '../factory/getChart';
 
 @Component({
   selector: 'app-layout-builder',
@@ -54,13 +55,17 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
           const { elements } = this.content;
           Object.keys(value).forEach((config) => {
             if (config) {
-              if (i >= 0 && index >= 0) {
+              if (
+                this.isLayoutWidget(i, index) &&
+                isNumber(i) &&
+                isNumber(index)
+              ) {
                 elements[i].elements[index] = defaultsDeep(
                   value[config],
                   elements[i].elements[index]
                 );
               }
-              if (i >= 0 && index === undefined) {
+              if (i !== undefined && i >= 0 && index === undefined) {
                 elements[i] = defaultsDeep(value[config], elements[i]);
               }
             }
@@ -82,6 +87,10 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
         this.cd.detectChanges();
       }
     });
+  }
+
+  isLayoutWidget(i: number | undefined, index: number | undefined): boolean {
+    return i !== undefined && i >= 0 && index !== undefined && index >= 0;
   }
 
   addBlock(row: string, i: number, content: any, index?: number): void {
@@ -109,6 +118,26 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
     });
   }
 
+  onLayoutSettings(i: number, layout: any): void {
+    this.uuid = Date.now().toString();
+    const layoutSetting: ILayoutSetting = {
+      type: 'layout-setting',
+      i,
+      fields: getBlockSetting(layout),
+      uuid: this.uuid,
+      level: 'layout',
+      content: layout,
+    };
+    this.builder.builderRightContent$.next({
+      mode: 'push',
+      hasBackdrop: false,
+      style: {
+        width: '260px',
+      },
+      elements: [layoutSetting],
+    });
+  }
+
   onWidgetSetting(i: number, index: number, widget: any): void {
     this.uuid = Date.now().toString();
     let fields: FormlyFieldConfig[] = [];
@@ -131,16 +160,19 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
       case 'spacer':
         fields = getSpacer(widget);
         break;
+      case 'chart':
+        fields = getChart(widget);
+        break;
       default:
         fields = getNone(widget);
     }
 
     if (fields.length > 0) {
-      this.showDrawer(i, index, widget, fields);
+      this.showWidgetSetting(i, index, widget, fields);
     }
   }
 
-  showDrawer(
+  showWidgetSetting(
     i: number,
     index: number,
     widget: any,
@@ -158,6 +190,7 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
       },
       fields,
       content: widget,
+      level: 'widget',
     };
     this.builder.builderRightContent$.next({
       mode: 'over',
@@ -210,26 +243,6 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
     elements.splice(index, 1);
     this.builder.updateComponent(this.pageIndex, this.content);
     this.cd.detectChanges();
-  }
-
-  onSettings(i: number, layout: any): void {
-    this.uuid = Date.now().toString();
-
-    this.builder.builderRightContent$.next({
-      mode: 'push',
-      hasBackdrop: false,
-      style: {
-        width: '260px',
-      },
-      elements: [
-        {
-          type: 'layout-setting',
-          i,
-          fields: getBlockSetting(layout),
-          uuid: this.uuid,
-        },
-      ],
-    });
   }
 
   onShowGrid(): void {

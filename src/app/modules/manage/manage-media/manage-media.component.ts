@@ -4,13 +4,17 @@ import {
   ChangeDetectionStrategy,
   Inject,
   ChangeDetectorRef,
+  Input,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ScreenService } from '@core/service/screen.service';
 import { Observable, Subject } from 'rxjs';
 import { CORE_CONFIG, MEDIA_ASSETS } from '@core/token/token-providers';
 import type { ICoreConfig } from '@core/interface/IAppConfig';
-import type { IManageAssets } from '@core/interface/manage/IManage';
+import type {
+  IManageAssets,
+  IManageMedia,
+} from '@core/interface/manage/IManage';
 import { ContentState } from '@core/state/ContentState';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { BuilderState } from '@core/state/BuilderState';
@@ -23,6 +27,7 @@ import { ManageService } from '@core/service/manage.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ManageMediaComponent implements OnInit {
+  @Input() content: IManageMedia;
   form = new FormGroup({});
   model: any = {};
   loading = false;
@@ -77,10 +82,13 @@ export class ManageMediaComponent implements OnInit {
   onSelect(item: any): void {
     this.selectedId = item.id;
     this.builder.selectedMedia$.next({
-      src: item.img.src,
-      alt: item.img.alt,
-      fileName: item.img.src.split('/').pop(),
-      tag: 'img',
+      img: {
+        src: item.img.src,
+        alt: item.img.alt,
+        fileName: item.img.src.split('/').pop(),
+        tag: 'img',
+      },
+      value: this.content,
     });
   }
 
