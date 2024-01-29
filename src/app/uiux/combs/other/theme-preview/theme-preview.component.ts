@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { IThemePreview } from '@core/interface/combs/IThemePreview';
 
 @Component({
   selector: 'app-theme-preview',
@@ -6,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./theme-preview.component.scss'],
 })
 export class ThemePreviewComponent implements OnInit {
-  @Input() content: any;
+  @Input() content: IThemePreview;
   constructor() {}
 
   ngOnInit(): void {}

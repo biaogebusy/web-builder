@@ -13,9 +13,6 @@
     .bg-colors {
       .box {
         @include mat-elevation(4, mat-color($foreground, divider, 0.45));
-        .label {
-          background-color: mat-color($background, disabled-button);
-        }
       }
     }
     .row {
