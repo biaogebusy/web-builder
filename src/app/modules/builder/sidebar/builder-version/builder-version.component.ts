@@ -3,11 +3,14 @@ import {
   ChangeDetectorRef,
   Component,
   Input,
+  OnDestroy,
   OnInit,
 } from '@angular/core';
 import { IPage } from '@core/interface/IAppConfig';
 import { BuilderState } from '@core/state/BuilderState';
 import { LocalStorage, LocalStorageService } from 'ngx-webstorage';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-builder-version',
@@ -15,9 +18,10 @@ import { LocalStorage, LocalStorageService } from 'ngx-webstorage';
   styleUrls: ['./builder-version.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BuilderVersionComponent implements OnInit {
+export class BuilderVersionComponent implements OnInit, OnDestroy {
   @LocalStorage('version')
   version: IPage[];
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     public builder: BuilderState,
@@ -26,9 +30,12 @@ export class BuilderVersionComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.storage.observe('version').subscribe(() => {
-      this.cd.detectChanges();
-    });
+    this.storage
+      .observe('version')
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.cd.detectChanges();
+      });
   }
 
   onDelete(index: number): void {
@@ -122,6 +129,13 @@ export class BuilderVersionComponent implements OnInit {
     if (textContent) {
       this.builder.version[index].title = textContent;
       this.builder.saveLocalVersions();
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.destroy$.next) {
+      this.destroy$.next(true);
+      this.destroy$.unsubscribe();
     }
   }
 }

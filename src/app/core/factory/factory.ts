@@ -81,14 +81,14 @@ export function enableBuilderToolbarFactory(
   router: Router
 ): Observable<boolean> {
   const enableToolbar$ = new BehaviorSubject<boolean>(false);
-  if (router.url === BUILDERPATH) {
+  if (router.url.includes(BUILDERPATH)) {
     enableToolbar$.next(true);
   } else {
     enableToolbar$.next(false);
   }
   router.events.subscribe((event) => {
     if (event instanceof NavigationEnd) {
-      if (router.url === BUILDERPATH) {
+      if (router.url.includes(BUILDERPATH)) {
         enableToolbar$.next(true);
       } else {
         enableToolbar$.next(false);
@@ -140,7 +140,10 @@ export function manageSidebarStateFactory(
   branding$.subscribe((branding) => {
     if (userService.checkShow(branding.header?.sidebar, user)) {
       // init manage sidebar
-      if (doc.location.pathname.split('/').length === 2) {
+      if (
+        doc.location.pathname.split('/').length === 2 ||
+        doc.location.pathname.includes(BUILDERPATH)
+      ) {
         enableSidebar = false;
         state$.next({
           enableSidebar: enableSidebar,
@@ -165,7 +168,7 @@ export function manageSidebarStateFactory(
       router.events.subscribe((event) => {
         if (event instanceof NavigationEnd) {
           const url = event.url;
-          if (url.split('/').length === 2) {
+          if (url.split('/').length === 2 || url.includes(BUILDERPATH)) {
             if (enableSidebar) {
               state$.next({
                 enableSidebar: false,
