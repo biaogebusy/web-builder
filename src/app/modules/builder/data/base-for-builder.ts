@@ -114,10 +114,11 @@ export const base = [
           fullWidth: false,
           bg: {
             classes: 'bg-fill-width',
+            overlay: '',
           },
           layoutAlign: 'center stretch',
           gap: {
-            xs: 8,
+            xs: 0,
             sm: 16,
             md: 32,
             lg: 48,
@@ -160,9 +161,9 @@ export const base = [
                 },
                 {
                   type: 'link',
-                  label: '<h2>链接搭配你的风格</h2><p></p>',
+                  label: '链接搭配你的风格',
                   classes: '',
-                  href: '/manage',
+                  href: '/',
                 },
                 {
                   type: 'img',
@@ -210,9 +211,9 @@ export const base = [
                 },
                 {
                   type: 'link',
-                  label: '<h2>探索更多</h2>',
+                  label: '探索更多',
                   classes: '',
-                  href: '/manage',
+                  href: '/',
                 },
                 {
                   type: 'img',
@@ -224,6 +225,11 @@ export const base = [
               ],
             },
           ],
+          bgClasses: 'bg-fill-width',
+          overlay: '',
+          direction: 'row wrap',
+          horizontal: 'center',
+          vertical: 'stretch',
         },
       },
       {
