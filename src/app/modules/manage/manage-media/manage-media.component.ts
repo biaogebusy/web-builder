@@ -5,6 +5,7 @@ import {
   Inject,
   ChangeDetectorRef,
   Input,
+  OnDestroy,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ScreenService } from '@core/service/screen.service';
@@ -16,7 +17,7 @@ import type {
   IManageMedia,
 } from '@core/interface/manage/IManage';
 import { ContentState } from '@core/state/ContentState';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { BuilderState } from '@core/state/BuilderState';
 import { ManageService } from '@core/service/manage.service';
 
@@ -26,12 +27,12 @@ import { ManageService } from '@core/service/manage.service';
   styleUrls: ['./manage-media.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ManageMediaComponent implements OnInit {
+export class ManageMediaComponent implements OnInit, OnDestroy {
   @Input() content: IManageMedia;
   form = new FormGroup({});
   model: any = {};
   loading = false;
-  destory$: Subject<boolean> = new Subject<boolean>();
+  destroy$: Subject<boolean> = new Subject<boolean>();
   selectedId: string;
   constructor(
     private screenService: ScreenService,
@@ -45,7 +46,11 @@ export class ManageMediaComponent implements OnInit {
 
   ngOnInit(): void {
     this.form.valueChanges
-      .pipe(debounceTime(1000), distinctUntilChanged())
+      .pipe(
+        takeUntil(this.destroy$),
+        debounceTime(1000),
+        distinctUntilChanged()
+      )
       .subscribe((value) => {
         this.onSearch(value);
       });
@@ -94,5 +99,12 @@ export class ManageMediaComponent implements OnInit {
 
   trackByFn(index: number, item: any): number {
     return item.id || index;
+  }
+
+  ngOnDestroy(): void {
+    if (this.destroy$.next) {
+      this.destroy$.next(true);
+      this.destroy$.unsubscribe();
+    }
   }
 }

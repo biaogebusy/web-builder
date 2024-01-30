@@ -112,6 +112,11 @@ export class BuilderPanelComponent implements OnInit, AfterViewInit {
     });
   }
 
+  onDragStarted(): void {
+    this.builder.closeBuilderRightDrawer$.next(true);
+    this.builder.switchPreivew$.next('none');
+  }
+
   onAfterExpand(): void {
     this.builder.cancelFixedShowcase();
   }

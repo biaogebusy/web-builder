@@ -19,8 +19,8 @@ import { BuilderState } from '@core/state/BuilderState';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { BUILDER_CURRENT_PAGE } from '@core/token/token-providers';
 import { map as each } from 'lodash-es';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+import { map, takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-builder-list',
@@ -35,6 +35,7 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   markers: NodeListOf<Element>;
   opened = false;
   previewClass$: Observable<any>;
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     public builder: BuilderState,
@@ -46,14 +47,16 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.builder.previewListDrawer$.subscribe((statue) => {
-      if (statue) {
-        this.drawer.open();
-      } else {
-        this.drawer.close();
-      }
-      this.cd.detectChanges();
-    });
+    this.builder.previewListDrawer$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((statue) => {
+        if (statue) {
+          this.drawer.open();
+        } else {
+          this.drawer.close();
+        }
+        this.cd.detectChanges();
+      });
   }
 
   trackByFn(index: number, item: any): number {
@@ -75,6 +78,7 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     this.previewClass$ = this.builder.switchPreivew$.pipe(
+      takeUntil(this.destroy$),
       map((media) => {
         return {
           preview: media !== 'none' && media !== undefined,
@@ -92,5 +96,9 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
     each(this.markers, (marker) => {
       marker.remove();
     });
+    if (this.destroy$.next) {
+      this.destroy$.next(true);
+      this.destroy$.unsubscribe();
+    }
   }
 }
