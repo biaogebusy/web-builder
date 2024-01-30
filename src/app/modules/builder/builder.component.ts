@@ -63,13 +63,15 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
     } else {
       utli.openSnackbar('请开启 Builder 功能！', 'ok');
     }
-    this.builder.builderRightContent$.subscribe((content) => {
-      if (content && this.builder.showRightDrawer) {
-        setTimeout(() => {
-          this.builderRightDrawer.open();
-        }, 100);
-      }
-    });
+    this.builder.builderRightContent$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((content) => {
+        if (content && this.builder.showRightDrawer) {
+          setTimeout(() => {
+            this.builderRightDrawer.open();
+          }, 100);
+        }
+      });
   }
 
   ngAfterViewInit(): void {
@@ -86,9 +88,11 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       });
 
-    this.builder.closeBuilderRightDrawer$.subscribe(() => {
-      this.onClose();
-    });
+    this.builder.closeBuilderRightDrawer$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.onClose();
+      });
 
     this.doc.addEventListener('keydown', (event: any) => {
       const isFull = this.storage.retrieve('builderFullScreen');

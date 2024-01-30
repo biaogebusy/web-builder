@@ -76,17 +76,19 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
         }
       });
 
-    this.builder.jsoneditorContent$.subscribe((value) => {
-      const { isLayoutWidget, i, index, data } = value;
-      if (isLayoutWidget) {
-        const { elements } = this.content;
-        elements[i].elements[index] = defaultsDeep(
-          data,
-          elements[i].elements[index]
-        );
-        this.cd.detectChanges();
-      }
-    });
+    this.builder.jsoneditorContent$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((value) => {
+        const { isLayoutWidget, i, index, data } = value;
+        if (isLayoutWidget) {
+          const { elements } = this.content;
+          elements[i].elements[index] = defaultsDeep(
+            data,
+            elements[i].elements[index]
+          );
+          this.cd.detectChanges();
+        }
+      });
   }
 
   isLayoutWidget(i: number | undefined, index: number | undefined): boolean {
@@ -113,7 +115,7 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
       },
     });
 
-    this.dialog.afterAllClosed.subscribe(() => {
+    this.dialog.afterAllClosed.pipe(takeUntil(this.destroy$)).subscribe(() => {
       this.cd.detectChanges();
     });
   }

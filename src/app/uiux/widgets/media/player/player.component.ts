@@ -26,13 +26,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
   constructor(private elementRef: ElementRef) {}
 
   ngOnInit(): void {
-    this.player = videojs(
-      this.target.nativeElement,
-      this.content.options,
-      function onPlayerReady(): void {
-        console.log('onPlayerReady', this);
-      }
-    );
+    this.player = videojs(this.target.nativeElement, this.content.options);
   }
 
   ngOnDestroy(): void {
