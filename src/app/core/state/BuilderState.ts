@@ -30,15 +30,7 @@ export class BuilderState {
   public builderRightContent$ = new Subject<IBuilderDynamicContent>();
   public showRightDrawer: boolean = true;
   public builderPopupSelect$ = new Subject<any>();
-  public builderLayoutSetting$ = new Subject<{
-    value: {
-      [key: string]: any;
-    };
-    index?: number | undefined;
-    uuid: string;
-    i?: number | undefined;
-    pageIndex?: number;
-  }>();
+  public builderLayoutSetting$ = new Subject<any>();
   public closeBuilderRightDrawer$ = new Subject<boolean>();
   public fixedChange$ = new Subject<boolean>();
   public animateDisable$ = new Subject<boolean>();
