@@ -67,9 +67,9 @@ export class DynamicComponentComponent
         if (this.uuid === uuid) {
           let content: any = {};
           Object.keys(value).forEach((config) => {
-            content = defaultsDeep(value[config], content);
+            content = defaultsDeep(value[config], this.inputs.content);
           });
-          this.inputs = { ...this.inputs.content, ...content };
+          this.inputs = content;
           this.loadComponent();
           if (isNumber(pageIndex)) {
             this.builder.updateComponent(pageIndex, this.inputs);
