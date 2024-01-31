@@ -53,24 +53,12 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
         const { i, index, value, uuid } = data;
         if (uuid === this.uuid) {
           const { elements } = this.content;
-          Object.keys(value).forEach((config) => {
-            if (config) {
-              if (
-                this.isLayoutWidget(i, index) &&
-                isNumber(i) &&
-                isNumber(index)
-              ) {
-                elements[i].elements[index] = defaultsDeep(
-                  value[config],
-                  elements[i].elements[index]
-                );
-              }
-              if (i !== undefined && i >= 0 && index === undefined) {
-                elements[i] = defaultsDeep(value[config], elements[i]);
-              }
-            }
-          });
-
+          if (this.isLayoutWidget(i, index) && isNumber(i) && isNumber(index)) {
+            elements[i].elements[index] = value;
+          }
+          if (i !== undefined && i >= 0 && index === undefined) {
+            elements[i] = value;
+          }
           this.builder.updateComponent(this.pageIndex, this.content);
           this.cd.detectChanges();
         }
