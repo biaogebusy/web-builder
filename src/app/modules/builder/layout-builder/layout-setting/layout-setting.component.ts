@@ -61,9 +61,7 @@ export class LayoutSettingComponent implements OnInit, OnDestroy {
         // emit value to dynamic component
         if (level === 'block') {
           this.builder.builderLayoutSetting$.next({
-            value: {
-              bgImg,
-            },
+            value: this.content.content,
             pageIndex: this.content.pageIndex,
             uuid: this.content.uuid,
           });
@@ -71,9 +69,7 @@ export class LayoutSettingComponent implements OnInit, OnDestroy {
 
         if (level === 'layout') {
           this.builder.builderLayoutSetting$.next({
-            value: {
-              bgImg,
-            },
+            value: this.content.content,
             i: this.content.i,
             uuid: this.content.uuid,
           });
@@ -88,11 +84,14 @@ export class LayoutSettingComponent implements OnInit, OnDestroy {
     };
     this.cd.detectChanges();
     this.builder.builderLayoutSetting$.next({
-      value: {
-        bg: {
-          classes: 'bg-fill-width',
+      value: defaultsDeep(
+        {
+          bg: {
+            classes: 'bg-fill-width',
+          },
         },
-      },
+        this.content.content
+      ),
       index: this.content.index,
       uuid: this.content.uuid,
     });
@@ -101,8 +100,14 @@ export class LayoutSettingComponent implements OnInit, OnDestroy {
   onModelChange(value: any) {
     const { flex } = value;
     this.renderLayoutPreview(flex);
+    let content: any = {};
+    Object.keys(value).forEach((config) => {
+      if (config) {
+        content = defaultsDeep(value[config], this.content.content);
+      }
+    });
     this.builder.builderLayoutSetting$.next({
-      value,
+      value: content,
       i: this.content.i,
       index: this.content.index,
       pageIndex: this.content.pageIndex,
