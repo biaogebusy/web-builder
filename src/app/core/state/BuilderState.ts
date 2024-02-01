@@ -14,7 +14,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
 import { map } from 'lodash-es';
 import { DOCUMENT } from '@angular/common';
 import { ScreenService } from '@core/service/screen.service';
-import { getLayoutSetting } from '@modules/builder/factory/getLayoutSetting';
+import { getComponentSetting } from '@modules/builder/factory/getComponentSetting';
 import { IManageMedia, IMediaSelect } from '@core/interface/manage/IManage';
 
 @Injectable({
@@ -212,10 +212,10 @@ export class BuilderState {
     this.saveLocalVersions();
   }
 
-  onLayoutSetting(content: any, pageIndex: number, uuid: string): void {
+  onComponentSetting(content: any, pageIndex: number, uuid: string): void {
     const data: ILayoutSetting = {
       type: 'layout-setting',
-      fields: getLayoutSetting(content),
+      fields: getComponentSetting(content),
       uuid,
       pageIndex,
       content,

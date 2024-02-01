@@ -57,7 +57,7 @@ export class ComponentToolbarComponent implements OnInit {
     this.builder.upDownComponent(index, direction);
   }
 
-  onEditor(content: any, pageIndex: number): void {
+  onSetting(content: any, pageIndex: number): void {
     const { type } = content;
     const component = type ? content : content.content;
     const uuid = Date.now().toString();
@@ -79,7 +79,7 @@ export class ComponentToolbarComponent implements OnInit {
         },
       });
     } else {
-      this.builder.onLayoutSetting(component, pageIndex, uuid);
+      this.builder.onComponentSetting(component, pageIndex, uuid);
     }
   }
 
