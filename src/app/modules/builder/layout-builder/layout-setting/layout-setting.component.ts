@@ -41,7 +41,6 @@ export class LayoutSettingComponent implements OnInit, OnDestroy {
     this.builder.selectedMedia$
       .pipe(takeUntil(this.destroy$))
       .subscribe(({ img, value }) => {
-        console.log(value);
         const { src, fileName } = img;
         const { level } = value;
         const bgImg = {

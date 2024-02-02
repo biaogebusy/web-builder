@@ -1,7 +1,8 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { getLayoutAlign } from './getBlockSetting';
+import { getSwiper } from './getSwiper';
 
-export function getLayoutSetting(content: any): FormlyFieldConfig[] {
+export function getComponentSetting(content: any): FormlyFieldConfig[] {
   const fields: FormlyFieldConfig[] = [
     {
       type: 'tabs',
@@ -360,6 +361,20 @@ export function getLayoutSetting(content: any): FormlyFieldConfig[] {
       },
     ];
     fields[0].fieldGroup?.push(...flexConfig);
+  }
+
+  if (content.type === 'swiper') {
+    fields[0].fieldGroup?.push({
+      templateOptions: {
+        label: '参数',
+      },
+      fieldGroup: [
+        {
+          type: 'tabs',
+          fieldGroup: getSwiper(content)[0].fieldGroup,
+        },
+      ],
+    });
   }
   return fields;
 }

@@ -8,9 +8,11 @@
       </div>
     </div>
   </div>
-  <div class="popup" #popup *ngIf="widget$ | async as widget">
-    <div class="hover-show">
-      <app-dynamic-component [inputs]="widget"></app-dynamic-component>
-    </div>
+  <div class="popup" #popup>
+    <ng-container *ngIf="widget$ | async as widget">
+      <div class="hover-show">
+        <app-dynamic-component [inputs]="widget"></app-dynamic-component>
+      </div>
+    </ng-container>
   </div>
 </div>
