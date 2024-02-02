@@ -183,9 +183,14 @@ If you encounter an out-of-memory error, execute the following command and then 
 
 `export NODE_OPTIONS="--max-old-space-size=8192"`
 
-## Communication and Learning
+## Preview
 
-| Contact                 | QR Code                                              |
-| ----------------------- | ---------------------------------------------------- |
-| Official：Drupal 自习室 | <img src="src/assets/images/qrcode-official.jpg"/>   |
-| WeChat：biaogebusy      | <img src="src/assets/images/wechat.jpg" alt="logo"/> |
+ <img style="border-radius:10px" src="src/assets/images/builder/builder-01.png" alt="web builder" />
+ <img style="border-radius:10px" src="src/assets/images/builder/builder-02.png" alt="web builder" />
+ <img style="border-radius:10px" src="src/assets/images/builder/builder-03.png" alt="web builder" />
+ <img style="border-radius:10px" src="src/assets/images/builder/builder-04.png" alt="web builder" />
+ <img style="border-radius:10px" src="src/assets/images/builder/builder-05.png" alt="web builder" />
+ <img style="border-radius:10px" src="src/assets/images/builder/builder-06.png" alt="web builder" />
+ <img style="border-radius:10px" src="src/assets/images/builder/builder-07.png" alt="web builder" />
+ <img style="border-radius:10px" src="src/assets/images/builder/builder-08.png" alt="web builder" />
+ <img style="border-radius:10px" src="src/assets/images/builder/builder-09.png" alt="web builder" />

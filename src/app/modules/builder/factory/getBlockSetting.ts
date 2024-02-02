@@ -3,7 +3,6 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
 export function getBlockSetting(layout: any): FormlyFieldConfig[] {
   let responsive: FormlyFieldConfig[] = [
     {
-      key: 'responsive',
       fieldGroup: [
         {
           key: 'row',
@@ -71,7 +70,6 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
   ];
   let flexLayout: FormlyFieldConfig[] = [
     {
-      key: 'flex',
       className: 'layout-setting width-100',
       fieldGroupClassName: 'display-flex flex-wrap width-100',
       fieldGroup: [
@@ -205,7 +203,6 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
   ];
   let styles: FormlyFieldConfig[] = [
     {
-      key: 'styles',
       className: 'width-100',
       fieldGroup: [
         {
@@ -367,17 +364,17 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
         onInit: (formGroup: any) => {
           const { form, model } = formGroup;
           form.valueChanges.subscribe((value: any) => {
-            const { styles } = value;
+            const { style } = value;
             model.style = {
               ...model.style,
-              paddingTop: styles.style['paddingTop'] + 'px',
-              paddingRight: styles.style['paddingRight'] + 'px',
-              paddingBottom: styles.style['paddingBottom'] + 'px',
-              paddingLeft: styles.style['paddingLeft'] + 'px',
-              marginTop: styles.style['marginTop'] + 'px',
-              marginRight: styles.style['marginRight'] + 'px',
-              marginBottom: styles.style['marginBottom'] + 'px',
-              marginLeft: styles.style['marginLeft'] + 'px',
+              paddingTop: style['paddingTop'] + 'px',
+              paddingRight: style['paddingRight'] + 'px',
+              paddingBottom: style['paddingBottom'] + 'px',
+              paddingLeft: style['paddingLeft'] + 'px',
+              marginTop: style['marginTop'] + 'px',
+              marginRight: style['marginRight'] + 'px',
+              marginBottom: style['marginBottom'] + 'px',
+              marginLeft: style['marginLeft'] + 'px',
             };
           });
         },
@@ -387,6 +384,7 @@ export function getBlockSetting(layout: any): FormlyFieldConfig[] {
   let fields: FormlyFieldConfig[] = [
     {
       type: 'tabs',
+      key: 'block',
       fieldGroup: [
         {
           templateOptions: {

@@ -11,6 +11,7 @@ import { images_others } from './others';
 import { images_products } from './products';
 import { images_showcases } from './showcases';
 import { images_svgs } from './svgs';
+import { images_builder } from './builder';
 
 export const mediaAssets = {
   elements: [
@@ -23,6 +24,7 @@ export const mediaAssets = {
     ...images_1_1,
     ...images_16_9,
     ...images_products,
+    ...images_builder,
     ...images_svgs,
     ...images_logos,
     ...images_mobiles,

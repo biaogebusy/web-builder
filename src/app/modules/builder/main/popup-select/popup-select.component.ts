@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  ElementRef,
   Inject,
   Input,
   OnInit,
@@ -20,7 +21,7 @@ import { createPopper } from '@popperjs/core';
 })
 export class PopupSelectComponent implements OnInit {
   @Input() content: IPopupSelect;
-  @ViewChild('popup') popup: any;
+  @ViewChild('popup', { static: false }) popup: ElementRef;
   public widget$: Subject<any> = new Subject();
   constructor(
     private builder: BuilderState,
@@ -58,18 +59,20 @@ export class PopupSelectComponent implements OnInit {
   }
 
   onHover(widget: any, ele: any): void {
-    this.widget$.next(widget.content);
-    createPopper(ele, this.popup.nativeElement, {
-      placement: 'top',
-      strategy: 'fixed',
-      modifiers: [
-        {
-          name: 'offset',
-          options: {
-            offset: [0, 20],
+    if (this.popup?.nativeElement) {
+      this.widget$.next(widget.content);
+      createPopper(ele, this.popup.nativeElement, {
+        placement: 'top',
+        strategy: 'fixed',
+        modifiers: [
+          {
+            name: 'offset',
+            options: {
+              offset: [0, 20],
+            },
           },
-        },
-      ],
-    });
+        ],
+      });
+    }
   }
 }
