@@ -5,8 +5,6 @@
   <br>
   <i>信使 Web builder 是基于 Material 的 Angular 低代码前端框架，丰富的组件库可提供优秀的数字创新体验，<br>通过拖拽快速构建响应式、多主题的 Web 页面。
     </i>
-    <br>
-    QQ交流群：1176468251
   <br>
 </p>
 
@@ -214,8 +212,21 @@ Base 的基础配置可查阅[信使 storybook 全局配置](https://ui.zhaobg.c
 
 更多开发移步[开发指南](https://ui.zhaobg.com/?path=/docs/guide--page)
 
+## 预览
+
+ <img style="border-radius:10px" src="src/assets/images/builder/builder-01.png" alt="web builder" />
+ <img style="border-radius:10px" src="src/assets/images/builder/builder-02.png" alt="web builder" />
+ <img style="border-radius:10px" src="src/assets/images/builder/builder-03.png" alt="web builder" />
+ <img style="border-radius:10px" src="src/assets/images/builder/builder-04.png" alt="web builder" />
+ <img style="border-radius:10px" src="src/assets/images/builder/builder-05.png" alt="web builder" />
+ <img style="border-radius:10px" src="src/assets/images/builder/builder-06.png" alt="web builder" />
+ <img style="border-radius:10px" src="src/assets/images/builder/builder-07.png" alt="web builder" />
+ <img style="border-radius:10px" src="src/assets/images/builder/builder-08.png" alt="web builder" />
+ <img style="border-radius:10px" src="src/assets/images/builder/builder-09.png" alt="web builder" />
+
 ## 最后
 
-如果觉得这个项目对您有所助益，请帮忙点个 star
+- QQ 交流群：1176468251
+- 如果觉得这个项目对您有所助益，请帮忙点个 star
 
 [![Star History Chart](https://api.star-history.com/svg?repos=biaogebusy/xinshi-ui&type=Date)](https://star-history.com/#biaogebusy/xinshi-ui&Date)

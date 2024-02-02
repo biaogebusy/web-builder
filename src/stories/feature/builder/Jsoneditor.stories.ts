@@ -64,7 +64,6 @@ const content: IJsoneditor = {
   type: 'jsoneditor',
   isPreview: true,
   index: 0,
-  uuid: Date.now().toString(),
   data: {
     spacer: 'none',
     type: 'hero-1v1',
