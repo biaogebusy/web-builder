@@ -37,6 +37,7 @@ export class BuilderToolbarComponent
   @Input() builderRightDrawer: MatDrawer;
   destroy$: Subject<boolean> = new Subject<boolean>();
   showNavigate: boolean = false;
+  showBranding: boolean = false;
 
   constructor(
     private storage: LocalStorageService,
@@ -115,6 +116,11 @@ export class BuilderToolbarComponent
     if (!this.builder.showRightDrawer) {
       this.builderRightDrawer.close();
     }
+  }
+
+  onShowBranding(): void {
+    this.showBranding = !this.showBranding;
+    this.builder.showBranding$.next(this.showBranding);
   }
 
   ngOnDestroy(): void {

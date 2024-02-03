@@ -15,9 +15,11 @@ import {
 } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { IPage } from '@core/interface/IAppConfig';
+import { IBranding } from '@core/interface/branding/IBranding';
 import { BuilderState } from '@core/state/BuilderState';
+import { ContentState } from '@core/state/ContentState';
 import { ScreenState } from '@core/state/screen/ScreenState';
-import { BUILDER_CURRENT_PAGE } from '@core/token/token-providers';
+import { BRANDING, BUILDER_CURRENT_PAGE } from '@core/token/token-providers';
 import { map as each } from 'lodash-es';
 import { Observable, Subject } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
@@ -34,6 +36,7 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('drawer', { static: false }) drawer: MatDrawer;
   markers: NodeListOf<Element>;
   opened = false;
+  showBranding: boolean = false;
   previewClass$: Observable<any>;
   destroy$: Subject<boolean> = new Subject<boolean>();
 
@@ -42,8 +45,10 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
     private zone: NgZone,
     private cd: ChangeDetectorRef,
     public screenState: ScreenState,
+    public contentState: ContentState,
     @Inject(DOCUMENT) private doc: Document,
-    @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>
+    @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>,
+    @Inject(BRANDING) public branding$: Observable<IBranding>
   ) {}
 
   ngOnInit(): void {
@@ -55,6 +60,13 @@ export class BuilderListComponent implements OnInit, AfterViewInit, OnDestroy {
         } else {
           this.drawer.close();
         }
+        this.cd.detectChanges();
+      });
+
+    this.builder.showBranding$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((state) => {
+        this.showBranding = state;
         this.cd.detectChanges();
       });
   }
