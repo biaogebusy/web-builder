@@ -38,7 +38,7 @@ Default.args = {
       webform_id: 'contact',
     },
     bg: {
-      classes: 'bg-fill-width wave-wrapper',
+      classes: 'bg-fill-width',
       icon: 'wave',
     },
     action: {
