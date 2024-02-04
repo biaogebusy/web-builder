@@ -531,11 +531,7 @@ export const components: any[] = [
                     mode: 'raised',
                     color: 'primary',
                     href: '#',
-                    label: 'Get Started',
-                  },
-                  {
-                    type: 'closeDialog',
-                    label: 'Ok',
+                    label: '了解更多',
                   },
                 ],
               },
@@ -578,11 +574,7 @@ export const components: any[] = [
                     mode: 'raised',
                     color: 'primary',
                     href: '#',
-                    label: 'Get Started',
-                  },
-                  {
-                    type: 'closeDialog',
-                    label: 'Ok',
+                    label: '了解更多',
                   },
                 ],
               },
@@ -1600,7 +1592,7 @@ export const components: any[] = [
                     webform_id: 'contact',
                   },
                   bg: {
-                    classes: 'bg-fill-width wave-wrapper',
+                    classes: 'bg-fill-width',
                     icon: 'wave',
                   },
                   action: {
@@ -2075,7 +2067,7 @@ export const components: any[] = [
               elements: [
                 {
                   type: 'card',
-                  subTitle: '2024-01-24',
+                  subTitle: '2024-02-04',
                   avatar: {
                     src: '/assets/images/avatar/01.jpeg',
                     alt: '',
@@ -2125,7 +2117,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-01-24',
+                  subTitle: '2024-02-04',
                   avatar: {
                     src: '/assets/images/avatar/02.jpeg',
                     alt: '',
@@ -2162,7 +2154,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-01-24',
+                  subTitle: '2024-02-04',
                   avatar: {
                     src: '/assets/images/avatar/03.jpeg',
                     alt: '',
@@ -2199,7 +2191,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-01-24',
+                  subTitle: '2024-02-04',
                   avatar: {
                     src: '/assets/images/avatar/04.jpeg',
                     alt: '',
@@ -2236,7 +2228,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-01-24',
+                  subTitle: '2024-02-04',
                   avatar: {
                     src: '/assets/images/avatar/05.jpeg',
                     alt: '',
@@ -2273,7 +2265,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-01-24',
+                  subTitle: '2024-02-04',
                   avatar: {
                     src: '/assets/images/avatar/06.jpeg',
                     alt: '',
@@ -2310,7 +2302,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-01-24',
+                  subTitle: '2024-02-04',
                   avatar: {
                     src: '/assets/images/avatar/01.jpeg',
                     alt: '',
@@ -2347,7 +2339,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-01-24',
+                  subTitle: '2024-02-04',
                   avatar: {
                     src: '/assets/images/avatar/02.jpeg',
                     alt: '',
@@ -4375,7 +4367,7 @@ export const components: any[] = [
                     name: 'fingerprint',
                   },
                   digit: {
-                    value: 989,
+                    value: 963,
                     label: '+',
                   },
                   title: '日访问人数',
@@ -4385,7 +4377,7 @@ export const components: any[] = [
                     name: 'verified_user',
                   },
                   digit: {
-                    value: 188,
+                    value: 219,
                     label: '+',
                   },
                   title: '日打开次数',
@@ -4395,7 +4387,7 @@ export const components: any[] = [
                     name: 'android',
                   },
                   digit: {
-                    value: 37,
+                    value: 88,
                     label: '人',
                   },
                   title: '日新增人数',
@@ -4405,7 +4397,7 @@ export const components: any[] = [
                     name: 'mail',
                   },
                   digit: {
-                    value: 3049,
+                    value: 6090,
                     label: '万',
                   },
                   title: '累计用户数',
@@ -4435,7 +4427,7 @@ export const components: any[] = [
                     src: '/assets/images/svg/Asset187.svg',
                   },
                   digit: {
-                    value: 22,
+                    value: 42,
                     label: 'M',
                   },
                   title: 'Github Start',
@@ -4445,7 +4437,7 @@ export const components: any[] = [
                     src: '/assets/images/svg/Asset189.svg',
                   },
                   digit: {
-                    value: 29527,
+                    value: 28177,
                     label: '+',
                   },
                   title: 'NPM 周下载量',
@@ -4455,7 +4447,7 @@ export const components: any[] = [
                     src: '/assets/images/svg/Asset190.svg',
                   },
                   digit: {
-                    value: 2618,
+                    value: 2173,
                     label: 'K',
                   },
                   title: '社区活跃',
@@ -4465,7 +4457,7 @@ export const components: any[] = [
                     src: '/assets/images/svg/Asset192.svg',
                   },
                   digit: {
-                    value: 719,
+                    value: 682,
                     label: '个',
                   },
                   title: '成功故事',
