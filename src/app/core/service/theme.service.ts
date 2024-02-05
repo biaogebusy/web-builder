@@ -1,9 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
-import { THEMKEY } from '@core/factory/factory';
-import { ICoreConfig } from '@core/interface/IAppConfig';
 import { THEME } from '@core/token/token-providers';
-import { LocalStorageService } from 'ngx-webstorage';
 
 @Injectable({
   providedIn: 'root',
@@ -11,11 +8,10 @@ import { LocalStorageService } from 'ngx-webstorage';
 export class ThemeService {
   constructor(
     @Inject(DOCUMENT) private document: Document,
-    @Inject(THEME) private theme: string,
-    private storage: LocalStorageService
+    @Inject(THEME) private theme: string
   ) {}
 
-  initTheme(coreConfig: ICoreConfig): void {
+  initTheme(): void {
     this.setTheme(this.theme);
   }
 
