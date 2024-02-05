@@ -212,7 +212,7 @@ export const widgets = [
         webform_id: 'contact',
       },
       bg: {
-        classes: 'bg-fill-width wave-wrapper',
+        classes: 'bg-fill-width',
         icon: 'wave',
       },
       action: {
@@ -300,7 +300,77 @@ export const widgets = [
     },
   },
   {
-    label: '图表',
+    label: '柱状图',
+    icon: {
+      svg: 'chart-bar',
+    },
+    data: {
+      toggle: [
+        {
+          label: '饼图',
+          icon: {
+            name: 'pie_chart',
+            inline: true,
+          },
+          value: 'pie',
+        },
+        {
+          label: '柱状图',
+          icon: {
+            name: 'equalizer',
+            inline: true,
+          },
+          value: 'bar',
+        },
+        {
+          label: '折线图',
+          icon: {
+            name: 'show_chart',
+            inline: true,
+          },
+          value: 'line',
+        },
+      ],
+    },
+    content: {
+      type: 'chart',
+      title: {
+        text: '年度活动金额预算',
+        subtext: '南宁',
+      },
+      legend: {
+        bottom: '10px',
+      },
+      tooltip: {
+        trigger: 'axis',
+      },
+      dataset: {
+        source: [
+          ['红包预算', '2020', '2021', '2022'],
+          ['第一季度', 8935, 6826, 6677],
+          ['第二季度', 4067, 6415, 5805],
+          ['第三季度', 8993, 6042, 8144],
+        ],
+      },
+      xAxis: {
+        type: 'category',
+      },
+      yAxis: {},
+      series: [
+        {
+          type: 'bar',
+        },
+        {
+          type: 'bar',
+        },
+        {
+          type: 'bar',
+        },
+      ],
+    },
+  },
+  {
+    label: '折线图',
     icon: {
       svg: 'chart-line',
     },
@@ -347,9 +417,9 @@ export const widgets = [
       dataset: {
         source: [
           ['红包预算', '2020', '2021', '2022'],
-          ['第一季度', 8389, 9096, 7385],
-          ['第二季度', 8340, 4598, 6969],
-          ['第三季度', 7853, 7267, 6596],
+          ['第一季度', 8935, 6826, 6677],
+          ['第二季度', 4067, 6415, 5805],
+          ['第三季度', 8993, 6042, 8144],
         ],
       },
       xAxis: {
@@ -358,13 +428,91 @@ export const widgets = [
       yAxis: {},
       series: [
         {
-          type: 'bar',
+          type: 'line',
         },
         {
-          type: 'bar',
+          type: 'line',
         },
         {
-          type: 'bar',
+          type: 'line',
+        },
+      ],
+    },
+  },
+  {
+    label: '饼图',
+    icon: {
+      svg: 'chart-pie',
+    },
+    data: {
+      toggle: [
+        {
+          label: '饼图',
+          icon: {
+            name: 'pie_chart',
+            inline: true,
+          },
+          value: 'pie',
+        },
+        {
+          label: '柱状图',
+          icon: {
+            name: 'equalizer',
+            inline: true,
+          },
+          value: 'bar',
+        },
+        {
+          label: '折线图',
+          icon: {
+            name: 'show_chart',
+            inline: true,
+          },
+          value: 'line',
+        },
+      ],
+    },
+    content: {
+      type: 'chart',
+      title: {
+        text: '金额预算占比',
+        subtext: '2022年9月',
+        left: 'center',
+      },
+      tooltip: {
+        trigger: 'item',
+      },
+      legend: {
+        orient: 'vertical',
+        left: 'left',
+      },
+      xAxis: {
+        type: 'category',
+      },
+      yAxis: {},
+      dataset: {
+        source: [
+          ['预算', '费用'],
+          ['大额红包总金额', 619],
+          ['小额红包总金额', 428],
+          ['提成总额', 884],
+        ],
+      },
+      series: [
+        {
+          name: 'Access From',
+          type: 'pie',
+          radius: '50%',
+          label: {
+            formatter: '{b}: {d}%',
+          },
+          emphasis: {
+            itemStyle: {
+              shadowBlur: 10,
+              shadowOffsetX: 0,
+              shadowColor: 'rgba(0, 0, 0, 0.5)',
+            },
+          },
         },
       ],
     },
@@ -401,25 +549,25 @@ export const widgets = [
       elements: [
         {
           module: 'Slick Carousel',
-          tatol: 7441,
+          tatol: 5713,
           info: 'Slick 轮播，强大响应式且性能优异的图片轮播解决方案，有非常丰富的配置选项，slick 官网自己调侃这是你最后使用的图片轮播',
           remarks: '查看',
         },
         {
           module: 'Views Slideshow',
-          tatol: 4328,
+          tatol: 1810,
           info: '视图轮播模块，该模块是最受欢迎的幻灯片模块，可放任何内容，高度定制\t',
           remarks: '查看',
         },
         {
           module: 'Colorbox',
-          tatol: 3350,
+          tatol: 9458,
           info: '轻量级高可定制幻灯片模块，高度集成在 Drupal 中，可放图片，Iframed 或者在线内容等等\t',
           remarks: '查看',
         },
         {
           module: 'Flex Slider',
-          tatol: 1594,
+          tatol: 8234,
           info: '响应式、可调整大小、适配浏览器和移动设备，支持移动设备手势滑动\t',
           remarks: '查看',
         },
@@ -714,7 +862,7 @@ export const widgets = [
             src: '../assets/images/showcase/blog1-large.jpeg',
             alt: '',
           },
-          changed: '2024-01-26',
+          changed: '2024-02-04',
         },
         {
           link: {
@@ -725,29 +873,29 @@ export const widgets = [
             src: '../assets/images/showcase/blog2-large.jpeg',
             alt: '',
           },
-          changed: '2024-01-26',
+          changed: '2024-02-04',
         },
         {
           link: {
             label: '你应该了解的 Angular 最佳实践',
-            href: '2024-01-26',
+            href: '2024-02-04',
           },
           img: {
             src: '../assets/images/showcase/blog3-large.jpeg',
             alt: '',
           },
-          changed: '2024-01-26',
+          changed: '2024-02-04',
         },
         {
           link: {
             label: 'Angular 5 rxjs 5.5.2 多个 http 并行 forkJoin 请求',
-            href: '2024-01-26',
+            href: '2024-02-04',
           },
           img: {
             src: '../assets/images/showcase/blog4-large.jpeg',
             alt: '',
           },
-          changed: '2024-01-26',
+          changed: '2024-02-04',
         },
       ],
     },
@@ -767,7 +915,7 @@ export const widgets = [
         },
         alt: 'logo',
       },
-      meta: '2024-01',
+      meta: '2024-02',
       title: '前端开发工程师',
       subTitle: 'Davyin',
       content:
