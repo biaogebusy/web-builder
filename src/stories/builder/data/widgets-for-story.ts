@@ -2,7 +2,9 @@ import * as dynamicTableStory from '@stories/base/Table.stories';
 import * as swiperStory from '@stories/widgets/Swiper.stories';
 import * as titleStory from '@stories/base/Title.stories';
 import * as btnVideoStory from '@stories/base/BtnVideo.stories';
-import * as chartStory from '@stories/widgets/chart/ChartBar.stories';
+import * as chartBarStory from '@stories/widgets/chart/ChartBar.stories';
+import * as chartLineStory from '@stories/widgets/chart/ChartLine.stories';
+import * as chartPieStory from '@stories/widgets/chart/ChartPie.stories';
 import * as btnStory from '@stories/base/Btn.stories';
 import * as linkStory from '@stories/base/Link.stories';
 import * as bgImg from '@stories/base/BgImg.stories';
@@ -65,8 +67,16 @@ export const {
 } = btnVideoStory;
 
 export const {
-  Bar: { args: chart },
-} = chartStory;
+  Bar: { args: chartBar },
+} = chartBarStory;
+
+export const {
+  Line: { args: chartLine },
+} = chartLineStory;
+
+export const {
+  Pie: { args: chartPie },
+} = chartPieStory;
 
 export const {
   BtnLink: { args: btn },
@@ -206,11 +216,25 @@ export const widgets: any[] = [
     ...contact,
   },
   {
-    label: '图表',
+    label: '柱状图',
+    icon: {
+      svg: 'chart-bar',
+    },
+    ...chartBar,
+  },
+  {
+    label: '折线图',
     icon: {
       svg: 'chart-line',
     },
-    ...chart,
+    ...chartLine,
+  },
+  {
+    label: '饼图',
+    icon: {
+      svg: 'chart-pie',
+    },
+    ...chartPie,
   },
   {
     label: '表格',

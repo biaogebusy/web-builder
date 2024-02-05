@@ -1431,7 +1431,7 @@ export const base = [
             webform_id: 'contact',
           },
           bg: {
-            classes: 'bg-fill-width wave-wrapper',
+            classes: 'bg-fill-width',
             icon: 'wave',
           },
           action: {

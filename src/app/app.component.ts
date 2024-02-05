@@ -49,7 +49,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     const screen = this.injector.get(ScreenState);
     const themeService = this.injector.get(ThemeService);
     if (screenService.isPlatformBrowser()) {
-      themeService.initTheme(this.coreConfig);
+      themeService.initTheme();
       screen.drawer$.subscribe(() => {
         this.mobileMenuOpened = !this.mobileMenuOpened;
       });

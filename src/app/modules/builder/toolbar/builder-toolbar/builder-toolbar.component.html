@@ -24,6 +24,9 @@
           [content]="{label:'', mode: 'icon' ,icon:{svg:mode ==='light' ? 'white-balance-sunny' : 'moon-waning-crescent' } }"></app-btn>
         <mat-slide-toggle [checked]="builderFullScreen$|async" (change)="onFullScreen($event)"
           [matTooltip]="(builderFullScreen$|async) ? '显示边栏' : '切换全宽'"></mat-slide-toggle>
+        <app-btn fxHide.xs="true" [matTooltip]="(builder.showBranding$|async)?'显示页头页尾' : '隐藏页头页尾'"
+          (click)="onShowBranding()"
+          [content]="{label:'', color:(builder.showBranding$|async)?'primary' : undefined, mode: 'icon' ,icon:{svg:(builder.showBranding$|async)?'page-layout-header-footer' : 'page-layout-body' } }"></app-btn>
         <app-btn fxHide.xs="true" [matTooltip]="(builder.previewListDrawer$|async)?'展开组件导航' : '收起组件导航'"
           (click)="toggleNavigate()"
           [content]="{label:'', color:(builder.previewListDrawer$|async)?'primary' : undefined, mode: 'icon' ,icon:{svg:'dock-left' } }"></app-btn>
