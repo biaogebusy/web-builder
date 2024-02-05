@@ -50,6 +50,12 @@ import { ManageSidebarComponent } from './manage-sidebar/manage-sidebar.componen
     MenuComponent,
     ManageSidebarComponent,
     UserMenuComponent,
+    HeaderBannerComponent,
+    HeaderTopComponent,
+    LightComponent,
+    InverseComponent,
+    SpaceBetweenComponent,
+    FixBarComponent,
   ],
 })
 export class BrandingModule {}

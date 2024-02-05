@@ -8,6 +8,28 @@
     </div>
     <div #builderList id="builder-list" cdkDropList [cdkDropListConnectedTo]="['widgets']" [cdkDropListData]="page.body"
       (cdkDropListDropped)="drop($event)">
+      <ng-container *ngIf="showBranding">
+        <ng-container *ngIf="branding$ | async as branding">
+          <header *ngIf="!(contentState.pageConfig$|async)?.headerMode?.transparent;else transparent">
+            <div class="static" [class.header-inverse]="branding?.header?.params?.inverse">
+              <app-header-banner [content]="branding?.header?.banner">
+              </app-header-banner>
+              <app-header-top *ngIf="branding?.header?.top" [content]="branding?.header?.top"></app-header-top>
+              <app-menu #menu *ngIf="branding?.header"></app-menu>
+            </div>
+          </header>
+          <ng-template #transparent>
+            <header #header id="transparent-mode" class="transparent-mode"
+              [class.header-inverse]="branding.header.params.inverse"
+              [ngClass]="(contentState.pageConfig$|async)?.headerMode?.style">
+              <div class="static">
+                <app-header-top *ngIf="branding.header?.top" [content]="branding.header.top"></app-header-top>
+                <app-menu #menu></app-menu>
+              </div>
+            </header>
+          </ng-template>
+        </ng-container>
+      </ng-container>
       <app-builder-empty *ngIf="!page.body?.length"></app-builder-empty>
       <div id="item-{{i}}" class="component-item" cdkDrag [cdkDragDisabled]="true" [cdkDragData]="item"
         *ngFor="let item of page.body;index as i; trackBy: trackByFn">
@@ -15,6 +37,17 @@
           [isPreview]="true"></app-dynamic-component>
       </div>
       <app-gotop></app-gotop>
+      <ng-container *ngIf="showBranding">
+        <div class="footer" *ngIf="branding$ | async as branding">
+          <app-light *ngIf="branding.footer?.params?.mode === 'light' " [content]="branding.footer"></app-light>
+          <app-inverse *ngIf="branding.footer?.params?.mode === 'inverse' " [content]="branding.footer">
+          </app-inverse>
+          <app-space-between *ngIf="branding.footer?.params?.mode === 'space-between' " [content]="branding.footer">
+          </app-space-between>
+          <app-fix-bar [content]="branding.footer?.fixBar" *ngIf="branding.footer?.fixBar"></app-fix-bar>
+          <app-gotop></app-gotop>
+        </div>
+      </ng-container>
     </div>
     <div class="iframe-wrapper" *ngIf="builder.switchPreivew$|async">
       <app-iframe class="preview-iframe" [content]="{url:'/builder/preview'}"></app-iframe>
