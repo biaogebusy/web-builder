@@ -1,5 +1,5 @@
 <div class="meta-edit" *ngIf="content">
-  <app-title [content]="{label:content.data.tag,style:'style-v4'}"></app-title>
+  <app-title [content]="{label:content.data.tag,style:'style-v5'}"></app-title>
   <div class="img-section" *ngIf="content.mode === 'img'">
     <app-formly *ngIf="content.fields" [fields]="content.fields" [model]="model"
       (modelChange)="onModelChange($event)"></app-formly>

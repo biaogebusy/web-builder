@@ -176,7 +176,7 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
       uuid: this.uuid,
       title: {
         label: widget.type,
-        style: 'style-v4',
+        style: 'style-v5',
       },
       fields,
       content: widget,
