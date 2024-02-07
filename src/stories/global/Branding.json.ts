@@ -600,7 +600,7 @@ export const footerInverse: IFooter = {
         icon: {
           svg: 'github',
         },
-        href: 'https://github.com/biaogebusy/xinshi-ui',
+        href: 'https://github.com/biaogebusy/web-builder',
       },
     ],
   },
