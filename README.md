@@ -229,4 +229,4 @@ Base 的基础配置可查阅[信使 storybook 全局配置](https://ui.zhaobg.c
 - QQ 交流群：1176468251
 - 如果觉得这个项目对您有所助益，请帮忙点个 star
 
-[![Star History Chart](https://api.star-history.com/svg?repos=biaogebusy/xinshi-ui&type=Date)](https://star-history.com/#biaogebusy/xinshi-ui&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=biaogebusy/web-builder&type=Date)](https://star-history.com/#biaogebusy/web-builder&Date)
