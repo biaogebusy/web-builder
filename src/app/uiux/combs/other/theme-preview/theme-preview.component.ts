@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IThemePreview } from '@core/interface/combs/IThemePreview';
+import type { IThemePreview } from '@core/interface/combs/IThemePreview';
 
 @Component({
   selector: 'app-theme-preview',
