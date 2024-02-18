@@ -44,7 +44,7 @@ export const Primary = Template.bind({});
 const primary: IIcon = {
   type: 'icon',
   color: 'primary',
-  name: 'format_color_fill',
+  svg: 'border-color',
 };
 Primary.args = {
   content: primary,
