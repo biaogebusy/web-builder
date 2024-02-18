@@ -10,37 +10,39 @@ export function getSpacer(widget: any): FormlyFieldConfig[] {
           type: 'select',
           className: 'width-100',
           defaultValue: widget.size || 'sm',
-          templateOptions: {
-            label: '大小',
-            options: [
-              {
-                label: 'xs',
-                value: 'xs',
-              },
-              {
-                label: 'sm',
-                value: 'sm',
-              },
-              {
-                label: 'md',
-                value: 'md',
-              },
-              {
-                label: 'lg',
-                value: 'lg',
-              },
-              {
-                label: 'xl',
-                value: 'xl',
-              },
-              {
-                label: '无',
-                value: 'none',
-              },
-            ],
-          },
+          templateOptions: spacerOption,
         },
       ],
     },
   ];
 }
+
+export const spacerOption = {
+  label: '间距大小',
+  options: [
+    {
+      label: 'xs',
+      value: 'xs',
+    },
+    {
+      label: 'sm',
+      value: 'sm',
+    },
+    {
+      label: 'md',
+      value: 'md',
+    },
+    {
+      label: 'lg',
+      value: 'lg',
+    },
+    {
+      label: 'xl',
+      value: 'xl',
+    },
+    {
+      label: '无',
+      value: 'none',
+    },
+  ],
+};

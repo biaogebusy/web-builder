@@ -1,7 +1,6 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
 
 export function getNone(widget: any): FormlyFieldConfig[] {
-  console.log(widget);
   return [
     {
       key: 'none',

@@ -26,6 +26,10 @@ import { getBtn } from '../factory/getBtn';
 import { getSpacer } from '../factory/getSpacer';
 import { getNone } from '../factory/getNone';
 import { getChart } from '../factory/getChart';
+import { getContact } from '../factory/getContact';
+import { getText } from '../factory/getText';
+import { getImg } from '../factory/getImg';
+import { getIcon } from '../factory/getIcon';
 
 @Component({
   selector: 'app-layout-builder',
@@ -153,6 +157,18 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
       case 'chart':
         fields = getChart(widget);
         break;
+      case 'contact-us':
+        fields = getContact(widget);
+        break;
+      case 'text':
+        fields = getText(widget);
+        break;
+      case 'img':
+        fields = getImg(widget);
+        break;
+      case 'icon':
+        fields = getIcon(widget);
+        break;
       default:
         fields = getNone(widget);
     }
@@ -176,7 +192,7 @@ export class LayoutBuilderComponent implements OnInit, OnDestroy {
       uuid: this.uuid,
       title: {
         label: widget.type,
-        style: 'style-v4',
+        style: 'style-v5',
       },
       fields,
       content: widget,

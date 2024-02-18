@@ -142,30 +142,6 @@ export function getBtn(widget: any): FormlyFieldConfig[] {
             label: 'Class',
           },
         },
-        // {
-        //   type: 'toggle',
-        //   key: 'isRel',
-        //   defaultValue: widget.rel || false,
-        //   className: 'width-100',
-        //   templateOptions: {
-        //     label: '在侧边栏加载链接页面',
-        //     description: '请发布后测试，点击加载链接的页面到侧边栏显示',
-        //   },
-        //   hooks: {
-        //     onInit: (formGroup: any) => {
-        //       const { form, model } = formGroup;
-        //       form.valueChanges.subscribe((value: any) => {
-        //         console.log(value);
-        //         const { isRel } = value;
-        //         if (isRel) {
-        //           model.rel = 'drawer';
-        //         } else {
-        //           model.rel = '';
-        //         }
-        //       });
-        //     },
-        //   },
-        // },
       ],
     },
   ];

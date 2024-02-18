@@ -67,7 +67,6 @@
     "jspdf-autotable": "^3.5.25",
     "jszip": "^3.10.1",
     "lodash-es": "^4.17.20",
-    "luxon": "^3.0.3",
     "material-design-icons": "^3.0.1",
     "ngx-countdown": "^12.0.1",
     "ngx-echarts": "^7.1.0",
