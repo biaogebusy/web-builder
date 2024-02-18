@@ -83,7 +83,7 @@ export const widgets = [
     content: {
       type: 'icon',
       color: 'primary',
-      name: 'format_color_fill',
+      svg: 'border-color',
     },
   },
   {
