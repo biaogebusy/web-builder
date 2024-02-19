@@ -52,6 +52,16 @@ const content: ICarouselBase = {
       navigation: false,
       pagination: false,
       effect: 'fade',
+      breakpoints: {
+        600: {
+          slidesPerView: 1,
+          spaceBetween: 0,
+        },
+        960: {
+          slidesPerView: 1,
+          spaceBetween: 0,
+        },
+      },
     },
     classes: 'p-bottom',
     elements: [

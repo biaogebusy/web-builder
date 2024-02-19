@@ -469,7 +469,7 @@ export const components: any[] = [
                   classes: 'mat-display-2',
                 },
                 spacer: 'xl',
-                classes: 'xy-center',
+                classes: 'xy-center text-center',
                 bg: {
                   classes: 'bg-shadow overlay overlay-80',
                   img: {
@@ -486,10 +486,6 @@ export const components: any[] = [
                     color: 'primary',
                     href: '#',
                     label: '立刻体验',
-                  },
-                  {
-                    type: 'closeDialog',
-                    label: 'Ok',
                   },
                 ],
               },
@@ -2067,7 +2063,7 @@ export const components: any[] = [
               elements: [
                 {
                   type: 'card',
-                  subTitle: '2024-02-17',
+                  subTitle: '2024-02-19',
                   avatar: {
                     src: '/assets/images/avatar/01.jpeg',
                     alt: '',
@@ -2117,7 +2113,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-02-17',
+                  subTitle: '2024-02-19',
                   avatar: {
                     src: '/assets/images/avatar/02.jpeg',
                     alt: '',
@@ -2154,7 +2150,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-02-17',
+                  subTitle: '2024-02-19',
                   avatar: {
                     src: '/assets/images/avatar/03.jpeg',
                     alt: '',
@@ -2191,7 +2187,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-02-17',
+                  subTitle: '2024-02-19',
                   avatar: {
                     src: '/assets/images/avatar/04.jpeg',
                     alt: '',
@@ -2228,7 +2224,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-02-17',
+                  subTitle: '2024-02-19',
                   avatar: {
                     src: '/assets/images/avatar/05.jpeg',
                     alt: '',
@@ -2265,7 +2261,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-02-17',
+                  subTitle: '2024-02-19',
                   avatar: {
                     src: '/assets/images/avatar/06.jpeg',
                     alt: '',
@@ -2302,7 +2298,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-02-17',
+                  subTitle: '2024-02-19',
                   avatar: {
                     src: '/assets/images/avatar/01.jpeg',
                     alt: '',
@@ -2339,7 +2335,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-02-17',
+                  subTitle: '2024-02-19',
                   avatar: {
                     src: '/assets/images/avatar/02.jpeg',
                     alt: '',
@@ -2651,6 +2647,7 @@ export const components: any[] = [
                   style: 'style-v1',
                   classes: 'mat-display-2 bold',
                 },
+                classes: 'text-center',
                 body: '<p class="text-center">突破传统的艺术边界，展示前卫和创新的艺术作品</p>',
               },
               spacer: 'md',
@@ -2730,6 +2727,7 @@ export const components: any[] = [
                   style: 'style-v1',
                   classes: 'mat-display-1',
                 },
+                classes: 'text-center',
                 body: '<p class="text-center">Drupal 已经超越了传统的 Web概念，可以通过不同的渠道部署你的数据内容，从一个数据中心点到各个应用，从简单到复杂。</p>',
               },
               spacer: 'md',
@@ -2840,6 +2838,7 @@ export const components: any[] = [
                   style: 'style-v1',
                   classes: 'mat-display-2 blod',
                 },
+                classes: 'text-center',
                 body: '<p class="text-center">Storybook是一个用于开发和展示UI组件的工具。它提供了一个独立的环境，开发人员可以在其中构建、测试和文档化单个UI组件，而无需依赖于整个应用程序的上下文</p>',
               },
               spacer: 'md',
@@ -3642,6 +3641,7 @@ export const components: any[] = [
                   label: '为所有开发者、所有应用场景而设计',
                   style: 'style-v1',
                 },
+                classes: 'text-center',
                 body: '<p class="text-center">让前端开发更快速、简单。所有开发者都能快速上手、所有设备都可以适配、所有项目都适用。</p>',
               },
               bg: {
@@ -3737,6 +3737,7 @@ export const components: any[] = [
                   label: '职位招聘',
                   style: 'style-v1',
                 },
+                classes: 'text-center',
                 body: '<p class="text-center">免费推送相关职位信息，关注公众号随时随地了解职位情况。</p>',
               },
               bg: {
@@ -3887,6 +3888,7 @@ export const components: any[] = [
                   label: '为所有开发者、所有应用场景而设计',
                   style: 'style-v1',
                 },
+                classes: 'text-center',
                 body: '<p class="text-center">让前端开发更快速、简单。所有开发者都能快速上手、所有设备都可以适配、所有项目都适用。</p>',
               },
               bg: {
@@ -4367,7 +4369,7 @@ export const components: any[] = [
                     name: 'fingerprint',
                   },
                   digit: {
-                    value: 199,
+                    value: 623,
                     label: '+',
                   },
                   title: '日访问人数',
@@ -4377,7 +4379,7 @@ export const components: any[] = [
                     name: 'verified_user',
                   },
                   digit: {
-                    value: 449,
+                    value: 339,
                     label: '+',
                   },
                   title: '日打开次数',
@@ -4387,7 +4389,7 @@ export const components: any[] = [
                     name: 'android',
                   },
                   digit: {
-                    value: 267,
+                    value: 70,
                     label: '人',
                   },
                   title: '日新增人数',
@@ -4397,7 +4399,7 @@ export const components: any[] = [
                     name: 'mail',
                   },
                   digit: {
-                    value: 6812,
+                    value: 6400,
                     label: '万',
                   },
                   title: '累计用户数',
@@ -4416,6 +4418,7 @@ export const components: any[] = [
                   style: 'style-v1',
                   classes: 'mat-display-1',
                 },
+                classes: 'text-center',
                 body: '<p class="text-center">通过Storybook，您可以以交互的方式在浏览器中浏览和测试组件，以确保它们在各种条件下的正确工作。</p>',
               },
               paramsBak: {
@@ -4427,7 +4430,7 @@ export const components: any[] = [
                     src: '/assets/images/svg/Asset187.svg',
                   },
                   digit: {
-                    value: 25,
+                    value: 23,
                     label: 'M',
                   },
                   title: 'Github Start',
@@ -4437,7 +4440,7 @@ export const components: any[] = [
                     src: '/assets/images/svg/Asset189.svg',
                   },
                   digit: {
-                    value: 13164,
+                    value: 14032,
                     label: '+',
                   },
                   title: 'NPM 周下载量',
@@ -4447,7 +4450,7 @@ export const components: any[] = [
                     src: '/assets/images/svg/Asset190.svg',
                   },
                   digit: {
-                    value: 2559,
+                    value: 4165,
                     label: 'K',
                   },
                   title: '社区活跃',
@@ -4457,7 +4460,7 @@ export const components: any[] = [
                     src: '/assets/images/svg/Asset192.svg',
                   },
                   digit: {
-                    value: 912,
+                    value: 542,
                     label: '个',
                   },
                   title: '成功故事',
@@ -4618,6 +4621,16 @@ export const components: any[] = [
                   spaceBetween: 0,
                   navigation: false,
                   pagination: false,
+                  breakpoints: {
+                    '600': {
+                      slidesPerView: 1,
+                      spaceBetween: 0,
+                    },
+                    '960': {
+                      slidesPerView: 1,
+                      spaceBetween: 0,
+                    },
+                  },
                 },
                 classes: 'p-bottom',
                 elements: [
@@ -4752,6 +4765,16 @@ export const components: any[] = [
                   navigation: true,
                   pagination: true,
                   autoplay: false,
+                  breakpoints: {
+                    '600': {
+                      slidesPerView: 1.5,
+                      spaceBetween: 40,
+                    },
+                    '960': {
+                      slidesPerView: 1.5,
+                      spaceBetween: 40,
+                    },
+                  },
                 },
                 classes: 'p-bottom',
                 elements: [
@@ -4951,6 +4974,16 @@ export const components: any[] = [
                   navigation: false,
                   pagination: false,
                   effect: 'fade',
+                  breakpoints: {
+                    '600': {
+                      slidesPerView: 1,
+                      spaceBetween: 0,
+                    },
+                    '960': {
+                      slidesPerView: 1,
+                      spaceBetween: 0,
+                    },
+                  },
                 },
                 classes: 'p-bottom',
                 elements: [
@@ -5121,6 +5154,16 @@ export const components: any[] = [
                   },
                   navigation: true,
                   autoplay: false,
+                  breakpoints: {
+                    '600': {
+                      slidesPerView: 1,
+                      spaceBetween: 0,
+                    },
+                    '960': {
+                      slidesPerView: 1,
+                      spaceBetween: 0,
+                    },
+                  },
                 },
                 elements: [
                   {
@@ -5785,6 +5828,7 @@ export const components: any[] = [
                   style: 'style-v1',
                   classes: 'mat-display-1',
                 },
+                classes: 'text-center',
                 body: '<p class="text-center">Drupal是数据管理中心，提供集中的地方来访问所有平台的数据</p><br>',
               },
               classes: '',
@@ -5928,6 +5972,7 @@ export const components: any[] = [
                   style: 'style-v1',
                   classes: 'mat-display-1',
                 },
+                classes: 'text-center',
                 body: '<p class="text-center">Storybook是一个开发工具和UI组件库，用于构建、测试和文档化可复用的UI组件。它提供了一个独立于主应用程序的环境，让开发者能够以隔离的方式开发和调试组件。</p>',
               },
               classes: '',
@@ -6049,6 +6094,16 @@ export const components: any[] = [
                   pagination: false,
                   autoplay: {
                     delay: 5000,
+                  },
+                  breakpoints: {
+                    '600': {
+                      slidesPerView: 1,
+                      spaceBetween: 0,
+                    },
+                    '960': {
+                      slidesPerView: 1,
+                      spaceBetween: 0,
+                    },
                   },
                 },
                 classes: 'p-bottom',
@@ -6229,6 +6284,7 @@ export const components: any[] = [
               style: 'style-v1',
               classes: 'mat-display-1 text-light',
             },
+            classes: 'text-center',
             body: '<p class="text-light text-center">Drupal通过其灵活性、多功能性和可扩展性，为数字创新提供了强大的基础。它能够满足不同规模和需求的组织和企业的数字化转型和创新需求，并提供可靠、安全、高效的数字解决方案。</p>',
           },
           classes: '',
@@ -6358,6 +6414,7 @@ export const components: any[] = [
               style: 'style-v1',
               classes: 'mat-display-1 text-light',
             },
+            classes: 'text-center',
             body: '<p class="text-light text-center">Drupal通过其灵活性、多功能性和可扩展性，为数字创新提供了强大的基础。它能够满足不同规模和需求的组织和企业的数字化转型和创新需求，并提供可靠、安全、高效的数字解决方案。</p>',
           },
           bg: {
@@ -6832,306 +6889,6 @@ export const components: any[] = [
             },
           ],
         },
-      },
-    ],
-  },
-  {
-    label: '工具',
-    id: 'tools',
-    elements: [
-      {
-        label: '红包预算器',
-        icon: {
-          svg: 'gift',
-        },
-        content: {
-          type: 'lottery',
-          text: {
-            spacer: 'md',
-            title: {
-              label: '红包抽奖预算计算器',
-              style: 'style-v1',
-            },
-            classes: 'text-center',
-            body: '输入指标，自动计算出预算，指导市场营销计划。',
-          },
-          bg: {
-            classes: '',
-          },
-          classes: '',
-          form: [
-            {
-              key: 'max',
-              className: 'm-bottom-sm',
-              fieldGroupClassName: 'display-flex flex-wrap',
-              fieldGroup: [
-                {
-                  type: 'input',
-                  key: 'total_money',
-                  defaultValue: 300,
-                  className: 'm-right-sm',
-                  templateOptions: {
-                    label: '大额红包总预算',
-                    appearance: 'outline',
-                    type: 'number',
-                    required: true,
-                    min: 1,
-                    max: 10000,
-                    description: '最小1元，最大10000元',
-                  },
-                  validation: {
-                    messages: {
-                      min: '不能设置小于 1',
-                      max: '不能设置大于 10000',
-                    },
-                  },
-                },
-                {
-                  type: 'input',
-                  key: 'total_number',
-                  defaultValue: 10,
-                  templateOptions: {
-                    label: '大额红包总个数',
-                    appearance: 'outline',
-                    type: 'number',
-                    required: true,
-                    min: 1,
-                    max: 500,
-                    description: '最小1元，最大500元',
-                  },
-                  validation: {
-                    messages: {
-                      min: '不能设置小于 1',
-                      max: '不能设置大于 500',
-                    },
-                  },
-                },
-              ],
-            },
-            {
-              key: 'min',
-              className: 'm-bottom-sm m-top-sm',
-              fieldGroupClassName: 'display-flex flex-wrap',
-              fieldGroup: [
-                {
-                  type: 'input',
-                  key: 'total_money',
-                  defaultValue: 500,
-                  className: 'm-right-sm',
-                  templateOptions: {
-                    label: '小额红包总预算',
-                    appearance: 'outline',
-                    type: 'number',
-                    required: true,
-                    min: 1,
-                    max: 10000,
-                    description: '最小1元，最大10000元',
-                  },
-                  validation: {
-                    messages: {
-                      min: '不能设置小于 1',
-                      max: '不能设置大于 10000',
-                    },
-                  },
-                },
-                {
-                  type: 'input',
-                  key: 'total_number',
-                  defaultValue: 1,
-                  templateOptions: {
-                    label: '小额红包总个数',
-                    appearance: 'outline',
-                    type: 'number',
-                    required: true,
-                    min: 1,
-                    max: 500,
-                    description: '最小1次，最大500次',
-                  },
-                  validation: {
-                    messages: {
-                      min: '不能设置小于 1',
-                      max: '不能设置大于 500',
-                    },
-                  },
-                },
-                {
-                  type: 'input',
-                  key: 'per_max',
-                  defaultValue: 1,
-                  className: 'm-right-sm',
-                  templateOptions: {
-                    label: '小额红包单次最大额',
-                    appearance: 'outline',
-                    type: 'number',
-                    required: true,
-                    min: 0.3,
-                    max: 200,
-                    description: '最小1元，最大200元',
-                  },
-                  validation: {
-                    messages: {
-                      min: '不能设置小于 1',
-                      max: '不能设置大于 200',
-                    },
-                  },
-                },
-                {
-                  type: 'input',
-                  key: 'per_min',
-                  defaultValue: 0.3,
-                  templateOptions: {
-                    label: '小额红包单次最小额',
-                    appearance: 'outline',
-                    type: 'number',
-                    required: true,
-                    min: 0.3,
-                    max: 10,
-                    description: '最小0.3元，最大10元',
-                  },
-                  validation: {
-                    messages: {
-                      min: '不能设置小于 0.3',
-                      max: '不能设置大于 10',
-                    },
-                  },
-                },
-              ],
-            },
-            {
-              key: 'isPromote',
-              type: 'toggle',
-              className: 'width-100 m-bottom',
-              templateOptions: {
-                label: '开启推广提成',
-                description: '超过推广次数则推广结束',
-              },
-            },
-            {
-              key: 'promote',
-              fieldGroupClassName: 'display-flex flex-wrap',
-              fieldGroup: [
-                {
-                  type: 'select',
-                  key: 'type',
-                  defaultValue: 'fixed',
-                  className: 'm-bottom-sm m-right-sm',
-                  templateOptions: {
-                    label: '选择提成方式',
-                    description: '固定金额或者按比例',
-                    options: [
-                      {
-                        label: '固定金额',
-                        value: 'fixed',
-                      },
-                      {
-                        label: '比例',
-                        value: 'percent',
-                      },
-                    ],
-                  },
-                },
-                {
-                  type: 'input',
-                  key: 'fixed',
-                  defaultValue: 2,
-                  className: 'm-bottom-sm',
-                  templateOptions: {
-                    label: '每次推广可得金额/元',
-                    appearance: 'outline',
-                    type: 'number',
-                    required: true,
-                    min: 0.3,
-                    max: 100,
-                    description: '推广员推广一次固定的提成金额',
-                  },
-                  validation: {
-                    messages: {
-                      min: '不能设置小于 0.3',
-                      max: '不能设置大于 100',
-                    },
-                  },
-                  hideExpression: 'model.type=="percent"',
-                },
-                {
-                  type: 'input',
-                  key: 'percent',
-                  defaultValue: 80,
-                  templateOptions: {
-                    label: '每次推广可得比例%',
-                    appearance: 'outline',
-                    type: 'number',
-                    required: true,
-                    min: 1,
-                    max: 500,
-                    description: '最小 1% 到 最大500%',
-                  },
-                  hideExpression: 'model.type=="fixed"',
-                },
-              ],
-            },
-          ],
-          data: {
-            toggle: [
-              {
-                label: '饼图',
-                icon: {
-                  name: 'pie_chart',
-                  inline: true,
-                },
-                value: 'pie',
-              },
-              {
-                label: '柱状图',
-                icon: {
-                  name: 'equalizer',
-                  inline: true,
-                },
-                value: 'bar',
-              },
-              {
-                label: '折线图',
-                icon: {
-                  name: 'show_chart',
-                  inline: true,
-                },
-                value: 'line',
-              },
-            ],
-          },
-          chart: {
-            color: ['#0071a2', '#00A281', '#8200a2'],
-            tooltip: {
-              trigger: 'item',
-            },
-            legend: {
-              bottom: '0',
-            },
-            xAxis: {
-              type: 'category',
-            },
-            yAxis: {
-              type: 'value',
-            },
-            series: [
-              {
-                name: '预算占比',
-                type: 'pie',
-                radius: '50%',
-                emphasis: {
-                  itemStyle: {
-                    shadowBlur: 10,
-                    shadowOffsetX: 0,
-                    shadowColor: 'rgba(0, 0, 0, 0.5)',
-                  },
-                },
-              },
-            ],
-          },
-          description:
-            '<ul class="list-done"><li>总金额 = 红包总金额（大额+小额）+ 推广金额</li></ul>',
-        },
-        form: {},
-        model: {},
       },
     ],
   },

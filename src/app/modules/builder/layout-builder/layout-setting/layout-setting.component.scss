@@ -126,5 +126,12 @@
       border-radius: 4px;
       opacity: 0.7;
     }
+    .mat-tab-labels {
+      width: 220px;
+      justify-content: center;
+      .mat-tab-label {
+        flex: 0 1 auto;
+      }
+    }
   }
 }

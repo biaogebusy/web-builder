@@ -44,6 +44,16 @@ const content: ICarouselBase = {
       autoplay: {
         delay: 5000,
       },
+      breakpoints: {
+        600: {
+          slidesPerView: 1,
+          spaceBetween: 0,
+        },
+        960: {
+          slidesPerView: 1,
+          spaceBetween: 0,
+        },
+      },
     },
     classes: 'p-bottom',
     elements: [
