@@ -60,11 +60,11 @@ const content: IBaseNode = {
   },
   meta: [
     {
-      icon: 'schedule',
+      icon: 'calendar-range',
       label: formatDate(new Date(), 'yyyy/MM/dd', 'en-US'),
     },
     {
-      icon: 'folder',
+      icon: 'tag-outline',
       label: '前端茶馆',
     },
   ],

@@ -45,7 +45,7 @@ const content: ITextHero = {
       classes: 'mat-display-2',
     },
     spacer: 'xl',
-    classes: 'xy-center',
+    classes: 'xy-center text-center',
     bg: {
       classes: 'bg-shadow overlay overlay-80',
       img: {
@@ -62,10 +62,6 @@ const content: ITextHero = {
         color: 'primary',
         href: '#',
         label: '立刻体验',
-      },
-      {
-        type: 'closeDialog',
-        label: 'Ok',
       },
     ],
   },

@@ -295,6 +295,9 @@
     "delay": 2000,
     "dontShowAgain": true,
     "dontShowAgainLabel": "不再显示此引导",
+    "nextLabel": "继续",
+    "prevLabel": "返回",
+    "doneLabel": "完成",
     "steps": [
       {
         "intro": "欢迎来到信使 Web builder!"

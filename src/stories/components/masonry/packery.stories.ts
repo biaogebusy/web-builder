@@ -46,6 +46,7 @@ const content: IPackery = {
       style: 'style-v1',
       classes: 'mat-display-1 text-light',
     },
+    classes: 'text-center',
     body: '<p class="text-light text-center">Drupal通过其灵活性、多功能性和可扩展性，为数字创新提供了强大的基础。它能够满足不同规模和需求的组织和企业的数字化转型和创新需求，并提供可靠、安全、高效的数字解决方案。</p>',
   },
   classes: '',
