@@ -42,6 +42,7 @@ const content: IShowcase2v5 = {
       style: 'style-v1',
       classes: 'mat-display-1',
     },
+    classes: 'text-center',
     body: '<p class="text-center">Drupal 已经超越了传统的 Web概念，可以通过不同的渠道部署你的数据内容，从一个数据中心点到各个应用，从简单到复杂。</p>',
   },
   spacer: 'md',

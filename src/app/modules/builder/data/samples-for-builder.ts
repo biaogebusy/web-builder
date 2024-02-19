@@ -305,7 +305,7 @@ export const samples = {
                   name: 'fingerprint',
                 },
                 digit: {
-                  value: 268,
+                  value: 212,
                   label: '+',
                 },
                 title: '日访问人数',
@@ -315,7 +315,7 @@ export const samples = {
                   name: 'verified_user',
                 },
                 digit: {
-                  value: 473,
+                  value: 200,
                   label: '+',
                 },
                 title: '日打开次数',
@@ -325,7 +325,7 @@ export const samples = {
                   name: 'android',
                 },
                 digit: {
-                  value: 16,
+                  value: 79,
                   label: '人',
                 },
                 title: '日新增人数',
@@ -335,7 +335,7 @@ export const samples = {
                   name: 'mail',
                 },
                 digit: {
-                  value: 3584,
+                  value: 7971,
                   label: '万',
                 },
                 title: '累计用户数',
@@ -803,6 +803,7 @@ export const samples = {
                 label: '为所有开发者、所有应用场景而设计',
                 style: 'style-v1',
               },
+              classes: 'text-center',
               body: '<p class="text-center">让前端开发更快速、简单。所有开发者都能快速上手、所有设备都可以适配、所有项目都适用。</p>',
             },
             bg: {
@@ -1731,7 +1732,7 @@ export const samples = {
                   name: 'fingerprint',
                 },
                 digit: {
-                  value: 268,
+                  value: 212,
                   label: '+',
                 },
                 title: '日访问人数',
@@ -1741,7 +1742,7 @@ export const samples = {
                   name: 'verified_user',
                 },
                 digit: {
-                  value: 473,
+                  value: 200,
                   label: '+',
                 },
                 title: '日打开次数',
@@ -1751,7 +1752,7 @@ export const samples = {
                   name: 'android',
                 },
                 digit: {
-                  value: 16,
+                  value: 79,
                   label: '人',
                 },
                 title: '日新增人数',
@@ -1761,7 +1762,7 @@ export const samples = {
                   name: 'mail',
                 },
                 digit: {
-                  value: 3584,
+                  value: 7971,
                   label: '万',
                 },
                 title: '累计用户数',
@@ -2860,6 +2861,7 @@ export const samples = {
                 label: '为所有开发者、所有应用场景而设计',
                 style: 'style-v1',
               },
+              classes: 'text-center',
               body: '<p class="text-center">让前端开发更快速、简单。所有开发者都能快速上手、所有设备都可以适配、所有项目都适用。</p>',
             },
             bg: {
@@ -3631,6 +3633,7 @@ export const samples = {
                 label: '为所有开发者、所有应用场景而设计',
                 style: 'style-v1',
               },
+              classes: 'text-center',
               body: '<p class="text-center">让前端开发更快速、简单。所有开发者都能快速上手、所有设备都可以适配、所有项目都适用。</p>',
             },
             bg: {
@@ -5032,6 +5035,7 @@ export const samples = {
                 style: 'style-v1',
                 classes: 'mat-display-1',
               },
+              classes: 'text-center',
               body: '<p class="text-center">Storybook是一个开发工具和UI组件库，用于构建、测试和文档化可复用的UI组件。它提供了一个独立于主应用程序的环境，让开发者能够以隔离的方式开发和调试组件。</p>',
             },
             classes: '',
@@ -5356,6 +5360,7 @@ export const samples = {
                 label: '为所有开发者、所有应用场景而设计',
                 style: 'style-v1',
               },
+              classes: 'text-center',
               body: '<p class="text-center">让前端开发更快速、简单。所有开发者都能快速上手、所有设备都可以适配、所有项目都适用。</p>',
             },
             bg: {
@@ -5575,6 +5580,7 @@ export const samples = {
                 style: 'style-v1',
                 classes: 'mat-display-1',
               },
+              classes: 'text-center',
               body: '<p class="text-center">Storybook是一个开发工具和UI组件库，用于构建、测试和文档化可复用的UI组件。它提供了一个独立于主应用程序的环境，让开发者能够以隔离的方式开发和调试组件。</p>',
             },
             classes: '',
@@ -5677,6 +5683,7 @@ export const samples = {
                 style: 'style-v1',
                 classes: 'mat-display-1',
               },
+              classes: 'text-center',
               body: '<p class="text-center">通过Storybook，您可以以交互的方式在浏览器中浏览和测试组件，以确保它们在各种条件下的正确工作。</p>',
             },
             paramsBak: {
@@ -5688,7 +5695,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset187.svg',
                 },
                 digit: {
-                  value: 33,
+                  value: 38,
                   label: 'M',
                 },
                 title: 'Github Start',
@@ -5698,7 +5705,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset189.svg',
                 },
                 digit: {
-                  value: 10056,
+                  value: 28695,
                   label: '+',
                 },
                 title: 'NPM 周下载量',
@@ -5708,7 +5715,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset190.svg',
                 },
                 digit: {
-                  value: 3111,
+                  value: 3954,
                   label: 'K',
                 },
                 title: '社区活跃',
@@ -5718,7 +5725,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset192.svg',
                 },
                 digit: {
-                  value: 813,
+                  value: 646,
                   label: '个',
                 },
                 title: '成功故事',
@@ -5990,6 +5997,7 @@ export const samples = {
                 style: 'style-v1',
                 classes: 'mat-display-1',
               },
+              classes: 'text-center',
               body: '<p class="text-center">通过Storybook，您可以以交互的方式在浏览器中浏览和测试组件，以确保它们在各种条件下的正确工作。</p>',
             },
             paramsBak: {
@@ -6001,7 +6009,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset187.svg',
                 },
                 digit: {
-                  value: 33,
+                  value: 38,
                   label: 'M',
                 },
                 title: 'Github Start',
@@ -6011,7 +6019,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset189.svg',
                 },
                 digit: {
-                  value: 10056,
+                  value: 28695,
                   label: '+',
                 },
                 title: 'NPM 周下载量',
@@ -6021,7 +6029,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset190.svg',
                 },
                 digit: {
-                  value: 3111,
+                  value: 3954,
                   label: 'K',
                 },
                 title: '社区活跃',
@@ -6031,7 +6039,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset192.svg',
                 },
                 digit: {
-                  value: 813,
+                  value: 646,
                   label: '个',
                 },
                 title: '成功故事',
@@ -6600,6 +6608,7 @@ export const samples = {
                 style: 'style-v1',
                 classes: 'mat-display-1',
               },
+              classes: 'text-center',
               body: '<p class="text-center">Storybook是一个开发工具和UI组件库，用于构建、测试和文档化可复用的UI组件。它提供了一个独立于主应用程序的环境，让开发者能够以隔离的方式开发和调试组件。</p>',
             },
             classes: '',
@@ -7843,6 +7852,7 @@ export const samples = {
                 label: '为所有开发者、所有应用场景而设计',
                 style: 'style-v1',
               },
+              classes: 'text-center',
               body: '<p class="text-center">让前端开发更快速、简单。所有开发者都能快速上手、所有设备都可以适配、所有项目都适用。</p>',
             },
             bg: {
@@ -7940,6 +7950,7 @@ export const samples = {
                 style: 'style-v1',
                 classes: 'mat-display-1',
               },
+              classes: 'text-center',
               body: '<p class="text-center">通过Storybook，您可以以交互的方式在浏览器中浏览和测试组件，以确保它们在各种条件下的正确工作。</p>',
             },
             paramsBak: {
@@ -7951,7 +7962,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset187.svg',
                 },
                 digit: {
-                  value: 33,
+                  value: 38,
                   label: 'M',
                 },
                 title: 'Github Start',
@@ -7961,7 +7972,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset189.svg',
                 },
                 digit: {
-                  value: 10056,
+                  value: 28695,
                   label: '+',
                 },
                 title: 'NPM 周下载量',
@@ -7971,7 +7982,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset190.svg',
                 },
                 digit: {
-                  value: 3111,
+                  value: 3954,
                   label: 'K',
                 },
                 title: '社区活跃',
@@ -7981,7 +7992,7 @@ export const samples = {
                   src: '/assets/images/svg/Asset192.svg',
                 },
                 digit: {
-                  value: 813,
+                  value: 646,
                   label: '个',
                 },
                 title: '成功故事',
@@ -8279,6 +8290,7 @@ export const samples = {
                 style: 'style-v1',
                 classes: 'mat-display-1',
               },
+              classes: 'text-center',
               body: '<p class="text-center">Storybook是一个开发工具和UI组件库，用于构建、测试和文档化可复用的UI组件。它提供了一个独立于主应用程序的环境，让开发者能够以隔离的方式开发和调试组件。</p>',
             },
             classes: '',

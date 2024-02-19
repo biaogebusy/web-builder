@@ -91,6 +91,7 @@ ForStory.args = {
         label: '开源目的',
         style: 'style-v1',
       },
+      classes: 'text-center',
       body: '<p class="text-center">项目非常适合初学者学习或者进阶。它涵盖了绝大部分 Angular 技术知识点，但并不仅限于以下内容。</p>',
     },
     bg: {

@@ -108,6 +108,7 @@ Img.args = {
         style: 'style-v1',
         classes: 'mat-display-1',
       },
+      classes: 'text-center',
       body: '<p class="text-center">通过Storybook，您可以以交互的方式在浏览器中浏览和测试组件，以确保它们在各种条件下的正确工作。</p>',
     },
     paramsBak: {

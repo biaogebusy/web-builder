@@ -2647,6 +2647,7 @@ export const components: any[] = [
                   style: 'style-v1',
                   classes: 'mat-display-2 bold',
                 },
+                classes: 'text-center',
                 body: '<p class="text-center">突破传统的艺术边界，展示前卫和创新的艺术作品</p>',
               },
               spacer: 'md',
@@ -2726,6 +2727,7 @@ export const components: any[] = [
                   style: 'style-v1',
                   classes: 'mat-display-1',
                 },
+                classes: 'text-center',
                 body: '<p class="text-center">Drupal 已经超越了传统的 Web概念，可以通过不同的渠道部署你的数据内容，从一个数据中心点到各个应用，从简单到复杂。</p>',
               },
               spacer: 'md',
@@ -2836,6 +2838,7 @@ export const components: any[] = [
                   style: 'style-v1',
                   classes: 'mat-display-2 blod',
                 },
+                classes: 'text-center',
                 body: '<p class="text-center">Storybook是一个用于开发和展示UI组件的工具。它提供了一个独立的环境，开发人员可以在其中构建、测试和文档化单个UI组件，而无需依赖于整个应用程序的上下文</p>',
               },
               spacer: 'md',
@@ -3638,6 +3641,7 @@ export const components: any[] = [
                   label: '为所有开发者、所有应用场景而设计',
                   style: 'style-v1',
                 },
+                classes: 'text-center',
                 body: '<p class="text-center">让前端开发更快速、简单。所有开发者都能快速上手、所有设备都可以适配、所有项目都适用。</p>',
               },
               bg: {
@@ -3733,6 +3737,7 @@ export const components: any[] = [
                   label: '职位招聘',
                   style: 'style-v1',
                 },
+                classes: 'text-center',
                 body: '<p class="text-center">免费推送相关职位信息，关注公众号随时随地了解职位情况。</p>',
               },
               bg: {
@@ -3883,6 +3888,7 @@ export const components: any[] = [
                   label: '为所有开发者、所有应用场景而设计',
                   style: 'style-v1',
                 },
+                classes: 'text-center',
                 body: '<p class="text-center">让前端开发更快速、简单。所有开发者都能快速上手、所有设备都可以适配、所有项目都适用。</p>',
               },
               bg: {
@@ -4363,7 +4369,7 @@ export const components: any[] = [
                     name: 'fingerprint',
                   },
                   digit: {
-                    value: 268,
+                    value: 212,
                     label: '+',
                   },
                   title: '日访问人数',
@@ -4373,7 +4379,7 @@ export const components: any[] = [
                     name: 'verified_user',
                   },
                   digit: {
-                    value: 473,
+                    value: 200,
                     label: '+',
                   },
                   title: '日打开次数',
@@ -4383,7 +4389,7 @@ export const components: any[] = [
                     name: 'android',
                   },
                   digit: {
-                    value: 16,
+                    value: 79,
                     label: '人',
                   },
                   title: '日新增人数',
@@ -4393,7 +4399,7 @@ export const components: any[] = [
                     name: 'mail',
                   },
                   digit: {
-                    value: 3584,
+                    value: 7971,
                     label: '万',
                   },
                   title: '累计用户数',
@@ -4412,6 +4418,7 @@ export const components: any[] = [
                   style: 'style-v1',
                   classes: 'mat-display-1',
                 },
+                classes: 'text-center',
                 body: '<p class="text-center">通过Storybook，您可以以交互的方式在浏览器中浏览和测试组件，以确保它们在各种条件下的正确工作。</p>',
               },
               paramsBak: {
@@ -4423,7 +4430,7 @@ export const components: any[] = [
                     src: '/assets/images/svg/Asset187.svg',
                   },
                   digit: {
-                    value: 33,
+                    value: 38,
                     label: 'M',
                   },
                   title: 'Github Start',
@@ -4433,7 +4440,7 @@ export const components: any[] = [
                     src: '/assets/images/svg/Asset189.svg',
                   },
                   digit: {
-                    value: 10056,
+                    value: 28695,
                     label: '+',
                   },
                   title: 'NPM 周下载量',
@@ -4443,7 +4450,7 @@ export const components: any[] = [
                     src: '/assets/images/svg/Asset190.svg',
                   },
                   digit: {
-                    value: 3111,
+                    value: 3954,
                     label: 'K',
                   },
                   title: '社区活跃',
@@ -4453,7 +4460,7 @@ export const components: any[] = [
                     src: '/assets/images/svg/Asset192.svg',
                   },
                   digit: {
-                    value: 813,
+                    value: 646,
                     label: '个',
                   },
                   title: '成功故事',
@@ -5781,6 +5788,7 @@ export const components: any[] = [
                   style: 'style-v1',
                   classes: 'mat-display-1',
                 },
+                classes: 'text-center',
                 body: '<p class="text-center">Drupal是数据管理中心，提供集中的地方来访问所有平台的数据</p><br>',
               },
               classes: '',
@@ -5924,6 +5932,7 @@ export const components: any[] = [
                   style: 'style-v1',
                   classes: 'mat-display-1',
                 },
+                classes: 'text-center',
                 body: '<p class="text-center">Storybook是一个开发工具和UI组件库，用于构建、测试和文档化可复用的UI组件。它提供了一个独立于主应用程序的环境，让开发者能够以隔离的方式开发和调试组件。</p>',
               },
               classes: '',
@@ -6225,6 +6234,7 @@ export const components: any[] = [
               style: 'style-v1',
               classes: 'mat-display-1 text-light',
             },
+            classes: 'text-center',
             body: '<p class="text-light text-center">Drupal通过其灵活性、多功能性和可扩展性，为数字创新提供了强大的基础。它能够满足不同规模和需求的组织和企业的数字化转型和创新需求，并提供可靠、安全、高效的数字解决方案。</p>',
           },
           classes: '',
@@ -6354,6 +6364,7 @@ export const components: any[] = [
               style: 'style-v1',
               classes: 'mat-display-1 text-light',
             },
+            classes: 'text-center',
             body: '<p class="text-light text-center">Drupal通过其灵活性、多功能性和可扩展性，为数字创新提供了强大的基础。它能够满足不同规模和需求的组织和企业的数字化转型和创新需求，并提供可靠、安全、高效的数字解决方案。</p>',
           },
           bg: {
