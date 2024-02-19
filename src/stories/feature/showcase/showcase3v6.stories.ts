@@ -9,7 +9,7 @@ import { StorysModule } from '@core/module/storys.module';
 import { IShowcase3v6 } from '@core/interface/combs/IShowcase';
 
 export default {
-  title: '特色组件/展示 Showcase/3v6',
+  title: '特色组件/图文 Showcase/3v6',
   id: 'showcase-3v6',
   component: Showcase3v6Component,
   decorators: [
@@ -41,6 +41,7 @@ const content: IShowcase3v6 = {
       label: '为所有开发者、所有应用场景而设计',
       style: 'style-v1',
     },
+    classes: 'text-center',
     body: '<p class="text-center">让前端开发更快速、简单。所有开发者都能快速上手、所有设备都可以适配、所有项目都适用。</p>',
   },
   bg: {
@@ -143,6 +144,7 @@ const link: IShowcase3v6 = {
       label: '职位招聘',
       style: 'style-v1',
     },
+    classes: 'text-center',
     body: '<p class="text-center">免费推送相关职位信息，关注公众号随时随地了解职位情况。</p>',
   },
   bg: {

@@ -194,3 +194,5 @@ If you encounter an out-of-memory error, execute the following command and then 
  <img style="border-radius:10px" src="src/assets/images/builder/builder-07.png" alt="web builder" />
  <img style="border-radius:10px" src="src/assets/images/builder/builder-08.png" alt="web builder" />
  <img style="border-radius:10px" src="src/assets/images/builder/builder-09.png" alt="web builder" />
+
+[![Star History Chart](https://api.star-history.com/svg?repos=biaogebusy/web-builder&type=Date)](https://star-history.com/#biaogebusy/web-builder&Date)

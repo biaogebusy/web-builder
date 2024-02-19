@@ -1,7 +1,7 @@
 <div fxLayout="row wrap" fxLayoutAlign="start start" *ngIf="content" fxLayoutGap="1rem">
   <div *ngFor="let item of content" fxLayoutAlign="center center">
     <ng-container *ngIf="item.icon;else value">
-      <mat-icon>{{item.icon}}</mat-icon>
+      <app-icon [content]="{svg:item.icon}"></app-icon>
       <div>{{item.value || item.label}}</div>
     </ng-container>
     <ng-template #value>

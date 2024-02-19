@@ -9,7 +9,7 @@ import { StorysModule } from '@core/module/storys.module';
 import { IShowcase1v1 } from '@core/interface/combs/IShowcase';
 
 export default {
-  title: '特色组件/展示 Showcase/1v1',
+  title: '特色组件/图文 Showcase/1v1',
   id: 'showcase-1v1',
   component: Showcase1v1Component,
   decorators: [

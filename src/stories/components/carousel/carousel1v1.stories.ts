@@ -62,6 +62,16 @@ const textHeroContent: ICarouselBase = {
       spaceBetween: 0,
       navigation: false,
       pagination: false,
+      breakpoints: {
+        600: {
+          slidesPerView: 1,
+          spaceBetween: 0,
+        },
+        960: {
+          slidesPerView: 1,
+          spaceBetween: 0,
+        },
+      },
     },
     classes: 'p-bottom',
     elements: [
@@ -189,6 +199,16 @@ Video.args = {
         navigation: true,
         pagination: true,
         autoplay: false,
+        breakpoints: {
+          600: {
+            slidesPerView: 1.5,
+            spaceBetween: 40,
+          },
+          960: {
+            slidesPerView: 1.5,
+            spaceBetween: 40,
+          },
+        },
       },
       classes: 'p-bottom',
       elements: [
@@ -336,6 +356,16 @@ FullScreen.args = {
         },
         navigation: true,
         autoplay: false,
+        breakpoints: {
+          600: {
+            slidesPerView: 1,
+            spaceBetween: 0,
+          },
+          960: {
+            slidesPerView: 1,
+            spaceBetween: 0,
+          },
+        },
       },
       elements: [
         {

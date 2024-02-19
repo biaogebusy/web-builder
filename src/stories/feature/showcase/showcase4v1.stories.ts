@@ -10,7 +10,7 @@ import { random } from 'lodash-es';
 import { IShowcase4v1 } from '@core/interface/combs/IShowcase';
 
 export default {
-  title: '特色组件/展示 Showcase/4v1',
+  title: '特色组件/图文 Showcase/4v1',
   id: 'showcase-4v1',
   component: Showcase4v1Component,
   decorators: [
@@ -108,6 +108,7 @@ Img.args = {
         style: 'style-v1',
         classes: 'mat-display-1',
       },
+      classes: 'text-center',
       body: '<p class="text-center">通过Storybook，您可以以交互的方式在浏览器中浏览和测试组件，以确保它们在各种条件下的正确工作。</p>',
     },
     paramsBak: {

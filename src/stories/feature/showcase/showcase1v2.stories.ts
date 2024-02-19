@@ -8,7 +8,7 @@ import { Showcase1v1Component } from '@uiux/combs/showcase/showcase1v1/showcase1
 import { StorysModule } from '@core/module/storys.module';
 import { IShowcase1v1 } from '@core/interface/combs/IShowcase';
 export default {
-  title: '特色组件/展示 Showcase/1v2',
+  title: '特色组件/图文 Showcase/1v2',
   id: 'showcase-1v2',
   component: Showcase1v1Component,
   decorators: [
