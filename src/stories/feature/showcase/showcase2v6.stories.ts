@@ -10,7 +10,7 @@ import { StorysModule } from '@core/module/storys.module';
 import { IShowcase2v6 } from '@core/interface/combs/IShowcase';
 
 export default {
-  title: '特色组件/展示 Showcase/2v6',
+  title: '特色组件/图文 Showcase/2v6',
   id: 'showcase-2v6',
   component: Showcase2v6Component,
   decorators: [
@@ -41,6 +41,7 @@ const content: IShowcase2v6 = {
       style: 'style-v1',
       classes: 'mat-display-2 blod',
     },
+    classes: 'text-center',
     body: '<p class="text-center">Storybook是一个用于开发和展示UI组件的工具。它提供了一个独立的环境，开发人员可以在其中构建、测试和文档化单个UI组件，而无需依赖于整个应用程序的上下文</p>',
   },
   spacer: 'md',

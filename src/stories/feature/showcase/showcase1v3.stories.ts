@@ -11,7 +11,7 @@ import * as btnVideoStory from '@stories/base/BtnVideo.stories';
 import { IShowcase1v3 } from '@core/interface/combs/IShowcase';
 
 export default {
-  title: '特色组件/展示 Showcase/1v3',
+  title: '特色组件/图文 Showcase/1v3',
   id: 'showcase-1v3',
   component: Showcase1v3Component,
   decorators: [

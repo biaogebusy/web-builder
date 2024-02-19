@@ -10,7 +10,7 @@ import { formatDate } from '@angular/common';
 import { IShowcase2v1 } from '@core/interface/combs/IShowcase';
 
 export default {
-  title: '特色组件/展示 Showcase/2v1',
+  title: '特色组件/图文 Showcase/2v1',
   id: 'showcase-2v1',
   component: Showcase2v1Component,
   decorators: [
