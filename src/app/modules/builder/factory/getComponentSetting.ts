@@ -1,6 +1,8 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { getLayoutAlign } from './getBlockSetting';
 import { getSwiper } from './getSwiper';
+import { getTitleField } from './getTitleField';
+import { getText } from './getText';
 
 export function getComponentSetting(content: any): FormlyFieldConfig[] {
   const fields: FormlyFieldConfig[] = [
@@ -366,7 +368,7 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
   if (content.type === 'swiper') {
     fields[0].fieldGroup?.push({
       templateOptions: {
-        label: '参数',
+        label: '幻灯片',
       },
       fieldGroup: [
         {
@@ -375,6 +377,87 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
         },
       ],
     });
+  }
+
+  if (
+    content.type === 'carousel-1v1' ||
+    content.type === 'carousel-1v2' ||
+    content.type === 'carousel-2v2'
+  ) {
+    if (content.title) {
+      const titleConfig: FormlyFieldConfig = {
+        templateOptions: {
+          label: '标题',
+        },
+        fieldGroup: [...getTitleField(content.title)],
+      };
+      fields[0].fieldGroup?.push(titleConfig);
+    }
+
+    const swiperConfig: FormlyFieldConfig = {
+      templateOptions: {
+        label: '幻灯片',
+      },
+      fieldGroup: [
+        {
+          ...getSwiper(content.sliders)[0],
+          key: 'sliders',
+        },
+      ],
+    };
+
+    fields[0].fieldGroup?.push(swiperConfig);
+  }
+
+  if (content.type === 'carousel-1v3') {
+    if (content.text) {
+      const textConfig: FormlyFieldConfig = {
+        templateOptions: {
+          label: '标题',
+        },
+        fieldGroup: [...getText(content.text)],
+      };
+      fields[0].fieldGroup?.push(textConfig);
+    }
+    const swiperConfig: FormlyFieldConfig = {
+      templateOptions: {
+        label: '幻灯片',
+      },
+      fieldGroup: [
+        {
+          ...getSwiper(content.sliders)[0],
+          key: 'sliders',
+        },
+      ],
+    };
+
+    fields[0].fieldGroup?.push(swiperConfig);
+  }
+
+  if (content.type === 'carousel-2v1') {
+    if (content.title) {
+      const titleConfig: FormlyFieldConfig = {
+        templateOptions: {
+          label: '标题',
+        },
+        fieldGroup: [...getTitleField(content.title)],
+      };
+      fields[0].fieldGroup?.push(titleConfig);
+    }
+
+    const swiperConfig: FormlyFieldConfig = {
+      templateOptions: {
+        label: '幻灯片',
+      },
+      fieldGroup: [
+        {
+          ...getSwiper(content.sliders)[0],
+          key: 'sliders',
+        },
+      ],
+    };
+
+    fields[0].fieldGroup?.push(swiperConfig);
   }
   return fields;
 }

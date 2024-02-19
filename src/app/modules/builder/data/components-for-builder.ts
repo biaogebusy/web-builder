@@ -4369,7 +4369,7 @@ export const components: any[] = [
                     name: 'fingerprint',
                   },
                   digit: {
-                    value: 212,
+                    value: 623,
                     label: '+',
                   },
                   title: '日访问人数',
@@ -4379,7 +4379,7 @@ export const components: any[] = [
                     name: 'verified_user',
                   },
                   digit: {
-                    value: 200,
+                    value: 339,
                     label: '+',
                   },
                   title: '日打开次数',
@@ -4389,7 +4389,7 @@ export const components: any[] = [
                     name: 'android',
                   },
                   digit: {
-                    value: 79,
+                    value: 70,
                     label: '人',
                   },
                   title: '日新增人数',
@@ -4399,7 +4399,7 @@ export const components: any[] = [
                     name: 'mail',
                   },
                   digit: {
-                    value: 7971,
+                    value: 6400,
                     label: '万',
                   },
                   title: '累计用户数',
@@ -4430,7 +4430,7 @@ export const components: any[] = [
                     src: '/assets/images/svg/Asset187.svg',
                   },
                   digit: {
-                    value: 38,
+                    value: 23,
                     label: 'M',
                   },
                   title: 'Github Start',
@@ -4440,7 +4440,7 @@ export const components: any[] = [
                     src: '/assets/images/svg/Asset189.svg',
                   },
                   digit: {
-                    value: 28695,
+                    value: 14032,
                     label: '+',
                   },
                   title: 'NPM 周下载量',
@@ -4450,7 +4450,7 @@ export const components: any[] = [
                     src: '/assets/images/svg/Asset190.svg',
                   },
                   digit: {
-                    value: 3954,
+                    value: 4165,
                     label: 'K',
                   },
                   title: '社区活跃',
@@ -4460,7 +4460,7 @@ export const components: any[] = [
                     src: '/assets/images/svg/Asset192.svg',
                   },
                   digit: {
-                    value: 646,
+                    value: 542,
                     label: '个',
                   },
                   title: '成功故事',
@@ -4621,6 +4621,16 @@ export const components: any[] = [
                   spaceBetween: 0,
                   navigation: false,
                   pagination: false,
+                  breakpoints: {
+                    '600': {
+                      slidesPerView: 1,
+                      spaceBetween: 0,
+                    },
+                    '960': {
+                      slidesPerView: 1,
+                      spaceBetween: 0,
+                    },
+                  },
                 },
                 classes: 'p-bottom',
                 elements: [
@@ -4755,6 +4765,16 @@ export const components: any[] = [
                   navigation: true,
                   pagination: true,
                   autoplay: false,
+                  breakpoints: {
+                    '600': {
+                      slidesPerView: 1.5,
+                      spaceBetween: 40,
+                    },
+                    '960': {
+                      slidesPerView: 1.5,
+                      spaceBetween: 40,
+                    },
+                  },
                 },
                 classes: 'p-bottom',
                 elements: [
@@ -4954,6 +4974,16 @@ export const components: any[] = [
                   navigation: false,
                   pagination: false,
                   effect: 'fade',
+                  breakpoints: {
+                    '600': {
+                      slidesPerView: 1,
+                      spaceBetween: 0,
+                    },
+                    '960': {
+                      slidesPerView: 1,
+                      spaceBetween: 0,
+                    },
+                  },
                 },
                 classes: 'p-bottom',
                 elements: [
@@ -5124,6 +5154,16 @@ export const components: any[] = [
                   },
                   navigation: true,
                   autoplay: false,
+                  breakpoints: {
+                    '600': {
+                      slidesPerView: 1,
+                      spaceBetween: 0,
+                    },
+                    '960': {
+                      slidesPerView: 1,
+                      spaceBetween: 0,
+                    },
+                  },
                 },
                 elements: [
                   {
@@ -6054,6 +6094,16 @@ export const components: any[] = [
                   pagination: false,
                   autoplay: {
                     delay: 5000,
+                  },
+                  breakpoints: {
+                    '600': {
+                      slidesPerView: 1,
+                      spaceBetween: 0,
+                    },
+                    '960': {
+                      slidesPerView: 1,
+                      spaceBetween: 0,
+                    },
                   },
                 },
                 classes: 'p-bottom',
