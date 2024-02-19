@@ -10,7 +10,7 @@ import { random } from 'lodash-es';
 import { IShowcase4v1 } from '@core/interface/combs/IShowcase';
 
 export default {
-  title: '特色组件/展示 Showcase/4v1',
+  title: '特色组件/图文 Showcase/4v1',
   id: 'showcase-4v1',
   component: Showcase4v1Component,
   decorators: [

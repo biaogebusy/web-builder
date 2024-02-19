@@ -5,7 +5,7 @@ import { Showcase1v4Component } from '@uiux/combs/showcase/showcase1v4/showcase1
 import { IShowcase1v4 } from '@core/interface/combs/IShowcase';
 
 export default {
-  title: '特色组件/展示 Showcase/1v4',
+  title: '特色组件/图文 Showcase/1v4',
   id: 'showcase-1v4',
   component: Showcase1v4Component,
   decorators: [

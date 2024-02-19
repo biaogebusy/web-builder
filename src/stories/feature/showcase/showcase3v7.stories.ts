@@ -10,7 +10,7 @@ import * as showcase3v5Stories from './showcase3v5.stories';
 import { IShowcase3v7 } from '@core/interface/combs/IShowcase';
 
 export default {
-  title: '特色组件/展示 Showcase/3v7',
+  title: '特色组件/图文 Showcase/3v7',
   id: 'showcase-3v7',
   component: Showcase3v7Component,
   decorators: [

@@ -11,7 +11,7 @@ import { IShowcase3v9 } from '@core/interface/combs/IShowcase';
 import { Title } from '@stories/base/Text.stories';
 
 export default {
-  title: '特色组件/展示 Showcase/3v9',
+  title: '特色组件/图文 Showcase/3v9',
   id: 'showcase-3v9',
   component: Showcase3v9Component,
   decorators: [
