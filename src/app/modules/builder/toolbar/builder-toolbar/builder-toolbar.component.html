@@ -35,9 +35,6 @@
         <app-btn fxHide.xs="true" [matTooltip]="'媒体库'" (click)="onSelectAssets()"
           [content]="{label:'', mode: 'icon' ,icon:{svg:'image-search-outline' } }"></app-btn>
         <app-btn-generater [content]="{label:'快速生成',color:'primary', mode: 'raised' }"></app-btn-generater>
-        <ng-container *ngIf="branding$|async as branding">
-          <app-user-menu *ngIf="branding.header?.params?.userInfo" [content]="branding.header.userMenu"></app-user-menu>
-        </ng-container>
         <app-builder-menu></app-builder-menu>
       </div>
     </div>

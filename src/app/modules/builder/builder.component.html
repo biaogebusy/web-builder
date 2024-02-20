@@ -1,13 +1,13 @@
 <div class="builder-wrapper" [ngClass]="{'dark':(builder.builderThemeMode|async) ==='dark'}">
   <div class="builder-sidebar">
     <div class="menu">
-      <div class="item" [matTooltip]="'页面编辑'">
+      <div class="item" [routerLinkActive]="['active']" [matTooltip]="'页面编辑'" routerLink="./">
         <app-icon [content]="{svg:'pencil'}"></app-icon>
       </div>
-      <div class="item" [matTooltip]="'页面列表'">
-        <app-icon [content]="{svg:'file-outline'}"></app-icon>
+      <div class="item" [routerLinkActive]="['active']" [matTooltip]="'构建示例'" routerLink="./samples">
+        <app-icon [content]="{svg:'lightbulb-on-30'}"></app-icon>
       </div>
-      <div class="item" [matTooltip]="'站点配置'">
+      <div class="item" [routerLinkActive]="['active']" [matTooltip]="'站点配置'" routerLink="./settings">
         <app-icon [content]="{svg:'cog'}"></app-icon>
       </div>
     </div>
@@ -21,17 +21,7 @@
     <app-builder-toolbar [builderRightDrawer]="builderRightDrawer"></app-builder-toolbar>
     <mat-drawer-container class="builder-main">
       <mat-drawer #drawer class="sidebar" [mode]="mode" [opened]="!(builderFullScreen$|async)">
-        <mat-tab-group (selectedTabChange)="onTabChange()" mat-stretch-tabs mat-align-tabs="center">
-          <mat-tab *ngFor="let widget of uiux">
-            <ng-template mat-tab-label>
-              <app-icon [content]="widget.icon" [matTooltip]="widget.label"></app-icon>
-            </ng-template>
-            <div class="p-x-xs p-y-xs">
-              <app-builder-panel *ngIf="widget.type !== 'sample'" [content]="widget.elements"></app-builder-panel>
-              <app-builder-sample *ngIf="widget.type === 'sample'" [content]="widget.elements"></app-builder-sample>
-            </div>
-          </mat-tab>
-        </mat-tab-group>
+        <router-outlet></router-outlet>
         <app-builder-version></app-builder-version>
       </mat-drawer>
       <mat-drawer-content>

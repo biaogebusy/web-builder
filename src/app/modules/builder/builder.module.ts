@@ -38,6 +38,8 @@ import { widgets } from './data/widgets-for-builder';
 import { of } from 'rxjs';
 import { BrandingModule } from '@core/branding/branding.module';
 import { colorTest } from './data/theme-preview-for-builder';
+import { BuilderUiuxComponent } from './sidebar/builder-uiux/builder-uiux.component';
+import { BuilderSettingsComponent } from './sidebar/builder-settings/builder-settings.component';
 
 const components = [
   BuilderComponent,
@@ -63,6 +65,8 @@ const components = [
     PreviewComponent,
     BuilderVersionComponent,
     MetaEditComponent,
+    BuilderUiuxComponent,
+    BuilderSettingsComponent,
   ],
   imports: [
     ShareModule,
