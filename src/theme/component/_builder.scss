@@ -14,8 +14,29 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 
   .builder-sidebar {
     background-color: mat-color($foreground, elevation, 0.85);
-    border-right: 1px solid mat-color($foreground, divider);
-    color: #fff;
+    color: #f5f5f5;
+    @include mat-elevation(4, mat-color($background, focused-button), 0.4);
+    .mat-divider {
+      border-top-color: rgba(255, 255, 255, 0.2);
+    }
+    .menu {
+      .item {
+        &:hover,
+        &:focus {
+          color: #fff;
+          &::after {
+            background-color: rgba(#fff, 0.1);
+          }
+        }
+
+        &.active {
+          color: #fff;
+          &::after {
+            background-color: mat-color($primary);
+          }
+        }
+      }
+    }
   }
   .builder {
     .builder-toolbar {

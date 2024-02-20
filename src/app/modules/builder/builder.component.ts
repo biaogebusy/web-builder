@@ -26,6 +26,8 @@ import { takeUntil } from 'rxjs/operators';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { DOCUMENT } from '@angular/common';
 import { IBranding } from '@core/interface/branding/IBranding';
+import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-builder',
@@ -42,9 +44,11 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
   panelOpenState = false;
   destroy$: Subject<boolean> = new Subject<boolean>();
   mode: 'side' | 'over' | 'push' = 'side';
+  showBranding: boolean = false;
   constructor(
     private injector: Injector,
     public builder: BuilderState,
+    private dialog: MatDialog,
     private storage: LocalStorageService,
     @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
     @Inject(BUILDER_FULL_SCREEN) public builderFullScreen$: Observable<boolean>,
@@ -124,6 +128,26 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
       style = 'light';
     }
     this.builder.builderThemeMode.next(style);
+  }
+
+  onShowBranding(): void {
+    this.showBranding = !this.showBranding;
+    this.builder.showBranding$.next(this.showBranding);
+  }
+
+  onSelectAssets(): void {
+    this.dialog.open(DialogComponent, {
+      width: '100%',
+      data: {
+        title: '媒体库',
+        disableCloseButton: true,
+        inputData: {
+          content: {
+            type: 'manage-media',
+          },
+        },
+      },
+    });
   }
 
   ngOnDestroy(): void {

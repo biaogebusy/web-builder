@@ -7,6 +7,11 @@
         display: block;
       }
     }
+    ::ng-deep {
+      .mat-list-item-content {
+        padding: 0;
+      }
+    }
     .title {
       border-bottom: 1px solid transparent;
       &:focus-visible {

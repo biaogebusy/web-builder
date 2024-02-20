@@ -21,16 +21,12 @@
         fxLayoutGap="0.5rem">
         <mat-slide-toggle [checked]="builderFullScreen$|async" (change)="onFullScreen($event)"
           [matTooltip]="(builderFullScreen$|async) ? '显示边栏' : '切换全宽'"></mat-slide-toggle>
-        <app-btn fxHide.xs="true" [matTooltip]="(builder.showBranding$|async)?'显示页头页尾' : '隐藏页头页尾'"
-          (click)="onShowBranding()"
-          [content]="{label:'', color:(builder.showBranding$|async)?'primary' : undefined, mode: 'icon' ,icon:{svg:(builder.showBranding$|async)?'page-layout-header-footer' : 'page-layout-body' } }"></app-btn>
         <app-btn fxHide.xs="true" [matTooltip]="(builder.previewListDrawer$|async)?'展开组件导航' : '收起组件导航'"
           (click)="toggleNavigate()"
           [content]="{label:'', color:(builder.previewListDrawer$|async)?'primary' : undefined, mode: 'icon' ,icon:{svg:'dock-left' } }"></app-btn>
         <app-btn fxHide.xs="true" [matTooltip]="builder.showRightDrawer?'禁用右边栏' : '显示右边栏'" (click)="showRightDrawer()"
           [content]="{label:'', color:builder.showRightDrawer?'primary' : 'warn', mode: 'icon' ,icon:{svg:'dock-right' } }"></app-btn>
-        <app-btn fxHide.xs="true" [matTooltip]="'媒体库'" (click)="onSelectAssets()"
-          [content]="{label:'', mode: 'icon' ,icon:{svg:'image-search-outline' } }"></app-btn>
+
         <app-btn-generater [content]="{label:'快速生成',color:'primary', mode: 'raised' }"></app-btn-generater>
         <app-builder-menu></app-builder-menu>
       </div>
