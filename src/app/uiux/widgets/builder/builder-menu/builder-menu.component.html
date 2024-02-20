@@ -4,7 +4,6 @@
       <app-icon [matBadge]="page?.body?.length" matBadgeSize="small" matBadgeColor="primary"
         fxLayoutAlign="center center" [content]="{svg:'dots-vertical',inline:true}"></app-icon>
     </button>
-
     <mat-menu #menu="matMenu">
       <button mat-menu-item (click)="onPageJson()">
         <app-icon [content]="{svg:'code-json'}"></app-icon>
@@ -18,7 +17,7 @@
         <span>颜色检查</span>
       </button>
       <button mat-menu-item (click)="onPreview()">
-        <app-icon [content]="{svg:'eye-outline'}"></app-icon>
+        <app-icon [content]="{svg:'eye'}"></app-icon>
         <span>页面预览</span>
       </button>
       <button mat-menu-item (click)="onSubmit()">

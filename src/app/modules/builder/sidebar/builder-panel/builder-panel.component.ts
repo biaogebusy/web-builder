@@ -20,24 +20,13 @@ import { CORE_CONFIG } from '@core/token/token-providers';
   styleUrls: ['./builder-panel.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BuilderPanelComponent implements OnInit, AfterViewInit {
+export class BuilderPanelComponent implements OnInit {
   @Input() content: IBuilderComponent[];
-  branding: IBranding;
-  constructor(
-    public builder: BuilderState,
-    @Inject(CORE_CONFIG) private coreConfig: ICoreConfig,
-    private contentService: ContentService,
-    private cd: ChangeDetectorRef
-  ) {}
+  constructor(public builder: BuilderState, private cd: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.builder.fixedChange$.subscribe(() => {
       this.cd.detectChanges();
-    });
-  }
-  ngAfterViewInit(): void {
-    this.contentService.loadBranding().subscribe((res) => {
-      this.branding = res;
     });
   }
 
@@ -80,36 +69,6 @@ export class BuilderPanelComponent implements OnInit, AfterViewInit {
 
   onMoved(): void {
     this.builder.showcase$.next(false);
-  }
-
-  onJson(content: any) {
-    const { provide } = content;
-    let data = {};
-    switch (provide) {
-      case 'CORE_CONFIG':
-        data = this.coreConfig;
-        break;
-      case 'BRANDING':
-        data = this.branding;
-        break;
-      default:
-        data = {};
-    }
-    this.builder.builderRightContent$.next({
-      mode: 'over',
-      hasBackdrop: true,
-      style: {
-        width: '800px',
-      },
-      elements: [
-        {
-          type: 'jsoneditor',
-          isPreview: true,
-          data,
-          isPage: false,
-        },
-      ],
-    });
   }
 
   onDragStarted(): void {
