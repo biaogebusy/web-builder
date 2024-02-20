@@ -116,6 +116,16 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
     this.builderRightDrawer.close();
   }
 
+  onToggleBuilderTheme(mode: 'light' | 'dark'): void {
+    let style: 'light' | 'dark';
+    if (mode === 'light') {
+      style = 'dark';
+    } else {
+      style = 'light';
+    }
+    this.builder.builderThemeMode.next(style);
+  }
+
   ngOnDestroy(): void {
     if (this.destroy$.next) {
       this.destroy$.next(true);

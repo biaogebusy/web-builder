@@ -1,4 +1,4 @@
-<mat-tab-group (selectedTabChange)="onTabChange()" mat-stretch-tabs mat-align-tabs="center">
+<mat-tab-group (selectedTabChange)="onTabChange()" mat-stretch-tabs>
   <mat-tab *ngFor="let widget of uiux">
     <ng-template mat-tab-label>
       <app-icon [content]="widget.icon" [matTooltip]="widget.label"></app-icon>

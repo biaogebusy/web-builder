@@ -76,16 +76,6 @@ export class BuilderToolbarComponent
     }
   }
 
-  onToggleBuilderTheme(mode: 'light' | 'dark'): void {
-    let style: 'light' | 'dark';
-    if (mode === 'light') {
-      style = 'dark';
-    } else {
-      style = 'light';
-    }
-    this.builder.builderThemeMode.next(style);
-  }
-
   onFullScreen(event: MatSlideToggleChange): void {
     this.storage.store('builderFullScreen', event.checked);
     this.builder.fullScreen$.next(event.checked);

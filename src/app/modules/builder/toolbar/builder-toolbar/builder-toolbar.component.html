@@ -19,9 +19,6 @@
       </div>
       <div id="toolbar-right" class="right" fxFlex.lt-md="auto" fxFlex.gt-sm="33%" fxLayoutAlign="end center"
         fxLayoutGap="0.5rem">
-        <app-btn *ngIf="builder.builderThemeMode|async as mode" [matTooltip]="mode === 'light'?'切换暗黑风格' : '切换浅色风格'"
-          (click)="onToggleBuilderTheme(mode)"
-          [content]="{label:'', mode: 'icon' ,icon:{svg:mode ==='light' ? 'white-balance-sunny' : 'moon-waning-crescent' } }"></app-btn>
         <mat-slide-toggle [checked]="builderFullScreen$|async" (change)="onFullScreen($event)"
           [matTooltip]="(builderFullScreen$|async) ? '显示边栏' : '切换全宽'"></mat-slide-toggle>
         <app-btn fxHide.xs="true" [matTooltip]="(builder.showBranding$|async)?'显示页头页尾' : '隐藏页头页尾'"
