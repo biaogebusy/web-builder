@@ -6,7 +6,6 @@ export const base: IBuilderComponent[] = [
   {
     label: '动态构建',
     id: 'layout',
-    description: '任意组合组件',
     elements: layoutBuilder,
   },
   {

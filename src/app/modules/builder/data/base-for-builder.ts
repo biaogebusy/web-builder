@@ -2,7 +2,6 @@ export const base = [
   {
     label: '动态构建',
     id: 'layout',
-    description: '任意组合组件',
     elements: [
       {
         label: '默认',
