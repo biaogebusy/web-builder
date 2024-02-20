@@ -1,41 +1,60 @@
-<div class="builder"
-  [ngClass]="{'has-sidebar':!(builderFullScreen$|async),'dark':(builder.builderThemeMode|async) ==='dark'}">
-  <app-builder-toolbar [builderRightDrawer]="builderRightDrawer"></app-builder-toolbar>
-  <mat-drawer-container class="builder-main">
-    <mat-drawer #drawer class="sidebar" [mode]="mode" [opened]="!(builderFullScreen$|async)">
-      <mat-tab-group (selectedTabChange)="onTabChange()" mat-stretch-tabs mat-align-tabs="center">
-        <mat-tab *ngFor="let widget of uiux">
-          <ng-template mat-tab-label>
-            <app-icon [content]="widget.icon" [matTooltip]="widget.label"></app-icon>
-          </ng-template>
-          <div class="p-x-xs p-y-xs">
-            <app-builder-panel *ngIf="widget.type !== 'sample'" [content]="widget.elements"></app-builder-panel>
-            <app-builder-sample *ngIf="widget.type === 'sample'" [content]="widget.elements"></app-builder-sample>
-          </div>
-        </mat-tab>
-      </mat-tab-group>
-      <app-builder-version></app-builder-version>
-    </mat-drawer>
-    <mat-drawer-content>
-      <mat-drawer-container class="preview-container"
-        [hasBackdrop]="(builder.builderRightContent$ | async)?.hasBackdrop">
-        <mat-drawer #builderRightDrawer [ngStyle]="{overflow:builderRightDrawer.opened?'visible' : 'auto'}"
-          [mode]="(builder.builderRightContent$ | async)?.mode ||'over'" position="end">
-          <div class="actions expand">
-            <app-btn [matTooltip]="'收起'" (click)="onClose()"
-              [content]="{label:'', mode: 'icon' ,icon:{svg:'chevron-right' } }"></app-btn>
-          </div>
-          <div *ngIf="builder.builderRightContent$ | async as dynamic" [ngStyle]="dynamic.style">
-            <app-dynamic-component *ngFor="let item of dynamic.elements;" [inputs]="item"></app-dynamic-component>
-          </div>
-        </mat-drawer>
-        <mat-drawer-content class="preview-content">
-          <ng-container *ngIf="builder.showcase$ | async as showcase">
-            <app-builder-showcase [content]="showcase"></app-builder-showcase>
-          </ng-container>
-          <app-builder-list [builderRightDrawer]="builderRightDrawer"></app-builder-list>
-        </mat-drawer-content>
-      </mat-drawer-container>
-    </mat-drawer-content>
-  </mat-drawer-container>
+<div class="builder-wrapper" [ngClass]="{'dark':(builder.builderThemeMode|async) ==='dark'}">
+  <div class="builder-sidebar">
+    <div class="menu">
+      <div class="item" [matTooltip]="'页面编辑'">
+        <app-icon [content]="{svg:'pencil'}"></app-icon>
+      </div>
+      <div class="item" [matTooltip]="'页面列表'">
+        <app-icon [content]="{svg:'file-outline'}"></app-icon>
+      </div>
+      <div class="item" [matTooltip]="'站点配置'">
+        <app-icon [content]="{svg:'cog'}"></app-icon>
+      </div>
+    </div>
+    <div class="bottom">
+      <ng-container *ngIf="branding$|async as branding">
+        <app-user-menu *ngIf="branding.header?.params?.userInfo" [content]="branding.header.userMenu"></app-user-menu>
+      </ng-container>
+    </div>
+  </div>
+  <div class="builder" [ngClass]="{'has-sidebar':!(builderFullScreen$|async)}">
+    <app-builder-toolbar [builderRightDrawer]="builderRightDrawer"></app-builder-toolbar>
+    <mat-drawer-container class="builder-main">
+      <mat-drawer #drawer class="sidebar" [mode]="mode" [opened]="!(builderFullScreen$|async)">
+        <mat-tab-group (selectedTabChange)="onTabChange()" mat-stretch-tabs mat-align-tabs="center">
+          <mat-tab *ngFor="let widget of uiux">
+            <ng-template mat-tab-label>
+              <app-icon [content]="widget.icon" [matTooltip]="widget.label"></app-icon>
+            </ng-template>
+            <div class="p-x-xs p-y-xs">
+              <app-builder-panel *ngIf="widget.type !== 'sample'" [content]="widget.elements"></app-builder-panel>
+              <app-builder-sample *ngIf="widget.type === 'sample'" [content]="widget.elements"></app-builder-sample>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+        <app-builder-version></app-builder-version>
+      </mat-drawer>
+      <mat-drawer-content>
+        <mat-drawer-container class="preview-container"
+          [hasBackdrop]="(builder.builderRightContent$ | async)?.hasBackdrop">
+          <mat-drawer #builderRightDrawer [ngStyle]="{overflow:builderRightDrawer.opened?'visible' : 'auto'}"
+            [mode]="(builder.builderRightContent$ | async)?.mode ||'over'" position="end">
+            <div class="actions expand">
+              <app-btn [matTooltip]="'收起'" (click)="onClose()"
+                [content]="{label:'', mode: 'icon' ,icon:{svg:'chevron-right' } }"></app-btn>
+            </div>
+            <div *ngIf="builder.builderRightContent$ | async as dynamic" [ngStyle]="dynamic.style">
+              <app-dynamic-component *ngFor="let item of dynamic.elements;" [inputs]="item"></app-dynamic-component>
+            </div>
+          </mat-drawer>
+          <mat-drawer-content class="preview-content">
+            <ng-container *ngIf="builder.showcase$ | async as showcase">
+              <app-builder-showcase [content]="showcase"></app-builder-showcase>
+            </ng-container>
+            <app-builder-list [builderRightDrawer]="builderRightDrawer"></app-builder-list>
+          </mat-drawer-content>
+        </mat-drawer-container>
+      </mat-drawer-content>
+    </mat-drawer-container>
+  </div>
 </div>

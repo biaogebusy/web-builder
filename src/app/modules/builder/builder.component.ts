@@ -12,6 +12,7 @@ import { LocalStorage, LocalStorageService } from 'ngx-webstorage';
 import { BuilderState } from '@core/state/BuilderState';
 import type { IBuilderSamplePage, IUiux } from '@core/interface/IBuilder';
 import {
+  BRANDING,
   BUILDER_CURRENT_PAGE,
   BUILDER_FULL_SCREEN,
   BUILDER_SAMPLE_PAGE,
@@ -24,6 +25,7 @@ import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ScreenState } from '@core/state/screen/ScreenState';
 import { DOCUMENT } from '@angular/common';
+import { IBranding } from '@core/interface/branding/IBranding';
 
 @Component({
   selector: 'app-builder',
@@ -49,7 +51,8 @@ export class BuilderComponent implements OnInit, AfterViewInit, OnDestroy {
     @Inject(UIUX) readonly uiux: IUiux[],
     @Inject(BUILDER_SAMPLE_PAGE) public samples: IBuilderSamplePage,
     @Inject(DOCUMENT) private doc: Document,
-    @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>
+    @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>,
+    @Inject(BRANDING) public branding$: Observable<IBranding>
   ) {}
 
   ngOnInit(): void {

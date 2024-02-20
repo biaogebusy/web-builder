@@ -1,5 +1,36 @@
 @import "../../../theme/variable/breakpoint";
 
+.builder-wrapper {
+  position: relative;
+  display: flex;
+  .builder-sidebar {
+    display: flex;
+    flex-direction: column;
+    width: 80px;
+    flex: 0 0 80px;
+    .menu,
+    .bottom {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .menu {
+      justify-content: start;
+      flex: 1 1 auto;
+      .item {
+        padding: 14px 0;
+        line-height: 1;
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+    .bottom {
+      justify-content: center;
+      padding: 20px 0;
+    }
+  }
+}
 .builder {
   height: 100vh;
   display: flex;

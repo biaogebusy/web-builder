@@ -11,85 +11,93 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 
 @mixin theme($background, $foreground, $primary) {
   background-color: mat-color($background, card);
-  .builder-toolbar {
-    background-color: mat-color($background, background);
-    color: mat-color($foreground, text, 0.75);
-    .left {
-      .page-title {
-        border-bottom: 1px solid transparent;
-        &:focus-visible {
-          outline: none;
-          border-bottom-color: mat-color($primary);
-        }
-      }
-    }
-    .middle {
-      .time {
-        color: mat-color($foreground, text, 0.45);
-      }
-    }
-    &.fixed {
-      @include mat-elevation(2, mat-color($background, tooltip), 0.25);
-    }
-    .right {
-      color: mat-color($foreground, text, 0.5);
-    }
-  }
-  .builder-main {
-    > .sidebar {
-      @include sidebar($background, $foreground, $primary);
-    }
-  }
-  > .mat-drawer-container {
-    background-color: transparent;
-    .builder-list {
-      @include builder-list($background, $foreground, $primary);
-    }
-  }
-  .mat-drawer-content {
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.11);
-    @include meta-edit($background, $foreground, $primary);
-    @include scrollbar(mat-color($primary));
 
-    .backdrop {
-      background-color: mat-color($foreground, slider-off-active);
-    }
-    .showcase {
-      background-color: mat-color($background, card);
-      > app-card-1v1 {
-        > .card-1v1 {
-          @include scrollbar(mat-color($primary));
+  .builder-sidebar {
+    background-color: mat-color($foreground, elevation, 0.85);
+    border-right: 1px solid mat-color($foreground, divider);
+    color: #fff;
+  }
+  .builder {
+    .builder-toolbar {
+      background-color: mat-color($background, background);
+      color: mat-color($foreground, text, 0.75);
+      .left {
+        .page-title {
+          border-bottom: 1px solid transparent;
+          &:focus-visible {
+            outline: none;
+            border-bottom-color: mat-color($primary);
+          }
         }
       }
-      .showcase-footer {
-        color: mat-color($foreground, text);
-        border-top: 1px solid mat-color($foreground, divider);
-        background: mat-color($background, background);
-      }
-      .component-toolbar {
-        + app-spacer {
-          background-color: mat-color($primary, 0.25);
+      .middle {
+        .time {
+          color: mat-color($foreground, text, 0.45);
         }
       }
+      &.fixed {
+        @include mat-elevation(2, mat-color($background, tooltip), 0.25);
+      }
+      .right {
+        color: mat-color($foreground, text, 0.5);
+      }
     }
-    .preview-container {
-      .mat-drawer {
-        .actions {
-          &.expand {
-            background-color: mat-color($background, card);
-            @include mat-elevation(2, mat-color($background, hover), 0.4);
+    .builder-main {
+      > .sidebar {
+        @include sidebar($background, $foreground, $primary);
+      }
+    }
+    > .mat-drawer-container {
+      background-color: transparent;
+      .builder-list {
+        @include builder-list($background, $foreground, $primary);
+      }
+    }
+    .mat-drawer-content {
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.11);
+      @include meta-edit($background, $foreground, $primary);
+      @include scrollbar(mat-color($primary));
+
+      .backdrop {
+        background-color: mat-color($foreground, slider-off-active);
+      }
+      .showcase {
+        background-color: mat-color($background, card);
+        > app-card-1v1 {
+          > .card-1v1 {
+            @include scrollbar(mat-color($primary));
+          }
+        }
+        .showcase-footer {
+          color: mat-color($foreground, text);
+          border-top: 1px solid mat-color($foreground, divider);
+          background: mat-color($background, background);
+        }
+        .component-toolbar {
+          + app-spacer {
+            background-color: mat-color($primary, 0.25);
+          }
+        }
+      }
+      .preview-container {
+        .mat-drawer {
+          .actions {
+            &.expand {
+              background-color: mat-color($background, card);
+              @include mat-elevation(2, mat-color($background, hover), 0.4);
+            }
           }
         }
       }
     }
-  }
-  .cdk-drag-placeholder {
-    background-color: mat-color($background, background);
-    border: 3px dotted mat-color($foreground, divider);
-    width: 100%;
-    &:hover {
-      background-color: mat-color($primary, 200);
-      border-color: mat-color($primary);
+    .cdk-drag-placeholder {
+      background-color: mat-color($background, background);
+      border: 3px dotted mat-color($foreground, divider);
+      width: 100%;
+      &:hover {
+        background-color: mat-color($primary, 200);
+        border-color: mat-color($primary);
+      }
     }
   }
 }
@@ -113,7 +121,7 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
     $map: $dark-theme,
     $key: primary,
   );
-  .builder {
+  .builder-wrapper {
     @include theme($background, $foreground, $primary);
 
     &.dark {
