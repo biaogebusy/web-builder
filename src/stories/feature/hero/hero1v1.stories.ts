@@ -45,6 +45,16 @@ const content: IHero1v1 = {
       pagination: false,
       observer: true,
       observeParents: true,
+      breakpoints: {
+        600: {
+          slidesPerView: 1,
+          spaceBetween: 0,
+        },
+        960: {
+          slidesPerView: 1,
+          spaceBetween: 0,
+        },
+      },
     },
     classes: '',
     elements: [
@@ -116,7 +126,7 @@ const content: IHero1v1 = {
         bg: {
           classes: 'bg-shadow  overlay overlay-80',
           img: {
-            src: '/assets/images/16-9/business-15.jpeg',
+            src: '/assets/images/hero/182.jpg',
             mobile: '/assets/images/mobile/mobile-04.jpg',
           },
         },

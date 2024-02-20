@@ -22,6 +22,16 @@ export const components: any[] = [
                   pagination: false,
                   observer: true,
                   observeParents: true,
+                  breakpoints: {
+                    '600': {
+                      slidesPerView: 1,
+                      spaceBetween: 0,
+                    },
+                    '960': {
+                      slidesPerView: 1,
+                      spaceBetween: 0,
+                    },
+                  },
                 },
                 classes: '',
                 elements: [
@@ -93,7 +103,7 @@ export const components: any[] = [
                     bg: {
                       classes: 'bg-shadow  overlay overlay-80',
                       img: {
-                        src: '/assets/images/16-9/business-15.jpeg',
+                        src: '/assets/images/hero/182.jpg',
                         mobile: '/assets/images/mobile/mobile-04.jpg',
                       },
                     },
@@ -2063,7 +2073,7 @@ export const components: any[] = [
               elements: [
                 {
                   type: 'card',
-                  subTitle: '2024-02-19',
+                  subTitle: '2024-02-20',
                   avatar: {
                     src: '/assets/images/avatar/01.jpeg',
                     alt: '',
@@ -2113,7 +2123,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-02-19',
+                  subTitle: '2024-02-20',
                   avatar: {
                     src: '/assets/images/avatar/02.jpeg',
                     alt: '',
@@ -2150,7 +2160,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-02-19',
+                  subTitle: '2024-02-20',
                   avatar: {
                     src: '/assets/images/avatar/03.jpeg',
                     alt: '',
@@ -2187,7 +2197,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-02-19',
+                  subTitle: '2024-02-20',
                   avatar: {
                     src: '/assets/images/avatar/04.jpeg',
                     alt: '',
@@ -2224,7 +2234,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-02-19',
+                  subTitle: '2024-02-20',
                   avatar: {
                     src: '/assets/images/avatar/05.jpeg',
                     alt: '',
@@ -2261,7 +2271,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-02-19',
+                  subTitle: '2024-02-20',
                   avatar: {
                     src: '/assets/images/avatar/06.jpeg',
                     alt: '',
@@ -2298,7 +2308,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-02-19',
+                  subTitle: '2024-02-20',
                   avatar: {
                     src: '/assets/images/avatar/01.jpeg',
                     alt: '',
@@ -2335,7 +2345,7 @@ export const components: any[] = [
                 },
                 {
                   type: 'card',
-                  subTitle: '2024-02-19',
+                  subTitle: '2024-02-20',
                   avatar: {
                     src: '/assets/images/avatar/02.jpeg',
                     alt: '',
@@ -4369,7 +4379,7 @@ export const components: any[] = [
                     name: 'fingerprint',
                   },
                   digit: {
-                    value: 623,
+                    value: 227,
                     label: '+',
                   },
                   title: '日访问人数',
@@ -4379,7 +4389,7 @@ export const components: any[] = [
                     name: 'verified_user',
                   },
                   digit: {
-                    value: 339,
+                    value: 130,
                     label: '+',
                   },
                   title: '日打开次数',
@@ -4389,7 +4399,7 @@ export const components: any[] = [
                     name: 'android',
                   },
                   digit: {
-                    value: 70,
+                    value: 217,
                     label: '人',
                   },
                   title: '日新增人数',
@@ -4399,7 +4409,7 @@ export const components: any[] = [
                     name: 'mail',
                   },
                   digit: {
-                    value: 6400,
+                    value: 5179,
                     label: '万',
                   },
                   title: '累计用户数',
@@ -4430,7 +4440,7 @@ export const components: any[] = [
                     src: '/assets/images/svg/Asset187.svg',
                   },
                   digit: {
-                    value: 23,
+                    value: 56,
                     label: 'M',
                   },
                   title: 'Github Start',
@@ -4440,7 +4450,7 @@ export const components: any[] = [
                     src: '/assets/images/svg/Asset189.svg',
                   },
                   digit: {
-                    value: 14032,
+                    value: 20899,
                     label: '+',
                   },
                   title: 'NPM 周下载量',
@@ -4450,7 +4460,7 @@ export const components: any[] = [
                     src: '/assets/images/svg/Asset190.svg',
                   },
                   digit: {
-                    value: 4165,
+                    value: 4211,
                     label: 'K',
                   },
                   title: '社区活跃',
@@ -4460,7 +4470,7 @@ export const components: any[] = [
                     src: '/assets/images/svg/Asset192.svg',
                   },
                   digit: {
-                    value: 542,
+                    value: 635,
                     label: '个',
                   },
                   title: '成功故事',

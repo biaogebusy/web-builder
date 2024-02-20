@@ -382,7 +382,8 @@ export function getComponentSetting(content: any): FormlyFieldConfig[] {
   if (
     content.type === 'carousel-1v1' ||
     content.type === 'carousel-1v2' ||
-    content.type === 'carousel-2v2'
+    content.type === 'carousel-2v2' ||
+    content.type === 'hero-1v1'
   ) {
     if (content.title) {
       const titleConfig: FormlyFieldConfig = {
