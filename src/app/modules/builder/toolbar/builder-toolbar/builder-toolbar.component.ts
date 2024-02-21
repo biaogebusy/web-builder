@@ -21,7 +21,6 @@ import {
 } from '@core/token/token-providers';
 import { ScreenService } from '@core/service/screen.service';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogComponent } from '@uiux/widgets/dialog/dialog.component';
 import type { IPage } from '@core/interface/IAppConfig';
 import { IBranding } from '@core/interface/branding/IBranding';
 
@@ -37,14 +36,12 @@ export class BuilderToolbarComponent
   @Input() builderRightDrawer: MatDrawer;
   destroy$: Subject<boolean> = new Subject<boolean>();
   showNavigate: boolean = false;
-  showBranding: boolean = false;
 
   constructor(
     private storage: LocalStorageService,
     public builder: BuilderState,
     private screenState: ScreenState,
     private screenService: ScreenService,
-    private dialog: MatDialog,
     @Inject(BRANDING) public branding$: Observable<IBranding>,
     @Inject(BUILDER_FULL_SCREEN) public builderFullScreen$: Observable<boolean>,
     @Inject(BUILDER_CURRENT_PAGE) public currentPage$: Observable<IPage>
@@ -76,16 +73,6 @@ export class BuilderToolbarComponent
     }
   }
 
-  onToggleBuilderTheme(mode: 'light' | 'dark'): void {
-    let style: 'light' | 'dark';
-    if (mode === 'light') {
-      style = 'dark';
-    } else {
-      style = 'light';
-    }
-    this.builder.builderThemeMode.next(style);
-  }
-
   onFullScreen(event: MatSlideToggleChange): void {
     this.storage.store('builderFullScreen', event.checked);
     this.builder.fullScreen$.next(event.checked);
@@ -96,31 +83,11 @@ export class BuilderToolbarComponent
     this.builder.previewListDrawer$.next(this.showNavigate);
   }
 
-  onSelectAssets(): void {
-    this.dialog.open(DialogComponent, {
-      width: '100%',
-      data: {
-        title: '媒体库',
-        disableCloseButton: true,
-        inputData: {
-          content: {
-            type: 'manage-media',
-          },
-        },
-      },
-    });
-  }
-
   showRightDrawer(): void {
     this.builder.showRightDrawer = !this.builder.showRightDrawer;
     if (!this.builder.showRightDrawer) {
       this.builderRightDrawer.close();
     }
-  }
-
-  onShowBranding(): void {
-    this.showBranding = !this.showBranding;
-    this.builder.showBranding$.next(this.showBranding);
   }
 
   ngOnDestroy(): void {

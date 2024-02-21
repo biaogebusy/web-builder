@@ -1,13 +1,85 @@
 @import "../../../theme/variable/breakpoint";
 
+.builder-wrapper {
+  position: relative;
+  display: flex;
+  .builder-sidebar {
+    display: flex;
+    flex-direction: column;
+    width: 80px;
+    flex: 0 0 80px;
+    .mat-divider {
+      width: 100%;
+    }
+    .menu,
+    .bottom {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .logo {
+      display: flex;
+      padding: 10px;
+      justify-content: center;
+      height: 55px;
+      box-sizing: border-box;
+      ::ng-deep {
+        img {
+          max-height: 30px;
+          filter: grayscale(100%) brightness(100) sepia(100%);
+        }
+      }
+    }
+    .menu {
+      justify-content: start;
+      flex: 1 1 auto;
+      margin: 10px 0;
+      .item {
+        position: relative;
+        padding: 14px 0;
+        margin: 4px 0;
+        line-height: 0;
+        width: 100%;
+        text-align: center;
+        .custom-icon {
+          position: relative;
+          z-index: 1;
+        }
+        &.active,
+        &:hover,
+        &:focus {
+          &::after {
+            content: "";
+            position: absolute;
+            z-index: 0;
+            left: 50%;
+            top: 50%;
+            width: 40px;
+            height: 40px;
+            transform: translate(-50%, -50%);
+            border-radius: 10px;
+          }
+        }
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+    .bottom {
+      justify-content: center;
+      padding: 20px 0;
+      gap: 10px;
+    }
+  }
+}
 .builder {
   height: 100vh;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-
+  flex: 0 1 calc(100% - 80px);
   .sidebar {
-    width: 260px;
+    width: 230px;
     ::ng-deep {
       .mat-list-text {
         padding-right: 0 !important;
@@ -20,15 +92,23 @@
             padding: 8px;
           }
         }
+
         .mat-tab-label-content {
           padding: 4px 24px;
           border-radius: 6px;
           font-size: small;
         }
       }
+      .mat-expansion-panel-header {
+        padding: 0 16px;
+      }
+      .mat-expansion-panel-body {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
     }
     @media #{$gt-sm} {
-      width: 330px;
+      width: 300px;
     }
   }
   .builder-main {
