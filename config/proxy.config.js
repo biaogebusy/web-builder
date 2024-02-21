@@ -28,7 +28,7 @@ const PROXY_CONFIG = [
       "/wechat",
       "/media",
     ],
-    target: "https://api.yourdomain.com",
+    target: "https://api.zhaobg.com",
     secure: false,
     changeOrigin: true,
   },

@@ -1,11 +1,10 @@
 import { IEnvironment } from '../app/core/interface/IEnvironment';
 
 export const environment: IEnvironment = {
-  apiUrl: 'https://api.zhaobg.com',
+  apiUrl: 'https://sanziqi.zhaobg.com',
   production: true,
-  site: 'dist',
-  port: 4209,
+  site: 'sanziqi',
+  port: 4207,
   cache: true,
-  ssr: false,
-  drupalProxy: false,
+  ssr: true,
 };

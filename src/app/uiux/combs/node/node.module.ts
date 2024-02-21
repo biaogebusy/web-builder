@@ -12,6 +12,7 @@ import { ArticleMetaComponent } from './article/article-meta/article-meta.compon
 import { CommentActionsComponent } from './comment/comment-actions/comment-actions.component';
 import { CommentItemComponent } from './comment/comment-list/comment-item/comment-item.component';
 import { ReportComponent } from './report/report.component';
+import { AdvertComponent } from './advert/advert.component';
 import { HeaderMetaComponent } from './header-meta/header-meta.component';
 import { BaseModule } from '@uiux/base/base.module';
 import { RelateComponent } from './relate/relate.component';
@@ -29,6 +30,7 @@ const components = [
   CommentItemComponent,
   CommentActionsComponent,
   ReportComponent,
+  AdvertComponent,
   HeaderMetaComponent,
   RelateComponent,
   SummaryComponent,
@@ -42,6 +44,7 @@ const components = [
     ArticleComponent,
     QuestionComponent,
     ReportComponent,
+    AdvertComponent,
     CommentFormComponent,
     CommentListComponent,
     CommentItemComponent,
@@ -54,6 +57,7 @@ export class NodeModule extends BaseModule {
     ArticleComponent,
     QuestionComponent,
     ReportComponent,
+    AdvertComponent,
     RelateComponent,
   ];
 

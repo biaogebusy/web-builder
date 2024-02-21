@@ -1,0 +1,31 @@
+@import "~@angular/material/theming";
+
+@mixin advert-color($config-or-theme) {
+  $config: mat-get-color-config($config-or-theme);
+  $foreground: map-get($config, foreground);
+  $background: map-get($config, background);
+  $primary: map-get($config, primary);
+  $accent: map-get($config, accent);
+  $warn: map-get($config, warn);
+
+  $text-color: mat-color($foreground, text, 0.75);
+  .advert {
+    background-color: mat-color($primary, 0.07);
+    .box {
+      background-color: mat-color($background, card);
+      .right-content {
+        border: 1px solid mat-color($foreground, divider);
+        @include mat-elevation(3, mat-color($foreground, divider), 0.6);
+      }
+    }
+    .mobile-view {
+      border: 1px solid mat-color($foreground, divider);
+      @include scrollbar(mat-color($foreground, divider, 0.2));
+      .navbar {
+        background-color: mat-color($primary);
+        color: mat-color($primary, default-contrast);
+      }
+      @include mat-elevation(3, mat-color($foreground, divider), 0.6);
+    }
+  }
+}
