@@ -52,7 +52,7 @@ const content: IRelate = {
       color: 'primary',
       mode: 'raised',
       icon: {
-        name: 'editor',
+        svg: 'pencil',
         inline: true,
       },
       href: '#',
@@ -476,7 +476,7 @@ const v3: IRelate = {
       color: 'primary',
       mode: 'raised',
       icon: {
-        name: 'editor',
+        svg: 'pencil',
         inline: true,
       },
       href: '#',
